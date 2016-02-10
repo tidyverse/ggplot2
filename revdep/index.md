@@ -5,36 +5,36 @@
 |setting  |value                        |
 |:--------|:----------------------------|
 |version  |R version 3.2.3 (2015-12-10) |
-|system   |x86_64, darwin13.4.0         |
-|ui       |RStudio (0.99.875)           |
+|system   |x86_64, linux-gnu            |
+|ui       |X11                          |
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
-|tz       |America/Chicago              |
-|date     |2016-02-09                   |
+|tz       |NA                           |
+|date     |2016-02-10                   |
 
 ## Packages
 
-|package       |*  |version    |date       |source                         |
-|:-------------|:--|:----------|:----------|:------------------------------|
-|digest        |   |0.6.9      |2016-01-08 |CRAN (R 3.2.3)                 |
-|ggplot2movies |   |0.0.1      |2015-08-25 |CRAN (R 3.2.0)                 |
-|gtable        |   |0.1.2.9000 |2016-02-08 |Github (hadley/gtable@6c7b22c) |
-|hexbin        |   |1.27.1     |2015-08-19 |CRAN (R 3.2.0)                 |
-|Hmisc         |   |3.17-1     |2015-12-18 |CRAN (R 3.2.3)                 |
-|knitr         |   |1.12.3     |2016-01-22 |CRAN (R 3.2.3)                 |
-|mapproj       |   |1.2-4      |2015-08-03 |CRAN (R 3.2.0)                 |
-|maps          |   |3.0.2      |2016-01-04 |CRAN (R 3.2.3)                 |
-|maptools      |   |0.8-39     |2016-01-30 |CRAN (R 3.2.3)                 |
-|multcomp      |   |1.4-3      |2016-02-03 |CRAN (R 3.2.3)                 |
-|plyr          |   |1.8.3      |2015-06-12 |CRAN (R 3.2.0)                 |
-|quantreg      |   |5.19       |2015-08-31 |CRAN (R 3.2.0)                 |
-|reshape2      |   |1.4.1      |2014-12-06 |CRAN (R 3.2.0)                 |
-|scales        |   |0.3.0.9000 |2016-02-08 |Github (hadley/scales@3327c62) |
-|svglite       |   |1.0.0      |2015-12-09 |CRAN (R 3.2.3)                 |
-|testthat      |*  |0.11.0     |2015-10-14 |CRAN (R 3.2.0)                 |
+|package       |*  |version |date       |source         |
+|:-------------|:--|:-------|:----------|:--------------|
+|digest        |   |0.6.9   |2016-01-08 |CRAN (R 3.2.3) |
+|ggplot2movies |   |0.0.1   |2015-08-25 |CRAN (R 3.2.3) |
+|gtable        |   |0.1.2   |2012-12-05 |CRAN (R 3.2.3) |
+|hexbin        |   |1.27.1  |2015-08-19 |CRAN (R 3.2.3) |
+|Hmisc         |   |3.17-1  |2015-12-18 |CRAN (R 3.2.3) |
+|knitr         |   |1.12.3  |2016-01-22 |CRAN (R 3.2.3) |
+|mapproj       |   |1.2-4   |2015-08-03 |CRAN (R 3.2.3) |
+|maps          |   |3.0.2   |2016-01-04 |CRAN (R 3.2.3) |
+|maptools      |   |0.8-39  |2016-01-30 |CRAN (R 3.2.3) |
+|multcomp      |   |1.4-3   |2016-02-03 |CRAN (R 3.2.3) |
+|plyr          |   |1.8.3   |2015-06-12 |CRAN (R 3.2.3) |
+|quantreg      |   |5.19    |2015-08-31 |CRAN (R 3.2.3) |
+|reshape2      |   |1.4.1   |2014-12-06 |CRAN (R 3.2.3) |
+|scales        |   |0.3.0   |2015-08-25 |CRAN (R 3.2.3) |
+|svglite       |   |1.1.0   |2016-02-09 |CRAN (R 3.2.3) |
+|testthat      |   |0.11.0  |2015-10-14 |CRAN (R 3.2.3) |
 
 # Check results
-436 checked out of 651 dependencies 
+651 checked out of 652 dependencies 
 
 ## abctools (1.0.4)
 Maintainer: Matt Nunes <m.nunes@lancaster.ac.uk>  
@@ -45,7 +45,12 @@ Bug reports: https://github.com/dennisprangle/abctools/issues
 ## abd (0.2-8)
 Maintainer: Kevin M. Middleton <middletonk@missouri.edu>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘HH’
+```
 
 ## ABHgenotypeR (1.0.1)
 Maintainer: Stefan Reuscher <reuscher.stefan@gmail.com>  
@@ -61,12 +66,30 @@ Maintainer: Markus Belfrage <markus.belfrage@gmail.com>
 ## ACSNMineR (0.15.11)
 Maintainer: Paul Deveau <paul.deveau@curie.fr>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Warning in (if (grepl("\\.[Rr]md$", file)) knit2html else if (grepl("\\.[Rr]rst$",  :
+  It seems you should call rmarkdown::render() instead of knitr::knit2html() because ACSN-vignette.Rmd appears to be an R Markdown v2 document.
+Quitting from lines 71-72 (ACSN-vignette.Rmd) 
+Error: processing vignette 'ACSN-vignette.Rmd' failed with diagnostics:
+the table must have a header (column names)
+Execution halted
+
+```
 
 ## adegenet (2.0.0)
 Maintainer: Thibaut Jombart <t.jombart@imperial.ac.uk>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘adehabitat’
+```
 
 ## AFM (1.1.0)
 Maintainer: Mathieu Beauvais <beauvais.escp@gmail.com>
@@ -75,9 +98,7 @@ Maintainer: Mathieu Beauvais <beauvais.escp@gmail.com>
 
 ```
 checking package dependencies ... ERROR
-Packages required but not available: ‘fractaldim’ ‘fftwtools’
-
-Package required and available but unsuitable version: ‘sp’
+Package required but not available: ‘fftwtools’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -99,7 +120,7 @@ Bug reports: http://www.github.com/ropensci/alm/issues
 checking whether package ‘alm’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘alm’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/alm.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/alm.Rcheck/00install.out’ for details.
 
 checking files in ‘vignettes’ ... NOTE
 The following directory looks like a leftover from 'knitr':
@@ -184,7 +205,26 @@ tspsimplex_projection: no visible global function definition for ‘TSP’
 Maintainer: Przemyslaw Biecek <przemyslaw.biecek@gmail.com>  
 Bug reports: https://github.com/pbiecek/archivist/issues
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  OK: 36 SKIPPED: 0 FAILED: 6
+  1. Error: aread downloads files 
+  2. Failure (at test_jss_artilce.R#74): copying from other repositories and showRepo 
+  3. Failure (at test_jss_artilce.R#79): copying from other repositories and showRepo 
+  4. Failure (at test_jss_artilce.R#99): loadFromRepo functions works with regular parameters 
+  5. Failure (at test_jss_artilce.R#109): search* functions does search 
+  6. Failure (at test_jss_artilce.R#117): search* functions does search 
+  
+  Error: testthat unit tests failed
+  In addition: Warning message:
+  file 'file5e7f74f28871' has magic number 'Not F'
+    Use of save versions prior to 2 is deprecated 
+  Execution halted
+```
 
 ## ARPobservation (1.1)
 Maintainer: James E. Pustejovsky <jepusto@gmail.com>
@@ -200,7 +240,7 @@ Maintainer: Borja Varela <borja.varela.brea@gmail.com>
 checking whether package ‘arqas’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘ggplot2::Geom’ when loading ‘arqas’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/arqas.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/arqas.Rcheck/00install.out’ for details.
 ```
 
 ## ARTool (0.10.0)
@@ -279,20 +319,24 @@ Bug reports: https://github.com/christinaheinze/backShift/issues
 1 error  | 0 warnings | 0 notes
 
 ```
-checking whether package ‘backShift’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/backShift.Rcheck/00install.out’ for details.
+checking package dependencies ... ERROR
+Package required but not available: ‘pcalg’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
 ```
 
 ## bamdit (2.0.1)
 Maintainer: Pablo Emilio Verde <pabloemilio.verde@hhu.de>
 
-1 error  | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
 
 ```
-checking whether package ‘bamdit’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/bamdit.Rcheck/00install.out’ for details.
+checking whether package ‘bamdit’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘bamdit’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘bamdit’
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/bamdit.Rcheck/00install.out’ for details.
 ```
 
 ## BBEST (0.1-5)
@@ -321,32 +365,9 @@ xyplot.slice : pfun: no visible global function definition for
 ## BCEA (2.2-2)
 Maintainer: Gianluca Baio <gianluca@stats.ucl.ac.uk>
 
-1 error  | 0 warnings | 1 note 
+0 errors | 0 warnings | 1 note 
 
 ```
-checking examples ... ERROR
-Running examples in ‘BCEA-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: evppi
-> ### Title: Expected Value of Perfect Partial Information (EVPPI) for
-> ###   selected parameters
-> ### Aliases: evppi evppi.default
-> ### Keywords: Health economic evaluation Expected value of partial
-... 12 lines ...
-> # 
-> # Runs the health economic evaluation using BCEA
-> m <- bcea(e,c,ref=2,interventions=treats)
-> #
-> # Computes the EVPPI for a bunch of parameters
-> inp <- CreateInputs(vaccine)
-Error in CreateInputs(vaccine) : 
-  You need to install the package 'R2jags'. Please run in your R terminal:
- install.packages('R2jags')
-Execution halted
-** found \donttest examples: check also with --run-donttest
-
 checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘INLA’
 ```
@@ -372,22 +393,22 @@ Running examples in ‘bcrm-Ex.R’ failed
 The error most likely occurred in:
 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: bcrm
-> ### Title: Bayesian Continual Reassessment Method for Phase I
-> ###   Dose-Escalation Trials
-> ### Aliases: bcrm
+> ### Name: Posterior
+> ### Title: Calculate posterior distribution of CRM model parameter(s)
+> ### Aliases: Posterior.exact Posterior.rjags Posterior.BRugs
+> ###   Posterior.R2WinBUGS
 > 
-... 132 lines ...
-> ## Using rjags (requires JAGS to be installed)
-> TwoPLogistic.mean.bcrm<-bcrm(stop=list(nmax=18),data=data,sdose=sdose
-+   ,dose=dose,ff="logit2",prior.alpha=list(4,mu,Sigma),target.tox=target.tox
-+   ,constrain=FALSE,pointest="mean",method="rjags")
-Error: .onLoad failed in loadNamespace() for 'rjags', details:
-  call: dyn.load(file, DLLpath = DLLpath, ...)
-  error: unable to load shared object '/Users/hadley/R-revdep/rjags/libs/rjags.so':
-  dlopen(/Users/hadley/R-revdep/rjags/libs/rjags.so, 10): Library not loaded: /usr/local/lib/libjags.3.dylib
-  Referenced from: /Users/hadley/R-revdep/rjags/libs/rjags.so
-  Reason: image not found
+... 65 lines ...
+> 
+> ## Posterior distribution of the model parameter using BRugs (Windows and i386 Linux only)
+> if(Sys.info()["sysname"] %in% c("Windows","Linux")){
++ 	post.BRugs<-Posterior.BRugs(tox,notox,sdose,ff,prior.alpha
++ 	  ,burnin.itr=2000,production.itr=2000)
++ 	print(mean(post.BRugs))
++ 	hist(post.BRugs)
++ 	}
+Error in loadNamespace(name) : there is no package called ‘BRugs’
+Calls: Posterior.BRugs ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
 Execution halted
 
 checking package dependencies ... NOTE
@@ -408,7 +429,7 @@ Maintainer: Dave Mills <dave.a.mills@gmail.com>
 checking whether package ‘bdscale’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘bdscale’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/bdscale.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/bdscale.Rcheck/00install.out’ for details.
 ```
 
 ## bdvis (0.1.0)
@@ -421,7 +442,7 @@ checking whether package ‘bdvis’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘bdvis’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘bdvis’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/bdvis.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/bdvis.Rcheck/00install.out’ for details.
 ```
 
 ## benchmark (0.3-6)
@@ -433,7 +454,7 @@ Maintainer: Manuel J. A. Eugster <manuel@mjae.net>
 checking whether package ‘benchmark’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘benchmark’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/benchmark.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/benchmark.Rcheck/00install.out’ for details.
 
 checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘Rgraphviz’
@@ -512,7 +533,30 @@ tkbinom.power2 : <local> : <anonymous>: no visible global function
 ## biogas (1.2.1)
 Maintainer: Sasha D. Hafner <saha@kbm.sdu.dk>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+  Running 'texi2dvi' on 'biogas_quick_start.tex' failed.
+LaTeX errors:
+! LaTeX Error: File `siunitx.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+! Emergency stop.
+<read *> 
+         
+l.62 \usepackage
+                [version=3]{mhchem} %chemical formulas^^M
+!  ==> Fatal error occurred, no output PDF file produced!
+Calls: buildVignettes -> texi2pdf -> texi2dvi
+Execution halted
+
+```
 
 ## biogram (1.2)
 Maintainer: Michal Burdukiewicz <michalburdukiewicz@gmail.com>  
@@ -560,7 +604,7 @@ Bug reports: <https://r-forge.r-project.org/R/?group_id=302>
 checking whether package ‘biomod2’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘randomForest::margin’ when loading ‘biomod2’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/biomod2.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/biomod2.Rcheck/00install.out’ for details.
 
 checking dependencies in R code ... NOTE
 'library' or 'require' calls in package code:
@@ -601,7 +645,7 @@ Maintainer: Julien Chiquet <julien.chiquet@gmail.com>
 0 errors | 0 warnings | 0 notes
 
 ## blowtorch (1.0.2)
-Maintainer: Steven Pollack <steven@pollackphoto.net>
+Maintainer: ORPHANED
 
 0 errors | 1 warning  | 0 notes
 
@@ -610,7 +654,7 @@ checking whether package ‘blowtorch’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘blowtorch’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘blowtorch’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/blowtorch.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/blowtorch.Rcheck/00install.out’ for details.
 ```
 
 ## bmmix (0.1-2)
@@ -639,14 +683,29 @@ checking installed package size ... NOTE
 ## bootnet (0.2)
 Maintainer: Sacha Epskamp <mail@sachaepskamp.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘bootnet’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/bootnet.Rcheck/00install.out’ for details.
+```
 
 ## brainGraph (0.55.0)
 Maintainer: Christopher G. Watson <cgwatson@bu.edu>  
 Bug reports: 
         https://groups.google.com/forum/?hl=en#!forum/brainGraph-help
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘cairoDevice’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
 
 ## breakpoint (1.2)
 Maintainer: Priyadarshana W.J.R.M. <mjayawardana@swin.edu.au>
@@ -657,15 +716,7 @@ Maintainer: Priyadarshana W.J.R.M. <mjayawardana@swin.edu.au>
 Maintainer: Paul-Christian Buerkner <paul.buerkner@gmail.com>  
 Bug reports: http://github.com/paul-buerkner/brms/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Package required and available but unsuitable version: ‘nlme’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
+0 errors | 0 warnings | 0 notes
 
 ## broman (0.62-1)
 Maintainer: Karl W Broman <kbroman@biostat.wisc.edu>
@@ -682,18 +733,22 @@ Bug reports: http://github.com/dgrtwo/broom/issues
 Maintainer: Jeroen Ooms <jeroen.ooms@stat.ucla.edu>  
 Bug reports: http://github.com/jeroenooms/brotli/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is  5.1Mb
+  sub-directories of 1Mb or more:
+    doc    1.1Mb
+    libs   3.9Mb
+```
 
 ## BTSPAS (2014.0901)
 Maintainer: Carl J Schwarz <cschwarz@stat.sfu.ca>
 
-1 error  | 0 warnings | 1 note 
+0 errors | 0 warnings | 1 note 
 
 ```
-checking whether package ‘BTSPAS’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/BTSPAS.Rcheck/00install.out’ for details.
-
 checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘BRugs’
 ```
@@ -701,14 +756,13 @@ Package suggested but not available for checking: ‘BRugs’
 ## capm (0.9.0)
 Maintainer: Oswaldo Santos Baquero <oswaldosant@gmail.com>
 
-0 errors | 1 warning  | 0 notes
+0 errors | 0 warnings | 0 notes
 
-```
-checking whether package ‘capm’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import by ‘sp::nowrapSpatialLines’ when loading ‘capm’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/capm.Rcheck/00install.out’ for details.
-```
+## caretEnsemble (2.0.0)
+Maintainer: Zachary A. Deane-Mayer <zach.mayer@gmail.com>  
+Bug reports: https://github.com/zachmayer/caretEnsemble/issues
+
+0 errors | 0 warnings | 0 notes
 
 ## caret (6.0-64)
 Maintainer: Max Kuhn <Max.Kuhn@pfizer.com>  
@@ -716,9 +770,8 @@ Bug reports: https://github.com/topepo/caret/issues
 
 0 errors | 0 warnings | 0 notes
 
-## caretEnsemble (2.0.0)
-Maintainer: Zachary A. Deane-Mayer <zach.mayer@gmail.com>  
-Bug reports: https://github.com/zachmayer/caretEnsemble/issues
+## catenary (1.1.1)
+Maintainer: Jonathan Tuke <simon.tuke@adelaide.edu.au>
 
 0 errors | 0 warnings | 0 notes
 
@@ -729,16 +782,11 @@ Maintainer: Qingyuan Zhao <qyzhao@stanford.edu>
 
 ```
 checking package dependencies ... ERROR
-Package required but not available: ‘sva’
+Packages required but not available: ‘sva’ ‘leapp’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
-
-## catenary (1.1.1)
-Maintainer: Jonathan Tuke <simon.tuke@adelaide.edu.au>
-
-0 errors | 0 warnings | 0 notes
 
 ## Causata (4.2-0)
 Maintainer: Justin Hemann <justinh@causata.com>
@@ -776,9 +824,14 @@ Please remove from your package.
 ## cda (1.5.1)
 Maintainer: Baptiste Auguie <baptiste.auguie@gmail.com>
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 3 notes
 
 ```
+checking installed package size ... NOTE
+  installed size is  6.7Mb
+  sub-directories of 1Mb or more:
+    libs   5.8Mb
+
 checking R code for possible problems ... NOTE
 rgl.ellipsoid: no visible global function definition for ‘cube3d’
 rgl_annotate: no visible global function definition for ‘axes3d’
@@ -801,12 +854,6 @@ Bug reports: https://github.com/mllg/checkmate/issues
 
 0 errors | 0 warnings | 0 notes
 
-## choroplethr (3.4.0)
-Maintainer: Ari Lamstein <arilamstein@gmail.com>  
-Bug reports: https://github.com/arilamstein/choroplethr/issues
-
-0 errors | 0 warnings | 0 notes
-
 ## choroplethrAdmin1 (1.1.0)
 Maintainer: Ari Lamstein <arilamstein@gmail.com>
 
@@ -822,6 +869,12 @@ checking installed package size ... NOTE
 ## choroplethrMaps (1.0)
 Maintainer: Ari Lamstein <arilamstein@gmail.com>  
 Bug reports: https://github.com/trulia/choroplethrMaps/issues
+
+0 errors | 0 warnings | 0 notes
+
+## choroplethr (3.4.0)
+Maintainer: Ari Lamstein <arilamstein@gmail.com>  
+Bug reports: https://github.com/arilamstein/choroplethr/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -843,12 +896,17 @@ Maintainer: Anton Strezhnev <astrezhnev@fas.harvard.edu>
 ## classify (1.3)
 Maintainer: Dr Chris Wheadon <chris.wheadon@gmail.com>
 
-1 error  | 0 warnings | 0 notes
+0 errors | 0 warnings | 2 notes
 
 ```
-checking whether package ‘classify’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/classify.Rcheck/00install.out’ for details.
+checking DESCRIPTION meta-information ... NOTE
+Malformed Title field: should not end in a period.
+
+checking S3 generic/method consistency ... NOTE
+Found the following apparent S3 methods exported but not registered:
+  plot.classification plot.scores
+See section ‘Registering S3 methods’ in the ‘Writing R Extensions’
+manual.
 ```
 
 ## classyfire (0.1-2)
@@ -924,7 +982,12 @@ Bug reports: https://github.com/laurenmh/codyn/issues
 ## coefplot (1.2.4)
 Maintainer: Jared P. Lander <packages@jaredlander.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package which this enhances but not available for checking: ‘maxLik’
+```
 
 ## cofeatureR (1.0.1)
 Maintainer: Fong Chun Chan <fongchunchan@gmail.com>  
@@ -1010,7 +1073,14 @@ Maintainer: David Kepplinger <david.kepplinger@gmail.com>
 ## confidence (1.1-0)
 Maintainer: Dennis J. J. Walvoort <dennis.Walvoort@wur.nl>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘confidence’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/confidence.Rcheck/00install.out’ for details.
+```
 
 ## conformal (0.1)
 Maintainer: Isidro Cortes <isidrolauscher@gmail.com>
@@ -1023,7 +1093,7 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘conformal’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘conformal’
   Warning: replacing previous import by ‘randomForest::margin’ when loading ‘conformal’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/conformal.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/conformal.Rcheck/00install.out’ for details.
 
 checking DESCRIPTION meta-information ... NOTE
 Malformed Description field: should contain one or more complete sentences.
@@ -1034,10 +1104,18 @@ Maintainer: Nicholas Hamilton <n.hamilton@unsw.edu.au>
 
 0 errors | 0 warnings | 0 notes
 
-## cooccur (1.2)
+## cooccur (1.3)
 Maintainer: Daniel M. Griffith <griffith.dan@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘gmp’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
 
 ## COPASutils (0.1.6)
 Maintainer: Erik Andersen <erik.andersen@northwestern.edu>
@@ -1048,7 +1126,7 @@ Maintainer: Erik Andersen <erik.andersen@northwestern.edu>
 checking whether package ‘COPASutils’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘kernlab::alpha’ when loading ‘COPASutils’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/COPASutils.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/COPASutils.Rcheck/00install.out’ for details.
 ```
 
 ## CopulaDTA (0.0.2)
@@ -1079,7 +1157,35 @@ Maintainer: Rafael S. de Souza <rafael.2706@gmail.com>
 ## covmat (1.0)
 Maintainer: Rohit Arora <emailrohitarora@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 2 notes
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘rmgarch’
+
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+
+The following objects are masked from 'package:base':
+
+    as.Date, as.Date.numeric
+
+Loading required package: fit.models
+Loading required package: lattice
+... 8 lines ...
+
+Attaching package: 'PerformanceAnalytics'
+
+The following object is masked from 'package:graphics':
+
+    legend
+
+Quitting from lines 35-44 (CovarianceEstimation.Rmd) 
+Error: processing vignette 'CovarianceEstimation.Rmd' failed with diagnostics:
+there is no package called 'rmgarch'
+Execution halted
+```
 
 ## cowplot (0.6.0)
 Maintainer: Claus O. Wilke <wilke@austin.utexas.edu>  
@@ -1101,19 +1207,38 @@ Bug reports: https://github.com/tvganesh/cricketr/issues
 ## crmPack (0.1.7)
 Maintainer: Daniel Sabanes Bove <sabanesd@roche.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘crmPack’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/crmPack.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## Crossover (0.1-15)
 Maintainer: Kornelius Rohmeyer <rohmeyer@small-projects.de>  
 Bug reports: https://github.com/kornl/Crossover/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Attaching package: 'TH.data'
+
+The following object is masked from 'package:MASS':
+
+    geyser
+
+processing file: ./childs/Models.Rnw
+... 8 lines ...
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+! Emergency stop.
+<read *> 
+         
+l.67 \usepackage
+                {algorithm}^^M
+!  ==> Fatal error occurred, no output PDF file produced!
+Calls: buildVignettes -> texi2pdf -> texi2dvi
+Execution halted
+```
 
 ## CRTgeeDR (1.1)
 Maintainer: PRAGUE melanie <mprague@hsph.harvard.edu>
@@ -1182,7 +1307,15 @@ summary,attribute.profile.class : .local: no visible binding for global
 ## Deducer (0.7-9)
 Maintainer: Ian Fellows <ian@fellstat.com>
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘JGR’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
 
 ## demi (1.1.2)
 Maintainer: Sten Ilmjarv <sten.ilmjarv@gmail.com>
@@ -1205,18 +1338,24 @@ Bug reports: https://github.com/talgalili/dendextend/issues
 
 ```
 checking package dependencies ... NOTE
-Package which this enhances but not available for checking: ‘labeltodendro’
+Packages which this enhances but not available for checking:
+  ‘labeltodendro’ ‘dendroextras’
 
 checking Rd cross-references ... NOTE
-Packages unavailable to check Rd xrefs: ‘WGCNA’, ‘moduleColor’
+Packages unavailable to check Rd xrefs: ‘WGCNA’, ‘dendroextras’, ‘moduleColor’
 ```
 
 ## DepthProc (1.0.3)
 Maintainer: Zygmunt Zawadzki <zawadzkizygmunt@gmail.com>
 
-0 errors | 0 warnings | 1 note 
+0 errors | 0 warnings | 2 notes
 
 ```
+checking installed package size ... NOTE
+  installed size is  5.8Mb
+  sub-directories of 1Mb or more:
+    libs   4.5Mb
+
 checking R code for possible problems ... NOTE
 as.matrix,DepthCurveList : .local: no visible binding for global
   variable ‘object’
@@ -1277,12 +1416,29 @@ Maintainer: Mikkel Meyer Andersen <mikl@math.aau.dk>
 ## diveRsity (1.9.89)
 Maintainer: Kevin Keenan <kkeenan02@qub.ac.uk>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 1 note 
+
+```
+checking whether package ‘diveRsity’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/diveRsity.Rcheck/00install.out’ for details.
+
+checking installed package size ... NOTE
+  installed size is  5.4Mb
+  sub-directories of 1Mb or more:
+    libs   4.5Mb
+```
 
 ## dMod (0.1)
 Maintainer: Daniel Kaschek <daniel.kaschek@physik.uni-freiburg.de>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘rPython’
+```
 
 ## doBy (4.5-14)
 Maintainer: S�ren H�jsgaard <sorenh@math.aau.dk>
@@ -1293,55 +1449,7 @@ Maintainer: S�ren H�jsgaard <sorenh@math.aau.dk>
 Maintainer: Yue Hu <yue-hu-1@uiowa.edu>  
 Bug reports: https://github.com/fsolt/dotwhisker/issues
 
-1 error  | 0 warnings | 1 note 
-
-```
-checking examples ... ERROR
-Running examples in ‘dotwhisker-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: add_brackets
-> ### Title: Add Labelled Brackets to Group Predictors in a Dot-and-Whisker
-> ###   Plot
-> ### Aliases: add_brackets
-> 
-... 25 lines ...
-+     theme(legend.position="none")
-Scale for 'y' is already present. Adding another scale for 'y', which will
-replace the existing scale.
-> 
-> two_brackets <- list(c("Engine", "cyl", "disp"), c("Not Engine", "(Intercept)", "wt"))
-> 
-> g <- p %>% add_brackets(two_brackets)
-> 
-> grid.draw(g)  # to display
-Error: could not find function "grid.draw"
-Execution halted
-
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: sandwich
-Loading required package: lmtest
-Loading required package: zoo
-
-Attaching package: 'zoo'
-
-The following objects are masked from 'package:base':
-... 8 lines ...
-The following object is masked from 'package:dplyr':
-
-    select
-
-Loading required package: betareg
-Scale for 'y' is already present. Adding another scale for 'y', which
-will replace the existing scale.
-Quitting from lines 168-210 (dotwhisker-vignette.Rmd) 
-Error: processing vignette 'dotwhisker-vignette.Rmd' failed with diagnostics:
-could not find function "grid.draw"
-Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## dpcR (0.2)
 Maintainer: Michal Burdukiewicz <michalburdukiewicz@gmail.com>  
@@ -1353,6 +1461,8 @@ Bug reports: https://github.com/michbur/dpcR/issues
 checking re-building of vignette outputs ... NOTE
 Error in re-building vignettes:
   ...
+Warning in (if (grepl("\\.[Rr]md$", file)) knit2html else if (grepl("\\.[Rr]rst$",  :
+  It seems you should call rmarkdown::render() instead of knitr::knit2html() because overview.Rmd appears to be an R Markdown v2 document.
 Quitting from lines 428-436 (overview.Rmd) 
 Error: processing vignette 'overview.Rmd' failed with diagnostics:
 Unknown parameters: y
@@ -1364,7 +1474,14 @@ Execution halted
 Maintainer: Hadley Wickham <hadley@rstudio.com>  
 Bug reports: https://github.com/hadley/dplyr/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is 23.9Mb
+  sub-directories of 1Mb or more:
+    libs  22.1Mb
+```
 
 ## drLumi (0.1.2)
 Maintainer: Hector Sanz <hector.sanz@isglobal.org>
@@ -1389,13 +1506,13 @@ Unexported objects imported by ':::' calls:
   See the note in ?`:::` about the use of this operator.
 ```
 
-## DTR (1.7)
-Maintainer: Xinyu Tang <xtang@uams.edu>
+## DTRlearn (1.2)
+Maintainer: Ying Liu <yl2802@cumc.columbia.edu>
 
 0 errors | 0 warnings | 0 notes
 
-## DTRlearn (1.2)
-Maintainer: Ying Liu <yl2802@cumc.columbia.edu>
+## DTR (1.7)
+Maintainer: Xinyu Tang <xtang@uams.edu>
 
 0 errors | 0 warnings | 0 notes
 
@@ -1488,7 +1605,26 @@ Maintainer: Eric Persson <expersso5@gmail.com>
 Maintainer: Karthik Ram <karthik.ram@gmail.com>  
 Bug reports: https://github.com/ropensci/ecoengine/issues
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking examples ... ERROR
+Running examples in ‘ecoengine-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: ee_about
+> ### Title: About the Berkeley Ecoinformatics Engine
+> ### Aliases: ee_about
+> 
+> ### ** Examples
+> 
+> ee_about()
+Error in curl::curl_fetch_memory(url, handle = handle) : 
+  Peer certificate cannot be authenticated with given CA certificates
+Calls: ee_about ... request_fetch -> request_fetch.write_memory -> <Anonymous> -> .Call
+Execution halted
+```
 
 ## EcoGenetics (1.2.0-2)
 Maintainer: Leandro Roser <learoser@gmail.com>
@@ -1503,7 +1639,14 @@ Maintainer: Gert Janssenswillen <gert.janssenswillen@uhasselt.be>
 ## edgar (1.0.4)
 Maintainer: Gunratan Lonare <lonare.gunratan@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘edgar’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/edgar.Rcheck/00install.out’ for details.
+```
 
 ## eemR (0.1.2)
 Maintainer: Philippe Massicotte <pm@bios.au.dk>  
@@ -1606,15 +1749,15 @@ Bug reports: https://github.com/ropengov/eurostat/issues
 
 0 errors | 0 warnings | 0 notes
 
-## eva (0.1.2)
-Maintainer: Brian Bader <brianbader@mail.com>  
-Bug reports: https://github.com/geekman1/eva_package/issues
-
-0 errors | 0 warnings | 0 notes
-
 ## evaluate (0.8)
 Maintainer: Yihui Xie <xie@yihui.name>  
 Bug reports: https://github.com/hadley/evaluate/issues
+
+0 errors | 0 warnings | 0 notes
+
+## eva (0.1.2)
+Maintainer: Brian Bader <brianbader@mail.com>  
+Bug reports: https://github.com/geekman1/eva_package/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -1650,7 +1793,7 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘ggplot2::unit’ when loading ‘extracat’
   Warning: replacing previous import by ‘ggplot2::arrow’ when loading ‘extracat’
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘extracat’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/extracat.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/extracat.Rcheck/00install.out’ for details.
 ```
 
 ## eyetrackingR (0.1.4)
@@ -1684,7 +1827,7 @@ Maintainer: Filippo Gheri <filippo.gheri@fao.org>
 checking whether package ‘FAOSTAT’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘FAOSTAT’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/FAOSTAT.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/FAOSTAT.Rcheck/00install.out’ for details.
 
 checking data for non-ASCII characters ... NOTE
   Note: found 179 marked UTF-8 strings
@@ -1736,7 +1879,7 @@ checking whether package ‘fheatmap’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘fheatmap’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘fheatmap’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/fheatmap.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/fheatmap.Rcheck/00install.out’ for details.
 ```
 
 ## FinCal (0.6.2)
@@ -1795,7 +1938,14 @@ Maintainer: Thibault Laurent <thibault.laurent@univ-tlse1.fr>
 ## fSRM (0.6.4)
 Maintainer: Felix Schönbrodt <felix@nicebread.de>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘fSRM’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/fSRM.Rcheck/00install.out’ for details.
+```
 
 ## funModeling (1.0)
 Maintainer: Pablo Casas <pabloc@datascienceheroes.com>
@@ -1855,7 +2005,7 @@ checking whether package ‘geneSLOPE’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘geneSLOPE’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘geneSLOPE’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/geneSLOPE.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/geneSLOPE.Rcheck/00install.out’ for details.
 ```
 
 ## geomnet (0.0.1)
@@ -1878,7 +2028,7 @@ checking whether package ‘gettingtothebottom’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘gettingtothebottom’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘gettingtothebottom’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/gettingtothebottom.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/gettingtothebottom.Rcheck/00install.out’ for details.
 ```
 
 ## gfcanalysis (1.4)
@@ -1895,7 +2045,7 @@ Bug reports: https://github.com/ggobi/ggally/issues
 
 ```
 checking installed package size ... NOTE
-  installed size is  7.8Mb
+  installed size is  7.7Mb
   sub-directories of 1Mb or more:
     doc   6.8Mb
 ```
@@ -1986,7 +2136,7 @@ Bug reports: https://github.com/ehrlinger/ggRandomForests/issues
 
 ```
 checking installed package size ... NOTE
-  installed size is  5.9Mb
+  installed size is  6.0Mb
   sub-directories of 1Mb or more:
     data   2.6Mb
     doc    3.0Mb
@@ -2093,7 +2243,7 @@ Execution halted
 ## ggtern (2.0.1)
 Maintainer: Nicholas Hamilton <nick@ggtern.com>
 
-1 error  | 0 warnings | 0 notes
+1 error  | 0 warnings | 1 note 
 
 ```
 checking examples ... ERROR
@@ -2116,6 +2266,9 @@ Error in ggint$map_layout(panel, plot$facet, layer_data, plot$data) :
   unused argument (plot$data)
 Calls: <Anonymous> -> print.ggplot -> ggplot_build -> <Anonymous>
 Execution halted
+
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘chemometrics’
 ```
 
 ## ggthemes (3.0.1)
@@ -2152,21 +2305,29 @@ Bug reports: https://github.com/iugrina/glycanr/issues
 Maintainer: Stanislaw Jastrzebski <staszek.jastrzebski@gmail.com>  
 Bug reports: https://github.com/gmum/gmum.r/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
 
-## gmwm (1.0.0)
+```
+checking installed package size ... NOTE
+  installed size is 17.1Mb
+  sub-directories of 1Mb or more:
+    libs  16.1Mb
+```
+
+## gmwm (2.0.0)
 Maintainer: Stephane Guerrier <stephane@illinois.edu>  
 Bug reports: https://github.com/SMAC-Group/gmwm/issues
 
-0 errors | 1 warning  | 0 notes
+0 errors | 0 warnings | 2 notes
 
 ```
-checking whether package ‘gmwm’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import by ‘grid::arrow’ when loading ‘gmwm’
-  Warning: replacing previous import by ‘grid::unit’ when loading ‘gmwm’
-  Warning: replacing previous import by ‘scales::alpha’ when loading ‘gmwm’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/gmwm.Rcheck/00install.out’ for details.
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘imudata’
+
+checking installed package size ... NOTE
+  installed size is 20.4Mb
+  sub-directories of 1Mb or more:
+    libs  19.1Mb
 ```
 
 ## googlesheets (0.1.0)
@@ -2179,6 +2340,8 @@ Bug reports: https://github.com/jennybc/googlesheets/issues
 checking re-building of vignette outputs ... NOTE
 Error in re-building vignettes:
   ...
+Warning in (if (grepl("\\.[Rr]md$", file)) knit2html else if (grepl("\\.[Rr]rst$",  :
+  It seems you should call rmarkdown::render() instead of knitr::knit2html() because basic-usage.Rmd appears to be an R Markdown v2 document.
 Quitting from lines 115-119 (basic-usage.Rmd) 
 Error: processing vignette 'basic-usage.Rmd' failed with diagnostics:
 unused argument (na.strings = c("", "NA"))
@@ -2254,7 +2417,7 @@ Maintainer: Paul Murrell <p.murrell@auckland.ac.nz>
 
 ```
 checking package dependencies ... ERROR
-Package required but not available: ‘graph’
+Packages required but not available: ‘graph’ ‘gridGraphviz’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -2268,12 +2431,26 @@ Maintainer: Baptiste Auguie <baptiste.auguie@gmail.com>
 ## growcurves (0.2.4.0)
 Maintainer: Terrance Savitsky <tds151@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is 18.2Mb
+  sub-directories of 1Mb or more:
+    libs  17.7Mb
+```
 
 ## growfunctions (0.12)
 Maintainer: Terrance Savitsky <tds151@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is 12.4Mb
+  sub-directories of 1Mb or more:
+    libs  12.0Mb
+```
 
 ## gsDesign (3.0-1)
 Maintainer: Keaven Anderson <keaven_anderson@merck.com>
@@ -2305,7 +2482,7 @@ Maintainer: Tom Kraljevic <tomk@0xdata.com>
 
 ```
 checking installed package size ... NOTE
-  installed size is 48.9Mb
+  installed size is 49.0Mb
   sub-directories of 1Mb or more:
     java  48.0Mb
 ```
@@ -2336,15 +2513,7 @@ Bug reports: https://github.com/expersso/hdr
 Maintainer: Antoine Filipovic-Pierucci <pierucci@gmail.com>  
 Bug reports: https://github.com/pierucci/heemod/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Package required but not available: ‘logitnorm’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
+0 errors | 0 warnings | 0 notes
 
 ## hierarchicalDS (2.9)
 Maintainer: Paul B Conn <paul.conn@noaa.gov>
@@ -2376,7 +2545,7 @@ checking whether package ‘HistDAWass’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘HistDAWass’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘HistDAWass’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/HistDAWass.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/HistDAWass.Rcheck/00install.out’ for details.
 ```
 
 ## historydata (0.1)
@@ -2433,7 +2602,7 @@ Maintainer: Claudia Beleites <chemometrie@beleites.de>
 checking whether package ‘hyperSpec’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘hyperSpec’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/hyperSpec.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/hyperSpec.Rcheck/00install.out’ for details.
 
 checking R code for possible problems ... NOTE
 Warning: local assignments to syntactic functions: ~
@@ -2448,23 +2617,37 @@ Maintainer: Dan Martin <dpmartin42@gmail.com>
 ## ibmdbR (1.47.1)
 Maintainer: Michael Wurst <inza@de.ibm.com>
 
-1 error  | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
 
 ```
-checking package dependencies ... ERROR
-Package required but not available: ‘RODBC’
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+  Running 'texi2dvi' on 'ibmdbR.tex' failed.
+LaTeX errors:
+! Package babel Error: Unknown option `ngerman'. Either you misspelled it
+(babel)                or the language definition file ngerman.ldf was not foun
+d.
 
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+See the babel package documentation for explanation.
+Calls: buildVignettes -> texi2pdf -> texi2dvi
+Execution halted
+
 ```
 
 ## icd9 (1.3)
 Maintainer: Jack O. Wasey <jack@jackwasey.com>  
 Bug reports: https://github.com/jackwasey/icd9/issues
 
-0 errors | 0 warnings | 1 note 
+0 errors | 0 warnings | 2 notes
 
 ```
+checking installed package size ... NOTE
+  installed size is  6.4Mb
+  sub-directories of 1Mb or more:
+    libs   3.9Mb
+
 checking data for non-ASCII characters ... NOTE
   Note: found 14 marked Latin-1 strings
   Note: found 39 marked UTF-8 strings
@@ -2583,7 +2766,7 @@ Maintainer: Laurence Kell <laurie.kell@iccat.int>
 checking whether package ‘kobe’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘kobe’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/kobe.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/kobe.Rcheck/00install.out’ for details.
 
 checking R code for possible problems ... NOTE
 kobe2sm,data.frame : .local: no visible global function definition for
@@ -2601,13 +2784,18 @@ Maintainer: Chris Dalzell <cdalzell@gmail.com>
 checking installed package size ... NOTE
   installed size is  7.5Mb
   sub-directories of 1Mb or more:
-    data   7.2Mb
+    data   7.3Mb
 ```
 
 ## LambertW (0.6.2)
 Maintainer: Georg M. Goerg <im@gmge.org>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘gsl’
+```
 
 ## LANDD (1.0.0)
 Maintainer: Shangzhao Qiu <qsz1328@gmail.com>
@@ -2616,7 +2804,7 @@ Maintainer: Shangzhao Qiu <qsz1328@gmail.com>
 
 ```
 checking package dependencies ... ERROR
-Packages required but not available: ‘GOstats’ ‘GOSemSim’ ‘modeest’
+Packages required but not available: ‘GOstats’ ‘GOSemSim’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -2637,7 +2825,15 @@ Maintainer: Jonathan Chang <slycoder@gmail.com>
 Maintainer: Murzintcev Nikita <nikita@lreis.ac.cn>  
 Bug reports: https://github.com/nikita-moor/ldatuning/issues
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘topicmodels’ ‘Rmpfr’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
 
 ## LDheatmap (0.99-1)
 Maintainer: Brad McNeney <mcneney@sfu.ca>
@@ -2737,7 +2933,14 @@ Execution halted
 ## learnstats (0.1.1)
 Maintainer: Daniel Walter <dswalter@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘learnstats’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/learnstats.Rcheck/00install.out’ for details.
+```
 
 ## LexisPlotR (0.2)
 Maintainer: Philipp Ottolinger <philipp@ottolinger.de>
@@ -2747,7 +2950,14 @@ Maintainer: Philipp Ottolinger <philipp@ottolinger.de>
 ## likeLTD (6.0.2)
 Maintainer: Christopher Steele <c.steele.11@ucl.ac.uk>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘likeLTD’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/likeLTD.Rcheck/00install.out’ for details.
+```
 
 ## likert (1.3.3)
 Maintainer: Jason Bryer <jason@bryer.org>  
@@ -2769,13 +2979,40 @@ Maintainer: Lars Kotthoff <larsko@cs.ubc.ca>
 Maintainer: Ben Bolker <bbolker+lme4@gmail.com>  
 Bug reports: https://github.com/lme4/lme4/issues
 
-0 errors | 0 warnings | 1 note 
+1 error  | 1 warning  | 1 note 
 
 ```
+checking tests ... ERROR
+Running the tests in ‘tests/AAAtest-all.R’ failed.
+Last 13 lines of output:
+  ....
+  .summarizing/printing models : 
+  Utilities (including *non*-exported ones : .......................
+  
+  1. Failure (at test-methods.R#433): simulate -----------------------------------
+  fixef(g1) not equal to c(`(Intercept)` = 0.630067, x = -0.0167248)
+  2/2 mismatches (average diff: 3.3e-06).
+  First 2:
+   pos       x       y     diff
+     1  0.6301  0.6301  2.6e-06
+     2 -0.0167 -0.0167 -4.0e-06
+  Error: Test failures
+  Execution halted
+
+checking S3 generic/method consistency ... WARNING
+VarCorr:
+  function(x, sigma, rdig, ...)
+VarCorr.merMod:
+  function(x, sigma, rdig)
+
+See section ‘Generic functions and methods’ in the ‘Writing R
+Extensions’ manual.
+
 checking installed package size ... NOTE
-  installed size is  5.9Mb
+  installed size is 23.4Mb
   sub-directories of 1Mb or more:
     doc        1.8Mb
+    libs      17.9Mb
     testdata   1.5Mb
 ```
 
@@ -2792,13 +3029,7 @@ Maintainer: Jasmin Straube <j.straube@qfab.org>
 ## localgauss (0.35)
 Maintainer: Tore Selland Kleppe <tore.kleppe@uis.no>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘localgauss’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/localgauss.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## LocFDRPois (1.0.0)
 Maintainer: Kris Sankaran <kriss1@stanford.edu>
@@ -2828,13 +3059,7 @@ Maintainer: Po-Hsien Huang <psyphh@gmail.com>
 ## ltbayes (0.3)
 Maintainer: Timothy R. Johnson <trjohns@uidaho.edu>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘ltbayes’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/ltbayes.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## MAc (1.1)
 Maintainer: AC Del Re <acdelre@gmail.com>
@@ -2883,6 +3108,11 @@ wd.omni: no visible global function definition for ‘wdHeading’
 wd.omni: no visible global function definition for ‘wdTable’
 ```
 
+## maddison (0.1)
+Maintainer: Eric Persson <expersso5@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
 ## MAd (0.8-2)
 Maintainer: AC Del Re <acdelre@gmail.com>
 
@@ -2907,21 +3137,49 @@ See section ‘Registering S3 methods’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## maddison (0.1)
-Maintainer: Eric Persson <expersso5@gmail.com>
-
-0 errors | 0 warnings | 0 notes
-
 ## mapr (0.2.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropensci/mapr/issues
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘spocc’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
 
 ## marked (1.1.10)
 Maintainer: Jeff Laake <Jeff.Laake@noaa.gov>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+
+Fitting model
+
+Computing initial parameter estimates
+
+probitCJS MCMC beginning...
+p model = ~time + sex
+... 8 lines ...
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+! Emergency stop.
+<read *> 
+         
+l.25 ^^M
+        
+!  ==> Fatal error occurred, no output PDF file produced!
+Calls: buildVignettes -> texi2pdf -> texi2dvi
+Execution halted
+```
 
 ## marmap (0.9.5)
 Maintainer: Eric Pante <pante.eric@gmail.com>
@@ -2932,7 +3190,14 @@ Maintainer: Eric Pante <pante.eric@gmail.com>
 Maintainer: Henrik Bengtsson <henrikb@braju.com>  
 Bug reports: https://github.com/HenrikBengtsson/matrixStats/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is  9.1Mb
+  sub-directories of 1Mb or more:
+    libs   8.4Mb
+```
 
 ## MAVIS (1.1.1)
 Maintainer: William Kyle Hamilton <kyle.hamilton@gmail.com>
@@ -2976,31 +3241,14 @@ Bug reports: https://github.com/patrickmdnet/medicalrisk/issues
 ## MergeGUI (0.2-1)
 Maintainer: Xiaoyue Cheng <xycheng@iastate.edu>
 
-0 errors | 0 warnings | 1 note 
+1 error  | 0 warnings | 0 notes
 
 ```
-checking R code for possible problems ... NOTE
-MergeGUI : mergefunc : undo: no visible global function definition for
-  ‘gmessage’
-MergeGUI : mergefunc : redo: no visible global function definition for
-  ‘gmessage’
-MergeGUI : mergefunc : VariableOptions: no visible global function
-  definition for ‘gwindow’
-MergeGUI : mergefunc : VariableOptions: no visible global function
-  definition for ‘ggroup’
-MergeGUI : mergefunc : VariableOptions: no visible global function
-... 74 lines ...
-MergeGUI : mergeID: no visible global function definition for ‘ggroup’
-MergeGUI : mergeID: no visible global function definition for ‘glabel’
-MergeGUI : mergeID: no visible global function definition for
-  ‘gcombobox’
-MergeGUI : mergeID: no visible global function definition for ‘gbutton’
-MergeGUI: no visible global function definition for ‘gwindow’
-MergeGUI: no visible global function definition for ‘ggroup’
-MergeGUI: no visible global function definition for ‘gtable’
-MergeGUI: no visible global function definition for ‘gbutton’
-MergeGUI : <anonymous>: no visible global function definition for
-  ‘gfile’
+checking package dependencies ... ERROR
+Packages required but not available: ‘gWidgetsRGtk2’ ‘cairoDevice’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
 ```
 
 ## merTools (0.1.0)
@@ -3054,7 +3302,7 @@ checking whether package ‘Methplot’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘Methplot’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘Methplot’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/Methplot.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/Methplot.Rcheck/00install.out’ for details.
 
 checking DESCRIPTION meta-information ... NOTE
 Malformed Description field: should contain one or more complete sentences.
@@ -3084,10 +3332,9 @@ Maintainer: Tom Kincaid <Kincaid.Tom@epa.gov>
 ```
 checking whether package ‘micromap’ can be installed ... WARNING
 Found the following significant warnings:
-  Warning: replacing previous import by ‘sp::nowrapSpatialLines’ when loading ‘micromap’
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘micromap’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘micromap’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/micromap.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/micromap.Rcheck/00install.out’ for details.
 ```
 
 ## miscset (1.0.0)
@@ -3099,13 +3346,14 @@ Bug reports: https://github.com/setempler/miscset/issues
 ## MissingDataGUI (0.2-4)
 Maintainer: Xiaoyue Cheng <xycheng@unomaha.edu>
 
-0 errors | 1 warning  | 0 notes
+1 error  | 0 warnings | 0 notes
 
 ```
-checking whether package ‘MissingDataGUI’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import by ‘grid::unit’ when loading ‘MissingDataGUI’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/MissingDataGUI.Rcheck/00install.out’ for details.
+checking package dependencies ... ERROR
+Packages required but not available: ‘gWidgetsRGtk2’ ‘cairoDevice’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
 ```
 
 ## mistat (1.0-3)
@@ -3140,7 +3388,7 @@ checking whether package ‘mizer’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘mizer’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘mizer’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/mizer.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/mizer.Rcheck/00install.out’ for details.
 
 checking R code for possible problems ... NOTE
 getFMort,MizerSim-missing : .local: warning in
@@ -3170,7 +3418,7 @@ plotYieldGear,MizerSim : .local: no visible binding for global variable
 Maintainer: Bernd Bischl <bernd_bischl@gmx.net>  
 Bug reports: https://github.com/mlr-org/mlr/issues
 
-2 errors | 1 warning  | 0 notes
+2 errors | 1 warning  | 1 note 
 
 ```
 checking examples ... ERROR
@@ -3195,26 +3443,26 @@ Warning in all(sapply(method, function(x) assertChoice(x, choices = ls(.FilterRe
 Error in train(lrn, task) : 
   Assertion on 'sapply(method, function(x) assertChoice(x, choices = ls(.FilterRegister)))' failed. NA
 Calls: train ... <Anonymous> -> generateFilterValuesData -> assert -> mstop
-Timing stopped at: 0.003 0 0.002 
+Timing stopped at: 0.007 0 0.006 
 Execution halted
 ** found \donttest examples: check also with --run-donttest
 
 checking tests ... ERROR
 Running the tests in ‘tests/run-base.R’ failed.
 Last 13 lines of output:
-  6. Error: generatePartialPredictionData 
-  7. Error: generateThreshVsPerfData 
-  8. Error: BenchmarkResult 
-  9. Error: critDifferences 
-  1. Error: plotLearnerPrediction 
-  2. Error: predict.threshold 
-  3. ...
+             class.levels = c("setosa", "versicolor", "virginica"), positive = NA_character_, 
+             negative = NA_character_), .Names = c("id", "type", "target", "size", "n.feat", 
+         "has.missings", "has.weights", "has.blocking", "class.levels", "positive", "negative"
+         ), class = c("TaskDescClassif", "TaskDescSupervised", "TaskDesc"))), .Names = c("type", 
+     "env", "weights", "blocking", "task.desc"), class = c("ClassifTask", "SupervisedTask", 
+     "Task")), method = "rf.importance", perc = 0.5, abs = NULL, threshold = NULL, mandatory.feat = NULL)
+  17: generateFilterValuesData(task = task, method = method, nselect = nselect, ...)
+  18: assert(all(sapply(method, function(x) assertChoice(x, choices = ls(.FilterRegister)))))
+  19: mstop(qamsg(NULL, msgs, .var.name, FALSE))
   
-  Error: testthat unit tests failed
-  In addition: Warning message:
-  In all(sapply(method, function(x) assertChoice(x, choices = ls(.FilterRegister)))) :
-    coercing argument of type 'character' to logical
-  Execution halted
+  
+  (process:10671): GLib-GIO-ERROR **: No GSettings schemas are installed on the system
+  Trace/breakpoint trap (core dumped)
 
 checking Rd cross-references ... WARNING
 Missing link or links in documentation object 'plotBMRRanksAsBarChart.Rd':
@@ -3222,13 +3470,23 @@ Missing link or links in documentation object 'plotBMRRanksAsBarChart.Rd':
 
 See section 'Cross-references' in the 'Writing R Extensions' manual.
 
+
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘rknn’
 ```
 
 ## mlxR (2.2.0)
 Maintainer: Marc Lavielle <Marc.Lavielle@inria.fr>  
 Bug reports: https://github.com/MarcLavielle/mlxR/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘mlxR’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/mlxR.Rcheck/00install.out’ for details.
+```
 
 ## Mobilize (2.16-4)
 Maintainer: Jeroen Ooms <jeroen.ooms@stat.ucla.edu>
@@ -3264,12 +3522,14 @@ Please remove from your package.
 ## morse (2.1.1)
 Maintainer: Philippe Ruiz <philippe.ruiz@univ-lyon1.fr>
 
-1 error  | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
 
 ```
-checking whether package ‘morse’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/morse.Rcheck/00install.out’ for details.
+checking whether package ‘morse’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘morse’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘morse’
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/morse.Rcheck/00install.out’ for details.
 ```
 
 ## mosaic (0.13.0)
@@ -3282,7 +3542,15 @@ Bug reports: https://github.com/ProjectMOSAIC/mosaic/issues
 Maintainer: David Kahle <david.kahle@gmail.com>  
 Bug reports: https://github.com/dkahle/mpoly/issues
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘partitions’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
 
 ## MRMR (0.1.3)
 Maintainer: Brian A. Fannin <BFannin@RedwoodsGroup.com>
@@ -3332,7 +3600,7 @@ checking whether package ‘MultiMeta’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘MultiMeta’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘MultiMeta’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/MultiMeta.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/MultiMeta.Rcheck/00install.out’ for details.
 ```
 
 ## multitable (1.6)
@@ -3434,7 +3702,7 @@ Bug reports: https://github.com/jrwishart/mwaved/issues
 ```
 checking whether package ‘mwaved’ can be installed ... ERROR
 Installation failed.
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/mwaved.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/mwaved.Rcheck/00install.out’ for details.
 ```
 
 ## myTAI (0.3.0)
@@ -3462,7 +3730,7 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘ncappc’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘ncappc’
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘ncappc’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/ncappc.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/ncappc.Rcheck/00install.out’ for details.
 ```
 
 ## NeatMap (0.3.6.2)
@@ -3473,9 +3741,9 @@ Maintainer: Satwik Rajaram <satwik@gmail.com>
 ```
 checking compiled code ... NOTE
 File ‘NeatMap/libs/NeatMap.so’:
-  Found ‘_rand’, possibly from ‘rand’ (C)
+  Found ‘rand’, possibly from ‘rand’ (C)
     Object: ‘nMDS_R.o’
-  Found ‘_srand’, possibly from ‘srand’ (C)
+  Found ‘srand’, possibly from ‘srand’ (C)
     Object: ‘nMDS_R.o’
 
 Compiled code should not call entry points which might terminate R nor
@@ -3510,7 +3778,7 @@ Bug reports: https://github.com/fawda123/NeuralNetTools/issues
 checking whether package ‘NeuralNetTools’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘scales::alpha’ when loading ‘NeuralNetTools’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/NeuralNetTools.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/NeuralNetTools.Rcheck/00install.out’ for details.
 ```
 
 ## NlsyLinks (2.0.1)
@@ -3561,11 +3829,11 @@ checking whether package ‘NMF’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘ggplot2::unit’ when loading ‘NMF’
   Warning: replacing previous import by ‘ggplot2::arrow’ when loading ‘NMF’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/NMF.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/NMF.Rcheck/00install.out’ for details.
 
 checking package dependencies ... NOTE
 Packages suggested but not available for checking:
-  ‘RcppOctave’ ‘doMPI’ ‘Biobase’
+  ‘RcppOctave’ ‘doMPI’ ‘synchronicity’ ‘Biobase’
 
 checking R code for possible problems ... NOTE
 .wrapResult: no visible global function definition for ‘exprs’
@@ -3583,7 +3851,7 @@ nmfModel,formula-ANY : .local: no visible global function definition
 rss,matrix : .local: no visible binding for global variable ‘Biobase’
 
 checking Rd cross-references ... NOTE
-Packages unavailable to check Rd xrefs: ‘RcppOctave’, ‘Biobase’
+Packages unavailable to check Rd xrefs: ‘RcppOctave’, ‘Biobase’, ‘synchronicity’
 
 checking data for non-ASCII characters ... NOTE
   Error in .requirePackage(package) : 
@@ -3621,7 +3889,7 @@ checking whether package ‘nparACT’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘nparACT’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘nparACT’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/nparACT.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/nparACT.Rcheck/00install.out’ for details.
 ```
 
 ## nullabor (0.3.1)
@@ -3632,7 +3900,14 @@ Maintainer: Di Cook <dicook@iastate.edu>
 ## oapackage (2.0.23)
 Maintainer: Pieter Thijs Eendebak <pieter.eendebak@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is 22.8Mb
+  sub-directories of 1Mb or more:
+    libs  22.7Mb
+```
 
 ## oaPlots (0.0.25)
 Maintainer: Jason Waddell <jason.waddell@openanalytics.eu>
@@ -3694,13 +3969,7 @@ Maintainer: Yi Tang <yi.tang.uk@me.com>
 ## OriGen (1.4.3)
 Maintainer: John Michael O. Ranola <ranolaj@uw.edu>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘OriGen’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/OriGen.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## OutbreakTools (0.1-14)
 Maintainer: Thibaut Jombart <thibautjombart@gmail.com>
@@ -3710,27 +3979,17 @@ Maintainer: Thibaut Jombart <thibautjombart@gmail.com>
 ## P2C2M (0.7.6)
 Maintainer: Michael Gruenstaeudl <mi.gruenstaeudl@gmail.com>
 
-0 errors | 0 warnings | 2 notes
+1 error  | 0 warnings | 0 notes
 
 ```
-checking package dependencies ... NOTE
+checking package dependencies ... ERROR
+Package required but not available: ‘rPython’
+
 Packages suggested but not available for checking:
   ‘genealogicalSorting’ ‘phybase’ ‘Rmpi’
 
-checking data for non-ASCII characters ... NOTE
-  Note: found 490 marked UTF-8 strings
-```
-
-## pa (1.2-1)
-Maintainer: Yang Lu <yang.lu2014@gmail.com>
-
-0 errors | 0 warnings | 1 note 
-
-```
-checking dependencies in R code ... NOTE
-Package in Depends field not imported from: ‘grid’
-  These packages need to be imported from (in the NAMESPACE file)
-  for when this namespace is loaded but not attached.
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
 ```
 
 ## packcircles (0.1.1)
@@ -3784,7 +4043,32 @@ These lines will be truncated in the PDF manual.
 ## paleofire (1.1.8)
 Maintainer: Olivier Blarquez <blarquez@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Loading required package: GCD
+This is paleofire v1.1.8
+trying URL 'http://blarquez.com/public/data/data_cageo.zip'
+Content type 'application/zip' length 14857 bytes (14 KB)
+==================================================
+downloaded 14 KB
+
+... 6 lines ...
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: cls)
+
+! Emergency stop.
+<read *> 
+         
+l.4 ^^M
+       
+!  ==> Fatal error occurred, no output PDF file produced!
+Calls: buildVignettes -> texi2pdf -> texi2dvi
+Execution halted
+```
 
 ## palettetown (0.1.0)
 Maintainer: Tim Lucas <timcdlucas@gmail.com>
@@ -3808,17 +4092,33 @@ Bug reports: https://github.com/berndbischl/ParamHelpers/issues
 
 0 errors | 0 warnings | 0 notes
 
+## pa (1.2-1)
+Maintainer: Yang Lu <yang.lu2014@gmail.com>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking dependencies in R code ... NOTE
+Package in Depends field not imported from: ‘grid’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+```
+
 ## partialAR (1.0.5)
 Maintainer: Matthew Clegg <matthewcleggphd@gmail.com>
 
-0 errors | 1 warning  | 0 notes
+0 errors | 1 warning  | 1 note 
 
 ```
 checking whether package ‘partialAR’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘partialAR’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘partialAR’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/partialAR.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/partialAR.Rcheck/00install.out’ for details.
+
+checking R code for possible problems ... NOTE
+Warning: replacing previous import by ‘grid::arrow’ when loading ‘partialAR’
+Warning: replacing previous import by ‘grid::unit’ when loading ‘partialAR’
 ```
 
 ## PASWR2 (1.0.2)
@@ -4022,7 +4322,7 @@ plot.phtMCMC: no visible global function definition for ‘geom_density’
 
 checking compiled code ... NOTE
 File ‘PhaseType/libs/PhaseType.so’:
-  Found ‘_rand’, possibly from ‘rand’ (C)
+  Found ‘rand’, possibly from ‘rand’ (C)
     Object: ‘LJMA_arms.o’
 
 Compiled code should not call entry points which might terminate R nor
@@ -4041,7 +4341,7 @@ checking whether package ‘Phxnlme’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘Phxnlme’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘Phxnlme’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/Phxnlme.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/Phxnlme.Rcheck/00install.out’ for details.
 ```
 
 ## physiology (0.2.2)
@@ -4065,7 +4365,12 @@ Maintainer: Michael Sweeting <mjs212@medschl.cam.ac.uk>
 Maintainer: Carson Sievert <cpsievert1@gmail.com>  
 Bug reports: http://github.com/cpsievert/pitchRx/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘ggsubplot’
+```
 
 ## PKgraph (1.7)
 Maintainer: Xiaoyong Sun <johnsunx1@gmail.com>
@@ -4074,7 +4379,7 @@ Maintainer: Xiaoyong Sun <johnsunx1@gmail.com>
 
 ```
 checking package dependencies ... ERROR
-Package required but not available: ‘rggobi’
+Packages required but not available: ‘gWidgetsRGtk2’ ‘cairoDevice’ ‘rggobi’
 
 Depends: includes the non-default packages:
   ‘RGtk2’ ‘gWidgetsRGtk2’ ‘cairoDevice’ ‘lattice’ ‘rggobi’ ‘ggplot2’
@@ -4094,9 +4399,14 @@ Maintainer: Xiaoyong Sun <johnsunx1@gmail.com>
 ## planar (1.5.2)
 Maintainer: Baptiste Auguie <baptiste.auguie@gmail.com>
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 3 notes
 
 ```
+checking installed package size ... NOTE
+  installed size is  5.7Mb
+  sub-directories of 1Mb or more:
+    libs   5.1Mb
+
 checking for GNU extensions in Makefiles ... NOTE
 GNU make is a SystemRequirements.
 
@@ -4114,65 +4424,16 @@ Execution halted
 ## playwith (0.9-54)
 Maintainer: Felix Andrews <felix@nfrac.org>
 
-0 errors | 1 warning  | 4 notes
+1 error  | 0 warnings | 0 notes
 
 ```
-checking dependencies in R code ... WARNING
-'library' or 'require' call to ‘lattice’ which was already attached by Depends.
-  Please remove these calls from your code.
-'library' or 'require' call to ‘latticist’ in package code.
-  Please use :: or requireNamespace() instead.
-  See section 'Suggested packages' in the 'Writing R Extensions' manual.
-Packages in Depends field not imported from:
-  ‘cairoDevice’ ‘gWidgetsRGtk2’ ‘grid’ ‘lattice’
-  These packages need to be imported from (in the NAMESPACE file)
-  for when this namespace is loaded but not attached.
-Unexported objects imported by ':::' calls:
-  ‘lattice:::lattice.getStatus’ ‘stats:::biplot.prcomp’
-  See the note in ?`:::` about the use of this operator.
-  Including base/recommended package(s):
-  ‘stats’ ‘lattice’
+checking package dependencies ... ERROR
+Packages required but not available: ‘cairoDevice’ ‘gWidgetsRGtk2’
 
-checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘latticist’
 
-checking S3 generic/method consistency ... NOTE
-Found the following apparent S3 methods exported but not registered:
-  plotCoords.biplot plotCoords.plot
-See section ‘Registering S3 methods’ in the ‘Writing R Extensions’
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
-
-checking R code for possible problems ... NOTE
-Found an obsolete/platform-specific call in the following functions:
-  ‘copy_handler’ ‘print_handler’
-Found the platform-specific devices:
-  ‘win.metafile’ ‘win.print’
-dev.new() is the preferred way to open a new device, in the unlikely
-event one is needed.
-.defaultPlaywithOptions: no visible global function definition for
-  ‘trellis.par.set’
-.defaultPlaywithOptions: no visible global function definition for
-... 205 lines ...
-time.mode_entry_handler: no visible global function definition for
-  ‘as.yearqtr’
-time.mode_update: no visible global function definition for
-  ‘as.yearmon’
-updateGrobActions: no visible global function definition for ‘grid.ls’
-xyData: no visible global function definition for ‘packet.number’
-xyData: no visible global function definition for ‘trellis.panelArgs’
-
-Found the following assignments to the global environment:
-File ‘playwith/R/uiIdentifyActions.R’:
-  assign(name, playGetIDs(playState), globalenv())
-
-checking Rd \usage sections ... NOTE
-S3 methods shown with full name in documentation object 'plotCoords':
-  ‘plotCoords.plot’ ‘plotCoords.biplot’
-
-The \usage entries for S3 methods should use the \method markup and not
-their full name.
-See chapter ‘Writing R documentation files’ in the ‘Writing R
-Extensions’ manual.
 ```
 
 ## plotly (2.0.16)
@@ -4185,19 +4446,19 @@ Bug reports: https://github.com/ropensci/plotly/issues
 checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
-  [1] "Running test: histogram-fixed-fill-color"
-  [1] "Running test: histogram-density-binwidth"
-  [1] "Running test: histogram-fill-factor"
-  [1] "Running test: histogram-fill-factor-identity"
-  [1] "Running test: histogram-fill-factor-dodge"
-  [1] "Running test: histogram-fill-factor-facets"
-  [1] "Running test: histogram-vline"
-  [1] "Running test: histogram-dates"
-  14. Failure (at test-ggplot-histogram.R#136): dates work well with histograms --
-  info$layout$xaxis$type is not identical to "date". Differences: 
-  1 string mismatch
+  [1] "Running test: plotly-scatterplot-color-factor"
+  [1] "Running test: plotly-scatterplot-color-factor-custom"
+  [1] "Running test: plotly-scatterplot-color-factor-custom2"
+  [1] "Running test: plotly-scatterplot-color-numeric"
+  [1] "Running test: plotly-scatterplot-color-numeric-custom"
+  [1] "Running test: plotly-scatterplot-scatter3d-axes"
+  testthat results ================================================================
+  OK: 870 SKIPPED: 5 FAILED: 1
+  1. Failure (at test-ggplot-histogram.R#12): geom_histogram(aes(fill = ..count..)) works 
   
-  [1] "Running test: histogram-POSIXt-bins"
+  Error: testthat unit tests failed
+  In addition: There were 50 or more warnings (use warnings() to see the first 50)
+  Execution halted
 ```
 
 ## PlotPrjNetworks (1.0.0)
@@ -4210,7 +4471,7 @@ checking whether package ‘PlotPrjNetworks’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘PlotPrjNetworks’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘PlotPrjNetworks’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/PlotPrjNetworks.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/PlotPrjNetworks.Rcheck/00install.out’ for details.
 ```
 
 ## plotROC (2.0.1)
@@ -4229,15 +4490,7 @@ Bug reports: https://github.com/gastonstat/plspm/issues
 Maintainer: Carl Boettiger <cboettig@gmail.com>  
 Bug reports: https://github.com/cboettig/pmc/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Package required but not available: ‘ouch’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
+0 errors | 0 warnings | 0 notes
 
 ## pogit (1.0.1)
 Maintainer: Michaela Dvorzak <m.dvorzak@gmx.at>
@@ -4247,7 +4500,12 @@ Maintainer: Michaela Dvorzak <m.dvorzak@gmx.at>
 ## pointRes (1.1.0)
 Maintainer: Marieke van der Maaten-Theunissen <marieketheunissen@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘dplR’
+```
 
 ## pollstR (1.2.1)
 Maintainer: Jeffrey B. Arnold <jeffrey.arnold@gmail.com>  
@@ -4259,19 +4517,18 @@ Bug reports: https://github.com/rOpenGov/pollstR/issues
 Maintainer: Aaron A. King <kingaa@umich.edu>  
 Bug reports: http://github.com/kingaa/pomp/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘pomp’ can be installed ... ERROR
-Installation failed.
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/pomp.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## PopED (0.3.0)
 Maintainer: Andrew C. Hooker <andrew.hooker@farmbio.uu.se>  
 Bug reports: https://github.com/andrewhooker/PopED/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘matlab’
+```
 
 ## popEpi (0.2.1)
 Maintainer: Joonas Miettinen <joonas.miettinen@cancer.fi>  
@@ -4298,7 +4555,14 @@ Malformed Title field: should not end in a period.
 Maintainer: Zhian N. Kamvar <kamvarz@science.oregonstate.edu>  
 Bug reports: https://github.com/grunwaldlab/poppr/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking sizes of PDF files under ‘inst/doc’ ... WARNING
+  ‘gs+qpdf’ made some significant size reductions:
+     compacted ‘poppr_manual.pdf’ from 800Kb to 541Kb
+  consider running tools::compactPDF(gs_quality = "ebook") on these files
+```
 
 ## popReconstruct (1.0-4)
 Maintainer: "Mark C. Wheldon" <mwheldon@aut.ac.nz>
@@ -4327,7 +4591,7 @@ checking whether package ‘PPtreeViz’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘PPtreeViz’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘PPtreeViz’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/PPtreeViz.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/PPtreeViz.Rcheck/00install.out’ for details.
 ```
 
 ## prcbench (0.2.0)
@@ -4354,26 +4618,7 @@ Bug reports: https://github.com/lucasvenez/precintcon/issues
 Maintainer: Takaya Saito <takaya.saito@outlook.com>  
 Bug reports: https://github.com/takayasaito/precrec/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  3: In class(pp) == c("gtable", "grob", "gDesc") :
-    longer object length is not a multiple of shorter object length
-  4: In class(pp) == c("gtable", "grob", "gDesc") :
-    longer object length is not a multiple of shorter object length
-  5: In class(pp) == c("gtable", "grob", "gDesc") :
-    longer object length is not a multiple of shorter object length
-  6: In class(pp) == c("gtable", "grob", "gDesc") :
-    longer object length is not a multiple of shorter object length
-  7: In class(pp) == c("gtable", "grob", "gDesc") :
-    longer object length is not a multiple of shorter object length
-  8: In class(pp) == c("gtable", "grob", "gDesc") :
-    longer object length is not a multiple of shorter object length
-  Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## predictmeans (0.99)
 Maintainer: Dongwen Luo <dongwen.luo@agresearch.co.nz>
@@ -4383,13 +4628,18 @@ Maintainer: Dongwen Luo <dongwen.luo@agresearch.co.nz>
 ## PReMiuM (3.1.2)
 Maintainer: Silvia Liverani <liveranis@gmail.com>
 
-0 errors | 1 warning  | 0 notes
+0 errors | 1 warning  | 1 note 
 
 ```
 checking whether package ‘PReMiuM’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘ggplot2::unit’ when loading ‘PReMiuM’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/PReMiuM.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/PReMiuM.Rcheck/00install.out’ for details.
+
+checking installed package size ... NOTE
+  installed size is 12.3Mb
+  sub-directories of 1Mb or more:
+    libs  12.1Mb
 ```
 
 ## preproviz (0.1.0)
@@ -4407,7 +4657,7 @@ Maintainer: Joseph Larmarange <joseph.larmarange@ird.fr>
 checking whether package ‘prevR’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: replacing previous import by ‘grid::unit’ when loading ‘prevR’
-See ‘/private/tmp/Rtmpv4rb6G/check_crana5e21ae48b0b/prevR.Rcheck/00install.out’ for details.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/prevR.Rcheck/00install.out’ for details.
 
 checking Rd cross-references ... NOTE
 Package unavailable to check Rd xrefs: ‘sparr’
@@ -4431,14 +4681,14 @@ Maintainer: Jim Hester <james.f.hester@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## prism (0.0.7)
-Maintainer: Hart Edmund <Edmund.m.hart@gmail.com>  
-Bug reports: http://github.com/ropensci/prism/issues
+## PRISMA (0.2-5)
+Maintainer: Tammo Krueger <tammokrueger@googlemail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## PRISMA (0.2-5)
-Maintainer: Tammo Krueger <tammokrueger@googlemail.com>
+## prism (0.0.7)
+Maintainer: Hart Edmund <Edmund.m.hart@gmail.com>  
+Bug reports: http://github.com/ropensci/prism/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -4477,7 +4727,8 @@ Maintainer: John Verzani <verzani@math.csi.cuny.edu>
 
 ```
 checking package dependencies ... NOTE
-Package suggested but not available for checking: ‘qtbase’
+Packages suggested but not available for checking:
+  ‘qtbase’ ‘cairoDevice’ ‘gWidgetsRGtk2’
 
 checking DESCRIPTION meta-information ... NOTE
 Malformed Description field: should contain one or more complete sentences.
@@ -4510,12 +4761,9 @@ showGtkWidgetInfo: no visible global function definition for
 Maintainer: Kirill Mueller <krlmlr+r@mailbox.org>  
 Bug reports: https://github.com/johnmyleswhite/ProjectTemplate/issues
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 note 
 
 ```
-checking package dependencies ... NOTE
-Package suggested but not available for checking: ‘RODBC’
-
 checking DESCRIPTION meta-information ... NOTE
 Malformed Title field: should not end in a period.
 ```
@@ -4524,32 +4772,9 @@ Malformed Title field: should not end in a period.
 Maintainer: Rajeswaran Viswanathan <v.rajeswaran@gmail.com>  
 Bug reports: https://github.com/RajeswaranV/proportion/issues
 
-1 error  | 0 warnings | 1 note 
+0 errors | 0 warnings | 1 note 
 
 ```
-checking examples ... ERROR
-Running examples in ‘proportion-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: PloterrAS
-> ### Title: Plots error, long term power and pass/fail criteria using
-> ###   ArcSine method
-> ### Aliases: PloterrAS
-> 
-... 7 lines ...
-Calls: <Anonymous> -> print.ggplot -> grid.newpage
-Execution halted
-
- *** caught segfault ***
-address 0x68, cause 'memory not mapped'
-
-Traceback:
- 1: grid.newpage()
- 2: print.ggplot(x)
- 3: function (x, ...) UseMethod("print")(x)
-aborting ...
-
 checking Rd cross-references ... NOTE
 Packages unavailable to check Rd xrefs: ‘PropCIs’, ‘BlakerCI’, ‘prevalence’
 ```
@@ -4584,11 +4809,18 @@ Warning in Matching::Match(Y = Y, Tr = Tr, X = ps, estimand = estimand,  :
 Warning in Matching::Match(Y = Y, Tr = Tr, X = ps, estimand = estimand,  :
   replace==FALSE, but there are more (weighted) control obs than treated obs.  Some control obs will not be matched.  You may want to estimate ATT instead.
 Warning in Matching::Match(Y = Y, Tr = Tr, X = ps, estimand = estimand,  :
-  replace==FALSE, but there are more (weighted) control obs than treated obs.  Some control obs will not be matched.  You may want to estimate ATT instead.
+... 8 lines ...
 Warning in Matching::Match(Y = Y, Tr = Tr, X = ps, estimand = estimand,  :
   replace==FALSE, but there are more (weighted) control obs than treated obs.  Some control obs will not be matched.  You may want to estimate ATT instead.
 Warning in Matching::Match(Y = Y, Tr = Tr, X = ps, estimand = estimand,  :
-  replace==FALSE, but there are more (weighted) control obs than treated
+  replace==FALSE, but there are more (weighted) control obs than treated obs.  Some control obs will not be matched.  You may want to estimate ATT instead.
+Warning in Matching::Match(Y = Y, Tr = Tr, X = ps, estimand = estimand,  :
+  replace==FALSE, but there are more (weighted) control obs than treated obs.  Some control obs will not be matched.  You may want to estimate ATT instead.
+Loading required package: knitr
+Quitting from lines 135-136 (PSAboot.Rmd) 
+Error: processing vignette 'PSAboot.Rmd' failed with diagnostics:
+Unknown parameters: alhpa
+Execution halted
 ```
 
 ## PSCBS (0.61.0)
@@ -4616,38 +4848,2360 @@ Maintainer: Joshua F. Wiley <jwiley.psych@gmail.com>
 Maintainer: Andrew J. Barbour <andy.barbour@gmail.com>  
 Bug reports: https://github.com/abarbour/psd/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘fftw’
+```
 
 ## pseval (1.0.0)
 Maintainer: Michael C Sachs <sachsmc@gmail.com>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘printr’
+```
+
+## pxweb (0.5.57)
+Maintainer: Mans Magnusson <mons.magnusson@gmail.com>  
+Bug reports: https://github.com/rOpenGov/pxweb/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/testthat_get_pxweb.R’ failed.
+Last 13 lines of output:
+  
+  1. Failure (at test-get_pxweb_data.R#200): Previous bug identified by Erik Bulow (#84 at github) 
+  {
+      test_url <- "http://api.scb.se/OV0104/v1/doris/sv/ssd/BE/BE0101/BE0101A/BefolkningNy"
+      test_data <- get_pxweb_data(url = test_url, dims = test_dims, clean = TRUE)
+  } threw an error
+  
+  testthat results ================================================================
+  OK: 1 SKIPPED: 5 FAILED: 1
+  1. Failure (at test-get_pxweb_data.R#200): Previous bug identified by Erik Bulow (#84 at github) 
+  
+  Error: testthat unit tests failed
+  Execution halted
+```
+
+## QCAtools (0.2.1)
+Maintainer: Jirka Lewandowski <jirka.lewandowski@wzb.eu>
+
+0 errors | 0 warnings | 0 notes
+
+## qdap (2.2.4)
+Maintainer: Tyler Rinker <tyler.rinker@gmail.com>  
+Bug reports: http://github.com/trinker/qdap/issues
+
+0 errors | 0 warnings | 0 notes
+
+## qgraph (1.3.2)
+Maintainer: Sacha Epskamp <mail@sachaepskamp.com>
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘qgraph’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/qgraph.Rcheck/00install.out’ for details.
+```
+
+## qicharts (0.4.3)
+Maintainer: Jacob Anhoej <jacob@anhoej.net>
+
+0 errors | 0 warnings | 0 notes
+
+## quadrupen (0.2-4)
+Maintainer: Julien Chiquet <julien.chiquet@genopole.cnrs.fr>
+
+0 errors | 1 warning  | 2 notes
+
+```
+checking whether package ‘quadrupen’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘quadrupen’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘quadrupen’
+  Warning: replacing previous import by ‘scales::alpha’ when loading ‘quadrupen’
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/quadrupen.Rcheck/00install.out’ for details.
+
+checking installed package size ... NOTE
+  installed size is  7.0Mb
+  sub-directories of 1Mb or more:
+    libs   6.7Mb
+
+checking R code for possible problems ... NOTE
+plot,cvpen : .local: no visible binding for global variable ‘lambda1’
+plot,cvpen : .local: no visible binding for global variable ‘lambda2’
+plot,cvpen : .local: no visible binding for global variable ‘serr’
+plot,cvpen : .local: no visible binding for global variable ‘xval’
+plot,cvpen : .local: no visible binding for global variable
+  ‘lambda.choice’
+plot,quadrupen : .local: no visible binding for global variable
+  ‘variables’
+plot,stability.path : .local: no visible binding for global variable
+  ‘variables’
+```
+
+## QualInt (1.0.0)
+Maintainer: Lixi Yu <lixi-yu@uiowa.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## qualvar (0.1.0)
+Maintainer: Joel Gombin <joel.gombin@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## quanteda (0.9.2-0)
+Maintainer: Kenneth Benoit <kbenoit@lse.ac.uk>  
+Bug reports: https://github.com/kbenoit/quanteda/issues
+
+0 errors | 0 warnings | 3 notes
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘topicmodels’
+
+checking installed package size ... NOTE
+  installed size is  5.0Mb
+  sub-directories of 1Mb or more:
+    data   1.2Mb
+    doc    1.1Mb
+    libs   1.7Mb
+
+checking data for non-ASCII characters ... NOTE
+  Note: found 1 marked Latin-1 string
+  Note: found 750 marked UTF-8 strings
+  Note: found 7 strings marked as "bytes"
+```
+
+## QuantumClone (0.15.11)
+Maintainer: Paul Deveau <paul.deveau@curie.fr>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Warning in readLines(con) :
+  incomplete final line found on 'Release.Rmd'
+Warning in (if (grepl("\\.[Rr]md$", file)) knit2html else if (grepl("\\.[Rr]rst$",  :
+  It seems you should call rmarkdown::render() instead of knitr::knit2html() because Release.Rmd appears to be an R Markdown v2 document.
+Warning in (if (grepl("\\.[Rr]md$", file)) knit2html else if (grepl("\\.[Rr]rst$",  :
+  It seems you should call rmarkdown::render() instead of knitr::knit2html() because Use_case.Rmd appears to be an R Markdown v2 document.
+Warning: Removed 16 rows containing missing values (geom_point).
+Warning: Removed 16 rows containing missing values (geom_point).
+Quitting from lines 145-146 (Use_case.Rmd) 
+Error: processing vignette 'Use_case.Rmd' failed with diagnostics:
+the table must have a header (column names)
+Execution halted
+
+```
+
+## quickpsy (0.1.2)
+Maintainer: Linares Daniel <danilinares@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## qwraps2 (0.1.2)
+Maintainer: Peter DeWitt <dewittpe@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## R2admb (0.7.13)
+Maintainer: Ben Bolker <bolker@mcmaster.ca>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking R code for possible problems ... NOTE
+Found the following calls to attach():
+File ‘R2admb/R/check_section.R’:
+  attach(R_list, name = "R_list", warn.conflicts = FALSE)
+See section ‘Good practice’ in ‘?attach’.
+```
+
+## R6 (2.1.2)
+Maintainer: Winston Chang <winston@stdout.org>
+
+0 errors | 0 warnings | 0 notes
+
+## rags2ridges (2.0)
+Maintainer: Carel F.W. Peeters <cf.peeters@vumc.nl>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Packages suggested but not available for checking: ‘KEGGgraph’ ‘graph’
+```
+
+## raincpc (0.4)
+Maintainer: Gopi Goteti <my.ration.shop@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## rAltmetric (0.6)
+Maintainer: Karthik Ram <karthik.ram@gmail.com>  
+Bug reports: https://github.com/ropensci/rAltmetric/issues/
+
+0 errors | 0 warnings | 0 notes
+
+## RAM (1.2.1.3)
+Maintainer: Wen Chen <Wen.Chen@agr.gc.ca>  
+Bug reports: https://bitbucket.org/Wen_Chen/ram_releases/issues/
 
 0 errors | 0 warnings | 2 notes
 
 ```
 checking package dependencies ... NOTE
-Package suggested but not available for checking: ‘printr’
+Package suggested but not available for checking: ‘Heatplus’
+
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘Heatplus’
+```
+
+## randomizeR (1.1.0)
+Maintainer: Diane Uschner <duschner@ukaachen.de>
+
+0 errors | 0 warnings | 0 notes
+
+## randomUniformForest (1.1.5)
+Maintainer: Saip Ciss <saip.ciss@wanadoo.fr>
+
+0 errors | 0 warnings | 0 notes
+
+## rangeMapper (0.3-0)
+Maintainer: Mihai Valcu <valcu@orn.mpg.de>
+
+0 errors | 0 warnings | 0 notes
+
+## rangemodelR (1.0)
+Maintainer: Aniruddha Marathe <aniruddha.pravin.marathe@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## rasterVis (0.37)
+Maintainer: Oscar Perpinan Lamigueiro <oscar.perpinan@gmail.com>  
+Bug reports: https://github.com/oscarperpinan/rastervis/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rattle (4.1.0)
+Maintainer: Graham Williams <Graham.Williams@togaware.com>
+
+0 errors | 0 warnings | 3 notes
+
+```
+checking package dependencies ... NOTE
+Packages suggested but not available for checking:
+  ‘cairoDevice’ ‘graph’ ‘gWidgetsRGtk2’ ‘playwith’ ‘RBGL’ ‘rggobi’
+  ‘pkgDepTools’ ‘Rgraphviz’
+
+checking installed package size ... NOTE
+  installed size is  6.9Mb
+  sub-directories of 1Mb or more:
+    data   2.5Mb
+    etc    1.9Mb
+    po     1.2Mb
 
 checking re-building of vignette outputs ... NOTE
 Error in re-building vignettes:
   ...
-          vector of corresponding probabilities.
+Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+  Running 'texi2dvi' on 'rattle.tex' failed.
+LaTeX errors:
+! LaTeX Error: File `algorithm2e.sty' not found.
 
-        • risk_weibull This is a parameterization of the Weibull model
-          for time-to-event outcomes that is consistent with that of
-          rweibull. The user specifies the formula for the linear
-          predictor of the scale parameter.
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
 
-... 8 lines ...
-     add_riskmodel(test, risk_binary())
-     test + risk_binary() # same as above
-     
-
-Warning in file(file, ifelse(append, "a", "w")) :
-  cannot open file 'introduction.knit.md': No space left on device
-Warning in file(file, ifelse(append, "a", "w")) :
-  cannot open file 'introduction.knit.md': No space left on device
-Error: processing vignette 'introduction.Rmd' failed with diagnostics:
-cannot open the connection
+! Emergency stop.
+<read *> 
+         
+l.14 \usepackage
+                [^^M
+!  ==> Fatal error occurred, no output PDF file produced!
+Calls: buildVignettes -> texi2pdf -> texi2dvi
 Execution halted
+
+```
+
+## rbefdata (0.3.5)
+Maintainer: Claas-Thido Pfaff <claas-thido.pfaff@idiv-biodiversity.de>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking R code for possible problems ... NOTE
+bef.get.categories_for: no visible binding for global variable ‘id’
+bef.portal.get.categories_for: no visible binding for global variable
+  ‘id’
+```
+
+## rbison (0.4.8)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/rbison/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rchess (0.1)
+Maintainer: Joshua Kunst <jbkunst@gmail.com>  
+Bug reports: https://github.com/jbkunst/rchess/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘V8’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## rclinicaltrials (1.4.1)
+Maintainer: Michael C Sachs <sachsmc@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## RcmdrPlugin.KMggplot2 (0.2-3)
+Maintainer: Triad sou. <triadsou@gmail.com>
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘RcmdrPlugin.KMggplot2’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/RcmdrPlugin.KMggplot2.Rcheck/00install.out’ for details.
+```
+
+## RcmdrPlugin.MA (0.0-2)
+Maintainer: A. C. Del Re <acdelre@gmail.com>
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘RcmdrPlugin.MA’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/RcmdrPlugin.MA.Rcheck/00install.out’ for details.
+```
+
+## RCMIP5 (1.1)
+Maintainer: Kathe Todd-Brown <ktoddbrown@gmail.com>
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘ncdf’
+
+checking dependencies in R code ... NOTE
+'library' or 'require' calls in package code:
+  ‘ggplot2’ ‘ncdf’ ‘ncdf4’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+```
+
+## rddtools (0.4.0)
+Maintainer: Bastiaan Quast <bquast@gmail.com>  
+Bug reports: https://github.com/bquast/RDDtools/issues
+
+0 errors | 0 warnings | 0 notes
+
+## RDML (0.9-1)
+Maintainer: Konstantin A. Blagodatskikh <k.blag@yandex.ru>
+
+0 errors | 0 warnings | 0 notes
+
+## RDS (0.7-4)
+Maintainer: Mark S. Handcock <handcock@stat.ucla.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## reda (0.2.1)
+Maintainer: Wenjie Wang <wenjie.2.wang@uconn.edu>  
+Bug reports: https://github.com/wenjie2wang/reda/issues
+
+0 errors | 0 warnings | 0 notes
+
+## refund (0.1-14)
+Maintainer: Lei Huang <huangracer@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## refund.shiny (0.2.0)
+Maintainer: Julia Wrobel <jw3134@cumc.columbia.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## rem (1.1.1)
+Maintainer: Laurence Brandenberger <laurence.brandenberger@eawag.ch>
+
+0 errors | 0 warnings | 0 notes
+
+## repijson (0.1.0)
+Maintainer: Andy South <southandy@gmail.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘geojsonio’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## ReporteRs (0.8.2)
+Maintainer: David Gohel <david.gohel@lysis-consultants.fr>  
+Bug reports: https://github.com/davidgohel/ReporteRs/issues
+
+0 errors | 0 warnings | 0 notes
+
+## reproducer (0.1.4)
+Maintainer: Lech Madeyski <lech.madeyski@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## reval (2.0.0)
+Maintainer: Michael C Koohafkan <michael.koohafkan@gmail.com>  
+Bug reports: https://github.com/mkoohafkan/reval/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rex (1.0.1)
+Maintainer: Jim Hester <james.f.hester@gmail.com>  
+Bug reports: https://github.com/kevinushey/rex/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Warning in (if (grepl("\\.[Rr]md$", file)) knit2html else if (grepl("\\.[Rr]rst$",  :
+  It seems you should call rmarkdown::render() instead of knitr::knit2html() because log_parsing.Rmd appears to be an R Markdown v2 document.
+Read 1000 items
+Quitting from lines 69-71 (log_parsing.Rmd) 
+Error: processing vignette 'log_parsing.Rmd' failed with diagnostics:
+StatBin requires a continuous x variable the x variable is discrete. Perhaps you want stat="count"?
+Execution halted
+
+```
+
+## rfigshare (0.3.7)
+Maintainer: Carl Boettiger <cboettig@gmail.com>  
+Bug reports: https://github.com/ropensci/rfigshare/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rfisheries (0.1)
+Maintainer: Karthik Ram <karthik.ram@gmail.com>  
+Bug reports: http://www.github.com/ropensci/rfisheries/issues/new
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+
+checking R code for possible problems ... NOTE
+fish_plot: no visible binding for global variable ‘species_code_data’
+fish_plot: no visible binding for global variable ‘country_code_data’
+```
+
+## RFmarkerDetector (1.0)
+Maintainer: Piergiorgio Palla <piergiorgio.palla@diee.unica.it>
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘RFmarkerDetector’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘randomForest::margin’ when loading ‘RFmarkerDetector’
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/RFmarkerDetector.Rcheck/00install.out’ for details.
+```
+
+## rfordummies (0.1.2)
+Maintainer: Andrie de Vries <apdevries@gmail.com>  
+Bug reports: https://github.com/andrie/rfordummies/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rfPermute (1.9.3)
+Maintainer: Eric Archer <eric.archer@noaa.gov>
+
+0 errors | 0 warnings | 0 notes
+
+## rgbif (0.9.2)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/rgbif/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘V8’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## RGraphics (2.0-13)
+Maintainer: Paul Murrell <paul@stat.auckland.ac.nz>
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking package dependencies ... NOTE
+Packages suggested but not available for checking:
+  ‘graph’ ‘gWidgetsRGtk2’ ‘hyperdraw’ ‘hypergraph’ ‘iplots’ ‘playwith’
+  ‘pmg’ ‘rggobi’ ‘Rgraphviz’ ‘SVGAnnotation’
+
+checking installed package size ... NOTE
+  installed size is  9.7Mb
+  sub-directories of 1Mb or more:
+    extra   9.4Mb
+```
+
+## RImagePalette (0.1.1)
+Maintainer: Joel Carlson <jnkcarlson@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## rinat (0.1.4)
+Maintainer: Edmund Hart <edmund.m.hart@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## rivr (1.1)
+Maintainer: Michael C Koohafkan <michael.koohafkan@gmail.com>  
+Bug reports: https://github.com/mkoohafkan/rivr/issues
+
+0 errors | 0 warnings | 0 notes
+
+## RJafroc (0.1.1)
+Maintainer: Xuetong Zhai <xuetong.zhai@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## rms (4.4-1)
+Maintainer: Frank E Harrell Jr <f.harrell@vanderbilt.edu>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking Rd cross-references ... NOTE
+Packages unavailable to check Rd xrefs: ‘multiwayvcov’, ‘treatSens’
+```
+
+## rnoaa (0.5.2)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: http://www.github.com/ropensci/rnoaa/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Packages suggested but not available for checking: ‘geojsonio’ ‘lawn’
+```
+
+## robCompositions (2.0.0)
+Maintainer: Matthias Templ <templ@tuwien.ac.at>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘StatDA’
+```
+
+## robustbase (0.92-5)
+Maintainer: Martin Maechler <maechler@stat.math.ethz.ch>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘robustX’
+```
+
+## RobustEM (1.0)
+Maintainer: Aishat Aloba <adetokaloba@gmail.com>
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘RobustEM’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘RobustEM’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘RobustEM’
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/RobustEM.Rcheck/00install.out’ for details.
+```
+
+## robustHD (0.5.1)
+Maintainer: Andreas Alfons <alfons@ese.eur.nl>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is  5.5Mb
+  sub-directories of 1Mb or more:
+    libs   5.1Mb
+```
+
+## robustlmm (1.8)
+Maintainer: Manuel Koller <koller.manuel@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## rollply (0.4.2)
+Maintainer: Alexandre Genin <alex@lecairn.org>  
+Bug reports: https://github.com/alexgenin/rollply
+
+0 errors | 0 warnings | 0 notes
+
+## rorutadis (0.3.1)
+Maintainer: Krzysztof Ciomek <k.ciomek@gmail.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘Rglpk’ ‘hitandrun’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## rotations (1.5)
+Maintainer: Bryan Stanfill <bstanfill2003@gmail.com>  
+Bug reports: https://github.com/stanfill/rotationsC/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is  9.5Mb
+  sub-directories of 1Mb or more:
+    data   2.3Mb
+    libs   5.6Mb
+```
+
+## rpdo (0.1.1)
+Maintainer: Joe Thorley <joe@poissonconsulting.ca>
+
+0 errors | 0 warnings | 0 notes
+
+## rpf (0.51)
+Maintainer: Joshua Pritikin <jpritikin@pobox.com>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is  9.2Mb
+  sub-directories of 1Mb or more:
+    libs   8.4Mb
+```
+
+## rplexos (1.1.4)
+Maintainer: Eduardo Ibanez <edu.ibanez@gmail.com>  
+Bug reports: https://github.com/NREL/rplexos/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rplos (0.5.4)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/rplos/issues
+
+0 errors | 0 warnings | 0 notes
+
+## RPPanalyzer (1.4.1)
+Maintainer: Astrid Wachter <astrid.wachter@med.uni-goettingen.de>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘limma’ ‘Biobase’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## RSA (0.9.9)
+Maintainer: Felix Schönbrodt <felix@nicebread.de>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘tkrplot’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## RSDA (1.3)
+Maintainer: Oldemar Rodriguez <oldemar.rodriguez@ucr.ac.cr>
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘RSDA’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+  Warning: replacing previous import by ‘scales::alpha’ when loading ‘RSDA’
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/RSDA.Rcheck/00install.out’ for details.
+```
+
+## rSPACE (1.2.0)
+Maintainer: Martha Ellis <martha.ellis@gmail.com>  
+Bug reports: http://github.com/mmellis/rSPACE/issues
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘rSPACE’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/rSPACE.Rcheck/00install.out’ for details.
+```
+
+## rstanarm (2.9.0-1)
+Maintainer: Ben Goodrich <benjamin.goodrich@columbia.edu>  
+Bug reports: https://github.com/stan-dev/rstanarm/issues
+
+0 errors | 1 warning  | 1 note 
+
+```
+checking S3 generic/method consistency ... WARNING
+VarCorr:
+  function(x, sigma, rdig, ...)
+VarCorr.stanreg:
+  function(x, sigma, rdig)
+
+See section ‘Generic functions and methods’ in the ‘Writing R
+Extensions’ manual.
+
+checking installed package size ... NOTE
+  installed size is 51.6Mb
+  sub-directories of 1Mb or more:
+    doc    3.5Mb
+    libs  46.8Mb
+```
+
+## rstan (2.9.0)
+Maintainer: Ben Goodrich <benjamin.goodrich@columbia.edu>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is 160.1Mb
+  sub-directories of 1Mb or more:
+    libs  157.6Mb
+```
+
+## RStoolbox (0.1.4)
+Maintainer: Benjamin Leutner <benjamin.leutner@uni-wuerzburg.de>  
+Bug reports: https://github.com/bleutner/RStoolbox/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rsvd (0.3)
+Maintainer: N. Benjamin Erichson <nbe@st-andrews.ac.uk>  
+Bug reports: https://github.com/Benli11/rPCA
+
+0 errors | 0 warnings | 0 notes
+
+## rsvg (0.4)
+Maintainer: Jeroen Ooms <jeroen.ooms@stat.ucla.edu>  
+Bug reports: https://github.com/jeroenooms/rsvg/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘rsvg’ can be installed ... ERROR
+Installation failed.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/rsvg.Rcheck/00install.out’ for details.
+```
+
+## rtematres (0.2)
+Maintainer: Claas-Thido Pfaff <claas-thido.pfaff@idiv-biodiversity.de>
+
+0 errors | 0 warnings | 0 notes
+
+## rtf (0.4-11)
+Maintainer: Michael E. Schaffer <mschaff@gmail.com>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking S3 generic/method consistency ... NOTE
+Found the following apparent S3 methods exported but not registered:
+  addHeader.RTF addNewLine.RTF addPageBreak.RTF addParagraph.RTF
+  addPlot.RTF addPng.RTF addSessionInfo.RTF addTOC.RTF addTable.RTF
+  addText.RTF addTrellisObject.RTF decreaseIndent.RTF done.RTF
+  endParagraph.RTF increaseIndent.RTF setFontSize.RTF
+  startParagraph.RTF view.RTF
+See section ‘Registering S3 methods’ in the ‘Writing R Extensions’
+manual.
+```
+
+## rtimes (0.3.0)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropengov/rtimes/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rvertnet (0.4.1)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/rvertnet/issues
+
+0 errors | 0 warnings | 0 notes
+
+## rWBclimate (0.1.3)
+Maintainer: Edmund Hart <edmund.m.hart@gmail.com>  
+Bug reports: http://github.com/ropensci/rWBclimate/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking R code for possible problems ... NOTE
+check_ISO_code: no visible binding for global variable ‘NoAm_country’
+check_ISO_code: no visible binding for global variable ‘SoAm_country’
+check_ISO_code: no visible binding for global variable ‘Oceana_country’
+check_ISO_code: no visible binding for global variable ‘Africa_country’
+check_ISO_code: no visible binding for global variable ‘Asia_country’
+check_ISO_code: no visible binding for global variable ‘Eur_country’
+```
+
+## rwirelesscom (1.4.3)
+Maintainer: Alberto Gutierrez <algutier1@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## ryouready (0.4)
+Maintainer: Mark Heckmann <heckmann.mark@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## Rz (0.9-1)
+Maintainer: Masahiro Hayashi <rinm884@gmail.com>
+
+0 errors | 1 warning  | 3 notes
+
+```
+checking dependencies in R code ... WARNING
+'library' or 'require' call to ‘vcd’ in package code.
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+Packages in Depends field not imported from:
+  ‘foreign’ ‘ggplot2’ ‘grid’ ‘psych’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+Unexported object imported by a ':::' call: ‘foreign:::adQuote’
+  See the note in ?`:::` about the use of this operator.
+  Including base/recommended package(s):
+  ‘foreign’
+
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘cairoDevice’
+
+checking S3 generic/method consistency ... NOTE
+Found the following apparent S3 methods exported but not registered:
+  summary.CrossTable
+See section ‘Registering S3 methods’ in the ‘Writing R Extensions’
+manual.
+
+checking R code for possible problems ... NOTE
+gtkFileChooserDialogFilteredActivate: no visible binding for global
+  variable ‘theme_grey’
+summary.CrossTable: no visible global function definition for
+  ‘assocstats’
+```
+
+## sadists (0.2.1)
+Maintainer: Steven E. Pav <shabbychef@gmail.com>  
+Bug reports: https://github.com/shabbychef/sadists/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Warning in (function (source = "clipboard", comment = getOption("formatR.comment",  :
+  The argument 'keep.blank.line' is deprecated; please use 'blank'
+Loading required package: ggplot2
+Loading required package: grid
+Warning in (function (source = "clipboard", comment = getOption("formatR.comment",  :
+  The argument 'keep.blank.line' is deprecated; please use 'blank'
+Loading required package: polynom
+Quitting from lines 409-415 (sadists.Rnw) 
+Error: processing vignette 'sadists.Rnw' failed with diagnostics:
+Unknown parameters: dist
+Execution halted
+
+```
+
+## saeSim (0.7.0)
+Maintainer: Sebastian Warnholz <Sebastian.Warnholz@fu-berlin.de>  
+Bug reports: https://github.com/wahani/saeSim/issues
+
+0 errors | 0 warnings | 0 notes
+
+## SamplerCompare (1.2.7)
+Maintainer: Madeleine Thompson <madeleineth@gmail.com>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘synchronicity’
+```
+
+## sand (1.0.2)
+Maintainer: Gabor Csardi <csardi.gabor@gmail.com>  
+Bug reports: https://github.com/kolaczyk/sand/issues
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking package dependencies ... NOTE
+Packages suggested but not available for checking:
+  ‘GO.db’ ‘GOstats’ ‘networkTomography’ ‘org.Sc.sgd.db’
+
+checking data for non-ASCII characters ... NOTE
+  Note: found 6 marked UTF-8 strings
+```
+
+## SCGLR (2.0.2)
+Maintainer: Guillaume Cornu <gcornu@cirad.fr>
+
+0 errors | 1 warning  | 1 note 
+
+```
+checking whether package ‘SCGLR’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘SCGLR’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘SCGLR’
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/SCGLR.Rcheck/00install.out’ for details.
+
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Quitting from lines 242-243 (scglrVignettes.rnw) 
+Error: processing vignette 'scglrVignettes.rnw' failed with diagnostics:
+stat_count() must not be used with a y aesthetic.
+Execution halted
+
+```
+
+## SciencesPo (1.3.9)
+Maintainer: Daniel Marcelino <dmarcelino@live.com>  
+Bug reports: http://github.com/danielmarcelino/SciencesPo/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking examples ... ERROR
+Running examples in ‘SciencesPo-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: theme_pub
+> ### Title: The Default Theme
+> ### Aliases: theme_pub
+> 
+> ### ** Examples
+> 
+> ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
++ geom_freqpoly(stat="count",size=2) + scale_color_pub() + theme_pub(line_width=1)
+Error: Unknown parameters: pad
+Execution halted
+```
+
+## scmamp (0.2.5)
+Maintainer: Borja Calvo <borja.calvo@ehu.eus>  
+Bug reports: https://github.com/b0rxa/scmamp/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘graph’ ‘Rgraphviz’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## SDaA (0.1-3)
+Maintainer: Tobias Verbeke <tobias.verbeke@openanalytics.eu>
+
+0 errors | 0 warnings | 0 notes
+
+## sdcMicro (4.6.0)
+Maintainer: Matthias Templ <matthias.templ@gmail.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/reporting_test.R’ failed.
+Last 13 lines of output:
+  > sdcObject <- globalRecode(sdcObject, column = c("age"), breaks = c(6), labels = NULL)
+  > sdcObject <- groupVars(sdcObject, var = c("age"),
+  +   before = c("(63.333333,79.166667]", "(79.166667,95.095]"),
+  +   after = c("(63.333,95.095]", "(63.333,95.095]"))
+  > sdcObject <- localSuppression(sdcObject, k = c(2), importance = c(1, 3, 1, 3))
+  > sdcObject <- localSuppression(sdcObject, k = c(3), importance = c(1, 3, 1, 3))
+  > sdcObject <- microaggregation(sdcObject, aggr = c(3), method = c("mdav"),
+  +   variables = c("expend"), strata_variables = c("sex"))
+  > 
+  > td <- tempdir()
+  > report(sdcObject, outdir = td)
+  Error: pandoc version 1.12.3 or higher is required and was not found.
+  Execution halted
+```
+
+## sdmvspecies (0.3.2)
+Maintainer: Xiaoquan Kong <u1mail2me@gmail.com>  
+Bug reports: https://github.com/howl-anderson/sdmvspecies/issues
+
+0 errors | 0 warnings | 0 notes
+
+## season (0.3-5)
+Maintainer: Adrian Barnett <a.barnett@qut.edu.au>
+
+0 errors | 0 warnings | 0 notes
+
+## SEERaBomb (2015.2)
+Maintainer: Tomas Radivoyevitch <radivot@ccf.org>
+
+0 errors | 0 warnings | 0 notes
+
+## seewave (2.0.2)
+Maintainer: Jerome Sueur <sueur@mnhn.fr>
+
+1 error  | 0 warnings | 1 note 
+
+```
+checking whether package ‘seewave’ can be installed ... ERROR
+Installation failed.
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/seewave.Rcheck/00install.out’ for details.
+
+checking package dependencies ... NOTE
+Packages suggested but not available for checking: ‘fftw’ ‘rpanel’
+```
+
+## selfea (1.0.1)
+Maintainer: Lang Ho Lee <langholee@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## SemiParBIVProbit (3.6-1)
+Maintainer: Giampiero Marra <giampiero.marra@ucl.ac.uk>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘VineCopula’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## sensitivity (1.11.1)
+Maintainer: Bertrand Iooss <biooss@yahoo.fr>
+
+0 errors | 0 warnings | 0 notes
+
+## SeqFeatR (0.2.0)
+Maintainer: Bettina Budeus <bettina.budeus@stud.uni-due.de>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘Biostrings’ ‘qvalue’ ‘widgetTools’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## sgd (1.1)
+Maintainer: Dustin Tran <dustin@cs.columbia.edu>  
+Bug reports: https://github.com/airoldilab/sgd/issues
+
+0 errors | 0 warnings | 0 notes
+
+## sglr (0.7)
+Maintainer: Balasubramanian Narasimhan <naras@stat.stanford.edu>
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+
+checking R code for possible problems ... NOTE
+plotBoundary: no visible global function definition for
+  ‘scale_y_continuous’
+```
+
+## SHELF (1.1.0)
+Maintainer: Jeremy Oakley <j.oakley@sheffield.ac.uk>  
+Bug reports: https://github.com/OakleyJ/SHELF/issues
+
+0 errors | 0 warnings | 0 notes
+
+## shiny (0.13.0)
+Maintainer: Winston Chang <winston@rstudio.com>  
+Bug reports: https://github.com/rstudio/shiny/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is  6.4Mb
+  sub-directories of 1Mb or more:
+    www   5.2Mb
+```
+
+## shinystan (2.1.0)
+Maintainer: Jonah Gabry <jsg2201@columbia.edu>  
+Bug reports: https://github.com/stan-dev/shinystan/issues/
+
+0 errors | 0 warnings | 0 notes
+
+## sidier (3.0.1)
+Maintainer: A.J. Muñoz-Pajares <ajesusmp@ugr.es>
+
+0 errors | 0 warnings | 0 notes
+
+## simcausal (0.4.0)
+Maintainer: Oleg Sofrygin <oleg.sofrygin@gmail.com>  
+Bug reports: https://github.com/osofr/simcausal/issues
+
+0 errors | 0 warnings | 0 notes
+
+## SimDesign (0.6)
+Maintainer: Phil Chalmers <rphilip.chalmers@gmail.com>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘doMPI’
+```
+
+## simmer (3.1.2)
+Maintainer: Iñaki Ucar <i.ucar86@gmail.com>  
+Bug reports: https://github.com/Bart6114/simmer/issues
+
+0 errors | 0 warnings | 0 notes
+
+## simmr (0.3)
+Maintainer: Andrew Parnell <andrew.parnell@ucd.ie>
+
+0 errors | 0 warnings | 0 notes
+
+## simPH (1.3.5)
+Maintainer: Christopher Gandrud <christopher.gandrud@gmail.com>  
+Bug reports: https://github.com/christophergandrud/simPH/issues
+
+0 errors | 0 warnings | 0 notes
+
+## simTool (1.0.3)
+Maintainer: Marsel Scheer <scheer@freescience.de>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking DESCRIPTION meta-information ... NOTE
+Malformed Title field: should not end in a period.
+```
+
+## sinaplot (0.1.3)
+Maintainer: Nikos Sidiropoulos <nikos.sidiro@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## SixSigma (0.9-2)
+Maintainer: Emilio L. Cano <emilio.lopez@urjc.es>
+
+0 errors | 0 warnings | 0 notes
+
+## sjPlot (1.9.1)
+Maintainer: Daniel Lüdecke <d.luedecke@uke.de>  
+Bug reports: https://github.com/sjPlot/devel/issues
+
+0 errors | 0 warnings | 0 notes
+
+## slackr (1.2)
+Maintainer: Bob Rudis <bob@rudis.net>  
+Bug reports: https://github.com/hrbrmstr/slackr/issues
+
+0 errors | 0 warnings | 0 notes
+
+## SmarterPoland (1.5)
+Maintainer: Przemyslaw Biecek <przemyslaw.biecek@gmail.com>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking data for non-ASCII characters ... NOTE
+  Note: found 1122 marked UTF-8 strings
+```
+
+## SMFI5 (1.0)
+Maintainer: Bruno Remillard <bruno.remillard@hec.ca>
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking dependencies in R code ... NOTE
+'library' or 'require' calls to packages already attached by Depends:
+  ‘ggplot2’ ‘reshape’
+  Please remove these calls from your code.
+Packages in Depends field not imported from:
+  ‘corpcor’ ‘ggplot2’ ‘reshape’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+
+checking R code for possible problems ... NOTE
+bond.cir: no visible global function definition for ‘melt’
+bond.cir: no visible global function definition for ‘ggplot’
+bond.cir: no visible global function definition for ‘aes’
+bond.cir: no visible global function definition for ‘geom_line’
+bond.cir: no visible global function definition for ‘ggtitle’
+bond.vasicek: no visible global function definition for ‘melt’
+bond.vasicek: no visible global function definition for ‘ggplot’
+bond.vasicek: no visible global function definition for ‘aes’
+bond.vasicek: no visible global function definition for ‘geom_line’
+... 15 lines ...
+est.vasicek: no visible global function definition for ‘pseudoinverse’
+sim.cir: no visible global function definition for ‘melt’
+sim.cir: no visible global function definition for ‘ggplot’
+sim.cir: no visible global function definition for ‘aes’
+sim.cir: no visible global function definition for ‘geom_line’
+sim.cir: no visible global function definition for ‘ggtitle’
+sim.vasicek: no visible global function definition for ‘melt’
+sim.vasicek: no visible global function definition for ‘ggplot’
+sim.vasicek: no visible global function definition for ‘aes’
+sim.vasicek: no visible global function definition for ‘geom_line’
+sim.vasicek: no visible global function definition for ‘ggtitle’
+```
+
+## smoof (1.2)
+Maintainer: Jakob Bossek <j.bossek@gmail.com>  
+Bug reports: https://github.com/jakobbossek/smoof/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘rPython’
+```
+
+## snht (1.0.3)
+Maintainer: Josh Browning <jbrownin@mines.edu>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Loading required package: ggplot2
+Loading required package: gridExtra
+Loading required package: mgcv
+Loading required package: nlme
+This is mgcv 1.8-7. For overview type 'help("mgcv-package")'.
+Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+  Running 'texi2dvi' on 'pairwiseSNHT.tex' failed.
+LaTeX errors:
+! LaTeX Error: File `algorithm2e.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+! Emergency stop.
+<read *> 
+         
+l.62 \usepackage
+                {mathtools}^^M
+!  ==> Fatal error occurred, no output PDF file produced!
+Calls: buildVignettes -> texi2pdf -> texi2dvi
+Execution halted
+
+```
+
+## snpEnrichment (1.7.0)
+Maintainer: Mickael Canouil <mickael.canouil@cnrs.fr>  
+Bug reports: https://github.com/mcanouil/snpEnrichment/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘snpStats’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## soc.ca (0.7.3)
+Maintainer: Anton Grau Larsen <agl.dbp@cbs.dk>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking data for non-ASCII characters ... NOTE
+  Note: found 833 marked UTF-8 strings
+```
+
+## Sofi (0.0.26)
+Maintainer: Jose D. Loera <jose.loera@inegi.org.mx>  
+Bug reports: https://github.com/loerasg/Sofi/issues
+
+0 errors | 0 warnings | 0 notes
+
+## solarius (0.3.0.2)
+Maintainer: Andrey Ziyatdinov <andrey.ziyatdinov@upc.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## sorvi (0.7.26)
+Maintainer: Leo Lahti <louhos@googlegroups.com>  
+Bug reports: https://github.com/ropengov/sorvi/issues
+
+0 errors | 0 warnings | 0 notes
+
+## sotkanet (0.9.21)
+Maintainer: Leo Lahti <louhos@googlegroups.com>  
+Bug reports: https://github.com/ropengov/sotkanet/issues
+
+0 errors | 0 warnings | 0 notes
+
+## SpaDES (1.1.0)
+Maintainer: Alex M Chubaty <alexander.chubaty@canada.ca>  
+Bug reports: https://github.com/PredictiveEcology/SpaDES/issues
+
+0 errors | 1 warning  | 1 note 
+
+```
+checking whether package ‘SpaDES’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/SpaDES.Rcheck/00install.out’ for details.
+
+checking package dependencies ... NOTE
+Packages suggested but not available for checking: ‘fastshp’ ‘tkrplot’
+```
+
+## sparkTable (1.1.0)
+Maintainer: Alexander Kowarik <alexander.kowarik@statistik.gv.at>  
+Bug reports: https://github.com/alexkowa/sparkTable/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘Rglpk’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## SparseFactorAnalysis (1.0)
+Maintainer: Marc Ratkovic <ratkovic@princeton.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## sparsereg (1.1)
+Maintainer: Marc Ratkovic <ratkovic@princeton.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## spcosa (0.3-6)
+Maintainer: Dennis Walvoort <dennis.Walvoort@wur.nl>
+
+0 errors | 0 warnings | 0 notes
+
+## specmine (1.0)
+Maintainer: Christopher Costa <chrisbcl@hotmail.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘xcms’ ‘MAIT’ ‘genefilter’ ‘impute’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## spikeSlabGAM (1.1-9)
+Maintainer: Fabian Scheipl
+ <fabian.scheipl@stat.uni-muenchen.de>
+
+0 errors | 1 warning  | 1 note 
+
+```
+checking whether package ‘spikeSlabGAM’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘scales::alpha’ when loading ‘spikeSlabGAM’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘spikeSlabGAM’
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/spikeSlabGAM.Rcheck/00install.out’ for details.
+
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+  predictions outside fitted range for lin(glucose).
+Warning in (function (xnew)  :
+  predictions outside fitted range for sm(glucose).
+Warning in bsplines(mf[[i]], knots = args$knots[[i]]$knots, boundary.knots = args$knots[[i]]$boundary.knots,  :
+  Some 'x' values are beyond 'boundary.knots'; Linear extrapolation used.
+Warning in (function (xnew)  :
+  predictions outside fitted range for lin(glucose).
+... 8 lines ...
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+! Emergency stop.
+<read *> 
+         
+l.12 \usepackage
+                {algorithm}^^M
+!  ==> Fatal error occurred, no output PDF file produced!
+Calls: buildVignettes -> texi2pdf -> texi2dvi
+Execution halted
+```
+
+## spoccutils (0.1.0)
+Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
+Bug reports: https://github.com/ropensci/spoccutils/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘spocc’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## SPOT (1.0.5543)
+Maintainer: Martin Zaefferer <martin.zaefferer@gmx.de>
+
+0 errors | 0 warnings | 0 notes
+
+## sprm (1.2.1)
+Maintainer: Irene Hoffmann <irene.hoffmann@tuwien.ac.at>
+
+0 errors | 0 warnings | 0 notes
+
+## srvyr (0.1.0)
+Maintainer: Greg Freedman <greg.freedman@gmail.com>  
+Bug reports: https://github.com/gergness/srvyr/issues
+
+0 errors | 0 warnings | 0 notes
+
+## ss3sim (0.9.0)
+Maintainer: Sean Anderson <sean@seananderson.ca>
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘ss3sim’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: no DISPLAY variable so Tk is not available
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/ss3sim.Rcheck/00install.out’ for details.
+```
+
+## starma (1.2)
+Maintainer: Felix Cheysson <felix@cheysson.fr>
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘starma’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘scales::alpha’ when loading ‘starma’
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/starma.Rcheck/00install.out’ for details.
+```
+
+## statar (0.6.0)
+Maintainer: Matthieu Gomez <mattg@princeton.edu>  
+Bug reports: https://github.com/matthieugomez/statar/issues
+
+0 errors | 0 warnings | 0 notes
+
+## statebins (1.2.2)
+Maintainer: Bob Rudis <bob@rudis.net>  
+Bug reports: https://github.com/hrbrmstr/statebins/issues
+
+0 errors | 0 warnings | 0 notes
+
+## StatRank (0.0.6)
+Maintainer: Hossein Azari Soufiani <azari.hossein@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## structSSI (1.1.1)
+Maintainer: Kris Sankaran <kriss1@stanford.edu>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘multtest’
+
+Package suggested but not available for checking: ‘phyloseq’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## strvalidator (1.6.0)
+Maintainer: Oskar Hansson <oskar.hansson@fhi.no>  
+Bug reports: https://github.com/OskarHansson/strvalidator/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘gWidgetsRGtk2’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## SuperLearner (2.0-19)
+Maintainer: Eric Polley <polley.eric@mayo.edu>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Packages suggested but not available for checking: ‘genefilter’ ‘sva’
+```
+
+## survminer (0.1.1)
+Maintainer: Alboukadel Kassambara <alboukadel.kassambara@gmail.com>  
+Bug reports: https://github.com/kassambara/survminer/issues
+
+0 errors | 0 warnings | 0 notes
+
+## SurvRank (0.1)
+Maintainer: Michael Laimighofer <michael.laimighofer@helmholtz-muenchen.de>
+
+0 errors | 0 warnings | 0 notes
+
+## sValues (0.1.4)
+Maintainer: Carlos Cinelli <carloscinelli@hotmail.com>  
+Bug reports: https://github.com/carloscinelli/sValues
+
+0 errors | 0 warnings | 0 notes
+
+## svdvis (0.1)
+Maintainer: Neo Christopher Chung <nchchung@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## SWMPr (2.1.4)
+Maintainer: Marcus W. Beck <mbafs2012@gmail.com>  
+Bug reports: https://github.com/fawda123/SWMPr/issues
+
+0 errors | 0 warnings | 0 notes
+
+## synthpop (1.2-0)
+Maintainer: Beata Nowok <beata.nowok@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## tableone (0.7.3)
+Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## tabplot (1.1)
+Maintainer: Martijn Tennekes <mtennekes@gmail.com>
+
+0 errors | 0 warnings | 3 notes
+
+```
+checking dependencies in R code ... NOTE
+'library' or 'require' calls in package code:
+  ‘classInt’ ‘shiny’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+
+checking R code for possible problems ... NOTE
+binRanges: no visible binding for global variable ‘ri’
+bin_data: no visible global function definition for ‘vw<-’
+bin_data: no visible global function definition for ‘chunk’
+bin_data: no visible global function definition for ‘ff’
+bin_data: no visible global function definition for ‘physical’
+bin_data : <anonymous>: no visible global function definition for
+  ‘vmode’
+bin_data : <anonymous>: no visible global function definition for
+  ‘is.factor.ff’
+... 11 lines ...
+tablePrepare: no visible global function definition for ‘ff’
+tablePrepare: no visible global function definition for ‘chunk’
+tablePrepare: no visible global function definition for ‘fforder’
+tablePrepare: no visible binding for global variable ‘fforder’
+tablePrepare: no visible binding for global variable ‘ffdf’
+tableplot: no visible global function definition for ‘vmode’
+tableplot: no visible global function definition for ‘physical’
+tableplot : <anonymous>: no visible global function definition for
+  ‘is.factor.ff’
+tableplot : <anonymous>: no visible global function definition for
+  ‘vmode’
+
+checking files in ‘vignettes’ ... NOTE
+The following directory looks like a leftover from 'knitr':
+  ‘figure’
+Please remove from your package.
+```
+
+## taRifx (1.0.6)
+Maintainer: Ari B. Friedman <abfriedman@gmail.com>
+
+0 errors | 0 warnings | 4 notes
+
+```
+checking DESCRIPTION meta-information ... NOTE
+Malformed Title field: should not end in a period.
+
+checking dependencies in R code ... NOTE
+'library' or 'require' calls in package code:
+  ‘gdata’ ‘ggplot2’ ‘grid’ ‘lattice’ ‘xtable’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+
+checking S3 generic/method consistency ... NOTE
+Found the following apparent S3 methods exported but not registered:
+  as.matrix.by stack.list
+See section ‘Registering S3 methods’ in the ‘Writing R Extensions’
+manual.
+
+checking R code for possible problems ... NOTE
+autoplot.microbenchmark: no visible global function definition for
+  ‘ggplot’
+autoplot.microbenchmark: no visible global function definition for
+  ‘aes’
+autoplot.microbenchmark: no visible global function definition for
+  ‘coord_cartesian’
+autoplot.microbenchmark: no visible global function definition for
+  ‘stat_summary’
+autoplot.microbenchmark: no visible global function definition for
+... 48 lines ...
+xtable.CrossTable: no visible global function definition for
+  ‘display<-’
+xtable.summary.lme: no visible global function definition for
+  ‘caption<-’
+xtable.summary.lme: no visible global function definition for ‘label<-’
+xtable.summary.lme: no visible global function definition for ‘align<-’
+xtable.summary.lme: no visible global function definition for
+  ‘digits<-’
+xtable.summary.lme: no visible global function definition for
+  ‘display<-’
+xtablelm: no visible global function definition for ‘xtable’
+```
+
+## TcGSA (0.10.1)
+Maintainer: Boris P. Hejblum <bhejblum@hsph.harvard.edu>  
+Bug reports: https://github.com/borishejblum/TcGSA/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘multtest’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## tcR (2.2.1.7)
+Maintainer: Vadim Nazarov <vdm.nazarov@gmail.com>  
+Bug reports: https://github.com/imminfo/tcr/issues
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking installed package size ... NOTE
+  installed size is  6.4Mb
+  sub-directories of 1Mb or more:
+    data   1.2Mb
+    doc    3.9Mb
+
+checking dependencies in R code ... NOTE
+Namespace in Imports field not imported from: ‘scales’
+  All declared Imports should be used.
+```
+
+## tdr (0.11)
+Maintainer: Oscar Perpinan Lamigueiro <oscar.perpinan@gmail.com>  
+Bug reports: https://github.com/oscarperpinan/tdr/issues
+
+0 errors | 0 warnings | 0 notes
+
+## TeachingDemos (2.9)
+Maintainer: Greg Snow <greg.snow@imail.org>
+
+0 errors | 0 warnings | 4 notes
+
+```
+checking package dependencies ... NOTE
+Packages suggested but not available for checking:
+  ‘tkrplot’ ‘R2wd’ ‘EBImage’
+
+checking dependencies in R code ... NOTE
+'library' or 'require' calls in package code:
+  ‘R2wd’ ‘lattice’ ‘logspline’ ‘rgl’ ‘tcltk’ ‘tcltk2’ ‘tkrplot’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+
+checking R code for possible problems ... NOTE
+Found an obsolete/platform-specific call in the following function:
+  ‘triplot’
+Found the platform-specific device:
+  ‘win.graph’
+dev.new() is the preferred way to open a new device, in the unlikely
+event one is needed.
+HTKidentify: no visible global function definition for ‘tktoplevel’
+  (/tmp/RtmpWRIIAo/check_cran5356610b936e/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/HWidentify.R:71)
+HTKidentify: no visible global function definition for ‘tkrplot’
+... 2868 lines ...
+vis.t: no visible global function definition for ‘tkpack’
+  (/tmp/RtmpWRIIAo/check_cran5356610b936e/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:94)
+vis.t: no visible global function definition for ‘tkbutton’
+  (/tmp/RtmpWRIIAo/check_cran5356610b936e/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:94)
+vis.t: no visible global function definition for ‘tkpack’
+  (/tmp/RtmpWRIIAo/check_cran5356610b936e/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:96-97)
+vis.t: no visible global function definition for ‘tkbutton’
+  (/tmp/RtmpWRIIAo/check_cran5356610b936e/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:96-97)
+vis.t : <anonymous>: no visible global function definition for
+  ‘tkdestroy’
+  (/tmp/RtmpWRIIAo/check_cran5356610b936e/TeachingDemos.Rcheck/00_pkg_src/TeachingDemos/R/vis.t.R:96-97)
+
+checking Rd line widths ... NOTE
+Rd file 'HWidentify.Rd':
+  \usage lines wider than 90 characters:
+     pt.col="red", adj=c(0,0), xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), ...)
+
+Rd file 'TkApprox.Rd':
+  \usage lines wider than 90 characters:
+     TkApprox(x, y, type = "b", snap.to.x = FALSE, digits = 4, cols = c("red", "#009900", "blue"), xlab = deparse(substitute(x)), ylab = dep ... [TRUNCATED]
+
+Rd file 'TkBuildDist.Rd':
+... 43 lines ...
+     sliderv(refresh.code, names, minima, maxima, resolutions, starts, title = "control", no = 0, set.no.value = 0)
+
+Rd file 'triplot.Rd':
+  \usage lines wider than 90 characters:
+     dimnames(x)[[1]], legend = NULL, legend.split = NULL, inner = TRUE, inner.col = c("lightblue", "pink"), inner.lty = c(2, 3), add = FALS ... [TRUNCATED]
+
+Rd file 'z.test.Rd':
+  \usage lines wider than 90 characters:
+     z.test(x, mu = 0, stdev, alternative = c("two.sided", "less", "greater"), sd = stdev, conf.level = 0.95, ...)
+
+These lines will be truncated in the PDF manual.
+```
+
+## tidyjson (0.2.1)
+Maintainer: Jeremy Stanley <jeremy.stanley@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## tigerstats (0.2.7)
+Maintainer: Homer White <hwhite0@georgetowncollege.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## tigris (0.2)
+Maintainer: Kyle Walker <kyle.walker@tcu.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## tikzDevice (0.10-1)
+Maintainer: Kirill Müller <krlmlr+r@mailbox.org>  
+Bug reports: https://github.com/yihui/tikzDevice/issues
+
+0 errors | 0 warnings | 0 notes
+
+## timeit (0.2.1)
+Maintainer: Kevin Ushey <kevinushey@gmail.com>
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking dependencies in R code ... NOTE
+'library' or 'require' call to ‘ggplot2’ in package code.
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+Package in Depends field not imported from: ‘microbenchmark’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+
+checking R code for possible problems ... NOTE
+determine_replications: no visible global function definition for
+  ‘microbenchmark’
+plot.timeit: no visible global function definition for ‘ggplot’
+plot.timeit: no visible global function definition for ‘aes’
+plot.timeit: no visible global function definition for ‘geom_boxplot’
+plot.timeit: no visible global function definition for ‘geom_point’
+plot.timeit: no visible global function definition for ‘xlab’
+plot.timeit: no visible global function definition for ‘ylab’
+plot.timeit: no visible global function definition for ‘ggtitle’
+plot.timeit: no visible global function definition for ‘coord_flip’
+```
+
+## timeline (0.9)
+Maintainer: Jason Bryer <jason@bryer.org>  
+Bug reports: https://github.com/jbryer/timeline/issues
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking dependencies in R code ... NOTE
+'library' or 'require' call to ‘shiny’ in package code.
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+Package in Depends field not imported from: ‘ggplot2’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+
+checking R code for possible problems ... NOTE
+timeline: no visible global function definition for ‘ggplot’
+timeline: no visible global function definition for ‘geom_segment’
+timeline: no visible global function definition for ‘aes_string’
+timeline: no visible global function definition for ‘geom_rect’
+timeline: no visible global function definition for ‘geom_text’
+timeline: no visible global function definition for ‘theme’
+timeline: no visible global function definition for ‘element_blank’
+timeline: no visible global function definition for ‘xlab’
+timeline: no visible global function definition for ‘ylab’
+timeline: no visible global function definition for ‘xlim’
+timeline: no visible global function definition for
+  ‘scale_y_continuous’
+timeline: no visible global function definition for ‘geom_point’
+timeline: no visible global function definition for ‘scale_color_grey’
+timeline: no visible global function definition for ‘geom_hline’
+```
+
+## TimeProjection (0.2.0)
+Maintainer: Jeffrey Wong <jeff.ct.wong@gmail.com>
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking dependencies in R code ... NOTE
+'library' or 'require' calls in package code:
+  ‘ggplot2’ ‘plyr’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+Packages in Depends field not imported from:
+  ‘Matrix’ ‘lubridate’ ‘timeDate’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+
+checking R code for possible problems ... NOTE
+is.Bizday: no visible global function definition for ‘isWeekday’
+plotCalendarHeatmap: no visible global function definition for ‘ddply’
+plotCalendarHeatmap: no visible global function definition for ‘.’
+plotCalendarHeatmap: no visible binding for global variable ‘year’
+plotCalendarHeatmap: no visible binding for global variable ‘month’
+plotCalendarHeatmap: no visible binding for global variable ‘week’
+plotCalendarHeatmap: no visible global function definition for ‘ggplot’
+plotCalendarHeatmap: no visible global function definition for ‘aes’
+plotCalendarHeatmap: no visible binding for global variable ‘monthweek’
+plotCalendarHeatmap: no visible binding for global variable ‘weekday’
+plotCalendarHeatmap: no visible global function definition for
+  ‘geom_tile’
+plotCalendarHeatmap: no visible global function definition for
+  ‘facet_grid’
+plotCalendarHeatmap: no visible global function definition for
+  ‘scale_fill_gradientn’
+projectDate: no visible global function definition for ‘holidayNYSE’
+projectDate: no visible global function definition for
+  ‘sparse.model.matrix’
+```
+
+## toaster (0.4.2)
+Maintainer: Gregory Kanevsky <gregory.kanevsky@teradata.com>  
+Bug reports: https://github.com/teradata-aster-field/toaster/issues
+
+0 errors | 0 warnings | 0 notes
+
+## tourrGui (0.4)
+Maintainer: Dianne Cook <dicook@iastate.edu>
+
+0 errors | 0 warnings | 4 notes
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘rggobi’
+
+checking DESCRIPTION meta-information ... NOTE
+License components which are templates and need '+ file LICENSE':
+  MIT
+
+checking dependencies in R code ... NOTE
+'library' or 'require' calls to packages already attached by Depends:
+  ‘Cairo’ ‘RGtk2’ ‘colorspace’ ‘gWidgets’ ‘tourr’
+  Please remove these calls from your code.
+'library' or 'require' calls in package code:
+  ‘TeachingDemos’ ‘ash’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+Packages in Depends field not imported from:
+  ‘Cairo’ ‘RGtk2’ ‘colorspace’ ‘gWidgets’ ‘tourr’
+  These packages need to be imported from (in the NAMESPACE file)
+  for when this namespace is loaded but not attached.
+
+checking R code for possible problems ... NOTE
+.create_1d_tour: no visible global function definition for ‘gmessage’
+.create_1d_tour: no visible global function definition for
+  ‘display_dist’
+.create_1d_tour: no visible global function definition for ‘grand_tour’
+.create_1d_tour: no visible global function definition for
+  ‘little_tour’
+.create_1d_tour: no visible global function definition for
+  ‘guided_tour’
+.create_1d_tour: no visible binding for global variable ‘holes’
+... 654 lines ...
+gui_xy : pause: no visible global function definition for
+  ‘gtkIdleRemove’
+gui_xy : pause: no visible global function definition for ‘gIdleAdd’
+gui_xy: no visible global function definition for ‘ggroup’
+gui_xy: no visible global function definition for ‘gbutton’
+gui_xy : <anonymous>: no visible global function definition for
+  ‘dispose’
+gui_xy : <anonymous>: no visible global function definition for
+  ‘gmessage’
+gui_xy: no visible global function definition for ‘CairoX11’
+gui_xy: no visible global function definition for ‘visible<-’
+```
+
+## tourr (0.5.4)
+Maintainer: Hadley Wickham <h.wickham@gmail.com>  
+Bug reports: https://github.com/ggobi/tourr/
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking dependencies in R code ... NOTE
+'library' or 'require' calls in package code:
+  ‘TeachingDemos’ ‘ash’
+  Please use :: or requireNamespace() instead.
+  See section 'Suggested packages' in the 'Writing R Extensions' manual.
+```
+
+## trapezoid (2.0-0)
+Maintainer: Jeremy Thoms Hetzel <jthetzel@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## TreatmentSelection (1.2.0)
+Maintainer: Marshall Brown <mdbrown@fhcrc.org>
+
+0 errors | 0 warnings | 0 notes
+
+## treeclim (1.0.13)
+Maintainer: Christian Zang <christian.zang@wzw.tum.de>
+
+0 errors | 0 warnings | 2 notes
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘dplR’
+
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘dplR’
+```
+
+## treecm (1.2.2)
+Maintainer: Marco Bascietto <marco.bascietto@entecra.it>
+
+0 errors | 0 warnings | 0 notes
+
+## treemap (2.4)
+Maintainer: Martijn Tennekes <mtennekes@gmail.com>
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘treemap’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘treemap’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘treemap’
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/treemap.Rcheck/00install.out’ for details.
+```
+
+## treescape (1.8.15)
+Maintainer: Michelle Kendall <m.kendall@imperial.ac.uk>
+
+0 errors | 0 warnings | 0 notes
+
+## TriMatch (0.9.6)
+Maintainer: Jason Bryer <jason@bryer.org>  
+Bug reports: https://github.com/jbryer/TriMatch/issues
+
+0 errors | 0 warnings | 0 notes
+
+## TripleR (1.4.1)
+Maintainer: Felix Schönbrodt <felix.schoenbrodt@psy.lmu.de>
+
+0 errors | 0 warnings | 0 notes
+
+## TSMining (1.0)
+Maintainer: Cheng Fan <raja8885@hotmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## tspmeta (1.2)
+Maintainer: Bernd Bischl <bernd_bischl@gmx.net>  
+Bug reports: https://github.com/berndbischl/tspmeta/issues
+
+0 errors | 0 warnings | 0 notes
+
+## tufterhandout (1.2.1)
+Maintainer: Michael C Sachs <sachsmc@gmail.com>  
+Bug reports: http://github.com/sachsmc/tufterhandout/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+```
+
+## tvm (0.3.0)
+Maintainer: Juan Manuel Truppia <jmtruppia@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## tweet2r (0.4.1)
+Maintainer: Pau Aragó <parago@uji.es>
+
+0 errors | 0 warnings | 0 notes
+
+## ukgasapi (0.13)
+Maintainer: Timothy Wong <timothy.wong@hotmail.co.uk>  
+Bug reports: https://github.com/timothy-wong/ukgasapi/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking Rd line widths ... NOTE
+Rd file 'dataItemExplorer.Rd':
+  \usage lines wider than 90 characters:
+       apiurl = "http://marketinformation.natgrid.co.uk/MIPIws-public/public/publicwebservice.asmx")
+
+These lines will be truncated in the PDF manual.
+```
+
+## UpSetR (1.0.3)
+Maintainer: Jake Conway <jake_conway@student.uml.edu>  
+Bug reports: http://github.com/hms-dbmi/UpSetR/issues
+
+0 errors | 0 warnings | 0 notes
+
+## useful (1.2.0)
+Maintainer: Jared P. Lander <packages@jaredlander.com>
+
+0 errors | 0 warnings | 0 notes
+
+## userfriendlyscience (0.4-0)
+Maintainer: Gjalt-Jorn Peters <gjalt-jorn@userfriendlyscience.com>
+
+0 errors | 0 warnings | 0 notes
+
+## UsingR (2.0-5)
+Maintainer: John Verzani <verzani@math.csi.cuny.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## varbvs (1.0)
+Maintainer: Peter Carbonetto <pcarbo@uchicago.edu>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking foreign function calls ... NOTE
+Calls with DUP:
+   .C("varbvsbinupdateR", n = as.integer(n), m = as.integer(m), 
+       X = X, sa = as.double(sa), logodds = as.double(logodds), 
+       u = as.double(stats$u), xy = as.double(stats$xy), xu = as.double(stats$xu), 
+       d = as.double(stats$d), alpha = as.double(alpha0), mu = as.double(mu0), 
+       Xr = as.double(Xr0), S = as.integer(S - 1), DUP = FALSE)
+   .C("varbvsupdateR", n = as.integer(n), m = as.integer(m), X = X, 
+       sigma = as.double(sigma), sa = as.double(sa), logodds = as.double(logodds), 
+       xy = as.double(xy), d = as.double(d), alpha = as.double(alpha0), 
+       mu = as.double(mu0), Xr = as.double(Xr0), S = as.integer(S - 
+           1), DUP = FALSE)
+DUP is no longer supported and will be ignored.
+```
+
+## varian (0.2.1)
+Maintainer: Joshua F. Wiley <josh@elkhartgroup.com>  
+Bug reports: https://github.com/ElkhartGroup/varian/issues
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘varian’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘grid::arrow’ when loading ‘varian’
+  Warning: replacing previous import by ‘grid::unit’ when loading ‘varian’
+See ‘/tmp/RtmpWRIIAo/check_cran5356610b936e/varian.Rcheck/00install.out’ for details.
+```
+
+## vcdExtra (0.6-12)
+Maintainer: Michael Friendly <friendly@yorku.ca>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘alr3’
+```
+
+## vdg (1.1.3)
+Maintainer: Pieter Schoonees <schoonees@gmail.com>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking re-building of vignette outputs ... NOTE
+Error in re-building vignettes:
+  ...
+Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+  Running 'texi2dvi' on 'vdg.tex' failed.
+LaTeX errors:
+! LaTeX Error: File `algorithm.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+! Emergency stop.
+<read *> 
+         
+l.75 \usepackage
+                {algorithmic}^^M
+!  ==> Fatal error occurred, no output PDF file produced!
+Calls: buildVignettes -> texi2pdf -> texi2dvi
+Execution halted
+
+```
+
+## vdmR (0.2.1)
+Maintainer: Tomokazu Fujino <fujino@fwu.ac.jp>
+
+0 errors | 0 warnings | 0 notes
+
+## vipor (0.3.2)
+Maintainer: Scott Sherrill-Mix <shescott@upenn.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## viridisLite (0.1.1)
+Maintainer: Simon Garnier <garnier@njit.edu>  
+Bug reports: https://github.com/sjmgarnier/viridisLite/issues
+
+0 errors | 0 warnings | 0 notes
+
+## viridis (0.3.2)
+Maintainer: Simon Garnier <garnier@njit.edu>  
+Bug reports: https://github.com/sjmgarnier/viridis/issues
+
+0 errors | 0 warnings | 0 notes
+
+## vmsbase (2.1)
+Maintainer: Lorenzo D'Andrea <support@vmsbase.org>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘cairoDevice’ ‘gWidgetsRGtk2’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## vrcp (0.1.1)
+Maintainer: Yulei Wang <yxw390@case.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## waffle (0.5.0)
+Maintainer: Bob Rudis <bob@rudis.net>  
+Bug reports: https://github.com/hrbrmstr/waffle/issues
+
+0 errors | 0 warnings | 0 notes
+
+## wakefield (0.2.1)
+Maintainer: Tyler Rinker <tyler.rinker@gmail.com>  
+Bug reports: https://github.com/trinker/wakefield/issues
+
+0 errors | 0 warnings | 0 notes
+
+## walkr (0.3.3)
+Maintainer: Andy Yao <andy.yao17@gmail.com>  
+Bug reports: https://github.com/andyyao95/walkr/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required but not available: ‘hitandrun’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## warbleR (1.1.0)
+Maintainer: Marcelo Araya-Salas <marceloa27@gmail.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘seewave’ ‘fftw’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## Wats (0.10.3)
+Maintainer: Will Beasley <wibeasley@hotmail.com>  
+Bug reports: https://github.com/OuhscBbmc/Wats/issues
+
+0 errors | 0 warnings | 0 notes
+
+## wesanderson (0.3.2)
+Maintainer: Karthik Ram <karthik.ram@gmail.com>  
+Bug reports: https://github.com/karthik/wesanderson/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking DESCRIPTION meta-information ... NOTE
+Malformed Description field: should contain one or more complete sentences.
+```
+
+## WHO (0.1)
+Maintainer: Eric Persson <expersso5@gmail.com>  
+Bug reports: https://www.github.com/expersso/WHO/issues
+
+0 errors | 0 warnings | 0 notes
+
+## wikipediatrend (1.1.7)
+Maintainer: Peter Meissner <retep.meissner@gmail.com>  
+Bug reports: https://github.com/petermeissner/wikipediatrend/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Packages suggested but not available for checking:
+  ‘AnomalyDetection’ ‘BreakoutDetection’
+```
+
+## wordbankr (0.1)
+Maintainer: Mika Braginsky <mika.br@gmail.com>  
+Bug reports: http://github.com/langcog/wordbankr/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking dependencies in R code ... NOTE
+Namespace in Imports field not imported from: ‘RMySQL’
+  All declared Imports should be used.
+```
+
+## wppExplorer (1.7-1)
+Maintainer: Hana Sevcikova <hanas@uw.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## wq (0.4.5)
+Maintainer: Alan Jassby <wq@fastmail.net>
+
+0 errors | 0 warnings | 0 notes
+
+## x.ent (1.1.2)
+Maintainer: Tien T. Phan <phantien84@gmail.com>  
+Bug reports: https://github.com/tienpt/x.ent/issues
+
+0 errors | 0 warnings | 0 notes
+
+## xgboost (0.4-2)
+Maintainer: Tong He <hetong007@gmail.com>  
+Bug reports: https://github.com/dmlc/xgboost/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is  5.1Mb
+  sub-directories of 1Mb or more:
+    libs   4.5Mb
+```
+
+## xkcd (0.0.5)
+Maintainer: Emilio Torres-Manzanera <torres@uniovi.es>
+
+0 errors | 0 warnings | 0 notes
+
+## XLConnect (0.2-11)
+Maintainer: Martin Studer <martin.studer@mirai-solutions.com>  
+Bug reports: https://github.com/miraisolutions/xlconnect/issues
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is  6.5Mb
+  sub-directories of 1Mb or more:
+    java        4.1Mb
+    unitTests   1.0Mb
+```
+
+## zooaRch (1.2)
+Maintainer: Erik Otarola-Castillo <eotarolacastillo@fas.harvard.edu>
+
+0 errors | 0 warnings | 0 notes
+
+## zoo (1.7-12)
+Maintainer: Achim Zeileis <Achim.Zeileis@R-project.org>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘stinepack’
 ```
 
