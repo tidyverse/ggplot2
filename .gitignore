@@ -2,3 +2,4 @@
 .Rhistory
 .RData
 inst/doc
+.httr-oauth
