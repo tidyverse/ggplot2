@@ -73,6 +73,9 @@
 
 * The default scale for columns of class "AsIs" is now "identity" (#1518).
 
+* `scale_*_discrete()` has better defaults when used with purely continuous
+  data (#1542).
+
 * `scale_size()` warns when used with categorical data.
 
 * `scale_size()`, `scale_colour()`, and `scale_fill()` gain date and date-time
