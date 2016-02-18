@@ -55,6 +55,9 @@
 
 * `geom_path()` knows that "solid" (not just 1) represents a solid line (#1534).
 
+* `geom_ribbon()` preserves missing values so they correctly generate a 
+  gap in the ribbon (#1549).
+
 * `geom_histgram(bins = n)` now gives a histogram with `n` bins, not `n + 1`
   (#1487).
 

@@ -65,6 +65,10 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
   draw_key = draw_key_polygon,
 
+  handle_na = function(data, params) {
+    data
+  },
+
   draw_group = function(data, panel_scales, coord, na.rm = FALSE) {
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group, data$x), ]
