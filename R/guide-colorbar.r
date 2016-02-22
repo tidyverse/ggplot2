@@ -25,7 +25,7 @@
 #'   rectangles. Note that not all graphics devices are capable of rendering
 #'   raster image.
 #' @param ticks A \code{\link{element_line}} object specifying the appearance
-#'   of the tick marks.' For backwards compatibility, a logical can also be 
+#'   of the tick marks. For backwards compatibility, a logical can also be 
 #    supplied.
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
@@ -119,7 +119,7 @@ guide_colourbar <- function(
   raster = TRUE,
 
   # ticks
-  ticks = element_line(color='white', size=1, linetype='solid', lineend='butt'),
+  ticks = element_line(color = 'white', size = 1, linetype = 'solid', lineend = 'butt'),
   draw.ulim= TRUE,
   draw.llim = TRUE,
 
@@ -128,7 +128,7 @@ guide_colourbar <- function(
   default.unit = "line",
   reverse = FALSE,
   order = 0,
-  border = element_line(color='white', size=1, linetype='solid', lineend='butt'),
+  border = element_line(color = 'white', size=1, linetype = 'solid', lineend = 'butt'),
 
   ...) {
 
