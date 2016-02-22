@@ -81,7 +81,7 @@ rectangles. Note that not all graphics devices are capable of rendering
 raster image.}
 
 \item{ticks}{A \code{\link{element_line}} object specifying the appearance
-of the tick marks.' For backwards compatibility, a logical can also be}
+of the tick marks. For backwards compatibility, a logical can also be}
 
 \item{draw.ulim}{A logical specifying if the upper limit tick marks should
 be visible.}
@@ -177,7 +177,6 @@ p2 + guides(fill = "colorbar", size = "legend")
 p2 +
   scale_fill_continuous(guide = guide_colorbar(direction = "horizontal")) +
   scale_size(guide = guide_legend(direction = "vertical"))
-
 }
 \seealso{
 Other guides: \code{\link{guide_legend}},
