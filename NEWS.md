@@ -119,6 +119,8 @@
 * Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
   (#1444)
 
+* All elements should now inherit correctly for all themes except theme_void(). (@Katiedaisey, #1555) 
+
 # ggplot2 2.0.0
 
 ## Major changes
