@@ -76,7 +76,9 @@ theme_grey <- function(base_size = 11, base_family = "") {
                             margin = margin(), debug = FALSE
                          ),
 
-    axis.line =          element_blank(),
+    axis.line =          element_line(),
+    axis.line.x =        element_blank(),
+    axis.line.y =        element_blank(),
     axis.text =          element_text(size = rel(0.8), colour = "grey30"),
     axis.text.x =        element_text(margin = margin(t = 0.8 * half_line / 2), vjust = 1),
     axis.text.y =        element_text(margin = margin(r = 0.8 * half_line / 2), hjust = 1),
@@ -218,8 +220,10 @@ theme_minimal <- function(base_size = 12, base_family = "") {
       panel.border      = element_blank(),
       strip.background  = element_blank(),
       plot.background   = element_blank(),
-      axis.ticks        = element_blank(),
-      axis.ticks.length = unit(0, "lines")
+      axis.ticks        = element_line(),
+      axis.ticks.x      = element_blank(),
+      axis.ticks.y      = element_blank(),
+      axis.ticks.length = unit(1, "lines")
     )
 }
 
@@ -230,8 +234,12 @@ theme_classic <- function(base_size = 12, base_family = ""){
     theme(
       panel.border     = element_blank(),
       axis.line        = element_line(colour = "black"),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(),
+      panel.grid.major   = element_line(),
+      panel.grid.major.x = element_blank(),
+      panel.grid.major.y = element_blank(),
+      panel.grid.minor   = element_line(),
+      panel.grid.minor.x = element_blank(),
+      panel.grid.minor.y = element_blank(),
       strip.background = element_rect(colour = "black", size = 0.5),
       legend.key       = element_blank()
     )
