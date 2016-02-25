@@ -4,12 +4,12 @@
 
 * When mapping an aesthetic to a constant (e.g. 
   `geom_smooth(aes(colour = "loess")))`), the default guide title is the name 
-  of the aesthetic, not the value (#1431).
+  of the aesthetic (i.e. "colour"), not the value (i.e. "loess") (#1431).
 
 * `layer()` now accepts a function as the data argument. The function will be
   applied to the data passed to the `ggplot()` function and must return a
-  data.frame (#1527). This is a more general implementation of the deprecated
-  `subset`.
+  data.frame (#1527, @thomasp85). This is a more general version of the 
+  deprecated `subset` argument.
 
 * `theme_update()` now uses the `+` operator instead of `%+replace%`, so that
   unspecified values will no longer be `NULL`ed out. `theme_replace()`
@@ -24,29 +24,33 @@
       `origin` has been deprecated in favour of these arguments.
       
     * `drop` is deprecated in favour of `pad`, which adds extra 0-count bins
-      at either end. This is needed for frequency polygons. `geom_histogram()`
-      defaults to `pad = FALSE` which considerably improves the default limits 
-      for the histogram, especially when the bins are big (#1477).
+      at either end (needed for frequency polygons). `geom_histogram()` defaults 
+      to `pad = FALSE` which considerably improves the default limits for 
+      the histogram, especially when the bins are big (#1477).
       
-    * The default algorithm does a better job at picking nice widths and 
-      origins across a wider range of input data.
+    * The default algorithm does a (somewhat) better job at picking nice widths 
+      and origins across a wider range of input data.
+      
+    * `bins = n` now gives a histogram with `n` bins, not `n + 1` (#1487).
 
 ## Bug fixes
 
 * All `\donttest{}` examples run.
 
-* All `geom_()` and `stat_()` function now have consistent argument order:
-  data + mapping, geom/stat/position, ..., specific arguments, common arguments
-  to all layers (#1305). This may break code if you were previously relying on
-  partial name matching, but in the long-term should make ggplot2 easier to 
-  use. In `geom_density2d()`, this allows you to set the `n` parameter (#1485).
+* All `geom_()` and `stat_()` functions now have consistent argument order:
+  data + mapping, then geom/stat/position, then `...`, then specific arguments, 
+  then arguments common to all layers (#1305). This may break code if you were
+  previously relying on partial name matching, but in the long-term should make 
+  ggplot2 easier to use. In particular, you can now set the `n` parameter
+  in `geom_density2d()` without it partially matching `na.rm` (#1485).
 
 * For geoms with both `colour` and `fill`, `alpha` once again only affects
   fill (Reverts #1371, #1523). This was causing problems for people.
 
-* `facet_wrap()`/`facet_grid()` works with multiple empty panels of data (#1445).
+* `facet_wrap()`/`facet_grid()` works with multiple empty panels of data 
+  (#1445).
 
-* `facet_wrap()` correctly swaps `nrow` and `ncol` for facetting vertically
+* `facet_wrap()` correctly swaps `nrow` and `ncol` when facetting vertically
   (#1417).
 
 * `ggsave("x.svg")` now uses svglite to produce the svg (#1432).
@@ -58,18 +62,15 @@
 * `geom_ribbon()` preserves missing values so they correctly generate a 
   gap in the ribbon (#1549).
 
-* `geom_histgram(bins = n)` now gives a histogram with `n` bins, not `n + 1`
-  (#1487).
-
 * `geom_tile()` once again accepts `width` and `height` parameters (#1513). 
-  It uses `draw_key_polygon()` for better legend keys, including 
-  coloured outline (#1484).
+  It uses `draw_key_polygon()` for better a legend, including a coloured 
+  outline (#1484).
 
 * `layer()` now automatically adds a `na.rm` parameter if none is explicitly
   supplied.
 
 * `position_jitterdodge()` now works on all possible dodge aesthetics, 
- e.g. `color`, `linetype` etc. instead of only based on `fill` (@bleutner)
+  e.g. `color`, `linetype` etc. instead of only based on `fill` (@bleutner)
 
 * `position = "nudge"` now works (although it doesn't do anything useful)
   (#1428).
@@ -86,27 +87,30 @@
 
 * `stat_bin_hex()` and `stat_bin_summary()` now use the same underlying 
   algorithm so results are consistent (#1383). `stat_bin_hex()` now accepts
-  a `weight` aesthetic. To be consistent, the output variable from
-  `stat_bin_hex()` is now value instead of count.
+  a `weight` aesthetic. To be consistent with related stats, the output variable 
+  from `stat_bin_hex()` is now value instead of count.
 
-* `stat_density()` gains `bw` parameter which makes it easy to get consistent 
-   smoothing between facets for example (@jiho)
+* `stat_density()` gains a `bw` parameter which makes it easy to get consistent 
+   smoothing between facets (@jiho)
 
 * `stat-density-2d()` no longer ignores the `h` parameter, and now accepts 
-  `bins` and `binwidth` parameters to control the number of contour levels 
+  `bins` and `binwidth` parameters to control the number of contours 
   (#1448, @has2k1).
 
 * `stat_ecdf()` does a better job of adding padding to -Inf/Inf, and gains
   an argument `pad` to suppress the padding if not needed (#1467).
 
 * `stat_function()` gains an `xlim` parameter (#1528). It once again works 
-  with discrete x axes (#1509).
+  with discrete x values (#1509).
 
 * `stat_summary()` preserves sorted x order which avoids artefacts when
   display results with `geom_smooth()` (#1520).
 
+* All elements should now inherit correctly for all themes except `theme_void()`.
+  (@Katiedaisey, #1555) 
+
 * `theme_void()` was completely void of text but facets and legends still
-  needed labels. They are now visible (@jiho).
+  need labels. They are now visible (@jiho). 
 
 * You can once again set legend key and height width to unit arithmetic
   objects (like `2 * unit(1, "cm")`) (#1437).
@@ -118,8 +122,6 @@
 
 * Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
   (#1444)
-
-* All elements should now inherit correctly for all themes except theme_void(). (@Katiedaisey, #1555) 
 
 # ggplot2 2.0.0
 
