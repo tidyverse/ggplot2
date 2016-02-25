@@ -34,7 +34,7 @@ Suggests:
     mgcv,
     multcomp,
     nlme,
-    testthat,
+    testthat (>= 0.11.0),
     quantreg,
     knitr,
     svglite
