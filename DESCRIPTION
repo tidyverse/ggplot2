@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 2.0.0.9001
+Version: 2.1.0
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Winston", "Chang", , "winston@rstudio.com", "aut"),
@@ -39,9 +39,6 @@ Suggests:
     quantreg,
     knitr,
     svglite
-Remotes:
-    hadley/gtable,
-    hadley/scales
 Enhances: sp
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2

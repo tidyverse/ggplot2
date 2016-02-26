@@ -19,7 +19,9 @@ There were no ERRORs or WARNINGs. I see one NOTE:
 ## Reverse dependencies
 
 * I ran `R CMD check` on 674 all reverse dependencies
-  (summary at https://github.com/hadley/ggplot2/blob/master/revdep/)
+  (summary at https://github.com/hadley/ggplot2/blob/master/revdep/).
+  I checked with the dev versions of ggplot2, scales, and gtable, in an
+  effort to maximise problems found.
   
 * Maintainers with NOTEs, WARNINGs, or ERRORS were notified on Feb 10, 
   and again on Feb 25. I have switched to a new automated system for 
