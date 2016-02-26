@@ -51,6 +51,7 @@
 #' p + geom_point() + geom_text(vjust = 0, nudge_y = 0.5)
 #' p + geom_point() + geom_text(angle = 45)
 #' \dontrun{
+#' # Doesn't work on all systems
 #' p + geom_text(family = "Times New Roman")
 #' }
 #'

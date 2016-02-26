@@ -29,6 +29,7 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
+    lattice,
     mapproj,
     maps,
     maptools,
@@ -38,6 +39,7 @@ Suggests:
     testthat (>= 0.11.0),
     quantreg,
     knitr,
+    rpart,
     rmarkdown,
     svglite
 Enhances: sp

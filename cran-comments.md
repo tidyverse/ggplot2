@@ -1,3 +1,7 @@
+This is a resubmission, post-review of \dontrun{} usage. Now \dontrun{} is only used in two places: an example that fails on some platforms, and an ggsave() examples which save files on disk.
+
+---------------------------------
+
 ## Test environments
 * OS X, R 3.2.3
 * Ubuntu 14.04, R 3.2.3

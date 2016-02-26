@@ -425,7 +425,7 @@ facet_vars.wrap <- function(facet) {
 #' # Valid input just gets returns unchanged
 #' sanitise_dim(1)
 #' sanitise_dim(NULL)
-#' \dontrun{
+#'
 #' # Only the first element of vectors get returned
 #' sanitise_dim(10:1)
 #' # Non-integer values are coerced to integer
@@ -435,7 +435,6 @@ facet_vars.wrap <- function(facet) {
 #' sanitise_dim(NA_integer_)
 #' sanitise_dim(0)
 #' sanitise_dim("foo")
-#' }
 #' @noRd
 sanitise_dim <- function(n) {
   xname <- paste0("`", deparse(substitute(n)), "`")

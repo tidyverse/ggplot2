@@ -143,13 +143,12 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_smooth(span = 0.8) +
   facet_wrap(~drv)
 
-\dontrun{
-# To fit a logistic regression, you need to coerce the values to
-# a numeric vector lying between 0 and 1.
+\donttest{
 binomial_smooth <- function(...) {
   geom_smooth(method = "glm", method.args = list(family = "binomial"), ...)
 }
-
+# To fit a logistic regression, you need to coerce the values to
+# a numeric vector lying between 0 and 1.
 ggplot(rpart::kyphosis, aes(Age, Kyphosis)) +
   geom_jitter(height = 0.05) +
   binomial_smooth()

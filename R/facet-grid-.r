@@ -107,7 +107,7 @@
 #'   theme(strip.background = element_blank())
 #'
 #' # Margins ----------------------------------------------------------
-#' \dontrun{
+#' \donttest{
 #' # Margins can be specified by logically (all yes or all no) or by specific
 #' # variables as (character) variable names
 #' mg <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
