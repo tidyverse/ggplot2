@@ -38,6 +38,7 @@ Suggests:
     testthat (>= 0.11.0),
     quantreg,
     knitr,
+    rmarkdown,
     svglite
 Enhances: sp
 License: GPL-2
