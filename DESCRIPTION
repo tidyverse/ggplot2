@@ -25,6 +25,7 @@ Imports:
     scales (>= 0.3.0),
     stats
 Suggests:
+    covr,
     ggplot2movies,
     hexbin,
     Hmisc,
