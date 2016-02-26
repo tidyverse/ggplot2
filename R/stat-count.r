@@ -18,6 +18,7 @@ stat_count <- function(mapping = NULL, data = NULL,
                        geom = "bar", position = "stack",
                        ...,
                        width = NULL,
+                       pad = FALSE,
                        na.rm = FALSE,
                        show.legend = NA,
                        inherit.aes = TRUE) {
@@ -30,6 +31,7 @@ stat_count <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      pad = pad,
       na.rm = na.rm,
       width = width,
       ...
@@ -50,10 +52,14 @@ StatCount <- ggproto("StatCount", Stat,
     if (!is.null(data$y) || !is.null(params$y)) {
       stop("stat_count() must not be used with a y aesthetic.", call. = FALSE)
     }
+    if (!is.null(params$drop)) {
+      warning("`drop` is deprecated. Please use `pad` instead.", call. = FALSE)
+      params$drop <- NULL
+    }
     params
   },
 
-  compute_group = function(self, data, scales, width = NULL) {
+  compute_group = function(self, data, scales, width = NULL, pad = FALSE) {
     x <- data$x
     weight <- data$weight %||% rep(1, length(x))
     width <- width %||% (resolution(x) * 0.9)
