@@ -1,3 +1,7 @@
+This is a resubmission after fixing a bug that affect mlr and SciencePo.
+
+---------------------------------
+
 This is a resubmission, post-review of \dontrun{} usage. Now \dontrun{} is only used in two places: an example that fails on some platforms, and an ggsave() examples which save files on disk.
 
 ---------------------------------
@@ -58,12 +62,6 @@ There were a number of failures that don't appear to be related to changes in gg
 * bcrm: checking examples ... ERROR
   Another JAGS problem
 
-* biogram: checking examples ... ERROR
-  ggplot2 2.0.0 problem - using invalid parameter.
-
-* doBy: checking running R code from vignettes ... ERROR
-  Needs very latest version of nlme
-
 * dotwhisker: checking examples ... ERROR
   Needs to attach grid (ggplot2 2.0.0 problem)
 
@@ -76,17 +74,8 @@ There were a number of failures that don't appear to be related to changes in gg
 * fuzzyforest: checking examples ... ERROR
   Needs GO.db
 
-* geoknife: checking examples ... ERROR
-  Random curl failure
-
-* ggdendro: checking Rd cross-references ... WARNING
-  ggplot2 2.0.0 problem: links to help topic that no longer exists
-
 * ggthemes: checking tests ... ERROR
   Automated code style checking failure
-
-* HistData: checking examples ... ERROR
-  Namespace problem
 
 * iNEXT: checking Rd cross-references ... WARNING
   ggplot2 2.0.0 problem: links to help topic that no longer exists
@@ -103,45 +92,28 @@ There were a number of failures that don't appear to be related to changes in gg
 * preproviz: checking tests ... ERROR
   Needs very latest version of nlme
 
-* ryouready: checking examples ... ERROR
-  Needs very latest version of nlme
-  
 * Rz: checking dependencies in R code ... WARNING
   Namespace issues
-
-* SciencesPo: checking examples ... ERROR
-  Pre-existing ggplot2 2.0.0 problems
 
 * sdmvspecies: checking for executable files ... WARNING
   Includes executable file
 
-* vcdExtra: checking examples ... ERROR
-  Needs very latest version of nlme
-
-* vdmR: checking examples ... ERROR
-  Not sure: internal grid error.
-
 Additionally, I:
 
-* Failed to install dependencies for: AFM, benchmarkme, clusterfly, demi, 
-  ibmdbR, lme4, metaMix, PKgraph, pmc, prcbench, rms, rstanarm, SeqFeatR, 
-  SpaDES, specmine, survMisc, toaster, vcfR
+* Failed to install dependencies for: AFM, clusterfly, demi, ibmdbR, metaMix, 
+  PKgraph, pmc, prcbench, SeqFeatR, SpaDES, specmine, toaster
 
 * Failed to install: abd, alm, arqas, ARTool, BACA, bamdit, bdscale, bdvis, 
-  benchmark, biomod2, bootnet, brainGraph, brms, BTSPAS, capm, caret, 
-  caretEnsemble, ChainLadder, classify, climwin, conformal, COPASutils, 
-  CosmoPhotoz, covmat, crmPack, Deducer, diveRsity, eeptools, erer, extracat, 
-  ez, FAOSTAT, fheatmap, geneSLOPE, gettingtothebottom, gitter, greport, 
-  hdnom, HistDAWass, HLMdiag, hyperSpec, IntegratedJM, interplot, ITEMAN, kobe, 
-  LANDD, learnstats, lmerTest, localgauss, LOGIT, ltbayes, marked, MergeGUI, 
-  merTools, Methplot, micromap, MissingDataGUI, mizer, morse, mosaic, MultiMeta, 
-  mwaved, ncappc, NeuralNetTools, NMF, nparACT, npregfast, OriGen, partialAR, 
-  PBImisc, pequod, Phxnlme, playwith, PlotPrjNetworks, pomp, PPtreeViz, 
-  predictmeans, PSAboot, qgraph, quadrupen, RcmdrPlugin.KMggplot2, 
-  RcmdrPlugin.MA, rddtools, refund, refund.shiny, RFmarkerDetector, 
-  robCompositions, RobustEM, robustlmm, RSA, RSDA, rstan, RStoolbox, rsvg, 
-  SCGLR, sdcMicro, seewave, SensMixed, sgd, simmr, sjPlot, snpEnrichment, 
-  sparkTable, spikeSlabGAM, spoccutils, strvalidator, tadaatoolbox, TcGSA, 
-  tigerstats, tigris, treemap, TriMatch, userfriendlyscience, varian, vmsbase
+  benchmark, biomod2, brainGraph, brms, BTSPAS, capm, caret, caretEnsemble, 
+  ChainLadder, classify, conformal, COPASutils, crmPack, extracat, FAOSTAT, 
+  fheatmap, geneSLOPE, gettingtothebottom, gitter, granovaGG, HistDAWass, 
+  hyperSpec, IntegratedJM, kobe, LANDD, localgauss, LOGIT, ltbayes, MergeGUI, 
+  Methplot, micromap, MissingDataGUI, mizer, morse, MultiMeta, mwaved, ncappc, 
+  NeuralNetTools, NMF, nparACT, npregfast, OriGen, partialAR, patPRO, Phxnlme, 
+  playwith, PlotPrjNetworks, pomp, PPtreeViz, primerTree, quadrupen, 
+  refund.shiny, RobustEM, RSA, RSDA, rstan, rstanarm, RStoolbox, rsvg, SCGLR, 
+  seewave, sgd, simmr, sjPlot, snpEnrichment, sparkTable, spikeSlabGAM, 
+  spoccutils, strvalidator, tadaatoolbox, tigerstats, tigris, treemap, 
+  userfriendlyscience, vmsbase
 
 I think the majority of these are because I'm not currently installing bioconductor packages. I hope to work on that in the future.

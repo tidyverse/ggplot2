@@ -10,32 +10,35 @@
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2016-02-25                   |
+|date     |2016-02-29                   |
 
 ## Packages
 
-|package       |*  |version    |date       |source                         |
-|:-------------|:--|:----------|:----------|:------------------------------|
-|digest        |   |0.6.9      |2016-01-08 |CRAN (R 3.2.3)                 |
-|ggplot2       |   |2.0.0.9001 |2016-02-25 |local (hadley/ggplot2)         |
-|ggplot2movies |   |0.0.1      |2015-08-25 |CRAN (R 3.2.0)                 |
-|gtable        |   |0.1.2.9000 |2016-02-11 |Github (hadley/gtable@6c7b22c) |
-|hexbin        |   |1.27.1     |2015-08-19 |CRAN (R 3.2.0)                 |
-|Hmisc         |   |3.17-2     |2016-02-21 |CRAN (R 3.2.3)                 |
-|knitr         |   |1.12.3     |2016-01-22 |CRAN (R 3.2.3)                 |
-|mapproj       |   |1.2-4      |2015-08-03 |CRAN (R 3.2.0)                 |
-|maps          |   |3.1.0      |2016-02-13 |CRAN (R 3.2.3)                 |
-|maptools      |   |0.8-39     |2016-01-30 |CRAN (R 3.2.3)                 |
-|multcomp      |   |1.4-4      |2016-02-17 |CRAN (R 3.2.3)                 |
-|plyr          |   |1.8.3      |2015-06-12 |CRAN (R 3.2.0)                 |
-|quantreg      |   |5.21       |2016-02-13 |CRAN (R 3.2.3)                 |
-|reshape2      |   |1.4.1      |2014-12-06 |CRAN (R 3.2.0)                 |
-|scales        |   |0.3.0.9000 |2016-02-24 |Github (hadley/scales@ad60fbe) |
-|svglite       |   |1.1.0      |2016-02-09 |CRAN (R 3.2.3)                 |
-|testthat      |*  |0.11.0     |2015-10-14 |CRAN (R 3.2.0)                 |
+|package       |*  |version |date       |source                 |
+|:-------------|:--|:-------|:----------|:----------------------|
+|covr          |   |1.2.0   |2015-06-25 |CRAN (R 3.2.0)         |
+|digest        |   |0.6.9   |2016-01-08 |CRAN (R 3.2.3)         |
+|ggplot2       |   |2.1.0   |2016-02-29 |local (hadley/ggplot2) |
+|ggplot2movies |   |0.0.1   |2015-08-25 |CRAN (R 3.2.0)         |
+|gtable        |   |0.2.0   |2016-02-26 |CRAN (R 3.2.3)         |
+|hexbin        |   |1.27.1  |2015-08-19 |CRAN (R 3.2.0)         |
+|Hmisc         |   |3.17-2  |2016-02-21 |CRAN (R 3.2.3)         |
+|knitr         |   |1.12.3  |2016-01-22 |CRAN (R 3.2.3)         |
+|mapproj       |   |1.2-4   |2015-08-03 |CRAN (R 3.2.0)         |
+|maps          |   |3.1.0   |2016-02-13 |CRAN (R 3.2.3)         |
+|maptools      |   |0.8-39  |2016-01-30 |CRAN (R 3.2.3)         |
+|multcomp      |   |1.4-4   |2016-02-17 |CRAN (R 3.2.3)         |
+|nlme          |   |3.1-125 |2016-02-27 |CRAN (R 3.2.3)         |
+|plyr          |   |1.8.3   |2015-06-12 |CRAN (R 3.2.0)         |
+|quantreg      |   |5.21    |2016-02-13 |CRAN (R 3.2.3)         |
+|reshape2      |   |1.4.1   |2014-12-06 |CRAN (R 3.2.0)         |
+|rmarkdown     |   |0.9.5   |2016-02-22 |CRAN (R 3.2.3)         |
+|scales        |   |0.4.0   |2016-02-26 |CRAN (R 3.2.3)         |
+|svglite       |   |1.1.0   |2016-02-09 |CRAN (R 3.2.3)         |
+|testthat      |*  |0.11.0  |2015-10-14 |CRAN (R 3.2.0)         |
 
 # Check results
-674 checked out of 0 dependencies 
+677 checked out of 0 dependencies 
 
 ## abctools (1.0.4)
 Maintainer: Matt Nunes <m.nunes@lancaster.ac.uk>  
@@ -75,7 +78,7 @@ Maintainer: Thibaut Jombart <thibautjombart@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## AFM (1.1.0)
+## AFM (1.2.0)
 Maintainer: Mathieu Beauvais <beauvais.escp@gmail.com>
 
 1 error  | 0 warnings | 0 notes
@@ -478,20 +481,15 @@ stripchart.AlgorithmPerformance: no visible binding for global variable
   ‘samples’
 ```
 
-## benchmarkme (0.2.2)
+## benchmarkme (0.2.3)
 Maintainer: Colin Gillespie <csgillespie@gmail.com>  
 Bug reports: https://github.com/csgillespie/benchmarkme/issues
 
-1 error  | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
 
 ```
-checking package dependencies ... ERROR
-Package required but not available: ‘benchmarkmeData’
-
+checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘RcppZiggurat’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
 ```
 
 ## benchmarkmeData (0.2.2)
@@ -553,32 +551,7 @@ Maintainer: Sasha D. Hafner <saha@kbm.sdu.dk>
 Maintainer: Michal Burdukiewicz <michalburdukiewicz@gmail.com>  
 Bug reports: https://github.com/michbur/biogram/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘biogram-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot.criterion_distribution
-> ### Title: Plot criterion distribution
-> ### Aliases: plot.criterion_distribution
-> 
-> ### ** Examples
-... 20 lines ...
-+   scale_fill_brewer(palette = "Set1") +
-+   geom_point(data=d1, aes(size=y), stat = "identity") +
-+   guides(color = "none") +
-+   guides(size = "none") +
-+   xlab("Number of cases with feature=1 and target=1") + ylab("")
-+ p
-+ }
-> ggplot_distr(example_result)
-Error: Unknown parameters: pad
-Execution halted
-** found \donttest examples: check also with --run-donttest
-```
+0 errors | 0 warnings | 0 notes
 
 ## bioinactivation (1.1.1)
 Maintainer: Alberto Garre <garre.alberto@gmail.com>
@@ -661,13 +634,7 @@ checking installed package size ... NOTE
 ## bootnet (0.2)
 Maintainer: Sacha Epskamp <mail@sachaepskamp.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘bootnet’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/bootnet.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## brainGraph (0.55.0)
 Maintainer: Christopher G. Watson <cgwatson@bu.edu>  
@@ -847,13 +814,13 @@ Maintainer: Manuela Schreyer <manuelalarissa.schreyer@sbg.ac.at>
 
 0 errors | 0 warnings | 0 notes
 
-## checkmate (1.7.1)
+## checkmate (1.7.2)
 Maintainer: Michel Lang <michellang@gmail.com>  
 Bug reports: https://github.com/mllg/checkmate/issues
 
 0 errors | 0 warnings | 0 notes
 
-## choroplethr (3.4.0)
+## choroplethr (3.5.0)
 Maintainer: Ari Lamstein <arilamstein@gmail.com>  
 Bug reports: https://github.com/arilamstein/choroplethr/issues
 
@@ -928,13 +895,7 @@ Maintainer: Emanuele Eccel <emanuele.eccel@fmach.it>
 ## climwin (0.1.2)
 Maintainer: Liam D. Bailey <liam.bailey@anu.edu.au>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘climwin’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/climwin.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## clusterfly (0.4)
 Maintainer: Hadley Wickham <h.wickham@gmail.com>
@@ -968,20 +929,7 @@ Bug reports: https://github.com/jakobbossek/cmaesr/issues
 ## codingMatrices (0.2.0)
 Maintainer: Bill Venables <Bill.Venables@gmail.com>
 
-0 errors | 0 warnings | 1 note 
-
-```
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace 'nlme' 3.1-122 is being loaded, but >= 3.1.123 is required
-Quitting from lines 1032-1034 (codingMatrices.Rnw) 
-Error: processing vignette 'codingMatrices.Rnw' failed with diagnostics:
-package or namespace load failed for 'car'
-Execution halted
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## codyn (1.0.1)
 Maintainer: Matthew B. Jones <jones@nceas.ucsb.edu>  
@@ -992,12 +940,7 @@ Bug reports: https://github.com/laurenmh/codyn/issues
 ## coefplot (1.2.4)
 Maintainer: Jared P. Lander <packages@jaredlander.com>
 
-0 errors | 0 warnings | 1 note 
-
-```
-checking package dependencies ... NOTE
-Package which this enhances but not available for checking: ‘maxLik’
-```
+0 errors | 0 warnings | 0 notes
 
 ## cofeatureR (1.0.1)
 Maintainer: Fong Chun Chan <fongchunchan@gmail.com>  
@@ -1095,24 +1038,12 @@ cosinor_analyzer: no visible binding for global variable ‘vitamind’
 ## CosmoPhotoz (0.1)
 Maintainer: Rafael S. de Souza <rafael.2706@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘CosmoPhotoz’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/CosmoPhotoz.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## covmat (1.0)
 Maintainer: Rohit Arora <emailrohitarora@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘covmat’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/covmat.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## cowplot (0.6.0)
 Maintainer: Claus O. Wilke <wilke@austin.utexas.edu>  
@@ -1122,6 +1053,11 @@ Bug reports: https://github.com/wilkelab/cowplot/issues
 
 ## cplm (0.7-4)
 Maintainer: Yanwei (Wayne) Zhang <actuary_zhang@hotmail.com>
+
+0 errors | 0 warnings | 0 notes
+
+## crawl (2.0)
+Maintainer: Devin S. Johnson <devin.johnson@noaa.gov>
 
 0 errors | 0 warnings | 0 notes
 
@@ -1223,13 +1159,7 @@ checking installed package size ... NOTE
 ## Deducer (0.7-9)
 Maintainer: Ian Fellows <ian@fellstat.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘Deducer’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/Deducer.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## demi (1.1.2)
 Maintainer: Sten Ilmjarv <sten.ilmjarv@gmail.com>
@@ -1319,13 +1249,7 @@ Maintainer: Mikkel Meyer Andersen <mikl@math.aau.dk>
 ## diveRsity (1.9.89)
 Maintainer: Kevin Keenan <kkeenan02@qub.ac.uk>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘diveRsity’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/diveRsity.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## dMod (0.1)
 Maintainer: Daniel Kaschek <daniel.kaschek@physik.uni-freiburg.de>
@@ -1335,40 +1259,7 @@ Maintainer: Daniel Kaschek <daniel.kaschek@physik.uni-freiburg.de>
 ## doBy (4.5-14)
 Maintainer: S�ren H�jsgaard <sorenh@math.aau.dk>
 
-1 error  | 0 warnings | 1 note 
-
-```
-checking running R code from vignettes ... ERROR
-Errors in running code in vignettes:
-when running code in ‘LSmeans.Rnw’
-  ...
-+     facets = ~Diet, geom = c("point", "line"))
-
-> library(lme4)
-Loading required package: Matrix
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘nlme’ 3.1-122 is being loaded, but >= 3.1.123 is required
-
-  When sourcing ‘LSmeans.R’:
-Error: package or namespace load failed for ‘lme4’
-Execution halted
-
-
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: doBy
-Loading required package: survival
-Loading required package: Matrix
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘nlme’ 3.1-122 is being loaded, but >= 3.1.123 is required
-
-Error: processing vignette 'LSmeans.Rnw' failed with diagnostics:
- chunk 20 
-Error : package or namespace load failed for ‘lme4’
-Execution halted
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## dotwhisker (0.2.0.4)
 Maintainer: Yue Hu <yue-hu-1@uiowa.edu>  
@@ -1596,13 +1487,7 @@ Bug reports: https://github.com/PMassicotte/eemR/issues
 ## eeptools (0.9.1)
 Maintainer: Jared E. Knowles <jknowles@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘eeptools’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/eeptools.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## EFDR (0.1.1)
 Maintainer: Andrew Zammit-Mangion <andrewzm@gmail.com>
@@ -1655,6 +1540,12 @@ Error: package or namespace load failed for ‘caret’
 Execution halted
 ```
 
+## emojifont (0.3.1)
+Maintainer: Guangchuang Yu <guangchuangyu@gmail.com>  
+Bug reports: https://github.com/GuangchuangYu/emojifont/issues
+
+0 errors | 0 warnings | 0 notes
+
 ## EmpiricalCalibration (1.1.0)
 Maintainer: Martijn Schuemie <schuemie@ohdsi.org>  
 Bug reports: https://github.com/OHDSI/EmpiricalCalibration/issues
@@ -1677,17 +1568,6 @@ Maintainer: Denis Haine <denis.haine@gmail.com>
 Bug reports: https://github.com/dhaine/episensr/issues
 
 0 errors | 0 warnings | 0 notes
-
-## erer (2.4)
-Maintainer: Changyou Sun <cs258@msstate.edu>
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘erer’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/erer.Rcheck/00install.out’ for details.
-```
 
 ## ESGtoolkit (0.1)
 Maintainer: Thierry Moudiki <thierry.moudiki@gmail.com>
@@ -1749,6 +1629,11 @@ Bug reports: https://github.com/lem-usp/evolqg/issues
 
 0 errors | 0 warnings | 0 notes
 
+## Evomorph (0.9)
+Maintainer: Juan Manuel Cabrera <juanmanuelcabrera1@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
 ## explor (0.1)
 Maintainer: Julien Barnier <julien.barnier@ens-lyon.fr>
 
@@ -1787,7 +1672,7 @@ See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/extracat.Rcheck/00ins
 Maintainer: Jacob Dink <jacobwdink@gmail.com>  
 Bug reports: https://github.com/jwdink/eyetrackingR/issues
 
-2 errors | 0 warnings | 1 note 
+2 errors | 0 warnings | 0 notes
 
 ```
 checking examples ... ERROR
@@ -1809,15 +1694,13 @@ The error most likely occurred in:
 +                          threshold = 1.5, 
 +                          formula = LogitAdjusted ~ Sex + (1|Trial) + (1|ParticipantName))
 Error in analyze_time_bins.time_sequence_data(data = list(ParticipantName = c(1L,  : 
-  Please install the 'lme4' package to use this method.
+  All time-bins produced same error: ''data' not found, and some variables missing from formula environment'
 Calls: make_time_cluster_data ... <Anonymous> -> analyze_time_bins.time_sequence_data
 Execution halted
 
 checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
-  > library(eyetrackingR)
-  > 
   > test_check("eyetrackingR")
   Avg. window length in new data will be 5500
   Performing Trackloss Analysis...
@@ -1825,33 +1708,18 @@ Last 13 lines of output:
   	...removed  33  trials.
   Computing t.test for each time bin...
   Computing t.test for each time bin...
+  Computing lmer for each time bin...
+  At least one time-bin produced errors--be sure to check 'Error' col in output.
   Error in analyze_time_bins.time_sequence_data(df_time_within, predictor_column = "SexM:TargetInanimate",  : 
-    Please install the 'lme4' package to use this method.
+    All time-bins produced same error: ''data' not found, and some variables missing from formula environment'
   Calls: test_check ... analyze_time_bins -> analyze_time_bins.time_sequence_data
   Execution halted
-
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace 'nlme' 3.1-122 is being loaded, but >= 3.1.123 is required
-Quitting from lines 24-58 (divergence_vignette.Rmd) 
-Error: processing vignette 'divergence_vignette.Rmd' failed with diagnostics:
-package or namespace load failed for 'lme4'
-Execution halted
-
 ```
 
 ## ez (4.3)
 Maintainer: Michael A. Lawrence <mike.lwrnc@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘ez’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/ez.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## ezsim (0.5.5)
 Maintainer: TszKin Julian Chan <ctszkin@gmail.com>  
@@ -2086,27 +1954,7 @@ See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/geneSLOPE.Rcheck/00in
 Maintainer: Jordan Read <jread@usgs.gov>  
 Bug reports: https://github.com/USGS-R/geoknife/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘geoknife-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: XML
-> ### Title: XML from set of objects
-> ### Aliases: XML XML,ANY,webdata,webprocess-method XML,webgeom-method
-> 
-> ### ** Examples
-> 
-> wd <- webdata('prism',times = as.POSIXct(c('2001-01-01','2002-02-05')))
-> wg <- webgeom('state::Wisconsin')
-Error in curl::curl_fetch_memory(url, handle = handle) : 
-  Server returned nothing (no headers, no data)
-Calls: webgeom ... .local -> values<- -> values<- -> fetchGML_IDs -> gGET
-Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## geomnet (0.0.1)
 Maintainer: Samantha Tyner <sctyner@iastate.edu>
@@ -2172,20 +2020,11 @@ Bug reports: https://github.com/kassambara/ggcorrplot/issues
 
 0 errors | 0 warnings | 0 notes
 
-## ggdendro (0.1-17)
+## ggdendro (0.1-18)
 Maintainer: Andrie de Vries <apdevries@gmail.com>  
 Bug reports: https://github.com/andrie/ggdendro/issues
 
-0 errors | 1 warning  | 0 notes
-
-```
-checking Rd cross-references ... WARNING
-Missing link or links in documentation object 'ggdendro-package.Rd':
-  ‘[ggplot2]{ggplot2}’
-
-See section 'Cross-references' in the 'Writing R Extensions' manual.
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## ggenealogy (0.1.0)
 Maintainer: Lindsay Rutter <lrutter@iastate.edu>
@@ -2201,7 +2040,26 @@ Bug reports: https://github.com/daattali/ggExtra/issues
 ## ggfortify (0.1.0)
 Maintainer: Masaaki Horikoshi <sinhrks@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/test-all.R’ failed.
+Last 13 lines of output:
+  x[3]: "mean"
+  y[3]: "variance"
+  
+  x[4]: "variance"
+  
+  Loading required package: urca
+  Loading required package: lmtest
+  testthat results ================================================================
+  OK: 548 SKIPPED: 1 FAILED: 1
+  1. Failure (at test-changepoint.R#24): fortify.cpt works for AirPassengers 
+  
+  Error: testthat unit tests failed
+  Execution halted
+```
 
 ## ggiraph (0.1.0)
 Maintainer: David Gohel <david.gohel@ardata.fr>  
@@ -2226,17 +2084,11 @@ Maintainer: Heike Hofmann <hofmann@iastate.edu>
 
 0 errors | 0 warnings | 0 notes
 
-## ggpmisc (0.2.5)
+## ggpmisc (0.2.6)
 Maintainer: Pedro J. Aphalo <pedro.aphalo@helsinki.fi>  
 Bug reports: https://bitbucket.org/aphalo/ggpmisc
 
-0 errors | 0 warnings | 1 note 
-
-```
-checking dependencies in R code ... NOTE
-Namespace in Imports field not imported from: ‘polynom’
-  All declared Imports should be used.
-```
+0 errors | 0 warnings | 0 notes
 
 ## ggRandomForests (1.2.1)
 Maintainer: John Ehrlinger <john.ehrlinger@gmail.com>  
@@ -2286,7 +2138,7 @@ ggroc: no visible global function definition for ‘labs’
 ggroc: no visible global function definition for ‘ggsave’
 ```
 
-## ggseas (0.1.0)
+## ggseas (0.2.1)
 Maintainer: Peter Ellis <peter.ellis2013nz@gmail.com>  
 Bug reports: https://github.com/ellisp/ggseas/issues
 
@@ -2319,7 +2171,7 @@ checking installed package size ... NOTE
 ## ggtern (2.0.1)
 Maintainer: Nicholas Hamilton <nick@ggtern.com>
 
-1 error  | 0 warnings | 1 note 
+1 error  | 1 warning  | 0 notes
 
 ```
 checking examples ... ERROR
@@ -2343,11 +2195,13 @@ Error in ggint$map_layout(panel, plot$facet, layer_data, plot$data) :
 Calls: <Anonymous> -> print.ggplot -> ggplot_build -> <Anonymous>
 Execution halted
 
-checking Rd cross-references ... NOTE
-Package unavailable to check Rd xrefs: ‘chemometrics’
+checking whether package ‘ggtern’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘plyr::join’ when loading ‘ggtern’
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/ggtern.Rcheck/00install.out’ for details.
 ```
 
-## ggthemes (3.0.1)
+## ggthemes (3.0.2)
 Maintainer: Jeffrey B. Arnold <jeffrey.arnold@gmail.com>  
 Bug reports: http://github.com/jrnold/ggthemes
 
@@ -2477,17 +2331,24 @@ plot3_orig: no visible global function definition for ‘labs’
 ## granovaGG (1.4.0)
 Maintainer: Brian A. Danielak <brian@briandk.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘granovaGG’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘plyr::join’ when loading ‘granovaGG’
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/granovaGG.Rcheck/00install.out’ for details.
+```
 
 ## greport (0.5-3)
 Maintainer: Frank E Harrell Jr <f.harrell@vanderbilt.edu>
 
-1 error  | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
 
 ```
-checking whether package ‘greport’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/greport.Rcheck/00install.out’ for details.
+checking R code for possible problems ... NOTE
+accrualReport: multiple local function definitions for ‘g’ with
+  different formal arguments
 ```
 
 ## gridDebug (0.5-0)
@@ -2495,7 +2356,7 @@ Maintainer: Paul Murrell <p.murrell@auckland.ac.nz>
 
 0 errors | 0 warnings | 0 notes
 
-## gridExtra (2.0.0)
+## gridExtra (2.2.1)
 Maintainer: Baptiste Auguie <baptiste.auguie@gmail.com>
 
 0 errors | 0 warnings | 0 notes
@@ -2538,6 +2399,11 @@ checking data for non-ASCII characters ... NOTE
   Note: found 689 marked UTF-8 strings
 ```
 
+## gunsales (0.1.0)
+Maintainer: Dirk Eddelbuettel <edd@debian.org>
+
+0 errors | 0 warnings | 0 notes
+
 ## h2o (3.6.0.8)
 Maintainer: Tom Kraljevic <tomk@0xdata.com>
 
@@ -2564,13 +2430,7 @@ Maintainer: Martin Spindler <spindler@mea.mpisoc.mpg.de>
 Maintainer: Nan Xiao <nanx@uchicago.edu>  
 Bug reports: https://github.com/road2stat/hdnom/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘hdnom’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/hdnom.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## hdr (0.1)
 Maintainer: Eric Persson <expersso5@gmail.com>  
@@ -2597,32 +2457,9 @@ Maintainer: Cheng Fan <raja8885@hotmail.com>
 ## HistData (0.7-6)
 Maintainer: Michael Friendly <friendly@yorku.ca>
 
-1 error  | 0 warnings | 1 note 
+0 errors | 0 warnings | 1 note 
 
 ```
-checking examples ... ERROR
-Running examples in ‘HistData-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: CushnyPeebles
-> ### Title: Cushny-Peebles Data: Soporific Effects of Scopolamine
-> ###   Derivatives
-> ### Aliases: CushnyPeebles CushnyPeeblesN
-> ### Keywords: datasets
-... 19 lines ...
-> Treatment <- factor(colnames(CushnyPeebles), levels=colnames(CushnyPeebles))
-> contrasts(Treatment) <- matrix(
-+ 	c(-3, 1, 1, 1,
-+ 	   0,-2, 1, 1,
-+ 	   0, 0,-1, 1), ncol=3)
-> colnames(contrasts(Treatment)) <- c("Control.Drug", "L.DL", "L_hy.DL_hy")
-> 
-> Treats <- data.frame(Treatment)
-> (CPaov <- Anova(CPmod, idata=Treats, idesign= ~Treatment))
-Error: could not find function "Anova"
-Execution halted
-
 checking Rd cross-references ... NOTE
 Packages unavailable to check Rd xrefs: ‘Guerry’, ‘alr3’, ‘agridat’
 ```
@@ -2656,13 +2493,7 @@ Bug reports: https://github.com/bryanhanson/HiveR/issues
 Maintainer: Adam Loy <loyad01@gmail.com>  
 Bug reports: https://github.com/aloy/HLMdiag/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘HLMdiag’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/HLMdiag.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## Hmisc (3.17-2)
 Maintainer: Frank E Harrell Jr <f.harrell@vanderbilt.edu>
@@ -2800,13 +2631,7 @@ See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/IntegratedJM.Rcheck/0
 ## interplot (0.1.1.1)
 Maintainer: Yue Hu <yue-hu-1@uiowa.edu>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘interplot’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/interplot.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## intsvy (1.8)
 Maintainer: Daniel Caro <daniel.caro@education.ox.ac.uk>  
@@ -2817,13 +2642,7 @@ Bug reports: https://github.com/eldafani/intsvy/issues
 ## ITEMAN (1.0)
 Maintainer: Cengiz Zopluoglu <c.zopluoglu@miami.edu>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘ITEMAN’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/ITEMAN.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## JacobiEigen (0.2-2)
 Maintainer: Bill Venables <Bill.Venables@gmail.com>
@@ -2958,13 +2777,7 @@ recombRate: no visible global function definition for ‘grid.draw’
 ## learnstats (0.1.1)
 Maintainer: Daniel Walter <dswalter@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘learnstats’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/learnstats.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## LexisPlotR (0.2)
 Maintainer: Philipp Ottolinger <philipp@ottolinger.de>
@@ -2996,26 +2809,60 @@ Maintainer: Lars Kotthoff <larsko@cs.ubc.ca>
 Maintainer: Ben Bolker <bbolker+lme4@gmail.com>  
 Bug reports: https://github.com/lme4/lme4/issues
 
-1 error  | 0 warnings | 0 notes
+2 errors | 0 warnings | 1 note 
 
 ```
-checking package dependencies ... ERROR
-Package required and available but unsuitable version: ‘nlme’
+checking examples ... ERROR
+Running examples in ‘lme4-Ex.R’ failed
+The error occurred in:
 
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+
+R version 3.2.3 (2015-12-10) -- "Wooden Christmas-Tree"
+Copyright (C) 2015 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin13.4.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+... 25 lines ...
++ },
++ pos = 'CheckExEnv')
+> 
+> ### * </HEADER>
+> library('lme4')
+Loading required package: Matrix
+Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+  namespace ‘nlme’ 3.1-122 is being loaded, but >= 3.1.123 is required
+Error: package or namespace load failed for ‘lme4’
+Execution halted
+** found \donttest examples: check also with --run-donttest
+
+checking tests ... ERROR
+Running the tests in ‘tests/AAAtest-all.R’ failed.
+Last 13 lines of output:
+  +     print(warnings()) # TODO? catch most of these by expect_warning(..)
+  + } else {
+  +     cat( "package 'testthat' not available, cannot run unit tests\n" )
+  + }
+  Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+    namespace 'nlme' 3.1-122 is being loaded, but >= 3.1.123 is required
+  Loading required package: lme4
+  Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+    namespace 'nlme' 3.1-122 is being loaded, but >= 3.1.123 is required
+  Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
+    namespace 'nlme' 3.1-122 is being loaded, but >= 3.1.123 is required
+  Calls: test_check ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+  Execution halted
+
+checking installed package size ... NOTE
+  installed size is  5.8Mb
+  sub-directories of 1Mb or more:
+    doc        1.8Mb
+    testdata   1.5Mb
 ```
 
 ## lmerTest (2.0-30)
 Maintainer: Alexandra Kuznetsova <alku@dtu.dk>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘lmerTest’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/lmerTest.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## lmms (1.3)
 Maintainer: Jasmin Straube <j.straube@qfab.org>
@@ -3160,13 +3007,7 @@ Bug reports: https://github.com/ropensci/mapr/issues
 ## marked (1.1.10)
 Maintainer: Jeff Laake <Jeff.Laake@noaa.gov>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘marked’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/marked.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## marmap (0.9.5)
 Maintainer: Eric Pante <pante.eric@gmail.com>
@@ -3225,13 +3066,7 @@ See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/MergeGUI.Rcheck/00ins
 Maintainer: Jared E. Knowles <jknowles@gmail.com>  
 Bug reports: http://www.github.com/jknowles/merTools
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘merTools’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/merTools.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## metagen (1.0)
 Maintainer: Thomas W. D. Möbius <kontakt@thomasmoebius.de>
@@ -3241,17 +3076,9 @@ Maintainer: Thomas W. D. Möbius <kontakt@thomasmoebius.de>
 ## metaheur (0.1.0)
 Maintainer: Markus Vattulainen <markus.vattulainen@gmail.com>
 
-3 errors | 0 warnings | 1 note 
+2 errors | 1 warning  | 0 notes
 
 ```
-checking for missing documentation entries ... ERROR
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘nlme’ 3.1-122 is already loaded, but >= 3.1.123 is required
-Error in .requirePackage(package) : 
-  unable to find required package ‘preprocomb’
-Calls: <Anonymous> ... FUN -> <Anonymous> -> getClassDef -> .requirePackage
-Execution halted
-
 checking examples ... ERROR
 Running examples in ‘metaheur-Ex.R’ failed
 The error most likely occurred in:
@@ -3286,13 +3113,11 @@ Last 13 lines of output:
   Calls: test_check ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
   Execution halted
 
-checking data for non-ASCII characters ... NOTE
-  Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-    namespace 'nlme' 3.1-122 is already loaded, but >= 3.1.123 is required
-  Error in .requirePackage(package) : 
-    unable to find required package 'preprocomb'
-  Calls: <Anonymous> ... .extendsForS3 -> extends -> getClassDef -> .requirePackage
-  Execution halted
+checking for missing documentation entries ... WARNING
+Note: the specification for S3 class “family” in package ‘MatrixModels’ seems equivalent to one from package ‘lme4’: not turning on duplicate class definitions for this class.
+All user-level objects in a package should have documentation entries.
+See chapter ‘Writing R documentation files’ in the ‘Writing R
+Extensions’ manual.
 ```
 
 ## metaMix (0.2)
@@ -3535,13 +3360,7 @@ See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/morse.Rcheck/00instal
 Maintainer: Randall Pruim <rpruim@calvin.edu>  
 Bug reports: https://github.com/ProjectMOSAIC/mosaic/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘mosaic’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/mosaic.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## mpoly (1.0.0)
 Maintainer: David Kahle <david.kahle@gmail.com>  
@@ -3612,24 +3431,24 @@ Execution halted
 checking re-building of vignette outputs ... NOTE
 Error in re-building vignettes:
   ...
-Loading required package: scales
+The following object is masked from ‘package:arm’:
+
+    rescale
+
 dimids automatically generated
 dimids automatically generated
 omitting width because it is not replicated along MARGIN
-omitting temp because it is not replicated along MARGIN
-omitting depth because it is not replicated along MARGIN
-omitting velocity because it is not replicated along MARGIN
 ... 8 lines ...
+
+omitting life.history because of the following error:
+ Error in median.default(newX[, i], ...) : need numeric data
 
 omitting trophic because it is not replicated along MARGIN
 omitting life.history because it is not replicated along MARGIN
-Loading required package: lme4
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘nlme’ 3.1-122 is already loaded, but >= 3.1.123 is required
 
 Error: processing vignette 'multitable.Rnw' failed with diagnostics:
  chunk 57 (label = a faceted ggplot scatterplot from a data list) 
-Error : package ‘lme4’ could not be loaded
+Error : Unknown parameters: family, form
 Execution halted
 ```
 
@@ -3990,7 +3809,7 @@ Bug reports: https://github.com/berndbischl/ParamHelpers/issues
 ## partialAR (1.0.5)
 Maintainer: Matthew Clegg <matthewcleggphd@gmail.com>
 
-0 errors | 1 warning  | 0 notes
+0 errors | 1 warning  | 1 note 
 
 ```
 checking whether package ‘partialAR’ can be installed ... WARNING
@@ -3998,6 +3817,10 @@ Found the following significant warnings:
   Warning: replacing previous import by ‘grid::arrow’ when loading ‘partialAR’
   Warning: replacing previous import by ‘grid::unit’ when loading ‘partialAR’
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/partialAR.Rcheck/00install.out’ for details.
+
+checking R code for possible problems ... NOTE
+Warning: replacing previous import by ‘grid::arrow’ when loading ‘partialAR’
+Warning: replacing previous import by ‘grid::unit’ when loading ‘partialAR’
 ```
 
 ## PASWR2 (1.0.2)
@@ -4008,7 +3831,14 @@ Maintainer: Alan T. Arnholt <arnholtat@appstate.edu>
 ## patPRO (1.1.0)
 Maintainer: Geoffrey D Hannigan <ghanni@upenn.edu>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘patPRO’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘plyr::join’ when loading ‘patPRO’
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/patPRO.Rcheck/00install.out’ for details.
+```
 
 ## pauwels2014 (1.0)
 Maintainer: Edouard Pauwels <pauwelsed@gmail.com>
@@ -4066,16 +3896,10 @@ Rd file 'createAdaptiveRandomWalkProposal.Rd':
 These lines will be truncated in the PDF manual.
 ```
 
-## PBImisc (0.999)
+## PBImisc (1.0)
 Maintainer: Przemyslaw Biecek <przemyslaw.biecek@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘PBImisc’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/PBImisc.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## PDQutils (0.1.3)
 Maintainer: Steven E. Pav <shabbychef@gmail.com>  
@@ -4125,16 +3949,10 @@ Bug reports: https://github.com/heike/peptider/issues
 
 0 errors | 0 warnings | 0 notes
 
-## pequod (0.0-4)
+## pequod (0.0-5)
 Maintainer: Alberto Mirisola <alberto.mirisola@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘pequod’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/pequod.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## performanceEstimation (1.0.2)
 Maintainer: Luis Torgo <ltorgo@dcc.fc.up.pt>  
@@ -4257,25 +4075,10 @@ Maintainer: Xiaoyong Sun <johnsunx1@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## planar (1.5.2)
+## planar (1.6)
 Maintainer: Baptiste Auguie <baptiste.auguie@gmail.com>
 
-0 errors | 0 warnings | 2 notes
-
-```
-checking for GNU extensions in Makefiles ... NOTE
-GNU make is a SystemRequirements.
-
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: dielectric
-Quitting from lines 137-177 (gaussian.Rmd) 
-Error: processing vignette 'gaussian.Rmd' failed with diagnostics:
-geom_vline requires the following missing aesthetics: xintercept
-Execution halted
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## playwith (0.9-54)
 Maintainer: Felix Andrews <felix@nfrac.org>
@@ -4349,7 +4152,7 @@ Bug reports: https://github.com/cboettig/pmc/issues
 
 ```
 checking package dependencies ... ERROR
-Packages required but not available: ‘geiger’ ‘ouch’
+Package required but not available: ‘ouch’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -4360,7 +4163,7 @@ Maintainer: Michaela Dvorzak <m.dvorzak@gmx.at>
 
 0 errors | 0 warnings | 0 notes
 
-## pointRes (1.1.0)
+## pointRes (1.1.1)
 Maintainer: Marieke van der Maaten-Theunissen <marieketheunissen@gmail.com>
 
 0 errors | 0 warnings | 0 notes
@@ -4371,7 +4174,7 @@ Bug reports: https://github.com/rOpenGov/pollstR/issues
 
 0 errors | 0 warnings | 0 notes
 
-## pomp (1.2.1.1)
+## pomp (1.3.1.1)
 Maintainer: Aaron A. King <kingaa@umich.edu>  
 Bug reports: http://github.com/kingaa/pomp/issues
 
@@ -4494,13 +4297,7 @@ Last 13 lines of output:
 ## predictmeans (0.99)
 Maintainer: Dongwen Luo <dongwen.luo@agresearch.co.nz>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘predictmeans’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/predictmeans.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## PReMiuM (3.1.3)
 Maintainer: Silvia Liverani <liveranis@gmail.com>
@@ -4511,7 +4308,7 @@ Maintainer: Silvia Liverani <liveranis@gmail.com>
 Maintainer: Markus Vattulainen <markus.vattulainen@gmail.com>  
 Bug reports: https://github.com/mvattulainen/preproviz/issues
 
-1 error  | 0 warnings | 1 note 
+1 error  | 0 warnings | 0 notes
 
 ```
 checking tests ... ERROR
@@ -4530,15 +4327,6 @@ Last 13 lines of output:
     namespace 'nlme' 3.1-122 is already loaded, but >= 3.1.123 is required
   Calls: test_check ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
   Execution halted
-
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Quitting from lines 19-24 (preproviz.Rmd) 
-Error: processing vignette 'preproviz.Rmd' failed with diagnostics:
-namespace 'nlme' 3.1-122 is already loaded, but >= 3.1.123 is required
-Execution halted
-
 ```
 
 ## prevR (3.3)
@@ -4559,7 +4347,14 @@ Maintainer: Ankur Chakravarthy <ankur.chakravarthy.10@ucl.ac.uk>
 ## primerTree (1.0.3)
 Maintainer: Jim Hester <james.f.hester@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking whether package ‘primerTree’ can be installed ... WARNING
+Found the following significant warnings:
+  Warning: replacing previous import by ‘plyr::join’ when loading ‘primerTree’
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/primerTree.Rcheck/00install.out’ for details.
+```
 
 ## prism (0.0.7)
 Maintainer: Hart Edmund <Edmund.m.hart@gmail.com>  
@@ -4671,16 +4466,15 @@ Maintainer: Jan Grau <grau@informatik.uni-halle.de>
 
 0 errors | 0 warnings | 0 notes
 
-## PSAboot (1.1.3)
+## PSAboot (1.1.4)
 Maintainer: Jason Bryer <jason@bryer.org>  
 Bug reports: https://github.com/jbryer/PSAboot/issues
 
-1 error  | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
 
 ```
-checking whether package ‘PSAboot’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/PSAboot.Rcheck/00install.out’ for details.
+checking data for non-ASCII characters ... NOTE
+  Note: found 4 marked UTF-8 strings
 ```
 
 ## PSCBS (0.61.0)
@@ -4730,15 +4524,9 @@ Bug reports: http://github.com/trinker/qdap/issues
 ## qgraph (1.3.2)
 Maintainer: Sacha Epskamp <mail@sachaepskamp.com>
 
-1 error  | 0 warnings | 0 notes
+0 errors | 0 warnings | 0 notes
 
-```
-checking whether package ‘qgraph’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/qgraph.Rcheck/00install.out’ for details.
-```
-
-## qicharts (0.4.3)
+## qicharts (0.5.0)
 Maintainer: Jacob Anhoej <jacob@anhoej.net>
 
 0 errors | 0 warnings | 0 notes
@@ -4810,7 +4598,7 @@ Maintainer: Peter DeWitt <dewittpe@gmail.com>
 ## R2admb (0.7.13)
 Maintainer: Ben Bolker <bolker@mcmaster.ca>
 
-0 errors | 0 warnings | 2 notes
+0 errors | 0 warnings | 1 note 
 
 ```
 checking R code for possible problems ... NOTE
@@ -4818,28 +4606,6 @@ Found the following calls to attach():
 File ‘R2admb/R/check_section.R’:
   attach(R_list, name = "R_list", warn.conflicts = FALSE)
 See section ‘Good practice’ in ‘?attach’.
-
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Loading required package: stats4
-
-Attaching package: 'bbmle'
-
-The following object is masked from 'package:R2admb':
-
-    stdEr
-
-Warning: Removed 33 rows containing missing values (geom_path).
-Warning: Removed 107 rows containing missing values (geom_point).
-Loading required package: Matrix
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace 'nlme' 3.1-122 is being loaded, but >= 3.1.123 is required
-Quitting from lines 511-517 (R2admb.Rnw) 
-Error: processing vignette 'R2admb.Rnw' failed with diagnostics:
-package or namespace load failed for 'lme4'
-Execution halted
-
 ```
 
 ## R6 (2.1.2)
@@ -4913,7 +4679,7 @@ checking installed package size ... NOTE
 
 checking dependencies in R code ... NOTE
 
-(R:16831): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:95196): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 ```
 
 ## rbefdata (0.3.5)
@@ -4948,24 +4714,12 @@ Maintainer: Michael C Sachs <sachsmc@gmail.com>
 ## RcmdrPlugin.KMggplot2 (0.2-3)
 Maintainer: Triad sou. <triadsou@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘RcmdrPlugin.KMggplot2’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/RcmdrPlugin.KMggplot2.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## RcmdrPlugin.MA (0.0-2)
 Maintainer: A. C. Del Re <acdelre@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘RcmdrPlugin.MA’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/RcmdrPlugin.MA.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## RCMIP5 (1.1)
 Maintainer: Kathe Todd-Brown <ktoddbrown@gmail.com>
@@ -4984,13 +4738,7 @@ checking dependencies in R code ... NOTE
 Maintainer: Bastiaan Quast <bquast@gmail.com>  
 Bug reports: https://github.com/bquast/RDDtools/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘rddtools’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/rddtools.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## RDML (0.9-1)
 Maintainer: Konstantin A. Blagodatskikh <k.blag@yandex.ru>
@@ -5011,13 +4759,7 @@ Bug reports: https://github.com/wenjie2wang/reda/issues
 ## refund (0.1-14)
 Maintainer: Lei Huang <huangracer@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘refund’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/refund.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## refund.shiny (0.2.0)
 Maintainer: Julia Wrobel <jw3134@cumc.columbia.edu>
@@ -5040,7 +4782,7 @@ Maintainer: Andy South <southandy@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## ReporteRs (0.8.2)
+## ReporteRs (0.8.5)
 Maintainer: David Gohel <david.gohel@lysis-consultants.fr>  
 Bug reports: https://github.com/davidgohel/ReporteRs/issues
 
@@ -5087,17 +4829,10 @@ Bug reports: http://www.github.com/ropensci/rfisheries/issues/new
 
 0 errors | 0 warnings | 0 notes
 
-## RFmarkerDetector (1.0)
+## RFmarkerDetector (1.0.1)
 Maintainer: Piergiorgio Palla <piergiorgio.palla@diee.unica.it>
 
-0 errors | 1 warning  | 0 notes
-
-```
-checking whether package ‘RFmarkerDetector’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import by ‘randomForest::margin’ when loading ‘RFmarkerDetector’
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/RFmarkerDetector.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## rfordummies (0.1.2)
 Maintainer: Andrie de Vries <apdevries@gmail.com>  
@@ -5132,7 +4867,7 @@ checking installed package size ... NOTE
 
 checking dependencies in R code ... NOTE
 
-(R:21034): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:206): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 ```
 
 ## RImagePalette (0.1.1)
@@ -5159,14 +4894,11 @@ Maintainer: Xuetong Zhai <xuetong.zhai@gmail.com>
 ## rms (4.4-2)
 Maintainer: Frank E Harrell Jr <f.harrell@vanderbilt.edu>
 
-1 error  | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
 
 ```
-checking package dependencies ... ERROR
-Package required and available but unsuitable version: ‘nlme’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+checking Rd cross-references ... NOTE
+Packages unavailable to check Rd xrefs: ‘multiwayvcov’, ‘treatSens’
 ```
 
 ## rnoaa (0.5.2)
@@ -5178,12 +4910,11 @@ Bug reports: http://www.github.com/ropensci/rnoaa/issues
 ## robCompositions (2.0.0)
 Maintainer: Matthias Templ <templ@tuwien.ac.at>
 
-1 error  | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
 
 ```
-checking whether package ‘robCompositions’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/robCompositions.Rcheck/00install.out’ for details.
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘StatDA’
 ```
 
 ## robustbase (0.92-5)
@@ -5217,13 +4948,7 @@ Maintainer: Andreas Alfons <alfons@ese.eur.nl>
 ## robustlmm (1.8)
 Maintainer: Manuel Koller <koller.manuel@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘robustlmm’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/robustlmm.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## rollply (0.4.2)
 Maintainer: Alexandre Genin <alex@lecairn.org>  
@@ -5323,11 +5048,9 @@ Bug reports: https://github.com/stan-dev/rstanarm/issues
 1 error  | 0 warnings | 0 notes
 
 ```
-checking package dependencies ... ERROR
-Package required and available but unsuitable version: ‘nlme’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+checking whether package ‘rstanarm’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/rstanarm.Rcheck/00install.out’ for details.
 ```
 
 ## RStoolbox (0.1.4)
@@ -5418,32 +5141,7 @@ Maintainer: Alberto Gutierrez <algutier1@gmail.com>
 ## ryouready (0.4)
 Maintainer: Mark Heckmann <heckmann.mark@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘ryouready-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: collapse_responseset.data.frame
-> ### Title: Collapse multiple response sets to single variable
-> ### Aliases: collapse_responseset collapse_responseset.data.frame
-> ###   collapse_responseset.default
-> 
-... 12 lines ...
->  collapse_responseset(d, vars=1:3)
-[1]  1  2  3 NA NA
->  collapse_responseset(d, vars=c("t1", "t2", "t3"))
-[1]  1  2  3 NA NA
-> 
->  # use letters instead fo numbers for recoding
->  collapse_responseset(d, vars=1:3, rec=letters[1:3])
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘nlme’ 3.1-122 is being loaded, but >= 3.1.123 is required
-Calls: collapse_responseset ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
-Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## Rz (0.9-1)
 Maintainer: Masahiro Hayashi <rinm884@gmail.com>
@@ -5552,25 +5250,9 @@ Execution halted
 Maintainer: Daniel Marcelino <dmarcelino@live.com>  
 Bug reports: http://github.com/danielmarcelino/SciencesPo/issues
 
-1 error  | 0 warnings | 1 note 
+0 errors | 0 warnings | 1 note 
 
 ```
-checking examples ... ERROR
-Running examples in ‘SciencesPo-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: theme_pub
-> ### Title: The Default Theme
-> ### Aliases: theme_pub
-> 
-> ### ** Examples
-> 
-> ggplot(diamonds,aes(cut, group=1)) + geom_bar()+
-+ geom_freqpoly(stat="count",size=2) + scale_color_pub() + theme_pub(line_width=1)
-Error: Unknown parameters: pad
-Execution halted
-
 checking re-building of vignette outputs ... NOTE
 Error in re-building vignettes:
   ...
@@ -5609,13 +5291,7 @@ Maintainer: Tobias Verbeke <tobias.verbeke@openanalytics.eu>
 ## sdcMicro (4.6.0)
 Maintainer: Matthias Templ <matthias.templ@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘sdcMicro’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/sdcMicro.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## sdmvspecies (0.3.2)
 Maintainer: Xiaoquan Kong <u1mail2me@gmail.com>  
@@ -5670,13 +5346,7 @@ Maintainer: Bertrand Iooss <biooss@yahoo.fr>
 ## SensMixed (2.0-9)
 Maintainer: Alexandra Kuznetsova <alku@dtu.dk>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘SensMixed’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/SensMixed.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## SeqFeatR (0.2.0)
 Maintainer: Bettina Budeus <bettina.budeus@stud.uni-due.de>
@@ -6106,15 +5776,7 @@ Bug reports: https://github.com/kassambara/survminer/issues
 Maintainer: Chris Dardis <christopherdardis@gmail.com>  
 Bug reports: https://github.com/dardisco/survMisc/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Packages required but not available: ‘KMsurv’ ‘km.ci’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
+0 errors | 0 warnings | 0 notes
 
 ## SurvRank (0.1)
 Maintainer: Michael Laimighofer <michael.laimighofer@helmholtz-muenchen.de>
@@ -6250,13 +5912,7 @@ xtablelm: no visible global function definition for ‘xtable’
 Maintainer: Boris P. Hejblum <bhejblum@hsph.harvard.edu>  
 Bug reports: https://github.com/borishejblum/TcGSA/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘TcGSA’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/TcGSA.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## tcR (2.2.1.7)
 Maintainer: Vadim Nazarov <vdm.nazarov@gmail.com>  
@@ -6292,7 +5948,7 @@ checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘R2wd’
 
 checking dependencies in R code ... NOTE
-alloc: invalid block: 0x105a083a8: 0 0
+alloc: invalid block: 0x1057913a8: 0 0
 ```
 
 ## tidyjson (0.2.1)
@@ -6548,17 +6204,11 @@ Maintainer: Michelle Kendall <m.kendall@imperial.ac.uk>
 
 0 errors | 0 warnings | 0 notes
 
-## TriMatch (0.9.6)
+## TriMatch (0.9.7)
 Maintainer: Jason Bryer <jason@bryer.org>  
 Bug reports: https://github.com/jbryer/TriMatch/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘TriMatch’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/TriMatch.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## TripleR (1.4.1)
 Maintainer: Felix Schönbrodt <felix.schoenbrodt@psy.lmu.de>
@@ -6612,7 +6262,7 @@ Rd file 'dataItemExplorer.Rd':
 These lines will be truncated in the PDF manual.
 ```
 
-## UpSetR (1.1.0)
+## UpSetR (1.1.1)
 Maintainer: Jake Conway <jake_conway@student.uml.edu>  
 Bug reports: http://github.com/hms-dbmi/UpSetR/issues
 
@@ -6660,49 +6310,18 @@ Calls with DUP:
 DUP is no longer supported and will be ignored.
 ```
 
-## varian (0.2.1)
+## varian (0.2.2)
 Maintainer: Joshua F. Wiley <josh@elkhartgroup.com>  
 Bug reports: https://github.com/ElkhartGroup/varian/issues
 
-0 errors | 1 warning  | 0 notes
+0 errors | 0 warnings | 0 notes
 
-```
-checking whether package ‘varian’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: replacing previous import by ‘grid::arrow’ when loading ‘varian’
-  Warning: replacing previous import by ‘grid::unit’ when loading ‘varian’
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/varian.Rcheck/00install.out’ for details.
-```
-
-## vcdExtra (0.6-12)
+## vcdExtra (0.7-0)
 Maintainer: Michael Friendly <friendly@yorku.ca>
 
-1 error  | 0 warnings | 1 note 
+0 errors | 0 warnings | 1 note 
 
 ```
-checking examples ... ERROR
-Running examples in ‘vcdExtra-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: Accident
-> ### Title: Traffic Accident Victims in France in 1958
-> ### Aliases: Accident
-> ### Keywords: datasets
-> 
-... 76 lines ...
-acc.mod2   968  1085      227 31  < 2.2e-16 ***
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-> 
-> ## Binomial (logistic regression) models for result
-> ## ------------------------------------------------
-> library(car)  # for Anova()
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  namespace ‘nlme’ 3.1-122 is being loaded, but >= 3.1.123 is required
-Error: package or namespace load failed for ‘car’
-Execution halted
-
 checking Rd cross-references ... NOTE
 Package unavailable to check Rd xrefs: ‘alr3’
 ```
@@ -6710,75 +6329,17 @@ Package unavailable to check Rd xrefs: ‘alr3’
 ## vcfR (1.0.0)
 Maintainer: Brian J. Knaus <briank.lists@gmail.com>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Package required but not available: ‘memuse’
-
-Package suggested but not available for checking: ‘pinfsc50’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
+0 errors | 0 warnings | 0 notes
 
 ## vdg (1.1.3)
 Maintainer: Pieter Schoonees <schoonees@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## vdmR (0.2.1)
+## vdmR (0.2.2)
 Maintainer: Tomokazu Fujino <fujino@fwu.ac.jp>
 
-2 errors | 0 warnings | 1 note 
-
-```
-checking examples ... ERROR
-Running examples in ‘vdmR-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: vcmap
-> ### Title: Generate choropleth map with interactive functions
-> ### Aliases: vcmap
-> 
-> ### ** Examples
-> 
-> data(vsfuk2012)
-> shp.path <- file.path(system.file(package="vdmR"), "etc/shapes/kitakyu2012.shp")
-> kk2012 <- dplyr::filter(vsfuk2012, CityCode<40110&CityCode>40100)
-> vcmap(shp.path, kk2012, "CityCode", "CityCode", "map1", "kk2012")
-Error in editDLfromGPath(gPath, specs, strict, grep, global, redraw) : 
-  'gPath' (geom_polygon.polygon) not found
-Calls: vcmap -> <Anonymous> -> grid.edit -> editDLfromGPath
-Execution halted
-
-checking tests ... ERROR
-Running the tests in ‘tests/run-all.R’ failed.
-Last 13 lines of output:
-  1: withCallingHandlers(eval(code, new_test_environment), error = capture_calls, message = function(c) invokeRestart("muffleMessage"))
-  2: eval(code, new_test_environment)
-  3: eval(expr, envir, enclos)
-  4: vcmap(shp.path, vsfuk2012, "CityCode", "CityCode", "map01", "vsfuk2012", fill = FertilityRate, 
-         ggscale = frcol) at test-vdmR.R:20
-  5: grid::grid.gedit("geom_polygon.polygon", name = "GRID.polygon")
-  6: grid.edit(..., grep = grep, global = global)
-  7: editDLfromGPath(gPath, specs, strict, grep, global, redraw)
-  8: stop(gettextf("'gPath' (%s) not found", as.character(gPath)), domain = NA)
-  Error: Test failures
-  In addition: Warning message:
-  Placing tests in `inst/tests/` is deprecated. Please use `tests/testthat/` instead 
-  Execution halted
-
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Quitting from lines 40-42 (vdmR-vignette.Rnw) 
-Error: processing vignette 'vdmR-vignette.Rnw' failed with diagnostics:
-'gPath' (geom_point.points) not found
-Execution halted
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## vipor (0.3.2)
 Maintainer: Scott Sherrill-Mix <shescott@upenn.edu>
@@ -6908,21 +6469,7 @@ Bug reports: https://github.com/krlmlr/wrswoR.benchmark/issues
 Maintainer: Kirill Müller <krlmlr+r@mailbox.org>  
 Bug reports: https://github.com/krlmlr/wrswoR/issues
 
-0 errors | 0 warnings | 2 notes
-
-```
-checking package dependencies ... NOTE
-Packages suggested but not available for checking:
-  ‘import’ ‘kimisc’ ‘rticles’ ‘metap’
-
-checking re-building of vignette outputs ... NOTE
-Error in re-building vignettes:
-  ...
-Error: processing vignette 'wrswoR.Rmd' failed with diagnostics:
-there is no package called ‘rticles’
-Execution halted
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## x.ent (1.1.2)
 Maintainer: Tien T. Phan <phantien84@gmail.com>  
