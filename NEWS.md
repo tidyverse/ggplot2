@@ -3,6 +3,10 @@
 * `x` and `y` scales are now symmetric regarding the list of
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
   `xmiddle` and `xupper` are now valid `x` aesthetics.
+  
+* `guide_colourbar` now respects the layer parameter `show.legend`.
+  When `show.legend` is set to `FALSE` a colourbar will not be
+  shown. (@has2k1)
 
 # ggplot2 2.1.0
 

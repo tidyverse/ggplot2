@@ -211,7 +211,26 @@ guide_merge.colorbar <- function(guide, new_guide) {
 
 # this guide is not geom-based.
 #' @export
-guide_geom.colorbar <- function(guide, ...) {
+guide_geom.colorbar <- function(guide, layers, default_mapping) {
+  # Layers that use this guide
+  guide_layers <- plyr::llply(layers, function(layer) {
+    all <- names(c(layer$mapping, if (layer$inherit.aes) default_mapping, layer$stat$default_aes))
+    geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
+    matched <- intersect(intersect(all, geom), names(guide$key))
+    matched <- setdiff(matched, names(layer$geom_params))
+    matched <- setdiff(matched, names(layer$aes_params))
+
+    if (length(matched) && ((is.na(layer$show.legend) || layer$show.legend))){
+      layer
+    } else {
+      # This layer does not use this guide
+      NULL
+    }
+  })
+
+  # Remove this guide if no layer uses it
+  if (length(compact(guide_layers)) == 0) guide <- NULL
+
   guide
 }
 
