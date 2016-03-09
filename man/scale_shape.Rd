@@ -36,5 +36,12 @@ ggplot(dsmall, aes(price, carat)) + geom_point(aes(shape = cut))
 
 # Or for short:
 d \%+\% dsmall
+
+# Show a list of available shapes
+shapes <- 0:25
+df_shapes <- data.frame(shape = factor(shapes), x=(shapes \%\% 10), y=10 * floor(shapes / 10))
+ggplot(df_shapes, aes(shape=shape, x=x, y=y)) +
+  geom_point(size=5, fill='red') +
+  scale_shape_manual(values=shapes)
 }
 
