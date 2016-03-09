@@ -479,6 +479,11 @@ add_theme <- function(t1, t2, t2name) {
     # The other form will simply drop NULL values
     t1[item] <- list(x)
   }
+  
+  # Update inherited items
+  for (item in names(t2)) {
+    t1[[item]] <- calc_element(item, t1)
+  }
 
   # If either theme is complete, then the combined theme is complete
   attr(t1, "complete") <- attr(t1, "complete") || attr(t2, "complete")
@@ -600,20 +605,47 @@ calc_element <- function(element, theme, verbose = FALSE) {
 # @param e2 An element object which e1 inherits from
 combine_elements <- function(e1, e2) {
 
-  # If e2 is NULL, nothing to inherit
-  if (is.null(e2))  return(e1)
-
-  # If e1 is NULL, or if e2 is element_blank, inherit everything from e2
-  if (is.null(e1) || inherits(e2, "element_blank"))  return(e2)
-
-  # If e1 has any NULL properties, inherit them from e2
-  n <- vapply(e1[names(e2)], is.null, logical(1))
-  e1[n] <- e2[n]
-
-  # Calculate relative sizes
-  if (is.rel(e1$size)) {
-    e1$size <- e2$size * unclass(e1$size)
+  # If e1 is NULL or element_blank, inherit everything
+  if (is.null(e1) || inherits(e1, "element_blank"))  {e1 <- e2}
+  
+  # If e1 is not NULL or blank and e2 is element_blank, inherit everything from root
+  if ((!is.null(e1) || !inherits(e1, "element_blank")) && (is.null(e2) || inherits(e2, "element_blank"))) {
+    e3 <- base_class(e1)
+    n <- vapply(e1[names(e3)], is.null, logical(1))
+    e1[n] <- e3[n]
   }
 
-  e1
+  # If e1 and e2 are not NULL or blank, inherit from e2 then root
+  if ((!is.null(e1) && !inherits(e1, "element_blank")) && (!is.null(e2) && !inherits(e2, "element_blank"))) {
+    # inherit from e2
+    n <- vapply(e1[names(e2)], is.null, logical(1))
+    e1[n] <- e2[n]
+
+    # inherit missing from base
+    e3 <- base_class(e1 = e1)
+    n <- vapply(e1[names(e3)], is.null, logical(1))
+    e1[n] <- e3[n]
+  }
+
+  # Calculate relative sizes
+  #if (is.rel(e1$size)) {
+  #  e1$size <- e2$size * unclass(e1$size)
+  #}
+
+  return(e1)
+}
+
+# Fine default properities of element
+#
+# @param e1 An element object
+base_class <- function(e1) {
+  line = element_line(colour = "black", size = 0.5, linetype = 1,lineend = "butt")
+  rect = element_rect(fill = "white", colour = "black",size = 0.5, linetype = 1)
+  text = element_text(family = "", face = "plain",colour = "black", size = 11, lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = margin(), debug = FALSE)
+  e3 <- class(e1)[1]
+  if (e3 == "element_line") {e3 <- line}
+  else if (e3 == "element_rect") {e3 <- rect}
+  else if (e3 == "element_text") {e3 <- text}
+
+  return(e3)
 }
