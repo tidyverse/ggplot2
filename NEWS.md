@@ -121,6 +121,8 @@
 
 * All elements should now inherit correctly for all themes except theme_void(). (@Katiedaisey, #1555) 
 
+* Inheritance of elements pull from default if parent is element_blank(). (@Katiedaisey, #1565) 
+
 # ggplot2 2.0.0
 
 ## Major changes
