@@ -278,35 +278,6 @@ mytheme <- theme_grey() + theme(plot.title = element_text(colour = "red"))
 p + mytheme
 
 }
-
-\dontrun{
-## Run this to generate a graph of the element inheritance tree
-build_element_graph <- function(tree) {
-  require(igraph)
-  require(plyr)
-
-  inheritdf <- function(name, item) {
-    if (length(item$inherit) == 0)
-      data.frame()
-    else
-      data.frame(child = name, parent = item$inherit)
-  }
-
-  edges <- plyr::rbind.fill(mapply(inheritdf, names(tree), tree))
-
-  # Explicitly add vertices (since not all are in edge list)
-  vertices <- data.frame(name = names(tree))
-  graph.data.frame(edges, vertices = vertices)
-}
-
-g <- build_element_graph(ggplot2:::.element_tree)
-V(g)$label <- V(g)$name
-
-set.seed(324)
-par(mar=c(0,0,0,0)) # Remove unnecessary margins
-plot(g, layout=layout.fruchterman.reingold, vertex.size=4, vertex.label.dist=.25)
-
-}
 }
 \seealso{
 \code{\link{+.gg}}

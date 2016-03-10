@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 2.0.0.9001
+Version: 2.1.0
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Winston", "Chang", , "winston@rstudio.com", "aut"),
@@ -25,22 +25,23 @@ Imports:
     scales (>= 0.3.0),
     stats
 Suggests:
+    covr,
     ggplot2movies,
     hexbin,
     Hmisc,
+    lattice,
     mapproj,
     maps,
     maptools,
     mgcv,
     multcomp,
     nlme,
-    testthat,
+    testthat (>= 0.11.0),
     quantreg,
     knitr,
+    rpart,
+    rmarkdown,
     svglite
-Remotes:
-    hadley/gtable,
-    hadley/scales
 Enhances: sp
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2

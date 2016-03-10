@@ -32,9 +32,9 @@ predictdf.glm <- function(model, xseq, se, level) {
     data.frame(
       x = xseq,
       y = model$family$linkinv(as.vector(pred$fit)),
-      ymin = model$family$linkinv(as.vector(pred$fit - std * pred$se)),
-      ymax = model$family$linkinv(as.vector(pred$fit + std * pred$se)),
-      se = as.vector(pred$se)
+      ymin = model$family$linkinv(as.vector(pred$fit - std * pred$se.fit)),
+      ymax = model$family$linkinv(as.vector(pred$fit + std * pred$se.fit)),
+      se = as.vector(pred$se.fit)
     )
   } else {
     data.frame(x = xseq, y = model$family$linkinv(as.vector(pred)))

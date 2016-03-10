@@ -1,15 +1,15 @@
 Hi,
 
-This is an automated email to let you know about the upcoming release of {{{ my_package }}}, which will be submitted to CRAN on __{{{ date }}}__. I'll also be updating gtable and scales at the same time.
+This is an automated email to let you know about the upcoming release of {{{ my_package }}}, which will be submitted to CRAN on {{{ date }}} (tomorrow!). I'll also be updating gtable and scales at the same time. To check for potential problems, I ran `R CMD check` on your package {{{your_package}}} ({{{your_version}}}). 
 
-To check for potential problems, I ran `R CMD check` on your package {{{your_package}}} ({{{your_version}}}). I found {{{your_summary}}}.
+I found: {{{your_summary}}}.
 
 {{#you_have_problems}}
 {{{your_results}}}
 
-Please submit an update to fix any ERRORs or WARNINGs. They may not be caused by the update to {{{my_package}}}, but it really makes life easier if you also fix any other problems that may have accumulated over time. Please also try to minimise the NOTEs. It's not essential you do this, but the fewer the false positives the more likely I am to detect a real problem with your package. 
+If I got an ERROR because I couldn't install your package (or one of it's dependencies), my apologies. Unfortunately I don't have the time to diagnose installation failures so you'll need to run the check yourself.
 
-If I couldn't install your package, I'd recommend you check it yourself. Unfortunately I don't have the resources to manually fix installation failures. Because there are so many dependencies of ggplot2, I'm unable to handle false positives - you'll just need to ignore these emails if you don't think there's actually a problem.
+Otherwise, please submit an updated package to CRAN as soon as possible. The ERRORs and WARNINGs might not be caused by the update to {{{my_package}}}, but it really makes life easier (for both me and CRAN) if you also fix any other problems that may have accumulated over time. Please also try to minimise the NOTEs. It's not essential you do this, but the fewer the false positives the more likely we are to detect a real problem with your package. 
 
 To get the development version of {{{ my_package }}} so you can run the checks yourself, you can run:
 

@@ -6,6 +6,12 @@ geom_freqpoly <- function(mapping = NULL, data = NULL,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE) {
+
+  params <- list(na.rm = na.rm, ...)
+  if (identical(stat, "bin")) {
+    params$pad <- TRUE
+  }
+
   layer(
     data = data,
     mapping = mapping,
@@ -14,10 +20,6 @@ geom_freqpoly <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
-      na.rm = na.rm,
-      pad = TRUE,
-      ...
-    )
+    params = params
   )
 }

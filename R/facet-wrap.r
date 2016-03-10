@@ -345,11 +345,11 @@ facet_strips.wrap <- function(facet, panel, theme) {
 
   # Adding labels metadata, useful for labellers
   attr(labels_df, "facet") <- "wrap"
-  if (!is.null(facet$switch) && facet$switch == "x") {
+  if (is.null(facet$switch) || facet$switch == "x") {
     dir <- "b"
     attr(labels_df, "type") <- "rows"
   } else {
-    dir <- "t"
+    dir <- "l"
     attr(labels_df, "type") <- "cols"
   }
 
@@ -357,10 +357,20 @@ facet_strips.wrap <- function(facet, panel, theme) {
     theme, dir, switch = facet$switch)
 
   # While grid facetting works with a whole gtable, wrap processes the
-  # columns separately. So we turn the gtable into a list of columns
-  strips <- list(t = vector("list", ncol(strips_table)))
+  # strips separately. So we turn the gtable into a list
+  if (dir == "b") {
+    n_strips <- ncol(strips_table)
+  }  else {
+    n_strips <- nrow(strips_table)
+  }
+
+  strips <- list(t = vector("list", n_strips))
   for (i in seq_along(strips$t)) {
-    strips$t[[i]] <- strips_table[, i]
+    if (dir == "b") {
+      strips$t[[i]] <- strips_table[, i]
+    } else {
+      strips$t[[i]] <- strips_table[i, ]
+    }
   }
   strips
 }
@@ -415,7 +425,7 @@ facet_vars.wrap <- function(facet) {
 #' # Valid input just gets returns unchanged
 #' sanitise_dim(1)
 #' sanitise_dim(NULL)
-#' \dontrun{
+#'
 #' # Only the first element of vectors get returned
 #' sanitise_dim(10:1)
 #' # Non-integer values are coerced to integer
@@ -425,7 +435,6 @@ facet_vars.wrap <- function(facet) {
 #' sanitise_dim(NA_integer_)
 #' sanitise_dim(0)
 #' sanitise_dim("foo")
-#' }
 #' @noRd
 sanitise_dim <- function(n) {
   xname <- paste0("`", deparse(substitute(n)), "`")
