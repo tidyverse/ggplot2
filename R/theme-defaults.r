@@ -276,6 +276,10 @@ theme_void <- function(base_size = 12, base_family = "") {
                             margin = margin(), debug = FALSE
                          ),
     plot.margin =        unit(c(0, 0, 0, 0), "lines"),
+    panel.background =   element_blank(),
+    panel.grid.major =   element_blank(),
+    axis.line =          element_blank(),
+    axis.ticks =          element_blank(),
     axis.text.x =        element_blank(),
     axis.text.y =        element_blank(),
     axis.title.x =       element_blank(),
@@ -283,6 +287,7 @@ theme_void <- function(base_size = 12, base_family = "") {
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_blank(),
     strip.text =         element_text(size = rel(0.8)),
+    strip.background =   element_blank(),
 
     complete = TRUE
   )
