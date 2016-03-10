@@ -450,7 +450,7 @@ add_theme <- function(t1, t2, t2name) {
     # The other form will simply drop NULL values
     t1[item] <- list(x)
   }
-  
+
   # Update inherited items
   for (item in names(t2)) {
     t1[[item]] <- calc_element(item, t1)
@@ -542,6 +542,12 @@ calc_element <- function(element, theme, verbose = FALSE) {
   # it is of the class specified in .element_tree
   if (!is.null(theme[[element]]) &&
       !inherits(theme[[element]], .element_tree[[element]]$class)) {
+    if (element != "legend.position" && element != "legend.justification")  {
+      stop(element, " should have class ", .element_tree[[element]]$class)
+    }
+  }
+
+  if ((element == "legend.position" || element == "legend.justification") && (class(theme[[element]])[1] != "character" && class(theme[[element]])[1] != "numeric")) {
     stop(element, " should have class ", .element_tree[[element]]$class)
   }
 
@@ -578,7 +584,7 @@ combine_elements <- function(e1, e2) {
 
   # If e1 is NULL or element_blank, inherit everything
   if (is.null(e1) || inherits(e1, "element_blank"))  {e1 <- e2}
-  
+
   # If e1 is not NULL or blank and e2 is element_blank, inherit everything from root
   if ((!is.null(e1) || !inherits(e1, "element_blank")) && (is.null(e2) || inherits(e2, "element_blank"))) {
     e3 <- base_class(e1)
