@@ -452,9 +452,9 @@ add_theme <- function(t1, t2, t2name) {
   }
 
   # Update inherited items
-  for (item in names(t2)) {
-    t1[[item]] <- calc_element(item, t1)
-  }
+  #for (item in names(t2)) {
+   # t1[[item]] <- calc_element(item, t1)
+  #}
 
   # If either theme is complete, then the combined theme is complete
   attr(t1, "complete") <- attr(t1, "complete") || attr(t2, "complete")
@@ -572,7 +572,13 @@ calc_element <- function(element, theme, verbose = FALSE) {
   parents <- lapply(pnames, calc_element, theme, verbose)
 
   # Combine the properties of this element with all parents
-  Reduce(combine_elements, parents, theme[[element]])
+    element <- Reduce(combine_elements, parents, theme[[element]])
+
+  # Check if base is blank
+    #if (inherits(parents[[length(parents)]], "element_blank")) {
+     # element <- element_blank()
+    #}
+  return(element)
 }
 
 
@@ -585,46 +591,22 @@ combine_elements <- function(e1, e2) {
   # If e1 is NULL or element_blank, inherit everything
   if (is.null(e1) || inherits(e1, "element_blank"))  {e1 <- e2}
 
-  # If e1 is not NULL or blank and e2 is element_blank, inherit everything from root
+  # If e1 is not NULL or blank and e2 is element_blank, inherit everything from farther up tree
   if ((!is.null(e1) || !inherits(e1, "element_blank")) && (is.null(e2) || inherits(e2, "element_blank"))) {
-    e3 <- base_class(e1)
-    n <- vapply(e1[names(e3)], is.null, logical(1))
-    e1[n] <- e3[n]
   }
 
-  # If e1 and e2 are not NULL or blank, inherit from e2 then root
+  # If e1 and e2 are not NULL or blank, inherit from e2 then farther up tree
   if ((!is.null(e1) && !inherits(e1, "element_blank")) && (!is.null(e2) && !inherits(e2, "element_blank"))) {
     # inherit from e2
     n <- vapply(e1[names(e2)], is.null, logical(1))
     e1[n] <- e2[n]
 
-    # inherit missing from base
-    e3 <- base_class(e1 = e1)
-    n <- vapply(e1[names(e3)], is.null, logical(1))
-    e1[n] <- e3[n]
   }
 
   # Calculate relative sizes
   if (is.rel(e1$size) && !is.null(e2$size)) {
     e1$size <- e2$size * unclass(e1$size)
-  } else if (is.rel(e1$size) && !is.null(e3$size)) {
-    e1$size <- e3$size * unclass(e1$size)
   }
 
   return(e1)
-}
-
-# Fine default properities of element
-#
-# @param e1 An element object
-base_class <- function(e1) {
-  line = element_line(colour = "black", size = 0.5, linetype = 1,lineend = "butt")
-  rect = element_rect(fill = "white", colour = "black",size = 0.5, linetype = 1)
-  text = element_text(family = "", face = "plain",colour = "black", size = 11, lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0, margin = margin(), debug = FALSE)
-  e3 <- class(e1)[1]
-  if (e3 == "element_line") {e3 <- line}
-  else if (e3 == "element_rect") {e3 <- rect}
-  else if (e3 == "element_text") {e3 <- text}
-
-  return(e3)
 }
