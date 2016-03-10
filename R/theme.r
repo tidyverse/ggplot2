@@ -628,9 +628,9 @@ combine_elements <- function(e1, e2) {
   }
 
   # Calculate relative sizes
-  #if (is.rel(e1$size)) {
-  #  e1$size <- e2$size * unclass(e1$size)
-  #}
+  if (is.rel(e1$size)) {
+    e1$size <- e2$size * unclass(e1$size)
+  }
 
   return(e1)
 }
