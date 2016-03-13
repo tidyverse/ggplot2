@@ -4,6 +4,12 @@
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
   `xmiddle` and `xupper` are now valid `x` aesthetics.
 
+* `ggtitle` and `labs` now take a `subtitle` parameter which makes it 
+  possible to add a subtitle below the main plot title.
+  
+* the main plot title and subtitle are left-justified (`hjust = 0`) by
+  default
+
 # ggplot2 2.1.0
 
 ## New features

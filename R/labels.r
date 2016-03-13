@@ -28,6 +28,10 @@ update_labels <- function(p, labels) {
 #' p + ylab("New y label")
 #' p + ggtitle("New plot title")
 #'
+#' # Can add a subtitle to plots with either of the following
+#' p + ggtitle("New plot title", subtitle = "A subtitle")
+#' p + labs(title = "New plot title", subtitle = "A subtitle")
+#'
 #' # This should work independently of other functions that modify the
 #' # the scale names
 #' p + ylab("New y label") + ylim(2, 4)
@@ -38,7 +42,7 @@ update_labels <- function(p, labels) {
 #' p + labs(colour = "Cylinders")
 #'
 #' # Can also pass in a list, if that is more convenient
-#' p + labs(list(title = "Title", x = "X", y = "Y"))
+#' p + labs(list(title = "Title", subtitle = "Subtitle", x = "X", y = "Y"))
 labs <- function(...) {
   args <- list(...)
   if (is.list(args[[1]])) args <- args[[1]]
@@ -58,14 +62,12 @@ ylab <- function(label) {
 }
 #' @rdname labs
 #' @export
-ggtitle <- function(label) {
-  labs(title = label)
-}
-
-#' @rdname labs
-#' @export
-ggsubtitle <- function(label) {
-  labs(subtitle = label)
+ggtitle <- function(label, subtitle) {
+  if (!missing(subtitle)) {
+    labs(title = label, subtitle = subtitle)
+  } else {
+    labs(title = label)
+  }
 }
 
 # Convert aesthetic mapping into text labels

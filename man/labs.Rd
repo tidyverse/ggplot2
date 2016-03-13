@@ -13,7 +13,7 @@ xlab(label)
 
 ylab(label)
 
-ggtitle(label)
+ggtitle(label, subtitle)
 }
 \arguments{
 \item{...}{a list of new names in the form aesthetic = "new name"}
@@ -31,6 +31,10 @@ p + xlab("New x label")
 p + ylab("New y label")
 p + ggtitle("New plot title")
 
+# Can add a subtitle to plots with either of the following
+p + ggtitle("New plot title", subtitle = "A subtitle")
+p + labs(title = "New plot title", subtitle = "A subtitle")
+
 # This should work independently of other functions that modify the
 # the scale names
 p + ylab("New y label") + ylim(2, 4)
@@ -41,6 +45,6 @@ p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
 p + labs(colour = "Cylinders")
 
 # Can also pass in a list, if that is more convenient
-p + labs(list(title = "Title", x = "X", y = "Y"))
+p + labs(list(title = "Title", subtitle = "Subtitle", x = "X", y = "Y"))
 }
 

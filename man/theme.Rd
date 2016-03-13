@@ -140,7 +140,11 @@ The individual theme elements are:
   plot.background  \tab background of the entire plot
                    (\code{element_rect}; inherits from \code{rect}) \cr
   plot.title       \tab plot title (text appearance)
-                   (\code{element_text}; inherits from \code{title}) \cr
+                   (\code{element_text}; inherits from \code{title})
+                   left-aligned by default\cr
+  plot.subtitle    \tab plot title (text appearance)
+                   (\code{element_text}; inherits from \code{title})
+                   left-aligned by default\cr
   plot.margin      \tab margin around entire plot
                    (\code{unit} with the sizes of the top, right, bottom, and
                     left margins) \cr
@@ -191,6 +195,11 @@ p <- p + labs(title = "Vehicle Weight-Gas Mileage Relationship")
 # Set title to twice the base font size
 p + theme(plot.title = element_text(size = rel(2)))
 p + theme(plot.title = element_text(size = rel(2), colour = "blue"))
+
+# Add a subtitle and adjust bottom margin
+p + labs(title = "Vehicle Weight-Gas Mileage Relationship",
+         subtitle = "You need to wrap long subtitleson manually") +
+    theme(plot.subtitle = element_text(margin = margin(b = 20)))
 
 # Changing plot look with themes
 DF <- data.frame(x = rnorm(400))

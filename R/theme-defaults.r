@@ -126,10 +126,12 @@ theme_grey <- function(base_size = 11, base_family = "") {
     plot.background =    element_rect(colour = "white"),
     plot.title =         element_text(
                            size = rel(1.2),
+                           hjust = 0,
                            margin = margin(b = half_line * 1.2)
                          ),
     plot.subtitle =      element_text(
                            size = rel(0.9),
+                           hjust = 0,
                            margin = margin(b = half_line * 0.9)
                          ),
     plot.margin =        margin(half_line, half_line, half_line, half_line),

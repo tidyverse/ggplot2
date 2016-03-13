@@ -224,7 +224,6 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   rect                = el_def("element_rect"),
   text                = el_def("element_text"),
   title               = el_def("element_text", "text"),
-  subtitle            = el_def("element_text", "text"),
   axis.line           = el_def("element_line", "line"),
   axis.text           = el_def("element_text", "text"),
   axis.title          = el_def("element_text", "title"),
@@ -279,7 +278,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "title"),
-  plot.subtitle       = el_def("element_text", "subtitle"),
+  plot.subtitle       = el_def("element_text", "title"),
   plot.margin         = el_def("margin"),
 
   aspect.ratio        = el_def("character")
