@@ -8,6 +8,11 @@ test_that("Setting guide labels", {
     expect_identical(ylab("my label")$y, "my label")
     expect_identical(labs(y = "my label")$y, "my label")
 
+    # Plot titles
+    expect_identical(labs(title = "my title")$title, "my title")
+    expect_identical(labs(title = "my title",
+                          subtitle = "my subtitle")$subtitle, "my subtitle")
+
     # Colour
     expect_identical(labs(colour = "my label")$colour, "my label")
     # American spelling
