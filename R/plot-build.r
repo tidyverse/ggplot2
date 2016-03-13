@@ -250,8 +250,16 @@ ggplot_gtable <- function(data) {
   title <- element_render(theme, "plot.title", plot$labels$title, expand_y = TRUE)
   title_height <- grobHeight(title)
 
+  # Subtitle
+  subtitle <- element_render(theme, "plot.subtitle", plot$labels$subtitle, expand_y = TRUE)
+  subtitle_height <- grobHeight(subtitle)
+
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), ,
     drop = FALSE]
+
+  plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)
+  plot_table <- gtable_add_grob(plot_table, subtitle, name = "subtitle",
+    t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
 
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, title, name = "title",

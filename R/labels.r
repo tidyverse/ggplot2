@@ -62,6 +62,12 @@ ggtitle <- function(label) {
   labs(title = label)
 }
 
+#' @rdname labs
+#' @export
+ggsubtitle <- function(label) {
+  labs(subtitle = label)
+}
+
 # Convert aesthetic mapping into text labels
 make_labels <- function(mapping) {
   remove_dots <- function(x) {
