@@ -15,9 +15,12 @@ update_labels <- function(p, labels) {
   p
 }
 
-#' Change axis labels and legend titles
+#' Change axis labels, legend titles, plot title/subtitle and below-plot
+#' annotation label.
 #'
-#' @param label The text for the axis or plot title.
+#' @param label The text for the axis, plot title or annotation below the plot
+#' @param subtitle the text for the subtitle for the plot which will be
+#'        displyed below the title. Leave \code{NULL} for no subtitle.
 #' @param ... a list of new names in the form aesthetic = "new name"
 #' @export
 #' @examples
@@ -35,7 +38,7 @@ update_labels <- function(p, labels) {
 #' # Can add plot annotations underneath the whole plot (for sources, notes or
 #' # copyright), similar to the \code{sub} parameter in base R, with the
 #' # following
-#' p + labs(sub = "(based on data from ...)")
+#' p + labs(annotation = "(based on data from ...)")
 #'
 #' # This should work independently of other functions that modify the
 #' # the scale names
@@ -60,19 +63,17 @@ labs <- function(...) {
 xlab <- function(label) {
   labs(x = label)
 }
+
 #' @rdname labs
 #' @export
 ylab <- function(label) {
   labs(y = label)
 }
+
 #' @rdname labs
 #' @export
-ggtitle <- function(label, subtitle) {
-  if (!missing(subtitle)) {
-    labs(title = label, subtitle = subtitle)
-  } else {
-    labs(title = label)
-  }
+ggtitle <- function(label, subtitle=NULL) {
+  labs(title = label, subtitle = subtitle)
 }
 
 # Convert aesthetic mapping into text labels

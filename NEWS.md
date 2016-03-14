@@ -7,8 +7,11 @@
 * `ggtitle` and `labs` now take a `subtitle` parameter which makes it 
   possible to add a subtitle below the main plot title.
   
+* `labs` now takes an `annotation` parameter that will set the label for 
+  annotation text below the plot panels
+  
 * the main plot title and subtitle are left-justified (`hjust = 0`) by
-  default
+  default, now
 
 # ggplot2 2.1.0
 

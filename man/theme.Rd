@@ -142,7 +142,10 @@ The individual theme elements are:
   plot.title       \tab plot title (text appearance)
                    (\code{element_text}; inherits from \code{title})
                    left-aligned by default\cr
-  plot.subtitle    \tab plot title (text appearance)
+  plot.subtitle    \tab plot subtitle (text appearance)
+                   (\code{element_text}; inherits from \code{title})
+                   left-aligned by default\cr
+  plot.sub         \tab annotations below the plot (text appearance)
                    (\code{element_text}; inherits from \code{title})
                    left-aligned by default\cr
   plot.margin      \tab margin around entire plot
