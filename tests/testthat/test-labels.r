@@ -13,6 +13,11 @@ test_that("Setting guide labels", {
     expect_identical(labs(title = "my title",
                           subtitle = "my subtitle")$subtitle, "my subtitle")
 
+    # whole plot annotations
+    expect_identical(labs(annotation = "my notice")$annotation, "my notice")
+    expect_identical(labs(title = "my title",
+                          annotation = "my notice")$annotation, "my notice")
+
     # Colour
     expect_identical(labs(colour = "my label")$colour, "my label")
     # American spelling
