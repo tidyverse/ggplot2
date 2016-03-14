@@ -32,6 +32,11 @@ update_labels <- function(p, labels) {
 #' p + ggtitle("New plot title", subtitle = "A subtitle")
 #' p + labs(title = "New plot title", subtitle = "A subtitle")
 #'
+#' # Can add plot annotations underneath the whole plot (for sources, notes or
+#' # copyright), similar to the \code{sub} parameter in base R, with the
+#' # following
+#' p + labs(sub = "(based on data from ...)")
+#'
 #' # This should work independently of other functions that modify the
 #' # the scale names
 #' p + ylab("New y label") + ylim(2, 4)

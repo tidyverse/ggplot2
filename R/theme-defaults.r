@@ -134,6 +134,11 @@ theme_grey <- function(base_size = 11, base_family = "") {
                            hjust = 0,
                            margin = margin(b = half_line * 0.9)
                          ),
+    plot.annotation =    element_text(
+                           size = rel(0.9),
+                           hjust = 0,
+                           margin = margin(b = half_line * 0.9)
+                         ),
     plot.margin =        margin(half_line, half_line, half_line, half_line),
 
     complete = TRUE
