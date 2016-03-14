@@ -192,7 +192,7 @@ print.theme <- function(x, ...) utils::str(x)
 #'   plot.subtitle    \tab plot subtitle (text appearance)
 #'                    (\code{element_text}; inherits from \code{title})
 #'                    left-aligned by default\cr
-#'   plot.sub         \tab annotations below the plot (text appearance)
+#'   plot.annotation  \tab annotations below the plot (text appearance)
 #'                    (\code{element_text}; inherits from \code{title})
 #'                    left-aligned by default\cr
 #'   plot.margin      \tab margin around entire plot
