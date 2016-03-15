@@ -16,11 +16,11 @@ update_labels <- function(p, labels) {
 }
 
 #' Change axis labels, legend titles, plot title/subtitle and below-plot
-#' caption annotation label.
+#' caption.
 #'
-#' @param label The text for the axis, plot title or annotation below the plot
+#' @param label The text for the axis, plot title or caption below the plot.
 #' @param subtitle the text for the subtitle for the plot which will be
-#'        displyed below the title. Leave \code{NULL} for no subtitle.
+#'        displayed below the title. Leave \code{NULL} for no subtitle.
 #' @param ... a list of new names in the form aesthetic = "new name"
 #' @export
 #' @examples
@@ -35,7 +35,7 @@ update_labels <- function(p, labels) {
 #' p + ggtitle("New plot title", subtitle = "A subtitle")
 #' p + labs(title = "New plot title", subtitle = "A subtitle")
 #'
-#' # Can add plot annotations underneath the whole plot (for captions, notes or
+#' # Can add a plot caption underneath the whole plot (for sources, notes or
 #' # copyright), similar to the \code{sub} parameter in base R, with the
 #' # following
 #' p + labs(caption = "(based on data from ...)")

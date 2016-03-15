@@ -4,10 +4,10 @@
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
   `xmiddle` and `xupper` are now valid `x` aesthetics.
 
-* `ggtitle()` and `labs()` take a `subtitle` parameter which makes it 
+* `ggtitle()` and `labs()` take a `subtitle` parameter which makes it
   possible to add a subtitle below the main plot title.
   
-* `labs()` takes a `caption` parameter that will set the label for 
+* `labs()` takes a `caption` parameter that will set the label for
   the annotation text below the plot panels.
   
 * The main plot title and subtitle are left-justified (`hjust = 0`) by
