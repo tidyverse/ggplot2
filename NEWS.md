@@ -5,17 +5,17 @@
   `xmiddle` and `xupper` are now valid `x` aesthetics.
 
 * `ggtitle()` and `labs()` take a `subtitle` parameter which makes it
-  possible to add a subtitle below the main plot title.
+  possible to add a subtitle below the main plot title. (@hrbrmstr)
   
 * `labs()` takes a `caption` parameter that will set the label for
-  the annotation text below the plot panels.
+  the annotation text below the plot panels. (@JanSchulz)
   
 * The main plot title and subtitle are left-justified (`hjust = 0`) by
   default. The `caption` annotation below the plot will be right-justified
-  by default.
+  by default. (@hrbrmstr)
   
 * Minor code formatting issues in examples and function parameters were
-  fixed.
+  fixed. (@hrbrmstr)
 
 # ggplot2 2.1.0
 
