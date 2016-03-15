@@ -4,14 +4,18 @@
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
   `xmiddle` and `xupper` are now valid `x` aesthetics.
 
-* `ggtitle` and `labs` now take a `subtitle` parameter which makes it 
+* `ggtitle()` and `labs()` take a `subtitle` parameter which makes it 
   possible to add a subtitle below the main plot title.
   
-* `labs` now takes an `annotation` parameter that will set the label for 
-  annotation text below the plot panels
+* `labs()` takes a `source` parameter that will set the label for 
+  the annotation text below the plot panels.
   
-* the main plot title and subtitle are left-justified (`hjust = 0`) by
-  default, now
+* The main plot title and subtitle are left-justified (`hjust = 0`) by
+  default. The `source` annotation below the plot will be right-justified
+  by default.
+  
+* Minor code formatting issues in examples and function parameters were
+  fixed.
 
 # ggplot2 2.1.0
 

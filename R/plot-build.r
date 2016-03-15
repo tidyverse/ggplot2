@@ -255,8 +255,8 @@ ggplot_gtable <- function(data) {
   subtitle_height <- grobHeight(subtitle)
 
   # whole plot annotation
-  annotation <- element_render(theme, "plot.annotation", plot$labels$annotation, expand_y = TRUE)
-  annotation_height <- grobHeight(annotation)
+  source <- element_render(theme, "plot.source", plot$labels$source, expand_y = TRUE)
+  source_height <- grobHeight(source)
 
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), ,
     drop = FALSE]
@@ -269,8 +269,8 @@ ggplot_gtable <- function(data) {
   plot_table <- gtable_add_grob(plot_table, title, name = "title",
     t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
 
-  plot_table <- gtable_add_rows(plot_table, annotation_height, pos = -1)
-  plot_table <- gtable_add_grob(plot_table, annotation, name = "annotation",
+  plot_table <- gtable_add_rows(plot_table, source_height, pos = -1)
+  plot_table <- gtable_add_grob(plot_table, source, name = "source",
     t = -1, b = -1, l = min(pans$l), r = max(pans$r), clip = "off")
 
   # Margins

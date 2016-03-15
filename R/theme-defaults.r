@@ -42,7 +42,7 @@
 #'
 #' @examples
 #' p <- ggplot(mtcars) + geom_point(aes(x = wt, y = mpg,
-#'      colour=factor(gear))) + facet_wrap(~am)
+#'      colour = factor(gear))) + facet_wrap(~am)
 #'
 #' p
 #' p + theme_gray()
@@ -134,9 +134,9 @@ theme_grey <- function(base_size = 11, base_family = "") {
                            hjust = 0,
                            margin = margin(b = half_line * 0.9)
                          ),
-    plot.annotation =    element_text(
+    plot.source =        element_text(
                            size = rel(0.9),
-                           hjust = 0,
+                           hjust = 1,
                            margin = margin(b = half_line * 0.9)
                          ),
     plot.margin =        margin(half_line, half_line, half_line, half_line),
