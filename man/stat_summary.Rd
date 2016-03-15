@@ -130,7 +130,7 @@ p + coord_cartesian(ylim = c(15, 30))
 
 # A set of useful summary functions is provided from the Hmisc package:
 stat_sum_df <- function(fun, geom="crossbar", ...) {
-  stat_summary(fun.data=fun, colour="red", geom=geom, width=0.2, ...)
+  stat_summary(fun.data = fun, colour = "red", geom = geom, width = 0.2, ...)
 }
 d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
 # The crossbar geom needs grouping to be specified when used with
@@ -144,7 +144,7 @@ d + stat_sum_df("median_hilow", mapping = aes(group = cyl))
 if (require("ggplot2movies")) {
 set.seed(596)
 mov <- movies[sample(nrow(movies), 1000), ]
- m2 <- ggplot(mov, aes(x= factor(round(rating)), y=votes)) + geom_point()
+ m2 <- ggplot(mov, aes(x = factor(round(rating)), y = votes)) + geom_point()
  m2 <- m2 + stat_summary(fun.data = "mean_cl_boot", geom = "crossbar",
                          colour = "red", width = 0.3) + xlab("rating")
 m2

@@ -75,7 +75,7 @@
 #' p1 + guides(fill = guide_colorbar(nbin = 100))
 #'
 #' # make top- and bottom-most ticks invisible
-#' p1 + scale_fill_continuous(limits = c(0,20), breaks=c(0, 5, 10, 15, 20),
+#' p1 + scale_fill_continuous(limits = c(0,20), breaks = c(0, 5, 10, 15, 20),
 #'  guide = guide_colorbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
 #'
 #' # guides can be controlled independently

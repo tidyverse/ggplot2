@@ -77,7 +77,8 @@ uniquecols <- function(df) {
 #' @param finite If \code{TRUE}, will also remove non-finite values.
 #' @keywords internal
 #' @export
-remove_missing <- function(df, na.rm=FALSE, vars = names(df), name="", finite = FALSE) {
+remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
+                           finite = FALSE) {
   stopifnot(is.logical(na.rm))
 
   vars <- intersect(vars, names(df))
