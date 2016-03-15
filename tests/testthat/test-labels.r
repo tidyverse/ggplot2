@@ -14,9 +14,9 @@ test_that("Setting guide labels", {
                           subtitle = "my subtitle")$subtitle, "my subtitle")
 
     # whole plot annotations
-    expect_identical(labs(source = "my notice")$source, "my notice")
+    expect_identical(labs(caption = "my notice")$caption, "my notice")
     expect_identical(labs(title = "my title",
-                          source = "my notice")$source, "my notice")
+                          caption = "my notice")$caption, "my notice")
 
     # Colour
     expect_identical(labs(colour = "my label")$colour, "my label")

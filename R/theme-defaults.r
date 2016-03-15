@@ -134,7 +134,7 @@ theme_grey <- function(base_size = 11, base_family = "") {
                            hjust = 0,
                            margin = margin(b = half_line * 0.9)
                          ),
-    plot.source =        element_text(
+    plot.caption =       element_text(
                            size = rel(0.9),
                            hjust = 1,
                            margin = margin(b = half_line * 0.9)

@@ -6,7 +6,7 @@
 \alias{xlab}
 \alias{ylab}
 \title{Change axis labels, legend titles, plot title/subtitle and below-plot
-source annotation label.}
+caption annotation label.}
 \usage{
 labs(...)
 
@@ -26,7 +26,7 @@ displyed below the title. Leave \code{NULL} for no subtitle.}
 }
 \description{
 Change axis labels, legend titles, plot title/subtitle and below-plot
-source annotation label.
+caption annotation label.
 }
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
@@ -40,10 +40,10 @@ p + ggtitle("New plot title")
 p + ggtitle("New plot title", subtitle = "A subtitle")
 p + labs(title = "New plot title", subtitle = "A subtitle")
 
-# Can add plot annotations underneath the whole plot (for sources, notes or
+# Can add plot annotations underneath the whole plot (for captions, notes or
 # copyright), similar to the \\code{sub} parameter in base R, with the
 # following
-p + labs(source = "(based on data from ...)")
+p + labs(caption = "(based on data from ...)")
 
 # This should work independently of other functions that modify the
 # the scale names
