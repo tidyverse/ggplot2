@@ -1,4 +1,4 @@
-# ggplot2 2.1.0.9000
+# ggplot2 2.1.0.9000 
 
 * `x` and `y` scales are now symmetric regarding the list of
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
