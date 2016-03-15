@@ -6,7 +6,7 @@
 \alias{xlab}
 \alias{ylab}
 \title{Change axis labels, legend titles, plot title/subtitle and below-plot
-caption annotation label.}
+caption.}
 \usage{
 labs(...)
 
@@ -19,14 +19,14 @@ ggtitle(label, subtitle = NULL)
 \arguments{
 \item{...}{a list of new names in the form aesthetic = "new name"}
 
-\item{label}{The text for the axis, plot title or annotation below the plot}
+\item{label}{The text for the axis, plot title or caption below the plot}
 
 \item{subtitle}{the text for the subtitle for the plot which will be
-displyed below the title. Leave \code{NULL} for no subtitle.}
+displayed below the title. Leave \code{NULL} for no subtitle.}
 }
 \description{
 Change axis labels, legend titles, plot title/subtitle and below-plot
-caption annotation label.
+caption.
 }
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
@@ -40,7 +40,7 @@ p + ggtitle("New plot title")
 p + ggtitle("New plot title", subtitle = "A subtitle")
 p + labs(title = "New plot title", subtitle = "A subtitle")
 
-# Can add plot annotations underneath the whole plot (for captions, notes or
+# Can add a plot caption underneath the whole plot (for sources, notes or
 # copyright), similar to the \\code{sub} parameter in base R, with the
 # following
 p + labs(caption = "(based on data from ...)")
