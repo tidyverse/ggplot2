@@ -30,9 +30,13 @@
 #'     before the facets are trained, so they are global scales, not local
 #'     to the individual panels.\code{...} contains the parameters returned by
 #'     \code{setup_params()}.
-#'   \item \code{setup_params(data, params)}: called once for each layer.
+#'   \item \code{setup_params(data, params, spec)}: called once for each layer.
 #'      Used to setup defaults that need to complete dataset, and to inform
 #'      the user of important choices. Should return list of parameters.
+#'      The \code{spec} argument is a list containing information about the
+#'      facetting specification (slot \code{facet_spec}), the specification of
+#'      plot aesthetics (slot \code{plot_mapping}), and the specification of
+#'      the layer aesthetics (slot \code{layer_mapping}).
 #'   \item \code{setup_data(data, params)}: called once for each layer,
 #'      after \code{setp_params()}. Should return modified \code{data}.
 #'      Default methods removes all rows containing a missing value in
@@ -58,7 +62,7 @@ Stat <- ggproto("Stat",
 
   non_missing_aes = character(),
 
-  setup_params = function(data, params) {
+  setup_params = function(data, params, spec) {
     params
   },
 

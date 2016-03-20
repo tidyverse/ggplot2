@@ -76,7 +76,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatBin <- ggproto("StatBin", Stat,
-  setup_params = function(data, params) {
+  setup_params = function(data, params, spec) {
     if (!is.null(data$y) || !is.null(params$y)) {
       stop("stat_bin() must not be used with a y aesthetic.", call. = FALSE)
     }
