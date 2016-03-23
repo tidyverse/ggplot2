@@ -159,15 +159,15 @@ df <- data.frame(
 # ggplot2 doesn't know you want to give the labels the same virtual width
 # as the bars:
 ggplot(data = df, aes(x, y, fill = grp, label = y)) +
-  geom_bar(stat = "identity", position = "dodge") +
+  geom_col(position = "dodge") +
   geom_text(position = "dodge")
 # So tell it:
 ggplot(data = df, aes(x, y, fill = grp, label = y)) +
-  geom_bar(stat = "identity", position = "dodge") +
+  geom_col(position = "dodge") +
   geom_text(position = position_dodge(0.9))
 # Use you can't nudge and dodge text, so instead adjust the y postion
 ggplot(data = df, aes(x, y, fill = grp, label = y)) +
-  geom_bar(stat = "identity", position = "dodge") +
+  geom_col(position = "dodge") +
   geom_text(aes(y = y + 0.05), position = position_dodge(0.9), vjust = 0)
 
 # To place text in the middle of each bar in a stacked barplot, you
@@ -175,7 +175,7 @@ ggplot(data = df, aes(x, y, fill = grp, label = y)) +
 df <- transform(df, mid_y = ave(df$y, df$x, FUN = function(val) cumsum(val) - (0.5 * val)))
 
 ggplot(data = df, aes(x, y, fill = grp, label = y)) +
- geom_bar(stat = "identity") +
+ geom_col() +
  geom_text(aes(y = mid_y))
 
 # Justification -------------------------------------------------------------
