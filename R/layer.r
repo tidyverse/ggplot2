@@ -249,9 +249,14 @@ Layer <- ggproto("Layer", NULL,
     cunion(stat_data, data)
   },
 
-  compute_geom_1 = function(self, data) {
+  compute_geom_1 = function(self, data, plot) {
     if (empty(data)) return(data.frame())
-    data <- self$geom$setup_data(data, c(self$geom_params, self$aes_params))
+
+    spec <- spec(self, plot)
+    params <- c(self$geom_params, self$aes_params)
+
+    params <- self$geom$setup_params(data, params, spec)
+    data <- self$geom$setup_data(data, params)
 
     check_required_aesthetics(
       self$geom$required_aes,

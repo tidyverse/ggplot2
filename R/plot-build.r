@@ -63,7 +63,7 @@ ggplot_build <- function(plot) {
   scales_add_missing(plot, c("x", "y"), plot$plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
-  data <- by_layer(function(l, d) l$compute_geom_1(d))
+  data <- by_layer(function(l, d) l$compute_geom_1(d, plot))
 
   # Apply position adjustments
   data <- by_layer(function(l, d) l$compute_position(d, panel))

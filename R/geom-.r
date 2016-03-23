@@ -13,11 +13,11 @@ NULL
 #' implement one or more of the following:
 #'
 #' Compared to \code{Stat} and \code{Position}, \code{Geom} is a little
-#' different because the execution of the setup and compute functions is
-#' split up. \code{setup_data} runs before position adjustments, and
-#' \code{draw_layer} is not run until render time,  much later. This
-#' means there is no \code{setup_params} because it's hard to communicate
-#' the changes.
+#' different because the execution of the setup and compute functions is split
+#' up. \code{setup_params} and \code{setup_data} run before position
+#' adjustments, and \code{draw_layer} is not run until render time, much
+#' later. This means there is no \code{setup_params} because it's hard to
+#' communicate the changes.
 #'
 #' \itemize{
 #'   \item Override either \code{draw_panel(self, data, panel_scales, coord)} or
@@ -98,6 +98,8 @@ Geom <- ggproto("Geom",
   draw_group = function(self, data, panel_scales, coord) {
     stop("Not implemented")
   },
+
+  setup_params = function(data, params, spec) params,
 
   setup_data = function(data, params) data,
 
