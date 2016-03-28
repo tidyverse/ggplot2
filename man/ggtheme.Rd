@@ -5,6 +5,7 @@
 \alias{theme_bw}
 \alias{theme_classic}
 \alias{theme_dark}
+\alias{theme_econ}
 \alias{theme_gray}
 \alias{theme_grey}
 \alias{theme_light}
@@ -30,6 +31,8 @@ theme_classic(base_size = 12, base_family = "")
 theme_dark(base_size = 12, base_family = "")
 
 theme_void(base_size = 12, base_family = "")
+
+theme_econ()
 }
 \arguments{
 \item{base_size}{base font size}
