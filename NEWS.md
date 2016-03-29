@@ -3,7 +3,7 @@
 * Added a new theme for classical economic plots where only
   the x and y axis are outlined. The axis title font size is
   slightly larger, there is no rotation in the y axis title, 
-  and gridlines are removed. (@jestonblu)
+  and gridlines are removed. (@jestonblu, #1598)
 
 * `x` and `y` scales are now symmetric regarding the list of
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
