@@ -92,6 +92,8 @@ add_ggplot <- function(p, object, objectname) {
     p <- update_guides(p, object)
   } else if (inherits(object, "uneval")) {
       p$mapping <- defaults(object, p$mapping)
+      # defaults() doesn't copy class, so copy it.
+      class(p$mapping) <- class(object)
 
       labels <- lapply(object, deparse)
       names(labels) <- names(object)
