@@ -4,6 +4,7 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin2d")}
 #'
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_bin2d} and \code{stat_bin2d}.
@@ -19,9 +20,12 @@
 #'
 #' # Or by specifying the width of the bins
 #' d + geom_bin2d(binwidth = c(0.1, 0.1))
-geom_bin2d <- function(mapping = NULL, data = NULL, stat = "bin2d",
-                       position = "identity", na.rm = FALSE,
-                       show.legend = NA, inherit.aes = TRUE, ...) {
+geom_bin2d <- function(mapping = NULL, data = NULL,
+                       stat = "bin2d", position = "identity",
+                       ...,
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE) {
 
   layer(
     data = data,

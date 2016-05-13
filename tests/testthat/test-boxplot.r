@@ -13,28 +13,19 @@ test_that("geom_boxplot range includes all outliers", {
 })
 
 test_that("geom_boxplot for continuous x gives warning if more than one x (#992)", {
-  dat <- expand.grid(x=1:2, y=c(-(1:20)^3, (1:20)^3) )
-  expect_that(ggplot_build(ggplot(dat, aes(x,y)) + geom_boxplot()),
-              gives_warning("Continuous x aesthetic"))
+  dat <- expand.grid(x = 1:2, y = c(-(1:5) ^ 3, (1:5) ^ 3) )
 
-  expect_that(ggplot_build(ggplot(dat, aes(x=as.Date(x,origin=Sys.Date()),y)) + geom_boxplot()),
-              gives_warning("Continuous x aesthetic"))
+  bplot <- function(aes = NULL, extra = list()) {
+    ggplot_build(ggplot(dat, aes) + geom_boxplot(aes) + extra)
+  }
 
-  expect_that(ggplot_build(ggplot(dat, aes(x,y,group=x)) + geom_boxplot()),
-              not(gives_warning("Continuous x aesthetic")))
+  expect_warning(bplot(aes(x, y)), "Continuous x aesthetic")
+  expect_warning(bplot(aes(x, y), facet_wrap(~x)), "Continuous x aesthetic")
+  expect_warning(bplot(aes(Sys.Date() + x, y)), "Continuous x aesthetic")
 
-  expect_that(ggplot_build(ggplot(dat, aes(x=1,y)) + geom_boxplot()),
-              not(gives_warning("Continuous x aesthetic")))
-
-  expect_that(ggplot_build(ggplot(dat, aes(x=factor(x),y)) + geom_boxplot()),
-              not(gives_warning("Continuous x aesthetic")))
-
-  expect_that(ggplot_build(ggplot(dat, aes(x=(x == 1),y)) + geom_boxplot()),
-              not(gives_warning("Continuous x aesthetic")))
-
-  expect_that(ggplot_build(ggplot(dat, aes(x=as.character(x),y)) + geom_boxplot()),
-              not(gives_warning("Continuous x aesthetic")))
-
-  expect_that(ggplot_build(ggplot(dat, aes(x,y)) + geom_boxplot() + facet_wrap(~y)),
-              gives_warning("Continuous x aesthetic"))
+  expect_warning(bplot(aes(x, group = x, y)), NA)
+  expect_warning(bplot(aes(1, y)), NA)
+  expect_warning(bplot(aes(factor(x), y)), NA)
+  expect_warning(bplot(aes(x == 1, y)), NA)
+  expect_warning(bplot(aes(as.character(x), y)), NA)
 })

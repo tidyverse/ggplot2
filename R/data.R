@@ -135,12 +135,12 @@
 #' }
 "msleep"
 
-#' Terms of 10 presidents from Eisenhower to Bush W.
+#' Terms of 11 presidents from Eisenhower to Obama.
 #'
 #' The names of each president, the start and end date of their term, and
-#' their party of 10 US presidents from Eisenhower to Bush W.
+#' their party of 11 US presidents from Eisenhower to Obama.
 #'
-#' @format A data frame with 10 rows and 4 variables
+#' @format A data frame with 11 rows and 4 variables
 "presidential"
 
 #' Vector field of seal movements.

@@ -6,6 +6,7 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "quantile")}
 #'
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
 #' @param method.args List of additional arguments passed on to the modelling
@@ -27,10 +28,15 @@
 #'
 #' # Set aesthetics to fixed value
 #' m + geom_quantile(colour = "red", size = 2, alpha = 0.5)
-geom_quantile <- function(mapping = NULL, data = NULL, stat = "quantile",
-                          position = "identity", lineend = "butt",
-                          linejoin = "round", linemitre = 1,
-                          na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
+geom_quantile <- function(mapping = NULL, data = NULL,
+                          stat = "quantile", position = "identity",
+                          ...,
+                          lineend = "butt",
+                          linejoin = "round",
+                          linemitre = 1,
+                          na.rm = FALSE,
+                          show.legend = NA,
+                          inherit.aes = TRUE) {
 
   layer(
     data = data,

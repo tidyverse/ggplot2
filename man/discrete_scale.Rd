@@ -49,8 +49,9 @@ for discrete scales and (0.05,0) for continuous scales.}
 
 \item{na.value}{how should missing values be displayed?}
 
-\item{drop}{drop unused factor levels from the scale (\code{TRUE} or
-\code{FALSE})}
+\item{drop}{Should unused factor levels be omitted from the scale?
+The default, \code{TRUE}, uses the levels that appear in the data;
+\code{FALSE} uses all the levels in the factor.}
 
 \item{guide}{the name of, or actual function, used to create the
 guide. See \code{\link{guides}} for more info.}

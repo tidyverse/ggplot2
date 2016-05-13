@@ -3,6 +3,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "violin")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param draw_quantiles If \code{not(NULL)} (default), draw horizontal lines
 #'   at the given quantiles of the density estimate.
@@ -65,11 +66,15 @@
 #'   geom_violin(aes(group = cut_width(year, 10)), scale = "width")
 #' }
 #' }
-geom_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
-                        draw_quantiles = NULL, position = "dodge",
-                        trim = TRUE, scale = "area",
-                        na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-                        ...) {
+geom_violin <- function(mapping = NULL, data = NULL,
+                        stat = "ydensity", position = "dodge",
+                        ...,
+                        draw_quantiles = NULL,
+                        trim = TRUE,
+                        scale = "area",
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

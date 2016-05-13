@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 2.0.0.9000
+Version: 2.1.0
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Winston", "Chang", , "winston@rstudio.com", "aut"),
@@ -14,7 +14,7 @@ Description: An implementation of the grammar of graphics in R. It combines the
     data to aesthetic attributes. See http://ggplot2.org for more information,
     documentation and examples.
 Depends:
-    R (>= 2.14)
+    R (>= 3.1)
 Imports:
     digest,
     grid,
@@ -25,18 +25,23 @@ Imports:
     scales (>= 0.3.0),
     stats
 Suggests:
+    covr,
     ggplot2movies,
     hexbin,
     Hmisc,
+    lattice,
     mapproj,
     maps,
     maptools,
     mgcv,
     multcomp,
     nlme,
-    testthat,
+    testthat (>= 0.11.0),
     quantreg,
-    knitr
+    knitr,
+    rpart,
+    rmarkdown,
+    svglite
 Enhances: sp
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
@@ -64,6 +69,7 @@ Collate:
     'annotation.r'
     'autoplot.r'
     'bench.r'
+    'bin.R'
     'coord-.r'
     'coord-cartesian-.r'
     'coord-fixed.r'
@@ -134,6 +140,7 @@ Collate:
     'guides-.r'
     'guides-axis.r'
     'guides-grid.r'
+    'hexbin.R'
     'labels.r'
     'layer.r'
     'limits.r'
@@ -169,6 +176,7 @@ Collate:
     'scale-manual.r'
     'scale-shape.r'
     'scale-size.r'
+    'scale-type.R'
     'scales-.r'
     'stat-bin.r'
     'stat-bin2d.r'
@@ -198,7 +206,6 @@ Collate:
     'theme-defaults.r'
     'theme-elements.r'
     'theme.r'
-    'translate-qplot-base.r'
     'translate-qplot-ggplot.r'
     'translate-qplot-lattice.r'
     'utilities-break.r'
@@ -210,4 +217,4 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1

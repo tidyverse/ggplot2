@@ -6,7 +6,8 @@ NULL
 geom_vline <- function(mapping = NULL, data = NULL,
                        ...,
                        xintercept,
-                       na.rm = FALSE, show.legend = NA) {
+                       na.rm = FALSE,
+                       show.legend = NA) {
 
   # Act like an annotation
   if (!missing(xintercept)) {

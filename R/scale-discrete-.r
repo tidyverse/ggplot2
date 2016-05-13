@@ -15,10 +15,9 @@
 #' @rdname scale_discrete
 #' @export
 #' @examples
-#' \donttest{
-#' ggplot(diamonds, aes(cut)) + stat_bin()
 #' ggplot(diamonds, aes(cut)) + geom_bar()
 #'
+#' \donttest{
 #' # The discrete position scale is added automatically whenever you
 #' # have a discrete position.
 #'
@@ -29,12 +28,9 @@
 #' d + scale_x_discrete("Cut", labels = c("Fair" = "F","Good" = "G",
 #'   "Very Good" = "VG","Perfect" = "P","Ideal" = "I"))
 #'
-#' d + scale_y_discrete("Clarity")
-#' d + scale_x_discrete("Cut") + scale_y_discrete("Clarity")
-#'
 #' # Use limits to adjust the which levels (and in what order)
 #' # are displayed
-#' d + scale_x_discrete(limits=c("Fair","Ideal"))
+#' d + scale_x_discrete(limits = c("Fair","Ideal"))
 #'
 #' # you can also use the short hand functions xlim and ylim
 #' d + xlim("Fair","Ideal", "Good")
@@ -96,14 +92,9 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     }
   },
 
-  # If range not available from discrete range, implies discrete scale been
-  # used with purely continuous data, so construct limits accordingly
   get_limits = function(self) {
     if (self$is_empty()) return(c(0, 1))
-
-    dis_limits <- function(x) seq.int(floor(min(x)), ceiling(max(x)), by = 1L)
-
-    self$limits %||% self$range$range %||% dis_limits(self$range_c$range)
+    self$limits %||% self$range$range %||% integer()
   },
 
   is_empty = function(self) {
@@ -124,16 +115,21 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   dimension = function(self, expand = c(0, 0)) {
-    disc_range <- c(1, length(self$get_limits()))
-    disc <- expand_range(disc_range, 0, expand[2], 1)
+    c_range <- self$range_c$range
+    d_range <- self$range$range
 
-    # if no data was trained (i.e. range_c is infinite) return disc range
-    if (any(is.infinite(self$range_c$range))) {
-      return(disc)
+    if (self$is_empty()) {
+      c(0, 1)
+    } else if (is.null(d_range)) { # only continuous
+      expand_range(c_range, expand[1], 0 , 1)
+    } else if (is.null(c_range)) { # only discrete
+      expand_range(c(1, length(d_range)), 0, expand[2], 1)
+    } else { # both
+      range(
+        expand_range(c_range, expand[1], 0 , 1),
+        expand_range(c(1, length(d_range)), 0, expand[2], 1)
+      )
     }
-
-    cont <- expand_range(self$range_c$range, expand[1], 0, expand[2])
-    range(disc, cont)
   },
 
   clone = function(self) {

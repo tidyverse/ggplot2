@@ -26,6 +26,7 @@
 #' Inward always aligns text towards the center, and outward aligns
 #' it away from the center
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param parse If TRUE, the labels will be parsed into expressions and
 #'   displayed as described in ?plotmath
@@ -50,6 +51,7 @@
 #' p + geom_point() + geom_text(vjust = 0, nudge_y = 0.5)
 #' p + geom_point() + geom_text(angle = 45)
 #' \dontrun{
+#' # Doesn't work on all systems
 #' p + geom_text(family = "Times New Roman")
 #' }
 #'
@@ -115,10 +117,16 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 #' }
-geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", parse = FALSE, ...,
-                      nudge_x = 0, nudge_y = 0, check_overlap = FALSE,
-                      na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+geom_text <- function(mapping = NULL, data = NULL,
+                      stat = "identity", position = "identity",
+                      ...,
+                      parse = FALSE,
+                      nudge_x = 0,
+                      nudge_y = 0,
+                      check_overlap = FALSE,
+                      na.rm = FALSE,
+                      show.legend = NA,
+                      inherit.aes = TRUE)
 {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {

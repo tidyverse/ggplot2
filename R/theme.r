@@ -1,7 +1,13 @@
 #' Get, set and update themes.
 #'
-#' Use \code{theme_update} to modify a small number of elements of the current
-#' theme or use \code{theme_set} to completely override it.
+#' Use \code{theme_get} to get the current theme, and \code{theme_set} to
+#' completely override it. \code{theme_update} and \code{theme_replace} are
+#' shorthands for changing individual elements in the current theme.
+#' \code{theme_update} uses the \code{+} operator, so that any unspecified
+#' values in the theme element will default to the values they are set in the
+#' theme. \code{theme_replace} will completely replace the element, so any
+#' unspecified values will overwrite the current value in the theme with \code{NULL}s.
+#'
 #'
 #' @param ... named list of theme settings
 #' @seealso \code{\link{\%+replace\%}} and \code{\link{+.gg}}
@@ -15,10 +21,22 @@
 #' theme_set(old)
 #' p
 #'
-#' old <- theme_update(panel.background = element_rect(colour = "pink"))
+#' #theme_replace NULLs out the fill attribute of panel.background,
+#' #resulting in a white background:
+#' theme_get()$panel.background
+#' old <- theme_replace(panel.background = element_rect(colour = "pink"))
+#' theme_get()$panel.background
 #' p
 #' theme_set(old)
+#'
+#' #theme_update only changes the colour attribute, leaving the others intact:
+#' old <- theme_update(panel.background = element_rect(colour = "pink"))
+#' theme_get()$panel.background
+#' p
+#' theme_set(old)
+#'
 #' theme_get()
+#'
 #'
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(color = mpg)) +
@@ -26,8 +44,14 @@
 #'         legend.justification = c(1, 1))
 #' last_plot() +
 #'  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
+#'
 theme_update <- function(...) {
-  # Make a call to theme, then add to theme
+  theme_set(theme_get() + theme(...))
+}
+
+#' @rdname theme_update
+#' @export
+theme_replace <- function(...) {
   theme_set(theme_get() %+replace% theme(...))
 }
 
@@ -163,7 +187,14 @@ print.theme <- function(x, ...) utils::str(x)
 #'   plot.background  \tab background of the entire plot
 #'                    (\code{element_rect}; inherits from \code{rect}) \cr
 #'   plot.title       \tab plot title (text appearance)
-#'                    (\code{element_text}; inherits from \code{title}) \cr
+#'                    (\code{element_text}; inherits from \code{title})
+#'                    left-aligned by default\cr
+#'   plot.subtitle    \tab plot subtitle (text appearance)
+#'                    (\code{element_text}; inherits from \code{title})
+#'                    left-aligned by default\cr
+#'   plot.caption     \tab caption below the plot (text appearance)
+#'                    (\code{element_text}; inherits from \code{title})
+#'                    right-aligned by default\cr
 #'   plot.margin      \tab margin around entire plot
 #'                    (\code{unit} with the sizes of the top, right, bottom, and
 #'                     left margins) \cr
@@ -229,6 +260,11 @@ print.theme <- function(x, ...) utils::str(x)
 #' # Set title to twice the base font size
 #' p + theme(plot.title = element_text(size = rel(2)))
 #' p + theme(plot.title = element_text(size = rel(2), colour = "blue"))
+#'
+#' # Add a subtitle and adjust bottom margin
+#' p + labs(title = "Vehicle Weight-Gas Mileage Relationship",
+#'          subtitle = "You need to wrap long subtitleson manually") +
+#'     theme(plot.subtitle = element_text(margin = margin(b = 20)))
 #'
 #' # Changing plot look with themes
 #' DF <- data.frame(x = rnorm(400))
@@ -314,35 +350,6 @@ print.theme <- function(x, ...) utils::str(x)
 #' # Modify a theme and save it
 #' mytheme <- theme_grey() + theme(plot.title = element_text(colour = "red"))
 #' p + mytheme
-#'
-#' }
-#'
-#' \dontrun{
-#' ## Run this to generate a graph of the element inheritance tree
-#' build_element_graph <- function(tree) {
-#'   require(igraph)
-#'   require(plyr)
-#'
-#'   inheritdf <- function(name, item) {
-#'     if (length(item$inherit) == 0)
-#'       data.frame()
-#'     else
-#'       data.frame(child = name, parent = item$inherit)
-#'   }
-#'
-#'   edges <- plyr::rbind.fill(mapply(inheritdf, names(tree), tree))
-#'
-#'   # Explicitly add vertices (since not all are in edge list)
-#'   vertices <- data.frame(name = names(tree))
-#'   graph.data.frame(edges, vertices = vertices)
-#' }
-#'
-#' g <- build_element_graph(ggplot2:::.element_tree)
-#' V(g)$label <- V(g)$name
-#'
-#' set.seed(324)
-#' par(mar=c(0,0,0,0)) # Remove unnecessary margins
-#' plot(g, layout=layout.fruchterman.reingold, vertex.size=4, vertex.label.dist=.25)
 #'
 #' }
 theme <- function(..., complete = FALSE, validate = TRUE) {

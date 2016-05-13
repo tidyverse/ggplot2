@@ -1,21 +1,15 @@
 language: R
-sudo: required
-warnings_are_errors: true
-
-r_packages:
-  - rmarkdown
+cache: packages
+sudo: false
 
 r_github_packages:
   - hadley/staticdocs
-  - jimhester/covr
-
-before_script:
-  - sudo Rscript -e "library(stringi); stri_install_icudt()"
 
 after_success:
   - Rscript -e 'covr::codecov()'
 
 before_deploy:
+  - R -e "install.packages('roxygen2', repos = 'http://cran.rstudio.com')"
   - R -e "staticdocs::build_site(examples = TRUE)"
 
 deploy:

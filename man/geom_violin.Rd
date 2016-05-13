@@ -6,30 +6,44 @@
 \title{Violin plot.}
 \usage{
 geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
-  draw_quantiles = NULL, position = "dodge", trim = TRUE,
-  scale = "area", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ...)
+  position = "dodge", ..., draw_quantiles = NULL, trim = TRUE,
+  scale = "area", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
-  position = "dodge", adjust = 1, kernel = "gaussian", trim = TRUE,
-  scale = "area", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ...)
+  position = "dodge", ..., bw = "nrd0", adjust = 1, kernel = "gaussian",
+  trim = TRUE, scale = "area", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
 \code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
-default), is combined with the default mapping at the top level of the
-plot. You only need to supply \code{mapping} if there isn't a mapping
-defined for the plot.}
+default), it is combined with the default mapping at the top level of the
+plot. You must supply \code{mapping} if there is no plot mapping.}
 
-\item{data}{A data frame. If specified, overrides the default data frame
-defined at the top level of the plot.}
+\item{data}{The data to be displayed in this layer. There are three
+   options:
 
-\item{draw_quantiles}{If \code{not(NULL)} (default), draw horizontal lines
-at the given quantiles of the density estimate.}
+   If \code{NULL}, the default, the data is inherited from the plot
+   data as specified in the call to \code{\link{ggplot}}.
+
+   A \code{data.frame}, or other object, will override the plot
+   data. All objects will be fortified to produce a data frame. See
+   \code{\link{fortify}} for which variables will be created.
+
+   A \code{function} will be called with a single argument,
+   the plot data. The return value must be a \code{data.frame.}, and
+   will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{color = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
+
+\item{draw_quantiles}{If \code{not(NULL)} (default), draw horizontal lines
+at the given quantiles of the density estimate.}
 
 \item{trim}{If \code{TRUE} (default), trim the tails of the violins
 to the range of the data. If \code{FALSE}, don't trim the tails.}
@@ -50,21 +64,14 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. There are
-  three types of arguments you can use here:
-
-  \itemize{
-  \item Aesthetics: to set an aesthetic to a fixed value, like
-     \code{color = "red"} or \code{size = 3}.
-  \item Other arguments to the layer, for example you override the
-    default \code{stat} associated with the layer.
-  \item Other arguments passed on to the stat.
-  }}
-
 \item{geom, stat}{Use to override the default connection between
 \code{geom_violin} and \code{stat_ydensity}.}
 
-\item{adjust}{see \code{\link{density}} for details}
+\item{bw}{the smoothing bandwidth to be used, see
+\code{\link{density}} for details}
+
+\item{adjust}{adjustment of the bandwidth, see
+\code{\link{density}} for details}
 
 \item{kernel}{kernel used for density estimation, see
 \code{\link{density}} for details}

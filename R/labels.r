@@ -15,9 +15,12 @@ update_labels <- function(p, labels) {
   p
 }
 
-#' Change axis labels and legend titles
+#' Change axis labels, legend titles, plot title/subtitle and below-plot
+#' caption.
 #'
-#' @param label The text for the axis or plot title.
+#' @param label The text for the axis, plot title or caption below the plot.
+#' @param subtitle the text for the subtitle for the plot which will be
+#'        displayed below the title. Leave \code{NULL} for no subtitle.
 #' @param ... a list of new names in the form aesthetic = "new name"
 #' @export
 #' @examples
@@ -27,6 +30,15 @@ update_labels <- function(p, labels) {
 #' p + xlab("New x label")
 #' p + ylab("New y label")
 #' p + ggtitle("New plot title")
+#'
+#' # Can add a subtitle to plots with either of the following
+#' p + ggtitle("New plot title", subtitle = "A subtitle")
+#' p + labs(title = "New plot title", subtitle = "A subtitle")
+#'
+#' # Can add a plot caption underneath the whole plot (for sources, notes or
+#' # copyright), similar to the \code{sub} parameter in base R, with the
+#' # following
+#' p + labs(caption = "(based on data from ...)")
 #'
 #' # This should work independently of other functions that modify the
 #' # the scale names
@@ -38,7 +50,7 @@ update_labels <- function(p, labels) {
 #' p + labs(colour = "Cylinders")
 #'
 #' # Can also pass in a list, if that is more convenient
-#' p + labs(list(title = "Title", x = "X", y = "Y"))
+#' p + labs(list(title = "Title", subtitle = "Subtitle", x = "X", y = "Y"))
 labs <- function(...) {
   args <- list(...)
   if (is.list(args[[1]])) args <- args[[1]]
@@ -51,15 +63,17 @@ labs <- function(...) {
 xlab <- function(label) {
   labs(x = label)
 }
+
 #' @rdname labs
 #' @export
 ylab <- function(label) {
   labs(y = label)
 }
+
 #' @rdname labs
 #' @export
-ggtitle <- function(label) {
-  labs(title = label)
+ggtitle <- function(label, subtitle = NULL) {
+  labs(title = label, subtitle = subtitle)
 }
 
 # Convert aesthetic mapping into text labels
@@ -68,5 +82,13 @@ make_labels <- function(mapping) {
     gsub(match_calculated_aes, "\\1", x)
   }
 
-  lapply(mapping, function(x) remove_dots(deparse(x)))
+  default_label <- function(aesthetic, mapping) {
+    # e.g., geom_smooth(aes(colour = "loess"))
+    if (is.character(mapping)) {
+      aesthetic
+    } else {
+      remove_dots(deparse(mapping))
+    }
+  }
+  Map(default_label, names(mapping), mapping)
 }

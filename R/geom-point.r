@@ -29,36 +29,13 @@
 #' @seealso \code{\link{scale_size}} to see scale area of points, instead of
 #'   radius, \code{\link{geom_jitter}} to jitter points to reduce (mild)
 #'   overplotting
-#' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
-#'   \code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
-#'   default), is combined with the default mapping at the top level of the
-#'   plot. You only need to supply \code{mapping} if there isn't a mapping
-#'   defined for the plot.
-#' @param data A data frame. If specified, overrides the default data frame
-#'   defined at the top level of the plot.
-#' @param position Position adjustment, either as a string, or the result of
-#'  a call to a position adjustment function.
-#' @param stat The statistical transformation to use on the data for this
-#'    layer, as a string.
+#' @inheritParams layer
 #' @param na.rm If \code{FALSE} (the default), removes missing values with
 #'    a warning.  If \code{TRUE} silently removes missing values.
-#' @param show.legend logical. Should this layer be included in the legends?
-#'   \code{NA}, the default, includes if any aesthetics are mapped.
-#'   \code{FALSE} never includes, and \code{TRUE} always includes.
-#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
-#'   rather than combining with them. This is most useful for helper functions
-#'   that define both data and aesthetics and shouldn't inherit behaviour from
-#'   the default plot specification, e.g. \code{\link{borders}}.
-#' @param ... other arguments passed on to \code{\link{layer}}. There are
-#'   three types of arguments you can use here:
-#'
-#'   \itemize{
-#'   \item Aesthetics: to set an aesthetic to a fixed value, like
-#'      \code{color = "red"} or \code{size = 3}.
-#'   \item Other arguments to the layer, for example you override the
-#'     default \code{stat} associated with the layer.
-#'   \item Other arguments passed on to the stat.
-#'   }
+#' @param ... other arguments passed on to \code{\link{layer}}. These are
+#'   often aesthetics, used to set an aesthetic to a fixed value, like
+#'   \code{color = "red"} or \code{size = 3}. They may also be parameters
+#'   to the paired geom/stat.
 #' @inheritParams layer
 #' @export
 #' @examples
@@ -113,9 +90,12 @@
 #' ggplot(mtcars2, aes(wt, mpg)) + geom_point()
 #' ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
 #' }
-geom_point <- function(mapping = NULL, data = NULL, stat = "identity",
-                       position = "identity", na.rm = FALSE,
-                       show.legend = NA, inherit.aes = TRUE, ...) {
+geom_point <- function(mapping = NULL, data = NULL,
+                       stat = "identity", position = "identity",
+                       ...,
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

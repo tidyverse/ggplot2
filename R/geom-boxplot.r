@@ -22,12 +22,16 @@
 #' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
 #'   continuous variable, \code{\link{geom_jitter}} for another way to look
 #'   at conditional distributions.
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot} and \code{stat_boxplot}.
-#' @param outlier.colour,outlier.shape,outlier.size,outlier.stroke Default
-#'   aesthetics for outliers. Set to \code{NULL} to inherit from the aesthetics
-#'   used for the box.
+#' @param outlier.colour,outlier.color,outlier.shape,outlier.size,outlier.stroke
+#'   Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+#'   aesthetics used for the box.
+#'
+#'   In the unlikely event you specify both US and UK spellings of colour, the
+#'   US spelling will take precedence.
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
 #'   \code{TRUE}, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
@@ -82,12 +86,20 @@
 #'    stat = "identity"
 #'  )
 #' }
-geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
-                         position = "dodge", outlier.colour = NULL,
-                         outlier.shape = 19, outlier.size = 1.5,
-                         outlier.stroke = 0.5, notch = FALSE, notchwidth = 0.5,
-                         varwidth = FALSE, na.rm = FALSE,
-                         show.legend = NA, inherit.aes = TRUE, ...) {
+geom_boxplot <- function(mapping = NULL, data = NULL,
+                         stat = "boxplot", position = "dodge",
+                         ...,
+                         outlier.colour = NULL,
+                         outlier.color = NULL,
+                         outlier.shape = 19,
+                         outlier.size = 1.5,
+                         outlier.stroke = 0.5,
+                         notch = FALSE,
+                         notchwidth = 0.5,
+                         varwidth = FALSE,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -97,7 +109,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
-      outlier.colour = outlier.colour,
+      outlier.colour = outlier.color %||% outlier.colour,
       outlier.shape = outlier.shape,
       outlier.size = outlier.size,
       outlier.stroke = outlier.stroke,

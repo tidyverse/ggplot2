@@ -569,8 +569,9 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   they should take
 #' @param name the name of the scale - used as the axis label or the legend
 #'  title
-#' @param drop drop unused factor levels from the scale (\code{TRUE} or
-#'   \code{FALSE})
+#' @param drop Should unused factor levels be omitted from the scale?
+#'    The default, \code{TRUE}, uses the levels that appear in the data;
+#'    \code{FALSE} uses all the levels in the factor.
 #' @param breaks control the breaks in the guide.  There are four possible
 #'   types of input:
 #'   \itemize{

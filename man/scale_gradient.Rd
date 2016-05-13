@@ -6,10 +6,14 @@
 \alias{scale_color_gradient2}
 \alias{scale_color_gradientn}
 \alias{scale_colour_continuous}
+\alias{scale_colour_date}
+\alias{scale_colour_datetime}
 \alias{scale_colour_gradient}
 \alias{scale_colour_gradient2}
 \alias{scale_colour_gradientn}
 \alias{scale_fill_continuous}
+\alias{scale_fill_date}
+\alias{scale_fill_datetime}
 \alias{scale_fill_gradient}
 \alias{scale_fill_gradient2}
 \alias{scale_fill_gradientn}

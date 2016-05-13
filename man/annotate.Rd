@@ -14,8 +14,10 @@ annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
 \item{x, y, xmin, ymin, xmax, ymax, xend, yend}{positioning aesthetics -
 you must specify at least one of these.}
 
-\item{...}{other aesthetics. These are not scaled so you can do (e.g.)
-\code{colour = "red"} to get a red point.}
+\item{...}{other arguments passed on to \code{\link{layer}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{color = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
