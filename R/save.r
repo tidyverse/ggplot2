@@ -84,7 +84,7 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
 
   if (limitsize && any(dim >= 50)) {
     stop("Dimensions exceed 50 inches (height and width are specified in '",
-      units, "' not pixels). If you're sure you a plot that big, use ",
+      units, "' not pixels). If you're sure you want to save a plot that big, use ",
       "`limitsize = FALSE`.", call. = FALSE)
   }
 
