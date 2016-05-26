@@ -118,6 +118,13 @@ p + geom_sina(aes(colour = inmetro))
 cols <- midwest$popdensity > 10000
 p + geom_sina(colour = cols + 1L)
 
+# Sina plots with continuous x:
+p <- ggplot(midwest, aes(cut_width(area, 0.02), popdensity)) + scale_y_log10()
+p + geom_sina()
+
+# By default, Sina plot scales the width of the class according to the width
+# of the class with the highest density. Turn group-wise scaling off with:
+p + geom_sina(scale = FALSE)
 
 ###Sample gaussian distributions
 # Unimodal
@@ -131,21 +138,19 @@ c <- c(rnorm(200, 3, .7), rnorm(50, 7, 0.4))
 d <- c(rnorm(200, 2, 0.7), rnorm(300, 5.5, 0.4), rnorm(100, 8, 0.4))
 
 df <- data.frame(
-  "Distribution" = c(rep("Unimodal 1", length(a)), rep("Unimodal 2", length(b)),
-                     rep("Bimodal", length(c)), rep("Trimodal", length(d))),
+  "Distribution" = c(rep("Unimodal 1", length(a)),
+                     rep("Unimodal 2", length(b)),
+                     rep("Bimodal", length(c)),
+                     rep("Trimodal", length(d))),
   "Value" = c(a, b, c, d))
 
 # Reorder levels
 df$Distribution <- factor(df$Distribution,
                           levels(df$Distribution)[c(3, 4, 1, 2)])
 
-# By default, Sina plot scales the width of the class according to the width
-# of the class with the highest density.
 p <- ggplot(df, aes(Distribution, Value))
+p + geom_boxplot()
 p + geom_violin() + geom_sina()
-
-# Turn off group-wise scaling
-p + geom_violin() + geom_sina(scale = FALSE)
 }
 \references{
 Sidiropoulos, N., Sohi, S. H., Rapin, N. and Bagger, F.O. (2015)
