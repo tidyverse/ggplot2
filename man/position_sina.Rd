@@ -2,7 +2,7 @@
 % Please edit documentation in R/position-sina.r
 \name{position_sina}
 \alias{position_sina}
-\title{Density based jitter.}
+\title{Point density based jitter.}
 \usage{
 position_sina(binwidth = 0.2, scale = TRUE, neighbour_limit = 1,
   method = c("density", "neighbourhood"), adjust = 1)
@@ -27,7 +27,7 @@ neighbourhood along the x-axis. Available methods: "density",
 of the samples within the same group along the x-axis.}
 }
 \description{
-Density based jitter.
+Point density based jitter.
 }
 \examples{
 ggplot(mtcars, aes(am, vs)) + geom_point()
