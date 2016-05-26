@@ -1,4 +1,4 @@
-#' Density based jitter.
+#' Point density based jitter.
 #'
 #' @family position adjustments
 #' @param binwidth Binning factor. The range of the values in \code{aes(y)}
@@ -57,9 +57,9 @@ PositionSina <- ggproto("PositionSina", Position,
 
   setup_params = function(self, data) {
 
-    if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
+    if (is.double(data$x) && any(data$x != data$x[1L])) {
       stop(
-        "Continuous x aesthetic -- did you forget aes(group=...)?",
+        "Continuous x aesthetic -- maybe try aes(factor(x))?",
         call. = FALSE)
     }
 
@@ -92,18 +92,13 @@ PositionSina <- ggproto("PositionSina", Position,
 
 .sina <- function(x, data, binwidth, scale, neighbour_limit, method, adjust) {
 
-  # Parse inputs / Initialise variables -------------------------------------- #
-
-  #parse groups
-  if (has_groups(data))
-    groups <- factor(data$group)
-  else
-    groups <- factor(data$x)
-
 
   ### Initialise variables
   #x-axis transpose vector
   trans_x <- list()
+
+  #assing groups as factors of x
+  groups <- factor(x)
 
   #neighbour counts
   neighbours <- list()
@@ -124,9 +119,6 @@ PositionSina <- ggproto("PositionSina", Position,
   #bin the y-axis
   bins <- .bin_y(data$y, binwidth)
 
-  #number of groups
-  ngroups <- length(unique(groups))
-
   # -------------------------------------------------------------------------- #
 
   #Compute per class density, per bin sample count and initialize the trans_x
@@ -135,9 +127,12 @@ PositionSina <- ggproto("PositionSina", Position,
 
     #extract samples per group and store them in a data.frame
     keep <- groups == j
-    trans_x[[j]] <- as.data.frame(cbind(as.numeric(data$x[keep]),
-                                       as.numeric(data$y[keep]), idx[keep]))
-    colnames(trans_x[[j]]) <- c("x", "y", "idx")
+    trans_x[[j]] <- data.frame( "x" = x[keep],
+                                "y" = data$y[keep],
+                                "idx" = idx[keep])
+
+    if (sum(keep) < 2)
+      next
 
     #per bin sample count
     neighbours[[j]] <- table(findInterval(trans_x[[j]]$y, bins))
@@ -166,6 +161,8 @@ PositionSina <- ggproto("PositionSina", Position,
   # -------------------------------------------------------------------------- #
 
   for (j in levels(groups)) {
+
+    if (nrow(trans_x[[j]]) < 2 ) next
 
     #confine the samples in a (-0.5, 0.5) area around the class center
     if (method == "density") {
@@ -229,7 +226,7 @@ PositionSina <- ggproto("PositionSina", Position,
   ymax <- max(data)
 
   #window width
-  window_size <- (ymax - ymin) * bw
+  window_size <- (ymax - ymin) * (bw + 1e-8)
 
   bins <- c()
   for (i in 0:ceiling(1 / bw)) {
