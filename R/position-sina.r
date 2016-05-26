@@ -16,23 +16,7 @@
 #' of the samples within the same group along the x-axis.
 #' @export
 #' @examples
-#' ggplot(mtcars, aes(am, vs)) + geom_point()
-#'
-#' # Default amount of jittering will generally be too much for
-#' # small datasets:
-#' ggplot(mtcars, aes(am, vs)) + geom_sina()
-#'
-#' # Two ways to override
-#' ggplot(mtcars, aes(am, vs)) +
-#'   geom_sina(width = 0.1, height = 0.1)
-#' ggplot(mtcars, aes(am, vs)) +
-#'   geom_sina(position = position_jitter(width = 0.1, height = 0.1))
-#'
-#' # The default works better for large datasets, where it will
-#' # take up as much space as a boxplot or a bar
-#' ggplot(mpg, aes(as.factor(class), hwy)) +
-#'   geom_sina() +
-#'   geom_boxplot()
+#' # See geom_sina for examples.
 position_sina <- function(binwidth = 0.2,
                           scale = TRUE,
                           neighbour_limit = 1,

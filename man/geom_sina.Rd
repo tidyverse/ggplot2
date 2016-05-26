@@ -98,17 +98,54 @@ samples to spread within:
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 }
 \examples{
-p <- ggplot(mpg, aes(cyl, hwy))
-p + geom_point()
+ggplot(midwest, aes(state, area)) + geom_point()
+
+# Boxplot and Violin plots convey information on the distribution but not the
+# number of samples, while Jitter does the opposite.
+ggplot(midwest, aes(state, area)) + geom_violin()
+ggplot(midwest, aes(state, area)) + geom_jitter()
+
+# Sina does both!
+ggplot(midwest, aes(state, area)) + geom_violin() + geom_sina()
+
+p <- ggplot(midwest, aes(state, popdensity)) + scale_y_log10()
 p + geom_sina()
 
-# Add aesthetic mappings
-p + geom_sina(aes(colour = class))
+# Colour the points based on the data set's columns
+p + geom_sina(aes(colour = inmetro))
 
-# Use smaller width/height to emphasise categories
-ggplot(mpg, aes(cyl, hwy)) + geom_sina()
-ggplot(mpg, aes(cyl, hwy)) + geom_sina(scale = FALSE)
+# Or any other way
+cols <- midwest$popdensity > 10000
+p + geom_sina(colour = cols + 1L)
 
+
+###Sample gaussian distributions
+# Unimodal
+a <- rnorm(500, 6, 1)
+b <- rnorm(400, 5, 1.5)
+
+# Bimodal
+c <- c(rnorm(200, 3, .7), rnorm(50, 7, 0.4))
+
+# Trimodal
+d <- c(rnorm(200, 2, 0.7), rnorm(300, 5.5, 0.4), rnorm(100, 8, 0.4))
+
+df <- data.frame(
+  "Distribution" = c(rep("Unimodal 1", length(a)), rep("Unimodal 2", length(b)),
+                     rep("Bimodal", length(c)), rep("Trimodal", length(d))),
+  "Value" = c(a, b, c, d))
+
+# Reorder levels
+df$Distribution <- factor(df$Distribution,
+                          levels(df$Distribution)[c(3, 4, 1, 2)])
+
+# By default, Sina plot scales the width of the class according to the width
+# of the class with the highest density.
+p <- ggplot(df, aes(Distribution, Value))
+p + geom_violin() + geom_sina()
+
+# Turn off group-wise scaling
+p + geom_violin() + geom_sina(scale = FALSE)
 }
 \references{
 Sidiropoulos, N., Sohi, S. H., Rapin, N. and Bagger, F.O. (2015)
