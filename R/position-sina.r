@@ -63,7 +63,7 @@ PositionSina <- ggproto("PositionSina", Position,
   },
 
   compute_layer = function(data, params, panel) {
-    trans_x <- function(x) .sina(x, data, binwidth = params$binwidth,
+    trans_x <- function(x) sina(x, data, binwidth = params$binwidth,
                                  scale = params$scale,
                                  neighbour_limit = params$neighbour_limit,
                                  method = params$method,
@@ -74,7 +74,7 @@ PositionSina <- ggproto("PositionSina", Position,
   }
 )
 
-.sina <- function(x, data, binwidth, scale, neighbour_limit, method, adjust) {
+sina <- function(x, data, binwidth, scale, neighbour_limit, method, adjust) {
 
 
   ### Initialise variables
@@ -101,7 +101,7 @@ PositionSina <- ggproto("PositionSina", Position,
   idx <- 1:length(x)
 
   #bin the y-axis
-  bins <- .bin_y(data$y, binwidth)
+  bins <- bin_y(data$y, binwidth)
 
   # -------------------------------------------------------------------------- #
 
@@ -204,7 +204,7 @@ PositionSina <- ggproto("PositionSina", Position,
 }
 
 
-.bin_y <- function(data, bw) {
+bin_y <- function(data, bw) {
   #get y value range
   ymin <- min(data)
   ymax <- max(data)
