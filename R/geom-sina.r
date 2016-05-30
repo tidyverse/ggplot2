@@ -11,7 +11,7 @@
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @inheritParams position_sina
+#' @inheritParams stat_sina
 #'
 #' @details There are two available ways to define the x-axis borders for the
 #' samples to spread within:
@@ -69,9 +69,6 @@
 #' p <- ggplot(midwest, aes(cut_width(area, 0.02), popdensity)) + scale_y_log10()
 #' p + geom_sina()
 #'
-#' # By default, Sina plot scales the width of the class according to the width
-#' # of the class with the highest density. Turn group-wise scaling off with:
-#' p + geom_sina(scale = FALSE)
 #'
 #' ###Sample gaussian distributions
 #' # Unimodal
@@ -98,18 +95,17 @@
 #' p <- ggplot(df, aes(Distribution, Value))
 #' p + geom_boxplot()
 #' p + geom_violin() + geom_sina()
+#'
+#' # By default, Sina plot scales the width of the class according to the width
+#' # of the class with the highest density. Turn group-wise scaling off with:
+#' p + geom_violin() + geom_sina(scale = FALSE)
 geom_sina <- function(mapping = NULL, data = NULL,
-                      stat = "identity", position = "sina",
+                      stat = "sina", position = "identity",
                       ...,
-                      binwidth = 0.02,
-                      scale = TRUE,
-                      neighbour_limit = 1,
-                      method = NULL,
-                      adjust = 1,
+                      na.rm = TRUE,
                       show.legend = NA,
                       inherit.aes = TRUE) {
 
-  position <- position_sina(binwidth, scale, neighbour_limit, method, adjust)
 
   layer(
     data = data,
@@ -120,7 +116,9 @@ geom_sina <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      na.rm = na.rm,
       ...
     )
   )
+
 }
