@@ -76,14 +76,6 @@ PositionSina <- ggproto("PositionSina", Position,
 
 sina <- function(x, data, binwidth, scale, neighbour_limit, method, adjust) {
 
-
-  ### Initialise variables
-  #x-axis transpose vector
-  trans_x <- list()
-
-  #assing groups as factors of x
-  groups <- factor(x)
-
   #neighbour counts
   neighbours <- list()
   max_neighbours <- 0
@@ -97,29 +89,22 @@ sina <- function(x, data, binwidth, scale, neighbour_limit, method, adjust) {
     adjust <- adjust / 5
   }
 
-  #keep an index of the original data order
-  idx <- 1:length(x)
-
   #bin the y-axis
   bins <- bin_y(data$y, binwidth)
 
   # -------------------------------------------------------------------------- #
 
-  #Compute per class density, per bin sample count and initialize the trans_x
-  #transpose data.frame
-  for (j in levels(groups)) {
+  #Compute per class density and per bin sample count
+  for (j in levels(factor(data$group))) {
 
     #extract samples per group and store them in a data.frame
-    keep <- groups == j
-    trans_x[[j]] <- data.frame( "x" = x[keep],
-                                "y" = data$y[keep],
-                                "idx" = idx[keep])
+    keep <- data$group == j
 
     if (sum(keep) < 2)
       next
 
     #per bin sample count
-    neighbours[[j]] <- table(findInterval(trans_x[[j]]$y, bins))
+    neighbours[[j]] <- table(findInterval(data$y[keep], bins))
 
     #find the densiest neighbourhood in the current group and compare it
     #with the global max
@@ -131,7 +116,7 @@ sina <- function(x, data, binwidth, scale, neighbour_limit, method, adjust) {
     if (method == "density") {
 
       #per bin sample density
-      densities[[j]] <- stats::density(trans_x[[j]]$y, adjust = adjust)
+      densities[[j]] <- stats::density(data$y[keep], adjust = adjust)
 
       #find the highest density value
       tmp_max_density <- max(densities[[j]]$y)
@@ -144,9 +129,11 @@ sina <- function(x, data, binwidth, scale, neighbour_limit, method, adjust) {
 
   # -------------------------------------------------------------------------- #
 
-  for (j in levels(groups)) {
+  for (j in levels(factor(data$group))) {
 
-    if (nrow(trans_x[[j]]) < 2 ) next
+    keep <- data$group == j
+
+    if (nrow(data[keep, ]) < 2 ) next
 
     #confine the samples in a (-0.5, 0.5) area around the class center
     if (method == "density") {
@@ -178,7 +165,7 @@ sina <- function(x, data, binwidth, scale, neighbour_limit, method, adjust) {
         cur_bin <- bins[ as.integer(i) : (as.integer(i) + 1)]
 
         #find samples in the current bin and translate their X coord.
-        points <- findInterval(trans_x[[j]]$y, cur_bin) == 1
+        points <- findInterval(data$y[keep], cur_bin) == 1
 
         #compute the border margin for the current bin
         if (method == "density")
@@ -191,16 +178,14 @@ sina <- function(x, data, binwidth, scale, neighbour_limit, method, adjust) {
         x_translation <- stats::runif(neighbours[[j]][i], - xmax, xmax )
 
         #scale and store new x coordinates
-        trans_x[[j]]$x[points] <- trans_x[[j]]$x[points] +
+        data$x[keep][points] <- data$x[keep][points] +
           (x_translation * global_scaling_factor * group_scaling_factor)
       }
     }
   }
 
-  #collapse list to data frame
-  trans_x <- do.call(rbind, trans_x)
   #return only the transposed x values in input order
-  trans_x$x[order(trans_x$idx)]
+  data$x
 }
 
 
