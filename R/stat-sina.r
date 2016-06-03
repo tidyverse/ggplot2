@@ -20,10 +20,13 @@ stat_sina <-function(mapping = NULL, data = NULL,
                      binwidth = 0.02,
                      scale = TRUE,
                      neighbour_limit = 1,
-                     method = c("density", "neighbourhood"),
+                     method = "density",
                      adjust = 1,
+                     na.rm = FALSE,
                      show.legend = NA,
                      inherit.aes = TRUE) {
+  method <- match.arg(method, c("density", "neighbourhood"))
+
   layer(
     data = data,
     mapping = mapping,
@@ -36,8 +39,9 @@ stat_sina <-function(mapping = NULL, data = NULL,
       binwidth = binwidth,
       scale = scale,
       neighbour_limit = neighbour_limit,
-      method = match.arg(method),
+      method = method,
       adjust = adjust,
+      na.rm = na.rm,
       ...
       )
   )
@@ -63,6 +67,17 @@ StatSina <- ggproto("StatSina", Stat,
     data
   },
 
+  setup_params = function(data, params) {
+
+    print(params)
+    #scale adjust value
+    if (params$method == "neighbourhood")
+      params$adjust <- params$adjust / 100
+
+    params
+  },
+
+  #compute_group = function()
   compute_panel = function(data, scales, binwidth = 0.02, scale = TRUE,
                            neighbour_limit = 1, method = "d", adjust = 1) {
 
@@ -76,9 +91,6 @@ StatSina <- ggproto("StatSina", Stat,
     if (method == "density") {
       max_density <- 0
       densities <- list()
-    } else {
-      #scale adjust value
-      adjust <- adjust / 5
     }
 
     #bin the y-axis
@@ -105,17 +117,10 @@ StatSina <- ggproto("StatSina", Stat,
       if (tmp_max_neighbours > max_neighbours)
         max_neighbours <- tmp_max_neighbours
 
-      if (method == "density") {
-
-        #per bin sample density
+      #per bin sample density
+      if (method == "density")
         densities[[j]] <- stats::density(data$y[keep], adjust = adjust)
 
-        #find the highest density value
-        tmp_max_density <- max(densities[[j]]$y)
-
-        if (tmp_max_density > max_density)
-          max_density <- tmp_max_density
-      }
     }
 
     # ------------------------------------------------------------------------ #
@@ -124,7 +129,7 @@ StatSina <- ggproto("StatSina", Stat,
 
       keep <- data$group == j
 
-      if (nrow(data[keep, ]) < 2 ) next
+      if (sum(keep) < 2 ) next
 
       #confine the samples in a (-0.5, 0.5) area around the class center
       if (method == "density") {

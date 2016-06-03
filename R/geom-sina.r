@@ -102,7 +102,7 @@
 geom_sina <- function(mapping = NULL, data = NULL,
                       stat = "sina", position = "identity",
                       ...,
-                      na.rm = TRUE,
+                      na.rm = FALSE,
                       show.legend = NA,
                       inherit.aes = TRUE) {
 
