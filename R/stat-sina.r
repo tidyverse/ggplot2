@@ -69,88 +69,143 @@ StatSina <- ggproto("StatSina", Stat,
 
   setup_params = function(data, params) {
 
-    print(params)
     #scale adjust value
-    if (params$method == "neighbourhood")
-      params$adjust <- params$adjust / 100
+    if (params$method == "neighbourhood"){
+      if (!is.null(params$adjust))
+        params$adjust <- params$adjust / 100
+      else
+        params$adjust <- 0.01
+    }
+
+    #get y-bins
+    params$bins <- bin_y(data$y, params$binwidth)
 
     params
   },
 
-  #compute_group = function()
-  compute_panel = function(data, scales, binwidth = 0.02, scale = TRUE,
+  compute_group = function(data, scales, binwidth = 0.02, neighbour_limit = 1,
+                           method = "density", adjust = 1, bins = params$bins) {
+
+    print("group")
+    max_neighbours <- 0
+
+    #per bin sample count
+    neighbours <- table(findInterval(data$y, bins))
+
+    #find the densiest neighbourhood in the current group and compare it
+    #with the global max
+    tmp_max_neighbours <- max(neighbours[[j]])
+
+    if (tmp_max_neighbours > max_neighbours)
+      max_neighbours <- tmp_max_neighbours
+
+    #per bin sample density
+    if (method == "density") {
+      densities <- stats::density(data$y, adjust = adjust)
+
+      #confine the samples in a (-0.5, 0.5) area around the class center
+      if (max(densities$y) > 0.48)
+        intra_scaling_factor <- 0.48 / max(densities$y)
+      else
+        intra_scaling_factor <- 1
+
+    } else {
+      #if the space required to spread the samples in a neighbourhood exceeds
+      #1, create  compress the points
+      if (max(neighbours) > 1 / adjust) {
+        intra_scaling_factor <- (1 / adjust) / max(neighbours)
+      } else
+        intra_scaling_factor <- 1
+    }
+
+    for (i in names(neighbours)) {
+
+      #examine neighbourhoods with more than 'neighbour_limit' samples
+      if (neighbours[i] > neighbour_limit){
+        cur_bin <- bins[ as.integer(i) : (as.integer(i) + 1)]
+
+        #find samples in the current bin and translate their X coord.
+        points <- findInterval(data$y, cur_bin) == 1
+
+        #compute the border margin for the current bin
+        if (method == "density")
+          xmax <- mean(densities$y[findInterval(densities$x,
+                                                cur_bin) == 1])
+        else
+          xmax <- adjust * neighbours[i] / 2
+
+        #assign the samples uniformely within the specified range
+        x_translation <- stats::runif(neighbours[i], - xmax, xmax )
+
+        #scale and store new x coordinates
+        data$x[points] <- data$x[points] + x_translation * intra_scaling_factor
+      }
+    }
+
+    data$max_neighbours <- max_neighbours
+    print(head(data))
+    data
+
+  },
+
+  compute_panel = function(self, data, scales, binwidth = 0.02, scale = TRUE,
                            neighbour_limit = 1, method = "d", adjust = 1) {
 
     ###Initialise variables
 
-    #neighbour counts
-    neighbours <- list()
-    max_neighbours <- 0
-
-    #method == "density"
-    if (method == "density") {
-      max_density <- 0
-      densities <- list()
-    }
-
-    #bin the y-axis
-    bins <- bin_y(data$y, binwidth)
+    # #neighbour counts
+    # neighbours <- list()
+    # max_neighbours <- 0
+    #
+    # #method == "density"
+    # if (method == "density") {
+    #   max_density <- 0
+    #   densities <- list()
+    # }
+    #
+    # #bin the y-axis
+    # bins <- bin_y(data$y, binwidth)
 
     # ------------------------------------------------------------------------ #
 
     #Compute per class density and per bin sample count
-    for (j in levels(factor(data$group))) {
-
-      #extract samples per group and store them in a data.frame
-      keep <- data$group == j
-
-      if (sum(keep) < 2)
-        next
-
-      #per bin sample count
-      neighbours[[j]] <- table(findInterval(data$y[keep], bins))
-
-      #find the densiest neighbourhood in the current group and compare it
-      #with the global max
-      tmp_max_neighbours <- max(neighbours[[j]])
-
-      if (tmp_max_neighbours > max_neighbours)
-        max_neighbours <- tmp_max_neighbours
-
-      #per bin sample density
-      if (method == "density")
-        densities[[j]] <- stats::density(data$y[keep], adjust = adjust)
-
-    }
+    #for (j in levels(factor(data$group))) {
+#
+#       #extract samples per group and store them in a data.frame
+#       keep <- data$group == j
+#
+#       if (sum(keep) < 2)
+#         next
+#
+#       #per bin sample count
+#       neighbours[[j]] <- table(findInterval(data$y[keep], bins))
+#
+#       #find the densiest neighbourhood in the current group and compare it
+#       #with the global max
+#       tmp_max_neighbours <- max(neighbours[[j]])
+#
+#       if (tmp_max_neighbours > max_neighbours)
+#         max_neighbours <- tmp_max_neighbours
+#
+#       #per bin sample density
+#       if (method == "density")
+#         densities[[j]] <- stats::density(data$y[keep], adjust = adjust)
+#
+#     #}
 
     # ------------------------------------------------------------------------ #
 
+    print(head(data))
     for (j in levels(factor(data$group))) {
 
       keep <- data$group == j
 
       if (sum(keep) < 2 ) next
 
-      #confine the samples in a (-0.5, 0.5) area around the class center
-      if (method == "density") {
-        if (max(densities[[j]]$y) > 0.48)
-          global_scaling_factor <- 0.48 / max(densities[[j]]$y)
-        else
-          global_scaling_factor <- 1
-
-      } else {
-        #if the space required to spread the samples in a neighbourhood exceeds
-        #1, create  compress the points
-        if (max(neighbours[[j]]) > 1 / adjust) {
-          global_scaling_factor <- (1 / adjust) / max(neighbours[[j]])
-        } else
-          global_scaling_factor <- 1
-      }
-
       #scale all neighbourhoods based on their density relative to the
       #densiest neighbourhood
       if (scale == TRUE)
-        group_scaling_factor <- max(neighbours[[j]]) / max_neighbours
+        group_scaling_factor <- max(neighbours) / max(max_neighbours)
       else
         group_scaling_factor <- 1
 
