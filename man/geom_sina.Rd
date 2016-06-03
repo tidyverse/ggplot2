@@ -6,12 +6,12 @@
 \title{Sina plot}
 \usage{
 geom_sina(mapping = NULL, data = NULL, stat = "sina",
-  position = "identity", ..., na.rm = TRUE, show.legend = NA,
+  position = "identity", ..., na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 
 stat_sina(mapping = NULL, data = NULL, geom = "point",
   position = "identity", ..., binwidth = 0.02, scale = TRUE,
-  neighbour_limit = 1, method = c("density", "neighbourhood"), adjust = 1,
+  neighbour_limit = 1, method = "density", adjust = 1, na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
