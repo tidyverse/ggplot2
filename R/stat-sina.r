@@ -93,8 +93,8 @@ StatSina <- ggproto("StatSina", Stat,
 
     #scale all neighbourhoods based on their density relative to the
     #densiest neighbourhood
-    if (scale == TRUE)
-      group_scaling_factor <- max(data$max_neighbours) / max(data$max_neighbours)
+    if (scale)
+      group_scaling_factor <- data$max_neighbours / max(data$max_neighbours)
     else
       group_scaling_factor <- 1
 
