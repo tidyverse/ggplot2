@@ -1,6 +1,6 @@
 language: R
 cache: packages
-sudo: false
+sudo: required
 
 r_github_packages:
   - hadley/staticdocs
