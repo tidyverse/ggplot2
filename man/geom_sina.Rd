@@ -6,8 +6,8 @@
 \title{Sina plot}
 \usage{
 geom_sina(mapping = NULL, data = NULL, stat = "sina",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., method = "density", na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 
 stat_sina(mapping = NULL, data = NULL, geom = "point",
   position = "identity", ..., binwidth = 0.02, scale = TRUE,
@@ -45,6 +45,10 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
+\item{method}{choose the method to spread the samples within the same
+neighbourhood along the x-axis. Available methods: "density",
+"neighbourhood" (can be abbreciated, e.g. "d"). See \code{Details}.}
+
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
@@ -68,10 +72,6 @@ groups are scaled based on the densiest are in the plot. Default: \code{TRUE}}
 
 \item{neighbour_limit}{if the samples within the same y-axis bin are more
 than neighbour_limit, the samples's X coordinates will be adjusted.}
-
-\item{method}{choose the method to spread the samples within the same
-neighbourhood along the x-axis. Available methods: "density",
-"neighbourhood" (can be abbreciated, e.g. "d"). See \code{Details}.}
 
 \item{adjust}{adjusts the bandwidth of the density kernel when
 \code{method == "density"} (see \code{\link[stats]{density}}) or the spread
