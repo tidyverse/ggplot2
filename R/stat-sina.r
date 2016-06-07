@@ -77,27 +77,48 @@ StatSina <- ggproto("StatSina", Stat,
         params$adjust <- 0.01
     }
 
-    #get y-bins
-    params$bins <- bin_y(data$y, params$binwidth)
-
     params
   },
 
-  compute_group = function(data, scales, binwidth = 0.02, neighbour_limit = 1,
-                           method = "density", adjust = 1, bins = params$bins) {
 
-    print("group")
-    max_neighbours <- 0
+  compute_panel = function(self, data, scales, binwidth = 0.02, scale = TRUE,
+                           neighbour_limit = 1, method = "d", adjust = 1,
+                           na.rm = FALSE) {
+
+    bins <- bin_y(data$y, binwidth)
+
+    data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
+      binwidth = binwidth, scale = scale, neighbour_limit = neighbour_limit,
+      method = method, adjust = adjust, bins = bins, na.rm = na.rm)
+
+    #scale all neighbourhoods based on their density relative to the
+    #densiest neighbourhood
+    if (scale == TRUE)
+      group_scaling_factor <- max(data$max_neighbours) / max(data$max_neighbours)
+    else
+      group_scaling_factor <- 1
+
+    #translate x coordinates
+    data$x <- data$x + data$x_translation * group_scaling_factor
+
+    data
+  },
+
+  compute_group = function(data, scales, binwidth = 0.02, scale = TRUE,
+                           neighbour_limit = 1, method = "density", adjust = 1,
+                           bins = NULL, na.rm = FALSE) {
+
+    #initialize x_translation to 0
+    data$x_translation <- rep(0, nrow(data))
+
+    #if group has less than 2 points return as is
+    if (nrow(data) < 2) {
+      data$max_neighbours <- 1
+      return(data)
+    }
 
     #per bin sample count
     neighbours <- table(findInterval(data$y, bins))
-
-    #find the densiest neighbourhood in the current group and compare it
-    #with the global max
-    tmp_max_neighbours <- max(neighbours[[j]])
-
-    if (tmp_max_neighbours > max_neighbours)
-      max_neighbours <- tmp_max_neighbours
 
     #per bin sample density
     if (method == "density") {
@@ -129,8 +150,7 @@ StatSina <- ggproto("StatSina", Stat,
 
         #compute the border margin for the current bin
         if (method == "density")
-          xmax <- mean(densities$y[findInterval(densities$x,
-                                                cur_bin) == 1])
+          xmax <- mean(densities$y[findInterval(densities$x, cur_bin) == 1])
         else
           xmax <- adjust * neighbours[i] / 2
 
@@ -138,108 +158,18 @@ StatSina <- ggproto("StatSina", Stat,
         x_translation <- stats::runif(neighbours[i], - xmax, xmax )
 
         #scale and store new x coordinates
-        data$x[points] <- data$x[points] + x_translation * intra_scaling_factor
+        data$x_translation[points] <- x_translation * intra_scaling_factor
       }
     }
 
-    data$max_neighbours <- max_neighbours
-    print(head(data))
-    data
-
-  },
-
-  compute_panel = function(self, data, scales, binwidth = 0.02, scale = TRUE,
-                           neighbour_limit = 1, method = "d", adjust = 1) {
-
-    ###Initialise variables
-
-    # #neighbour counts
-    # neighbours <- list()
-    # max_neighbours <- 0
-    #
-    # #method == "density"
-    # if (method == "density") {
-    #   max_density <- 0
-    #   densities <- list()
-    # }
-    #
-    # #bin the y-axis
-    # bins <- bin_y(data$y, binwidth)
-
-    # ------------------------------------------------------------------------ #
-
-    #Compute per class density and per bin sample count
-    #for (j in levels(factor(data$group))) {
-#
-#       #extract samples per group and store them in a data.frame
-#       keep <- data$group == j
-#
-#       if (sum(keep) < 2)
-#         next
-#
-#       #per bin sample count
-#       neighbours[[j]] <- table(findInterval(data$y[keep], bins))
-#
-#       #find the densiest neighbourhood in the current group and compare it
-#       #with the global max
-#       tmp_max_neighbours <- max(neighbours[[j]])
-#
-#       if (tmp_max_neighbours > max_neighbours)
-#         max_neighbours <- tmp_max_neighbours
-#
-#       #per bin sample density
-#       if (method == "density")
-#         densities[[j]] <- stats::density(data$y[keep], adjust = adjust)
-#
-#     #}
-
-    # ------------------------------------------------------------------------ #
-
-    print(head(data))
-    for (j in levels(factor(data$group))) {
-
-      keep <- data$group == j
-
-      if (sum(keep) < 2 ) next
-
-      #scale all neighbourhoods based on their density relative to the
-      #densiest neighbourhood
-      if (scale == TRUE)
-        group_scaling_factor <- max(neighbours) / max(max_neighbours)
-      else
-        group_scaling_factor <- 1
-
-      for (i in names(neighbours[[j]])) {
-
-        #examine neighbourhoods with more than 'neighbour_limit' samples
-        if (neighbours[[j]][i] > neighbour_limit){
-          cur_bin <- bins[ as.integer(i) : (as.integer(i) + 1)]
-
-          #find samples in the current bin and translate their X coord.
-          points <- findInterval(data$y[keep], cur_bin) == 1
-
-          #compute the border margin for the current bin
-          if (method == "density")
-            xmax <- mean(densities[[j]]$y[findInterval(densities[[j]]$x,
-                                                       cur_bin) == 1])
-          else
-            xmax <- adjust * neighbours[[j]][i] / 2
-
-          #assign the samples uniformely within the specified range
-          x_translation <- stats::runif(neighbours[[j]][i], - xmax, xmax )
-
-          #scale and store new x coordinates
-          data$x[keep][points] <- data$x[keep][points] +
-            (x_translation * global_scaling_factor * group_scaling_factor)
-        }
-      }
-    }
-
+    #return the max neighbour count per group. Used for group-wise scaling.
+    data$max_neighbours <- max(neighbours)
     data
   }
 )
 
 bin_y <- function(data, bw) {
+
   #get y value range
   ymin <- min(data)
   ymax <- max(data)
