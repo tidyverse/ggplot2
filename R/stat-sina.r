@@ -5,6 +5,8 @@
 #' Samples within the same bin belong to the same "neighbourhood".
 #' @param scale logical. When set to \code{TRUE} x-coordinate widths across all
 #' groups are scaled based on the densiest are in the plot. Default: \code{TRUE}
+#' @param maxwidth control the maximum width the points can spread into. Values
+#' between 0 and 1.
 #' @param neighbour_limit if the samples within the same y-axis bin are more
 #' than neighbour_limit, the samples's X coordinates will be adjusted.
 #' @param method choose the method to spread the samples within the same
@@ -19,6 +21,7 @@ stat_sina <-function(mapping = NULL, data = NULL,
                      ...,
                      binwidth = 0.02,
                      scale = TRUE,
+                     maxwidth = 1,
                      neighbour_limit = 1,
                      method = "density",
                      adjust = 1,
@@ -38,6 +41,7 @@ stat_sina <-function(mapping = NULL, data = NULL,
     params = list(
       binwidth = binwidth,
       scale = scale,
+      maxwidth = maxwidth,
       neighbour_limit = neighbour_limit,
       method = method,
       adjust = adjust,
@@ -69,6 +73,12 @@ StatSina <- ggproto("StatSina", Stat,
 
   setup_params = function(data, params) {
 
+    #Limit maxwidth to 0.96 to leave some space between classes
+    if (!is.null(params$maxwidth))
+      params$maxwidth <- (min(abs(params$maxwidth), .96))
+    else
+      params$maxwidth <- 0.96
+
     #scale adjust value
     if (params$method == "neighbourhood"){
       if (!is.null(params$adjust))
@@ -82,14 +92,14 @@ StatSina <- ggproto("StatSina", Stat,
 
 
   compute_panel = function(self, data, scales, binwidth = 0.02, scale = TRUE,
-                           neighbour_limit = 1, method = "d", adjust = 1,
+                           maxwidth = 1, neighbour_limit = 1, method = "d", adjust = 1,
                            na.rm = FALSE) {
 
     bins <- bin_breaks_width(scales$y$dimension(),
                              diff(scales$y$dimension()) * binwidth)
 
     data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
-      binwidth = binwidth, scale = scale, neighbour_limit = neighbour_limit,
+      binwidth = binwidth, scale = scale, maxwidth = maxwidth, neighbour_limit = neighbour_limit,
       method = method, adjust = adjust, bins = bins$breaks, na.rm = na.rm)
 
     #scale all neighbourhoods based on their density relative to the
@@ -105,7 +115,7 @@ StatSina <- ggproto("StatSina", Stat,
     data
   },
 
-  compute_group = function(data, scales, binwidth = 0.02, scale = TRUE,
+  compute_group = function(data, scales, binwidth = 0.02, scale = TRUE, maxwidth = maxwidth,
                            neighbour_limit = 1, method = "density", adjust = 1,
                            bins = NULL, na.rm = FALSE) {
 
@@ -125,9 +135,10 @@ StatSina <- ggproto("StatSina", Stat,
     if (method == "density") {
       densities <- stats::density(data$y, adjust = adjust)
 
-      #confine the samples in a (-0.5, 0.5) area around the class center
-      if (max(densities$y) > 0.48)
-        intra_scaling_factor <- 0.48 / max(densities$y)
+      #confine the samples in a (-maxwidth/2, -maxwidth/2) area around the class
+      #center
+      if (max(densities$y) > 0.5 * maxwidth)
+        intra_scaling_factor <- 0.5 * maxwidth / max(densities$y)
       else
         intra_scaling_factor <- 1
 

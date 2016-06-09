@@ -11,8 +11,8 @@ geom_sina(mapping = NULL, data = NULL, stat = "sina",
 
 stat_sina(mapping = NULL, data = NULL, geom = "point",
   position = "identity", ..., binwidth = 0.02, scale = TRUE,
-  neighbour_limit = 1, method = "density", adjust = 1, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  maxwidth = 1, neighbour_limit = 1, method = "density", adjust = 1,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -69,6 +69,9 @@ Samples within the same bin belong to the same "neighbourhood".}
 
 \item{scale}{logical. When set to \code{TRUE} x-coordinate widths across all
 groups are scaled based on the densiest are in the plot. Default: \code{TRUE}}
+
+\item{maxwidth}{control the maximum width the points can spread into. Values
+between 0 and 1.}
 
 \item{neighbour_limit}{if the samples within the same y-axis bin are more
 than neighbour_limit, the samples's X coordinates will be adjusted.}
