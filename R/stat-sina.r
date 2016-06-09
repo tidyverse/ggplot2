@@ -2,16 +2,16 @@
 #' @inheritParams stat_identity
 #' @inheritParams stat_bin
 #' @param bins	Number of bins. Overridden by binwidth. Defaults to 50.
-#' @param scale logical. When set to \code{TRUE} x-coordinate widths across all
+#' @param scale Logical. When set to \code{TRUE} x-coordinate widths across all
 #' groups are scaled based on the densiest are in the plot. Default: \code{TRUE}
 #' between 0 and 1.
-#' @param neighbour_limit if the samples within the same y-axis bin are more
-#' than neighbour_limit, the samples's X coordinates will be adjusted.
-#' @param method choose the method to spread the samples within the same
+#' @param method Choose the method to spread the samples within the same
 #' neighbourhood along the x-axis. Available methods: "density",
 #' "neighbourhood" (can be abbreciated, e.g. "d"). See \code{Details}.
-#' @param maxwidth control the maximum width the points can spread into. Values
-#' @param adjust adjusts the bandwidth of the density kernel when
+#' @param maxwidth Control the maximum width the points can spread into. Values
+#' @param adjust Adjusts the bandwidth of the density kernel when
+#' @param neighbour_limit If the samples within the same y-axis bin are more
+#' than neighbour_limit, the samples's X coordinates will be adjusted.
 #' \code{method == "density"} (see \code{\link[stats]{density}}) or the spread
 #' of the samples within the same group along the x-axis.
 #' @export
@@ -21,10 +21,10 @@ stat_sina <-function(mapping = NULL, data = NULL,
                      binwidth = NULL,
                      bins = NULL,
                      scale = TRUE,
-                     maxwidth = NULL,
-                     neighbour_limit = NULL,
                      method = "density",
+                     maxwidth = NULL,
                      adjust = 1,
+                     neighbour_limit = NULL,
                      na.rm = FALSE,
                      show.legend = NA,
                      inherit.aes = TRUE) {
@@ -42,9 +42,9 @@ stat_sina <-function(mapping = NULL, data = NULL,
       binwidth = binwidth,
       bins = bins,
       scale = scale,
+      method = method,
       maxwidth = maxwidth,
       neighbour_limit = neighbour_limit,
-      method = method,
       adjust = adjust,
       na.rm = na.rm,
       ...
@@ -89,8 +89,6 @@ StatSina <- ggproto("StatSina", Stat,
     }
 
     if (is.null(params$binwidth) && is.null(params$bins)) {
-      message_wrap(paste("`stat_sina()` using `bins = 50`.
-                   Pick better value with `binwidth`."))
       params$bins <- 50
     }
 
@@ -98,9 +96,9 @@ StatSina <- ggproto("StatSina", Stat,
   },
 
 
-  compute_panel = function(self, data, scales, binwidth = NULL, bins = NULL, scale = TRUE,
-                           neighbour_limit = 1, method = "d", maxwidth = NULL,
-                           adjust = 1, na.rm = FALSE) {
+  compute_panel = function(self, data, scales, binwidth = NULL, bins = NULL,
+                           scale = TRUE, method = "d", maxwidth = NULL,
+                            adjust = 1, neighbour_limit = 1, na.rm = FALSE) {
 
     if (!is.null(binwidth))
       bins <- bin_breaks_width(scales$y$dimension(), binwidth)
@@ -108,9 +106,8 @@ StatSina <- ggproto("StatSina", Stat,
       bins <- bin_breaks_bins(scales$y$dimension(), bins)
 
     data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
-      scale = scale, neighbour_limit = neighbour_limit,
-      method = method, maxwidth = maxwidth, adjust = adjust, bins = bins$breaks,
-      na.rm = na.rm)
+      scale = scale, method = method, maxwidth = maxwidth, adjust = adjust,
+      neighbour_limit = neighbour_limit, bins = bins$breaks, na.rm = na.rm)
 
     #scale all neighbourhoods based on their density relative to the
     #densiest neighbourhood
@@ -125,10 +122,9 @@ StatSina <- ggproto("StatSina", Stat,
     data
   },
 
-  compute_group = function(data, scales, scale = TRUE,
-                           neighbour_limit = 1, method = "density",
-                           maxwidth = maxwidth, adjust = 1, bins = NULL,
-                           na.rm = FALSE) {
+  compute_group = function(data, scales, scale = TRUE, method = "density",
+                           maxwidth = maxwidth, adjust = 1, neighbour_limit = 1,
+                           bins = NULL, na.rm = FALSE) {
 
     #initialize x_translation to 0
     data$x_translation <- rep(0, nrow(data))

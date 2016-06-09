@@ -11,8 +11,8 @@ geom_sina(mapping = NULL, data = NULL, stat = "sina",
 
 stat_sina(mapping = NULL, data = NULL, geom = "point",
   position = "identity", ..., binwidth = NULL, bins = NULL,
-  scale = TRUE, maxwidth = NULL, neighbour_limit = NULL,
-  method = "density", adjust = 1, na.rm = FALSE, show.legend = NA,
+  scale = TRUE, method = "density", maxwidth = NULL, adjust = 1,
+  neighbour_limit = NULL, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 }
 \arguments{
@@ -46,7 +46,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{method}{choose the method to spread the samples within the same
+\item{method}{Choose the method to spread the samples within the same
 neighbourhood along the x-axis. Available methods: "density",
 "neighbourhood" (can be abbreciated, e.g. "d"). See \code{Details}.}
 
@@ -74,16 +74,16 @@ the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{bins}{Number of bins. Overridden by binwidth. Defaults to 50.}
 
-\item{scale}{logical. When set to \code{TRUE} x-coordinate widths across all
+\item{scale}{Logical. When set to \code{TRUE} x-coordinate widths across all
 groups are scaled based on the densiest are in the plot. Default: \code{TRUE}
 between 0 and 1.}
 
-\item{maxwidth}{control the maximum width the points can spread into. Values}
+\item{maxwidth}{Control the maximum width the points can spread into. Values}
 
-\item{neighbour_limit}{if the samples within the same y-axis bin are more
-than neighbour_limit, the samples's X coordinates will be adjusted.}
+\item{adjust}{Adjusts the bandwidth of the density kernel when}
 
-\item{adjust}{adjusts the bandwidth of the density kernel when
+\item{neighbour_limit}{If the samples within the same y-axis bin are more
+than neighbour_limit, the samples's X coordinates will be adjusted.
 \code{method == "density"} (see \code{\link[stats]{density}}) or the spread
 of the samples within the same group along the x-axis.}
 }
