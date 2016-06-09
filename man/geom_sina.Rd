@@ -80,12 +80,11 @@ between 0 and 1.}
 
 \item{maxwidth}{Control the maximum width the points can spread into. Values}
 
-\item{adjust}{Adjusts the bandwidth of the density kernel when}
+\item{adjust}{Adjusts the bandwidth of the density kernel when
+\code{method == "density"} (see \code{\link[stats]{density}}).}
 
 \item{neighbour_limit}{If the samples within the same y-axis bin are more
-than neighbour_limit, the samples's X coordinates will be adjusted.
-\code{method == "density"} (see \code{\link[stats]{density}}) or the spread
-of the samples within the same group along the x-axis.}
+than neighbour_limit, the samples's X coordinates will be adjusted.}
 }
 \description{
 The sina plot is a data visualization chart suitable for plotting any single

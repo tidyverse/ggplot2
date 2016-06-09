@@ -10,10 +10,9 @@
 #' "neighbourhood" (can be abbreciated, e.g. "d"). See \code{Details}.
 #' @param maxwidth Control the maximum width the points can spread into. Values
 #' @param adjust Adjusts the bandwidth of the density kernel when
+#' \code{method == "density"} (see \code{\link[stats]{density}}).
 #' @param neighbour_limit If the samples within the same y-axis bin are more
 #' than neighbour_limit, the samples's X coordinates will be adjusted.
-#' \code{method == "density"} (see \code{\link[stats]{density}}) or the spread
-#' of the samples within the same group along the x-axis.
 #' @export
 stat_sina <-function(mapping = NULL, data = NULL,
                      geom = "point", position = "identity",
@@ -44,8 +43,8 @@ stat_sina <-function(mapping = NULL, data = NULL,
       scale = scale,
       method = method,
       maxwidth = maxwidth,
-      neighbour_limit = neighbour_limit,
       adjust = adjust,
+      neighbour_limit = neighbour_limit,
       na.rm = na.rm,
       ...
       )
@@ -80,14 +79,6 @@ StatSina <- ggproto("StatSina", Stat,
     else
       params$maxwidth <- 0.96
 
-    #scale adjust value
-    if (params$method == "neighbourhood"){
-      if (!is.null(params$adjust))
-        params$adjust <- params$adjust / 100
-      else
-        params$adjust <- 0.02
-    }
-
     if (is.null(params$binwidth) && is.null(params$bins)) {
       params$bins <- 50
     }
@@ -97,8 +88,8 @@ StatSina <- ggproto("StatSina", Stat,
 
 
   compute_panel = function(self, data, scales, binwidth = NULL, bins = NULL,
-                           scale = TRUE, method = "d", maxwidth = NULL,
-                            adjust = 1, neighbour_limit = 1, na.rm = FALSE) {
+                           scale = TRUE, method = "density", maxwidth = NULL,
+                           adjust = 1, neighbour_limit = 1, na.rm = FALSE) {
 
     if (!is.null(binwidth))
       bins <- bin_breaks_width(scales$y$dimension(), binwidth)
@@ -118,7 +109,6 @@ StatSina <- ggproto("StatSina", Stat,
 
     #translate x coordinates
     data$x <- data$x + data$x_translation * group_scaling_factor
-
     data
   },
 
@@ -150,10 +140,9 @@ StatSina <- ggproto("StatSina", Stat,
         intra_scaling_factor <- 1
 
     } else {
-      #if the space required to spread the samples in a neighbourhood exceeds
-      #1, create  compress the points
-      if (max(neighbours) > 1 / adjust) {
-        intra_scaling_factor <- (1 / adjust) / max(neighbours)
+      #allow up to 50 samples in a neighbourhood without scaling
+      if (max(neighbours) > 50 * maxwidth) {
+        intra_scaling_factor <- 50 * maxwidth / max(neighbours)
       } else
         intra_scaling_factor <- 1
     }
@@ -167,11 +156,11 @@ StatSina <- ggproto("StatSina", Stat,
         #find samples in the current bin and translate their X coord.
         points <- findInterval(data$y, cur_bin) == 1
 
-        #compute the border margin for the current bin
+        #compute the border margin for the current bin.
         if (method == "density")
           xmax <- mean(densities$y[findInterval(densities$x, cur_bin) == 1])
         else
-          xmax <- adjust * neighbours[i] / 2
+          xmax <- neighbours[i] / 100
 
         #assign the samples uniformely within the specified range
         x_translation <- stats::runif(neighbours[i], - xmax, xmax )
