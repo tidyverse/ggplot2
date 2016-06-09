@@ -12,7 +12,7 @@ geom_sina(mapping = NULL, data = NULL, stat = "sina",
 stat_sina(mapping = NULL, data = NULL, geom = "point",
   position = "identity", ..., binwidth = NULL, bins = NULL,
   scale = TRUE, method = "density", maxwidth = NULL, adjust = 1,
-  neighbour_limit = NULL, na.rm = FALSE, show.legend = NA,
+  neighbour_limit = 1, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 }
 \arguments{

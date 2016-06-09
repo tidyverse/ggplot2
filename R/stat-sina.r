@@ -23,7 +23,7 @@ stat_sina <-function(mapping = NULL, data = NULL,
                      method = "density",
                      maxwidth = NULL,
                      adjust = 1,
-                     neighbour_limit = NULL,
+                     neighbour_limit = 1,
                      na.rm = FALSE,
                      show.legend = NA,
                      inherit.aes = TRUE) {
@@ -113,7 +113,7 @@ StatSina <- ggproto("StatSina", Stat,
   },
 
   compute_group = function(data, scales, scale = TRUE, method = "density",
-                           maxwidth = maxwidth, adjust = 1, neighbour_limit = 1,
+                           maxwidth = NULL, adjust = 1, neighbour_limit = 1,
                            bins = NULL, na.rm = FALSE) {
 
     #initialize x_translation to 0
