@@ -85,11 +85,12 @@ StatSina <- ggproto("StatSina", Stat,
                            neighbour_limit = 1, method = "d", adjust = 1,
                            na.rm = FALSE) {
 
-    bins <- bin_y(data$y, binwidth)
+    bins <- bin_breaks_width(scales$y$dimension(),
+                             diff(scales$y$dimension()) * binwidth)
 
     data <- ggproto_parent(Stat, self)$compute_panel(data, scales,
       binwidth = binwidth, scale = scale, neighbour_limit = neighbour_limit,
-      method = method, adjust = adjust, bins = bins, na.rm = na.rm)
+      method = method, adjust = adjust, bins = bins$breaks, na.rm = na.rm)
 
     #scale all neighbourhoods based on their density relative to the
     #densiest neighbourhood
@@ -167,20 +168,3 @@ StatSina <- ggproto("StatSina", Stat,
     data
   }
 )
-
-bin_y <- function(data, bw) {
-
-  #get y value range
-  ymin <- min(data)
-  ymax <- max(data)
-
-  #window width
-  window_size <- (ymax - ymin) * (bw + 1e-8)
-
-  bins <- c()
-  for (i in 0:ceiling(1 / bw)) {
-    bins <- c(bins, ymin + i * window_size)
-  }
-
-  bins
-}
