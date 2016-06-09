@@ -10,9 +10,10 @@ geom_sina(mapping = NULL, data = NULL, stat = "sina",
   show.legend = NA, inherit.aes = TRUE)
 
 stat_sina(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", ..., binwidth = 0.02, scale = TRUE,
-  maxwidth = 1, neighbour_limit = 1, method = "density", adjust = 1,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., binwidth = NULL, bins = NULL,
+  scale = TRUE, maxwidth = NULL, neighbour_limit = NULL,
+  method = "density", adjust = 1, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -63,15 +64,21 @@ the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{geom}{The geometric object to use display the data}
 
-\item{binwidth}{Binning factor. The range of the values in \code{aes(y)}
-are binned in windows of length \code{(max(y) - min(y)) * y_fraction}.
-Samples within the same bin belong to the same "neighbourhood".}
+\item{binwidth}{The width of the bins. The default is to use \code{bins}
+  bins that cover the range of the data. You should always override
+  this value, exploring multiple widths to find the best to illustrate the
+  stories in your data.
+
+  The bin width of a date variable is the number of days in each time; the
+  bin width of a time variable is the number of seconds.}
+
+\item{bins}{Number of bins. Overridden by binwidth. Defaults to 50.}
 
 \item{scale}{logical. When set to \code{TRUE} x-coordinate widths across all
-groups are scaled based on the densiest are in the plot. Default: \code{TRUE}}
-
-\item{maxwidth}{control the maximum width the points can spread into. Values
+groups are scaled based on the densiest are in the plot. Default: \code{TRUE}
 between 0 and 1.}
+
+\item{maxwidth}{control the maximum width the points can spread into. Values}
 
 \item{neighbour_limit}{if the samples within the same y-axis bin are more
 than neighbour_limit, the samples's X coordinates will be adjusted.}
