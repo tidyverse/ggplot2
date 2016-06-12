@@ -6,14 +6,13 @@
 \title{Sina plot}
 \usage{
 geom_sina(mapping = NULL, data = NULL, stat = "sina",
-  position = "identity", ..., method = "density", na.rm = FALSE,
+  position = "identity", ..., method = NULL, na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE)
 
-stat_sina(mapping = NULL, data = NULL, geom = "point",
+stat_sina(mapping = NULL, data = NULL, geom = "sina",
   position = "identity", ..., binwidth = NULL, bins = NULL,
   scale = TRUE, method = "density", maxwidth = NULL, adjust = 1,
-  neighbour_limit = 1, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  bin_limit = 1, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -47,8 +46,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 
 \item{method}{Choose the method to spread the samples within the same
-neighbourhood along the x-axis. Available methods: "density",
-"neighbourhood" (can be abbreciated, e.g. "d"). See \code{Details}.}
+bin along the x-axis. Available methods: "density", "counts" (can be
+abbreviated, e.g. "d"). See \code{Details}.}
 
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
@@ -75,16 +74,17 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{bins}{Number of bins. Overridden by binwidth. Defaults to 50.}
 
 \item{scale}{Logical. When set to \code{TRUE} x-coordinate widths across all
-groups are scaled based on the densiest are in the plot. Default: \code{TRUE}
-between 0 and 1.}
+groups are scaled based on the densiest area in the plot.
+Default: \code{TRUE}}
 
-\item{maxwidth}{Control the maximum width the points can spread into. Values}
+\item{maxwidth}{Control the maximum width the points can spread into. Values
+between 0 and 1.}
 
 \item{adjust}{Adjusts the bandwidth of the density kernel when
 \code{method == "density"} (see \code{\link[stats]{density}}).}
 
-\item{neighbour_limit}{If the samples within the same y-axis bin are more
-than neighbour_limit, the samples's X coordinates will be adjusted.}
+\item{bin_limit}{If the samples within the same y-axis bin are more
+than \code{bin_limit}, the samples's X coordinates will be adjusted.}
 }
 \description{
 The sina plot is a data visualization chart suitable for plotting any single
@@ -98,16 +98,14 @@ samples to spread within:
 \itemize{
  \item{\code{method == "density"}
 
-  A density kernel is estimated along the y-axis for every sample group. The
-  borders are then defined by the density curve. Tuning parameter
-  \code{adjust} can be used to control the density bandwidth in the same way
-  it is used in \code{\link[stats]{density}}. }
- \item{\code{method == "neighbourhood"}:
+   A density kernel is estimated along the y-axis for every sample group. The
+   borders are then defined by the density curve. Tuning parameter
+   \code{adjust} can be used to control the density bandwidth in the same way
+   it is used in \code{\link[stats]{density}}. }
 
- The borders are defined by the number of samples that 'live' in the same
- neighbourhood and the parameter \code{adjust} in the following fashion:
+ \item{\code{method == "counts"}:
 
- \code{x_border = nsamples * adjust}
+   The borders are defined by the number of samples that occupy the same bin.
 
   }
 }
@@ -115,6 +113,14 @@ samples to spread within:
 \section{Aesthetics}{
 
 \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
+}
+
+\section{Computed variables}{
+
+\describe{
+  \item{bin_counts}{sample counts per bin per group}
+  \item{scaled}{adjusted x-coordinates}
+}
 }
 \examples{
 ggplot(midwest, aes(state, area)) + geom_point()
