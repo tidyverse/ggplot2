@@ -100,14 +100,10 @@
 geom_sina <- function(mapping = NULL, data = NULL,
                       stat = "sina", position = "identity",
                       ...,
-                      method = NULL,
                       na.rm = FALSE,
                       show.legend = NA,
                       inherit.aes = TRUE) {
-
-  method <- match.arg(method, c("density", "counts"))
-
-  layer(
+    layer(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -116,7 +112,6 @@ geom_sina <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
-      method = method,
       na.rm = na.rm,
       ...
     )

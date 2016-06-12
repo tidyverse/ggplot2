@@ -6,8 +6,8 @@
 \title{Sina plot}
 \usage{
 geom_sina(mapping = NULL, data = NULL, stat = "sina",
-  position = "identity", ..., method = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_sina(mapping = NULL, data = NULL, geom = "sina",
   position = "identity", ..., binwidth = NULL, bins = NULL,
@@ -45,10 +45,6 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{method}{Choose the method to spread the samples within the same
-bin along the x-axis. Available methods: "density", "counts" (can be
-abbreviated, e.g. "d"). See \code{Details}.}
-
 \item{na.rm}{If \code{FALSE} (the default), removes missing values with
 a warning.  If \code{TRUE} silently removes missing values.}
 
@@ -76,6 +72,10 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{scale}{Logical. When set to \code{TRUE} x-coordinate widths across all
 groups are scaled based on the densiest area in the plot.
 Default: \code{TRUE}}
+
+\item{method}{Choose the method to spread the samples within the same
+bin along the x-axis. Available methods: "density", "counts" (can be
+abbreviated, e.g. "d"). See \code{Details}.}
 
 \item{maxwidth}{Control the maximum width the points can spread into. Values
 between 0 and 1.}
