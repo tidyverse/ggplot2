@@ -18,16 +18,14 @@
 #' \itemize{
 #'  \item{\code{method == "density"}
 #'
-#'   A density kernel is estimated along the y-axis for every sample group. The
-#'   borders are then defined by the density curve. Tuning parameter
-#'   \code{adjust} can be used to control the density bandwidth in the same way
-#'   it is used in \code{\link[stats]{density}}. }
-#'  \item{\code{method == "neighbourhood"}:
+#'    A density kernel is estimated along the y-axis for every sample group. The
+#'    borders are then defined by the density curve. Tuning parameter
+#'    \code{adjust} can be used to control the density bandwidth in the same way
+#'    it is used in \code{\link[stats]{density}}. }
 #'
-#'  The borders are defined by the number of samples that 'live' in the same
-#'  neighbourhood and the parameter \code{adjust} in the following fashion:
+#'  \item{\code{method == "counts"}:
 #'
-#'  \code{x_border = nsamples * adjust}
+#'    The borders are defined by the number of samples that occupy the same bin.
 #'
 #'   }
 #' }
@@ -102,17 +100,18 @@
 geom_sina <- function(mapping = NULL, data = NULL,
                       stat = "sina", position = "identity",
                       ...,
-                      method = "density",
+                      method = NULL,
                       na.rm = FALSE,
                       show.legend = NA,
                       inherit.aes = TRUE) {
-  method <- match.arg(method, c("density", "neighbourhood"))
+
+  method <- match.arg(method, c("density", "counts"))
 
   layer(
     data = data,
     mapping = mapping,
     stat = stat,
-    geom = GeomPoint,
+    geom = GeomSina,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
@@ -124,3 +123,11 @@ geom_sina <- function(mapping = NULL, data = NULL,
   )
 
 }
+
+GeomSina <- ggproto("GeomSina", GeomPoint,
+
+  setup_data = function(data, params) {
+    transform(data, x = xend)
+  }
+)
+
