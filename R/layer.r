@@ -110,7 +110,7 @@ layer <- function(geom = NULL, stat = NULL,
   
   if (length(extra) > 0 && params$validate_params) {
     stop("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)
-  }else{
+  }else if (length(extra) > 0) {
     extra <- extra[!extra == "validate_params"]
     warning("Unknown parameters used: ", paste(extra, collapse = ", "), 
             "\nSet validate_params to TRUE avoid errors", call. = FALSE)
