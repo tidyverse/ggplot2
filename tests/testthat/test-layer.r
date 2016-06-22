@@ -17,11 +17,8 @@ test_that("Unknown params create error with validate_params = TRUE", {
                "Unknown parameters")
 })
 
-test_that("Unknown params create warning with validate_params = FALSE", {
-  expect_warning(geom_point(blah = "red", validate_params = FALSE),
-                 paste("Unknown parameters used: blah",
-                       "Set validate_params to TRUE to avoid errors",
-                       sep = "\n"))
+test_that("Unknown params don't create error with validate_params = FALSE", {
+  expect_silent(geom_point(blah = "red", validate_params = FALSE))
 })
 
 test_that("Unknown params go in extra_params, not aes_params", {
