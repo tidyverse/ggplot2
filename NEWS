@@ -1,3 +1,7 @@
+* `geom_boxplot` gain new `outlier.alpha` argument for controlling the alpha of
+   outlier points independently of the alpha of the boxes. 
+   Analogous to outlier.colour, outlier.shape, etc.
+  (@jonathan-g).
 
 ggplot2 1.0.1
 ----------------------------------------------------------------
