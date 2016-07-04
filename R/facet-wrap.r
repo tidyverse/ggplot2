@@ -540,7 +540,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     missing_facets <- setdiff(names(vars), names(facet_vals))
     if (length(missing_facets) > 0) {
 
-      to_add <- unique(panels[missing_facets])
+      to_add <- unique(layout[missing_facets])
 
       data_rep <- rep.int(1:nrow(data), nrow(to_add))
       facet_rep <- rep(1:nrow(to_add), each = nrow(data))
@@ -551,9 +551,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         to_add[facet_rep, , drop = FALSE]))
     }
 
-    keys <- plyr::join.keys(facet_vals, panels, by = names(vars))
+    keys <- plyr::join.keys(facet_vals, layout, by = names(vars))
 
-    data$PANEL <- panels$PANEL[match(keys$x, keys$y)]
+    data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     data[order(data$PANEL), ]
   },
   render = function(self, panels_grob, coord, theme, geom_grobs) {

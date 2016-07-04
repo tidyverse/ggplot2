@@ -494,7 +494,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     # duplicating the data
     missing_facets <- setdiff(vars, names(facet_vals))
     if (length(missing_facets) > 0) {
-      to_add <- unique(panels[missing_facets])
+      to_add <- unique(layout[missing_facets])
 
       data_rep <- rep.int(1:nrow(data), nrow(to_add))
       facet_rep <- rep(1:nrow(to_add), each = nrow(data))
@@ -513,9 +513,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       facet_vals[] <- lapply(facet_vals[], as.factor)
       facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
 
-      keys <- plyr::join.keys(facet_vals, panels, by = vars)
+      keys <- plyr::join.keys(facet_vals, layout, by = vars)
 
-      data$PANEL <- panels$PANEL[match(keys$x, keys$y)]
+      data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     }
 
     data[order(data$PANEL), , drop = FALSE]
