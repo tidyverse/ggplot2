@@ -520,7 +520,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     data[order(data$PANEL), , drop = FALSE]
   },
-  render = function(self, panels_grob, coord, theme, geom_grobs) {
+  render = function(self, panel, coord, theme, geom_grobs) {
     axes <- self$axes(panel, coord, theme)
     strips <- self$strips(panel, theme)
     panels <- self$panels(panel, coord, theme, geom_grobs)

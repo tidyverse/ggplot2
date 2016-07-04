@@ -556,7 +556,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     data[order(data$PANEL), ]
   },
-  render = function(self, panels_grob, coord, theme, geom_grobs) {
+  render = function(self, panel, coord, theme, geom_grobs) {
     # If coord is (non-cartesian or flip) and (x is free or y is free)
     # then print a warning
     if ((!inherits(coord, "CoordCartesian") || inherits(coord, "CoordFlip")) &&
