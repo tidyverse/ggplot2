@@ -27,7 +27,8 @@ new_panel <- function() {
 # @param plot_data the default data frame
 # @return an updated panel object
 train_layout <- function(panel, facet, data, plot_data) {
-  layout <- facet_train_layout(facet, c(list(plot_data), data))
+  # layout <- facet_train_layout(facet, c(list(plot_data), data))
+  layout <- facet$train(c(list(plot_data), data))
   panel$layout <- layout
   panel$shrink <- facet$shrink
 
@@ -47,7 +48,7 @@ train_layout <- function(panel, facet, data, plot_data) {
 # @param data list of data frames (one for each layer)
 map_layout <- function(panel, facet, data) {
   lapply(data, function(data) {
-    facet_map_layout(facet, data, panel$layout)
+    facet$map(data, panel$layout)
   })
 }
 

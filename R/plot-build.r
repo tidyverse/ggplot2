@@ -144,7 +144,7 @@ ggplot_gtable <- function(data) {
   geom_grobs <- Map(function(l, d) l$draw_geom(d, panel, plot$coordinates),
     plot$layers, data)
 
-  plot_table <- facet_render(plot$facet, panel, plot$coordinates,
+  plot_table <- plot$facet$render(panel, plot$coordinates,
     theme, geom_grobs)
 
   # Axis labels
