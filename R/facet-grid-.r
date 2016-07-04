@@ -432,7 +432,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   switch = NULL,
   drop = NULL,
 
-  layout = function(data, rows = NULL, cols = NULL, margins = NULL,
+  layout = function(self, data, rows = NULL, cols = NULL, margins = NULL,
                     drop = TRUE, as.table = TRUE) {
     if (length(rows) == 0 && length(cols) == 0) return(layout_null())
     rows <- as.quoted(rows)

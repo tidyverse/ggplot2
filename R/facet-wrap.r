@@ -479,7 +479,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
   labeller = NULL,
   dir = NULL,
 
-  layout = function(data, vars = NULL, nrow = NULL, ncol = NULL,
+  layout = function(self, data, vars = NULL, nrow = NULL, ncol = NULL,
                     as.table = TRUE, drop = TRUE, dir = "h") {
     vars <- as.quoted(vars)
     if (length(vars) == 0) return(layout_null())
