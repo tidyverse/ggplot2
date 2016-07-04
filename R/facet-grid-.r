@@ -742,3 +742,14 @@ FacetGrid <- ggproto("FacetGrid", Facet,
           collapse = " ~ ")
   }
 )
+
+# Helpers
+
+ulevels <- function(x) {
+  if (is.factor(x)) {
+    x <- addNA(x, TRUE)
+    factor(levels(x), levels(x), exclude = NULL)
+  } else {
+    sort(unique(x))
+  }
+}

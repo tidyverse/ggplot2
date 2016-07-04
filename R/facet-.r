@@ -132,3 +132,36 @@ Facet <- ggproto("Facet", NULL,
     cat("Variables: ", self$vars(), '\n', sep = "")
   }
 )
+
+# Helpers
+
+# A "special" value, currently not used but could be used to determine
+# if faceting is active
+NO_PANEL <- -1L
+
+unique_combs <- function(df) {
+  if (length(df) == 0) return()
+
+  unique_values <- plyr::llply(df, ulevels)
+  rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE,
+                  KEEP.OUT.ATTRS = TRUE))
+}
+
+df.grid <- function(a, b) {
+  if (nrow(a) == 0) return(b)
+  if (nrow(b) == 0) return(a)
+
+  indexes <- expand.grid(
+    i_a = seq_len(nrow(a)),
+    i_b = seq_len(nrow(b))
+  )
+  plyr::unrowname(cbind(
+    a[indexes$i_a, , drop = FALSE],
+    b[indexes$i_b, , drop = FALSE]
+  ))
+}
+
+quoted_df <- function(data, vars) {
+  values <- plyr::eval.quoted(vars, data, emptyenv(), try = TRUE)
+  as.data.frame(compact(values), optional = TRUE, stringsAsFactors = FALSE)
+}
