@@ -163,11 +163,16 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
   # Check for deprecated labellers
   labeller <- check_labeller(labeller)
 
-  facet(
+  # facet(
+  #   rows = rows, cols = cols, margins = margins, shrink = shrink,
+  #   free = free, space_free = space_free, labeller = labeller,
+  #   as.table = as.table, switch = switch, drop = drop,
+  #   subclass = "grid"
+  # )
+  ggproto(NULL, FacetGrid,
     rows = rows, cols = cols, margins = margins, shrink = shrink,
     free = free, space_free = space_free, labeller = labeller,
-    as.table = as.table, switch = switch, drop = drop,
-    subclass = "grid"
+    as.table = as.table, switch = switch, drop = drop
   )
 }
 

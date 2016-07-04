@@ -10,7 +10,10 @@ NULL
 #' # don't override it with facet_grid or facet_wrap
 #' ggplot(mtcars, aes(mpg, wt)) + geom_point()
 facet_null <- function(shrink = TRUE) {
-  facet(shrink = shrink, subclass = "null")
+  # facet(shrink = shrink, subclass = "null")
+  ggproto(NULL, FacetNull,
+    shrink = shrink
+  )
 }
 
 #' @export

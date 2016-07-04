@@ -101,13 +101,20 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   # Check for deprecated labellers
   labeller <- check_labeller(labeller)
 
-  facet(
+  # facet(
+  #   facets = as.quoted(facets), free = free, shrink = shrink,
+  #   as.table = as.table, switch = switch,
+  #   drop = drop, ncol = ncol, nrow = nrow,
+  #   labeller = labeller,
+  #   dir = dir,
+  #   subclass = "wrap"
+  # )
+  ggproto(NULL, FacetWrap,
     facets = as.quoted(facets), free = free, shrink = shrink,
     as.table = as.table, switch = switch,
     drop = drop, ncol = ncol, nrow = nrow,
     labeller = labeller,
-    dir = dir,
-    subclass = "wrap"
+    dir = dir
   )
 }
 
