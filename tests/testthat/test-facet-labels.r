@@ -42,6 +42,29 @@ get_labels_info.wrap <- function(facet, panel) {
   labels
 }
 
+get_labels_info.FacetGrid <- function(facet, panel, type) {
+  if (type == "rows") {
+    labels <- unique(panel$layout[names(facet$rows)])
+    attr(labels, "type") <- "rows"
+    attr(labels, "facet") <- "grid"
+  } else {
+    labels <- unique(panel$layout[names(facet$cols)])
+    attr(labels, "type") <- "cols"
+    attr(labels, "facet") <- "grid"
+  }
+  labels
+}
+
+get_labels_info.FacetWrap <- function(facet, panel) {
+  labels <- panel$layout[names(facet$facets)]
+  attr(labels, "facet") <- "wrap"
+  if (!is.null(facet$switch) && facet$switch == "x") {
+    attr(labels, "type") <- "rows"
+  } else {
+    attr(labels, "type") <- "cols"
+  }
+  labels
+}
 
 test_that("labellers handle facet labels properly", {
   labels <- list(var1 = letters[1:2], var2 = letters[3:4])

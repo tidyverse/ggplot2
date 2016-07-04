@@ -10,7 +10,7 @@ strip_layout <- function(p) {
   geom_grobs <- Map(function(l, d) l$draw_geom(d, panel, plot$coordinates),
     plot$layers, data)
 
-  facet <- facet_render(plot$facet, panel, plot$coordinates, theme, geom_grobs)
+  facet <- plot$facet$render(panel, plot$coordinates, theme, geom_grobs)
   layout <- facet$layout
   strip_layout <- layout[grepl("^strip", layout$name), 1:4]
   as.list(strip_layout)
