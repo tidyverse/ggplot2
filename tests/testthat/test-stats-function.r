@@ -23,3 +23,14 @@ test_that("uses scale limits, not data limits", {
   expect_false(any(is.na(ret$y)))
   expect_false(any(is.na(ret_log$y)))
 })
+
+test_that("works with discrete x", {
+  dat <- data.frame(x = c("a", "b"))
+
+  base <- ggplot(dat, aes(x, group = 1)) +
+    stat_function(fun = as.numeric, geom = "point", n = 2)
+  ret <- layer_data(base)
+
+  expect_equal(ret$x, 1:2)
+  expect_equal(ret$y, 1:2)
+})

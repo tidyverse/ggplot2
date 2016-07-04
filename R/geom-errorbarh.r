@@ -4,6 +4,7 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "errorbarh")}
 #'
 #' @seealso \code{\link{geom_errorbar}}: vertical error bars
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -21,9 +22,12 @@
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
 #' p + geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
-geom_errorbarh <- function(mapping = NULL, data = NULL, stat = "identity",
-                           position = "identity", na.rm = FALSE,
-                           show.legend = NA, inherit.aes = TRUE, ...) {
+geom_errorbarh <- function(mapping = NULL, data = NULL,
+                           stat = "identity", position = "identity",
+                           ...,
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

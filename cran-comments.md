@@ -1,10 +1,14 @@
-This is a resubmission, using the canonical link to the proto package.
+This is a resubmission after fixing a bug that affect mlr and SciencePo.
 
----
+---------------------------------
+
+This is a resubmission, post-review of \dontrun{} usage. Now \dontrun{} is only used in two places: an example that fails on some platforms, and an ggsave() examples which save files on disk.
+
+---------------------------------
 
 ## Test environments
-* OS X, R 3.2.2
-* Ubuntu 14.04, R 3.2.2
+* OS X, R 3.2.3
+* Ubuntu 14.04, R 3.2.3
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -19,62 +23,97 @@ There were no ERRORs or WARNINGs. I see one NOTE:
   I think the problem is a poorly configured webserver: 
   `curl http://fueleconomy.gov` works, but `curl -I http://fueleconomy.gov`
   (which sends a HEAD request) does not.
+
+## Reverse dependencies
+
+* I ran `R CMD check` on 674 all reverse dependencies
+  (summary at https://github.com/hadley/ggplot2/blob/master/revdep/).
+  I checked with the dev versions of ggplot2, scales, and gtable, in an
+  effort to maximise problems found.
   
-  I've also updated my email address to hadley@rstudio.com
-
-## Downstream dependencies
-
-This version of ggplot2 contains substantial changes (hence the bump in the major version number), and I've done my best to get the reverse dependencies updated. I started the release process over two months ago, and I have notified maintainers three times (and I'll notify them again today). 
-
-Unfortunately there are still widespread check failures (mostly new WARNINGS). They are mostly caused by three changes:
-
-* ggplot2 now imports and exports `unit()` and `arrow()` from grid, and 
-  `alpha()` from scales. Many packages seem to have unused unqualified import 
-  statements which now generates a warning on package install. (You could argue
-  that this is a false positive since the conflicting names both point to the 
-  same object.). This affects:
+* Maintainers with NOTEs, WARNINGs, or ERRORS were notified on Feb 10, 
+  and again on Feb 25. I have switched to a new automated system for 
+  maintainer notification, which ensures each maintainer gets a personalised
+  email, and hopefully is more likely to take action.
   
-  alm, arqas, benchmark, blowtorch, clhs, conformal, Deducer, DTRlearn, dynsim, 
-  extracat, FAOSTAT, fheatmap, FinCal, gettingtothebottom, GGally, gwmw, 
-  HistDAWass, hyperspec, kobe, likert, lsbclust, marketeR, Methplot, micromap, 
-  MissingDataGUI, mizer, MultiMeta, ncappc, nparACT, optiRum, patPRO, 
-  PortfolioEffectHFT, PPtreeViz, PReMiuM, prevR, primerTree, qicharts, 
-  quadrupen, RAM, RDS, RFmarkerDetector, rfPermute, RobustEM, rotations, RSDA, 
-  SCGLR, sjPlot, soc.ca, sparkTable, spikeSlabGAM, spoccutils, sprm, statebins, 
-  strvalidator, survMisc, tcR, TreatmentSelection, TriMatch, UpSetR, useful, 
-  varian, waffle
-
-* ggplot2 makes extensive use of ..., and previously little checking was done
-  on the contents. Now ggplot2 is much stricter about ... which causes a number
-  of warnings, where previously the function silently did the wrong thing.
-  This afffects:
+* I've also tried to give a more detailed breakdown of ERRORs/WARNINGs
+  (but not NOTEs below). Please let me know if there's anything else I 
+  can do to make this more helpful.
   
-  AmplicoDuo, chemosensors, clifro, dpcR, granovaGG, GraphPCA, HistDAWass, 
-  knitrBootstrap, LOGIT, lsbclust, mlr, multitable, oaxaca, pAnalysis, PASWR2, 
-  patPRO, PDQutils, planar, RAM, reproducer, rex, rfordummies, sdmvspecies, 
-  SensMixed, simmer, SixSigma, sjPlot, spcosa, ss3sim, starma, survMisc, tcR, 
-  treecm, userfriendlyscience, vcdExtra, vdmR, wq, xkcd
+As far as I can tell, there are 3 failures related to changes to ggplot2:
 
-* A few packages linked to the ggplot2 documentation topic, which didn't 
-  actualy contain anything useful. I removed the file, so a number of packges
-  now give warnings about a missing link. This affects:
+* ggtern: checking examples ... ERROR
+  Caused by change in API. Author is aware but hasn't fixed.
+
+* plotly: checking tests ... ERROR
+  Probably caused by changes to histogram API.
+
+* precrec: checking tests ... ERROR
+  Using a bad test for class inheritance + minor change in ggplot2.
+
+There were a number of failures that don't appear to be related to changes in ggplot2.
+
+* archivist: checking examples ... ERROR
+  Looks like ggplot2 2.0.0 problem.
+
+* BCEA: checking examples ... ERROR
+  I failed to install R2jags.
+
+* bcrm: checking examples ... ERROR
+  Another JAGS problem
+
+* dotwhisker: checking examples ... ERROR
+  Needs to attach grid (ggplot2 2.0.0 problem)
+
+* emil: checking examples ... ERROR
+  Needs very latest version of nlme
+
+* eyetrackingR: checking examples ... ERROR
+  Needs suggested package (lme4) to run examples
+
+* fuzzyforest: checking examples ... ERROR
+  Needs GO.db
+
+* ggthemes: checking tests ... ERROR
+  Automated code style checking failure
+
+* iNEXT: checking Rd cross-references ... WARNING
+  ggplot2 2.0.0 problem: links to help topic that no longer exists
+
+* metaheur: checking for missing documentation entries ... ERROR
+  Needs very latest version of nlme
+
+* mlr: checking examples ... ERROR
+  Needs very latest version of nlme
   
-  PopED, precrec, RcmdrPlugin.KMggplot2points, simPH, statebins
+* multitable: checking running R code from vignettes ... ERROR
+  Needs lme4
+  
+* preproviz: checking tests ... ERROR
+  Needs very latest version of nlme
 
-Finally, there were a grab bag of other failures:
+* Rz: checking dependencies in R code ... WARNING
+  Namespace issues
 
-* CosmoPhotoz: uses a newly deprecated function
-* cowplot: uses a newly deprecated function
-* directlabels: ?? think this is long standing (??)
-* ggswissmaps (looks like it was relying on an internal API that's changed)
-* ggmcmc (from GGally error)
-* metricsgraphics (relies on movies data which has moved to ggplot2movies)
-* OutbreakTools: downstream error from ggmap
-* plot2groups: used internal StatHline which is no longer exported
-* plotly: used internal StatVline which is no longer exported
-* precintcon: ?? not ggplot2 related?
-* RCell: used internal functions where API has changed
-* robustlmm: ?? not ggplot2 related?
-* SWMPr: downstream error from ggmap
-* synthpop:  ?? not ggplot2 related?
-* TreatmentSelection: used internal stat_hline which is now longer exported
+* sdmvspecies: checking for executable files ... WARNING
+  Includes executable file
+
+Additionally, I:
+
+* Failed to install dependencies for: AFM, clusterfly, demi, ibmdbR, metaMix, 
+  PKgraph, pmc, prcbench, SeqFeatR, SpaDES, specmine, toaster
+
+* Failed to install: abd, alm, arqas, ARTool, BACA, bamdit, bdscale, bdvis, 
+  benchmark, biomod2, brainGraph, brms, BTSPAS, capm, caret, caretEnsemble, 
+  ChainLadder, classify, conformal, COPASutils, crmPack, extracat, FAOSTAT, 
+  fheatmap, geneSLOPE, gettingtothebottom, gitter, granovaGG, HistDAWass, 
+  hyperSpec, IntegratedJM, kobe, LANDD, localgauss, LOGIT, ltbayes, MergeGUI, 
+  Methplot, micromap, MissingDataGUI, mizer, morse, MultiMeta, mwaved, ncappc, 
+  NeuralNetTools, NMF, nparACT, npregfast, OriGen, partialAR, patPRO, Phxnlme, 
+  playwith, PlotPrjNetworks, pomp, PPtreeViz, primerTree, quadrupen, 
+  refund.shiny, RobustEM, RSA, RSDA, rstan, rstanarm, RStoolbox, rsvg, SCGLR, 
+  seewave, sgd, simmr, sjPlot, snpEnrichment, sparkTable, spikeSlabGAM, 
+  spoccutils, strvalidator, tadaatoolbox, tigerstats, tigris, treemap, 
+  userfriendlyscience, vmsbase
+
+I think the majority of these are because I'm not currently installing bioconductor packages. I hope to work on that in the future.

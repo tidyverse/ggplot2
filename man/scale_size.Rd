@@ -5,6 +5,8 @@
 \alias{scale_size}
 \alias{scale_size_area}
 \alias{scale_size_continuous}
+\alias{scale_size_date}
+\alias{scale_size_datetime}
 \alias{scale_size_discrete}
 \title{Scale size (area or radius).}
 \usage{

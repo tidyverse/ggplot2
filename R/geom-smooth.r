@@ -15,6 +15,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "smooth")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_smooth} and \code{stat_smooth}.
@@ -55,13 +56,12 @@
 #'   geom_smooth(span = 0.8) +
 #'   facet_wrap(~drv)
 #'
-#' \dontrun{
-#' # To fit a logistic regression, you need to coerce the values to
-#' # a numeric vector lying between 0 and 1.
+#' \donttest{
 #' binomial_smooth <- function(...) {
 #'   geom_smooth(method = "glm", method.args = list(family = "binomial"), ...)
 #' }
-#'
+#' # To fit a logistic regression, you need to coerce the values to
+#' # a numeric vector lying between 0 and 1.
 #' ggplot(rpart::kyphosis, aes(Age, Kyphosis)) +
 #'   geom_jitter(height = 0.05) +
 #'   binomial_smooth()
@@ -77,10 +77,15 @@
 #' # But in this case, it's probably better to fit the model yourself
 #' # so you can exercise more control and see whether or not it's a good model
 #' }
-geom_smooth <- function(mapping = NULL, data = NULL, stat = "smooth",
-                        method = "auto", formula = y ~ x, se = TRUE,
-                        position = "identity", na.rm = FALSE,
-                        show.legend = NA, inherit.aes = TRUE, ...) {
+geom_smooth <- function(mapping = NULL, data = NULL,
+                        stat = "smooth", position = "identity",
+                        ...,
+                        method = "auto",
+                        formula = y ~ x,
+                        se = TRUE,
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
 
   params <- list(
     na.rm = na.rm,

@@ -82,7 +82,7 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                limits = NULL, expand = waiver(), oob = censor,
                                na.value = NA_real_, trans = "identity") {
   sc <- continuous_scale(
-    c("x", "xmin", "xmax", "xend", "xintercept"),
+    c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper"),
     "position_c", identity, name = name, breaks = breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,

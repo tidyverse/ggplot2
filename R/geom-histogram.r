@@ -13,6 +13,7 @@
 #' \code{geom_freqpoly} uses the same aesthetics as \code{geom_line}.
 #'
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.
@@ -70,10 +71,14 @@
 #' m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 #' }
 #' rm(movies)
-geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
-                           binwidth = NULL, bins = NULL, origin = NULL,
-                           right = FALSE, position = "stack", na.rm = FALSE,
-                           show.legend = NA, inherit.aes = TRUE, ...) {
+geom_histogram <- function(mapping = NULL, data = NULL,
+                           stat = "bin", position = "stack",
+                           ...,
+                           binwidth = NULL,
+                           bins = NULL,
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
 
   layer(
     data = data,
@@ -86,9 +91,8 @@ geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
     params = list(
       binwidth = binwidth,
       bins = bins,
-      origin = origin,
-      right = right,
       na.rm = na.rm,
+      pad = FALSE,
       ...
     )
   )

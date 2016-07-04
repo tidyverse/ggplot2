@@ -7,10 +7,15 @@
 #'   using \code{\link[MASS]{bandwidth.nrd}}.
 #' @section Computed variables:
 #' Same as \code{\link{stat_contour}}
-stat_density_2d <- function(mapping = NULL, data = NULL, geom = "density_2d",
-                           position = "identity", contour = TRUE,
-                           n = 100, h = NULL, na.rm = FALSE,
-                           show.legend = NA, inherit.aes = TRUE, ...) {
+stat_density_2d <- function(mapping = NULL, data = NULL,
+                            geom = "density_2d", position = "identity",
+                            ...,
+                            contour = TRUE,
+                            n = 100,
+                            h = NULL,
+                            na.rm = FALSE,
+                            show.legend = NA,
+                            inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

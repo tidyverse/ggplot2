@@ -9,5 +9,5 @@ visual_test
 ^data-raw$
 ^CONTRIBUTING\.md$
 ^NEWS$
-^NEWS\.md$
 ^revdep$
+^\.httr-oauth$

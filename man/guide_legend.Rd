@@ -108,7 +108,6 @@ p1 + scale_fill_continuous(guide = "legend")
 p1 + scale_fill_continuous(guide = guide_legend())
 
 # Guide title
-
 p1 + scale_fill_continuous(guide = guide_legend(title = "V")) # title text
 p1 + scale_fill_continuous(guide = guide_legend(title = NULL)) # no title
 
@@ -121,24 +120,38 @@ p1 + guides(fill = guide_legend(keywidth = 3, keyheight = 1))
 p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
 
 # title text styles via element_text
-p1 + guides(fill = guide_legend(
-  title.theme = element_text(size=15, face="italic", colour = "red", angle = 45)))
+p1 + guides(fill =
+  guide_legend(
+    title.theme = element_text(
+      size = 15,
+      face = "italic",
+      colour = "red",
+      angle = 0
+    )
+  )
+)
 
 # label position
-p1 + guides(fill = guide_legend(label.position = "bottom"))
+p1 + guides(fill = guide_legend(label.position = "left", label.hjust = 1))
 
 # label styles
 p1 + scale_fill_continuous(breaks = c(5, 10, 15),
   labels = paste("long", c(5, 10, 15)),
-  guide = guide_legend(direction = "horizontal", title.position = "top",
-    label.position="bottom", label.hjust = 0.5, label.vjust = 0.5,
-    label.theme = element_text(angle = 90)))
+  guide = guide_legend(
+    direction = "horizontal",
+    title.position = "top",
+    label.position = "bottom",
+    label.hjust = 0.5,
+    label.vjust = 1,
+    label.theme = element_text(angle = 90)
+  )
+)
 
 # Set aesthetic of legend key
 
 # very low alpha value make it difficult to see legend key
 p3 <- ggplot(diamonds, aes(carat, price)) +
-  geom_point(aes(colour=color), alpha=1/100)
+  geom_point(aes(colour = color), alpha = 1/100)
 p3
 
 # override.aes overwrites the alpha

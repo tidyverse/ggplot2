@@ -3,6 +3,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "contour")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
 #' @seealso \code{\link{geom_density_2d}}: 2d density contours
@@ -33,11 +34,15 @@
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")
 #' }
-geom_contour <- function(mapping = NULL, data = NULL, stat = "contour",
-                         position = "identity", lineend = "butt",
-                         linejoin = "round", linemitre = 1,
-                         na.rm = FALSE, show.legend = NA,
-                         inherit.aes = TRUE, ...) {
+geom_contour <- function(mapping = NULL, data = NULL,
+                         stat = "contour", position = "identity",
+                         ...,
+                         lineend = "butt",
+                         linejoin = "round",
+                         linemitre = 1,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

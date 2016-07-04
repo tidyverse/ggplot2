@@ -11,6 +11,20 @@ scale_colour_discrete <- scale_colour_hue
 scale_colour_continuous <- scale_colour_gradient
 
 #' @export
+#' @rdname scale_gradient
+#' @usage NULL
+scale_colour_datetime <- function() {
+  scale_colour_continuous(trans = "time")
+}
+
+#' @export
+#' @rdname scale_gradient
+#' @usage NULL
+scale_colour_date <- function() {
+  scale_colour_continuous(trans = "date")
+}
+
+#' @export
 #' @rdname scale_hue
 #' @usage NULL
 scale_fill_discrete <- scale_fill_hue
@@ -19,6 +33,21 @@ scale_fill_discrete <- scale_fill_hue
 #' @rdname scale_gradient
 #' @usage NULL
 scale_fill_continuous <- scale_fill_gradient
+
+#' @export
+#' @rdname scale_gradient
+#' @usage NULL
+scale_fill_datetime <- function() {
+  scale_fill_continuous(trans = "time")
+}
+
+#' @export
+#' @rdname scale_gradient
+#' @usage NULL
+scale_fill_date <- function() {
+  scale_fill_continuous(trans = "date")
+}
+
 
 # British to American spellings ----------------------------------------------
 

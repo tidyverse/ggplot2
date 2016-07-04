@@ -140,7 +140,14 @@ The individual theme elements are:
   plot.background  \tab background of the entire plot
                    (\code{element_rect}; inherits from \code{rect}) \cr
   plot.title       \tab plot title (text appearance)
-                   (\code{element_text}; inherits from \code{title}) \cr
+                   (\code{element_text}; inherits from \code{title})
+                   left-aligned by default\cr
+  plot.subtitle    \tab plot subtitle (text appearance)
+                   (\code{element_text}; inherits from \code{title})
+                   left-aligned by default\cr
+  plot.caption     \tab caption below the plot (text appearance)
+                   (\code{element_text}; inherits from \code{title})
+                   right-aligned by default\cr
   plot.margin      \tab margin around entire plot
                    (\code{unit} with the sizes of the top, right, bottom, and
                     left margins) \cr
@@ -191,6 +198,11 @@ p <- p + labs(title = "Vehicle Weight-Gas Mileage Relationship")
 # Set title to twice the base font size
 p + theme(plot.title = element_text(size = rel(2)))
 p + theme(plot.title = element_text(size = rel(2), colour = "blue"))
+
+# Add a subtitle and adjust bottom margin
+p + labs(title = "Vehicle Weight-Gas Mileage Relationship",
+         subtitle = "You need to wrap long subtitleson manually") +
+    theme(plot.subtitle = element_text(margin = margin(b = 20)))
 
 # Changing plot look with themes
 DF <- data.frame(x = rnorm(400))
@@ -276,35 +288,6 @@ g + geom_bar(stat = "identity") +
 # Modify a theme and save it
 mytheme <- theme_grey() + theme(plot.title = element_text(colour = "red"))
 p + mytheme
-
-}
-
-\dontrun{
-## Run this to generate a graph of the element inheritance tree
-build_element_graph <- function(tree) {
-  require(igraph)
-  require(plyr)
-
-  inheritdf <- function(name, item) {
-    if (length(item$inherit) == 0)
-      data.frame()
-    else
-      data.frame(child = name, parent = item$inherit)
-  }
-
-  edges <- plyr::rbind.fill(mapply(inheritdf, names(tree), tree))
-
-  # Explicitly add vertices (since not all are in edge list)
-  vertices <- data.frame(name = names(tree))
-  graph.data.frame(edges, vertices = vertices)
-}
-
-g <- build_element_graph(ggplot2:::.element_tree)
-V(g)$label <- V(g)$name
-
-set.seed(324)
-par(mar=c(0,0,0,0)) # Remove unnecessary margins
-plot(g, layout=layout.fruchterman.reingold, vertex.size=4, vertex.label.dist=.25)
 
 }
 }

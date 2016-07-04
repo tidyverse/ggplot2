@@ -15,9 +15,8 @@
 #'   representing the euclidean distance from the center.
 #'   This ellipse probably won't appear circular unless \code{coord_fixed()} is applied.
 #' @param segments The number of segments to be used in drawing the ellipse.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
-#' @inheritParams stat_identity
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' ggplot(faithful, aes(waiting, eruptions)) +
@@ -41,10 +40,15 @@
 #'
 #' ggplot(faithful, aes(waiting, eruptions, fill = eruptions > 3)) +
 #'   stat_ellipse(geom = "polygon")
-stat_ellipse <- function(mapping = NULL, data = NULL, geom = "path",
-                         position = "identity", type = "t", level = 0.95,
-                         segments = 51, na.rm = FALSE, show.legend = NA,
-                         inherit.aes = TRUE, ...) {
+stat_ellipse <- function(mapping = NULL, data = NULL,
+                         geom = "path", position = "identity",
+                         ...,
+                         type = "t",
+                         level = 0.95,
+                         segments = 51,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

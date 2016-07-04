@@ -9,6 +9,7 @@
 #' @seealso See \code{\link{geom_histogram}}, \code{\link{geom_freqpoly}} for
 #'   other methods of displaying continuous distribution.
 #'   See \code{\link{geom_violin}} for a compact density display.
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_density} and \code{stat_density}.
@@ -45,9 +46,12 @@
 #' ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
-geom_density <- function(mapping = NULL, data = NULL, stat = "density",
-                         position = "identity", na.rm = FALSE,
-                         show.legend = NA, inherit.aes = TRUE, ...) {
+geom_density <- function(mapping = NULL, data = NULL,
+                         stat = "density", position = "identity",
+                         ...,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
 
   layer(
     data = data,

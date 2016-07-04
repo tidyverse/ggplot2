@@ -6,6 +6,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "segment")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param arrow specification for arrow heads, as created by arrow()
 #' @param lineend Line end style (round, butt, square)
@@ -43,10 +44,14 @@
 #'
 #' ggplot(counts, aes(x, Freq)) +
 #'   geom_segment(aes(xend = x, yend = 0), size = 10, lineend = "butt")
-geom_segment <- function(mapping = NULL, data = NULL, stat = "identity",
-                         position = "identity", arrow = NULL, lineend = "butt",
-                         na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-                         ...) {
+geom_segment <- function(mapping = NULL, data = NULL,
+                         stat = "identity", position = "identity",
+                         ...,
+                         arrow = NULL,
+                         lineend = "butt",
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

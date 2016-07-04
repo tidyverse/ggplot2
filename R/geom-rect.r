@@ -1,8 +1,11 @@
 #' @export
 #' @rdname geom_tile
-geom_rect <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", na.rm = FALSE,
-                      show.legend = NA, inherit.aes = TRUE, ...) {
+geom_rect <- function(mapping = NULL, data = NULL,
+                      stat = "identity", position = "identity",
+                      ...,
+                      na.rm = FALSE,
+                      show.legend = NA,
+                      inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -52,7 +55,7 @@ GeomRect <- ggproto("GeomRect", Geom,
         default.units = "native",
         just = c("left", "top"),
         gp = gpar(
-          col = alpha(coords$colour, coords$alpha),
+          col = coords$colour,
           fill = alpha(coords$fill, coords$alpha),
           lwd = coords$size * .pt,
           lty = coords$linetype,

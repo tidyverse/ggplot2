@@ -21,16 +21,16 @@
 #' d + scale_colour_hue(expression(clarity[beta]))
 #'
 #' # Adjust luminosity and chroma
-#' d + scale_colour_hue(l=40, c=30)
-#' d + scale_colour_hue(l=70, c=30)
-#' d + scale_colour_hue(l=70, c=150)
-#' d + scale_colour_hue(l=80, c=150)
+#' d + scale_colour_hue(l = 40, c = 30)
+#' d + scale_colour_hue(l = 70, c = 30)
+#' d + scale_colour_hue(l = 70, c = 150)
+#' d + scale_colour_hue(l = 80, c = 150)
 #'
 #' # Change range of hues used
-#' d + scale_colour_hue(h=c(0, 90))
-#' d + scale_colour_hue(h=c(90, 180))
-#' d + scale_colour_hue(h=c(180, 270))
-#' d + scale_colour_hue(h=c(270, 360))
+#' d + scale_colour_hue(h = c(0, 90))
+#' d + scale_colour_hue(h = c(90, 180))
+#' d + scale_colour_hue(h = c(180, 270))
+#' d + scale_colour_hue(h = c(270, 360))
 #'
 #' # Vary opacity
 #' # (only works with pdf, quartz and cairo devices)

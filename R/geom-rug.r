@@ -3,6 +3,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "rug")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param sides A string that controls which sides of the plot the rugs appear on.
 #'   It can be set to a string containing any of \code{"trbl"}, for top, right,
@@ -15,9 +16,13 @@
 #' p + geom_point() + geom_rug(sides="b")    # Rug on bottom only
 #' p + geom_point() + geom_rug(sides="trbl") # All four sides
 #' p + geom_point() + geom_rug(position='jitter')
-geom_rug <- function(mapping = NULL, data = NULL, stat = "identity",
-                     position = "identity", sides = "bl",
-                     na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
+geom_rug <- function(mapping = NULL, data = NULL,
+                     stat = "identity", position = "identity",
+                     ...,
+                     sides = "bl",
+                     na.rm = FALSE,
+                     show.legend = NA,
+                     inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

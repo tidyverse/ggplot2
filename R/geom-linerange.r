@@ -13,6 +13,7 @@
 #'  \code{\link{stat_summary}} for examples of these guys in use,
 #'  \code{\link{geom_smooth}} for continuous analog
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @examples
 #' #' # Create a simple example dataset
@@ -48,9 +49,12 @@
 #' p +
 #'   geom_bar(position = dodge, stat = "identity") +
 #'   geom_errorbar(aes(ymin = lower, ymax = upper), position = dodge, width = 0.25)
-geom_linerange <- function(mapping = NULL, data = NULL, stat = "identity",
-                           position = "identity", na.rm = FALSE,
-                           show.legend = NA, inherit.aes = TRUE, ...) {
+geom_linerange <- function(mapping = NULL, data = NULL,
+                           stat = "identity", position = "identity",
+                           ...,
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
