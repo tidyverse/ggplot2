@@ -126,5 +126,9 @@ Facet <- ggproto("Facet", NULL,
   },
   vars = function(self) {
     stop("Not implemented", call. = FALSE)
+  },
+  print = function(self) {
+    cat("<", class(self)[[1]], ">\n", sep = "")
+    cat("Variables: ", self$vars(), '\n', sep = "")
   }
 )
