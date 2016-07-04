@@ -18,7 +18,7 @@ facet <- function(..., shrink = TRUE, subclass = c()) {
 #' @param x object to test
 #' @keywords internal
 #' @export
-is.facet <- function(x) inherits(x, "facet")
+is.facet <- function(x) inherits(x, "Facet")
 
 
 # Figure out layout from data from plot and all layers.
