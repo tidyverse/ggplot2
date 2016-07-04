@@ -4,12 +4,12 @@
 \alias{translate_qplot_lattice}
 \title{Translating between qplot and lattice}
 \description{
-The major difference between lattice and ggplot2 is that lattice uses a formula based
-interface. ggplot2 does not because the formula does not generalise well
-to more complicated situations.
+The major difference between lattice and ggplot2 is that lattice uses a
+formula based interface. ggplot2 does not because the formula does not
+generalise well to more complicated situations.
 }
 \examples{
-\dontrun{
+\donttest{
 library(lattice)
 
 if (require("ggplot2movies")) {
@@ -32,13 +32,10 @@ histogram(~ rating, data = movies)
 qplot(rating, data = movies, geom = "histogram")
 
 bwplot(Comedy ~ rating ,data = movies)
-qplot(factor(Comedy), rating, data = movies, type = "boxplot")
+qplot(factor(Comedy), rating, data = movies, geom = "boxplot")
 
 xyplot(wt ~ mpg, mtcars, type = c("p","smooth"))
 qplot(mpg, wt, data = mtcars, geom = c("point","smooth"))
-
-xyplot(wt ~ mpg, mtcars, type = c("p","r"))
-qplot(mpg, wt, data = mtcars, geom = c("point","smooth"), method = "lm")
 }
 
 # The capabilities for scale manipulations are similar in both ggplot2 and

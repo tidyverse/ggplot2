@@ -45,10 +45,8 @@ train_layout <- function(panel, facet, data, plot_data) {
 # @param panel a trained panel object
 # @param the facetting specification
 # @param data list of data frames (one for each layer)
-# @param plot_data default plot data frame
-map_layout <- function(panel, facet, data, plot_data) {
+map_layout <- function(panel, facet, data) {
   lapply(data, function(data) {
-    if (is.waive(data)) data <- plot_data
     facet_map_layout(facet, data, panel$layout)
   })
 }

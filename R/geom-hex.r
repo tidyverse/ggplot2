@@ -7,6 +7,7 @@
 #' @param geom,stat Override the default connection between \code{geom_hex} and
 #'   \code{stat_binhex.}
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -23,9 +24,12 @@
 #' d + geom_hex(binwidth = c(1, 1000))
 #' d + geom_hex(binwidth = c(.1, 500))
 #' }
-geom_hex <- function(mapping = NULL, data = NULL, stat = "binhex",
-                     position = "identity", na.rm = FALSE,
-                     show.legend = NA, inherit.aes = TRUE, ...) {
+geom_hex <- function(mapping = NULL, data = NULL,
+                     stat = "binhex", position = "identity",
+                     ...,
+                     na.rm = FALSE,
+                     show.legend = NA,
+                     inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

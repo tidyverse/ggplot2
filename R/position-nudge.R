@@ -31,8 +31,8 @@ position_nudge <- function(x = 0, y = 0) {
 #' @usage NULL
 #' @export
 PositionNudge <- ggproto("PositionNudge", Position,
-  x = NULL,
-  y = NULL,
+  x = 0,
+  y = 0,
 
   required_aes = c("x", "y"),
 

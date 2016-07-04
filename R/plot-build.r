@@ -22,13 +22,7 @@ ggplot_build <- function(plot) {
   }
 
   layers <- plot$layers
-  layer_data <- lapply(layers, function(y) {
-    if (is.function(y$data)) {
-      fortify(y$data(plot$data))
-    } else {
-      y$data  
-    }
-  })
+  layer_data <- lapply(layers, function(y) y$layer_data(plot$data))
 
   scales <- plot$scales
   # Apply function to layer and matching data
@@ -45,7 +39,7 @@ ggplot_build <- function(plot) {
 
   panel <- new_panel()
   panel <- train_layout(panel, plot$facet, layer_data, plot$data)
-  data <- map_layout(panel, plot$facet, layer_data, plot$data)
+  data <- map_layout(panel, plot$facet, layer_data)
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
@@ -256,12 +250,28 @@ ggplot_gtable <- function(data) {
   title <- element_render(theme, "plot.title", plot$labels$title, expand_y = TRUE)
   title_height <- grobHeight(title)
 
+  # Subtitle
+  subtitle <- element_render(theme, "plot.subtitle", plot$labels$subtitle, expand_y = TRUE)
+  subtitle_height <- grobHeight(subtitle)
+
+  # whole plot annotation
+  caption <- element_render(theme, "plot.caption", plot$labels$caption, expand_y = TRUE)
+  caption_height <- grobHeight(caption)
+
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), ,
     drop = FALSE]
+
+  plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)
+  plot_table <- gtable_add_grob(plot_table, subtitle, name = "subtitle",
+    t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
 
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, title, name = "title",
     t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
+
+  plot_table <- gtable_add_rows(plot_table, caption_height, pos = -1)
+  plot_table <- gtable_add_grob(plot_table, caption, name = "caption",
+    t = -1, b = -1, l = min(pans$l), r = max(pans$r), clip = "off")
 
   # Margins
   plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)

@@ -90,7 +90,7 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
 ggplot.data.frame <- function(data, mapping = aes(), ...,
                               environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
-    stop("Mapping should be created with aes or aes_string")
+    stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
   }
 
   p <- structure(list(

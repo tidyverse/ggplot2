@@ -4,15 +4,17 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "unique")}
 #'
 #' @export
-#' @inheritParams stat_identity
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @examples
 #' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1)
 #' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1, stat="unique")
-stat_unique <- function(mapping = NULL, data = NULL, geom = "point",
-                        position = "identity", na.rm = FALSE,
-                        show.legend = NA, inherit.aes = TRUE, ...) {
+stat_unique <- function(mapping = NULL, data = NULL,
+                        geom = "point", position = "identity",
+                        ...,
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

@@ -17,6 +17,7 @@
 #'   \code{\link{geom_bar}} for discrete intervals (bars),
 #'   \code{\link{geom_linerange}} for discrete intervals (lines),
 #'   \code{\link{geom_polygon}} for general polygons
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -31,9 +32,12 @@
 #' h +
 #'   geom_ribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
 #'   geom_line(aes(y = level))
-geom_ribbon <- function(mapping = NULL, data = NULL, stat = "identity",
-                        position = "identity", na.rm = FALSE, show.legend = NA,
-                        inherit.aes = TRUE, ...) {
+geom_ribbon <- function(mapping = NULL, data = NULL,
+                        stat = "identity", position = "identity",
+                        ...,
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -60,6 +64,10 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
   required_aes = c("x", "ymin", "ymax"),
 
   draw_key = draw_key_polygon,
+
+  handle_na = function(data, params) {
+    data
+  },
 
   draw_group = function(data, panel_scales, coord, na.rm = FALSE) {
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
@@ -92,7 +100,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       default.units = "native",
       gp = gpar(
         fill = alpha(aes$fill, aes$alpha),
-        col = alpha(aes$colour, aes$alpha),
+        col = aes$colour,
         lwd = aes$size * .pt,
         lty = aes$linetype)
     ))

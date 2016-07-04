@@ -26,16 +26,13 @@ NULL
 #' base <- ggplot(df, aes(x, y)) +
 #'   geom_blank() +
 #'   theme_bw()
-#' # Adding a table
-#' \dontrun{
-#'  if (require(gridExtra)) {
-#' base + annotation_custom(grob = tableGrob(head(iris[ ,1:3])),
-#'         xmin = 3, xmax = 6, ymin = 2, ymax = 8)
-#' # full panel
-#' base + annotation_custom(grob = roundrectGrob(),
-#'           xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
-#' }
-#' }
+#'
+#' # Full panel annotation
+#' base + annotation_custom(
+#'   grob = grid::roundrectGrob(),
+#'   xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
+#' )
+#'
 #' # Inset plot
 #' df2 <- data.frame(x = 1 , y = 1)
 #' g <- ggplotGrob(ggplot(df2, aes(x, y)) +

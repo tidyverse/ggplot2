@@ -8,6 +8,7 @@
 #' @section Aesthetics:
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "path")}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param lineend Line end style (round, butt, square)
 #' @param linejoin Line join style (round, mitre, bevel)
@@ -84,10 +85,16 @@
 #' # But this doesn't
 #' should_stop(p + geom_line(aes(colour = x), linetype=2))
 #' }
-geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", lineend = "butt",
-                      linejoin = "round", linemitre = 1, na.rm = FALSE,
-                      arrow = NULL, show.legend = NA, inherit.aes = TRUE, ...) {
+geom_path <- function(mapping = NULL, data = NULL,
+                      stat = "identity", position = "identity",
+                      ...,
+                      lineend = "butt",
+                      linejoin = "round",
+                      linemitre = 1,
+                      arrow = NULL,
+                      na.rm = FALSE,
+                      show.legend = NA,
+                      inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -161,8 +168,9 @@ GeomPath <- ggproto("GeomPath", Geom,
 
     # Work out whether we should use lines or segments
     attr <- plyr::ddply(munched, "group", function(df) {
+      linetype <- unique(df$linetype)
       data.frame(
-        solid = identical(unique(df$linetype), 1),
+        solid = identical(linetype, 1) || identical(linetype, "solid"),
         constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
       )
     })

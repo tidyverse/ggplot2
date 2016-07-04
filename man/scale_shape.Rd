@@ -7,10 +7,6 @@
 \title{Scale for shapes, aka glyphs.}
 \usage{
 scale_shape(..., solid = TRUE)
-
-scale_shape_discrete(..., solid = TRUE)
-
-scale_shape_continuous(...)
 }
 \arguments{
 \item{...}{common discrete scale parameters: \code{name}, \code{breaks},

@@ -12,10 +12,15 @@
 #'  \item \code{y}: vertical position
 #'  \item \code{z}: value passed to the summary function
 #' }
-#'
+#' @section Computed variables:
+#' \describe{
+#'   \item{x,y}{Location}
+#'   \item{value}{Value of summary statistic.}
+#' }
 #' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization.
 #'   \code{\link{stat_bin2d}} for the binning options.
-#' @inheritParams stat_identity
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @inheritParams stat_bin_2d
 #' @param drop drop if the output of \code{fun} is \code{NA}.
 #' @param fun function for summary.
@@ -33,11 +38,17 @@
 #' if (requireNamespace("hexbin")) {
 #' d + stat_summary_hex()
 #' }
-stat_summary_2d <- function(mapping = NULL, data = NULL, geom = "tile",
-                            position = "identity", bins = 30, binwidth = NULL,
-                            drop = TRUE, fun = "mean", fun.args = list(),
-                            na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-                            ...) {
+stat_summary_2d <- function(mapping = NULL, data = NULL,
+                            geom = "tile", position = "identity",
+                            ...,
+                            bins = 30,
+                            binwidth = NULL,
+                            drop = TRUE,
+                            fun = "mean",
+                            fun.args = list(),
+                            na.rm = FALSE,
+                            show.legend = NA,
+                            inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -83,8 +94,8 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
     breaks <- dual_param(breaks, list(NULL, NULL))
     bins <- dual_param(bins, list(x = 30, y = 30))
 
-    xbreaks <- bin_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
-    ybreaks <- bin_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
+    xbreaks <- bin2d_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
+    ybreaks <- bin2d_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
 
     xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
     ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)

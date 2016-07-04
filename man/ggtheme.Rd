@@ -77,13 +77,14 @@ A completely empty theme.}
 }
 \examples{
 p <- ggplot(mtcars) + geom_point(aes(x = wt, y = mpg,
-     colour=factor(gear))) + facet_wrap(~am)
+     colour = factor(gear))) + facet_wrap(~am)
 
 p
 p + theme_gray()
 p + theme_bw()
 p + theme_linedraw()
 p + theme_light()
+p + theme_dark()
 p + theme_minimal()
 p + theme_classic()
 p + theme_void()

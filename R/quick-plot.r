@@ -31,7 +31,7 @@
 #' \donttest{
 #' qplot(1:10, rnorm(10), colour = runif(10))
 #' qplot(1:10, letters[1:10])
-#' mod <- lm(mpg ~ wt, data=mtcars)
+#' mod <- lm(mpg ~ wt, data = mtcars)
 #' qplot(resid(mod), fitted(mod))
 #'
 #' f <- function() {
@@ -57,7 +57,7 @@
 #' qplot(factor(cyl), wt, data = mtcars, geom = c("boxplot", "jitter"))
 #' qplot(mpg, data = mtcars, geom = "dotplot")
 #' }
-qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE,
+qplot <- function(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
                   geom = "auto", xlim = c(NA, NA),
                   ylim = c(NA, NA), log = "", main = NULL,
                   xlab = deparse(substitute(x)), ylab = deparse(substitute(y)),

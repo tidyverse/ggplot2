@@ -6,7 +6,8 @@ NULL
 geom_hline <- function(mapping = NULL, data = NULL,
                        ...,
                        yintercept,
-                       na.rm = FALSE, show.legend = NA) {
+                       na.rm = FALSE,
+                       show.legend = NA) {
 
   # Act like an annotation
   if (!missing(yintercept)) {

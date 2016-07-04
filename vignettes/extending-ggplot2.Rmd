@@ -14,15 +14,15 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 library(ggplot2)
 ```
 
-This vignette documents the official extension mechanism provided in ggplot2 1.1.0. This vignette is a high-level adjunct to the low-level details found in `?Stat`, `?Geom` and `?theme`. You'll learn how to extend ggplot2 by creating a new stat, geom, or theme.
+This vignette documents the official extension mechanism provided in ggplot2 2.0.0. This vignette is a high-level adjunct to the low-level details found in `?Stat`, `?Geom` and `?theme`. You'll learn how to extend ggplot2 by creating a new stat, geom, or theme.
 
-As you read this document, you'll see many things that will make you scratch your head and wonder why on earth is it designed this way? Mostly it's historical accident - I wasn't a terribly good R programmer when I started writing ggplot2 and I made a lot of questionable decisions. We cleaned up as many of those issues as possible in the 1.1.0 release, but some fixes simply weren't worth the effort.
+As you read this document, you'll see many things that will make you scratch your head and wonder why on earth is it designed this way? Mostly it's historical accident - I wasn't a terribly good R programmer when I started writing ggplot2 and I made a lot of questionable decisions. We cleaned up as many of those issues as possible in the 2.0.0 release, but some fixes simply weren't worth the effort.
 
 ## ggproto
 
 All ggplot2 objects are built using the ggproto system of object oriented programming. This OO system is used only in one place: ggplot2. This is mostly historical accident: ggplot2 started off using [proto]( https://cran.r-project.org/package=proto) because I needed mutable objects. This was well before the creation of (the briefly lived) [mutatr](http://vita.had.co.nz/papers/mutatr.html), reference classes and R6: proto was the only game in town.
 
-But why ggproto? Well when we turned to add an official extension mechanism to ggplot2, we found a major problem that caused problems when proto objects were extended in a different package (methods were evaluated in ggplot2, not the package where the extension was added). We tried converting to R6, but it was a poor fit for the needs of ggplot2. We could've modified proto, but that would've first involved understand exactly how proto worked, and secondly making sure that the changes didn't affect other users of proto.
+But why ggproto? Well when we turned to add an official extension mechanism to ggplot2, we found a major problem that caused problems when proto objects were extended in a different package (methods were evaluated in ggplot2, not the package where the extension was added). We tried converting to R6, but it was a poor fit for the needs of ggplot2. We could've modified proto, but that would've first involved understanding exactly how proto worked, and secondly making sure that the changes didn't affect other users of proto.
 
 It's strange to say, but this is a case where inventing a new OO system was actually the right answer to the problem! Fortunately Winston is now very good at creating OO systems, so it only took him a day to come up with ggproto: it maintains all the features of proto that ggplot2 needs, while allowing cross package inheritance to work.
 
@@ -51,7 +51,7 @@ To create a new geom or stat, you will just create a new ggproto that inherits f
 
 ### The simplest stat
 
-We'll start by creating a very simple stat: one that gives the complex hull (the _c_ hull) of a set of points. First we create a new ggproto object that inherits from `Stat`:
+We'll start by creating a very simple stat: one that gives the convex hull (the _c_ hull) of a set of points. First we create a new ggproto object that inherits from `Stat`:
 
 ```{r chull}
 StatChull <- ggproto("StatChull", Stat,

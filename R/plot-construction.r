@@ -1,4 +1,4 @@
-#' Modify a ggplot or theme object by adding on new components.
+#' Add a new component to a ggplot or theme object.
 #'
 #' This operator allows you to add objects to a ggplot or theme object.
 #'

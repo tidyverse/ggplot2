@@ -1,11 +1,17 @@
 #' @rdname stat_summary
 #' @inheritParams stat_bin
 #' @export
-stat_summary_bin <- function(mapping = NULL, data = NULL, geom = "pointrange",
-                             fun.data = NULL, fun.y = NULL, fun.ymax = NULL,
-                             fun.ymin = NULL, fun.args = list(), na.rm = FALSE,
-                             position = "identity", show.legend = NA,
-                             inherit.aes = TRUE, ...) {
+stat_summary_bin <- function(mapping = NULL, data = NULL,
+                             geom = "pointrange", position = "identity",
+                             ...,
+                             fun.data = NULL,
+                             fun.y = NULL,
+                             fun.ymax = NULL,
+                             fun.ymin = NULL,
+                             fun.args = list(),
+                             na.rm = FALSE,
+                             show.legend = NA,
+                             inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -40,7 +46,7 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
 
     fun <- make_summary_fun(fun.data, fun.y, fun.ymax, fun.ymin, fun.args)
 
-    breaks <- bin_breaks(scales$x, NULL, origin, binwidth, bins, right = right)
+    breaks <- bin2d_breaks(scales$x, NULL, origin, binwidth, bins, right = right)
 
     data$bin <- cut(data$x, breaks, include.lowest = TRUE, labels = FALSE)
     out <- plyr::ddply(data, "bin", fun)

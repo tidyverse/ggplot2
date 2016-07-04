@@ -8,6 +8,7 @@
 #' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_count} and \code{stat_sum}.
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -40,9 +41,12 @@
 #'   scale_size_area(max_size = 10)
 #' d + geom_count(aes(size = ..prop.., group = clarity)) +
 #'   scale_size_area(max_size = 10)
-geom_count <- function(mapping = NULL, data = NULL, stat = "sum",
-                       position = "identity", na.rm = FALSE,
-                       show.legend = NA, inherit.aes = TRUE, ...) {
+geom_count <- function(mapping = NULL, data = NULL,
+                       stat = "sum", position = "identity",
+                       ...,
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,

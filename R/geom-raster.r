@@ -8,10 +8,15 @@ NULL
 #'   for both, centering each pixel over its data location.
 #' @param interpolate If \code{TRUE} interpolate linearly, if \code{FALSE}
 #'   (the default) don't interpolate.
-geom_raster <- function(mapping = NULL, data = NULL, stat = "identity",
-                        position = "identity", hjust = 0.5, vjust = 0.5,
-                        interpolate = FALSE, na.rm = FALSE,
-                        show.legend = NA, inherit.aes = TRUE, ...)
+geom_raster <- function(mapping = NULL, data = NULL,
+                        stat = "identity", position = "identity",
+                        ...,
+                        hjust = 0.5,
+                        vjust = 0.5,
+                        interpolate = FALSE,
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE)
 {
   stopifnot(is.numeric(hjust), length(hjust) == 1)
   stopifnot(is.numeric(vjust), length(vjust) == 1)

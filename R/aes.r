@@ -112,7 +112,7 @@ is_position_aes <- function(vars) {
 #' evaluation to capture the variable names. \code{aes_} and \code{aes_string}
 #' require you to explicitly quote the inputs either with \code{""} for
 #' \code{aes_string()}, or with \code{quote} or \code{~} for \code{aes_()}.
-#' (\code{aes_q} is an alias to \code{aeq_})
+#' (\code{aes_q} is an alias to \code{aes_})
 #'
 #' It's better to use \code{aes_q()}, because there's no easy way to create the
 #' equivalent to \code{aes(colour = "my colour")} or \code{aes{x = `X$1`}}
