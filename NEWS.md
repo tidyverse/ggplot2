@@ -1,5 +1,6 @@
 # ggplot2 2.1.0.9000 
 
+
 * `position_stack()` and `position_fill()` now sorts the stacking order so it 
   matches the order of the grouping. Use level reordering to alter the stacking 
   order. The default legend and stacking order is now also in line. The default 
@@ -27,6 +28,10 @@
   even if you haven't explicitly loaded tibble or dplyr (#1677).
 
 * `stat_ecdf()` respects `pad` argument (#1646).
+
+* `stat_density` now makes argument `n` of the unterlying function
+  `stats::density` ("number of equally spaced points at which the
+  density is to be estimated") accessible. (@hbuschme)
 
 * `x` and `y` scales are now symmetric regarding the list of
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
