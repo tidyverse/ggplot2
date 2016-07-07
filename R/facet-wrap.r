@@ -235,7 +235,6 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       message("`switch` must be set to 'x', 'y' or NULL")
       self$switch <- NULL
     }
-
     panels <- self$panels(panel, coord, theme, geom_grobs)
     axes <- self$axes(panel, coord, theme)
     strips <- self$strips(panel, theme)
@@ -294,7 +293,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
       add_padding <- function(strip) {
         gt_t <- gtable_row("strip_t", list(strip),
-                           height = unit(height_cm(strip), "cm"))
+          height = unit(height_cm(strip), "cm"))
 
         # One padding above and two below, so that the strip does not look
         # like a title for the panel just below.
@@ -315,7 +314,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
       add_padding <- function(strip) {
         gt_t <- gtable_col("strip_t", list(strip),
-                           heights = unit(aspect_ratio, "null"))
+          heights = unit(aspect_ratio, "null"))
 
         gt_t <- gtable_add_cols(gt_t, padding, pos = 0)
         gt_t <- gtable_add_cols(gt_t, padding, pos = 2)
@@ -370,7 +369,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     # Add the grobs
     gt <- gtable_add_grob(gt, grobs, l = info$l, t = info$t, r = info$r,
-                          b = info$b, name = info$name, clip = info$clip)
+      b = info$b, name = info$name, clip = info$clip)
 
     gt
   },
@@ -388,7 +387,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     }
 
     strips_table <- build_strip(panel, labels_df, self$labeller,
-                                theme, dir, switch = self$switch)
+      theme, dir, switch = self$switch)
 
     # While grid facetting works with a whole gtable, wrap processes the
     # strips separately. So we turn the gtable into a list
@@ -423,7 +422,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       }
 
       ggname(paste("panel", i, sep = "-"),
-             gTree(children = do.call("gList", panel_grobs)))
+        gTree(children = do.call("gList", panel_grobs)))
     })
   },
   axes = function(self, panel, coord, theme) {
@@ -491,7 +490,7 @@ sanitise_dim <- function(n) {
   if (length(n) == 0) {
     if (!is.null(n)) {
       warning(xname, " has length zero and will be treated as NULL.",
-              call. = FALSE)
+        call. = FALSE)
     }
     return(NULL)
   }
@@ -505,7 +504,7 @@ sanitise_dim <- function(n) {
   }
   if (is.na(n) || n < 1) {
     warning(xname, " is missing or less than 1 and will be treated as NULL.",
-            call. = FALSE)
+      call. = FALSE)
     return(NULL)
   }
   n

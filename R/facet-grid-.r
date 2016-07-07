@@ -134,8 +134,8 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
 
   space <- match.arg(space, c("fixed", "free_x", "free_y", "free"))
   space_free <- list(
-      x = any(space %in% c("free_x", "free")),
-      y = any(space %in% c("free_y", "free"))
+    x = any(space %in% c("free_x", "free")),
+    y = any(space %in% c("free_y", "free"))
   )
 
   # Facets can either be a formula, a string, or a list of things to be
@@ -207,7 +207,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     cols <- if (is.null(names(cols))) 1L else plyr::id(base[names(cols)], drop = TRUE)
 
     panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base,
-                         check.names = FALSE, stringsAsFactors = FALSE)
+      check.names = FALSE, stringsAsFactors = FALSE)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
     panels
@@ -232,7 +232,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     # Compute facetting values and add margins
     margin_vars <- list(intersect(names(rows), names(data)),
-                        intersect(names(cols), names(data)))
+      intersect(names(cols), names(data)))
     data <- reshape2::add_margins(data, margin_vars, self$margins)
 
     facet_vals <- quoted_df(data, c(rows, cols))
@@ -268,6 +268,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     data[order(data$PANEL), , drop = FALSE]
   },
   render = function(self, panel, coord, theme, geom_grobs) {
+
     axes <- self$axes(panel, coord, theme)
     strips <- self$strips(panel, theme)
     panels <- self$panels(panel, coord, theme, geom_grobs)
@@ -316,13 +317,13 @@ FacetGrid <- ggproto("FacetGrid", Facet,
         t_heights <- c(padding, strips$t$heights)
         gt_t <- gtable(widths = strips$t$widths, heights = unit(t_heights, "cm"))
         gt_t <- gtable_add_grob(gt_t, strips$t, name = strips$t$name, clip = "off",
-                                t = 1, l = 1, b = -1, r = -1)
+          t = 1, l = 1, b = -1, r = -1)
       }
       if (switch_y) {
         r_widths <- c(strips$r$widths, padding)
         gt_r <- gtable(widths = unit(r_widths, "cm"), heights = strips$r$heights)
         gt_r <- gtable_add_grob(gt_r, strips$r, name = strips$r$name, clip = "off",
-                                t = 1, l = 1, b = -1, r = -1)
+          t = 1, l = 1, b = -1, r = -1)
       }
 
       # Combine plot elements according to strip positions
@@ -355,7 +356,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
         complete <- rbind(top, center, bottom, z = c(1, 2, 3))
       } else {
         stop("`switch` must be either NULL, 'both', 'x', or 'y'",
-             call. = FALSE)
+          call. = FALSE)
       }
     }
 
@@ -385,9 +386,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     strips <- list(
       r = build_strip(panel, row_vars, self$labeller,
-                      theme, dir$r, switch = self$switch),
+        theme, dir$r, switch = self$switch),
       t = build_strip(panel, col_vars, self$labeller,
-                      theme, dir$t, switch = self$switch)
+        theme, dir$t, switch = self$switch)
     )
 
     Map(function(strip, side) {
@@ -456,7 +457,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
 
     panels <- gtable_matrix("panel", panel_matrix,
-                            panel_widths, panel_heights, respect = respect)
+      panel_widths, panel_heights, respect = respect)
     panels <- gtable_add_col_space(panels, theme$panel.margin.x %||% theme$panel.margin)
     panels <- gtable_add_row_space(panels, theme$panel.margin.y %||% theme$panel.margin)
 
@@ -469,19 +470,19 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     cols <- which(panel$layout$ROW == 1)
     grobs <- lapply(panel$ranges[cols], coord$render_axis_h, theme = theme)
     axes$b <- gtable_add_col_space(gtable_row("axis-b", grobs),
-                                   theme$panel.margin.x %||% theme$panel.margin)
+      theme$panel.margin.x %||% theme$panel.margin)
 
     # Vertical axes
     rows <- which(panel$layout$COL == 1)
     grobs <- lapply(panel$ranges[rows], coord$render_axis_v, theme = theme)
     axes$l <- gtable_add_row_space(gtable_col("axis-l", grobs),
-                                   theme$panel.margin.y %||% theme$panel.margin)
+      theme$panel.margin.y %||% theme$panel.margin)
 
     axes
   },
   vars = function(self) {
     paste(lapply(list(self$rows, self$cols), paste, collapse = ", "),
-          collapse = " ~ ")
+      collapse = " ~ ")
   }
 )
 
