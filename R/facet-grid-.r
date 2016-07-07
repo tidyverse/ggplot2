@@ -485,7 +485,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   }
 )
 
-# Helpers
+
+# Helpers -----------------------------------------------------------------
 
 ulevels <- function(x) {
   if (is.factor(x)) {
