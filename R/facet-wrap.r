@@ -122,22 +122,21 @@ FacetWrap <- ggproto("FacetWrap", Facet,
   labeller = NULL,
   dir = NULL,
 
-  layout = function(self, data, vars = NULL, nrow = NULL, ncol = NULL,
-                    as.table = TRUE, drop = TRUE, dir = "h") {
-    vars <- as.quoted(vars)
+  layout = function(self, data) {
+    vars <- as.quoted(self$facets)
     if (length(vars) == 0) return(layout_null())
 
     base <- plyr::unrowname(
-      ggproto_parent(Facet, self)$layout(data, vars, drop = drop)
+      ggproto_parent(Facet, self)$layout(data, vars, drop = self$drop)
     )
 
     id <- plyr::id(base, drop = TRUE)
     n <- attr(id, "n")
 
-    dims <- wrap_dims(n, nrow, ncol)
+    dims <- wrap_dims(n, self$nrow, self$ncol)
     layout <- data.frame(PANEL = factor(id, levels = seq_len(n)))
 
-    if (as.table) {
+    if (self$as.table) {
       layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
     } else {
       layout$ROW <- as.integer(dims[1] - (id - 1L) %/% dims[2])
@@ -145,7 +144,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
 
     # For vertical direction, flip row and col
-    if (identical(dir, "v")) {
+    if (identical(self$dir, "v")) {
       layout[c("ROW", "COL")] <- layout[c("COL", "ROW")]
     }
 
@@ -155,8 +154,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     panels
   },
   train = function(self, data) {
-    panels <- self$layout(data, self$facets, self$nrow, self$ncol,
-                          self$as.table, self$drop, self$dir)
+    panels <- self$layout(data)
 
     n <- nrow(panels)
     nrow <- max(panels$ROW)

@@ -182,22 +182,20 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   switch = NULL,
   drop = NULL,
 
-  layout = function(self, data, rows = NULL, cols = NULL, margins = NULL,
-                    drop = TRUE, as.table = TRUE) {
-    if (length(rows) == 0 && length(cols) == 0) return(layout_null())
-    rows <- as.quoted(rows)
-    cols <- as.quoted(cols)
+  layout = function(self, data) {
+    rows <- as.quoted(self$rows)
+    cols <- as.quoted(self$cols)
 
-    base_rows <- ggproto_parent(Facet, self)$layout(data, rows, drop = drop)
-    if (!as.table) {
+    base_rows <- ggproto_parent(Facet, self)$layout(data, rows, drop = self$drop)
+    if (!self$as.table) {
       rev_order <- function(x) factor(x, levels = rev(ulevels(x)))
       base_rows[] <- lapply(base_rows, rev_order)
     }
-    base_cols <- ggproto_parent(Facet, self)$layout(data, cols, drop = drop)
+    base_cols <- ggproto_parent(Facet, self)$layout(data, cols, drop = self$drop)
     base <- df.grid(base_rows, base_cols)
 
     # Add margins
-    base <- reshape2::add_margins(base, list(names(rows), names(cols)), margins)
+    base <- reshape2::add_margins(base, list(names(rows), names(cols)), self$margins)
     # Work around bug in reshape2
     base <- unique(base)
 
@@ -215,8 +213,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panels
   },
   train = function(self, data) {
-    layout <- self$layout(data, self$rows, self$cols, self$margins,
-                          drop = self$drop, as.table = self$as.table)
+    layout <- self$layout(data)
 
     # Relax constraints, if necessary
     layout$SCALE_X <- if (self$free$x) layout$COL else 1L
