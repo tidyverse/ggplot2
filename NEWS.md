@@ -1,5 +1,28 @@
 # ggplot2 2.1.0.9000 
 
+* The `expand` argument for `scale_*_continuous()` and
+  `scale_*_discrete()` now accepts separate expansion
+  constants for the lower and upper range limits.
+  
+  This makes it much easier to create bar charts where the
+  bottom of the bars are flush with the x axis but the bars
+  still have some (automatically calculated amount of) space
+  above them:
+  
+    ```R
+    ggplot(mtcars) +
+        geom_bar(aes(x = cyl)) +
+        scale_y_continuous(expand = c(0, 0, 0.05, 0))
+    ```
+
+  The syntax for the multiplicative and additive expansion
+  constants has been changed from `c(m, a)` to
+  `c(m_lower, a_lower, m_uppper, a_upper)`. The old syntax
+  will still work, as length 2 vectors `c(m, a)` are
+  expanded to `c(m, a, m, a)` and length 3 vectors
+  are expanded from `c(m1, a1, m2)` to `c(m1, a2, m2, a1)`.
+  (@huftis, #1669)
+
 * `x` and `y` scales are now symmetric regarding the list of
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
   `xmiddle` and `xupper` are now valid `x` aesthetics.
