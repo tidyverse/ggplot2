@@ -33,7 +33,7 @@
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #'   Useful for offsetting text from points, particularly on discrete scales.
 #' @param check_overlap If \code{TRUE}, text that overlaps previous text in the
-#'   same layer will not be plotted. A quick and dirty way
+#'   same layer will not be plotted.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
