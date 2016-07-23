@@ -1,6 +1,6 @@
 #' Compute the "resolution" of a data vector.
 #'
-#' The resolution is is the smallest non-zero distance between adjacent
+#' The resolution is the smallest non-zero distance between adjacent
 #' values.  If there is only one unique value, then the resolution is defined
 #' to be one.
 #'
