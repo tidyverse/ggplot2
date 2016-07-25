@@ -169,28 +169,25 @@ theme_bw <- function(base_size = 11, base_family = "") {
 
 #' @export
 #' @rdname ggtheme
-  half_line <- base_size / 2
-  # Starts with theme_grey and then modify some parts
-  theme_grey(base_size = base_size, base_family = base_family) %+replace%
 theme_linedraw <- function(base_size = 11, base_family = "") {
+  # Starts with theme_bw and then modify some parts
+  # = replace all greys with pure black or white
+  theme_bw(base_size = base_size, base_family = base_family) %+replace%
     theme(
+      # black text and ticks on the axes
       axis.text         = element_text(colour = "black", size = rel(0.8)),
       axis.ticks        = element_line(colour = "black", size = 0.25),
-      legend.key        = element_rect(colour = "black", size = 0.25),
-      panel.background  = element_rect(fill = "white", colour = NA),
+      # NB: match the *visual* thickness of axis ticks to the panel border
+      #     0.5 clipped looks like 0.25
+      
+      # pure black panel border and grid lines, but thinner
       panel.border      = element_rect(fill = NA, colour = "black", size = 0.5),
       panel.grid.major  = element_line(colour = "black", size = 0.05),
-      panel.grid.minor  = element_line(colour = "black", size = 0.01),
-      strip.background  = element_rect(fill = "black", colour = NA),
-      strip.text.x      = element_text(
-                            colour = "white",
-                            margin = margin(t = half_line, b = half_line)
-                          ),
-      strip.text.y      = element_text(
-                            colour = "white",
-                            angle = 90,
-                            margin = margin(l = half_line, r = half_line)
-                          )
+      panel.grid.minor  = element_line(colour = "black", size = 0.025),
+      
+      # strips with black background and white text
+      strip.background  = element_rect(fill = "black"),
+      strip.text        = element_text(colour = "white", size = rel(0.8))
     )
 }
 
