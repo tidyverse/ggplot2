@@ -302,7 +302,7 @@ theme_void <- function(base_size = 11, base_family = "") {
     axis.title.x =       element_blank(),
     axis.title.y =       element_blank(),
     legend.text =        element_text(size = rel(0.8)),
-    legend.title =       element_blank(),
+    legend.title =       element_text(hjust = 0),
     strip.text =         element_text(size = rel(0.8)),
 
     complete = TRUE
