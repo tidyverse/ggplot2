@@ -1,4 +1,8 @@
+
 # ggplot2 2.1.0.9000 
+
+* Themes are more homogeneous visually, and match `theme_grey` better.
+  (@jiho, #1679)
 
 * `position_stack()` and `position_fill()` now sorts the stacking order so it 
   matches the order of the grouping. Use level reordering to alter the stacking 
