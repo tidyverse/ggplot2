@@ -287,7 +287,8 @@ theme_dark <- function(base_size = 11, base_family = "") {
 #' @rdname ggtheme
 theme_void <- function(base_size = 11, base_family = "") {
   theme(
-    # Use only inherited elements and make everything blank
+    # Use only inherited elements and make almost everything blank
+    # Only keep indispensable text
     line =               element_blank(),
     rect =               element_blank(),
     text =               element_text(
@@ -296,7 +297,6 @@ theme_void <- function(base_size = 11, base_family = "") {
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
-    plot.margin =        unit(c(0, 0, 0, 0), "lines"),
     axis.text.x =        element_blank(),
     axis.text.y =        element_blank(),
     axis.title.x =       element_blank(),
@@ -304,6 +304,7 @@ theme_void <- function(base_size = 11, base_family = "") {
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
     strip.text =         element_text(size = rel(0.8)),
+    plot.margin =        unit(c(0, 0, 0, 0), "lines"),
 
     complete = TRUE
   )
