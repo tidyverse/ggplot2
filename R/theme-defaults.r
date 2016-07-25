@@ -240,16 +240,21 @@ theme_minimal <- function(base_size = 11, base_family = "") {
 theme_classic <- function(base_size = 11, base_family = ""){
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
     theme(
-      panel.border     = element_blank(),
-      axis.line        = element_line(colour = "black"),
-      panel.grid.major   = element_line(),
-      panel.grid.major.x = element_blank(),
-      panel.grid.major.y = element_blank(),
-      panel.grid.minor   = element_line(),
-      panel.grid.minor.x = element_blank(),
-      panel.grid.minor.y = element_blank(),
-      strip.background = element_rect(colour = "black", size = 0.5),
-      legend.key       = element_blank()
+      # no background and no grid
+      panel.border       = element_blank(),
+      panel.grid.major   = element_blank(),
+      panel.grid.minor   = element_blank(),
+
+      # show axes
+      axis.line.x        = element_line(colour = "black", size = 0.5),
+      axis.line.y        = element_line(colour = "black", size = 0.5),
+
+      # match legend key to panel.background
+      legend.key       = element_blank(),
+
+      # simple, black and white strips
+      strip.background = element_rect(fill = "white", colour = "black", size = 1)
+      # NB: size is 1 but clipped, it looks like the 0.5 of the axes
     )
 }
 
