@@ -220,6 +220,31 @@ theme_light <- function(base_size = 11, base_family = "") {
 
 #' @export
 #' @rdname ggtheme
+theme_dark <- function(base_size = 11, base_family = "") {
+  # Starts with theme_grey and then modify some parts
+  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+    theme(
+      # dark panel
+      panel.background = element_rect(fill = "grey50", colour = NA),
+      # inverse grid lines contrast compared to theme_grey
+      # make them thinner and try to keep the same visual contrast as in theme_light
+      panel.grid.major = element_line(colour = "grey42", size = 0.25),
+      panel.grid.minor = element_line(colour = "grey42", size = 0.125),
+
+      # match axes ticks thickness to gridlines
+      axis.ticks       = element_line(colour = "grey20", size = 0.25),
+      
+      # match legend key to panel.background
+      legend.key       = element_rect(fill = "grey50", colour = NA),
+
+      # dark strips with light text (inverse contrast compared to theme_grey)
+      strip.background = element_rect(fill = "grey15", colour = NA),
+      strip.text       = element_text(colour = "grey90", size = rel(0.8))
+    )
+}
+
+#' @export
+#' @rdname ggtheme
 theme_minimal <- function(base_size = 11, base_family = "") {
   # Starts with theme_bw and remove most parts
   theme_bw(base_size = base_size, base_family = base_family) %+replace%
@@ -255,31 +280,6 @@ theme_classic <- function(base_size = 11, base_family = ""){
       # simple, black and white strips
       strip.background = element_rect(fill = "white", colour = "black", size = 1)
       # NB: size is 1 but clipped, it looks like the 0.5 of the axes
-    )
-}
-
-#' @export
-#' @rdname ggtheme
-theme_dark <- function(base_size = 11, base_family = "") {
-  # Starts with theme_grey and then modify some parts
-  theme_grey(base_size = base_size, base_family = base_family) %+replace%
-    theme(
-      # dark panel
-      panel.background = element_rect(fill = "grey50", colour = NA),
-      # inverse grid lines contrast compared to theme_grey
-      # make them thinner and try to keep the same visual contrast as in theme_light
-      panel.grid.major = element_line(colour = "grey42", size = 0.25),
-      panel.grid.minor = element_line(colour = "grey42", size = 0.125),
-
-      # match axes ticks thickness to gridlines
-      axis.ticks       = element_line(colour = "grey20", size = 0.25),
-      
-      # match legend key to panel.background
-      legend.key       = element_rect(fill = "grey50", colour = NA),
-
-      # dark strips with light text (inverse contrast compared to theme_grey)
-      strip.background = element_rect(fill = "grey15", colour = NA),
-      strip.text       = element_text(colour = "grey90", size = rel(0.8))
     )
 }
 
