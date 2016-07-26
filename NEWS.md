@@ -17,6 +17,9 @@
 * Minor code formatting issues in examples and function parameters were
   fixed. (@hrbrmstr)
 
+* Fix error message of Stats ggprotos when required aesthetics are
+  missing.
+
 # ggplot2 2.1.0
 
 ## New features
