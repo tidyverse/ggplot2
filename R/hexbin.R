@@ -13,6 +13,10 @@ hex_bounds <- function(x, binwidth) {
 }
 
 hexBinSummarise <- function(x, y, z, binwidth, fun = mean, fun.args = list(), drop = TRUE) {
+  if (length(binwidth) == 1) {
+    binwidth <- rep(binwidth, 2)
+  }
+
   # Convert binwidths into bounds + nbins
   xbnds <- hex_bounds(x, binwidth[1])
   xbins <- diff(xbnds) / binwidth[1]
