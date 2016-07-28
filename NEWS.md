@@ -1,5 +1,8 @@
 # ggplot2 2.1.0.9000 
 
+* Import tibble. This ensures that all built-in datasets print compactly
+  even if you haven't explicitly loaded tibble or dplyr (#1677).
+
 * `stat_ecdf()` respects `pad` argument (#1646).
 
 * `x` and `y` scales are now symmetric regarding the list of
