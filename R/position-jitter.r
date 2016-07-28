@@ -27,7 +27,7 @@
 #' # take up as much space as a boxplot or a bar
 #' ggplot(mpg, aes(class, hwy)) +
 #'   geom_jitter() +
-#'   geom_boxplot()
+#'   geom_boxplot(color="grey")
 position_jitter <- function(width = NULL, height = NULL) {
   ggproto(NULL, PositionJitter,
     width = width,
