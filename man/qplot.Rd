@@ -57,7 +57,7 @@ qplot(mpg, wt, data = mtcars, facets = vs ~ am)
 \donttest{
 qplot(1:10, rnorm(10), colour = runif(10))
 qplot(1:10, letters[1:10])
-mod <- lm(mpg ~ wt, data=mtcars)
+mod <- lm(mpg ~ wt, data = mtcars)
 qplot(resid(mod), fitted(mod))
 
 f <- function() {

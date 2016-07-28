@@ -3,3 +3,4 @@
 .RData
 inst/doc
 .httr-oauth
+.*.Rnb.cached

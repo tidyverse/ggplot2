@@ -5,7 +5,7 @@
 #' \code{scale_*_gradientn} creats a n-colour gradient.
 #'
 #' Default colours are generated with \pkg{munsell} and
-#' \code{mnsl(c("2.5PB 2/4", "2.5PB 7/10")}. Generally, for continuous
+#' \code{mnsl(c("2.5PB 2/4", "2.5PB 7/10"))}. Generally, for continuous
 #' colour scales you want to keep hue constant, but vary chroma and
 #' luminance. The \pkg{munsell} package makes this easy to do using the
 #' Munsell colour system.

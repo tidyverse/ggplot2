@@ -3,7 +3,7 @@
 #' There are two types of bar charts, determined by what is mapped to bar
 #' height. By default, \code{geom_bar} uses \code{stat="count"} which makes the
 #' height of the bar proportion to the number of cases in each group (or if the
-#' \code{weight} aethetic is supplied, the sum of the weights). If you want the
+#' \code{weight} aesthetic is supplied, the sum of the weights). If you want the
 #' heights of the bars to represent values in the data, use
 #' \code{stat="identity"} and map a variable to the \code{y} aesthetic.
 #'
