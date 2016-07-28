@@ -61,9 +61,9 @@
 #' # bar is anchored at zero, and so when transformed becomes negative
 #' # infinity. This is not a problem when transforming the scales, because
 #' # no observations have 0 ratings.
-#' m + geom_histogram(origin = 0) + coord_trans(x = "log10")
-#' # Use origin = 0, to make sure we don't take sqrt of negative values
-#' m + geom_histogram(origin = 0) + coord_trans(x = "sqrt")
+#' m + geom_histogram(boundary = 0) + coord_trans(x = "log10")
+#' # Use boundary = 0, to make sure we don't take sqrt of negative values
+#' m + geom_histogram(boundary = 0) + coord_trans(x = "sqrt")
 #'
 #' # You can also transform the y axis.  Remember that the base of the bars
 #' # has value 0, so log transformations are not appropriate
