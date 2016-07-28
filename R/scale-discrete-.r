@@ -114,20 +114,43 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     }
   },
 
-  dimension = function(self, expand = c(0, 0)) {
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
     c_range <- self$range_c$range
     d_range <- self$range$range
+    
+    # If not all four expansion constants are given,
+    # reuse the ones that *are* given (or use sensible
+    # defaults if zero or one are given).
+    if (length(expand) == 0) {
+      expand <- c(0, 1)
+    } else if (length(expand) == 1) {
+      expand <- c(expand, 1)
+    }
+    if (length(expand) == 2) {
+      expand <- c(expand, expand)
+    } else if (length(expand) == 3) {
+      expand <- c(expand, expand[2])
+    }
+    
+    # Similar to expand_range(), but taking *four* expansion arguments
+    # (1st and 2n elements are used for the lower limit, and the
+    # 3rd and 4th elements are used for the upper limit).
+    expand_range4 <- function(limits, m1, a1, m2, a2) {
+      lower <- expand_range(limits, m1, a1)[1]
+      upper <- expand_range(limits, m2, a2)[2]
+      c(lower, upper)
+    }
 
     if (self$is_empty()) {
       c(0, 1)
     } else if (is.null(d_range)) { # only continuous
-      expand_range(c_range, expand[1], 0 , 1)
+      expand_range4(c_range, expand[1], 0, expand[3], 0)
     } else if (is.null(c_range)) { # only discrete
-      expand_range(c(1, length(d_range)), 0, expand[2], 1)
+      expand_range4(c(1, length(d_range)), 0, expand[2], 0, expand[4])
     } else { # both
       range(
-        expand_range(c_range, expand[1], 0 , 1),
-        expand_range(c(1, length(d_range)), 0, expand[2], 1)
+        expand_range4(c_range, expand[1], 0, expand[3], 0),
+        expand_range4(c(1, length(d_range)), 0, expand[2], 0, expand[4])
       )
     }
   },

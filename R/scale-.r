@@ -200,8 +200,16 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     ifelse(!is.na(scaled), scaled, self$na.value)
   },
 
-  dimension = function(self, expand = c(0, 0)) {
-    expand_range(self$get_limits(), expand[1], expand[2])
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
+    # If not all four expansion constants are given,
+    # reuse the ones that *are* given (or use a sensible
+    # default of 0 if zero or one are given).
+    if (length(expand) < 2)  { expand <- c(expand, 0, 0)[1:2] }
+    if (length(expand) == 2) { expand <- c(expand, expand) }
+    if (length(expand) == 3) { expand <- c(expand, expand[2]) }
+    lower <- expand_range(self$get_limits(), expand[1], expand[2])[1]
+    upper <- expand_range(self$get_limits(), expand[3], expand[4])[2]
+    c(lower, upper)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
@@ -371,8 +379,16 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     ifelse(is.na(x) | is.na(pal_match), self$na.value, pal_match)
   },
 
-  dimension = function(self, expand = c(0, 0)) {
-    expand_range(length(self$get_limits()), expand[1], expand[2])
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
+    # If not all four expansion constants are given,
+    # reuse the ones that *are* given (or use a sensible
+    # default of 0 if zero or one are given).
+    if (length(expand) < 2)  { expand <- c(expand, 0, 0)[1:2] }
+    if (length(expand) == 2) { expand <- c(expand, expand) }
+    if (length(expand) == 3) { expand <- c(expand, expand[2]) }
+    lower <- expand_range(self$get_limits(), expand[1], expand[2])[1]
+    upper <- expand_range(self$get_limits(), expand[3], expand[4])[2]
+    c(lower, upper)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
@@ -510,11 +526,15 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   are defined in the scales package, and are called \code{name_trans}, e.g.
 #'   \code{\link[scales]{boxcox_trans}}. You can create your own
 #'   transformation with \code{\link[scales]{trans_new}}.
-#' @param expand A numeric vector of length two giving multiplicative and
-#'   additive expansion constants. These constants ensure that the data is
-#'   placed some distance away from the axes. The defaults are
-#'   \code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
-#'   discrete variables.
+#' @param expand A numeric vector of length four, giving multiplicative
+#'   (1st and 3d element) and additive (2nd and 4th element) range expansion constants.
+#'   These constants ensure that the data is placed some distance away from the axes.
+#'   The first two elements specify the expansion for the lower limit, and the last
+#'   two for the upper limit. The specified vector can also be of length two or three,
+#'   and the constants for the lower limit are then reused for the upper limit,
+#'   i.e. \code{c(a, b)} is equivalent to \code{c(a, b, a, b)} and \code{c(a, b, c)}
+#'   is equivalent to \code{c(a, b, c, b)}. The defaults are \code{c(0.05, 0)} for
+#'   continuous variables, and \code{c(0, 0.6)} for discrete variables.
 #' @param guide Name of guide object, or object itself.
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
