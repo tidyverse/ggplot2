@@ -45,7 +45,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("x", "y"),
   non_missing_aes = "weight",
 
-  setup_params = function(data, params) {
+  setup_params = function(data, params, spec) {
     params$width <- params$width %||% resolution(data$x) * 0.75
 
     if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {

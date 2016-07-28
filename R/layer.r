@@ -209,11 +209,13 @@ Layer <- ggproto("Layer", NULL,
     evaled
   },
 
-  compute_statistic = function(self, data, panel) {
+  compute_statistic = function(self, data, panel, plot) {
     if (empty(data))
       return(data.frame())
 
-    params <- self$stat$setup_params(data, self$stat_params)
+    spec <- spec(self, plot)
+
+    params <- self$stat$setup_params(data, self$stat_params, spec)
     data <- self$stat$setup_data(data, params)
     self$stat$compute_layer(data, params, panel)
   },
@@ -247,9 +249,14 @@ Layer <- ggproto("Layer", NULL,
     cunion(stat_data, data)
   },
 
-  compute_geom_1 = function(self, data) {
+  compute_geom_1 = function(self, data, plot) {
     if (empty(data)) return(data.frame())
-    data <- self$geom$setup_data(data, c(self$geom_params, self$aes_params))
+
+    spec <- spec(self, plot)
+    params <- c(self$geom_params, self$aes_params)
+
+    params <- self$geom$setup_params(data, params, spec)
+    data <- self$geom$setup_data(data, params)
 
     check_required_aesthetics(
       self$geom$required_aes,
@@ -302,4 +309,31 @@ find_subclass <- function(super, class) {
   }
 
   obj
+}
+
+
+spec <- function(layer, plot) {
+  list(
+    facet_spec = facet_spec(plot$facet),
+    plot_mapping = plot$mapping,
+    layer_mapping = layer$mapping
+  )
+}
+
+facet_spec <- function(facet) {
+  UseMethod("facet_spec")
+}
+
+facet_spec.wrap <- function(facet) {
+  spec <- list(facets = facet$facets)
+  structure(spec, class = c("wrap", "spec"))
+}
+
+facet_spec.grid <- function(facet) {
+  spec <- list(rows = facet$rows, cols = facet$cols)
+  structure(spec, class = c("grid", "spec"))
+}
+
+facet_spec.null <- function(facet) {
+  NULL
 }

@@ -56,14 +56,14 @@ ggplot_build <- function(plot) {
   data <- map_position(panel, data, scale_x(), scale_y())
 
   # Apply and map statistics
-  data <- by_layer(function(l, d) l$compute_statistic(d, panel))
+  data <- by_layer(function(l, d) l$compute_statistic(d, panel, plot))
   data <- by_layer(function(l, d) l$map_statistic(d, plot))
 
   # Make sure missing (but required) aesthetics are added
   scales_add_missing(plot, c("x", "y"), plot$plot_env)
 
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
-  data <- by_layer(function(l, d) l$compute_geom_1(d))
+  data <- by_layer(function(l, d) l$compute_geom_1(d, plot))
 
   # Apply position adjustments
   data <- by_layer(function(l, d) l$compute_position(d, panel))

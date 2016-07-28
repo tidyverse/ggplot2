@@ -46,7 +46,7 @@ StatCount <- ggproto("StatCount", Stat,
   required_aes = "x",
   default_aes = aes(y = ..count..),
 
-  setup_params = function(data, params) {
+  setup_params = function(data, params, spec) {
     if (!is.null(data$y) || !is.null(params$y)) {
       stop("stat_count() must not be used with a y aesthetic.", call. = FALSE)
     }

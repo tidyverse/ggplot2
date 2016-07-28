@@ -17,6 +17,11 @@
 * Minor code formatting issues in examples and function parameters were
   fixed. (@hrbrmstr)
 
+* `Stat`'s `setup_params()` method now takes a `spec` argument that
+  contains information about the specification of aesthetics and
+  facetting. See `Stat`'s documentation. `Geom` gains a similar
+  `setup_params()` method. (@lionel-)
+
 # ggplot2 2.1.0
 
 ## New features

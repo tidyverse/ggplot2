@@ -67,7 +67,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
 #' @export
 StatSmooth <- ggproto("StatSmooth", Stat,
 
-  setup_params = function(data, params) {
+  setup_params = function(data, params, spec) {
     # Figure out what type of smoothing to do: loess for small datasets,
     # gam with a cubic regression basis for large data
     # This is based on the size of the _largest_ group.

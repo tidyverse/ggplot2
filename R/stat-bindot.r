@@ -7,7 +7,7 @@ StatBindot <- ggproto("StatBindot", Stat,
   non_missing_aes = "weight",
   default_aes = aes(y = ..count..),
 
-  setup_params = function(data, params) {
+  setup_params = function(data, params, spec) {
     if (is.null(params$binwidth)) {
       message("`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.")
     }

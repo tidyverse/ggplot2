@@ -201,13 +201,13 @@ stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
 
 Sometimes you have calculations that should be performed once for the complete dataset, not once for each group. This is useful for picking sensible default values. For example, if we want to do a density estimate, it's reasonable to pick one bandwidth for the whole plot. The following Stat creates a variation of the `stat_density()` that picks one bandwidth for all groups by choosing the mean of the "best" bandwidth for each group (I have no theoretical justification for this, but it doesn't seem unreasonable).
 
-To do this we override the `setup_params()` method. It's passed the data and a list of params, and returns an updated list.
+To do this we override the `setup_params()` method. It's passed the data, a list of params, and some information about how aesthetics are specified, and returns an updated list.
 
 ```{r}
 StatDensityCommon <- ggproto("StatDensityCommon", Stat, 
   required_aes = "x",
   
-  setup_params = function(data, params) {
+  setup_params = function(data, params, spec) {
     if (!is.null(params$bandwidth))
       return(params)
     
@@ -279,7 +279,7 @@ StatDensityCommon <- ggproto("StatDensityCommon", Stat,
   required_aes = "x",
   default_aes = aes(y = ..density..),
 
-  setup_params = function(data, params) {
+  setup_params = function(data, params, spec) {
     min <- min(data$x) - 3 * params$bandwidth
     max <- max(data$x) + 3 * params$bandwidth
     
