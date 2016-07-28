@@ -1,5 +1,7 @@
 # ggplot2 2.1.0.9000 
 
+* `geom_step()` gives useful warning if only one data point in layer (#1645).
+
 * Clarified needed input to `geom_contour()` (#1577).
 
 * Import tibble. This ensures that all built-in datasets print compactly
