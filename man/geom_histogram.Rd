@@ -16,8 +16,8 @@ geom_histogram(mapping = NULL, data = NULL, stat = "bin",
 
 stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
   ..., binwidth = NULL, bins = NULL, center = NULL, boundary = NULL,
-  closed = c("right", "left"), pad = FALSE, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  breaks = NULL, closed = c("right", "left"), pad = FALSE,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -84,6 +84,10 @@ are shifted when \code{boundary} is outside the range of the data. For
 example, to center on integers, use \code{width = 1} and \code{boundary =
 0.5}, even if \code{1} is outside the range of the data.  At most one of
 \code{center} and \code{boundary} may be specified.}
+
+\item{breaks}{Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+and \code{boundary}.}
 
 \item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
 or left edges of bins are included in the bin.}

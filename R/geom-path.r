@@ -299,6 +299,7 @@ stairstep <- function(data, direction="hv") {
   n <- nrow(data)
 
   if (n <= 1) {
+    # Need at least one observation
     return(data[0, , drop = FALSE])
   }
 
