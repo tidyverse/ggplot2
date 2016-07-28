@@ -307,3 +307,16 @@ theme_void <- function(base_size = 12, base_family = "") {
   )
 }
 
+#' @export
+#' @rdname ggtheme
+theme_econ <- function() {
+  theme(
+    rect                = element_blank(),
+    axis.ticks          = element_line(color = "black"),
+    axis.line.x         = element_line(color = "black"),
+    axis.line.y         = element_line(color = "black"),
+    axis.text           = element_text(color = "black"),
+    axis.title.x        = element_text(size = 16, color = "black"),
+    axis.title.y        = element_text(size = 16, angle = 0, color = "black")
+  )
+}
