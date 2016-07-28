@@ -45,7 +45,6 @@
 #'      colour = factor(gear))) + facet_wrap(~am)
 #'
 #' p
-#' p + theme_gray()
 #' p + theme_bw()
 #' p + theme_linedraw()
 #' p + theme_light()
@@ -53,6 +52,7 @@
 #' p + theme_minimal()
 #' p + theme_classic()
 #' p + theme_void()
+#' p + theme_gray() # default theme
 #'
 #' @name ggtheme
 NULL
