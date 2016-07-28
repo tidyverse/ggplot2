@@ -72,7 +72,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
-same layer will not be plotted. A quick and dirty way}
+same layer will not be plotted.}
 }
 \description{
 \code{geom_text} adds text directly to the plot. \code{geom_label} draws
