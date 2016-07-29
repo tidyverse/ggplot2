@@ -102,7 +102,7 @@ layer <- function(geom = NULL, stat = NULL,
   all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics())
   extra <- setdiff(names(params), all)
   if (length(extra) > 0) {
-    stop("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)
+    warning("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)
   }
 
   ggproto("LayerInstance", Layer,
