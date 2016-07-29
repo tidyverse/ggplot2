@@ -39,9 +39,10 @@ d \%+\% dsmall
 
 # Show a list of available shapes
 df_shapes <- data.frame(shape = 0:24)
-ggplot(df_shapes, aes(shape = shape)) +
-  geom_point(aes(shape = shape, x = 0, y = 0), size = 5, fill = 'red') +
+ggplot(df_shapes, aes(0, 0, shape = shape)) +
+  geom_point(aes(shape = shape), size = 5, fill = 'red') +
   scale_shape_identity() +
-  facet_wrap(~shape) + theme_void()
+  facet_wrap(~shape) +
+  theme_void()
 }
 
