@@ -26,11 +26,11 @@
 #' d %+% dsmall
 #'
 #' # Show a list of available shapes
-#' df_shapes <- data.frame(shape = factor(0:24))
-#' ggplot(df_shapes, aes(shape=shape)) +
-#'   geom_point(aes(shape=shape, x=0, y=0), size=5, fill="red") +
-#'   facet_wrap(~shape) +
-#'   scale_shape_manual(values=df_shapes$shape, guide="none")
+#' df_shapes <- data.frame(shape = 0:24)
+#' ggplot(df_shapes, aes(shape = shape)) +
+#'   geom_point(aes(shape = shape, x = 0, y = 0), size = 5, fill = 'red') +
+#'   scale_shape_identity() +
+#'   facet_wrap(~shape) + theme_void()
 scale_shape <- function(..., solid = TRUE) {
   discrete_scale("shape", "shape_d", shape_pal(solid), ...)
 }
