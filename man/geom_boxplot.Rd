@@ -8,8 +8,8 @@
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", ..., outlier.colour = NULL, outlier.color = NULL,
   outlier.shape = 19, outlier.size = 1.5, outlier.stroke = 0.5,
-  outlier.alpha = NA, notch = FALSE, notchwidth = 0.5, varwidth = FALSE,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  outlier.alpha = NULL, notch = FALSE, notchwidth = 0.5,
+  varwidth = FALSE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", ..., coef = 1.5, na.rm = FALSE, show.legend = NA,
@@ -137,6 +137,8 @@ ggplot(diamonds, aes(carat, price)) +
   geom_boxplot()
 ggplot(diamonds, aes(carat, price)) +
   geom_boxplot(aes(group = cut_width(carat, 0.25)))
+ggplot(diamonds, aes(carat, price)) +
+  geom_boxplot(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 
 \donttest{
 # It's possible to draw a boxplot with your own computations if you

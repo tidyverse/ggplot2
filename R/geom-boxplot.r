@@ -67,6 +67,8 @@
 #'   geom_boxplot()
 #' ggplot(diamonds, aes(carat, price)) +
 #'   geom_boxplot(aes(group = cut_width(carat, 0.25)))
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_boxplot(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 #'
 #' \donttest{
 #' # It's possible to draw a boxplot with your own computations if you
@@ -94,7 +96,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          outlier.shape = 19,
                          outlier.size = 1.5,
                          outlier.stroke = 0.5,
-                         outlier.alpha = NA,
+                         outlier.alpha = NULL,
                          notch = FALSE,
                          notchwidth = 0.5,
                          varwidth = FALSE,
