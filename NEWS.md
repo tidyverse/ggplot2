@@ -3,7 +3,7 @@
 * `geom_boxplot` gain new `outlier.alpha` argument for controlling the alpha of
    outlier points independently of the alpha of the boxes. 
    Analogous to outlier.colour, outlier.shape, etc.
-(@jonathan-g).
+   (@jonathan-g).
 
 * `x` and `y` scales are now symmetric regarding the list of
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
