@@ -34,6 +34,13 @@ test_that("geom_freqpoly defaults to pad = TRUE", {
   expect_equal(out$count, c(0, 1, 1, 1, 0))
 })
 
+test_that("can use breaks argument", {
+  df <- data.frame(x = 1:3)
+  out <- layer_data(ggplot(df, aes(x)) + geom_histogram(breaks = c(0, 1.5, 5)))
+
+  expect_equal(out$count, c(1, 2))
+})
+
 
 # Underlying binning algorithm --------------------------------------------
 

@@ -14,7 +14,7 @@ fortify(model, data, ...)
 \item{...}{other arguments passed to methods}
 }
 \description{
-Rather than using this function, I now recomend using the \pkg{broom}
+Rather than using this function, I now recommend using the \pkg{broom}
 package, which implements a much wider range of methods. \code{fortify}
 may be deprecated in the future.
 }

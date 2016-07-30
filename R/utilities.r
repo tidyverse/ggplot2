@@ -280,3 +280,7 @@ dispatch_args <- function(f, ...) {
   formals(f) <- formals
   f
 }
+
+# Needed to trigger package loading
+#' @importFrom tibble tibble
+NULL

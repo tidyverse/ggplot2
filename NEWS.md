@@ -5,6 +5,20 @@
    Analogous to outlier.colour, outlier.shape, etc.
    (@jonathan-g).
 
+* `stat_bin()` and `stat_summary_hex()` now accept length 1 `binwidth` (#1610)
+
+* `geom_histogram()` and `stat_bin()` understand the `breaks` parameter once 
+  more. (#1665).
+
+* `geom_step()` gives useful warning if only one data point in layer (#1645).
+
+* Clarified needed input to `geom_contour()` (#1577).
+
+* Import tibble. This ensures that all built-in datasets print compactly
+  even if you haven't explicitly loaded tibble or dplyr (#1677).
+
+* `stat_ecdf()` respects `pad` argument (#1646).
+
 * `x` and `y` scales are now symmetric regarding the list of
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
   `xmiddle` and `xupper` are now valid `x` aesthetics.
@@ -21,6 +35,9 @@
   
 * Minor code formatting issues in examples and function parameters were
   fixed. (@hrbrmstr)
+
+* Fix error message of Stats ggprotos when required aesthetics are
+  missing.
 
 # ggplot2 2.1.0
 
