@@ -36,12 +36,14 @@ Suggests:
     multcomp,
     nlme,
     testthat (>= 0.11.0),
+    vdiffr,
     quantreg,
     knitr,
     rpart,
     rmarkdown,
     svglite
 Enhances: sp
+Remotes: lionel-/vdiffr
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues

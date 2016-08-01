@@ -34,3 +34,71 @@ test_that("quantiles do not fail on zero-range data", {
   expect_equal(length(layer_grob(p)), 1)
 })
 
+
+# Visual tests ------------------------------------------------------------
+
+test_that("geom_violin draws correctly", {
+  set.seed(111)
+  dat <- data.frame(x = LETTERS[1:3], y = rnorm(90))
+  dat <- dat[dat$x != "C" | c(T, F),]  # Keep half the C's
+
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = x, y = y)) + geom_violin(),
+    "basic"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = x, y = y)) + geom_violin(scale = "count"),
+    "scale area to sample size (C is smaller)"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = x, y = y)) + geom_violin(width = .5),
+    "narrower (width=.5)"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = x, y = y)) + geom_violin(trim = FALSE) + geom_point(shape = 21),
+    "with tails and points"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = x, y = y)) + geom_violin(adjust = .3) + geom_point(shape = 21),
+    "with smaller bandwidth and points"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = "foo", y = y, fill = x)) + geom_violin(),
+    "dodging"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = x, y = y)) + geom_violin() + coord_polar(),
+    "coord_polar"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = x, y = y)) + geom_violin() + coord_flip(),
+    "coord_flip"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = "foo", y = y, fill = x)) + geom_violin() + coord_flip(),
+    "dodging and coord_flip"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = as.numeric(x), y = y)) + geom_violin(),
+    "continuous x axis, multiple groups (center should be at 2.0)"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = as.numeric(1), y = y)) + geom_violin(),
+    "continuous x axis, single group (center should be at 1.0)"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x=x, y=y)) + geom_violin(draw_quantiles=c(0.25,0.5,0.75)),
+    "quantiles"
+  )
+
+  dat2 <- data.frame(x = LETTERS[1:3], y = rnorm(90), g = letters[5:6])
+  vdiffr::expect_doppelganger(
+    ggplot(dat2, aes(x = x, y = y, fill = g)) + geom_violin(),
+    "grouping on x and fill"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat2, aes(x = x, y = y, fill = g)) +
+      geom_violin(position = position_dodge(width = .5)),
+    "grouping on x and fill, dodge width = 0.5"
+  )
+})
