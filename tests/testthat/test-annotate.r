@@ -26,3 +26,23 @@ test_that("segment annotations transform with scales", {
     annotate("segment", x = 2, y = 10, xend = 5, yend = 30, colour = "red") +
     scale_y_reverse()
 })
+
+test_that("annotation_* has dummy data assigned and don't inherit aes", {
+  custom <- annotation_custom(zeroGrob())
+  logtick <- annotation_logticks()
+  library(maps)
+  usamap <- map_data("state")
+  map <- annotation_map(usamap)
+  rainbow <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)
+  raster <- annotation_raster(rainbow, 15, 20, 3, 4)
+  dummy <- dummy_data()
+  expect_equal(custom$data, dummy)
+  expect_equal(logtick$data, dummy)
+  expect_equal(map$data, dummy)
+  expect_equal(raster$data, dummy)
+
+  expect_false(custom$inherit.aes)
+  expect_false(logtick$inherit.aes)
+  expect_false(map$inherit.aes)
+  expect_false(raster$inherit.aes)
+})
