@@ -7,6 +7,9 @@ ggplot2 1.0.1
 * Improvements to order of colours and legend display for continuous colour
   scales extracted from colorbrewer palettes by `scale_*_distiller()` (@jiho, 1076)
 
+* Restore functionality for use of `..density..` and `..count..` in 
+  `geom_hexbin()` (@mikebirdgeneau, #1688)
+
 ggplot2 1.0.0
 ----------------------------------------------------------------
 
