@@ -28,8 +28,14 @@
   default. The `caption` annotation below the plot will be right-justified
   by default. (@hrbrmstr)
   
-* Minor code formatting issues in examples and function parameters were
-  fixed. (@hrbrmstr)
+* Minor code formatting and grammar issues in examples and function 
+  parameters were fixed. (@hrbrmstr)
+  
+* `geom_col()` was added to complement `geom_bar()`. It uses `stat="identity"`
+  by default, making the `y` aesthetic mandatory. It does not support any 
+  other `stat_()` and does not provide fallback support for the `binwidth`
+  parameter. Examples and references in other functions were updated to
+  demonstrate `geom_col()` usage. (@hrbrmstr)
 
 * Fix error message of Stats ggprotos when required aesthetics are
   missing.
