@@ -34,7 +34,7 @@ annotation_map <- function(map, ...) {
   stopifnot(all(c("x", "y", "id") %in% names(map)))
 
   layer(
-    data = NULL,
+    data = dummy_data(),
     stat = StatIdentity,
     geom = GeomAnnotationMap,
     position = PositionIdentity,

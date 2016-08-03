@@ -39,6 +39,9 @@
 
 * Fix error message of Stats ggprotos when required aesthetics are
   missing.
+  
+* Fix bug that resulted in several annotation_x function not getting drawn when
+  global data was lacking (#1655)
 
 # ggplot2 2.1.0
 
