@@ -36,5 +36,13 @@ ggplot(dsmall, aes(price, carat)) + geom_point(aes(shape = cut))
 
 # Or for short:
 d \%+\% dsmall
+
+# Show a list of available shapes
+df_shapes <- data.frame(shape = 0:24)
+ggplot(df_shapes, aes(0, 0, shape = shape)) +
+  geom_point(aes(shape = shape), size = 5, fill = 'red') +
+  scale_shape_identity() +
+  facet_wrap(~shape) +
+  theme_void()
 }
 

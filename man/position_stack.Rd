@@ -49,7 +49,7 @@ ggplot(data.set, aes(Time, Value)) +
 # trends
 }
 \seealso{
-See \code{\link{geom_bar}} and \code{\link{geom_area}} for
+See \code{\link{geom_bar}}, and \code{\link{geom_area}} for
   more examples.
 
 Other position adjustments: \code{\link{position_dodge}},
