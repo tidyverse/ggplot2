@@ -50,6 +50,6 @@ StatBinhex <- ggproto("StatBinhex", Stat,
     out$density <- as.vector(out$value / sum(out$value, na.rm = TRUE))
 
     out
-    }
+  }
 )
 
