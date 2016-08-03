@@ -31,7 +31,6 @@ hexBinSummarise <- function(x, y, z, binwidth, fun = mean, fun.args = list(), dr
 
   # Convert to data frame
   out <- as.data.frame(hexbin::hcell2xy(hb))
-  out$density <- as.vector(hb@count / sum(hb@count, na.rm = TRUE))
   out$value <- as.vector(value)
 
   if (drop) out <- stats::na.omit(out)
