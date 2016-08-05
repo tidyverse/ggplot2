@@ -1,5 +1,11 @@
 # ggplot2 2.1.0.9000 
 
+* `coord_cartesian()`, `coord_flip()`, `coord_fixed()`, and `coord_map()`
+  now also accept a logical vector of length 4 for 
+  `expand` parameter. e.g.: `coord_cartesian(expand = c(T, F, T, T))`. The 4 
+  elements of expand refer to the left, right, bottom and top edges of the 
+  plot in that order. (@sainathadapa)
+
 * `stat_bin()` and `stat_summary_hex()` now accept length 1 `binwidth` (#1610)
 
 * `geom_histogram()` and `stat_bin()` understand the `breaks` parameter once 

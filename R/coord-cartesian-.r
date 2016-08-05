@@ -8,7 +8,10 @@
 #' @param xlim,ylim Limits for the x and y axes.
 #' @param expand If \code{TRUE}, the default, adds a small expansion factor to
 #'   the limits to ensure that data and axes don't overlap. If \code{FALSE},
-#'   limits are taken exactly from the data or \code{xlim}/\code{ylim}.
+#'   limits are taken exactly from the data or \code{xlim}/\code{ylim}. If
+#'   a logical vector of length 4 (e.g.: \code{c(TRUE, FALSE, FALSE, TRUE)}),
+#'   the expansion factor is selectively applied. The 4 elements will refer to the
+#'   left, right, bottom and top edges of the plot in that order.
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or
@@ -47,6 +50,11 @@
 #' # When zooming the coordinate system, we see a subset of original 50 bins,
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 1))
+#'
+#' # By default, the expansion factor is applied to all the four edges.
+#' # You can change this by giving a logical vector of length 4. In the
+#' # following example, only the left and top edges are expanded.
+#' p + coord_cartesian(expand = c(T, F, F, T))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE) {
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
@@ -77,7 +85,7 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   train = function(self, scale_details) {
     train_cartesian <- function(scale_details, limits, name) {
-      if (self$expand) {
+      if ((length(self$expand) == 4) || self$expand) {
         expand <- expand_default(scale_details)
       } else {
         expand <- c(0, 0)
@@ -88,6 +96,16 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
       } else {
         range <- range(scale_details$transform(limits))
         range <- expand_range(range, expand[1], expand[2])
+      }
+
+      if (length(self$expand) == 4) {
+        non_expanded_range <- limits
+        if (is.null(limits)) non_expanded_range <- scale_details$dimension(c(0, 0))
+
+        left_expand  <- ifelse(name == 'x', self$expand[1], self$expand[3])
+        right_expand <- ifelse(name == 'x', self$expand[2], self$expand[4])
+
+        range <- ifelse(c(left_expand, right_expand), range, non_expanded_range)
       }
 
       out <- scale_details$break_info(range)

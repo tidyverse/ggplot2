@@ -28,7 +28,10 @@ projections, so you will have to supply your own. See
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
-limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+limits are taken exactly from the data or \code{xlim}/\code{ylim}. If
+a logical vector of length 4 (e.g.: \code{c(TRUE, FALSE, FALSE, TRUE)}),
+the expansion factor is selectively applied. The 4 elements will refer to the
+left, right, bottom and top edges of the plot in that order.}
 }
 \description{
 The representation of a portion of the earth, which is approximately spherical,
