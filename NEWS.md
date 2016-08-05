@@ -49,6 +49,9 @@
 * Fix bug that resulted in several annotation_x function not getting drawn when
   global data was lacking (#1655)
 
+* Fixed problem with `geom_violin()` when quantiles requested but data
+  have no range. Added unit test. (#1687)
+
 # ggplot2 2.1.0
 
 ## New features
@@ -84,9 +87,9 @@
       
     * `bins = n` now gives a histogram with `n` bins, not `n + 1` (#1487).
 
-## Bug fixes
+## Bug fixes 
 
-* All `\donttest{}` examples run.
+* All `\donttest{}` examples run. 
 
 * All `geom_()` and `stat_()` functions now have consistent argument order:
   data + mapping, then geom/stat/position, then `...`, then specific arguments, 
