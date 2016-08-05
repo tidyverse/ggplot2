@@ -1,5 +1,8 @@
 # ggplot2 2.1.0.9000 
 
+* Restore functionality for use of `..density..` in 
+  `geom_hexbin()` (@mikebirdgeneau, #1688)
+
 * `x` and `y` scales are now symmetric regarding the list of
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
   `xmiddle` and `xupper` are now valid `x` aesthetics.
