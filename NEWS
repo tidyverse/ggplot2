@@ -2,9 +2,6 @@
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
-* Restore functionality for use of `..density..` in 
-  `geom_hexbin()` (@mikebirdgeneau, #1688)
-
 * Fixes to pass `R CMD check --run-donttest` in R-devel.
 
 * Improvements to order of colours and legend display for continuous colour
