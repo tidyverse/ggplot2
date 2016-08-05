@@ -1,5 +1,8 @@
 # ggplot2 2.1.0.9000 
 
+* Restore functionality for use of `..density..` in 
+  `geom_hexbin()` (@mikebirdgeneau, #1688)
+
 * `stat_smooth()` once again informs you about the method it has chosen.
   It also correctly calculates the size of the largest group within facets.
   
