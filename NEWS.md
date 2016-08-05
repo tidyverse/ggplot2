@@ -1,5 +1,8 @@
 # ggplot2 2.1.0.9000 
 
+* `stat_smooth()` once again informs you about the method it has chosen.
+  It also correctly calculates the size of the largest group within facets.
+  
 * `stat_bin()` and `stat_summary_hex()` now accept length 1 `binwidth` (#1610)
 
 * `geom_histogram()` and `stat_bin()` understand the `breaks` parameter once 
