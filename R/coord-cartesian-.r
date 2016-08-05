@@ -54,7 +54,7 @@
 #' # By default, the expansion factor is applied to all the four edges.
 #' # You can change this by giving a logical vector of length 4. In the
 #' # following example, only the left and top edges are expanded.
-#' p + coord_cartesian(expand = c(T, F, F, T))
+#' p + coord_cartesian(expand = c(TRUE, FALSE, FALSE, TRUE))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE) {
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
