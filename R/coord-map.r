@@ -243,7 +243,7 @@ CoordMap <- ggproto("CoordMap", Coord,
 mproject <- function(coord, x, y, orientation) {
   suppressWarnings(mapproj::mapproject(x, y,
     projection = coord$projection,
-    parameters  = coord$params,
+    parameters  = unlist(coord$params),
     orientation = orientation
   ))
 }
