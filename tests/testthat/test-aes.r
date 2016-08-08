@@ -58,3 +58,46 @@ test_that("aes evaluated in environment where plot created", {
   }
   expect_equal(layer_data(f())$x, 10)
 })
+
+
+# Visual tests ------------------------------------------------------------
+
+test_that("aesthetics are drawn correctly", {
+  dat <- data.frame(xvar = letters[1:3], yvar = 7:9)
+
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = xvar, y = yvar)) + geom_bar(stat = "identity"),
+    "stat='identity'"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = xvar, y = yvar)) + geom_bar(stat = "identity", width = 0.5),
+    "stat='identity', width=0.5"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = xvar, y = yvar)) + geom_bar(stat = "identity", aes(width = 0.5)),
+    "stat='identity', aes(width=0.5)"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = xvar)) + geom_bar(stat = "count"),
+    "stat='count'"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = xvar)) + geom_bar(stat = "count", width = 0.5),
+    "stat='count', width=0.5"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(dat, aes(x = xvar)) + geom_bar(stat = "count", aes(width = 0.5)),
+    "stat='count', aes(width=0.5)"
+  )
+})
+
+test_that("alpha is drawn correctly", {
+  vdiffr::expect_doppelganger(
+    qplot(1, 1, color = I("#cc000044"), size = I(50)),
+    "Alpha set in colour"
+  )
+  vdiffr::expect_doppelganger(
+    qplot(1, 1, color = I("#cc0000"), size = I(50), alpha = I(0.27)),
+    "Alpha set in alpha"
+  )
+})
