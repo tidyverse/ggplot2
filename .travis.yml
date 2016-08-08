@@ -4,7 +4,6 @@ sudo: false
 
 r_github_packages:
   - hadley/staticdocs
-  - lionel-/vdiffr
 
 after_success:
   - Rscript -e 'covr::codecov()'

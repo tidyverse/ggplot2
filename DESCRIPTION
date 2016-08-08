@@ -44,6 +44,7 @@ Suggests:
     rmarkdown,
     svglite
 Enhances: sp
+Remotes: lionel-/vdiffr
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
 BugReports: https://github.com/hadley/ggplot2/issues
