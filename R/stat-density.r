@@ -5,7 +5,8 @@
 #' @param kernel kernel used for density estimation, see
 #'   \code{\link{density}} for details
 #' @param n number of equally spaced points at which the density is to be
-#'   estimated, see \code{\link{density}} for details
+#'   estimated, should be a power of two, see \code{\link{density}} for
+#'   details
 #' @param trim This parameter only matters if you are displaying multiple
 #'   densities in one plot. If \code{FALSE}, the default, each density is
 #'   computed on the full range of the data. If \code{TRUE}, each density

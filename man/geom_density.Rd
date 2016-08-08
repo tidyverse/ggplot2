@@ -67,7 +67,8 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \code{\link{density}} for details}
 
 \item{n}{number of equally spaced points at which the density is to be
-estimated, see \code{\link{density}} for details}
+estimated, should be a power of two, see \code{\link{density}} for
+details}
 
 \item{trim}{This parameter only matters if you are displaying multiple
 densities in one plot. If \code{FALSE}, the default, each density is
