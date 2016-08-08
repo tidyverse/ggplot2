@@ -13,6 +13,20 @@ position_stack()
 \code{position_fill} additionally standardises each stack to have unit
 height.
 }
+\details{
+\code{position_fill} and \code{position_stack} automatically stacks
+values so their order follows the decreasing sort order of the fill
+aesthetic. This makes sure that the stack order is aligned with the order in
+the legend, as long as the scale order has not been changed using the
+\code{breaks} argument. This also means that in order to change stacking
+order while preserving parity with the legend order it is necessary to
+reorder the factor levels of the fill aesthetic (see examples)
+
+Stacking of positive and negative values are performed separately so that
+positive values stack upwards from the x-axis and negative values stack
+downward. Do note that parity with legend order cannot be ensured when
+positive and negative values are mixed.
+}
 \examples{
 # Stacking is the default behaviour for most area plots:
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
@@ -47,6 +61,20 @@ ggplot(data.set, aes(Time, Value)) +
 
 # But realise that this makes it *much* harder to compare individual
 # trends
+
+# Stacking order can be changed using ordered factors
+data.set$Type <- factor(data.set$Type, levels = c('c', 'b', 'd', 'a'))
+ggplot(data.set, aes(Time, Value)) + geom_area(aes(fill = Type))
+
+# while changing the scale order won't affect the stacking
+ggplot(data.set, aes(Time, Value)) + geom_area(aes(fill = Type)) +
+  scale_fill_discrete(breaks = c('a', 'b', 'c', 'd'))
+
+# Negative values can be stacked as well
+neg <- data.set$Type \%in\% c('a', 'd')
+data.set$Value[neg] <- data.set$Value[neg] * -1
+ggplot(data.set, aes(Time, Value)) + geom_area(aes(fill = Type))
+
 }
 \seealso{
 See \code{\link{geom_bar}}, and \code{\link{geom_area}} for
