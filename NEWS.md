@@ -1,5 +1,13 @@
 # ggplot2 2.1.0.9000 
 
+* `position_stack()` and `position_fill()` now sorts the stacking order so it 
+  matches the order of the grouping. Use level reordering to alter the stacking 
+  order. The default legend and stacking order is now also in line. The default 
+  look of plots might change because of this (#1552, #1593).
+  
+* `position_stack()` now accepts negative values which will create stacks 
+  extending below the x-axis (#1691)
+
 * Restore functionality for use of `..density..` in 
   `geom_hexbin()` (@mikebirdgeneau, #1688)
 
