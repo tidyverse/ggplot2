@@ -167,3 +167,13 @@ test_that("find_global searches in the right places", {
   expect_identical(find_global("scale_colour_hue", emptyenv()),
     ggplot2::scale_colour_hue)
 })
+
+test_that("Scales warn when transforms introduces non-finite values", {
+  df <- data.frame(x = c(1e1, 1e5), y = c(0, 100))
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_point(size = 5) +
+    scale_y_log10()
+
+  expect_warning(ggplot_build(p), "Transformation introduced infinite values")
+})

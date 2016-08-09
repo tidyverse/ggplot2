@@ -187,7 +187,13 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   },
 
   transform = function(self, x) {
-     self$trans$transform(x)
+     new_x <- self$trans$transform(x)
+     if (any(is.finite(x) != is.finite(new_x))) {
+       type <- if (self$scale_name == "position_c") "continuous" else "discrete"
+       axis <- if ("x" %in% self$aesthetics) "x" else "y"
+       warning("Transformation introduced infinite values in ", type, " ", axis, "-axis", call. = FALSE)
+     }
+     new_x
   },
 
   map = function(self, x, limits = self$get_limits()) {
