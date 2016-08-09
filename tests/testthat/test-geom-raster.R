@@ -11,17 +11,17 @@ test_that("geom_raster draws correctly", {
 
   vdiffr::expect_doppelganger(
     ggplot(df, aes(x, y, fill = z)) + geom_raster() + geom_point(colour = "red"),
-    "3 x 2"
+    "3-2"
   )
   vdiffr::expect_doppelganger(
     ggplot(df, aes(x, y, fill = z)) + geom_raster() + geom_point(colour = "red") +
       xlim(-2, 2) + ylim(-2, 2),
-    "3 x 2, set limits"
+    "3-2_set_limits"
   )
   vdiffr::expect_doppelganger(
     ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0) +
       geom_point(colour = "red"),
-    "3 x 2, just = (0, 0)"
+    "3-2_just-0_0"
   )
 
   # 1 x 3 ----------------------------------------------------------------------
@@ -29,17 +29,17 @@ test_that("geom_raster draws correctly", {
 
   vdiffr::expect_doppelganger(
     ggplot(df, aes(x, y, fill = z)) + geom_raster() + geom_point(colour = "red"),
-    "1 x 3"
+    "1-3"
   )
   vdiffr::expect_doppelganger(
     ggplot(df, aes(x, y, fill = z)) + geom_raster() + geom_point(colour = "red") +
       xlim(-2, 2) + ylim(-2, 2),
-    "1 x 3, set limits"
+    "1-3_set_limits"
   )
   vdiffr::expect_doppelganger(
     ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0) +
       geom_point(colour = "red"),
-    "1 x 3, just = (0, 0)"
+    "1-3_just-0_0"
   )
 
   # 3 x 1 ----------------------------------------------------------------------
@@ -47,17 +47,17 @@ test_that("geom_raster draws correctly", {
   df <- data.frame(x = 0, y = -1:1, z = 1:3)
   vdiffr::expect_doppelganger(
     ggplot(df, aes(x, y, fill = z)) + geom_raster() + geom_point(colour = "red"),
-    "3 x 1"
+    "3-1"
   )
   vdiffr::expect_doppelganger(
     ggplot(df, aes(x, y, fill = z)) + geom_raster() + geom_point(colour = "red") +
       xlim(-2, 2) + ylim(-2, 2),
-    "3 x 1, set limits"
+    "3-1_set_limits"
   )
   vdiffr::expect_doppelganger(
     ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0) +
       geom_point(colour = "red"),
-    "3 x 1, just = (0, 0)"
+    "3-1_just-0_0"
   )
 
   # Categorical fill, irregular swatches ---------------------------------------
@@ -68,6 +68,6 @@ test_that("geom_raster draws correctly", {
   df$col[df$y == 5 & df$col == 0] <- NA
   vdiffr::expect_doppelganger(
     qplot(x, y, data = df, fill = factor(col), geom = "raster"),
-    "irregular categorical"
+    "irregular_categorical"
   )
 })

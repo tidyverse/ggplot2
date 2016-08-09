@@ -16,18 +16,18 @@ test_that("axis guides are drawn correctly", {
     qplot(hwy, reorder(model, hwy), data = mpg) +
       facet_grid(manufacturer ~ ., scales = "free", space = "free") +
       theme(strip.text.y = element_text(angle = 0)),
-    "align facet labels, facets horizontal"
+    "align_facet_labels_facets_horizontal"
   )
   vdiffr::expect_doppelganger(
     qplot(reorder(model, hwy), hwy, data = mpg) +
       facet_grid(. ~ manufacturer, scales = "free", space = "free") +
       theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5)),
-    "align facet labels, facets vertical"
+    "align_facet_labels_facets_vertical"
   )
   vdiffr::expect_doppelganger(
     qplot(wt, mpg, data = mtcars) +
       theme(axis.line = element_line(size = 5, lineend = "square")),
-    "thick axis lines"
+    "thick_axis_lines"
   )
 })
 
@@ -41,27 +41,27 @@ test_that("guides are positioned correctly", {
 
   vdiffr::expect_doppelganger(
     p1 + theme(legend.position = "left"),
-    "legend on left"
+    "legend_on_left"
   )
   vdiffr::expect_doppelganger(
     p1 + theme(legend.position = "bottom"),
-    "legend on bottom"
+    "legend_on_bottom"
   )
   vdiffr::expect_doppelganger(
     p1 + theme(legend.position = "right"),
-    "legend on right"
+    "legend_on_right"
   )
   vdiffr::expect_doppelganger(
     p1 + theme(legend.position = "top"),
-    "legend on top"
+    "legend_on_top"
   )
   vdiffr::expect_doppelganger(
     p1 + facet_grid(am~vs) + theme(legend.position = "left"),
-    "facet_grid, legend on left"
+    "facet_grid_legend_on_left"
   )
   vdiffr::expect_doppelganger(
     p1 + facet_grid(am~vs) + theme(legend.position = "bottom"),
-    "facet_grid, legend on bottom"
+    "facet_grid_legend_on_bottom"
   )
   vdiffr::expect_doppelganger(
     p1 + facet_grid(am~vs) + theme(legend.position = "right"),
@@ -69,23 +69,23 @@ test_that("guides are positioned correctly", {
   )
   vdiffr::expect_doppelganger(
     p1 + facet_grid(am~vs) + theme(legend.position = "top"),
-    "facet_grid, legend on top"
+    "facet_grid_legend_on_top"
   )
   vdiffr::expect_doppelganger(
     p1 + facet_wrap(am~vs) + theme(legend.position = "left"),
-    "facet_wrap, legend on left"
+    "facet_wrap_legend_on_left"
   )
   vdiffr::expect_doppelganger(
     p1 + facet_wrap(am~vs) + theme(legend.position = "bottom"),
-    "facet_wrap, legend on bottom"
+    "facet_wrap_legend_on_bottom"
   )
   vdiffr::expect_doppelganger(
     p1 + facet_wrap(am~vs) + theme(legend.position = "right"),
-    "facet_wrap, legend on right"
+    "facet_wrap_legend_on_right"
   )
   vdiffr::expect_doppelganger(
     p1 + facet_wrap(am~vs) + theme(legend.position = "top"),
-    "facet_wrap, legend on top"
+    "facet_wrap_legend_on_top"
   )
 
   # padding
@@ -97,24 +97,24 @@ test_that("guides are positioned correctly", {
 
   vdiffr::expect_doppelganger(
     p2,
-    "padding in legend box"
+    "padding_in_legend_box"
   )
 
   # Placement of legend inside
   vdiffr::expect_doppelganger(
     p2 + theme(legend.position = c(.5, .5)),
-    "legend inside plot, centered"
+    "legend_inside_plot_centered"
   )
   vdiffr::expect_doppelganger(
     p2 + theme(legend.justification = c(0,0), legend.position = c(0,0)),
-    "legend inside plot, bottom left"
+    "legend_inside_plot_bottom_left"
   )
   vdiffr::expect_doppelganger(
     p2 + theme(legend.justification = c(1,1), legend.position = c(1,1)),
-    "legend inside plot, top right"
+    "legend_inside_plot_top_right"
   )
   vdiffr::expect_doppelganger(
     p2 + theme(legend.justification = c(0,0), legend.position = c(.5,.5)),
-    "legend inside plot, bottom left of legend at center"
+    "legend_inside_plot_bottom_left_of_legend_at_center"
   )
 })

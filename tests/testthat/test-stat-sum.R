@@ -50,7 +50,7 @@ test_that("summaries are drawn correctly", {
     ggplot(mtcars, aes(x = cyl, y = mpg, colour = factor(vs))) +
       geom_point() +
       stat_summary(fun.y = mean, geom = "line", size = 2),
-    "summary with color and lines"
+    "summary_with_color_and_lines"
   )
   vdiffr::expect_doppelganger(
     ggplot(mtcars, aes(x = cyl, y = mpg)) +
@@ -61,7 +61,7 @@ test_that("summaries are drawn correctly", {
         geom = "crossbar",
         width = 0.2
       ),
-    "summary with crossbars, no grouping"
+    "summary_with_crossbars_no_grouping"
   )
   vdiffr::expect_doppelganger(
     ggplot(mtcars, aes(x = cyl, y = mpg, group = cyl)) +
@@ -72,6 +72,6 @@ test_that("summaries are drawn correctly", {
         geom = "crossbar",
         width = 0.2
       ),
-    "summary with crossbars, manual grouping"
+    "summary_with_crossbars_manual_grouping"
   )
 })

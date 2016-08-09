@@ -8,10 +8,10 @@ test_that("cartesian coords draws correctly with limits", {
 
   vdiffr::expect_doppelganger(
     p + coord_cartesian(xlim = c(0, 10), ylim = c(0, 50)),
-    "expand range"
+    "expand_range"
   )
   vdiffr::expect_doppelganger(
     p + coord_cartesian(xlim = c(2, 4), ylim = c(20, 40)),
-    "contract range"
+    "contract_range"
   )
 })

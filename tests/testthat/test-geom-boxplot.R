@@ -14,6 +14,6 @@ test_that("can use US spelling of colour", {
 test_that("boxplot draws correctly", {
   vdiffr::expect_doppelganger(
     ggplot(mtcars, aes(x = factor(cyl), y = drat, colour = factor(cyl))) + geom_boxplot(outlier.size = 5),
-    "outlier colours"
+    "outlier_colours"
   )
 })

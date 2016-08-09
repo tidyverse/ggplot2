@@ -39,19 +39,19 @@ test_that("geom_violin draws correctly", {
   )
   vdiffr::expect_doppelganger(
     ggplot(dat, aes(x = x, y = y)) + geom_violin(scale = "count"),
-    "scale area to sample size (C is smaller)"
+    "scale_area_to_sample_size_C_is_smaller"
   )
   vdiffr::expect_doppelganger(
     ggplot(dat, aes(x = x, y = y)) + geom_violin(width = .5),
-    "narrower (width=.5)"
+    "narrower_width-05"
   )
   vdiffr::expect_doppelganger(
     ggplot(dat, aes(x = x, y = y)) + geom_violin(trim = FALSE) + geom_point(shape = 21),
-    "with tails and points"
+    "with_tails_and_points"
   )
   vdiffr::expect_doppelganger(
     ggplot(dat, aes(x = x, y = y)) + geom_violin(adjust = .3) + geom_point(shape = 21),
-    "with smaller bandwidth and points"
+    "with_smaller_bandwidth_and_points"
   )
   vdiffr::expect_doppelganger(
     ggplot(dat, aes(x = "foo", y = y, fill = x)) + geom_violin(),
@@ -67,15 +67,15 @@ test_that("geom_violin draws correctly", {
   )
   vdiffr::expect_doppelganger(
     ggplot(dat, aes(x = "foo", y = y, fill = x)) + geom_violin() + coord_flip(),
-    "dodging and coord_flip"
+    "dodging_and_coord_flip"
   )
   vdiffr::expect_doppelganger(
     ggplot(dat, aes(x = as.numeric(x), y = y)) + geom_violin(),
-    "continuous x axis, multiple groups (center should be at 2.0)"
+    "continuous_x_axis_multiple_groups_center_should_be_at_2"
   )
   vdiffr::expect_doppelganger(
     ggplot(dat, aes(x = as.numeric(1), y = y)) + geom_violin(),
-    "continuous x axis, single group (center should be at 1.0)"
+    "continuous_x_axis_single_group_center_should_be_at_1"
   )
   vdiffr::expect_doppelganger(
     ggplot(dat, aes(x=x, y=y)) + geom_violin(draw_quantiles=c(0.25,0.5,0.75)),
@@ -85,11 +85,11 @@ test_that("geom_violin draws correctly", {
   dat2 <- data.frame(x = LETTERS[1:3], y = rnorm(90), g = letters[5:6])
   vdiffr::expect_doppelganger(
     ggplot(dat2, aes(x = x, y = y, fill = g)) + geom_violin(),
-    "grouping on x and fill"
+    "grouping_on_x_and_fill"
   )
   vdiffr::expect_doppelganger(
     ggplot(dat2, aes(x = x, y = y, fill = g)) +
       geom_violin(position = position_dodge(width = .5)),
-    "grouping on x and fill, dodge width = 0.5"
+    "grouping_on_x_and_fill_dodge_width_05"
   )
 })
