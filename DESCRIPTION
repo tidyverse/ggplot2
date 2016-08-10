@@ -16,6 +16,7 @@ Description: An implementation of the grammar of graphics in R. It combines the
 Depends:
     R (>= 3.1)
 Imports:
+    colorspace,
     digest,
     grid,
     gtable (>= 0.1.1),
