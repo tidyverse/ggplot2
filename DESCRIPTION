@@ -22,6 +22,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
+    munsell,
     scales (>= 0.3.0),
     stats,
     tibble
