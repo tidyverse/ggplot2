@@ -54,7 +54,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
     stop("Unequal parameter lengths: ", details, call. = FALSE)
   }
 
-  data <- data.frame(position)
+  data <- data.frame(aesthetics)
   layer(
     geom = geom,
     params = list(
