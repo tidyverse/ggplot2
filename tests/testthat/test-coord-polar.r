@@ -77,11 +77,11 @@ test_that("Polar coordinates draws correctly", {
   )
   vdiffr::expect_doppelganger(
     ggplot(dat, aes(x, y + 100, group = factor(y))) + geom_line() + coord_polar(),
-    "Concentric_circles_at_theta-1-80-100"
+    "Concentric_circles_at_theta-1-80-100-add"
   )
   vdiffr::expect_doppelganger(
     ggplot(dat, aes(x, y * 100, group = factor(y))) + geom_line() + coord_polar(),
-    "Concentric_circles_at_theta-1-80-100"
+    "Concentric_circles_at_theta-1-80-100-mult"
   )
 
   dat <- data.frame(
