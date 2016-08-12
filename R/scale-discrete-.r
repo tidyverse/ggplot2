@@ -118,7 +118,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   dimension = function(self, expand = c(0, 0)) {
     c_range <- self$range_c$range
-    d_range <- self$range$range
+    d_range <- self$get_limits()
 
     if (self$is_empty()) {
       c(0, 1)
