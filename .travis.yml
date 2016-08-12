@@ -1,4 +1,5 @@
 language: R
+cache: packages
 sudo: false
 
 r_github_packages:
