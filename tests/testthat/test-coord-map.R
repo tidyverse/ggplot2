@@ -30,7 +30,7 @@ test_that("maps draws correctly", {
     pworld + coord_map(projection = "ortho", orientation = c(41, -74 ,0)) +
       scale_y_continuous(breaks = (-2:2) * 30) +
       scale_x_continuous(breaks = (-4:4) * 45),
-    "ortho_projection_custom orientation_centered_on_New_York"
+    "ortho_projection_custom_orientation_centered_on_New_York"
   )
   # Need to set limits here so left-most longitude line shows up
   vdiffr::expect_doppelganger(
@@ -45,7 +45,7 @@ test_that("maps draws correctly", {
     pworld + coord_map(projection = "aitoff", orientation = c(90, 180, 0)) +
       scale_y_continuous(breaks = (-2:2) * 30) +
       scale_x_continuous(breaks = (0:8) * 45, limits = c(0, 360)),
-    "aitoff_projection_custom_orientation_centered on date line"
+    "aitoff_projection_custom_orientation_centered_on_date_line"
   )
   # USA state map
   states_map <- map_data("state")

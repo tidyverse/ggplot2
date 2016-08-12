@@ -280,7 +280,7 @@ test_that("themes are drawn in the right style", {
       text = element_text(colour = 'blue'),
       text = element_text(face = 'italic')
     ),
-    "add_blue_and_italic_in_one_theme_object_with_two_text_elements_result_is_blue_only"
+    "expect_blue_text_when_diffining_element_multiple_times"
   )
 
   # Inheritance tests

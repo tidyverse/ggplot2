@@ -65,7 +65,7 @@ test_that("guides are positioned correctly", {
   )
   vdiffr::expect_doppelganger(
     p1 + facet_grid(am~vs) + theme(legend.position = "right"),
-    "facet_grid, legend on right"
+    "facet_grid_legend_on_right"
   )
   vdiffr::expect_doppelganger(
     p1 + facet_grid(am~vs) + theme(legend.position = "top"),
