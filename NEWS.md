@@ -17,6 +17,8 @@
 * Minor code formatting issues in examples and function parameters were
   fixed. (@hrbrmstr)
 
+* Class of aesthetic mapping is preserved when adding `aes()` objects. (#1624)
+
 # ggplot2 2.1.0
 
 ## New features
