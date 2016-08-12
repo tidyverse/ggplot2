@@ -122,10 +122,10 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
     if (self$is_empty()) {
       c(0, 1)
-      expand_range(c_range, expand[1], 0 , 1)
     } else if (is.null(self$range$range)) { # only continuous
+      expand_range(c_range, expand[1], expand[2] , 1)
     } else if (is.null(c_range)) { # only discrete
-      expand_range(c(1, length(d_range)), 0, expand[2], 1)
+      expand_range(c(1, length(d_range)), expand[1], expand[2], 1)
     } else { # both
       range(
         expand_range(c_range, expand[1], 0 , 1),
