@@ -60,6 +60,8 @@
 * Fixed problem with `geom_violin()` when quantiles requested but data
   have no range. Added unit test. (#1687)
 
+* Class of aesthetic mapping is preserved when adding `aes()` objects. (#1624)
+
 # ggplot2 2.1.0
 
 ## New features
