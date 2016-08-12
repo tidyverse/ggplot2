@@ -67,4 +67,4 @@
 <polyline points='108.16,114.01 110.90,114.01 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp4)' />
 <g clip-path='url(#cp4)'><text x='368.15' y='568.33' style='font-size: 11.00pt; font-family: Arial;'>date</text></g>
 <g clip-path='url(#cp4)'><text transform='translate(78.75,292.89) rotate(-90)' style='font-size: 11.00pt; font-family: Arial;'>price</text></g>
-</svg> 
+</svg>

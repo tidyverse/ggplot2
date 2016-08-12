@@ -147,4 +147,4 @@
 <polyline points='109.80,59.78 112.54,59.78 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp4)' />
 <g clip-path='url(#cp4)'><text x='380.39' y='568.33' style='font-size: 11.00pt; font-family: Arial;'>x</text></g>
 <g clip-path='url(#cp4)'><text transform='translate(77.12,299.83) rotate(-90)' style='font-size: 11.00pt; font-family: Arial;'>y * 100</text></g>
-</svg> 
+</svg>

@@ -222,3 +222,4 @@ VignetteBuilder: knitr
 RoxygenNote: 5.0.1
 svgliteNote: 1.1.0
 ggplot2Note: 2.1.0
+vdiffrNote: 0.0.0.9001
