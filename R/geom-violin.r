@@ -72,6 +72,12 @@ geom_violin <- function(mapping = NULL, data = NULL,
                         draw_quantiles = NULL,
                         trim = TRUE,
                         scale = "area",
+                        outliers = NULL,
+                        outlier.colour = NULL,
+                        outlier.color = NULL,
+                        outlier.shape = 19,
+                        outlier.size = 1.5,
+                        outlier.stroke = 0.5,
                         na.rm = FALSE,
                         show.legend = NA,
                         inherit.aes = TRUE) {
@@ -87,6 +93,11 @@ geom_violin <- function(mapping = NULL, data = NULL,
       trim = trim,
       scale = scale,
       draw_quantiles = draw_quantiles,
+      outliers = outliers,
+      outlier.colour = outlier.color %||% outlier.colour,
+      outlier.shape = outlier.shape,
+      outlier.size = outlier.size,
+      outlier.stroke = outlier.stroke,
       na.rm = na.rm,
       ...
     )
@@ -109,7 +120,14 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     )
   },
 
-  draw_group = function(self, data, ..., draw_quantiles = NULL) {
+  draw_group = function(self, data, panel_scales, coord, draw_quantiles = NULL,
+                        outlier.colour = NULL, outlier.shape = 19,
+                        outlier.size = 1.5, outlier.stroke = 0.5) {
+
+    # Extract any outilers
+    outlier.data <- subset(data, is.outlier)
+    data <- subset(data, !is.outlier) # just the inliers
+
     # Find the points for the line to go all the way around
     data <- transform(data,
       xminv = x - violinwidth * (x - xmin),
@@ -138,15 +156,33 @@ GeomViolin <- ggproto("GeomViolin", Geom,
         drop = FALSE
       ]
       both <- cbind(quantiles, aesthetics)
-      quantile_grob <- GeomPath$draw_panel(both, ...)
-
-      ggname("geom_violin", grobTree(
-        GeomPolygon$draw_panel(newdata, ...),
-        quantile_grob)
-      )
+      quantile_grob <- GeomPath$draw_panel(both, panel_scales, coord)
     } else {
-      ggname("geom_violin", GeomPolygon$draw_panel(newdata, ...))
+      quantile_grob <- NULL
     }
+
+    if (nrow(outlier.data) > 0) {
+      outliers.frame <- data.frame(
+        y = outlier.data$y,
+        x = outlier.data$x,
+        colour = outlier.colour %||% data$colour[1],
+        shape = outlier.shape %||% data$shape[1],
+        size = outlier.size %||% data$size[1],
+        stroke = outlier.stroke %||% data$stroke[1],
+        fill = NA,
+        alpha = NA,
+        stringsAsFactors = FALSE
+      )
+      outliers_grob <- GeomPoint$draw_panel(outliers.frame, panel_scales, coord)
+    } else {
+      outliers_grob <- NULL
+    }
+
+    ggname("geom_violin", grobTree(
+      GeomPolygon$draw_panel(newdata, panel_scales, coord),
+      quantile_grob,
+      outliers_grob)
+    )
   },
 
   draw_key = draw_key_polygon,

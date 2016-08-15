@@ -26,6 +26,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
                           kernel = "gaussian",
                           trim = TRUE,
                           scale = "area",
+                          outliers = NULL,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE) {
@@ -44,6 +45,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
       adjust = adjust,
       kernel = kernel,
       trim = trim,
+      outliers= outliers,
       scale = scale,
       na.rm = na.rm,
       ...
@@ -61,20 +63,39 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   non_missing_aes = "weight",
 
   compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
-                       kernel = "gaussian", trim = TRUE, na.rm = FALSE) {
+                       kernel = "gaussian", trim = TRUE, outliers = NULL, na.rm = FALSE) {
     if (nrow(data) < 3) return(data.frame())
 
-    if (trim) {
-      range <- range(data$y, na.rm = TRUE)
+    # Determine any outliers. They will not be used to compute violin
+    if (!is.null(outliers)) {
+        stats <- as.numeric(stats::quantile(data$y, c(0.25, 0.75)))
+        iqr <- diff(stats)
+        outliers <- data$y < (stats[1] - outliers * iqr) | data$y > (stats[2] + outliers * iqr)
     } else {
-      range <- scales$y$dimension()
+      outliers <- rep(FALSE, nrow(data)) # no outliers
     }
-    dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
+
+    data.no.outliers <- data[!outliers,]
+
+    if (trim) {
+      range <- range(data.no.outliers$y, na.rm = TRUE)
+    } else {
+      range <- scales$y$dimension() # TODO - what about this case when there are outliers?
+    }
+
+    dens <- compute_density(data.no.outliers$y, data.no.outliers$w,
+      from = range[1], to = range[2],
       bw = bw, adjust = adjust, kernel = kernel)
 
     dens$y <- dens$x
     dens$x <- mean(range(data$x))
 
+    # add outliers
+    dens$is.outlier <- FALSE
+    if (any(outliers)) {
+      dens <- plyr::rbind.fill(dens, data.frame(x = dens$x[1], y = data$y[outliers], is.outlier = TRUE))
+    }
+    
     # Compute width if x has multiple values
     if (length(unique(data$x)) > 1) {
       width <- diff(range(data$x)) * 0.9
@@ -85,25 +106,27 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   },
 
   compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
-                           kernel = "gaussian", trim = TRUE, na.rm = FALSE,
+                           kernel = "gaussian", trim = TRUE, outliers = NULL, na.rm = FALSE,
                            scale = "area") {
     data <- ggproto_parent(Stat, self)$compute_panel(
       data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
-      trim = trim, na.rm = na.rm
+      trim = trim, outliers = outliers, na.rm = na.rm
     )
 
+    data.inliers <- subset(data, !is.outlier)
+    
     # choose how violins are scaled relative to each other
-    data$violinwidth <- switch(scale,
+    data.inliers$violinwidth <- switch(scale,
       # area : keep the original densities but scale them to a max width of 1
       #        for plotting purposes only
-      area = data$density / max(data$density),
+      area = data.inliers$density / max(data.inliers$density),
       # count: use the original densities scaled to a maximum of 1 (as above)
       #        and then scale them according to the number of observations
-      count = data$density / max(data$density) * data$n / max(data$n),
+      count = data.inliers$density / max(data.inliers$density) * data.inliers$n / max(data.inliers$n),
       # width: constant width (density scaled to a maximum of 1)
-      width = data$scaled
+      width = data.inliers$scaled
     )
-    data
+    plyr::rbind.fill(data.inliers, subset(data, is.outlier))
   }
 
 )
