@@ -80,7 +80,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     if (trim) {
       range <- range(data.no.outliers$y, na.rm = TRUE)
     } else {
-      range <- scales$y$dimension() # TODO - what about this case when there are outliers?
+      range <- scales$y$dimension()
     }
 
     dens <- compute_density(data.no.outliers$y, data.no.outliers$w,
@@ -90,8 +90,9 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     dens$y <- dens$x
     dens$x <- mean(range(data$x))
 
-    # add outliers
-    dens$is.outlier <- FALSE
+    dens$is.outlier <- FALSE # none of these are outliers
+
+    # add outlier rows if we have any
     if (any(outliers)) {
       dens <- plyr::rbind.fill(dens, data.frame(x = dens$x[1], y = data$y[outliers], is.outlier = TRUE))
     }
@@ -113,9 +114,9 @@ StatYdensity <- ggproto("StatYdensity", Stat,
       trim = trim, outliers = outliers, na.rm = na.rm
     )
 
-    data.inliers <- subset(data, !is.outlier)
     
-    # choose how violins are scaled relative to each other
+    # choose how violins are scaled relative to each other. This uses non-outliers only.
+    data.inliers <- subset(data, !is.outlier)
     data.inliers$violinwidth <- switch(scale,
       # area : keep the original densities but scale them to a max width of 1
       #        for plotting purposes only
@@ -126,7 +127,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
       # width: constant width (density scaled to a maximum of 1)
       width = data.inliers$scaled
     )
-    plyr::rbind.fill(data.inliers, subset(data, is.outlier))
+    plyr::rbind.fill(data.inliers, subset(data, is.outlier)) # add the outlier rows at the end
   }
 
 )
