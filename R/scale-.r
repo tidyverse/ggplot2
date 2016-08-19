@@ -285,7 +285,13 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     } else if (is.waive(self$labels)) {
       labels <- self$trans$format(breaks)
     } else if (is.function(self$labels)) {
+      # Client may supply a formatting function that returns another function,
+      # which uses context provided by the breaks themselves, which honor the
+      # input data format.
       labels <- self$labels(breaks)
+      if (is.function(labels)) {
+        labels <- labels(breaks)
+      }
     } else {
       labels <- self$labels
     }
