@@ -41,7 +41,6 @@ save_vtest("continuous x axis, multiple groups (center should be at 2.0)")
 ggplot(dat, aes(x = as.numeric(1), y = y)) + geom_violin()
 save_vtest("continuous x axis, single group (center should be at 1.0)")
 
-
 ggplot(dat, aes(x=x, y=y)) + geom_violin(draw_quantiles=c(0.25,0.5,0.75))
 save_vtest("quantiles")
 
@@ -53,5 +52,9 @@ save_vtest("grouping on x and fill")
 ggplot(dat2, aes(x = x, y = y, fill = g)) +
   geom_violin(position = position_dodge(width = .5))
 save_vtest("grouping on x and fill, dodge width = 0.5")
+
+dat3 <- rbind(dat, data.frame(x = LETTERS[1:3], y = 2 * rnorm(12)))
+ggplot(dat3, aes(x = x, y = y)) + geom_violin(outliers = 1.5, outlier.color = "blue")
+save_vtest("outliers")
 
 end_vcontext()

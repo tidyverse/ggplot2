@@ -62,6 +62,8 @@
 
 * Class of aesthetic mapping is preserved when adding `aes()` objects. (#1624)
 
+* Added rendering of outliers to `geom_violin()` (@DanRuderman).
+
 # ggplot2 2.1.0
 
 ## New features
