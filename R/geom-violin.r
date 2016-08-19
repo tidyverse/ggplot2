@@ -12,10 +12,10 @@
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_violin} and \code{stat_ydensity}.
 #' @param outliers If \code{not(NULL)} (default), consider any data values beyond
-#'   \code(outliers * IQR) from the inter-quartile range (\code(IQR)) to be
+#'   \code{outliers * IQR} from the inter-quartile range (\code{IQR}) to be
 #'   outliers. Outliers are drawn as points, and are not included in the computation
 #'   of either the violin or its quantiles. For compatibility with the
-#'   \code(geom_boxplot) notion of outliers, set \code(outliers=1.5).
+#'   \code{geom_boxplot} notion of outliers, set \code{outliers=1.5}.
 #' @param outlier.colour,outlier.color,outlier.shape,outlier.size,outlier.stroke
 #'   Default aesthetics for outliers. Set to \code{NULL} to inherit from the
 #'   aesthetics used for the violin.
