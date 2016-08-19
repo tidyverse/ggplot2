@@ -16,7 +16,7 @@
 #'   outliers. Outliers are drawn as points, and are not included in the computation
 #'   of either the violin or its quantiles. For compatibility with the
 #'   \code{geom_boxplot} notion of outliers, set \code{outliers=1.5}.
-#' @param outlier.colour,outlier.color,outlier.shape,outlier.size,outlier.stroke
+#' @param outlier.colour,outlier.color,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
 #'   Default aesthetics for outliers. Set to \code{NULL} to inherit from the
 #'   aesthetics used for the violin.
 #'
@@ -59,6 +59,9 @@
 #' # Show quartiles
 #' p + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
 #'
+#' # Show outliers
+#' p + geom_violin(outliers = 1.5)
+#' 
 #' # Scales vs. coordinate transforms -------
 #' if (require("ggplot2movies")) {
 #' # Scale transformations occur before the density statistics are computed.
@@ -89,6 +92,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
                         outlier.shape = 19,
                         outlier.size = 1.5,
                         outlier.stroke = 0.5,
+                        outlier.alpha = NULL,
                         na.rm = FALSE,
                         show.legend = NA,
                         inherit.aes = TRUE) {
@@ -109,6 +113,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
       outlier.shape = outlier.shape,
       outlier.size = outlier.size,
       outlier.stroke = outlier.stroke,
+      outlier.alpha = outlier.alpha,  
       na.rm = na.rm,
       ...
     )
@@ -133,7 +138,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
   draw_group = function(self, data, panel_scales, coord, draw_quantiles = NULL,
                         outlier.colour = NULL, outlier.shape = 19,
-                        outlier.size = 1.5, outlier.stroke = 0.5) {
+                        outlier.size = 1.5, outlier.stroke = 0.5,
+                        outlier.alpha = NULL) {
 
     # Extract any outilers
     outlier.data <- subset(data, is.outlier)
@@ -181,7 +187,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
         size = outlier.size %||% data$size[1],
         stroke = outlier.stroke %||% data$stroke[1],
         fill = NA,
-        alpha = NA,
+        alpha = outlier.alpha %||% data$alpha[1],
         stringsAsFactors = FALSE
       )
       outliers_grob <- GeomPoint$draw_panel(outliers.frame, panel_scales, coord)

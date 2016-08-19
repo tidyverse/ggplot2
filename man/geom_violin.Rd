@@ -9,8 +9,8 @@ geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
   position = "dodge", ..., draw_quantiles = NULL, trim = TRUE,
   scale = "area", outliers = NULL, outlier.colour = NULL,
   outlier.color = NULL, outlier.shape = 19, outlier.size = 1.5,
-  outlier.stroke = 0.5, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  outlier.stroke = 0.5, outlier.alpha = NULL, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 
 stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", ..., bw = "nrd0", adjust = 1, kernel = "gaussian",
@@ -56,12 +56,12 @@ the tails). If "count", areas are scaled proportionally to the number of
 observations. If "width", all violins have the same maximum width.}
 
 \item{outliers}{If \code{not(NULL)} (default), consider any data values beyond
-\code(outliers * IQR) from the inter-quartile range (\code(IQR)) to be
+\code{outliers * IQR} from the inter-quartile range (\code{IQR}) to be
 outliers. Outliers are drawn as points, and are not included in the computation
 of either the violin or its quantiles. For compatibility with the
-\code(geom_boxplot) notion of outliers, set \code(outliers=1.5).}
+\code{geom_boxplot} notion of outliers, set \code{outliers=1.5}.}
 
-\item{outlier.colour, outlier.color, outlier.shape, outlier.size, outlier.stroke}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+\item{outlier.colour, outlier.color, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
   aesthetics used for the violin.
 
   In the unlikely event you specify both US and UK spellings of colour, the
@@ -144,6 +144,9 @@ p + geom_violin(fill = "grey80", colour = "#3366FF")
 
 # Show quartiles
 p + geom_violin(draw_quantiles = c(0.25, 0.5, 0.75))
+
+# Show outliers
+p + geom_violin(outliers = 1.5)
 
 # Scales vs. coordinate transforms -------
 if (require("ggplot2movies")) {
