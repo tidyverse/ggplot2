@@ -21,7 +21,7 @@ locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE)
     intersect(names(cols), names(data)))
   data <- reshape2::add_margins(data, margin_vars, margins)
 
-  facet_vals <- quoted_df(data, c(rows, cols))
+  facet_vals <- quoted_df(data, c(rows, cols), parent.env(environment()))
 
   # If any facetting variables are missing, add them in by
   # duplicating the data
@@ -60,7 +60,7 @@ locate_wrap <- function(data, panels, vars) {
   }
   vars <- as.quoted(vars)
 
-  facet_vals <- quoted_df(data, vars)
+  facet_vals <- quoted_df(data, vars, parent.env(environment()))
   facet_vals[] <- lapply(facet_vals[], as.factor)
 
   missing_facets <- setdiff(names(vars), names(facet_vals))

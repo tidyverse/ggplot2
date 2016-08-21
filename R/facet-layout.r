@@ -89,7 +89,7 @@ layout_base <- function(data, vars = NULL, drop = TRUE) {
   if (length(vars) == 0) return(data.frame())
 
   # For each layer, compute the facet values
-  values <- compact(plyr::llply(data, quoted_df, vars = vars))
+  values <- compact(plyr::llply(data, quoted_df, vars = vars, env = parent.env(environment())))
 
   # Form the base data frame which contains all combinations of facetting
   # variables that appear in the data
@@ -153,8 +153,8 @@ df.grid <- function(a, b) {
   ))
 }
 
-quoted_df <- function(data, vars) {
-  values <- plyr::eval.quoted(vars, data, emptyenv(), try = TRUE)
+quoted_df <- function(data, vars, env = emptyenv()) {
+  values <- plyr::eval.quoted(vars, data, env, try = TRUE)
   as.data.frame(compact(values), optional = TRUE, stringsAsFactors = FALSE)
 }
 
