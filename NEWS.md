@@ -62,6 +62,9 @@
 
 * Class of aesthetic mapping is preserved when adding `aes()` objects. (#1624)
 
+* Only one warning is issued when asking for too many levels in 
+  `scale_discrete()` (#1674)
+
 # ggplot2 2.1.0
 
 ## New features

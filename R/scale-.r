@@ -345,6 +345,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   drop = TRUE,
   na.value = NA,
+  n.breaks.cache = NULL,
+  palette.cache = NULL,
 
   is_discrete = function() TRUE,
 
@@ -359,7 +361,14 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
   map = function(self, x, limits = self$get_limits()) {
     n <- sum(!is.na(limits))
-    pal <- self$palette(n)
+    if (!is.null(self$n.breaks.cache) && self$n.breaks.cache == n) {
+      pal <- self$palette.cache
+    } else {
+      if (!is.null(self$n.breaks.cache)) warning("Cached palette does not match requested", call. = FALSE)
+      pal <- self$palette(n)
+      self$palette.cache <- pal
+      self$n.breaks.cache <- n
+    }
 
     if (is.null(names(pal))) {
       pal_match <- pal[match(as.character(x), limits)]
