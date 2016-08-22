@@ -16,3 +16,9 @@ test_that("discrete ranges also encompas continuous values", {
   expect_equal(x_range(base + geom_point(aes(x1)) + geom_point(aes(x2))), c(0, 4))
 })
 
+test_that("discrete scale shrinks to range when setting limits", {
+  p <- ggplot(subset(diamonds, carat > 1), aes(cut, clarity)) +
+    geom_jitter() + scale_x_discrete(limits=c("Fair","Ideal"))
+
+  expect_equal(layer_scales(p)$x$dimension(c(0, 1)), c(0, 3))
+})
