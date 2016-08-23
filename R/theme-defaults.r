@@ -85,13 +85,13 @@ theme_grey <- function(base_size = 11, base_family = "") {
     axis.ticks =         element_line(colour = "grey20"),
     axis.ticks.length =  unit(half_line / 2, "pt"),
     axis.title.x =       element_text(
-                           margin = margin(t = half_line, b = half_line / 2),
+                           margin = margin(t = half_line),
                            vjust = 1
                          ),
     axis.title.y =       element_text(
                            angle = 90,
-                           margin = margin(r = half_line, l = half_line / 2),
-                           vjust = 1
+                           margin = margin(r = half_line),
+                           vjust = 1,
                          ),
 
     legend.background =  element_rect(colour = NA),
@@ -181,12 +181,12 @@ theme_linedraw <- function(base_size = 11, base_family = "") {
       axis.ticks       = element_line(colour = "black", size = 0.25),
       # NB: match the *visual* thickness of axis ticks to the panel border
       #     0.5 clipped looks like 0.25
-      
+
       # pure black panel border and grid lines, but thinner
       panel.border     = element_rect(fill = NA, colour = "black", size = 0.5),
       panel.grid.major = element_line(colour = "black", size = 0.05),
       panel.grid.minor = element_line(colour = "black", size = 0.025),
-      
+
       # strips with black background and white text
       strip.background = element_rect(fill = "black"),
       strip.text       = element_text(colour = "white", size = rel(0.8))
@@ -212,7 +212,7 @@ theme_light <- function(base_size = 11, base_family = "") {
 
       # match legend key to panel.background
       legend.key       = element_rect(fill = "white", colour = NA),
-      
+
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey70", colour = NA),
       strip.text       = element_text(colour = "white", size = rel(0.8))
@@ -235,7 +235,7 @@ theme_dark <- function(base_size = 11, base_family = "") {
 
       # match axes ticks thickness to gridlines
       axis.ticks       = element_line(colour = "grey20", size = 0.25),
-      
+
       # match legend key to panel.background
       legend.key       = element_rect(fill = "grey50", colour = NA),
 

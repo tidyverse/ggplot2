@@ -4,8 +4,8 @@
   descenders (i.e. the bits `g` and `y` that hang underneath). This makes 
   improves the margins around titles, particularly the y axis label (#1712).
   
-    I have also very slightly increased the margins arond the axis labels
-    in order to give them a little more room to breathe.
+    I have also very slightly increased the inner margins of axis titles,
+    and removed the outer margins. 
 
 * Themes are more homogeneous visually, and match `theme_grey` better.
   (@jiho, #1679)
