@@ -463,6 +463,11 @@ add_theme <- function(t1, t2, t2name) {
     t1[item] <- list(x)
   }
 
+  # Update inherited items
+  #for (item in names(t2)) {
+   # t1[[item]] <- calc_element(item, t1)
+  #}
+
   # If either theme is complete, then the combined theme is complete
   attr(t1, "complete") <- attr(t1, "complete") || attr(t2, "complete")
   t1
@@ -549,6 +554,12 @@ calc_element <- function(element, theme, verbose = FALSE) {
   # it is of the class specified in .element_tree
   if (!is.null(theme[[element]]) &&
       !inherits(theme[[element]], .element_tree[[element]]$class)) {
+    if (element != "legend.position" && element != "legend.justification")  {
+      stop(element, " should have class ", .element_tree[[element]]$class)
+    }
+  }
+
+  if ((element == "legend.position" || element == "legend.justification") && (class(theme[[element]])[1] != "character" && class(theme[[element]])[1] != "numeric")) {
     stop(element, " should have class ", .element_tree[[element]]$class)
   }
 
@@ -573,7 +584,13 @@ calc_element <- function(element, theme, verbose = FALSE) {
   parents <- lapply(pnames, calc_element, theme, verbose)
 
   # Combine the properties of this element with all parents
-  Reduce(combine_elements, parents, theme[[element]])
+    element <- Reduce(combine_elements, parents, theme[[element]])
+
+  # Check if base is blank
+    #if (inherits(parents[[length(parents)]], "element_blank")) {
+     # element <- element_blank()
+    #}
+  return(element)
 }
 
 
@@ -583,20 +600,37 @@ calc_element <- function(element, theme, verbose = FALSE) {
 # @param e2 An element object which e1 inherits from
 combine_elements <- function(e1, e2) {
 
-  # If e2 is NULL, nothing to inherit
-  if (is.null(e2))  return(e1)
+  # If e1 is NULL or element_blank, inherit everything
+  if (is.null(e1) || inherits(e1, "element_blank"))  {e1 <- e2}
 
-  # If e1 is NULL, or if e2 is element_blank, inherit everything from e2
-  if (is.null(e1) || inherits(e2, "element_blank"))  return(e2)
+  # If e1 is not NULL or blank and e2 is element_blank, inherit everything from farther up tree
+  if ((!is.null(e1) || !inherits(e1, "element_blank")) && (is.null(e2) || inherits(e2, "element_blank"))) {
+  }
 
-  # If e1 has any NULL properties, inherit them from e2
-  n <- vapply(e1[names(e2)], is.null, logical(1))
-  e1[n] <- e2[n]
+  # If e1 and e2 are not NULL or blank, inherit from e2 then farther up tree
+  if ((!is.null(e1) && !inherits(e1, "element_blank")) && (!is.null(e2) && !inherits(e2, "element_blank"))) {
+    # inherit from e2
+    n <- vapply(e1[names(e2)], is.null, logical(1))
+    e1[n] <- e2[n]
+
+  }
+
+
+  # If all attributes NULL, set to element_blank
+  # special case for element_text as margin is not inherited from text object
+  if ((class(e1)[[1]] == "element_text") && (sum(sapply(e1, function(x) !is.null(x))) == 1) && !is.null(e1$margin)) {
+
+    e1 <- element_blank()
+  } else if (class(e1)[[1]] == "element_text"  && (sum(sapply(e1, function(x) !is.null(x))) == 0)) {
+    e1 <- element_blank()
+    return(e1)
+  }
+
 
   # Calculate relative sizes
-  if (is.rel(e1$size)) {
+  if (is.rel(e1$size) && !is.null(e2$size)) {
     e1$size <- e2$size * unclass(e1$size)
   }
 
-  e1
+  return(e1)
 }

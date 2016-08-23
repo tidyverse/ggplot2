@@ -190,6 +190,13 @@
 * Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
   (#1444)
 
+<<<<<<< HEAD
+* All elements should now inherit correctly for all themes except theme_void(). (@Katiedaisey, #1555) 
+
+* Inheritance of elements pull from default if parent is element_blank(). (@Katiedaisey, #1565) 
+
+=======
+>>>>>>> hadley/master
 # ggplot2 2.0.0
 
 ## Major changes
