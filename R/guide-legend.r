@@ -493,9 +493,9 @@ guide_gengrob.legend <- function(guide, theme) {
   krows <- rep(vps$key.row, each = ngeom)
 
   # padding
-  padding <- 0.15
-  widths <- c(padding, widths, padding)
-  heights <- c(padding, heights, padding)
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  widths <- c(padding[4], widths, padding[2])
+  heights <- c(padding[1], heights, padding[3])
 
   # Create the gtable for the legend
   gt <- gtable(widths = unit(widths, "cm"), heights = unit(heights, "cm"))

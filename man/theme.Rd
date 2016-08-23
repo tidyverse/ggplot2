@@ -76,8 +76,14 @@ The individual theme elements are:
 
   legend.background  \tab background of legend
                    (\code{element_rect}; inherits from \code{rect}) \cr
-  legend.margin    \tab extra space added around legend
+  legend.margin    \tab the margin around each legend
+                   (\code{margin}) \cr
+  legend.spacing   \tab the spacing between legends
                    (\code{unit}) \cr
+  legend.spacing.x  \tab the horizontal spacing between legends
+                   (\code{unit}); inherits from \code{legend.spacing} \cr
+  legend.spacing.y  \tab the horizontal spacing between legends
+                   (\code{unit}); inherits from \code{legend.spacing} \cr
   legend.key       \tab background underneath legend keys
                    (\code{element_rect}; inherits from \code{rect}) \cr
   legend.key.size  \tab size of legend keys
@@ -100,12 +106,20 @@ The individual theme elements are:
   legend.direction \tab layout of items in legends
                    ("horizontal" or "vertical") \cr
   legend.justification \tab anchor point for positioning legend inside plot
-                   ("center" or two-element numeric vector) \cr
+                   ("center" or two-element numeric vector) or the
+                   justification according to the plot area when positioned
+                   outside the plot \cr
   legend.box       \tab arrangement of multiple legends
                    ("horizontal" or "vertical") \cr
   legend.box.just  \tab justification of each legend within the overall
                    bounding box, when there are multiple legends
                    ("top", "bottom", "left", or "right")\cr
+  legend.box.margin \tab margins around the full legend area, as specified
+                   using \code{\link{margin}} \cr
+  legend.box.background \tab background of legend area
+                   (\code{element_rect}; inherits from \code{rect}) \cr
+  legend.box.spacing \tab The spacing between the plotting area and the
+                   legend box (\code{unit}) \cr
 
   panel.background \tab background of plotting area, drawn underneath plot
                    (\code{element_rect}; inherits from \code{rect}) \cr
@@ -113,11 +127,11 @@ The individual theme elements are:
                    so that it covers tick marks and grid lines. This should
                    be used with \code{fill=NA}
                    (\code{element_rect}; inherits from \code{rect}) \cr
-  panel.margin     \tab margin around facet panels
+  panel.spacing    \tab spacing between facet panels
                    (\code{unit}) \cr
-  panel.margin.x   \tab horizontal margin around facet panels
+  panel.spacing.x  \tab horizontal spacing between facet panels
                    (\code{unit}; inherits from \code{panel.margin}) \cr
-  panel.margin.y   \tab vertical margin around facet panels
+  panel.spacing.y  \tab vertical spacing between facet panels
                    (\code{unit}; inherits from \code{panel.margin}) \cr
   panel.grid       \tab grid lines
                    (\code{element_line}; inherits from \code{line}) \cr
