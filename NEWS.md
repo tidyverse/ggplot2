@@ -1,5 +1,12 @@
 # ggplot2 2.1.0.9000 
 
+* When computing the height of titles ggplot2, now inclues the height of the
+  descenders (i.e. the bits `g` and `y` that hang underneath). This makes 
+  improves the margins around titles, particularly the y axis label.
+  
+    I have also very slightly increased the margins arond the axis labels
+    in order to give them a little more room to breathe.
+
 * `position_stack()` and `position_fill()` now sorts the stacking order so it 
   matches the order of the grouping. Use level reordering to alter the stacking 
   order. The default legend and stacking order is now also in line. The default 
