@@ -17,19 +17,19 @@ theme_grey(base_size = 11, base_family = "")
 
 theme_gray(base_size = 11, base_family = "")
 
-theme_bw(base_size = 12, base_family = "")
+theme_bw(base_size = 11, base_family = "")
 
-theme_linedraw(base_size = 12, base_family = "")
+theme_linedraw(base_size = 11, base_family = "")
 
-theme_light(base_size = 12, base_family = "")
+theme_light(base_size = 11, base_family = "")
 
-theme_minimal(base_size = 12, base_family = "")
+theme_dark(base_size = 11, base_family = "")
 
-theme_classic(base_size = 12, base_family = "")
+theme_minimal(base_size = 11, base_family = "")
 
-theme_dark(base_size = 12, base_family = "")
+theme_classic(base_size = 11, base_family = "")
 
-theme_void(base_size = 12, base_family = "")
+theme_void(base_size = 11, base_family = "")
 }
 \arguments{
 \item{base_size}{base font size}
