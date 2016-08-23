@@ -7,6 +7,9 @@
     I have also very slightly increased the margins arond the axis labels
     in order to give them a little more room to breathe.
 
+* Themes are more homogeneous visually, and match `theme_grey` better.
+  (@jiho, #1679)
+
 * `position_stack()` and `position_fill()` now sorts the stacking order so it 
   matches the order of the grouping. Use level reordering to alter the stacking 
   order. The default legend and stacking order is now also in line. The default 
@@ -68,6 +71,9 @@
   have no range. Added unit test. (#1687)
 
 * Class of aesthetic mapping is preserved when adding `aes()` objects. (#1624)
+
+* Only one warning is issued when asking for too many levels in 
+  `scale_discrete()` (#1674)
 
 # ggplot2 2.1.0
 
