@@ -1,5 +1,11 @@
-
 # ggplot2 2.1.0.9000 
+
+* When computing the height of titles ggplot2, now inclues the height of the
+  descenders (i.e. the bits `g` and `y` that hang underneath). This makes 
+  improves the margins around titles, particularly the y axis label (#1712).
+  
+    I have also very slightly increased the inner margins of axis titles,
+    and removed the outer margins. 
 
 * Themes are more homogeneous visually, and match `theme_grey` better.
   (@jiho, #1679)
