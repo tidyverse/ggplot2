@@ -14,7 +14,7 @@ coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE)
 \item{projection}{projection to use, see
 \code{\link[mapproj]{mapproject}} for list}
 
-\item{...}{other arguments passed on to mapproject}
+\item{...}{other arguments passed on to mapproject. Ignored if the \code{parameters} argument is present.}
 
 \item{parameters}{optional numeric vector of parameters for use with the projection argument. This argument is optional only in the sense that certain projections do not require additional parameters. Passed to
 \code{\link[mapproj]{mapproject}}}
