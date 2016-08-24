@@ -21,6 +21,7 @@
 #' @export
 #' @param projection projection to use, see
 #'    \code{\link[mapproj]{mapproject}} for list
+#' @param ... other arguments passed on to mapproject
 #' @param parameters optional numeric vector of parameters for use with the projection argument. This argument is optional only in the sense that certain projections do not require additional parameters. Passed to
 #'   \code{\link[mapproj]{mapproject}}
 #' @param orientation projection orientation, which defaults to
@@ -84,12 +85,18 @@
 #' # Centered on New York (currently has issues with closing polygons)
 #' worldmap + coord_map("ortho", orientation = c(41, -74, 0))
 #' }
-coord_map <- function(projection="mercator", parameters = NULL, orientation = NULL, xlim = NULL, ylim = NULL) {
+coord_map <- function(projection="mercator", ..., parameters = NULL, orientation = NULL, xlim = NULL, ylim = NULL) {
+  if (is.null(parameters)) {
+    params <- list(...)
+  } else {
+    params <- parameters
+  }
+
   ggproto(NULL, CoordMap,
     projection = projection,
     orientation = orientation,
     limits = list(x = xlim, y = ylim),
-    params = parameters
+    params = params
   )
 }
 

@@ -5,14 +5,16 @@
 \alias{coord_quickmap}
 \title{Map projections.}
 \usage{
-coord_map(projection = "mercator", parameters = NULL, orientation = NULL,
-  xlim = NULL, ylim = NULL)
+coord_map(projection = "mercator", ..., parameters = NULL,
+  orientation = NULL, xlim = NULL, ylim = NULL)
 
 coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE)
 }
 \arguments{
 \item{projection}{projection to use, see
 \code{\link[mapproj]{mapproject}} for list}
+
+\item{...}{other arguments passed on to mapproject}
 
 \item{parameters}{optional numeric vector of parameters for use with the projection argument. This argument is optional only in the sense that certain projections do not require additional parameters. Passed to
 \code{\link[mapproj]{mapproject}}}
