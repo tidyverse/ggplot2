@@ -171,7 +171,7 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
 
 #' @export
 facet_train_layout.grid <- function(facet, data, env) {
-  layout <- layout_grid(data, facet$rows, facet$cols, facet$margins,
+  layout <- layout_grid(data, env, facet$rows, facet$cols, facet$margins,
     drop = facet$drop, as.table = facet$as.table)
 
   # Relax constraints, if necessary
