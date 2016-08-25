@@ -49,12 +49,12 @@ Coord <- ggproto("Coord",
     guide_grid(theme, x.minor, x.major, y.minor, y.major)
   },
 
-  render_axis_h = function(scale_details, theme) {
-    guide_axis(scale_details$x.major, scale_details$x.labels, "bottom", theme)
+  render_axis_h = function(scale_details, theme, position = "bottom") {
+    guide_axis(scale_details$x.major, scale_details$x.labels, position, theme)
   },
 
-  render_axis_v = function(scale_details, theme) {
-    guide_axis(scale_details$y.major, scale_details$y.labels, "left", theme)
+  render_axis_v = function(scale_details, theme, position = "left") {
+    guide_axis(scale_details$y.major, scale_details$y.labels, position, theme)
   },
 
   range = function(scale_details) {
