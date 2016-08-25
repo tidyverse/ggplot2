@@ -81,6 +81,11 @@
 * Fixed bug where space for dropped levels in scale_discrete would be preserved 
   (#1638)
 
+* Fixed bug where scale expansion was not used correctly for discrete scales
+
+* ggplot2 now warns when breaks are dropped due to using continuous data on a 
+  discrete scale (#1589)
+
 # ggplot2 2.1.0
 
 ## New features
