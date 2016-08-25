@@ -4,7 +4,7 @@
 \alias{facet_null}
 \title{Facet specification: a single panel.}
 \usage{
-facet_null(shrink = TRUE)
+facet_null(x.axis = "bottom", y.axis = "left", shrink = TRUE)
 }
 \arguments{
 \item{shrink}{If \code{TRUE}, will shrink scales to fit output of
