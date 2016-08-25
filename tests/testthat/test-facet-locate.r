@@ -7,8 +7,8 @@ df_c <- unique(data.frame(c = 1))
 
 
 test_that("two col cases with no missings adds single extra column", {
-  vscyl <- layout_grid(list(mtcars), NULL, "cyl", "vs")
-  loc <- locate_grid(mtcars, vscyl, NULL, "cyl", "vs")
+  vscyl <- layout_grid(list(mtcars), "cyl", "vs", env = NULL)
+  loc <- locate_grid(mtcars, vscyl, "cyl", "vs", env = NULL)
 
   expect_equal(nrow(loc), nrow(mtcars))
   expect_equal(ncol(loc), ncol(mtcars) + 1)
@@ -19,42 +19,42 @@ test_that("two col cases with no missings adds single extra column", {
 })
 
 test_that("margins add extra data", {
-  panel <- layout_grid(list(df), NULL, "a", "b", margins = "b")
-  loc <- locate_grid(df, panel, NULL, "a", "b", margins = "b")
+  panel <- layout_grid(list(df), "a", "b", margins = "b", env = NULL)
+  loc <- locate_grid(df, panel, "a", "b", margins = "b", env = NULL)
 
   expect_equal(nrow(loc), nrow(df) * 2)
 })
 
 
 test_that("grid: missing facet columns are duplicated", {
-  panel <- layout_grid(list(df), NULL, "a", "b")
+  panel <- layout_grid(list(df), "a", "b", env = NULL)
 
-  loc_a <- locate_grid(df_a, panel, NULL, "a", "b")
+  loc_a <- locate_grid(df_a, panel, "a", "b", env = NULL)
   expect_equal(nrow(loc_a), 4)
   expect_equal(loc_a$PANEL, factor(1:4))
 
-  loc_b <- locate_grid(df_b, panel, NULL, "a", "b")
+  loc_b <- locate_grid(df_b, panel, "a", "b", env = NULL)
   expect_equal(nrow(loc_b), 4)
   expect_equal(loc_b$PANEL, factor(1:4))
 
-  loc_c <- locate_grid(df_c, panel, NULL, "a", "b")
+  loc_c <- locate_grid(df_c, panel, "a", "b", env = NULL)
   expect_equal(nrow(loc_c), 4)
   expect_equal(loc_c$PANEL, factor(1:4))
 })
 
 test_that("wrap: missing facet columns are duplicated", {
-  panel <- layout_wrap(list(df), NULL, c("a", "b"), ncol = 1)
+  panel <- layout_wrap(list(df), c("a", "b"), ncol = 1, env = NULL)
 
-  loc_a <- locate_wrap(df_a, panel, NULL, c("a", "b"))
+  loc_a <- locate_wrap(df_a, panel, c("a", "b"), NULL)
   expect_equal(nrow(loc_a), 4)
   expect_equal(loc_a$PANEL, factor(1:4))
   expect_equal(loc_a$a, c(1, 1, 2, 2))
 
-  loc_b <- locate_wrap(df_b, panel, NULL, c("a", "b"))
+  loc_b <- locate_wrap(df_b, panel, c("a", "b"), NULL)
   expect_equal(nrow(loc_b), 4)
   expect_equal(loc_b$PANEL, factor(1:4))
 
-  loc_c <- locate_wrap(df_c, panel, NULL, c("a", "b"))
+  loc_c <- locate_wrap(df_c, panel, c("a", "b"), NULL)
   expect_equal(nrow(loc_c), 4)
   expect_equal(loc_c$PANEL, factor(1:4))
 
@@ -69,23 +69,23 @@ a3 <- data.frame(
 )
 
 test_that("wrap: missing values located correctly", {
-  panel_b <- layout_wrap(list(a3), NULL, "b", ncol = 1)
-  loc_b <- locate_wrap(data.frame(b = NA), panel_b, NULL, "b")
+  panel_b <- layout_wrap(list(a3), "b", ncol = 1, env = NULL)
+  loc_b <- locate_wrap(data.frame(b = NA), panel_b, "b", NULL)
   expect_equal(as.character(loc_b$PANEL), "4")
 
-  panel_c <- layout_wrap(list(a3), NULL, "c", ncol = 1)
-  loc_c <- locate_wrap(data.frame(c = NA), panel_c, NULL, "c")
+  panel_c <- layout_wrap(list(a3), "c", ncol = 1, env = NULL)
+  loc_c <- locate_wrap(data.frame(c = NA), panel_c, "c", NULL)
   expect_equal(as.character(loc_c$PANEL), "4")
 
 })
 
 test_that("grid: missing values located correctly", {
-  panel_b <- layout_grid(list(a3), NULL, "b")
-  loc_b <- locate_grid(data.frame(b = NA), panel_b, NULL, "b")
+  panel_b <- layout_grid(list(a3), "b", env = NULL)
+  loc_b <- locate_grid(data.frame(b = NA), panel_b, "b", env = NULL)
   expect_equal(as.character(loc_b$PANEL), "4")
 
-  panel_c <- layout_grid(list(a3), NULL, "c")
-  loc_c <- locate_grid(data.frame(c = NA), panel_c, NULL, "c")
+  panel_c <- layout_grid(list(a3), "c", env = NULL)
+  loc_c <- locate_grid(data.frame(c = NA), panel_c, "c", env = NULL)
   expect_equal(as.character(loc_c$PANEL), "4")
 })
 

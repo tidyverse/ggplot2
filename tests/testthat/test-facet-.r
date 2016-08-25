@@ -53,3 +53,20 @@ test_that("shrink parameter affects scaling", {
   r3 <- pranges(l3)
   expect_equal(r3$y[[1]], c(1, 3))
 })
+
+test_that("scoping of facet expression evaluation works", {
+  df <- data.frame(x = 1:5, y = 1:5, z = 1)
+
+  f <- function() {
+    g <- function(x) x + 2
+  
+    ggplot(df, aes(x, y)) +
+      geom_point() + 
+      facet_grid(. ~ g(x))
+  }
+
+  d <- ggplot_build(f())$data[[1]]
+
+  # we should get 5 panels
+  expect_equal(length(unique(d$PANEL)), 5)
+})

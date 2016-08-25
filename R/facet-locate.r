@@ -8,7 +8,7 @@ NO_PANEL <- -1L
 #
 # @params data a data frame
 # @params env environment of the plot
-locate_grid <- function(data, panels, env, rows = NULL, cols = NULL, margins = FALSE) {
+locate_grid <- function(data, panels, rows = NULL, cols = NULL, margins = FALSE, env = parent_frame()) {
   if (empty(data)) {
     return(cbind(data, PANEL = integer(0)))
   }
@@ -56,7 +56,7 @@ locate_grid <- function(data, panels, env, rows = NULL, cols = NULL, margins = F
 }
 
 # @params env environment of the plot
-locate_wrap <- function(data, panels, env, vars) {
+locate_wrap <- function(data, panels, vars, env = parent_frame()) {
   if (empty(data)) {
     return(cbind(data, PANEL = integer(0)))
   }

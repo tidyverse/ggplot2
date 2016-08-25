@@ -171,8 +171,8 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
 
 #' @export
 facet_train_layout.grid <- function(facet, data, env) {
-  layout <- layout_grid(data, env, facet$rows, facet$cols, facet$margins,
-    drop = facet$drop, as.table = facet$as.table)
+  layout <- layout_grid(data, facet$rows, facet$cols, facet$margins,
+    drop = facet$drop, as.table = facet$as.table, env)
 
   # Relax constraints, if necessary
   layout$SCALE_X <- if (facet$free$x) layout$COL else 1L
@@ -184,7 +184,7 @@ facet_train_layout.grid <- function(facet, data, env) {
 
 #' @export
 facet_map_layout.grid <- function(facet, data, layout, env) {
-  locate_grid(data, layout, env, facet$rows, facet$cols, facet$margins)
+  locate_grid(data, layout, facet$rows, facet$cols, facet$margins, env)
 }
 
 #' @export

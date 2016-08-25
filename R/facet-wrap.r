@@ -110,8 +110,8 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
 
 #' @export
 facet_train_layout.wrap <- function(facet, data, env) {
-  panels <- layout_wrap(data, env, facet$facets, facet$nrow, facet$ncol,
-     facet$as.table, facet$drop, facet$dir)
+  panels <- layout_wrap(data, facet$facets, facet$nrow, facet$ncol,
+     facet$as.table, facet$drop, facet$dir, env)
 
   n <- nrow(panels)
   nrow <- max(panels$ROW)
@@ -129,7 +129,7 @@ facet_train_layout.wrap <- function(facet, data, env) {
 
 #' @export
 facet_map_layout.wrap <- function(facet, data, layout, env) {
-  locate_wrap(data, layout, env, facet$facets)
+  locate_wrap(data, layout, facet$facets, env)
 }
 
 # How to think about facet wrap:

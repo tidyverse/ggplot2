@@ -1,14 +1,14 @@
 # Layout panels in a 2d grid.
 #
 # @params data list of data frames, one for each layer
-# @params env envronment of the plot
 # @params rows variables that form the rows
 # @params cols variables that form the columns
+# @params env envronment to use when evaluating expressions
 # @return a data frame with columns \code{PANEL}, \code{ROW} and \code{COL},
 #   that match the facetting variable values up with their position in the
 #   grid
-layout_grid <- function(data, env, rows = NULL, cols = NULL, margins = NULL,
-                       drop = TRUE, as.table = TRUE) {
+layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL,
+                       drop = TRUE, as.table = TRUE, env = parent.frame()) {
   if (length(rows) == 0 && length(cols) == 0) return(layout_null())
   rows <- as.quoted(rows)
   cols <- as.quoted(cols)
@@ -43,10 +43,10 @@ layout_grid <- function(data, env, rows = NULL, cols = NULL, margins = NULL,
 # Layout out panels in a 1d ribbon.
 #
 # @params drop should missing combinations be excluded from the plot?
-# @params env environment of the plot
+# @params env environment to evaluate expressions
 # @keywords internal
-layout_wrap <- function(data, env, vars = NULL, nrow = NULL, ncol = NULL,
-                        as.table = TRUE, drop = TRUE, dir = "h") {
+layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = TRUE,
+                        drop = TRUE, dir = "h", env = parent.frame()) {
   vars <- as.quoted(vars)
   if (length(vars) == 0) return(layout_null())
 
@@ -115,6 +115,7 @@ layout_base <- function(data, env, vars = NULL, drop = TRUE) {
     if (drop) {
       new <- unique_combs(new)
     }
+
     base <- rbind(base, df.grid(old, new))
   }
 
