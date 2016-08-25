@@ -37,9 +37,9 @@ ggplot_build <- function(plot) {
   # Initialise panels, add extra data for margins & missing facetting
   # variables, and add on a PANEL variable to data
 
-  panel <- new_panel()
-  panel <- train_layout(panel, plot$facet, layer_data, plot$data)
-  data <- map_layout(panel, plot$facet, layer_data)
+  layout <- create_layout(plot$facet)
+  layout$train(layer_data, plot$data)
+  data <- layout$map(layer_data)
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
@@ -52,11 +52,11 @@ ggplot_build <- function(plot) {
   scale_x <- function() scales$get_scales("x")
   scale_y <- function() scales$get_scales("y")
 
-  panel <- train_position(panel, data, scale_x(), scale_y())
-  data <- map_position(panel, data, scale_x(), scale_y())
+  layout$train_position(data, scale_x(), scale_y())
+  data <- layout$map_position(data)
 
   # Apply and map statistics
-  data <- by_layer(function(l, d) l$compute_statistic(d, panel))
+  data <- by_layer(function(l, d) l$compute_statistic(d, layout))
   data <- by_layer(function(l, d) l$map_statistic(d, plot))
 
   # Make sure missing (but required) aesthetics are added
@@ -66,14 +66,14 @@ ggplot_build <- function(plot) {
   data <- by_layer(function(l, d) l$compute_geom_1(d))
 
   # Apply position adjustments
-  data <- by_layer(function(l, d) l$compute_position(d, panel))
+  data <- by_layer(function(l, d) l$compute_position(d, layout))
 
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what's
   # displayed, or does it include the range of underlying data
-  reset_scales(panel)
-  panel <- train_position(panel, data, scale_x(), scale_y())
-  data <- map_position(panel, data, scale_x(), scale_y())
+  layout$reset_scales()
+  layout$train_position(data, scale_x(), scale_y())
+  data <- layout$map_position(data)
 
   # Train and map non-position scales
   npscales <- scales$non_position_scales()
@@ -83,12 +83,12 @@ ggplot_build <- function(plot) {
   }
 
   # Train coordinate system
-  panel <- train_ranges(panel, plot$coordinates)
+  layout$train_ranges(plot$coordinates)
 
   # Fill in defaults etc.
   data <- by_layer(function(l, d) l$compute_geom_2(d))
 
-  list(data = data, panel = panel, plot = plot)
+  list(data = data, layout = layout, plot = plot)
 }
 
 #' @export
@@ -137,20 +137,20 @@ layer_grob <- function(plot, i = 1L) {
 #' @export
 ggplot_gtable <- function(data) {
   plot <- data$plot
-  panel <- data$panel
+  layout <- data$layout
   data <- data$data
   theme <- plot_theme(plot)
 
-  geom_grobs <- Map(function(l, d) l$draw_geom(d, panel, plot$coordinates),
+  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout, plot$coordinates),
     plot$layers, data)
 
-  plot_table <- plot$facet$render(panel, plot$coordinates,
-    theme, geom_grobs)
+  plot_table <- layout$render(geom_grobs, data, plot$coordinates,
+    theme)
 
   # Axis labels
   labels <- plot$coordinates$labels(list(
-    x = xlabel(panel, plot$labels),
-    y = ylabel(panel, plot$labels)
+    x = layout$xlabel(plot$labels),
+    y = layout$ylabel(plot$labels)
   ))
   xlabel <- element_render(theme, "axis.title.x", labels$x, expand_y = TRUE)
   ylabel <- element_render(theme, "axis.title.y", labels$y, expand_x = TRUE)
