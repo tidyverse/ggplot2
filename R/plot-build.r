@@ -144,40 +144,7 @@ ggplot_gtable <- function(data) {
   geom_grobs <- Map(function(l, d) l$draw_geom(d, layout, plot$coordinates),
     plot$layers, data)
 
-  plot_table <- layout$render(geom_grobs, data, plot$coordinates,
-    theme)
-
-  # Axis labels
-  labels <- plot$coordinates$labels(list(
-    x = layout$xlabel(plot$labels),
-    y = layout$ylabel(plot$labels)
-  ))
-  xlabel <- element_render(theme, "axis.title.x", labels$x, expand_y = TRUE)
-  ylabel <- element_render(theme, "axis.title.y", labels$y, expand_x = TRUE)
-
-  # helper function return the position of panels in plot_table
-  find_panel <- function(table) {
-    layout <- table$layout
-    panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
-
-    data.frame(
-      t = min(panels$t),
-      r = max(panels$r),
-      b = max(panels$b),
-      l = min(panels$l)
-    )
-  }
-  panel_dim <-  find_panel(plot_table)
-
-  xlab_height <- grobHeight(xlabel)
-  plot_table <- gtable_add_rows(plot_table, xlab_height)
-  plot_table <- gtable_add_grob(plot_table, xlabel, name = "xlab",
-    l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off")
-
-  ylab_width <- grobWidth(ylabel)
-  plot_table <- gtable_add_cols(plot_table, ylab_width, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
-    l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
+  plot_table <- layout$render(geom_grobs, data, plot$coordinates, theme, plot$labels)
 
   # Legends
   position <- theme$legend.position
@@ -219,7 +186,7 @@ ggplot_gtable <- function(data) {
     }
   }
 
-  panel_dim <-  find_panel(plot_table)
+  panel_dim <-  layout$find_panel(plot_table)
   # for align-to-device, use this:
   # panel_dim <-  summarise(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
 

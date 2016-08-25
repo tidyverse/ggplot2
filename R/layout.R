@@ -21,7 +21,7 @@ Layout <- ggproto("Layout", NULL,
     })
   },
 
-  render = function(self, panels, data, coord, theme) {
+  render = function(self, panels, data, coord, theme, labels) {
     below <- self$facet$render_below(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y)
     above <- self$facet$render_above(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y)
 
@@ -41,8 +41,12 @@ Layout <- ggproto("Layout", NULL,
       ggname(paste("panel", i, sep = "-"),
              gTree(children = do.call("gList", panel)))
     })
-
-    self$facet$render_panels(panels, self$panel_layout, self$panel_scales$x, self$panel_scales$y, self$panel_ranges, coord, data, theme)
+    labels <- coord$labels(list(
+      x = self$xlabel(labels),
+      y = self$ylabel(labels)
+    ))
+    self$facet$render_panels(panels, self$panel_layout, self$panel_scales$x,
+      self$panel_scales$y, self$panel_ranges, coord, data, theme, labels)
   },
 
   train_position = function(self, data, x_scale, y_scale) {
@@ -113,5 +117,9 @@ Layout <- ggproto("Layout", NULL,
 
   ylabel = function(self, labels) {
     self$panel_scales$y[[1]]$name %|W|% labels$y
+  },
+
+  find_panel = function(self, tabel) {
+    self$facet$find_panel(tabel)
   }
 )

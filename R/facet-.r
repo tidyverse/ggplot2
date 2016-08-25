@@ -27,8 +27,9 @@ Facet <- ggproto("Facet", NULL,
   render_above = function(self, data, layout, x_scales, y_scales) {
     self$draw_above(data, layout, x_scales, y_scales, self$params)
   },
-  render_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme) {
-    self$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, self$params)
+  render_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels) {
+    panels <- self$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, self$params)
+    self$draw_labels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, self$params)
   },
   train_positions = function(self, x_scales, y_scales, layout, data) {
     self$train_scales(x_scales, y_scales, layout, data, self$params)
@@ -72,8 +73,40 @@ Facet <- ggproto("Facet", NULL,
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     stop("Not implemented", call. = FALSE)
   },
+  draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
+    xlabel <- element_render(theme, "axis.title.x", labels$x, expand_y = TRUE)
+    ylabel <- element_render(theme, "axis.title.y", labels$y, expand_x = TRUE)
+
+    panel_dim <-  Facet$find_panel(panels)
+
+    xlab_pos <- if ((params$x.axis %||% "bottom") == "bottom") -1 else 0
+    ylab_pos <- if ((params$y.axis %||% "left") == "left") 0 else -1
+
+    xlab_height <- grobHeight(xlabel)
+    panels <- gtable_add_rows(panels, xlab_height, pos = xlab_pos)
+    panels <- gtable_add_grob(panels, xlabel, name = "xlab",
+      l = panel_dim$l, r = panel_dim$r, t = xlab_pos %|0|% 1, clip = "off")
+
+    panel_dim <-  Facet$find_panel(panels)
+
+    ylab_width <- grobWidth(ylabel)
+    panels <- gtable_add_cols(panels, ylab_width, pos = ylab_pos)
+    panels <- gtable_add_grob(panels, ylabel, name = "ylab",
+      l = ylab_pos %|0|% 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
+  },
 
 
+  find_panel = function(table) {
+    layout <- table$layout
+    panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
+
+    data.frame(
+      t = min(panels$t),
+      r = max(panels$r),
+      b = max(panels$b),
+      l = min(panels$l)
+    )
+  },
   # Take input data and define a mapping between facetting variables and ROW,
   # COL and PANEL keys
   #
