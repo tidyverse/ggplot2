@@ -1,5 +1,15 @@
 # ggplot2 2.1.0.9000 
 
+* When computing the height of titles ggplot2, now inclues the height of the
+  descenders (i.e. the bits `g` and `y` that hang underneath). This makes 
+  improves the margins around titles, particularly the y axis label (#1712).
+  
+    I have also very slightly increased the inner margins of axis titles,
+    and removed the outer margins. 
+
+* Themes are more homogeneous visually, and match `theme_grey` better.
+  (@jiho, #1679)
+
 * `position_stack()` and `position_fill()` now sorts the stacking order so it 
   matches the order of the grouping. Use level reordering to alter the stacking 
   order. The default legend and stacking order is now also in line. The default 
@@ -59,6 +69,14 @@
 
 * Fixed problem with `geom_violin()` when quantiles requested but data
   have no range. Added unit test. (#1687)
+
+* Class of aesthetic mapping is preserved when adding `aes()` objects. (#1624)
+
+* Only one warning is issued when asking for too many levels in 
+  `scale_discrete()` (#1674)
+
+* A warning is now issued when a scale transformation introduces infinite 
+  values in a scale (#1696)
 
 # ggplot2 2.1.0
 
