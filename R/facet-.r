@@ -10,6 +10,69 @@ is.facet <- function(x) inherits(x, "Facet")
 
 Facet <- ggproto("Facet", NULL,
   shrink = FALSE,
+  params = list(),
+
+
+# Layout interface --------------------------------------------------------
+
+  train = function(self, data) {
+    self$compute_layout(data, self$params)
+  },
+  map = function(self, data, layout) {
+    self$map_data(data, layout, self$params)
+  },
+  render_below = function(self, data, layout, x_scales, y_scales) {
+    self$draw_below(data, layout, x_scales, y_scales, self$params)
+  },
+  render_above = function(self, data, layout, x_scales, y_scales) {
+    self$draw_above(data, layout, x_scales, y_scales, self$params)
+  },
+  render_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme) {
+    self$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, self$params)
+  },
+  train_positions = function(self, x_scales, y_scales, layout, data) {
+    self$train_scales(x_scales, y_scales, layout, data, self$params)
+  },
+
+
+# Extension interface -----------------------------------------------------
+
+  compute_layout = function(data, params) {
+    stop("Not implemented", call. = FALSE)
+  },
+  map_data = function(data, layout, params) {
+    stop("Not implemented", call. = FALSE)
+  },
+  train_scales = function(x_scales, y_scales, layout, data, params) {
+    # loop over each layer, training x and y scales in turn
+    for (layer_data in data) {
+      match_id <- match(layer_data$PANEL, layout$PANEL)
+
+      if (!is.null(x_scales)) {
+        x_vars <- intersect(x_scales[[1]]$aesthetics, names(layer_data))
+        SCALE_X <- layout$SCALE_X[match_id]
+
+        scale_apply(layer_data, x_vars, "train", SCALE_X, x_scales)
+      }
+
+      if (!is.null(y_scales)) {
+        y_vars <- intersect(y_scales[[1]]$aesthetics, names(layer_data))
+        SCALE_Y <- layout$SCALE_Y[match_id]
+
+        scale_apply(layer_data, y_vars, "train", SCALE_Y, y_scales)
+      }
+    }
+  },
+  draw_below = function(data, layout, x_scales, y_scales, params) {
+    rep(list(zeroGrob()), length(unique(layout$PANEL)))
+  },
+  draw_above = function(data, layout, x_scales, y_scales, params) {
+    rep(list(zeroGrob()), length(unique(layout$PANEL)))
+  },
+  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
+    stop("Not implemented", call. = FALSE)
+  },
+
 
   # Take input data and define a mapping between facetting variables and ROW,
   # COL and PANEL keys
@@ -53,103 +116,6 @@ Facet <- ggproto("Facet", NULL,
     }
 
     base
-  },
-  # Calls layout and decorate the output with addition information such as
-  # and axis information
-  #
-  # @param data A list of data.frames, the first being the plot data and the
-  # subsequent individual layer data
-  #
-  # @return As $layout but potentially with additional columns depending on
-  # subclass implementation
-  train = function(self, data) {
-    stop("Not implemented", call. = FALSE)
-  },
-  # Decorate data with PANEL keys based on a layout
-  #
-  # @param data A list of data.frames, the first being the plot data and the
-  # subsequent individual layer data
-  #
-  # @param layout A layout as returned by $train
-  #
-  # @return A list of data.frames based on input with a PANEL column mapping
-  # data to specific panels. Data can be changed, e.g. if margin=TRUE it will
-  # be duplicated
-  map = function(self, data, layout) {
-    stop("Not implemented", call. = FALSE)
-  },
-  # Renders the plot area into a gtable
-  #
-  # @param panel A panel object containing layout, scales and ranges
-  #
-  # @param coord A Coord object specifying the coordinate system
-  #
-  # @param theme A theme object
-  #
-  # @param geom_grobs The generated grobs for each layer as a list, each
-  # element split into panels
-  #
-  # @return A gtable with the central plot area
-  render = function(self, panel, coord, theme, geom_grobs) {
-    stop("Not implemented", call. = FALSE)
-  },
-  # Renders the facet strips. This is not a required method as such but used
-  # by convention by FacetGrid and FacetWrap. Extensions want necessarly need to
-  # implement it
-  #
-  # @param panel A panel object containing layout, scales and ranges
-  #
-  # @param theme A theme object
-  #
-  # @return A list of grobs named after their position. t=top, b=bottom,
-  # l=left, r=right
-  strips = function(self, panel, theme) {
-    stop("Not implemented", call. = FALSE)
-  },
-  # Renders the plot area(s). This is not a required method as such but used
-  # by convention by FacetGrid and FacetWrap. Extensions want necessarly need to
-  # implement it
-  #
-  # @param panel A panel object containing layout, scales and ranges
-  #
-  # @param coord A Coord object specifying the coordinate system
-  #
-  # @param theme A theme object
-  #
-  # @param geom_grobs The generated grobs for each layer as a list, each
-  # element split into panels
-  #
-  # @return Depends on subclass. FacetGrid returns a TableGrob, while FacetWrap
-  # returns a lis of gTree
-  panels = function(self, panel, coord, theme, geom_grobs) {
-    stop("Not implemented", call. = FALSE)
-  },
-  # Renders the axes for the plot. This is not a required method as such but used
-  # by convention by FacetGrid and FacetWrap. Extensions want necessarly need to
-  # implement it
-  #
-  # @param panel A panel object containing layout, scales and ranges
-  #
-  # @param coord A Coord object specifying the coordinate system
-  #
-  # @param theme A theme object
-  #
-  # @param geom_grobs The generated grobs for each layer as a list, each
-  # element split into panels
-  #
-  # @return A list of grobs named after their position. t=top, b=bottom,
-  # l=left, r=right
-  axes = function(self, panel, coord, theme) {
-    stop("Not implemented", call. = FALSE)
-  },
-  # Create a string representation of the facetting variables
-  vars = function(self) {
-    stop("Not implemented", call. = FALSE)
-  },
-  # Prints information of the object, using the $vars method
-  print = function(self) {
-    cat("<", class(self)[[1]], ">\n", sep = "")
-    cat("Variables: ", self$vars(), '\n', sep = "")
   }
 )
 
@@ -187,5 +153,5 @@ quoted_df <- function(data, vars) {
 }
 
 layout_null <- function() {
-  data.frame(PANEL = 1, ROW = 1, COL = 1)
+  data.frame(PANEL = 1, ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
 }
