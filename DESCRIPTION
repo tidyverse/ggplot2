@@ -140,6 +140,7 @@ Collate:
     'labeller.r'
     'labels.r'
     'layer.r'
+    'layout.R'
     'limits.r'
     'margins.R'
     'panel.r'
