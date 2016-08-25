@@ -23,13 +23,3 @@ test_that("discrete scale shrinks to range when setting limits", {
 
   expect_equal(layer_scales(p)$x$dimension(c(0, 1)), c(0, 3))
 })
-
-test_that("limits are returned correctly when using continuous input", {
-  df <- data.frame(x = 1:10, y = 1:10)
-  p <- ggplot(data = df, mapping = aes(x = x, y = y)) +
-    geom_line() +
-    geom_point() +
-    scale_x_discrete()
-
-  expect_equal(layer_scales(p)$x$get_limits(), seq_len(10))
-})
