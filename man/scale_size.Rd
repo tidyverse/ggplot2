@@ -11,10 +11,12 @@
 \title{Scale size (area or radius).}
 \usage{
 scale_radius(name = waiver(), breaks = waiver(), labels = waiver(),
-  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
+  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend",
+  na.value = NA_real_)
 
 scale_size(name = waiver(), breaks = waiver(), labels = waiver(),
-  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
+  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend",
+  na.value = NA_real_)
 
 scale_size_area(..., max_size = 6)
 }
@@ -59,6 +61,8 @@ maximum size of the plotting symbol after transformation.}
   transformation with \code{\link[scales]{trans_new}}.}
 
 \item{guide}{Name of guide object, or object itself.}
+
+\item{na.value}{Missing values will be replaced with this value.}
 
 \item{...}{Other arguments passed on to \code{\link{continuous_scale}}
 to control name, limits, breaks, labels and so forth.}
