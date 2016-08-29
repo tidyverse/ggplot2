@@ -68,6 +68,7 @@ Collate:
     'annotation-raster.r'
     'annotation.r'
     'autoplot.r'
+    'axis-secondary.R'
     'bench.r'
     'bin.R'
     'coord-.r'
