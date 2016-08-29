@@ -49,12 +49,22 @@ Coord <- ggproto("Coord",
     guide_grid(theme, x.minor, x.major, y.minor, y.major)
   },
 
-  render_axis_h = function(scale_details, theme, position = "bottom") {
-    guide_axis(scale_details$x.major, scale_details$x.labels, position, theme)
+  render_axis_h = function(scale_details, theme) {
+    arrange <- scale_details$x.arrange %||% c("secondary", "primary")
+
+    list(
+      top = render_axis(scale_details, arrange[1], "x", "top", theme),
+      bottom = render_axis(scale_details, arrange[2], "x", "bottom", theme)
+    )
   },
 
-  render_axis_v = function(scale_details, theme, position = "left") {
-    guide_axis(scale_details$y.major, scale_details$y.labels, position, theme)
+  render_axis_v = function(scale_details, theme) {
+    arrange <- scale_details$y.arrange %||% c("primary", "secondary")
+
+    list(
+      left = render_axis(scale_details, arrange[1], "y", "left", theme),
+      right = render_axis(scale_details, arrange[2], "y", "right", theme)
+    )
   },
 
   range = function(scale_details) {
@@ -78,4 +88,14 @@ is.Coord <- function(x) inherits(x, "Coord")
 
 expand_default <- function(scale, discrete = c(0, 0.6), continuous = c(0.05, 0)) {
   scale$expand %|W|% if (scale$is_discrete()) discrete else continuous
+}
+
+render_axis <- function(scale_details, axis, scale, position, theme) {
+  if (axis == "primary") {
+    guide_axis(scale_details[[paste0(scale, ".major")]], scale_details[[paste0(scale, ".labels")]], position, theme)
+  } else if (axis == "secondary" && !is.null(scale_details[[paste0(scale, ".sec.major")]])) {
+    guide_axis(scale_details[[paste0(scale, ".sec.major")]], scale_details[[paste0(scale, ".sec.labels")]], position, theme)
+  } else {
+    zeroGrob()
+  }
 }

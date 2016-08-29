@@ -45,6 +45,7 @@ Layout <- ggproto("Layout", NULL,
       x = self$xlabel(labels),
       y = self$ylabel(labels)
     ))
+    labels <- self$render_labels(labels, theme)
     self$facet$render_panels(panels, self$panel_layout, self$panel_scales$x,
       self$panel_scales$y, self$panel_ranges, coord, data, theme, labels)
   },
@@ -112,14 +113,44 @@ Layout <- ggproto("Layout", NULL,
   },
 
   xlabel = function(self, labels) {
-    self$panel_scales$x[[1]]$name %|W|% labels$x
+    primary <- self$panel_scales$x[[1]]$name %|W|% labels$x
+    secondary <- if (is.null(self$panel_scales$x[[1]]$secondary.axis)) {
+      waiver()
+    } else {
+      self$panel_scales$x[[1]]$sec_name()
+    } %|W|% labels$sec.x
+    list(primary = primary, secondary = secondary)[self$panel_scales$x[[1]]$axis_order()]
   },
 
   ylabel = function(self, labels) {
-    self$panel_scales$y[[1]]$name %|W|% labels$y
+    primary <- self$panel_scales$y[[1]]$name %|W|% labels$y
+    secondary <- if (is.null(self$panel_scales$y[[1]]$secondary.axis)) {
+      waiver()
+    } else {
+      self$panel_scales$y[[1]]$sec_name()
+    } %|W|% labels$sec.y
+    list(primary = primary, secondary = secondary)[self$panel_scales$y[[1]]$axis_order()]
   },
 
   find_panel = function(self, tabel) {
     self$facet$find_panel(tabel)
+  },
+
+  render_labels = function(self, labels, theme) {
+    label_grobs <- lapply(names(labels), function(label) {
+      lapply(names(labels[[label]]), function(ary) {
+        if (is.null(labels[[label]][[ary]]) || is.waive(labels[[label]][[ary]])) return(zeroGrob())
+        args <- list(
+          theme = theme,
+          element = paste0("axis.title.", label),
+          label = labels[[label]][[ary]],
+          expand_x = label == "y",
+          expand_y = label == "x"
+        )
+        do.call(element_render, args)
+      })
+    })
+    names(label_grobs) <- names(labels)
+    label_grobs
   }
 )

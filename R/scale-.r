@@ -30,6 +30,7 @@ Scale <- ggproto("Scale", NULL,
   breaks = waiver(),
   labels = waiver(),
   guide = "legend",
+  position = "left",
 
 
   is_discrete = function() {
@@ -151,6 +152,14 @@ Scale <- ggproto("Scale", NULL,
 
   break_info = function(self, range = NULL) {
     stop("Not implemented", call. = FALSE)
+  },
+
+  axis_order = function(self) {
+    ord <- c("primary", "secondary")
+    if (self$position %in% c("right", "bottom")) {
+      ord <- rev(ord)
+    }
+    ord
   }
 )
 
@@ -522,9 +531,11 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                              labels = waiver(), limits = NULL,
                              rescaler = rescale, oob = censor,
                              expand = waiver(), na.value = NA_real_,
-                             trans = "identity", guide = "legend") {
+                             trans = "identity", guide = "legend", position = "left") {
 
   check_breaks_labels(breaks, labels)
+
+  position <- match.arg(position, c("left", "right", "top", "bottom"))
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
     guide <- "none"
@@ -555,7 +566,8 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     minor_breaks = minor_breaks,
 
     labels = labels,
-    guide = guide
+    guide = guide,
+    position = position
   )
 }
 
@@ -602,9 +614,11 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(),
   labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE,
-  guide = "legend") {
+  guide = "legend", position = "left") {
 
   check_breaks_labels(breaks, labels)
+
+  position <- match.arg(position, c("left", "right", "top", "bottom"))
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
     guide <- "none"
@@ -626,6 +640,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), bre
     breaks = breaks,
     labels = labels,
     drop = drop,
-    guide = guide
+    guide = guide,
+    position = position
   )
 }

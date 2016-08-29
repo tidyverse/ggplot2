@@ -74,25 +74,31 @@ Facet <- ggproto("Facet", NULL,
     stop("Not implemented", call. = FALSE)
   },
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
-    xlabel <- element_render(theme, "axis.title.x", labels$x, expand_y = TRUE)
-    ylabel <- element_render(theme, "axis.title.y", labels$y, expand_x = TRUE)
+    panel_dim <-  Facet$find_panel(panels)
+
+    xlab_height_top <- grobHeight(labels$x[[1]])
+    panels <- gtable_add_rows(panels, xlab_height_top, pos = 0)
+    panels <- gtable_add_grob(panels, labels$x[[1]], name = "xlab-t",
+      l = panel_dim$l, r = panel_dim$r, t = 1, clip = "off")
+
+    xlab_height_bottom <- grobHeight(labels$x[[2]])
+    panels <- gtable_add_rows(panels, xlab_height_bottom, pos = -1)
+    panels <- gtable_add_grob(panels, labels$x[[2]], name = "xlab-b",
+      l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off")
 
     panel_dim <-  Facet$find_panel(panels)
 
-    xlab_pos <- if ((params$x.axis %||% "bottom") == "bottom") -1 else 0
-    ylab_pos <- if ((params$y.axis %||% "left") == "left") 0 else -1
+    ylab_width_left <- grobWidth(labels$y[[1]])
+    panels <- gtable_add_cols(panels, ylab_width_left, pos = 0)
+    panels <- gtable_add_grob(panels, labels$y[[1]], name = "ylab-l",
+      l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
 
-    xlab_height <- grobHeight(xlabel)
-    panels <- gtable_add_rows(panels, xlab_height, pos = xlab_pos)
-    panels <- gtable_add_grob(panels, xlabel, name = "xlab",
-      l = panel_dim$l, r = panel_dim$r, t = xlab_pos %|0|% 1, clip = "off")
+    ylab_width_right <- grobWidth(labels$y[[2]])
+    panels <- gtable_add_cols(panels, ylab_width_right, pos = -1)
+    panels <- gtable_add_grob(panels, labels$y[[2]], name = "ylab-r",
+      l = -1, b = panel_dim$b, t = panel_dim$t, clip = "off")
 
-    panel_dim <-  Facet$find_panel(panels)
-
-    ylab_width <- grobWidth(ylabel)
-    panels <- gtable_add_cols(panels, ylab_width, pos = ylab_pos)
-    panels <- gtable_add_grob(panels, ylabel, name = "ylab",
-      l = ylab_pos %|0|% 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
+    panels
   },
 
 

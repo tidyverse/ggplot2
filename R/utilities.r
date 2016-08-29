@@ -11,10 +11,6 @@ scales::alpha
   if (!is.null(a)) a else b
 }
 
-"%|0|%" <- function(a, b) {
-  if (a != 0) a else b
-}
-
 "%|W|%" <- function(a, b) {
   if (!is.waive(a)) a else b
 }

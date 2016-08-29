@@ -15,12 +15,12 @@
 scale_x_continuous(name = waiver(), breaks = waiver(),
   minor_breaks = waiver(), labels = waiver(), limits = NULL,
   expand = waiver(), oob = censor, na.value = NA_real_,
-  trans = "identity")
+  trans = "identity", position = "bottom", sec.axis = waiver())
 
 scale_y_continuous(name = waiver(), breaks = waiver(),
   minor_breaks = waiver(), labels = waiver(), limits = NULL,
   expand = waiver(), oob = censor, na.value = NA_real_,
-  trans = "identity")
+  trans = "identity", position = "left", sec.axis = waiver())
 
 scale_x_log10(...)
 
