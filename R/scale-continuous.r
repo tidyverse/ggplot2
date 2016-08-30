@@ -76,6 +76,10 @@
 NULL
 
 #' @rdname scale_continuous
+#'
+#' @param sec.axis specifify a secondary axis
+#'
+#' @seealso \code{\link{sec_axis}} for how to specify secondary axes
 #' @export
 scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),

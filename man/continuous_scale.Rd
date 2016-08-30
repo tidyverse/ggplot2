@@ -79,6 +79,9 @@ discrete variables.}
   transformation with \code{\link[scales]{trans_new}}.}
 
 \item{guide}{Name of guide object, or object itself.}
+
+\item{position}{The position of the axis. "left" or "right" for vertical
+scales, "top" or "bottom" for horizontal scales}
 }
 \description{
 Continuous scale constructor.

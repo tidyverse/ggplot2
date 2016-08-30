@@ -154,6 +154,7 @@ Scale <- ggproto("Scale", NULL,
     stop("Not implemented", call. = FALSE)
   },
 
+  # Only relevant for positional scales
   axis_order = function(self) {
     ord <- c("primary", "secondary")
     if (self$position %in% c("right", "bottom")) {
@@ -525,6 +526,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   \code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
 #'   discrete variables.
 #' @param guide Name of guide object, or object itself.
+#' @param position The position of the axis. "left" or "right" for vertical
+#'   scales, "top" or "bottom" for horizontal scales
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                              breaks = waiver(), minor_breaks = waiver(),
@@ -611,6 +614,8 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' @param na.value how should missing values be displayed?
 #' @param guide the name of, or actual function, used to create the
 #'   guide. See \code{\link{guides}} for more info.
+#' @param position The position of the axis. "left" or "right" for vertical
+#'   scales, "top" or "bottom" for horizontal scales
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(),
   labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE,

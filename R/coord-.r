@@ -18,8 +18,8 @@
 #'   \item \code{labels}: Returns a list containing labels for x and y.
 #'   \item \code{render_fg}: Renders foreground elements.
 #'   \item \code{render_bg}: Renders background elements.
-#'   \item \code{render_axis_h}: Renders the horizontal axis.
-#'   \item \code{render_axis_v}: Renders the vertical axis.
+#'   \item \code{render_axis_h}: Renders the horizontal axes.
+#'   \item \code{render_axis_v}: Renders the vertical axes.
 #'   \item \code{range}: Returns the x and y ranges
 #'   \item \code{train}: Return the trained scale ranges.
 #'   \item \code{transform}: Transforms x and y coordinates.
@@ -90,6 +90,8 @@ expand_default <- function(scale, discrete = c(0, 0.6), continuous = c(0.05, 0))
   scale$expand %|W|% if (scale$is_discrete()) discrete else continuous
 }
 
+# Renders an axis with the correct orientation or zeroGrob if no axis should be
+# generated
 render_axis <- function(scale_details, axis, scale, position, theme) {
   if (axis == "primary") {
     guide_axis(scale_details[[paste0(scale, ".major")]], scale_details[[paste0(scale, ".labels")]], position, theme)

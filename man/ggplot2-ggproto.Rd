@@ -169,8 +169,8 @@ object, you typically will want to implement one or more of the following:
   \item \code{labels}: Returns a list containing labels for x and y.
   \item \code{render_fg}: Renders foreground elements.
   \item \code{render_bg}: Renders background elements.
-  \item \code{render_axis_h}: Renders the horizontal axis.
-  \item \code{render_axis_v}: Renders the vertical axis.
+  \item \code{render_axis_h}: Renders the horizontal axes.
+  \item \code{render_axis_v}: Renders the vertical axes.
   \item \code{range}: Returns the x and y ranges
   \item \code{train}: Return the trained scale ranges.
   \item \code{transform}: Transforms x and y coordinates.

@@ -56,6 +56,9 @@ The default, \code{TRUE}, uses the levels that appear in the data;
 
 \item{guide}{the name of, or actual function, used to create the
 guide. See \code{\link{guides}} for more info.}
+
+\item{position}{The position of the axis. "left" or "right" for vertical
+scales, "top" or "bottom" for horizontal scales}
 }
 \description{
 Discrete scale constructor.

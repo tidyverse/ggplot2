@@ -90,6 +90,11 @@ discrete variables.}
   \code{\link[scales]{boxcox_trans}}. You can create your own
   transformation with \code{\link[scales]{trans_new}}.}
 
+\item{position}{The position of the axis. "left" or "right" for vertical
+scales, "top" or "bottom" for horizontal scales}
+
+\item{sec.axis}{specifify a secondary axis}
+
 \item{...}{Other arguments passed on to \code{scale_(x|y)_continuous}}
 }
 \description{
@@ -165,5 +170,7 @@ ggplot(movies, aes(rating, votes)) +
 }
 \seealso{
 \code{\link{scale_date}} for date/time position scales.
+
+\code{\link{sec_axis}} for how to specify secondary axes
 }
 
