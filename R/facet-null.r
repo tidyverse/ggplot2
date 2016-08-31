@@ -9,17 +9,9 @@ NULL
 #' # facet_null is the default facetting specification if you
 #' # don't override it with facet_grid or facet_wrap
 #' ggplot(mtcars, aes(mpg, wt)) + geom_point()
-facet_null <- function(x.axis = "bottom", y.axis = "left", x.secondary = NULL, x.sec.name = "", y.secondary = NULL, y.sec.name = "", shrink = TRUE) {
+facet_null <- function(shrink = TRUE) {
   ggproto(NULL, FacetNull,
-    shrink = shrink,
-    params = list(
-      x.axis = match.arg(x.axis, c("bottom", "top")),
-      y.axis = match.arg(y.axis, c("left", "right")),
-      x.secondary = x.secondary,
-      x.sec.name = x.sec.name,
-      y.secondary = y.secondary,
-      y.sec.name = y.sec.name
-    )
+    shrink = shrink
   )
 }
 
