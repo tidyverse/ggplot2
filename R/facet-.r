@@ -113,6 +113,14 @@ Facet <- ggproto("Facet", NULL,
       l = min(panels$l)
     )
   },
+  panel_cols = function(table) {
+    panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
+    unique(panels[, c('l', 'r')])
+  },
+  panel_rows = function(table) {
+    panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
+    unique(panels[, c('t', 'b')])
+  },
   # Take input data and define a mapping between facetting variables and ROW,
   # COL and PANEL keys
   #
@@ -120,7 +128,7 @@ Facet <- ggproto("Facet", NULL,
   # subsequent individual layer data
   #
   # @return A data.frame with columns for PANEL, ROW, COL, and facetting vars
-  layout = function(data, vars = NULL, drop = TRUE) {
+  combine_vars = function(data, vars = NULL, drop = TRUE) {
     if (length(vars) == 0) return(data.frame())
 
     # For each layer, compute the facet values
@@ -155,6 +163,22 @@ Facet <- ggproto("Facet", NULL,
     }
 
     base
+  },
+  render_axes = function(x = NULL, y = NULL, coord, theme) {
+    axes <- list()
+    if (!is.null(x)) {
+      axes$x <- lapply(x, coord$render_axis_h, theme)
+    }
+    if (!is.null(y)) {
+      axes$y <- lapply(y, coord$render_axis_v, theme)
+    }
+    axes
+  },
+  render_strips = function(x = NULL, y = NULL, labeller, theme) {
+    list(
+      x = build_strip(x, labeller, theme, TRUE),
+      y = build_strip(y, labeller, theme, FALSE)
+    )
   }
 )
 
