@@ -273,6 +273,9 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.background    = el_def("element_rect", "rect"),
   strip.text.x        = el_def("element_text", "strip.text"),
   strip.text.y        = el_def("element_text", "strip.text"),
+  strip.placement     = el_def("character"),
+  strip.placement.x   = el_def("character", "strip.placement"),
+  strip.placement.y   = el_def("character", "strip.placement"),
   strip.switch.pad.grid = el_def("unit"),
   strip.switch.pad.wrap = el_def("unit"),
 

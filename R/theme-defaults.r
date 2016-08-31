@@ -120,6 +120,9 @@ theme_grey <- function(base_size = 11, base_family = "") {
     strip.text =         element_text(colour = "grey10", size = rel(0.8)),
     strip.text.x =       element_text(margin = margin(t = half_line, b = half_line)),
     strip.text.y =       element_text(angle = -90, margin = margin(l = half_line, r = half_line)),
+    strip.placement =    "inside",
+    strip.placement.x =  NULL,
+    strip.placement.y =  NULL,
     strip.switch.pad.grid = unit(0.1, "cm"),
     strip.switch.pad.wrap = unit(0.1, "cm"),
 
