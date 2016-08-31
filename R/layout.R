@@ -25,7 +25,7 @@ Layout <- ggproto("Layout", NULL,
     below <- self$facet$render_back(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y)
     above <- self$facet$render_front(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y)
 
-    panels <- lapply(seq_along(panels), function(i) {
+    panels <- lapply(seq_along(panels[[1]]), function(i) {
       fg <- coord$render_fg(self$panel_ranges[[i]], theme)
       bg <- coord$render_bg(self$panel_ranges[[i]], theme)
 
