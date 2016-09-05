@@ -79,14 +79,18 @@ NULL
 #' }
 facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
                        shrink = TRUE, labeller = "label_value", as.table = TRUE,
-                       switch = NULL, drop = TRUE, dir = "h") {
+                       switch = NULL, drop = TRUE, dir = "h", strip.position = 'top') {
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   dir <- match.arg(dir, c("h", "v"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
     y = any(scales %in% c("free_y", "free"))
   )
-
+  if (!is.null(switch)) {
+    .Deprecated("strip.position", old = "switch")
+    strip.position <- "right"
+  }
+  strip.position <- match.arg(strip.position, c("top", "bottom", "left", "right"))
   if (identical(dir, "v")) {
     # swap
     nrow_swap <- ncol
@@ -102,41 +106,33 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   labeller <- check_labeller(labeller)
 
   ggproto(NULL, FacetWrap,
-    facets = as.quoted(facets), free = free, shrink = shrink,
-    as.table = as.table, switch = switch,
+    shrink = shrink,
+    params = list(facets = as.quoted(facets), free = free,
+    as.table = as.table, strip.position = strip.position,
     drop = drop, ncol = ncol, nrow = nrow,
     labeller = labeller,
-    dir = dir
+    dir = dir)
   )
 }
 
 FacetWrap <- ggproto("FacetWrap", Facet,
   shrink = TRUE,
-  facets = NULL,
-  free = NULL,
-  as.table = NULL,
-  switch = NULL,
-  drop = NULL,
-  ncol = NULL,
-  nrow = NULL,
-  labeller = NULL,
-  dir = NULL,
 
-  layout = function(self, data) {
-    vars <- as.quoted(self$facets)
+  compute_layout = function(data, params) {
+    vars <- as.quoted(params$facets)
     if (length(vars) == 0) return(layout_null())
 
     base <- plyr::unrowname(
-      ggproto_parent(Facet, self)$layout(data, vars, drop = self$drop)
+      Facet$combine_vars(data, vars, drop = params$drop)
     )
 
     id <- plyr::id(base, drop = TRUE)
     n <- attr(id, "n")
 
-    dims <- wrap_dims(n, self$nrow, self$ncol)
+    dims <- wrap_dims(n, params$nrow, params$ncol)
     layout <- data.frame(PANEL = factor(id, levels = seq_len(n)))
 
-    if (self$as.table) {
+    if (params$as.table) {
       layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
     } else {
       layout$ROW <- as.integer(dims[1] - (id - 1L) %/% dims[2])
@@ -144,36 +140,28 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
 
     # For vertical direction, flip row and col
-    if (identical(self$dir, "v")) {
+    if (identical(params$dir, "v")) {
       layout[c("ROW", "COL")] <- layout[c("COL", "ROW")]
     }
 
     panels <- cbind(layout, plyr::unrowname(base))
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
-    panels
-  },
-  train = function(self, data) {
-    panels <- self$layout(data)
 
-    n <- nrow(panels)
     nrow <- max(panels$ROW)
+    ncol <- max(panels$COL)
 
     # Add scale identification
-    panels$SCALE_X <- if (self$free$x) seq_len(n) else 1L
-    panels$SCALE_Y <- if (self$free$y) seq_len(n) else 1L
-
-    # Figure out where axes should go
-    panels$AXIS_X <- if (self$free$x) TRUE else panels$ROW == nrow
-    panels$AXIS_Y <- if (self$free$y) TRUE else panels$COL == 1
+    panels$SCALE_X <- if (params$free$x) seq_len(n) else 1L
+    panels$SCALE_Y <- if (params$free$y) seq_len(n) else 1L
 
     panels
   },
-  map = function(self, data, layout) {
+  map_data = function(data, layout, params) {
     if (empty(data)) {
       return(cbind(data, PANEL = integer(0)))
     }
-    vars <- as.quoted(self$facets)
+    vars <- as.quoted(params$facets)
 
     facet_vals <- quoted_df(data, vars)
     facet_vals[] <- lapply(facet_vals[], as.factor)
@@ -197,18 +185,36 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     data[order(data$PANEL), ]
   },
-  render = function(self, panel, coord, theme, geom_grobs) {
+  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
+    #browser()
     # If coord is (non-cartesian or flip) and (x is free or y is free)
     # then print a warning
     if ((!inherits(coord, "CoordCartesian") || inherits(coord, "CoordFlip")) &&
-        (self$free$x || self$free$y)) {
+        (params$free$x || params$free$y)) {
       stop("ggplot2 does not currently support free scales with a non-cartesian coord or coord_flip.\n")
     }
+
+    ncol <- max(layout$COL)
+    nrow <- max(layout$ROW)
+    n <- nrow(layout)
+    panel_order <- order(layout$ROW, layout$COL)
+    layout <- layout[panel_order, ]
+    panels <- panels[panel_order]
+    panel_pos <- convertInd(layout$ROW, layout$COL, nrow)
+
+    axes <- Facet$render_axes(ranges, ranges, coord, theme, transpose = TRUE)
+
+    labels_df <- layout[names(params$facets)]
+    attr(labels_df, "facet") <- "wrap"
+    strips <- Facet$render_strips(
+      structure(labels_df, type = "rows"),
+      structure(labels_df, type = "cols"),
+      params$labeller, theme)
 
     # If user hasn't set aspect ratio, and we have fixed scales, then
     # ask the coordinate system if it wants to specify one
     aspect_ratio <- theme$aspect.ratio
-    if (is.null(aspect_ratio) && !self$free$x && !self$free$y) {
+    if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
       aspect_ratio <- coord$aspect(panel$ranges[[1]])
     }
 
@@ -219,237 +225,83 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       respect <- TRUE
     }
 
-    layout <- panel$layout
-    ncol <- max(layout$COL)
-    nrow <- max(layout$ROW)
-    n <- nrow(layout)
+    empty_table <- matrix(list(zeroGrob()), nrow = nrow, ncol = ncol)
+    panel_table <- empty_table
+    panel_table[panel_pos] <- panels
+    empties <- apply(panel_table, c(1,2), function(x) inherits(x[[1]], 'zeroGrob'))
+    panel_table <- gtable_matrix("layout", panel_table,
+     widths = unit(rep(1, ncol), "null"),
+     heights = unit(rep(aspect_ratio, nrow), "null"), respect = respect)
+    panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
-    # Set switch to default value when misspecified
-    switch_to_x <- FALSE
-    switch_to_y <- FALSE
-    if (!is.null(self$switch) && self$switch == "x") {
-      switch_to_x <- TRUE
-    } else if (!is.null(self$switch) && self$switch == "y") {
-      switch_to_y <- TRUE
-    } else if (!is.null(self$switch)) {
-      message("`switch` must be set to 'x', 'y' or NULL")
-      self$switch <- NULL
+    panel_table <- gtable_add_col_space(panel_table,
+      theme$panel.margin.x %||% theme$panel.margin)
+    panel_table <- gtable_add_row_space(panel_table,
+      theme$panel.margin.y %||% theme$panel.margin)
+
+    # Add axes
+    axis_mat_x_top <- empty_table
+    axis_mat_x_top[panel_pos] <- axes$x$top[layout$SCALE_X]
+    axis_mat_x_bottom <- empty_table
+    axis_mat_x_bottom[panel_pos] <- axes$x$bottom[layout$SCALE_X]
+    axis_mat_y_left <- empty_table
+    axis_mat_y_left[panel_pos] <- axes$y$left[layout$SCALE_Y]
+    axis_mat_y_right <- empty_table
+    axis_mat_y_right[panel_pos] <- axes$y$right[layout$SCALE_Y]
+    if (!params$free$x) {
+      axis_mat_x_top[-1,]<- list(zeroGrob())
+      axis_mat_x_bottom[-nrow,]<- list(zeroGrob())
     }
-    panels <- self$panels(panel, coord, theme, geom_grobs)
-    axes <- self$axes(panel, coord, theme)
-    strips <- self$strips(panel, theme)
-
-
-    # Should become facet_arrange_grobs
-
-    # Locate each element in panel
-    find_pos <- function(layout, loc, size) {
-      n <- nrow(layout)
-      l <- size[1] * (layout$COL - 1) + loc[1]
-      t <- size[2] * (layout$ROW - 1) + loc[2]
-      data.frame(t = t, r = l, b = t, l = l, id = seq_len(n))
+    if (!params$free$y) {
+      axis_mat_y_left[, -1] <- list(zeroGrob())
+      axis_mat_y_right[, -ncol] <- list(zeroGrob())
     }
+    axis_height_top <- unit(apply(axis_mat_x_top, 1, max_height), "cm")
+    axis_height_bottom <- unit(apply(axis_mat_x_bottom, 1, max_height), "cm")
+    axis_width_left <- unit(apply(axis_mat_y_left, 2, max_width), "cm")
+    axis_width_right <- unit(apply(axis_mat_y_right, 2, max_width), "cm")
+    panel_table <- weave_tables_row(panel_table, axis_mat_x_top, -1, axis_height_top, "axis-t")
+    panel_table <- weave_tables_row(panel_table, axis_mat_x_bottom, 0, axis_height_bottom, "axis-b")
+    panel_table <- weave_tables_col(panel_table, axis_mat_y_left, -1, axis_width_left, "axis-l")
+    panel_table <- weave_tables_col(panel_table, axis_mat_y_right, 0, axis_width_right, "axis-r")
 
-
-    if (switch_to_x) {
-      locs <- list(
-        panel =   c(2, 1),
-        strip_t = c(2, 3),
-        axis_l =  c(1, 1),
-        axis_b =  c(2, 2),
-        hspace =  c(2, 4),
-        vspace =  c(3, 1)
-      )
-    } else if (switch_to_y) {
-      locs <- list(
-        panel =   c(3, 1),
-        strip_t = c(1, 1),
-        axis_l =  c(2, 1),
-        axis_b =  c(3, 2),
-        hspace =  c(3, 3),
-        vspace =  c(4, 1)
-      )
+    strip_padding <- convertUnit(theme$strip.switch.pad.wrap, "cm")
+    strip_name <- paste0("strip-", substr(params$strip.position, 1, 1))
+    strip_mat <- empty_table
+    strip_mat[panel_pos] <- unlist(unname(strips), recursive = FALSE)[[params$strip.position]]
+    if (params$strip.position %in% c("top", "bottom")) {
+      inside <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
+      if (params$strip.position == "top") {
+        placement <- if (inside) -1 else -2
+        strip_pad <- axis_height_top
+      } else {
+        placement <- if (inside) 0 else 1
+        strip_pad <- axis_height_bottom
+      }
+      strip_height <- unit(apply(strip_mat, 1, max_height), "cm")
+      panel_table <- weave_tables_row(panel_table, strip_mat, placement, strip_height, strip_name)
+      if (!inside) {
+        strip_pad[unclass(strip_pad) != 0] <- strip_padding
+        panel_table <- weave_tables_row(panel_table, row_shift = placement, row_height = strip_pad)
+      }
     } else {
-      locs <- list(
-        panel =   c(2, 2),
-        strip_t = c(2, 1),
-        axis_l =  c(1, 2),
-        axis_b =  c(2, 3),
-        hspace =  c(2, 4),
-        vspace =  c(3, 2)
-      )
-    }
-
-    grobs <- list(
-      panel = panels,
-      strip_t = strips$t,
-      axis_l = axes$l,
-      axis_b = axes$b
-    )
-
-    # If strips are switched, add padding
-    if (switch_to_x) {
-      padding <- convertUnit(theme$strip.switch.pad.wrap, "cm")
-
-      add_padding <- function(strip) {
-        gt_t <- gtable_row("strip_t", list(strip),
-          height = unit(height_cm(strip), "cm"))
-
-        # One padding above and two below, so that the strip does not look
-        # like a title for the panel just below.
-        gt_t <- gtable_add_rows(gt_t, padding, pos = 0)
-        gt_t <- gtable_add_rows(gt_t, 2 * padding, pos = 2)
-        gt_t
-      }
-      grobs$strip_t <- lapply(strips$t, add_padding)
-
-      strip_height <- lapply(strips$t, function(x) {
-        3 * as.numeric(padding) + height_cm(x)
-      })
-      strip_width <- NULL
-      size <- c(3, 4)
-
-    } else if (switch_to_y) {
-      padding <- convertUnit(theme$strip.switch.pad.wrap, "cm")
-
-      add_padding <- function(strip) {
-        gt_t <- gtable_col("strip_t", list(strip),
-          heights = unit(aspect_ratio, "null"))
-
-        gt_t <- gtable_add_cols(gt_t, padding, pos = 0)
-        gt_t <- gtable_add_cols(gt_t, padding, pos = 2)
-        gt_t
-      }
-      grobs$strip_t <- lapply(strips$t, add_padding)
-
-      strip_height <- NULL
-      strip_width <- lapply(strips$t, function(x) {
-        3 * as.numeric(padding) + width_cm(x)
-      })
-      size <- c(4, 3)
-
-    } else {
-      strip_height <- height_cm(grobs$strip_t)
-      strip_width <- NULL
-      size <- c(3, 4)
-    }
-
-    info <- plyr::ldply(locs, find_pos, layout = layout, size = size)
-    names(info)[1] <- "type"
-    info$clip <- ifelse(info$type == "panel", "on", "off")
-    info$name <- paste(info$type, info$id, sep = "-")
-
-    # Bare numbers are taken as cm
-    # If not listed, assume is unit(1, "null")
-    widths <- list(
-      axis_l = width_cm(grobs$axis_l),
-      strip_t = strip_width,
-      vspace = ifelse(layout$COL == ncol, 0, width_cm(theme$panel.margin.x %||% theme$panel.margin))
-    )
-    heights <- list(
-      panel = unit(aspect_ratio, "null"),
-      strip_t = strip_height,
-      axis_b = height_cm(grobs$axis_b),
-      hspace = ifelse(layout$ROW == nrow, 0, height_cm(theme$panel.margin.y %||% theme$panel.margin))
-    )
-
-    # Remove strip_t according to which strips are switched
-    heights <- Filter(Negate(is.null), heights)
-    widths <- Filter(Negate(is.null), widths)
-
-    col_widths <- compute_grob_widths(info, widths)
-    row_heights <- compute_grob_heights(info, heights)
-
-    # Create the gtable for the legend
-    gt <- gtable(widths = col_widths, heights = row_heights, respect = respect)
-
-    # Keep only the rows in info that refer to grobs
-    info  <- info[info$type %in% names(grobs), ]
-    grobs <- unlist(grobs, recursive = FALSE)
-
-    # Add the grobs
-    gt <- gtable_add_grob(gt, grobs, l = info$l, t = info$t, r = info$r,
-      b = info$b, name = info$name, clip = info$clip)
-
-    gt
-  },
-  strips = function(self, panel, theme) {
-    labels_df <- panel$layout[names(self$facets)]
-
-    # Adding labels metadata, useful for labellers
-    attr(labels_df, "facet") <- "wrap"
-    if (is.null(self$switch) || self$switch == "x") {
-      dir <- "b"
-      attr(labels_df, "type") <- "rows"
-    } else {
-      dir <- "l"
-      attr(labels_df, "type") <- "cols"
-    }
-
-    strips_table <- build_strip(panel, labels_df, self$labeller,
-      theme, dir, switch = self$switch)
-
-    # While grid facetting works with a whole gtable, wrap processes the
-    # strips separately. So we turn the gtable into a list
-    if (dir == "b") {
-      n_strips <- ncol(strips_table)
-    }  else {
-      n_strips <- nrow(strips_table)
-    }
-
-    strips <- list(t = vector("list", n_strips))
-    for (i in seq_along(strips$t)) {
-      if (dir == "b") {
-        strips$t[[i]] <- strips_table[, i]
+      inside <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
+      if (params$strip.position == "left") {
+        placement <- if (inside) -1 else -2
+        strip_pad <- axis_width_left
       } else {
-        strips$t[[i]] <- strips_table[i, ]
+        placement <- if (inside) 0 else 1
+        strip_pad <- axis_width_right
+      }
+      strip_pad[unclass(strip_pad) != 0] <- strip_padding
+      strip_width <- unit(apply(strip_mat, 2, max_width), "cm")
+      panel_table <- weave_tables_col(panel_table, strip_mat, placement, strip_width, strip_name)
+      if (!inside) {
+        strip_pad[unclass(strip_pad) != 0] <- strip_padding
+        panel_table <- weave_tables_col(panel_table, col_shift = placement, col_width = strip_pad)
       }
     }
-    strips
-  },
-  panels = function(self, panel, coord, theme, geom_grobs) {
-    panels <- panel$layout$PANEL
-    lapply(panels, function(i) {
-      fg <- coord$render_fg(panel$ranges[[i]], theme)
-      bg <- coord$render_bg(panel$ranges[[i]], theme)
-
-      geom_grobs <- lapply(geom_grobs, "[[", i)
-
-      if (theme$panel.ontop) {
-        panel_grobs <- c(geom_grobs, list(bg), list(fg))
-      } else {
-        panel_grobs <- c(list(bg), geom_grobs, list(fg))
-      }
-
-      ggname(paste("panel", i, sep = "-"),
-        gTree(children = do.call("gList", panel_grobs)))
-    })
-  },
-  axes = function(self, panel, coord, theme) {
-    panels <- panel$layout$PANEL
-
-    axes <- list()
-    axes$b <- lapply(panels, function(i) {
-      if (panel$layout$AXIS_X[i]) {
-        grob <- coord$render_axis_h(panel$ranges[[i]], theme)
-      } else {
-        grob <- zeroGrob()
-      }
-      ggname(paste("axis-b-", i, sep = ""), grob)
-    })
-
-    axes$l <- lapply(panels, function(i) {
-      if (panel$layout$AXIS_Y[i]) {
-        grob <- coord$render_axis_v(panel$ranges[[i]], theme)
-      } else {
-        grob <- zeroGrob()
-      }
-      ggname(paste("axis-l-", i, sep = ""), grob)
-    })
-    axes
-  },
-  vars = function(self) {
-    paste(lapply(self$facets, paste, collapse = ", "), collapse = " ~ ")
+    panel_table
   }
 )
 
@@ -524,4 +376,32 @@ wrap_dims <- function(n, nrow = NULL, ncol = NULL) {
   stopifnot(nrow * ncol >= n)
 
   c(nrow, ncol)
+}
+convertInd <- function(row, col, nrow) {
+  (col - 1) * nrow + row
+}
+
+weave_tables_col <- function(table, table2, col_shift, col_width, name) {
+  panel_col <- Facet$panel_cols(table)$l
+  panel_row <- Facet$panel_rows(table)$t
+  for (i in rev(seq_along(panel_col))) {
+    col_ind <- panel_col[i] + col_shift
+    table <- gtable_add_cols(table, col_width[i], pos = col_ind)
+    if (!missing(table2)) {
+      table <- gtable_add_grob(table, table2[, i], t = panel_row, l = col_ind + 1, clip = 'off', name = paste0(name, '-', seq_along(panel_row), '-', i))
+    }
+  }
+  table
+}
+weave_tables_row <- function(table, table2, row_shift, row_height, name) {
+  panel_col <- Facet$panel_cols(table)$l
+  panel_row <- Facet$panel_rows(table)$t
+  for (i in rev(seq_along(panel_row))) {
+    row_ind <- panel_row[i] + row_shift
+    table <- gtable_add_rows(table, row_height[i], pos = row_ind)
+    if (!missing(table2)) {
+      table <- gtable_add_grob(table, table2[i, ], t = row_ind + 1, l = panel_col, clip = 'off', name = paste0(name, '-', seq_along(panel_col), '-', i))
+    }
+  }
+  table
 }
