@@ -8,6 +8,7 @@ NULL
 #' @export
 is.facet <- function(x) inherits(x, "Facet")
 
+#' @export
 Facet <- ggproto("Facet", NULL,
   shrink = FALSE,
   params = list(),
