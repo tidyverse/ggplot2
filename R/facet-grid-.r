@@ -261,18 +261,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     cols <- which(layout$ROW == 1)
     rows <- which(layout$COL == 1)
-    axes <- Facet$render_axes(ranges[cols], ranges[rows], coord, theme)
-    #equal to purrr::transpose
-    axes <- list(
-      x = list(
-        top = lapply(axes$x, `[[`, "top"),
-        bottom = lapply(axes$x, `[[`, "bottom")
-      ),
-      y = list(
-        left = lapply(axes$y, `[[`, "left"),
-        right = lapply(axes$y, `[[`, "right")
-      )
-    )
+    axes <- Facet$render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
 
     col_vars <- unique(layout[names(params$cols)])
     row_vars <- unique(layout[names(params$rows)])

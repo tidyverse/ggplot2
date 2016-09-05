@@ -164,13 +164,25 @@ Facet <- ggproto("Facet", NULL,
 
     base
   },
-  render_axes = function(x = NULL, y = NULL, coord, theme) {
+  render_axes = function(x = NULL, y = NULL, coord, theme, transpose = FALSE) {
     axes <- list()
     if (!is.null(x)) {
       axes$x <- lapply(x, coord$render_axis_h, theme)
     }
     if (!is.null(y)) {
       axes$y <- lapply(y, coord$render_axis_v, theme)
+    }
+    if (transpose) {
+      axes <- list(
+        x = list(
+          top = lapply(axes$x, `[[`, "top"),
+          bottom = lapply(axes$x, `[[`, "bottom")
+        ),
+        y = list(
+          left = lapply(axes$y, `[[`, "left"),
+          right = lapply(axes$y, `[[`, "right")
+        )
+      )
     }
     axes
   },
