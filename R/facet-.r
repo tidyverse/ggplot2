@@ -230,3 +230,10 @@ quoted_df <- function(data, vars) {
 layout_null <- function() {
   data.frame(PANEL = 1, ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
 }
+
+max_height <- function(grobs) {
+  unit(max(unlist(lapply(grobs, height_cm))), "cm")
+}
+max_width <- function(grobs) {
+  unit(max(unlist(lapply(grobs, width_cm))), "cm")
+}

@@ -398,10 +398,3 @@ ulevels <- function(x) {
     sort(unique(x))
   }
 }
-
-max_height <- function(grobs) {
-  unit(max(unlist(lapply(grobs, height_cm))), "cm")
-}
-max_width <- function(grobs) {
-  unit(max(unlist(lapply(grobs, width_cm))), "cm")
-}
