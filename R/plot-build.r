@@ -88,6 +88,9 @@ ggplot_build <- function(plot) {
   # Fill in defaults etc.
   data <- by_layer(function(l, d) l$compute_geom_2(d))
 
+  # Let Layout modify data before rendering
+  data <- layout$finish_data(data)
+
   list(data = data, layout = layout, plot = plot)
 }
 

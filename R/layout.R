@@ -96,6 +96,13 @@ Layout <- ggproto("Layout", NULL,
     })
   },
 
+  finish_data = function(self, data) {
+    lapply(data, function(layer_data) {
+      self$facet$finish_data(layer_data, self$panel_layout, self$panel_scales$x,
+        self$panel_scales$y, self$facet$params)
+    })
+  },
+
   get_scales = function(self, i) {
     this_panel <- self$panel_layout[self$panel_layout$PANEL == i, ]
 

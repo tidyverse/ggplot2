@@ -111,6 +111,9 @@ Facet <- ggproto("Facet", NULL,
 
     panels
   },
+  finish_data = function(data, layout, x_scales, y_scales, params) {
+    data
+  },
 
 
   find_panel = function(table) {
