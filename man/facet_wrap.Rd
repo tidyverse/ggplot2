@@ -6,7 +6,7 @@
 \usage{
 facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   shrink = TRUE, labeller = "label_value", as.table = TRUE,
-  switch = NULL, drop = TRUE, dir = "h")
+  switch = NULL, drop = TRUE, dir = "h", strip.position = "top")
 }
 \arguments{
 \item{facets}{Either a formula or character vector. Use either a
