@@ -5,7 +5,7 @@
 \title{Theme element: line.}
 \usage{
 element_line(colour = NULL, size = NULL, linetype = NULL,
-  lineend = NULL, color = NULL)
+  lineend = NULL, color = NULL, arrow = NULL)
 }
 \arguments{
 \item{colour}{line colour}
@@ -17,6 +17,8 @@ element_line(colour = NULL, size = NULL, linetype = NULL,
 \item{lineend}{line end}
 
 \item{color}{an alias for \code{colour}}
+
+\item{arrow}{Arrow specification, as created by \code{\link[grid]{arrow}}}
 }
 \description{
 Theme element: line.
