@@ -14,10 +14,13 @@ coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE)
 \item{projection}{projection to use, see
 \code{\link[mapproj]{mapproject}} for list}
 
-\item{...}{other arguments passed on to mapproject. Ignored if the \code{parameters} argument is present.}
+\item{...}{other arguments passed on to \code{\link[mapproj]{mapproject}}.
+Ignored if the \code{parameters} argument is present.}
 
-\item{parameters}{optional numeric vector of parameters for use with the projection argument. This argument is optional only in the sense that certain projections do not require additional parameters. Passed to
-\code{\link[mapproj]{mapproject}}}
+\item{parameters}{optional numeric vector of parameters for use
+with the projection argument. This argument is optional only in
+the sense that certain projections do not require additional
+parameters. Passed to \code{\link[mapproj]{mapproject}}.}
 
 \item{orientation}{projection orientation, which defaults to
 \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
