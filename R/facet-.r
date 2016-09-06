@@ -45,6 +45,16 @@ Facet <- ggproto("Facet", NULL,
   map_data = function(data, layout, params) {
     stop("Not implemented", call. = FALSE)
   },
+  init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
+    scales <- list()
+    if (!is.null(x_scale)) {
+      scales$x <- plyr::rlply(max(layout$SCALE_X), x_scale$clone())
+    }
+    if (!is.null(y_scale)) {
+      scales$y <- plyr::rlply(max(layout$SCALE_Y), y_scale$clone())
+    }
+    scales
+  },
   train_scales = function(x_scales, y_scales, layout, data, params) {
     # loop over each layer, training x and y scales in turn
     for (layer_data in data) {

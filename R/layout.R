@@ -53,11 +53,13 @@ Layout <- ggproto("Layout", NULL,
   train_position = function(self, data, x_scale, y_scale) {
     # Initialise scales if needed, and possible.
     layout <- self$panel_layout
-    if (is.null(self$panel_scales$x) && !is.null(x_scale)) {
-      self$panel_scales$x <- plyr::rlply(max(layout$SCALE_X), x_scale$clone())
+    if (is.null(self$panel_scales$x)) {
+      self$panel_scales$x <- self$facet$init_scales(layout, x_scale = x_scale,
+        params = self$facet$params)$x
     }
-    if (is.null(self$panel_scales$y) && !is.null(y_scale)) {
-      self$panel_scales$y <- plyr::rlply(max(layout$SCALE_Y), y_scale$clone())
+    if (is.null(self$panel_scales$y)) {
+      self$panel_scales$y <- self$facet$init_scales(layout, y_scale = y_scale,
+        params = self$facet$params)$y
     }
 
     self$facet$train_positions(self$panel_scales$x, self$panel_scales$y, layout, data)
