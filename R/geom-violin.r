@@ -137,6 +137,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
         setdiff(names(data), c("x", "y")),
         drop = FALSE
       ]
+      aesthetics$alpha <- rep(1, nrow(quantiles))
       both <- cbind(quantiles, aesthetics)
       quantile_grob <- GeomPath$draw_panel(both, ...)
 

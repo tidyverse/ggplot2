@@ -78,6 +78,9 @@
 * A warning is now issued when a scale transformation introduces infinite 
   values in a scale (#1696)
 
+* Quantile lines in geom_violin() are no longer affected by the alpha aesthetic
+  (@mnbram, #1714)
+
 # ggplot2 2.1.0
 
 ## New features
