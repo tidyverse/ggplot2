@@ -84,6 +84,9 @@
 * Fixed problem with `geom_dotplot()` when facetting and binning on the
   y-axis. (#1618, @has2k1)
 
+* `element_line()` now takes an `arrow` argument to specify arrows at the end of
+  lines (#1740)
+
 # ggplot2 2.1.0
 
 ## New features
