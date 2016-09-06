@@ -81,6 +81,9 @@
 * Quantile lines in geom_violin() are no longer affected by the alpha aesthetic
   (@mnbram, #1714)
 
+* Fixed problem with `geom_dotplot()` when facetting and binning on the
+  y-axis. (#1618, @has2k1)
+
 # ggplot2 2.1.0
 
 ## New features
