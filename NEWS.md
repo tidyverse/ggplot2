@@ -212,6 +212,9 @@
 * Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
   (#1444)
 
+* Fixed issue where `coord_map()` fails when given an explicit `parameters`
+  argument (@tdmcarthur, #1729)
+
 # ggplot2 2.0.0
 
 ## Major changes
