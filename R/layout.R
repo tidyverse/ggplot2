@@ -141,10 +141,6 @@ Layout <- ggproto("Layout", NULL,
     list(primary = primary, secondary = secondary)[self$panel_scales$y[[1]]$axis_order()]
   },
 
-  find_panel = function(self, tabel) {
-    self$facet$find_panel(tabel)
-  },
-
   render_labels = function(self, labels, theme) {
     label_grobs <- lapply(names(labels), function(label) {
       lapply(names(labels[[label]]), function(ary) {

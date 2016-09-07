@@ -189,7 +189,7 @@ ggplot_gtable <- function(data) {
     }
   }
 
-  panel_dim <-  layout$find_panel(plot_table)
+  panel_dim <-  find_panel(plot_table)
   # for align-to-device, use this:
   # panel_dim <-  summarise(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
 

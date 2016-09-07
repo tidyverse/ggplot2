@@ -85,7 +85,7 @@ Facet <- ggproto("Facet", NULL,
     stop("Not implemented", call. = FALSE)
   },
   draw_labels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, params) {
-    panel_dim <-  Facet$find_panel(panels)
+    panel_dim <-  find_panel(panels)
 
     xlab_height_top <- grobHeight(labels$x[[1]])
     panels <- gtable_add_rows(panels, xlab_height_top, pos = 0)
@@ -97,7 +97,7 @@ Facet <- ggproto("Facet", NULL,
     panels <- gtable_add_grob(panels, labels$x[[2]], name = "xlab-b",
       l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off")
 
-    panel_dim <-  Facet$find_panel(panels)
+    panel_dim <-  find_panel(panels)
 
     ylab_width_left <- grobWidth(labels$y[[1]])
     panels <- gtable_add_cols(panels, ylab_width_left, pos = 0)
@@ -113,98 +113,6 @@ Facet <- ggproto("Facet", NULL,
   },
   finish_data = function(data, layout, x_scales, y_scales, params) {
     data
-  },
-
-
-  find_panel = function(table) {
-    layout <- table$layout
-    panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
-
-    data.frame(
-      t = min(panels$t),
-      r = max(panels$r),
-      b = max(panels$b),
-      l = min(panels$l)
-    )
-  },
-  panel_cols = function(table) {
-    panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
-    unique(panels[, c('l', 'r')])
-  },
-  panel_rows = function(table) {
-    panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
-    unique(panels[, c('t', 'b')])
-  },
-  # Take input data and define a mapping between facetting variables and ROW,
-  # COL and PANEL keys
-  #
-  # @param data A list of data.frames, the first being the plot data and the
-  # subsequent individual layer data
-  #
-  # @return A data.frame with columns for PANEL, ROW, COL, and facetting vars
-  combine_vars = function(data, vars = NULL, drop = TRUE) {
-    if (length(vars) == 0) return(data.frame())
-
-    # For each layer, compute the facet values
-    values <- compact(plyr::llply(data, quoted_df, vars = vars))
-
-    # Form the base data frame which contains all combinations of facetting
-    # variables that appear in the data
-    has_all <- unlist(plyr::llply(values, length)) == length(vars)
-    if (!any(has_all)) {
-      stop("At least one layer must contain all variables used for facetting")
-    }
-
-    base <- unique(plyr::ldply(values[has_all]))
-    if (!drop) {
-      base <- unique_combs(base)
-    }
-
-    # Systematically add on missing combinations
-    for (value in values[!has_all]) {
-      if (empty(value)) next;
-
-      old <- base[setdiff(names(base), names(value))]
-      new <- unique(value[intersect(names(base), names(value))])
-      if (drop) {
-        new <- unique_combs(new)
-      }
-      base <- rbind(base, df.grid(old, new))
-    }
-
-    if (empty(base)) {
-      stop("Faceting variables must have at least one value", call. = FALSE)
-    }
-
-    base
-  },
-  render_axes = function(x = NULL, y = NULL, coord, theme, transpose = FALSE) {
-    axes <- list()
-    if (!is.null(x)) {
-      axes$x <- lapply(x, coord$render_axis_h, theme)
-    }
-    if (!is.null(y)) {
-      axes$y <- lapply(y, coord$render_axis_v, theme)
-    }
-    if (transpose) {
-      axes <- list(
-        x = list(
-          top = lapply(axes$x, `[[`, "top"),
-          bottom = lapply(axes$x, `[[`, "bottom")
-        ),
-        y = list(
-          left = lapply(axes$y, `[[`, "left"),
-          right = lapply(axes$y, `[[`, "right")
-        )
-      )
-    }
-    axes
-  },
-  render_strips = function(x = NULL, y = NULL, labeller, theme) {
-    list(
-      x = build_strip(x, labeller, theme, TRUE),
-      y = build_strip(y, labeller, theme, FALSE)
-    )
   }
 )
 
@@ -244,10 +152,169 @@ quoted_df <- function(data, vars) {
 layout_null <- function() {
   data.frame(PANEL = 1, ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
 }
-
+#' Get the maximal width/length of a list of grobs
+#'
+#' @param grobs A list of grobs
+#'
+#' @return The largest value. measured in cm as a unit object
+#'
+#' @keywords internal
+#' @export
 max_height <- function(grobs) {
   unit(max(unlist(lapply(grobs, height_cm))), "cm")
 }
+#' @rdname max_height
+#' @export
 max_width <- function(grobs) {
   unit(max(unlist(lapply(grobs, width_cm))), "cm")
+}
+#' Find panels in a gtable
+#'
+#' These functions help detect the placement of panels in a gtable, if they are
+#' named with "panel" in the beginning. \code{find_panel} returns the extend of
+#' the panel area, while \code{panel_cols} and \code{panel_rows} returns the
+#' columns and rows that contains panels respectively.
+#'
+#' @param table A gtable
+#'
+#' @return A data.frame with some or all of the columns t(op), r(ight),
+#' b(ottom), and l(eft)
+#'
+#' @keywords internal
+#' @export
+find_panel <- function(table) {
+  layout <- table$layout
+  panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
+
+  data.frame(
+    t = min(panels$t),
+    r = max(panels$r),
+    b = max(panels$b),
+    l = min(panels$l)
+  )
+}
+#' @rdname find_panel
+#' @export
+panel_cols = function(table) {
+  panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
+  unique(panels[, c('l', 'r')])
+}
+#' @rdname find_panel
+#' @export
+panel_rows <- function(table) {
+  panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
+  unique(panels[, c('t', 'b')])
+}
+#' Take input data and define a mapping between facetting variables and ROW,
+#' COL and PANEL keys
+#'
+#' @param data A list of data.frames, the first being the plot data and the
+#' subsequent individual layer data
+#' @param vars A list of quoted symbols matching columns in data
+#' @param drop should missing combinations/levels be dropped
+#'
+#' @return A data.frame with columns for PANEL, ROW, COL, and facetting vars
+#'
+#' @keywords internal
+#' @export
+combine_vars <- function(data, vars = NULL, drop = TRUE) {
+  if (length(vars) == 0) return(data.frame())
+
+  # For each layer, compute the facet values
+  values <- compact(plyr::llply(data, quoted_df, vars = vars))
+
+  # Form the base data frame which contains all combinations of facetting
+  # variables that appear in the data
+  has_all <- unlist(plyr::llply(values, length)) == length(vars)
+  if (!any(has_all)) {
+    stop("At least one layer must contain all variables used for facetting")
+  }
+
+  base <- unique(plyr::ldply(values[has_all]))
+  if (!drop) {
+    base <- unique_combs(base)
+  }
+
+  # Systematically add on missing combinations
+  for (value in values[!has_all]) {
+    if (empty(value)) next;
+
+    old <- base[setdiff(names(base), names(value))]
+    new <- unique(value[intersect(names(base), names(value))])
+    if (drop) {
+      new <- unique_combs(new)
+    }
+    base <- rbind(base, df.grid(old, new))
+  }
+
+  if (empty(base)) {
+    stop("Faceting variables must have at least one value", call. = FALSE)
+  }
+
+  base
+}
+#' Render panel axes
+#'
+#' These helpers facilitates generating theme compliant axes when
+#' building up the plot.
+#'
+#' @param x,y A list of ranges as available to the draw_panel method in
+#' \code{Facet} subclasses.
+#' @param coord A \code{Coord} object
+#' @param theme A \code{theme} object
+#' @param transpose Should the output be transposed?
+#'
+#' @return A list with the element "x" and "y" each containing axis
+#' specifications for the ranges passed in. Each axis specification is a list
+#' with a "top" and "bottom" element for x-axes and "left" and "right" element
+#' for y-axis, holding the respective axis grobs. Depending on the content of x
+#' and y some of the grobs might be zeroGrobs. If \code{transpose=TRUE} the
+#' content of the x and y elements will be transposed so e.g. all left-axes are
+#' collected in a left element as a list of grobs.
+#'
+#' @keywords internal
+#' @export
+#'
+render_axes <- function(x = NULL, y = NULL, coord, theme, transpose = FALSE) {
+  axes <- list()
+  if (!is.null(x)) {
+    axes$x <- lapply(x, coord$render_axis_h, theme)
+  }
+  if (!is.null(y)) {
+    axes$y <- lapply(y, coord$render_axis_v, theme)
+  }
+  if (transpose) {
+    axes <- list(
+      x = list(
+        top = lapply(axes$x, `[[`, "top"),
+        bottom = lapply(axes$x, `[[`, "bottom")
+      ),
+      y = list(
+        left = lapply(axes$y, `[[`, "left"),
+        right = lapply(axes$y, `[[`, "right")
+      )
+    )
+  }
+  axes
+}
+#' Render panel strips
+#'
+#' All positions are rendered and it is up to the facet to decide which to use
+#'
+#' @param x,y A data.frame with a column for each variable and a row for each
+#' combination to draw
+#' @param labeller A labeller function
+#' @param theme a \code{theme} object
+#'
+#' @return A list with an "x" and a "y" element, each containing a "top" and
+#' "bottom" or "left" and "right" element respectively. These contains a list of
+#' rendered strips as gtables.
+#'
+#' @keywords internal
+#' @export
+render_strips <- function(x = NULL, y = NULL, labeller, theme) {
+  list(
+    x = build_strip(x, labeller, theme, TRUE),
+    y = build_strip(y, labeller, theme, FALSE)
+  )
 }

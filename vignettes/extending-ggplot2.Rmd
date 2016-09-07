@@ -637,8 +637,8 @@ render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
     transpose = TRUE)
 
   # Add axes around each panel
-  panel_pos_h <- Facet$panel_cols(panel_table)$l
-  panel_pos_v <- Facet$panel_rows(panel_table)$t
+  panel_pos_h <- panel_cols(panel_table)$l
+  panel_pos_v <- panel_rows(panel_table)$t
   axis_width_l <- unit(grid::convertWidth(
     grid::grobWidth(axes$y$left[[1]]), "cm", TRUE), "cm")
   axis_width_r <- unit(grid::convertWidth(
@@ -655,8 +655,8 @@ render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
       clip = "off")
   }
   ## Recalculate as gtable has changed
-  panel_pos_h <- Facet$panel_cols(panel_table)$l
-  panel_pos_v <- Facet$panel_rows(panel_table)$t
+  panel_pos_h <- panel_cols(panel_table)$l
+  panel_pos_v <- panel_rows(panel_table)$t
   axis_height_t <- unit(grid::convertHeight(
     grid::grobHeight(axes$x$top[[1]]), "cm", TRUE), "cm")
   axis_height_b <- unit(grid::convertHeight(
@@ -823,8 +823,8 @@ FacetTrans <- ggproto("FacetTrans", Facet,
           grid::grobWidth(x), "cm", TRUE)
       }, numeric(1)), "cm")
     }
-    panel_pos_h <- Facet$panel_cols(panel_table)$l
-    panel_pos_v <- Facet$panel_rows(panel_table)$t
+    panel_pos_h <- panel_cols(panel_table)$l
+    panel_pos_v <- panel_rows(panel_table)$t
     axis_width_l <- grobWidths(axes$y$left)
     axis_width_r <- grobWidths(axes$y$right)
     ## We do it reverse so we don't change the position of panels when we add axes
@@ -851,8 +851,8 @@ FacetTrans <- ggproto("FacetTrans", Facet,
       }
     }
     ## Recalculate as gtable has changed
-    panel_pos_h <- Facet$panel_cols(panel_table)$l
-    panel_pos_v <- Facet$panel_rows(panel_table)$t
+    panel_pos_h <- panel_cols(panel_table)$l
+    panel_pos_v <- panel_rows(panel_table)$t
     axis_height_t <- unit(grid::convertHeight(
       grid::grobHeight(axes$x$top[[1]]), "cm", TRUE), "cm")
     axis_height_b <- unit(grid::convertHeight(
@@ -869,12 +869,12 @@ FacetTrans <- ggproto("FacetTrans", Facet,
     }
     
     # Add strips
-    strips <- Facet$render_strips(
+    strips <- render_strips(
       x = data.frame(name = c("Original", paste0("Transformed (", params$trans$name, ")"))),
       labeller = label_value, theme = theme)
     
-    panel_pos_h <- Facet$panel_cols(panel_table)$l
-    panel_pos_v <- Facet$panel_rows(panel_table)$t
+    panel_pos_h <- panel_cols(panel_table)$l
+    panel_pos_v <- panel_rows(panel_table)$t
     strip_height <- unit(grid::convertHeight(
       grid::grobHeight(strips$x$top[[1]]), "cm", TRUE), "cm")
     for (i in rev(seq_along(panel_pos_v))) {

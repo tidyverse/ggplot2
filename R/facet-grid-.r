@@ -182,12 +182,12 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     rows <- as.quoted(params$rows)
     cols <- as.quoted(params$cols)
 
-    base_rows <- Facet$combine_vars(data, rows, drop = params$drop)
+    base_rows <- combine_vars(data, rows, drop = params$drop)
     if (!params$as.table) {
       rev_order <- function(x) factor(x, levels = rev(ulevels(x)))
       base_rows[] <- lapply(base_rows, rev_order)
     }
-    base_cols <- Facet$combine_vars(data, cols, drop = params$drop)
+    base_cols <- combine_vars(data, cols, drop = params$drop)
     base <- df.grid(base_rows, base_cols)
 
     # Add margins
@@ -261,7 +261,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     cols <- which(layout$ROW == 1)
     rows <- which(layout$COL == 1)
-    axes <- Facet$render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
+    axes <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)
 
     col_vars <- unique(layout[names(params$cols)])
     row_vars <- unique(layout[names(params$rows)])
@@ -270,7 +270,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     attr(col_vars, "facet") <- "grid"
     attr(row_vars, "type") <- "rows"
     attr(row_vars, "facet") <- "grid"
-    strips <- Facet$render_strips(col_vars, row_vars, params$labeller, theme)
+    strips <- render_strips(col_vars, row_vars, params$labeller, theme)
 
     aspect_ratio <- theme$aspect.ratio
     if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
@@ -321,8 +321,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel_table <- gtable_add_rows(panel_table, max_height(axes$x$bottom), -1)
     panel_table <- gtable_add_cols(panel_table, max_width(axes$y$left), 0)
     panel_table <- gtable_add_cols(panel_table, max_width(axes$y$right), -1)
-    panel_pos_col <- Facet$panel_cols(panel_table)
-    panel_pos_rows <- Facet$panel_rows(panel_table)
+    panel_pos_col <- panel_cols(panel_table)
+    panel_pos_rows <- panel_rows(panel_table)
 
     panel_table <- gtable_add_grob(panel_table, axes$x$top, 1, panel_pos_col$l, clip = "off", name = paste0("axis-t-", seq_along(axes$x$top)))
     panel_table <- gtable_add_grob(panel_table, axes$x$bottom, -1, panel_pos_col$l, clip = "off", name = paste0("axis-b-", seq_along(axes$x$bottom)))
@@ -335,7 +335,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
     inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
     strip_padding <- convertUnit(theme$strip.switch.pad.grid, "cm")
-    panel_pos_col <- Facet$panel_cols(panel_table)
+    panel_pos_col <- panel_cols(panel_table)
     if (switch_x) {
       if (!is.null(strips$x$bottom)) {
         if (inside_x) {
@@ -359,7 +359,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
         }
       }
     }
-    panel_pos_rows <- Facet$panel_rows(panel_table)
+    panel_pos_rows <- panel_rows(panel_table)
     if (switch_y) {
       if (!is.null(strips$y$left)) {
         if (inside_y) {

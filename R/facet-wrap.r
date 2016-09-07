@@ -123,7 +123,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (length(vars) == 0) return(layout_null())
 
     base <- plyr::unrowname(
-      Facet$combine_vars(data, vars, drop = params$drop)
+      combine_vars(data, vars, drop = params$drop)
     )
 
     id <- plyr::id(base, drop = TRUE)
@@ -202,11 +202,11 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     panels <- panels[panel_order]
     panel_pos <- convertInd(layout$ROW, layout$COL, nrow)
 
-    axes <- Facet$render_axes(ranges, ranges, coord, theme, transpose = TRUE)
+    axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
 
     labels_df <- layout[names(params$facets)]
     attr(labels_df, "facet") <- "wrap"
-    strips <- Facet$render_strips(
+    strips <- render_strips(
       structure(labels_df, type = "rows"),
       structure(labels_df, type = "cols"),
       params$labeller, theme)
@@ -382,8 +382,8 @@ convertInd <- function(row, col, nrow) {
 }
 
 weave_tables_col <- function(table, table2, col_shift, col_width, name) {
-  panel_col <- Facet$panel_cols(table)$l
-  panel_row <- Facet$panel_rows(table)$t
+  panel_col <- panel_cols(table)$l
+  panel_row <- panel_rows(table)$t
   for (i in rev(seq_along(panel_col))) {
     col_ind <- panel_col[i] + col_shift
     table <- gtable_add_cols(table, col_width[i], pos = col_ind)
@@ -394,8 +394,8 @@ weave_tables_col <- function(table, table2, col_shift, col_width, name) {
   table
 }
 weave_tables_row <- function(table, table2, row_shift, row_height, name) {
-  panel_col <- Facet$panel_cols(table)$l
-  panel_row <- Facet$panel_rows(table)$t
+  panel_col <- panel_cols(table)$l
+  panel_row <- panel_rows(table)$t
   for (i in rev(seq_along(panel_row))) {
     row_ind <- panel_row[i] + row_shift
     table <- gtable_add_rows(table, row_height[i], pos = row_ind)
