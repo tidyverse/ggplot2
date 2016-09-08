@@ -115,6 +115,9 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 }
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
 FacetWrap <- ggproto("FacetWrap", Facet,
   shrink = TRUE,
