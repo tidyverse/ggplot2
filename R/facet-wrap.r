@@ -115,6 +115,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 }
 
+#' @export
 FacetWrap <- ggproto("FacetWrap", Facet,
   shrink = TRUE,
 
@@ -147,9 +148,6 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     panels <- cbind(layout, plyr::unrowname(base))
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
-
-    nrow <- max(panels$ROW)
-    ncol <- max(panels$COL)
 
     # Add scale identification
     panels$SCALE_X <- if (params$free$x) seq_len(n) else 1L
@@ -362,7 +360,15 @@ sanitise_dim <- function(n) {
   n
 }
 
-# Arrange 1d structure into a grid
+#' Arrange 1d structure into a grid
+#'
+#' @param n length of structure
+#' @param nrow,ncol desired dimensions for the grid
+#'
+#' @return the grid dimension as a vector with nrow and then ncol
+#'
+#' @keywords internal
+#' @export
 wrap_dims <- function(n, nrow = NULL, ncol = NULL) {
   if (is.null(ncol) && is.null(nrow)) {
     rc <- grDevices::n2mfrow(n)

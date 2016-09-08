@@ -175,6 +175,7 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
   )
 }
 
+#' @export
 FacetGrid <- ggproto("FacetGrid", Facet,
   shrink = TRUE,
 

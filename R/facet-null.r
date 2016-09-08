@@ -15,6 +15,7 @@ facet_null <- function(shrink = TRUE) {
   )
 }
 
+#' @export
 FacetNull <- ggproto("FacetNull", Facet,
   shrink = TRUE,
 
