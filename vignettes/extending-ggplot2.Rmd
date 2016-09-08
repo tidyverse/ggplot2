@@ -633,7 +633,7 @@ render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
   panel_table$layout$name <- paste0("panel-", c(1, 2))
   
   # Construct the axes
-  axes <- Facet$render_axes(ranges[1], ranges[1], coord, theme, 
+  axes <- render_axes(ranges[1], ranges[1], coord, theme, 
     transpose = TRUE)
 
   # Add axes around each panel
@@ -813,7 +813,7 @@ FacetTrans <- ggproto("FacetTrans", Facet,
     panel_table$layout$name <- paste0("panel-", c(1, 2))
     
     # Construct the axes
-    axes <- Facet$render_axes(ranges[1], ranges, coord, theme, 
+    axes <- render_axes(ranges[1], ranges, coord, theme, 
       transpose = TRUE)
   
     # Add axes around each panel
@@ -902,8 +902,69 @@ Enough talk - lets see if our new and powerful facetting extension works:
 ggplot(mtcars, aes(x = hp, y = mpg)) + geom_point() + facet_trans('sqrt')
 ```
 
+## Extending existing facet function
+
+As the rendering part of a facet class is often the difficult development step, it is possible to piggyback on the existing facetting classes to achieve a range of new facettings. Below we will subclass `facet_wrap()` to make a `facet_bootstrap()` class that splits the input data into a number of panels at random.
+
+```{r}
+facet_bootstrap <- function(n = 9, prop = 0.2, nrow = NULL, ncol = NULL, 
+  scales = "fixed", shrink = TRUE, strip.position = "top") {
+  
+  facet <- facet_wrap(~.bootstrap, nrow = nrow, ncol = ncol, scales = scales, 
+    shrink = shrink, strip.position = strip.position)
+  facet$params$n <- n
+  facet$params$prop <- prop
+  ggproto(NULL, FacetBootstrap,
+    shrink = shrink,
+    params = facet$params
+  )
+}
+
+FacetBootstrap <- ggproto("FacetBootstrap", FacetWrap,
+  compute_layout = function(data, params) {
+    id <- seq_len(params$n)
+
+    dims <- wrap_dims(params$n, params$nrow, params$ncol)
+    layout <- data.frame(PANEL = factor(id))
+
+    if (params$as.table) {
+      layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
+    } else {
+      layout$ROW <- as.integer(dims[1] - (id - 1L) %/% dims[2])
+    }
+    layout$COL <- as.integer((id - 1L) %% dims[2] + 1L)
+
+    layout <- layout[order(layout$PANEL), , drop = FALSE]
+    rownames(layout) <- NULL
+
+    # Add scale identification
+    layout$SCALE_X <- if (params$free$x) id else 1L
+    layout$SCALE_Y <- if (params$free$y) id else 1L
+
+    cbind(layout, .bootstrap = id)
+  },
+  map_data = function(data, layout, params) {
+    if (is.null(data) || nrow(data) == 0) {
+      return(cbind(data, PANEL = integer(0)))
+    }
+    n_samples <- round(nrow(data) * params$prop)
+    new_data <- lapply(seq_len(params$n), function(i) {
+      cbind(data[sample(nrow(data), n_samples), , drop = FALSE], PANEL = i)
+    })
+    do.call(rbind, new_data)
+  }
+)
+
+ggplot(diamonds, aes(carat, price)) + 
+  geom_point(alpha = 0.1) + 
+  facet_bootstrap(n = 9, prop = 0.05)
+```
+
+What we are doing above is to intercept the `compute_layout` and `map_data` methods and instead of dividing the data by a variable we randomly assigns rows to a panel based on the sampling parameters (`n` determines the number of panels, `prop` determines the proportion of data in each panel). It is important here that the layout returned by `compute_layout` is a valid layout for `FacetWrap` as we are counting on the `draw_panel` method from `FacetWrap` to do all the work for us. Thus if you want to subclass FacetWrap or FacetGrid, make sure you understand the nature of their layout specification.
+
 ### Exercises
 
 1. Rewrite FacetTrans to take a vector of transformations and create an additional panel for each transformation.
 2. Based on the FacetWrap implementation rewrite FacetTrans to take the strip.placement theme setting into account.
+3. Think about which caveats there are in FacetBootstrap specifically related to adding multiple layers with the same data.
 
