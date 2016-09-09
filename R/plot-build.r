@@ -165,8 +165,8 @@ ggplot_gtable <- function(data) {
     position <- "none"
   } else {
     # these are a bad hack, since it modifies the contents of viewpoint directly...
-    legend_width  <- gtable_width(legend_box)  + theme$legend.margin
-    legend_height <- gtable_height(legend_box) + theme$legend.margin
+    legend_width  <- gtable_width(legend_box)
+    legend_height <- gtable_height(legend_box)
 
     # Set the justification of the legend box
     # First value is xjust, second value is yjust
@@ -186,6 +186,10 @@ ggplot_gtable <- function(data) {
       # x and y are adjusted using justification of legend box (i.e., theme$legend.justification)
       legend_box <- editGrob(legend_box,
         vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust)))
+      legend_box <- gtable_add_rows(legend_box, unit(yjust, 'null'))
+      legend_box <- gtable_add_rows(legend_box, unit(1 - yjust, 'null'), 0)
+      legend_box <- gtable_add_cols(legend_box, unit(xjust, 'null'), 0)
+      legend_box <- gtable_add_cols(legend_box, unit(1 - xjust, 'null'))
     }
   }
 
@@ -193,19 +197,24 @@ ggplot_gtable <- function(data) {
   # for align-to-device, use this:
   # panel_dim <-  summarise(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
 
+  theme$legend.box.spacing <- theme$legend.box.spacing %||% unit(0.2, 'cm')
   if (position == "left") {
+    plot_table <- gtable_add_cols(plot_table, theme$legend.box.spacing, pos = 0)
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = panel_dim$t, b = panel_dim$b, l = 1, r = 1, name = "guide-box")
   } else if (position == "right") {
+    plot_table <- gtable_add_cols(plot_table, theme$legend.box.spacing, pos = -1)
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = -1)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = panel_dim$t, b = panel_dim$b, l = -1, r = -1, name = "guide-box")
   } else if (position == "bottom") {
+    plot_table <- gtable_add_rows(plot_table, theme$legend.box.spacing, pos = -1)
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = -1)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = -1, b = -1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "top") {
+    plot_table <- gtable_add_rows(plot_table, theme$legend.box.spacing, pos = 0)
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = 0)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = 1, b = 1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")

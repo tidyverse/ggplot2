@@ -227,9 +227,9 @@ guides_gengrob <- function(gdefs, theme) {
 
 # build up all guide boxes into one guide-boxes.
 guides_build <- function(ggrobs, theme) {
-  theme$legend.margin <- theme$legend.margin %||% unit(0.5, "lines")
-  theme$legend.vmargin <- theme$legend.vmargin  %||% theme$legend.margin
-  theme$legend.hmargin <- theme$legend.hmargin  %||% theme$legend.margin
+  theme$legend.spacing <- theme$legend.spacing %||% unit(0.5, "lines")
+  theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
+  theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
 
   widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
   heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
@@ -254,7 +254,7 @@ guides_build <- function(ggrobs, theme) {
       widths = widths, height = max(heights))
 
     # add space between the guide-boxes
-    guides <- gtable_add_col_space(guides, theme$legend.hmargin)
+    guides <- gtable_add_col_space(guides, theme$legend.spacing.x)
 
   } else if (theme$legend.box == "vertical") {
     # Set justification for each legend
@@ -269,15 +269,21 @@ guides_build <- function(ggrobs, theme) {
       width = max(widths), heights = heights)
 
     # add space between the guide-boxes
-    guides <- gtable_add_row_space(guides, theme$legend.vmargin)
+    guides <- gtable_add_row_space(guides, theme$legend.spacing.y)
   }
 
-  # add margins around the guide-boxes.
-  guides <- gtable_add_cols(guides, theme$legend.hmargin, pos = 0)
-  guides <- gtable_add_cols(guides, theme$legend.hmargin, pos = ncol(guides))
-  guides <- gtable_add_rows(guides, theme$legend.vmargin, pos = 0)
-  guides <- gtable_add_rows(guides, theme$legend.vmargin, pos = nrow(guides))
+  # Add margins around the guide-boxes.
+  theme$legend.box.margin <- theme$legend.box.margin %||% margin()
+  guides <- gtable_add_cols(guides, theme$legend.box.margin[4], pos = 0)
+  guides <- gtable_add_cols(guides, theme$legend.box.margin[2], pos = ncol(guides))
+  guides <- gtable_add_rows(guides, theme$legend.box.margin[1], pos = 0)
+  guides <- gtable_add_rows(guides, theme$legend.box.margin[3], pos = nrow(guides))
 
+  # Add legend box background
+  background <- element_grob(theme$legend.box.background %||% element_blank())
+
+  guides <- gtable_add_grob(guides, background, t = 1, l = 1,
+    b = -1, r = -1, z = -Inf, clip = "off", name = "legend.box.background")
   guides$name <- "guide-box"
   guides
 }

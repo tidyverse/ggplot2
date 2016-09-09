@@ -259,7 +259,6 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
       data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     }
-
     data[order(data$PANEL), , drop = FALSE]
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
@@ -390,7 +389,6 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel_table
   }
 )
-
 
 # Helpers -----------------------------------------------------------------
 

@@ -86,6 +86,17 @@
 
 * `element_line()` now takes an `arrow` argument to specify arrows at the end of
   lines (#1740)
+  
+* Multiple changes to legend theming:
+  - `legend.justification` now works outside of plotting area as well
+  - `panel.margin` and `legend.margin` has been renamed to `panel.spacing` and 
+    `legend.spacing` respectively to better communicate intend
+  - `legend.margin` now controls margin around individual legends
+  - Added `legend.box.margin` to control the margin around the total legend area
+  - Added `legend.box.background` to control the background of the total legend
+    area
+  - Added `legend.box.spacing` to control the distance between the plot area and
+    the legend area
 
 # ggplot2 2.1.0
 
