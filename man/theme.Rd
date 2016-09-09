@@ -248,9 +248,20 @@ z + theme(legend.position = c(.5, .5))
 z + theme(legend.background = element_rect(colour = "black"))
 # Legend margin controls extra space around outside of legend:
 z + theme(legend.background = element_rect(),
-          legend.margin = unit(1, "cm"))
+          legend.margin = margin(1, 1, 1, 1, "cm"))
 z + theme(legend.background = element_rect(),
-          legend.margin = unit(0, "cm"))
+          legend.margin = margin(0, 0, 0, 0, "cm"))
+# Legend spacing pushes legends apart
+z + theme(legend.background = element_rect(),
+          legend.margin = margin(1, 1, 1, 1, "cm"),
+          legend.spacing = unit(1, "cm"))
+# A border and background can also be added around the whole legend area
+z + theme(legend.box.background = element_rect(),
+          legend.box.margin = margin(5, 5, 5, 5, "mm"))
+# The distance from the plot area can be set with legend.box.spacing
+z + theme(legend.box.spacing = unit(3, "cm"))
+# and the justifaction related to the plot area can be set
+z + theme(legend.justification = "bottom")
 # Or to just the keys
 z + theme(legend.key = element_rect(colour = "black"))
 z + theme(legend.key = element_rect(fill = "yellow"))
