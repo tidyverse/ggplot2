@@ -26,10 +26,12 @@ is.facet <- function(x) inherits(x, "facet")
 #
 # @param data a list of data frames (one for the plot and one for each
 #   layer)
-facet_train_layout <- function(facet, data)
+# @param env environment of the plot
+facet_train_layout <- function(facet, data, env)
   UseMethod("facet_train_layout")
 
-facet_map_layout <- function(facet, data, layout)
+# @param env environment of the plot
+facet_map_layout <- function(facet, data, layout, env)
   UseMethod("facet_map_layout")
 
 facet_render <- function(facet, panels_grob, coord, theme, geom_grobs)

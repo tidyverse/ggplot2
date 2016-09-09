@@ -25,9 +25,10 @@ new_panel <- function() {
 # @param the facetting specification
 # @param data a list of data frames (one for each layer), and one for the plot
 # @param plot_data the default data frame
+# @param env environment of the plot
 # @return an updated panel object
-train_layout <- function(panel, facet, data, plot_data) {
-  layout <- facet_train_layout(facet, c(list(plot_data), data))
+train_layout <- function(panel, facet, data, plot_data, env) {
+  layout <- facet_train_layout(facet, c(list(plot_data), data), env)
   panel$layout <- layout
   panel$shrink <- facet$shrink
 
@@ -45,9 +46,10 @@ train_layout <- function(panel, facet, data, plot_data) {
 # @param panel a trained panel object
 # @param the facetting specification
 # @param data list of data frames (one for each layer)
-map_layout <- function(panel, facet, data) {
+# @param env environment of the plot
+map_layout <- function(panel, facet, data, env) {
   lapply(data, function(data) {
-    facet_map_layout(facet, data, panel$layout)
+    facet_map_layout(facet, data, panel$layout, env)
   })
 }
 

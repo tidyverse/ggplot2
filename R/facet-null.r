@@ -11,14 +11,14 @@ facet_null <- function(shrink = TRUE) {
 }
 
 #' @export
-facet_train_layout.null <- function(facet, data) {
+facet_train_layout.null <- function(facet, data, env) {
   data.frame(
     PANEL = 1L, ROW = 1L, COL = 1L,
     SCALE_X = 1L, SCALE_Y = 1L)
 }
 
 #' @export
-facet_map_layout.null <- function(facet, data, layout) {
+facet_map_layout.null <- function(facet, data, layout, env) {
   # Need the is.waive check for special case where no data, but aesthetics
   # are mapped to vectors
   if (is.waive(data) || empty(data))

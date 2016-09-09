@@ -3,21 +3,22 @@
 # @params data list of data frames, one for each layer
 # @params rows variables that form the rows
 # @params cols variables that form the columns
+# @params env envronment to use when evaluating expressions
 # @return a data frame with columns \code{PANEL}, \code{ROW} and \code{COL},
 #   that match the facetting variable values up with their position in the
 #   grid
 layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL,
-                       drop = TRUE, as.table = TRUE) {
+                       drop = TRUE, as.table = TRUE, env = parent.frame()) {
   if (length(rows) == 0 && length(cols) == 0) return(layout_null())
   rows <- as.quoted(rows)
   cols <- as.quoted(cols)
 
-  base_rows <- layout_base(data, rows, drop = drop)
+  base_rows <- layout_base(data, env, rows, drop = drop)
   if (!as.table) {
     rev_order <- function(x) factor(x, levels = rev(ulevels(x)))
     base_rows[] <- lapply(base_rows, rev_order)
   }
-  base_cols <- layout_base(data, cols, drop = drop)
+  base_cols <- layout_base(data, env, cols, drop = drop)
   base <- df.grid(base_rows, base_cols)
 
   # Add margins
@@ -42,13 +43,14 @@ layout_grid <- function(data, rows = NULL, cols = NULL, margins = NULL,
 # Layout out panels in a 1d ribbon.
 #
 # @params drop should missing combinations be excluded from the plot?
+# @params env environment to evaluate expressions
 # @keywords internal
-layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL,
-                        as.table = TRUE, drop = TRUE, dir = "h") {
+layout_wrap <- function(data, vars = NULL, nrow = NULL, ncol = NULL, as.table = TRUE,
+                        drop = TRUE, dir = "h", env = parent.frame()) {
   vars <- as.quoted(vars)
   if (length(vars) == 0) return(layout_null())
 
-  base <- plyr::unrowname(layout_base(data, vars, drop = drop))
+  base <- plyr::unrowname(layout_base(data, env, vars, drop = drop))
 
   id <- plyr::id(base, drop = TRUE)
   n <- attr(id, "n")
@@ -84,12 +86,13 @@ layout_null <- function() {
 # Other data frames in the list are ones that are added to layers.
 #
 # @params data list of data frames (one for each layer)
+# @params env environment of the plot
 # @keywords internal
-layout_base <- function(data, vars = NULL, drop = TRUE) {
+layout_base <- function(data, env, vars = NULL, drop = TRUE) {
   if (length(vars) == 0) return(data.frame())
 
   # For each layer, compute the facet values
-  values <- compact(plyr::llply(data, quoted_df, vars = vars))
+  values <- compact(plyr::llply(data, quoted_df, vars = vars, env = env))
 
   # Form the base data frame which contains all combinations of facetting
   # variables that appear in the data
@@ -112,6 +115,7 @@ layout_base <- function(data, vars = NULL, drop = TRUE) {
     if (drop) {
       new <- unique_combs(new)
     }
+
     base <- rbind(base, df.grid(old, new))
   }
 
@@ -153,8 +157,8 @@ df.grid <- function(a, b) {
   ))
 }
 
-quoted_df <- function(data, vars) {
-  values <- plyr::eval.quoted(vars, data, emptyenv(), try = TRUE)
+quoted_df <- function(data, vars, env = emptyenv()) {
+  values <- plyr::eval.quoted(vars, data, env, try = TRUE)
   as.data.frame(compact(values), optional = TRUE, stringsAsFactors = FALSE)
 }
 
