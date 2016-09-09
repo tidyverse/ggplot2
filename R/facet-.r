@@ -48,6 +48,7 @@ NULL
 #' the default behaviour of one or more of the following methods:
 #'
 #' \itemize{
+#'   \item \code{setup_params}:
 #'   \item \code{init_scales}: Given a master scale for x and y, create panel
 #'   specific scales for each panel defined in the layout. The default is to
 #'   simply clone the master scale.
@@ -182,6 +183,12 @@ Facet <- ggproto("Facet", NULL,
       l = -1, b = panel_dim$b, t = panel_dim$t, clip = "off")
 
     panels
+  },
+  setup_params = function(data, params) {
+    params
+  },
+  setup_data = function(data, params) {
+    data
   },
   finish_data = function(data, layout, x_scales, y_scales, params) {
     data

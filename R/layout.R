@@ -8,11 +8,15 @@ Layout <- ggproto("Layout", NULL,
   panel_scales = NULL,
   panel_ranges = NULL,
 
-  train = function(self, data, plot_data) {
-    self$panel_layout <- self$facet$train(c(list(plot_data), data))
+  setup = function(self, data, plot_data) {
+    data <- c(list(plot_data), data)
+    self$facet$params <- self$facet$setup_params(data, self$facet$params)
+    data <- self$facet$setup_data(data, self$facet$params)
+    self$panel_layout <- self$facet$train(data)
     if (!all(c("PANEL", "SCALE_X", "SCALE_Y") %in% names(self$panel_layout))) {
       stop("Facet layout has bad format. It must contains the columns 'PANEL', 'SCALE_X', and 'SCALE_Y'", call. = FALSE)
     }
+    data[-1]
   },
 
   map = function(self, data) {

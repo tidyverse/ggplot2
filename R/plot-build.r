@@ -38,8 +38,8 @@ ggplot_build <- function(plot) {
   # variables, and add on a PANEL variable to data
 
   layout <- create_layout(plot$facet)
-  layout$train(layer_data, plot$data)
-  data <- layout$map(layer_data)
+  data <- layout$setup(layer_data, plot$data)
+  data <- layout$map(data)
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
