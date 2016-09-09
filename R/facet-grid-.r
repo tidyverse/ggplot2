@@ -186,12 +186,12 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     rows <- as.quoted(params$rows)
     cols <- as.quoted(params$cols)
 
-    base_rows <- combine_vars(data, rows, drop = params$drop)
+    base_rows <- combine_vars(data, params$plot_env, rows, drop = params$drop)
     if (!params$as.table) {
       rev_order <- function(x) factor(x, levels = rev(ulevels(x)))
       base_rows[] <- lapply(base_rows, rev_order)
     }
-    base_cols <- combine_vars(data, cols, drop = params$drop)
+    base_cols <- combine_vars(data, params$plot_env, cols, drop = params$drop)
     base <- df.grid(base_rows, base_cols)
 
     # Add margins
@@ -230,7 +230,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       intersect(names(cols), names(data)))
     data <- reshape2::add_margins(data, margin_vars, params$margins)
 
-    facet_vals <- quoted_df(data, c(rows, cols))
+    facet_vals <- quoted_df(data, c(rows, cols), params$plot_env)
 
     # If any facetting variables are missing, add them in by
     # duplicating the data

@@ -127,7 +127,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (length(vars) == 0) return(layout_null())
 
     base <- plyr::unrowname(
-      combine_vars(data, vars, drop = params$drop)
+      combine_vars(data, params$plot_env, vars, drop = params$drop)
     )
 
     id <- plyr::id(base, drop = TRUE)
@@ -164,7 +164,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     }
     vars <- as.quoted(params$facets)
 
-    facet_vals <- quoted_df(data, vars)
+    facet_vals <- quoted_df(data, vars, params$plot_env)
     facet_vals[] <- lapply(facet_vals[], as.factor)
 
     missing_facets <- setdiff(names(vars), names(facet_vals))

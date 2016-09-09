@@ -8,9 +8,12 @@ Layout <- ggproto("Layout", NULL,
   panel_scales = NULL,
   panel_ranges = NULL,
 
-  setup = function(self, data, plot_data) {
+  setup = function(self, data, plot_data, plot_env) {
     data <- c(list(plot_data), data)
-    self$facet$params <- self$facet$setup_params(data, self$facet$params)
+    self$facet$params <- modifyList(
+      self$facet$setup_params(data, self$facet$params),
+      list(plot_env = plot_env)
+    )
     data <- self$facet$setup_data(data, self$facet$params)
     self$panel_layout <- self$facet$train(data)
     if (!all(c("PANEL", "SCALE_X", "SCALE_Y") %in% names(self$panel_layout))) {
