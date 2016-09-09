@@ -315,9 +315,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
     panel_table <- gtable_add_col_space(panel_table,
-      theme$panel.margin.x %||% theme$panel.margin)
+      theme$panel.spacing.x %||% theme$panel.spacing)
     panel_table <- gtable_add_row_space(panel_table,
-      theme$panel.margin.y %||% theme$panel.margin)
+      theme$panel.spacing.y %||% theme$panel.spacing)
 
     # Add axes
     panel_table <- gtable_add_rows(panel_table, max_height(axes$x$top), 0)
