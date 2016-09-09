@@ -130,9 +130,9 @@ The individual theme elements are:
   panel.spacing    \tab spacing between facet panels
                    (\code{unit}) \cr
   panel.spacing.x  \tab horizontal spacing between facet panels
-                   (\code{unit}; inherits from \code{panel.margin}) \cr
+                   (\code{unit}; inherits from \code{panel.spacing}) \cr
   panel.spacing.y  \tab vertical spacing between facet panels
-                   (\code{unit}; inherits from \code{panel.margin}) \cr
+                   (\code{unit}; inherits from \code{panel.spacing}) \cr
   panel.grid       \tab grid lines
                    (\code{element_line}; inherits from \code{line}) \cr
   panel.grid.major \tab major grid lines
@@ -248,9 +248,20 @@ z + theme(legend.position = c(.5, .5))
 z + theme(legend.background = element_rect(colour = "black"))
 # Legend margin controls extra space around outside of legend:
 z + theme(legend.background = element_rect(),
-          legend.margin = unit(1, "cm"))
+          legend.margin = margin(1, 1, 1, 1, "cm"))
 z + theme(legend.background = element_rect(),
-          legend.margin = unit(0, "cm"))
+          legend.margin = margin(0, 0, 0, 0, "cm"))
+# Legend spacing pushes legends apart
+z + theme(legend.background = element_rect(),
+          legend.margin = margin(1, 1, 1, 1, "cm"),
+          legend.spacing = unit(1, "cm"))
+# A border and background can also be added around the whole legend area
+z + theme(legend.box.background = element_rect(),
+          legend.box.margin = margin(5, 5, 5, 5, "mm"))
+# The distance from the plot area can be set with legend.box.spacing
+z + theme(legend.box.spacing = unit(3, "cm"))
+# and the justifaction related to the plot area can be set
+z + theme(legend.justification = "bottom")
 # Or to just the keys
 z + theme(legend.key = element_rect(colour = "black"))
 z + theme(legend.key = element_rect(fill = "yellow"))
@@ -284,8 +295,8 @@ k + theme(strip.background = element_rect(colour = "purple", fill = "pink",
                                           size = 3, linetype = "dashed"))
 k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10,
                                       hjust = 0.5, vjust = 0.5))
-k + theme(panel.margin = unit(5, "lines"))
-k + theme(panel.margin.y = unit(0, "lines"))
+k + theme(panel.spacing = unit(5, "lines"))
+k + theme(panel.spacing.y = unit(0, "lines"))
 
 # Put gridlines on top
 meanprice <- tapply(diamonds$price, diamonds$cut, mean)
