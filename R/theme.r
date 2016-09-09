@@ -177,9 +177,9 @@ print.theme <- function(x, ...) utils::str(x)
 #'   panel.spacing    \tab spacing between facet panels
 #'                    (\code{unit}) \cr
 #'   panel.spacing.x  \tab horizontal spacing between facet panels
-#'                    (\code{unit}; inherits from \code{panel.margin}) \cr
+#'                    (\code{unit}; inherits from \code{panel.spacing}) \cr
 #'   panel.spacing.y  \tab vertical spacing between facet panels
-#'                    (\code{unit}; inherits from \code{panel.margin}) \cr
+#'                    (\code{unit}; inherits from \code{panel.spacing}) \cr
 #'   panel.grid       \tab grid lines
 #'                    (\code{element_line}; inherits from \code{line}) \cr
 #'   panel.grid.major \tab major grid lines
@@ -346,8 +346,8 @@ print.theme <- function(x, ...) utils::str(x)
 #'                                           size = 3, linetype = "dashed"))
 #' k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10,
 #'                                       hjust = 0.5, vjust = 0.5))
-#' k + theme(panel.margin = unit(5, "lines"))
-#' k + theme(panel.margin.y = unit(0, "lines"))
+#' k + theme(panel.spacing = unit(5, "lines"))
+#' k + theme(panel.spacing.y = unit(0, "lines"))
 #'
 #' # Put gridlines on top
 #' meanprice <- tapply(diamonds$price, diamonds$cut, mean)
