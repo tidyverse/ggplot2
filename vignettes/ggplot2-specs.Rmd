@@ -67,7 +67,7 @@ Line types can be specified with:
     three off followed by one on and finally three off. 
     
     The five standard dash-dot line types described above correspond to 44, 13, 
-    134, 73, and 2262.
+    1343, 73, and 2262.
 
 The `size` of a line is its width in mm.
 

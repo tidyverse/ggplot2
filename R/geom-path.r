@@ -298,6 +298,11 @@ stairstep <- function(data, direction="hv") {
   data <- as.data.frame(data)[order(data$x), ]
   n <- nrow(data)
 
+  if (n <= 1) {
+    # Need at least one observation
+    return(data[0, , drop = FALSE])
+  }
+
   if (direction == "vh") {
     xs <- rep(1:n, each = 2)[-2*n]
     ys <- c(1, rep(2:n, each = 2))

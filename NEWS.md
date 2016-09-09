@@ -1,5 +1,43 @@
 # ggplot2 2.1.0.9000 
 
+* When computing the height of titles ggplot2, now inclues the height of the
+  descenders (i.e. the bits `g` and `y` that hang underneath). This makes 
+  improves the margins around titles, particularly the y axis label (#1712).
+  
+    I have also very slightly increased the inner margins of axis titles,
+    and removed the outer margins. 
+
+* Themes are more homogeneous visually, and match `theme_grey` better.
+  (@jiho, #1679)
+
+* `position_stack()` and `position_fill()` now sorts the stacking order so it 
+  matches the order of the grouping. Use level reordering to alter the stacking 
+  order. The default legend and stacking order is now also in line. The default 
+  look of plots might change because of this (#1552, #1593).
+  
+* `position_stack()` now accepts negative values which will create stacks 
+  extending below the x-axis (#1691)
+
+* Restore functionality for use of `..density..` in 
+  `geom_hexbin()` (@mikebirdgeneau, #1688)
+
+* `stat_smooth()` once again informs you about the method it has chosen.
+  It also correctly calculates the size of the largest group within facets.
+  
+* `stat_bin()` and `stat_summary_hex()` now accept length 1 `binwidth` (#1610)
+
+* `geom_histogram()` and `stat_bin()` understand the `breaks` parameter once 
+  more. (#1665).
+
+* `geom_step()` gives useful warning if only one data point in layer (#1645).
+
+* Clarified needed input to `geom_contour()` (#1577).
+
+* Import tibble. This ensures that all built-in datasets print compactly
+  even if you haven't explicitly loaded tibble or dplyr (#1677).
+
+* `stat_ecdf()` respects `pad` argument (#1646).
+
 * `x` and `y` scales are now symmetric regarding the list of
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
   `xmiddle` and `xupper` are now valid `x` aesthetics.
@@ -14,8 +52,40 @@
   default. The `caption` annotation below the plot will be right-justified
   by default. (@hrbrmstr)
   
-* Minor code formatting issues in examples and function parameters were
-  fixed. (@hrbrmstr)
+* Minor code formatting and grammar issues in examples and function 
+  parameters were fixed. (@hrbrmstr)
+  
+* `geom_col()` was added to complement `geom_bar()`. It uses `stat="identity"`
+  by default, making the `y` aesthetic mandatory. It does not support any 
+  other `stat_()` and does not provide fallback support for the `binwidth`
+  parameter. Examples and references in other functions were updated to
+  demonstrate `geom_col()` usage. (@hrbrmstr)
+
+* Fix error message of Stats ggprotos when required aesthetics are
+  missing.
+  
+* Fix bug that resulted in several annotation_x function not getting drawn when
+  global data was lacking (#1655)
+
+* Fixed problem with `geom_violin()` when quantiles requested but data
+  have no range. Added unit test. (#1687)
+
+* Class of aesthetic mapping is preserved when adding `aes()` objects. (#1624)
+
+* Only one warning is issued when asking for too many levels in 
+  `scale_discrete()` (#1674)
+
+* A warning is now issued when a scale transformation introduces infinite 
+  values in a scale (#1696)
+
+* Quantile lines in geom_violin() are no longer affected by the alpha aesthetic
+  (@mnbram, #1714)
+
+* Fixed problem with `geom_dotplot()` when facetting and binning on the
+  y-axis. (#1618, @has2k1)
+
+* `element_line()` now takes an `arrow` argument to specify arrows at the end of
+  lines (#1740)
 
 # ggplot2 2.1.0
 
@@ -52,9 +122,9 @@
       
     * `bins = n` now gives a histogram with `n` bins, not `n + 1` (#1487).
 
-## Bug fixes
+## Bug fixes 
 
-* All `\donttest{}` examples run.
+* All `\donttest{}` examples run. 
 
 * All `geom_()` and `stat_()` functions now have consistent argument order:
   data + mapping, then geom/stat/position, then `...`, then specific arguments, 
@@ -141,6 +211,9 @@
 
 * Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
   (#1444)
+
+* Fixed issue where `coord_map()` fails when given an explicit `parameters`
+  argument (@tdmcarthur, #1729)
 
 # ggplot2 2.0.0
 

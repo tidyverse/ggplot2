@@ -21,6 +21,7 @@
 \alias{GeomBar}
 \alias{GeomBlank}
 \alias{GeomBoxplot}
+\alias{GeomCol}
 \alias{GeomContour}
 \alias{GeomCrossbar}
 \alias{GeomCurve}

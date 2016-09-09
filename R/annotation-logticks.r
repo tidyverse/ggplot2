@@ -81,7 +81,7 @@ annotation_logticks <- function(base = 10, sides = "bl", scaled = TRUE,
     colour <- color
 
   layer(
-    data = data.frame(x = NA),
+    data = dummy_data(),
     mapping = NULL,
     stat = StatIdentity,
     geom = GeomLogticks,

@@ -13,7 +13,7 @@
 #' end of the whiskers are outliers and plotted as points (as specified by Tukey).
 #'
 #' In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
-#' This gives a roughly 95% confidence interval for comparing medians.
+#' This gives a roughly 95\% confidence interval for comparing medians.
 #' See McGill et al. (1978) for more details.
 #'
 #' @section Aesthetics:

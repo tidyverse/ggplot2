@@ -42,11 +42,11 @@ NULL
 #'   annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
 annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
   layer(
-    data = NULL,
+    data = dummy_data(),
     stat = StatIdentity,
     position = PositionIdentity,
     geom = GeomCustomAnn,
-    inherit.aes = TRUE,
+    inherit.aes = FALSE,
     params = list(
       grob = grob,
       xmin = xmin,

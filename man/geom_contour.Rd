@@ -65,7 +65,9 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{geom}{The geometric object to use display the data}
 }
 \description{
-Display contours of a 3d surface in 2d.
+To be a valid surface, the most only be a single combination of each
+unique \code{x} and \code{y} aesthetics. Contouring tends to work best
+when \code{x} and \code{y} form a (roughly) evenly spaced grid.
 }
 \section{Aesthetics}{
 

@@ -11,3 +11,8 @@ test_that("plot succeeds even if some computation fails", {
   expect_warning(b2 <- ggplot_build(p2), "Computation failed")
   expect_equal(length(b2$data), 2)
 })
+
+test_that("error message is thrown when aesthetics are missing", {
+  p <- ggplot(mtcars) + stat_bin()
+  expect_error(ggplot_build(p), "x$")
+})

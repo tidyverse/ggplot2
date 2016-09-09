@@ -17,19 +17,19 @@ theme_grey(base_size = 11, base_family = "")
 
 theme_gray(base_size = 11, base_family = "")
 
-theme_bw(base_size = 12, base_family = "")
+theme_bw(base_size = 11, base_family = "")
 
-theme_linedraw(base_size = 12, base_family = "")
+theme_linedraw(base_size = 11, base_family = "")
 
-theme_light(base_size = 12, base_family = "")
+theme_light(base_size = 11, base_family = "")
 
-theme_minimal(base_size = 12, base_family = "")
+theme_dark(base_size = 11, base_family = "")
 
-theme_classic(base_size = 12, base_family = "")
+theme_minimal(base_size = 11, base_family = "")
 
-theme_dark(base_size = 12, base_family = "")
+theme_classic(base_size = 11, base_family = "")
 
-theme_void(base_size = 12, base_family = "")
+theme_void(base_size = 11, base_family = "")
 }
 \arguments{
 \item{base_size}{base font size}
@@ -80,7 +80,6 @@ p <- ggplot(mtcars) + geom_point(aes(x = wt, y = mpg,
      colour = factor(gear))) + facet_wrap(~am)
 
 p
-p + theme_gray()
 p + theme_bw()
 p + theme_linedraw()
 p + theme_light()
@@ -88,6 +87,7 @@ p + theme_dark()
 p + theme_minimal()
 p + theme_classic()
 p + theme_void()
+p + theme_gray() # default theme
 
 }
 

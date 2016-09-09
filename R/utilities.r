@@ -280,3 +280,11 @@ dispatch_args <- function(f, ...) {
   formals(f) <- formals
   f
 }
+
+# Used in annotations to ensure printed even when no
+# global data
+dummy_data <- function() data.frame(x = NA)
+
+# Needed to trigger package loading
+#' @importFrom tibble tibble
+NULL

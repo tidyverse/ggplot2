@@ -81,7 +81,7 @@ The individual theme elements are:
   legend.key       \tab background underneath legend keys
                    (\code{element_rect}; inherits from \code{rect}) \cr
   legend.key.size  \tab size of legend keys
-                   (\code{unit}; inherits from \code{legend.key.size}) \cr
+                   (\code{unit}) \cr
   legend.key.height  \tab key background height
                    (\code{unit}; inherits from \code{legend.key.size}) \cr
   legend.key.width   \tab key background width

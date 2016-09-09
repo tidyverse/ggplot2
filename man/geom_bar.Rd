@@ -65,7 +65,7 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \description{
 There are two types of bar charts, determined by what is mapped to bar
 height. By default, \code{geom_bar} uses \code{stat="count"} which makes the
-height of the bar proportion to the number of cases in each group (or if the
+height of the bar proportional to the number of cases in each group (or if the
 \code{weight} aethetic is supplied, the sum of the weights). If you want the
 heights of the bars to represent values in the data, use
 \code{stat="identity"} and map a variable to the \code{y} aesthetic.
@@ -112,7 +112,10 @@ g + geom_bar(aes(weight = displ))
 df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
 ggplot(df, aes(trt, outcome)) +
   geom_bar(stat = "identity")
-# But geom_point() display exactly the same information and doesn't
+# And, even more succinctly with geom_col()
+ggplot(df, aes(trt, outcome)) +
+  geom_col()
+# But geom_point() displays exactly the same information and doesn't
 # require the y-axis to touch zero.
 ggplot(df, aes(trt, outcome)) +
   geom_point()
@@ -141,7 +144,8 @@ ggplot(mpg, aes(reorder_size(class))) + geom_bar()
 }
 }
 \seealso{
-\code{\link{geom_histogram}} for continuous data,
+\code{\link{geom_col}} which uses \code{stat="identity"} by default,
+  \code{\link{geom_histogram}} for continuous data,
   \code{\link{position_dodge}} for creating side-by-side barcharts.
 
 \code{\link{stat_bin}}, which bins data in ranges and counts the

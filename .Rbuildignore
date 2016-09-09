@@ -11,3 +11,4 @@ visual_test
 ^NEWS$
 ^revdep$
 ^\.httr-oauth$
+^codecov\.yml$
