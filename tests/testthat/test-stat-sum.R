@@ -41,3 +41,37 @@ test_that("handles grouping correctly", {
   expect_equal(sum(ret$n), sum(d$price))
   expect_equal(sum(ret$prop), 1)
 })
+
+
+# Visual tests ------------------------------------------------------------
+
+test_that("summaries are drawn correctly", {
+  vdiffr::expect_doppelganger(
+    ggplot(mtcars, aes(x = cyl, y = mpg, colour = factor(vs))) +
+      geom_point() +
+      stat_summary(fun.y = mean, geom = "line", size = 2),
+    "summary_with_color_and_lines"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(mtcars, aes(x = cyl, y = mpg)) +
+      geom_point() +
+      stat_summary(
+        fun.data = mean_cl_boot,
+        colour = "red",
+        geom = "crossbar",
+        width = 0.2
+      ),
+    "summary_with_crossbars_no_grouping"
+  )
+  vdiffr::expect_doppelganger(
+    ggplot(mtcars, aes(x = cyl, y = mpg, group = cyl)) +
+      geom_point() +
+      stat_summary(
+        fun.data = mean_cl_boot,
+        colour = "red",
+        geom = "crossbar",
+        width = 0.2
+      ),
+    "summary_with_crossbars_manual_grouping"
+  )
+})

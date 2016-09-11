@@ -38,12 +38,14 @@ Suggests:
     multcomp,
     nlme,
     testthat (>= 0.11.0),
+    vdiffr,
     quantreg,
     knitr,
     rpart,
     rmarkdown,
     svglite
 Enhances: sp
+Remotes: lionel-/vdiffr
 License: GPL-2
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
 BugReports: https://github.com/hadley/ggplot2/issues
@@ -220,3 +222,6 @@ Collate:
     'zzz.r'
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
+svgliteNote: 1.1.0
+ggplot2Note: 2.1.0
+vdiffrNote: 0.0.0.9001
