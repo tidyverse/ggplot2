@@ -228,7 +228,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     empty_table <- matrix(list(zeroGrob()), nrow = nrow, ncol = ncol)
     panel_table <- empty_table
     panel_table[panel_pos] <- panels
-    empties <- apply(panel_table, c(1,2), function(x) inherits(x[[1]], 'zeroGrob'))
+    empties <- apply(panel_table, c(1,2), function(x) is.zero(x[[1]]))
     panel_table <- gtable_matrix("layout", panel_table,
      widths = unit(rep(1, ncol), "null"),
      heights = unit(rep(aspect_ratio, nrow), "null"), respect = respect)
@@ -260,6 +260,29 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     axis_height_bottom <- unit(apply(axis_mat_x_bottom, 1, max_height), "cm")
     axis_width_left <- unit(apply(axis_mat_y_left, 2, max_width), "cm")
     axis_width_right <- unit(apply(axis_mat_y_right, 2, max_width), "cm")
+    # Add back missing axes
+    if (any(empties)) {
+      first_row <- which(apply(empties, 1, any))[1] - 1
+      first_col <- which(apply(empties, 2, any))[1] - 1
+      row_panels <- which(layout$ROW == first_row & layout$COL > first_col)
+      row_pos <- convertInd(layout$ROW[row_panels], layout$COL[row_panels], nrow)
+      row_axes <- axes$x$bottom[layout$SCALE_X[row_panels]]
+      col_panels <- which(layout$ROW > first_row & layout$COL == first_col)
+      col_pos <- convertInd(layout$ROW[col_panels], layout$COL[col_panels], nrow)
+      col_axes <- axes$y$right[layout$SCALE_Y[col_panels]]
+      if (params$strip.position == "bottom" &&
+          theme$strip.placement != "inside" &&
+          any(!vapply(row_axes, is.zero, logical(length(row_axes))))) {
+        warning("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'", call. = FALSE)
+      }
+      axis_mat_x_bottom[row_pos] <- row_axes
+      if (params$strip.position == "right" &&
+          theme$strip.placement != "inside" &&
+          any(!vapply(col_axes, is.zero, logical(length(col_axes))))) {
+        warning("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'", call. = FALSE)
+      }
+      axis_mat_y_right[col_pos] <- col_axes
+    }
     panel_table <- weave_tables_row(panel_table, axis_mat_x_top, -1, axis_height_top, "axis-t")
     panel_table <- weave_tables_row(panel_table, axis_mat_x_bottom, 0, axis_height_bottom, "axis-b")
     panel_table <- weave_tables_col(panel_table, axis_mat_y_left, -1, axis_width_left, "axis-l")
