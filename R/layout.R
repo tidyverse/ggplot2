@@ -166,3 +166,29 @@ Layout <- ggproto("Layout", NULL,
     label_grobs
   }
 )
+
+
+# Helpers -----------------------------------------------------------------
+
+# Function for applying scale method to multiple variables in a given
+# data set.  Implement in such a way to minimize copying and hence maximise
+# speed
+scale_apply <- function(data, vars, method, scale_id, scales) {
+  if (length(vars) == 0) return()
+  if (nrow(data) == 0) return()
+
+  n <- length(scales)
+  if (any(is.na(scale_id))) stop()
+
+  scale_index <- plyr::split_indices(scale_id, n)
+
+  lapply(vars, function(var) {
+    pieces <- lapply(seq_along(scales), function(i) {
+      scales[[i]][[method]](data[[var]][scale_index[[i]]])
+    })
+    # Join pieces back together, if necessary
+    if (!is.null(pieces)) {
+      unlist(pieces)[order(unlist(scale_index))]
+    }
+  })
+}

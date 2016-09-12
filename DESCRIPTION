@@ -146,7 +146,6 @@ Collate:
     'layout.R'
     'limits.r'
     'margins.R'
-    'panel.r'
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'

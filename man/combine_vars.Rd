@@ -5,11 +5,13 @@
 \title{Take input data and define a mapping between facetting variables and ROW,
 COL and PANEL keys}
 \usage{
-combine_vars(data, vars = NULL, drop = TRUE)
+combine_vars(data, env = emptyenv(), vars = NULL, drop = TRUE)
 }
 \arguments{
 \item{data}{A list of data.frames, the first being the plot data and the
 subsequent individual layer data}
+
+\item{env}{The environment the vars should be evaluated in}
 
 \item{vars}{A list of quoted symbols matching columns in data}
 
