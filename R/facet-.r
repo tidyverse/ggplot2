@@ -217,8 +217,8 @@ unique_combs <- function(df) {
 }
 
 df.grid <- function(a, b) {
-  if (nrow(a) == 0) return(b)
-  if (nrow(b) == 0) return(a)
+  if (is.null(a) || nrow(a) == 0) return(b)
+  if (is.null(b) || nrow(b) == 0) return(a)
 
   indexes <- expand.grid(
     i_a = seq_len(nrow(a)),
