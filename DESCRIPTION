@@ -24,7 +24,8 @@ Imports:
     reshape2,
     scales (>= 0.3.0),
     stats,
-    tibble
+    tibble,
+    lazyeval
 Suggests:
     covr,
     ggplot2movies,
