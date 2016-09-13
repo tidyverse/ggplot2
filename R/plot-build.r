@@ -105,12 +105,12 @@ layer_data <- function(plot, i = 1L) {
 layer_scales <- function(plot, i = 1L, j = 1L) {
   b <- ggplot_build(plot)
 
-  layout <- b$panel$layout
+  layout <- b$layout$panel_layout
   selected <- layout[layout$ROW == i & layout$COL == j, , drop = FALSE]
 
   list(
-    x = b$panel$x_scales[[selected$SCALE_X]],
-    y = b$panel$y_scales[[selected$SCALE_Y]]
+    x = b$layout$panel_scales$x[[selected$SCALE_X]],
+    y = b$layout$panel_scales$y[[selected$SCALE_Y]]
   )
 }
 
@@ -119,7 +119,7 @@ layer_scales <- function(plot, i = 1L, j = 1L) {
 layer_grob <- function(plot, i = 1L) {
   b <- ggplot_build(plot)
 
-  b$plot$layers[[i]]$draw_geom(b$data[[i]], b$panel, b$plot$coordinates)
+  b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout, b$plot$coordinates)
 }
 
 #' Build a plot with all the usual bits and pieces.
