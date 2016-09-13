@@ -206,7 +206,7 @@ The required methods are:
 \itemize{
   \item \code{compute_layout}: Based on layer data compute a mapping between
   panels, axes, and potentially other parameters such as faceting variable
-  level etc. This method must return a data.frame containing at least the ¨
+  level etc. This method must return a data.frame containing at least the
   columns \code{PANEL}, \code{SCALE_X}, and \code{SCALE_Y} each containing
   integer keys mapping a PANEL to which axes it should use. In addition the
   data.frame can contain whatever other information is necessary to assign

@@ -36,10 +36,11 @@ options.}
 a table with highest values at the bottom-right. If \code{FALSE}, the
 facets are laid out like a plot with the highest value at the top-right.}
 
-\item{switch}{By default, the labels are displayed on the top of
-the plot. If \code{switch} is \code{"x"}, they will be displayed
-to the bottom. If \code{"y"}, they will be displayed to the
-left, near the y axis.}
+\item{switch}{By default, the labels are displayed on the top and
+right of the plot. If \code{"x"}, the top labels will be
+displayed to the bottom. If \code{"y"}, the right-hand side
+labels will be displayed to the left. Can also be set to
+\code{"both"}.}
 
 \item{drop}{If \code{TRUE}, the default, all factor levels not used in the
 data will automatically be dropped. If \code{FALSE}, all factor levels
@@ -47,6 +48,11 @@ will be shown, regardless of whether or not they appear in the data.}
 
 \item{dir}{Direction: either "h" for horizontal, the default, or "v", for
 vertical.}
+
+\item{strip.position}{By default, the labels are displayed on the top of
+the plot. Using \code{strip.position} it is possible to place the labels on
+either of the four sides by setting \code{strip.position = c("top",
+"bottom", "left", "right")}}
 }
 \description{
 Most displays are roughly rectangular, so if you have a categorical

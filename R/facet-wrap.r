@@ -14,10 +14,10 @@ NULL
 #' @param scales should Scales be fixed (\code{"fixed"}, the default),
 #'   free (\code{"free"}), or free in one dimension (\code{"free_x"},
 #'   \code{"free_y"}).
-#' @param switch By default, the labels are displayed on the top of
-#'   the plot. If \code{switch} is \code{"x"}, they will be displayed
-#'   to the bottom. If \code{"y"}, they will be displayed to the
-#'   left, near the y axis.
+#' @param strip.position By default, the labels are displayed on the top of
+#'   the plot. Using \code{strip.position} it is possible to place the labels on
+#'   either of the four sides by setting \code{strip.position = c("top",
+#'   "bottom", "left", "right")}
 #' @param dir Direction: either "h" for horizontal, the default, or "v", for
 #'   vertical.
 #' @inheritParams facet_grid
