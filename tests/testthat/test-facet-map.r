@@ -8,8 +8,8 @@ df_c <- unique(data.frame(c = 1))
 
 test_that("two col cases with no missings adds single extra column", {
   facet <- facet_grid(cyl~vs)
-  vscyl <- facet$layout(list(mtcars))
-  loc <- facet$map(mtcars, vscyl)
+  layout <- facet$train(list(mtcars))
+  loc <- facet$map(mtcars, layout)
 
   expect_equal(nrow(loc), nrow(mtcars))
   expect_equal(ncol(loc), ncol(mtcars) + 1)
@@ -21,8 +21,8 @@ test_that("two col cases with no missings adds single extra column", {
 
 test_that("margins add extra data", {
   facet <- facet_grid(a~b, margins = "b")
-  panel <- facet$layout(list(df))
-  loc <- facet$map(df, panel)
+  layout <- facet$train(list(df))
+  loc <- facet$map(df, layout)
 
   expect_equal(nrow(loc), nrow(df) * 2)
 })
@@ -30,35 +30,35 @@ test_that("margins add extra data", {
 
 test_that("grid: missing facet columns are duplicated", {
   facet <- facet_grid(a~b)
-  panel <- facet$layout(list(df))
+  layout <- facet$train(list(df))
 
-  loc_a <- facet$map(df_a, panel)
+  loc_a <- facet$map(df_a, layout)
   expect_equal(nrow(loc_a), 4)
   expect_equal(loc_a$PANEL, factor(1:4))
 
-  loc_b <- facet$map(df_b, panel)
+  loc_b <- facet$map(df_b, layout)
   expect_equal(nrow(loc_b), 4)
   expect_equal(loc_b$PANEL, factor(1:4))
 
-  loc_c <- facet$map(df_c, panel)
+  loc_c <- facet$map(df_c, layout)
   expect_equal(nrow(loc_c), 4)
   expect_equal(loc_c$PANEL, factor(1:4))
 })
 
 test_that("wrap: missing facet columns are duplicated", {
   facet <- facet_wrap(~a+b, ncol = 1)
-  panel <- facet$layout(list(df))
+  layout <- facet$train(list(df))
 
-  loc_a <- facet$map(df_a, panel)
+  loc_a <- facet$map(df_a, layout)
   expect_equal(nrow(loc_a), 4)
   expect_equal(loc_a$PANEL, factor(1:4))
   expect_equal(loc_a$a, c(1, 1, 2, 2))
 
-  loc_b <- facet$map(df_b, panel)
+  loc_b <- facet$map(df_b, layout)
   expect_equal(nrow(loc_b), 4)
   expect_equal(loc_b$PANEL, factor(1:4))
 
-  loc_c <- facet$map(df_c, panel)
+  loc_c <- facet$map(df_c, layout)
   expect_equal(nrow(loc_c), 4)
   expect_equal(loc_c$PANEL, factor(1:4))
 
@@ -74,32 +74,32 @@ a3 <- data.frame(
 
 test_that("wrap: missing values located correctly", {
   facet <- facet_wrap(~b, ncol = 1)
-  panel_b <- facet$layout(list(a3))
-  loc_b <- facet$map(data.frame(b = NA), panel_b)
+  layout_b <- facet$train(list(a3))
+  loc_b <- facet$map(data.frame(b = NA), layout_b)
   expect_equal(as.character(loc_b$PANEL), "4")
 
   facet <- facet_wrap(~c, ncol = 1)
-  panel_c <- facet$layout(list(a3))
-  loc_c <- facet$map(data.frame(c = NA), panel_c)
+  layout_c <- facet$train(list(a3))
+  loc_c <- facet$map(data.frame(c = NA), layout_c)
   expect_equal(as.character(loc_c$PANEL), "4")
 
 })
 
 test_that("grid: missing values located correctly", {
   facet <- facet_grid(b~.)
-  panel_b <- facet$layout(list(a3))
-  loc_b <- facet$map(data.frame(b = NA), panel_b)
+  layout_b <- facet$train(list(a3))
+  loc_b <- facet$map(data.frame(b = NA), layout_b)
   expect_equal(as.character(loc_b$PANEL), "4")
 
   facet <- facet_grid(c~.)
-  panel_c <- facet$layout(list(a3))
-  loc_c <- facet$map(data.frame(c = NA), panel_c)
+  layout_c <- facet$train(list(a3))
+  loc_c <- facet$map(data.frame(c = NA), layout_c)
   expect_equal(as.character(loc_c$PANEL), "4")
 })
 
 # Facet order ----------------------------------------------------------------
 
-get_layout <- function(p)  ggplot_build(p)$panel$layout
+get_layout <- function(p)  ggplot_build(p)$layout$panel_layout
 
 # Data with factor f with levels CBA
 d <- data.frame(x = 1:9, y = 1:9,
