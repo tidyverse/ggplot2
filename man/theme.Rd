@@ -51,14 +51,22 @@ The individual theme elements are:
                    (\code{element_text}; inherits from \code{text}) \cr
   axis.title.x     \tab x axis label
                    (\code{element_text}; inherits from \code{axis.title}) \cr
+  axis.title.x.top \tab x axis label on top axis
+                   (\code{element_text}; inherits from \code{axis.title.x}) \cr
   axis.title.y     \tab y axis label
                    (\code{element_text}; inherits from \code{axis.title}) \cr
+  axis.title.y.right \tab y axis label on right axis
+                   (\code{element_text}; inherits from \code{axis.title.y}) \cr
   axis.text        \tab tick labels along axes
                    (\code{element_text}; inherits from \code{text}) \cr
   axis.text.x      \tab x axis tick labels
                    (\code{element_text}; inherits from \code{axis.text}) \cr
+  axis.text.x.top  \tab x axis tick labels on top axis
+                   (\code{element_text}; inherits from \code{axis.text.x}) \cr
   axis.text.y      \tab y axis tick labels
                    (\code{element_text}; inherits from \code{axis.text}) \cr
+  axis.text.y.right  \tab y axis tick labels on right axis
+                   (\code{element_text}; inherits from \code{axis.text.y}) \cr
   axis.ticks       \tab tick marks along axes
                    (\code{element_line}; inherits from \code{line}) \cr
   axis.ticks.x     \tab x axis tick marks

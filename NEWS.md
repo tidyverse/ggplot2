@@ -24,6 +24,9 @@
   in `scale_x_*`and `scale_y_*` which can take `top` and `bottom`, and `left`and
   `right` respectively.
 
+* The styling of top and right axes text and labels can be modified directly 
+  using the `.top` and `.right` modifiers to `axis.text.*` and `axis.title.*`
+
 * `scale_x_continuous` and `scale_y_continuous` can now display a secondary axis
   that is a linear transformation of the primary axis (e.g. degrees Celcius to
   degrees Fahrenheit). The secondary axis will be positioned opposite of the 
