@@ -1,5 +1,10 @@
 # ggplot2 2.1.0.9000 
 
+* `geom_boxplot` gain new `outlier.alpha` argument for controlling the alpha of
+   outlier points independently of the alpha of the boxes. 
+   Analogous to outlier.colour, outlier.shape, etc.
+   (@jonathan-g).
+
 * FP adjustment for histogram bins is now actually used - it was previously
   inadvertently ignored (#1651).
 
@@ -57,7 +62,7 @@
   
 * Minor code formatting and grammar issues in examples and function 
   parameters were fixed. (@hrbrmstr)
-  
+
 * `geom_col()` was added to complement `geom_bar()`. It uses `stat="identity"`
   by default, making the `y` aesthetic mandatory. It does not support any 
   other `stat_()` and does not provide fallback support for the `binwidth`
@@ -66,7 +71,7 @@
 
 * Fix error message of Stats ggprotos when required aesthetics are
   missing.
-  
+
 * Fix bug that resulted in several annotation_x function not getting drawn when
   global data was lacking (#1655)
 
@@ -136,9 +141,9 @@
       
     * `bins = n` now gives a histogram with `n` bins, not `n + 1` (#1487).
 
-## Bug fixes 
+## Bug fixes
 
-* All `\donttest{}` examples run. 
+* All `\donttest{}` examples run.
 
 * All `geom_()` and `stat_()` functions now have consistent argument order:
   data + mapping, then geom/stat/position, then `...`, then specific arguments, 
