@@ -43,12 +43,12 @@ annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
   raster <- grDevices::as.raster(raster)
 
   layer(
-    data = NULL,
+    data = dummy_data(),
     mapping = NULL,
     stat = StatIdentity,
     position = PositionIdentity,
     geom = GeomRasterAnn,
-    inherit.aes = TRUE,
+    inherit.aes = FALSE,
     params = list(
       raster = raster,
       xmin = xmin,

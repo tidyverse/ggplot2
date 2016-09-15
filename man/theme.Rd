@@ -76,8 +76,14 @@ The individual theme elements are:
 
   legend.background  \tab background of legend
                    (\code{element_rect}; inherits from \code{rect}) \cr
-  legend.margin    \tab extra space added around legend
+  legend.margin    \tab the margin around each legend
+                   (\code{margin}) \cr
+  legend.spacing   \tab the spacing between legends
                    (\code{unit}) \cr
+  legend.spacing.x  \tab the horizontal spacing between legends
+                   (\code{unit}); inherits from \code{legend.spacing} \cr
+  legend.spacing.y  \tab the horizontal spacing between legends
+                   (\code{unit}); inherits from \code{legend.spacing} \cr
   legend.key       \tab background underneath legend keys
                    (\code{element_rect}; inherits from \code{rect}) \cr
   legend.key.size  \tab size of legend keys
@@ -100,12 +106,20 @@ The individual theme elements are:
   legend.direction \tab layout of items in legends
                    ("horizontal" or "vertical") \cr
   legend.justification \tab anchor point for positioning legend inside plot
-                   ("center" or two-element numeric vector) \cr
+                   ("center" or two-element numeric vector) or the
+                   justification according to the plot area when positioned
+                   outside the plot \cr
   legend.box       \tab arrangement of multiple legends
                    ("horizontal" or "vertical") \cr
   legend.box.just  \tab justification of each legend within the overall
                    bounding box, when there are multiple legends
                    ("top", "bottom", "left", or "right")\cr
+  legend.box.margin \tab margins around the full legend area, as specified
+                   using \code{\link{margin}} \cr
+  legend.box.background \tab background of legend area
+                   (\code{element_rect}; inherits from \code{rect}) \cr
+  legend.box.spacing \tab The spacing between the plotting area and the
+                   legend box (\code{unit}) \cr
 
   panel.background \tab background of plotting area, drawn underneath plot
                    (\code{element_rect}; inherits from \code{rect}) \cr
@@ -113,12 +127,12 @@ The individual theme elements are:
                    so that it covers tick marks and grid lines. This should
                    be used with \code{fill=NA}
                    (\code{element_rect}; inherits from \code{rect}) \cr
-  panel.margin     \tab margin around facet panels
+  panel.spacing    \tab spacing between facet panels
                    (\code{unit}) \cr
-  panel.margin.x   \tab horizontal margin around facet panels
-                   (\code{unit}; inherits from \code{panel.margin}) \cr
-  panel.margin.y   \tab vertical margin around facet panels
-                   (\code{unit}; inherits from \code{panel.margin}) \cr
+  panel.spacing.x  \tab horizontal spacing between facet panels
+                   (\code{unit}; inherits from \code{panel.spacing}) \cr
+  panel.spacing.y  \tab vertical spacing between facet panels
+                   (\code{unit}; inherits from \code{panel.spacing}) \cr
   panel.grid       \tab grid lines
                    (\code{element_line}; inherits from \code{line}) \cr
   panel.grid.major \tab major grid lines
@@ -234,9 +248,20 @@ z + theme(legend.position = c(.5, .5))
 z + theme(legend.background = element_rect(colour = "black"))
 # Legend margin controls extra space around outside of legend:
 z + theme(legend.background = element_rect(),
-          legend.margin = unit(1, "cm"))
+          legend.margin = margin(1, 1, 1, 1, "cm"))
 z + theme(legend.background = element_rect(),
-          legend.margin = unit(0, "cm"))
+          legend.margin = margin(0, 0, 0, 0, "cm"))
+# Legend spacing pushes legends apart
+z + theme(legend.background = element_rect(),
+          legend.margin = margin(1, 1, 1, 1, "cm"),
+          legend.spacing = unit(1, "cm"))
+# A border and background can also be added around the whole legend area
+z + theme(legend.box.background = element_rect(),
+          legend.box.margin = margin(5, 5, 5, 5, "mm"))
+# The distance from the plot area can be set with legend.box.spacing
+z + theme(legend.box.spacing = unit(3, "cm"))
+# and the justifaction related to the plot area can be set
+z + theme(legend.justification = "bottom")
 # Or to just the keys
 z + theme(legend.key = element_rect(colour = "black"))
 z + theme(legend.key = element_rect(fill = "yellow"))
@@ -270,8 +295,8 @@ k + theme(strip.background = element_rect(colour = "purple", fill = "pink",
                                           size = 3, linetype = "dashed"))
 k + theme(strip.text.x = element_text(colour = "red", angle = 45, size = 10,
                                       hjust = 0.5, vjust = 0.5))
-k + theme(panel.margin = unit(5, "lines"))
-k + theme(panel.margin.y = unit(0, "lines"))
+k + theme(panel.spacing = unit(5, "lines"))
+k + theme(panel.spacing.y = unit(0, "lines"))
 
 # Put gridlines on top
 meanprice <- tapply(diamonds$price, diamonds$cut, mean)

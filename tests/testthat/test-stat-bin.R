@@ -42,6 +42,15 @@ test_that("can use breaks argument", {
 })
 
 
+test_that("fuzzy breaks used when cutting", {
+  df <- data.frame(x = c(-1, -0.5, -0.4, 0))
+  p <- ggplot(df, aes(x)) +
+    geom_histogram(binwidth = 0.1, boundary = 0.1, closed = "left")
+
+  bins <- layer_data(p) %>% subset(count > 0) %>% .[1:5]
+  expect_equal(bins$count, c(1, 1, 1, 1))
+})
+
 # Underlying binning algorithm --------------------------------------------
 
 comp_bin <- function(df, ...) {

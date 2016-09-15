@@ -187,7 +187,13 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   },
 
   transform = function(self, x) {
-     self$trans$transform(x)
+     new_x <- self$trans$transform(x)
+     if (any(is.finite(x) != is.finite(new_x))) {
+       type <- if (self$scale_name == "position_c") "continuous" else "discrete"
+       axis <- if ("x" %in% self$aesthetics) "x" else "y"
+       warning("Transformation introduced infinite values in ", type, " ", axis, "-axis", call. = FALSE)
+     }
+     new_x
   },
 
   map = function(self, x, limits = self$get_limits()) {
@@ -345,6 +351,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   drop = TRUE,
   na.value = NA,
+  n.breaks.cache = NULL,
+  palette.cache = NULL,
 
   is_discrete = function() TRUE,
 
@@ -359,7 +367,14 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
   map = function(self, x, limits = self$get_limits()) {
     n <- sum(!is.na(limits))
-    pal <- self$palette(n)
+    if (!is.null(self$n.breaks.cache) && self$n.breaks.cache == n) {
+      pal <- self$palette.cache
+    } else {
+      if (!is.null(self$n.breaks.cache)) warning("Cached palette does not match requested", call. = FALSE)
+      pal <- self$palette(n)
+      self$palette.cache <- pal
+      self$n.breaks.cache <- n
+    }
 
     if (is.null(names(pal))) {
       pal_match <- pal[match(as.character(x), limits)]
@@ -516,13 +531,12 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   \code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
 #'   discrete variables.
 #' @param guide Name of guide object, or object itself.
+#' @param super The super class to use for the constructed scale
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
-                             breaks = waiver(), minor_breaks = waiver(),
-                             labels = waiver(), limits = NULL,
-                             rescaler = rescale, oob = censor,
-                             expand = waiver(), na.value = NA_real_,
-                             trans = "identity", guide = "legend") {
+  breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL,
+  rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_,
+  trans = "identity", guide = "legend", super = ScaleContinuous) {
 
   check_breaks_labels(breaks, labels)
 
@@ -535,7 +549,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     limits <- trans$transform(limits)
   }
 
-  ggproto(NULL, ScaleContinuous,
+  ggproto(NULL, super,
     call = match.call(),
 
     aesthetics = aesthetics,
@@ -599,10 +613,11 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' @param na.value how should missing values be displayed?
 #' @param guide the name of, or actual function, used to create the
 #'   guide. See \code{\link{guides}} for more info.
+#' @param super The super class to use for the constructed scale
 #' @keywords internal
-discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(),
-  labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE,
-  guide = "legend") {
+discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
+  breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
+  na.value = NA, drop = TRUE, guide = "legend", super = ScaleDiscrete) {
 
   check_breaks_labels(breaks, labels)
 
@@ -610,7 +625,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), bre
     guide <- "none"
   }
 
-  ggproto(NULL, ScaleDiscrete,
+  ggproto(NULL, super,
     call = match.call(),
 
     aesthetics = aesthetics,

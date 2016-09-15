@@ -289,13 +289,13 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
   widths <- list(
     axis_l = width_cm(grobs$axis_l),
     strip_t = strip_width,
-    vspace = ifelse(layout$COL == ncol, 0, width_cm(theme$panel.margin.x %||% theme$panel.margin))
+    vspace = ifelse(layout$COL == ncol, 0, width_cm(theme$panel.spacing.x %||% theme$panel.spacing))
   )
   heights <- list(
     panel = unit(aspect_ratio, "null"),
     strip_t = strip_height,
     axis_b = height_cm(grobs$axis_b),
-    hspace = ifelse(layout$ROW == nrow, 0, height_cm(theme$panel.margin.y %||% theme$panel.margin))
+    hspace = ifelse(layout$ROW == nrow, 0, height_cm(theme$panel.spacing.y %||% theme$panel.spacing))
   )
 
   # Remove strip_t according to which strips are switched

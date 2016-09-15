@@ -36,13 +36,16 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL,
 #' @param linetype line type
 #' @param lineend line end
 #' @param color an alias for \code{colour}
+#' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
 #' @export
 element_line <- function(colour = NULL, size = NULL, linetype = NULL,
-  lineend = NULL, color = NULL) {
+  lineend = NULL, color = NULL, arrow = NULL) {
 
   if (!is.null(color))  colour <- color
+  if (is.null(arrow)) arrow <- FALSE
   structure(
-    list(colour = colour, size = size, linetype = linetype, lineend = lineend),
+    list(colour = colour, size = size, linetype = linetype, lineend = lineend,
+      arrow = arrow),
     class = c("element_line", "element")
   )
 }
@@ -195,11 +198,15 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   gp <- gpar(lwd = len0_null(size * .pt), col = colour, lty = linetype, lineend = lineend)
   element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     lty = element$linetype, lineend = element$lineend)
-
+  arrow <- if (is.logical(element$arrow) && !element$arrow) {
+    NULL
+  } else {
+    element$arrow
+  }
   polylineGrob(
     x, y, default.units = default.units,
     gp = utils::modifyList(element_gp, gp),
-    id.lengths = id.lengths, ...
+    id.lengths = id.lengths, arrow = arrow, ...
   )
 }
 
@@ -245,7 +252,10 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.title.y        = el_def("element_text", "axis.title"),
 
   legend.background   = el_def("element_rect", "rect"),
-  legend.margin       = el_def("unit"),
+  legend.margin       = el_def("margin"),
+  legend.spacing      = el_def("unit"),
+  legend.spacing.x     = el_def("unit", "legend.spacing"),
+  legend.spacing.y     = el_def("unit", "legend.spacing"),
   legend.key          = el_def("element_rect", "rect"),
   legend.key.height   = el_def("unit", "legend.key.size"),
   legend.key.width    = el_def("unit", "legend.key.size"),
@@ -258,12 +268,15 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.justification = el_def("character"),
   legend.box          = el_def("character"),
   legend.box.just     = el_def("character"),
+  legend.box.margin   = el_def("margin"),
+  legend.box.background = el_def("element_rect", "rect"),
+  legend.box.spacing  = el_def("unit"),
 
   panel.background    = el_def("element_rect", "rect"),
   panel.border        = el_def("element_rect", "rect"),
-  panel.margin        = el_def("unit"),
-  panel.margin.x      = el_def("unit", "panel.margin"),
-  panel.margin.y      = el_def("unit", "panel.margin"),
+  panel.spacing       = el_def("unit"),
+  panel.spacing.x     = el_def("unit", "panel.spacing"),
+  panel.spacing.y     = el_def("unit", "panel.spacing"),
   panel.grid.major.x  = el_def("element_line", "panel.grid.major"),
   panel.grid.major.y  = el_def("element_line", "panel.grid.major"),
   panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),

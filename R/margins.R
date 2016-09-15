@@ -15,7 +15,9 @@
 margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
   structure(unit(c(t, r, b, l), unit), class = c("margin", "unit"))
 }
-
+is.margin <- function(x) {
+  inherits(x, "margin")
+}
 
 margin_height <- function(grob, margins) {
   if (is.zero(grob)) return(unit(0, "cm"))
@@ -62,20 +64,26 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   text_grob <- textGrob(label, x, y, hjust = hjust, vjust = vjust,
     rot = angle, gp = gp)
 
+  # The grob dimensions don't include the text descenders, so add on using
+  # a little trigonometry. This is only exactly correct when vjust = 1.
+  descent <- descentDetails(text_grob)
+  text_height <- unit(1, "grobheight", text_grob) + cos(angle / 180 * pi) * descent
+  text_width <- unit(1, "grobwidth", text_grob) + sin(angle / 180 * pi) * descent
+
   if (expand_x && expand_y) {
-    widths <- unit.c(margin[4], unit(1, "grobwidth", text_grob), margin[2])
-    heights <- unit.c(margin[1], unit(1, "grobheight", text_grob), margin[3])
+    widths <- unit.c(margin[4], text_width, margin[2])
+    heights <- unit.c(margin[1], text_height, margin[3])
 
     vp <- viewport(layout = grid.layout(3, 3, heights = heights, widths = widths), gp = gp)
     child_vp <- viewport(layout.pos.row = 2, layout.pos.col = 2)
   } else if (expand_x) {
-    widths <- unit.c(margin[4], unit(1, "grobwidth", text_grob), margin[2])
+    widths <- unit.c(margin[4], text_width, margin[2])
     vp <- viewport(layout = grid.layout(1, 3, widths = widths), gp = gp)
     child_vp <- viewport(layout.pos.col = 2)
 
     heights <- unit(1, "null")
   } else if (expand_y) {
-    heights <- unit.c(margin[1], unit(1, "grobheight", text_grob), margin[3])
+    heights <- unit.c(margin[1], text_height, margin[3])
 
     vp <- viewport(layout = grid.layout(3, 1, heights = heights), gp = gp)
     child_vp <- viewport(layout.pos.row = 2)

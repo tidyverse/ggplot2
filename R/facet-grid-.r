@@ -315,9 +315,9 @@ facet_strips.grid <- function(facet, panel, theme) {
 
   Map(function(strip, side) {
     if (side %in% c("t", "b")) {
-      gtable_add_col_space(strip, theme$panel.margin.x %||% theme$panel.margin)
+      gtable_add_col_space(strip, theme$panel.spacing.x %||% theme$panel.spacing)
     } else {
-      gtable_add_row_space(strip, theme$panel.margin.y %||% theme$panel.margin)
+      gtable_add_row_space(strip, theme$panel.spacing.y %||% theme$panel.spacing)
     }
   }, strips, dir)
 }
@@ -330,13 +330,13 @@ facet_axes.grid <- function(facet, panel, coord, theme) {
   cols <- which(panel$layout$ROW == 1)
   grobs <- lapply(panel$ranges[cols], coord$render_axis_h, theme = theme)
   axes$b <- gtable_add_col_space(gtable_row("axis-b", grobs),
-    theme$panel.margin.x %||% theme$panel.margin)
+    theme$panel.spacing.x %||% theme$panel.spacing)
 
   # Vertical axes
   rows <- which(panel$layout$COL == 1)
   grobs <- lapply(panel$ranges[rows], coord$render_axis_v, theme = theme)
   axes$l <- gtable_add_row_space(gtable_col("axis-l", grobs),
-    theme$panel.margin.y %||% theme$panel.margin)
+    theme$panel.spacing.y %||% theme$panel.spacing)
 
   axes
 }
@@ -402,8 +402,8 @@ facet_panels.grid <- function(facet, panel, coord, theme, geom_grobs) {
 
   panels <- gtable_matrix("panel", panel_matrix,
     panel_widths, panel_heights, respect = respect)
-  panels <- gtable_add_col_space(panels, theme$panel.margin.x %||% theme$panel.margin)
-  panels <- gtable_add_row_space(panels, theme$panel.margin.y %||% theme$panel.margin)
+  panels <- gtable_add_col_space(panels, theme$panel.spacing.x %||% theme$panel.spacing)
+  panels <- gtable_add_row_space(panels, theme$panel.spacing.y %||% theme$panel.spacing)
 
   panels
 }

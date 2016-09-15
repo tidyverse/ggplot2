@@ -126,8 +126,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     # Needed for coord_polar and such
     newdata <- rbind(newdata, newdata[1,])
 
-    # Draw quantiles if requested
-    if (length(draw_quantiles) > 0) {
+    # Draw quantiles if requested, so long as there is non-zero y range
+    if (length(draw_quantiles) > 0 & !scales::zero_range(range(data$y))) {
       stopifnot(all(draw_quantiles >= 0), all(draw_quantiles <= 1))
 
       # Compute the quantile segments and combine with existing aesthetics
@@ -137,6 +137,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
         setdiff(names(data), c("x", "y")),
         drop = FALSE
       ]
+      aesthetics$alpha <- rep(1, nrow(quantiles))
       both <- cbind(quantiles, aesthetics)
       quantile_grob <- GeomPath$draw_panel(both, ...)
 
@@ -163,11 +164,11 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
   ecdf <- stats::approxfun(dens, data$y)
   ys <- ecdf(draw_quantiles) # these are all the y-values for quantiles
 
-  # Get the violin bounds for the requested quantiles
+  # Get the violin bounds for the requested quantiles.
   violin.xminvs <- (stats::approxfun(data$y, data$xminv))(ys)
   violin.xmaxvs <- (stats::approxfun(data$y, data$xmaxv))(ys)
 
-  # We have two rows per segment drawn. Each segments gets its own group.
+  # We have two rows per segment drawn. Each segment gets its own group.
   data.frame(
     x = interleave(violin.xminvs, violin.xmaxvs),
     y = rep(ys, each = 2),
