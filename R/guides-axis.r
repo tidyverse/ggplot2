@@ -16,7 +16,7 @@ guide_axis <- function(at, labels, position = "right", theme) {
 
   label_render <- switch(position,
     top = "axis.text.x.top", bottom = "axis.text.x",
-    left = "axis.text.y.right", right = "axis.text.y"
+    left = "axis.text.y", right = "axis.text.y.right"
   )
 
   label_x <- switch(position,
