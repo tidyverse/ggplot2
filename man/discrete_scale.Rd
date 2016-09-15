@@ -6,7 +6,8 @@
 \usage{
 discrete_scale(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), labels = waiver(), limits = NULL,
-  expand = waiver(), na.value = NA, drop = TRUE, guide = "legend")
+  expand = waiver(), na.value = NA, drop = TRUE, guide = "legend",
+  super = ScaleDiscrete)
 }
 \arguments{
 \item{aesthetics}{the names of the aesthetics that this scale works with}
@@ -55,6 +56,8 @@ The default, \code{TRUE}, uses the levels that appear in the data;
 
 \item{guide}{the name of, or actual function, used to create the
 guide. See \code{\link{guides}} for more info.}
+
+\item{super}{The super class to use for the constructed scale}
 }
 \description{
 Discrete scale constructor.

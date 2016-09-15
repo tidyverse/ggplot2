@@ -42,72 +42,54 @@ NULL
 #' @rdname scale_identity
 #' @export
 scale_colour_identity <- function(..., guide = "none") {
-  sc <- discrete_scale("colour", "identity", identity_pal(), ..., guide = guide)
+  sc <- discrete_scale("colour", "identity", identity_pal(), ..., guide = guide,
+    super = ScaleDiscreteIdentity)
 
-  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-  # object should in the first place be created with the correct parent.
-  sc$super <- ScaleDiscreteIdentity
-  class(sc) <- class(ScaleDiscreteIdentity)
   sc
 }
 
 #' @rdname scale_identity
 #' @export
 scale_fill_identity <- function(..., guide = "none") {
-  sc <- discrete_scale("fill", "identity", identity_pal(), ..., guide = guide)
+  sc <- discrete_scale("fill", "identity", identity_pal(), ..., guide = guide,
+    super = ScaleDiscreteIdentity)
 
-  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-  # object should in the first place be created with the correct parent.
-  sc$super <- ScaleDiscreteIdentity
-  class(sc) <- class(ScaleDiscreteIdentity)
   sc
 }
 
 #' @rdname scale_identity
 #' @export
 scale_shape_identity <- function(..., guide = "none") {
-  sc <- continuous_scale("shape", "identity", identity_pal(), ..., guide = guide)
+  sc <- continuous_scale("shape", "identity", identity_pal(), ..., guide = guide,
+    super = ScaleDiscreteIdentity)
 
-  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-  # object should in the first place be created with the correct parent.
-  sc$super <- ScaleContinuousIdentity
-  class(sc) <- class(ScaleContinuousIdentity)
   sc
 }
 
 #' @rdname scale_identity
 #' @export
 scale_linetype_identity <- function(..., guide = "none") {
-  sc <- discrete_scale("linetype", "identity", identity_pal(), ..., guide = guide)
+  sc <- discrete_scale("linetype", "identity", identity_pal(), ..., guide = guide,
+    super = ScaleDiscreteIdentity)
 
-  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-  # object should in the first place be created with the correct parent.
-  sc$super <- ScaleDiscreteIdentity
-  class(sc) <- class(ScaleDiscreteIdentity)
   sc
 }
 
 #' @rdname scale_identity
 #' @export
 scale_alpha_identity <- function(..., guide = "none") {
-  sc <- continuous_scale("alpha", "identity", identity_pal(), ..., guide = guide)
+  sc <- continuous_scale("alpha", "identity", identity_pal(), ..., guide = guide,
+    super = ScaleContinuousIdentity)
 
-  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-  # object should in the first place be created with the correct parent.
-  sc$super <- ScaleContinuousIdentity
-  class(sc) <- class(ScaleContinuousIdentity)
   sc
 }
 
 #' @rdname scale_identity
 #' @export
 scale_size_identity <- function(..., guide = "none") {
-  sc <- continuous_scale("size", "identity", identity_pal(), ..., guide = guide)
+  sc <- continuous_scale("size", "identity", identity_pal(), ..., guide = guide,
+    super = ScaleContinuousIdentity)
 
-  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-  # object should in the first place be created with the correct parent.
-  sc$super <- ScaleContinuousIdentity
-  class(sc) <- class(ScaleContinuousIdentity)
   sc
 }
 

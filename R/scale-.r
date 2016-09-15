@@ -531,13 +531,12 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   \code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
 #'   discrete variables.
 #' @param guide Name of guide object, or object itself.
+#' @param super The super class to use for the constructed scale
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
-                             breaks = waiver(), minor_breaks = waiver(),
-                             labels = waiver(), limits = NULL,
-                             rescaler = rescale, oob = censor,
-                             expand = waiver(), na.value = NA_real_,
-                             trans = "identity", guide = "legend") {
+  breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL,
+  rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_,
+  trans = "identity", guide = "legend", super = ScaleContinuous) {
 
   check_breaks_labels(breaks, labels)
 
@@ -550,7 +549,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     limits <- trans$transform(limits)
   }
 
-  ggproto(NULL, ScaleContinuous,
+  ggproto(NULL, super,
     call = match.call(),
 
     aesthetics = aesthetics,
@@ -614,10 +613,11 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' @param na.value how should missing values be displayed?
 #' @param guide the name of, or actual function, used to create the
 #'   guide. See \code{\link{guides}} for more info.
+#' @param super The super class to use for the constructed scale
 #' @keywords internal
-discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(),
-  labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE,
-  guide = "legend") {
+discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
+  breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
+  na.value = NA, drop = TRUE, guide = "legend", super = ScaleDiscrete) {
 
   check_breaks_labels(breaks, labels)
 
@@ -625,7 +625,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), bre
     guide <- "none"
   }
 
-  ggproto(NULL, ScaleDiscrete,
+  ggproto(NULL, super,
     call = match.call(),
 
     aesthetics = aesthetics,
