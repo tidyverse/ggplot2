@@ -107,13 +107,14 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   facet_wrap(~class)
 
-# Use `switch` to display the facet labels near an axis, acting as
-# a subtitle for this axis. This is typically used with free scales
-# and a theme without boxes around strip labels.
+# Use `strip.position` to display the facet labels at the side of your
+# choice. Setting it to `bottom` makes it act as a subtitle for the axis.
+# This is typically used with free scales and a theme without boxes around
+# strip labels.
 ggplot(economics_long, aes(date, value)) +
   geom_line() +
-  facet_wrap(~variable, scales = "free_y", nrow = 2, switch = "x") +
-  theme(strip.background = element_blank())
+  facet_wrap(~variable, scales = "free_y", nrow = 2, strip.position = "bottom") +
+  theme(strip.background = element_blank(), strip.placement = "outside")
 }
 }
 
