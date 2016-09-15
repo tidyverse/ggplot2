@@ -128,15 +128,11 @@ scale_datetime <- function(aesthetics, trans,
     labels <- date_format(date_labels)
   }
 
+  scale_class <- switch(trans, date = ScaleContinuousDate, time = ScaleContinuousDatetime)
   sc <- continuous_scale(aesthetics, name, identity,
     breaks = breaks, minor_breaks = minor_breaks, labels = labels,
-    guide = "none", trans = trans, ...)
+    guide = "none", trans = trans, ..., super = scale_class)
 
-  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-  # object should in the first place be created with the correct parent.
-  scale_class <- switch(trans, date = ScaleContinuousDate, time = ScaleContinuousDatetime)
-  sc$super <- scale_class
-  class(sc) <- class(scale_class)
   sc
 }
 
