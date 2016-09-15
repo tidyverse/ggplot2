@@ -88,7 +88,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
   if (!is.null(switch)) {
     .Deprecated("strip.position", old = "switch")
-    strip.position <- "right"
+    strip.position <- if (switch == "x") "bottom" else "left"
   }
   strip.position <- match.arg(strip.position, c("top", "bottom", "left", "right"))
   if (identical(dir, "v")) {
