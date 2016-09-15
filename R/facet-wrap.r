@@ -275,14 +275,16 @@ FacetWrap <- ggproto("FacetWrap", Facet,
           theme$strip.placement != "inside" &&
           any(!vapply(row_axes, is.zero, logical(length(row_axes))))) {
         warning("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'", call. = FALSE)
+      } else {
+        axis_mat_x_bottom[row_pos] <- row_axes
       }
-      axis_mat_x_bottom[row_pos] <- row_axes
       if (params$strip.position == "right" &&
           theme$strip.placement != "inside" &&
           any(!vapply(col_axes, is.zero, logical(length(col_axes))))) {
         warning("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'", call. = FALSE)
+      } else {
+        axis_mat_y_right[col_pos] <- col_axes
       }
-      axis_mat_y_right[col_pos] <- col_axes
     }
     panel_table <- weave_tables_row(panel_table, axis_mat_x_top, -1, axis_height_top, "axis-t")
     panel_table <- weave_tables_row(panel_table, axis_mat_x_bottom, 0, axis_height_bottom, "axis-b")
