@@ -39,6 +39,15 @@ ggplot_build <- function(plot) {
 
   panel <- new_panel()
   panel <- train_layout(panel, plot$facet, layer_data, plot$data)
+
+  # If coordinates will be flipped, then flip panels to train coordinates from
+  if (inherits(plot$coordinates, "CoordFlip")) {
+    # This fixes facet_grid(scale="free") + coord_flip() issue
+    tmp <- panel$layout$SCALE_X
+    panel$layout$SCALE_X <- panel$layout$SCALE_Y
+    panel$layout$SCALE_Y <- tmp
+  }
+
   data <- map_layout(panel, plot$facet, layer_data)
 
   # Compute aesthetics to produce data with generalised variable names
