@@ -26,7 +26,7 @@
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot} and \code{stat_boxplot}.
-#' @param outlier.colour,outlier.color,outlier.shape,outlier.size,outlier.stroke
+#' @param outlier.colour,outlier.color,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
 #'   Default aesthetics for outliers. Set to \code{NULL} to inherit from the
 #'   aesthetics used for the box.
 #'
@@ -67,6 +67,8 @@
 #'   geom_boxplot()
 #' ggplot(diamonds, aes(carat, price)) +
 #'   geom_boxplot(aes(group = cut_width(carat, 0.25)))
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_boxplot(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 #'
 #' \donttest{
 #' # It's possible to draw a boxplot with your own computations if you
@@ -94,6 +96,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          outlier.shape = 19,
                          outlier.size = 1.5,
                          outlier.stroke = 0.5,
+                         outlier.alpha = NULL,
                          notch = FALSE,
                          notchwidth = 0.5,
                          varwidth = FALSE,
@@ -113,6 +116,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
       outlier.shape = outlier.shape,
       outlier.size = outlier.size,
       outlier.stroke = outlier.stroke,
+      outlier.alpha = outlier.alpha,
       notch = notch,
       notchwidth = notchwidth,
       varwidth = varwidth,
@@ -160,6 +164,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   draw_group = function(data, panel_scales, coord, fatten = 2,
                         outlier.colour = NULL, outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
+                        outlier.alpha = NULL,
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
 
     common <- data.frame(
@@ -204,7 +209,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         size = outlier.size %||% data$size[1],
         stroke = outlier.stroke %||% data$stroke[1],
         fill = NA,
-        alpha = NA,
+        alpha = outlier.alpha %||% data$alpha[1],
         stringsAsFactors = FALSE
       )
       outliers_grob <- GeomPoint$draw_panel(outliers, panel_scales, coord)

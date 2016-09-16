@@ -8,8 +8,8 @@
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", ..., outlier.colour = NULL, outlier.color = NULL,
   outlier.shape = 19, outlier.size = 1.5, outlier.stroke = 0.5,
-  notch = FALSE, notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  outlier.alpha = NULL, notch = FALSE, notchwidth = 0.5,
+  varwidth = FALSE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", ..., coef = 1.5, na.rm = FALSE, show.legend = NA,
@@ -43,7 +43,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{outlier.colour, outlier.color, outlier.shape, outlier.size, outlier.stroke}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+\item{outlier.colour, outlier.color, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
   aesthetics used for the box.
 
   In the unlikely event you specify both US and UK spellings of colour, the
@@ -137,6 +137,8 @@ ggplot(diamonds, aes(carat, price)) +
   geom_boxplot()
 ggplot(diamonds, aes(carat, price)) +
   geom_boxplot(aes(group = cut_width(carat, 0.25)))
+ggplot(diamonds, aes(carat, price)) +
+  geom_boxplot(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 
 \donttest{
 # It's possible to draw a boxplot with your own computations if you

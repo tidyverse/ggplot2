@@ -1,5 +1,15 @@
 # ggplot2 2.1.0.9000 
 
+* The documentation for theme elements has been improved (#1743).
+
+* `geom_boxplot` gain new `outlier.alpha` argument for controlling the alpha of
+   outlier points independently of the alpha of the boxes. 
+   Analogous to outlier.colour, outlier.shape, etc.
+   (@jonathan-g).
+
+* FP adjustment for histogram bins is now actually used - it was previously
+  inadvertently ignored (#1651).
+
 * When computing the height of titles ggplot2, now inclues the height of the
   descenders (i.e. the bits `g` and `y` that hang underneath). This makes 
   improves the margins around titles, particularly the y axis label (#1712).
@@ -54,7 +64,7 @@
   
 * Minor code formatting and grammar issues in examples and function 
   parameters were fixed. (@hrbrmstr)
-  
+
 * `geom_col()` was added to complement `geom_bar()`. It uses `stat="identity"`
   by default, making the `y` aesthetic mandatory. It does not support any 
   other `stat_()` and does not provide fallback support for the `binwidth`
@@ -63,7 +73,7 @@
 
 * Fix error message of Stats ggprotos when required aesthetics are
   missing.
-  
+
 * Fix bug that resulted in several annotation_x function not getting drawn when
   global data was lacking (#1655)
 
@@ -85,6 +95,26 @@
 
 * ggplot2 now warns when breaks are dropped due to using continuous data on a 
   discrete scale (#1589)
+
+* Quantile lines in geom_violin() are no longer affected by the alpha aesthetic
+  (@mnbram, #1714)
+
+* Fixed problem with `geom_dotplot()` when facetting and binning on the
+  y-axis. (#1618, @has2k1)
+
+* `element_line()` now takes an `arrow` argument to specify arrows at the end of
+  lines (#1740)
+  
+* Multiple changes to legend theming:
+  - `legend.justification` now works outside of plotting area as well
+  - `panel.margin` and `legend.margin` has been renamed to `panel.spacing` and 
+    `legend.spacing` respectively to better communicate intend
+  - `legend.margin` now controls margin around individual legends
+  - Added `legend.box.margin` to control the margin around the total legend area
+  - Added `legend.box.background` to control the background of the total legend
+    area
+  - Added `legend.box.spacing` to control the distance between the plot area and
+    the legend area
 
 # ggplot2 2.1.0
 
@@ -121,9 +151,9 @@
       
     * `bins = n` now gives a histogram with `n` bins, not `n + 1` (#1487).
 
-## Bug fixes 
+## Bug fixes
 
-* All `\donttest{}` examples run. 
+* All `\donttest{}` examples run.
 
 * All `geom_()` and `stat_()` functions now have consistent argument order:
   data + mapping, then geom/stat/position, then `...`, then specific arguments, 
@@ -210,6 +240,9 @@
 
 * Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
   (#1444)
+
+* Fixed issue where `coord_map()` fails when given an explicit `parameters`
+  argument (@tdmcarthur, #1729)
 
 # ggplot2 2.0.0
 

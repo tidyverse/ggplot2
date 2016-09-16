@@ -48,12 +48,7 @@
 #' }
 scale_x_discrete <- function(..., expand = waiver()) {
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ...,
-    expand = expand, guide = "none")
-
-  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-  # object should in the first place be created with the correct parent.
-  sc$super <- ScaleDiscretePosition
-  class(sc) <- class(ScaleDiscretePosition)
+    expand = expand, guide = "none", super = ScaleDiscretePosition)
 
   sc$range_c <- continuous_range()
   sc
@@ -62,12 +57,7 @@ scale_x_discrete <- function(..., expand = waiver()) {
 #' @export
 scale_y_discrete <- function(..., expand = waiver()) {
   sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), "position_d", identity, ...,
-    expand = expand, guide = "none")
-
-  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-  # object should in the first place be created with the correct parent.
-  sc$super <- ScaleDiscretePosition
-  class(sc) <- class(ScaleDiscretePosition)
+    expand = expand, guide = "none", super = ScaleDiscretePosition)
 
   sc$range_c <- continuous_range()
   sc

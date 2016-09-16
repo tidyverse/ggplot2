@@ -238,7 +238,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       # works. They're just set to the standard x +- width/2 so that dot clusters
       # can be dodged like other geoms.
       # After position code is rewritten, each dot should have its own bounding box.
-      data <- plyr::ddply(data, "group", transform,
+      data <- plyr::ddply(data, c("group", "PANEL"), transform,
             ymin = min(y) - binwidth[1] / 2,
             ymax = max(y) + binwidth[1] / 2)
 

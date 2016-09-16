@@ -1,7 +1,44 @@
-#' Theme element: blank.
-#' This theme element draws nothing, and assigns no space
+#' Theme elements
 #'
+#' In conjunction with the \link{theme} system, these objects specify the display of
+#' how non-data components of the plot are a drawn.
+#'
+#' \itemize{
+#'   \item \code{element_blank}: draws nothing, and assigns no space.
+#'   \item \code{element_rect}: borders and backgrounds.
+#'   \item \code{element_line}: lines.
+#'   \item \code{element_text}: text.
+#' }
+#'
+#' @param fill Fill colour.
+#' @param colour,color Line/border colour. Color is an alias for colour.
+#' @param size Line/border size in mm; text size in pts.
+#' @name element
+#' @return An S3 object of class \code{element}.
+#' @examples
+#' plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+#'
+#' plot + theme(
+#'   panel.background = element_blank(),
+#'   axis.text = element_blank()
+#' )
+#'
+#' plot + theme(
+#'   axis.text = element_text(colour = "red", size = 12)
+#' )
+#'
+#' plot + theme(
+#'   axis.line.x = element_line()
+#' )
+#'
+#' plot + theme(
+#'   panel.background = element_rect(fill = "grey95"),
+#'   panel.border = element_rect(colour = "grey70", fill = NA, size = 1)
+#' )
+NULL
+
 #' @export
+#' @rdname element
 element_blank <- function() {
   structure(
     list(),
@@ -9,16 +46,8 @@ element_blank <- function() {
   )
 }
 
-#' Theme element: rectangle.
-#'
-#' Most often used for backgrounds and borders.
-#'
-#' @param fill fill colour
-#' @param colour border colour
-#' @param size border size
-#' @param linetype border linetype
-#' @param color an alias for \code{colour}
 #' @export
+#' @rdname element
 element_rect <- function(fill = NULL, colour = NULL, size = NULL,
   linetype = NULL, color = NULL) {
 
@@ -29,43 +58,41 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL,
   )
 }
 
-#' Theme element: line.
-#'
-#' @param colour line colour
-#' @param size line size
-#' @param linetype line type
-#' @param lineend line end
-#' @param color an alias for \code{colour}
 #' @export
+#' @rdname element
+#' @param linetype Line type. An integer (0:8), a name (blank, solid,
+#'    dashed, dotted, dotdash, longdash, twodash), or a string with
+#'    an even number (up to eight) of hexadecimal digits which give the
+#'    lengths in consecutive positions in the string.
+#' @param lineend Line end Line end style (round, butt, square)
+#' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
 element_line <- function(colour = NULL, size = NULL, linetype = NULL,
-  lineend = NULL, color = NULL) {
+  lineend = NULL, color = NULL, arrow = NULL) {
 
   if (!is.null(color))  colour <- color
+  if (is.null(arrow)) arrow <- FALSE
   structure(
-    list(colour = colour, size = size, linetype = linetype, lineend = lineend),
+    list(colour = colour, size = size, linetype = linetype, lineend = lineend,
+      arrow = arrow),
     class = c("element_line", "element")
   )
 }
 
 
-#' Theme element: text.
-#'
-#' @param family font family
-#' @param face font face ("plain", "italic", "bold", "bold.italic")
-#' @param colour text colour
-#' @param size text size (in pts)
-#' @param hjust horizontal justification (in [0, 1])
-#' @param vjust vertical justification (in [0, 1])
-#' @param angle angle (in [0, 360])
-#' @param lineheight line height
-#' @param color an alias for \code{colour}
-#' @param margin margins around the text. See \code{\link{margin}} for more
+#' @param family Font family
+#' @param face Font face ("plain", "italic", "bold", "bold.italic")
+#' @param hjust Horizontal justification (in [0, 1])
+#' @param vjust Vertical justification (in [0, 1])
+#' @param angle Angle (in [0, 360])
+#' @param lineheight Line height
+#' @param margin Margins around the text. See \code{\link{margin}} for more
 #'   details. When creating a theme, the margins should be placed on the
 #'   side of the text facing towards the center of the plot.
 #' @param debug If \code{TRUE}, aids visual debugging by drawing a solid
 #'   rectangle behind the complete text area, and a point where each label
 #'   is anchored.
 #' @export
+#' @rdname element
 element_text <- function(family = NULL, face = NULL, colour = NULL,
   size = NULL, hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
   color = NULL, margin = NULL, debug = NULL) {
@@ -195,11 +222,15 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   gp <- gpar(lwd = len0_null(size * .pt), col = colour, lty = linetype, lineend = lineend)
   element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     lty = element$linetype, lineend = element$lineend)
-
+  arrow <- if (is.logical(element$arrow) && !element$arrow) {
+    NULL
+  } else {
+    element$arrow
+  }
   polylineGrob(
     x, y, default.units = default.units,
     gp = utils::modifyList(element_gp, gp),
-    id.lengths = id.lengths, ...
+    id.lengths = id.lengths, arrow = arrow, ...
   )
 }
 
@@ -245,7 +276,10 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.title.y        = el_def("element_text", "axis.title"),
 
   legend.background   = el_def("element_rect", "rect"),
-  legend.margin       = el_def("unit"),
+  legend.margin       = el_def("margin"),
+  legend.spacing      = el_def("unit"),
+  legend.spacing.x     = el_def("unit", "legend.spacing"),
+  legend.spacing.y     = el_def("unit", "legend.spacing"),
   legend.key          = el_def("element_rect", "rect"),
   legend.key.height   = el_def("unit", "legend.key.size"),
   legend.key.width    = el_def("unit", "legend.key.size"),
@@ -258,12 +292,15 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   legend.justification = el_def("character"),
   legend.box          = el_def("character"),
   legend.box.just     = el_def("character"),
+  legend.box.margin   = el_def("margin"),
+  legend.box.background = el_def("element_rect", "rect"),
+  legend.box.spacing  = el_def("unit"),
 
   panel.background    = el_def("element_rect", "rect"),
   panel.border        = el_def("element_rect", "rect"),
-  panel.margin        = el_def("unit"),
-  panel.margin.x      = el_def("unit", "panel.margin"),
-  panel.margin.y      = el_def("unit", "panel.margin"),
+  panel.spacing       = el_def("unit"),
+  panel.spacing.x     = el_def("unit", "panel.spacing"),
+  panel.spacing.y     = el_def("unit", "panel.spacing"),
   panel.grid.major.x  = el_def("element_line", "panel.grid.major"),
   panel.grid.major.y  = el_def("element_line", "panel.grid.major"),
   panel.grid.minor.x  = el_def("element_line", "panel.grid.minor"),
