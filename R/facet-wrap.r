@@ -144,9 +144,9 @@ facet_render.wrap <- function(facet, panel, coord, theme, geom_grobs) {
 
   # If coord is (non-cartesian or flip) and (x is free or y is free)
   # then print a warning
-  if ((!inherits(coord, "CoordCartesian") || inherits(coord, "CoordFlip")) &&
+  if (!inherits(coord, "CoordCartesian") &&
     (facet$free$x || facet$free$y)) {
-    stop("ggplot2 does not currently support free scales with a non-cartesian coord or coord_flip.\n")
+    stop("ggplot2 does not currently support free scales with a non-cartesian coord.\n")
   }
 
   # If user hasn't set aspect ratio, and we have fixed scales, then

@@ -1,5 +1,7 @@
 # ggplot2 2.1.0.9000 
 
+* Fixed facet_grid(scale="free") + coord_flip() behavior (@vlsi, #1492, #1470, #1393, #95)
+
 * The documentation for theme elements has been improved (#1743).
 
 * `geom_boxplot` gain new `outlier.alpha` argument for controlling the alpha of
