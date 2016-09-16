@@ -73,7 +73,6 @@ scale_y_discrete <- function(..., expand = waiver()) {
 #' @usage NULL
 #' @export
 ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
-
   train = function(self, x) {
     if (is.discrete(x)) {
       self$range$train(x, drop = self$drop)
@@ -84,6 +83,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   get_limits = function(self) {
     if (self$is_empty()) return(c(0, 1))
+
     self$limits %||% self$range$range %||% integer()
   },
 
@@ -106,20 +106,24 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   dimension = function(self, expand = c(0, 0)) {
     c_range <- self$range_c$range
-    d_range <- self$range$range
+    d_range <- self$get_limits()
 
     if (self$is_empty()) {
       c(0, 1)
-    } else if (is.null(d_range)) { # only continuous
-      expand_range(c_range, expand[1], 0 , 1)
+    } else if (is.null(self$range$range)) { # only continuous
+      expand_range(c_range, expand[1], expand[2] , 1)
     } else if (is.null(c_range)) { # only discrete
-      expand_range(c(1, length(d_range)), 0, expand[2], 1)
+      expand_range(c(1, length(d_range)), expand[1], expand[2], 1)
     } else { # both
       range(
         expand_range(c_range, expand[1], 0 , 1),
         expand_range(c(1, length(d_range)), 0, expand[2], 1)
       )
     }
+  },
+
+  get_breaks = function(self, limits = self$get_limits()) {
+    ggproto_parent(ScaleDiscrete, self)$get_breaks(limits)
   },
 
   clone = function(self) {

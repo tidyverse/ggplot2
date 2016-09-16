@@ -87,6 +87,14 @@
 
 * A warning is now issued when a scale transformation introduces infinite 
   values in a scale (#1696)
+  
+* Fixed bug where space for dropped levels in scale_discrete would be preserved 
+  (#1638)
+
+* Fixed bug where scale expansion was not used correctly for discrete scales
+
+* ggplot2 now warns when breaks are dropped due to using continuous data on a 
+  discrete scale (#1589)
 
 * Quantile lines in geom_violin() are no longer affected by the alpha aesthetic
   (@mnbram, #1714)
