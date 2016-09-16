@@ -83,8 +83,6 @@ scale_y_discrete <- function(..., expand = waiver()) {
 #' @usage NULL
 #' @export
 ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
-  warn = TRUE,
-
   train = function(self, x) {
     if (is.discrete(x)) {
       self$range$train(x, drop = self$drop)
@@ -135,10 +133,6 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
-    if (self$warn && length(self$get_limits()) == 0) {
-      self$warn <- FALSE
-      warning("Breaks dropped when converting continuous data to discrete scale", call. = FALSE)
-    }
     ggproto_parent(ScaleDiscrete, self)$get_breaks(limits)
   },
 

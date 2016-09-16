@@ -41,28 +41,18 @@ Scale <- ggproto("Scale", NULL,
   # @return updated range (invisibly)
   # @seealso \code{\link{scale_train}} for scale specific generic method
   train_df = function(self, df) {
-    self$train_begin(df)
     if (empty(df)) return()
 
     aesthetics <- intersect(self$aesthetics, names(df))
     for (aesthetic in aesthetics) {
       self$train(df[[aesthetic]])
     }
-    self$train_complete(df)
     invisible()
   },
 
   # Train an individual scale from a vector of data.
   train = function(self, x) {
     stop("Not implemented", call. = FALSE)
-  },
-
-  train_begin = function(self, df) {
-    invisible()
-  },
-
-  train_complete = function(self, df) {
-    invisible()
   },
 
   # Reset scale, untraining ranges
