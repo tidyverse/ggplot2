@@ -13,6 +13,8 @@
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
 #' @param size Line/border size in mm; text size in pts.
+#' @param inherit.blank Should this element inherit the existence of an
+#' element_blank among its parents?
 #' @name element
 #' @return An S3 object of class \code{element}.
 #' @examples
@@ -49,11 +51,12 @@ element_blank <- function() {
 #' @export
 #' @rdname element
 element_rect <- function(fill = NULL, colour = NULL, size = NULL,
-  linetype = NULL, color = NULL) {
+  linetype = NULL, color = NULL, inherit.blank = FALSE) {
 
   if (!is.null(color))  colour <- color
   structure(
-    list(fill = fill, colour = colour, size = size, linetype = linetype),
+    list(fill = fill, colour = colour, size = size, linetype = linetype,
+         inherit.blank = inherit.blank),
     class = c("element_rect", "element")
   )
 }
@@ -67,13 +70,13 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL,
 #' @param lineend Line end Line end style (round, butt, square)
 #' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
 element_line <- function(colour = NULL, size = NULL, linetype = NULL,
-  lineend = NULL, color = NULL, arrow = NULL) {
+  lineend = NULL, color = NULL, arrow = NULL, inherit.blank = FALSE) {
 
   if (!is.null(color))  colour <- color
   if (is.null(arrow)) arrow <- FALSE
   structure(
     list(colour = colour, size = size, linetype = linetype, lineend = lineend,
-      arrow = arrow),
+      arrow = arrow, inherit.blank = inherit.blank),
     class = c("element_line", "element")
   )
 }
@@ -95,13 +98,13 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL,
 #' @rdname element
 element_text <- function(family = NULL, face = NULL, colour = NULL,
   size = NULL, hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  color = NULL, margin = NULL, debug = NULL) {
+  color = NULL, margin = NULL, debug = NULL, inherit.blank = FALSE) {
 
   if (!is.null(color))  colour <- color
   structure(
     list(family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
-      margin = margin, debug = debug),
+      margin = margin, debug = debug, inherit.blank = inherit.blank),
     class = c("element_text", "element")
   )
 }
