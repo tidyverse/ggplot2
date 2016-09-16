@@ -125,7 +125,14 @@ scale_datetime <- function(aesthetics, trans,
     minor_breaks <- date_breaks(date_minor_breaks)
   }
   if (!is.waive(date_labels)) {
-    labels <- date_format(date_labels)
+    # uses context from breaks to pass timezone
+    labels <- function(breaks) {
+      if ("POSIXt" %in% class(breaks)) {
+        tz <- attr(breaks, "tzone")
+        tz <- ifelse(is.null(tz), "UTC", tz)
+      } 
+      date_format(date_labels, tz=tz)
+    }
   }
 
   scale_class <- switch(trans, date = ScaleContinuousDate, time = ScaleContinuousDatetime)
