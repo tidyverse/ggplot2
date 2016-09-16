@@ -633,10 +633,14 @@ calc_element <- function(element, theme, verbose = FALSE) {
 combine_elements <- function(e1, e2) {
 
   # If e2 is NULL, nothing to inherit
-  if (is.null(e2))  return(e1)
-
+  if (is.null(e2) || inherits(e1, "element_blank"))  return(e1)
+  # If e1 is NULL inherit everything from e2
+  if (is.null(e1)) return(e2)
   # If e1 is NULL, or if e2 is element_blank, inherit everything from e2
-  if (is.null(e1) || inherits(e2, "element_blank"))  return(e2)
+  if (inherits(e2, "element_blank")) {
+    if (e1$inherit.blank) return(e2)
+    else return(e1)
+  }
 
   # If e1 has any NULL properties, inherit them from e2
   n <- vapply(e1[names(e2)], is.null, logical(1))
