@@ -226,7 +226,14 @@ CoordMap <- ggproto("CoordMap", Coord,
   },
 
   render_axis_h = function(self, scale_details, theme) {
-    if (is.null(scale_details$x.major)) return(zeroGrob())
+    arrange <- scale_details$x.arrange %||% c("primary", "secondary")
+
+    if (is.null(scale_details$x.major)) {
+      return(list(
+        top = zeroGrob(),
+        bottom = zeroGrob()
+      ))
+    }
 
     x_intercept <- with(scale_details, data.frame(
       x = x.major,
@@ -234,11 +241,23 @@ CoordMap <- ggproto("CoordMap", Coord,
     ))
     pos <- self$transform(x_intercept, scale_details)
 
-    guide_axis(pos$x, scale_details$x.labels, "bottom", theme)
+    axes <- list(
+      top = guide_axis(pos$x, scale_details$x.labels, "top", theme),
+      bottom = guide_axis(pos$x, scale_details$x.labels, "bottom", theme)
+    )
+    axes[[which(arrange == "secondary")]] <- zeroGrob()
+    axes
   },
 
   render_axis_v = function(self, scale_details, theme) {
-    if (is.null(scale_details$y.major)) return(zeroGrob())
+    arrange <- scale_details$y.arrange %||% c("primary", "secondary")
+
+    if (is.null(scale_details$y.major)) {
+      return(list(
+        left = zeroGrob(),
+        right = zeroGrob()
+      ))
+    }
 
     x_intercept <- with(scale_details, data.frame(
       x = x.range[1],
@@ -246,7 +265,12 @@ CoordMap <- ggproto("CoordMap", Coord,
     ))
     pos <- self$transform(x_intercept, scale_details)
 
-    guide_axis(pos$y, scale_details$y.labels, "left", theme)
+    axes <- list(
+      left = guide_axis(pos$y, scale_details$y.labels, "left", theme),
+      right = guide_axis(pos$y, scale_details$y.labels, "right", theme)
+    )
+    axes[[which(arrange == "secondary")]] <- zeroGrob()
+    axes
   }
 )
 

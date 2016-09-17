@@ -66,7 +66,7 @@ Stat <- ggproto("Stat",
     data
   },
 
-  compute_layer = function(self, data, params, panels) {
+  compute_layer = function(self, data, params, layout) {
     check_required_aesthetics(
       self$required_aes,
       c(names(data), names(params)),
@@ -84,7 +84,7 @@ Stat <- ggproto("Stat",
 
     args <- c(list(data = quote(data), scales = quote(scales)), params)
     plyr::ddply(data, "PANEL", function(data) {
-      scales <- panel_scales(panels, data$PANEL[1])
+      scales <- layout$get_scales(data$PANEL[1])
       tryCatch(do.call(self$compute_panel, args), error = function(e) {
         warning("Computation failed in `", snake_class(self), "()`:\n",
           e$message, call. = FALSE)

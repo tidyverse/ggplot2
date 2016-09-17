@@ -10,21 +10,23 @@
 \usage{
 scale_x_date(name = waiver(), breaks = waiver(), date_breaks = waiver(),
   labels = waiver(), date_labels = waiver(), minor_breaks = waiver(),
-  date_minor_breaks = waiver(), limits = NULL, expand = waiver())
+  date_minor_breaks = waiver(), limits = NULL, expand = waiver(),
+  position = "bottom")
 
 scale_y_date(name = waiver(), breaks = waiver(), date_breaks = waiver(),
   labels = waiver(), date_labels = waiver(), minor_breaks = waiver(),
-  date_minor_breaks = waiver(), limits = NULL, expand = waiver())
+  date_minor_breaks = waiver(), limits = NULL, expand = waiver(),
+  position = "left")
 
 scale_x_datetime(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
   minor_breaks = waiver(), date_minor_breaks = waiver(), limits = NULL,
-  expand = waiver())
+  expand = waiver(), position = "bottom")
 
 scale_y_datetime(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
   minor_breaks = waiver(), date_minor_breaks = waiver(), limits = NULL,
-  expand = waiver())
+  expand = waiver(), position = "left")
 }
 \arguments{
 \item{name}{The name of the scale. Used as axis or legend title. If
@@ -77,6 +79,9 @@ additive expansion constants. These constants ensure that the data is
 placed some distance away from the axes. The defaults are
 \code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
 discrete variables.}
+
+\item{position}{The position of the axis. "left" or "right" for vertical
+scales, "top" or "bottom" for horizontal scales}
 }
 \description{
 Use \code{scale_*_date} with \code{Date} variables, and

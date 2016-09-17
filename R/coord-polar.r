@@ -148,12 +148,23 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   render_axis_v = function(self, scale_details, theme) {
+    arrange <- scale_details$y.arrange %||% c("primary", "secondary")
+
     x <- r_rescale(self, scale_details$r.major, scale_details) + 0.5
     guide_axis(x, scale_details$r.labels, "left", theme)
+    axes <- list(
+      left = guide_axis(x, scale_details$r.labels, "left", theme),
+      right = guide_axis(x, scale_details$r.labels, "right", theme)
+    )
+    axes[[which(arrange == "secondary")]] <- zeroGrob()
+    axes
   },
 
   render_axis_h = function(scale_details, theme) {
-    guide_axis(NA, "", "bottom", theme)
+    list(
+      top = zeroGrob(),
+      bottom = guide_axis(NA, "", "bottom", theme)
+    )
   },
 
   render_bg = function(self, scale_details, theme) {
