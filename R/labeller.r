@@ -491,8 +491,9 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   if (horizontal) {
     grobs <- apply(labels, c(1, 2), ggstrip, theme = theme,
       horizontal = horizontal)
+    heights <- unit(apply(grobs, 2, max_height), "cm")
     grobs <- apply(grobs, 1, function(strips) {
-      gtable_matrix("strip", matrix(strips, ncol = 1), unit(1, "null"), unit(height_cm(strips), "cm"), clip = "off")
+      gtable_matrix("strip", matrix(strips, ncol = 1), unit(1, "null"), heights, clip = "off")
     })
     list(
       top = grobs,
@@ -502,14 +503,16 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     grobs_right <- apply(labels, c(1, 2), ggstrip, theme = theme,
       horizontal = horizontal)
     grobs_right <- grobs_right[, rev(seq_len(ncol(grobs_right))), drop = FALSE]
+    widths <- unit(apply(grobs_right, 2, max_width), "cm")
     grobs_right <- apply(grobs_right, 1, function(strips) {
-      gtable_matrix("strip", matrix(strips, nrow = 1), unit(width_cm(strips), "cm"), unit(1, "null"), clip = "off")
+      gtable_matrix("strip", matrix(strips, nrow = 1), widths, unit(1, "null"), clip = "off")
     })
     theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
     grobs_left <- apply(labels, c(1, 2), ggstrip, theme = theme,
       horizontal = horizontal)
+    widths <- unit(apply(grobs_left, 2, max_width), "cm")
     grobs_left <- apply(grobs_left, 1, function(strips) {
-      gtable_matrix("strip", matrix(strips, nrow = 1), unit(width_cm(strips), "cm"), unit(1, "null"), clip = "off")
+      gtable_matrix("strip", matrix(strips, nrow = 1), widths, unit(1, "null"), clip = "off")
     })
     list(
       left = grobs_left,
