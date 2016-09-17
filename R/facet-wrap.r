@@ -188,11 +188,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     data[order(data$PANEL), ]
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    # If coord is (non-cartesian or flip) and (x is free or y is free)
-    # then print a warning
-    if ((!inherits(coord, "CoordCartesian") || inherits(coord, "CoordFlip")) &&
-        (params$free$x || params$free$y)) {
-      stop("ggplot2 does not currently support free scales with a non-cartesian coord or coord_flip.\n")
+    # If coord is non-cartesian and (x is free or y is free)
+    # then throw error
+    if ((!inherits(coord, "CoordCartesian")) && (params$free$x || params$free$y)) {
+      stop("ggplot2 does not currently support free scales with a non-cartesian coord", call. = FALSE)
     }
 
     ncol <- max(layout$COL)

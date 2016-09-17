@@ -8,7 +8,7 @@ Layout <- ggproto("Layout", NULL,
   panel_scales = NULL,
   panel_ranges = NULL,
 
-  setup = function(self, data, plot_data, plot_env) {
+  setup = function(self, data, plot_data, plot_env, plot_coord) {
     data <- c(list(plot_data), data)
     self$facet$params <- modifyList(
       self$facet$setup_params(data, self$facet$params),
@@ -18,6 +18,10 @@ Layout <- ggproto("Layout", NULL,
     self$panel_layout <- self$facet$train(data)
     if (!all(c("PANEL", "SCALE_X", "SCALE_Y") %in% names(self$panel_layout))) {
       stop("Facet layout has bad format. It must contains the columns 'PANEL', 'SCALE_X', and 'SCALE_Y'", call. = FALSE)
+    }
+    # Special case of CoordFlip - switch the layout scales
+    if (inherits(plot_coord, "CoordFlip")) {
+      self$panel_layout[, c("SCALE_X", "SCALE_Y")] <- self$panel_layout[, c("SCALE_Y", "SCALE_X"), drop = FALSE]
     }
     data[-1]
   },
