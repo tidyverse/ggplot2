@@ -12,6 +12,8 @@
 #' @param expand a numeric vector of length two giving multiplicative and
 #'   additive expansion constants. These constants ensure that the data is
 #'   placed some distance away from the axes.
+#' @param position The position of the axis. \code{left} or \code{right} for y
+#' axes, \code{top} or \code{bottom} for x axes
 #' @rdname scale_discrete
 #' @export
 #' @examples
