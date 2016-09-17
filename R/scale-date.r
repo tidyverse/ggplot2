@@ -41,14 +41,14 @@ scale_x_date <- function(name = waiver(),
                          breaks = waiver(), date_breaks = waiver(),
                          labels = waiver(), date_labels = waiver(),
                          minor_breaks = waiver(), date_minor_breaks = waiver(),
-                         limits = NULL, expand = waiver()) {
+                         limits = NULL, expand = waiver(), position = "bottom") {
 
   scale_datetime(c("x", "xmin", "xmax", "xend"), "date",
     name = name,
     breaks = breaks, date_breaks = date_breaks,
     labels = labels, date_labels = date_labels,
     minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
-    limits = limits, expand = expand
+    limits = limits, expand = expand, position = position
   )
 }
 
@@ -58,14 +58,14 @@ scale_y_date <- function(name = waiver(),
                          breaks = waiver(), date_breaks = waiver(),
                          labels = waiver(), date_labels = waiver(),
                          minor_breaks = waiver(), date_minor_breaks = waiver(),
-                         limits = NULL, expand = waiver()) {
+                         limits = NULL, expand = waiver(), position = "left") {
 
   scale_datetime(c("y", "ymin", "ymax", "yend"), "date",
     name = name,
     breaks = breaks, date_breaks = date_breaks,
     labels = labels, date_labels = date_labels,
     minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
-    limits = limits, expand = expand
+    limits = limits, expand = expand, position = position
   )
 }
 
@@ -76,14 +76,14 @@ scale_x_datetime <- function(name = waiver(),
                              breaks = waiver(), date_breaks = waiver(),
                              labels = waiver(), date_labels = waiver(),
                              minor_breaks = waiver(), date_minor_breaks = waiver(),
-                             limits = NULL, expand = waiver()) {
+                             limits = NULL, expand = waiver(), position = "bottom") {
 
   scale_datetime(c("x", "xmin", "xmax", "xend"), "time",
     name = name,
     breaks = breaks, date_breaks = date_breaks,
     labels = labels, date_labels = date_labels,
     minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
-    limits = limits, expand = expand
+    limits = limits, expand = expand, position = position
   )
 }
 
@@ -94,14 +94,14 @@ scale_y_datetime <- function(name = waiver(),
                              breaks = waiver(), date_breaks = waiver(),
                              labels = waiver(), date_labels = waiver(),
                              minor_breaks = waiver(), date_minor_breaks = waiver(),
-                             limits = NULL, expand = waiver()) {
+                             limits = NULL, expand = waiver(), position = "left") {
 
   scale_datetime(c("y", "ymin", "ymax", "yend"), "time",
     name = name,
     breaks = breaks, date_breaks = date_breaks,
     labels = labels, date_labels = date_labels,
     minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
-    limits = limits, expand = expand
+    limits = limits, expand = expand, position = position
   )
 }
 

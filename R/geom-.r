@@ -66,7 +66,7 @@ Geom <- ggproto("Geom",
     )
   },
 
-  draw_layer = function(self, data, params, panel, coord) {
+  draw_layer = function(self, data, params, layout, coord) {
     if (empty(data)) {
       n <- if (is.factor(data$PANEL)) nlevels(data$PANEL) else 1L
       return(rep(list(zeroGrob()), n))
@@ -79,7 +79,7 @@ Geom <- ggproto("Geom",
     plyr::dlply(data, "PANEL", function(data) {
       if (empty(data)) return(zeroGrob())
 
-      panel_scales <- panel$ranges[[data$PANEL[1]]]
+      panel_scales <- layout$panel_ranges[[data$PANEL[1]]]
       do.call(self$draw_panel, args)
     }, .drop = FALSE)
   },

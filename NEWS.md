@@ -1,4 +1,37 @@
 # ggplot2 2.1.0.9000 
+* The facet system, as well as the internal panel class, has been rewritten in 
+  ggproto. Facets are now extendable in the same manner as geoms, stats etc. and
+  the manner in which this is done is described in the extension vignette. On 
+  top of that the rewrite has added the following:
+  
+    * `facet_grid` and `facet_wrap` now allow the use of expressions in their
+      facetting formulas (fixes #1596). Thanks to @DanRuderman.
+    
+    * When  `facet_wrap` results in an uneven number of panels, axes will now be
+      drawn underneath the hanging panels (fixes #1607)
+    
+    * strips can now be freely positioned in `facet_wrap` using the 
+      `strip.position` argument (deprecates `switch`).
+    
+    * The relative order of panel, strip, and axis can now be controlled with 
+      the theme setting `strip.placement` that takes either `inside` (between 
+      panel and axis) or `outside` (after axis).
+    
+    * The theme option `panel.margin` has been deprecated in favour of 
+      `panel.spacing` to clearer communicate intend.
+
+* The position of x and y axes can now be changed using the `position` argument
+  in `scale_x_*`and `scale_y_*` which can take `top` and `bottom`, and `left`and
+  `right` respectively.
+
+* The styling of top and right axes text and labels can be modified directly 
+  using the `.top` and `.right` modifiers to `axis.text.*` and `axis.title.*`
+
+* `scale_x_continuous` and `scale_y_continuous` can now display a secondary axis
+  that is a linear transformation of the primary axis (e.g. degrees Celcius to
+  degrees Fahrenheit). The secondary axis will be positioned opposite of the 
+  primary axis and can be controlled using the `sec.axis` argument to the scale
+  constructor.
 
 * The documentation for theme elements has been improved (#1743).
 
@@ -109,15 +142,22 @@
   lines (#1740)
   
 * Multiple changes to legend theming:
-  - `legend.justification` now works outside of plotting area as well
-  - `panel.margin` and `legend.margin` has been renamed to `panel.spacing` and 
-    `legend.spacing` respectively to better communicate intend
-  - `legend.margin` now controls margin around individual legends
-  - Added `legend.box.margin` to control the margin around the total legend area
-  - Added `legend.box.background` to control the background of the total legend
-    area
-  - Added `legend.box.spacing` to control the distance between the plot area and
-    the legend area
+  
+    * `legend.justification` now works outside of plotting area as well
+    
+    * `panel.margin` and `legend.margin` has been renamed to `panel.spacing` and 
+      `legend.spacing` respectively to better communicate intend
+    
+    * `legend.margin` now controls margin around individual legends
+    
+    * Added `legend.box.margin` to control the margin around the total legend 
+      area
+    
+    * Added `legend.box.background` to control the background of the total 
+      legend area
+    
+    * Added `legend.box.spacing` to control the distance between the plot area 
+      and the legend area
 
 # ggplot2 2.1.0
 
