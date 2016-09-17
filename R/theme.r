@@ -231,7 +231,9 @@ print.theme <- function(x, ...) utils::str(x)
 #'   existing theme.
 #' @param complete set this to TRUE if this is a complete theme, such as
 #'   the one returned \code{by theme_grey()}. Complete themes behave
-#'   differently when added to a ggplot object.
+#'   differently when added to a ggplot object. Also, when setting
+#'   \code{complete = TRUE} all elements will be set to inherit from blank
+#'   elements.
 #' @param validate TRUE to run validate_element, FALSE to bypass checks.
 #'
 #' @seealso \code{\link{+.gg}}
@@ -636,7 +638,8 @@ combine_elements <- function(e1, e2) {
   if (is.null(e2) || inherits(e1, "element_blank"))  return(e1)
   # If e1 is NULL inherit everything from e2
   if (is.null(e1)) return(e2)
-  # If e1 is NULL, or if e2 is element_blank, inherit everything from e2
+  # If e2 is element_blank, and e1 inherits blank inherit everything from e2,
+  # otherwise ignore e2
   if (inherits(e2, "element_blank")) {
     if (e1$inherit.blank) return(e2)
     else return(e1)

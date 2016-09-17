@@ -12,7 +12,9 @@ existing theme.}
 
 \item{complete}{set this to TRUE if this is a complete theme, such as
 the one returned \code{by theme_grey()}. Complete themes behave
-differently when added to a ggplot object.}
+differently when added to a ggplot object. Also, when setting
+\code{complete = TRUE} all elements will be set to inherit from blank
+elements.}
 
 \item{validate}{TRUE to run validate_element, FALSE to bypass checks.}
 }

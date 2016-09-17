@@ -33,7 +33,10 @@ an even number (up to eight) of hexadecimal digits which give the
 lengths in consecutive positions in the string.}
 
 \item{inherit.blank}{Should this element inherit the existence of an
-element_blank among its parents?}
+element_blank among its parents? If \code{TRUE} the existence of a blank
+element among its parents will cause this element to be blank as well. If
+\code{FALSE} any blank parent element will be ignored when calculating final
+element state.}
 
 \item{lineend}{Line end Line end style (round, butt, square)}
 
