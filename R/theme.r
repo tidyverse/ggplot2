@@ -417,6 +417,15 @@ theme <- function(..., complete = FALSE, validate = TRUE) {
     mapply(validate_element, elements, names(elements))
   }
 
+  # If complete theme set all non-blank elements to inherit from blanks
+  if (complete) {
+    elements <- lapply(elements, function(el) {
+      if (inherits(el, "element") && !inherits(el, "element_blank")) {
+        el$inherit.blank <- TRUE
+      }
+      el
+    })
+  }
   structure(elements, class = c("theme", "gg"),
             complete = complete, validate = validate)
 }
