@@ -12,6 +12,23 @@ test_that("unknown params create error", {
   expect_error(geom_point(blah = "red"), "Unknown parameters")
 })
 
+test_that("Unknown params create error with validate_params = TRUE", {
+  expect_error(geom_point(blah = "red", validate_params = TRUE),
+               "Unknown parameters")
+})
+
+test_that("Unknown params don't create error with validate_params = FALSE", {
+  expect_silent(geom_point(blah = "red", validate_params = FALSE))
+})
+
+test_that("Unknown params go in extra_params, not aes_params", {
+  l <- geom_point(some_param = "value1",
+                  size = "big",
+                  validate_params = FALSE)
+  expect_equal(l$extra_params, list(some_param = "value1"))
+  expect_equal(l$aes_params, list(size = "big"))
+})
+
 # Calculated aesthetics ---------------------------------------------------
 
 test_that("Bare name surround by .. is calculated", {

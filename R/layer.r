@@ -101,10 +101,20 @@ layer <- function(geom = NULL, stat = NULL,
 
   all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics())
   extra <- setdiff(names(params), all)
-  if (length(extra) > 0) {
-    stop("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)
+  
+  # Handle extra params
+  if (is.null(params$validate_params)) {
+    params$validate_params <- TRUE
+    extra_params <- NULL
   }
-
+  
+  if (length(extra) > 0 && params$validate_params) {
+    stop("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)
+  }else if (length(extra) > 0) {
+    extra <- extra[!extra == "validate_params"]
+    extra_params <- params[extra]
+  }
+  
   ggproto("LayerInstance", Layer,
     geom = geom,
     geom_params = geom_params,
@@ -116,7 +126,8 @@ layer <- function(geom = NULL, stat = NULL,
     subset = subset,
     position = position,
     inherit.aes = inherit.aes,
-    show.legend = show.legend
+    show.legend = show.legend,
+    extra_params = extra_params
   )
 }
 
@@ -130,6 +141,7 @@ Layer <- ggproto("Layer", NULL,
   mapping = NULL,
   position = NULL,
   inherit.aes = FALSE,
+  extra_params = NULL,
 
   print = function(self) {
     if (!is.null(self$mapping)) {
