@@ -93,7 +93,11 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
     expand = expand, oob = oob, na.value = na.value, trans = trans,
     guide = "none", position = position, super = ScaleContinuousPosition
   )
-
+  if (!is.waive(sec.axis)) {
+    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
+    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
+    sc$secondary.axis <- sec.axis
+  }
   sc
 }
 
@@ -111,7 +115,11 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
     expand = expand, oob = oob, na.value = na.value, trans = trans,
     guide = "none", position = position, super = ScaleContinuousPosition
   )
-
+  if (!is.waive(sec.axis)) {
+    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
+    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
+    sc$secondary.axis <- sec.axis
+  }
   sc
 }
 
