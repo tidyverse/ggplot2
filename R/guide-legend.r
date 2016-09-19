@@ -132,6 +132,13 @@
 #'
 #' # reversed order legend
 #' p + guides(col = guide_legend(reverse = TRUE))
+#'
+#' # hide some aesthetics from the legend
+#' p4 <- ggplot(mtcars, aes(mpg, qsec, colour = factor(vs), shape = factor(am))) +
+#'   geom_point()
+#' p4 + geom_line()
+#' p4 + geom_line(show.legend = c(colour = FALSE))
+#'
 #' }
 guide_legend <- function(
 
@@ -260,8 +267,12 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
 
     if (length(matched) > 0) {
       # This layer contributes to the legend
-      if (is.na(layer$show.legend) || layer$show.legend) {
-        # Default is to include it
+      show_legend <- layer$show.legend[matched]
+      show_legend <- if (!has_name(show_legend)) {
+        # There is no specific rule for this aesthetic, check if there is a global rule (i.e. show.legend is a scalar)
+        if (!has_name(layer$show.legend)) layer$show.legend || is.na(layer$show.legend) else TRUE
+        } else unname(show_legend)
+      if (show_legend) {
         data <- layer$geom$use_defaults(guide$key[matched], layer$aes_params)
       } else {
         return(NULL)

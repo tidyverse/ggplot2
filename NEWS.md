@@ -32,6 +32,8 @@
   degrees Fahrenheit). The secondary axis will be positioned opposite of the 
   primary axis and can be controlled using the `sec.axis` argument to the scale
   constructor.
+  
+* Aesthetics can now independently hidden in the legend (@Tutuchan).
 
 * The documentation for theme elements has been improved (#1743).
 

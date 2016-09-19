@@ -63,7 +63,8 @@ a warning.  If \code{TRUE} silently removes missing values.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+Can also be a named logical vector to specify which aesthetics to include.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
