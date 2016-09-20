@@ -190,3 +190,23 @@ test_that("theme(validate=FALSE) means do not validate_element", {
   red.before <- p + red.text + theme(animint.width = 500, validate = FALSE)
   expect_equal(red.before$theme$animint.width, 500)
 })
+
+test_that("All elements in complete themes have inherit.blank=TRUE", {
+  inherit_blanks <- function(theme) {
+    all(vapply(theme, function(el) {
+      if (inherits(el, "element") && !inherits(el, "element_blank")) {
+        el$inherit.blank
+      } else {
+        TRUE
+      }
+    }, logical(1)))
+  }
+  expect_true(inherit_blanks(theme_grey()))
+  expect_true(inherit_blanks(theme_bw()))
+  expect_true(inherit_blanks(theme_classic()))
+  expect_true(inherit_blanks(theme_dark()))
+  expect_true(inherit_blanks(theme_light()))
+  expect_true(inherit_blanks(theme_linedraw()))
+  expect_true(inherit_blanks(theme_minimal()))
+  expect_true(inherit_blanks(theme_void()))
+})
