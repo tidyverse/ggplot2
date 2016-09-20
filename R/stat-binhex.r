@@ -48,6 +48,8 @@ StatBinhex <- ggproto("StatBinhex", Stat,
     wt <- data$weight %||% rep(1L, nrow(data))
     out <- hexBinSummarise(data$x, data$y, wt, binwidth, sum)
     out$density <- as.vector(out$value / sum(out$value, na.rm = TRUE))
+    out$count <- out$value
+    out$value <- NULL
 
     out
   }
