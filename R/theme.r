@@ -84,141 +84,142 @@ print.theme <- function(x, ...) utils::str(x)
 #' @param rect all rectangular elements (\code{element_rect})
 #' @param text all text elements (\code{element_text})
 #' @param title all title elements: plot, axes, legends (\code{element_text};
-#' inherits from \code{text})
+#'   inherits from \code{text})
 #' @param aspect.ratio aspect ratio of the panel
 #'
 #' @param axis.title label of axes (\code{element_text}; inherits from
-#' \code{text})
+#'   \code{text})
 #' @param axis.title.x x axis label (\code{element_text}; inherits from
-#' \code{axis.title})
+#'   \code{axis.title})
 #' @param axis.title.x.top x axis label on top axis (\code{element_text};
-#' inherits from \code{axis.title.x})
+#'   inherits from \code{axis.title.x})
 #' @param axis.title.y y axis label (\code{element_text}; inherits from
-#' \code{axis.title})
+#'   \code{axis.title})
 #' @param axis.title.y.right y axis label on right axis (\code{element_text};
-#' inherits from \code{axis.title.y})
+#'   inherits from \code{axis.title.y})
 #' @param axis.text tick labels along axes (\code{element_text}; inherits from
-#' \code{text})
+#'   \code{text})
 #' @param axis.text.x x axis tick labels (\code{element_text}; inherits from
-#' \code{axis.text})
+#'   \code{axis.text})
 #' @param axis.text.x.top x axis tick labels on top axis (\code{element_text};
-#' inherits from \code{axis.text.x})
+#'   inherits from \code{axis.text.x})
 #' @param axis.text.y y axis tick labels (\code{element_text}; inherits from
-#' \code{axis.text})
+#'   \code{axis.text})
 #' @param axis.text.y.right y axis tick labels on right axis
-#' (\code{element_text}; inherits from \code{axis.text.y})
+#'   (\code{element_text}; inherits from \code{axis.text.y})
 #' @param axis.ticks tick marks along axes (\code{element_line}; inherits from
-#' \code{line})
+#'   \code{line})
 #' @param axis.ticks.x x axis tick marks (\code{element_line}; inherits from
-#' \code{axis.ticks})
+#'   \code{axis.ticks})
 #' @param axis.ticks.y y axis tick marks (\code{element_line}; inherits from
-#' \code{axis.ticks})
+#'   \code{axis.ticks})
 #' @param axis.ticks.length length of tick marks (\code{unit})
 #' @param axis.line lines along axes (\code{element_line}; inherits from
-#' \code{line})
+#'   \code{line})
 #' @param axis.line.x line along x axis (\code{element_line}; inherits from
-#' \code{axis.line})
+#'   \code{axis.line})
 #' @param axis.line.y line along y axis (\code{element_line}; inherits from
-#' \code{axis.line})
+#'   \code{axis.line})
 #'
 #' @param legend.background background of legend (\code{element_rect}; inherits
-#' from \code{rect})
+#'   from \code{rect})
 #' @param legend.margin the margin around each legend (\code{margin})
 #' @param legend.spacing the spacing between legends (\code{unit})
 #' @param legend.spacing.x the horizontal spacing between legends (\code{unit});
-#' inherits from \code{legend.spacing}
+#'   inherits from \code{legend.spacing}
 #' @param legend.spacing.y the horizontal spacing between legends (\code{unit});
-#' inherits from \code{legend.spacing}
+#'   inherits from \code{legend.spacing}
 #' @param legend.key background underneath legend keys (\code{element_rect};
-#' inherits from \code{rect})
+#'   inherits from \code{rect})
 #' @param legend.key.size size of legend keys (\code{unit})
 #' @param legend.key.height key background height (\code{unit}; inherits from
-#' \code{legend.key.size})
+#'   \code{legend.key.size})
 #' @param legend.key.width key background width (\code{unit}; inherits from
-#' \code{legend.key.size})
+#'   \code{legend.key.size})
 #' @param legend.text legend item labels (\code{element_text}; inherits from
-#' \code{text})
+#'   \code{text})
 #' @param legend.text.align alignment of legend labels (number from 0 (left) to
-#' 1 (right))
+#'   1 (right))
 #' @param legend.title title of legend (\code{element_text}; inherits from
-#' \code{title})
+#'   \code{title})
 #' @param legend.title.align alignment of legend title (number from 0 (left) to
-#' 1 (right))
+#'   1 (right))
 #' @param legend.position the position of legends ("none", "left", "right",
-#' "bottom", "top", or two-element numeric vector)
+#'   "bottom", "top", or two-element numeric vector)
 #' @param legend.direction layout of items in legends ("horizontal" or
-#' "vertical")
+#'   "vertical")
 #' @param legend.justification anchor point for positioning legend inside plot
-#' ("center" or two-element numeric vector) or the justification according to
-#' the plot area when positioned outside the plot
+#'   ("center" or two-element numeric vector) or the justification according to
+#'   the plot area when positioned outside the plot
 #' @param legend.box arrangement of multiple legends ("horizontal" or
-#' "vertical")
+#'   "vertical")
 #' @param legend.box.just justification of each legend within the overall
-#' bounding box, when there are multiple legends ("top", "bottom", "left", or
-#' "right")
+#'   bounding box, when there are multiple legends ("top", "bottom", "left", or
+#'   "right")
 #' @param legend.box.margin margins around the full legend area, as specified
-#' using \code{\link{margin}}
+#'   using \code{\link{margin}}
 #' @param legend.box.background background of legend area (\code{element_rect};
-#' inherits from \code{rect})
+#'   inherits from \code{rect})
 #' @param legend.box.spacing The spacing between the plotting area and the
-#' legend box (\code{unit})
+#'   legend box (\code{unit})
 #'
 #' @param panel.background background of plotting area, drawn underneath plot
-#' (\code{element_rect}; inherits from \code{rect})
+#'   (\code{element_rect}; inherits from \code{rect})
 #' @param panel.border border around plotting area, drawn on top of plot so that
-#' it covers tick marks and grid lines. This should be used with \code{fill=NA}
+#'   it covers tick marks and grid lines. This should be used with
+#'   \code{fill=NA}
 #' (\code{element_rect}; inherits from \code{rect})
 #' @param panel.spacing spacing between facet panels (\code{unit})
 #' @param panel.spacing.x horizontal spacing between facet panels (\code{unit};
-#' inherits from \code{panel.spacing})
+#'   inherits from \code{panel.spacing})
 #' @param panel.spacing.y vertical spacing between facet panels (\code{unit};
-#' inherits from \code{panel.spacing})
+#'   inherits from \code{panel.spacing})
 #' @param panel.grid grid lines (\code{element_line}; inherits from \code{line})
 #' @param panel.grid.major major grid lines (\code{element_line}; inherits from
-#' \code{panel.grid})
+#'   \code{panel.grid})
 #' @param panel.grid.minor minor grid lines (\code{element_line}; inherits from
 #' \code{panel.grid})
 #' @param panel.grid.major.x vertical major grid lines (\code{element_line};
-#' inherits from \code{panel.grid.major})
+#'   inherits from \code{panel.grid.major})
 #' @param panel.grid.major.y horizontal major grid lines (\code{element_line};
-#' inherits from \code{panel.grid.major})
+#'   inherits from \code{panel.grid.major})
 #' @param panel.grid.minor.x vertical minor grid lines (\code{element_line};
-#' inherits from \code{panel.grid.minor})
+#'   inherits from \code{panel.grid.minor})
 #' @param panel.grid.minor.y horizontal minor grid lines (\code{element_line};
-#' inherits from \code{panel.grid.minor})
+#'   inherits from \code{panel.grid.minor})
 #' @param panel.ontop option to place the panel (background, gridlines) over
-#' the data layers.  Usually used with a transparent or blank
-#' \code{panel.background}. (\code{logical})
+#'   the data layers.  Usually used with a transparent or blank
+#'   \code{panel.background}. (\code{logical})
 #'
 #' @param plot.background background of the entire plot (\code{element_rect};
-#' inherits from \code{rect})
+#'   inherits from \code{rect})
 #' @param plot.title plot title (text appearance) (\code{element_text}; inherits
-#' from \code{title}) left-aligned by default
+#'   from \code{title}) left-aligned by default
 #' @param plot.subtitle plot subtitle (text appearance) (\code{element_text};
-#' inherits from \code{title}) left-aligned by default
+#'   inherits from \code{title}) left-aligned by default
 #' @param plot.caption caption below the plot (text appearance)
-#' (\code{element_text}; inherits from \code{title}) right-aligned by default
+#'   (\code{element_text}; inherits from \code{title}) right-aligned by default
 #' @param plot.margin margin around entire plot (\code{unit} with the sizes of
-#' the top, right, bottom, and left margins)
+#'   the top, right, bottom, and left margins)
 #'
 #' @param strip.background background of facet labels (\code{element_rect};
-#' inherits from \code{rect})
+#'   inherits from \code{rect})
 #' @param strip.text facet labels (\code{element_text}; inherits from
-#' \code{text})
+#'   \code{text})
 #' @param strip.text.x facet labels along horizontal direction
-#' (\code{element_text}; inherits from \code{strip.text})
+#'   (\code{element_text}; inherits from \code{strip.text})
 #' @param strip.text.y facet labels along vertical direction
-#' (\code{element_text}; inherits from \code{strip.text})
+#'   (\code{element_text}; inherits from \code{strip.text})
 #' @param strip.switch.pad.grid space between strips and axes when strips are
-#' switched (\code{unit})
+#'   switched (\code{unit})
 #' @param strip.switch.pad.wrap space between strips and axes when strips are
-#' switched (\code{unit})
+#'   switched (\code{unit})
 #'
 #' @param ... additional element specifications not part of base ggplot2. If
-#' supplied \code{validate} needs to be set to \code{FALSE}.
+#'   supplied \code{validate} needs to be set to \code{FALSE}.
 #' @param complete set this to TRUE if this is a complete theme, such as the one
-#' returned \code{by theme_grey()}. Complete themes behave differently when
-#' added to a ggplot object.
+#'   returned \code{by theme_grey()}. Complete themes behave differently when
+#'   added to a ggplot object.
 #' @param validate TRUE to run validate_element, FALSE to bypass checks.
 #'
 #' @seealso \code{\link{+.gg}}
