@@ -134,6 +134,8 @@
 
 * Fixed problem with `geom_dotplot()` when facetting and binning on the
   y-axis. (#1618, @has2k1)
+  
+* stat_binhex now again returns `count` rather than `value` (#1747)
 
 * `element_line()` now takes an `arrow` argument to specify arrows at the end of
   lines (#1740)
