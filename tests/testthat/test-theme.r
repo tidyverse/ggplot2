@@ -51,6 +51,8 @@ test_that("Adding theme object to ggplot object with + operator", {
   expect_true(p$theme$text$colour == 'red')
   tt <- theme_grey()$text
   tt$colour <- 'red'
+  expect_true(tt$inherit.blank)
+  tt$inherit.blank <- FALSE
   expect_identical(p$theme$text, tt)
 
 })
