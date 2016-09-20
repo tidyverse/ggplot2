@@ -209,13 +209,13 @@ Layer <- ggproto("Layer", NULL,
     evaled
   },
 
-  compute_statistic = function(self, data, panel) {
+  compute_statistic = function(self, data, layout) {
     if (empty(data))
       return(data.frame())
 
     params <- self$stat$setup_params(data, self$stat_params)
     data <- self$stat$setup_data(data, params)
-    self$stat$compute_layer(data, params, panel)
+    self$stat$compute_layer(data, params, layout)
   },
 
   map_statistic = function(self, data, plot) {
@@ -260,13 +260,13 @@ Layer <- ggproto("Layer", NULL,
     data
   },
 
-  compute_position = function(self, data, panel) {
+  compute_position = function(self, data, layout) {
     if (empty(data)) return(data.frame())
 
     params <- self$position$setup_params(data)
     data <- self$position$setup_data(data, params)
 
-    self$position$compute_layer(data, params, panel)
+    self$position$compute_layer(data, params, layout)
   },
 
   compute_geom_2 = function(self, data) {
@@ -276,14 +276,14 @@ Layer <- ggproto("Layer", NULL,
     self$geom$use_defaults(data, self$aes_params)
   },
 
-  draw_geom = function(self, data, panel, coord) {
+  draw_geom = function(self, data, layout, coord) {
     if (empty(data)) {
-      n <- nrow(panel$layout)
+      n <- nrow(layout$panel_layout)
       return(rep(list(zeroGrob()), n))
     }
 
     data <- self$geom$handle_na(data, self$geom_params)
-    self$geom$draw_layer(data, self$geom_params, panel, coord)
+    self$geom$draw_layer(data, self$geom_params, layout, coord)
   }
 )
 

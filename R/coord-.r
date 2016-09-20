@@ -18,8 +18,8 @@
 #'   \item \code{labels}: Returns a list containing labels for x and y.
 #'   \item \code{render_fg}: Renders foreground elements.
 #'   \item \code{render_bg}: Renders background elements.
-#'   \item \code{render_axis_h}: Renders the horizontal axis.
-#'   \item \code{render_axis_v}: Renders the vertical axis.
+#'   \item \code{render_axis_h}: Renders the horizontal axes.
+#'   \item \code{render_axis_v}: Renders the vertical axes.
 #'   \item \code{range}: Returns the x and y ranges
 #'   \item \code{train}: Return the trained scale ranges.
 #'   \item \code{transform}: Transforms x and y coordinates.
@@ -50,11 +50,21 @@ Coord <- ggproto("Coord",
   },
 
   render_axis_h = function(scale_details, theme) {
-    guide_axis(scale_details$x.major, scale_details$x.labels, "bottom", theme)
+    arrange <- scale_details$x.arrange %||% c("secondary", "primary")
+
+    list(
+      top = render_axis(scale_details, arrange[1], "x", "top", theme),
+      bottom = render_axis(scale_details, arrange[2], "x", "bottom", theme)
+    )
   },
 
   render_axis_v = function(scale_details, theme) {
-    guide_axis(scale_details$y.major, scale_details$y.labels, "left", theme)
+    arrange <- scale_details$y.arrange %||% c("primary", "secondary")
+
+    list(
+      left = render_axis(scale_details, arrange[1], "y", "left", theme),
+      right = render_axis(scale_details, arrange[2], "y", "right", theme)
+    )
   },
 
   range = function(scale_details) {
@@ -78,4 +88,16 @@ is.Coord <- function(x) inherits(x, "Coord")
 
 expand_default <- function(scale, discrete = c(0, 0.6), continuous = c(0.05, 0)) {
   scale$expand %|W|% if (scale$is_discrete()) discrete else continuous
+}
+
+# Renders an axis with the correct orientation or zeroGrob if no axis should be
+# generated
+render_axis <- function(scale_details, axis, scale, position, theme) {
+  if (axis == "primary") {
+    guide_axis(scale_details[[paste0(scale, ".major")]], scale_details[[paste0(scale, ".labels")]], position, theme)
+  } else if (axis == "secondary" && !is.null(scale_details[[paste0(scale, ".sec.major")]])) {
+    guide_axis(scale_details[[paste0(scale, ".sec.major")]], scale_details[[paste0(scale, ".sec.labels")]], position, theme)
+  } else {
+    zeroGrob()
+  }
 }

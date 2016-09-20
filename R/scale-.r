@@ -30,6 +30,7 @@ Scale <- ggproto("Scale", NULL,
   breaks = waiver(),
   labels = waiver(),
   guide = "legend",
+  position = "left",
 
 
   is_discrete = function() {
@@ -151,6 +152,15 @@ Scale <- ggproto("Scale", NULL,
 
   break_info = function(self, range = NULL) {
     stop("Not implemented", call. = FALSE)
+  },
+
+  # Only relevant for positional scales
+  axis_order = function(self) {
+    ord <- c("primary", "secondary")
+    if (self$position %in% c("right", "bottom")) {
+      ord <- rev(ord)
+    }
+    ord
   }
 )
 
@@ -531,15 +541,18 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   \code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
 #'   discrete variables.
 #' @param guide Name of guide object, or object itself.
+#' @param position The position of the axis. "left" or "right" for vertical
+#' scales, "top" or "bottom" for horizontal scales
+#' @param super The super class to use for the constructed scale
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
-                             breaks = waiver(), minor_breaks = waiver(),
-                             labels = waiver(), limits = NULL,
-                             rescaler = rescale, oob = censor,
-                             expand = waiver(), na.value = NA_real_,
-                             trans = "identity", guide = "legend") {
+  breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL,
+  rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_,
+  trans = "identity", guide = "legend", position = "left", super = ScaleContinuous) {
 
   check_breaks_labels(breaks, labels)
+
+  position <- match.arg(position, c("left", "right", "top", "bottom"))
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
     guide <- "none"
@@ -550,7 +563,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     limits <- trans$transform(limits)
   }
 
-  ggproto(NULL, ScaleContinuous,
+  ggproto(NULL, super,
     call = match.call(),
 
     aesthetics = aesthetics,
@@ -570,7 +583,8 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     minor_breaks = minor_breaks,
 
     labels = labels,
-    guide = guide
+    guide = guide,
+    position = position
   )
 }
 
@@ -614,18 +628,23 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' @param na.value how should missing values be displayed?
 #' @param guide the name of, or actual function, used to create the
 #'   guide. See \code{\link{guides}} for more info.
+#' @param position The position of the axis. "left" or "right" for vertical
+#' scales, "top" or "bottom" for horizontal scales
+#' @param super The super class to use for the constructed scale
 #' @keywords internal
-discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), breaks = waiver(),
-  labels = waiver(), limits = NULL, expand = waiver(), na.value = NA, drop = TRUE,
-  guide = "legend") {
+discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
+  breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
+  na.value = NA, drop = TRUE, guide = "legend", position = "left", super = ScaleDiscrete) {
 
   check_breaks_labels(breaks, labels)
+
+  position <- match.arg(position, c("left", "right", "top", "bottom"))
 
   if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
     guide <- "none"
   }
 
-  ggproto(NULL, ScaleDiscrete,
+  ggproto(NULL, super,
     call = match.call(),
 
     aesthetics = aesthetics,
@@ -641,6 +660,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(), bre
     breaks = breaks,
     labels = labels,
     drop = drop,
-    guide = guide
+    guide = guide,
+    position = position
   )
 }

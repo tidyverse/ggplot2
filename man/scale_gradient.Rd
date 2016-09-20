@@ -40,7 +40,7 @@ scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
   na.value = "grey50", guide = "colourbar", colors)
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
+\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
 to control name, limits, breaks, labels and so forth.}
 
 \item{low, high}{Colours for low and high ends of the gradient.}

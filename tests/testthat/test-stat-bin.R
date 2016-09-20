@@ -42,6 +42,15 @@ test_that("can use breaks argument", {
 })
 
 
+test_that("fuzzy breaks used when cutting", {
+  df <- data.frame(x = c(-1, -0.5, -0.4, 0))
+  p <- ggplot(df, aes(x)) +
+    geom_histogram(binwidth = 0.1, boundary = 0.1, closed = "left")
+
+  bins <- layer_data(p) %>% subset(count > 0) %>% .[1:5]
+  expect_equal(bins$count, c(1, 1, 1, 1))
+})
+
 # Underlying binning algorithm --------------------------------------------
 
 comp_bin <- function(df, ...) {
@@ -127,6 +136,6 @@ test_that("stat_count preserves x order for continuous and discrete", {
   mtcars$carb3 <- factor(mtcars$carb, levels = c(4,1,2,3,6,8))
   b <- ggplot_build(ggplot(mtcars, aes(carb3)) + geom_bar())
   expect_identical(b$data[[1]]$x, 1:6)
-  expect_identical(b$panel$ranges[[1]]$x.labels, c("4","1","2","3","6","8"))
+  expect_identical(b$layout$panel_ranges[[1]]$x.labels, c("4","1","2","3","6","8"))
   expect_identical(b$data[[1]]$y, c(10,7,10,3,1,1))
 })

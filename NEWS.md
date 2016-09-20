@@ -1,4 +1,47 @@
 # ggplot2 2.1.0.9000 
+* The facet system, as well as the internal panel class, has been rewritten in 
+  ggproto. Facets are now extendable in the same manner as geoms, stats etc. and
+  the manner in which this is done is described in the extension vignette. On 
+  top of that the rewrite has added the following:
+  
+    * `facet_grid` and `facet_wrap` now allow the use of expressions in their
+      facetting formulas (fixes #1596). Thanks to @DanRuderman.
+    
+    * When  `facet_wrap` results in an uneven number of panels, axes will now be
+      drawn underneath the hanging panels (fixes #1607)
+    
+    * strips can now be freely positioned in `facet_wrap` using the 
+      `strip.position` argument (deprecates `switch`).
+    
+    * The relative order of panel, strip, and axis can now be controlled with 
+      the theme setting `strip.placement` that takes either `inside` (between 
+      panel and axis) or `outside` (after axis).
+    
+    * The theme option `panel.margin` has been deprecated in favour of 
+      `panel.spacing` to clearer communicate intend.
+
+* The position of x and y axes can now be changed using the `position` argument
+  in `scale_x_*`and `scale_y_*` which can take `top` and `bottom`, and `left`and
+  `right` respectively.
+
+* The styling of top and right axes text and labels can be modified directly 
+  using the `.top` and `.right` modifiers to `axis.text.*` and `axis.title.*`
+
+* `scale_x_continuous` and `scale_y_continuous` can now display a secondary axis
+  that is a linear transformation of the primary axis (e.g. degrees Celcius to
+  degrees Fahrenheit). The secondary axis will be positioned opposite of the 
+  primary axis and can be controlled using the `sec.axis` argument to the scale
+  constructor.
+
+* The documentation for theme elements has been improved (#1743).
+
+* `geom_boxplot` gain new `outlier.alpha` argument for controlling the alpha of
+   outlier points independently of the alpha of the boxes. 
+   Analogous to outlier.colour, outlier.shape, etc.
+   (@jonathan-g).
+
+* FP adjustment for histogram bins is now actually used - it was previously
+  inadvertently ignored (#1651).
 
 * When computing the height of titles ggplot2, now inclues the height of the
   descenders (i.e. the bits `g` and `y` that hang underneath). This makes 
@@ -54,7 +97,7 @@
   
 * Minor code formatting and grammar issues in examples and function 
   parameters were fixed. (@hrbrmstr)
-  
+
 * `geom_col()` was added to complement `geom_bar()`. It uses `stat="identity"`
   by default, making the `y` aesthetic mandatory. It does not support any 
   other `stat_()` and does not provide fallback support for the `binwidth`
@@ -63,7 +106,7 @@
 
 * Fix error message of Stats ggprotos when required aesthetics are
   missing.
-  
+
 * Fix bug that resulted in several annotation_x function not getting drawn when
   global data was lacking (#1655)
 
@@ -77,6 +120,41 @@
 
 * A warning is now issued when a scale transformation introduces infinite 
   values in a scale (#1696)
+  
+* Fixed bug where space for dropped levels in scale_discrete would be preserved 
+  (#1638)
+
+* Fixed bug where scale expansion was not used correctly for discrete scales
+
+* ggplot2 now warns when breaks are dropped due to using continuous data on a 
+  discrete scale (#1589)
+
+* Quantile lines in geom_violin() are no longer affected by the alpha aesthetic
+  (@mnbram, #1714)
+
+* Fixed problem with `geom_dotplot()` when facetting and binning on the
+  y-axis. (#1618, @has2k1)
+
+* `element_line()` now takes an `arrow` argument to specify arrows at the end of
+  lines (#1740)
+  
+* Multiple changes to legend theming:
+  
+    * `legend.justification` now works outside of plotting area as well
+    
+    * `panel.margin` and `legend.margin` has been renamed to `panel.spacing` and 
+      `legend.spacing` respectively to better communicate intend
+    
+    * `legend.margin` now controls margin around individual legends
+    
+    * Added `legend.box.margin` to control the margin around the total legend 
+      area
+    
+    * Added `legend.box.background` to control the background of the total 
+      legend area
+    
+    * Added `legend.box.spacing` to control the distance between the plot area 
+      and the legend area
 
 # ggplot2 2.1.0
 
@@ -113,9 +191,9 @@
       
     * `bins = n` now gives a histogram with `n` bins, not `n + 1` (#1487).
 
-## Bug fixes 
+## Bug fixes
 
-* All `\donttest{}` examples run. 
+* All `\donttest{}` examples run.
 
 * All `geom_()` and `stat_()` functions now have consistent argument order:
   data + mapping, then geom/stat/position, then `...`, then specific arguments, 
@@ -202,6 +280,9 @@
 
 * Fixed a compatibility issue with `ggproto` and R versions prior to 3.1.2.
   (#1444)
+
+* Fixed issue where `coord_map()` fails when given an explicit `parameters`
+  argument (@tdmcarthur, #1729)
 
 # ggplot2 2.0.0
 

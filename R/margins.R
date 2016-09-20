@@ -15,7 +15,9 @@
 margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
   structure(unit(c(t, r, b, l), unit), class = c("margin", "unit"))
 }
-
+is.margin <- function(x) {
+  inherits(x, "margin")
+}
 
 margin_height <- function(grob, margins) {
   if (is.zero(grob)) return(unit(0, "cm"))

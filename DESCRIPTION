@@ -24,7 +24,8 @@ Imports:
     reshape2,
     scales (>= 0.3.0),
     stats,
-    tibble
+    tibble,
+    lazyeval
 Suggests:
     covr,
     ggplot2movies,
@@ -44,7 +45,7 @@ Suggests:
     rmarkdown,
     svglite
 Enhances: sp
-License: GPL-2
+License: GPL-2 | file LICENSE
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
 BugReports: https://github.com/hadley/ggplot2/issues
 LazyData: true
@@ -69,6 +70,7 @@ Collate:
     'annotation-raster.r'
     'annotation.r'
     'autoplot.r'
+    'axis-secondary.R'
     'bench.r'
     'bin.R'
     'coord-.r'
@@ -83,11 +85,7 @@ Collate:
     'data.R'
     'facet-.r'
     'facet-grid-.r'
-    'facet-labels.r'
-    'facet-layout.r'
-    'facet-locate.r'
     'facet-null.r'
-    'facet-viewports.r'
     'facet-wrap.r'
     'fortify-lm.r'
     'fortify-map.r'
@@ -143,11 +141,12 @@ Collate:
     'guides-axis.r'
     'guides-grid.r'
     'hexbin.R'
+    'labeller.r'
     'labels.r'
     'layer.r'
+    'layout.R'
     'limits.r'
     'margins.R'
-    'panel.r'
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'

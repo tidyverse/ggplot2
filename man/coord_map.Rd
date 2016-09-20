@@ -5,8 +5,8 @@
 \alias{coord_quickmap}
 \title{Map projections.}
 \usage{
-coord_map(projection = "mercator", ..., orientation = NULL, xlim = NULL,
-  ylim = NULL)
+coord_map(projection = "mercator", ..., parameters = NULL,
+  orientation = NULL, xlim = NULL, ylim = NULL)
 
 coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE)
 }
@@ -14,8 +14,13 @@ coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE)
 \item{projection}{projection to use, see
 \code{\link[mapproj]{mapproject}} for list}
 
-\item{...}{other arguments passed on to
-\code{\link[mapproj]{mapproject}}}
+\item{...}{other arguments passed on to \code{\link[mapproj]{mapproject}}.
+Ignored if the \code{parameters} argument is present.}
+
+\item{parameters}{optional numeric vector of parameters for use
+with the projection argument. This argument is optional only in
+the sense that certain projections do not require additional
+parameters. Passed to \code{\link[mapproj]{mapproject}}.}
 
 \item{orientation}{projection orientation, which defaults to
 \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
@@ -65,7 +70,8 @@ nzmap + coord_quickmap()
 
 # Other projections
 nzmap + coord_map("cylindrical")
-nzmap + coord_map("azequalarea", orientation = c(-36.92,174.6,0))
+nzmap + coord_map("azequalarea", orientation = c(-36.92, 174.6, 0))
+nzmap + coord_map("lambert", parameters = c(-37, -44))
 
 states <- map_data("state")
 usamap <- ggplot(states, aes(long, lat, group = group)) +
