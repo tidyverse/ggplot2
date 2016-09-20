@@ -22,9 +22,9 @@ scale_alpha <- function(name = waiver(), range = c(0.1, 1), breaks = waiver(),
                         limits = NULL, oob = censor, expand = waiver(),
                         na.value = NA_real_, trans = "identity",
                         guide = "legend") {
-  args <- as.list(environment)
+  args <- as.list(environment())
   args$aesthetics <- "alpha"
-  args$name <- "alpha_c"
+  args$scale_name <- "alpha_c"
   args$palette <- rescale_pal(range)
   args$range <- NULL
   do.call(continuous_scale, args)
@@ -41,9 +41,9 @@ scale_alpha_discrete <- function(name = waiver(), range = c(0.1, 1),
                                  breaks = waiver(), labels = waiver(),
                                  limits = NULL, expand = waiver(),
                                  na.value = NA, drop = TRUE, guide = "legend") {
-  args <- as.list(environment)
+  args <- as.list(environment())
   args$aesthetics <- "alpha"
-  args$name <- "alpha_d"
+  args$scale_name <- "alpha_d"
   args$palette <- function(n) seq(range[1], range[2], length.out = n)
   args$range <- NULL
   do.call(discrete_scale, args)
