@@ -185,7 +185,9 @@ theme_bw <- function(base_size = 11, base_family = "") {
       # contour strips to match panel contour
       strip.background = element_rect(fill = "grey85", colour = "grey20"),
       # match legend key to background
-      legend.key       = element_rect(fill = "white", colour=NA)
+      legend.key       = element_rect(fill = "white", colour=NA),
+
+      complete = TRUE
     )
 }
 
@@ -209,7 +211,9 @@ theme_linedraw <- function(base_size = 11, base_family = "") {
 
       # strips with black background and white text
       strip.background = element_rect(fill = "black"),
-      strip.text       = element_text(colour = "white", size = rel(0.8))
+      strip.text       = element_text(colour = "white", size = rel(0.8)),
+
+      complete = TRUE
     )
 }
 
@@ -235,7 +239,9 @@ theme_light <- function(base_size = 11, base_family = "") {
 
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey70", colour = NA),
-      strip.text       = element_text(colour = "white", size = rel(0.8))
+      strip.text       = element_text(colour = "white", size = rel(0.8)),
+
+      complete = TRUE
     )
 
 }
@@ -261,7 +267,9 @@ theme_dark <- function(base_size = 11, base_family = "") {
 
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey15", colour = NA),
-      strip.text       = element_text(colour = "grey90", size = rel(0.8))
+      strip.text       = element_text(colour = "grey90", size = rel(0.8)),
+
+      complete = TRUE
     )
 }
 
@@ -277,7 +285,9 @@ theme_minimal <- function(base_size = 11, base_family = "") {
       panel.background  = element_blank(),
       panel.border      = element_blank(),
       strip.background  = element_blank(),
-      plot.background   = element_blank()
+      plot.background   = element_blank(),
+
+      complete = TRUE
     )
 }
 
@@ -298,8 +308,10 @@ theme_classic <- function(base_size = 11, base_family = ""){
       legend.key       = element_blank(),
 
       # simple, black and white strips
-      strip.background = element_rect(fill = "white", colour = "black", size = 1)
+      strip.background = element_rect(fill = "white", colour = "black", size = 1),
       # NB: size is 1 but clipped, it looks like the 0.5 of the axes
+
+      complete = TRUE
     )
 }
 
