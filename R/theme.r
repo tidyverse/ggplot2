@@ -384,7 +384,7 @@ theme <- function(line, rect, text, title, aspect.ratio, axis.title,
                   plot.caption, plot.margin, strip.background, strip.text,
                   strip.text.x, strip.text.y, strip.switch.pad.grid,
                   strip.switch.pad.wrap, ..., complete = FALSE, validate = TRUE) {
-  elements <- as.list(environment())
+  elements <- c(as.list(environment()), list(...))
   elements$complete <- NULL
   elements$validate <- NULL
   elements <- elements[lapply(elements, class) != "name"]
