@@ -388,7 +388,7 @@ theme <- function(line, rect, text, title, aspect.ratio, axis.title,
   elements <- c(as.list(environment()), list(...))
   elements$complete <- NULL
   elements$validate <- NULL
-  elements <- elements[lapply(elements, class) != "name"]
+  elements <- elements[!vapply(elements, is.name, logical(1))]
 
   if (!is.null(elements$axis.ticks.margin)) {
     warning("`axis.ticks.margin` is deprecated. Please set `margin` property ",
