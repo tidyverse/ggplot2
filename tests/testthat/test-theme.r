@@ -161,15 +161,6 @@ test_that("Complete and non-complete themes interact correctly with ggplot objec
   expect_false(attr(p$plot$theme, "complete"))
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
-
-
-  # Only gets red property; because of the way lists are processed in R, the
-  # the second item doesn't get used properly. But I think that's OK.
-  p <- ggplot_build(qplot(1:3, 1:3) +
-    theme(text = element_text(colour = 'red'), text = element_text(face = 'italic')))
-  expect_false(attr(p$plot$theme, "complete"))
-  expect_equal(p$plot$theme$text$colour, "red")
-  expect_equal(p$plot$theme$text$face, "plain")
 })
 
 test_that("theme(validate=FALSE) means do not validate_element", {
@@ -188,3 +179,4 @@ test_that("theme(validate=FALSE) means do not validate_element", {
   red.before <- p + red.text + theme(animint.width = 500, validate = FALSE)
   expect_equal(red.before$theme$animint.width, 500)
 })
+
