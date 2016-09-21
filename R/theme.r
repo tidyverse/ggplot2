@@ -385,10 +385,7 @@ theme <- function(line, rect, text, title, aspect.ratio, axis.title,
                   plot.caption, plot.margin, strip.background, strip.text,
                   strip.text.x, strip.text.y, strip.switch.pad.grid,
                   strip.switch.pad.wrap, ..., complete = FALSE, validate = TRUE) {
-  elements <- c(as.list(environment()), list(...))
-  elements$complete <- NULL
-  elements$validate <- NULL
-  elements <- elements[!vapply(elements, is.name, logical(1))]
+  elements <- find_args(..., .ignore = c("complete", "validate"))
 
   if (!is.null(elements$axis.ticks.margin)) {
     warning("`axis.ticks.margin` is deprecated. Please set `margin` property ",
