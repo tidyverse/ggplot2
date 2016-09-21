@@ -36,3 +36,16 @@ test_that("negative and positive values are handled separately", {
   expect_equal(dat$ymin, c(0,1,0,-1,-3))
   expect_equal(dat$ymax, c(1,2,2,0,0))
 })
+
+test_that("data with no extend is stacked correctly", {
+  df = data.frame(
+    x = c(1, 1),
+    y = c(-40, -75),
+    group = letters[1:2]
+  )
+  p <- ggplot(df, aes(x = x, y = y, group = group)) +
+    geom_text(aes(label = y), position = "stack")
+  df_stack <- layer_data(p)
+
+  expect_equal(df_stack$y, cumsum(df$y))
+})
