@@ -11,14 +11,14 @@
 element_blank()
 
 element_rect(fill = NULL, colour = NULL, size = NULL, linetype = NULL,
-  color = NULL)
+  color = NULL, inherit.blank = FALSE)
 
 element_line(colour = NULL, size = NULL, linetype = NULL,
-  lineend = NULL, color = NULL, arrow = NULL)
+  lineend = NULL, color = NULL, arrow = NULL, inherit.blank = FALSE)
 
 element_text(family = NULL, face = NULL, colour = NULL, size = NULL,
   hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  color = NULL, margin = NULL, debug = NULL)
+  color = NULL, margin = NULL, debug = NULL, inherit.blank = FALSE)
 }
 \arguments{
 \item{fill}{Fill colour.}
@@ -31,6 +31,12 @@ element_text(family = NULL, face = NULL, colour = NULL, size = NULL,
 dashed, dotted, dotdash, longdash, twodash), or a string with
 an even number (up to eight) of hexadecimal digits which give the
 lengths in consecutive positions in the string.}
+
+\item{inherit.blank}{Should this element inherit the existence of an
+element_blank among its parents? If \code{TRUE} the existence of a blank
+element among its parents will cause this element to be blank as well. If
+\code{FALSE} any blank parent element will be ignored when calculating final
+element state.}
 
 \item{lineend}{Line end Line end style (round, butt, square)}
 

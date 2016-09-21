@@ -50,6 +50,9 @@
     I have also very slightly increased the inner margins of axis titles,
     and removed the outer margins. 
 
+* Theme element inheritance is now more easy to work with. Modification now
+  overrides default `element_blank` elements (#1555, #1557, #1565, #1567)
+  
 * Themes are more homogeneous visually, and match `theme_grey` better.
   (@jiho, #1679)
 
