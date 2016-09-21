@@ -125,7 +125,10 @@ scale_datetime <- function(aesthetics, trans,
     minor_breaks <- date_breaks(date_minor_breaks)
   }
   if (!is.waive(date_labels)) {
-    labels <- date_format(date_labels)
+    labels <- function(self, x) {
+      tz <- if (is.null(self$timezone)) "UTC" else self$timezone
+      date_format(date_labels, tz)(x)
+    }
   }
 
   scale_class <- switch(trans, date = ScaleContinuousDate, time = ScaleContinuousDatetime)
@@ -142,6 +145,19 @@ scale_datetime <- function(aesthetics, trans,
 #' @usage NULL
 #' @export
 ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
+  timezone = NULL,
+  transform = function(self, x) {
+    tz <- attr(x, "tzone")
+    if (is.null(self$timezone) && !is.null(tz)) {
+      self$timezone <- tz
+      self$trans <- time_trans(self$timezone)
+    } else {
+      if (!identical(self$timezone, tz)) {
+        warning("Multiple differenct timezones in data. Using the first", call. = FALSE)
+      }
+    }
+    ggproto_parent(ScaleContinuous, self)$transform(x)
+  },
   map = function(self, x, limits = self$get_limits()) {
     self$oob(x, limits)
   }
