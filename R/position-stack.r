@@ -96,6 +96,10 @@ PositionStack <- ggproto("PositionStack", Position,
     if (!is.null(data$ymin) && !all((data$ymin == 0 & data$ymax >= 0) | data$ymax == 0 & data$ymin <= 0))
       warning("Stacking not well defined when ymin and ymax is on opposite sides of 0", call. = FALSE)
 
+    if (!is.null(data$y)) {
+      if (is.null(data$ymin)) data$ymin <- data$y
+      if (is.null(data$ymax)) data$ymax <- data$y
+    }
     data
   },
 

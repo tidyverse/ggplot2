@@ -50,6 +50,9 @@
     I have also very slightly increased the inner margins of axis titles,
     and removed the outer margins. 
 
+* Theme element inheritance is now more easy to work with. Modification now
+  overrides default `element_blank` elements (#1555, #1557, #1565, #1567)
+  
 * Themes are more homogeneous visually, and match `theme_grey` better.
   (@jiho, #1679)
 
@@ -136,6 +139,8 @@
 
 * Fixed problem with `geom_dotplot()` when facetting and binning on the
   y-axis. (#1618, @has2k1)
+  
+* stat_binhex now again returns `count` rather than `value` (#1747)
 
 * `element_line()` now takes an `arrow` argument to specify arrows at the end of
   lines (#1740)

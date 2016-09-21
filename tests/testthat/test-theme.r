@@ -51,6 +51,8 @@ test_that("Adding theme object to ggplot object with + operator", {
   expect_true(p$theme$text$colour == 'red')
   tt <- theme_grey()$text
   tt$colour <- 'red'
+  expect_true(tt$inherit.blank)
+  tt$inherit.blank <- FALSE
   expect_identical(p$theme$text, tt)
 
 })
@@ -180,3 +182,22 @@ test_that("theme(validate=FALSE) means do not validate_element", {
   expect_equal(red.before$theme$animint.width, 500)
 })
 
+test_that("All elements in complete themes have inherit.blank=TRUE", {
+  inherit_blanks <- function(theme) {
+    all(vapply(theme, function(el) {
+      if (inherits(el, "element") && !inherits(el, "element_blank")) {
+        el$inherit.blank
+      } else {
+        TRUE
+      }
+    }, logical(1)))
+  }
+  expect_true(inherit_blanks(theme_grey()))
+  expect_true(inherit_blanks(theme_bw()))
+  expect_true(inherit_blanks(theme_classic()))
+  expect_true(inherit_blanks(theme_dark()))
+  expect_true(inherit_blanks(theme_light()))
+  expect_true(inherit_blanks(theme_linedraw()))
+  expect_true(inherit_blanks(theme_minimal()))
+  expect_true(inherit_blanks(theme_void()))
+})
