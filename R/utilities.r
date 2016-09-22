@@ -286,15 +286,14 @@ is_missing_arg <- function(x) identical(x, quote(expr = ))
 # named .ignore
 # @param ... passed on in case enclosing function uses ellipsis in argument list
 # @param .ignore remove these arguments from the list
-find_args <- function(..., .ignore = NULL) {
-  .ignore <- c("...", .ignore)
+find_args <- function(...) {
   env <- parent.frame()
   args <- names(formals(sys.function(sys.parent(1))))
 
   vals <- mget(args, envir = env)
-  vals <- vals[!vapply(vals, is_missing_arg, logical(1)) & !names(vals) %in% .ignore]
+  vals <- vals[!vapply(vals, is_missing_arg, logical(1))]
 
-  modifyList(vals, list(...))
+  modifyList(vals, list(..., `...` = NULL))
 }
 
 # Used in annotations to ensure printed even when no
