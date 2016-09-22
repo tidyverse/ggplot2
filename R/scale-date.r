@@ -151,10 +151,6 @@ ScaleContinuousDatetime <- ggproto("ScaleContinuousDatetime", ScaleContinuous,
     if (is.null(self$timezone) && !is.null(tz)) {
       self$timezone <- tz
       self$trans <- time_trans(self$timezone)
-    } else {
-      if (!identical(self$timezone, tz)) {
-        warning("Multiple differenct timezones in data. Using the first", call. = FALSE)
-      }
     }
     ggproto_parent(ScaleContinuous, self)$transform(x)
   },
