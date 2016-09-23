@@ -71,7 +71,7 @@ the bars and then stretching or squashing to the same height.
 }
 \section{Aesthetics}{
 
-  \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "col")}
+\aesthetics{geom}{col}
 }
 \examples{
 df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))

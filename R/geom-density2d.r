@@ -4,7 +4,7 @@
 #' results with contours. This can be useful for dealing with overplotting.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density_2d")}
+#' \aesthetics{geom}{density_2d}
 #'
 #' @seealso \code{\link{geom_contour}} for contour drawing geom,
 #'  \code{\link{stat_sum}} for another way of dealing with overplotting

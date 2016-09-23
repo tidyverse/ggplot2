@@ -56,7 +56,7 @@ Horizontal error bars
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "errorbarh")}
+\aesthetics{geom}{errorbarh}
 }
 \examples{
 df <- data.frame(

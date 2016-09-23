@@ -60,7 +60,7 @@ Marginal rug plots.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "rug")}
+\aesthetics{geom}{rug}
 }
 \examples{
 p <- ggplot(mtcars, aes(wt, mpg))

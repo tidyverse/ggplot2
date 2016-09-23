@@ -83,7 +83,7 @@ with underlying smoothness.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density")}
+\aesthetics{geom}{density}
 }
 
 \section{Computed variables}{

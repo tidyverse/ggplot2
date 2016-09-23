@@ -70,7 +70,7 @@ Add heatmap of 2d bin counts.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin2d")}
+\aesthetics{stat}{bin2d}
 }
 \examples{
 d <- ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10)

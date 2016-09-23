@@ -81,7 +81,7 @@ Violin plot.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "violin")}
+\aesthetics{geom}{violin}
 }
 
 \section{Computed variables}{

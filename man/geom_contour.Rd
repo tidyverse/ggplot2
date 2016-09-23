@@ -71,7 +71,7 @@ when \code{x} and \code{y} form a (roughly) evenly spaced grid.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "contour")}
+\aesthetics{geom}{contour}
 }
 
 \section{Computed variables}{

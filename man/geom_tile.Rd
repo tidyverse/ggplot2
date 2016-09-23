@@ -79,7 +79,7 @@ performance special case for when all the tiles are the same size.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "tile")}
+\aesthetics{geom}{tile}
 }
 \examples{
 # The most common use for rectangles is to draw a surface. You always want

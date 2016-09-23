@@ -6,7 +6,7 @@ NULL
 #' Does not affect position scales.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "map")}
+#' \aesthetics{geom}{map}
 #'
 #' @export
 #' @param map Data frame that contains the map coordinates.  This will
