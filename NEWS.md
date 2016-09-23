@@ -56,6 +56,9 @@
 * Themes are more homogeneous visually, and match `theme_grey` better.
   (@jiho, #1679)
 
+* The `theme()` constructor now has named arguments rather than ellipsis. This 
+  should make autocomplete substantially more useful.
+
 * `position_stack()` and `position_fill()` now sorts the stacking order so it 
   matches the order of the grouping. Use level reordering to alter the stacking 
   order. The default legend and stacking order is now also in line. The default 
