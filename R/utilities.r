@@ -292,7 +292,7 @@ find_args <- function(...) {
   vals <- mget(args, envir = env)
   vals <- vals[!vapply(vals, is_missing_arg, logical(1))]
 
-  modifyList(vals, list(..., `...` = NULL))
+  utils::modifyList(vals, list(..., `...` = NULL))
 }
 
 # Used in annotations to ensure printed even when no
