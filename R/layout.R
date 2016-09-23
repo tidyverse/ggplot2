@@ -10,7 +10,7 @@ Layout <- ggproto("Layout", NULL,
 
   setup = function(self, data, plot_data, plot_env, plot_coord) {
     data <- c(list(plot_data), data)
-    self$facet$params <- modifyList(
+    self$facet$params <- utils::modifyList(
       self$facet$setup_params(data, self$facet$params),
       list(plot_env = plot_env)
     )
