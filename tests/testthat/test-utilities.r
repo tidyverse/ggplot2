@@ -40,9 +40,4 @@ test_that("find_args behaves correctly", {
   expect_true(all(c("arg1", "arg2", "arg3") %in% names(test_fun(arg1 = 1, arg2 = 1, arg3 = 1))))
   # Defaults are overwritten
   expect_true(test_fun(arg2 = TRUE)$arg2)
-  # .ignore works
-  test_fun <- function(arg1, arg2 = FALSE, ...) {
-    find_args(..., .ignore = "arg2")
-  }
-  expect_false("arg2" %in% names(test_fun()))
 })
