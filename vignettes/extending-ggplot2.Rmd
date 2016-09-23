@@ -364,11 +364,11 @@ This is very similar to defining a new stat. You always need to provide fields/m
 * `draw_key` provides the function used to draw the key in the legend. 
   You can see a list of all the build in key functions in `?draw_key`
   
-* `draw_group()` is where the magic happens. This function takes three
+* `draw_panel()` is where the magic happens. This function takes three
   arguments and returns a grid grob. It is called once for each panel.
   It's the most complicated part and is described in more detail below.
   
-`draw_group()` has three arguments:
+`draw_panel()` has three arguments:
 
 * `data`: a data frame with one column for each aesthetic.
 
@@ -381,7 +381,7 @@ Generally you won't use `panel_scales` and `coord` directly, but you will always
 
 ### Collective geoms
 
-Overriding `draw_panel()` is most appropriate if there is one graphic element per row. In other cases, you want graphic element per group. For example, take polygons: each row gives one vertex of a polygon. In this case, you should instead override `draw_group()`:
+Overriding `draw_panel()` is most appropriate if there is one graphic element per row. In other cases, you want graphic element per group. For example, take polygons: each row gives one vertex of a polygon. In this case, you should instead override `draw_group()`.
 
 The following code makes a simplified version of `GeomPolygon`:
 
@@ -433,12 +433,8 @@ ggplot(mpg, aes(displ, hwy)) +
 
 There are a few things to note here:
 
-* We override `draw_group()` instead of `draw_layer()` because we want
-  one polygon per group, not one polygon per row. If you look at the source
-  code for the original `GeomPolygon` you'll see it actually overrides
-  `geom_layer()` because it uses some tricks to make `polygonGrob()` produce
-  multiple polygons in one call. This is considerably more complicated, but 
-  gives better performance.
+* We override `draw_group()` instead of `draw_panel()` because we want
+  one polygon per group, not one polygon per row. 
   
 * If the data contains two or fewer points, there's no point trying to draw
   a polygon, so we return a `nullGrob()`. This is the graphical equivalent
@@ -449,6 +445,8 @@ There are a few things to note here:
   (The default units for `pointGrob()` is a native, so we didn't need to 
   change it there). `lwd` is measured in points, but ggplot2 uses mm, 
   so we need to multiply it by the adjustment factor `.pt`.
+
+You might want to compare this to the real `GeomPolygon`. You'll see it overrides `draw_panel()` because it uses some tricks to make `polygonGrob()` produce multiple polygons in one call. This is considerably more complicated, but gives better performance.
 
 ### Inheriting from an existing Geom
 
