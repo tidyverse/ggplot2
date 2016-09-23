@@ -20,13 +20,13 @@ scale_y_date(name = waiver(), breaks = waiver(), date_breaks = waiver(),
 
 scale_x_datetime(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
-  minor_breaks = waiver(), date_minor_breaks = waiver(), limits = NULL,
-  expand = waiver(), position = "bottom")
+  minor_breaks = waiver(), date_minor_breaks = waiver(), timezone = NULL,
+  limits = NULL, expand = waiver(), position = "bottom")
 
 scale_y_datetime(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
-  minor_breaks = waiver(), date_minor_breaks = waiver(), limits = NULL,
-  expand = waiver(), position = "left")
+  minor_breaks = waiver(), date_minor_breaks = waiver(), timezone = NULL,
+  limits = NULL, expand = waiver(), position = "left")
 }
 \arguments{
 \item{name}{The name of the scale. Used as axis or legend title. If
@@ -82,6 +82,9 @@ discrete variables.}
 
 \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}
+
+\item{timezone}{The timezone to use for display on the axes. The default
+(\code{NULL}) uses the timezone encoded in the data.}
 }
 \description{
 Use \code{scale_*_date} with \code{Date} variables, and

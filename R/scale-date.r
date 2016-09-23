@@ -14,6 +14,8 @@
 #' @param date_labels A string giving the formatting specification for the
 #'   labels. Codes are defined in \code{\link{strftime}}. If both \code{labels}
 #'   and \code{date_labels} are specified, \code{date_labels} wins.
+#' @param timezone The timezone to use for display on the axes. The default
+#' (\code{NULL}) uses the timezone encoded in the data.
 #' @seealso \code{\link{scale_continuous}} for continuous position scales.
 #' @examples
 #' last_month <- Sys.Date() - 0:29
@@ -76,14 +78,15 @@ scale_x_datetime <- function(name = waiver(),
                              breaks = waiver(), date_breaks = waiver(),
                              labels = waiver(), date_labels = waiver(),
                              minor_breaks = waiver(), date_minor_breaks = waiver(),
-                             limits = NULL, expand = waiver(), position = "bottom") {
+                             timezone = NULL, limits = NULL, expand = waiver(),
+                             position = "bottom") {
 
   scale_datetime(c("x", "xmin", "xmax", "xend"), "time",
     name = name,
     breaks = breaks, date_breaks = date_breaks,
     labels = labels, date_labels = date_labels,
     minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
-    limits = limits, expand = expand, position = position
+    timezone = timezone, limits = limits, expand = expand, position = position
   )
 }
 
@@ -94,14 +97,15 @@ scale_y_datetime <- function(name = waiver(),
                              breaks = waiver(), date_breaks = waiver(),
                              labels = waiver(), date_labels = waiver(),
                              minor_breaks = waiver(), date_minor_breaks = waiver(),
-                             limits = NULL, expand = waiver(), position = "left") {
+                             timezone = NULL, limits = NULL, expand = waiver(),
+                             position = "left") {
 
   scale_datetime(c("y", "ymin", "ymax", "yend"), "time",
     name = name,
     breaks = breaks, date_breaks = date_breaks,
     labels = labels, date_labels = date_labels,
     minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
-    limits = limits, expand = expand, position = position
+    timezone = timezone, limits = limits, expand = expand, position = position
   )
 }
 
@@ -109,7 +113,7 @@ scale_datetime <- function(aesthetics, trans,
                            breaks = pretty_breaks(), minor_breaks = waiver(),
                            labels = waiver(), date_breaks = waiver(),
                            date_labels = waiver(),
-                           date_minor_breaks = waiver(),
+                           date_minor_breaks = waiver(), timezone = NULL,
                            ...) {
 
   name <- switch(trans, date = "date", time = "datetime")
@@ -135,7 +139,7 @@ scale_datetime <- function(aesthetics, trans,
   sc <- continuous_scale(aesthetics, name, identity,
     breaks = breaks, minor_breaks = minor_breaks, labels = labels,
     guide = "none", trans = trans, ..., super = scale_class)
-
+  sc$timezone <- timezone
   sc
 }
 
