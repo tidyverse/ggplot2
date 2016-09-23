@@ -1,4 +1,10 @@
 # ggplot2 2.1.0.9000 
+
+* When creating a layer, ggplot2 will warn if you use an unknown aesthetic
+  or an unknown parameter. Compared to the previous version, this is
+  stricter for aesthetics (previously there was no message), and less
+  strict for parameters (previously this threw an error) (#1585).
+
 * The facet system, as well as the internal panel class, has been rewritten in 
   ggproto. Facets are now extendable in the same manner as geoms, stats etc. and
   the manner in which this is done is described in the extension vignette. On 

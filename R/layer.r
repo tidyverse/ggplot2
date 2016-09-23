@@ -100,10 +100,27 @@ layer <- function(geom = NULL, stat = NULL,
   stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
 
   all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics())
-  extra <- setdiff(names(params), all)
-  if (length(extra) > 0) {
-    stop("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)
+
+  # Warn about extra params and aesthetics
+  extra_param <- setdiff(names(params), all)
+  if (length(extra_param) > 0) {
+    warning(
+      "Ignoring unknown parameters: ", paste(extra_param, collapse = ", "),
+      call. = FALSE,
+      immediate. = TRUE
+    )
   }
+
+  extra_aes <- setdiff(names(mapping), c(geom$aesthetics(), stat$aesthetics()))
+  if (length(extra_aes) > 0) {
+    warning(
+      "Ignoring unknown aesthetics: ", paste(extra_aes, collapse = ", "),
+      call. = FALSE,
+      immediate. = TRUE
+    )
+  }
+
+
 
   ggproto("LayerInstance", Layer,
     geom = geom,

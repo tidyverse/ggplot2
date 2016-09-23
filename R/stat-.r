@@ -134,5 +134,10 @@ Stat <- ggproto("Stat",
       args <- union(args, self$extra_params)
     }
     args
+  },
+
+  aesthetics = function(self) {
+    c(union(self$required_aes, names(self$default_aes)), "group")
   }
+
 )

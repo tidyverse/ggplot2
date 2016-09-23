@@ -6,8 +6,13 @@ test_that("stat_bin throws error when y aesthetic present", {
   expect_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()),
     "must not be used with a y aesthetic.")
 
-  expect_error(p <- ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)),
-    "Unknown parameters: y")
+  expect_warning(
+    expect_error(
+      ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)),
+      "StatBin requires a continuous x"
+    ),
+    "unknown parameters: y"
+  )
 })
 
 test_that("bins specifies the number of bins", {
@@ -116,8 +121,8 @@ test_that("stat_count throws error when y aesthetic present", {
   expect_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_count()),
     "must not be used with a y aesthetic.")
 
-  expect_error(p <- ggplot_build(ggplot(dat, aes(x)) + stat_count(y = 5)),
-    "Unknown parameters: y")
+  expect_warning(p <- ggplot_build(ggplot(dat, aes(x)) + stat_count(y = 5)),
+    "unknown parameters: y")
 })
 
 test_that("stat_count preserves x order for continuous and discrete", {
