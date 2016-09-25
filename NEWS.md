@@ -175,6 +175,9 @@
     * Added `legend.box.spacing` to control the distance between the plot area 
       and the legend area
 
+* Fixed the jitter width and jitter height of `position_jitter` when the
+  parameters are supplied by the user. (#1775, @has2k1)
+
 # ggplot2 2.1.0
 
 ## New features
