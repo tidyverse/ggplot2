@@ -11,7 +11,8 @@ geom_density(mapping = NULL, data = NULL, stat = "density",
 
 stat_density(mapping = NULL, data = NULL, geom = "area",
   position = "stack", ..., bw = "nrd0", adjust = 1, kernel = "gaussian",
-  trim = FALSE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  n = 512, trim = FALSE, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -65,6 +66,10 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{kernel}{kernel used for density estimation, see
 \code{\link{density}} for details}
 
+\item{n}{number of equally spaced points at which the density is to be
+estimated, should be a power of two, see \code{\link{density}} for
+details}
+
 \item{trim}{This parameter only matters if you are displaying multiple
 densities in one plot. If \code{FALSE}, the default, each density is
 computed on the full range of the data. If \code{TRUE}, each density
@@ -78,7 +83,7 @@ with underlying smoothness.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density")}
+\aesthetics{geom}{density}
 }
 
 \section{Computed variables}{

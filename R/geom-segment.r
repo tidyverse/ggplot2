@@ -4,7 +4,7 @@
 #' (x2, y2). \code{geom_curve} draws a curved line.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "segment")}
+#' \aesthetics{geom}{segment}
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point

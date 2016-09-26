@@ -13,7 +13,7 @@
 #' scale, and then back-transformed to the response scale.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "smooth")}
+#' \aesthetics{geom}{smooth}
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point

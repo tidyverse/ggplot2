@@ -8,8 +8,12 @@ test_that("aesthetics go in aes_params", {
   expect_equal(l$aes_params, list(size = "red"))
 })
 
-test_that("unknown params create error", {
-  expect_error(geom_point(blah = "red"), "Unknown parameters")
+test_that("unknown params create warning", {
+  expect_warning(geom_point(blah = "red"), "unknown parameters")
+})
+
+test_that("unknown aesthietcs create warning", {
+  expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
 })
 
 # Calculated aesthetics ---------------------------------------------------

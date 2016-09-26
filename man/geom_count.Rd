@@ -63,7 +63,7 @@ useful when you have discrete data.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
+\aesthetics{geom}{point}
 }
 
 \section{Computed variables}{

@@ -80,7 +80,7 @@ the default plot specification, e.g. \code{\link{borders}}.}
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "segment")}
+\aesthetics{geom}{segment}
 }
 \examples{
 b <- ggplot(mtcars, aes(wt, mpg)) +

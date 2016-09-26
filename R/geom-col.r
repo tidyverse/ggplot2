@@ -19,7 +19,7 @@
 #' the bars and then stretching or squashing to the same height.
 #'
 #' @section Aesthetics:
-#'   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "col")}
+#' \aesthetics{geom}{col}
 #'
 #' @seealso \code{\link{geom_bar}} to make the height of the bar proportional to
 #'  the number of cases in each group or sum of weights,

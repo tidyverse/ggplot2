@@ -57,7 +57,7 @@ A line segment parameterised by location, direction and distance.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "spoke")}
+\aesthetics{geom}{spoke}
 }
 \examples{
 df <- expand.grid(x = 1:10, y=1:10)

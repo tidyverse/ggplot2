@@ -56,7 +56,7 @@ Polygon, a filled path.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "polygon")}
+\aesthetics{geom}{polygon}
 }
 \examples{
 # When using geom_polygon, you will typically need two data frames:

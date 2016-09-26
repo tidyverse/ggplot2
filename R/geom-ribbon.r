@@ -11,7 +11,7 @@
 #' see the individual pattern as you move up the stack.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "ribbon")}
+#' \aesthetics{geom}{ribbon}
 #'
 #' @seealso
 #'   \code{\link{geom_bar}} for discrete intervals (bars),

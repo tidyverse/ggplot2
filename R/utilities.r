@@ -281,6 +281,20 @@ dispatch_args <- function(f, ...) {
   f
 }
 
+is_missing_arg <- function(x) identical(x, quote(expr = ))
+# Get all arguments in a function as a list. Will fail if an ellipsis argument
+# named .ignore
+# @param ... passed on in case enclosing function uses ellipsis in argument list
+find_args <- function(...) {
+  env <- parent.frame()
+  args <- names(formals(sys.function(sys.parent(1))))
+
+  vals <- mget(args, envir = env)
+  vals <- vals[!vapply(vals, is_missing_arg, logical(1))]
+
+  utils::modifyList(vals, list(..., `...` = NULL))
+}
+
 # Used in annotations to ensure printed even when no
 # global data
 dummy_data <- function() data.frame(x = NA)

@@ -17,7 +17,7 @@
 #' See McGill et al. (1978) for more details.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "boxplot")}
+#' \aesthetics{geom}{boxplot}
 #'
 #' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
 #'   continuous variable, \code{\link{geom_jitter}} for another way to look
