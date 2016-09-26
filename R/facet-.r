@@ -95,11 +95,11 @@ Facet <- ggproto("Facet", NULL,
   map = function(self, data, layout) {
     self$map_data(data, layout, self$params)
   },
-  render_back = function(self, data, layout, x_scales, y_scales) {
-    self$draw_back(data, layout, x_scales, y_scales, self$params)
+  render_back = function(self, data, layout, x_scales, y_scales, theme) {
+    self$draw_back(data, layout, x_scales, y_scales, theme, self$params)
   },
-  render_front = function(self, data, layout, x_scales, y_scales) {
-    self$draw_front(data, layout, x_scales, y_scales, self$params)
+  render_front = function(self, data, layout, x_scales, y_scales, theme) {
+    self$draw_front(data, layout, x_scales, y_scales, theme, self$params)
   },
   render_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels) {
     panels <- self$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, self$params)
@@ -148,10 +148,10 @@ Facet <- ggproto("Facet", NULL,
       }
     }
   },
-  draw_back = function(data, layout, x_scales, y_scales, params) {
+  draw_back = function(data, layout, x_scales, y_scales, theme, params) {
     rep(list(zeroGrob()), length(unique(layout$PANEL)))
   },
-  draw_front = function(data, layout, x_scales, y_scales, params) {
+  draw_front = function(data, layout, x_scales, y_scales, theme, params) {
     rep(list(zeroGrob()), length(unique(layout$PANEL)))
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
