@@ -38,6 +38,10 @@
   degrees Fahrenheit). The secondary axis will be positioned opposite of the 
   primary axis and can be controlled using the `sec.axis` argument to the scale
   constructor.
+  
+* `scale_*_datetime` now has support for timezones. If time data has been 
+  encoded with a timezone this will be used, but it can be overridden with the
+  `timezone` argument in the scale constructor.
 
 * The documentation for theme elements has been improved (#1743).
 
