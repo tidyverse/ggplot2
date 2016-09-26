@@ -293,6 +293,10 @@ Layer <- ggproto("Layer", NULL,
     self$geom$use_defaults(data, self$aes_params)
   },
 
+  finish_statistics = function(self, data) {
+    self$stat$finish_layer(data, self$stat_params)
+  },
+
   draw_geom = function(self, data, layout, coord) {
     if (empty(data)) {
       n <- nrow(layout$panel_layout)
