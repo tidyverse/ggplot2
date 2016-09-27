@@ -58,7 +58,7 @@
 * FP adjustment for histogram bins is now actually used - it was previously
   inadvertently ignored (#1651).
 
-* When computing the height of titles ggplot2, now inclues the height of the
+* When computing the height of titles ggplot2, now includes the height of the
   descenders (i.e. the bits `g` and `y` that hang underneath). This makes
   improves the margins around titles, particularly the y axis label (#1712).
 
@@ -103,7 +103,7 @@
 
 * `stat_ecdf()` respects `pad` argument (#1646).
 
-* `stat_density` now makes argument `n` of the unterlying function
+* `stat_density` now makes argument `n` of the underlying function
   `stats::density` ("number of equally spaced points at which the
   density is to be estimated") accessible. (@hbuschme)
 
