@@ -50,6 +50,11 @@
    Analogous to outlier.colour, outlier.shape, etc.
    (@jonathan-g).
 
+* `geom_boxplot` gain new `outlier.fill` argument for controlling the fill of
+  outlier points independently of the alpha of the boxes.
+  Analogous to outlier.colour, outlier.shape, etc.
+  (@schloerke, #1787).
+
 * FP adjustment for histogram bins is now actually used - it was previously
   inadvertently ignored (#1651).
 
