@@ -3,7 +3,7 @@ cache: packages
 sudo: false
 
 r_github_packages:
-  - hadley/staticdocs
+  - hadley/staticdocs@old
 
 after_success:
   - Rscript -e 'covr::codecov()'
