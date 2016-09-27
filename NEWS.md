@@ -1,5 +1,9 @@
 # ggplot2 2.1.0.9000 
 
+*   `geom_boxplot()` gain new `outlier.fill` argument for controlling the fill of
+    outlier points independently of the alpha of the boxes, analogous to
+    `outlier.colour`, `outlier.shape`, etc (@schloerke, #1787).
+
 *   Scales worry less about having breaks. If no breaks can be computed, the
     plot will work instead of throwing an uninformative error (#791).
 
