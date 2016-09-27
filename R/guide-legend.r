@@ -255,9 +255,21 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     matched <- matched_aes(layer, guide, defaul_mapping)
 
     if (length(matched) > 0) {
-      data <- layer$geom$use_defaults(guide$key[matched], layer$aes_params)
+      # This layer contributes to the legend
+      if (is.na(layer$show.legend) || layer$show.legend) {
+        # Default is to include it
+        data <- layer$geom$use_defaults(guide$key[matched], layer$aes_params)
+      } else {
+        return(NULL)
+      }
     } else {
-      data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
+      # This layer does not contribute to the legend
+      if (is.na(layer$show.legend) || !layer$show.legend) {
+        # Default is to exclude it
+        return(NULL)
+      } else {
+        data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
+      }
     }
 
     # override.aes in guide_legend manually changes the geom

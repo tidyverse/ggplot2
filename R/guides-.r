@@ -208,11 +208,6 @@ guides_merge <- function(gdefs) {
 
 # process layer information
 guides_geom <- function(gdefs, layers, default_mapping) {
-  # remove layers with show.legend=FALSE or NA
-  layers <- layers[vapply(layers, function(layer) {
-    is.na(layer$show.legend) || layer$show.legend
-  }, logical(1))]
-
   compact(lapply(gdefs, guide_geom, layers, default_mapping))
 }
 
