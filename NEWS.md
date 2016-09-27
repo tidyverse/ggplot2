@@ -69,6 +69,8 @@
 * The `theme()` constructor now has named arguments rather than ellipsis. This 
   should make autocomplete substantially more useful.
 
+* geom_violin now again has a nicer looking range that allow the density to
+  reach zero (#1700)
 
 * `position_stack()` and `position_fill()` now sorts the stacking order so it 
   matches the order of the grouping. Use level reordering to alter the stacking 
