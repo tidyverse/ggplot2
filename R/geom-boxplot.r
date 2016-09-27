@@ -26,7 +26,7 @@
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot} and \code{stat_boxplot}.
-#' @param outlier.colour,outlier.color,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
+#' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
 #'   Default aesthetics for outliers. Set to \code{NULL} to inherit from the
 #'   aesthetics used for the box.
 #'
@@ -93,6 +93,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          ...,
                          outlier.colour = NULL,
                          outlier.color = NULL,
+                         outlier.fill = NULL,
                          outlier.shape = 19,
                          outlier.size = 1.5,
                          outlier.stroke = 0.5,
@@ -113,6 +114,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       outlier.colour = outlier.color %||% outlier.colour,
+      outlier.fill = outlier.fill,
       outlier.shape = outlier.shape,
       outlier.size = outlier.size,
       outlier.stroke = outlier.stroke,
@@ -162,7 +164,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   },
 
   draw_group = function(data, panel_scales, coord, fatten = 2,
-                        outlier.colour = NULL, outlier.shape = 19,
+                        outlier.colour = NULL, outlier.fill = NULL,
+                        outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
                         outlier.alpha = NULL,
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
@@ -205,6 +208,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         y = data$outliers[[1]],
         x = data$x[1],
         colour = outlier.colour %||% data$colour[1],
+        fill = outlier.fill %||% data$fill[1],
         shape = outlier.shape %||% data$shape[1],
         size = outlier.size %||% data$size[1],
         stroke = outlier.stroke %||% data$stroke[1],
