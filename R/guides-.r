@@ -208,6 +208,11 @@ guides_merge <- function(gdefs) {
 
 # process layer information
 guides_geom <- function(gdefs, layers, default_mapping) {
+  # remove layers with show.legend=FALSE or NA
+  layers <- layers[vapply(layers, function(layer) {
+    is.na(layer$show.legend) || layer$show.legend
+  }, logical(1))]
+
   compact(lapply(gdefs, guide_geom, layers, default_mapping))
 }
 
@@ -297,3 +302,12 @@ guide_merge <- function(...) UseMethod("guide_merge")
 guide_geom <- function(...) UseMethod("guide_geom")
 
 guide_gengrob <- function(...) UseMethod("guide_gengrob")
+
+# Helpers
+matched_aes <- function(layer, guide, defaults) {
+  all <- names(c(layer$mapping, if (layer$inherit.aes) defaults, layer$stat$default_aes))
+  geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
+  matched <- intersect(intersect(all, geom), names(guide$key))
+  matched <- setdiff(matched, names(layer$geom_params))
+  setdiff(matched, names(layer$aes_params))
+}

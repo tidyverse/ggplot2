@@ -252,28 +252,12 @@ guide_merge.legend <- function(guide, new_guide) {
 guide_geom.legend <- function(guide, layers, default_mapping) {
   # arrange common data for vertical and horizontal guide
   guide$geoms <- plyr::llply(layers, function(layer) {
-    all <- names(c(layer$mapping, if (layer$inherit.aes) default_mapping, layer$stat$default_aes))
-    geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
-    matched <- intersect(intersect(all, geom), names(guide$key))
-    matched <- setdiff(matched, names(layer$geom_params))
-    matched <- setdiff(matched, names(layer$aes_params))
+    matched <- matched_aes(layer, guide, defaul_mapping)
 
     if (length(matched) > 0) {
-      # This layer contributes to the legend
-      if (is.na(layer$show.legend) || layer$show.legend) {
-        # Default is to include it
-        data <- layer$geom$use_defaults(guide$key[matched], layer$aes_params)
-      } else {
-        return(NULL)
-      }
+      data <- layer$geom$use_defaults(guide$key[matched], layer$aes_params)
     } else {
-      # This layer does not contribute to the legend
-      if (is.na(layer$show.legend) || !layer$show.legend) {
-        # Default is to exclude it
-        return(NULL)
-      } else {
-        data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
-      }
+      data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
     }
 
     # override.aes in guide_legend manually changes the geom
