@@ -252,7 +252,7 @@ guide_merge.legend <- function(guide, new_guide) {
 guide_geom.legend <- function(guide, layers, default_mapping) {
   # arrange common data for vertical and horizontal guide
   guide$geoms <- plyr::llply(layers, function(layer) {
-    matched <- matched_aes(layer, guide, defaul_mapping)
+    matched <- matched_aes(layer, guide, default_mapping)
 
     if (length(matched) > 0) {
       # This layer contributes to the legend
