@@ -70,7 +70,8 @@
   should make autocomplete substantially more useful.
 
 * geom_violin now again has a nicer looking range that allow the density to
-  reach zero (#1700)
+  reach zero. The range of each violin is now automatically extended 3 * bw for 
+  either end of the data range (#1700)
 
 * `position_stack()` and `position_fill()` now sorts the stacking order so it 
   matches the order of the grouping. Use level reordering to alter the stacking 
