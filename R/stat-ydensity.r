@@ -69,7 +69,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     } else {
       range <- scales$y$dimension()
     }
-    dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
+    bw <- calc_bw(data$y, bw)
+    dens <- compute_density(data$y, data$w, from = range[1] - 3*bw, to = range[2] + 3*bw,
       bw = bw, adjust = adjust, kernel = kernel)
 
     dens$y <- dens$x
@@ -107,3 +108,22 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   }
 
 )
+
+calc_bw <- function(x, bw) {
+  if (is.character(bw)) {
+    if (length(x) < 2)
+      stop("need at least 2 points to select a bandwidth automatically", call. = FALSE)
+    bw <- switch(
+      tolower(bw),
+      nrd0 = stats::bw.nrd0(x),
+      nrd = stats::bw.nrd(x),
+      ucv = stats::bw.ucv(x),
+      bcv = stats::bw.bcv(x),
+      sj = ,
+      `sj-ste` = stats::bw.SJ(x, method = "ste"),
+      `sj-dpi` = stats::bw.SJ(x, method = "dpi"),
+      stop("unknown bandwidth rule")
+    )
+  }
+  bw
+}
