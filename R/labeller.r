@@ -493,7 +493,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       horizontal = horizontal)
     heights <- unit(apply(grobs, 2, max_height), "cm")
     grobs <- apply(grobs, 1, function(strips) {
-      gtable_matrix("strip", matrix(strips, ncol = 1), unit(1, "null"), heights, clip = "off")
+      gtable_matrix("strip", matrix(strips, ncol = 1), unit(1, "null"), heights, clip = "on")
     })
     list(
       top = grobs,
@@ -505,7 +505,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     grobs_right <- grobs_right[, rev(seq_len(ncol(grobs_right))), drop = FALSE]
     widths <- unit(apply(grobs_right, 2, max_width), "cm")
     grobs_right <- apply(grobs_right, 1, function(strips) {
-      gtable_matrix("strip", matrix(strips, nrow = 1), widths, unit(1, "null"), clip = "off")
+      gtable_matrix("strip", matrix(strips, nrow = 1), widths, unit(1, "null"), clip = "on")
     })
     theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
     grobs_left <- apply(labels, c(1, 2), ggstrip, theme = theme,
