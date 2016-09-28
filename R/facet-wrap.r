@@ -215,7 +215,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     # ask the coordinate system if it wants to specify one
     aspect_ratio <- theme$aspect.ratio
     if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
-      aspect_ratio <- coord$aspect(panel$ranges[[1]])
+      aspect_ratio <- coord$aspect(ranges[[1]])
     }
 
     if (is.null(aspect_ratio)) {
