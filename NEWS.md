@@ -42,6 +42,8 @@
 * `scale_*_datetime` now has support for timezones. If time data has been 
   encoded with a timezone this will be used, but it can be overridden with the
   `timezone` argument in the scale constructor.
+  
+* `geom_*(show.legend = FALSE)` now works for `guide_colorbar`
 
 * The documentation for theme elements has been improved (#1743).
 

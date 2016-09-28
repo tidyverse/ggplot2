@@ -297,3 +297,12 @@ guide_merge <- function(...) UseMethod("guide_merge")
 guide_geom <- function(...) UseMethod("guide_geom")
 
 guide_gengrob <- function(...) UseMethod("guide_gengrob")
+
+# Helpers
+matched_aes <- function(layer, guide, defaults) {
+  all <- names(c(layer$mapping, if (layer$inherit.aes) defaults, layer$stat$default_aes))
+  geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
+  matched <- intersect(intersect(all, geom), names(guide$key))
+  matched <- setdiff(matched, names(layer$geom_params))
+  setdiff(matched, names(layer$aes_params))
+}
