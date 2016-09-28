@@ -128,7 +128,15 @@ Layout <- ggproto("Layout", NULL,
       # TODO: change coord_train method to take individual x and y scales
       coord$train(list(x = self$panel_scales$x[[ix]], y = self$panel_scales$y[[iy]]))
     }
-
+    # Switch position of all scales if CoordFlip
+    if (inherits(coord, "CoordFlip")) {
+      lapply(self$panel_scales$x, function(scale) {
+        scale$position <- if (scale$position == "top") "bottom" else "top"
+      })
+      lapply(self$panel_scales$y, function(scale) {
+        scale$position <- if (scale$position == "left") "right" else "left"
+      })
+    }
     self$panel_ranges <- Map(compute_range, self$panel_layout$SCALE_X, self$panel_layout$SCALE_Y)
   },
 
