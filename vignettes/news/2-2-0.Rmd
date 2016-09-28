@@ -1,0 +1,124 @@
+# ggplot2 2.2.0
+
+```{r, include=FALSE}
+library(ggplot2)
+library(dplyr)
+library(forcats)
+```
+
+
+I'm very pleased to announce the release of ggplot2 version 2.2.0. Compared to the [latest release](https://blog.rstudio.org/2016/03/03/ggplot2-2-1-0/), this release is a relatively big one, including a large rewrite of the facetting and rendering codebase as well as fixing of numerous bugs and addition of small but notable features. Below I'll describe the most important changes:
+
+## Facets
+The facet and layout implementation has been moved to ggproto and received a large rewrite and refactoring. Along with this comes the possibility of writing facet extensions to modify the current facetting possibilities or create entirely new ones. A section in the *Extending ggplot2* vignette regarding facet extensions has been added that describes how to both modify existing facetting and create new ones from scratch.
+
+Along with the rewrite a number of features and improvements has been added, most notably:
+  
+  * Facetting formulas are now true expressions allowing for much more powerful data facetting, e.g.:
+    
+    ```{r}
+    ggplot(diamonds, aes(carat, price)) + 
+      geom_point() + 
+      facet_wrap(~cut(depth, 9))
+    ```
+
+  * When the number of panels in `facet_wrap()` does not match the dimension of the grid, the axes below hanging panels were dropped in prior versions of ggplot2. Now, an axis is positioned beneath the hanging panels making interpretation of the plot much easier.
+    
+    ```{r}
+    ggplot(diamonds, aes(carat, price)) + 
+      geom_point() + 
+      facet_wrap(~cut(depth, 7))
+    ```
+
+  * As part of the rewrite the axis rendering code received and update as well. It is now possible to set the position of the axes through the `position` argument in the scale constructor:
+    
+    ```{r}
+    ggplot(diamonds, aes(carat, price)) + 
+      geom_point() + 
+      scale_x_continuous(position = "top")
+    ```
+
+  * It is now possible to display a secondary axis that is a linear transformation of the primary axis through the `sec.axis` argument:
+    
+    ```{r}
+    ggplot(diamonds, aes(carat, price)) + 
+      geom_point() + 
+      scale_x_continuous(position = "top") + 
+      scale_y_continuous("Price ($)", sec.axis = sec_axis(~. * 0.9, name = "Price (€)"))
+    ```
+
+  * Strips can now be positioned on any side, and the placement of strips in relation to axes can be controlled using the `strip.placement` theme option e.g.:
+    
+    ```{r}
+    p <- ggplot(diamonds, aes(carat, price)) + 
+      geom_point() + 
+      facet_wrap(~cut(depth, 2), strip.position = "left")
+    
+    p + theme(strip.placement = "inside")
+    p + theme(strip.placement = "outside")
+    ```
+
+
+## Theming
+The theming system has seen an overhaul. 
+
+  * Blank elements can now be overridden again so you get the expected behavior when setting e.g. `axis.line.x`. Furthermore, `element_line()` gets an `arrow` argument that lets you put arrows on e.g. axes. All in all you can now do stuff like:
+    
+    ```{r}
+    ggplot(diamonds, aes(carat, price)) + 
+      geom_point() + 
+      theme_minimal() + 
+      theme(
+        axis.line.y = element_line(arrow = arrow()),
+        axis.line.x = element_line(arrow = arrow())
+      )
+    ```
+
+  * The user now has increased control over the styling of legends. The whole legend area can be aligned according to the plot area and a box can be drawn around all legends:
+    
+    ```{r}
+    ggplot(diamonds, aes(carat, price, size = depth, colour = cut)) + 
+      geom_point() + 
+      theme(
+        legend.justification = "top", 
+        legend.box.margin = margin(3, 3, 3, 3, "mm"), 
+        legend.box.background = element_rect()
+      )
+    ```
+
+  * `panel.margin` and `legend.margin` has been renamed to `panel.spacing` and `legend.spacing` respectively as this was what they were setting all along. A new `legend.margin` has been introduced that actually controls the margin around each legend rather than their spacing.
+
+  * The default themes has seen some tweaking making them better match `theme_grey()` and some defaults has been changed (title and legend justification being the most obvious).
+
+  * Lastly, the `theme()` function now has named arguments rather than an ellipsis adding support for autocomplete/suggestions
+
+## Minor additions
+  * `position_stack()` and `position_fill()` now stacks values in reverse order, making the default stack order match the order in the legend. Furthermore, there is now support for stacking negative values. Negative values will be stacked separately from the positive end descend from the x-axis underneath the positive values. e.g.
+    
+    ```{r}
+    diamond_price <- diamonds %>% 
+      group_by(cut, color) %>% 
+      summarise(price = mean(price)) %>% 
+      ungroup() %>% 
+      mutate(price_dev = price - mean(price))
+    
+    ggplot(diamond_price) + 
+      geom_col(aes(x = cut, y = price, fill = color), position = "stack")
+    
+    ggplot(diamond_price) + 
+      geom_col(aes(x = cut, y = price_dev, fill = color), position = "stack")
+    ```
+    
+    As can be seen the overall ordering cannot necessarily be matched in the presence of negative values, but the ordering on either side of the x-axis will match. If you need the ordering during stacking to work as before, the [forcats](https://cran.r-project.org/web/packages/forcats/index.html) has just been released and provide a number of utility functions to manipulate factors. Use e.g. `fct_rev()`:
+
+    ```{r}
+    ggplot(diamond_price) + 
+          geom_col(aes(x = cut, y = price, fill = forcats::fct_rev(color)), position = "stack")
+    ```
+
+  * ggplot2 now has support for subtitles and captions. Subtitles appear under the title in a smaller font size. The appearance of subtitles can be modified with the `plot.subtitle` argument in `theme()` and can be added using the subtitle argument in either `ggtitle()` or `labs()`. Captions appear below the plot and right justified where data sources etc would usually be placed. The appearance can be changed using `plot.caption` in `theme()`. Captions are added using the `caption` argument in `labs()`.
+  * `geom_col()` has been added as a shortcut for `geom_bar(..., stat = "identity")`.
+
+* * *
+
+Read the full list of changes including all the bug-fixes in the [release notes](https://github.com/hadley/ggplot2/releases/tag/v2.2.0)
