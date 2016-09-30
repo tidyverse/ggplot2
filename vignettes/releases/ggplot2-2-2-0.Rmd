@@ -1,4 +1,9 @@
-# ggplot2 2.2.0 coming soon!
+---
+output:
+  html_document:
+    self_contained: false
+    highlight: NULL
+---
 
 ```{r setup, include=FALSE}
 library(ggplot2)
@@ -8,8 +13,11 @@ library(forcats)
 knitr::opts_chunk$set(
   fig.asp = 1 / 1.6,
   out.width = "75%",
+  fig.width = 5,
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  dpi = 96,
+  fig.retina = NULL
 )
 ```
 
@@ -67,7 +75,7 @@ The facet and layout implementation has been moved to ggproto and received a lar
     ```{r}
     ggplot(diamonds, aes(carat, price)) + 
       geom_hex(bins = 20) + 
-      facet_wrap(~cut_number(depth, 9))
+      facet_wrap(~cut_number(depth, 6))
     ```
 
   * Axes were dropped when the panels in `facet_wrap()` did not completely 
@@ -89,15 +97,15 @@ The facet and layout implementation has been moved to ggproto and received a lar
       scale_y_continuous(position = "right")
     ```
 
-  * It is now possible to display a secondary axis that is a linear 
-    transformation of the primary axis through the `sec.axis` argument:
+  * You can display a secondary axis that is a one-to-one transformation of the 
+    primary axis with the `sec.axis` argument:
     
     ```{r}
     ggplot(mpg, aes(displ, hwy)) + 
       geom_point() + 
       scale_y_continuous(
-        "miles / galloon", 
-        sec.axis = sec_axis(~ 235 / ., name = "L / 100km")
+        "mpg (US)", 
+        sec.axis = sec_axis(~ . * 1.20, name = "mpg (UK)")
       )
     ```
 
@@ -119,8 +127,9 @@ The facet and layout implementation has been moved to ggproto and received a lar
 ## Theming
 
 *   Blank elements can now be overridden again so you get the expected 
-    behavior when setting e.g. `axis.line.x`. Furthermore, `element_line()` 
-    gets an `arrow` argument that lets you put arrows on axes.
+    behavior when setting e.g. `axis.line.x`. 
+    
+*   `element_line()` gets an `arrow` argument that lets you put arrows on axes.
     
     ```{r}
     arrow <- arrow(length = unit(0.4, "cm"), type = "closed")
@@ -137,7 +146,7 @@ The facet and layout implementation has been moved to ggproto and received a lar
     aligned according to the plot area and a box can be drawn around all legends:
     
     ```{r}
-    ggplot(mpg, aes(displ, hwy, shape = drv, colour = class)) + 
+    ggplot(mpg, aes(displ, hwy, shape = drv, colour = fl)) + 
       geom_point() + 
       theme(
         legend.justification = "top", 
@@ -166,7 +175,7 @@ The facet and layout implementation has been moved to ggproto and received a lar
 
 ## Stacking bars
   
-`position_stack()` and `position_fill()` now stacks values in the reverse 
+`position_stack()` and `position_fill()` now stack values in the reverse 
 order of the grouping, which makes the default stack order match the legend.
 
 ```{r}
@@ -183,7 +192,7 @@ ggplot(avg_price) +
 (Note also the new `geom_col()` which is short-hand for 
 `geom_bar(stat = "identity")`, contributed by Bob Rudis.)
 
-Furthermore, you can now stack negative values:
+Additionally, you can now stack negative values:
 
 ```{r}
 ggplot(avg_price) + 
@@ -193,7 +202,7 @@ ggplot(avg_price) +
 The overall ordering cannot necessarily be matched in the presence of 
 negative values, but the ordering on either side of the x-axis will match. 
 
-If you want to stack in the opposite, order try
+If you want to stack in the opposite order, try
 [`forcats::fct_rev()`](http://forcats.tidyverse.org/reference/fct_rev.html):
 
 ```{r}
