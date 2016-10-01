@@ -42,6 +42,8 @@
 * `scale_*_datetime` now has support for timezones. If time data has been 
   encoded with a timezone this will be used, but it can be overridden with the
   `timezone` argument in the scale constructor.
+  
+* `geom_*(show.legend = FALSE)` now works for `guide_colorbar`
 
 * The `expand` argument for `scale_*_continuous()` and `scale_*_discrete()`
   now accepts separate expansion constants for the lower and upper range limits.
@@ -96,6 +98,9 @@
 * The `theme()` constructor now has named arguments rather than ellipsis. This 
   should make autocomplete substantially more useful.
 
+* geom_violin now again has a nicer looking range that allow the density to
+  reach zero. The range of each violin is now automatically extended 3 * bw for 
+  either end of the data range (#1700)
 
 * `position_stack()` and `position_fill()` now sorts the stacking order so it 
   matches the order of the grouping. Use level reordering to alter the stacking 
@@ -205,6 +210,9 @@
     
     * Added `legend.box.spacing` to control the distance between the plot area 
       and the legend area
+
+* Fixed the jitter width and jitter height of `position_jitter` when the
+  parameters are supplied by the user. (#1775, @has2k1)
 
 # ggplot2 2.1.0
 
