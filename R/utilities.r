@@ -156,6 +156,31 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
+# Similar to expand_range(), but taking a vector ‘expand’
+# of *four* expansion values, where the 1st and 2nd
+# elements are used for the lower limit, and the 3rd and
+# 4th elements are used for the upper limit).
+#
+# The ‘expand’ argument can also be of length 2 or 3,
+# and the expansion arguments for the lower limit is then
+# reused for the upper limit.
+#
+# @keyword internal
+expand_range4 <- function(limits, expand, ignore=NULL) {
+   stopifnot(is.numeric(expand) && (length(expand) %in% 2:4))
+   # If not all four expansion constants are given,
+   # reuse the ones that *are* given.
+   if (length(expand) == 2) { expand <- c(expand, expand) }
+   if (length(expand) == 3) { expand <- c(expand, expand[2]) }
+
+   # Calculate separate range expansion for the lower and
+   # upper range limits, and then combine them into one vector
+   lower <- expand_range(limits, expand[1], expand[2])[1]
+   upper <- expand_range(limits, expand[3], expand[4])[2]
+   c(lower, upper)
+}
+
+
 #' Give a deprecation error, warning, or message, depending on version number.
 #'
 #' Version numbers have the format <major>.<minor>.<subminor>, like 0.9.2.

@@ -43,6 +43,33 @@
   encoded with a timezone this will be used, but it can be overridden with the
   `timezone` argument in the scale constructor.
 
+* The `expand` argument for `scale_*_continuous()` and `scale_*_discrete()`
+  now accepts separate expansion constants for the lower and upper range limits.
+  
+  This is useful for creating bar charts where the bottom of the bars
+  are flush with the x axis but the bars still have some (automatically
+  calculated amount of) space above them:
+  
+    ```R
+    ggplot(mtcars) +
+        geom_bar(aes(x = factor(cyl))) +
+        scale_y_continuous(expand = c(0, 0, 0.1, 0))
+    ```
+  
+  It can also be useful for line charts, e.g. for counts over time,
+  where one wants to have a ’hard’ lower limit of y = 0, but leave the
+  upper limit unspecified (and perhaps differing between panels),
+  but with some extra space above the highest point on the line.
+  (With symmetrical limits, the extra space above the highest point
+  could cause the lower limit to be negative.)
+  
+  The syntax for the multiplicative and additive expansion
+  constants has been changed from `c(m, a)` to
+  `c(m_lower, a_lower, m_uppper, a_upper)`. The old syntax will still
+  work, as length 2 vectors `c(m, a)` are expanded to `c(m, a, m, a)`
+  and length 3 vectors are expanded from `c(m1, a1, m2)` to
+  `c(m1, a2, m2, a1)`. (@huftis, #1669)
+
 * The documentation for theme elements has been improved (#1743).
 
 * `geom_boxplot` gain new `outlier.alpha` argument for controlling the alpha of

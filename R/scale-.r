@@ -123,7 +123,7 @@ Scale <- ggproto("Scale", NULL,
   # The physical size of the scale.
   # This always returns a numeric vector of length 2, giving the physical
   # dimensions of a scale.
-  dimension = function(self, expand = c(0, 0)) {
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
     stop("Not implemented", call. = FALSE)
   },
 
@@ -216,8 +216,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     ifelse(!is.na(scaled), scaled, self$na.value)
   },
 
-  dimension = function(self, expand = c(0, 0)) {
-    expand_range(self$get_limits(), expand[1], expand[2])
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
+    expand_range4(self$get_limits(), expand)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
@@ -396,8 +396,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     ifelse(is.na(x) | is.na(pal_match), self$na.value, pal_match)
   },
 
-  dimension = function(self, expand = c(0, 0)) {
-    expand_range(length(self$get_limits()), expand[1], expand[2])
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
+    expand_range4(length(self$get_limits()), expand)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
@@ -535,10 +535,17 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   are defined in the scales package, and are called \code{name_trans}, e.g.
 #'   \code{\link[scales]{boxcox_trans}}. You can create your own
 #'   transformation with \code{\link[scales]{trans_new}}.
-#' @param expand A numeric vector of length two giving multiplicative and
-#'   additive expansion constants. These constants ensure that the data is
-#'   placed some distance away from the axes. The defaults are
-#'   \code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
+#' @param expand A numeric vector of length four, giving multiplicative
+#'   (1st and 3d element) and additive (2nd and 4th element) range
+#'   expansion constants. These constants ensure that the data is placed
+#'   some distance away from the axes. The first two elements specify the
+#'   expansion for the lower limit, and the last two the expansion for
+#'   the upper limit. The vector can also be of length two or three,
+#'   and the constants for the lower limit are then reused for the
+#'   upper limit, i.e. \code{c(a, b)} is equivalent to
+#'   \code{c(a, b, a, b)} and \code{c(a, b, c)} is equivalent to
+#'   \code{c(a, b, c, b)}. The defaults are \code{c(0.05, 0, 0.05, 0)}
+#'   for continuous variables, and \code{c(0, 0.6, 0, 0.6)} for
 #'   discrete variables.
 #' @param guide Name of guide object, or object itself.
 #' @param position The position of the axis. "left" or "right" for vertical
@@ -621,10 +628,18 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   labels (labels the same as breaks), a character vector the same length
 #'   as breaks, or a named character vector whose names are used to match
 #'   replacement the labels for matching breaks.
-#' @param expand a numeric vector of length two, giving a multiplicative and
-#'   additive constant used to expand the range of the scales so that there
-#'   is a small gap between the data and the axes. The defaults are (0,0.6)
-#'   for discrete scales and (0.05,0) for continuous scales.
+#' @param expand A numeric vector of length four, giving multiplicative
+#'   (1st and 3d element) and additive (2nd and 4th element) range
+#'   expansion constants. These constants ensure that the data is placed
+#'   some distance away from the axes. The first two elements specify the
+#'   expansion for the lower limit, and the last two the expansion for
+#'   the upper limit. The vector can also be of length two or three,
+#'   and the constants for the lower limit are then reused for the
+#'   upper limit, i.e. \code{c(a, b)} is equivalent to
+#'   \code{c(a, b, a, b)} and \code{c(a, b, c)} is equivalent to
+#'   \code{c(a, b, c, b)}. The defaults are \code{c(0.05, 0, 0.05, 0)}
+#'   for continuous variables, and \code{c(0, 0.6, 0, 0.6)} for
+#'   discrete variables.
 #' @param na.value how should missing values be displayed?
 #' @param guide the name of, or actual function, used to create the
 #'   guide. See \code{\link{guides}} for more info.

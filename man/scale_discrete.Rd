@@ -14,9 +14,18 @@ scale_y_discrete(..., expand = waiver(), position = "left")
 \code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
 \code{\link{discrete_scale}} for more details}
 
-\item{expand}{a numeric vector of length two giving multiplicative and
-additive expansion constants. These constants ensure that the data is
-placed some distance away from the axes.}
+\item{expand}{A numeric vector of length four, giving multiplicative
+(1st and 3d element) and additive (2nd and 4th element) range
+expansion constants. These constants ensure that the data is placed
+some distance away from the axes. The first two elements specify the
+expansion for the lower limit, and the last two the expansion for
+the upper limit. The vector can also be of length two or three,
+and the constants for the lower limit are then reused for the
+upper limit, i.e. \code{c(a, b)} is equivalent to
+\code{c(a, b, a, b)} and \code{c(a, b, c)} is equivalent to
+\code{c(a, b, c, b)}. The defaults are \code{c(0.05, 0, 0.05, 0)}
+for continuous variables, and \code{c(0, 0.6, 0, 0.6)} for
+discrete variables.}
 
 \item{position}{The position of the axis. \code{left} or \code{right} for y
 axes, \code{top} or \code{bottom} for x axes}

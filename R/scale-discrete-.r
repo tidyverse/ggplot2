@@ -9,9 +9,18 @@
 #' @param ... common discrete scale parameters: \code{name}, \code{breaks},
 #'  \code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
 #'  \code{\link{discrete_scale}} for more details
-#' @param expand a numeric vector of length two giving multiplicative and
-#'   additive expansion constants. These constants ensure that the data is
-#'   placed some distance away from the axes.
+#' @param expand A numeric vector of length four, giving multiplicative
+#'   (1st and 3d element) and additive (2nd and 4th element) range
+#'   expansion constants. These constants ensure that the data is placed
+#'   some distance away from the axes. The first two elements specify the
+#'   expansion for the lower limit, and the last two the expansion for
+#'   the upper limit. The vector can also be of length two or three,
+#'   and the constants for the lower limit are then reused for the
+#'   upper limit, i.e. \code{c(a, b)} is equivalent to
+#'   \code{c(a, b, a, b)} and \code{c(a, b, c)} is equivalent to
+#'   \code{c(a, b, c, b)}. The defaults are \code{c(0.05, 0, 0.05, 0)}
+#'   for continuous variables, and \code{c(0, 0.6, 0, 0.6)} for
+#'   discrete variables.
 #' @param position The position of the axis. \code{left} or \code{right} for y
 #' axes, \code{top} or \code{bottom} for x axes
 #' @rdname scale_discrete
@@ -106,20 +115,20 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     }
   },
 
-  dimension = function(self, expand = c(0, 0)) {
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
     c_range <- self$range_c$range
     d_range <- self$get_limits()
 
     if (self$is_empty()) {
       c(0, 1)
     } else if (is.null(self$range$range)) { # only continuous
-      expand_range(c_range, expand[1], expand[2] , 1)
+      expand_range4(c_range, expand)
     } else if (is.null(c_range)) { # only discrete
-      expand_range(c(1, length(d_range)), expand[1], expand[2], 1)
+      expand_range4(c(1, length(d_range)), expand)
     } else { # both
       range(
-        expand_range(c_range, expand[1], 0 , 1),
-        expand_range(c(1, length(d_range)), 0, expand[2], 1)
+        c_range,
+        expand_range4(c(1, length(d_range)), expand)
       )
     }
   },

@@ -59,10 +59,17 @@ A function used to scale the input values to the range [0, 1].}
 \item{oob}{Function that handles limits outside of the scale limits
 (out of bounds). The default replaces out of bounds values with NA.}
 
-\item{expand}{A numeric vector of length two giving multiplicative and
-additive expansion constants. These constants ensure that the data is
-placed some distance away from the axes. The defaults are
-\code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
+\item{expand}{A numeric vector of length four, giving multiplicative
+(1st and 3d element) and additive (2nd and 4th element) range
+expansion constants. These constants ensure that the data is placed
+some distance away from the axes. The first two elements specify the
+expansion for the lower limit, and the last two the expansion for
+the upper limit. The vector can also be of length two or three,
+and the constants for the lower limit are then reused for the
+upper limit, i.e. \code{c(a, b)} is equivalent to
+\code{c(a, b, a, b)} and \code{c(a, b, c)} is equivalent to
+\code{c(a, b, c, b)}. The defaults are \code{c(0.05, 0, 0.05, 0)}
+for continuous variables, and \code{c(0, 0.6, 0, 0.6)} for
 discrete variables.}
 
 \item{na.value}{Missing values will be replaced with this value.}

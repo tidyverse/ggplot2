@@ -43,10 +43,18 @@ replacement the labels for matching breaks.}
 \item{limits}{A character vector specifying the data range for the scale.
 and the default order of their display in guides.}
 
-\item{expand}{a numeric vector of length two, giving a multiplicative and
-additive constant used to expand the range of the scales so that there
-is a small gap between the data and the axes. The defaults are (0,0.6)
-for discrete scales and (0.05,0) for continuous scales.}
+\item{expand}{A numeric vector of length four, giving multiplicative
+(1st and 3d element) and additive (2nd and 4th element) range
+expansion constants. These constants ensure that the data is placed
+some distance away from the axes. The first two elements specify the
+expansion for the lower limit, and the last two the expansion for
+the upper limit. The vector can also be of length two or three,
+and the constants for the lower limit are then reused for the
+upper limit, i.e. \code{c(a, b)} is equivalent to
+\code{c(a, b, a, b)} and \code{c(a, b, c)} is equivalent to
+\code{c(a, b, c, b)}. The defaults are \code{c(0.05, 0, 0.05, 0)}
+for continuous variables, and \code{c(0, 0.6, 0, 0.6)} for
+discrete variables.}
 
 \item{na.value}{how should missing values be displayed?}
 
