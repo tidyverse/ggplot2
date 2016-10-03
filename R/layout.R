@@ -164,15 +164,16 @@ Layout <- ggproto("Layout", NULL,
     label_grobs <- lapply(names(labels), function(label) {
       lapply(c(1, 2), function(i) {
         modify <- if (i == 2 && label == "y") ".right" else if (i == 1 && label == "x") ".top" else ""
-        if (is.null(labels[[label]][[i]]) || is.waive(labels[[label]][[i]])) return(zeroGrob())
-        args <- list(
+        if (is.null(labels[[label]][[i]]) || is.waive(labels[[label]][[i]]))
+          return(zeroGrob())
+
+        element_render(
           theme = theme,
           element = paste0("axis.title.", label, modify),
           label = labels[[label]][[i]],
           expand_x = label == "y",
           expand_y = label == "x"
         )
-        do.call(element_render, args)
       })
     })
     names(label_grobs) <- names(labels)
