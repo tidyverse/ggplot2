@@ -147,7 +147,8 @@ element_render <- function(theme, element, ..., name = NULL) {
     return(zeroGrob())
   }
 
-  ggname(paste(element, name, sep = "."), element_grob(el, ...))
+  grob <- element_grob(el, ...)
+  ggname(paste(element, name, sep = "."), grob)
 }
 
 
