@@ -35,6 +35,9 @@
 #'   rather than combining with them. This is most useful for helper functions
 #'   that define both data and aesthetics and shouldn't inherit behaviour from
 #'   the default plot specification, e.g. \code{\link{borders}}.
+#' @param check.aes,check.param If \code{TRUE}, the default, will check that
+#'   supplied parameters and aesthetics are understood by the \code{geom} or
+#'   \code{stat}. Use \code{FALSE} to suppress the checks.
 #' @param params Additional parameters to the \code{geom} and \code{stat}.
 #' @param subset DEPRECATED. An older way of subsetting the dataset used in a
 #'   layer.
@@ -56,7 +59,8 @@
 layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
-                  inherit.aes = TRUE, subset = NULL, show.legend = NA) {
+                  inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
+                  subset = NULL, show.legend = NA) {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
   if (is.null(stat))
@@ -103,7 +107,7 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
-  if (length(extra_param) > 0) {
+  if (check.param && length(extra_param) > 0) {
     warning(
       "Ignoring unknown parameters: ", paste(extra_param, collapse = ", "),
       call. = FALSE,
@@ -112,7 +116,7 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
   extra_aes <- setdiff(names(mapping), c(geom$aesthetics(), stat$aesthetics()))
-  if (length(extra_aes) > 0) {
+  if (check.aes && length(extra_aes) > 0) {
     warning(
       "Ignoring unknown aesthetics: ", paste(extra_aes, collapse = ", "),
       call. = FALSE,
