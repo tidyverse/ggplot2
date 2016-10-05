@@ -1,5 +1,7 @@
 # ggplot2 2.1.0.9000 
 
+* Discrete scales should now work better with unicode labels on Windows (#1827).
+
 * When creating a layer, ggplot2 will warn if you use an unknown aesthetic
   or an unknown parameter. Compared to the previous version, this is
   stricter for aesthetics (previously there was no message), and less

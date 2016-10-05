@@ -431,8 +431,14 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       return(NULL)
     } else if (identical(self$labels, NA)) {
       stop("Invalid labels specification. Use NULL, not NA", call. = FALSE)
-    }else if (is.waive(self$labels)) {
-      format(self$get_breaks(), justify = "none", trim = TRUE)
+    } else if (is.waive(self$labels)) {
+      breaks <- self$get_breaks()
+      if (is.numeric(breaks)) {
+        # Only format numbers, because on Windows, format messes up encoding
+        format(breaks, justify = "none")
+      } else {
+        breaks
+      }
     } else if (is.function(self$labels)) {
       self$labels(breaks)
     } else {
