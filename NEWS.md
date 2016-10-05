@@ -1,5 +1,8 @@
 # ggplot2 2.1.0.9000 
 
+* Added scales `scale_x_time()` and `scale_y_time()` which are applied
+  automatically when you plot objects of type hms (#1752).
+  
 * `layer()` gains new `check.aes` and `check.param` arguments. These allow
   geom/stat authors to optional suppress checks for known aesthetics/parameters.
   Currently this is used only in `geom_blank()` which powers `expand_limits()` 
