@@ -45,6 +45,8 @@ geom_rug <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRug <- ggproto("GeomRug", Geom,
+  optional_aes = c("x", "y"),
+
   draw_panel = function(data, panel_scales, coord, sides = "bl") {
     rugs <- list()
     data <- coord$transform(data, panel_scales)
