@@ -10,14 +10,33 @@
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2016-10-04                   |
+|date     |2016-10-05                   |
 
 ## Packages
 
-|package |*  |version    |date       |source                       |
-|:-------|:--|:----------|:----------|:----------------------------|
-|ggplot2 |   |2.1.0.9001 |2016-10-04 |local (hadley/ggplot2@NA)    |
-|knitr   |   |1.14.9     |2016-10-04 |Github (yihui/knitr@63407ab) |
+|package       |*  |version    |date       |source                       |
+|:-------------|:--|:----------|:----------|:----------------------------|
+|covr          |   |2.2.1      |2016-08-10 |cran (@2.2.1)                |
+|digest        |   |0.6.10     |2016-08-02 |cran (@0.6.10)               |
+|ggplot2       |   |2.1.0.9001 |2016-10-05 |local (hadley/ggplot2@NA)    |
+|ggplot2movies |   |0.0.1      |2015-08-25 |cran (@0.0.1)                |
+|gtable        |   |0.2.0      |2016-02-26 |cran (@0.2.0)                |
+|hexbin        |   |1.27.1     |2015-08-19 |cran (@1.27.1)               |
+|Hmisc         |   |3.17-4     |2016-05-02 |cran (@3.17-4)               |
+|knitr         |   |1.14.9     |2016-10-04 |Github (yihui/knitr@63407ab) |
+|lazyeval      |   |0.2.0      |2016-06-12 |cran (@0.2.0)                |
+|mapproj       |   |1.2-4      |2015-08-03 |cran (@1.2-4)                |
+|maps          |   |3.1.1      |2016-07-27 |cran (@3.1.1)                |
+|maptools      |   |0.8-39     |2016-01-30 |cran (@0.8-39)               |
+|multcomp      |   |1.4-6      |2016-07-14 |cran (@1.4-6)                |
+|plyr          |   |1.8.4      |2016-06-08 |cran (@1.8.4)                |
+|quantreg      |   |5.29       |2016-09-04 |cran (@5.29)                 |
+|reshape2      |   |1.4.1      |2014-12-06 |cran (@1.4.1)                |
+|rmarkdown     |   |1.0        |2016-07-08 |cran (@1.0)                  |
+|scales        |   |0.4.0      |2016-02-26 |cran (@0.4.0)                |
+|svglite       |   |1.1.0      |2016-02-09 |cran (@1.1.0)                |
+|testthat      |*  |1.0.2      |2016-04-23 |cran (@1.0.2)                |
+|tibble        |   |1.2        |2016-08-26 |cran (@1.2)                  |
 
 # Check results
 941 packages
@@ -48,7 +67,7 @@
 |aoristic                |0.6           |      0|        0|     2|
 |apsimr                  |1.2           |      0|        0|     1|
 |archetypes              |2.2-0         |      0|        0|     2|
-|archivist               |2.1           |      1|        0|     0|
+|archivist               |2.1           |      1|        0|     2|
 |ARPobservation          |1.1           |      0|        0|     1|
 |ARTool                  |0.10.2        |      0|        0|     0|
 |asremlPlus              |2.0-12        |      0|        0|     1|
@@ -64,7 +83,7 @@
 |BBEST                   |0.1-6         |      0|        0|     0|
 |bbmle                   |1.0.18        |      0|        0|     0|
 |BCEA                    |2.2-3         |      1|        0|     1|
-|Bclim                   |3.1.0         |      0|        1|     0|
+|Bclim                   |3.1.0         |      0|        0|     0|
 |bcp                     |4.0.0         |      0|        0|     1|
 |bcrm                    |0.4.6         |      1|        0|     1|
 |bde                     |1.0.1         |      0|        0|     1|
@@ -86,7 +105,7 @@
 |BlandAltmanLeh          |0.3.1         |      0|        1|     0|
 |blkbox                  |1.0           |      0|        0|     1|
 |blockseg                |0.2           |      0|        0|     0|
-|blscrapeR               |0.4.2         |      1|        0|     0|
+|blscrapeR               |1.0.1         |      1|        0|     0|
 |bmlm                    |1.0.0         |      0|        0|     0|
 |bmmix                   |0.1-2         |      0|        0|     2|
 |bodenmiller             |0.1           |      0|        0|     1|
@@ -140,7 +159,7 @@
 |cofeatureR              |1.0.1         |      0|        0|     0|
 |CollapsABEL             |0.10.8        |      0|        0|     0|
 |coloc                   |2.3-1         |      0|        1|     2|
-|colorplaner             |0.1.1         |      1|        0|     0|
+|colorplaner             |0.1.2         |      1|        0|     0|
 |CommT                   |0.1.1         |      0|        0|     1|
 |complmrob               |0.6.1         |      0|        0|     0|
 |confidence              |1.1-0         |      0|        0|     1|
@@ -205,11 +224,11 @@
 |DrBats                  |0.1.4         |      0|        0|     0|
 |drLumi                  |0.1.2         |      0|        0|     0|
 |dslice                  |1.1.5         |      0|        0|     0|
-|dsm                     |2.2.12        |      0|        0|     0|
+|dsm                     |2.2.13        |      0|        0|     0|
 |DstarM                  |0.1.0         |      0|        0|     0|
 |DTR                     |1.7           |      0|        0|     0|
 |DTRlearn                |1.2           |      0|        0|     0|
-|dtwclust                |2.2.1         |      0|        0|     0|
+|dtwclust                |2.3.0         |      0|        0|     0|
 |dtwSat                  |0.2.1         |      0|        1|     0|
 |DVHmetrics              |0.3.6         |      0|        0|     0|
 |DynNom                  |3.0.1         |      0|        0|     0|
@@ -262,7 +281,7 @@
 |ezsim                   |0.5.5         |      0|        0|     2|
 |factoextra              |1.0.3         |      1|        0|     1|
 |FAOSTAT                 |2.0           |      0|        0|     1|
-|fbroc                   |0.4.0         |      1|        0|     0|
+|fbroc                   |0.4.0         |      0|        0|     0|
 |fermicatsR              |1.4           |      0|        0|     0|
 |FField                  |0.1.0         |      0|        0|     2|
 |Fgmutils                |0.9.3         |      0|        0|     0|
@@ -299,7 +318,7 @@
 |gender                  |0.5.1         |      0|        0|     1|
 |geneSLOPE               |0.36.6        |      0|        0|     0|
 |genomeplot              |1.0           |      0|        0|     0|
-|geoknife                |1.3.0         |      0|        0|     0|
+|geoknife                |1.3.0         |      1|        0|     0|
 |geomnet                 |0.1.2.1       |      1|        0|     0|
 |GERGM                   |0.10.0        |      0|        0|     0|
 |GetHFData               |1.1.0         |      0|        0|     0|
@@ -528,7 +547,7 @@
 |netgen                  |1.3           |      0|        0|     0|
 |networkreporting        |0.1.1         |      0|        0|     0|
 |NeuralNetTools          |1.4.0         |      0|        0|     0|
-|neuropsychology         |0.1           |      0|        0|     0|
+|neuropsychology         |0.2.4         |      1|        0|     0|
 |NFP                     |0.99.1        |      1|        0|     0|
 |nhstplot                |1.0.0         |      0|        0|     0|
 |nima                    |0.3.0         |      0|        0|     0|
@@ -563,7 +582,7 @@
 |packcircles             |0.1.1         |      0|        0|     0|
 |pagenum                 |1.0           |      0|        0|     0|
 |PairedData              |1.0.1         |      0|        0|     4|
-|paleofire               |1.1.8         |      0|        0|     0|
+|paleofire               |1.1.9         |      0|        0|     0|
 |palettetown             |0.1.1         |      0|        0|     0|
 |pAnalysis               |2.0           |      0|        0|     0|
 |pander                  |0.6.0         |      0|        0|     0|
@@ -579,7 +598,7 @@
 |pcadapt                 |3.0.2         |      0|        1|     1|
 |pcaPA                   |2.0.2         |      1|        0|     0|
 |pcrcoal                 |1.2.0         |      0|        0|     0|
-|pcrsim                  |1.0.0         |      1|        0|     0|
+|pcrsim                  |1.0.1         |      1|        0|     0|
 |PDQutils                |0.1.5         |      0|        0|     0|
 |PedCNV                  |0.1           |      0|        0|     3|
 |pems.utils              |0.2.17.8      |      0|        0|     0|
@@ -616,7 +635,7 @@
 |pointRes                |1.1.2         |      0|        0|     0|
 |pollstR                 |1.4.0         |      0|        0|     0|
 |pomp                    |1.9           |      0|        0|     0|
-|PopED                   |0.3.0         |      0|        0|     0|
+|PopED                   |0.3.0         |      0|        0|     1|
 |popEpi                  |0.4.0         |      0|        0|     0|
 |PopGenReport            |2.2.2         |      0|        0|     0|
 |popgraph                |1.4           |      0|        0|     2|
@@ -684,7 +703,7 @@
 |RAM                     |1.2.1.3       |      0|        0|     2|
 |randomizeR              |1.3           |      0|        0|     0|
 |randomUniformForest     |1.1.5         |      0|        0|     1|
-|rangeMapper             |0.3-0         |      1|        0|     0|
+|rangeMapper             |0.3-0         |      0|        0|     0|
 |rangemodelR             |1.0.1         |      0|        0|     0|
 |rasterVis               |0.40          |      0|        0|     0|
 |rattle                  |4.1.0         |      0|        0|     3|
@@ -717,7 +736,7 @@
 |rfisheries              |0.2           |      0|        0|     0|
 |RFmarkerDetector        |1.0.1         |      0|        0|     0|
 |rfordummies             |0.1.2         |      0|        0|     0|
-|rfPermute               |2.1.1         |      0|        0|     0|
+|rfPermute               |2.1.5         |      0|        0|     0|
 |rgbif                   |0.9.4         |      0|        0|     0|
 |RGraphics               |2.0-14        |      0|        0|     3|
 |RImagePalette           |0.1.1         |      0|        0|     0|
@@ -749,7 +768,7 @@
 |RPPanalyzer             |1.4.3         |      1|        0|     0|
 |rPref                   |1.1           |      0|        0|     2|
 |rprev                   |0.2.2         |      0|        0|     0|
-|rpsftm                  |1.0.0         |      0|        0|     0|
+|rpsftm                  |1.0.1         |      0|        0|     0|
 |rrepast                 |0.5.0         |      0|        0|     0|
 |RSA                     |0.9.10        |      0|        1|     0|
 |rSARP                   |1.0.0         |      0|        0|     0|
@@ -801,7 +820,7 @@
 |sgd                     |1.1           |      1|        0|     0|
 |sglr                    |0.7           |      0|        0|     2|
 |shazam                  |0.1.4         |      0|        0|     0|
-|SHELF                   |1.2.0         |      0|        0|     0|
+|SHELF                   |1.2.1         |      0|        0|     0|
 |shiny                   |0.14          |      1|        0|     1|
 |ShinyItemAnalysis       |0.2.0         |      0|        0|     0|
 |shinystan               |2.2.1         |      0|        0|     0|
@@ -857,8 +876,8 @@
 |strataG                 |1.0.5         |      0|        0|     0|
 |StroupGLMM              |0.1.0         |      1|        0|     0|
 |structSSI               |1.1.1         |      1|        0|     0|
-|strvalidator            |1.7.0         |      1|        0|     0|
-|subspaceMOA             |0.5.1         |      1|        0|     0|
+|strvalidator            |1.8.0         |      1|        0|     0|
+|subspaceMOA             |0.5.1         |      1|        0|     1|
 |SuperLearner            |2.0-19        |      0|        0|     1|
 |surveillance            |1.12.1        |      0|        1|     2|
 |survminer               |0.2.2         |      1|        1|     1|
@@ -907,7 +926,7 @@
 |treecm                  |1.2.2         |      0|        0|     0|
 |treemap                 |2.4-1         |      0|        0|     0|
 |treescape               |1.10.17       |      0|        0|     0|
-|trelliscope             |0.9.4         |      0|        0|     0|
+|trelliscope             |0.9.7         |      0|        0|     0|
 |TriMatch                |0.9.7         |      0|        0|     0|
 |TripleR                 |1.5.3         |      0|        0|     0|
 |TSMining                |1.0           |      0|        0|     1|
@@ -1002,9 +1021,9 @@ The error most likely occurred in:
 ... 43 lines ...
 Number of log-likelihood function evaluations: 114 
 
-Estimation time: 0.3428 secs 
+Estimation time: 0.3275 secs 
 
-Description: Estimated at 2016-10-02 10:19:34 by user hadley
+Description: Estimated at 2016-10-04 18:50:54 by user hadley
 
 > acf_acd(fitModel, conf_level = 0.95, max = 50, min = 1)
 Error in as.character(what) : 
@@ -1225,7 +1244,7 @@ to your NAMESPACE file.
 Maintainer: Przemyslaw Biecek <przemyslaw.biecek@gmail.com>  
 Bug reports: https://github.com/pbiecek/archivist/issues
 
-1 error  | 0 warnings | 0 notes
+1 error  | 0 warnings | 2 notes
 
 ```
 checking examples ... ERROR
@@ -1248,6 +1267,12 @@ Error in stopifnot(is.list(x), is.list(val)) :
   attempt to apply non-function
 Calls: <Anonymous> ... ggplot_build -> <Anonymous> -> f -> <Anonymous> -> stopifnot
 Execution halted
+
+checking package dependencies ... NOTE
+Package which this enhances but not available for checking: ‘archivist.github’
+
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘archivist.github’
 ```
 
 ## ARPobservation (1.1)
@@ -1507,26 +1532,7 @@ Package suggested but not available for checking: ‘INLA’
 ## Bclim (3.1.0)
 Maintainer: Andrew Parnell <Andrew.Parnell@ucd.ie>
 
-0 errors | 1 warning  | 0 notes
-
-```
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Loading required package: inline
-Warning in predictExtrapUp(alpha, lambda, beta, predictPositionsRescaled[depthIndRange],  :
-  Unable to find suitable chronologies for top of core - truncated to date of extraction
-Warning in predictExtrapUp(alpha, lambda, beta, predictPositionsRescaled[depthIndRange],  :
-  Unable to find suitable chronologies for top of core - truncated to date of extraction
-Warning in sqrt(v.out) : NaNs produced
-Warning in stats::rnorm(length(t.diff), mean = 0, sd = sqrt(v.out)) :
-  NAs produced
-Quitting from lines 83-99 (Bclim.Rmd) 
-Error: processing vignette 'Bclim.Rmd' failed with diagnostics:
-Some interpolated climates have been given NAs
-Execution halted
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## bcp (4.0.0)
 Maintainer: John W. Emerson <john.emerson@yale.edu>
@@ -1824,8 +1830,6 @@ Maintainer: Bernhard Lehnert <bernhard.lehnert@uni-greifswald.de>
 checking re-building of vignette outputs ... WARNING
 Error in re-building vignettes:
   ...
-Warning in readLines(con) : incomplete final line found on 'Intro.Rmd'
-Warning: It seems you should call rmarkdown::render() instead of knitr::knit2html() because Intro.Rmd appears to be an R Markdown v2 document.
 Quitting from lines 171-174 (Intro.Rmd) 
 Error: processing vignette 'Intro.Rmd' failed with diagnostics:
 Don't know how to add o to a plot
@@ -1848,7 +1852,7 @@ Maintainer: Julien Chiquet <julien.chiquet@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## blscrapeR (0.4.2)
+## blscrapeR (1.0.1)
 Maintainer: Kris Eberwein <eberwein@knights.ucf.edu>  
 Bug reports: https://github.com/keberwein/blscrapeR/issues
 
@@ -1858,16 +1862,16 @@ Bug reports: https://github.com/keberwein/blscrapeR/issues
 checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
+  .......... .......... .......... .......... ..........
+  .......... .......... .......... .......... ..........
+  .......... .......... .......... .......... ..
+  downloaded 5.8 MB
   
-      as.Date, as.Date.numeric
-  
-  trying URL 'http://www.bls.gov/lau/laucntycur14.txt'
-  Error in download.file("http://www.bls.gov/lau/laucntycur14.txt", temp) : 
-    cannot open URL 'http://www.bls.gov/lau/laucntycur14.txt'
-  Calls: test_check ... force -> source_file -> eval -> eval -> download.file
+  Error in file(con, "r") : cannot open the connection
+  Calls: test_check ... force -> source_file -> eval -> eval -> readLines -> file
   In addition: Warning message:
-  In download.file("http://www.bls.gov/lau/laucntycur14.txt", temp) :
-    cannot open URL 'http://www.bls.gov/lau/laucntycur14.txt': HTTP status was '404 Not Found'
+  In file(con, "r") :
+    cannot open URL 'http://www.bls.gov/lau/ststdsadata.txt': HTTP status was '404 Not Found'
   testthat results ================================================================
   OK: 0 SKIPPED: 0 FAILED: 0
   Execution halted
@@ -1963,12 +1967,12 @@ Bug reports: https://github.com/paul-buerkner/brms/issues
 checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
-     "legend.box.background", "legend.box.spacing", "panel.spacing", "panel.spacing.x", 
-     "panel.spacing.y", "plot.subtitle", "plot.caption", "strip.placement")), element = "axis.title.x", 
-         label = "ll", expand_x = FALSE, expand_y = TRUE)
-  26: calc_element(element, theme) at /Users/hadley/Documents/ggplot/ggplot/R/theme-elements.r:144
-  27: Reduce(combine_elements, parents, theme[[element]]) at /Users/hadley/Documents/ggplot/ggplot/R/theme.r:643
-  28: f(init, x[[i]])
+  23: FUN(X[[i]], ...)
+  24: element_render(theme = theme, element = paste0("axis.title.", label, modify), label = labels[[label]][[i]], 
+         expand_x = label == "y", expand_y = label == "x") at /Users/hadley/Documents/ggplot/ggplot/R/layout.R:170
+  25: calc_element(element, theme) at /Users/hadley/Documents/ggplot/ggplot/R/theme-elements.r:144
+  26: Reduce(combine_elements, parents, theme[[element]]) at /Users/hadley/Documents/ggplot/ggplot/R/theme.r:643
+  27: f(init, x[[i]])
   
   testthat results ================================================================
   OK: 833 SKIPPED: 1 FAILED: 1
@@ -2447,7 +2451,7 @@ Consider adding
 to your NAMESPACE file.
 ```
 
-## colorplaner (0.1.1)
+## colorplaner (0.1.2)
 Maintainer: William Murphy <william.murphy.rd@gmail.com>  
 Bug reports: https://github.com/wmurphyrd/colorplaner/issues
 
@@ -2914,14 +2918,14 @@ Bug reports: https://github.com/Rdatatable/data.table/issues
 checking tests ... ERROR
 Running the tests in ‘tests/tests.R’ failed.
 Last 13 lines of output:
-  [1] FALSE
-  > y = TRUE 
-  [1] TRUE
+  > y = with(DT, eval(ll)) 
+  First 6 of 647 :[1] 132 969 773 458 908  53
+  forder decreasing argument test: seed = 1475626848  colorder = 1,5,2,3,4 
   Tests 1372.3+ not run. If required call library(GenomicRanges) first.
   Tests 1441-1444 not run. If required install the 'fr_FR.utf8' locale.
   
   Error in eval(expr, envir, enclos) : 
-    3 errors out of 4390 (lastID=1557.4, endian=little, sizeof(long double)==16) in inst/tests/tests.Rraw on Sun Oct  2 10:48:46 2016. Search tests.Rraw for test numbers: 167, 167.2, 1241.2.
+    13 errors out of 4390 (lastID=1557.4, endian=little, sizeof(long double)==16) in inst/tests/tests.Rraw on Tue Oct  4 19:20:54 2016. Search tests.Rraw for test numbers: 167, 167.2, 1241.2, 1253.216, 1253.22, 1253.264, 1253.272, 1253.344, 1253.348, 1253.424, 1253.428, 1253.44, 1253.444.
   Calls: test.data.table -> sys.source -> eval -> eval
   In addition: Warning message:
   In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
@@ -3243,8 +3247,9 @@ Maintainer: Chao Ye <yechao1009@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## dsm (2.2.12)
-Maintainer: Laura Marshall <lhm@st-andrews.ac.uk>
+## dsm (2.2.13)
+Maintainer: Laura Marshall <lhm@st-andrews.ac.uk>  
+Bug reports: https://github.com/DistanceDevelopment/dsm/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -3263,7 +3268,7 @@ Maintainer: Ying Liu <yl2802@cumc.columbia.edu>
 
 0 errors | 0 warnings | 0 notes
 
-## dtwclust (2.2.1)
+## dtwclust (2.3.0)
 Maintainer: Alexis Sarda <alexis.sarda@gmail.com>  
 Bug reports: https://github.com/asardaes/dtwclust/issues
 
@@ -3971,31 +3976,7 @@ to your NAMESPACE file.
 Maintainer: Erik Peter <jerikpeter@googlemail.com>  
 Bug reports: http://github.com/erikpeter/fbroc/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘fbroc-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot.fbroc.conf.paired
-> ### Title: Plots function for object of class 'fbroc.conf.paired'
-> ### Aliases: plot.fbroc.conf.paired
-> 
-> ### ** Examples
-> 
-> data(roc.examples)
-> example <- boot.paired.roc(roc.examples$Cont.Pred, roc.examples$Cont.Pred.Outlier,
-+                            roc.examples$True.Class, n.boot = 1000)
-> # Confidence regions for the difference in TPR at specific FPR values                           
-> tpr.conf <- conf(example, conf.for = "tpr", steps = 50)
-> plot(tpr.conf)
-Warning: Ignoring unknown aesthetics: y
-Error in paste(Delta, "True Positive Rate") : object 'Delta' not found
-Calls: plot ... grobName -> element_grob -> element_grob.element_text -> paste
-Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## fermicatsR (1.4)
 Maintainer: Pablo Saz Parkinson <sazpark2@gmail.com>
@@ -4499,7 +4480,32 @@ Maintainer: Jing Xu<xujingaddressee@foxmail.com>
 Maintainer: Jordan Read <jread@usgs.gov>  
 Bug reports: https://github.com/USGS-R/geoknife/issues
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking examples ... ERROR
+Running examples in ‘geoknife-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: webgeom
+> ### Title: create webgeom object
+> ### Aliases: webgeom webgeom,ANY-method webgeom,missing-method
+> 
+> ### ** Examples
+... 49 lines ...
+xmlns: URI gov.usgs.cida.gdp.sample is not absolute
+xmlns: URI gov.usgs.cida.gdp.sample is not absolute
+xmlns: URI gov.usgs.cida.gdp.sample is not absolute
+xmlns: URI gov.usgs.cida.gdp.sample is not absolute
+xmlns: URI gov.usgs.cida.gdp.sample is not absolute
+XPath error : Undefined namespace prefix
+XPath error : Invalid expression
+Error in xpathApply.XMLInternalDocument(doc, path, fun, ..., namespaces = namespaces,  : 
+  error evaluating xpath expression //gml:featureMembers/sample:CONUS_states/sample:STATE/node()[1]
+Calls: webgeom ... xpathApply -> xpathApply.XMLInternalDocument -> .Call
+Execution halted
+```
 
 ## geomnet (0.1.2.1)
 Maintainer: Samantha Tyner <sctyner@iastate.edu>  
@@ -4588,19 +4594,21 @@ Running examples in ‘GGally-Ex.R’ failed
 The error most likely occurred in:
 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: getPlot
-> ### Title: getPlot
-> ### Aliases: [.ggmatrix getPlot
-> ### Keywords: hplot
+> ### Name: +.gg
+> ### Title: Modify a ggmatrix object by adding an ggplot2 object to all
+> ###   plots
+> ### Aliases: +.gg
 > 
 > ### ** Examples
 > 
->  data(tips, package = "reshape")
->  plotMatrix2 <- ggpairs(tips[, 3:2], upper = list(combo = "denstrip"))
->  plotMatrix2[1, 2]
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-Error in element_grob.element_text(el, ...) : object 'tip' not found
-Calls: <Anonymous> ... grobName -> element_grob -> element_grob.element_text
+> data(tips, package = "reshape")
+> pm <- ggpairs(tips[, 2:3])
+> ## change to black and white theme
+> pm + ggplot2::theme_bw()
+Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
+Error in FUN(X[[i]], ...) : 
+  only defined on a data frame with all numeric variables
+Calls: <Anonymous> ... [ -> [.gtable -> Summary.data.frame -> lapply -> FUN
 Execution halted
 
 checking tests ... ERROR
@@ -6965,18 +6973,18 @@ Execution halted
 checking tests ... ERROR
 Running the tests in ‘tests/run-base.R’ failed.
 Last 13 lines of output:
-  > test_check("mlr", filter = "base")
-  Loading required package: mlr
-  Loading required package: BBmisc
-  Loading required package: ggplot2
-  Loading required package: ParamHelpers
-  Loading required package: stringi
-  Timing stopped at: 0.018 0.002 0.022 
-  Error in ._jobjRef_dollar(x[["jobj"]], name) : 
-    no field, method or inner class called 'handled' 
-  Calls: test_check ... <Anonymous> -> isTRUE -> $ -> $.Throwable -> ._jobjRef_dollar
-  testthat results ================================================================
-  OK: 95 SKIPPED: 0 FAILED: 0
+  1. Error: NoFeaturesModel works with FilterWrapper (@test_base_NoFeaturesModel.R#30) 
+  2. Error: clustering performance (@test_base_clustering.R#16) 
+  3. Error: clustering performance with missing clusters (@test_base_clustering.R#28) 
+  4. Error: clustering resample (@test_base_clustering.R#42) 
+  5. Error: clustering benchmark (@test_base_clustering.R#55) 
+  6. Error: clustering tune (@test_base_clustering.R#72) 
+  7. Error: filterFeatures (@test_base_filterFeatures.R#9) 
+  8. Error: plotFilterValues (@test_base_filterFeatures.R#53) 
+  9. Error: args are passed down to filter methods (@test_base_filterFeatures.R#87) 
+  1. ...
+  
+  Error: testthat unit tests failed
   Execution halted
 
 checking package dependencies ... NOTE
@@ -7459,10 +7467,18 @@ Bug reports: https://github.com/fawda123/NeuralNetTools/issues
 
 0 errors | 0 warnings | 0 notes
 
-## neuropsychology (0.1)
+## neuropsychology (0.2.4)
 Maintainer: Dominique Makowski <dom.makowski@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘prettyR’ ‘wordcloud2’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
 
 ## NFP (0.99.1)
 Maintainer: Yang Cao <yiluheihei@gmail.com>
@@ -8047,7 +8063,7 @@ Rd file 'plot.Rd':
 These lines will be truncated in the PDF manual.
 ```
 
-## paleofire (1.1.8)
+## paleofire (1.1.9)
 Maintainer: Olivier Blarquez <blarquez@gmail.com>
 
 0 errors | 0 warnings | 0 notes
@@ -8255,7 +8271,7 @@ Maintainer: Botond Sipos <sbotond@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## pcrsim (1.0.0)
+## pcrsim (1.0.1)
 Maintainer: Oskar Hansson <oskar.hansson@fhi.no>  
 Bug reports: https://github.com/OskarHansson/pcrsim/issues
 
@@ -8759,7 +8775,12 @@ Bug reports: http://github.com/kingaa/pomp/issues
 Maintainer: Andrew C. Hooker <andrew.hooker@farmbio.uu.se>  
 Bug reports: https://github.com/andrewhooker/PopED/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘matlab’
+```
 
 ## popEpi (0.4.0)
 Maintainer: Joonas Miettinen <joonas.miettinen@cancer.fi>  
@@ -9675,32 +9696,7 @@ to your NAMESPACE file.
 ## rangeMapper (0.3-0)
 Maintainer: Mihai Valcu <valcu@orn.mpg.de>
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘rangeMapper-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: rangeTraits
-> ### Title: A container of functions to apply on a 'SpatialPolygons' object
-> ### Aliases: rangeTraits
-> 
-> ### ** Examples
-... 19 lines ...
- Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25
- Path to GDAL shared files: /Users/hadley/R-revdep/rgdal/gdal
- Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]
- Path to PROJ.4 shared files: /Users/hadley/R-revdep/rgdal/proj
- Linking to sp version: 1.2-3 
-> r = readOGR(troaed$dsn, troaed$layer)
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv,  : 
-  Layer not found
-Calls: readOGR ... suppressMessages -> withCallingHandlers -> ogrInfo -> .Call
-Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## rangemodelR (1.0.1)
 Maintainer: Aniruddha Marathe <aniruddha.pravin.marathe@gmail.com>
@@ -9732,7 +9728,7 @@ checking installed package size ... NOTE
 
 checking dependencies in R code ... NOTE
 
-(R:10843): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:25038): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 ```
 
 ## raw (0.1.2)
@@ -9950,7 +9946,7 @@ Bug reports: https://github.com/andrie/rfordummies/issues
 
 0 errors | 0 warnings | 0 notes
 
-## rfPermute (2.1.1)
+## rfPermute (2.1.5)
 Maintainer: Eric Archer <eric.archer@noaa.gov>  
 Bug reports: https://github.com/EricArcher/rfPermute/issues
 
@@ -9979,7 +9975,7 @@ checking installed package size ... NOTE
 
 checking dependencies in R code ... NOTE
 
-(R:17960): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:30700): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 ```
 
 ## RImagePalette (0.1.1)
@@ -10236,7 +10232,7 @@ Maintainer: Stuart Lacy <stuart.lacy@york.ac.uk>
 
 0 errors | 0 warnings | 0 notes
 
-## rpsftm (1.0.0)
+## rpsftm (1.0.1)
 Maintainer: Simon Bond <simon.bond@addenbrookes.nhs.uk>
 
 0 errors | 0 warnings | 0 notes
@@ -10817,7 +10813,7 @@ Bug reports: https://bitbucket.org/kleinstein/shazam/issues
 
 0 errors | 0 warnings | 0 notes
 
-## SHELF (1.2.0)
+## SHELF (1.2.1)
 Maintainer: Jeremy Oakley <j.oakley@sheffield.ac.uk>  
 Bug reports: https://github.com/OakleyJ/SHELF/issues
 
@@ -11200,7 +11196,7 @@ Bug reports: https://github.com/PredictiveEcology/SpaDES/issues
 checking tests ... ERROR
 Running the tests in ‘tests/test-all.R’ failed.
 Last 13 lines of output:
-  ...
+  names for target but not for current
   
   
   testthat results ================================================================
@@ -11440,7 +11436,7 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## strvalidator (1.7.0)
+## strvalidator (1.8.0)
 Maintainer: Oskar Hansson <oskar.hansson@fhi.no>  
 Bug reports: https://github.com/OskarHansson/strvalidator/issues
 
@@ -11455,7 +11451,7 @@ See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/strvalidator.Rcheck/0
 ## subspaceMOA (0.5.1)
 Maintainer: Marwan Hassani <rsubspace@cs.rwth-aachen.de>
 
-1 error  | 0 warnings | 0 notes
+1 error  | 0 warnings | 1 note 
 
 ```
 checking examples ... ERROR
@@ -11474,6 +11470,9 @@ Error in rJava::.jcall("SubspaceClustererBuilder", returnSig = "Lmoa/clusterers/
   RcallMethod: cannot determine object class
 Calls: DSC_HDDStream -> <Anonymous> -> .External
 Execution halted
+
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘subspace’
 ```
 
 ## SuperLearner (2.0-19)
@@ -11686,23 +11685,22 @@ Running examples in ‘tabplot-Ex.R’ failed
 The error most likely occurred in:
 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot.tabplot
-> ### Title: Plot a tabplot-object
-> ### Aliases: plot.tabplot plot.tabplot_compare
+> ### Name: tableplot
+> ### Title: Create a tableplot
+> ### Aliases: tableplot
+> ### Keywords: visualization
 > 
-> ### ** Examples
+... 41 lines ...
+  font width unknown for character 0x9
 > 
-> # load diamonds dataset from ggplot2
-> require(ggplot2)
-Loading required package: ggplot2
-> data(diamonds)
-> 
-> tab <- tableplot(diamonds)
+> # create a tableplot cut category, and fix scale limits of carat, table, and price
+> tabs <- tableplot(p, subset=cut,
++ 	limitsX=list(carat=c(0,4), table=c(55, 65), price=c(0, 20000)), plot=FALSE)
 Error in if (dfile == getOption("fftempdir")) finalizer <- "delete" else finalizer <- "close" : 
   argument is of length zero
-Calls: tableplot ... tablePrepare -> lapply -> FUN -> clone -> clone.ff -> assign -> ff
+Calls: tableplot ... clone.ffdf -> lapply -> FUN -> clone.ff -> assign -> ff
 Error in setwd(cwd) : character argument expected
-Calls: tableplot ... lapply -> FUN -> clone -> clone.ff -> assign -> ff -> setwd
+Calls: tableplot ... clone.ffdf -> lapply -> FUN -> clone.ff -> assign -> ff -> setwd
 Execution halted
 
 checking re-building of vignette outputs ... WARNING
@@ -12274,9 +12272,9 @@ Maintainer: Michelle Kendall <m.kendall@imperial.ac.uk>
 
 0 errors | 0 warnings | 0 notes
 
-## trelliscope (0.9.4)
+## trelliscope (0.9.7)
 Maintainer: Ryan Hafen <rhafen@gmail.com>  
-Bug reports: https://github.com/tesseradata/trelliscope/issues
+Bug reports: https://github.com/delta-rho/trelliscope/issues
 
 0 errors | 0 warnings | 0 notes
 

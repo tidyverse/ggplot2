@@ -10,35 +10,53 @@
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2016-10-04                   |
+|date     |2016-10-05                   |
 
 ## Packages
 
-|package |*  |version    |date       |source                       |
-|:-------|:--|:----------|:----------|:----------------------------|
-|ggplot2 |   |2.1.0.9001 |2016-10-04 |local (hadley/ggplot2@NA)    |
-|knitr   |   |1.14.9     |2016-10-04 |Github (yihui/knitr@63407ab) |
+|package       |*  |version    |date       |source                       |
+|:-------------|:--|:----------|:----------|:----------------------------|
+|covr          |   |2.2.1      |2016-08-10 |cran (@2.2.1)                |
+|digest        |   |0.6.10     |2016-08-02 |cran (@0.6.10)               |
+|ggplot2       |   |2.1.0.9001 |2016-10-05 |local (hadley/ggplot2@NA)    |
+|ggplot2movies |   |0.0.1      |2015-08-25 |cran (@0.0.1)                |
+|gtable        |   |0.2.0      |2016-02-26 |cran (@0.2.0)                |
+|hexbin        |   |1.27.1     |2015-08-19 |cran (@1.27.1)               |
+|Hmisc         |   |3.17-4     |2016-05-02 |cran (@3.17-4)               |
+|knitr         |   |1.14.9     |2016-10-04 |Github (yihui/knitr@63407ab) |
+|lazyeval      |   |0.2.0      |2016-06-12 |cran (@0.2.0)                |
+|mapproj       |   |1.2-4      |2015-08-03 |cran (@1.2-4)                |
+|maps          |   |3.1.1      |2016-07-27 |cran (@3.1.1)                |
+|maptools      |   |0.8-39     |2016-01-30 |cran (@0.8-39)               |
+|multcomp      |   |1.4-6      |2016-07-14 |cran (@1.4-6)                |
+|plyr          |   |1.8.4      |2016-06-08 |cran (@1.8.4)                |
+|quantreg      |   |5.29       |2016-09-04 |cran (@5.29)                 |
+|reshape2      |   |1.4.1      |2014-12-06 |cran (@1.4.1)                |
+|rmarkdown     |   |1.0        |2016-07-08 |cran (@1.0)                  |
+|scales        |   |0.4.0      |2016-02-26 |cran (@0.4.0)                |
+|svglite       |   |1.1.0      |2016-02-09 |cran (@1.1.0)                |
+|testthat      |*  |1.0.2      |2016-04-23 |cran (@1.0.2)                |
+|tibble        |   |1.2        |2016-08-26 |cran (@1.2)                  |
 
 # Check results
-171 packages with problems
+170 packages with problems
 
 |package                |version       | errors| warnings| notes|
 |:----------------------|:-------------|------:|--------:|-----:|
 |ACDm                   |1.0.4         |      1|        0|     0|
 |aop                    |1.0.0         |      1|        0|     0|
-|archivist              |2.1           |      1|        0|     0|
+|archivist              |2.1           |      1|        0|     2|
 |BACA                   |1.3           |      1|        0|     0|
 |BACCT                  |1.0           |      1|        0|     0|
 |backShift              |0.1.3         |      1|        0|     0|
 |bamdit                 |3.0.0         |      1|        0|     0|
 |bayesAB                |0.6.0         |      1|        0|     0|
 |BCEA                   |2.2-3         |      1|        0|     1|
-|Bclim                  |3.1.0         |      0|        1|     0|
 |bcrm                   |0.4.6         |      1|        0|     1|
 |biogram                |1.3           |      0|        1|     0|
 |BioPET                 |0.2.0         |      1|        0|     0|
 |BlandAltmanLeh         |0.3.1         |      0|        1|     0|
-|blscrapeR              |0.4.2         |      1|        0|     0|
+|blscrapeR              |1.0.1         |      1|        0|     0|
 |brainGraph             |0.62.0        |      1|        0|     0|
 |brms                   |1.0.1         |      1|        0|     0|
 |bsam                   |1.0.0         |      1|        0|     0|
@@ -48,7 +66,7 @@
 |clifro                 |3.0-0         |      0|        1|     0|
 |clusterfly             |0.4           |      1|        0|     0|
 |coloc                  |2.3-1         |      0|        1|     2|
-|colorplaner            |0.1.1         |      1|        0|     0|
+|colorplaner            |0.1.2         |      1|        0|     0|
 |CopulaDTA              |0.0.4         |      0|        1|     0|
 |corrr                  |0.2.0         |      1|        0|     0|
 |cowplot                |0.6.3         |      1|        2|     0|
@@ -66,13 +84,13 @@
 |emojifont              |0.3.4         |      0|        1|     1|
 |EmpiricalCalibration   |1.2.0         |      1|        0|     0|
 |factoextra             |1.0.3         |      1|        0|     1|
-|fbroc                  |0.4.0         |      1|        0|     0|
 |fheatmap               |1.0.1         |      1|        0|     1|
 |fitbitScraper          |0.1.7         |      0|        1|     0|
 |forecast               |7.2           |      1|        0|     0|
 |fuzzyforest            |1.0.2         |      1|        0|     0|
 |gapfill                |0.9.3         |      2|        0|     2|
 |GenCAT                 |1.0.3         |      1|        1|     3|
+|geoknife               |1.3.0         |      1|        0|     0|
 |geomnet                |0.1.2.1       |      1|        0|     0|
 |GGally                 |1.2.0         |      2|        0|     0|
 |ggalt                  |0.1.1         |      1|        0|     0|
@@ -123,6 +141,7 @@
 |mvdalab                |1.1           |      1|        0|     0|
 |mwaved                 |1.1.4         |      1|        0|     0|
 |myTAI                  |0.4.0         |      1|        0|     0|
+|neuropsychology        |0.2.4         |      1|        0|     0|
 |NFP                    |0.99.1        |      1|        0|     0|
 |NMF                    |0.20.6        |      1|        1|     4|
 |nparACT                |0.6           |      1|        0|     0|
@@ -132,7 +151,7 @@
 |OutbreakTools          |0.1-14        |      1|        1|     0|
 |pcadapt                |3.0.2         |      0|        1|     1|
 |pcaPA                  |2.0.2         |      1|        0|     0|
-|pcrsim                 |1.0.0         |      1|        0|     0|
+|pcrsim                 |1.0.1         |      1|        0|     0|
 |PGRdup                 |0.2.2.1       |      0|        1|     2|
 |photobiologyInOut      |0.4.11        |      0|        1|     0|
 |photobiologyPlants     |0.4.0         |      0|        1|     0|
@@ -148,7 +167,6 @@
 |quanteda               |0.9.8         |      1|        0|     0|
 |quickpsy               |0.1.3         |      1|        0|     0|
 |radiant.model          |0.6.0         |      1|        0|     0|
-|rangeMapper            |0.3-0         |      1|        0|     0|
 |rnoaa                  |0.6.0         |      0|        1|     1|
 |robCompositions        |2.0.2         |      0|        1|     1|
 |RPPanalyzer            |1.4.3         |      1|        0|     0|
@@ -175,8 +193,8 @@
 |ss3sim                 |0.9.2         |      1|        0|     0|
 |StroupGLMM             |0.1.0         |      1|        0|     0|
 |structSSI              |1.1.1         |      1|        0|     0|
-|strvalidator           |1.7.0         |      1|        0|     0|
-|subspaceMOA            |0.5.1         |      1|        0|     0|
+|strvalidator           |1.8.0         |      1|        0|     0|
+|subspaceMOA            |0.5.1         |      1|        0|     1|
 |surveillance           |1.12.1        |      0|        1|     2|
 |survminer              |0.2.2         |      1|        1|     1|
 |survMisc               |0.5.3         |      1|        0|     0|
@@ -215,9 +233,9 @@ The error most likely occurred in:
 ... 43 lines ...
 Number of log-likelihood function evaluations: 114 
 
-Estimation time: 0.3428 secs 
+Estimation time: 0.3275 secs 
 
-Description: Estimated at 2016-10-02 10:19:34 by user hadley
+Description: Estimated at 2016-10-04 18:50:54 by user hadley
 
 > acf_acd(fitModel, conf_level = 0.95, max = 50, min = 1)
 Error in as.character(what) : 
@@ -245,7 +263,7 @@ manual.
 Maintainer: Przemyslaw Biecek <przemyslaw.biecek@gmail.com>  
 Bug reports: https://github.com/pbiecek/archivist/issues
 
-1 error  | 0 warnings | 0 notes
+1 error  | 0 warnings | 2 notes
 
 ```
 checking examples ... ERROR
@@ -268,6 +286,12 @@ Error in stopifnot(is.list(x), is.list(val)) :
   attempt to apply non-function
 Calls: <Anonymous> ... ggplot_build -> <Anonymous> -> f -> <Anonymous> -> stopifnot
 Execution halted
+
+checking package dependencies ... NOTE
+Package which this enhances but not available for checking: ‘archivist.github’
+
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘archivist.github’
 ```
 
 ## BACA (1.3)
@@ -375,30 +399,6 @@ checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘INLA’
 ```
 
-## Bclim (3.1.0)
-Maintainer: Andrew Parnell <Andrew.Parnell@ucd.ie>
-
-0 errors | 1 warning  | 0 notes
-
-```
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Loading required package: inline
-Warning in predictExtrapUp(alpha, lambda, beta, predictPositionsRescaled[depthIndRange],  :
-  Unable to find suitable chronologies for top of core - truncated to date of extraction
-Warning in predictExtrapUp(alpha, lambda, beta, predictPositionsRescaled[depthIndRange],  :
-  Unable to find suitable chronologies for top of core - truncated to date of extraction
-Warning in sqrt(v.out) : NaNs produced
-Warning in stats::rnorm(length(t.diff), mean = 0, sd = sqrt(v.out)) :
-  NAs produced
-Quitting from lines 83-99 (Bclim.Rmd) 
-Error: processing vignette 'Bclim.Rmd' failed with diagnostics:
-Some interpolated climates have been given NAs
-Execution halted
-
-```
-
 ## bcrm (0.4.6)
 Maintainer: Michael Sweeting <mjs212@medschl.cam.ac.uk>
 
@@ -490,8 +490,6 @@ Maintainer: Bernhard Lehnert <bernhard.lehnert@uni-greifswald.de>
 checking re-building of vignette outputs ... WARNING
 Error in re-building vignettes:
   ...
-Warning in readLines(con) : incomplete final line found on 'Intro.Rmd'
-Warning: It seems you should call rmarkdown::render() instead of knitr::knit2html() because Intro.Rmd appears to be an R Markdown v2 document.
 Quitting from lines 171-174 (Intro.Rmd) 
 Error: processing vignette 'Intro.Rmd' failed with diagnostics:
 Don't know how to add o to a plot
@@ -499,7 +497,7 @@ Execution halted
 
 ```
 
-## blscrapeR (0.4.2)
+## blscrapeR (1.0.1)
 Maintainer: Kris Eberwein <eberwein@knights.ucf.edu>  
 Bug reports: https://github.com/keberwein/blscrapeR/issues
 
@@ -509,16 +507,16 @@ Bug reports: https://github.com/keberwein/blscrapeR/issues
 checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
+  .......... .......... .......... .......... ..........
+  .......... .......... .......... .......... ..........
+  .......... .......... .......... .......... ..
+  downloaded 5.8 MB
   
-      as.Date, as.Date.numeric
-  
-  trying URL 'http://www.bls.gov/lau/laucntycur14.txt'
-  Error in download.file("http://www.bls.gov/lau/laucntycur14.txt", temp) : 
-    cannot open URL 'http://www.bls.gov/lau/laucntycur14.txt'
-  Calls: test_check ... force -> source_file -> eval -> eval -> download.file
+  Error in file(con, "r") : cannot open the connection
+  Calls: test_check ... force -> source_file -> eval -> eval -> readLines -> file
   In addition: Warning message:
-  In download.file("http://www.bls.gov/lau/laucntycur14.txt", temp) :
-    cannot open URL 'http://www.bls.gov/lau/laucntycur14.txt': HTTP status was '404 Not Found'
+  In file(con, "r") :
+    cannot open URL 'http://www.bls.gov/lau/ststdsadata.txt': HTTP status was '404 Not Found'
   testthat results ================================================================
   OK: 0 SKIPPED: 0 FAILED: 0
   Execution halted
@@ -547,12 +545,12 @@ Bug reports: https://github.com/paul-buerkner/brms/issues
 checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
-     "legend.box.background", "legend.box.spacing", "panel.spacing", "panel.spacing.x", 
-     "panel.spacing.y", "plot.subtitle", "plot.caption", "strip.placement")), element = "axis.title.x", 
-         label = "ll", expand_x = FALSE, expand_y = TRUE)
-  26: calc_element(element, theme) at /Users/hadley/Documents/ggplot/ggplot/R/theme-elements.r:144
-  27: Reduce(combine_elements, parents, theme[[element]]) at /Users/hadley/Documents/ggplot/ggplot/R/theme.r:643
-  28: f(init, x[[i]])
+  23: FUN(X[[i]], ...)
+  24: element_render(theme = theme, element = paste0("axis.title.", label, modify), label = labels[[label]][[i]], 
+         expand_x = label == "y", expand_y = label == "x") at /Users/hadley/Documents/ggplot/ggplot/R/layout.R:170
+  25: calc_element(element, theme) at /Users/hadley/Documents/ggplot/ggplot/R/theme-elements.r:144
+  26: Reduce(combine_elements, parents, theme[[element]]) at /Users/hadley/Documents/ggplot/ggplot/R/theme.r:643
+  27: f(init, x[[i]])
   
   testthat results ================================================================
   OK: 833 SKIPPED: 1 FAILED: 1
@@ -705,7 +703,7 @@ Consider adding
 to your NAMESPACE file.
 ```
 
-## colorplaner (0.1.1)
+## colorplaner (0.1.2)
 Maintainer: William Murphy <william.murphy.rd@gmail.com>  
 Bug reports: https://github.com/wmurphyrd/colorplaner/issues
 
@@ -909,14 +907,14 @@ Bug reports: https://github.com/Rdatatable/data.table/issues
 checking tests ... ERROR
 Running the tests in ‘tests/tests.R’ failed.
 Last 13 lines of output:
-  [1] FALSE
-  > y = TRUE 
-  [1] TRUE
+  > y = with(DT, eval(ll)) 
+  First 6 of 647 :[1] 132 969 773 458 908  53
+  forder decreasing argument test: seed = 1475626848  colorder = 1,5,2,3,4 
   Tests 1372.3+ not run. If required call library(GenomicRanges) first.
   Tests 1441-1444 not run. If required install the 'fr_FR.utf8' locale.
   
   Error in eval(expr, envir, enclos) : 
-    3 errors out of 4390 (lastID=1557.4, endian=little, sizeof(long double)==16) in inst/tests/tests.Rraw on Sun Oct  2 10:48:46 2016. Search tests.Rraw for test numbers: 167, 167.2, 1241.2.
+    13 errors out of 4390 (lastID=1557.4, endian=little, sizeof(long double)==16) in inst/tests/tests.Rraw on Tue Oct  4 19:20:54 2016. Search tests.Rraw for test numbers: 167, 167.2, 1241.2, 1253.216, 1253.22, 1253.264, 1253.272, 1253.344, 1253.348, 1253.424, 1253.428, 1253.44, 1253.444.
   Calls: test.data.table -> sys.source -> eval -> eval
   In addition: Warning message:
   In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
@@ -1202,36 +1200,6 @@ checking Rd cross-references ... NOTE
 Package unavailable to check Rd xrefs: ‘NbClust’
 ```
 
-## fbroc (0.4.0)
-Maintainer: Erik Peter <jerikpeter@googlemail.com>  
-Bug reports: http://github.com/erikpeter/fbroc/issues
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘fbroc-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot.fbroc.conf.paired
-> ### Title: Plots function for object of class 'fbroc.conf.paired'
-> ### Aliases: plot.fbroc.conf.paired
-> 
-> ### ** Examples
-> 
-> data(roc.examples)
-> example <- boot.paired.roc(roc.examples$Cont.Pred, roc.examples$Cont.Pred.Outlier,
-+                            roc.examples$True.Class, n.boot = 1000)
-> # Confidence regions for the difference in TPR at specific FPR values                           
-> tpr.conf <- conf(example, conf.for = "tpr", steps = 50)
-> plot(tpr.conf)
-Warning: Ignoring unknown aesthetics: y
-Error in paste(Delta, "True Positive Rate") : object 'Delta' not found
-Calls: plot ... grobName -> element_grob -> element_grob.element_text -> paste
-Execution halted
-```
-
 ## fheatmap (1.0.1)
 Maintainer: Sivasish Sindiri<sentisci@gmail.com>
 
@@ -1467,6 +1435,37 @@ checking data for non-ASCII characters ... NOTE
   Execution halted
 ```
 
+## geoknife (1.3.0)
+Maintainer: Jordan Read <jread@usgs.gov>  
+Bug reports: https://github.com/USGS-R/geoknife/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking examples ... ERROR
+Running examples in ‘geoknife-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: webgeom
+> ### Title: create webgeom object
+> ### Aliases: webgeom webgeom,ANY-method webgeom,missing-method
+> 
+> ### ** Examples
+... 49 lines ...
+xmlns: URI gov.usgs.cida.gdp.sample is not absolute
+xmlns: URI gov.usgs.cida.gdp.sample is not absolute
+xmlns: URI gov.usgs.cida.gdp.sample is not absolute
+xmlns: URI gov.usgs.cida.gdp.sample is not absolute
+xmlns: URI gov.usgs.cida.gdp.sample is not absolute
+XPath error : Undefined namespace prefix
+XPath error : Invalid expression
+Error in xpathApply.XMLInternalDocument(doc, path, fun, ..., namespaces = namespaces,  : 
+  error evaluating xpath expression //gml:featureMembers/sample:CONUS_states/sample:STATE/node()[1]
+Calls: webgeom ... xpathApply -> xpathApply.XMLInternalDocument -> .Call
+Execution halted
+```
+
 ## geomnet (0.1.2.1)
 Maintainer: Samantha Tyner <sctyner@iastate.edu>  
 Bug reports: https://github.com/sctyner/geomnet/issues
@@ -1510,19 +1509,21 @@ Running examples in ‘GGally-Ex.R’ failed
 The error most likely occurred in:
 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: getPlot
-> ### Title: getPlot
-> ### Aliases: [.ggmatrix getPlot
-> ### Keywords: hplot
+> ### Name: +.gg
+> ### Title: Modify a ggmatrix object by adding an ggplot2 object to all
+> ###   plots
+> ### Aliases: +.gg
 > 
 > ### ** Examples
 > 
->  data(tips, package = "reshape")
->  plotMatrix2 <- ggpairs(tips[, 3:2], upper = list(combo = "denstrip"))
->  plotMatrix2[1, 2]
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-Error in element_grob.element_text(el, ...) : object 'tip' not found
-Calls: <Anonymous> ... grobName -> element_grob -> element_grob.element_text
+> data(tips, package = "reshape")
+> pm <- ggpairs(tips[, 2:3])
+> ## change to black and white theme
+> pm + ggplot2::theme_bw()
+Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
+Error in FUN(X[[i]], ...) : 
+  only defined on a data frame with all numeric variables
+Calls: <Anonymous> ... [ -> [.gtable -> Summary.data.frame -> lapply -> FUN
 Execution halted
 
 checking tests ... ERROR
@@ -2579,18 +2580,18 @@ Execution halted
 checking tests ... ERROR
 Running the tests in ‘tests/run-base.R’ failed.
 Last 13 lines of output:
-  > test_check("mlr", filter = "base")
-  Loading required package: mlr
-  Loading required package: BBmisc
-  Loading required package: ggplot2
-  Loading required package: ParamHelpers
-  Loading required package: stringi
-  Timing stopped at: 0.018 0.002 0.022 
-  Error in ._jobjRef_dollar(x[["jobj"]], name) : 
-    no field, method or inner class called 'handled' 
-  Calls: test_check ... <Anonymous> -> isTRUE -> $ -> $.Throwable -> ._jobjRef_dollar
-  testthat results ================================================================
-  OK: 95 SKIPPED: 0 FAILED: 0
+  1. Error: NoFeaturesModel works with FilterWrapper (@test_base_NoFeaturesModel.R#30) 
+  2. Error: clustering performance (@test_base_clustering.R#16) 
+  3. Error: clustering performance with missing clusters (@test_base_clustering.R#28) 
+  4. Error: clustering resample (@test_base_clustering.R#42) 
+  5. Error: clustering benchmark (@test_base_clustering.R#55) 
+  6. Error: clustering tune (@test_base_clustering.R#72) 
+  7. Error: filterFeatures (@test_base_filterFeatures.R#9) 
+  8. Error: plotFilterValues (@test_base_filterFeatures.R#53) 
+  9. Error: args are passed down to filter methods (@test_base_filterFeatures.R#87) 
+  1. ...
+  
+  Error: testthat unit tests failed
   Execution halted
 
 checking package dependencies ... NOTE
@@ -2810,6 +2811,19 @@ Bug reports: https://github.com/HajkD/myTAI/issues
 ```
 checking package dependencies ... ERROR
 Package required but not available: ‘edgeR’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
+## neuropsychology (0.2.4)
+Maintainer: Dominique Makowski <dom.makowski@gmail.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘prettyR’ ‘wordcloud2’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -3061,7 +3075,7 @@ Installation failed.
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/pcaPA.Rcheck/00install.out’ for details.
 ```
 
-## pcrsim (1.0.0)
+## pcrsim (1.0.1)
 Maintainer: Oskar Hansson <oskar.hansson@fhi.no>  
 Bug reports: https://github.com/OskarHansson/pcrsim/issues
 
@@ -3453,36 +3467,6 @@ The error most likely occurred in:
 Error in rep(yes, length.out = length(ans)) : 
   attempt to replicate an object of type 'closure'
 Calls: %>% ... <Anonymous> -> plot -> plot.model.predict -> ifelse
-Execution halted
-```
-
-## rangeMapper (0.3-0)
-Maintainer: Mihai Valcu <valcu@orn.mpg.de>
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘rangeMapper-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: rangeTraits
-> ### Title: A container of functions to apply on a 'SpatialPolygons' object
-> ### Aliases: rangeTraits
-> 
-> ### ** Examples
-... 19 lines ...
- Geospatial Data Abstraction Library extensions to R successfully loaded
- Loaded GDAL runtime: GDAL 1.11.4, released 2016/01/25
- Path to GDAL shared files: /Users/hadley/R-revdep/rgdal/gdal
- Loaded PROJ.4 runtime: Rel. 4.9.1, 04 March 2015, [PJ_VERSION: 491]
- Path to PROJ.4 shared files: /Users/hadley/R-revdep/rgdal/proj
- Linking to sp version: 1.2-3 
-> r = readOGR(troaed$dsn, troaed$layer)
-Error in ogrInfo(dsn = dsn, layer = layer, encoding = encoding, use_iconv = use_iconv,  : 
-  Layer not found
-Calls: readOGR ... suppressMessages -> withCallingHandlers -> ogrInfo -> .Call
 Execution halted
 ```
 
@@ -3906,7 +3890,7 @@ Bug reports: https://github.com/PredictiveEcology/SpaDES/issues
 checking tests ... ERROR
 Running the tests in ‘tests/test-all.R’ failed.
 Last 13 lines of output:
-  ...
+  names for target but not for current
   
   
   testthat results ================================================================
@@ -4043,7 +4027,7 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## strvalidator (1.7.0)
+## strvalidator (1.8.0)
 Maintainer: Oskar Hansson <oskar.hansson@fhi.no>  
 Bug reports: https://github.com/OskarHansson/strvalidator/issues
 
@@ -4058,7 +4042,7 @@ See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/strvalidator.Rcheck/0
 ## subspaceMOA (0.5.1)
 Maintainer: Marwan Hassani <rsubspace@cs.rwth-aachen.de>
 
-1 error  | 0 warnings | 0 notes
+1 error  | 0 warnings | 1 note 
 
 ```
 checking examples ... ERROR
@@ -4077,6 +4061,9 @@ Error in rJava::.jcall("SubspaceClustererBuilder", returnSig = "Lmoa/clusterers/
   RcallMethod: cannot determine object class
 Calls: DSC_HDDStream -> <Anonymous> -> .External
 Execution halted
+
+checking Rd cross-references ... NOTE
+Package unavailable to check Rd xrefs: ‘subspace’
 ```
 
 ## surveillance (1.12.1)
@@ -4242,23 +4229,22 @@ Running examples in ‘tabplot-Ex.R’ failed
 The error most likely occurred in:
 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot.tabplot
-> ### Title: Plot a tabplot-object
-> ### Aliases: plot.tabplot plot.tabplot_compare
+> ### Name: tableplot
+> ### Title: Create a tableplot
+> ### Aliases: tableplot
+> ### Keywords: visualization
 > 
-> ### ** Examples
+... 41 lines ...
+  font width unknown for character 0x9
 > 
-> # load diamonds dataset from ggplot2
-> require(ggplot2)
-Loading required package: ggplot2
-> data(diamonds)
-> 
-> tab <- tableplot(diamonds)
+> # create a tableplot cut category, and fix scale limits of carat, table, and price
+> tabs <- tableplot(p, subset=cut,
++ 	limitsX=list(carat=c(0,4), table=c(55, 65), price=c(0, 20000)), plot=FALSE)
 Error in if (dfile == getOption("fftempdir")) finalizer <- "delete" else finalizer <- "close" : 
   argument is of length zero
-Calls: tableplot ... tablePrepare -> lapply -> FUN -> clone -> clone.ff -> assign -> ff
+Calls: tableplot ... clone.ffdf -> lapply -> FUN -> clone.ff -> assign -> ff
 Error in setwd(cwd) : character argument expected
-Calls: tableplot ... lapply -> FUN -> clone -> clone.ff -> assign -> ff -> setwd
+Calls: tableplot ... clone.ffdf -> lapply -> FUN -> clone.ff -> assign -> ff -> setwd
 Execution halted
 
 checking re-building of vignette outputs ... WARNING
