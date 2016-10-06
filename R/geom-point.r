@@ -28,7 +28,7 @@
 #'
 #' @seealso \code{\link{scale_size}} to see scale area of points, instead of
 #'   radius, \code{\link{geom_jitter}} to jitter points to reduce (mild)
-#'   overplotting, \code{\link{geom_count}} to count the number of points 
+#'   overplotting, \code{\link{geom_count}} to count the number of points
 #'   at unique locations on a scatterplot and map the size of the point to
 #'   the count.
 #' @inheritParams layer
@@ -119,7 +119,7 @@ geom_point <- function(mapping = NULL, data = NULL,
 #' @export
 GeomPoint <- ggproto("GeomPoint", Geom,
   required_aes = c("x", "y"),
-  non_missing_aes = c("size", "shape"),
+  non_missing_aes = c("size", "shape", "colour"),
   default_aes = aes(
     shape = 19, colour = "black", size = 1.5, fill = NA,
     alpha = NA, stroke = 0.5

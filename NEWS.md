@@ -1,5 +1,33 @@
 # ggplot2 2.1.0.9000 
 
+*   Overhaul of how discrete missing values are treated (#1584). The underlying 
+    principle is that we can naturally represent missing values on discrete 
+    variables (by treating just like another level), so by default
+    we should. 
+
+    This principle applies to:
+   
+    * character vectors
+    * factors with implicit NA
+    * factors with explicit NA
+   
+    And to all scales (both position and non-position.)
+
+    Compared to the previous version of ggplot2, that means there are 3 main
+    changes:
+    
+    * `scale_x_discrete()` and `scale_y_discrete()` always show discrete NA,
+      regardless of their source
+    
+    * If present, `NA`s are shown in discete legends.
+    
+    * All discrete scales gain a `na.translate` argument that allows you to 
+      control whether `NA`s are translated to something that can be visualised
+      or left as missing. Note that if you leave as is (i.e. 
+      `na.translate = FALSE)` they will passed on to the layer, which
+      will create warnings about dropping missing values. To suppress those,
+      you'll also need to add `na.rm = TRUE` to the layer call. 
+
 * Added scales `scale_x_time()` and `scale_y_time()` which are applied
   automatically when you plot objects of type hms (#1752).
   
