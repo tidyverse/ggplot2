@@ -1,5 +1,10 @@
 # ggplot2 2.1.0.9000
 
+*   `geom_boxplot` gain new `outlier.fill` argument for controlling the fill of
+  outlier points independently of the alpha of the boxes.
+  Analogous to outlier.colour, outlier.shape, etc.
+  (@schloerke, #1787).
+
 *   Overhaul of how discrete missing values are treated (#1584). The underlying 
     principle is that we can naturally represent missing values on discrete 
     variables (by treating just like another level), so by default
@@ -89,11 +94,6 @@
    outlier points independently of the alpha of the boxes.
    Analogous to outlier.colour, outlier.shape, etc.
    (@jonathan-g).
-
-* `geom_boxplot` gain new `outlier.fill` argument for controlling the fill of
-  outlier points independently of the alpha of the boxes.
-  Analogous to outlier.colour, outlier.shape, etc.
-  (@schloerke, #1787).
 
 * FP adjustment for histogram bins is now actually used - it was previously
   inadvertently ignored (#1651).
