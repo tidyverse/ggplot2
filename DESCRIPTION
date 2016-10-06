@@ -22,7 +22,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.4.0.9002),
+    scales (>= 0.4.0.9003),
     stats,
     tibble,
     lazyeval

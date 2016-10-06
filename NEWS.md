@@ -1,5 +1,8 @@
 # ggplot2 2.1.0.9000 
 
+*   Scales worry less about having breaks. If no breaks can be computed, the
+    plot will work instead of throwing an uninformative error (#791).
+
 *   Overhaul of how discrete missing values are treated (#1584). The underlying 
     principle is that we can naturally represent missing values on discrete 
     variables (by treating just like another level), so by default

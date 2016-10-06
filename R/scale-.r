@@ -248,10 +248,6 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     #       guides cannot discriminate oob from missing value.
     breaks <- censor(self$trans$transform(breaks), self$trans$transform(limits),
                      only.finite = FALSE)
-    if (length(breaks) == 0) {
-      stop("Zero breaks in scale for ", paste(self$aesthetics, collapse = "/"),
-        call. = FALSE)
-    }
     breaks
   },
 
