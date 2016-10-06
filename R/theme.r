@@ -204,6 +204,9 @@ print.theme <- function(x, ...) utils::str(x)
 #'
 #' @param strip.background background of facet labels (\code{element_rect};
 #'   inherits from \code{rect})
+#' @param strip.placement placement of strip with respect to axes,
+#'    either "inside" or "outside". Only important when axes and strips are
+#'    on the same side of the plot.
 #' @param strip.text facet labels (\code{element_text}; inherits from
 #'   \code{text})
 #' @param strip.text.x facet labels along horizontal direction
@@ -429,6 +432,7 @@ theme <- function(line,
                   plot.caption,
                   plot.margin,
                   strip.background,
+                  strip.placement,
                   strip.text,
                   strip.text.x,
                   strip.text.y,
