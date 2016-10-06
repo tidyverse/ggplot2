@@ -136,7 +136,7 @@ ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
 \seealso{
 \code{\link{scale_size}} to see scale area of points, instead of
   radius, \code{\link{geom_jitter}} to jitter points to reduce (mild)
-  overplotting, \code{\link{geom_count}} to count the number of points 
+  overplotting, \code{\link{geom_count}} to count the number of points
   at unique locations on a scatterplot and map the size of the point to
   the count.
 }
