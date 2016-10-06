@@ -165,7 +165,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     }
     vars <- as.quoted(params$facets)
 
-    facet_vals <- quoted_df(data, vars, params$plot_env)
+    facet_vals <- eval_facet_vars(vars, data, params$plot_env)
     facet_vals[] <- lapply(facet_vals[], as.factor)
 
     missing_facets <- setdiff(names(vars), names(facet_vals))
@@ -215,7 +215,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     # ask the coordinate system if it wants to specify one
     aspect_ratio <- theme$aspect.ratio
     if (is.null(aspect_ratio) && !params$free$x && !params$free$y) {
-      aspect_ratio <- coord$aspect(panel$ranges[[1]])
+      aspect_ratio <- coord$aspect(ranges[[1]])
     }
 
     if (is.null(aspect_ratio)) {
@@ -231,7 +231,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     empties <- apply(panel_table, c(1,2), function(x) is.zero(x[[1]]))
     panel_table <- gtable_matrix("layout", panel_table,
      widths = unit(rep(1, ncol), "null"),
-     heights = unit(rep(aspect_ratio, nrow), "null"), respect = respect)
+     heights = unit(rep(aspect_ratio, nrow), "null"), respect = respect, clip = "on", z = matrix(1, ncol = ncol, nrow = nrow))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
     panel_table <- gtable_add_col_space(panel_table,
@@ -285,10 +285,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         axis_mat_y_right[col_pos] <- col_axes
       }
     }
-    panel_table <- weave_tables_row(panel_table, axis_mat_x_top, -1, axis_height_top, "axis-t")
-    panel_table <- weave_tables_row(panel_table, axis_mat_x_bottom, 0, axis_height_bottom, "axis-b")
-    panel_table <- weave_tables_col(panel_table, axis_mat_y_left, -1, axis_width_left, "axis-l")
-    panel_table <- weave_tables_col(panel_table, axis_mat_y_right, 0, axis_width_right, "axis-r")
+    panel_table <- weave_tables_row(panel_table, axis_mat_x_top, -1, axis_height_top, "axis-t", 3)
+    panel_table <- weave_tables_row(panel_table, axis_mat_x_bottom, 0, axis_height_bottom, "axis-b", 3)
+    panel_table <- weave_tables_col(panel_table, axis_mat_y_left, -1, axis_width_left, "axis-l", 3)
+    panel_table <- weave_tables_col(panel_table, axis_mat_y_right, 0, axis_width_right, "axis-r", 3)
 
     strip_padding <- convertUnit(theme$strip.switch.pad.wrap, "cm")
     strip_name <- paste0("strip-", substr(params$strip.position, 1, 1))
@@ -304,7 +304,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         strip_pad <- axis_height_bottom
       }
       strip_height <- unit(apply(strip_mat, 1, max_height), "cm")
-      panel_table <- weave_tables_row(panel_table, strip_mat, placement, strip_height, strip_name)
+      panel_table <- weave_tables_row(panel_table, strip_mat, placement, strip_height, strip_name, 2, "on")
       if (!inside) {
         strip_pad[unclass(strip_pad) != 0] <- strip_padding
         panel_table <- weave_tables_row(panel_table, row_shift = placement, row_height = strip_pad)
@@ -320,7 +320,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       }
       strip_pad[unclass(strip_pad) != 0] <- strip_padding
       strip_width <- unit(apply(strip_mat, 2, max_width), "cm")
-      panel_table <- weave_tables_col(panel_table, strip_mat, placement, strip_width, strip_name)
+      panel_table <- weave_tables_col(panel_table, strip_mat, placement, strip_width, strip_name, 2, "on")
       if (!inside) {
         strip_pad[unclass(strip_pad) != 0] <- strip_padding
         panel_table <- weave_tables_col(panel_table, col_shift = placement, col_width = strip_pad)
@@ -414,26 +414,26 @@ convertInd <- function(row, col, nrow) {
   (col - 1) * nrow + row
 }
 
-weave_tables_col <- function(table, table2, col_shift, col_width, name) {
+weave_tables_col <- function(table, table2, col_shift, col_width, name, z = 1, clip = "off") {
   panel_col <- panel_cols(table)$l
   panel_row <- panel_rows(table)$t
   for (i in rev(seq_along(panel_col))) {
     col_ind <- panel_col[i] + col_shift
     table <- gtable_add_cols(table, col_width[i], pos = col_ind)
     if (!missing(table2)) {
-      table <- gtable_add_grob(table, table2[, i], t = panel_row, l = col_ind + 1, clip = 'off', name = paste0(name, '-', seq_along(panel_row), '-', i))
+      table <- gtable_add_grob(table, table2[, i], t = panel_row, l = col_ind + 1, clip = clip, name = paste0(name, "-", seq_along(panel_row), "-", i), z = z)
     }
   }
   table
 }
-weave_tables_row <- function(table, table2, row_shift, row_height, name) {
+weave_tables_row <- function(table, table2, row_shift, row_height, name, z = 1, clip = "off") {
   panel_col <- panel_cols(table)$l
   panel_row <- panel_rows(table)$t
   for (i in rev(seq_along(panel_row))) {
     row_ind <- panel_row[i] + row_shift
     table <- gtable_add_rows(table, row_height[i], pos = row_ind)
     if (!missing(table2)) {
-      table <- gtable_add_grob(table, table2[i, ], t = row_ind + 1, l = panel_col, clip = 'off', name = paste0(name, '-', seq_along(panel_col), '-', i))
+      table <- gtable_add_grob(table, table2[i, ], t = row_ind + 1, l = panel_col, clip = clip, name = paste0(name, "-", seq_along(panel_col), "-", i), z = z)
     }
   }
   table

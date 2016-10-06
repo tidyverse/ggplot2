@@ -204,6 +204,9 @@ print.theme <- function(x, ...) utils::str(x)
 #'
 #' @param strip.background background of facet labels (\code{element_rect};
 #'   inherits from \code{rect})
+#' @param strip.placement placement of strip with respect to axes,
+#'    either "inside" or "outside". Only important when axes and strips are
+#'    on the same side of the plot.
 #' @param strip.text facet labels (\code{element_text}; inherits from
 #'   \code{text})
 #' @param strip.text.x facet labels along horizontal direction
@@ -367,26 +370,78 @@ print.theme <- function(x, ...) utils::str(x)
 #' p + mytheme
 #'
 #' }
-theme <- function(line, rect, text, title, aspect.ratio, axis.title,
-                  axis.title.x, axis.title.x.top, axis.title.y,
-                  axis.title.y.right, axis.text, axis.text.x, axis.text.x.top,
-                  axis.text.y, axis.text.y.right, axis.ticks, axis.ticks.x,
-                  axis.ticks.y, axis.ticks.length, axis.line, axis.line.x,
-                  axis.line.y, legend.background, legend.margin, legend.spacing,
-                  legend.spacing.x, legend.spacing.y, legend.key,
-                  legend.key.size, legend.key.height, legend.key.width,
-                  legend.text, legend.text.align, legend.title,
-                  legend.title.align, legend.position, legend.direction,
-                  legend.justification, legend.box, legend.box.just,
-                  legend.box.margin, legend.box.background, legend.box.spacing,
-                  panel.background, panel.border, panel.spacing,
-                  panel.spacing.x, panel.spacing.y, panel.grid,
-                  panel.grid.major, panel.grid.minor, panel.grid.major.x,
-                  panel.grid.major.y, panel.grid.minor.x, panel.grid.minor.y,
-                  panel.ontop, plot.background, plot.title, plot.subtitle,
-                  plot.caption, plot.margin, strip.background, strip.text,
-                  strip.text.x, strip.text.y, strip.switch.pad.grid,
-                  strip.switch.pad.wrap, ..., complete = FALSE, validate = TRUE) {
+theme <- function(line,
+                  rect,
+                  text,
+                  title,
+                  aspect.ratio,
+                  axis.title,
+                  axis.title.x,
+                  axis.title.x.top,
+                  axis.title.y,
+                  axis.title.y.right,
+                  axis.text,
+                  axis.text.x,
+                  axis.text.x.top,
+                  axis.text.y,
+                  axis.text.y.right,
+                  axis.ticks,
+                  axis.ticks.x,
+                  axis.ticks.y,
+                  axis.ticks.length,
+                  axis.line,
+                  axis.line.x,
+                  axis.line.y,
+                  legend.background,
+                  legend.margin,
+                  legend.spacing,
+                  legend.spacing.x,
+                  legend.spacing.y,
+                  legend.key,
+                  legend.key.size,
+                  legend.key.height,
+                  legend.key.width,
+                  legend.text,
+                  legend.text.align,
+                  legend.title,
+                  legend.title.align,
+                  legend.position,
+                  legend.direction,
+                  legend.justification,
+                  legend.box,
+                  legend.box.just,
+                  legend.box.margin,
+                  legend.box.background,
+                  legend.box.spacing,
+                  panel.background,
+                  panel.border,
+                  panel.spacing,
+                  panel.spacing.x,
+                  panel.spacing.y,
+                  panel.grid,
+                  panel.grid.major,
+                  panel.grid.minor,
+                  panel.grid.major.x,
+                  panel.grid.major.y,
+                  panel.grid.minor.x,
+                  panel.grid.minor.y,
+                  panel.ontop,
+                  plot.background,
+                  plot.title,
+                  plot.subtitle,
+                  plot.caption,
+                  plot.margin,
+                  strip.background,
+                  strip.placement,
+                  strip.text,
+                  strip.text.x,
+                  strip.text.y,
+                  strip.switch.pad.grid,
+                  strip.switch.pad.wrap,
+                  ...,
+                  complete = FALSE,
+                  validate = TRUE
+                  ) {
   elements <- find_args(..., complete = NULL, validate = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
@@ -433,8 +488,12 @@ theme <- function(line, rect, text, title, aspect.ratio, axis.title,
       el
     })
   }
-  structure(elements, class = c("theme", "gg"),
-            complete = complete, validate = validate)
+  structure(
+    elements,
+    class = c("theme", "gg"),
+    complete = complete,
+    validate = validate
+  )
 }
 
 

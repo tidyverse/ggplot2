@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 2.1.0.9000
+Version: 2.1.0.9001
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Winston", "Chang", , "winston@rstudio.com", "aut"),
@@ -22,7 +22,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.3.0),
+    scales (>= 0.4.0.9002),
     stats,
     tibble,
     lazyeval
@@ -44,6 +44,8 @@ Suggests:
     rpart,
     rmarkdown,
     svglite
+Remotes:
+    hadley/scales
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2

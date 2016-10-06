@@ -22,7 +22,8 @@ geom_blank <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(...),
+    check.aes = FALSE
   )
 }
 

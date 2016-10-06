@@ -230,6 +230,44 @@ df.grid <- function(a, b) {
   ))
 }
 
+# When evaluating variables in a facet specification, we evaluate bare
+# variables and expressions slightly differently. Bare variables should
+# always succeed, even if the variable doesn't exist in the data frame:
+# that makes it possible to repeat data across multiple factors. But
+# when evaluating an expression, you want to see any errors. That does
+# mean you can't have background data when facetting by an expression,
+# but that seems like a reasonable tradeoff.
+eval_facet_vars <- function(vars, data, env = emptyenv()) {
+  nms <- names(vars)
+  out <- list()
+
+  for (i in seq_along(vars)) {
+    out[[ nms[[i]] ]] <- eval_facet_var(vars[[i]], data, env = env)
+  }
+
+  # Turn it into a tibble
+  class(out) <- c("tbl_df", "tbl", "data.frame")
+  attr(out, "row.names") <- .set_row_names(nrow(data) %||% 0)
+
+  out
+}
+
+eval_facet_var <- function(var, data, env = emptyenv()) {
+  if (is.name(var)) {
+    var <- as.character(var)
+    if (var %in% names(data)) {
+      data[[var]]
+    } else {
+      NULL
+    }
+  } else if (is.call(var)) {
+    eval(var, envir = data, enclos = env)
+  } else {
+    stop("Must use either variable name or expression when facetting",
+      call. = FALSE)
+  }
+}
+
 quoted_df <- function(data, vars, env = emptyenv()) {
   values <- plyr::eval.quoted(vars, data, env, try = TRUE)
   as.data.frame(compact(values), optional = TRUE, stringsAsFactors = FALSE)
@@ -308,7 +346,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   if (length(vars) == 0) return(data.frame())
 
   # For each layer, compute the facet values
-  values <- compact(plyr::llply(data, quoted_df, vars = vars, env = env))
+  values <- compact(plyr::llply(data, eval_facet_vars, vars = vars, env = env))
 
   # Form the base data frame which contains all combinations of facetting
   # variables that appear in the data

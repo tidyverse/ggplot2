@@ -17,8 +17,8 @@ theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
   panel.spacing.x, panel.spacing.y, panel.grid, panel.grid.major,
   panel.grid.minor, panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
   panel.grid.minor.y, panel.ontop, plot.background, plot.title, plot.subtitle,
-  plot.caption, plot.margin, strip.background, strip.text, strip.text.x,
-  strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
+  plot.caption, plot.margin, strip.background, strip.placement, strip.text,
+  strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
   complete = FALSE, validate = TRUE)
 }
 \arguments{
@@ -202,6 +202,10 @@ the top, right, bottom, and left margins)}
 
 \item{strip.background}{background of facet labels (\code{element_rect};
 inherits from \code{rect})}
+
+\item{strip.placement}{placement of strip with respect to axes,
+either "inside" or "outside". Only important when axes and strips are
+on the same side of the plot.}
 
 \item{strip.text}{facet labels (\code{element_text}; inherits from
 \code{text})}

@@ -1,5 +1,43 @@
 # ggplot2 2.1.0.9000
 
+*   Overhaul of how discrete missing values are treated (#1584). The underlying 
+    principle is that we can naturally represent missing values on discrete 
+    variables (by treating just like another level), so by default
+    we should. 
+
+    This principle applies to:
+   
+    * character vectors
+    * factors with implicit NA
+    * factors with explicit NA
+   
+    And to all scales (both position and non-position.)
+
+    Compared to the previous version of ggplot2, that means there are 3 main
+    changes:
+    
+    * `scale_x_discrete()` and `scale_y_discrete()` always show discrete NA,
+      regardless of their source
+    
+    * If present, `NA`s are shown in discete legends.
+    
+    * All discrete scales gain a `na.translate` argument that allows you to 
+      control whether `NA`s are translated to something that can be visualised
+      or left as missing. Note that if you leave as is (i.e. 
+      `na.translate = FALSE)` they will passed on to the layer, which
+      will create warnings about dropping missing values. To suppress those,
+      you'll also need to add `na.rm = TRUE` to the layer call. 
+
+* Added scales `scale_x_time()` and `scale_y_time()` which are applied
+  automatically when you plot objects of type hms (#1752).
+  
+* `layer()` gains new `check.aes` and `check.param` arguments. These allow
+  geom/stat authors to optional suppress checks for known aesthetics/parameters.
+  Currently this is used only in `geom_blank()` which powers `expand_limits()` 
+  (#1795).
+
+* Discrete scales should now work better with unicode labels on Windows (#1827).
+
 * When creating a layer, ggplot2 will warn if you use an unknown aesthetic
   or an unknown parameter. Compared to the previous version, this is
   stricter for aesthetics (previously there was no message), and less
@@ -42,6 +80,8 @@
 * `scale_*_datetime` now has support for timezones. If time data has been
   encoded with a timezone this will be used, but it can be overridden with the
   `timezone` argument in the scale constructor.
+  
+* `geom_*(show.legend = FALSE)` now works for `guide_colorbar`
 
 * The documentation for theme elements has been improved (#1743).
 
@@ -74,6 +114,9 @@
 * The `theme()` constructor now has named arguments rather than ellipsis. This
   should make autocomplete substantially more useful.
 
+* geom_violin now again has a nicer looking range that allow the density to
+  reach zero. The range of each violin is now automatically extended 3 * bw for 
+  either end of the data range (#1700)
 
 * `position_stack()` and `position_fill()` now sorts the stacking order so it
   matches the order of the grouping. Use level reordering to alter the stacking

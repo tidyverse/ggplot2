@@ -1,8 +1,9 @@
 context("Data")
 
 test_that("stringsAsFactors doesn't affect results", {
+    old <- getOption("stringsAsFactors")
+    on.exit(options(stringsAsFactors = old), add = TRUE)
 
-    sAF <- getOption("stringsAsFactors")
     dat.character <- data.frame(x = letters[5:1], y = 1:5, stringsAsFactors = FALSE)
     dat.factor <- data.frame(x = letters[5:1], y = 1:5, stringsAsFactors = TRUE)
 
@@ -16,8 +17,6 @@ test_that("stringsAsFactors doesn't affect results", {
     options(stringsAsFactors = FALSE)
     char_false <- ggplot_build(base %+% dat.character)
     factor_false <- ggplot_build(base %+% dat.factor)
-
-    options(stringsAsFactors = sAF)
 
     expect_equal(xlabels(char_true), letters[1:5])
     expect_equal(xlabels(char_false), letters[1:5])

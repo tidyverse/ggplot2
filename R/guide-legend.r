@@ -216,16 +216,9 @@ guide_train.legend <- function(guide, scale) {
     stringsAsFactors = FALSE)
   key$.label <- scale$get_labels(breaks)
 
-  # this is a quick fix for #118
-  # some scales have NA as na.value (e.g., size)
-  # some scales have non NA as na.value (e.g., "grey50" for colour)
-  # drop rows if data (instead of the mapped value) is NA
-  #
-  # Also, drop out-of-range values for continuous scale
+  # Drop out-of-range values for continuous scale
   # (should use scale$oob?)
-  if (scale$is_discrete()) {
-    key <- key[!is.na(breaks), , drop = FALSE]
-  } else {
+  if (!scale$is_discrete()) {
     limits <- scale$get_limits()
     noob <- !is.na(breaks) & limits[1] <= breaks & breaks <= limits[2]
     key <- key[noob, , drop = FALSE]
@@ -252,11 +245,7 @@ guide_merge.legend <- function(guide, new_guide) {
 guide_geom.legend <- function(guide, layers, default_mapping) {
   # arrange common data for vertical and horizontal guide
   guide$geoms <- plyr::llply(layers, function(layer) {
-    all <- names(c(layer$mapping, if (layer$inherit.aes) default_mapping, layer$stat$default_aes))
-    geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
-    matched <- intersect(intersect(all, geom), names(guide$key))
-    matched <- setdiff(matched, names(layer$geom_params))
-    matched <- setdiff(matched, names(layer$aes_params))
+    matched <- matched_aes(layer, guide, default_mapping)
 
     if (length(matched) > 0) {
       # This layer contributes to the legend
