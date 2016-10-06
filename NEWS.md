@@ -146,7 +146,7 @@
 
 * `stat_ecdf()` respects `pad` argument (#1646).
 
-* `stat_density` now makes argument `n` of the underlying function
+* `stat_density` now makes argument `n` of the unterlying function
   `stats::density` ("number of equally spaced points at which the
   density is to be estimated") accessible. (@hbuschme)
 
