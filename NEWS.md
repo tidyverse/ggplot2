@@ -1,9 +1,5 @@
 # ggplot2 2.1.0.9000 
 
-*   `geom_boxplot()` gain new `outlier.fill` argument for controlling the fill of
-    outlier points independently of the alpha of the boxes, analogous to
-    `outlier.colour`, `outlier.shape`, etc (@schloerke, #1787).
-
 *   Scales worry less about having breaks. If no breaks can be computed, the
     plot will work instead of throwing an uninformative error (#791).
 
@@ -35,15 +31,6 @@
       will create warnings about dropping missing values. To suppress those,
       you'll also need to add `na.rm = TRUE` to the layer call. 
 
-* Added scales `scale_x_time()` and `scale_y_time()` which are applied
-  automatically when you plot objects of type hms (#1752).
-  
-* `layer()` gains new `check.aes` and `check.param` arguments. These allow
-  geom/stat authors to optional suppress checks for known aesthetics/parameters.
-  Currently this is used only in `geom_blank()` which powers `expand_limits()` 
-  (#1795).
-
-* Discrete scales should now work better with unicode labels on Windows (#1827).
 
 * When creating a layer, ggplot2 will warn if you use an unknown aesthetic
   or an unknown parameter. Compared to the previous version, this is
@@ -71,12 +58,44 @@
     * The theme option `panel.margin` has been deprecated in favour of 
       `panel.spacing` to clearer communicate intend.
 
-* The position of x and y axes can now be changed using the `position` argument
-  in `scale_x_*`and `scale_y_*` which can take `top` and `bottom`, and `left`and
-  `right` respectively.
 
-* The styling of top and right axes text and labels can be modified directly 
-  using the `.top` and `.right` modifiers to `axis.text.*` and `axis.title.*`
+  
+* `geom_*(show.legend = FALSE)` now works for `guide_colorbar`
+
+## Major new featurs
+
+## Subtitle and caption
+
+* `ggtitle()` and `labs()` take a `subtitle` parameter which makes it
+  possible to add a subtitle below the main plot title. (@hrbrmstr)
+  
+* `labs()` takes a `caption` parameter that will set the label for
+  the annotation text below the plot panels. (@JanSchulz)
+
+### Stacking
+
+* `position_stack()` and `position_fill()` now sorts the stacking order so it 
+  matches the order of the grouping. Use level reordering to alter the stacking 
+  order. The default legend and stacking order is now also in line. The default 
+  look of plots might change because of this (#1552, #1593).
+  
+* `position_stack()` now accepts negative values which will create stacks 
+  extending below the x-axis (#1691)
+
+### `geom_col()`
+
+* `geom_col()` was added to complement `geom_bar()`. It uses `stat="identity"`
+  by default, making the `y` aesthetic mandatory. It does not support any 
+  other `stat_()` and does not provide fallback support for the `binwidth`
+  parameter. Examples and references in other functions were updated to
+  demonstrate `geom_col()` usage. (@hrbrmstr)
+
+## Scales
+
+* Added scales `scale_x_time()` and `scale_y_time()` which are applied
+  automatically when you plot objects of type hms (#1752).
+  
+* Discrete scales should now work better with unicode labels on Windows (#1827).
 
 * `scale_x_continuous` and `scale_y_continuous` can now display a secondary axis
   that is a linear transformation of the primary axis (e.g. degrees Celcius to
@@ -87,19 +106,43 @@
 * `scale_*_datetime` now has support for timezones. If time data has been 
   encoded with a timezone this will be used, but it can be overridden with the
   `timezone` argument in the scale constructor.
+
+* Only one warning is issued when asking for too many levels in 
+  `scale_discrete()` (#1674)
+
+* A warning is now issued when a scale transformation introduces infinite 
+  values in a scale (#1696)
   
-* `geom_*(show.legend = FALSE)` now works for `guide_colorbar`
+* Fixed bug where space for dropped levels in scale_discrete would be preserved 
+  (#1638)
+
+* Fixed bug where scale expansion was not used correctly for discrete scales
+
+* ggplot2 now warns when breaks are dropped due to using continuous data on a 
+  discrete scale (#1589)
+
+* `x` and `y` scales are now symmetric regarding the list of
+  aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
+  `xmiddle` and `xupper` are now valid `x` aesthetics.
+
+
+* The position of x and y axes can now be changed using the `position` argument
+  in `scale_x_*`and `scale_y_*` which can take `top` and `bottom`, and `left`and
+  `right` respectively.
+
+
+## Themes
+
+* The styling of top and right axes text and labels can be modified directly 
+  using the `.top` and `.right` modifiers to `axis.text.*` and `axis.title.*`
+
 
 * The documentation for theme elements has been improved (#1743).
 
-* `geom_boxplot` gain new `outlier.alpha` argument for controlling the alpha of
-   outlier points independently of the alpha of the boxes. 
-   Analogous to outlier.colour, outlier.shape, etc.
-   (@jonathan-g).
-
-* FP adjustment for histogram bins is now actually used - it was previously
-  inadvertently ignored (#1651).
-
+* The main plot title and subtitle are left-justified (`hjust = 0`) by
+  default. The `caption` annotation below the plot will be right-justified
+  by default. (@hrbrmstr)
+  
 * When computing the height of titles ggplot2, now inclues the height of the
   descenders (i.e. the bits `g` and `y` that hang underneath). This makes 
   improves the margins around titles, particularly the y axis label (#1712).
@@ -115,18 +158,61 @@
 
 * The `theme()` constructor now has named arguments rather than ellipsis. This 
   should make autocomplete substantially more useful.
-
-* geom_violin now again has a nicer looking range that allow the density to
-  reach zero. The range of each violin is now automatically extended 3 * bw for 
-  either end of the data range (#1700)
-
-* `position_stack()` and `position_fill()` now sorts the stacking order so it 
-  matches the order of the grouping. Use level reordering to alter the stacking 
-  order. The default legend and stacking order is now also in line. The default 
-  look of plots might change because of this (#1552, #1593).
   
-* `position_stack()` now accepts negative values which will create stacks 
-  extending below the x-axis (#1691)
+* `element_line()` now takes an `arrow` argument to specify arrows at the end of
+  lines (#1740)
+  
+* Multiple changes to legend theming:
+  
+    * `legend.justification` now works outside of plotting area as well
+    
+    * `panel.margin` and `legend.margin` has been renamed to `panel.spacing` and 
+      `legend.spacing` respectively to better communicate intend
+    
+    * `legend.margin` now controls margin around individual legends
+    
+    * Added `legend.box.margin` to control the margin around the total legend 
+      area
+    
+    * Added `legend.box.background` to control the background of the total 
+      legend area
+    
+    * Added `legend.box.spacing` to control the distance between the plot area 
+      and the legend area
+      
+## Bug fixes and minor improvements
+
+* `layer()` gains new `check.aes` and `check.param` arguments. These allow
+  geom/stat authors to optional suppress checks for known aesthetics/parameters.
+  Currently this is used only in `geom_blank()` which powers `expand_limits()` 
+  (#1795).
+
+
+*   `geom_boxplot()` gain new `outlier.fill` argument for controlling the fill of
+    outlier points independently of the alpha of the boxes, analogous to
+    `outlier.colour`, `outlier.shape`, etc (@schloerke, #1787).
+
+* Fixed the jitter width and jitter height of `position_jitter` when the
+  parameters are supplied by the user. (#1775, @has2k1)
+
+* Quantile lines in `geom_violin()` are no longer affected by the alpha aesthetic
+  (@mnbram, #1714)
+
+* Fixed problem with `geom_dotplot()` when facetting and binning on the
+  y-axis. (#1618, @has2k1)
+  
+* stat_binhex now again returns `count` rather than `value` (#1747)
+
+* Fix error message of Stats ggprotos when required aesthetics are
+  missing.
+
+* Fix bug that resulted in several annotation_x function not getting drawn when
+  global data was lacking (#1655)
+
+* Fixed problem with `geom_violin()` when quantiles requested but data
+  have no range. Added unit test. (#1687)
+
+* Class of aesthetic mapping is preserved when adding `aes()` objects. (#1624)
 
 * Restore functionality for use of `..density..` in 
   `geom_hexbin()` (@mikebirdgeneau, #1688)
@@ -152,85 +238,18 @@
   `stats::density` ("number of equally spaced points at which the
   density is to be estimated") accessible. (@hbuschme)
 
-* `x` and `y` scales are now symmetric regarding the list of
-  aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
-  `xmiddle` and `xupper` are now valid `x` aesthetics.
+* `geom_boxplot` gain new `outlier.alpha` argument for controlling the alpha of
+   outlier points independently of the alpha of the boxes. 
+   Analogous to outlier.colour, outlier.shape, etc.
+   (@jonathan-g).
 
-* `ggtitle()` and `labs()` take a `subtitle` parameter which makes it
-  possible to add a subtitle below the main plot title. (@hrbrmstr)
-  
-* `labs()` takes a `caption` parameter that will set the label for
-  the annotation text below the plot panels. (@JanSchulz)
-  
-* The main plot title and subtitle are left-justified (`hjust = 0`) by
-  default. The `caption` annotation below the plot will be right-justified
-  by default. (@hrbrmstr)
-  
-* Minor code formatting and grammar issues in examples and function 
-  parameters were fixed. (@hrbrmstr)
+* FP adjustment for histogram bins is now actually used - it was previously
+  inadvertently ignored (#1651).
 
-* `geom_col()` was added to complement `geom_bar()`. It uses `stat="identity"`
-  by default, making the `y` aesthetic mandatory. It does not support any 
-  other `stat_()` and does not provide fallback support for the `binwidth`
-  parameter. Examples and references in other functions were updated to
-  demonstrate `geom_col()` usage. (@hrbrmstr)
+* geom_violin now again has a nicer looking range that allow the density to
+  reach zero. The range of each violin is now automatically extended 3 * bw for 
+  either end of the data range (#1700)
 
-* Fix error message of Stats ggprotos when required aesthetics are
-  missing.
-
-* Fix bug that resulted in several annotation_x function not getting drawn when
-  global data was lacking (#1655)
-
-* Fixed problem with `geom_violin()` when quantiles requested but data
-  have no range. Added unit test. (#1687)
-
-* Class of aesthetic mapping is preserved when adding `aes()` objects. (#1624)
-
-* Only one warning is issued when asking for too many levels in 
-  `scale_discrete()` (#1674)
-
-* A warning is now issued when a scale transformation introduces infinite 
-  values in a scale (#1696)
-  
-* Fixed bug where space for dropped levels in scale_discrete would be preserved 
-  (#1638)
-
-* Fixed bug where scale expansion was not used correctly for discrete scales
-
-* ggplot2 now warns when breaks are dropped due to using continuous data on a 
-  discrete scale (#1589)
-
-* Quantile lines in geom_violin() are no longer affected by the alpha aesthetic
-  (@mnbram, #1714)
-
-* Fixed problem with `geom_dotplot()` when facetting and binning on the
-  y-axis. (#1618, @has2k1)
-  
-* stat_binhex now again returns `count` rather than `value` (#1747)
-
-* `element_line()` now takes an `arrow` argument to specify arrows at the end of
-  lines (#1740)
-  
-* Multiple changes to legend theming:
-  
-    * `legend.justification` now works outside of plotting area as well
-    
-    * `panel.margin` and `legend.margin` has been renamed to `panel.spacing` and 
-      `legend.spacing` respectively to better communicate intend
-    
-    * `legend.margin` now controls margin around individual legends
-    
-    * Added `legend.box.margin` to control the margin around the total legend 
-      area
-    
-    * Added `legend.box.background` to control the background of the total 
-      legend area
-    
-    * Added `legend.box.spacing` to control the distance between the plot area 
-      and the legend area
-
-* Fixed the jitter width and jitter height of `position_jitter` when the
-  parameters are supplied by the user. (#1775, @has2k1)
 
 # ggplot2 2.1.0
 
