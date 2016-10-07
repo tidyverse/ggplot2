@@ -14,6 +14,8 @@ The main plot title is now left-aligned to better work better with a subtitle. T
   
 `position_stack()` now accepts negative values which will create stacks extending below the x-axis (#1691).
 
+`position_stack()` gains a `vjust` argument which makes it easy to (e.g.) display labels in the middle of stacked bars (#1821).
+
 ### `geom_col()`
 
 `geom_col()` was added to complement `geom_bar()`. It uses `stat="identity"` by default, making the `y` aesthetic mandatory. It does not support any other `stat_()` and does not provide fallback support for the `binwidth` parameter. Examples and references in other functions were updated to demonstrate `geom_col()` usage. (@hrbrmstr)

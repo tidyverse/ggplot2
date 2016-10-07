@@ -1,6 +1,6 @@
 # Detect and prevent collisions.
 # Powers dodging, stacking and filling.
-collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
+collide <- function(data, width = NULL, name, strategy, ..., check.width = TRUE) {
   # Determine width
   if (!is.null(width)) {
     # Width set manually
@@ -41,10 +41,10 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   }
 
   if (!is.null(data$ymax)) {
-    plyr::ddply(data, "xmin", strategy, width = width)
+    plyr::ddply(data, "xmin", strategy, ..., width = width)
   } else if (!is.null(data$y)) {
     data$ymax <- data$y
-    data <- plyr::ddply(data, "xmin", strategy, width = width)
+    data <- plyr::ddply(data, "xmin", strategy, ..., width = width)
     data$y <- data$ymax
     data
   } else {
@@ -52,34 +52,6 @@ collide <- function(data, width = NULL, name, strategy, check.width = TRUE) {
   }
 }
 
-# Stack overlapping intervals.
-# Assumes that each set has the same horizontal position
-pos_stack <- function(df, width) {
-  if (nrow(df) == 1) return(df)
-
-  n <- nrow(df) + 1
-  y <- ifelse(is.na(df$y), 0, df$y)
-  if (all(is.na(df$x))) {
-    heights <- rep(NA, n)
-  } else {
-    heights <- c(0, cumsum(y))
-  }
-
-  df$ymin <- heights[-n]
-  df$ymax <- heights[-1]
-  df$y <- df$ymax
-  df
-}
-
-# Stack overlapping intervals and set height to 1.
-# Assumes that each set has the same horizontal position.
-pos_fill <- function(df, width) {
-  stacked <- pos_stack(df, width)
-  stacked$ymin <- stacked$ymin / max(stacked$ymax)
-  stacked$ymax <- stacked$ymax / max(stacked$ymax)
-  stacked$y <- stacked$ymax
-  stacked
-}
 
 # Dodge overlapping interval.
 # Assumes that each set has the same horizontal position.
