@@ -1,6 +1,6 @@
 # ggplot2 2.1.0.9000 
 
-## Major new featurs
+## Major new features
 
 ## Subtitle and caption
 
