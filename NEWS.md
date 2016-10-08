@@ -159,6 +159,8 @@ There were a number of tweaks legend themes:
   stricter for aesthetics (previously there was no message), and less
   strict for parameters (previously this threw an error) (#1585).
 
+* `+.gg` now works for lists that include data frames.
+
 * `annotation_x()` now works in the absense of global data (#1655)
 
 * `geom_*(show.legend = FALSE)` now works for `guide_colorbar`
