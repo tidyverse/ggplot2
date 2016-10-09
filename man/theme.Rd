@@ -289,18 +289,14 @@ p2
 # Position
 p2 + theme(legend.position = "none")
 p2 + theme(legend.justification = "top")
-
 p2 + theme(legend.position = "bottom")
-p2 + theme(
-  legend.position = "bottom",
-  legend.box = "horizontal",
-  legend.justification = "left"
-)
+
 # Or place inside the plot using relative coordinates between 0 and 1
+# legend.justification sets the corner that the position refers to
 p2 + theme(
+  legend.position = c(.95, .95),
   legend.justification = c("right", "top"),
   legend.box.just = "right",
-  legend.position = c(.95, .95),
   legend.margin = margin(6, 6, 6, 6)
 )
 

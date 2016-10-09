@@ -126,6 +126,10 @@ There were also a number of other smaller changes
 * Theme element inheritance is now easier to work with. Modification now
   overrides default `element_blank` elements (#1555, #1557, #1565, #1567)
   
+* Horizontal legends (i.e. legends on the top or bottom) are horizontally
+  aligned by default (#1842). Use `legend.box = "vertical"` to override the 
+  default.
+  
 * `element_line()` now takes an `arrow` argument to specify arrows at the end of
   lines (#1740)
 
