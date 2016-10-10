@@ -245,11 +245,7 @@ eval_facet_vars <- function(vars, data, env = emptyenv()) {
     out[[ nms[[i]] ]] <- eval_facet_var(vars[[i]], data, env = env)
   }
 
-  # Turn it into a tibble
-  class(out) <- c("tbl_df", "tbl", "data.frame")
-  attr(out, "row.names") <- .set_row_names(nrow(data) %||% 0)
-
-  out
+  tibble::as_tibble(out)
 }
 
 eval_facet_var <- function(var, data, env = emptyenv()) {
