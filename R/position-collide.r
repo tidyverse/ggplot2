@@ -1,6 +1,6 @@
 # Detect and prevent collisions.
 # Powers dodging, stacking and filling.
-collide <- function(data, width = NULL, name, strategy, ..., check.width = TRUE) {
+collide <- function(data, width = NULL, name, strategy, ..., check.width = TRUE, reverse = FALSE) {
   # Determine width
   if (!is.null(width)) {
     # Width set manually
@@ -26,9 +26,14 @@ collide <- function(data, width = NULL, name, strategy, ..., check.width = TRUE)
     width <- widths[1]
   }
 
-  # Reorder by x position, then on group. Group is reversed so stacking order
-  # follows the default legend order
-  data <- data[order(data$xmin, -data$group), ]
+  # Reorder by x position, then on group. The default stacking order reverses
+  # the group in order to match the legend order.
+  if (reverse) {
+    data <- data[order(data$xmin, data$group), ]
+  } else {
+    data <- data[order(data$xmin, -data$group), ]
+  }
+
 
   # Check for overlap
   intervals <- as.numeric(t(unique(data[c("xmin", "xmax")])))

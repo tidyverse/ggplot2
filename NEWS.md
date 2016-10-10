@@ -10,7 +10,7 @@ The main plot title is now left-aligned to better work better with a subtitle. T
 
 ### Stacking
 
-`position_stack()` and `position_fill()` now sort the stacking order to match the order of grouping. This allows you to control the order through grouping, and ensures that the default legend matches the plot (#1552, #1593).
+`position_stack()` and `position_fill()` now sort the stacking order to match the order of grouping. This allows you to control the order through grouping, and ensures that the default legend matches the plot (#1552, #1593). If you want the opposite order (useful if you have horizontal bars and horizontal legend), you can request reverse stacking by using `position = position_stack(reverse = TRUE)` (#1837).
   
 `position_stack()` now accepts negative values which will create stacks extending below the x-axis (#1691).
 

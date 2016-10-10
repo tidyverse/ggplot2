@@ -21,6 +21,8 @@
 #'   (like points or lines), not a dimension (like bars or areas). Set to
 #'   \code{0} to align with the bottom, \code{0.5} for the middle,
 #'   and \code{1} (the default) for the top.
+#' @param reverse If \code{TRUE}, will reverse the default stacking order.
+#'   This is useful if you're rotating both the plot and legend.
 #' @seealso See \code{\link{geom_bar}}, and \code{\link{geom_area}} for
 #'   more examples.
 #' @export
@@ -96,21 +98,21 @@
 #'   "b", -1, "y"
 #' )
 #' ggplot(data = df, aes(x, y, group = grp)) +
-#'   geom_col(aes(fill = grp)) +
+#'   geom_col(aes(fill = grp), position = position_stack(reverse = TRUE)) +
 #'   geom_hline(yintercept = 0)
 #'
 #' ggplot(data = df, aes(x, y, group = grp)) +
 #'   geom_col(aes(fill = grp)) +
 #'   geom_hline(yintercept = 0) +
 #'   geom_text(aes(label = grp), position = position_stack(vjust = 0.5))
-position_stack <- function(vjust = 1) {
-  ggproto(NULL, PositionStack, vjust = vjust)
+position_stack <- function(vjust = 1, reverse = FALSE) {
+  ggproto(NULL, PositionStack, vjust = vjust, reverse = reverse)
 }
 
 #' @export
 #' @rdname position_stack
-position_fill <- function(vjust = 1) {
-  ggproto(NULL, PositionFill, vjust = vjust)
+position_fill <- function(vjust = 1, reverse = FALSE) {
+  ggproto(NULL, PositionFill, vjust = vjust, reverse = reverse)
 }
 
 #' @rdname ggplot2-ggproto
@@ -121,12 +123,14 @@ PositionStack <- ggproto("PositionStack", Position,
   type = NULL,
   vjust = 1,
   fill = FALSE,
+  reverse = FALSE,
 
   setup_params = function(self, data) {
     list(
       var = self$var %||% stack_var(data),
       fill = self$fill,
-      vjust = self$vjust
+      vjust = self$vjust,
+      reverse = self$reverse
     )
   },
 
@@ -157,20 +161,17 @@ PositionStack <- ggproto("PositionStack", Position,
     pos <- data[!negative, , drop = FALSE]
 
     if (any(negative)) {
-      # Negate group so sorting order is consistent across the x-axis.
-      # Undo negation afterwards so it doesn't mess up the rest
-      neg$group <- -neg$group
       neg <- collide(neg, NULL, "position_stack", pos_stack,
         vjust = params$vjust,
-        fill = params$fill
+        fill = params$fill,
+        reverse = params$reverse
       )
-      neg$group <- -neg$group
     }
-
     if (any(!negative)) {
       pos <- collide(pos, NULL, "position_stack", pos_stack,
         vjust = params$vjust,
-        fill = params$fill
+        fill = params$fill,
+        reverse = params$reverse
       )
     }
 

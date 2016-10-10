@@ -5,9 +5,9 @@
 \alias{position_stack}
 \title{Stack overlapping objects on top of one another.}
 \usage{
-position_stack(vjust = 1)
+position_stack(vjust = 1, reverse = FALSE)
 
-position_fill(vjust = 1)
+position_fill(vjust = 1, reverse = FALSE)
 }
 \arguments{
 \item{vjust}{Vertical adjustment for geoms that have a position
@@ -105,7 +105,7 @@ df <- tibble::tribble(
   "b", -1, "y"
 )
 ggplot(data = df, aes(x, y, group = grp)) +
-  geom_col(aes(fill = grp)) +
+  geom_col(aes(fill = grp), position = position_stack(reverse = TRUE)) +
   geom_hline(yintercept = 0)
 
 ggplot(data = df, aes(x, y, group = grp)) +
