@@ -1,7 +1,7 @@
 #' Textual annotations.
 #'
 #' \code{geom_text} adds text directly to the plot. \code{geom_label} draws
-#' a rectangle underneath the text, making it easier to read.
+#' a rectangle around the text, making it easier to read.
 #'
 #' Note the the "width" and "height" of a text element are 0, so stacking
 #' and dodging text will not work by default, and axis limits are not
