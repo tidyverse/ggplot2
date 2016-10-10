@@ -96,22 +96,26 @@ or left edges of bins are included in the bin.}
 frequency polygons touch 0. Defaults to \code{FALSE}.}
 }
 \description{
-Display a 1d distribution by dividing into bins and counting the number
-of observations in each bin. Histograms use bars; frequency polygons use
-lines.
+Visualise the distribution of a single continuous variable by dividing
+the x axis into bins and counting the number of observations in each bin.
+Histograms (\code{geom_histogram}) display the count with bars; frequency
+polygons (\code{geom_freqpoly}), display the counts with lines. Frequency
+polygons are more suitable when you want to compare the distribution
+across a the levels of a categorical variable.
 
 \code{stat_bin} is suitable only for continuous x data. If your x data is
   discrete, you probably want to use \code{\link{stat_count}}.
 }
 \details{
-By default, \code{stat_bin} uses 30 bins - this is not a good default,
-but the idea is to get you experimenting with different binwidths. You
-may need to look at a few to uncover the full story behind your data.
+By default, the underlying computation (\code{stat_bin}) uses 30 bins -
+this is not a good default, but the idea is to get you experimenting with
+different binwidths. You may need to look at a few to uncover the full
+story behind your data.
 }
 \section{Aesthetics}{
 
-\code{geom_histogram} uses the same aesthetics as \code{geom_bar};
-\code{geom_freqpoly} uses the same aesthetics as \code{geom_line}.
+\code{geom_histogram} uses the same aesthetics as \code{\link{geom_bar}};
+\code{geom_freqpoly} uses the same aesthetics as \code{\link{geom_line}}.
 }
 
 \section{Computed variables}{
@@ -176,7 +180,6 @@ m + geom_histogram(boundary = 0) + coord_trans(x = "sqrt")
 m <- ggplot(movies, aes(x = rating))
 m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 }
-rm(movies)
 }
 \seealso{
 \code{\link{stat_count}}, which counts the number of cases at each x

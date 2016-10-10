@@ -1,6 +1,10 @@
-#' Box and whiskers plot.
+#' A Tukey box and whiskers plot.
 #'
-#' The lower and upper "hinges" correspond to the first and third quartiles
+#' The boxplot gives a compact display of the distribution of a continuous
+#' variable. It displays a five number summary (defined by the median,
+#' two hinges, and two whiskers), and then individually all "outlying" points.
+#'
+#' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
 #' by the \code{boxplot} function, and may be apparent with small samples.
 #' See \code{\link{boxplot.stats}} for for more information on how hinge
@@ -10,7 +14,7 @@
 #' 1.5 * IQR of the hinge, where IQR is the inter-quartile range, or distance
 #' between the first and third quartiles. The lower whisker extends from the
 #' hinge to the lowest value within 1.5 * IQR of the hinge. Data beyond the
-#' end of the whiskers are outliers and plotted as points (as specified by Tukey).
+#' end of the whiskers are outliers and plotted as points.
 #'
 #' In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
 #' This gives a roughly 95\% confidence interval for comparing medians.

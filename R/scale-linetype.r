@@ -1,8 +1,8 @@
 #' Scale for line patterns.
 #'
 #' Default line types based on a set supplied by Richard Pearson,
-#' University of Manchester.  Line types can not be mapped to continuous
-#' values.
+#' University of Manchester. Continuous values can not be mapped to
+#' line types.
 #'
 #' @inheritParams scale_x_discrete
 #' @param na.value The linetype to use for \code{NA} values.

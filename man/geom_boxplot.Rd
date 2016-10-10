@@ -3,7 +3,7 @@
 \name{geom_boxplot}
 \alias{geom_boxplot}
 \alias{stat_boxplot}
-\title{Box and whiskers plot.}
+\title{A Tukey box and whiskers plot.}
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", ..., outlier.colour = NULL, outlier.color = NULL,
@@ -81,18 +81,22 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{coef}{length of the whiskers as multiple of IQR.  Defaults to 1.5}
 }
 \description{
-The lower and upper "hinges" correspond to the first and third quartiles
+The boxplot gives a compact display of the distribution of a continuous
+variable. It displays a five number summary (defined by the median,
+two hinges, and two whiskers), and then individually all "outlying" points.
+}
+\details{
+The lower and upper hinges correspond to the first and third quartiles
 (the 25th and 75th percentiles). This differs slightly from the method used
 by the \code{boxplot} function, and may be apparent with small samples.
 See \code{\link{boxplot.stats}} for for more information on how hinge
 positions are calculated for \code{boxplot}.
-}
-\details{
+
 The upper whisker extends from the hinge to the highest value that is within
 1.5 * IQR of the hinge, where IQR is the inter-quartile range, or distance
 between the first and third quartiles. The lower whisker extends from the
 hinge to the lowest value within 1.5 * IQR of the hinge. Data beyond the
-end of the whiskers are outliers and plotted as points (as specified by Tukey).
+end of the whiskers are outliers and plotted as points.
 
 In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
 This gives a roughly 95\% confidence interval for comparing medians.

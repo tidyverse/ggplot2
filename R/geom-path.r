@@ -3,7 +3,11 @@
 #' \code{geom_path()} connects the observations in the order in which they appear
 #' in the data. \code{geom_line()} connects them in order of the variable on the
 #' x axis. \code{geom_step()} creates a stairstep plot, highlighting exactly
-#' when changes occur.
+#' when changes occur. The \code{group} aesthetic determines which cases are
+#' connected together.
+#'
+#' An alternative parameterisation is \code{\link{geom_segment}}: each line
+#' corresponds to a single case which provides the start and end coordinates.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{path}

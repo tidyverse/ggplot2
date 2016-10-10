@@ -1,7 +1,7 @@
 #' Vertical intervals: lines, crossbars & errorbars.
 #'
 #' Various ways of representing a vertical interval defined by \code{x},
-#' \code{ymin} and \code{ymax}.
+#' \code{ymin} and \code{ymax}. Each case draws a single graphical object.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{linerange}

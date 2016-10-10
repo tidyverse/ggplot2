@@ -34,7 +34,9 @@ combination of hue and luminance.}
 \item{na.value}{Colour to use for missing values}
 }
 \description{
-Qualitative colour scale with evenly spaced hues.
+This is the default colour scale for categorical variables. It maps each
+level to an evenly spaced hue on the colour wheel. It does not generate
+colour-blind safe palettes.
 }
 \examples{
 \donttest{

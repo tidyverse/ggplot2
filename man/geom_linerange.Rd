@@ -72,7 +72,7 @@ the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
 Various ways of representing a vertical interval defined by \code{x},
-\code{ymin} and \code{ymax}.
+\code{ymin} and \code{ymax}. Each case draws a single graphical object.
 }
 \section{Aesthetics}{
 

@@ -38,7 +38,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{fun}{function to use}
+\item{fun}{function to use. Must be vectorised.}
 
 \item{xlim}{Optionally, restrict the range of the function to this range.}
 
@@ -59,7 +59,9 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-Superimpose a function.
+This stat makes it easy to superimpose a function on top of an existing
+plot. The function is called with a grid of evenly spaced values along
+the x axis, and the results are drawn (by default) with a line.
 }
 \section{Aesthetics}{
 

@@ -63,12 +63,11 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \code{stat_count}.}
 }
 \description{
-There are two types of bar charts, determined by what is mapped to bar
-height. By default, \code{geom_bar} uses \code{stat="count"} which makes the
-height of the bar proportional to the number of cases in each group (or if the
+There are two types of bar charts: \code{geom_bar} makes the height of the
+bar proportional to the number of cases in each group (or if the
 \code{weight} aethetic is supplied, the sum of the weights). If you want the
 heights of the bars to represent values in the data, use
-\code{stat="identity"} and map a variable to the \code{y} aesthetic.
+\code{\link{geom_col}} instead.
 
 \code{stat_count} counts the number of cases at each x position. If you want
 to bin the data in ranges, you should use \code{\link{stat_bin}} instead.

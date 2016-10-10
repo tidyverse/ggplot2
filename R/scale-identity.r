@@ -1,5 +1,10 @@
 #' Use values without scaling.
 #'
+#' Use this set of scales when your data has already been scaled, i.e. it
+#' already represents aesthetic values that ggplot2 can handle directly
+#' This will not produce a legend unless you also supply the \code{breaks}
+#' and \code{labels}.
+#'
 #' @name scale_identity
 #' @param ... Other arguments passed on to \code{\link{discrete_scale}} or
 #'   \code{\link{continuous_scale}}

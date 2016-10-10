@@ -50,10 +50,9 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-This is an alternate version of \code{geom_bar} that uses
-\code{stat="identity"} (i.e. the heights of the bars represent values in the
-data) by default, requiring the use of a \code{y} aesthetic.
-If you need \code{stat="count"} functionality, use \code{geom_bar}.
+This is an alternate version of \code{geom_bar} that maps the height of
+bars to an existing variable in your data. If you want the height of the
+bar to represent a count of cases, use \code{\link{geom_bar}}.
 }
 \details{
 A bar chart maps the height of the bar to a variable, and so the base of the

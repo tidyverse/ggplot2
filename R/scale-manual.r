@@ -1,5 +1,8 @@
 #' Create your own discrete scale.
 #'
+#' This allows you to specify you own set of mappings from levels in the
+#' data to aesthetic values.
+#'
 #' @name scale_manual
 #' @inheritParams scale_x_discrete
 #' @param values a set of aesthetic values to map data values to. If this
@@ -8,13 +11,13 @@
 #'   the limits of the scale. Any data values that don't match will be
 #'   given \code{na.value}.
 #' @examples
-#' \donttest{
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(colour = factor(cyl)))
 #'
 #' p + scale_colour_manual(values = c("red", "blue", "green"))
 #' p + scale_colour_manual(
 #'   values = c("8" = "red", "4" = "blue", "6" = "green"))
+#' \donttest{
 #' # With rgb hex values
 #' p + scale_colour_manual(values = c("#FF0000", "#0000FF", "#00FF00"))
 #'

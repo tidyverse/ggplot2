@@ -1,11 +1,10 @@
 #' Bars, rectangles with bases on x-axis
 #'
-#' There are two types of bar charts, determined by what is mapped to bar
-#' height. By default, \code{geom_bar} uses \code{stat="count"} which makes the
-#' height of the bar proportional to the number of cases in each group (or if the
+#' There are two types of bar charts: \code{geom_bar} makes the height of the
+#' bar proportional to the number of cases in each group (or if the
 #' \code{weight} aethetic is supplied, the sum of the weights). If you want the
 #' heights of the bars to represent values in the data, use
-#' \code{stat="identity"} and map a variable to the \code{y} aesthetic.
+#' \code{\link{geom_col}} instead.
 #'
 #' A bar chart maps the height of the bar to a variable, and so the base of the
 #' bar must always be shown to produce a valid visual comparison. Naomi Robbins

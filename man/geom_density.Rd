@@ -80,8 +80,8 @@ estimated x values will not line-up, and hence you won't be able to
 stack density values.}
 }
 \description{
-A kernel density estimate, useful for display the distribution of variables
-with underlying smoothness.
+Computes and draws kernel density estimate, which is a smoothed version of
+the histogram.
 }
 \section{Aesthetics}{
 
