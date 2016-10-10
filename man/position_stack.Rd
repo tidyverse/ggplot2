@@ -14,24 +14,38 @@ position_fill(vjust = 1, reverse = FALSE)
 (like points or lines), not a dimension (like bars or areas). Set to
 \code{0} to align with the bottom, \code{0.5} for the middle,
 and \code{1} (the default) for the top.}
+
+\item{reverse}{If \code{TRUE}, will reverse the default stacking order.
+This is useful if you're rotating both the plot and legend.}
 }
 \description{
-\code{position_stack} stacks bars on top of each other; \code{position_fill}
-additionally standardises each stack to have constant height.
+\code{position_stack()} stacks bars on top of each other;
+\code{position_fill()} stacks bars and standardises each stack to have
+constant height.
 }
 \details{
-\code{position_fill} and \code{position_stack} automatically stacks
-values so their order follows the decreasing sort order of the fill
-aesthetic. This makes sure that the stack order is aligned with the order in
-the legend, as long as the scale order has not been changed using the
-\code{breaks} argument. This also means that in order to change stacking
-order while preserving parity with the legend order it is necessary to
-reorder the factor levels of the fill aesthetic (see examples)
+\code{position_fill()} and \code{position_stack()} automatically stack
+values in reverse order of the group aesthetic, which for bar charts is
+usually defined by the fill aesthetic (the default group aesthetic is formed
+by the combination of all discrete aesthetics except for x and y). This
+default ensures that bar colours align with the default legend.
+
+There are three ways to override the defaults depending on what you want:
+
+\enumerate{
+  \item Change the order of the levels in the underyling factor. This
+    will change the stacking order, and the order of keys in the legend.
+
+\item Set the legend \code{breaks} to change the order of the keys
+    without affecting the stacking.
+
+\item Manually set the group aesthetic to change the stacking order
+    without affecting the legend.
+}
 
 Stacking of positive and negative values are performed separately so that
 positive values stack upwards from the x-axis and negative values stack
-downward. Do note that parity with legend order cannot be ensured when
-positive and negative values are mixed.
+downward.
 }
 \examples{
 # Stacking and filling ------------------------------------------------------
@@ -114,7 +128,7 @@ ggplot(data = df, aes(x, y, group = grp)) +
   geom_text(aes(label = grp), position = position_stack(vjust = 0.5))
 }
 \seealso{
-See \code{\link{geom_bar}}, and \code{\link{geom_area}} for
+See \code{\link{geom_bar}} and \code{\link{geom_area}} for
   more examples.
 
 Other position adjustments: \code{\link{position_dodge}},
