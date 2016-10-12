@@ -14,20 +14,16 @@ test_that("geom_path draws correctly", {
 
   df2 <- df[c(1, 2, 7, 8, 13, 14, 3:6, 9:12, 15:nrow(df)), ]
 
-  vdiffr::expect_doppelganger(
-    ggplot(df) + geom_path(aes(x = value, y = category, group = item)),
-    "lines"
+  vdiffr::expect_doppelganger("lines",
+    ggplot(df) + geom_path(aes(x = value, y = category, group = item))
   )
-  vdiffr::expect_doppelganger(
-    ggplot(df2) + geom_path(aes(x = value, y = category, group = item)),
-    "lines with changed data order, should have same appearance"
+  vdiffr::expect_doppelganger("lines with changed data order, should have same appearance",
+    ggplot(df2) + geom_path(aes(x = value, y = category, group = item))
   )
-  vdiffr::expect_doppelganger(
-    ggplot(df) + geom_path(aes(x = value, y = category, group = item, colour = item)),
-    "lines, colour"
+  vdiffr::expect_doppelganger("lines, colour",
+    ggplot(df) + geom_path(aes(x = value, y = category, group = item, colour = item))
   )
-  vdiffr::expect_doppelganger(
-    ggplot(df2) + geom_path(aes(x = value, y = category, group = item, colour = item)),
-    "lines, colour, with changed data order, should have same appearance"
+  vdiffr::expect_doppelganger("lines, colour, with changed data order, should have same appearance",
+    ggplot(df2) + geom_path(aes(x = value, y = category, group = item, colour = item))
   )
 })

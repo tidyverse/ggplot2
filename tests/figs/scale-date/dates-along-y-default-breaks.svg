@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<defs>
+  <clipPath id='cp1'>
+    <rect x='51.39' y='24.70' width='663.13' height='515.97' />
+  </clipPath>
+</defs>
+<rect x='51.39' y='24.70' width='663.13' height='515.97' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp1)' />
+<polyline points='81.53,411.92 83.47,177.39 114.08,455.00 114.56,263.54 115.49,72.09 122.18,440.64 134.66,277.90 135.63,407.13 140.56,507.65 157.09,320.98 158.04,287.47 176.50,469.36 178.28,445.42 198.23,76.87 238.89,397.56 250.05,81.66 268.87,387.99 272.98,325.76 324.89,148.67 347.16,91.23 348.33,57.73 383.11,478.93 393.57,483.71 403.31,435.85 405.94,306.62 410.10,67.30 414.93,115.16 446.56,105.59 448.08,163.03 450.08,52.94 469.70,196.53 480.99,100.80 486.87,201.32 487.28,344.91 496.55,172.60 496.91,368.84 534.06,282.69 564.01,253.97 565.83,86.44 568.16,517.22 591.88,301.83 618.13,488.50 629.18,364.05 629.77,268.33 639.19,373.63 644.06,297.05 651.70,48.15 666.02,316.19 670.92,239.61 684.38,206.10 ' style='stroke-width: 1.07; stroke-linecap: butt;' clip-path='url(#cp1)' />
+<rect x='51.39' y='24.70' width='663.13' height='515.97' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cp1)' />
+<defs>
+  <clipPath id='cp2'>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cp2)'><text x='23.81' y='521.59' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>Mar</text></g>
+<g clip-path='url(#cp2)'><text x='25.70' y='373.22' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>Apr</text></g>
+<g clip-path='url(#cp2)'><text x='21.65' y='229.62' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>May</text></g>
+<g clip-path='url(#cp2)'><text x='27.70' y='81.25' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>Jun</text></g>
+<polyline points='48.65,517.22 51.39,517.22 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='48.65,368.84 51.39,368.84 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='48.65,225.25 51.39,225.25 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='48.65,76.87 51.39,76.87 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='75.38,543.41 75.38,540.67 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='230.97,543.41 230.97,540.67 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='386.55,543.41 386.55,540.67 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='542.14,543.41 542.14,540.67 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='697.72,543.41 697.72,540.67 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<g clip-path='url(#cp2)'><text x='62.02' y='554.35' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>0.00</text></g>
+<g clip-path='url(#cp2)'><text x='217.61' y='554.35' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>0.25</text></g>
+<g clip-path='url(#cp2)'><text x='373.19' y='554.35' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>0.50</text></g>
+<g clip-path='url(#cp2)'><text x='528.78' y='554.35' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>0.75</text></g>
+<g clip-path='url(#cp2)'><text x='684.36' y='554.35' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>1.00</text></g>
+<g clip-path='url(#cp2)'><text x='364.70' y='570.52' style='font-size: 11.00pt; font-family: Bitstream Vera Sans;'>price</text></g>
+<g clip-path='url(#cp2)'><text transform='translate(16.17,291.68) rotate(-90)' style='font-size: 11.00pt; font-family: Bitstream Vera Sans;'>dx</text></g>
+<g clip-path='url(#cp2)'><text x='51.39' y='18.13' style='font-size: 13.20pt; font-family: Bitstream Vera Sans;'>dates along y, default breaks</text></g>
+</svg>

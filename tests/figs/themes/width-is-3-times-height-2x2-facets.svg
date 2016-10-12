@@ -1,0 +1,165 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cp1'>
+    <rect x='0.00' y='136.20' width='720.00' height='303.59' />
+  </clipPath>
+</defs>
+<rect x='0.00' y='136.20' width='720.00' height='303.59' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' clip-path='url(#cp1)' />
+<defs>
+  <clipPath id='cp2'>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id='cp3'>
+    <rect x='34.21' y='160.91' width='327.56' height='19.71' />
+  </clipPath>
+</defs>
+<rect x='34.21' y='160.91' width='327.56' height='19.71' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' clip-path='url(#cp3)' />
+<g clip-path='url(#cp3)'><text x='194.18' y='175.14' style='font-size: 8.80pt; fill: #1A1A1A; font-family: Bitstream Vera Sans;'>1</text></g>
+<defs>
+  <clipPath id='cp4'>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id='cp5'>
+    <rect x='367.25' y='160.91' width='327.56' height='19.71' />
+  </clipPath>
+</defs>
+<rect x='367.25' y='160.91' width='327.56' height='19.71' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' clip-path='url(#cp5)' />
+<g clip-path='url(#cp5)'><text x='527.21' y='175.14' style='font-size: 8.80pt; fill: #1A1A1A; font-family: Bitstream Vera Sans;'>2</text></g>
+<defs>
+  <clipPath id='cp6'>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id='cp7'>
+    <rect x='34.21' y='180.61' width='327.56' height='109.19' />
+  </clipPath>
+</defs>
+<rect x='34.21' y='180.61' width='327.56' height='109.19' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp7)' />
+<circle cx='49.10' cy='284.84' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp7)' />
+<circle cx='219.26' cy='228.12' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp7)' />
+<rect x='34.21' y='180.61' width='327.56' height='109.19' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cp7)' />
+<defs>
+  <clipPath id='cp8'>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id='cp9'>
+    <rect x='34.21' y='295.28' width='327.56' height='109.19' />
+  </clipPath>
+</defs>
+<rect x='34.21' y='295.28' width='327.56' height='109.19' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp9)' />
+<circle cx='91.64' cy='385.32' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp9)' />
+<circle cx='261.80' cy='328.60' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp9)' />
+<rect x='34.21' y='295.28' width='327.56' height='109.19' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cp9)' />
+<defs>
+  <clipPath id='cp10'>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id='cp11'>
+    <rect x='367.25' y='180.61' width='327.56' height='109.19' />
+  </clipPath>
+</defs>
+<rect x='367.25' y='180.61' width='327.56' height='109.19' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp11)' />
+<circle cx='467.22' cy='256.48' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp11)' />
+<circle cx='637.38' cy='199.76' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp11)' />
+<rect x='367.25' y='180.61' width='327.56' height='109.19' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cp11)' />
+<defs>
+  <clipPath id='cp12'>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id='cp13'>
+    <rect x='367.25' y='295.28' width='327.56' height='109.19' />
+  </clipPath>
+</defs>
+<rect x='367.25' y='295.28' width='327.56' height='109.19' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp13)' />
+<circle cx='509.76' cy='356.96' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp13)' />
+<circle cx='679.92' cy='300.24' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp13)' />
+<rect x='367.25' y='295.28' width='327.56' height='109.19' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cp13)' />
+<defs>
+  <clipPath id='cp14'>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cp14)'><text x='21.65' y='275.03' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>2</text></g>
+<g clip-path='url(#cp14)'><text x='21.65' y='246.67' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>4</text></g>
+<g clip-path='url(#cp14)'><text x='21.65' y='218.31' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>6</text></g>
+<g clip-path='url(#cp14)'><text x='21.65' y='189.95' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>8</text></g>
+<polyline points='31.47,270.66 34.21,270.66 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp14)' />
+<polyline points='31.47,242.30 34.21,242.30 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp14)' />
+<polyline points='31.47,213.94 34.21,213.94 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp14)' />
+<polyline points='31.47,185.58 34.21,185.58 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp14)' />
+<g clip-path='url(#cp14)'><text x='21.65' y='389.70' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>2</text></g>
+<g clip-path='url(#cp14)'><text x='21.65' y='361.34' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>4</text></g>
+<g clip-path='url(#cp14)'><text x='21.65' y='332.98' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>6</text></g>
+<g clip-path='url(#cp14)'><text x='21.65' y='304.62' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>8</text></g>
+<polyline points='31.47,385.32 34.21,385.32 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp14)' />
+<polyline points='31.47,356.96 34.21,356.96 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp14)' />
+<polyline points='31.47,328.60 34.21,328.60 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp14)' />
+<polyline points='31.47,300.24 34.21,300.24 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp14)' />
+<defs>
+  <clipPath id='cp15'>
+    <rect x='694.81' y='180.61' width='19.71' height='109.19' />
+  </clipPath>
+</defs>
+<rect x='694.81' y='180.61' width='19.71' height='109.19' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' clip-path='url(#cp15)' />
+<g clip-path='url(#cp15)'><text transform='translate(700.29,231.39) rotate(90)' style='font-size: 8.80pt; fill: #1A1A1A; font-family: Bitstream Vera Sans;'>1</text></g>
+<defs>
+  <clipPath id='cp16'>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id='cp17'>
+    <rect x='694.81' y='295.28' width='19.71' height='109.19' />
+  </clipPath>
+</defs>
+<rect x='694.81' y='295.28' width='19.71' height='109.19' style='stroke-width: 1.07; stroke: #333333; fill: #D9D9D9;' clip-path='url(#cp17)' />
+<g clip-path='url(#cp17)'><text transform='translate(700.29,346.06) rotate(90)' style='font-size: 8.80pt; fill: #1A1A1A; font-family: Bitstream Vera Sans;'>2</text></g>
+<defs>
+  <clipPath id='cp18'>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<polyline points='91.64,407.21 91.64,404.47 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp18)' />
+<polyline points='176.72,407.21 176.72,404.47 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp18)' />
+<polyline points='261.80,407.21 261.80,404.47 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp18)' />
+<polyline points='346.88,407.21 346.88,404.47 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp18)' />
+<g clip-path='url(#cp18)'><text x='87.82' y='418.15' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>2</text></g>
+<g clip-path='url(#cp18)'><text x='172.91' y='418.15' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>4</text></g>
+<g clip-path='url(#cp18)'><text x='257.99' y='418.15' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>6</text></g>
+<g clip-path='url(#cp18)'><text x='343.07' y='418.15' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>8</text></g>
+<polyline points='424.68,407.21 424.68,404.47 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp18)' />
+<polyline points='509.76,407.21 509.76,404.47 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp18)' />
+<polyline points='594.84,407.21 594.84,404.47 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp18)' />
+<polyline points='679.92,407.21 679.92,404.47 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp18)' />
+<g clip-path='url(#cp18)'><text x='420.86' y='418.15' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>2</text></g>
+<g clip-path='url(#cp18)'><text x='505.94' y='418.15' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>4</text></g>
+<g clip-path='url(#cp18)'><text x='591.02' y='418.15' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>6</text></g>
+<g clip-path='url(#cp18)'><text x='676.11' y='418.15' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>8</text></g>
+<g clip-path='url(#cp18)'><text x='360.17' y='434.32' style='font-size: 11.00pt; font-family: Bitstream Vera Sans;'>x</text></g>
+<g clip-path='url(#cp18)'><text transform='translate(16.17,296.88) rotate(-90)' style='font-size: 11.00pt; font-family: Bitstream Vera Sans;'>y</text></g>
+<g clip-path='url(#cp18)'><text x='34.21' y='154.33' style='font-size: 13.20pt; font-family: Bitstream Vera Sans;'>width is 3 times height, 2x2 facets</text></g>
+</svg>
