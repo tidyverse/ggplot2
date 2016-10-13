@@ -15,18 +15,18 @@
 <rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #ADD8E6;' />
 <defs>
   <clipPath id='cp1'>
-    <rect x='8.22' y='24.70' width='706.30' height='543.08' />
+    <rect x='8.22' y='27.28' width='706.30' height='540.50' />
   </clipPath>
 </defs>
-<rect x='8.22' y='24.70' width='706.30' height='543.08' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp1)' />
-<circle cx='40.32' cy='543.10' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp1)' />
-<circle cx='361.37' cy='296.24' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp1)' />
-<circle cx='682.42' cy='49.39' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp1)' />
-<rect x='8.22' y='24.70' width='706.30' height='543.08' style='stroke-width: 8.54;' clip-path='url(#cp1)' />
+<rect x='8.22' y='27.28' width='706.30' height='540.50' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp1)' />
+<circle cx='40.32' cy='543.21' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp1)' />
+<circle cx='361.37' cy='297.53' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp1)' />
+<circle cx='682.42' cy='51.85' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp1)' />
+<rect x='8.22' y='27.28' width='706.30' height='540.50' style='stroke-width: 8.54;' clip-path='url(#cp1)' />
 <defs>
   <clipPath id='cp2'>
     <rect x='0.00' y='0.00' width='720.00' height='576.00' />
   </clipPath>
 </defs>
-<g clip-path='url(#cp2)'><text x='8.22' y='18.13' style='font-size: 13.20pt; font-family: Bitstream Vera Sans;'>many blank items, and light blue plot background</text></g>
+<g clip-path='url(#cp2)'><text x='8.22' y='17.40' style='font-size: 13.20pt; font-family: Liberation Sans;'>many blank items, and light blue plot background</text></g>
 </svg>

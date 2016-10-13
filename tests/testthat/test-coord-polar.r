@@ -102,10 +102,10 @@ test_that("Polar coordinates draws correctly", {
     ggplot(dat, aes(as.numeric(x), y)) + geom_point() + coord_polar() +
       xlim(0, 6) + ylim(0,16)
   )
-  vdiffr::expect_doppelganger("racetrack plot with expand=F is closed and doesn't have center hole",
+  vdiffr::expect_doppelganger("racetrack plot with expand=F: closed and no center hole",
     ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") + coord_polar(theta = "y")
   )
-  vdiffr::expect_doppelganger("racetrack plot with expand=T is closed and has center hole",
+  vdiffr::expect_doppelganger("racetrack plot with expand=T: closed and has center hole",
     ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") + coord_polar(theta = "y") +
       scale_x_discrete(expand = c(0, 0.6))
   )

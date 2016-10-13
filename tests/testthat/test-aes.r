@@ -71,17 +71,11 @@ test_that("aesthetics are drawn correctly", {
   vdiffr::expect_doppelganger("stat='identity', width=0.5",
     ggplot(dat, aes(x = xvar, y = yvar)) + geom_bar(stat = "identity", width = 0.5)
   )
-  vdiffr::expect_doppelganger("stat='identity', aes(width=0.5)",
-    ggplot(dat, aes(x = xvar, y = yvar)) + geom_bar(stat = "identity", aes(width = 0.5))
-  )
   vdiffr::expect_doppelganger("stat='count'",
     ggplot(dat, aes(x = xvar)) + geom_bar(stat = "count")
   )
   vdiffr::expect_doppelganger("stat='count', width=0.5",
     ggplot(dat, aes(x = xvar)) + geom_bar(stat = "count", width = 0.5)
-  )
-  vdiffr::expect_doppelganger("stat='count', aes(width=0.5)",
-    ggplot(dat, aes(x = xvar)) + geom_bar(stat = "count", aes(width = 0.5))
   )
 })
 

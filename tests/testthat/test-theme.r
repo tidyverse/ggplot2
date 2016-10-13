@@ -200,6 +200,7 @@ test_that("All elements in complete themes have inherit.blank=TRUE", {
   expect_true(inherit_blanks(theme_linedraw()))
   expect_true(inherit_blanks(theme_minimal()))
   expect_true(inherit_blanks(theme_void()))
+})
 
 
 # Visual tests ------------------------------------------------------------
@@ -258,21 +259,16 @@ test_that("themes are drawn in the right style", {
   )
 
   t <- theme(text = element_text(colour = 'blue')) + theme_bw()
-  vdiffr::expect_doppelganger("add saved theme object with blue text plus theme_bw() - result is black text",
+  vdiffr::expect_doppelganger("add blue saved theme object and theme_bw() - expect black text",
     p + t
   )
   vdiffr::expect_doppelganger("add blue and italic in single element object",
     p + theme(text = element_text(colour = 'blue', face = 'italic'))
   )
   vdiffr::expect_doppelganger("add blue and italic in separate element objects",
-    p + theme(text = element_text(colour = 'blue')) +
+    p +
+      theme(text = element_text(colour = 'blue')) +
       theme(text = element_text(face = 'italic'))
-  )
-  vdiffr::expect_doppelganger("add blue and italic in one theme object with two 'text' elements - result is blue only",
-    p + theme(
-      text = element_text(colour = 'blue'),
-      text = element_text(face = 'italic')
-    )
   )
 
   # Inheritance tests
@@ -286,19 +282,17 @@ test_that("themes are drawn in the right style", {
   )
 
   # Next two tests contrast the + operator with the %+replace% operator
-  t <- theme_bw() + theme(axis.title.y = element_text(size = rel(2)))
   vdiffr::expect_doppelganger("theme_bw + larger relative size for axis.title.y",
-    p + t
+    p + theme_bw() + theme(axis.title.y = element_text(size = rel(2)))
   )
 
-  t <- theme_bw() %+replace% theme(axis.title.y = element_text(size = rel(2)))
-  vdiffr::expect_doppelganger("theme_bw %+replace% larger relative size for axis.title.y - result is angle=0",
-    p + t
+  vdiffr::expect_doppelganger("theme_bw %+replace% larger relative size for axis.title.y",
+    p + theme_bw() %+replace% theme(axis.title.y = element_text(size = rel(2))) +
+      ggtitle("theme_bw %+replace% larger relative size for axis.title.y, expect angle=0")
   )
 
-  t <- theme_bw() + theme(text = element_blank())
   vdiffr::expect_doppelganger("text is element_blank - result is no text",
-    p + t
+    p + theme_bw() + theme(text = element_blank())
   )
 
   # Testing specific elements

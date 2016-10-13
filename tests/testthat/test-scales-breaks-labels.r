@@ -283,18 +283,17 @@ test_that("minor breaks draws correctly", {
       minor_breaks = date_breaks("week")
     )
 
-  vdiffr::expect_doppelganger("major breaks: months, minor breaks: weeks", p)
-  vdiffr::expect_doppelganger("major breaks: months, minor breaks: weeks, with coord_polar",
-    p + coord_polar()
-  )
+  vdiffr::expect_doppelganger("months and weeks breaks", p)
+  vdiffr::expect_doppelganger("months and weeks breaks: coord polar", p + coord_polar())
   vdiffr::expect_doppelganger("default breaks",
     ggplot(NULL, aes(letters[1:3], 1:3)) + geom_point()
   )
   vdiffr::expect_doppelganger("scale_x_continuous(trans = log2_trans()) + scale_y_log10",
     qplot(1:1e4, 1:1e4) + scale_x_continuous(trans = log2_trans()) + scale_y_log10()
   )
-  vdiffr::expect_doppelganger("scale_x_continuous(trans = exp_trans(2)) + scale_y_continuous(trans = exp_trans(2))",
-    qplot(1:5, 1:5) + scale_x_continuous(trans = exp_trans(2)) + scale_y_continuous(trans = exp_trans(2))
+  vdiffr::expect_doppelganger("x and y transformations",
+    qplot(1:5, 1:5) + scale_x_continuous(trans = exp_trans(2)) + scale_y_continuous(trans = exp_trans(2)) +
+      ggtitle("scale_x_continuous(trans = exp_trans(2)) + scale_y_continuous(trans = exp_trans(2))")
   )
 })
 

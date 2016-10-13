@@ -14,10 +14,10 @@
 <rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
 <defs>
   <clipPath id='cp1'>
-    <rect x='77.79' y='0.00' width='564.41' height='576.00' />
+    <rect x='79.57' y='0.00' width='560.87' height='576.00' />
   </clipPath>
 </defs>
-<rect x='77.79' y='0.00' width='564.41' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' clip-path='url(#cp1)' />
+<rect x='79.57' y='0.00' width='560.87' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' clip-path='url(#cp1)' />
 <defs>
   <clipPath id='cp2'>
     <rect x='0.00' y='0.00' width='720.00' height='576.00' />
@@ -25,28 +25,28 @@
 </defs>
 <defs>
   <clipPath id='cp3'>
-    <rect x='112.01' y='24.70' width='524.72' height='524.72' />
+    <rect x='112.38' y='27.28' width='522.58' height='522.58' />
   </clipPath>
 </defs>
-<rect x='112.01' y='24.70' width='524.72' height='524.72' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp3)' />
-<circle cx='374.37' cy='287.06' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp3)' />
-<circle cx='374.37' cy='392.01' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp3)' />
-<circle cx='374.37' cy='77.17' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp3)' />
-<g clip-path='url(#cp3)'><text x='370.55' y='527.56' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>2</text></g>
-<g clip-path='url(#cp3)'><text x='364.71' y='55.31' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>1/3</text></g>
-<rect x='112.01' y='24.70' width='524.72' height='524.72' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cp3)' />
+<rect x='112.38' y='27.28' width='522.58' height='522.58' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp3)' />
+<circle cx='373.67' cy='288.57' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp3)' />
+<circle cx='373.67' cy='393.09' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp3)' />
+<circle cx='373.67' cy='79.54' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp3)' />
+<g clip-path='url(#cp3)'><text x='370.33' y='527.86' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>2</text></g>
+<g clip-path='url(#cp3)'><text x='365.33' y='57.54' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>1/3</text></g>
+<rect x='112.38' y='27.28' width='522.58' height='522.58' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cp3)' />
 <defs>
   <clipPath id='cp4'>
     <rect x='0.00' y='0.00' width='720.00' height='576.00' />
   </clipPath>
 </defs>
-<g clip-path='url(#cp4)'><text x='99.44' y='291.44' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>1</text></g>
-<g clip-path='url(#cp4)'><text x='99.44' y='186.49' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>2</text></g>
-<g clip-path='url(#cp4)'><text x='99.44' y='81.55' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>3</text></g>
-<polyline points='109.27,287.06 112.01,287.06 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp4)' />
-<polyline points='109.27,182.12 112.01,182.12 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp4)' />
-<polyline points='109.27,77.17 112.01,77.17 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp4)' />
-<g clip-path='url(#cp4)'><text x='362.56' y='570.52' style='font-size: 11.00pt; font-family: Bitstream Vera Sans;'>1:3</text></g>
-<g clip-path='url(#cp4)'><text transform='translate(93.96,298.86) rotate(-90)' style='font-size: 11.00pt; font-family: Bitstream Vera Sans;'>1:3</text></g>
-<g clip-path='url(#cp4)'><text x='112.01' y='18.13' style='font-size: 13.20pt; font-family: Bitstream Vera Sans;'>manual minor breaks with coord_polar</text></g>
+<g clip-path='url(#cp4)'><text x='100.77' y='292.70' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>1</text></g>
+<g clip-path='url(#cp4)'><text x='100.77' y='188.18' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>2</text></g>
+<g clip-path='url(#cp4)'><text x='100.77' y='83.67' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>3</text></g>
+<polyline points='109.64,288.57 112.38,288.57 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp4)' />
+<polyline points='109.64,184.06 112.38,184.06 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp4)' />
+<polyline points='109.64,79.54 112.38,79.54 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp4)' />
+<g clip-path='url(#cp4)'><text x='363.47' y='570.35' style='font-size: 11.00pt; font-family: Liberation Sans;'>1:3</text></g>
+<g clip-path='url(#cp4)'><text transform='translate(95.13,298.77) rotate(-90)' style='font-size: 11.00pt; font-family: Liberation Sans;'>1:3</text></g>
+<g clip-path='url(#cp4)'><text x='112.38' y='17.40' style='font-size: 13.20pt; font-family: Liberation Sans;'>manual minor breaks with coord_polar</text></g>
 </svg>

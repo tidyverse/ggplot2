@@ -15,38 +15,38 @@
 <rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <defs>
   <clipPath id='cp1'>
-    <rect x='96.32' y='24.70' width='618.20' height='515.97' />
+    <rect x='87.52' y='27.28' width='627.00' height='511.18' />
   </clipPath>
 </defs>
-<rect x='96.32' y='24.70' width='618.20' height='515.97' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp1)' />
-<polyline points='124.42,411.92 126.23,177.39 154.77,455.00 155.21,263.54 156.08,72.09 162.32,440.64 173.94,277.90 174.85,407.13 179.45,507.65 194.85,320.98 195.74,287.47 212.96,469.36 214.61,445.42 233.21,76.87 271.11,397.56 281.52,81.66 299.07,387.99 302.89,325.76 351.29,148.67 372.05,91.23 373.14,57.73 405.56,478.93 415.31,483.71 424.40,435.85 426.84,306.62 430.73,67.30 435.23,115.16 464.71,105.59 466.13,163.03 467.99,52.94 486.29,196.53 496.82,100.80 502.29,201.32 502.67,344.91 511.32,172.60 511.66,368.84 546.29,282.69 574.20,253.97 575.90,86.44 578.08,517.22 600.19,301.83 624.66,488.50 634.97,364.05 635.51,268.33 644.30,373.63 648.83,297.05 655.96,48.15 669.30,316.19 673.87,239.61 686.42,206.10 ' style='stroke-width: 1.07; stroke-linecap: butt;' clip-path='url(#cp1)' />
-<rect x='96.32' y='24.70' width='618.20' height='515.97' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cp1)' />
+<rect x='87.52' y='27.28' width='627.00' height='511.18' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp1)' />
+<polyline points='116.02,410.91 117.86,178.55 146.80,453.58 147.26,263.91 148.13,74.23 154.46,439.36 166.26,278.13 167.17,406.16 171.84,505.74 187.46,320.81 188.37,287.62 205.82,467.81 207.50,444.10 226.37,78.97 264.81,396.68 275.36,83.71 293.16,387.20 297.04,325.55 346.12,150.10 367.18,93.20 368.28,60.00 401.17,477.29 411.06,482.03 420.27,434.62 422.75,306.58 426.69,69.49 431.25,116.91 461.16,107.42 462.60,164.33 464.49,55.26 483.04,197.52 493.72,102.68 499.27,202.26 499.66,344.52 508.43,173.81 508.77,368.23 543.89,282.87 572.21,254.42 573.93,88.45 576.14,515.23 598.56,301.84 623.38,486.78 633.83,363.49 634.39,268.65 643.30,372.97 647.90,297.10 655.13,50.52 668.66,316.07 673.30,240.20 686.02,207.00 ' style='stroke-width: 1.07; stroke-linecap: butt;' clip-path='url(#cp1)' />
+<rect x='87.52' y='27.28' width='627.00' height='511.18' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cp1)' />
 <defs>
   <clipPath id='cp2'>
     <rect x='0.00' y='0.00' width='720.00' height='576.00' />
   </clipPath>
 </defs>
-<g clip-path='url(#cp2)'><text x='21.65' y='468.94' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>2012-03-12</text></g>
-<g clip-path='url(#cp2)'><text x='21.65' y='368.43' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>2012-04-02</text></g>
-<g clip-path='url(#cp2)'><text x='21.65' y='267.92' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>2012-04-23</text></g>
-<g clip-path='url(#cp2)'><text x='21.65' y='167.40' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>2012-05-14</text></g>
-<g clip-path='url(#cp2)'><text x='21.65' y='66.89' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>2012-06-04</text></g>
-<polyline points='93.58,464.57 96.32,464.57 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
-<polyline points='93.58,364.05 96.32,364.05 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
-<polyline points='93.58,263.54 96.32,263.54 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
-<polyline points='93.58,163.03 96.32,163.03 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
-<polyline points='93.58,62.51 96.32,62.51 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
-<polyline points='118.69,543.41 118.69,540.67 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
-<polyline points='263.73,543.41 263.73,540.67 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
-<polyline points='408.77,543.41 408.77,540.67 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
-<polyline points='553.82,543.41 553.82,540.67 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
-<polyline points='698.86,543.41 698.86,540.67 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
-<g clip-path='url(#cp2)'><text x='105.33' y='554.35' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>0.00</text></g>
-<g clip-path='url(#cp2)'><text x='250.37' y='554.35' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>0.25</text></g>
-<g clip-path='url(#cp2)'><text x='395.41' y='554.35' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>0.50</text></g>
-<g clip-path='url(#cp2)'><text x='540.46' y='554.35' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>0.75</text></g>
-<g clip-path='url(#cp2)'><text x='685.50' y='554.35' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Bitstream Vera Sans;'>1.00</text></g>
-<g clip-path='url(#cp2)'><text x='387.17' y='570.52' style='font-size: 11.00pt; font-family: Bitstream Vera Sans;'>price</text></g>
-<g clip-path='url(#cp2)'><text transform='translate(16.17,291.68) rotate(-90)' style='font-size: 11.00pt; font-family: Bitstream Vera Sans;'>dx</text></g>
-<g clip-path='url(#cp2)'><text x='96.32' y='18.13' style='font-size: 13.20pt; font-family: Bitstream Vera Sans;'>scale_y_date(breaks = "3 weeks")</text></g>
+<g clip-path='url(#cp2)'><text x='21.21' y='467.19' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>2012-03-12</text></g>
+<g clip-path='url(#cp2)'><text x='21.21' y='367.61' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>2012-04-02</text></g>
+<g clip-path='url(#cp2)'><text x='21.21' y='268.03' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>2012-04-23</text></g>
+<g clip-path='url(#cp2)'><text x='21.21' y='168.45' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>2012-05-14</text></g>
+<g clip-path='url(#cp2)'><text x='21.21' y='68.87' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>2012-06-04</text></g>
+<polyline points='84.78,463.07 87.52,463.07 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='84.78,363.49 87.52,363.49 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='84.78,263.91 87.52,263.91 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='84.78,164.33 87.52,164.33 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='84.78,64.75 87.52,64.75 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='110.21,541.20 110.21,538.46 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='257.32,541.20 257.32,538.46 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='404.42,541.20 404.42,538.46 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='551.53,541.20 551.53,538.46 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<polyline points='698.64,541.20 698.64,538.46 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cp2)' />
+<g clip-path='url(#cp2)'><text x='98.53' y='551.65' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>0.00</text></g>
+<g clip-path='url(#cp2)'><text x='245.64' y='551.65' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>0.25</text></g>
+<g clip-path='url(#cp2)'><text x='392.75' y='551.65' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>0.50</text></g>
+<g clip-path='url(#cp2)'><text x='539.85' y='551.65' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>0.75</text></g>
+<g clip-path='url(#cp2)'><text x='686.96' y='551.65' style='font-size: 8.80pt; fill: #4D4D4D; font-family: Liberation Sans;'>1.00</text></g>
+<g clip-path='url(#cp2)'><text x='385.13' y='567.21' style='font-size: 11.00pt; font-family: Liberation Sans;'>price</text></g>
+<g clip-path='url(#cp2)'><text transform='translate(15.56,290.62) rotate(-90)' style='font-size: 11.00pt; font-family: Liberation Sans;'>dx</text></g>
+<g clip-path='url(#cp2)'><text x='87.52' y='17.40' style='font-size: 13.20pt; font-family: Liberation Sans;'>scale_y_date(breaks = "3 weeks")</text></g>
 </svg>

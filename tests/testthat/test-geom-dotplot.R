@@ -114,7 +114,7 @@ test_that("geom_dotplot draws correctly", {
 
   # This one is currently broken but it would be a really rare case, and it
   # probably requires a really ugly hack to fix
-  vdiffr::expect_doppelganger("bin y, dodging, stackgroups with 3 groups, histodot (currently broken)",
+  vdiffr::expect_doppelganger("bin y, dodging, 3 stackgroups, histodot (currently broken)",
     ggplot(dat2, aes(x, y, fill = g)) +
       geom_dotplot(binaxis = "y", binwidth = .25, stackgroups = TRUE, method = "histodot",
                    alpha = 0.5, stackdir = "centerwhole")
