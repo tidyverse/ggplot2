@@ -171,6 +171,8 @@ There were a number of tweaks to the theme elements that control legends:
 
 * `geom_contour()` more clearly describes what inputs it needs (#1577).
 
+* `geom_curve()` respects the `lineend` paramater (#1852).
+
 * `geom_histogram()` and `stat_bin()` understand the `breaks` parameter once 
   more. (#1665). The floating point adjustment for histogram bins is now 
   actually used - it was previously inadvertently ignored (#1651).
