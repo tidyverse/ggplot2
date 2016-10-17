@@ -184,6 +184,7 @@ Collate:
     'stat-bindot.r'
     'stat-binhex.r'
     'stat-boxplot.r'
+    'stat-cbin.r'
     'stat-contour.r'
     'stat-count.r'
     'stat-density-2d.r'
