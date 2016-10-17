@@ -193,6 +193,18 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if ((!inherits(coord, "CoordCartesian")) && (params$free$x || params$free$y)) {
       stop("ggplot2 does not currently support free scales with a non-cartesian coord", call. = FALSE)
     }
+    if (inherits(coord, "CoordFlip")) {
+      if (params$free$x) {
+        layout$SCALE_X <- seq_len(nrow(layout))
+      } else {
+        layout$SCALE_X <- 1L
+      }
+      if (params$free$y) {
+        layout$SCALE_Y <- seq_len(nrow(layout))
+      } else {
+        layout$SCALE_Y <- 1L
+      }
+    }
 
     ncol <- max(layout$COL)
     nrow <- max(layout$ROW)
