@@ -1,6 +1,10 @@
-#' Box and whiskers plot.
+#' A Tukey box and whiskers plot.
 #'
-#' The lower and upper "hinges" correspond to the first and third quartiles
+#' The boxplot gives a compact display of the distribution of a continuous
+#' variable. It displays a five number summary (defined by the median,
+#' two hinges, and two whiskers), and then individually all "outlying" points.
+#'
+#' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
 #' by the \code{boxplot} function, and may be apparent with small samples.
 #' See \code{\link{boxplot.stats}} for for more information on how hinge
@@ -10,14 +14,14 @@
 #' 1.5 * IQR of the hinge, where IQR is the inter-quartile range, or distance
 #' between the first and third quartiles. The lower whisker extends from the
 #' hinge to the lowest value within 1.5 * IQR of the hinge. Data beyond the
-#' end of the whiskers are outliers and plotted as points (as specified by Tukey).
+#' end of the whiskers are outliers and plotted as points.
 #'
 #' In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
-#' This gives a roughly 95% confidence interval for comparing medians.
+#' This gives a roughly 95\% confidence interval for comparing medians.
 #' See McGill et al. (1978) for more details.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "boxplot")}
+#' \aesthetics{geom}{boxplot}
 #'
 #' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
 #'   continuous variable, \code{\link{geom_jitter}} for another way to look
@@ -26,7 +30,7 @@
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot} and \code{stat_boxplot}.
-#' @param outlier.colour,outlier.color,outlier.shape,outlier.size,outlier.stroke
+#' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
 #'   Default aesthetics for outliers. Set to \code{NULL} to inherit from the
 #'   aesthetics used for the box.
 #'
@@ -67,6 +71,8 @@
 #'   geom_boxplot()
 #' ggplot(diamonds, aes(carat, price)) +
 #'   geom_boxplot(aes(group = cut_width(carat, 0.25)))
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_boxplot(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 #'
 #' \donttest{
 #' # It's possible to draw a boxplot with your own computations if you
@@ -91,9 +97,11 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          ...,
                          outlier.colour = NULL,
                          outlier.color = NULL,
+                         outlier.fill = NULL,
                          outlier.shape = 19,
                          outlier.size = 1.5,
                          outlier.stroke = 0.5,
+                         outlier.alpha = NULL,
                          notch = FALSE,
                          notchwidth = 0.5,
                          varwidth = FALSE,
@@ -110,9 +118,11 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       outlier.colour = outlier.color %||% outlier.colour,
+      outlier.fill = outlier.fill,
       outlier.shape = outlier.shape,
       outlier.size = outlier.size,
       outlier.stroke = outlier.stroke,
+      outlier.alpha = outlier.alpha,
       notch = notch,
       notchwidth = notchwidth,
       varwidth = varwidth,
@@ -158,8 +168,10 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   },
 
   draw_group = function(data, panel_scales, coord, fatten = 2,
-                        outlier.colour = NULL, outlier.shape = 19,
+                        outlier.colour = NULL, outlier.fill = NULL,
+                        outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
+                        outlier.alpha = NULL,
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
 
     common <- data.frame(
@@ -200,11 +212,12 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         y = data$outliers[[1]],
         x = data$x[1],
         colour = outlier.colour %||% data$colour[1],
+        fill = outlier.fill %||% data$fill[1],
         shape = outlier.shape %||% data$shape[1],
         size = outlier.size %||% data$size[1],
         stroke = outlier.stroke %||% data$stroke[1],
         fill = NA,
-        alpha = NA,
+        alpha = outlier.alpha %||% data$alpha[1],
         stringsAsFactors = FALSE
       )
       outliers_grob <- GeomPoint$draw_panel(outliers, panel_scales, coord)

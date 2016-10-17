@@ -36,13 +36,13 @@ ggplot(mtcars, aes(am, vs)) +
 # take up as much space as a boxplot or a bar
 ggplot(mpg, aes(class, hwy)) +
   geom_jitter() +
-  geom_boxplot()
+  geom_boxplot(colour = "grey50")
 }
 \seealso{
 Other position adjustments: \code{\link{position_dodge}},
-  \code{\link{position_fill}},
   \code{\link{position_identity}},
   \code{\link{position_jitterdodge}},
-  \code{\link{position_nudge}}
+  \code{\link{position_nudge}},
+  \code{\link{position_stack}}
 }
 

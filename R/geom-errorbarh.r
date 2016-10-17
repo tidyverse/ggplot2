@@ -1,7 +1,7 @@
 #' Horizontal error bars
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "errorbarh")}
+#' \aesthetics{geom}{errorbarh}
 #'
 #' @seealso \code{\link{geom_errorbar}}: vertical error bars
 #' @inheritParams layer

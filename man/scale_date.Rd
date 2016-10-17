@@ -4,27 +4,39 @@
 \alias{scale_date}
 \alias{scale_x_date}
 \alias{scale_x_datetime}
+\alias{scale_x_time}
 \alias{scale_y_date}
 \alias{scale_y_datetime}
-\title{Position scale, date & date times}
+\alias{scale_y_time}
+\title{Positions scale for date/times}
 \usage{
 scale_x_date(name = waiver(), breaks = waiver(), date_breaks = waiver(),
   labels = waiver(), date_labels = waiver(), minor_breaks = waiver(),
-  date_minor_breaks = waiver(), limits = NULL, expand = waiver())
+  date_minor_breaks = waiver(), limits = NULL, expand = waiver(),
+  position = "bottom")
 
 scale_y_date(name = waiver(), breaks = waiver(), date_breaks = waiver(),
   labels = waiver(), date_labels = waiver(), minor_breaks = waiver(),
-  date_minor_breaks = waiver(), limits = NULL, expand = waiver())
+  date_minor_breaks = waiver(), limits = NULL, expand = waiver(),
+  position = "left")
 
 scale_x_datetime(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
-  minor_breaks = waiver(), date_minor_breaks = waiver(), limits = NULL,
-  expand = waiver())
+  minor_breaks = waiver(), date_minor_breaks = waiver(), timezone = NULL,
+  limits = NULL, expand = waiver(), position = "bottom")
 
 scale_y_datetime(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
-  minor_breaks = waiver(), date_minor_breaks = waiver(), limits = NULL,
-  expand = waiver())
+  minor_breaks = waiver(), date_minor_breaks = waiver(), timezone = NULL,
+  limits = NULL, expand = waiver(), position = "left")
+
+scale_x_time(name = waiver(), breaks = waiver(), minor_breaks = waiver(),
+  labels = waiver(), limits = NULL, expand = waiver(), oob = censor,
+  na.value = NA_real_, position = "bottom")
+
+scale_y_time(name = waiver(), breaks = waiver(), minor_breaks = waiver(),
+  labels = waiver(), limits = NULL, expand = waiver(), oob = censor,
+  na.value = NA_real_, position = "left")
 }
 \arguments{
 \item{name}{The name of the scale. Used as axis or legend title. If
@@ -77,10 +89,23 @@ additive expansion constants. These constants ensure that the data is
 placed some distance away from the axes. The defaults are
 \code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
 discrete variables.}
+
+\item{position}{The position of the axis. "left" or "right" for vertical
+scales, "top" or "bottom" for horizontal scales}
+
+\item{timezone}{The timezone to use for display on the axes. The default
+(\code{NULL}) uses the timezone encoded in the data.}
+
+\item{oob}{Function that handles limits outside of the scale limits
+(out of bounds). The default replaces out of bounds values with NA.}
+
+\item{na.value}{Missing values will be replaced with this value.}
 }
 \description{
-Use \code{scale_*_date} with \code{Date} variables, and
-\code{scale_*_datetime} with \code{POSIXct} variables.
+Use
+\code{scale_*_date} for dates (class \code{Date}),
+\code{scale_*_datetime} for datetimes (class \code{POSIXct}), and
+\code{scale_*_time} for times (class \code{hms}).
 }
 \examples{
 last_month <- Sys.Date() - 0:29

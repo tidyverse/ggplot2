@@ -66,6 +66,11 @@ StatContour <- ggproto("StatContour", Stat,
 contour_lines <- function(data, breaks, complete = FALSE) {
   z <- tapply(data$z, data[c("x", "y")], identity)
 
+  if (is.list(z)) {
+    stop("Contour requires single `z` at each combination of `x` and `y`.",
+      call. = FALSE)
+  }
+
   cl <- grDevices::contourLines(
     x = sort(unique(data$x)), y = sort(unique(data$y)), z = z,
     levels = breaks)

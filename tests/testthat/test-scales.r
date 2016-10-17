@@ -97,7 +97,7 @@ test_that("position scales generate after stats", {
 test_that("oob affects position values", {
   dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
   base <- ggplot(dat, aes(x, y)) +
-    geom_bar(stat = "identity") +
+    geom_col() +
     annotate("point", x = "a", y = c(-Inf, Inf))
 
   y_scale <- function(limits, oob = censor) {
@@ -129,7 +129,7 @@ test_that("oob affects position values", {
 })
 
 test_that("scales looked for in appropriate place", {
-  xlabel <- function(x) ggplot_build(x)$panel$x_scales[[1]]$name
+  xlabel <- function(x) ggplot_build(x)$layout$panel_scales$x[[1]]$name
   p0 <- qplot(mpg, wt, data = mtcars) + scale_x_continuous("0")
   expect_equal(xlabel(p0), "0")
 
@@ -166,4 +166,14 @@ test_that("find_global searches in the right places", {
   # from the ggplot2 namespace
   expect_identical(find_global("scale_colour_hue", emptyenv()),
     ggplot2::scale_colour_hue)
+})
+
+test_that("Scales warn when transforms introduces non-finite values", {
+  df <- data.frame(x = c(1e1, 1e5), y = c(0, 100))
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_point(size = 5) +
+    scale_y_log10()
+
+  expect_warning(ggplot_build(p), "Transformation introduced infinite values")
 })

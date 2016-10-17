@@ -36,7 +36,7 @@ stat_binhex <- stat_bin_hex
 #' @usage NULL
 #' @export
 StatBinhex <- ggproto("StatBinhex", Stat,
-  default_aes = aes(fill = ..value..),
+  default_aes = aes(weight = 1, fill = ..count..),
 
   required_aes = c("x", "y"),
 
@@ -46,7 +46,12 @@ StatBinhex <- ggproto("StatBinhex", Stat,
 
     binwidth <- binwidth %||% hex_binwidth(bins, scales)
     wt <- data$weight %||% rep(1L, nrow(data))
-    hexBinSummarise(data$x, data$y, wt, binwidth, sum)
+    out <- hexBinSummarise(data$x, data$y, wt, binwidth, sum)
+    out$density <- as.vector(out$value / sum(out$value, na.rm = TRUE))
+    out$count <- out$value
+    out$value <- NULL
+
+    out
   }
 )
 

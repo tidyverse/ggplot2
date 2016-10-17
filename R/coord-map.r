@@ -21,8 +21,12 @@
 #' @export
 #' @param projection projection to use, see
 #'    \code{\link[mapproj]{mapproject}} for list
-#' @param ... other arguments passed on to
-#'   \code{\link[mapproj]{mapproject}}
+#' @param ... other arguments passed on to \code{\link[mapproj]{mapproject}}.
+#' Ignored if the \code{parameters} argument is present.
+#' @param parameters optional numeric vector of parameters for use
+#' with the projection argument. This argument is optional only in
+#' the sense that certain projections do not require additional
+#' parameters. Passed to \code{\link[mapproj]{mapproject}}.
 #' @param orientation projection orientation, which defaults to
 #'  \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
 #'  projections, so you will have to supply your own. See
@@ -46,7 +50,8 @@
 #'
 #' # Other projections
 #' nzmap + coord_map("cylindrical")
-#' nzmap + coord_map("azequalarea", orientation = c(-36.92,174.6,0))
+#' nzmap + coord_map("azequalarea", orientation = c(-36.92, 174.6, 0))
+#' nzmap + coord_map("lambert", parameters = c(-37, -44))
 #'
 #' states <- map_data("state")
 #' usamap <- ggplot(states, aes(long, lat, group = group)) +
@@ -83,12 +88,18 @@
 #' # Centered on New York (currently has issues with closing polygons)
 #' worldmap + coord_map("ortho", orientation = c(41, -74, 0))
 #' }
-coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) {
+coord_map <- function(projection="mercator", ..., parameters = NULL, orientation = NULL, xlim = NULL, ylim = NULL) {
+  if (is.null(parameters)) {
+    params <- list(...)
+  } else {
+    params <- parameters
+  }
+
   ggproto(NULL, CoordMap,
     projection = projection,
     orientation = orientation,
     limits = list(x = xlim, y = ylim),
-    params = list(...)
+    params = params
   )
 }
 
@@ -215,7 +226,14 @@ CoordMap <- ggproto("CoordMap", Coord,
   },
 
   render_axis_h = function(self, scale_details, theme) {
-    if (is.null(scale_details$x.major)) return(zeroGrob())
+    arrange <- scale_details$x.arrange %||% c("primary", "secondary")
+
+    if (is.null(scale_details$x.major)) {
+      return(list(
+        top = zeroGrob(),
+        bottom = zeroGrob()
+      ))
+    }
 
     x_intercept <- with(scale_details, data.frame(
       x = x.major,
@@ -223,11 +241,23 @@ CoordMap <- ggproto("CoordMap", Coord,
     ))
     pos <- self$transform(x_intercept, scale_details)
 
-    guide_axis(pos$x, scale_details$x.labels, "bottom", theme)
+    axes <- list(
+      top = guide_axis(pos$x, scale_details$x.labels, "top", theme),
+      bottom = guide_axis(pos$x, scale_details$x.labels, "bottom", theme)
+    )
+    axes[[which(arrange == "secondary")]] <- zeroGrob()
+    axes
   },
 
   render_axis_v = function(self, scale_details, theme) {
-    if (is.null(scale_details$y.major)) return(zeroGrob())
+    arrange <- scale_details$y.arrange %||% c("primary", "secondary")
+
+    if (is.null(scale_details$y.major)) {
+      return(list(
+        left = zeroGrob(),
+        right = zeroGrob()
+      ))
+    }
 
     x_intercept <- with(scale_details, data.frame(
       x = x.range[1],
@@ -235,7 +265,12 @@ CoordMap <- ggproto("CoordMap", Coord,
     ))
     pos <- self$transform(x_intercept, scale_details)
 
-    guide_axis(pos$y, scale_details$y.labels, "left", theme)
+    axes <- list(
+      left = guide_axis(pos$y, scale_details$y.labels, "left", theme),
+      right = guide_axis(pos$y, scale_details$y.labels, "right", theme)
+    )
+    axes[[which(arrange == "secondary")]] <- zeroGrob()
+    axes
   }
 )
 

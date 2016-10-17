@@ -56,18 +56,34 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-Marginal rug plots.
+A rug plot is a compact visualisation designed to supplement a 2d display
+with the two 1d marginal distributions. Rug plots display individual
+cases so are best used with smaller datasets.
+}
+\details{
+The rug lines are drawn with a fixed size (3% of the total plot size) so
+are dependent on the overall scale expansion in order not to overplot
+existing data.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "rug")}
+\aesthetics{geom}{rug}
 }
 \examples{
-p <- ggplot(mtcars, aes(wt, mpg))
-p + geom_point()
-p + geom_point() + geom_rug()
-p + geom_point() + geom_rug(sides="b")    # Rug on bottom only
-p + geom_point() + geom_rug(sides="trbl") # All four sides
-p + geom_point() + geom_rug(position='jitter')
+p <- ggplot(mtcars, aes(wt, mpg)) +
+  geom_point()
+p
+p + geom_rug()
+p + geom_rug(sides="b")    # Rug on bottom only
+p + geom_rug(sides="trbl") # All four sides
+
+# Use jittering to avoid overplotting for smaller datasets
+ggplot(mpg, aes(displ, cty)) +
+  geom_point() +
+  geom_rug()
+
+ggplot(mpg, aes(displ, cty)) +
+  geom_jitter() +
+  geom_rug(alpha = 1/2, position = "jitter")
 }
 

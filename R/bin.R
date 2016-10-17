@@ -124,7 +124,7 @@ bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
     weight[is.na(weight)] <- 0
   }
 
-  bin_idx <- cut(x, bins$breaks, right = bins$right_closed,
+  bin_idx <- cut(x, bins$fuzzy, right = bins$right_closed,
     include.lowest = TRUE)
   bin_count <- as.numeric(tapply(weight, bin_idx, sum, na.rm = TRUE))
   bin_count[is.na(bin_count)] <- 0

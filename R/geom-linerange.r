@@ -1,10 +1,10 @@
 #' Vertical intervals: lines, crossbars & errorbars.
 #'
 #' Various ways of representing a vertical interval defined by \code{x},
-#' \code{ymin} and \code{ymax}.
+#' \code{ymin} and \code{ymax}. Each case draws a single graphical object.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "linerange")}
+#' \aesthetics{geom}{linerange}
 #'
 #' @param fatten A multiplicative factor used to increase the size of the
 #'   middle bar in \code{geom_crossbar()} and the middle point in
@@ -40,14 +40,14 @@
 #' # specify the dodge width
 #' p <- ggplot(df, aes(trt, resp, fill = group))
 #' p +
-#'  geom_bar(position = "dodge", stat = "identity") +
+#'  geom_col(position = "dodge") +
 #'  geom_errorbar(aes(ymin = lower, ymax = upper), position = "dodge", width = 0.25)
 #'
 #' # Because the bars and errorbars have different widths
 #' # we need to specify how wide the objects we are dodging are
 #' dodge <- position_dodge(width=0.9)
 #' p +
-#'   geom_bar(position = dodge, stat = "identity") +
+#'   geom_col(position = dodge) +
 #'   geom_errorbar(aes(ymin = lower, ymax = upper), position = dodge, width = 0.25)
 geom_linerange <- function(mapping = NULL, data = NULL,
                            stat = "identity", position = "identity",

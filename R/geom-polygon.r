@@ -1,7 +1,12 @@
 #' Polygon, a filled path.
 #'
+#' Polygons are very similar to paths (as drawn by \code{\link{geom_path}})
+#' except that the start and end points are connected and the inside is
+#' coloured by \code{fill}. The \code{group} aesthetic determines which cases
+#' are connected together into a polygon.
+#'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "polygon")}
+#' \aesthetics{geom}{polygon}
 #'
 #' @seealso
 #'  \code{\link{geom_path}} for an unfilled polygon,
@@ -33,7 +38,9 @@
 #' # Currently we need to manually merge the two together
 #' datapoly <- merge(values, positions, by = c("id"))
 #'
-#' (p <- ggplot(datapoly, aes(x = x, y = y)) + geom_polygon(aes(fill = value, group = id)))
+#' p <- ggplot(datapoly, aes(x = x, y = y)) +
+#'   geom_polygon(aes(fill = value, group = id))
+#' p
 #'
 #' # Which seems like a lot of work, but then it's easy to add on
 #' # other features in this coordinate system, e.g.:

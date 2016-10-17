@@ -3,10 +3,14 @@
 #' \code{geom_path()} connects the observations in the order in which they appear
 #' in the data. \code{geom_line()} connects them in order of the variable on the
 #' x axis. \code{geom_step()} creates a stairstep plot, highlighting exactly
-#' when changes occur.
+#' when changes occur. The \code{group} aesthetic determines which cases are
+#' connected together.
+#'
+#' An alternative parameterisation is \code{\link{geom_segment}}: each line
+#' corresponds to a single case which provides the start and end coordinates.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "path")}
+#' \aesthetics{geom}{path}
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point
@@ -297,6 +301,11 @@ stairstep <- function(data, direction="hv") {
   direction <- match.arg(direction, c("hv", "vh"))
   data <- as.data.frame(data)[order(data$x), ]
   n <- nrow(data)
+
+  if (n <= 1) {
+    # Need at least one observation
+    return(data[0, , drop = FALSE])
+  }
 
   if (direction == "vh") {
     xs <- rep(1:n, each = 2)[-2*n]

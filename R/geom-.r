@@ -54,6 +54,7 @@ NULL
 Geom <- ggproto("Geom",
   required_aes = character(),
   non_missing_aes = character(),
+  optional_aes = character(),
 
   default_aes = aes(),
 
@@ -66,7 +67,7 @@ Geom <- ggproto("Geom",
     )
   },
 
-  draw_layer = function(self, data, params, panel, coord) {
+  draw_layer = function(self, data, params, layout, coord) {
     if (empty(data)) {
       n <- if (is.factor(data$PANEL)) nlevels(data$PANEL) else 1L
       return(rep(list(zeroGrob()), n))
@@ -79,7 +80,7 @@ Geom <- ggproto("Geom",
     plyr::dlply(data, "PANEL", function(data) {
       if (empty(data)) return(zeroGrob())
 
-      panel_scales <- panel$ranges[[data$PANEL[1]]]
+      panel_scales <- layout$panel_ranges[[data$PANEL[1]]]
       do.call(self$draw_panel, args)
     }, .drop = FALSE)
   },
@@ -141,7 +142,7 @@ Geom <- ggproto("Geom",
   },
 
   aesthetics = function(self) {
-    c(union(self$required_aes, names(self$default_aes)), "group")
+    c(union(self$required_aes, names(self$default_aes)), self$optional_aes, "group")
   }
 
 )

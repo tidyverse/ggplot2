@@ -93,12 +93,12 @@ In a dot plot, the width of a dot corresponds to the bin width
 stacked, with each dot representing one observation.
 }
 \details{
+There are two basic approaches: \emph{dot-density} and \emph{histodot}.
 With dot-density binning, the bin positions are determined by the data and
 \code{binwidth}, which is the maximum width of each bin. See Wilkinson
-(1999) for details on the dot-density binning algorithm.
-
-With histodot binning, the bins have fixed positions and fixed widths, much
-like a histogram.
+(1999) for details on the dot-density binning algorithm. With histodot
+binning, the bins have fixed positions and fixed widths, much like a
+histogram.
 
 When binning along the x axis and stacking along the y axis, the numbers on
 y axis are not meaningful, due to technical limitations of ggplot2. You can
@@ -107,7 +107,7 @@ to match the number of dots.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "dotplot")}
+\aesthetics{geom}{dotplot}
 }
 
 \section{Computed variables}{

@@ -67,21 +67,26 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{geom, stat}{Use to override the default connection between
 \code{geom_violin} and \code{stat_ydensity}.}
 
-\item{bw}{the smoothing bandwidth to be used, see
-\code{\link{density}} for details}
+\item{bw}{The smoothing bandwidth to be used.
+If numeric, the standard deviation of the smoothing kernel.
+If character, a rule to choose the bandwidth, as listed in
+\code{\link[stats]{bw.nrd}}.}
 
-\item{adjust}{adjustment of the bandwidth, see
-\code{\link{density}} for details}
+\item{adjust}{A multiplicate bandwidth adjustment. This makes it possible
+to adjust the bandwidth while still using the a bandwidth estimator.
+For exampe, \code{adjust = 1/2} means use half of the default bandwidth.}
 
-\item{kernel}{kernel used for density estimation, see
-\code{\link{density}} for details}
+\item{kernel}{Kernel. See list of available kernels in \code{\link{density}}.}
 }
 \description{
-Violin plot.
+A violin plot is a compact display of a continuous distribution. It is a
+blend of \code{\link{geom_boxplot}} and \code{\link{geom_density}}: a
+violin plot is a mirrored density plot displayed in the same way as a
+boxplot.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "violin")}
+\aesthetics{geom}{violin}
 }
 
 \section{Computed variables}{
@@ -101,8 +106,7 @@ p <- ggplot(mtcars, aes(factor(cyl), mpg))
 p + geom_violin()
 
 \donttest{
-p + geom_violin() + geom_jitter(height = 0)
-p + geom_violin() + coord_flip()
+p + geom_violin() + geom_jitter(height = 0, width = 0.1)
 
 # Scale maximum width proportional to sample size:
 p + geom_violin(scale = "count")

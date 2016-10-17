@@ -40,7 +40,7 @@ scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
   na.value = "grey50", guide = "colourbar", colors)
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
+\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
 to control name, limits, breaks, labels and so forth.}
 
 \item{low, high}{Colours for low and high ends of the gradient.}
@@ -72,7 +72,7 @@ to map an arbitrary range to between 0 and 1.}
 }
 \details{
 Default colours are generated with \pkg{munsell} and
-\code{mnsl(c("2.5PB 2/4", "2.5PB 7/10")}. Generally, for continuous
+\code{mnsl(c("2.5PB 2/4", "2.5PB 7/10"))}. Generally, for continuous
 colour scales you want to keep hue constant, but vary chroma and
 luminance. The \pkg{munsell} package makes this easy to do using the
 Munsell colour system.

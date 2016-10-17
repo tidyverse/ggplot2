@@ -1,10 +1,10 @@
 #' Display a smooth density estimate.
 #'
-#' A kernel density estimate, useful for display the distribution of variables
-#' with underlying smoothness.
+#' Computes and draws kernel density estimate, which is a smoothed version of
+#' the histogram.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density")}
+#' \aesthetics{geom}{density}
 #'
 #' @seealso See \code{\link{geom_histogram}}, \code{\link{geom_freqpoly}} for
 #'   other methods of displaying continuous distribution.

@@ -19,7 +19,7 @@ ggtitle(label, subtitle = NULL)
 \arguments{
 \item{...}{a list of new names in the form aesthetic = "new name"}
 
-\item{label}{The text for the axis, plot title or caption below the plot}
+\item{label}{The text for the axis, plot title or caption below the plot.}
 
 \item{subtitle}{the text for the subtitle for the plot which will be
 displayed below the title. Leave \code{NULL} for no subtitle.}

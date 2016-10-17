@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 2.1.0
+Version: 2.1.0.9001
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Winston", "Chang", , "winston@rstudio.com", "aut"),
@@ -22,8 +22,10 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.3.0),
-    stats
+    scales (>= 0.4.0.9003),
+    stats,
+    tibble,
+    lazyeval
 Suggests:
     covr,
     ggplot2movies,
@@ -42,8 +44,9 @@ Suggests:
     rpart,
     rmarkdown,
     svglite
+Remotes: hadley/scales
 Enhances: sp
-License: GPL-2
+License: GPL-2 | file LICENSE
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
 BugReports: https://github.com/hadley/ggplot2/issues
 LazyData: true
@@ -68,6 +71,7 @@ Collate:
     'annotation-raster.r'
     'annotation.r'
     'autoplot.r'
+    'axis-secondary.R'
     'bench.r'
     'bin.R'
     'coord-.r'
@@ -82,11 +86,7 @@ Collate:
     'data.R'
     'facet-.r'
     'facet-grid-.r'
-    'facet-labels.r'
-    'facet-layout.r'
-    'facet-locate.r'
     'facet-null.r'
-    'facet-viewports.r'
     'facet-wrap.r'
     'fortify-lm.r'
     'fortify-map.r'
@@ -100,6 +100,7 @@ Collate:
     'geom-bin2d.r'
     'geom-blank.r'
     'geom-boxplot.r'
+    'geom-col.r'
     'geom-path.r'
     'geom-contour.r'
     'geom-count.r'
@@ -141,11 +142,12 @@ Collate:
     'guides-axis.r'
     'guides-grid.r'
     'hexbin.R'
+    'labeller.r'
     'labels.r'
     'layer.r'
+    'layout.R'
     'limits.r'
     'margins.R'
-    'panel.r'
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'
@@ -153,7 +155,6 @@ Collate:
     'position-.r'
     'position-collide.r'
     'position-dodge.r'
-    'position-fill.r'
     'position-identity.r'
     'position-jitter.r'
     'position-jitterdodge.R'

@@ -53,11 +53,12 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-A line segment parameterised by location, direction and distance.
+This is a polar parameterisation of \code{\link{geom_segment}}. It is
+useful when you have variables that describe direction and distance.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "spoke")}
+\aesthetics{geom}{spoke}
 }
 \examples{
 df <- expand.grid(x = 1:10, y=1:10)

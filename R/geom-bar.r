@@ -1,11 +1,10 @@
 #' Bars, rectangles with bases on x-axis
 #'
-#' There are two types of bar charts, determined by what is mapped to bar
-#' height. By default, \code{geom_bar} uses \code{stat="count"} which makes the
-#' height of the bar proportion to the number of cases in each group (or if the
+#' There are two types of bar charts: \code{geom_bar} makes the height of the
+#' bar proportional to the number of cases in each group (or if the
 #' \code{weight} aethetic is supplied, the sum of the weights). If you want the
 #' heights of the bars to represent values in the data, use
-#' \code{stat="identity"} and map a variable to the \code{y} aesthetic.
+#' \code{\link{geom_col}} instead.
 #'
 #' A bar chart maps the height of the bar to a variable, and so the base of the
 #' bar must always be shown to produce a valid visual comparison. Naomi Robbins
@@ -21,9 +20,10 @@
 #' the bars and then stretching or squashing to the same height.
 #'
 #' @section Aesthetics:
-#'   \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "bar")}
+#' \aesthetics{geom}{bar}
 #'
-#' @seealso \code{\link{geom_histogram}} for continuous data,
+#' @seealso \code{\link{geom_col}} which uses \code{stat="identity"} by default,
+#'   \code{\link{geom_histogram}} for continuous data,
 #'   \code{\link{position_dodge}} for creating side-by-side barcharts.
 #' @export
 #' @inheritParams layer
@@ -47,7 +47,10 @@
 #' df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
 #' ggplot(df, aes(trt, outcome)) +
 #'   geom_bar(stat = "identity")
-#' # But geom_point() display exactly the same information and doesn't
+#' # And, even more succinctly with geom_col()
+#' ggplot(df, aes(trt, outcome)) +
+#'   geom_col()
+#' # But geom_point() displays exactly the same information and doesn't
 #' # require the y-axis to touch zero.
 #' ggplot(df, aes(trt, outcome)) +
 #'   geom_point()
@@ -113,7 +116,7 @@ geom_bar <- function(mapping = NULL, data = NULL,
 #' @export
 #' @include geom-rect.r
 GeomBar <- ggproto("GeomBar", GeomRect,
-  required_aes = "x",
+  required_aes = c("x", "y"),
 
   setup_data = function(data, params) {
     data$width <- data$width %||%

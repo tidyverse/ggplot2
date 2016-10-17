@@ -25,9 +25,8 @@ ggplot(diamonds, aes(price, fill = cut)) +
 # To dodge items with different widths, you need to be explicit
 df <- data.frame(x = c("a","a","b","b"), y = 2:5, g = rep(1:2, 2))
 p <- ggplot(df, aes(x, y, group = g)) +
-  geom_bar(
-    stat = "identity", position = "dodge",
-    fill = "grey50", colour = "black"
+  geom_col(
+    position = "dodge", fill = "grey50", colour = "black"
   )
 p
 
@@ -45,10 +44,10 @@ p + geom_errorbar(aes(ymin = y-1, ymax = y+1, width = 0.2),
 }
 }
 \seealso{
-Other position adjustments: \code{\link{position_fill}},
-  \code{\link{position_identity}},
+Other position adjustments: \code{\link{position_identity}},
   \code{\link{position_jitterdodge}},
   \code{\link{position_jitter}},
-  \code{\link{position_nudge}}
+  \code{\link{position_nudge}},
+  \code{\link{position_stack}}
 }
 

@@ -28,29 +28,30 @@ scale_alpha_manual(..., values)
 \code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
 \code{\link{discrete_scale}} for more details}
 
-\item{values}{a set of aesthetic values to map data values to.  If this
+\item{values}{a set of aesthetic values to map data values to. If this
 is a named vector, then the values will be matched based on the names.
 If unnamed, values will be matched in order (usually alphabetical) with
-the limits of the scale.  Any data values that don't match will be
+the limits of the scale. Any data values that don't match will be
 given \code{na.value}.}
 }
 \description{
-Create your own discrete scale.
+This allows you to specify you own set of mappings from levels in the
+data to aesthetic values.
 }
 \examples{
-\donttest{
 p <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = factor(cyl)))
 
-p + scale_colour_manual(values = c("red","blue", "green"))
+p + scale_colour_manual(values = c("red", "blue", "green"))
 p + scale_colour_manual(
-  values = c("8" = "red","4" = "blue","6" = "green"))
+  values = c("8" = "red", "4" = "blue", "6" = "green"))
+\donttest{
 # With rgb hex values
 p + scale_colour_manual(values = c("#FF0000", "#0000FF", "#00FF00"))
 
 # As with other scales you can use breaks to control the appearance
 # of the legend
-cols <- c("8" = "red","4" = "blue","6" = "darkgreen", "10" = "orange")
+cols <- c("8" = "red", "4" = "blue", "6" = "darkgreen", "10" = "orange")
 p + scale_colour_manual(values = cols)
 p + scale_colour_manual(values = cols, breaks = c("4", "6", "8"))
 p + scale_colour_manual(values = cols, breaks = c("8", "6", "4"))

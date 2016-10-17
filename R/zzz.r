@@ -13,3 +13,9 @@
   tip <- sample(tips, 1)
   packageStartupMessage(paste(strwrap(tip), collapse = "\n"))
 }
+
+release_questions <- function() {
+  c(
+    "Have you built the book?"
+  )
+}

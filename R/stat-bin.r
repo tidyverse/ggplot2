@@ -20,6 +20,9 @@
 #'   example, to center on integers, use \code{width = 1} and \code{boundary =
 #'   0.5}, even if \code{1} is outside the range of the data.  At most one of
 #'   \code{center} and \code{boundary} may be specified.
+#' @param breaks Alternatively, you can supply a numeric vector giving
+#'    the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+#'    and \code{boundary}.
 #' @param closed One of \code{"right"} or \code{"left"} indicating whether right
 #'   or left edges of bins are included in the bin.
 #' @param pad If \code{TRUE}, adds empty bins at either end of x. This ensures
@@ -44,6 +47,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
                      bins = NULL,
                      center = NULL,
                      boundary = NULL,
+                     breaks = NULL,
                      closed = c("right", "left"),
                      pad = FALSE,
                      na.rm = FALSE,
@@ -63,6 +67,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
       bins = bins,
       center = center,
       boundary = boundary,
+      breaks = breaks,
       closed = closed,
       pad = pad,
       na.rm = na.rm,
