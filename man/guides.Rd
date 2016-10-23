@@ -54,8 +54,6 @@ p + theme(legend.position = "bottom")
 
 # position of guides
 
-p + theme(legend.position = "bottom", legend.box = "horizontal")
-
 # Set order for multiple guides
 ggplot(mpg, aes(displ, cty)) +
   geom_point(aes(size = hwy, colour = cyl, shape = drv)) +

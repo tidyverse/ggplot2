@@ -7,7 +7,7 @@ test_that("range is expanded", {
   )
 
   p <- ggplot(df, aes(1, y)) +
-    geom_violin() +
+    geom_violin(trim = FALSE) +
     facet_grid(x ~ ., scales = "free") +
     coord_cartesian(expand = FALSE)
   expand_a <- stats::bw.nrd0(df$y[df$x == "a"]) * 3

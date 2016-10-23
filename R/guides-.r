@@ -45,8 +45,6 @@
 #'
 #' # position of guides
 #'
-#' p + theme(legend.position = "bottom", legend.box = "horizontal")
-#'
 #' # Set order for multiple guides
 #' ggplot(mpg, aes(displ, cty)) +
 #'   geom_point(aes(size = hwy, colour = cyl, shape = drv)) +
@@ -93,32 +91,24 @@ update_guides <- function(p, guides) {
 #      arrange all ggrobs
 
 build_guides <- function(scales, layers, default_mapping, position, theme, guides, labels) {
-
-  # set themes w.r.t. guides
-  # should these theme$legend.XXX be renamed to theme$guide.XXX ?
-
-  # by default, guide boxes are vertically aligned
-  theme$legend.box <- theme$legend.box %||% "vertical"
-
-  # size of key (also used for bar in colorbar guide)
   theme$legend.key.width <- theme$legend.key.width %||% theme$legend.key.size
   theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
 
-  # by default, direction of each guide depends on the position of the guide.
-  theme$legend.direction <-
-    theme$legend.direction %||%
-    if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
-      switch(position[1], top = , bottom = "horizontal", left = , right = "vertical")
-    else
-      "vertical"
-
-  # justification of legend boxes
-  theme$legend.box.just <-
-    theme$legend.box.just %||%
-    if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
-      switch(position, bottom = , top = c("center", "top"), left = , right = c("left", "top"))
-    else
-      c("center", "center")
+  # Layout of legends depends on their overall location
+  position <- legend_position(position)
+  if (position == "inside") {
+    theme$legend.box <- theme$legend.box %||% "vertical"
+    theme$legend.direction <- theme$legend.direction %||% "vertical"
+    theme$legend.box.just <- theme$legend.box.just %||% c("center", "center")
+  } else if (position == "vertical") {
+    theme$legend.box <- theme$legend.box %||% "vertical"
+    theme$legend.direction <- theme$legend.direction %||% "vertical"
+    theme$legend.box.just <- theme$legend.box.just %||% c("left", "top")
+  } else if (position == "horizontal") {
+    theme$legend.box <- theme$legend.box %||% "horizontal"
+    theme$legend.direction <- theme$legend.direction %||% "horizontal"
+    theme$legend.box.just <- theme$legend.box.just %||% c("center", "top")
+  }
 
   # scales -> data for guides
   gdefs <- guides_train(scales = scales, theme = theme, guides = guides, labels = labels)
@@ -138,6 +128,19 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   grobs <- guides_build(ggrobs, theme)
 
   grobs
+}
+
+# Simplify legend position to one of horizontal/vertical/inside
+legend_position <- function(position) {
+  if (length(position) == 1) {
+    if (position %in% c("top", "bottom")) {
+      "horizontal"
+    } else {
+      "vertical"
+    }
+  } else {
+    "inside"
+  }
 }
 
 # validate guide object

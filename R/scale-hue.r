@@ -1,5 +1,9 @@
 #' Qualitative colour scale with evenly spaced hues.
 #'
+#' This is the default colour scale for categorical variables. It maps each
+#' level to an evenly spaced hue on the colour wheel. It does not generate
+#' colour-blind safe palettes.
+#'
 #' @param na.value Colour to use for missing values
 #' @param ... Other arguments passed on to \code{\link{discrete_scale}}
 #'   to control name, limits, breaks, labels and so forth.

@@ -1,15 +1,20 @@
 #' Line segments and curves.
 #'
-#' \code{geom_segment} draws a straight line between points (x1, y1) and
-#' (x2, y2). \code{geom_curve} draws a curved line.
+#' \code{geom_segment} draws a straight line between points (x, y) and
+#' (xend, yend). \code{geom_curve} draws a curved line. See the underlying
+#' drawing function \code{\link[grid]{curveGrob}} for the parameters that
+#' control the curve.
+#'
+#' Both geoms draw a single segment/curve per case. See \code{geom_path} if you
+#' need to connect points across multiple cases.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{segment}
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @param arrow specification for arrow heads, as created by arrow()
-#' @param lineend Line end style (round, butt, square)
+#' @param arrow specification for arrow heads, as created by arrow().
+#' @param lineend Line end style (round, butt, square).
 #' @seealso \code{\link{geom_path}} and \code{\link{geom_line}} for multi-
 #'   segment lines and paths.
 #' @seealso \code{\link{geom_spoke}} for a segment parameterised by a location

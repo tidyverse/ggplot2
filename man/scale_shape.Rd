@@ -13,10 +13,14 @@ scale_shape(..., solid = TRUE)
 \code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
 \code{\link{discrete_scale}} for more details}
 
-\item{solid}{Are the shapes solid, \code{TRUE}, or hollow \code{FALSE}?}
+\item{solid}{Should the shapes be solid, \code{TRUE}, or hollow,
+\code{FALSE}?}
 }
 \description{
-A continuous variable can not be mapped to shape.
+Maps discrete variables to six easily discernible shapes. If you have
+more than six levels, you will get a warning message, and the seventh
+and subsequence levels will not appear on the plot. You can not map a
+continuous variable to shape.
 }
 \examples{
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]
@@ -25,7 +29,6 @@ dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 d + scale_shape(solid = TRUE) # the default
 d + scale_shape(solid = FALSE)
 d + scale_shape(name = "Cut of diamond")
-d + scale_shape(name = "Cut of\\ndiamond")
 
 # To change order of levels, change order of
 # underlying factor
@@ -33,9 +36,6 @@ levels(dsmall$cut) <- c("Fair", "Good", "Very Good", "Premium", "Ideal")
 
 # Need to recreate plot to pick up new data
 ggplot(dsmall, aes(price, carat)) + geom_point(aes(shape = cut))
-
-# Or for short:
-d \%+\% dsmall
 
 # Show a list of available shapes
 df_shapes <- data.frame(shape = 0:24)

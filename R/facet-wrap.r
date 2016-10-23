@@ -165,7 +165,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     }
     vars <- as.quoted(params$facets)
 
-    facet_vals <- quoted_df(data, vars, params$plot_env)
+    facet_vals <- eval_facet_vars(vars, data, params$plot_env)
     facet_vals[] <- lapply(facet_vals[], as.factor)
 
     missing_facets <- setdiff(names(vars), names(facet_vals))

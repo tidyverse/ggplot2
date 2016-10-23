@@ -21,8 +21,8 @@ scale_linetype_discrete(..., na.value = "blank")
 }
 \description{
 Default line types based on a set supplied by Richard Pearson,
-University of Manchester.  Line types can not be mapped to continuous
-values.
+University of Manchester. Continuous values can not be mapped to
+line types.
 }
 \examples{
 base <- ggplot(economics_long, aes(date, value01))

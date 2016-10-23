@@ -30,7 +30,10 @@ scale_size_identity(..., guide = "none")
 \item{guide}{Guide to use for this scale - defaults to \code{"none"}.}
 }
 \description{
-Use values without scaling.
+Use this set of scales when your data has already been scaled, i.e. it
+already represents aesthetic values that ggplot2 can handle directly
+This will not produce a legend unless you also supply the \code{breaks}
+and \code{labels}.
 }
 \examples{
 ggplot(luv_colours, aes(u, v)) +

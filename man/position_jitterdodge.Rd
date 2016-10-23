@@ -29,9 +29,9 @@ ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
 }
 \seealso{
 Other position adjustments: \code{\link{position_dodge}},
-  \code{\link{position_fill}},
   \code{\link{position_identity}},
   \code{\link{position_jitter}},
-  \code{\link{position_nudge}}
+  \code{\link{position_nudge}},
+  \code{\link{position_stack}}
 }
 

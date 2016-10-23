@@ -45,6 +45,7 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
         call. = FALSE)
     }
     trans <- coord$transform(data, panel_scales)
+
     curveGrob(
       trans$x, trans$y, trans$xend, trans$yend,
       default.units = "native",
@@ -54,7 +55,7 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
         col = alpha(trans$colour, trans$alpha),
         lwd = trans$size * .pt,
         lty = trans$linetype,
-        lineend = trans$lineend),
+        lineend = lineend),
       arrow = arrow
     )
   }

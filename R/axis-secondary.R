@@ -124,10 +124,11 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     full_range <- self$transform_range(old_range)
 
     # Test for monotony
-    if (length(unique(sign(diff(full_range)))) != 1) stop("transformation for secondary axes must be monotonous")
+    if (length(unique(sign(diff(full_range)))) != 1)
+      stop("transformation for secondary axes must be monotonous")
 
     # Get break info for the secondary axis
-    new_range <- full_range[c(1, self$detail)]
+    new_range <- range(full_range, na.rm = TRUE)
     temp_scale <- self$create_scale(new_range)
     range_info <- temp_scale$break_info()
 

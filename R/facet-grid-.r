@@ -230,7 +230,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       intersect(names(cols), names(data)))
     data <- reshape2::add_margins(data, margin_vars, params$margins)
 
-    facet_vals <- quoted_df(data, c(rows, cols), params$plot_env)
+    facet_vals <- eval_facet_vars(c(rows, cols), data, params$plot_env)
 
     # If any facetting variables are missing, add them in by
     # duplicating the data

@@ -54,6 +54,7 @@ NULL
 Geom <- ggproto("Geom",
   required_aes = character(),
   non_missing_aes = character(),
+  optional_aes = character(),
 
   default_aes = aes(),
 
@@ -141,7 +142,7 @@ Geom <- ggproto("Geom",
   },
 
   aesthetics = function(self) {
-    c(union(self$required_aes, names(self$default_aes)), "group")
+    c(union(self$required_aes, names(self$default_aes)), self$optional_aes, "group")
   }
 
 )

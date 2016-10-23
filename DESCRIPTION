@@ -22,7 +22,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.3.0),
+    scales (>= 0.4.0.9003),
     stats,
     tibble,
     lazyeval
@@ -44,6 +44,7 @@ Suggests:
     rpart,
     rmarkdown,
     svglite
+Remotes: hadley/scales
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.org, https://github.com/hadley/ggplot2
@@ -154,7 +155,6 @@ Collate:
     'position-.r'
     'position-collide.r'
     'position-dodge.r'
-    'position-fill.r'
     'position-identity.r'
     'position-jitter.r'
     'position-jitterdodge.R'

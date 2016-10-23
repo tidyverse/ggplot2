@@ -3,13 +3,14 @@
 \name{geom_boxplot}
 \alias{geom_boxplot}
 \alias{stat_boxplot}
-\title{Box and whiskers plot.}
+\title{A Tukey box and whiskers plot.}
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", ..., outlier.colour = NULL, outlier.color = NULL,
-  outlier.shape = 19, outlier.size = 1.5, outlier.stroke = 0.5,
-  outlier.alpha = NULL, notch = FALSE, notchwidth = 0.5,
-  varwidth = FALSE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  outlier.fill = NULL, outlier.shape = 19, outlier.size = 1.5,
+  outlier.stroke = 0.5, outlier.alpha = NULL, notch = FALSE,
+  notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", ..., coef = 1.5, na.rm = FALSE, show.legend = NA,
@@ -43,7 +44,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{outlier.colour, outlier.color, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+\item{outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
   aesthetics used for the box.
 
   In the unlikely event you specify both US and UK spellings of colour, the
@@ -80,18 +81,22 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{coef}{length of the whiskers as multiple of IQR.  Defaults to 1.5}
 }
 \description{
-The lower and upper "hinges" correspond to the first and third quartiles
+The boxplot gives a compact display of the distribution of a continuous
+variable. It displays a five number summary (defined by the median,
+two hinges, and two whiskers), and then individually all "outlying" points.
+}
+\details{
+The lower and upper hinges correspond to the first and third quartiles
 (the 25th and 75th percentiles). This differs slightly from the method used
 by the \code{boxplot} function, and may be apparent with small samples.
 See \code{\link{boxplot.stats}} for for more information on how hinge
 positions are calculated for \code{boxplot}.
-}
-\details{
+
 The upper whisker extends from the hinge to the highest value that is within
 1.5 * IQR of the hinge, where IQR is the inter-quartile range, or distance
 between the first and third quartiles. The lower whisker extends from the
 hinge to the lowest value within 1.5 * IQR of the hinge. Data beyond the
-end of the whiskers are outliers and plotted as points (as specified by Tukey).
+end of the whiskers are outliers and plotted as points.
 
 In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
 This gives a roughly 95\% confidence interval for comparing medians.

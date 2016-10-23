@@ -73,8 +73,9 @@ estimation}
 using \code{\link[MASS]{bandwidth.nrd}}.}
 }
 \description{
-Perform a 2D kernel density estimation using kde2d and display the
-results with contours. This can be useful for dealing with overplotting.
+Perform a 2D kernel density estimation using \code{\link[MASS]{kde2d}} and
+display the results with contours. This can be useful for dealing with
+overplotting.
 }
 \section{Aesthetics}{
 
@@ -108,7 +109,8 @@ d + stat_density_2d(geom = "point", aes(size = ..density..), n = 20, contour = F
 }
 }
 \seealso{
-\code{\link{geom_contour}} for contour drawing geom,
- \code{\link{stat_sum}} for another way of dealing with overplotting
+\code{\link{geom_contour}} for information about how contours
+ are drawn; \code{\link{geom_bin2d}} for another way of dealing with
+ overplotting
 }
 

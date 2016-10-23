@@ -13,8 +13,8 @@ Range <- ggproto("Range", NULL,
 )
 
 RangeDiscrete <- ggproto("RangeDiscrete", Range,
-  train = function(self, x, drop = FALSE) {
-    self$range <- scales::train_discrete(x, self$range, drop)
+  train = function(self, x, drop = FALSE, na.rm = FALSE) {
+    self$range <- scales::train_discrete(x, self$range, drop = drop, na.rm = na.rm)
   }
 )
 

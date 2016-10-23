@@ -77,7 +77,7 @@ scale_y_discrete <- function(..., expand = waiver(), position = "left") {
 ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   train = function(self, x) {
     if (is.discrete(x)) {
-      self$range$train(x, drop = self$drop)
+      self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
     } else {
       self$range_c$train(x)
     }
