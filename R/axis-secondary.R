@@ -77,6 +77,11 @@ is.derived <- function(x) {
   inherits(x, "derived")
 }
 #' @importFrom lazyeval f_eval
+#'
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 AxisSecondary <- ggproto("AxisSecondary", NULL,
   trans = NULL,
   axis = NULL,
@@ -148,5 +153,8 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     )
     scale$train(range)
     scale
+  },
+  make_title = function(title) {
+    title
   }
 )

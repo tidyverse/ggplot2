@@ -142,21 +142,25 @@ Layout <- ggproto("Layout", NULL,
 
   xlabel = function(self, labels) {
     primary <- self$panel_scales$x[[1]]$name %|W|% labels$x
+    primary <- self$panel_scales$x[[1]]$make_title(primary)
     secondary <- if (is.null(self$panel_scales$x[[1]]$secondary.axis)) {
       waiver()
     } else {
       self$panel_scales$x[[1]]$sec_name()
     } %|W|% labels$sec.x
+    secondary <- self$panel_scales$x[[1]]$make_sec_title(secondary)
     list(primary = primary, secondary = secondary)[self$panel_scales$x[[1]]$axis_order()]
   },
 
   ylabel = function(self, labels) {
     primary <- self$panel_scales$y[[1]]$name %|W|% labels$y
+    primary <- self$panel_scales$y[[1]]$make_title(primary)
     secondary <- if (is.null(self$panel_scales$y[[1]]$secondary.axis)) {
       waiver()
     } else {
       self$panel_scales$y[[1]]$sec_name()
     } %|W|% labels$sec.y
+    secondary <- self$panel_scales$y[[1]]$make_sec_title(secondary)
     list(primary = primary, secondary = secondary)[self$panel_scales$y[[1]]$axis_order()]
   },
 

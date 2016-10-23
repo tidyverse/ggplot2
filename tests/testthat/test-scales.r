@@ -177,3 +177,14 @@ test_that("Scales warn when transforms introduces non-finite values", {
 
   expect_warning(ggplot_build(p), "Transformation introduced infinite values")
 })
+
+test_that("Scales get their correct titles through layout", {
+  df <- data.frame(x = c(1e1, 1e5), y = c(0, 100))
+
+  p <- ggplot(df, aes(x, y)) +
+    geom_point(size = 5)
+
+  p <- ggplot_build(p)
+  expect_identical(p$layout$xlabel(p$plot$labels)$primary, "x")
+  expect_identical(p$layout$ylabel(p$plot$labels)$primary, "y")
+})
