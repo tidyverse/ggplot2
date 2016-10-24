@@ -3,8 +3,8 @@
 \name{aes_linetype_size_shape}
 \alias{aes_linetype_size_shape}
 \alias{linetype}
-\alias{shape}
 \alias{size}
+\alias{shape}
 \title{Differentiation related aesthetics: linetype, size, shape}
 \description{
 This page demonstrates the usage of a sub-group

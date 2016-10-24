@@ -2,14 +2,14 @@
 % Please edit documentation in R/theme-defaults.r
 \name{ggtheme}
 \alias{ggtheme}
-\alias{theme_bw}
-\alias{theme_classic}
-\alias{theme_dark}
-\alias{theme_gray}
 \alias{theme_grey}
-\alias{theme_light}
+\alias{theme_gray}
+\alias{theme_bw}
 \alias{theme_linedraw}
+\alias{theme_light}
+\alias{theme_dark}
 \alias{theme_minimal}
+\alias{theme_classic}
 \alias{theme_void}
 \title{ggplot2 themes}
 \usage{

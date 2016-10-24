@@ -2,21 +2,21 @@
 % Please edit documentation in R/legend-draw.r
 \name{draw_key}
 \alias{draw_key}
+\alias{draw_key_point}
 \alias{draw_key_abline}
+\alias{draw_key_rect}
+\alias{draw_key_polygon}
 \alias{draw_key_blank}
 \alias{draw_key_boxplot}
 \alias{draw_key_crossbar}
-\alias{draw_key_dotplot}
-\alias{draw_key_label}
 \alias{draw_key_path}
-\alias{draw_key_point}
+\alias{draw_key_vpath}
+\alias{draw_key_dotplot}
 \alias{draw_key_pointrange}
-\alias{draw_key_polygon}
-\alias{draw_key_rect}
 \alias{draw_key_smooth}
 \alias{draw_key_text}
+\alias{draw_key_label}
 \alias{draw_key_vline}
-\alias{draw_key_vpath}
 \title{Key drawing functions}
 \usage{
 draw_key_point(data, params, size)

@@ -76,7 +76,7 @@ same layer will not be plotted.}
 }
 \description{
 \code{geom_text} adds text directly to the plot. \code{geom_label} draws
-a rectangle underneath the text, making it easier to read.
+a rectangle behind the text, making it easier to read.
 }
 \details{
 Note the the "width" and "height" of a text element are 0, so stacking
