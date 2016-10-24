@@ -43,13 +43,21 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
     list2env(members, envir = e)
   }
 
-  if (!is.null(`_inherit`)) {
-    if (!is.ggproto(`_inherit`)) {
+  # Dynamically capture parent: this is necessary in order to avoid
+  # capturing the parent at package build time.
+  `_inherit` <- substitute(`_inherit`)
+  env <- parent.frame()
+  find_super <- function() {
+    eval(`_inherit`, env, NULL)
+  }
+
+  super <- find_super()
+  if (!is.null(super)) {
+    if (!is.ggproto(super)) {
       stop("`_inherit` must be a ggproto object.")
     }
-    e$super <- `_inherit`
-    class(e) <- c(`_class`, class(`_inherit`))
-
+    e$super <- find_super
+    class(e) <- c(`_class`, class(super))
   } else {
     class(e) <- c(`_class`, "ggproto")
   }
@@ -74,8 +82,17 @@ fetch_ggproto <- function(x, name) {
   } else {
     # If not found here, recurse into super environments
     super <- .subset2(x, "super")
-    if (is.ggproto(super))
-      res <- fetch_ggproto(super, name)
+    if (is.null(super)) {
+      # no super class
+    } else if (is.function(super)) {
+      res <- fetch_ggproto(super(), name)
+    } else {
+      stop(
+        class(x)[[1]], " was built with an incompatible version of ggproto.\n",
+        "Please reinstall the package that provides this extension.",
+        call. = FALSE
+      )
+    }
   }
 
   res
@@ -140,8 +157,8 @@ as.list.ggproto <- function(x, inherit = TRUE, ...) {
   res <- list()
 
   if (inherit) {
-    if (!is.null(x$super)) {
-      res <- as.list(x$super)
+    if (is.function(x$super)) {
+      res <- as.list(x$super())
     }
   }
 
@@ -200,11 +217,11 @@ format.ggproto <-  function(x, ..., flat = TRUE) {
     indent(object_summaries(objs, flat = flat), 4)
   )
 
-  if (flat && !is.null(x$super)) {
+  if (flat && is.function(x$super)) {
     str <- paste0(
       str, "\n",
       indent(
-        paste0("super: ", " <ggproto object", classes_str(x$super), ">"),
+        paste0("super: ", " <ggproto object", classes_str(x$super()), ">"),
         4
       )
     )
