@@ -14,19 +14,19 @@
 <rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
 <rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #ADD8E6;' />
 <defs>
-  <clipPath id='cp1'>
-    <rect x='8.22' y='27.28' width='706.30' height='540.50' />
+  <clipPath id='cpOC4yMTkxOHw3MTQuNTIxfDU2Ny43ODF8MjMuNDc2Nw=='>
+    <rect x='8.22' y='23.48' width='706.30' height='544.30' />
   </clipPath>
 </defs>
-<rect x='8.22' y='27.28' width='706.30' height='540.50' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cp1)' />
-<circle cx='40.32' cy='543.21' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp1)' />
-<circle cx='361.37' cy='297.53' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp1)' />
-<circle cx='682.42' cy='51.85' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cp1)' />
-<rect x='8.22' y='27.28' width='706.30' height='540.50' style='stroke-width: 8.54;' clip-path='url(#cp1)' />
+<rect x='8.22' y='23.48' width='706.30' height='544.30' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cpOC4yMTkxOHw3MTQuNTIxfDU2Ny43ODF8MjMuNDc2Nw==)' />
+<circle cx='40.32' cy='543.04' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpOC4yMTkxOHw3MTQuNTIxfDU2Ny43ODF8MjMuNDc2Nw==)' />
+<circle cx='361.37' cy='295.63' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpOC4yMTkxOHw3MTQuNTIxfDU2Ny43ODF8MjMuNDc2Nw==)' />
+<circle cx='682.42' cy='48.22' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpOC4yMTkxOHw3MTQuNTIxfDU2Ny43ODF8MjMuNDc2Nw==)' />
+<rect x='8.22' y='23.48' width='706.30' height='544.30' style='stroke-width: 8.54;' clip-path='url(#cpOC4yMTkxOHw3MTQuNTIxfDU2Ny43ODF8MjMuNDc2Nw==)' />
 <defs>
-  <clipPath id='cp2'>
+  <clipPath id='cpMHw3MjB8NTc2fDA='>
     <rect x='0.00' y='0.00' width='720.00' height='576.00' />
   </clipPath>
 </defs>
-<g clip-path='url(#cp2)'><text x='8.22' y='17.40' style='font-size: 13.20pt; font-family: Liberation Sans;'>many blank items, and light blue plot background</text></g>
+<g clip-path='url(#cpMHw3MjB8NTc2fDA=)'><text x='8.22' y='14.42' style='font-size: 13.20px; font-family: Liberation Sans;' textLength='281.84px' lengthAdjust='spacingAndGlyphs'>many blank items, and light blue plot background</text></g>
 </svg>
