@@ -264,11 +264,6 @@ eval_facet_var <- function(var, data, env = emptyenv()) {
   }
 }
 
-quoted_df <- function(data, vars, env = emptyenv()) {
-  values <- plyr::eval.quoted(vars, data, env, try = TRUE)
-  as.data.frame(compact(values), optional = TRUE, stringsAsFactors = FALSE)
-}
-
 layout_null <- function() {
   data.frame(PANEL = 1, ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
 }

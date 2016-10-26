@@ -242,8 +242,8 @@ CoordMap <- ggproto("CoordMap", Coord,
     pos <- self$transform(x_intercept, scale_details)
 
     axes <- list(
-      top = guide_axis(pos$x, scale_details$x.labels, "top", theme),
-      bottom = guide_axis(pos$x, scale_details$x.labels, "bottom", theme)
+      bottom = guide_axis(pos$x, scale_details$x.labels, "bottom", theme),
+      top = guide_axis(pos$x, scale_details$x.labels, "top", theme)
     )
     axes[[which(arrange == "secondary")]] <- zeroGrob()
     axes
