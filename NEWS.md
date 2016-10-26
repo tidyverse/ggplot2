@@ -215,6 +215,9 @@ There were a number of tweaks to the theme elements that control legends:
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
   `xmiddle` and `xupper` are now valid `x` aesthetics.
 
+* `Scale` extensions can now override the `make_title` and `make_sec_title` 
+  methods to let the scale modify the axis/legend titles.
+
 # ggplot2 2.1.0
 
 ## New features
