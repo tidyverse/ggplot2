@@ -161,6 +161,14 @@ Scale <- ggproto("Scale", NULL,
       ord <- rev(ord)
     }
     ord
+  },
+
+  # Here to make it possible for scales to modify the default titles
+  make_title = function(title) {
+    title
+  },
+  make_sec_title = function(title) {
+    title
   }
 )
 

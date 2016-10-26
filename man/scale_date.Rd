@@ -3,10 +3,10 @@
 \name{scale_date}
 \alias{scale_date}
 \alias{scale_x_date}
-\alias{scale_y_date}
 \alias{scale_x_datetime}
-\alias{scale_y_datetime}
 \alias{scale_x_time}
+\alias{scale_y_date}
+\alias{scale_y_datetime}
 \alias{scale_y_time}
 \title{Positions scale for date/times}
 \usage{

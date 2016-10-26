@@ -18,27 +18,4 @@ documentation and examples, see see \url{http://ggplot2.org}.
 ggplot(mpg, aes(displ, cty)) +
   geom_point()
 }
-\seealso{
-Useful links:
-\itemize{
-  \item \url{http://ggplot2.org}
-  \item \url{https://github.com/hadley/ggplot2}
-  \item Report bugs at \url{https://github.com/hadley/ggplot2/issues}
-}
-
-}
-\author{
-\strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com}
-
-Authors:
-\itemize{
-  \item Winston Chang \email{winston@rstudio.com}
-}
-
-Other contributors:
-\itemize{
-  \item RStudio [copyright holder]
-}
-
-}
 
