@@ -2,8 +2,8 @@
 % Please edit documentation in R/scale-shape.r
 \name{scale_shape}
 \alias{scale_shape}
-\alias{scale_shape_discrete}
 \alias{scale_shape_continuous}
+\alias{scale_shape_discrete}
 \title{Scale for shapes, aka glyphs.}
 \usage{
 scale_shape(..., solid = TRUE)

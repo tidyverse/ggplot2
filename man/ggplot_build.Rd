@@ -3,8 +3,8 @@
 \name{ggplot_build}
 \alias{ggplot_build}
 \alias{layer_data}
-\alias{layer_scales}
 \alias{layer_grob}
+\alias{layer_scales}
 \title{Build ggplot for rendering.}
 \usage{
 ggplot_build(plot)
