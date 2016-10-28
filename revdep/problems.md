@@ -10,239 +10,212 @@
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
 |tz       |America/Chicago              |
-|date     |2016-10-05                   |
+|date     |2016-10-25                   |
 
 ## Packages
 
-|package       |*  |version    |date       |source                       |
-|:-------------|:--|:----------|:----------|:----------------------------|
-|covr          |   |2.2.1      |2016-08-10 |cran (@2.2.1)                |
-|digest        |   |0.6.10     |2016-08-02 |cran (@0.6.10)               |
-|ggplot2       |   |2.1.0.9001 |2016-10-05 |local (hadley/ggplot2@NA)    |
-|ggplot2movies |   |0.0.1      |2015-08-25 |cran (@0.0.1)                |
-|gtable        |   |0.2.0      |2016-02-26 |cran (@0.2.0)                |
-|hexbin        |   |1.27.1     |2015-08-19 |cran (@1.27.1)               |
-|Hmisc         |   |3.17-4     |2016-05-02 |cran (@3.17-4)               |
-|knitr         |   |1.14.9     |2016-10-04 |Github (yihui/knitr@63407ab) |
-|lazyeval      |   |0.2.0      |2016-06-12 |cran (@0.2.0)                |
-|mapproj       |   |1.2-4      |2015-08-03 |cran (@1.2-4)                |
-|maps          |   |3.1.1      |2016-07-27 |cran (@3.1.1)                |
-|maptools      |   |0.8-39     |2016-01-30 |cran (@0.8-39)               |
-|multcomp      |   |1.4-6      |2016-07-14 |cran (@1.4-6)                |
-|plyr          |   |1.8.4      |2016-06-08 |cran (@1.8.4)                |
-|quantreg      |   |5.29       |2016-09-04 |cran (@5.29)                 |
-|reshape2      |   |1.4.1      |2014-12-06 |cran (@1.4.1)                |
-|rmarkdown     |   |1.0        |2016-07-08 |cran (@1.0)                  |
-|scales        |   |0.4.0      |2016-02-26 |cran (@0.4.0)                |
-|svglite       |   |1.1.0      |2016-02-09 |cran (@1.1.0)                |
-|testthat      |*  |1.0.2      |2016-04-23 |cran (@1.0.2)                |
-|tibble        |   |1.2        |2016-08-26 |cran (@1.2)                  |
+|package       |*  |version    |date       |source                         |
+|:-------------|:--|:----------|:----------|:------------------------------|
+|covr          |   |2.2.1      |2016-08-10 |cran (@2.2.1)                  |
+|digest        |   |0.6.10     |2016-08-02 |cran (@0.6.10)                 |
+|ggplot2       |   |2.1.0.9001 |2016-10-25 |local (hadley/ggplot2@2b41ba4) |
+|ggplot2movies |   |0.0.1      |2015-08-25 |cran (@0.0.1)                  |
+|gtable        |   |0.2.0      |2016-02-26 |cran (@0.2.0)                  |
+|hexbin        |   |1.27.1     |2015-08-19 |cran (@1.27.1)                 |
+|Hmisc         |   |3.17-4     |2016-05-02 |cran (@3.17-4)                 |
+|knitr         |   |1.14.12    |2016-10-25 |Github (yihui/knitr@9fc0c61)   |
+|lazyeval      |   |0.2.0      |2016-06-12 |cran (@0.2.0)                  |
+|mapproj       |   |1.2-4      |2015-08-03 |cran (@1.2-4)                  |
+|maps          |   |3.1.1      |2016-07-27 |cran (@3.1.1)                  |
+|maptools      |   |0.8-39     |2016-01-30 |cran (@0.8-39)                 |
+|multcomp      |   |1.4-6      |2016-07-14 |cran (@1.4-6)                  |
+|plyr          |   |1.8.4      |2016-06-08 |cran (@1.8.4)                  |
+|quantreg      |   |5.29       |2016-09-04 |cran (@5.29)                   |
+|reshape2      |   |1.4.2      |2016-10-22 |cran (@1.4.2)                  |
+|rmarkdown     |   |1.1        |2016-10-16 |cran (@1.1)                    |
+|scales        |   |0.4.0.9003 |2016-10-25 |Github (hadley/scales@d58d83a) |
+|svglite       |   |1.1.0      |2016-02-09 |cran (@1.1.0)                  |
+|testthat      |*  |1.0.2      |2016-04-23 |cran (@1.0.2)                  |
+|tibble        |   |1.2        |2016-08-26 |cran (@1.2)                    |
 
 # Check results
-170 packages with problems
+
+172 packages with problems
 
 |package                |version       | errors| warnings| notes|
 |:----------------------|:-------------|------:|--------:|-----:|
-|ACDm                   |1.0.4         |      1|        0|     0|
 |aop                    |1.0.0         |      1|        0|     0|
 |archivist              |2.1           |      1|        0|     2|
 |BACA                   |1.3           |      1|        0|     0|
 |BACCT                  |1.0           |      1|        0|     0|
 |backShift              |0.1.3         |      1|        0|     0|
 |bamdit                 |3.0.0         |      1|        0|     0|
-|bayesAB                |0.6.0         |      1|        0|     0|
 |BCEA                   |2.2-3         |      1|        0|     1|
 |bcrm                   |0.4.6         |      1|        0|     1|
 |biogram                |1.3           |      0|        1|     0|
 |BioPET                 |0.2.0         |      1|        0|     0|
 |BlandAltmanLeh         |0.3.1         |      0|        1|     0|
-|blscrapeR              |1.0.1         |      1|        0|     0|
-|brainGraph             |0.62.0        |      1|        0|     0|
-|brms                   |1.0.1         |      1|        0|     0|
+|brainGraph             |0.72.0        |      1|        0|     0|
+|brms                   |1.1.0         |      1|        0|     0|
 |bsam                   |1.0.0         |      1|        0|     0|
 |BTSPAS                 |2014.0901     |      1|        0|     1|
 |cate                   |1.0.4         |      1|        0|     0|
 |classify               |1.3           |      1|        0|     0|
 |clifro                 |3.0-0         |      0|        1|     0|
 |clusterfly             |0.4           |      1|        0|     0|
+|CollapsABEL            |0.10.8        |      1|        0|     0|
 |coloc                  |2.3-1         |      0|        1|     2|
 |colorplaner            |0.1.2         |      1|        0|     0|
 |CopulaDTA              |0.0.4         |      0|        1|     0|
-|corrr                  |0.2.0         |      1|        0|     0|
+|corrr                  |0.2.1         |      1|        0|     0|
 |cowplot                |0.6.3         |      1|        2|     0|
 |crmPack                |0.2.0         |      1|        0|     0|
-|Crossover              |0.1-16        |      1|        1|     0|
-|Cyclops                |1.2.0         |      1|        0|     0|
-|data.table             |1.9.6         |      1|        0|     1|
+|Crossover              |0.1-16        |      1|        0|     0|
+|data.table             |1.9.6         |      1|        0|     0|
 |ddpcr                  |1.5           |      0|        1|     0|
+|Deducer                |0.7-9         |      1|        0|     0|
 |demi                   |1.1.2         |      1|        0|     0|
-|dfpk                   |1.0           |      1|        0|     0|
-|dtwSat                 |0.2.1         |      0|        1|     0|
+|DiversityOccupancy     |1.0.5         |      1|        0|     0|
 |dynr                   |0.1.7         |      1|        0|     0|
 |eechidna               |0.1           |      1|        0|     0|
 |eeptools               |0.9.1         |      2|        1|     1|
 |emojifont              |0.3.4         |      0|        1|     1|
-|EmpiricalCalibration   |1.2.0         |      1|        0|     0|
 |factoextra             |1.0.3         |      1|        0|     1|
+|Fgmutils               |0.9.4         |      1|        0|     0|
 |fheatmap               |1.0.1         |      1|        0|     1|
 |fitbitScraper          |0.1.7         |      0|        1|     0|
-|forecast               |7.2           |      1|        0|     0|
 |fuzzyforest            |1.0.2         |      1|        0|     0|
+|G2Sd                   |2.1.5         |      1|        0|     0|
 |gapfill                |0.9.3         |      2|        0|     2|
 |GenCAT                 |1.0.3         |      1|        1|     3|
-|geoknife               |1.3.0         |      1|        0|     0|
 |geomnet                |0.1.2.1       |      1|        0|     0|
-|GGally                 |1.2.0         |      2|        0|     0|
+|GGally                 |1.2.0         |      2|        0|     1|
 |ggalt                  |0.1.1         |      1|        0|     0|
 |ggenealogy             |0.2.0         |      0|        1|     0|
 |ggExtra                |0.5           |      1|        1|     0|
 |ggfortify              |0.2.0         |      1|        0|     1|
-|ggnetwork              |0.5.1         |      1|        1|     0|
-|ggpmisc                |0.2.10        |      0|        1|     0|
+|ggnetwork              |0.5.1         |      2|        1|     0|
+|ggpmisc                |0.2.12        |      1|        1|     0|
 |ggpubr                 |0.1.0         |      1|        0|     0|
 |ggswissmaps            |0.0.9         |      0|        1|     1|
 |ggtern                 |2.1.4         |      1|        0|     0|
 |gitter                 |1.1.1         |      1|        0|     0|
 |glycanr                |0.3.0         |      2|        0|     1|
-|gmwm                   |2.0.0         |      0|        1|     1|
 |gridDebug              |0.5-0         |      1|        0|     0|
 |heatmaply              |0.5.0         |      1|        1|     0|
+|heemod                 |0.5.0         |      1|        0|     0|
 |hyperSpec              |0.98-20150304 |      1|        1|     1|
 |IAPWS95                |1.0.0         |      1|        0|     0|
-|ibmdbR                 |1.47.1        |      1|        0|     0|
+|ibmdbR                 |1.48.0        |      1|        0|     0|
 |ie2miscdata            |1.0.1         |      0|        1|     1|
-|imageData              |0.1-21        |      1|        0|     0|
-|imager                 |0.31          |      1|        1|     1|
+|imageData              |0.1-26        |      1|        0|     0|
+|imager                 |0.31          |      0|        1|     1|
+|iNEXT                  |2.0.9         |      0|        1|     0|
+|InSilicoVA             |1.1.2         |      1|        0|     0|
 |IntClust               |0.0.2         |      1|        0|     0|
-|IntegratedJM           |1.4           |      1|        0|     0|
 |JWileymisc             |0.2.1         |      0|        1|     0|
 |LANDD                  |1.1.0         |      1|        0|     0|
 |largeVis               |0.1.9.1       |      0|        1|     0|
 |LDheatmap              |0.99-2        |      1|        0|     0|
+|llama                  |0.9.1         |      1|        0|     0|
 |localgauss             |0.35          |      1|        0|     0|
 |ltbayes                |0.3           |      1|        0|     0|
 |magick                 |0.3           |      1|        0|     0|
 |manhattanly            |0.1.0         |      0|        1|     0|
-|mcprofile              |0.2-1         |      1|        1|     1|
+|MEGENA                 |1.3.4-6       |      0|        1|     1|
 |MendelianRandomization |0.2.0         |      1|        0|     0|
 |MergeGUI               |0.2-1         |      1|        0|     0|
 |MetaIntegrator         |1.0.3         |      1|        0|     0|
 |metaMix                |0.2           |      1|        0|     0|
 |MissingDataGUI         |0.2-5         |      1|        0|     0|
-|mixOmics               |6.1.0         |      1|        0|     0|
 |MixSIAR                |3.1.7         |      2|        0|     0|
-|mlr                    |2.9           |      2|        0|     1|
+|mlr                    |2.9           |      2|        0|     2|
 |Momocs                 |1.0.0         |      1|        1|     0|
 |morse                  |2.2.0         |      1|        0|     0|
-|mosaic                 |0.14.4        |      1|        1|     2|
 |mrMLM                  |1.3           |      1|        0|     0|
 |mtconnectR             |1.0.1         |      1|        0|     0|
 |multiDimBio            |1.0.1         |      1|        0|     0|
-|mvdalab                |1.1           |      1|        0|     0|
 |mwaved                 |1.1.4         |      1|        0|     0|
 |myTAI                  |0.4.0         |      1|        0|     0|
-|neuropsychology        |0.2.4         |      1|        0|     0|
 |NFP                    |0.99.1        |      1|        0|     0|
-|NMF                    |0.20.6        |      1|        1|     4|
-|nparACT                |0.6           |      1|        0|     0|
 |npregfast              |1.3.0         |      1|        0|     0|
+|obAnalytics            |0.1.0         |      1|        1|     0|
 |onlineCPD              |1.0           |      1|        0|     0|
+|OpenStreetMap          |0.3.3         |      1|        0|     0|
+|openVA                 |1.0.1         |      1|        0|     0|
 |OriGen                 |1.4.3         |      1|        0|     0|
 |OutbreakTools          |0.1-14        |      1|        1|     0|
+|ParamHelpers           |1.9           |      1|        0|     0|
 |pcadapt                |3.0.2         |      0|        1|     1|
 |pcaPA                  |2.0.2         |      1|        0|     0|
 |pcrsim                 |1.0.1         |      1|        0|     0|
 |PGRdup                 |0.2.2.1       |      0|        1|     2|
-|photobiologyInOut      |0.4.11        |      0|        1|     0|
+|photobiologyInOut      |0.4.12        |      0|        1|     0|
+|photobiologyLamps      |0.4.1         |      0|        1|     0|
+|photobiologyLEDs       |0.4.2         |      0|        1|     0|
 |photobiologyPlants     |0.4.0         |      0|        1|     0|
 |PKgraph                |1.7           |      1|        0|     0|
 |PlasmaMutationDetector |1.5.2         |      1|        0|     0|
 |playwith               |0.9-54        |      1|        0|     1|
 |plotluck               |1.0.0         |      1|        1|     0|
 |plotly                 |4.5.2         |      2|        0|     0|
-|prcbench               |0.5.0         |      2|        1|     0|
+|PortfolioEffectHFT     |1.7           |      1|        0|     0|
+|prcbench               |0.5.2         |      2|        1|     0|
 |pRF                    |1.2           |      1|        0|     0|
 |proportion             |1.2.3         |      0|        1|     1|
 |PSCBS                  |0.61.0        |      1|        0|     0|
-|quanteda               |0.9.8         |      1|        0|     0|
+|qdap                   |2.2.5         |      1|        0|     0|
+|quanteda               |0.9.8.3       |      1|        0|     0|
 |quickpsy               |0.1.3         |      1|        0|     0|
 |radiant.model          |0.6.0         |      1|        0|     0|
-|rnoaa                  |0.6.0         |      0|        1|     1|
+|ReporteRs              |0.8.6         |      1|        0|     0|
+|rfordummies            |0.1.2         |      1|        0|     1|
+|RJafroc                |0.1.1         |      1|        0|     0|
+|rmcfs                  |1.1.1         |      1|        0|     0|
 |robCompositions        |2.0.2         |      0|        1|     1|
+|rollply                |0.5.0         |      0|        1|     0|
 |RPPanalyzer            |1.4.3         |      1|        0|     0|
+|rrepast                |0.5.0         |      1|        0|     0|
 |RSA                    |0.9.10        |      0|        1|     0|
-|RSSL                   |0.6           |      1|        0|     0|
 |rstan                  |2.12.1        |      1|        0|     0|
-|rstanarm               |2.12.1        |      1|        0|     0|
+|rstanarm               |2.12.1        |      2|        0|     1|
 |rsvg                   |1.0           |      1|        0|     0|
 |Rz                     |0.9-1         |      0|        1|     2|
-|scmamp                 |0.2.5         |      1|        0|     0|
-|sdmvspecies            |0.3.2         |      0|        1|     0|
-|seewave                |2.0.4         |      1|        0|     0|
+|scmamp                 |0.2.55        |      1|        0|     0|
+|SEERaBomb              |2016.1        |      1|        0|     0|
+|seewave                |2.0.5         |      1|        0|     0|
 |SensusR                |2.0.0         |      1|        0|     0|
-|SeqFeatR               |0.2.3         |      1|        0|     0|
-|sgd                    |1.1           |      1|        0|     0|
-|shiny                  |0.14          |      1|        0|     1|
+|SeqFeatR               |0.2.4         |      1|        0|     0|
+|simmer                 |3.4.4         |      0|        1|     0|
 |simmr                  |0.3           |      1|        0|     0|
 |sjPlot                 |2.1.0         |      1|        0|     0|
 |snpEnrichment          |1.7.0         |      1|        0|     0|
 |soc.ca                 |0.7.3         |      1|        0|     0|
-|SpaDES                 |1.2.0         |      1|        0|     1|
 |sparkTable             |1.2.0         |      1|        0|     1|
+|spcosa                 |0.3-6         |      1|        0|     0|
 |specmine               |1.0           |      1|        0|     0|
-|ss3sim                 |0.9.2         |      1|        0|     0|
 |StroupGLMM             |0.1.0         |      1|        0|     0|
 |structSSI              |1.1.1         |      1|        0|     0|
 |strvalidator           |1.8.0         |      1|        0|     0|
-|subspaceMOA            |0.5.1         |      1|        0|     1|
+|subspaceMOA            |0.5.1         |      1|        0|     0|
 |surveillance           |1.12.1        |      0|        1|     2|
 |survminer              |0.2.2         |      1|        1|     1|
 |survMisc               |0.5.3         |      1|        0|     0|
-|sValues                |0.1.4         |      1|        1|     0|
-|tabplot                |1.3           |      1|        1|     0|
+|tabplot                |1.3           |      0|        1|     0|
 |TcGSA                  |0.10.1        |      1|        0|     0|
 |tcgsaseq               |1.0.1         |      1|        0|     2|
 |TELP                   |1.0           |      1|        0|     0|
 |toaster                |0.5.2         |      1|        0|     0|
-|trackeR                |0.0.3         |      0|        1|     0|
+|trackeR                |0.0.4         |      0|        1|     0|
 |UBL                    |0.0.5         |      1|        0|     0|
-|UpSetR                 |1.2.4         |      0|        1|     1|
-|userfriendlyscience    |0.4-1         |      1|        0|     1|
+|UpSetR                 |1.3.0         |      0|        1|     1|
+|userfriendlyscience    |0.4-1         |      1|        0|     2|
 |vdmR                   |0.2.2         |      2|        1|     0|
-|vipor                  |0.4.3         |      0|        1|     0|
+|vipor                  |0.4.4         |      0|        1|     0|
 |vmsbase                |2.1.3         |      1|        0|     0|
-|VSE                    |0.99          |      1|        0|     0|
-|XGR                    |1.0.3         |      1|        0|     0|
-
-## ACDm (1.0.4)
-Maintainer: Markus Belfrage <markus.belfrage@gmail.com>
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘ACDm-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: acf_acd
-> ### Title: Autocorrelation function plots for ACD models
-> ### Aliases: acf_acd
-> 
-> ### ** Examples
-... 43 lines ...
-Number of log-likelihood function evaluations: 114 
-
-Estimation time: 0.3275 secs 
-
-Description: Estimated at 2016-10-04 18:50:54 by user hadley
-
-> acf_acd(fitModel, conf_level = 0.95, max = 50, min = 1)
-Error in as.character(what) : 
-  cannot coerce type 'closure' to vector of type 'character'
-Calls: acf_acd ... <Anonymous> -> list_to_dataframe -> rbind.fill -> <Anonymous>
-Execution halted
-```
+|x.ent                  |1.1.2         |      1|        0|     0|
+|XGR                    |1.0.4         |      1|        0|     0|
+|XLConnect              |0.2-12        |      1|        0|     0|
 
 ## aop (1.0.0)
 Maintainer: Lyle D. Burgoon <Lyle.D.Burgoon@usace.army.mil>
@@ -252,8 +225,6 @@ Maintainer: Lyle D. Burgoon <Lyle.D.Burgoon@usace.army.mil>
 ```
 checking package dependencies ... ERROR
 Packages required but not available: ‘graph’ ‘Rgraphviz’
-
-Package suggested but not available for checking: ‘BiocGenerics’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -282,9 +253,8 @@ The error most likely occurred in:
 > pl <- aread("f05f0ed0662fe01850ec1b928830ef32")
 > # plot it
 > pl
-Error in stopifnot(is.list(x), is.list(val)) : 
-  attempt to apply non-function
-Calls: <Anonymous> ... ggplot_build -> <Anonymous> -> f -> <Anonymous> -> stopifnot
+Error: ScalesList was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 
 checking package dependencies ... NOTE
@@ -339,31 +309,6 @@ Maintainer: Pablo Emilio Verde <pabloemilio.verde@hhu.de>
 checking whether package ‘bamdit’ can be installed ... ERROR
 Installation failed.
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/bamdit.Rcheck/00install.out’ for details.
-```
-
-## bayesAB (0.6.0)
-Maintainer: Frank Portman <frank1214@gmail.com>  
-Bug reports: https://github.com/FrankPortman/bayesAB/issues
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  
-  
-  2. Failure: Success (@test-generics.R#32) --------------------------------------
-  plot(x, rep(0.5, 4)) produced warnings.
-  
-  
-  testthat results ================================================================
-  OK: 99 SKIPPED: 0 FAILED: 2
-  1. Failure: Success (@test-generics.R#31) 
-  2. Failure: Success (@test-generics.R#32) 
-  
-  Error: testthat unit tests failed
-  Execution halted
 ```
 
 ## BCEA (2.2-3)
@@ -497,32 +442,7 @@ Execution halted
 
 ```
 
-## blscrapeR (1.0.1)
-Maintainer: Kris Eberwein <eberwein@knights.ucf.edu>  
-Bug reports: https://github.com/keberwein/blscrapeR/issues
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  .......... .......... .......... .......... ..........
-  .......... .......... .......... .......... ..........
-  .......... .......... .......... .......... ..
-  downloaded 5.8 MB
-  
-  Error in file(con, "r") : cannot open the connection
-  Calls: test_check ... force -> source_file -> eval -> eval -> readLines -> file
-  In addition: Warning message:
-  In file(con, "r") :
-    cannot open URL 'http://www.bls.gov/lau/ststdsadata.txt': HTTP status was '404 Not Found'
-  testthat results ================================================================
-  OK: 0 SKIPPED: 0 FAILED: 0
-  Execution halted
-```
-
-## brainGraph (0.62.0)
+## brainGraph (0.72.0)
 Maintainer: Christopher G. Watson <cgwatson@bu.edu>  
 Bug reports: 
         https://groups.google.com/forum/?hl=en#!forum/brainGraph-help
@@ -535,7 +455,7 @@ Installation failed.
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/brainGraph.Rcheck/00install.out’ for details.
 ```
 
-## brms (1.0.1)
+## brms (1.1.0)
 Maintainer: Paul-Christian Buerkner <paul.buerkner@gmail.com>  
 Bug reports: https://github.com/paul-buerkner/brms/issues
 
@@ -549,11 +469,11 @@ Last 13 lines of output:
   24: element_render(theme = theme, element = paste0("axis.title.", label, modify), label = labels[[label]][[i]], 
          expand_x = label == "y", expand_y = label == "x") at /Users/hadley/Documents/ggplot/ggplot/R/layout.R:170
   25: calc_element(element, theme) at /Users/hadley/Documents/ggplot/ggplot/R/theme-elements.r:144
-  26: Reduce(combine_elements, parents, theme[[element]]) at /Users/hadley/Documents/ggplot/ggplot/R/theme.r:643
+  26: Reduce(combine_elements, parents, theme[[element]]) at /Users/hadley/Documents/ggplot/ggplot/R/theme.r:641
   27: f(init, x[[i]])
   
   testthat results ================================================================
-  OK: 833 SKIPPED: 1 FAILED: 1
+  OK: 857 SKIPPED: 1 FAILED: 1
   1. Error: plotting functions don't throw unexpected errors (@tests.plots.R#11) 
   
   Error: testthat unit tests failed
@@ -624,7 +544,8 @@ Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=Auckland&zoo
 Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=Auckland&sensor=false
 Quitting from lines 136-154 (cfStation.Rmd) 
 Error: processing vignette 'cfStation.Rmd' failed with diagnostics:
-x must be length 1 or 2
+GeomRasterAnn was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 
 ```
@@ -640,6 +561,18 @@ Package required but not available: ‘rggobi’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
+```
+
+## CollapsABEL (0.10.8)
+Maintainer: Kaiyin Zhong <kindlychung@gmail.com>  
+Bug reports: https://bitbucket.org/kindlychung/collapsabel2/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘CollapsABEL’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/CollapsABEL.Rcheck/00install.out’ for details.
 ```
 
 ## coloc (2.3-1)
@@ -744,7 +677,7 @@ Execution halted
 
 ```
 
-## corrr (0.2.0)
+## corrr (0.2.1)
 Maintainer: Simon Jackson <drsimonjackson@gmail.com>  
 Bug reports: https://github.com/drsimonj/corrr/issues
 
@@ -764,9 +697,8 @@ The error most likely occurred in:
 > 
 > x <- correlate(mtcars)
 > network_plot(x)
-Warning: Ignoring unknown aesthetics: x, y
-Error in zero_range(from) : x must be length 1 or 2
-Calls: <Anonymous> ... transform_position -> lapply -> FUN -> rescale -> zero_range
+Error: GeomTextRepel was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 ```
 
@@ -836,93 +768,37 @@ See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/crmPack.Rcheck/00inst
 Maintainer: Kornelius Rohmeyer <rohmeyer@small-projects.de>  
 Bug reports: https://github.com/kornl/Crossover/issues
 
-1 error  | 1 warning  | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘Crossover-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot
-> ### Title: Plots information about the search algorithm and its process.
-> ### Aliases: plot plot,CrossoverSearchResult,missing-method
-> 
-> ### ** Examples
-> 
-> 
-> ## Not run: 
-> ##D x <- searchCrossOverDesign(s=9, p=5, v=4, model=4)
-> ##D plot(x)
-> ## End(Not run)
-> 
-> x <- searchCrossOverDesign(s=9, p=5, v=4, model=4, n=c(50,10), jumps=c(10, 10))
-> plot(x, show.jumps=TRUE)
-> plot(x, type=2)
-Error in `$<-.data.frame`(`*tmp*`, "PANEL", value = c(1L, 1L, 1L, 1L,  : 
-  replacement has 500 rows, data has 1
-Calls: <Anonymous> ... <Anonymous> -> f -> <Anonymous> -> f -> $<- -> $<-.data.frame
-Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Loading required package: mvtnorm
-Loading required package: survival
-Loading required package: TH.data
-
-Attaching package: 'TH.data'
-
-The following object is masked from 'package:MASS':
-
-    geyser
-
-Quitting from lines 23-29 (./childs/Search.Rnw) 
-Quitting from lines NA-239 (./childs/Search.Rnw) 
-Error: processing vignette 'Crossover.Rnw' failed with diagnostics:
-replacement has 100000 rows, data has 1
-Execution halted
-
-```
-
-## Cyclops (1.2.0)
-Maintainer: Marc A. Suchard <msuchard@ucla.edu>  
-Bug reports: https://github.com/ohdsi/cyclops/issues
-
 1 error  | 0 warnings | 0 notes
 
 ```
-checking whether package ‘Cyclops’ can be installed ... ERROR
+checking whether package ‘Crossover’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/Cyclops.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/Crossover.Rcheck/00install.out’ for details.
 ```
 
 ## data.table (1.9.6)
 Maintainer: Matt Dowle <mattjdowle@gmail.com>  
 Bug reports: https://github.com/Rdatatable/data.table/issues
 
-1 error  | 0 warnings | 1 note 
+1 error  | 0 warnings | 0 notes
 
 ```
 checking tests ... ERROR
 Running the tests in ‘tests/tests.R’ failed.
 Last 13 lines of output:
-  > y = with(DT, eval(ll)) 
-  First 6 of 647 :[1] 132 969 773 458 908  53
-  forder decreasing argument test: seed = 1475626848  colorder = 1,5,2,3,4 
-  Tests 1372.3+ not run. If required call library(GenomicRanges) first.
+  Test 167.2 ran without errors but failed check that x equals y:
+  > x = names(print(ggplot(DT) + geom_hex(aes(b, f)) + facet_wrap(~grp))) 
+  [1] "data"   "layout" "plot"  
+  > y = c("data", "panel", "plot") 
+  [1] "data"  "panel" "plot" 
+  Don't know how to automatically pick scale for object of type ITime. Defaulting to continuous.
+  Don't know how to automatically pick scale for object of type ITime. Defaulting to continuous.
   Tests 1441-1444 not run. If required install the 'fr_FR.utf8' locale.
   
   Error in eval(expr, envir, enclos) : 
-    13 errors out of 4390 (lastID=1557.4, endian=little, sizeof(long double)==16) in inst/tests/tests.Rraw on Tue Oct  4 19:20:54 2016. Search tests.Rraw for test numbers: 167, 167.2, 1241.2, 1253.216, 1253.22, 1253.264, 1253.272, 1253.344, 1253.348, 1253.424, 1253.428, 1253.44, 1253.444.
+    2 errors out of 4428 (lastID=1557.4, endian=little, sizeof(long double)==16) in inst/tests/tests.Rraw on Tue Oct 25 09:17:37 2016. Search tests.Rraw for test numbers: 167, 167.2.
   Calls: test.data.table -> sys.source -> eval -> eval
-  In addition: Warning message:
-  In library(package, lib.loc = lib.loc, character.only = TRUE, logical.return = TRUE,  :
-    there is no package called 'GenomicRanges'
   Execution halted
-
-checking package dependencies ... NOTE
-Package suggested but not available for checking: ‘GenomicRanges’
 ```
 
 ## ddpcr (1.5)
@@ -935,11 +811,36 @@ Bug reports: https://github.com/daattali/ddpcr/issues
 checking re-building of vignette outputs ... WARNING
 Error in re-building vignettes:
   ...
-Quitting from lines 205-213 (extend.Rmd) 
-Error: processing vignette 'extend.Rmd' failed with diagnostics:
-vector: cannot make a vector of mode 'closure'.
+)
+Parsed with column specification:
+cols(
+  `Assay1 Amplitude` = col_double(),
+  `Assay2 Amplitude` = col_double(),
+  Cluster = col_integer()
+)
+... 8 lines ...
+cols(
+  `Assay1 Amplitude` = col_double(),
+  `Assay2 Amplitude` = col_double(),
+  Cluster = col_integer()
+)
+DONE (0 seconds)
+Initializing plate of type `custom_thresholds`... DONE (0 seconds)
+Quitting from lines 442-443 (overview.Rmd) 
+Error: processing vignette 'overview.Rmd' failed with diagnostics:
+Aesthetics must be either length 1 or the same as the data (4): x, y, size, hjust, vjust, fontface
 Execution halted
+```
 
+## Deducer (0.7-9)
+Maintainer: Ian Fellows <ian@fellstat.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘Deducer’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/Deducer.Rcheck/00install.out’ for details.
 ```
 
 ## demi (1.1.2)
@@ -955,49 +856,15 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## dfpk (1.0)
-Maintainer: Artemis Toumazi <artemis.toumazi@inserm.fr>  
-Bug reports: http://github.com/artemis-toumazi/dfpk/issues
+## DiversityOccupancy (1.0.5)
+Maintainer: Derek Corcoran <derek.corcoran.barrios@gmail.com>
 
 1 error  | 0 warnings | 0 notes
 
 ```
-checking whether package ‘dfpk’ can be installed ... ERROR
+checking whether package ‘DiversityOccupancy’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/dfpk.Rcheck/00install.out’ for details.
-```
-
-## dtwSat (0.2.1)
-Maintainer: Victor Maus <vwmaus1@gmail.com>
-
-0 errors | 1 warning  | 0 notes
-
-```
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Loading required package: zoo
-
-Attaching package: 'zoo'
-
-The following objects are masked from 'package:base':
-
-    as.Date, as.Date.numeric
-
-Loading required package: raster
-Loading required package: sp
-Loading required package: ggplot2
-Loaded dtwSat v0.2.1. See ?dtwSat for help, citation("dtwSat") for use in publication.
-
-Read 137 items
-Read 1 item
-Warning: Ignoring unknown aesthetics: y
-Warning: Ignoring unknown aesthetics: y
-Quitting from lines 436-437 (applying_twdtw.Rmd) 
-Error: processing vignette 'applying_twdtw.Rmd' failed with diagnostics:
-vector: cannot make a vector of mode 'closure'.
-Execution halted
-
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/DiversityOccupancy.Rcheck/00install.out’ for details.
 ```
 
 ## dynr (0.1.7)
@@ -1140,32 +1007,6 @@ checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘ggtree’
 ```
 
-## EmpiricalCalibration (1.2.0)
-Maintainer: Martijn Schuemie <schuemie@ohdsi.org>  
-Bug reports: https://github.com/OHDSI/EmpiricalCalibration/issues
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘EmpiricalCalibration-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plotTrueAndObserved
-> ### Title: Plot true and observed values
-> ### Aliases: plotTrueAndObserved
-> 
-> ### ** Examples
-> 
-> data <- simulateControls(n = 50 * 3, mean = 0.25, sd = 0.25, trueLogRr = log(c(1, 2, 4)))
-> plotTrueAndObserved(data$logRr, data$seLogRr, data$trueLogRr)
-Error in `$<-.data.frame`(`*tmp*`, "PANEL", value = c(1L, 1L, 1L, 1L,  : 
-  replacement has 150 rows, data has 8
-Calls: <Anonymous> ... <Anonymous> -> f -> <Anonymous> -> f -> $<- -> $<-.data.frame
-Execution halted
-```
-
 ## factoextra (1.0.3)
 Maintainer: Alboukadel Kassambara <alboukadel.kassambara@gmail.com>  
 Bug reports: https://github.com/kassambara/factoextra/issues
@@ -1191,13 +1032,24 @@ The error most likely occurred in:
 +       scale_color_gradient2(low = "white", mid = "#2E9FDF", 
 +       high = "#FC4E07", midpoint = 0.5, space = "Lab")+
 + theme_minimal()
-Error in zero_range(from) : x must be length 1 or 2
-Calls: <Anonymous> ... transform_position -> lapply -> FUN -> rescale -> zero_range
+Error: GeomTextRepel was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 ** found \donttest examples: check also with --run-donttest
 
 checking Rd cross-references ... NOTE
 Package unavailable to check Rd xrefs: ‘NbClust’
+```
+
+## Fgmutils (0.9.4)
+Maintainer: Clayton Vieira Fraga Filho <forestgrowthsoftware@gmail.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘Fgmutils’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/Fgmutils.Rcheck/00install.out’ for details.
 ```
 
 ## fheatmap (1.0.1)
@@ -1252,36 +1104,6 @@ Execution halted
 
 ```
 
-## forecast (7.2)
-Maintainer: Rob Hyndman <Rob.Hyndman@monash.edu>  
-Bug reports: https://github.com/robjhyndman/forecast/issues
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘forecast-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: gglagplot
-> ### Title: Time series lag ggplots
-> ### Aliases: gglagplot gglagchull
-> 
-> ### ** Examples
-> 
-> gglagplot(AirPassengers)
-> gglagchull(AirPassengers)
-> gglagplot(AirPassengers,seasonal=FALSE)
-> 
-> lungDeaths <- cbind(mdeaths, fdeaths)
-> gglagplot(lungDeaths, lags=2)
-Error in gList(list(x = 0.5, y = 0.5, width = 1, height = 1, just = "centre",  : 
-  only 'grobs' allowed in "gList"
-Calls: <Anonymous> ... makeContent.gtable -> setChildren -> do.call -> gList
-Execution halted
-```
-
 ## fuzzyforest (1.0.2)
 Maintainer: Daniel Conn <djconn17@gmail.com>
 
@@ -1310,6 +1132,17 @@ Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) :
 Error: package or namespace load failed for ‘WGCNA’
 Execution halted
 ** found \donttest examples: check also with --run-donttest
+```
+
+## G2Sd (2.1.5)
+Maintainer: Regis K. Gallon <reg.gallon@gmail.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘G2Sd’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/G2Sd.Rcheck/00install.out’ for details.
 ```
 
 ## gapfill (0.9.3)
@@ -1435,37 +1268,6 @@ checking data for non-ASCII characters ... NOTE
   Execution halted
 ```
 
-## geoknife (1.3.0)
-Maintainer: Jordan Read <jread@usgs.gov>  
-Bug reports: https://github.com/USGS-R/geoknife/issues
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘geoknife-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: webgeom
-> ### Title: create webgeom object
-> ### Aliases: webgeom webgeom,ANY-method webgeom,missing-method
-> 
-> ### ** Examples
-... 49 lines ...
-xmlns: URI gov.usgs.cida.gdp.sample is not absolute
-xmlns: URI gov.usgs.cida.gdp.sample is not absolute
-xmlns: URI gov.usgs.cida.gdp.sample is not absolute
-xmlns: URI gov.usgs.cida.gdp.sample is not absolute
-xmlns: URI gov.usgs.cida.gdp.sample is not absolute
-XPath error : Undefined namespace prefix
-XPath error : Invalid expression
-Error in xpathApply.XMLInternalDocument(doc, path, fun, ..., namespaces = namespaces,  : 
-  error evaluating xpath expression //gml:featureMembers/sample:CONUS_states/sample:STATE/node()[1]
-Calls: webgeom ... xpathApply -> xpathApply.XMLInternalDocument -> .Call
-Execution halted
-```
-
 ## geomnet (0.1.2.1)
 Maintainer: Samantha Tyner <sctyner@iastate.edu>  
 Bug reports: https://github.com/sctyner/geomnet/issues
@@ -1501,7 +1303,7 @@ Execution halted
 Maintainer: Barret Schloerke <schloerke@gmail.com>  
 Bug reports: https://github.com/ggobi/ggally/issues
 
-2 errors | 0 warnings | 0 notes
+2 errors | 0 warnings | 1 note 
 
 ```
 checking examples ... ERROR
@@ -1529,19 +1331,24 @@ Execution halted
 checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
-  1.  Error: diagAxis (@test-gg-plots.R#82) 
+  1.  Failure: stops (@test-ggmatrix_getput.R#23) 
   2.  Failure: stops (@test-ggmatrix_getput.R#23) 
   3.  Failure: stops (@test-ggmatrix_getput.R#23) 
   4.  Failure: stops (@test-ggmatrix_getput.R#23) 
   5.  Failure: stops (@test-ggmatrix_getput.R#23) 
   6.  Failure: stops (@test-ggmatrix_getput.R#23) 
-  7.  Failure: stops (@test-ggmatrix_getput.R#23) 
+  7.  Error: order (@test-ggparcoord.R#222) 
   8.  Error: axisLabels (@test-zzz_ggpairs.R#350) 
   9.  Error: strips and axis (@test-zzz_ggpairs.R#373) 
   10. Error: subtypes (@test-zzz_ggpairs.R#614) 
   
   Error: testthat unit tests failed
   Execution halted
+
+checking dependencies in R code ... NOTE
+JavaVM: requested Java version ((null)) not available. Using Java at "" instead.
+JavaVM: Failed to load JVM: /bundle/Libraries/libserver.dylib
+JavaVM FATAL: Failed to load the jvm library.
 ```
 
 ## ggalt (0.1.1)
@@ -1652,15 +1459,15 @@ checking tests ... ERROR
 Running the tests in ‘tests/test-all.R’ failed.
 Last 13 lines of output:
   
-  
   testthat results ================================================================
-  OK: 1087 SKIPPED: 4 FAILED: 6
-  1. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#180) 
-  2. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#181) 
-  3. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#182) 
-  4. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#189) 
-  5. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#190) 
-  6. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#191) 
+  OK: 1072 SKIPPED: 4 FAILED: 7
+  1. Failure: fortify.bats works for austres (@test-forecast.R#96) 
+  2. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#180) 
+  3. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#181) 
+  4. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#182) 
+  5. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#189) 
+  6. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#190) 
+  7. Failure: autoplot ts works for multivariate timeseries (@test-ts.R#191) 
   
   Error: testthat unit tests failed
   Execution halted
@@ -1674,7 +1481,7 @@ checking installed package size ... NOTE
 ## ggnetwork (0.5.1)
 Maintainer: Francois Briatte <f.briatte@gmail.com>
 
-1 error  | 1 warning  | 0 notes
+2 errors | 1 warning  | 0 notes
 
 ```
 checking examples ... ERROR
@@ -1696,9 +1503,26 @@ copyright (c) 2005, Carter T. Butts, University of California-Irvine
  For citation information, type citation("sna").
  Type help(package="sna") to get started.
 
-Error in zero_range(from) : x must be length 1 or 2
-Calls: <Anonymous> ... transform_position -> lapply -> FUN -> rescale -> zero_range
+Error: GeomLabelRepel was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
+
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  7: fetch_ggproto(x, name) at /Users/hadley/Documents/ggplot/ggplot/R/ggproto.r:109
+  8: stop(class(x)[[1]], " was built with an incompatible version of ggproto.\n", "Please reinstall the package that provides this extension.", 
+         call. = FALSE) at /Users/hadley/Documents/ggplot/ggplot/R/ggproto.r:90
+  
+  testthat results ================================================================
+  OK: 11 SKIPPED: 0 FAILED: 4
+  1. Error: geom_nodetext_repel works (@test-geoms.R#34) 
+  2. Error: geom_nodelabel_repel works (@test-geoms.R#58) 
+  3. Error: geom_edgetext_repel works (@test-geoms.R#101) 
+  4. Error: geom_edgelabel_repel works (@test-geoms.R#108) 
+  
+  Error: testthat unit tests failed
+  Execution halted
 
 checking re-building of vignette outputs ... WARNING
 Error in re-building vignettes:
@@ -1722,24 +1546,49 @@ copyright (c) 2005, Carter T. Butts, University of California-Irvine
 
 Quitting from lines 199-205 (ggnetwork.Rmd) 
 Error: processing vignette 'ggnetwork.Rmd' failed with diagnostics:
-x must be length 1 or 2
+GeomLabelRepel was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 
 ```
 
-## ggpmisc (0.2.10)
+## ggpmisc (0.2.12)
 Maintainer: Pedro J. Aphalo <pedro.aphalo@helsinki.fi>  
-Bug reports: https://bitbucket.org/aphalo/ggpmisc
+Bug reports: https://bitbucket.org/aphalo/ggpmisc/issues
 
-0 errors | 1 warning  | 0 notes
+1 error  | 1 warning  | 0 notes
 
 ```
+checking examples ... ERROR
+Running examples in ‘ggpmisc-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: stat_dens2d_filter
+> ### Title: Filter observations in high density regions.
+> ### Aliases: stat_dens2d_filter stat_dens2d_filter_g
+> 
+> ### ** Examples
+... 39 lines ...
+> 
+> ggplot(data = d, aes(x, y, label = lab, color = group)) +
++   geom_point() +
++   stat_dens2d_filter(geom = "text")
+> 
+> ggplot(data = d, aes(x, y, label = lab, color = group)) +
++   geom_point() +
++   stat_dens2d_filter(geom = "text_repel")
+Error: GeomTextRepel was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
+Execution halted
+
 checking re-building of vignette outputs ... WARNING
 Error in re-building vignettes:
   ...
-Quitting from lines 770-784 (examples.Rmd) 
-Error: processing vignette 'examples.Rmd' failed with diagnostics:
-stat_fit_augment requires the following missing aesthetics: y
+Quitting from lines 680-683 (user-guide.Rmd) 
+Error: processing vignette 'user-guide.Rmd' failed with diagnostics:
+GeomTextRepel was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 
 ```
@@ -1770,8 +1619,8 @@ The error most likely occurred in:
 +    font.legend = "bold",
 +    font.main = "bold",
 +    ggtheme = ggplot2::theme_minimal())
-Error in zero_range(from) : x must be length 1 or 2
-Calls: <Anonymous> ... transform_position -> lapply -> FUN -> rescale -> zero_range
+Error: GeomTextRepel was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 ```
 
@@ -1787,9 +1636,9 @@ Found the following significant warnings:
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/ggswissmaps.Rcheck/00install.out’ for details.
 
 checking installed package size ... NOTE
-  installed size is  5.1Mb
+  installed size is  5.2Mb
   sub-directories of 1Mb or more:
-    R      3.4Mb
+    R      3.5Mb
     data   1.6Mb
 ```
 
@@ -1864,29 +1713,6 @@ checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘preprocessCore’
 ```
 
-## gmwm (2.0.0)
-Maintainer: Stephane Guerrier <stephane@illinois.edu>  
-Bug reports: https://github.com/SMAC-Group/gmwm/issues
-
-0 errors | 1 warning  | 1 note 
-
-```
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-(as 'lib' is unspecified)
-installing the source package 'imudata'
-
-trying URL 'http://smac-group.com/datarepo/src/contrib/imudata_2.0.0.tar.gz'
-Content type 'application/octet-stream' length 55753263 bytes (53.2 MB)
-==================================================
-downloaded 53.2 MB
-
-
-checking package dependencies ... NOTE
-Package suggested but not available for checking: ‘imudata’
-```
-
 ## gridDebug (0.5-0)
 Maintainer: Paul Murrell <p.murrell@auckland.ac.nz>
 
@@ -1948,6 +1774,31 @@ Quitting from lines 83-85 (heatmaply.Rmd)
 Error: processing vignette 'heatmaply.Rmd' failed with diagnostics:
 attempt to apply non-function
 Execution halted
+```
+
+## heemod (0.5.0)
+Maintainer: Antoine Filipovic-Pierucci <pierucci@gmail.com>  
+Bug reports: https://github.com/pierucci/heemod/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  5: asNamespace(ns)
+  6: getNamespace(ns)
+  7: tryCatch(loadNamespace(name), error = function(e) stop(e))
+  8: tryCatchList(expr, classes, parentenv, handlers)
+  9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
+  10: value[[3L]](cond)
+  
+  testthat results ================================================================
+  OK: 297 SKIPPED: 0 FAILED: 1
+  1. Error: Translating objects to code (@test_get_code.R#52) 
+  
+  Error: testthat unit tests failed
+  Execution halted
 ```
 
 ## hyperSpec (0.98-20150304)
@@ -2034,8 +1885,8 @@ Installation failed.
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/IAPWS95.Rcheck/00install.out’ for details.
 ```
 
-## ibmdbR (1.47.1)
-Maintainer: Michael Wurst <inza@de.ibm.com>
+## ibmdbR (1.48.0)
+Maintainer: Alexander Eckert <inza@de.ibm.com>
 
 1 error  | 0 warnings | 0 notes
 
@@ -2069,73 +1920,39 @@ checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘states2k’
 ```
 
-## imageData (0.1-21)
+## imageData (0.1-26)
 Maintainer: Chris Brien <Chris.Brien@unisa.edu.au>
 
 1 error  | 0 warnings | 0 notes
 
 ```
-checking examples ... ERROR
-Running examples in ‘imageData-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: corrPlot
-> ### Title: Calculates and plots correlation matrices for a set of responses
-> ### Aliases: corrPlot
-> ### Keywords: hplot
-> 
-> ### ** Examples
-> 
-> data(exampleData)
-> responses <- c("Area","Area.SV","Area.TV", "Image.Biomass", "Max.Height","Centre.Mass",
-+                "Density", "Compactness.TV", "Compactness.SV")
-> corrPlot(responses, longi.dat, pairs.sets=list(c(1:4),c(5:7)))
-Error in `$<-.data.frame`(`*tmp*`, "hjust", value = 0.5) : 
-  replacement has 1 row, data has 0
-Calls: corrPlot ... <Anonymous> -> get_x_axis_labels -> $<- -> $<-.data.frame
-Execution halted
+checking whether package ‘imageData’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/imageData.Rcheck/00install.out’ for details.
 ```
 
 ## imager (0.31)
 Maintainer: Simon Barthelme <simon.barthelme@gipsa-lab.fr>  
 Bug reports: https://github.com/dahtah/imager/issues
 
-1 error  | 1 warning  | 1 note 
+0 errors | 1 warning  | 1 note 
 
 ```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  1. Error: cpp_plugin (@test_cpp_api.R#14) --------------------------------------
-  Error 1 occurred building shared library.
-  1: cppFunction(foo.inline, depends = "imager") at testthat/test_cpp_api.R:14
-  2: sourceCpp(code = code, env = env, rebuild = rebuild, cacheDir = cacheDir, showOutput = showOutput, 
-         verbose = verbose)
-  3: stop("Error ", status, " occurred building shared library.")
-  
-  testthat results ================================================================
-  OK: 0 SKIPPED: 0 FAILED: 1
-  1. Error: cpp_plugin (@test_cpp_api.R#14) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-
 checking whether package ‘imager’ can be installed ... WARNING
 Found the following significant warnings:
   ../inst/include/CImg.h:13559:29: warning: multiple unsequenced modifications to 'ptrs' [-Wunsequenced]
   ../inst/include/CImg.h:13738:19: warning: multiple unsequenced modifications to 'ptrs' [-Wunsequenced]
   ../inst/include/CImg.h:22316:23: warning: unsequenced modification and access to 'right' [-Wunsequenced]
-  ../inst/include/CImg.h:29395:1563: warning: unsequenced modification and access to '_n2x' [-Wunsequenced]
-  ../inst/include/CImg.h:29395:1547: warning: multiple unsequenced modifications to '_n3x' [-Wunsequenced]
-  ../inst/include/CImg.h:29395:1591: warning: unsequenced modification and access to '_n1x' [-Wunsequenced]
-  ../inst/include/CImg.h:29415:1568: warning: unsequenced modification and access to '_n2x' [-Wunsequenced]
-  ../inst/include/CImg.h:29415:1552: warning: multiple unsequenced modifications to '_n3x' [-Wunsequenced]
+  ../inst/include/CImg.h:29395:35: warning: unsequenced modification and access to '_n2x' [-Wunsequenced]
+  ../inst/include/CImg.h:29395:35: warning: multiple unsequenced modifications to '_n3x' [-Wunsequenced]
+  ../inst/include/CImg.h:29395:35: warning: unsequenced modification and access to '_n1x' [-Wunsequenced]
+  ../inst/include/CImg.h:29415:40: warning: unsequenced modification and access to '_n2x' [-Wunsequenced]
+  ../inst/include/CImg.h:29415:40: warning: multiple unsequenced modifications to '_n3x' [-Wunsequenced]
 ... 9 lines ...
-  ../inst/include/CImg.h:29478:920: warning: unsequenced modification and access to '_n1x' [-Wunsequenced]
+  ../inst/include/CImg.h:29478:40: warning: unsequenced modification and access to '_n1x' [-Wunsequenced]
   ../inst/include/CImg.h:30531:19: warning: unsequenced modification and access to 'right' [-Wunsequenced]
-  ../inst/include/CImg.h:31964:1060: warning: multiple unsequenced modifications to '_n2x' [-Wunsequenced]
-  ../inst/include/CImg.h:31964:1081: warning: unsequenced modification and access to '_n1x' [-Wunsequenced]
+  ../inst/include/CImg.h:31964:17: warning: multiple unsequenced modifications to '_n2x' [-Wunsequenced]
+  ../inst/include/CImg.h:31964:17: warning: unsequenced modification and access to '_n1x' [-Wunsequenced]
   ../inst/include/CImg.h:44923:18: warning: unsequenced modification and access to 'err' [-Wunsequenced]
   ../inst/include/CImg.h:44931:18: warning: unsequenced modification and access to 'err' [-Wunsequenced]
   ../inst/include/CImg.h:44941:22: warning: unsequenced modification and access to 'err' [-Wunsequenced]
@@ -2153,6 +1970,34 @@ checking installed package size ... NOTE
     libs      2.5Mb
 ```
 
+## iNEXT (2.0.9)
+Maintainer: T. C. Hsieh <euler96@gmail.com>  
+Bug reports: https://github.com/JohnsonHsieh/iNEXT/issues
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Quitting from lines 416-424 (Introduction.Rmd) 
+Error: processing vignette 'Introduction.Rmd' failed with diagnostics:
+invalid line type
+Execution halted
+
+```
+
+## InSilicoVA (1.1.2)
+Maintainer: Zehang Li <lizehang@uw.edu>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘InSilicoVA’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/InSilicoVA.Rcheck/00install.out’ for details.
+```
+
 ## IntClust (0.0.2)
 Maintainer: Marijke Van Moerbeke <marijke.vanmoerbeke@uhasselt.be>
 
@@ -2160,23 +2005,10 @@ Maintainer: Marijke Van Moerbeke <marijke.vanmoerbeke@uhasselt.be>
 
 ```
 checking package dependencies ... ERROR
-Packages required but not available: ‘a4Core’ ‘Biobase’ ‘limma’
+Packages required but not available: ‘a4Core’ ‘limma’
 
 Packages suggested but not available for checking:
   ‘MLP’ ‘biomaRt’ ‘org.Hs.eg.db’ ‘a4Base’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
-
-## IntegratedJM (1.4)
-Maintainer: Rudradev Sengupta <rudradev.sengupta@uhasselt.be>
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Package required but not available: ‘Biobase’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -2245,11 +2077,19 @@ Maintainer: Brad McNeney <mcneney@sfu.ca>
 checking package dependencies ... ERROR
 Package required but not available: ‘chopsticks’
 
-Packages suggested but not available for checking:
-  ‘rtracklayer’ ‘GenomicRanges’ ‘GenomeInfoDb’ ‘IRanges’
-
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
+```
+
+## llama (0.9.1)
+Maintainer: Lars Kotthoff <larsko@cs.ubc.ca>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘llama’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/llama.Rcheck/00install.out’ for details.
 ```
 
 ## localgauss (0.35)
@@ -2317,79 +2157,54 @@ attempt to apply non-function
 Execution halted
 ```
 
-## mcprofile (0.2-1)
-Maintainer: Daniel Gerhard <00gerhard@gmail.com>
+## MEGENA (1.3.4-6)
+Maintainer: Won-Min Song <wonmin1984@gmail.com>
 
-1 error  | 1 warning  | 1 note 
+0 errors | 1 warning  | 1 note 
 
 ```
-checking examples ... ERROR
-Running examples in ‘mcprofile-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: hoa
-> ### Title: Higher order asymptotics using the modified likelihood root
-> ### Aliases: hoa
-> ### Keywords: misc
-> 
-... 52 lines ...
-3 - 0       2.813   0.594
-10 - 0      2.979   0.592
-
-> # computing profiles for the modified likelihood root
-> hp <- hoa(dmcp)
-> 
-> plot(hp)
-Error in `$<-.data.frame`(`*tmp*`, "PANEL", value = c(1L, 1L, 1L, 1L,  : 
-  replacement has 137 rows, data has 1
-Calls: <Anonymous> ... <Anonymous> -> f -> <Anonymous> -> f -> $<- -> $<-.data.frame
-Execution halted
-
 checking re-building of vignette outputs ... WARNING
 Error in re-building vignettes:
   ...
-Loading required package: ggplot2
-Waiting for profiling to be done...
-Loading required package: mvtnorm
-Loading required package: survival
-Loading required package: TH.data
-Loading required package: MASS
-
-Attaching package: 'TH.data'
-
-The following object is masked from 'package:MASS':
-
-    geyser
-
-Quitting from lines 173-174 (mcprofile.Rmd) 
-Error: processing vignette 'mcprofile.Rmd' failed with diagnostics:
-replacement has 147 rows, data has 1
+  the condition has length > 1 and only the first element will be used
+Warning in if (ne > 2 & (el > ne)) { :
+  the condition has length > 1 and only the first element will be used
+Warning in if (ne > 2 & (el > ne)) { :
+  the condition has length > 1 and only the first element will be used
+Warning in if (ne > 2 & (el > ne)) { :
+  the condition has length > 1 and only the first element will be used
+... 8 lines ...
+  the condition has length > 1 and only the first element will be used
+Warning in if (ne > 2 & (el > ne)) { :
+  the condition has length > 1 and only the first element will be used
+Warning in if (ne > 2 & (el > ne)) { :
+  the condition has length > 1 and only the first element will be used
+Warning in if (ne > 2 & (el > ne)) { :
+  the condition has length > 1 and only the first element will be used
+Quitting from lines 118-126 (MEGENA_pipeline_10052016.Rmd) 
+Error: processing vignette 'MEGENA_pipeline_10052016.Rmd' failed with diagnostics:
+formal argument "panel.background" matched by multiple actual arguments
 Execution halted
 
-
 checking R code for possible problems ... NOTE
-confint.mcprofile : <anonymous>: no visible global function definition
-  for ‘na.omit’
-confint.mcprofile: no visible global function definition for ‘qnorm’
-confint.mcprofile: no visible global function definition for ‘qt’
-confint.mcprofile: no visible global function definition for ‘vcov’
-confint.mcprofile : <anonymous> : pfun: no visible global function
-  definition for ‘predict’
-confint.mcprofile : <anonymous>: no visible global function definition
-  for ‘uniroot’
-... 53 lines ...
-  coefficients df.residual family gaussian lm lm.fit model.frame
-  model.matrix model.offset model.response model.weights na.omit
-  p.adjust pnorm predict printCoefmat pt qchisq qf qnorm qt uniroot
-  vcov
-Consider adding
-  importFrom("stats", "coefficients", "df.residual", "family",
-             "gaussian", "lm", "lm.fit", "model.frame", "model.matrix",
-             "model.offset", "model.response", "model.weights",
-             "na.omit", "p.adjust", "pnorm", "predict", "printCoefmat",
-             "pt", "qchisq", "qf", "qnorm", "qt", "uniroot", "vcov")
-to your NAMESPACE file.
+plot_module: possible error in theme(panel.background =
+  element_blank(), axis.title.x = element_blank(), axis.title.y =
+  element_blank(), panel.background = element_rect(fill = "white",
+  colour = NA), axis.line = element_blank(), axis.ticks =
+  element_blank(), axis.text = element_blank(), panel.grid.minor =
+  element_blank(), panel.grid.major = element_blank(), plot.title =
+  element_text(size = title.size), legend.position = "bottom",
+  legend.direction = "horizontal"): formal argument "panel.background"
+  matched by multiple actual arguments
+plot_subgraph: possible error in theme(panel.background =
+  element_blank(), axis.title.x = element_blank(), axis.title.y =
+  element_blank(), panel.background = element_rect(fill = "white",
+  colour = NA), axis.line = element_blank(), axis.ticks =
+  element_blank(), axis.text = element_blank(), panel.grid.minor =
+  element_blank(), panel.grid.major = element_blank(), plot.title =
+  element_text(size = title.size), legend.position = "bottom",
+  legend.direction = "horizontal"): formal argument "panel.background"
+  matched by multiple actual arguments
 ```
 
 ## MendelianRandomization (0.2.0)
@@ -2437,10 +2252,9 @@ Maintainer: Winston A. Haynes <hayneswa@stanford.edu>
 ```
 checking package dependencies ... ERROR
 Packages required but not available:
-  ‘multtest’ ‘Biobase’ ‘preprocessCore’ ‘GEOquery’ ‘GEOmetadb’
+  ‘multtest’ ‘preprocessCore’ ‘GEOquery’ ‘GEOmetadb’
 
-Packages suggested but not available for checking:
-  ‘BiocStyle’ ‘BiocGenerics’
+Package suggested but not available for checking: ‘BiocStyle’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -2468,40 +2282,6 @@ Maintainer: Xiaoyue Cheng <xycheng@unomaha.edu>
 checking whether package ‘MissingDataGUI’ can be installed ... ERROR
 Installation failed.
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/MissingDataGUI.Rcheck/00install.out’ for details.
-```
-
-## mixOmics (6.1.0)
-Maintainer: Kim-Anh Le Cao <k.lecao@uq.edu.au>  
-Bug reports: mixomics@math.univ-toulouse.fr or
-        https://bitbucket.org/klecao/package-mixomics/issues
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘mixOmics-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plsda
-> ### Title: Partial Least Squares Discriminant Analysis (PLS-DA).
-> ### Aliases: plsda
-> ### Keywords: regression multivariate
-> 
-> ### ** Examples
-> 
-> ## First example
-> data(breast.tumors)
-> X <- breast.tumors$gene.exp
-> Y <- breast.tumors$sample$treatment
-> 
-> plsda.breast <- plsda(X, Y, ncomp = 2)
-> plotIndiv(plsda.breast, ind.names = TRUE, ellipse = TRUE, legend = TRUE)
-Warning: Ignoring unknown aesthetics: label
-Warning: Ignoring unknown aesthetics: label
-Error in is.finite(x) : default method not implemented for type 'list'
-Calls: plotIndiv ... <Anonymous> -> f -> train_cartesian -> <Anonymous> -> f
-Execution halted
 ```
 
 ## MixSIAR (3.1.7)
@@ -2556,7 +2336,7 @@ Last 13 lines of output:
 Maintainer: Bernd Bischl <bernd_bischl@gmx.net>  
 Bug reports: https://github.com/mlr-org/mlr/issues
 
-2 errors | 0 warnings | 1 note 
+2 errors | 0 warnings | 2 notes
 
 ```
 checking examples ... ERROR
@@ -2571,9 +2351,12 @@ The error most likely occurred in:
 > ### ** Examples
 > 
 > fv = generateFilterValuesData(iris.task, method = "chi.squared")
-Error in .jnew("weka/core/Attribute", attname[i], .jcast(levels, "java/util/List")) : 
-  java.lang.UnsupportedClassVersionError: weka/core/Attribute : Unsupported major.minor version 51.0
-Calls: generateFilterValuesData ... read_model_frame_into_Weka -> read_data_into_Weka -> .jnew -> .External
+JavaVM: requested Java version ((null)) not available. Using Java at "" instead.
+JavaVM: Failed to load JVM: /bundle/Libraries/libserver.dylib
+JavaVM FATAL: Failed to load the jvm library.
+Error: .onLoad failed in loadNamespace() for 'RWekajars', details:
+  call: .jinit()
+  error: JNI_GetCreatedJavaVMs returned -1
 Execution halted
 ** found \donttest examples: check also with --run-donttest
 
@@ -2581,11 +2364,11 @@ checking tests ... ERROR
 Running the tests in ‘tests/run-base.R’ failed.
 Last 13 lines of output:
   1. Error: NoFeaturesModel works with FilterWrapper (@test_base_NoFeaturesModel.R#30) 
-  2. Error: clustering performance (@test_base_clustering.R#16) 
-  3. Error: clustering performance with missing clusters (@test_base_clustering.R#28) 
-  4. Error: clustering resample (@test_base_clustering.R#42) 
-  5. Error: clustering benchmark (@test_base_clustering.R#55) 
-  6. Error: clustering tune (@test_base_clustering.R#72) 
+  2. Error: clustering performance (@test_base_clustering.R#15) 
+  3. Error: clustering performance with missing clusters (@test_base_clustering.R#27) 
+  4. Error: clustering resample (@test_base_clustering.R#41) 
+  5. Error: clustering benchmark (@test_base_clustering.R#52) 
+  6. Error: clustering tune (@test_base_clustering.R#65) 
   7. Error: filterFeatures (@test_base_filterFeatures.R#9) 
   8. Error: plotFilterValues (@test_base_filterFeatures.R#53) 
   9. Error: args are passed down to filter methods (@test_base_filterFeatures.R#87) 
@@ -2596,6 +2379,18 @@ Last 13 lines of output:
 
 checking package dependencies ... NOTE
 Packages suggested but not available for checking: ‘C50’ ‘GPfit’ ‘RRF’
+
+checking dependencies in R code ... NOTE
+JavaVM: requested Java version ((null)) not available. Using Java at "" instead.
+JavaVM: Failed to load JVM: /bundle/Libraries/libserver.dylib
+JavaVM FATAL: Failed to load the jvm library.
+JavaVM: requested Java version ((null)) not available. Using Java at "" instead.
+JavaVM: Failed to load JVM: /bundle/Libraries/libserver.dylib
+JavaVM FATAL: Failed to load the jvm library.
+JavaVM: requested Java version ((null)) not available. Using Java at "" instead.
+JavaVM: Failed to load JVM: /bundle/Libraries/libserver.dylib
+JavaVM FATAL: Failed to load the jvm library.
+Missing or unexported object: ‘irace::removeCandidatesMetaData’
 ```
 
 ## Momocs (1.0.0)
@@ -2659,59 +2454,6 @@ Installation failed.
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/morse.Rcheck/00install.out’ for details.
 ```
 
-## mosaic (0.14.4)
-Maintainer: Randall Pruim <rpruim@calvin.edu>  
-Bug reports: https://github.com/ProjectMOSAIC/mosaic/issues
-
-1 error  | 1 warning  | 2 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘mosaic-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: mplot
-> ### Title: Generic plotting
-> ### Aliases: mplot mplot.TukeyHSD mplot.data.frame mplot.default mplot.lm
-> ###   mplot.summary.lm
-> 
-... 17 lines ...
-> ##D mplot( HELPrct, "histogram" )
-> ## End(Not run)
-> mplot(summary(lm(width ~ length * sex, data=KidsFeet)), system="ggplot")
-> mplot(summary(lm(width ~ length * sex, data=KidsFeet)), rows=c("sex", "length"))
-> mplot(summary(lm(width ~ length * sex, data=KidsFeet)), rows=TRUE)
-> mplot(TukeyHSD( lm(age ~ substance, data=HELPrct) ) )
-> mplot(TukeyHSD( lm(age ~ substance, data=HELPrct) ), system="ggplot2" )
-Error in as.character(what) : 
-  cannot coerce type 'closure' to vector of type 'character'
-Calls: <Anonymous> ... <Anonymous> -> list_to_dataframe -> rbind.fill -> <Anonymous>
-Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Quitting from lines 87-90 (GraphicsWithMosaic.Rmd) 
-Error: processing vignette 'GraphicsWithMosaic.Rmd' failed with diagnostics:
-cannot coerce type 'closure' to vector of type 'character'
-Execution halted
-
-
-checking installed package size ... NOTE
-  installed size is  9.4Mb
-  sub-directories of 1Mb or more:
-    R     2.0Mb
-    doc   6.8Mb
-
-checking R code for possible problems ... NOTE
-mMap: no visible binding for global variable ‘facet’
-mScatter: no visible binding for global variable ‘facet’
-mUniplot: no visible binding for global variable ‘facet’
-Undefined global functions or variables:
-  facet
-```
-
 ## mrMLM (1.3)
 Maintainer: Yuanming Zhang<soyzhang@mail.hzau.edu.cn>
 
@@ -2733,15 +2475,15 @@ checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
   Error: `mapped_plot` not equal to lazyLoadDBfetch(c(36596L, 320L), datafile, compressed, envhook).
-  Component "layers": Component 1: Component 3: Component 2: Component 6: Component 5: target, current do not match when deparsed
-  Component "layers": Component 1: Component 7: Component 2: Component 1: target, current do not match when deparsed
-  Component "layers": Component 1: Component 9: Component 2: Names: 11 string mismatches
-  Component "layers": Component 1: Component 9: Component 2: Length mismatch: comparison on first 11 components
-  Component "layers": Component 1: Component 9: Component 2: Component 1: target, current do not match when deparsed
-  Component "layers": Component 1: Component 9: Component 2: Component 2: target, current do not match when deparsed
-  Component "layers": Component 1: Component 9: Component 2: Component 3: target, current do not match when deparsed
-  Component "layers": Component 1: Component 9: Component 2: Component 4: Modes of target, current: function, list
-  Co
+  Component "layers": Component 1: Component 3: Component 2: Modes of target, current: function, environment
+  Component "layers": Component 1: Component 3: Component 2: target, current do not match when deparsed
+  Component "layers": Component 1: Component 7: Component 2: Modes of target, current: function, environment
+  Component "layers": Component 1: Component 7: Component 2: target, current do not match when deparsed
+  Component "layers": Component 1: Component 9: Component 2: Modes of target, current: function, environment
+  Component "layers": Component 1: Component 9: Component 2: target, current do not match when deparsed
+  Component "layers": Component 1: Component 12: Modes of target, current: function, environment
+  Component "layers": Component 1: Component 12: target, current do not match when deparsed
+  Component "layers": Component 2: Component 3: Component 2: Modes of target, current: fun
   testthat results ================================================================
   OK: 0 SKIPPED: 0 FAILED: 0
   Execution halted
@@ -2758,36 +2500,6 @@ Package required but not available: ‘pcaMethods’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
-```
-
-## mvdalab (1.1)
-Maintainer: Nelson Lee Afanador <nelson.afanador@mvdalab.com>
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘mvdalab-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: ScoreContrib
-> ### Title: Generates a score contribution plot
-> ### Aliases: ScoreContrib
-> 
-> ### ** Examples
-> 
-> data(Penta)
-> ## Number of bootstraps set to 500 to demonstrate flexibility
-> ## Use a minimum of 1000 (default) for results that support bootstraping
-> mod1 <- plsFit(log.RAI ~., scale = TRUE, data = Penta[, -1], 
-+                ncomp = 2, validation = "oob", boots = 500)
-> Score.Contributions1 <- ScoreContrib(mod1, obs1 = 1, obs2 = 3)
-> plot(Score.Contributions1)
-Error in `$<-.data.frame`(`*tmp*`, "PANEL", value = c(1L, 1L, 1L, 1L,  : 
-  replacement has 15 rows, data has 1
-Calls: plot ... <Anonymous> -> f -> <Anonymous> -> f -> $<- -> $<-.data.frame
-Execution halted
 ```
 
 ## mwaved (1.1.4)
@@ -2816,19 +2528,6 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## neuropsychology (0.2.4)
-Maintainer: Dominique Makowski <dom.makowski@gmail.com>
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking package dependencies ... ERROR
-Packages required but not available: ‘prettyR’ ‘wordcloud2’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
-```
-
 ## NFP (0.99.1)
 Maintainer: Yang Cao <yiluheihei@gmail.com>
 
@@ -2845,103 +2544,6 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## NMF (0.20.6)
-Maintainer: Renaud Gaujoux <renaud@tx.technion.ac.il>  
-Bug reports: http://github.com/renozao/NMF/issues
-
-1 error  | 1 warning  | 4 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘NMF-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: nmfModel
-> ### Title: Factory Methods NMF Models
-> ### Aliases: nmfModel nmfModel,data.frame,data.frame-method
-> ###   nmfModel,formula,ANY-method nmfModel,matrix,ANY-method
-> ###   nmfModel,matrix,matrix-method nmfModel-methods
-... 222 lines ...
-features: 20 
-basis/rank: 6 
-samples: 10 
-fixed coef [3]:
-  gr = <1, 2>
-  b = 0.0101301828399301, 0.21454192395322, ..., 0.767450851621106
-> 
-> # 3-rank model that fits a given ExpressionSet (with fixed coef terms)
-> e <- ExpressionSet(x)
-Error: could not find function "ExpressionSet"
-Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Quitting from lines 385-398 (NMF-vignette.Rnw) 
-Error: processing vignette 'NMF-vignette.Rnw' failed with diagnostics:
-unable to find required package 'Biobase'
-Execution halted
-
-
-checking package dependencies ... NOTE
-Packages suggested but not available for checking:
-  ‘RcppOctave’ ‘doMPI’ ‘Biobase’
-
-checking R code for possible problems ... NOTE
-.wrapResult: no visible global function definition for ‘exprs’
-algorithm,NMFStrategyOctave: no visible global function definition for
-  ‘fstop’
-evar,ANY: no visible binding for global variable ‘Biobase’
-nmf,matrix-numeric-NMFStrategy : run.all: no visible binding for global
-  variable ‘n’
-nmf,matrix-numeric-NMFStrategy : run.all: no visible binding for global
-  variable ‘RNGobj’
-nmfModel,formula-ANY : merge_pdata: no visible global function
-  definition for ‘pData’
-nmfModel,formula-ANY: no visible global function definition for ‘exprs’
-rss,matrix: no visible binding for global variable ‘Biobase’
-Undefined global functions or variables:
-  Biobase RNGobj exprs fstop n pData
-
-checking Rd cross-references ... NOTE
-Packages unavailable to check Rd xrefs: ‘RcppOctave’, ‘Biobase’
-
-checking data for non-ASCII characters ... NOTE
-  Error in .requirePackage(package) : 
-    unable to find required package 'Biobase'
-  Calls: <Anonymous> ... .extendsForS3 -> extends -> getClassDef -> .requirePackage
-  Execution halted
-```
-
-## nparACT (0.6)
-Maintainer: Christine Blume <christine.blume@sbg.ac.at>
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘nparACT-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: nparACT-package
-> ### Title: Non-Parametric Measures of Actigraphy Data
-> ### Aliases: nparACT-package nparACT
-> ### Keywords: package
-> 
-> ### ** Examples
-> 
-> # example function nparACT_base
-> data(sleepstudy)
-> r <- nparACT_base("sleepstudy", SR = 4/60) 
-Warning: Ignoring unknown aesthetics: x
-Error in `$<-.data.frame`(`*tmp*`, "PANEL", value = c(1L, 1L, 1L, 1L,  : 
-  replacement has 96 rows, data has 1
-Calls: nparACT_base ... <Anonymous> -> f -> <Anonymous> -> f -> $<- -> $<-.data.frame
-Execution halted
-```
-
 ## npregfast (1.3.0)
 Maintainer: Marta Sestelo <sestelo@uvigo.es>  
 Bug reports: http://github.com/sestelo/npregfast/issues
@@ -2952,6 +2554,46 @@ Bug reports: http://github.com/sestelo/npregfast/issues
 checking whether package ‘npregfast’ can be installed ... ERROR
 Installation failed.
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/npregfast.Rcheck/00install.out’ for details.
+```
+
+## obAnalytics (0.1.0)
+Maintainer: Philip Stubbings <phil@parasec.net>  
+Bug reports: https://github.com/phil8192/ob-analytics/issues
+
+1 error  | 1 warning  | 0 notes
+
+```
+checking examples ... ERROR
+Running examples in ‘obAnalytics-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plotVolumePercentiles
+> ### Title: Visualise available limit order book liquidity through time.
+> ### Aliases: plotVolumePercentiles
+> 
+> ### ** Examples
+... 10 lines ...
+    plotVolumePercentiles => time range = 7200 secs
+    plotVolumePercentiles => aggregating to mins intervals
+    plotVolumePercentiles => aggregation: 2015-05-01 02:29:00 : 2015-05-01 04:29:00 by = mins
+Warning: Ignoring unknown aesthetics: ymax
+Warning: Ignoring unknown aesthetics: ymax
+Warning in rep(yes, length.out = length(ans)) :
+  'x' is NULL so the result will be NULL
+Error in ifelse(data$ymax == 0, data$ymin, data$ymax) : 
+  replacement has length zero
+Calls: <Anonymous> ... f -> <Anonymous> -> f -> <Anonymous> -> f -> ifelse
+Execution halted
+
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Quitting from lines 535-541 (guide.Rmd) 
+Error: processing vignette 'guide.Rmd' failed with diagnostics:
+replacement has length zero
+Execution halted
+
 ```
 
 ## onlineCPD (1.0)
@@ -2978,6 +2620,28 @@ The error most likely occurred in:
 > plot(res,buffer=10)     ## Will replace the two changepoints
 Error: Aesthetics must be either length 1 or the same as the data (1): x, y, xend, yend, alpha
 Execution halted
+```
+
+## OpenStreetMap (0.3.3)
+Maintainer: Ian Fellows <ian@fellstat.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘OpenStreetMap’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/OpenStreetMap.Rcheck/00install.out’ for details.
+```
+
+## openVA (1.0.1)
+Maintainer: Zehang Li <lizehang@uw.edu>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘openVA’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/openVA.Rcheck/00install.out’ for details.
 ```
 
 ## OriGen (1.4.3)
@@ -3016,8 +2680,8 @@ The error most likely occurred in:
 > ## Mapping the outbreak (by sex) ##
 > plot(x,'geo',location=c('lon','lat'),zoom=13,colorBy='Sex')
 Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=51.516439,-0.171146&zoom=13&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
-Error in zero_range(from) : x must be length 1 or 2
-Calls: <Anonymous> ... <Anonymous> -> f -> <Anonymous> -> f -> rescale -> zero_range
+Error: GeomRasterAnn was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 
 checking re-building of vignette outputs ... WARNING
@@ -3040,9 +2704,35 @@ Warning: `show_guide` has been deprecated. Please use `show.legend` instead.
 Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=51.516439,-0.171146&zoom=14&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
 Quitting from lines 1022-1023 (OutbreakTools.Rnw) 
 Error: processing vignette 'OutbreakTools.Rnw' failed with diagnostics:
-x must be length 1 or 2
+GeomRasterAnn was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 
+```
+
+## ParamHelpers (1.9)
+Maintainer: Bernd Bischl <bernd_bischl@gmx.net>  
+Bug reports: https://github.com/berndbischl/ParamHelpers/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/run-all.R’ failed.
+Last 13 lines of output:
+  3. Failure: convertParamSetToIrace work with vecparam (@test_convertParamSetToIrace.R#85) 
+  b$b not equal to c("v", "w").
+  target is NULL, current is character
+  
+  
+  testthat results ================================================================
+  OK: 1003 SKIPPED: 0 FAILED: 3
+  1. Error: convertParamSetToIrace (@test_convertParamSetToIrace.R#32) 
+  2. Failure: convertParamSetToIrace uses correct boundaries (@test_convertParamSetToIrace.R#69) 
+  3. Failure: convertParamSetToIrace work with vecparam (@test_convertParamSetToIrace.R#85) 
+  
+  Error: testthat unit tests failed
+  Execution halted
 ```
 
 ## pcadapt (3.0.2)
@@ -3128,7 +2818,7 @@ checking Rd cross-references ... NOTE
 Package unavailable to check Rd xrefs: ‘RecordLinkage’
 ```
 
-## photobiologyInOut (0.4.11)
+## photobiologyInOut (0.4.12)
 Maintainer: Pedro J. Aphalo <pedro.aphalo@helsinki.fi>  
 Bug reports: https://bitbucket.org/aphalo/photobiologyinout/
 
@@ -3140,9 +2830,46 @@ Error in re-building vignettes:
   ...
 Read 3 items
 Read 16 items
-Quitting from lines 179-180 (user-guide.Rnw) 
+Quitting from lines 180-181 (user-guide.Rnw) 
 Error: processing vignette 'user-guide.Rnw' failed with diagnostics:
-attempt to apply non-function
+StatPeaks was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
+Execution halted
+
+```
+
+## photobiologyLamps (0.4.1)
+Maintainer: Pedro J. Aphalo <pedro.aphalo@helsinki.fi>  
+Bug reports: https://bitbucket.org/aphalo/photobiologylamps/issues
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Quitting from lines 41-43 (data-catalogue.Rmd) 
+Error: processing vignette 'data-catalogue.Rmd' failed with diagnostics:
+StatPeaks was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
+Execution halted
+
+```
+
+## photobiologyLEDs (0.4.2)
+Maintainer: Pedro J. Aphalo <pedro.aphalo@helsinki.fi>  
+Bug reports: https://bitbucket.org/aphalo/photobiologyleds/issues
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Quitting from lines 50-52 (data-catalogue.Rmd) 
+Error: processing vignette 'data-catalogue.Rmd' failed with diagnostics:
+StatPeaks was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 
 ```
@@ -3159,7 +2886,8 @@ Error in re-building vignettes:
   ...
 Quitting from lines 79-81 (dataplotsPlants.Rnw) 
 Error: processing vignette 'dataplotsPlants.Rnw' failed with diagnostics:
-attempt to apply non-function
+StatColorGuide was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 
 ```
@@ -3190,9 +2918,7 @@ Maintainer: Yves Rozenholc <yves.rozenholc@parisdescartes.fr>
 
 ```
 checking package dependencies ... ERROR
-Packages required but not available:
-  ‘GenomicRanges’ ‘VariantAnnotation’ ‘S4Vectors’ ‘Rsamtools’
-  ‘rtracklayer’ ‘SummarizedExperiment’
+Package required but not available: ‘VariantAnnotation’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
@@ -3291,7 +3017,18 @@ Last 13 lines of output:
   Execution halted
 ```
 
-## prcbench (0.5.0)
+## PortfolioEffectHFT (1.7)
+Maintainer: Andrey Kostin <andrey.kostin@portfolioeffect.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘PortfolioEffectHFT’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/PortfolioEffectHFT.Rcheck/00install.out’ for details.
+```
+
+## prcbench (0.5.2)
 Maintainer: Takaya Saito <takaya.saito@outlook.com>  
 Bug reports: https://github.com/takayasaito/prcbench/issues
 
@@ -3303,33 +3040,34 @@ Running examples in ‘prcbench-Ex.R’ failed
 The error most likely occurred in:
 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: autoplot.evalcurve
-> ### Title: Plot the result of Precision-Recall curve evaluation
-> ### Aliases: autoplot.evalcurve
+> ### Name: ToolAUCCalculator
+> ### Title: R6 class of the AUCCalculator tool
+> ### Aliases: ToolAUCCalculator
+> ### Keywords: datasets
 > 
 > ### ** Examples
 > 
-> library(ggplot2)
-> 
-> ## Plot evaluation results on test datasets r1, r2, and r3
-> testset <- create_testset("curve", c("c1", "c2", "c3"))
-> toolset <- create_toolset(set_names = "crv5")
-> eres1 <- run_evalcurve(testset, toolset)
-Error: PerfMeas needed for this function to work. Please install it.
+> ## Initialization
+> toolauccalc <- ToolAUCCalculator$new()
+JavaVM: requested Java version ((null)) not available. Using Java at "" instead.
+JavaVM: Failed to load JVM: /bundle/Libraries/libserver.dylib
+JavaVM FATAL: Failed to load the jvm library.
+Error in rJava::.jinit() : JNI_GetCreatedJavaVMs returned -1
+Calls: <Anonymous> ... .get_java_obj -> withVisible -> _f -> <Anonymous> -> .External
 Execution halted
 
 checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
   1. Error: run_benchmark (@test_main_benchmark.R#32) 
-  2. Failure: run_benchmark: testset (@test_main_benchmark.R#58) 
-  3. Failure: run_benchmark: testset (@test_main_benchmark.R#61) 
-  4. Failure: run_benchmark: toolset (@test_main_benchmark.R#84) 
-  5. Failure: run_benchmark: toolset (@test_main_benchmark.R#87) 
-  6. Error: run_benchmark: toolset & testset (@test_main_benchmark.R#106) 
-  7. Error: run_benchmark: times (@test_main_benchmark.R#131) 
-  8. Failure: run_benchmark: unit (@test_main_benchmark.R#166) 
-  9. Failure: run_benchmark: unit (@test_main_benchmark.R#166) 
+  2. Error: run_benchmark: testset (@test_main_benchmark.R#58) 
+  3. Error: run_benchmark: toolset (@test_main_benchmark.R#84) 
+  4. Error: run_benchmark: times (@test_main_benchmark.R#131) 
+  5. Error: run_benchmark: unit (@test_main_benchmark.R#166) 
+  6. Error: run_evalcurve (@test_main_evalcurves.R#6) 
+  7. Error: run_evalcurve: testset (@test_main_evalcurves.R#19) 
+  8. Error: run_evalcurve: toolset (@test_main_evalcurves.R#32) 
+  9. Error: run_evalcurve testscores (@test_main_evalcurves.R#57) 
   1. ...
   
   Error: testthat unit tests failed
@@ -3338,9 +3076,12 @@ Last 13 lines of output:
 checking re-building of vignette outputs ... WARNING
 Error in re-building vignettes:
   ...
-Quitting from lines 119-124 (introduction.Rmd) 
+JavaVM: requested Java version ((null)) not available. Using Java at "" instead.
+JavaVM: Failed to load JVM: /bundle/Libraries/libserver.dylib
+JavaVM FATAL: Failed to load the jvm library.
+Quitting from lines 65-70 (introduction.Rmd) 
 Error: processing vignette 'introduction.Rmd' failed with diagnostics:
-PerfMeas needed for this function to work. Please install it.
+JNI_GetCreatedJavaVMs returned -1
 Execution halted
 
 ```
@@ -3390,7 +3131,19 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## quanteda (0.9.8)
+## qdap (2.2.5)
+Maintainer: Tyler Rinker <tyler.rinker@gmail.com>  
+Bug reports: http://github.com/trinker/qdap/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘qdap’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/qdap.Rcheck/00install.out’ for details.
+```
+
+## quanteda (0.9.8.3)
 Maintainer: Kenneth Benoit <kbenoit@lse.ac.uk>  
 Bug reports: https://github.com/kbenoit/quanteda/issues
 
@@ -3470,41 +3223,76 @@ Calls: %>% ... <Anonymous> -> plot -> plot.model.predict -> ifelse
 Execution halted
 ```
 
-## rnoaa (0.6.0)
-Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
-Bug reports: http://www.github.com/ropensci/rnoaa/issues
+## ReporteRs (0.8.6)
+Maintainer: David Gohel <david.gohel@lysis-consultants.fr>  
+Bug reports: https://github.com/davidgohel/ReporteRs/issues
 
-0 errors | 1 warning  | 1 note 
+1 error  | 0 warnings | 0 notes
 
 ```
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
+checking whether package ‘ReporteRs’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/ReporteRs.Rcheck/00install.out’ for details.
+```
 
-Attaching package: 'dplyr'
+## rfordummies (0.1.2)
+Maintainer: Andrie de Vries <apdevries@gmail.com>  
+Bug reports: https://github.com/andrie/rfordummies/issues
 
-The following objects are masked from 'package:stats':
+1 error  | 0 warnings | 1 note 
 
-    filter, lag
+```
+checking examples ... ERROR
+Running examples in ‘rfordummies-Ex.R’ failed
+The error most likely occurred in:
 
-The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union
-
-Loading required package: ggplot2
-Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=Delhi&zoom=11&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
-Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=Delhi&sensor=false
-Quitting from lines 103-110 (rnoaa_openaq.Rmd) 
-Error: processing vignette 'rnoaa_openaq.Rmd' failed with diagnostics:
-x must be length 1 or 2
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: saveElements
+> ### Title: Saves a copy of the periodic table of elements as excel or csv
+> ###   file.
+> ### Aliases: saveElements
+> 
+> ### ** Examples
+> 
+> saveElements(file.path(tempdir(), "elements.xlsx"))
+Loading required namespace: XLConnect
+JavaVM: requested Java version ((null)) not available. Using Java at "" instead.
+JavaVM: Failed to load JVM: /bundle/Libraries/libserver.dylib
+JavaVM FATAL: Failed to load the jvm library.
+Failed with error:  ‘.onLoad failed in loadNamespace() for 'XLConnectJars', details:
+  call: .jinit()
+  error: JNI_GetCreatedJavaVMs returned -1
+’
+Error in saveElements(file.path(tempdir(), "elements.xlsx")) : 
+  Unable to create excel file. Install the XLConnect package and try again.
 Execution halted
 
+checking dependencies in R code ... NOTE
+JavaVM: requested Java version ((null)) not available. Using Java at "" instead.
+JavaVM: Failed to load JVM: /bundle/Libraries/libserver.dylib
+JavaVM FATAL: Failed to load the jvm library.
+```
 
-checking installed package size ... NOTE
-  installed size is  5.2Mb
-  sub-directories of 1Mb or more:
-    doc    3.0Mb
-    vign   1.1Mb
+## RJafroc (0.1.1)
+Maintainer: Xuetong Zhai <xuetong.zhai@gmail.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘RJafroc’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/RJafroc.Rcheck/00install.out’ for details.
+```
+
+## rmcfs (1.1.1)
+Maintainer: Michal Draminski <mdramins@ipipan.waw.pl>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘rmcfs’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/rmcfs.Rcheck/00install.out’ for details.
 ```
 
 ## robCompositions (2.0.2)
@@ -3529,6 +3317,23 @@ checking Rd cross-references ... NOTE
 Package unavailable to check Rd xrefs: ‘StatDA’
 ```
 
+## rollply (0.5.0)
+Maintainer: Alexandre Genin <alex@lecairn.org>  
+Bug reports: https://github.com/alexgenin/rollply
+
+0 errors | 1 warning  | 0 notes
+
+```
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Quitting from lines 51-60 (rollply.Rmd) 
+Error: processing vignette 'rollply.Rmd' failed with diagnostics:
+cannot open the connection
+Execution halted
+
+```
+
 ## RPPanalyzer (1.4.3)
 Maintainer: Astrid Wachter <astrid.wachter@med.uni-goettingen.de>
 
@@ -3536,10 +3341,21 @@ Maintainer: Astrid Wachter <astrid.wachter@med.uni-goettingen.de>
 
 ```
 checking package dependencies ... ERROR
-Packages required but not available: ‘limma’ ‘Biobase’
+Package required but not available: ‘limma’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
+```
+
+## rrepast (0.5.0)
+Maintainer: Antonio Prestes Garcia <antonio.pgarcia@alumnos.upm.es>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘rrepast’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/rrepast.Rcheck/00install.out’ for details.
 ```
 
 ## RSA (0.9.10)
@@ -3552,37 +3368,6 @@ checking whether package ‘RSA’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: loading Rplot failed
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/RSA.Rcheck/00install.out’ for details.
-```
-
-## RSSL (0.6)
-Maintainer: Jesse Krijthe <jkrijthe@gmail.com>  
-Bug reports: http://www.github.com/jkrijthe/RSSL
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘RSSL-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: EMLeastSquaresClassifier
-> ### Title: An Expectation Maximization like approach to Semi-Supervised
-> ###   Least Squares Classification
-> ### Aliases: EMLeastSquaresClassifier
-> 
-... 27 lines ...
-+ )
-> 
-> df %>% 
-+  ggplot(aes(x=X1,y=X2,color=Class)) +
-+  geom_point() +
-+  coord_equal() +
-+  scale_y_continuous(limits=c(-2,2)) +
-+  stat_classifier(aes(linetype=..classifier..),
-+                  classifiers=classifiers)
-Error: stat_classifier requires the following missing aesthetics: z
-Execution halted
 ```
 
 ## rstan (2.12.1)
@@ -3601,12 +3386,54 @@ See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/rstan.Rcheck/00instal
 Maintainer: Ben Goodrich <benjamin.goodrich@columbia.edu>  
 Bug reports: https://github.com/stan-dev/rstanarm/issues
 
-1 error  | 0 warnings | 0 notes
+2 errors | 0 warnings | 1 note 
 
 ```
-checking whether package ‘rstanarm’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/rstanarm.Rcheck/00install.out’ for details.
+checking examples ... ERROR
+Running examples in ‘rstanarm-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: plot.stanreg
+> ### Title: Plot method for stanreg objects
+> ### Aliases: plot.stanreg
+> 
+> ### ** Examples
+... 75 lines ...
+> # Intervals and point estimates
+> plot(fit) + 
++ ggplot2::ggtitle("Posterior medians \n with 80% and 95% credible intervals")
+'pars' not specified. Showing first 10 parameters by default.
+ci_level: 0.8 (80% intervals)
+outer_level: 0.95 (95% intervals)
+Error in if (e1$inherit.blank) return(e2) else return(e1) : 
+  argument is of length zero
+Calls: <Anonymous> ... FUN -> element_render -> calc_element -> Reduce -> f
+Execution halted
+** found \donttest examples: check also with --run-donttest
+
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  1.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
+  2.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
+  3.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
+  4.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
+  5.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
+  6.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
+  7.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
+  8.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
+  9.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
+  10. Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
+  
+  Error: testthat unit tests failed
+  Execution halted
+
+checking installed package size ... NOTE
+  installed size is  8.7Mb
+  sub-directories of 1Mb or more:
+    doc    1.3Mb
+    libs   6.6Mb
 ```
 
 ## rsvg (1.0)
@@ -3670,7 +3497,7 @@ Consider adding
 to your NAMESPACE file.
 ```
 
-## scmamp (0.2.5)
+## scmamp (0.2.55)
 Maintainer: Borja Calvo <borja.calvo@ehu.eus>  
 Bug reports: https://github.com/b0rxa/scmamp/issues
 
@@ -3684,21 +3511,18 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## sdmvspecies (0.3.2)
-Maintainer: Xiaoquan Kong <u1mail2me@gmail.com>  
-Bug reports: https://github.com/howl-anderson/sdmvspecies/issues
+## SEERaBomb (2016.1)
+Maintainer: Tomas Radivoyevitch <radivot@ccf.org>
 
-0 errors | 1 warning  | 0 notes
+1 error  | 0 warnings | 0 notes
 
 ```
-checking for executable files ... WARNING
-Found the following executable file:
-  inst/external/env/bio14.bil
-Source packages should not contain undeclared executable files.
-See section ‘Package structure’ in the ‘Writing R Extensions’ manual.
+checking whether package ‘SEERaBomb’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/SEERaBomb.Rcheck/00install.out’ for details.
 ```
 
-## seewave (2.0.4)
+## seewave (2.0.5)
 Maintainer: Jerome Sueur <sueur@mnhn.fr>
 
 1 error  | 0 warnings | 0 notes
@@ -3725,7 +3549,8 @@ The error most likely occurred in:
 > ### Aliases: plot.LocationDatum
 > 
 > ### ** Examples
-... 189 lines ...
+... 188 lines ...
+[1] "57% done merging data for WlanDatum (4 of 7)."
 [1] "71% done merging data for WlanDatum (5 of 7)."
 [1] "85% done merging data for WlanDatum (6 of 7)."
 [1] "100% done merging data for WlanDatum (7 of 7)."
@@ -3733,65 +3558,40 @@ The error most likely occurred in:
 > plot(data$LocationDatum)
 Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=38.0676352725243,-78.9510441850485&zoom=10&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
 Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=38.0676352725243,-78.9510441850485&sensor=false
-Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-Error in zero_range(from) : x must be length 1 or 2
-Calls: <Anonymous> ... <Anonymous> -> f -> <Anonymous> -> f -> rescale -> zero_range
+Error: GeomRasterAnn was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 ```
 
-## SeqFeatR (0.2.3)
+## SeqFeatR (0.2.4)
 Maintainer: Bettina Budeus <bettina.budeus@stud.uni-due.de>
 
 1 error  | 0 warnings | 0 notes
 
 ```
 checking package dependencies ... ERROR
-Packages required but not available: ‘Biostrings’ ‘qvalue’ ‘widgetTools’
+Packages required but not available: ‘qvalue’ ‘widgetTools’
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## sgd (1.1)
-Maintainer: Dustin Tran <dustin@cs.columbia.edu>  
-Bug reports: https://github.com/airoldilab/sgd/issues
+## simmer (3.4.4)
+Maintainer: Iñaki Ucar <i.ucar86@gmail.com>  
+Bug reports: https://github.com/r-simmer/simmer/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking whether package ‘sgd’ can be installed ... ERROR
-Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/sgd.Rcheck/00install.out’ for details.
-```
-
-## shiny (0.14)
-Maintainer: Winston Chang <winston@rstudio.com>  
-Bug reports: https://github.com/rstudio/shiny/issues
-
-1 error  | 0 warnings | 1 note 
+0 errors | 1 warning  | 0 notes
 
 ```
-checking tests ... ERROR
-Running the tests in ‘tests/test-all.R’ failed.
-Last 13 lines of output:
-  
-  testthat results ================================================================
-  OK: 429 SKIPPED: 0 FAILED: 7
-  1. Error: ggplot coordmap (@test-plot-coordmap.R#34) 
-  2. Failure: ggplot coordmap with facet_wrap (@test-plot-coordmap.R#80) 
-  3. Error: ggplot coordmap with facet_wrap (@test-plot-coordmap.R#81) 
-  4. Failure: ggplot coordmap with facet_grid (@test-plot-coordmap.R#129) 
-  5. Error: ggplot coordmap with facet_grid (@test-plot-coordmap.R#130) 
-  6. Failure: ggplot coordmap with 2D facet_grid (@test-plot-coordmap.R#214) 
-  7. Error: ggplot coordmap with 2D facet_grid (@test-plot-coordmap.R#215) 
-  
-  Error: testthat unit tests failed
-  Execution halted
+checking compiled code ... WARNING
+File ‘simmer/libs/simmer.so’:
+  Found ‘_abort’, possibly from ‘abort’ (C)
+    Objects: ‘process.o’, ‘resource.o’, ‘simmer_rcpp.o’
 
-checking installed package size ... NOTE
-  installed size is  6.8Mb
-  sub-directories of 1Mb or more:
-    www   5.7Mb
+Compiled code should not call entry points which might terminate R nor
+write to stdout/stderr instead of to the console, nor the system RNG.
+
+See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
 ```
 
 ## simmr (0.3)
@@ -3866,7 +3666,8 @@ The error most likely occurred in:
 > ### Aliases: add.to.label
 > 
 > ### ** Examples
-... 76 lines ...
+... 75 lines ...
+[10] "Film:\n Comedy"        "Film:\n CostumeDrama"  "Film:\n Documentary"  
 [13] "Film:\n Horror"        "Film:\n Musical"       "Film:\n Romance"      
 [16] "Film:\n SciFi"         "Art:\n Impressionism"  "Art:\n Landscape"     
 [19] "Art:\n ModernArt"      "Art:\n PerformanceArt" "Art:\n Portrait"      
@@ -3874,38 +3675,9 @@ The error most likely occurred in:
 [25] "Eat:\n FrenchRest"     "Eat:\n IndianRest"     "Eat:\n ItalianRest"   
 [28] "Eat:\n Pub"            "Eat:\n SteakHouse"    
 > map.ctr(result.label)
-Warning: Ignoring unknown aesthetics: fill
-Error in zero_range(from) : x must be length 1 or 2
-Calls: <Anonymous> ... transform_position -> lapply -> FUN -> rescale -> zero_range
+Error: GeomTextRepel was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
-```
-
-## SpaDES (1.2.0)
-Maintainer: Alex M Chubaty <alexander.chubaty@canada.ca>  
-Bug reports: https://github.com/PredictiveEcology/SpaDES/issues
-
-1 error  | 0 warnings | 1 note 
-
-```
-checking tests ... ERROR
-Running the tests in ‘tests/test-all.R’ failed.
-Last 13 lines of output:
-  names for target but not for current
-  
-  
-  testthat results ================================================================
-  OK: 891 SKIPPED: 16 FAILED: 3
-  1. Failure: simulation runs with simInit and spades (@test-simulation.R#82) 
-  2. Failure: simulation runs with simInit and spades (@test-simulation.R#83) 
-  3. Failure: simulation runs with simInit and spades (@test-simulation.R#84) 
-  
-  Error: testthat unit tests failed
-  In addition: Warning message:
-  In fun(libname, pkgname) : couldn't connect to display ""
-  Execution halted
-
-checking package dependencies ... NOTE
-Package suggested but not available for checking: ‘fastshp’
 ```
 
 ## sparkTable (1.2.0)
@@ -3961,6 +3733,17 @@ plot,sparkline: possible error in axis.text.y = element_blank(),
   argument "axis.ticks" matched by multiple actual arguments
 ```
 
+## spcosa (0.3-6)
+Maintainer: Dennis Walvoort <dennis.Walvoort@wur.nl>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘spcosa’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/spcosa.Rcheck/00install.out’ for details.
+```
+
 ## specmine (1.0)
 Maintainer: Christopher Costa <chrisbcl@hotmail.com>
 
@@ -3972,33 +3755,6 @@ Packages required but not available: ‘xcms’ ‘MAIT’ ‘genefilter’ ‘i
 
 See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
-```
-
-## ss3sim (0.9.2)
-Maintainer: Sean Anderson <sean@seananderson.ca>
-
-1 error  | 0 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘ss3sim-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot_scalar_boxplot
-> ### Title: Print scalar values as boxplots.
-> ### Aliases: plot_scalar_boxplot
-> 
-> ### ** Examples
-> 
-> scalar_dat$depletion <- with(scalar_dat,
-+   (depletion_om - depletion_em) / depletion_om)
-> plot_scalar_boxplot(scalar_dat, x = "E", y = "depletion", horiz = "D",
-+   relative.error = TRUE)
-Error in as.character(what) : 
-  cannot coerce type 'closure' to vector of type 'character'
-Calls: plot_scalar_boxplot ... <Anonymous> -> list_to_dataframe -> rbind.fill -> <Anonymous>
-Execution halted
 ```
 
 ## StroupGLMM (0.1.0)
@@ -4042,28 +3798,12 @@ See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/strvalidator.Rcheck/0
 ## subspaceMOA (0.5.1)
 Maintainer: Marwan Hassani <rsubspace@cs.rwth-aachen.de>
 
-1 error  | 0 warnings | 1 note 
+1 error  | 0 warnings | 0 notes
 
 ```
-checking examples ... ERROR
-Running examples in ‘subspaceMOA-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: DSC_HDDStream
-> ### Title: Density-based Projected Clustering over High-Dimensional Data
-> ### Aliases: DSC_HDDStream
-> 
-> ### ** Examples
-> 
-> dsc <- DSC_HDDStream()
-Error in rJava::.jcall("SubspaceClustererBuilder", returnSig = "Lmoa/clusterers/hddstream/HDDStream;",  : 
-  RcallMethod: cannot determine object class
-Calls: DSC_HDDStream -> <Anonymous> -> .External
-Execution halted
-
-checking Rd cross-references ... NOTE
-Package unavailable to check Rd xrefs: ‘subspace’
+checking whether package ‘subspaceMOA’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/subspaceMOA.Rcheck/00install.out’ for details.
 ```
 
 ## surveillance (1.12.1)
@@ -4085,7 +3825,7 @@ glrnb: Fitting Poisson model because alpha == 0
 glrnb: Fitting Poisson model because alpha == 0
 ... 8 lines ...
 Loading required package: parallel
- **********   GAMLSS Version 4.4-0  ********** 
+ **********   GAMLSS Version 5.0-0  ********** 
 For more on GAMLSS look at http://www.gamlss.org/
 Type gamlssNews() to see new features/changes/bug fixes.
 
@@ -4122,13 +3862,13 @@ The error most likely occurred in:
 > ### Aliases: ggsurvplot print.ggsurvplot
 > 
 > ### ** Examples
-... 56 lines ...
+... 51 lines ...
+> 
 > # Use brewer color palette "Dark2"
 > # Add risk table
 > ggsurvplot(fit, linetype = "strata",
 +           conf.int = TRUE, pval = TRUE,
 +           palette = "Dark2", risk.table = TRUE)
-Warning: Ignoring unknown aesthetics: x, y
 Warning in is.na(x) :
   is.na() applied to non-(list or vector) of type 'NULL'
 Error in -x : invalid argument to unary operator
@@ -4178,75 +3918,12 @@ Calls: autoplot -> autoplot.survfit
 Execution halted
 ```
 
-## sValues (0.1.4)
-Maintainer: Carlos Cinelli <carloscinelli@hotmail.com>  
-Bug reports: https://github.com/carloscinelli/sValues
-
-1 error  | 1 warning  | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘sValues-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot.sValues
-> ### Title: Plot method for S-values
-> ### Aliases: plot.sValues
-> 
-> ### ** Examples
-> 
-> # growth regressions example
-> data(economic_growth)
-> eg_sv <- sValues(GR6096 ~ ., data = economic_growth)
-> plot(eg_sv, R2_bounds = c(0.5, 1))
-> plot(eg_sv, R2_bounds = c(0.1, 1))
-> plot(eg_sv, type = "beta_plot", variable = "OPENDEC1", error_bar = FALSE)
-> plot(eg_sv, type = "beta_plot", variable = "OPENDEC1", error_bar = TRUE)
-Error in as.character(what) : 
-  cannot coerce type 'closure' to vector of type 'character'
-Calls: <Anonymous> ... <Anonymous> -> list_to_dataframe -> rbind.fill -> <Anonymous>
-Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Quitting from lines 154-156 (sValues.Rnw) 
-Error: processing vignette 'sValues.Rnw' failed with diagnostics:
-cannot coerce type 'closure' to vector of type 'character'
-Execution halted
-
-```
-
 ## tabplot (1.3)
 Maintainer: Martijn Tennekes <mtennekes@gmail.com>
 
-1 error  | 1 warning  | 0 notes
+0 errors | 1 warning  | 0 notes
 
 ```
-checking examples ... ERROR
-Running examples in ‘tabplot-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: tableplot
-> ### Title: Create a tableplot
-> ### Aliases: tableplot
-> ### Keywords: visualization
-> 
-... 41 lines ...
-  font width unknown for character 0x9
-> 
-> # create a tableplot cut category, and fix scale limits of carat, table, and price
-> tabs <- tableplot(p, subset=cut,
-+ 	limitsX=list(carat=c(0,4), table=c(55, 65), price=c(0, 20000)), plot=FALSE)
-Error in if (dfile == getOption("fftempdir")) finalizer <- "delete" else finalizer <- "close" : 
-  argument is of length zero
-Calls: tableplot ... clone.ffdf -> lapply -> FUN -> clone.ff -> assign -> ff
-Error in setwd(cwd) : character argument expected
-Calls: tableplot ... clone.ffdf -> lapply -> FUN -> clone.ff -> assign -> ff -> setwd
-Execution halted
-
 checking re-building of vignette outputs ... WARNING
 Error in re-building vignettes:
   ...
@@ -4348,8 +4025,9 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## trackeR (0.0.3)
-Maintainer: Hannah Frick <h.frick@ucl.ac.uk>
+## trackeR (0.0.4)
+Maintainer: Hannah Frick <h.frick@ucl.ac.uk>  
+Bug reports: https://github.com/hfrick/trackeR/issues
 
 0 errors | 1 warning  | 0 notes
 
@@ -4376,7 +4054,8 @@ The following object is masked from 'package:base':
 Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=57.157231,-2.104296&zoom=13&size=640x640&scale=2&maptype=terrain&sensor=false
 Quitting from lines 90-91 (TourDetrackeR.Rmd) 
 Error: processing vignette 'TourDetrackeR.Rmd' failed with diagnostics:
-x must be length 1 or 2
+GeomRasterAnn was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 
 ```
@@ -4393,7 +4072,7 @@ Installation failed.
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/UBL.Rcheck/00install.out’ for details.
 ```
 
-## UpSetR (1.2.4)
+## UpSetR (1.3.0)
 Maintainer: Jake Conway <jake_conway@student.uml.edu>  
 Bug reports: http://github.com/hms-dbmi/UpSetR/issues
 
@@ -4444,7 +4123,7 @@ metadataText: possible error in axis.text.x = element_blank(),
 ## userfriendlyscience (0.4-1)
 Maintainer: Gjalt-Jorn Peters <gjalt-jorn@userfriendlyscience.com>
 
-1 error  | 0 warnings | 1 note 
+1 error  | 0 warnings | 2 notes
 
 ```
 checking examples ... ERROR
@@ -4466,6 +4145,11 @@ Error in theme(axis.text = element_text(colour = "#000000", size = rel(0.8)),  :
   formal argument "strip.background" matched by multiple actual arguments
 Calls: asymmetricalScatterMatrix ... dlvTheme -> %+replace% -> is.theme -> inherits -> theme
 Execution halted
+
+checking dependencies in R code ... NOTE
+JavaVM: requested Java version ((null)) not available. Using Java at "" instead.
+JavaVM: Failed to load JVM: /bundle/Libraries/libserver.dylib
+JavaVM FATAL: Failed to load the jvm library.
 
 checking R code for possible problems ... NOTE
 didacticPlotTheme: possible error in theme(axis.text =
@@ -4544,7 +4228,7 @@ Execution halted
 
 ```
 
-## vipor (0.4.3)
+## vipor (0.4.4)
 Maintainer: Scott Sherrill-Mix <shescott@upenn.edu>
 
 0 errors | 1 warning  | 0 notes
@@ -4555,11 +4239,10 @@ Error in re-building vignettes:
   ...
 Loading required package: sm
 Package 'sm', version 2.2-5.4: type help(sm) for summary information
-
-Error: processing vignette 'methodComparison.Rnw' failed with diagnostics:
- chunk 18 (label = showDiamond) 
-Error in sort.list(y) : 'x' must be atomic for 'sort.list'
-Have you called 'sort' on a list?
+Loading required package: ggplot2
+Error: processing vignette 'usageExamples.Rnw' failed with diagnostics:
+PositionQuasirandom was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 
 ```
@@ -4575,31 +4258,38 @@ Installation failed.
 See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/vmsbase.Rcheck/00install.out’ for details.
 ```
 
-## VSE (0.99)
-Maintainer: Hansen He <hansenhe@uhnresearch.ca>
+## x.ent (1.1.2)
+Maintainer: Tien T. Phan <phantien84@gmail.com>  
+Bug reports: https://github.com/tienpt/x.ent/issues
 
 1 error  | 0 warnings | 0 notes
 
 ```
-checking package dependencies ... ERROR
-Packages required but not available: ‘GenomicRanges’ ‘IRanges’
-
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+checking whether package ‘x.ent’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/x.ent.Rcheck/00install.out’ for details.
 ```
 
-## XGR (1.0.3)
+## XGR (1.0.4)
 Maintainer: Hai Fang <hfang@well.ox.ac.uk>
 
 1 error  | 0 warnings | 0 notes
 
 ```
-checking package dependencies ... ERROR
-Packages required but not available:
-  ‘GenomicRanges’ ‘IRanges’ ‘S4Vectors’ ‘supraHex’ ‘rtracklayer’
-  ‘BiocGenerics’
+checking whether package ‘XGR’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/XGR.Rcheck/00install.out’ for details.
+```
 
-See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-manual.
+## XLConnect (0.2-12)
+Maintainer: Martin Studer <martin.studer@mirai-solutions.com>  
+Bug reports: https://github.com/miraisolutions/xlconnect/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘XLConnect’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/XLConnect.Rcheck/00install.out’ for details.
 ```
 
