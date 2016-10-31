@@ -21,16 +21,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-I'm planning to release ggplot2 2.2.0 in early November. In preparation, I'd like to announce that a release candidate is now available: version 2.1.0.9001. Please try it out, and file an [issue on GitHub](https://github.com/hadley/ggplot2/issues) if you discover any problems. I hope we can find and fix any major issues before the official release.
+I'm planning to release ggplot2 2.2.0 in early November. In preparation, I'd like to announce that a release candidate is now available: version 2.1.0.9001. Please try it out, and file an [issue on GitHub](https://github.com/tidyverse/ggplot2/issues) if you discover any problems. I hope we can find and fix any major issues before the official release.
 
 Install the pre-release version with:
 
 ```{r, eval = FALSE}
 # install.packages("devtools")
-devtools::install_github("hadley/ggplot2")
+devtools::install_github("tidyverse/ggplot2")
 ```
 
-If you discover a major bug that breaks your plots, please [file a minimal reprex](https://github.com/hadley/ggplot2/issues), and then roll back to the released version with:
+If you discover a major bug that breaks your plots, please [file a minimal reprex](https://github.com/tidyverse/ggplot2/issues), and then roll back to the released version with:
 
 ```{r, eval = FALSE}
 install.packages("ggplot2")
@@ -210,4 +210,4 @@ ggplot(avg_price) +
   geom_col(aes(x = cut, y = price, fill = fct_rev(color)))
 ```
 
-[news.md]: https://github.com/hadley/ggplot2/blob/master/NEWS.md
+[news.md]: https://github.com/tidyverse/ggplot2/blob/master/NEWS.md

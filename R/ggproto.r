@@ -38,7 +38,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   }
 
   # R <3.1.2 will error when list2env() is given an empty list, so we need to
-  # check length. https://github.com/hadley/ggplot2/issues/1444
+  # check length. https://github.com/tidyverse/ggplot2/issues/1444
   if (length(members) > 0) {
     list2env(members, envir = e)
   }

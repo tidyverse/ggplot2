@@ -6,24 +6,20 @@
 \alias{ggplot2-package}
 \title{ggplot2: An Implementation of the Grammar of Graphics}
 \description{
-ggplot2 is a system for declaratively creating graphics. You provide the
-data and tell ggplot2 how to map variables to aesthetics. ggplot2 is a
-complete plotting system and is quite different to other graphics systems in
-R like base graphics and lattice.  If you've never used ggplot2 before, I
-recomend starting with a comprehensive introduction such as
-\url{http://r4ds.had.co.nz/data-visualisation.html}. For more
-documentation and examples, see see \url{http://ggplot2.org}.
-}
-\examples{
-ggplot(mpg, aes(displ, cty)) +
-  geom_point()
+An implementation of the grammar of graphics in R. It combines the
+advantages of both base and lattice graphics: conditioning and shared axes
+are handled automatically, and you can still build up a plot step by step
+from multiple data sources. It also implements a sophisticated
+multidimensional conditioning system and a consistent interface to map
+data to aesthetic attributes. See http://ggplot2.org for more information,
+documentation and examples.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{http://ggplot2.org}
-  \item \url{https://github.com/hadley/ggplot2}
-  \item Report bugs at \url{https://github.com/hadley/ggplot2/issues}
+  \item \url{http://ggplot2.tidyverse.org}
+  \item \url{https://github.com/tidyverse/ggplot2}
+  \item Report bugs at \url{https://github.com/tidyverse/ggplot2/issues}
 }
 
 }
@@ -41,4 +37,5 @@ Other contributors:
 }
 
 }
+\keyword{internal}
 
