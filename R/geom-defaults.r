@@ -4,6 +4,7 @@
 #'   \code{"bin"}), or a Geom/Stat object (like \code{GeomPoint} or
 #'   \code{StatBin}).
 #' @param new Named list of aesthetics.
+#' @keywords internal
 #' @export
 #' @examples
 #' update_geom_defaults("point", list(colour = "darkblue"))
