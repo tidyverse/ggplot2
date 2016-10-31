@@ -13,7 +13,7 @@
 #' @rdname update_defaults
 update_geom_defaults <- function(geom, new) {
   if (is.character(geom)) {
-    g <- find_subclass("Geom", geom)
+    g <- find_subclass("Geom", geom, parent.frame())
   } else if (inherits(geom, "Geom")) {
     g <- geom
   } else {
@@ -29,7 +29,7 @@ update_geom_defaults <- function(geom, new) {
 #' @export
 update_stat_defaults <- function(stat, new) {
   if (is.character(stat)) {
-    g <- find_subclass("Stat", stat)
+    g <- find_subclass("Stat", stat, parent.frame())
   } else if (inherits(stat, "Stat")) {
     g <- stat
   } else {

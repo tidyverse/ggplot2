@@ -87,11 +87,11 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
   if (is.character(geom))
-    geom <- find_subclass("Geom", geom)
+    geom <- find_subclass("Geom", geom, parent.frame())
   if (is.character(stat))
-    stat <- find_subclass("Stat", stat)
+    stat <- find_subclass("Stat", stat, parent.frame())
   if (is.character(position))
-    position <- find_subclass("Position", position)
+    position <- find_subclass("Position", position, parent.frame())
 
   # Special case for na.rm parameter needed by all layers
   if (is.null(params$na.rm)) {
@@ -316,14 +316,13 @@ Layer <- ggproto("Layer", NULL,
 is.layer <- function(x) inherits(x, "Layer")
 
 
-find_subclass <- function(super, class) {
+find_subclass <- function(super, class, env) {
   name <- paste0(super, camelize(class, first = TRUE))
-  if (!exists(name)) {
-    stop("No ", tolower(super), " called ", name, ".", call. = FALSE)
-  }
+  obj <- find_global(name, env = env)
 
-  obj <- get(name)
-  if (!inherits(obj, super)) {
+  if (is.null(name)) {
+    stop("No ", tolower(super), " called ", name, ".", call. = FALSE)
+  } else if (!inherits(obj, super)) {
     stop("Found object is not a ", tolower(super), ".", call. = FALSE)
   }
 
