@@ -4,15 +4,12 @@
 \name{ggplot2-package}
 \alias{ggplot2}
 \alias{ggplot2-package}
-\title{ggplot2: An Implementation of the Grammar of Graphics}
+\title{ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics}
 \description{
-An implementation of the grammar of graphics in R. It combines the
-advantages of both base and lattice graphics: conditioning and shared axes
-are handled automatically, and you can still build up a plot step by step
-from multiple data sources. It also implements a sophisticated
-multidimensional conditioning system and a consistent interface to map
-data to aesthetic attributes. See http://ggplot2.org for more information,
-documentation and examples.
+ggplot2 is a system for declaratively creating graphics,
+based on "The Grammar of Graphics". You provide the data, tell ggplot2
+how to map variables to aesthetics, what graphical primitives to use,
+and it takes care of the details.
 }
 \seealso{
 Useful links:
@@ -33,7 +30,7 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item RStudio [copyright holder]
+  \item RStudio [copyright holder, NA]
 }
 
 }
