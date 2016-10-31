@@ -3,8 +3,8 @@
 \name{element}
 \alias{element}
 \alias{element_blank}
-\alias{element_line}
 \alias{element_rect}
+\alias{element_line}
 \alias{element_text}
 \title{Theme elements}
 \usage{

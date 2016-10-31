@@ -2,9 +2,9 @@
 % Please edit documentation in R/geom-.r
 \docType{data}
 \name{graphical-units}
+\alias{graphical-units}
 \alias{.pt}
 \alias{.stroke}
-\alias{graphical-units}
 \title{Graphical units}
 \format{An object of class \code{numeric} of length 1.}
 \usage{

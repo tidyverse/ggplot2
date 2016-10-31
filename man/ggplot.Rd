@@ -2,8 +2,8 @@
 % Please edit documentation in R/plot.r
 \name{ggplot}
 \alias{ggplot}
-\alias{ggplot.data.frame}
 \alias{ggplot.default}
+\alias{ggplot.data.frame}
 \title{Create a new ggplot plot.}
 \usage{
 ggplot(data = NULL, mapping = aes(), ..., environment = parent.frame())

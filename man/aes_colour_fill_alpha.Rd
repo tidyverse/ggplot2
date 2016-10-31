@@ -2,8 +2,8 @@
 % Please edit documentation in R/aes-colour-fill-alpha.r
 \name{aes_colour_fill_alpha}
 \alias{aes_colour_fill_alpha}
-\alias{color}
 \alias{colour}
+\alias{color}
 \alias{fill}
 \title{Colour related aesthetics: colour, fill and alpha}
 \description{
