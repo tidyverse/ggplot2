@@ -5,7 +5,7 @@ library(maps)
 
 write_icon <- function(name, code) {
   path <- paste0("icons/", name, ".png")
-  png(path, width = 80, height = 80)
+  png(path, width = 80, height = 80, pointsize = 18)
   on.exit(dev.off())
 
   grid.draw(code)
