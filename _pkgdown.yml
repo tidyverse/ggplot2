@@ -1,0 +1,133 @@
+template:
+  package: tidytemplate
+  default_assets: false
+
+home:
+  strip_header: true
+
+reference:
+- title: Plot basics
+  contents:
+  - ggplot
+  - aes_
+  - aes
+  - qplot
+  - +.gg
+  - ggsave
+  - print.ggplot
+
+- title: Geoms
+  contents:
+  - starts_with("geom_")
+
+- title: Position adjustments
+  contents:
+  - starts_with("position_")
+
+- title: Stats
+  contents:
+  - stat_ecdf
+  - stat_ellipse
+  - stat_function
+  - stat_identity
+  - stat_qq
+  - stat_summary_2d
+  - stat_summary_bin
+  - stat_unique
+
+
+- title: Scales
+  contents:
+  - starts_with("scale_")
+  - guide_colourbar
+  - guide_legend
+  - guides
+  - update_labels
+  - expand_limits
+  - labs
+  - lims
+  - sec_axis
+
+- title: Facetting
+  contents:
+  - starts_with("facet_")
+  - labeller
+  - labellers
+  - as_labeller
+  - label_bquote
+
+- title: Coordinate systems
+  contents:
+  - starts_with("coord_")
+
+- title: Data
+  contents:
+  - diamonds
+  - economics
+  - faithfuld
+  - midwest
+  - mpg
+  - msleep
+  - presidential
+  - seals
+  - txhousing
+  - luv_colours
+
+- title: Annotations
+  contents:
+  - annotate
+  - annotation_custom
+  - annotation_logticks
+  - annotation_map
+  - annotation_raster
+
+- title: Themes
+  contents:
+  - ggtheme
+  - theme
+  - theme_update
+  - element
+  - calc_element
+  - rel
+  - is.rel
+  - is.theme
+
+- title: ggproto
+  contents:
+  - ggproto
+  - as.list.ggproto
+  - is.ggproto
+  - format.ggproto
+  - print.ggproto
+
+- title: Autoplot and fortify
+  contents:
+  - autoplot
+  - fortify-multcomp
+  - fortify.lm
+  - fortify.map
+  - fortify
+  - fortify.sp
+
+- title: Vector helpers
+  contents:
+  - cut_interval
+  - hmisc
+  - mean_se
+
+- title: All functions
+  desc: ~
+  contents:
+  - aes_colour_fill_alpha
+  - aes_group_order
+  - aes_linetype_size_shape
+  - aes_position
+  - borders
+  - ggplot2-package
+  - graphical-units
+  - last_plot
+  - map_data
+  - margin
+  - resolution
+  - translate_qplot_ggplot
+  - translate_qplot_lattice
