@@ -57,6 +57,7 @@
 #' @name ggtheme
 NULL
 
+#' @include theme.r
 #' @export
 #' @rdname ggtheme
 theme_grey <- function(base_size = 11, base_family = "") {

@@ -47,7 +47,7 @@ License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
-Collate:
+Collate: 
     'ggproto.r'
     'aaa-.r'
     'aes-calculated.r'
@@ -201,9 +201,10 @@ Collate:
     'stat-unique.r'
     'stat-ydensity.r'
     'summary.r'
-    'theme-defaults.r'
     'theme-elements.r'
     'theme.r'
+    'theme-defaults.r'
+    'theme-current.R'
     'translate-qplot-ggplot.r'
     'translate-qplot-lattice.r'
     'utilities-break.r'
