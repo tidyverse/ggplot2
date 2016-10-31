@@ -4,6 +4,9 @@ template:
 
 home:
   strip_header: true
+  links:
+  - text: Learn more
+    href: http://r4ds.had.co.nz/data-visualisation.html
 
 reference:
 - title: Plot basics

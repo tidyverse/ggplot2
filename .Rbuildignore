@@ -14,3 +14,5 @@ visual_test
 ^codecov\.yml$
 ^_pkgdown\.yml$
 ^icons$
+^README\.Rmd$
+^README-.*\.png$
