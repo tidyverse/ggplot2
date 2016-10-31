@@ -12,3 +12,4 @@ visual_test
 ^revdep$
 ^\.httr-oauth$
 ^codecov\.yml$
+^icons/$
