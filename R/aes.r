@@ -22,23 +22,21 @@ NULL
   "max"   = "ymax"
 )
 
-#' Define aesthetic mappings.
+#' Construct aesthetic mappings
 #'
-#' Generate aesthetic mappings that describe how variables in the data are
-#' mapped to visual properties (aesthetics) of geoms. This function also
-#' standardise aesthetic names by performs partial name matching, converting
-#' color to colour, and old style R names to ggplot names (eg. pch to shape,
-#' cex to size)
+#' Aesthetic mappings describe how variables in the data are mapped to visual
+#' properties (aesthetics) of geoms. Aesthetic mappings can be set in
+#' \code{\link{ggplot2}} and in individual layers.
+#'
+#' This function also standardise aesthetic names by performing partial
+#' matching, converting color to colour, and translating old style R names to
+#' ggplot names (eg. pch to shape, cex to size)
 #'
 #' @param x,y,... List of name value pairs giving aesthetics to map to
-#'   variables. The names for x and y aesthetics can be omitted (because
-#'   they are so common); all other aesthetics must be named.
-#' @seealso See \code{\link{aes_q}}/\code{\link{aes_string}} for standard
-#'   evaluation versions of \code{aes}.
-#' @seealso See
-#'    \code{\link{aes_colour_fill_alpha}}, \code{\link{aes_group_order}},
-#'    \code{\link{aes_linetype_size_shape}} and \code{\link{aes_position}}
-#'    for more specific examples with different aesthetics.
+#'   variables. The names for x and y aesthetics are typically omitted because
+#'   they are so common; all other aesthetics must be named.
+#' @seealso See \code{\link{aes_}} for a version of \code{aes} that is
+#'   more suitable for programming with.
 #' @export
 #' @examples
 #' aes(x = mpg, y = wt)
