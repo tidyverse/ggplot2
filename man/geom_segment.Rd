@@ -3,7 +3,7 @@
 \name{geom_segment}
 \alias{geom_segment}
 \alias{geom_curve}
-\title{Line segments and curves.}
+\title{Line segments and curves}
 \usage{
 geom_segment(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., arrow = NULL, lineend = "butt",
@@ -49,8 +49,8 @@ to the paired geom/stat.}
 
 \item{lineend}{Line end style (round, butt, square).}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

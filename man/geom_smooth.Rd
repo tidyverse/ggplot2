@@ -3,7 +3,7 @@
 \name{geom_smooth}
 \alias{geom_smooth}
 \alias{stat_smooth}
-\title{Add a smoothed conditional mean.}
+\title{Smoothed conditional means}
 \usage{
 geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
   position = "identity", ..., method = "auto", formula = y ~ x,
@@ -59,8 +59,8 @@ to the paired geom/stat.}
 \item{se}{display confidence interval around smooth? (TRUE by default, see
 level to control}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

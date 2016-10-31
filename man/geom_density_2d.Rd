@@ -5,7 +5,7 @@
 \alias{geom_density2d}
 \alias{stat_density_2d}
 \alias{stat_density2d}
-\title{Contours from a 2d density estimate.}
+\title{Contours of a 2d density estimate}
 \usage{
 geom_density_2d(mapping = NULL, data = NULL, stat = "density2d",
   position = "identity", ..., lineend = "butt", linejoin = "round",
@@ -49,8 +49,8 @@ to the paired geom/stat.}
 
 \item{linemitre}{Line mitre limit (number greater than 1)}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -75,7 +75,7 @@ using \code{\link[MASS]{bandwidth.nrd}}.}
 \description{
 Perform a 2D kernel density estimation using \code{\link[MASS]{kde2d}} and
 display the results with contours. This can be useful for dealing with
-overplotting.
+overplotting. This is a 2d version of \code{\link{geom_density}}.
 }
 \section{Aesthetics}{
 
@@ -111,6 +111,6 @@ d + stat_density_2d(geom = "point", aes(size = ..density..), n = 20, contour = F
 \seealso{
 \code{\link{geom_contour}} for information about how contours
  are drawn; \code{\link{geom_bin2d}} for another way of dealing with
- overplotting
+ overplotting.
 }
 

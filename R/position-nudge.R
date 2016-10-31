@@ -1,7 +1,9 @@
-#' Nudge points.
+#' Nudge points a fixed distance
 #'
-#' This is useful if you want to nudge labels a little ways from their
-#' points.
+#' \code{position_nudge} is generally useful for adjusting the position of
+#' items on discrete scales by a small amount. Nudging is built in to
+#' \code{\link{geom_text}} because it's so useful for moving labels a small
+#' distance from what they're labelling.
 #'
 #' @family position adjustments
 #' @param x,y Amount of vertical and horizontal distance to move.
@@ -19,6 +21,11 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_point() +
 #'   geom_text(aes(label = y), position = position_nudge(y = -0.1))
+#'
+#' # Or, in brief
+#' ggplot(df, aes(x, y)) +
+#'   geom_point() +
+#'   geom_text(aes(label = y), nudge_y = -0.1)
 position_nudge <- function(x = 0, y = 0) {
   ggproto(NULL, PositionNudge,
     x = x,

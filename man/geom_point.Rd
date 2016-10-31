@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom-point.r
 \name{geom_point}
 \alias{geom_point}
-\title{Points, as for a scatterplot}
+\title{Points}
 \usage{
 geom_point(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
@@ -39,8 +39,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

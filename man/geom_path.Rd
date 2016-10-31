@@ -4,7 +4,7 @@
 \alias{geom_path}
 \alias{geom_line}
 \alias{geom_step}
-\title{Connect observations.}
+\title{Connect observations}
 \usage{
 geom_path(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., lineend = "butt", linejoin = "round",
@@ -58,8 +58,8 @@ to the paired geom/stat.}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid]{arrow}}}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

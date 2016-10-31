@@ -1,4 +1,4 @@
-#' Stack overlapping objects on top of one another.
+#' Stack overlapping objects on top of each another
 #'
 #' \code{position_stack()} stacks bars on top of each other;
 #' \code{position_fill()} stacks bars and standardises each stack to have

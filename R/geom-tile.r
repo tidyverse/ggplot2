@@ -1,4 +1,4 @@
-#' Draw rectangles.
+#' Rectangles
 #'
 #' \code{geom_rect} and \code{geom_tile} do the same thing, but are
 #' parameterised differently: \code{geom_rect} uses the locations of the four

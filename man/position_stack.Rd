@@ -3,7 +3,7 @@
 \name{position_stack}
 \alias{position_stack}
 \alias{position_fill}
-\title{Stack overlapping objects on top of one another.}
+\title{Stack overlapping objects on top of each another}
 \usage{
 position_stack(vjust = 1, reverse = FALSE)
 

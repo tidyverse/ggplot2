@@ -1,4 +1,4 @@
-#' Polygon, a filled path.
+#' Polygons
 #'
 #' Polygons are very similar to paths (as drawn by \code{\link{geom_path}})
 #' except that the start and end points are connected and the inside is

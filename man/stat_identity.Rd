@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-identity.r
 \name{stat_identity}
 \alias{stat_identity}
-\title{Identity statistic.}
+\title{Leave data as is}
 \usage{
 stat_identity(mapping = NULL, data = NULL, geom = "point",
   position = "identity", ..., show.legend = NA, inherit.aes = TRUE)

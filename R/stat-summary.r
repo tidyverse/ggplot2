@@ -1,4 +1,4 @@
-#' Summarise y values at unique/binned x x.
+#' Summarise y values at unique/binned x
 #'
 #' \code{stat_summary} operates on unique \code{x}; \code{stat_summary_bin}
 #' operators on binned \code{x}. They are more flexible versions of

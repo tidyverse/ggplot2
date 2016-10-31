@@ -1,4 +1,4 @@
-#' Points, jittered to reduce overplotting.
+#' Jittered points
 #'
 #' The jitter geom is a convenient shortcut for
 #' \code{geom_point(position = "jitter")}. It adds a small amount of random

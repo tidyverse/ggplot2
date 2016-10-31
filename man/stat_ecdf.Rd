@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-ecdf.r
 \name{stat_ecdf}
 \alias{stat_ecdf}
-\title{Empirical Cumulative Distribution Function}
+\title{Compute empirical cumulative distribution}
 \usage{
 stat_ecdf(mapping = NULL, data = NULL, geom = "step",
   position = "identity", ..., n = NULL, pad = TRUE, na.rm = FALSE,

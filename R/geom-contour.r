@@ -1,8 +1,12 @@
-#' Display contours of a 3d surface in 2d.
+#' 2d contours of a 3d surface
 #'
-#' To be a valid surface, the most only be a single combination of each
-#' unique \code{x} and \code{y} aesthetics. Contouring tends to work best
-#' when \code{x} and \code{y} form a (roughly) evenly spaced grid.
+#' ggplot2 can not draw true 3d surfaces, but you can use \code{geom_contour}
+#' and \code{\link{geom_tile}} to visualise 3d surfaces in 2d. To be a valid
+#' surface, the data must contain only a single row for each unique combination
+#' of the variables mapped to the \code{x} and \code{y} aesthetics. Contouring
+#' tends to work best when \code{x} and \code{y} form a (roughly) evenly
+#' spaced grid. If you data is not evenly spaced, you may want to interpolate
+#' to a grid before visualising.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{contour}

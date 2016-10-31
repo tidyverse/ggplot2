@@ -1,4 +1,4 @@
-#' Hexagon binning.
+#' Hexagonal heatmap of 2d bin counts
 #'
 #' Divides the plane into regular hexagons, counts the number of cases in
 #' each hexagon, and then (by default) maps the number of cases to the hexagon

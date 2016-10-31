@@ -10,34 +10,46 @@ home:
 
 reference:
 - title: Plot basics
+  desc: >
+    All ggplot2 plots with a call to `ggplot()`, supplying default data and
+    aesthethic mappings, specified by `aes()`. You then add components (listed
+    below) with `+`. To save a plot to disk, use `ggsave()`.
   contents:
   - ggplot
-  - aes_
   - aes
-  - qplot
   - +.gg
   - ggsave
-  - print.ggplot
 
-- title: Geoms
+- title: "Layer: geoms"
+  desc: >
+    A layer combines data, aesthetic mapping, a geom (geometric object),
+    a stat (statistical transformation), and a position adjustment. Typically,
+    you will create layers using a `geom_` function, overriding the default
+    position and stat if needed.
   contents:
   - starts_with("geom_")
 
-- title: Position adjustments
-  contents:
-  - starts_with("position_")
-
-- title: Stats
+- title: "Layer: stats"
+  desc: >
+    A handful of layers are more easily specified with a `stat_` function,
+    drawing attention to the statistical transformation rather than the visual
+    appearance.
   contents:
   - stat_ecdf
   - stat_ellipse
   - stat_function
   - stat_identity
-  - stat_qq
   - stat_summary_2d
   - stat_summary_bin
   - stat_unique
 
+- title: "Layer: position adjustment"
+  desc: >
+    All layers have a position adjustment that resolves overlapping geoms.
+    Override the default by using the `position` argument to the `geom_` or
+    `stat_` function.
+  contents:
+  - starts_with("position_")
 
 - title: Scales
   contents:
@@ -90,10 +102,14 @@ reference:
   - theme
   - theme_update
   - element
-  - calc_element
   - rel
   - is.rel
   - is.theme
+
+- title: Programming with ggplot2
+  contents:
+  - aes_
+  - print.ggplot
 
 - title: ggproto
   contents:
@@ -134,3 +150,4 @@ reference:
   - resolution
   - translate_qplot_ggplot
   - translate_qplot_lattice
+  - qplot

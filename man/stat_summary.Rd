@@ -3,7 +3,7 @@
 \name{stat_summary_bin}
 \alias{stat_summary_bin}
 \alias{stat_summary}
-\title{Summarise y values at unique/binned x x.}
+\title{Summarise y values at unique/binned x}
 \usage{
 stat_summary_bin(mapping = NULL, data = NULL, geom = "pointrange",
   position = "identity", ..., fun.data = NULL, fun.y = NULL,
@@ -55,8 +55,8 @@ single number.}
 
 \item{fun.args}{Optional additional arguments passed on to the functions.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

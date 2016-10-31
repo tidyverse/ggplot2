@@ -1,4 +1,4 @@
-#' Remove duplicates.
+#' Remove duplicates
 #'
 #' @section Aesthetics:
 #' \aesthetics{stat}{unique}

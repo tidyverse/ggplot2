@@ -1,4 +1,4 @@
-#' Violin plot.
+#' Violin plot
 #'
 #' A violin plot is a compact display of a continuous distribution. It is a
 #' blend of \code{\link{geom_boxplot}} and \code{\link{geom_density}}: a

@@ -4,7 +4,7 @@
 \alias{geom_bin2d}
 \alias{stat_bin_2d}
 \alias{stat_bin2d}
-\title{Add heatmap of 2d bin counts.}
+\title{Heatmap of 2d bin counts}
 \usage{
 geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
@@ -42,8 +42,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
