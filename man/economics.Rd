@@ -4,7 +4,7 @@
 \name{economics}
 \alias{economics}
 \alias{economics_long}
-\title{US economic time series.}
+\title{US economic time series}
 \format{A data frame with 478 rows and 6 variables
 \itemize{
   \item date.  Month of data collection

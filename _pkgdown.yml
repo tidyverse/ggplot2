@@ -86,19 +86,6 @@ reference:
   contents:
   - starts_with("coord_")
 
-- title: Data
-  contents:
-  - diamonds
-  - economics
-  - faithfuld
-  - midwest
-  - mpg
-  - msleep
-  - presidential
-  - seals
-  - txhousing
-  - luv_colours
-
 - title: Annotations
   contents:
   - annotate
@@ -174,3 +161,20 @@ reference:
   - translate_qplot_ggplot
   - translate_qplot_lattice
   - qplot
+
+- title: Data
+  desc: >
+    ggplot2 comes with a selection of built-in datasets that are used in
+    examples to illustrate various visualisation challenges.
+  contents:
+  - diamonds
+  - economics
+  - faithfuld
+  - midwest
+  - mpg
+  - msleep
+  - presidential
+  - seals
+  - txhousing
+  - luv_colours
+

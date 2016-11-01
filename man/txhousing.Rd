@@ -3,7 +3,7 @@
 \docType{data}
 \name{txhousing}
 \alias{txhousing}
-\title{Housing sales in TX.}
+\title{Housing sales in TX}
 \format{A data frame with 8602 observations and 9 variables:
 \itemize{
 \item{city}{Name of MLS area}

@@ -3,7 +3,7 @@
 \docType{data}
 \name{presidential}
 \alias{presidential}
-\title{Terms of 11 presidents from Eisenhower to Obama.}
+\title{Terms of 11 presidents from Eisenhower to Obama}
 \format{A data frame with 11 rows and 4 variables}
 \usage{
 presidential

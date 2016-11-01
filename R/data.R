@@ -20,7 +20,7 @@
 "diamonds"
 
 
-#' US economic time series.
+#' US economic time series
 #'
 #' This dataset was produced from US economic time series data available from
 #' \url{http://research.stlouisfed.org/fred2}. \code{economics} is in "wide"
@@ -46,7 +46,7 @@
 #' @rdname economics
 "economics_long"
 
-#' Midwest demographics.
+#' Midwest demographics
 #'
 #' Demographic information of midwest counties
 #'
@@ -108,7 +108,7 @@
 #' }
 "mpg"
 
-#' An updated and expanded version of the mammals sleep dataset.
+#' An updated and expanded version of the mammals sleep dataset
 #'
 #' This is an updated and expanded version of the mammals sleep dataset.
 #' Updated sleep times and weights were taken from V. M. Savage and G. B.
@@ -135,7 +135,7 @@
 #' }
 "msleep"
 
-#' Terms of 11 presidents from Eisenhower to Obama.
+#' Terms of 11 presidents from Eisenhower to Obama
 #'
 #' The names of each president, the start and end date of their term, and
 #' their party of 11 US presidents from Eisenhower to Obama.
@@ -143,7 +143,7 @@
 #' @format A data frame with 11 rows and 4 variables
 "presidential"
 
-#' Vector field of seal movements.
+#' Vector field of seal movements
 #'
 #' This vector field was produced from the data described in Brillinger, D.R.,
 #' Preisler, H.K., Ager, A.A. and Kie, J.G. "An exploratory data analysis
@@ -164,7 +164,7 @@
 #' @format A data frame with 5,625 observations and 3 variables.
 "faithfuld"
 
-#' \code{colors()} in Luv space.
+#' \code{colors()} in Luv space
 #'
 #' All built-in \code{\link{colors}()} translated into Luv colour space.
 #'
@@ -175,7 +175,7 @@
 #' }
 "luv_colours"
 
-#' Housing sales in TX.
+#' Housing sales in TX
 #'
 #' Information about the housing market in Texas provided by the TAMU
 #' real estate center, \url{http://recenter.tamu.edu/}.

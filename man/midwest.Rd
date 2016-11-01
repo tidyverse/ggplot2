@@ -3,7 +3,7 @@
 \docType{data}
 \name{midwest}
 \alias{midwest}
-\title{Midwest demographics.}
+\title{Midwest demographics}
 \format{A data frame with 437 rows and 28 variables
 \itemize{
  \item PID
