@@ -68,15 +68,15 @@ Geom <- ggproto("Geom",
   },
 
   draw_layer = function(self, data, params, layout, coord, th) {
+    print("here")
     if (empty(data)) {
       n <- if (is.factor(data$PANEL)) nlevels(data$PANEL) else 1L
       return(rep(list(zeroGrob()), n))
     }
 
-    # whereby complex values measure up to the real world and collapse
+    # Trim off extra parameters
     if(is.complex(data$colour)) data$colour <- th$plot.title$colour
 
-    # Trim off extra parameters
     params <- params[intersect(names(params), self$parameters())]
 
     args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
