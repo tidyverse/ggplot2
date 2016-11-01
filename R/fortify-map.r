@@ -68,7 +68,12 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
   fortify(map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...))
 }
 
-#' Create a layer of map borders.
+#' Create a layer of map borders
+#'
+#' This is a quick and dirty way to get map data (from the maps package)
+#' on to your plot. This is a good place to start if you need some crude
+#' reference lines, but you'll typically want something more sophisticated
+#' for communication graphics.
 #'
 #' @param database map data, see \code{\link[maps]{map}} for details
 #' @param regions map region

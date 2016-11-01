@@ -51,6 +51,19 @@ reference:
   contents:
   - starts_with("position_")
 
+- title: "Layer: annotations"
+  desc: >
+    Annotation are special types of layer than don't inherit global settings
+    from the plot. Rhey are used to add fixed reference data to plot.
+  contents:
+  - geom_abline
+  - annotate
+  - annotation_custom
+  - annotation_logticks
+  - annotation_map
+  - annotation_raster
+  - borders
+
 - title: Scales
   desc: >
     Scales control the details of how data values are translated to visual
@@ -100,14 +113,6 @@ reference:
   contents:
   - starts_with("coord_")
 
-- title: Annotations
-  contents:
-  - annotate
-  - annotation_custom
-  - annotation_logticks
-  - annotation_map
-  - annotation_raster
-
 - title: Themes
   contents:
   - ggtheme
@@ -117,6 +122,8 @@ reference:
   - rel
   - is.rel
   - is.theme
+  - margin
+  - graphical-units
 
 - title: Programming with ggplot2
   contents:
@@ -139,12 +146,14 @@ reference:
   - fortify.map
   - fortify
   - fortify.sp
+  - map_data
 
 - title: Vector helpers
   contents:
   - cut_interval
   - hmisc
   - mean_se
+  - resolution
 
 - title: All functions
   desc: ~
@@ -153,12 +162,6 @@ reference:
   - aes_group_order
   - aes_linetype_size_shape
   - aes_position
-  - borders
-  - graphical-units
-  - last_plot
-  - map_data
-  - margin
-  - resolution
   - translate_qplot_ggplot
   - translate_qplot_lattice
   - qplot
