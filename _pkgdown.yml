@@ -64,11 +64,22 @@ reference:
   - starts_with("scale_")
 
 - title: Facetting
+  desc: >
+    Facetting generates small multiples, each displaying a different
+    subset of the data. Facets are an alternative to aesthetics for
+    displaying additional discrete variables.
   contents:
-  - starts_with("facet_")
+  - facet_grid
+  - facet_wrap
+
+- title: "Facetting: labels"
+  desc: >
+    These functions provide a flexible toolkit for controlling the display
+    of the "strip" labels on facets.
+  contents:
   - labeller
   - labellers
-  - as_labeller
+  - label_value
   - label_bquote
 
 - title: Coordinate systems
