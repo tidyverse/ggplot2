@@ -1,4 +1,5 @@
 ---
+title: ggplot2 2.2.0
 output:
   html_document:
     self_contained: false
