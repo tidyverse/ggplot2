@@ -308,7 +308,6 @@ Layer <- ggproto("Layer", NULL,
     }
 
     data <- self$geom$handle_na(data, self$geom_params)
-    print("damn you")
     self$geom$draw_layer(data, self$geom_params, layout, coord, th)
   }
 )
