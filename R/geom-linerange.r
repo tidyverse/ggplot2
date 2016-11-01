@@ -12,7 +12,7 @@
 #' @seealso
 #'  \code{\link{stat_summary}} for examples of these guys in use,
 #'  \code{\link{geom_smooth}} for continuous analog,
-#'  \code{\link{geom_errorh}} for a horizontal error bar.
+#'  \code{\link{geom_errorbarh}} for a horizontal error bar.
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point

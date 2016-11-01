@@ -1,11 +1,11 @@
-#' Positions scale for date/times
+#' Position scales for date/time data
 #'
-#' Use
+#' These are the default scales for the three date/time class. These will
+#' usually be added automatically. To override manually, use
 #' \code{scale_*_date} for dates (class \code{Date}),
 #' \code{scale_*_datetime} for datetimes (class \code{POSIXct}), and
 #' \code{scale_*_time} for times (class \code{hms}).
 #'
-#' @name scale_date
 #' @inheritParams continuous_scale
 #' @inheritParams scale_x_continuous
 #' @param date_breaks A string giving the distance between breaks like "2
@@ -18,8 +18,8 @@
 #'   labels. Codes are defined in \code{\link{strftime}}. If both \code{labels}
 #'   and \code{date_labels} are specified, \code{date_labels} wins.
 #' @param timezone The timezone to use for display on the axes. The default
-#' (\code{NULL}) uses the timezone encoded in the data.
-#' @seealso \code{\link{scale_continuous}} for continuous position scales.
+#'   (\code{NULL}) uses the timezone encoded in the data.
+#' @family position scales
 #' @examples
 #' last_month <- Sys.Date() - 0:29
 #' df <- data.frame(
@@ -38,6 +38,8 @@
 #'
 #' # Set limits
 #' base + scale_x_date(limits = c(Sys.Date() - 7, NA))
+#' @name scale_date
+#' @aliases NULL
 NULL
 
 #' @rdname scale_date

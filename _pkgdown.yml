@@ -52,16 +52,16 @@ reference:
   - starts_with("position_")
 
 - title: Scales
+  desc: >
+    Scales control the details of how data values are translated to visual
+    properties. Override the default scales to tweak details like the axis
+    labels or legend keys, or to use a completely different translation from
+    data to aesthetic. `labs()` and `lims()` are convenient helpers for the
+    most common adjustments to the labels and limits.
   contents:
-  - starts_with("scale_")
-  - guide_colourbar
-  - guide_legend
-  - guides
-  - update_labels
-  - expand_limits
   - labs
   - lims
-  - sec_axis
+  - starts_with("scale_")
 
 - title: Facetting
   contents:
@@ -95,6 +95,18 @@ reference:
   - annotation_logticks
   - annotation_map
   - annotation_raster
+
+- title: "Guides: axes and legends"
+  desc: >
+    The guides (the axes and legends) help readers interpret your plots.
+    The guide functions give deep control over the details of the apperance.
+    Override with using `guides()` or the `guide` argument to individual scales.
+  contents:
+  - guide_colourbar
+  - guide_legend
+  - guides
+  - expand_limits
+  - sec_axis
 
 - title: Themes
   contents:

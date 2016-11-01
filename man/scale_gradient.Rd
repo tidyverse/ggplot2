@@ -17,7 +17,7 @@
 \alias{scale_color_gradient}
 \alias{scale_color_gradient2}
 \alias{scale_color_gradientn}
-\title{Smooth gradient between two colours}
+\title{Gradient colour scales}
 \usage{
 scale_colour_gradient(..., low = "#132B43", high = "#56B1F7",
   space = "Lab", na.value = "grey50", guide = "colourbar")
@@ -115,7 +115,7 @@ ggplot(df, aes(x, y)) +
 \code{\link[scales]{seq_gradient_pal}} for details on underlying
   palette
 
-Other colour scales:
+Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_brewer}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_colour_hue}}

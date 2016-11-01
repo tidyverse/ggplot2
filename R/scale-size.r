@@ -1,4 +1,4 @@
-#' Scale size (area or radius).
+#' Scales for area or radius
 #'
 #' \code{scale_size} scales area, \code{scale_radius} scales radius. The size
 #' aesthetic is most commonly used for points and text, and humans perceive

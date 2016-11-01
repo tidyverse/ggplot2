@@ -9,7 +9,7 @@
 \alias{scale_size_area}
 \alias{scale_size_datetime}
 \alias{scale_size_date}
-\title{Scale size (area or radius).}
+\title{Scales for area or radius}
 \usage{
 scale_radius(name = waiver(), breaks = waiver(), labels = waiver(),
   limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")

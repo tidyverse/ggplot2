@@ -7,7 +7,7 @@
 \alias{scale_fill_discrete}
 \alias{scale_color_discrete}
 \alias{scale_color_hue}
-\title{Qualitative colour scale with evenly spaced hues.}
+\title{Evenly spaced colours for discrete data}
 \usage{
 scale_colour_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
   direction = 1, na.value = "grey50")
@@ -76,7 +76,7 @@ ggplot(mtcars, aes(mpg, wt)) +
 }
 }
 \seealso{
-Other colour scales:
+Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_brewer}},
   \code{\link{scale_colour_gradient}},
   \code{\link{scale_colour_grey}}
