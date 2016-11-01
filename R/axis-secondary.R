@@ -1,7 +1,8 @@
-#' Secondary axes
+#' Specify a secondary axis
 #'
-#' Create a secondary axis as a transformation of the primary axis, positioned
-#' opposite of the primary axis.
+#' This function is used in conjunction with a position scale to create a
+#' secondary axis, positioned opposite of the primary axis. All secondary
+#' axes must be based on a one-to-one transformation of the primary axes.
 #'
 #' @param trans A transformation formula
 #'

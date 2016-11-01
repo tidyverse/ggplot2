@@ -4,7 +4,7 @@
 \alias{sec_axis}
 \alias{dup_axis}
 \alias{derive}
-\title{Secondary axes}
+\title{Specify a secondary axis}
 \usage{
 sec_axis(trans = NULL, name = waiver(), breaks = waiver(),
   labels = waiver())
@@ -36,8 +36,9 @@ derive()
 }}
 }
 \description{
-Create a secondary axis as a transformation of the primary axis, positioned
-opposite of the primary axis.
+This function is used in conjunction with a position scale to create a
+secondary axis, positioned opposite of the primary axis. All secondary
+axes must be based on a one-to-one transformation of the primary axes.
 }
 \details{
 \code{sec_axis} is used to create the specifications for a secondary axis.

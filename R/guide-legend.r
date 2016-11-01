@@ -1,4 +1,4 @@
-#' Legend guide.
+#' Legend guide
 #'
 #' Legend type guide shows key (i.e., geoms) mapped onto values.
 #' Legend guides for various scales are integrated if possible.
