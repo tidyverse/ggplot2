@@ -3,7 +3,7 @@
 \name{coord_fixed}
 \alias{coord_fixed}
 \alias{coord_equal}
-\title{Cartesian coordinates with fixed relationship between x and y scales.}
+\title{Cartesian coordinates with fixed "aspect ratio"}
 \usage{
 coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE)
 }
