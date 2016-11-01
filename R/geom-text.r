@@ -164,7 +164,7 @@ GeomText <- ggproto("GeomText", Geom,
   required_aes = c("x", "y", "label"),
 
   default_aes = aes(
-    colour = "black", size = 3.88, angle = 0, hjust = 0.5,
+    colour = 1i, size = 3.88, angle = 0, hjust = 0.5,
     vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2
   ),
 

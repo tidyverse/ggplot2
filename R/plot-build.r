@@ -147,7 +147,7 @@ ggplot_gtable <- function(data) {
   data <- data$data
   theme <- plot_theme(plot)
 
-  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout, plot$coordinates),
+  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout, plot$coordinates, th = theme),
     plot$layers, data)
 
   plot_table <- layout$render(geom_grobs, data, plot$coordinates, theme, plot$labels)
