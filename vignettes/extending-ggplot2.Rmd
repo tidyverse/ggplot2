@@ -1,7 +1,5 @@
 ---
 title: "Extending ggplot2"
-author: "Hadley Wickham"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Extending ggplot2}

@@ -204,3 +204,29 @@ reference:
   - autoplot
   - fortify
   - map_data
+
+navbar:
+  title: ~
+  type: default
+  left:
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Aesthetic specifications
+      href: articles/aesthetic-specification.html
+    - text: Extending ggplot2
+      href: articles/extending-ggplot2.html
+  - text: News
+    menu:
+    - text: "Release notes"
+    - text: "Version 2.2.0"
+      href: articles/releases/ggplot2-2.2.0.html
+    - text: "------------------"
+    - text: "Change log"
+      href: news/index.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/tidyverse/ggplot2
