@@ -146,7 +146,7 @@ reference:
   - aes_
   - print.ggplot
 
-- title: Extending ggplot2 with ggproto
+- title: Extending ggplot2
   desc: >
     To create your own geoms, stats, scales, and facets, you'll need to learn
     a bit about the object oriented system that ggplot2 uses. Start by
@@ -155,16 +155,6 @@ reference:
   contents:
   - ggproto
   - print.ggproto
-
-- title: Autoplot and fortify
-  contents:
-  - autoplot
-  - fortify-multcomp
-  - fortify.lm
-  - fortify.map
-  - fortify
-  - fortify.sp
-  - map_data
 
 - title: Vector helpers
   contents:
@@ -200,3 +190,14 @@ reference:
   - txhousing
   - luv_colours
 
+- title: Autoplot and fortify
+  desc: >
+    `autoplot()` is an extension mechansim for ggplot2 it provides a way
+    for package authors to add methods that work like the base `plot()`
+    function, generating useful default plots with little user interaction.
+    `fortify()` turns objects into tidy data frames: it has largely been
+    superceded by the [broom package](https://github.com/dgrtwo/broom).
+  contents:
+  - autoplot
+  - fortify
+  - map_data

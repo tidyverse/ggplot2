@@ -14,6 +14,7 @@
 #' @param model linear model
 #' @param data data set, defaults to data used to fit model
 #' @param ... not used by this method
+#' @keywords internal
 #' @export
 #' @examples
 #' mod <- lm(mpg ~ wt, data = mtcars)
