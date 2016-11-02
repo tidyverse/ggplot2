@@ -25,10 +25,24 @@ install.packages("ggplot2")
 devtools::install_github("tidyverse/ggplot2")
 ```
 
+Usage
+-----
+
+It's hard to succintly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with `ggplot()`, supply a dataset and aesthetic mapping (with `aes()`). You then add on layers (like `geom_point()` or `geom_histogram()`), scales (like `scale_colour_brewer()`), faceting specifications (like `facet_wrap()`) and coordinate systems (like `coord_flip()`).
+
+``` r
+library(ggplot2)
+
+ggplot(mpg, aes(displ, hwy, colour = class)) + 
+  geom_point()
+```
+
+![](README-example-1.png)
+
 Learning ggplot2
 ----------------
 
-ggplot2 is a comprehensive system for generating visualisations, so if you are new to ggplot2 you are better off starting with a systematic introduction, rather than trying to learn from reading individual documentation pages. Currently, there are three good places to start:
+If you are new to ggplot2 you are better off starting with a systematic introduction, rather than trying to learn from reading individual documentation pages. Currently, there are three good places to start:
 
 1.  The [data visualisation](http://r4ds.had.co.nz/data-visualisation.html) and [graphics forcommunication](http://r4ds.had.co.nz/graphics-for-communication.html) chapters in [R for data science](http://r4ds.had.co.nz). R for data science is designed to give you a comprehensive introduction to the [tidyverse](http://tidyverse.org), and these two chapters will you get up to speed with the essentials of ggplot2 as quickly as possible.
 
