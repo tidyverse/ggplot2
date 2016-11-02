@@ -1,4 +1,4 @@
-#' Bars, rectangles with bases on x-axis
+#' Bars charts
 #'
 #' There are two types of bar charts: \code{geom_bar} makes the height of the
 #' bar proportional to the number of cases in each group (or if the

@@ -4,7 +4,7 @@
 \alias{geom_bar}
 \alias{geom_col}
 \alias{stat_count}
-\title{Bars, rectangles with bases on x-axis}
+\title{Bars charts}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "count",
   position = "stack", ..., width = NULL, binwidth = NULL, na.rm = FALSE,
