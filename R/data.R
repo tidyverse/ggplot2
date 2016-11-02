@@ -4,18 +4,18 @@
 #'  diamonds. The variables are as follows:
 #'
 #' @format A data frame with 53940 rows and 10 variables:
-#' \itemize{
-#'   \item price: price in US dollars (\$326--\$18,823)
-#'   \item carat: weight of the diamond (0.2--5.01)
-#'   \item cut: quality of the cut (Fair, Good, Very Good, Premium, Ideal)
-#'   \item color: diamond colour, from J (worst) to D (best)
-#'   \item clarity: a measurement of how clear the diamond is
-#'      (I1 (worst), SI1, SI2, VS1, VS2, VVS1, VVS2, IF (best))
-#'   \item x: length in mm (0--10.74)
-#'   \item y: width in mm (0--58.9)
-#'   \item z: depth in mm (0--31.8)
-#'   \item depth: total depth percentage = z / mean(x, y) = 2 * z / (x + y) (43--79)
-#'   \item table: width of top of diamond relative to widest point (43--95)
+#' \describe{
+#'   \item{price}{price in US dollars (\$326--\$18,823)}
+#'   \item{carat}{weight of the diamond (0.2--5.01)}
+#'   \item{cut}{quality of the cut (Fair, Good, Very Good, Premium, Ideal)}
+#'   \item{color}{diamond colour, from J (worst) to D (best)}
+#'   \item{clarity}{a measurement of how clear the diamond is (I1 (worst), SI1,
+#'     SI2, VS1, VS2, VVS1, VVS2, IF (best))}
+#'   \item{x}{length in mm (0--10.74)}
+#'   \item{y}{width in mm (0--58.9)}
+#'   \item{z}{depth in mm (0--31.8)}
+#'   \item{depth}{total depth percentage = z / mean(x, y) = 2 * z / (x + y) (43--79)}
+#'   \item{table}{width of top of diamond relative to widest point (43--95)}
 #' }
 "diamonds"
 
@@ -27,18 +27,18 @@
 #' format, \code{economics_long} is in "long" format.
 #'
 #' @format A data frame with 478 rows and 6 variables
-#' \itemize{
-#'   \item date.  Month of data collection
-#'   \item psavert, personal savings rate,
-#'     \url{http://research.stlouisfed.org/fred2/series/PSAVERT/}
-#'   \item pce, personal consumption expenditures, in billions of dollars,
-#'     \url{http://research.stlouisfed.org/fred2/series/PCE}
-#'   \item unemploy, number of unemployed in thousands,
-#'     \url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}
-#'   \item uempmed, median duration of unemployment, in week,
-#'     \url{http://research.stlouisfed.org/fred2/series/UEMPMED}
-#'   \item pop, total population, in thousands,
-#'    \url{http://research.stlouisfed.org/fred2/series/POP}
+#' \describe{
+#'   \item{date}{Month of data collection}
+#'   \item{psavert}{personal savings rate,
+#'     \url{http://research.stlouisfed.org/fred2/series/PSAVERT/}}
+#'   \item{pce}{personal consumption expenditures, in billions of dollars,
+#'     \url{http://research.stlouisfed.org/fred2/series/PCE}}
+#'   \item{unemploy}{number of unemployed in thousands,
+#'     \url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}}
+#'   \item{uempmed}{median duration of unemployment, in weeks,
+#'     \url{http://research.stlouisfed.org/fred2/series/UEMPMED}}
+#'   \item{pop}{total population, in thousands,
+#'     \url{http://research.stlouisfed.org/fred2/series/POP}}
 #' }
 #'
 "economics"
@@ -51,35 +51,35 @@
 #' Demographic information of midwest counties
 #'
 #' @format A data frame with 437 rows and 28 variables
-#' \itemize{
-#'  \item PID
-#'  \item county
-#'  \item state
-#'  \item area
-#'  \item poptotal.  Total population
-#'  \item popdensity. Population density
-#'  \item popwhite.  Number of whites.
-#'  \item popblack.  Number of blacks.
-#'  \item popamerindian.  Number of American Indians.
-#'  \item popasian.  Number of Asians.
-#'  \item popother.  Number of other races.
-#'  \item percwhite.  Percent white.
-#'  \item percblack.  Percent black.
-#'  \item percamerindan.  Percent American Indian.
-#'  \item percasian. Percent Asian.
-#'  \item percother. Percent other races.
-#'  \item popadults.  Number of adults.
-#'  \item perchsd.
-#'  \item percollege.  Percent college educated.
-#'  \item percprof.  Percent profession.
-#'  \item poppovertyknown.
-#'  \item percpovertyknown
-#'  \item percbelowpoverty
-#'  \item percchildbelowpovert
-#'  \item percadultpoverty
-#'  \item percelderlypoverty
-#'  \item inmetro.  In a metro area.
-#'  \item category'
+#' \describe{
+#'  \item{PID}{}
+#'  \item{county}{}
+#'  \item{state}{}
+#'  \item{area}{}
+#'  \item{poptotal}{Total population}
+#'  \item{popdensity}{Population density}
+#'  \item{popwhite}{Number of whites.}
+#'  \item{popblack}{Number of blacks.}
+#'  \item{popamerindian}{Number of American Indians.}
+#'  \item{popasian}{Number of Asians.}
+#'  \item{popother}{Number of other races.}
+#'  \item{percwhite}{Percent white.}
+#'  \item{percblack}{Percent black.}
+#'  \item{percamerindan}{Percent American Indian.}
+#'  \item{percasian}{Percent Asian.}
+#'  \item{percother}{Percent other races.}
+#'  \item{popadults}{Number of adults.}
+#'  \item{perchsd}{}
+#'  \item{percollege}{Percent college educated.}
+#'  \item{percprof}{Percent profession.}
+#'  \item{poppovertyknown}{}
+#'  \item{percpovertyknown}{}
+#'  \item{percbelowpoverty}{}
+#'  \item{percchildbelowpovert}{}
+#'  \item{percadultpoverty}{}
+#'  \item{percelderlypoverty}{}
+#'  \item{inmetro}{In a metro area.}
+#'  \item{category}{}
 #' }
 #'
 "midwest"
@@ -93,18 +93,18 @@
 #' proxy for the popularity of the car.
 #'
 #' @format A data frame with 234 rows and 11 variables
-#' \itemize{
-#'   \item manufacturer.
-#'   \item model.
-#'   \item displ. engine displacement, in litres
-#'   \item year.
-#'   \item cyl. number of cylinders
-#'   \item trans. type of transmission
-#'   \item drv. f = front-wheel drive, r = rear wheel drive, 4 = 4wd
-#'   \item cty. city miles per gallon
-#'   \item hwy. highway miles per gallon
-#'   \item fl.
-#'   \item class.
+#' \describe{
+#'   \item{manufacturer}{}
+#'   \item{model}{model name}
+#'   \item{displ}{engine displacement, in litres}
+#'   \item{year}{year of manufacture}
+#'   \item{cyl}{number of cylinders}
+#'   \item{trans}{type of transmission}
+#'   \item{drv}{f = front-wheel drive, r = rear wheel drive, 4 = 4wd}
+#'   \item{cty}{city miles per gallon}
+#'   \item{hwy}{highway miles per gallon}
+#'   \item{fl}{fuel type}
+#'   \item{class}{"type" of car}
 #' }
 "mpg"
 
@@ -120,18 +120,18 @@
 #' wikipedia.
 #'
 #' @format A data frame with 83 rows and 11 variables
-#' \itemize{
-#'   \item name. common name
-#'   \item genus.
-#'   \item vore. carnivore, omnivore or herbivore?
-#'   \item order.
-#'   \item conservation. the conservation status of the animal
-#'   \item sleep\_total. total amount of sleep, in hours
-#'   \item sleep\_rem. rem sleep, in hours
-#'   \item sleep\_cycle. length of sleep cycle, in hours
-#'   \item awake. amount of time spent awake, in hours
-#'   \item brainwt. brain weight in kilograms
-#'   \item bodywt. body weight in kilograms
+#' \describe{
+#'   \item{name}{common name}
+#'   \item{genus}{}
+#'   \item{vore}{carnivore, omnivore or herbivore?}
+#'   \item{order}{}
+#'   \item{conservation}{the conservation status of the animal}
+#'   \item{sleep_total}{total amount of sleep, in hours}
+#'   \item{sleep_rem}{rem sleep, in hours}
+#'   \item{sleep_cycle}{length of sleep cycle, in hours}
+#'   \item{awake}{amount of time spent awake, in hours}
+#'   \item{brainwt}{brain weight in kilograms}
+#'   \item{bodywt}{body weight in kilograms}
 #' }
 "msleep"
 
