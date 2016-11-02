@@ -157,6 +157,9 @@ reference:
   - print.ggproto
 
 - title: Vector helpers
+  desc: >
+    ggplot2 also provides a handful of helpers that are useful for creating
+    visualisations.
   contents:
   - cut_interval
   - hmisc

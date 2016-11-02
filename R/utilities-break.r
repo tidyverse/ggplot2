@@ -1,4 +1,4 @@
-#' Cut up numeric vector into useful groups.
+#' Discretise numeric data into categorical
 #'
 #' \code{cut_interval} makes \code{n} groups with equal range, \code{cut_number}
 #' makes \code{n} groups with (approximately) equal numbers of observations;
