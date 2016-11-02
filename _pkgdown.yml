@@ -139,16 +139,21 @@ reference:
   - margin
 
 - title: Programming with ggplot2
+  desc: >
+    These functions provides tools to help you program with ggplot2,
+    creating functions and for-loops that generate plots for you.
   contents:
   - aes_
   - print.ggplot
 
 - title: Extending ggplot2 with ggproto
+  desc: >
+    To create your own geoms, stats, scales, and facets, you'll need to learn
+    a bit about the object oriented system that ggplot2 uses. Start by
+    reading `vignette("extending-ggplot2")` then consult these functions
+    for more details.
   contents:
   - ggproto
-  - as.list.ggproto
-  - is.ggproto
-  - format.ggproto
   - print.ggproto
 
 - title: Autoplot and fortify

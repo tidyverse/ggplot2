@@ -121,7 +121,12 @@ plot_clone <- function(plot) {
 #' @export
 is.ggplot <- function(x) inherits(x, "ggplot")
 
-#' Draw plot on current graphics device.
+#' Explicitly draw plot
+#'
+#' Generally, you do not need to print or plot a ggplot2 plot explicitly: the
+#' default top-level print method will do it for you. You will, however, need
+#' to call \code{print()} explicitly if you want to draw a plot inside a
+#' function or for loop.
 #'
 #' @param x plot to display
 #' @param newpage draw new (empty) page first?
@@ -133,6 +138,20 @@ is.ggplot <- function(x) inherits(x, "ggplot")
 #'   information about the scales, panels etc.
 #' @export
 #' @method print ggplot
+#' @examples
+#' colours <- list(~class, ~drv, ~fl)
+#'
+#' # Doesn't seem to do anything!
+#' for (colour in colours) {
+#'   ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
+#'     geom_point()
+#' }
+#'
+#' # Works when we explicitly print the plots
+#' for (colour in colours) {
+#'   print(ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
+#'     geom_point())
+#' }
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)
   if (newpage) grid.newpage()
