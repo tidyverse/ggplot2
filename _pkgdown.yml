@@ -222,6 +222,12 @@ navbar:
     - text: "Release notes"
     - text: "Version 2.2.0"
       href: articles/releases/ggplot2-2.2.0.html
+    - text: "Version 2.1.0"
+      href: articles/releases/ggplot2-2.1.0.html
+    - text: "Version 2.0.0"
+      href: articles/releases/ggplot2-2.0.0.html
+    - text: "Version 1.0.0"
+      href: articles/releases/ggplot2-1.0.0.html
     - text: "------------------"
     - text: "Change log"
       href: news/index.html
