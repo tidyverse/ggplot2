@@ -87,7 +87,6 @@
 #' p + facet_wrap(~vs + cyl2, labeller = label_parsed)
 #' }
 #' @name labellers
-#' @aliases NULL
 NULL
 
 collapse_labels_lines <- function(labels) {

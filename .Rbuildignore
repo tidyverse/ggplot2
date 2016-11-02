@@ -16,3 +16,4 @@ visual_test
 ^icons$
 ^README\.Rmd$
 ^README-.*\.png$
+^logo\.png$

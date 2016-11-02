@@ -127,6 +127,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 print.element <- function(x, ...) utils::str(x)
 
 
+#' @param x A single number specifying size relative to parent element.
 #' @rdname element
 #' @export
 rel <- function(x) {

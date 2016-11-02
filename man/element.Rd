@@ -71,6 +71,8 @@ side of the text facing towards the center of the plot.}
 \item{debug}{If \code{TRUE}, aids visual debugging by drawing a solid
 rectangle behind the complete text area, and a point where each label
 is anchored.}
+
+\item{x}{A single number specifying size relative to parent element.}
 }
 \value{
 An S3 object of class \code{element}, \code{rel}, or \code{margin}.
