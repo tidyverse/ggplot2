@@ -12,13 +12,14 @@ reference:
 - title: Plot basics
   desc: >
     All ggplot2 plots with a call to `ggplot()`, supplying default data and
-    aesthethic mappings, specified by `aes()`. You then add components (listed
-    below) with `+`. To save a plot to disk, use `ggsave()`.
+    aesthethic mappings, specified by `aes()`. You then add layers, scales,
+    coords and facets with `+`. To save a plot to disk, use `ggsave()`.
   contents:
   - ggplot
   - aes
   - +.gg
   - ggsave
+  - qplot
 
 - title: "Layer: geoms"
   desc: >
@@ -63,6 +64,16 @@ reference:
   - annotation_map
   - annotation_raster
   - borders
+
+- title: Aesthetics
+  desc: >
+    The following help topics give a broad overview of some of the ways
+    you can use each aesthetic
+  contents:
+  - aes_colour_fill_alpha
+  - aes_group_order
+  - aes_linetype_size_shape
+  - aes_position
 
 - title: Scales
   desc: >
@@ -165,17 +176,6 @@ reference:
   - hmisc
   - mean_se
   - resolution
-
-- title: All functions
-  desc: ~
-  contents:
-  - aes_colour_fill_alpha
-  - aes_group_order
-  - aes_linetype_size_shape
-  - aes_position
-  - translate_qplot_ggplot
-  - translate_qplot_lattice
-  - qplot
 
 - title: Data
   desc: >
