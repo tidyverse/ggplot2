@@ -12,4 +12,5 @@ is.theme(x)
 \description{
 Reports whether x is a theme object
 }
+\keyword{internal}
 

@@ -2,7 +2,6 @@
 % Please edit documentation in R/geom-.r
 \docType{data}
 \name{graphical-units}
-\alias{graphical-units}
 \alias{.pt}
 \alias{.stroke}
 \title{Graphical units}
@@ -17,4 +16,5 @@ Multiply size in mm by these constants in order to convert to the units
 that grid uses internally for \code{lwd} and \code{fontsize}.
 }
 \keyword{datasets}
+\keyword{internal}
 

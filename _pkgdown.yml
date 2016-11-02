@@ -110,7 +110,7 @@ reference:
   - label_bquote
 
 - title: Coordinate systems
-  desc:
+  desc: >
     The coordinate system determines how the `x` and `y` aesthetics combine
     to position elements in the plot. The default coordinate system is
     Cartesian (`coord_cartesian()`), which can be tweaked with `coord_map()`,
@@ -125,16 +125,18 @@ reference:
   - coord_trans
 
 - title: Themes
+  desc: >
+    Themes control the display of all non-data elements of the plot. You
+    can override all settings with a complete theme like `theme_bw()`, or
+    choose to tweak individual settings by using `theme()` and the `element_`
+    functions. Use `theme_set()` to modify the active theme, affecting all
+    future plots.
   contents:
-  - ggtheme
   - theme
+  - theme_bw
   - theme_update
-  - element
-  - rel
-  - is.rel
-  - is.theme
+  - element_line
   - margin
-  - graphical-units
 
 - title: Programming with ggplot2
   contents:

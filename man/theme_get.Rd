@@ -6,7 +6,7 @@
 \alias{theme_update}
 \alias{theme_replace}
 \alias{\%+replace\%}
-\title{Get, set and update themes}
+\title{Get, set, and modify the active theme}
 \usage{
 theme_get()
 
@@ -25,10 +25,16 @@ e1 \%+replace\% e2
 
 \item{e1, e2}{Theme and element to combine}
 }
+\value{
+\code{theme_set}, \code{theme_update}, and \code{theme_replace}
+  invisibly return the previous theme so you can easily save it, then
+  later restore it.
+}
 \description{
+The current/active theme is automatically applied to every plot you draw.
 Use \code{theme_get} to get the current theme, and \code{theme_set} to
 completely override it. \code{theme_update} and \code{theme_replace} are
-shorthands for changing individual elements in the current theme.
+shorthands for changing individual elements.
 }
 \section{Adding on to a theme}{
 
@@ -53,43 +59,32 @@ the theme with \code{NULL}s.
 p <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point()
 p
+
+# Use theme_set() to completely override the current theme.
+# Here we have the old theme so we can later restore it.
+# Note that the theme is applied when the plot is drawn, not
+# when it is created.
 old <- theme_set(theme_bw())
 p
 theme_set(old)
 p
 
-#theme_replace NULLs out the fill attribute of panel.background,
-#resulting in a white background:
-theme_get()$panel.background
-old <- theme_replace(panel.background = element_rect(colour = "pink"))
-theme_get()$panel.background
-p
-theme_set(old)
 
-#theme_update only changes the colour attribute, leaving the others intact:
-old <- theme_update(panel.background = element_rect(colour = "pink"))
-theme_get()$panel.background
-p
-theme_set(old)
+# Modifying theme objects -----------------------------------------
+# You can use + and \%+replace\% to modify a theme object.
+# They differ in how they deal with missing arguments in
+# the theme elements.
 
-theme_get()
-
-
-ggplot(mtcars, aes(mpg, wt)) +
-  geom_point(aes(color = mpg)) +
-  theme(legend.position = c(0.95, 0.95),
-        legend.justification = c(1, 1))
-last_plot() +
- theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
-
-# Adding on to a theme ----------------------------------------------
-
-# Compare these results of adding theme objects to other theme objects
-add_el <- theme_grey() + theme(text = element_text(family = "Times"))
-rep_el <- theme_grey() \%+replace\% theme(text = element_text(family = "Times"))
-
+add_el <- theme_grey() +
+  theme(text = element_text(family = "Times"))
 add_el$text
+
+rep_el <- theme_grey() \%+replace\%
+  theme(text = element_text(family = "Times"))
 rep_el$text
+
+# theme_update() and theme_replace() are similar except they
+# apply directly to the current/active theme.
 }
 \seealso{
 \code{\link{+.gg}}

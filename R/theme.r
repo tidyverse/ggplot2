@@ -1,10 +1,18 @@
-#' Set theme elements
+#' Modify components of a theme
 #'
-#' Theme elements can inherit properties from other theme elements.
+#' Use \code{theme()} to modify individual components of a theme, allowing
+#' you to control the appearance of all non-data components of the plot.
+#' \code{theme()} only affects a single plot: see \code{\link{theme_update}} if
+#' you want modify the active theme, to affect all subsequent plots.
+#'
+#' @section Theme inheritance:
+#' Theme elements inherit properties from other theme elements.
 #' For example, \code{axis.title.x} inherits from \code{axis.title},
 #' which in turn inherits from \code{text}. All text elements inherit
 #' directly or indirectly from \code{text}; all lines inherit from
 #' \code{line}, and all rectangular objects inherit from \code{rect}.
+#' This means that you can modify the appearance of multiple elements by
+#' setting a single high-level component.
 #'
 #' @param line all line elements (\code{element_line})
 #' @param rect all rectangular elements (\code{element_rect})
@@ -155,7 +163,6 @@
 #'
 #' @seealso
 #'   \code{\link{+.gg}} and \code{\link{\%+replace\%}},
-#'   \code{\link{rel}} for details of relative sizing,
 #'   \code{\link{element_blank}}, \code{\link{element_line}},
 #'   \code{\link{element_rect}}, and \code{\link{element_text}} for
 #'   details of the specific theme elements.
@@ -564,6 +571,7 @@ combine_elements <- function(e1, e2) {
 #' Reports whether x is a theme object
 #' @param x An object to test
 #' @export
+#' @keywords internal
 is.theme <- function(x) inherits(x, "theme")
 
 #' @export
