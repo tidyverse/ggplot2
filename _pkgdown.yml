@@ -214,7 +214,7 @@ navbar:
   - text: Articles
     menu:
     - text: Aesthetic specifications
-      href: articles/aesthetic-specification.html
+      href: articles/ggplot2-specs.html
     - text: Extending ggplot2
       href: articles/extending-ggplot2.html
   - text: News
