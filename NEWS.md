@@ -2,6 +2,11 @@
 
 ## Major new features
 
+### Binning
+
+`stat_bin` now accepts functions for `binwidth` and includes three built-ins, Scott, Sturgis and FD (Freedman–Diaconis). See
+[Histograms](https://en.wikipedia.org/wiki/Histogram#Number_of_bins_and_width) for details. This allows better binning when faceting along variables with different ranges (@botanize).
+
 ### Subtitle and caption
 
 Thanks to @hrbrmstr plots now have subtitles and captions, which can be set with the `subtitle`  and `caption` arguments to `ggtitle()` and `labs()`. You can control their appearance with the theme settings `plot.caption` and `plot.subtitle`. The main plot title is now left-aligned to better work better with a subtitle. The caption is right-aligned (@hrbrmstr).
