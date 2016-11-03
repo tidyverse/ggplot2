@@ -60,7 +60,7 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 
-\item{binwidth}{The width of the bins. Can be specified as a numeric value, a function that calculates width from x or one of "Scott", "Sturgis", or "FD". The default is to use \code{bins}
+\item{binwidth}{The width of the bins. Can be specified as a numeric value, a function that calculates width from x or one of "Scott", "Sturges", or "FD". The default is to use \code{bins}
   bins that cover the range of the data. You should always override
   this value, exploring multiple widths to find the best to illustrate the
   stories in your data.

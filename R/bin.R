@@ -53,7 +53,7 @@ binwidth_fun <- function(x, fun) {
   N <- length(x)
   switch(fun,
          'Scott' = 3.5 * stats::sd(x) / (N^(1/3)),
-         'Sturgis' = diff(range(x, na.rm = TRUE)) /
+         'Sturges' = diff(range(x, na.rm = TRUE)) /
            ceiling(log2(N) + 1),
          'FD' = 2 * stats::IQR(x) / (N^(1/3))
            )

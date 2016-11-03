@@ -4,7 +4,7 @@
 
 ### Binning
 
-`stat_bin` now accepts functions for `binwidth` and includes three built-ins, Scott, Sturgis and FD (Freedman–Diaconis). See
+`stat_bin` now accepts functions for `binwidth` and includes three built-ins, Scott, Sturges and FD (Freedman–Diaconis). See
 [Histograms](https://en.wikipedia.org/wiki/Histogram#Number_of_bins_and_width) for details. This allows better binning when faceting along variables with different ranges (@botanize).
 
 ### Subtitle and caption
