@@ -30,7 +30,7 @@ Authors:
 
 Other contributors:
 \itemize{
-  \item RStudio [copyright holder, NA]
+  \item RStudio [copyright holder, funder]
 }
 
 }
