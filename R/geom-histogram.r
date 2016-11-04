@@ -79,7 +79,7 @@
 #' # particularly useful when faceting along variables with
 #' # different ranges
 #' mtlong <- reshape2::melt(mtcars)
-#' ggplot(mtlong, aes(value)) + facet_wrap(~variable) +
+#' ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
 #'   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
 geom_histogram <- function(mapping = NULL, data = NULL,
                            stat = "bin", position = "stack",

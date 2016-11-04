@@ -188,7 +188,7 @@ m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 # particularly useful when faceting along variables with
 # different ranges
 mtlong <- reshape2::melt(mtcars)
-ggplot(mtlong, aes(value)) + facet_wrap(~variable) +
+ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
 }
 \seealso{
