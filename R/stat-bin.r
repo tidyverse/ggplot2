@@ -1,7 +1,9 @@
 #' \code{stat_bin} is suitable only for continuous x data. If your x data is
 #'   discrete, you probably want to use \code{\link{stat_count}}.
 #'
-#' @param binwidth The width of the bins. Can be specified as a numeric value, a function that calculates width from x or one of "Scott", "Sturges", or "FD". The default is to use \code{bins}
+#' @param binwidth The width of the bins. Can be specified as a numeric value,
+#'   or a function that calculates width from x.
+#'   The default is to use \code{bins}
 #'   bins that cover the range of the data. You should always override
 #'   this value, exploring multiple widths to find the best to illustrate the
 #'   stories in your data.
@@ -111,7 +113,7 @@ StatBin <- ggproto("StatBin", Stat,
       stop("Only one of `boundary` and `center` may be specified.", call. = FALSE)
     }
 
-    if (is.null(params$breaks) && (is.null(params$binwidth) || !(is.numeric(params$binwidth) || is.function(params$binwidth) || params$binwidth %in% c('Sturges', 'Scott', 'FD'))) && is.null(params$bins)) {
+    if (is.null(params$breaks) && (is.null(params$binwidth) || !(is.numeric(params$binwidth) || is.function(params$binwidth))) && is.null(params$bins)) {
       message_wrap("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
       params$bins <- 30
       params$binwidth <- NULL
@@ -132,7 +134,7 @@ StatBin <- ggproto("StatBin", Stat,
       bins <- bin_breaks(breaks, closed)
     } else if (!is.null(binwidth)) {
       if (!is.numeric(binwidth)) {
-        binwidth <- binwidth_fun(data$x, binwidth)
+        binwidth <- do.call(binwidth, list(data$x))
       }
       bins <- bin_breaks_width(scales$x$dimension(), binwidth,
         center = center, boundary = boundary, closed = closed)

@@ -22,16 +22,6 @@ test_that("bins specifies the number of bins", {
   expect_equal(nrow(out(bins = 100)), 100)
 })
 
-test_that("binwidth computes widths for Sturges, Scott, FD", {
-  df <- data.frame(x = 1:100)
-  out <- function(x, ...) {
-    layer_data(ggplot(df, aes(x)) + geom_histogram(...))
-  }
-  expect_equal(nrow(out(binwidth = 'FD')), 6)
-  expect_equal(nrow(out(binwidth = 'Sturges')), 9)
-  expect_equal(nrow(out(binwidth = 'Scott')), 6)
-})
-
 test_that("binwidth computes widths for function input", {
   df <- data.frame(x = 1:100)
   out <- function(x, ...) {

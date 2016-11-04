@@ -48,17 +48,6 @@ bin_breaks <- function(breaks, closed = c("right", "left")) {
   bins(breaks, closed)
 }
 
-binwidth_fun <- function(x, fun) {
-  if (is.function(fun)) return(do.call(fun, list(x)))
-  N <- length(x)
-  switch(fun,
-         'Scott' = 3.5 * stats::sd(x) / (N^(1/3)),
-         'Sturges' = diff(range(x, na.rm = TRUE)) /
-           ceiling(log2(N) + 1),
-         'FD' = 2 * stats::IQR(x) / (N^(1/3))
-           )
-}
-
 bin_breaks_width <- function(x_range, width = NULL, center = NULL,
                              boundary = NULL, closed = c("right", "left")) {
   stopifnot(length(x_range) == 2)
