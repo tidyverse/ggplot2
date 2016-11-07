@@ -103,7 +103,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   init = function(self, scale) {
     if (self$empty()) return()
     if (!is.formula(self$trans)) stop("transformation for secondary axes must be a formula", call. = FALSE)
-    if (is.derived(self$name)) self$name <- scale$name
+    if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
     if (is.derived(self$labels)) self$labels <- scale$labels
   },
