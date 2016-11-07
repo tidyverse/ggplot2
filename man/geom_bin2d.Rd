@@ -2,8 +2,8 @@
 % Please edit documentation in R/geom-bin2d.r, R/stat-bin2d.r
 \name{geom_bin2d}
 \alias{geom_bin2d}
-\alias{stat_bin_2d}
 \alias{stat_bin2d}
+\alias{stat_bin_2d}
 \title{Heatmap of 2d bin counts}
 \usage{
 geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
