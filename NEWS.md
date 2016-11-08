@@ -1,4 +1,4 @@
-# ggplot2 2.1.0.9000 
+# ggplot2 2.2.0
 
 ## Major new features
 
