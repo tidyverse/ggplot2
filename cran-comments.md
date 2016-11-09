@@ -1,3 +1,7 @@
+This is a resubmission fixing two minor issues.
+
+---
+
 ## Test environments
 * OS X, R 3.3.1
 * Ubuntu 14.04, R 3.3.1
