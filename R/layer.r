@@ -348,10 +348,15 @@ find_subclass <- function(super, class, env) {
 }
 
 order_data <- function(data, .f, ...) {
+  if (!is.numeric(data$order)) {
+    warning("`order` aesthetic must be a numeric variable to work.")
+    return(data)
+  }
+
   can_order <- lapply(c(x = "x", y = "y"), function(v) !is.numeric(data[[v]]))
 
   if (!any(unlist(can_order))) {
-    warning("`order` aesthetic requires at least one non-numeric axis to work.")
+    warning("`order` aesthetic requires at least one of x or y to be non-numeric to work.")
     return(data)
   }
 
