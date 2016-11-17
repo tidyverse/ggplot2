@@ -179,6 +179,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_aesthetics = function(self, data, plot) {
+
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (self$inherit.aes) {
       aesthetics <- defaults(self$mapping, plot$mapping)
@@ -225,9 +226,26 @@ Layer <- ggproto("Layer", NULL,
     } else {
       evaled$PANEL <- data$PANEL
     }
+
     evaled <- lapply(evaled, unname)
     evaled <- data.frame(evaled, stringsAsFactors = FALSE)
     evaled <- add_group(evaled)
+
+    # Handle ordering
+    if("order" %in% names(evaled)) {
+
+      if (inherits(self$geom, "GeomCol")) {
+        evaled <- order_data(evaled, sum, na.rm = TRUE)
+      }
+      else if (inherits(self$geom, "GeomPoint")) {
+        evaled <- order_data(evaled, max, na.rm = TRUE)
+      }
+      else {
+        warning("Geom does not support the aesthetic `order`")
+      }
+      evaled$order <- NULL
+    }
+
     evaled
   },
 
@@ -327,4 +345,30 @@ find_subclass <- function(super, class, env) {
   }
 
   obj
+}
+
+order_data <- function(data, .f, ...) {
+  can_order <- lapply(c(x = "x", y = "y"), function(v) !is.numeric(data[[v]]))
+
+  if (!any(unlist(can_order))) {
+    warning("`order` aesthetic requires at least one non-numeric axis to work.")
+    return(data)
+  }
+
+  if (can_order$x) {
+    data$x <- order_by(data$x, data$order, .f, ...)
+  }
+
+  if (can_order$y) {
+    data$y <- order_by(data$y, data$order, .f, ...)
+  }
+
+  data
+
+}
+
+order_by <- function(x, o, .f, ...) {
+  order_as <- order(tapply(o, x, .f, ...))
+  x <- as.factor(x)
+  factor(x, levels = levels(x)[order_as])
 }
