@@ -232,21 +232,6 @@ Layer <- ggproto("Layer", NULL,
     evaled <- order_data(evaled, self$geom)
     evaled <- add_group(evaled)
 
-    # # Handle ordering
-    # if("order" %in% names(evaled)) {
-    #
-    #   if (inherits(self$geom, "GeomCol")) {
-    #     evaled <- order_data(evaled, sum, na.rm = TRUE)
-    #   }
-    #   else if (inherits(self$geom, "GeomPoint")) {
-    #     evaled <- order_data(evaled, max, na.rm = TRUE)
-    #   }
-    #   else {
-    #     warning("Geom does not support the aesthetic `order`")
-    #   }
-    #   evaled$order <- NULL
-    # }
-
     evaled
   },
 
