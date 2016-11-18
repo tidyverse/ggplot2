@@ -229,22 +229,23 @@ Layer <- ggproto("Layer", NULL,
 
     evaled <- lapply(evaled, unname)
     evaled <- data.frame(evaled, stringsAsFactors = FALSE)
+    evaled <- order_data(evaled, self$geom)
     evaled <- add_group(evaled)
 
-    # Handle ordering
-    if("order" %in% names(evaled)) {
-
-      if (inherits(self$geom, "GeomCol")) {
-        evaled <- order_data(evaled, sum, na.rm = TRUE)
-      }
-      else if (inherits(self$geom, "GeomPoint")) {
-        evaled <- order_data(evaled, max, na.rm = TRUE)
-      }
-      else {
-        warning("Geom does not support the aesthetic `order`")
-      }
-      evaled$order <- NULL
-    }
+    # # Handle ordering
+    # if("order" %in% names(evaled)) {
+    #
+    #   if (inherits(self$geom, "GeomCol")) {
+    #     evaled <- order_data(evaled, sum, na.rm = TRUE)
+    #   }
+    #   else if (inherits(self$geom, "GeomPoint")) {
+    #     evaled <- order_data(evaled, max, na.rm = TRUE)
+    #   }
+    #   else {
+    #     warning("Geom does not support the aesthetic `order`")
+    #   }
+    #   evaled$order <- NULL
+    # }
 
     evaled
   },
@@ -345,35 +346,4 @@ find_subclass <- function(super, class, env) {
   }
 
   obj
-}
-
-order_data <- function(data, .f, ...) {
-  if (!is.numeric(data$order)) {
-    warning("`order` aesthetic must be a numeric variable to work.")
-    return(data)
-  }
-
-  can_order <- lapply(c(x = "x", y = "y"), function(v) !is.numeric(data[[v]]))
-
-  if (!any(unlist(can_order))) {
-    warning("`order` aesthetic requires at least one of x or y to be non-numeric to work.")
-    return(data)
-  }
-
-  if (can_order$x) {
-    data$x <- order_by(data$x, data$order, .f, ...)
-  }
-
-  if (can_order$y) {
-    data$y <- order_by(data$y, data$order, .f, ...)
-  }
-
-  data
-
-}
-
-order_by <- function(x, o, .f, ...) {
-  order_as <- order(tapply(o, x, .f, ...))
-  x <- as.factor(x)
-  factor(x, levels = levels(x)[order_as])
 }
