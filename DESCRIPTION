@@ -145,7 +145,7 @@ Collate:
     'limits.r'
     'margins.R'
     'order-.r'
-    'order-by.r'
+    'order-as.r'
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'

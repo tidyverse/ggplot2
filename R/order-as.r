@@ -1,7 +1,7 @@
 #' @include order-.r
 NULL
 
-#' Order by
+#' Order as specified by formula
 #'
 #' @param ordering a formula with the axes (of the tabular display) to order on
 #'   the LHS and the aesthetics (of the tabular display) to use for determining
@@ -14,7 +14,7 @@ NULL
 #' @param ... Additional arguments to pass to order_f
 #' @param na.rm
 #' @export
-order_by <- function(ordering, facets = "all", order_f = max, na.rm = TRUE, ...) {
+order_as <- function(ordering, facets = "all", order_f = max, na.rm = TRUE, ...) {
 
   # Ordering can either be a formula, a string, or a list of things to be
   # convert to quoted
@@ -42,7 +42,6 @@ order_by <- function(ordering, facets = "all", order_f = max, na.rm = TRUE, ...)
   }
   to_order <- as.character(to_order)
   order_by <- as.character(order_by)
-
 
   facets <- match.arg(facets, c("all", "within", "between"))
 
