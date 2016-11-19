@@ -81,6 +81,9 @@ add_ggplot <- function(p, object, objectname) {
   } else if (is.facet(object)) {
       p$facet <- object
       p
+  } else if (is.order(object)) {
+      p$order <- object
+      p
   } else if (is.list(object)) {
     for (o in object) {
       p <- p %+% o

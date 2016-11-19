@@ -75,6 +75,13 @@ Order <- ggproto("Order", NULL,
 
 # Helpers -----------------------------------------------------------------
 
+#' Is this object an ordering specification?
+#'
+#' @param x object to test
+#' @keywords internal
+#' @export
+is.order <- function(x) inherits(x, "Order")
+
 unique_order <- function(order_map) {
   order_map[!duplicated.data.frame(order_map), ]
 }
