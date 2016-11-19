@@ -12,7 +12,7 @@ Order <- ggproto("Order", NULL,
   order_map = list(),
   params = list(),
 
-  train_order = function(self, data) {
+  train_order = function(self, data, position) {
     to_order <- self$params$to_order
     order_by <- self$params$order_by
 
@@ -37,8 +37,14 @@ Order <- ggproto("Order", NULL,
     # This will only work for ONE order_by
     # Need to pass ... to tapply
     # Will also need something to handle different facet options (via reference to PANEL)
+
+    # Function to order groups; should return single number
+    order_f <- function(x) max(x, na.rm = TRUE)
+    if (inherits(position, "PositionStack"))
+      order_f <- function(x) sum(x, na.rm = TRUE)
+
     order_map <- lapply(data[to_order], function(o) {
-      order_as <- order(tapply(data[[order_by]], o, self$params$order_f, self$params$na.rm))
+      order_as <- order(tapply(data[[order_by]], o, order_f))
 
       new <- as.factor(o)
       new <- as.numeric(factor(new, levels = levels(new)[order_as]))
@@ -50,9 +56,9 @@ Order <- ggproto("Order", NULL,
     order_map
   },
 
-  order_data = function(self, data) {
+  order_data = function(self, data, position) {
     order_map <- self$order_map
-    if (length(order_map) == 0) order_map <- self$train_order(data)
+    if (length(order_map) == 0) order_map <- self$train_order(data, position)
 
     # 1-to-1 reordering
     data[names(order_map)] <- lapply(order_map, function(i) i$new)

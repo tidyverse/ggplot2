@@ -47,7 +47,6 @@ order_by <- function(ordering, facets = "all", order_f = max, na.rm = TRUE, ...)
   facets <- match.arg(facets, c("all", "within", "between"))
 
   ggproto(NULL, Order,
-          params = list(to_order = to_order, order_by = order_by,
-                        facets = facets, order_f = order_f, na.rm = na.rm, ...)
+          params = list(to_order = to_order, order_by = order_by, facets = facets)
   )
 }

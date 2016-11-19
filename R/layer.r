@@ -229,7 +229,6 @@ Layer <- ggproto("Layer", NULL,
 
     evaled <- lapply(evaled, unname)
     evaled <- data.frame(evaled, stringsAsFactors = FALSE)
-    evaled <- order_data(evaled, self$geom)
     evaled <- add_group(evaled)
 
     evaled
@@ -314,6 +313,14 @@ Layer <- ggproto("Layer", NULL,
 
     data <- self$geom$handle_na(data, self$geom_params)
     self$geom$draw_layer(data, self$geom_params, layout, coord)
+  },
+
+  order_statistic = function(self, data, plot) {
+    if (empty(data)) return(data.frame())
+    order <- plot$order
+    if (is.null(order)) return(data)
+
+    order$order_data(data, self$position)
   }
 )
 
