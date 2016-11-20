@@ -7,6 +7,7 @@
 #' @param data not used by this method
 #' @param region name of variable used to split up regions
 #' @param ... not used by this method
+#' @keywords internal
 #' @name fortify.sp
 #' @examples
 #' if (require("maptools")) {

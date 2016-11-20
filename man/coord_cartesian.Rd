@@ -2,7 +2,7 @@
 % Please edit documentation in R/coord-cartesian-.r
 \name{coord_cartesian}
 \alias{coord_cartesian}
-\title{Cartesian coordinates.}
+\title{Cartesian coordinates}
 \usage{
 coord_cartesian(xlim = NULL, ylim = NULL, expand = TRUE)
 }

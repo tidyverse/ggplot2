@@ -46,4 +46,5 @@ if (require("maptools")) {
  nc1_df <- fortify(nc1)
 }
 }
+\keyword{internal}
 

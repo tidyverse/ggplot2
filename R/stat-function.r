@@ -1,4 +1,4 @@
-#' Superimpose a function.
+#' Compute function for each x value
 #'
 #' This stat makes it easy to superimpose a function on top of an existing
 #' plot. The function is called with a grid of evenly spaced values along

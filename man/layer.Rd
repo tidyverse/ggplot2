@@ -75,4 +75,5 @@ ggplot(mpg, aes(displ, hwy)) +
   )
 
 }
+\keyword{internal}
 

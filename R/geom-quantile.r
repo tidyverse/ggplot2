@@ -1,4 +1,4 @@
-#' Add quantile lines from a quantile regression.
+#' Quantile regression
 #'
 #' This fits a quantile regression to the data and draws the fitted quantiles
 #' with lines. This is as a continuous analogue to \code{\link{geom_boxplot}}.

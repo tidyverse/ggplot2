@@ -4,7 +4,7 @@
 \alias{scale_shape}
 \alias{scale_shape_continuous}
 \alias{scale_shape_discrete}
-\title{Scale for shapes, aka glyphs.}
+\title{Scales for shapes, aka glyphs}
 \usage{
 scale_shape(..., solid = TRUE)
 }
@@ -17,10 +17,11 @@ scale_shape(..., solid = TRUE)
 \code{FALSE}?}
 }
 \description{
-Maps discrete variables to six easily discernible shapes. If you have
-more than six levels, you will get a warning message, and the seventh
-and subsequence levels will not appear on the plot. You can not map a
-continuous variable to shape.
+\code{scale_shape} maps discrete variables to six easily discernible shapes.
+If you have more than six levels, you will get a warning message, and the
+seventh and subsequence levels will not appear on the plot. Use
+\code{\link{scale_shape_manual}} to supply your own values. You can not map
+a continuous variable to shape.
 }
 \examples{
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]

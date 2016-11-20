@@ -12,4 +12,5 @@ is.rel(x)
 \description{
 Reports whether x is a rel object
 }
+\keyword{internal}
 

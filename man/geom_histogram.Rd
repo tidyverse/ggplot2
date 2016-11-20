@@ -4,7 +4,7 @@
 \alias{geom_freqpoly}
 \alias{geom_histogram}
 \alias{stat_bin}
-\title{Histograms and frequency polygons.}
+\title{Histograms and frequency polygons}
 \usage{
 geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
@@ -47,8 +47,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -75,14 +75,14 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{center}{The center of one of the bins.  Note that if center is above or
 below the range of the data, things will be shifted by an appropriate
 number of \code{width}s. To center on integers, for example, use
-\code{width=1} and \code{center=0}, even if \code{0} is outside the range
+\code{width = 1} and \code{center = 0}, even if \code{0} is outside the range
 of the data.  At most one of \code{center} and \code{boundary} may be
 specified.}
 
 \item{boundary}{A boundary between two bins. As with \code{center}, things
 are shifted when \code{boundary} is outside the range of the data. For
 example, to center on integers, use \code{width = 1} and \code{boundary =
-0.5}, even if \code{1} is outside the range of the data.  At most one of
+0.5}, even if \code{0.5} is outside the range of the data.  At most one of
 \code{center} and \code{boundary} may be specified.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving

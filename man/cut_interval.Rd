@@ -4,7 +4,7 @@
 \alias{cut_interval}
 \alias{cut_number}
 \alias{cut_width}
-\title{Cut up numeric vector into useful groups.}
+\title{Discretise numeric data into categorical}
 \usage{
 cut_interval(x, n = NULL, length = NULL, ...)
 

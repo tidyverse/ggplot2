@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom-jitter.r
 \name{geom_jitter}
 \alias{geom_jitter}
-\title{Points, jittered to reduce overplotting.}
+\title{Jittered points}
 \usage{
 geom_jitter(mapping = NULL, data = NULL, stat = "identity",
   position = "jitter", ..., width = NULL, height = NULL, na.rm = FALSE,
@@ -57,8 +57,8 @@ to the paired geom/stat.}
   is aligned on the integers, so a width or height of 0.5 will spread the
   data so it's not possible to see the distinction between the categories.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

@@ -1,6 +1,6 @@
-#' Create an annotation layer.
+#' Create an annotation layer
 #'
-#' This function adds geoms to a plot. Unlike typical a geom function,
+#' This function adds geoms to a plot, but unlike typical a geom function,
 #' the properties of the geoms are not mapped from variables of a data frame,
 #' but are instead passed in as vectors. This is useful for adding small annotations
 #' (such as text labels) or if you have your data in vectors, and for some

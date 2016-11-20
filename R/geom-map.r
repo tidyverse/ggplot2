@@ -1,9 +1,9 @@
 #' @include geom-polygon.r
 NULL
 
-#' Polygons from a reference map.
+#' Polygons from a reference map
 #'
-#' Does not affect position scales.
+#' This is pure annotation, so does not affect position scales.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{map}

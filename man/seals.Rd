@@ -3,7 +3,7 @@
 \docType{data}
 \name{seals}
 \alias{seals}
-\title{Vector field of seal movements.}
+\title{Vector field of seal movements}
 \format{A data frame with 1155 rows and 4 variables}
 \usage{
 seals

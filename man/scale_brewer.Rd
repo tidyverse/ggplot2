@@ -48,15 +48,19 @@ other values are deprecated.}
 colour bar, or \code{"legend"} for discrete colour legend.}
 }
 \description{
-ColorBrewer provides sequential, diverging and qualitative colour schemes
-which are particularly suited and tested to display discrete values (levels
-of a factor) on a map. ggplot2 can use those colours in discrete scales. It
-also allows to smoothly interpolate 6 colours from any palette to a
-continuous scale (6 colours per palette gives nice gradients; more results in
-more saturated colours which do not look as good). However, the original
-colour schemes (particularly the qualitative ones) were not intended for this
-and the perceptual result is left to the appreciation of the user.
-See \url{http://colorbrewer2.org} for more information.
+The \code{brewer} scales provides sequential, diverging and qualitative
+colour schemes from ColorBrewer. These are particularly well suited to
+display discrete values on a map. See \url{http://colorbrewer2.org} for
+more information.
+}
+\details{
+The \code{brewer} scales were carefully designed and tested on discrete data.
+They were not designed to be extended to continuous data, but results often
+look good. Your mileage may vary.
+}
+\note{
+The \code{distiller} scales extends brewer to continuous scales by smoothly
+interpolate 6 colours from any palette to a continuous scale.
 }
 \section{Palettes}{
 
@@ -72,9 +76,9 @@ The following palettes are available for use with these scales:
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 (d <- ggplot(dsamp, aes(carat, price)) +
   geom_point(aes(colour = clarity)))
+d + scale_colour_brewer()
 
 # Change scale label
-d + scale_colour_brewer()
 d + scale_colour_brewer("Diamond\\nclarity")
 
 # Select brewer palette to use, see ?scales::brewer_pal for more details
@@ -101,7 +105,7 @@ v + scale_fill_distiller()
 v + scale_fill_distiller(palette = "Spectral")
 }
 \seealso{
-Other colour scales:
+Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_gradient}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_colour_hue}}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/theme.r
 \name{theme}
 \alias{theme}
-\title{Set theme elements}
+\title{Modify components of a theme}
 \usage{
 theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
   axis.title.x.top, axis.title.y, axis.title.y.right, axis.text, axis.text.x,
@@ -234,11 +234,20 @@ elements.}
 \item{validate}{\code{TRUE} to run validate_element, \code{FALSE} to bypass checks.}
 }
 \description{
-Theme elements can inherit properties from other theme elements.
+Use \code{theme()} to modify individual components of a theme, allowing
+you to control the appearance of all non-data components of the plot.
+\code{theme()} only affects a single plot: see \code{\link{theme_update}} if
+you want modify the active theme, to affect all subsequent plots.
+}
+\section{Theme inheritance}{
+
+Theme elements inherit properties from other theme elements.
 For example, \code{axis.title.x} inherits from \code{axis.title},
 which in turn inherits from \code{text}. All text elements inherit
 directly or indirectly from \code{text}; all lines inherit from
 \code{line}, and all rectangular objects inherit from \code{rect}.
+This means that you can modify the appearance of multiple elements by
+setting a single high-level component.
 }
 \examples{
 p1 <- ggplot(mtcars, aes(wt, mpg)) +
@@ -327,7 +336,6 @@ p3 + theme(panel.spacing = unit(1, "lines"))
 }
 \seealso{
 \code{\link{+.gg}} and \code{\link{\%+replace\%}},
-  \code{\link{rel}} for details of relative sizing,
   \code{\link{element_blank}}, \code{\link{element_line}},
   \code{\link{element_rect}}, and \code{\link{element_text}} for
   details of the specific theme elements.

@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom-map.r
 \name{geom_map}
 \alias{geom_map}
-\title{Polygons from a reference map.}
+\title{Polygons from a reference map}
 \usage{
 geom_map(mapping = NULL, data = NULL, stat = "identity", ..., map,
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
@@ -40,8 +40,8 @@ typically be created using \code{\link{fortify}} on a spatial object.
 It must contain columns \code{x} or \code{long}, \code{y} or
 \code{lat}, and \code{region} or \code{id}.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -53,7 +53,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-Does not affect position scales.
+This is pure annotation, so does not affect position scales.
 }
 \section{Aesthetics}{
 

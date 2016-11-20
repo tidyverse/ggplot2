@@ -4,6 +4,7 @@
 #'  \code{summary.glht} or \code{\link[multcomp]{cld}}
 #' @param data,... other arguments to the generic ignored in this method.
 #' @name fortify-multcomp
+#' @keywords internal
 #' @examples
 #' if (require("multcomp")) {
 #' amod <- aov(breaks ~ wool + tension, data = warpbreaks)

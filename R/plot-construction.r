@@ -1,44 +1,35 @@
-#' Add a new component to a ggplot or theme object.
+#' Add components to a plot
 #'
-#' This operator allows you to add objects to a ggplot or theme object.
+#' \code{+} is the key to constructing sophisticated ggplot2 graphics. It
+#' allows you to start simple, then get more and more complex, checking your
+#' work at each step.
 #'
-#' @section Adding on to a ggplot object:
+#' @section What can you add?:
 #' You can add any of the following types of objects:
 #'
 #' \itemize{
-#'   \item \code{uneval}: replace current aesthetics
-#'   \item \code{layer}: add new layer
-#'   \item \code{theme}: update plot theme
-#'   \item \code{scale}: replace current scale
-#'   \item \code{coord}: override current coordinate system
-#'   \item \code{facet}: override current coordinate faceting
-#'   \item \code{list}: a list of any of the above.
+#'   \item A \code{\link{aes}()} objects replaces the default aesthetics.
+#'   \item A layer created by a \code{geom_} or \code{stat_} function adds
+#'     new layer.
+#'   \item A \code{scale} overrides the existing scale.
+#'   \item A \code{\link{theme}} modifies the current theme.
+#'   \item A \code{coord} overrides current coordinate system.
+#'   \item A \code{facet} specificatio override current faceting.
 #' }
 #'
 #' To replace the current default data frame, you must use \code{\%+\%},
 #' due to S3 method precedence issues.
 #'
-#' @section Adding on to a theme:
-#'
-#' \code{+} and \code{\%+replace\%} can be used to modify elements in themes.
-#'
-#' \code{+} updates the elements of e1 that differ from elements specified (not
-#' NULL) in e2. Thus this operator can be used to incrementally add or modify
-#' attributes of a ggplot theme.
-#'
-#' In contrast, \code{\%+replace\%} replaces the entire element; any element of
-#' a theme not specified in e2 will not be present in the resulting theme (i.e.
-#' NULL). Thus this operator can be used to overwrite an entire theme.
+#' You can also supply a list, in which case each element of the list will
+#' be added in turn.
 #'
 #' @param e1 An object of class \code{\link{ggplot}} or a \code{\link{theme}}.
-#' @param e2 A component, or list of components to add to \code{e1}.
+#' @param e2 A plot component, as described below.
 #' @seealso \code{\link{theme}}
 #' @export
 #' @method + gg
 #' @rdname gg-add
 #' @examples
-#' # Adding on to a plot -----------------------------------------------
-#'
 #' base <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 #' base + geom_smooth()
 #'
@@ -46,17 +37,8 @@
 #' base %+% subset(mpg, fl == "p")
 #'
 #' # Alternatively, you can add multiple components with a list.
-#' # This can be useful to return from a list.
+#' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
-#'
-#' # Adding on to a theme ----------------------------------------------
-#'
-#' # Compare these results of adding theme objects to other theme objects
-#' add_el <- theme_grey() + theme(text = element_text(family = "Times"))
-#' rep_el <- theme_grey() %+replace% theme(text = element_text(family = "Times"))
-#'
-#' add_el$text
-#' rep_el$text
 "+.gg" <- function(e1, e2) {
   # Get the name of what was passed in as e2, and pass along so that it
   # can be displayed in error messages

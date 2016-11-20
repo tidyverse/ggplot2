@@ -1,12 +1,14 @@
-#' ggplot2 themes
+#' Complete themes
 #'
-#' Themes set the general aspect of the plot such as the colour of the
-#' background, gridlines, the size and colour of fonts.
+#' These are complete themes which control all non-data display. Use
+#' \code{\link{theme}} if you just need to tweak the display of an existing
+#' theme.
 #'
 #' @param base_size base font size
 #' @param base_family base font family
 #'
-#' @details \describe{
+#' @details
+#' \describe{
 #'
 #' \item{\code{theme_gray}}{
 #' The signature ggplot2 theme with a grey background and white gridlines,
@@ -43,8 +45,7 @@
 #' @examples
 #' p <- ggplot(mtcars) + geom_point(aes(x = wt, y = mpg,
 #'      colour = factor(gear))) + facet_wrap(~am)
-#'
-#' p
+#' p + theme_gray() # the default
 #' p + theme_bw()
 #' p + theme_linedraw()
 #' p + theme_light()
@@ -52,11 +53,11 @@
 #' p + theme_minimal()
 #' p + theme_classic()
 #' p + theme_void()
-#' p + theme_gray() # default theme
-#'
 #' @name ggtheme
+#' @aliases NULL
 NULL
 
+#' @include theme.r
 #' @export
 #' @rdname ggtheme
 theme_grey <- function(base_size = 11, base_family = "") {
@@ -109,7 +110,7 @@ theme_grey <- function(base_size = 11, base_family = "") {
     legend.spacing =     unit(0.4, "cm"),
     legend.spacing.x =    NULL,
     legend.spacing.y =    NULL,
-    legend.margin =      margin(0, 0, 0, 0, "cm"),
+    legend.margin =      margin(0.2, 0.2, 0.2, 0.2, "cm"),
     legend.key =         element_rect(fill = "grey95", colour = "white"),
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,

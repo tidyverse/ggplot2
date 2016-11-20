@@ -3,7 +3,7 @@
 \name{scale_x_discrete}
 \alias{scale_x_discrete}
 \alias{scale_y_discrete}
-\title{Discrete position.}
+\title{Position scales for discrete data}
 \usage{
 scale_x_discrete(..., expand = waiver(), position = "bottom")
 
@@ -60,5 +60,9 @@ ggplot(mpg, aes(reorder(manufacturer, displ), cty)) +
   geom_point() +
   scale_x_discrete(labels = abbreviate)
 }
+}
+\seealso{
+Other position scales: \code{\link{scale_x_continuous}},
+  \code{\link{scale_x_date}}
 }
 

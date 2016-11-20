@@ -1,9 +1,10 @@
-#' Scale for shapes, aka glyphs.
+#' Scales for shapes, aka glyphs
 #'
-#' Maps discrete variables to six easily discernible shapes. If you have
-#' more than six levels, you will get a warning message, and the seventh
-#' and subsequence levels will not appear on the plot. You can not map a
-#' continuous variable to shape.
+#' \code{scale_shape} maps discrete variables to six easily discernible shapes.
+#' If you have more than six levels, you will get a warning message, and the
+#' seventh and subsequence levels will not appear on the plot. Use
+#' \code{\link{scale_shape_manual}} to supply your own values. You can not map
+#' a continuous variable to shape.
 #'
 #' @param solid Should the shapes be solid, \code{TRUE}, or hollow,
 #'   \code{FALSE}?

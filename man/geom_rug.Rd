@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom-rug.r
 \name{geom_rug}
 \alias{geom_rug}
-\title{Marginal rug plots.}
+\title{Rug plots in the margins}
 \usage{
 geom_rug(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., sides = "bl", na.rm = FALSE,
@@ -43,8 +43,8 @@ to the paired geom/stat.}
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

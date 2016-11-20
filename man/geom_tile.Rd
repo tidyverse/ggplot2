@@ -4,7 +4,7 @@
 \alias{geom_raster}
 \alias{geom_rect}
 \alias{geom_tile}
-\title{Draw rectangles.}
+\title{Rectangles}
 \usage{
 geom_raster(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., hjust = 0.5, vjust = 0.5,
@@ -57,8 +57,8 @@ for both, centering each pixel over its data location.}
 \item{interpolate}{If \code{TRUE} interpolate linearly, if \code{FALSE}
 (the default) don't interpolate.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

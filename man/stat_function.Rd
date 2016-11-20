@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-function.r
 \name{stat_function}
 \alias{stat_function}
-\title{Superimpose a function.}
+\title{Compute function for each x value}
 \usage{
 stat_function(mapping = NULL, data = NULL, geom = "path",
   position = "identity", ..., fun, xlim = NULL, n = 101, args = list(),
@@ -46,8 +46,8 @@ to the paired geom/stat.}
 
 \item{args}{list of additional arguments to pass to \code{fun}}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

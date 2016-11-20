@@ -1,20 +1,22 @@
-#' A Tukey box and whiskers plot.
+#' A box and whiskers plot (in the style of Tukey)
 #'
-#' The boxplot gives a compact display of the distribution of a continuous
-#' variable. It displays a five number summary (defined by the median,
-#' two hinges, and two whiskers), and then individually all "outlying" points.
+#' The boxplot compactly displays the distribution of a continuous variable.
+#' It visualises five summary statistics (the median, two hinges
+#' and two whiskers), and all "outlying" points individually.
 #'
+#' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
 #' by the \code{boxplot} function, and may be apparent with small samples.
 #' See \code{\link{boxplot.stats}} for for more information on how hinge
 #' positions are calculated for \code{boxplot}.
 #'
-#' The upper whisker extends from the hinge to the highest value that is within
-#' 1.5 * IQR of the hinge, where IQR is the inter-quartile range, or distance
-#' between the first and third quartiles. The lower whisker extends from the
-#' hinge to the lowest value within 1.5 * IQR of the hinge. Data beyond the
-#' end of the whiskers are outliers and plotted as points.
+#' The upper whisker extends from the hinge to the largest value no further than
+#' 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
+#' between the first and third quartiles). The lower whisker extends from the
+#' hinge to the smallest value at most 1.5 * IQR of the hinge. Data beyond the
+#' end of the whiskers are called "outlying" points and are plotted
+#' individually.
 #'
 #' In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
 #' This gives a roughly 95\% confidence interval for comparing medians.
@@ -23,9 +25,9 @@
 #' @section Aesthetics:
 #' \aesthetics{geom}{boxplot}
 #'
-#' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
-#'   continuous variable, \code{\link{geom_jitter}} for another way to look
-#'   at conditional distributions.
+#' @seealso \code{\link{geom_quantile}} for continuous x,
+#'   \code{\link{geom_violin}} for a richer display of the distribution, and
+#'   \code{\link{geom_jitter}} for a useful technique for small data.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between

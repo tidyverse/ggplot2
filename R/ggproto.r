@@ -1,11 +1,18 @@
 #' Create a new ggproto object
 #'
-#' ggproto is inspired by the proto package, but it has some important
-#' differences. Notably, it cleanly supports cross-package inheritance, and has
-#' faster performance.
+#' Construct a new object with \code{ggproto}, test with \code{is.proto},
+#' and access parent methods/fields with \code{ggproto_parent}.
 #'
-#' @section Calling ggproto methods:
+#' ggproto implements a protype based OO system which blurs the lines between
+#' classes and instances. It is inspired by the proto package, but it has some
+#' important differences. Notably, it cleanly supports cross-package
+#' inheritance, and has faster performance.
 #'
+#' In most cases, creating a new OO system to be used by a single package is
+#' not a good idea. However, it was the least-bad solution for ggplot2 because
+#' it required the fewest changes to an already complex code base.
+#'
+#' @section Calling methods:
 #' ggproto methods can take an optional \code{self} argument: if it is present,
 #' it is a regular method; if it's absent, it's a "static" method (i.e. it
 #' doesn't use any fields).
@@ -17,18 +24,36 @@
 #' in the function signature, although customarily it comes first.
 #'
 #' @section Calling methods in a parent:
-#'
 #' To explicitly call a methods in a parent, use
 #' \code{ggproto_parent(Parent, self)}.
 #'
 #' @param _class Class name to assign to the object. This is stored as the class
-#'   attribute of the object. If \code{NULL} (the default), no class name will
-#'   be added to the object.
-#' @param _inherit ggproto object to inherit from. If \code{NULL}, don't inherit
-#'   from any object.
-#' @param parent,self Access parent class \code{parent} of object \code{self}.
+#'   attribute of the object. This is optional: if \code{NULL} (the default),
+#'   no class name will be added to the object.
+#' @param _inherit ggproto object to inherit from. If \code{NULL}, don't
+#'   inherit from any object.
 #' @param ... A list of members in the ggproto object.
 #' @export
+#' @examples
+#' Adder <- ggproto("Adder",
+#'   x = 0,
+#'   add = function(self, n) {
+#'     self$x <- self$x + n
+#'     self$x
+#'   }
+#'  )
+#' is.ggproto(Adder)
+#'
+#' Adder$add(10)
+#' Adder$add(10)
+#'
+#' Doubler <- ggproto("Doubler", Adder,
+#'   add = function(self, n) {
+#'     ggproto_parent(Adder, self)$add(n * 2)
+#'   }
+#' )
+#' Doubler$x
+#' Doubler$add(10)
 ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e <- new.env(parent = emptyenv())
 
@@ -38,7 +63,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   }
 
   # R <3.1.2 will error when list2env() is given an empty list, so we need to
-  # check length. https://github.com/hadley/ggplot2/issues/1444
+  # check length. https://github.com/tidyverse/ggplot2/issues/1444
   if (length(members) > 0) {
     list2env(members, envir = e)
   }
@@ -65,10 +90,17 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   e
 }
 
-#' Is an object a ggproto object?
-#'
+
+#' @export
+#' @rdname ggproto
+#' @param parent,self Access parent class \code{parent} of object \code{self}.
+ggproto_parent <- function(parent, self) {
+  structure(list(parent = parent, self = self), class = "ggproto_parent")
+}
+
 #' @param x An object to test.
 #' @export
+#' @rdname ggproto
 is.ggproto <- function(x) inherits(x, "ggproto")
 
 fetch_ggproto <- function(x, name) {
@@ -96,12 +128,6 @@ fetch_ggproto <- function(x, name) {
   }
 
   res
-}
-
-#' @export
-#' @rdname ggproto
-ggproto_parent <- function(parent, self) {
-  structure(list(parent = parent, self = self), class = "ggproto_parent")
 }
 
 #' @export
@@ -140,7 +166,6 @@ make_proto_method <- function(self, f) {
   fun
 }
 
-
 #' @export
 `[[.ggproto` <- `$.ggproto`
 
@@ -153,6 +178,7 @@ make_proto_method <- function(self, f) {
 #'   the returned list. If \code{FALSE}, do not include any inherited items.
 #' @param ... Further arguments to pass to \code{as.list.environment}.
 #' @export
+#' @keywords internal
 as.list.ggproto <- function(x, inherit = TRUE, ...) {
   res <- list()
 
@@ -169,7 +195,7 @@ as.list.ggproto <- function(x, inherit = TRUE, ...) {
 }
 
 
-#' Print a ggproto object
+#' Format or print a ggproto object
 #'
 #' If a ggproto object has a \code{$print} method, this will call that method.
 #' Otherwise, it will print out the members of the object, and optionally, the
@@ -182,6 +208,14 @@ as.list.ggproto <- function(x, inherit = TRUE, ...) {
 #'   will be passed to it. Otherwise, these arguments are unused.
 #'
 #' @export
+#' @examples
+#' Dog <- ggproto(
+#'   print = function(self, n) {
+#'     cat("Woof!\n")
+#'   }
+#'  )
+#' Dog
+#' cat(format(Dog), "\n")
 print.ggproto <- function(x, ..., flat = TRUE) {
   if (is.function(x$print)) {
     x$print(...)
@@ -193,10 +227,8 @@ print.ggproto <- function(x, ..., flat = TRUE) {
 }
 
 
-#' Format a ggproto object
-#'
-#' @inheritParams print.ggproto
 #' @export
+#' @rdname print.ggproto
 format.ggproto <-  function(x, ..., flat = TRUE) {
   classes_str <- function(obj) {
     classes <- setdiff(class(obj), "ggproto")

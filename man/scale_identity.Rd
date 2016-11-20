@@ -5,11 +5,10 @@
 \alias{scale_color_identity}
 \alias{scale_colour_identity}
 \alias{scale_fill_identity}
-\alias{scale_identity}
 \alias{scale_linetype_identity}
 \alias{scale_shape_identity}
 \alias{scale_size_identity}
-\title{Use values without scaling.}
+\title{Use values without scaling}
 \usage{
 scale_colour_identity(..., guide = "none")
 
@@ -27,7 +26,7 @@ scale_size_identity(..., guide = "none")
 \item{...}{Other arguments passed on to \code{\link{discrete_scale}} or
 \code{\link{continuous_scale}}}
 
-\item{guide}{Guide to use for this scale - defaults to \code{"none"}.}
+\item{guide}{Guide to use for this scale. Defaults to \code{"none"}.}
 }
 \description{
 Use this set of scales when your data has already been scaled, i.e. it
@@ -62,7 +61,8 @@ ggplot(df, aes(x, y)) +
   guide = "legend")
 
 # cyl scaled to appropriate size
-ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(size = cyl))
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point(aes(size = cyl))
 
 # cyl used as point size
 ggplot(mtcars, aes(mpg, wt)) +

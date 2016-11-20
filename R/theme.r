@@ -1,75 +1,18 @@
-#' Get, set and update themes.
+#' Modify components of a theme
 #'
-#' Use \code{theme_get} to get the current theme, and \code{theme_set} to
-#' completely override it. \code{theme_update} and \code{theme_replace} are
-#' shorthands for changing individual elements in the current theme.
-#' \code{theme_update} uses the \code{+} operator, so that any unspecified
-#' values in the theme element will default to the values they are set in the
-#' theme. \code{theme_replace} will completely replace the element, so any
-#' unspecified values will overwrite the current value in the theme with \code{NULL}s.
+#' Use \code{theme()} to modify individual components of a theme, allowing
+#' you to control the appearance of all non-data components of the plot.
+#' \code{theme()} only affects a single plot: see \code{\link{theme_update}} if
+#' you want modify the active theme, to affect all subsequent plots.
 #'
-#'
-#' @param ... named list of theme settings
-#' @seealso \code{\link{\%+replace\%}} and \code{\link{+.gg}}
-#' @export
-#' @examples
-#' p <- ggplot(mtcars, aes(mpg, wt)) +
-#'   geom_point()
-#' p
-#' old <- theme_set(theme_bw())
-#' p
-#' theme_set(old)
-#' p
-#'
-#' #theme_replace NULLs out the fill attribute of panel.background,
-#' #resulting in a white background:
-#' theme_get()$panel.background
-#' old <- theme_replace(panel.background = element_rect(colour = "pink"))
-#' theme_get()$panel.background
-#' p
-#' theme_set(old)
-#'
-#' #theme_update only changes the colour attribute, leaving the others intact:
-#' old <- theme_update(panel.background = element_rect(colour = "pink"))
-#' theme_get()$panel.background
-#' p
-#' theme_set(old)
-#'
-#' theme_get()
-#'
-#'
-#' ggplot(mtcars, aes(mpg, wt)) +
-#'   geom_point(aes(color = mpg)) +
-#'   theme(legend.position = c(0.95, 0.95),
-#'         legend.justification = c(1, 1))
-#' last_plot() +
-#'  theme(legend.background = element_rect(fill = "white", colour = "white", size = 3))
-#'
-theme_update <- function(...) {
-  theme_set(theme_get() + theme(...))
-}
-
-#' @rdname theme_update
-#' @export
-theme_replace <- function(...) {
-  theme_set(theme_get() %+replace% theme(...))
-}
-
-#' Reports whether x is a theme object
-#' @param x An object to test
-#' @export
-is.theme <- function(x) inherits(x, "theme")
-
-#' @export
-print.theme <- function(x, ...) utils::str(x)
-
-#' Set theme elements
-#'
-#' Theme elements can inherit properties from other theme elements.
+#' @section Theme inheritance:
+#' Theme elements inherit properties from other theme elements.
 #' For example, \code{axis.title.x} inherits from \code{axis.title},
 #' which in turn inherits from \code{text}. All text elements inherit
 #' directly or indirectly from \code{text}; all lines inherit from
 #' \code{line}, and all rectangular objects inherit from \code{rect}.
+#' This means that you can modify the appearance of multiple elements by
+#' setting a single high-level component.
 #'
 #' @param line all line elements (\code{element_line})
 #' @param rect all rectangular elements (\code{element_rect})
@@ -220,7 +163,6 @@ print.theme <- function(x, ...) utils::str(x)
 #'
 #' @seealso
 #'   \code{\link{+.gg}} and \code{\link{\%+replace\%}},
-#'   \code{\link{rel}} for details of relative sizing,
 #'   \code{\link{element_blank}}, \code{\link{element_line}},
 #'   \code{\link{element_rect}}, and \code{\link{element_text}} for
 #'   details of the specific theme elements.
@@ -441,61 +383,16 @@ plot_theme <- function(x) {
   defaults(x$theme, theme_get())
 }
 
-
-.theme <- (function() {
-  theme <- theme_gray()
-
-  list(
-    get = function() theme,
-    set = function(new) {
-      missing <- setdiff(names(theme_gray()), names(new))
-      if (length(missing) > 0) {
-        warning("New theme missing the following elements: ",
-          paste(missing, collapse = ", "), call. = FALSE)
-      }
-
-      old <- theme
-      theme <<- new
-      invisible(old)
-    }
-  )
-})()
-
-
-#' @rdname theme_update
-#' @export
-theme_get <- .theme$get
-#' @rdname theme_update
-#' @param new new theme (a list of theme elements)
-#' @export
-theme_set <- .theme$set
-
-
-#' @rdname gg-add
-#' @export
-"%+replace%" <- function(e1, e2) {
-  if (!is.theme(e1) || !is.theme(e2)) {
-    stop("%+replace% requires two theme objects", call. = FALSE)
-  }
-
-  # Can't use modifyList here since it works recursively and drops NULLs
-  e1[names(e2)] <- e2
-  e1
-}
-
-
 #' Modify properties of an element in a theme object
 #'
 #' @param t1 A theme object
 #' @param t2 A theme object that is to be added to \code{t1}
 #' @param t2name A name of the t2 object. This is used for printing
 #'   informative error messages.
-#'
-#' @seealso +.gg
-#'
+#' @keywords internal
 add_theme <- function(t1, t2, t2name) {
   if (!is.theme(t2)) {
-    stop("Don't know how to add ", t2name, " to a theme object",
+    stop("Don't know how to add RHS to a theme object",
       call. = FALSE)
   }
 
@@ -586,6 +483,8 @@ update_theme <- function(oldtheme, newtheme) {
 #' @param element The name of the theme element to calculate
 #' @param theme A theme object (like theme_grey())
 #' @param verbose If TRUE, print out which elements this one inherits from
+#' @keywords internal
+#' @export
 #' @examples
 #' t <- theme_grey()
 #' calc_element('text', t)
@@ -599,8 +498,6 @@ update_theme <- function(oldtheme, newtheme) {
 #' t$axis.text.x
 #' t$axis.text
 #' t$text
-#'
-#' @export
 calc_element <- function(element, theme, verbose = FALSE) {
   if (verbose) message(element, " --> ", appendLF = FALSE)
 
@@ -670,3 +567,12 @@ combine_elements <- function(e1, e2) {
 
   e1
 }
+
+#' Reports whether x is a theme object
+#' @param x An object to test
+#' @export
+#' @keywords internal
+is.theme <- function(x) inherits(x, "theme")
+
+#' @export
+print.theme <- function(x, ...) utils::str(x)

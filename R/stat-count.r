@@ -1,6 +1,3 @@
-#' \code{stat_count} counts the number of cases at each x position. If you want
-#' to bin the data in ranges, you should use \code{\link{stat_bin}} instead.
-#'
 #' @section Computed variables:
 #' \describe{
 #'   \item{count}{number of points in bin}

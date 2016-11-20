@@ -1,12 +1,13 @@
 #' @include geom-.r
 NULL
 
-#' Annotation: Custom grob.
+#' Annotation: Custom grob
 #'
 #' This is a special geom intended for use as static annotations
 #' that are the same in every panel. These annotations will not
 #' affect scales (i.e. the x and y axes will not grow to cover the range
-#' of the grob, and the grob will not be modified by any ggplot settings or mappings).
+#' of the grob, and the grob will not be modified by any ggplot settings
+#' or mappings).
 #'
 #' Most useful for adding tables, inset plots, and other grid-based decorations.
 #'

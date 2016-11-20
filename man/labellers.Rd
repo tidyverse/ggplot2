@@ -7,7 +7,7 @@
 \alias{label_value}
 \alias{label_wrap_gen}
 \alias{labellers}
-\title{Labeller functions}
+\title{Useful labeller functions}
 \usage{
 label_value(labels, multi_line = TRUE)
 
