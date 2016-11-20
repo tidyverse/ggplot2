@@ -78,6 +78,9 @@ ggplot_build <- function(plot) {
   layout$train_position(data, scale_x(), scale_y())
   data <- layout$map_position(data)
 
+  # Order labels
+  layout$order_labels(plot)
+
   # Train and map non-position scales
   npscales <- scales$non_position_scales()
   if (npscales$n() > 0) {

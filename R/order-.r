@@ -67,13 +67,21 @@ Order <- ggproto("Order", NULL,
     return(data)
   },
 
-  order_scales = function(self, scales) {
-    if (length(self$order_map) == 0) stop("order_scales cannot be executed before train_data or order_data")
+  order_scales = function(self, panel_scales) {
+    if (length(self$order_map) == 0) return(panel_scales)
     order_map <- lapply(self$order_map, unique_order)
 
+    if ("x" %in% names(order_map)) {
+      panel_scales$x[[1]]$range$range[order_map$x$new] <-
+        panel_scales$x[[1]]$range$range[order_map$x$old]
+    }
 
-    ## NOT READY
-    return(order_map)
+    if ("y" %in% names(order_map)) {
+      panel_scales$y[[1]]$range$range[order_map$y$new] <-
+        panel_scales$y[[1]]$range$range[order_map$y$old]
+    }
+
+    panel_scales
   }
 
 )

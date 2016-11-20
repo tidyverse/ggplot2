@@ -184,6 +184,18 @@ Layout <- ggproto("Layout", NULL,
     })
     names(label_grobs) <- names(labels)
     label_grobs
+  },
+
+  order_labels = function(self, plot) {
+
+    ## FIX: This is a bit of a hack. More to get idea down
+
+    if (is.null(plot$order)) return()
+    order <- plot$order
+
+    self$panel_scales <- order$order_scales(self$panel_scales)
+
+    invisible()
   }
 )
 
