@@ -459,7 +459,7 @@ There is now an official mechanism for defining Stats, Geoms, and Positions in o
   or stat, use `ggplot()` instead.
 
 * The theme setting `axis.ticks.margin` has been deprecated: now use the margin 
-  property of `axis.ticks`.
+  property of `axis.text`.
   
 * `stat_abline()`, `stat_hline()` and `stat_vline()` have been removed:
   these were never suitable for use other than with `geom_abline()` etc
