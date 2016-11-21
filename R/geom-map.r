@@ -1,18 +1,19 @@
 #' @include geom-polygon.r
 NULL
 
-#' Polygons from a reference map.
+#' Polygons from a reference map
 #'
-#' Does not affect position scales.
+#' This is pure annotation, so does not affect position scales.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "map")}
+#' \aesthetics{geom}{map}
 #'
 #' @export
 #' @param map Data frame that contains the map coordinates.  This will
 #'   typically be created using \code{\link{fortify}} on a spatial object.
 #'   It must contain columns \code{x} or \code{long}, \code{y} or
 #'   \code{lat}, and \code{region} or \code{id}.
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @examples
 #' # When using geom_polygon, you will typically need two data frames:
@@ -35,7 +36,8 @@ NULL
 #'   2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
 #' )
 #'
-#' ggplot(values) + geom_map(aes(map_id = id), map = positions) +
+#' ggplot(values) +
+#'   geom_map(aes(map_id = id), map = positions) +
 #'   expand_limits(positions)
 #' ggplot(values, aes(fill = value)) +
 #'   geom_map(aes(map_id = id), map = positions) +
@@ -59,9 +61,13 @@ NULL
 #'     expand_limits(x = states_map$long, y = states_map$lat) +
 #'     facet_wrap( ~ variable)
 #' }
-geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
-  show.legend = NA, inherit.aes = TRUE, ...)
-{
+geom_map <- function(mapping = NULL, data = NULL,
+                     stat = "identity",
+                     ...,
+                     map,
+                     na.rm = FALSE,
+                     show.legend = NA,
+                     inherit.aes = TRUE) {
   # Get map input into correct form
   stopifnot(is.data.frame(map))
   if (!is.null(map$lat)) map$y <- map$lat
@@ -79,6 +85,7 @@ geom_map <- function(mapping = NULL, data = NULL, map, stat = "identity",
     inherit.aes = inherit.aes,
     params = list(
       map = map,
+      na.rm = na.rm,
       ...
     )
   )

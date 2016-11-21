@@ -1,8 +1,8 @@
-context("stat_density2d")
+context("stat_density_2d")
 
 test_that("uses scale limits, not data limits", {
   base <- ggplot(mtcars, aes(wt, mpg)) +
-    stat_density2d() +
+    stat_density_2d() +
     scale_x_continuous(limits = c(1, 6)) +
     scale_y_continuous(limits = c(5, 40))
 

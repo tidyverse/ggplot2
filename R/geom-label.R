@@ -2,11 +2,19 @@
 #' @rdname geom_text
 #' @param label.padding Amount of padding around label. Defaults to 0.25 lines.
 #' @param label.r Radius of rounded corners. Defaults to 0.15 lines.
-geom_label <- function(mapping = NULL, data = NULL, stat = "identity",
-                       position = "identity", parse = FALSE, show.legend = NA,
-                       inherit.aes = TRUE, ..., nudge_x = 0, nudge_y = 0,
+#' @param label.size Size of label border, in mm.
+geom_label <- function(mapping = NULL, data = NULL,
+                       stat = "identity", position = "identity",
+                       ...,
+                       parse = FALSE,
+                       nudge_x = 0,
+                       nudge_y = 0,
                        label.padding = unit(0.25, "lines"),
-                       label.r = unit(0.15, "lines")) {
+                       label.r = unit(0.15, "lines"),
+                       label.size = 0.25,
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
@@ -27,6 +35,8 @@ geom_label <- function(mapping = NULL, data = NULL, stat = "identity",
       parse = parse,
       label.padding = label.padding,
       label.r = label.r,
+      label.size = label.size,
+      na.rm = na.rm,
       ...
     )
   )
@@ -49,10 +59,11 @@ GeomLabel <- ggproto("GeomLabel", Geom,
   draw_panel = function(self, data, panel_scales, coord, parse = FALSE,
                         na.rm = FALSE,
                         label.padding = unit(0.25, "lines"),
-                        label.r = unit(0.15, "lines")) {
+                        label.r = unit(0.15, "lines"),
+                        label.size = 0.25) {
     lab <- data$label
     if (parse) {
-      lab <- parse(text = lab)
+      lab <- parse(text = as.character(lab))
     }
 
     data <- coord$transform(data, panel_scales)
@@ -80,7 +91,8 @@ GeomLabel <- ggproto("GeomLabel", Geom,
         ),
         rect.gp = gpar(
           col = row$colour,
-          fill = alpha(row$fill, row$alpha)
+          fill = alpha(row$fill, row$alpha),
+          lwd = label.size * .pt
         )
       )
     })

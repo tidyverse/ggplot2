@@ -1,7 +1,5 @@
 #' @rdname geom_boxplot
 #' @param coef length of the whiskers as multiple of IQR.  Defaults to 1.5
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @inheritParams stat_identity
 #' @section Computed variables:
 #' \describe{
@@ -15,10 +13,13 @@
 #'   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 #' }
 #' @export
-stat_boxplot <- function(mapping = NULL, data = NULL, geom = "boxplot",
-  position = "dodge", na.rm = FALSE, coef = 1.5, show.legend = NA,
-  inherit.aes = TRUE, ...)
-{
+stat_boxplot <- function(mapping = NULL, data = NULL,
+                         geom = "boxplot", position = "dodge",
+                         ...,
+                         coef = 1.5,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -45,7 +46,14 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
   non_missing_aes = "weight",
 
   setup_params = function(data, params) {
-    params$width <- params$width %||% resolution(data$x) * 0.75
+    params$width <- params$width %||% (resolution(data$x) * 0.75)
+
+    if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
+      warning(
+        "Continuous x aesthetic -- did you forget aes(group=...)?",
+        call. = FALSE)
+    }
+
     params
   },
 

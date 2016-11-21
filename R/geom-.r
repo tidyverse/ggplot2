@@ -54,23 +54,33 @@ NULL
 Geom <- ggproto("Geom",
   required_aes = character(),
   non_missing_aes = character(),
+  optional_aes = character(),
 
   default_aes = aes(),
 
   draw_key = draw_key_point,
 
-  draw_layer = function(self, data, params, panel, coord) {
-    data <- remove_missing(data, isTRUE(params$na.rm),
+  handle_na = function(self, data, params) {
+    remove_missing(data, params$na.rm,
       c(self$required_aes, self$non_missing_aes),
       snake_class(self)
     )
-    if (empty(data)) return(list(zeroGrob()))
+  },
+
+  draw_layer = function(self, data, params, layout, coord) {
+    if (empty(data)) {
+      n <- if (is.factor(data$PANEL)) nlevels(data$PANEL) else 1L
+      return(rep(list(zeroGrob()), n))
+    }
+
+    # Trim off extra parameters
+    params <- params[intersect(names(params), self$parameters())]
 
     args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
     plyr::dlply(data, "PANEL", function(data) {
       if (empty(data)) return(zeroGrob())
 
-      panel_scales <- panel$ranges[[data$PANEL[1]]]
+      panel_scales <- layout$panel_ranges[[data$PANEL[1]]]
       do.call(self$draw_panel, args)
     }, .drop = FALSE)
   },
@@ -96,7 +106,11 @@ Geom <- ggproto("Geom",
   use_defaults = function(self, data, params = list()) {
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
-    data[missing_aes] <- self$default_aes[missing_aes]
+    if (empty(data)) {
+      data <- plyr::quickdf(self$default_aes[missing_aes])
+    } else {
+      data[missing_aes] <- self$default_aes[missing_aes]
+    }
 
     # Override mappings with params
     aes_params <- intersect(self$aesthetics(), names(params))
@@ -105,7 +119,14 @@ Geom <- ggproto("Geom",
     data
   },
 
-  parameters = function(self) {
+  # Most parameters for the geom are taken automatically from draw_panel() or
+  # draw_groups(). However, some additional parameters may be needed
+  # for setup_data() or handle_na(). These can not be imputed automatically,
+  # so the slightly hacky "extra_params" field is used instead. By
+  # default it contains `na.rm`
+  extra_params = c("na.rm"),
+
+  parameters = function(self, extra = FALSE) {
     # Look first in draw_panel. If it contains ... then look in draw groups
     panel_args <- names(ggproto_formals(self$draw_panel))
     group_args <- names(ggproto_formals(self$draw_group))
@@ -114,11 +135,14 @@ Geom <- ggproto("Geom",
     # Remove arguments of defaults
     args <- setdiff(args, names(ggproto_formals(Geom$draw_group)))
 
+    if (extra) {
+      args <- union(args, self$extra_params)
+    }
     args
   },
 
   aesthetics = function(self) {
-    c(union(self$required_aes, names(self$default_aes)), "group")
+    c(union(self$required_aes, names(self$default_aes)), self$optional_aes, "group")
   }
 
 )
@@ -130,6 +154,8 @@ Geom <- ggproto("Geom",
 #' that grid uses internally for \code{lwd} and \code{fontsize}.
 #'
 #' @name graphical-units
+#' @keywords internal
+#' @aliases NULL
 NULL
 
 #' @export

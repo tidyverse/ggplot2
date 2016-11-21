@@ -1,9 +1,11 @@
 #' Quick plot
 #'
-#' \code{qplot} is the basic plotting function in the ggplot2 package,
-#' designed to be familiar if you're used to base \code{\link{plot}()}.
-#' It's a convenient wrapper for creating a number of different types of plots
-#' using a consistent calling scheme.
+#' \code{qplot} is a shortcut designed to be familiar if you're used to base
+#' \code{\link{plot}()}. It's a convenient wrapper for creating a number of
+#' different types of plots using a consistent calling scheme. It's great
+#' for allowing you to produce plots quickly, but I highly recommend
+#' learning \code{\link{ggplot}()} as it makes it easier to create
+#' complex graphics.
 #'
 #' @param x,y,... Aesthetics passed into each layer
 #' @param data Data frame to use (optional).  If not specified, will create
@@ -31,7 +33,7 @@
 #' \donttest{
 #' qplot(1:10, rnorm(10), colour = runif(10))
 #' qplot(1:10, letters[1:10])
-#' mod <- lm(mpg ~ wt, data=mtcars)
+#' mod <- lm(mpg ~ wt, data = mtcars)
 #' qplot(resid(mod), fitted(mod))
 #'
 #' f <- function() {
@@ -57,7 +59,7 @@
 #' qplot(factor(cyl), wt, data = mtcars, geom = c("boxplot", "jitter"))
 #' qplot(mpg, data = mtcars, geom = "dotplot")
 #' }
-qplot <- function(x, y = NULL, ..., data, facets = NULL, margins=FALSE,
+qplot <- function(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
                   geom = "auto", xlim = c(NA, NA),
                   ylim = c(NA, NA), log = "", main = NULL,
                   xlab = deparse(substitute(x)), ylab = deparse(substitute(y)),

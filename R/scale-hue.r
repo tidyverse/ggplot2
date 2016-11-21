@@ -1,4 +1,8 @@
-#' Qualitative colour scale with evenly spaced hues.
+#' Evenly spaced colours for discrete data
+#'
+#' This is the default colour scale for categorical variables. It maps each
+#' level to an evenly spaced hue on the colour wheel. It does not generate
+#' colour-blind safe palettes.
 #'
 #' @param na.value Colour to use for missing values
 #' @param ... Other arguments passed on to \code{\link{discrete_scale}}
@@ -6,10 +10,7 @@
 #' @inheritParams scales::hue_pal
 #' @rdname scale_hue
 #' @export
-#' @seealso Other colour scales:
-#'   \code{\link{scale_colour_brewer}},
-#'   \code{\link{scale_colour_gradient}},
-#'   \code{\link{scale_colour_grey}}
+#' @family colour scales
 #' @examples
 #' \donttest{
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -21,16 +22,16 @@
 #' d + scale_colour_hue(expression(clarity[beta]))
 #'
 #' # Adjust luminosity and chroma
-#' d + scale_colour_hue(l=40, c=30)
-#' d + scale_colour_hue(l=70, c=30)
-#' d + scale_colour_hue(l=70, c=150)
-#' d + scale_colour_hue(l=80, c=150)
+#' d + scale_colour_hue(l = 40, c = 30)
+#' d + scale_colour_hue(l = 70, c = 30)
+#' d + scale_colour_hue(l = 70, c = 150)
+#' d + scale_colour_hue(l = 80, c = 150)
 #'
 #' # Change range of hues used
-#' d + scale_colour_hue(h=c(0, 90))
-#' d + scale_colour_hue(h=c(90, 180))
-#' d + scale_colour_hue(h=c(180, 270))
-#' d + scale_colour_hue(h=c(270, 360))
+#' d + scale_colour_hue(h = c(0, 90))
+#' d + scale_colour_hue(h = c(90, 180))
+#' d + scale_colour_hue(h = c(180, 270))
+#' d + scale_colour_hue(h = c(270, 360))
 #'
 #' # Vary opacity
 #' # (only works with pdf, quartz and cairo devices)

@@ -1,12 +1,18 @@
-#' Polygon, a filled path.
+#' Polygons
+#'
+#' Polygons are very similar to paths (as drawn by \code{\link{geom_path}})
+#' except that the start and end points are connected and the inside is
+#' coloured by \code{fill}. The \code{group} aesthetic determines which cases
+#' are connected together into a polygon.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "polygon")}
+#' \aesthetics{geom}{polygon}
 #'
 #' @seealso
 #'  \code{\link{geom_path}} for an unfilled polygon,
 #'  \code{\link{geom_ribbon}} for a polygon anchored on the x-axis
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @examples
 #' # When using geom_polygon, you will typically need two data frames:
@@ -30,9 +36,11 @@
 #' )
 #'
 #' # Currently we need to manually merge the two together
-#' datapoly <- merge(values, positions, by=c("id"))
+#' datapoly <- merge(values, positions, by = c("id"))
 #'
-#' (p <- ggplot(datapoly, aes(x=x, y=y)) + geom_polygon(aes(fill=value, group=id)))
+#' p <- ggplot(datapoly, aes(x = x, y = y)) +
+#'   geom_polygon(aes(fill = value, group = id))
+#' p
 #'
 #' # Which seems like a lot of work, but then it's easy to add on
 #' # other features in this coordinate system, e.g.:
@@ -42,13 +50,16 @@
 #'   y = cumsum(runif(50,max = 0.1))
 #' )
 #'
-#' p + geom_line(data = stream, colour="grey30", size = 5)
+#' p + geom_line(data = stream, colour = "grey30", size = 5)
 #'
 #' # And if the positions are in longitude and latitude, you can use
 #' # coord_map to produce different map projections.
-geom_polygon <- function(mapping = NULL, data = NULL, stat = "identity",
-                         position = "identity", show.legend = NA,
-                         inherit.aes = TRUE, ...) {
+geom_polygon <- function(mapping = NULL, data = NULL,
+                         stat = "identity", position = "identity",
+                         ...,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -57,7 +68,10 @@ geom_polygon <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 
@@ -95,6 +109,10 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 
   default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,
     alpha = NA),
+
+  handle_na = function(data, params) {
+    data
+  },
 
   required_aes = c("x", "y"),
 

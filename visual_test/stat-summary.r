@@ -5,9 +5,6 @@ ggplot(mtcars, aes(x = cyl, y = mpg, colour = factor(vs))) +
   stat_summary(fun.y = mean, geom = "line", size = 2)
 save_vtest("summary with color and lines")
 
-# It is not possible to make this behave as expected without breaking the
-# summary with color and lines, because of the way grouping works with
-# stat_summary.
 ggplot(mtcars, aes(x = cyl, y = mpg)) +
   geom_point() +
   stat_summary(
@@ -16,7 +13,7 @@ ggplot(mtcars, aes(x = cyl, y = mpg)) +
     geom = "crossbar",
     width = 0.2
   )
-save_vtest("summary with crossbars, no grouping (looks wrong)")
+save_vtest("summary with crossbars, no grouping")
 
 ggplot(mtcars, aes(x = cyl, y = mpg, group = cyl)) +
   geom_point() +

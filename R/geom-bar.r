@@ -1,35 +1,41 @@
-#' Bars, rectangles with bases on x-axis
+#' Bars charts
 #'
-#' There are two types of bar charts, determined by what is mapped to bar
-#' height. By default, \code{geom_bar} uses \code{stat = "bar"} which makes the
-#' height of the bar proportion to the number of cases in each group (or
-#' if the \code{weight} aethetic is supplied, the sum of the weights).
-#  If you want the heights of the bars to represent values in the data, use
-#' \code{stat="identity"} and map a variable to the \code{y} aesthetic.
+#' There are two types of bar charts: \code{geom_bar} makes the height of the
+#' bar proportional to the number of cases in each group (or if the
+#' \code{weight} aethetic is supplied, the sum of the weights). If you want the
+#' heights of the bars to represent values in the data, use
+#' \link{geom_col} instead. \code{geom_bar} uses \code{stat_count} by
+#' default: it counts the  number of cases at each x position. \code{geom_col}
+#' uses \code{stat_identity}: it leaves the data as is.
 #'
-#' A bar chart maps the height of the bar to a variable, and so the base of
-#' the bar must always be shown to produce a valid visual comparison.
-#' Naomi Robbins has a nice
-#' \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this topic}.
-#' This is why it doesn't make sense to use a log-scaled y axis with a bar chart.
+#' A bar chart uses height to represent a value, and so the base of the
+#' bar must always be shown to produce a valid visual comparison. Naomi Robbins
+#' has a nice
+#' \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this
+#' topic}. This is why it doesn't make sense to use a log-scaled y axis with a
+#' bar chart.
 #'
-#' By default, multiple x's occurring in the same place will be stacked atop
-#' one another by \code{\link{position_stack}}. If you want them to be dodged
-#' side-to-side, see \code{\link{position_dodge}}. Finally,
-#' \code{\link{position_fill}} shows relative proportions at each x by stacking
-#' the bars and then stretching or squashing to the same height.
+#' By default, multiple bar occupying the same \code{x} position will be
+#' stacked atop one another by \code{\link{position_stack}}. If you want them
+#' to be dodged side-to-side, use \code{\link{position_dodge}}. Finally,
+#' \code{\link{position_fill}} shows relative proportions at each \code{x} by
+#' stacking the bars and then standardising each bar to have the same height.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "bar")}
+#' \aesthetics{geom}{bar}
 #'
-#' @seealso \code{\link{geom_histogram}} for continuous data,
+#' @seealso
+#'   \code{\link{geom_histogram}} for continuous data,
 #'   \code{\link{position_dodge}} for creating side-by-side barcharts.
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
-#' @param width Bar width. By default, set of 90% of the resolution of the
-#'   data.
+#' @param width Bar width. By default, set to 90\% of the resolution of the data.
+#' @param binwidth \code{geom_bar} no longer has a binwidth argument - if
+#'   you use it you'll get an warning telling to you use
+#'   \code{\link{geom_histogram}} instead.
 #' @param geom,stat Override the default connection between \code{geom_bar} and
-#'   \code{stat_bar}.
+#'   \code{stat_count}.
 #' @examples
 #' # geom_bar is designed to make it easy to create bar charts that show
 #' # counts (or sums of weights)
@@ -39,11 +45,12 @@
 #' # Total engine displacement of each class
 #' g + geom_bar(aes(weight = displ))
 #'
-#' # To show (e.g.) means, you need stat = "identity"
+#' # To show (e.g.) means, you need geom_col()
+#' # And, even more succinctly with geom_col()
 #' df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
 #' ggplot(df, aes(trt, outcome)) +
-#'   geom_bar(stat = "identity")
-#' # But geom_point() display exactly the same information and doesn't
+#'   geom_col()
+#' # But geom_point() displays exactly the same information and doesn't
 #' # require the y-axis to touch zero.
 #' ggplot(df, aes(trt, outcome)) +
 #'   geom_point()
@@ -70,9 +77,23 @@
 #' }
 #' ggplot(mpg, aes(reorder_size(class))) + geom_bar()
 #' }
-geom_bar <- function(mapping = NULL, data = NULL, stat = "bar",
-                     position = "stack", width = NULL, ...,
-                     show.legend = NA, inherit.aes = TRUE) {
+geom_bar <- function(mapping = NULL, data = NULL,
+                     stat = "count", position = "stack",
+                     ...,
+                     width = NULL,
+                     binwidth = NULL,
+                     na.rm = FALSE,
+                     show.legend = NA,
+                     inherit.aes = TRUE) {
+
+  if (!is.null(binwidth)) {
+    warning("`geom_bar()` no longer has a `binwidth` parameter. ",
+      "Please use `geom_histogram()` instead.", call. = "FALSE")
+    return(geom_histogram(mapping = mapping, data = data,
+      position = position, width = width, binwidth = binwidth, ...,
+      na.rm = na.rm, show.legend = show.legend, inherit.aes = inherit.aes))
+  }
+
   layer(
     data = data,
     mapping = mapping,
@@ -83,6 +104,7 @@ geom_bar <- function(mapping = NULL, data = NULL, stat = "bar",
     inherit.aes = inherit.aes,
     params = list(
       width = width,
+      na.rm = na.rm,
       ...
     )
   )
@@ -94,7 +116,7 @@ geom_bar <- function(mapping = NULL, data = NULL, stat = "bar",
 #' @export
 #' @include geom-rect.r
 GeomBar <- ggproto("GeomBar", GeomRect,
-  required_aes = "x",
+  required_aes = c("x", "y"),
 
   setup_data = function(data, params) {
     data$width <- data$width %||%
@@ -108,63 +130,5 @@ GeomBar <- ggproto("GeomBar", GeomRect,
   draw_panel = function(self, data, panel_scales, coord, width = NULL) {
     # Hack to ensure that width is detected as a parameter
     ggproto_parent(GeomRect, self)$draw_panel(data, panel_scales, coord)
-  }
-)
-
-#' @export
-#' @rdname geom_bar
-#' @section Computed variables:
-#' \describe{
-#'   \item{count}{number of points in bin}
-#'   \item{prop}{groupwise proportion}
-#' }
-stat_bar <- function(mapping = NULL, data = NULL, geom = "bar",
-                     position = "stack", width = NULL, ...,
-                     show.legend = NA, inherit.aes = TRUE) {
-  layer(
-    data = data,
-    mapping = mapping,
-    stat = StatBar,
-    geom = geom,
-    position = position,
-    show.legend = show.legend,
-    inherit.aes = inherit.aes,
-    params = list(
-      width = width,
-      ...
-    )
-  )
-}
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-#' @include stat-.r
-StatBar <- ggproto("StatBar", Stat,
-  required_aes = "x",
-  default_aes = aes(y = ..count..),
-
-  setup_params = function(data, params) {
-    if (!is.null(data$y) || !is.null(params$y)) {
-      stop("stat_bar() must not be used with a y aesthetic.", call. = FALSE)
-    }
-    params
-  },
-
-  compute_group = function(self, data, scales, width = NULL) {
-    x <- data$x
-    weight <- data$weight %||% rep(1, length(x))
-    width <- width %||% (resolution(x) * 0.9)
-
-    count <- as.numeric(tapply(weight, x, sum, na.rm = TRUE))
-    count[is.na(count)] <- 0
-
-    data.frame(
-      count = count,
-      prop = count / sum(abs(count)),
-      x = unique(x),
-      width = width
-    )
   }
 )

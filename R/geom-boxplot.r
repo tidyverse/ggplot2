@@ -1,38 +1,43 @@
-#' Box and whiskers plot.
+#' A box and whiskers plot (in the style of Tukey)
 #'
-#' The lower and upper "hinges" correspond to the first and third quartiles
+#' The boxplot compactly displays the distribution of a continuous variable.
+#' It visualises five summary statistics (the median, two hinges
+#' and two whiskers), and all "outlying" points individually.
+#'
+#' @section Summary statistics:
+#' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
 #' by the \code{boxplot} function, and may be apparent with small samples.
 #' See \code{\link{boxplot.stats}} for for more information on how hinge
 #' positions are calculated for \code{boxplot}.
 #'
-#' The upper whisker extends from the hinge to the highest value that is within
-#' 1.5 * IQR of the hinge, where IQR is the inter-quartile range, or distance
-#' between the first and third quartiles. The lower whisker extends from the
-#' hinge to the lowest value within 1.5 * IQR of the hinge. Data beyond the
-#' end of the whiskers are outliers and plotted as points (as specified by Tukey).
+#' The upper whisker extends from the hinge to the largest value no further than
+#' 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
+#' between the first and third quartiles). The lower whisker extends from the
+#' hinge to the smallest value at most 1.5 * IQR of the hinge. Data beyond the
+#' end of the whiskers are called "outlying" points and are plotted
+#' individually.
 #'
 #' In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
-#' This gives a roughly 95% confidence interval for comparing medians.
+#' This gives a roughly 95\% confidence interval for comparing medians.
 #' See McGill et al. (1978) for more details.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "boxplot")}
+#' \aesthetics{geom}{boxplot}
 #'
-#' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
-#'   continuous variable, \code{\link{geom_jitter}} for another way to look
-#'   at conditional distributions.
+#' @seealso \code{\link{geom_quantile}} for continuous x,
+#'   \code{\link{geom_violin}} for a richer display of the distribution, and
+#'   \code{\link{geom_jitter}} for a useful technique for small data.
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot} and \code{stat_boxplot}.
-#' @param outlier.colour Override aesthetics used for the outliers. Defaults
-#'   come from \code{geom_point()}.
-#' @param outlier.shape Override aesthetics used for the outliers. Defaults
-#'   come from \code{geom_point()}.
-#' @param outlier.size Override aesthetics used for the outliers. Defaults
-#'   come from \code{geom_point()}.
-#' @param outlier.stroke Override aesthetics used for the outliers. Defaults
-#'   come from \code{geom_point()}.
+#' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
+#'   Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+#'   aesthetics used for the box.
+#'
+#'   In the unlikely event you specify both US and UK spellings of colour, the
+#'   US spelling will take precedence.
 #' @param notch if \code{FALSE} (default) make a standard box plot. If
 #'   \code{TRUE}, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
@@ -55,10 +60,12 @@
 #' p + geom_boxplot(notch = TRUE)
 #' p + geom_boxplot(varwidth = TRUE)
 #' p + geom_boxplot(fill = "white", colour = "#3366FF")
+#' # By default, outlier points match the colour of the box. Use
+#' # outlier.colour to override
 #' p + geom_boxplot(outlier.colour = "red", outlier.shape = 1)
 #'
 #' # Boxplots are automatically dodged when any aesthetic is a factor
-#' p + geom_boxplot(aes(fill = drv))
+#' p + geom_boxplot(aes(colour = drv))
 #'
 #' # You can also use boxplots with continuous x, as long as you supply
 #' # a grouping variable. cut_width is particularly useful
@@ -66,6 +73,8 @@
 #'   geom_boxplot()
 #' ggplot(diamonds, aes(carat, price)) +
 #'   geom_boxplot(aes(group = cut_width(carat, 0.25)))
+#' ggplot(diamonds, aes(carat, price)) +
+#'   geom_boxplot(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 #'
 #' \donttest{
 #' # It's possible to draw a boxplot with your own computations if you
@@ -85,11 +94,22 @@
 #'    stat = "identity"
 #'  )
 #' }
-geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge", outlier.colour = "black", outlier.shape = 19,
-  outlier.size = 1.5, outlier.stroke = 0.5, notch = FALSE, notchwidth = 0.5,
-  varwidth = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
-{
+geom_boxplot <- function(mapping = NULL, data = NULL,
+                         stat = "boxplot", position = "dodge",
+                         ...,
+                         outlier.colour = NULL,
+                         outlier.color = NULL,
+                         outlier.fill = NULL,
+                         outlier.shape = 19,
+                         outlier.size = 1.5,
+                         outlier.stroke = 0.5,
+                         outlier.alpha = NULL,
+                         notch = FALSE,
+                         notchwidth = 0.5,
+                         varwidth = FALSE,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -99,13 +119,16 @@ geom_boxplot <- function(mapping = NULL, data = NULL, stat = "boxplot",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
-      outlier.colour = outlier.colour,
+      outlier.colour = outlier.color %||% outlier.colour,
+      outlier.fill = outlier.fill,
       outlier.shape = outlier.shape,
       outlier.size = outlier.size,
       outlier.stroke = outlier.stroke,
+      outlier.alpha = outlier.alpha,
       notch = notch,
       notchwidth = notchwidth,
       varwidth = varwidth,
+      na.rm = na.rm,
       ...
     )
   )
@@ -147,9 +170,12 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   },
 
   draw_group = function(data, panel_scales, coord, fatten = 2,
-                        outlier.colour = "black", outlier.shape = 19,
+                        outlier.colour = NULL, outlier.fill = NULL,
+                        outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
+                        outlier.alpha = NULL,
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
+
     common <- data.frame(
       colour = data$colour,
       size = data$size,
@@ -188,11 +214,12 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         y = data$outliers[[1]],
         x = data$x[1],
         colour = outlier.colour %||% data$colour[1],
+        fill = outlier.fill %||% data$fill[1],
         shape = outlier.shape %||% data$shape[1],
         size = outlier.size %||% data$size[1],
         stroke = outlier.stroke %||% data$stroke[1],
         fill = NA,
-        alpha = NA,
+        alpha = outlier.alpha %||% data$alpha[1],
         stringsAsFactors = FALSE
       )
       outliers_grob <- GeomPoint$draw_panel(outliers, panel_scales, coord)
@@ -210,8 +237,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   draw_key = draw_key_boxplot,
 
   default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
-    alpha = NA, shape = 19, linetype = "solid", outlier.colour = "black",
-    outlier.shape = 19, outlier.size = 1.5, outlier.stroke = 0.5),
+    alpha = NA, shape = 19, linetype = "solid"),
 
   required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
 )

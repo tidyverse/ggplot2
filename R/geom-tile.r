@@ -1,15 +1,16 @@
-#' Draw rectangles.
+#' Rectangles
 #'
 #' \code{geom_rect} and \code{geom_tile} do the same thing, but are
-#' parameterised differently. \code{geom_rect} uses the locations of the four
-#' corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}).
+#' parameterised differently: \code{geom_rect} uses the locations of the four
+#' corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
 #' \code{geom_tile} uses the center of the tile and its size (\code{x},
 #' \code{y}, \code{width}, \code{height}). \code{geom_raster} is a high
 #' performance special case for when all the tiles are the same size.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "tile")}
+#' \aesthetics{geom}{tile}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -55,9 +56,12 @@
 #' cars + stat_density(aes(fill = ..density..), geom = "raster", position = "identity")
 #' cars + stat_density(aes(fill = ..count..), geom = "raster", position = "identity")
 #' }
-geom_tile <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", show.legend = NA,
-                      inherit.aes = TRUE, ...) {
+geom_tile <- function(mapping = NULL, data = NULL,
+                      stat = "identity", position = "identity",
+                      ...,
+                      na.rm = FALSE,
+                      show.legend = NA,
+                      inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -66,7 +70,10 @@ geom_tile <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 
@@ -76,6 +83,8 @@ geom_tile <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @export
 #' @include geom-rect.r
 GeomTile <- ggproto("GeomTile", GeomRect,
+  extra_params = c("na.rm", "width", "height"),
+
   setup_data = function(data, params) {
     data$width <- data$width %||% params$width %||% resolution(data$x, FALSE)
     data$height <- data$height %||% params$height %||% resolution(data$y, FALSE)
@@ -91,5 +100,5 @@ GeomTile <- ggproto("GeomTile", GeomRect,
 
   required_aes = c("x", "y"),
 
-  draw_key = draw_key_rect
+  draw_key = draw_key_polygon
 )

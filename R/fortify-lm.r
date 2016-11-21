@@ -3,7 +3,6 @@
 #' If you have missing values in your model data, you may need to refit
 #' the model with \code{na.action = na.exclude}.
 #'
-#'
 #' @return The original data with extra columns:
 #'   \item{.hat}{Diagonal of the hat matrix}
 #'   \item{.sigma}{Estimate of residual standard deviation when
@@ -15,6 +14,7 @@
 #' @param model linear model
 #' @param data data set, defaults to data used to fit model
 #' @param ... not used by this method
+#' @keywords internal
 #' @export
 #' @examples
 #' mod <- lm(mpg ~ wt, data = mtcars)
@@ -51,7 +51,7 @@
 #'
 #' plot(mod, which = 4)
 #' ggplot(mod, aes(seq_along(.cooksd), .cooksd)) +
-#'   geom_bar(stat = "identity")
+#'   geom_col()
 #'
 #' plot(mod, which = 5)
 #' ggplot(mod, aes(.hat, .stdresid)) +

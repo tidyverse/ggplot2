@@ -1,10 +1,9 @@
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @inheritParams stat_density
-#' @inheritParams stat_identity
 #' @param scale if "area" (default), all violins have the same area (before trimming
 #'   the tails). If "count", areas are scaled proportionally to the number of
 #'   observations. If "width", all violins have the same maximum width.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning. If \code{TRUE} silently removes missing values.
 #' @section Computed variables:
 #' \describe{
 #'   \item{density}{density estimate}
@@ -19,10 +18,17 @@
 #'   for examples with data along the x axis.
 #' @export
 #' @rdname geom_violin
-stat_ydensity <- function(mapping = NULL, data = NULL, geom = "violin",
-                          position = "dodge", adjust = 1, kernel = "gaussian",
-                          trim = TRUE, scale = "area", na.rm = FALSE,
-                          show.legend = NA, inherit.aes = TRUE, ...) {
+stat_ydensity <- function(mapping = NULL, data = NULL,
+                          geom = "violin", position = "dodge",
+                          ...,
+                          bw = "nrd0",
+                          adjust = 1,
+                          kernel = "gaussian",
+                          trim = TRUE,
+                          scale = "area",
+                          na.rm = FALSE,
+                          show.legend = NA,
+                          inherit.aes = TRUE) {
   scale <- match.arg(scale, c("area", "count", "width"))
 
   layer(
@@ -34,6 +40,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL, geom = "violin",
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      bw = bw,
       adjust = adjust,
       kernel = kernel,
       trim = trim,
@@ -53,17 +60,14 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   required_aes = c("x", "y"),
   non_missing_aes = "weight",
 
-  compute_group = function(data, scales, width = NULL, adjust = 1,
+  compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE) {
     if (nrow(data) < 3) return(data.frame())
-
-    if (trim) {
-      range <- range(data$y, na.rm = TRUE)
-    } else {
-      range <- scales$y$dimension()
-    }
-    dens <- compute_density(data$y, data$w, from = range[1], to = range[2],
-      adjust = adjust, kernel = kernel)
+    range <- range(data$y, na.rm = TRUE)
+    modifier <- if (trim) 0 else 3
+    bw <- calc_bw(data$y, bw)
+    dens <- compute_density(data$y, data$w, from = range[1] - modifier*bw, to = range[2] + modifier*bw,
+      bw = bw, adjust = adjust, kernel = kernel)
 
     dens$y <- dens$x
     dens$x <- mean(range(data$x))
@@ -77,11 +81,11 @@ StatYdensity <- ggproto("StatYdensity", Stat,
     dens
   },
 
-  compute_panel = function(self, data, scales, width = NULL, adjust = 1,
+  compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                            kernel = "gaussian", trim = TRUE, na.rm = FALSE,
                            scale = "area") {
     data <- ggproto_parent(Stat, self)$compute_panel(
-      data, scales, width = width, adjust = adjust, kernel = kernel,
+      data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
       trim = trim, na.rm = na.rm
     )
 
@@ -100,3 +104,22 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   }
 
 )
+
+calc_bw <- function(x, bw) {
+  if (is.character(bw)) {
+    if (length(x) < 2)
+      stop("need at least 2 points to select a bandwidth automatically", call. = FALSE)
+    bw <- switch(
+      tolower(bw),
+      nrd0 = stats::bw.nrd0(x),
+      nrd = stats::bw.nrd(x),
+      ucv = stats::bw.ucv(x),
+      bcv = stats::bw.bcv(x),
+      sj = ,
+      `sj-ste` = stats::bw.SJ(x, method = "ste"),
+      `sj-dpi` = stats::bw.SJ(x, method = "dpi"),
+      stop("unknown bandwidth rule")
+    )
+  }
+  bw
+}

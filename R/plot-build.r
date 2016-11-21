@@ -3,12 +3,15 @@
 #' \code{ggplot_build} takes the plot object, and performs all steps necessary
 #' to produce an object that can be rendered.  This function outputs two pieces:
 #' a list of data frames (one for each layer), and a panel object, which
-#' contain all information about axis limits, breaks etc. \code{layer_data}
-#' is a helper function which returns the data for a given layer.
+#' contain all information about axis limits, breaks etc.
+#'
+#' \code{layer_data}, \code{layer_grob}, and \code{layer_scales} are helper
+#' functions that returns the data, grob, or scales associated with a given
+#' layer. These are useful for tests.
 #'
 #' @param plot ggplot object
 #' @seealso \code{\link{print.ggplot}} and \code{\link{benchplot}} for
-#'  for functions that contain the complete set of steps for generating
+#'  functions that contain the complete set of steps for generating
 #'  a ggplot2 plot.
 #' @keywords internal
 #' @export
@@ -19,7 +22,7 @@ ggplot_build <- function(plot) {
   }
 
   layers <- plot$layers
-  layer_data <- lapply(layers, function(y) y$data)
+  layer_data <- lapply(layers, function(y) y$layer_data(plot$data))
 
   scales <- plot$scales
   # Apply function to layer and matching data
@@ -34,9 +37,9 @@ ggplot_build <- function(plot) {
   # Initialise panels, add extra data for margins & missing facetting
   # variables, and add on a PANEL variable to data
 
-  panel <- new_panel()
-  panel <- train_layout(panel, plot$facet, layer_data, plot$data)
-  data <- map_layout(panel, plot$facet, layer_data, plot$data)
+  layout <- create_layout(plot$facet)
+  data <- layout$setup(layer_data, plot$data, plot$plot_env, plot$coordinates)
+  data <- layout$map(data)
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
@@ -49,11 +52,11 @@ ggplot_build <- function(plot) {
   scale_x <- function() scales$get_scales("x")
   scale_y <- function() scales$get_scales("y")
 
-  panel <- train_position(panel, data, scale_x(), scale_y())
-  data <- map_position(panel, data, scale_x(), scale_y())
+  layout$train_position(data, scale_x(), scale_y())
+  data <- layout$map_position(data)
 
   # Apply and map statistics
-  data <- by_layer(function(l, d) l$compute_statistic(d, panel))
+  data <- by_layer(function(l, d) l$compute_statistic(d, layout))
   data <- by_layer(function(l, d) l$map_statistic(d, plot))
 
   # Make sure missing (but required) aesthetics are added
@@ -63,14 +66,14 @@ ggplot_build <- function(plot) {
   data <- by_layer(function(l, d) l$compute_geom_1(d))
 
   # Apply position adjustments
-  data <- by_layer(function(l, d) l$compute_position(d, panel))
+  data <- by_layer(function(l, d) l$compute_position(d, layout))
 
   # Reset position scales, then re-train and map.  This ensures that facets
   # have control over the range of a plot: is it generated from what's
   # displayed, or does it include the range of underlying data
-  reset_scales(panel)
-  panel <- train_position(panel, data, scale_x(), scale_y())
-  data <- map_position(panel, data, scale_x(), scale_y())
+  layout$reset_scales()
+  layout$train_position(data, scale_x(), scale_y())
+  data <- layout$map_position(data)
 
   # Train and map non-position scales
   npscales <- scales$non_position_scales()
@@ -80,18 +83,46 @@ ggplot_build <- function(plot) {
   }
 
   # Train coordinate system
-  panel <- train_ranges(panel, plot$coordinates)
+  layout$train_ranges(plot$coordinates)
 
   # Fill in defaults etc.
   data <- by_layer(function(l, d) l$compute_geom_2(d))
 
-  list(data = data, panel = panel, plot = plot)
+  # Let layer stat have a final say before rendering
+  data <- by_layer(function(l, d) l$finish_statistics(d))
+
+  # Let Layout modify data before rendering
+  data <- layout$finish_data(data)
+
+  list(data = data, layout = layout, plot = plot)
 }
 
 #' @export
 #' @rdname ggplot_build
 layer_data <- function(plot, i = 1L) {
   ggplot_build(plot)$data[[i]]
+}
+
+#' @export
+#' @rdname ggplot_build
+layer_scales <- function(plot, i = 1L, j = 1L) {
+  b <- ggplot_build(plot)
+
+  layout <- b$layout$panel_layout
+  selected <- layout[layout$ROW == i & layout$COL == j, , drop = FALSE]
+
+  list(
+    x = b$layout$panel_scales$x[[selected$SCALE_X]],
+    y = b$layout$panel_scales$y[[selected$SCALE_Y]]
+  )
+}
+
+#' @export
+#' @rdname ggplot_build
+layer_grob <- function(plot, i = 1L) {
+  b <- ggplot_build(plot)
+
+  b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout, b$plot$coordinates)
 }
 
 #' Build a plot with all the usual bits and pieces.
@@ -112,47 +143,14 @@ layer_data <- function(plot, i = 1L) {
 #' @export
 ggplot_gtable <- function(data) {
   plot <- data$plot
-  panel <- data$panel
+  layout <- data$layout
   data <- data$data
   theme <- plot_theme(plot)
 
-  geom_grobs <- Map(function(l, d) l$draw_geom(d, panel, plot$coordinates),
+  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout, plot$coordinates),
     plot$layers, data)
 
-  plot_table <- facet_render(plot$facet, panel, plot$coordinates,
-    theme, geom_grobs)
-
-  # Axis labels
-  labels <- plot$coordinates$labels(list(
-    x = xlabel(panel, plot$labels),
-    y = ylabel(panel, plot$labels)
-  ))
-  xlabel <- element_render(theme, "axis.title.x", labels$x, expand_y = TRUE)
-  ylabel <- element_render(theme, "axis.title.y", labels$y, expand_x = TRUE)
-
-  # helper function return the position of panels in plot_table
-  find_panel <- function(table) {
-    layout <- table$layout
-    panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
-
-    data.frame(
-      t = min(panels$t),
-      r = max(panels$r),
-      b = max(panels$b),
-      l = min(panels$l)
-    )
-  }
-  panel_dim <-  find_panel(plot_table)
-
-  xlab_height <- grobHeight(xlabel)
-  plot_table <- gtable_add_rows(plot_table, xlab_height)
-  plot_table <- gtable_add_grob(plot_table, xlabel, name = "xlab",
-    l = panel_dim$l, r = panel_dim$r, t = -1, clip = "off")
-
-  ylab_width <- grobWidth(ylabel)
-  plot_table <- gtable_add_cols(plot_table, ylab_width, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, ylabel, name = "ylab",
-    l = 1, b = panel_dim$b, t = panel_dim$t, clip = "off")
+  plot_table <- layout$render(geom_grobs, data, plot$coordinates, theme, plot$labels)
 
   # Legends
   position <- theme$legend.position
@@ -170,8 +168,8 @@ ggplot_gtable <- function(data) {
     position <- "none"
   } else {
     # these are a bad hack, since it modifies the contents of viewpoint directly...
-    legend_width  <- gtable_width(legend_box)  + theme$legend.margin
-    legend_height <- gtable_height(legend_box) + theme$legend.margin
+    legend_width  <- gtable_width(legend_box)
+    legend_height <- gtable_height(legend_box)
 
     # Set the justification of the legend box
     # First value is xjust, second value is yjust
@@ -191,6 +189,10 @@ ggplot_gtable <- function(data) {
       # x and y are adjusted using justification of legend box (i.e., theme$legend.justification)
       legend_box <- editGrob(legend_box,
         vp = viewport(x = xjust, y = yjust, just = c(xjust, yjust)))
+      legend_box <- gtable_add_rows(legend_box, unit(yjust, 'null'))
+      legend_box <- gtable_add_rows(legend_box, unit(1 - yjust, 'null'), 0)
+      legend_box <- gtable_add_cols(legend_box, unit(xjust, 'null'), 0)
+      legend_box <- gtable_add_cols(legend_box, unit(1 - xjust, 'null'))
     }
   }
 
@@ -198,19 +200,24 @@ ggplot_gtable <- function(data) {
   # for align-to-device, use this:
   # panel_dim <-  summarise(plot_table$layout, t = min(t), r = max(r), b = max(b), l = min(l))
 
+  theme$legend.box.spacing <- theme$legend.box.spacing %||% unit(0.2, 'cm')
   if (position == "left") {
+    plot_table <- gtable_add_cols(plot_table, theme$legend.box.spacing, pos = 0)
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = 0)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = panel_dim$t, b = panel_dim$b, l = 1, r = 1, name = "guide-box")
   } else if (position == "right") {
+    plot_table <- gtable_add_cols(plot_table, theme$legend.box.spacing, pos = -1)
     plot_table <- gtable_add_cols(plot_table, legend_width, pos = -1)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = panel_dim$t, b = panel_dim$b, l = -1, r = -1, name = "guide-box")
   } else if (position == "bottom") {
+    plot_table <- gtable_add_rows(plot_table, theme$legend.box.spacing, pos = -1)
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = -1)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = -1, b = -1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
   } else if (position == "top") {
+    plot_table <- gtable_add_rows(plot_table, theme$legend.box.spacing, pos = 0)
     plot_table <- gtable_add_rows(plot_table, legend_height, pos = 0)
     plot_table <- gtable_add_grob(plot_table, legend_box, clip = "off",
       t = 1, b = 1, l = panel_dim$l, r = panel_dim$r, name = "guide-box")
@@ -225,12 +232,28 @@ ggplot_gtable <- function(data) {
   title <- element_render(theme, "plot.title", plot$labels$title, expand_y = TRUE)
   title_height <- grobHeight(title)
 
+  # Subtitle
+  subtitle <- element_render(theme, "plot.subtitle", plot$labels$subtitle, expand_y = TRUE)
+  subtitle_height <- grobHeight(subtitle)
+
+  # whole plot annotation
+  caption <- element_render(theme, "plot.caption", plot$labels$caption, expand_y = TRUE)
+  caption_height <- grobHeight(caption)
+
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), ,
     drop = FALSE]
+
+  plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)
+  plot_table <- gtable_add_grob(plot_table, subtitle, name = "subtitle",
+    t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
 
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, title, name = "title",
     t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
+
+  plot_table <- gtable_add_rows(plot_table, caption_height, pos = -1)
+  plot_table <- gtable_add_grob(plot_table, caption, name = "caption",
+    t = -1, b = -1, l = min(pans$l), r = max(pans$r), clip = "off")
 
   # Margins
   plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)

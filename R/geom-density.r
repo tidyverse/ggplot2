@@ -1,14 +1,16 @@
-#' Display a smooth density estimate.
+#' Smoothed density estimates
 #'
-#' A kernel density estimate, useful for display the distribution of variables
-#' with underlying smoothness.
+#' Computes and draws kernel density estimate, which is a smoothed version of
+#' the histogram. This is a useful alternative to the histogram if for continuous
+#' data that comes from an underlying smooth distribution.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "density")}
+#' \aesthetics{geom}{density}
 #'
 #' @seealso See \code{\link{geom_histogram}}, \code{\link{geom_freqpoly}} for
 #'   other methods of displaying continuous distribution.
 #'   See \code{\link{geom_violin}} for a compact density display.
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_density} and \code{stat_density}.
@@ -45,9 +47,12 @@
 #' ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
-geom_density <- function(mapping = NULL, data = NULL, stat = "density",
-  position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ...) {
+geom_density <- function(mapping = NULL, data = NULL,
+                         stat = "density", position = "identity",
+                         ...,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
 
   layer(
     data = data,
@@ -57,7 +62,10 @@ geom_density <- function(mapping = NULL, data = NULL, stat = "density",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(..., na.rm = na.rm)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

@@ -1,12 +1,13 @@
 #' @include geom-.r
 NULL
 
-#' Annotation: Custom grob.
+#' Annotation: Custom grob
 #'
 #' This is a special geom intended for use as static annotations
 #' that are the same in every panel. These annotations will not
 #' affect scales (i.e. the x and y axes will not grow to cover the range
-#' of the grob, and the grob will not be modified by any ggplot settings or mappings).
+#' of the grob, and the grob will not be modified by any ggplot settings
+#' or mappings).
 #'
 #' Most useful for adding tables, inset plots, and other grid-based decorations.
 #'
@@ -26,16 +27,13 @@ NULL
 #' base <- ggplot(df, aes(x, y)) +
 #'   geom_blank() +
 #'   theme_bw()
-#' # Adding a table
-#' \dontrun{
-#'  if (require(gridExtra)) {
-#' base + annotation_custom(grob = tableGrob(head(iris[ ,1:3])),
-#'         xmin = 3, xmax = 6, ymin = 2, ymax = 8)
-#' # full panel
-#' base + annotation_custom(grob = roundrectGrob(),
-#'           xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
-#' }
-#' }
+#'
+#' # Full panel annotation
+#' base + annotation_custom(
+#'   grob = grid::roundrectGrob(),
+#'   xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf
+#' )
+#'
 #' # Inset plot
 #' df2 <- data.frame(x = 1 , y = 1)
 #' g <- ggplotGrob(ggplot(df2, aes(x, y)) +
@@ -45,11 +43,11 @@ NULL
 #'   annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
 annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
   layer(
-    data = NULL,
+    data = dummy_data(),
     stat = StatIdentity,
     position = PositionIdentity,
     geom = GeomCustomAnn,
-    inherit.aes = TRUE,
+    inherit.aes = FALSE,
     params = list(
       grob = grob,
       xmin = xmin,
@@ -65,6 +63,11 @@ annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax =
 #' @usage NULL
 #' @export
 GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
+  extra_params = "",
+  handle_na = function(data, params) {
+    data
+  },
+
   draw_panel = function(data, panel_scales, coord, grob, xmin, xmax,
                         ymin, ymax) {
     if (!inherits(coord, "CoordCartesian")) {

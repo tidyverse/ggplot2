@@ -84,3 +84,22 @@ test_that("layer inherits data from plot when data = NULL", {
     geom_point(data = NULL)
   expect_equal(nrow(layer_data(d)), nrow(mtcars))
 })
+
+test_that("empty layers still generate one grob per panel", {
+  df <- data.frame(x = 1:3, y = c("a", "b", "c"))
+
+  d <- ggplot(df, aes(x, y)) +
+    geom_point(data = df[0, ]) +
+    geom_point() +
+    facet_wrap(~y)
+
+  expect_equal(length(layer_grob(d)), 3)
+})
+
+test_that("missing layers generate one grob per panel", {
+  df <- data.frame(x = 1:4, y = 1:2, g = 1:2)
+  base <- ggplot(df, aes(x, y)) + geom_point(shape = NA, na.rm = TRUE)
+
+  expect_equal(length(layer_grob(base)), 1)
+  expect_equal(length(layer_grob(base + facet_wrap(~ g))), 2)
+})

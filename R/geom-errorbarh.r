@@ -1,9 +1,11 @@
 #' Horizontal error bars
 #'
-#' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "errorbarh")}
+#' A rotated version of \code{\link{geom_errorbar}}.
 #'
-#' @seealso \code{\link{geom_errorbar}}: vertical error bars
+#' @section Aesthetics:
+#' \aesthetics{geom}{errorbarh}
+#'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -21,9 +23,12 @@
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se))
 #' p + geom_point() +
 #'   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
-geom_errorbarh <- function(mapping = NULL, data = NULL, stat = "identity",
-                           position = "identity", show.legend = NA,
-                           inherit.aes = TRUE, ...) {
+geom_errorbarh <- function(mapping = NULL, data = NULL,
+                           stat = "identity", position = "identity",
+                           ...,
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -32,7 +37,10 @@ geom_errorbarh <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

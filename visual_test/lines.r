@@ -74,26 +74,26 @@ nzmap + geom_abline(intercept = 130, slope = -1) + coord_map()
 save_vtest("geom_abline: intercept=130, slope=-1 projection=mercator")
 
 
-nzmap + geom_hline(yintercept = -45) + coord_map(project = "cylindrical")
+nzmap + geom_hline(yintercept = -45) + coord_map(projection = "cylindrical")
 save_vtest("geom_hline: intercept=-45, projection=cylindrical")
 
-nzmap + geom_vline(xintercept = 172) + coord_map(project = "cylindrical")
+nzmap + geom_vline(xintercept = 172) + coord_map(projection = "cylindrical")
 save_vtest("geom_vline: intercept=172, projection=cylindrical")
 
-nzmap + geom_abline(intercept = 130, slope = -1) + coord_map(project = "cylindrical")
+nzmap + geom_abline(intercept = 130, slope = -1) + coord_map(projection = "cylindrical")
 save_vtest("geom_abline: intercept=130, slope=-1, projection=cylindrical")
 
 
 nzmap + geom_hline(yintercept = -45) +
-  coord_map(project = 'azequalarea', orientation = c(-36.92, 174.6, 0))
+  coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
 save_vtest("geom_hline: intercept=-45, projection=azequalarea")
 
 nzmap + geom_vline(xintercept = 172) +
-  coord_map(project = 'azequalarea', orientation = c(-36.92, 174.6, 0))
+  coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
 save_vtest("geom_vline: intercept=172, projection=azequalara")
 
 nzmap + geom_abline(intercept = 130, slope = -1) +
-  coord_map(project = 'azequalarea', orientation = c(-36.92, 174.6, 0))
+  coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
 save_vtest("geom_abline: intercept=130, slope=-1, projection=azequalarea")
 
 end_vcontext()

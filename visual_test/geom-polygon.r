@@ -1,7 +1,7 @@
 vcontext("geom-polygon")
 
 ggplot(faithful, aes(x = eruptions, y = waiting)) +
-  stat_density2d(aes(colour = ..level..), geom = "path") +
+  stat_density_2d(aes(colour = ..level..), geom = "path") +
   xlim(0.5, 6) + ylim(40, 110)
 save_vtest("stat_density2d with paths")
 

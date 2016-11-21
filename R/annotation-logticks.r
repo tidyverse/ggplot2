@@ -81,7 +81,7 @@ annotation_logticks <- function(base = 10, sides = "bl", scaled = TRUE,
     colour <- color
 
   layer(
-    data = data.frame(x = NA),
+    data = dummy_data(),
     mapping = NULL,
     stat = StatIdentity,
     geom = GeomLogticks,
@@ -109,6 +109,11 @@ annotation_logticks <- function(base = 10, sides = "bl", scaled = TRUE,
 #' @usage NULL
 #' @export
 GeomLogticks <- ggproto("GeomLogticks", Geom,
+  extra_params = "",
+  handle_na = function(data, params) {
+    data
+  },
+
   draw_panel = function(data, panel_scales, coord, base = 10, sides = "bl",
     scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
     long = unit(0.3, "cm"))

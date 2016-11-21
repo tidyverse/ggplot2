@@ -2,14 +2,13 @@
 #' @include geom-raster.r
 NULL
 
-#' Annotation: High-performance rectangular tiling.
+#' Annotation: high-performance rectangular tiling
 #'
 #' This is a special version of \code{\link{geom_raster}} optimised for static
 #' annotations that are the same in every panel. These annotations will not
 #' affect scales (i.e. the x and y axes will not grow to cover the range
-#' of the raster, and the raster must already have its own colours).
-#'
-#' Most useful for adding bitmap images.
+#' of the raster, and the raster must already have its own colours). This
+#' is useful for adding bitmap images.
 #'
 #' @param raster raster object to display
 #' @param xmin,xmax x location (in data coordinates) giving horizontal
@@ -43,12 +42,12 @@ annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
   raster <- grDevices::as.raster(raster)
 
   layer(
-    data = NULL,
+    data = dummy_data(),
     mapping = NULL,
     stat = StatIdentity,
     position = PositionIdentity,
     geom = GeomRasterAnn,
-    inherit.aes = TRUE,
+    inherit.aes = FALSE,
     params = list(
       raster = raster,
       xmin = xmin,
@@ -65,7 +64,12 @@ annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomRasterAnn <- ggproto("GeomRasterAnn", GeomRaster,
+GeomRasterAnn <- ggproto("GeomRasterAnn", Geom,
+  extra_params = "",
+  handle_na = function(data, params) {
+    data
+  },
+
   draw_panel = function(data, panel_scales, coord, raster, xmin, xmax,
                         ymin, ymax, interpolate = FALSE) {
     if (!inherits(coord, "CoordCartesian")) {

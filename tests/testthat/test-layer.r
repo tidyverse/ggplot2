@@ -8,8 +8,12 @@ test_that("aesthetics go in aes_params", {
   expect_equal(l$aes_params, list(size = "red"))
 })
 
-test_that("unknown params create error", {
-  expect_error(geom_point(blah = "red"), "Unknown parameters")
+test_that("unknown params create warning", {
+  expect_warning(geom_point(blah = "red"), "unknown parameters")
+})
+
+test_that("unknown aesthietcs create warning", {
+  expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
 })
 
 # Calculated aesthetics ---------------------------------------------------
@@ -31,4 +35,17 @@ test_that("strip_dots remove dots around calculated aesthetics", {
   expect_equal(strip_dots(aes(mean(..density..)))$x, quote(mean(density)))
   expect_equal(strip_dots(aes(sapply(..density.., function(x) mean(x)))$x),
                quote(sapply(density, function(x) mean(x))))
+})
+
+# Data extraction ---------------------------------------------------------
+
+test_that("layer_data returns a data.frame", {
+  l <- geom_point()
+  expect_equal(l$layer_data(mtcars), mtcars)
+  l <- geom_point(data = head(mtcars))
+  expect_equal(l$layer_data(mtcars), head(mtcars))
+  l <- geom_point(data = head)
+  expect_equal(l$layer_data(mtcars), head(mtcars))
+  l <- geom_point(data = nrow)
+  expect_error(l$layer_data(mtcars), "Data function must return a data.frame")
 })

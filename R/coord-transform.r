@@ -1,12 +1,12 @@
-#' Transformed cartesian coordinate system.
+#' Transformed Cartesian coordinate system
 #'
 #' \code{coord_trans} is different to scale transformations in that it occurs after
 #' statistical transformation and will affect the visual appearance of geoms - there is
 #' no guarantee that straight lines will continue to be straight.
 #'
-#' All current transformations only work with continuous values - see
-#' \code{\link[scales]{trans_new}} for list of transformations, and instructions on
-#' how to create your own.
+#' Transformations only work with continuous values: see
+#' \code{\link[scales]{trans_new}} for list of transformations, and instructions
+#' on how to create your own.
 #'
 #' @param x,y transformers for x and y axes
 #' @param xtrans,ytrans Deprecated; use \code{x} and \code{y} instead.
@@ -130,6 +130,8 @@ CoordTrans <- ggproto("CoordTrans", Coord,
 )
 
 transform_value <- function(trans, value, range) {
+  if (is.null(value))
+    return(value)
   rescale(trans$transform(value), 0:1, range)
 }
 
@@ -163,8 +165,10 @@ train_trans <- function(scale_details, limits, trans, name) {
   out$major_source <- transform_value(trans, out$major_source, out$range)
   out$minor_source <- transform_value(trans, out$minor_source, out$range)
 
-  out <- list(range = out$range, labels = out$labels,
-              major = out$major_source, minor = out$minor_source)
+  out <- list(
+    range = out$range, labels = out$labels,
+    major = out$major_source, minor = out$minor_source
+  )
   names(out) <- paste(name, names(out), sep = ".")
   out
 }

@@ -1,18 +1,20 @@
-#' Vertical intervals: lines, crossbars & errorbars.
+#' Vertical intervals: lines, crossbars & errorbars
 #'
 #' Various ways of representing a vertical interval defined by \code{x},
-#' \code{ymin} and \code{ymax}.
+#' \code{ymin} and \code{ymax}. Each case draws a single graphical object.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "linerange")}
+#' \aesthetics{geom}{linerange}
 #'
-#' @param fatten A multiplicative factor used to increased the size of the
+#' @param fatten A multiplicative factor used to increase the size of the
 #'   middle bar in \code{geom_crossbar()} and the middle point in
 #'   \code{geom_pointrange()}.
 #' @seealso
 #'  \code{\link{stat_summary}} for examples of these guys in use,
-#'  \code{\link{geom_smooth}} for continuous analog
+#'  \code{\link{geom_smooth}} for continuous analog,
+#'  \code{\link{geom_errorbarh}} for a horizontal error bar.
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @examples
 #' #' # Create a simple example dataset
@@ -39,18 +41,21 @@
 #' # specify the dodge width
 #' p <- ggplot(df, aes(trt, resp, fill = group))
 #' p +
-#'  geom_bar(position = "dodge", stat = "identity") +
+#'  geom_col(position = "dodge") +
 #'  geom_errorbar(aes(ymin = lower, ymax = upper), position = "dodge", width = 0.25)
 #'
 #' # Because the bars and errorbars have different widths
 #' # we need to specify how wide the objects we are dodging are
 #' dodge <- position_dodge(width=0.9)
 #' p +
-#'   geom_bar(position = dodge, stat = "identity") +
+#'   geom_col(position = dodge) +
 #'   geom_errorbar(aes(ymin = lower, ymax = upper), position = dodge, width = 0.25)
-geom_linerange <- function(mapping = NULL, data = NULL, stat = "identity",
-                           position = "identity", show.legend = NA,
-                           inherit.aes = TRUE, ...) {
+geom_linerange <- function(mapping = NULL, data = NULL,
+                           stat = "identity", position = "identity",
+                           ...,
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -59,7 +64,10 @@ geom_linerange <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 
@@ -70,7 +78,7 @@ geom_linerange <- function(mapping = NULL, data = NULL, stat = "identity",
 GeomLinerange <- ggproto("GeomLinerange", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  draw_key = draw_key_path,
+  draw_key = draw_key_vpath,
 
   required_aes = c("x", "ymin", "ymax"),
 

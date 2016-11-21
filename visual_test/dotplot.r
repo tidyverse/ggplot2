@@ -132,4 +132,15 @@ ggplot(dat2, aes(y, fill = g)) +
   facet_grid(x ~ .)
 save_vtest("facets, 3 groups, histodot, stackgroups")
 
+# Missing values
+dat2 <- dat
+dat2$x[c(1, 10)] <- NA
+
+ggplot(dat2, aes(x)) + geom_dotplot(binwidth = .4)
+save_vtest("2 NA values, dot-density binning, binwidth = .4")
+
+ggplot(dat2, aes(0, x)) +
+  geom_dotplot(binwidth = .4, binaxis = "y", stackdir = "center")
+save_vtest("2 NA values, bin along y, stack center")
+
 end_vcontext()

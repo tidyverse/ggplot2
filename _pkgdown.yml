@@ -1,0 +1,238 @@
+template:
+  package: tidytemplate
+  default_assets: false
+
+home:
+  strip_header: true
+  links:
+  - text: Learn more
+    href: http://r4ds.had.co.nz/data-visualisation.html
+
+reference:
+- title: Plot basics
+  desc: >
+    All ggplot2 plots with a call to `ggplot()`, supplying default data and
+    aesthethic mappings, specified by `aes()`. You then add layers, scales,
+    coords and facets with `+`. To save a plot to disk, use `ggsave()`.
+  contents:
+  - ggplot
+  - aes
+  - +.gg
+  - ggsave
+  - qplot
+
+- title: "Layer: geoms"
+  desc: >
+    A layer combines data, aesthetic mapping, a geom (geometric object),
+    a stat (statistical transformation), and a position adjustment. Typically,
+    you will create layers using a `geom_` function, overriding the default
+    position and stat if needed.
+  contents:
+  - starts_with("geom_")
+
+- title: "Layer: stats"
+  desc: >
+    A handful of layers are more easily specified with a `stat_` function,
+    drawing attention to the statistical transformation rather than the visual
+    appearance.
+  contents:
+  - stat_ecdf
+  - stat_ellipse
+  - stat_function
+  - stat_identity
+  - stat_summary_2d
+  - stat_summary_bin
+  - stat_unique
+
+- title: "Layer: position adjustment"
+  desc: >
+    All layers have a position adjustment that resolves overlapping geoms.
+    Override the default by using the `position` argument to the `geom_` or
+    `stat_` function.
+  contents:
+  - starts_with("position_")
+
+- title: "Layer: annotations"
+  desc: >
+    Annotation are special types of layer than don't inherit global settings
+    from the plot. Rhey are used to add fixed reference data to plot.
+  contents:
+  - geom_abline
+  - annotate
+  - annotation_custom
+  - annotation_logticks
+  - annotation_map
+  - annotation_raster
+  - borders
+
+- title: Aesthetics
+  desc: >
+    The following help topics give a broad overview of some of the ways
+    you can use each aesthetic
+  contents:
+  - aes_colour_fill_alpha
+  - aes_group_order
+  - aes_linetype_size_shape
+  - aes_position
+
+- title: Scales
+  desc: >
+    Scales control the details of how data values are translated to visual
+    properties. Override the default scales to tweak details like the axis
+    labels or legend keys, or to use a completely different translation from
+    data to aesthetic. `labs()` and `lims()` are convenient helpers for the
+    most common adjustments to the labels and limits.
+  contents:
+  - labs
+  - lims
+  - expand_limits
+  - starts_with("scale_")
+
+- title: "Guides: axes and legends"
+  desc: >
+    The guides (the axes and legends) help readers interpret your plots.
+    Guides are mostly controlled via the scale (e.g. with the `limits`,
+    `breaks`, and `labels` arguments), but sometimes you will need additional
+    cover over the guide apperance. Use `guides()` or the `guide` argument to
+    individual scales along with `guide_colourbar()` or `guide_legend()`.
+  contents:
+  - guide_colourbar
+  - guide_legend
+  - guides
+  - sec_axis
+
+- title: Facetting
+  desc: >
+    Facetting generates small multiples, each displaying a different
+    subset of the data. Facets are an alternative to aesthetics for
+    displaying additional discrete variables.
+  contents:
+  - facet_grid
+  - facet_wrap
+
+- title: "Facetting: labels"
+  desc: >
+    These functions provide a flexible toolkit for controlling the display
+    of the "strip" labels on facets.
+  contents:
+  - labeller
+  - labellers
+  - label_value
+  - label_bquote
+
+- title: Coordinate systems
+  desc: >
+    The coordinate system determines how the `x` and `y` aesthetics combine
+    to position elements in the plot. The default coordinate system is
+    Cartesian (`coord_cartesian()`), which can be tweaked with `coord_map()`,
+    `coord_fixed()`, `coord_flip()`, and `coord_trans()`, or completely
+    replaced with `coord_polar()`.
+  contents:
+  - coord_cartesian
+  - coord_fixed
+  - coord_flip
+  - coord_map
+  - coord_polar
+  - coord_trans
+
+- title: Themes
+  desc: >
+    Themes control the display of all non-data elements of the plot. You
+    can override all settings with a complete theme like `theme_bw()`, or
+    choose to tweak individual settings by using `theme()` and the `element_`
+    functions. Use `theme_set()` to modify the active theme, affecting all
+    future plots.
+  contents:
+  - theme
+  - theme_bw
+  - theme_update
+  - element_line
+  - margin
+
+- title: Programming with ggplot2
+  desc: >
+    These functions provides tools to help you program with ggplot2,
+    creating functions and for-loops that generate plots for you.
+  contents:
+  - aes_
+  - print.ggplot
+
+- title: Extending ggplot2
+  desc: >
+    To create your own geoms, stats, scales, and facets, you'll need to learn
+    a bit about the object oriented system that ggplot2 uses. Start by
+    reading `vignette("extending-ggplot2")` then consult these functions
+    for more details.
+  contents:
+  - ggproto
+  - print.ggproto
+
+- title: Vector helpers
+  desc: >
+    ggplot2 also provides a handful of helpers that are useful for creating
+    visualisations.
+  contents:
+  - cut_interval
+  - hmisc
+  - mean_se
+  - resolution
+
+- title: Data
+  desc: >
+    ggplot2 comes with a selection of built-in datasets that are used in
+    examples to illustrate various visualisation challenges.
+  contents:
+  - diamonds
+  - economics
+  - faithfuld
+  - midwest
+  - mpg
+  - msleep
+  - presidential
+  - seals
+  - txhousing
+  - luv_colours
+
+- title: Autoplot and fortify
+  desc: >
+    `autoplot()` is an extension mechansim for ggplot2 it provides a way
+    for package authors to add methods that work like the base `plot()`
+    function, generating useful default plots with little user interaction.
+    `fortify()` turns objects into tidy data frames: it has largely been
+    superceded by the [broom package](https://github.com/dgrtwo/broom).
+  contents:
+  - autoplot
+  - fortify
+  - map_data
+
+navbar:
+  title: ~
+  type: default
+  left:
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Aesthetic specifications
+      href: articles/ggplot2-specs.html
+    - text: Extending ggplot2
+      href: articles/extending-ggplot2.html
+  - text: News
+    menu:
+    - text: "Release notes"
+    - text: "Version 2.2.0"
+      href: articles/releases/ggplot2-2.2.0.html
+    - text: "Version 2.1.0"
+      href: articles/releases/ggplot2-2.1.0.html
+    - text: "Version 2.0.0"
+      href: articles/releases/ggplot2-2.0.0.html
+    - text: "Version 1.0.0"
+      href: articles/releases/ggplot2-1.0.0.html
+    - text: "------------------"
+    - text: "Change log"
+      href: news/index.html
+  - text: News
+    href: news/index.html
+  right:
+  - icon: fa-github fa-lg
+    href: https://github.com/tidyverse/ggplot2

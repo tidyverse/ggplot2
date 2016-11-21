@@ -1,21 +1,14 @@
-#' Define margins.
-#'
-#' This is a convenience function that creates a grid unit object of the
-#' correct length to use for setting margins.
-#'
-#' @export
-#' @param t,b,r,l Dimensions of each margin. (To remember order, think trouble).
+#' @param t,r,b,l Dimensions of each margin. (To remember order, think trouble).
 #' @param unit Default units of dimensions. Defaults to "pt" so it
 #'   can be most easily scaled with the text.
+#' @rdname element
 #' @export
-#' @examples
-#' margin(4)
-#' margin(4, 2)
-#' margin(4, 3, 2, 1)
 margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
   structure(unit(c(t, r, b, l), unit), class = c("margin", "unit"))
 }
-
+is.margin <- function(x) {
+  inherits(x, "margin")
+}
 
 margin_height <- function(grob, margins) {
   if (is.zero(grob)) return(unit(0, "cm"))
@@ -54,26 +47,34 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     xp <- hjust
     yp <- vjust
   }
-  x <- x %||% unit(xp, "npc")
-  y <- y %||% unit(yp, "npc")
+
+  n <- max(length(x), length(y), 1)
+  x <- x %||% unit(rep(xp, n), "npc")
+  y <- y %||% unit(rep(yp, n), "npc")
 
   text_grob <- textGrob(label, x, y, hjust = hjust, vjust = vjust,
     rot = angle, gp = gp)
 
+  # The grob dimensions don't include the text descenders, so add on using
+  # a little trigonometry. This is only exactly correct when vjust = 1.
+  descent <- descentDetails(text_grob)
+  text_height <- unit(1, "grobheight", text_grob) + cos(angle / 180 * pi) * descent
+  text_width <- unit(1, "grobwidth", text_grob) + sin(angle / 180 * pi) * descent
+
   if (expand_x && expand_y) {
-    widths <- unit.c(margin[4], unit(1, "grobwidth", text_grob), margin[2])
-    heights <- unit.c(margin[1], unit(1, "grobheight", text_grob), margin[3])
+    widths <- unit.c(margin[4], text_width, margin[2])
+    heights <- unit.c(margin[1], text_height, margin[3])
 
     vp <- viewport(layout = grid.layout(3, 3, heights = heights, widths = widths), gp = gp)
     child_vp <- viewport(layout.pos.row = 2, layout.pos.col = 2)
   } else if (expand_x) {
-    widths <- unit.c(margin[4], unit(1, "grobwidth", text_grob), margin[2])
+    widths <- unit.c(margin[4], text_width, margin[2])
     vp <- viewport(layout = grid.layout(1, 3, widths = widths), gp = gp)
     child_vp <- viewport(layout.pos.col = 2)
 
     heights <- unit(1, "null")
   } else if (expand_y) {
-    heights <- unit.c(margin[1], unit(1, "grobheight", text_grob), margin[3])
+    heights <- unit.c(margin[1], text_height, margin[3])
 
     vp <- viewport(layout = grid.layout(3, 1, heights = heights), gp = gp)
     child_vp <- viewport(layout.pos.row = 2)
@@ -85,8 +86,8 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
   if (debug) {
     children <- gList(
-      rectGrob(gp = gpar(fill = "grey90")),
-      pointsGrob(x[1], y[1], pch = 20, gp = gpar(col = "red")),
+      rectGrob(gp = gpar(fill = "cornsilk", col = NA)),
+      pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
       text_grob
     )
   } else {
@@ -109,5 +110,58 @@ widthDetails.titleGrob <- function(x) {
 
 #' @export
 heightDetails.titleGrob <- function(x) {
+  sum(x$heights)
+}
+
+# Works like titleGrob, but designed to place one label per viewport.
+# This means it doesn't have the lengths of labels available, so must use
+# alternative layout strategy
+stripGrob <- function(label, hjust, vjust, angle = 0, gp = gpar(),
+                      margin = NULL, debug = FALSE) {
+  if (is.null(margin)) {
+    margin <- margin()
+  }
+
+  text_grob <- textGrob(label, rot = angle, gp = gp)
+
+  widths <- unit.c(margin[4], unit(1, "grobwidth", text_grob), margin[2])
+  heights <- unit.c(margin[1], unit(1, "grobheight", text_grob), margin[3])
+
+  vp <- viewport(
+    hjust, vjust, just = c(hjust, vjust),
+    width = sum(widths),
+    height = sum(heights),
+    layout = grid.layout(3, 3, heights = heights, widths = widths),
+    name = "top"
+  )
+  child_vp <- viewport(layout.pos.row = 2, layout.pos.col = 2)
+
+  if (debug) {
+    children <- gList(
+      rectGrob(gp = gpar(fill = "cornsilk", col = NA)),
+      pointsGrob(unit(hjust, "npc"), unit(vjust, "npc"), pch = 20,
+        gp = gpar(col = "gold")),
+      text_grob
+    )
+  } else {
+    children <- gList(text_grob)
+  }
+
+  gTree(
+    children = children,
+    vp = vpTree(vp, vpList(child_vp)),
+    widths = widths,
+    heights = heights,
+    cl = "stripGrob"
+  )
+}
+
+#' @export
+widthDetails.stripGrob <- function(x) {
+  sum(x$widths)
+}
+
+#' @export
+heightDetails.stripGrob <- function(x) {
   sum(x$heights)
 }

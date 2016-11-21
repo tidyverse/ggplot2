@@ -1,19 +1,17 @@
 Package: ggplot2
-Version: 1.0.1.9003
+Version: 2.2.0.9000
+Title: Create Elegant Data Visualisations Using the Grammar of Graphics
+Description: A system for 'declaratively' creating graphics,
+    based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
+    how to map variables to aesthetics, what graphical primitives to use,
+    and it takes care of the details.
 Authors@R: c(
-    person("Hadley", "Wickham", , "h.wickham@gmail.com", c("aut", "cre")),
-    person("Winston", "Chang", , "winston@stdout.org", "aut")
+    person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
+    person("Winston", "Chang", , "winston@rstudio.com", "aut"),
+    person("RStudio", role = c("cph"))
     )
-Title: An Implementation of the Grammar of Graphics
-Description: An implementation of the grammar of graphics in R. It combines the
-    advantages of both base and lattice graphics: conditioning and shared axes
-    are handled automatically, and you can still build up a plot step by step
-    from multiple data sources. It also implements a sophisticated
-    multidimensional conditioning system and a consistent interface to map
-    data to aesthetic attributes. See http://ggplot2.org for more information,
-    documentation and examples.
 Depends:
-    R (>= 2.14)
+    R (>= 3.1)
 Imports:
     digest,
     grid,
@@ -21,25 +19,32 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.2.5.9003),
-    stats
+    scales (>= 0.4.1),
+    stats,
+    tibble,
+    lazyeval
 Suggests:
+    covr,
     ggplot2movies,
     hexbin,
     Hmisc,
+    lattice,
     mapproj,
     maps,
     maptools,
     mgcv,
     multcomp,
     nlme,
-    testthat,
+    testthat (>= 0.11.0),
     quantreg,
-    knitr
+    knitr,
+    rpart,
+    rmarkdown,
+    svglite
 Enhances: sp
-License: GPL-2
-URL: http://ggplot2.org, https://github.com/hadley/ggplot2
-BugReports: https://github.com/hadley/ggplot2/issues
+License: GPL-2 | file LICENSE
+URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
+BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
 Collate:
     'ggproto.r'
@@ -62,7 +67,9 @@ Collate:
     'annotation-raster.r'
     'annotation.r'
     'autoplot.r'
+    'axis-secondary.R'
     'bench.r'
+    'bin.R'
     'coord-.r'
     'coord-cartesian-.r'
     'coord-fixed.r'
@@ -75,11 +82,7 @@ Collate:
     'data.R'
     'facet-.r'
     'facet-grid-.r'
-    'facet-labels.r'
-    'facet-layout.r'
-    'facet-locate.r'
     'facet-null.r'
-    'facet-viewports.r'
     'facet-wrap.r'
     'fortify-lm.r'
     'fortify-map.r'
@@ -93,6 +96,7 @@ Collate:
     'geom-bin2d.r'
     'geom-blank.r'
     'geom-boxplot.r'
+    'geom-col.r'
     'geom-path.r'
     'geom-contour.r'
     'geom-count.r'
@@ -112,7 +116,6 @@ Collate:
     'geom-hline.r'
     'geom-jitter.r'
     'geom-label.R'
-    'geom-line.r'
     'geom-linerange.r'
     'geom-point.r'
     'geom-pointrange.r'
@@ -120,7 +123,6 @@ Collate:
     'geom-rug.r'
     'geom-smooth.r'
     'geom-spoke.r'
-    'geom-step.r'
     'geom-text.r'
     'geom-tile.r'
     'geom-violin.r'
@@ -135,11 +137,13 @@ Collate:
     'guides-.r'
     'guides-axis.r'
     'guides-grid.r'
+    'hexbin.R'
+    'labeller.r'
     'labels.r'
     'layer.r'
+    'layout.R'
     'limits.r'
     'margins.R'
-    'panel.r'
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'
@@ -147,7 +151,6 @@ Collate:
     'position-.r'
     'position-collide.r'
     'position-dodge.r'
-    'position-fill.r'
     'position-identity.r'
     'position-jitter.r'
     'position-jitterdodge.R'
@@ -163,8 +166,6 @@ Collate:
     'scale-date.r'
     'scale-discrete-.r'
     'scale-gradient.r'
-    'scale-gradient2.r'
-    'scale-gradientn.r'
     'scale-grey.r'
     'scale-hue.r'
     'scale-identity.r'
@@ -172,6 +173,7 @@ Collate:
     'scale-manual.r'
     'scale-shape.r'
     'scale-size.r'
+    'scale-type.R'
     'scales-.r'
     'stat-bin.r'
     'stat-bin2d.r'
@@ -179,6 +181,7 @@ Collate:
     'stat-binhex.r'
     'stat-boxplot.r'
     'stat-contour.r'
+    'stat-count.r'
     'stat-density-2d.r'
     'stat-density.r'
     'stat-ecdf.r'
@@ -197,10 +200,10 @@ Collate:
     'stat-unique.r'
     'stat-ydensity.r'
     'summary.r'
-    'theme-defaults.r'
     'theme-elements.r'
     'theme.r'
-    'translate-qplot-base.r'
+    'theme-defaults.r'
+    'theme-current.R'
     'translate-qplot-ggplot.r'
     'translate-qplot-lattice.r'
     'utilities-break.r'
@@ -212,3 +215,4 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
+RoxygenNote: 5.0.1

@@ -1,18 +1,23 @@
-#' Histograms and frequency polygons.
+#' Histograms and frequency polygons
 #'
-#' Display a 1d distribution by dividing into bins and counting the number
-#' of observations in each bin. Histograms use bars; frequency polygons use
-#' lines.
+#' Visualise the distribution of a single continuous variable by dividing
+#' the x axis into bins and counting the number of observations in each bin.
+#' Histograms (\code{geom_histogram}) display the count with bars; frequency
+#' polygons (\code{geom_freqpoly}), display the counts with lines. Frequency
+#' polygons are more suitable when you want to compare the distribution
+#' across a the levels of a categorical variable.
 #'
-#' By default, \code{stat_bin} uses 30 bins - this is not a good default,
-#' but the idea is to get you experimenting with different binwidths. You
-#' may need to look at a few to uncover the full story behind your data.
+#' By default, the underlying computation (\code{stat_bin}) uses 30 bins -
+#' this is not a good default, but the idea is to get you experimenting with
+#' different binwidths. You may need to look at a few to uncover the full
+#' story behind your data.
 #'
 #' @section Aesthetics:
-#' \code{geom_histogram} uses the same aesthetics as \code{geom_bar};
-#' \code{geom_freqpoly} uses the same aesthetics as \code{geom_line}.
+#' \code{geom_histogram} uses the same aesthetics as \code{\link{geom_bar}};
+#' \code{geom_freqpoly} uses the same aesthetics as \code{\link{geom_line}}.
 #'
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.
@@ -60,19 +65,23 @@
 #' # bar is anchored at zero, and so when transformed becomes negative
 #' # infinity. This is not a problem when transforming the scales, because
 #' # no observations have 0 ratings.
-#' m + geom_histogram(origin = 0) + coord_trans(x = "log10")
-#' # Use origin = 0, to make sure we don't take sqrt of negative values
-#' m + geom_histogram(origin = 0) + coord_trans(x = "sqrt")
+#' m + geom_histogram(boundary = 0) + coord_trans(x = "log10")
+#' # Use boundary = 0, to make sure we don't take sqrt of negative values
+#' m + geom_histogram(boundary = 0) + coord_trans(x = "sqrt")
 #'
 #' # You can also transform the y axis.  Remember that the base of the bars
 #' # has value 0, so log transformations are not appropriate
 #' m <- ggplot(movies, aes(x = rating))
 #' m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 #' }
-#' rm(movies)
-geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
-  binwidth = NULL, bins = NULL, origin = NULL, right = FALSE,
-  position = "stack", show.legend = NA, inherit.aes = TRUE, ...) {
+geom_histogram <- function(mapping = NULL, data = NULL,
+                           stat = "bin", position = "stack",
+                           ...,
+                           binwidth = NULL,
+                           bins = NULL,
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
 
   layer(
     data = data,
@@ -85,8 +94,8 @@ geom_histogram <- function(mapping = NULL, data = NULL, stat = "bin",
     params = list(
       binwidth = binwidth,
       bins = bins,
-      origin = origin,
-      right = right,
+      na.rm = na.rm,
+      pad = FALSE,
       ...
     )
   )

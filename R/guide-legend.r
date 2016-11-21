@@ -1,4 +1,4 @@
-#' Legend guide.
+#' Legend guide
 #'
 #' Legend type guide shows key (i.e., geoms) mapped onto values.
 #' Legend guides for various scales are integrated if possible.
@@ -72,7 +72,6 @@
 #' p1 + scale_fill_continuous(guide = guide_legend())
 #'
 #' # Guide title
-#'
 #' p1 + scale_fill_continuous(guide = guide_legend(title = "V")) # title text
 #' p1 + scale_fill_continuous(guide = guide_legend(title = NULL)) # no title
 #'
@@ -85,24 +84,38 @@
 #' p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
 #'
 #' # title text styles via element_text
-#' p1 + guides(fill = guide_legend(
-#'   title.theme = element_text(size=15, face="italic", colour = "red", angle = 45)))
+#' p1 + guides(fill =
+#'   guide_legend(
+#'     title.theme = element_text(
+#'       size = 15,
+#'       face = "italic",
+#'       colour = "red",
+#'       angle = 0
+#'     )
+#'   )
+#' )
 #'
 #' # label position
-#' p1 + guides(fill = guide_legend(label.position = "bottom"))
+#' p1 + guides(fill = guide_legend(label.position = "left", label.hjust = 1))
 #'
 #' # label styles
 #' p1 + scale_fill_continuous(breaks = c(5, 10, 15),
 #'   labels = paste("long", c(5, 10, 15)),
-#'   guide = guide_legend(direction = "horizontal", title.position = "top",
-#'     label.position="bottom", label.hjust = 0.5, label.vjust = 0.5,
-#'     label.theme = element_text(angle = 90)))
+#'   guide = guide_legend(
+#'     direction = "horizontal",
+#'     title.position = "top",
+#'     label.position = "bottom",
+#'     label.hjust = 0.5,
+#'     label.vjust = 1,
+#'     label.theme = element_text(angle = 90)
+#'   )
+#' )
 #'
 #' # Set aesthetic of legend key
 #'
 #' # very low alpha value make it difficult to see legend key
 #' p3 <- ggplot(diamonds, aes(carat, price)) +
-#'   geom_point(aes(colour=color), alpha=1/100)
+#'   geom_point(aes(colour = color), alpha = 1/100)
 #' p3
 #'
 #' # override.aes overwrites the alpha
@@ -203,16 +216,9 @@ guide_train.legend <- function(guide, scale) {
     stringsAsFactors = FALSE)
   key$.label <- scale$get_labels(breaks)
 
-  # this is a quick fix for #118
-  # some scales have NA as na.value (e.g., size)
-  # some scales have non NA as na.value (e.g., "grey50" for colour)
-  # drop rows if data (instead of the mapped value) is NA
-  #
-  # Also, drop out-of-range values for continuous scale
+  # Drop out-of-range values for continuous scale
   # (should use scale$oob?)
-  if (scale$is_discrete()) {
-    key <- key[!is.na(breaks), , drop = FALSE]
-  } else {
+  if (!scale$is_discrete()) {
     limits <- scale$get_limits()
     noob <- !is.na(breaks) & limits[1] <= breaks & breaks <= limits[2]
     key <- key[noob, , drop = FALSE]
@@ -239,10 +245,7 @@ guide_merge.legend <- function(guide, new_guide) {
 guide_geom.legend <- function(guide, layers, default_mapping) {
   # arrange common data for vertical and horizontal guide
   guide$geoms <- plyr::llply(layers, function(layer) {
-    all <- names(c(layer$mapping, if (layer$inherit.aes) default_mapping, layer$stat$default_aes))
-    geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
-    matched <- intersect(intersect(all, geom), names(guide$key))
-    matched <- setdiff(matched, names(layer$geom_params))
+    matched <- matched_aes(layer, guide, default_mapping)
 
     if (length(matched) > 0) {
       # This layer contributes to the legend
@@ -263,7 +266,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     }
 
     # override.aes in guide_legend manually changes the geom
-    data <- modifyList(data, guide$override.aes)
+    data <- utils::modifyList(data, guide$override.aes)
 
     list(
       draw_key = layer$geom$draw_key,
@@ -299,7 +302,9 @@ guide_gengrob.legend <- function(guide, theme) {
       guide$title.theme %||% calc_element("legend.title", theme),
       label = guide$title,
       hjust = guide$title.hjust %||% theme$legend.title.align %||% 0,
-      vjust = guide$title.vjust %||% 0.5
+      vjust = guide$title.vjust %||% 0.5,
+      expand_x = FALSE,
+      expand_y = FALSE
     )
   )
 
@@ -319,8 +324,16 @@ guide_gengrob.legend <- function(guide, theme) {
     vjust <- y <- guide$label.vjust %||% 0.5
 
     grob.labels <- lapply(guide$key$.label, function(label, ...) {
-      g <- element_grob(element = label.theme, label = label,
-        x = x, y = y, hjust = hjust, vjust = vjust)
+      g <- element_grob(
+        element = label.theme,
+        label = label,
+        x = x,
+        y = y,
+        hjust = hjust,
+        vjust = vjust,
+        expand_x = FALSE,
+        expand_y = FALSE
+      )
       ggname("guide.label", g)
     })
   }
@@ -450,19 +463,16 @@ guide_gengrob.legend <- function(guide, theme) {
     })
 
   # grob for key
-  grob.keys <- list()
+  key_size <- c(key_width, key_height) * 10
 
-  for (i in 1:nbreak) {
-
-    # bg. of key
-    grob.keys[[length(grob.keys) + 1]] <- element_render(theme, "legend.key")
-
-    # overlay geoms
-    for (geom in guide$geoms) {
-      grob.keys[[length(grob.keys) + 1]] <- geom$draw_key(geom$data[i, ], geom$params)
-    }
-
+  draw_key <- function(i) {
+    bg <- element_render(theme, "legend.key")
+    keys <- lapply(guide$geoms, function(g) {
+      g$draw_key(g$data[i, ], g$params, key_size)
+    })
+    c(list(bg), keys)
   }
+  grob.keys <- unlist(lapply(seq_len(nbreak), draw_key), recursive = FALSE)
 
   # background
   grob.background <- element_render(theme, "legend.background")
@@ -472,9 +482,9 @@ guide_gengrob.legend <- function(guide, theme) {
   krows <- rep(vps$key.row, each = ngeom)
 
   # padding
-  padding <- 0.15
-  widths <- c(padding, widths, padding)
-  heights <- c(padding, heights, padding)
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  widths <- c(padding[4], widths, padding[2])
+  heights <- c(padding[1], heights, padding[3])
 
   # Create the gtable for the legend
   gt <- gtable(widths = unit(widths, "cm"), heights = unit(heights, "cm"))

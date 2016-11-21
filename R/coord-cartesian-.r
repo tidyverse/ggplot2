@@ -1,4 +1,4 @@
-#' Cartesian coordinates.
+#' Cartesian coordinates
 #'
 #' The Cartesian coordinate system is the most familiar, and common, type of
 #' coordinate system. Setting limits on the coordinate system will zoom the
@@ -91,6 +91,7 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
       }
 
       out <- scale_details$break_info(range)
+      out$arrange <- scale_details$axis_order()
       names(out) <- paste(name, names(out), sep = ".")
       out
     }

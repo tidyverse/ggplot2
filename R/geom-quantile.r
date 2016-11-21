@@ -1,11 +1,13 @@
-#' Add quantile lines from a quantile regression.
+#' Quantile regression
 #'
-#' This can be used as a continuous analogue of a geom_boxplot.
+#' This fits a quantile regression to the data and draws the fitted quantiles
+#' with lines. This is as a continuous analogue to \code{\link{geom_boxplot}}.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "quantile")}
+#' \aesthetics{geom}{quantile}
 #'
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
 #' @param method.args List of additional arguments passed on to the modelling
@@ -27,9 +29,15 @@
 #'
 #' # Set aesthetics to fixed value
 #' m + geom_quantile(colour = "red", size = 2, alpha = 0.5)
-geom_quantile <- function(mapping = NULL, data = NULL, stat = "quantile",
-  position = "identity", lineend = "butt", linejoin = "round", linemitre = 1,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
+geom_quantile <- function(mapping = NULL, data = NULL,
+                          stat = "quantile", position = "identity",
+                          ...,
+                          lineend = "butt",
+                          linejoin = "round",
+                          linemitre = 1,
+                          na.rm = FALSE,
+                          show.legend = NA,
+                          inherit.aes = TRUE) {
 
   layer(
     data = data,
@@ -43,6 +51,7 @@ geom_quantile <- function(mapping = NULL, data = NULL, stat = "quantile",
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
+      na.rm = na.rm,
       ...
     )
   )

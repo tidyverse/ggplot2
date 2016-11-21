@@ -1,13 +1,18 @@
-#' Connect observations.
+#' Connect observations
 #'
 #' \code{geom_path()} connects the observations in the order in which they appear
 #' in the data. \code{geom_line()} connects them in order of the variable on the
 #' x axis. \code{geom_step()} creates a stairstep plot, highlighting exactly
-#' when changes occur.
+#' when changes occur. The \code{group} aesthetic determines which cases are
+#' connected together.
+#'
+#' An alternative parameterisation is \code{\link{geom_segment}}: each line
+#' corresponds to a single case which provides the start and end coordinates.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "path")}
+#' \aesthetics{geom}{path}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param lineend Line end style (round, butt, square)
 #' @param linejoin Line join style (round, mitre, bevel)
@@ -84,10 +89,16 @@
 #' # But this doesn't
 #' should_stop(p + geom_line(aes(colour = x), linetype=2))
 #' }
-geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", lineend = "butt",
-                      linejoin = "round", linemitre = 1, na.rm = FALSE,
-                      arrow = NULL, show.legend = NA, inherit.aes = TRUE, ...) {
+geom_path <- function(mapping = NULL, data = NULL,
+                      stat = "identity", position = "identity",
+                      ...,
+                      lineend = "butt",
+                      linejoin = "round",
+                      linemitre = 1,
+                      arrow = NULL,
+                      na.rm = FALSE,
+                      show.legend = NA,
+                      inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -112,6 +123,36 @@ geom_path <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomPath <- ggproto("GeomPath", Geom,
+  required_aes = c("x", "y"),
+
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+
+  handle_na = function(data, params) {
+    keep <- function(x) {
+      # from first non-missing to last non-missing
+      first <- match(FALSE, x, nomatch = 1) - 1
+      last <- length(x) - match(FALSE, rev(x), nomatch = 1) + 1
+      c(
+        rep(FALSE, first),
+        rep(TRUE, last - first),
+        rep(FALSE, length(x) - last)
+      )
+    }
+    # Drop missing values at the start or end of a line - can't drop in the
+    # middle since you expect those to be shown by a break in the line
+    missing <- !stats::complete.cases(data[c("x", "y", "size", "colour",
+      "linetype")])
+    kept <- stats::ave(missing, data$group, FUN = keep)
+    data <- data[kept, ]
+
+    if (!all(kept) && !params$na.rm) {
+      warning("Removed ", sum(!kept), " rows containing missing values",
+        " (geom_path).", call. = FALSE)
+    }
+
+    data
+  },
+
   draw_panel = function(data, panel_scales, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 1,
                         na.rm = FALSE) {
@@ -120,29 +161,8 @@ GeomPath <- ggproto("GeomPath", Geom,
         "Do you need to adjust the group aesthetic?")
     }
 
-    keep <- function(x) {
-      # from first non-missing to last non-missing
-      first <- match(FALSE, x, nomatch = 1) - 1
-      last <- length(x) - match(FALSE, rev(x), nomatch = 1) + 1
-      c(
-        rep(FALSE, first),
-        rep(TRUE, last - first),
-        rep(FALSE, length(x) - last))
-    }
-    # Drop missing values at the start or end of a line - can't drop in the
-    # middle since you expect those to be shown by a break in the line
-    missing <- !stats::complete.cases(data[c("x", "y", "size", "colour",
-      "linetype")])
-    kept <- stats::ave(missing, data$group, FUN = keep)
-    data <- data[kept, ]
     # must be sorted on group
-    data <- plyr::arrange(data, group)
-
-    if (!all(kept) && !na.rm) {
-      warning("Removed ", sum(!kept), " rows containing missing values",
-        " (geom_path).", call. = FALSE)
-    }
-
+    data <- data[order(data$group), , drop = FALSE]
     munched <- coord_munch(coord, data, panel_scales)
 
     # Silently drop lines with less than two points, preserving order
@@ -152,8 +172,9 @@ GeomPath <- ggproto("GeomPath", Geom,
 
     # Work out whether we should use lines or segments
     attr <- plyr::ddply(munched, "group", function(df) {
+      linetype <- unique(df$linetype)
       data.frame(
-        solid = identical(unique(df$linetype), 1),
+        solid = identical(linetype, 1) || identical(linetype, "solid"),
         constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
       )
     })
@@ -203,9 +224,100 @@ GeomPath <- ggproto("GeomPath", Geom,
     }
   },
 
-  required_aes = c("x", "y"),
-
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
-
   draw_key = draw_key_path
 )
+
+#' @export
+#' @rdname geom_path
+geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
+                      position = "identity", na.rm = FALSE,
+                      show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomLine,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
+  )
+}
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-path.r
+GeomLine <- ggproto("GeomLine", GeomPath,
+  setup_data = function(data, params) {
+    data[order(data$PANEL, data$group, data$x), ]
+  }
+)
+
+#' @param direction direction of stairs: 'vh' for vertical then horizontal, or
+#'   'hv' for horizontal then vertical
+#' @export
+#' @rdname geom_path
+geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
+                      position = "identity", direction = "hv",
+                      na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomStep,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      direction = direction,
+      na.rm = na.rm,
+      ...
+    )
+  )
+}
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-path.r
+GeomStep <- ggproto("GeomStep", GeomPath,
+  draw_panel = function(data, panel_scales, coord, direction = "hv") {
+    data <- plyr::ddply(data, "group", stairstep, direction = direction)
+    GeomPath$draw_panel(data, panel_scales, coord)
+  }
+)
+
+# Calculate stairsteps
+# Used by \code{\link{geom_step}}
+#
+# @keyword internal
+stairstep <- function(data, direction="hv") {
+  direction <- match.arg(direction, c("hv", "vh"))
+  data <- as.data.frame(data)[order(data$x), ]
+  n <- nrow(data)
+
+  if (n <= 1) {
+    # Need at least one observation
+    return(data[0, , drop = FALSE])
+  }
+
+  if (direction == "vh") {
+    xs <- rep(1:n, each = 2)[-2*n]
+    ys <- c(1, rep(2:n, each = 2))
+  } else {
+    ys <- rep(1:n, each = 2)[-2*n]
+    xs <- c(1, rep(2:n, each = 2))
+  }
+
+  data.frame(
+    x = data$x[xs],
+    y = data$y[ys],
+    data[xs, setdiff(names(data), c("x", "y"))]
+  )
+}

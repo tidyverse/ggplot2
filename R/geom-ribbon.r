@@ -1,22 +1,24 @@
-#' Ribbons and area plots.
+#' Ribbons and area plots
 #'
-#' For each continuous x value, \code{geom_interval} displays a y interval.
-#' \code{geom_area} is a special case of \code{geom_ribbon}, where the
-#' minimum of the range is fixed to 0.
+#' For each x value, \code{geom_ribbon} displays a y interval defined
+#' by \code{ymin} and \code{ymax}. \code{geom_area} is a special case of
+#' \code{geom_ribbon}, where the \code{ymin} is fixed to 0.
 #'
 #' An area plot is the continuous analog of a stacked bar chart (see
 #' \code{\link{geom_bar}}), and can be used to show how composition of the
-#' whole varies over the range of x.  Choosing the order in which different
+#' whole varies over the range of x. Choosing the order in which different
 #' components is stacked is very important, as it becomes increasing hard to
-#' see the individual pattern as you move up the stack.
+#' see the individual pattern as you move up the stack. See
+#' \code{\link{position_stack}} for the details of stacking algorithm.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "ribbon")}
+#' \aesthetics{geom}{ribbon}
 #'
 #' @seealso
 #'   \code{\link{geom_bar}} for discrete intervals (bars),
 #'   \code{\link{geom_linerange}} for discrete intervals (lines),
 #'   \code{\link{geom_polygon}} for general polygons
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -31,9 +33,12 @@
 #' h +
 #'   geom_ribbon(aes(ymin = level - 1, ymax = level + 1), fill = "grey70") +
 #'   geom_line(aes(y = level))
-geom_ribbon <- function(mapping = NULL, data = NULL, stat = "identity",
-                        position = "identity", na.rm = FALSE, show.legend = NA,
-                        inherit.aes = TRUE, ...) {
+geom_ribbon <- function(mapping = NULL, data = NULL,
+                        stat = "identity", position = "identity",
+                        ...,
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -42,7 +47,10 @@ geom_ribbon <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(..., na.rm = na.rm)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 
@@ -57,6 +65,10 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
   required_aes = c("x", "ymin", "ymax"),
 
   draw_key = draw_key_polygon,
+
+  handle_na = function(data, params) {
+    data
+  },
 
   draw_group = function(data, panel_scales, coord, na.rm = FALSE) {
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
@@ -109,7 +121,10 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

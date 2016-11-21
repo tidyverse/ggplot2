@@ -1,13 +1,16 @@
-#' Count the number of observations at each location.
+#' Count overlapping points
 #'
 #' This is a variant \code{\link{geom_point}} that counts the number of
-#' observations at each location, then maps the count to point size. It
-#' useful when you have discrete data.
+#' observations at each location, then maps the count to point area. It
+#' useful when you have discrete data and overplotting.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
+#' \aesthetics{geom}{point}
+#'
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_count} and \code{stat_sum}.
+#' @seealso For continuous \code{x} and \code{x}, use \code{\link{geom_bin2d}}.
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples
@@ -21,7 +24,7 @@
 #' # counts of zero would be given size 0. Doesn't make much different
 #' # here because the smallest count is already close to 0.
 #' ggplot(mpg, aes(cty, hwy)) +
-#'  geom_count()
+#'  geom_count() +
 #'  scale_size_area()
 #'
 #' # Display proportions instead of counts -------------------------------------
@@ -40,10 +43,12 @@
 #'   scale_size_area(max_size = 10)
 #' d + geom_count(aes(size = ..prop.., group = clarity)) +
 #'   scale_size_area(max_size = 10)
-geom_count <- function(mapping = NULL, data = NULL, stat = "sum",
-  position = "identity", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ...)
-{
+geom_count <- function(mapping = NULL, data = NULL,
+                       stat = "sum", position = "identity",
+                       ...,
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -52,6 +57,9 @@ geom_count <- function(mapping = NULL, data = NULL, stat = "sum",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }

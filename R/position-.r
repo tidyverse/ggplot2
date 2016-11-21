@@ -57,22 +57,27 @@ Position <- ggproto("Position",
     data
   },
 
-  compute_layer = function(self, data, params, panel) {
+  compute_layer = function(self, data, params, layout) {
     plyr::ddply(data, "PANEL", function(data) {
       if (empty(data)) return(data.frame())
 
-      scales <- panel_scales(panel, data$PANEL[1])
+      scales <- layout$get_scales(data$PANEL[1])
       self$compute_panel(data = data, params = params, scales = scales)
     })
   },
 
-  compute_panel = function(self, data, scales) {
+  compute_panel = function(self, data, params, scales) {
     stop("Not implemented", call. = FALSE)
   }
 )
 
-# Convenience function to ensure that all position variables
-# (x, xmin, xmax, xend) are transformed in the same way
+#' Convenience function to transform all position variables.
+#'
+#' @param trans_x,trans_y Transformation functions for x and y aesthetics.
+#'   (will transform x, xmin, xmax, xend etc)
+#' @param ... Additional arguments passed to \code{trans_x} and \code{trans_y}.
+#' @keywords internal
+#' @export
 transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
   scales <- aes_to_scale(names(df))
 

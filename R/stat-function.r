@@ -1,12 +1,18 @@
-#' Superimpose a function.
+#' Compute function for each x value
+#'
+#' This stat makes it easy to superimpose a function on top of an existing
+#' plot. The function is called with a grid of evenly spaced values along
+#' the x axis, and the results are drawn (by default) with a line.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "function")}
+#' \aesthetics{stat}{function}
 #'
-#' @param fun function to use
+#' @param fun function to use. Must be vectorised.
 #' @param n number of points to interpolate along
 #' @param args list of additional arguments to pass to \code{fun}
-#' @inheritParams stat_identity
+#' @param xlim Optionally, restrict the range of the function to this range.
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @section Computed variables:
 #' \describe{
 #'   \item{x}{x's along a grid}
@@ -21,7 +27,7 @@
 #' x <- df$x
 #' base <- ggplot(df, aes(x)) + geom_density()
 #' base + stat_function(fun = dnorm, colour = "red")
-#' base + stat_function(fun = dnorm, colour = "red", arg = list(mean = 3))
+#' base + stat_function(fun = dnorm, colour = "red", args = list(mean = 3))
 #'
 #' # Plot functions without data
 #' # Examples adapted from Kohske Takahashi
@@ -45,9 +51,16 @@
 #' # Using a custom function
 #' test <- function(x) {x ^ 2 + x + 20}
 #' f + stat_function(fun = test)
-stat_function <- function(mapping = NULL, data = NULL, geom = "path",
-                          position = "identity", fun, n = 101, args = list(),
-                          show.legend = NA, inherit.aes = TRUE, ...) {
+stat_function <- function(mapping = NULL, data = NULL,
+                          geom = "path", position = "identity",
+                          ...,
+                          fun,
+                          xlim = NULL,
+                          n = 101,
+                          args = list(),
+                          na.rm = FALSE,
+                          show.legend = NA,
+                          inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -60,6 +73,8 @@ stat_function <- function(mapping = NULL, data = NULL, geom = "path",
       fun = fun,
       n = n,
       args = args,
+      na.rm = na.rm,
+      xlim = xlim,
       ...
     )
   )
@@ -72,13 +87,21 @@ stat_function <- function(mapping = NULL, data = NULL, geom = "path",
 StatFunction <- ggproto("StatFunction", Stat,
   default_aes = aes(y = ..y..),
 
-  compute_group = function(data, scales, fun, n = 101, args = list()) {
-    range <- scales$x$dimension()
+  compute_group = function(data, scales, fun, xlim = NULL, n = 101, args = list()) {
+    range <- xlim %||% scales$x$dimension()
     xseq <- seq(range[1], range[2], length.out = n)
+
+    if (scales$x$is_discrete()) {
+      x_trans <- xseq
+    } else {
+      # For continuous scales, need to back transform from transformed range
+      # to original values
+      x_trans <- scales$x$trans$inverse(xseq)
+    }
 
     data.frame(
       x = xseq,
-      y = do.call(fun, c(list(quote(scales$x$trans$inv(xseq))), args))
+      y = do.call(fun, c(list(quote(x_trans)), args))
     )
   }
 )

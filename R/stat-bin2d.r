@@ -5,9 +5,15 @@
 #' @param drop if \code{TRUE} removes all cells with 0 counts.
 #' @export
 #' @rdname geom_bin2d
-stat_bin_2d <- function(mapping = NULL, data = NULL, geom = "tile",
-                        position = "identity", bins = 30, binwidth = NULL,
-                        drop = TRUE, show.legend = NA, inherit.aes = TRUE, ...) {
+stat_bin_2d <- function(mapping = NULL, data = NULL,
+                        geom = "tile", position = "identity",
+                        ...,
+                        bins = 30,
+                        binwidth = NULL,
+                        drop = TRUE,
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -20,6 +26,7 @@ stat_bin_2d <- function(mapping = NULL, data = NULL, geom = "tile",
       bins = bins,
       binwidth = binwidth,
       drop = drop,
+      na.rm = na.rm,
       ...
     )
   )
@@ -47,8 +54,8 @@ StatBin2d <- ggproto("StatBin2d", Stat,
     breaks <- dual_param(breaks, list(NULL, NULL))
     bins <- dual_param(bins, list(x = 30, y = 30))
 
-    xbreaks <- bin_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
-    ybreaks <- bin_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
+    xbreaks <- bin2d_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
+    ybreaks <- bin2d_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
 
     xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
     ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
@@ -86,7 +93,7 @@ dual_param <- function(x, default = list(x = NULL, y = NULL)) {
   }
 }
 
-bin_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
+bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
                       bins = 30, right = TRUE) {
   # Bins for categorical data should take the width of one level,
   # and should show up centered over their tick marks. All other parameters

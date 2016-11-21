@@ -1,34 +1,35 @@
-#' Map projections.
+#' Map projections
 #'
-#' The representation of a portion of the earth, which is approximately spherical,
-#' onto a flat 2D plane requires a projection. This is what
-#' \code{\link{coord_map}} does. These projections account for the fact that the
-#' actual length (in km) of one degree of longitude varies between the equator
-#' and the pole. Near the equator, the ratio between the lengths of one degree
-#' of latitude and one degree of longitude is approximately 1. Near the pole, it
-#' is tends towards infinity because the length of one degree of longitude tends
-#' towards 0. For regions that span only a few degrees and are not too close to
-#' the poles, setting the aspect ratio of the plot to the appropriate lat/lon
-#' ratio approximates the usual mercator projection. This is what
-#' \code{coord_quickmap} does. With \code{\link{coord_map}} all elements of the
-#' graphic have to be projected which is not the case here. So
-#' \code{\link{coord_quickmap}} has the advantage of being much faster, in
-#' particular for complex plots such as those using with
-#' \code{\link{geom_tile}}, at the expense of correctness in the projection.
-#' This coordinate system provides the full range of map projections available
-#' in the mapproj package.
+#' \code{coord_map} projects a portion of the earth, which is approximately
+#' spherical, onto a flat 2D plane using any projection defined by the
+#' \code{mapproj} package. Map projections do not, in general, preserve straight
+#' lines, so this requires considerable computation. \code{coord_quickmap} is a
+#' quick approximation that does preserve straight lines. It works best for
+#' smaller areas closer to the equator.
 #'
-#' @export
+#' In general, map projections must account for the fact that the actual length
+#' (in km) of one degree of longitude varies between the equator and the pole.
+#' Near the equator, the ratio between the lengths of one degree of latitude and
+#' one degree of longitude is approximately 1. Near the pole, it is tends
+#' towards infinity because the length of one degree of longitude tends towards
+#' 0. For regions that span only a few degrees and are not too close to the
+#' poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio
+#' approximates the usual mercator projection. This is what
+#' \code{coord_quickmap} does, and is much faster (particularly for complex
+#' plots like \code{\link{geom_tile}}) at the expense of correctness.
+#'
 #' @param projection projection to use, see
 #'    \code{\link[mapproj]{mapproject}} for list
-#' @param ... other arguments passed on to
-#'   \code{\link[mapproj]{mapproject}}
+#' @param ...,parameters Other arguments passed on to
+#'   \code{\link[mapproj]{mapproject}}. Use \code{...} for named parameters to
+#'   the projection, and \code{parameters} for unnamed parameters.
+#'   \code{...} is ignored if the \code{parameters} argument is present.
 #' @param orientation projection orientation, which defaults to
-#'  \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
-#'  projections, so you will have to supply your own. See
-#'  \code{\link[mapproj]{mapproject}} for more information.
-#' @param xlim manually specific x limits (in degrees of longitude)
-#' @param ylim manually specific y limits (in degrees of latitude)
+#'   \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
+#'   projections, so you will have to supply your own. See
+#'   \code{\link[mapproj]{mapproject}} for more information.
+#' @param xlim,ylim Manually specific x/y limits (in degrees of
+#'   longitude/latitude)
 #' @export
 #' @examples
 #' if (require("maps")) {
@@ -46,7 +47,8 @@
 #'
 #' # Other projections
 #' nzmap + coord_map("cylindrical")
-#' nzmap + coord_map("azequalarea",orientation=c(-36.92,174.6,0))
+#' nzmap + coord_map("azequalarea", orientation = c(-36.92, 174.6, 0))
+#' nzmap + coord_map("lambert", parameters = c(-37, -44))
 #'
 #' states <- map_data("state")
 #' usamap <- ggplot(states, aes(long, lat, group = group)) +
@@ -71,7 +73,7 @@
 #'
 #' # World map, using geom_path instead of geom_polygon
 #' world <- map_data("world")
-#' worldmap <- ggplot(world, aes(x=long, y=lat, group=group)) +
+#' worldmap <- ggplot(world, aes(x = long, y = lat, group = group)) +
 #'   geom_path() +
 #'   scale_y_continuous(breaks = (-2:2) * 30) +
 #'   scale_x_continuous(breaks = (-4:4) * 45)
@@ -83,12 +85,18 @@
 #' # Centered on New York (currently has issues with closing polygons)
 #' worldmap + coord_map("ortho", orientation = c(41, -74, 0))
 #' }
-coord_map <- function(projection="mercator", ..., orientation = NULL, xlim = NULL, ylim = NULL) {
+coord_map <- function(projection="mercator", ..., parameters = NULL, orientation = NULL, xlim = NULL, ylim = NULL) {
+  if (is.null(parameters)) {
+    params <- list(...)
+  } else {
+    params <- parameters
+  }
+
   ggproto(NULL, CoordMap,
     projection = projection,
     orientation = orientation,
     limits = list(x = xlim, y = ylim),
-    params = list(...)
+    params = params
   )
 }
 
@@ -128,7 +136,7 @@ CoordMap <- ggproto("CoordMap", Coord,
       if (is.null(limits)) {
         range <- scale$dimension(expand_default(scale))
       } else {
-        range <- range(scale_transform(scale, limits))
+        range <- range(scale$transform(limits))
       }
       ranges[[n]] <- range
     }
@@ -215,7 +223,14 @@ CoordMap <- ggproto("CoordMap", Coord,
   },
 
   render_axis_h = function(self, scale_details, theme) {
-    if (is.null(scale_details$x.major)) return(zeroGrob())
+    arrange <- scale_details$x.arrange %||% c("primary", "secondary")
+
+    if (is.null(scale_details$x.major)) {
+      return(list(
+        top = zeroGrob(),
+        bottom = zeroGrob()
+      ))
+    }
 
     x_intercept <- with(scale_details, data.frame(
       x = x.major,
@@ -223,11 +238,23 @@ CoordMap <- ggproto("CoordMap", Coord,
     ))
     pos <- self$transform(x_intercept, scale_details)
 
-    guide_axis(pos$x, scale_details$x.labels, "bottom", theme)
+    axes <- list(
+      bottom = guide_axis(pos$x, scale_details$x.labels, "bottom", theme),
+      top = guide_axis(pos$x, scale_details$x.labels, "top", theme)
+    )
+    axes[[which(arrange == "secondary")]] <- zeroGrob()
+    axes
   },
 
   render_axis_v = function(self, scale_details, theme) {
-    if (is.null(scale_details$y.major)) return(zeroGrob())
+    arrange <- scale_details$y.arrange %||% c("primary", "secondary")
+
+    if (is.null(scale_details$y.major)) {
+      return(list(
+        left = zeroGrob(),
+        right = zeroGrob()
+      ))
+    }
 
     x_intercept <- with(scale_details, data.frame(
       x = x.range[1],
@@ -235,7 +262,12 @@ CoordMap <- ggproto("CoordMap", Coord,
     ))
     pos <- self$transform(x_intercept, scale_details)
 
-    guide_axis(pos$y, scale_details$y.labels, "left", theme)
+    axes <- list(
+      left = guide_axis(pos$y, scale_details$y.labels, "left", theme),
+      right = guide_axis(pos$y, scale_details$y.labels, "right", theme)
+    )
+    axes[[which(arrange == "secondary")]] <- zeroGrob()
+    axes
   }
 )
 

@@ -1,16 +1,22 @@
-#' Remove duplicates.
+#' Remove duplicates
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "unique")}
+#' \aesthetics{stat}{unique}
 #'
 #' @export
-#' @inheritParams stat_identity
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @examples
-#' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1)
-#' ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1, stat="unique")
-stat_unique <- function(mapping = NULL, data = NULL, geom = "point",
-                        position = "identity", show.legend = NA,
-                        inherit.aes = TRUE, ...) {
+#' ggplot(mtcars, aes(vs, am)) +
+#'   geom_point(alpha = 0.1)
+#' ggplot(mtcars, aes(vs, am)) +
+#'   geom_point(alpha = 0.1, stat = "unique")
+stat_unique <- function(mapping = NULL, data = NULL,
+                        geom = "point", position = "identity",
+                        ...,
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -19,7 +25,10 @@ stat_unique <- function(mapping = NULL, data = NULL, geom = "point",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

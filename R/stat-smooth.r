@@ -1,7 +1,12 @@
-#' @param method smoothing method (function) to use, eg. lm, glm, gam, loess,
-#'   rlm. For datasets with n < 1000 default is \code{\link{loess}}. For datasets
-#'   with 1000 or more observations defaults to gam, see \code{\link[mgcv]{gam}}
-#'   for more details.
+#' @param method smoothing method (function) to use, eg. "lm", "glm",
+#'   "gam", "loess", "rlm".
+#'
+#'   For \code{method = "auto"} the smoothing method is chosen based on the
+#'   size of the largest group (across all panels). \code{\link{loess}} is
+#'   used for than 1,000 observations; otherwise \code{\link[mgcv]{gam}} is
+#'   used with \code{formula = y ~ s(x, bs = "cs")}. Somewhat anecdotally,
+#'   \code{loess} gives a better appearance, but is O(n^2) in memory, so does
+#'   not work for larger datasets.
 #' @param formula formula to use in smoothing function, eg. \code{y ~ x},
 #'   \code{y ~ poly(x, 2)}, \code{y ~ log(x)}
 #' @param se display confidence interval around smooth? (TRUE by default, see
@@ -15,8 +20,6 @@
 #' @param n number of points to evaluate smoother at
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by \code{method}.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @section Computed variables:
 #' \describe{
 #'   \item{y}{predicted value}
@@ -26,11 +29,20 @@
 #' }
 #' @export
 #' @rdname geom_smooth
-stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
-  position = "identity", method = "auto", formula = y ~ x, se = TRUE, n = 80,
-  span = 0.75, fullrange = FALSE, level = 0.95, method.args = list(),
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
-{
+stat_smooth <- function(mapping = NULL, data = NULL,
+                        geom = "smooth", position = "identity",
+                        ...,
+                        method = "auto",
+                        formula = y ~ x,
+                        se = TRUE,
+                        n = 80,
+                        span = 0.75,
+                        fullrange = FALSE,
+                        level = 0.95,
+                        method.args = list(),
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -61,11 +73,11 @@ stat_smooth <- function(mapping = NULL, data = NULL, geom = "smooth",
 StatSmooth <- ggproto("StatSmooth", Stat,
 
   setup_params = function(data, params) {
-    # Figure out what type of smoothing to do: loess for small datasets,
-    # gam with a cubic regression basis for large data
-    # This is based on the size of the _largest_ group.
     if (identical(params$method, "auto")) {
-      max_group <- max(table(data$group))
+      # Use loess for small datasets, gam with a cubic regression basis for
+      # larger. Based on size of the _largest_ group to avoid bad memory
+      # behaviour of loess
+      max_group <- max(table(interaction(data$group, data$PANEL, drop = TRUE)))
 
       if (max_group < 1000) {
         params$method <- "loess"
@@ -73,6 +85,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         params$method <- "gam"
         params$formula <- y ~ s(x, bs = "cs")
       }
+      message("`geom_smooth()` using method = '", params$method, "'")
     }
     if (identical(params$method, "gam")) {
       params$method <- mgcv::gam

@@ -4,12 +4,12 @@
 #' (or maximum width, depending on the binning algorithm), and dots are
 #' stacked, with each dot representing one observation.
 #'
+#' There are two basic approaches: \emph{dot-density} and \emph{histodot}.
 #' With dot-density binning, the bin positions are determined by the data and
 #' \code{binwidth}, which is the maximum width of each bin. See Wilkinson
-#' (1999) for details on the dot-density binning algorithm.
-#'
-#' With histodot binning, the bins have fixed positions and fixed widths, much
-#' like a histogram.
+#' (1999) for details on the dot-density binning algorithm. With histodot
+#' binning, the bins have fixed positions and fixed widths, much like a
+#' histogram.
 #'
 #' When binning along the x axis and stacking along the y axis, the numbers on
 #' y axis are not meaningful, due to technical limitations of ggplot2. You can
@@ -17,8 +17,22 @@
 #' to match the number of dots.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "dotplot")}
+#' \aesthetics{geom}{dotplot}
 #'
+#' @section Computed variables:
+#' \describe{
+#'   \item{x}{center of each bin, if binaxis is "x"}
+#'   \item{y}{center of each bin, if binaxis is "x"}
+#'   \item{binwidth}{max width of each bin if method is "dotdensity";
+#'     width of each bin if method is "histodot"}
+#'   \item{count}{number of points in bin}
+#'   \item{ncount}{count, scaled to maximum of 1}
+#'   \item{density}{density of points in bin, scaled to integrate to 1,
+#'     if method is "histodot"}
+#'   \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
+#' }
+#'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param stackdir which direction to stack the dots. "up" (default),
 #'   "down", "center", "centerwhole" (centered, but with dots aligned)
@@ -43,21 +57,7 @@
 #'   on the right (a, b], or not [a, b)
 #' @param width When \code{binaxis} is "y", the spacing of the dot stacks
 #'   for dodging.
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @param drop If TRUE, remove all bins with zero counts
-#' @section Computed variables:
-#' \describe{
-#'   \item{x}{center of each bin, if binaxis is "x"}
-#'   \item{y}{center of each bin, if binaxis is "x"}
-#'   \item{binwidth}{max width of each bin if method is "dotdensity";
-#'     width of each bin if method is "histodot"}
-#'   \item{count}{number of points in bin}
-#'   \item{ncount}{count, scaled to maximum of 1}
-#'   \item{density}{density of points in bin, scaled to integrate to 1,
-#'     if method is "histodot"}
-#'   \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
-#' }
 #' @export
 #' @references Wilkinson, L. (1999) Dot plots. The American Statistician,
 #'    53(3), 276-281.
@@ -114,12 +114,23 @@
 #'   geom_dotplot(binaxis = "y", stackgroups = TRUE, binwidth = 1, method = "histodot")
 #' }
 geom_dotplot <- function(mapping = NULL, data = NULL,
-  position = "identity", na.rm = FALSE, binwidth = NULL, binaxis = "x",
-  method = "dotdensity", binpositions = "bygroup", stackdir = "up",
-  stackratio = 1, dotsize = 1, stackgroups = FALSE,
-  origin = NULL, right = TRUE, width = 0.9, drop = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
-{
+                         position = "identity",
+                         ...,
+                         binwidth = NULL,
+                         binaxis = "x",
+                         method = "dotdensity",
+                         binpositions = "bygroup",
+                         stackdir = "up",
+                         stackratio = 1,
+                         dotsize = 1,
+                         stackgroups = FALSE,
+                         origin = NULL,
+                         right = TRUE,
+                         width = 0.9,
+                         drop = FALSE,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   # If identical(position, "stack") or position is position_stack(), tell them
   # to use stackgroups=TRUE instead. Need to use identical() instead of ==,
   # because == will fail if object is position_stack() or position_dodge()
@@ -141,7 +152,6 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
     # Need to make sure that the binaxis goes to both the stat and the geom
     params = list(
       binaxis = binaxis,
-      na.rm = na.rm,
       binwidth = binwidth,
       binpositions = binpositions,
       method = method,
@@ -153,6 +163,7 @@ geom_dotplot <- function(mapping = NULL, data = NULL,
       stackratio = stackratio,
       dotsize = dotsize,
       stackgroups = stackgroups,
+      na.rm = na.rm,
       ...
     )
   )
@@ -228,7 +239,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
       # works. They're just set to the standard x +- width/2 so that dot clusters
       # can be dodged like other geoms.
       # After position code is rewritten, each dot should have its own bounding box.
-      data <- plyr::ddply(data, "group", transform,
+      data <- plyr::ddply(data, c("group", "PANEL"), transform,
             ymin = min(y) - binwidth[1] / 2,
             ymax = max(y) + binwidth[1] / 2)
 
@@ -250,7 +261,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
     tdata <- coord$transform(data, panel_scales)
 
     # Swap axes if using coord_flip
-    if ("flip" %in% attr(coord, "class"))
+    if (inherits(coord, "CoordFlip"))
       binaxis <- ifelse(binaxis == "x", "y", "x")
 
     if (binaxis == "x") {

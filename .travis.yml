@@ -1,31 +1,34 @@
 language: R
-sudo: required
-warnings_are_errors: true
-
-r_packages:
-  - rmarkdown
+cache: packages
+sudo: false
 
 r_github_packages:
-  - hadley/staticdocs
-  - jimhester/covr
-
-before_script:
-  - sudo Rscript -e "library(stringi); stri_install_icudt()"
+  - hadley/staticdocs@old
 
 after_success:
   - Rscript -e 'covr::codecov()'
 
 before_deploy:
+  - R -e "install.packages('roxygen2', repos = 'http://cran.rstudio.com')"
   - R -e "staticdocs::build_site(examples = TRUE)"
 
 deploy:
-  edge: true
+  - provider: s3
+    access_key_id: AKIAJDM6KGIZ6LSGAK4Q
+    secret_access_key:
+      secure: "r3vSpvVNcpvIcjWFyk+GhYG55iuhfmy3mwuQHQS2EqjT3Skd3mOojnZuRIqy60XXElK5/nfa3qt7KH0GCSd4Is28cqPwh+1PtQ0ZVXfeKefAk2whTPDI4P+rgOA+srUxZraLALap9QGmvlzJyXbqBCRdDmXUjtXKi2ONE9PrUk4="
+    bucket: docs.ggplot2.org
+    skip_cleanup: true
+    local-dir: docs
+    upload-dir: dev
 
-  provider: s3
-  access_key_id: AKIAJDM6KGIZ6LSGAK4Q
-  secret_access_key:
-    secure: "r3vSpvVNcpvIcjWFyk+GhYG55iuhfmy3mwuQHQS2EqjT3Skd3mOojnZuRIqy60XXElK5/nfa3qt7KH0GCSd4Is28cqPwh+1PtQ0ZVXfeKefAk2whTPDI4P+rgOA+srUxZraLALap9QGmvlzJyXbqBCRdDmXUjtXKi2ONE9PrUk4="
-  bucket: docs.ggplot2.org
-  skip_cleanup: true
-  local-dir: inst/web
-  upload-dir: dev
+  - provider: s3
+    access_key_id: AKIAJDM6KGIZ6LSGAK4Q
+    secret_access_key:
+      secure: "r3vSpvVNcpvIcjWFyk+GhYG55iuhfmy3mwuQHQS2EqjT3Skd3mOojnZuRIqy60XXElK5/nfa3qt7KH0GCSd4Is28cqPwh+1PtQ0ZVXfeKefAk2whTPDI4P+rgOA+srUxZraLALap9QGmvlzJyXbqBCRdDmXUjtXKi2ONE9PrUk4="
+    bucket: docs.ggplot2.org
+    skip_cleanup: true
+    local-dir: docs
+    upload-dir: current
+    on:
+      tags: true

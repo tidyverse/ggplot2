@@ -1,7 +1,7 @@
-#' Textual annotations.
+#' Text
 #'
 #' \code{geom_text} adds text directly to the plot. \code{geom_label} draws
-#' a rectangle underneath the text, making it easier to read.
+#' a rectangle behind the text, making it easier to read.
 #'
 #' Note the the "width" and "height" of a text element are 0, so stacking
 #' and dodging text will not work by default, and axis limits are not
@@ -11,7 +11,7 @@
 #' resize a plot, labels stay the same size, but the size of the axes changes.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "text")}
+#' \aesthetics{geom}{text}
 #'
 #' @section \code{geom_label}:
 #' Currently \code{geom_label} does not support the \code{rot} parameter and
@@ -26,13 +26,14 @@
 #' Inward always aligns text towards the center, and outward aligns
 #' it away from the center
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @param parse If TRUE, the labels will be parsed into expressions and
 #'   displayed as described in ?plotmath
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #'   Useful for offsetting text from points, particularly on discrete scales.
 #' @param check_overlap If \code{TRUE}, text that overlaps previous text in the
-#'   same layer will not be plotted. A quick and dirty way
+#'   same layer will not be plotted.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
@@ -50,6 +51,7 @@
 #' p + geom_point() + geom_text(vjust = 0, nudge_y = 0.5)
 #' p + geom_point() + geom_text(angle = 45)
 #' \dontrun{
+#' # Doesn't work on all systems
 #' p + geom_text(family = "Times New Roman")
 #' }
 #'
@@ -84,25 +86,27 @@
 #'
 #' # ggplot2 doesn't know you want to give the labels the same virtual width
 #' # as the bars:
-#' ggplot(data = df, aes(x, y, fill = grp, label = y)) +
-#'   geom_bar(stat = "identity", position = "dodge") +
-#'   geom_text(position = "dodge")
+#' ggplot(data = df, aes(x, y, group = grp)) +
+#'   geom_col(aes(fill = grp), position = "dodge") +
+#'   geom_text(aes(label = y), position = "dodge")
 #' # So tell it:
-#' ggplot(data = df, aes(x, y, fill = grp, label = y)) +
-#'   geom_bar(stat = "identity", position = "dodge") +
-#'   geom_text(position = position_dodge(0.9))
+#' ggplot(data = df, aes(x, y, group = grp)) +
+#'   geom_col(aes(fill = grp), position = "dodge") +
+#'   geom_text(aes(label = y), position = position_dodge(0.9))
 #' # Use you can't nudge and dodge text, so instead adjust the y postion
-#' ggplot(data = df, aes(x, y, fill = grp, label = y)) +
-#'   geom_bar(stat = "identity", position = "dodge") +
-#'   geom_text(aes(y = y + 0.05), position = position_dodge(0.9), vjust = 0)
+#' ggplot(data = df, aes(x, y, group = grp)) +
+#'   geom_col(aes(fill = grp), position = "dodge") +
+#'   geom_text(
+#'     aes(label = y, y = y + 0.05),
+#'     position = position_dodge(0.9),
+#'     vjust = 0
+#'   )
 #'
 #' # To place text in the middle of each bar in a stacked barplot, you
-#' # need to do the computation yourself
-#' df <- transform(df, mid_y = ave(df$y, df$x, FUN = function(val) cumsum(val) - (0.5 * val)))
-#'
-#' ggplot(data = df, aes(x, y, fill = grp, label = y)) +
-#'  geom_bar(stat = "identity") +
-#'  geom_text(aes(y = mid_y))
+#' # need to set the vjust parameter of position_stack()
+#' ggplot(data = df, aes(x, y, group = grp)) +
+#'  geom_col(aes(fill = grp)) +
+#'  geom_text(aes(label = y), position = position_stack(vjust = 0.5))
 #'
 #' # Justification -------------------------------------------------------------
 #' df <- data.frame(
@@ -115,9 +119,16 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 #' }
-geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", parse = FALSE, show.legend = NA, inherit.aes = TRUE,
-  ..., nudge_x = 0, nudge_y = 0, check_overlap = FALSE)
+geom_text <- function(mapping = NULL, data = NULL,
+                      stat = "identity", position = "identity",
+                      ...,
+                      parse = FALSE,
+                      nudge_x = 0,
+                      nudge_y = 0,
+                      check_overlap = FALSE,
+                      na.rm = FALSE,
+                      show.legend = NA,
+                      inherit.aes = TRUE)
 {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
@@ -138,6 +149,7 @@ geom_text <- function(mapping = NULL, data = NULL, stat = "identity",
     params = list(
       parse = parse,
       check_overlap = check_overlap,
+      na.rm = na.rm,
       ...
     )
   )
@@ -160,7 +172,7 @@ GeomText <- ggproto("GeomText", Geom,
                         na.rm = FALSE, check_overlap = FALSE) {
     lab <- data$label
     if (parse) {
-      lab <- parse(text = lab)
+      lab <- parse(text = as.character(lab))
     }
 
     data <- coord$transform(data, panel_scales)

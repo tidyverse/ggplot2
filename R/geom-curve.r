@@ -1,16 +1,24 @@
 #' @inheritParams grid::curveGrob
 #' @export
 #' @rdname geom_segment
-geom_curve <- function(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", curvature = 0.5, angle = 90, ncp = 5, arrow = NULL,
-  lineend = "butt", na.rm = FALSE, inherit.aes = TRUE, ...)
-{
+geom_curve <- function(mapping = NULL, data = NULL,
+                       stat = "identity", position = "identity",
+                       ...,
+                       curvature = 0.5,
+                       angle = 90,
+                       ncp = 5,
+                       arrow = NULL,
+                       lineend = "butt",
+                       na.rm = FALSE,
+                       show.legend = NA,
+                       inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
     stat = stat,
     geom = GeomCurve,
     position = position,
+    show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
       arrow = arrow,
@@ -37,6 +45,7 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
         call. = FALSE)
     }
     trans <- coord$transform(data, panel_scales)
+
     curveGrob(
       trans$x, trans$y, trans$xend, trans$yend,
       default.units = "native",
@@ -46,7 +55,7 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
         col = alpha(trans$colour, trans$alpha),
         lwd = trans$size * .pt,
         lty = trans$linetype,
-        lineend = trans$lineend),
+        lineend = lineend),
       arrow = arrow
     )
   }

@@ -1,15 +1,16 @@
 #' @inheritParams stat_identity
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
 #' @export
 #' @section Computed variables:
 #' \describe{
 #'  \item{level}{height of contour}
 #' }
 #' @rdname geom_contour
-stat_contour <- function(mapping = NULL, data = NULL, geom = "contour",
-                         position = "identity", na.rm = FALSE, show.legend = NA,
-                         inherit.aes = TRUE, ...) {
+stat_contour <- function(mapping = NULL, data = NULL,
+                         geom = "contour", position = "identity",
+                         ...,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -64,6 +65,11 @@ StatContour <- ggproto("StatContour", Stat,
 #   facet_wrap(~piece)
 contour_lines <- function(data, breaks, complete = FALSE) {
   z <- tapply(data$z, data[c("x", "y")], identity)
+
+  if (is.list(z)) {
+    stop("Contour requires single `z` at each combination of `x` and `y`.",
+      call. = FALSE)
+  }
 
   cl <- grDevices::contourLines(
     x = sort(unique(data$x)), y = sort(unique(data$y)), z = z,

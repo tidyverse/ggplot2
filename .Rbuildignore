@@ -8,3 +8,12 @@ visual_test
 ^cran-comments.md$
 ^data-raw$
 ^CONTRIBUTING\.md$
+^NEWS$
+^revdep$
+^\.httr-oauth$
+^codecov\.yml$
+^_pkgdown\.yml$
+^icons$
+^README\.Rmd$
+^README-.*\.png$
+^logo\.png$

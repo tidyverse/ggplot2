@@ -1,11 +1,11 @@
 #' @include stat-.r
 NULL
 
-#' Lines: horizontal, vertical, and specified by slope and intercept.
+#' Reference lines: horizontal, vertical, and diagonal
 #'
-#' These paired geoms and stats add straight lines to a plot, either
-#' horizontal, vertical or specified by slope and intercept. These are useful
-#' for annotating plots.
+#' These geoms add reference lines (sometimes called rules) to a plot, either
+#' horizontal, vertical, or diagonal (specified by slope and intercept).
+#' These are useful for annotating plots.
 #'
 #' These geoms act slightly different to other geoms. You can supply the
 #' parameters in two ways: either as arguments to the layer function,
@@ -21,8 +21,9 @@ NULL
 #'
 #' @section Aesthetics:
 #' These geoms are drawn using with \code{\link{geom_line}} so support the
-#' same aesthetics: alpha, colour, linetype and size. They also each have
-#' aesthetics that control the position of the line:
+#' same aesthetics: \code{alpha}, \code{colour}, \code{linetype} and
+#' \code{size}. They also each have aesthetics that control the position of
+#' the line:
 #'
 #' \itemize{
 #'   \item \code{geom_vline}: \code{xintercept}
@@ -32,10 +33,11 @@ NULL
 #'
 #' @seealso See \code{\link{geom_segment}} for a more general approach to
 #'   adding straight line segments to a plot.
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @param xintercept,yintercept,slope,intercept Parameters that control the
 #'   position of the line. If these are set, \code{data}, \code{mapping} and
 #'   \code{show.legend} are overridden
-#' @inheritParams geom_point
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
@@ -67,8 +69,12 @@ NULL
 #'   geom_point() +
 #'   geom_hline(aes(yintercept = wt, colour = wt), mean_wt) +
 #'   facet_wrap(~ cyl)
-geom_abline <- function(mapping = NULL, data = NULL, show.legend = NA, ...,
-                        slope, intercept) {
+geom_abline <- function(mapping = NULL, data = NULL,
+                        ...,
+                        slope,
+                        intercept,
+                        na.rm = FALSE,
+                        show.legend = NA) {
 
   # If nothing set, default to y = x
   if (missing(mapping) && missing(slope) && missing(intercept)) {
@@ -94,7 +100,10 @@ geom_abline <- function(mapping = NULL, data = NULL, show.legend = NA, ...,
     position = PositionIdentity,
     show.legend = show.legend,
     inherit.aes = FALSE,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 

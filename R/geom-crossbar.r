@@ -1,8 +1,12 @@
 #' @export
 #' @rdname geom_linerange
-geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
-                          position = "identity", fatten = 2.5, show.legend = NA,
-                          inherit.aes = TRUE, ...) {
+geom_crossbar <- function(mapping = NULL, data = NULL,
+                          stat = "identity", position = "identity",
+                          ...,
+                          fatten = 2.5,
+                          na.rm = FALSE,
+                          show.legend = NA,
+                          inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -13,6 +17,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL, stat = "identity",
     inherit.aes = inherit.aes,
     params = list(
       fatten = fatten,
+      na.rm = na.rm,
       ...
     )
   )

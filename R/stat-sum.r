@@ -1,4 +1,5 @@
-#' @inheritParams stat_identity
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @section Computed variables:
 #' \describe{
 #'  \item{n}{number of observations at position}
@@ -6,9 +7,12 @@
 #' }
 #' @export
 #' @rdname geom_count
-stat_sum <- function(mapping = NULL, data = NULL, geom = "point",
-                     position = "identity", show.legend = NA,
-                     inherit.aes = TRUE, ...) {
+stat_sum <- function(mapping = NULL, data = NULL,
+                     geom = "point", position = "identity",
+                     ...,
+                     na.rm = FALSE,
+                     show.legend = NA,
+                     inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -17,7 +21,10 @@ stat_sum <- function(mapping = NULL, data = NULL, geom = "point",
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
   )
 }
 
@@ -26,7 +33,7 @@ stat_sum <- function(mapping = NULL, data = NULL, geom = "point",
 #' @usage NULL
 #' @export
 StatSum <- ggproto("StatSum", Stat,
-  default_aes = aes(size = ..n..),
+  default_aes = aes(size = ..n.., weight = 1),
 
   required_aes = c("x", "y"),
 

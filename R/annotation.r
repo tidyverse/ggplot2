@@ -1,6 +1,6 @@
-#' Create an annotation layer.
+#' Create an annotation layer
 #'
-#' This function adds geoms to a plot. Unlike typical a geom function,
+#' This function adds geoms to a plot, but unlike typical a geom function,
 #' the properties of the geoms are not mapped from variables of a data frame,
 #' but are instead passed in as vectors. This is useful for adding small annotations
 #' (such as text labels) or if you have your data in vectors, and for some
@@ -14,8 +14,8 @@
 #' @param geom name of geom to use for annotation
 #' @param x,y,xmin,ymin,xmax,ymax,xend,yend positioning aesthetics -
 #'   you must specify at least one of these.
-#' @param ... other aesthetics. These are not scaled so you can do (e.g.)
-#'   \code{colour = "red"} to get a red point.
+#' @inheritParams layer
+#' @inheritParams geom_point
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(x = wt, y = mpg)) + geom_point()
@@ -29,8 +29,14 @@
 #'   colour = "red", size = 1.5)
 #'
 #' p + annotate("text", x = 2:3, y = 20:21, label = c("my label", "label 2"))
+#'
+#' p + annotate("text", x = 4, y = 25, label = "italic(R) ^ 2 == 0.75",
+#'   parse = TRUE)
+#' p + annotate("text", x = 4, y = 25,
+#'   label = "paste(italic(R) ^ 2, \" = .75\")", parse = TRUE)
 annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
-                     ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...) {
+                     ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...,
+                     na.rm = FALSE) {
 
   position <- compact(list(
     x = x, xmin = xmin, xmax = xmax, xend = xend,
@@ -51,7 +57,10 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   data <- data.frame(position)
   layer(
     geom = geom,
-    params = list(...),
+    params = list(
+      na.rm = na.rm,
+      ...
+    ),
     stat = StatIdentity,
     position = PositionIdentity,
     data = data,
