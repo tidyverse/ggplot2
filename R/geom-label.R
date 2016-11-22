@@ -83,14 +83,14 @@ GeomLabel <- ggproto("GeomLabel", Geom,
         padding = label.padding,
         r = label.r,
         text.gp = gpar(
-          col = row$colour,
+          col = alpha(row$colour, row$alpha),
           fontsize = row$size * .pt,
           fontfamily = row$family,
           fontface = row$fontface,
           lineheight = row$lineheight
         ),
         rect.gp = gpar(
-          col = row$colour,
+          col = alpha(row$colour, row$alpha),
           fill = alpha(row$fill, row$alpha),
           lwd = label.size * .pt
         )
