@@ -351,6 +351,8 @@ There were a number of tweaks to the theme elements that control legends:
 
 * Fixed issue where `coord_map()` fails when given an explicit `parameters`
   argument (@tdmcarthur, #1729)
+  
+* Fixed issue where `geom_errorbarh()` had a required `x` aesthetic (#1933)  
 
 # ggplot2 2.0.0
 

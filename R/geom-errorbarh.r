@@ -55,7 +55,7 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
 
   draw_key = draw_key_path,
 
-  required_aes = c("x", "xmin", "xmax", "y"),
+  required_aes = c("xmin", "xmax", "y"),
 
   setup_data = function(data, params) {
     data$height <- data$height %||%
