@@ -62,6 +62,9 @@ ggplot_build <- function(plot) {
   # Make sure missing (but required) aesthetics are added
   scales_add_missing(plot, c("x", "y"), plot$plot_env)
 
+  # Order data
+  data <- by_layer(function(l, d) l$order_statistic(d, plot))
+
   # Reparameterise geoms from (e.g.) y and width to ymin and ymax
   data <- by_layer(function(l, d) l$compute_geom_1(d))
 
@@ -74,6 +77,9 @@ ggplot_build <- function(plot) {
   layout$reset_scales()
   layout$train_position(data, scale_x(), scale_y())
   data <- layout$map_position(data)
+
+  # Order labels
+  layout$order_labels(plot)
 
   # Train and map non-position scales
   npscales <- scales$non_position_scales()

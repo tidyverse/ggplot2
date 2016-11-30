@@ -179,6 +179,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_aesthetics = function(self, data, plot) {
+
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (self$inherit.aes) {
       aesthetics <- defaults(self$mapping, plot$mapping)
@@ -225,9 +226,11 @@ Layer <- ggproto("Layer", NULL,
     } else {
       evaled$PANEL <- data$PANEL
     }
+
     evaled <- lapply(evaled, unname)
     evaled <- data.frame(evaled, stringsAsFactors = FALSE)
     evaled <- add_group(evaled)
+
     evaled
   },
 
@@ -310,6 +313,14 @@ Layer <- ggproto("Layer", NULL,
 
     data <- self$geom$handle_na(data, self$geom_params)
     self$geom$draw_layer(data, self$geom_params, layout, coord)
+  },
+
+  order_statistic = function(self, data, plot) {
+    if (empty(data)) return(data.frame())
+    order <- plot$order
+    if (is.null(order)) return(data)
+
+    order$order_data(data, self$position)
   }
 )
 

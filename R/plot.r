@@ -99,6 +99,7 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
     theme = list(),
     coordinates = coord_cartesian(),
     facet = facet_null(),
+    order = order_null(),
     plot_env = environment
   ), class = c("gg", "ggplot"))
 
