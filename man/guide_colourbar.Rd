@@ -3,7 +3,7 @@
 \name{guide_colourbar}
 \alias{guide_colorbar}
 \alias{guide_colourbar}
-\title{Continuous colour bar guide.}
+\title{Continuous colour bar guide}
 \usage{
 guide_colourbar(title = waiver(), title.position = NULL,
   title.theme = NULL, title.hjust = NULL, title.vjust = NULL,

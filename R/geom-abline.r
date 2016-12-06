@@ -1,11 +1,11 @@
 #' @include stat-.r
 NULL
 
-#' Lines: horizontal, vertical, and specified by slope and intercept.
+#' Reference lines: horizontal, vertical, and diagonal
 #'
-#' These paired geoms and stats add straight lines to a plot, either
-#' horizontal, vertical or specified by slope and intercept. These are useful
-#' for annotating plots.
+#' These geoms add reference lines (sometimes called rules) to a plot, either
+#' horizontal, vertical, or diagonal (specified by slope and intercept).
+#' These are useful for annotating plots.
 #'
 #' These geoms act slightly different to other geoms. You can supply the
 #' parameters in two ways: either as arguments to the layer function,
@@ -21,8 +21,9 @@ NULL
 #'
 #' @section Aesthetics:
 #' These geoms are drawn using with \code{\link{geom_line}} so support the
-#' same aesthetics: alpha, colour, linetype and size. They also each have
-#' aesthetics that control the position of the line:
+#' same aesthetics: \code{alpha}, \code{colour}, \code{linetype} and
+#' \code{size}. They also each have aesthetics that control the position of
+#' the line:
 #'
 #' \itemize{
 #'   \item \code{geom_vline}: \code{xintercept}

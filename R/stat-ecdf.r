@@ -1,4 +1,4 @@
-#' Empirical Cumulative Distribution Function
+#' Compute empirical cumulative distribution
 #'
 #' The empirical cumulative distribution function (ECDF) provides an alternative
 #' visualisation of distribution. Compared to other visualisations that rely on

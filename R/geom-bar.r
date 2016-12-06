@@ -1,28 +1,30 @@
-#' Bars, rectangles with bases on x-axis
+#' Bars charts
 #'
 #' There are two types of bar charts: \code{geom_bar} makes the height of the
 #' bar proportional to the number of cases in each group (or if the
 #' \code{weight} aethetic is supplied, the sum of the weights). If you want the
 #' heights of the bars to represent values in the data, use
-#' \code{\link{geom_col}} instead.
+#' \link{geom_col} instead. \code{geom_bar} uses \code{stat_count} by
+#' default: it counts the  number of cases at each x position. \code{geom_col}
+#' uses \code{stat_identity}: it leaves the data as is.
 #'
-#' A bar chart maps the height of the bar to a variable, and so the base of the
+#' A bar chart uses height to represent a value, and so the base of the
 #' bar must always be shown to produce a valid visual comparison. Naomi Robbins
 #' has a nice
 #' \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this
 #' topic}. This is why it doesn't make sense to use a log-scaled y axis with a
 #' bar chart.
 #'
-#' By default, multiple x's occurring in the same place will be stacked atop one
-#' another by \code{\link{position_stack}}. If you want them to be dodged
-#' side-to-side, see \code{\link{position_dodge}}. Finally,
-#' \code{\link{position_fill}} shows relative proportions at each x by stacking
-#' the bars and then stretching or squashing to the same height.
+#' By default, multiple bar occupying the same \code{x} position will be
+#' stacked atop one another by \code{\link{position_stack}}. If you want them
+#' to be dodged side-to-side, use \code{\link{position_dodge}}. Finally,
+#' \code{\link{position_fill}} shows relative proportions at each \code{x} by
+#' stacking the bars and then standardising each bar to have the same height.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{bar}
 #'
-#' @seealso \code{\link{geom_col}} which uses \code{stat="identity"} by default,
+#' @seealso
 #'   \code{\link{geom_histogram}} for continuous data,
 #'   \code{\link{position_dodge}} for creating side-by-side barcharts.
 #' @export
@@ -43,11 +45,9 @@
 #' # Total engine displacement of each class
 #' g + geom_bar(aes(weight = displ))
 #'
-#' # To show (e.g.) means, you need stat = "identity"
-#' df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
-#' ggplot(df, aes(trt, outcome)) +
-#'   geom_bar(stat = "identity")
+#' # To show (e.g.) means, you need geom_col()
 #' # And, even more succinctly with geom_col()
+#' df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
 #' ggplot(df, aes(trt, outcome)) +
 #'   geom_col()
 #' # But geom_point() displays exactly the same information and doesn't

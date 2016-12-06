@@ -1,4 +1,4 @@
-#' Calculation for quantile-quantile plot.
+#' A quantile-quantile plot
 #'
 #' @section Aesthetics:
 #' \aesthetics{stat}{qq}
@@ -32,7 +32,7 @@
 #' ggplot(mtcars) +
 #'   stat_qq(aes(sample = mpg, colour = factor(cyl)))
 #' }
-stat_qq <- function(mapping = NULL, data = NULL,
+geom_qq <- function(mapping = NULL, data = NULL,
                     geom = "point", position = "identity",
                     ...,
                     distribution = stats::qnorm,
@@ -58,8 +58,8 @@ stat_qq <- function(mapping = NULL, data = NULL,
 }
 
 #' @export
-#' @rdname stat_qq
-geom_qq <- stat_qq
+#' @rdname geom_qq
+stat_qq <- geom_qq
 
 #' @rdname ggplot2-ggproto
 #' @format NULL

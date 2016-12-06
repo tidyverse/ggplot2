@@ -1,9 +1,12 @@
-#' Set guides for each scale.
+#' Set guides for each scale
 #'
-#' Guides for each scale can be set in call of \code{scale_*} with argument
-#' \code{guide}, or in \code{guides}.
+#' Guides for each scale can be set scale-by-scale with the \code{guide}
+#' argument, or en masse with \code{guides()}.
 #'
-#' @param ... List of scale guide pairs
+#' @param ... List of scale name-guide pairs.  The guide can either
+#'   be a string (i.e. "colorbar" or "legend"), or a call to a guide function
+#'   (i.e. \code{\link{guide_colourbar}} or \code{\link{guide_legend}})
+#'   specifying additional arguments.
 #' @return A list containing the mapping between scale and guide.
 #' @export
 #' @family guides
@@ -180,7 +183,7 @@ guides_train <- function(scales, theme, guides, labels) {
     if (guide$available_aes != "any" && !scale$aesthetics %in% guide$available_aes)
       stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
 
-    guide$title <- guide$title %|W|% scale$name %|W|% labels[[output]]
+    guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
 
     # direction of this grob
     guide$direction <- guide$direction %||% theme$legend.direction

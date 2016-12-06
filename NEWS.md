@@ -1,8 +1,10 @@
-# ggplot2 2.1.0.9000 
+# ggplot2 2.2.0.9000
+
+# ggplot2 2.2.0
 
 ## Major new features
 
-## Subtitle and caption
+### Subtitle and caption
 
 Thanks to @hrbrmstr plots now have subtitles and captions, which can be set with the `subtitle`  and `caption` arguments to `ggtitle()` and `labs()`. You can control their appearance with the theme settings `plot.caption` and `plot.subtitle`. The main plot title is now left-aligned to better work better with a subtitle. The caption is right-aligned (@hrbrmstr).
 
@@ -41,6 +43,10 @@ We have also added the following new fatures.
 
 * The theme option `panel.margin` has been deprecated in favour of 
   `panel.spacing` to more clearly communicate intent.
+
+### Extensions
+
+Unfortunately there was a major oversight in the construction of ggproto which lead to extensions capturing the super object at package build time, instead of at package run time (#1826). This problem has been fixed, but requires re-installation of all extension packages.
 
 ## Scales
 
@@ -214,6 +220,9 @@ There were a number of tweaks to the theme elements that control legends:
 * `x` and `y` scales are now symmetric regarding the list of
   aesthetics they accept: `xmin_final`, `xmax_final`, `xlower`,
   `xmiddle` and `xupper` are now valid `x` aesthetics.
+
+* `Scale` extensions can now override the `make_title` and `make_sec_title` 
+  methods to let the scale modify the axis/legend titles.
 
 # ggplot2 2.1.0
 
@@ -450,7 +459,7 @@ There is now an official mechanism for defining Stats, Geoms, and Positions in o
   or stat, use `ggplot()` instead.
 
 * The theme setting `axis.ticks.margin` has been deprecated: now use the margin 
-  property of `axis.ticks`.
+  property of `axis.text`.
   
 * `stat_abline()`, `stat_hline()` and `stat_vline()` have been removed:
   these were never suitable for use other than with `geom_abline()` etc

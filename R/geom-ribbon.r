@@ -1,4 +1,4 @@
-#' Ribbons and area plots.
+#' Ribbons and area plots
 #'
 #' For each x value, \code{geom_ribbon} displays a y interval defined
 #' by \code{ymin} and \code{ymax}. \code{geom_area} is a special case of

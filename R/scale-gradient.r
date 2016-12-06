@@ -1,4 +1,4 @@
-#' Smooth gradient between two colours
+#' Gradient colour scales
 #'
 #' \code{scale_*_gradient} creates a two colour gradient (low-high),
 #' \code{scale_*_gradient2} creates a diverging colour gradient (low-mid-high),
@@ -19,10 +19,7 @@
 #'   to control name, limits, breaks, labels and so forth.
 #' @seealso \code{\link[scales]{seq_gradient_pal}} for details on underlying
 #'   palette
-#' @seealso Other colour scales:
-#'   \code{\link{scale_colour_brewer}},
-#'   \code{\link{scale_colour_grey}},
-#'   \code{\link{scale_colour_hue}}
+#' @family colour scales
 #' @rdname scale_gradient
 #' @export
 #' @examples

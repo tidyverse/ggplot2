@@ -3,7 +3,7 @@
 \name{geom_label}
 \alias{geom_label}
 \alias{geom_text}
-\title{Textual annotations.}
+\title{Text}
 \usage{
 geom_label(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., parse = FALSE, nudge_x = 0, nudge_y = 0,
@@ -59,8 +59,8 @@ Useful for offsetting text from points, particularly on discrete scales.}
 
 \item{label.size}{Size of label border, in mm.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -76,7 +76,7 @@ same layer will not be plotted.}
 }
 \description{
 \code{geom_text} adds text directly to the plot. \code{geom_label} draws
-a rectangle underneath the text, making it easier to read.
+a rectangle behind the text, making it easier to read.
 }
 \details{
 Note the the "width" and "height" of a text element are 0, so stacking

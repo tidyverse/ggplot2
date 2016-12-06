@@ -7,21 +7,18 @@
 #'
 #' @param filename File name to create on disk.
 #' @param plot Plot to save, defaults to last plot displayed.
-#' @param device Device to use (function or any of the recognized extensions,
-#'   e.g. \code{"pdf"}). By default, extracted from filename extension.
-#'   \code{ggsave} currently recognises eps/ps, tex (pictex), pdf, jpeg, tiff,
-#'   png, bmp, svg and wmf (windows only).
+#' @param device Device to use. Can be either be a device function
+#'   (e.g. \code{\link{png}}), or one of "eps", "ps", "tex" (pictex),
+#'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
 #' @param path Path to save plot to (combined with filename).
 #' @param scale Multiplicative scaling factor.
-#' @param width,height Plot dimensions, defaults to size of current graphics
-#'   device.
-#' @param units Units for width and height when specified explicitly (in, cm,
-#'   or mm)
-#' @param dpi Resolution used for raster outputs.
+#' @param width,height,units Plot size in \code{units} ("in", "cm", or "mm").
+#'   If not supplied, uses the size of current graphics device.
+#' @param dpi Plot resolution. Applies only to raster output types.
 #' @param limitsize When \code{TRUE} (the default), \code{ggsave} will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
-#' @param ... Other arguments passed on to graphics device
+#' @param ... Other arguments passed on to graphics \code{device}.
 #' @export
 #' @examples
 #' \dontrun{

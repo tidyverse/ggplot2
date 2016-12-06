@@ -7,6 +7,7 @@
 #' describes what those defaults are, and how they map to the fuller ggplot()
 #' syntax.
 #'
+#' @keywords internal
 #' @name translate_qplot_ggplot
 #' @examples
 #'

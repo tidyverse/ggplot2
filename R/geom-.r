@@ -154,6 +154,8 @@ Geom <- ggproto("Geom",
 #' that grid uses internally for \code{lwd} and \code{fontsize}.
 #'
 #' @name graphical-units
+#' @keywords internal
+#' @aliases NULL
 NULL
 
 #' @export

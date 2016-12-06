@@ -12,3 +12,8 @@ visual_test
 ^revdep$
 ^\.httr-oauth$
 ^codecov\.yml$
+^_pkgdown\.yml$
+^icons$
+^README\.Rmd$
+^README-.*\.png$
+^logo\.png$

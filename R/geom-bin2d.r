@@ -1,4 +1,4 @@
-#' Add heatmap of 2d bin counts.
+#' Heatmap of 2d bin counts
 #'
 #' Divides the plane into rectangles, counts the number of cases in
 #' each rectangle, and then (by default) maps the number of cases to the

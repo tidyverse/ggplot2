@@ -1,4 +1,4 @@
-#' Textual annotations.
+#' Text
 #'
 #' \code{geom_text} adds text directly to the plot. \code{geom_label} draws
 #' a rectangle behind the text, making it easier to read.

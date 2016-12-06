@@ -1,4 +1,4 @@
-#' Vertical intervals: lines, crossbars & errorbars.
+#' Vertical intervals: lines, crossbars & errorbars
 #'
 #' Various ways of representing a vertical interval defined by \code{x},
 #' \code{ymin} and \code{ymax}. Each case draws a single graphical object.
@@ -11,7 +11,8 @@
 #'   \code{geom_pointrange()}.
 #' @seealso
 #'  \code{\link{stat_summary}} for examples of these guys in use,
-#'  \code{\link{geom_smooth}} for continuous analog
+#'  \code{\link{geom_smooth}} for continuous analog,
+#'  \code{\link{geom_errorbarh}} for a horizontal error bar.
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point

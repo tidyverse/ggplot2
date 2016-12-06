@@ -3,7 +3,7 @@
 \name{geom_violin}
 \alias{geom_violin}
 \alias{stat_ydensity}
-\title{Violin plot.}
+\title{Violin plot}
 \usage{
 geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
   position = "dodge", ..., draw_quantiles = NULL, trim = TRUE,
@@ -52,8 +52,8 @@ to the range of the data. If \code{FALSE}, don't trim the tails.}
 the tails). If "count", areas are scaled proportionally to the number of
 observations. If "width", all violins have the same maximum width.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.

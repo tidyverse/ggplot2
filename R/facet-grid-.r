@@ -1,7 +1,11 @@
 #' @include facet-.r
 NULL
 
-#' Lay out panels in a grid.
+#' Lay out panels in a grid
+#'
+#' \code{facet_grid} forms a matrix of panels defined by row and column
+#' facetting variables. It is most useful when you have two discrete
+#' variables, and all combinations of the variables exist in the data.
 #'
 #' @param facets a formula with the rows (of the tabular display) on the LHS
 #'   and the columns (of the tabular display) on the RHS; the dot in the

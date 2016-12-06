@@ -129,7 +129,7 @@ Layout <- ggproto("Layout", NULL,
       coord$train(list(x = self$panel_scales$x[[ix]], y = self$panel_scales$y[[iy]]))
     }
     # Switch position of all scales if CoordFlip
-    if (inherits(coord, "CoordFlip")) {
+    if (inherits(coord, "CoordFlip") || (inherits(coord, "CoordPolar") && coord$theta == "y")) {
       lapply(self$panel_scales$x, function(scale) {
         scale$position <- if (scale$position == "top") "bottom" else "top"
       })
@@ -142,21 +142,27 @@ Layout <- ggproto("Layout", NULL,
 
   xlabel = function(self, labels) {
     primary <- self$panel_scales$x[[1]]$name %|W|% labels$x
+    primary <- self$panel_scales$x[[1]]$make_title(primary)
     secondary <- if (is.null(self$panel_scales$x[[1]]$secondary.axis)) {
       waiver()
     } else {
       self$panel_scales$x[[1]]$sec_name()
     } %|W|% labels$sec.x
+    if (is.derived(secondary)) secondary <- primary
+    secondary <- self$panel_scales$x[[1]]$make_sec_title(secondary)
     list(primary = primary, secondary = secondary)[self$panel_scales$x[[1]]$axis_order()]
   },
 
   ylabel = function(self, labels) {
     primary <- self$panel_scales$y[[1]]$name %|W|% labels$y
+    primary <- self$panel_scales$y[[1]]$make_title(primary)
     secondary <- if (is.null(self$panel_scales$y[[1]]$secondary.axis)) {
       waiver()
     } else {
       self$panel_scales$y[[1]]$sec_name()
     } %|W|% labels$sec.y
+    if (is.derived(secondary)) secondary <- primary
+    secondary <- self$panel_scales$y[[1]]$make_sec_title(secondary)
     list(primary = primary, secondary = secondary)[self$panel_scales$y[[1]]$axis_order()]
   },
 

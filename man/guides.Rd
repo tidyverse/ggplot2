@@ -2,19 +2,22 @@
 % Please edit documentation in R/guides-.r
 \name{guides}
 \alias{guides}
-\title{Set guides for each scale.}
+\title{Set guides for each scale}
 \usage{
 guides(...)
 }
 \arguments{
-\item{...}{List of scale guide pairs}
+\item{...}{List of scale name-guide pairs.  The guide can either
+be a string (i.e. "colorbar" or "legend"), or a call to a guide function
+(i.e. \code{\link{guide_colourbar}} or \code{\link{guide_legend}})
+specifying additional arguments.}
 }
 \value{
 A list containing the mapping between scale and guide.
 }
 \description{
-Guides for each scale can be set in call of \code{scale_*} with argument
-\code{guide}, or in \code{guides}.
+Guides for each scale can be set scale-by-scale with the \code{guide}
+argument, or en masse with \code{guides()}.
 }
 \examples{
 \donttest{

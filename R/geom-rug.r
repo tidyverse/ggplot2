@@ -1,4 +1,4 @@
-#' Marginal rug plots.
+#' Rug plots in the margins
 #'
 #' A rug plot is a compact visualisation designed to supplement a 2d display
 #' with the two 1d marginal distributions. Rug plots display individual

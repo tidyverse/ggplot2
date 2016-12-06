@@ -1,4 +1,4 @@
-#' Scale for line patterns.
+#' Scale for line patterns
 #'
 #' Default line types based on a set supplied by Richard Pearson,
 #' University of Manchester. Continuous values can not be mapped to
@@ -15,14 +15,18 @@
 #'
 #' # See scale_manual for more flexibility
 #'
-#' # show common line types
-#' df_lines <- data.frame(linetype = factor(1:4, labels = c("solid", "longdash", "dashed", "dotted")))
+#' # Common line types ----------------------------
+#' df_lines <- data.frame(
+#'   linetype = factor(
+#'     1:4,
+#'     labels = c("solid", "longdash", "dashed", "dotted")
+#'   )
+#' )
 #' ggplot(df_lines) +
 #'   geom_hline(aes(linetype = linetype, yintercept = 0), size = 2) +
 #'   scale_linetype_identity() +
 #'   facet_grid(linetype ~ .) +
 #'   theme_void(20)
-#'
 scale_linetype <- function(..., na.value = "blank") {
   discrete_scale("linetype", "linetype_d", linetype_pal(),
     na.value = na.value, ...)

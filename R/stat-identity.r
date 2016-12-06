@@ -1,4 +1,4 @@
-#' Identity statistic.
+#' Leave data as is
 #'
 #' The identity statistic leaves the data unchanged.
 #'

@@ -2,7 +2,7 @@
 % Please edit documentation in R/position-jitterdodge.R
 \name{position_jitterdodge}
 \alias{position_jitterdodge}
-\title{Adjust position by simultaneously dodging and jittering}
+\title{Simultaneously dodge and jitter}
 \usage{
 position_jitterdodge(jitter.width = NULL, jitter.height = 0,
   dodge.width = 0.75)

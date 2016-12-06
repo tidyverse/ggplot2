@@ -1,12 +1,11 @@
 #' @include facet-.r
 NULL
 
-#' Wrap a 1d ribbon of panels into 2d.
+#' Wrap a 1d ribbon of panels into 2d
 #'
-#' Most displays are roughly rectangular, so if you have a categorical
-#' variable with many levels, it doesn't make sense to try and display them
-#' all in one row (or one column). To solve this dilemma, \code{facet_wrap}
-#' wraps a 1d sequence of panels into 2d, making best use of screen real estate.
+#' \code{facet_wrap} wraps a 1d sequence of panels into 2d. This is generally
+#' a better use of screen space than \code{\link{facet_grid}} because most
+#' displays are roughly rectangular.
 #'
 #' @param facets Either a formula or character vector. Use either a
 #'   one sided formula, \code{~a + b}, or a character vector, \code{c("a", "b")}.
@@ -192,6 +191,18 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     # then throw error
     if ((!inherits(coord, "CoordCartesian")) && (params$free$x || params$free$y)) {
       stop("ggplot2 does not currently support free scales with a non-cartesian coord", call. = FALSE)
+    }
+    if (inherits(coord, "CoordFlip")) {
+      if (params$free$x) {
+        layout$SCALE_X <- seq_len(nrow(layout))
+      } else {
+        layout$SCALE_X <- 1L
+      }
+      if (params$free$y) {
+        layout$SCALE_Y <- seq_len(nrow(layout))
+      } else {
+        layout$SCALE_Y <- 1L
+      }
     }
 
     ncol <- max(layout$COL)

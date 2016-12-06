@@ -1,6 +1,6 @@
-#' Flipped cartesian coordinates.
+#' Cartesian coordinates with x and y flipped
 #'
-#' Flipped cartesian coordinates so that horizontal becomes vertical, and
+#' Flip cartesian coordinates so that horizontal becomes vertical, and
 #' vertical, horizontal. This is primarily useful for converting geoms and
 #' statistics which display y conditional on x, to x conditional on y.
 #'

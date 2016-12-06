@@ -1,4 +1,4 @@
-#' Connect observations.
+#' Connect observations
 #'
 #' \code{geom_path()} connects the observations in the order in which they appear
 #' in the data. \code{geom_line()} connects them in order of the variable on the

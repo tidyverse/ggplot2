@@ -1,4 +1,4 @@
-#' Add a smoothed conditional mean.
+#' Smoothed conditional means
 #'
 #' Aids the eye in seeing patterns in the presence of overplotting.
 #' \code{geom_smooth} and \code{stat_smooth} are effectively aliases: they

@@ -1,9 +1,10 @@
 #' Horizontal error bars
 #'
+#' A rotated version of \code{\link{geom_errorbar}}.
+#'
 #' @section Aesthetics:
 #' \aesthetics{geom}{errorbarh}
 #'
-#' @seealso \code{\link{geom_errorbar}}: vertical error bars
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @export

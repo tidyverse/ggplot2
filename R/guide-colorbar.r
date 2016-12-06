@@ -1,4 +1,4 @@
-#' Continuous colour bar guide.
+#' Continuous colour bar guide
 #'
 #' Colour bar guide shows continuous color scales mapped onto values.
 #' Colour bar is available with \code{scale_fill} and \code{scale_colour}.

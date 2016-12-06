@@ -1,4 +1,4 @@
-#' Polar coordinates.
+#' Polar coordinates
 #'
 #' The polar coordinate system is most commonly used for pie charts, which
 #' are a stacked bar chart in polar coordinates.
