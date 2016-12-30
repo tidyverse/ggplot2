@@ -1,11 +1,23 @@
+#' Visualise sf objects
+#'
+#' This set of geom, stat, and coord are used to visualise sf objects.
+#' Generally you will only ever need to use \code{geom_sf}: it will
+#' automatically use \code{stat_sf} and \code{coord_sf} for you.
+#'
 #' @examples
 #' library(sf)
 #'
 #' nc <- st_read(system.file("shape/nc.shp", package = "sf"))
 #' ggplot(nc) +
 #'   geom_sf(aes(geometry = geometry))
+#' @name ggsf
 NULL
 
+
+# stat --------------------------------------------------------------------
+
+#' @export
+#' @rdname ggsf
 StatSf <- ggproto("StatSf", Stat,
   compute_group = function(data, scales) {
     bbox <- sf::st_bbox(data$geometry)
@@ -20,6 +32,9 @@ StatSf <- ggproto("StatSf", Stat,
   required_aes = c("geometry")
 )
 
+#' @export
+#' @rdname ggsf
+#' @inheritParams stat_identity
 stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
@@ -30,7 +45,10 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
   )
 }
 
+# geom --------------------------------------------------------------------
 
+#' @export
+#' @rdname ggsf
 GeomSf <- ggproto("GeomSf", Geom,
   required_aes = "geometry",
   default_aes = aes(
@@ -64,6 +82,10 @@ sf_gpar <- function(row) {
     lineend = "butt"
   )
 }
+
+#' @export
+#' @rdname ggsf
+#' @inheritParams geom_point
 geom_sf <- function(mapping = NULL, data = NULL, stat = "sf",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
@@ -80,6 +102,12 @@ geom_sf <- function(mapping = NULL, data = NULL, stat = "sf",
 #' @export
 scale_type.sfc <- function(x) "identity"
 
+
+# Coord -------------------------------------------------------------------
+
+#' @export
+#' @rdname ggsf
+#' @inheritParams coord_cartesian
 CoordSf <- ggproto("CoordSf", CoordCartesian,
   transform = function(data, panel_scales) {
     x_range <- panel_scales$x.range
