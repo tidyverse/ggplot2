@@ -45,4 +45,3 @@ ggplot(choro, aes(long, lat)) +
 }
 }
 \keyword{internal}
-

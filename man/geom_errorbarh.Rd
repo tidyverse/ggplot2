@@ -58,6 +58,7 @@ A rotated version of \code{\link{geom_errorbar}}.
 
 \aesthetics{geom}{errorbarh}
 }
+
 \examples{
 df <- data.frame(
   trt = factor(c(1, 1, 2, 2)),
@@ -74,4 +75,3 @@ p + geom_point() +
 p + geom_point() +
   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
 }
-

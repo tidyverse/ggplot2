@@ -61,6 +61,7 @@ are connected together into a polygon.
 
 \aesthetics{geom}{polygon}
 }
+
 \examples{
 # When using geom_polygon, you will typically need two data frames:
 # one contains the coordinates of each polygon (positions),  and the
@@ -106,4 +107,3 @@ p + geom_line(data = stream, colour = "grey30", size = 5)
 \code{\link{geom_path}} for an unfilled polygon,
  \code{\link{geom_ribbon}} for a polygon anchored on the x-axis
 }
-

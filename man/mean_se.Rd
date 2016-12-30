@@ -21,4 +21,3 @@ For use with \code{\link{stat_summary}}
 x <- rnorm(100)
 mean_se(x)
 }
-

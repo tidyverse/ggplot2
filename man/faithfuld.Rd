@@ -13,4 +13,3 @@ A 2d density estimate of the waiting and eruptions variables data
 \link{faithful}.
 }
 \keyword{datasets}
-

@@ -23,4 +23,3 @@ rendered strips as gtables.
 All positions are rendered and it is up to the facet to decide which to use
 }
 \keyword{internal}
-

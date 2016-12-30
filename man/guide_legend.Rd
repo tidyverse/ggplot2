@@ -174,4 +174,3 @@ p + guides(col = guide_legend(reverse = TRUE))
 Other guides: \code{\link{guide_colourbar}},
   \code{\link{guides}}
 }
-

@@ -116,6 +116,7 @@ scale, and then back-transformed to the response scale.
   \item{se}{standard error}
 }
 }
+
 \examples{
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
@@ -176,4 +177,3 @@ See individual modelling functions for more details:
   \code{\link{glm}} for generalised linear smooths,
   \code{\link{loess}} for local smooths
 }
-

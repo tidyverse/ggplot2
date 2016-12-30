@@ -31,4 +31,3 @@ t$axis.text
 t$text
 }
 \keyword{internal}
-

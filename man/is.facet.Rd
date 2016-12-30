@@ -13,4 +13,3 @@ is.facet(x)
 Is this object a facetting specification?
 }
 \keyword{internal}
-

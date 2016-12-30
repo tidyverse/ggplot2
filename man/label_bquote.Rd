@@ -30,4 +30,3 @@ p + facet_grid(. ~ vs + am, labeller = label_bquote(cols = .(am) ^ .(vs)))
 \seealso{
 \link{labellers}, \code{\link{labeller}()},
 }
-

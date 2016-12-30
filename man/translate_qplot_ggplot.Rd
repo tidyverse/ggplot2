@@ -84,4 +84,3 @@ syntax.
 # ggplot(data, aes(x, y)) + geom_point() + labs(title = "title") + theme(aspect.ratio = 1)
 }
 \keyword{internal}
-

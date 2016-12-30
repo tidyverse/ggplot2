@@ -22,4 +22,3 @@ other classes and packages can extend.
 \seealso{
 \code{\link{ggplot}} and \code{\link{fortify}}
 }
-

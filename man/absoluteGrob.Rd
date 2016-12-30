@@ -14,4 +14,3 @@ This grob has fixed dimensions and position.
 It's still experimental
 }
 \keyword{internal}
-

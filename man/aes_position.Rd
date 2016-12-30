@@ -3,13 +3,13 @@
 \name{aes_position}
 \alias{aes_position}
 \alias{x}
-\alias{xend}
-\alias{xmax}
-\alias{xmin}
 \alias{y}
-\alias{yend}
-\alias{ymax}
+\alias{xmin}
+\alias{xmax}
 \alias{ymin}
+\alias{ymax}
+\alias{xend}
+\alias{yend}
 \title{Position related aesthetics: x, y, xmin, xmax, ymin, ymax, xend, yend}
 \description{
 This page demonstrates the usage of a sub-group
@@ -47,4 +47,3 @@ with(counts, plot(x, Freq, type = "h", lwd = 10))
 ggplot(counts, aes(x, Freq)) +
   geom_segment(aes(yend = 0, xend = x), size = 10)
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/scale-shape.r
 \name{scale_shape}
 \alias{scale_shape}
-\alias{scale_shape_continuous}
 \alias{scale_shape_discrete}
+\alias{scale_shape_continuous}
 \title{Scales for shapes, aka glyphs}
 \usage{
 scale_shape(..., solid = TRUE)
@@ -46,4 +46,3 @@ ggplot(df_shapes, aes(0, 0, shape = shape)) +
   facet_wrap(~shape) +
   theme_void()
 }
-

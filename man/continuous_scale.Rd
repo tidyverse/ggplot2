@@ -89,4 +89,3 @@ scales, "top" or "bottom" for horizontal scales}
 Continuous scale constructor.
 }
 \keyword{internal}
-

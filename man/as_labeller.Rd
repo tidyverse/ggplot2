@@ -44,4 +44,3 @@ p + facet_grid(cyl ~ am, labeller = labeller(am = to_string))
 \code{\link{labeller}()}, \link{labellers}
 }
 \keyword{internal}
-

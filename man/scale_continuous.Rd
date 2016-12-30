@@ -2,12 +2,12 @@
 % Please edit documentation in R/scale-continuous.r
 \name{scale_continuous}
 \alias{scale_x_continuous}
-\alias{scale_x_log10}
-\alias{scale_x_reverse}
-\alias{scale_x_sqrt}
 \alias{scale_y_continuous}
+\alias{scale_x_log10}
 \alias{scale_y_log10}
+\alias{scale_x_reverse}
 \alias{scale_y_reverse}
+\alias{scale_x_sqrt}
 \alias{scale_y_sqrt}
 \title{Position scales for continuous data (x & y)}
 \usage{
@@ -165,4 +165,3 @@ p1 + scale_y_continuous(trans = scales::reciprocal_trans())
 Other position scales: \code{\link{scale_x_date}},
   \code{\link{scale_x_discrete}}
 }
-

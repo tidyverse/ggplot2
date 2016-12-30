@@ -30,4 +30,3 @@ These helpers facilitates generating theme compliant axes when
 building up the plot.
 }
 \keyword{internal}
-

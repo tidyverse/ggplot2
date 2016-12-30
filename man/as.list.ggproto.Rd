@@ -18,4 +18,3 @@ the returned list. If \code{FALSE}, do not include any inherited items.}
 This will not include the object's \code{super} member.
 }
 \keyword{internal}
-

@@ -19,4 +19,3 @@ The largest value. measured in cm as a unit object
 Get the maximal width/length of a list of grobs
 }
 \keyword{internal}
-

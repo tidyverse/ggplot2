@@ -53,4 +53,3 @@ p + annotate("text", x = 4, y = 25, label = "italic(R) ^ 2 == 0.75",
 p + annotate("text", x = 4, y = 25,
   label = "paste(italic(R) ^ 2, \\" = .75\\")", parse = TRUE)
 }
-

@@ -2,8 +2,8 @@
 % Please edit documentation in R/aes.r
 \name{aes_}
 \alias{aes_}
-\alias{aes_q}
 \alias{aes_string}
+\alias{aes_q}
 \title{Define aesthetic mappings programatically}
 \usage{
 aes_(x, y, ...)
@@ -56,4 +56,3 @@ aes_(col = as.name(var))
 \seealso{
 \code{\link{aes}}
 }
-

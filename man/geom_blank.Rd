@@ -56,4 +56,3 @@ more details.
 ggplot(mtcars, aes(wt, mpg))
 # Nothing to see here!
 }
-

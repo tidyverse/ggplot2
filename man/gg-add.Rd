@@ -39,6 +39,7 @@ due to S3 method precedence issues.
 You can also supply a list, in which case each element of the list will
 be added in turn.
 }
+
 \examples{
 base <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 base + geom_smooth()
@@ -53,4 +54,3 @@ base + list(subset(mpg, fl == "p"), geom_smooth())
 \seealso{
 \code{\link{theme}}
 }
-

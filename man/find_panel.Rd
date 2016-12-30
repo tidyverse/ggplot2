@@ -26,4 +26,3 @@ the panel area, while \code{panel_cols} and \code{panel_rows} returns the
 columns and rows that contains panels respectively.
 }
 \keyword{internal}
-

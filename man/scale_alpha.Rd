@@ -39,4 +39,3 @@ Other colour scales: \code{\link{scale_colour_brewer}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_colour_hue}}
 }
-

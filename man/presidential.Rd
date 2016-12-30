@@ -13,4 +13,3 @@ The names of each president, the start and end date of their term, and
 their party of 11 US presidents from Eisenhower to Obama.
 }
 \keyword{datasets}
-

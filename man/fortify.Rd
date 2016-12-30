@@ -21,4 +21,3 @@ may be deprecated in the future.
 \seealso{
 \code{\link{fortify.lm}}
 }
-

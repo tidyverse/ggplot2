@@ -89,6 +89,7 @@ Another technique is to make the points transparent (e.g.
 
 \aesthetics{geom}{point}
 }
+
 \examples{
 p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point()
@@ -142,4 +143,3 @@ ggplot(mtcars2, aes(wt, mpg)) + geom_point()
 ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
 }
 }
-

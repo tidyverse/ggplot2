@@ -16,4 +16,3 @@ transform_position(df, trans_x = NULL, trans_y = NULL, ...)
 Convenience function to transform all position variables.
 }
 \keyword{internal}
-

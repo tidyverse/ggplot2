@@ -75,6 +75,7 @@ A quantile-quantile plot
   \item{theoretical}{theoretical quantiles}
 }
 }
+
 \examples{
 \donttest{
 df <- data.frame(y = rt(200, df = 5))
@@ -94,4 +95,3 @@ ggplot(mtcars) +
   stat_qq(aes(sample = mpg, colour = factor(cyl)))
 }
 }
-

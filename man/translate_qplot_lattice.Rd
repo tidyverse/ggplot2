@@ -78,4 +78,3 @@ qplot(mpg, wt, data = mtcars, asp = 1)
 }
 }
 \keyword{internal}
-

@@ -113,4 +113,3 @@ p2 \%+\% msleep + facet_wrap(~conservation2, labeller = global_labeller)
 \seealso{
 \code{\link{as_labeller}()}, \link{labellers}
 }
-

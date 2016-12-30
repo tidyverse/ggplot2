@@ -106,4 +106,3 @@ worldmap + coord_map("ortho", orientation = c(-90, 0, 0))
 worldmap + coord_map("ortho", orientation = c(41, -74, 0))
 }
 }
-

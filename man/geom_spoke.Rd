@@ -60,6 +60,7 @@ useful when you have variables that describe direction and distance.
 
 \aesthetics{geom}{spoke}
 }
+
 \examples{
 df <- expand.grid(x = 1:10, y=1:10)
 df$angle <- runif(100, 0, 2*pi)
@@ -73,4 +74,3 @@ ggplot(df, aes(x, y)) +
   geom_point() +
   geom_spoke(aes(angle = angle, radius = speed))
 }
-

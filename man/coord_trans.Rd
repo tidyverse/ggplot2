@@ -88,4 +88,3 @@ plot + coord_trans(x = "log10")
 plot + coord_trans(x = "sqrt")
 }
 }
-
