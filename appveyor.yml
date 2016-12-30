@@ -1,0 +1,62 @@
+#----------------------------------------------------------------
+# AppVeyor configuration for R packages
+#
+# REFERENCES:
+# * AppVeyor CI: https://ci.appveyor.com/
+# * r-travis: https://github.com/craigcitro/r-travis
+#
+# Validate your .appveyor.yml file at
+# https://ci.appveyor.com/tools/validate-yaml 
+#----------------------------------------------------------------
+environment:
+  _R_CHECK_FORCE_SUGGESTS_: false
+
+# DO NOT CHANGE the "init" and "install" sections below
+
+# Download script file from GitHub
+init:
+  ps: |
+        $ErrorActionPreference = "Stop"
+        Invoke-WebRequest http://raw.github.com/HenrikBengtsson/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
+        Import-Module '..\appveyor-tool.ps1'
+install:
+  ps: Bootstrap
+
+# Adapt as necessary starting from here
+
+build_script:
+  - echo Current directory=%CD%
+
+
+
+
+
+  - travis-tool.sh install_r digest R.methodsS3 R.oo R.utils
+
+
+
+test_script:
+  - travis-tool.sh run_tests
+
+after_test:
+  - 7z a all-Rout.zip *.Rcheck\**\*.Rout *.Rcheck\**\*.fail
+
+artifacts:
+  - path: '*.Rcheck\**\*.log'
+    name: Logs
+
+  - path: '*.Rcheck\**\*.out'
+    name: Logs
+
+  - path: all-Rout.zip
+    name: AllRout
+
+  - path: '\*_*.tar.gz'
+    name: Bits
+
+  - path: '\*_*.zip'
+    name: Bits
+
+on_failure:
+  - 7z a failure.zip *.Rcheck\*
+- appveyor PushArtifact failure.zip
