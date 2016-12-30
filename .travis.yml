@@ -4,6 +4,7 @@ sudo: false
 
 r_github_packages:
   - hadley/staticdocs@old
+  - cran/survival
 
 after_success:
   - Rscript -e 'covr::codecov()'
