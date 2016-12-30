@@ -85,10 +85,10 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
   if (name != "") name <- paste(" (", name, ")", sep = "")
 
   if (finite) {
-    missing <- !finite.cases(df[, vars, drop = FALSE])
+    missing <- !cases(df[, vars, drop = FALSE], is_finite)
     str <- "non-finite"
   } else {
-    missing <- !stats::complete.cases(df[, vars, drop = FALSE])
+    missing <- !cases(df[, vars, drop = FALSE], is_complete)
     str <- "missing"
   }
 
@@ -104,21 +104,19 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
   df
 }
 
-finite.cases <- function(x) UseMethod("finite.cases")
 # Returns a logical vector of same length as nrow(x). If all data on a row
 # is finite (not NA, NaN, Inf, or -Inf) return TRUE; otherwise FALSE.
-#' @export
-finite.cases.data.frame <- function(x) {
-  finite_cases <- vapply(x, is_finite, logical(nrow(x)))
+cases <- function(x, fun) {
+  ok <- vapply(x, fun, logical(nrow(x)))
 
   # Need a special case test when x has exactly one row, because rowSums
   # doesn't respect dimensions for 1x1 matrices. vapply returns a vector (not
   # a matrix when the input has one row.
-  if (is.vector(finite_cases)) {
-    all(finite_cases)
+  if (is.vector(ok)) {
+    all(ok)
   } else {
     # Find all the rows where all are TRUE
-    rowSums(as.matrix(finite_cases)) == ncol(x)
+    rowSums(as.matrix(ok)) == ncol(x)
   }
 }
 
@@ -130,6 +128,15 @@ is_finite <- function(x) {
     is.finite(x)
   }
 }
+
+is_complete <- function(x) {
+  if (typeof(x) == "list") {
+    !vapply(x, is.null, logical(1))
+  } else {
+    is.na(x)
+  }
+}
+
 
 #' Used in examples to illustrate when errors should occur.
 #'
