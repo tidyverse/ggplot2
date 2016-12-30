@@ -1,45 +1,48 @@
-#----------------------------------------------------------------
-# AppVeyor configuration for R packages
-#
-# REFERENCES:
-# * AppVeyor CI: https://ci.appveyor.com/
-# * r-travis: https://github.com/craigcitro/r-travis
-#
-# Validate your .appveyor.yml file at
-# https://ci.appveyor.com/tools/validate-yaml 
-#----------------------------------------------------------------
-environment:
-  _R_CHECK_FORCE_SUGGESTS_: false
-
 # DO NOT CHANGE the "init" and "install" sections below
 
 # Download script file from GitHub
 init:
   ps: |
+        Get-Date
         $ErrorActionPreference = "Stop"
-        Invoke-WebRequest http://raw.github.com/HenrikBengtsson/r-appveyor/master/scripts/appveyor-tool.ps1 -OutFile "..\appveyor-tool.ps1"
-        Import-Module '..\appveyor-tool.ps1'
 install:
-  ps: Bootstrap
-
+  ps: |
+        Import-Module '.\scripts\appveyor-tool.ps1'
+        Bootstrap
 # Adapt as necessary starting from here
 
+environment:
+  global:
+    WARNINGS_ARE_ERRORS: 1
+
+  matrix:
+  - R_VERSION: devel
+    GCC_PATH: mingw_32
+
+  - R_VERSION: devel
+    R_ARCH: x64
+    GCC_PATH: mingw_64
+
+  - R_VERSION: release
+    R_ARCH: x64
+
+  - R_VERSION: stable
+
+  - R_VERSION: patched
+
+  - R_VERSION: oldrel
+    RTOOLS_VERSION: 32
+    CRAN: http://cran.rstudio.com
+
 build_script:
-  - echo Current directory=%CD%
-
-
-
-
-
-  - travis-tool.sh install_r digest R.methodsS3 R.oo R.utils
-
-
+  - travis-tool.sh install_deps
 
 test_script:
   - travis-tool.sh run_tests
 
-after_test:
-  - 7z a all-Rout.zip *.Rcheck\**\*.Rout *.Rcheck\**\*.fail
+on_failure:
+  - 7z a failure.zip *.Rcheck\*
+  - appveyor PushArtifact failure.zip
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
@@ -48,8 +51,11 @@ artifacts:
   - path: '*.Rcheck\**\*.out'
     name: Logs
 
-  - path: all-Rout.zip
-    name: AllRout
+  - path: '*.Rcheck\**\*.fail'
+    name: Logs
+
+  - path: '*.Rcheck\**\*.Rout'
+    name: Logs
 
   - path: '\*_*.tar.gz'
     name: Bits
@@ -57,6 +63,12 @@ artifacts:
   - path: '\*_*.zip'
     name: Bits
 
-on_failure:
-  - 7z a failure.zip *.Rcheck\*
-- appveyor PushArtifact failure.zip
+notifications:
+ - provider: Email
+   to:
+     - krlmlr+appveyor@mailbox.org
+   subject: 'r-appveyor build {{status}}'                  # optional
+   message: "https://ci.appveyor.com/project/krlmlr/r-appveyor"    # optional
+   on_build_success: false
+   on_build_failure: true
+on_build_status_changed: true
