@@ -109,7 +109,7 @@ finite.cases <- function(x) UseMethod("finite.cases")
 # is finite (not NA, NaN, Inf, or -Inf) return TRUE; otherwise FALSE.
 #' @export
 finite.cases.data.frame <- function(x) {
-  finite_cases <- vapply(x, is.finite, logical(nrow(x)))
+  finite_cases <- vapply(x, is_finite, logical(nrow(x)))
 
   # Need a special case test when x has exactly one row, because rowSums
   # doesn't respect dimensions for 1x1 matrices. vapply returns a vector (not
@@ -119,6 +119,15 @@ finite.cases.data.frame <- function(x) {
   } else {
     # Find all the rows where all are TRUE
     rowSums(as.matrix(finite_cases)) == ncol(x)
+  }
+}
+
+# Wrapper around is.finite to handle list cols
+is_finite <- function(x) {
+  if (typeof(x) == "list") {
+    !vapply(x, is.null, logical(1))
+  } else {
+    is.finite(x)
   }
 }
 

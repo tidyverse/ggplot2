@@ -40,13 +40,14 @@ Suggests:
     knitr,
     rpart,
     rmarkdown,
+    sf,
     svglite
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
-Collate:
+Collate: 
     'ggproto.r'
     'aaa-.r'
     'aes-calculated.r'
@@ -176,6 +177,7 @@ Collate:
     'scale-size.r'
     'scale-type.R'
     'scales-.r'
+    'sf.R'
     'stat-bin.r'
     'stat-bin2d.r'
     'stat-bindot.r'
