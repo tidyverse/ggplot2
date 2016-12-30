@@ -71,4 +71,4 @@ notifications:
    message: "https://ci.appveyor.com/project/krlmlr/r-appveyor"    # optional
    on_build_success: false
    on_build_failure: true
-on_build_status_changed: true
+   on_build_status_changed: true
