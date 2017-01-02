@@ -113,20 +113,19 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     x_range <- panel_scales$x.range
     y_range <- panel_scales$y.range
 
-    # Affine transformation to rescale to c(0, 1)
-    # This will need to move into coord_sf
+    # Shift + affine transformation to rescale to [0, 1] x [0, 1]
+    # Contributed by @edzer
     data$geometry <- (data$geometry - c(x_range[1], y_range[1])) *
-      matrix(c(
-        1 / (x_range[2] - x_range[1]), 0,
-        0, 1 / (y_range[2] - y_range[1])
-      ), nrow = 2)
+      diag(1 / c(diff(x_range), diff(y_range)))
 
     data
   },
 
   aspect = function(self, ranges) {
+    # Contributed by @edzer
     mid_y <- mean(ranges$y.range)
-    cos(mid_y * pi / 180)
+    ratio <- cos(mid_y * pi / 180)
+    diff(ranges$y.range) / diff(ranges$x.range) * ratio
   }
 )
 
