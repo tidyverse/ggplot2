@@ -122,7 +122,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   aspect = function(self, ranges) {
-    cos(mean(ranges$y.range) * pi / 180)
+    ratio = 1 / cos(mean(ranges$y.range) * pi / 180)
+	diff(ranges$y.range) / diff(ranges$x.range) * ratio
   }
 )
 
