@@ -303,8 +303,8 @@ guide_gengrob.legend <- function(guide, theme) {
       label = guide$title,
       hjust = guide$title.hjust %||% theme$legend.title.align %||% 0,
       vjust = guide$title.vjust %||% 0.5,
-      expand_x = FALSE,
-      expand_y = FALSE
+      expand_x = TRUE,
+      expand_y = TRUE
     )
   )
 
@@ -331,8 +331,8 @@ guide_gengrob.legend <- function(guide, theme) {
         y = y,
         hjust = hjust,
         vjust = vjust,
-        expand_x = FALSE,
-        expand_y = FALSE
+        expand_x = TRUE,
+        expand_y = TRUE
       )
       ggname("guide.label", g)
     })
