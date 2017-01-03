@@ -4,10 +4,19 @@
 #' Generally you will only ever need to use \code{geom_sf}: it will
 #' automatically use \code{stat_sf} and \code{coord_sf} for you.
 #'
+#' Each layer needs to use the same CRS. \code{coord_sf} will warn if
+#' they are not all equal, but you will need to fix the problem using
+#' \code{\link[sf]{st_transform}}.
+#'
 #' @examples
 #' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
 #' ggplot(nc) +
 #'   geom_sf(aes(geometry = geometry))
+#'
+#' nc2 <- sf::st_transform(nc, "+init=epsg:3857")
+#' ggplot(mapping = aes(geometry = geometry)) +
+#'   geom_sf(data = nc) +
+#'   geom_sf(data = nc2)
 #' @name ggsf
 NULL
 
@@ -107,9 +116,23 @@ scale_type.sfc <- function(x) "identity"
 #' @rdname ggsf
 #' @inheritParams coord_cartesian
 CoordSf <- ggproto("CoordSf", CoordCartesian,
-  transform = function(data, panel_scales) {
+  transform = function(self, data, panel_scales) {
     x_range <- panel_scales$x.range
     y_range <- panel_scales$y.range
+
+    crs <- sf::st_crs(data$geometry)
+    if (is.null(self$crs)) {
+      self$crs <- crs
+    } else {
+      if (!identical(crs, self$crs)) {
+        warning(
+          "coord_sf(): Inconsistent CRS: \n",
+          "[1] ", self$crs, "\n",
+          "[2] ", crs,
+          call. = FALSE
+        )
+      }
+    }
 
     # Shift + affine transformation to rescale to [0, 1] x [0, 1]
     # Contributed by @edzer
@@ -139,6 +162,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, lat_lon = TRUE, expand = TRUE) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
     lat_lon = lat_lon,
+    crs = NULL,
     expand = expand
   )
 }
