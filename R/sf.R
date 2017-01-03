@@ -5,9 +5,7 @@
 #' automatically use \code{stat_sf} and \code{coord_sf} for you.
 #'
 #' @examples
-#' library(sf)
-#'
-#' nc <- st_read(system.file("shape/nc.shp", package = "sf"))
+#' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
 #' ggplot(nc) +
 #'   geom_sf(aes(geometry = geometry))
 #' @name ggsf
@@ -122,6 +120,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   aspect = function(self, ranges) {
+    if (!self$lat_lon)
+      return(NULL)
+
     # Contributed by @edzer
     mid_y <- mean(ranges$y.range)
     ratio <- cos(mid_y * pi / 180)
@@ -129,9 +130,15 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   }
 )
 
-coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE) {
+#' @param lat_lon Does the data represent latitude and longitude?
+#'   If \code{TRUE} the aspect ratio will be set so that in the center
+#'   of the map, 1 km easting equals 1 km northing.
+#' @export
+#' @rdname ggsf
+coord_sf <- function(xlim = NULL, ylim = NULL, lat_lon = TRUE, expand = TRUE) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
+    lat_lon = lat_lon,
     expand = expand
   )
 }

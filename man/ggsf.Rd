@@ -8,6 +8,7 @@
 \alias{GeomSf}
 \alias{geom_sf}
 \alias{CoordSf}
+\alias{coord_sf}
 \title{Visualise sf objects}
 \format{An object of class \code{StatSf} (inherits from \code{Stat}, \code{ggproto}) of length 3.}
 \usage{
@@ -23,6 +24,8 @@ geom_sf(mapping = NULL, data = NULL, stat = "sf", position = "identity",
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
 
 CoordSf
+
+coord_sf(xlim = NULL, ylim = NULL, lat_lon = TRUE, expand = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -68,6 +71,18 @@ to the paired geom/stat.}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
+
+\item{xlim}{Limits for the x and y axes.}
+
+\item{ylim}{Limits for the x and y axes.}
+
+\item{lat_lon}{Does the data represent latitude and longitude?
+If \code{TRUE} the aspect ratio will be set so that in the center
+of the map, 1 km easting equals 1 km northing.}
+
+\item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
+the limits to ensure that data and axes don't overlap. If \code{FALSE},
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 }
 \description{
 This set of geom, stat, and coord are used to visualise sf objects.
@@ -75,9 +90,7 @@ Generally you will only ever need to use \code{geom_sf}: it will
 automatically use \code{stat_sf} and \code{coord_sf} for you.
 }
 \examples{
-library(sf)
-
-nc <- st_read(system.file("shape/nc.shp", package = "sf"))
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
 ggplot(nc) +
   geom_sf(aes(geometry = geometry))
 }
