@@ -134,11 +134,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       }
     }
 
-    # Shift + affine transformation to rescale to [0, 1] x [0, 1]
-    # Contributed by @edzer
-    data$geometry <- (data$geometry - c(x_range[1], y_range[1])) *
-      diag(1 / c(diff(x_range), diff(y_range)))
-
+    data$geometry <- sf_rescale01(data$geometry, x_range, y_range)
     data
   },
 
@@ -150,8 +146,42 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     mid_y <- mean(ranges$y.range)
     ratio <- cos(mid_y * pi / 180)
     diff(ranges$y.range) / diff(ranges$x.range) * ratio
+  },
+
+  render_bg = function(self, scale_details, theme) {
+    x <- sp::SpatialPoints(
+      cbind(scale_details$x.range, scale_details$y.range),
+      proj4string = sp::CRS(self$crs$proj4string)
+    )
+    sp_grid <- sp::gridlines(x)
+    sf_grid <- sf::st_as_sf(sp_grid)
+
+    sf_grid$geometry <- sf_rescale01(
+      sf_grid$geometry,
+      x_range = scale_details$x.range,
+      y_range = scale_details$y.range
+    )
+
+    line_gp <- gpar(
+      col = theme$panel.grid.major$colour,
+      lwd = theme$panel.grid.major$size,
+      lty = theme$panel.grid.major$linetype
+    )
+
+    ggname("grill", grobTree(
+      element_render(theme, "panel.background"),
+      sf::st_as_grob(sf_grid$geometry[[1]], gp = line_gp),
+      sf::st_as_grob(sf_grid$geometry[[2]], gp = line_gp)
+    ))
   }
 )
+
+sf_rescale01 <- function(x, x_range, y_range) {
+  # Shift + affine transformation to rescale to [0, 1] x [0, 1]
+  # Contributed by @edzer
+  (x - c(x_range[1], y_range[1])) *
+    diag(1 / c(diff(x_range), diff(y_range)))
+}
 
 #' @param lat_lon Does the data represent latitude and longitude?
 #'   If \code{TRUE} the aspect ratio will be set so that in the center
