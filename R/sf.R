@@ -160,6 +160,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       x_range = scale_details$x.range,
       y_range = scale_details$y.range
     )
+    graticule$x_start <- sf_rescale01_x(graticule$x_start, scale_details$x.range)
+    graticule$x_end <- sf_rescale01_x(graticule$x_end, scale_details$x.range)
+    graticule$y_start <- sf_rescale01_x(graticule$y_start, scale_details$y.range)
+    graticule$y_end <- sf_rescale01_x(graticule$y_end, scale_details$y.range)
+
+    graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
     graticule
   },
 
@@ -176,7 +182,48 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       lapply(graticule$geom, sf::st_as_grob, gp = line_gp)
     )
     ggname("grill", do.call("grobTree", grobs))
+  },
+
+  render_axis_h = function(self, scale_details, theme) {
+    graticule <- self$graticule(scale_details)
+    north <- graticule[graticule$type == "N", ]
+
+    list(
+      top = guide_axis(
+        north$y_start,
+        north$degree_label,
+        position = "top",
+        theme = theme
+      ),
+      bottom = guide_axis(
+        north$y_end,
+        north$degree_label,
+        position = "bottom",
+        theme = theme
+      )
+    )
+  },
+
+  render_axis_v = function(self, scale_details, theme) {
+    graticule <- self$graticule(scale_details)
+    east <- graticule[graticule$type == "E", ]
+
+    list(
+      left = guide_axis(
+        east$x_start,
+        east$degree_label,
+        position = "left",
+        theme = theme
+      ),
+      right = guide_axis(
+        east$x_end,
+        east$degree_label,
+        position = "right",
+        theme = theme
+      )
+    )
   }
+
 )
 
 sf_rescale01 <- function(x, x_range, y_range) {
@@ -185,6 +232,10 @@ sf_rescale01 <- function(x, x_range, y_range) {
   (x - c(x_range[1], y_range[1])) *
     diag(1 / c(diff(x_range), diff(y_range)))
 }
+sf_rescale01_x <- function(x, range) {
+  (x - range[1]) / diff(range)
+}
+
 
 #' @param lat_lon Does the data represent latitude and longitude?
 #'   If \code{TRUE} the aspect ratio will be set so that in the center
