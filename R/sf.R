@@ -148,31 +148,34 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     diff(ranges$y.range) / diff(ranges$x.range) * ratio
   },
 
-  render_bg = function(self, scale_details, theme) {
-    x <- sp::SpatialPoints(
-      cbind(scale_details$x.range, scale_details$y.range),
-      proj4string = sp::CRS(self$crs$proj4string)
+  graticule = function(self, scale_details) {
+    bbox <- c(
+      scale_details$x.range[1], scale_details$y.range[1],
+      scale_details$x.range[2], scale_details$y.range[2]
     )
-    sp_grid <- sp::gridlines(x)
-    sf_grid <- sf::st_as_sf(sp_grid)
 
-    sf_grid$geometry <- sf_rescale01(
-      sf_grid$geometry,
+    graticule <- sf::st_graticule(bbox, crs = self$crs)
+    graticule$geom <- sf_rescale01(
+      graticule$geom,
       x_range = scale_details$x.range,
       y_range = scale_details$y.range
     )
+    graticule
+  },
+
+  render_bg = function(self, scale_details, theme) {
+    graticule <- self$graticule(scale_details)
 
     line_gp <- gpar(
       col = theme$panel.grid.major$colour,
       lwd = theme$panel.grid.major$size,
       lty = theme$panel.grid.major$linetype
     )
-
-    ggname("grill", grobTree(
-      element_render(theme, "panel.background"),
-      sf::st_as_grob(sf_grid$geometry[[1]], gp = line_gp),
-      sf::st_as_grob(sf_grid$geometry[[2]], gp = line_gp)
-    ))
+    grobs <- c(
+      list(element_render(theme, "panel.background")),
+      lapply(graticule$geom, sf::st_as_grob, gp = line_gp)
+    )
+    ggname("grill", do.call("grobTree", grobs))
   }
 )
 
