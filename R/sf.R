@@ -198,18 +198,18 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   render_axis_h = function(self, coord_data, theme) {
     graticule <- coord_data$graticule
-    north <- graticule[graticule$type == "N", ]
+    east <- graticule[graticule$type == "E", ]
 
     list(
       top = guide_axis(
-        north$y_start,
-        north$degree_label,
+        east$x_start,
+        east$degree_label,
         position = "top",
         theme = theme
       ),
       bottom = guide_axis(
-        north$y_end,
-        north$degree_label,
+        east$x_end,
+        east$degree_label,
         position = "bottom",
         theme = theme
       )
@@ -218,18 +218,18 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   render_axis_v = function(self, coord_data, theme) {
     graticule <- coord_data$graticule
-    east <- graticule[graticule$type == "E", ]
+    north <- graticule[graticule$type == "N", ]
 
     list(
       left = guide_axis(
-        east$x_start,
-        east$degree_label,
+        north$y_start,
+        north$degree_label,
         position = "left",
         theme = theme
       ),
       right = guide_axis(
-        east$x_end,
-        east$degree_label,
+        north$y_end,
+        north$degree_label,
         position = "right",
         theme = theme
       )
