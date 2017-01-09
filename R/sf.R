@@ -201,12 +201,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     east <- graticule[graticule$type == "E", ]
 
     list(
-      top = guide_axis(
-        east$x_start,
-        east$degree_label,
-        position = "top",
-        theme = theme
-      ),
+      top = nullGrob(),
       bottom = guide_axis(
         east$x_end,
         east$degree_label,
@@ -227,12 +222,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
         position = "left",
         theme = theme
       ),
-      right = guide_axis(
-        north$y_end,
-        north$degree_label,
-        position = "right",
-        theme = theme
-      )
+      right = nullGrob()
     )
   }
 
