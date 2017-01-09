@@ -11,7 +11,8 @@
 #' @examples
 #' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
 #' ggplot(nc) +
-#'   geom_sf(aes(geometry = geometry))
+#'   geom_sf(aes(geometry = geometry)) +
+#'   coord_sf(crs = sf::st_crs(nc))
 #'
 #' nc2 <- sf::st_transform(nc, "+init=epsg:3857")
 #' ggplot(mapping = aes(geometry = geometry)) +
@@ -117,9 +118,6 @@ scale_type.sfc <- function(x) "identity"
 #' @inheritParams coord_cartesian
 CoordSf <- ggproto("CoordSf", CoordCartesian,
   transform = function(self, data, panel_scales) {
-    x_range <- panel_scales$x.range
-    y_range <- panel_scales$y.range
-
     crs <- sf::st_crs(data$geometry)
     if (is.null(self$crs)) {
       self$crs <- crs
@@ -134,44 +132,58 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       }
     }
 
-    data$geometry <- sf_rescale01(data$geometry, x_range, y_range)
+    data$geometry <- sf_rescale01(
+      data$geometry,
+      panel_scales$x_range,
+      panel_scales$y_range
+    )
     data
   },
 
-  aspect = function(self, ranges) {
+  train = function(self, scales) {
+    # Bounding box of the data
+    x_range <- scales$x$dimension(c(0.05, 0))
+    y_range <- scales$y$dimension(c(0.05, 0))
+    bbox <- c(
+      x_range[1], y_range[1],
+      x_range[2], y_range[2]
+    )
+
+    # Generate graticular, using CRS specified in coord_sf()
+    # (Should be able to derive with the data with some internal changes)
+    graticule <- sf::st_graticule(bbox, crs = self$crs, datum = self$crs)
+
+    # Expand ranges include the full graticule
+    graticule_bbox <- sf::st_bbox(graticule)
+    x_range <- graticule_bbox[c(1, 3)]
+    y_range <- graticule_bbox[c(2, 4)]
+
+    # Rescale to plotting coordinate system
+    graticule$geom <- sf_rescale01(graticule$geom, x_range, y_range)
+    graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
+    graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
+    graticule$y_start <- sf_rescale01_x(graticule$y_start, y_range)
+    graticule$y_end <- sf_rescale01_x(graticule$y_end, y_range)
+    graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
+
+    list(
+      x_range = x_range,
+      y_range = y_range,
+      graticule = graticule
+    )
+  },
+
+  aspect = function(self, coord_data) {
     if (!self$lat_lon)
       return(NULL)
 
     # Contributed by @edzer
-    mid_y <- mean(ranges$y.range)
+    mid_y <- mean(coord_data$y_range)
     ratio <- cos(mid_y * pi / 180)
-    diff(ranges$y.range) / diff(ranges$x.range) * ratio
+    diff(coord_data$y_range) / diff(coord_data$x_range) * ratio
   },
 
-  graticule = function(self, scale_details) {
-    bbox <- c(
-      scale_details$x.range[1], scale_details$y.range[1],
-      scale_details$x.range[2], scale_details$y.range[2]
-    )
-
-    graticule <- sf::st_graticule(bbox, crs = self$crs)
-    graticule$geom <- sf_rescale01(
-      graticule$geom,
-      x_range = scale_details$x.range,
-      y_range = scale_details$y.range
-    )
-    graticule$x_start <- sf_rescale01_x(graticule$x_start, scale_details$x.range)
-    graticule$x_end <- sf_rescale01_x(graticule$x_end, scale_details$x.range)
-    graticule$y_start <- sf_rescale01_x(graticule$y_start, scale_details$y.range)
-    graticule$y_end <- sf_rescale01_x(graticule$y_end, scale_details$y.range)
-
-    graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
-    graticule
-  },
-
-  render_bg = function(self, scale_details, theme) {
-    graticule <- self$graticule(scale_details)
-
+  render_bg = function(self, coord_data, theme) {
     line_gp <- gpar(
       col = theme$panel.grid.major$colour,
       lwd = theme$panel.grid.major$size,
@@ -179,13 +191,13 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
     grobs <- c(
       list(element_render(theme, "panel.background")),
-      lapply(graticule$geom, sf::st_as_grob, gp = line_gp)
+      lapply(coord_data$graticule$geom, sf::st_as_grob, gp = line_gp)
     )
     ggname("grill", do.call("grobTree", grobs))
   },
 
-  render_axis_h = function(self, scale_details, theme) {
-    graticule <- self$graticule(scale_details)
+  render_axis_h = function(self, coord_data, theme) {
+    graticule <- coord_data$graticule
     north <- graticule[graticule$type == "N", ]
 
     list(
@@ -204,8 +216,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
   },
 
-  render_axis_v = function(self, scale_details, theme) {
-    graticule <- self$graticule(scale_details)
+  render_axis_v = function(self, coord_data, theme) {
+    graticule <- coord_data$graticule
     east <- graticule[graticule$type == "E", ]
 
     list(
@@ -242,11 +254,12 @@ sf_rescale01_x <- function(x, range) {
 #'   of the map, 1 km easting equals 1 km northing.
 #' @export
 #' @rdname ggsf
-coord_sf <- function(xlim = NULL, ylim = NULL, lat_lon = TRUE, expand = TRUE) {
+coord_sf <- function(xlim = NULL, ylim = NULL, lat_lon = TRUE, expand = TRUE,
+                     crs = NULL) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
     lat_lon = lat_lon,
-    crs = NULL,
+    crs = crs,
     expand = expand
   )
 }

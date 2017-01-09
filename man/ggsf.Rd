@@ -25,7 +25,8 @@ geom_sf(mapping = NULL, data = NULL, stat = "sf", position = "identity",
 
 CoordSf
 
-coord_sf(xlim = NULL, ylim = NULL, lat_lon = TRUE, expand = TRUE)
+coord_sf(xlim = NULL, ylim = NULL, lat_lon = TRUE, expand = TRUE,
+  crs = NULL)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -97,7 +98,8 @@ they are not all equal, but you will need to fix the problem using
 \examples{
 nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
 ggplot(nc) +
-  geom_sf(aes(geometry = geometry))
+  geom_sf(aes(geometry = geometry)) +
+  coord_sf(crs = sf::st_crs(nc))
 
 nc2 <- sf::st_transform(nc, "+init=epsg:3857")
 ggplot(mapping = aes(geometry = geometry)) +
