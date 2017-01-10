@@ -14,10 +14,12 @@
 #'   geom_sf(aes(geometry = geometry)) +
 #'   coord_sf(crs = sf::st_crs(nc))
 #'
-#' nc2 <- sf::st_transform(nc, "+init=epsg:3857")
-#' ggplot(mapping = aes(geometry = geometry)) +
-#'   geom_sf(data = nc) +
-#'   geom_sf(data = nc2)
+#' nc %>%
+#'   ggplot(aes(geometry = geometry)) +
+#'     geom_sf() +
+#'     annotate("point", x = -80, y = 35, colour = "red", size = 4) +
+#'     coord_sf(crs = sf::st_crs(nc))
+#'
 #' @name ggsf
 NULL
 
@@ -118,25 +120,31 @@ scale_type.sfc <- function(x) "identity"
 #' @inheritParams coord_cartesian
 CoordSf <- ggproto("CoordSf", CoordCartesian,
   transform = function(self, data, panel_scales) {
-    crs <- sf::st_crs(data$geometry)
-    if (is.null(self$crs)) {
-      self$crs <- crs
-    } else {
-      if (!identical(crs, self$crs)) {
-        warning(
-          "coord_sf(): Inconsistent CRS: \n",
-          "[1] ", self$crs, "\n",
-          "[2] ", crs,
-          call. = FALSE
-        )
+
+    if (!is.null(data$geometry)) {
+      crs <- sf::st_crs(data$geometry)
+
+      # Transform if crs is not missing, and not the same as the plot
+      # But this happens too late to adjust the scales - might need to
+      # reconsider how that works
+      if (!is.na(crs) && !identical(crs, self$crs)) {
+        data$geometry <- sf::st_transform(data$geometry, self$crs)
       }
+
+      data$geometry <- sf_rescale01(
+        data$geometry,
+        panel_scales$x_range,
+        panel_scales$y_range
+      )
     }
 
-    data$geometry <- sf_rescale01(
-      data$geometry,
-      panel_scales$x_range,
-      panel_scales$y_range
+    # Assume x and y supplied directly already in correct CRS
+    data <- transform_position(
+      data,
+      function(x) sf_rescale01_x(x, panel_scales$x_range),
+      function(x) sf_rescale01_x(x, panel_scales$y_range)
     )
+
     data
   },
 
