@@ -133,7 +133,7 @@ is_complete <- function(x) {
   if (typeof(x) == "list") {
     !vapply(x, is.null, logical(1))
   } else {
-    is.na(x)
+    !is.na(x)
   }
 }
 
