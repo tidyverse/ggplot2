@@ -67,10 +67,11 @@ ggplot_build <- function(plot) {
   data <- by_layer(function(l, d) l$compute_position(d, layout))
 
   # Reset position scales, then re-train and map.  This ensures that facets
-  # have control over the range of a plot: is it generated from what's
+  # have control over the range of a plot: is it generated from what is
   # displayed, or does it include the range of underlying data
   layout$reset_scales()
   layout$train_position(data, scale_x(), scale_y())
+  layout$setup_panel_params()
   data <- layout$map_position(data)
 
   # Train and map non-position scales
@@ -79,9 +80,6 @@ ggplot_build <- function(plot) {
     lapply(data, scales_train_df, scales = npscales)
     data <- lapply(data, scales_map_df, scales = npscales)
   }
-
-  # Train coordinate system
-  layout$setup_panel_params()
 
   # Fill in defaults etc.
   data <- by_layer(function(l, d) l$compute_geom_2(d))
