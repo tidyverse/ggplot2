@@ -86,9 +86,9 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     dist_polar(r, theta)
   },
 
-  range = function(self, scale_details) {
+  range = function(self, panel_params) {
     setNames(
-      list(scale_details$theta.range, scale_details$r.range),
+      list(panel_params$theta.range, panel_params$r.range),
       c(self$theta, self$r)
     )
   },
@@ -136,47 +136,47 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     details
   },
 
-  transform = function(self, data, scale_details) {
+  transform = function(self, data, panel_params) {
     data <- rename_data(self, data)
 
-    data$r  <- r_rescale(self, data$r, scale_details)
-    data$theta <- theta_rescale(self, data$theta, scale_details)
+    data$r  <- r_rescale(self, data$r, panel_params)
+    data$theta <- theta_rescale(self, data$theta, panel_params)
     data$x <- data$r * sin(data$theta) + 0.5
     data$y <- data$r * cos(data$theta) + 0.5
 
     data
   },
 
-  render_axis_v = function(self, scale_details, theme) {
-    arrange <- scale_details$y.arrange %||% c("primary", "secondary")
+  render_axis_v = function(self, panel_params, theme) {
+    arrange <- panel_params$y.arrange %||% c("primary", "secondary")
 
-    x <- r_rescale(self, scale_details$r.major, scale_details) + 0.5
-    guide_axis(x, scale_details$r.labels, "left", theme)
+    x <- r_rescale(self, panel_params$r.major, panel_params) + 0.5
+    guide_axis(x, panel_params$r.labels, "left", theme)
     axes <- list(
-      left = guide_axis(x, scale_details$r.labels, "left", theme),
-      right = guide_axis(x, scale_details$r.labels, "right", theme)
+      left = guide_axis(x, panel_params$r.labels, "left", theme),
+      right = guide_axis(x, panel_params$r.labels, "right", theme)
     )
     axes[[which(arrange == "secondary")]] <- zeroGrob()
     axes
   },
 
-  render_axis_h = function(scale_details, theme) {
+  render_axis_h = function(panel_params, theme) {
     list(
       top = zeroGrob(),
       bottom = guide_axis(NA, "", "bottom", theme)
     )
   },
 
-  render_bg = function(self, scale_details, theme) {
-    scale_details <- rename_data(self, scale_details)
+  render_bg = function(self, panel_params, theme) {
+    panel_params <- rename_data(self, panel_params)
 
-    theta <- if (length(scale_details$theta.major) > 0)
-      theta_rescale(self, scale_details$theta.major, scale_details)
-    thetamin <- if (length(scale_details$theta.minor) > 0)
-      theta_rescale(self, scale_details$theta.minor, scale_details)
+    theta <- if (length(panel_params$theta.major) > 0)
+      theta_rescale(self, panel_params$theta.major, panel_params)
+    thetamin <- if (length(panel_params$theta.minor) > 0)
+      theta_rescale(self, panel_params$theta.minor, panel_params)
     thetafine <- seq(0, 2 * pi, length.out = 100)
 
-    rfine <- c(r_rescale(self, scale_details$r.major, scale_details), 0.45)
+    rfine <- c(r_rescale(self, panel_params$r.major, panel_params), 0.45)
 
     # This gets the proper theme element for theta and r grid lines:
     #   panel.grid.major.x or .y
@@ -211,13 +211,13 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     ))
   },
 
-  render_fg = function(self, scale_details, theme) {
-    if (is.null(scale_details$theta.major)) {
+  render_fg = function(self, panel_params, theme) {
+    if (is.null(panel_params$theta.major)) {
       return(element_render(theme, "panel.border"))
     }
 
-    theta <- theta_rescale(self, scale_details$theta.major, scale_details)
-    labels <- scale_details$theta.labels
+    theta <- theta_rescale(self, panel_params$theta.major, panel_params)
+    labels <- panel_params$theta.labels
 
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
@@ -246,13 +246,13 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
   },
 
-  render_fg = function(self, scale_details, theme) {
-    if (is.null(scale_details$theta.major)) {
+  render_fg = function(self, panel_params, theme) {
+    if (is.null(panel_params$theta.major)) {
       return(element_render(theme, "panel.border"))
     }
 
-    theta <- theta_rescale(self, scale_details$theta.major, scale_details)
-    labels <- scale_details$theta.labels
+    theta <- theta_rescale(self, panel_params$theta.major, panel_params)
+    labels <- panel_params$theta.labels
 
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
@@ -282,11 +282,11 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
   },
 
-  labels = function(self, scale_details) {
+  labels = function(self, panel_params) {
     if (self$theta == "y") {
-      list(x = scale_details$y, y = scale_details$x)
+      list(x = panel_params$y, y = panel_params$x)
     } else {
-      scale_details
+      panel_params
     }
   },
 
@@ -308,16 +308,16 @@ rename_data <- function(coord, data) {
   }
 }
 
-theta_rescale_no_clip <- function(coord, x, scale_details) {
+theta_rescale_no_clip <- function(coord, x, panel_params) {
   rotate <- function(x) (x + coord$start) * coord$direction
-  rotate(rescale(x, c(0, 2 * pi), scale_details$theta.range))
+  rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
 }
 
-theta_rescale <- function(coord, x, scale_details) {
+theta_rescale <- function(coord, x, panel_params) {
   rotate <- function(x) (x + coord$start) %% (2 * pi) * coord$direction
-  rotate(rescale(x, c(0, 2 * pi), scale_details$theta.range))
+  rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
 }
 
-r_rescale <- function(coord, x, scale_details) {
-  rescale(x, c(0, 0.4), scale_details$r.range)
+r_rescale <- function(coord, x, panel_params) {
+  rescale(x, c(0, 0.4), panel_params$r.range)
 }

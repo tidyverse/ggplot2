@@ -62,14 +62,14 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   is_linear = function() TRUE,
 
-  distance = function(x, y, scale_details) {
-    max_dist <- dist_euclidean(scale_details$x.range, scale_details$y.range)
+  distance = function(x, y, panel_params) {
+    max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)
     dist_euclidean(x, y) / max_dist
   },
 
-  transform = function(data, scale_details) {
-    rescale_x <- function(data) rescale(data, from = scale_details$x.range)
-    rescale_y <- function(data) rescale(data, from = scale_details$y.range)
+  transform = function(data, panel_params) {
+    rescale_x <- function(data) rescale(data, from = panel_params$x.range)
+    rescale_y <- function(data) rescale(data, from = panel_params$y.range)
 
     data <- transform_position(data, rescale_x, rescale_y)
     transform_position(data, squish_infinite, squish_infinite)

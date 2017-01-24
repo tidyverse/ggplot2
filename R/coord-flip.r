@@ -38,13 +38,13 @@ coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE) {
 #' @export
 CoordFlip <- ggproto("CoordFlip", CoordCartesian,
 
-  transform = function(data, scale_details) {
+  transform = function(data, panel_params) {
     data <- flip_labels(data)
-    CoordCartesian$transform(data, scale_details)
+    CoordCartesian$transform(data, panel_params)
   },
 
-  range = function(scale_details) {
-    list(x = scale_details$y.range, y = scale_details$x.range)
+  range = function(panel_params) {
+    list(x = panel_params$y.range, y = panel_params$x.range)
   },
 
   train = function(self, scale_x, scale_y, params = list()) {
@@ -52,8 +52,8 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
     flip_labels(trained)
   },
 
-  labels = function(scale_details) {
-    flip_labels(CoordCartesian$labels(scale_details))
+  labels = function(panel_params) {
+    flip_labels(CoordCartesian$labels(panel_params))
   },
 
   setup_layout = function(panel_layout, params) {
