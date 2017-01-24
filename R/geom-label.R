@@ -56,7 +56,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
     lineheight = 1.2
   ),
 
-  draw_panel = function(self, data, panel_scales, coord, parse = FALSE,
+  draw_panel = function(self, data, panel_params, coord, parse = FALSE,
                         na.rm = FALSE,
                         label.padding = unit(0.25, "lines"),
                         label.r = unit(0.15, "lines"),
@@ -66,7 +66,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
       lab <- parse(text = as.character(lab))
     }
 
-    data <- coord$transform(data, panel_scales)
+    data <- coord$transform(data, panel_params)
     if (is.character(data$vjust)) {
       data$vjust <- compute_just(data$vjust, data$y)
     }
