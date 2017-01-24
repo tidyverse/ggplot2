@@ -30,7 +30,7 @@
 #'
 #' @param data Default dataset to use for plot. If not already a data.frame,
 #'   will be converted to one by \code{\link{fortify}}. If not specified,
-#'   must be suppled in each layer added to the plot.
+#'   must be supplied in each layer added to the plot.
 #' @param mapping Default list of aesthetic mappings to use for plot.
 #'   If not specified, must be supplied in each layer added to the plot.
 #' @param ... Other arguments passed on to methods. Not currently used.
