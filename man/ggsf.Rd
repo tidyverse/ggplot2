@@ -15,8 +15,9 @@ stat_sf(mapping = NULL, data = NULL, geom = "rect",
   position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 
-geom_sf(mapping = NULL, data = NULL, stat = "sf", position = "identity",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE, ...)
+geom_sf(mapping = aes(), data = NULL, stat = "sf",
+  position = "identity", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE, ...)
 
 coord_sf(xlim = NULL, ylim = NULL, lat_lon = TRUE, expand = TRUE,
   crs = NULL)
