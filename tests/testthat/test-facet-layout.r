@@ -8,7 +8,7 @@ empty <- data.frame()
 panel_layout <- function(facet, data) {
   layout <- create_layout(facet)
   layout$setup(data)
-  layout$panel_layout
+  layout$layout
 }
 
 test_that("grid: single row and single col equivalent", {

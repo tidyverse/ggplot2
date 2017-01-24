@@ -304,7 +304,7 @@ Layer <- ggproto("Layer", NULL,
 
   draw_geom = function(self, data, layout) {
     if (empty(data)) {
-      n <- nrow(layout$panel_layout)
+      n <- nrow(layout$layout)
       return(rep(list(zeroGrob()), n))
     }
 

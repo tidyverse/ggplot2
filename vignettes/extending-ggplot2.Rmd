@@ -376,7 +376,7 @@ This is very similar to defining a new stat. You always need to provide fields/m
 
 * `coord`: an object describing the coordinate system.
 
-You need to use `panel_params` and `coord` together to transform the data  `coords <- coord$transform(data, panel_scales)`. This creates a data frame where position variables are scaled to the range 0--1. You then take this data and call a grid grob function. (Transforming for non-Cartesian coordinate systems is quite complex - you're best off transforming your data to the form accepted by an existing ggplot2 geom and passing it.)
+You need to use `panel_params` and `coord` together to transform the data  `coords <- coord$transform(data, panel_params)`. This creates a data frame where position variables are scaled to the range 0--1. You then take this data and call a grid grob function. (Transforming for non-Cartesian coordinate systems is quite complex - you're best off transforming your data to the form accepted by an existing ggplot2 geom and passing it.)
 
 ### Collective geoms
 

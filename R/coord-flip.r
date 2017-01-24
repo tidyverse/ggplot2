@@ -57,10 +57,10 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
     flip_labels(CoordCartesian$labels(panel_params))
   },
 
-  setup_layout = function(panel_layout, params) {
+  setup_layout = function(layout, params) {
     # Switch the scales
-    panel_layout[c("SCALE_X", "SCALE_Y")] <- panel_layout[c("SCALE_Y", "SCALE_X")]
-    panel_layout
+    layout[c("SCALE_X", "SCALE_Y")] <- layout[c("SCALE_Y", "SCALE_X")]
+    layout
   },
 
   modify_scales = function(scales_x, scales_y) {

@@ -93,7 +93,7 @@ test_that("grid: missing values located correctly", {
 
 # Facet order ----------------------------------------------------------------
 
-get_layout <- function(p)  ggplot_build(p)$layout$panel_layout
+get_layout <- function(p)  ggplot_build(p)$layout$layout
 
 # Data with factor f with levels CBA
 d <- data.frame(x = 1:9, y = 1:9,

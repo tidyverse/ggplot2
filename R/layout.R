@@ -11,14 +11,20 @@ create_layout <- function(facet = FacetNull, coord = CoordCartesian) {
 }
 
 Layout <- ggproto("Layout", NULL,
+  # The coordinate system and its parameters
   coord = NULL,
   coord_params = list(),
 
+  # The facetting specification and its parameters
   facet = NULL,
   facet_params = list(),
 
-  panel_layout = NULL,
-  panel_scales = NULL,
+  # A data frame giving the layout of the data into panels
+  layout = NULL,
+
+  # Per panel scales and params
+  panel_scales_x = NULL,
+  panel_scales_y = NULL,
   panel_params = NULL,
 
   setup = function(self, data, plot_data = data.frame(), plot_env = emptyenv()) {
@@ -34,13 +40,13 @@ Layout <- ggproto("Layout", NULL,
     data <- self$coord$setup_data(data, self$coord_params)
 
     # Generate panel layout
-    self$panel_layout <- self$facet$compute_layout(data, self$facet_params)
-    self$panel_layout <- self$coord$setup_layout(self$panel_layout, self$coord_params)
-    check_layout(self$panel_layout)
+    self$layout <- self$facet$compute_layout(data, self$facet_params)
+    self$layout <- self$coord$setup_layout(self$layout, self$coord_params)
+    check_layout(self$layout)
 
     # Add panel coordinates to the data for each layer
     lapply(data[-1], self$facet$map_data,
-      layout = self$panel_layout,
+      layout = self$layout,
       params = self$facet_params
     )
   },
@@ -49,17 +55,17 @@ Layout <- ggproto("Layout", NULL,
   # Returns a gtable
   render = function(self, panels, data, theme, labels) {
     facet_bg <- self$facet$draw_back(data,
-      self$panel_layout,
-      self$panel_scales$x,
-      self$panel_scales$y,
+      self$layout,
+      self$panel_scales_x,
+      self$panel_scales_y,
       theme,
       self$facet_params
     )
     facet_fg <- self$facet$draw_front(
       data,
-      self$panel_layout,
-      self$panel_scales$x,
-      self$panel_scales$y,
+      self$layout,
+      self$panel_scales_x,
+      self$panel_scales_y,
       theme,
       self$facet_params
     )
@@ -84,9 +90,9 @@ Layout <- ggproto("Layout", NULL,
     })
     plot_table <- self$facet$draw_panels(
       panels,
-      self$panel_layout,
-      self$panel_scales$x,
-      self$panel_scales$y,
+      self$layout,
+      self$panel_scales_x,
+      self$panel_scales_y,
       self$panel_params,
       self$coord,
       data,
@@ -102,9 +108,9 @@ Layout <- ggproto("Layout", NULL,
     labels <- self$render_labels(labels, theme)
     self$facet$draw_labels(
       plot_table,
-      self$panel_layout,
-      self$panel_scales$x,
-      self$panel_scales$y,
+      self$layout,
+      self$panel_scales_x,
+      self$panel_scales_y,
       self$panel_params,
       self$coord,
       data,
@@ -116,81 +122,81 @@ Layout <- ggproto("Layout", NULL,
 
   train_position = function(self, data, x_scale, y_scale) {
     # Initialise scales if needed, and possible.
-    layout <- self$panel_layout
-    if (is.null(self$panel_scales$x)) {
-      self$panel_scales$x <- self$facet$init_scales(layout, x_scale = x_scale,
+    layout <- self$layout
+    if (is.null(self$panel_scales_x)) {
+      self$panel_scales_x <- self$facet$init_scales(layout, x_scale = x_scale,
         params = self$facet_params)$x
     }
-    if (is.null(self$panel_scales$y)) {
-      self$panel_scales$y <- self$facet$init_scales(layout, y_scale = y_scale,
+    if (is.null(self$panel_scales_y)) {
+      self$panel_scales_y <- self$facet$init_scales(layout, y_scale = y_scale,
         params = self$facet_params)$y
     }
 
     self$facet$train_scales(
-      self$panel_scales$x,
-      self$panel_scales$y,
+      self$panel_scales_x,
+      self$panel_scales_y,
       layout,
       data,
       self$facet_params
     )
   },
 
-  reset_scales = function(self) {
-    if (!self$facet$shrink) return()
-    lapply(self$panel_scales$x, function(s) s$reset())
-    lapply(self$panel_scales$y, function(s) s$reset())
-    invisible()
-  },
-
   map_position = function(self, data) {
-    layout <- self$panel_layout
+    layout <- self$layout
 
     lapply(data, function(layer_data) {
       match_id <- match(layer_data$PANEL, layout$PANEL)
 
       # Loop through each variable, mapping across each scale, then joining
       # back together
-      x_vars <- intersect(self$panel_scales$x[[1]]$aesthetics, names(layer_data))
+      x_vars <- intersect(self$panel_scales_x[[1]]$aesthetics, names(layer_data))
       names(x_vars) <- x_vars
       SCALE_X <- layout$SCALE_X[match_id]
-      new_x <- scale_apply(layer_data, x_vars, "map", SCALE_X, self$panel_scales$x)
+      new_x <- scale_apply(layer_data, x_vars, "map", SCALE_X, self$panel_scales_x)
       layer_data[, x_vars] <- new_x
 
-      y_vars <- intersect(self$panel_scales$y[[1]]$aesthetics, names(layer_data))
+      y_vars <- intersect(self$panel_scales_y[[1]]$aesthetics, names(layer_data))
       names(y_vars) <- y_vars
       SCALE_Y <- layout$SCALE_Y[match_id]
-      new_y <- scale_apply(layer_data, y_vars, "map", SCALE_Y, self$panel_scales$y)
+      new_y <- scale_apply(layer_data, y_vars, "map", SCALE_Y, self$panel_scales_y)
       layer_data[, y_vars] <- new_y
 
       layer_data
     })
   },
 
+  reset_scales = function(self) {
+    if (!self$facet$shrink) return()
+    lapply(self$panel_scales_x, function(s) s$reset())
+    lapply(self$panel_scales_y, function(s) s$reset())
+    invisible()
+  },
+
   finish_data = function(self, data) {
     lapply(data, self$facet$finish_data,
-      layout = self$panel_layout,
-      x_scales = self$panel_scales$x,
-      y_scales = self$panel_scales$y,
+      layout = self$layout,
+      x_scales = self$panel_scales_x,
+      y_scales = self$panel_scales_y,
       params = self$facet_params
     )
   },
 
   get_scales = function(self, i) {
-    this_panel <- self$panel_layout[self$panel_layout$PANEL == i, ]
+    this_panel <- self$layout[self$layout$PANEL == i, ]
 
     list(
-      x = self$panel_scales$x[[this_panel$SCALE_X]],
-      y = self$panel_scales$y[[this_panel$SCALE_Y]]
+      x = self$panel_scales_x[[this_panel$SCALE_X]],
+      y = self$panel_scales_y[[this_panel$SCALE_Y]]
     )
   },
 
   setup_panel_params = function(self) {
     # Fudge for CoordFlip and CoordPolar - in place modification of
     # scales is not elegant, but it is pragmatic
-    self$coord$modify_scales(self$panel_scales$x, self$panel_scales$y)
+    self$coord$modify_scales(self$panel_scales_x, self$panel_scales_y)
 
-    scales_x <- self$panel_scales$x[self$panel_layout$SCALE_X]
-    scales_y <- self$panel_scales$y[self$panel_layout$SCALE_Y]
+    scales_x <- self$panel_scales_x[self$layout$SCALE_X]
+    scales_y <- self$panel_scales_y[self$layout$SCALE_Y]
 
     setup_panel_params <- function(scale_x, scale_y) {
       self$coord$setup_panel_params(scale_x, scale_y, param = self$coord_params)
@@ -201,29 +207,29 @@ Layout <- ggproto("Layout", NULL,
   },
 
   xlabel = function(self, labels) {
-    primary <- self$panel_scales$x[[1]]$name %|W|% labels$x
-    primary <- self$panel_scales$x[[1]]$make_title(primary)
-    secondary <- if (is.null(self$panel_scales$x[[1]]$secondary.axis)) {
+    primary <- self$panel_scales_x[[1]]$name %|W|% labels$x
+    primary <- self$panel_scales_x[[1]]$make_title(primary)
+    secondary <- if (is.null(self$panel_scales_x[[1]]$secondary.axis)) {
       waiver()
     } else {
-      self$panel_scales$x[[1]]$sec_name()
+      self$panel_scales_x[[1]]$sec_name()
     } %|W|% labels$sec.x
     if (is.derived(secondary)) secondary <- primary
-    secondary <- self$panel_scales$x[[1]]$make_sec_title(secondary)
-    list(primary = primary, secondary = secondary)[self$panel_scales$x[[1]]$axis_order()]
+    secondary <- self$panel_scales_x[[1]]$make_sec_title(secondary)
+    list(primary = primary, secondary = secondary)[self$panel_scales_x[[1]]$axis_order()]
   },
 
   ylabel = function(self, labels) {
-    primary <- self$panel_scales$y[[1]]$name %|W|% labels$y
-    primary <- self$panel_scales$y[[1]]$make_title(primary)
-    secondary <- if (is.null(self$panel_scales$y[[1]]$secondary.axis)) {
+    primary <- self$panel_scales_y[[1]]$name %|W|% labels$y
+    primary <- self$panel_scales_y[[1]]$make_title(primary)
+    secondary <- if (is.null(self$panel_scales_y[[1]]$secondary.axis)) {
       waiver()
     } else {
-      self$panel_scales$y[[1]]$sec_name()
+      self$panel_scales_y[[1]]$sec_name()
     } %|W|% labels$sec.y
     if (is.derived(secondary)) secondary <- primary
-    secondary <- self$panel_scales$y[[1]]$make_sec_title(secondary)
-    list(primary = primary, secondary = secondary)[self$panel_scales$y[[1]]$axis_order()]
+    secondary <- self$panel_scales_y[[1]]$make_sec_title(secondary)
+    list(primary = primary, secondary = secondary)[self$panel_scales_y[[1]]$axis_order()]
   },
 
   render_labels = function(self, labels, theme) {

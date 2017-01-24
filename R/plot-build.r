@@ -104,12 +104,12 @@ layer_data <- function(plot, i = 1L) {
 layer_scales <- function(plot, i = 1L, j = 1L) {
   b <- ggplot_build(plot)
 
-  layout <- b$layout$panel_layout
+  layout <- b$layout$layout
   selected <- layout[layout$ROW == i & layout$COL == j, , drop = FALSE]
 
   list(
-    x = b$layout$panel_scales$x[[selected$SCALE_X]],
-    y = b$layout$panel_scales$y[[selected$SCALE_Y]]
+    x = b$layout$panel_scales_x[[selected$SCALE_X]],
+    y = b$layout$panel_scales_y[[selected$SCALE_Y]]
   )
 }
 

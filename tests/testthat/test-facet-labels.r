@@ -19,11 +19,11 @@ get_labels_info <- function(facet, panel, ...) {
 
 get_labels_info.FacetGrid <- function(facet, layout, type) {
   if (type == "rows") {
-    labels <- unique(layout$panel_layout[names(facet$params$rows)])
+    labels <- unique(layout$layout[names(facet$params$rows)])
     attr(labels, "type") <- "rows"
     attr(labels, "facet") <- "grid"
   } else {
-    labels <- unique(layout$panel_layout[names(facet$params$cols)])
+    labels <- unique(layout$layout[names(facet$params$cols)])
     attr(labels, "type") <- "cols"
     attr(labels, "facet") <- "grid"
   }
@@ -31,7 +31,7 @@ get_labels_info.FacetGrid <- function(facet, layout, type) {
 }
 
 get_labels_info.FacetWrap <- function(facet, layout) {
-  labels <- layout$panel_layout[names(facet$params$facets)]
+  labels <- layout$layout[names(facet$params$facets)]
   attr(labels, "facet") <- "wrap"
   if (!is.null(facet$params$switch) && facet$params$switch == "x") {
     attr(labels, "type") <- "rows"

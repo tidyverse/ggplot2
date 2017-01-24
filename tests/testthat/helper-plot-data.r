@@ -14,8 +14,8 @@ cdata <- function(plot) {
 pranges <- function(plot) {
   layout <- ggplot_build(plot)$layout
 
-  x_ranges <- lapply(layout$panel_scales$x, function(scale) scale$get_limits())
-  y_ranges <- lapply(layout$panel_scales$y, function(scale) scale$get_limits())
+  x_ranges <- lapply(layout$panel_scales_x, function(scale) scale$get_limits())
+  y_ranges <- lapply(layout$panel_scales_y, function(scale) scale$get_limits())
 
 
   npscales <- plot$scales$non_position_scales()

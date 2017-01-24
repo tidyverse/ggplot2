@@ -99,8 +99,8 @@ Coord <- ggproto("Coord",
     data
   },
 
-  setup_layout = function(panel_layout, params) {
-    panel_layout
+  setup_layout = function(layout, params) {
+    layout
   },
 
   # Optionally, modify list of x and y scales in place. Currently
