@@ -17,3 +17,4 @@ visual_test
 ^README\.Rmd$
 ^README-.*\.png$
 ^logo\.png$
+^appveyor\.yml$
