@@ -119,7 +119,7 @@ sf_gpar <- function(row) {
 #' @export
 #' @rdname ggsf
 #' @inheritParams geom_point
-geom_sf <- function(mapping = NULL, data = NULL, stat = "sf",
+geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
 
