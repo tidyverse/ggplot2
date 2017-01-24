@@ -8,6 +8,12 @@
 * Fix warning when using the `weight` aesthetic with `stat_bin()` (through 
   `geom_histogram()` in particular) (@jiho, #1921).
 
+### Coordinate extensions
+
+* Coords have gained new extension mechanisms.
+  If you have an existing coord extension you will need to add
+  `params = list()` to the formal arguments of `train()`.
+
 # ggplot2 2.2.1
 
 * Fix usage of `structure(NULL)` for R-devel compatibility (#1968).

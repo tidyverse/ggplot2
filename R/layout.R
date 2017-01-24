@@ -187,7 +187,8 @@ Layout <- ggproto("Layout", NULL,
   train_ranges = function(self) {
     compute_range <- function(ix, iy) {
       # TODO: change coord_train method to take individual x and y scales
-      self$coord$train(list(x = self$panel_scales$x[[ix]], y = self$panel_scales$y[[iy]]))
+      scales <- list(x = self$panel_scales$x[[ix]], y = self$panel_scales$y[[iy]])
+      self$coord$train(scales, self$coord_params)
     }
     # Switch position of all scales if CoordFlip
     if (inherits(self$coord, "CoordFlip") || (inherits(self$coord, "CoordPolar") && self$coord$theta == "y")) {

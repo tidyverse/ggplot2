@@ -124,7 +124,7 @@ CoordMap <- ggproto("CoordMap", Coord,
     diff(ranges$y.proj) / diff(ranges$x.proj)
   },
 
-  train = function(self, scale_details) {
+  train = function(self, scale_details, params = list()) {
 
     # range in scale
     ranges <- list()

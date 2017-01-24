@@ -93,7 +93,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
   },
 
-  train = function(self, scale_details) {
+  train = function(self, scale_details, params = list()) {
 
     ret <- list(x = list(), y = list())
     for (n in c("x", "y")) {

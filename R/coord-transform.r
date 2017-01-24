@@ -123,7 +123,7 @@ CoordTrans <- ggproto("CoordTrans", Coord,
     transform_position(data, squish_infinite, squish_infinite)
   },
 
-  train = function(self, scale_details) {
+  train = function(self, scale_details, params = list()) {
     c(train_trans(scale_details$x, self$limits$x, self$trans$x, "x"),
       train_trans(scale_details$y, self$limits$y, self$trans$y, "y"))
   }
