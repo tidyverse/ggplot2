@@ -44,7 +44,7 @@ Learning ggplot2
 
 If you are new to ggplot2 you are better off starting with a systematic introduction, rather than trying to learn from reading individual documentation pages. Currently, there are three good places to start:
 
-1.  The [data visualisation](http://r4ds.had.co.nz/data-visualisation.html) and [graphics forcommunication](http://r4ds.had.co.nz/graphics-for-communication.html) chapters in [R for data science](http://r4ds.had.co.nz). R for data science is designed to give you a comprehensive introduction to the [tidyverse](http://tidyverse.org), and these two chapters will you get up to speed with the essentials of ggplot2 as quickly as possible.
+1.  The [data visualisation](http://r4ds.had.co.nz/data-visualisation.html) and [graphics for communication](http://r4ds.had.co.nz/graphics-for-communication.html) chapters in [R for data science](http://r4ds.had.co.nz). R for data science is designed to give you a comprehensive introduction to the [tidyverse](http://tidyverse.org), and these two chapters will you get up to speed with the essentials of ggplot2 as quickly as possible.
 
 2.  If you'd like to take an interactive online course, try [Data visualisation with ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1) by Rick Scavetta on datacamp.
 
