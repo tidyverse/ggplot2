@@ -1,25 +1,43 @@
 #' Visualise sf objects
 #'
-#' This set of geom, stat, and coord are used to visualise sf objects.
-#' Generally you will only ever need to use \code{geom_sf}: it will
-#' automatically use \code{stat_sf} and \code{coord_sf} for you.
+#' This related set of geom, stat, and coord are used to visualise sf objects.
+#' This is an unusual geom because it will draw different geometric objects
+#' depending on what the simple features are: points, lines, or polygons.
+#' \code{coord_sf()} ensures that all layers use a common CRS - it is
+#' automatically added to the plot by \code{geom_sf()}.
+#'
+#' @section Geometry aesthetic:
+#' \code{geom_sf} uses a unique aesthetic: \code{geometry}, giving an
+#' column of class \code{sfc} containg simple features data. There
+#' are three ways to supply the \code{geometry} aesthetic:
+#'
+#' \itemize{
+#'   \item Do nothing: by default \code{geom_sf} assumes it is stored in
+#'     the \code{geometry} column.
+#'   \item Explicitly pass an \code{sf} object to the \code{data} argument.
+#'     This will use the primary geometry column, no matter what it's called.
+#'   \item Supply your own using \code{aes(geometry = my_column)}
+#' }
+#'
+#' Unlike other aesthetics, \code{geometry} will never be inherited from
+#' the plot.
 #'
 #' @examples
 #' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
 #' ggplot(nc) +
-#'   geom_sf(aes(geometry = geometry, fill = AREA))
+#'   geom_sf(aes(fill = AREA))
 #'
 #' # If not supplied, coord_sf() will take the CRS from the first layer
 #' # and automatically transform all other layers to use that CRS. This
 #' # ensures that all data will correctly line up
 #' nc_3857 <- sf::st_transform(nc, "+init=epsg:3857")
 #' ggplot() +
-#'   geom_sf(aes(geometry = geometry), data = nc) +
-#'   geom_sf(aes(geometry = geometry), data = nc_3857, colour = "red")
+#'   geom_sf(data = nc) +
+#'   geom_sf(data = nc_3857, colour = "red")
 #'
 #' # You can also use layers with x and y aesthetics: these are
 #' # assumed to already be in the common CRS.
-#' ggplot(nc, aes(geometry = geometry)) +
+#' ggplot(nc) +
 #'   geom_sf() +
 #'   annotate("point", x = -80, y = 35, colour = "red", size = 4)
 #'
@@ -30,6 +48,8 @@ NULL
 
 #' @export
 #' @rdname ggsf
+#' @usage NULL
+#' @format NULL
 StatSf <- ggproto("StatSf", Stat,
   compute_group = function(data, scales) {
     bbox <- sf::st_bbox(data$geometry)
@@ -46,7 +66,6 @@ StatSf <- ggproto("StatSf", Stat,
 
 #' @export
 #' @rdname ggsf
-#' @inheritParams stat_identity
 stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
@@ -61,6 +80,8 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
 
 #' @export
 #' @rdname ggsf
+#' @usage NULL
+#' @format NULL
 GeomSf <- ggproto("GeomSf", Geom,
   required_aes = "geometry",
   default_aes = aes(
@@ -130,7 +151,8 @@ scale_type.sfc <- function(x) "identity"
 
 #' @export
 #' @rdname ggsf
-#' @inheritParams coord_cartesian
+#' @usage NULL
+#' @format NULL
 CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   # Find the first CRS if not already supplied
@@ -291,6 +313,9 @@ sf_rescale01_x <- function(x, range) {
 #' @param lat_lon Does the data represent latitude and longitude?
 #'   If \code{TRUE} the aspect ratio will be set so that in the center
 #'   of the map, 1 km easting equals 1 km northing.
+#' @param crs Use this to select a specific CRS. If not specified, will
+#'   use the CRS defined in the first layer.
+#' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, lat_lon = TRUE, expand = TRUE,
