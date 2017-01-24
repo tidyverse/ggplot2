@@ -23,13 +23,11 @@ Layout <- ggproto("Layout", NULL,
     if (inherits(plot_coord, "CoordFlip")) {
       self$panel_layout[, c("SCALE_X", "SCALE_Y")] <- self$panel_layout[, c("SCALE_Y", "SCALE_X"), drop = FALSE]
     }
-    data[-1]
-  },
 
-  map = function(self, data) {
-    lapply(data, function(data) {
+    lapply(data[-1], function(data) {
       self$facet$map(data, self$panel_layout)
     })
+
   },
 
   render = function(self, panels, data, coord, theme, labels) {

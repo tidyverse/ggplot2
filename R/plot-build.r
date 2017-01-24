@@ -39,7 +39,6 @@ ggplot_build <- function(plot) {
 
   layout <- create_layout(plot$facet)
   data <- layout$setup(layer_data, plot$data, plot$plot_env, plot$coordinates)
-  data <- layout$map(data)
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
