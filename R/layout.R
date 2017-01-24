@@ -185,15 +185,9 @@ Layout <- ggproto("Layout", NULL,
   },
 
   train_ranges = function(self) {
-    # Switch position of all scales if CoordFlip
-    if (inherits(self$coord, "CoordFlip") || (inherits(self$coord, "CoordPolar") && self$coord$theta == "y")) {
-      lapply(self$panel_scales$x, function(scale) {
-        scale$position <- if (scale$position == "top") "bottom" else "top"
-      })
-      lapply(self$panel_scales$y, function(scale) {
-        scale$position <- if (scale$position == "left") "right" else "left"
-      })
-    }
+    # Fudge for CoordFlip and CoordPolar - in place modification of
+    # scales is not elegant, but it is pragmatic
+    self$coord$modify_scales(self$panel_scales$x, self$panel_scales$y)
 
     scales_x <- self$panel_scales$x[self$panel_layout$SCALE_X]
     scales_y <- self$panel_scales$y[self$panel_layout$SCALE_Y]

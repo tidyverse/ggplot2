@@ -288,6 +288,14 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     } else {
       scale_details
     }
+  },
+
+  modify_scales = function(self, scales_x, scales_y) {
+    if (self$theta != "y")
+      return()
+
+    lapply(scales_x, scale_flip_position)
+    lapply(scales_y, scale_flip_position)
   }
 )
 

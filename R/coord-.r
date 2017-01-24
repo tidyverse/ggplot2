@@ -99,6 +99,12 @@ Coord <- ggproto("Coord",
 
   setup_layout = function(panel_layout, params) {
     panel_layout
+  },
+
+  # Optionally, modify list of x and y scales in place. Currently
+  # used as a fudge for CoordFlip and CoordPolar
+  modify_scales = function(scales_x, scales_y) {
+    invisible()
   }
 )
 
