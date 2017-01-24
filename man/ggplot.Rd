@@ -16,7 +16,7 @@ If not specified, must be suppled in each layer added to the plot.}
 
 \item{...}{Other arguments passed on to methods. Not currently used.}
 
-\item{environment}{If an variable defined in the aesthetic mapping is not
+\item{environment}{If a variable defined in the aesthetic mapping is not
 found in the data, ggplot will look for it in this environment. It defaults
 to using the environment in which \code{ggplot()} is called.}
 }
