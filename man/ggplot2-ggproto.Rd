@@ -206,9 +206,15 @@ object, you typically will want to implement one or more of the following:
   \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
     linear; \code{FALSE} otherwise.
 
-  \item \code{setup_layout}: Allows the coordinate system to manipulate
-    the \code{panel_layout} data frame which assigns data to panels and
-    scales.
+  \item \code{setup_params(data)}: Allows the coordinate system to inspect
+    all layers and return a list of additional parameters that vary based on
+    the data. These parameters are currently only passed to the other
+    setup functions.
+  \item \code{setup_data(data, params)}: Allows the coordinate system to
+    manipulate the plot data. Should return list of data frames.
+  \item \code{setup_layout(panel_layout, params)}: Allows the coordinate
+    system to manipulate the \code{panel_layout} data frame which assigns
+    data to panels and scales.
 }
 }
 

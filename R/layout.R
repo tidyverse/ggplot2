@@ -3,8 +3,8 @@
 # * The facetting specification
 # * The individual position scales for each panel
 #
-# This includes managing the parameters for the facet so that we
-# don't modify the ggproto object in place.
+# This includes managing the parameters for the facet and the coord
+# so that we don't modify the ggproto object in place.
 
 create_layout <- function(facet = FacetNull, coord = CoordCartesian) {
   ggproto(NULL, Layout, facet = facet, coord = coord)
@@ -12,9 +12,10 @@ create_layout <- function(facet = FacetNull, coord = CoordCartesian) {
 
 Layout <- ggproto("Layout", NULL,
   coord = NULL,
+  coord_params = list(),
 
   facet = NULL,
-  facet_params = NULL,
+  facet_params = list(),
 
   panel_layout = NULL,
   panel_scales = NULL,
@@ -28,9 +29,13 @@ Layout <- ggproto("Layout", NULL,
     self$facet_params$plot_env <- plot_env
     data <- self$facet$setup_data(data, self$facet_params)
 
+    # Setup coords
+    self$coord_params <- self$coord$setup_params(data)
+    data <- self$coord$setup_data(data, self$coord_params)
+
     # Generate panel layout
     self$panel_layout <- self$facet$compute_layout(data, self$facet_params)
-    self$panel_layout <- self$coord$setup_layout(self$panel_layout, NULL)
+    self$panel_layout <- self$coord$setup_layout(self$panel_layout, self$coord_params)
     check_layout(self$panel_layout)
 
     # Add panel coordinates to the data for each layer
