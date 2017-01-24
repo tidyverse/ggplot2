@@ -101,6 +101,17 @@ sf_gpar <- function(row) {
 geom_sf <- function(mapping = NULL, data = NULL, stat = "sf",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
+
+  # Automatically determin name of geometry column
+  if (!is.null(data) && inherits(data, "sf")) {
+    geometry_col <- attr(data, "sf_column")
+  } else {
+    geometry_col <- "geometry"
+  }
+  if (is.null(mapping$geometry)) {
+    mapping$geometry <- as.name(geometry_col)
+  }
+
   c(
     layer(
       geom = GeomSf, mapping = mapping,  data = data, stat = stat,
