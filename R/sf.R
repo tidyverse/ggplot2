@@ -217,16 +217,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       x_range[2], y_range[2]
     )
 
-    # Generate graticule
-    graticule <- sf::st_graticule(bbox, crs = params$crs, datum = params$crs)
-
-    # Expand ranges include the full graticule
-    graticule_bbox <- sf::st_bbox(graticule)
-    x_range <- graticule_bbox[c(1, 3)]
-    y_range <- graticule_bbox[c(2, 4)]
-
-    # Rescale to plotting coordinate system
-    graticule$geom <- sf_rescale01(graticule$geom, x_range, y_range)
+    # Generate graticule and rescale to plot coords
+    graticule <- sf::st_graticule(bbox, crs = params$crs)
+    sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
     graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
     graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
     graticule$y_start <- sf_rescale01_x(graticule$y_start, y_range)
@@ -258,7 +251,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
     grobs <- c(
       list(element_render(theme, "panel.background")),
-      lapply(coord_data$graticule$geom, sf::st_as_grob, gp = line_gp)
+      lapply(sf::st_geometry(coord_data$graticule), sf::st_as_grob, gp = line_gp)
     )
     ggname("grill", do.call("grobTree", grobs))
   },
