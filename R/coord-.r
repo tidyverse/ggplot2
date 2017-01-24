@@ -26,6 +26,10 @@
 #'   \item \code{distance}: Calculates distance.
 #'   \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
 #'     linear; \code{FALSE} otherwise.
+#'
+#'   \item \code{setup_layout}: Allows the coordinate system to manipulate
+#'     the \code{panel_layout} data frame which assigns data to panels and
+#'     scales.
 #' }
 #'
 #' @rdname ggplot2-ggproto
@@ -77,7 +81,11 @@ Coord <- ggproto("Coord",
 
   distance = function(x, y, scale_details) NULL,
 
-  is_linear = function() FALSE
+  is_linear = function() FALSE,
+
+  setup_layout = function(panel_layout, params) {
+    panel_layout
+  }
 )
 
 #' Is this object a coordinate system?

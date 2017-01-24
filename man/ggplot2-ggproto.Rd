@@ -205,6 +205,10 @@ object, you typically will want to implement one or more of the following:
   \item \code{distance}: Calculates distance.
   \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
     linear; \code{FALSE} otherwise.
+
+  \item \code{setup_layout}: Allows the coordinate system to manipulate
+    the \code{panel_layout} data frame which assigns data to panels and
+    scales.
 }
 }
 

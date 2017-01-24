@@ -30,11 +30,8 @@ Layout <- ggproto("Layout", NULL,
 
     # Generate panel layout
     self$panel_layout <- self$facet$compute_layout(data, self$facet_params)
+    self$panel_layout <- self$coord$setup_layout(self$panel_layout, NULL)
     check_layout(self$panel_layout)
-    # Special case of CoordFlip - switch the layout scales
-    if (inherits(self$coord, "CoordFlip")) {
-      self$panel_layout[, c("SCALE_X", "SCALE_Y")] <- self$panel_layout[, c("SCALE_Y", "SCALE_X"), drop = FALSE]
-    }
 
     # Add panel coordinates to the data for each layer
     lapply(data[-1], self$facet$map_data,
