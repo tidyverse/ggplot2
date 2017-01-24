@@ -240,7 +240,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     # Contributed by @edzer
     mid_y <- mean(coord_data$y_range)
     ratio <- cos(mid_y * pi / 180)
-    diff(coord_data$y_range) / diff(coord_data$x_range) * ratio
+    diff(coord_data$y_range) / diff(coord_data$x_range) * abs(ratio)
   },
 
   render_bg = function(self, coord_data, theme) {
