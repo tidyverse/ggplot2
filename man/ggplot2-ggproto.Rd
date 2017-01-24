@@ -209,7 +209,7 @@ object, you typically will want to implement one or more of the following:
   \item \code{setup_params(data)}: Allows the coordinate system to inspect
     all layers and return a list of additional parameters that vary based on
     the data. These parameters are currently only passed to the other
-    setup functions.
+    setup functions and \code{train()}.
   \item \code{setup_data(data, params)}: Allows the coordinate system to
     manipulate the plot data. Should return list of data frames.
   \item \code{setup_layout(panel_layout, params)}: Allows the coordinate
