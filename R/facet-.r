@@ -86,32 +86,6 @@ Facet <- ggproto("Facet", NULL,
   shrink = FALSE,
   params = list(),
 
-
-# Layout interface --------------------------------------------------------
-
-  train = function(self, data) {
-    self$compute_layout(data, self$params)
-  },
-  map = function(self, data, layout) {
-    self$map_data(data, layout, self$params)
-  },
-  render_back = function(self, data, layout, x_scales, y_scales, theme) {
-    self$draw_back(data, layout, x_scales, y_scales, theme, self$params)
-  },
-  render_front = function(self, data, layout, x_scales, y_scales, theme) {
-    self$draw_front(data, layout, x_scales, y_scales, theme, self$params)
-  },
-  render_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels) {
-    panels <- self$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, self$params)
-    self$draw_labels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, self$params)
-  },
-  train_positions = function(self, x_scales, y_scales, layout, data) {
-    self$train_scales(x_scales, y_scales, layout, data, self$params)
-  },
-
-
-# Extension interface -----------------------------------------------------
-
   compute_layout = function(data, params) {
     stop("Not implemented", call. = FALSE)
   },

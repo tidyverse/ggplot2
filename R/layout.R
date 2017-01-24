@@ -1,22 +1,33 @@
-create_layout <- function(facet, coord = coord) {
+# The job of `Layout` is to coordinate:
+# * The coordinate system
+# * The facetting specification
+# * The individual position scales for each panel
+#
+# This includes managing the parameters for the facet so that we
+# don't modify the ggproto object in place.
+
+create_layout <- function(facet = FacetNull, coord = CoordCartesian) {
   ggproto(NULL, Layout, facet = facet, coord = coord)
 }
 
 Layout <- ggproto("Layout", NULL,
   coord = NULL,
+
   facet = NULL,
+  facet_params = NULL,
+
   panel_layout = NULL,
   panel_scales = NULL,
   panel_ranges = NULL,
 
-  setup = function(self, data, plot_data, plot_env) {
+  setup = function(self, data, plot_data = data.frame(), plot_env = emptyenv()) {
     data <- c(list(plot_data), data)
-    self$facet$params <- utils::modifyList(
-      self$facet$setup_params(data, self$facet$params),
-      list(plot_env = plot_env)
-    )
-    data <- self$facet$setup_data(data, self$facet$params)
-    self$panel_layout <- self$facet$train(data)
+
+    self$facet_params <- self$facet$setup_params(data, self$facet$params)
+    self$facet_params$plot_env <- plot_env
+    data <- self$facet$setup_data(data, self$facet_params)
+
+    self$panel_layout <- self$facet$compute_layout(data, self$facet_params)
     if (!all(c("PANEL", "SCALE_X", "SCALE_Y") %in% names(self$panel_layout))) {
       stop("Facet layout has bad format. It must contains the columns 'PANEL', 'SCALE_X', and 'SCALE_Y'", call. = FALSE)
     }
@@ -26,14 +37,13 @@ Layout <- ggproto("Layout", NULL,
     }
 
     lapply(data[-1], function(data) {
-      self$facet$map(data, self$panel_layout)
+      self$facet$map_data(data, self$panel_layout, self$facet_params)
     })
-
   },
 
   render = function(self, panels, data, theme, labels) {
-    below <- self$facet$render_back(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y, theme)
-    above <- self$facet$render_front(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y, theme)
+    below <- self$facet$draw_back(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y, theme, self$facet_params)
+    above <- self$facet$draw_front(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y, theme, self$facet_params)
 
     panels <- lapply(seq_along(panels[[1]]), function(i) {
       fg <- self$coord$render_fg(self$panel_ranges[[i]], theme)
@@ -56,8 +66,9 @@ Layout <- ggproto("Layout", NULL,
       y = self$ylabel(labels)
     ))
     labels <- self$render_labels(labels, theme)
-    self$facet$render_panels(panels, self$panel_layout, self$panel_scales$x,
-      self$panel_scales$y, self$panel_ranges, self$coord, data, theme, labels)
+
+    panels <- self$facet$draw_panels(panels, self$panel_layout, self$panel_scales$x, self$panel_scales$y, self$panel_ranges, self$coord, data, theme, self$facet_params)
+    self$facet$draw_labels(panels, self$panel_layout, self$panel_scales$x, self$panel_scales$y, self$panel_ranges, self$coord, data, theme, labels, self$params)
   },
 
   train_position = function(self, data, x_scale, y_scale) {
@@ -65,14 +76,14 @@ Layout <- ggproto("Layout", NULL,
     layout <- self$panel_layout
     if (is.null(self$panel_scales$x)) {
       self$panel_scales$x <- self$facet$init_scales(layout, x_scale = x_scale,
-        params = self$facet$params)$x
+        params = self$facet_params)$x
     }
     if (is.null(self$panel_scales$y)) {
       self$panel_scales$y <- self$facet$init_scales(layout, y_scale = y_scale,
-        params = self$facet$params)$y
+        params = self$facet_params)$y
     }
 
-    self$facet$train_positions(self$panel_scales$x, self$panel_scales$y, layout, data)
+    self$facet$train_scales(self$panel_scales$x, self$panel_scales$y, layout, data, self$facet_params)
   },
 
   reset_scales = function(self) {
@@ -109,7 +120,7 @@ Layout <- ggproto("Layout", NULL,
   finish_data = function(self, data) {
     lapply(data, function(layer_data) {
       self$facet$finish_data(layer_data, self$panel_layout, self$panel_scales$x,
-        self$panel_scales$y, self$facet$params)
+        self$panel_scales$y, self$facet_params)
     })
   },
 
