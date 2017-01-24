@@ -241,6 +241,20 @@ eval_facet_var <- function(var, data, env = emptyenv()) {
 layout_null <- function() {
   data.frame(PANEL = 1, ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
 }
+
+check_layout <- function(x) {
+  if (all(c("PANEL", "SCALE_X", "SCALE_Y") %in% names(x))) {
+    return()
+  }
+
+  stop(
+    "Facet layout has bad format. ",
+    "It must contain columns 'PANEL', 'SCALE_X', and 'SCALE_Y'",
+    call. = FALSE
+  )
+}
+
+
 #' Get the maximal width/length of a list of grobs
 #'
 #' @param grobs A list of grobs

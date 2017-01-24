@@ -23,52 +23,93 @@ Layout <- ggproto("Layout", NULL,
   setup = function(self, data, plot_data = data.frame(), plot_env = emptyenv()) {
     data <- c(list(plot_data), data)
 
+    # Setup facets
     self$facet_params <- self$facet$setup_params(data, self$facet$params)
     self$facet_params$plot_env <- plot_env
     data <- self$facet$setup_data(data, self$facet_params)
 
+    # Generate panel layout
     self$panel_layout <- self$facet$compute_layout(data, self$facet_params)
-    if (!all(c("PANEL", "SCALE_X", "SCALE_Y") %in% names(self$panel_layout))) {
-      stop("Facet layout has bad format. It must contains the columns 'PANEL', 'SCALE_X', and 'SCALE_Y'", call. = FALSE)
-    }
+    check_layout(self$panel_layout)
     # Special case of CoordFlip - switch the layout scales
     if (inherits(self$coord, "CoordFlip")) {
       self$panel_layout[, c("SCALE_X", "SCALE_Y")] <- self$panel_layout[, c("SCALE_Y", "SCALE_X"), drop = FALSE]
     }
 
-    lapply(data[-1], function(data) {
-      self$facet$map_data(data, self$panel_layout, self$facet_params)
-    })
+    # Add panel coordinates to the data for each layer
+    lapply(data[-1], self$facet$map_data,
+      layout = self$panel_layout,
+      params = self$facet_params
+    )
   },
 
+  # Assemble the facet fg & bg, the coord fg & bg, and the layers
+  # Returns a gtable
   render = function(self, panels, data, theme, labels) {
-    below <- self$facet$draw_back(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y, theme, self$facet_params)
-    above <- self$facet$draw_front(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y, theme, self$facet_params)
+    facet_bg <- self$facet$draw_back(data,
+      self$panel_layout,
+      self$panel_scales$x,
+      self$panel_scales$y,
+      theme,
+      self$facet_params
+    )
+    facet_fg <- self$facet$draw_front(
+      data,
+      self$panel_layout,
+      self$panel_scales$x,
+      self$panel_scales$y,
+      theme,
+      self$facet_params
+    )
 
+    # Draw individual panels, then assemble into gtable
     panels <- lapply(seq_along(panels[[1]]), function(i) {
-      fg <- self$coord$render_fg(self$panel_ranges[[i]], theme)
-      bg <- self$coord$render_bg(self$panel_ranges[[i]], theme)
-
       panel <- lapply(panels, `[[`, i)
-      panel <- c(below[i], panel, above[i])
+      panel <- c(facet_bg[i], panel, facet_fg[i])
 
+      coord_fg <- self$coord$render_fg(self$panel_ranges[[i]], theme)
+      coord_bg <- self$coord$render_bg(self$panel_ranges[[i]], theme)
       if (theme$panel.ontop) {
-        panel <- c(panel, list(bg), list(fg))
+        panel <- c(panel, list(coord_bg), list(coord_fg))
       } else {
-        panel <- c(list(bg), panel, list(fg))
+        panel <- c(list(coord_bg), panel, list(coord_fg))
       }
 
-      ggname(paste("panel", i, sep = "-"),
-             gTree(children = do.call("gList", panel)))
+      ggname(
+        paste("panel", i, sep = "-"),
+        gTree(children = do.call("gList", panel))
+      )
     })
+    plot_table <- self$facet$draw_panels(
+      panels,
+      self$panel_layout,
+      self$panel_scales$x,
+      self$panel_scales$y,
+      self$panel_ranges,
+      self$coord,
+      data,
+      theme,
+      self$facet_params
+    )
+
+    # Draw individual labels, then add to gtable
     labels <- self$coord$labels(list(
       x = self$xlabel(labels),
       y = self$ylabel(labels)
     ))
     labels <- self$render_labels(labels, theme)
-
-    panels <- self$facet$draw_panels(panels, self$panel_layout, self$panel_scales$x, self$panel_scales$y, self$panel_ranges, self$coord, data, theme, self$facet_params)
-    self$facet$draw_labels(panels, self$panel_layout, self$panel_scales$x, self$panel_scales$y, self$panel_ranges, self$coord, data, theme, labels, self$params)
+    self$facet$draw_labels(
+      plot_table,
+      self$panel_layout,
+      self$panel_scales$x,
+      self$panel_scales$y,
+      self$panel_ranges,
+      self$coord,
+      data,
+      theme,
+      labels,
+      self$params
+    )
   },
 
   train_position = function(self, data, x_scale, y_scale) {
@@ -83,7 +124,13 @@ Layout <- ggproto("Layout", NULL,
         params = self$facet_params)$y
     }
 
-    self$facet$train_scales(self$panel_scales$x, self$panel_scales$y, layout, data, self$facet_params)
+    self$facet$train_scales(
+      self$panel_scales$x,
+      self$panel_scales$y,
+      layout,
+      data,
+      self$facet_params
+    )
   },
 
   reset_scales = function(self) {
@@ -118,10 +165,12 @@ Layout <- ggproto("Layout", NULL,
   },
 
   finish_data = function(self, data) {
-    lapply(data, function(layer_data) {
-      self$facet$finish_data(layer_data, self$panel_layout, self$panel_scales$x,
-        self$panel_scales$y, self$facet_params)
-    })
+    lapply(data, self$facet$finish_data,
+      layout = self$panel_layout,
+      x_scales = self$panel_scales$x,
+      y_scales = self$panel_scales$y,
+      params = self$facet_params
+    )
   },
 
   get_scales = function(self, i) {
