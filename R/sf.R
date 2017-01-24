@@ -219,6 +219,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
     # Generate graticule and rescale to plot coords
     graticule <- sf::st_graticule(bbox, crs = params$crs)
+
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
     graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
     graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
@@ -229,7 +230,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     list(
       x_range = x_range,
       y_range = y_range,
-      graticule = graticule
+      graticule = graticule,
+      crs = params$crs
     )
   },
 
@@ -237,10 +239,18 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     if (!self$lat_lon)
       return(NULL)
 
+    # Figure out bbox in lat & long
+    sf_bbox <- sf::st_sfc(
+      sf::st_multipoint(cbind(coord_data$x_range, coord_data$y_range)),
+      crs = coord_data$crs
+    )
+    bbox <- sf::st_bbox(sf::st_transform(sf_bbox, crs = st_crs(4326)))
+
     # Contributed by @edzer
-    mid_y <- mean(coord_data$y_range)
+    mid_y <- mean(bbox[c(2, 4)])
     ratio <- cos(mid_y * pi / 180)
-    diff(coord_data$y_range) / diff(coord_data$x_range) * abs(ratio)
+
+    diff(coord_data$y_range) / diff(coord_data$x_range) / ratio
   },
 
   render_bg = function(self, coord_data, theme) {
