@@ -80,7 +80,7 @@ Geom <- ggproto("Geom",
     plyr::dlply(data, "PANEL", function(data) {
       if (empty(data)) return(zeroGrob())
 
-      panel_scales <- layout$panel_ranges[[data$PANEL[1]]]
+      panel_scales <- layout$panel_params[[data$PANEL[1]]]
       do.call(self$draw_panel, args)
     }, .drop = FALSE)
   },

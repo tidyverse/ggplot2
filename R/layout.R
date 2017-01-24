@@ -19,7 +19,7 @@ Layout <- ggproto("Layout", NULL,
 
   panel_layout = NULL,
   panel_scales = NULL,
-  panel_ranges = NULL,
+  panel_params = NULL,
 
   setup = function(self, data, plot_data = data.frame(), plot_env = emptyenv()) {
     data <- c(list(plot_data), data)
@@ -69,8 +69,8 @@ Layout <- ggproto("Layout", NULL,
       panel <- lapply(panels, `[[`, i)
       panel <- c(facet_bg[i], panel, facet_fg[i])
 
-      coord_fg <- self$coord$render_fg(self$panel_ranges[[i]], theme)
-      coord_bg <- self$coord$render_bg(self$panel_ranges[[i]], theme)
+      coord_fg <- self$coord$render_fg(self$panel_params[[i]], theme)
+      coord_bg <- self$coord$render_bg(self$panel_params[[i]], theme)
       if (theme$panel.ontop) {
         panel <- c(panel, list(coord_bg), list(coord_fg))
       } else {
@@ -87,7 +87,7 @@ Layout <- ggproto("Layout", NULL,
       self$panel_layout,
       self$panel_scales$x,
       self$panel_scales$y,
-      self$panel_ranges,
+      self$panel_params,
       self$coord,
       data,
       theme,
@@ -105,7 +105,7 @@ Layout <- ggproto("Layout", NULL,
       self$panel_layout,
       self$panel_scales$x,
       self$panel_scales$y,
-      self$panel_ranges,
+      self$panel_params,
       self$coord,
       data,
       theme,
@@ -192,7 +192,7 @@ Layout <- ggproto("Layout", NULL,
     scales_x <- self$panel_scales$x[self$panel_layout$SCALE_X]
     scales_y <- self$panel_scales$y[self$panel_layout$SCALE_Y]
 
-    self$panel_ranges <- Map(self$coord$train, scales_x, scales_y)
+    self$panel_params <- Map(self$coord$train, scales_x, scales_y)
     invisible()
   },
 
