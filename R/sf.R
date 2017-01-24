@@ -263,7 +263,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     list(
       top = nullGrob(),
       bottom = guide_axis(
-        east$x_end,
+        east$x_start,
         east$degree_label,
         position = "bottom",
         theme = theme
