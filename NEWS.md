@@ -4,6 +4,9 @@
 
 * Fix usage of `structure(NULL)` for R-devel compatibility (#1968).
 
+* Fix warning when using the `weight` aesthetic with `stat_bin()` (through 
+  `geom_histogram()` in particular) (@jiho, #1921).
+
 # ggplot2 2.2.0
 
 ## Major new features
