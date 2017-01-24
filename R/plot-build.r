@@ -81,7 +81,7 @@ ggplot_build <- function(plot) {
   }
 
   # Train coordinate system
-  layout$train_ranges()
+  layout$setup_panel_params()
 
   # Fill in defaults etc.
   data <- by_layer(function(l, d) l$compute_geom_2(d))

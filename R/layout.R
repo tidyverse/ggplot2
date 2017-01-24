@@ -184,7 +184,7 @@ Layout <- ggproto("Layout", NULL,
     )
   },
 
-  train_ranges = function(self) {
+  setup_panel_params = function(self) {
     # Fudge for CoordFlip and CoordPolar - in place modification of
     # scales is not elegant, but it is pragmatic
     self$coord$modify_scales(self$panel_scales$x, self$panel_scales$y)
@@ -192,7 +192,11 @@ Layout <- ggproto("Layout", NULL,
     scales_x <- self$panel_scales$x[self$panel_layout$SCALE_X]
     scales_y <- self$panel_scales$y[self$panel_layout$SCALE_Y]
 
-    self$panel_params <- Map(self$coord$train, scales_x, scales_y)
+    setup_panel_params <- function(scale_x, scale_y) {
+      self$coord$setup_panel_params(scale_x, scale_y, param = self$coord_params)
+    }
+    self$panel_params <- Map(setup_panel_params, scales_x, scales_y)
+
     invisible()
   },
 

@@ -75,7 +75,7 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     transform_position(data, squish_infinite, squish_infinite)
   },
 
-  train = function(self, scale_x, scale_y, params = list()) {
+  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     train_cartesian <- function(scale, limits, name) {
       if (self$expand) {
         expand <- expand_default(scale)

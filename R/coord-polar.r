@@ -93,7 +93,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
   },
 
-  train = function(self, scale_x, scale_y, params = list()) {
+  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
 
     ret <- list(x = list(), y = list())
     for (n in c("x", "y")) {

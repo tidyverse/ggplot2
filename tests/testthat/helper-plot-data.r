@@ -5,7 +5,7 @@ cdata <- function(plot) {
   lapply(pieces$data, function(d) {
     plyr::ddply(d, "PANEL", function(panel_data) {
       scales <- pieces$layout$get_scales(panel_data$PANEL[1])
-      panel_params <- plot$coordinates$train(scales$x, scales$y)
+      panel_params <- plot$coordinates$setup_panel_params(scales$x, scales$y)
       plot$coordinates$transform(panel_data, panel_params)
     })
   })

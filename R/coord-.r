@@ -81,7 +81,9 @@ Coord <- ggproto("Coord",
     return(list(x = panel_params$x.range, y = panel_params$y.range))
   },
 
-  train = function(scale_x, scale_y, params = list()) NULL,
+  setup_panel_params = function(scale_x, scale_y, params = list()) {
+    list()
+  },
 
   transform = function(data, range) NULL,
 

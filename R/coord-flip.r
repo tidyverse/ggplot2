@@ -47,9 +47,10 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
     list(x = panel_params$y.range, y = panel_params$x.range)
   },
 
-  train = function(self, scale_x, scale_y, params = list()) {
-    trained <- ggproto_parent(CoordCartesian, self)$train(scale_x, scale_y, params)
-    flip_labels(trained)
+  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+    parent <- ggproto_parent(CoordCartesian, self)
+    panel_params <- parent$setup_panel_params(scale_x, scale_y, params)
+    flip_labels(panel_params)
   },
 
   labels = function(panel_params) {
