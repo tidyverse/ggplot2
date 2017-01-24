@@ -75,30 +75,30 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     transform_position(data, squish_infinite, squish_infinite)
   },
 
-  train = function(self, scale_details, params = list()) {
-    train_cartesian <- function(scale_details, limits, name) {
+  train = function(self, scale_x, scale_y, params = list()) {
+    train_cartesian <- function(scale, limits, name) {
       if (self$expand) {
-        expand <- expand_default(scale_details)
+        expand <- expand_default(scale)
       } else {
         expand <- c(0, 0)
       }
 
       if (is.null(limits)) {
-        range <- scale_details$dimension(expand)
+        range <- scale$dimension(expand)
       } else {
-        range <- range(scale_details$transform(limits))
+        range <- range(scale$transform(limits))
         range <- expand_range(range, expand[1], expand[2])
       }
 
-      out <- scale_details$break_info(range)
-      out$arrange <- scale_details$axis_order()
+      out <- scale$break_info(range)
+      out$arrange <- scale$axis_order()
       names(out) <- paste(name, names(out), sep = ".")
       out
     }
 
     c(
-      train_cartesian(scale_details$x, self$limits$x, "x"),
-      train_cartesian(scale_details$y, self$limits$y, "y")
+      train_cartesian(scale_x, self$limits$x, "x"),
+      train_cartesian(scale_y, self$limits$y, "y")
     )
   }
 )

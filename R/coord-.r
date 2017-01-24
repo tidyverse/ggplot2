@@ -81,7 +81,7 @@ Coord <- ggproto("Coord",
     return(list(x = scale_details$x.range, y = scale_details$y.range))
   },
 
-  train = function(scale_details, params = list()) NULL,
+  train = function(scale_x, scale_y, params = list()) NULL,
 
   transform = function(data, range) NULL,
 

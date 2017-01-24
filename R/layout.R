@@ -185,11 +185,6 @@ Layout <- ggproto("Layout", NULL,
   },
 
   train_ranges = function(self) {
-    compute_range <- function(ix, iy) {
-      # TODO: change coord_train method to take individual x and y scales
-      scales <- list(x = self$panel_scales$x[[ix]], y = self$panel_scales$y[[iy]])
-      self$coord$train(scales, self$coord_params)
-    }
     # Switch position of all scales if CoordFlip
     if (inherits(self$coord, "CoordFlip") || (inherits(self$coord, "CoordPolar") && self$coord$theta == "y")) {
       lapply(self$panel_scales$x, function(scale) {
@@ -199,7 +194,12 @@ Layout <- ggproto("Layout", NULL,
         scale$position <- if (scale$position == "left") "right" else "left"
       })
     }
-    self$panel_ranges <- Map(compute_range, self$panel_layout$SCALE_X, self$panel_layout$SCALE_Y)
+
+    scales_x <- self$panel_scales$x[self$panel_layout$SCALE_X]
+    scales_y <- self$panel_scales$y[self$panel_layout$SCALE_Y]
+
+    self$panel_ranges <- Map(self$coord$train, scales_x, scales_y)
+    invisible()
   },
 
   xlabel = function(self, labels) {
