@@ -4,25 +4,27 @@
 #' Generally you will only ever need to use \code{geom_sf}: it will
 #' automatically use \code{stat_sf} and \code{coord_sf} for you.
 #'
-#' Each layer needs to use the same CRS. \code{coord_sf} will warn if
-#' they are not all equal, but you will need to fix the problem using
-#' \code{\link[sf]{st_transform}}.
-#'
 #' @examples
 #' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
 #' ggplot(nc) +
-#'   geom_sf(aes(geometry = geometry)) +
-#'   coord_sf(crs = sf::st_crs(nc))
+#'   geom_sf(aes(geometry = geometry, fill = AREA))
 #'
-#' nc %>%
-#'   ggplot(aes(geometry = geometry)) +
-#'     geom_sf() +
-#'     annotate("point", x = -80, y = 35, colour = "red", size = 4) +
-#'     coord_sf(crs = sf::st_crs(nc))
+#' # If not supplied, coord_sf() will take the CRS from the first layer
+#' # and automatically transform all other layers to use that CRS. This
+#' # ensures that all data will correctly line up
+#' nc_3857 <- sf::st_transform(nc, "+init=epsg:3857")
+#' ggplot() +
+#'   geom_sf(aes(geometry = geometry), data = nc) +
+#'   geom_sf(aes(geometry = geometry), data = nc_3857, colour = "red")
+#'
+#' # You can also use layers with x and y aesthetics: these are
+#' # assumed to already be in the common CRS.
+#' ggplot(nc, aes(geometry = geometry)) +
+#'   geom_sf() +
+#'   annotate("point", x = -80, y = 35, colour = "red", size = 4)
 #'
 #' @name ggsf
 NULL
-
 
 # stat --------------------------------------------------------------------
 
@@ -119,26 +121,51 @@ scale_type.sfc <- function(x) "identity"
 #' @rdname ggsf
 #' @inheritParams coord_cartesian
 CoordSf <- ggproto("CoordSf", CoordCartesian,
-  transform = function(self, data, panel_scales) {
 
-    if (!is.null(data$geometry)) {
-      crs <- sf::st_crs(data$geometry)
-
-      # Transform if crs is not missing, and not the same as the plot
-      # But this happens too late to adjust the scales - might need to
-      # reconsider how that works
-      if (!is.na(crs) && !identical(crs, self$crs)) {
-        data$geometry <- sf::st_transform(data$geometry, self$crs)
-      }
-
-      data$geometry <- sf_rescale01(
-        data$geometry,
-        panel_scales$x_range,
-        panel_scales$y_range
-      )
+  # Find the first CRS if not already supplied
+  setup_params = function(self, data) {
+    if (!is.null(self$crs)) {
+      return(list(crs = self$crs))
     }
 
-    # Assume x and y supplied directly already in correct CRS
+    for (layer_data in data) {
+      geometry <- layer_data$geometry
+      if (is.null(geometry))
+        next
+
+      crs <- sf::st_crs(geometry)
+      if (is.na(crs))
+        next
+
+      return(list(crs = crs))
+    }
+
+    list(crs = NULL)
+  },
+
+  # Transform all layers to common CRS (if provided)
+  setup_data = function(data, params) {
+    if (is.null(params$crs))
+      return(data)
+
+    lapply(data, function(layer_data) {
+      if (is.null(layer_data$geometry)) {
+        return(layer_data)
+      }
+
+      layer_data$geometry <- sf::st_transform(layer_data$geometry, params$crs)
+      layer_data
+    })
+  },
+
+  transform = function(self, data, panel_scales) {
+    data$geometry <- sf_rescale01(
+      data$geometry,
+      panel_scales$x_range,
+      panel_scales$y_range
+    )
+
+    # Assume x and y supplied directly already in common CRS
     data <- transform_position(
       data,
       function(x) sf_rescale01_x(x, panel_scales$x_range),
@@ -148,7 +175,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     data
   },
 
-  train = function(self, scales) {
+  train = function(self, scales, params = list()) {
     # Bounding box of the data
     x_range <- scales$x$dimension(c(0.05, 0))
     y_range <- scales$y$dimension(c(0.05, 0))
@@ -157,9 +184,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       x_range[2], y_range[2]
     )
 
-    # Generate graticular, using CRS specified in coord_sf()
-    # (Should be able to derive with the data with some internal changes)
-    graticule <- sf::st_graticule(bbox, crs = self$crs, datum = self$crs)
+    # Generate graticule
+    graticule <- sf::st_graticule(bbox, crs = params$crs, datum = params$crs)
 
     # Expand ranges include the full graticule
     graticule_bbox <- sf::st_bbox(graticule)
@@ -237,6 +263,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 )
 
 sf_rescale01 <- function(x, x_range, y_range) {
+  if (is.null(x)) {
+    return(x)
+  }
+
   # Shift + affine transformation to rescale to [0, 1] x [0, 1]
   # Contributed by @edzer
   (x - c(x_range[1], y_range[1])) *

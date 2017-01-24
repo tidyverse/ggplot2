@@ -90,20 +90,24 @@ This set of geom, stat, and coord are used to visualise sf objects.
 Generally you will only ever need to use \code{geom_sf}: it will
 automatically use \code{stat_sf} and \code{coord_sf} for you.
 }
-\details{
-Each layer needs to use the same CRS. \code{coord_sf} will warn if
-they are not all equal, but you will need to fix the problem using
-\code{\link[sf]{st_transform}}.
-}
 \examples{
 nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
 ggplot(nc) +
-  geom_sf(aes(geometry = geometry)) +
-  coord_sf(crs = sf::st_crs(nc))
+  geom_sf(aes(geometry = geometry, fill = AREA))
 
-nc2 <- sf::st_transform(nc, "+init=epsg:3857")
-ggplot(mapping = aes(geometry = geometry)) +
-  geom_sf(data = nc) +
-  geom_sf(data = nc2)
+# If not supplied, coord_sf() will take the CRS from the first layer
+# and automatically transform all other layers to use that CRS. This
+# ensures that all data will correctly line up
+nc_3857 <- sf::st_transform(nc, "+init=epsg:3857")
+ggplot() +
+  geom_sf(aes(geometry = geometry), data = nc) +
+  geom_sf(aes(geometry = geometry), data = nc_3857, colour = "red")
+
+# You can also use layers with x and y aesthetics: these are
+# assumed to already be in the common CRS.
+ggplot(nc, aes(geometry = geometry)) +
+  geom_sf() +
+  annotate("point", x = -80, y = 35, colour = "red", size = 4)
+
 }
 \keyword{datasets}
