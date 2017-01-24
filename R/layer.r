@@ -302,14 +302,14 @@ Layer <- ggproto("Layer", NULL,
     self$stat$finish_layer(data, self$stat_params)
   },
 
-  draw_geom = function(self, data, layout, coord) {
+  draw_geom = function(self, data, layout) {
     if (empty(data)) {
       n <- nrow(layout$panel_layout)
       return(rep(list(zeroGrob()), n))
     }
 
     data <- self$geom$handle_na(data, self$geom_params)
-    self$geom$draw_layer(data, self$geom_params, layout, coord)
+    self$geom$draw_layer(data, self$geom_params, layout, layout$coord)
   }
 )
 

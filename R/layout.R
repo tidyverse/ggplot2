@@ -1,14 +1,15 @@
-create_layout <- function(facet) {
-  ggproto(NULL, Layout, facet = facet)
+create_layout <- function(facet, coord = coord) {
+  ggproto(NULL, Layout, facet = facet, coord = coord)
 }
 
 Layout <- ggproto("Layout", NULL,
+  coord = NULL,
   facet = NULL,
   panel_layout = NULL,
   panel_scales = NULL,
   panel_ranges = NULL,
 
-  setup = function(self, data, plot_data, plot_env, plot_coord) {
+  setup = function(self, data, plot_data, plot_env) {
     data <- c(list(plot_data), data)
     self$facet$params <- utils::modifyList(
       self$facet$setup_params(data, self$facet$params),
@@ -20,7 +21,7 @@ Layout <- ggproto("Layout", NULL,
       stop("Facet layout has bad format. It must contains the columns 'PANEL', 'SCALE_X', and 'SCALE_Y'", call. = FALSE)
     }
     # Special case of CoordFlip - switch the layout scales
-    if (inherits(plot_coord, "CoordFlip")) {
+    if (inherits(self$coord, "CoordFlip")) {
       self$panel_layout[, c("SCALE_X", "SCALE_Y")] <- self$panel_layout[, c("SCALE_Y", "SCALE_X"), drop = FALSE]
     }
 
@@ -30,13 +31,13 @@ Layout <- ggproto("Layout", NULL,
 
   },
 
-  render = function(self, panels, data, coord, theme, labels) {
+  render = function(self, panels, data, theme, labels) {
     below <- self$facet$render_back(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y, theme)
     above <- self$facet$render_front(data, self$panel_layout, self$panel_scales$x, self$panel_scales$y, theme)
 
     panels <- lapply(seq_along(panels[[1]]), function(i) {
-      fg <- coord$render_fg(self$panel_ranges[[i]], theme)
-      bg <- coord$render_bg(self$panel_ranges[[i]], theme)
+      fg <- self$coord$render_fg(self$panel_ranges[[i]], theme)
+      bg <- self$coord$render_bg(self$panel_ranges[[i]], theme)
 
       panel <- lapply(panels, `[[`, i)
       panel <- c(below[i], panel, above[i])
@@ -50,13 +51,13 @@ Layout <- ggproto("Layout", NULL,
       ggname(paste("panel", i, sep = "-"),
              gTree(children = do.call("gList", panel)))
     })
-    labels <- coord$labels(list(
+    labels <- self$coord$labels(list(
       x = self$xlabel(labels),
       y = self$ylabel(labels)
     ))
     labels <- self$render_labels(labels, theme)
     self$facet$render_panels(panels, self$panel_layout, self$panel_scales$x,
-      self$panel_scales$y, self$panel_ranges, coord, data, theme, labels)
+      self$panel_scales$y, self$panel_ranges, self$coord, data, theme, labels)
   },
 
   train_position = function(self, data, x_scale, y_scale) {
@@ -121,13 +122,13 @@ Layout <- ggproto("Layout", NULL,
     )
   },
 
-  train_ranges = function(self, coord) {
+  train_ranges = function(self) {
     compute_range <- function(ix, iy) {
       # TODO: change coord_train method to take individual x and y scales
-      coord$train(list(x = self$panel_scales$x[[ix]], y = self$panel_scales$y[[iy]]))
+      self$coord$train(list(x = self$panel_scales$x[[ix]], y = self$panel_scales$y[[iy]]))
     }
     # Switch position of all scales if CoordFlip
-    if (inherits(coord, "CoordFlip") || (inherits(coord, "CoordPolar") && coord$theta == "y")) {
+    if (inherits(self$coord, "CoordFlip") || (inherits(self$coord, "CoordPolar") && self$coord$theta == "y")) {
       lapply(self$panel_scales$x, function(scale) {
         scale$position <- if (scale$position == "top") "bottom" else "top"
       })

@@ -37,8 +37,8 @@ ggplot_build <- function(plot) {
   # Initialise panels, add extra data for margins & missing facetting
   # variables, and add on a PANEL variable to data
 
-  layout <- create_layout(plot$facet)
-  data <- layout$setup(layer_data, plot$data, plot$plot_env, plot$coordinates)
+  layout <- create_layout(plot$facet, plot$coordinates)
+  data <- layout$setup(layer_data, plot$data, plot$plot_env)
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
@@ -82,7 +82,7 @@ ggplot_build <- function(plot) {
   }
 
   # Train coordinate system
-  layout$train_ranges(plot$coordinates)
+  layout$train_ranges()
 
   # Fill in defaults etc.
   data <- by_layer(function(l, d) l$compute_geom_2(d))
@@ -121,7 +121,7 @@ layer_scales <- function(plot, i = 1L, j = 1L) {
 layer_grob <- function(plot, i = 1L) {
   b <- ggplot_build(plot)
 
-  b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout, b$plot$coordinates)
+  b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout)
 }
 
 #' Build a plot with all the usual bits and pieces.
@@ -146,10 +146,8 @@ ggplot_gtable <- function(data) {
   data <- data$data
   theme <- plot_theme(plot)
 
-  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout, plot$coordinates),
-    plot$layers, data)
-
-  plot_table <- layout$render(geom_grobs, data, plot$coordinates, theme, plot$labels)
+  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot$layers, data)
+  plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends
   position <- theme$legend.position
