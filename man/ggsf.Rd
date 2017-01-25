@@ -19,7 +19,8 @@ geom_sf(mapping = aes(), data = NULL, stat = "sf",
   position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 
-coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL)
+coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
+  datum = sf::st_crs(4239))
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -74,6 +75,8 @@ limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
 \item{crs}{Use this to select a specific CRS. If not specified, will
 use the CRS defined in the first layer.}
+
+\item{datum}{CRS that provides datum to use when generating graticules}
 }
 \description{
 This related set of geom, stat, and coord are used to visualise sf objects.

@@ -222,7 +222,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       bbox,
       crs = params$crs,
       lat = scales$y$breaks %|W|% NULL,
-      lon = scales$x$breaks %|W|% NULL
+      lon = scales$x$breaks %|W|% NULL,
+      datum = self$datum
     )
 
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
@@ -315,12 +316,15 @@ sf_rescale01_x <- function(x, range) {
 
 #' @param crs Use this to select a specific CRS. If not specified, will
 #'   use the CRS defined in the first layer.
+#' @param datum CRS that provides datum to use when generating graticules
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
-coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL) {
+coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
+                     crs = NULL, datum = sf::st_crs(4239)) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
+    datum = datum,
     crs = crs,
     expand = expand
   )
