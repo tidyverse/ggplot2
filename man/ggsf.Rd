@@ -19,8 +19,7 @@ geom_sf(mapping = aes(), data = NULL, stat = "sf",
   position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 
-coord_sf(xlim = NULL, ylim = NULL, lat_lon = TRUE, expand = TRUE,
-  crs = NULL)
+coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -68,10 +67,6 @@ layer, as a string.}
 \item{xlim}{Limits for the x and y axes.}
 
 \item{ylim}{Limits for the x and y axes.}
-
-\item{lat_lon}{Does the data represent latitude and longitude?
-If \code{TRUE} the aspect ratio will be set so that in the center
-of the map, 1 km easting equals 1 km northing.}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},

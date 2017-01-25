@@ -241,19 +241,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   aspect = function(self, coord_data) {
-    if (!self$lat_lon)
-      return(NULL)
-
-    # Figure out bbox in lat & long
-    sf_bbox <- sf::st_sfc(
-      sf::st_multipoint(cbind(coord_data$x_range, coord_data$y_range)),
-      crs = coord_data$crs
-    )
-    bbox <- sf::st_bbox(sf::st_transform(sf_bbox, crs = sf::st_crs(4326)))
-
-    # Contributed by @edzer
-    mid_y <- mean(bbox[c(2, 4)])
-    ratio <- cos(mid_y * pi / 180)
+    if (isTRUE(sf::st_is_longlat(self$crs))) {
+      # Contributed by @edzer
+      mid_y <- mean(coord_data$y_range)
+      ratio <- cos(mid_y * pi / 180)
+    } else {
+      # Assume already projected
+      ratio <- 1
+    }
 
     diff(coord_data$y_range) / diff(coord_data$x_range) / ratio
   },
@@ -318,19 +313,14 @@ sf_rescale01_x <- function(x, range) {
 }
 
 
-#' @param lat_lon Does the data represent latitude and longitude?
-#'   If \code{TRUE} the aspect ratio will be set so that in the center
-#'   of the map, 1 km easting equals 1 km northing.
 #' @param crs Use this to select a specific CRS. If not specified, will
 #'   use the CRS defined in the first layer.
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
-coord_sf <- function(xlim = NULL, ylim = NULL, lat_lon = TRUE, expand = TRUE,
-                     crs = NULL) {
+coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
-    lat_lon = lat_lon,
     crs = crs,
     expand = expand
   )
