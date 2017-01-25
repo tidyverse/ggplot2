@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Legends no longer try and use set aesthetics that are not length one
+  (fixes #1932).
+
 * Added `autolayer()` S3 generic (@mitchelloharawild, #1974).
 
 * Fix warning when using the `weight` aesthetic with `stat_bin()` (through 
