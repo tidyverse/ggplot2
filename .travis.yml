@@ -4,10 +4,12 @@ sudo: false
 
 r_github_packages:
   - hadley/staticdocs@old
-  - cran/survival
 
 after_success:
   - Rscript -e 'covr::codecov()'
+
+before_install:
+  Rscript -e 'update.packages(ask = FALSE)'
 
 before_deploy:
   - R -e "install.packages('roxygen2', repos = 'http://cran.rstudio.com')"
