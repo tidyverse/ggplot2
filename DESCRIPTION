@@ -66,6 +66,7 @@ Collate:
     'geom-raster.r'
     'annotation-raster.r'
     'annotation.r'
+    'autolayer.r'
     'autoplot.r'
     'axis-secondary.R'
     'bench.r'
