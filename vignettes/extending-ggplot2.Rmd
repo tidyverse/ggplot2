@@ -596,7 +596,7 @@ here we first investigate whether we have gotten an empty `data.frame` and if no
 
 ### Laying out the panels
 
-While the two functions above has been decievingly simple, this last one is going to take some more work. Our goal is to draw two panels beside (or above) each other with axes etc.
+While the two functions above have been deceivingly simple, this last one is going to take some more work. Our goal is to draw two panels beside (or above) each other with axes etc.
 
 ```{r}
 render <- function(panels, layout, x_scales, y_scales, ranges, coord, data,
