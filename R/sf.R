@@ -218,7 +218,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
 
     # Generate graticule and rescale to plot coords
-    graticule <- sf::st_graticule(bbox, crs = params$crs)
+    graticule <- sf::st_graticule(
+      bbox,
+      crs = params$crs,
+      lat = scales$y$breaks %|W|% NULL,
+      lon = scales$x$breaks %|W|% NULL
+    )
 
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
     graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
@@ -244,7 +249,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       sf::st_multipoint(cbind(coord_data$x_range, coord_data$y_range)),
       crs = coord_data$crs
     )
-    bbox <- sf::st_bbox(sf::st_transform(sf_bbox, crs = st_crs(4326)))
+    bbox <- sf::st_bbox(sf::st_transform(sf_bbox, crs = sf::st_crs(4326)))
 
     # Contributed by @edzer
     mid_y <- mean(bbox[c(2, 4)])
