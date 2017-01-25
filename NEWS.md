@@ -2,8 +2,9 @@
 
 # ggplot2 2.2.1
 
+* Added `autolayer()` S3 generic (@mitchelloharawild, #1974).
+
 * Fix usage of `structure(NULL)` for R-devel compatibility (#1968).
-* Added `autolayer()` S3 generic.
 
 * Fix warning when using the `weight` aesthetic with `stat_bin()` (through 
   `geom_histogram()` in particular) (@jiho, #1921).
