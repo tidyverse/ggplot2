@@ -3,6 +3,7 @@
 # ggplot2 2.2.1
 
 * Fix usage of `structure(NULL)` for R-devel compatibility (#1968).
+* Added `autolayer()` S3 generic.
 
 # ggplot2 2.2.0
 
