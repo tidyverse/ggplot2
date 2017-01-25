@@ -301,7 +301,7 @@ dummy_data <- function() data.frame(x = NA)
 
 with_seed <- function(seed, code) {
   if (!is.null(seed)) {
-    old_seed <- get0(".Random.seed", globalenv())
+    old_seed <- get0(".Random.seed", globalenv(), mode = "integer")
     if (!is.null(old_seed)) {
       on.exit(assign(".Random.seed", old_seed, globalenv()), add = TRUE)
     }
