@@ -48,6 +48,8 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point()
 ```
 
+As well as the components built-in to ggplot2, there are many packages that provide extensions. See a comphrensive list at <https://www.ggplot2-exts.org>.
+
 ## Learning ggplot2
 
 If you are new to ggplot2 you are better off starting with a systematic introduction, rather than trying to learn from reading individual documentation pages. Currently, there are three good places to start:
