@@ -24,10 +24,9 @@ test_that("bins specifies the number of bins", {
 
 test_that("binwidth computes widths for function input", {
   df <- data.frame(x = 1:100)
-  out <- function(x, ...) {
-    layer_data(ggplot(df, aes(x)) + geom_histogram(...))
-  }
-  expect_equal(nrow(out(binwidth = function(x) 5)), 21)
+  out <- layer_data(ggplot(df, aes(x)) + geom_histogram(binwidth = function(x) 5))
+  
+  expect_equal(nrow(out), 21)
 })
 
 test_that("geom_histogram defaults to pad = FALSE", {
