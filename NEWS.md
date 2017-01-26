@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* `stat_bin` now accepts functions for `binwidth`. This allows better binning when faceting along variables with different ranges (@botanize).
+
 * Legends no longer try and use set aesthetics that are not length one
   (fixes #1932).
 
