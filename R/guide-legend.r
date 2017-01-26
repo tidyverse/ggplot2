@@ -298,10 +298,6 @@ guide_gengrob.legend <- function(guide, theme) {
 
   nbreak <- nrow(guide$key)
 
-  # gap between keys etc
-  hgap <- width_cm(unit(0.3, "lines"))
-  vgap <- hgap
-
   grob.title <- ggname("guide.title",
     element_grob(
       guide$title.theme %||% calc_element("legend.title", theme),
@@ -315,6 +311,10 @@ guide_gengrob.legend <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
+
+  # gap between keys etc
+  hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
+  vgap <- height_cm(theme$legend.spacing.y %||% unit(0.5*title_height, "cm"))
 
   # Labels
   if (!guide$label || is.null(guide$key$.label)) {
