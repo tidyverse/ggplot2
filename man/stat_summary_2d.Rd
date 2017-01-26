@@ -93,6 +93,7 @@ are summarised with \code{fun}.
   \item{value}{Value of summary statistic.}
 }
 }
+
 \examples{
 d <- ggplot(diamonds, aes(carat, depth, z = price))
 d + stat_summary_2d()
@@ -110,4 +111,3 @@ d + stat_summary_hex()
 \code{\link{stat_summary_hex}} for hexagonal summarization.
   \code{\link{stat_bin2d}} for the binning options.
 }
-

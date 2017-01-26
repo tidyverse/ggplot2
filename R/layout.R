@@ -148,6 +148,7 @@ Layout <- ggproto("Layout", NULL,
     } else {
       self$panel_scales$x[[1]]$sec_name()
     } %|W|% labels$sec.x
+    if (is.derived(secondary)) secondary <- primary
     secondary <- self$panel_scales$x[[1]]$make_sec_title(secondary)
     list(primary = primary, secondary = secondary)[self$panel_scales$x[[1]]$axis_order()]
   },
@@ -160,6 +161,7 @@ Layout <- ggproto("Layout", NULL,
     } else {
       self$panel_scales$y[[1]]$sec_name()
     } %|W|% labels$sec.y
+    if (is.derived(secondary)) secondary <- primary
     secondary <- self$panel_scales$y[[1]]$make_sec_title(secondary)
     list(primary = primary, secondary = secondary)[self$panel_scales$y[[1]]$axis_order()]
   },

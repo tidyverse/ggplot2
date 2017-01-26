@@ -95,4 +95,3 @@ p + scale_radius()
 \code{\link{scale_size_area}} if you want 0 values to be mapped
   to points with size 0.
 }
-

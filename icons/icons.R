@@ -1,5 +1,8 @@
 library(grid)
 library(maps)
+library(ggplot2)
+
+set.seed(1014)
 
 # Coords -----------------------------------------------------------------------
 
@@ -504,7 +507,7 @@ write_icon("scale_colour_hue", {
     ), col = NA))
 })
 
-write_icon("scale_identity", {
+write_icon("scale_colour_identity", {
   textGrob("f(x) = x", gp = gpar(cex = 1.2))
 })
 
@@ -516,7 +519,7 @@ write_icon("scale_linetype", {
   ))
 })
 
-write_icon("scale_manual", {
+write_icon("scale_colour_manual", {
   textGrob("DIY", gp = gpar(cex = 1.2))
 })
 
@@ -540,10 +543,6 @@ write_icon("scale_size", {
 
 write_icon("scale_x_date", {
   textGrob("14/10/1979", gp = gpar(cex = 1))
-})
-
-write_icon("scale_x_datetime", {
-  textGrob("14/10/1979\n10:14am", gp = gpar(cex = 0.9))
 })
 
 # Statistics -------------------------------------------------------------------

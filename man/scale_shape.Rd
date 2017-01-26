@@ -46,4 +46,3 @@ ggplot(df_shapes, aes(0, 0, shape = shape)) +
   facet_wrap(~shape) +
   theme_void()
 }
-

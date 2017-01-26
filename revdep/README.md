@@ -9,8 +9,8 @@
 |ui       |X11                          |
 |language |(EN)                         |
 |collate  |en_US.UTF-8                  |
-|tz       |America/Chicago              |
-|date     |2016-10-25                   |
+|tz       |America/Mexico_City          |
+|date     |2016-11-07                   |
 
 ## Packages
 
@@ -18,12 +18,12 @@
 |:-------------|:--|:----------|:----------|:------------------------------|
 |covr          |   |2.2.1      |2016-08-10 |cran (@2.2.1)                  |
 |digest        |   |0.6.10     |2016-08-02 |cran (@0.6.10)                 |
-|ggplot2       |   |2.1.0.9001 |2016-10-25 |local (hadley/ggplot2@2b41ba4) |
+|ggplot2       |   |2.1.0      |2016-03-01 |cran (@2.1.0)                  |
 |ggplot2movies |   |0.0.1      |2015-08-25 |cran (@0.0.1)                  |
 |gtable        |   |0.2.0      |2016-02-26 |cran (@0.2.0)                  |
 |hexbin        |   |1.27.1     |2015-08-19 |cran (@1.27.1)                 |
-|Hmisc         |   |3.17-4     |2016-05-02 |cran (@3.17-4)                 |
-|knitr         |   |1.14.12    |2016-10-25 |Github (yihui/knitr@9fc0c61)   |
+|Hmisc         |   |4.0-0      |2016-11-01 |cran (@4.0-0)                  |
+|knitr         |   |1.14.15    |2016-11-07 |Github (yihui/knitr@8cbc61a)   |
 |lazyeval      |   |0.2.0      |2016-06-12 |cran (@0.2.0)                  |
 |mapproj       |   |1.2-4      |2015-08-03 |cran (@1.2-4)                  |
 |maps          |   |3.1.1      |2016-07-27 |cran (@3.1.1)                  |
@@ -34,13 +34,13 @@
 |reshape2      |   |1.4.2      |2016-10-22 |cran (@1.4.2)                  |
 |rmarkdown     |   |1.1        |2016-10-16 |cran (@1.1)                    |
 |scales        |   |0.4.0.9003 |2016-10-25 |Github (hadley/scales@d58d83a) |
-|svglite       |   |1.1.0      |2016-02-09 |cran (@1.1.0)                  |
+|svglite       |   |1.2.0      |2016-11-04 |cran (@1.2.0)                  |
 |testthat      |*  |1.0.2      |2016-04-23 |cran (@1.0.2)                  |
 |tibble        |   |1.2        |2016-08-26 |cran (@1.2)                    |
 
 # Check results
 
-954 packages
+967 packages
 
 |package                 |version       | errors| warnings| notes|
 |:-----------------------|:-------------|------:|--------:|-----:|
@@ -49,6 +49,7 @@
 |ABHgenotypeR            |1.0.1         |      0|        0|     0|
 |ACDm                    |1.0.4         |      0|        0|     0|
 |ACSNMineR               |0.16.8.25     |      0|        0|     0|
+|adapr                   |1.0           |      0|        0|     1|
 |AdaptGauss              |1.2.4         |      0|        0|     0|
 |adegenet                |2.0.1         |      0|        0|     0|
 |admixturegraph          |1.0.1         |      0|        0|     0|
@@ -84,6 +85,7 @@
 |BBEST                   |0.1-6         |      0|        0|     0|
 |bbmle                   |1.0.18        |      0|        0|     0|
 |BCEA                    |2.2-3         |      1|        0|     1|
+|BCellMA                 |0.1           |      0|        0|     0|
 |Bclim                   |3.1.0         |      0|        0|     0|
 |bcp                     |4.0.0         |      0|        0|     1|
 |bcrm                    |0.4.6         |      1|        0|     1|
@@ -119,12 +121,12 @@
 |broman                  |0.64-3        |      0|        0|     0|
 |broom                   |0.4.1         |      0|        0|     0|
 |brotli                  |0.8           |      0|        0|     0|
-|bsam                    |1.0.0         |      1|        0|     0|
+|bsam                    |1.1.0         |      1|        0|     0|
 |BTSPAS                  |2014.0901     |      1|        0|     1|
 |burnr                   |0.1.1         |      0|        0|     0|
 |CALF                    |0.1.3         |      0|        0|     0|
 |capm                    |0.9.1         |      0|        0|     0|
-|caret                   |6.0-71        |      0|        0|     0|
+|caret                   |6.0-72        |      0|        0|     1|
 |caretEnsemble           |2.0.0         |      0|        0|     0|
 |cate                    |1.0.4         |      1|        0|     0|
 |catenary                |1.1.1         |      0|        0|     0|
@@ -134,8 +136,8 @@
 |ChainLadder             |0.2.3         |      0|        0|     0|
 |ChannelAttributionApp   |1.1           |      0|        0|     1|
 |ChaosGame               |0.2           |      0|        0|     0|
-|checkmate               |1.8.1         |      0|        0|     0|
-|choroplethr             |3.5.2         |      0|        0|     0|
+|checkmate               |1.8.2         |      0|        0|     0|
+|choroplethr             |3.5.2         |      0|        1|     0|
 |choroplethrAdmin1       |1.1.0         |      0|        0|     1|
 |choroplethrMaps         |1.0           |      0|        0|     0|
 |chron                   |2.3-47        |      0|        0|     0|
@@ -150,7 +152,7 @@
 |clusterfly              |0.4           |      1|        0|     0|
 |clusternomics           |0.1.0         |      0|        0|     0|
 |ClusterR                |1.0.3         |      0|        0|     0|
-|clustrd                 |0.1.2         |      0|        0|     2|
+|clustrd                 |1.0.2         |      1|        0|     0|
 |cmaesr                  |1.0.2         |      0|        0|     0|
 |cobalt                  |1.3.0         |      0|        0|     0|
 |cocoreg                 |0.1.0         |      0|        0|     0|
@@ -161,7 +163,7 @@
 |CollapsABEL             |0.10.8        |      1|        0|     0|
 |coloc                   |2.3-1         |      0|        1|     2|
 |colormap                |0.1.3         |      0|        0|     0|
-|colorplaner             |0.1.2         |      1|        0|     0|
+|colorplaner             |0.1.3         |      0|        0|     0|
 |CommT                   |0.1.1         |      0|        0|     1|
 |complmrob               |0.6.1         |      0|        0|     0|
 |confidence              |1.1-0         |      0|        0|     1|
@@ -175,8 +177,9 @@
 |cosinor                 |1.1           |      0|        0|     1|
 |CosmoPhotoz             |0.1           |      0|        0|     1|
 |countytimezones         |1.0.0         |      0|        0|     0|
+|countyweather           |0.1.0         |      0|        0|     0|
 |covmat                  |1.0           |      0|        0|     0|
-|cowplot                 |0.6.3         |      1|        2|     0|
+|cowplot                 |0.7.0         |      0|        0|     0|
 |cplm                    |0.7-4         |      0|        0|     0|
 |crawl                   |2.0.1         |      0|        0|     0|
 |cricketr                |0.0.13        |      0|        0|     0|
@@ -189,7 +192,7 @@
 |Cyclops                 |1.2.2         |      0|        0|     0|
 |cystiSim                |0.1.0         |      0|        0|     0|
 |dae                     |2.7-20        |      0|        0|     0|
-|dams                    |0.1           |      0|        0|     1|
+|dams                    |0.2           |      0|        0|     0|
 |darch                   |0.12.0        |      0|        0|     2|
 |darksky                 |1.0.0         |      0|        0|     0|
 |data.table              |1.9.6         |      1|        0|     0|
@@ -203,11 +206,12 @@
 |DengueRT                |1.0.1         |      0|        0|     0|
 |DepthProc               |1.0.7         |      0|        0|     0|
 |DescribeDisplay         |0.2.5         |      0|        0|     0|
-|detzrcr                 |0.1.1         |      0|        0|     0|
+|detzrcr                 |0.1.2         |      0|        0|     0|
 |dfexplore               |0.2.1         |      0|        0|     1|
 |DFIT                    |1.0-2         |      0|        0|     1|
 |dfpk                    |1.0           |      0|        0|     0|
 |dggridR                 |0.1.11        |      0|        0|     0|
+|diagis                  |0.1.0         |      0|        0|     0|
 |DiallelAnalysisR        |0.1.1         |      0|        0|     0|
 |dielectric              |0.2.3         |      0|        0|     3|
 |diffeR                  |0.0-4         |      0|        0|     0|
@@ -233,14 +237,14 @@
 |dtwclust                |2.3.0         |      0|        0|     0|
 |dtwSat                  |0.2.1         |      0|        0|     0|
 |DVHmetrics              |0.3.6         |      0|        0|     0|
-|DynNom                  |3.0.1         |      0|        0|     0|
+|DynNom                  |3.0.1         |      1|        0|     0|
 |dynr                    |0.1.7         |      1|        0|     0|
 |dynsim                  |1.2.1         |      0|        0|     0|
 |dynsurv                 |0.3-3         |      0|        0|     0|
 |earlywarnings           |1.0.59        |      0|        0|     2|
 |earthtones              |0.1.0         |      0|        0|     0|
 |EasyHTMLReport          |0.1.1         |      0|        0|     3|
-|ecb                     |0.2           |      0|        0|     0|
+|ecb                     |0.2           |      1|        1|     0|
 |ecoengine               |1.10.0        |      0|        0|     0|
 |EcoGenetics             |1.2.0-3       |      0|        0|     0|
 |ecr                     |1.0.1         |      0|        0|     0|
@@ -251,7 +255,7 @@
 |eechidna                |0.1           |      1|        0|     0|
 |EEM                     |1.1.1         |      0|        0|     0|
 |eemR                    |0.1.4         |      0|        0|     0|
-|eeptools                |0.9.1         |      2|        1|     1|
+|eeptools                |1.0.0         |      0|        0|     0|
 |EFDR                    |0.1.1         |      0|        0|     1|
 |EffectLiteR             |0.4-2         |      0|        0|     0|
 |ega                     |1.0.1         |      0|        0|     0|
@@ -262,7 +266,7 @@
 |EmpiricalCalibration    |1.2.0         |      0|        0|     0|
 |emuR                    |0.1.9         |      0|        0|     0|
 |enigma                  |0.2.0         |      0|        0|     0|
-|enpls                   |4.5           |      0|        0|     0|
+|enpls                   |5.0           |      0|        0|     0|
 |EpiDynamics             |0.3.0         |      0|        0|     0|
 |episensr                |0.7.2         |      0|        0|     0|
 |episheet                |0.2.0         |      0|        0|     0|
@@ -280,7 +284,7 @@
 |extracat                |1.7-4         |      0|        0|     0|
 |eyelinker               |0.1           |      0|        0|     0|
 |eyetrackingR            |0.1.6         |      0|        0|     0|
-|ez                      |4.3           |      0|        0|     0|
+|ez                      |4.4-0         |      0|        0|     0|
 |ezsim                   |0.5.5         |      0|        0|     2|
 |factoextra              |1.0.3         |      1|        0|     1|
 |FAOSTAT                 |2.0           |      0|        0|     1|
@@ -290,7 +294,7 @@
 |Fgmutils                |0.9.4         |      1|        0|     0|
 |fheatmap                |1.0.1         |      1|        0|     1|
 |FinCal                  |0.6.3         |      0|        0|     0|
-|findviews               |0.1.1         |      0|        0|     0|
+|findviews               |0.1.2         |      0|        0|     0|
 |fishmove                |0.3-3         |      0|        0|     1|
 |fitbitScraper           |0.1.7         |      0|        1|     0|
 |fitcoach                |1.0           |      0|        0|     0|
@@ -306,7 +310,7 @@
 |freqweights             |1.0.2         |      0|        0|     1|
 |frontiles               |1.2           |      0|        0|     1|
 |fSRM                    |0.6.4         |      0|        0|     0|
-|funModeling             |1.4           |      0|        0|     0|
+|funModeling             |1.4           |      1|        0|     0|
 |funrar                  |1.0.1         |      0|        0|     0|
 |futureheatwaves         |1.0.1         |      0|        0|     0|
 |fuzzyforest             |1.0.2         |      1|        0|     0|
@@ -320,9 +324,9 @@
 |GDAdata                 |0.93          |      0|        0|     0|
 |GenCAT                  |1.0.3         |      1|        1|     3|
 |gender                  |0.5.1         |      0|        0|     1|
-|geneSLOPE               |0.36.6        |      0|        0|     0|
+|geneSLOPE               |0.37.0        |      0|        0|     0|
 |genomeplot              |1.0           |      0|        0|     0|
-|geoknife                |1.3.0         |      0|        0|     0|
+|geoknife                |1.4.0         |      0|        0|     0|
 |geomnet                 |0.1.2.1       |      1|        0|     0|
 |GERGM                   |0.10.0        |      0|        0|     0|
 |GetHFData               |1.2.0         |      0|        0|     0|
@@ -334,11 +338,12 @@
 |ggbeeswarm              |0.5.0         |      0|        0|     0|
 |ggcorrplot              |0.1.1         |      0|        0|     0|
 |ggdendro                |0.1-20        |      0|        0|     0|
+|ggdmc                   |0.1.3.5       |      0|        0|     0|
 |ggenealogy              |0.2.0         |      0|        1|     0|
 |ggExtra                 |0.5           |      1|        1|     0|
 |ggfortify               |0.2.0         |      1|        0|     1|
 |ggghost                 |0.2.1         |      0|        0|     0|
-|ggiraph                 |0.3.1         |      0|        0|     0|
+|ggiraph                 |0.3.2         |      0|        0|     0|
 |gglogo                  |0.1.2         |      0|        0|     0|
 |ggloop                  |0.1.0         |      0|        0|     0|
 |ggmap                   |2.6.1         |      0|        0|     0|
@@ -356,7 +361,7 @@
 |ggseas                  |0.5.1         |      0|        0|     0|
 |ggsn                    |0.3.1         |      0|        0|     0|
 |ggspectra               |0.1.10        |      0|        0|     0|
-|ggswissmaps             |0.0.9         |      0|        1|     1|
+|ggswissmaps             |0.1.1         |      0|        0|     0|
 |ggtern                  |2.1.4         |      1|        0|     0|
 |ggThemeAssist           |0.1.5         |      0|        0|     0|
 |ggthemes                |3.2.0         |      0|        0|     0|
@@ -371,8 +376,8 @@
 |GOplot                  |1.0.2         |      0|        0|     0|
 |gpmap                   |0.1.1         |      0|        0|     3|
 |granovaGG               |1.4.0         |      0|        0|     0|
-|Greg                    |1.2           |      0|        0|     0|
-|greport                 |0.7-1         |      0|        0|     1|
+|Greg                    |1.2           |      2|        1|     0|
+|greport                 |0.7-1         |      1|        0|     0|
 |gridDebug               |0.5-0         |      1|        0|     0|
 |gridExtra               |2.2.1         |      0|        0|     0|
 |gridsampler             |0.5           |      0|        0|     0|
@@ -381,7 +386,7 @@
 |growthcurver            |0.2.1         |      0|        0|     0|
 |gsDesign                |3.0-1         |      0|        0|     1|
 |GSE                     |4.0           |      0|        0|     0|
-|gtrendsR                |1.3.4         |      0|        0|     0|
+|gtrendsR                |1.3.5         |      0|        0|     0|
 |gunsales                |0.1.1         |      0|        0|     0|
 |gutenbergr              |0.1.2         |      0|        0|     0|
 |gwdegree                |0.1.1         |      0|        0|     0|
@@ -390,10 +395,10 @@
 |hazus                   |0.1           |      0|        0|     1|
 |hBayesDM                |0.2.3.1       |      0|        0|     0|
 |hdm                     |0.2.0         |      0|        0|     0|
-|hdnom                   |4.2           |      0|        0|     0|
+|hdnom                   |4.2           |      1|        1|     0|
 |hdr                     |0.1           |      0|        0|     0|
-|heatmaply               |0.5.0         |      1|        1|     0|
-|heemod                  |0.5.0         |      1|        0|     0|
+|heatmaply               |0.6.0         |      1|        1|     0|
+|heemod                  |0.5.1         |      0|        0|     0|
 |heuristica              |1.0.1         |      0|        0|     0|
 |hierarchicalDS          |2.9           |      0|        0|     1|
 |hierarchicalSets        |1.0.2         |      0|        0|     1|
@@ -404,8 +409,9 @@
 |historydata             |0.1           |      0|        0|     0|
 |HiveR                   |0.2.55        |      0|        0|     0|
 |HLMdiag                 |0.3.1         |      0|        0|     0|
-|Hmisc                   |3.17-4        |      0|        0|     0|
+|Hmisc                   |4.0-0         |      1|        0|     0|
 |HRM                     |0.3.5         |      0|        0|     0|
+|HTSSIP                  |1.0.3         |      1|        0|     0|
 |httk                    |1.4           |      0|        0|     0|
 |HWxtest                 |1.1.7         |      0|        0|     0|
 |hybridModels            |0.2.6         |      0|        0|     0|
@@ -414,21 +420,22 @@
 |IAPWS95                 |1.0.0         |      1|        0|     0|
 |IAT                     |0.3           |      0|        0|     0|
 |ibmdbR                  |1.48.0        |      1|        0|     0|
-|icarus                  |0.2.1         |      0|        0|     0|
+|icarus                  |0.2.2         |      0|        0|     0|
 |icd9                    |1.3.1         |      0|        0|     0|
-|idm                     |1.3.1         |      0|        0|     0|
+|idm                     |1.7.1         |      1|        0|     0|
 |ie2miscdata             |1.0.1         |      0|        1|     1|
 |ifaTools                |0.13          |      0|        0|     0|
 |IGM.MEA                 |0.3.4         |      0|        0|     0|
 |imageData               |0.1-26        |      1|        0|     0|
 |imager                  |0.31          |      0|        1|     1|
 |IMP                     |1.1           |      0|        0|     0|
-|imputeTestbench         |2.0.2         |      0|        0|     0|
+|imputeTestbench         |3.0.0         |      0|        0|     0|
+|incidence               |1.0.0         |      0|        0|     0|
 |inctools                |1.0.7         |      0|        0|     0|
 |IncucyteDRC             |0.5.4         |      0|        0|     0|
 |iNEXT                   |2.0.9         |      0|        1|     0|
 |Information             |0.0.9         |      0|        0|     0|
-|InformationValue        |1.2.1         |      0|        0|     0|
+|InformationValue        |1.2.3         |      0|        0|     0|
 |InSilicoVA              |1.1.2         |      1|        0|     0|
 |IntClust                |0.0.2         |      1|        0|     0|
 |IntegratedJM            |1.4           |      0|        0|     0|
@@ -439,7 +446,7 @@
 |ITEMAN                  |1.0           |      0|        0|     0|
 |iWISA                   |1.0-2         |      0|        0|     0|
 |JacobiEigen             |0.2-2         |      0|        0|     0|
-|JWileymisc              |0.2.1         |      0|        1|     0|
+|JWileymisc              |0.2.1         |      0|        0|     0|
 |kamila                  |0.1.1.1       |      0|        0|     0|
 |kdetrees                |0.1.5         |      0|        0|     1|
 |kfigr                   |1.2           |      0|        0|     0|
@@ -472,7 +479,7 @@
 |LOGIT                   |1.3           |      0|        0|     0|
 |lsbclust                |1.0.4         |      0|        0|     0|
 |lsl                     |0.5.5         |      0|        0|     0|
-|ltbayes                 |0.3           |      1|        0|     0|
+|ltbayes                 |0.4           |      1|        0|     0|
 |lvplot                  |0.2.0         |      0|        0|     0|
 |MAc                     |1.1           |      0|        0|     4|
 |macleish                |0.3.0         |      0|        0|     0|
@@ -480,7 +487,7 @@
 |maddison                |0.1           |      0|        0|     0|
 |magick                  |0.3           |      1|        0|     0|
 |manhattanly             |0.1.0         |      0|        1|     0|
-|mapr                    |0.2.0         |      0|        0|     0|
+|mapr                    |0.3.0         |      0|        0|     0|
 |marked                  |1.1.11        |      0|        0|     0|
 |marmap                  |0.9.5         |      0|        0|     0|
 |matrixStats             |0.51.0        |      0|        0|     0|
@@ -492,7 +499,7 @@
 |mdsr                    |0.1.3         |      0|        0|     1|
 |medicalrisk             |1.2           |      0|        0|     0|
 |medicare                |0.1.0         |      0|        0|     0|
-|MEGENA                  |1.3.4-6       |      0|        1|     1|
+|MEGENA                  |1.3.5-2       |      0|        1|     1|
 |MendelianRandomization  |0.2.0         |      1|        0|     0|
 |MergeGUI                |0.2-1         |      1|        0|     0|
 |merTools                |0.2.1         |      0|        0|     0|
@@ -506,9 +513,11 @@
 |Methplot                |1.0           |      0|        0|     2|
 |metricsgraphics         |0.9.0         |      0|        0|     0|
 |MGLM                    |0.0.7         |      0|        0|     0|
+|mhtboot                 |1.3.3         |      0|        0|     0|
 |microbenchmark          |1.4-2.1       |      0|        0|     1|
 |micromap                |1.9.2         |      0|        0|     1|
 |microplot               |1.0-14        |      0|        0|     0|
+|MiRAnorm                |1.0.0         |      0|        0|     0|
 |miscset                 |1.0.0         |      0|        0|     0|
 |MissingDataGUI          |0.2-5         |      1|        0|     0|
 |mistat                  |1.0-4         |      0|        0|     1|
@@ -523,12 +532,12 @@
 |mlxR                    |3.1.0         |      0|        0|     0|
 |Mobilize                |2.16-4        |      0|        0|     1|
 |modelr                  |0.1.0         |      0|        0|     0|
-|Momocs                  |1.0.0         |      1|        1|     0|
+|Momocs                  |1.1.0         |      0|        0|     0|
 |moonBook                |0.1.3         |      0|        0|     2|
 |morse                   |2.2.0         |      1|        0|     0|
 |mosaic                  |0.14.4        |      0|        0|     2|
 |mosaicData              |0.14.0        |      0|        0|     0|
-|mousetrap               |1.2.0         |      0|        0|     0|
+|mousetrap               |2.0.0         |      0|        0|     0|
 |moveHMM                 |1.2           |      0|        0|     0|
 |mplot                   |0.7.9         |      0|        0|     1|
 |mpoly                   |1.0.3         |      0|        0|     0|
@@ -536,7 +545,7 @@
 |MRMR                    |0.1.4         |      0|        0|     0|
 |MSCMT                   |1.0.0         |      0|        0|     0|
 |MSG                     |0.3           |      0|        0|     0|
-|MSGARCH                 |0.16          |      0|        0|     0|
+|MSGARCH                 |0.17          |      0|        0|     1|
 |mtconnectR              |1.0.1         |      1|        0|     0|
 |MultiBD                 |0.2.0         |      0|        0|     0|
 |multiDimBio             |1.0.1         |      1|        0|     0|
@@ -574,6 +583,7 @@
 |oaPlots                 |0.0.25        |      0|        0|     0|
 |oaxaca                  |0.1.3         |      0|        0|     0|
 |obAnalytics             |0.1.0         |      1|        1|     0|
+|oddsratio               |0.3.0         |      1|        1|     0|
 |OECD                    |0.2.2         |      0|        0|     0|
 |onlineCPD               |1.0           |      1|        0|     0|
 |OpasnetUtils            |1.2.0         |      0|        0|     1|
@@ -593,7 +603,7 @@
 |paleofire               |1.1.9         |      0|        0|     0|
 |palettetown             |0.1.1         |      0|        0|     0|
 |pAnalysis               |2.0           |      0|        0|     0|
-|pander                  |0.6.0         |      0|        0|     0|
+|pander                  |0.6.0         |      0|        1|     1|
 |ParallelTree            |0.1.1         |      0|        0|     0|
 |ParamHelpers            |1.9           |      1|        0|     0|
 |partialAR               |1.0.5         |      0|        0|     1|
@@ -603,7 +613,7 @@
 |pauwels2014             |1.0           |      0|        0|     2|
 |PAWL                    |0.5           |      0|        0|     4|
 |PBImisc                 |1.0           |      0|        0|     0|
-|pcadapt                 |3.0.2         |      0|        1|     1|
+|pcadapt                 |3.0.3         |      0|        0|     1|
 |pcaPA                   |2.0.2         |      1|        0|     0|
 |pcrcoal                 |1.2.0         |      0|        0|     0|
 |pcrsim                  |1.0.1         |      1|        0|     0|
@@ -661,12 +671,12 @@
 |precrec                 |0.5.2         |      0|        0|     0|
 |predictionInterval      |1.0.0         |      0|        0|     0|
 |predictmeans            |0.99          |      0|        0|     1|
-|PredictTestbench        |1.1.1         |      0|        0|     0|
+|PredictTestbench        |1.1.1         |      0|        1|     0|
 |PReMiuM                 |3.1.3         |      0|        0|     0|
 |preprocomb              |0.3.0         |      0|        0|     0|
 |preprosim               |0.2.0         |      0|        0|     0|
 |preproviz               |0.2.0         |      0|        0|     0|
-|preText                 |0.4.4         |      0|        0|     0|
+|preText                 |0.4.4         |      0|        0|     1|
 |prevR                   |3.3           |      0|        0|     1|
 |pRF                     |1.2           |      1|        0|     0|
 |primerTree              |1.0.3         |      0|        0|     0|
@@ -679,7 +689,7 @@
 |ProgGUIinR              |0.0-4         |      0|        0|     3|
 |ProjectTemplate         |0.7           |      0|        0|     2|
 |proportion              |1.2.3         |      0|        1|     1|
-|propr                   |2.0.1         |      0|        0|     0|
+|propr                   |2.0.4         |      0|        0|     0|
 |proteomics              |0.2           |      0|        0|     1|
 |PRROC                   |1.1           |      0|        0|     1|
 |PSAboot                 |1.1.4         |      0|        0|     0|
@@ -693,14 +703,14 @@
 |QCAtools                |0.2.2         |      0|        0|     0|
 |QCSimulator             |0.0.1         |      0|        0|     0|
 |qdap                    |2.2.5         |      1|        0|     0|
-|qgraph                  |1.3.5         |      0|        0|     0|
+|qgraph                  |1.4.0         |      0|        0|     0|
 |qicharts                |0.5.1         |      0|        0|     0|
 |quadrupen               |0.2-4         |      0|        0|     1|
 |QualInt                 |1.0.0         |      0|        0|     1|
 |qualvar                 |0.1.0         |      0|        0|     0|
-|quanteda                |0.9.8.3       |      1|        0|     0|
+|quanteda                |0.9.8.5       |      1|        0|     0|
 |QuantumClone            |0.16.8.19     |      0|        0|     0|
-|quickpsy                |0.1.3         |      1|        0|     0|
+|quickpsy                |0.1.4         |      1|        0|     0|
 |quickReg                |1.0.0         |      0|        0|     1|
 |qwraps2                 |0.2.2         |      0|        0|     0|
 |R2admb                  |0.7.13        |      0|        0|     1|
@@ -719,6 +729,7 @@
 |randomUniformForest     |1.1.5         |      0|        0|     1|
 |rangeMapper             |0.3-0         |      0|        0|     0|
 |rangemodelR             |1.0.1         |      0|        0|     0|
+|raptr                   |0.0.1         |      1|        0|     0|
 |rasterVis               |0.40          |      0|        0|     0|
 |rattle                  |4.1.0         |      0|        0|     3|
 |raw                     |0.1.2         |      0|        0|     0|
@@ -740,7 +751,7 @@
 |rem                     |1.1.2         |      0|        0|     0|
 |repijson                |0.1.0         |      0|        0|     0|
 |replicationInterval     |2.0.1         |      0|        0|     0|
-|ReporteRs               |0.8.6         |      1|        0|     0|
+|ReporteRs               |0.8.7         |      1|        0|     0|
 |reproducer              |0.1.6         |      0|        0|     0|
 |reval                   |2.0.0         |      0|        0|     0|
 |rex                     |1.1.1         |      0|        0|     0|
@@ -757,9 +768,9 @@
 |rivr                    |1.2           |      0|        0|     0|
 |RJafroc                 |0.1.1         |      1|        0|     0|
 |RmarineHeatWaves        |0.13.1        |      0|        0|     0|
-|rmcfs                   |1.1.1         |      1|        0|     0|
+|rmcfs                   |1.1.2         |      1|        0|     0|
 |rmetasim                |3.0.5         |      0|        0|     0|
-|rms                     |4.5-0         |      0|        0|     1|
+|rms                     |5.0-0         |      1|        0|     0|
 |RndTexExams             |1.4           |      0|        0|     0|
 |rnoaa                   |0.6.5         |      0|        0|     0|
 |rnpn                    |0.1.0         |      0|        0|     0|
@@ -770,7 +781,7 @@
 |RobustEM                |1.0           |      0|        0|     1|
 |robustHD                |0.5.1         |      0|        0|     0|
 |robustlmm               |1.8           |      0|        0|     0|
-|rollply                 |0.5.0         |      0|        1|     0|
+|rollply                 |0.5.0         |      0|        0|     0|
 |ropenaq                 |0.1.3         |      0|        0|     0|
 |rorutadis               |0.4.1         |      0|        0|     0|
 |rotations               |1.5           |      0|        0|     0|
@@ -789,8 +800,8 @@
 |rSPACE                  |1.2.0         |      0|        0|     0|
 |RSSL                    |0.6.1         |      0|        0|     0|
 |rstan                   |2.12.1        |      1|        0|     0|
-|rstanarm                |2.12.1        |      2|        0|     1|
-|RStoolbox               |0.1.5         |      0|        0|     0|
+|rstanarm                |2.12.1        |      1|        0|     1|
+|RStoolbox               |0.1.6         |      0|        0|     0|
 |rsvd                    |0.6           |      0|        0|     0|
 |rsvg                    |1.0           |      1|        0|     0|
 |rtematres               |0.2           |      0|        0|     0|
@@ -834,15 +845,15 @@
 |sglr                    |0.7           |      0|        0|     2|
 |shazam                  |0.1.4         |      0|        0|     0|
 |SHELF                   |1.2.1         |      0|        0|     0|
-|shiny                   |0.14.1        |      0|        0|     1|
+|shiny                   |0.14.2        |      0|        0|     1|
 |ShinyItemAnalysis       |0.2.0         |      0|        0|     0|
 |shinystan               |2.2.1         |      0|        0|     0|
 |sidier                  |3.0.1         |      0|        0|     1|
 |sigmoid                 |0.2.0         |      0|        0|     0|
 |Sim.DiffProc            |3.4           |      0|        0|     1|
-|simcausal               |0.5.1         |      0|        0|     0|
-|SimDesign               |1.3           |      0|        0|     1|
-|simmer                  |3.4.4         |      0|        1|     0|
+|simcausal               |0.5.1         |      0|        1|     0|
+|SimDesign               |1.4           |      0|        0|     1|
+|simmer                  |3.5.0         |      0|        1|     0|
 |simmr                   |0.3           |      1|        0|     0|
 |simPH                   |1.3.9         |      0|        0|     0|
 |simstudy                |0.1.1         |      0|        0|     0|
@@ -850,9 +861,10 @@
 |simulator               |0.2.0         |      0|        0|     0|
 |sitmo                   |1.0.0         |      0|        0|     0|
 |SixSigma                |0.9-3         |      0|        0|     0|
-|sjPlot                  |2.1.0         |      1|        0|     0|
-|sjstats                 |0.5.0         |      0|        0|     0|
+|sjPlot                  |2.1.1         |      1|        0|     0|
+|sjstats                 |0.6.0         |      0|        0|     0|
 |slackr                  |1.4.2         |      0|        0|     0|
+|slim                    |0.1.0         |      0|        1|     1|
 |SmarterPoland           |1.7           |      0|        0|     1|
 |SMFI5                   |1.0           |      0|        0|     2|
 |smoof                   |1.4           |      0|        0|     0|
@@ -882,6 +894,7 @@
 |srvyr                   |0.2.0         |      0|        0|     0|
 |ss3sim                  |0.9.2         |      0|        0|     0|
 |starma                  |1.3           |      0|        0|     0|
+|starmie                 |0.1.2         |      1|        0|     0|
 |statar                  |0.6.2         |      0|        0|     0|
 |statcheck               |1.2.2         |      0|        0|     0|
 |statebins               |1.2.2         |      0|        0|     0|
@@ -893,7 +906,7 @@
 |subspaceMOA             |0.5.1         |      1|        0|     0|
 |SuperLearner            |2.0-19        |      0|        0|     1|
 |surveillance            |1.12.1        |      0|        1|     2|
-|survminer               |0.2.2         |      1|        1|     1|
+|survminer               |0.2.2         |      1|        2|     1|
 |survMisc                |0.5.3         |      1|        0|     0|
 |SurvRank                |0.1           |      0|        0|     0|
 |sValues                 |0.1.4         |      0|        0|     0|
@@ -902,7 +915,7 @@
 |SWMPr                   |2.1.7         |      0|        0|     0|
 |synthpop                |1.3-0         |      0|        0|     0|
 |tableone                |0.7.3         |      0|        0|     0|
-|tabplot                 |1.3           |      0|        1|     0|
+|tabplot                 |1.3           |      1|        1|     0|
 |tadaatoolbox            |0.10.0        |      0|        0|     0|
 |taRifx                  |1.0.6         |      0|        0|     4|
 |TcGSA                   |0.10.1        |      1|        0|     0|
@@ -914,7 +927,7 @@
 |Thermimage              |2.2.3         |      0|        0|     0|
 |thief                   |0.2           |      0|        0|     0|
 |tidyjson                |0.2.1         |      0|        0|     1|
-|tidytext                |0.1.1         |      0|        0|     0|
+|tidytext                |0.1.2         |      0|        0|     0|
 |tidyverse               |1.0.0         |      0|        0|     0|
 |tigerstats              |0.2.7         |      0|        0|     0|
 |tigger                  |0.2.8         |      0|        0|     0|
@@ -925,9 +938,9 @@
 |timelineS               |0.1.1         |      0|        0|     0|
 |TimeProjection          |0.2.0         |      0|        0|     2|
 |TippingPoint            |1.1.0         |      0|        0|     0|
-|tmap                    |1.6           |      0|        0|     1|
+|tmap                    |1.6-1         |      0|        0|     0|
 |Tmisc                   |0.1.10        |      0|        0|     0|
-|toaster                 |0.5.2         |      1|        0|     0|
+|toaster                 |0.5.4         |      1|        0|     0|
 |tourr                   |0.5.4         |      0|        0|     2|
 |tourrGui                |0.4           |      0|        0|     4|
 |toxboot                 |0.1.1         |      0|        0|     1|
@@ -954,7 +967,7 @@
 |UpSetR                  |1.3.0         |      0|        1|     1|
 |useful                  |1.2.1         |      0|        0|     0|
 |userfriendlyscience     |0.4-1         |      1|        0|     2|
-|UsingR                  |2.0-5         |      0|        0|     0|
+|UsingR                  |2.0-5         |      1|        0|     0|
 |varian                  |0.2.2         |      0|        0|     0|
 |vcdExtra                |0.7-0         |      0|        0|     1|
 |vcfR                    |1.2.0         |      0|        0|     0|
@@ -984,7 +997,7 @@
 |WHO                     |0.2           |      0|        0|     0|
 |wikipediatrend          |1.1.10        |      0|        0|     1|
 |wordbankr               |0.2.0         |      0|        0|     0|
-|wppExplorer             |1.9-0         |      0|        0|     0|
+|wppExplorer             |2.0-0         |      0|        0|     0|
 |wrswoR.benchmark        |0.1-1         |      0|        0|     0|
 |wrswoR                  |1.0-1         |      0|        0|     0|
 |x.ent                   |1.1.2         |      1|        0|     0|
@@ -992,7 +1005,7 @@
 |XGR                     |1.0.4         |      1|        0|     0|
 |xkcd                    |0.0.5         |      0|        0|     0|
 |XLConnect               |0.2-12        |      1|        0|     0|
-|xtractomatic            |3.1.1         |      0|        0|     0|
+|xtractomatic            |3.1.1         |      0|        1|     0|
 |xxIRT                   |1.1.0         |      0|        0|     0|
 |yorkr                   |0.0.5         |      0|        0|     0|
 |zebu                    |0.1.0         |      0|        0|     0|
@@ -1025,6 +1038,16 @@ Maintainer: Markus Belfrage <markus.belfrage@gmail.com>
 Maintainer: Paul Deveau <paul.deveau@curie.fr>
 
 0 errors | 0 warnings | 0 notes
+
+## adapr (1.0)
+Maintainer: Jonathan Gelfond <gelfondjal@uthscsa.edu>
+
+0 errors | 0 warnings | 1 note 
+
+```
+checking package dependencies ... NOTE
+Package suggested but not available for checking: ‘pkgKitten’
+```
 
 ## AdaptGauss (1.2.4)
 Maintainer: Michael Thrun <mthrun@mathematik.uni-marburg.de>
@@ -1416,7 +1439,7 @@ Maintainer: Hongtao Zhang <hongtao.zhang@abbvie.com>
 ```
 checking whether package ‘BACCT’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/BACCT.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/BACCT.Rcheck/00install.out’ for details.
 ```
 
 ## backShift (0.1.3)
@@ -1428,7 +1451,7 @@ Bug reports: https://github.com/christinaheinze/backShift/issues
 ```
 checking whether package ‘backShift’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/backShift.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/backShift.Rcheck/00install.out’ for details.
 ```
 
 ## bamdit (3.0.0)
@@ -1439,7 +1462,7 @@ Maintainer: Pablo Emilio Verde <pabloemilio.verde@hhu.de>
 ```
 checking whether package ‘bamdit’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/bamdit.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/bamdit.Rcheck/00install.out’ for details.
 ```
 
 ## bayesAB (0.7.0)
@@ -1495,6 +1518,11 @@ Execution halted
 checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘INLA’
 ```
+
+## BCellMA (0.1)
+Maintainer: Olena Ohlei <olena.ohlei@student.uni-luebeck.de>
+
+0 errors | 0 warnings | 0 notes
 
 ## Bclim (3.1.0)
 Maintainer: Andrew Parnell <Andrew.Parnell@ucd.ie>
@@ -1903,7 +1931,7 @@ Bug reports:
 ```
 checking whether package ‘brainGraph’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/brainGraph.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/brainGraph.Rcheck/00install.out’ for details.
 ```
 
 ## breakpoint (1.2)
@@ -1929,9 +1957,9 @@ Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
   23: FUN(X[[i]], ...)
   24: element_render(theme = theme, element = paste0("axis.title.", label, modify), label = labels[[label]][[i]], 
-         expand_x = label == "y", expand_y = label == "x") at /Users/hadley/Documents/ggplot/ggplot/R/layout.R:170
-  25: calc_element(element, theme) at /Users/hadley/Documents/ggplot/ggplot/R/theme-elements.r:144
-  26: Reduce(combine_elements, parents, theme[[element]]) at /Users/hadley/Documents/ggplot/ggplot/R/theme.r:641
+         expand_x = label == "y", expand_y = label == "x") at /Users/hadley/Documents/ggplot/ggplot2/R/layout.R:176
+  25: calc_element(element, theme) at /Users/hadley/Documents/ggplot/ggplot2/R/theme-elements.r:149
+  26: Reduce(combine_elements, parents, theme[[element]]) at /Users/hadley/Documents/ggplot/ggplot2/R/theme.r:538
   27: f(init, x[[i]])
   
   testthat results ================================================================
@@ -1959,15 +1987,16 @@ Bug reports: http://github.com/jeroenooms/brotli/issues
 
 0 errors | 0 warnings | 0 notes
 
-## bsam (1.0.0)
-Maintainer: Ian Jonsen <ian.jonsen@mq.edu.au>
+## bsam (1.1.0)
+Maintainer: Ian Jonsen <ian.jonsen@mq.edu.au>  
+Bug reports: https://github.com/ianjonsen/bsam/issues
 
 1 error  | 0 warnings | 0 notes
 
 ```
 checking whether package ‘bsam’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/bsam.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/bsam.Rcheck/00install.out’ for details.
 ```
 
 ## BTSPAS (2014.0901)
@@ -1978,7 +2007,7 @@ Maintainer: Carl J Schwarz <cschwarz@stat.sfu.ca>
 ```
 checking whether package ‘BTSPAS’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/BTSPAS.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/BTSPAS.Rcheck/00install.out’ for details.
 
 checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘BRugs’
@@ -2000,11 +2029,19 @@ Maintainer: Oswaldo Santos Baquero <oswaldosant@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## caret (6.0-71)
-Maintainer: Max Kuhn <Max.Kuhn@pfizer.com>  
+## caret (6.0-72)
+Maintainer: Max Kuhn <mxkuhn@gmail.com>  
 Bug reports: https://github.com/topepo/caret/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is  5.0Mb
+  sub-directories of 1Mb or more:
+    data     1.5Mb
+    models   2.2Mb
+```
 
 ## caretEnsemble (2.0.0)
 Maintainer: Zachary A. Deane-Mayer <zach.mayer@gmail.com>  
@@ -2113,7 +2150,7 @@ Maintainer: Manuela Schreyer <manuelalarissa.schreyer@sbg.ac.at>
 
 0 errors | 0 warnings | 0 notes
 
-## checkmate (1.8.1)
+## checkmate (1.8.2)
 Maintainer: Michel Lang <michellang@gmail.com>  
 Bug reports: https://github.com/mllg/checkmate/issues
 
@@ -2123,7 +2160,32 @@ Bug reports: https://github.com/mllg/checkmate/issues
 Maintainer: Ari Lamstein <arilamstein@gmail.com>  
 Bug reports: https://github.com/arilamstein/choroplethr/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+
+        • KN = Know Nothing
+
+        • AM = Anti-Masonic
+
+        • N = Nullifier
+
+... 8 lines ...
+
+     Taken from <URL:
+     http://en.wikipedia.org/wiki/List_of_United_States_presidential_election_results_by_state>
+     3/20/2014.
+
+
+Loading required package: lattice
+Quitting from lines 33-61 (h-creating-your-own-maps.Rmd) 
+Error: processing vignette 'h-creating-your-own-maps.Rmd' failed with diagnostics:
+package 'survival' 2.39.5 was found, but >= 2.40.1 is required by 'Hmisc'
+Execution halted
+```
 
 ## choroplethrAdmin1 (1.1.0)
 Maintainer: Ari Lamstein <arilamstein@gmail.com>
@@ -2191,7 +2253,7 @@ Maintainer: Dr Chris Wheadon <chris.wheadon@gmail.com>
 ```
 checking whether package ‘classify’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/classify.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/classify.Rcheck/00install.out’ for details.
 ```
 
 ## classyfire (0.1-2)
@@ -2279,33 +2341,29 @@ Bug reports: https://github.com/mlampros/ClusterR/issues
 
 0 errors | 0 warnings | 0 notes
 
-## clustrd (0.1.2)
+## clustrd (1.0.2)
 Maintainer: Angelos Markos <amarkos@gmail.com>
 
-0 errors | 0 warnings | 2 notes
+1 error  | 0 warnings | 0 notes
 
 ```
-checking DESCRIPTION meta-information ... NOTE
-Malformed Description field: should contain one or more complete sentences.
+checking examples ... ERROR
+Running examples in ‘clustrd-Ex.R’ failed
+The error most likely occurred in:
 
-checking R code for possible problems ... NOTE
-FactorialKM: no visible global function definition for ‘kmeans’
-FactorialKM: no visible global function definition for ‘runif’
-FactorialKM: no visible global function definition for ‘rnorm’
-MCAk: no visible global function definition for ‘runif’
-MCAk: no visible global function definition for ‘kmeans’
-ReducedKM: no visible global function definition for ‘kmeans’
-ReducedKM: no visible global function definition for ‘runif’
-ReducedKM: no visible global function definition for ‘rnorm’
-groupals: no visible global function definition for ‘runif’
-groupals: no visible global function definition for ‘kmeans’
-iFCB: no visible global function definition for ‘runif’
-iFCB: no visible global function definition for ‘kmeans’
-Undefined global functions or variables:
-  kmeans rnorm runif
-Consider adding
-  importFrom("stats", "kmeans", "rnorm", "runif")
-to your NAMESPACE file.
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: cluspca
+> ### Title: Joint dimension reduction and clustering of continuous data.
+> ### Aliases: cluspca
+> 
+> ### ** Examples
+> 
+> data(macro)
+> outRKM = cluspca(macro, 3, 2, method = "RKM", rotation = "varimax")
+> plot(outRKM, cludesc = TRUE)
+Error: GeomTextRepel was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
+Execution halted
 ```
 
 ## cmaesr (1.0.2)
@@ -2355,7 +2413,7 @@ Bug reports: https://bitbucket.org/kindlychung/collapsabel2/issues
 ```
 checking whether package ‘CollapsABEL’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/CollapsABEL.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/CollapsABEL.Rcheck/00install.out’ for details.
 ```
 
 ## coloc (2.3-1)
@@ -2425,30 +2483,11 @@ Bug reports: https://github.com/bhaskarvk/colormap/issues
 
 0 errors | 0 warnings | 0 notes
 
-## colorplaner (0.1.2)
+## colorplaner (0.1.3)
 Maintainer: William Murphy <william.murphy.rd@gmail.com>  
 Bug reports: https://github.com/wmurphyrd/colorplaner/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  > library(colorplaner)
-  > 
-  > test_check("colorplaner")
-  1. Failure: Layer-level mappings produce guide axis titles without error (@test_scale_training.R#47) 
-  print(...) produced warnings.
-  
-  
-  testthat results ================================================================
-  OK: 46 SKIPPED: 0 FAILED: 1
-  1. Failure: Layer-level mappings produce guide axis titles without error (@test_scale_training.R#47) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## CommT (0.1.1)
 Maintainer: Michael Gruenstaeudl <mi.gruenstaeudl@gmail.com>
@@ -2631,61 +2670,21 @@ Bug reports: https://github.com/geanders/countytimezones/issues
 
 0 errors | 0 warnings | 0 notes
 
+## countyweather (0.1.0)
+Maintainer: Rachel Severson <rachel.severson@colostate.edu>
+
+0 errors | 0 warnings | 0 notes
+
 ## covmat (1.0)
 Maintainer: Rohit Arora <emailrohitarora@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## cowplot (0.6.3)
+## cowplot (0.7.0)
 Maintainer: Claus O. Wilke <wilke@austin.utexas.edu>  
 Bug reports: https://github.com/wilkelab/cowplot/issues
 
-1 error  | 2 warnings | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘cowplot-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: switch_axis_position
-> ### Title: Switches the axis position of the x or y axis in a plot.
-> ### Aliases: switch_axis_position
-> 
-> ### ** Examples
-> 
-> p <- ggplot(mtcars, aes(mpg, disp)) + geom_line(colour = "blue")
-> ggdraw(switch_axis_position(p, axis = 'y'))
-Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-Error in gt$grobs[[iyl]] : 
-  attempt to select less than one element in get1index
-Calls: ggdraw -> switch_axis_position -> switch_yaxis_position
-Execution halted
-
-checking whether package ‘cowplot’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: `legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/cowplot.Rcheck/00install.out’ for details.
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Loading required package: cowplot
-Loading required package: ggplot2
-
-Attaching package: 'cowplot'
-
-The following object is masked from 'package:ggplot2':
-
-    ggsave
-
-Loading required package: grid
-Quitting from lines 17-26 (axis_position.Rmd) 
-Error: processing vignette 'axis_position.Rmd' failed with diagnostics:
-attempt to select less than one element in get1index
-Execution halted
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## cplm (0.7-4)
 Maintainer: Yanwei (Wayne) Zhang <actuary_zhang@hotmail.com>
@@ -2711,7 +2710,7 @@ Maintainer: Daniel Sabanes Bove <sabanesd@roche.com>
 ```
 checking whether package ‘crmPack’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/crmPack.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/crmPack.Rcheck/00install.out’ for details.
 ```
 
 ## Crossover (0.1-16)
@@ -2723,7 +2722,7 @@ Bug reports: https://github.com/kornl/Crossover/issues
 ```
 checking whether package ‘Crossover’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/Crossover.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/Crossover.Rcheck/00install.out’ for details.
 ```
 
 ## CRTgeeDR (1.2)
@@ -2798,21 +2797,11 @@ Maintainer: Chris Brien <Chris.Brien@unisa.edu.au>
 
 0 errors | 0 warnings | 0 notes
 
-## dams (0.1)
-Maintainer: Gopi Goteti <my.ration.shop@gmail.com>
+## dams (0.2)
+Maintainer: Joseph Stachelek <stachel2@msu.edu>  
+Bug reports: http://www.github.com/jsta/dams/issues
 
-0 errors | 0 warnings | 1 note 
-
-```
-checking R code for possible problems ... NOTE
-extract_nid: no visible global function definition for ‘data’
-extract_nid: no visible global function definition for ‘read.csv’
-Undefined global functions or variables:
-  data read.csv
-Consider adding
-  importFrom("utils", "data", "read.csv")
-to your NAMESPACE file.
-```
+0 errors | 0 warnings | 0 notes
 
 ## darch (0.12.0)
 Maintainer: Martin Drees <mdrees@stud.fh-dortmund.de>  
@@ -2854,7 +2843,7 @@ Last 13 lines of output:
   Tests 1441-1444 not run. If required install the 'fr_FR.utf8' locale.
   
   Error in eval(expr, envir, enclos) : 
-    2 errors out of 4428 (lastID=1557.4, endian=little, sizeof(long double)==16) in inst/tests/tests.Rraw on Tue Oct 25 09:17:37 2016. Search tests.Rraw for test numbers: 167, 167.2.
+    2 errors out of 4428 (lastID=1557.4, endian=little, sizeof(long double)==16) in inst/tests/tests.Rraw on Mon Nov  7 11:51:45 2016. Search tests.Rraw for test numbers: 167, 167.2.
   Calls: test.data.table -> sys.source -> eval -> eval
   Execution halted
 ```
@@ -2934,7 +2923,7 @@ Maintainer: Ian Fellows <ian@fellstat.com>
 ```
 checking whether package ‘Deducer’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/Deducer.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/Deducer.Rcheck/00install.out’ for details.
 ```
 
 ## DeLorean (1.2.4)
@@ -2986,7 +2975,7 @@ Bug reports: https://github.com/ggobi/DescribeDisplay/issues
 
 0 errors | 0 warnings | 0 notes
 
-## detzrcr (0.1.1)
+## detzrcr (0.1.2)
 Maintainer: Magnus Kristoffersen <magnus.kristoffersen@geo.uio.no>
 
 0 errors | 0 warnings | 0 notes
@@ -3057,6 +3046,11 @@ Bug reports: http://github.com/artemis-toumazi/dfpk/issues
 ## dggridR (0.1.11)
 Maintainer: Richard Barnes <rbarnes@umn.edu>  
 Bug reports: https://github.com/r-barnes/dggridR/
+
+0 errors | 0 warnings | 0 notes
+
+## diagis (0.1.0)
+Maintainer: Jouni Helske <jouni.helske@jyu.fi>
 
 0 errors | 0 warnings | 0 notes
 
@@ -3135,7 +3129,7 @@ Maintainer: Derek Corcoran <derek.corcoran.barrios@gmail.com>
 ```
 checking whether package ‘DiversityOccupancy’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/DiversityOccupancy.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/DiversityOccupancy.Rcheck/00install.out’ for details.
 ```
 
 ## dlstats (0.0.9)
@@ -3237,7 +3231,13 @@ Maintainer: Daniel Wollschlaeger <wollschlaeger@uni-mainz.de>
 ## DynNom (3.0.1)
 Maintainer: Amirhossein Jalali <a.jalali2@nuigalway.ie>
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘DynNom’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/DynNom.Rcheck/00install.out’ for details.
+```
 
 ## dynr (0.1.7)
 Maintainer: Lu Ou <lzo114@psu.edu>
@@ -3247,7 +3247,7 @@ Maintainer: Lu Ou <lzo114@psu.edu>
 ```
 checking whether package ‘dynr’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/dynr.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/dynr.Rcheck/00install.out’ for details.
 ```
 
 ## dynsim (1.2.1)
@@ -3345,7 +3345,43 @@ to your NAMESPACE file.
 ## ecb (0.2)
 Maintainer: Eric Persson <expersso5@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+1 error  | 1 warning  | 0 notes
+
+```
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  5: check_status(req)
+  6: stop("HTTP failure: ", req$status_code, "\n", httr::content(req, "text"))
+  
+  testthat results ================================================================
+  OK: 2 SKIPPED: 0 FAILED: 5
+  1. Error: get_dimensions returns a list of data frames (@tests.R#16) 
+  2. Failure: malformed series key returns 404 error (@tests.R#25) 
+  3. Failure: malformed series key returns 404 error (@tests.R#26) 
+  4. Failure: malformed series key returns 404 error (@tests.R#27) 
+  5. Error: get_description returns a character vector (@tests.R#32) 
+  
+  Error: testthat unit tests failed
+  Execution halted
+
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Quitting from lines 114-116 (ecb_sdw.Rmd) 
+Error: processing vignette 'ecb_sdw.Rmd' failed with diagnostics:
+HTTP failure: 500
+<HTML><HEAD>
+<TITLE>Internal Server Error</TITLE>
+</HEAD><BODY>
+<H1>Internal Server Error - Read</H1>
+The server encountered an internal error or misconfiguration and was unable to
+complete your request.<P>
+Reference&#32;&#35;3&#46;f0fd717&#46;1478542055&#46;756990
+</BODY></HTML>
+Execution halted
+
+```
 
 ## ecoengine (1.10.0)
 Maintainer: Karthik Ram <karthik.ram@gmail.com>  
@@ -3426,84 +3462,10 @@ Bug reports: https://github.com/PMassicotte/eemR/issues
 
 0 errors | 0 warnings | 0 notes
 
-## eeptools (0.9.1)
+## eeptools (1.0.0)
 Maintainer: Jared E. Knowles <jknowles@gmail.com>
 
-2 errors | 1 warning  | 1 note 
-
-```
-checking examples ... ERROR
-Running examples in ‘eeptools-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: autoplot.lm
-> ### Title: A function to replicate the basic plot function for linear
-> ###   models in ggplot2
-> ### Aliases: autoplot.lm
-> 
-> ### ** Examples
-> 
-> # Univariate
-> a <- runif(1000)
-> b <- 7 * a + rnorm(1)
-> mymod <- lm(b~a)
-> autoplot(mymod)
-Error in theme(axis.title = element_text(size = rel(0.8), face = "bold"),  : 
-  formal argument "legend.text" matched by multiple actual arguments
-Calls: autoplot ... theme_dpi -> %+replace% -> is.theme -> inherits -> theme
-Execution halted
-
-checking tests ... ERROR
-Running the tests in ‘tests/test-all.R’ failed.
-Last 13 lines of output:
-             size = 0.5), strip.background = element_rect(fill = "grey90", colour = "grey50"), 
-         strip.background = element_rect(fill = "grey90", colour = "grey50"), strip.text = element_text(size = rel(0.9), 
-             face = "bold"), strip.text.x = element_text(size = rel(0.9), face = "bold"), 
-         strip.text.y = element_text(size = rel(0.9), face = "bold"), legend.text = element_text(), 
-         legend.title = element_text(), panel.margin = grid::unit(0.48, "cm"))
-  
-  testthat results ================================================================
-  OK: 513 SKIPPED: 0 FAILED: 2
-  1. Error: All themes result in a valid ggplot2 object (@test-plots.R#6) 
-  2. Error: Autoplot works as expected for linear models (@test-plots.R#31) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Loading required package: ggplot2
-Quitting from lines 172-181 (intro.Rmd) 
-Error: processing vignette 'intro.Rmd' failed with diagnostics:
-formal argument "legend.text" matched by multiple actual arguments
-Execution halted
-
-
-checking R code for possible problems ... NOTE
-theme_dpi: possible error in theme(axis.title = element_text(size =
-  rel(0.8), face = "bold"), axis.title.y = element_text(vjust = 0.35,
-  angle = 90), axis.text = element_text(size = rel(0.8)), axis.ticks =
-  element_line(colour = "black", size = rel(1.5)), legend.key =
-  element_rect(colour = "grey80"), legend.title = element_text(),
-  legend.text = element_text(), panel.background = element_rect(fill =
-  "white", colour = NA), panel.border = element_rect(fill = NA, colour
-  = "grey50"), panel.grid.major = element_line(colour = "grey90", :
-  formal argument "legend.text" matched by multiple actual arguments
-... 69 lines ...
-  = element_rect(fill = "grey90", colour = "grey50"), strip.text =
-  element_text(size = rel(0.9), face = "bold"), strip.text.x =
-  element_text(size = rel(0.8), face = "bold"), strip.text.y =
-  element_text(size = rel(0.8), face = "bold"), legend.text =
-  element_text(size = base_size * : formal argument "legend.text"
-  matched by multiple actual arguments
-theme_dpi_mapPNG: possible error in 0.65), panel.margin =
-  grid::unit(0.48, "cm"), plot.margin = grid::unit(c(1, 1, 0.5, 0.5),
-  "lines"), plot.title = element_text(family = base_family, size =
-  base_size * 1.4)): formal argument "legend.text" matched by multiple
-  actual arguments
-```
+0 errors | 0 warnings | 0 notes
 
 ## EFDR (0.1.1)
 Maintainer: Andrew Zammit-Mangion <andrewzm@gmail.com>
@@ -3597,7 +3559,7 @@ Bug reports: https://github.com/ropengov/enigma/issues
 
 0 errors | 0 warnings | 0 notes
 
-## enpls (4.5)
+## enpls (5.0)
 Maintainer: Nan Xiao <me@nanx.me>  
 Bug reports: https://github.com/road2stat/enpls/issues
 
@@ -3777,7 +3739,7 @@ Bug reports: https://github.com/jwdink/eyetrackingR/issues
 
 0 errors | 0 warnings | 0 notes
 
-## ez (4.3)
+## ez (4.4-0)
 Maintainer: Michael A. Lawrence <mike.lwrnc@gmail.com>
 
 0 errors | 0 warnings | 0 notes
@@ -3931,7 +3893,7 @@ Maintainer: Clayton Vieira Fraga Filho <forestgrowthsoftware@gmail.com>
 ```
 checking whether package ‘Fgmutils’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/Fgmutils.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/Fgmutils.Rcheck/00install.out’ for details.
 ```
 
 ## fheatmap (1.0.1)
@@ -3975,7 +3937,7 @@ Maintainer: Felix Yanhui Fan <nolanfyh@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## findviews (0.1.1)
+## findviews (0.1.2)
 Maintainer: Thibault Sellam <thibault.sellam@cwi.nl>
 
 0 errors | 0 warnings | 0 notes
@@ -4147,7 +4109,13 @@ Maintainer: Felix Schönbrodt <felix@nicebread.de>
 Maintainer: Pablo Casas <pabloc@datascienceheroes.com>  
 Bug reports: https://github.com/pablo14/funModeling/issues
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘funModeling’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/funModeling.Rcheck/00install.out’ for details.
+```
 
 ## funrar (1.0.1)
 Maintainer: Matthias Grenié <matthias.grenie@gmail.com>  
@@ -4203,7 +4171,7 @@ Maintainer: Regis K. Gallon <reg.gallon@gmail.com>
 ```
 checking whether package ‘G2Sd’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/G2Sd.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/G2Sd.Rcheck/00install.out’ for details.
 ```
 
 ## gapfill (0.9.3)
@@ -4366,7 +4334,7 @@ checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘genderdata’
 ```
 
-## geneSLOPE (0.36.6)
+## geneSLOPE (0.37.0)
 Maintainer: Piotr Sobczyk <piotr.sobczyk@pwr.edu.pl>  
 Bug reports: https://github.com/psobczyk/geneSLOPE/issues
 
@@ -4377,7 +4345,7 @@ Maintainer: Jing Xu<xujingaddressee@foxmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## geoknife (1.3.0)
+## geoknife (1.4.0)
 Maintainer: Jordan Read <jread@usgs.gov>  
 Bug reports: https://github.com/USGS-R/geoknife/issues
 
@@ -4558,6 +4526,12 @@ Bug reports: https://github.com/andrie/ggdendro/issues
 
 0 errors | 0 warnings | 0 notes
 
+## ggdmc (0.1.3.5)
+Maintainer: Yi-Shin Lin <yishin.lin@utas.edu.au>  
+Bug reports: https://github.com/TasCL/ggdmc/issues
+
+0 errors | 0 warnings | 0 notes
+
 ## ggenealogy (0.2.0)
 Maintainer: Lindsay Rutter <lrutter@iastate.edu>
 
@@ -4660,7 +4634,7 @@ Bug reports: https://github.com/jonocarroll/ggghost/issues
 
 0 errors | 0 warnings | 0 notes
 
-## ggiraph (0.3.1)
+## ggiraph (0.3.2)
 Maintainer: David Gohel <david.gohel@ardata.fr>  
 Bug reports: https://github.com/davidgohel/ggiraph/issues
 
@@ -4722,9 +4696,9 @@ Execution halted
 checking tests ... ERROR
 Running the tests in ‘tests/testthat.R’ failed.
 Last 13 lines of output:
-  7: fetch_ggproto(x, name) at /Users/hadley/Documents/ggplot/ggplot/R/ggproto.r:109
+  7: fetch_ggproto(x, name) at /Users/hadley/Documents/ggplot/ggplot2/R/ggproto.r:135
   8: stop(class(x)[[1]], " was built with an incompatible version of ggproto.\n", "Please reinstall the package that provides this extension.", 
-         call. = FALSE) at /Users/hadley/Documents/ggplot/ggplot/R/ggproto.r:90
+         call. = FALSE) at /Users/hadley/Documents/ggplot/ggplot2/R/ggproto.r:122
   
   testthat results ================================================================
   OK: 11 SKIPPED: 0 FAILED: 4
@@ -4918,23 +4892,10 @@ Bug reports: https://bitbucket.org/aphalo/ggspectra
 
 0 errors | 0 warnings | 0 notes
 
-## ggswissmaps (0.0.9)
+## ggswissmaps (0.1.1)
 Maintainer: Sandro Petrillo Burri <gibo.gaf@gmail.com>
 
-0 errors | 1 warning  | 1 note 
-
-```
-checking whether package ‘ggswissmaps’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/ggswissmaps.Rcheck/00install.out’ for details.
-
-checking installed package size ... NOTE
-  installed size is  5.2Mb
-  sub-directories of 1Mb or more:
-    R      3.5Mb
-    data   1.6Mb
-```
+0 errors | 0 warnings | 0 notes
 
 ## ggtern (2.1.4)
 Maintainer: Nicholas Hamilton <nick@ggtern.com>
@@ -4944,7 +4905,7 @@ Maintainer: Nicholas Hamilton <nick@ggtern.com>
 ```
 checking whether package ‘ggtern’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/ggtern.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/ggtern.Rcheck/00install.out’ for details.
 ```
 
 ## ggThemeAssist (0.1.5)
@@ -5135,17 +5096,77 @@ Maintainer: Brian A. Danielak <brian@briandk.com>
 ## Greg (1.2)
 Maintainer: Max Gordon <max@gforge.se>
 
-0 errors | 0 warnings | 0 notes
+2 errors | 1 warning  | 0 notes
+
+```
+checking examples ... ERROR
+Running examples in ‘Greg-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: simpleRmsAnova
+> ### Title: A simpler latex output of the latex.anova.rms
+> ### Aliases: print.simpleRmsAnova simpleRmsAnova
+> ### Keywords: internal
+> 
+> ### ** Examples
+> 
+> # ** Borrowed code from the lrm example **
+> 
+> #Fit a logistic model containing predictors age, blood.pressure, sex
+> #and cholesterol, with age fitted with a smooth 5-knot restricted cubic 
+> #spline function and a different shape of the age relationship for males 
+> #and females.  
+> 
+> library(rms)
+Loading required package: Hmisc
+Loading required package: lattice
+Error: package ‘survival’ 2.39.5 was found, but >= 2.40.1 is required by ‘Hmisc’
+Execution halted
+
+checking tests ... ERROR
+Running the tests in ‘tests/testthat.R’ failed.
+Last 13 lines of output:
+  2: .getRequiredPackages2(pkgInfo, quietly = quietly)
+  3: library(pkg, character.only = TRUE, logical.return = TRUE, lib.loc = lib.loc, quietly = quietly)
+  4: .getRequiredPackages2(pkgInfo, quietly = quietly)
+  5: stop(gettextf(msg, sQuote(pkg), current, dep$op, target, sQuote(pkgname)), call. = FALSE, 
+         domain = NA)
+  
+  Error: package 'survival' 2.39.5 was found, but >= 2.40.1 is required by 'Hmisc'
+  testthat results ================================================================
+  OK: 12 SKIPPED: 0 FAILED: 1
+  1. Error: That rms-functions work (@test-addNonlinearity.R#108) 
+  
+  Error: testthat unit tests failed
+  Execution halted
+
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Loading required package: forestplot
+Loading required package: grid
+Loading required package: magrittr
+Loading required package: Gmisc
+Loading required package: Rcpp
+Loading required package: htmlTable
+Loading required package: lattice
+Quitting from lines 56-65 (Print_crude_and_adjusted_models.Rmd) 
+Error: processing vignette 'Print_crude_and_adjusted_models.Rmd' failed with diagnostics:
+package 'survival' 2.39.5 was found, but >= 2.40.1 is required by 'Hmisc'
+Execution halted
+
+```
 
 ## greport (0.7-1)
 Maintainer: Frank E Harrell Jr <f.harrell@vanderbilt.edu>
 
-0 errors | 0 warnings | 1 note 
+1 error  | 0 warnings | 0 notes
 
 ```
-checking R code for possible problems ... NOTE
-accrualReport: multiple local function definitions for ‘gg’ with
-  different formal arguments
+checking whether package ‘greport’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/greport.Rcheck/00install.out’ for details.
 ```
 
 ## gridDebug (0.5-0)
@@ -5207,7 +5228,7 @@ Maintainer: Andy Leung <andy.leung@stat.ubc.ca>
 
 0 errors | 0 warnings | 0 notes
 
-## gtrendsR (1.3.4)
+## gtrendsR (1.3.5)
 Maintainer: Philippe Massicotte <pmassicotte@hotmail.com>  
 Bug reports: https://github.com/PMassicotte/gtrendsR/issues
 
@@ -5277,7 +5298,37 @@ Maintainer: Martin Spindler <spindler@mea.mpisoc.mpg.de>
 Maintainer: Nan Xiao <me@nanx.me>  
 Bug reports: https://github.com/road2stat/hdnom/issues
 
-0 errors | 0 warnings | 0 notes
+1 error  | 1 warning  | 0 notes
+
+```
+checking examples ... ERROR
+Running examples in ‘hdnom-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: hdcox.aenet
+> ### Title: Adaptive Elastic-Net Model Selection for High-Dimensional Cox
+> ###   Models
+> ### Aliases: hdcox.aenet
+> 
+> ### ** Examples
+> 
+> library("survival")
+> library("rms")
+Loading required package: Hmisc
+Loading required package: lattice
+Error: package ‘survival’ 2.39.5 is loaded, but >= 2.40.1 is required by ‘Hmisc’
+Execution halted
+
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Quitting from lines 135-144 (hdnom.Rmd) 
+Error: processing vignette 'hdnom.Rmd' failed with diagnostics:
+package 'survival' 2.39.5 is loaded, but >= 2.40.1 is required by 'Hmisc'
+Execution halted
+
+```
 
 ## hdr (0.1)
 Maintainer: Eric Persson <expersso5@gmail.com>  
@@ -5285,7 +5336,7 @@ Bug reports: https://github.com/expersso/hdr
 
 0 errors | 0 warnings | 0 notes
 
-## heatmaply (0.5.0)
+## heatmaply (0.6.0)
 Maintainer: Tal Galili <tal.galili@gmail.com>  
 Bug reports: https://github.com/talgalili/heatmaply/issues
 
@@ -5335,30 +5386,11 @@ attempt to apply non-function
 Execution halted
 ```
 
-## heemod (0.5.0)
+## heemod (0.5.1)
 Maintainer: Antoine Filipovic-Pierucci <pierucci@gmail.com>  
 Bug reports: https://github.com/pierucci/heemod/issues
 
-1 error  | 0 warnings | 0 notes
-
-```
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  5: asNamespace(ns)
-  6: getNamespace(ns)
-  7: tryCatch(loadNamespace(name), error = function(e) stop(e))
-  8: tryCatchList(expr, classes, parentenv, handlers)
-  9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-  10: value[[3L]](cond)
-  
-  testthat results ================================================================
-  OK: 297 SKIPPED: 0 FAILED: 1
-  1. Error: Translating objects to code (@test_get_code.R#52) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## heuristica (1.0.1)
 Maintainer: Jean Whitmore <jeanimal@gmail.com>  
@@ -5468,15 +5500,36 @@ Bug reports: https://github.com/aloy/HLMdiag/issues
 
 0 errors | 0 warnings | 0 notes
 
-## Hmisc (3.17-4)
+## Hmisc (4.0-0)
 Maintainer: Frank E Harrell Jr <f.harrell@vanderbilt.edu>
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Package required and available but unsuitable version: ‘survival’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
 
 ## HRM (0.3.5)
 Maintainer: Martin Happ <martin.happ@aon.at>
 
 0 errors | 0 warnings | 0 notes
+
+## HTSSIP (1.0.3)
+Maintainer: Nicholas Youngblut <nyoungb2@gmail.com>
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘DESeq2’ ‘phyloseq’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
 
 ## httk (1.4)
 Maintainer: John Wambaugh <wambaugh.john@epa.gov>
@@ -5581,7 +5634,7 @@ Maintainer: Benedito Baptista <bene46@msn.com>
 ```
 checking whether package ‘IAPWS95’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/IAPWS95.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/IAPWS95.Rcheck/00install.out’ for details.
 ```
 
 ## IAT (0.3)
@@ -5602,7 +5655,7 @@ See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
 manual.
 ```
 
-## icarus (0.2.1)
+## icarus (0.2.2)
 Maintainer: Antoine Rebecq <antoine.rebecq@m4x.org>
 
 0 errors | 0 warnings | 0 notes
@@ -5613,10 +5666,35 @@ Bug reports: https://github.com/jackwasey/icd9/issues
 
 0 errors | 0 warnings | 0 notes
 
-## idm (1.3.1)
+## idm (1.7.1)
 Maintainer: Angelos Markos <amarkos@gmail.com>
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking examples ... ERROR
+Running examples in ‘idm-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: i_mca
+> ### Title: Incremental Multiple Correspondence Analysis (MCA)
+> ### Aliases: i_mca
+> 
+> ### ** Examples
+> 
+> ##Example 1 - Exact case
+> data("women", package = "idm")
+> nc = 5 # number of chunks
+> res_iMCAh = i_mca(data1 = women[1:300,1:7], data2 = women[301:2107,1:7]
++ ,method = "exact", nchunk = nc)
+> #static MCA plot of attributes on axes 2 and 3
+> plot(x = res_iMCAh, dim = c(2,3), what = c(FALSE,TRUE), animation = FALSE)
+Error: GeomTextRepel was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
+Execution halted
+** found \donttest examples: check also with --run-donttest
+```
 
 ## ie2miscdata (1.0.1)
 Maintainer: Irucka Embry <iembry@usgs.gov>  
@@ -5658,7 +5736,7 @@ Maintainer: Chris Brien <Chris.Brien@unisa.edu.au>
 ```
 checking whether package ‘imageData’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/imageData.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/imageData.Rcheck/00install.out’ for details.
 ```
 
 ## imager (0.31)
@@ -5689,7 +5767,7 @@ Found the following significant warnings:
   ../inst/include/CImg.h:45125:18: warning: unsequenced modification and access to 'err' [-Wunsequenced]
   ../inst/include/CImg.h:45133:18: warning: unsequenced modification and access to 'err' [-Wunsequenced]
   ../inst/include/CImg.h:45142:20: warning: unsequenced modification and access to 'err' [-Wunsequenced]
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/imager.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/imager.Rcheck/00install.out’ for details.
 
 checking installed package size ... NOTE
   installed size is 11.1Mb
@@ -5705,9 +5783,15 @@ Maintainer: Anup Nair <nairanup50695@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## imputeTestbench (2.0.2)
-Maintainer: Neeraj Bokde <neerajdhanraj@gmail.com>  
+## imputeTestbench (3.0.0)
+Maintainer: Marcus W. Beck <mbafs2012@gmail.com>  
 Bug reports: https://github.com/neerajdhanraj/imputeTestbench/issues
+
+0 errors | 0 warnings | 0 notes
+
+## incidence (1.0.0)
+Maintainer: Thibaut Jombart <thibautjombart@gmail.com>  
+Bug reports: http://github.com/reconhub/incidence/issues
 
 0 errors | 0 warnings | 0 notes
 
@@ -5745,7 +5829,7 @@ Maintainer: Larsen Kim <kblarsen4@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## InformationValue (1.2.1)
+## InformationValue (1.2.3)
 Maintainer: Selva Prabhakaran <selva86@gmail.com>  
 Bug reports: https://github.com/selva86/InformationValue/issues License:
         GPL (>= 2)
@@ -5760,7 +5844,7 @@ Maintainer: Zehang Li <lizehang@uw.edu>
 ```
 checking whether package ‘InSilicoVA’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/InSilicoVA.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/InSilicoVA.Rcheck/00install.out’ for details.
 ```
 
 ## IntClust (0.0.2)
@@ -5824,14 +5908,7 @@ Maintainer: Bill Venables <Bill.Venables@gmail.com>
 Maintainer: Joshua F. Wiley <jwiley.psych@gmail.com>  
 Bug reports: https://github.com/JWiley/JWileymisc/issues
 
-0 errors | 1 warning  | 0 notes
-
-```
-checking whether package ‘JWileymisc’ can be installed ... WARNING
-Found the following significant warnings:
-  Warning: `legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/JWileymisc.Rcheck/00install.out’ for details.
-```
+0 errors | 0 warnings | 0 notes
 
 ## kamila (0.1.1.1)
 Maintainer: Alexander Foss <alexanderhfoss@gmail.com>  
@@ -6104,7 +6181,7 @@ Maintainer: Lars Kotthoff <larsko@cs.ubc.ca>
 ```
 checking whether package ‘llama’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/llama.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/llama.Rcheck/00install.out’ for details.
 ```
 
 ## lme4 (1.1-12)
@@ -6139,7 +6216,7 @@ Maintainer: Tore Selland Kleppe <tore.kleppe@uis.no>
 ```
 checking whether package ‘localgauss’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/localgauss.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/localgauss.Rcheck/00install.out’ for details.
 ```
 
 ## LocFDRPois (1.0.0)
@@ -6182,7 +6259,7 @@ Maintainer: Po-Hsien Huang <psyphh@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## ltbayes (0.3)
+## ltbayes (0.4)
 Maintainer: Timothy R. Johnson <trjohns@uidaho.edu>
 
 1 error  | 0 warnings | 0 notes
@@ -6190,7 +6267,7 @@ Maintainer: Timothy R. Johnson <trjohns@uidaho.edu>
 ```
 checking whether package ‘ltbayes’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/ltbayes.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/ltbayes.Rcheck/00install.out’ for details.
 ```
 
 ## lvplot (0.2.0)
@@ -6311,7 +6388,7 @@ Bug reports: https://github.com/ropensci/magick/issues
 ```
 checking whether package ‘magick’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/magick.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/magick.Rcheck/00install.out’ for details.
 ```
 
 ## manhattanly (0.1.0)
@@ -6345,7 +6422,7 @@ attempt to apply non-function
 Execution halted
 ```
 
-## mapr (0.2.0)
+## mapr (0.3.0)
 Maintainer: Scott Chamberlain <myrmecocystus@gmail.com>  
 Bug reports: https://github.com/ropensci/mapr/issues
 
@@ -6417,7 +6494,7 @@ Bug reports: http://www.github.com/robertgambrel/medicare/issues
 
 0 errors | 0 warnings | 0 notes
 
-## MEGENA (1.3.4-6)
+## MEGENA (1.3.5-2)
 Maintainer: Won-Min Song <wonmin1984@gmail.com>
 
 0 errors | 1 warning  | 1 note 
@@ -6426,23 +6503,23 @@ Maintainer: Won-Min Song <wonmin1984@gmail.com>
 checking re-building of vignette outputs ... WARNING
 Error in re-building vignettes:
   ...
-  the condition has length > 1 and only the first element will be used
-Warning in if (ne > 2 & (el > ne)) { :
-  the condition has length > 1 and only the first element will be used
-Warning in if (ne > 2 & (el > ne)) { :
-  the condition has length > 1 and only the first element will be used
-Warning in if (ne > 2 & (el > ne)) { :
-  the condition has length > 1 and only the first element will be used
+
+The following object is masked from 'package:base':
+
+    union
+
+Warning in vattrs[[name]][index] <- value :
+  number of items to replace is not a multiple of replacement length
 ... 8 lines ...
-  the condition has length > 1 and only the first element will be used
-Warning in if (ne > 2 & (el > ne)) { :
-  the condition has length > 1 and only the first element will be used
-Warning in if (ne > 2 & (el > ne)) { :
-  the condition has length > 1 and only the first element will be used
-Warning in if (ne > 2 & (el > ne)) { :
-  the condition has length > 1 and only the first element will be used
-Quitting from lines 118-126 (MEGENA_pipeline_10052016.Rmd) 
-Error: processing vignette 'MEGENA_pipeline_10052016.Rmd' failed with diagnostics:
+  number of items to replace is not a multiple of replacement length
+Warning in vattrs[[name]][index] <- value :
+  number of items to replace is not a multiple of replacement length
+Warning in vattrs[[name]][index] <- value :
+  number of items to replace is not a multiple of replacement length
+Warning in vattrs[[name]][index] <- value :
+  number of items to replace is not a multiple of replacement length
+Quitting from lines 119-127 (MEGENA_pipeline_10062016.Rmd) 
+Error: processing vignette 'MEGENA_pipeline_10062016.Rmd' failed with diagnostics:
 formal argument "panel.background" matched by multiple actual arguments
 Execution halted
 
@@ -6456,6 +6533,9 @@ plot_module: possible error in theme(panel.background =
   element_text(size = title.size), legend.position = "bottom",
   legend.direction = "horizontal"): formal argument "panel.background"
   matched by multiple actual arguments
+... 7 lines ...
+  = "bottom", legend.direction = "horizontal"): formal argument
+  "panel.background" matched by multiple actual arguments
 plot_subgraph: possible error in theme(panel.background =
   element_blank(), axis.title.x = element_blank(), axis.title.y =
   element_blank(), panel.background = element_rect(fill = "white",
@@ -6501,7 +6581,7 @@ Maintainer: Xiaoyue Cheng <xycheng@iastate.edu>
 ```
 checking whether package ‘MergeGUI’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/MergeGUI.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/MergeGUI.Rcheck/00install.out’ for details.
 ```
 
 ## merTools (0.2.1)
@@ -6638,6 +6718,11 @@ Maintainer: Yiwen Zhang <yzhang31@ncsu.edu>
 
 0 errors | 0 warnings | 0 notes
 
+## mhtboot (1.3.3)
+Maintainer: Abhirup Mallik <malli066@umn.edu>
+
+0 errors | 0 warnings | 0 notes
+
 ## microbenchmark (1.4-2.1)
 Maintainer: Olaf Mersmann <olafm@p-value.net>
 
@@ -6683,6 +6768,11 @@ Maintainer: Richard M. Heiberger <rmh@temple.edu>
 
 0 errors | 0 warnings | 0 notes
 
+## MiRAnorm (1.0.0)
+Maintainer: Yuda Zhu <yudazhu@gmail.com>
+
+0 errors | 0 warnings | 0 notes
+
 ## miscset (1.0.0)
 Maintainer: Sven E. Templer <sven.templer@gmail.com>  
 Bug reports: https://github.com/setempler/miscset/issues
@@ -6697,7 +6787,7 @@ Maintainer: Xiaoyue Cheng <xycheng@unomaha.edu>
 ```
 checking whether package ‘MissingDataGUI’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/MissingDataGUI.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/MissingDataGUI.Rcheck/00install.out’ for details.
 ```
 
 ## mistat (1.0-4)
@@ -6920,55 +7010,11 @@ Bug reports: https://github.com/hadley/modelr/issues
 
 0 errors | 0 warnings | 0 notes
 
-## Momocs (1.0.0)
+## Momocs (1.1.0)
 Maintainer: Vincent Bonhomme <bonhomme.vincent@gmail.com>  
 Bug reports: https://github.com/vbonhomme/Momocs/issues
 
-1 error  | 1 warning  | 0 notes
-
-```
-checking examples ... ERROR
-Running examples in ‘Momocs-Ex.R’ failed
-The error most likely occurred in:
-
-> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: plot2
-> ### Title: Plots Principal Component Analysis ala ggplot2
-> ### Aliases: plot2 plot2.PCA
-> 
-> ### ** Examples
-> 
-> data(bot)
-> bp <- PCA(efourier(bot, 8))
-> plot2(bp)
-Error in abs(.x.range.gg(gg0)) : 
-  non-numeric argument to mathematical function
-Calls: plot2 -> plot2.PCA
-Execution halted
-
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-
-The following object is masked from 'package:stats':
-
-    filter
-
-The following object is masked from 'package:base':
-
-... 8 lines ...
-'nb.pts' missing and set to 91
-'degree' missing and set to 5
-'nb.pts' missing and set to 91
-'degree' missing and set to 5
-'nb.pts' missing and set to 91
-'degree' missing and set to 5
-'nb.h' not provided and set to 10 (99% harmonic power)
-Quitting from lines 396-397 (Momocs_speed_dating.Rmd) 
-Error: processing vignette 'Momocs_speed_dating.Rmd' failed with diagnostics:
-non-numeric argument to mathematical function
-Execution halted
-```
+0 errors | 0 warnings | 0 notes
 
 ## moonBook (0.1.3)
 Maintainer: Keon-Woong Moon <cardiomoon@gmail.com>
@@ -7013,7 +7059,7 @@ Maintainer: Philippe Veber <philippe.veber@univ-lyon1.fr>
 ```
 checking whether package ‘morse’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/morse.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/morse.Rcheck/00install.out’ for details.
 ```
 
 ## mosaic (0.14.4)
@@ -7042,7 +7088,7 @@ Maintainer: Randall Pruim <rpruim@calvin.edu>
 
 0 errors | 0 warnings | 0 notes
 
-## mousetrap (1.2.0)
+## mousetrap (2.0.0)
 Maintainer: Pascal J. Kieslich <kieslich@psychologie.uni-mannheim.de>  
 Bug reports: https://github.com/pascalkieslich/mousetrap/issues
 
@@ -7079,7 +7125,7 @@ Maintainer: Yuanming Zhang<soyzhang@mail.hzau.edu.cn>
 ```
 checking whether package ‘mrMLM’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/mrMLM.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/mrMLM.Rcheck/00install.out’ for details.
 ```
 
 ## MRMR (0.1.4)
@@ -7098,10 +7144,18 @@ Bug reports: https://github.com/yihui/MSG/issues
 
 0 errors | 0 warnings | 0 notes
 
-## MSGARCH (0.16)
+## MSGARCH (0.17)
 Maintainer: Keven Bluteau <Keven.Bluteau@unine.ch>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking installed package size ... NOTE
+  installed size is  7.0Mb
+  sub-directories of 1Mb or more:
+    doc    2.5Mb
+    libs   4.1Mb
+```
 
 ## mtconnectR (1.0.1)
 Maintainer: Subramanyam Ravishankar <subramanyam@systeminsights.com>
@@ -7224,7 +7278,7 @@ Bug reports: https://github.com/jrwishart/mwaved/issues
 ```
 checking whether package ‘mwaved’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/mwaved.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/mwaved.Rcheck/00install.out’ for details.
 ```
 
 ## myTAI (0.4.0)
@@ -7449,7 +7503,7 @@ Bug reports: http://github.com/sestelo/npregfast/issues
 ```
 checking whether package ‘npregfast’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/npregfast.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/npregfast.Rcheck/00install.out’ for details.
 ```
 
 ## nullabor (0.3.1)
@@ -7542,6 +7596,46 @@ Execution halted
 
 ```
 
+## oddsratio (0.3.0)
+Maintainer: Patrick Schratz <patrick.schratz@gmail.com>  
+Bug reports: https://github.com/pat-s/oddsratio/issues
+
+1 error  | 1 warning  | 0 notes
+
+```
+checking examples ... ERROR
+Running examples in ‘oddsratio-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: add.oddsratio.into.plot
+> ### Title: Insert odds ratios of GAM(M)s into smoothing function
+> ### Aliases: add.oddsratio.into.plot
+> 
+> ### ** Examples
+... 36 lines ...
++                                  values = c(0.4, 0.6))
+>                                   
+> # add or.object2 into plot                                  
+> add.oddsratio.into.plot(plot.object, or.object2, or.yloc = 2.1, values.yloc = 2,
++                         line.col = "green4", text.col = "black",
++                         rect.col = "green4", rect.alpha = 0.2,
++                         line.alpha = 1, line.type = "dashed",
++                         arrow.xloc.r = 0.01, arrow.xloc.l = -0.01,
++                         arrow.length = 0.01, rect = TRUE)          
+Error: Aesthetics must be either length 1 or the same as the data (1): xmin, xmax, ymin, ymax, fill, alpha
+Execution halted
+
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Quitting from lines 130-139 (function.tutorial.Rmd) 
+Error: processing vignette 'function.tutorial.Rmd' failed with diagnostics:
+Aesthetics must be either length 1 or the same as the data (1): xmin, xmax, ymin, ymax, fill, alpha
+Execution halted
+
+```
+
 ## OECD (0.2.2)
 Maintainer: Eric Persson <expersso5@gmail.com>  
 Bug reports: https://www.github.com/expersso/OECD/issues
@@ -7612,7 +7706,7 @@ Maintainer: Ian Fellows <ian@fellstat.com>
 ```
 checking whether package ‘OpenStreetMap’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/OpenStreetMap.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/OpenStreetMap.Rcheck/00install.out’ for details.
 ```
 
 ## openVA (1.0.1)
@@ -7623,7 +7717,7 @@ Maintainer: Zehang Li <lizehang@uw.edu>
 ```
 checking whether package ‘openVA’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/openVA.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/openVA.Rcheck/00install.out’ for details.
 ```
 
 ## optiRum (0.37.3)
@@ -7682,7 +7776,7 @@ Maintainer: John Michael O. Ranola <ranolaj@uw.edu>
 ```
 checking whether package ‘OriGen’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/OriGen.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/OriGen.Rcheck/00install.out’ for details.
 ```
 
 ## osmplotr (0.2.3)
@@ -7888,7 +7982,22 @@ Maintainer: Joseph G Kreke <jkreke2@gmail.com>
 Maintainer: Gergely Daróczi <daroczig@rapporter.net>  
 Bug reports: https://github.com/rapporter/pander/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 1 note 
+
+```
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Loading required package: Hmisc
+Quitting from lines 13-18 (pander.Rmd) 
+Error: processing vignette 'pander.Rmd' failed with diagnostics:
+package 'survival' 2.39.5 was found, but >= 2.40.1 is required by 'Hmisc'
+Execution halted
+
+
+checking dependencies in R code ... NOTE
+Missing or unexported object: ‘rms::reVector’
+```
 
 ## ParallelTree (0.1.1)
 Maintainer: Patrick O'Keefe <patrick.okeefe@vanderbilt.edu>
@@ -8061,21 +8170,12 @@ Maintainer: Przemyslaw Biecek <przemyslaw.biecek@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## pcadapt (3.0.2)
+## pcadapt (3.0.3)
 Maintainer: Keurcien Luu <keurcien.luu@imag.fr>
 
-0 errors | 1 warning  | 1 note 
+0 errors | 0 warnings | 1 note 
 
 ```
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Quitting from lines 220-221 (pcadapt.Rmd) 
-Error: processing vignette 'pcadapt.Rmd' failed with diagnostics:
-there is no package called 'qvalue'
-Execution halted
-
-
 checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘qvalue’
 ```
@@ -8088,7 +8188,7 @@ Maintainer: Carlos A. Arias <caariasr22@gmail.com>
 ```
 checking whether package ‘pcaPA’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/pcaPA.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/pcaPA.Rcheck/00install.out’ for details.
 ```
 
 ## pcrcoal (1.2.0)
@@ -8105,7 +8205,7 @@ Bug reports: https://github.com/OskarHansson/pcrsim/issues
 ```
 checking whether package ‘pcrsim’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/pcrsim.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/pcrsim.Rcheck/00install.out’ for details.
 ```
 
 ## PDQutils (0.1.5)
@@ -8482,7 +8582,7 @@ Maintainer: Felix Andrews <felix@nfrac.org>
 ```
 checking whether package ‘playwith’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/playwith.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/playwith.Rcheck/00install.out’ for details.
 
 checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘latticist’
@@ -8732,7 +8832,7 @@ Maintainer: Andrey Kostin <andrey.kostin@portfolioeffect.com>
 ```
 checking whether package ‘PortfolioEffectHFT’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/PortfolioEffectHFT.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/PortfolioEffectHFT.Rcheck/00install.out’ for details.
 ```
 
 ## powerbydesign (1.0.3)
@@ -8854,7 +8954,18 @@ contains 'methods').
 Maintainer: Neeraj Bokde <neerajdhanraj@gmail.com>  
 Bug reports: https://github.com/neerajdhanraj/PredictTestbench/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Quitting from lines 43-46 (my-vignette.Rmd) 
+Error: processing vignette 'my-vignette.Rmd' failed with diagnostics:
+argument "pred" is missing, with no default
+Execution halted
+
+```
 
 ## PReMiuM (3.1.3)
 Maintainer: Silvia Liverani <liveranis@gmail.com>
@@ -8882,7 +8993,12 @@ Bug reports: https://github.com/mvattulainen/preproviz/issues
 ## preText (0.4.4)
 Maintainer: Matthew J. Denny <mdenny@psu.edu>
 
-0 errors | 0 warnings | 0 notes
+0 errors | 0 warnings | 1 note 
+
+```
+checking dependencies in R code ... NOTE
+Missing or unexported object: ‘cowplot::switch_axis_position’
+```
 
 ## prevR (3.3)
 Maintainer: Joseph Larmarange <joseph.larmarange@ird.fr>
@@ -9068,7 +9184,7 @@ checking Rd cross-references ... NOTE
 Packages unavailable to check Rd xrefs: ‘PropCIs’, ‘BlakerCI’, ‘prevalence’
 ```
 
-## propr (2.0.1)
+## propr (2.0.4)
 Maintainer: Thomas Quinn <contacttomquinn@gmail.com>  
 Bug reports: http://github.com/tpq/propr/issues
 
@@ -9253,10 +9369,10 @@ Bug reports: http://github.com/trinker/qdap/issues
 ```
 checking whether package ‘qdap’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/qdap.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/qdap.Rcheck/00install.out’ for details.
 ```
 
-## qgraph (1.3.5)
+## qgraph (1.4.0)
 Maintainer: Sacha Epskamp <mail@sachaepskamp.com>
 
 0 errors | 0 warnings | 0 notes
@@ -9333,7 +9449,7 @@ Maintainer: Joel Gombin <joel.gombin@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## quanteda (0.9.8.3)
+## quanteda (0.9.8.5)
 Maintainer: Kenneth Benoit <kbenoit@lse.ac.uk>  
 Bug reports: https://github.com/kbenoit/quanteda/issues
 
@@ -9350,7 +9466,7 @@ Last 13 lines of output:
       as.matrix
   
   testthat results ================================================================
-  OK: 238 SKIPPED: 1 FAILED: 2
+  OK: 240 SKIPPED: 1 FAILED: 2
   1. Failure: test plot.kwic facet order parameter (@testPlots.R#70) 
   2. Failure: test plot.kwic keeps order of keywords passed (@testPlots.R#81) 
   
@@ -9364,7 +9480,7 @@ Bug reports: https://github.com/DeveauP/QuantumClone/issues
 
 0 errors | 0 warnings | 0 notes
 
-## quickpsy (0.1.3)
+## quickpsy (0.1.4)
 Maintainer: Linares Daniel <danilinares@gmail.com>
 
 1 error  | 0 warnings | 0 notes
@@ -9603,6 +9719,22 @@ Maintainer: Aniruddha Marathe <aniruddha.pravin.marathe@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
+## raptr (0.0.1)
+Maintainer: Jeffrey O Hanson <jeffrey.hanson@uqconnect.edu.au>  
+Bug reports: https://github.com/jeffreyhanson/raptr/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘hypervolume’ ‘gdalUtils’
+
+Packages suggested but not available for checking: ‘gurobi’ ‘rgurobi’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
 ## rasterVis (0.40)
 Maintainer: Oscar Perpinan Lamigueiro <oscar.perpinan@gmail.com>  
 Bug reports: https://github.com/oscarperpinan/rastervis/issues
@@ -9628,7 +9760,7 @@ checking installed package size ... NOTE
 
 checking dependencies in R code ... NOTE
 
-(R:29329): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:37892): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 ```
 
 ## raw (0.1.2)
@@ -9768,7 +9900,7 @@ Maintainer: David Stanley <dstanley@uoguelph.ca>
 
 0 errors | 0 warnings | 0 notes
 
-## ReporteRs (0.8.6)
+## ReporteRs (0.8.7)
 Maintainer: David Gohel <david.gohel@lysis-consultants.fr>  
 Bug reports: https://github.com/davidgohel/ReporteRs/issues
 
@@ -9777,7 +9909,7 @@ Bug reports: https://github.com/davidgohel/ReporteRs/issues
 ```
 checking whether package ‘ReporteRs’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/ReporteRs.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/ReporteRs.Rcheck/00install.out’ for details.
 ```
 
 ## reproducer (0.1.6)
@@ -9900,7 +10032,7 @@ checking installed package size ... NOTE
 
 checking dependencies in R code ... NOTE
 
-(R:34852): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
+(R:44269): Gtk-WARNING **: gtk_disable_setlocale() must be called before gtk_init()
 JavaVM: requested Java version ((null)) not available. Using Java at "" instead.
 JavaVM: Failed to load JVM: /bundle/Libraries/libserver.dylib
 JavaVM FATAL: Failed to load the jvm library.
@@ -9947,7 +10079,7 @@ Maintainer: Xuetong Zhai <xuetong.zhai@gmail.com>
 ```
 checking whether package ‘RJafroc’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/RJafroc.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/RJafroc.Rcheck/00install.out’ for details.
 ```
 
 ## RmarineHeatWaves (0.13.1)
@@ -9955,7 +10087,7 @@ Maintainer: Albertus J. Smit <albertus.smit@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## rmcfs (1.1.1)
+## rmcfs (1.1.2)
 Maintainer: Michal Draminski <mdramins@ipipan.waw.pl>
 
 1 error  | 0 warnings | 0 notes
@@ -9963,7 +10095,7 @@ Maintainer: Michal Draminski <mdramins@ipipan.waw.pl>
 ```
 checking whether package ‘rmcfs’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/rmcfs.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/rmcfs.Rcheck/00install.out’ for details.
 ```
 
 ## rmetasim (3.0.5)
@@ -9971,14 +10103,17 @@ Maintainer: Allan Strand <stranda@cofc.edu>
 
 0 errors | 0 warnings | 0 notes
 
-## rms (4.5-0)
+## rms (5.0-0)
 Maintainer: Frank E Harrell Jr <f.harrell@vanderbilt.edu>
 
-0 errors | 0 warnings | 1 note 
+1 error  | 0 warnings | 0 notes
 
 ```
-checking Rd cross-references ... NOTE
-Package unavailable to check Rd xrefs: ‘treatSens’
+checking package dependencies ... ERROR
+Package required and available but unsuitable version: ‘survival’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
 ```
 
 ## RndTexExams (1.4)
@@ -10072,18 +10207,7 @@ Maintainer: Manuel Koller <koller.manuel@gmail.com>
 Maintainer: Alexandre Genin <alex@lecairn.org>  
 Bug reports: https://github.com/alexgenin/rollply
 
-0 errors | 1 warning  | 0 notes
-
-```
-checking re-building of vignette outputs ... WARNING
-Error in re-building vignettes:
-  ...
-Quitting from lines 51-60 (rollply.Rmd) 
-Error: processing vignette 'rollply.Rmd' failed with diagnostics:
-cannot open the connection
-Execution halted
-
-```
+0 errors | 0 warnings | 0 notes
 
 ## ropenaq (0.1.3)
 Maintainer: Maëlle Salmon <maelle.salmon@yahoo.se>  
@@ -10168,7 +10292,7 @@ Maintainer: Antonio Prestes Garcia <antonio.pgarcia@alumnos.upm.es>
 ```
 checking whether package ‘rrepast’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/rrepast.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/rrepast.Rcheck/00install.out’ for details.
 ```
 
 ## RSA (0.9.10)
@@ -10180,7 +10304,7 @@ Maintainer: Felix Schönbrodt <felix@nicebread.de>
 checking whether package ‘RSA’ can be installed ... WARNING
 Found the following significant warnings:
   Warning: loading Rplot failed
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/RSA.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/RSA.Rcheck/00install.out’ for details.
 ```
 
 ## rSARP (1.0.0)
@@ -10214,14 +10338,14 @@ Bug reports: https://github.com/stan-dev/rstan/issues/
 ```
 checking whether package ‘rstan’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/rstan.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/rstan.Rcheck/00install.out’ for details.
 ```
 
 ## rstanarm (2.12.1)
 Maintainer: Ben Goodrich <benjamin.goodrich@columbia.edu>  
 Bug reports: https://github.com/stan-dev/rstanarm/issues
 
-2 errors | 0 warnings | 1 note 
+1 error  | 0 warnings | 1 note 
 
 ```
 checking examples ... ERROR
@@ -10247,23 +10371,6 @@ Calls: <Anonymous> ... FUN -> element_render -> calc_element -> Reduce -> f
 Execution halted
 ** found \donttest examples: check also with --run-donttest
 
-checking tests ... ERROR
-Running the tests in ‘tests/testthat.R’ failed.
-Last 13 lines of output:
-  1.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
-  2.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
-  3.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
-  4.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
-  5.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
-  6.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
-  7.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
-  8.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
-  9.  Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
-  10. Error: stan_gamm4 returns expected result for sleepstudy example (@test_posterior_predict.R#195) 
-  
-  Error: testthat unit tests failed
-  Execution halted
-
 checking installed package size ... NOTE
   installed size is  8.7Mb
   sub-directories of 1Mb or more:
@@ -10271,7 +10378,7 @@ checking installed package size ... NOTE
     libs   6.6Mb
 ```
 
-## RStoolbox (0.1.5)
+## RStoolbox (0.1.6)
 Maintainer: Benjamin Leutner <benjamin.leutner@uni-wuerzburg.de>  
 Bug reports: https://github.com/bleutner/RStoolbox/issues
 
@@ -10292,7 +10399,7 @@ Bug reports: https://github.com/jeroenooms/rsvg/issues
 ```
 checking whether package ‘rsvg’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/rsvg.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/rsvg.Rcheck/00install.out’ for details.
 ```
 
 ## rtematres (0.2)
@@ -10609,7 +10716,7 @@ Maintainer: Tomas Radivoyevitch <radivot@ccf.org>
 ```
 checking whether package ‘SEERaBomb’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/SEERaBomb.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/SEERaBomb.Rcheck/00install.out’ for details.
 ```
 
 ## seewave (2.0.5)
@@ -10620,7 +10727,7 @@ Maintainer: Jerome Sueur <sueur@mnhn.fr>
 ```
 checking whether package ‘seewave’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/seewave.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/seewave.Rcheck/00install.out’ for details.
 ```
 
 ## selfea (1.0.1)
@@ -10757,7 +10864,7 @@ Bug reports: https://github.com/OakleyJ/SHELF/issues
 
 0 errors | 0 warnings | 0 notes
 
-## shiny (0.14.1)
+## shiny (0.14.2)
 Maintainer: Winston Chang <winston@rstudio.com>  
 Bug reports: https://github.com/rstudio/shiny/issues
 
@@ -10830,9 +10937,34 @@ Packages unavailable to check Rd xrefs: ‘Ecdat’, ‘PSM’, ‘fptdApprox’
 Maintainer: Oleg Sofrygin <oleg.sofrygin@gmail.com>  
 Bug reports: https://github.com/osofr/simcausal/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
 
-## SimDesign (1.3)
+```
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+node W1, order:1
+node W2, order:2
+node W3, order:3
+...automatically assigning order attribute to some nodes...
+node W1, order:1
+node W2, order:2
+...automatically assigning order attribute to some nodes...
+... 8 lines ...
+Attaching package: 'ggplot2'
+
+The following object is masked _by_ '.GlobalEnv':
+
+    %+%
+
+Loading required package: lattice
+Quitting from lines 2415-2446 (simcausal_vignette.Rnw) 
+Error: processing vignette 'simcausal_vignette.Rnw' failed with diagnostics:
+package 'survival' 2.39.5 was found, but >= 2.40.1 is required by 'Hmisc'
+Execution halted
+```
+
+## SimDesign (1.4)
 Maintainer: Phil Chalmers <rphilip.chalmers@gmail.com>
 
 0 errors | 0 warnings | 1 note 
@@ -10842,7 +10974,7 @@ checking package dependencies ... NOTE
 Package suggested but not available for checking: ‘doMPI’
 ```
 
-## simmer (3.4.4)
+## simmer (3.5.0)
 Maintainer: Iñaki Ucar <i.ucar86@gmail.com>  
 Bug reports: https://github.com/r-simmer/simmer/issues
 
@@ -10868,7 +11000,7 @@ Maintainer: Andrew Parnell <andrew.parnell@ucd.ie>
 ```
 checking whether package ‘simmr’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/simmr.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/simmr.Rcheck/00install.out’ for details.
 ```
 
 ## simPH (1.3.9)
@@ -10919,7 +11051,7 @@ Maintainer: Emilio L. Cano <emilio.lopez@urjc.es>
 
 0 errors | 0 warnings | 0 notes
 
-## sjPlot (2.1.0)
+## sjPlot (2.1.1)
 Maintainer: Daniel Lüdecke <d.luedecke@uke.de>  
 Bug reports: https://github.com/sjPlot/devel/issues
 
@@ -10931,26 +11063,26 @@ Running examples in ‘sjPlot-Ex.R’ failed
 The error most likely occurred in:
 
 > base::assign(".ptime", proc.time(), pos = "CheckExEnv")
-> ### Name: adjust_plot_range
-> ### Title: Adjust y range of ggplot-objects
-> ### Aliases: adjust_plot_range
+> ### Name: sjp.scatter
+> ### Title: Plot (grouped) scatter plots
+> ### Aliases: sjp.scatter
 > 
 > ### ** Examples
-... 7 lines ...
-> gp <- sjp.frq(efc$e15relat, prnt.plot = FALSE)
-> # show current plot
-> plot(gp$plot)
-> # show adjusted plot
-> adjust_plot_range(gp$plot)
-Scale for 'y' is already present. Adding another scale for 'y', which will
-replace the existing scale.
-Error in abs(gy$panel$ranges[[1]]$y.range[1]) : 
-  non-numeric argument to mathematical function
-Calls: adjust_plot_range
+... 37 lines ...
+> sjp.scatter(efc$c160age, efc$e17age, efc$e42dep, title = "", 
++             axis.titles = c("", ""))
+> 
+> # plot text labels
+> pl <- c(1:10)
+> for (i in 1:10) 
++   pl[i] <- paste(sample(c(0:9, letters, LETTERS), 8, replace = TRUE), collapse = "")
+> sjp.scatter(runif(10), runif(10), dot.labels = pl)
+Error: GeomTextRepel was built with an incompatible version of ggproto.
+Please reinstall the package that provides this extension.
 Execution halted
 ```
 
-## sjstats (0.5.0)
+## sjstats (0.6.0)
 Maintainer: Daniel Lüdecke <d.luedecke@uke.de>  
 Bug reports: https://github.com/sjPlot/sjstats/issues
 
@@ -10961,6 +11093,25 @@ Maintainer: Bob Rudis <bob@rudis.net>
 Bug reports: https://github.com/hrbrmstr/slackr/issues
 
 0 errors | 0 warnings | 0 notes
+
+## slim (0.1.0)
+Maintainer: Daniel Farewell <farewelld@cf.ac.uk>
+
+0 errors | 1 warning  | 1 note 
+
+```
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+Quitting from lines 182-190 (slim.Rmd) 
+Error: processing vignette 'slim.Rmd' failed with diagnostics:
+there is no package called 'jmcm'
+Execution halted
+
+
+checking package dependencies ... NOTE
+Packages suggested but not available for checking: ‘jmcm’ ‘gee’
+```
 
 ## SmarterPoland (1.7)
 Maintainer: Przemyslaw Biecek <przemyslaw.biecek@gmail.com>
@@ -11228,7 +11379,7 @@ Maintainer: Dennis Walvoort <dennis.Walvoort@wur.nl>
 ```
 checking whether package ‘spcosa’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/spcosa.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/spcosa.Rcheck/00install.out’ for details.
 ```
 
 ## specmine (1.0)
@@ -11287,6 +11438,20 @@ Maintainer: Felix Cheysson <felix@cheysson.fr>
 
 0 errors | 0 warnings | 0 notes
 
+## starmie (0.1.2)
+Maintainer: Stuart Lee <lee.s@wehi.edu.au>  
+Bug reports: https://github.com/sa-lee/starmie/issues
+
+1 error  | 0 warnings | 0 notes
+
+```
+checking package dependencies ... ERROR
+Packages required but not available: ‘iterpc’ ‘label.switching’ ‘MCL’
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+```
+
 ## statar (0.6.2)
 Maintainer: Matthieu Gomez <mattg@princeton.edu>  
 Bug reports: https://github.com/matthieugomez/statar/issues
@@ -11323,7 +11488,7 @@ Maintainer: Muhammad Yaseen <myaseen208@gmail.com>
 ```
 checking whether package ‘StroupGLMM’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/StroupGLMM.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/StroupGLMM.Rcheck/00install.out’ for details.
 ```
 
 ## structSSI (1.1.1)
@@ -11350,7 +11515,7 @@ Bug reports: https://github.com/OskarHansson/strvalidator/issues
 ```
 checking whether package ‘strvalidator’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/strvalidator.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/strvalidator.Rcheck/00install.out’ for details.
 ```
 
 ## subspaceMOA (0.5.1)
@@ -11361,7 +11526,7 @@ Maintainer: Marwan Hassani <rsubspace@cs.rwth-aachen.de>
 ```
 checking whether package ‘subspaceMOA’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/subspaceMOA.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/subspaceMOA.Rcheck/00install.out’ for details.
 ```
 
 ## SuperLearner (2.0-19)
@@ -11417,7 +11582,7 @@ checking installed package size ... NOTE
 Maintainer: Alboukadel Kassambara <alboukadel.kassambara@gmail.com>  
 Bug reports: https://github.com/kassambara/survminer/issues
 
-1 error  | 1 warning  | 1 note 
+1 error  | 2 warnings | 1 note 
 
 ```
 checking examples ... ERROR
@@ -11442,6 +11607,22 @@ Warning in is.na(x) :
 Error in -x : invalid argument to unary operator
 Calls: ggsurvplot ... summary.survfit -> findrow -> find2 -> findInterval
 Execution halted
+
+checking Rd cross-references ... WARNING
+Missing link or links in documentation object 'ggcoxdiagnostics.Rd':
+  ‘ggtheme’
+
+Missing link or links in documentation object 'ggcoxfunctional.Rd':
+  ‘ggtheme’
+
+Missing link or links in documentation object 'ggcoxzph.Rd':
+  ‘ggtheme’
+
+Missing link or links in documentation object 'ggsurvplot.Rd':
+  ‘ggtheme’
+
+See section 'Cross-references' in the 'Writing R Extensions' manual.
+
 
 checking re-building of vignette outputs ... WARNING
 Error in re-building vignettes:
@@ -11527,9 +11708,32 @@ Maintainer: Kazuki Yoshida <kazukiyoshida@mail.harvard.edu>
 ## tabplot (1.3)
 Maintainer: Martijn Tennekes <mtennekes@gmail.com>
 
-0 errors | 1 warning  | 0 notes
+1 error  | 1 warning  | 0 notes
 
 ```
+checking examples ... ERROR
+Running examples in ‘tabplot-Ex.R’ failed
+The error most likely occurred in:
+
+> base::assign(".ptime", proc.time(), pos = "CheckExEnv")
+> ### Name: tableplot
+> ### Title: Create a tableplot
+> ### Aliases: tableplot
+> ### Keywords: visualization
+> 
+... 41 lines ...
+  font width unknown for character 0x9
+> 
+> # create a tableplot cut category, and fix scale limits of carat, table, and price
+> tabs <- tableplot(p, subset=cut,
++ 	limitsX=list(carat=c(0,4), table=c(55, 65), price=c(0, 20000)), plot=FALSE)
+Error in if (dfile == getOption("fftempdir")) finalizer <- "delete" else finalizer <- "close" : 
+  argument is of length zero
+Calls: tableplot ... clone.ffdf -> lapply -> FUN -> clone.ff -> assign -> ff
+Error in setwd(cwd) : character argument expected
+Calls: tableplot ... clone.ffdf -> lapply -> FUN -> clone.ff -> assign -> ff -> setwd
+Execution halted
+
 checking re-building of vignette outputs ... WARNING
 Error in re-building vignettes:
   ...
@@ -11738,7 +11942,7 @@ Consider adding
 to your NAMESPACE file.
 ```
 
-## tidytext (0.1.1)
+## tidytext (0.1.2)
 Maintainer: Julia Silge <julia.silge@gmail.com>  
 Bug reports: http://github.com/juliasilge/tidytext/issues
 
@@ -11899,26 +12103,18 @@ Maintainer: Xikun Han <hanxikun2014@163.com>
 
 0 errors | 0 warnings | 0 notes
 
-## tmap (1.6)
+## tmap (1.6-1)
 Maintainer: Martijn Tennekes <mtennekes@gmail.com>  
 Bug reports: https://github.com/mtennekes/tmap/issues
 
-0 errors | 0 warnings | 1 note 
-
-```
-checking installed package size ... NOTE
-  installed size is  5.5Mb
-  sub-directories of 1Mb or more:
-    data   1.5Mb
-    doc    3.5Mb
-```
+0 errors | 0 warnings | 0 notes
 
 ## Tmisc (0.1.10)
 Maintainer: Stephen Turner <vustephen@gmail.com>
 
 0 errors | 0 warnings | 0 notes
 
-## toaster (0.5.2)
+## toaster (0.5.4)
 Maintainer: Gregory Kanevsky <gregory.kanevsky@teradata.com>  
 Bug reports: https://github.com/teradata-aster-field/toaster/issues
 
@@ -12206,7 +12402,7 @@ Bug reports: https://github.com/paobranco/UBL/issues
 ```
 checking whether package ‘UBL’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/UBL.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/UBL.Rcheck/00install.out’ for details.
 ```
 
 ## ukgasapi (0.13)
@@ -12341,7 +12537,13 @@ dlvTheme: possible error in panel.grid.minor = element_line(colour =
 ## UsingR (2.0-5)
 Maintainer: John Verzani <verzani@math.csi.cuny.edu>
 
-0 errors | 0 warnings | 0 notes
+1 error  | 0 warnings | 0 notes
+
+```
+checking whether package ‘UsingR’ can be installed ... ERROR
+Installation failed.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/UsingR.Rcheck/00install.out’ for details.
+```
 
 ## varian (0.2.2)
 Maintainer: Joshua F. Wiley <josh@elkhartgroup.com>  
@@ -12403,7 +12605,7 @@ checking tests ... ERROR
 Running the tests in ‘tests/run-all.R’ failed.
 Last 13 lines of output:
   Viewport 'panel.3-4-3-4' was not found
-  1: vhist(Sepal.Length, iris, "hist01", "iris", fill = Species) at /Users/hadley/Documents/ggplot/ggplot/revdep/checks/vdmR.Rcheck/vdmR/tests/test-vdmR.R:7
+  1: vhist(Sepal.Length, iris, "hist01", "iris", fill = Species) at /Users/hadley/Documents/ggplot/ggplot2/revdep/checks/vdmR.Rcheck/vdmR/tests/test-vdmR.R:7
   2: grid::downViewport("panel.3-4-3-4")
   3: downViewport.default("panel.3-4-3-4")
   4: downViewport(vpPath(name), strict, recording = recording)
@@ -12476,7 +12678,7 @@ Maintainer: Lorenzo D'Andrea <support@vmsbase.org>
 ```
 checking whether package ‘vmsbase’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/vmsbase.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/vmsbase.Rcheck/00install.out’ for details.
 ```
 
 ## voxel (1.2.1)
@@ -12604,7 +12806,7 @@ Bug reports: http://github.com/langcog/wordbankr/issues
 
 0 errors | 0 warnings | 0 notes
 
-## wppExplorer (1.9-0)
+## wppExplorer (2.0-0)
 Maintainer: Hana Sevcikova <hanas@uw.edu>
 
 0 errors | 0 warnings | 0 notes
@@ -12630,7 +12832,7 @@ Bug reports: https://github.com/tienpt/x.ent/issues
 ```
 checking whether package ‘x.ent’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/x.ent.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/x.ent.Rcheck/00install.out’ for details.
 ```
 
 ## xgboost (0.4-4)
@@ -12647,7 +12849,7 @@ Maintainer: Hai Fang <hfang@well.ox.ac.uk>
 ```
 checking whether package ‘XGR’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/XGR.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/XGR.Rcheck/00install.out’ for details.
 ```
 
 ## xkcd (0.0.5)
@@ -12664,14 +12866,32 @@ Bug reports: https://github.com/miraisolutions/xlconnect/issues
 ```
 checking whether package ‘XLConnect’ can be installed ... ERROR
 Installation failed.
-See ‘/Users/hadley/Documents/ggplot/ggplot/revdep/checks/XLConnect.Rcheck/00install.out’ for details.
+See ‘/Users/hadley/Documents/ggplot/ggplot2/revdep/checks/XLConnect.Rcheck/00install.out’ for details.
 ```
 
 ## xtractomatic (3.1.1)
 Maintainer: Roy Mendelssohn <roy.mendelssohn@noaa.gov>  
 Bug reports: http://www.github.com/rmendels/xtractomatic/issues
 
-0 errors | 0 warnings | 0 notes
+0 errors | 1 warning  | 0 notes
+
+```
+checking re-building of vignette outputs ... WARNING
+Error in re-building vignettes:
+  ...
+date	lon	lat	lowLon	higLon	lowLat	higLat
+4/23/2003	203.899	19.664	203.899	203.899	19.664	19.664
+4/24/2003	204.151	19.821	203.912597	204.389403	18.78051934	20.86148066
+4/30/2003	203.919	20.351	203.6793669	204.1586331	18.79728188	21.90471812
+5/1/2003	204.229	20.305	203.9943343	204.4636657	18.90440013	21.70559987
+Warning: Removed 308 rows containing missing values (geom_path).
+Warning: Removed 308 rows containing missing values (geom_path).
+Quitting from lines 528-535 (Usingxtractomatic.Rmd) 
+Error: processing vignette 'Usingxtractomatic.Rmd' failed with diagnostics:
+cannot open the connection
+Execution halted
+
+```
 
 ## xxIRT (1.1.0)
 Maintainer: Xiao Luo <xluo1986@gmail.com>  

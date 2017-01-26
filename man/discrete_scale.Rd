@@ -72,4 +72,3 @@ scales, "top" or "bottom" for horizontal scales}
 Discrete scale constructor.
 }
 \keyword{internal}
-

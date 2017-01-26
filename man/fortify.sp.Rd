@@ -47,4 +47,3 @@ if (require("maptools")) {
 }
 }
 \keyword{internal}
-

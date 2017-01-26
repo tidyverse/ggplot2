@@ -249,6 +249,7 @@ directly or indirectly from \code{text}; all lines inherit from
 This means that you can modify the appearance of multiple elements by
 setting a single high-level component.
 }
+
 \examples{
 p1 <- ggplot(mtcars, aes(wt, mpg)) +
   geom_point() +
@@ -340,4 +341,3 @@ p3 + theme(panel.spacing = unit(1, "lines"))
   \code{\link{element_rect}}, and \code{\link{element_text}} for
   details of the specific theme elements.
 }
-

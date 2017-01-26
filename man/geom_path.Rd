@@ -88,6 +88,7 @@ corresponds to a single case which provides the start and end coordinates.
 
 \aesthetics{geom}{path}
 }
+
 \examples{
 # geom_line() is suitable for time series
 ggplot(economics, aes(date, unemploy)) + geom_line()
@@ -160,4 +161,3 @@ should_stop(p + geom_line(aes(colour = x), linetype=2))
 \code{\link{geom_polygon}}: Filled paths (polygons);
  \code{\link{geom_segment}}: Line segments
 }
-

@@ -13,4 +13,3 @@ Retrieve the last plot to be modified or created.
 \code{\link{ggsave}}
 }
 \keyword{internal}
-

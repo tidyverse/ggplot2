@@ -72,6 +72,7 @@ The following palettes are available for use with these scales:
      OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
 }
 }
+
 \examples{
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 (d <- ggplot(dsamp, aes(carat, price)) +
@@ -110,4 +111,3 @@ Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_colour_hue}}
 }
-

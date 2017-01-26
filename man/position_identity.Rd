@@ -16,4 +16,3 @@ Other position adjustments: \code{\link{position_dodge}},
   \code{\link{position_nudge}},
   \code{\link{position_stack}}
 }
-

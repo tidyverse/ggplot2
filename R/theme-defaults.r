@@ -110,7 +110,7 @@ theme_grey <- function(base_size = 11, base_family = "") {
     legend.spacing =     unit(0.4, "cm"),
     legend.spacing.x =    NULL,
     legend.spacing.y =    NULL,
-    legend.margin =      margin(0, 0, 0, 0, "cm"),
+    legend.margin =      margin(0.2, 0.2, 0.2, 0.2, "cm"),
     legend.key =         element_rect(fill = "grey95", colour = "white"),
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,

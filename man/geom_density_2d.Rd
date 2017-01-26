@@ -86,6 +86,7 @@ overplotting. This is a 2d version of \code{\link{geom_density}}.
 
 Same as \code{\link{stat_contour}}
 }
+
 \examples{
 m <- ggplot(faithful, aes(x = eruptions, y = waiting)) +
  geom_point() +
@@ -113,4 +114,3 @@ d + stat_density_2d(geom = "point", aes(size = ..density..), n = 20, contour = F
  are drawn; \code{\link{geom_bin2d}} for another way of dealing with
  overplotting.
 }
-

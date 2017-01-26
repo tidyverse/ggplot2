@@ -101,6 +101,7 @@ multiple values at once (e.g. ymin and ymax), use \code{fun.data}.
 If no aggregation functions are suppled, will default to
 \code{\link{mean_se}}.
 }
+
 \examples{
 d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
 d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
@@ -169,4 +170,3 @@ m2 + coord_trans(y="log10")
  \code{\link{geom_linerange}}, \code{\link{geom_crossbar}} for geoms to
  display summarised data
 }
-

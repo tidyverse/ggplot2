@@ -42,4 +42,3 @@ midwest
 Demographic information of midwest counties
 }
 \keyword{datasets}
-

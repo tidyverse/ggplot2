@@ -35,4 +35,3 @@ layer. These are useful for tests.
  a ggplot2 plot.
 }
 \keyword{internal}
-

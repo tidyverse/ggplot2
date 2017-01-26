@@ -1,14 +1,14 @@
 Package: ggplot2
-Version: 2.1.0.9001
+Version: 2.2.1.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
-Description: ggplot2 is a system for declaratively creating graphics,
-    based on "The Grammar of Graphics". You provide the data, tell ggplot2 
+Description: A system for 'declaratively' creating graphics,
+    based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
     how to map variables to aesthetics, what graphical primitives to use,
     and it takes care of the details.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Winston", "Chang", , "winston@rstudio.com", "aut"),
-    person("RStudio", role = c("cph", "fnd"))
+    person("RStudio", role = c("cph"))
     )
 Depends:
     R (>= 3.1)
@@ -19,7 +19,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.4.0.9003),
+    scales (>= 0.4.1),
     stats,
     tibble,
     lazyeval
@@ -41,13 +41,12 @@ Suggests:
     rpart,
     rmarkdown,
     svglite
-Remotes: hadley/scales
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
-Collate: 
+Collate:
     'ggproto.r'
     'aaa-.r'
     'aes-calculated.r'
@@ -67,6 +66,7 @@ Collate:
     'geom-raster.r'
     'annotation-raster.r'
     'annotation.r'
+    'autolayer.r'
     'autoplot.r'
     'axis-secondary.R'
     'bench.r'

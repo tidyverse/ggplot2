@@ -73,6 +73,7 @@ the very regular alignment of \code{\link{geom_bin2d}}.
 
 \aesthetics{geom}{hex}
 }
+
 \examples{
 d <- ggplot(diamonds, aes(carat, price))
 d + geom_hex()
@@ -91,4 +92,3 @@ d + geom_hex(binwidth = c(.1, 500))
 \seealso{
 \code{\link{stat_bin2d}} for rectangular binning
 }
-

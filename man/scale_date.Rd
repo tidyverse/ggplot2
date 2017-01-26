@@ -130,4 +130,3 @@ base + scale_x_date(limits = c(Sys.Date() - 7, NA))
 Other position scales: \code{\link{scale_x_continuous}},
   \code{\link{scale_x_discrete}}
 }
-

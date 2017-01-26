@@ -165,4 +165,3 @@ p1 + scale_y_continuous(trans = scales::reciprocal_trans())
 Other position scales: \code{\link{scale_x_date}},
   \code{\link{scale_x_discrete}}
 }
-

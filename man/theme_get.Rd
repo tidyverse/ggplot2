@@ -55,6 +55,7 @@ theme. \code{theme_replace} uses \code{\%+replace\%} tocompletely replace
 the element, so any unspecified values will overwrite the current value in
 the theme with \code{NULL}s.
 }
+
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point()
@@ -89,4 +90,3 @@ rep_el$text
 \seealso{
 \code{\link{+.gg}}
 }
-

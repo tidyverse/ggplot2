@@ -48,7 +48,7 @@ to the paired geom/stat.}
 
   For \code{method = "auto"} the smoothing method is chosen based on the
   size of the largest group (across all panels). \code{\link{loess}} is
-  used for than 1,000 observations; otherwise \code{\link[mgcv]{gam}} is
+  used for less than 1,000 observations; otherwise \code{\link[mgcv]{gam}} is
   used with \code{formula = y ~ s(x, bs = "cs")}. Somewhat anecdotally,
   \code{loess} gives a better appearance, but is O(n^2) in memory, so does
   not work for larger datasets.}
@@ -116,6 +116,7 @@ scale, and then back-transformed to the response scale.
   \item{se}{standard error}
 }
 }
+
 \examples{
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
@@ -176,4 +177,3 @@ See individual modelling functions for more details:
   \code{\link{glm}} for generalised linear smooths,
   \code{\link{loess}} for local smooths
 }
-

@@ -137,4 +137,3 @@ Other position adjustments: \code{\link{position_dodge}},
   \code{\link{position_jitter}},
   \code{\link{position_nudge}}
 }
-

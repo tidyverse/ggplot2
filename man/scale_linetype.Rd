@@ -44,4 +44,3 @@ ggplot(df_lines) +
   facet_grid(linetype ~ .) +
   theme_void(20)
 }
-

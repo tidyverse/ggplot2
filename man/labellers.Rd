@@ -89,6 +89,7 @@ argument.
   For compatibility with \code{\link{labeller}()}, each labeller
   function must have the \code{labeller} S3 class.
 }
+
 \examples{
 mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
 p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
@@ -115,4 +116,3 @@ p + facet_wrap(~vs + cyl2, labeller = label_parsed)
 \code{\link{labeller}()}, \code{\link{as_labeller}()},
   \code{\link{label_bquote}()}
 }
-

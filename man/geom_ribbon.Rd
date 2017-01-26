@@ -73,6 +73,7 @@ see the individual pattern as you move up the stack. See
 
 \aesthetics{geom}{ribbon}
 }
+
 \examples{
 # Generate data
 huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
@@ -91,4 +92,3 @@ h +
   \code{\link{geom_linerange}} for discrete intervals (lines),
   \code{\link{geom_polygon}} for general polygons
 }
-

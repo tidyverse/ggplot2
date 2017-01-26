@@ -47,4 +47,3 @@ with(counts, plot(x, Freq, type = "h", lwd = 10))
 ggplot(counts, aes(x, Freq)) +
   geom_segment(aes(yend = 0, xend = x), size = 10)
 }
-

@@ -88,6 +88,7 @@ with lines. This is as a continuous analogue to \code{\link{geom_boxplot}}.
   \item{quantile}{quantile of distribution}
 }
 }
+
 \examples{
 m <- ggplot(mpg, aes(displ, 1 / hwy)) + geom_point()
 m + geom_quantile()
@@ -104,4 +105,3 @@ m + geom_quantile(method = "rqss", lambda = 0.1)
 # Set aesthetics to fixed value
 m + geom_quantile(colour = "red", size = 2, alpha = 0.5)
 }
-

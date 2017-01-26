@@ -78,14 +78,14 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{center}{The center of one of the bins.  Note that if center is above or
 below the range of the data, things will be shifted by an appropriate
 number of \code{width}s. To center on integers, for example, use
-\code{width=1} and \code{center=0}, even if \code{0} is outside the range
+\code{width = 1} and \code{center = 0}, even if \code{0} is outside the range
 of the data.  At most one of \code{center} and \code{boundary} may be
 specified.}
 
 \item{boundary}{A boundary between two bins. As with \code{center}, things
 are shifted when \code{boundary} is outside the range of the data. For
 example, to center on integers, use \code{width = 1} and \code{boundary =
-0.5}, even if \code{1} is outside the range of the data.  At most one of
+0.5}, even if \code{0.5} is outside the range of the data.  At most one of
 \code{center} and \code{boundary} may be specified.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving
@@ -130,6 +130,7 @@ story behind your data.
   \item{ndensity}{density, scaled to maximum of 1}
 }
 }
+
 \examples{
 ggplot(diamonds, aes(carat)) +
   geom_histogram()
@@ -196,4 +197,3 @@ ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
   posotion, without binning. It is suitable for both discrete and continuous
   x data, whereas \link{stat_bin} is suitable only for continuous x data.
 }
-

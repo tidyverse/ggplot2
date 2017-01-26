@@ -67,4 +67,3 @@ s + geom_point(aes(shape = z), size = 4, colour = "Red") +
 s + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black") +
   scale_shape_identity()
 }
-

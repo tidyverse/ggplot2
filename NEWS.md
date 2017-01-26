@@ -1,4 +1,18 @@
-# ggplot2 2.1.0.9000 
+# ggplot2 2.2.1.9000
+
+* Legends no longer try and use set aesthetics that are not length one
+  (fixes #1932).
+
+* Added `autolayer()` S3 generic (@mitchelloharawild, #1974).
+
+* Fix warning when using the `weight` aesthetic with `stat_bin()` (through 
+  `geom_histogram()` in particular) (@jiho, #1921).
+
+# ggplot2 2.2.1
+
+* Fix usage of `structure(NULL)` for R-devel compatibility (#1968).
+
+# ggplot2 2.2.0
 
 ## Major new features
 
@@ -353,6 +367,8 @@ There were a number of tweaks to the theme elements that control legends:
 
 * Fixed issue where `coord_map()` fails when given an explicit `parameters`
   argument (@tdmcarthur, #1729)
+  
+* Fixed issue where `geom_errorbarh()` had a required `x` aesthetic (#1933)  
 
 # ggplot2 2.0.0
 
@@ -461,7 +477,7 @@ There is now an official mechanism for defining Stats, Geoms, and Positions in o
   or stat, use `ggplot()` instead.
 
 * The theme setting `axis.ticks.margin` has been deprecated: now use the margin 
-  property of `axis.ticks`.
+  property of `axis.text`.
   
 * `stat_abline()`, `stat_hline()` and `stat_vline()` have been removed:
   these were never suitable for use other than with `geom_abline()` etc

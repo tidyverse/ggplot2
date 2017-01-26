@@ -38,4 +38,3 @@ p + coord_fixed(ratio = 1/5)
 
 # Resize the plot to see that the specified aspect ratio is maintained
 }
-

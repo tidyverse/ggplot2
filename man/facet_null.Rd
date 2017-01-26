@@ -20,4 +20,3 @@ Facet specification: a single panel.
 ggplot(mtcars, aes(mpg, wt)) + geom_point()
 }
 \keyword{internal}
-

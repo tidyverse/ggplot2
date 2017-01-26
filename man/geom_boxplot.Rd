@@ -123,6 +123,7 @@ See McGill et al. (1978) for more details.
   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 }
 }
+
 \examples{
 p <- ggplot(mpg, aes(class, hwy))
 p + geom_boxplot()
@@ -176,4 +177,3 @@ McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
   \code{\link{geom_violin}} for a richer display of the distribution, and
   \code{\link{geom_jitter}} for a useful technique for small data.
 }
-

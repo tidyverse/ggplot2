@@ -59,4 +59,3 @@ j
 j + scale_fill_manual(values = alpha(c("blue", "red"), .3))
 }
 }
-

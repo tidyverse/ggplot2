@@ -45,4 +45,3 @@ for (colour in colours) {
 }
 }
 \keyword{hplot}
-

@@ -57,4 +57,3 @@ d + scale_x_continuous(limits = c(0, 1))
 # displayed bigger
 d + coord_cartesian(xlim = c(0, 1))
 }
-

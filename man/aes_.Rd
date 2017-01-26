@@ -56,4 +56,3 @@ aes_(col = as.name(var))
 \seealso{
 \code{\link{aes}}
 }
-

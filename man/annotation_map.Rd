@@ -34,4 +34,3 @@ ggplot(seal2,  aes(x = long, y = lat)) +
   facet_grid(latr ~ longr, scales = "free", space = "free")
 }
 }
-

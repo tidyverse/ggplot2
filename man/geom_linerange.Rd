@@ -79,6 +79,7 @@ Various ways of representing a vertical interval defined by \code{x},
 
 \aesthetics{geom}{linerange}
 }
+
 \examples{
 #' # Create a simple example dataset
 df <- data.frame(
@@ -119,4 +120,3 @@ p +
  \code{\link{geom_smooth}} for continuous analog,
  \code{\link{geom_errorbarh}} for a horizontal error bar.
 }
-

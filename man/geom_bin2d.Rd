@@ -75,6 +75,7 @@ in the presence of overplotting.
 
 \aesthetics{stat}{bin2d}
 }
+
 \examples{
 d <- ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10)
 d + geom_bin2d()
@@ -90,4 +91,3 @@ d + geom_bin2d(binwidth = c(0.1, 0.1))
 \seealso{
 \code{\link{stat_binhex}} for hexagonal binning
 }
-

@@ -50,4 +50,3 @@ p + labs(title = "New plot title", subtitle = "A subtitle")
 # sources, notes or copyright
 p + labs(caption = "(based on data from ...)")
 }
-

@@ -40,4 +40,3 @@ ggplot(df, aes(x, y)) +
   geom_area()
 last_plot() + coord_flip()
 }
-

@@ -59,4 +59,3 @@ p + scale_colour_manual(
 p + scale_colour_manual(values = cols, limits = c("4", "8"))
 p + scale_colour_manual(values = cols, limits = c("4", "6", "8", "10"))
 }
-

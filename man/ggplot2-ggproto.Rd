@@ -394,9 +394,9 @@ object represents a single scale.
 Each of the \code{Scale*} objects is a \code{\link{ggproto}} object,
 descended from the top-level \code{Scale}.
 }
+
 \seealso{
 ggproto
 }
 \keyword{datasets}
 \keyword{internal}
-

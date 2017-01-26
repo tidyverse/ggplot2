@@ -88,6 +88,7 @@ need to connect points across multiple cases.
 
 \aesthetics{geom}{segment}
 }
+
 \examples{
 b <- ggplot(mtcars, aes(wt, mpg)) +
   geom_point()
@@ -125,4 +126,3 @@ ggplot(counts, aes(x, Freq)) +
 \code{\link{geom_spoke}} for a segment parameterised by a location
   (x, y), and an angle and radius.
 }
-

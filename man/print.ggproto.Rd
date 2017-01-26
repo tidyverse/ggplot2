@@ -32,4 +32,3 @@ Dog <- ggproto(
 Dog
 cat(format(Dog), "\\n")
 }
-

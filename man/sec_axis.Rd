@@ -66,4 +66,3 @@ p + scale_y_continuous(sec.axis = dup_axis())
 p + scale_y_continuous(sec.axis = ~.^2)
 
 }
-

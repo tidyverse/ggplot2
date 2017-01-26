@@ -14,13 +14,13 @@
 #' @param center The center of one of the bins.  Note that if center is above or
 #'   below the range of the data, things will be shifted by an appropriate
 #'   number of \code{width}s. To center on integers, for example, use
-#'   \code{width=1} and \code{center=0}, even if \code{0} is outside the range
+#'   \code{width = 1} and \code{center = 0}, even if \code{0} is outside the range
 #'   of the data.  At most one of \code{center} and \code{boundary} may be
 #'   specified.
 #' @param boundary A boundary between two bins. As with \code{center}, things
 #'   are shifted when \code{boundary} is outside the range of the data. For
 #'   example, to center on integers, use \code{width = 1} and \code{boundary =
-#'   0.5}, even if \code{1} is outside the range of the data.  At most one of
+#'   0.5}, even if \code{0.5} is outside the range of the data.  At most one of
 #'   \code{center} and \code{boundary} may be specified.
 #' @param breaks Alternatively, you can supply a numeric vector giving
 #'    the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
@@ -144,7 +144,7 @@ StatBin <- ggproto("StatBin", Stat,
     bin_vector(data$x, bins, weight = data$weight, pad = pad)
   },
 
-  default_aes = aes(y = ..count..),
+  default_aes = aes(y = ..count.., weight = 1),
   required_aes = c("x")
 )
 
