@@ -113,10 +113,9 @@ StatBin <- ggproto("StatBin", Stat,
       stop("Only one of `boundary` and `center` may be specified.", call. = FALSE)
     }
 
-    if (is.null(params$breaks) && (is.null(params$binwidth) || !(is.numeric(params$binwidth) || is.function(params$binwidth))) && is.null(params$bins)) {
+    if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
       message_wrap("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
       params$bins <- 30
-      params$binwidth <- NULL
     }
 
     params
