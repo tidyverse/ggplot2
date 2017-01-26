@@ -62,6 +62,8 @@
 #'   geom_area(aes(fill = type))
 #'
 #' # Stacking order ------------------------------------------------------------
+#' # The stacking order is carefully designed so that the plot matches
+#' # the legend.
 #'
 #' # You control the stacking order by setting the levels of the underlying
 #' # factor. See the forcats package for convenient helpers.
@@ -73,6 +75,13 @@
 #' ggplot(series, aes(time, value)) +
 #'   geom_area(aes(fill = type)) +
 #'   scale_fill_discrete(breaks = c('a', 'b', 'c', 'd'))
+#'
+#' # If you've flipped the plot, use reveres = TRUE so the levels
+#' # continue to match
+#' ggplot(series, aes(time, value)) +
+#'   geom_area(aes(fill = type2), position = position_stack(reverse = TRUE)) +
+#'   coord_flip() +
+#'   theme(legend.position = "top")
 #'
 #' # Non-area plots ------------------------------------------------------------
 #'
