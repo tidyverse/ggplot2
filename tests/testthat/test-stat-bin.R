@@ -27,7 +27,7 @@ test_that("binwidth computes widths for function input", {
   out <- function(x, ...) {
     layer_data(ggplot(df, aes(x)) + geom_histogram(...))
   }
-  expect_equal(nrow(out(binwidth = function(x) diff(range(x))/29)), 30)
+  expect_equal(nrow(out(binwidth = function(x) 5)), 21)
 })
 
 test_that("geom_histogram defaults to pad = FALSE", {
