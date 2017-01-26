@@ -2,6 +2,9 @@ language: R
 cache: packages
 sudo: false
 
+apt_packages:
+  - libudunits2-dev
+
 r_github_packages:
   - hadley/staticdocs@old
 
