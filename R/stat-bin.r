@@ -132,8 +132,8 @@ StatBin <- ggproto("StatBin", Stat,
     if (!is.null(breaks)) {
       bins <- bin_breaks(breaks, closed)
     } else if (!is.null(binwidth)) {
-      if (!is.numeric(binwidth)) {
-        binwidth <- do.call(binwidth, list(data$x))
+      if (is.function(binwidth)) {
+        binwidth <- binwidth(data$x)
       }
       bins <- bin_breaks_width(scales$x$dimension(), binwidth,
         center = center, boundary = boundary, closed = closed)
