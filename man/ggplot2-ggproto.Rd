@@ -216,8 +216,8 @@ object, you typically will want to implement one or more of the following:
     setup functions and \code{train()}.
   \item \code{setup_data(data, params)}: Allows the coordinate system to
     manipulate the plot data. Should return list of data frames.
-  \item \code{setup_layout(panel_layout, params)}: Allows the coordinate
-    system to manipulate the \code{panel_layout} data frame which assigns
+  \item \code{setup_layout(layout, params)}: Allows the coordinate
+    system to manipulate the \code{layout} data frame which assigns
     data to panels and scales.
 }
 }
