@@ -114,15 +114,15 @@ geom_smooth <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomSmooth <- ggproto("GeomSmooth", Geom,
-  draw_group = function(data, panel_scales, coord) {
+  draw_group = function(data, panel_params, coord) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
     has_ribbon <- !is.null(data$ymax) && !is.null(data$ymin)
 
     gList(
-      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_scales, coord),
-      GeomLine$draw_panel(path, panel_scales, coord)
+      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_params, coord),
+      GeomLine$draw_panel(path, panel_params, coord)
     )
   },
 

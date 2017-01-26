@@ -10,7 +10,8 @@ test_that("Polar distance calculation", {
     y = scale_y_continuous(limits = c(0, 1))
   )
   coord <- coord_polar()
-  dists <- coord$distance(dat$theta, dat$r, coord$train(scales))
+  panel_params <- coord$setup_panel_params(scales$x, scales$y)
+  dists <- coord$distance(dat$theta, dat$r, panel_params)
 
   # dists is normalized by dividing by this value, so we'll add it back
   # The maximum length of a spiral arc, from (t,r) = (0,0) to (2*pi,1)

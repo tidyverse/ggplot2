@@ -127,8 +127,8 @@ GeomPoint <- ggproto("GeomPoint", Geom,
     alpha = NA, stroke = 0.5
   ),
 
-  draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
-    coords <- coord$transform(data, panel_scales)
+  draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
+    coords <- coord$transform(data, panel_params)
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,

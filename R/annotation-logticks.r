@@ -114,7 +114,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
     data
   },
 
-  draw_panel = function(data, panel_scales, coord, base = 10, sides = "bl",
+  draw_panel = function(data, panel_params, coord, base = 10, sides = "bl",
     scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
     long = unit(0.3, "cm"))
   {
@@ -131,8 +131,8 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       # Get positions of x tick marks
       xticks <- calc_logticks(
         base = base,
-        minpow = floor(panel_scales$x.range[1]),
-        maxpow = ceiling(panel_scales$x.range[2]),
+        minpow = floor(panel_params$x.range[1]),
+        maxpow = ceiling(panel_params$x.range[2]),
         start = 0,
         shortend = short,
         midend = mid,
@@ -143,7 +143,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         xticks$value <- log(xticks$value, base)
 
       names(xticks)[names(xticks) == "value"] <- "x"   # Rename to 'x' for coordinates$transform
-      xticks <- coord$transform(xticks, panel_scales)
+      xticks <- coord$transform(xticks, panel_params)
 
       # Make the grobs
       if (grepl("b", sides)) {
@@ -166,8 +166,8 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
     if (grepl("[l|r]", sides)) {
       yticks <- calc_logticks(
         base = base,
-        minpow = floor(panel_scales$y.range[1]),
-        maxpow = ceiling(panel_scales$y.range[2]),
+        minpow = floor(panel_params$y.range[1]),
+        maxpow = ceiling(panel_params$y.range[2]),
         start = 0,
         shortend = short,
         midend = mid,
@@ -178,7 +178,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         yticks$value <- log(yticks$value, base)
 
       names(yticks)[names(yticks) == "value"] <- "y"   # Rename to 'y' for coordinates$transform
-      yticks <- coord$transform(yticks, panel_scales)
+      yticks <- coord$transform(yticks, panel_params)
 
       # Make the grobs
       if (grepl("l", sides)) {

@@ -35,14 +35,14 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 
   required_aes = c("x", "y", "ymin", "ymax"),
 
-  draw_panel = function(data, panel_scales, coord, fatten = 4) {
+  draw_panel = function(data, panel_params, coord, fatten = 4) {
     if (is.null(data$y))
-      return(GeomLinerange$draw_panel(data, panel_scales, coord))
+      return(GeomLinerange$draw_panel(data, panel_params, coord))
 
     ggname("geom_pointrange",
       gTree(children = gList(
-        GeomLinerange$draw_panel(data, panel_scales, coord),
-        GeomPoint$draw_panel(transform(data, size = size * fatten), panel_scales, coord)
+        GeomLinerange$draw_panel(data, panel_params, coord),
+        GeomPoint$draw_panel(transform(data, size = size * fatten), panel_params, coord)
       ))
     )
   }
