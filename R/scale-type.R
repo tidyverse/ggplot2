@@ -31,7 +31,24 @@ find_global <- function(name, env, mode = "any") {
   NULL
 }
 
-# Determine default type of a scale
+#' Determine default scale type
+#'
+#' You will need to define a method for this method if you want to extend
+#' ggplot2 to handle new types of data. If you simply want to pass the vector
+#' through as an additional aesthetic, return \code{"identity"}.
+#'
+#' @param x A vector
+#' @return A character vector of scale types. These will be tried in turn
+#'   to find a default scale. For example, if \code{scale_type} returns
+#'   \code{c("foo", "bar")} and the vector is used with the colour aesthetic,
+#'   ggplot2 will first look for \code{scale_colour_foo} then
+#'   \code{scale_colour_bar}.
+#' @export
+#' @keywords internal
+#' @examples
+#' scale_type(1:5)
+#' scale_type("test")
+#' scale_type(Sys.Date())
 scale_type <- function(x) UseMethod("scale_type")
 
 #' @export

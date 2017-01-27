@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* `scale_type()` generic is now exported and documented. Use this if you 
+  want to extend ggplot2 to work with a new type of vector (#)
+
 * `position_dodge()` gains an `preserve` argument that allows you to control
   whether the `total` width at each `x` value is preserved (the current 
   default), or ensure that the width of a `single` element is preserved
