@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Layers no longer warn about unknown aesthetics who's value is set to 
+  `NULL` (overriding a set aesthetic in the plot) (#1909).
+
 * `scale_type()` generic is now exported and documented. Use this if you 
   want to extend ggplot2 to work with a new type of vector (#)
 

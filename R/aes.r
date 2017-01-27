@@ -232,3 +232,9 @@ aes_auto <- function(data = NULL, ...) {
 
   structure(rename_aes(aes), class = "uneval")
 }
+
+mapped_aesthetics <- function(x) {
+  is_null <- vapply(x, is.null, logical(1))
+  names(x)[!is_null]
+
+}

@@ -116,7 +116,10 @@ layer <- function(geom = NULL, stat = NULL,
     )
   }
 
-  extra_aes <- setdiff(names(mapping), c(geom$aesthetics(), stat$aesthetics()))
+  extra_aes <- setdiff(
+    mapped_aesthetics(mapping),
+    c(geom$aesthetics(), stat$aesthetics())
+  )
   if (check.aes && length(extra_aes) > 0) {
     warning(
       "Ignoring unknown aesthetics: ", paste(extra_aes, collapse = ", "),
