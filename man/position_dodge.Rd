@@ -4,12 +4,15 @@
 \alias{position_dodge}
 \title{Dodge overlapping objects side-to-side}
 \usage{
-position_dodge(width = NULL)
+position_dodge(width = NULL, preserve = c("total", "single"))
 }
 \arguments{
 \item{width}{Dodging width, when different to the width of the individual
 elements. This is useful when you want to align narrow geoms with wider
 geoms. See the examples.}
+
+\item{preserve}{Should dodging preserve the total width of all elements
+at a position, or the width of a single element?}
 }
 \description{
 Dodging preserves the vertical position of an geom while adjusting the
@@ -18,6 +21,12 @@ horizontal position.
 \examples{
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = "dodge")
+
+# By default, dodging preserves the total width. You can choose
+# to preserve the width of each element:
+ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+  geom_bar(position = position_dodge(preserve = "single"))
+
 \donttest{
 ggplot(diamonds, aes(price, fill = cut)) +
   geom_histogram(position="dodge")

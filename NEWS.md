@@ -1,5 +1,10 @@
 # ggplot2 2.2.1.9000
 
+* `position_dodge()` gains an `preserve` argument that allows you to control
+  whether the `total` width at each `x` value is preserved (the current 
+  default), or ensure that the width of a `single` element is preserved
+  (what many people want) (#1935).
+
 * `stat_bin` now accepts functions for `binwidth`. This allows better binning when faceting along variables with different ranges (@botanize).
 
 * Legends no longer try and use set aesthetics that are not length one
