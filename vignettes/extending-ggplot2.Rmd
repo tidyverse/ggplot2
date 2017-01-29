@@ -310,6 +310,13 @@ ggplot(mpg, aes(displ, drv, fill = ..density..)) +
 1.  Modify the final version of `StatDensityCommon` to allow the user to 
     specify the `min` and `max` parameters. You'll need to modify both the
     layer function and the `compute_group()` method.
+    
+    Note: be careful when adding parameters to a layer function. The following 
+    names *col*, *color*, *pch*, *cex*, *lty*, *lwd*, *srt*, *adj*, *bg*, *fg*, 
+    *min*, and *max* are intentionally renamed to accomodate base graphical 
+    parameter names. For example, a value passed as *min* to a layer appears as 
+    *ymin* in the `setup_params` list of params. It is recommended you avoid 
+    using these names for layer parameters.
 
 1.  Compare and contrast `StatLm` to `ggplot2::StatSmooth`. What key
     differences make `StatSmooth` more complex than `StatLm`?
