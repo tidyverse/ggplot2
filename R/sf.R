@@ -242,7 +242,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   aspect = function(self, coord_data) {
-    if (isTRUE(sf::st_is_longlat(self$crs))) {
+    if (isTRUE(sf::st_is_longlat(coord_data$crs))) {
       # Contributed by @edzer
       mid_y <- mean(coord_data$y_range)
       ratio <- cos(mid_y * pi / 180)
