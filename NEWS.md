@@ -20,6 +20,9 @@
 
 * Fix warning when using the `weight` aesthetic with `stat_bin()` (through 
   `geom_histogram()` in particular) (@jiho, #1921).
+  
+* `geom_smooth`'s message for `method="auto"` now reports the formula used,
+  in addition to the name of the smoothing function (@davharris #1951).
 
 ### Coordinate extensions
 
@@ -263,9 +266,6 @@ There were a number of tweaks to the theme elements that control legends:
 
 * `Scale` extensions can now override the `make_title` and `make_sec_title` 
   methods to let the scale modify the axis/legend titles.
-  
-* `geom_smooth`'s message for `method="auto"` now reports the formula used,
-  in addition to the name of the smoothing function (@davharris #1951).
 
 # ggplot2 2.1.0
 
