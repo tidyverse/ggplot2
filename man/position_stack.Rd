@@ -96,7 +96,7 @@ ggplot(series, aes(time, value)) +
 # Non-area plots ------------------------------------------------------------
 
 # When stacking across multiple layers it's a good idea to always set
-# the `group` aethetic in the ggplot() call. This ensures that all layers
+# the `group` aesthetic in the ggplot() call. This ensures that all layers
 # are stacked in the same way.
 ggplot(series, aes(time, value, group = type)) +
   geom_line(aes(colour = type), position = "stack") +
