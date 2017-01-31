@@ -79,11 +79,12 @@ use the CRS defined in the first layer.}
 \item{datum}{CRS that provides datum to use when generating graticules}
 }
 \description{
-This related set of geom, stat, and coord are used to visualise sf objects.
-This is an unusual geom because it will draw different geometric objects
-depending on what the simple features are: points, lines, or polygons.
-\code{coord_sf()} ensures that all layers use a common CRS - it is
-automatically added to the plot by \code{geom_sf()}.
+This set geom, stat, and coord are used to visualise simple feature (sf)
+objects. For simple plots, you will only need \code{geom_sf} as it
+uses \code{stat_sf} and adds \code{coord_sf} for you. \code{geom_sf} is
+an unusual geom because it will draw different geometric objects depending
+on what simple features are present in the data: you can get points, lines,
+or polygons.
 }
 \section{Geometry aesthetic}{
 
@@ -103,8 +104,15 @@ Unlike other aesthetics, \code{geometry} will never be inherited from
 the plot.
 }
 
+\section{CRS}{
+
+\code{coord_sf()} ensures that all layers use a common CRS. You can
+either specify it using the \code{CRS} param, or \code{coord_sf} will
+take it from the first layer that defines a CRS.
+}
+
 \examples{
-nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"))
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
 ggplot(nc) +
   geom_sf(aes(fill = AREA))
 
@@ -114,7 +122,7 @@ ggplot(nc) +
 nc_3857 <- sf::st_transform(nc, "+init=epsg:3857")
 ggplot() +
   geom_sf(data = nc) +
-  geom_sf(data = nc_3857, colour = "red")
+  geom_sf(data = nc_3857, colour = "red", fill = NA)
 
 # You can also use layers with x and y aesthetics: these are
 # assumed to already be in the common CRS.
