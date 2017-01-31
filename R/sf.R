@@ -86,7 +86,7 @@ GeomSf <- ggproto("GeomSf", Geom,
   required_aes = "geometry",
   default_aes = aes(
     colour = "grey35",
-    fill = NA,
+    fill = "grey90",
     size = 0.5,
     linetype = 1,
     alpha = NA
