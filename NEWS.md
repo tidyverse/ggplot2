@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* Automatic visual unit tests with vdiffr.
+
 * Layers no longer warn about unknown aesthetics who's value is set to 
   `NULL` (overriding a set aesthetic in the plot) (#1909).
 
