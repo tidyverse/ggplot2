@@ -327,7 +327,7 @@ sf_rescale01_x <- function(x, range) {
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                     crs = NULL, datum = sf::st_crs(4239)) {
+                     crs = NULL, datum = sf::st_crs(4326)) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
     datum = datum,
