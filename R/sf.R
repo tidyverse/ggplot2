@@ -208,10 +208,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     data
   },
 
-  train = function(self, scales, params = list()) {
+  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # Bounding box of the data
-    x_range <- scales$x$dimension(c(0.05, 0))
-    y_range <- scales$y$dimension(c(0.05, 0))
+    x_range <- scale_x$dimension(c(0.05, 0))
+    y_range <- scale_y$dimension(c(0.05, 0))
     bbox <- c(
       x_range[1], y_range[1],
       x_range[2], y_range[2]
@@ -221,8 +221,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     graticule <- sf::st_graticule(
       bbox,
       crs = params$crs,
-      lat = scales$y$breaks %|W|% NULL,
-      lon = scales$x$breaks %|W|% NULL,
+      lat = scale_y$breaks %|W|% NULL,
+      lon = scale_x$breaks %|W|% NULL,
       datum = self$datum
     )
 
