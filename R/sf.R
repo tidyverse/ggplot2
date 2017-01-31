@@ -99,12 +99,12 @@ GeomSf <- ggproto("GeomSf", Geom,
   ),
   draw_key = draw_key_polygon,
 
-  draw_panel = function(data, panel_scales, coord) {
+  draw_panel = function(data, panel_params, coord) {
     if (!inherits(coord, "CoordSf")) {
       stop("geom_sf() must be used with coord_sf()", call. = FALSE)
     }
 
-    coord <- coord$transform(data, panel_scales)
+    coord <- coord$transform(data, panel_params)
 
     gpars <- lapply(1:nrow(data), function(i) sf_gpar(coord[i, , drop = FALSE]))
     grobs <- Map(sf::st_as_grob, coord$geometry, gp = gpars)
@@ -197,18 +197,18 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     })
   },
 
-  transform = function(self, data, panel_scales) {
+  transform = function(self, data, panel_params) {
     data$geometry <- sf_rescale01(
       data$geometry,
-      panel_scales$x_range,
-      panel_scales$y_range
+      panel_params$x_range,
+      panel_params$y_range
     )
 
     # Assume x and y supplied directly already in common CRS
     data <- transform_position(
       data,
-      function(x) sf_rescale01_x(x, panel_scales$x_range),
-      function(x) sf_rescale01_x(x, panel_scales$y_range)
+      function(x) sf_rescale01_x(x, panel_params$x_range),
+      function(x) sf_rescale01_x(x, panel_params$y_range)
     )
 
     data
@@ -247,20 +247,20 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
   },
 
-  aspect = function(self, coord_data) {
-    if (isTRUE(sf::st_is_longlat(coord_data$crs))) {
+  aspect = function(self, panel_params) {
+    if (isTRUE(sf::st_is_longlat(panel_params$crs))) {
       # Contributed by @edzer
-      mid_y <- mean(coord_data$y_range)
+      mid_y <- mean(panel_params$y_range)
       ratio <- cos(mid_y * pi / 180)
     } else {
       # Assume already projected
       ratio <- 1
     }
 
-    diff(coord_data$y_range) / diff(coord_data$x_range) / ratio
+    diff(panel_params$y_range) / diff(panel_params$x_range) / ratio
   },
 
-  render_bg = function(self, coord_data, theme) {
+  render_bg = function(self, panel_params, theme) {
     line_gp <- gpar(
       col = theme$panel.grid.major$colour,
       lwd = theme$panel.grid.major$size,
@@ -268,13 +268,13 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
     grobs <- c(
       list(element_render(theme, "panel.background")),
-      lapply(sf::st_geometry(coord_data$graticule), sf::st_as_grob, gp = line_gp)
+      lapply(sf::st_geometry(panel_params$graticule), sf::st_as_grob, gp = line_gp)
     )
     ggname("grill", do.call("grobTree", grobs))
   },
 
-  render_axis_h = function(self, coord_data, theme) {
-    graticule <- coord_data$graticule
+  render_axis_h = function(self, panel_params, theme) {
+    graticule <- panel_params$graticule
     east <- graticule[graticule$type == "E", ]
 
     list(
@@ -288,8 +288,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
   },
 
-  render_axis_v = function(self, coord_data, theme) {
-    graticule <- coord_data$graticule
+  render_axis_v = function(self, panel_params, theme) {
+    graticule <- panel_params$graticule
     north <- graticule[graticule$type == "N", ]
 
     list(
