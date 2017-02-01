@@ -12,6 +12,10 @@ install:
 
 # Adapt as necessary starting from here
 
+environment:
+  global:
+    USE_RTOOLS: true
+
 build_script:
   - travis-tool.sh install_deps
 
