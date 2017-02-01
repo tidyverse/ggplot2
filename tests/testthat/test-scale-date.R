@@ -15,6 +15,12 @@ test_that("inherits timezone from data", {
   # Local time
   p <- ggplot(df, aes(y = y)) + geom_point(aes(time1))
   sc <- layer_scales(p)$x
+
+  cat("\n")
+  print(attributes(df$time1))
+  print(attributes(df$time2))
+  print(attributes(sc$timezone))
+  cat("\n")
   expect_true(identical(sc$timezone, NULL) || identical(sc$timezone, ""))
   expect_equal(sc$get_labels()[1], "00:00")
 
