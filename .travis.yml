@@ -1,11 +1,15 @@
 language: R
 cache: packages
 sudo: false
+dist: trusty
 
 addons:
   apt:
     packages:
       - libudunits2-dev
+      - libproj-dev
+      - libgeos-dev
+      - libgdal-dev
 
 r_github_packages:
   - hadley/staticdocs@old
