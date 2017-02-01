@@ -1,14 +1,14 @@
-#' Draw rectangles.
+#' Rectangles
 #'
 #' \code{geom_rect} and \code{geom_tile} do the same thing, but are
-#' parameterised differently. \code{geom_rect} uses the locations of the four
-#' corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}).
+#' parameterised differently: \code{geom_rect} uses the locations of the four
+#' corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
 #' \code{geom_tile} uses the center of the tile and its size (\code{x},
 #' \code{y}, \code{width}, \code{height}). \code{geom_raster} is a high
 #' performance special case for when all the tiles are the same size.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "tile")}
+#' \aesthetics{geom}{tile}
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point

@@ -1,7 +1,8 @@
-#' Blank, draws nothing.
+#' Draw nothing
 #'
 #' The blank geom draws nothing, but can be a useful way of ensuring common
-#' scales between different plots.
+#' scales between different plots. See \code{\link{expand_limits}} for
+#' more details.
 #'
 #' @export
 #' @inheritParams layer
@@ -22,7 +23,8 @@ geom_blank <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(...)
+    params = list(...),
+    check.aes = FALSE
   )
 }
 

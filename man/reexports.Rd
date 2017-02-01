@@ -2,11 +2,21 @@
 % Please edit documentation in R/utilities.r, R/utilities-grid.r
 \docType{import}
 \name{reexports}
+\alias{reexports}
 \alias{alpha}
-\alias{arrow}
 \alias{reexports}
 \alias{unit}
+\alias{reexports}
+\alias{arrow}
 \title{Objects exported from other packages}
+\examples{
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(alpha = 0.5, colour = "blue")
+
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point(colour = alpha("blue", 0.5))
+}
+\keyword{internal}
 \description{
 These objects are imported from other packages. Follow the links
 below to see their documentation.
@@ -16,12 +26,4 @@ below to see their documentation.
 
   \item{scales}{\code{\link[scales]{alpha}}}
 }}
-\examples{
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(alpha = 0.5, colour = "blue")
-
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point(colour = alpha("blue", 0.5))
-}
-\keyword{internal}
 

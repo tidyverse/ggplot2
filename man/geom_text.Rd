@@ -3,7 +3,7 @@
 \name{geom_label}
 \alias{geom_label}
 \alias{geom_text}
-\title{Textual annotations.}
+\title{Text}
 \usage{
 geom_label(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., parse = FALSE, nudge_x = 0, nudge_y = 0,
@@ -59,8 +59,8 @@ Useful for offsetting text from points, particularly on discrete scales.}
 
 \item{label.size}{Size of label border, in mm.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -76,7 +76,7 @@ same layer will not be plotted.}
 }
 \description{
 \code{geom_text} adds text directly to the plot. \code{geom_label} draws
-a rectangle underneath the text, making it easier to read.
+a rectangle behind the text, making it easier to read.
 }
 \details{
 Note the the "width" and "height" of a text element are 0, so stacking
@@ -88,7 +88,7 @@ resize a plot, labels stay the same size, but the size of the axes changes.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "text")}
+\aesthetics{geom}{text}
 }
 
 \section{\code{geom_label}}{
@@ -107,6 +107,7 @@ aesthetics. These can either be a number between 0 (right/bottom) and
 Inward always aligns text towards the center, and outward aligns
 it away from the center
 }
+
 \examples{
 p <- ggplot(mtcars, aes(wt, mpg, label = rownames(mtcars)))
 
@@ -158,25 +159,27 @@ df <- data.frame(
 
 # ggplot2 doesn't know you want to give the labels the same virtual width
 # as the bars:
-ggplot(data = df, aes(x, y, fill = grp, label = y)) +
-  geom_col(position = "dodge") +
-  geom_text(position = "dodge")
+ggplot(data = df, aes(x, y, group = grp)) +
+  geom_col(aes(fill = grp), position = "dodge") +
+  geom_text(aes(label = y), position = "dodge")
 # So tell it:
-ggplot(data = df, aes(x, y, fill = grp, label = y)) +
-  geom_col(position = "dodge") +
-  geom_text(position = position_dodge(0.9))
+ggplot(data = df, aes(x, y, group = grp)) +
+  geom_col(aes(fill = grp), position = "dodge") +
+  geom_text(aes(label = y), position = position_dodge(0.9))
 # Use you can't nudge and dodge text, so instead adjust the y postion
-ggplot(data = df, aes(x, y, fill = grp, label = y)) +
-  geom_col(position = "dodge") +
-  geom_text(aes(y = y + 0.05), position = position_dodge(0.9), vjust = 0)
+ggplot(data = df, aes(x, y, group = grp)) +
+  geom_col(aes(fill = grp), position = "dodge") +
+  geom_text(
+    aes(label = y, y = y + 0.05),
+    position = position_dodge(0.9),
+    vjust = 0
+  )
 
 # To place text in the middle of each bar in a stacked barplot, you
-# need to do the computation yourself
-df <- transform(df, mid_y = ave(df$y, df$x, FUN = function(val) cumsum(val) - (0.5 * val)))
-
-ggplot(data = df, aes(x, y, fill = grp, label = y)) +
- geom_col() +
- geom_text(aes(y = mid_y))
+# need to set the vjust parameter of position_stack()
+ggplot(data = df, aes(x, y, group = grp)) +
+ geom_col(aes(fill = grp)) +
+ geom_text(aes(label = y), position = position_stack(vjust = 0.5))
 
 # Justification -------------------------------------------------------------
 df <- data.frame(
@@ -190,4 +193,3 @@ ggplot(df, aes(x, y)) +
   geom_text(aes(label = text), vjust = "inward", hjust = "inward")
 }
 }
-

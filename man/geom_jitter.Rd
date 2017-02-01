@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom-jitter.r
 \name{geom_jitter}
 \alias{geom_jitter}
-\title{Points, jittered to reduce overplotting.}
+\title{Jittered points}
 \usage{
 geom_jitter(mapping = NULL, data = NULL, stat = "identity",
   position = "jitter", ..., width = NULL, height = NULL, na.rm = FALSE,
@@ -57,8 +57,8 @@ to the paired geom/stat.}
   is aligned on the integers, so a width or height of 0.5 will spread the
   data so it's not possible to see the distinction between the categories.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -70,14 +70,16 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-The jitter geom is a convenient default for geom_point with position =
-'jitter'. It's a useful way of handling overplotting caused by discreteness
-in smaller datasets.
+The jitter geom is a convenient shortcut for
+\code{geom_point(position = "jitter")}. It adds a small amount of random
+variation to the location of each point, and is a useful way of handling
+overplotting caused by discreteness in smaller datasets.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
+\aesthetics{geom}{point}
 }
+
 \examples{
 p <- ggplot(mpg, aes(cyl, hwy))
 p + geom_point()
@@ -99,4 +101,3 @@ ggplot(mpg, aes(cty, hwy)) + geom_jitter(width = 0.5, height = 0.5)
  \code{\link{geom_boxplot}} for another way of looking at the conditional
     distribution of a variable
 }
-

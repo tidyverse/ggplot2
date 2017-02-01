@@ -1,18 +1,15 @@
 Package: ggplot2
-Version: 2.1.0.9000
+Version: 2.2.1.9000
+Title: Create Elegant Data Visualisations Using the Grammar of Graphics
+Description: A system for 'declaratively' creating graphics,
+    based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
+    how to map variables to aesthetics, what graphical primitives to use,
+    and it takes care of the details.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Winston", "Chang", , "winston@rstudio.com", "aut"),
-    person("RStudio", role = "cph")
+    person("RStudio", role = c("cph"))
     )
-Title: An Implementation of the Grammar of Graphics
-Description: An implementation of the grammar of graphics in R. It combines the
-    advantages of both base and lattice graphics: conditioning and shared axes
-    are handled automatically, and you can still build up a plot step by step
-    from multiple data sources. It also implements a sophisticated
-    multidimensional conditioning system and a consistent interface to map
-    data to aesthetic attributes. See http://ggplot2.org for more information,
-    documentation and examples.
 Depends:
     R (>= 3.1)
 Imports:
@@ -22,9 +19,10 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.3.0),
+    scales (>= 0.4.1),
     stats,
-    tibble
+    tibble,
+    lazyeval
 Suggests:
     covr,
     ggplot2movies,
@@ -44,9 +42,9 @@ Suggests:
     rmarkdown,
     svglite
 Enhances: sp
-License: GPL-2
-URL: http://ggplot2.org, https://github.com/hadley/ggplot2
-BugReports: https://github.com/hadley/ggplot2/issues
+License: GPL-2 | file LICENSE
+URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
+BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
 Collate:
     'ggproto.r'
@@ -68,7 +66,9 @@ Collate:
     'geom-raster.r'
     'annotation-raster.r'
     'annotation.r'
+    'autolayer.r'
     'autoplot.r'
+    'axis-secondary.R'
     'bench.r'
     'bin.R'
     'coord-.r'
@@ -83,11 +83,7 @@ Collate:
     'data.R'
     'facet-.r'
     'facet-grid-.r'
-    'facet-labels.r'
-    'facet-layout.r'
-    'facet-locate.r'
     'facet-null.r'
-    'facet-viewports.r'
     'facet-wrap.r'
     'fortify-lm.r'
     'fortify-map.r'
@@ -143,11 +139,12 @@ Collate:
     'guides-axis.r'
     'guides-grid.r'
     'hexbin.R'
+    'labeller.r'
     'labels.r'
     'layer.r'
+    'layout.R'
     'limits.r'
     'margins.R'
-    'panel.r'
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'
@@ -155,7 +152,6 @@ Collate:
     'position-.r'
     'position-collide.r'
     'position-dodge.r'
-    'position-fill.r'
     'position-identity.r'
     'position-jitter.r'
     'position-jitterdodge.R'
@@ -205,9 +201,10 @@ Collate:
     'stat-unique.r'
     'stat-ydensity.r'
     'summary.r'
-    'theme-defaults.r'
     'theme-elements.r'
     'theme.r'
+    'theme-defaults.r'
+    'theme-current.R'
     'translate-qplot-ggplot.r'
     'translate-qplot-lattice.r'
     'utilities-break.r'
@@ -219,4 +216,4 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1
+RoxygenNote: 5.0.1.9000

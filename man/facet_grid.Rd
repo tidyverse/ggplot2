@@ -2,7 +2,7 @@
 % Please edit documentation in R/facet-grid-.r
 \name{facet_grid}
 \alias{facet_grid}
-\title{Lay out panels in a grid.}
+\title{Lay out panels in a grid}
 \usage{
 facet_grid(facets, margins = FALSE, scales = "fixed", space = "fixed",
   shrink = TRUE, labeller = "label_value", as.table = TRUE,
@@ -62,7 +62,9 @@ data will automatically be dropped. If \code{FALSE}, all factor levels
 will be shown, regardless of whether or not they appear in the data.}
 }
 \description{
-Lay out panels in a grid.
+\code{facet_grid} forms a matrix of panels defined by row and column
+facetting variables. It is most useful when you have two discrete
+variables, and all combinations of the variables exist in the data.
 }
 \examples{
 p <- ggplot(mpg, aes(displ, cty)) + geom_point()
@@ -142,4 +144,3 @@ mg + facet_grid(vs + am ~ gear, margins = "gear")
 mg + facet_grid(vs + am ~ gear, margins = c("gear", "am"))
 }
 }
-

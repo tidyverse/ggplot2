@@ -3,14 +3,13 @@ context("Facet Strips")
 strip_layout <- function(p) {
   data <- ggplot_build(p)
   plot <- data$plot
-  panel <- data$panel
+  layout <- data$layout
   data <- data$data
   theme <- plot_theme(plot)
 
-  geom_grobs <- Map(function(l, d) l$draw_geom(d, panel, plot$coordinates),
-    plot$layers, data)
+  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot$layers, data)
 
-  facet <- facet_render(plot$facet, panel, plot$coordinates, theme, geom_grobs)
+  facet <- layout$render(geom_grobs, data, theme, plot$labels)
   layout <- facet$layout
   strip_layout <- layout[grepl("^strip", layout$name), 1:4]
   as.list(strip_layout)
@@ -23,50 +22,62 @@ test_that("facet_wrap() builds correct output", {
   wrap <- p + facet_wrap(~cyl)
 
   wrap_expected <- list(
-    t = c(1, 1, 1),
-    l = c(2, 5, 8),
-    b = c(1, 1, 1),
-    r = c(2, 5, 8)
+    t = c(3, 3, 3),
+    l = c(3, 7, 11),
+    b = c(3, 3, 3),
+    r = c(3, 7, 11)
   )
 
   expect_equal(strip_layout(wrap), wrap_expected)
 })
 
-test_that("facet_wrap() switches to 'x'", {
-  wrap_x <- p + facet_wrap(~cyl, switch = "x")
+test_that("facet_wrap() switches to 'bottom'", {
+  wrap_b <- p + facet_wrap(~cyl, strip.position = "bottom")
 
-  wrap_x_expected <- list(
+  wrap_b_expected <- list(
+    t = c(4, 4, 4),
+    l = c(3, 7, 11),
+    b = c(4, 4, 4),
+    r = c(3, 7, 11)
+  )
+
+  expect_equal(strip_layout(wrap_b), wrap_b_expected)
+})
+
+test_that("facet_wrap() switches to 'left'", {
+  wrap_l <- p + facet_wrap(~cyl, strip.position = "left")
+
+  wrap_l_expected <- list(
     t = c(3, 3, 3),
-    l = c(2, 5, 8),
+    l = c(13, 8, 3),
     b = c(3, 3, 3),
-    r = c(2, 5, 8)
+    r = c(13, 8, 3)
   )
 
-  expect_equal(strip_layout(wrap_x), wrap_x_expected)
+  expect_equal(strip_layout(wrap_l), wrap_l_expected)
 })
 
-test_that("facet_wrap() switches to 'y'", {
-  wrap_y <- p + facet_wrap(~cyl, switch = "y")
+test_that("facet_wrap() switches to 'right'", {
+  wrap_r <- p + facet_wrap(~cyl, strip.position = "right")
 
-  wrap_y_expected <- list(
-    t = c(1, 1, 1),
-    l = c(1, 5, 9),
-    b = c(1, 1, 1),
-    r = c(1, 5, 9)
+  wrap_r_expected <- list(
+    t = c(3, 3, 3),
+    l = c(14, 9, 4),
+    b = c(3, 3, 3),
+    r = c(14, 9, 4)
   )
 
-  expect_equal(strip_layout(wrap_y), wrap_y_expected)
+  expect_equal(strip_layout(wrap_r), wrap_r_expected)
 })
-
 
 test_that("facet_grid() builds correct output", {
   grid <- p + facet_grid(~cyl)
 
   grid_expected <- list(
-    t = c(1, 1, 1),
-    l = c(2, 4, 6),
-    b = c(1, 1, 1),
-    r = c(2, 4, 6)
+    t = c(3, 3, 3),
+    l = c(3, 5, 7),
+    b = c(3, 3, 3),
+    r = c(3, 5, 7)
   )
 
   expect_equal(strip_layout(grid), grid_expected)
@@ -76,10 +87,10 @@ test_that("facet_grid() switches to 'x'", {
   grid_x <- p + facet_grid(am ~ cyl, switch = "x")
 
   grid_x_expected <- list(
-    t = c(1, 3, 5),
-    l = c(7, 7, 2),
-    b = c(1, 3, 6),
-    r = c(7, 7, 6)
+    t = c(6, 6, 6, 3, 5),
+    l = c(3, 5, 7, 8, 8),
+    b = c(6, 6, 6, 3, 5),
+    r = c(3, 5, 7, 8, 8)
   )
 
   expect_equal(strip_layout(grid_x), grid_x_expected)
@@ -89,10 +100,10 @@ test_that("facet_grid() switches to 'y'", {
   grid_y <- p + facet_grid(am ~ cyl, switch = "y")
 
   grid_y_expected <- list(
-    t = c(1, 1, 1, 2),
-    l = c(4, 6, 8, 1),
-    b = c(1, 1, 1, 4),
-    r = c(4, 6, 8, 2)
+    t = c(3, 3, 3, 4, 6),
+    l = c(4, 6, 8, 3, 3),
+    b = c(3, 3, 3, 4, 6),
+    r = c(4, 6, 8, 3, 3)
   )
 
   expect_equal(strip_layout(grid_y), grid_y_expected)
@@ -102,10 +113,10 @@ test_that("facet_grid() switches to both 'x' and 'y'", {
   grid_xy <- p + facet_grid(am ~ cyl, switch = "both")
 
   grid_xy_expected <- list(
-    t = c(1, 5),
-    l = c(1, 4),
-    b = c(3, 6),
-    r = c(2, 8)
+    t = c(6, 6, 6, 3, 5),
+    l = c(4, 6, 8, 3, 3),
+    b = c(6, 6, 6, 3, 5),
+    r = c(4, 6, 8, 3, 3)
   )
 
   expect_equal(strip_layout(grid_xy), grid_xy_expected)

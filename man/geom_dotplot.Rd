@@ -75,8 +75,8 @@ for dodging.}
 
 \item{drop}{If TRUE, remove all bins with zero counts}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -93,12 +93,12 @@ In a dot plot, the width of a dot corresponds to the bin width
 stacked, with each dot representing one observation.
 }
 \details{
+There are two basic approaches: \emph{dot-density} and \emph{histodot}.
 With dot-density binning, the bin positions are determined by the data and
 \code{binwidth}, which is the maximum width of each bin. See Wilkinson
-(1999) for details on the dot-density binning algorithm.
-
-With histodot binning, the bins have fixed positions and fixed widths, much
-like a histogram.
+(1999) for details on the dot-density binning algorithm. With histodot
+binning, the bins have fixed positions and fixed widths, much like a
+histogram.
 
 When binning along the x axis and stacking along the y axis, the numbers on
 y axis are not meaningful, due to technical limitations of ggplot2. You can
@@ -107,7 +107,7 @@ to match the number of dots.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "dotplot")}
+\aesthetics{geom}{dotplot}
 }
 
 \section{Computed variables}{
@@ -124,6 +124,7 @@ to match the number of dots.
   \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
 }
 }
+
 \examples{
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot()
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5)
@@ -181,4 +182,3 @@ ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
 Wilkinson, L. (1999) Dot plots. The American Statistician,
    53(3), 276-281.
 }
-

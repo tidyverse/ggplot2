@@ -2,7 +2,7 @@
 % Please edit documentation in R/annotation-raster.r
 \name{annotation_raster}
 \alias{annotation_raster}
-\title{Annotation: High-performance rectangular tiling.}
+\title{Annotation: high-performance rectangular tiling}
 \usage{
 annotation_raster(raster, xmin, xmax, ymin, ymax, interpolate = FALSE)
 }
@@ -22,10 +22,8 @@ location of raster}
 This is a special version of \code{\link{geom_raster}} optimised for static
 annotations that are the same in every panel. These annotations will not
 affect scales (i.e. the x and y axes will not grow to cover the range
-of the raster, and the raster must already have its own colours).
-}
-\details{
-Most useful for adding bitmap images.
+of the raster, and the raster must already have its own colours). This
+is useful for adding bitmap images.
 }
 \examples{
 # Generate data
@@ -47,4 +45,3 @@ ggplot(mtcars, aes(mpg, wt)) +
   annotation_raster(rainbow2, -Inf, Inf, -Inf, Inf, interpolate = TRUE) +
   geom_point()
 }
-

@@ -2,11 +2,10 @@ context("Facet Labels")
 
 get_labels_matrix <- function(plot, ...) {
   data <- ggplot_build(plot)
-  facet <- data$plot$facet
-  panel <- data$panel
+  layout <- data$layout
 
-  labels <- get_labels_info(facet, panel, ...)
-  labeller <- match.fun(facet$labeller)
+  labels <- get_labels_info(layout$facet, layout, ...)
+  labeller <- match.fun(layout$facet$params$labeller)
 
   # Create matrix of labels
   matrix <- lapply(labeller(labels), cbind)
@@ -18,30 +17,29 @@ get_labels_info <- function(facet, panel, ...) {
   UseMethod("get_labels_info")
 }
 
-get_labels_info.grid <- function(facet, panel, type) {
+get_labels_info.FacetGrid <- function(facet, layout, type) {
   if (type == "rows") {
-    labels <- unique(panel$layout[names(facet$rows)])
+    labels <- unique(layout$layout[names(facet$params$rows)])
     attr(labels, "type") <- "rows"
     attr(labels, "facet") <- "grid"
   } else {
-    labels <- unique(panel$layout[names(facet$cols)])
+    labels <- unique(layout$layout[names(facet$params$cols)])
     attr(labels, "type") <- "cols"
     attr(labels, "facet") <- "grid"
   }
   labels
 }
 
-get_labels_info.wrap <- function(facet, panel) {
-  labels <- panel$layout[names(facet$facets)]
+get_labels_info.FacetWrap <- function(facet, layout) {
+  labels <- layout$layout[names(facet$params$facets)]
   attr(labels, "facet") <- "wrap"
-  if (!is.null(facet$switch) && facet$switch == "x") {
+  if (!is.null(facet$params$switch) && facet$params$switch == "x") {
     attr(labels, "type") <- "rows"
   } else {
     attr(labels, "type") <- "cols"
   }
   labels
 }
-
 
 test_that("labellers handle facet labels properly", {
   labels <- list(var1 = letters[1:2], var2 = letters[3:4])

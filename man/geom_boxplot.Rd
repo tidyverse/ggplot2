@@ -3,13 +3,14 @@
 \name{geom_boxplot}
 \alias{geom_boxplot}
 \alias{stat_boxplot}
-\title{Box and whiskers plot.}
+\title{A box and whiskers plot (in the style of Tukey)}
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   position = "dodge", ..., outlier.colour = NULL, outlier.color = NULL,
-  outlier.shape = 19, outlier.size = 1.5, outlier.stroke = 0.5,
-  notch = FALSE, notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  outlier.fill = NULL, outlier.shape = 19, outlier.size = 1.5,
+  outlier.stroke = 0.5, outlier.alpha = NULL, notch = FALSE,
+  notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", ..., coef = 1.5, na.rm = FALSE, show.legend = NA,
@@ -43,7 +44,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{outlier.colour, outlier.color, outlier.shape, outlier.size, outlier.stroke}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+\item{outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
   aesthetics used for the box.
 
   In the unlikely event you specify both US and UK spellings of colour, the
@@ -62,8 +63,8 @@ the body (default 0.5)}
 square-roots of the number of observations in the groups (possibly
 weighted, using the \code{weight} aesthetic).}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -80,26 +81,33 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{coef}{length of the whiskers as multiple of IQR.  Defaults to 1.5}
 }
 \description{
-The lower and upper "hinges" correspond to the first and third quartiles
+The boxplot compactly displays the distribution of a continuous variable.
+It visualises five summary statistics (the median, two hinges
+and two whiskers), and all "outlying" points individually.
+}
+\section{Summary statistics}{
+
+The lower and upper hinges correspond to the first and third quartiles
 (the 25th and 75th percentiles). This differs slightly from the method used
 by the \code{boxplot} function, and may be apparent with small samples.
 See \code{\link{boxplot.stats}} for for more information on how hinge
 positions are calculated for \code{boxplot}.
-}
-\details{
-The upper whisker extends from the hinge to the highest value that is within
-1.5 * IQR of the hinge, where IQR is the inter-quartile range, or distance
-between the first and third quartiles. The lower whisker extends from the
-hinge to the lowest value within 1.5 * IQR of the hinge. Data beyond the
-end of the whiskers are outliers and plotted as points (as specified by Tukey).
+
+The upper whisker extends from the hinge to the largest value no further than
+1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
+between the first and third quartiles). The lower whisker extends from the
+hinge to the smallest value at most 1.5 * IQR of the hinge. Data beyond the
+end of the whiskers are called "outlying" points and are plotted
+individually.
 
 In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
 This gives a roughly 95\% confidence interval for comparing medians.
 See McGill et al. (1978) for more details.
 }
+
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "boxplot")}
+\aesthetics{geom}{boxplot}
 }
 
 \section{Computed variables}{
@@ -115,6 +123,7 @@ See McGill et al. (1978) for more details.
   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 }
 }
+
 \examples{
 p <- ggplot(mpg, aes(class, hwy))
 p + geom_boxplot()
@@ -137,6 +146,8 @@ ggplot(diamonds, aes(carat, price)) +
   geom_boxplot()
 ggplot(diamonds, aes(carat, price)) +
   geom_boxplot(aes(group = cut_width(carat, 0.25)))
+ggplot(diamonds, aes(carat, price)) +
+  geom_boxplot(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 
 \donttest{
 # It's possible to draw a boxplot with your own computations if you
@@ -162,8 +173,7 @@ McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
     box plots. The American Statistician 32, 12-16.
 }
 \seealso{
-\code{\link{stat_quantile}} to view quantiles conditioned on a
-  continuous variable, \code{\link{geom_jitter}} for another way to look
-  at conditional distributions.
+\code{\link{geom_quantile}} for continuous x,
+  \code{\link{geom_violin}} for a richer display of the distribution, and
+  \code{\link{geom_jitter}} for a useful technique for small data.
 }
-

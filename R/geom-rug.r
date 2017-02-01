@@ -1,7 +1,15 @@
-#' Marginal rug plots.
+#' Rug plots in the margins
+#'
+#' A rug plot is a compact visualisation designed to supplement a 2d display
+#' with the two 1d marginal distributions. Rug plots display individual
+#' cases so are best used with smaller datasets.
+#'
+#' The rug lines are drawn with a fixed size (3% of the total plot size) so
+#' are dependent on the overall scale expansion in order not to overplot
+#' existing data.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "rug")}
+#' \aesthetics{geom}{rug}
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point
@@ -10,12 +18,21 @@
 #'   bottom, and left.
 #' @export
 #' @examples
-#' p <- ggplot(mtcars, aes(wt, mpg))
-#' p + geom_point()
-#' p + geom_point() + geom_rug()
-#' p + geom_point() + geom_rug(sides="b")    # Rug on bottom only
-#' p + geom_point() + geom_rug(sides="trbl") # All four sides
-#' p + geom_point() + geom_rug(position='jitter')
+#' p <- ggplot(mtcars, aes(wt, mpg)) +
+#'   geom_point()
+#' p
+#' p + geom_rug()
+#' p + geom_rug(sides="b")    # Rug on bottom only
+#' p + geom_rug(sides="trbl") # All four sides
+#'
+#' # Use jittering to avoid overplotting for smaller datasets
+#' ggplot(mpg, aes(displ, cty)) +
+#'   geom_point() +
+#'   geom_rug()
+#'
+#' ggplot(mpg, aes(displ, cty)) +
+#'   geom_jitter() +
+#'   geom_rug(alpha = 1/2, position = "jitter")
 geom_rug <- function(mapping = NULL, data = NULL,
                      stat = "identity", position = "identity",
                      ...,
@@ -45,9 +62,11 @@ geom_rug <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRug <- ggproto("GeomRug", Geom,
-  draw_panel = function(data, panel_scales, coord, sides = "bl") {
+  optional_aes = c("x", "y"),
+
+  draw_panel = function(data, panel_params, coord, sides = "bl") {
     rugs <- list()
-    data <- coord$transform(data, panel_scales)
+    data <- coord$transform(data, panel_params)
 
     gp <- gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
     if (!is.null(data$x)) {

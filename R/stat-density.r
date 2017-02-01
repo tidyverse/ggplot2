@@ -1,9 +1,14 @@
-#' @param bw the smoothing bandwidth to be used, see
-#'   \code{\link{density}} for details
-#' @param adjust adjustment of the bandwidth, see
-#'   \code{\link{density}} for details
-#' @param kernel kernel used for density estimation, see
-#'   \code{\link{density}} for details
+#' @param bw The smoothing bandwidth to be used.
+#'   If numeric, the standard deviation of the smoothing kernel.
+#'   If character, a rule to choose the bandwidth, as listed in
+#'   \code{\link[stats]{bw.nrd}}.
+#' @param adjust A multiplicate bandwidth adjustment. This makes it possible
+#'    to adjust the bandwidth while still using the a bandwidth estimator.
+#'    For exampe, \code{adjust = 1/2} means use half of the default bandwidth.
+#' @param kernel Kernel. See list of available kernels in \code{\link{density}}.
+#' @param n number of equally spaced points at which the density is to be
+#'   estimated, should be a power of two, see \code{\link{density}} for
+#'   details
 #' @param trim This parameter only matters if you are displaying multiple
 #'   densities in one plot. If \code{FALSE}, the default, each density is
 #'   computed on the full range of the data. If \code{TRUE}, each density
@@ -25,6 +30,7 @@ stat_density <- function(mapping = NULL, data = NULL,
                          bw = "nrd0",
                          adjust = 1,
                          kernel = "gaussian",
+                         n = 512,
                          trim = FALSE,
                          na.rm = FALSE,
                          show.legend = NA,
@@ -42,6 +48,7 @@ stat_density <- function(mapping = NULL, data = NULL,
       bw = bw,
       adjust = adjust,
       kernel = kernel,
+      n = n,
       trim = trim,
       na.rm = na.rm,
       ...
@@ -58,7 +65,7 @@ StatDensity <- ggproto("StatDensity", Stat,
   default_aes = aes(y = ..density.., fill = NA),
 
   compute_group = function(data, scales, bw = "nrd0", adjust = 1, kernel = "gaussian",
-                           trim = FALSE, na.rm = FALSE) {
+                           n = 512, trim = FALSE, na.rm = FALSE) {
     if (trim) {
       range <- range(data$x, na.rm = TRUE)
     } else {
@@ -66,37 +73,37 @@ StatDensity <- ggproto("StatDensity", Stat,
     }
 
     compute_density(data$x, data$weight, from = range[1], to = range[2],
-      bw = bw, adjust = adjust, kernel = kernel)
+      bw = bw, adjust = adjust, kernel = kernel, n = n)
   }
 
 )
 
 compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
-                            kernel = "gaussian") {
-  n <- length(x)
+                            kernel = "gaussian", n = 512) {
+  nx <- length(x)
   if (is.null(w)) {
-    w <- rep(1 / n, n)
+    w <- rep(1 / nx, nx)
   }
 
   # if less than 3 points, spread density evenly over points
-  if (n < 3) {
+  if (nx < 3) {
     return(data.frame(
       x = x,
       density = w / sum(w),
       scaled = w / max(w),
       count = 1,
-      n = n
+      n = nx
     ))
   }
 
   dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
-    kernel = kernel, from = from, to = to)
+    kernel = kernel, n = n, from = from, to = to)
 
   data.frame(
     x = dens$x,
     density = dens$y,
     scaled =  dens$y / max(dens$y, na.rm = TRUE),
-    count =   dens$y * n,
-    n = n
+    count =   dens$y * nx,
+    n = nx
   )
 }

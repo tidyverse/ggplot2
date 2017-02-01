@@ -1,4 +1,8 @@
-#' Jitter points to avoid overplotting.
+#' Jitter points to avoid overplotting
+#'
+#' Couterintuitively adding random noise to a plot can sometimes make it
+#' easier to read. Jittering is particularly useful for small datasets with
+#' at least one discrete position.
 #'
 #' @family position adjustments
 #' @param width,height Amount of vertical and horizontal jitter. The jitter
@@ -11,23 +15,22 @@
 #'   data so it's not possible to see the distinction between the categories.
 #' @export
 #' @examples
-#' ggplot(mtcars, aes(am, vs)) + geom_point()
+#' # Jittering is useful when you have a discrete position, and a relatively
+#' # small number of points
+#' # take up as much space as a boxplot or a bar
+#' ggplot(mpg, aes(class, hwy)) +
+#'   geom_boxplot(colour = "grey50") +
+#'   geom_jitter()
 #'
-#' # Default amount of jittering will generally be too much for
-#' # small datasets:
-#' ggplot(mtcars, aes(am, vs)) + geom_jitter()
+#' # If the default jittering is too much, as in this plot:
+#' ggplot(mtcars, aes(am, vs)) +
+#'   geom_jitter()
 #'
-#' # Two ways to override
+#' # You can adjust it in two ways
 #' ggplot(mtcars, aes(am, vs)) +
 #'   geom_jitter(width = 0.1, height = 0.1)
 #' ggplot(mtcars, aes(am, vs)) +
 #'   geom_jitter(position = position_jitter(width = 0.1, height = 0.1))
-#'
-#' # The default works better for large datasets, where it will
-#' # take up as much space as a boxplot or a bar
-#' ggplot(mpg, aes(class, hwy)) +
-#'   geom_jitter() +
-#'   geom_boxplot(colour = "grey50")
 position_jitter <- function(width = NULL, height = NULL) {
   ggproto(NULL, PositionJitter,
     width = width,
@@ -44,8 +47,8 @@ PositionJitter <- ggproto("PositionJitter", Position,
 
   setup_params = function(self, data) {
     list(
-      width = self$width %||% resolution(data$x, zero = FALSE) * 0.4,
-      height = self$height %||% resolution(data$y, zero = FALSE) * 0.4
+      width = self$width %||% (resolution(data$x, zero = FALSE) * 0.4),
+      height = self$height %||% (resolution(data$y, zero = FALSE) * 0.4)
     )
   },
 

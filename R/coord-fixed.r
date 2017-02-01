@@ -1,4 +1,4 @@
-#' Cartesian coordinates with fixed relationship between x and y scales.
+#' Cartesian coordinates with fixed "aspect ratio"
 #'
 #' A fixed scale coordinate system forces a specified ratio between the
 #' physical representation of data units on the axes. The ratio represents the

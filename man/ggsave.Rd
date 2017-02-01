@@ -13,28 +13,24 @@ ggsave(filename, plot = last_plot(), device = NULL, path = NULL,
 
 \item{plot}{Plot to save, defaults to last plot displayed.}
 
-\item{device}{Device to use (function or any of the recognized extensions,
-e.g. \code{"pdf"}). By default, extracted from filename extension.
-\code{ggsave} currently recognises eps/ps, tex (pictex), pdf, jpeg, tiff,
-png, bmp, svg and wmf (windows only).}
+\item{device}{Device to use. Can be either be a device function
+(e.g. \code{\link{png}}), or one of "eps", "ps", "tex" (pictex),
+"pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
 
 \item{path}{Path to save plot to (combined with filename).}
 
 \item{scale}{Multiplicative scaling factor.}
 
-\item{width, height}{Plot dimensions, defaults to size of current graphics
-device.}
+\item{width, height, units}{Plot size in \code{units} ("in", "cm", or "mm").
+If not supplied, uses the size of current graphics device.}
 
-\item{units}{Units for width and height when specified explicitly (in, cm,
-or mm)}
-
-\item{dpi}{Resolution used for raster outputs.}
+\item{dpi}{Plot resolution. Applies only to raster output types.}
 
 \item{limitsize}{When \code{TRUE} (the default), \code{ggsave} will not
 save images larger than 50x50 inches, to prevent the common error of
 specifying dimensions in pixels.}
 
-\item{...}{Other arguments passed on to graphics device}
+\item{...}{Other arguments passed on to graphics \code{device}.}
 }
 \description{
 \code{ggsave()} is a convenient function for saving a plot. It defaults to
@@ -62,4 +58,3 @@ ggsave(file, device = "pdf")
 unlink(file)
 }
 }
-

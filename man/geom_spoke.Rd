@@ -3,7 +3,7 @@
 \name{geom_spoke}
 \alias{geom_spoke}
 \alias{stat_spoke}
-\title{A line segment parameterised by location, direction and distance.}
+\title{Line segments parameterised by location, direction and distance}
 \usage{
 geom_spoke(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
@@ -40,8 +40,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -53,12 +53,14 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-A line segment parameterised by location, direction and distance.
+This is a polar parameterisation of \code{\link{geom_segment}}. It is
+useful when you have variables that describe direction and distance.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "spoke")}
+\aesthetics{geom}{spoke}
 }
+
 \examples{
 df <- expand.grid(x = 1:10, y=1:10)
 df$angle <- runif(100, 0, 2*pi)
@@ -72,4 +74,3 @@ ggplot(df, aes(x, y)) +
   geom_point() +
   geom_spoke(aes(angle = angle, radius = speed))
 }
-

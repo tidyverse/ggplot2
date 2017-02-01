@@ -17,7 +17,4 @@ informative error messages.}
 \description{
 Modify properties of an element in a theme object
 }
-\seealso{
-+.gg
-}
-
+\keyword{internal}

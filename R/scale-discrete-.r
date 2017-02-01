@@ -1,4 +1,4 @@
-#' Discrete position.
+#' Position scales for discrete data
 #'
 #' You can use continuous positions even with a discrete position scale -
 #' this allows you (e.g.) to place labels between bars in a bar chart.
@@ -12,7 +12,10 @@
 #' @param expand a numeric vector of length two giving multiplicative and
 #'   additive expansion constants. These constants ensure that the data is
 #'   placed some distance away from the axes.
+#' @param position The position of the axis. \code{left} or \code{right} for y
+#' axes, \code{top} or \code{bottom} for x axes
 #' @rdname scale_discrete
+#' @family position scales
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(cut)) + geom_bar()
@@ -46,28 +49,18 @@
 #'   geom_point() +
 #'   scale_x_discrete(labels = abbreviate)
 #' }
-scale_x_discrete <- function(..., expand = waiver()) {
+scale_x_discrete <- function(..., expand = waiver(), position = "bottom") {
   sc <- discrete_scale(c("x", "xmin", "xmax", "xend"), "position_d", identity, ...,
-    expand = expand, guide = "none")
-
-  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-  # object should in the first place be created with the correct parent.
-  sc$super <- ScaleDiscretePosition
-  class(sc) <- class(ScaleDiscretePosition)
+    expand = expand, guide = "none", position = position, super = ScaleDiscretePosition)
 
   sc$range_c <- continuous_range()
   sc
 }
 #' @rdname scale_discrete
 #' @export
-scale_y_discrete <- function(..., expand = waiver()) {
+scale_y_discrete <- function(..., expand = waiver(), position = "left") {
   sc <- discrete_scale(c("y", "ymin", "ymax", "yend"), "position_d", identity, ...,
-    expand = expand, guide = "none")
-
-  # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-  # object should in the first place be created with the correct parent.
-  sc$super <- ScaleDiscretePosition
-  class(sc) <- class(ScaleDiscretePosition)
+    expand = expand, guide = "none", position = position, super = ScaleDiscretePosition)
 
   sc$range_c <- continuous_range()
   sc
@@ -83,10 +76,9 @@ scale_y_discrete <- function(..., expand = waiver()) {
 #' @usage NULL
 #' @export
 ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
-
   train = function(self, x) {
     if (is.discrete(x)) {
-      self$range$train(x, drop = self$drop)
+      self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
     } else {
       self$range_c$train(x)
     }
@@ -94,6 +86,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   get_limits = function(self) {
     if (self$is_empty()) return(c(0, 1))
+
     self$limits %||% self$range$range %||% integer()
   },
 
@@ -116,20 +109,24 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
 
   dimension = function(self, expand = c(0, 0)) {
     c_range <- self$range_c$range
-    d_range <- self$range$range
+    d_range <- self$get_limits()
 
     if (self$is_empty()) {
       c(0, 1)
-    } else if (is.null(d_range)) { # only continuous
-      expand_range(c_range, expand[1], 0 , 1)
+    } else if (is.null(self$range$range)) { # only continuous
+      expand_range(c_range, expand[1], expand[2] , 1)
     } else if (is.null(c_range)) { # only discrete
-      expand_range(c(1, length(d_range)), 0, expand[2], 1)
+      expand_range(c(1, length(d_range)), expand[1], expand[2], 1)
     } else { # both
       range(
         expand_range(c_range, expand[1], 0 , 1),
         expand_range(c(1, length(d_range)), 0, expand[2], 1)
       )
     }
+  },
+
+  get_breaks = function(self, limits = self$get_limits()) {
+    ggproto_parent(ScaleDiscrete, self)$get_breaks(limits)
   },
 
   clone = function(self) {

@@ -1,7 +1,10 @@
-#' A line segment parameterised by location, direction and distance.
+#' Line segments parameterised by location, direction and distance
+#'
+#' This is a polar parameterisation of \code{\link{geom_segment}}. It is
+#' useful when you have variables that describe direction and distance.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "spoke")}
+#' \aesthetics{geom}{spoke}
 #'
 #' @inheritParams layer
 #' @inheritParams geom_segment

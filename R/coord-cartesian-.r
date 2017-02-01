@@ -1,4 +1,4 @@
-#' Cartesian coordinates.
+#' Cartesian coordinates
 #'
 #' The Cartesian coordinate system is the most familiar, and common, type of
 #' coordinate system. Setting limits on the coordinate system will zoom the
@@ -62,42 +62,43 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   is_linear = function() TRUE,
 
-  distance = function(x, y, scale_details) {
-    max_dist <- dist_euclidean(scale_details$x.range, scale_details$y.range)
+  distance = function(x, y, panel_params) {
+    max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)
     dist_euclidean(x, y) / max_dist
   },
 
-  transform = function(data, scale_details) {
-    rescale_x <- function(data) rescale(data, from = scale_details$x.range)
-    rescale_y <- function(data) rescale(data, from = scale_details$y.range)
+  transform = function(data, panel_params) {
+    rescale_x <- function(data) rescale(data, from = panel_params$x.range)
+    rescale_y <- function(data) rescale(data, from = panel_params$y.range)
 
     data <- transform_position(data, rescale_x, rescale_y)
     transform_position(data, squish_infinite, squish_infinite)
   },
 
-  train = function(self, scale_details) {
-    train_cartesian <- function(scale_details, limits, name) {
+  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+    train_cartesian <- function(scale, limits, name) {
       if (self$expand) {
-        expand <- expand_default(scale_details)
+        expand <- expand_default(scale)
       } else {
         expand <- c(0, 0)
       }
 
       if (is.null(limits)) {
-        range <- scale_details$dimension(expand)
+        range <- scale$dimension(expand)
       } else {
-        range <- range(scale_details$transform(limits))
+        range <- range(scale$transform(limits))
         range <- expand_range(range, expand[1], expand[2])
       }
 
-      out <- scale_details$break_info(range)
+      out <- scale$break_info(range)
+      out$arrange <- scale$axis_order()
       names(out) <- paste(name, names(out), sep = ".")
       out
     }
 
     c(
-      train_cartesian(scale_details$x, self$limits$x, "x"),
-      train_cartesian(scale_details$y, self$limits$y, "y")
+      train_cartesian(scale_x, self$limits$x, "x"),
+      train_cartesian(scale_y, self$limits$y, "y")
     )
   }
 )

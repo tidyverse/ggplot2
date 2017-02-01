@@ -1,21 +1,14 @@
-#' Define margins.
-#'
-#' This is a convenient function that creates a grid unit object of the
-#' correct length to use for setting margins.
-#'
-#' @export
 #' @param t,r,b,l Dimensions of each margin. (To remember order, think trouble).
 #' @param unit Default units of dimensions. Defaults to "pt" so it
 #'   can be most easily scaled with the text.
+#' @rdname element
 #' @export
-#' @examples
-#' margin(4)
-#' margin(4, 2)
-#' margin(4, 3, 2, 1)
 margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
   structure(unit(c(t, r, b, l), unit), class = c("margin", "unit"))
 }
-
+is.margin <- function(x) {
+  inherits(x, "margin")
+}
 
 margin_height <- function(grob, margins) {
   if (is.zero(grob)) return(unit(0, "cm"))

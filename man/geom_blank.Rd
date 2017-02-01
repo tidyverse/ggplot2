@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom-blank.r
 \name{geom_blank}
 \alias{geom_blank}
-\title{Blank, draws nothing.}
+\title{Draw nothing}
 \usage{
 geom_blank(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., show.legend = NA, inherit.aes = TRUE)
@@ -49,10 +49,10 @@ the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
 The blank geom draws nothing, but can be a useful way of ensuring common
-scales between different plots.
+scales between different plots. See \code{\link{expand_limits}} for
+more details.
 }
 \examples{
 ggplot(mtcars, aes(wt, mpg))
 # Nothing to see here!
 }
-

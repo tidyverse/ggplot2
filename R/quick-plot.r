@@ -1,9 +1,11 @@
 #' Quick plot
 #'
-#' \code{qplot} is the basic plotting function in the ggplot2 package,
-#' designed to be familiar if you're used to base \code{\link{plot}()}.
-#' It's a convenient wrapper for creating a number of different types of plots
-#' using a consistent calling scheme.
+#' \code{qplot} is a shortcut designed to be familiar if you're used to base
+#' \code{\link{plot}()}. It's a convenient wrapper for creating a number of
+#' different types of plots using a consistent calling scheme. It's great
+#' for allowing you to produce plots quickly, but I highly recommend
+#' learning \code{\link{ggplot}()} as it makes it easier to create
+#' complex graphics.
 #'
 #' @param x,y,... Aesthetics passed into each layer
 #' @param data Data frame to use (optional).  If not specified, will create

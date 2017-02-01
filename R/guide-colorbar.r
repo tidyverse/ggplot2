@@ -1,4 +1,4 @@
-#' Continuous colour bar guide.
+#' Continuous colour bar guide
 #'
 #' Colour bar guide shows continuous color scales mapped onto values.
 #' Colour bar is available with \code{scale_fill} and \code{scale_colour}.
@@ -211,7 +211,22 @@ guide_merge.colorbar <- function(guide, new_guide) {
 
 # this guide is not geom-based.
 #' @export
-guide_geom.colorbar <- function(guide, ...) {
+guide_geom.colorbar <- function(guide, layers, default_mapping) {
+  # Layers that use this guide
+  guide_layers <- plyr::llply(layers, function(layer) {
+    matched <- matched_aes(layer, guide, default_mapping)
+
+    if (length(matched) && ((is.na(layer$show.legend) || layer$show.legend))) {
+      layer
+    } else {
+      # This layer does not use this guide
+      NULL
+    }
+  })
+
+  # Remove this guide if no layer uses it
+  if (length(compact(guide_layers)) == 0) guide <- NULL
+
   guide
 }
 
@@ -412,9 +427,9 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.background <- element_render(theme, "legend.background")
 
   # padding
-  padding <- unit(1.5, "mm")
-  widths <- c(padding, widths, padding)
-  heights <- c(padding, heights, padding)
+  padding <- convertUnit(theme$legend.margin %||% margin(), "mm")
+  widths <- c(padding[4], widths, padding[2])
+  heights <- c(padding[1], heights, padding[3])
 
   gt <- gtable(widths = unit(widths, "mm"), heights = unit(heights, "mm"))
   gt <- gtable_add_grob(gt, grob.background, name = "background", clip = "off",

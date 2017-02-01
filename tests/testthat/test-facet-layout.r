@@ -5,21 +5,22 @@ b <- data.frame(a = 3)
 c <- data.frame(b = 3)
 empty <- data.frame()
 
-test_that("all: no rows and cols gives null layout", {
-  expect_equal(layout_grid(list(a)), layout_null())
-  expect_equal(layout_wrap(list(a)), layout_null())
-})
+panel_layout <- function(facet, data) {
+  layout <- create_layout(facet)
+  layout$setup(data)
+  layout$layout
+}
 
 test_that("grid: single row and single col equivalent", {
-  row <- layout_grid(list(a), rows = "a")
-  col <- layout_grid(list(a), cols = "a")
+  row <- panel_layout(facet_grid(a~.), list(a))
+  col <- panel_layout(facet_grid(.~a), list(a))
 
   expect_equal(row$ROW, 1:2)
   expect_equal(row$ROW, col$COL)
   expect_equal(row[c("PANEL", "a")], col[c("PANEL", "a")])
 
-  row <- layout_grid(list(a, b), rows = "a")
-  col <- layout_grid(list(a, b), cols = "a")
+  row <- panel_layout(facet_grid(a~.), list(a, b))
+  col <- panel_layout(facet_grid(.~a), list(a, b))
 
   expect_equal(row$ROW, 1:3)
   expect_equal(row$ROW, col$COL)
@@ -28,62 +29,64 @@ test_that("grid: single row and single col equivalent", {
 
 test_that("grid: includes all combinations", {
   d <- data.frame(a = c(1, 2), b = c(2, 1))
-  all <- layout_grid(list(d), rows = "a", cols = "b")
+  all <- panel_layout(facet_grid(a~b), list(d))
 
   expect_equal(nrow(all), 4)
 })
 
 test_that("wrap and grid equivalent for 1d data", {
-  rowg <- layout_grid(list(a), rows = "a")
-  roww <- layout_wrap(list(a), "a", ncol = 1)
+  rowg <- panel_layout(facet_grid(a~.), list(a))
+  roww <- panel_layout(facet_wrap(~a, ncol = 1), list(a))
   expect_equal(roww, rowg)
 
-  colg <- layout_grid(list(a), cols = "a")
-  colw <- layout_wrap(list(a), "a", nrow = 1)
+  colg <- panel_layout(facet_grid(.~a), list(a))
+  colw <- panel_layout(facet_wrap(~a, nrow = 1), list(a))
   expect_equal(colw, colg)
 })
 
 test_that("grid: crossed rows/cols create no more combinations than necessary", {
-  one <- layout_grid(list(a), "a", "b")
+  facet <- facet_grid(a~b)
+
+  one <- panel_layout(facet, list(a))
   expect_equal(nrow(one), 4)
 
-  one_a <- layout_grid(list(a, empty), "a", "b")
+  one_a <- panel_layout(facet, list(a, empty))
   expect_equal(nrow(one_a), 4)
 
-  two <- layout_grid(list(a, b), "a", "b")
+  two <- panel_layout(facet, list(a, b))
   expect_equal(nrow(two), 4 + 2)
 
-  three <- layout_grid(list(a, b, c), "a", "b")
+  three <- panel_layout(facet, list(a, b, c))
   expect_equal(nrow(three), 9)
 
-  four <- layout_grid(list(b, c), "a", "b")
+  four <- panel_layout(facet, list(b, c))
   expect_equal(nrow(four), 1)
 })
 
 test_that("grid: nested rows/cols create no more combinations than necessary", {
-  one <- layout_grid(list(mpg), c("drv", "cyl"))
+  one <- panel_layout(facet_grid(drv+cyl~.), list(mpg))
   expect_equal(one$PANEL, factor(1:9))
   expect_equal(one$ROW, 1:9)
 })
 
 test_that("grid: margins add correct combinations", {
-  one <- layout_grid(list(a), "a", "b", margins = TRUE)
+  one <- panel_layout(facet_grid(a~b, margins = TRUE), list(a))
   expect_equal(nrow(one), 4 + 2 + 2 + 1)
 })
 
 test_that("wrap: as.table reverses rows", {
-  one <- layout_wrap(list(a), "a", ncol = 1, as.table = FALSE)
+  one <- panel_layout(facet_wrap(~a, ncol = 1, as.table = FALSE), list(a))
   expect_equal(one$ROW, c(2, 1))
 
-  two <- layout_wrap(list(a), "a", nrow = 1, as.table = FALSE)
+  two <- panel_layout(facet_wrap(~a, nrow = 1, as.table = FALSE), list(a))
   expect_equal(two$ROW, c(1, 1))
 })
 
 test_that("grid: as.table reverses rows", {
-  one <- layout_grid(list(a), "a", as.table = FALSE)
+  one <- panel_layout(facet_grid(a~., as.table = FALSE), list(a))
   expect_equal(as.character(one$a), c("2", "1"))
 
-  two <- layout_grid(list(a), "a", as.table = TRUE)
+  two <- panel_layout(facet_grid(a~., as.table = TRUE), list(a))
   expect_equal(as.character(two$a), c("1", "2"))
 })
 
@@ -94,27 +97,27 @@ a2 <- data.frame(
   b = factor(1:3, levels = 4:1)
 )
 
-test_that("layout_wrap: drop = FALSE preserves unused levels", {
-  wrap_a <- layout_wrap(list(a2), "a", drop = FALSE)
+test_that("wrap: drop = FALSE preserves unused levels", {
+  wrap_a <- panel_layout(facet_wrap(~a, drop = FALSE), list(a2))
   expect_equal(nrow(wrap_a), 4)
   expect_equal(as.character(wrap_a$a), as.character(1:4))
 
-  wrap_b <- layout_wrap(list(a2), "b", drop = FALSE)
+  wrap_b <- panel_layout(facet_wrap(~b, drop = FALSE), list(a2))
   expect_equal(nrow(wrap_b), 4)
   expect_equal(as.character(wrap_b$b), as.character(4:1))
 
 })
 
-test_that("layout_grid: drop = FALSE preserves unused levels", {
-  grid_a <- layout_grid(list(a2), "a", drop = FALSE)
+test_that("grid: drop = FALSE preserves unused levels", {
+  grid_a <- panel_layout(facet_grid(a~., drop = FALSE), list(a2))
   expect_equal(nrow(grid_a), 4)
   expect_equal(as.character(grid_a$a), as.character(1:4))
 
-  grid_b <- layout_grid(list(a2), "b", drop = FALSE)
+  grid_b <- panel_layout(facet_grid(b~., drop = FALSE), list(a2))
   expect_equal(nrow(grid_b), 4)
   expect_equal(as.character(grid_b$b), as.character(4:1))
 
-  grid_ab <- layout_grid(list(a2), "a", "b", drop = FALSE)
+  grid_ab <- panel_layout(facet_grid(a~b, drop = FALSE), list(a2))
   expect_equal(nrow(grid_ab), 16)
   expect_equal(as.character(grid_ab$a), as.character(rep(1:4, each = 4)))
   expect_equal(as.character(grid_ab$b), as.character(rep(4:1, 4)))
@@ -130,12 +133,12 @@ a3 <- data.frame(
 )
 
 test_that("missing values get a panel", {
-  wrap_a <- layout_wrap(list(a3), "a")
-  wrap_b <- layout_wrap(list(a3), "b")
-  wrap_c <- layout_wrap(list(a3), "c")
-  grid_a <- layout_grid(list(a3), "a")
-  grid_b <- layout_grid(list(a3), "b")
-  grid_c <- layout_grid(list(a3), "c")
+  wrap_a <- panel_layout(facet_wrap(~a), list(a3))
+  wrap_b <- panel_layout(facet_wrap(~b), list(a3))
+  wrap_c <- panel_layout(facet_wrap(~c), list(a3))
+  grid_a <- panel_layout(facet_grid(a~.), list(a3))
+  grid_b <- panel_layout(facet_grid(b~.), list(a3))
+  grid_c <- panel_layout(facet_grid(c~.), list(a3))
 
   expect_equal(nrow(wrap_a), 4)
   expect_equal(nrow(wrap_b), 4)

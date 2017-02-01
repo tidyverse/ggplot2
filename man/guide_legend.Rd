@@ -2,7 +2,7 @@
 % Please edit documentation in R/guide-legend.r
 \name{guide_legend}
 \alias{guide_legend}
-\title{Legend guide.}
+\title{Legend guide}
 \usage{
 guide_legend(title = waiver(), title.position = NULL, title.theme = NULL,
   title.hjust = NULL, title.vjust = NULL, label = TRUE,
@@ -174,4 +174,3 @@ p + guides(col = guide_legend(reverse = TRUE))
 Other guides: \code{\link{guide_colourbar}},
   \code{\link{guides}}
 }
-

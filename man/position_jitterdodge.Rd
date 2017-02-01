@@ -2,7 +2,7 @@
 % Please edit documentation in R/position-jitterdodge.R
 \name{position_jitterdodge}
 \alias{position_jitterdodge}
-\title{Adjust position by simultaneously dodging and jittering}
+\title{Simultaneously dodge and jitter}
 \usage{
 position_jitterdodge(jitter.width = NULL, jitter.height = 0,
   dodge.width = 0.75)
@@ -29,9 +29,8 @@ ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
 }
 \seealso{
 Other position adjustments: \code{\link{position_dodge}},
-  \code{\link{position_fill}},
   \code{\link{position_identity}},
   \code{\link{position_jitter}},
-  \code{\link{position_nudge}}
+  \code{\link{position_nudge}},
+  \code{\link{position_stack}}
 }
-

@@ -3,10 +3,10 @@
 \name{coord_map}
 \alias{coord_map}
 \alias{coord_quickmap}
-\title{Map projections.}
+\title{Map projections}
 \usage{
-coord_map(projection = "mercator", ..., orientation = NULL, xlim = NULL,
-  ylim = NULL)
+coord_map(projection = "mercator", ..., parameters = NULL,
+  orientation = NULL, xlim = NULL, ylim = NULL)
 
 coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE)
 }
@@ -14,40 +14,42 @@ coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE)
 \item{projection}{projection to use, see
 \code{\link[mapproj]{mapproject}} for list}
 
-\item{...}{other arguments passed on to
-\code{\link[mapproj]{mapproject}}}
+\item{..., parameters}{Other arguments passed on to
+\code{\link[mapproj]{mapproject}}. Use \code{...} for named parameters to
+the projection, and \code{parameters} for unnamed parameters.
+\code{...} is ignored if the \code{parameters} argument is present.}
 
 \item{orientation}{projection orientation, which defaults to
 \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
 projections, so you will have to supply your own. See
 \code{\link[mapproj]{mapproject}} for more information.}
 
-\item{xlim}{manually specific x limits (in degrees of longitude)}
-
-\item{ylim}{manually specific y limits (in degrees of latitude)}
+\item{xlim, ylim}{Manually specific x/y limits (in degrees of
+longitude/latitude)}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 }
 \description{
-The representation of a portion of the earth, which is approximately spherical,
-onto a flat 2D plane requires a projection. This is what
-\code{\link{coord_map}} does. These projections account for the fact that the
-actual length (in km) of one degree of longitude varies between the equator
-and the pole. Near the equator, the ratio between the lengths of one degree
-of latitude and one degree of longitude is approximately 1. Near the pole, it
-is tends towards infinity because the length of one degree of longitude tends
-towards 0. For regions that span only a few degrees and are not too close to
-the poles, setting the aspect ratio of the plot to the appropriate lat/lon
-ratio approximates the usual mercator projection. This is what
-\code{coord_quickmap} does. With \code{\link{coord_map}} all elements of the
-graphic have to be projected which is not the case here. So
-\code{\link{coord_quickmap}} has the advantage of being much faster, in
-particular for complex plots such as those using with
-\code{\link{geom_tile}}, at the expense of correctness in the projection.
-This coordinate system provides the full range of map projections available
-in the mapproj package.
+\code{coord_map} projects a portion of the earth, which is approximately
+spherical, onto a flat 2D plane using any projection defined by the
+\code{mapproj} package. Map projections do not, in general, preserve straight
+lines, so this requires considerable computation. \code{coord_quickmap} is a
+quick approximation that does preserve straight lines. It works best for
+smaller areas closer to the equator.
+}
+\details{
+In general, map projections must account for the fact that the actual length
+(in km) of one degree of longitude varies between the equator and the pole.
+Near the equator, the ratio between the lengths of one degree of latitude and
+one degree of longitude is approximately 1. Near the pole, it is tends
+towards infinity because the length of one degree of longitude tends towards
+0. For regions that span only a few degrees and are not too close to the
+poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio
+approximates the usual mercator projection. This is what
+\code{coord_quickmap} does, and is much faster (particularly for complex
+plots like \code{\link{geom_tile}}) at the expense of correctness.
 }
 \examples{
 if (require("maps")) {
@@ -65,7 +67,8 @@ nzmap + coord_quickmap()
 
 # Other projections
 nzmap + coord_map("cylindrical")
-nzmap + coord_map("azequalarea", orientation = c(-36.92,174.6,0))
+nzmap + coord_map("azequalarea", orientation = c(-36.92, 174.6, 0))
+nzmap + coord_map("lambert", parameters = c(-37, -44))
 
 states <- map_data("state")
 usamap <- ggplot(states, aes(long, lat, group = group)) +
@@ -103,4 +106,3 @@ worldmap + coord_map("ortho", orientation = c(-90, 0, 0))
 worldmap + coord_map("ortho", orientation = c(41, -74, 0))
 }
 }
-

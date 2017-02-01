@@ -1,7 +1,7 @@
-#' Calculation for quantile-quantile plot.
+#' A quantile-quantile plot
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "qq")}
+#' \aesthetics{stat}{qq}
 #'
 #' @param distribution Distribution function to use, if x not specified
 #' @param dparams Additional parameters passed on to \code{distribution}
@@ -32,7 +32,7 @@
 #' ggplot(mtcars) +
 #'   stat_qq(aes(sample = mpg, colour = factor(cyl)))
 #' }
-stat_qq <- function(mapping = NULL, data = NULL,
+geom_qq <- function(mapping = NULL, data = NULL,
                     geom = "point", position = "identity",
                     ...,
                     distribution = stats::qnorm,
@@ -58,8 +58,8 @@ stat_qq <- function(mapping = NULL, data = NULL,
 }
 
 #' @export
-#' @rdname stat_qq
-geom_qq <- stat_qq
+#' @rdname geom_qq
+stat_qq <- geom_qq
 
 #' @rdname ggplot2-ggproto
 #' @format NULL

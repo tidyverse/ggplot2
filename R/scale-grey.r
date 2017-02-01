@@ -1,13 +1,11 @@
-#' Sequential grey colour scale.
+#' Sequential grey colour scales
 #'
-#' Based on \code{\link{gray.colors}}
+#' Based on \code{\link{gray.colors}}. This is black and white equivalent
+#' of \code{\link{scale_colour_gradient}}.
 #'
 #' @inheritParams scales::grey_pal
 #' @inheritParams scale_colour_hue
-#' @seealso Other colour scales:
-#'   \code{\link{scale_colour_brewer}},
-#'   \code{\link{scale_colour_gradient}},
-#'   \code{\link{scale_colour_hue}}
+#' @family colour scales
 #' @rdname scale_grey
 #' @export
 #' @examples

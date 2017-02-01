@@ -1,11 +1,12 @@
-#' Points, jittered to reduce overplotting.
+#' Jittered points
 #'
-#' The jitter geom is a convenient default for geom_point with position =
-#' 'jitter'. It's a useful way of handling overplotting caused by discreteness
-#' in smaller datasets.
+#' The jitter geom is a convenient shortcut for
+#' \code{geom_point(position = "jitter")}. It adds a small amount of random
+#' variation to the location of each point, and is a useful way of handling
+#' overplotting caused by discreteness in smaller datasets.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
+#' \aesthetics{geom}{point}
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point

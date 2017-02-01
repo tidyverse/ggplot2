@@ -3,9 +3,9 @@
 \name{aes_group_order}
 \alias{aes_group_order}
 \alias{group}
-\title{Aesthetics: group}
+\title{Aesthetics: grouping}
 \description{
-Aesthetics: group
+Aesthetics: grouping
 }
 \examples{
 \donttest{
@@ -82,4 +82,3 @@ boysbox <- boysbox + geom_boxplot()
 boysbox + geom_line(aes(group = Subject), colour = "blue")
 }
 }
-

@@ -2,11 +2,11 @@
 % Please edit documentation in R/facet-wrap.r
 \name{facet_wrap}
 \alias{facet_wrap}
-\title{Wrap a 1d ribbon of panels into 2d.}
+\title{Wrap a 1d ribbon of panels into 2d}
 \usage{
 facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   shrink = TRUE, labeller = "label_value", as.table = TRUE,
-  switch = NULL, drop = TRUE, dir = "h")
+  switch = NULL, drop = TRUE, dir = "h", strip.position = "top")
 }
 \arguments{
 \item{facets}{Either a formula or character vector. Use either a
@@ -36,10 +36,11 @@ options.}
 a table with highest values at the bottom-right. If \code{FALSE}, the
 facets are laid out like a plot with the highest value at the top-right.}
 
-\item{switch}{By default, the labels are displayed on the top of
-the plot. If \code{switch} is \code{"x"}, they will be displayed
-to the bottom. If \code{"y"}, they will be displayed to the
-left, near the y axis.}
+\item{switch}{By default, the labels are displayed on the top and
+right of the plot. If \code{"x"}, the top labels will be
+displayed to the bottom. If \code{"y"}, the right-hand side
+labels will be displayed to the left. Can also be set to
+\code{"both"}.}
 
 \item{drop}{If \code{TRUE}, the default, all factor levels not used in the
 data will automatically be dropped. If \code{FALSE}, all factor levels
@@ -47,12 +48,16 @@ will be shown, regardless of whether or not they appear in the data.}
 
 \item{dir}{Direction: either "h" for horizontal, the default, or "v", for
 vertical.}
+
+\item{strip.position}{By default, the labels are displayed on the top of
+the plot. Using \code{strip.position} it is possible to place the labels on
+either of the four sides by setting \code{strip.position = c("top",
+"bottom", "left", "right")}}
 }
 \description{
-Most displays are roughly rectangular, so if you have a categorical
-variable with many levels, it doesn't make sense to try and display them
-all in one row (or one column). To solve this dilemma, \code{facet_wrap}
-wraps a 1d sequence of panels into 2d, making best use of screen real estate.
+\code{facet_wrap} wraps a 1d sequence of panels into 2d. This is generally
+a better use of screen space than \code{\link{facet_grid}} because most
+displays are roughly rectangular.
 }
 \examples{
 ggplot(mpg, aes(displ, hwy)) +
@@ -101,13 +106,13 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   facet_wrap(~class)
 
-# Use `switch` to display the facet labels near an axis, acting as
-# a subtitle for this axis. This is typically used with free scales
-# and a theme without boxes around strip labels.
+# Use `strip.position` to display the facet labels at the side of your
+# choice. Setting it to `bottom` makes it act as a subtitle for the axis.
+# This is typically used with free scales and a theme without boxes around
+# strip labels.
 ggplot(economics_long, aes(date, value)) +
   geom_line() +
-  facet_wrap(~variable, scales = "free_y", nrow = 2, switch = "x") +
-  theme(strip.background = element_blank())
+  facet_wrap(~variable, scales = "free_y", nrow = 2, strip.position = "bottom") +
+  theme(strip.background = element_blank(), strip.placement = "outside")
 }
 }
-

@@ -2,7 +2,7 @@
 % Please edit documentation in R/position-jitter.r
 \name{position_jitter}
 \alias{position_jitter}
-\title{Jitter points to avoid overplotting.}
+\title{Jitter points to avoid overplotting}
 \usage{
 position_jitter(width = NULL, height = NULL)
 }
@@ -17,32 +17,32 @@ position_jitter(width = NULL, height = NULL)
   data so it's not possible to see the distinction between the categories.}
 }
 \description{
-Jitter points to avoid overplotting.
+Couterintuitively adding random noise to a plot can sometimes make it
+easier to read. Jittering is particularly useful for small datasets with
+at least one discrete position.
 }
 \examples{
-ggplot(mtcars, aes(am, vs)) + geom_point()
+# Jittering is useful when you have a discrete position, and a relatively
+# small number of points
+# take up as much space as a boxplot or a bar
+ggplot(mpg, aes(class, hwy)) +
+  geom_boxplot(colour = "grey50") +
+  geom_jitter()
 
-# Default amount of jittering will generally be too much for
-# small datasets:
-ggplot(mtcars, aes(am, vs)) + geom_jitter()
+# If the default jittering is too much, as in this plot:
+ggplot(mtcars, aes(am, vs)) +
+  geom_jitter()
 
-# Two ways to override
+# You can adjust it in two ways
 ggplot(mtcars, aes(am, vs)) +
   geom_jitter(width = 0.1, height = 0.1)
 ggplot(mtcars, aes(am, vs)) +
   geom_jitter(position = position_jitter(width = 0.1, height = 0.1))
-
-# The default works better for large datasets, where it will
-# take up as much space as a boxplot or a bar
-ggplot(mpg, aes(class, hwy)) +
-  geom_jitter() +
-  geom_boxplot(colour = "grey50")
 }
 \seealso{
 Other position adjustments: \code{\link{position_dodge}},
-  \code{\link{position_fill}},
   \code{\link{position_identity}},
   \code{\link{position_jitterdodge}},
-  \code{\link{position_nudge}}
+  \code{\link{position_nudge}},
+  \code{\link{position_stack}}
 }
-

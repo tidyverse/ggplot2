@@ -1,4 +1,4 @@
-#' Aesthetics: group
+#' Aesthetics: grouping
 #'
 #' @name aes_group_order
 #' @aliases group

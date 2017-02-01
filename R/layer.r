@@ -35,9 +35,13 @@
 #'   rather than combining with them. This is most useful for helper functions
 #'   that define both data and aesthetics and shouldn't inherit behaviour from
 #'   the default plot specification, e.g. \code{\link{borders}}.
+#' @param check.aes,check.param If \code{TRUE}, the default, will check that
+#'   supplied parameters and aesthetics are understood by the \code{geom} or
+#'   \code{stat}. Use \code{FALSE} to suppress the checks.
 #' @param params Additional parameters to the \code{geom} and \code{stat}.
 #' @param subset DEPRECATED. An older way of subsetting the dataset used in a
 #'   layer.
+#' @keywords internal
 #' @examples
 #' # geom calls are just a short cut for layer
 #' ggplot(mpg, aes(displ, hwy)) + geom_point()
@@ -56,7 +60,8 @@
 layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
-                  inherit.aes = TRUE, subset = NULL, show.legend = NA) {
+                  inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
+                  subset = NULL, show.legend = NA) {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
   if (is.null(stat))
@@ -82,11 +87,11 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
   if (is.character(geom))
-    geom <- find_subclass("Geom", geom)
+    geom <- find_subclass("Geom", geom, parent.frame())
   if (is.character(stat))
-    stat <- find_subclass("Stat", stat)
+    stat <- find_subclass("Stat", stat, parent.frame())
   if (is.character(position))
-    position <- find_subclass("Position", position)
+    position <- find_subclass("Position", position, parent.frame())
 
   # Special case for na.rm parameter needed by all layers
   if (is.null(params$na.rm)) {
@@ -100,10 +105,30 @@ layer <- function(geom = NULL, stat = NULL,
   stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
 
   all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics())
-  extra <- setdiff(names(params), all)
-  if (length(extra) > 0) {
-    stop("Unknown parameters: ", paste(extra, collapse = ", "), call. = FALSE)
+
+  # Warn about extra params and aesthetics
+  extra_param <- setdiff(names(params), all)
+  if (check.param && length(extra_param) > 0) {
+    warning(
+      "Ignoring unknown parameters: ", paste(extra_param, collapse = ", "),
+      call. = FALSE,
+      immediate. = TRUE
+    )
   }
+
+  extra_aes <- setdiff(
+    mapped_aesthetics(mapping),
+    c(geom$aesthetics(), stat$aesthetics())
+  )
+  if (check.aes && length(extra_aes) > 0) {
+    warning(
+      "Ignoring unknown aesthetics: ", paste(extra_aes, collapse = ", "),
+      call. = FALSE,
+      immediate. = TRUE
+    )
+  }
+
+
 
   ggproto("LayerInstance", Layer,
     geom = geom,
@@ -209,13 +234,13 @@ Layer <- ggproto("Layer", NULL,
     evaled
   },
 
-  compute_statistic = function(self, data, panel) {
+  compute_statistic = function(self, data, layout) {
     if (empty(data))
       return(data.frame())
 
     params <- self$stat$setup_params(data, self$stat_params)
     data <- self$stat$setup_data(data, params)
-    self$stat$compute_layer(data, params, panel)
+    self$stat$compute_layer(data, params, layout)
   },
 
   map_statistic = function(self, data, plot) {
@@ -260,13 +285,13 @@ Layer <- ggproto("Layer", NULL,
     data
   },
 
-  compute_position = function(self, data, panel) {
+  compute_position = function(self, data, layout) {
     if (empty(data)) return(data.frame())
 
     params <- self$position$setup_params(data)
     data <- self$position$setup_data(data, params)
 
-    self$position$compute_layer(data, params, panel)
+    self$position$compute_layer(data, params, layout)
   },
 
   compute_geom_2 = function(self, data) {
@@ -276,28 +301,31 @@ Layer <- ggproto("Layer", NULL,
     self$geom$use_defaults(data, self$aes_params)
   },
 
-  draw_geom = function(self, data, panel, coord) {
+  finish_statistics = function(self, data) {
+    self$stat$finish_layer(data, self$stat_params)
+  },
+
+  draw_geom = function(self, data, layout) {
     if (empty(data)) {
-      n <- nrow(panel$layout)
+      n <- nrow(layout$layout)
       return(rep(list(zeroGrob()), n))
     }
 
     data <- self$geom$handle_na(data, self$geom_params)
-    self$geom$draw_layer(data, self$geom_params, panel, coord)
+    self$geom$draw_layer(data, self$geom_params, layout, layout$coord)
   }
 )
 
 is.layer <- function(x) inherits(x, "Layer")
 
 
-find_subclass <- function(super, class) {
+find_subclass <- function(super, class, env) {
   name <- paste0(super, camelize(class, first = TRUE))
-  if (!exists(name)) {
-    stop("No ", tolower(super), " called ", name, ".", call. = FALSE)
-  }
+  obj <- find_global(name, env = env)
 
-  obj <- get(name)
-  if (!inherits(obj, super)) {
+  if (is.null(name)) {
+    stop("No ", tolower(super), " called ", name, ".", call. = FALSE)
+  } else if (!inherits(obj, super)) {
     stop("Found object is not a ", tolower(super), ".", call. = FALSE)
   }
 

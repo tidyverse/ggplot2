@@ -4,18 +4,18 @@ cdata <- function(plot) {
 
   lapply(pieces$data, function(d) {
     plyr::ddply(d, "PANEL", function(panel_data) {
-      scales <- panel_scales(pieces$panel, panel_data$PANEL[1])
-      details <- plot$coordinates$train(scales)
-      plot$coordinates$transform(panel_data, details)
+      scales <- pieces$layout$get_scales(panel_data$PANEL[1])
+      panel_params <- plot$coordinates$setup_panel_params(scales$x, scales$y)
+      plot$coordinates$transform(panel_data, panel_params)
     })
   })
 }
 
 pranges <- function(plot) {
-  panels <- ggplot_build(plot)$panel
+  layout <- ggplot_build(plot)$layout
 
-  x_ranges <- lapply(panels$x_scales, function(scale) scale$get_limits())
-  y_ranges <- lapply(panels$y_scales, function(scale) scale$get_limits())
+  x_ranges <- lapply(layout$panel_scales_x, function(scale) scale$get_limits())
+  y_ranges <- lapply(layout$panel_scales_y, function(scale) scale$get_limits())
 
 
   npscales <- plot$scales$non_position_scales()

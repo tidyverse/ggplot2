@@ -2,10 +2,10 @@
 % Please edit documentation in R/fortify-multcomp.r
 \name{fortify-multcomp}
 \alias{fortify-multcomp}
-\alias{fortify.cld}
-\alias{fortify.confint.glht}
 \alias{fortify.glht}
+\alias{fortify.confint.glht}
 \alias{fortify.summary.glht}
+\alias{fortify.cld}
 \title{Fortify methods for objects produced by \pkg{multcomp}}
 \usage{
 \method{fortify}{glht}(model, data, ...)
@@ -48,4 +48,4 @@ cld <- cld(wht)
 fortify(cld)
 }
 }
-
+\keyword{internal}

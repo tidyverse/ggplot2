@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom-point.r
 \name{geom_point}
 \alias{geom_point}
-\title{Points, as for a scatterplot}
+\title{Points}
 \usage{
 geom_point(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
@@ -39,8 +39,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -52,34 +52,44 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-The point geom is used to create scatterplots.
+The point geom is used to create scatterplots. The scatterplot is most
+useful for displaying the relationship between two continuous variables.
+It can be used to compare one continuous and one categorical variable, or
+two categorical variables, but a variation like \code{\link{geom_jitter}},
+\code{\link{geom_count}}, or \code{\link{geom_bin2d}} is usually more
+appropriate.
 }
 \details{
-The scatterplot is useful for displaying the relationship between two
-continuous variables, although it can also be used with one continuous
-and one categorical variable, or two categorical variables.  See
-\code{\link{geom_jitter}} for possibilities.
-
 The \emph{bubblechart} is a scatterplot with a third variable mapped to
-the size of points.  There are no special names for scatterplots where
+the size of points. There are no special names for scatterplots where
 another variable is mapped to point shape or colour, however.
+}
+\section{Overplotting}{
 
 The biggest potential problem with a scatterplot is overplotting: whenever
 you have more than a few points, points may be plotted on top of one
 another. This can severely distort the visual appearance of the plot.
 There is no one solution to this problem, but there are some techniques
-that can help.  You can add additional information with
+that can help. You can add additional information with
 \code{\link{geom_smooth}}, \code{\link{geom_quantile}} or
-\code{\link{geom_density_2d}}.  If you have few unique x values,
-\code{\link{geom_boxplot}} may also be useful.  Alternatively, you can
+\code{\link{geom_density_2d}}. If you have few unique x values,
+\code{\link{geom_boxplot}} may also be useful.
+
+Alternatively, you can
 summarise the number of points at each location and display that in some
-way, using \code{\link{stat_sum}}. Another technique is to use transparent
-points, e.g. \code{geom_point(alpha = 0.05)}.
+way, using \code{\link{geom_count}}, \code{\link{geom_hex}}, or
+\code{\link{geom_density2d}}.
+
+Another technique is to make the points transparent (e.g.
+\code{geom_point(alpha = 0.05)}) or very small (e.g.
+\code{geom_point(shape = ".")}).
 }
+
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
+\aesthetics{geom}{point}
 }
+
 \examples{
 p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point()
@@ -133,9 +143,3 @@ ggplot(mtcars2, aes(wt, mpg)) + geom_point()
 ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
 }
 }
-\seealso{
-\code{\link{scale_size}} to see scale area of points, instead of
-  radius, \code{\link{geom_jitter}} to jitter points to reduce (mild)
-  overplotting
-}
-

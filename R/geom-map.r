@@ -1,12 +1,12 @@
 #' @include geom-polygon.r
 NULL
 
-#' Polygons from a reference map.
+#' Polygons from a reference map
 #'
-#' Does not affect position scales.
+#' This is pure annotation, so does not affect position scales.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "map")}
+#' \aesthetics{geom}{map}
 #'
 #' @export
 #' @param map Data frame that contains the map coordinates.  This will
@@ -36,7 +36,8 @@ NULL
 #'   2.2, 2.1, 1.7, 2.1, 3.2, 2.8, 2.1, 2.2, 3.3, 3.2)
 #' )
 #'
-#' ggplot(values) + geom_map(aes(map_id = id), map = positions) +
+#' ggplot(values) +
+#'   geom_map(aes(map_id = id), map = positions) +
 #'   expand_limits(positions)
 #' ggplot(values, aes(fill = value)) +
 #'   geom_map(aes(map_id = id), map = positions) +
@@ -95,7 +96,7 @@ geom_map <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomMap <- ggproto("GeomMap", GeomPolygon,
-  draw_panel = function(data, panel_scales, coord, map) {
+  draw_panel = function(data, panel_params, coord, map) {
     # Only use matching data and map ids
     common <- intersect(data$map_id, map$id)
     data <- data[data$map_id %in% common, , drop = FALSE]
@@ -103,7 +104,7 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
 
     # Munch, then set up id variable for polygonGrob -
     # must be sequential integers
-    coords <- coord_munch(coord, map, panel_scales)
+    coords <- coord_munch(coord, map, panel_params)
     coords$group <- coords$group %||% coords$id
     grob_id <- match(coords$group, unique(coords$group))
 

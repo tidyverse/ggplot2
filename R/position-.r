@@ -57,11 +57,11 @@ Position <- ggproto("Position",
     data
   },
 
-  compute_layer = function(self, data, params, panel) {
+  compute_layer = function(self, data, params, layout) {
     plyr::ddply(data, "PANEL", function(data) {
       if (empty(data)) return(data.frame())
 
-      scales <- panel_scales(panel, data$PANEL[1])
+      scales <- layout$get_scales(data$PANEL[1])
       self$compute_panel(data = data, params = params, scales = scales)
     })
   },

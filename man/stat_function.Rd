@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-function.r
 \name{stat_function}
 \alias{stat_function}
-\title{Superimpose a function.}
+\title{Compute function for each x value}
 \usage{
 stat_function(mapping = NULL, data = NULL, geom = "path",
   position = "identity", ..., fun, xlim = NULL, n = 101, args = list(),
@@ -38,7 +38,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{fun}{function to use}
+\item{fun}{function to use. Must be vectorised.}
 
 \item{xlim}{Optionally, restrict the range of the function to this range.}
 
@@ -46,8 +46,8 @@ to the paired geom/stat.}
 
 \item{args}{list of additional arguments to pass to \code{fun}}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -59,11 +59,13 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-Superimpose a function.
+This stat makes it easy to superimpose a function on top of an existing
+plot. The function is called with a grid of evenly spaced values along
+the x axis, and the results are drawn (by default) with a line.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "function")}
+\aesthetics{stat}{function}
 }
 
 \section{Computed variables}{
@@ -73,6 +75,7 @@ Superimpose a function.
   \item{y}{value of function evaluated at corresponding x}
 }
 }
+
 \examples{
 set.seed(1492)
 df <- data.frame(
@@ -106,4 +109,3 @@ f + stat_function(fun = sin, colour = "red") +
 test <- function(x) {x ^ 2 + x + 20}
 f + stat_function(fun = test)
 }
-

@@ -85,4 +85,4 @@ ggplot(mod, aes(.hat, .cooksd)) +
   geom_point(aes(size = .cooksd / .hat)) +
   scale_size_area()
 }
-
+\keyword{internal}

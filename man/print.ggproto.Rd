@@ -2,9 +2,12 @@
 % Please edit documentation in R/ggproto.r
 \name{print.ggproto}
 \alias{print.ggproto}
-\title{Print a ggproto object}
+\alias{format.ggproto}
+\title{Format or print a ggproto object}
 \usage{
 \method{print}{ggproto}(x, ..., flat = TRUE)
+
+\method{format}{ggproto}(x, ..., flat = TRUE)
 }
 \arguments{
 \item{x}{A ggproto object to print.}
@@ -20,4 +23,12 @@ If a ggproto object has a \code{$print} method, this will call that method.
 Otherwise, it will print out the members of the object, and optionally, the
 members of the inherited objects.
 }
-
+\examples{
+Dog <- ggproto(
+  print = function(self, n) {
+    cat("Woof!\\n")
+  }
+ )
+Dog
+cat(format(Dog), "\\n")
+}

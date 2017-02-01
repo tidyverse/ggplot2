@@ -2,7 +2,7 @@
 % Please edit documentation in R/fortify-map.r
 \name{map_data}
 \alias{map_data}
-\title{Create a data frame of map data.}
+\title{Create a data frame of map data}
 \usage{
 map_data(map, region = ".", exact = FALSE, ...)
 }
@@ -23,7 +23,8 @@ for more details.}
 \item{...}{all other arguments passed on to \code{\link[maps]{map}}}
 }
 \description{
-Create a data frame of map data.
+Easily turn data from the \pkg{maps} package in to a data frame suitable
+for plotting with ggplot2.
 }
 \examples{
 if (require("maps")) {
@@ -43,4 +44,4 @@ ggplot(choro, aes(long, lat)) +
   coord_map("albers",  at0 = 45.5, lat1 = 29.5)
 }
 }
-
+\keyword{internal}

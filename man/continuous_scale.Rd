@@ -7,7 +7,8 @@
 continuous_scale(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), minor_breaks = waiver(), labels = waiver(),
   limits = NULL, rescaler = rescale, oob = censor, expand = waiver(),
-  na.value = NA_real_, trans = "identity", guide = "legend")
+  na.value = NA_real_, trans = "identity", guide = "legend",
+  position = "left", super = ScaleContinuous)
 }
 \arguments{
 \item{aesthetics}{the names of the aesthetics that this scale works with}
@@ -78,9 +79,13 @@ discrete variables.}
   transformation with \code{\link[scales]{trans_new}}.}
 
 \item{guide}{Name of guide object, or object itself.}
+
+\item{position}{The position of the axis. "left" or "right" for vertical
+scales, "top" or "bottom" for horizontal scales}
+
+\item{super}{The super class to use for the constructed scale}
 }
 \description{
 Continuous scale constructor.
 }
 \keyword{internal}
-

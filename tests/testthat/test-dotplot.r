@@ -63,3 +63,17 @@ test_that("NA's result in warning from stat_bindot", {
   expect_warning(ggplot_build(ggplot(dat, aes(x)) + geom_dotplot(binwidth = .2)),
     "Removed 2 rows.*stat_bindot")
 })
+
+test_that("When binning on y-axis, limits depend on the panel", {
+   p <- ggplot(mtcars, aes(factor(cyl), mpg)) +
+        geom_dotplot(binaxis='y')
+
+   b1 <- ggplot_build(p + facet_wrap(~am))
+   b2 <- ggplot_build(p + facet_wrap(~am, scales = "free_y"))
+
+   equal_limits1 <- (b1$layout$panel_params[[1]]$y.range == b1$layout$panel_params[[2]]$y.range)
+   equal_limits2 <- (b2$layout$panel_params[[1]]$y.range == b2$layout$panel_params[[2]]$y.range)
+
+   expect_true(all(equal_limits1))
+   expect_false(all(equal_limits2))
+})

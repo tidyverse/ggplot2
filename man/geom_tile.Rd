@@ -4,7 +4,7 @@
 \alias{geom_raster}
 \alias{geom_rect}
 \alias{geom_tile}
-\title{Draw rectangles.}
+\title{Rectangles}
 \usage{
 geom_raster(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., hjust = 0.5, vjust = 0.5,
@@ -57,8 +57,8 @@ for both, centering each pixel over its data location.}
 \item{interpolate}{If \code{TRUE} interpolate linearly, if \code{FALSE}
 (the default) don't interpolate.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -71,16 +71,17 @@ the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
 \code{geom_rect} and \code{geom_tile} do the same thing, but are
-parameterised differently. \code{geom_rect} uses the locations of the four
-corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}).
+parameterised differently: \code{geom_rect} uses the locations of the four
+corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
 \code{geom_tile} uses the center of the tile and its size (\code{x},
 \code{y}, \code{width}, \code{height}). \code{geom_raster} is a high
 performance special case for when all the tiles are the same size.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "tile")}
+\aesthetics{geom}{tile}
 }
+
 \examples{
 # The most common use for rectangles is to draw a surface. You always want
 # to use geom_raster here because it's so much faster, and produces
@@ -125,4 +126,3 @@ cars + stat_density(aes(fill = ..density..), geom = "raster", position = "identi
 cars + stat_density(aes(fill = ..count..), geom = "raster", position = "identity")
 }
 }
-

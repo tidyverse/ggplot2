@@ -1,9 +1,10 @@
-#' Add quantile lines from a quantile regression.
+#' Quantile regression
 #'
-#' This can be used as a continuous analogue of a geom_boxplot.
+#' This fits a quantile regression to the data and draws the fitted quantiles
+#' with lines. This is as a continuous analogue to \code{\link{geom_boxplot}}.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "quantile")}
+#' \aesthetics{geom}{quantile}
 #'
 #' @export
 #' @inheritParams layer

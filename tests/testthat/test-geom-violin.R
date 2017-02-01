@@ -1,18 +1,19 @@
 context("geom_violin")
 
-test_that("", {
+test_that("range is expanded", {
   df <- rbind(
     data.frame(x = "a", y = c(0, runif(10), 1)),
     data.frame(x = "b", y = c(0, runif(10), 2))
   )
 
   p <- ggplot(df, aes(1, y)) +
-    geom_violin() +
+    geom_violin(trim = FALSE) +
     facet_grid(x ~ ., scales = "free") +
     coord_cartesian(expand = FALSE)
-
-  expect_equal(layer_scales(p, 1)$y$dimension(), c(0, 1))
-  expect_equal(layer_scales(p, 2)$y$dimension(), c(0, 2))
+  expand_a <- stats::bw.nrd0(df$y[df$x == "a"]) * 3
+  expand_b <- stats::bw.nrd0(df$y[df$x == "b"]) * 3
+  expect_equal(layer_scales(p, 1)$y$dimension(), c(0 - expand_a, 1 + expand_a))
+  expect_equal(layer_scales(p, 2)$y$dimension(), c(0 - expand_b, 2 + expand_b))
 })
 
 # create_quantile_segment_frame -------------------------------------------------
@@ -31,13 +32,5 @@ test_that("quantiles do not fail on zero-range data", {
 
   # This should return without error and have length one
   expect_equal(length(layer_grob(p)), 1)
-
-  # All rows should be identical in layer_data, with some specific values
-  unique.layer.data <- unique(layer_data(p))
-  expect_equal(nrow(unique.layer.data), 1)
-  expect_equal(unique.layer.data$density, 0.55216039)
-  expect_equal(unique.layer.data$count, 1.65648117)
-  expect_equal(unique.layer.data$xmin, 0.55)
-  expect_equal(unique.layer.data$xmax, 1.45)
 })
 

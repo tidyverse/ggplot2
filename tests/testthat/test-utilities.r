@@ -27,3 +27,17 @@ test_that("add_group", {
   expect_true(has_groups(add_group(data[1:3])))  # discrete column
   expect_false(has_groups(add_group(data[2:3]))) # no group or discrete column
 })
+
+test_that("find_args behaves correctly", {
+  test_fun <- function(arg1, arg2 = FALSE, ...) {
+    find_args(...)
+  }
+  # Missing args are removed
+  expect_false("arg1" %in% names(test_fun()))
+  # Ellipsis is not an element
+  expect_false("..." %in% names(test_fun()))
+  # Args are added
+  expect_true(all(c("arg1", "arg2", "arg3") %in% names(test_fun(arg1 = 1, arg2 = 1, arg3 = 1))))
+  # Defaults are overwritten
+  expect_true(test_fun(arg2 = TRUE)$arg2)
+})

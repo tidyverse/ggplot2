@@ -1,4 +1,4 @@
-#' Add a smoothed conditional mean.
+#' Smoothed conditional means
 #'
 #' Aids the eye in seeing patterns in the presence of overplotting.
 #' \code{geom_smooth} and \code{stat_smooth} are effectively aliases: they
@@ -13,7 +13,7 @@
 #' scale, and then back-transformed to the response scale.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "smooth")}
+#' \aesthetics{geom}{smooth}
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point
@@ -114,15 +114,15 @@ geom_smooth <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomSmooth <- ggproto("GeomSmooth", Geom,
-  draw_group = function(data, panel_scales, coord) {
+  draw_group = function(data, panel_params, coord) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
     has_ribbon <- !is.null(data$ymax) && !is.null(data$ymin)
 
     gList(
-      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_scales, coord),
-      GeomLine$draw_panel(path, panel_scales, coord)
+      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_params, coord),
+      GeomLine$draw_panel(path, panel_params, coord)
     )
   },
 

@@ -3,7 +3,7 @@
 \name{geom_count}
 \alias{geom_count}
 \alias{stat_sum}
-\title{Count the number of observations at each location.}
+\title{Count overlapping points}
 \usage{
 geom_count(mapping = NULL, data = NULL, stat = "sum",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
@@ -41,8 +41,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -58,12 +58,12 @@ the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
 This is a variant \code{\link{geom_point}} that counts the number of
-observations at each location, then maps the count to point size. It
-useful when you have discrete data.
+observations at each location, then maps the count to point area. It
+useful when you have discrete data and overplotting.
 }
 \section{Aesthetics}{
 
-\Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "point")}
+\aesthetics{geom}{point}
 }
 
 \section{Computed variables}{
@@ -73,6 +73,7 @@ useful when you have discrete data.
  \item{prop}{percent of points in that panel at that position}
 }
 }
+
 \examples{
 ggplot(mpg, aes(cty, hwy)) +
  geom_point()
@@ -84,7 +85,7 @@ ggplot(mpg, aes(cty, hwy)) +
 # counts of zero would be given size 0. Doesn't make much different
 # here because the smallest count is already close to 0.
 ggplot(mpg, aes(cty, hwy)) +
- geom_count()
+ geom_count() +
  scale_size_area()
 
 # Display proportions instead of counts -------------------------------------
@@ -104,4 +105,6 @@ d + geom_count(aes(size = ..prop.., group = cut)) +
 d + geom_count(aes(size = ..prop.., group = clarity)) +
   scale_size_area(max_size = 10)
 }
-
+\seealso{
+For continuous \code{x} and \code{x}, use \code{\link{geom_bin2d}}.
+}

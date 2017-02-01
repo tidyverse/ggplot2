@@ -2,7 +2,7 @@
 % Please edit documentation in R/coord-flip.r
 \name{coord_flip}
 \alias{coord_flip}
-\title{Flipped cartesian coordinates.}
+\title{Cartesian coordinates with x and y flipped}
 \usage{
 coord_flip(xlim = NULL, ylim = NULL, expand = TRUE)
 }
@@ -16,7 +16,7 @@ the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 }
 \description{
-Flipped cartesian coordinates so that horizontal becomes vertical, and
+Flip cartesian coordinates so that horizontal becomes vertical, and
 vertical, horizontal. This is primarily useful for converting geoms and
 statistics which display y conditional on x, to x conditional on y.
 }
@@ -40,4 +40,3 @@ ggplot(df, aes(x, y)) +
   geom_area()
 last_plot() + coord_flip()
 }
-

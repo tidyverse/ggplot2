@@ -1,17 +1,18 @@
-#' Vertical intervals: lines, crossbars & errorbars.
+#' Vertical intervals: lines, crossbars & errorbars
 #'
 #' Various ways of representing a vertical interval defined by \code{x},
-#' \code{ymin} and \code{ymax}.
+#' \code{ymin} and \code{ymax}. Each case draws a single graphical object.
 #'
 #' @section Aesthetics:
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "linerange")}
+#' \aesthetics{geom}{linerange}
 #'
 #' @param fatten A multiplicative factor used to increase the size of the
 #'   middle bar in \code{geom_crossbar()} and the middle point in
 #'   \code{geom_pointrange()}.
 #' @seealso
 #'  \code{\link{stat_summary}} for examples of these guys in use,
-#'  \code{\link{geom_smooth}} for continuous analog
+#'  \code{\link{geom_smooth}} for continuous analog,
+#'  \code{\link{geom_errorbarh}} for a horizontal error bar.
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
@@ -81,8 +82,8 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
 
   required_aes = c("x", "ymin", "ymax"),
 
-  draw_panel = function(data, panel_scales, coord) {
+  draw_panel = function(data, panel_params, coord) {
     data <- transform(data, xend = x, y = ymin, yend = ymax)
-    ggname("geom_linerange", GeomSegment$draw_panel(data, panel_scales, coord))
+    ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord))
   }
 )

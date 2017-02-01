@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-ellipse.R
 \name{stat_ellipse}
 \alias{stat_ellipse}
-\title{Plot data ellipses.}
+\title{Compute normal confidence ellipses}
 \usage{
 stat_ellipse(mapping = NULL, data = NULL, geom = "path",
   position = "identity", ..., type = "t", level = 0.95, segments = 51,
@@ -50,8 +50,8 @@ or, if \code{type="euclid"}, the radius of the circle to be drawn.}
 
 \item{segments}{The number of segments to be used in drawing the ellipse.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -94,4 +94,3 @@ John Fox and Sanford Weisberg (2011). An {R} Companion to
   Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
   \url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
 }
-

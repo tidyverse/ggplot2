@@ -3,7 +3,7 @@
 \docType{data}
 \name{presidential}
 \alias{presidential}
-\title{Terms of 11 presidents from Eisenhower to Obama.}
+\title{Terms of 11 presidents from Eisenhower to Obama}
 \format{A data frame with 11 rows and 4 variables}
 \usage{
 presidential
@@ -13,4 +13,3 @@ The names of each president, the start and end date of their term, and
 their party of 11 US presidents from Eisenhower to Obama.
 }
 \keyword{datasets}
-
