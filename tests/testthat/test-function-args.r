@@ -22,11 +22,15 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   # the args have the same default values.
   lapply(geom_fun_names, function(geom_fun_name) {
     geom_fun    <- ggplot2_ns[[geom_fun_name]]
-    draw        <- geom_fun()$geom$draw_layer
-    draw_groups <- geom_fun()$geom$draw_group
+    geom <- geom_fun()$geom
+    if (!inherits(geom, "Geom")) # for geoms that return more than one thing
+      return()
 
     fun_args <- formals(geom_fun)
-    draw_args <- c(ggproto_formals(draw), ggproto_formals(draw_groups))
+    draw_args <- c(
+      ggproto_formals(geom$draw_layer),
+      ggproto_formals(geom$draw_group)
+    )
     draw_args <- filter_args(draw_args)
 
     common_names <- intersect(names(fun_args), names(draw_args))
