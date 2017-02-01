@@ -1,5 +1,8 @@
 # ggplot2 2.1.0.9000 
 
+* left- or right-aligned facet labels with multiple lines are now correctly
+  aligned. In previous versions, the lines of the text would still be centered.
+
 * When computing the height of titles ggplot2, now inclues the height of the
   descenders (i.e. the bits `g` and `y` that hang underneath). This makes 
   improves the margins around titles, particularly the y axis label (#1712).
