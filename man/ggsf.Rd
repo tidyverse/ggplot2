@@ -20,7 +20,7 @@ geom_sf(mapping = aes(), data = NULL, stat = "sf",
   inherit.aes = TRUE, ...)
 
 coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
-  datum = sf::st_crs(4239))
+  datum = sf::st_crs(4326))
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -41,6 +41,8 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
    A \code{function} will be called with a single argument,
    the plot data. The return value must be a \code{data.frame.}, and
    will be used as the layer data.}
+
+\item{geom}{The geometric object to use display the data}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}

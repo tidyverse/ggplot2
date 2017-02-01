@@ -72,6 +72,7 @@ StatSf <- ggproto("StatSf", Stat,
 
 #' @export
 #' @rdname ggsf
+#' @inheritParams stat_identity
 stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
