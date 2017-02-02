@@ -1,3 +1,6 @@
+* `position_jitter()` gains a `seed` argument that allows specifying a random
+  seed for reproducible jittering (#1996, @krlmlr).
+
 ggplot2 1.0.1
 ----------------------------------------------------------------
 
