@@ -90,7 +90,10 @@ ggplot_build <- function(plot) {
   # Let Layout modify data before rendering
   data <- layout$finish_data(data)
 
-  list(data = data, layout = layout, plot = plot)
+  structure(
+    list(data = data, layout = layout, plot = plot),
+    class = "ggplot_built"
+  )
 }
 
 #' @export
