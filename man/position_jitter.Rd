@@ -4,7 +4,7 @@
 \alias{position_jitter}
 \title{Jitter points to avoid overplotting}
 \usage{
-position_jitter(width = NULL, height = NULL, seed = NULL)
+position_jitter(width = NULL, height = NULL, seed = 4L)
 }
 \arguments{
 \item{width, height}{Amount of vertical and horizontal jitter. The jitter
@@ -16,7 +16,11 @@ position_jitter(width = NULL, height = NULL, seed = NULL)
   is aligned on the integers, so a width or height of 0.5 will spread the
   data so it's not possible to see the distinction between the categories.}
 
-\item{seed}{An optional random seed to make the jitter reproducible.}
+\item{seed}{A random seed to make the jitter reproducible.
+Useful if you need to apply the same jitter twice, e.g., for a point and
+a corresponding label.
+The random seed is reset after jittering,
+use `NULL` to use the current random seed and avoid resetting.}
 }
 \description{
 Couterintuitively adding random noise to a plot can sometimes make it

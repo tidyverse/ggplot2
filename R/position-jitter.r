@@ -13,9 +13,11 @@
 #'   jitter values will occupy 80\% of the implied bins. Categorical data
 #'   is aligned on the integers, so a width or height of 0.5 will spread the
 #'   data so it's not possible to see the distinction between the categories.
-#' @param seed An optional random seed to make the jitter reproducible.
+#' @param seed A random seed to make the jitter reproducible.
 #'   Useful if you need to apply the same jitter twice, e.g., for a point and
 #'   a corresponding label.
+#'   The random seed is reset after jittering,
+#'   use `NULL` to use the current random seed and avoid resetting.
 #' @export
 #' @examples
 #' # Jittering is useful when you have a discrete position, and a relatively
@@ -34,7 +36,7 @@
 #'   geom_jitter(width = 0.1, height = 0.1)
 #' ggplot(mtcars, aes(am, vs)) +
 #'   geom_jitter(position = position_jitter(width = 0.1, height = 0.1))
-position_jitter <- function(width = NULL, height = NULL, seed = NULL) {
+position_jitter <- function(width = NULL, height = NULL, seed = 4L) {
   ggproto(NULL, PositionJitter,
     width = width,
     height = height,
