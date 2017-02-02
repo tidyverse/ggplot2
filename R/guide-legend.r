@@ -132,6 +132,13 @@
 #'
 #' # reversed order legend
 #' p + guides(col = guide_legend(reverse = TRUE))
+#'
+#' # hide some aesthetics from the legend
+#' p4 <- ggplot(mtcars, aes(mpg, qsec, colour = factor(vs), shape = factor(am))) +
+#'   geom_point()
+#' p4 + geom_line()
+#' p4 + geom_line(show.legend = c(color = FALSE))
+#'
 #' }
 guide_legend <- function(
 
@@ -247,9 +254,11 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   guide$geoms <- plyr::llply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
+    layer$show.legend <- unlist(rename_aes(as.list(layer$show.legend)))
+
     if (length(matched) > 0) {
       # This layer contributes to the legend
-      if (is.na(layer$show.legend) || layer$show.legend) {
+      if (is.na(layer$show.legend[matched]) || layer$show.legend[matched]) {
         # Default is to include it
 
         # Filter out set aesthetics that can't be applied to the legend
@@ -262,7 +271,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       }
     } else {
       # This layer does not contribute to the legend
-      if (is.na(layer$show.legend) || !layer$show.legend) {
+      if (is.na(layer$show.legend[matched]) || !layer$show.legend[matched]) {
         # Default is to exclude it
         return(NULL)
       } else {
