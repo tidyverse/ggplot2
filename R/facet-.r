@@ -166,6 +166,9 @@ Facet <- ggproto("Facet", NULL,
   },
   finish_data = function(data, layout, x_scales, y_scales, params) {
     data
+  },
+  vars = function() {
+    character(0)
   }
 )
 

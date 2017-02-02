@@ -68,8 +68,5 @@ FacetNull <- ggproto("FacetNull", Facet,
     layout$layout$name <- grob_names
 
     layout
-  },
-  vars = function(self) {
-    ""
   }
 )
