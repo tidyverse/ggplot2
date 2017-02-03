@@ -2,6 +2,13 @@ language: R
 cache: packages
 sudo: false
 
+addons:
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - libfreetype6
+
 r_github_packages:
   - hadley/staticdocs@old
 

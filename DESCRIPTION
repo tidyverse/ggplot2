@@ -36,6 +36,7 @@ Suggests:
     multcomp,
     nlme,
     testthat (>= 0.11.0),
+    vdiffr,
     quantreg,
     knitr,
     rpart,
@@ -216,4 +217,5 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.0
+Remotes: hadley/svglite
