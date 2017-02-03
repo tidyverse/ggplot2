@@ -16,6 +16,25 @@ test_that("Colorbar respects show.legend in layer", {
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = TRUE)
   expect_true("guide-box" %in% ggplotGrob(p)$layout$name)
+
+
+  df <- data.frame(x = 1:3, y = 20:22)
+  p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
+    geom_point(size = 20)
+  expect_length({
+    g <- ggplotGrob(p)
+    g$grobs[[which(g$layout$name == "guide-box")]]
+  }, 3)
+  p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
+    geom_point(size = 20, show.legend = c(color = FALSE))
+  expect_true("guide-box" %in% ggplotGrob(p)$layout$name)
+  expect_length({
+    g <- ggplotGrob(p)
+    g$grobs[[which(g$layout$name == "guide-box")]]
+  }, 2)
+  p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
+    geom_point(size = 20, show.legend = c(color = FALSE, shape = FALSE))
+  expect_false("guide-box" %in% ggplotGrob(p)$layout$name)
 })
 
 

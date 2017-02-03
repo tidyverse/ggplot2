@@ -258,7 +258,12 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
 
     if (length(matched) > 0) {
       # This layer contributes to the legend
-      if (is.na(layer$show.legend[matched]) || layer$show.legend[matched]) {
+      include <- ifelse(
+        !is.null(names(layer$show.legend)),
+        is.na(layer$show.legend[matched]) || layer$show.legend[matched],
+        is.na(layer$show.legend) || layer$show.legend
+        )
+      if (include) {
         # Default is to include it
 
         # Filter out set aesthetics that can't be applied to the legend
@@ -271,7 +276,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       }
     } else {
       # This layer does not contribute to the legend
-      if (is.na(layer$show.legend[matched]) || !layer$show.legend[matched]) {
+      if (is.na(layer$show.legend) || !layer$show.legend) {
         # Default is to exclude it
         return(NULL)
       } else {
