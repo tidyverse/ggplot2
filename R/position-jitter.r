@@ -38,6 +38,12 @@
 #'   geom_jitter(width = 0.1, height = 0.1)
 #' ggplot(mtcars, aes(am, vs)) +
 #'   geom_jitter(position = position_jitter(width = 0.1, height = 0.1))
+#'
+#' # Reproducible jitter by default
+#' ggplot(mtcars, aes(am, vs)) +
+#'   geom_jitter(position = position_jitter(width = 0.1, height = 0.1))
+#'   geom_jitter(position = position_jitter(width = 0.1, height = 0.1),
+#'     color = red, aes(am + 0.2, vs + 0.2))
 position_jitter <- function(width = NULL, height = NULL, seed = NA) {
   ggproto(NULL, PositionJitter,
     width = width,
