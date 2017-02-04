@@ -301,15 +301,22 @@ dummy_data <- function() data.frame(x = NA)
 
 with_seed <- function(seed, code) {
   if (!is.null(seed)) {
-    old_seed <- get0(".Random.seed", globalenv(), mode = "integer")
-    if (!is.null(old_seed)) {
-      on.exit(assign(".Random.seed", old_seed, globalenv()), add = TRUE)
+    old_seed <- get_seed()
+    if (is.null(old_seed)) {
+      # Trigger initialisation of RNG
+      runif(1L)
+      old_seed <- get_seed()
     }
+    on.exit(assign(".Random.seed", old_seed, globalenv()), add = TRUE)
     if (!is.na(seed)) {
       set.seed(seed)
     }
   }
   code
+}
+
+get_seed <- function() {
+  get0(".Random.seed", globalenv(), mode = "integer")
 }
 
 # Needed to trigger package loading
