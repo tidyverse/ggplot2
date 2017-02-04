@@ -305,7 +305,9 @@ with_seed <- function(seed, code) {
     if (!is.null(old_seed)) {
       on.exit(assign(".Random.seed", old_seed, globalenv()), add = TRUE)
     }
-    set.seed(seed)
+    if (!is.na(seed)) {
+      set.seed(seed)
+    }
   }
   code
 }

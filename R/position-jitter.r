@@ -16,8 +16,10 @@
 #' @param seed A random seed to make the jitter reproducible.
 #'   Useful if you need to apply the same jitter twice, e.g., for a point and
 #'   a corresponding label.
-#'   The random seed is reset after jittering,
-#'   use `NULL` to use the current random seed and avoid resetting.
+#'   The random seed is reset after jittering.
+#'   If `NA` (the default value), the current random seed is used.
+#'   Use `NULL` to use the current random seed and also avoid resetting
+#'   (the behavior of \pkg{ggplot} 2.2.1 and earlier).
 #' @export
 #' @examples
 #' # Jittering is useful when you have a discrete position, and a relatively
@@ -36,7 +38,7 @@
 #'   geom_jitter(width = 0.1, height = 0.1)
 #' ggplot(mtcars, aes(am, vs)) +
 #'   geom_jitter(position = position_jitter(width = 0.1, height = 0.1))
-position_jitter <- function(width = NULL, height = NULL, seed = 4L) {
+position_jitter <- function(width = NULL, height = NULL, seed = NA) {
   ggproto(NULL, PositionJitter,
     width = width,
     height = height,

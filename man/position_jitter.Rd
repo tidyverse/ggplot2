@@ -4,7 +4,7 @@
 \alias{position_jitter}
 \title{Jitter points to avoid overplotting}
 \usage{
-position_jitter(width = NULL, height = NULL, seed = 4L)
+position_jitter(width = NULL, height = NULL, seed = NA)
 }
 \arguments{
 \item{width, height}{Amount of vertical and horizontal jitter. The jitter
@@ -19,8 +19,10 @@ position_jitter(width = NULL, height = NULL, seed = 4L)
 \item{seed}{A random seed to make the jitter reproducible.
 Useful if you need to apply the same jitter twice, e.g., for a point and
 a corresponding label.
-The random seed is reset after jittering,
-use `NULL` to use the current random seed and avoid resetting.}
+The random seed is reset after jittering.
+If `NA` (the default value), the current random seed is used.
+Use `NULL` to use the current random seed and also avoid resetting
+(the behavior of \pkg{ggplot} 2.2.1 and earlier).}
 }
 \description{
 Couterintuitively adding random noise to a plot can sometimes make it
