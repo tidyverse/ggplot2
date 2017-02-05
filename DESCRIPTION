@@ -219,3 +219,4 @@ Collate:
 VignetteBuilder: knitr
 RoxygenNote: 6.0.0
 Remotes: hadley/svglite
+Encoding: UTF-8
