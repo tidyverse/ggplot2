@@ -6,8 +6,7 @@
 \alias{mean_cl_normal}
 \alias{mean_sdl}
 \alias{median_hilow}
-\title{Wrap up a selection of summary functions from Hmisc to make it easy to use
-with \code{\link{stat_summary}}.}
+\title{A selection of summary functions from Hmisc}
 \usage{
 mean_cl_boot(x, ...)
 
@@ -22,12 +21,25 @@ median_hilow(x, ...)
 
 \item{...}{other arguments passed on to the respective Hmisc function.}
 }
+\value{
+A data frame with columns \code{y}, \code{ymin}, and \code{ymax}.
+}
 \description{
-See the Hmisc documentation for details of their options.
-}
-\seealso{
-\code{\link[Hmisc]{smean.cl.boot}},
-  \code{\link[Hmisc]{smean.cl.normal}}, \code{\link[Hmisc]{smean.sdl}},
-   \code{\link[Hmisc]{smedian.hilow}}
-}
+These are wrappers around functions from \pkg{Hmsic} designed to make them
+easier to use with \code{\link{stat_summary}}. See the Hmisc documentation
+for more details:
 
+\itemize{
+ \item \code{\link[Hmisc]{smean.cl.boot}}
+ \item \code{\link[Hmisc]{smean.cl.normal}}
+ \item \code{\link[Hmisc]{smean.sdl}}
+ \item \code{\link[Hmisc]{smedian.hilow}}
+}
+}
+\examples{
+x <- rnorm(100)
+mean_cl_boot(x)
+mean_cl_normal(x)
+mean_sdl(x)
+median_hilow(x)
+}

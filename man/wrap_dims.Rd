@@ -18,4 +18,3 @@ the grid dimension as a vector with nrow and then ncol
 Arrange 1d structure into a grid
 }
 \keyword{internal}
-

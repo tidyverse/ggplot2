@@ -1,9 +1,12 @@
-#' Set guides for each scale.
+#' Set guides for each scale
 #'
-#' Guides for each scale can be set in call of \code{scale_*} with argument
-#' \code{guide}, or in \code{guides}.
+#' Guides for each scale can be set scale-by-scale with the \code{guide}
+#' argument, or en masse with \code{guides()}.
 #'
-#' @param ... List of scale guide pairs
+#' @param ... List of scale name-guide pairs.  The guide can either
+#'   be a string (i.e. "colorbar" or "legend"), or a call to a guide function
+#'   (i.e. \code{\link{guide_colourbar}} or \code{\link{guide_legend}})
+#'   specifying additional arguments.
 #' @return A list containing the mapping between scale and guide.
 #' @export
 #' @family guides
@@ -44,8 +47,6 @@
 #' p + theme(legend.position = "bottom")
 #'
 #' # position of guides
-#'
-#' p + theme(legend.position = "bottom", legend.box = "horizontal")
 #'
 #' # Set order for multiple guides
 #' ggplot(mpg, aes(displ, cty)) +
@@ -93,32 +94,24 @@ update_guides <- function(p, guides) {
 #      arrange all ggrobs
 
 build_guides <- function(scales, layers, default_mapping, position, theme, guides, labels) {
-
-  # set themes w.r.t. guides
-  # should these theme$legend.XXX be renamed to theme$guide.XXX ?
-
-  # by default, guide boxes are vertically aligned
-  theme$legend.box <- theme$legend.box %||% "vertical"
-
-  # size of key (also used for bar in colorbar guide)
   theme$legend.key.width <- theme$legend.key.width %||% theme$legend.key.size
   theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
 
-  # by default, direction of each guide depends on the position of the guide.
-  theme$legend.direction <-
-    theme$legend.direction %||%
-    if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
-      switch(position[1], top = , bottom = "horizontal", left = , right = "vertical")
-    else
-      "vertical"
-
-  # justification of legend boxes
-  theme$legend.box.just <-
-    theme$legend.box.just %||%
-    if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
-      switch(position, bottom = , top = c("center", "top"), left = , right = c("left", "top"))
-    else
-      c("center", "center")
+  # Layout of legends depends on their overall location
+  position <- legend_position(position)
+  if (position == "inside") {
+    theme$legend.box <- theme$legend.box %||% "vertical"
+    theme$legend.direction <- theme$legend.direction %||% "vertical"
+    theme$legend.box.just <- theme$legend.box.just %||% c("center", "center")
+  } else if (position == "vertical") {
+    theme$legend.box <- theme$legend.box %||% "vertical"
+    theme$legend.direction <- theme$legend.direction %||% "vertical"
+    theme$legend.box.just <- theme$legend.box.just %||% c("left", "top")
+  } else if (position == "horizontal") {
+    theme$legend.box <- theme$legend.box %||% "horizontal"
+    theme$legend.direction <- theme$legend.direction %||% "horizontal"
+    theme$legend.box.just <- theme$legend.box.just %||% c("center", "top")
+  }
 
   # scales -> data for guides
   gdefs <- guides_train(scales = scales, theme = theme, guides = guides, labels = labels)
@@ -138,6 +131,19 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   grobs <- guides_build(ggrobs, theme)
 
   grobs
+}
+
+# Simplify legend position to one of horizontal/vertical/inside
+legend_position <- function(position) {
+  if (length(position) == 1) {
+    if (position %in% c("top", "bottom")) {
+      "horizontal"
+    } else {
+      "vertical"
+    }
+  } else {
+    "inside"
+  }
 }
 
 # validate guide object
@@ -177,7 +183,7 @@ guides_train <- function(scales, theme, guides, labels) {
     if (guide$available_aes != "any" && !scale$aesthetics %in% guide$available_aes)
       stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
 
-    guide$title <- guide$title %|W|% scale$name %|W|% labels[[output]]
+    guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
 
     # direction of this grob
     guide$direction <- guide$direction %||% theme$legend.direction

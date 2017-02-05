@@ -1,7 +1,8 @@
 #' Theme elements
 #'
-#' In conjunction with the \link{theme} system, these objects specify the display of
-#' how non-data components of the plot are a drawn.
+#' @description
+#' In conjunction with the \link{theme} system, the \code{element_} functions
+#' specify the display of how non-data components of the plot are a drawn.
 #'
 #' \itemize{
 #'   \item \code{element_blank}: draws nothing, and assigns no space.
@@ -10,16 +11,18 @@
 #'   \item \code{element_text}: text.
 #' }
 #'
+#' \code{rel()} is used to specify sizes relative to the parent,
+#' \code{margins()} is used to specify the margins of elements.
+#'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
 #' @param size Line/border size in mm; text size in pts.
 #' @param inherit.blank Should this element inherit the existence of an
-#' element_blank among its parents? If \code{TRUE} the existence of a blank
-#' element among its parents will cause this element to be blank as well. If
-#' \code{FALSE} any blank parent element will be ignored when calculating final
-#' element state.
-#' @name element
-#' @return An S3 object of class \code{element}.
+#'   \code{element_blank} among its parents? If \code{TRUE} the existence of
+#'   a blank element among its parents will cause this element to be blank as
+#'   well. If \code{FALSE} any blank parent element will be ignored when
+#'   calculating final element state.
+#' @return An S3 object of class \code{element}, \code{rel}, or \code{margin}.
 #' @examples
 #' plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 #'
@@ -29,17 +32,24 @@
 #' )
 #'
 #' plot + theme(
-#'   axis.text = element_text(colour = "red", size = 12)
+#'   axis.text = element_text(colour = "red", size = rel(1.5))
 #' )
 #'
 #' plot + theme(
-#'   axis.line.x = element_line()
+#'   axis.line = element_line(arrow = arrow())
 #' )
 #'
 #' plot + theme(
-#'   panel.background = element_rect(fill = "grey95"),
-#'   panel.border = element_rect(colour = "grey70", fill = NA, size = 1)
+#'   panel.background = element_rect(fill = "white"),
+#'   plot.margin = margin(2, 2, 2, 2, "cm"),
+#'   plot.background = element_rect(
+#'     fill = "grey90",
+#'     colour = "black",
+#'     size = 1
+#'   )
 #' )
+#' @name element
+#' @aliases NULL
 NULL
 
 #' @export
@@ -117,14 +127,8 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 print.element <- function(x, ...) utils::str(x)
 
 
-#' Relative sizing for theme elements
-#'
-#' @param x A number representing the relative size
-#' @examples
-#' df <- data.frame(x = 1:3, y = 1:3)
-#' ggplot(df, aes(x, y)) +
-#'   geom_point() +
-#'   theme(axis.title.x = element_text(size = rel(2.5)))
+#' @param x A single number specifying size relative to parent element.
+#' @rdname element
 #' @export
 rel <- function(x) {
   structure(x, class = "rel")
@@ -135,6 +139,7 @@ print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 
 #' Reports whether x is a rel object
 #' @param x An object to test
+#' @keywords internal
 is.rel <- function(x) inherits(x, "rel")
 
 # Given a theme object and element name, return a grob for the element
@@ -147,7 +152,8 @@ element_render <- function(theme, element, ..., name = NULL) {
     return(zeroGrob())
   }
 
-  ggname(paste(element, name, sep = "."), element_grob(el, ...))
+  grob <- element_grob(el, ...)
+  ggname(paste(element, name, sep = "."), grob)
 }
 
 

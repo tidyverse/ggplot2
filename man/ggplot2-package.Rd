@@ -4,18 +4,34 @@
 \name{ggplot2-package}
 \alias{ggplot2}
 \alias{ggplot2-package}
-\title{ggplot2: An Implementation of the Grammar of Graphics}
+\title{ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics}
 \description{
-ggplot2 is a system for declaratively creating graphics. You provide the
-data and tell ggplot2 how to map variables to aesthetics. ggplot2 is a
-complete plotting system and is quite different to other graphics systems in
-R like base graphics and lattice.  If you've never used ggplot2 before, I
-recomend starting with a comprehensive introduction such as
-\url{http://r4ds.had.co.nz/data-visualisation.html}. For more
-documentation and examples, see see \url{http://ggplot2.org}.
+A system for 'declaratively' creating graphics,
+based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
+how to map variables to aesthetics, what graphical primitives to use,
+and it takes care of the details.
 }
-\examples{
-ggplot(mpg, aes(displ, cty)) +
-  geom_point()
+\seealso{
+Useful links:
+\itemize{
+  \item \url{http://ggplot2.tidyverse.org}
+  \item \url{https://github.com/tidyverse/ggplot2}
+  \item Report bugs at \url{https://github.com/tidyverse/ggplot2/issues}
 }
 
+}
+\author{
+\strong{Maintainer}: Hadley Wickham \email{hadley@rstudio.com}
+
+Authors:
+\itemize{
+  \item Winston Chang \email{winston@rstudio.com}
+}
+
+Other contributors:
+\itemize{
+  \item RStudio [copyright holder]
+}
+
+}
+\keyword{internal}

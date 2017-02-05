@@ -3,7 +3,7 @@
 \name{geom_density}
 \alias{geom_density}
 \alias{stat_density}
-\title{Display a smooth density estimate.}
+\title{Smoothed density estimates}
 \usage{
 geom_density(mapping = NULL, data = NULL, stat = "density",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
@@ -42,8 +42,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -57,14 +57,16 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{geom, stat}{Use to override the default connection between
 \code{geom_density} and \code{stat_density}.}
 
-\item{bw}{the smoothing bandwidth to be used, see
-\code{\link{density}} for details}
+\item{bw}{The smoothing bandwidth to be used.
+If numeric, the standard deviation of the smoothing kernel.
+If character, a rule to choose the bandwidth, as listed in
+\code{\link[stats]{bw.nrd}}.}
 
-\item{adjust}{adjustment of the bandwidth, see
-\code{\link{density}} for details}
+\item{adjust}{A multiplicate bandwidth adjustment. This makes it possible
+to adjust the bandwidth while still using the a bandwidth estimator.
+For exampe, \code{adjust = 1/2} means use half of the default bandwidth.}
 
-\item{kernel}{kernel used for density estimation, see
-\code{\link{density}} for details}
+\item{kernel}{Kernel. See list of available kernels in \code{\link{density}}.}
 
 \item{n}{number of equally spaced points at which the density is to be
 estimated, should be a power of two, see \code{\link{density}} for
@@ -78,8 +80,9 @@ estimated x values will not line-up, and hence you won't be able to
 stack density values.}
 }
 \description{
-A kernel density estimate, useful for display the distribution of variables
-with underlying smoothness.
+Computes and draws kernel density estimate, which is a smoothed version of
+the histogram. This is a useful alternative to the histogram if for continuous
+data that comes from an underlying smooth distribution.
 }
 \section{Aesthetics}{
 
@@ -95,6 +98,7 @@ with underlying smoothness.
   \item{scaled}{density estimate, scaled to maximum of 1}
 }
 }
+
 \examples{
 ggplot(diamonds, aes(carat)) +
   geom_density()
@@ -133,4 +137,3 @@ See \code{\link{geom_histogram}}, \code{\link{geom_freqpoly}} for
   other methods of displaying continuous distribution.
   See \code{\link{geom_violin}} for a compact density display.
 }
-

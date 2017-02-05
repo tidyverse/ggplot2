@@ -27,4 +27,3 @@ a single display, preserving aspect ratios across the plots.
  a ggplot2 plot.
 }
 \keyword{internal}
-

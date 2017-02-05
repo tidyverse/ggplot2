@@ -4,12 +4,12 @@
 #' (or maximum width, depending on the binning algorithm), and dots are
 #' stacked, with each dot representing one observation.
 #'
+#' There are two basic approaches: \emph{dot-density} and \emph{histodot}.
 #' With dot-density binning, the bin positions are determined by the data and
 #' \code{binwidth}, which is the maximum width of each bin. See Wilkinson
-#' (1999) for details on the dot-density binning algorithm.
-#'
-#' With histodot binning, the bins have fixed positions and fixed widths, much
-#' like a histogram.
+#' (1999) for details on the dot-density binning algorithm. With histodot
+#' binning, the bins have fixed positions and fixed widths, much like a
+#' histogram.
 #'
 #' When binning along the x axis and stacking along the y axis, the numbers on
 #' y axis are not meaningful, due to technical limitations of ggplot2. You can
@@ -18,6 +18,19 @@
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{dotplot}
+#'
+#' @section Computed variables:
+#' \describe{
+#'   \item{x}{center of each bin, if binaxis is "x"}
+#'   \item{y}{center of each bin, if binaxis is "x"}
+#'   \item{binwidth}{max width of each bin if method is "dotdensity";
+#'     width of each bin if method is "histodot"}
+#'   \item{count}{number of points in bin}
+#'   \item{ncount}{count, scaled to maximum of 1}
+#'   \item{density}{density of points in bin, scaled to integrate to 1,
+#'     if method is "histodot"}
+#'   \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
+#' }
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point
@@ -45,18 +58,6 @@
 #' @param width When \code{binaxis} is "y", the spacing of the dot stacks
 #'   for dodging.
 #' @param drop If TRUE, remove all bins with zero counts
-#' @section Computed variables:
-#' \describe{
-#'   \item{x}{center of each bin, if binaxis is "x"}
-#'   \item{y}{center of each bin, if binaxis is "x"}
-#'   \item{binwidth}{max width of each bin if method is "dotdensity";
-#'     width of each bin if method is "histodot"}
-#'   \item{count}{number of points in bin}
-#'   \item{ncount}{count, scaled to maximum of 1}
-#'   \item{density}{density of points in bin, scaled to integrate to 1,
-#'     if method is "histodot"}
-#'   \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
-#' }
 #' @export
 #' @references Wilkinson, L. (1999) Dot plots. The American Statistician,
 #'    53(3), 276-281.
@@ -250,14 +251,14 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   },
 
 
-  draw_group = function(data, panel_scales, coord, na.rm = FALSE,
+  draw_group = function(data, panel_params, coord, na.rm = FALSE,
                         binaxis = "x", stackdir = "up", stackratio = 1,
                         dotsize = 1, stackgroups = FALSE) {
     if (!coord$is_linear()) {
       warning("geom_dotplot does not work properly with non-linear coordinates.")
     }
 
-    tdata <- coord$transform(data, panel_scales)
+    tdata <- coord$transform(data, panel_params)
 
     # Swap axes if using coord_flip
     if (inherits(coord, "CoordFlip"))
@@ -265,11 +266,11 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
     if (binaxis == "x") {
       stackaxis = "y"
-      dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_scales$x.range) - min(panel_scales$x.range))
+      dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_params$x.range) - min(panel_params$x.range))
 
     } else if (binaxis == "y") {
       stackaxis = "x"
-      dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_scales$y.range) - min(panel_scales$y.range))
+      dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_params$y.range) - min(panel_params$y.range))
     }
 
     ggname("geom_dotplot",

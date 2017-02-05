@@ -1,4 +1,4 @@
-#' Labeller functions
+#' Useful labeller functions
 #'
 #' Labeller functions are in charge of formatting the strip labels of
 #' facet grids and wraps. Most of them accept a \code{multi_line}
@@ -65,7 +65,6 @@
 #' @family facet
 #' @seealso \code{\link{labeller}()}, \code{\link{as_labeller}()},
 #'   \code{\link{label_bquote}()}
-#' @name labellers
 #' @examples
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
 #' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
@@ -87,6 +86,7 @@
 #' p + facet_grid(. ~ cyl2, labeller = label_parsed)
 #' p + facet_wrap(~vs + cyl2, labeller = label_parsed)
 #' }
+#' @name labellers
 NULL
 
 collapse_labels_lines <- function(labels) {
@@ -178,11 +178,12 @@ find_names <- function(expr) {
   }
 }
 
-#' Backquoted labeller
+#' Label with mathematical expressions
 #'
-#' \code{\link{label_bquote}()} offers a flexible way of labelling
+#' \code{label_bquote()} offers a flexible way of labelling
 #' facet rows or columns with plotmath expressions. Backquoted
 #' variables will be replaced with their value in the facet.
+#'
 #' @param rows Backquoted labelling expression for rows.
 #' @param cols Backquoted labelling expression for columns.
 #' @param default Default labeller function for the rows or the
@@ -281,6 +282,7 @@ resolve_labeller <- function(rows, cols, labels) {
 #' @param default Default labeller to process the labels produced by
 #'   lookup tables or modified by non-labeller functions.
 #' @seealso \code{\link{labeller}()}, \link{labellers}
+#' @keywords internal
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(disp, drat)) + geom_point()
@@ -322,7 +324,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
   structure(fun, class = "labeller")
 }
 
-#' Generic labeller function for facets
+#' Construct labelling specification
 #'
 #' This function makes it easy to assign different labellers to
 #' different factors. The labeller can be a function or it can be a

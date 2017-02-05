@@ -1,6 +1,8 @@
-#' Create your own discrete scale.
+#' Create your own discrete scale
 #'
-#' @name scale_manual
+#' This allows you to specify you own set of mappings from levels in the
+#' data to aesthetic values.
+#'
 #' @inheritParams scale_x_discrete
 #' @param values a set of aesthetic values to map data values to. If this
 #'   is a named vector, then the values will be matched based on the names.
@@ -8,33 +10,28 @@
 #'   the limits of the scale. Any data values that don't match will be
 #'   given \code{na.value}.
 #' @examples
-#' \donttest{
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(colour = factor(cyl)))
-#'
 #' p + scale_colour_manual(values = c("red", "blue", "green"))
-#' p + scale_colour_manual(
-#'   values = c("8" = "red", "4" = "blue", "6" = "green"))
-#' # With rgb hex values
-#' p + scale_colour_manual(values = c("#FF0000", "#0000FF", "#00FF00"))
 #'
-#' # As with other scales you can use breaks to control the appearance
-#' # of the legend
+#' # It's recommended to use a named vector
 #' cols <- c("8" = "red", "4" = "blue", "6" = "darkgreen", "10" = "orange")
 #' p + scale_colour_manual(values = cols)
-#' p + scale_colour_manual(values = cols, breaks = c("4", "6", "8"))
-#' p + scale_colour_manual(values = cols, breaks = c("8", "6", "4"))
-#' p + scale_colour_manual(values = cols, breaks = c("4", "6", "8"),
-#'   labels = c("four", "six", "eight"))
+#'
+#' # As with other scales you can use breaks to control the appearance
+#' # of the legend.
+#' p + scale_colour_manual(values = cols)
+#' p + scale_colour_manual(
+#'   values = cols,
+#'   breaks = c("4", "6", "8"),
+#'   labels = c("four", "six", "eight")
+#' )
 #'
 #' # And limits to control the possible values of the scale
 #' p + scale_colour_manual(values = cols, limits = c("4", "8"))
 #' p + scale_colour_manual(values = cols, limits = c("4", "6", "8", "10"))
-#'
-#' # Notice that the values are matched with limits, and not breaks
-#' p + scale_colour_manual(limits = c(6, 8, 4), breaks = c(8, 4, 6),
-#'   values = c("grey50", "grey80", "black"))
-#' }
+#' @name scale_manual
+#' @aliases NULL
 NULL
 
 #' @rdname scale_manual

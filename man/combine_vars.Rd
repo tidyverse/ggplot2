@@ -25,4 +25,3 @@ Take input data and define a mapping between facetting variables and ROW,
 COL and PANEL keys
 }
 \keyword{internal}
-

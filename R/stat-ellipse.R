@@ -1,4 +1,4 @@
-#' Plot data ellipses.
+#' Compute normal confidence ellipses
 #'
 #' The method for calculating the ellipses has been modified from
 #' \code{car::ellipse} (Fox and Weisberg, 2011)

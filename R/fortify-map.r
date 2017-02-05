@@ -1,4 +1,4 @@
-#' Fortify method for map objects.
+#' Fortify method for map objects
 #'
 #' This function turns a map into a data frame that can more easily be
 #' plotted with ggplot2.
@@ -8,6 +8,7 @@
 #' @param model map object
 #' @param data not used by this method
 #' @param ... not used by this method
+#' @keywords internal
 #' @examples
 #' if (require("maps")) {
 #' ca <- map("county", "ca", plot = FALSE, fill = TRUE)
@@ -32,7 +33,10 @@ fortify.map <- function(model, data, ...) {
   df[stats::complete.cases(df$lat, df$long), ]
 }
 
-#' Create a data frame of map data.
+#' Create a data frame of map data
+#'
+#' Easily turn data from the \pkg{maps} package in to a data frame suitable
+#' for plotting with ggplot2.
 #'
 #' @param map name of map provided by the \pkg{maps} package.  These
 #'   include \code{\link[maps]{county}}, \code{\link[maps]{france}},
@@ -45,6 +49,7 @@ fortify.map <- function(model, data, ...) {
 #' @param exact should the \code{region} be treated as a regular expression
 #'   (\code{FALSE}) or as a fixed string (\code{TRUE}).
 #' @param ... all other arguments passed on to \code{\link[maps]{map}}
+#' @keywords internal
 #' @export
 #' @examples
 #' if (require("maps")) {
@@ -65,10 +70,15 @@ fortify.map <- function(model, data, ...) {
 #' }
 map_data <- function(map, region = ".", exact = FALSE, ...) {
   try_require("maps", "map_data")
-  fortify(map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...))
+  fortify(maps::map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...))
 }
 
-#' Create a layer of map borders.
+#' Create a layer of map borders
+#'
+#' This is a quick and dirty way to get map data (from the maps package)
+#' on to your plot. This is a good place to start if you need some crude
+#' reference lines, but you'll typically want something more sophisticated
+#' for communication graphics.
 #'
 #' @param database map data, see \code{\link[maps]{map}} for details
 #' @param regions map region

@@ -86,32 +86,6 @@ Facet <- ggproto("Facet", NULL,
   shrink = FALSE,
   params = list(),
 
-
-# Layout interface --------------------------------------------------------
-
-  train = function(self, data) {
-    self$compute_layout(data, self$params)
-  },
-  map = function(self, data, layout) {
-    self$map_data(data, layout, self$params)
-  },
-  render_back = function(self, data, layout, x_scales, y_scales, theme) {
-    self$draw_back(data, layout, x_scales, y_scales, theme, self$params)
-  },
-  render_front = function(self, data, layout, x_scales, y_scales, theme) {
-    self$draw_front(data, layout, x_scales, y_scales, theme, self$params)
-  },
-  render_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels) {
-    panels <- self$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, self$params)
-    self$draw_labels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, self$params)
-  },
-  train_positions = function(self, x_scales, y_scales, layout, data) {
-    self$train_scales(x_scales, y_scales, layout, data, self$params)
-  },
-
-
-# Extension interface -----------------------------------------------------
-
   compute_layout = function(data, params) {
     stop("Not implemented", call. = FALSE)
   },
@@ -230,14 +204,57 @@ df.grid <- function(a, b) {
   ))
 }
 
-quoted_df <- function(data, vars, env = emptyenv()) {
-  values <- plyr::eval.quoted(vars, data, env, try = TRUE)
-  as.data.frame(compact(values), optional = TRUE, stringsAsFactors = FALSE)
+# When evaluating variables in a facet specification, we evaluate bare
+# variables and expressions slightly differently. Bare variables should
+# always succeed, even if the variable doesn't exist in the data frame:
+# that makes it possible to repeat data across multiple factors. But
+# when evaluating an expression, you want to see any errors. That does
+# mean you can't have background data when facetting by an expression,
+# but that seems like a reasonable tradeoff.
+eval_facet_vars <- function(vars, data, env = emptyenv()) {
+  nms <- names(vars)
+  out <- list()
+
+  for (i in seq_along(vars)) {
+    out[[ nms[[i]] ]] <- eval_facet_var(vars[[i]], data, env = env)
+  }
+
+  tibble::as_tibble(out)
+}
+
+eval_facet_var <- function(var, data, env = emptyenv()) {
+  if (is.name(var)) {
+    var <- as.character(var)
+    if (var %in% names(data)) {
+      data[[var]]
+    } else {
+      NULL
+    }
+  } else if (is.call(var)) {
+    eval(var, envir = data, enclos = env)
+  } else {
+    stop("Must use either variable name or expression when facetting",
+      call. = FALSE)
+  }
 }
 
 layout_null <- function() {
   data.frame(PANEL = 1, ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
 }
+
+check_layout <- function(x) {
+  if (all(c("PANEL", "SCALE_X", "SCALE_Y") %in% names(x))) {
+    return()
+  }
+
+  stop(
+    "Facet layout has bad format. ",
+    "It must contain columns 'PANEL', 'SCALE_X', and 'SCALE_Y'",
+    call. = FALSE
+  )
+}
+
+
 #' Get the maximal width/length of a list of grobs
 #'
 #' @param grobs A list of grobs
@@ -308,7 +325,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   if (length(vars) == 0) return(data.frame())
 
   # For each layer, compute the facet values
-  values <- compact(plyr::llply(data, quoted_df, vars = vars, env = env))
+  values <- compact(plyr::llply(data, eval_facet_vars, vars = vars, env = env))
 
   # Form the base data frame which contains all combinations of facetting
   # variables that appear in the data

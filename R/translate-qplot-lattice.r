@@ -4,6 +4,7 @@
 #' formula based interface. ggplot2 does not because the formula does not
 #' generalise well to more complicated situations.
 #'
+#' @keywords internal
 #' @name translate_qplot_lattice
 #' @examples
 #' \donttest{

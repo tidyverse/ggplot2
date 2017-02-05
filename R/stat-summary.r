@@ -1,4 +1,4 @@
-#' Summarise y values at unique/binned x x.
+#' Summarise y values at unique/binned x
 #'
 #' \code{stat_summary} operates on unique \code{x}; \code{stat_summary_bin}
 #' operators on binned \code{x}. They are more flexible versions of
@@ -170,17 +170,29 @@ summarise_by_x <- function(data, summary, ...) {
   merge(summary, unique, by = c("x", "group"), sort = FALSE)
 }
 
-#' Wrap up a selection of summary functions from Hmisc to make it easy to use
-#' with \code{\link{stat_summary}}.
+#' A selection of summary functions from Hmisc
 #'
-#' See the Hmisc documentation for details of their options.
+#' @description
+#' These are wrappers around functions from \pkg{Hmsic} designed to make them
+#' easier to use with \code{\link{stat_summary}}. See the Hmisc documentation
+#' for more details:
 #'
+#' \itemize{
+#'  \item \code{\link[Hmisc]{smean.cl.boot}}
+#'  \item \code{\link[Hmisc]{smean.cl.normal}}
+#'  \item \code{\link[Hmisc]{smean.sdl}}
+#'  \item \code{\link[Hmisc]{smedian.hilow}}
+#' }
 #' @param x a numeric vector
 #' @param ... other arguments passed on to the respective Hmisc function.
-#' @seealso \code{\link[Hmisc]{smean.cl.boot}},
-#'   \code{\link[Hmisc]{smean.cl.normal}}, \code{\link[Hmisc]{smean.sdl}},
-#'    \code{\link[Hmisc]{smedian.hilow}}
+#' @return A data frame with columns \code{y}, \code{ymin}, and \code{ymax}.
 #' @name hmisc
+#' @examples
+#' x <- rnorm(100)
+#' mean_cl_boot(x)
+#' mean_cl_normal(x)
+#' mean_sdl(x)
+#' median_hilow(x)
 NULL
 
 wrap_hmisc <- function(fun) {
@@ -212,12 +224,17 @@ mean_sdl <- wrap_hmisc("smean.sdl")
 #' @rdname hmisc
 median_hilow <- wrap_hmisc("smedian.hilow")
 
-#' Calculate mean and standard errors on either side.
+#' Calculate mean and standard error
+#'
+#' For use with \code{\link{stat_summary}}
 #'
 #' @param x numeric vector
 #' @param mult number of multiples of standard error
-#' @seealso for use with \code{\link{stat_summary}}
+#' @return A data frame with columns \code{y}, \code{ymin}, and \code{ymax}.
 #' @export
+#' @examples
+#' x <- rnorm(100)
+#' mean_se(x)
 mean_se <- function(x, mult = 1) {
   x <- stats::na.omit(x)
   se <- mult * sqrt(stats::var(x) / length(x))

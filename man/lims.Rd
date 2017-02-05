@@ -4,7 +4,7 @@
 \alias{lims}
 \alias{xlim}
 \alias{ylim}
-\title{Convenience functions to set the axis limits.}
+\title{Set scale limits}
 \usage{
 lims(...)
 
@@ -13,37 +13,53 @@ xlim(...)
 ylim(...)
 }
 \arguments{
-\item{...}{If numeric, will create a continuous scale, if factor or
-character, will create a discrete scale.  For \code{lims}, every
-argument must be named.}
+\item{...}{A name-value pair. The name must be an aesthetic, and the value
+  must be either a length-2 numeric, a character, a factor, or a date/time.
+
+  A numeric value will create a continuous scale. If the larger value
+  comes first, the scale will be reversed. You can leave one value as
+  \code{NA} to compute from the range of the data.
+
+  A character or factor value will create a discrete scale.
+
+  A date-time value will create a continuous date/time scale.}
 }
 \description{
-Observations not in this range will be dropped completely and
-not passed to any other layers.  If a NA value is substituted for one of the
-limits that limit is automatically calculated.
+This is a shortcut for supplying the \code{limits} argument to the
+individual scales. Note that, by default, any values outside the limits
+will be replaced with \code{NA}.
 }
 \examples{
-# xlim
-xlim(15, 20)
-xlim(20, 15)
-xlim(c(10, 20))
-xlim("a", "b", "c")
-
+# Zoom into a specified area
 ggplot(mtcars, aes(mpg, wt)) +
   geom_point() +
   xlim(15, 20)
+
+# reverse scale
+ggplot(mtcars, aes(mpg, wt)) +
+  geom_point() +
+  xlim(20, 15)
+
 # with automatic lower limit
 ggplot(mtcars, aes(mpg, wt)) +
   geom_point() +
   xlim(NA, 20)
 
-# Change both xlim and ylim
-ggplot(mtcars, aes(mpg, wt)) +
+# You can also supply limits that are larger than the data.
+# This is useful if you want to match scales across different plots
+small <- subset(mtcars, cyl == 4)
+big <- subset(mtcars, cyl > 4)
+
+ggplot(small, aes(mpg, wt, colour = factor(cyl))) +
   geom_point() +
-  lims(x = c(10, 20), y = c(3, 5))
+  lims(colour = c("4", "6", "8"))
+
+ggplot(big, aes(mpg, wt, colour = factor(cyl))) +
+  geom_point() +
+  lims(colour = c("4", "6", "8"))
 }
 \seealso{
 For changing x or y axis limits \strong{without} dropping data
-  observations, see \code{\link{coord_cartesian}}.
+  observations, see \code{\link{coord_cartesian}}. To expand the range of
+  a plot to always include certain values, see \code{\link{expand_limits}}.
 }
-

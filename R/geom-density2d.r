@@ -1,13 +1,15 @@
-#' Contours from a 2d density estimate.
+#' Contours of a 2d density estimate
 #'
-#' Perform a 2D kernel density estimation using kde2d and display the
-#' results with contours. This can be useful for dealing with overplotting.
+#' Perform a 2D kernel density estimation using \code{\link[MASS]{kde2d}} and
+#' display the results with contours. This can be useful for dealing with
+#' overplotting. This is a 2d version of \code{\link{geom_density}}.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{density_2d}
 #'
-#' @seealso \code{\link{geom_contour}} for contour drawing geom,
-#'  \code{\link{stat_sum}} for another way of dealing with overplotting
+#' @seealso \code{\link{geom_contour}} for information about how contours
+#'  are drawn; \code{\link{geom_bin2d}} for another way of dealing with
+#'  overplotting.
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_density_2d} and \code{stat_density_2d}.
 #' @inheritParams layer

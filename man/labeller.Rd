@@ -2,7 +2,7 @@
 % Please edit documentation in R/labeller.r
 \name{labeller}
 \alias{labeller}
-\title{Generic labeller function for facets}
+\title{Construct labelling specification}
 \usage{
 labeller(..., .rows = NULL, .cols = NULL, keep.as.numeric = NULL,
   .multi_line = TRUE, .default = label_value)
@@ -113,4 +113,3 @@ p2 \%+\% msleep + facet_wrap(~conservation2, labeller = global_labeller)
 \seealso{
 \code{\link{as_labeller}()}, \link{labellers}
 }
-

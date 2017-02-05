@@ -1,16 +1,20 @@
-#' Histograms and frequency polygons.
+#' Histograms and frequency polygons
 #'
-#' Display a 1d distribution by dividing into bins and counting the number
-#' of observations in each bin. Histograms use bars; frequency polygons use
-#' lines.
+#' Visualise the distribution of a single continuous variable by dividing
+#' the x axis into bins and counting the number of observations in each bin.
+#' Histograms (\code{geom_histogram}) display the count with bars; frequency
+#' polygons (\code{geom_freqpoly}), display the counts with lines. Frequency
+#' polygons are more suitable when you want to compare the distribution
+#' across a the levels of a categorical variable.
 #'
-#' By default, \code{stat_bin} uses 30 bins - this is not a good default,
-#' but the idea is to get you experimenting with different binwidths. You
-#' may need to look at a few to uncover the full story behind your data.
+#' By default, the underlying computation (\code{stat_bin}) uses 30 bins -
+#' this is not a good default, but the idea is to get you experimenting with
+#' different binwidths. You may need to look at a few to uncover the full
+#' story behind your data.
 #'
 #' @section Aesthetics:
-#' \code{geom_histogram} uses the same aesthetics as \code{geom_bar};
-#' \code{geom_freqpoly} uses the same aesthetics as \code{geom_line}.
+#' \code{geom_histogram} uses the same aesthetics as \code{\link{geom_bar}};
+#' \code{geom_freqpoly} uses the same aesthetics as \code{\link{geom_line}}.
 #'
 #' @export
 #' @inheritParams layer
@@ -70,7 +74,13 @@
 #' m <- ggplot(movies, aes(x = rating))
 #' m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 #' }
-#' rm(movies)
+#'
+#' # You can specify a function for calculating binwidth,
+#' # particularly useful when faceting along variables with
+#' # different ranges
+#' mtlong <- reshape2::melt(mtcars)
+#' ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
+#'   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
 geom_histogram <- function(mapping = NULL, data = NULL,
                            stat = "bin", position = "stack",
                            ...,

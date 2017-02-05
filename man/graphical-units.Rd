@@ -4,7 +4,6 @@
 \name{graphical-units}
 \alias{.pt}
 \alias{.stroke}
-\alias{graphical-units}
 \title{Graphical units}
 \format{An object of class \code{numeric} of length 1.}
 \usage{
@@ -17,4 +16,4 @@ Multiply size in mm by these constants in order to convert to the units
 that grid uses internally for \code{lwd} and \code{fontsize}.
 }
 \keyword{datasets}
-
+\keyword{internal}

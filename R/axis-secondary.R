@@ -1,7 +1,8 @@
-#' Secondary axes
+#' Specify a secondary axis
 #'
-#' Create a secondary axis as a transformation of the primary axis, positioned
-#' opposite of the primary axis.
+#' This function is used in conjunction with a position scale to create a
+#' secondary axis, positioned opposite of the primary axis. All secondary
+#' axes must be based on a one-to-one transformation of the primary axes.
 #'
 #' @param trans A transformation formula
 #'
@@ -77,6 +78,11 @@ is.derived <- function(x) {
   inherits(x, "derived")
 }
 #' @importFrom lazyeval f_eval
+#'
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 AxisSecondary <- ggproto("AxisSecondary", NULL,
   trans = NULL,
   axis = NULL,
@@ -97,7 +103,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   init = function(self, scale) {
     if (self$empty()) return()
     if (!is.formula(self$trans)) stop("transformation for secondary axes must be a formula", call. = FALSE)
-    if (is.derived(self$name)) self$name <- scale$name
+    if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
     if (is.derived(self$labels)) self$labels <- scale$labels
   },
@@ -119,10 +125,11 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     full_range <- self$transform_range(old_range)
 
     # Test for monotony
-    if (length(unique(sign(diff(full_range)))) != 1) stop("transformation for secondary axes must be monotonous")
+    if (length(unique(sign(diff(full_range)))) != 1)
+      stop("transformation for secondary axes must be monotonous")
 
     # Get break info for the secondary axis
-    new_range <- full_range[c(1, self$detail)]
+    new_range <- range(full_range, na.rm = TRUE)
     temp_scale <- self$create_scale(new_range)
     range_info <- temp_scale$break_info()
 
@@ -148,5 +155,8 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     )
     scale$train(range)
     scale
+  },
+  make_title = function(title) {
+    title
   }
 )

@@ -1,9 +1,13 @@
-#' Connect observations.
+#' Connect observations
 #'
 #' \code{geom_path()} connects the observations in the order in which they appear
 #' in the data. \code{geom_line()} connects them in order of the variable on the
 #' x axis. \code{geom_step()} creates a stairstep plot, highlighting exactly
-#' when changes occur.
+#' when changes occur. The \code{group} aesthetic determines which cases are
+#' connected together.
+#'
+#' An alternative parameterisation is \code{\link{geom_segment}}: each line
+#' corresponds to a single case which provides the start and end coordinates.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{path}
@@ -149,7 +153,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     data
   },
 
-  draw_panel = function(data, panel_scales, coord, arrow = NULL,
+  draw_panel = function(data, panel_params, coord, arrow = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 1,
                         na.rm = FALSE) {
     if (!anyDuplicated(data$group)) {
@@ -159,7 +163,7 @@ GeomPath <- ggproto("GeomPath", Geom,
 
     # must be sorted on group
     data <- data[order(data$group), , drop = FALSE]
-    munched <- coord_munch(coord, data, panel_scales)
+    munched <- coord_munch(coord, data, panel_params)
 
     # Silently drop lines with less than two points, preserving order
     rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
@@ -283,9 +287,9 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @export
 #' @include geom-path.r
 GeomStep <- ggproto("GeomStep", GeomPath,
-  draw_panel = function(data, panel_scales, coord, direction = "hv") {
+  draw_panel = function(data, panel_params, coord, direction = "hv") {
     data <- plyr::ddply(data, "group", stairstep, direction = direction)
-    GeomPath$draw_panel(data, panel_scales, coord)
+    GeomPath$draw_panel(data, panel_params, coord)
   }
 )
 

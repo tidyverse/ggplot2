@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom-polygon.r
 \name{geom_polygon}
 \alias{geom_polygon}
-\title{Polygon, a filled path.}
+\title{Polygons}
 \usage{
 geom_polygon(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
@@ -39,8 +39,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -52,12 +52,16 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-Polygon, a filled path.
+Polygons are very similar to paths (as drawn by \code{\link{geom_path}})
+except that the start and end points are connected and the inside is
+coloured by \code{fill}. The \code{group} aesthetic determines which cases
+are connected together into a polygon.
 }
 \section{Aesthetics}{
 
 \aesthetics{geom}{polygon}
 }
+
 \examples{
 # When using geom_polygon, you will typically need two data frames:
 # one contains the coordinates of each polygon (positions),  and the
@@ -82,7 +86,9 @@ positions <- data.frame(
 # Currently we need to manually merge the two together
 datapoly <- merge(values, positions, by = c("id"))
 
-(p <- ggplot(datapoly, aes(x = x, y = y)) + geom_polygon(aes(fill = value, group = id)))
+p <- ggplot(datapoly, aes(x = x, y = y)) +
+  geom_polygon(aes(fill = value, group = id))
+p
 
 # Which seems like a lot of work, but then it's easy to add on
 # other features in this coordinate system, e.g.:
@@ -101,4 +107,3 @@ p + geom_line(data = stream, colour = "grey30", size = 5)
 \code{\link{geom_path}} for an unfilled polygon,
  \code{\link{geom_ribbon}} for a polygon anchored on the x-axis
 }
-

@@ -2,7 +2,7 @@
 % Please edit documentation in R/annotation.r
 \name{annotate}
 \alias{annotate}
-\title{Create an annotation layer.}
+\title{Create an annotation layer}
 \usage{
 annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   ymin = NULL, ymax = NULL, xend = NULL, yend = NULL, ...,
@@ -19,11 +19,11 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 }
 \description{
-This function adds geoms to a plot. Unlike typical a geom function,
+This function adds geoms to a plot, but unlike typical a geom function,
 the properties of the geoms are not mapped from variables of a data frame,
 but are instead passed in as vectors. This is useful for adding small annotations
 (such as text labels) or if you have your data in vectors, and for some
@@ -53,4 +53,3 @@ p + annotate("text", x = 4, y = 25, label = "italic(R) ^ 2 == 0.75",
 p + annotate("text", x = 4, y = 25,
   label = "paste(italic(R) ^ 2, \\" = .75\\")", parse = TRUE)
 }
-

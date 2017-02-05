@@ -1,14 +1,15 @@
-#' Ribbons and area plots.
+#' Ribbons and area plots
 #'
-#' For each continuous x value, \code{geom_interval} displays a y interval.
-#' \code{geom_area} is a special case of \code{geom_ribbon}, where the
-#' minimum of the range is fixed to 0.
+#' For each x value, \code{geom_ribbon} displays a y interval defined
+#' by \code{ymin} and \code{ymax}. \code{geom_area} is a special case of
+#' \code{geom_ribbon}, where the \code{ymin} is fixed to 0.
 #'
 #' An area plot is the continuous analog of a stacked bar chart (see
 #' \code{\link{geom_bar}}), and can be used to show how composition of the
-#' whole varies over the range of x.  Choosing the order in which different
+#' whole varies over the range of x. Choosing the order in which different
 #' components is stacked is very important, as it becomes increasing hard to
-#' see the individual pattern as you move up the stack.
+#' see the individual pattern as you move up the stack. See
+#' \code{\link{position_stack}} for the details of stacking algorithm.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{ribbon}
@@ -69,7 +70,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data
   },
 
-  draw_group = function(data, panel_scales, coord, na.rm = FALSE) {
+  draw_group = function(data, panel_params, coord, na.rm = FALSE) {
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group, data$x), ]
 
@@ -93,7 +94,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     positions <- plyr::summarise(data,
       x = c(x, rev(x)), y = c(ymax, rev(ymin)), id = c(ids, rev(ids)))
-    munched <- coord_munch(coord, positions, panel_scales)
+    munched <- coord_munch(coord, positions, panel_params)
 
     ggname("geom_ribbon", polygonGrob(
       munched$x, munched$y, id = munched$id,

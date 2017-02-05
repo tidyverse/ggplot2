@@ -36,10 +36,8 @@ ggplot_build <- function(plot) {
 
   # Initialise panels, add extra data for margins & missing facetting
   # variables, and add on a PANEL variable to data
-
-  layout <- create_layout(plot$facet)
-  data <- layout$setup(layer_data, plot$data, plot$plot_env, plot$coordinates)
-  data <- layout$map(data)
+  layout <- create_layout(plot$facet, plot$coordinates)
+  data <- layout$setup(layer_data, plot$data, plot$plot_env)
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
@@ -69,10 +67,11 @@ ggplot_build <- function(plot) {
   data <- by_layer(function(l, d) l$compute_position(d, layout))
 
   # Reset position scales, then re-train and map.  This ensures that facets
-  # have control over the range of a plot: is it generated from what's
+  # have control over the range of a plot: is it generated from what is
   # displayed, or does it include the range of underlying data
   layout$reset_scales()
   layout$train_position(data, scale_x(), scale_y())
+  layout$setup_panel_params()
   data <- layout$map_position(data)
 
   # Train and map non-position scales
@@ -81,9 +80,6 @@ ggplot_build <- function(plot) {
     lapply(data, scales_train_df, scales = npscales)
     data <- lapply(data, scales_map_df, scales = npscales)
   }
-
-  # Train coordinate system
-  layout$train_ranges(plot$coordinates)
 
   # Fill in defaults etc.
   data <- by_layer(function(l, d) l$compute_geom_2(d))
@@ -108,12 +104,12 @@ layer_data <- function(plot, i = 1L) {
 layer_scales <- function(plot, i = 1L, j = 1L) {
   b <- ggplot_build(plot)
 
-  layout <- b$layout$panel_layout
+  layout <- b$layout$layout
   selected <- layout[layout$ROW == i & layout$COL == j, , drop = FALSE]
 
   list(
-    x = b$layout$panel_scales$x[[selected$SCALE_X]],
-    y = b$layout$panel_scales$y[[selected$SCALE_Y]]
+    x = b$layout$panel_scales_x[[selected$SCALE_X]],
+    y = b$layout$panel_scales_y[[selected$SCALE_Y]]
   )
 }
 
@@ -122,7 +118,7 @@ layer_scales <- function(plot, i = 1L, j = 1L) {
 layer_grob <- function(plot, i = 1L) {
   b <- ggplot_build(plot)
 
-  b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout, b$plot$coordinates)
+  b$plot$layers[[i]]$draw_geom(b$data[[i]], b$layout)
 }
 
 #' Build a plot with all the usual bits and pieces.
@@ -147,10 +143,8 @@ ggplot_gtable <- function(data) {
   data <- data$data
   theme <- plot_theme(plot)
 
-  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout, plot$coordinates),
-    plot$layers, data)
-
-  plot_table <- layout$render(geom_grobs, data, plot$coordinates, theme, plot$labels)
+  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot$layers, data)
+  plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends
   position <- theme$legend.position

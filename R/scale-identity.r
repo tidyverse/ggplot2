@@ -1,9 +1,13 @@
-#' Use values without scaling.
+#' Use values without scaling
 #'
-#' @name scale_identity
+#' Use this set of scales when your data has already been scaled, i.e. it
+#' already represents aesthetic values that ggplot2 can handle directly
+#' This will not produce a legend unless you also supply the \code{breaks}
+#' and \code{labels}.
+#'
 #' @param ... Other arguments passed on to \code{\link{discrete_scale}} or
 #'   \code{\link{continuous_scale}}
-#' @param guide Guide to use for this scale - defaults to \code{"none"}.
+#' @param guide Guide to use for this scale. Defaults to \code{"none"}.
 #' @examples
 #' ggplot(luv_colours, aes(u, v)) +
 #'   geom_point(aes(colour = col), size = 3) +
@@ -31,12 +35,15 @@
 #'   guide = "legend")
 #'
 #' # cyl scaled to appropriate size
-#' ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(size = cyl))
+#' ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point(aes(size = cyl))
 #'
 #' # cyl used as point size
 #' ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(size = cyl)) +
 #'   scale_size_identity()
+#' @name scale_identity
+#' @aliases NULL
 NULL
 
 #' @rdname scale_identity

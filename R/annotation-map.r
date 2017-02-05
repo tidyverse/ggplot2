@@ -1,7 +1,9 @@
 #' @include geom-map.r
 NULL
 
-#' Annotation: maps.
+#' Annotation: a maps
+#'
+#' Display a fixed map on a plot.
 #'
 #' @param map data frame representing a map.  Most map objects can be
 #'   converted into the right format by using \code{\link{fortify}}
@@ -53,10 +55,10 @@ GeomAnnotationMap <- ggproto("GeomAnnotationMap", GeomMap,
     data
   },
 
-  draw_panel = function(data, panel_scales, coord, map) {
+  draw_panel = function(data, panel_params, coord, map) {
     # Munch, then set up id variable for polygonGrob -
     # must be sequential integers
-    coords <- coord_munch(coord, map, panel_scales)
+    coords <- coord_munch(coord, map, panel_params)
     coords$group <- coords$group %||% coords$id
     grob_id <- match(coords$group, unique(coords$group))
 

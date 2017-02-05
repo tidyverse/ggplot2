@@ -2,9 +2,9 @@
 % Please edit documentation in R/scale-shape.r
 \name{scale_shape}
 \alias{scale_shape}
-\alias{scale_shape_continuous}
 \alias{scale_shape_discrete}
-\title{Scale for shapes, aka glyphs.}
+\alias{scale_shape_continuous}
+\title{Scales for shapes, aka glyphs}
 \usage{
 scale_shape(..., solid = TRUE)
 }
@@ -13,10 +13,15 @@ scale_shape(..., solid = TRUE)
 \code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
 \code{\link{discrete_scale}} for more details}
 
-\item{solid}{Are the shapes solid, \code{TRUE}, or hollow \code{FALSE}?}
+\item{solid}{Should the shapes be solid, \code{TRUE}, or hollow,
+\code{FALSE}?}
 }
 \description{
-A continuous variable can not be mapped to shape.
+\code{scale_shape} maps discrete variables to six easily discernible shapes.
+If you have more than six levels, you will get a warning message, and the
+seventh and subsequence levels will not appear on the plot. Use
+\code{\link{scale_shape_manual}} to supply your own values. You can not map
+a continuous variable to shape.
 }
 \examples{
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]
@@ -25,7 +30,6 @@ dsmall <- diamonds[sample(nrow(diamonds), 100), ]
 d + scale_shape(solid = TRUE) # the default
 d + scale_shape(solid = FALSE)
 d + scale_shape(name = "Cut of diamond")
-d + scale_shape(name = "Cut of\\ndiamond")
 
 # To change order of levels, change order of
 # underlying factor
@@ -33,9 +37,6 @@ levels(dsmall$cut) <- c("Fair", "Good", "Very Good", "Premium", "Ideal")
 
 # Need to recreate plot to pick up new data
 ggplot(dsmall, aes(price, carat)) + geom_point(aes(shape = cut))
-
-# Or for short:
-d \%+\% dsmall
 
 # Show a list of available shapes
 df_shapes <- data.frame(shape = 0:24)
@@ -45,4 +46,3 @@ ggplot(df_shapes, aes(0, 0, shape = shape)) +
   facet_wrap(~shape) +
   theme_void()
 }
-

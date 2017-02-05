@@ -5,8 +5,8 @@
 \title{Create a new layer}
 \usage{
 layer(geom = NULL, stat = NULL, data = NULL, mapping = NULL,
-  position = NULL, params = list(), inherit.aes = TRUE, subset = NULL,
-  show.legend = NA)
+  position = NULL, params = list(), inherit.aes = TRUE,
+  check.aes = TRUE, check.param = TRUE, subset = NULL, show.legend = NA)
 }
 \arguments{
 \item{geom}{The geometric object to use display the data}
@@ -43,6 +43,10 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 
+\item{check.aes, check.param}{If \code{TRUE}, the default, will check that
+supplied parameters and aesthetics are understood by the \code{geom} or
+\code{stat}. Use \code{FALSE} to suppress the checks.}
+
 \item{subset}{DEPRECATED. An older way of subsetting the dataset used in a
 layer.}
 
@@ -71,4 +75,4 @@ ggplot(mpg, aes(displ, hwy)) +
   )
 
 }
-
+\keyword{internal}

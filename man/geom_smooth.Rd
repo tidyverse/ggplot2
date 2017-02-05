@@ -3,7 +3,7 @@
 \name{geom_smooth}
 \alias{geom_smooth}
 \alias{stat_smooth}
-\title{Add a smoothed conditional mean.}
+\title{Smoothed conditional means}
 \usage{
 geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
   position = "identity", ..., method = "auto", formula = y ~ x,
@@ -48,7 +48,7 @@ to the paired geom/stat.}
 
   For \code{method = "auto"} the smoothing method is chosen based on the
   size of the largest group (across all panels). \code{\link{loess}} is
-  used for than 1,000 observations; otherwise \code{\link[mgcv]{gam}} is
+  used for less than 1,000 observations; otherwise \code{\link[mgcv]{gam}} is
   used with \code{formula = y ~ s(x, bs = "cs")}. Somewhat anecdotally,
   \code{loess} gives a better appearance, but is O(n^2) in memory, so does
   not work for larger datasets.}
@@ -59,8 +59,8 @@ to the paired geom/stat.}
 \item{se}{display confidence interval around smooth? (TRUE by default, see
 level to control}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -116,6 +116,7 @@ scale, and then back-transformed to the response scale.
   \item{se}{standard error}
 }
 }
+
 \examples{
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
@@ -176,4 +177,3 @@ See individual modelling functions for more details:
   \code{\link{glm}} for generalised linear smooths,
   \code{\link{loess}} for local smooths
 }
-

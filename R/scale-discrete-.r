@@ -1,4 +1,4 @@
-#' Discrete position.
+#' Position scales for discrete data
 #'
 #' You can use continuous positions even with a discrete position scale -
 #' this allows you (e.g.) to place labels between bars in a bar chart.
@@ -24,6 +24,7 @@
 #' @param position The position of the axis. \code{left} or \code{right} for y
 #' axes, \code{top} or \code{bottom} for x axes
 #' @rdname scale_discrete
+#' @family position scales
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(cut)) + geom_bar()
@@ -86,7 +87,7 @@ scale_y_discrete <- function(..., expand = waiver(), position = "left") {
 ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   train = function(self, x) {
     if (is.discrete(x)) {
-      self$range$train(x, drop = self$drop)
+      self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
     } else {
       self$range_c$train(x)
     }

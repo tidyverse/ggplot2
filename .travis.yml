@@ -2,11 +2,21 @@ language: R
 cache: packages
 sudo: false
 
+addons:
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - libfreetype6
+
 r_github_packages:
   - hadley/staticdocs@old
 
 after_success:
   - Rscript -e 'covr::codecov()'
+
+before_install:
+  Rscript -e 'update.packages(ask = FALSE)'
 
 before_deploy:
   - R -e "install.packages('roxygen2', repos = 'http://cran.rstudio.com')"

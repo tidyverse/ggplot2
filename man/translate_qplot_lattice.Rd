@@ -77,4 +77,4 @@ qplot(mpg, wt, data = mtcars, asp = 1)
 # before using ggplot2.
 }
 }
-
+\keyword{internal}

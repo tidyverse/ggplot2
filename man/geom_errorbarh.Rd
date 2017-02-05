@@ -39,8 +39,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -52,12 +52,13 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-Horizontal error bars
+A rotated version of \code{\link{geom_errorbar}}.
 }
 \section{Aesthetics}{
 
 \aesthetics{geom}{errorbarh}
 }
+
 \examples{
 df <- data.frame(
   trt = factor(c(1, 1, 2, 2)),
@@ -74,7 +75,3 @@ p + geom_point() +
 p + geom_point() +
   geom_errorbarh(aes(xmax = resp + se, xmin = resp - se, height = .2))
 }
-\seealso{
-\code{\link{geom_errorbar}}: vertical error bars
-}
-

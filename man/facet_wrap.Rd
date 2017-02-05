@@ -2,7 +2,7 @@
 % Please edit documentation in R/facet-wrap.r
 \name{facet_wrap}
 \alias{facet_wrap}
-\title{Wrap a 1d ribbon of panels into 2d.}
+\title{Wrap a 1d ribbon of panels into 2d}
 \usage{
 facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   shrink = TRUE, labeller = "label_value", as.table = TRUE,
@@ -55,10 +55,9 @@ either of the four sides by setting \code{strip.position = c("top",
 "bottom", "left", "right")}}
 }
 \description{
-Most displays are roughly rectangular, so if you have a categorical
-variable with many levels, it doesn't make sense to try and display them
-all in one row (or one column). To solve this dilemma, \code{facet_wrap}
-wraps a 1d sequence of panels into 2d, making best use of screen real estate.
+\code{facet_wrap} wraps a 1d sequence of panels into 2d. This is generally
+a better use of screen space than \code{\link{facet_grid}} because most
+displays are roughly rectangular.
 }
 \examples{
 ggplot(mpg, aes(displ, hwy)) +
@@ -117,4 +116,3 @@ ggplot(economics_long, aes(date, value)) +
   theme(strip.background = element_blank(), strip.placement = "outside")
 }
 }
-

@@ -1,7 +1,11 @@
 #' @include facet-.r
 NULL
 
-#' Lay out panels in a grid.
+#' Lay out panels in a grid
+#'
+#' \code{facet_grid} forms a matrix of panels defined by row and column
+#' facetting variables. It is most useful when you have two discrete
+#' variables, and all combinations of the variables exist in the data.
 #'
 #' @param facets a formula with the rows (of the tabular display) on the LHS
 #'   and the columns (of the tabular display) on the RHS; the dot in the
@@ -230,7 +234,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       intersect(names(cols), names(data)))
     data <- reshape2::add_margins(data, margin_vars, params$margins)
 
-    facet_vals <- quoted_df(data, c(rows, cols), params$plot_env)
+    facet_vals <- eval_facet_vars(c(rows, cols), data, params$plot_env)
 
     # If any facetting variables are missing, add them in by
     # duplicating the data
@@ -311,7 +315,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
 
     panel_table <- gtable_matrix("layout", panel_table,
-      panel_widths, panel_heights, respect = respect, clip = "on")
+      panel_widths, panel_heights, respect = respect, clip = "on", z = matrix(1, ncol = ncol, nrow = nrow))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
     panel_table <- gtable_add_col_space(panel_table,

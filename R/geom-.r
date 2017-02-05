@@ -20,22 +20,26 @@ NULL
 #' the changes.
 #'
 #' \itemize{
-#'   \item Override either \code{draw_panel(self, data, panel_scales, coord)} or
-#'     \code{draw_group(self, data, panel_scales, coord)}. \code{draw_panel} is
+#'   \item Override either \code{draw_panel(self, data, panel_params, coord)} or
+#'     \code{draw_group(self, data, panel_params, coord)}. \code{draw_panel} is
 #'     called once per panel, \code{draw_group} is called once per group.
 #'
 #'     Use \code{draw_panel} if each row in the data represents a
 #'     single element. Use \code{draw_group} if each group represents
 #'     an element (e.g. a smooth, a violin).
 #'
-#'     \code{data} is a data frame of scaled aesthetics. \code{panel_scales}
-#'     is a list containing information about the scales in the current
-#'     panel. \code{coord} is a coordinate specification. You'll
-#'     need to call \code{coord$transform(data, panel_scales)} to work
-#'     with non-Cartesian coords. To work with non-linear coordinate systems,
-#'     you typically need to convert into a primitive geom (e.g. point, path
-#'     or polygon), and then pass on to the corresponding draw method
-#'     for munching.
+#'     \code{data} is a data frame of scaled aesthetics.
+#'
+#'     \code{panel_params} is a set of per-panel parameters for the
+#'     \code{coord}. Generally, you should consider \code{panel_params}
+#'     to be an opaque data structure that you pass along whenever you call
+#'     a coord method.
+#'
+#'     You must always call \code{coord$transform(data, panel_params)} to
+#'     get the (position) scaled data for plotting. convert. To work with
+#'     non-linear coordinate systems, you typically need to convert into a
+#'     primitive geom (e.g. point, path or polygon), and then pass on to the
+#'     corresponding draw method for munching.
 #'
 #'     Must return a grob. Use \code{\link{zeroGrob}} if there's nothing to
 #'     draw.
@@ -54,6 +58,7 @@ NULL
 Geom <- ggproto("Geom",
   required_aes = character(),
   non_missing_aes = character(),
+  optional_aes = character(),
 
   default_aes = aes(),
 
@@ -75,19 +80,19 @@ Geom <- ggproto("Geom",
     # Trim off extra parameters
     params <- params[intersect(names(params), self$parameters())]
 
-    args <- c(list(quote(data), quote(panel_scales), quote(coord)), params)
+    args <- c(list(quote(data), quote(panel_params), quote(coord)), params)
     plyr::dlply(data, "PANEL", function(data) {
       if (empty(data)) return(zeroGrob())
 
-      panel_scales <- layout$panel_ranges[[data$PANEL[1]]]
+      panel_params <- layout$panel_params[[data$PANEL[1]]]
       do.call(self$draw_panel, args)
     }, .drop = FALSE)
   },
 
-  draw_panel = function(self, data, panel_scales, coord, ...) {
+  draw_panel = function(self, data, panel_params, coord, ...) {
     groups <- split(data, factor(data$group))
     grobs <- lapply(groups, function(group) {
-      self$draw_group(group, panel_scales, coord, ...)
+      self$draw_group(group, panel_params, coord, ...)
     })
 
     ggname(snake_class(self), gTree(
@@ -95,7 +100,7 @@ Geom <- ggproto("Geom",
     ))
   },
 
-  draw_group = function(self, data, panel_scales, coord) {
+  draw_group = function(self, data, panel_params, coord) {
     stop("Not implemented")
   },
 
@@ -141,7 +146,7 @@ Geom <- ggproto("Geom",
   },
 
   aesthetics = function(self) {
-    c(union(self$required_aes, names(self$default_aes)), "group")
+    c(union(self$required_aes, names(self$default_aes)), self$optional_aes, "group")
   }
 
 )
@@ -153,6 +158,8 @@ Geom <- ggproto("Geom",
 #' that grid uses internally for \code{lwd} and \code{fontsize}.
 #'
 #' @name graphical-units
+#' @keywords internal
+#' @aliases NULL
 NULL
 
 #' @export

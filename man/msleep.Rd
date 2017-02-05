@@ -3,20 +3,20 @@
 \docType{data}
 \name{msleep}
 \alias{msleep}
-\title{An updated and expanded version of the mammals sleep dataset.}
+\title{An updated and expanded version of the mammals sleep dataset}
 \format{A data frame with 83 rows and 11 variables
-\itemize{
-  \item name. common name
-  \item genus.
-  \item vore. carnivore, omnivore or herbivore?
-  \item order.
-  \item conservation. the conservation status of the animal
-  \item sleep\_total. total amount of sleep, in hours
-  \item sleep\_rem. rem sleep, in hours
-  \item sleep\_cycle. length of sleep cycle, in hours
-  \item awake. amount of time spent awake, in hours
-  \item brainwt. brain weight in kilograms
-  \item bodywt. body weight in kilograms
+\describe{
+  \item{name}{common name}
+  \item{genus}{}
+  \item{vore}{carnivore, omnivore or herbivore?}
+  \item{order}{}
+  \item{conservation}{the conservation status of the animal}
+  \item{sleep_total}{total amount of sleep, in hours}
+  \item{sleep_rem}{rem sleep, in hours}
+  \item{sleep_cycle}{length of sleep cycle, in hours}
+  \item{awake}{amount of time spent awake, in hours}
+  \item{brainwt}{brain weight in kilograms}
+  \item{bodywt}{body weight in kilograms}
 }}
 \usage{
 msleep
@@ -33,4 +33,3 @@ Additional variables order, conservation status and vore were added from
 wikipedia.
 }
 \keyword{datasets}
-

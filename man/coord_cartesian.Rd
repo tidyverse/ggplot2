@@ -2,7 +2,7 @@
 % Please edit documentation in R/coord-cartesian-.r
 \name{coord_cartesian}
 \alias{coord_cartesian}
-\title{Cartesian coordinates.}
+\title{Cartesian coordinates}
 \usage{
 coord_cartesian(xlim = NULL, ylim = NULL, expand = TRUE)
 }
@@ -57,4 +57,3 @@ d + scale_x_continuous(limits = c(0, 1))
 # displayed bigger
 d + coord_cartesian(xlim = c(0, 1))
 }
-

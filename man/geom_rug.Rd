@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom-rug.r
 \name{geom_rug}
 \alias{geom_rug}
-\title{Marginal rug plots.}
+\title{Rug plots in the margins}
 \usage{
 geom_rug(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., sides = "bl", na.rm = FALSE,
@@ -43,8 +43,8 @@ to the paired geom/stat.}
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -56,18 +56,34 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-Marginal rug plots.
+A rug plot is a compact visualisation designed to supplement a 2d display
+with the two 1d marginal distributions. Rug plots display individual
+cases so are best used with smaller datasets.
+}
+\details{
+The rug lines are drawn with a fixed size (3% of the total plot size) so
+are dependent on the overall scale expansion in order not to overplot
+existing data.
 }
 \section{Aesthetics}{
 
 \aesthetics{geom}{rug}
 }
-\examples{
-p <- ggplot(mtcars, aes(wt, mpg))
-p + geom_point()
-p + geom_point() + geom_rug()
-p + geom_point() + geom_rug(sides="b")    # Rug on bottom only
-p + geom_point() + geom_rug(sides="trbl") # All four sides
-p + geom_point() + geom_rug(position='jitter')
-}
 
+\examples{
+p <- ggplot(mtcars, aes(wt, mpg)) +
+  geom_point()
+p
+p + geom_rug()
+p + geom_rug(sides="b")    # Rug on bottom only
+p + geom_rug(sides="trbl") # All four sides
+
+# Use jittering to avoid overplotting for smaller datasets
+ggplot(mpg, aes(displ, cty)) +
+  geom_point() +
+  geom_rug()
+
+ggplot(mpg, aes(displ, cty)) +
+  geom_jitter() +
+  geom_rug(alpha = 1/2, position = "jitter")
+}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-unique.r
 \name{stat_unique}
 \alias{stat_unique}
-\title{Remove duplicates.}
+\title{Remove duplicates}
 \usage{
 stat_unique(mapping = NULL, data = NULL, geom = "point",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
@@ -38,8 +38,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{na.rm}{If \code{FALSE} (the default), removes missing values with
-a warning.  If \code{TRUE} silently removes missing values.}
+\item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -51,14 +51,16 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-Remove duplicates.
+Remove duplicates
 }
 \section{Aesthetics}{
 
 \aesthetics{stat}{unique}
 }
-\examples{
-ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1)
-ggplot(mtcars, aes(vs, am)) + geom_point(alpha = 0.1, stat="unique")
-}
 
+\examples{
+ggplot(mtcars, aes(vs, am)) +
+  geom_point(alpha = 0.1)
+ggplot(mtcars, aes(vs, am)) +
+  geom_point(alpha = 0.1, stat = "unique")
+}

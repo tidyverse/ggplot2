@@ -1,4 +1,4 @@
-#' Cut up numeric vector into useful groups.
+#' Discretise numeric data into categorical
 #'
 #' \code{cut_interval} makes \code{n} groups with equal range, \code{cut_number}
 #' makes \code{n} groups with (approximately) equal numbers of observations;
@@ -10,7 +10,6 @@
 #' @param n number of intervals to create, OR
 #' @param length length of each interval
 #' @param ... other arguments passed on to \code{\link{cut}}
-#' @seealso \code{\link{cut_number}}
 #' @export
 #' @examples
 #' table(cut_interval(1:100, 10))

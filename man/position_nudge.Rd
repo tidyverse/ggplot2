@@ -2,7 +2,7 @@
 % Please edit documentation in R/position-nudge.R
 \name{position_nudge}
 \alias{position_nudge}
-\title{Nudge points.}
+\title{Nudge points a fixed distance}
 \usage{
 position_nudge(x = 0, y = 0)
 }
@@ -10,8 +10,10 @@ position_nudge(x = 0, y = 0)
 \item{x, y}{Amount of vertical and horizontal distance to move.}
 }
 \description{
-This is useful if you want to nudge labels a little ways from their
-points.
+\code{position_nudge} is generally useful for adjusting the position of
+items on discrete scales by a small amount. Nudging is built in to
+\code{\link{geom_text}} because it's so useful for moving labels a small
+distance from what they're labelling.
 }
 \examples{
 df <- data.frame(
@@ -26,12 +28,16 @@ ggplot(df, aes(x, y)) +
 ggplot(df, aes(x, y)) +
   geom_point() +
   geom_text(aes(label = y), position = position_nudge(y = -0.1))
+
+# Or, in brief
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  geom_text(aes(label = y), nudge_y = -0.1)
 }
 \seealso{
 Other position adjustments: \code{\link{position_dodge}},
-  \code{\link{position_fill}},
   \code{\link{position_identity}},
   \code{\link{position_jitterdodge}},
-  \code{\link{position_jitter}}
+  \code{\link{position_jitter}},
+  \code{\link{position_stack}}
 }
-

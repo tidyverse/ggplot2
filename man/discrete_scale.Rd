@@ -6,8 +6,8 @@
 \usage{
 discrete_scale(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), labels = waiver(), limits = NULL,
-  expand = waiver(), na.value = NA, drop = TRUE, guide = "legend",
-  position = "left", super = ScaleDiscrete)
+  expand = waiver(), na.translate = TRUE, na.value = NA, drop = TRUE,
+  guide = "legend", position = "left", super = ScaleDiscrete)
 }
 \arguments{
 \item{aesthetics}{the names of the aesthetics that this scale works with}
@@ -56,7 +56,13 @@ upper limit, i.e. \code{c(a, b)} is equivalent to
 for continuous variables, and \code{c(0, 0.6, 0, 0.6)} for
 discrete variables.}
 
-\item{na.value}{how should missing values be displayed?}
+\item{na.translate}{Unlike continuous scales, discrete scales can easily show
+missing values, and do so by default. If you want to remove missing values
+from a discrete scale, specify \code{na.translate = FALSE}.}
+
+\item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
+value should missing be displayed as? Does not apply to position scales
+where \code{NA} is always placed at the far right.}
 
 \item{drop}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
@@ -74,4 +80,3 @@ scales, "top" or "bottom" for horizontal scales}
 Discrete scale constructor.
 }
 \keyword{internal}
-

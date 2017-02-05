@@ -2,7 +2,7 @@
 % Please edit documentation in R/labeller.r
 \name{label_bquote}
 \alias{label_bquote}
-\title{Backquoted labeller}
+\title{Label with mathematical expressions}
 \usage{
 label_bquote(rows = NULL, cols = NULL, default = label_value)
 }
@@ -15,7 +15,7 @@ label_bquote(rows = NULL, cols = NULL, default = label_value)
 columns when no plotmath expression is provided.}
 }
 \description{
-\code{\link{label_bquote}()} offers a flexible way of labelling
+\code{label_bquote()} offers a flexible way of labelling
 facet rows or columns with plotmath expressions. Backquoted
 variables will be replaced with their value in the facet.
 }
@@ -30,4 +30,3 @@ p + facet_grid(. ~ vs + am, labeller = label_bquote(cols = .(am) ^ .(vs)))
 \seealso{
 \link{labellers}, \code{\link{labeller}()},
 }
-

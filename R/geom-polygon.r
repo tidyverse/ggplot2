@@ -1,4 +1,9 @@
-#' Polygon, a filled path.
+#' Polygons
+#'
+#' Polygons are very similar to paths (as drawn by \code{\link{geom_path}})
+#' except that the start and end points are connected and the inside is
+#' coloured by \code{fill}. The \code{group} aesthetic determines which cases
+#' are connected together into a polygon.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{polygon}
@@ -33,7 +38,9 @@
 #' # Currently we need to manually merge the two together
 #' datapoly <- merge(values, positions, by = c("id"))
 #'
-#' (p <- ggplot(datapoly, aes(x = x, y = y)) + geom_polygon(aes(fill = value, group = id)))
+#' p <- ggplot(datapoly, aes(x = x, y = y)) +
+#'   geom_polygon(aes(fill = value, group = id))
+#' p
 #'
 #' # Which seems like a lot of work, but then it's easy to add on
 #' # other features in this coordinate system, e.g.:
@@ -73,11 +80,11 @@ geom_polygon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(data, panel_scales, coord) {
+  draw_panel = function(data, panel_params, coord) {
     n <- nrow(data)
     if (n == 1) return(zeroGrob())
 
-    munched <- coord_munch(coord, data, panel_scales)
+    munched <- coord_munch(coord, data, panel_params)
     # Sort by group to make sure that colors, fill, etc. come in same order
     munched <- munched[order(munched$group), ]
 

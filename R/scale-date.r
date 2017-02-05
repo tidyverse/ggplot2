@@ -1,10 +1,13 @@
-#' Position scale, date & date times
+#' Position scales for date/time data
 #'
-#' Use \code{scale_*_date} with \code{Date} variables, and
-#' \code{scale_*_datetime} with \code{POSIXct} variables.
+#' These are the default scales for the three date/time class. These will
+#' usually be added automatically. To override manually, use
+#' \code{scale_*_date} for dates (class \code{Date}),
+#' \code{scale_*_datetime} for datetimes (class \code{POSIXct}), and
+#' \code{scale_*_time} for times (class \code{hms}).
 #'
-#' @name scale_date
 #' @inheritParams continuous_scale
+#' @inheritParams scale_x_continuous
 #' @param date_breaks A string giving the distance between breaks like "2
 #'   weeks", or "10 years". If both \code{breaks} and \code{date_breaks} are
 #'   specified, \code{date_breaks} wins.
@@ -15,8 +18,8 @@
 #'   labels. Codes are defined in \code{\link{strftime}}. If both \code{labels}
 #'   and \code{date_labels} are specified, \code{date_labels} wins.
 #' @param timezone The timezone to use for display on the axes. The default
-#' (\code{NULL}) uses the timezone encoded in the data.
-#' @seealso \code{\link{scale_continuous}} for continuous position scales.
+#'   (\code{NULL}) uses the timezone encoded in the data.
+#' @family position scales
 #' @examples
 #' last_month <- Sys.Date() - 0:29
 #' df <- data.frame(
@@ -35,6 +38,8 @@
 #'
 #' # Set limits
 #' base + scale_x_date(limits = c(Sys.Date() - 7, NA))
+#' @name scale_date
+#' @aliases NULL
 NULL
 
 #' @rdname scale_date
@@ -70,7 +75,6 @@ scale_y_date <- function(name = waiver(),
     limits = limits, expand = expand, position = position
   )
 }
-
 
 #' @export
 #' @rdname scale_date
@@ -109,6 +113,61 @@ scale_y_datetime <- function(name = waiver(),
   )
 }
 
+
+
+#' @export
+#' @rdname scale_date
+scale_x_time <- function(name = waiver(),
+                         breaks = waiver(),
+                         minor_breaks = waiver(),
+                         labels = waiver(),
+                         limits = NULL,
+                         expand = waiver(),
+                         oob = censor,
+                         na.value = NA_real_,
+                         position = "bottom") {
+
+  scale_x_continuous(
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    minor_breaks = minor_breaks,
+    limits = limits,
+    expand = expand,
+    oob = oob,
+    na.value = na.value,
+    position = position,
+    trans = scales::hms_trans()
+  )
+}
+
+
+#' @rdname scale_date
+#' @export
+scale_y_time <- function(name = waiver(),
+                         breaks = waiver(),
+                         minor_breaks = waiver(),
+                         labels = waiver(),
+                         limits = NULL,
+                         expand = waiver(),
+                         oob = censor,
+                         na.value = NA_real_,
+                         position = "left") {
+
+  scale_y_continuous(
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    minor_breaks = minor_breaks,
+    limits = limits,
+    expand = expand,
+    oob = oob,
+    na.value = na.value,
+    position = position,
+    trans = scales::hms_trans()
+  )
+}
+
 scale_datetime <- function(aesthetics, trans,
                            breaks = pretty_breaks(), minor_breaks = waiver(),
                            labels = waiver(), date_breaks = waiver(),
@@ -116,7 +175,6 @@ scale_datetime <- function(aesthetics, trans,
                            date_minor_breaks = waiver(), timezone = NULL,
                            ...) {
 
-  name <- switch(trans, date = "date", time = "datetime")
 
   # Backward compatibility
   if (is.character(breaks)) breaks <- date_breaks(breaks)
@@ -135,10 +193,19 @@ scale_datetime <- function(aesthetics, trans,
     }
   }
 
-  scale_class <- switch(trans, date = ScaleContinuousDate, time = ScaleContinuousDatetime)
-  sc <- continuous_scale(aesthetics, name, identity,
+  name <- switch(trans,
+    date = "date",
+    time = "datetime"
+  )
+  scale_class <- switch(trans,
+    date = ScaleContinuousDate,
+    time = ScaleContinuousDatetime
+  )
+  sc <- continuous_scale(
+    aesthetics, name, identity,
     breaks = breaks, minor_breaks = minor_breaks, labels = labels,
-    guide = "none", trans = trans, ..., super = scale_class)
+    guide = "none", trans = trans, ..., super = scale_class
+  )
   sc$timezone <- timezone
   sc
 }

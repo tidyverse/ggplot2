@@ -1,16 +1,22 @@
-#' Box and whiskers plot.
+#' A box and whiskers plot (in the style of Tukey)
 #'
-#' The lower and upper "hinges" correspond to the first and third quartiles
+#' The boxplot compactly displays the distribution of a continuous variable.
+#' It visualises five summary statistics (the median, two hinges
+#' and two whiskers), and all "outlying" points individually.
+#'
+#' @section Summary statistics:
+#' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
 #' by the \code{boxplot} function, and may be apparent with small samples.
 #' See \code{\link{boxplot.stats}} for for more information on how hinge
 #' positions are calculated for \code{boxplot}.
 #'
-#' The upper whisker extends from the hinge to the highest value that is within
-#' 1.5 * IQR of the hinge, where IQR is the inter-quartile range, or distance
-#' between the first and third quartiles. The lower whisker extends from the
-#' hinge to the lowest value within 1.5 * IQR of the hinge. Data beyond the
-#' end of the whiskers are outliers and plotted as points (as specified by Tukey).
+#' The upper whisker extends from the hinge to the largest value no further than
+#' 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
+#' between the first and third quartiles). The lower whisker extends from the
+#' hinge to the smallest value at most 1.5 * IQR of the hinge. Data beyond the
+#' end of the whiskers are called "outlying" points and are plotted
+#' individually.
 #'
 #' In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
 #' This gives a roughly 95\% confidence interval for comparing medians.
@@ -19,14 +25,14 @@
 #' @section Aesthetics:
 #' \aesthetics{geom}{boxplot}
 #'
-#' @seealso \code{\link{stat_quantile}} to view quantiles conditioned on a
-#'   continuous variable, \code{\link{geom_jitter}} for another way to look
-#'   at conditional distributions.
+#' @seealso \code{\link{geom_quantile}} for continuous x,
+#'   \code{\link{geom_violin}} for a richer display of the distribution, and
+#'   \code{\link{geom_jitter}} for a useful technique for small data.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
 #'   \code{geom_boxplot} and \code{stat_boxplot}.
-#' @param outlier.colour,outlier.color,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
+#' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
 #'   Default aesthetics for outliers. Set to \code{NULL} to inherit from the
 #'   aesthetics used for the box.
 #'
@@ -93,6 +99,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          ...,
                          outlier.colour = NULL,
                          outlier.color = NULL,
+                         outlier.fill = NULL,
                          outlier.shape = 19,
                          outlier.size = 1.5,
                          outlier.stroke = 0.5,
@@ -113,6 +120,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       outlier.colour = outlier.color %||% outlier.colour,
+      outlier.fill = outlier.fill,
       outlier.shape = outlier.shape,
       outlier.size = outlier.size,
       outlier.stroke = outlier.stroke,
@@ -161,8 +169,9 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     data
   },
 
-  draw_group = function(data, panel_scales, coord, fatten = 2,
-                        outlier.colour = NULL, outlier.shape = 19,
+  draw_group = function(data, panel_params, coord, fatten = 2,
+                        outlier.colour = NULL, outlier.fill = NULL,
+                        outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
                         outlier.alpha = NULL,
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
@@ -205,6 +214,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         y = data$outliers[[1]],
         x = data$x[1],
         colour = outlier.colour %||% data$colour[1],
+        fill = outlier.fill %||% data$fill[1],
         shape = outlier.shape %||% data$shape[1],
         size = outlier.size %||% data$size[1],
         stroke = outlier.stroke %||% data$stroke[1],
@@ -212,15 +222,15 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         alpha = outlier.alpha %||% data$alpha[1],
         stringsAsFactors = FALSE
       )
-      outliers_grob <- GeomPoint$draw_panel(outliers, panel_scales, coord)
+      outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
     } else {
       outliers_grob <- NULL
     }
 
     ggname("geom_boxplot", grobTree(
       outliers_grob,
-      GeomSegment$draw_panel(whiskers, panel_scales, coord),
-      GeomCrossbar$draw_panel(box, fatten = fatten, panel_scales, coord)
+      GeomSegment$draw_panel(whiskers, panel_params, coord),
+      GeomCrossbar$draw_panel(box, fatten = fatten, panel_params, coord)
     ))
   },
 

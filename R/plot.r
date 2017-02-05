@@ -1,23 +1,20 @@
-#' Create a new ggplot plot.
+#' Create a new ggplot
 #'
 #' \code{ggplot()} initializes a ggplot object. It can be used to
 #' declare the input data frame for a graphic and to specify the
 #' set of plot aesthetics intended to be common throughout all
 #' subsequent layers unless specifically overridden.
 #'
-#' \code{ggplot()} is typically used to construct a plot
-#' incrementally, using the + operator to add layers to the
-#' existing ggplot object. This is advantageous in that the
-#' code is explicit about which layers are added and the order
-#' in which they are added. For complex graphics with multiple
-#' layers, initialization with \code{ggplot} is recommended.
+#' \code{ggplot()} is used to construct the initial plot object,
+#' and is almost always followed by \code{+} to add component to the
+#' plot. There are three common ways to invoke \code{ggplot}:
 #'
-#' There are three common ways to invoke \code{ggplot}:
-#' \itemize{
-#'    \item \code{ggplot(df, aes(x, y, <other aesthetics>))}
-#'    \item \code{ggplot(df)}
-#'    \item \code{ggplot()}
-#'   }
+#' \enumerate{
+#'   \item \code{ggplot(df, aes(x, y, <other aesthetics>))}
+#'   \item \code{ggplot(df)}
+#'   \item \code{ggplot()}
+#' }
+#'
 #' The first method is recommended if all layers use the same
 #' data and the same set of aesthetics, although this method
 #' can also be used to add a layer using data from another
@@ -33,60 +30,61 @@
 #'
 #' @param data Default dataset to use for plot. If not already a data.frame,
 #'   will be converted to one by \code{\link{fortify}}. If not specified,
-#'   must be suppled in each layer added to the plot.
+#'   must be supplied in each layer added to the plot.
 #' @param mapping Default list of aesthetic mappings to use for plot.
-#'   If not specified, must be suppled in each layer added to the plot.
+#'   If not specified, must be supplied in each layer added to the plot.
 #' @param ... Other arguments passed on to methods. Not currently used.
-#' @param environment If an variable defined in the aesthetic mapping is not
+#' @param environment If a variable defined in the aesthetic mapping is not
 #'   found in the data, ggplot will look for it in this environment. It defaults
 #'   to using the environment in which \code{ggplot()} is called.
 #' @export
 #' @examples
-#' df <- data.frame(gp = factor(rep(letters[1:3], each = 10)),
-#'                  y = rnorm(30))
-#' # Compute sample mean and standard deviation in each group
+#' # Generate some sample data, then compute mean and standard deviation
+#' # in each group
+#' df <- data.frame(
+#'   gp = factor(rep(letters[1:3], each = 10)),
+#'   y = rnorm(30)
+#' )
 #' ds <- plyr::ddply(df, "gp", plyr::summarise, mean = mean(y), sd = sd(y))
 #'
-#' # Declare the data frame and common aesthetics.
-#' # The summary data frame ds is used to plot
-#' # larger red points in a second geom_point() layer.
-#' # If the data = argument is not specified, it uses the
-#' # declared data frame from ggplot(); ditto for the aesthetics.
-#' ggplot(df, aes(x = gp, y = y)) +
-#'    geom_point() +
-#'    geom_point(data = ds, aes(y = mean),
-#'               colour = 'red', size = 3)
+#' # The summary data frame ds is used to plot larger red points on top
+#' # of the raw data. Note that we don't need to supply `data` or `mapping`
+#' # in each layer because the defaults from ggplot() are used.
+#' ggplot(df, aes(gp, y)) +
+#'   geom_point() +
+#'   geom_point(data = ds, aes(y = mean), colour = 'red', size = 3)
+#'
 #' # Same plot as above, declaring only the data frame in ggplot().
 #' # Note how the x and y aesthetics must now be declared in
 #' # each geom_point() layer.
 #' ggplot(df) +
-#'    geom_point(aes(x = gp, y = y)) +
-#'    geom_point(data = ds, aes(x = gp, y = mean),
-#'                  colour = 'red', size = 3)
-#' # Set up a skeleton ggplot object and add layers:
+#'   geom_point(aes(gp, y)) +
+#'   geom_point(data = ds, aes(gp, mean), colour = 'red', size = 3)
+#'
+#' # Alternatively we can fully specify the plot in each layer. This
+#' # is not useful here, but can be more clear when working with complex
+#' # mult-dataset graphics
 #' ggplot() +
-#'   geom_point(data = df, aes(x = gp, y = y)) +
-#'   geom_point(data = ds, aes(x = gp, y = mean),
-#'                         colour = 'red', size = 3) +
-#'   geom_errorbar(data = ds, aes(x = gp, y = mean,
-#'                     ymin = mean - sd, ymax = mean + sd),
-#'                     colour = 'red', width = 0.4)
+#'   geom_point(data = df, aes(gp, y)) +
+#'   geom_point(data = ds, aes(gp, mean), colour = 'red', size = 3) +
+#'   geom_errorbar(
+#'     data = ds,
+#'     aes(gp, mean, ymin = mean - sd, ymax = mean + sd),
+#'     colour = 'red',
+#'     width = 0.4
+#'   )
 ggplot <- function(data = NULL, mapping = aes(), ...,
                    environment = parent.frame()) {
   UseMethod("ggplot")
 }
 
 #' @export
-#' @rdname ggplot
-#' @usage NULL
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
   ggplot.data.frame(fortify(data, ...), mapping, environment = environment)
 }
 
 #' @export
-#' @rdname ggplot
-#' @usage NULL
 ggplot.data.frame <- function(data, mapping = aes(), ...,
                               environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
@@ -123,7 +121,12 @@ plot_clone <- function(plot) {
 #' @export
 is.ggplot <- function(x) inherits(x, "ggplot")
 
-#' Draw plot on current graphics device.
+#' Explicitly draw plot
+#'
+#' Generally, you do not need to print or plot a ggplot2 plot explicitly: the
+#' default top-level print method will do it for you. You will, however, need
+#' to call \code{print()} explicitly if you want to draw a plot inside a
+#' function or for loop.
 #'
 #' @param x plot to display
 #' @param newpage draw new (empty) page first?
@@ -135,6 +138,20 @@ is.ggplot <- function(x) inherits(x, "ggplot")
 #'   information about the scales, panels etc.
 #' @export
 #' @method print ggplot
+#' @examples
+#' colours <- list(~class, ~drv, ~fl)
+#'
+#' # Doesn't seem to do anything!
+#' for (colour in colours) {
+#'   ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
+#'     geom_point()
+#' }
+#'
+#' # Works when we explicitly print the plots
+#' for (colour in colours) {
+#'   print(ggplot(mpg, aes_(~ displ, ~ hwy, colour = colour)) +
+#'     geom_point())
+#' }
 print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
   set_last_plot(x)
   if (newpage) grid.newpage()

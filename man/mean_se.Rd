@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-summary.r
 \name{mean_se}
 \alias{mean_se}
-\title{Calculate mean and standard errors on either side.}
+\title{Calculate mean and standard error}
 \usage{
 mean_se(x, mult = 1)
 }
@@ -11,10 +11,13 @@ mean_se(x, mult = 1)
 
 \item{mult}{number of multiples of standard error}
 }
+\value{
+A data frame with columns \code{y}, \code{ymin}, and \code{ymax}.
+}
 \description{
-Calculate mean and standard errors on either side.
+For use with \code{\link{stat_summary}}
 }
-\seealso{
-for use with \code{\link{stat_summary}}
+\examples{
+x <- rnorm(100)
+mean_se(x)
 }
-

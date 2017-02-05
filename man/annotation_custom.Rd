@@ -2,7 +2,7 @@
 % Please edit documentation in R/annotation-custom.r
 \name{annotation_custom}
 \alias{annotation_custom}
-\title{Annotation: Custom grob.}
+\title{Annotation: Custom grob}
 \usage{
 annotation_custom(grob, xmin = -Inf, xmax = Inf, ymin = -Inf,
   ymax = Inf)
@@ -20,7 +20,8 @@ location of raster}
 This is a special geom intended for use as static annotations
 that are the same in every panel. These annotations will not
 affect scales (i.e. the x and y axes will not grow to cover the range
-of the grob, and the grob will not be modified by any ggplot settings or mappings).
+of the grob, and the grob will not be modified by any ggplot settings
+or mappings).
 }
 \details{
 Most useful for adding tables, inset plots, and other grid-based decorations.
@@ -52,4 +53,3 @@ g <- ggplotGrob(ggplot(df2, aes(x, y)) +
 base +
   annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
 }
-

@@ -161,6 +161,14 @@ Scale <- ggproto("Scale", NULL,
       ord <- rev(ord)
     }
     ord
+  },
+
+  # Here to make it possible for scales to modify the default titles
+  make_title = function(title) {
+    title
+  },
+  make_sec_title = function(title) {
+    title
   }
 )
 
@@ -248,10 +256,6 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     #       guides cannot discriminate oob from missing value.
     breaks <- censor(self$trans$transform(breaks), self$trans$transform(limits),
                      only.finite = FALSE)
-    if (length(breaks) == 0) {
-      stop("Zero breaks in scale for ", paste(self$aesthetics, collapse = "/"),
-        call. = FALSE)
-    }
     breaks
   },
 
@@ -368,7 +372,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 
   train = function(self, x) {
     if (length(x) == 0) return()
-    self$range$train(x, drop = self$drop)
+    self$range$train(x, drop = self$drop, na.rm = !self$na.translate)
   },
 
   transform = function(x) {
@@ -393,7 +397,11 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       pal_match <- unname(pal_match)
     }
 
-    ifelse(is.na(x) | is.na(pal_match), self$na.value, pal_match)
+    if (self$na.translate) {
+      ifelse(is.na(x) | is.na(pal_match), self$na.value, pal_match)
+    } else {
+      pal_match
+    }
   },
 
   dimension = function(self, expand = c(0, 0, 0, 0)) {
@@ -431,8 +439,14 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       return(NULL)
     } else if (identical(self$labels, NA)) {
       stop("Invalid labels specification. Use NULL, not NA", call. = FALSE)
-    }else if (is.waive(self$labels)) {
-      format(self$get_breaks(), justify = "none", trim = TRUE)
+    } else if (is.waive(self$labels)) {
+      breaks <- self$get_breaks()
+      if (is.numeric(breaks)) {
+        # Only format numbers, because on Windows, format messes up encoding
+        format(breaks, justify = "none")
+      } else {
+        as.character(breaks)
+      }
     } else if (is.function(self$labels)) {
       self$labels(breaks)
     } else {
@@ -640,7 +654,12 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   \code{c(a, b, c, b)}. The defaults are \code{c(0.05, 0, 0.05, 0)}
 #'   for continuous variables, and \code{c(0, 0.6, 0, 0.6)} for
 #'   discrete variables.
-#' @param na.value how should missing values be displayed?
+#' @param na.translate Unlike continuous scales, discrete scales can easily show
+#'   missing values, and do so by default. If you want to remove missing values
+#'   from a discrete scale, specify \code{na.translate = FALSE}.
+#' @param na.value If \code{na.translate = TRUE}, what value aesthetic
+#'   value should missing be displayed as? Does not apply to position scales
+#'   where \code{NA} is always placed at the far right.
 #' @param guide the name of, or actual function, used to create the
 #'   guide. See \code{\link{guides}} for more info.
 #' @param position The position of the axis. "left" or "right" for vertical
@@ -649,7 +668,8 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
-  na.value = NA, drop = TRUE, guide = "legend", position = "left", super = ScaleDiscrete) {
+  na.translate = TRUE, na.value = NA, drop = TRUE,
+  guide = "legend", position = "left", super = ScaleDiscrete) {
 
   check_breaks_labels(breaks, labels)
 
@@ -669,6 +689,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     range = discrete_range(),
     limits = limits,
     na.value = na.value,
+    na.translate = na.translate,
     expand = expand,
 
     name = name,
@@ -678,4 +699,16 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     guide = guide,
     position = position
   )
+}
+
+# In place modification of a scale to change the primary axis
+scale_flip_position <- function(scale) {
+  scale$position <- switch(scale$position,
+    top = "bottom",
+    bottom = "top",
+    left = "right",
+    right = "left",
+    scale$position
+  )
+  invisible()
 }

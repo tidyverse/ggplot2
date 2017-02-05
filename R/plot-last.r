@@ -16,4 +16,5 @@ set_last_plot <- function(value) .store$set(value)
 #'
 #' @seealso \code{\link{ggsave}}
 #' @export
+#' @keywords internal
 last_plot <- function() .store$get()

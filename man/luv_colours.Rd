@@ -3,9 +3,9 @@
 \docType{data}
 \name{luv_colours}
 \alias{luv_colours}
-\title{\code{colors()} in Luv space.}
+\title{\code{colors()} in Luv space}
 \format{A data frame with 657 observations and 4 variables:
-\itemize{
+\describe{
 \item{L,u,v}{Position in Luv colour space}
 \item{col}{Colour name}
 }}
@@ -16,4 +16,3 @@ luv_colours
 All built-in \code{\link{colors}()} translated into Luv colour space.
 }
 \keyword{datasets}
-

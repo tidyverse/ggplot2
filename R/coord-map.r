@@ -1,38 +1,35 @@
-#' Map projections.
+#' Map projections
 #'
-#' The representation of a portion of the earth, which is approximately spherical,
-#' onto a flat 2D plane requires a projection. This is what
-#' \code{\link{coord_map}} does. These projections account for the fact that the
-#' actual length (in km) of one degree of longitude varies between the equator
-#' and the pole. Near the equator, the ratio between the lengths of one degree
-#' of latitude and one degree of longitude is approximately 1. Near the pole, it
-#' is tends towards infinity because the length of one degree of longitude tends
-#' towards 0. For regions that span only a few degrees and are not too close to
-#' the poles, setting the aspect ratio of the plot to the appropriate lat/lon
-#' ratio approximates the usual mercator projection. This is what
-#' \code{coord_quickmap} does. With \code{\link{coord_map}} all elements of the
-#' graphic have to be projected which is not the case here. So
-#' \code{\link{coord_quickmap}} has the advantage of being much faster, in
-#' particular for complex plots such as those using with
-#' \code{\link{geom_tile}}, at the expense of correctness in the projection.
-#' This coordinate system provides the full range of map projections available
-#' in the mapproj package.
+#' \code{coord_map} projects a portion of the earth, which is approximately
+#' spherical, onto a flat 2D plane using any projection defined by the
+#' \code{mapproj} package. Map projections do not, in general, preserve straight
+#' lines, so this requires considerable computation. \code{coord_quickmap} is a
+#' quick approximation that does preserve straight lines. It works best for
+#' smaller areas closer to the equator.
 #'
-#' @export
+#' In general, map projections must account for the fact that the actual length
+#' (in km) of one degree of longitude varies between the equator and the pole.
+#' Near the equator, the ratio between the lengths of one degree of latitude and
+#' one degree of longitude is approximately 1. Near the pole, it is tends
+#' towards infinity because the length of one degree of longitude tends towards
+#' 0. For regions that span only a few degrees and are not too close to the
+#' poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio
+#' approximates the usual mercator projection. This is what
+#' \code{coord_quickmap} does, and is much faster (particularly for complex
+#' plots like \code{\link{geom_tile}}) at the expense of correctness.
+#'
 #' @param projection projection to use, see
 #'    \code{\link[mapproj]{mapproject}} for list
-#' @param ... other arguments passed on to \code{\link[mapproj]{mapproject}}.
-#' Ignored if the \code{parameters} argument is present.
-#' @param parameters optional numeric vector of parameters for use
-#' with the projection argument. This argument is optional only in
-#' the sense that certain projections do not require additional
-#' parameters. Passed to \code{\link[mapproj]{mapproject}}.
+#' @param ...,parameters Other arguments passed on to
+#'   \code{\link[mapproj]{mapproject}}. Use \code{...} for named parameters to
+#'   the projection, and \code{parameters} for unnamed parameters.
+#'   \code{...} is ignored if the \code{parameters} argument is present.
 #' @param orientation projection orientation, which defaults to
-#'  \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
-#'  projections, so you will have to supply your own. See
-#'  \code{\link[mapproj]{mapproject}} for more information.
-#' @param xlim manually specific x limits (in degrees of longitude)
-#' @param ylim manually specific y limits (in degrees of latitude)
+#'   \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
+#'   projections, so you will have to supply your own. See
+#'   \code{\link[mapproj]{mapproject}} for more information.
+#' @param xlim,ylim Manually specific x/y limits (in degrees of
+#'   longitude/latitude)
 #' @export
 #' @examples
 #' if (require("maps")) {
@@ -109,17 +106,17 @@ coord_map <- function(projection="mercator", ..., parameters = NULL, orientation
 #' @export
 CoordMap <- ggproto("CoordMap", Coord,
 
-  transform = function(self, data, scale_details) {
-    trans <- mproject(self, data$x, data$y, scale_details$orientation)
+  transform = function(self, data, panel_params) {
+    trans <- mproject(self, data$x, data$y, panel_params$orientation)
     out <- cunion(trans[c("x", "y")], data)
 
-    out$x <- rescale(out$x, 0:1, scale_details$x.proj)
-    out$y <- rescale(out$y, 0:1, scale_details$y.proj)
+    out$x <- rescale(out$x, 0:1, panel_params$x.proj)
+    out$y <- rescale(out$y, 0:1, panel_params$y.proj)
     out
   },
 
-  distance = function(x, y, scale_details) {
-    max_dist <- dist_central_angle(scale_details$x.range, scale_details$y.range)
+  distance = function(x, y, panel_params) {
+    max_dist <- dist_central_angle(panel_params$x.range, panel_params$y.range)
     dist_central_angle(x, y) / max_dist
   },
 
@@ -127,13 +124,12 @@ CoordMap <- ggproto("CoordMap", Coord,
     diff(ranges$y.proj) / diff(ranges$x.proj)
   },
 
-  train = function(self, scale_details) {
+  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
 
     # range in scale
     ranges <- list()
     for (n in c("x", "y")) {
-
-      scale <- scale_details[[n]]
+      scale <- get(paste0("scale_", n))
       limits <- self$limits[[n]]
 
       if (is.null(limits)) {
@@ -160,7 +156,7 @@ CoordMap <- ggproto("CoordMap", Coord,
     ret$y$proj <- proj[3:4]
 
     for (n in c("x", "y")) {
-      out <- scale_details[[n]]$break_info(ranges[[n]])
+      out <- get(paste0("scale_", n))$break_info(ranges[[n]])
       ret[[n]]$range <- out$range
       ret[[n]]$major <- out$major_source
       ret[[n]]$minor <- out$minor_source
@@ -177,9 +173,9 @@ CoordMap <- ggproto("CoordMap", Coord,
     details
   },
 
-  render_bg = function(self, scale_details, theme) {
-    xrange <- expand_range(scale_details$x.range, 0.2)
-    yrange <- expand_range(scale_details$y.range, 0.2)
+  render_bg = function(self, panel_params, theme) {
+    xrange <- expand_range(panel_params$x.range, 0.2)
+    yrange <- expand_range(panel_params$y.range, 0.2)
 
     # Limit ranges so that lines don't wrap around globe
     xmid <- mean(xrange)
@@ -189,17 +185,17 @@ CoordMap <- ggproto("CoordMap", Coord,
     yrange[yrange < ymid - 90] <- ymid - 90
     yrange[yrange > ymid + 90] <- ymid + 90
 
-    xgrid <- with(scale_details, expand.grid(
+    xgrid <- with(panel_params, expand.grid(
       y = c(seq(yrange[1], yrange[2], length.out = 50), NA),
       x = x.major
     ))
-    ygrid <- with(scale_details, expand.grid(
+    ygrid <- with(panel_params, expand.grid(
       x = c(seq(xrange[1], xrange[2], length.out = 50), NA),
       y = y.major
     ))
 
-    xlines <- self$transform(xgrid, scale_details)
-    ylines <- self$transform(ygrid, scale_details)
+    xlines <- self$transform(xgrid, panel_params)
+    ylines <- self$transform(ygrid, panel_params)
 
     if (nrow(xlines) > 0) {
       grob.xlines <- element_render(
@@ -225,49 +221,49 @@ CoordMap <- ggproto("CoordMap", Coord,
     ))
   },
 
-  render_axis_h = function(self, scale_details, theme) {
-    arrange <- scale_details$x.arrange %||% c("primary", "secondary")
+  render_axis_h = function(self, panel_params, theme) {
+    arrange <- panel_params$x.arrange %||% c("primary", "secondary")
 
-    if (is.null(scale_details$x.major)) {
+    if (is.null(panel_params$x.major)) {
       return(list(
         top = zeroGrob(),
         bottom = zeroGrob()
       ))
     }
 
-    x_intercept <- with(scale_details, data.frame(
+    x_intercept <- with(panel_params, data.frame(
       x = x.major,
       y = y.range[1]
     ))
-    pos <- self$transform(x_intercept, scale_details)
+    pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
-      top = guide_axis(pos$x, scale_details$x.labels, "top", theme),
-      bottom = guide_axis(pos$x, scale_details$x.labels, "bottom", theme)
+      bottom = guide_axis(pos$x, panel_params$x.labels, "bottom", theme),
+      top = guide_axis(pos$x, panel_params$x.labels, "top", theme)
     )
     axes[[which(arrange == "secondary")]] <- zeroGrob()
     axes
   },
 
-  render_axis_v = function(self, scale_details, theme) {
-    arrange <- scale_details$y.arrange %||% c("primary", "secondary")
+  render_axis_v = function(self, panel_params, theme) {
+    arrange <- panel_params$y.arrange %||% c("primary", "secondary")
 
-    if (is.null(scale_details$y.major)) {
+    if (is.null(panel_params$y.major)) {
       return(list(
         left = zeroGrob(),
         right = zeroGrob()
       ))
     }
 
-    x_intercept <- with(scale_details, data.frame(
+    x_intercept <- with(panel_params, data.frame(
       x = x.range[1],
       y = y.major
     ))
-    pos <- self$transform(x_intercept, scale_details)
+    pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
-      left = guide_axis(pos$y, scale_details$y.labels, "left", theme),
-      right = guide_axis(pos$y, scale_details$y.labels, "right", theme)
+      left = guide_axis(pos$y, panel_params$y.labels, "left", theme),
+      right = guide_axis(pos$y, panel_params$y.labels, "right", theme)
     )
     axes[[which(arrange == "secondary")]] <- zeroGrob()
     axes

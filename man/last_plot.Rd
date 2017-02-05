@@ -12,4 +12,4 @@ Retrieve the last plot to be modified or created.
 \seealso{
 \code{\link{ggsave}}
 }
-
+\keyword{internal}

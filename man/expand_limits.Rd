@@ -2,7 +2,7 @@
 % Please edit documentation in R/limits.r
 \name{expand_limits}
 \alias{expand_limits}
-\title{Expand the plot limits with data.}
+\title{Expand the plot limits, using data}
 \usage{
 expand_limits(...)
 }
@@ -11,6 +11,7 @@ expand_limits(...)
 should be included in each scale.}
 }
 \description{
+Sometimes you may want to ensure limits include a single value, for all
 panels or all plots.  This function is a thin wrapper around
 \code{\link{geom_blank}} that makes it easy to add such values.
 }
@@ -27,4 +28,3 @@ ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = factor(cyl))) +
   expand_limits(colour = factor(seq(2, 10, by = 2)))
 }
-

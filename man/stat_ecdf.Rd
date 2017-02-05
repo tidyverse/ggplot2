@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-ecdf.r
 \name{stat_ecdf}
 \alias{stat_ecdf}
-\title{Empirical Cumulative Density Function}
+\title{Compute empirical cumulative distribution}
 \usage{
 stat_ecdf(mapping = NULL, data = NULL, geom = "step",
   position = "identity", ..., n = NULL, pad = TRUE, na.rm = FALSE,
@@ -57,7 +57,12 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 }
 \description{
-Empirical Cumulative Density Function
+The empirical cumulative distribution function (ECDF) provides an alternative
+visualisation of distribution. Compared to other visualisations that rely on
+density (like \code{\link{geom_histogram}}), the ECDF doesn't require any
+tuning parameters and handles both continuous and categorical variables.
+The downside is that it requires more training to accurately interpret,
+and the underlying visual tasks are somewhat more challenging.
 }
 \section{Computed variables}{
 
@@ -66,6 +71,7 @@ Empirical Cumulative Density Function
   \item{y}{cumulative density corresponding x}
 }
 }
+
 \examples{
 df <- data.frame(
   x = c(rnorm(100, 0, 3), rnorm(100, 0, 10)),
@@ -79,4 +85,3 @@ ggplot(df, aes(x)) + stat_ecdf(geom = "step", pad = FALSE)
 # Multiple ECDFs
 ggplot(df, aes(x, colour = g)) + stat_ecdf()
 }
-

@@ -4,6 +4,7 @@ NULL
 #' Facet specification: a single panel.
 #'
 #' @inheritParams facet_grid
+#' @keywords internal
 #' @export
 #' @examples
 #' # facet_null is the default facetting specification if you
@@ -56,7 +57,7 @@ FacetNull <- ggproto("FacetNull", Facet,
     z_matrix <- matrix(c(5, 6, 4, 7, 1, 8, 3, 9, 2), ncol = 3, byrow = TRUE)
     grob_widths <- unit.c(grobWidth(axis_v$left), unit(1, "null"), grobWidth(axis_v$right))
     grob_heights <- unit.c(grobHeight(axis_h$top), unit(aspect_ratio, "null"), grobHeight(axis_h$bottom))
-    grob_names <- c("spacer", "axis-t", "spacer", "axis-l", "panel", "axis-r", "spacer", "axis-b", "spacer")
+    grob_names <- c("spacer", "axis-l", "spacer", "axis-t", "panel", "axis-b", "spacer", "axis-r", "spacer")
     grob_clip <- c("off", "off", "off", "off", "on", "off", "off", "off", "off")
 
     layout <- gtable_matrix("layout", all,

@@ -7,3 +7,12 @@ test_that("can use US spelling of colour", {
   gpar <- layer_grob(plot)[[1]]$children[[1]]$children[[1]]$gp
   expect_equal(gpar$col, "#FF0000FF")
 })
+
+
+# Visual tests ------------------------------------------------------------
+
+test_that("boxplot draws correctly", {
+  vdiffr::expect_doppelganger("outlier colours",
+    ggplot(mtcars, aes(x = factor(cyl), y = drat, colour = factor(cyl))) + geom_boxplot(outlier.size = 5)
+  )
+})

@@ -1,4 +1,11 @@
-#' Empirical Cumulative Density Function
+#' Compute empirical cumulative distribution
+#'
+#' The empirical cumulative distribution function (ECDF) provides an alternative
+#' visualisation of distribution. Compared to other visualisations that rely on
+#' density (like \code{\link{geom_histogram}}), the ECDF doesn't require any
+#' tuning parameters and handles both continuous and categorical variables.
+#' The downside is that it requires more training to accurately interpret,
+#' and the underlying visual tasks are somewhat more challenging.
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point

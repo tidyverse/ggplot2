@@ -29,6 +29,5 @@ calc_element('axis.text.x', t, verbose = TRUE)
 t$axis.text.x
 t$axis.text
 t$text
-
 }
-
+\keyword{internal}
