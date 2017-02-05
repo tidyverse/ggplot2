@@ -27,31 +27,29 @@
   in addition to the name of the smoothing function (@davharris #1951).
   
 * The `expand` argument for `scale_*_continuous()` and `scale_*_discrete()`
-  now accepts separate expansion constants for the lower and upper range limits.
+  now accepts separate expansion values for the lower and upper range
+  limits. The expansion limits can be specified using the convenience
+  function `expand_scale()`.
   
-  This is useful for creating bar charts where the bottom of the bars
-  are flush with the x axis but the bars still have some (automatically
-  calculated amount of) space above them:
+  Separate expansion limits may be useful for bar charts, e.g. if one
+  wants to have the bottom of the bars being flush with the x axis but
+  still leave some (automatically calculated amount of) space above them:
   
     ```R
     ggplot(mtcars) +
         geom_bar(aes(x = factor(cyl))) +
-        scale_y_continuous(expand = c(0, 0, 0.1, 0))
+        scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
     ```
   
   It can also be useful for line charts, e.g. for counts over time,
-  where one wants to have a ’hard’ lower limit of y = 0, but leave the
+  where one wants to have a ’hard’ lower limit of y = 0 but leave the
   upper limit unspecified (and perhaps differing between panels),
   but with some extra space above the highest point on the line.
   (With symmetrical limits, the extra space above the highest point
-  could cause the lower limit to be negative.)
+  could in some cases cause the lower limit to be negative.)
   
-  The syntax for the multiplicative and additive expansion
-  constants has been changed from `c(m, a)` to
-  `c(m_lower, a_lower, m_uppper, a_upper)`. The old syntax will still
-  work, as length 2 vectors `c(m, a)` are expanded to `c(m, a, m, a)`
-  and length 3 vectors are expanded from `c(m1, a1, m2)` to
-  `c(m1, a2, m2, a1)`. (@huftis, #1669)
+  The old syntax for the `expand` argument will of course continue
+  to work. (@huftis, #1669)
 
 ### Coordinate extensions
 

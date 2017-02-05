@@ -121,7 +121,7 @@ Scale <- ggproto("Scale", NULL,
   },
 
   # The physical size of the scale.
-  # This always returns a numeric vector of length 2, giving the physical
+  # This always returns a numeric vector of length 4, giving the physical
   # dimensions of a scale.
   dimension = function(self, expand = c(0, 0, 0, 0)) {
     stop("Not implemented", call. = FALSE)
@@ -549,18 +549,6 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   are defined in the scales package, and are called \code{name_trans}, e.g.
 #'   \code{\link[scales]{boxcox_trans}}. You can create your own
 #'   transformation with \code{\link[scales]{trans_new}}.
-#' @param expand A numeric vector of length four, giving multiplicative
-#'   (1st and 3d element) and additive (2nd and 4th element) range
-#'   expansion constants. These constants ensure that the data is placed
-#'   some distance away from the axes. The first two elements specify the
-#'   expansion for the lower limit, and the last two the expansion for
-#'   the upper limit. The vector can also be of length two or three,
-#'   and the constants for the lower limit are then reused for the
-#'   upper limit, i.e. \code{c(a, b)} is equivalent to
-#'   \code{c(a, b, a, b)} and \code{c(a, b, c)} is equivalent to
-#'   \code{c(a, b, c, b)}. The defaults are \code{c(0.05, 0, 0.05, 0)}
-#'   for continuous variables, and \code{c(0, 0.6, 0, 0.6)} for
-#'   discrete variables.
 #' @param guide Name of guide object, or object itself.
 #' @param position The position of the axis. "left" or "right" for vertical
 #' scales, "top" or "bottom" for horizontal scales
@@ -642,18 +630,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   labels (labels the same as breaks), a character vector the same length
 #'   as breaks, or a named character vector whose names are used to match
 #'   replacement the labels for matching breaks.
-#' @param expand A numeric vector of length four, giving multiplicative
-#'   (1st and 3d element) and additive (2nd and 4th element) range
-#'   expansion constants. These constants ensure that the data is placed
-#'   some distance away from the axes. The first two elements specify the
-#'   expansion for the lower limit, and the last two the expansion for
-#'   the upper limit. The vector can also be of length two or three,
-#'   and the constants for the lower limit are then reused for the
-#'   upper limit, i.e. \code{c(a, b)} is equivalent to
-#'   \code{c(a, b, a, b)} and \code{c(a, b, c)} is equivalent to
-#'   \code{c(a, b, c, b)}. The defaults are \code{c(0.05, 0, 0.05, 0)}
-#'   for continuous variables, and \code{c(0, 0.6, 0, 0.6)} for
-#'   discrete variables.
+#' @inheritParams scale_x_discrete
 #' @param na.translate Unlike continuous scales, discrete scales can easily show
 #'   missing values, and do so by default. If you want to remove missing values
 #'   from a discrete scale, specify \code{na.translate = FALSE}.

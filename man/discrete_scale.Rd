@@ -43,18 +43,12 @@ replacement the labels for matching breaks.}
 \item{limits}{A character vector specifying the data range for the scale.
 and the default order of their display in guides.}
 
-\item{expand}{A numeric vector of length four, giving multiplicative
-(1st and 3d element) and additive (2nd and 4th element) range
-expansion constants. These constants ensure that the data is placed
-some distance away from the axes. The first two elements specify the
-expansion for the lower limit, and the last two the expansion for
-the upper limit. The vector can also be of length two or three,
-and the constants for the lower limit are then reused for the
-upper limit, i.e. \code{c(a, b)} is equivalent to
-\code{c(a, b, a, b)} and \code{c(a, b, c)} is equivalent to
-\code{c(a, b, c, b)}. The defaults are \code{c(0.05, 0, 0.05, 0)}
-for continuous variables, and \code{c(0, 0.6, 0, 0.6)} for
-discrete variables.}
+\item{expand}{Vector of range expansion constants used to add some
+padding around the data, to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link{expand_scale}}
+to generate the values for the \code{expand} argument. The defaults are to
+expand the scale by 5\% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.}
 
 \item{na.translate}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values

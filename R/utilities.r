@@ -156,22 +156,21 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-# Similar to expand_range(), but taking a vector ‘expand’
-# of *four* expansion values, where the 1st and 2nd
-# elements are used for the lower limit, and the 3rd and
-# 4th elements are used for the upper limit).
+#' Similar to expand_range(), but taking a vector ‘expand’
+#' of *four* expansion values, where the 1st and 2nd
+#' elements are used for the lower limit, and the 3rd and
+#' 4th elements are used for the upper limit).
+#'
+#' The ‘expand’ argument can also be of length 2,
+#' and the expansion arguments for the lower limit is then
+#' reused for the upper limit.
 #
-# The ‘expand’ argument can also be of length 2 or 3,
-# and the expansion arguments for the lower limit is then
-# reused for the upper limit.
-#
-# @keyword internal
-expand_range4 <- function(limits, expand, ignore=NULL) {
-   stopifnot(is.numeric(expand) && (length(expand) %in% 2:4))
-   # If not all four expansion constants are given,
-   # reuse the ones that *are* given.
+#' @keywords internal
+expand_range4 <- function(limits, expand) {
+   stopifnot(is.numeric(expand) && (length(expand) %in% c(2,4)))
+   # If only two expansion constants are given (i.e. the old syntax),
+   # reuse them to generate a four-element expansion vector
    if (length(expand) == 2) { expand <- c(expand, expand) }
-   if (length(expand) == 3) { expand <- c(expand, expand[2]) }
 
    # Calculate separate range expansion for the lower and
    # upper range limits, and then combine them into one vector
@@ -179,6 +178,53 @@ expand_range4 <- function(limits, expand, ignore=NULL) {
    upper <- expand_range(limits, expand[3], expand[4])[2]
    c(lower, upper)
 }
+
+#' Generate expansion vector for scales.
+#'
+#' This is a convenience function for generating scale expansion vectors
+#' for the \code{expand} argument of
+#' \code{\link[=scale_x_continuous]{scale_*_continuous}} and
+#' \code{\link[=scale_x_discrete]{scale_*_discrete}}.
+#' The expansions vectors are used to add some space between
+#' the data and the axes.
+#'
+#' @export
+#' @param mult vector of multiplicative range expansion factors.
+#'   If length 1, both the lower and upper limits of the scale
+#'   are expanded outwards by \code{mult}. If length 2, the lower limit
+#'   is expanded by \code{mult[1]} and the upper limit by \code{mult[2]}.
+#' @param add vector of additive range expansion constants.
+#'   If length 1, both the lower and upper limits of the scale
+#'   are expanded outwards by \code{add} units. If length 2, the
+#'   lower limit is expanded by \code{add[1]} and the upper
+#'   limit by \code{add[2]}.
+#' @examples
+#' # No space below the bars but 10% above them
+#' ggplot(mtcars) +
+#'   geom_bar(aes(x = factor(cyl))) +
+#'   scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
+#'
+#' # Add 2 units of space on the left and right of the data
+#' ggplot(subset(diamonds, carat > 2), aes(cut, clarity)) +
+#'   geom_jitter() +
+#'   scale_x_discrete(expand = expand_scale(add = 2))
+#'
+#' # Reproduce the default range expansion used
+#' # when the ‘expand’ argument is not specified
+#' ggplot(subset(diamonds, carat > 2), aes(cut, price)) +
+#'   geom_jitter() +
+#'   scale_x_discrete(expand = expand_scale(add = .6)) +
+#'   scale_y_continuous(expand = expand_scale(mult = .05))
+expand_scale = function(mult = 0, add = 0) {
+  stopifnot(is.numeric(mult) && is.numeric(add))
+  stopifnot((length(mult) %in% 1:2) && (length(add) %in% 1:2))
+
+  mult = rep(mult, length.out = 2)
+  add = rep(add, length.out = 2)
+  expand = c(mult[1], add[1], mult[2], add[2])
+  expand
+}
+
 
 
 #' Give a deprecation error, warning, or message, depending on version number.
