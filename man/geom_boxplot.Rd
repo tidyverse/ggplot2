@@ -14,7 +14,7 @@ geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge", ..., coef = 1.5, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  inherit.aes = TRUE, report.outliers = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -83,7 +83,8 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \description{
 The boxplot compactly displays the distribution of a continuous variable.
 It visualises five summary statistics (the median, two hinges
-and two whiskers), and all "outlying" points individually.
+and two whiskers), and all "outlying" points individually unless explicitly
+signaled by the user.
 }
 \section{Summary statistics}{
 

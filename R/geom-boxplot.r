@@ -2,7 +2,8 @@
 #'
 #' The boxplot compactly displays the distribution of a continuous variable.
 #' It visualises five summary statistics (the median, two hinges
-#' and two whiskers), and all "outlying" points individually.
+#' and two whiskers), and all "outlying" points individually unless explicitly
+#' signaled by the user.
 #'
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles

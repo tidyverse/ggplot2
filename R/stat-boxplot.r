@@ -19,7 +19,8 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
                          coef = 1.5,
                          na.rm = FALSE,
                          show.legend = NA,
-                         inherit.aes = TRUE) {
+                         inherit.aes = TRUE,
+                         report.outliers = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -31,6 +32,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
     params = list(
       na.rm = na.rm,
       coef = coef,
+      report.outliers = report.outliers,
       ...
     )
   )
@@ -57,7 +59,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     params
   },
 
-  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5) {
+  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, report.outliers = TRUE) {
     qs <- c(0, 0.25, 0.5, 0.75, 1)
 
     if (!is.null(data$weight)) {
@@ -78,7 +80,9 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
       width <- diff(range(data$x)) * 0.9
 
     df <- as.data.frame(as.list(stats))
-    df$outliers <- list(data$y[outliers])
+    if(report.outliers) {
+      df$outliers <- list(data$y[outliers])
+    }
 
     if (is.null(data$weight)) {
       n <- sum(!is.na(data$y))
