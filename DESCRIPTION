@@ -40,10 +40,8 @@ Suggests:
     knitr,
     rpart,
     rmarkdown,
-    sf (>= 0.2-8),
+    sf (>= 0.3-4),
     svglite
-Remotes:
-    edzer/sfr
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
