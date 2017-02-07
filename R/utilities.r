@@ -301,18 +301,23 @@ dummy_data <- function() data.frame(x = NA)
 
 with_seed <- function(seed, code) {
   if (!is.null(seed)) {
-    old_seed <- get_seed()
-    if (is.null(old_seed)) {
-      # Trigger initialisation of RNG
-      runif(1L)
-      old_seed <- get_seed()
-    }
+    old_seed <- get_valid_seed()
     on.exit(assign(".Random.seed", old_seed, globalenv()), add = TRUE)
     if (!is.na(seed)) {
       set.seed(seed)
     }
   }
   code
+}
+
+get_valid_seed <- function() {
+  seed <- get_seed()
+  if (is.null(seed)) {
+    # Trigger initialisation of RNG
+    runif(1L)
+    seed <- get_seed()
+  }
+  seed
 }
 
 get_seed <- function() {
