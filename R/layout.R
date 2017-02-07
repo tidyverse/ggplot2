@@ -264,7 +264,7 @@ Layout <- ggproto("Layout", NULL,
     self$layer_mappings
   },
 
-  get_layout_summary = function(self) {
+  summarise_layout = function(self) {
     layout <- self$layout
     names(layout)[names(layout) == "PANEL"] <- "panel"
     names(layout)[names(layout) == "ROW"]   <- "row"
@@ -300,7 +300,7 @@ Layout <- ggproto("Layout", NULL,
     tibble::as_tibble(layout)
   },
 
-  get_coord_summary = function(self) {
+  summarise_coords = function(self) {
     # Given a transform object, find the log base; if the transform object is
     # NULL, or if it's not a log transform, return NA.
     trans_get_log_base <- function(trans) {

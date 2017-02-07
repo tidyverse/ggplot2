@@ -11,9 +11,9 @@ test_that("layout summary", {
   pw <- p + facet_wrap(~ drv)
   pg <- p + facet_grid(drv ~ cyl)
 
-  l <- ggplot_build(p)$layout$get_layout_summary()
-  lw <- ggplot_build(pw)$layout$get_layout_summary()
-  lg <- ggplot_build(pg)$layout$get_layout_summary()
+  l <- ggplot_build(p)$layout$summarise_layout()
+  lw <- ggplot_build(pw)$layout$summarise_layout()
+  lg <- ggplot_build(pg)$layout$summarise_layout()
 
   # Basic tests
   expect_equal(l$panel, factor(1))
@@ -63,7 +63,7 @@ test_that("layout summary", {
 
   # Free scales
   pwf <- p + facet_wrap(~ drv, scales = "free")
-  lwf <- ggplot_build(pwf)$layout$get_layout_summary()
+  lwf <- ggplot_build(pwf)$layout$summarise_layout()
   expect_equal(lwf$xmin, c(1.565, 1.415, 3.640))
   expect_equal(lwf$xmax, c(6.735, 5.485, 7.160))
   expect_equal(lwf$ymin, c(11.20, 15.65, 14.45))
@@ -75,7 +75,7 @@ test_that("layout summary", {
 
   # Reversed scale
   pr <- p + scale_x_reverse()
-  lr <- ggplot_build(pr)$layout$get_layout_summary()
+  lr <- ggplot_build(pr)$layout$summarise_layout()
   expect_equal(lr$xmin, -7.27)
   expect_equal(lr$xmax, -1.33)
   expect_equal(lr$xscale[[1]]$trans$name, "reverse")
@@ -83,7 +83,7 @@ test_that("layout summary", {
 
   # Log x and y scales
   pl <- p + scale_x_log10() + scale_y_continuous(trans = "log2")
-  ll <- ggplot_build(pl)$layout$get_layout_summary()
+  ll <- ggplot_build(pl)$layout$summarise_layout()
   expect_equal(ll$xscale[[1]]$trans$name, "log-10")
   expect_equal(ll$xscale[[1]]$trans$transform(100), 2)
   expect_equal(ll$yscale[[1]]$trans$name, "log-2")
@@ -95,16 +95,16 @@ test_that("coord summary", {
   p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 
   # Base case
-  l <- ggplot_build(p)$layout$get_coord_summary()
+  l <- ggplot_build(p)$layout$summarise_coords()
   expect_identical(l, list(xlog = NA_real_, ylog = NA_real_, flip = FALSE))
 
   # Check for coord log transformations (should ignore log scale)
   pl <- p + scale_x_log10() + coord_trans(x = "log2")
-  ll <- ggplot_build(pl)$layout$get_coord_summary()
+  ll <- ggplot_build(pl)$layout$summarise_coords()
   expect_identical(ll, list(xlog = 2, ylog = NA_real_, flip = FALSE))
 
   # Check for coord_flip
   pf <- p + coord_flip()
-  lf <- ggplot_build(pf)$layout$get_coord_summary()
+  lf <- ggplot_build(pf)$layout$summarise_coords()
   expect_identical(lf, list(xlog = NA_real_, ylog = NA_real_, flip = TRUE))
 })
