@@ -299,10 +299,11 @@ Layout <- ggproto("Layout", NULL,
     # Given a transform object, find the log base; if the transform object is
     # NULL, or if it's not a log transform, return NA.
     trans_get_log_base <- function(trans) {
-      if (!is.null(trans) && grepl("^log-", trans$name))
-        as.numeric(sub("^log-", "", trans$name))
-      else
+      if (!is.null(trans) && grepl("^log-", trans$name)) {
+        environment(trans$transform)$base
+      } else {
         NA_real_
+      }
     }
 
     list(
