@@ -304,10 +304,7 @@ with_seed <- function(seed, code) {
     code
   } else {
     with_preserve_seed({
-      if (is.na(seed)) {
-        seed <- sample.int(2147483647L, 1L)
-      }
-      set.seed(seed)
+      set_seed(seed)
       code
     })
   }
@@ -331,6 +328,13 @@ get_valid_seed <- function() {
 
 get_seed <- function() {
   get0(".Random.seed", globalenv(), mode = "integer")
+}
+
+set_seed <- function(seed) {
+  if (is.na(seed)) {
+    seed <- sample.int(2147483647L, 1L)
+  }
+  set.seed(seed)
 }
 
 # Needed to trigger package loading
