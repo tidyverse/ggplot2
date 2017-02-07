@@ -258,9 +258,7 @@ Layout <- ggproto("Layout", NULL,
     default <- unclass(plot$mapping)
 
     self$layer_mappings <- lapply(plot$layers, function(layer) {
-      mapping <- default
-      default[names(layer$mapping)] <- layer$mapping
-      mapping
+      defaults(layer$mapping, default)
     })
 
     self$layer_mappings
