@@ -20,7 +20,8 @@ position_jitter(width = NULL, height = NULL, seed = NA)
 Useful if you need to apply the same jitter twice, e.g., for a point and
 a corresponding label.
 The random seed is reset after jittering.
-If `NA` (the default value), the current random seed is used.
+If `NA` (the default value), the seed is initialised with a random value;
+this makes sure that two subsequent calls start with a different seed.
 Use `NULL` to use the current random seed and also avoid resetting
 (the behavior of \pkg{ggplot} 2.2.1 and earlier).}
 }
