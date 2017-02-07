@@ -300,14 +300,22 @@ find_args <- function(...) {
 dummy_data <- function() data.frame(x = NA)
 
 with_seed <- function(seed, code) {
-  if (!is.null(seed)) {
-    old_seed <- get_valid_seed()
-    on.exit(assign(".Random.seed", old_seed, globalenv()), add = TRUE)
-    if (is.na(seed)) {
-      seed <- sample.int(2147483647L, 1L)
-    }
-    set.seed(seed)
+  if (is.null(seed)) {
+    code
+  } else {
+    with_preserve_seed({
+      if (is.na(seed)) {
+        seed <- sample.int(2147483647L, 1L)
+      }
+      set.seed(seed)
+      code
+    })
   }
+}
+
+with_preserve_seed <- function(code) {
+  old_seed <- get_valid_seed()
+  on.exit(assign(".Random.seed", old_seed, globalenv()), add = TRUE)
   code
 }
 
