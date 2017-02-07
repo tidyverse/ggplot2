@@ -266,9 +266,11 @@ Layout <- ggproto("Layout", NULL,
 
   summarise_layout = function(self) {
     layout <- self$layout
-    names(layout)[names(layout) == "PANEL"] <- "panel"
-    names(layout)[names(layout) == "ROW"]   <- "row"
-    names(layout)[names(layout) == "COL"]   <- "col"
+    layout <- tibble(
+      panel = self$layout$PANEL,
+      row   = self$layout$ROW,
+      col   = self$layout$COL
+    )
 
     # layout data frame has columns named for facet vars; rename them so we don't
     # have a naming collision.
@@ -276,12 +278,9 @@ Layout <- ggproto("Layout", NULL,
 
     # Add a list-column of panel vars (for facets).
     layout$vars <- lapply(seq_len(nrow(layout)), function(i) {
-      res <- lapply(facet_vars, function(var) layout[[var]][i])
+      res <- lapply(facet_vars, function(var) self$layout[[var]][i])
       setNames(res, facet_vars)
     })
-
-    # Remove original panel var columns
-    for (var in facet_vars) layout[[var]] <- NULL
 
     xyranges <- lapply(self$panel_params, self$coord$range)
     layout$xmin <- vapply(xyranges, function(xyrange) xyrange$x[[1]], numeric(1))
@@ -293,11 +292,7 @@ Layout <- ggproto("Layout", NULL,
     layout$xscale <- lapply(seq_len(nrow(layout)), function(n) self$get_scales(n)$x)
     layout$yscale <- lapply(seq_len(nrow(layout)), function(n) self$get_scales(n)$y)
 
-    # Remove SCALE_X and SCALE_Y cols
-    layout$SCALE_X <- NULL
-    layout$SCALE_Y <- NULL
-
-    tibble::as_tibble(layout)
+    layout
   },
 
   summarise_coords = function(self) {
