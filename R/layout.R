@@ -250,7 +250,75 @@ Layout <- ggproto("Layout", NULL,
     })
     names(label_grobs) <- names(labels)
     label_grobs
+  },
+
+  find_layer_mappings = function(self, plot) {
+    # Default mappings. Make sure it's a regular list instead of an uneval
+    # object.
+    default <- unclass(plot$mapping)
+
+    self$layer_mappings <- lapply(plot$layers, function(layer) {
+      mapping <- default
+      default[names(layer$mapping)] <- layer$mapping
+      mapping
+    })
+
+    self$layer_mappings
+  },
+
+  get_layout_summary = function(self) {
+    layout <- self$layout
+    names(layout)[names(layout) == "PANEL"] <- "panel"
+    names(layout)[names(layout) == "ROW"]   <- "row"
+    names(layout)[names(layout) == "COL"]   <- "col"
+
+    # layout data frame has columns named for facet vars; rename them so we don't
+    # have a naming collision.
+    facet_vars <- self$facet$vars()
+
+    # Add a list-column of panel vars (for facets).
+    layout$vars <- lapply(seq_len(nrow(layout)), function(i) {
+      res <- lapply(facet_vars, function(var) layout[[var]][i])
+      setNames(res, facet_vars)
+    })
+
+    # Remove original panel var columns
+    for (var in facet_vars) layout[[var]] <- NULL
+
+    xyranges <- lapply(self$panel_params, self$coord$range)
+    layout$xmin <- vapply(xyranges, function(xyrange) xyrange$x[[1]], numeric(1))
+    layout$xmax <- vapply(xyranges, function(xyrange) xyrange$x[[2]], numeric(1))
+    layout$ymin <- vapply(xyranges, function(xyrange) xyrange$y[[1]], numeric(1))
+    layout$ymax <- vapply(xyranges, function(xyrange) xyrange$y[[2]], numeric(1))
+
+    # Put x and y scale objects in list-cols.
+    layout$xscale <- lapply(seq_len(nrow(layout)), function(n) self$get_scales(n)$x)
+    layout$yscale <- lapply(seq_len(nrow(layout)), function(n) self$get_scales(n)$y)
+
+    # Remove SCALE_X and SCALE_Y cols
+    layout$SCALE_X <- NULL
+    layout$SCALE_Y <- NULL
+
+    tibble::as_tibble(layout)
+  },
+
+  get_coord_summary = function(self) {
+    # Given a transform object, find the log base; if the transform object is
+    # NULL, or if it's not a log transform, return NA.
+    trans_get_log_base <- function(trans) {
+      if (!is.null(trans) && grepl("^log-", trans$name))
+        as.numeric(sub("^log-", "", trans$name))
+      else
+        NA_real_
+    }
+
+    list(
+      xlog = trans_get_log_base(self$coord$trans$x),
+      ylog = trans_get_log_base(self$coord$trans$y),
+      flip = inherits(self$coord, "CoordFlip")
+    )
   }
+
 )
 
 
