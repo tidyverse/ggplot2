@@ -38,6 +38,7 @@ Suggests:
     testthat (>= 0.11.0),
     quantreg,
     knitr,
+    rgeos,
     rpart,
     rmarkdown,
     sf (>= 0.3-4),
