@@ -1,33 +1,31 @@
 context("layout summary API")
 
-# Create an empty named list
-named_list <- function() {
-  list(a=1)[0]
-}
+# Some basic plots that we build on for the tests
+p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+pw <- p + facet_wrap(~ drv)
+pg <- p + facet_grid(drv ~ cyl)
 
-test_that("layout summary", {
-  # Basic plot, and with facet_wrap and facet_grid
-  p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
-  pw <- p + facet_wrap(~ drv)
-  pg <- p + facet_grid(drv ~ cyl)
-
+test_that("layout summary - basic plot", {
   l <- ggplot_build(p)$layout$summarise_layout()
-  lw <- ggplot_build(pw)$layout$summarise_layout()
-  lg <- ggplot_build(pg)$layout$summarise_layout()
 
-  # Basic tests
+  empty_named_list <- list(a=1)[0]
+
   expect_equal(l$panel, factor(1))
   expect_equal(l$row, 1)
   expect_equal(l$col, 1)
-  expect_equal(l$vars, list(named_list()))
+  expect_equal(l$vars, list(empty_named_list))
   expect_equal(l$xmin, 1.33)
   expect_equal(l$xmax, 7.27)
   expect_equal(l$ymin, 10.4)
   expect_equal(l$ymax, 45.6)
   expect_equal(l$xscale[[1]]$range$range, c(1.6, 7))
   expect_equal(l$yscale[[1]]$range$range, c(12, 44))
+})
 
-  # Basic tests for facet_wrap
+
+test_that("layout summary - facet_wrap", {
+  lw <- ggplot_build(pw)$layout$summarise_layout()
+
   expect_equal(lw$panel, factor(1:3))
   expect_equal(lw$row, rep(1, 3))
   expect_equal(lw$col, 1:3)
@@ -37,13 +35,17 @@ test_that("layout summary", {
   expect_equal(lw$ymin, rep(10.4, 3))
   expect_equal(lw$ymax, rep(45.6, 3))
   expect_equal(lw$xscale[[1]]$range$range, c(1.6, 7))
-  expect_identical(lg$xscale[[1]], lg$xscale[[2]])
-  expect_identical(lg$xscale[[1]], lg$xscale[[3]])
+  expect_identical(lw$xscale[[1]], lw$xscale[[2]])
+  expect_identical(lw$xscale[[1]], lw$xscale[[3]])
   expect_equal(lw$yscale[[1]]$range$range, c(12, 44))
-  expect_identical(lg$yscale[[1]], lg$yscale[[2]])
-  expect_identical(lg$yscale[[1]], lg$yscale[[3]])
+  expect_identical(lw$yscale[[1]], lw$yscale[[2]])
+  expect_identical(lw$yscale[[1]], lw$yscale[[3]])
+})
 
-  # Basic tests for facet_grid
+
+test_that("layout summary - facet_grid", {
+  lg <- ggplot_build(pg)$layout$summarise_layout()
+
   expect_equal(lg$panel, factor(1:12))
   expect_equal(lg$row, rep(1:3, each = 4))
   expect_equal(lg$col, rep(1:4, 3))
@@ -59,9 +61,9 @@ test_that("layout summary", {
   expect_identical(lg$xscale[[1]], lg$xscale[[12]])
   expect_equal(lg$yscale[[1]]$range$range, c(12, 44))
   expect_identical(lg$yscale[[1]], lg$yscale[[12]])
+})
 
-
-  # Free scales
+test_that("layout summary - free scales", {
   pwf <- p + facet_wrap(~ drv, scales = "free")
   lwf <- ggplot_build(pwf)$layout$summarise_layout()
   expect_equal(lwf$xmin, c(1.565, 1.415, 3.640))
@@ -72,16 +74,19 @@ test_that("layout summary", {
   expect_equal(lwf$xscale[[2]]$range$range, c(1.6, 5.3))
   expect_equal(lwf$yscale[[1]]$range$range, c(12, 28))
   expect_equal(lwf$yscale[[2]]$range$range, c(17, 44))
+})
 
-  # Reversed scale
+test_that("layout summary - reversed scales", {
   pr <- p + scale_x_reverse()
   lr <- ggplot_build(pr)$layout$summarise_layout()
   expect_equal(lr$xmin, -7.27)
   expect_equal(lr$xmax, -1.33)
   expect_equal(lr$xscale[[1]]$trans$name, "reverse")
   expect_equal(lr$xscale[[1]]$trans$transform(5), -5)
+})
 
-  # Log x and y scales
+
+test_that("layout summary - log scales", {
   pl <- p + scale_x_log10() + scale_y_continuous(trans = "log2")
   ll <- ggplot_build(pl)$layout$summarise_layout()
   expect_equal(ll$xscale[[1]]$trans$name, "log-10")
@@ -91,19 +96,19 @@ test_that("layout summary", {
 })
 
 
-test_that("coord summary", {
-  p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
-
-  # Base case
+test_that("coord summary - basic", {
   l <- ggplot_build(p)$layout$summarise_coords()
   expect_identical(l, list(xlog = NA_real_, ylog = NA_real_, flip = FALSE))
+})
 
+test_that("coord summary - log transformations", {
   # Check for coord log transformations (should ignore log scale)
   pl <- p + scale_x_log10() + coord_trans(x = "log2")
   ll <- ggplot_build(pl)$layout$summarise_coords()
   expect_identical(ll, list(xlog = 2, ylog = NA_real_, flip = FALSE))
+})
 
-  # Check for coord_flip
+test_that("coord summary - coord_flip", {
   pf <- p + coord_flip()
   lf <- ggplot_build(pf)$layout$summarise_coords()
   expect_identical(lf, list(xlog = NA_real_, ylog = NA_real_, flip = TRUE))
