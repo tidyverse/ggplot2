@@ -250,57 +250,7 @@ Layout <- ggproto("Layout", NULL,
     })
     names(label_grobs) <- names(labels)
     label_grobs
-  },
-
-  summarise_layout = function(self) {
-    layout <- self$layout
-    layout <- tibble(
-      panel = self$layout$PANEL,
-      row   = self$layout$ROW,
-      col   = self$layout$COL
-    )
-
-    # layout data frame has columns named for facet vars; rename them so we don't
-    # have a naming collision.
-    facet_vars <- self$facet$vars()
-
-    # Add a list-column of panel vars (for facets).
-    layout$vars <- lapply(seq_len(nrow(layout)), function(i) {
-      res <- lapply(facet_vars, function(var) self$layout[[var]][i])
-      setNames(res, facet_vars)
-    })
-
-    xyranges <- lapply(self$panel_params, self$coord$range)
-    layout$xmin <- vapply(xyranges, function(xyrange) xyrange$x[[1]], numeric(1))
-    layout$xmax <- vapply(xyranges, function(xyrange) xyrange$x[[2]], numeric(1))
-    layout$ymin <- vapply(xyranges, function(xyrange) xyrange$y[[1]], numeric(1))
-    layout$ymax <- vapply(xyranges, function(xyrange) xyrange$y[[2]], numeric(1))
-
-    # Put x and y scale objects in list-cols.
-    layout$xscale <- lapply(seq_len(nrow(layout)), function(n) self$get_scales(n)$x)
-    layout$yscale <- lapply(seq_len(nrow(layout)), function(n) self$get_scales(n)$y)
-
-    layout
-  },
-
-  summarise_coords = function(self) {
-    # Given a transform object, find the log base; if the transform object is
-    # NULL, or if it's not a log transform, return NA.
-    trans_get_log_base <- function(trans) {
-      if (!is.null(trans) && grepl("^log-", trans$name)) {
-        environment(trans$transform)$base
-      } else {
-        NA_real_
-      }
-    }
-
-    list(
-      xlog = trans_get_log_base(self$coord$trans$x),
-      ylog = trans_get_log_base(self$coord$trans$y),
-      flip = inherits(self$coord, "CoordFlip")
-    )
   }
-
 )
 
 
