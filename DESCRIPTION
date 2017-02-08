@@ -201,6 +201,7 @@ Collate:
     'stat-summary.r'
     'stat-unique.r'
     'stat-ydensity.r'
+    'summarise-layers.R'
     'summary.r'
     'theme-elements.r'
     'theme.r'

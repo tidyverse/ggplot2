@@ -252,18 +252,6 @@ Layout <- ggproto("Layout", NULL,
     label_grobs
   },
 
-  find_layer_mappings = function(self, plot) {
-    # Default mappings. Make sure it's a regular list instead of an uneval
-    # object.
-    default <- unclass(plot$mapping)
-
-    self$layer_mappings <- lapply(plot$layers, function(layer) {
-      defaults(layer$mapping, default)
-    })
-
-    self$layer_mappings
-  },
-
   summarise_layout = function(self) {
     layout <- self$layout
     layout <- tibble(

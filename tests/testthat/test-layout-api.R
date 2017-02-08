@@ -113,3 +113,14 @@ test_that("coord summary - coord_flip", {
   lf <- ggplot_build(pf)$layout$summarise_coords()
   expect_identical(lf, list(xlog = NA_real_, ylog = NA_real_, flip = TRUE))
 })
+
+
+test_that("summarise_layers", {
+  l <- summarise_layers(ggplot_build(p))
+  expect_identical(l$mapping[[1]], list(x = quote(displ), y = quote(hwy)))
+
+  p2 <- p + geom_point(aes(x = displ/2, y = hwy/2))
+  l2 <- summarise_layers(ggplot_build(p2))
+  expect_identical(l2$mapping[[1]], list(x = quote(displ), y = quote(hwy)))
+  expect_identical(l2$mapping[[2]], list(x = quote(displ/2), y = quote(hwy/2)))
+})
