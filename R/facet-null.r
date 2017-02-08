@@ -29,7 +29,10 @@ FacetNull <- ggproto("FacetNull", Facet,
   map_data = function(data, layout, params) {
     # Need the is.waive check for special case where no data, but aesthetics
     # are mapped to vectors
-    if (is.waive(data) || empty(data))
+    if (is.waive(data))
+      return(tibble(PANEL = factor()))
+
+    if (empty(data))
       return(cbind(data, PANEL = factor()))
 
     # Needs to be a factor to be consistent with other facet types
