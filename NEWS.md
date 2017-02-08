@@ -26,6 +26,10 @@
 * `geom_smooth`'s message for `method="auto"` now reports the formula used,
   in addition to the name of the smoothing function (@davharris #1951).
 
+* `print.ggplot()` now returns the original ggplot object, instead of the output from `ggplot_build()`. Also, the object returned from `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
+
+* `Layout` objects now have methods `summarise_layout()` and `summarise_coords()`, which summarise information about the layout and coordinate systems. There is also a new function, `summarise_layers()`, which summarise information about the layers in a built ggplot object. (#2034)
+
 ### Coordinate extensions
 
 * Coords have gained new extension mechanisms.
