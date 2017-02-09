@@ -258,7 +258,11 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     } else {
       facet_vals[] <- lapply(facet_vals[], as.factor)
       facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
-
+    ###duplicated facets like "a~a" or "cyl~cyl" are related to variables like vars and layout
+    if (!is.null(attributes(facet_vals)$duplicated))  {
+      vars<-colnames(facet_vals)
+      colnames(layout)[which(colnames(layout)==vars[1])[-1]]<-colnames(facet_vals)[-1]
+    }
       keys <- plyr::join.keys(facet_vals, layout, by = vars)
 
       data$PANEL <- layout$PANEL[match(keys$x, keys$y)]

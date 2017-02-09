@@ -221,7 +221,11 @@ eval_facet_vars <- function(vars, data, env = emptyenv()) {
   for (i in seq_along(vars)) {
     out[[ nms[[i]] ]] <- eval_facet_var(vars[[i]], data, env = env)
   }
-
+  #If facets are like "a~a" or "cyl~cyl"
+   if (duplicated(nms)[length(nms)]){
+    out[[ paste(names(vars)[-1],c(".1"),sep="") ]] <- eval_facet_var(vars[[i]], data, env = env)
+    attributes(out)$duplicated<-TRUE
+     }
   tibble::as_tibble(out)
 }
 
