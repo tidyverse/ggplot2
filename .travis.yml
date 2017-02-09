@@ -5,8 +5,6 @@ dist: trusty
 
 addons:
   apt:
-    sources:
-      - debian-sid
     packages:
       - libfreetype6
 
