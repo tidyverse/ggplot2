@@ -2,6 +2,8 @@
 #'
 #' These functions provide summarised information about built ggplot objects.
 #'
+#' @param p A ggplot_built object.
+#'
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy)) + geom_point() + facet_wrap(~class)
 #' b <- ggplot_build(p)

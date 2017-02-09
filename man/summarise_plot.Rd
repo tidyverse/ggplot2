@@ -13,6 +13,9 @@ summarise_coord(p)
 
 summarise_layers(p)
 }
+\arguments{
+\item{p}{A ggplot_built object.}
+}
 \description{
 These functions provide summarised information about built ggplot objects.
 }
