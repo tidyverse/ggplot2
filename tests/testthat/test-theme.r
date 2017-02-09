@@ -206,102 +206,49 @@ test_that("All elements in complete themes have inherit.blank=TRUE", {
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
-  p <- ggplot(data.frame(x = 1:8, y = 1:8, f = gl(2,4), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2)), aes(x, y)) + geom_point()
+  df <- data.frame(x = 1:8, y = 1:8, f = gl(2,4), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2))
+  p <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    theme_test() +
+    labs(x = NULL, y = NULL)
+
+  p_a <- p + theme(aspect.ratio = 3)
+  p_b <- p + theme(aspect.ratio = 1 / 3)
 
   vdiffr::expect_doppelganger("height is 3 times width",
-    p + theme(aspect.ratio = 3))
+    p_a
+  )
+  vdiffr::expect_doppelganger("width is 3 times height",
+    p_b
+  )
+
   vdiffr::expect_doppelganger("height is 3 times width, 2 wrap facets",
-    p + facet_wrap(~f) + theme(aspect.ratio = 3)
+    p_a + facet_wrap(~f)
   )
   vdiffr::expect_doppelganger("height is 3 times width, 2 column facets",
-    p + facet_grid(.~f) + theme(aspect.ratio = 3)
+    p_a + facet_grid(.~f)
   )
   vdiffr::expect_doppelganger("height is 3 times width, 2 row facets",
-    p + facet_grid(f~.) + theme(aspect.ratio = 3)
+    p_a + facet_grid(f~.)
   )
   vdiffr::expect_doppelganger("height is 3 times width, 2x2 facets",
-    p + facet_grid(f1~f2) + theme(aspect.ratio = 3)
+    p_a + facet_grid(f1~f2)
   )
 
-  vdiffr::expect_doppelganger("width is 3 times height",
-    p + theme(aspect.ratio = 1/3)
-  )
-  vdiffr::expect_doppelganger("width is 3 times height, 2 wrap facets",
-    p + facet_wrap(~f) + theme(aspect.ratio = 1/3)
-  )
-  vdiffr::expect_doppelganger("width is 3 times height, 2 column facets",
-    p + facet_grid(.~f) + theme(aspect.ratio = 1/3)
-  )
-  vdiffr::expect_doppelganger("width is 3 times height, 2 row facets",
-    p + facet_grid(f~.) + theme(aspect.ratio = 1/3)
-  )
-  vdiffr::expect_doppelganger("width is 3 times height, 2x2 facets",
-    p + facet_grid(f1~f2) + theme(aspect.ratio = 1/3)
-  )
 })
 
-test_that("themes are drawn in the right style", {
-  library(grid)
-  p <- qplot(1:3, 1:3)
+test_that("themes don't change without acknowledgement", {
+  df <- data.frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  plot <- ggplot(df, aes(x, y, colour = z)) +
+    geom_point() +
+    facet_wrap(~ a)
 
-  # Tests for adding theme objects together
-  # Some of these add directly to ggplot object; others add to theme object first
-  vdiffr::expect_doppelganger("theme_bw() plus blue text",
-    p + theme_bw() + theme(text = element_text(colour = 'blue')),
-  )
-
-  t <- theme_bw() + theme(text = element_text(colour = 'blue'))
-  vdiffr::expect_doppelganger("add saved theme object with theme_bw() plus blue text",
-    p + t
-  )
-  vdiffr::expect_doppelganger("blue text plus theme_bw() - result is black text",
-    p + theme(text = element_text(colour = 'blue')) + theme_bw()
-  )
-
-  t <- theme(text = element_text(colour = 'blue')) + theme_bw()
-  vdiffr::expect_doppelganger("add blue saved theme object and theme_bw() - expect black text",
-    p + t
-  )
-  vdiffr::expect_doppelganger("add blue and italic in single element object",
-    p + theme(text = element_text(colour = 'blue', face = 'italic'))
-  )
-  vdiffr::expect_doppelganger("add blue and italic in separate element objects",
-    p +
-      theme(text = element_text(colour = 'blue')) +
-      theme(text = element_text(face = 'italic'))
-  )
-
-  # Inheritance tests
-  vdiffr::expect_doppelganger('add theme_bw(base_size=24, base_family="serif")',
-    p + theme_bw(base_size = 24, base_family = "serif") + labs(title = "Title text here")
-  )
-  vdiffr::expect_doppelganger("axis title text is blue, compounded relative sizing",
-    p + theme_bw() +
-      theme(axis.title   = element_text(size = rel(2), colour = 'blue')) +
-      theme(axis.title.x = element_text(size = rel(2)))
-  )
-
-  # Next two tests contrast the + operator with the %+replace% operator
-  vdiffr::expect_doppelganger("theme_bw + larger relative size for axis.title.y",
-    p + theme_bw() + theme(axis.title.y = element_text(size = rel(2)))
-  )
-
-  vdiffr::expect_doppelganger("theme_bw %+replace% larger relative size for axis.title.y",
-    p + theme_bw() %+replace% theme(axis.title.y = element_text(size = rel(2))) +
-      ggtitle("theme_bw %+replace% larger relative size for axis.title.y, expect angle=0")
-  )
-
-  vdiffr::expect_doppelganger("text is element_blank - result is no text",
-    p + theme_bw() + theme(text = element_blank())
-  )
-
-  # Testing specific elements
-  vdiffr::expect_doppelganger("many blank items, and light blue plot background",
-    p + theme(
-      axis.text = element_blank(), axis.ticks = element_blank(),
-      axis.title = element_blank(),
-      plot.background = element_rect(fill = "lightblue"),
-      panel.border = element_rect(colour = "black", size = 4, fill = NA)
-    )
-  )
+  vdiffr::expect_doppelganger("theme_bw", plot + theme_bw())
+  vdiffr::expect_doppelganger("theme_classic", plot + theme_classic())
+  vdiffr::expect_doppelganger("theme_dark", plot + theme_dark())
+  vdiffr::expect_doppelganger("theme_minimal", plot + theme_minimal())
+  vdiffr::expect_doppelganger("theme_gray", plot + theme_gray())
+  vdiffr::expect_doppelganger("theme_light", plot + theme_light())
+  vdiffr::expect_doppelganger("theme_void", plot + theme_void())
 })
+
