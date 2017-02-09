@@ -199,7 +199,7 @@ Layout <- ggproto("Layout", NULL,
     scales_y <- self$panel_scales_y[self$layout$SCALE_Y]
 
     setup_panel_params <- function(scale_x, scale_y) {
-      self$coord$setup_panel_params(scale_x, scale_y, param = self$coord_params)
+      self$coord$setup_panel_params(scale_x, scale_y, params = self$coord_params)
     }
     self$panel_params <- Map(setup_panel_params, scales_x, scales_y)
 

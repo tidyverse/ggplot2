@@ -175,7 +175,7 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
     upViewport()
   }
 
-  invisible(data)
+  invisible(x)
 }
 #' @rdname print.ggplot
 #' @method plot ggplot

@@ -166,6 +166,9 @@ Facet <- ggproto("Facet", NULL,
   },
   finish_data = function(data, layout, x_scales, y_scales, params) {
     data
+  },
+  vars = function() {
+    character(0)
   }
 )
 
@@ -239,7 +242,8 @@ eval_facet_var <- function(var, data, env = emptyenv()) {
 }
 
 layout_null <- function() {
-  data.frame(PANEL = 1, ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
+  # PANEL needs to be a factor to be consistent with other facet types
+  data.frame(PANEL = factor(1), ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
 }
 
 check_layout <- function(x) {

@@ -3,6 +3,13 @@ cache: packages
 sudo: true
 dist: trusty
 
+addons:
+  apt:
+    sources:
+      - debian-sid
+    packages:
+      - libfreetype6
+
 r_github_packages:
   - hadley/staticdocs@old
 

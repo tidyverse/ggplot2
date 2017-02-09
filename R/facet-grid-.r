@@ -391,6 +391,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       }
     }
     panel_table
+  },
+  vars = function(self) {
+    vapply(c(self$params$rows, self$params$cols), as.character, character(1))
   }
 )
 
