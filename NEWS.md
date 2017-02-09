@@ -30,6 +30,18 @@
 
 * Added new functions `summarise_layout()`, `summarise_coord()`, `summarise_layers()`, which provide summaries of the layout, coordinate systems, and layers, of a built ggplot object. (#2034)
 
+### sf
+
+ggplot2 now has full support for sf with `geom_sf()` and `coord_sf()`:
+
+```R
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+ggplot(nc) +
+  geom_sf(aes(fill = AREA))
+```
+It supports all simple features, automatically aligns CRS across layer, sets 
+up correct aspect ratio, and draws a graticule.
+
 ### Coordinate extensions
 
 * Coords have gained new extension mechanisms.

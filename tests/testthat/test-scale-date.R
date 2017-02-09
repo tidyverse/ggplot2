@@ -12,10 +12,14 @@ df <- data.frame(
 )
 
 test_that("inherits timezone from data", {
+  if (!is.null(attr(df$time1, "tzone")))
+     skip("Local time zone not available")
+
   # Local time
   p <- ggplot(df, aes(y = y)) + geom_point(aes(time1))
   sc <- layer_scales(p)$x
-  expect_equal(sc$timezone, NULL)
+
+  expect_true(identical(sc$timezone, NULL))
   expect_equal(sc$get_labels()[1], "00:00")
 
   # UTC

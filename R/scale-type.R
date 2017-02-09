@@ -59,6 +59,9 @@ scale_type.default <- function(x) {
 }
 
 #' @export
+scale_type.list <- function(x) "identity"
+
+#' @export
 scale_type.AsIs <- function(x) "identity"
 
 #' @export
