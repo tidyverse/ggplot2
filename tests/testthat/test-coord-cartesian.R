@@ -1,5 +1,4 @@
-context("Cartesian coordinates")
-
+context("coord_cartesian")
 
 # Visual tests ------------------------------------------------------------
 
