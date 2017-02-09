@@ -28,7 +28,7 @@
 
 * `print.ggplot()` now returns the original ggplot object, instead of the output from `ggplot_build()`. Also, the object returned from `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
 
-* Added new functions `summarise_layout()`, `summarise_coords()`, `summarise_layers()`, which provide summaries of the layout, coordinate systems, and layers, of a built ggplot object. (#2034)
+* Added new functions `summarise_layout()`, `summarise_coord()`, `summarise_layers()`, which provide summaries of the layout, coordinate systems, and layers, of a built ggplot object. (#2034)
 
 ### Coordinate extensions
 

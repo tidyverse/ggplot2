@@ -39,7 +39,7 @@ summarise_layout = function(p) {
 #' Get a summary of the coords in a built plot object
 #'
 #' @export
-summarise_coords = function(p) {
+summarise_coord = function(p) {
   stopifnot(inherits(p, "ggplot_built"))
 
   # Given a transform object, find the log base; if the transform object is

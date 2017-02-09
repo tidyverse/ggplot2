@@ -1,4 +1,4 @@
-context("layout summary API")
+context("plot summary API")
 
 # Note: the functions tested here are used by Shiny; please do not change
 # their behavior without checking with the Shiny team first.
@@ -100,20 +100,20 @@ test_that("layout summary - log scales", {
 
 
 test_that("coord summary - basic", {
-  l <- summarise_coords(ggplot_build(p))
+  l <- summarise_coord(ggplot_build(p))
   expect_identical(l, list(xlog = NA_real_, ylog = NA_real_, flip = FALSE))
 })
 
 test_that("coord summary - log transformations", {
   # Check for coord log transformations (should ignore log scale)
   pl <- p + scale_x_log10() + coord_trans(x = "log2")
-  ll <- summarise_coords(ggplot_build(pl))
+  ll <- summarise_coord(ggplot_build(pl))
   expect_identical(ll, list(xlog = 2, ylog = NA_real_, flip = FALSE))
 })
 
 test_that("coord summary - coord_flip", {
   pf <- p + coord_flip()
-  lf <- summarise_coords(ggplot_build(pf))
+  lf <- summarise_coord(ggplot_build(pf))
   expect_identical(lf, list(xlog = NA_real_, ylog = NA_real_, flip = TRUE))
 })
 
