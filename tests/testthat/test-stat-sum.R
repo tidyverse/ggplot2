@@ -46,12 +46,12 @@ test_that("handles grouping correctly", {
 # Visual tests ------------------------------------------------------------
 
 test_that("summaries are drawn correctly", {
-  vdiffr::expect_doppelganger("summary with color and lines",
+  expect_copycat("summary with color and lines",
     ggplot(mtcars, aes(x = cyl, y = mpg, colour = factor(vs))) +
       geom_point() +
       stat_summary(fun.y = mean, geom = "line", size = 2)
   )
-  vdiffr::expect_doppelganger("summary with crossbars, no grouping",
+  expect_copycat("summary with crossbars, no grouping",
     ggplot(mtcars, aes(x = cyl, y = mpg)) +
       geom_point() +
       stat_summary(
@@ -61,7 +61,7 @@ test_that("summaries are drawn correctly", {
         width = 0.2
       )
   )
-  vdiffr::expect_doppelganger("summary with crossbars, manual grouping",
+  expect_copycat("summary with crossbars, manual grouping",
     ggplot(mtcars, aes(x = cyl, y = mpg, group = cyl)) +
       geom_point() +
       stat_summary(

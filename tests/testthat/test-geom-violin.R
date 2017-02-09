@@ -42,48 +42,48 @@ test_that("geom_violin draws correctly", {
   dat <- data.frame(x = LETTERS[1:3], y = rnorm(90))
   dat <- dat[dat$x != "C" | c(T, F),]  # Keep half the C's
 
-  vdiffr::expect_doppelganger("basic",
+  expect_copycat("basic",
     ggplot(dat, aes(x = x, y = y)) + geom_violin()
   )
-  vdiffr::expect_doppelganger("scale area to sample size (C is smaller)",
+  expect_copycat("scale area to sample size (C is smaller)",
     ggplot(dat, aes(x = x, y = y)) + geom_violin(scale = "count"),
   )
-  vdiffr::expect_doppelganger("narrower (width=.5)",
+  expect_copycat("narrower (width=.5)",
     ggplot(dat, aes(x = x, y = y)) + geom_violin(width = .5)
   )
-  vdiffr::expect_doppelganger("with tails and points",
+  expect_copycat("with tails and points",
     ggplot(dat, aes(x = x, y = y)) + geom_violin(trim = FALSE) + geom_point(shape = 21)
   )
-  vdiffr::expect_doppelganger("with smaller bandwidth and points",
+  expect_copycat("with smaller bandwidth and points",
     ggplot(dat, aes(x = x, y = y)) + geom_violin(adjust = .3) + geom_point(shape = 21)
   )
-  vdiffr::expect_doppelganger("dodging",
+  expect_copycat("dodging",
     ggplot(dat, aes(x = "foo", y = y, fill = x)) + geom_violin()
   )
-  vdiffr::expect_doppelganger("coord_polar",
+  expect_copycat("coord_polar",
     ggplot(dat, aes(x = x, y = y)) + geom_violin() + coord_polar()
   )
-  vdiffr::expect_doppelganger("coord_flip",
+  expect_copycat("coord_flip",
     ggplot(dat, aes(x = x, y = y)) + geom_violin() + coord_flip()
   )
-  vdiffr::expect_doppelganger("dodging and coord_flip",
+  expect_copycat("dodging and coord_flip",
     ggplot(dat, aes(x = "foo", y = y, fill = x)) + geom_violin() + coord_flip()
   )
-  vdiffr::expect_doppelganger("continuous x axis, multiple groups (center should be at 2.0)",
+  expect_copycat("continuous x axis, multiple groups (center should be at 2.0)",
     ggplot(dat, aes(x = as.numeric(x), y = y)) + geom_violin()
   )
-  vdiffr::expect_doppelganger("continuous x axis, single group (center should be at 1.0)",
+  expect_copycat("continuous x axis, single group (center should be at 1.0)",
     ggplot(dat, aes(x = as.numeric(1), y = y)) + geom_violin()
   )
-  vdiffr::expect_doppelganger("quantiles",
+  expect_copycat("quantiles",
     ggplot(dat, aes(x=x, y=y)) + geom_violin(draw_quantiles=c(0.25,0.5,0.75))
   )
 
   dat2 <- data.frame(x = LETTERS[1:3], y = rnorm(90), g = letters[5:6])
-  vdiffr::expect_doppelganger("grouping on x and fill",
+  expect_copycat("grouping on x and fill",
     ggplot(dat2, aes(x = x, y = y, fill = g)) + geom_violin()
   )
-  vdiffr::expect_doppelganger("grouping on x and fill, dodge width = 0.5",
+  expect_copycat("grouping on x and fill, dodge width = 0.5",
     ggplot(dat2, aes(x = x, y = y, fill = g)) +
       geom_violin(position = position_dodge(width = .5))
   )

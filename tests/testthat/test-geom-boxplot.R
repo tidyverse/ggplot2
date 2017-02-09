@@ -12,7 +12,7 @@ test_that("can use US spelling of colour", {
 # Visual tests ------------------------------------------------------------
 
 test_that("boxplot draws correctly", {
-  vdiffr::expect_doppelganger("outlier colours",
+  expect_copycat("outlier colours",
     ggplot(mtcars, aes(x = factor(cyl), y = drat, colour = factor(cyl))) + geom_boxplot(outlier.size = 5)
   )
 })
