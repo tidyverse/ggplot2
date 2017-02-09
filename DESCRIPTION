@@ -41,7 +41,9 @@ Suggests:
     knitr,
     rpart,
     rmarkdown,
-    svglite
+    svglite (>= 1.2.0.9001)
+Remotes:
+    hadley/svglite
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
