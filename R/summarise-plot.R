@@ -1,5 +1,19 @@
-#' Get a summary of the layout in a built plot object
+#' Summarise built plot objects
 #'
+#' These functions provide summarised information about built ggplot objects.
+#'
+#' @examples
+#' p <- ggplot(mpg, aes(displ, hwy)) + geom_point() + facet_wrap(~class)
+#' b <- ggplot_build(p)
+#'
+#' summarise_layout(b)
+#' summarise_coord(b)
+#' summarise_layers(b)
+#'
+#' @name summarise_plot
+NULL
+
+#' @rdname summarise_plot
 #' @export
 summarise_layout = function(p) {
   stopifnot(inherits(p, "ggplot_built"))
@@ -36,8 +50,7 @@ summarise_layout = function(p) {
 }
 
 
-#' Get a summary of the coords in a built plot object
-#'
+#' @rdname summarise_plot
 #' @export
 summarise_coord = function(p) {
   stopifnot(inherits(p, "ggplot_built"))
@@ -60,8 +73,7 @@ summarise_coord = function(p) {
 }
 
 
-#' Get a summary of the layers in a built plot object
-#'
+#' @rdname summarise_plot
 #' @export
 summarise_layers <- function(p) {
   stopifnot(inherits(p, "ggplot_built"))
