@@ -65,25 +65,25 @@ test_that("aes evaluated in environment where plot created", {
 test_that("aesthetics are drawn correctly", {
   dat <- data.frame(xvar = letters[1:3], yvar = 7:9)
 
-  vdiffr::expect_doppelganger("stat='identity'",
+  expect_copycat("stat='identity'",
     ggplot(dat, aes(x = xvar, y = yvar)) + geom_bar(stat = "identity")
   )
-  vdiffr::expect_doppelganger("stat='identity', width=0.5",
+  expect_copycat("stat='identity', width=0.5",
     ggplot(dat, aes(x = xvar, y = yvar)) + geom_bar(stat = "identity", width = 0.5)
   )
-  vdiffr::expect_doppelganger("stat='count'",
+  expect_copycat("stat='count'",
     ggplot(dat, aes(x = xvar)) + geom_bar(stat = "count")
   )
-  vdiffr::expect_doppelganger("stat='count', width=0.5",
+  expect_copycat("stat='count', width=0.5",
     ggplot(dat, aes(x = xvar)) + geom_bar(stat = "count", width = 0.5)
   )
 })
 
 test_that("alpha is drawn correctly", {
-  vdiffr::expect_doppelganger("Alpha set in colour",
+  expect_copycat("Alpha set in colour",
     qplot(1, 1, color = I("#cc000044"), size = I(50))
   )
-  vdiffr::expect_doppelganger("Alpha set in alpha",
+  expect_copycat("Alpha set in alpha",
     qplot(1, 1, color = I("#cc0000"), size = I(50), alpha = I(0.27))
   )
 })
