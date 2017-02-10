@@ -1,5 +1,9 @@
 # ggplot2 2.2.1.9000
 
+* left- or right-aligned facet labels with multiple lines are now correctly
+  aligned. In previous versions, the lines of the text would still be centered.
+  (@mkuhn, #2023)
+
 * Automatic visual unit tests with vdiffr.
 
 * Layers no longer warn about unknown aesthetics who's value is set to 

@@ -122,7 +122,7 @@ stripGrob <- function(label, hjust, vjust, angle = 0, gp = gpar(),
     margin <- margin()
   }
 
-  text_grob <- textGrob(label, rot = angle, gp = gp)
+  text_grob <- textGrob(label, x = hjust, y = vjust, hjust = hjust, vjust = vjust, rot = angle, gp = gp)
 
   widths <- unit.c(margin[4], unit(1, "grobwidth", text_grob), margin[2])
   heights <- unit.c(margin[1], unit(1, "grobheight", text_grob), margin[3])
