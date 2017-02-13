@@ -223,4 +223,4 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 6.0.0
+RoxygenNote: 6.0.1
