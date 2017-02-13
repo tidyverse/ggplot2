@@ -8,6 +8,11 @@ addons:
     packages:
       - libfreetype6
 
+r:
+  - oldrel
+  - release
+  - devel
+
 r_github_packages:
   - hadley/staticdocs@old
 
