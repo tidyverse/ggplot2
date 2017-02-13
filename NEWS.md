@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* `geom_smooth()` now knows it has `ymin` and `ymax` aesthetics (#1939).
+
 * Automatic visual unit tests with vdiffr.
 
 * Layers no longer warn about unknown aesthetics who's value is set to 
