@@ -9,7 +9,7 @@ addons:
       - libfreetype6
 
 r:
-  - oldrel
+#  - oldrel
   - release
   - devel
 
