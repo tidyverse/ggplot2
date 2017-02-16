@@ -16,13 +16,14 @@ Imports:
     digest,
     grid,
     gtable (>= 0.1.1),
+    lazyeval,
     MASS,
     plyr (>= 1.7.1),
     reshape2,
     scales (>= 0.4.1),
     stats,
     tibble,
-    lazyeval
+    withr
 Suggests:
     covr,
     ggplot2movies,
@@ -41,6 +42,8 @@ Suggests:
     rpart,
     rmarkdown,
     svglite
+Remotes:
+    jimhester/withr
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2

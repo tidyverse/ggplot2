@@ -299,42 +299,12 @@ find_args <- function(...) {
 # global data
 dummy_data <- function() data.frame(x = NA)
 
-with_seed <- function(seed, code) {
+with_seed_null <- function(seed, code) {
   if (is.null(seed)) {
     code
   } else {
-    with_preserve_seed({
-      set_seed(seed)
-      code
-    })
+    withr::with_seed(seed, code)
   }
-}
-
-with_preserve_seed <- function(code) {
-  old_seed <- get_valid_seed()
-  on.exit(assign(".Random.seed", old_seed, globalenv()), add = TRUE)
-  code
-}
-
-get_valid_seed <- function() {
-  seed <- get_seed()
-  if (is.null(seed)) {
-    # Trigger initialisation of RNG
-    runif(1L)
-    seed <- get_seed()
-  }
-  seed
-}
-
-get_seed <- function() {
-  get0(".Random.seed", globalenv(), mode = "integer")
-}
-
-set_seed <- function(seed) {
-  if (is.na(seed)) {
-    seed <- sample.int(2147483647L, 1L)
-  }
-  set.seed(seed)
 }
 
 # Needed to trigger package loading

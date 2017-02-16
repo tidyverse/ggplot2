@@ -46,6 +46,10 @@
 #'   geom_point(position = jitter) +
 #'   geom_point(position = jitter, color = "red", aes(am + 0.2, vs + 0.2))
 position_jitter <- function(width = NULL, height = NULL, seed = NA) {
+  if (!is.null(seed) && is.na(seed)) {
+    seed <- sample.int(.Machine$integer.max, 1L)
+  }
+
   ggproto(NULL, PositionJitter,
     width = width,
     height = height,
@@ -72,6 +76,6 @@ PositionJitter <- ggproto("PositionJitter", Position,
     trans_x <- if (params$width > 0) function(x) jitter(x, amount = params$width)
     trans_y <- if (params$height > 0) function(x) jitter(x, amount = params$height)
 
-    with_seed(params$seed, transform_position(data, trans_x, trans_y))
+    with_seed_null(params$seed, transform_position(data, trans_x, trans_y))
   }
 )
