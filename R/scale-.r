@@ -685,3 +685,15 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     position = position
   )
 }
+
+# In place modification of a scale to change the primary axis
+scale_flip_position <- function(scale) {
+  scale$position <- switch(scale$position,
+    top = "bottom",
+    bottom = "top",
+    left = "right",
+    right = "left",
+    scale$position
+  )
+  invisible()
+}

@@ -38,13 +38,13 @@ geom_curve <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomCurve <- ggproto("GeomCurve", GeomSegment,
-  draw_panel = function(data, panel_scales, coord, curvature = 0.5, angle = 90,
+  draw_panel = function(data, panel_params, coord, curvature = 0.5, angle = 90,
                         ncp = 5, arrow = NULL, lineend = "butt", na.rm = FALSE) {
     if (!coord$is_linear()) {
       warning("geom_curve is not implemented for non-linear coordinates",
         call. = FALSE)
     }
-    trans <- coord$transform(data, panel_scales)
+    trans <- coord$transform(data, panel_params)
 
     curveGrob(
       trans$x, trans$y, trans$xend, trans$yend,

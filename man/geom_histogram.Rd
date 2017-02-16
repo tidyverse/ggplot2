@@ -60,7 +60,9 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
 
-\item{binwidth}{The width of the bins. The default is to use \code{bins}
+\item{binwidth}{The width of the bins. Can be specified as a numeric value,
+  or a function that calculates width from x.
+  The default is to use \code{bins}
   bins that cover the range of the data. You should always override
   this value, exploring multiple widths to find the best to illustrate the
   stories in your data.
@@ -182,6 +184,13 @@ m + geom_histogram(boundary = 0) + coord_trans(x = "sqrt")
 m <- ggplot(movies, aes(x = rating))
 m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 }
+
+# You can specify a function for calculating binwidth,
+# particularly useful when faceting along variables with
+# different ranges
+mtlong <- reshape2::melt(mtcars)
+ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
+  geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
 }
 \seealso{
 \code{\link{stat_count}}, which counts the number of cases at each x

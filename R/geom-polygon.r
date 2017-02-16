@@ -80,11 +80,11 @@ geom_polygon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(data, panel_scales, coord) {
+  draw_panel = function(data, panel_params, coord) {
     n <- nrow(data)
     if (n == 1) return(zeroGrob())
 
-    munched <- coord_munch(coord, data, panel_scales)
+    munched <- coord_munch(coord, data, panel_params)
     # Sort by group to make sure that colors, fill, etc. come in same order
     munched <- munched[order(munched$group), ]
 

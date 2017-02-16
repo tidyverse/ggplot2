@@ -22,6 +22,13 @@ test_that("bins specifies the number of bins", {
   expect_equal(nrow(out(bins = 100)), 100)
 })
 
+test_that("binwidth computes widths for function input", {
+  df <- data.frame(x = 1:100)
+  out <- layer_data(ggplot(df, aes(x)) + geom_histogram(binwidth = function(x) 5))
+  
+  expect_equal(nrow(out), 21)
+})
+
 test_that("geom_histogram defaults to pad = FALSE", {
   df <- data.frame(x = 1:3)
   out <- layer_data(ggplot(df, aes(x)) + geom_histogram(binwidth = 1))
@@ -141,6 +148,6 @@ test_that("stat_count preserves x order for continuous and discrete", {
   mtcars$carb3 <- factor(mtcars$carb, levels = c(4,1,2,3,6,8))
   b <- ggplot_build(ggplot(mtcars, aes(carb3)) + geom_bar())
   expect_identical(b$data[[1]]$x, 1:6)
-  expect_identical(b$layout$panel_ranges[[1]]$x.labels, c("4","1","2","3","6","8"))
+  expect_identical(b$layout$panel_params[[1]]$x.labels, c("4","1","2","3","6","8"))
   expect_identical(b$data[[1]]$y, c(10,7,10,3,1,1))
 })

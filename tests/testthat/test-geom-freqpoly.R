@@ -1,4 +1,4 @@
-context("freqpoly")
+context("geom_freqpoly")
 
 test_that("can do frequency polygon with categorical x", {
   df <- data.frame(x = rep(letters[1:3], 3:1))

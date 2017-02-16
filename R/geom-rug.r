@@ -64,9 +64,9 @@ geom_rug <- function(mapping = NULL, data = NULL,
 GeomRug <- ggproto("GeomRug", Geom,
   optional_aes = c("x", "y"),
 
-  draw_panel = function(data, panel_scales, coord, sides = "bl") {
+  draw_panel = function(data, panel_params, coord, sides = "bl") {
     rugs <- list()
-    data <- coord$transform(data, panel_scales)
+    data <- coord$transform(data, panel_params)
 
     gp <- gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
     if (!is.null(data$x)) {

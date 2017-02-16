@@ -7,11 +7,19 @@
 #' @param width Dodging width, when different to the width of the individual
 #'   elements. This is useful when you want to align narrow geoms with wider
 #'   geoms. See the examples.
+#' @param preserve Should dodging preserve the total width of all elements
+#'    at a position, or the width of a single element?
 #' @family position adjustments
 #' @export
 #' @examples
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = "dodge")
+#'
+#' # By default, dodging preserves the total width. You can choose
+#' # to preserve the width of each element:
+#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+#'   geom_bar(position = position_dodge(preserve = "single"))
+#'
 #' \donttest{
 #' ggplot(diamonds, aes(price, fill = cut)) +
 #'   geom_histogram(position="dodge")
@@ -50,8 +58,11 @@
 #'   width = 0.2,
 #'   position = position_dodge(width = 0.9)
 #' )
-position_dodge <- function(width = NULL) {
-  ggproto(NULL, PositionDodge, width = width)
+position_dodge <- function(width = NULL, preserve = c("total", "single")) {
+  ggproto(NULL, PositionDodge,
+    width = width,
+    preserve = match.arg(preserve)
+  )
 }
 
 #' @rdname ggplot2-ggproto
@@ -61,15 +72,62 @@ position_dodge <- function(width = NULL) {
 PositionDodge <- ggproto("PositionDodge", Position,
   required_aes = "x",
   width = NULL,
+  preserve = "total",
   setup_params = function(self, data) {
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warning("Width not defined. Set with `position_dodge(width = ?)`",
         call. = FALSE)
     }
-    list(width = self$width)
+
+    if (identical(self$preserve, "total")) {
+      n <- NULL
+    } else {
+      n <- max(table(data$xmin))
+    }
+
+    list(
+      width = self$width,
+      n = n
+    )
   },
 
   compute_panel = function(data, params, scales) {
-    collide(data, params$width, "position_dodge", pos_dodge, check.width = FALSE)
+    collide(
+      data,
+      params$width,
+      name = "position_dodge",
+      strategy = pos_dodge,
+      n = params$n,
+      check.width = FALSE
+    )
   }
 )
+
+# Dodge overlapping interval.
+# Assumes that each set has the same horizontal position.
+pos_dodge <- function(df, width, n = NULL) {
+  if (is.null(n)) {
+    n <- length(unique(df$group))
+  }
+
+  if (n == 1)
+    return(df)
+
+  if (!all(c("xmin", "xmax") %in% names(df))) {
+    df$xmin <- df$x
+    df$xmax <- df$x
+  }
+
+  d_width <- max(df$xmax - df$xmin)
+
+  # Have a new group index from 1 to number of groups.
+  # This might be needed if the group numbers in this set don't include all of 1:n
+  groupidx <- match(df$group, sort(unique(df$group)))
+
+  # Find the center for each group, then use that to calculate xmin and xmax
+  df$x <- df$x + width * ((groupidx - 0.5) / n - .5)
+  df$xmin <- df$x - d_width / n / 2
+  df$xmax <- df$x + d_width / n / 2
+
+  df
+}

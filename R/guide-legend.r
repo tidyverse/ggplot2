@@ -251,7 +251,12 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       # This layer contributes to the legend
       if (is.na(layer$show.legend) || layer$show.legend) {
         # Default is to include it
-        data <- layer$geom$use_defaults(guide$key[matched], layer$aes_params)
+
+        # Filter out set aesthetics that can't be applied to the legend
+        n <- vapply(layer$aes_params, length, integer(1))
+        params <- layer$aes_params[n == 1]
+
+        data <- layer$geom$use_defaults(guide$key[matched], params)
       } else {
         return(NULL)
       }

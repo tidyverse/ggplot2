@@ -25,7 +25,7 @@ median_hilow(x, ...)
 A data frame with columns \code{y}, \code{ymin}, and \code{ymax}.
 }
 \description{
-These are wrappers around functions from \pkg{Hmsic} designed to make them
+These are wrappers around functions from \pkg{Hmisc} designed to make them
 easier to use with \code{\link{stat_summary}}. See the Hmisc documentation
 for more details:
 

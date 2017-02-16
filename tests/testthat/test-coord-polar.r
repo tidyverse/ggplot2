@@ -10,7 +10,8 @@ test_that("Polar distance calculation", {
     y = scale_y_continuous(limits = c(0, 1))
   )
   coord <- coord_polar()
-  dists <- coord$distance(dat$theta, dat$r, coord$train(scales))
+  panel_params <- coord$setup_panel_params(scales$x, scales$y)
+  dists <- coord$distance(dat$theta, dat$r, panel_params)
 
   # dists is normalized by dividing by this value, so we'll add it back
   # The maximum length of a spiral arc, from (t,r) = (0,0) to (2*pi,1)
@@ -55,4 +56,57 @@ test_that("Polar distance calculation ignores NA's", {
   expect_equal(is.na(dists), c(TRUE, FALSE, TRUE, TRUE))
   dists <- dist_polar(x2, x1)
   expect_equal(is.na(dists), c(TRUE, FALSE, TRUE, TRUE))
+})
+
+
+# Visual tests ------------------------------------------------------------
+
+test_that("Polar coordinates draws correctly", {
+  dat <- data.frame(x = 0:1, y = rep(1:80, each = 2))
+
+  vdiffr::expect_doppelganger("Concentric circles at theta = 1:80",
+    ggplot(dat, aes(x, y, group = factor(y))) + geom_line() + coord_polar()
+  )
+  vdiffr::expect_doppelganger("Concentric circles at theta = 1:80 - 80",
+    ggplot(dat, aes(x, y - 80, group = factor(y))) + geom_line() + coord_polar()
+  )
+  vdiffr::expect_doppelganger("Concentric circles at theta = 1:80 - 40",
+    ggplot(dat, aes(x, y - 40, group = factor(y))) + geom_line() + coord_polar()
+  )
+  vdiffr::expect_doppelganger("Concentric circles at theta = 1:80 + 100",
+    ggplot(dat, aes(x, y + 100, group = factor(y))) + geom_line() + coord_polar()
+  )
+  vdiffr::expect_doppelganger("Concentric circles at theta = 1:80 mult 100",
+    ggplot(dat, aes(x, y * 100, group = factor(y))) + geom_line() + coord_polar() +
+      ggtitle("Concentric circles at theta = 1:80 * 100")
+  )
+
+  dat <- data.frame(
+    theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
+    r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5),
+    g     = 1:8)
+
+  vdiffr::expect_doppelganger("Rays, circular arcs, and spiral arcs",
+    ggplot(dat, aes(theta, r, colour = g)) + geom_path() +
+      geom_point(alpha = 0.3, colour = "black") + coord_polar()
+  )
+
+  dat <- data.frame(x = LETTERS[1:6], y = 11:16)
+  vdiffr::expect_doppelganger("rose plot with has equal spacing",
+    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") + coord_polar()
+  )
+  vdiffr::expect_doppelganger("continuous theta has merged low/high values",
+    ggplot(dat, aes(as.numeric(x), y)) + geom_point() + coord_polar()
+  )
+  vdiffr::expect_doppelganger("continuous theta with xlim(0, 6) and ylim(0, 16)",
+    ggplot(dat, aes(as.numeric(x), y)) + geom_point() + coord_polar() +
+      xlim(0, 6) + ylim(0,16)
+  )
+  vdiffr::expect_doppelganger("racetrack plot with expand=F: closed and no center hole",
+    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") + coord_polar(theta = "y")
+  )
+  vdiffr::expect_doppelganger("racetrack plot with expand=T: closed and has center hole",
+    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") + coord_polar(theta = "y") +
+      scale_x_discrete(expand = c(0, 0.6))
+  )
 })

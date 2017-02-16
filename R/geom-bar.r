@@ -2,7 +2,7 @@
 #'
 #' There are two types of bar charts: \code{geom_bar} makes the height of the
 #' bar proportional to the number of cases in each group (or if the
-#' \code{weight} aethetic is supplied, the sum of the weights). If you want the
+#' \code{weight} aesthetic is supplied, the sum of the weights). If you want the
 #' heights of the bars to represent values in the data, use
 #' \link{geom_col} instead. \code{geom_bar} uses \code{stat_count} by
 #' default: it counts the  number of cases at each x position. \code{geom_col}
@@ -45,8 +45,19 @@
 #' # Total engine displacement of each class
 #' g + geom_bar(aes(weight = displ))
 #'
+#' # Bar charts are automatically stacked when multiple bars are placed
+#' # at the same location. The order of the fill is designed to match
+#' # the legend
+#' g + geom_bar(aes(fill = drv))
+#'
+#' # If you need to flip the order (because you've flipped the plot)
+#' # call position_stack() explicitly:
+#' g +
+#'  geom_bar(aes(fill = drv), position = position_stack(reverse = TRUE)) +
+#'  coord_flip() +
+#'  theme(legend.position = "top")
+#'
 #' # To show (e.g.) means, you need geom_col()
-#' # And, even more succinctly with geom_col()
 #' df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
 #' ggplot(df, aes(trt, outcome)) +
 #'   geom_col()
@@ -61,22 +72,6 @@
 #' ggplot(df, aes(x)) + geom_bar()
 #' # cf. a histogram of the same data
 #' ggplot(df, aes(x)) + geom_histogram(binwidth = 0.5)
-#'
-#' \donttest{
-#' # Bar charts are automatically stacked when multiple bars are placed
-#' # at the same location
-#' g + geom_bar(aes(fill = drv))
-#'
-#' # You can instead dodge, or fill them
-#' g + geom_bar(aes(fill = drv), position = "dodge")
-#' g + geom_bar(aes(fill = drv), position = "fill")
-#'
-#' # To change plot order of bars, change levels in underlying factor
-#' reorder_size <- function(x) {
-#'   factor(x, levels = names(sort(table(x))))
-#' }
-#' ggplot(mpg, aes(reorder_size(class))) + geom_bar()
-#' }
 geom_bar <- function(mapping = NULL, data = NULL,
                      stat = "count", position = "stack",
                      ...,
@@ -127,8 +122,8 @@ GeomBar <- ggproto("GeomBar", GeomRect,
     )
   },
 
-  draw_panel = function(self, data, panel_scales, coord, width = NULL) {
+  draw_panel = function(self, data, panel_params, coord, width = NULL) {
     # Hack to ensure that width is detected as a parameter
-    ggproto_parent(GeomRect, self)$draw_panel(data, panel_scales, coord)
+    ggproto_parent(GeomRect, self)$draw_panel(data, panel_params, coord)
   }
 )

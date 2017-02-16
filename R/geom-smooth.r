@@ -114,21 +114,22 @@ geom_smooth <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomSmooth <- ggproto("GeomSmooth", Geom,
-  draw_group = function(data, panel_scales, coord) {
+  draw_group = function(data, panel_params, coord) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
     has_ribbon <- !is.null(data$ymax) && !is.null(data$ymin)
 
     gList(
-      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_scales, coord),
-      GeomLine$draw_panel(path, panel_scales, coord)
+      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_params, coord),
+      GeomLine$draw_panel(path, panel_params, coord)
     )
   },
 
   draw_key = draw_key_smooth,
 
   required_aes = c("x", "y"),
+  optional_aes = c("ymin", "ymax"),
 
   default_aes = aes(colour = "#3366FF", fill = "grey60", size = 1,
     linetype = 1, weight = 1, alpha = 0.4)

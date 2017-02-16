@@ -51,9 +51,6 @@ table(cut_width(runif(1000), 0.1))
 table(cut_width(runif(1000), 0.1, boundary = 0))
 table(cut_width(runif(1000), 0.1, center = 0))
 }
-\seealso{
-\code{\link{cut_number}}
-}
 \author{
 Randall Prium contributed most of the implementation of
    \code{cut_width}.

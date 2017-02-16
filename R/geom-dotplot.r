@@ -251,14 +251,14 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   },
 
 
-  draw_group = function(data, panel_scales, coord, na.rm = FALSE,
+  draw_group = function(data, panel_params, coord, na.rm = FALSE,
                         binaxis = "x", stackdir = "up", stackratio = 1,
                         dotsize = 1, stackgroups = FALSE) {
     if (!coord$is_linear()) {
       warning("geom_dotplot does not work properly with non-linear coordinates.")
     }
 
-    tdata <- coord$transform(data, panel_scales)
+    tdata <- coord$transform(data, panel_params)
 
     # Swap axes if using coord_flip
     if (inherits(coord, "CoordFlip"))
@@ -266,11 +266,11 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
 
     if (binaxis == "x") {
       stackaxis = "y"
-      dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_scales$x.range) - min(panel_scales$x.range))
+      dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_params$x.range) - min(panel_params$x.range))
 
     } else if (binaxis == "y") {
       stackaxis = "x"
-      dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_scales$y.range) - min(panel_scales$y.range))
+      dotdianpc <- dotsize * tdata$binwidth[1] / (max(panel_params$y.range) - min(panel_params$y.range))
     }
 
     ggname("geom_dotplot",
