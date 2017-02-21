@@ -135,6 +135,9 @@ There were also a number of other smaller changes
   
 * `element_line()` now takes an `arrow` argument to specify arrows at the end of
   lines (#1740)
+  
+  
+* the `linewidth` parameter of several theme elements is defined to use `rel()` more consistently, and therefore scale more uniformly (#1883)
 
 There were a number of tweaks to the theme elements that control legends:
   
