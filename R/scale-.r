@@ -631,10 +631,14 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' @param limits A character vector specifying the data range for the scale.
 #   The limits control what levels are displayed in the plot, their order,
 #'  and the default order of their display in guides.
-#' @param labels \code{NULL} for no labels, \code{waiver()} for default
-#'   labels (labels the same as breaks), a character vector the same length
-#'   as breaks, or a named character vector whose names are used to match
-#'   replacement the labels for matching breaks.
+#' @param labels One of: \itemize{
+#'   \item \code{NULL} for no labels
+#'   \item \code{waiver()} for the default labels computed by the
+#'     transformation object
+#'   \item A character vector giving labels (must be same length as \code{breaks})
+#'   \item A function that takes the breaks as input and returns labels
+#'     as output
+#' }
 #' @param expand a numeric vector of length two, giving a multiplicative and
 #'   additive constant used to expand the range of the scales so that there
 #'   is a small gap between the data and the axes. The defaults are (0,0.6)

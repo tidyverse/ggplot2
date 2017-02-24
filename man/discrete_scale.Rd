@@ -35,10 +35,14 @@ types of input:
 This parameter does not affect in any way how the data is scaled - it
 only affects the appearance of the legend.}
 
-\item{labels}{\code{NULL} for no labels, \code{waiver()} for default
-labels (labels the same as breaks), a character vector the same length
-as breaks, or a named character vector whose names are used to match
-replacement the labels for matching breaks.}
+\item{labels}{One of: \itemize{
+  \item \code{NULL} for no labels
+  \item \code{waiver()} for the default labels computed by the
+    transformation object
+  \item A character vector giving labels (must be same length as \code{breaks})
+  \item A function that takes the breaks as input and returns labels
+    as output
+}}
 
 \item{limits}{A character vector specifying the data range for the scale.
 and the default order of their display in guides.}
