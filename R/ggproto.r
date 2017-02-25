@@ -84,7 +84,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
     e$super <- find_super
     class(e) <- c(`_class`, class(super))
   } else {
-    class(e) <- c(`_class`, "ggproto")
+    class(e) <- c(`_class`, "ggproto", "gg")
   }
 
   e
