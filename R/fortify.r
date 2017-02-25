@@ -19,9 +19,12 @@ fortify.NULL <- function(model, data, ...) waiver()
 fortify.function <- function(model, data, ...) model
 #' @export
 fortify.default <- function(model, data, ...) {
-  stop(
+  msg <- paste0(
     "ggplot2 doesn't know how to deal with data of class ",
-    paste(class(model), collapse = "/"),
-    call. = FALSE
+    paste(class(model), collapse = "/"), "."
   )
+  if (class(model) == "uneval") {
+    msg <- paste0(msg, " Did you forget the data argument in ggplot()?")
+  }
+  stop(msg, call. = FALSE)
 }
