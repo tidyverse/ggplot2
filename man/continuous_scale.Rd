@@ -11,11 +11,11 @@ continuous_scale(aesthetics, scale_name, palette, name = waiver(),
   position = "left", super = ScaleContinuous)
 }
 \arguments{
-\item{aesthetics}{the names of the aesthetics that this scale works with}
+\item{aesthetics}{The names of the aesthetics that this scale works with}
 
-\item{scale_name}{the name of the scale}
+\item{scale_name}{The name of the scale}
 
-\item{palette}{a palette function that when called with a single integer
+\item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
 they should take}
 
@@ -78,7 +78,8 @@ discrete variables.}
   \code{\link[scales]{boxcox_trans}}. You can create your own
   transformation with \code{\link[scales]{trans_new}}.}
 
-\item{guide}{Name of guide object, or object itself.}
+\item{guide}{A function used to create a guide or its name. See
+\code{\link{guides}} for more info.}
 
 \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}

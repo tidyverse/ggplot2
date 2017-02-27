@@ -59,7 +59,8 @@ maximum size of the plotting symbol after transformation.}
   \code{\link[scales]{boxcox_trans}}. You can create your own
   transformation with \code{\link[scales]{trans_new}}.}
 
-\item{guide}{Name of guide object, or object itself.}
+\item{guide}{A function used to create a guide or its name. See
+\code{\link{guides}} for more info.}
 
 \item{...}{Other arguments passed on to \code{\link{continuous_scale}}
 to control name, limits, breaks, labels and so forth.}
