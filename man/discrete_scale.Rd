@@ -10,43 +10,44 @@ discrete_scale(aesthetics, scale_name, palette, name = waiver(),
   guide = "legend", position = "left", super = ScaleDiscrete)
 }
 \arguments{
-\item{aesthetics}{the names of the aesthetics that this scale works with}
+\item{aesthetics}{The names of the aesthetics that this scale works with}
 
-\item{scale_name}{the name of the scale}
+\item{scale_name}{The name of the scale}
 
-\item{palette}{a palette function that when called with a single integer
+\item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
 they should take}
 
-\item{name}{the name of the scale - used as the axis label or the legend
-title}
+\item{name}{The name of the scale. Used as axis or legend title. If
+\code{NULL}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic.}
 
-\item{breaks}{control the breaks in the guide.  There are four possible
-types of input:
-\itemize{
-  \item \code{NULL}: don't display any breaks
-  \item a character vector giving the breaks as they should appear on the
-   axis or in the legend.
-  \item \code{waiver()} to use the default break computation.
-  \item a function, that when called with a single argument, a character
-    vector giving the limits of the scale, returns a character vector
-    specifying which breaks to display.
-}
-This parameter does not affect in any way how the data is scaled - it
-only affects the appearance of the legend.}
+\item{breaks}{One of: \itemize{
+  \item \code{NULL} for no breaks
+  \item \code{waiver()} for the default breaks computed by the
+    transformation object
+  \item A numeric vector of positions
+  \item A function that takes the limits as input and returns breaks
+    as output
+}}
 
-\item{labels}{\code{NULL} for no labels, \code{waiver()} for default
-labels (labels the same as breaks), a character vector the same length
-as breaks, or a named character vector whose names are used to match
-replacement the labels for matching breaks.}
+\item{labels}{One of: \itemize{
+  \item \code{NULL} for no labels
+  \item \code{waiver()} for the default labels computed by the
+    transformation object
+  \item A character vector giving labels (must be same length as \code{breaks})
+  \item A function that takes the breaks as input and returns labels
+    as output
+}}
 
-\item{limits}{A character vector specifying the data range for the scale.
-and the default order of their display in guides.}
+\item{limits}{A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum.}
 
-\item{expand}{a numeric vector of length two, giving a multiplicative and
-additive constant used to expand the range of the scales so that there
-is a small gap between the data and the axes. The defaults are (0,0.6)
-for discrete scales and (0.05,0) for continuous scales.}
+\item{expand}{A numeric vector of length two giving multiplicative and
+additive expansion constants. These constants ensure that the data is
+placed some distance away from the axes. The defaults are
+\code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
+discrete variables.}
 
 \item{na.translate}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
@@ -60,8 +61,8 @@ where \code{NA} is always placed at the far right.}
 The default, \code{TRUE}, uses the levels that appear in the data;
 \code{FALSE} uses all the levels in the factor.}
 
-\item{guide}{the name of, or actual function, used to create the
-guide. See \code{\link{guides}} for more info.}
+\item{guide}{A function used to create a guide or its name. See
+\code{\link{guides}} for more info.}
 
 \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}

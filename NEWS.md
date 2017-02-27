@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* `discrete_scale` documentation updated to match functionality and 
+  `continuous_scale` (@alistaire47, #2052).
+
 * `geom_smooth()` now knows it has `ymin` and `ymax` aesthetics (#1939).
 
 * Automatic visual unit tests with vdiffr.
