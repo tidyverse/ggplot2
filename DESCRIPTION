@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 2.2.1
+Version: 2.2.1.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Description: A system for 'declaratively' creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
@@ -36,17 +36,22 @@ Suggests:
     multcomp,
     nlme,
     testthat (>= 0.11.0),
+    vdiffr,
     quantreg,
     knitr,
+    rgeos,
     rpart,
     rmarkdown,
-    svglite
+    sf (>= 0.3-4),
+    svglite (>= 1.2.0.9001)
+Remotes:
+    hadley/svglite
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
-Collate:
+Collate: 
     'ggproto.r'
     'aaa-.r'
     'aes-calculated.r'
@@ -66,6 +71,7 @@ Collate:
     'geom-raster.r'
     'annotation-raster.r'
     'annotation.r'
+    'autolayer.r'
     'autoplot.r'
     'axis-secondary.R'
     'bench.r'
@@ -175,6 +181,7 @@ Collate:
     'scale-size.r'
     'scale-type.R'
     'scales-.r'
+    'sf.R'
     'stat-bin.r'
     'stat-bin2d.r'
     'stat-bindot.r'
@@ -199,6 +206,7 @@ Collate:
     'stat-summary.r'
     'stat-unique.r'
     'stat-ydensity.r'
+    'summarise-plot.R'
     'summary.r'
     'theme-elements.r'
     'theme.r'
@@ -215,4 +223,4 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.1

@@ -173,7 +173,7 @@ summarise_by_x <- function(data, summary, ...) {
 #' A selection of summary functions from Hmisc
 #'
 #' @description
-#' These are wrappers around functions from \pkg{Hmsic} designed to make them
+#' These are wrappers around functions from \pkg{Hmisc} designed to make them
 #' easier to use with \code{\link{stat_summary}}. See the Hmisc documentation
 #' for more details:
 #'

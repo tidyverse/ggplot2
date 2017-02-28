@@ -56,12 +56,12 @@ geom_hex <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomHex <- ggproto("GeomHex", Geom,
-  draw_group = function(data, panel_scales, coord) {
+  draw_group = function(data, panel_params, coord) {
     if (!inherits(coord, "CoordCartesian")) {
       stop("geom_hex() only works with Cartesian coordinates", call. = FALSE)
     }
 
-    coord <- coord$transform(data, panel_scales)
+    coord <- coord$transform(data, panel_params)
     ggname("geom_hex", hexGrob(
       coord$x, coord$y, colour = coord$colour,
       fill = alpha(coord$fill, coord$alpha)

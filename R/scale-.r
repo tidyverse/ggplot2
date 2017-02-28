@@ -504,7 +504,11 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #' Continuous scale constructor.
 #'
 #' @export
-#' @inheritParams discrete_scale
+#' @param aesthetics The names of the aesthetics that this scale works with
+#' @param scale_name The name of the scale
+#' @param palette A palette function that when called with a single integer
+#'   argument (the number of levels in the scale) returns the values that
+#'   they should take
 #' @param name The name of the scale. Used as axis or legend title. If
 #'   \code{NULL}, the default, the name of the scale is taken from the first
 #'   mapping used for that aesthetic.
@@ -538,6 +542,11 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   A function used to scale the input values to the range [0, 1].
 #' @param oob Function that handles limits outside of the scale limits
 #'   (out of bounds). The default replaces out of bounds values with NA.
+#' @param expand A numeric vector of length two giving multiplicative and
+#'   additive expansion constants. These constants ensure that the data is
+#'   placed some distance away from the axes. The defaults are
+#'   \code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
+#'   discrete variables.
 #' @param na.value Missing values will be replaced with this value.
 #' @param trans Either the name of a transformation object, or the
 #'   object itself. Built-in transformations include "asn", "atanh",
@@ -549,12 +558,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   are defined in the scales package, and are called \code{name_trans}, e.g.
 #'   \code{\link[scales]{boxcox_trans}}. You can create your own
 #'   transformation with \code{\link[scales]{trans_new}}.
-#' @param expand A numeric vector of length two giving multiplicative and
-#'   additive expansion constants. These constants ensure that the data is
-#'   placed some distance away from the axes. The defaults are
-#'   \code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
-#'   discrete variables.
-#' @param guide Name of guide object, or object itself.
+#' @param guide A function used to create a guide or its name. See
+#'   \code{\link{guides}} for more info.
 #' @param position The position of the axis. "left" or "right" for vertical
 #' scales, "top" or "bottom" for horizontal scales
 #' @param super The super class to use for the constructed scale
@@ -605,51 +610,16 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' Discrete scale constructor.
 #'
 #' @export
-#' @param aesthetics the names of the aesthetics that this scale works with
-#' @param scale_name the name of the scale
-#' @param palette a palette function that when called with a single integer
-#'   argument (the number of levels in the scale) returns the values that
-#'   they should take
-#' @param name the name of the scale - used as the axis label or the legend
-#'  title
+#' @inheritParams continuous_scale
 #' @param drop Should unused factor levels be omitted from the scale?
 #'    The default, \code{TRUE}, uses the levels that appear in the data;
 #'    \code{FALSE} uses all the levels in the factor.
-#' @param breaks control the breaks in the guide.  There are four possible
-#'   types of input:
-#'   \itemize{
-#'     \item \code{NULL}: don't display any breaks
-#'     \item a character vector giving the breaks as they should appear on the
-#'      axis or in the legend.
-#'     \item \code{waiver()} to use the default break computation.
-#'     \item a function, that when called with a single argument, a character
-#'       vector giving the limits of the scale, returns a character vector
-#'       specifying which breaks to display.
-#'   }
-#'   This parameter does not affect in any way how the data is scaled - it
-#'   only affects the appearance of the legend.
-#' @param limits A character vector specifying the data range for the scale.
-#   The limits control what levels are displayed in the plot, their order,
-#'  and the default order of their display in guides.
-#' @param labels \code{NULL} for no labels, \code{waiver()} for default
-#'   labels (labels the same as breaks), a character vector the same length
-#'   as breaks, or a named character vector whose names are used to match
-#'   replacement the labels for matching breaks.
-#' @param expand a numeric vector of length two, giving a multiplicative and
-#'   additive constant used to expand the range of the scales so that there
-#'   is a small gap between the data and the axes. The defaults are (0,0.6)
-#'   for discrete scales and (0.05,0) for continuous scales.
 #' @param na.translate Unlike continuous scales, discrete scales can easily show
 #'   missing values, and do so by default. If you want to remove missing values
 #'   from a discrete scale, specify \code{na.translate = FALSE}.
 #' @param na.value If \code{na.translate = TRUE}, what value aesthetic
 #'   value should missing be displayed as? Does not apply to position scales
 #'   where \code{NA} is always placed at the far right.
-#' @param guide the name of, or actual function, used to create the
-#'   guide. See \code{\link{guides}} for more info.
-#' @param position The position of the axis. "left" or "right" for vertical
-#' scales, "top" or "bottom" for horizontal scales
-#' @param super The super class to use for the constructed scale
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
@@ -684,4 +654,16 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     guide = guide,
     position = position
   )
+}
+
+# In place modification of a scale to change the primary axis
+scale_flip_position <- function(scale) {
+  scale$position <- switch(scale$position,
+    top = "bottom",
+    bottom = "top",
+    left = "right",
+    right = "left",
+    scale$position
+  )
+  invisible()
 }

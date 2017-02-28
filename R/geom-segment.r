@@ -83,7 +83,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
   non_missing_aes = c("linetype", "size", "shape"),
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  draw_panel = function(data, panel_scales, coord, arrow = NULL,
+  draw_panel = function(data, panel_params, coord, arrow = NULL,
                         lineend = "butt", na.rm = FALSE) {
 
     data <- remove_missing(data, na.rm = na.rm,
@@ -92,7 +92,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
     if (empty(data)) return(zeroGrob())
 
     if (coord$is_linear()) {
-      coord <- coord$transform(data, panel_scales)
+      coord <- coord$transform(data, panel_params)
       return(segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
         default.units = "native",
         gp = gpar(
@@ -114,7 +114,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
     pieces <- rbind(starts, ends)
     pieces <- pieces[order(pieces$group),]
 
-    GeomPath$draw_panel(pieces, panel_scales, coord, arrow = arrow,
+    GeomPath$draw_panel(pieces, panel_params, coord, arrow = arrow,
       lineend = lineend)
   },
 

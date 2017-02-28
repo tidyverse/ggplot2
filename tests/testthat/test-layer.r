@@ -16,6 +16,10 @@ test_that("unknown aesthietcs create warning", {
   expect_warning(geom_point(aes(blah = "red")), "unknown aesthetics")
 })
 
+test_that("unknown NULL asthetic doesn't create warning (#1909)", {
+  expect_warning(geom_point(aes(blah = NULL)), NA)
+})
+
 # Calculated aesthetics ---------------------------------------------------
 
 test_that("Bare name surround by .. is calculated", {

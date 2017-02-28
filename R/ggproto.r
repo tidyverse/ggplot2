@@ -130,6 +130,23 @@ fetch_ggproto <- function(x, name) {
   res
 }
 
+#' @importFrom utils .DollarNames
+#' @export
+.DollarNames.ggproto <- function(x, pattern = "") {
+  methods <- ls(envir = x)
+  if ("super" %in% methods) {
+    methods <- setdiff(methods, "super")
+    methods <- union(methods, Recall(x$super()))
+  }
+
+  if (identical(pattern, "")) {
+    methods
+  } else {
+    grep(pattern, methods, value = TRUE)
+  }
+
+}
+
 #' @export
 `$.ggproto` <- function(x, name) {
   res <- fetch_ggproto(x, name)

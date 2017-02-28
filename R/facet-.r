@@ -86,32 +86,6 @@ Facet <- ggproto("Facet", NULL,
   shrink = FALSE,
   params = list(),
 
-
-# Layout interface --------------------------------------------------------
-
-  train = function(self, data) {
-    self$compute_layout(data, self$params)
-  },
-  map = function(self, data, layout) {
-    self$map_data(data, layout, self$params)
-  },
-  render_back = function(self, data, layout, x_scales, y_scales, theme) {
-    self$draw_back(data, layout, x_scales, y_scales, theme, self$params)
-  },
-  render_front = function(self, data, layout, x_scales, y_scales, theme) {
-    self$draw_front(data, layout, x_scales, y_scales, theme, self$params)
-  },
-  render_panels = function(self, panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels) {
-    panels <- self$draw_panels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, self$params)
-    self$draw_labels(panels, layout, x_scales, y_scales, ranges, coord, data, theme, labels, self$params)
-  },
-  train_positions = function(self, x_scales, y_scales, layout, data) {
-    self$train_scales(x_scales, y_scales, layout, data, self$params)
-  },
-
-
-# Extension interface -----------------------------------------------------
-
   compute_layout = function(data, params) {
     stop("Not implemented", call. = FALSE)
   },
@@ -192,6 +166,9 @@ Facet <- ggproto("Facet", NULL,
   },
   finish_data = function(data, layout, x_scales, y_scales, params) {
     data
+  },
+  vars = function() {
+    character(0)
   }
 )
 
@@ -265,8 +242,23 @@ eval_facet_var <- function(var, data, env = emptyenv()) {
 }
 
 layout_null <- function() {
-  data.frame(PANEL = 1, ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
+  # PANEL needs to be a factor to be consistent with other facet types
+  data.frame(PANEL = factor(1), ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
 }
+
+check_layout <- function(x) {
+  if (all(c("PANEL", "SCALE_X", "SCALE_Y") %in% names(x))) {
+    return()
+  }
+
+  stop(
+    "Facet layout has bad format. ",
+    "It must contain columns 'PANEL', 'SCALE_X', and 'SCALE_Y'",
+    call. = FALSE
+  )
+}
+
+
 #' Get the maximal width/length of a list of grobs
 #'
 #' @param grobs A list of grobs

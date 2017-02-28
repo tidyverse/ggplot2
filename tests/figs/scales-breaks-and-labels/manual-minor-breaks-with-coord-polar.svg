@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, polygon, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpNzguNTB8NjQxLjUwfDU3Ni4wMHwwLjAw'>
+    <rect x='78.50' y='0.00' width='563.01' height='576.00' />
+  </clipPath>
+</defs>
+<rect x='78.50' y='0.00' width='563.01' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' clip-path='url(#cpNzguNTB8NjQxLjUwfDU3Ni4wMHwwLjAw)' />
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id='cpMTA3LjA4fDYzNi4wMnw1NTIuNDJ8MjMuNDg='>
+    <rect x='107.08' y='23.48' width='528.95' height='528.95' />
+  </clipPath>
+</defs>
+<rect x='107.08' y='23.48' width='528.95' height='528.95' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cpMTA3LjA4fDYzNi4wMnw1NTIuNDJ8MjMuNDg=)' />
+<circle cx='371.55' cy='287.95' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpMTA3LjA4fDYzNi4wMnw1NTIuNDJ8MjMuNDg=)' />
+<circle cx='371.55' cy='393.74' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpMTA3LjA4fDYzNi4wMnw1NTIuNDJ8MjMuNDg=)' />
+<circle cx='371.55' cy='76.37' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpMTA3LjA4fDYzNi4wMnw1NTIuNDJ8MjMuNDg=)' />
+<g clip-path='url(#cpMTA3LjA4fDYzNi4wMnw1NTIuNDJ8MjMuNDg=)'><text x='369.05' y='529.07' style='font-size: 8.80px; fill: #4D4D4D; font-family: Liberation Sans;' textLength='5.01px' lengthAdjust='spacingAndGlyphs'>2</text></g>
+<g clip-path='url(#cpMTA3LjA4fDYzNi4wMnw1NTIuNDJ8MjMuNDg=)'><text x='365.30' y='53.02' style='font-size: 8.80px; fill: #4D4D4D; font-family: Liberation Sans;' textLength='12.51px' lengthAdjust='spacingAndGlyphs'>1/3</text></g>
+<rect x='107.08' y='23.48' width='528.95' height='528.95' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cpMTA3LjA4fDYzNi4wMnw1NTIuNDJ8MjMuNDg=)' />
+<defs>
+  <clipPath id='cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA='>
+    <rect x='0.00' y='0.00' width='720.00' height='576.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='97.14' y='291.04' style='font-size: 8.80px; fill: #4D4D4D; font-family: Liberation Sans;' textLength='5.01px' lengthAdjust='spacingAndGlyphs'>1</text></g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='97.14' y='185.25' style='font-size: 8.80px; fill: #4D4D4D; font-family: Liberation Sans;' textLength='5.01px' lengthAdjust='spacingAndGlyphs'>2</text></g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='97.14' y='79.46' style='font-size: 8.80px; fill: #4D4D4D; font-family: Liberation Sans;' textLength='5.01px' lengthAdjust='spacingAndGlyphs'>3</text></g>
+<polyline points='104.34,287.95 107.08,287.95 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
+<polyline points='104.34,182.16 107.08,182.16 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
+<polyline points='104.34,76.37 107.08,76.37 ' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: butt;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='363.91' y='570.40' style='font-size: 11.00px; font-family: Liberation Sans;' textLength='15.29px' lengthAdjust='spacingAndGlyphs'>1:3</text></g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text transform='translate(91.54,295.60) rotate(-90)' style='font-size: 11.00px; font-family: Liberation Sans;' textLength='15.29px' lengthAdjust='spacingAndGlyphs'>1:3</text></g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='107.08' y='14.42' style='font-size: 13.20px; font-family: Liberation Sans;' textLength='220.38px' lengthAdjust='spacingAndGlyphs'>manual minor breaks with coord_polar</text></g>
+</svg>

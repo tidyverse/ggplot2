@@ -147,22 +147,26 @@ means there is no \code{setup_params} because it's hard to communicate
 the changes.
 
 \itemize{
-  \item Override either \code{draw_panel(self, data, panel_scales, coord)} or
-    \code{draw_group(self, data, panel_scales, coord)}. \code{draw_panel} is
+  \item Override either \code{draw_panel(self, data, panel_params, coord)} or
+    \code{draw_group(self, data, panel_params, coord)}. \code{draw_panel} is
     called once per panel, \code{draw_group} is called once per group.
 
     Use \code{draw_panel} if each row in the data represents a
     single element. Use \code{draw_group} if each group represents
     an element (e.g. a smooth, a violin).
 
-    \code{data} is a data frame of scaled aesthetics. \code{panel_scales}
-    is a list containing information about the scales in the current
-    panel. \code{coord} is a coordinate specification. You'll
-    need to call \code{coord$transform(data, panel_scales)} to work
-    with non-Cartesian coords. To work with non-linear coordinate systems,
-    you typically need to convert into a primitive geom (e.g. point, path
-    or polygon), and then pass on to the corresponding draw method
-    for munching.
+    \code{data} is a data frame of scaled aesthetics.
+
+    \code{panel_params} is a set of per-panel parameters for the
+    \code{coord}. Generally, you should consider \code{panel_params}
+    to be an opaque data structure that you pass along whenever you call
+    a coord method.
+
+    You must always call \code{coord$transform(data, panel_params)} to
+    get the (position) scaled data for plotting. convert. To work with
+    non-linear coordinate systems, you typically need to convert into a
+    primitive geom (e.g. point, path or polygon), and then pass on to the
+    corresponding draw method for munching.
 
     Must return a grob. Use \code{\link{zeroGrob}} if there's nothing to
     draw.
@@ -205,6 +209,16 @@ object, you typically will want to implement one or more of the following:
   \item \code{distance}: Calculates distance.
   \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
     linear; \code{FALSE} otherwise.
+
+  \item \code{setup_params(data)}: Allows the coordinate system to inspect
+    all layers and return a list of additional parameters that vary based on
+    the data. These parameters are currently only passed to the other
+    setup functions and \code{train()}.
+  \item \code{setup_data(data, params)}: Allows the coordinate system to
+    manipulate the plot data. Should return list of data frames.
+  \item \code{setup_layout(layout, params)}: Allows the coordinate
+    system to manipulate the \code{layout} data frame which assigns
+    data to panels and scales.
 }
 }
 

@@ -129,7 +129,7 @@ test_that("oob affects position values", {
 })
 
 test_that("scales looked for in appropriate place", {
-  xlabel <- function(x) ggplot_build(x)$layout$panel_scales$x[[1]]$name
+  xlabel <- function(x) ggplot_build(x)$layout$panel_scales_x[[1]]$name
   p0 <- qplot(mpg, wt, data = mtcars) + scale_x_continuous("0")
   expect_equal(xlabel(p0), "0")
 

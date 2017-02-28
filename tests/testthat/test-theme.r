@@ -201,3 +201,54 @@ test_that("All elements in complete themes have inherit.blank=TRUE", {
   expect_true(inherit_blanks(theme_minimal()))
   expect_true(inherit_blanks(theme_void()))
 })
+
+
+# Visual tests ------------------------------------------------------------
+
+test_that("aspect ratio is honored", {
+  df <- data.frame(x = 1:8, y = 1:8, f = gl(2,4), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2))
+  p <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    theme_test() +
+    labs(x = NULL, y = NULL)
+
+  p_a <- p + theme(aspect.ratio = 3)
+  p_b <- p + theme(aspect.ratio = 1 / 3)
+
+  vdiffr::expect_doppelganger("height is 3 times width",
+    p_a
+  )
+  vdiffr::expect_doppelganger("width is 3 times height",
+    p_b
+  )
+
+  vdiffr::expect_doppelganger("height is 3 times width, 2 wrap facets",
+    p_a + facet_wrap(~f)
+  )
+  vdiffr::expect_doppelganger("height is 3 times width, 2 column facets",
+    p_a + facet_grid(.~f)
+  )
+  vdiffr::expect_doppelganger("height is 3 times width, 2 row facets",
+    p_a + facet_grid(f~.)
+  )
+  vdiffr::expect_doppelganger("height is 3 times width, 2x2 facets",
+    p_a + facet_grid(f1~f2)
+  )
+
+})
+
+test_that("themes don't change without acknowledgement", {
+  df <- data.frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  plot <- ggplot(df, aes(x, y, colour = z)) +
+    geom_point() +
+    facet_wrap(~ a)
+
+  vdiffr::expect_doppelganger("theme_bw", plot + theme_bw())
+  vdiffr::expect_doppelganger("theme_classic", plot + theme_classic())
+  vdiffr::expect_doppelganger("theme_dark", plot + theme_dark())
+  vdiffr::expect_doppelganger("theme_minimal", plot + theme_minimal())
+  vdiffr::expect_doppelganger("theme_gray", plot + theme_gray())
+  vdiffr::expect_doppelganger("theme_light", plot + theme_light())
+  vdiffr::expect_doppelganger("theme_void", plot + theme_void())
+})
+

@@ -338,6 +338,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       }
     }
     panel_table
+  },
+  vars = function(self) {
+    vapply(self$params$facets, as.character, character(1))
   }
 )
 
