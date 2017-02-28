@@ -410,13 +410,13 @@ add_theme <- function(t1, t2, t2name) {
       x <- y
     } else {
       # If x is not NULL, then copy over the non-NULL properties from y
-      # Get logical vector of non-NULL properties in y
-      idx <- !vapply(y, is.null, logical(1))
+      # Get logical vector of NULL properties in y
+      idx <- vapply(y, is.null, logical(1))
       # Get the names of TRUE items
       idx <- names(idx[idx])
 
       # Update non-NULL items
-      x[idx] <- y[idx]
+      y[idx] <- x[idx]
     }
 
     # Assign it back to t1
