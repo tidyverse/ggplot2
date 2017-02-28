@@ -128,9 +128,11 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     if (self$theta == "y") {
       names(details) <- gsub("x\\.", "r.", names(details))
       names(details) <- gsub("y\\.", "theta.", names(details))
+      details$r.arrange <- scale_details$x$axis_order()
     } else {
       names(details) <- gsub("x\\.", "theta.", names(details))
       names(details) <- gsub("y\\.", "r.", names(details))
+      details$r.arrange <- scale_details$y$axis_order()
     }
 
     details
@@ -148,7 +150,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   render_axis_v = function(self, scale_details, theme) {
-    arrange <- scale_details$y.arrange %||% c("primary", "secondary")
+    arrange <- scale_details$r.arrange %||% c("primary", "secondary")
 
     x <- r_rescale(self, scale_details$r.major, scale_details) + 0.5
     guide_axis(x, scale_details$r.labels, "left", theme)
