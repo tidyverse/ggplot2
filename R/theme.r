@@ -422,7 +422,7 @@ add_theme <- function(t1, t2, t2name) {
     # Assign it back to t1
     # This is like doing t1[[item]] <- x, except that it preserves NULLs.
     # The other form will simply drop NULL values
-    t1[item] <- list(x)
+    t1[item] <- list(y)
   }
 
   # If either theme is complete, then the combined theme is complete
