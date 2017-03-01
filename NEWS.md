@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* `geom_smooth` now orders by the `x` aesthetic, making it easier to pass 
+  pre-computed values without manual ordering (@izahn, #2028).
+
 * Fixed bug in `coord_polar` that prevented moving the radius axis
   to the right (@thomasp85, #2005).
 
