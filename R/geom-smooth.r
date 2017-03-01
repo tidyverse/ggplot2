@@ -114,6 +114,9 @@ geom_smooth <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomSmooth <- ggproto("GeomSmooth", Geom,
+  setup_data = function(data, params) {
+    GeomLine$setup_data(data, params)
+  },
   draw_group = function(data, panel_params, coord) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
