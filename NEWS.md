@@ -32,6 +32,9 @@
 
 * Added new functions `summarise_layout()`, `summarise_coord()`, `summarise_layers()`, which provide summaries of the layout, coordinate systems, and layers, of a built ggplot object. (#2034)
 
+* `ggproto()` produces objects with class `c("ggproto", "gg")`. This was added so that when layers, scales, or other ggproto objects are added together, an informative error message is raised (@jrnold, #2056).
+
+
 ### sf
 
 ggplot2 now has full support for sf with `geom_sf()` and `coord_sf()`:
