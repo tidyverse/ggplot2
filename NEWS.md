@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Fixed bug in `coord_polar` that prevented moving the radius axis
+  to the right (@thomasp85, #2005).
+
 * `discrete_scale` documentation updated to match functionality and 
   `continuous_scale` (@alistaire47, #2052).
 
