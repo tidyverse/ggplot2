@@ -564,6 +564,9 @@ merge_element.default <- function(new, old) {
   stop("No method for merging ", class(new), " into ", class(old), call. = FALSE)
 }
 merge_element_default <- function(new, old) {
+  if (!inherits(new, class(old)[1])) {
+    stop("Only elements of the same class can be merged", call. = FALSE)
+  }
   # Override NULL properties of new with the values in old
   # Get logical vector of NULL properties in new
   idx <- vapply(new, is.null, logical(1))
