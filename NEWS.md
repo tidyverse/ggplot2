@@ -1,5 +1,11 @@
 # ggplot2 2.2.1.9000
 
+* `geom_smooth` now orders by the `x` aesthetic, making it easier to pass 
+  pre-computed values without manual ordering (@izahn, #2028).
+
+* Fixed bug in `coord_polar` that prevented moving the radius axis
+  to the right (@thomasp85, #2005).
+
 * `discrete_scale` documentation updated to match functionality and 
   `continuous_scale` (@alistaire47, #2052).
 
@@ -34,6 +40,9 @@
 * `print.ggplot()` now returns the original ggplot object, instead of the output from `ggplot_build()`. Also, the object returned from `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
 
 * Added new functions `summarise_layout()`, `summarise_coord()`, `summarise_layers()`, which provide summaries of the layout, coordinate systems, and layers, of a built ggplot object. (#2034)
+
+* `ggproto()` produces objects with class `c("ggproto", "gg")`. This was added so that when layers, scales, or other ggproto objects are added together, an informative error message is raised (@jrnold, #2056).
+
 
 ### sf
 
