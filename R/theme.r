@@ -409,20 +409,14 @@ add_theme <- function(t1, t2, t2name) {
       # If y is NULL, or a string or numeric vector, or is element_blank, just replace x
       x <- y
     } else {
-      # If x is not NULL, then copy over the non-NULL properties from y
-      # Get logical vector of NULL properties in y
-      idx <- vapply(y, is.null, logical(1))
-      # Get the names of TRUE items
-      idx <- names(idx[idx])
-
-      # Update non-NULL items
-      y[idx] <- x[idx]
+      # If x is not NULL, then merge into y
+      x <- merge_element(y, x)
     }
 
     # Assign it back to t1
     # This is like doing t1[[item]] <- x, except that it preserves NULLs.
     # The other form will simply drop NULL values
-    t1[item] <- list(y)
+    t1[item] <- list(x)
   }
 
   # If either theme is complete, then the combined theme is complete
@@ -538,6 +532,58 @@ calc_element <- function(element, theme, verbose = FALSE) {
   Reduce(combine_elements, parents, theme[[element]])
 }
 
+#' Merge a parent element into a child element
+#'
+#' This is a generic and element classes must provide an implementation of this
+#' method
+#'
+#' @param new The child element in the theme hierarchy
+#'
+#' @param old The parent element in the theme hierarchy
+#'
+#' @return A modified version of \code{new} updated with the properties of
+#' \code{old}
+#'
+#' @keywords internal
+#' @export
+#'
+#' @examples
+#'
+#' new <- element_text(colour = "red")
+#' old <- element_text(colour = "blue", size = 10)
+#'
+#' # Adopt size but ignore colour
+#' merge_element(new, old)
+#'
+merge_element <- function(new, old) {
+  UseMethod("merge_element")
+}
+#' @rdname merge_element
+#' @export
+merge_element.default <- function(new, old) {
+  stop("No method for merging ", class(new), " into ", class(old), call. = FALSE)
+}
+merge_element_default <- function(new, old) {
+  # Override NULL properties of new with the values in old
+  # Get logical vector of NULL properties in new
+  idx <- vapply(new, is.null, logical(1))
+  # Get the names of TRUE items
+  idx <- names(idx[idx])
+
+  # Update non-NULL items
+  new[idx] <- old[idx]
+
+  new
+}
+#' @rdname merge_element
+#' @export
+merge_element.element_text <- merge_element_default
+#' @rdname merge_element
+#' @export
+merge_element.element_line <- merge_element_default
+#' @rdname merge_element
+#' @export
+merge_element.element_rect <- merge_element_default
 
 # Combine the properties of two elements
 #
