@@ -202,6 +202,19 @@ test_that("All elements in complete themes have inherit.blank=TRUE", {
   expect_true(inherit_blanks(theme_void()))
 })
 
+test_that("Elements can be merged", {
+  text_base <- element_text(colour = "red", size = 10)
+  expect_equal(merge_element(element_text(colour = "blue"), text_base),
+               element_text(colour = "blue", size = 10))
+  rect_base <- element_rect(colour = "red", size = 10)
+  expect_equal(merge_element(element_rect(colour = "blue"), rect_base),
+               element_rect(colour = "blue", size = 10))
+  line_base <- element_line(colour = "red", size = 10)
+  expect_equal(merge_element(element_line(colour = "blue"), line_base),
+               element_line(colour = "blue", size = 10))
+  expect_error(merge_element(text_base, rect_base), "Only elements of the same class can be merged")
+})
+
 
 # Visual tests ------------------------------------------------------------
 
