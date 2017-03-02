@@ -1,5 +1,9 @@
 # ggplot2 2.2.1.9000
 
+* Theme elements can now be subclassed. Add a `merge_element` method to control
+  how properties are inherited from parent element. Add `element_grob` method
+  to define how elements are rendered into grobs (@thomasp85, #1981).
+
 * `geom_smooth` now orders by the `x` aesthetic, making it easier to pass 
   pre-computed values without manual ordering (@izahn, #2028).
 
