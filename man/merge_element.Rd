@@ -32,7 +32,6 @@ This is a generic and element classes must provide an implementation of this
 method
 }
 \examples{
-
 new <- element_text(colour = "red")
 old <- element_text(colour = "blue", size = 10)
 

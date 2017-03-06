@@ -538,17 +538,12 @@ calc_element <- function(element, theme, verbose = FALSE) {
 #' method
 #'
 #' @param new The child element in the theme hierarchy
-#'
 #' @param old The parent element in the theme hierarchy
-#'
 #' @return A modified version of \code{new} updated with the properties of
 #' \code{old}
-#'
 #' @keywords internal
 #' @export
-#'
 #' @examples
-#'
 #' new <- element_text(colour = "red")
 #' old <- element_text(colour = "blue", size = 10)
 #'
