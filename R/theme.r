@@ -556,7 +556,7 @@ merge_element <- function(new, old) {
 #' @rdname merge_element
 #' @export
 merge_element.default <- function(new, old) {
-  stop("No method for merging ", class(new), " into ", class(old), call. = FALSE)
+  stop("No method for merging ", class(new)[1], " into ", class(old)[1], call. = FALSE)
 }
 merge_element_default <- function(new, old) {
   if (!inherits(new, class(old)[1])) {
