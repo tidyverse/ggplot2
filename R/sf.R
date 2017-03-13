@@ -105,6 +105,7 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
 GeomSf <- ggproto("GeomSf", Geom,
   required_aes = "geometry",
   default_aes = aes(
+    shape = 19,
     colour = "grey35",
     fill = "grey90",
     size = 0.5,
@@ -119,9 +120,8 @@ GeomSf <- ggproto("GeomSf", Geom,
     }
 
     coord <- coord$transform(data, panel_params)
-
     gpars <- lapply(1:nrow(data), function(i) sf_gpar(coord[i, , drop = FALSE]))
-    grobs <- Map(sf::st_as_grob, coord$geometry, gp = gpars)
+    grobs <- Map(as_grob, coord$geometry, gp = gpars, shape = coord$shape)
     do.call("gList", grobs)
   }
 )
@@ -135,6 +135,15 @@ sf_gpar <- function(row) {
     lineend = "butt"
   )
 }
+
+as_grob <- function(geom, gpar, shape) {
+  if (inherits(geom, c("POINT", "MULTIPOINT"))) {
+    sf::st_as_grob(geom, gp = gpar, pch = shape)
+  } else {
+    sf::st_as_grob(geom, gp = gpar)
+  }
+}
+
 
 #' @export
 #' @rdname ggsf
