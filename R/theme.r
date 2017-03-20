@@ -416,7 +416,14 @@ theme <- function(line,
 
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x) {
-  defaults(x$theme, theme_get())
+  complete <- attr(x$theme, "complete")
+  if (is.null(complete)) {
+    theme_get()
+  } else if (complete) {
+    x$theme
+  } else {
+    defaults(x$theme, theme_get())
+  }
 }
 
 #' Modify properties of an element in a theme object

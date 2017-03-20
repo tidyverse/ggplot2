@@ -388,9 +388,12 @@ theme_void <- function(base_size = 11, base_family = "",
                          ),
     axis.text =        element_blank(),
     axis.title =       element_blank(),
+    axis.ticks.length =  unit(0, "pt"),
+    legend.position =    "right",
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
     strip.text =         element_text(size = rel(0.8)),
+    panel.ontop =        FALSE,
     plot.margin =        unit(c(0, 0, 0, 0), "lines"),
 
     complete = TRUE

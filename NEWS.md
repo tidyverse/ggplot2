@@ -135,6 +135,8 @@
 
 * `position_jitter()` gains a `seed` argument that allows specifying a random seed for reproducible jittering (#1996, @krlmlr).
 
+* Fixed bug where a new complete `theme` may fail to override all elements of the default `theme`.
+  (@has2k1, #2058, #2079)
 
 ### sf
 
