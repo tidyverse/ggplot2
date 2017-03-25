@@ -70,7 +70,7 @@ and \code{\link{geom_tile}} to visualise 3d surfaces in 2d. To be a valid
 surface, the data must contain only a single row for each unique combination
 of the variables mapped to the \code{x} and \code{y} aesthetics. Contouring
 tends to work best when \code{x} and \code{y} form a (roughly) evenly
-spaced grid. If you data is not evenly spaced, you may want to interpolate
+spaced grid. If your data is not evenly spaced, you may want to interpolate
 to a grid before visualising.
 }
 \section{Aesthetics}{
