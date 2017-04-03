@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Axes positioned on the top and to the right can now customize their ticks and
+  lines separately (@thomasp85, #1899)
+
 * `geom_smooth` now orders by the `x` aesthetic, making it easier to pass 
   pre-computed values without manual ordering (@izahn, #2028).
 

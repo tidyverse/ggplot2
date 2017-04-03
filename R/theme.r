@@ -45,15 +45,23 @@
 #'   \code{line})
 #' @param axis.ticks.x x axis tick marks (\code{element_line}; inherits from
 #'   \code{axis.ticks})
+#' @param axis.ticks.x.top x axis tick marks on top axis (\code{element_line};
+#'   inherits from \code{axis.ticks.x})
 #' @param axis.ticks.y y axis tick marks (\code{element_line}; inherits from
 #'   \code{axis.ticks})
+#' @param axis.ticks.y.right y axis tick marks on right axis (\code{element_line};
+#'   inherits from \code{axis.ticks.y})
 #' @param axis.ticks.length length of tick marks (\code{unit})
 #' @param axis.line lines along axes (\code{element_line}; inherits from
 #'   \code{line})
 #' @param axis.line.x line along x axis (\code{element_line}; inherits from
 #'   \code{axis.line})
+#' @param axis.line.x.top line along x axis on top axis (\code{element_line};
+#'   inherits from \code{axis.line.x})
 #' @param axis.line.y line along y axis (\code{element_line}; inherits from
 #'   \code{axis.line})
+#' @param axis.line.y.right line along y axis on right axis (\code{element_line};
+#'   inherits from \code{axis.line.y})
 #'
 #' @param legend.background background of legend (\code{element_rect}; inherits
 #'   from \code{rect})
@@ -268,11 +276,15 @@ theme <- function(line,
                   axis.text.y.right,
                   axis.ticks,
                   axis.ticks.x,
+                  axis.ticks.x.top,
                   axis.ticks.y,
+                  axis.ticks.y.right,
                   axis.ticks.length,
                   axis.line,
                   axis.line.x,
+                  axis.line.x.top,
                   axis.line.y,
+                  axis.line.y.right,
                   legend.background,
                   legend.margin,
                   legend.spacing,

@@ -7,7 +7,8 @@
 theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
   axis.title.x.top, axis.title.y, axis.title.y.right, axis.text, axis.text.x,
   axis.text.x.top, axis.text.y, axis.text.y.right, axis.ticks, axis.ticks.x,
-  axis.ticks.y, axis.ticks.length, axis.line, axis.line.x, axis.line.y,
+  axis.ticks.x.top, axis.ticks.y, axis.ticks.y.right, axis.ticks.length,
+  axis.line, axis.line.x, axis.line.x.top, axis.line.y, axis.line.y.right,
   legend.background, legend.margin, legend.spacing, legend.spacing.x,
   legend.spacing.y, legend.key, legend.key.size, legend.key.height,
   legend.key.width, legend.text, legend.text.align, legend.title,
@@ -69,8 +70,14 @@ inherits from \code{axis.text.x})}
 \item{axis.ticks.x}{x axis tick marks (\code{element_line}; inherits from
 \code{axis.ticks})}
 
+\item{axis.ticks.x.top}{x axis tick marks on top axis (\code{element_line};
+inherits from \code{axis.ticks.x})}
+
 \item{axis.ticks.y}{y axis tick marks (\code{element_line}; inherits from
 \code{axis.ticks})}
+
+\item{axis.ticks.y.right}{y axis tick marks on right axis (\code{element_line};
+inherits from \code{axis.ticks.y})}
 
 \item{axis.ticks.length}{length of tick marks (\code{unit})}
 
@@ -80,8 +87,14 @@ inherits from \code{axis.text.x})}
 \item{axis.line.x}{line along x axis (\code{element_line}; inherits from
 \code{axis.line})}
 
+\item{axis.line.x.top}{line along x axis on top axis (\code{element_line};
+inherits from \code{axis.line.x})}
+
 \item{axis.line.y}{line along y axis (\code{element_line}; inherits from
 \code{axis.line})}
+
+\item{axis.line.y.right}{line along y axis on right axis (\code{element_line};
+inherits from \code{axis.line.y})}
 
 \item{legend.background}{background of legend (\code{element_rect}; inherits
 from \code{rect})}
