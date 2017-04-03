@@ -3,20 +3,14 @@
 \name{merge_element}
 \alias{merge_element}
 \alias{merge_element.default}
-\alias{merge_element.element_text}
-\alias{merge_element.element_line}
-\alias{merge_element.element_rect}
+\alias{merge_element.element}
 \title{Merge a parent element into a child element}
 \usage{
 merge_element(new, old)
 
 \method{merge_element}{default}(new, old)
 
-\method{merge_element}{element_text}(new, old)
-
-\method{merge_element}{element_line}(new, old)
-
-\method{merge_element}{element_rect}(new, old)
+\method{merge_element}{element}(new, old)
 }
 \arguments{
 \item{new}{The child element in the theme hierarchy}
