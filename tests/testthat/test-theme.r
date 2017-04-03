@@ -212,7 +212,8 @@ test_that("Elements can be merged", {
   line_base <- element_line(colour = "red", size = 10)
   expect_equal(merge_element(element_line(colour = "blue"), line_base),
                element_line(colour = "blue", size = 10))
-  expect_error(merge_element(text_base, rect_base), "Only elements of the same class can be merged")
+  expect_error(merge_element(text_base, rect_base),
+               "Only elements of the same class can be merged")
 })
 
 
