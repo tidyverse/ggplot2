@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Fix bug in secondary axis that would lead to incorrectly placed ticks with
+  strong transforms (@thomasp85, #1992)
+
 * `geom_smooth` now orders by the `x` aesthetic, making it easier to pass 
   pre-computed values without manual ordering (@izahn, #2028).
 
