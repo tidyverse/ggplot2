@@ -27,8 +27,12 @@
 #'   \code{axis.title})
 #' @param axis.title.x.top x axis label on top axis (\code{element_text};
 #'   inherits from \code{axis.title.x})
+#' @param axis.title.x.bottom x axis label on bottom axis (\code{element_text};
+#'   inherits from \code{axis.title.x})
 #' @param axis.title.y y axis label (\code{element_text}; inherits from
 #'   \code{axis.title})
+#' @param axis.title.y.left y axis label on left axis (\code{element_text};
+#'   inherits from \code{axis.title.y})
 #' @param axis.title.y.right y axis label on right axis (\code{element_text};
 #'   inherits from \code{axis.title.y})
 #' @param axis.text tick labels along axes (\code{element_text}; inherits from
@@ -37,8 +41,12 @@
 #'   \code{axis.text})
 #' @param axis.text.x.top x axis tick labels on top axis (\code{element_text};
 #'   inherits from \code{axis.text.x})
+#' @param axis.text.x.bottom x axis tick labels on bottom axis (\code{element_text};
+#'   inherits from \code{axis.text.x})
 #' @param axis.text.y y axis tick labels (\code{element_text}; inherits from
 #'   \code{axis.text})
+#' @param axis.text.y.left y axis tick labels on left axis
+#'   (\code{element_text}; inherits from \code{axis.text.y})
 #' @param axis.text.y.right y axis tick labels on right axis
 #'   (\code{element_text}; inherits from \code{axis.text.y})
 #' @param axis.ticks tick marks along axes (\code{element_line}; inherits from
@@ -47,8 +55,12 @@
 #'   \code{axis.ticks})
 #' @param axis.ticks.x.top x axis tick marks on top axis (\code{element_line};
 #'   inherits from \code{axis.ticks.x})
+#' @param axis.ticks.x.bottom x axis tick marks on bottom axis (\code{element_line};
+#'   inherits from \code{axis.ticks.x})
 #' @param axis.ticks.y y axis tick marks (\code{element_line}; inherits from
 #'   \code{axis.ticks})
+#' @param axis.ticks.y.left y axis tick marks on left axis (\code{element_line};
+#'   inherits from \code{axis.ticks.y})
 #' @param axis.ticks.y.right y axis tick marks on right axis (\code{element_line};
 #'   inherits from \code{axis.ticks.y})
 #' @param axis.ticks.length length of tick marks (\code{unit})
@@ -58,8 +70,12 @@
 #'   \code{axis.line})
 #' @param axis.line.x.top line along x axis on top axis (\code{element_line};
 #'   inherits from \code{axis.line.x})
+#' @param axis.line.x.bottom line along x axis on bottom axis (\code{element_line};
+#'   inherits from \code{axis.line.x})
 #' @param axis.line.y line along y axis (\code{element_line}; inherits from
 #'   \code{axis.line})
+#' @param axis.line.y.left line along y axis on left axis (\code{element_line};
+#'   inherits from \code{axis.line.y})
 #' @param axis.line.y.right line along y axis on right axis (\code{element_line};
 #'   inherits from \code{axis.line.y})
 #'
@@ -267,23 +283,31 @@ theme <- function(line,
                   axis.title,
                   axis.title.x,
                   axis.title.x.top,
+                  axis.title.x.bottom,
                   axis.title.y,
+                  axis.title.y.left,
                   axis.title.y.right,
                   axis.text,
                   axis.text.x,
                   axis.text.x.top,
+                  axis.text.x.bottom,
                   axis.text.y,
+                  axis.text.y.left,
                   axis.text.y.right,
                   axis.ticks,
                   axis.ticks.x,
                   axis.ticks.x.top,
+                  axis.ticks.x.bottom,
                   axis.ticks.y,
+                  axis.ticks.y.left,
                   axis.ticks.y.right,
                   axis.ticks.length,
                   axis.line,
                   axis.line.x,
                   axis.line.x.top,
+                  axis.line.x.bottom,
                   axis.line.y,
+                  axis.line.y.left,
                   axis.line.y.right,
                   legend.background,
                   legend.margin,

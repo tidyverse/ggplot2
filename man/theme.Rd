@@ -5,18 +5,21 @@
 \title{Modify components of a theme}
 \usage{
 theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
-  axis.title.x.top, axis.title.y, axis.title.y.right, axis.text, axis.text.x,
-  axis.text.x.top, axis.text.y, axis.text.y.right, axis.ticks, axis.ticks.x,
-  axis.ticks.x.top, axis.ticks.y, axis.ticks.y.right, axis.ticks.length,
-  axis.line, axis.line.x, axis.line.x.top, axis.line.y, axis.line.y.right,
-  legend.background, legend.margin, legend.spacing, legend.spacing.x,
-  legend.spacing.y, legend.key, legend.key.size, legend.key.height,
-  legend.key.width, legend.text, legend.text.align, legend.title,
-  legend.title.align, legend.position, legend.direction, legend.justification,
-  legend.box, legend.box.just, legend.box.margin, legend.box.background,
-  legend.box.spacing, panel.background, panel.border, panel.spacing,
-  panel.spacing.x, panel.spacing.y, panel.grid, panel.grid.major,
-  panel.grid.minor, panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
+  axis.title.x.top, axis.title.x.bottom, axis.title.y, axis.title.y.left,
+  axis.title.y.right, axis.text, axis.text.x, axis.text.x.top,
+  axis.text.x.bottom, axis.text.y, axis.text.y.left, axis.text.y.right,
+  axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom, axis.ticks.y,
+  axis.ticks.y.left, axis.ticks.y.right, axis.ticks.length, axis.line,
+  axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y,
+  axis.line.y.left, axis.line.y.right, legend.background, legend.margin,
+  legend.spacing, legend.spacing.x, legend.spacing.y, legend.key,
+  legend.key.size, legend.key.height, legend.key.width, legend.text,
+  legend.text.align, legend.title, legend.title.align, legend.position,
+  legend.direction, legend.justification, legend.box, legend.box.just,
+  legend.box.margin, legend.box.background, legend.box.spacing,
+  panel.background, panel.border, panel.spacing, panel.spacing.x,
+  panel.spacing.y, panel.grid, panel.grid.major, panel.grid.minor,
+  panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
   panel.grid.minor.y, panel.ontop, plot.background, plot.title, plot.subtitle,
   plot.caption, plot.margin, strip.background, strip.placement, strip.text,
   strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
@@ -43,8 +46,14 @@ inherits from \code{text})}
 \item{axis.title.x.top}{x axis label on top axis (\code{element_text};
 inherits from \code{axis.title.x})}
 
+\item{axis.title.x.bottom}{x axis label on bottom axis (\code{element_text};
+inherits from \code{axis.title.x})}
+
 \item{axis.title.y}{y axis label (\code{element_text}; inherits from
 \code{axis.title})}
+
+\item{axis.title.y.left}{y axis label on left axis (\code{element_text};
+inherits from \code{axis.title.y})}
 
 \item{axis.title.y.right}{y axis label on right axis (\code{element_text};
 inherits from \code{axis.title.y})}
@@ -58,8 +67,14 @@ inherits from \code{axis.title.y})}
 \item{axis.text.x.top}{x axis tick labels on top axis (\code{element_text};
 inherits from \code{axis.text.x})}
 
+\item{axis.text.x.bottom}{x axis tick labels on bottom axis (\code{element_text};
+inherits from \code{axis.text.x})}
+
 \item{axis.text.y}{y axis tick labels (\code{element_text}; inherits from
 \code{axis.text})}
+
+\item{axis.text.y.left}{y axis tick labels on left axis
+(\code{element_text}; inherits from \code{axis.text.y})}
 
 \item{axis.text.y.right}{y axis tick labels on right axis
 (\code{element_text}; inherits from \code{axis.text.y})}
@@ -73,8 +88,14 @@ inherits from \code{axis.text.x})}
 \item{axis.ticks.x.top}{x axis tick marks on top axis (\code{element_line};
 inherits from \code{axis.ticks.x})}
 
+\item{axis.ticks.x.bottom}{x axis tick marks on bottom axis (\code{element_line};
+inherits from \code{axis.ticks.x})}
+
 \item{axis.ticks.y}{y axis tick marks (\code{element_line}; inherits from
 \code{axis.ticks})}
+
+\item{axis.ticks.y.left}{y axis tick marks on left axis (\code{element_line};
+inherits from \code{axis.ticks.y})}
 
 \item{axis.ticks.y.right}{y axis tick marks on right axis (\code{element_line};
 inherits from \code{axis.ticks.y})}
@@ -90,8 +111,14 @@ inherits from \code{axis.ticks.y})}
 \item{axis.line.x.top}{line along x axis on top axis (\code{element_line};
 inherits from \code{axis.line.x})}
 
+\item{axis.line.x.bottom}{line along x axis on bottom axis (\code{element_line};
+inherits from \code{axis.line.x})}
+
 \item{axis.line.y}{line along y axis (\code{element_line}; inherits from
 \code{axis.line})}
+
+\item{axis.line.y.left}{line along y axis on left axis (\code{element_line};
+inherits from \code{axis.line.y})}
 
 \item{axis.line.y.right}{line along y axis on right axis (\code{element_line};
 inherits from \code{axis.line.y})}
