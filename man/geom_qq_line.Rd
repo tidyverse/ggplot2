@@ -5,13 +5,15 @@
 \alias{stat_qq_line}
 \title{A quantile-quantile line}
 \usage{
-geom_qq_line(mapping = NULL, data = NULL, geom = "abline",
+geom_qq_line(mapping = NULL, data = NULL, geom = "path",
   position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  dparams = list(), line.p = c(0.25, 0.75), line.expand = c(-0.1, 0.1),
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
-stat_qq_line(mapping = NULL, data = NULL, geom = "abline",
+stat_qq_line(mapping = NULL, data = NULL, geom = "path",
   position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  dparams = list(), line.p = c(0.25, 0.75), line.expand = c(-0.1, 0.1),
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
@@ -48,6 +50,12 @@ to the paired geom/stat.}
 \item{dparams}{Additional parameters passed on to \code{distribution}
 function.}
 
+\item{line.p}{Vector of quantiles to use when fitting the Q-Q line, defaults
+defaults to \code{c(.25, .75)}.}
+
+\item{line.expand}{Vector of additive expansion factors along the x-axis,
+defaults to \code{c(-.1, .1)}.}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
@@ -66,16 +74,16 @@ A quantile-quantile line
 \section{Aesthetics}{
 
 \aesthetics{stat}{qq}
-\aesthetics{geom}{abline}
+\aesthetics{geom}{path}
 }
 
 \section{Computed variables}{
 
 \describe{
-  \item{slope}{slope of the line connecting the points at the the first
-               and third quartiles of the theoretical and the sample
-               distributions}
-  \item{intercept}{intercept of the same line}
+  \item{x}{x-coordinates of the endpoints of the line segment connecting the
+           points at the chosen quantiles of the theoretical and the sample
+           distributions}
+  \item{y}{y-coordinates of the endpoints}
 }
 }
 

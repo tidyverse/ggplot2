@@ -2,19 +2,23 @@
 #'
 #' @section Aesthetics:
 #' \aesthetics{stat}{qq}
-#' \aesthetics{geom}{abline}
+#' \aesthetics{geom}{path}
 #'
 #' @param distribution Distribution function to use, if x not specified
 #' @param dparams Additional parameters passed on to \code{distribution}
 #'   function.
+#' @param line.p Vector of quantiles to use when fitting the Q-Q line, defaults
+#' defaults to \code{c(.25, .75)}.
+#' @param line.expand Vector of additive expansion factors along the x-axis,
+#' defaults to \code{c(-.1, .1)}.
 #' @inheritParams layer
-#' @inheritParams geom_abline
+#' @inheritParams geom_path
 #' @section Computed variables:
 #' \describe{
-#'   \item{slope}{slope of the line connecting the points at the the first
-#'                and third quartiles of the theoretical and the sample
-#'                distributions}
-#'   \item{intercept}{intercept of the same line}
+#'   \item{x}{x-coordinates of the endpoints of the line segment connecting the
+#'            points at the chosen quantiles of the theoretical and the sample
+#'            distributions}
+#'   \item{y}{y-coordinates of the endpoints}
 #' }
 #' @export
 #' @examples
@@ -38,10 +42,12 @@
 #'   stat_qq_line()
 #' }
 geom_qq_line <- function(mapping = NULL, data = NULL,
-                         geom = "abline", position = "identity",
+                         geom = "path", position = "identity",
                          ...,
                          distribution = stats::qnorm,
                          dparams = list(),
+                         line.p = c(.25, .75),
+                         line.expand = c(-.1, .1),
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {
@@ -57,6 +63,8 @@ geom_qq_line <- function(mapping = NULL, data = NULL,
       distribution = distribution,
       dparams = dparams,
       na.rm = na.rm,
+      line.p = line.p,
+      line.expand = line.expand,
       ...
     )
   )
@@ -71,14 +79,16 @@ stat_qq_line <- geom_qq_line
 #' @usage NULL
 #' @export
 StatQqLine <- ggproto("StatQqLine", Stat,
- default_aes = aes(slope = ..slope.., intercept = ..intercept..),
+ default_aes = aes(x = ..x.., y = ..y..),
 
  required_aes = c("sample"),
 
  compute_group = function(data, scales, quantiles = NULL,
                           distribution = stats::qnorm,
                           dparams = list(),
-                          na.rm = FALSE) {
+                          na.rm = FALSE,
+                          line.p,
+                          line.expand) {
 
    sample <- sort(data$sample)
    n <- length(sample)
@@ -93,13 +103,26 @@ StatQqLine <- ggproto("StatQqLine", Stat,
    theoretical <- do.call(distribution,
                           c(list(p = quote(quantiles)), dparams))
 
-   x <- do.call(distribution, c(list(p = c(.25, .75)), dparams))
-   y <- quantile(sample, c(.25, .75))
+   if (length(line.p) != 2) {
+     stop("Cannot fit line quantiles ", line.p,
+          ". Parameter line.p must have length 2.",
+          call = FALSE)
+   }
 
-   slope = diff(y)/diff(x)
+   x_coords <- do.call(distribution, c(list(p = line.p), dparams))
+   y_coords <- quantile(sample, line.p)
+   slope = diff(y_coords)/diff(x_coords)
+   intercept = y_coords[1L] - slope * x_coords[1L]
 
-   intercept = y[1L] - slope * x[1L]
+   if (length(line.expand) != 2) {
+     stop("Paramete line.expand must have length 2.", call = FALSE)
+   }
 
-   data.frame(slope, intercept)
+   out <- data.frame(x = c(min(theoretical) + line.expand[1L],
+                           max(theoretical) + line.expand[2L]))
+   out$y <- slope * out$x + intercept
+
+   out
+
  }
 )
