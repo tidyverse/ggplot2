@@ -87,8 +87,8 @@ StatQqLine <- ggproto("StatQqLine", Stat,
                           distribution = stats::qnorm,
                           dparams = list(),
                           na.rm = FALSE,
-                          line.p,
-                          line.expand) {
+                          line.p = c(.25, .75),
+                          line.expand = c(-.1, .1)) {
 
    sample <- sort(data$sample)
    n <- length(sample)
@@ -115,7 +115,7 @@ StatQqLine <- ggproto("StatQqLine", Stat,
    intercept = y_coords[1L] - slope * x_coords[1L]
 
    if (length(line.expand) != 2) {
-     stop("Paramete line.expand must have length 2.", call = FALSE)
+     stop("Parameter line.expand must have length 2.", call = FALSE)
    }
 
    out <- data.frame(x = c(min(theoretical) + line.expand[1L],
