@@ -43,6 +43,8 @@
 
 * `ggproto()` produces objects with class `c("ggproto", "gg")`. This was added so that when layers, scales, or other ggproto objects are added together, an informative error message is raised (@jrnold, #2056).
 
+* Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This line makes it easier to judge the fit of the theoretical distribution.
+
 
 ### sf
 
