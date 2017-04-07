@@ -1,51 +1,89 @@
-#' An interval represented by a vertical line.
+#' Vertical intervals: lines, crossbars & errorbars
 #'
-#' @section Aesthetics: 
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "linerange")}
+#' Various ways of representing a vertical interval defined by \code{x},
+#' \code{ymin} and \code{ymax}. Each case draws a single graphical object.
 #'
-#' @seealso \code{\link{geom_errorbar}}: error bars;
-#'   \code{\link{geom_pointrange}}: range indicated by straight line, with
-#'   point in the middle; \code{\link{geom_crossbar}}: hollow bar with middle
-#'   indicated by horizontal line; \code{\link{stat_summary}}: examples of
-#'   these guys in use; \code{\link{geom_smooth}}: for continuous analog
+#' @section Aesthetics:
+#' \aesthetics{geom}{linerange}
+#'
+#' @param fatten A multiplicative factor used to increase the size of the
+#'   middle bar in \code{geom_crossbar()} and the middle point in
+#'   \code{geom_pointrange()}.
+#' @seealso
+#'  \code{\link{stat_summary}} for examples of these guys in use,
+#'  \code{\link{geom_smooth}} for continuous analog,
+#'  \code{\link{geom_errorbarh}} for a horizontal error bar.
 #' @export
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @examples
-#' # Generate data: means and standard errors of means for prices
-#' # for each type of cut
-#' dmod <- lm(price ~ cut, data=diamonds)
-#' cuts <- data.frame(cut=unique(diamonds$cut), predict(dmod, data.frame(cut = unique(diamonds$cut)), se=TRUE)[c("fit","se.fit")])
-#' 
-#' qplot(cut, fit, data=cuts)
-#' # With a bar chart, we are comparing lengths, so the y-axis is 
-#' # automatically extended to include 0
-#' qplot(cut, fit, data=cuts, geom="bar")
-#' 
-#' # Display estimates and standard errors in various ways
-#' se <- ggplot(cuts, aes(cut, fit, 
-#'   ymin = fit - se.fit, ymax=fit + se.fit, colour = cut))
-#' se + geom_linerange()
-#' se + geom_pointrange()
-#' se + geom_errorbar(width = 0.5)
-#' se + geom_crossbar(width = 0.5)
-#' 
-#' # Use coord_flip to flip the x and y axes
-#' se + geom_linerange() + coord_flip()
-geom_linerange <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
-  GeomLinerange$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+#' #' # Create a simple example dataset
+#' df <- data.frame(
+#'   trt = factor(c(1, 1, 2, 2)),
+#'   resp = c(1, 5, 3, 4),
+#'   group = factor(c(1, 2, 1, 2)),
+#'   upper = c(1.1, 5.3, 3.3, 4.2),
+#'   lower = c(0.8, 4.6, 2.4, 3.6)
+#' )
+#'
+#' p <- ggplot(df, aes(trt, resp, colour = group))
+#' p + geom_linerange(aes(ymin = lower, ymax = upper))
+#' p + geom_pointrange(aes(ymin = lower, ymax = upper))
+#' p + geom_crossbar(aes(ymin = lower, ymax = upper), width = 0.2)
+#' p + geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2)
+#'
+#' # Draw lines connecting group means
+#' p +
+#'   geom_line(aes(group = group)) +
+#'   geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2)
+#'
+#' # If you want to dodge bars and errorbars, you need to manually
+#' # specify the dodge width
+#' p <- ggplot(df, aes(trt, resp, fill = group))
+#' p +
+#'  geom_col(position = "dodge") +
+#'  geom_errorbar(aes(ymin = lower, ymax = upper), position = "dodge", width = 0.25)
+#'
+#' # Because the bars and errorbars have different widths
+#' # we need to specify how wide the objects we are dodging are
+#' dodge <- position_dodge(width=0.9)
+#' p +
+#'   geom_col(position = dodge) +
+#'   geom_errorbar(aes(ymin = lower, ymax = upper), position = dodge, width = 0.25)
+geom_linerange <- function(mapping = NULL, data = NULL,
+                           stat = "identity", position = "identity",
+                           ...,
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomLinerange,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
+  )
 }
- 
-GeomLinerange <- proto(Geom, {
-  objname <- "linerange"
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(colour = "black", size=0.5, linetype=1, alpha = NA)
-  guide_geom <- function(.) "path"
-  required_aes <- c("x", "ymin", "ymax")
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomLinerange <- ggproto("GeomLinerange", Geom,
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  draw <- function(., data, scales, coordinates, ...) {
-    munched <- coord_transform(coordinates, data, scales)
-    ggname(.$my_name(), GeomSegment$draw(transform(data, xend=x, y=ymin, yend=ymax), scales, coordinates, ...))
+  draw_key = draw_key_vpath,
+
+  required_aes = c("x", "ymin", "ymax"),
+
+  draw_panel = function(data, panel_params, coord) {
+    data <- transform(data, xend = x, y = ymin, yend = ymax)
+    ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord))
   }
-  
-})
+)

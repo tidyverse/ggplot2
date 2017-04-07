@@ -1,15 +1,17 @@
 #' Don't adjust position
 #'
-#' @param width Manually specify width (does not affect all position
-#'   adjustments)
-#' @param height Manually specify height (does not affect all position
-#'   adjustments)
 #' @family position adjustments
 #' @export
-position_identity <- function (width = NULL, height = NULL) { 
-  PositionIdentity$new(width = width, height = height)
+position_identity <- function() {
+  PositionIdentity
 }
 
-PositionIdentity <- proto(Position, {
-  objname <- "identity"
-})
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+PositionIdentity <- ggproto("PositionIdentity", Position,
+  compute_layer = function(data, params, scales) {
+    data
+  }
+)

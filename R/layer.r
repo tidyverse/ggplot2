@@ -1,274 +1,333 @@
-# Create a new layer
-# Layer objects store the layer of an object.
-# 
-# They have the following attributes:
-# 
-#  * data
-#  * geom + parameters
-#  * statistic + parameters
-#  * position + parameters
-#  * aesthetic mapping
-#  * flag for display guide: TRUE/FALSE/NA. in the case of NA, decision depends on a guide itself.
-# 
-# Can think about grob creation as a series of data frame transformations.
-Layer <- proto(expr = {  
-  geom <- NULL
-  geom_params <- NULL
-  stat <- NULL
-  stat_params <- NULL
-  data <- NULL
-  mapping <- NULL
-  position <- NULL
-  params <- NULL
-  inherit.aes <- FALSE
-  
-  new <- function (., geom=NULL, geom_params=NULL, stat=NULL, stat_params=NULL, data=NULL, mapping=NULL, position=NULL, params=NULL, ..., inherit.aes = TRUE, legend = NA, subset = NULL, show_guide = NA) {
+#' Create a new layer
+#'
+#' A layer is a combination of data, stat and geom with a potential position
+#' adjustment. Usually layers are created using \code{geom_*} or \code{stat_*}
+#' calls but it can also be created directly using this function.
+#'
+#' @export
+#' @inheritParams geom_point
+#' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
+#'   \code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+#'   default), it is combined with the default mapping at the top level of the
+#'   plot. You must supply \code{mapping} if there is no plot mapping.
+#' @param data The data to be displayed in this layer. There are three
+#'    options:
+#'
+#'    If \code{NULL}, the default, the data is inherited from the plot
+#'    data as specified in the call to \code{\link{ggplot}}.
+#'
+#'    A \code{data.frame}, or other object, will override the plot
+#'    data. All objects will be fortified to produce a data frame. See
+#'    \code{\link{fortify}} for which variables will be created.
+#'
+#'    A \code{function} will be called with a single argument,
+#'    the plot data. The return value must be a \code{data.frame.}, and
+#'    will be used as the layer data.
+#' @param geom The geometric object to use display the data
+#' @param stat The statistical transformation to use on the data for this
+#'    layer, as a string.
+#' @param position Position adjustment, either as a string, or the result of
+#'  a call to a position adjustment function.
+#' @param show.legend logical. Should this layer be included in the legends?
+#'   \code{NA}, the default, includes if any aesthetics are mapped.
+#'   \code{FALSE} never includes, and \code{TRUE} always includes.
+#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
+#'   rather than combining with them. This is most useful for helper functions
+#'   that define both data and aesthetics and shouldn't inherit behaviour from
+#'   the default plot specification, e.g. \code{\link{borders}}.
+#' @param check.aes,check.param If \code{TRUE}, the default, will check that
+#'   supplied parameters and aesthetics are understood by the \code{geom} or
+#'   \code{stat}. Use \code{FALSE} to suppress the checks.
+#' @param params Additional parameters to the \code{geom} and \code{stat}.
+#' @param subset DEPRECATED. An older way of subsetting the dataset used in a
+#'   layer.
+#' @keywords internal
+#' @examples
+#' # geom calls are just a short cut for layer
+#' ggplot(mpg, aes(displ, hwy)) + geom_point()
+#' # shortcut for
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   layer(geom = "point", stat = "identity", position = "identity",
+#'     params = list(na.rm = FALSE)
+#'   )
+#'
+#' # use a function as data to plot a subset of global data
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   layer(geom = "point", stat = "identity", position = "identity",
+#'     data = head, params = list(na.rm = FALSE)
+#'   )
+#'
+layer <- function(geom = NULL, stat = NULL,
+                  data = NULL, mapping = NULL,
+                  position = NULL, params = list(),
+                  inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
+                  subset = NULL, show.legend = NA) {
+  if (is.null(geom))
+    stop("Attempted to create layer with no geom.", call. = FALSE)
+  if (is.null(stat))
+    stop("Attempted to create layer with no stat.", call. = FALSE)
+  if (is.null(position))
+    stop("Attempted to create layer with no position.", call. = FALSE)
 
-    # now, as for the guide, we can choose only if the layer is included or not in the guide: guide = TRUE or guide = FALSE
-    # in future, it may be better if we can choose which aes of this layer is included in the guide, e.g.: guide = c(colour = TRUE, size = FALSE)
-    if (!is.na(legend)) {
-      gg_dep("0.8.9", "\"legend\" argument in geom_XXX and stat_XXX is deprecated. Use show_guide = TRUE or show_guide = FALSE for display or suppress the guide display.")
-      show_guide = legend
-    }
+  # Handle show_guide/show.legend
+  if (!is.null(params$show_guide)) {
+    warning("`show_guide` has been deprecated. Please use `show.legend` instead.",
+      call. = FALSE)
+    show.legend <- params$show_guide
+    params$show_guide <- NULL
+  }
+  if (!is.logical(show.legend) || length(show.legend) != 1) {
+    warning("`show.legend` must be a logical vector of length 1.", call. = FALSE)
+    show.legend <- FALSE
+  }
 
-    if (!is.na(show_guide) && !is.logical(show_guide)) {
-      warning("`show_guide` in geom_XXX and stat_XXX must be logical.")
-      show_guide = FALSE
-    }
+  data <- fortify(data)
+  if (!is.null(mapping) && !inherits(mapping, "uneval")) {
+    stop("Mapping must be created by `aes()` or `aes_()`", call. = FALSE)
+  }
 
-    
-    if (is.null(geom) && is.null(stat)) stop("Need at least one of stat and geom")
-    
-    data <- fortify(data)
-    if (!is.null(mapping) && !inherits(mapping, "uneval")) stop("Mapping should be a list of unevaluated mappings created by aes or aes_string")
-    
-    if (is.character(geom)) geom <- Geom$find(geom)
-    if (is.character(stat)) stat <- Stat$find(stat)
-    if (is.character(position)) position <- Position$find(position)$new()
-    
-    if (is.null(geom)) geom <- stat$default_geom()
-    if (is.null(stat)) stat <- geom$default_stat()
-    if (is.null(position)) position <- geom$default_pos()$new()
+  if (is.character(geom))
+    geom <- find_subclass("Geom", geom, parent.frame())
+  if (is.character(stat))
+    stat <- find_subclass("Stat", stat, parent.frame())
+  if (is.character(position))
+    position <- find_subclass("Position", position, parent.frame())
 
-    match.params <- function(possible, params) {
-      if ("..." %in% names(possible)) {
-        params
-      } else {
-        params[match(names(possible), names(params), nomatch=0)]
-      }
-    }
+  # Special case for na.rm parameter needed by all layers
+  if (is.null(params$na.rm)) {
+    params$na.rm <- FALSE
+  }
 
-    if (is.null(geom_params) && is.null(stat_params)) {
-      params <- c(params, list(...))
-      params <- rename_aes(params) # Rename American to British spellings etc
-      
-      geom_params <- match.params(geom$parameters(), params)
-      stat_params <- match.params(stat$parameters(), params)
-      stat_params <- stat_params[setdiff(names(stat_params),
-        names(geom_params))]
-    } else {      
-      geom_params <- rename_aes(geom_params)
-    }
-    
-    proto(., 
-      geom=geom, geom_params=geom_params, 
-      stat=stat, stat_params=stat_params, 
-      data=data, mapping=mapping, subset=subset,
-      position=position,
-      inherit.aes = inherit.aes,
-      show_guide = show_guide,
+  # Split up params between aesthetics, geom, and stat
+  params <- rename_aes(params)
+  aes_params  <- params[intersect(names(params), geom$aesthetics())]
+  geom_params <- params[intersect(names(params), geom$parameters(TRUE))]
+  stat_params <- params[intersect(names(params), stat$parameters(TRUE))]
+
+  all <- c(geom$parameters(TRUE), stat$parameters(TRUE), geom$aesthetics())
+
+  # Warn about extra params and aesthetics
+  extra_param <- setdiff(names(params), all)
+  if (check.param && length(extra_param) > 0) {
+    warning(
+      "Ignoring unknown parameters: ", paste(extra_param, collapse = ", "),
+      call. = FALSE,
+      immediate. = TRUE
     )
   }
-  
-  clone <- function(.) as.proto(.$as.list(all.names=TRUE))
-  
-  use_defaults <- function(., data) {
-    df <- aesdefaults(data, .$geom$default_aes(), NULL)
-    
-    # Override mappings with atomic parameters
-    gp <- intersect(c(names(df), .$geom$required_aes), names(.$geom_params))
-    gp <- gp[unlist(lapply(.$geom_params[gp], is.atomic))]
 
-    # Check that mappings are compatable length: either 1 or the same length
-    # as the data
-    param_lengths <- vapply(.$geom_params[gp], length, numeric(1))
-    bad <- param_lengths != 1L & param_lengths != nrow(df)
-    if (any(bad)) {
-      stop("Incompatible lengths for set aesthetics: ", 
-        paste(names(bad), collapse = ", "), call. = FALSE)
-    }
-
-    df[gp] <- .$geom_params[gp]
-    df
+  extra_aes <- setdiff(
+    mapped_aesthetics(mapping),
+    c(geom$aesthetics(), stat$aesthetics())
+  )
+  if (check.aes && length(extra_aes) > 0) {
+    warning(
+      "Ignoring unknown aesthetics: ", paste(extra_aes, collapse = ", "),
+      call. = FALSE,
+      immediate. = TRUE
+    )
   }
-  
-  layer_mapping <- function(., mapping = NULL) {
-    # For certain geoms, it is useful to be able to ignore the default
-    # aesthetics and only use those set in the layer
-    if (.$inherit.aes) {
-      aesthetics <- compact(defaults(.$mapping, mapping))      
+
+
+
+  ggproto("LayerInstance", Layer,
+    geom = geom,
+    geom_params = geom_params,
+    stat = stat,
+    stat_params = stat_params,
+    data = data,
+    mapping = mapping,
+    aes_params = aes_params,
+    subset = subset,
+    position = position,
+    inherit.aes = inherit.aes,
+    show.legend = show.legend
+  )
+}
+
+Layer <- ggproto("Layer", NULL,
+  geom = NULL,
+  geom_params = NULL,
+  stat = NULL,
+  stat_params = NULL,
+  data = NULL,
+  aes_params = NULL,
+  mapping = NULL,
+  position = NULL,
+  inherit.aes = FALSE,
+
+  print = function(self) {
+    if (!is.null(self$mapping)) {
+      cat("mapping:", clist(self$mapping), "\n")
+    }
+    cat(snakeize(class(self$geom)[[1]]), ": ", clist(self$geom_params), "\n",
+      sep = "")
+    cat(snakeize(class(self$stat)[[1]]), ": ", clist(self$stat_params), "\n",
+      sep = "")
+    cat(snakeize(class(self$position)[[1]]), "\n")
+  },
+
+  layer_data = function(self, plot_data) {
+    if (is.waive(self$data)) {
+      plot_data
+    } else if (is.function(self$data)) {
+      data <- self$data(plot_data)
+      if (!is.data.frame(data)) {
+        stop("Data function must return a data.frame", call. = FALSE)
+      }
+      data
     } else {
-      aesthetics <- .$mapping
+      self$data
     }
-    
+  },
+
+  compute_aesthetics = function(self, data, plot) {
+    # For annotation geoms, it is useful to be able to ignore the default aes
+    if (self$inherit.aes) {
+      aesthetics <- defaults(self$mapping, plot$mapping)
+    } else {
+      aesthetics <- self$mapping
+    }
+
     # Drop aesthetics that are set or calculated
-    set <- names(aesthetics) %in% names(.$geom_params)
+    set <- names(aesthetics) %in% names(self$aes_params)
     calculated <- is_calculated_aes(aesthetics)
-    
-    aesthetics[!set & !calculated]
-  }
-  
-  pprint <- function(.) {
-    if (is.null(.$geom)) {
-      cat("Empty layer\n")
-      return(invisible());
+    aesthetics <- aesthetics[!set & !calculated]
+
+    # Override grouping if set in layer
+    if (!is.null(self$geom_params$group)) {
+      aesthetics[["group"]] <- self$aes_params$group
     }
-    if (!is.null(.$mapping)) {
-      cat("mapping:", clist(.$mapping), "\n")      
-    }
-    .$geom$print(newline=FALSE)
-    cat(clist(.$geom_params), "\n")
-    .$stat$print(newline=FALSE)
-    cat(clist(.$stat_params), "\n")
-    .$position$print()
-  }
-  
-  
-  compute_aesthetics <- function(., data, plot) {
-    aesthetics <- .$layer_mapping(plot$mapping)
-    
-    if (!is.null(.$subset)) {
-      include <- data.frame(eval.quoted(.$subset, data, plot$env))
+
+    # Old subsetting method
+    if (!is.null(self$subset)) {
+      include <- data.frame(plyr::eval.quoted(self$subset, data, plot$env))
       data <- data[rowSums(include, na.rm = TRUE) == ncol(include), ]
-    }
-    
-    # Override grouping if set in layer. 
-    if (!is.null(.$geom_params$group)) {
-      aesthetics["group"] <- .$geom_params$group
     }
 
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
-    
-    # Evaluate aesthetics in the context of their data frame
-    evaled <- compact(
-      eval.quoted(aesthetics, data, plot$plot_env))
 
-    lengths <- vapply(evaled, length, integer(1))
-    n <- if (length(lengths) > 0) max(lengths) else 0
+    # Evaluate and check aesthetics
+    aesthetics <- compact(aesthetics)
+    evaled <- lapply(aesthetics, eval, envir = data, enclos = plot$plot_env)
 
-    wrong <- lengths != 1 & lengths != n
-    if (any(wrong)) {
-      stop("Aesthetics must either be length one, or the same length as the data",
-        "Problems:", paste(aesthetics[wrong], collapse = ", "), call. = FALSE)
+    n <- nrow(data)
+    if (n == 0) {
+      # No data, so look at longest evaluated aesthetic
+      if (length(evaled) == 0) {
+        n <- 0
+      } else {
+        n <- max(vapply(evaled, length, integer(1)))
+      }
     }
+    check_aesthetics(evaled, n)
 
+    # Set special group and panel vars
     if (empty(data) && n > 0) {
-      # No data, and vectors suppled to aesthetics
       evaled$PANEL <- 1
     } else {
       evaled$PANEL <- data$PANEL
     }
-    data.frame(evaled)
-  }
-  
+    evaled <- lapply(evaled, unname)
+    evaled <- as.data.frame(tibble::as_tibble(evaled))
+    evaled <- add_group(evaled)
+    evaled
+  },
 
-  calc_statistic <- function(., data, scales) {
-    if (empty(data)) return(data.frame())
-    
-    check_required_aesthetics(.$stat$required_aes, 
-      c(names(data), names(.$stat_params)), 
-      paste("stat_", .$stat$objname, sep=""))
-    
-    res <- NULL
-    try(res <- do.call(.$stat$calculate_groups, c(
-      list(data=as.name("data"), scales=as.name("scales")), 
-      .$stat_params)
-    ))
-    if (is.null(res)) return(data.frame())
-    
-    res
-    
-  }
+  compute_statistic = function(self, data, layout) {
+    if (empty(data))
+      return(data.frame())
 
+    params <- self$stat$setup_params(data, self$stat_params)
+    data <- self$stat$setup_data(data, params)
+    self$stat$compute_layer(data, params, layout)
+  },
 
-  map_statistic <- function(., data, plot) {
+  map_statistic = function(self, data, plot) {
     if (empty(data)) return(data.frame())
 
     # Assemble aesthetics from layer, plot and stat mappings
-    aesthetics <- .$mapping
-    if (.$inherit.aes) {
+    aesthetics <- self$mapping
+    if (self$inherit.aes) {
       aesthetics <- defaults(aesthetics, plot$mapping)
     }
-    aesthetics <- defaults(aesthetics, .$stat$default_aes())
+    aesthetics <- defaults(aesthetics, self$stat$default_aes)
     aesthetics <- compact(aesthetics)
-  
+
     new <- strip_dots(aesthetics[is_calculated_aes(aesthetics)])
     if (length(new) == 0) return(data)
 
     # Add map stat output to aesthetics
-    stat_data <- as.data.frame(lapply(new, eval, data, baseenv()))
+    stat_data <- plyr::quickdf(lapply(new, eval, data, baseenv()))
     names(stat_data) <- names(new)
-    
+
     # Add any new scales, if needed
     scales_add_defaults(plot$scales, data, new, plot$plot_env)
-    # Transform the values, if the scale say it's ok 
+    # Transform the values, if the scale say it's ok
     # (see stat_spoke for one exception)
-    if (.$stat$retransform) {
+    if (self$stat$retransform) {
       stat_data <- scales_transform_df(plot$scales, stat_data)
     }
-    
+
     cunion(stat_data, data)
-  }
+  },
 
-  reparameterise <- function(., data) {
+  compute_geom_1 = function(self, data) {
     if (empty(data)) return(data.frame())
-    .$geom$reparameterise(data, .$geom_params) 
+    data <- self$geom$setup_data(data, c(self$geom_params, self$aes_params))
+
+    check_required_aesthetics(
+      self$geom$required_aes,
+      c(names(data), names(self$aes_params)),
+      snake_class(self$geom)
+    )
+
+    data
+  },
+
+  compute_position = function(self, data, layout) {
+    if (empty(data)) return(data.frame())
+
+    params <- self$position$setup_params(data)
+    data <- self$position$setup_data(data, params)
+
+    self$position$compute_layer(data, params, layout)
+  },
+
+  compute_geom_2 = function(self, data) {
+    # Combine aesthetics, defaults, & params
+    if (empty(data)) return(data)
+
+    self$geom$use_defaults(data, self$aes_params)
+  },
+
+  finish_statistics = function(self, data) {
+    self$stat$finish_layer(data, self$stat_params)
+  },
+
+  draw_geom = function(self, data, layout) {
+    if (empty(data)) {
+      n <- nrow(layout$layout)
+      return(rep(list(zeroGrob()), n))
+    }
+
+    data <- self$geom$handle_na(data, self$geom_params)
+    self$geom$draw_layer(data, self$geom_params, layout, layout$coord)
+  }
+)
+
+is.layer <- function(x) inherits(x, "Layer")
+
+
+find_subclass <- function(super, class, env) {
+  name <- paste0(super, camelize(class, first = TRUE))
+  obj <- find_global(name, env = env)
+
+  if (is.null(name)) {
+    stop("No ", tolower(super), " called ", name, ".", call. = FALSE)
+  } else if (!inherits(obj, super)) {
+    stop("Found object is not a ", tolower(super), ".", call. = FALSE)
   }
 
-
-  adjust_position <- function(., data) {
-    ddply(data, "PANEL", function(data) {
-      .$position$adjust(data)
-    })
-  }
-  
-  make_grob <- function(., data, scales, cs) {
-    if (empty(data)) return(zeroGrob())
-    
-    data <- .$use_defaults(data)
-    
-    check_required_aesthetics(.$geom$required_aes,
-      c(names(data), names(.$geom_params)), 
-      paste("geom_", .$geom$objname, sep=""))
-    
-    do.call(.$geom$draw_groups, c(
-      data = list(as.name("data")), 
-      scales = list(as.name("scales")), 
-      coordinates = list(as.name("cs")), 
-      .$geom_params
-    ))
-  }
-
-  class <- function(.) "layer"
-})
-
-#' Create a new layer
-#' 
-#' @keywords internal
-#' @export
-layer <- Layer$new
-
-# Determine if aesthetic is calculated
-is_calculated_aes <- function(aesthetics) {
-  match <- "\\.\\.([a-zA-z._]+)\\.\\."
-  stats <- rep(FALSE, length(aesthetics))
-  grepl(match, sapply(aesthetics, deparse))
-}
-
-# Strip dots from expressions
-strip_dots <- function(aesthetics) {
-  match <- "\\.\\.([a-zA-z._]+)\\.\\."
-  strings <- lapply(aesthetics, deparse)
-  strings <- lapply(strings, gsub, pattern = match, replacement = "\\1")
-  lapply(strings, function(x) parse(text = x)[[1]]) 
+  obj
 }

@@ -1,54 +1,61 @@
-#' Set guides for each scale.
+#' Set guides for each scale
 #'
-#' Guides for each scale can be set in call of \code{scale_*} with argument
-#' \code{guide}, or in \code{guides}.
-#' 
-#' @param ... List of scale guide pairs
+#' Guides for each scale can be set scale-by-scale with the \code{guide}
+#' argument, or en masse with \code{guides()}.
+#'
+#' @param ... List of scale name-guide pairs.  The guide can either
+#'   be a string (i.e. "colorbar" or "legend"), or a call to a guide function
+#'   (i.e. \code{\link{guide_colourbar}} or \code{\link{guide_legend}})
+#'   specifying additional arguments.
 #' @return A list containing the mapping between scale and guide.
 #' @export
 #' @family guides
 #' @examples
 #' \donttest{
 #' # ggplot object
-#' 
-#' dat <- data.frame(x = 1:5, y = 1:5, p = 1:5, q = factor(1:5), 
+#'
+#' dat <- data.frame(x = 1:5, y = 1:5, p = 1:5, q = factor(1:5),
 #'  r = factor(1:5))
 #' p <- ggplot(dat, aes(x, y, colour = p, size = q, shape = r)) + geom_point()
-#' 
+#'
 #' # without guide specification
 #' p
-#' 
+#'
 #' # Show colorbar guide for colour.
 #' # All these examples below have a same effect.
-#' 
+#'
 #' p + guides(colour = "colorbar", size = "legend", shape = "legend")
-#' p + guides(colour = guide_colorbar(), size = guide_legend(), 
+#' p + guides(colour = guide_colorbar(), size = guide_legend(),
 #'   shape = guide_legend())
-#' p + 
+#' p +
 #'  scale_colour_continuous(guide = "colorbar") +
-#'  scale_size_discrete(guide = "legend") + 
+#'  scale_size_discrete(guide = "legend") +
 #'  scale_shape(guide = "legend")
-#' 
+#'
+#'  # Remove some guides
+#'  p + guides(colour = "none")
+#'  p + guides(colour = "colorbar",size = "none")
+#'
 #' # Guides are integrated where possible
-#' 
+#'
 #' p + guides(colour = guide_legend("title"), size = guide_legend("title"),
 #'   shape = guide_legend("title"))
 #' # same as
 #' g <- guide_legend("title")
 #' p + guides(colour = g, size = g, shape = g)
-#' 
+#'
 #' p + theme(legend.position = "bottom")
 #'
 #' # position of guides
-#' 
-#' p + theme(legend.position = "bottom", legend.box = "horizontal")
 #'
 #' # Set order for multiple guides
-#'
-#' qplot(data = mpg, x = displ, y = cty, size = hwy, colour = cyl, shape = drv) +
-#'   guides(colour = guide_colourbar(order = 1),
-#'          alpha = guide_legend(order = 2),
-#'          size = guide_legend(order = 3))
+#' ggplot(mpg, aes(displ, cty)) +
+#'   geom_point(aes(size = hwy, colour = cyl, shape = drv)) +
+#'   guides(
+#'    colour = guide_colourbar(order = 1),
+#'    shape = guide_legend(order = 2),
+#'    size = guide_legend(order = 3)
+#'  )
 #' }
 guides <- function(...) {
   args <- list(...)
@@ -87,32 +94,24 @@ update_guides <- function(p, guides) {
 #      arrange all ggrobs
 
 build_guides <- function(scales, layers, default_mapping, position, theme, guides, labels) {
-
-  # set themes w.r.t. guides
-  # should these theme$legend.XXX be renamed to theme$guide.XXX ?
-  
-  # by default, guide boxes are vertically aligned
-  theme$legend.box <- theme$legend.box %||% "vertical"
-
-  # size of key (also used for bar in colorbar guide)
   theme$legend.key.width <- theme$legend.key.width %||% theme$legend.key.size
   theme$legend.key.height <- theme$legend.key.height %||% theme$legend.key.size
 
-  # by default, direction of each guide depends on the position of the guide.
-  theme$legend.direction <-
-    theme$legend.direction %||%
-    if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
-      switch(position[1], top =, bottom = "horizontal", left =, right = "vertical")
-    else
-      "vertical"
-
-  # justification of legend boxes
-  theme$legend.box.just <-
-    theme$legend.box.just %||%
-    if (length(position) == 1 && position %in% c("top", "bottom", "left", "right"))
-      switch(position, bottom =, top = c("center", "top"), left =, right = c("left", "top"))
-    else
-      c("center", "center")
+  # Layout of legends depends on their overall location
+  position <- legend_position(position)
+  if (position == "inside") {
+    theme$legend.box <- theme$legend.box %||% "vertical"
+    theme$legend.direction <- theme$legend.direction %||% "vertical"
+    theme$legend.box.just <- theme$legend.box.just %||% c("center", "center")
+  } else if (position == "vertical") {
+    theme$legend.box <- theme$legend.box %||% "vertical"
+    theme$legend.direction <- theme$legend.direction %||% "vertical"
+    theme$legend.box.just <- theme$legend.box.just %||% c("left", "top")
+  } else if (position == "horizontal") {
+    theme$legend.box <- theme$legend.box %||% "horizontal"
+    theme$legend.direction <- theme$legend.direction %||% "horizontal"
+    theme$legend.box.just <- theme$legend.box.just %||% c("center", "top")
+  }
 
   # scales -> data for guides
   gdefs <- guides_train(scales = scales, theme = theme, guides = guides, labels = labels)
@@ -134,11 +133,24 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   grobs
 }
 
+# Simplify legend position to one of horizontal/vertical/inside
+legend_position <- function(position) {
+  if (length(position) == 1) {
+    if (position %in% c("top", "bottom")) {
+      "horizontal"
+    } else {
+      "vertical"
+    }
+  } else {
+    "inside"
+  }
+}
+
 # validate guide object
 validate_guide <- function(guide) {
-  # if guide is specified by character, then find the corrsponding guide
+  # if guide is specified by character, then find the corresponding guide
   if (is.character(guide))
-    match.fun(paste("guide_", guide, sep=""))()
+    match.fun(paste("guide_", guide, sep = ""))()
   else if (inherits(guide, "guide"))
     guide
   else
@@ -149,7 +161,7 @@ validate_guide <- function(guide) {
 guides_train <- function(scales, theme, guides, labels) {
 
   gdefs <- list()
-  for(scale in scales$scales) {
+  for (scale in scales$scales) {
 
     # guides(XXX) is stored in guides[[XXX]],
     # which is prior to scale_ZZZ(guide=XXX)
@@ -161,19 +173,17 @@ guides_train <- function(scales, theme, guides, labels) {
     # this should be changed to testing guide == "none"
     # scale$legend is backward compatibility
     # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-    if (guide=="none" || (is.logical(guide) && !guide)) next
-    if ((!is.null(scale$legend) && !scale$legend) || is.null(scale_limits(scale))) next # for backward compatibility
+    if (guide == "none" || (is.logical(guide) && !guide)) next
 
     # check the validity of guide.
     # if guide is character, then find the guide object
     guide <- validate_guide(guide)
 
     # check the consistency of the guide and scale.
-    if (guide$available_aes != "any" && ! scale$aesthetics %in% guide$available_aes)
-      stop (paste("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.", sep=""))
+    if (guide$available_aes != "any" && !scale$aesthetics %in% guide$available_aes)
+      stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
 
-    # title of this grob
-    if (is.waive(guide$title)) guide$title <- scale$name %||% labels[[output]]
+    guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
 
     # direction of this grob
     guide$direction <- guide$direction %||% theme$legend.direction
@@ -182,14 +192,14 @@ guides_train <- function(scales, theme, guides, labels) {
     # so Guides (i.e., the container of guides) need not to know about them
     guide <- guide_train(guide, scale)
 
-    if (!is.null(guide)) gdefs[[length(gdefs)+1]] <- guide
+    if (!is.null(guide)) gdefs[[length(gdefs) + 1]] <- guide
   }
   gdefs
 }
 
 # merge overlapped guides
 guides_merge <- function(gdefs) {
-  # split gdefs based on hash, and apply Reduce (guide_merge) to each gdef groug.
+  # split gdefs based on hash, and apply Reduce (guide_merge) to each gdef group.
   gdefs <- lapply(gdefs, function(g) {
     if (g$order == 0) {
       order <- "99"
@@ -212,23 +222,21 @@ guides_gengrob <- function(gdefs, theme) {
   # common drawing process for all guides
   gdefs <- lapply(gdefs,
     function(g) {
-      g$title.position <- g$title.position %||% switch(g$direction, vertical="top", horizontal="left")
-      if (!g$title.position %in% c("top", "bottom", "left", "right")) stop("title position \"", g$title.position, "\" is invalid")
+      g$title.position <- g$title.position %||% switch(g$direction, vertical = "top", horizontal = "left")
+      if (!g$title.position %in% c("top", "bottom", "left", "right"))
+        stop("title position \"", g$title.position, "\" is invalid")
       g
     })
-  
+
   lapply(gdefs, guide_gengrob, theme)
 }
 
 # build up all guide boxes into one guide-boxes.
 guides_build <- function(ggrobs, theme) {
+  theme$legend.spacing <- theme$legend.spacing %||% unit(0.5, "lines")
+  theme$legend.spacing.y <- theme$legend.spacing.y  %||% theme$legend.spacing
+  theme$legend.spacing.x <- theme$legend.spacing.x  %||% theme$legend.spacing
 
-  n <- length(ggrobs)
-  
-  theme$guide.margin <- theme$guide.margin %||% unit(0.5, "lines")
-  theme$guide.vmargin <- theme$guide.vmargin  %||% theme$guide.margin
-  theme$guide.hmargin <- theme$guide.hmargin  %||% theme$guide.margin
-  
   widths <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$widths)))
   heights <- do.call("unit.c", lapply(ggrobs, function(g)sum(g$heights)))
 
@@ -238,7 +246,7 @@ guides_build <- function(ggrobs, theme) {
   xjust <- just[1]
   yjust <- just[2]
 
-  # setting that is different for vergical and horizontal guide-boxes.
+  # setting that is different for vertical and horizontal guide-boxes.
   if (theme$legend.box == "horizontal") {
     # Set justification for each legend
     for (i in seq_along(ggrobs)) {
@@ -252,7 +260,7 @@ guides_build <- function(ggrobs, theme) {
       widths = widths, height = max(heights))
 
     # add space between the guide-boxes
-    guides <- gtable_add_col_space(guides, theme$guide.hmargin)
+    guides <- gtable_add_col_space(guides, theme$legend.spacing.x)
 
   } else if (theme$legend.box == "vertical") {
     # Set justification for each legend
@@ -267,33 +275,40 @@ guides_build <- function(ggrobs, theme) {
       width = max(widths), heights = heights)
 
     # add space between the guide-boxes
-    guides <- gtable_add_row_space(guides, theme$guide.vmargin)
+    guides <- gtable_add_row_space(guides, theme$legend.spacing.y)
   }
 
-  # add margins around the guide-boxes.
-  guides <- gtable_add_cols(guides, theme$guide.hmargin, pos = 0)
-  guides <- gtable_add_cols(guides, theme$guide.hmargin, pos = ncol(guides))
-  guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = 0)
-  guides <- gtable_add_rows(guides, theme$guide.vmargin, pos = nrow(guides))
+  # Add margins around the guide-boxes.
+  theme$legend.box.margin <- theme$legend.box.margin %||% margin()
+  guides <- gtable_add_cols(guides, theme$legend.box.margin[4], pos = 0)
+  guides <- gtable_add_cols(guides, theme$legend.box.margin[2], pos = ncol(guides))
+  guides <- gtable_add_rows(guides, theme$legend.box.margin[1], pos = 0)
+  guides <- gtable_add_rows(guides, theme$legend.box.margin[3], pos = nrow(guides))
 
+  # Add legend box background
+  background <- element_grob(theme$legend.box.background %||% element_blank())
+
+  guides <- gtable_add_grob(guides, background, t = 1, l = 1,
+    b = -1, r = -1, z = -Inf, clip = "off", name = "legend.box.background")
   guides$name <- "guide-box"
   guides
 }
 
 # S3 dispatches
 
-#' @S3method guide_train legend 
-#' @S3method guide_train colorbar
 guide_train <- function(...) UseMethod("guide_train")
 
-#' @S3method guide_merge legend 
-#' @S3method guide_merge colorbar 
 guide_merge <- function(...) UseMethod("guide_merge")
 
-#' @S3method guide_geom legend 
-#' @S3method guide_geom colorbar 
 guide_geom <- function(...) UseMethod("guide_geom")
 
-#' @S3method guide_gengrob legend 
-#' @S3method guide_gengrob colorbar 
 guide_gengrob <- function(...) UseMethod("guide_gengrob")
+
+# Helpers
+matched_aes <- function(layer, guide, defaults) {
+  all <- names(c(layer$mapping, if (layer$inherit.aes) defaults, layer$stat$default_aes))
+  geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))
+  matched <- intersect(intersect(all, geom), names(guide$key))
+  matched <- setdiff(matched, names(layer$geom_params))
+  setdiff(matched, names(layer$aes_params))
+}

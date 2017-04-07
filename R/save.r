@@ -1,125 +1,132 @@
-#' Save a ggplot with sensible defaults
-#' 
-#' ggsave is a convenient function for saving a plot.  It defaults to
-#' saving the last plot that you displayed, and for a default size uses 
-#' the size of the current graphics device.  It also guesses the type of 
-#' graphics device from the extension.  This means the only argument you 
-#' need to supply is the filename.
-#' 
-#' \code{ggsave} currently recognises the extensions eps/ps, tex (pictex),
-#' pdf, jpeg, tiff, png, bmp, svg and wmf (windows only).
-#' 
-#' @param filename file name/filename of plot
-#' @param plot plot to save, defaults to last plot displayed
-#' @param device device to use, automatically extract from file name extension
-#' @param path path to save plot to (if you just want to set path and not
-#'    filename)
-#' @param scale scaling factor
-#' @param width width (defaults to the width of current plotting window)
-#' @param height height (defaults to the height of current plotting window)
-#' @param units units for width and height when either one is explicitly specified (in, cm, or mm)
-#' @param dpi dpi to use for raster graphics
-#' @param limitsize when \code{TRUE} (the default), \code{ggsave} will not
+#' Save a ggplot (or other grid object) with sensible defaults
+#'
+#' \code{ggsave()} is a convenient function for saving a plot. It defaults to
+#' saving the last plot that you displayed, using the size of the current
+#' graphics device. It also guesses the type of graphics device from the
+#' extension.
+#'
+#' @param filename File name to create on disk.
+#' @param plot Plot to save, defaults to last plot displayed.
+#' @param device Device to use. Can be either be a device function
+#'   (e.g. \code{\link{png}}), or one of "eps", "ps", "tex" (pictex),
+#'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
+#' @param path Path to save plot to (combined with filename).
+#' @param scale Multiplicative scaling factor.
+#' @param width,height,units Plot size in \code{units} ("in", "cm", or "mm").
+#'   If not supplied, uses the size of current graphics device.
+#' @param dpi Plot resolution. Applies only to raster output types.
+#' @param limitsize When \code{TRUE} (the default), \code{ggsave} will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
-#' @param ... other arguments passed to graphics device
+#' @param ... Other arguments passed on to graphics \code{device}.
 #' @export
 #' @examples
-#' \donttest{
-#' ratings <- qplot(rating, data=movies, geom="histogram")
-#' qplot(length, data=movies, geom="histogram")
-#' ggsave(file="length-hist.pdf")
-#' ggsave(file="length-hist.png")
-#' ggsave(ratings, file="ratings.pdf")
-#' ggsave(ratings, file="ratings.pdf", width=4, height=4)
-#' # make twice as big as on screen
-#' ggsave(ratings, file="ratings.pdf", scale=2)
+#' \dontrun{
+#' ggplot(mtcars, aes(mpg, wt)) + geom_point()
+#'
+#' ggsave("mtcars.pdf")
+#' ggsave("mtcars.png")
+#'
+#' ggsave("mtcars.pdf", width = 4, height = 4)
+#' ggsave("mtcars.pdf", width = 20, height = 20, units = "cm")
+#'
+#' unlink("mtcars.pdf")
+#' unlink("mtcars.png")
+#'
+#' # specify device when saving to a file with unknown extension
+#' # (for example a server supplied temporary file)
+#' file <- tempfile()
+#' ggsave(file, device = "pdf")
+#' unlink(file)
 #' }
-ggsave <- function(filename = default_name(plot), plot = last_plot(),
-  device = default_device(filename), path = NULL, scale = 1,
-  width = par("din")[1], height = par("din")[2], units = c("in", "cm", "mm"),
-  dpi = 300, limitsize = TRUE, ...) {
+ggsave <- function(filename, plot = last_plot(),
+                   device = NULL, path = NULL, scale = 1,
+                   width = NA, height = NA, units = c("in", "cm", "mm"),
+                   dpi = 300, limitsize = TRUE, ...) {
 
-  if (!inherits(plot, "ggplot")) stop("plot should be a ggplot2 plot")
+  dev <- plot_dev(device, filename, dpi = dpi)
+  dim <- plot_dim(c(width, height), scale = scale, units = units,
+    limitsize = limitsize)
 
-  eps <- ps <- function(..., width, height)  
-    grDevices::postscript(..., width=width, height=height, onefile=FALSE,
-      horizontal = FALSE, paper = "special")
-  tex <- function(..., width, height) 
-    grDevices::pictex(..., width=width, height=height)
-  pdf <- function(..., version="1.4") 
-    grDevices::pdf(..., version=version)
-  svg <- function(...) 
-    grDevices::svg(...)
-  wmf <- function(..., width, height) 
-    grDevices::win.metafile(..., width=width, height=height)
-  emf <- function(..., width, height)
-    grDevices::win.metafile(..., width=width, height=height)
-
-  png <- function(..., width, height) 
-    grDevices::png(...,  width=width, height=height, res = dpi, units = "in")
-  jpg <- jpeg <- function(..., width, height) 
-    grDevices::jpeg(..., width=width, height=height, res = dpi, units = "in")
-  bmp <- function(..., width, height) 
-    grDevices::bmp(...,  width=width, height=height, res = dpi, units = "in")
-  tiff <- function(..., width, height) 
-    grDevices::tiff(..., width=width, height=height, res = dpi, units = "in")
-  
-  default_name <- function(plot) { 
-    paste(digest.ggplot(plot), ".pdf", sep="")
-  }
-  
-  default_device <- function(filename) {
-    pieces <- strsplit(filename, "\\.")[[1]]
-    ext <- tolower(pieces[length(pieces)])
-    match.fun(ext)
-  }
-
-  units <- match.arg(units)
-  convert_to_inches <- function(x, units) {
-    x <- switch(units,
-      `in` = x,
-      cm = x / 2.54,
-      mm = x / 2.54 /10
-    )
-  }
-
-  convert_from_inches <- function(x, units) {
-    x <- switch(units,
-      `in` = x,
-      cm = x * 2.54,
-      mm = x * 2.54 * 10
-    )
-  }
-
-  # dimensions need to be in inches for all graphic devices
-  # convert width and height into inches when they are specified
-  if (!missing(width)) {
-    width <- convert_to_inches(width, units)
-  }
-  if (!missing(height)) {
-    height <- convert_to_inches(height, units)
-  }
-  # if either width or height is not specified, display an information message
-  # units are those specified by the user
-  if (missing(width) || missing(height)) {
-    message("Saving ", prettyNum(convert_from_inches(width * scale, units), digits=3), " x ", prettyNum(convert_from_inches(height * scale, units), digits=3), " ", units, " image")
-  }
-
-  width <- width * scale
-  height <- height * scale
-
-  if (limitsize && (width >= 50 || height >= 50)) {
-    stop("Dimensions exceed 50 inches (height and width are specified in inches/cm/mm, not pixels).",
-      " If you are sure you want these dimensions, use 'limitsize=FALSE'.")
-  }
-  
   if (!is.null(path)) {
     filename <- file.path(path, filename)
   }
-  device(file=filename, width=width, height=height, ...)
-  on.exit(capture.output(dev.off()))
-  print(plot)
-  
+  dev(file = filename, width = dim[1], height = dim[2], ...)
+  on.exit(utils::capture.output(grDevices::dev.off()))
+  grid.draw(plot)
+
   invisible()
+}
+
+plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
+                     limitsize = TRUE) {
+
+  units <- match.arg(units)
+  to_inches <- function(x) x / c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
+  from_inches <- function(x) x * c(`in` = 1, cm = 2.54, mm = 2.54 * 10)[units]
+
+  dim <- to_inches(dim) * scale
+
+  if (any(is.na(dim))) {
+    if (length(grDevices::dev.list()) == 0) {
+      default_dim <- c(7, 7)
+    } else {
+      default_dim <- grDevices::dev.size() * scale
+    }
+    dim[is.na(dim)] <- default_dim[is.na(dim)]
+    dim_f <- prettyNum(from_inches(dim), digits = 3)
+
+    message("Saving ", dim_f[1], " x ", dim_f[2], " ", units, " image")
+  }
+
+  if (limitsize && any(dim >= 50)) {
+    stop("Dimensions exceed 50 inches (height and width are specified in '",
+      units, "' not pixels). If you're sure you want a plot that big, use ",
+      "`limitsize = FALSE`.", call. = FALSE)
+  }
+
+  dim
+}
+
+plot_dev <- function(device, filename, dpi = 300) {
+  if (is.function(device))
+    return(device)
+
+  eps <- function(...) {
+    grDevices::postscript(..., onefile = FALSE, horizontal = FALSE,
+      paper = "special")
+  }
+  devices <- list(
+    eps =  eps,
+    ps =   eps,
+    tex =  function(...) grDevices::pictex(...),
+    pdf =  function(..., version = "1.4") grDevices::pdf(..., version = version),
+    svg =  function(...) svglite::svglite(...),
+    emf =  function(...) grDevices::win.metafile(...),
+    wmf =  function(...) grDevices::win.metafile(...),
+    png =  function(...) grDevices::png(..., res = dpi, units = "in"),
+    jpg =  function(...) grDevices::jpeg(..., res = dpi, units = "in"),
+    jpeg = function(...) grDevices::jpeg(..., res = dpi, units = "in"),
+    bmp =  function(...) grDevices::bmp(..., res = dpi, units = "in"),
+    tiff = function(...) grDevices::tiff(..., res = dpi, units = "in")
+  )
+
+  if (is.null(device)) {
+    device <- tolower(tools::file_ext(filename))
+  }
+
+  if (!is.character(device) || length(device) != 1) {
+    stop("`device` must be NULL, a string or a function.", call. = FALSE)
+  }
+
+  dev <- devices[[device]]
+  if (is.null(dev)) {
+    stop("Unknown graphics device '", device, "'", call. = FALSE)
+  }
+  dev
+}
+
+#' @export
+grid.draw.ggplot <- function(x, recording = TRUE) {
+  print(x)
 }

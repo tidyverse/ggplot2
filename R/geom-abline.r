@@ -1,98 +1,130 @@
-#' Line specified by slope and intercept.
-#' 
-#' The abline geom adds a line with specified slope and intercept to the
-#' plot.
-#' 
-#' With its siblings \code{geom_hline} and \code{geom_vline}, it's useful for
-#' annotating plots.  You can supply the parameters for geom_abline, 
-#' intercept and slope, in two ways: either explicitly as fixed values, or
-#' in a data frame.  If you specify the fixed values
-#' (\code{geom_abline(intercept=0, slope=1)}) then the line will be the same
-#' in all panels.  If the intercept and slope are stored in the data, then 
-#' they can vary from panel to panel.  See the examples for more ideas.
+#' @include stat-.r
+NULL
+
+#' Reference lines: horizontal, vertical, and diagonal
 #'
-#' @section Aesthetics: 
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "abline")}
+#' These geoms add reference lines (sometimes called rules) to a plot, either
+#' horizontal, vertical, or diagonal (specified by slope and intercept).
+#' These are useful for annotating plots.
 #'
-#' @seealso \code{\link{stat_smooth}} to add lines derived from the data,
-#'  \code{\link{geom_hline}} for horizontal lines,
-#'  \code{\link{geom_vline}} for vertical lines
-#'  \code{\link{geom_segment}}
-#' @param show_guide should a legend be drawn? (defaults to \code{FALSE})
+#' These geoms act slightly different to other geoms. You can supply the
+#' parameters in two ways: either as arguments to the layer function,
+#' or via aesthetics. If you use arguments, e.g.
+#' \code{geom_abline(intercept = 0, slope = 1)}, then behind the scenes
+#' the geom makes a new data frame containing just the data you've supplied.
+#' That means that the lines will be the same in all facets; if you want them
+#' to vary across facets, construct the data frame yourself and use aesthetics.
+#'
+#' Unlike most other geoms, these geoms do not inherit aesthetics from the plot
+#' default, because they do not understand x and y aesthetics which are
+#' commonly set in the plot. They also do not affect the x and y scales.
+#'
+#' @section Aesthetics:
+#' These geoms are drawn using with \code{\link{geom_line}} so support the
+#' same aesthetics: \code{alpha}, \code{colour}, \code{linetype} and
+#' \code{size}. They also each have aesthetics that control the position of
+#' the line:
+#'
+#' \itemize{
+#'   \item \code{geom_vline}: \code{xintercept}
+#'   \item \code{geom_hline}: \code{yintercept}
+#'   \item \code{geom_abline}: \code{slope} and \code{intercept}
+#' }
+#'
+#' @seealso See \code{\link{geom_segment}} for a more general approach to
+#'   adding straight line segments to a plot.
+#' @inheritParams layer
 #' @inheritParams geom_point
+#' @param xintercept,yintercept,slope,intercept Parameters that control the
+#'   position of the line. If these are set, \code{data}, \code{mapping} and
+#'   \code{show.legend} are overridden
 #' @export
 #' @examples
-#' p <- qplot(wt, mpg, data = mtcars)
+#' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 #'
-#' # Fixed slopes and intercepts
+#' # Fixed values
+#' p + geom_vline(xintercept = 5)
+#' p + geom_vline(xintercept = 1:5)
+#' p + geom_hline(yintercept = 20)
+#'
 #' p + geom_abline() # Can't see it - outside the range of the data
 #' p + geom_abline(intercept = 20)
 #'
 #' # Calculate slope and intercept of line of best fit
 #' coef(lm(mpg ~ wt, data = mtcars))
 #' p + geom_abline(intercept = 37, slope = -5)
-#' p + geom_abline(intercept = 10, colour = "red", size = 2)
-#' 
-#' # See ?stat_smooth for fitting smooth models to data
-#' p + stat_smooth(method="lm", se=FALSE)
-#' 
-#' # Slopes and intercepts as data
-#' p <- ggplot(mtcars, aes(x = wt, y=mpg), . ~ cyl) + geom_point()
-#' df <- data.frame(a=rnorm(10, 25), b=rnorm(10, 0))
-#' p + geom_abline(aes(intercept=a, slope=b), data=df)
+#' # But this is easier to do with geom_smooth:
+#' p + geom_smooth(method = "lm", se = FALSE)
 #'
-#' # Slopes and intercepts from linear model
-#' library(plyr)
-#' coefs <- ddply(mtcars, .(cyl), function(df) { 
-#'   m <- lm(mpg ~ wt, data=df)
-#'   data.frame(a = coef(m)[1], b = coef(m)[2]) 
-#' })
-#' str(coefs)
-#' p + geom_abline(data=coefs, aes(intercept=a, slope=b))
-#' 
-#' # It's actually a bit easier to do this with stat_smooth
-#' p + geom_smooth(aes(group=cyl), method="lm")
-#' p + geom_smooth(aes(group=cyl), method="lm", fullrange=TRUE)
-#' 
-#' # With coordinate transforms
-#' p + geom_abline(intercept = 37, slope = -5) + coord_flip()
-#' p + geom_abline(intercept = 37, slope = -5) + coord_polar()
-geom_abline <- function (mapping = NULL, data = NULL, stat = "abline", position = "identity", show_guide = FALSE, ...) { 
-  GeomAbline$new(mapping = mapping, data = data, stat = stat, position = position, show_guide = show_guide, ...)
+#' # To show different lines in different facets, use aesthetics
+#' p <- ggplot(mtcars, aes(mpg, wt)) +
+#'   geom_point() +
+#'   facet_wrap(~ cyl)
+#'
+#' mean_wt <- data.frame(cyl = c(4, 6, 8), wt = c(2.28, 3.11, 4.00))
+#' p + geom_hline(aes(yintercept = wt), mean_wt)
+#'
+#' # You can also control other aesthetics
+#' ggplot(mtcars, aes(mpg, wt, colour = wt)) +
+#'   geom_point() +
+#'   geom_hline(aes(yintercept = wt, colour = wt), mean_wt) +
+#'   facet_wrap(~ cyl)
+geom_abline <- function(mapping = NULL, data = NULL,
+                        ...,
+                        slope,
+                        intercept,
+                        na.rm = FALSE,
+                        show.legend = NA) {
+
+  # If nothing set, default to y = x
+  if (missing(mapping) && missing(slope) && missing(intercept)) {
+    slope <- 1
+    intercept <- 0
+  }
+
+  # Act like an annotation
+  if (!missing(slope) || !missing(intercept)) {
+    if (missing(slope)) slope <- 1
+    if (missing(intercept)) intercept <- 0
+
+    data <- data.frame(intercept = intercept, slope = slope)
+    mapping <- aes(intercept = intercept, slope = slope)
+    show.legend <- FALSE
+  }
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatIdentity,
+    geom = GeomAbline,
+    position = PositionIdentity,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
+  )
 }
 
-GeomAbline <- proto(Geom, {
-  objname <- "abline"
-
-  new <- function(., mapping = NULL, ...) {
-    mapping <- compact(defaults(mapping, aes(group = 1)))
-    class(mapping) <- "uneval"
-    .super$new(., ..., mapping = mapping, inherit.aes = FALSE)
-  }
-  
-  draw <- function(., data, scales, coordinates, ...) {
-    ranges <- coord_range(coordinates, scales)
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomAbline <- ggproto("GeomAbline", Geom,
+  draw_panel = function(data, panel_params, coord) {
+    ranges <- coord$range(panel_params)
 
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]
     data$y    <- ranges$x[1] * data$slope + data$intercept
     data$yend <- ranges$x[2] * data$slope + data$intercept
 
-    GeomSegment$draw(unique(data), scales, coordinates)
-  }
+    GeomSegment$draw_panel(unique(data), panel_params, coord)
+  },
 
-  guide_geom <- function(.) "abline"
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  required_aes = c("slope", "intercept"),
 
-  default_stat <- function(.) StatAbline
-  default_aes <- function(.) aes(colour="black", size=0.5, linetype=1, alpha = NA)
-  
-  draw_legend <- function(., data, ...) {
-    data <- aesdefaults(data, .$default_aes(), list(...))
-
-    with(data, 
-      ggname(.$my_name(), segmentsGrob(0, 0, 1, 1, default.units="npc",
-      gp=gpar(col=alpha(colour, alpha), lwd=size * .pt, lty=linetype,
-        lineend="butt")))
-    )
-  }
-})
+  draw_key = draw_key_abline
+)

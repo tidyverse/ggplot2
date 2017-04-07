@@ -1,53 +1,67 @@
 Package: ggplot2
-Type: Package
-Title: An implementation of the Grammar of Graphics
-Version: 0.9.3.1.99
-Author: Hadley Wickham <h.wickham@gmail.com>, Winston Chang <winston@stdout.org>
-Maintainer: Hadley Wickham <h.wickham@gmail.com>
-Description: An implementation of the grammar of graphics
-    in R. It combines the advantages of both base and
-    lattice graphics: conditioning and shared axes are
-    handled automatically, and you can still build up a
-    plot step by step from multiple data sources. It also
-    implements a sophisticated multidimensional
-    conditioning system and a consistent interface to map
-    data to aesthetic attributes. See the ggplot2 website
-    for more information, documentation and examples.
+Version: 2.2.1.9000
+Title: Create Elegant Data Visualisations Using the Grammar of Graphics
+Description: A system for 'declaratively' creating graphics,
+    based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
+    how to map variables to aesthetics, what graphical primitives to use,
+    and it takes care of the details.
+Authors@R: c(
+    person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
+    person("Winston", "Chang", , "winston@rstudio.com", "aut"),
+    person("RStudio", role = c("cph"))
+    )
 Depends:
-    R (>= 2.14),
-    stats,
-    methods
+    R (>= 3.1)
 Imports:
-    plyr (>= 1.7.1),
     digest,
     grid,
     gtable (>= 0.1.1),
+    MASS,
+    plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.2.3),
-    proto,
-    MASS
+    scales (>= 0.4.1),
+    stats,
+    tibble,
+    lazyeval
 Suggests:
-    quantreg,
+    covr,
+    ggplot2movies,
+    hexbin,
     Hmisc,
+    lattice,
     mapproj,
     maps,
-    hexbin,
     maptools,
+    mgcv,
     multcomp,
     nlme,
-    testthat
+    testthat (>= 0.11.0),
+    vdiffr,
+    quantreg,
+    knitr,
+    rgeos,
+    rpart,
+    rmarkdown,
+    sf (>= 0.3-4),
+    svglite (>= 1.2.0.9001)
+Remotes:
+    hadley/svglite
 Enhances: sp
-License: GPL-2
-URL: http://had.co.nz/ggplot2/
+License: GPL-2 | file LICENSE
+URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
+BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
-Collate:
+Collate: 
+    'ggproto.r'
     'aaa-.r'
-    'aaa-constants.r'
+    'aes-calculated.r'
     'aes-colour-fill-alpha.r'
     'aes-group-order.r'
     'aes-linetype-size-shape.r'
     'aes-position.r'
+    'utilities.r'
     'aes.r'
+    'legend-draw.r'
     'geom-.r'
     'annotation-custom.r'
     'annotation-logticks.r'
@@ -57,8 +71,11 @@ Collate:
     'geom-raster.r'
     'annotation-raster.r'
     'annotation.r'
+    'autolayer.r'
     'autoplot.r'
+    'axis-secondary.R'
     'bench.r'
+    'bin.R'
     'coord-.r'
     'coord-cartesian-.r'
     'coord-fixed.r'
@@ -66,50 +83,52 @@ Collate:
     'coord-map.r'
     'coord-munch.r'
     'coord-polar.r'
+    'coord-quickmap.R'
     'coord-transform.r'
+    'data.R'
     'facet-.r'
     'facet-grid-.r'
-    'facet-labels.r'
-    'facet-layout.r'
-    'facet-locate.r'
     'facet-null.r'
-    'facet-viewports.r'
     'facet-wrap.r'
     'fortify-lm.r'
     'fortify-map.r'
     'fortify-multcomp.r'
     'fortify-spatial.r'
     'fortify.r'
+    'stat-.r'
     'geom-abline.r'
-    'geom-bar-.r'
-    'geom-bar-histogram.r'
+    'geom-rect.r'
+    'geom-bar.r'
     'geom-bin2d.r'
     'geom-blank.r'
     'geom-boxplot.r'
+    'geom-col.r'
+    'geom-path.r'
+    'geom-contour.r'
+    'geom-count.r'
     'geom-crossbar.r'
+    'geom-segment.r'
+    'geom-curve.r'
     'geom-defaults.r'
+    'geom-ribbon.r'
+    'geom-density.r'
+    'geom-density2d.r'
     'geom-dotplot.r'
-    'geom-error.r'
-    'geom-errorh.r'
+    'geom-errorbar.r'
+    'geom-errorbarh.r'
     'geom-freqpoly.r'
     'geom-hex.r'
+    'geom-histogram.r'
     'geom-hline.r'
+    'geom-jitter.r'
+    'geom-label.R'
     'geom-linerange.r'
-    'geom-path-.r'
-    'geom-path-contour.r'
-    'geom-path-density2d.r'
-    'geom-path-line.r'
-    'geom-path-step.r'
-    'geom-point-.r'
-    'geom-point-jitter.r'
+    'geom-point.r'
     'geom-pointrange.r'
     'geom-quantile.r'
-    'geom-rect.r'
-    'geom-ribbon-.r'
-    'geom-ribbon-density.r'
     'geom-rug.r'
-    'geom-segment.r'
     'geom-smooth.r'
+    'geom-spoke.r'
     'geom-text.r'
     'geom-tile.r'
     'geom-violin.r'
@@ -118,41 +137,41 @@ Collate:
     'grob-absolute.r'
     'grob-dotstack.r'
     'grob-null.r'
+    'grouping.r'
     'guide-colorbar.r'
     'guide-legend.r'
     'guides-.r'
     'guides-axis.r'
     'guides-grid.r'
+    'hexbin.R'
+    'labeller.r'
     'labels.r'
     'layer.r'
+    'layout.R'
     'limits.r'
-    'matrix.r'
-    'panel.r'
+    'margins.R'
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'
-    'plot-render.r'
     'plot.r'
     'position-.r'
     'position-collide.r'
     'position-dodge.r'
-    'position-fill.r'
     'position-identity.r'
     'position-jitter.r'
+    'position-jitterdodge.R'
+    'position-nudge.R'
     'position-stack.r'
     'quick-plot.r'
+    'range.r'
     'save.r'
     'scale-.r'
     'scale-alpha.r'
-    'scale-area.r'
     'scale-brewer.r'
     'scale-continuous.r'
     'scale-date.r'
-    'scale-datetime.r'
     'scale-discrete-.r'
     'scale-gradient.r'
-    'scale-gradient2.r'
-    'scale-gradientn.r'
     'scale-grey.r'
     'scale-hue.r'
     'scale-identity.r'
@@ -160,48 +179,48 @@ Collate:
     'scale-manual.r'
     'scale-shape.r'
     'scale-size.r'
+    'scale-type.R'
     'scales-.r'
-    'stat-.r'
+    'sf.R'
     'stat-bin.r'
     'stat-bin2d.r'
     'stat-bindot.r'
     'stat-binhex.r'
     'stat-boxplot.r'
     'stat-contour.r'
+    'stat-count.r'
     'stat-density-2d.r'
     'stat-density.r'
     'stat-ecdf.r'
+    'stat-ellipse.R'
     'stat-function.r'
     'stat-identity.r'
     'stat-qq.r'
     'stat-quantile.r'
     'stat-smooth-methods.r'
     'stat-smooth.r'
-    'stat-spoke.r'
     'stat-sum.r'
     'stat-summary-2d.r'
+    'stat-summary-bin.R'
     'stat-summary-hex.r'
     'stat-summary.r'
     'stat-unique.r'
-    'stat-vline.r'
     'stat-ydensity.r'
+    'summarise-plot.R'
     'summary.r'
-    'templates.r'
-    'theme-defaults.r'
     'theme-elements.r'
     'theme.r'
-    'translate-qplot-base.r'
+    'theme-defaults.r'
+    'theme-current.R'
     'translate-qplot-ggplot.r'
-    'translate-qplot-gpl.r'
     'translate-qplot-lattice.r'
     'utilities-break.r'
     'utilities-grid.r'
     'utilities-help.r'
-    'utilities-layer.r'
     'utilities-matrix.r'
     'utilities-resolution.r'
     'utilities-table.r'
-    'utilities.r'
-    'xxx-digest.r'
     'zxx.r'
     'zzz.r'
+VignetteBuilder: knitr
+RoxygenNote: 6.0.1

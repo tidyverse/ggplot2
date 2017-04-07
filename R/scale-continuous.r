@@ -1,90 +1,157 @@
-#' Continuous position scales (x & y).
-#' 
-#' @param ... common continuous scale parameters: \code{name}, \code{breaks},
-#'  \code{labels}, \code{na.value}, \code{limits} and \code{trans}.  See
-#'  \code{\link{continuous_scale}} for more details
-#' @param expand a numeric vector of length two giving multiplicative and 
-#'   additive expansion constants. These constants ensure that the data is 
-#'   placed some distance away from the axes.
-#' @family position scales
-#' @rdname scale_continuous
-#' @export
-#' @examples
-#' \donttest{
-#' (m <- qplot(rating, votes, data=subset(movies, votes > 1000), 
-#'   na.rm = TRUE))
-#' 
-#' # Manipulating the default position scales lets you:
+#' Position scales for continuous data (x & y)
 #'
+#' \code{scale_x_continuous} and \code{scale_y_continuous} are the default
+#' scales for continuous x and y aesthetics. There are three variants
+#' that set the \code{trans} argument for commonly used transformations:
+#' \code{scale_*_log10}, \code{scale_*_sqrt} and \code{scale_*_reverse}.
+#'
+#' For simple manipulation of labels and limits, you may wish to use
+#' \code{\link{labs}()} and \code{\link{lims}()} instead.
+#'
+#' @inheritParams continuous_scale
+#' @family position scales
+#' @param ... Other arguments passed on to \code{scale_(x|y)_continuous}
+#' @examples
+#' p1 <- ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point()
+#' p1
+#'
+#' # Manipulating the default position scales lets you:
 #' #  * change the axis labels
-#' m + scale_y_continuous("number of votes")
-#' m + scale_y_continuous(expression(votes^alpha))
-#' 
+#' p1 +
+#'   scale_x_continuous("Engine displacement (L)") +
+#'   scale_y_continuous("Highway MPG")
+#'
+#' # You can also use the short-cut labs().
+#' # Use NULL to suppress axis labels
+#' p1 + labs(x = NULL, y = NULL)
+#'
 #' #  * modify the axis limits
-#' m + scale_y_continuous(limits=c(0, 5000))
-#' m + scale_y_continuous(limits=c(1000, 10000))
-#' m + scale_x_continuous(limits=c(7, 8))
-#' 
-#' # you can also use the short hand functions xlim and ylim
-#' m + ylim(0, 5000)
-#' m + ylim(1000, 10000)
-#' m + xlim(7, 8)
+#' p1 + scale_x_continuous(limits = c(2, 6))
+#' p1 + scale_x_continuous(limits = c(0, 10))
+#'
+#' # you can also use the short hand functions `xlim()` and `ylim()`
+#' p1 + xlim(2, 6)
 #'
 #' #  * choose where the ticks appear
-#' m + scale_x_continuous(breaks=1:10)
-#' m + scale_x_continuous(breaks=c(1,3,7,9))
+#' p1 + scale_x_continuous(breaks = c(2, 4, 6))
 #'
-#' #  * manually label the ticks
-#' m + scale_x_continuous(breaks=c(2,5,8), labels=c("two", "five", "eight"))
-#' m + scale_x_continuous(breaks=c(2,5,8), labels=c("horrible", "ok", "awesome"))
-#' m + scale_x_continuous(breaks=c(2,5,8), labels=expression(Alpha, Beta, Omega))
-#' 
-#' # There are a few built in transformation that you can use:
-#' m + scale_y_log10()
-#' m + scale_y_sqrt()
-#' m + scale_y_reverse()
-#' # You can also create your own and supply them to the trans argument.
-#' # See ?scale::trans_new
-#' 
-#' # You can control the formatting of the labels with the formatter
-#' # argument.  Some common formats are built into the scales package:
-#' x <- rnorm(10) * 100000
-#' y <- seq(0, 1, length = 10)
-#' p <- qplot(x, y)
-#' library(scales)
-#' p + scale_y_continuous(labels = percent)
-#' p + scale_y_continuous(labels = dollar)
-#' p + scale_x_continuous(labels = comma)
-#' 
-#' # qplot allows you to do some of this with a little less typing:
-#' #   * axis limits
-#' qplot(rating, votes, data=movies, ylim=c(1e4, 5e4))
-#' #   * axis labels
-#' qplot(rating, votes, data=movies, xlab="My x axis", ylab="My y axis")
-#' #   * log scaling
-#' qplot(rating, votes, data=movies, log="xy")
-#' }
-scale_x_continuous <- function(..., expand = waiver()) {
-  continuous_scale(c("x", "xmin", "xmax", "xend", "xintercept"), "position_c", identity,
-    ..., expand = expand, guide = "none")
+#' #  * add what labels they have
+#' p1 + scale_x_continuous(
+#'   breaks = c(2, 4, 6),
+#'   label = c("two", "four", "six")
+#' )
+#'
+#' # Typically you'll pass a function to the `labels` argument.
+#' # Some common formats are built into the scales package:
+#' df <- data.frame(
+#'   x = rnorm(10) * 100000,
+#'   y = seq(0, 1, length.out = 10)
+#' )
+#' p2 <- ggplot(df, aes(x, y)) + geom_point()
+#' p2 + scale_y_continuous(labels = scales::percent)
+#' p2 + scale_y_continuous(labels = scales::dollar)
+#' p2 + scale_x_continuous(labels = scales::comma)
+#'
+#' # You can also override the default linear mapping by using a
+#' # transformation. There are three shortcuts:
+#' p1 + scale_y_log10()
+#' p1 + scale_y_sqrt()
+#' p1 + scale_y_reverse()
+#'
+#' # Or you can supply a transformation in the `trans` argument:
+#' p1 + scale_y_continuous(trans = scales::reciprocal_trans())
+#'
+#' # You can also create your own. See ?scales::trans_new
+#' @name scale_continuous
+#' @aliases NULL
+NULL
+
+#' @rdname scale_continuous
+#'
+#' @param sec.axis specifify a secondary axis
+#'
+#' @seealso \code{\link{sec_axis}} for how to specify secondary axes
+#' @export
+scale_x_continuous <- function(name = waiver(), breaks = waiver(),
+                               minor_breaks = waiver(), labels = waiver(),
+                               limits = NULL, expand = waiver(), oob = censor,
+                               na.value = NA_real_, trans = "identity",
+                               position = "bottom", sec.axis = waiver()) {
+  sc <- continuous_scale(
+    c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper"),
+    "position_c", identity, name = name, breaks = breaks,
+    minor_breaks = minor_breaks, labels = labels, limits = limits,
+    expand = expand, oob = oob, na.value = na.value, trans = trans,
+    guide = "none", position = position, super = ScaleContinuousPosition
+  )
+  if (!is.waive(sec.axis)) {
+    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
+    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
+    sc$secondary.axis <- sec.axis
+  }
+  sc
 }
 
 #' @rdname scale_continuous
 #' @export
-scale_y_continuous <- function(..., expand = waiver()) {
-  continuous_scale(c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final"), "position_c", identity,
-    ..., expand = expand, guide = "none")
+scale_y_continuous <- function(name = waiver(), breaks = waiver(),
+                               minor_breaks = waiver(), labels = waiver(),
+                               limits = NULL, expand = waiver(), oob = censor,
+                               na.value = NA_real_, trans = "identity",
+                               position = "left", sec.axis = waiver()) {
+  sc <- continuous_scale(
+    c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper"),
+    "position_c", identity, name = name, breaks = breaks,
+    minor_breaks = minor_breaks, labels = labels, limits = limits,
+    expand = expand, oob = oob, na.value = na.value, trans = trans,
+    guide = "none", position = position, super = ScaleContinuousPosition
+  )
+  if (!is.waive(sec.axis)) {
+    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
+    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
+    sc$secondary.axis <- sec.axis
+  }
+  sc
 }
 
 
-# Position aesthetics don't map, because the coordinate system takes
-# care of it. But they do need to be made in to doubles, so stat methods
-# can tell the difference between continuous and discrete data.
-#' @S3method scale_map position_c
-scale_map.position_c <- function(scale, x, limits = scale_limits(scale)) {
-  scaled <- as.numeric(scale$oob(x, limits))
-  ifelse(!is.na(scaled), scaled, scale$na.value)
-}
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
+  secondary.axis = waiver(),
+  # Position aesthetics don't map, because the coordinate system takes
+  # care of it. But they do need to be made in to doubles, so stat methods
+  # can tell the difference between continuous and discrete data.
+  map = function(self, x, limits = self$get_limits()) {
+    scaled <- as.numeric(self$oob(x, limits))
+    ifelse(!is.na(scaled), scaled, self$na.value)
+  },
+  break_info = function(self, range = NULL) {
+    breaks <- ggproto_parent(ScaleContinuous, self)$break_info(range)
+    if (!(is.waive(self$secondary.axis) || self$secondary.axis$empty())) {
+      self$secondary.axis$init(self)
+      breaks <- c(breaks, self$secondary.axis$break_info(breaks$range, self))
+    }
+    breaks
+  },
+  sec_name = function(self) {
+    if (is.waive(self$secondary.axis)) {
+      waiver()
+    } else {
+      self$secondary.axis$name
+    }
+  },
+  make_sec_title = function(self, title) {
+    if (!is.waive(self$secondary.axis)) {
+      self$secondary.axis$make_title(title)
+    } else {
+      ggproto_parent(ScaleContinuous, self)$make_sec_title(title)
+    }
+  }
+)
 
 # Transformed scales ---------------------------------------------------------
 

@@ -1,266 +1,325 @@
-#' Polar coordinates.
-#' 
-#' The polar coordinate system is most commonly used for pie charts, which 
+#' Polar coordinates
+#'
+#' The polar coordinate system is most commonly used for pie charts, which
 #' are a stacked bar chart in polar coordinates.
 #'
 #' @param theta variable to map angle to (\code{x} or \code{y})
 #' @param start offset of starting point from 12 o'clock in radians
 #' @param direction 1, clockwise; -1, anticlockwise
 #' @export
-#' @examples 
-#' \donttest{
+#' @examples
 #' # NOTE: Use these plots with caution - polar coordinates has
-#' # major perceptual problems.  The main point of these examples is 
+#' # major perceptual problems.  The main point of these examples is
 #' # to demonstrate how these common plots can be described in the
 #' # grammar.  Use with EXTREME caution.
 #'
-#' # A coxcomb plot = bar chart + polar coordinates
-#' cxc <- ggplot(mtcars, aes(x = factor(cyl))) + 
-#'   geom_bar(width = 1, colour = "black")
-#' cxc + coord_polar()
-#' # A new type of plot?
-#' cxc + coord_polar(theta = "y")
-#' 
-#' # A pie chart = stacked bar chart + polar coordinates
+#' #' # A pie chart = stacked bar chart + polar coordinates
 #' pie <- ggplot(mtcars, aes(x = factor(1), fill = factor(cyl))) +
 #'  geom_bar(width = 1)
 #' pie + coord_polar(theta = "y")
 #'
+#' \donttest{
+#'
+#' # A coxcomb plot = bar chart + polar coordinates
+#' cxc <- ggplot(mtcars, aes(x = factor(cyl))) +
+#'   geom_bar(width = 1, colour = "black")
+#' cxc + coord_polar()
+#' # A new type of plot?
+#' cxc + coord_polar(theta = "y")
+#'
 #' # The bullseye chart
 #' pie + coord_polar()
-#' 
+#'
 #' # Hadley's favourite pie chart
 #' df <- data.frame(
-#'   variable = c("resembles", "does not resemble"),
-#'   value = c(80, 20)
+#'   variable = c("does not resemble", "resembles"),
+#'   value = c(20, 80)
 #' )
-#' ggplot(df, aes(x = "", y = value, fill = variable)) + 
-#'   geom_bar(width = 1, stat = "identity") +
-#'   scale_fill_manual(values = c("red", "yellow")) + 
+#' ggplot(df, aes(x = "", y = value, fill = variable)) +
+#'   geom_col(width = 1) +
+#'   scale_fill_manual(values = c("red", "yellow")) +
 #'   coord_polar("y", start = pi / 3) +
 #'   labs(title = "Pac man")
-#' 
+#'
 #' # Windrose + doughnut plot
+#' if (require("ggplot2movies")) {
 #' movies$rrating <- cut_interval(movies$rating, length = 1)
 #' movies$budgetq <- cut_number(movies$budget, 4)
-#' 
+#'
 #' doh <- ggplot(movies, aes(x = rrating, fill = budgetq))
-#' 
+#'
 #' # Wind rose
 #' doh + geom_bar(width = 1) + coord_polar()
 #' # Race track plot
 #' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 #' }
+#' }
 coord_polar <- function(theta = "x", start = 0, direction = 1) {
   theta <- match.arg(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
-  
-  coord(
-    theta = theta, r = r, 
-    start = start, direction = sign(direction),
-    subclass = "polar"
+
+  ggproto(NULL, CoordPolar,
+    theta = theta,
+    r = r,
+    start = start,
+    direction = sign(direction)
   )
 }
 
-#' @S3method coord_aspect polar
-coord_aspect.polar <- function(coord, details) 1
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+CoordPolar <- ggproto("CoordPolar", Coord,
 
-#' @S3method coord_distance polar
-coord_distance.polar <- function(coord, x, y, details) {
-  if (coord$theta == "x") {
-    r <- rescale(y, from = details$r.range)
-    theta <- theta_rescale_no_clip(coord, x, details)
-  } else {
-    r <- rescale(x, from = details$r.range)
-    theta <- theta_rescale_no_clip(coord, y, details)
-  }
+  aspect = function(details) 1,
 
-  dist_polar(r, theta)
-}
-
-#' @S3method coord_range polar
-coord_range.polar <- function(coord, scales) {
-  setNames(list(scales$theta.range, scales$r.range), c(coord$theta, coord$r))
-}
-
-#' @S3method coord_train polar
-coord_train.polar <- function(coord, scales) {
-
-  ret <- list(x = list(), y = list())
-  for (n in c("x", "y")) {
-
-    scale <- scales[[n]]
-    limits <- coord$limits[[n]]
-    
-    if (is.null(limits)) {
-      expand <- coord_expand_defaults(coord, scale, n)
-      range <- scale_dimension(scale, expand)
+  distance = function(self, x, y, details) {
+    if (self$theta == "x") {
+      r <- rescale(y, from = details$r.range)
+      theta <- theta_rescale_no_clip(self, x, details)
     } else {
-      range <- range(scale_transform(scale, limits))
+      r <- rescale(x, from = details$r.range)
+      theta <- theta_rescale_no_clip(self, y, details)
     }
 
-    out <- scale_break_info(scale, range)
-    ret[[n]]$range <- out$range
-    ret[[n]]$major <- out$major_source
-    ret[[n]]$minor <- out$minor_source
-    ret[[n]]$labels <- out$labels
+    dist_polar(r, theta)
+  },
+
+  range = function(self, panel_params) {
+    setNames(
+      list(panel_params$theta.range, panel_params$r.range),
+      c(self$theta, self$r)
+    )
+  },
+
+  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+
+    ret <- list(x = list(), y = list())
+    for (n in c("x", "y")) {
+
+      scale <- get(paste0("scale_", n))
+      limits <- self$limits[[n]]
+
+      if (is.null(limits)) {
+        if (self$theta == n) {
+          expand <- expand_default(scale, c(0, 0.5), c(0, 0))
+        } else {
+          expand <- expand_default(scale, c(0, 0),   c(0, 0))
+        }
+        range <- scale$dimension(expand)
+      } else {
+        range <- range(scale_transform(scale, limits))
+      }
+
+      out <- scale$break_info(range)
+      ret[[n]]$range <- out$range
+      ret[[n]]$major <- out$major_source
+      ret[[n]]$minor <- out$minor_source
+      ret[[n]]$labels <- out$labels
+    }
+
+    details = list(
+      x.range = ret$x$range, y.range = ret$y$range,
+      x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
+      y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels
+    )
+
+    if (self$theta == "y") {
+      names(details) <- gsub("x\\.", "r.", names(details))
+      names(details) <- gsub("y\\.", "theta.", names(details))
+      details$r.arrange <- scale_x$axis_order()
+    } else {
+      names(details) <- gsub("x\\.", "theta.", names(details))
+      names(details) <- gsub("y\\.", "r.", names(details))
+      details$r.arrange <- scale_y$axis_order()
+    }
+
+    details
+  },
+
+  transform = function(self, data, panel_params) {
+    data <- rename_data(self, data)
+
+    data$r  <- r_rescale(self, data$r, panel_params)
+    data$theta <- theta_rescale(self, data$theta, panel_params)
+    data$x <- data$r * sin(data$theta) + 0.5
+    data$y <- data$r * cos(data$theta) + 0.5
+
+    data
+  },
+
+  render_axis_v = function(self, panel_params, theme) {
+    arrange <- panel_params$r.arrange %||% c("primary", "secondary")
+
+    x <- r_rescale(self, panel_params$r.major, panel_params) + 0.5
+    guide_axis(x, panel_params$r.labels, "left", theme)
+    axes <- list(
+      left = guide_axis(x, panel_params$r.labels, "left", theme),
+      right = guide_axis(x, panel_params$r.labels, "right", theme)
+    )
+    axes[[which(arrange == "secondary")]] <- zeroGrob()
+    axes
+  },
+
+  render_axis_h = function(panel_params, theme) {
+    list(
+      top = zeroGrob(),
+      bottom = guide_axis(NA, "", "bottom", theme)
+    )
+  },
+
+  render_bg = function(self, panel_params, theme) {
+    panel_params <- rename_data(self, panel_params)
+
+    theta <- if (length(panel_params$theta.major) > 0)
+      theta_rescale(self, panel_params$theta.major, panel_params)
+    thetamin <- if (length(panel_params$theta.minor) > 0)
+      theta_rescale(self, panel_params$theta.minor, panel_params)
+    thetafine <- seq(0, 2 * pi, length.out = 100)
+
+    rfine <- c(r_rescale(self, panel_params$r.major, panel_params), 0.45)
+
+    # This gets the proper theme element for theta and r grid lines:
+    #   panel.grid.major.x or .y
+    majortheta <- paste("panel.grid.major.", self$theta, sep = "")
+    minortheta <- paste("panel.grid.minor.", self$theta, sep = "")
+    majorr     <- paste("panel.grid.major.", self$r,     sep = "")
+
+    ggname("grill", grobTree(
+      element_render(theme, "panel.background"),
+      if (length(theta) > 0) element_render(
+        theme, majortheta, name = "angle",
+        x = c(rbind(0, 0.45 * sin(theta))) + 0.5,
+        y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
+        id.lengths = rep(2, length(theta)),
+        default.units = "native"
+      ),
+      if (length(thetamin) > 0) element_render(
+        theme, minortheta, name = "angle",
+        x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5,
+        y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
+        id.lengths = rep(2, length(thetamin)),
+        default.units = "native"
+      ),
+
+      element_render(
+        theme, majorr, name = "radius",
+        x = rep(rfine, each = length(thetafine)) * sin(thetafine) + 0.5,
+        y = rep(rfine, each = length(thetafine)) * cos(thetafine) + 0.5,
+        id.lengths = rep(length(thetafine), length(rfine)),
+        default.units = "native"
+      )
+    ))
+  },
+
+  render_fg = function(self, panel_params, theme) {
+    if (is.null(panel_params$theta.major)) {
+      return(element_render(theme, "panel.border"))
+    }
+
+    theta <- theta_rescale(self, panel_params$theta.major, panel_params)
+    labels <- panel_params$theta.labels
+
+    # Combine the two ends of the scale if they are close
+    theta <- theta[!is.na(theta)]
+    ends_apart <- (theta[length(theta)] - theta[1]) %% (2 * pi)
+    if (length(theta) > 0 && ends_apart < 0.05) {
+      n <- length(labels)
+      if (is.expression(labels)) {
+        combined <- substitute(paste(a, "/", b),
+          list(a = labels[[1]], b = labels[[n]]))
+      } else {
+        combined <- paste(labels[1], labels[n], sep = "/")
+      }
+      labels[[n]] <- combined
+      labels <- labels[-1]
+      theta <- theta[-1]
+    }
+
+    grobTree(
+      if (length(labels) > 0) element_render(
+        theme, "axis.text.x",
+        labels, 0.45 * sin(theta) + 0.5, 0.45 * cos(theta) + 0.5,
+        hjust = 0.5, vjust = 0.5,
+        default.units = "native"
+      ),
+      element_render(theme, "panel.border")
+    )
+  },
+
+  render_fg = function(self, panel_params, theme) {
+    if (is.null(panel_params$theta.major)) {
+      return(element_render(theme, "panel.border"))
+    }
+
+    theta <- theta_rescale(self, panel_params$theta.major, panel_params)
+    labels <- panel_params$theta.labels
+
+    # Combine the two ends of the scale if they are close
+    theta <- theta[!is.na(theta)]
+    ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
+    if (length(theta) > 0 && ends_apart < 0.05) {
+      n <- length(labels)
+      if (is.expression(labels)) {
+        combined <- substitute(paste(a, "/", b),
+          list(a = labels[[1]], b = labels[[n]]))
+      } else {
+        combined <- paste(labels[1], labels[n], sep = "/")
+      }
+      labels[[n]] <- combined
+      labels <- labels[-1]
+      theta <- theta[-1]
+    }
+
+    grobTree(
+      if (length(labels) > 0) element_render(
+        theme, "axis.text.x",
+        labels,
+        unit(0.45 * sin(theta) + 0.5, "native"),
+        unit(0.45 * cos(theta) + 0.5, "native"),
+        hjust = 0.5, vjust = 0.5
+      ),
+      element_render(theme, "panel.border")
+    )
+  },
+
+  labels = function(self, panel_params) {
+    if (self$theta == "y") {
+      list(x = panel_params$y, y = panel_params$x)
+    } else {
+      panel_params
+    }
+  },
+
+  modify_scales = function(self, scales_x, scales_y) {
+    if (self$theta != "y")
+      return()
+
+    lapply(scales_x, scale_flip_position)
+    lapply(scales_y, scale_flip_position)
   }
+)
 
-  details <- list(
-    x.range = ret$x$range, y.range = ret$y$range, 
-    x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
-    y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels
-  )
-
-  if (coord$theta == "y") {
-    names(details) <- gsub("x\\.", "r.", names(details))
-    names(details) <- gsub("y\\.", "theta.", names(details))
-  } else {
-    names(details) <- gsub("x\\.", "theta.", names(details))      
-    names(details) <- gsub("y\\.", "r.", names(details))
-  }
-
-  details
-}
 
 rename_data <- function(coord, data) {
   if (coord$theta == "y") {
-    rename(data, c("y" = "theta", "x" = "r"), warn_missing = FALSE)
+    plyr::rename(data, c("y" = "theta", "x" = "r"), warn_missing = FALSE)
   } else {
-    rename(data, c("y" = "r", "x" = "theta"), warn_missing = FALSE)
+    plyr::rename(data, c("y" = "r", "x" = "theta"), warn_missing = FALSE)
   }
 }
 
-theta_rescale_no_clip <- function(coord, x, details) {
+theta_rescale_no_clip <- function(coord, x, panel_params) {
   rotate <- function(x) (x + coord$start) * coord$direction
-  rotate(rescale(x, c(0, 2 * pi), details$theta.range))
+  rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
 }
 
-theta_rescale <- function(coord, x, details) {
+theta_rescale <- function(coord, x, panel_params) {
   rotate <- function(x) (x + coord$start) %% (2 * pi) * coord$direction
-  rotate(rescale(x, c(0, 2 * pi), details$theta.range))
-}
-  
-r_rescale <- function(coord, x, details) {
-  rescale(x, c(0, 0.4), details$r.range)
+  rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
 }
 
-#' @S3method coord_expand_defaults polar
-coord_expand_defaults.polar <- function(coord, scale, aesthetic) {
-  if (coord$theta == aesthetic) {
-    expand_default(scale, c(0, 0.5), c(0, 0))
-  } else {
-    expand_default(scale, c(0, 0),   c(0, 0))
-  }
-}
-
-#' @S3method coord_transform polar
-coord_transform.polar <- function(coord, data, details) {
-  data <- rename_data(coord, data)
-  
-  data$r  <- r_rescale(coord, data$r, details)
-  data$theta <- theta_rescale(coord, data$theta, details)
-  data$x <- data$r * sin(data$theta) + 0.5
-  data$y <- data$r * cos(data$theta) + 0.5
-  
-  data
-}
-
-#' @S3method coord_render_axis_v polar
-coord_render_axis_v.polar <- function(coord, details, theme) {
-  x <- r_rescale(coord,details$r.major, details) + 0.5
-  guide_axis(x, details$r.labels, "left", theme)
-}
-#' @S3method coord_render_axis_h polar
-coord_render_axis_h.polar <- function(coord, details, theme) {
-  guide_axis(NA, "", "bottom", theme)
-}
-
-#' @S3method coord_render_bg polar
-coord_render_bg.polar <- function(coord, details, theme) {
-  details <- rename_data(coord, details)
-  
-  theta <- if (length(details$theta.major) > 0) theta_rescale(coord, details$theta.major, details)
-  thetamin <- if (length(details$theta.minor) > 0) theta_rescale(coord, details$theta.minor, details)
-  thetafine <- seq(0, 2 * pi, length=100)    
-
-  r <- 0.4
-  rfine <- c(r_rescale(coord, details$r.major, details), 0.45)
-
-  # This gets the proper theme element for theta and r grid lines:
-  #   panel.grid.major.x or .y
-  majortheta <- paste("panel.grid.major.", coord$theta, sep = "")
-  minortheta <- paste("panel.grid.minor.", coord$theta, sep = "")
-  majorr     <- paste("panel.grid.major.", coord$r,     sep = "")
-
-  ggname("grill", grobTree(
-    element_render(theme, "panel.background"),
-    if (length(theta) > 0) element_render(
-      theme, majortheta, name = "angle",
-      x = c(rbind(0, 0.45 * sin(theta))) + 0.5, 
-      y = c(rbind(0, 0.45 * cos(theta))) + 0.5,
-      id.lengths = rep(2, length(theta)), 
-      default.units="native"
-    ),
-    if (length(thetamin) > 0) element_render(
-      theme, minortheta, name = "angle",
-      x = c(rbind(0, 0.45 * sin(thetamin))) + 0.5, 
-      y = c(rbind(0, 0.45 * cos(thetamin))) + 0.5,
-      id.lengths = rep(2, length(thetamin)),  
-      default.units="native"
-    ),
-    
-    element_render(
-      theme, majorr, name = "radius",
-      x = rep(rfine, each=length(thetafine)) * sin(thetafine) + 0.5, 
-      y = rep(rfine, each=length(thetafine)) * cos(thetafine) + 0.5,
-      id.lengths = rep(length(thetafine), length(rfine)),
-      default.units="native"
-    )
-  ))
-}
-
-#' @S3method coord_render_fg polar
-coord_render_fg.polar <- function(coord, details, theme) {
-  if (is.null(details$theta.major)) {
-    return(element_render(theme, "panel.border"))
-  }
-  
-  theta <- theta_rescale(coord, details$theta.major, details)
-  labels <- details$theta.labels
-
-  # Combine the two ends of the scale if they are close
-  theta <- theta[!is.na(theta)]
-  ends_apart <- (theta[length(theta)] - theta[1]) %% (2*pi)
-  if (ends_apart < 0.05) {
-    n <- length(labels)
-    if (is.expression(labels)) {
-      combined <- substitute(paste(a, "/", b), 
-        list(a = labels[[1]], b = labels[[n]]))
-    } else {
-      combined <- paste(labels[1], labels[n], sep="/")
-    }
-    labels[[n]] <- combined
-    labels <- labels[-1]
-    theta <- theta[-1]
-  }
-    
-  grobTree(
-    if (length(labels) > 0) element_render(
-      theme, "axis.text.x", 
-      labels, 0.45 * sin(theta) + 0.5, 0.45 * cos(theta) + 0.5,
-      hjust = 0.5, vjust = 0.5,
-      default.units="native"
-    ),      
-    element_render(theme, "panel.border")
-  )
-}  
-
-#' @S3method coord_labels polar
-coord_labels.polar <- function(coord, scales) {
-  if (coord$theta == "y") {
-    list(x = scales$y, y = scales$x)
-  } else {
-    scales
-  }
+r_rescale <- function(coord, x, panel_params) {
+  rescale(x, c(0, 0.4), panel_params$r.range)
 }

@@ -1,37 +1,55 @@
-#' Size scale.
-#' 
+#' Scales for area or radius
+#'
+#' \code{scale_size} scales area, \code{scale_radius} scales radius. The size
+#' aesthetic is most commonly used for points and text, and humans perceive
+#' the area of points (not their radius), so this provides for optimal
+#' perception. \code{scale_size_area} ensures that a value of 0 is mapped
+#' to a size of 0.
+#'
 #' @name scale_size
-#' @inheritParams scale_x_continuous
+#' @inheritParams continuous_scale
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
+#' @seealso \code{\link{scale_size_area}} if you want 0 values to be mapped
+#'   to points with size 0.
 #' @examples
-#' \donttest{
-#' (p <- qplot(mpg, cyl, data=mtcars, size=cyl))
-#' p + scale_size("cylinders")
-#' p + scale_size("number\nof\ncylinders")
-#' 
+#' p <- ggplot(mpg, aes(displ, hwy, size = hwy)) +
+#'    geom_point()
+#' p
+#' p + scale_size("Highway mpg")
 #' p + scale_size(range = c(0, 10))
-#' p + scale_size(range = c(1, 2))
-#' 
-#' # Map area, instead of width/radius
-#' # Perceptually, this is a little better
-#' p + scale_area()
-#' p + scale_area(range = c(1, 25))
-#' 
-#' # Also works with factors, but not a terribly good
-#' # idea, unless your factor is ordered, as in this example
-#' qplot(mpg, cyl, data=mtcars, size=factor(cyl))
-#' 
-#' # To control the size mapping for discrete variable, use 
-#' # scale_size_manual:
-#' last_plot() + scale_size_manual(values=c(2,4,6))
-#' }
+#'
+#' # If you want zero value to have zero size, use scale_size_area:
+#' p + scale_size_area()
+#'
+#' # This is most useful when size is a count
+#' ggplot(mpg, aes(class, cyl)) +
+#'   geom_count() +
+#'   scale_size_area()
+#'
+#' # If you want to map size to radius (usually bad idea), use scale_radius
+#' p + scale_radius()
 NULL
 
 #' @rdname scale_size
 #' @export
-scale_size_continuous <- function(..., range = c(1, 6)) {
-  continuous_scale("size", "size_c", rescale_pal(range), ...)
+#' @usage NULL
+scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
+                                  limits = NULL, range = c(1, 6),
+                                  trans = "identity", guide = "legend") {
+  continuous_scale("size", "area", area_pal(range), name = name,
+    breaks = breaks, labels = labels, limits = limits, trans = trans,
+    guide = guide)
+}
+
+#' @rdname scale_size
+#' @export
+scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
+                         limits = NULL, range = c(1, 6),
+                         trans = "identity", guide = "legend") {
+  continuous_scale("size", "radius", rescale_pal(range), name = name,
+    breaks = breaks, labels = labels, limits = limits, trans = trans,
+    guide = guide)
 }
 
 #' @rdname scale_size
@@ -40,26 +58,37 @@ scale_size <- scale_size_continuous
 
 #' @rdname scale_size
 #' @export
-scale_size_discrete <- function(..., range = c(1, 6)) {
-  discrete_scale("size", "size_d",
-    function(n) seq(range[1], range[2], length = n), ...)
+#' @usage NULL
+scale_size_discrete <- function(..., range = c(2, 6)) {
+  warning("Using size for a discrete variable is not advised.", call. = FALSE)
+  discrete_scale("size", "size_d", function(n) {
+    area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
+    sqrt(area)
+  }, ...)
 }
 
-#' Scale area instead of radius, for size.
-#'
-#' When \code{scale_size_area} is used, the default behavior is to scale the
-#' area of points to be proportional to the value.
-#'
-#' Note that this controls the size scale, so it will also control
-#' the thickness of lines. Line thickness will be proportional to the square
-#' root of the value, which is probably undesirable in most cases.
-#'
 #' @param ... Other arguments passed on to \code{\link{continuous_scale}}
 #'   to control name, limits, breaks, labels and so forth.
 #' @param max_size Size of largest points.
 #' @export
+#' @rdname scale_size
 scale_size_area <- function(..., max_size = 6) {
   continuous_scale("size", "area",
     palette = abs_area(max_size),
     rescaler = rescale_max, ...)
 }
+
+#' @rdname scale_size
+#' @export
+#' @usage NULL
+scale_size_datetime <- function() {
+  scale_size_continuous(trans = "time")
+}
+
+#' @rdname scale_size
+#' @export
+#' @usage NULL
+scale_size_date <- function() {
+  scale_size_continuous(trans = "date")
+}
+

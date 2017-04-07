@@ -4,6 +4,7 @@
 #'  \code{summary.glht} or \code{\link[multcomp]{cld}}
 #' @param data,... other arguments to the generic ignored in this method.
 #' @name fortify-multcomp
+#' @keywords internal
 #' @examples
 #' if (require("multcomp")) {
 #' amod <- aov(breaks ~ wool + tension, data = warpbreaks)
@@ -19,8 +20,8 @@
 #'
 #' fortify(summary(wht))
 #' ggplot(mapping = aes(lhs, estimate)) +
-#'    geom_linerange(aes(ymin = lwr, ymax = upr), data = CI) + 
-#'    geom_point(aes(size = p), data = summary(wht)) + 
+#'    geom_linerange(aes(ymin = lwr, ymax = upr), data = CI) +
+#'    geom_point(aes(size = p), data = summary(wht)) +
 #'    scale_size(trans = "reverse")
 #'
 #' cld <- cld(wht)
@@ -32,11 +33,11 @@ NULL
 #' @rdname fortify-multcomp
 #' @export
 fortify.glht <- function(model, data, ...) {
-  unrowname(data.frame(
+  plyr::unrowname(data.frame(
     lhs = rownames(model$linfct),
     rhs = model$rhs,
-    estimate = coef(model), 
-    check.names = FALSE, 
+    estimate = stats::coef(model),
+    check.names = FALSE,
     stringsAsFactors = FALSE))
 }
 
@@ -46,12 +47,12 @@ fortify.glht <- function(model, data, ...) {
 fortify.confint.glht <- function(model, data, ...) {
   coef <- model$confint
   colnames(coef) <- tolower(colnames(coef))
-  
-  unrowname(data.frame(
+
+  plyr::unrowname(data.frame(
     lhs = rownames(coef),
     rhs = model$rhs,
     coef,
-    check.names = FALSE, 
+    check.names = FALSE,
     stringsAsFactors = FALSE))
 }
 
@@ -62,12 +63,12 @@ fortify.summary.glht <- function(model, data, ...) {
   coef <- as.data.frame(
     model$test[c("coefficients", "sigma", "tstat", "pvalues")])
   names(coef) <- c("estimate", "se", "t", "p")
-  
-  unrowname(data.frame(
+
+  plyr::unrowname(data.frame(
     lhs = rownames(coef),
     rhs = model$rhs,
     coef,
-    check.names = FALSE, 
+    check.names = FALSE,
     stringsAsFactors = FALSE))
 }
 
@@ -76,9 +77,9 @@ fortify.summary.glht <- function(model, data, ...) {
 #' @rdname fortify-multcomp
 #' @export
 fortify.cld <- function(model, data, ...) {
-  unrowname(data.frame(
+  plyr::unrowname(data.frame(
     lhs = names(model$mcletters$Letters),
     letters = model$mcletters$Letters,
-    check.names = FALSE, 
+    check.names = FALSE,
     stringsAsFactors = FALSE))
 }

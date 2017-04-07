@@ -1,97 +1,104 @@
-#' Tile plane with rectangles.
+#' Rectangles
 #'
-#' Similar to \code{\link{levelplot}} and \code{\link{image}}.
+#' \code{geom_rect} and \code{geom_tile} do the same thing, but are
+#' parameterised differently: \code{geom_rect} uses the locations of the four
+#' corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
+#' \code{geom_tile} uses the center of the tile and its size (\code{x},
+#' \code{y}, \code{width}, \code{height}). \code{geom_raster} is a high
+#' performance special case for when all the tiles are the same size.
 #'
-#' @section Aesthetics: 
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("geom", "tile")}
+#' @section Aesthetics:
+#' \aesthetics{geom}{tile}
 #'
+#' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
 #' @examples
-#' \donttest{
-#' # Generate data
-#' pp <- function (n,r=4) {
-#'  x <- seq(-r*pi, r*pi, len=n)
-#'  df <- expand.grid(x=x, y=x)
-#'  df$r <- sqrt(df$x^2 + df$y^2)
-#'  df$z <- cos(df$r^2)*exp(-df$r/6)
-#'  df
-#' }
-#' p <- ggplot(pp(20), aes(x=x,y=y))
-#' 
-#' p + geom_tile() #pretty useless!
-#' 
-#' # Add aesthetic mappings
-#' p + geom_tile(aes(fill=z))
-#' 
-#' # Change scale
-#' p + geom_tile(aes(fill=z)) + scale_fill_gradient(low="green", high="red")
-#' 
-#' # Use qplot instead
-#' qplot(x, y, data=pp(20), geom="tile", fill=z)
-#' qplot(x, y, data=pp(100), geom="tile", fill=z)
-#' 
-#' # Missing values
-#' p <- ggplot(pp(20)[sample(20*20, size=200),], aes(x=x,y=y,fill=z))
-#' p + geom_tile()
-#' 
-#' # Input that works with image
-#' image(t(volcano)[ncol(volcano):1,])
-#' library(reshape2) # for melt
-#' ggplot(melt(volcano), aes(x=Var1, y=Var2, fill=value)) + geom_tile()
-#' 
-#' # inspired by the image-density plots of Ken Knoblauch
-#' cars <- ggplot(mtcars, aes(y=factor(cyl), x=mpg))
-#' cars + geom_point()
-#' cars + stat_bin(aes(fill=..count..), geom="tile", binwidth=3, position="identity")
-#' cars + stat_bin(aes(fill=..density..), geom="tile", binwidth=3, position="identity")
-#' 
-#' cars + stat_density(aes(fill=..density..), geom="tile", position="identity")
-#' cars + stat_density(aes(fill=..count..), geom="tile", position="identity")
-#' 
-#' # Another example with with unequal tile sizes
-#' x.cell.boundary <- c(0, 4, 6, 8, 10, 14)
-#' example <- data.frame(
+#' # The most common use for rectangles is to draw a surface. You always want
+#' # to use geom_raster here because it's so much faster, and produces
+#' # smaller output when saving to PDF
+#' ggplot(faithfuld, aes(waiting, eruptions)) +
+#'  geom_raster(aes(fill = density))
+#'
+#' # Interpolation smooths the surface & is most helpful when rendering images.
+#' ggplot(faithfuld, aes(waiting, eruptions)) +
+#'  geom_raster(aes(fill = density), interpolate = TRUE)
+#'
+#' # If you want to draw arbitrary rectangles, use geom_tile() or geom_rect()
+#' df <- data.frame(
 #'   x = rep(c(2, 5, 7, 9, 12), 2),
-#'   y = factor(rep(c(1,2), each=5)),
-#'   z = rep(1:5, each=2),
-#'   w = rep(diff(x.cell.boundary), 2)
+#'   y = rep(c(1, 2), each = 5),
+#'   z = factor(rep(1:5, each = 2)),
+#'   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
 #' )
-#' 
-#' qplot(x, y, fill=z, data=example, geom="tile")
-#' qplot(x, y, fill=z, data=example, geom="tile", width=w)
-#' qplot(x, y, fill=factor(z), data=example, geom="tile", width=w)
-#' 
-#' # You can manually set the colour of the tiles using 
-#' # scale_manual
-#' col <- c("darkblue", "blue", "green", "orange", "red")
-#' qplot(x, y, fill=col[z], data=example, geom="tile", width=w, group=1) + scale_fill_identity(labels=letters[1:5], breaks=col)
+#' ggplot(df, aes(x, y)) +
+#'   geom_tile(aes(fill = z))
+#' ggplot(df, aes(x, y)) +
+#'   geom_tile(aes(fill = z, width = w), colour = "grey50")
+#' ggplot(df, aes(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1)) +
+#'   geom_rect(aes(fill = z, width = w), colour = "grey50")
+#'
+#' \donttest{
+#' # Justification controls where the cells are anchored
+#' df <- expand.grid(x = 0:5, y = 0:5)
+#' df$z <- runif(nrow(df))
+#' # default is compatible with geom_tile()
+#' ggplot(df, aes(x, y, fill = z)) + geom_raster()
+#' # zero padding
+#' ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0)
+#'
+#' # Inspired by the image-density plots of Ken Knoblauch
+#' cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
+#' cars + geom_point()
+#' cars + stat_bin2d(aes(fill = ..count..), binwidth = c(3,1))
+#' cars + stat_bin2d(aes(fill = ..density..), binwidth = c(3,1))
+#'
+#' cars + stat_density(aes(fill = ..density..), geom = "raster", position = "identity")
+#' cars + stat_density(aes(fill = ..count..), geom = "raster", position = "identity")
 #' }
-geom_tile <- function (mapping = NULL, data = NULL, stat = "identity", position = "identity", ...) { 
-  GeomTile$new(mapping = mapping, data = data, stat = stat, position = position, ...)
+geom_tile <- function(mapping = NULL, data = NULL,
+                      stat = "identity", position = "identity",
+                      ...,
+                      na.rm = FALSE,
+                      show.legend = NA,
+                      inherit.aes = TRUE) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomTile,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      ...
+    )
+  )
 }
 
-GeomTile <- proto(Geom, {
-  objname <- "tile"
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+#' @include geom-rect.r
+GeomTile <- ggproto("GeomTile", GeomRect,
+  extra_params = c("na.rm", "width", "height"),
 
-  reparameterise <- function(., df, params) {
-    df$width <- df$width %||% params$width %||% resolution(df$x, FALSE)
-    df$height <- df$height %||% params$height %||% resolution(df$y, FALSE)
+  setup_data = function(data, params) {
+    data$width <- data$width %||% params$width %||% resolution(data$x, FALSE)
+    data$height <- data$height %||% params$height %||% resolution(data$y, FALSE)
 
-    transform(df, 
+    transform(data,
       xmin = x - width / 2,  xmax = x + width / 2,  width = NULL,
-      ymin = y - height / 2, ymax = y + height / 2, height = NULL 
+      ymin = y - height / 2, ymax = y + height / 2, height = NULL
     )
-  }
+  },
 
-  draw_groups <- function(., data,  scales, coordinates, ...) {
-    # data$colour[is.na(data$colour)] <- data$fill[is.na(data$colour)]
-    GeomRect$draw_groups(data, scales, coordinates, ...)
-  }
+  default_aes = aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1,
+    alpha = NA),
 
+  required_aes = c("x", "y"),
 
-  default_stat <- function(.) StatIdentity
-  default_aes <- function(.) aes(fill="grey20", colour=NA, size=0.1, linetype=1, alpha = NA)
-  required_aes <- c("x", "y")
-  guide_geom <- function(.) "polygon"
-})
+  draw_key = draw_key_polygon
+)

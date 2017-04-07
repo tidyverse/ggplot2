@@ -1,10 +1,11 @@
 #' Update axis/legend labels
-#' 
+#'
 #' @param p plot to modify
 #' @param labels named list of new labels
+#' @keywords internal
 #' @export
 #' @examples
-#' p <- qplot(mpg, wt, data = mtcars)
+#' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
 #' update_labels(p, list(x = "New x"))
 #' update_labels(p, list(x = expression(x / y ^ 2)))
 #' update_labels(p, list(x = "New x", y = "New Y"))
@@ -15,30 +16,37 @@ update_labels <- function(p, labels) {
   p
 }
 
-#' Change axis labels and legend titles
-#' 
-#' @param label The text for the axis or plot title.
-#' @param ... a list of new names in the form aesthetic = "new name"
+#' Modify axis, legend, and plot labels
+#'
+#' Good labels are critical for making your plots accessible to a wider
+#' audience. Ensure the axis and legend labels display the full variable name.
+#' Use the plot \code{title} and \code{subtitle} to explain the main findings.
+#' It's common to use the \code{caption} to provide information about the
+#' data source.
+#'
+#' You can also set axis and legend labels in the individual scales (using
+#' the first argument, the \code{name}. I recommend doing that if you're
+#' changing other scale options.
+#'
+#' @param label The text for the axis, plot title or caption below the plot.
+#' @param subtitle the text for the subtitle for the plot which will be
+#'        displayed below the title. Leave \code{NULL} for no subtitle.
+#' @param ... A list of new name-value pairs. The name should either be
+#'   an aesthetic, or one of "title", "subtitle", or "caption".
 #' @export
 #' @examples
-#' p <- qplot(mpg, wt, data = mtcars)
-#' p + labs(title = "New plot title")
-#' p + labs(x = "New x label")
-#' p + xlab("New x label")
-#' p + ylab("New y label")
-#' p + ggtitle("New plot title")
-#'
-#' # This should work indepdendently of other functions that modify the 
-#' # the scale names
-#' p + ylab("New y label") + ylim(2, 4)
-#' p + ylim(2, 4) + ylab("New y label")
-#'
-#' # The labs function also modifies legend labels
-#' p <- qplot(mpg, wt, data = mtcars, colour = cyl)
+#' p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
 #' p + labs(colour = "Cylinders")
+#' p + labs(x = "New x label")
 #'
-#' # Can also pass in a list, if that is more convenient
-#' p + labs(list(title = "Title", x = "X", y = "Y")) 
+#' # The plot title appears at the top-left, with the subtitle
+#' # display in smaller text underneath it
+#' p + labs(title = "New plot title")
+#' p + labs(title = "New plot title", subtitle = "A subtitle")
+#'
+#' # The caption appears in the bottom-right, and is often used for
+#' # sources, notes or copyright
+#' p + labs(caption = "(based on data from ...)")
 labs <- function(...) {
   args <- list(...)
   if (is.list(args[[1]])) args <- args[[1]]
@@ -51,22 +59,32 @@ labs <- function(...) {
 xlab <- function(label) {
   labs(x = label)
 }
+
 #' @rdname labs
 #' @export
 ylab <- function(label) {
   labs(y = label)
 }
+
 #' @rdname labs
 #' @export
-ggtitle <- function(label) {
-  labs(title = label)
+ggtitle <- function(label, subtitle = NULL) {
+  labs(title = label, subtitle = subtitle)
 }
 
 # Convert aesthetic mapping into text labels
 make_labels <- function(mapping) {
   remove_dots <- function(x) {
-    gsub("\\.\\.([a-zA-z._]+)\\.\\.", "\\1", x)
+    gsub(match_calculated_aes, "\\1", x)
   }
-  
-  lapply(mapping, function(x) remove_dots(deparse(x)))
+
+  default_label <- function(aesthetic, mapping) {
+    # e.g., geom_smooth(aes(colour = "loess"))
+    if (is.character(mapping)) {
+      aesthetic
+    } else {
+      remove_dots(deparse(mapping))
+    }
+  }
+  Map(default_label, names(mapping), mapping)
 }

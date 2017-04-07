@@ -1,150 +1,150 @@
-#' Bin data.
-#' 
-#' Missing values are currently silently dropped.
+#' \code{stat_bin} is suitable only for continuous x data. If your x data is
+#'   discrete, you probably want to use \code{\link{stat_count}}.
 #'
-#' @section Aesthetics: 
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin")}
+#' @param binwidth The width of the bins. Can be specified as a numeric value,
+#'   or a function that calculates width from x.
+#'   The default is to use \code{bins}
+#'   bins that cover the range of the data. You should always override
+#'   this value, exploring multiple widths to find the best to illustrate the
+#'   stories in your data.
 #'
-#' @inheritParams stat_identity
-#' @param binwidth Bin width to use. Defaults to 1/30 of the range of the
-#'   data
-#' @param breaks Actual breaks to use.  Overrides bin width and origin 
-#' @param origin Origin of first bin 
-#' @param width Width of bars when used with categorical data 
-#' @param right If \code{TRUE}, right-closed, left-open, if \code{FALSE}, 
-#'   the default, right-open, left-closed.
-#' @param drop If TRUE, remove all bins with zero counts
-#' @return New data frame with additional columns:
+#'   The bin width of a date variable is the number of days in each time; the
+#'   bin width of a time variable is the number of seconds.
+#' @param bins Number of bins. Overridden by \code{binwidth}. Defaults to 30
+#' @param center The center of one of the bins.  Note that if center is above or
+#'   below the range of the data, things will be shifted by an appropriate
+#'   number of \code{width}s. To center on integers, for example, use
+#'   \code{width = 1} and \code{center = 0}, even if \code{0} is outside the range
+#'   of the data.  At most one of \code{center} and \code{boundary} may be
+#'   specified.
+#' @param boundary A boundary between two bins. As with \code{center}, things
+#'   are shifted when \code{boundary} is outside the range of the data. For
+#'   example, to center on integers, use \code{width = 1} and \code{boundary =
+#'   0.5}, even if \code{0.5} is outside the range of the data.  At most one of
+#'   \code{center} and \code{boundary} may be specified.
+#' @param breaks Alternatively, you can supply a numeric vector giving
+#'    the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+#'    and \code{boundary}.
+#' @param closed One of \code{"right"} or \code{"left"} indicating whether right
+#'   or left edges of bins are included in the bin.
+#' @param pad If \code{TRUE}, adds empty bins at either end of x. This ensures
+#'   frequency polygons touch 0. Defaults to \code{FALSE}.
+#' @section Computed variables:
+#' \describe{
 #'   \item{count}{number of points in bin}
 #'   \item{density}{density of points in bin, scaled to integrate to 1}
 #'   \item{ncount}{count, scaled to maximum of 1}
 #'   \item{ndensity}{density, scaled to maximum of 1}
-#' @export
-#' @examples
-#' \donttest{
-#' simple <- data.frame(x = rep(1:10, each = 2))
-#' base <- ggplot(simple, aes(x))
-#' # By default, right = FALSE intervals are of the form [a, b)
-#' base + stat_bin(binwidth = 1, drop = FALSE, right = FALSE, col = "black")
-#' # If right = TRUE, and intervals are of the form (a, b]
-#' base + stat_bin(binwidth = 1, drop = FALSE, right = TRUE, col = "black")
-#' 
-#' m <- ggplot(movies, aes(x=rating))
-#' m + stat_bin()
-#' m + stat_bin(binwidth=0.1)
-#' m + stat_bin(breaks=seq(4,6, by=0.1))
-#' # See geom_histogram for more histogram examples
-#' 
-#' # To create a unit area histogram, use aes(y = ..density..)
-#' (linehist <- m + stat_bin(aes(y = ..density..), binwidth=0.1,
-#'   geom="line", position="identity"))
-#' linehist + stat_density(colour="blue", fill=NA)
-#' 
-#' # Also works with categorical variables
-#' ggplot(movies, aes(x=mpaa)) + stat_bin()
-#' qplot(mpaa, data=movies, stat="bin")
 #' }
-stat_bin <- function (mapping = NULL, data = NULL, geom = "bar", position = "stack", 
-width = 0.9, drop = FALSE, right = FALSE, binwidth = NULL, origin = NULL, breaks = NULL, ...) { 
-  StatBin$new(mapping = mapping, data = data, geom = geom, position = position, 
-  width = width, drop = drop, right = right, binwidth = binwidth, origin = origin, breaks = breaks, ...)
-}
+#'
+#' @seealso \code{\link{stat_count}}, which counts the number of cases at each x
+#'   posotion, without binning. It is suitable for both discrete and continuous
+#'   x data, whereas \link{stat_bin} is suitable only for continuous x data.
+#' @export
+#' @rdname geom_histogram
+stat_bin <- function(mapping = NULL, data = NULL,
+                     geom = "bar", position = "stack",
+                     ...,
+                     binwidth = NULL,
+                     bins = NULL,
+                     center = NULL,
+                     boundary = NULL,
+                     breaks = NULL,
+                     closed = c("right", "left"),
+                     pad = FALSE,
+                     na.rm = FALSE,
+                     show.legend = NA,
+                     inherit.aes = TRUE) {
 
-StatBin <- proto(Stat, {
-  objname <- "bin"
-  informed <- FALSE
-  
-  calculate_groups <- function(., data, ...) {
-    if (!is.null(data$y) || !is.null(match.call()$y)) {
-      # Deprecate this behavior
-      gg_dep("0.9.2", paste(sep = "\n",
-        "Mapping a variable to y and also using stat=\"bin\".",
-        "  With stat=\"bin\", it will attempt to set the y value to the count of cases in each group.",
-        "  This can result in unexpected behavior and will not be allowed in a future version of ggplot2.",
-        "  If you want y to represent counts of cases, use stat=\"bin\" and don't map a variable to y.",
-        "  If you want y to represent values in the data, use stat=\"identity\".",
-        "  See ?geom_bar for examples."))
-    }
-
-    .$informed <- FALSE
-    .super$calculate_groups(., data, ...)
-  }
-  
-  calculate <- function(., data, scales, binwidth=NULL, origin=NULL, breaks=NULL, width=0.9, drop = FALSE, right = FALSE, ...) {
-    range <- scale_dimension(scales$x, c(0, 0))
-
-    if (is.null(breaks) && is.null(binwidth) && !is.integer(data$x) && !.$informed) {
-      message("stat_bin: binwidth defaulted to range/30. Use 'binwidth = x' to adjust this.")
-      .$informed <- TRUE
-    }
-    
-    bin(data$x, data$weight, binwidth=binwidth, origin=origin, breaks=breaks, range=range, width=width, drop = drop, right = right)
-  }
-
-  default_aes <- function(.) aes(y = ..count..)
-  required_aes <- c("x")
-  default_geom <- function(.) GeomBar
-  
-})
-
-bin <- function(x, weight=NULL, binwidth=NULL, origin=NULL, breaks=NULL, range=NULL, width=0.9, drop = FALSE, right = TRUE) {
-  
-  if (length(na.omit(x)) == 0) return(data.frame())
-  if (is.null(weight))  weight <- rep(1, length(x))
-  weight[is.na(weight)] <- 0
-
-  if (is.null(range))    range <- range(x, na.rm = TRUE, finite=TRUE)
-  if (is.null(binwidth)) binwidth <- diff(range) / 30
-
-  if (is.integer(x)) {
-    bins <- x
-    x <- sort(unique(bins))
-    width <- width    
-  } else if (diff(range) == 0) {
-    width <- width
-    bins <- x
-  } else { # if (is.numeric(x)) 
-    if (is.null(breaks)) {
-      if (is.null(origin)) {
-        breaks <- fullseq(range, binwidth, pad = TRUE)        
-      } else {
-        breaks <- seq(origin, max(range) + binwidth, binwidth)
-      }
-    }
-    
-    # Adapt break fuzziness from base::hist - this protects from floating
-    # point rounding errors
-    diddle <- 1e-07 * stats::median(diff(breaks))
-    if (right) {
-      fuzz <- c(-diddle, rep.int(diddle, length(breaks) - 1))
-    } else {
-      fuzz <- c(rep.int(-diddle, length(breaks) - 1), diddle) 
-    }
-    fuzzybreaks <- sort(breaks) + fuzz
-    
-    bins <- cut(x, fuzzybreaks, include.lowest=TRUE, right = right)
-    left <- breaks[-length(breaks)]
-    right <- breaks[-1]
-    x <- (left + right)/2
-    width <- diff(breaks)
-  }
-
-  results <- data.frame(
-    count = as.numeric(tapply(weight, bins, sum, na.rm=TRUE)),
-    x = x,
-    width = width
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatBin,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      binwidth = binwidth,
+      bins = bins,
+      center = center,
+      boundary = boundary,
+      breaks = breaks,
+      closed = closed,
+      pad = pad,
+      na.rm = na.rm,
+      ...
+    )
   )
-  
-  if (sum(results$count, na.rm = TRUE) == 0) {
-    return(results)
-  }
-  
-  res <- within(results, {
-    count[is.na(count)] <- 0
-    density <- count / width / sum(abs(count), na.rm=TRUE)
-    ncount <- count / max(abs(count), na.rm=TRUE)
-    ndensity <- density / max(abs(density), na.rm=TRUE)
-  })
-  if (drop) res <- subset(res, count > 0)
-  res
 }
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatBin <- ggproto("StatBin", Stat,
+  setup_params = function(data, params) {
+    if (!is.null(data$y) || !is.null(params$y)) {
+      stop("stat_bin() must not be used with a y aesthetic.", call. = FALSE)
+    }
+    if (is.integer(data$x)) {
+      stop('StatBin requires a continuous x variable the x variable is discrete. Perhaps you want stat="count"?',
+        call. = FALSE)
+    }
+
+    if (!is.null(params$drop)) {
+      warning("`drop` is deprecated. Please use `pad` instead.", call. = FALSE)
+      params$drop <- NULL
+    }
+    if (!is.null(params$origin)) {
+      warning("`origin` is deprecated. Please use `boundary` instead.", call. = FALSE)
+      params$boundary <- params$origin
+      params$origin <- NULL
+    }
+    if (!is.null(params$right)) {
+      warning("`right` is deprecated. Please use `closed` instead.", call. = FALSE)
+      params$closed <- if (params$right) "right" else "left"
+      params$right <- NULL
+    }
+    if (!is.null(params$width)) {
+      stop("`width` is deprecated. Do you want `geom_bar()`?", call. = FALSE)
+    }
+    if (!is.null(params$boundary) && !is.null(params$center)) {
+      stop("Only one of `boundary` and `center` may be specified.", call. = FALSE)
+    }
+
+    if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {
+      message_wrap("`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.")
+      params$bins <- 30
+    }
+
+    params
+  },
+
+  compute_group = function(data, scales, binwidth = NULL, bins = NULL,
+                           center = NULL, boundary = NULL,
+                           closed = c("right", "left"), pad = FALSE,
+                           # The following arguments are not used, but must
+                           # be listed so parameters are computed correctly
+                           breaks = NULL, origin = NULL, right = NULL,
+                           drop = NULL, width = NULL) {
+
+    if (!is.null(breaks)) {
+      bins <- bin_breaks(breaks, closed)
+    } else if (!is.null(binwidth)) {
+      if (is.function(binwidth)) {
+        binwidth <- binwidth(data$x)
+      }
+      bins <- bin_breaks_width(scales$x$dimension(), binwidth,
+        center = center, boundary = boundary, closed = closed)
+    } else {
+      bins <- bin_breaks_bins(scales$x$dimension(), bins, center = center,
+        boundary = boundary, closed = closed)
+    }
+    bin_vector(data$x, bins, weight = data$weight, pad = pad)
+  },
+
+  default_aes = aes(y = ..count.., weight = 1),
+  required_aes = c("x")
+)
+

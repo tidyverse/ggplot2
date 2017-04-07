@@ -8,14 +8,14 @@
 #' @param ... other arguments passed to specific methods
 #' @return a ggplot object
 #' @export
-#' @seealso \code{\link{ggplot}} and \code{\link{fortify}}
+#' @seealso \code{\link{autolayer}}, \code{\link{ggplot}} and \code{\link{fortify}}
 autoplot <- function(object, ...) {
   UseMethod("autoplot")
 }
 
-#' @S3method autoplot default
+#' @export
 autoplot.default <- function(object, ...) {
-  error.msg <- paste("Objects of type",class(object),"not supported by autoplot.  Please use qplot() or ggplot() instead.\n")
-  stop(error.msg, call.=FALSE)
+  stop("Objects of type ", paste(class(object), collapse = "/"),
+    " not supported by autoplot.", call. = FALSE)
 }
 

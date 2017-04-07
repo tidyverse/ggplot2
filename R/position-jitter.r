@@ -1,51 +1,61 @@
-#' Jitter points to avoid overplotting.
+#' Jitter points to avoid overplotting
+#'
+#' Couterintuitively adding random noise to a plot can sometimes make it
+#' easier to read. Jittering is particularly useful for small datasets with
+#' at least one discrete position.
 #'
 #' @family position adjustments
-#' @param width degree of jitter in x direction. Defaults to 40\% of the
-#'   resolution of the data.
-#' @param height degree of jitter in y direction. Defaults to 40\% of the
-#'   resolution of the data
+#' @param width,height Amount of vertical and horizontal jitter. The jitter
+#'   is added in both positive and negative directions, so the total spread
+#'   is twice the value specified here.
+#'
+#'   If omitted, defaults to 40\% of the resolution of the data: this means the
+#'   jitter values will occupy 80\% of the implied bins. Categorical data
+#'   is aligned on the integers, so a width or height of 0.5 will spread the
+#'   data so it's not possible to see the distinction between the categories.
 #' @export
 #' @examples
-#' qplot(am, vs, data = mtcars)
-#' 
-#' # Default amount of jittering will generally be too much for 
-#' # small datasets:
-#' qplot(am, vs, data = mtcars, position = "jitter")
-#' # Control the amount as follows
-#' qplot(am, vs, data = mtcars, position = position_jitter(w = 0.1, h = 0.1))
-#'
-#' # With ggplot
-#' ggplot(mtcars, aes(x = am, y = vs)) + geom_point(position = "jitter")
-#' ggplot(mtcars, aes(x = am, y = vs)) + geom_point(position = position_jitter(w = 0.1, h = 0.1))
-#' 
-#' # The default works better for large datasets, where it will 
+#' # Jittering is useful when you have a discrete position, and a relatively
+#' # small number of points
 #' # take up as much space as a boxplot or a bar
-#' qplot(class, hwy, data = mpg, geom = c("boxplot", "jitter"))
-position_jitter <- function (width = NULL, height = NULL) { 
-  PositionJitter$new(width = width, height = height)
+#' ggplot(mpg, aes(class, hwy)) +
+#'   geom_boxplot(colour = "grey50") +
+#'   geom_jitter()
+#'
+#' # If the default jittering is too much, as in this plot:
+#' ggplot(mtcars, aes(am, vs)) +
+#'   geom_jitter()
+#'
+#' # You can adjust it in two ways
+#' ggplot(mtcars, aes(am, vs)) +
+#'   geom_jitter(width = 0.1, height = 0.1)
+#' ggplot(mtcars, aes(am, vs)) +
+#'   geom_jitter(position = position_jitter(width = 0.1, height = 0.1))
+position_jitter <- function(width = NULL, height = NULL) {
+  ggproto(NULL, PositionJitter,
+    width = width,
+    height = height
+  )
 }
 
-PositionJitter <- proto(Position, {
-  objname <- "jitter"
- 
-  adjust <- function(., data) {
-    if (empty(data)) return(data.frame())
-    check_required_aesthetics(c("x", "y"), names(data), "position_jitter")
-    
-    if (is.null(.$width)) .$width <- resolution(data$x, zero = FALSE) * 0.4
-    if (is.null(.$height)) .$height <- resolution(data$y, zero = FALSE) * 0.4
-    
-    trans_x <- NULL
-    trans_y <- NULL
-    if(.$width > 0) {
-      trans_x <- function(x) jitter(x, amount = .$width)
-    }
-    if(.$height > 0) {
-      trans_y <- function(x) jitter(x, amount = .$height)
-    }
-    
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+PositionJitter <- ggproto("PositionJitter", Position,
+  required_aes = c("x", "y"),
+
+  setup_params = function(self, data) {
+    list(
+      width = self$width %||% (resolution(data$x, zero = FALSE) * 0.4),
+      height = self$height %||% (resolution(data$y, zero = FALSE) * 0.4)
+    )
+  },
+
+  compute_layer = function(data, params, panel) {
+    trans_x <- if (params$width > 0) function(x) jitter(x, amount = params$width)
+    trans_y <- if (params$height > 0) function(x) jitter(x, amount = params$height)
+
     transform_position(data, trans_x, trans_y)
   }
-  
-})
+)

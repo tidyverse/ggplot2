@@ -1,115 +1,133 @@
-#' New coordinate system.
+#' @section Coordinate systems:
 #'
-#' Internal use only.
+#' All \code{coord_*} functions (like \code{coord_trans}) return a \code{Coord*}
+#' object (like \code{CoordTrans}). The \code{Coord*} object is responsible for
+#' adjusting the position of overlapping geoms.
 #'
-#' @param ... object fields
-#' @keywords internal
+#' The way that the \code{coord_*} functions work is slightly different from the
+#' \code{geom_*} and \code{stat_*} functions, because a \code{coord_*} function
+#' actually "instantiates" the \code{Coord*} object by creating a descendant,
+#' and returns that.
+#'
+#' Each of the \code{Coord*} objects is a \code{\link{ggproto}} object,
+#' descended from the top-level \code{Coord}.  To create a new type of Coord
+#' object, you typically will want to implement one or more of the following:
+#'
+#' \itemize{
+#'   \item \code{aspect}: Returns the desired aspect ratio for the plot.
+#'   \item \code{labels}: Returns a list containing labels for x and y.
+#'   \item \code{render_fg}: Renders foreground elements.
+#'   \item \code{render_bg}: Renders background elements.
+#'   \item \code{render_axis_h}: Renders the horizontal axes.
+#'   \item \code{render_axis_v}: Renders the vertical axes.
+#'   \item \code{range}: Returns the x and y ranges
+#'   \item \code{train}: Return the trained scale ranges.
+#'   \item \code{transform}: Transforms x and y coordinates.
+#'   \item \code{distance}: Calculates distance.
+#'   \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
+#'     linear; \code{FALSE} otherwise.
+#'
+#'   \item \code{setup_params(data)}: Allows the coordinate system to inspect
+#'     all layers and return a list of additional parameters that vary based on
+#'     the data. These parameters are currently only passed to the other
+#'     setup functions and \code{train()}.
+#'   \item \code{setup_data(data, params)}: Allows the coordinate system to
+#'     manipulate the plot data. Should return list of data frames.
+#'   \item \code{setup_layout(layout, params)}: Allows the coordinate
+#'     system to manipulate the \code{layout} data frame which assigns
+#'     data to panels and scales.
+#' }
+#'
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
 #' @export
-coord <- function(..., subclass = c()) {
-  structure(list(...), class = c(subclass, "coord"))
-}
+Coord <- ggproto("Coord",
+
+  aspect = function(ranges) NULL,
+
+  labels = function(panel_params) panel_params,
+
+  render_fg = function(panel_params, theme) element_render(theme, "panel.border"),
+
+  render_bg = function(panel_params, theme) {
+    x.major <- if (length(panel_params$x.major) > 0) unit(panel_params$x.major, "native")
+    x.minor <- if (length(panel_params$x.minor) > 0) unit(panel_params$x.minor, "native")
+    y.major <- if (length(panel_params$y.major) > 0) unit(panel_params$y.major, "native")
+    y.minor <- if (length(panel_params$y.minor) > 0) unit(panel_params$y.minor, "native")
+
+    guide_grid(theme, x.minor, x.major, y.minor, y.major)
+  },
+
+  render_axis_h = function(panel_params, theme) {
+    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
+
+    list(
+      top = render_axis(panel_params, arrange[1], "x", "top", theme),
+      bottom = render_axis(panel_params, arrange[2], "x", "bottom", theme)
+    )
+  },
+
+  render_axis_v = function(panel_params, theme) {
+    arrange <- panel_params$y.arrange %||% c("primary", "secondary")
+
+    list(
+      left = render_axis(panel_params, arrange[1], "y", "left", theme),
+      right = render_axis(panel_params, arrange[2], "y", "right", theme)
+    )
+  },
+
+  range = function(panel_params) {
+    return(list(x = panel_params$x.range, y = panel_params$y.range))
+  },
+
+  setup_panel_params = function(scale_x, scale_y, params = list()) {
+    list()
+  },
+
+  transform = function(data, range) NULL,
+
+  distance = function(x, y, panel_params) NULL,
+
+  is_linear = function() FALSE,
+
+  setup_params = function(data) {
+    list()
+  },
+
+  setup_data = function(data, params = list()) {
+    data
+  },
+
+  setup_layout = function(layout, params) {
+    layout
+  },
+
+  # Optionally, modify list of x and y scales in place. Currently
+  # used as a fudge for CoordFlip and CoordPolar
+  modify_scales = function(scales_x, scales_y) {
+    invisible()
+  }
+)
 
 #' Is this object a coordinate system?
 #'
-#' @export is.coord
+#' @export is.Coord
 #' @keywords internal
-is.coord <- function(x) inherits(x, "coord")
+is.Coord <- function(x) inherits(x, "Coord")
 
-distance <- function(., x, y, details) {
-  max_dist <- dist_euclidean(details$x.range, details$y.range)    
-  dist_euclidean(x, y) / max_dist
+expand_default <- function(scale, discrete = c(0, 0.6), continuous = c(0.05, 0)) {
+  scale$expand %|W|% if (scale$is_discrete()) discrete else continuous
 }
 
-coord_aspect <- function(coord, ranges)
-  UseMethod("coord_aspect")
-#' @S3method coord_aspect default
-coord_aspect.default <- function(coord, ranges) NULL
-
-coord_labels <- function(coord, scales) UseMethod("coord_labels")
-#' @S3method coord_labels default
-coord_labels.default <- function(coord, scales) scales
-
-coord_render_fg <- function(coord, scales, theme) 
-  UseMethod("coord_render_fg")
-#' @S3method coord_render_fg default
-coord_render_fg.default <- function(coord, scales, theme)
-  element_render(theme, "panel.border")
-
-coord_render_bg <- function(coord, scales, theme) 
-  UseMethod("coord_render_bg")
-#' @S3method coord_render_bg default
-coord_render_bg.default <- function(coord, details, theme) {
-  x.major <- if(length(details$x.major) > 0) unit(details$x.major, "native")
-  x.minor <- if(length(details$x.minor) > 0) unit(details$x.minor, "native")
-  y.major <- if(length(details$y.major) > 0) unit(details$y.major, "native")
-  y.minor <- if(length(details$y.minor) > 0) unit(details$y.minor, "native")
-
-  guide_grid(theme, x.minor, x.major, y.minor, y.major)
-}
-
-coord_render_axis_h <- function(coord, scales, theme) 
-  UseMethod("coord_render_axis_h")
-#' @S3method coord_render_axis_h default
-coord_render_axis_h.default <- function(coord, details, theme) {
-  guide_axis(details$x.major, details$x.labels, "bottom", theme)
-}
-
-coord_render_axis_v <- function(coord, scales, theme) 
-  UseMethod("coord_render_axis_v")
-#' @S3method coord_render_axis_v default
-coord_render_axis_v.default <- function(coord, details, theme) {
-  guide_axis(details$y.major, details$y.labels, "left", theme)
-}
-
-coord_range <- function(coord, scales)
-  UseMethod("coord_range")
-
-#' @S3method coord_range default
-coord_range.default <- function(coord, scales) {
-  return(list(x = scales$x.range, y = scales$y.range))
-}
-
-coord_train <- function(coord, scales) 
-  UseMethod("coord_train")
-
-coord_transform <- function(coord, data, range) 
-  UseMethod("coord_transform")
-
-coord_distance <- function(coord, x, y, details)
-  UseMethod("coord_distance")
-
-is.linear <- function(coord) UseMethod("is.linear")
-#' @S3method is.linear default
-is.linear.default <- function(coord) FALSE
-
-#' Set the default expand values for the scale, if NA
-#' @keywords internal
-coord_expand_defaults <- function(coord, scale, aesthetic = NULL)
-  UseMethod("coord_expand_defaults")
-
-#' @S3method coord_expand_defaults default
-coord_expand_defaults.default <- function(coord, scale, aesthetic = NULL) {
-  # Expand the same regardless of whether it's x or y
-
-  # @kohske TODO:
-  # Here intentionally verbose. These constants may be held by coord as, say,
-  # coord$default.expand <- list(discrete = ..., continuous = ...)
-  #
-  # @kohske
-  # Now scale itself is not changed.
-  # This function only returns expanded (numeric) limits
-  discrete <- c(0, 0.6)
-  continuous <-  c(0.05, 0)
-  expand_default(scale, discrete, continuous)
-}
-
-# This is a utility function used by coord_expand_defaults, to expand a single scale
-expand_default <- function(scale, discrete = c(0, 0), continuous = c(0, 0)) {
-  # Default expand values for discrete and continuous scales
-  if (is.waive(scale$expand)) {
-    if (inherits(scale, "discrete")) discrete
-    else if (inherits(scale, "continuous")) continuous
+# Renders an axis with the correct orientation or zeroGrob if no axis should be
+# generated
+render_axis <- function(panel_params, axis, scale, position, theme) {
+  if (axis == "primary") {
+    guide_axis(panel_params[[paste0(scale, ".major")]], panel_params[[paste0(scale, ".labels")]], position, theme)
+  } else if (axis == "secondary" && !is.null(panel_params[[paste0(scale, ".sec.major")]])) {
+    guide_axis(panel_params[[paste0(scale, ".sec.major")]], panel_params[[paste0(scale, ".sec.labels")]], position, theme)
   } else {
-    return(scale$expand)
+    zeroGrob()
   }
 }

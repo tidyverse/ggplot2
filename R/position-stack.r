@@ -1,56 +1,242 @@
-#' Stack overlapping objects on top of one another.
-#' 
-#' @inheritParams position_identity
-#' @family position adjustments
-#' @export
-#' @examples 
-#' # Stacking is the default behaviour for most area plots:
-#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
-#'    
-#' # To change stacking order, use factor() to change order of levels
-#' mtcars$vs <- factor(mtcars$vs, levels = c(1,0))
-#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) + geom_bar()
+#' Stack overlapping objects on top of each another
 #'
-#' ggplot(diamonds, aes(price)) + geom_histogram(binwidth=500)
-#' ggplot(diamonds, aes(price, fill = cut)) + geom_histogram(binwidth=500)
-#' 
+#' \code{position_stack()} stacks bars on top of each other;
+#' \code{position_fill()} stacks bars and standardises each stack to have
+#' constant height.
+#'
+#' \code{position_fill()} and \code{position_stack()} automatically stack
+#' values in reverse order of the group aesthetic, which for bar charts is
+#' usually defined by the fill aesthetic (the default group aesthetic is formed
+#' by the combination of all discrete aesthetics except for x and y). This
+#' default ensures that bar colours align with the default legend.
+#'
+#' There are three ways to override the defaults depending on what you want:
+#'
+#' \enumerate{
+#'   \item Change the order of the levels in the underyling factor. This
+#'     will change the stacking order, and the order of keys in the legend.
+#'
+#'   \item Set the legend \code{breaks} to change the order of the keys
+#'     without affecting the stacking.
+#'
+#'   \item Manually set the group aesthetic to change the stacking order
+#'     without affecting the legend.
+#' }
+#'
+#' Stacking of positive and negative values are performed separately so that
+#' positive values stack upwards from the x-axis and negative values stack
+#' downward.
+#'
+#' @family position adjustments
+#' @param vjust Vertical adjustment for geoms that have a position
+#'   (like points or lines), not a dimension (like bars or areas). Set to
+#'   \code{0} to align with the bottom, \code{0.5} for the middle,
+#'   and \code{1} (the default) for the top.
+#' @param reverse If \code{TRUE}, will reverse the default stacking order.
+#'   This is useful if you're rotating both the plot and legend.
+#' @seealso See \code{\link{geom_bar}} and \code{\link{geom_area}} for
+#'   more examples.
+#' @export
+#' @examples
+#' # Stacking and filling ------------------------------------------------------
+#'
+#' # Stacking is the default behaviour for most area plots.
+#' # Fill makes it easier to compare proportions
+#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+#'   geom_bar()
+#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+#'   geom_bar(position = "fill")
+#'
+#' ggplot(diamonds, aes(price, fill = cut)) +
+#'   geom_histogram(binwidth = 500)
+#' ggplot(diamonds, aes(price, fill = cut)) +
+#'   geom_histogram(binwidth = 500, position = "fill")
+#'
 #' # Stacking is also useful for time series
-#' data.set <- data.frame(
-#'   Time = c(rep(1, 4),rep(2, 4), rep(3, 4), rep(4, 4)),
-#'   Type = rep(c('a', 'b', 'c', 'd'), 4),
-#'   Value = rpois(16, 10)
+#' series <- data.frame(
+#'   time = c(rep(1, 4),rep(2, 4), rep(3, 4), rep(4, 4)),
+#'   type = rep(c('a', 'b', 'c', 'd'), 4),
+#'   value = rpois(16, 10)
 #' )
-#' 
-#' qplot(Time, Value, data = data.set, fill = Type, geom = "area")
-#' # If you want to stack lines, you need to say so:
-#' qplot(Time, Value, data = data.set, colour = Type, geom = "line")
-#' qplot(Time, Value, data = data.set, colour = Type, geom = "line",
-#'   position = "stack")
-#' # But realise that this makes it *much* harder to compare individual
-#' # trends
-position_stack <- function (width = NULL, height = NULL) { 
-  PositionStack$new(width = width, height = height)
+#' ggplot(series, aes(time, value)) +
+#'   geom_area(aes(fill = type))
+#'
+#' # Stacking order ------------------------------------------------------------
+#' # The stacking order is carefully designed so that the plot matches
+#' # the legend.
+#'
+#' # You control the stacking order by setting the levels of the underlying
+#' # factor. See the forcats package for convenient helpers.
+#' series$type2 <- factor(series$type, levels = c('c', 'b', 'd', 'a'))
+#' ggplot(series, aes(time, value)) +
+#'   geom_area(aes(fill = type2))
+#'
+#' # You can change the order of the levels in the legend using the scale
+#' ggplot(series, aes(time, value)) +
+#'   geom_area(aes(fill = type)) +
+#'   scale_fill_discrete(breaks = c('a', 'b', 'c', 'd'))
+#'
+#' # If you've flipped the plot, use reveres = TRUE so the levels
+#' # continue to match
+#' ggplot(series, aes(time, value)) +
+#'   geom_area(aes(fill = type2), position = position_stack(reverse = TRUE)) +
+#'   coord_flip() +
+#'   theme(legend.position = "top")
+#'
+#' # Non-area plots ------------------------------------------------------------
+#'
+#' # When stacking across multiple layers it's a good idea to always set
+#' # the `group` aesthetic in the ggplot() call. This ensures that all layers
+#' # are stacked in the same way.
+#' ggplot(series, aes(time, value, group = type)) +
+#'   geom_line(aes(colour = type), position = "stack") +
+#'   geom_point(aes(colour = type), position = "stack")
+#'
+#' ggplot(series, aes(time, value, group = type)) +
+#'   geom_area(aes(fill = type)) +
+#'   geom_line(aes(group = type), position = "stack")
+#'
+#' # You can also stack labels, but the default position is suboptimal.
+#' ggplot(series, aes(time, value, group = type)) +
+#'   geom_area(aes(fill = type)) +
+#'   geom_text(aes(label = type), position = "stack")
+#'
+#' # You can override this with the vjust parameter. A vjust of 0.5
+#' # will center the labels inside the corresponding area
+#' ggplot(series, aes(time, value, group = type)) +
+#'   geom_area(aes(fill = type)) +
+#'   geom_text(aes(label = type), position = position_stack(vjust = 0.5))
+#'
+#' # Negative values -----------------------------------------------------------
+#'
+#' df <- tibble::tribble(
+#'   ~x, ~y, ~grp,
+#'   "a", 1,  "x",
+#'   "a", 2,  "y",
+#'   "b", 1,  "x",
+#'   "b", 3,  "y",
+#'   "b", -1, "y"
+#' )
+#' ggplot(data = df, aes(x, y, group = grp)) +
+#'   geom_col(aes(fill = grp), position = position_stack(reverse = TRUE)) +
+#'   geom_hline(yintercept = 0)
+#'
+#' ggplot(data = df, aes(x, y, group = grp)) +
+#'   geom_col(aes(fill = grp)) +
+#'   geom_hline(yintercept = 0) +
+#'   geom_text(aes(label = grp), position = position_stack(vjust = 0.5))
+position_stack <- function(vjust = 1, reverse = FALSE) {
+  ggproto(NULL, PositionStack, vjust = vjust, reverse = reverse)
 }
 
-PositionStack <- proto(Position, {
-  objname <- "stack"
+#' @export
+#' @rdname position_stack
+position_fill <- function(vjust = 1, reverse = FALSE) {
+  ggproto(NULL, PositionFill, vjust = vjust, reverse = reverse)
+}
 
-  adjust <- function(., data) {
-    if (empty(data)) return(data.frame())
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+PositionStack <- ggproto("PositionStack", Position,
+  type = NULL,
+  vjust = 1,
+  fill = FALSE,
+  reverse = FALSE,
 
-    data <- remove_missing(data, FALSE, 
-      c("x", "y", "ymin", "ymax", "xmin", "xmax"), name = "position_stack")
-    
-    if (is.null(data$ymax) && is.null(data$y)) {
-      message("Missing y and ymax in position = 'stack'. ", 
-        "Maybe you want position = 'identity'?")
+  setup_params = function(self, data) {
+    list(
+      var = self$var %||% stack_var(data),
+      fill = self$fill,
+      vjust = self$vjust,
+      reverse = self$reverse
+    )
+  },
+
+  setup_data = function(self, data, params) {
+    if (is.null(params$var)) {
       return(data)
     }
 
-    if (!is.null(data$ymin) && !all(data$ymin == 0)) 
-      warning("Stacking not well defined when ymin != 0", call. = FALSE)
+    data$ymax <- switch(params$var,
+      y = data$y,
+      ymax = ifelse(data$ymax == 0, data$ymin, data$ymax)
+    )
 
-    collide(data, .$width, .$my_name(), pos_stack)
-  }  
+    remove_missing(
+      data,
+      vars = c("x", "xmin", "xmax", "y"),
+      name = "position_stack"
+    )
+  },
 
-})
+  compute_panel = function(data, params, scales) {
+    if (is.null(params$var)) {
+      return(data)
+    }
+
+    negative <- data$ymax < 0
+    neg <- data[negative, , drop = FALSE]
+    pos <- data[!negative, , drop = FALSE]
+
+    if (any(negative)) {
+      neg <- collide(neg, NULL, "position_stack", pos_stack,
+        vjust = params$vjust,
+        fill = params$fill,
+        reverse = params$reverse
+      )
+    }
+    if (any(!negative)) {
+      pos <- collide(pos, NULL, "position_stack", pos_stack,
+        vjust = params$vjust,
+        fill = params$fill,
+        reverse = params$reverse
+      )
+    }
+
+    rbind(neg, pos)
+  }
+)
+
+pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
+  n <- nrow(df) + 1
+  y <- ifelse(is.na(df$y), 0, df$y)
+  heights <- c(0, cumsum(y))
+
+  if (fill) {
+    heights <- heights / abs(heights[length(heights)])
+  }
+
+  df$ymin <- pmin(heights[-n], heights[-1])
+  df$ymax <- pmax(heights[-n], heights[-1])
+  df$y <- (1 - vjust) * df$ymin + vjust * df$ymax
+  df
+}
+
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+PositionFill <- ggproto("PositionFill", PositionStack,
+  fill = TRUE
+)
+
+stack_var <- function(data) {
+  if (!is.null(data$ymax)) {
+    if (any(data$ymin != 0 && data$ymax != 0, na.rm = TRUE)) {
+      warning("Stacking not well defined when not anchored on the axis", call. = FALSE)
+    }
+    "ymax"
+  } else if (!is.null(data$y)) {
+    "y"
+  } else {
+    warning(
+      "Stacking requires either ymin & ymin or y aesthetics.\n",
+      "Maybe you want position = 'identity'?",
+      call. = FALSE
+    )
+    NULL
+  }
+}

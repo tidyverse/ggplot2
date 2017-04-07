@@ -1,121 +1,145 @@
-#' Count number of observation in rectangular bins.
-#' 
-#' @section Aesthetics: 
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "bin2d")}
-#'
-#' @inheritParams stat_identity
-#' @param bins numeric vector giving number of bins in both vertical and 
+#' @param bins numeric vector giving number of bins in both vertical and
 #'   horizontal directions. Set to 30 by default.
+#' @param binwidth Numeric vector giving bin width in both vertical and
+#'   horizontal directions. Overrides \code{bins} if both set.
 #' @param drop if \code{TRUE} removes all cells with 0 counts.
-#' @seealso \code{\link{stat_binhex}} for hexagonal binning
 #' @export
-#' @examples
-#' \donttest{
-#' d <- ggplot(diamonds, aes(carat, price))
-#' d + stat_bin2d()
-#' d + geom_bin2d()
-#' 
-#' # You can control the size of the bins by specifying the number of
-#' # bins in each direction:
-#' d + stat_bin2d(bins = 10)
-#' d + stat_bin2d(bins = 30)
-#' 
-#' # Or by specifying the width of the bins
-#' d + stat_bin2d(binwidth = c(1, 1000))
-#' d + stat_bin2d(binwidth = c(.1, 500))
-#' 
-#' # Or with a list of breaks
-#' x <- seq(min(diamonds$carat), max(diamonds$carat), by = 0.1)
-#' y <- seq(min(diamonds$price), max(diamonds$price), length = 50)
-#' d + stat_bin2d(breaks = list(x = x, y = y))
-#' 
-#' # With qplot
-#' qplot(x, y, data = diamonds, geom="bin2d", 
-#'   xlim = c(4, 10), ylim = c(4, 10))
-#' qplot(x, y, data = diamonds, geom="bin2d", binwidth = c(0.1, 0.1),
-#'   xlim = c(4, 10), ylim = c(4, 10))
-#' }
-stat_bin2d <- function (mapping = NULL, data = NULL, geom = NULL, position = "identity", 
-bins = 30, drop = TRUE, ...) {
-  
-  StatBin2d$new(mapping = mapping, data = data, geom = geom, position = position, 
-  bins = bins, drop = drop, ...)
+#' @rdname geom_bin2d
+stat_bin_2d <- function(mapping = NULL, data = NULL,
+                        geom = "tile", position = "identity",
+                        ...,
+                        bins = 30,
+                        binwidth = NULL,
+                        drop = TRUE,
+                        na.rm = FALSE,
+                        show.legend = NA,
+                        inherit.aes = TRUE) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatBin2d,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      bins = bins,
+      binwidth = binwidth,
+      drop = drop,
+      na.rm = na.rm,
+      ...
+    )
+  )
 }
 
-StatBin2d <- proto(Stat, {
-  objname <- "bin2d"
 
-  default_aes <- function(.) aes(fill = ..count..)
-  required_aes <- c("x", "y")
-  default_geom <- function(.) GeomRect
+#' @export
+#' @rdname geom_bin2d
+#' @usage NULL
+stat_bin2d <- stat_bin_2d
 
-  calculate <- function(., data, scales, binwidth = NULL, bins = 30, breaks = NULL, origin = NULL, drop = TRUE, ...) {
-    
-    range <- list(
-      x = scale_dimension(scales$x, c(0, 0)),
-      y = scale_dimension(scales$y, c(0, 0))
-    )
-    
-    # Determine origin, if omitted
-    if (is.null(origin)) {
-      origin <- c(NA, NA)
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatBin2d <- ggproto("StatBin2d", Stat,
+  default_aes = aes(fill = ..count..),
+  required_aes = c("x", "y"),
+
+  compute_group = function(data, scales, binwidth = NULL, bins = 30,
+                           breaks = NULL, origin = NULL, drop = TRUE) {
+
+    origin <- dual_param(origin, list(NULL, NULL))
+    binwidth <- dual_param(binwidth, list(NULL, NULL))
+    breaks <- dual_param(breaks, list(NULL, NULL))
+    bins <- dual_param(bins, list(x = 30, y = 30))
+
+    xbreaks <- bin2d_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
+    ybreaks <- bin2d_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
+
+    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
+    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
+
+    if (is.null(data$weight))
+      data$weight <- 1
+
+    out <- tapply_df(data$weight, list(xbin = xbin, ybin = ybin), sum, drop = drop)
+
+    xdim <- bin_loc(xbreaks, out$xbin)
+    out$x <- xdim$mid
+    out$width <- xdim$length
+
+    ydim <- bin_loc(ybreaks, out$ybin)
+    out$y <- ydim$mid
+    out$height <- ydim$length
+
+    out$count <- out$value
+    out$density <- out$count / sum(out$count, na.rm = TRUE)
+    out
+  }
+)
+
+dual_param <- function(x, default = list(x = NULL, y = NULL)) {
+  if (is.null(x)) {
+    default
+  } else if (length(x) == 2) {
+    if (is.list(x) && !is.null(names(x))) {
+      x
     } else {
-      stopifnot(is.numeric(origin))
-      stopifnot(length(origin) == 2)
-    }    
-    originf <- function(x) if (is.integer(x)) -0.5 else min(x, na.rm = TRUE)
-    if (is.na(origin[1])) origin[1] <- originf(data$x)
-    if (is.na(origin[2])) origin[2] <- originf(data$y)
-    
-    # Determine binwidth, if omitted
-    if (is.null(binwidth)) {
-      binwidth <- c(NA, NA)
-      if (is.integer(data$x)) {
-        binwidth[1] <- 1
-      } else {
-        binwidth[1] <- diff(range$x) / bins
-      }
-      if (is.integer(data$y)) {
-        binwidth[2] <- 1
-      } else {
-        binwidth[2] <- diff(range$y) / bins
-      }      
+      list(x = x[[1]], y = x[[2]])
     }
-    stopifnot(is.numeric(binwidth))
-    stopifnot(length(binwidth) == 2)
-    
-    # Determine breaks, if omitted
-    if (is.null(breaks)) {
-      breaks <- list(
-        seq(origin[1], max(range$x) + binwidth[1], binwidth[1]),
-        seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
-      )
-    } else {
-      stopifnot(is.list(breaks))
-      stopifnot(length(breaks) == 2)      
-      stopifnot(all(sapply(breaks, is.numeric)))
-    }
-    names(breaks) <- c("x", "y")
-    
-    xbin <- cut(data$x, sort(breaks$x), include.lowest = TRUE)
-    ybin <- cut(data$y, sort(breaks$y), include.lowest = TRUE)
-    
-    if (is.null(data$weight)) data$weight <- 1
-    
-    counts <- as.data.frame(
-      xtabs(weight ~ xbin + ybin, data), responseName = "count")
-    if (drop) counts <- subset(counts, count > 0)
-    
-    within(counts,{
-      xint <- as.numeric(xbin)
-      xmin <- breaks$x[xint]
-      xmax <- breaks$x[xint + 1]
+  } else {
+    list(x = x, y = x)
+  }
+}
 
-      yint <- as.numeric(ybin)
-      ymin <- breaks$y[yint]
-      ymax <- breaks$y[yint + 1]
-  
-      density <- count / sum(count, na.rm = TRUE)
-    })
-  }  
-})
+bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
+                      bins = 30, right = TRUE) {
+  # Bins for categorical data should take the width of one level,
+  # and should show up centered over their tick marks. All other parameters
+  # are ignored.
+  if (scale$is_discrete()) {
+    breaks <- scale$get_breaks()
+    return(-0.5 + seq_len(length(breaks) + 1))
+  }
+
+  if (!is.null(breaks))
+    return(breaks)
+
+  range <- scale$get_limits()
+
+  if (is.null(binwidth) || identical(binwidth, NA)) {
+    binwidth <- diff(range) / bins
+  }
+  stopifnot(is.numeric(binwidth), length(binwidth) == 1)
+
+  if (is.null(origin) || identical(origin, NA)) {
+    origin <- plyr::round_any(range[1], binwidth, floor)
+  }
+  stopifnot(is.numeric(origin), length(origin) == 1)
+
+  breaks <- seq(origin, range[2] + binwidth, binwidth)
+  adjust_breaks(breaks, right)
+}
+
+adjust_breaks <- function(x, right = TRUE) {
+  diddle <- 1e-07 * stats::median(diff(x))
+  if (right) {
+    fuzz <- c(-diddle, rep.int(diddle, length(x) - 1))
+  } else {
+    fuzz <- c(rep.int(-diddle, length(x) - 1), diddle)
+  }
+  sort(x) + fuzz
+}
+
+bin_loc <- function(x, id) {
+  left <- x[-length(x)]
+  right <- x[-1]
+
+  list(
+    left = left[id],
+    right = right[id],
+    mid = ((left + right) / 2)[id],
+    length = diff(x)[id]
+  )
+}

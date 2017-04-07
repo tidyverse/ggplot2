@@ -1,116 +1,135 @@
-#' Apply function for 2D rectangular bins.
+#' Bin and summarise in 2d (rectangle & hexagons)
 #'
-#' @section Aesthetics: 
-#' \Sexpr[results=rd,stage=build]{ggplot2:::rd_aesthetics("stat", "summary2d")}
+#' \code{stat_summary_2d} is a 2d variation of \code{\link{stat_summary}}.
+#' \code{stat_summary_hex} is a hexagonal variation of
+#' \code{\link{stat_summary_2d}}. The data are divided into bins defined
+#' by \code{x} and \code{y}, and then the values of \code{z} in each cell is
+#' are summarised with \code{fun}.
 #'
-#' \code{stat_summary2d} is 2D version of \code{\link{stat_summary}}. The data are devided by \code{x} and \code{y}.
-#' \code{z} in each cell is passed to arbitral summary function.
-#' 
-#' \code{stat_summary2d} requires the following aesthetics:
-#'
+#' @section Aesthetics:
 #' \itemize{
 #'  \item \code{x}: horizontal position
 #'  \item \code{y}: vertical position
 #'  \item \code{z}: value passed to the summary function
 #' }
-#' 
-#' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization. \code{\link{stat_bin2d}} for the binning options.
-#' @title Apply funciton for 2D rectangular bins.
-#' @inheritParams stat_identity
-#' @param bins see \code{\link{stat_bin2d}}
+#' @section Computed variables:
+#' \describe{
+#'   \item{x,y}{Location}
+#'   \item{value}{Value of summary statistic.}
+#' }
+#' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization.
+#'   \code{\link{stat_bin2d}} for the binning options.
+#' @inheritParams layer
+#' @inheritParams geom_point
+#' @inheritParams stat_bin_2d
 #' @param drop drop if the output of \code{fun} is \code{NA}.
 #' @param fun function for summary.
-#' @param ... parameters passed to \code{fun}
+#' @param fun.args A list of extra arguments to pass to \code{fun}
 #' @export
 #' @examples
-#' \donttest{
 #' d <- ggplot(diamonds, aes(carat, depth, z = price))
-#' d + stat_summary2d()
+#' d + stat_summary_2d()
 #'
 #' # Specifying function
-#' d + stat_summary2d(fun = function(x) sum(x^2))
-#' d + stat_summary2d(fun = var)
+#' d + stat_summary_2d(fun = function(x) sum(x^2))
+#' d + stat_summary_2d(fun = var)
+#' d + stat_summary_2d(fun = "quantile", fun.args = list(probs = 0.1))
+#'
+#' if (requireNamespace("hexbin")) {
+#' d + stat_summary_hex()
 #' }
-stat_summary2d <- function (mapping = NULL, data = NULL, geom = NULL, position = "identity", 
-bins = 30, drop = TRUE, fun = mean, ...) {
-
-  StatSummary2d$new(mapping = mapping, data = data, geom = geom, position = position, 
-  bins = bins, drop = drop, fun = fun, ...)
+stat_summary_2d <- function(mapping = NULL, data = NULL,
+                            geom = "tile", position = "identity",
+                            ...,
+                            bins = 30,
+                            binwidth = NULL,
+                            drop = TRUE,
+                            fun = "mean",
+                            fun.args = list(),
+                            na.rm = FALSE,
+                            show.legend = NA,
+                            inherit.aes = TRUE) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatSummary2d,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      bins = bins,
+      binwidth = binwidth,
+      drop = drop,
+      fun = fun,
+      fun.args = fun.args,
+      na.rm = na.rm,
+      ...
+    )
+  )
 }
 
-StatSummary2d <- proto(Stat, {
-  objname <- "Summary2d"
+#' @export
+#' @rdname stat_summary_2d
+#' @usage NULL
+stat_summary2d <- function(...) {
+  message("Please use stat_summary_2d() instead")
+  stat_summary_2d(...)
+}
 
-  default_aes <- function(.) aes(fill = ..value..)
-  required_aes <- c("x", "y", "z")
-  default_geom <- function(.) GeomRect
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatSummary2d <- ggproto("StatSummary2d", Stat,
+  default_aes = aes(fill = ..value..),
 
-  calculate <- function(., data, scales, binwidth = NULL, bins = 30, breaks = NULL, origin = NULL, drop = TRUE, fun = mean, ...) {
+  required_aes = c("x", "y", "z"),
 
-    data <- remove_missing(data, FALSE, c("x", "y", "z"), name="stat_summary2d")
-    
-    range <- list(
-      x = scale_dimension(scales$x, c(0, 0)),
-      y = scale_dimension(scales$y, c(0, 0))
-    )
+  compute_group = function(data, scales, binwidth = NULL, bins = 30,
+                           breaks = NULL, origin = NULL, drop = TRUE,
+                           fun = "mean", fun.args = list()) {
+    origin <- dual_param(origin, list(NULL, NULL))
+    binwidth <- dual_param(binwidth, list(NULL, NULL))
+    breaks <- dual_param(breaks, list(NULL, NULL))
+    bins <- dual_param(bins, list(x = 30, y = 30))
 
-    # Determine origin, if omitted
-    if (is.null(origin)) {
-      origin <- c(NA, NA)
-    } else {
-      stopifnot(is.numeric(origin))
-      stopifnot(length(origin) == 2)
-    }    
-    originf <- function(x) if (is.integer(x)) -0.5 else min(x)
-    if (is.na(origin[1])) origin[1] <- originf(data$x)
-    if (is.na(origin[2])) origin[2] <- originf(data$y)
-    
-    # Determine binwidth, if omitted
-    if (is.null(binwidth)) {
-      binwidth <- c(NA, NA)
-      if (is.integer(data$x)) {
-        binwidth[1] <- 1
-      } else {
-        binwidth[1] <- diff(range$x) / bins
-      }
-      if (is.integer(data$y)) {
-        binwidth[2] <- 1
-      } else {
-        binwidth[2] <- diff(range$y) / bins
-      }      
+    xbreaks <- bin2d_breaks(scales$x, breaks$x, origin$x, binwidth$x, bins$x)
+    ybreaks <- bin2d_breaks(scales$y, breaks$y, origin$y, binwidth$y, bins$y)
+
+    xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
+    ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
+
+    f <- function(x) {
+      do.call(fun, c(list(quote(x)), fun.args))
     }
-    stopifnot(is.numeric(binwidth))
-    stopifnot(length(binwidth) == 2)
+    out <- tapply_df(data$z, list(xbin = xbin, ybin = ybin), f, drop = drop)
 
-    # Determine breaks, if omitted
-    if (is.null(breaks)) {
-      breaks <- list(
-        seq(origin[1], max(range$x) + binwidth[1], binwidth[1]),
-        seq(origin[2], max(range$y) + binwidth[2], binwidth[2])
-      )
-    } else {
-      stopifnot(is.list(breaks))
-      stopifnot(length(breaks) == 2)      
-      stopifnot(all(sapply(breaks, is.numeric)))
-    }
-    names(breaks) <- c("x", "y")
+    xdim <- bin_loc(xbreaks, out$xbin)
+    out$x <- xdim$mid
+    out$width <- xdim$length
 
-    xbin <- cut(data$x, sort(breaks$x), include.lowest=TRUE)
-    ybin <- cut(data$y, sort(breaks$y), include.lowest=TRUE)
+    ydim <- bin_loc(ybreaks, out$ybin)
+    out$y <- ydim$mid
+    out$height <- ydim$length
 
-    if (is.null(data$weight)) data$weight <- 1
-
-    ans <- ddply(data.frame(data, xbin, ybin), .(xbin, ybin), function(d) data.frame(value = fun(d$z, ...)))
-    if (drop) ans <- na.omit(ans)
-    
-    within(ans,{
-      xint <- as.numeric(xbin)
-      xmin <- breaks$x[xint]
-      xmax <- breaks$x[xint + 1]
-
-      yint <- as.numeric(ybin)
-      ymin <- breaks$y[yint]
-      ymax <- breaks$y[yint + 1]
-    })
+    out
   }
-})
+)
+
+# Adaptation of tapply that returns a data frame instead of a matrix
+tapply_df <- function(x, index, fun, ..., drop = TRUE) {
+  labels <- lapply(index, ulevels)
+  out <- expand.grid(labels, KEEP.OUT.ATTRS = FALSE, stringsAsFactors = FALSE)
+
+  grps <- split(x, index)
+  names(grps) <- NULL
+  out$value <- unlist(lapply(grps, fun, ...))
+
+  if (drop) {
+    n <- vapply(grps, length, integer(1))
+    out <- out[n > 0, , drop = FALSE]
+  }
+
+  out
+}

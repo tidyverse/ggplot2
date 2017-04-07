@@ -1,72 +1,77 @@
+#' @include facet-.r
+NULL
+
 #' Facet specification: a single panel.
 #'
 #' @inheritParams facet_grid
+#' @keywords internal
 #' @export
 #' @examples
-#' # facet_null is the default facetting specification if you 
+#' # facet_null is the default facetting specification if you
 #' # don't override it with facet_grid or facet_wrap
 #' ggplot(mtcars, aes(mpg, wt)) + geom_point()
-#' qplot(mpg, wt, data = mtcars)
 facet_null <- function(shrink = TRUE) {
-  facet(shrink = shrink, subclass = "null")
-}
-
-#' @S3method facet_train_layout null
-facet_train_layout.null <- function(facet, data) {     
-  data.frame(
-    PANEL = 1L, ROW = 1L, COL = 1L, 
-    SCALE_X = 1L, SCALE_Y = 1L)
-}
-
-#' @S3method facet_map_layout null
-facet_map_layout.null <- function(facet, data, layout) {
-  # Need the is.waive check for special case where no data, but aesthetics
-  # are mapped to vectors, like qplot(1:5, 1:5)
-  if (is.waive(data) || empty(data))
-    return(cbind(data, PANEL = integer(0)))
-  data$PANEL <- 1L
-  data
-}
-
-#' @S3method facet_render null
-facet_render.null <- function(facet, panel, coord, theme, geom_grobs) {
-  range <- panel$ranges[[1]]
-  
-  # Figure out aspect ratio
-  aspect_ratio <- theme$aspect.ratio %||% coord_aspect(coord, range)
-  if (is.null(aspect_ratio)) {
-    aspect_ratio <- 1
-    respect <- FALSE
-  } else {
-    respect <- TRUE
-  }
-  
-  fg <- coord_render_fg(coord, range, theme)
-  bg <- coord_render_bg(coord, range, theme)
-
-  # Flatten layers - we know there's only one panel
-  geom_grobs <- lapply(geom_grobs, "[[", 1)
-  panel_grobs <- c(list(bg), geom_grobs, list(fg))
-  
-  panel_grob <- gTree(children = do.call("gList", panel_grobs))  
-  axis_h <- coord_render_axis_h(coord, range, theme)
-  axis_v <- coord_render_axis_v(coord, range, theme)
-  
-  all <- matrix(list(
-    axis_v,     panel_grob,
-    zeroGrob(), axis_h
-  ), ncol = 2, byrow = TRUE)
-  
-  layout <- gtable_matrix("layout", all,
-    widths = unit.c(grobWidth(axis_v), unit(1, "null")),
-    heights = unit.c(unit(aspect_ratio, "null"), grobHeight(axis_h)),
-    respect = respect, clip = c("off", "off", "on", "off"),
-    z = matrix(c(3, 2, 1, 4), ncol = 2, byrow = TRUE)
+  ggproto(NULL, FacetNull,
+    shrink = shrink
   )
-  layout$layout$name <- c("axis-l", "spacer", "panel", "axis-b")
-  
-  layout
 }
 
-#' @S3method facet_vars null
-facet_vars.null <- function(facet) ""
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+FacetNull <- ggproto("FacetNull", Facet,
+  shrink = TRUE,
+
+  compute_layout = function(data, params) {
+    layout_null()
+  },
+  map_data = function(data, layout, params) {
+    # Need the is.waive check for special case where no data, but aesthetics
+    # are mapped to vectors
+    if (is.waive(data))
+      return(tibble(PANEL = factor()))
+
+    if (empty(data))
+      return(cbind(data, PANEL = factor()))
+
+    # Needs to be a factor to be consistent with other facet types
+    data$PANEL <- factor(1)
+    data
+  },
+  draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
+
+    range <- ranges[[1]]
+
+    # Figure out aspect ratio
+    aspect_ratio <- theme$aspect.ratio %||% coord$aspect(range)
+    if (is.null(aspect_ratio)) {
+      aspect_ratio <- 1
+      respect <- FALSE
+    } else {
+      respect <- TRUE
+    }
+    axis_h <- coord$render_axis_h(range, theme)
+    axis_v <- coord$render_axis_v(range, theme)
+
+    all <- matrix(list(
+      zeroGrob(),  axis_h$top,    zeroGrob(),
+      axis_v$left, panels[[1]],   axis_v$right,
+      zeroGrob(),  axis_h$bottom, zeroGrob()
+    ), ncol = 3, byrow = TRUE)
+    z_matrix <- matrix(c(5, 6, 4, 7, 1, 8, 3, 9, 2), ncol = 3, byrow = TRUE)
+    grob_widths <- unit.c(grobWidth(axis_v$left), unit(1, "null"), grobWidth(axis_v$right))
+    grob_heights <- unit.c(grobHeight(axis_h$top), unit(aspect_ratio, "null"), grobHeight(axis_h$bottom))
+    grob_names <- c("spacer", "axis-l", "spacer", "axis-t", "panel", "axis-b", "spacer", "axis-r", "spacer")
+    grob_clip <- c("off", "off", "off", "off", "on", "off", "off", "off", "off")
+
+    layout <- gtable_matrix("layout", all,
+      widths = grob_widths, heights = grob_heights,
+      respect = respect, clip = grob_clip,
+      z = z_matrix
+    )
+    layout$layout$name <- grob_names
+
+    layout
+  }
+)
