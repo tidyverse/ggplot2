@@ -1,7 +1,7 @@
 #' Cartesian coordinates with capped axis lines.
 #'
 #' Caps the axis lines to the outer ticks to e.g. indicate range of values.
-#' Methods correspond to \code{\link{coord_cart}} and \code{\link{coord_flip}}
+#' Methods correspond to \code{\link{coord_cartesian}} and \code{\link{coord_flip}}
 #'
 #' This function is a simple override of \code{\link{coord_flex_cart}}
 #' and \code{\link{coord_flex_flip}},
@@ -21,7 +21,7 @@
 #'   Usually a value between 0 and 1.
 #' @rdname coord_capped
 #' @export
-#' @inheritParams coord_flex_cart
+#' @inheritParams coord_cartesian
 #' @examples
 #' # Notice how the axis lines of the following plot meet in the lower-left corner.
 #' p <- ggplot(mtcars, aes(x = mpg)) + geom_dotplot() +
@@ -39,6 +39,13 @@
 #'
 #' # It it also works on the flipped.
 #' p + coord_capped_flip(bottom='both')
+#'
+#' # And on secondary axis, in conjuction with brackets:
+#' p +
+#'   scale_y_continuous(sec.axis = sec_axis(~.*100)) +
+#'   scale_x_continuous(sec.axis = sec_axis(~1/., name='Madness scale')) +
+#'   coord_capped_cart(bottom='none', left='none', right='both', top=brackets_horisontal())
+#' # Although we cannot recommend the above madness.
 coord_capped_cart <- function(xlim = NULL,
                               ylim = NULL,
                               expand = TRUE,

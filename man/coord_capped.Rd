@@ -20,6 +20,14 @@ capped_horisontal(capped = c("both", "left", "right", "none"), gap = 0.01)
 capped_vertical(capped = c("top", "bottom", "both", "none"), gap = 0.01)
 }
 \arguments{
+\item{xlim}{Limits for the x and y axes.}
+
+\item{ylim}{Limits for the x and y axes.}
+
+\item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
+the limits to ensure that data and axes don't overlap. If \code{FALSE},
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+
 \item{top, left, bottom, right}{Either a function returned from
 \code{\link{capped_horisontal}} or \code{\link{brackets_horisontal}}.
 If string, it is assumed to be shorthand for
@@ -33,7 +41,7 @@ Usually a value between 0 and 1.}
 }
 \description{
 Caps the axis lines to the outer ticks to e.g. indicate range of values.
-Methods correspond to \code{\link{coord_cart}} and \code{\link{coord_flip}}
+Methods correspond to \code{\link{coord_cartesian}} and \code{\link{coord_flip}}
 }
 \details{
 This function is a simple override of \code{\link{coord_flex_cart}}
@@ -63,5 +71,12 @@ p + coord_capped_cart(left='both')
 
 # It it also works on the flipped.
 p + coord_capped_flip(bottom='both')
+
+# And on secondary axis, in conjuction with brackets:
+p +
+  scale_y_continuous(sec.axis = sec_axis(~.*100)) +
+  scale_x_continuous(sec.axis = sec_axis(~1/., name='Madness scale')) +
+  coord_capped_cart(bottom='none', left='none', right='both', top=brackets_horisontal())
+# Although we cannot recommend the above madness.
 }
 

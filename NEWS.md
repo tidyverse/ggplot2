@@ -71,6 +71,12 @@ up correct aspect ratio, and draws a graticule.
   `panel_params` (#1311). These are parameters of the Coord that vary from
   panel to panel.
 
+* Introduced `coord_flex_cart` and family for providing a flexible way
+  for injecting functions for drawing axis lines, e.g. `capped_vertical`
+  for axis lines that do not extend to the edge of panel, 
+  or `brackets_horisontal` for placing brackets at categorical variables 
+  (@stefanedwards #).
+
 # ggplot2 2.2.1
 
 * Fix usage of `structure(NULL)` for R-devel compatibility (#1968).
