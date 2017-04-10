@@ -124,7 +124,17 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
     short <- convertUnit(short, "cm", valueOnly = TRUE)
     mid   <- convertUnit(mid,   "cm", valueOnly = TRUE)
     long  <- convertUnit(long,  "cm", valueOnly = TRUE)
-
+    
+    # Swap scales names if using coord_flip 
+    # and remove it from class attributes to jump to next Method
+    is.flip <- "flip" %in% attr(coordinates, "class")
+    
+    if(is.flip){
+    	scales <- flip_labels(scales)  
+    	attr(coordinates, "class") <- 
+    		attr(coordinates, "class")[attr(coordinates, "class") != "flip"]
+    }
+    
 
     if (grepl("[b|t]", sides)) {
 
@@ -196,7 +206,9 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         ))
       }
     }
-
+		## add flip if removed for further layers    
+    if (is.flip)  coordinates <-
+    	structure(coordinates, class = c("flip", class(coordinates)))
     gTree(children = do.call("gList", ticks))
   },
 
