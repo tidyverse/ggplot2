@@ -17,7 +17,7 @@ reference:
   contents:
   - ggplot
   - aes
-  - +.gg
+  - "`+.gg`"
   - ggsave
   - qplot
 
@@ -202,6 +202,7 @@ reference:
     superceded by the [broom package](https://github.com/dgrtwo/broom).
   contents:
   - autoplot
+  - autolayer
   - fortify
   - map_data
 
