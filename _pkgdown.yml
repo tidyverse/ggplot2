@@ -232,8 +232,6 @@ navbar:
     - text: "------------------"
     - text: "Change log"
       href: news/index.html
-  - text: News
-    href: news/index.html
   right:
   - icon: fa-github fa-lg
     href: https://github.com/tidyverse/ggplot2
