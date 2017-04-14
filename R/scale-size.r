@@ -36,20 +36,20 @@ NULL
 #' @usage NULL
 scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                                   limits = NULL, range = c(1, 6),
-                                  trans = "identity", guide = "legend") {
+                                  trans = "identity", guide = "legend", na.value=NA_real_) {
   continuous_scale("size", "area", area_pal(range), name = name,
     breaks = breaks, labels = labels, limits = limits, trans = trans,
-    guide = guide)
+    guide = guide, na.value=NA_real_)
 }
 
 #' @rdname scale_size
 #' @export
 scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                          limits = NULL, range = c(1, 6),
-                         trans = "identity", guide = "legend") {
+                         trans = "identity", guide = "legend", na.value=NA_real_) {
   continuous_scale("size", "radius", rescale_pal(range), name = name,
     breaks = breaks, labels = labels, limits = limits, trans = trans,
-    guide = guide)
+    guide = guide, na.value=NA_real_)
 }
 
 #' @rdname scale_size
