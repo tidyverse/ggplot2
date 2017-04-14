@@ -102,8 +102,6 @@ ggproto(NULL, CoordFixed,
 
 # Helper functions ------------------------------------------------------------
 
-f_zeroGrob <- function(...) zeroGrob()
-
 # flex_render_axis_h and _v were lifted from the render_axis_h and _v of
 # ancestral class "Coord" in coord-.r
 # For each top/bottom or left/right axis, they basically just call what ever
