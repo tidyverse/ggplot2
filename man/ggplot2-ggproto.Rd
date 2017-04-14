@@ -2,6 +2,7 @@
 % Please edit documentation in R/aaa-.r, R/geom-.r, R/annotation-custom.r,
 %   R/annotation-logticks.r, R/geom-polygon.r, R/geom-map.r, R/annotation-map.r,
 %   R/geom-raster.r, R/annotation-raster.r, R/axis-secondary.R, R/coord-.r,
+%   R/coord-capped.r, R/coord-zflex.r, 
 %   R/coord-cartesian-.r, R/coord-fixed.r, R/coord-flip.r, R/coord-map.r,
 %   R/coord-polar.r, R/coord-quickmap.R, R/coord-transform.r, R/facet-.r,
 %   R/facet-grid-.r, R/facet-null.r, R/facet-wrap.r, R/stat-.r, R/geom-abline.r,
@@ -37,6 +38,9 @@
 \alias{Coord}
 \alias{CoordCartesian}
 \alias{CoordFixed}
+\alias{CoordFlexCartesian}
+\alias{CoordFlexFixed}
+\alias{CoordFlexFlipped}
 \alias{CoordFlip}
 \alias{CoordMap}
 \alias{CoordPolar}
