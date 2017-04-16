@@ -90,6 +90,7 @@ Collate:
     'facet-grid-.r'
     'facet-null.r'
     'facet-wrap.r'
+    'fortify-list.r'
     'fortify-lm.r'
     'fortify-map.r'
     'fortify-multcomp.r'

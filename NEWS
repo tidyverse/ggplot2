@@ -11,6 +11,9 @@ ggplot2 1.0.0
 
 NEW FEATURES
 
+* New fortify method for xyz-lists, such as the ones used by image() and persp()
+  allowing easy plotting of these lists (@jiho, #1008).
+
 * New coordinate system for small scale maps. `coord_quickmap()` computes and
   sets the correct aspect ratio between one degree of latitude and one degree
   of longitude at the centre of the plotted region. It does not perform full
