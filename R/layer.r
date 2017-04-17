@@ -145,7 +145,7 @@ layer <- function(geom = NULL, stat = NULL,
   )
 }
 
-Layer <- ggproto("Layer", NULL,
+Layer <- ggproto("Layer", Immutable,
   geom = NULL,
   geom_params = NULL,
   stat = NULL,

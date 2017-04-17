@@ -42,7 +42,7 @@
 #' @format NULL
 #' @usage NULL
 #' @export
-Coord <- ggproto("Coord",
+Coord <- ggproto("Coord", Immutable,
 
   aspect = function(ranges) NULL,
 

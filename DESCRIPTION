@@ -62,6 +62,7 @@ Collate:
     'utilities.r'
     'aes.r'
     'legend-draw.r'
+    'immutable.r'
     'geom-.r'
     'annotation-custom.r'
     'annotation-logticks.r'

@@ -1,4 +1,4 @@
-#' @include legend-draw.r
+#' @include legend-draw.r immutable.r
 NULL
 
 #' @section Geoms:
@@ -55,7 +55,7 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @export
-Geom <- ggproto("Geom",
+Geom <- ggproto("Geom", Immutable,
   required_aes = character(),
   non_missing_aes = character(),
   optional_aes = character(),
