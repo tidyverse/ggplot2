@@ -1,7 +1,8 @@
 #' Continuous colour bar guide
 #'
 #' Colour bar guide shows continuous color scales mapped onto values.
-#' Colour bar is available with \code{scale_fill} and \code{scale_colour}.
+#' Colour bar is available with \code{scale_fill}, \code{scale_colour} or
+#' \code{scale_alpha}.
 #' For more information, see the inspiration for this function:
 #' \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 #'
@@ -158,7 +159,7 @@ guide_colourbar <- function(
     order = order,
 
     # parameter
-    available_aes = c("colour", "color", "fill"), ..., name = "colorbar"),
+    available_aes = c("colour", "color", "fill", "alpha"), ..., name = "colorbar"),
     class = c("guide", "colorbar")
   )
 }
@@ -167,7 +168,7 @@ guide_colourbar <- function(
 guide_train.colorbar <- function(guide, scale) {
 
   # do nothing if scale are inappropriate
-  if (length(intersect(scale$aesthetics, c("color", "colour", "fill"))) == 0) {
+  if (length(intersect(scale$aesthetics, c("color", "colour", "fill", "alpha"))) == 0) {
     warning("colorbar guide needs colour or fill scales.")
     return(NULL)
   }
@@ -185,6 +186,10 @@ guide_train.colorbar <- function(guide, scale) {
   ticks <- as.data.frame(setNames(list(scale$map(breaks)), scale$aesthetics[1]))
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
+
+  if ("alpha" %in% scale$aesthetics){
+    ticks$.label <- rev(ticks$.label)
+  }
 
   guide$key <- ticks
 
