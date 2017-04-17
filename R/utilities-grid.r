@@ -4,10 +4,14 @@ grid::unit
 #' @export
 grid::arrow
 
-# Name ggplot grid object
-# Convenience function to name grid objects
-#
-# @keyword internal
+#' Name ggplot grid object
+#'
+#' Convenience function to name grid objects
+#'
+#' @param prefix New name for \code{grob}.
+#' @param grob A grob to name.
+#' @export
+#' @keywords internal
 ggname <- function(prefix, grob) {
   grob$name <- grobName(grob, prefix)
   grob
