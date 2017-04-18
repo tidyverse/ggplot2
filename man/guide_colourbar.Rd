@@ -9,17 +9,23 @@ guide_colourbar(title = waiver(), title.position = NULL,
   title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
   label = TRUE, label.position = NULL, label.theme = NULL,
   label.hjust = NULL, label.vjust = NULL, barwidth = NULL,
-  barheight = NULL, nbin = 20, raster = TRUE, ticks = TRUE,
+  barheight = NULL, nbin = 20, raster = TRUE, ticks = element_line(color
+  = "white", size = 1, linetype = "solid", lineend = "butt"),
   draw.ulim = TRUE, draw.llim = TRUE, direction = NULL,
-  default.unit = "line", reverse = FALSE, order = 0, ...)
+  default.unit = "line", reverse = FALSE, order = 0,
+  border = element_line(color = "white", size = 1, linetype = "solid", lineend
+  = "butt"), ...)
 
 guide_colorbar(title = waiver(), title.position = NULL,
   title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
   label = TRUE, label.position = NULL, label.theme = NULL,
   label.hjust = NULL, label.vjust = NULL, barwidth = NULL,
-  barheight = NULL, nbin = 20, raster = TRUE, ticks = TRUE,
+  barheight = NULL, nbin = 20, raster = TRUE, ticks = element_line(color
+  = "white", size = 1, linetype = "solid", lineend = "butt"),
   draw.ulim = TRUE, draw.llim = TRUE, direction = NULL,
-  default.unit = "line", reverse = FALSE, order = 0, ...)
+  default.unit = "line", reverse = FALSE, order = 0,
+  border = element_line(color = "white", size = 1, linetype = "solid", lineend
+  = "butt"), ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -74,8 +80,8 @@ raster object. If \code{FALSE} then the colorbar is rendered as a set of
 rectangles. Note that not all graphics devices are capable of rendering
 raster image.}
 
-\item{ticks}{A logical specifying if tick marks on colorbar should be
-visible.}
+\item{ticks}{A \code{\link{element_line}} object specifying the appearance
+of the tick marks. For backwards compatibility, a logical can also be}
 
 \item{draw.ulim}{A logical specifying if the upper limit tick marks should
 be visible.}
@@ -90,12 +96,15 @@ One of "horizontal" or "vertical."}
 for \code{barwidth} and \code{barheight}.}
 
 \item{reverse}{logical. If \code{TRUE} the colorbar is reversed. By default,
-the highest value is on the top and the lowest value is on the bottom}
+the highest value is on the top and the lowest value is on the bottom.}
 
 \item{order}{positive integer less that 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
+
+\item{border}{A \code{\link{element_line}} object specifying the appearance
+of the border around the color ramp.}
 
 \item{...}{ignored.}
 }
@@ -135,7 +144,13 @@ p1 + guides(fill = guide_colorbar(barwidth = 0.5, barheight = 10))
 p1 + guides(fill = guide_colorbar(label = FALSE))
 
 # no tick marks
-p1 + guides(fill = guide_colorbar(ticks = FALSE))
+p1 + guides(fill = guide_colorbar(ticks = element_blank()))
+
+# custom tick marks
+p1 + guides(fill = guide_colorbar(ticks = element_line(color = "black", size = 1, linetype = "solid")))
+
+# custom border
+p1 + guides(fill = guide_colorbar(border = element_line(color = "black", size = 1, linetype = "solid")))
 
 # label position
 p1 + guides(fill = guide_colorbar(label.position = "left"))

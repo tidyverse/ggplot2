@@ -24,8 +24,9 @@
 #'   raster object. If \code{FALSE} then the colorbar is rendered as a set of
 #'   rectangles. Note that not all graphics devices are capable of rendering
 #'   raster image.
-#' @param ticks A logical specifying if tick marks on colorbar should be
-#'   visible.
+#' @param ticks A \code{\link{element_line}} object specifying the appearance
+#'   of the tick marks. For backwards compatibility, a logical can also be 
+#    supplied.
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
 #' @param draw.llim A logical specifying if the lower limit tick marks should
@@ -35,7 +36,9 @@
 #' @param default.unit A character string indicating \code{\link[grid]{unit}}
 #'   for \code{barwidth} and \code{barheight}.
 #' @param reverse logical. If \code{TRUE} the colorbar is reversed. By default,
-#'   the highest value is on the top and the lowest value is on the bottom
+#'   the highest value is on the top and the lowest value is on the bottom.
+#' @param border A \code{\link{element_line}} object specifying the appearance
+#'   of the border around the color ramp.
 #' @param ... ignored.
 #' @return A guide object
 #' @export
@@ -60,7 +63,13 @@
 #' p1 + guides(fill = guide_colorbar(label = FALSE))
 #'
 #' # no tick marks
-#' p1 + guides(fill = guide_colorbar(ticks = FALSE))
+#' p1 + guides(fill = guide_colorbar(ticks = element_blank()))
+#'
+#' # custom tick marks
+#' p1 + guides(fill = guide_colorbar(ticks = element_line(color = "black", size = 1, linetype = "solid")))
+#'
+#' # custom border
+#' p1 + guides(fill = guide_colorbar(border = element_line(color = "black", size = 1, linetype = "solid")))
 #'
 #' # label position
 #' p1 + guides(fill = guide_colorbar(label.position = "left"))
@@ -110,7 +119,7 @@ guide_colourbar <- function(
   raster = TRUE,
 
   # ticks
-  ticks = TRUE,
+  ticks = element_line(color = 'white', size = 1, linetype = 'solid', lineend = 'butt'),
   draw.ulim= TRUE,
   draw.llim = TRUE,
 
@@ -119,11 +128,18 @@ guide_colourbar <- function(
   default.unit = "line",
   reverse = FALSE,
   order = 0,
+  border = element_line(color = 'white', size=1, linetype = 'solid', lineend = 'butt'),
 
   ...) {
 
   if (!is.null(barwidth) && !is.unit(barwidth)) barwidth <- unit(barwidth, default.unit)
   if (!is.null(barheight) && !is.unit(barheight)) barheight <- unit(barheight, default.unit)
+  
+  # if logical argument supplied to tick then use defaults
+  if (identical(ticks, TRUE))
+    ticks <- element_line(color = "white", size = 1, linetype = "solid", lineend = "butt")
+  if (identical(ticks, FALSE))
+    ticks <- element_blank()
 
   structure(list(
     # title
@@ -156,6 +172,7 @@ guide_colourbar <- function(
     default.unit = default.unit,
     reverse = reverse,
     order = order,
+    border = border,
 
     # parameter
     available_aes = c("colour", "color", "fill"), ..., name = "colorbar"),
@@ -175,19 +192,18 @@ guide_train.colorbar <- function(guide, scale) {
     warning("colorbar guide needs continuous scales.")
     return(NULL)
   }
-
-
+  
   # create data frame for tick display
   breaks <- scale$get_breaks()
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
+    
+  ticks.pos <- as.data.frame(setNames(list(scale$map(breaks)), scale$aesthetics[1]))
+  ticks.pos$.value <- breaks
+  ticks.pos$.label <- scale$get_labels(breaks)
 
-  ticks <- as.data.frame(setNames(list(scale$map(breaks)), scale$aesthetics[1]))
-  ticks$.value <- breaks
-  ticks$.label <- scale$get_labels(breaks)
-
-  guide$key <- ticks
-
+  guide$key <- ticks.pos
+  
   # bar specification (number of divs etc)
   .limits <- scale$get_limits()
   .bar <- discard(pretty(.limits, n = guide$nbin), scale$get_limits())
@@ -199,6 +215,7 @@ guide_train.colorbar <- function(guide, scale) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]
   }
+
   guide$hash <- with(guide, digest::digest(list(title, key$.label, bar, name)))
   guide
 }
@@ -262,23 +279,27 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.bar <-
     if (guide$raster) {
       image <- switch(guide$direction, horizontal = t(guide$bar$colour), vertical = rev(guide$bar$colour))
-      rasterGrob(image = image, width = barwidth.c, height = barheight.c, default.units = "mm", gp = gpar(col = NA), interpolate = TRUE)
+      rasterGrob(image = image, width = barwidth.c, height = barheight.c,
+        default.units = "mm", interpolate = TRUE, gp=gpar(col=NA))
     } else {
       switch(guide$direction,
              horizontal = {
                bw <- barwidth.c / nrow(guide$bar)
                bx <- (seq(nrow(guide$bar)) - 1) * bw
-               rectGrob(x = bx, y = 0, vjust = 0, hjust = 0, width = bw, height = barheight.c, default.units = "mm",
-                        gp = gpar(col = NA, fill = guide$bar$colour))
+               rectGrob(x = bx, y = 0, vjust = 0, hjust = 0, width = bw,
+                       height = barheight.c, default.units = "mm",
+                       gp = gpar(fill = guide$bar$colour))
              },
              vertical = {
                bh <- barheight.c / nrow(guide$bar)
                by <- (seq(nrow(guide$bar)) - 1) * bh
-               rectGrob(x = 0, y = by, vjust = 0, hjust = 0, width = barwidth.c, height = bh, default.units = "mm",
-                        gp = gpar(col = NA, fill = guide$bar$colour))
+               rectGrob(x = 0, y = by, vjust = 0, hjust = 0, width = barwidth.c, height = bh,
+                        default.units = "mm", gp = gpar(fill = guide$bar$colour))
              })
   }
 
+  
+  
   # tick and label position
   tic_pos.c <- rescale(guide$key$.value, c(0.5, guide$nbin - 0.5), guide$bar$value[c(1, nrow(guide$bar))]) * barlength.c / guide$nbin
   label_pos <- unit(tic_pos.c, "mm")
@@ -294,7 +315,6 @@ guide_gengrob.colorbar <- function(guide, theme) {
       vjust = guide$title.vjust %||% 0.5
     )
   )
-
 
   title_width <- convertWidth(grobWidth(grob.title), "mm")
   title_width.c <- c(title_width)
@@ -336,7 +356,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   # ticks
   grob.ticks <-
-    if (!guide$ticks) zeroGrob()
+    if (inherits(guide$ticks, "element_blank")) zeroGrob()
     else {
       switch(guide$direction,
         "horizontal" = {
@@ -352,7 +372,9 @@ guide_gengrob.colorbar <- function(guide, theme) {
           y1 = rep(tic_pos.c, 2)
         })
       segmentsGrob(x0 = x0, y0 = y0, x1 = x1, y1 = y1,
-                   default.units = "mm", gp = gpar(col = "white", lwd = 0.5, lineend = "butt"))
+                   default.units = "mm",
+                   gp = gpar(col = guide$ticks$colour, lwd = guide$ticks$size,
+                   lineend = guide$ticks$lineend, lty = guide$ticks$linetype))
     }
 
   # layout of bar and label
@@ -426,6 +448,23 @@ guide_gengrob.colorbar <- function(guide, theme) {
   # background
   grob.background <- element_render(theme, "legend.background")
 
+  # border
+  grob.border <- switch(guide$direction,
+      horizontal = {
+        bw <- barwidth.c / nrow(guide$bar)
+        rectGrob(x = 0, y = 0, vjust = 0, hjust = 0, width = bw * nrow(guide$bar),
+          height = barheight.c, default.units = "mm",
+          gp = gpar(col = guide$border$colour, fill = NA, lwd = guide$border$size,
+            lineend = guide$border$lineend, lty = guide$border$linetype))
+      },
+      vertical = {
+        bh <- barheight.c / nrow(guide$bar)
+        rectGrob(x = 0, y = 0, vjust = 0, hjust = 0, width = barwidth.c, height = bh * nrow(guide$bar),
+          default.units = "mm", 
+          gp = gpar(col = guide$border$colour, fill = NA, lwd = guide$border$size,
+            lineend = guide$border$lineend, lty = guide$border$linetype))
+      })
+   
   # padding
   padding <- convertUnit(theme$legend.margin %||% margin(), "mm")
   widths <- c(padding[4], widths, padding[2])
@@ -443,10 +482,12 @@ guide_gengrob.colorbar <- function(guide, theme) {
   gt <- gtable_add_grob(gt, grob.title, name = "title", clip = "off",
     t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),
     b = 1 + max(vps$title.row), l = 1 + min(vps$title.col))
-  gt <- gtable_add_grob(gt, grob.ticks, name = "ticks", clip = "off",
+ gt <- gtable_add_grob(gt, grob.border, name = "border", clip = "off",
     t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
     b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
-
+ gt <- gtable_add_grob(gt, grob.ticks, name = "ticks", clip = "off",
+    t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
+    b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
   gt
 }
 
