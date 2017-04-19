@@ -79,6 +79,14 @@ brackets_horisontal <- function(direction = c('up','down'),
   }
 }
 
+#' @export
+#' @rdname brackets
+#' @inheritParams brackets_horisontal
+brackets_horizontal <- brackets_horisontal
+
+#' @export
+#' @rdname brackets
+#' @inheritParams brackets_horisontal
 brackets_vertical <- function(direction = c('left','right'),
                               length = unit(0.05, 'native'),
                               tick.length = waiver()) {
