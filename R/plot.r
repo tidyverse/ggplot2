@@ -108,6 +108,16 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
   p
 }
 
+#
+# Allows eg ggplot(sunspot.year) + aes(x = time, y = value) + geom_line()
+#
+#' @export
+#' @rdname ggplot
+#' @usage NULL
+ggplot.ts = function(data = NULL, mapping = aes(), ..., environment = parent.frame())
+  ggplot(data = data.frame(time = unclass(time(data)), value = unclass(data)),
+         mapping = mapping, ..., environment = environment)
+
 plot_clone <- function(plot) {
   p <- plot
   p$scales <- plot$scales$clone()
