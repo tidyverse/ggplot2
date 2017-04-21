@@ -558,7 +558,7 @@ combine_elements <- function(e1, e2) {
 
   # If e1 has any NULL properties, inherit them from e2
   n <- vapply(e1[names(e2)], is.null, logical(1))
-  e1[n] <- e2[n]
+  e1[names(n[n])] <- e2[names(n[n])]
 
   # Calculate relative sizes
   if (is.rel(e1$size)) {
