@@ -10,6 +10,12 @@
 #' space they occupy on that plot is not constant in data units: when you
 #' resize a plot, labels stay the same size, but the size of the axes changes.
 #'
+#' \code{geom_text} and \code{geom_label} both add a label for each row in the 
+#' data, even if coordinates x, y are set to single values in the call 
+#' to \code{geom_label} or \code{geom_text}.
+#' To add labels at spefcified poitns use \code{\link{annotate}} with
+#' \code{annotate(geom = "text", ...)} or \code{annotate(geom = "label", ...)}
+#'
 #' @section Aesthetics:
 #' \aesthetics{geom}{text}
 #'
