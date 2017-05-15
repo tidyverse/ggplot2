@@ -15,6 +15,7 @@
 #' @inheritParams geom_point
 #' @param arrow specification for arrow heads, as created by arrow().
 #' @param lineend Line end style (round, butt, square).
+#' @param linejoin Line join style (round, mitre, bevel).
 #' @seealso \code{\link{geom_path}} and \code{\link{geom_line}} for multi-
 #'   segment lines and paths.
 #' @seealso \code{\link{geom_spoke}} for a segment parameterised by a location
@@ -42,6 +43,19 @@
 #'     arrow = arrow(length = unit(0.1,"cm"))) +
 #'   borders("state")
 #'
+#' # Use lineend and linejoin to change the style of the segments
+#' df2 <- expand.grid(lineend = c('round', 'butt', 'square'),
+#'                    linejoin = c('round', 'mitre', 'bevel'), stringsAsFactors = FALSE)
+#' segments <- lapply(seq_len(nrow(df2)), function(i) {
+#'   annotate(geom = 'segment', x = 1, y = i, xend = 2, yend = i, size = 5,
+#'   lineend = df2$lineend[i], linejoin = df2$linejoin[i], arrow = arrow(type = "closed"))
+#' })
+#' ggplot() +
+#'   segments +
+#'   geom_text(aes(x = 2, y = 1:9, label = paste(df2$lineend, df2$linejoin)),
+#'             hjust = 'outside', nudge_x = 0.2) +
+#'   xlim(1, 2.25)
+#'
 #' # You can also use geom_segment to recreate plot(type = "h") :
 #' counts <- as.data.frame(table(x = rpois(100,5)))
 #' counts$x <- as.numeric(as.character(counts$x))
@@ -54,6 +68,7 @@ geom_segment <- function(mapping = NULL, data = NULL,
                          ...,
                          arrow = NULL,
                          lineend = "butt",
+                         linejoin = "round",
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {
@@ -68,6 +83,7 @@ geom_segment <- function(mapping = NULL, data = NULL,
     params = list(
       arrow = arrow,
       lineend = lineend,
+      linejoin = linejoin,
       na.rm = na.rm,
       ...
     )
@@ -84,7 +100,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
   draw_panel = function(data, panel_params, coord, arrow = NULL,
-                        lineend = "butt", na.rm = FALSE) {
+                        lineend = "butt", linejoin = "round", na.rm = FALSE) {
 
     data <- remove_missing(data, na.rm = na.rm,
       c("x", "y", "xend", "yend", "linetype", "size", "shape"),
@@ -100,7 +116,8 @@ GeomSegment <- ggproto("GeomSegment", Geom,
           fill = alpha(coord$colour, coord$alpha),
           lwd = coord$size * .pt,
           lty = coord$linetype,
-          lineend = lineend
+          lineend = lineend,
+          linejoin = linejoin
         ),
         arrow = arrow
       ))

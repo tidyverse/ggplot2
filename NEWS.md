@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* `geom_segment` now also takes a `linejoin` parameter. This allows more control over the appearance of the segments, which is especially useful for plotting thick arrows (@Ax3man, #774).
+
 * `geom_smooth` now orders by the `x` aesthetic, making it easier to pass 
   pre-computed values without manual ordering (@izahn, #2028).
 
