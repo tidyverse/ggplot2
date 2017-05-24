@@ -85,14 +85,15 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     w <- rep(1 / nx, nx)
   }
 
-  # if less than 3 points, spread density evenly over points
-  if (nx < 3) {
+  # if less than 2 points return data frame of NAs and a warning
+  if (nx < 2) {
+    warning("Groups with fewer than two data points have been dropped.")
     return(data.frame(
-      x = x,
-      density = w / sum(w),
-      scaled = w / max(w),
-      count = 1,
-      n = nx
+      x = NA,
+      density = NA,
+      scaled = NA,
+      count = NA,
+      n = NA
     ))
   }
 
