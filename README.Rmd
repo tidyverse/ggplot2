@@ -81,7 +81,7 @@ There are two main places to get help with ggplot2:
     questions about ggplot2. You must be a member to post messages, 
     but anyone can read the archived discussions.
 
-1.  [stackoverflow](so) is a great source of answers to common ggplot2
+1.  [stackoverflow][so] is a great source of answers to common ggplot2
     questions. It is also a great place to get help, once you have
     created a reproducible example that illustrates your problem.
 
