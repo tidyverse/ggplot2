@@ -46,12 +46,11 @@
 #' # Use lineend and linejoin to change the style of the segments
 #' df2 <- expand.grid(lineend = c('round', 'butt', 'square'),
 #'                    linejoin = c('round', 'mitre', 'bevel'), stringsAsFactors = FALSE)
-#' segments <- lapply(seq_len(nrow(df2)), function(i) {
-#'   annotate(geom = 'segment', x = 1, y = i, xend = 2, yend = i, size = 5,
-#'   lineend = df2$lineend[i], linejoin = df2$linejoin[i], arrow = arrow(type = "closed"))
-#' })
+#' df2 <- data.frame(df2, y = 1:9)
 #' ggplot() +
-#'   segments +
+#'   geom_segment(aes(x = 1, y = y, xend = 2, yend = y), df2, size = 4,
+#'                lineend = df2$lineend, linejoin = df2$linejoin,
+#'                arrow = arrow(length = unit(0.5, "inches"))) +
 #'   geom_text(aes(x = 2, y = 1:9, label = paste(df2$lineend, df2$linejoin)),
 #'             hjust = 'outside', nudge_x = 0.2) +
 #'   xlim(1, 2.25)
