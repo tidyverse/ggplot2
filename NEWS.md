@@ -1,5 +1,9 @@
 # ggplot2 2.2.1.9000
 
+* `geom_density` drops groups with fewer than two data points and throws a
+  warning. For groups with two data points, the density values are now
+  calculated with `stats::density` (@karawoo, #2127).
+
 * `geom_smooth` now orders by the `x` aesthetic, making it easier to pass 
   pre-computed values without manual ordering (@izahn, #2028).
 
