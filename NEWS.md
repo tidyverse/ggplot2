@@ -192,7 +192,7 @@ There were also a number of other smaller changes
 
 * The `theme()` constructor now has named arguments rather than ellipses. This 
   should make autocomplete substantially more useful. The documentation
-  (including exampes) has been considerably improved.
+  (including examples) has been considerably improved.
   
 * Built-in themes are more visually homogeneous, and match `theme_grey` better.
   (@jiho, #1679)
