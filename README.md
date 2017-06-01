@@ -39,7 +39,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 
 ![](README-example-1.png)
 
-As well as the components built-in to ggplot2, there are many packages that provide extensions. See a comphrensive list at <http://www.ggplot2-exts.org>.
+As well as the components built-in to ggplot2, there are many packages that provide extensions. See a comprehensive list at <http://www.ggplot2-exts.org>.
 
 Learning ggplot2
 ----------------
@@ -61,4 +61,4 @@ There are two main places to get help with ggplot2:
 
 1.  The [ggplot2 mailing list](https://groups.google.com/forum/?fromgroups#!forum/ggplot2) is a friendly place to ask any questions about ggplot2. You must be a member to post messages, but anyone can read the archived discussions.
 
-2.  [stackoverflow](so) is a great source of answers to common ggplot2 questions. It is also a great place to get help, once you have created a reproducible example that illustrates your problem.
+2.  [stackoverflow](http://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50) is a great source of answers to common ggplot2 questions. It is also a great place to get help, once you have created a reproducible example that illustrates your problem.
