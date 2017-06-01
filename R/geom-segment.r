@@ -44,16 +44,19 @@
 #'   borders("state")
 #'
 #' # Use lineend and linejoin to change the style of the segments
-#' df2 <- expand.grid(lineend = c('round', 'butt', 'square'),
-#'                    linejoin = c('round', 'mitre', 'bevel'), stringsAsFactors = FALSE)
+#' df2 <- expand.grid(
+#'   lineend = c('round', 'butt', 'square'),
+#'   linejoin = c('round', 'mitre', 'bevel'),
+#'   stringsAsFactors = FALSE
+#' )
 #' df2 <- data.frame(df2, y = 1:9)
-#' ggplot() +
-#'   geom_segment(aes(x = 1, y = y, xend = 2, yend = y), df2, size = 4,
-#'                lineend = df2$lineend, linejoin = df2$linejoin,
-#'                arrow = arrow(length = unit(0.5, "inches"))) +
-#'   geom_text(aes(x = 2, y = 1:9, label = paste(df2$lineend, df2$linejoin)),
-#'             hjust = 'outside', nudge_x = 0.2) +
-#'   xlim(1, 2.25)
+#' ggplot(df2, aes(x = 1, y = y, xend = 2, yend = y, label = paste(lineend, linejoin))) +
+#'   geom_segment(
+#'      lineend = df2$lineend, linejoin = df2$linejoin,
+#'      size = 3, arrow = arrow(length = unit(0.3, "inches"))
+#'   ) +
+#'   geom_text(hjust = 'outside', nudge_x = -0.2) +
+#'   xlim(0.5, 2)
 #'
 #' # You can also use geom_segment to recreate plot(type = "h") :
 #' counts <- as.data.frame(table(x = rpois(100,5)))
