@@ -39,7 +39,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 
 ![](README-example-1.png)
 
-As well as the components built-in to ggplot2, there are many packages that provide extensions. See a comphrensive list at <https://www.ggplot2-exts.org>.
+As well as the components built-in to ggplot2, there are many packages that provide extensions. See a comphrensive list at <http://www.ggplot2-exts.org>.
 
 Learning ggplot2
 ----------------
