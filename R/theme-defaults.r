@@ -375,6 +375,7 @@ theme_classic <- function(base_size = 11, base_family = "",
 theme_void <- function(base_size = 11, base_family = "",
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22) {
+  half_line <- base_size / 2
   theme(
     # Use only inherited elements and make almost everything blank
     # Only keep indispensable text
@@ -389,11 +390,15 @@ theme_void <- function(base_size = 11, base_family = "",
     axis.text =        element_blank(),
     axis.title =       element_blank(),
     axis.ticks.length =  unit(0, "pt"),
+    legend.key.size =    unit(1.2, "lines"),
     legend.position =    "right",
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
     strip.text =         element_text(size = rel(0.8)),
+    strip.switch.pad.grid = unit(0.1, "cm"),
+    strip.switch.pad.wrap = unit(0.1, "cm"),
     panel.ontop =        FALSE,
+    panel.spacing =      unit(half_line, "pt"),
     plot.margin =        unit(c(0, 0, 0, 0), "lines"),
 
     complete = TRUE
