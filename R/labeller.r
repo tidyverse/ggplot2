@@ -509,7 +509,9 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     grobs_right <- apply(grobs_right, 1, function(strips) {
       gtable_matrix("strip", matrix(strips, nrow = 1), widths, unit(1, "null"), clip = "on")
     })
-    theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
+    if (inherits(theme$strip.text.y, "element_text")) {
+      theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
+    }
     grobs_left <- apply(labels, c(1, 2), ggstrip, theme = theme,
       horizontal = horizontal)
     widths <- unit(apply(grobs_left, 2, max_width), "cm")
