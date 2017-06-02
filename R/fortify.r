@@ -23,8 +23,8 @@ fortify.default <- function(model, data, ...) {
     "ggplot2 doesn't know how to deal with data of class ",
     paste(class(model), collapse = "/"), "."
   )
-  if (class(model) == "uneval") {
-    msg <- paste0(msg, " Did you forget the data argument in ggplot()?")
+  if (inherits(model, "uneval")) {
+    msg <- paste0(msg, " Did you forget the `data` argument in ggplot()?")
   }
   stop(msg, call. = FALSE)
 }
