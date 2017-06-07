@@ -79,6 +79,8 @@ up correct aspect ratio, and draws a graticule.
 
 * Fix usage of `structure(NULL)` for R-devel compatibility (#1968).
 
+* `alpha` affects text and border in `geom_label()` (@jiho, #1924)
+
 # ggplot2 2.2.0
 
 ## Major new features
