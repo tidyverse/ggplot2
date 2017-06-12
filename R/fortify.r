@@ -24,7 +24,7 @@ fortify.default <- function(model, data, ...) {
     paste(class(model), collapse = "/"), "."
   )
   if (inherits(model, "uneval")) {
-    msg <- paste0(msg, " Did you forget the `data` argument in ggplot()?")
+    msg <- paste0(msg, " Did you accidentally provide the results of `aes()` to the `data` argument?")
   }
   stop(msg, call. = FALSE)
 }
