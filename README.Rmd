@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ggplot2 <img src="logo.png" align="right" />
+# ggplot2 <img src="man/figures/logo.png" align="right" />
 
 [![Travis Build Status](https://travis-ci.org/tidyverse/ggplot2.svg?branch=master)](https://travis-ci.org/tidyverse/ggplot2)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/ggplot2?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/ggplot2)
