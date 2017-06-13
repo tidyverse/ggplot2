@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-ggplot2 <img src="logo.png" align="right" />
-============================================
+ggplot2 <img src="man/figures/logo.png" align="right" />
+========================================================
 
 [![Travis Build Status](https://travis-ci.org/tidyverse/ggplot2.svg?branch=master)](https://travis-ci.org/tidyverse/ggplot2) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/ggplot2?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/ggplot2) [![Coverage Status](https://img.shields.io/codecov/c/github/tidyverse/ggplot2/master.svg)](https://codecov.io/github/tidyverse/ggplot2?branch=master) [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
 
@@ -37,7 +37,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point()
 ```
 
-![](README-example-1.png)
+![](man/figures/README-example-1.png)
 
 As well as the components built-in to ggplot2, there are many packages that provide extensions. See a comprehensive list at <http://www.ggplot2-exts.org>.
 
