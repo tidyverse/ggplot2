@@ -37,7 +37,7 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point()
 ```
 
-![](README-example-1.png)
+![](man/figures/README-example-1.png)
 
 As well as the components built-in to ggplot2, there are many packages that provide extensions. See a comprehensive list at <http://www.ggplot2-exts.org>.
 
