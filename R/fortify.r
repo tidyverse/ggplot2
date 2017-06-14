@@ -19,9 +19,12 @@ fortify.NULL <- function(model, data, ...) waiver()
 fortify.function <- function(model, data, ...) model
 #' @export
 fortify.default <- function(model, data, ...) {
-  stop(
+  msg <- paste0(
     "ggplot2 doesn't know how to deal with data of class ",
-    paste(class(model), collapse = "/"),
-    call. = FALSE
+    paste(class(model), collapse = "/"), "."
   )
+  if (inherits(model, "uneval")) {
+    msg <- paste0(msg, " Did you accidentally provide the results of `aes()` to the `data` argument?")
+  }
+  stop(msg, call. = FALSE)
 }
