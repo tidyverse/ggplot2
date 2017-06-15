@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Documentation now uses markdown thanks to roxygen2md::roxygen2md() (@karawoo,
+  #2165).
+
 * `geom_density` drops groups with fewer than two data points and throws a
   warning. For groups with two data points, the density values are now
   calculated with `stats::density` (@karawoo, #2127).
