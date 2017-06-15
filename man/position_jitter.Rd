@@ -8,13 +8,13 @@ position_jitter(width = NULL, height = NULL)
 }
 \arguments{
 \item{width, height}{Amount of vertical and horizontal jitter. The jitter
-  is added in both positive and negative directions, so the total spread
-  is twice the value specified here.
+is added in both positive and negative directions, so the total spread
+is twice the value specified here.
 
-  If omitted, defaults to 40\% of the resolution of the data: this means the
-  jitter values will occupy 80\% of the implied bins. Categorical data
-  is aligned on the integers, so a width or height of 0.5 will spread the
-  data so it's not possible to see the distinction between the categories.}
+If omitted, defaults to 40\% of the resolution of the data: this means the
+jitter values will occupy 80\% of the implied bins. Categorical data
+is aligned on the integers, so a width or height of 0.5 will spread the
+data so it's not possible to see the distinction between the categories.}
 }
 \description{
 Couterintuitively adding random noise to a plot can sometimes make it

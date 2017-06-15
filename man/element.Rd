@@ -50,21 +50,21 @@ calculating final element state.}
 
 \item{lineend}{Line end Line end style (round, butt, square)}
 
-\item{arrow}{Arrow specification, as created by \code{\link[grid]{arrow}}}
+\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}}
 
 \item{family}{Font family}
 
 \item{face}{Font face ("plain", "italic", "bold", "bold.italic")}
 
-\item{hjust}{Horizontal justification (in [0, 1])}
+\item{hjust}{Horizontal justification (in \link{0, 1})}
 
-\item{vjust}{Vertical justification (in [0, 1])}
+\item{vjust}{Vertical justification (in \link{0, 1})}
 
-\item{angle}{Angle (in [0, 360])}
+\item{angle}{Angle (in \link{0, 360})}
 
 \item{lineheight}{Line height}
 
-\item{margin}{Margins around the text. See \code{\link{margin}} for more
+\item{margin}{Margins around the text. See \code{\link[=margin]{margin()}} for more
 details. When creating a theme, the margins should be placed on the
 side of the text facing towards the center of the plot.}
 
@@ -82,10 +82,10 @@ In conjunction with the \link{theme} system, the \code{element_} functions
 specify the display of how non-data components of the plot are a drawn.
 
 \itemize{
-  \item \code{element_blank}: draws nothing, and assigns no space.
-  \item \code{element_rect}: borders and backgrounds.
-  \item \code{element_line}: lines.
-  \item \code{element_text}: text.
+\item \code{element_blank}: draws nothing, and assigns no space.
+\item \code{element_rect}: borders and backgrounds.
+\item \code{element_line}: lines.
+\item \code{element_text}: text.
 }
 
 \code{rel()} is used to specify sizes relative to the parent,

@@ -19,5 +19,5 @@ package, which implements a much wider range of methods. \code{fortify}
 may be deprecated in the future.
 }
 \seealso{
-\code{\link{fortify.lm}}
+\code{\link[=fortify.lm]{fortify.lm()}}
 }

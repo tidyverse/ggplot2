@@ -25,21 +25,21 @@ scale_size_area(..., max_size = 6)
 mapping used for that aesthetic.}
 
 \item{breaks}{One of: \itemize{
-  \item \code{NULL} for no breaks
-  \item \code{waiver()} for the default breaks computed by the
-    transformation object
-  \item A numeric vector of positions
-  \item A function that takes the limits as input and returns breaks
-    as output
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks computed by the
+transformation object
+\item A numeric vector of positions
+\item A function that takes the limits as input and returns breaks
+as output
 }}
 
 \item{labels}{One of: \itemize{
-  \item \code{NULL} for no labels
-  \item \code{waiver()} for the default labels computed by the
-    transformation object
-  \item A character vector giving labels (must be same length as \code{breaks})
-  \item A function that takes the breaks as input and returns labels
-    as output
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item A function that takes the breaks as input and returns labels
+as output
 }}
 
 \item{limits}{A numeric vector of length two providing limits of the scale.
@@ -49,20 +49,20 @@ Use \code{NA} to refer to the existing minimum or maximum.}
 maximum size of the plotting symbol after transformation.}
 
 \item{trans}{Either the name of a transformation object, or the
-  object itself. Built-in transformations include "asn", "atanh",
-  "boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-  "logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
+"logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
 
-  A transformation object bundles together a transform, it's inverse,
-  and methods for generating breaks and labels. Transformation objects
-  are defined in the scales package, and are called \code{name_trans}, e.g.
-  \code{\link[scales]{boxcox_trans}}. You can create your own
-  transformation with \code{\link[scales]{trans_new}}.}
+A transformation object bundles together a transform, it's inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called \code{name_trans}, e.g.
+\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
+transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{guide}{A function used to create a guide or its name. See
-\code{\link{guides}} for more info.}
+\code{\link[=guides]{guides()}} for more info.}
 
-\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
+\item{...}{Other arguments passed on to \code{\link[=continuous_scale]{continuous_scale()}}
 to control name, limits, breaks, labels and so forth.}
 
 \item{max_size}{Size of largest points.}
@@ -93,6 +93,6 @@ ggplot(mpg, aes(class, cyl)) +
 p + scale_radius()
 }
 \seealso{
-\code{\link{scale_size_area}} if you want 0 values to be mapped
-  to points with size 0.
+\code{\link[=scale_size_area]{scale_size_area()}} if you want 0 values to be mapped
+to points with size 0.
 }
