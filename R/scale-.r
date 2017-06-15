@@ -611,6 +611,16 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'
 #' @export
 #' @inheritParams continuous_scale
+#' @param breaks One of: \itemize{
+#'   \item \code{NULL} for no breaks
+#'   \item \code{waiver()} for the default breaks computed by the
+#'     transformation object
+#'   \item A character vector of breaks
+#'   \item A function that takes the limits as input and returns breaks
+#'     as output
+#' }
+#' @param limits A character vector that defines possible values of the scale
+#'   and their order.
 #' @param drop Should unused factor levels be omitted from the scale?
 #'    The default, \code{TRUE}, uses the levels that appear in the data;
 #'    \code{FALSE} uses all the levels in the factor.
