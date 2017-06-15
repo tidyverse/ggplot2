@@ -26,7 +26,7 @@ mapping used for that aesthetic.}
   \item \code{NULL} for no breaks
   \item \code{waiver()} for the default breaks computed by the
     transformation object
-  \item A numeric vector of positions
+  \item A character vector of breaks
   \item A function that takes the limits as input and returns breaks
     as output
 }}
@@ -40,8 +40,8 @@ mapping used for that aesthetic.}
     as output
 }}
 
-\item{limits}{A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum.}
+\item{limits}{A character vector of all possible values of the scale and
+their order.}
 
 \item{expand}{A numeric vector of length two giving multiplicative and
 additive expansion constants. These constants ensure that the data is
