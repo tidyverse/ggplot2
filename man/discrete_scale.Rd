@@ -40,8 +40,8 @@ mapping used for that aesthetic.}
     as output
 }}
 
-\item{limits}{A character vector of all possible values of the scale and
-their order.}
+\item{limits}{A character vector that defines possible values of the scale
+and their order.}
 
 \item{expand}{A numeric vector of length two giving multiplicative and
 additive expansion constants. These constants ensure that the data is
