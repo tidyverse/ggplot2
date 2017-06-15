@@ -28,6 +28,9 @@
 #' @inheritParams scale_colour_hue
 #' @inheritParams scale_colour_gradient
 #' @inheritParams scales::gradient_n_pal
+#' @param ... Other arguments passed on to \code{\link{discrete_scale}} or, for
+#'   ‘distiller’ scales, \code{\link{continuous_scale}} to control name, limits,
+#'   breaks, labels and so forth.
 #' @family colour scales
 #' @rdname scale_brewer
 #' @export
