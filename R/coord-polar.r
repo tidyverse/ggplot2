@@ -3,7 +3,7 @@
 #' The polar coordinate system is most commonly used for pie charts, which
 #' are a stacked bar chart in polar coordinates.
 #'
-#' @param theta variable to map angle to (\code{x} or \code{y})
+#' @param theta variable to map angle to (`x` or `y`)
 #' @param start offset of starting point from 12 o'clock in radians
 #' @param direction 1, clockwise; -1, anticlockwise
 #' @export

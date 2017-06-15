@@ -26,7 +26,7 @@ NULL
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. Aesthetic mappings can be set in
-#' \code{\link{ggplot2}} and in individual layers.
+#' [ggplot2()] and in individual layers.
 #'
 #' This function also standardise aesthetic names by performing partial
 #' matching, converting color to colour, and translating old style R names to
@@ -35,7 +35,7 @@ NULL
 #' @param x,y,... List of name value pairs giving aesthetics to map to
 #'   variables. The names for x and y aesthetics are typically omitted because
 #'   they are so common; all other aesthetics must be named.
-#' @seealso See \code{\link{aes_}} for a version of \code{aes} that is
+#' @seealso See [aes_()] for a version of `aes` that is
 #'   more suitable for programming with.
 #' @export
 #' @examples
@@ -106,25 +106,25 @@ is_position_aes <- function(vars) {
 #' Define aesthetic mappings programatically
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
-#' properties (aesthetics) of geoms. \code{\link{aes}} uses non-standard
-#' evaluation to capture the variable names. \code{aes_} and \code{aes_string}
-#' require you to explicitly quote the inputs either with \code{""} for
-#' \code{aes_string()}, or with \code{quote} or \code{~} for \code{aes_()}.
-#' (\code{aes_q} is an alias to \code{aes_}). This makes \code{aes_} and
-#' \code{aes_string} easy to program with.
+#' properties (aesthetics) of geoms. [aes()] uses non-standard
+#' evaluation to capture the variable names. `aes_` and `aes_string`
+#' require you to explicitly quote the inputs either with `""` for
+#' `aes_string()`, or with `quote` or `~` for `aes_()`.
+#' (`aes_q` is an alias to `aes_`). This makes `aes_` and
+#' `aes_string` easy to program with.
 #'
-#' \code{aes_string} and \code{aes_} are particularly useful when writing
+#' `aes_string` and `aes_` are particularly useful when writing
 #' functions that create plots because you can use strings or quoted
 #' names/calls to define the aesthetic mappings, rather than having to use
-#' \code{\link{substitute}} to generate a call to \code{aes()}.
+#' [substitute()] to generate a call to `aes()`.
 #'
-#' I recommend using \code{aes_()}, because creating the equivalents of
-#' \code{aes(colour = "my colour")} or \code{aes{x = `X$1`}}
-#' with \code{aes_string()} is quite clunky.
+#' I recommend using `aes_()`, because creating the equivalents of
+#' `aes(colour = "my colour")` or \code{aes{x = `X$1`}}
+#' with `aes_string()` is quite clunky.
 #'
 #' @param x,y,... List of name value pairs. Elements must be either
 #'   quoted calls, strings, one-sided formulas or constants.
-#' @seealso \code{\link{aes}}
+#' @seealso [aes()]
 #' @export
 #' @examples
 #' # Three ways of generating the same aesthetics

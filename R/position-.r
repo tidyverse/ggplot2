@@ -1,43 +1,43 @@
 #' @section Positions:
 #'
-#' All \code{position_*} functions (like \code{position_dodge}) return a
-#' \code{Position*} object (like \code{PositionDodge}). The \code{Position*}
+#' All `position_*` functions (like `position_dodge`) return a
+#' `Position*` object (like `PositionDodge`). The `Position*`
 #' object is responsible for adjusting the position of overlapping geoms.
 #'
-#' The way that the \code{position_*} functions work is slightly different from
-#' the \code{geom_*} and \code{stat_*} functions, because a \code{position_*}
-#' function actually "instantiates" the \code{Position*} object by creating a
+#' The way that the `position_*` functions work is slightly different from
+#' the `geom_*` and `stat_*` functions, because a `position_*`
+#' function actually "instantiates" the `Position*` object by creating a
 #' descendant, and returns that.
 #'
-#' Each of the \code{Position*} objects is a \code{\link{ggproto}} object,
-#' descended from the top-level \code{Position}, and each implements the
+#' Each of the `Position*` objects is a [ggproto()] object,
+#' descended from the top-level `Position`, and each implements the
 #' following methods:
 #'
 #' \itemize{
-#'   \item \code{compute_layer(self, data, params, panel)} is called once
-#'     per layer. \code{panel} is currently an internal data structure, so
+#'   \item `compute_layer(self, data, params, panel)` is called once
+#'     per layer. `panel` is currently an internal data structure, so
 #'     this method should not be overriden.
 #'
-#'   \item \code{compute_panel(self, data, params, panel)} is called once per
+#'   \item `compute_panel(self, data, params, panel)` is called once per
 #'     panel and should return a modified data frame.
 #'
-#'     \code{data} is a data frame containing the variables named according
-#'     to the aesthetics that they're mapped to. \code{scales} is a list
-#'     containing the \code{x} and \code{y} scales. There functions are called
+#'     `data` is a data frame containing the variables named according
+#'     to the aesthetics that they're mapped to. `scales` is a list
+#'     containing the `x` and `y` scales. There functions are called
 #'     before the facets are trained, so they are global scales, not local
-#'     to the individual panels. \code{params} contains the parameters returned by
-#'     \code{setup_params()}.
-#'   \item \code{setup_params(data, params)}: called once for each layer.
+#'     to the individual panels. `params` contains the parameters returned by
+#'     `setup_params()`.
+#'   \item `setup_params(data, params)`: called once for each layer.
 #'      Used to setup defaults that need to complete dataset, and to inform
 #'      the user of important choices. Should return list of parameters.
-#'   \item \code{setup_data(data, params)}: called once for each layer,
-#'      after \code{setp_params()}. Should return modified \code{data}.
+#'   \item `setup_data(data, params)`: called once for each layer,
+#'      after `setp_params()`. Should return modified `data`.
 #'      Default checks that required aesthetics are present.
 #' }
 #'
 #' And the following fields
 #' \itemize{
-#'   \item \code{required_aes}: a character vector giving the aesthetics
+#'   \item `required_aes`: a character vector giving the aesthetics
 #'      that must be present for this position adjustment to work.
 #' }
 #'
@@ -75,7 +75,7 @@ Position <- ggproto("Position",
 #'
 #' @param trans_x,trans_y Transformation functions for x and y aesthetics.
 #'   (will transform x, xmin, xmax, xend etc)
-#' @param ... Additional arguments passed to \code{trans_x} and \code{trans_y}.
+#' @param ... Additional arguments passed to `trans_x` and `trans_y`.
 #' @keywords internal
 #' @export
 transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {

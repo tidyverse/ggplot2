@@ -1,7 +1,7 @@
 #' Complete themes
 #'
 #' These are complete themes which control all non-data display. Use
-#' \code{\link{theme}} if you just need to tweak the display of an existing
+#' [theme()] if you just need to tweak the display of an existing
 #' theme.
 #'
 #' @param base_size base font size
@@ -10,37 +10,37 @@
 #' @details
 #' \describe{
 #'
-#' \item{\code{theme_gray}}{
+#' \item{`theme_gray`}{
 #' The signature ggplot2 theme with a grey background and white gridlines,
 #' designed to put the data forward yet make comparisons easy.}
 #'
-#' \item{\code{theme_bw}}{
+#' \item{`theme_bw`}{
 #' The classic dark-on-light ggplot2 theme. May work better for presentations
 #' displayed with a projector.}
 #'
-#' \item{\code{theme_linedraw}}{
+#' \item{`theme_linedraw`}{
 #' A theme with only black lines of various widths on white backgrounds,
-#' reminiscent of a line drawings. Serves a purpose similar to \code{theme_bw}.
+#' reminiscent of a line drawings. Serves a purpose similar to `theme_bw`.
 #' Note that this theme has some very thin lines (<< 1 pt) which some journals
 #' may refuse.}
 #'
-#' \item{\code{theme_light}}{
-#' A theme similar to \code{theme_linedraw} but with light grey lines and axes,
+#' \item{`theme_light`}{
+#' A theme similar to `theme_linedraw` but with light grey lines and axes,
 #' to direct more attention towards the data.}
 #'
-#' \item{\code{theme_dark}}{
-#' The dark cousin of \code{theme_light}, with similar line sizes but a dark background. Useful to make thin coloured lines pop out.}
+#' \item{`theme_dark`}{
+#' The dark cousin of `theme_light`, with similar line sizes but a dark background. Useful to make thin coloured lines pop out.}
 #'
-#' \item{\code{theme_minimal}}{
+#' \item{`theme_minimal`}{
 #' A minimalistic theme with no background annotations.}
 #'
-#' \item{\code{theme_classic}}{
+#' \item{`theme_classic`}{
 #' A classic-looking theme, with x and y axis lines and no gridlines.}
 #'
-#' \item{\code{theme_void}}{
+#' \item{`theme_void`}{
 #' A completely empty theme.}
 #'
-#' \item{\code{theme_test}}{
+#' \item{`theme_test`}{
 #' A theme for visual unit tests. It should ideally never change except
 #' for new features.}
 #'

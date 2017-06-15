@@ -1,6 +1,6 @@
 #' Add components to a plot
 #'
-#' \code{+} is the key to constructing sophisticated ggplot2 graphics. It
+#' `+` is the key to constructing sophisticated ggplot2 graphics. It
 #' allows you to start simple, then get more and more complex, checking your
 #' work at each step.
 #'
@@ -8,13 +8,13 @@
 #' You can add any of the following types of objects:
 #'
 #' \itemize{
-#'   \item A \code{\link{aes}()} objects replaces the default aesthetics.
-#'   \item A layer created by a \code{geom_} or \code{stat_} function adds
+#'   \item A [aes()] objects replaces the default aesthetics.
+#'   \item A layer created by a `geom_` or `stat_` function adds
 #'     new layer.
-#'   \item A \code{scale} overrides the existing scale.
-#'   \item A \code{\link{theme}} modifies the current theme.
-#'   \item A \code{coord} overrides current coordinate system.
-#'   \item A \code{facet} specificatio override current faceting.
+#'   \item A `scale` overrides the existing scale.
+#'   \item A [theme()] modifies the current theme.
+#'   \item A `coord` overrides current coordinate system.
+#'   \item A `facet` specificatio override current faceting.
 #' }
 #'
 #' To replace the current default data frame, you must use \code{\%+\%},
@@ -23,9 +23,9 @@
 #' You can also supply a list, in which case each element of the list will
 #' be added in turn.
 #'
-#' @param e1 An object of class \code{\link{ggplot}} or a \code{\link{theme}}.
+#' @param e1 An object of class [ggplot()] or a [theme()].
 #' @param e2 A plot component, as described below.
-#' @seealso \code{\link{theme}}
+#' @seealso [theme()]
 #' @export
 #' @method + gg
 #' @rdname gg-add
