@@ -22,8 +22,9 @@ scale_fill_distiller(..., type = "seq", palette = 1, direction = -1,
   guide = "colourbar")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
-to control name, limits, breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link{discrete_scale}} or, for
+\code{distiller} scales, \code{\link{continuous_scale}} to control name,
+limits, breaks, labels and so forth.}
 
 \item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
 
