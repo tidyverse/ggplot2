@@ -38,7 +38,7 @@
 #' }
 #'
 #' @seealso \code{\link{stat_count}}, which counts the number of cases at each x
-#'   posotion, without binning. It is suitable for both discrete and continuous
+#'   position, without binning. It is suitable for both discrete and continuous
 #'   x data, whereas \link{stat_bin} is suitable only for continuous x data.
 #' @export
 #' @rdname geom_histogram
@@ -88,7 +88,7 @@ StatBin <- ggproto("StatBin", Stat,
       stop("stat_bin() must not be used with a y aesthetic.", call. = FALSE)
     }
     if (is.integer(data$x)) {
-      stop('StatBin requires a continuous x variable the x variable is discrete. Perhaps you want stat="count"?',
+      stop('StatBin requires a continuous x variable: the x variable is discrete. Perhaps you want stat="count"?',
         call. = FALSE)
     }
 
