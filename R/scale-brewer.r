@@ -1,17 +1,17 @@
 #' Sequential, diverging and qualitative colour scales from colorbrewer.org
 #'
 #' @description
-#' The \code{brewer} scales provides sequential, diverging and qualitative
+#' The `brewer` scales provides sequential, diverging and qualitative
 #' colour schemes from ColorBrewer. These are particularly well suited to
 #' display discrete values on a map. See \url{http://colorbrewer2.org} for
 #' more information.
 #'
 #' @note
-#' The \code{distiller} scales extends brewer to continuous scales by smoothly
+#' The `distiller` scales extends brewer to continuous scales by smoothly
 #' interpolate 6 colours from any palette to a continuous scale.
 #'
 #' @details
-#' The \code{brewer} scales were carefully designed and tested on discrete data.
+#' The `brewer` scales were carefully designed and tested on discrete data.
 #' They were not designed to be extended to continuous data, but results often
 #' look good. Your mileage may vary.
 #'
@@ -28,8 +28,8 @@
 #' @inheritParams scale_colour_hue
 #' @inheritParams scale_colour_gradient
 #' @inheritParams scales::gradient_n_pal
-#' @param ... Other arguments passed on to \code{\link{discrete_scale}} or, for
-#'   \code{distiller} scales, \code{\link{continuous_scale}} to control name,
+#' @param ... Other arguments passed on to [discrete_scale()] or, for
+#'   `distiller` scales, [continuous_scale()] to control name,
 #'   limits, breaks, labels and so forth.
 #' @family colour scales
 #' @rdname scale_brewer

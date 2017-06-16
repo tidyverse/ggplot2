@@ -10,6 +10,6 @@ last_plot()
 Retrieve the last plot to be modified or created.
 }
 \seealso{
-\code{\link{ggsave}}
+\code{\link[=ggsave]{ggsave()}}
 }
 \keyword{internal}

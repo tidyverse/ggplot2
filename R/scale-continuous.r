@@ -1,16 +1,16 @@
 #' Position scales for continuous data (x & y)
 #'
-#' \code{scale_x_continuous} and \code{scale_y_continuous} are the default
+#' `scale_x_continuous` and `scale_y_continuous` are the default
 #' scales for continuous x and y aesthetics. There are three variants
-#' that set the \code{trans} argument for commonly used transformations:
-#' \code{scale_*_log10}, \code{scale_*_sqrt} and \code{scale_*_reverse}.
+#' that set the `trans` argument for commonly used transformations:
+#' `scale_*_log10`, `scale_*_sqrt` and `scale_*_reverse`.
 #'
 #' For simple manipulation of labels and limits, you may wish to use
-#' \code{\link{labs}()} and \code{\link{lims}()} instead.
+#' [labs()] and [lims()] instead.
 #'
 #' @inheritParams continuous_scale
 #' @family position scales
-#' @param ... Other arguments passed on to \code{scale_(x|y)_continuous}
+#' @param ... Other arguments passed on to `scale_(x|y)_continuous`
 #' @examples
 #' p1 <- ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point()
@@ -71,7 +71,7 @@ NULL
 #'
 #' @param sec.axis specifify a secondary axis
 #'
-#' @seealso \code{\link{sec_axis}} for how to specify secondary axes
+#' @seealso [sec_axis()] for how to specify secondary axes
 #' @export
 scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),

@@ -10,27 +10,27 @@
 #'
 #' @param breaks One of:
 #' \itemize{
-#'   \item{\code{NULL} for no breaks}
-#'   \item{\code{waiver()} for the default breaks computed by the transformation object}
+#'   \item{`NULL` for no breaks}
+#'   \item{`waiver()` for the default breaks computed by the transformation object}
 #'   \item{A numeric vector of positions}
 #'   \item{A function that takes the limits as input and returns breaks as output}
 #' }
 #'
 #' @param labels One of:
 #' \itemize{
-#'   \item{\code{NULL} for no labels}
-#'   \item{\code{waiver()} for the default labels computed by the transformation object}
-#'   \item{A character vector giving labels (must be same length as \code{breaks})}
+#'   \item{`NULL` for no labels}
+#'   \item{`waiver()` for the default labels computed by the transformation object}
+#'   \item{A character vector giving labels (must be same length as `breaks`)}
 #'   \item{A function that takes the breaks as input and returns labels as output}
 #' }
 #'
 #' @details
-#' \code{sec_axis} is used to create the specifications for a secondary axis.
-#' Except for the \code{trans} argument any of the arguments can be set to
-#' \code{derive()} which would result in the secondary axis inheriting the
+#' `sec_axis` is used to create the specifications for a secondary axis.
+#' Except for the `trans` argument any of the arguments can be set to
+#' `derive()` which would result in the secondary axis inheriting the
 #' settings from the primary axis.
 #'
-#' \code{dup_axis} is provide as a shorthand for creating a secondary axis that
+#' `dup_axis` is provide as a shorthand for creating a secondary axis that
 #' is a duplication of the primary axis, effectively mirroring the primary axis.
 #'
 #' @examples

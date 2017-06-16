@@ -1,7 +1,7 @@
 #' Create a new ggproto object
 #'
-#' Construct a new object with \code{ggproto}, test with \code{is.proto},
-#' and access parent methods/fields with \code{ggproto_parent}.
+#' Construct a new object with `ggproto`, test with `is.proto`,
+#' and access parent methods/fields with `ggproto_parent`.
 #'
 #' ggproto implements a protype based OO system which blurs the lines between
 #' classes and instances. It is inspired by the proto package, but it has some
@@ -13,24 +13,24 @@
 #' it required the fewest changes to an already complex code base.
 #'
 #' @section Calling methods:
-#' ggproto methods can take an optional \code{self} argument: if it is present,
+#' ggproto methods can take an optional `self` argument: if it is present,
 #' it is a regular method; if it's absent, it's a "static" method (i.e. it
 #' doesn't use any fields).
 #'
-#' Imagine you have a ggproto object \code{Adder}, which has a
-#' method \code{addx = function(self, n) n + self$x}. Then, to call this
-#' function, you would use \code{Adder$addx(10)} -- the \code{self} is passed
-#' in automatically by the wrapper function. \code{self} be located anywhere
+#' Imagine you have a ggproto object `Adder`, which has a
+#' method `addx = function(self, n) n + self$x`. Then, to call this
+#' function, you would use `Adder$addx(10)` -- the `self` is passed
+#' in automatically by the wrapper function. `self` be located anywhere
 #' in the function signature, although customarily it comes first.
 #'
 #' @section Calling methods in a parent:
 #' To explicitly call a methods in a parent, use
-#' \code{ggproto_parent(Parent, self)}.
+#' `ggproto_parent(Parent, self)`.
 #'
 #' @param _class Class name to assign to the object. This is stored as the class
-#'   attribute of the object. This is optional: if \code{NULL} (the default),
+#'   attribute of the object. This is optional: if `NULL` (the default),
 #'   no class name will be added to the object.
-#' @param _inherit ggproto object to inherit from. If \code{NULL}, don't
+#' @param _inherit ggproto object to inherit from. If `NULL`, don't
 #'   inherit from any object.
 #' @param ... A list of members in the ggproto object.
 #' @export
@@ -93,7 +93,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
 
 #' @export
 #' @rdname ggproto
-#' @param parent,self Access parent class \code{parent} of object \code{self}.
+#' @param parent,self Access parent class `parent` of object `self`.
 ggproto_parent <- function(parent, self) {
   structure(list(parent = parent, self = self), class = "ggproto_parent")
 }
@@ -188,12 +188,12 @@ make_proto_method <- function(self, f) {
 
 #' Convert a ggproto object to a list
 #'
-#' This will not include the object's \code{super} member.
+#' This will not include the object's `super` member.
 #'
 #' @param x A ggproto object to convert to a list.
-#' @param inherit If \code{TRUE} (the default), flatten all inherited items into
-#'   the returned list. If \code{FALSE}, do not include any inherited items.
-#' @param ... Further arguments to pass to \code{as.list.environment}.
+#' @param inherit If `TRUE` (the default), flatten all inherited items into
+#'   the returned list. If `FALSE`, do not include any inherited items.
+#' @param ... Further arguments to pass to `as.list.environment`.
 #' @export
 #' @keywords internal
 as.list.ggproto <- function(x, inherit = TRUE, ...) {
@@ -214,14 +214,14 @@ as.list.ggproto <- function(x, inherit = TRUE, ...) {
 
 #' Format or print a ggproto object
 #'
-#' If a ggproto object has a \code{$print} method, this will call that method.
+#' If a ggproto object has a `$print` method, this will call that method.
 #' Otherwise, it will print out the members of the object, and optionally, the
 #' members of the inherited objects.
 #'
 #' @param x A ggproto object to print.
-#' @param flat If \code{TRUE} (the default), show a flattened list of all local
-#'   and inherited members. If \code{FALSE}, show the inheritance hierarchy.
-#' @param ... If the ggproto object has a \code{print} method, further arguments
+#' @param flat If `TRUE` (the default), show a flattened list of all local
+#'   and inherited members. If `FALSE`, show the inheritance hierarchy.
+#' @param ... If the ggproto object has a `print` method, further arguments
 #'   will be passed to it. Otherwise, these arguments are unused.
 #'
 #' @export

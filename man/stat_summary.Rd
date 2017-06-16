@@ -16,24 +16,24 @@ stat_summary(mapping = NULL, data = NULL, geom = "pointrange",
   show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
-   options:
+options:
 
-   If \code{NULL}, the default, the data is inherited from the plot
-   data as specified in the call to \code{\link{ggplot}}.
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-   A \code{data.frame}, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   \code{\link{fortify}} for which variables will be created.
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-   A \code{function} will be called with a single argument,
-   the plot data. The return value must be a \code{data.frame.}, and
-   will be used as the layer data.}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame.}, and
+will be used as the layer data.}
 
 \item{geom}{Use to override the default connection between
 \code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.}
@@ -41,7 +41,7 @@ plot. You must supply \code{mapping} if there is no plot mapping.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -65,12 +65,12 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
 \code{stat_summary} operates on unique \code{x}; \code{stat_summary_bin}
 operators on binned \code{x}. They are more flexible versions of
-\code{\link{stat_bin}}: instead of just counting, they can compute any
+\code{\link[=stat_bin]{stat_bin()}}: instead of just counting, they can compute any
 aggregate.
 }
 \section{Aesthetics}{
@@ -84,14 +84,14 @@ You can either supply summary functions individually (\code{fun.y},
 \code{fun.ymax}, \code{fun.ymin}), or as a single function (\code{fun.data}):
 
 \describe{
-  \item{fun.data}{Complete summary function. Should take numeric vector as
-     input and return data frame as output}
-  \item{fun.ymin}{ymin summary function (should take numeric vector and
-    return single number)}
-  \item{fun.y}{y summary function (should take numeric vector and return
-    single number)}
-  \item{fun.ymax}{ymax summary function (should take numeric vector and
-    return single number)}
+\item{fun.data}{Complete summary function. Should take numeric vector as
+input and return data frame as output}
+\item{fun.ymin}{ymin summary function (should take numeric vector and
+return single number)}
+\item{fun.y}{y summary function (should take numeric vector and return
+single number)}
+\item{fun.ymax}{ymax summary function (should take numeric vector and
+return single number)}
 }
 
 A simple vector function is easiest to work with as you can return a single
@@ -99,7 +99,7 @@ number, but is somewhat less flexible. If your summary function computes
 multiple values at once (e.g. ymin and ymax), use \code{fun.data}.
 
 If no aggregation functions are suppled, will default to
-\code{\link{mean_se}}.
+\code{\link[=mean_se]{mean_se()}}.
 }
 
 \examples{
@@ -166,7 +166,7 @@ m2 + coord_trans(y="log10")
 }
 }
 \seealso{
-\code{\link{geom_errorbar}}, \code{\link{geom_pointrange}},
- \code{\link{geom_linerange}}, \code{\link{geom_crossbar}} for geoms to
- display summarised data
+\code{\link[=geom_errorbar]{geom_errorbar()}}, \code{\link[=geom_pointrange]{geom_pointrange()}},
+\code{\link[=geom_linerange]{geom_linerange()}}, \code{\link[=geom_crossbar]{geom_crossbar()}} for geoms to
+display summarised data
 }

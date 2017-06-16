@@ -4,7 +4,7 @@ NULL
 
 #' Annotation: high-performance rectangular tiling
 #'
-#' This is a special version of \code{\link{geom_raster}} optimised for static
+#' This is a special version of [geom_raster()] optimised for static
 #' annotations that are the same in every panel. These annotations will not
 #' affect scales (i.e. the x and y axes will not grow to cover the range
 #' of the raster, and the raster must already have its own colours). This
@@ -15,7 +15,7 @@ NULL
 #'   location of raster
 #' @param ymin,ymax y location (in data coordinates) giving vertical
 #'   location of raster
-#' @param interpolate If \code{TRUE} interpolate linearly, if \code{FALSE}
+#' @param interpolate If `TRUE` interpolate linearly, if `FALSE`
 #'   (the default) don't interpolate.
 #' @export
 #' @examples

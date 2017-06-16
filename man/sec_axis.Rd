@@ -21,18 +21,18 @@ derive()
 
 \item{breaks}{One of:
 \itemize{
-  \item{\code{NULL} for no breaks}
-  \item{\code{waiver()} for the default breaks computed by the transformation object}
-  \item{A numeric vector of positions}
-  \item{A function that takes the limits as input and returns breaks as output}
+\item{\code{NULL} for no breaks}
+\item{\code{waiver()} for the default breaks computed by the transformation object}
+\item{A numeric vector of positions}
+\item{A function that takes the limits as input and returns breaks as output}
 }}
 
 \item{labels}{One of:
 \itemize{
-  \item{\code{NULL} for no labels}
-  \item{\code{waiver()} for the default labels computed by the transformation object}
-  \item{A character vector giving labels (must be same length as \code{breaks})}
-  \item{A function that takes the breaks as input and returns labels as output}
+\item{\code{NULL} for no labels}
+\item{\code{waiver()} for the default labels computed by the transformation object}
+\item{A character vector giving labels (must be same length as \code{breaks})}
+\item{A function that takes the breaks as input and returns labels as output}
 }}
 }
 \description{

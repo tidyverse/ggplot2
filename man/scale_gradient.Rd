@@ -40,7 +40,7 @@ scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
   na.value = "grey50", guide = "colourbar", colors)
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
+\item{...}{Other arguments passed on to \code{\link[=continuous_scale]{continuous_scale()}}
 to control name, limits, breaks, labels and so forth.}
 
 \item{low, high}{Colours for low and high ends of the gradient.}
@@ -112,8 +112,8 @@ ggplot(df, aes(x, y)) +
 # seeing them
 }
 \seealso{
-\code{\link[scales]{seq_gradient_pal}} for details on underlying
-  palette
+\code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
+palette
 
 Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_brewer}},

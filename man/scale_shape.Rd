@@ -11,7 +11,7 @@ scale_shape(..., solid = TRUE)
 \arguments{
 \item{...}{common discrete scale parameters: \code{name}, \code{breaks},
 \code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
-\code{\link{discrete_scale}} for more details}
+\code{\link[=discrete_scale]{discrete_scale()}} for more details}
 
 \item{solid}{Should the shapes be solid, \code{TRUE}, or hollow,
 \code{FALSE}?}
@@ -20,7 +20,7 @@ scale_shape(..., solid = TRUE)
 \code{scale_shape} maps discrete variables to six easily discernible shapes.
 If you have more than six levels, you will get a warning message, and the
 seventh and subsequence levels will not appear on the plot. Use
-\code{\link{scale_shape_manual}} to supply your own values. You can not map
+\code{\link[=scale_shape_manual]{scale_shape_manual()}} to supply your own values. You can not map
 a continuous variable to shape.
 }
 \examples{

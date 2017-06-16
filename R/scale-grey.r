@@ -1,7 +1,7 @@
 #' Sequential grey colour scales
 #'
-#' Based on \code{\link{gray.colors}}. This is black and white equivalent
-#' of \code{\link{scale_colour_gradient}}.
+#' Based on [gray.colors()]. This is black and white equivalent
+#' of [scale_colour_gradient()].
 #'
 #' @inheritParams scales::grey_pal
 #' @inheritParams scale_colour_hue

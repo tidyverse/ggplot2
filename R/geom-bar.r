@@ -1,12 +1,12 @@
 #' Bars charts
 #'
-#' There are two types of bar charts: \code{geom_bar} makes the height of the
+#' There are two types of bar charts: `geom_bar` makes the height of the
 #' bar proportional to the number of cases in each group (or if the
-#' \code{weight} aesthetic is supplied, the sum of the weights). If you want the
+#' `weight` aesthetic is supplied, the sum of the weights). If you want the
 #' heights of the bars to represent values in the data, use
-#' \link{geom_col} instead. \code{geom_bar} uses \code{stat_count} by
-#' default: it counts the  number of cases at each x position. \code{geom_col}
-#' uses \code{stat_identity}: it leaves the data as is.
+#' \link{geom_col} instead. `geom_bar` uses `stat_count` by
+#' default: it counts the  number of cases at each x position. `geom_col`
+#' uses `stat_identity`: it leaves the data as is.
 #'
 #' A bar chart uses height to represent a value, and so the base of the
 #' bar must always be shown to produce a valid visual comparison. Naomi Robbins
@@ -15,27 +15,27 @@
 #' topic}. This is why it doesn't make sense to use a log-scaled y axis with a
 #' bar chart.
 #'
-#' By default, multiple bar occupying the same \code{x} position will be
-#' stacked atop one another by \code{\link{position_stack}}. If you want them
-#' to be dodged side-to-side, use \code{\link{position_dodge}}. Finally,
-#' \code{\link{position_fill}} shows relative proportions at each \code{x} by
+#' By default, multiple bar occupying the same `x` position will be
+#' stacked atop one another by [position_stack()]. If you want them
+#' to be dodged side-to-side, use [position_dodge()]. Finally,
+#' [position_fill()] shows relative proportions at each `x` by
 #' stacking the bars and then standardising each bar to have the same height.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{bar}
 #'
 #' @seealso
-#'   \code{\link{geom_histogram}} for continuous data,
-#'   \code{\link{position_dodge}} for creating side-by-side barcharts.
+#'   [geom_histogram()] for continuous data,
+#'   [position_dodge()] for creating side-by-side barcharts.
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param width Bar width. By default, set to 90\% of the resolution of the data.
-#' @param binwidth \code{geom_bar} no longer has a binwidth argument - if
+#' @param binwidth `geom_bar` no longer has a binwidth argument - if
 #'   you use it you'll get an warning telling to you use
-#'   \code{\link{geom_histogram}} instead.
-#' @param geom,stat Override the default connection between \code{geom_bar} and
-#'   \code{stat_count}.
+#'   [geom_histogram()] instead.
+#' @param geom,stat Override the default connection between `geom_bar` and
+#'   `stat_count`.
 #' @examples
 #' # geom_bar is designed to make it easy to create bar charts that show
 #' # counts (or sums of weights)
