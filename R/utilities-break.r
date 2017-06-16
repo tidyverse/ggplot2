@@ -9,7 +9,7 @@
 #' @param x numeric vector
 #' @param n number of intervals to create, OR
 #' @param length length of each interval
-#' @param ... other arguments passed on to [cut()]
+#' @inheritDotParams base::cut.default -x
 #' @export
 #' @examples
 #' table(cut_interval(1:100, 10))
