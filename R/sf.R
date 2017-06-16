@@ -12,13 +12,11 @@
 #' column of class `sfc` containg simple features data. There
 #' are three ways to supply the `geometry` aesthetic:
 #'
-#' \itemize{
-#'   \item Do nothing: by default `geom_sf` assumes it is stored in
+#'   - Do nothing: by default `geom_sf` assumes it is stored in
 #'     the `geometry` column.
-#'   \item Explicitly pass an `sf` object to the `data` argument.
+#'   - Explicitly pass an `sf` object to the `data` argument.
 #'     This will use the primary geometry column, no matter what it's called.
-#'   \item Supply your own using `aes(geometry = my_column)`
-#' }
+#'   - Supply your own using `aes(geometry = my_column)`
 #'
 #' Unlike other aesthetics, `geometry` will never be inherited from
 #' the plot.

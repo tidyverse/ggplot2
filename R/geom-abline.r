@@ -25,11 +25,9 @@ NULL
 #' `size`. They also each have aesthetics that control the position of
 #' the line:
 #'
-#' \itemize{
-#'   \item `geom_vline`: `xintercept`
-#'   \item `geom_hline`: `yintercept`
-#'   \item `geom_abline`: `slope` and `intercept`
-#' }
+#'   - `geom_vline`: `xintercept`
+#'   - `geom_hline`: `yintercept`
+#'   - `geom_abline`: `slope` and `intercept`
 #'
 #' @seealso See [geom_segment()] for a more general approach to
 #'   adding straight line segments to a plot.

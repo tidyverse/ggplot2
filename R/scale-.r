@@ -512,29 +512,26 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #' @param name The name of the scale. Used as axis or legend title. If
 #'   `NULL`, the default, the name of the scale is taken from the first
 #'   mapping used for that aesthetic.
-#' @param breaks One of: \itemize{
-#'   \item `NULL` for no breaks
-#'   \item `waiver()` for the default breaks computed by the
+#' @param breaks One of:
+#'   - `NULL` for no breaks
+#'   - `waiver()` for the default breaks computed by the
 #'     transformation object
-#'   \item A numeric vector of positions
-#'   \item A function that takes the limits as input and returns breaks
+#'   - A numeric vector of positions
+#'   - A function that takes the limits as input and returns breaks
 #'     as output
-#' }
-#' @param minor_breaks One of: \itemize{
-#'   \item `NULL` for no minor breaks
-#'   \item `waiver()` for the default breaks (one minor break between
+#' @param minor_breaks One of:
+#'   - `NULL` for no minor breaks
+#'   - `waiver()` for the default breaks (one minor break between
 #'     each major break)
-#'   \item A numeric vector of positions
-#'   \item A function that given the limits returns a vector of minor breaks.
-#' }
-#' @param labels One of: \itemize{
-#'   \item `NULL` for no labels
-#'   \item `waiver()` for the default labels computed by the
+#'   - A numeric vector of positions
+#'   - A function that given the limits returns a vector of minor breaks.
+#' @param labels One of:
+#'   - `NULL` for no labels
+#'   - `waiver()` for the default labels computed by the
 #'     transformation object
-#'   \item A character vector giving labels (must be same length as `breaks`)
-#'   \item A function that takes the breaks as input and returns labels
+#'   - A character vector giving labels (must be same length as `breaks`)
+#'   - A function that takes the breaks as input and returns labels
 #'     as output
-#' }
 #' @param limits A numeric vector of length two providing limits of the scale.
 #'   Use `NA` to refer to the existing minimum or maximum.
 #' @param rescaler  Used by diverging and n colour gradients
@@ -611,14 +608,13 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'
 #' @export
 #' @inheritParams continuous_scale
-#' @param breaks One of: \itemize{
-#'   \item `NULL` for no breaks
-#'   \item `waiver()` for the default breaks computed by the
+#' @param breaks One of: 
+#'   - `NULL` for no breaks
+#'   - `waiver()` for the default breaks computed by the
 #'     transformation object
-#'   \item A character vector of breaks
-#'   \item A function that takes the limits as input and returns breaks
+#'   - A character vector of breaks
+#'   - A function that takes the limits as input and returns breaks
 #'     as output
-#' }
 #' @param limits A character vector that defines possible values of the scale
 #'   and their order.
 #' @param drop Should unused factor levels be omitted from the scale?

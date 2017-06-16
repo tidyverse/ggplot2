@@ -23,7 +23,8 @@ they should take}
 \code{NULL}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic.}
 
-\item{breaks}{One of: \itemize{
+\item{breaks}{One of:
+\itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
 transformation object
@@ -32,7 +33,8 @@ transformation object
 as output
 }}
 
-\item{minor_breaks}{One of: \itemize{
+\item{minor_breaks}{One of:
+\itemize{
 \item \code{NULL} for no minor breaks
 \item \code{waiver()} for the default breaks (one minor break between
 each major break)
@@ -40,7 +42,8 @@ each major break)
 \item A function that given the limits returns a vector of minor breaks.
 }}
 
-\item{labels}{One of: \itemize{
+\item{labels}{One of:
+\itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
 transformation object

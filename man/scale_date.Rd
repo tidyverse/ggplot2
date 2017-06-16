@@ -42,7 +42,8 @@ scale_y_time(name = waiver(), breaks = waiver(), minor_breaks = waiver(),
 \code{NULL}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic.}
 
-\item{breaks}{One of: \itemize{
+\item{breaks}{One of:
+\itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
 transformation object
@@ -55,7 +56,8 @@ as output
 weeks", or "10 years". If both \code{breaks} and \code{date_breaks} are
 specified, \code{date_breaks} wins.}
 
-\item{labels}{One of: \itemize{
+\item{labels}{One of:
+\itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
 transformation object
@@ -68,7 +70,8 @@ as output
 labels. Codes are defined in \code{\link[=strftime]{strftime()}}. If both \code{labels}
 and \code{date_labels} are specified, \code{date_labels} wins.}
 
-\item{minor_breaks}{One of: \itemize{
+\item{minor_breaks}{One of:
+\itemize{
 \item \code{NULL} for no minor breaks
 \item \code{waiver()} for the default breaks (one minor break between
 each major break)

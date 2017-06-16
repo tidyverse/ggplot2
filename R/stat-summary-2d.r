@@ -7,11 +7,9 @@
 #' are summarised with `fun`.
 #'
 #' @section Aesthetics:
-#' \itemize{
-#'  \item `x`: horizontal position
-#'  \item `y`: vertical position
-#'  \item `z`: value passed to the summary function
-#' }
+#'  - `x`: horizontal position
+#'  - `y`: vertical position
+#'  - `z`: value passed to the summary function
 #' @section Computed variables:
 #' \describe{
 #'   \item{x,y}{Location}

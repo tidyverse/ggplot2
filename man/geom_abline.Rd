@@ -75,7 +75,6 @@ These geoms are drawn using with \code{\link[=geom_line]{geom_line()}} so suppor
 same aesthetics: \code{alpha}, \code{colour}, \code{linetype} and
 \code{size}. They also each have aesthetics that control the position of
 the line:
-
 \itemize{
 \item \code{geom_vline}: \code{xintercept}
 \item \code{geom_hline}: \code{yintercept}
