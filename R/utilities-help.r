@@ -6,10 +6,10 @@ rd_aesthetics <- function(type, name) {
   )
   aes <- rd_aesthetics_item(obj)
 
-  paste("\`", type, "_", name, "` ",
+  paste("\\code{", type, "_", name, "} ",
     "understands the following aesthetics (required aesthetics are in bold):\n\n",
     "\\itemize{\n",
-    paste("  \\item \`", aes, "`", collapse = "\n", sep = ""),
+    paste("  \\item \\code{", aes, "}", collapse = "\n", sep = ""),
     "\n}\n", sep = "")
 }
 
