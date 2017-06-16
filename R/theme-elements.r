@@ -97,9 +97,9 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL,
 
 #' @param family Font family
 #' @param face Font face ("plain", "italic", "bold", "bold.italic")
-#' @param hjust Horizontal justification (in [0, 1])
-#' @param vjust Vertical justification (in [0, 1])
-#' @param angle Angle (in [0, 360])
+#' @param hjust Horizontal justification (in \eqn{[0, 1]})
+#' @param vjust Vertical justification (in \eqn{[0, 1]})
+#' @param angle Angle (in \eqn{[0, 360]})
 #' @param lineheight Line height
 #' @param margin Margins around the text. See [margin()] for more
 #'   details. When creating a theme, the margins should be placed on the

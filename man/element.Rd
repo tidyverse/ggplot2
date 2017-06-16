@@ -56,11 +56,11 @@ calculating final element state.}
 
 \item{face}{Font face ("plain", "italic", "bold", "bold.italic")}
 
-\item{hjust}{Horizontal justification (in \link{0, 1})}
+\item{hjust}{Horizontal justification (in \eqn{[0, 1]})}
 
-\item{vjust}{Vertical justification (in \link{0, 1})}
+\item{vjust}{Vertical justification (in \eqn{[0, 1]})}
 
-\item{angle}{Angle (in \link{0, 360})}
+\item{angle}{Angle (in \eqn{[0, 360]})}
 
 \item{lineheight}{Line height}
 

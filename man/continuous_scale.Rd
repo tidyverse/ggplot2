@@ -54,7 +54,7 @@ Use \code{NA} to refer to the existing minimum or maximum.}
 
 \item{rescaler}{Used by diverging and n colour gradients
 (i.e. \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}}, \code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}).
-A function used to scale the input values to the range \link{0, 1}.}
+A function used to scale the input values to the range \eqn{[0, 1]}.}
 
 \item{oob}{Function that handles limits outside of the scale limits
 (out of bounds). The default replaces out of bounds values with NA.}
