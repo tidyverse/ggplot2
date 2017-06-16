@@ -9,20 +9,16 @@
 #' @param name The name of the secondary axis
 #'
 #' @param breaks One of:
-#' \itemize{
-#'   \item{`NULL` for no breaks}
-#'   \item{`waiver()` for the default breaks computed by the transformation object}
-#'   \item{A numeric vector of positions}
-#'   \item{A function that takes the limits as input and returns breaks as output}
-#' }
+#'   - `NULL` for no breaks
+#'   - `waiver()` for the default breaks computed by the transformation object
+#'   - A numeric vector of positions
+#'   - A function that takes the limits as input and returns breaks as output
 #'
 #' @param labels One of:
-#' \itemize{
-#'   \item{`NULL` for no labels}
-#'   \item{`waiver()` for the default labels computed by the transformation object}
-#'   \item{A character vector giving labels (must be same length as `breaks`)}
-#'   \item{A function that takes the breaks as input and returns labels as output}
-#' }
+#'   - `NULL` for no labels
+#'   - `waiver()` for the default labels computed by the transformation object
+#'   - A character vector giving labels (must be same length as `breaks`)
+#'   - A function that takes the breaks as input and returns labels as output
 #'
 #' @details
 #' `sec_axis` is used to create the specifications for a secondary axis.

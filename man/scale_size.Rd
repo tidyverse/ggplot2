@@ -24,7 +24,8 @@ scale_size_area(..., max_size = 6)
 \code{NULL}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic.}
 
-\item{breaks}{One of: \itemize{
+\item{breaks}{One of:
+\itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
 transformation object
@@ -33,7 +34,8 @@ transformation object
 as output
 }}
 
-\item{labels}{One of: \itemize{
+\item{labels}{One of:
+\itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
 transformation object

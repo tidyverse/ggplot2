@@ -7,15 +7,13 @@
 #' @section What can you add?:
 #' You can add any of the following types of objects:
 #'
-#' \itemize{
-#'   \item A [aes()] objects replaces the default aesthetics.
-#'   \item A layer created by a `geom_` or `stat_` function adds
+#'   - A [aes()] objects replaces the default aesthetics.
+#'   - A layer created by a `geom_` or `stat_` function adds
 #'     new layer.
-#'   \item A `scale` overrides the existing scale.
-#'   \item A [theme()] modifies the current theme.
-#'   \item A `coord` overrides current coordinate system.
-#'   \item A `facet` specificatio override current faceting.
-#' }
+#'   - A `scale` overrides the existing scale.
+#'   - A [theme()] modifies the current theme.
+#'   - A `coord` overrides current coordinate system.
+#'   - A `facet` specificatio override current faceting.
 #'
 #' To replace the current default data frame, you must use \code{\%+\%},
 #' due to S3 method precedence issues.

@@ -80,7 +80,6 @@ An S3 object of class \code{element}, \code{rel}, or \code{margin}.
 \description{
 In conjunction with the \link{theme} system, the \code{element_} functions
 specify the display of how non-data components of the plot are a drawn.
-
 \itemize{
 \item \code{element_blank}: draws nothing, and assigns no space.
 \item \code{element_rect}: borders and backgrounds.

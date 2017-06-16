@@ -93,7 +93,6 @@ or polygons.
 \code{geom_sf} uses a unique aesthetic: \code{geometry}, giving an
 column of class \code{sfc} containg simple features data. There
 are three ways to supply the \code{geometry} aesthetic:
-
 \itemize{
 \item Do nothing: by default \code{geom_sf} assumes it is stored in
 the \code{geometry} column.

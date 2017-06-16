@@ -28,7 +28,6 @@ A data frame with columns \code{y}, \code{ymin}, and \code{ymax}.
 These are wrappers around functions from \pkg{Hmisc} designed to make them
 easier to use with \code{\link[=stat_summary]{stat_summary()}}. See the Hmisc documentation
 for more details:
-
 \itemize{
 \item \code{\link[Hmisc:smean.cl.boot]{Hmisc::smean.cl.boot()}}
 \item \code{\link[Hmisc:smean.cl.normal]{Hmisc::smean.cl.normal()}}

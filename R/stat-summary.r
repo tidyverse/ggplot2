@@ -177,12 +177,11 @@ summarise_by_x <- function(data, summary, ...) {
 #' easier to use with [stat_summary()]. See the Hmisc documentation
 #' for more details:
 #'
-#' \itemize{
-#'  \item [Hmisc::smean.cl.boot()]
-#'  \item [Hmisc::smean.cl.normal()]
-#'  \item [Hmisc::smean.sdl()]
-#'  \item [Hmisc::smedian.hilow()]
-#' }
+#'  - [Hmisc::smean.cl.boot()]
+#'  - [Hmisc::smean.cl.normal()]
+#'  - [Hmisc::smean.sdl()]
+#'  - [Hmisc::smedian.hilow()]
+#' 
 #' @param x a numeric vector
 #' @param ... other arguments passed on to the respective Hmisc function.
 #' @return A data frame with columns `y`, `ymin`, and `ymax`.

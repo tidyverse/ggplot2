@@ -13,12 +13,11 @@
 #' descended from the top-level `Position`, and each implements the
 #' following methods:
 #'
-#' \itemize{
-#'   \item `compute_layer(self, data, params, panel)` is called once
+#'   - `compute_layer(self, data, params, panel)` is called once
 #'     per layer. `panel` is currently an internal data structure, so
 #'     this method should not be overriden.
 #'
-#'   \item `compute_panel(self, data, params, panel)` is called once per
+#'   - `compute_panel(self, data, params, panel)` is called once per
 #'     panel and should return a modified data frame.
 #'
 #'     `data` is a data frame containing the variables named according
@@ -27,19 +26,16 @@
 #'     before the facets are trained, so they are global scales, not local
 #'     to the individual panels. `params` contains the parameters returned by
 #'     `setup_params()`.
-#'   \item `setup_params(data, params)`: called once for each layer.
+#'   - `setup_params(data, params)`: called once for each layer.
 #'      Used to setup defaults that need to complete dataset, and to inform
 #'      the user of important choices. Should return list of parameters.
-#'   \item `setup_data(data, params)`: called once for each layer,
+#'   - `setup_data(data, params)`: called once for each layer,
 #'      after `setp_params()`. Should return modified `data`.
 #'      Default checks that required aesthetics are present.
-#' }
 #'
 #' And the following fields
-#' \itemize{
-#'   \item `required_aes`: a character vector giving the aesthetics
+#'   - `required_aes`: a character vector giving the aesthetics
 #'      that must be present for this position adjustment to work.
-#' }
 #'
 #' @rdname ggplot2-ggproto
 #' @format NULL

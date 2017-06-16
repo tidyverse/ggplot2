@@ -13,30 +13,28 @@
 #' descended from the top-level `Coord`.  To create a new type of Coord
 #' object, you typically will want to implement one or more of the following:
 #'
-#' \itemize{
-#'   \item `aspect`: Returns the desired aspect ratio for the plot.
-#'   \item `labels`: Returns a list containing labels for x and y.
-#'   \item `render_fg`: Renders foreground elements.
-#'   \item `render_bg`: Renders background elements.
-#'   \item `render_axis_h`: Renders the horizontal axes.
-#'   \item `render_axis_v`: Renders the vertical axes.
-#'   \item `range`: Returns the x and y ranges
-#'   \item `train`: Return the trained scale ranges.
-#'   \item `transform`: Transforms x and y coordinates.
-#'   \item `distance`: Calculates distance.
-#'   \item `is_linear`: Returns `TRUE` if the coordinate system is
+#'   - `aspect`: Returns the desired aspect ratio for the plot.
+#'   - `labels`: Returns a list containing labels for x and y.
+#'   - `render_fg`: Renders foreground elements.
+#'   - `render_bg`: Renders background elements.
+#'   - `render_axis_h`: Renders the horizontal axes.
+#'   - `render_axis_v`: Renders the vertical axes.
+#'   - `range`: Returns the x and y ranges
+#'   - `train`: Return the trained scale ranges.
+#'   - `transform`: Transforms x and y coordinates.
+#'   - `distance`: Calculates distance.
+#'   - `is_linear`: Returns `TRUE` if the coordinate system is
 #'     linear; `FALSE` otherwise.
 #'
-#'   \item `setup_params(data)`: Allows the coordinate system to inspect
+#'   - `setup_params(data)`: Allows the coordinate system to inspect
 #'     all layers and return a list of additional parameters that vary based on
 #'     the data. These parameters are currently only passed to the other
 #'     setup functions and `train()`.
-#'   \item `setup_data(data, params)`: Allows the coordinate system to
+#'   - `setup_data(data, params)`: Allows the coordinate system to
 #'     manipulate the plot data. Should return list of data frames.
-#'   \item `setup_layout(layout, params)`: Allows the coordinate
+#'   - `setup_layout(layout, params)`: Allows the coordinate
 #'     system to manipulate the `layout` data frame which assigns
 #'     data to panels and scales.
-#' }
 #'
 #' @rdname ggplot2-ggproto
 #' @format NULL

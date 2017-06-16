@@ -22,7 +22,6 @@ work at each step.
 \section{What can you add?}{
 
 You can add any of the following types of objects:
-
 \itemize{
 \item A \code{\link[=aes]{aes()}} objects replaces the default aesthetics.
 \item A layer created by a \code{geom_} or \code{stat_} function adds
