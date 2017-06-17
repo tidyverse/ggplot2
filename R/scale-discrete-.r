@@ -6,9 +6,7 @@
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
-#' @param ... common discrete scale parameters: `name`, `breaks`,
-#'  `labels`, `na.value`, `limits` and `guide`.  See
-#'  [discrete_scale()] for more details
+#' @inheritDotParams discrete_scale -expand -position
 #' @param expand a numeric vector of length two giving multiplicative and
 #'   additive expansion constants. These constants ensure that the data is
 #'   placed some distance away from the axes.

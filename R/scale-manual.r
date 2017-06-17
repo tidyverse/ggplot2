@@ -4,6 +4,7 @@
 #' data to aesthetic values.
 #'
 #' @inheritParams scale_x_discrete
+#' @inheritDotParams discrete_scale -expand -position
 #' @param values a set of aesthetic values to map data values to. If this
 #'   is a named vector, then the values will be matched based on the names.
 #'   If unnamed, values will be matched in order (usually alphabetical) with
