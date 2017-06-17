@@ -4,7 +4,7 @@
 \alias{geom_bar}
 \alias{geom_col}
 \alias{stat_count}
-\title{Bars charts}
+\title{Bar charts}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "count",
   position = "stack", ..., width = NULL, binwidth = NULL, na.rm = FALSE,

@@ -1,4 +1,4 @@
-#' Bars charts
+#' Bar charts
 #'
 #' There are two types of bar charts: `geom_bar` makes the height of the
 #' bar proportional to the number of cases in each group (or if the
