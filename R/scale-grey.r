@@ -5,6 +5,7 @@
 #'
 #' @inheritParams scales::grey_pal
 #' @inheritParams scale_colour_hue
+#' @inheritDotParams discrete_scale
 #' @family colour scales
 #' @rdname scale_grey
 #' @export
