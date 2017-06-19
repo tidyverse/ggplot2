@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* Uses `rel()` more consistently in theme defaults (@baptiste).
+
 * `geom_density` drops groups with fewer than two data points and throws a
   warning. For groups with two data points, the density values are now
   calculated with `stats::density` (@karawoo, #2127).
