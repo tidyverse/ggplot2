@@ -251,5 +251,6 @@ test_that("themes don't change without acknowledgement", {
   vdiffr::expect_doppelganger("theme_light", plot + theme_light())
   vdiffr::expect_doppelganger("theme_void", plot + theme_void())
   vdiffr::expect_doppelganger("theme_linedraw", plot + theme_linedraw())
+  vdiffr::expect_doppelganger("theme_test", plot + theme_test())
 })
 
