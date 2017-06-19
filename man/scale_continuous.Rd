@@ -95,7 +95,7 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}
 
-\item{sec.axis}{specifify a secondary axis}
+\item{sec.axis}{specify a secondary axis}
 
 \item{...}{Other arguments passed on to \code{scale_(x|y)_continuous}}
 }
