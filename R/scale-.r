@@ -272,14 +272,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       if (is.null(b)) {
         breaks <- NULL
       } else {
-        b <- b[!is.na(b)]
-        if (length(b) < 2) return()
-
-        bd <- diff(b)[1]
-        if (min(limits) < min(b)) b <- c(b[1] - bd, b)
-        if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-        breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length.out = n + 1,
-          SIMPLIFY = FALSE)))
+        breaks <- self$trans$minor_breaks(b, limits, n)
       }
     } else if (is.function(self$minor_breaks)) {
       # Find breaks in data space, and convert to numeric
