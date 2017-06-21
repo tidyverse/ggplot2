@@ -154,3 +154,13 @@ scale_color_identity <- scale_colour_identity
 #' @rdname scale_manual
 #' @usage NULL
 scale_color_manual <- scale_colour_manual
+
+#' @export
+#' @rdname scale_viridis
+#' @usage NULL
+scale_color_viridis_discrete <- scale_colour_viridis_discrete
+
+#' @export
+#' @rdname scale_viridis
+#' @usage NULL
+scale_color_viridis_continuous <- scale_colour_viridis_continuous

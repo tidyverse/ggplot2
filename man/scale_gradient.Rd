@@ -178,5 +178,6 @@ palette
 Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_brewer}},
   \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}}
+  \code{\link{scale_colour_hue}},
+  \code{\link{scale_colour_viridis_discrete}}
 }
