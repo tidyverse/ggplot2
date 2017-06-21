@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* Add built-in support for `viridis` and related color maps (@karawoo).
+
 * Updated datetime scales for `alpha`, `size`, `colour`, and `fill` can take
   `date_breaks` and `date_labels` arguments (@karawoo, #1526).
 
