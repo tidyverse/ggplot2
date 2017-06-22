@@ -82,7 +82,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
     if (identical(self$preserve, "total")) {
       n <- NULL
     } else {
-      n <- max(table(data$xmin))
+      n <- max(plyr::ddply(data, "PANEL", plyr::summarise, n=max(table(xmin)))$n)
     }
 
     list(
