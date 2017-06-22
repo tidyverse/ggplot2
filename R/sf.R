@@ -255,9 +255,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       datum = self$datum
     )
 
-	# remove tick labels not on axes 1 (bottom) and 2 (left)
-	if (!is.null(graticule$plot12))
-		graticule$degree_label[! graticule$plot12] = NA
+    # remove tick labels not on axes 1 (bottom) and 2 (left)
+    if (!is.null(graticule$plot12))
+      graticule$degree_label[!graticule$plot12] <- NA
 	
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
     graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
