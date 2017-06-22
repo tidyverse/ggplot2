@@ -527,7 +527,12 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 ggstrip <- function(text, horizontal = TRUE, theme) {
   text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
   if (is.list(text)) text <- text[[1]]
-
+  
+  order_margin_default<-if (horizontal) 1:4 else c(4,1,2,3)
+  if (identical(as.vector(theme[[text_theme]]$margin),c(5.5,0,5.5,0)[order_margin_default])){
+    theme[[text_theme]]$margin<-theme$strip.text$margin[order_margin_default]
+  }
+  
   element <- calc_element(text_theme, theme)
   if (inherits(element, "element_blank"))
     return(zeroGrob())
