@@ -193,7 +193,7 @@ make_proto_method <- function(self, f) {
 #' @param x A ggproto object to convert to a list.
 #' @param inherit If `TRUE` (the default), flatten all inherited items into
 #'   the returned list. If `FALSE`, do not include any inherited items.
-#' @param ... Further arguments to pass to `as.list.environment`.
+#' @inheritDotParams base::as.list.environment -x
 #' @export
 #' @keywords internal
 as.list.ggproto <- function(x, inherit = TRUE, ...) {

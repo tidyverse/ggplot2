@@ -11,8 +11,56 @@ scale_colour_grey(..., start = 0.2, end = 0.8, na.value = "red")
 scale_fill_grey(..., start = 0.2, end = 0.8, na.value = "red")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}}
-to control name, limits, breaks, labels and so forth.}
+\item{...}{Arguments passed on to \code{discrete_scale}
+\describe{
+  \item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks computed by the
+transformation object
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
+  \item{limits}{A character vector that defines possible values of the scale
+and their order.}
+  \item{drop}{Should unused factor levels be omitted from the scale?
+The default, \code{TRUE}, uses the levels that appear in the data;
+\code{FALSE} uses all the levels in the factor.}
+  \item{na.translate}{Unlike continuous scales, discrete scales can easily show
+missing values, and do so by default. If you want to remove missing values
+from a discrete scale, specify \code{na.translate = FALSE}.}
+  \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
+value should missing be displayed as? Does not apply to position scales
+where \code{NA} is always placed at the far right.}
+  \item{aesthetics}{The names of the aesthetics that this scale works with}
+  \item{scale_name}{The name of the scale}
+  \item{palette}{A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the values that
+they should take}
+  \item{name}{The name of the scale. Used as axis or legend title. If
+\code{NULL}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic.}
+  \item{labels}{One of:
+\itemize{
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item A function that takes the breaks as input and returns labels
+as output
+}}
+  \item{expand}{A numeric vector of length two giving multiplicative and
+additive expansion constants. These constants ensure that the data is
+placed some distance away from the axes. The defaults are
+\code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
+discrete variables.}
+  \item{guide}{A function used to create a guide or its name. See
+\code{\link[=guides]{guides()}} for more info.}
+  \item{position}{The position of the axis. "left" or "right" for vertical
+scales, "top" or "bottom" for horizontal scales}
+  \item{super}{The super class to use for the constructed scale}
+}}
 
 \item{start}{gray value at low end of palette}
 

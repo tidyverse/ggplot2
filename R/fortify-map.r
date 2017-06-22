@@ -86,7 +86,7 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 #' @param colour border colour
 #' @param xlim,ylim latitudinal and logitudinal range for extracting map
 #'   polygons, see [maps::map()] for details.
-#' @param ... other arguments passed onto [geom_polygon()]
+#' @inheritDotParams geom_polygon
 #' @export
 #' @examples
 #' if (require("maps")) {

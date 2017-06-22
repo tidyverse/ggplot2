@@ -12,7 +12,14 @@
 \item{inherit}{If \code{TRUE} (the default), flatten all inherited items into
 the returned list. If \code{FALSE}, do not include any inherited items.}
 
-\item{...}{Further arguments to pass to \code{as.list.environment}.}
+\item{...}{Arguments passed on to \code{base::as.list.environment}
+\describe{
+  \item{all.names}{a logical indicating whether to copy all values or
+    (default) only those whose names do not begin with a dot.}
+  \item{sorted}{a logical indicating whether the \code{\link{names}} of
+    the resulting list should be sorted (increasingly).  Note that this
+    is somewhat costly, but may be useful for comparison of environments.}
+}}
 }
 \description{
 This will not include the object's \code{super} member.

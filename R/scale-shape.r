@@ -9,6 +9,7 @@
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?
 #' @inheritParams scale_x_discrete
+#' @inheritDotParams discrete_scale -expand -position
 #' @rdname scale_shape
 #' @export
 #' @examples

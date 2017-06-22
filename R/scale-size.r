@@ -67,8 +67,7 @@ scale_size_discrete <- function(..., range = c(2, 6)) {
   }, ...)
 }
 
-#' @param ... Other arguments passed on to [continuous_scale()]
-#'   to control name, limits, breaks, labels and so forth.
+#' @inheritDotParams continuous_scale -aesthetics -scale_name -palette -rescaler
 #' @param max_size Size of largest points.
 #' @export
 #' @rdname scale_size

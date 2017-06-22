@@ -5,8 +5,7 @@
 #' colour-blind safe palettes.
 #'
 #' @param na.value Colour to use for missing values
-#' @param ... Other arguments passed on to [discrete_scale()]
-#'   to control name, limits, breaks, labels and so forth.
+#' @inheritDotParams discrete_scale
 #' @inheritParams scales::hue_pal
 #' @rdname scale_hue
 #' @export
