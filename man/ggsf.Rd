@@ -23,24 +23,24 @@ coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
   datum = sf::st_crs(4326))
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
-   options:
+options:
 
-   If \code{NULL}, the default, the data is inherited from the plot
-   data as specified in the call to \code{\link{ggplot}}.
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-   A \code{data.frame}, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   \code{\link{fortify}} for which variables will be created.
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-   A \code{function} will be called with a single argument,
-   the plot data. The return value must be a \code{data.frame.}, and
-   will be used as the layer data.}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame.}, and
+will be used as the layer data.}
 
 \item{geom}{The geometric object to use display the data}
 
@@ -57,9 +57,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -93,13 +93,12 @@ or polygons.
 \code{geom_sf} uses a unique aesthetic: \code{geometry}, giving an
 column of class \code{sfc} containg simple features data. There
 are three ways to supply the \code{geometry} aesthetic:
-
 \itemize{
-  \item Do nothing: by default \code{geom_sf} assumes it is stored in
-    the \code{geometry} column.
-  \item Explicitly pass an \code{sf} object to the \code{data} argument.
-    This will use the primary geometry column, no matter what it's called.
-  \item Supply your own using \code{aes(geometry = my_column)}
+\item Do nothing: by default \code{geom_sf} assumes it is stored in
+the \code{geometry} column.
+\item Explicitly pass an \code{sf} object to the \code{data} argument.
+This will use the primary geometry column, no matter what it's called.
+\item Supply your own using \code{aes(geometry = my_column)}
 }
 
 Unlike other aesthetics, \code{geometry} will never be inherited from

@@ -1,11 +1,11 @@
 #' Gradient colour scales
 #'
-#' \code{scale_*_gradient} creates a two colour gradient (low-high),
-#' \code{scale_*_gradient2} creates a diverging colour gradient (low-mid-high),
-#' \code{scale_*_gradientn} creats a n-colour gradient.
+#' `scale_*_gradient` creates a two colour gradient (low-high),
+#' `scale_*_gradient2` creates a diverging colour gradient (low-mid-high),
+#' `scale_*_gradientn` creats a n-colour gradient.
 #'
 #' Default colours are generated with \pkg{munsell} and
-#' \code{mnsl(c("2.5PB 2/4", "2.5PB 7/10"))}. Generally, for continuous
+#' `mnsl(c("2.5PB 2/4", "2.5PB 7/10"))`. Generally, for continuous
 #' colour scales you want to keep hue constant, but vary chroma and
 #' luminance. The \pkg{munsell} package makes this easy to do using the
 #' Munsell colour system.
@@ -13,11 +13,11 @@
 #' @inheritParams scales::seq_gradient_pal
 #' @inheritParams scale_colour_hue
 #' @param low,high Colours for low and high ends of the gradient.
-#' @param guide Type of legend. Use \code{"colourbar"} for continuous
-#'   colour bar, or \code{"legend"} for discrete colour legend.
-#' @param ... Other arguments passed on to \code{\link{continuous_scale}}
+#' @param guide Type of legend. Use `"colourbar"` for continuous
+#'   colour bar, or `"legend"` for discrete colour legend.
+#' @param ... Other arguments passed on to [continuous_scale()]
 #'   to control name, limits, breaks, labels and so forth.
-#' @seealso \code{\link[scales]{seq_gradient_pal}} for details on underlying
+#' @seealso [scales::seq_gradient_pal()] for details on underlying
 #'   palette
 #' @family colour scales
 #' @rdname scale_gradient

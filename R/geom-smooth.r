@@ -1,15 +1,15 @@
 #' Smoothed conditional means
 #'
 #' Aids the eye in seeing patterns in the presence of overplotting.
-#' \code{geom_smooth} and \code{stat_smooth} are effectively aliases: they
-#' both use the same arguments. Use \code{geom_smooth} unless you want to
+#' `geom_smooth` and `stat_smooth` are effectively aliases: they
+#' both use the same arguments. Use `geom_smooth` unless you want to
 #' display the results with a non-standard geom.
 #'
 #' Calculation is performed by the (currently undocumented)
-#' \code{predictdf} generic and its methods.  For most methods the standard
-#' error bounds are computed using the \code{\link{predict}} method - the
-#' exceptions are \code{loess} which uses a t-based approximation, and
-#' \code{glm} where the normal confidence interval is constructed on the link
+#' `predictdf` generic and its methods.  For most methods the standard
+#' error bounds are computed using the [predict()] method - the
+#' exceptions are `loess` which uses a t-based approximation, and
+#' `glm` where the normal confidence interval is constructed on the link
 #' scale, and then back-transformed to the response scale.
 #'
 #' @section Aesthetics:
@@ -18,11 +18,11 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_smooth} and \code{stat_smooth}.
+#'   `geom_smooth` and `stat_smooth`.
 #' @seealso See individual modelling functions for more details:
-#'   \code{\link{lm}} for linear smooths,
-#'   \code{\link{glm}} for generalised linear smooths,
-#'   \code{\link{loess}} for local smooths
+#'   [lm()] for linear smooths,
+#'   [glm()] for generalised linear smooths,
+#'   [loess()] for local smooths
 #' @export
 #' @examples
 #' ggplot(mpg, aes(displ, hwy)) +

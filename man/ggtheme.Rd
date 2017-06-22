@@ -40,7 +40,7 @@ theme_test(base_size = 11, base_family = "")
 }
 \description{
 These are complete themes which control all non-data display. Use
-\code{\link{theme}} if you just need to tweak the display of an existing
+\code{\link[=theme]{theme()}} if you just need to tweak the display of an existing
 theme.
 }
 \details{

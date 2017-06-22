@@ -1,6 +1,6 @@
 #' Create a complete ggplot appropriate to a particular data type
 #'
-#' \code{autoplot} uses ggplot2 to draw a particular plot for an object of a
+#' `autoplot` uses ggplot2 to draw a particular plot for an object of a
 #' particular class in a single command. This defines the S3 generic that
 #' other classes and packages can extend.
 #'
@@ -8,7 +8,7 @@
 #' @param ... other arguments passed to specific methods
 #' @return a ggplot object
 #' @export
-#' @seealso \code{\link{autolayer}}, \code{\link{ggplot}} and \code{\link{fortify}}
+#' @seealso [autolayer()], [ggplot()] and [fortify()]
 autoplot <- function(object, ...) {
   UseMethod("autoplot")
 }

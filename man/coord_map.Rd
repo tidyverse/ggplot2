@@ -12,17 +12,17 @@ coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE)
 }
 \arguments{
 \item{projection}{projection to use, see
-\code{\link[mapproj]{mapproject}} for list}
+\code{\link[mapproj:mapproject]{mapproj::mapproject()}} for list}
 
 \item{..., parameters}{Other arguments passed on to
-\code{\link[mapproj]{mapproject}}. Use \code{...} for named parameters to
+\code{\link[mapproj:mapproject]{mapproj::mapproject()}}. Use \code{...} for named parameters to
 the projection, and \code{parameters} for unnamed parameters.
 \code{...} is ignored if the \code{parameters} argument is present.}
 
 \item{orientation}{projection orientation, which defaults to
 \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
 projections, so you will have to supply your own. See
-\code{\link[mapproj]{mapproject}} for more information.}
+\code{\link[mapproj:mapproject]{mapproj::mapproject()}} for more information.}
 
 \item{xlim, ylim}{Manually specific x/y limits (in degrees of
 longitude/latitude)}
@@ -49,7 +49,7 @@ towards infinity because the length of one degree of longitude tends towards
 poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio
 approximates the usual mercator projection. This is what
 \code{coord_quickmap} does, and is much faster (particularly for complex
-plots like \code{\link{geom_tile}}) at the expense of correctness.
+plots like \code{\link[=geom_tile]{geom_tile()}}) at the expense of correctness.
 }
 \examples{
 if (require("maps")) {

@@ -20,18 +20,18 @@ cut_width(x, width, center = NULL, boundary = NULL, closed = c("right",
 
 \item{length}{length of each interval}
 
-\item{...}{other arguments passed on to \code{\link{cut}}}
+\item{...}{other arguments passed on to \code{\link[=cut]{cut()}}}
 
 \item{width}{The bin width.}
 
 \item{center, boundary}{Specify either the position of edge or the center of
-  a bin. Since all bins are aligned, specifying the position of a single bin
-  (which doesn't need to be in the range of the data) affects the location of
-  all bins. If not specified, uses the "tile layers algorithm", and sets
-  the boundary to half of the binwidth.
+a bin. Since all bins are aligned, specifying the position of a single bin
+(which doesn't need to be in the range of the data) affects the location of
+all bins. If not specified, uses the "tile layers algorithm", and sets
+the boundary to half of the binwidth.
 
-  To center on integers, \code{width = 1} and \code{center = 0}.
-  \code{boundary = 0.5}.}
+To center on integers, \code{width = 1} and \code{center = 0}.
+\code{boundary = 0.5}.}
 
 \item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
 or left edges of bins are included in the bin.}
@@ -53,5 +53,5 @@ table(cut_width(runif(1000), 0.1, center = 0))
 }
 \author{
 Randall Prium contributed most of the implementation of
-   \code{cut_width}.
+\code{cut_width}.
 }

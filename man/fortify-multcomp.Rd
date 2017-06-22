@@ -18,7 +18,7 @@
 }
 \arguments{
 \item{model}{an object of class \code{glht}, \code{confint.glht},
-\code{summary.glht} or \code{\link[multcomp]{cld}}}
+\code{summary.glht} or \code{\link[multcomp:cld]{multcomp::cld()}}}
 
 \item{data, ...}{other arguments to the generic ignored in this method.}
 }

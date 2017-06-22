@@ -32,7 +32,7 @@ check_required_aesthetics <- function(required, present, name) {
 }
 
 # Concatenate a named list for output
-# Print a \code{list(a=1, b=2)} as \code{(a=1, b=2)}
+# Print a `list(a=1, b=2)` as `(a=1, b=2)`
 #
 # @param list to concatenate
 # @keyword internal
@@ -64,17 +64,17 @@ uniquecols <- function(df) {
 
 #' Convenience function to remove missing values from a data.frame
 #'
-#' Remove all non-complete rows, with a warning if \code{na.rm = FALSE}.
+#' Remove all non-complete rows, with a warning if `na.rm = FALSE`.
 #' ggplot is somewhat more accommodating of missing values than R generally.
 #' For those stats which require complete data, missing values will be
-#' automatically removed with a warning. If \code{na.rm = TRUE} is supplied
+#' automatically removed with a warning. If `na.rm = TRUE` is supplied
 #' to the statistic, the warning will be suppressed.
 #'
 #' @param df data.frame
 #' @param na.rm If true, will suppress warning message.
 #' @param vars Character vector of variables to check for missings in
 #' @param name Optional function name to improve error message.
-#' @param finite If \code{TRUE}, will also remove non-finite values.
+#' @param finite If `TRUE`, will also remove non-finite values.
 #' @keywords internal
 #' @export
 remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
@@ -155,10 +155,10 @@ should_stop <- function(expr) {
 
 #' A waiver object.
 #'
-#' A waiver is a "flag" object, similar to \code{NULL}, that indicates the
+#' A waiver is a "flag" object, similar to `NULL`, that indicates the
 #' calling function should just use the default value.  It is used in certain
-#' functions to distinguish between displaying nothing (\code{NULL}) and
-#' displaying a default value calculated elsewhere (\code{waiver()})
+#' functions to distinguish between displaying nothing (`NULL`) and
+#' displaying a default value calculated elsewhere (`waiver()`)
 #'
 #' @export
 #' @keywords internal
@@ -176,21 +176,21 @@ rescale01 <- function(x) {
 #'
 #' Version numbers have the format <major>.<minor>.<subminor>, like 0.9.2.
 #' This function compares the current version number of ggplot2 against the
-#' specified \code{version}, which is the most recent version before the
+#' specified `version`, which is the most recent version before the
 #' function (or other object) was deprecated.
 #'
-#' \code{gg_dep} will give an error, warning, or message, depending on the
+#' `gg_dep` will give an error, warning, or message, depending on the
 #' difference between the current ggplot2 version and the specified
-#' \code{version}.
+#' `version`.
 #'
-#' If the current major number is greater than \code{version}'s major number,
-#' or if the current minor number is more than 1 greater than \code{version}'s
+#' If the current major number is greater than `version`'s major number,
+#' or if the current minor number is more than 1 greater than `version`'s
 #' minor number, give an error.
 #'
-#' If the current minor number differs from \code{version}'s minor number by
+#' If the current minor number differs from `version`'s minor number by
 #' one, give a warning.
 #'
-#' If the current subminor number differs from \code{version}'s subminor
+#' If the current subminor number differs from `version`'s subminor
 #' number, print a message.
 #'
 #' @param version The last version of ggplot2 where this function was good

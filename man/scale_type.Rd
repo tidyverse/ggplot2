@@ -11,10 +11,10 @@ scale_type(x)
 }
 \value{
 A character vector of scale types. These will be tried in turn
-  to find a default scale. For example, if \code{scale_type} returns
-  \code{c("foo", "bar")} and the vector is used with the colour aesthetic,
-  ggplot2 will first look for \code{scale_colour_foo} then
-  \code{scale_colour_bar}.
+to find a default scale. For example, if \code{scale_type} returns
+\code{c("foo", "bar")} and the vector is used with the colour aesthetic,
+ggplot2 will first look for \code{scale_colour_foo} then
+\code{scale_colour_bar}.
 }
 \description{
 You will need to define a method for this method if you want to extend

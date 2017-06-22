@@ -14,7 +14,7 @@
 #'   \item{n}{number of points}
 #'   \item{width}{width of violin bounding box}
 #' }
-#' @seealso \code{\link{geom_violin}} for examples, and \code{\link{stat_density}}
+#' @seealso [geom_violin()] for examples, and [stat_density()]
 #'   for examples with data along the x axis.
 #' @export
 #' @rdname geom_violin

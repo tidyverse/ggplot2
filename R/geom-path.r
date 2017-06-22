@@ -1,12 +1,12 @@
 #' Connect observations
 #'
-#' \code{geom_path()} connects the observations in the order in which they appear
-#' in the data. \code{geom_line()} connects them in order of the variable on the
-#' x axis. \code{geom_step()} creates a stairstep plot, highlighting exactly
-#' when changes occur. The \code{group} aesthetic determines which cases are
+#' `geom_path()` connects the observations in the order in which they appear
+#' in the data. `geom_line()` connects them in order of the variable on the
+#' x axis. `geom_step()` creates a stairstep plot, highlighting exactly
+#' when changes occur. The `group` aesthetic determines which cases are
 #' connected together.
 #'
-#' An alternative parameterisation is \code{\link{geom_segment}}: each line
+#' An alternative parameterisation is [geom_segment()]: each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
 #' @section Aesthetics:
@@ -17,10 +17,10 @@
 #' @param lineend Line end style (round, butt, square)
 #' @param linejoin Line join style (round, mitre, bevel)
 #' @param linemitre Line mitre limit (number greater than 1)
-#' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
+#' @param arrow Arrow specification, as created by [grid::arrow()]
 #' @seealso
-#'  \code{\link{geom_polygon}}: Filled paths (polygons);
-#'  \code{\link{geom_segment}}: Line segments
+#'  [geom_polygon()]: Filled paths (polygons);
+#'  [geom_segment()]: Line segments
 #' @export
 #' @examples
 #' # geom_line() is suitable for time series
@@ -294,7 +294,7 @@ GeomStep <- ggproto("GeomStep", GeomPath,
 )
 
 # Calculate stairsteps
-# Used by \code{\link{geom_step}}
+# Used by [geom_step()]
 #
 # @keyword internal
 stairstep <- function(data, direction="hv") {

@@ -1,10 +1,10 @@
 #' Fortify a model with data.
 #'
 #' Rather than using this function, I now recommend using the \pkg{broom}
-#' package, which implements a much wider range of methods. \code{fortify}
+#' package, which implements a much wider range of methods. `fortify`
 #' may be deprecated in the future.
 #'
-#' @seealso \code{\link{fortify.lm}}
+#' @seealso [fortify.lm()]
 #' @param model model or other R object to convert to data frame
 #' @param data original dataset, if needed
 #' @param ... other arguments passed to methods

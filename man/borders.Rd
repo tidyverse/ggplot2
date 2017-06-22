@@ -8,7 +8,7 @@ borders(database = "world", regions = ".", fill = NA, colour = "grey50",
   xlim = NULL, ylim = NULL, ...)
 }
 \arguments{
-\item{database}{map data, see \code{\link[maps]{map}} for details}
+\item{database}{map data, see \code{\link[maps:map]{maps::map()}} for details}
 
 \item{regions}{map region}
 
@@ -17,9 +17,9 @@ borders(database = "world", regions = ".", fill = NA, colour = "grey50",
 \item{colour}{border colour}
 
 \item{xlim, ylim}{latitudinal and logitudinal range for extracting map
-polygons, see \code{\link[maps]{map}} for details.}
+polygons, see \code{\link[maps:map]{maps::map()}} for details.}
 
-\item{...}{other arguments passed onto \code{\link{geom_polygon}}}
+\item{...}{other arguments passed onto \code{\link[=geom_polygon]{geom_polygon()}}}
 }
 \description{
 This is a quick and dirty way to get map data (from the maps package)

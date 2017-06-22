@@ -1,22 +1,22 @@
 #' Set scale limits
 #'
-#' This is a shortcut for supplying the \code{limits} argument to the
+#' This is a shortcut for supplying the `limits` argument to the
 #' individual scales. Note that, by default, any values outside the limits
-#' will be replaced with \code{NA}.
+#' will be replaced with `NA`.
 #'
 #' @param ... A name-value pair. The name must be an aesthetic, and the value
 #'   must be either a length-2 numeric, a character, a factor, or a date/time.
 #'
 #'   A numeric value will create a continuous scale. If the larger value
 #'   comes first, the scale will be reversed. You can leave one value as
-#'   \code{NA} to compute from the range of the data.
+#'   `NA` to compute from the range of the data.
 #'
 #'   A character or factor value will create a discrete scale.
 #'
 #'   A date-time value will create a continuous date/time scale.
 #' @seealso For changing x or y axis limits \strong{without} dropping data
-#'   observations, see \code{\link{coord_cartesian}}. To expand the range of
-#'   a plot to always include certain values, see \code{\link{expand_limits}}.
+#'   observations, see [coord_cartesian()]. To expand the range of
+#'   a plot to always include certain values, see [expand_limits()].
 #' @export
 #' @examples
 #' # Zoom into a specified area
@@ -125,7 +125,7 @@ limits.POSIXlt <- function(lims, var) {
 #'
 #' Sometimes you may want to ensure limits include a single value, for all
 #' panels or all plots.  This function is a thin wrapper around
-#' \code{\link{geom_blank}} that makes it easy to add such values.
+#' [geom_blank()] that makes it easy to add such values.
 #'
 #' @param ... named list of aesthetics specifying the value (or values) that
 #'   should be included in each scale.

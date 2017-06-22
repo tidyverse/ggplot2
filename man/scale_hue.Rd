@@ -16,7 +16,7 @@ scale_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
   direction = 1, na.value = "grey50")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
+\item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}}
 to control name, limits, breaks, labels and so forth.}
 
 \item{h}{range of hues to use, in [0, 360]}

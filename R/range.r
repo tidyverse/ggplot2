@@ -1,8 +1,8 @@
-#' Mutable ranges have a two methods (\code{train} and \code{reset}), and make
+#' Mutable ranges have a two methods (`train` and `reset`), and make
 #' it possible to build up complete ranges with multiple passes.
 #'
 #' These range objects should be instantiated with
-#' \code{\link{continuous_range}} and \code{\link{discrete_range}}.
+#' [continuous_range()] and [discrete_range()].
 #'
 #' @noRd
 Range <- ggproto("Range", NULL,
