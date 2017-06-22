@@ -8,6 +8,7 @@
 #' 
 #' @inheritParams viridisLite::viridis
 #' @inheritParams scales::gradient_n_pal
+#' @inheritParams continuous_scale
 #' @param ... Other arguments passed on to [discrete_scale()] or
 #' [continuous_scale()] to control name, limits, breaks, labels and so forth.
 #' @family colour scales

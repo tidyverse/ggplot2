@@ -52,6 +52,11 @@ to map an arbitrary range to between 0 and 1.}
 
 \item{space}{colour space in which to calculate gradient. Must be "Lab" -
 other values are deprecated.}
+
+\item{na.value}{Missing values will be replaced with this value.}
+
+\item{guide}{A function used to create a guide or its name. See
+\code{\link[=guides]{guides()}} for more info.}
 }
 \description{
 The \code{viridis} scales provide color maps that are perceptually uniform in both
