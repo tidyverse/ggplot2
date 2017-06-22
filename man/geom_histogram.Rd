@@ -194,6 +194,6 @@ ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
 }
 \seealso{
 \code{\link[=stat_count]{stat_count()}}, which counts the number of cases at each x
-posotion, without binning. It is suitable for both discrete and continuous
+position, without binning. It is suitable for both discrete and continuous
 x data, whereas \link{stat_bin} is suitable only for continuous x data.
 }
