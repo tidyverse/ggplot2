@@ -1,6 +1,5 @@
 #' Viridis colour scales from viridisLite
 #'
-#' @description
 #' The `viridis` scales provide color maps that are perceptually uniform in both
 #' color and black-and-white. They are also designed to be perceived by viewers
 #' with common forms of color blindness. See also
