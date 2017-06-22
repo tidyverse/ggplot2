@@ -15,18 +15,24 @@
 #' @export
 scale_colour_viridis_discrete <- function(..., alpha = 1, begin = 0, end = 1,
                                           direction = 1, option = "D") {
-  discrete_scale("colour", "viridis_discrete",
-                 viridis_pal(alpha, begin, end, direction, option),
-                 ...)
+  discrete_scale(
+    "colour",
+    "viridis_discrete",
+    viridis_pal(alpha, begin, end, direction, option),
+    ...
+  )
 }
 
 #' @export
 #' @rdname scale_viridis
 scale_fill_viridis_discrete <- function(..., alpha = 1, begin = 0, end = 1,
                                         direction = 1, option = "D") {
-  discrete_scale("fill", "viridis_discrete",
-                 viridis_pal(alpha, begin, end, direction, option),
-                 ...)
+  discrete_scale(
+    "fill",
+    "viridis_discrete",
+    viridis_pal(alpha, begin, end, direction, option),
+    ...
+  )
 }
 
 #' @export
@@ -36,11 +42,17 @@ scale_colour_viridis_continuous <- function(..., alpha = 1, begin = 0, end = 1,
                                             values = NULL, space = "Lab",
                                             na.value = "grey50",
                                             guide = "colourbar") {
-  continuous_scale("colour", "viridis_continuous",
-                   gradient_n_pal(viridis_pal(alpha, begin, end, direction,
-                                              option)(6), values, space),
-                   na.value = na.value,
-                   guide = guide, ...)
+  continuous_scale(
+    "colour",
+    "viridis_continuous",
+    gradient_n_pal(
+      viridis_pal(alpha, begin, end, direction, option)(6),
+      values,
+      space),
+    na.value = na.value,
+    guide = guide,
+    ...
+  )
 }
 
 #' @export
@@ -50,11 +62,17 @@ scale_fill_viridis_continuous <- function(..., alpha = 1, begin = 0, end = 1,
                                           values = NULL, space = "Lab",
                                           na.value = "grey50",
                                           guide = "colourbar") {
-  continuous_scale("fill", "viridis_continuous",
-                   gradient_n_pal(viridis_pal(alpha, begin, end, direction,
-                                              option)(6), values, space),
-                   na.value = na.value,
-                   guide = guide, ...)
+  continuous_scale(
+    "fill",
+    "viridis_continuous",
+    gradient_n_pal(
+      viridis_pal(alpha, begin, end, direction, option)(6),
+      values,
+      space),
+    na.value = na.value,
+    guide = guide,
+    ...
+  )
 }
 
 #' @inheritParams viridisLite::viridis
