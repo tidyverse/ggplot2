@@ -158,9 +158,9 @@ scale_color_manual <- scale_colour_manual
 #' @export
 #' @rdname scale_viridis
 #' @usage NULL
-scale_color_viridis_discrete <- scale_colour_viridis_discrete
+scale_color_viridis_d <- scale_colour_viridis_d
 
 #' @export
 #' @rdname scale_viridis
 #' @usage NULL
-scale_color_viridis_continuous <- scale_colour_viridis_continuous
+scale_color_viridis_c <- scale_colour_viridis_c

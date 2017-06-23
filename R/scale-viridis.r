@@ -13,11 +13,11 @@
 #' @family colour scales
 #' @rdname scale_viridis
 #' @export
-scale_colour_viridis_discrete <- function(..., alpha = 1, begin = 0, end = 1,
-                                          direction = 1, option = "D") {
+scale_colour_viridis_d <- function(..., alpha = 1, begin = 0, end = 1,
+                                   direction = 1, option = "D") {
   discrete_scale(
     "colour",
-    "viridis_discrete",
+    "viridis_d",
     viridis_pal(alpha, begin, end, direction, option),
     ...
   )
@@ -25,11 +25,11 @@ scale_colour_viridis_discrete <- function(..., alpha = 1, begin = 0, end = 1,
 
 #' @export
 #' @rdname scale_viridis
-scale_fill_viridis_discrete <- function(..., alpha = 1, begin = 0, end = 1,
-                                        direction = 1, option = "D") {
+scale_fill_viridis_d <- function(..., alpha = 1, begin = 0, end = 1,
+                                 direction = 1, option = "D") {
   discrete_scale(
     "fill",
-    "viridis_discrete",
+    "viridis_d",
     viridis_pal(alpha, begin, end, direction, option),
     ...
   )
@@ -37,14 +37,13 @@ scale_fill_viridis_discrete <- function(..., alpha = 1, begin = 0, end = 1,
 
 #' @export
 #' @rdname scale_viridis
-scale_colour_viridis_continuous <- function(..., alpha = 1, begin = 0, end = 1,
-                                            direction = 1, option = "D",
-                                            values = NULL, space = "Lab",
-                                            na.value = "grey50",
-                                            guide = "colourbar") {
+scale_colour_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
+                                   direction = 1, option = "D", values = NULL,
+                                   space = "Lab", na.value = "grey50",
+                                   guide = "colourbar") {
   continuous_scale(
     "colour",
-    "viridis_continuous",
+    "viridis_c",
     gradient_n_pal(
       viridis_pal(alpha, begin, end, direction, option)(6),
       values,
@@ -57,14 +56,13 @@ scale_colour_viridis_continuous <- function(..., alpha = 1, begin = 0, end = 1,
 
 #' @export
 #' @rdname scale_viridis
-scale_fill_viridis_continuous <- function(..., alpha = 1, begin = 0, end = 1,
-                                          direction = 1, option = "D",
-                                          values = NULL, space = "Lab",
-                                          na.value = "grey50",
-                                          guide = "colourbar") {
+scale_fill_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
+                                 direction = 1, option = "D", values = NULL,
+                                 space = "Lab", na.value = "grey50",
+                                 guide = "colourbar") {
   continuous_scale(
     "fill",
-    "viridis_continuous",
+    "viridis_c",
     gradient_n_pal(
       viridis_pal(alpha, begin, end, direction, option)(6),
       values,
