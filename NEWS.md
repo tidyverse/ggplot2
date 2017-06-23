@@ -1,5 +1,10 @@
 # ggplot2 2.2.1.9000
 
+* Ordered factors now behave differently from unordered factors in some cases.
+  Ordered factors throw a warning when mapped to shape (unordered factors do
+  not). Ordered factors do not throw warnings when mapped to size or alpha
+  (unordered factors do) (@karawoo, #1526).
+
 * Use `rel()` to set line widths in theme defaults (@baptiste).
 
 * `geom_density` drops groups with fewer than two data points and throws a
