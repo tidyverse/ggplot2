@@ -46,6 +46,14 @@ scale_shape_discrete <- scale_shape
 #' @rdname scale_shape
 #' @export
 #' @usage NULL
+scale_shape_ordinal <- scale_shape <- function(..., solid = TRUE) {
+  warning("Using shapes for an ordinal variable is not advised", call. = FALSE)
+  discrete_scale("shape", "shape_d", shape_pal(solid), ...)
+}
+
+#' @rdname scale_shape
+#' @export
+#' @usage NULL
 scale_shape_continuous <- function(...) {
   stop("A continuous variable can not be mapped to shape", call. = FALSE)
 }
