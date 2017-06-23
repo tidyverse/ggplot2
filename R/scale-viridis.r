@@ -74,12 +74,3 @@ scale_fill_viridis_continuous <- function(..., alpha = 1, begin = 0, end = 1,
     ...
   )
 }
-
-#' @inheritParams viridisLite::viridis
-#' @export
-#' @rdname scale_viridis
-viridis_pal <- function(alpha = 1, begin = 0, end = 1, direction = 1, option= "D") {
-  function(n) {
-    viridisLite::viridis(n, alpha, begin, end, direction, option)
-  }
-}

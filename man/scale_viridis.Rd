@@ -5,7 +5,6 @@
 \alias{scale_fill_viridis_discrete}
 \alias{scale_colour_viridis_continuous}
 \alias{scale_fill_viridis_continuous}
-\alias{viridis_pal}
 \alias{scale_color_viridis_discrete}
 \alias{scale_color_viridis_continuous}
 \title{Viridis colour scales from viridisLite}
@@ -23,9 +22,6 @@ scale_colour_viridis_continuous(..., alpha = 1, begin = 0, end = 1,
 scale_fill_viridis_continuous(..., alpha = 1, begin = 0, end = 1,
   direction = 1, option = "D", values = NULL, space = "Lab",
   na.value = "grey50", guide = "colourbar")
-
-viridis_pal(alpha = 1, begin = 0, end = 1, direction = 1,
-  option = "D")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or
