@@ -253,7 +253,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       lat = scale_y$breaks %|W|% NULL,
       lon = scale_x$breaks %|W|% NULL,
       datum = self$datum,
-	  ndiscr = self$ndiscr
+      ndiscr = self$ndiscr
     )
 
     # remove tick labels not on axes 1 (bottom) and 2 (left)
@@ -362,7 +362,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     limits = list(x = xlim, y = ylim),
     datum = datum,
     crs = crs,
-	ndiscr = ndiscr,
+    ndiscr = ndiscr,
     expand = expand
   )
 }
