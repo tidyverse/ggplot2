@@ -252,7 +252,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       crs = params$crs,
       lat = scale_y$breaks %|W|% NULL,
       lon = scale_x$breaks %|W|% NULL,
-      datum = self$datum
+      datum = self$datum,
+	  ndiscr = self$ndiscr
     )
 
     # remove tick labels not on axes 1 (bottom) and 2 (left)
@@ -350,15 +351,18 @@ sf_rescale01_x <- function(x, range) {
 #' @param crs Use this to select a specific CRS. If not specified, will
 #'   use the CRS defined in the first layer.
 #' @param datum CRS that provides datum to use when generating graticules
+#' @param ndiscr number of segments to use for discretizing graticule lines;
+#' try increasing this when graticules look unexpected
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                     crs = NULL, datum = sf::st_crs(4326)) {
+                     crs = NULL, datum = sf::st_crs(4326), ndiscr = 100) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
     datum = datum,
     crs = crs,
+	ndiscr = ndiscr,
     expand = expand
   )
 }
