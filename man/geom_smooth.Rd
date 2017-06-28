@@ -43,8 +43,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{method}{smoothing method (function) to use, eg. "lm", "glm",
-"gam", "loess", "rlm".
+\item{method}{smoothing method (function) to use, eg. \code{lm}, \code{glm},
+\code{gam}, \code{loess}, \code{MASS::rlm}.
 
 For \code{method = "auto"} the smoothing method is chosen based on the
 size of the largest group (across all panels). \code{\link[=loess]{loess()}} is
@@ -132,18 +132,18 @@ ggplot(mpg, aes(displ, hwy)) +
 # Instead of a loess smooth, you can use any other modelling function:
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = lm, se = FALSE)
 
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  geom_smooth(method = "lm", formula = y ~ splines::bs(x, 3), se = FALSE)
+  geom_smooth(method = lm, formula = y ~ splines::bs(x, 3), se = FALSE)
 
 # Smoothes are automatically fit to each group (defined by categorical
 # aesthetics or the group aesthetic) and for each facet
 
 ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point() +
-  geom_smooth(se = FALSE, method = "lm")
+  geom_smooth(se = FALSE, method = lm)
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   geom_smooth(span = 0.8) +

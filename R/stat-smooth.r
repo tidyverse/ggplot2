@@ -1,5 +1,5 @@
-#' @param method smoothing method (function) to use, eg. "lm", "glm",
-#'   "gam", "loess", "rlm".
+#' @param method smoothing method (function) to use, eg. `lm`, `glm`,
+#'   `gam`, `loess`, `MASS::rlm`.
 #'
 #'   For `method = "auto"` the smoothing method is chosen based on the
 #'   size of the largest group (across all panels). [loess()] is

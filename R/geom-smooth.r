@@ -39,18 +39,18 @@
 #' # Instead of a loess smooth, you can use any other modelling function:
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
-#'   geom_smooth(method = "lm", se = FALSE)
+#'   geom_smooth(method = lm, se = FALSE)
 #'
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
-#'   geom_smooth(method = "lm", formula = y ~ splines::bs(x, 3), se = FALSE)
+#'   geom_smooth(method = lm, formula = y ~ splines::bs(x, 3), se = FALSE)
 #'
 #' # Smoothes are automatically fit to each group (defined by categorical
 #' # aesthetics or the group aesthetic) and for each facet
 #'
 #' ggplot(mpg, aes(displ, hwy, colour = class)) +
 #'   geom_point() +
-#'   geom_smooth(se = FALSE, method = "lm")
+#'   geom_smooth(se = FALSE, method = lm)
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
 #'   geom_smooth(span = 0.8) +
