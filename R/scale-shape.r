@@ -46,9 +46,9 @@ scale_shape_discrete <- scale_shape
 #' @rdname scale_shape
 #' @export
 #' @usage NULL
-scale_shape_ordinal <- scale_shape <- function(..., solid = TRUE) {
+scale_shape_ordinal <- function(...) {
   warning("Using shapes for an ordinal variable is not advised", call. = FALSE)
-  discrete_scale("shape", "shape_d", shape_pal(solid), ...)
+  scale_shape(...)
 }
 
 #' @rdname scale_shape

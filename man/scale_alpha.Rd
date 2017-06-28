@@ -11,7 +11,7 @@ scale_alpha(..., range = c(0.1, 1))
 
 scale_alpha_continuous(..., range = c(0.1, 1))
 
-scale_alpha_discrete(..., range = c(0.1, 1))
+scale_alpha_discrete(...)
 
 scale_alpha_ordinal(..., range = c(0.1, 1))
 }
