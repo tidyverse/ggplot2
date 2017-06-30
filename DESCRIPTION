@@ -170,6 +170,7 @@ Collate:
     'scale-.r'
     'scale-alpha.r'
     'scale-brewer.r'
+    'scale-colour.r'
     'scale-continuous.r'
     'scale-date.r'
     'scale-discrete-.r'
