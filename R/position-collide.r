@@ -1,6 +1,7 @@
 # Detect and prevent collisions.
 # Powers dodging, stacking and filling.
-collide <- function(data, width = NULL, name, strategy, ..., check.width = TRUE, reverse = FALSE) {
+collide_setup <- function(data, width = NULL, name, strategy,
+                          check.width = TRUE, reverse = FALSE) {
   # Determine width
   if (!is.null(width)) {
     # Width set manually
@@ -45,11 +46,38 @@ collide <- function(data, width = NULL, name, strategy, ..., check.width = TRUE,
     # The American Statistician, 1999.] should be used
   }
 
+  list(data = data, width = width)  
+}
+
+collide <- function(data, width = NULL, name, strategy,
+                    ..., check.width = TRUE, reverse = FALSE) {
+  dlist <- collide_setup(data, width, name, strategy, check.width, reverse)
+  data <- dlist$data
+  width <- dlist$width
+  
   if (!is.null(data$ymax)) {
     plyr::ddply(data, "xmin", strategy, ..., width = width)
   } else if (!is.null(data$y)) {
     data$ymax <- data$y
     data <- plyr::ddply(data, "xmin", strategy, ..., width = width)
+    data$y <- data$ymax
+    data
+  } else {
+    stop("Neither y nor ymax defined")
+  }
+}
+
+collide_box <- function(data, width = NULL, name, strategy,
+                        ..., check.width = TRUE, reverse = FALSE) {
+  dlist <- collide_setup(data, width, name, strategy, check.width, reverse)
+  data <- dlist$data
+  width <- dlist$width
+  
+  if (!is.null(data$ymax)) {
+    plyr::ddply(data, "x", strategy, ..., width = width)
+  } else if (!is.null(data$y)) {
+    data$ymax <- data$y
+    data <- plyr::ddply(data, "x", strategy, ..., width = width)
     data$y <- data$ymax
     data
   } else {

@@ -23,7 +23,7 @@
 #' \donttest{
 #' ggplot(diamonds, aes(price, fill = cut)) +
 #'   geom_histogram(position="dodge")
-#' # see ?geom_boxplot and ?geom_bar for more examples
+#' # see ?geom_bar for more examples
 #'
 #' # In this case a frequency polygon is probably a better choice
 #' ggplot(diamonds, aes(price, colour = cut)) +
