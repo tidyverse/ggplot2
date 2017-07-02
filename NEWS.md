@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Fixed bug in `coord_polar` that prevented secondary axis ticks and labels
+  from being drawn (@dylan-stark, #2072)
+
 * Use `rel()` to set line widths in theme defaults (@baptiste).
 
 * `geom_density` drops groups with fewer than two data points and throws a
