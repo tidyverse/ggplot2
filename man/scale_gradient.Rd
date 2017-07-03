@@ -40,8 +40,68 @@ scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
   na.value = "grey50", guide = "colourbar", colors)
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
-to control name, limits, breaks, labels and so forth.}
+\item{...}{Arguments passed on to \code{continuous_scale}
+\describe{
+  \item{aesthetics}{The names of the aesthetics that this scale works with}
+  \item{scale_name}{The name of the scale}
+  \item{palette}{A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the values that
+they should take}
+  \item{name}{The name of the scale. Used as axis or legend title. If
+\code{NULL}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic.}
+  \item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks computed by the
+transformation object
+\item A numeric vector of positions
+\item A function that takes the limits as input and returns breaks
+as output
+}}
+  \item{minor_breaks}{One of:
+\itemize{
+\item \code{NULL} for no minor breaks
+\item \code{waiver()} for the default breaks (one minor break between
+each major break)
+\item A numeric vector of positions
+\item A function that given the limits returns a vector of minor breaks.
+}}
+  \item{labels}{One of:
+\itemize{
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item A function that takes the breaks as input and returns labels
+as output
+}}
+  \item{limits}{A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum.}
+  \item{rescaler}{Used by diverging and n colour gradients
+(i.e. \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}}, \code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}).
+A function used to scale the input values to the range \eqn{[0, 1]}.}
+  \item{oob}{Function that handles limits outside of the scale limits
+(out of bounds). The default replaces out of bounds values with NA.}
+  \item{expand}{A numeric vector of length two giving multiplicative and
+additive expansion constants. These constants ensure that the data is
+placed some distance away from the axes. The defaults are
+\code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
+discrete variables.}
+  \item{trans}{Either the name of a transformation object, or the
+object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
+"logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+
+A transformation object bundles together a transform, it's inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called \code{name_trans}, e.g.
+\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
+transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+  \item{position}{The position of the axis. "left" or "right" for vertical
+scales, "top" or "bottom" for horizontal scales}
+  \item{super}{The super class to use for the constructed scale}
+}}
 
 \item{low, high}{Colours for low and high ends of the gradient.}
 
@@ -112,8 +172,8 @@ ggplot(df, aes(x, y)) +
 # seeing them
 }
 \seealso{
-\code{\link[scales]{seq_gradient_pal}} for details on underlying
-  palette
+\code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
+palette
 
 Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_brewer}},

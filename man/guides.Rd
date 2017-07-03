@@ -9,7 +9,7 @@ guides(...)
 \arguments{
 \item{...}{List of scale name-guide pairs.  The guide can either
 be a string (i.e. "colorbar" or "legend"), or a call to a guide function
-(i.e. \code{\link{guide_colourbar}} or \code{\link{guide_legend}})
+(i.e. \code{\link[=guide_colourbar]{guide_colourbar()}} or \code{\link[=guide_legend]{guide_legend()}})
 specifying additional arguments.}
 }
 \value{

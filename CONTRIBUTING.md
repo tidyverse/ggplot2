@@ -66,7 +66,7 @@ If you're not familiar with git or github, please start by reading <http://r-pkg
 See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 --->
 
-Pull requests will be evaluated against the a seven point checklist:
+Pull requests will be evaluated against a seven point checklist:
 
 1.  __Motivation__. Your pull request should clearly and concisely motivates the
    need for change. Unfortunately neither Winston nor I have much time to
@@ -89,7 +89,7 @@ Pull requests will be evaluated against the a seven point checklist:
     and don't submit any others until the first one has been processed.
 
 1.  __Use ggplot2 coding style__. Please follow the
-    [official ggplot2 style](http://adv-r.had.co.nz/Style.html). Maintaing
+    [official ggplot2 style](http://adv-r.had.co.nz/Style.html). Maintaining
     a consistent style across the whole code base makes it much easier to
     jump into the code. If you're modifying existing ggplot2 code that
     doesn't follow the style guide, a separate pull request to fix the

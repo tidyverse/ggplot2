@@ -177,7 +177,7 @@ bounding box, when there are multiple legends ("top", "bottom", "left", or
 "right")}
 
 \item{legend.box.margin}{margins around the full legend area, as specified
-using \code{\link{margin}}}
+using \code{\link[=margin]{margin()}}}
 
 \item{legend.box.background}{background of legend area (\code{element_rect};
 inherits from \code{rect})}
@@ -189,8 +189,8 @@ legend box (\code{unit})}
 (\code{element_rect}; inherits from \code{rect})}
 
 \item{panel.border}{border around plotting area, drawn on top of plot so that
-  it covers tick marks and grid lines. This should be used with
-  \code{fill=NA}
+it covers tick marks and grid lines. This should be used with
+\code{fill=NA}
 (\code{element_rect}; inherits from \code{rect})}
 
 \item{panel.spacing}{spacing between facet panels (\code{unit})}
@@ -276,7 +276,7 @@ elements.}
 \description{
 Use \code{theme()} to modify individual components of a theme, allowing
 you to control the appearance of all non-data components of the plot.
-\code{theme()} only affects a single plot: see \code{\link{theme_update}} if
+\code{theme()} only affects a single plot: see \code{\link[=theme_update]{theme_update()}} if
 you want modify the active theme, to affect all subsequent plots.
 }
 \section{Theme inheritance}{
@@ -376,8 +376,8 @@ p3 + theme(panel.spacing = unit(1, "lines"))
 }
 }
 \seealso{
-\code{\link{+.gg}} and \code{\link{\%+replace\%}},
-  \code{\link{element_blank}}, \code{\link{element_line}},
-  \code{\link{element_rect}}, and \code{\link{element_text}} for
-  details of the specific theme elements.
+\code{\link[=+.gg]{+.gg()}} and \code{\link{\%+replace\%}},
+\code{\link[=element_blank]{element_blank()}}, \code{\link[=element_line]{element_line()}},
+\code{\link[=element_rect]{element_rect()}}, and \code{\link[=element_text]{element_text()}} for
+details of the specific theme elements.
 }

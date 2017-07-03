@@ -1,7 +1,7 @@
 #' Quantile regression
 #'
 #' This fits a quantile regression to the data and draws the fitted quantiles
-#' with lines. This is as a continuous analogue to \code{\link{geom_boxplot}}.
+#' with lines. This is as a continuous analogue to [geom_boxplot()].
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{quantile}
@@ -11,9 +11,9 @@
 #' @inheritParams geom_point
 #' @inheritParams geom_path
 #' @param method.args List of additional arguments passed on to the modelling
-#'   function defined by \code{method}.
+#'   function defined by `method`.
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_quantile} and \code{stat_quantile}.
+#'   `geom_quantile` and `stat_quantile`.
 #' @examples
 #' m <- ggplot(mpg, aes(displ, 1 / hwy)) + geom_point()
 #' m + geom_quantile()

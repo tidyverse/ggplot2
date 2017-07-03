@@ -1,31 +1,29 @@
 #' Visualise sf objects
 #'
 #' This set geom, stat, and coord are used to visualise simple feature (sf)
-#' objects. For simple plots, you will only need \code{geom_sf} as it
-#' uses \code{stat_sf} and adds \code{coord_sf} for you. \code{geom_sf} is
+#' objects. For simple plots, you will only need `geom_sf` as it
+#' uses `stat_sf` and adds `coord_sf` for you. `geom_sf` is
 #' an unusual geom because it will draw different geometric objects depending
 #' on what simple features are present in the data: you can get points, lines,
 #' or polygons.
 #'
 #' @section Geometry aesthetic:
-#' \code{geom_sf} uses a unique aesthetic: \code{geometry}, giving an
-#' column of class \code{sfc} containg simple features data. There
-#' are three ways to supply the \code{geometry} aesthetic:
+#' `geom_sf` uses a unique aesthetic: `geometry`, giving an
+#' column of class `sfc` containg simple features data. There
+#' are three ways to supply the `geometry` aesthetic:
 #'
-#' \itemize{
-#'   \item Do nothing: by default \code{geom_sf} assumes it is stored in
-#'     the \code{geometry} column.
-#'   \item Explicitly pass an \code{sf} object to the \code{data} argument.
+#'   - Do nothing: by default `geom_sf` assumes it is stored in
+#'     the `geometry` column.
+#'   - Explicitly pass an `sf` object to the `data` argument.
 #'     This will use the primary geometry column, no matter what it's called.
-#'   \item Supply your own using \code{aes(geometry = my_column)}
-#' }
+#'   - Supply your own using `aes(geometry = my_column)`
 #'
-#' Unlike other aesthetics, \code{geometry} will never be inherited from
+#' Unlike other aesthetics, `geometry` will never be inherited from
 #' the plot.
 #'
 #' @section CRS:
-#' \code{coord_sf()} ensures that all layers use a common CRS. You can
-#' either specify it using the \code{CRS} param, or \code{coord_sf} will
+#' `coord_sf()` ensures that all layers use a common CRS. You can
+#' either specify it using the `CRS` param, or `coord_sf` will
 #' take it from the first layer that defines a CRS.
 #'
 #' @examples
@@ -252,9 +250,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       crs = params$crs,
       lat = scale_y$breaks %|W|% NULL,
       lon = scale_x$breaks %|W|% NULL,
-      datum = self$datum
+      datum = self$datum,
+      ndiscr = self$ndiscr
     )
 
+    # remove tick labels not on axes 1 (bottom) and 2 (left)
+    if (!is.null(graticule$plot12))
+      graticule$degree_label[!graticule$plot12] <- NA
+	
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
     graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
     graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
@@ -346,15 +349,18 @@ sf_rescale01_x <- function(x, range) {
 #' @param crs Use this to select a specific CRS. If not specified, will
 #'   use the CRS defined in the first layer.
 #' @param datum CRS that provides datum to use when generating graticules
+#' @param ndiscr number of segments to use for discretizing graticule lines;
+#' try increasing this when graticules look unexpected
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                     crs = NULL, datum = sf::st_crs(4326)) {
+                     crs = NULL, datum = sf::st_crs(4326), ndiscr = 100) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
     datum = datum,
     crs = crs,
+    ndiscr = ndiscr,
     expand = expand
   )
 }
