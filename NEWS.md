@@ -1,5 +1,9 @@
 # ggplot2 2.2.1.9000
 
+* Theme elements can now be subclassed. Add a `merge_element` method to control
+  how properties are inherited from parent element. Add `element_grob` method
+  to define how elements are rendered into grobs (@thomasp85, #1981).
+
 * Theme functions now have the optional parameters `base_line_size` and
   `base_rect_size` to control the default sizes of line and rectangle elements
   (@karawoo, #2176).
