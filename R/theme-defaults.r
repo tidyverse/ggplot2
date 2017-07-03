@@ -67,16 +67,9 @@ NULL
 #' @export
 #' @rdname ggtheme
 theme_grey <- function(base_size = 11, base_family = "",
-                       base_line_size, base_rect_size) {
+                       base_line_size = base_size / 22,
+                       base_rect_size = base_size / 22) {
   half_line <- base_size / 2
-
-  if (missing(base_line_size)) {
-    base_line_size <- base_size / 22
-  }
-
-  if (missing(base_rect_size)) {
-    base_rect_size <- base_size / 22
-  }
 
   theme(
     # Elements in this first block aren't used directly, but are inherited
@@ -193,7 +186,8 @@ theme_gray <- theme_grey
 #' @export
 #' @rdname ggtheme
 theme_bw <- function(base_size = 11, base_family = "",
-                     base_line_size, base_rect_size) {
+                     base_line_size = base_size / 22,
+                     base_rect_size = base_size / 22) {
   # Starts with theme_grey and then modify some parts
   theme_grey(
     base_size = base_size,
@@ -220,7 +214,8 @@ theme_bw <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_linedraw <- function(base_size = 11, base_family = "",
-                           base_line_size, base_rect_size) {
+                           base_line_size = base_size / 22,
+                           base_rect_size = base_size / 22) {
   # Starts with theme_bw and then modify some parts
   # = replace all greys with pure black or white
   theme_bw(
@@ -252,7 +247,8 @@ theme_linedraw <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_light <- function(base_size = 11, base_family = "",
-                        base_line_size, base_rect_size) {
+                        base_line_size = base_size / 22,
+                        base_rect_size = base_size / 22) {
   # Starts with theme_grey and then modify some parts
   theme_grey(
     base_size = base_size,
@@ -287,7 +283,8 @@ theme_light <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_dark <- function(base_size = 11, base_family = "",
-                       base_line_size, base_rect_size) {
+                       base_line_size = base_size / 22,
+                       base_rect_size = base_size / 22) {
   # Starts with theme_grey and then modify some parts
   theme_grey(
     base_size = base_size,
@@ -320,7 +317,8 @@ theme_dark <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_minimal <- function(base_size = 11, base_family = "",
-                          base_line_size, base_rect_size) {
+                          base_line_size = base_size / 22,
+                          base_rect_size = base_size / 22) {
   # Starts with theme_bw and remove most parts
   theme_bw(
     base_size = base_size,
@@ -344,7 +342,8 @@ theme_minimal <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_classic <- function(base_size = 11, base_family = "",
-                          base_line_size, base_rect_size) {
+                          base_line_size = base_size / 22,
+                          base_rect_size = base_size / 22) {
   theme_bw(
     base_size = base_size,
     base_family = base_family,
@@ -374,7 +373,8 @@ theme_classic <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_void <- function(base_size = 11, base_family = "",
-                       base_line_size, base_rect_size) {
+                       base_line_size = base_size / 22,
+                       base_rect_size = base_size / 22) {
   theme(
     # Use only inherited elements and make almost everything blank
     # Only keep indispensable text
@@ -400,16 +400,9 @@ theme_void <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_test <- function(base_size = 11, base_family = "",
-                       base_line_size, base_rect_size) {
+                       base_line_size = base_size / 22,
+                       base_rect_size = base_size / 22) {
   half_line <- base_size / 2
-
-  if (missing(base_line_size)) {
-    base_line_size <- base_size / 22
-  }
-
-  if (missing(base_rect_size)) {
-    base_rect_size <- base_size / 22
-  }
   
   theme(
     line =               element_line(
