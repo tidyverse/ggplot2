@@ -22,7 +22,7 @@ no guarantee that straight lines will continue to be straight.
 }
 \details{
 Transformations only work with continuous values: see
-\code{\link[scales]{trans_new}} for list of transformations, and instructions
+\code{\link[scales:trans_new]{scales::trans_new()}} for list of transformations, and instructions
 on how to create your own.
 }
 \examples{

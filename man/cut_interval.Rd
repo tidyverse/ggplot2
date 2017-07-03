@@ -20,18 +20,35 @@ cut_width(x, width, center = NULL, boundary = NULL, closed = c("right",
 
 \item{length}{length of each interval}
 
-\item{...}{other arguments passed on to \code{\link{cut}}}
+\item{...}{Arguments passed on to \code{base::cut.default}
+\describe{
+  \item{breaks}{either a numeric vector of two or more unique cut points or a
+    single number (greater than or equal to 2) giving the number of
+    intervals into which \code{x} is to be cut.}
+  \item{labels}{labels for the levels of the resulting category.  By default,
+    labels are constructed using \code{"(a,b]"} interval notation.  If
+    \code{labels = FALSE}, simple integer codes are returned instead of
+    a factor.}
+  \item{include.lowest}{logical, indicating if an \sQuote{x[i]} equal to
+    the lowest (or highest, for \code{right = FALSE}) \sQuote{breaks}
+    value should be included.}
+  \item{right}{logical, indicating if the intervals should be closed on
+    the right (and open on the left) or vice versa.}
+  \item{dig.lab}{integer which is used when labels are not given.  It
+    determines the number of digits used in formatting the break numbers.}
+  \item{ordered_result}{logical: should the result be an ordered factor?}
+}}
 
 \item{width}{The bin width.}
 
 \item{center, boundary}{Specify either the position of edge or the center of
-  a bin. Since all bins are aligned, specifying the position of a single bin
-  (which doesn't need to be in the range of the data) affects the location of
-  all bins. If not specified, uses the "tile layers algorithm", and sets
-  the boundary to half of the binwidth.
+a bin. Since all bins are aligned, specifying the position of a single bin
+(which doesn't need to be in the range of the data) affects the location of
+all bins. If not specified, uses the "tile layers algorithm", and sets
+the boundary to half of the binwidth.
 
-  To center on integers, \code{width = 1} and \code{center = 0}.
-  \code{boundary = 0.5}.}
+To center on integers, \code{width = 1} and \code{center = 0}.
+\code{boundary = 0.5}.}
 
 \item{closed}{One of \code{"right"} or \code{"left"} indicating whether right
 or left edges of bins are included in the bin.}
@@ -53,5 +70,5 @@ table(cut_width(runif(1000), 0.1, center = 0))
 }
 \author{
 Randall Prium contributed most of the implementation of
-   \code{cut_width}.
+\code{cut_width}.
 }

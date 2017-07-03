@@ -2,6 +2,23 @@
 
 * `geom_segment` now also takes a `linejoin` parameter. This allows more control over the appearance of the segments, which is especially useful for plotting thick arrows (@Ax3man, #774).
 
+* Theme elements can now be subclassed. Add a `merge_element` method to control
+  how properties are inherited from parent element. Add `element_grob` method
+  to define how elements are rendered into grobs (@thomasp85, #1981).
+
+* Theme functions now have the optional parameters `base_line_size` and
+  `base_rect_size` to control the default sizes of line and rectangle elements
+  (@karawoo, #2176).
+
+* Fixed bug in `coord_polar` that prevented secondary axis ticks and labels
+  from being drawn (@dylan-stark, #2072)
+
+* Use `rel()` to set line widths in theme defaults (@baptiste).
+
+* `geom_density` drops groups with fewer than two data points and throws a
+  warning. For groups with two data points, the density values are now
+  calculated with `stats::density` (@karawoo, #2127).
+
 * `geom_smooth` now orders by the `x` aesthetic, making it easier to pass 
   pre-computed values without manual ordering (@izahn, #2028).
 
@@ -194,7 +211,7 @@ There were also a number of other smaller changes
 
 * The `theme()` constructor now has named arguments rather than ellipses. This 
   should make autocomplete substantially more useful. The documentation
-  (including exampes) has been considerably improved.
+  (including examples) has been considerably improved.
   
 * Built-in themes are more visually homogeneous, and match `theme_grey` better.
   (@jiho, #1679)

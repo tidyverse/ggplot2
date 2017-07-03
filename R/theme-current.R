@@ -6,15 +6,15 @@ theme_env$current <- theme_gray()
 #' Get, set, and modify the active theme
 #'
 #' The current/active theme is automatically applied to every plot you draw.
-#' Use \code{theme_get} to get the current theme, and \code{theme_set} to
-#' completely override it. \code{theme_update} and \code{theme_replace} are
+#' Use `theme_get` to get the current theme, and `theme_set` to
+#' completely override it. `theme_update` and `theme_replace` are
 #' shorthands for changing individual elements.
 #'
 #' @section Adding on to a theme:
 #'
-#' \code{+} and \code{\%+replace\%} can be used to modify elements in themes.
+#' `+` and \code{\%+replace\%} can be used to modify elements in themes.
 #'
-#' \code{+} updates the elements of e1 that differ from elements specified (not
+#' `+` updates the elements of e1 that differ from elements specified (not
 #' NULL) in e2. Thus this operator can be used to incrementally add or modify
 #' attributes of a ggplot theme.
 #'
@@ -22,18 +22,18 @@ theme_env$current <- theme_gray()
 #' a theme not specified in e2 will not be present in the resulting theme (i.e.
 #' NULL). Thus this operator can be used to overwrite an entire theme.
 #'
-#' \code{theme_update} uses the \code{+} operator, so that any unspecified
+#' `theme_update` uses the `+` operator, so that any unspecified
 #' values in the theme element will default to the values they are set in the
-#' theme. \code{theme_replace} uses \code{\%+replace\%} tocompletely replace
+#' theme. `theme_replace` uses \code{\%+replace\%} tocompletely replace
 #' the element, so any unspecified values will overwrite the current value in
-#' the theme with \code{NULL}s.
+#' the theme with `NULL`s.
 #'
 #' @param ... named list of theme settings
 #' @param e1,e2 Theme and element to combine
-#' @return \code{theme_set}, \code{theme_update}, and \code{theme_replace}
+#' @return `theme_set`, `theme_update`, and `theme_replace`
 #'   invisibly return the previous theme so you can easily save it, then
 #'   later restore it.
-#' @seealso \code{\link{+.gg}}
+#' @seealso [+.gg()]
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
