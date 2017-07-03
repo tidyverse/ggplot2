@@ -539,8 +539,8 @@ calc_element <- function(element, theme, verbose = FALSE) {
 #'
 #' @param new The child element in the theme hierarchy
 #' @param old The parent element in the theme hierarchy
-#' @return A modified version of \code{new} updated with the properties of
-#' \code{old}
+#' @return A modified version of `new` updated with the properties of
+#' `old`
 #' @keywords internal
 #' @export
 #' @examples
