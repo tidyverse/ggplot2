@@ -13,34 +13,42 @@
 \alias{theme_test}
 \title{Complete themes}
 \usage{
-theme_grey(base_size = 11, base_family = "")
+theme_grey(base_size = 11, base_family = "", base_line_size, base_rect_size)
 
-theme_gray(base_size = 11, base_family = "")
+theme_gray(base_size = 11, base_family = "", base_line_size, base_rect_size)
 
-theme_bw(base_size = 11, base_family = "")
+theme_bw(base_size = 11, base_family = "", base_line_size, base_rect_size)
 
-theme_linedraw(base_size = 11, base_family = "")
+theme_linedraw(base_size = 11, base_family = "", base_line_size,
+  base_rect_size)
 
-theme_light(base_size = 11, base_family = "")
+theme_light(base_size = 11, base_family = "", base_line_size,
+  base_rect_size)
 
-theme_dark(base_size = 11, base_family = "")
+theme_dark(base_size = 11, base_family = "", base_line_size, base_rect_size)
 
-theme_minimal(base_size = 11, base_family = "")
+theme_minimal(base_size = 11, base_family = "", base_line_size,
+  base_rect_size)
 
-theme_classic(base_size = 11, base_family = "")
+theme_classic(base_size = 11, base_family = "", base_line_size,
+  base_rect_size)
 
-theme_void(base_size = 11, base_family = "")
+theme_void(base_size = 11, base_family = "", base_line_size, base_rect_size)
 
-theme_test(base_size = 11, base_family = "")
+theme_test(base_size = 11, base_family = "", base_line_size, base_rect_size)
 }
 \arguments{
 \item{base_size}{base font size}
 
 \item{base_family}{base font family}
+
+\item{base_line_size}{base size for line elements}
+
+\item{base_rect_size}{base size for rect elements}
 }
 \description{
 These are complete themes which control all non-data display. Use
-\code{\link{theme}} if you just need to tweak the display of an existing
+\code{\link[=theme]{theme()}} if you just need to tweak the display of an existing
 theme.
 }
 \details{

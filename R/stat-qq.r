@@ -4,7 +4,7 @@
 #' \aesthetics{stat}{qq}
 #'
 #' @param distribution Distribution function to use, if x not specified
-#' @param dparams Additional parameters passed on to \code{distribution}
+#' @param dparams Additional parameters passed on to `distribution`
 #'   function.
 #' @inheritParams layer
 #' @inheritParams geom_point

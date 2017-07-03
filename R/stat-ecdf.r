@@ -2,18 +2,18 @@
 #'
 #' The empirical cumulative distribution function (ECDF) provides an alternative
 #' visualisation of distribution. Compared to other visualisations that rely on
-#' density (like \code{\link{geom_histogram}}), the ECDF doesn't require any
+#' density (like [geom_histogram()]), the ECDF doesn't require any
 #' tuning parameters and handles both continuous and categorical variables.
 #' The downside is that it requires more training to accurately interpret,
 #' and the underlying visual tasks are somewhat more challenging.
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @param na.rm If \code{FALSE} (the default), removes missing values with
-#'    a warning.  If \code{TRUE} silently removes missing values.
+#' @param na.rm If `FALSE` (the default), removes missing values with
+#'    a warning.  If `TRUE` silently removes missing values.
 #' @param n if NULL, do not interpolate. If not NULL, this is the number
 #'   of points to interpolate with.
-#' @param pad If \code{TRUE}, pad the ecdf with additional points (-Inf, 0)
+#' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
 #'   and (Inf, 1)
 #' @section Computed variables:
 #' \describe{

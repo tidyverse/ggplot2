@@ -30,8 +30,8 @@ functions that returns the data, grob, or scales associated with a given
 layer. These are useful for tests.
 }
 \seealso{
-\code{\link{print.ggplot}} and \code{\link{benchplot}} for
- functions that contain the complete set of steps for generating
- a ggplot2 plot.
+\code{\link[=print.ggplot]{print.ggplot()}} and \code{\link[=benchplot]{benchplot()}} for
+functions that contain the complete set of steps for generating
+a ggplot2 plot.
 }
 \keyword{internal}

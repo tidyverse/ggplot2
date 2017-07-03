@@ -2,23 +2,23 @@
 #'
 #' These are the default scales for the three date/time class. These will
 #' usually be added automatically. To override manually, use
-#' \code{scale_*_date} for dates (class \code{Date}),
-#' \code{scale_*_datetime} for datetimes (class \code{POSIXct}), and
-#' \code{scale_*_time} for times (class \code{hms}).
+#' `scale_*_date` for dates (class `Date`),
+#' `scale_*_datetime` for datetimes (class `POSIXct`), and
+#' `scale_*_time` for times (class `hms`).
 #'
 #' @inheritParams continuous_scale
 #' @inheritParams scale_x_continuous
 #' @param date_breaks A string giving the distance between breaks like "2
-#'   weeks", or "10 years". If both \code{breaks} and \code{date_breaks} are
-#'   specified, \code{date_breaks} wins.
+#'   weeks", or "10 years". If both `breaks` and `date_breaks` are
+#'   specified, `date_breaks` wins.
 #' @param date_minor_breaks A string giving the distance between minor breaks
-#'   like "2 weeks", or "10 years". If both \code{minor_breaks} and
-#'   \code{date_minor_breaks} are specified, \code{date_minor_breaks} wins.
+#'   like "2 weeks", or "10 years". If both `minor_breaks` and
+#'   `date_minor_breaks` are specified, `date_minor_breaks` wins.
 #' @param date_labels A string giving the formatting specification for the
-#'   labels. Codes are defined in \code{\link{strftime}}. If both \code{labels}
-#'   and \code{date_labels} are specified, \code{date_labels} wins.
+#'   labels. Codes are defined in [strftime()]. If both `labels`
+#'   and `date_labels` are specified, `date_labels` wins.
 #' @param timezone The timezone to use for display on the axes. The default
-#'   (\code{NULL}) uses the timezone encoded in the data.
+#'   (`NULL`) uses the timezone encoded in the data.
 #' @family position scales
 #' @examples
 #' last_month <- Sys.Date() - 0:29

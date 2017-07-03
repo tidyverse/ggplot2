@@ -4,8 +4,8 @@
 #' so they can be transformed independently. Used inside geom functions.
 #'
 #' @param coord Coordinate system definition.
-#' @param data Data set to transform - should have variables \code{x} and
-#'   \code{y} are chopped up into small pieces (as defined by \code{group}).
+#' @param data Data set to transform - should have variables `x` and
+#'   `y` are chopped up into small pieces (as defined by `group`).
 #'   All other variables are duplicated as needed.
 #' @param range Panel range specification.
 #' @param segment_length Target segment length

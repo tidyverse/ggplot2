@@ -1,19 +1,19 @@
 #' Quick plot
 #'
-#' \code{qplot} is a shortcut designed to be familiar if you're used to base
-#' \code{\link{plot}()}. It's a convenient wrapper for creating a number of
+#' `qplot` is a shortcut designed to be familiar if you're used to base
+#' [plot()]. It's a convenient wrapper for creating a number of
 #' different types of plots using a consistent calling scheme. It's great
 #' for allowing you to produce plots quickly, but I highly recommend
-#' learning \code{\link{ggplot}()} as it makes it easier to create
+#' learning [ggplot()] as it makes it easier to create
 #' complex graphics.
 #'
 #' @param x,y,... Aesthetics passed into each layer
 #' @param data Data frame to use (optional).  If not specified, will create
 #'   one, extracting vectors from the current environment.
-#' @param facets faceting formula to use. Picks \code{\link{facet_wrap}} or
-#'   \code{\link{facet_grid}} depending on whether the formula is one-
+#' @param facets faceting formula to use. Picks [facet_wrap()] or
+#'   [facet_grid()] depending on whether the formula is one-
 #'   or two-sided
-#' @param margins See \code{facet_grid}: display marginal facets?
+#' @param margins See `facet_grid`: display marginal facets?
 #' @param geom Character vector specifying geom(s) to draw. Defaults to
 #'  "point" if x and y are specified, and "histogram" if only x is specified.
 #' @param stat,position DEPRECATED.

@@ -1,8 +1,8 @@
 #' @param bins numeric vector giving number of bins in both vertical and
 #'   horizontal directions. Set to 30 by default.
 #' @param binwidth Numeric vector giving bin width in both vertical and
-#'   horizontal directions. Overrides \code{bins} if both set.
-#' @param drop if \code{TRUE} removes all cells with 0 counts.
+#'   horizontal directions. Overrides `bins` if both set.
+#' @param drop if `TRUE` removes all cells with 0 counts.
 #' @export
 #' @rdname geom_bin2d
 stat_bin_2d <- function(mapping = NULL, data = NULL,
