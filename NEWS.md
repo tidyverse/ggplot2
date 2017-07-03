@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Axes positioned on the top and to the right can now customize their ticks and
+  lines separately (@thomasp85, #1899)
+
 * `geom_segment` now also takes a `linejoin` parameter. This allows more control over the appearance of the segments, which is especially useful for plotting thick arrows (@Ax3man, #774).
 
 * Theme elements can now be subclassed. Add a `merge_element` method to control
