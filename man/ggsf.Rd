@@ -20,7 +20,7 @@ geom_sf(mapping = aes(), data = NULL, stat = "sf",
   inherit.aes = TRUE, ...)
 
 coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
-  datum = sf::st_crs(4326))
+  datum = sf::st_crs(4326), ndiscr = 100)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -79,6 +79,9 @@ limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 use the CRS defined in the first layer.}
 
 \item{datum}{CRS that provides datum to use when generating graticules}
+
+\item{ndiscr}{number of segments to use for discretizing graticule lines;
+try increasing this when graticules look unexpected }
 }
 \description{
 This set geom, stat, and coord are used to visualise simple feature (sf)
