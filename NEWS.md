@@ -1,5 +1,9 @@
 # ggplot2 2.2.1.9000
 
+* Theme functions now have the optional parameters `base_line_size` and
+  `base_rect_size` to control the default sizes of line and rectangle elements
+  (@karawoo, #2176).
+
 * Fixed bug in `coord_polar` that prevented secondary axis ticks and labels
   from being drawn (@dylan-stark, #2072)
 
