@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* `geom_segment` now also takes a `linejoin` parameter. This allows more control over the appearance of the segments, which is especially useful for plotting thick arrows (@Ax3man, #774).
+
 * Theme elements can now be subclassed. Add a `merge_element` method to control
   how properties are inherited from parent element. Add `element_grob` method
   to define how elements are rendered into grobs (@thomasp85, #1981).
