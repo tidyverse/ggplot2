@@ -5,6 +5,22 @@
 
 * `scale_alpha()` gains date and date-time variants (@karawoo, #1526).
 
+* Axes positioned on the top and to the right can now customize their ticks and
+  lines separately (@thomasp85, #1899)
+
+* `geom_segment` now also takes a `linejoin` parameter. This allows more control over the appearance of the segments, which is especially useful for plotting thick arrows (@Ax3man, #774).
+
+* Theme elements can now be subclassed. Add a `merge_element` method to control
+  how properties are inherited from parent element. Add `element_grob` method
+  to define how elements are rendered into grobs (@thomasp85, #1981).
+
+* Theme functions now have the optional parameters `base_line_size` and
+  `base_rect_size` to control the default sizes of line and rectangle elements
+  (@karawoo, #2176).
+
+* Fixed bug in `coord_polar` that prevented secondary axis ticks and labels
+  from being drawn (@dylan-stark, #2072)
+
 * Use `rel()` to set line widths in theme defaults (@baptiste).
 
 * `geom_density` drops groups with fewer than two data points and throws a

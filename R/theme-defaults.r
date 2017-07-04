@@ -6,6 +6,8 @@
 #'
 #' @param base_size base font size
 #' @param base_family base font family
+#' @param base_line_size base size for line elements
+#' @param base_rect_size base size for rect elements
 #'
 #' @details
 #' \describe{
@@ -64,16 +66,22 @@ NULL
 #' @include theme.r
 #' @export
 #' @rdname ggtheme
-theme_grey <- function(base_size = 11, base_family = "") {
+theme_grey <- function(base_size = 11, base_family = "",
+                       base_line_size = base_size / 22,
+                       base_rect_size = base_size / 22) {
   half_line <- base_size / 2
 
   theme(
     # Elements in this first block aren't used directly, but are inherited
     # by others
-    line =               element_line(colour = "black", size = 0.5, linetype = 1,
-                            lineend = "butt"),
-    rect =               element_rect(fill = "white", colour = "black",
-                            size = 0.5, linetype = 1),
+    line =               element_line(
+                           colour = "black", size = base_line_size,
+                           linetype = 1, lineend = "butt"
+                         ),
+    rect =               element_rect(
+                           fill = "white", colour = "black",
+                           size = base_rect_size, linetype = 1
+                         ),
     text =               element_text(
                             family = base_family, face = "plain",
                             colour = "black", size = base_size,
@@ -177,9 +185,16 @@ theme_gray <- theme_grey
 
 #' @export
 #' @rdname ggtheme
-theme_bw <- function(base_size = 11, base_family = "") {
+theme_bw <- function(base_size = 11, base_family = "",
+                     base_line_size = base_size / 22,
+                     base_rect_size = base_size / 22) {
   # Starts with theme_grey and then modify some parts
-  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+  theme_grey(
+    base_size = base_size,
+    base_family = base_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size
+  ) %+replace%
     theme(
       # white background and dark border
       panel.background = element_rect(fill = "white", colour = NA),
@@ -198,10 +213,17 @@ theme_bw <- function(base_size = 11, base_family = "") {
 
 #' @export
 #' @rdname ggtheme
-theme_linedraw <- function(base_size = 11, base_family = "") {
+theme_linedraw <- function(base_size = 11, base_family = "",
+                           base_line_size = base_size / 22,
+                           base_rect_size = base_size / 22) {
   # Starts with theme_bw and then modify some parts
   # = replace all greys with pure black or white
-  theme_bw(base_size = base_size, base_family = base_family) %+replace%
+  theme_bw(
+    base_size = base_size,
+    base_family = base_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size
+  ) %+replace%
     theme(
       # black text and ticks on the axes
       axis.text        = element_text(colour = "black", size = rel(0.8)),
@@ -224,9 +246,16 @@ theme_linedraw <- function(base_size = 11, base_family = "") {
 
 #' @export
 #' @rdname ggtheme
-theme_light <- function(base_size = 11, base_family = "") {
+theme_light <- function(base_size = 11, base_family = "",
+                        base_line_size = base_size / 22,
+                        base_rect_size = base_size / 22) {
   # Starts with theme_grey and then modify some parts
-  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+  theme_grey(
+    base_size = base_size,
+    base_family = base_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size
+  ) %+replace%
     theme(
       # white panel with light grey border
       panel.background = element_rect(fill = "white", colour = NA),
@@ -253,9 +282,16 @@ theme_light <- function(base_size = 11, base_family = "") {
 
 #' @export
 #' @rdname ggtheme
-theme_dark <- function(base_size = 11, base_family = "") {
+theme_dark <- function(base_size = 11, base_family = "",
+                       base_line_size = base_size / 22,
+                       base_rect_size = base_size / 22) {
   # Starts with theme_grey and then modify some parts
-  theme_grey(base_size = base_size, base_family = base_family) %+replace%
+  theme_grey(
+    base_size = base_size,
+    base_family = base_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size
+  ) %+replace%
     theme(
       # dark panel
       panel.background = element_rect(fill = "grey50", colour = NA),
@@ -280,9 +316,16 @@ theme_dark <- function(base_size = 11, base_family = "") {
 
 #' @export
 #' @rdname ggtheme
-theme_minimal <- function(base_size = 11, base_family = "") {
+theme_minimal <- function(base_size = 11, base_family = "",
+                          base_line_size = base_size / 22,
+                          base_rect_size = base_size / 22) {
   # Starts with theme_bw and remove most parts
-  theme_bw(base_size = base_size, base_family = base_family) %+replace%
+  theme_bw(
+    base_size = base_size,
+    base_family = base_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size
+  ) %+replace%
     theme(
       axis.ticks      = element_blank(),
       legend.background = element_blank(),
@@ -298,8 +341,15 @@ theme_minimal <- function(base_size = 11, base_family = "") {
 
 #' @export
 #' @rdname ggtheme
-theme_classic <- function(base_size = 11, base_family = ""){
-  theme_bw(base_size = base_size, base_family = base_family) %+replace%
+theme_classic <- function(base_size = 11, base_family = "",
+                          base_line_size = base_size / 22,
+                          base_rect_size = base_size / 22) {
+  theme_bw(
+    base_size = base_size,
+    base_family = base_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size
+  ) %+replace%
     theme(
       # no background and no grid
       panel.border     = element_blank(),
@@ -322,7 +372,9 @@ theme_classic <- function(base_size = 11, base_family = ""){
 
 #' @export
 #' @rdname ggtheme
-theme_void <- function(base_size = 11, base_family = "") {
+theme_void <- function(base_size = 11, base_family = "",
+                       base_line_size = base_size / 22,
+                       base_rect_size = base_size / 22) {
   theme(
     # Use only inherited elements and make almost everything blank
     # Only keep indispensable text
@@ -347,14 +399,20 @@ theme_void <- function(base_size = 11, base_family = "") {
 
 #' @export
 #' @rdname ggtheme
-theme_test <- function(base_size = 11, base_family = "") {
+theme_test <- function(base_size = 11, base_family = "",
+                       base_line_size = base_size / 22,
+                       base_rect_size = base_size / 22) {
   half_line <- base_size / 2
-
+  
   theme(
-    line =               element_line(colour = "black", size = 0.5, linetype = 1,
-                            lineend = "butt"),
-    rect =               element_rect(fill = "white", colour = "black",
-                            size = 0.5, linetype = 1),
+    line =               element_line(
+                           colour = "black", size = base_line_size,
+                           linetype = 1, lineend = "butt"
+                         ),
+    rect =               element_rect(
+                           fill = "white", colour = "black",
+                           size = base_rect_size, linetype = 1
+                         ),
     text =               element_text(
                             family = base_family, face = "plain",
                             colour = "black", size = base_size,

@@ -202,6 +202,28 @@ test_that("All elements in complete themes have inherit.blank=TRUE", {
   expect_true(inherit_blanks(theme_void()))
 })
 
+test_that("Elements can be merged", {
+  text_base <- element_text(colour = "red", size = 10)
+  expect_equal(
+    merge_element(element_text(colour = "blue"), text_base),
+    element_text(colour = "blue", size = 10)
+  )
+  rect_base <- element_rect(colour = "red", size = 10)
+  expect_equal(
+    merge_element(element_rect(colour = "blue"), rect_base),
+    element_rect(colour = "blue", size = 10)
+  )
+  line_base <- element_line(colour = "red", size = 10)
+  expect_equal(
+    merge_element(element_line(colour = "blue"), line_base),
+    element_line(colour = "blue", size = 10)
+  )
+  expect_error(
+    merge_element(text_base, rect_base),
+    "Only elements of the same class can be merged"
+  )
+})
+
 
 # Visual tests ------------------------------------------------------------
 
@@ -253,3 +275,44 @@ test_that("themes don't change without acknowledgement", {
   vdiffr::expect_doppelganger("theme_linedraw", plot + theme_linedraw())
 })
 
+test_that("themes look decent at larger base sizes", {
+  df <- data.frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  plot <- ggplot(df, aes(x, y, colour = z)) +
+    geom_point() +
+    facet_wrap(~ a)
+
+  vdiffr::expect_doppelganger("theme_bw_large", plot + theme_bw(base_size = 33))
+  vdiffr::expect_doppelganger("theme_classic_large", plot + theme_classic(base_size = 33))
+  vdiffr::expect_doppelganger("theme_dark_large", plot + theme_dark(base_size = 33))
+  vdiffr::expect_doppelganger("theme_minimal_large", plot + theme_minimal(base_size = 33))
+  vdiffr::expect_doppelganger("theme_gray_large", plot + theme_gray(base_size = 33))
+  vdiffr::expect_doppelganger("theme_light_large", plot + theme_light(base_size = 33))
+  vdiffr::expect_doppelganger("theme_void_large", plot + theme_void(base_size = 33))
+  vdiffr::expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
+})
+
+test_that("axes can be styled independently", {
+  plot <- ggplot() +
+    geom_point(aes(1:10, 1:10)) +
+    scale_x_continuous(sec.axis = dup_axis()) +
+    scale_y_continuous(sec.axis = dup_axis()) +
+    theme(
+      axis.title.x.top = element_text(colour = 'red'),
+      axis.title.x.bottom = element_text(colour = 'green'),
+      axis.title.y.left = element_text(colour = 'blue'),
+      axis.title.y.right = element_text(colour = 'yellow'),
+      axis.text.x.top = element_text(colour = 'red'),
+      axis.text.x.bottom = element_text(colour = 'green'),
+      axis.text.y.left = element_text(colour = 'blue'),
+      axis.text.y.right = element_text(colour = 'yellow'),
+      axis.ticks.x.top = element_line(colour = 'red'),
+      axis.ticks.x.bottom = element_line(colour = 'green'),
+      axis.ticks.y.left = element_line(colour = 'blue'),
+      axis.ticks.y.right = element_line(colour = 'yellow'),
+      axis.line.x.top = element_line(colour = 'red'),
+      axis.line.x.bottom = element_line(colour = 'green'),
+      axis.line.y.left = element_line(colour = 'blue'),
+      axis.line.y.right = element_line(colour = 'yellow')
+    )
+  vdiffr::expect_doppelganger("axes_styling", plot)
+})
