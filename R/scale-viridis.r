@@ -76,7 +76,8 @@ scale_colour_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
     gradient_n_pal(
       viridis_pal(alpha, begin, end, direction, option)(6),
       values,
-      space),
+      space
+    ),
     na.value = na.value,
     guide = guide,
     ...
@@ -95,7 +96,8 @@ scale_fill_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
     gradient_n_pal(
       viridis_pal(alpha, begin, end, direction, option)(6),
       values,
-      space),
+      space
+    ),
     na.value = na.value,
     guide = guide,
     ...
