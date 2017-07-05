@@ -66,7 +66,7 @@ test_that("datetime alpha scales work", {
 test_that("datetime colour scales work", {
   p <- ggplot(df, aes(y = y)) +
     geom_point(aes(time1, colour = time1)) +
-    scale_colour_gradient()
+    scale_colour_datetime()
 
   expect_equal(range(layer_data(p)$colour), c("#132B43", "#56B1F7"))
 })
