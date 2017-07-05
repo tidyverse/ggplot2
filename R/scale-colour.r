@@ -2,8 +2,8 @@
 #'
 #' Colour scales for continuous data default to the values of the
 #' `ggplot2.continuous.colour` and `ggplot2.continuous.fill` options. If these
-#' options are not present, ggplot2 will set them to `"gradient"`. See
-#' [options()] for more information.
+#' options are not present, `"gradient"` will be used. See [options()] for more
+#' information.
 #' 
 #' @param ... Additional parameters passed on to the scale type
 #' @param type One of "gradient" (the default) or "viridis" indicating the
@@ -24,7 +24,7 @@
 #' v + scale_fill_gradient()
 #' v + scale_fill_viridis_c()
 scale_colour_continuous <- function(...,
-                                    type = getOption("ggplot2.continuous.colour")) {
+                                    type = getOption("ggplot2.continuous.colour", default = "gradient")) {
   switch(
     type,
     gradient = scale_colour_gradient(...),
@@ -36,7 +36,7 @@ scale_colour_continuous <- function(...,
 #' @rdname scale_colour_continuous
 #' @export
 scale_fill_continuous <- function(...,
-                                  type = getOption("ggplot2.continuous.fill")) {
+                                  type = getOption("ggplot2.continuous.fill", default = "gradient")) {
   switch(
     type,
     gradient = scale_fill_gradient(...),

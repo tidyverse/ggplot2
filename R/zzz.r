@@ -19,15 +19,3 @@ release_questions <- function() {
     "Have you built the book?"
   )
 }
-
-.onLoad <- function(libname, pkgname) {
-  op <- options()
-  op.ggplot2 <- list(
-    ggplot2.continuous.colour = "gradient",
-    ggplot2.continuous.fill = "gradient"
-  )
-  toset <- !(names(op.ggplot2) %in% names(op))
-  if(any(toset)) options(op.ggplot2[toset])
-
-  invisible()
-}

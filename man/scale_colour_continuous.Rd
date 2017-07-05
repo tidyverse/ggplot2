@@ -5,9 +5,11 @@
 \alias{scale_fill_continuous}
 \title{Continuous colour scales}
 \usage{
-scale_colour_continuous(..., type = getOption("ggplot2.continuous.colour"))
+scale_colour_continuous(..., type = getOption("ggplot2.continuous.colour",
+  default = "gradient"))
 
-scale_fill_continuous(..., type = getOption("ggplot2.continuous.fill"))
+scale_fill_continuous(..., type = getOption("ggplot2.continuous.fill", default
+  = "gradient"))
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type}
@@ -18,8 +20,8 @@ colour scale to use}
 \description{
 Colour scales for continuous data default to the values of the
 \code{ggplot2.continuous.colour} and \code{ggplot2.continuous.fill} options. If these
-options are not present, ggplot2 will set them to \code{"gradient"}. See
-\code{\link[=options]{options()}} for more information.
+options are not present, \code{"gradient"} will be used. See \code{\link[=options]{options()}} for more
+information.
 }
 \examples{
 v <- ggplot(faithfuld, aes(waiting, eruptions, fill = density)) +
