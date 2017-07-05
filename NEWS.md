@@ -1,6 +1,13 @@
 # ggplot2 2.2.1.9000
 
-* Add built-in support for `viridis` and related color maps (@karawoo).
+* Default colour maps for continuous data are controlled by global options
+  `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which can be set to
+  either `"gradient"` or `"viridis"` (@karawoo).
+
+* Adds built-in support for `viridis` and related colour maps. Use the functions
+  `scale_colour_viridis_c()`/`scale_fill_viridis_c()` for continuous data and
+  `scale_colour_viridis_d()`/`scale_fill_viridis_d()` for discrete data
+  (@karawoo, #1526).
 
 * Updated datetime scales for `alpha`, `size`, `colour`, and `fill` can take
   `date_breaks` and `date_labels` arguments (@karawoo, #1526).
