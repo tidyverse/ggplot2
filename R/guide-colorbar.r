@@ -255,10 +255,6 @@ guide_gengrob.colorbar <- function(guide, theme) {
   barlength.c <- switch(guide$direction, "horizontal" = barwidth.c, "vertical" = barheight.c)
   nbreak <- nrow(guide$key)
 
-  # gap between keys etc
-  hgap <- c(convertWidth(unit(0.3, "lines"), "mm"))
-  vgap <- hgap
-
   grob.bar <-
     if (guide$raster) {
       image <- switch(guide$direction, horizontal = t(guide$bar$colour), vertical = rev(guide$bar$colour))
@@ -301,6 +297,10 @@ guide_gengrob.colorbar <- function(guide, theme) {
   title_height <- convertHeight(grobHeight(grob.title), "mm")
   title_height.c <- c(title_height)
 
+  # gap between keys etc
+  hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
+  vgap <- height_cm(theme$legend.spacing.y %||% 0.5 * unit(title_height, "cm"))
+  
   # label
   label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
   grob.label <- {
