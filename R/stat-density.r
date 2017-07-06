@@ -4,7 +4,7 @@
 #'   [stats::bw.nrd()].
 #' @param adjust A multiplicate bandwidth adjustment. This makes it possible
 #'    to adjust the bandwidth while still using the a bandwidth estimator.
-#'    For exampe, `adjust = 1/2` means use half of the default bandwidth.
+#'    For example, `adjust = 1/2` means use half of the default bandwidth.
 #' @param kernel Kernel. See list of available kernels in [density()].
 #' @param n number of equally spaced points at which the density is to be
 #'   estimated, should be a power of two, see [density()] for
