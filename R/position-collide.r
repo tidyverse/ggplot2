@@ -35,6 +35,14 @@ collide_setup <- function(data, width = NULL, name, strategy,
     data <- data[order(data$xmin, -data$group), ]
   }
 
+  list(data = data, width = width)  
+}
+
+collide <- function(data, width = NULL, name, strategy,
+                    ..., check.width = TRUE, reverse = FALSE) {
+  dlist <- collide_setup(data, width, name, strategy, check.width, reverse)
+  data <- dlist$data
+  width <- dlist$width
 
   # Check for overlap
   intervals <- as.numeric(t(unique(data[c("xmin", "xmax")])))
@@ -45,15 +53,6 @@ collide_setup <- function(data, width = NULL, name, strategy,
     # This is where the algorithm from [L. Wilkinson. Dot plots.
     # The American Statistician, 1999.] should be used
   }
-
-  list(data = data, width = width)  
-}
-
-collide <- function(data, width = NULL, name, strategy,
-                    ..., check.width = TRUE, reverse = FALSE) {
-  dlist <- collide_setup(data, width, name, strategy, check.width, reverse)
-  data <- dlist$data
-  width <- dlist$width
   
   if (!is.null(data$ymax)) {
     plyr::ddply(data, "xmin", strategy, ..., width = width)
