@@ -1,8 +1,19 @@
 #' Position dodge for box plots
+#'
+#' Dodging preserves the vertical position of an geom while adjusting the
+#' horizontal position. `position_boxdodge` is a special case of
+#' `position_dodge` for arranging box plots, which can have variable widths.
 #' 
 #' @include position-dodge.r
 #' @inheritParams position_dodge
+#' @family position adjustments
 #' @export
+#' @examples
+#' ggplot(data = iris, aes(Species, Sepal.Length)) +
+#' geom_boxplot(aes(colour = Sepal.Width < 3.2))
+#'
+#' ggplot(data = iris, aes(Species, Sepal.Length)) +
+#' geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
 position_boxdodge <- function(width = NULL, preserve = c("total", "single")) {
   ggproto(NULL, PositionBoxdodge,
     width = width,

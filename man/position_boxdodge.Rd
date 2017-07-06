@@ -15,5 +15,22 @@ geoms. See the examples.}
 at a position, or the width of a single element?}
 }
 \description{
-Position dodge for box plots
+Dodging preserves the vertical position of an geom while adjusting the
+horizontal position. \code{position_boxdodge} is a special case of
+\code{position_dodge} for arranging box plots, which can have variable widths.
+}
+\examples{
+ggplot(data = iris, aes(Species, Sepal.Length)) +
+geom_boxplot(aes(colour = Sepal.Width < 3.2))
+
+ggplot(data = iris, aes(Species, Sepal.Length)) +
+geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+}
+\seealso{
+Other position adjustments: \code{\link{position_dodge}},
+  \code{\link{position_identity}},
+  \code{\link{position_jitterdodge}},
+  \code{\link{position_jitter}},
+  \code{\link{position_nudge}},
+  \code{\link{position_stack}}
 }
