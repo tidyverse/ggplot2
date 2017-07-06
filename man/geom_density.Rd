@@ -64,7 +64,7 @@ If character, a rule to choose the bandwidth, as listed in
 
 \item{adjust}{A multiplicate bandwidth adjustment. This makes it possible
 to adjust the bandwidth while still using the a bandwidth estimator.
-For exampe, \code{adjust = 1/2} means use half of the default bandwidth.}
+For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 
 \item{kernel}{Kernel. See list of available kernels in \code{\link[=density]{density()}}.}
 
