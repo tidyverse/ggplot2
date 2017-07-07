@@ -45,52 +45,95 @@ NULL
 #' @rdname scale_date
 #' @export
 scale_x_date <- function(name = waiver(),
-                         breaks = waiver(), date_breaks = waiver(),
-                         labels = waiver(), date_labels = waiver(),
-                         minor_breaks = waiver(), date_minor_breaks = waiver(),
-                         limits = NULL, expand = waiver(), position = "bottom") {
+                         breaks = waiver(),
+                         date_breaks = waiver(),
+                         labels = waiver(),
+                         date_labels = waiver(),
+                         minor_breaks = waiver(),
+                         date_minor_breaks = waiver(),
+                         limits = NULL,
+                         expand = waiver(),
+                         position = "bottom") {
 
-  scale_datetime(c("x", "xmin", "xmax", "xend"), "date",
+  datetime_scale(
+    c("x", "xmin", "xmax", "xend"),
+    "date",
     name = name,
-    breaks = breaks, date_breaks = date_breaks,
-    labels = labels, date_labels = date_labels,
-    minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
-    limits = limits, expand = expand, position = position
+    palette = identity,
+    breaks = breaks,
+    date_breaks = date_breaks,
+    labels = labels,
+    date_labels = date_labels,
+    minor_breaks = minor_breaks,
+    date_minor_breaks = date_minor_breaks,
+    guide = "none",
+    limits = limits,
+    expand = expand,
+    position = position
   )
 }
 
 #' @rdname scale_date
 #' @export
 scale_y_date <- function(name = waiver(),
-                         breaks = waiver(), date_breaks = waiver(),
-                         labels = waiver(), date_labels = waiver(),
-                         minor_breaks = waiver(), date_minor_breaks = waiver(),
-                         limits = NULL, expand = waiver(), position = "left") {
+                         breaks = waiver(),
+                         date_breaks = waiver(),
+                         labels = waiver(),
+                         date_labels = waiver(),
+                         minor_breaks = waiver(),
+                         date_minor_breaks = waiver(),
+                         limits = NULL,
+                         expand = waiver(),
+                         position = "left") {
 
-  scale_datetime(c("y", "ymin", "ymax", "yend"), "date",
+  datetime_scale(
+    c("y", "ymin", "ymax", "yend"),
+    "date",
     name = name,
-    breaks = breaks, date_breaks = date_breaks,
-    labels = labels, date_labels = date_labels,
-    minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
-    limits = limits, expand = expand, position = position
+    palette = identity,
+    breaks = breaks,
+    date_breaks = date_breaks,
+    labels = labels,
+    date_labels = date_labels,
+    minor_breaks = minor_breaks,
+    date_minor_breaks = date_minor_breaks,
+    guide = "none",
+    limits = limits,
+    expand = expand,
+    position = position
   )
 }
 
 #' @export
 #' @rdname scale_date
 scale_x_datetime <- function(name = waiver(),
-                             breaks = waiver(), date_breaks = waiver(),
-                             labels = waiver(), date_labels = waiver(),
-                             minor_breaks = waiver(), date_minor_breaks = waiver(),
-                             timezone = NULL, limits = NULL, expand = waiver(),
+                             breaks = waiver(),
+                             date_breaks = waiver(),
+                             labels = waiver(),
+                             date_labels = waiver(),
+                             minor_breaks = waiver(),
+                             date_minor_breaks = waiver(),
+                             timezone = NULL,
+                             limits = NULL,
+                             expand = waiver(),
                              position = "bottom") {
 
-  scale_datetime(c("x", "xmin", "xmax", "xend"), "time",
+  datetime_scale(
+    c("x", "xmin", "xmax", "xend"),
+    "time",
     name = name,
-    breaks = breaks, date_breaks = date_breaks,
-    labels = labels, date_labels = date_labels,
-    minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
-    timezone = timezone, limits = limits, expand = expand, position = position
+    palette = identity,
+    breaks = breaks,
+    date_breaks = date_breaks,
+    labels = labels,
+    date_labels = date_labels,
+    minor_breaks = minor_breaks,
+    date_minor_breaks = date_minor_breaks,
+    timezone = timezone,
+    guide = "none",
+    limits = limits,
+    expand = expand,
+    position = position
   )
 }
 
@@ -98,18 +141,33 @@ scale_x_datetime <- function(name = waiver(),
 #' @rdname scale_date
 #' @export
 scale_y_datetime <- function(name = waiver(),
-                             breaks = waiver(), date_breaks = waiver(),
-                             labels = waiver(), date_labels = waiver(),
-                             minor_breaks = waiver(), date_minor_breaks = waiver(),
-                             timezone = NULL, limits = NULL, expand = waiver(),
+                             breaks = waiver(),
+                             date_breaks = waiver(),
+                             labels = waiver(),
+                             date_labels = waiver(),
+                             minor_breaks = waiver(),
+                             date_minor_breaks = waiver(),
+                             timezone = NULL,
+                             limits = NULL,
+                             expand = waiver(),
                              position = "left") {
 
-  scale_datetime(c("y", "ymin", "ymax", "yend"), "time",
+  datetime_scale(
+    c("y", "ymin", "ymax", "yend"),
+    "time",
     name = name,
-    breaks = breaks, date_breaks = date_breaks,
-    labels = labels, date_labels = date_labels,
-    minor_breaks = minor_breaks, date_minor_breaks = date_minor_breaks,
-    timezone = timezone, limits = limits, expand = expand, position = position
+    palette = identity,
+    breaks = breaks,
+    date_breaks = date_breaks,
+    labels = labels,
+    date_labels = date_labels,
+    minor_breaks = minor_breaks,
+    date_minor_breaks = date_minor_breaks,
+    timezone = timezone,
+    guide = "none",
+    limits = limits,
+    expand = expand,
+    position = position
   )
 }
 
@@ -168,12 +226,13 @@ scale_y_time <- function(name = waiver(),
   )
 }
 
-scale_datetime <- function(aesthetics, trans,
+## rename to datetime_scale
+datetime_scale <- function(aesthetics, trans, palette, 
                            breaks = pretty_breaks(), minor_breaks = waiver(),
                            labels = waiver(), date_breaks = waiver(),
                            date_labels = waiver(),
                            date_minor_breaks = waiver(), timezone = NULL,
-                           ...) {
+                           guide = "legend", ...) {
 
 
   # Backward compatibility
@@ -197,19 +256,34 @@ scale_datetime <- function(aesthetics, trans,
     date = "date",
     time = "datetime"
   )
-  scale_class <- switch(trans,
-    date = ScaleContinuousDate,
-    time = ScaleContinuousDatetime
-  )
+
+  # x/y position aesthetics should use ScaleContinuousDate or
+  # ScaleContinuousDatetime; others use ScaleContinuous
+  if (all(aesthetics %in% c("x", "xmin", "xmax", "xend", "y", "ymin", "ymax", "yend"))) {
+    scale_class <- switch(
+      trans,
+      date = ScaleContinuousDate,
+      time = ScaleContinuousDatetime
+    )
+  } else {
+    scale_class <- ScaleContinuous
+  }
+  
   sc <- continuous_scale(
-    aesthetics, name, identity,
-    breaks = breaks, minor_breaks = minor_breaks, labels = labels,
-    guide = "none", trans = trans, ..., super = scale_class
+    aesthetics,
+    name,
+    palette = palette,
+    breaks = breaks,
+    minor_breaks = minor_breaks,
+    labels = labels,
+    guide = guide,
+    trans = trans,
+    ...,
+    super = scale_class
   )
   sc$timezone <- timezone
   sc
 }
-
 
 #' @rdname ggplot2-ggproto
 #' @format NULL

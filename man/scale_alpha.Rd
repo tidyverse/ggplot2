@@ -4,6 +4,8 @@
 \alias{scale_alpha}
 \alias{scale_alpha_continuous}
 \alias{scale_alpha_discrete}
+\alias{scale_alpha_datetime}
+\alias{scale_alpha_date}
 \title{Alpha transparency scales}
 \usage{
 scale_alpha(..., range = c(0.1, 1))

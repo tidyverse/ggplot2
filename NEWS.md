@@ -1,5 +1,10 @@
 # ggplot2 2.2.1.9000
 
+* Updated datetime scales for `alpha`, `size`, `colour`, and `fill` can take
+  `date_breaks` and `date_labels` arguments (@karawoo, #1526).
+
+* `scale_alpha()` gains date and date-time variants (@karawoo, #1526).
+
 * Axes positioned on the top and to the right can now customize their ticks and
   lines separately (@thomasp85, #1899)
 
