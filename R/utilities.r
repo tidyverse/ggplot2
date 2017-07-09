@@ -178,7 +178,7 @@ rescale01 <- function(x) {
 #' 4th elements are used for the upper limit).
 #'
 #' The ‘expand’ argument can also be of length 2,
-#' and the expansion arguments for the lower limit
+#' and the expansion values for the lower limit
 #' are then reused for the upper limit.
 #
 #' @keywords internal

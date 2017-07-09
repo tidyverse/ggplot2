@@ -11,7 +11,7 @@ expand_range4(limits, expand)
 }
 \description{
 The ‘expand’ argument can also be of length 2,
-and the expansion arguments for the lower limit is then
-reused for the upper limit.
+and the expansion values for the lower limit
+are then reused for the upper limit.
 }
 \keyword{internal}
