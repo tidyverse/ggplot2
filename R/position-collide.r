@@ -71,15 +71,7 @@ collide_box <- function(data, width = NULL, name, strategy,
   dlist <- collide_setup(data, width, name, strategy, check.width, reverse)
   data <- dlist$data
   width <- dlist$width
-  
-  if (!is.null(data$ymax)) {
-    plyr::ddply(data, "x", strategy, ..., width = width)
-  } else if (!is.null(data$y)) {
-    data$ymax <- data$y
-    data <- plyr::ddply(data, "x", strategy, ..., width = width)
-    data$y <- data$ymax
-    data
-  } else {
-    stop("Neither y nor ymax defined")
-  }
+
+  pos <- match.fun(strategy)
+  pos(data, width)
 }

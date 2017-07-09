@@ -52,17 +52,36 @@ pos_boxdodge <- function(df, width, n = NULL) {
     df$xmax <- df$x
   }
   
-  indiv_widths <- df$xmax - df$xmin
-  scaled_widths <- indiv_widths / (sum(indiv_widths) / width)
+  df$indiv_width <- df$xmax - df$xmin
 
-  # Starting xmin value
-  x <- unique(df$x)                     # There should just be one x value
-  start <- x - width / 2
+  ## How wide is each group?
+  group_sizes <- plyr::ddply(df, "x", plyr::summarize, size = sum(indiv_width))
 
-  divisions <- cumsum(c(start, scaled_widths)) # Divisions between boxes
-  df$xmin <- divisions[-length(divisions)]
-  df$xmax <- divisions[-1]
-  df$x <- rowMeans(df[, c("xmin", "xmax")])    # New x is between xmin and xmax
+  ## What do we need to multiply each group width by to ensure that the largest is
+  ## the target width?
+  rescale_factor <- width / max(group_sizes$size)
+
+  ## Multiply by rescale factor
+  df$rescaled_width <-  df$indiv_width * rescale_factor
+
+  ## Now what are the total group sizes?
+  rescaled_group_sizes <- plyr::ddply(
+                                  df,
+                                  "x",
+                                  plyr::summarize,
+                                  size = sum(rescaled_width)
+                                )
+
+  ## starting xmin for each group
+  starts <- rescaled_group_sizes$x - rescaled_group_sizes$size/2
+
+  for (i in seq_along(starts)) {
+    divisions <- cumsum(c(starts[i], df[df$x == i, "rescaled_width"]))
+    df[df$x == i, "xmin"] <- divisions[-length(divisions)]
+    df[df$x == i, "xmax"] <- divisions[-1]
+  }
+
+  df$x <- rowMeans(df[, c("xmin", "xmax")])
   
   df
 }
