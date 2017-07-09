@@ -53,3 +53,10 @@ test_that("shrink parameter affects scaling", {
   r3 <- pranges(l3)
   expect_equal(r3$y[[1]], c(1, 3))
 })
+
+
+test_that("Facet variables", {
+  expect_identical(facet_null()$vars(), character(0))
+  expect_identical(facet_wrap(~ a)$vars(), "a")
+  expect_identical(facet_grid(a ~ b)$vars(), c("a", "b"))
+})

@@ -6,7 +6,7 @@
 #'
 #' There are two basic approaches: \emph{dot-density} and \emph{histodot}.
 #' With dot-density binning, the bin positions are determined by the data and
-#' \code{binwidth}, which is the maximum width of each bin. See Wilkinson
+#' `binwidth`, which is the maximum width of each bin. See Wilkinson
 #' (1999) for details on the dot-density binning algorithm. With histodot
 #' binning, the bins have fixed positions and fixed widths, much like a
 #' histogram.
@@ -38,24 +38,24 @@
 #'   "down", "center", "centerwhole" (centered, but with dots aligned)
 #' @param stackratio how close to stack the dots. Default is 1, where dots just
 #'   just touch. Use smaller values for closer, overlapping dots.
-#' @param dotsize The diameter of the dots relative to \code{binwidth}, default 1.
+#' @param dotsize The diameter of the dots relative to `binwidth`, default 1.
 #' @param stackgroups should dots be stacked across groups? This has the effect
-#'   that \code{position = "stack"} should have, but can't (because this geom has
+#'   that `position = "stack"` should have, but can't (because this geom has
 #'   some odd properties).
 #' @param binaxis The axis to bin along, "x" (default) or "y"
 #' @param method "dotdensity" (default) for dot-density binning, or
 #'   "histodot" for fixed bin widths (like stat_bin)
-#' @param binwidth When \code{method} is "dotdensity", this specifies maximum bin
-#'   width. When \code{method} is "histodot", this specifies bin width.
+#' @param binwidth When `method` is "dotdensity", this specifies maximum bin
+#'   width. When `method` is "histodot", this specifies bin width.
 #'   Defaults to 1/30 of the range of the data
-#' @param binpositions When \code{method} is "dotdensity", "bygroup" (default)
+#' @param binpositions When `method` is "dotdensity", "bygroup" (default)
 #'   determines positions of the bins for each group separately. "all" determines
 #'   positions of the bins with all the data taken together; this is used for
 #'   aligning dot stacks across multiple groups.
-#' @param origin When \code{method} is "histodot", origin of first bin
-#' @param right When \code{method} is "histodot", should intervals be closed
+#' @param origin When `method` is "histodot", origin of first bin
+#' @param right When `method` is "histodot", should intervals be closed
 #'   on the right (a, b], or not [a, b)
-#' @param width When \code{binaxis} is "y", the spacing of the dot stacks
+#' @param width When `binaxis` is "y", the spacing of the dot stacks
 #'   for dodging.
 #' @param drop If TRUE, remove all bins with zero counts
 #' @export

@@ -13,15 +13,39 @@ scale_colour_continuous <- scale_colour_gradient
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_colour_datetime <- function() {
-  scale_colour_continuous(trans = "time")
+scale_colour_datetime <- function(...,
+                                  low = "#132B43",
+                                  high = "#56B1F7",
+                                  space = "Lab",
+                                  na.value = "grey50",
+                                  guide = "colourbar") {
+  datetime_scale(
+    "colour",
+    "time",
+    palette = seq_gradient_pal(low, high, space),
+    na.value = na.value,
+    guide = guide,
+    ...
+  )
 }
 
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_colour_date <- function() {
-  scale_colour_continuous(trans = "date")
+scale_colour_date <- function(...,
+                              low = "#132B43",
+                              high = "#56B1F7",
+                              space = "Lab",
+                              na.value = "grey50",
+                              guide = "colourbar") {
+  datetime_scale(
+    "colour",
+    "date",
+    palette = seq_gradient_pal(low, high, space),
+    na.value = na.value,
+    guide = guide,
+    ...
+  )
 }
 
 #' @export
@@ -37,15 +61,40 @@ scale_fill_continuous <- scale_fill_gradient
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_fill_datetime <- function() {
-  scale_fill_continuous(trans = "time")
+scale_fill_datetime <- function(...,
+                                low = "#132B43",
+                                high = "#56B1F7",
+                                space = "Lab",
+                                na.value = "grey50",
+                                guide = "colourbar") {
+  datetime_scale(
+    "fill",
+    "time",
+    palette = seq_gradient_pal(low, high, space),
+    na.value = na.value,
+    guide = guide,
+    ...
+  )
+  
 }
 
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_fill_date <- function() {
-  scale_fill_continuous(trans = "date")
+scale_fill_date <- function(...,
+                            low = "#132B43",
+                            high = "#56B1F7",
+                            space = "Lab",
+                            na.value = "grey50",
+                            guide = "colourbar") {
+  datetime_scale(
+    "fill",
+    "date",
+    palette = seq_gradient_pal(low, high, space),
+    na.value = na.value,
+    guide = guide,
+    ...
+  )
 }
 
 

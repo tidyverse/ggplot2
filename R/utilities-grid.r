@@ -26,7 +26,7 @@ width_cm <- function(x) {
 }
 height_cm <- function(x) {
   if (is.grob(x)) {
-    convertWidth(grobHeight(x), "cm", TRUE)
+    convertHeight(grobHeight(x), "cm", TRUE)
   } else if (is.unit(x)) {
     convertHeight(x, "cm", TRUE)
   } else if (is.list(x)) {

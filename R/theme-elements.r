@@ -1,28 +1,26 @@
 #' Theme elements
 #'
 #' @description
-#' In conjunction with the \link{theme} system, the \code{element_} functions
+#' In conjunction with the \link{theme} system, the `element_` functions
 #' specify the display of how non-data components of the plot are a drawn.
 #'
-#' \itemize{
-#'   \item \code{element_blank}: draws nothing, and assigns no space.
-#'   \item \code{element_rect}: borders and backgrounds.
-#'   \item \code{element_line}: lines.
-#'   \item \code{element_text}: text.
-#' }
+#'   - `element_blank`: draws nothing, and assigns no space.
+#'   - `element_rect`: borders and backgrounds.
+#'   - `element_line`: lines.
+#'   - `element_text`: text.
 #'
-#' \code{rel()} is used to specify sizes relative to the parent,
-#' \code{margins()} is used to specify the margins of elements.
+#' `rel()` is used to specify sizes relative to the parent,
+#' `margins()` is used to specify the margins of elements.
 #'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
 #' @param size Line/border size in mm; text size in pts.
 #' @param inherit.blank Should this element inherit the existence of an
-#'   \code{element_blank} among its parents? If \code{TRUE} the existence of
+#'   `element_blank` among its parents? If `TRUE` the existence of
 #'   a blank element among its parents will cause this element to be blank as
-#'   well. If \code{FALSE} any blank parent element will be ignored when
+#'   well. If `FALSE` any blank parent element will be ignored when
 #'   calculating final element state.
-#' @return An S3 object of class \code{element}, \code{rel}, or \code{margin}.
+#' @return An S3 object of class `element`, `rel`, or `margin`.
 #' @examples
 #' plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 #'
@@ -81,7 +79,7 @@ element_rect <- function(fill = NULL, colour = NULL, size = NULL,
 #'    an even number (up to eight) of hexadecimal digits which give the
 #'    lengths in consecutive positions in the string.
 #' @param lineend Line end Line end style (round, butt, square)
-#' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
+#' @param arrow Arrow specification, as created by [grid::arrow()]
 element_line <- function(colour = NULL, size = NULL, linetype = NULL,
   lineend = NULL, color = NULL, arrow = NULL, inherit.blank = FALSE) {
 
@@ -97,14 +95,14 @@ element_line <- function(colour = NULL, size = NULL, linetype = NULL,
 
 #' @param family Font family
 #' @param face Font face ("plain", "italic", "bold", "bold.italic")
-#' @param hjust Horizontal justification (in [0, 1])
-#' @param vjust Vertical justification (in [0, 1])
-#' @param angle Angle (in [0, 360])
+#' @param hjust Horizontal justification (in \eqn{[0, 1]})
+#' @param vjust Vertical justification (in \eqn{[0, 1]})
+#' @param angle Angle (in \eqn{[0, 360]})
 #' @param lineheight Line height
-#' @param margin Margins around the text. See \code{\link{margin}} for more
+#' @param margin Margins around the text. See [margin()] for more
 #'   details. When creating a theme, the margins should be placed on the
 #'   side of the text facing towards the center of the plot.
-#' @param debug If \code{TRUE}, aids visual debugging by drawing a solid
+#' @param debug If `TRUE`, aids visual debugging by drawing a solid
 #'   rectangle behind the complete text area, and a point where each label
 #'   is anchored.
 #' @export
@@ -166,7 +164,7 @@ len0_null <- function(x) {
 
 #' Generate grid grob from theme element
 #'
-#' @param element Theme element, i.e. \code{element_rect} or similar.
+#' @param element Theme element, i.e. `element_rect` or similar.
 #' @param ... Other arguments to control specific of rendering. This is
 #'   usually at least position. See the source code for individual methods.
 #' @keywords internal
@@ -278,17 +276,29 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.text          = el_def("element_text", "text"),
 
   axis.line.x         = el_def("element_line", "axis.line"),
+  axis.line.x.top     = el_def("element_line", "axis.line.x"),
+  axis.line.x.bottom  = el_def("element_line", "axis.line.x"),
   axis.line.y         = el_def("element_line", "axis.line"),
+  axis.line.y.left    = el_def("element_line", "axis.line.y"),
+  axis.line.y.right   = el_def("element_line", "axis.line.y"),
   axis.text.x         = el_def("element_text", "axis.text"),
   axis.text.x.top     = el_def("element_text", "axis.text.x"),
+  axis.text.x.bottom  = el_def("element_text", "axis.text.x"),
   axis.text.y         = el_def("element_text", "axis.text"),
+  axis.text.y.left    = el_def("element_text", "axis.text.y"),
   axis.text.y.right   = el_def("element_text", "axis.text.y"),
   axis.ticks.length   = el_def("unit"),
   axis.ticks.x        = el_def("element_line", "axis.ticks"),
+  axis.ticks.x.top    = el_def("element_line", "axis.ticks.x"),
+  axis.ticks.x.bottom = el_def("element_line", "axis.ticks.x"),
   axis.ticks.y        = el_def("element_line", "axis.ticks"),
+  axis.ticks.y.left   = el_def("element_line", "axis.ticks.y"),
+  axis.ticks.y.right  = el_def("element_line", "axis.ticks.y"),
   axis.title.x        = el_def("element_text", "axis.title"),
   axis.title.x.top    = el_def("element_text", "axis.title.x"),
+  axis.title.x.bottom = el_def("element_text", "axis.title.x"),
   axis.title.y        = el_def("element_text", "axis.title"),
+  axis.title.y.left   = el_def("element_text", "axis.title.y"),
   axis.title.y.right  = el_def("element_text", "axis.title.y"),
 
   legend.background   = el_def("element_rect", "rect"),

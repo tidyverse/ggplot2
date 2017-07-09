@@ -4,7 +4,7 @@
 #' plotted with ggplot2.
 #'
 #' @export
-#' @seealso \code{\link{map_data}} and \code{\link{borders}}
+#' @seealso [map_data()] and [borders()]
 #' @param model map object
 #' @param data not used by this method
 #' @param ... not used by this method
@@ -39,16 +39,16 @@ fortify.map <- function(model, data, ...) {
 #' for plotting with ggplot2.
 #'
 #' @param map name of map provided by the \pkg{maps} package.  These
-#'   include \code{\link[maps]{county}}, \code{\link[maps]{france}},
-#'   \code{\link[maps]{italy}}, \code{\link[maps]{nz}},
-#'   \code{\link[maps]{state}}, \code{\link[maps]{usa}},
-#'   \code{\link[maps]{world}}, \code{\link[maps]{world2}}.
-#' @param region name of subregions to include.  Defaults to \code{.} which
-#'   includes all subregion.  See documentation for \code{\link[maps]{map}}
+#'   include [maps::county()], [maps::france()],
+#'   [maps::italy()], [maps::nz()],
+#'   [maps::state()], [maps::usa()],
+#'   [maps::world()], [maps::world2()].
+#' @param region name of subregions to include.  Defaults to `.` which
+#'   includes all subregion.  See documentation for [maps::map()]
 #'   for more details.
-#' @param exact should the \code{region} be treated as a regular expression
-#'   (\code{FALSE}) or as a fixed string (\code{TRUE}).
-#' @param ... all other arguments passed on to \code{\link[maps]{map}}
+#' @param exact should the `region` be treated as a regular expression
+#'   (`FALSE`) or as a fixed string (`TRUE`).
+#' @param ... all other arguments passed on to [maps::map()]
 #' @keywords internal
 #' @export
 #' @examples
@@ -80,13 +80,13 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 #' reference lines, but you'll typically want something more sophisticated
 #' for communication graphics.
 #'
-#' @param database map data, see \code{\link[maps]{map}} for details
+#' @param database map data, see [maps::map()] for details
 #' @param regions map region
 #' @param fill fill colour
 #' @param colour border colour
 #' @param xlim,ylim latitudinal and logitudinal range for extracting map
-#'   polygons, see \code{\link[maps]{map}} for details.
-#' @param ... other arguments passed onto \code{\link{geom_polygon}}
+#'   polygons, see [maps::map()] for details.
+#' @inheritDotParams geom_polygon
 #' @export
 #' @examples
 #' if (require("maps")) {

@@ -42,38 +42,41 @@ scale_y_time(name = waiver(), breaks = waiver(), minor_breaks = waiver(),
 \code{NULL}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic.}
 
-\item{breaks}{One of: \itemize{
-  \item \code{NULL} for no breaks
-  \item \code{waiver()} for the default breaks computed by the
-    transformation object
-  \item A numeric vector of positions
-  \item A function that takes the limits as input and returns breaks
-    as output
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks computed by the
+transformation object
+\item A numeric vector of positions
+\item A function that takes the limits as input and returns breaks
+as output
 }}
 
 \item{date_breaks}{A string giving the distance between breaks like "2
 weeks", or "10 years". If both \code{breaks} and \code{date_breaks} are
 specified, \code{date_breaks} wins.}
 
-\item{labels}{One of: \itemize{
-  \item \code{NULL} for no labels
-  \item \code{waiver()} for the default labels computed by the
-    transformation object
-  \item A character vector giving labels (must be same length as \code{breaks})
-  \item A function that takes the breaks as input and returns labels
-    as output
+\item{labels}{One of:
+\itemize{
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item A function that takes the breaks as input and returns labels
+as output
 }}
 
 \item{date_labels}{A string giving the formatting specification for the
-labels. Codes are defined in \code{\link{strftime}}. If both \code{labels}
+labels. Codes are defined in \code{\link[=strftime]{strftime()}}. If both \code{labels}
 and \code{date_labels} are specified, \code{date_labels} wins.}
 
-\item{minor_breaks}{One of: \itemize{
-  \item \code{NULL} for no minor breaks
-  \item \code{waiver()} for the default breaks (one minor break between
-    each major break)
-  \item A numeric vector of positions
-  \item A function that given the limits returns a vector of minor breaks.
+\item{minor_breaks}{One of:
+\itemize{
+\item \code{NULL} for no minor breaks
+\item \code{waiver()} for the default breaks (one minor break between
+each major break)
+\item A numeric vector of positions
+\item A function that given the limits returns a vector of minor breaks.
 }}
 
 \item{date_minor_breaks}{A string giving the distance between minor breaks

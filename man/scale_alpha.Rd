@@ -4,6 +4,8 @@
 \alias{scale_alpha}
 \alias{scale_alpha_continuous}
 \alias{scale_alpha_discrete}
+\alias{scale_alpha_datetime}
+\alias{scale_alpha_date}
 \title{Alpha transparency scales}
 \usage{
 scale_alpha(..., range = c(0.1, 1))
@@ -13,8 +15,8 @@ scale_alpha_continuous(..., range = c(0.1, 1))
 scale_alpha_discrete(..., range = c(0.1, 1))
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
-or \code{\link{discrete_scale}} as appropriate, to control name, limits,
+\item{...}{Other arguments passed on to \code{\link[=continuous_scale]{continuous_scale()}}
+or \code{\link[=discrete_scale]{discrete_scale()}} as appropriate, to control name, limits,
 breaks, labels and so forth.}
 
 \item{range}{Output range of alpha values. Must lie between 0 and 1.}

@@ -35,3 +35,13 @@ test_that("Spatial polygons have correct ordering", {
   expect_equivalent(fortify(fake_sp), plyr::arrange(fortify(fake_sp2), id, order))
 
 })
+
+test_that("fortify.default proves a helpful error with class uneval", {
+  expect_error(
+    ggplot(aes(x = x)),
+    regex = paste0(
+      "ggplot2 doesn't know how to deal with data of class uneval. ",
+      "Did you accidentally provide the results of `aes\\(\\)` to the `data` argument?"
+    )
+  )
+})

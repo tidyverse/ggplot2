@@ -1,5 +1,43 @@
 # ggplot2 2.2.1.9000
 
+* Updated datetime scales for `alpha`, `size`, `colour`, and `fill` can take
+  `date_breaks` and `date_labels` arguments (@karawoo, #1526).
+
+* `scale_alpha()` gains date and date-time variants (@karawoo, #1526).
+
+* Axes positioned on the top and to the right can now customize their ticks and
+  lines separately (@thomasp85, #1899)
+
+* `geom_segment` now also takes a `linejoin` parameter. This allows more control over the appearance of the segments, which is especially useful for plotting thick arrows (@Ax3man, #774).
+
+* Theme elements can now be subclassed. Add a `merge_element` method to control
+  how properties are inherited from parent element. Add `element_grob` method
+  to define how elements are rendered into grobs (@thomasp85, #1981).
+
+* Theme functions now have the optional parameters `base_line_size` and
+  `base_rect_size` to control the default sizes of line and rectangle elements
+  (@karawoo, #2176).
+
+* Fixed bug in `coord_polar` that prevented secondary axis ticks and labels
+  from being drawn (@dylan-stark, #2072)
+
+* Use `rel()` to set line widths in theme defaults (@baptiste).
+
+* `geom_density` drops groups with fewer than two data points and throws a
+  warning. For groups with two data points, the density values are now
+  calculated with `stats::density` (@karawoo, #2127).
+
+* `geom_smooth` now orders by the `x` aesthetic, making it easier to pass 
+  pre-computed values without manual ordering (@izahn, #2028).
+
+* Fixed bug in `coord_polar` that prevented moving the radius axis
+  to the right (@thomasp85, #2005).
+
+* `discrete_scale` documentation updated to match functionality and 
+  `continuous_scale` (@alistaire47, #2052).
+
+* `geom_smooth()` now knows it has `ymin` and `ymax` aesthetics (#1939).
+
 * Automatic visual unit tests with vdiffr.
 
 * Layers no longer warn about unknown aesthetics who's value is set to 
@@ -50,6 +88,25 @@
   
   The old syntax for the `expand` argument will of course continue
   to work. (@huftis, #1669)
+
+* `print.ggplot()` now returns the original ggplot object, instead of the output from `ggplot_build()`. Also, the object returned from `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
+
+* Added new functions `summarise_layout()`, `summarise_coord()`, `summarise_layers()`, which provide summaries of the layout, coordinate systems, and layers, of a built ggplot object. (#2034)
+
+* `ggproto()` produces objects with class `c("ggproto", "gg")`. This was added so that when layers, scales, or other ggproto objects are added together, an informative error message is raised (@jrnold, #2056).
+
+
+### sf
+
+ggplot2 now has full support for sf with `geom_sf()` and `coord_sf()`:
+
+```R
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+ggplot(nc) +
+  geom_sf(aes(fill = AREA))
+```
+It supports all simple features, automatically aligns CRS across layer, sets 
+up correct aspect ratio, and draws a graticule.
 
 ### Coordinate extensions
 
@@ -189,7 +246,7 @@ There were also a number of other smaller changes
 
 * The `theme()` constructor now has named arguments rather than ellipses. This 
   should make autocomplete substantially more useful. The documentation
-  (including exampes) has been considerably improved.
+  (including examples) has been considerably improved.
   
 * Built-in themes are more visually homogeneous, and match `theme_grey` better.
   (@jiho, #1679)
