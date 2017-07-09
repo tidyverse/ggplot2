@@ -88,10 +88,10 @@ Use \code{NA} to refer to the existing minimum or maximum.}
 
 \item{expand}{Vector of range expansion constants used to add some
 padding around the data, to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link{expand_scale}}
+away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.}
+0.6 units on each side for discrete variables.}
 
 \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}

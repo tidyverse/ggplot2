@@ -123,8 +123,6 @@ up correct aspect ratio, and draws a graticule.
   `panel_params` (#1311). These are parameters of the Coord that vary from
   panel to panel.
 
-* The documentation for theme elements has been improved (#1743).
-
 # ggplot2 2.2.1
 
 * Fix usage of `structure(NULL)` for R-devel compatibility (#1968).

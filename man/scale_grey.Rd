@@ -50,11 +50,12 @@ transformation object
 \item A function that takes the breaks as input and returns labels
 as output
 }}
-  \item{expand}{A numeric vector of length two giving multiplicative and
-additive expansion constants. These constants ensure that the data is
-placed some distance away from the axes. The defaults are
-\code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
-discrete variables.}
+  \item{expand}{Vector of range expansion constants used to add some
+padding around the data, to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+to generate the values for the \code{expand} argument. The defaults are to
+expand the scale by 5\% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.}
   \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more info.}
   \item{position}{The position of the axis. "left" or "right" for vertical

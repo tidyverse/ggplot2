@@ -224,6 +224,5 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 6.0.0
-Remotes: hadley/svglite
-Encoding: UTF-8
+RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)

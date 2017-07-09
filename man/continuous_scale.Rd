@@ -64,10 +64,10 @@ A function used to scale the input values to the range \eqn{[0, 1]}.}
 
 \item{expand}{Vector of range expansion constants used to add some
 padding around the data, to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link{expand_scale}}
+away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.}
+0.6 units on each side for discrete variables.}
 
 \item{na.value}{Missing values will be replaced with this value.}
 

@@ -532,11 +532,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   A function used to scale the input values to the range \eqn{[0, 1]}.
 #' @param oob Function that handles limits outside of the scale limits
 #'   (out of bounds). The default replaces out of bounds values with NA.
-#' @param expand A numeric vector of length two giving multiplicative and
-#'   additive expansion constants. These constants ensure that the data is
-#'   placed some distance away from the axes. The defaults are
-#'   `c(0.05, 0)` for continuous variables, and `c(0, 0.6)` for
-#'   discrete variables.
+#' @inheritParams scale_x_discrete
 #' @param na.value Missing values will be replaced with this value.
 #' @param trans Either the name of a transformation object, or the
 #'   object itself. Built-in transformations include "asn", "atanh",
