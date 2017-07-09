@@ -235,10 +235,9 @@ expand_scale = function(mult = 0, add = 0) {
   stopifnot(is.numeric(mult) && is.numeric(add))
   stopifnot((length(mult) %in% 1:2) && (length(add) %in% 1:2))
 
-  mult = rep(mult, length.out = 2)
-  add = rep(add, length.out = 2)
-  expand = c(mult[1], add[1], mult[2], add[2])
-  expand
+  mult <- rep(mult, length.out = 2)
+  add <- rep(add, length.out = 2)
+  c(mult[1], add[1], mult[2], add[2])
 }
 
 
