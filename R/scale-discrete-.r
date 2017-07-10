@@ -7,9 +7,12 @@
 #' at integer positions).  This is what allows jittering to work.
 #'
 #' @inheritDotParams discrete_scale -expand -position
-#' @param expand a numeric vector of length two giving multiplicative and
-#'   additive expansion constants. These constants ensure that the data is
-#'   placed some distance away from the axes.
+#' @param expand Vector of range expansion constants used to add some
+#'   padding around the data, to ensure that they are placed some distance
+#'   away from the axes. Use the convenience function [expand_scale()]
+#'   to generate the values for the `expand` argument. The defaults are to
+#'   expand the scale by 5\% on each side for continuous variables, and by
+#'   0.6 units on each side for discrete variables.
 #' @param position The position of the axis. `left` or `right` for y
 #' axes, `top` or `bottom` for x axes
 #' @rdname scale_discrete
@@ -105,20 +108,20 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     }
   },
 
-  dimension = function(self, expand = c(0, 0)) {
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
     c_range <- self$range_c$range
     d_range <- self$get_limits()
 
     if (self$is_empty()) {
       c(0, 1)
     } else if (is.null(self$range$range)) { # only continuous
-      expand_range(c_range, expand[1], expand[2] , 1)
+      expand_range4(c_range, expand)
     } else if (is.null(c_range)) { # only discrete
-      expand_range(c(1, length(d_range)), expand[1], expand[2], 1)
+      expand_range4(c(1, length(d_range)), expand)
     } else { # both
       range(
-        expand_range(c_range, expand[1], 0 , 1),
-        expand_range(c(1, length(d_range)), 0, expand[2], 1)
+        c_range,
+        expand_range4(c(1, length(d_range)), expand)
       )
     }
   },

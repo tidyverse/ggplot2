@@ -63,6 +63,31 @@
   
 * `geom_smooth`'s message for `method="auto"` now reports the formula used,
   in addition to the name of the smoothing function (@davharris #1951).
+  
+* The `expand` argument for `scale_*_continuous()` and `scale_*_discrete()`
+  now accepts separate expansion values for the lower and upper range
+  limits. The expansion limits can be specified using the convenience
+  function `expand_scale()`.
+  
+  Separate expansion limits may be useful for bar charts, e.g. if one
+  wants to have the bottom of the bars being flush with the x axis but
+  still leave some (automatically calculated amount of) space above them:
+  
+    ```R
+    ggplot(mtcars) +
+        geom_bar(aes(x = factor(cyl))) +
+        scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
+    ```
+  
+  It can also be useful for line charts, e.g. for counts over time,
+  where one wants to have a ’hard’ lower limit of y = 0 but leave the
+  upper limit unspecified (and perhaps differing between panels),
+  but with some extra space above the highest point on the line.
+  (With symmetrical limits, the extra space above the highest point
+  could in some cases cause the lower limit to be negative.)
+  
+  The old syntax for the `expand` argument will of course continue
+  to work. (@huftis, #1669)
 
 * `print.ggplot()` now returns the original ggplot object, instead of the output from `ggplot_build()`. Also, the object returned from `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
 

@@ -62,11 +62,12 @@ A function used to scale the input values to the range \eqn{[0, 1]}.}
 \item{oob}{Function that handles limits outside of the scale limits
 (out of bounds). The default replaces out of bounds values with NA.}
 
-\item{expand}{A numeric vector of length two giving multiplicative and
-additive expansion constants. These constants ensure that the data is
-placed some distance away from the axes. The defaults are
-\code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
-discrete variables.}
+\item{expand}{Vector of range expansion constants used to add some
+padding around the data, to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+to generate the values for the \code{expand} argument. The defaults are to
+expand the scale by 5\% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.}
 
 \item{na.value}{Missing values will be replaced with this value.}
 
