@@ -181,6 +181,7 @@ rescale01 <- function(x) {
 #' and the expansion values for the lower limit
 #' are then reused for the upper limit.
 #
+#' @noRd
 #' @keywords internal
 expand_range4 <- function(limits, expand) {
    stopifnot(is.numeric(expand) && (length(expand) %in% c(2,4)))
