@@ -7,28 +7,31 @@ foo <- data.frame(
 )
 
 test_that("dup_axis() works", {
-  vdiffr::expect_doppelganger(
-    "dup_axis",
-    ggplot(foo, aes(x, y)) +
-      geom_point() +
-      scale_x_continuous(name = "Unit A",
-                         sec.axis = dup_axis())
-  )
+  p <- ggplot(foo, aes(x, y)) +
+    geom_point() +
+    scale_x_continuous(name = "Unit A",
+                       sec.axis = dup_axis())
+  scale <- layer_scales(p)$x
+  expect_equal(scale$sec_name(), scale$name)
+  breaks <- scale$break_info()
+  expect_equal(breaks$minor, breaks$sec.minor)
+  expect_equal(breaks$major_source, breaks$sec.major_source)
 })
 
 test_that("custom breaks works", {
-  vdiffr::expect_doppelganger(
-    "sec_axis, custom breaks",
-    ggplot(foo, aes(x, y)) +
-      geom_point() +
-      scale_x_continuous(
-        name = "Unit A",
-        sec.axis = sec_axis(
-          trans = y~.,
-          breaks = c(0.001, 0.01, 0.1, 1, 10, 100, 1000)
-        )
+  custom_breaks <- c(0.01, 0.1, 1, 10, 100)
+  p <- ggplot(foo, aes(x, y)) +
+    geom_point() +
+    scale_x_continuous(
+      name = "Unit A",
+      sec.axis = sec_axis(
+        trans = y~.,
+        breaks = custom_breaks
       )
-  )
+    )
+  scale <- layer_scales(p)$x
+  breaks <- scale$break_info()
+  expect_equal(custom_breaks, breaks$sec.major_source)
 })
 
 test_that("sec axis works with skewed transform", {
