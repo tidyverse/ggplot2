@@ -53,12 +53,12 @@ pos_boxdodge <- function(df, width, n = NULL) {
   }
   
   # Maximum number of boxes that need to be dodged from one another
-  n <- max(table(df$x))
+  nbox <- max(table(df$x))
 
   # xid represents groups of boxes that share the same x value
   df$xid <- match(df$x, sort(unique(df$x)))
   
-  df$new_width <- (df$xmax - df$xmin) / n
+  df$new_width <- (df$xmax - df$xmin) / nbox
   df$xmin <- df$x - (df$new_width / 2)
   df$xmax <- df$x + (df$new_width / 2)
 
