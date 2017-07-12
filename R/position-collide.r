@@ -27,14 +27,6 @@ collide_setup <- function(data, width = NULL, name, strategy,
     width <- widths[1]
   }
 
-  # Reorder by x position, then on group. The default stacking order reverses
-  # the group in order to match the legend order.
-  if (reverse) {
-    data <- data[order(data$xmin, data$group), ]
-  } else {
-    data <- data[order(data$xmin, -data$group), ]
-  }
-
   list(data = data, width = width)  
 }
 
@@ -43,6 +35,14 @@ collide <- function(data, width = NULL, name, strategy,
   dlist <- collide_setup(data, width, name, strategy, check.width, reverse)
   data <- dlist$data
   width <- dlist$width
+
+  # Reorder by x position, then on group. The default stacking order reverses
+  # the group in order to match the legend order.
+  if (reverse) {
+    data <- data[order(data$xmin, data$group), ]
+  } else {
+    data <- data[order(data$xmin, -data$group), ]
+  }
 
   # Check for overlap
   intervals <- as.numeric(t(unique(data[c("xmin", "xmax")])))
@@ -71,6 +71,14 @@ collide_box <- function(data, width = NULL, name, strategy,
   dlist <- collide_setup(data, width, name, strategy, check.width, reverse)
   data <- dlist$data
   width <- dlist$width
+
+  # Reorder by x position, then on group. The default stacking order reverses
+  # the group in order to match the legend order.
+  if (reverse) {
+    data <- data[order(data$x, data$group), ]
+  } else {
+    data <- data[order(data$x, -data$group), ]
+  }
 
   pos <- match.fun(strategy)
   pos(data, width)
