@@ -54,22 +54,25 @@ pos_boxdodge <- function(df, width, n = NULL) {
   
   # Maximum number of boxes that need to be dodged from one another
   n <- max(table(df$x))
+
+  # xid represents groups of boxes that share the same x value
+  df$xid <- match(df$x, sort(unique(df$x)))
   
   df$new_width <- (df$xmax - df$xmin) / n
   df$xmin <- df$x - (df$new_width / 2)
   df$xmax <- df$x + (df$new_width / 2)
 
   # Find the total width of each group of boxes
-  group_sizes <- plyr::ddply(df, "x", plyr::summarize, size = sum(new_width))
+  group_sizes <- plyr::ddply(df, "xid", plyr::summarize, size = sum(new_width))
   
   # Starting xmin for each group of boxes
-  starts <- group_sizes$x - (group_sizes$size / 2)
+  starts <- group_sizes$xid - (group_sizes$size / 2)
 
   # Set the boxes in place
   for (i in seq_along(starts)) {
-    divisions <- cumsum(c(starts[i], df[df$x == i, "new_width"]))
-    df[df$x == i, "xmin"] <- divisions[-length(divisions)]
-    df[df$x == i, "xmax"] <- divisions[-1]
+    divisions <- cumsum(c(starts[i], df[df$xid == i, "new_width"]))
+    df[df$xid == i, "xmin"] <- divisions[-length(divisions)]
+    df[df$xid == i, "xmax"] <- divisions[-1]
   }
 
   # x values get moved to between xmin and xmax
