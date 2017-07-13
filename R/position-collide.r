@@ -81,5 +81,5 @@ collide_box <- function(data, width = NULL, name, strategy,
   }
 
   pos <- match.fun(strategy)
-  pos(data, width)
+  pos(data, width, ...)
 }

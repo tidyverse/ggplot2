@@ -14,7 +14,7 @@
 #'
 #' ggplot(data = iris, aes(Species, Sepal.Length)) +
 #' geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
-position_boxdodge <- function(width = NULL, preserve = c("total", "single")) {
+position_boxdodge <- function(width = NULL, preserve = c("single", "total")) {
   ggproto(NULL, PositionBoxdodge,
     width = width,
     preserve = match.arg(preserve)
@@ -26,7 +26,25 @@ position_boxdodge <- function(width = NULL, preserve = c("total", "single")) {
 #' @usage NULL
 #' @export
 PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
-  
+  preserve = "single",
+  setup_params = function(self, data) {
+    if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
+      warning("Width not defined. Set with `position_boxdodge(width = ?)`",
+        call. = FALSE)
+    }
+
+    if (identical(self$preserve, "total")) {
+      n <- NULL
+    } else {
+      n <- max(table(data$x))
+    }
+
+    list(
+      width = self$width,
+      n = n
+    )
+  },
+                          
   compute_panel = function(data, params, scales) {
     collide_box(
       data,
@@ -40,25 +58,24 @@ PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
 )
 
 pos_boxdodge <- function(df, width, n = NULL) {
-  if (is.null(n)) {
-    n <- length(unique(df$group))
-  }
-
-  if (n == 1)
-    return(df)
-
+   
   if (!all(c("xmin", "xmax") %in% names(df))) {
     df$xmin <- df$x
     df$xmax <- df$x
   }
   
-  # Maximum number of boxes that need to be dodged from one another
-  nbox <- max(table(df$x))
-
-  # xid represents groups of boxes that share the same x value
+  # xid represents groups of boxes that share the same position
   df$xid <- match(df$x, sort(unique(df$x)))
+
+  if (is.null(n)) {
+    # If n is null, preserve total widths of boxes at each position by dividing
+    # widths by the number of elements at that position
+    n <- table(df$xid)
+    df$new_width <- (df$xmax - df$xmin) / n[df$xid]
+  } else {
+    df$new_width <- (df$xmax - df$xmin) / n
+  }
   
-  df$new_width <- (df$xmax - df$xmin) / nbox
   df$xmin <- df$x - (df$new_width / 2)
   df$xmax <- df$x + (df$new_width / 2)
 
