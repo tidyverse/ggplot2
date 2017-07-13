@@ -128,5 +128,6 @@ ggplot(mtcars, aes(mpg, wt)) +
 Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_brewer}},
   \code{\link{scale_colour_gradient}},
-  \code{\link{scale_colour_grey}}
+  \code{\link{scale_colour_grey}},
+  \code{\link{scale_colour_viridis_d}}
 }

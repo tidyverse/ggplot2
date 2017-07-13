@@ -8,11 +8,6 @@ scale_colour_discrete <- scale_colour_hue
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_colour_continuous <- scale_colour_gradient
-
-#' @export
-#' @rdname scale_gradient
-#' @usage NULL
 scale_colour_datetime <- function(...,
                                   low = "#132B43",
                                   high = "#56B1F7",
@@ -56,11 +51,6 @@ scale_fill_discrete <- scale_fill_hue
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_fill_continuous <- scale_fill_gradient
-
-#' @export
-#' @rdname scale_gradient
-#' @usage NULL
 scale_fill_datetime <- function(...,
                                 low = "#132B43",
                                 high = "#56B1F7",
@@ -75,7 +65,6 @@ scale_fill_datetime <- function(...,
     guide = guide,
     ...
   )
-  
 }
 
 #' @export
@@ -154,3 +143,13 @@ scale_color_identity <- scale_colour_identity
 #' @rdname scale_manual
 #' @usage NULL
 scale_color_manual <- scale_colour_manual
+
+#' @export
+#' @rdname scale_viridis
+#' @usage NULL
+scale_color_viridis_d <- scale_colour_viridis_d
+
+#' @export
+#' @rdname scale_viridis
+#' @usage NULL
+scale_color_viridis_c <- scale_colour_viridis_c

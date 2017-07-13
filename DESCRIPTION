@@ -43,7 +43,8 @@ Suggests:
     rpart,
     rmarkdown,
     sf (>= 0.3-4),
-    svglite (>= 1.2.0.9001)
+    svglite (>= 1.2.0.9001),
+    viridisLite
 Remotes:
     hadley/scales,
     hadley/svglite
@@ -169,6 +170,7 @@ Collate:
     'scale-.r'
     'scale-alpha.r'
     'scale-brewer.r'
+    'scale-colour.r'
     'scale-continuous.r'
     'scale-date.r'
     'scale-discrete-.r'
@@ -181,6 +183,7 @@ Collate:
     'scale-shape.r'
     'scale-size.r'
     'scale-type.R'
+    'scale-viridis.r'
     'scales-.r'
     'sf.R'
     'stat-bin.r'
