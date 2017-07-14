@@ -2,25 +2,25 @@
 #'
 #' Visualise the distribution of a single continuous variable by dividing
 #' the x axis into bins and counting the number of observations in each bin.
-#' Histograms (\code{geom_histogram}) display the count with bars; frequency
-#' polygons (\code{geom_freqpoly}), display the counts with lines. Frequency
+#' Histograms (`geom_histogram`) display the count with bars; frequency
+#' polygons (`geom_freqpoly`), display the counts with lines. Frequency
 #' polygons are more suitable when you want to compare the distribution
 #' across a the levels of a categorical variable.
 #'
-#' By default, the underlying computation (\code{stat_bin}) uses 30 bins -
+#' By default, the underlying computation (`stat_bin`) uses 30 bins -
 #' this is not a good default, but the idea is to get you experimenting with
 #' different binwidths. You may need to look at a few to uncover the full
 #' story behind your data.
 #'
 #' @section Aesthetics:
-#' \code{geom_histogram} uses the same aesthetics as \code{\link{geom_bar}};
-#' \code{geom_freqpoly} uses the same aesthetics as \code{\link{geom_line}}.
+#' `geom_histogram` uses the same aesthetics as [geom_bar()];
+#' `geom_freqpoly` uses the same aesthetics as [geom_line()].
 #'
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.
+#'   `geom_histogram`/`geom_freqpoly` and `stat_bin`.
 #' @examples
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_histogram()

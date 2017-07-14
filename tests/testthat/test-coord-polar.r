@@ -109,4 +109,9 @@ test_that("Polar coordinates draws correctly", {
     ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") + coord_polar(theta = "y") +
       scale_x_discrete(expand = c(0, 0.6))
   )
+
+  vdiffr::expect_doppelganger("secondary axis ticks and labels",
+    ggplot(dat, aes(x, y, group = factor(y))) + geom_line() + coord_polar() +
+      scale_y_continuous(sec.axis = sec_axis(~. * 0.1, name = "sec y"))
+  )
 })

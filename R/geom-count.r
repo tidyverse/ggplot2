@@ -1,6 +1,6 @@
 #' Count overlapping points
 #'
-#' This is a variant \code{\link{geom_point}} that counts the number of
+#' This is a variant [geom_point()] that counts the number of
 #' observations at each location, then maps the count to point area. It
 #' useful when you have discrete data and overplotting.
 #'
@@ -8,8 +8,8 @@
 #' \aesthetics{geom}{point}
 #'
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_count} and \code{stat_sum}.
-#' @seealso For continuous \code{x} and \code{x}, use \code{\link{geom_bin2d}}.
+#'   `geom_count` and `stat_sum`.
+#' @seealso For continuous `x` and `x`, use [geom_bin2d()].
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @export

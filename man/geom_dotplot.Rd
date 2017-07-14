@@ -12,29 +12,29 @@ geom_dotplot(mapping = NULL, data = NULL, position = "identity", ...,
   inherit.aes = TRUE)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
-   options:
+options:
 
-   If \code{NULL}, the default, the data is inherited from the plot
-   data as specified in the call to \code{\link{ggplot}}.
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-   A \code{data.frame}, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   \code{\link{fortify}} for which variables will be created.
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-   A \code{function} will be called with a single argument,
-   the plot data. The return value must be a \code{data.frame.}, and
-   will be used as the layer data.}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame.}, and
+will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -87,7 +87,7 @@ display.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
 In a dot plot, the width of a dot corresponds to the bin width
@@ -115,15 +115,15 @@ to match the number of dots.
 \section{Computed variables}{
 
 \describe{
-  \item{x}{center of each bin, if binaxis is "x"}
-  \item{y}{center of each bin, if binaxis is "x"}
-  \item{binwidth}{max width of each bin if method is "dotdensity";
-    width of each bin if method is "histodot"}
-  \item{count}{number of points in bin}
-  \item{ncount}{count, scaled to maximum of 1}
-  \item{density}{density of points in bin, scaled to integrate to 1,
-    if method is "histodot"}
-  \item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
+\item{x}{center of each bin, if binaxis is "x"}
+\item{y}{center of each bin, if binaxis is "x"}
+\item{binwidth}{max width of each bin if method is "dotdensity";
+width of each bin if method is "histodot"}
+\item{count}{number of points in bin}
+\item{ncount}{count, scaled to maximum of 1}
+\item{density}{density of points in bin, scaled to integrate to 1,
+if method is "histodot"}
+\item{ndensity}{density, scaled to maximum of 1, if method is "histodot"}
 }
 }
 
@@ -182,5 +182,5 @@ ggplot(mtcars, aes(x = 1, y = mpg, fill = factor(cyl))) +
 }
 \references{
 Wilkinson, L. (1999) Dot plots. The American Statistician,
-   53(3), 276-281.
+53(3), 276-281.
 }

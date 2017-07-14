@@ -1,9 +1,9 @@
 #' Map projections
 #'
-#' \code{coord_map} projects a portion of the earth, which is approximately
+#' `coord_map` projects a portion of the earth, which is approximately
 #' spherical, onto a flat 2D plane using any projection defined by the
-#' \code{mapproj} package. Map projections do not, in general, preserve straight
-#' lines, so this requires considerable computation. \code{coord_quickmap} is a
+#' `mapproj` package. Map projections do not, in general, preserve straight
+#' lines, so this requires considerable computation. `coord_quickmap` is a
 #' quick approximation that does preserve straight lines. It works best for
 #' smaller areas closer to the equator.
 #'
@@ -15,19 +15,19 @@
 #' 0. For regions that span only a few degrees and are not too close to the
 #' poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio
 #' approximates the usual mercator projection. This is what
-#' \code{coord_quickmap} does, and is much faster (particularly for complex
-#' plots like \code{\link{geom_tile}}) at the expense of correctness.
+#' `coord_quickmap` does, and is much faster (particularly for complex
+#' plots like [geom_tile()]) at the expense of correctness.
 #'
 #' @param projection projection to use, see
-#'    \code{\link[mapproj]{mapproject}} for list
+#'    [mapproj::mapproject()] for list
 #' @param ...,parameters Other arguments passed on to
-#'   \code{\link[mapproj]{mapproject}}. Use \code{...} for named parameters to
-#'   the projection, and \code{parameters} for unnamed parameters.
-#'   \code{...} is ignored if the \code{parameters} argument is present.
+#'   [mapproj::mapproject()]. Use `...` for named parameters to
+#'   the projection, and `parameters` for unnamed parameters.
+#'   `...` is ignored if the `parameters` argument is present.
 #' @param orientation projection orientation, which defaults to
-#'   \code{c(90, 0, mean(range(x)))}.  This is not optimal for many
+#'   `c(90, 0, mean(range(x)))`.  This is not optimal for many
 #'   projections, so you will have to supply your own. See
-#'   \code{\link[mapproj]{mapproject}} for more information.
+#'   [mapproj::mapproject()] for more information.
 #' @param xlim,ylim Manually specific x/y limits (in degrees of
 #'   longitude/latitude)
 #' @export

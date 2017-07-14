@@ -5,7 +5,8 @@
 #' line types.
 #'
 #' @inheritParams scale_x_discrete
-#' @param na.value The linetype to use for \code{NA} values.
+#' @inheritDotParams discrete_scale -expand -position -na.value
+#' @param na.value The linetype to use for `NA` values.
 #' @rdname scale_linetype
 #' @export
 #' @examples

@@ -28,8 +28,8 @@ column corresponds to one factor. Thus there will be more than
 one with formulae of the type \code{~cyl + am}. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with \code{\link{labeller}()}. See
-\code{\link{label_value}} for more details and pointers to other
+for compatibility with \code{\link[=labeller]{labeller()}}. See
+\code{\link[=label_value]{label_value()}} for more details and pointers to other
 options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
@@ -52,11 +52,11 @@ vertical.}
 \item{strip.position}{By default, the labels are displayed on the top of
 the plot. Using \code{strip.position} it is possible to place the labels on
 either of the four sides by setting \code{strip.position = c("top",
-"bottom", "left", "right")}}
+  "bottom", "left", "right")}}
 }
 \description{
 \code{facet_wrap} wraps a 1d sequence of panels into 2d. This is generally
-a better use of screen space than \code{\link{facet_grid}} because most
+a better use of screen space than \code{\link[=facet_grid]{facet_grid()}} because most
 displays are roughly rectangular.
 }
 \examples{

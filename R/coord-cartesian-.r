@@ -6,9 +6,9 @@
 #' change the underlying data like setting limits on a scale will.
 #'
 #' @param xlim,ylim Limits for the x and y axes.
-#' @param expand If \code{TRUE}, the default, adds a small expansion factor to
-#'   the limits to ensure that data and axes don't overlap. If \code{FALSE},
-#'   limits are taken exactly from the data or \code{xlim}/\code{ylim}.
+#' @param expand If `TRUE`, the default, adds a small expansion factor to
+#'   the limits to ensure that data and axes don't overlap. If `FALSE`,
+#'   limits are taken exactly from the data or `xlim`/`ylim`.
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or
@@ -77,18 +77,7 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     train_cartesian <- function(scale, limits, name) {
-      if (self$expand) {
-        expand <- expand_default(scale)
-      } else {
-        expand <- c(0, 0)
-      }
-
-      if (is.null(limits)) {
-        range <- scale$dimension(expand)
-      } else {
-        range <- range(scale$transform(limits))
-        range <- expand_range(range, expand[1], expand[2])
-      }
+      range <- scale_range(scale, limits, self$expand)
 
       out <- scale$break_info(range)
       out$arrange <- scale$axis_order()
@@ -102,3 +91,14 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     )
   }
 )
+
+scale_range <- function(scale, limits = NULL, expand = TRUE) {
+  expansion <- if (expand) expand_default(scale) else c(0, 0)
+
+  if (is.null(limits)) {
+    scale$dimension(expansion)
+  } else {
+    range <- range(scale$transform(limits))
+    expand_range(range, expansion[1], expansion[2])
+  }
+}

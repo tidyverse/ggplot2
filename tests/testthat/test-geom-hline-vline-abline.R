@@ -3,96 +3,43 @@ context("geom-hline-vline-abline")
 
 # Visual tests ------------------------------------------------------------
 
-test_that("straight lines are drawn correctly", {
+test_that("check h/v/abline transformed on basic projections", {
   dat <- data.frame(x = LETTERS[1:5], y = 1:5)
+  plot <- ggplot(dat, aes(x, y)) +
+    geom_col(width = 1) +
+    geom_point() +
+    geom_vline(xintercept = 3, colour = "red") +
+    geom_hline(yintercept = 3, colour = "blue") +
+    geom_abline(intercept = 0, slope = 1, colour = "purple") +
+    labs(x = NULL, y = NULL) +
+    coord_cartesian(expand = FALSE)
 
-  # geom_abline tests
-  vdiffr::expect_doppelganger("geom_abline: int=2, slope=0",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") +
-      geom_abline(intercept = 2, slope = 0, colour = "red")
+  vdiffr::expect_doppelganger(
+    "cartesian lines intersect mid-bars",
+    plot
   )
-  vdiffr::expect_doppelganger("geom_abline: int=0, slope=1, aligns with bars",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") +
-      geom_abline(intercept = 0, slope = 1, colour = "red")
+  vdiffr::expect_doppelganger(
+    "flipped lines intersect mid-bars",
+    plot + coord_flip()
   )
-  vdiffr::expect_doppelganger("geom_abline, coord_flip: int=2, slope=0",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") +
-      geom_abline(intercept = 2, slope = 0, colour = "red") +
-      coord_flip()
+  vdiffr::expect_doppelganger(
+    "polar lines intersect mid-bars",
+    plot + coord_polar()
   )
-  vdiffr::expect_doppelganger("geom_abline, coord_flip: int=0, slope=1, aligns with bars",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") +
-      geom_abline(intercept = 0, slope = 1, colour = "red") +
-      coord_flip()
-  )
+})
 
-  # geom_hline tests
-  vdiffr::expect_doppelganger("geom_hline: intercept=2",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") +
-      geom_hline(yintercept = 2, colour = "red")
-  )
-  vdiffr::expect_doppelganger("geom_hline, coord_flip: intercept=2",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") +
-      geom_hline(yintercept = 2, colour = "red") +
-      coord_flip()
-  )
-  vdiffr::expect_doppelganger("geom_hline, coord_polar: int=2, expect circle at r=2",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") +
-      geom_hline(yintercept = 2, colour = "red") +
-      coord_polar()
-  )
+test_that("curved lines in map projections", {
+  nz <- subset(map_data("nz"), region == "North.Island ")
+  nzmap <- ggplot(nz, aes(long, lat, group = group)) +
+    geom_path() +
+    geom_hline(yintercept = -38.6) + # roughly Taupo
+    geom_vline(xintercept = 176) +
+    coord_map()
 
-  # geom_vline tests
-  vdiffr::expect_doppelganger("geom_vline: intercept=2",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") +
-      geom_vline(xintercept = 2, colour = "red")
+  vdiffr::expect_doppelganger("straight lines in mercator",
+    nzmap
   )
-  vdiffr::expect_doppelganger("geom_vline, coord_flip: intercept=2",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") +
-      geom_vline(xintercept = 2, colour = "red") +
-      coord_flip()
-  )
-  vdiffr::expect_doppelganger("geom_vline, coord_polar: int=2, expect a ray at 2",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") +
-      geom_vline(xintercept = 2, colour = "red") +
-      coord_polar()
-  )
-
-  # hline, vline, and abline tests with coord_map
-  library(maps)
-  library(mapproj)
-
-  nz <- data.frame(map("nz", plot = FALSE)[c("x", "y")])
-  nzmap <- qplot(x, y, data = nz, geom = "path")
-
-  vdiffr::expect_doppelganger("geom_hline: int=-45, proj=mercator",
-    nzmap + geom_hline(yintercept = -45) + coord_map()
-  )
-  vdiffr::expect_doppelganger("geom_vline: int=172, proj=mercator",
-    nzmap + geom_vline(xintercept = 172) + coord_map()
-  )
-  vdiffr::expect_doppelganger("geom_abline: int=130, slope=-1 proj=mercator",
-    nzmap + geom_abline(intercept = 130, slope = -1) + coord_map()
-  )
-  vdiffr::expect_doppelganger("geom_hline: int=-45, proj=cylindrical",
-    nzmap + geom_hline(yintercept = -45) + coord_map(projection = "cylindrical")
-  )
-  vdiffr::expect_doppelganger("geom_vline: int=172, proj=cylindrical",
-    nzmap + geom_vline(xintercept = 172) + coord_map(projection = "cylindrical")
-  )
-  vdiffr::expect_doppelganger("geom_abline: int=130, slope=-1, proj=cylindrical",
-    nzmap + geom_abline(intercept = 130, slope = -1) + coord_map(projection = "cylindrical")
-  )
-  vdiffr::expect_doppelganger("geom_hline: int=-45, proj=azequalarea",
-    nzmap + geom_hline(yintercept = -45) +
-      coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
-  )
-  vdiffr::expect_doppelganger("geom_vline: int=172, proj=azequalara",
-    nzmap + geom_vline(xintercept = 172) +
-      coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
-  )
-  vdiffr::expect_doppelganger("geom_abline: int=130, slope=-1, proj=azequalarea",
-    nzmap + geom_abline(intercept = 130, slope = -1) +
-      coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
+  vdiffr::expect_doppelganger("lines curved in azequalarea",
+    nzmap + coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
   )
 })

@@ -1,4 +1,4 @@
-context("position-stack")
+context("position_stack")
 
 test_that("data is sorted prior to stacking", {
   df <- data.frame(

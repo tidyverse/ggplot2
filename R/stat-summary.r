@@ -1,20 +1,20 @@
 #' Summarise y values at unique/binned x
 #'
-#' \code{stat_summary} operates on unique \code{x}; \code{stat_summary_bin}
-#' operators on binned \code{x}. They are more flexible versions of
-#' \code{\link{stat_bin}}: instead of just counting, they can compute any
+#' `stat_summary` operates on unique `x`; `stat_summary_bin`
+#' operators on binned `x`. They are more flexible versions of
+#' [stat_bin()]: instead of just counting, they can compute any
 #' aggregate.
 #'
 #' @section Aesthetics:
 #' \aesthetics{stat}{summary}
 #'
-#' @seealso \code{\link{geom_errorbar}}, \code{\link{geom_pointrange}},
-#'  \code{\link{geom_linerange}}, \code{\link{geom_crossbar}} for geoms to
+#' @seealso [geom_errorbar()], [geom_pointrange()],
+#'  [geom_linerange()], [geom_crossbar()] for geoms to
 #'  display summarised data
 #' @inheritParams stat_identity
 #' @section Summary functions:
-#' You can either supply summary functions individually (\code{fun.y},
-#' \code{fun.ymax}, \code{fun.ymin}), or as a single function (\code{fun.data}):
+#' You can either supply summary functions individually (`fun.y`,
+#' `fun.ymax`, `fun.ymin`), or as a single function (`fun.data`):
 #'
 #' \describe{
 #'   \item{fun.data}{Complete summary function. Should take numeric vector as
@@ -29,13 +29,13 @@
 #'
 #' A simple vector function is easiest to work with as you can return a single
 #' number, but is somewhat less flexible. If your summary function computes
-#' multiple values at once (e.g. ymin and ymax), use \code{fun.data}.
+#' multiple values at once (e.g. ymin and ymax), use `fun.data`.
 #'
 #' If no aggregation functions are suppled, will default to
-#' \code{\link{mean_se}}.
+#' [mean_se()].
 #'
 #' @param fun.data A function that is given the complete data and should
-#'   return a data frame with variables \code{ymin}, \code{y}, and \code{ymax}.
+#'   return a data frame with variables `ymin`, `y`, and `ymax`.
 #' @param fun.ymin,fun.y,fun.ymax Alternatively, supply three individual
 #'   functions that are each passed a vector of x's and should return a
 #'   single number.
@@ -153,11 +153,11 @@ StatSummary <- ggproto("StatSummary", Stat,
 # Summarise a data.frame by parts
 # Summarise a data frame by unique value of x
 #
-# This function is used by \code{\link{stat_summary}} to break a
+# This function is used by [stat_summary()] to break a
 # data.frame into pieces, summarise each piece, and join the pieces
 # back together, retaining original columns unaffected by the summary.
 #
-# @param \code{\link{data.frame}} to summarise
+# @param [data.frame()] to summarise
 # @param vector to summarise by
 # @param summary function (must take and return a data.frame)
 # @param other arguments passed on to summary function
@@ -173,19 +173,18 @@ summarise_by_x <- function(data, summary, ...) {
 #' A selection of summary functions from Hmisc
 #'
 #' @description
-#' These are wrappers around functions from \pkg{Hmsic} designed to make them
-#' easier to use with \code{\link{stat_summary}}. See the Hmisc documentation
+#' These are wrappers around functions from \pkg{Hmisc} designed to make them
+#' easier to use with [stat_summary()]. See the Hmisc documentation
 #' for more details:
 #'
-#' \itemize{
-#'  \item \code{\link[Hmisc]{smean.cl.boot}}
-#'  \item \code{\link[Hmisc]{smean.cl.normal}}
-#'  \item \code{\link[Hmisc]{smean.sdl}}
-#'  \item \code{\link[Hmisc]{smedian.hilow}}
-#' }
+#'  - [Hmisc::smean.cl.boot()]
+#'  - [Hmisc::smean.cl.normal()]
+#'  - [Hmisc::smean.sdl()]
+#'  - [Hmisc::smedian.hilow()]
+#' 
 #' @param x a numeric vector
 #' @param ... other arguments passed on to the respective Hmisc function.
-#' @return A data frame with columns \code{y}, \code{ymin}, and \code{ymax}.
+#' @return A data frame with columns `y`, `ymin`, and `ymax`.
 #' @name hmisc
 #' @examples
 #' x <- rnorm(100)
@@ -226,11 +225,11 @@ median_hilow <- wrap_hmisc("smedian.hilow")
 
 #' Calculate mean and standard error
 #'
-#' For use with \code{\link{stat_summary}}
+#' For use with [stat_summary()]
 #'
 #' @param x numeric vector
 #' @param mult number of multiples of standard error
-#' @return A data frame with columns \code{y}, \code{ymin}, and \code{ymax}.
+#' @return A data frame with columns `y`, `ymin`, and `ymax`.
 #' @export
 #' @examples
 #' x <- rnorm(100)

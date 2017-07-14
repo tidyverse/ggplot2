@@ -19,7 +19,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.4.1),
+    scales (>= 0.4.1.9002),
     stats,
     tibble,
     lazyeval
@@ -39,15 +39,21 @@ Suggests:
     vdiffr,
     quantreg,
     knitr,
+    rgeos,
     rpart,
     rmarkdown,
-    svglite
+    sf (>= 0.3-4),
+    svglite (>= 1.2.0.9001),
+    viridisLite
+Remotes:
+    hadley/scales,
+    hadley/svglite
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
-Collate:
+Collate: 
     'ggproto.r'
     'aaa-.r'
     'aes-calculated.r'
@@ -164,6 +170,7 @@ Collate:
     'scale-.r'
     'scale-alpha.r'
     'scale-brewer.r'
+    'scale-colour.r'
     'scale-continuous.r'
     'scale-date.r'
     'scale-discrete-.r'
@@ -176,7 +183,9 @@ Collate:
     'scale-shape.r'
     'scale-size.r'
     'scale-type.R'
+    'scale-viridis.r'
     'scales-.r'
+    'sf.R'
     'stat-bin.r'
     'stat-bin2d.r'
     'stat-bindot.r'
@@ -201,6 +210,7 @@ Collate:
     'stat-summary.r'
     'stat-unique.r'
     'stat-ydensity.r'
+    'summarise-plot.R'
     'summary.r'
     'theme-elements.r'
     'theme.r'
@@ -217,5 +227,6 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 6.0.0
-Remotes: hadley/svglite
+RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8

@@ -29,9 +29,14 @@ FacetNull <- ggproto("FacetNull", Facet,
   map_data = function(data, layout, params) {
     # Need the is.waive check for special case where no data, but aesthetics
     # are mapped to vectors
-    if (is.waive(data) || empty(data))
-      return(cbind(data, PANEL = integer(0)))
-    data$PANEL <- 1L
+    if (is.waive(data))
+      return(tibble(PANEL = factor()))
+
+    if (empty(data))
+      return(cbind(data, PANEL = factor()))
+
+    # Needs to be a factor to be consistent with other facet types
+    data$PANEL <- factor(1)
     data
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
@@ -68,8 +73,5 @@ FacetNull <- ggproto("FacetNull", Facet,
     layout$layout$name <- grob_names
 
     layout
-  },
-  vars = function(self) {
-    ""
   }
 )

@@ -23,8 +23,8 @@ scale_alpha_identity(..., guide = "none")
 scale_size_identity(..., guide = "none")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{discrete_scale}} or
-\code{\link{continuous_scale}}}
+\item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or
+\code{\link[=continuous_scale]{continuous_scale()}}}
 
 \item{guide}{Guide to use for this scale. Defaults to \code{"none"}.}
 }

@@ -3,55 +3,55 @@
 #' Legend type guide shows key (i.e., geoms) mapped onto values.
 #' Legend guides for various scales are integrated if possible.
 #'
-#' Guides can be specified in each \code{scale_*} or in \code{\link{guides}}.
-#' \code{guide="legend"} in \code{scale_*} is syntactic sugar for
-#' \code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
+#' Guides can be specified in each `scale_*` or in [guides()].
+#' `guide="legend"` in `scale_*` is syntactic sugar for
+#' `guide=guide_legend()` (e.g. `scale_color_manual(guide = "legend")`).
 #' As for how to specify the guide for each scale in more detail,
-#' see \code{\link{guides}}.
+#' see [guides()].
 #'
 #' @param title A character string or expression indicating a title of guide.
-#'   If \code{NULL}, the title is not shown. By default
-#'   (\code{\link{waiver}}), the name of the scale object or the name
-#'   specified in \code{\link{labs}} is used for the title.
+#'   If `NULL`, the title is not shown. By default
+#'   ([waiver()]), the name of the scale object or the name
+#'   specified in [labs()] is used for the title.
 #' @param title.position A character string indicating the position of a
 #'   title. One of "top" (default for a vertical guide), "bottom", "left"
 #'  (default for a horizontal guide), or "right."
 #' @param title.theme A theme object for rendering the title text. Usually the
-#'   object of \code{\link{element_text}} is expected. By default, the theme is
-#'   specified by \code{legend.title} in \code{\link{theme}} or theme.
+#'   object of [element_text()] is expected. By default, the theme is
+#'   specified by `legend.title` in [theme()] or theme.
 #' @param title.hjust A number specifying horizontal justification of the
 #'   title text.
 #' @param title.vjust A number specifying vertical justification of the title
 #'   text.
-#' @param label logical. If \code{TRUE} then the labels are drawn. If
-#'   \code{FALSE} then the labels are invisible.
+#' @param label logical. If `TRUE` then the labels are drawn. If
+#'   `FALSE` then the labels are invisible.
 #' @param label.position A character string indicating the position of a
 #'   label. One of "top", "bottom" (default for horizontal guide), "left", or
 #'   "right" (default for vertical guide).
 #' @param label.theme A theme object for rendering the label text. Usually the
-#'   object of \code{\link{element_text}} is expected. By default, the theme is
-#'   specified by \code{legend.text} in \code{\link{theme}} or theme.
+#'   object of [element_text()] is expected. By default, the theme is
+#'   specified by `legend.text` in [theme()] or theme.
 #' @param label.hjust A numeric specifying horizontal justification of the
 #'   label text.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
-#' @param keywidth A numeric or a \code{\link[grid]{unit}} object specifying
-#'   the width of the legend key. Default value is \code{legend.key.width} or
-#'   \code{legend.key.size} in \code{\link{theme}} or theme.
-#' @param keyheight A numeric or a \code{\link[grid]{unit}} object specifying
-#'   the height of the legend key. Default value is \code{legend.key.height} or
-#'   \code{legend.key.size} in \code{\link{theme}} or theme.
+#' @param keywidth A numeric or a [grid::unit()] object specifying
+#'   the width of the legend key. Default value is `legend.key.width` or
+#'   `legend.key.size` in [theme()] or theme.
+#' @param keyheight A numeric or a [grid::unit()] object specifying
+#'   the height of the legend key. Default value is `legend.key.height` or
+#'   `legend.key.size` in [theme()] or theme.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
-#' @param default.unit A character string indicating \code{\link[grid]{unit}}
-#'   for \code{keywidth} and \code{keyheight}.
+#' @param default.unit A character string indicating [grid::unit()]
+#'   for `keywidth` and `keyheight`.
 #' @param override.aes A list specifying aesthetic parameters of legend key.
 #'   See details and examples.
 #' @param nrow The desired number of rows of legends.
 #' @param ncol The desired number of column of legends.
-#' @param byrow logical. If \code{FALSE} (the default) the legend-matrix is
+#' @param byrow logical. If `FALSE` (the default) the legend-matrix is
 #'   filled by columns, otherwise the legend-matrix is filled by rows.
-#' @param reverse logical. If \code{TRUE} the order of legends is reversed.
+#' @param reverse logical. If `TRUE` the order of legends is reversed.
 #' @param order positive integer less that 99 that specifies the order of
 #'   this guide among multiple guides. This controls the order in which
 #'   multiple guides are displayed, not the contents of the guide itself.
@@ -315,10 +315,6 @@ guide_gengrob.legend <- function(guide, theme) {
 
   nbreak <- nrow(guide$key)
 
-  # gap between keys etc
-  hgap <- width_cm(unit(0.3, "lines"))
-  vgap <- hgap
-
   grob.title <- ggname("guide.title",
     element_grob(
       guide$title.theme %||% calc_element("legend.title", theme),
@@ -332,6 +328,10 @@ guide_gengrob.legend <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
+  
+  # gap between keys etc
+  hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
+  vgap <- height_cm(theme$legend.spacing.y %||% 0.5 * unit(title_height, "cm"))
 
   # Labels
   if (!guide$label || is.null(guide$key$.label)) {

@@ -199,7 +199,7 @@ Layout <- ggproto("Layout", NULL,
     scales_y <- self$panel_scales_y[self$layout$SCALE_Y]
 
     setup_panel_params <- function(scale_x, scale_y) {
-      self$coord$setup_panel_params(scale_x, scale_y, param = self$coord_params)
+      self$coord$setup_panel_params(scale_x, scale_y, params = self$coord_params)
     }
     self$panel_params <- Map(setup_panel_params, scales_x, scales_y)
 
@@ -235,7 +235,11 @@ Layout <- ggproto("Layout", NULL,
   render_labels = function(self, labels, theme) {
     label_grobs <- lapply(names(labels), function(label) {
       lapply(c(1, 2), function(i) {
-        modify <- if (i == 2 && label == "y") ".right" else if (i == 1 && label == "x") ".top" else ""
+        modify <- if (i == 1) {
+          switch(label, x = ".top", y = ".left")
+        } else {
+          switch(label, x = ".bottom", y = ".right")
+        }
         if (is.null(labels[[label]][[i]]) || is.waive(labels[[label]][[i]]))
           return(zeroGrob())
 

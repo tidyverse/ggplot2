@@ -31,6 +31,6 @@ ggplot(tx, aes(long, lat)) +
 }
 }
 \seealso{
-\code{\link{map_data}} and \code{\link{borders}}
+\code{\link[=map_data]{map_data()}} and \code{\link[=borders]{borders()}}
 }
 \keyword{internal}

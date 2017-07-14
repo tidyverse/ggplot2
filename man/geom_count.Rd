@@ -14,29 +14,29 @@ stat_sum(mapping = NULL, data = NULL, geom = "point",
   inherit.aes = TRUE)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
-   options:
+options:
 
-   If \code{NULL}, the default, the data is inherited from the plot
-   data as specified in the call to \code{\link{ggplot}}.
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-   A \code{data.frame}, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   \code{\link{fortify}} for which variables will be created.
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-   A \code{function} will be called with a single argument,
-   the plot data. The return value must be a \code{data.frame.}, and
-   will be used as the layer data.}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame.}, and
+will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -53,13 +53,13 @@ display.}
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_count} and \code{stat_sum}.}
 }
 \description{
-This is a variant \code{\link{geom_point}} that counts the number of
+This is a variant \code{\link[=geom_point]{geom_point()}} that counts the number of
 observations at each location, then maps the count to point area. It
 useful when you have discrete data and overplotting.
 }
@@ -71,8 +71,8 @@ useful when you have discrete data and overplotting.
 \section{Computed variables}{
 
 \describe{
- \item{n}{number of observations at position}
- \item{prop}{percent of points in that panel at that position}
+\item{n}{number of observations at position}
+\item{prop}{percent of points in that panel at that position}
 }
 }
 
@@ -108,5 +108,5 @@ d + geom_count(aes(size = ..prop.., group = clarity)) +
   scale_size_area(max_size = 10)
 }
 \seealso{
-For continuous \code{x} and \code{x}, use \code{\link{geom_bin2d}}.
+For continuous \code{x} and \code{x}, use \code{\link[=geom_bin2d]{geom_bin2d()}}.
 }

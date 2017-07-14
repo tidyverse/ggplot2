@@ -51,15 +51,18 @@ test_that("axis guides are drawn correctly", {
   vdiffr::expect_doppelganger("align facet labels, facets horizontal",
     qplot(hwy, reorder(model, hwy), data = mpg) +
       facet_grid(manufacturer ~ ., scales = "free", space = "free") +
+      theme_test() +
       theme(strip.text.y = element_text(angle = 0))
   )
   vdiffr::expect_doppelganger("align facet labels, facets vertical",
     qplot(reorder(model, hwy), hwy, data = mpg) +
       facet_grid(. ~ manufacturer, scales = "free", space = "free") +
+      theme_test() +
       theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
   )
   vdiffr::expect_doppelganger("thick axis lines",
     qplot(wt, mpg, data = mtcars) +
+      theme_test() +
       theme(axis.line = element_line(size = 5, lineend = "square"))
   )
 })
@@ -68,6 +71,7 @@ test_that("guides are positioned correctly", {
   p1 <- ggplot(mtcars, aes(mpg, disp, colour = cyl)) +
     geom_point() +
     labs(title = "title of plot") +
+    theme_test() +
     theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) +
     scale_x_continuous(breaks = mean(mtcars$mpg), labels = "very very long long axis label") +
     scale_y_continuous(breaks = mean(mtcars$disp), labels = "very very long long axis label")
@@ -114,6 +118,7 @@ test_that("guides are positioned correctly", {
   p2 <- ggplot(dat, aes(x, y, fill = x, colour = 1:3)) +
     geom_bar(stat = "identity") +
     guides(color = "colorbar") +
+    theme_test() +
     theme(legend.background = element_rect(colour = "black"))
 
   vdiffr::expect_doppelganger("padding in legend box", p2)

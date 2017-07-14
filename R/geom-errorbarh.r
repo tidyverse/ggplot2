@@ -1,6 +1,6 @@
 #' Horizontal error bars
 #'
-#' A rotated version of \code{\link{geom_errorbar}}.
+#' A rotated version of [geom_errorbar()].
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{errorbarh}
