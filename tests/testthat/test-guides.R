@@ -21,10 +21,13 @@ test_that("Colorbar respects show.legend in layer", {
 test_that("show.legend handles named vectors", {
   n_legends <- function(p) {
     g <- ggplotGrob(p)
-    length(g$grobs[[which(g$layout$name == "guide-box")]]) - 1
-  }
-  has_legends <- function(p){
-    "guide-box" %in% ggplotGrob(p)$layout$name
+    gb <- which(g$layout$name == "guide-box")
+    if (length(gb) > 0) {
+      n <- length(g$grobs[[gb]]) - 1
+    } else {
+      n <- 0
+    }
+    n
   }
 
   df <- data.frame(x = 1:3, y = 20:22)
@@ -34,12 +37,11 @@ test_that("show.legend handles named vectors", {
 
   p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
     geom_point(size = 20, show.legend = c(color = FALSE))
-  expect_true(has_legends(p))
   expect_equal(n_legends(p), 1)
 
   p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
     geom_point(size = 20, show.legend = c(color = FALSE, shape = FALSE))
-  expect_false(has_legends(p))
+  expect_equal(n_legends(p), 0)
 })
 
 

@@ -258,15 +258,16 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       # This layer contributes to the legend
 
       # rename color to colour
-      layer$show.legend <- unlist(rename_aes(as.list(layer$show.legend)))
+      layer$show.legend <- rename_aes(layer$show.legend)
 
       # check if this layer should be included, different behaviour depending on
       # if show.legend is a logical or a named logical vector
-      include <- if (!is.null(names(layer$show.legend))) {
-        is.na(layer$show.legend[matched]) || layer$show.legend[matched]
+      if (!is.null(names(layer$show.legend))) {
+        include <- is.na(layer$show.legend[matched]) || layer$show.legend[matched]
       } else {
-        is.na(layer$show.legend) || layer$show.legend
+        include <- is.na(layer$show.legend) || layer$show.legend
       }
+
       if (include) {
         # Default is to include it
 
