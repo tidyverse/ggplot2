@@ -46,7 +46,6 @@ test_that("boxes with variable widths do not overlap", {
   overlaps <- vector(length = nrow(d) - 1)  
   for (i in 2:nrow(d)) {
     if (d$xmin[i] < d$xmax[i - 1]) {
-      print(i)
       overlaps[i - 1] <- TRUE
     }
   }
