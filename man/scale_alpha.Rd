@@ -5,6 +5,8 @@
 \alias{scale_alpha_continuous}
 \alias{scale_alpha_discrete}
 \alias{scale_alpha_ordinal}
+\alias{scale_alpha_datetime}
+\alias{scale_alpha_date}
 \title{Alpha transparency scales}
 \usage{
 scale_alpha(..., range = c(0.1, 1))
@@ -40,5 +42,6 @@ p + scale_alpha(range = c(0.4, 0.8))
 Other colour scales: \code{\link{scale_colour_brewer}},
   \code{\link{scale_colour_gradient}},
   \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}}
+  \code{\link{scale_colour_hue}},
+  \code{\link{scale_colour_viridis_d}}
 }

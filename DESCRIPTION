@@ -19,7 +19,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.4.1),
+    scales (>= 0.4.1.9002),
     stats,
     tibble,
     lazyeval
@@ -43,8 +43,10 @@ Suggests:
     rpart,
     rmarkdown,
     sf (>= 0.3-4),
-    svglite (>= 1.2.0.9001)
+    svglite (>= 1.2.0.9001),
+    viridisLite
 Remotes:
+    hadley/scales,
     hadley/svglite
 Enhances: sp
 License: GPL-2 | file LICENSE
@@ -168,6 +170,7 @@ Collate:
     'scale-.r'
     'scale-alpha.r'
     'scale-brewer.r'
+    'scale-colour.r'
     'scale-continuous.r'
     'scale-date.r'
     'scale-discrete-.r'
@@ -180,6 +183,7 @@ Collate:
     'scale-shape.r'
     'scale-size.r'
     'scale-type.R'
+    'scale-viridis.r'
     'scales-.r'
     'sf.R'
     'stat-bin.r'
@@ -225,3 +229,4 @@ Collate:
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
 Roxygen: list(markdown = TRUE)
+Encoding: UTF-8

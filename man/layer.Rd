@@ -52,7 +52,9 @@ layer.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 }
 \description{
 A layer is a combination of data, stat and geom with a potential position

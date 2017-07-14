@@ -92,14 +92,13 @@ scale_size_area <- function(..., max_size = 6) {
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_datetime <- function() {
-  scale_size_continuous(trans = "time")
+scale_size_datetime <- function(..., range = c(1, 6)) {
+  datetime_scale("size", "time", palette = area_pal(range), ...)
 }
 
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_date <- function() {
-  scale_size_continuous(trans = "date")
+scale_size_date <- function(..., range = c(1, 6)) {
+  datetime_scale("size", "date", palette = area_pal(range), ...)
 }
-

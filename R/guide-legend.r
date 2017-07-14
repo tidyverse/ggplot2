@@ -132,6 +132,13 @@
 #'
 #' # reversed order legend
 #' p + guides(col = guide_legend(reverse = TRUE))
+#'
+#' # hide some aesthetics from the legend
+#' p4 <- ggplot(mtcars, aes(mpg, qsec, colour = factor(vs), shape = factor(am))) +
+#'   geom_point()
+#' p4 + geom_line()
+#' p4 + geom_line(show.legend = c(color = FALSE))
+#'
 #' }
 guide_legend <- function(
 
@@ -249,7 +256,17 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
 
     if (length(matched) > 0) {
       # This layer contributes to the legend
-      if (is.na(layer$show.legend) || layer$show.legend) {
+
+      # check if this layer should be included, different behaviour depending on
+      # if show.legend is a logical or a named logical vector
+      if (!is.null(names(layer$show.legend))) {
+        layer$show.legend <- rename_aes(layer$show.legend)
+        include <- is.na(layer$show.legend[matched]) || layer$show.legend[matched]
+      } else {
+        include <- is.na(layer$show.legend) || layer$show.legend
+      }
+
+      if (include) {
         # Default is to include it
 
         # Filter out set aesthetics that can't be applied to the legend
@@ -298,10 +315,6 @@ guide_gengrob.legend <- function(guide, theme) {
 
   nbreak <- nrow(guide$key)
 
-  # gap between keys etc
-  hgap <- width_cm(unit(0.3, "lines"))
-  vgap <- hgap
-
   grob.title <- ggname("guide.title",
     element_grob(
       guide$title.theme %||% calc_element("legend.title", theme),
@@ -315,6 +328,10 @@ guide_gengrob.legend <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
+  
+  # gap between keys etc
+  hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
+  vgap <- height_cm(theme$legend.spacing.y %||% 0.5 * unit(title_height, "cm"))
 
   # Labels
   if (!guide$label || is.null(guide$key$.label)) {

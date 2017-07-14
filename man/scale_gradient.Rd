@@ -7,10 +7,8 @@
 \alias{scale_fill_gradient2}
 \alias{scale_colour_gradientn}
 \alias{scale_fill_gradientn}
-\alias{scale_colour_continuous}
 \alias{scale_colour_datetime}
 \alias{scale_colour_date}
-\alias{scale_fill_continuous}
 \alias{scale_fill_datetime}
 \alias{scale_fill_date}
 \alias{scale_color_continuous}
@@ -83,11 +81,6 @@ Use \code{NA} to refer to the existing minimum or maximum.}
 A function used to scale the input values to the range \eqn{[0, 1]}.}
   \item{oob}{Function that handles limits outside of the scale limits
 (out of bounds). The default replaces out of bounds values with NA.}
-  \item{expand}{A numeric vector of length two giving multiplicative and
-additive expansion constants. These constants ensure that the data is
-placed some distance away from the axes. The defaults are
-\code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
-discrete variables.}
   \item{trans}{Either the name of a transformation object, or the
 object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
@@ -101,6 +94,12 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
   \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}
   \item{super}{The super class to use for the constructed scale}
+  \item{expand}{Vector of range expansion constants used to add some
+padding around the data, to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+to generate the values for the \code{expand} argument. The defaults are to
+expand the scale by 5\% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.}
 }}
 
 \item{low, high}{Colours for low and high ends of the gradient.}
@@ -178,5 +177,6 @@ palette
 Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_brewer}},
   \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}}
+  \code{\link{scale_colour_hue}},
+  \code{\link{scale_colour_viridis_d}}
 }

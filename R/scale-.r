@@ -121,9 +121,9 @@ Scale <- ggproto("Scale", NULL,
   },
 
   # The physical size of the scale.
-  # This always returns a numeric vector of length 2, giving the physical
+  # This always returns a numeric vector of length 4, giving the physical
   # dimensions of a scale.
-  dimension = function(self, expand = c(0, 0)) {
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
     stop("Not implemented", call. = FALSE)
   },
 
@@ -224,8 +224,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     ifelse(!is.na(scaled), scaled, self$na.value)
   },
 
-  dimension = function(self, expand = c(0, 0)) {
-    expand_range(self$get_limits(), expand[1], expand[2])
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
+    expand_range4(self$get_limits(), expand)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
@@ -272,14 +272,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       if (is.null(b)) {
         breaks <- NULL
       } else {
-        b <- b[!is.na(b)]
-        if (length(b) < 2) return()
-
-        bd <- diff(b)[1]
-        if (min(limits) < min(b)) b <- c(b[1] - bd, b)
-        if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-        breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length.out = n + 1,
-          SIMPLIFY = FALSE)))
+        breaks <- self$trans$minor_breaks(b, limits, n)
       }
     } else if (is.function(self$minor_breaks)) {
       # Find breaks in data space, and convert to numeric
@@ -404,8 +397,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
   },
 
-  dimension = function(self, expand = c(0, 0)) {
-    expand_range(length(self$get_limits()), expand[1], expand[2])
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
+    expand_range4(length(self$get_limits()), expand)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
@@ -539,11 +532,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   A function used to scale the input values to the range \eqn{[0, 1]}.
 #' @param oob Function that handles limits outside of the scale limits
 #'   (out of bounds). The default replaces out of bounds values with NA.
-#' @param expand A numeric vector of length two giving multiplicative and
-#'   additive expansion constants. These constants ensure that the data is
-#'   placed some distance away from the axes. The defaults are
-#'   `c(0.05, 0)` for continuous variables, and `c(0, 0.6)` for
-#'   discrete variables.
+#' @inheritParams scale_x_discrete
 #' @param na.value Missing values will be replaced with this value.
 #' @param trans Either the name of a transformation object, or the
 #'   object itself. Built-in transformations include "asn", "atanh",

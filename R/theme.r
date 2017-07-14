@@ -27,8 +27,12 @@
 #'   `axis.title`)
 #' @param axis.title.x.top x axis label on top axis (`element_text`;
 #'   inherits from `axis.title.x`)
+#' @param axis.title.x.bottom x axis label on bottom axis (`element_text`;
+#'   inherits from `axis.title.x`)
 #' @param axis.title.y y axis label (`element_text`; inherits from
 #'   `axis.title`)
+#' @param axis.title.y.left y axis label on left axis (`element_text`;
+#'   inherits from `axis.title.y`)
 #' @param axis.title.y.right y axis label on right axis (`element_text`;
 #'   inherits from `axis.title.y`)
 #' @param axis.text tick labels along axes (`element_text`; inherits from
@@ -37,23 +41,43 @@
 #'   `axis.text`)
 #' @param axis.text.x.top x axis tick labels on top axis (`element_text`;
 #'   inherits from `axis.text.x`)
+#' @param axis.text.x.bottom x axis tick labels on bottom axis (`element_text`;
+#'   inherits from `axis.text.x`)
 #' @param axis.text.y y axis tick labels (`element_text`; inherits from
 #'   `axis.text`)
+#' @param axis.text.y.left y axis tick labels on left axis
+#'   (`element_text`; inherits from `axis.text.y`)
 #' @param axis.text.y.right y axis tick labels on right axis
 #'   (`element_text`; inherits from `axis.text.y`)
 #' @param axis.ticks tick marks along axes (`element_line`; inherits from
 #'   `line`)
 #' @param axis.ticks.x x axis tick marks (`element_line`; inherits from
 #'   `axis.ticks`)
+#' @param axis.ticks.x.top x axis tick marks on top axis (`element_line`;
+#'   inherits from `axis.ticks.x`)
+#' @param axis.ticks.x.bottom x axis tick marks on bottom axis (`element_line`;
+#'   inherits from `axis.ticks.x`)
 #' @param axis.ticks.y y axis tick marks (`element_line`; inherits from
 #'   `axis.ticks`)
+#' @param axis.ticks.y.left y axis tick marks on left axis (`element_line`;
+#'   inherits from `axis.ticks.y`)
+#' @param axis.ticks.y.right y axis tick marks on right axis (`element_line`;
+#'   inherits from `axis.ticks.y`)
 #' @param axis.ticks.length length of tick marks (`unit`)
 #' @param axis.line lines along axes (`element_line`; inherits from
 #'   `line`)
 #' @param axis.line.x line along x axis (`element_line`; inherits from
 #'   `axis.line`)
+#' @param axis.line.x.top line along x axis on top axis (`element_line`;
+#'   inherits from `axis.line.x`)
+#' @param axis.line.x.bottom line along x axis on bottom axis (`element_line`;
+#'   inherits from `axis.line.x`)
 #' @param axis.line.y line along y axis (`element_line`; inherits from
 #'   `axis.line`)
+#' @param axis.line.y.left line along y axis on left axis (`element_line`;
+#'   inherits from `axis.line.y`)
+#' @param axis.line.y.right line along y axis on right axis (`element_line`;
+#'   inherits from `axis.line.y`)
 #'
 #' @param legend.background background of legend (`element_rect`; inherits
 #'   from `rect`)
@@ -259,20 +283,32 @@ theme <- function(line,
                   axis.title,
                   axis.title.x,
                   axis.title.x.top,
+                  axis.title.x.bottom,
                   axis.title.y,
+                  axis.title.y.left,
                   axis.title.y.right,
                   axis.text,
                   axis.text.x,
                   axis.text.x.top,
+                  axis.text.x.bottom,
                   axis.text.y,
+                  axis.text.y.left,
                   axis.text.y.right,
                   axis.ticks,
                   axis.ticks.x,
+                  axis.ticks.x.top,
+                  axis.ticks.x.bottom,
                   axis.ticks.y,
+                  axis.ticks.y.left,
+                  axis.ticks.y.right,
                   axis.ticks.length,
                   axis.line,
                   axis.line.x,
+                  axis.line.x.top,
+                  axis.line.x.bottom,
                   axis.line.y,
+                  axis.line.y.left,
+                  axis.line.y.right,
                   legend.background,
                   legend.margin,
                   legend.spacing,
@@ -409,14 +445,8 @@ add_theme <- function(t1, t2, t2name) {
       # If y is NULL, or a string or numeric vector, or is element_blank, just replace x
       x <- y
     } else {
-      # If x is not NULL, then copy over the non-NULL properties from y
-      # Get logical vector of non-NULL properties in y
-      idx <- !vapply(y, is.null, logical(1))
-      # Get the names of TRUE items
-      idx <- names(idx[idx])
-
-      # Update non-NULL items
-      x[idx] <- y[idx]
+      # If x is not NULL, then merge into y
+      x <- merge_element(y, x)
     }
 
     # Assign it back to t1
@@ -538,6 +568,49 @@ calc_element <- function(element, theme, verbose = FALSE) {
   Reduce(combine_elements, parents, theme[[element]])
 }
 
+#' Merge a parent element into a child element
+#'
+#' This is a generic and element classes must provide an implementation of this
+#' method
+#'
+#' @param new The child element in the theme hierarchy
+#' @param old The parent element in the theme hierarchy
+#' @return A modified version of `new` updated with the properties of
+#' `old`
+#' @keywords internal
+#' @export
+#' @examples
+#' new <- element_text(colour = "red")
+#' old <- element_text(colour = "blue", size = 10)
+#'
+#' # Adopt size but ignore colour
+#' merge_element(new, old)
+#'
+merge_element <- function(new, old) {
+  UseMethod("merge_element")
+}
+#' @rdname merge_element
+#' @export
+merge_element.default <- function(new, old) {
+  stop("No method for merging ", class(new)[1], " into ", class(old)[1], call. = FALSE)
+}
+#' @rdname merge_element
+#' @export
+merge_element.element <- function(new, old) {
+  if (!inherits(new, class(old)[1])) {
+    stop("Only elements of the same class can be merged", call. = FALSE)
+  }
+  # Override NULL properties of new with the values in old
+  # Get logical vector of NULL properties in new
+  idx <- vapply(new, is.null, logical(1))
+  # Get the names of TRUE items
+  idx <- names(idx[idx])
+
+  # Update non-NULL items
+  new[idx] <- old[idx]
+
+  new
+}
 
 # Combine the properties of two elements
 #

@@ -29,9 +29,6 @@ cut_width(x, width, center = NULL, boundary = NULL, closed = c("right",
     labels are constructed using \code{"(a,b]"} interval notation.  If
     \code{labels = FALSE}, simple integer codes are returned instead of
     a factor.}
-  \item{include.lowest}{logical, indicating if an \sQuote{x[i]} equal to
-    the lowest (or highest, for \code{right = FALSE}) \sQuote{breaks}
-    value should be included.}
   \item{right}{logical, indicating if the intervals should be closed on
     the right (and open on the left) or vice versa.}
   \item{dig.lab}{integer which is used when labels are not given.  It

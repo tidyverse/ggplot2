@@ -168,6 +168,13 @@ p + guides(col = guide_legend(ncol = 8, byrow = TRUE))
 
 # reversed order legend
 p + guides(col = guide_legend(reverse = TRUE))
+
+# hide some aesthetics from the legend
+p4 <- ggplot(mtcars, aes(mpg, qsec, colour = factor(vs), shape = factor(am))) +
+  geom_point()
+p4 + geom_line()
+p4 + geom_line(show.legend = c(color = FALSE))
+
 }
 }
 \seealso{

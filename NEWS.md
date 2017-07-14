@@ -5,6 +5,39 @@
   not). Ordered factors do not throw warnings when mapped to size or alpha
   (unordered factors do) (@karawoo, #1526).
 
+* The `show.legend` parameter now accepts a named logical vector to hide/show
+  only some aesthetics in the legend (@tutuchan, #1798)
+
+* Default colour maps for continuous data are controlled by global options
+  `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which can be set to
+  either `"gradient"` or `"viridis"` (@karawoo).
+
+* Adds built-in support for `viridis` and related colour maps. Use the functions
+  `scale_colour_viridis_c()`/`scale_fill_viridis_c()` for continuous data and
+  `scale_colour_viridis_d()`/`scale_fill_viridis_d()` for discrete data
+  (@karawoo, #1526).
+
+* Updated datetime scales for `alpha`, `size`, `colour`, and `fill` can take
+  `date_breaks` and `date_labels` arguments (@karawoo, #1526).
+
+* `scale_alpha()` gains date and date-time variants (@karawoo, #1526).
+
+* Axes positioned on the top and to the right can now customize their ticks and
+  lines separately (@thomasp85, #1899)
+
+* `geom_segment` now also takes a `linejoin` parameter. This allows more control over the appearance of the segments, which is especially useful for plotting thick arrows (@Ax3man, #774).
+
+* Theme elements can now be subclassed. Add a `merge_element` method to control
+  how properties are inherited from parent element. Add `element_grob` method
+  to define how elements are rendered into grobs (@thomasp85, #1981).
+
+* Theme functions now have the optional parameters `base_line_size` and
+  `base_rect_size` to control the default sizes of line and rectangle elements
+  (@karawoo, #2176).
+
+* Fixed bug in `coord_polar` that prevented secondary axis ticks and labels
+  from being drawn (@dylan-stark, #2072)
+
 * Use `rel()` to set line widths in theme defaults (@baptiste).
 
 * `geom_density` drops groups with fewer than two data points and throws a
@@ -47,6 +80,31 @@
   
 * `geom_smooth`'s message for `method="auto"` now reports the formula used,
   in addition to the name of the smoothing function (@davharris #1951).
+  
+* The `expand` argument for `scale_*_continuous()` and `scale_*_discrete()`
+  now accepts separate expansion values for the lower and upper range
+  limits. The expansion limits can be specified using the convenience
+  function `expand_scale()`.
+  
+  Separate expansion limits may be useful for bar charts, e.g. if one
+  wants to have the bottom of the bars being flush with the x axis but
+  still leave some (automatically calculated amount of) space above them:
+  
+    ```R
+    ggplot(mtcars) +
+        geom_bar(aes(x = factor(cyl))) +
+        scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
+    ```
+  
+  It can also be useful for line charts, e.g. for counts over time,
+  where one wants to have a ’hard’ lower limit of y = 0 but leave the
+  upper limit unspecified (and perhaps differing between panels),
+  but with some extra space above the highest point on the line.
+  (With symmetrical limits, the extra space above the highest point
+  could in some cases cause the lower limit to be negative.)
+  
+  The old syntax for the `expand` argument will of course continue
+  to work. (@huftis, #1669)
 
 * `print.ggplot()` now returns the original ggplot object, instead of the output from `ggplot_build()`. Also, the object returned from `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
 
