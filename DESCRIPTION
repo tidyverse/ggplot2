@@ -67,6 +67,7 @@ Collate:
     'geom-.r'
     'annotation-custom.r'
     'annotation-logticks.r'
+    'annotation-ticks.R'
     'geom-polygon.r'
     'geom-map.r'
     'annotation-map.r'
