@@ -1,7 +1,7 @@
 #' @title Annotation: tick marks
 #' @description  This annotation adds tick marks to an axis
 #' @export
-#' @inheritParams ggplot2::annotation_logticks
+#' @inheritParams annotation_logticks
 #' @param ticks_per_base integer, number of minor ticks between each pair of major ticks, Default: base-1
 #' @param delog boolean, if an idenity transformation is needed use set to TRUE, Default: FALSE
 #' @examples
@@ -41,7 +41,6 @@
 #' p <- p+ scale_y_log10()
 #' 
 #' p+annotation_ticks(base = tickMat$base, ticks_per_base = tickMat$ticks, sides = tickMat$sides, delog  = tickMat$delog, colour=c('red'))
-#' @import ggplot2
 #' @importFrom grid unit convertUnit gpar segmentsGrob gTree
 annotation_ticks <- function (base = 10, sides = 'b', scaled = TRUE, short = grid::unit(0.1,"cm"),
                               mid = grid::unit(0.2, "cm"), long = grid::unit(0.3, "cm"), colour = "black", 
@@ -49,8 +48,8 @@ annotation_ticks <- function (base = 10, sides = 'b', scaled = TRUE, short = gri
 {
   if (!is.null(color)) 
     colour <- color
-  ggplot2::layer(data = data.frame(x = NA), mapping = NULL, stat = ggplot2::StatIdentity, 
-                 geom = GeomTicks, position = ggplot2::PositionIdentity, show.legend = FALSE, 
+      layer(data = data.frame(x = NA), mapping = NULL, stat = StatIdentity, 
+                 geom = GeomTicks, position = PositionIdentity, show.legend = FALSE, 
                  inherit.aes = FALSE, params = list(base = base, sides = sides, 
                                                     scaled = scaled, short = short, mid = mid, long = long, 
                                                     colour = colour, size = size, linetype = linetype, 
@@ -60,7 +59,7 @@ annotation_ticks <- function (base = 10, sides = 'b', scaled = TRUE, short = gri
 environment(annotation_ticks)=asNamespace('ggplot2')
 
 #' @export
-GeomTicks<- ggplot2::ggproto("GeomTicks", ggplot2::Geom,
+GeomTicks<- ggproto("GeomTicks", Geom,
                              extra_params = "",
                              handle_na = function(data, params) {
                                data
@@ -122,7 +121,7 @@ GeomTicks<- ggplot2::ggproto("GeomTicks", ggplot2::Geom,
                                                          x1 = grid::unit(xticks$x, "native"),
                                                          y0 = grid::unit(1, "npc") - grid::unit(xticks$start, "cm"), 
                                                          y1 = unit(1, "npc") - grid::unit(xticks$end, "cm"),
-                                                         gp = grid::gpar(col = ggplot2::alpha(colour, alpha), lty = linetype, lwd = size * .pt)
+                                                         gp = grid::gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
                                                        ))
                                    }
                                  }
@@ -155,7 +154,7 @@ GeomTicks<- ggplot2::ggproto("GeomTicks", ggplot2::Geom,
                                      ticks$y_l <- with(data, grid::segmentsGrob(
                                        y0 = grid::unit(yticks$y, "native"), y1 = grid::unit(yticks$y, "native"),
                                        x0 = grid::unit(yticks$start, "cm"), x1 = grid::unit(yticks$end, "cm"),
-                                       gp = grid::gpar(col = ggplot2::alpha(colour, alpha), lty = linetype, lwd = size * .pt)
+                                       gp = grid::gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
                                      ))
                                    }
                                    if (grepl("r", sides[s])) {
@@ -165,7 +164,7 @@ GeomTicks<- ggplot2::ggproto("GeomTicks", ggplot2::Geom,
                                                          y1 = grid::unit(yticks$y, "native"),
                                                          x0 = grid::unit(1, "npc") - grid::unit(yticks$start, "cm"), 
                                                          x1 = grid::unit(1, "npc") - grid::unit(yticks$end, "cm"),
-                                                         gp = grid::gpar(col = ggplot2::alpha(colour, alpha), lty = linetype, lwd = size * .pt)
+                                                         gp = grid::gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
                                                        ))
                                    }
                                  }
@@ -173,7 +172,7 @@ GeomTicks<- ggplot2::ggproto("GeomTicks", ggplot2::Geom,
                                grid::gTree(children = do.call("gList", ticks))
                              },
                              
-                             default_aes = ggplot2::aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
+                             default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = 1)
 )
 
 
