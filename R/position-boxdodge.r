@@ -7,7 +7,7 @@
 #' @include position-dodge.r
 #' @inheritParams position_dodge
 #' @param padding Padding between boxes at the same position. Boxes are shrunk
-#'   by this proportion to make room for space between them.
+#'   by this proportion to make room for space between them. Defaults to 0.05.
 #' @family position adjustments
 #' @export
 #' @examples
@@ -17,7 +17,7 @@
 #' ggplot(data = iris, aes(Species, Sepal.Length)) +
 #'   geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
 position_boxdodge <- function(width = NULL, preserve = c("single", "total"),
-                              padding = 0.1) {
+                              padding = 0.05) {
   ggproto(NULL, PositionBoxdodge,
     width = width,
     preserve = match.arg(preserve),
@@ -31,7 +31,7 @@ position_boxdodge <- function(width = NULL, preserve = c("single", "total"),
 #' @export
 PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
   preserve = "single",
-  padding = 0.1,
+  padding = 0.05,
   setup_params = function(self, data) {
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warning("Width not defined. Set with `position_boxdodge(width = ?)`",
@@ -64,7 +64,7 @@ PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
   }
 )
 
-pos_boxdodge <- function(df, width, n = NULL, padding = 0.1) {
+pos_boxdodge <- function(df, width, n = NULL, padding = 0.05) {
 
   if (length(unique(df$group)) == 1) {
     return(df)
