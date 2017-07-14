@@ -100,7 +100,7 @@ pos_boxdodge <- function(df, width, n = NULL, padding = 0.1) {
   }
 
   # x values get moved to between xmin and xmax
-  df$x <- rowMeans(df[, c("xmin", "xmax")])
+  df$x <- (df$xmin + df$xmax) / 2
 
   # If no boxes occupy the same position, there is no need to add padding
   if (!any(duplicated(df$xid))) {
