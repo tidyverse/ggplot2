@@ -104,6 +104,8 @@
 
 * `ggproto()` produces objects with class `c("ggproto", "gg")`. This was added so that when layers, scales, or other ggproto objects are added together, an informative error message is raised (@jrnold, #2056).
 
+* `position_jitter()` gains a `seed` argument that allows specifying a random seed for reproducible jittering (#1996, @krlmlr).
+
 
 ### sf
 
