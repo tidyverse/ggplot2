@@ -3,6 +3,9 @@
 * Box plot position is now controlled by `position_boxdodge()` (@karawoo,
   #2143).
 
+* The `show.legend` parameter now accepts a named logical vector to hide/show
+  only some aesthetics in the legend (@tutuchan, #1798)
+
 * Default colour maps for continuous data are controlled by global options
   `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which can be set to
   either `"gradient"` or `"viridis"` (@karawoo).

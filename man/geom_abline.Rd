@@ -45,7 +45,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 
 \item{xintercept, yintercept, slope, intercept}{Parameters that control the
 position of the line. If these are set, \code{data}, \code{mapping} and
