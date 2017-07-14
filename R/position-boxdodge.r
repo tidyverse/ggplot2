@@ -40,8 +40,10 @@ PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
 
     if (identical(self$preserve, "total")) {
       n <- NULL
-    } else {
+    } else if ("x" %in% names(data)){
       n <- max(table(data$x))
+    } else {
+      n <- max(table((data$xmin + data$xmax) / 2))
     }
 
     list(

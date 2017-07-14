@@ -70,7 +70,6 @@ position_dodge <- function(width = NULL, preserve = c("total", "single")) {
 #' @usage NULL
 #' @export
 PositionDodge <- ggproto("PositionDodge", Position,
-  required_aes = "x",
   width = NULL,
   preserve = "total",
   setup_params = function(self, data) {
@@ -91,6 +90,13 @@ PositionDodge <- ggproto("PositionDodge", Position,
     )
   },
 
+  setup_data = function(self, data, params) {
+    if (!"x" %in% names(data) & all(c("xmin", "xmax") %in% names(data))) {
+      data$x <- (data$xmin + data$xmax) / 2
+    }
+    data
+  },
+  
   compute_panel = function(data, params, scales) {
     collide(
       data,
