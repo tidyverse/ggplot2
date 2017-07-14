@@ -10,9 +10,9 @@ NULL
 #'
 #' @export
 #' @param map Data frame that contains the map coordinates.  This will
-#'   typically be created using \code{\link{fortify}} on a spatial object.
-#'   It must contain columns \code{x} or \code{long}, \code{y} or
-#'   \code{lat}, and \code{region} or \code{id}.
+#'   typically be created using [fortify()] on a spatial object.
+#'   It must contain columns `x` or `long`, `y` or
+#'   `lat`, and `region` or `id`.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @examples

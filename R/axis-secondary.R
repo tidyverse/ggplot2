@@ -9,28 +9,24 @@
 #' @param name The name of the secondary axis
 #'
 #' @param breaks One of:
-#' \itemize{
-#'   \item{\code{NULL} for no breaks}
-#'   \item{\code{waiver()} for the default breaks computed by the transformation object}
-#'   \item{A numeric vector of positions}
-#'   \item{A function that takes the limits as input and returns breaks as output}
-#' }
+#'   - `NULL` for no breaks
+#'   - `waiver()` for the default breaks computed by the transformation object
+#'   - A numeric vector of positions
+#'   - A function that takes the limits as input and returns breaks as output
 #'
 #' @param labels One of:
-#' \itemize{
-#'   \item{\code{NULL} for no labels}
-#'   \item{\code{waiver()} for the default labels computed by the transformation object}
-#'   \item{A character vector giving labels (must be same length as \code{breaks})}
-#'   \item{A function that takes the breaks as input and returns labels as output}
-#' }
+#'   - `NULL` for no labels
+#'   - `waiver()` for the default labels computed by the transformation object
+#'   - A character vector giving labels (must be same length as `breaks`)
+#'   - A function that takes the breaks as input and returns labels as output
 #'
 #' @details
-#' \code{sec_axis} is used to create the specifications for a secondary axis.
-#' Except for the \code{trans} argument any of the arguments can be set to
-#' \code{derive()} which would result in the secondary axis inheriting the
+#' `sec_axis` is used to create the specifications for a secondary axis.
+#' Except for the `trans` argument any of the arguments can be set to
+#' `derive()` which would result in the secondary axis inheriting the
 #' settings from the primary axis.
 #'
-#' \code{dup_axis} is provide as a shorthand for creating a secondary axis that
+#' `dup_axis` is provide as a shorthand for creating a secondary axis that
 #' is a duplication of the primary axis, effectively mirroring the primary axis.
 #'
 #' @examples
@@ -124,9 +120,9 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     old_range <- seq(inv_range[1], inv_range[2], length.out = self$detail)
     full_range <- self$transform_range(old_range)
 
-    # Test for monotony
+    # Test for monotonicity
     if (length(unique(sign(diff(full_range)))) != 1)
-      stop("transformation for secondary axes must be monotonous")
+      stop("transformation for secondary axes must be monotonic")
 
     # Get break info for the secondary axis
     new_range <- range(full_range, na.rm = TRUE)

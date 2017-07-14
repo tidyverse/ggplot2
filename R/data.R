@@ -23,8 +23,8 @@
 #' US economic time series
 #'
 #' This dataset was produced from US economic time series data available from
-#' \url{http://research.stlouisfed.org/fred2}. \code{economics} is in "wide"
-#' format, \code{economics_long} is in "long" format.
+#' \url{http://research.stlouisfed.org/fred2}. `economics` is in "wide"
+#' format, `economics_long` is in "long" format.
 #'
 #' @format A data frame with 478 rows and 6 variables
 #' \describe{
@@ -164,9 +164,9 @@
 #' @format A data frame with 5,625 observations and 3 variables.
 "faithfuld"
 
-#' \code{colors()} in Luv space
+#' `colors()` in Luv space
 #'
-#' All built-in \code{\link{colors}()} translated into Luv colour space.
+#' All built-in [colors()] translated into Luv colour space.
 #'
 #' @format A data frame with 657 observations and 4 variables:
 #' \describe{

@@ -1,19 +1,19 @@
 #' Compute normal confidence ellipses
 #'
 #' The method for calculating the ellipses has been modified from
-#' \code{car::ellipse} (Fox and Weisberg, 2011)
+#' `car::ellipse` (Fox and Weisberg, 2011)
 #'
 #' @references John Fox and Sanford Weisberg (2011). An {R} Companion to
 #'   Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
 #'   \url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
 #' @param level The confidence level at which to draw an ellipse (default is 0.95),
-#'   or, if \code{type="euclid"}, the radius of the circle to be drawn.
+#'   or, if `type="euclid"`, the radius of the circle to be drawn.
 #' @param type The type of ellipse.
-#'   The default \code{"t"} assumes a multivariate t-distribution, and
-#'   \code{"norm"} assumes a multivariate normal distribution.
-#'   \code{"euclid"} draws a circle with the radius equal to \code{level},
+#'   The default `"t"` assumes a multivariate t-distribution, and
+#'   `"norm"` assumes a multivariate normal distribution.
+#'   `"euclid"` draws a circle with the radius equal to `level`,
 #'   representing the euclidean distance from the center.
-#'   This ellipse probably won't appear circular unless \code{coord_fixed()} is applied.
+#'   This ellipse probably won't appear circular unless `coord_fixed()` is applied.
 #' @param segments The number of segments to be used in drawing the ellipse.
 #' @inheritParams layer
 #' @inheritParams geom_point

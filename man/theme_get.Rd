@@ -27,8 +27,8 @@ e1 \%+replace\% e2
 }
 \value{
 \code{theme_set}, \code{theme_update}, and \code{theme_replace}
-  invisibly return the previous theme so you can easily save it, then
-  later restore it.
+invisibly return the previous theme so you can easily save it, then
+later restore it.
 }
 \description{
 The current/active theme is automatically applied to every plot you draw.
@@ -88,5 +88,5 @@ rep_el$text
 # apply directly to the current/active theme.
 }
 \seealso{
-\code{\link{+.gg}}
+\code{\link[=+.gg]{+.gg()}}
 }

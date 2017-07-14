@@ -1,14 +1,15 @@
 #' Scales for shapes, aka glyphs
 #'
-#' \code{scale_shape} maps discrete variables to six easily discernible shapes.
+#' `scale_shape` maps discrete variables to six easily discernible shapes.
 #' If you have more than six levels, you will get a warning message, and the
 #' seventh and subsequence levels will not appear on the plot. Use
-#' \code{\link{scale_shape_manual}} to supply your own values. You can not map
+#' [scale_shape_manual()] to supply your own values. You can not map
 #' a continuous variable to shape.
 #'
-#' @param solid Should the shapes be solid, \code{TRUE}, or hollow,
-#'   \code{FALSE}?
+#' @param solid Should the shapes be solid, `TRUE`, or hollow,
+#'   `FALSE`?
 #' @inheritParams scale_x_discrete
+#' @inheritDotParams discrete_scale -expand -position
 #' @rdname scale_shape
 #' @export
 #' @examples

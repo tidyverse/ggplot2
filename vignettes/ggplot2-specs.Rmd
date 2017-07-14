@@ -21,7 +21,8 @@ Colours can be specified with:
 *   A __name__, e.g., `"red"`. R has `r length(colours())` built-in named
     colours, which can be listed with `colours()`. The Stowers Institute 
     provides a nice printable pdf that lists all colours: 
-    <http://research.stowers-institute.org/efg/R/Color/Chart/>.
+    <http://research.stowers.org/mcm/efg/R/Color/Chart/>.
+    
 
 *   An __rgb specification__, with a string of the form `"#RRGGBB"` where each of 
     the pairs `RR`, `GG`, `BB` consists of two hexadecimal digits giving a value 

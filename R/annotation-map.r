@@ -6,7 +6,7 @@ NULL
 #' Display a fixed map on a plot.
 #'
 #' @param map data frame representing a map.  Most map objects can be
-#'   converted into the right format by using \code{\link{fortify}}
+#'   converted into the right format by using [fortify()]
 #' @param ... other arguments used to modify aesthetics
 #' @export
 #' @examples
