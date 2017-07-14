@@ -18,6 +18,32 @@ test_that("Colorbar respects show.legend in layer", {
   expect_true("guide-box" %in% ggplotGrob(p)$layout$name)
 })
 
+test_that("show.legend handles named vectors", {
+  n_legends <- function(p) {
+    g <- ggplotGrob(p)
+    gb <- which(g$layout$name == "guide-box")
+    if (length(gb) > 0) {
+      n <- length(g$grobs[[gb]]) - 1
+    } else {
+      n <- 0
+    }
+    n
+  }
+
+  df <- data.frame(x = 1:3, y = 20:22)
+  p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
+    geom_point(size = 20)
+  expect_equal(n_legends(p), 2)
+
+  p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
+    geom_point(size = 20, show.legend = c(color = FALSE))
+  expect_equal(n_legends(p), 1)
+
+  p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
+    geom_point(size = 20, show.legend = c(color = FALSE, shape = FALSE))
+  expect_equal(n_legends(p), 0)
+})
+
 
 # Visual tests ------------------------------------------------------------
 
