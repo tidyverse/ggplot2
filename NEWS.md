@@ -26,8 +26,8 @@
 * `geom_smooth`'s message for `method="auto"` now reports the formula used,
   in addition to the name of the smoothing function (@davharris #1951).
   
-* The `show.legend` parameter now accepts a named logical vector to hide/show only some aesthetics in the
-legend (@tutuchan)
+* The `show.legend` parameter now accepts a named logical vector to hide/show
+only some aesthetics in the legend (@tutuchan, #1798)
 
 ### Coordinate extensions
 
