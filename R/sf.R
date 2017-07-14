@@ -265,7 +265,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
     graticule$y_start <- sf_rescale01_x(graticule$y_start, y_range)
     graticule$y_end <- sf_rescale01_x(graticule$y_end, y_range)
-    graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
+    if (any(grepl("degree", graticule$degree_label)))
+      graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
 
     list(
       x_range = x_range,
