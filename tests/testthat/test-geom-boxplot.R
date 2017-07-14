@@ -42,15 +42,9 @@ test_that("boxes with variable widths do not overlap", {
   p <- ggplot(data = iris, aes(Species, Sepal.Length)) +
     geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
   d <- layer_data(p)[c("xmin", "xmax")]
+  xid <- find_x_overlaps(d)
   
-  overlaps <- vector(length = nrow(d) - 1)  
-  for (i in 2:nrow(d)) {
-    if (d$xmin[i] < d$xmax[i - 1]) {
-      overlaps[i - 1] <- TRUE
-    }
-  }
-
-  expect_false(any(overlaps))
+  expect_false(any(duplicated(xid)))
 })
 
 
