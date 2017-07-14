@@ -119,10 +119,13 @@ StatQqLine <- ggproto("StatQqLine", Stat,
    slope = diff(y_coords)/diff(x_coords)
    intercept = y_coords[1L] - slope * x_coords[1L]
 
-   if(fullrange & !is.null(scales$x$dimension)){
-     out <- data.frame(x = scales$x$dimension())
+
+   out <- data.frame()
+
+   if (fullrange & !is.null(scales$x$dimension)){
+     out$x <- scales$x$dimension()
    } else{
-     out <- data.frame(x = range(theoretical))
+     out$x <- range(theoretical)
    }
 
    out$y <- slope * out$x + intercept
