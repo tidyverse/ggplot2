@@ -4,7 +4,8 @@
 \alias{position_boxdodge}
 \title{Position dodge for box plots}
 \usage{
-position_boxdodge(width = NULL, preserve = c("single", "total"))
+position_boxdodge(width = NULL, preserve = c("single", "total"),
+  padding = 0.1)
 }
 \arguments{
 \item{width}{Dodging width, when different to the width of the individual
@@ -13,6 +14,9 @@ geoms. See the examples.}
 
 \item{preserve}{Should dodging preserve the total width of all elements
 at a position, or the width of a single element?}
+
+\item{padding}{Padding between boxes at the same position. Boxes are shrunk
+by this proportion to make room for space between them.}
 }
 \description{
 Dodging preserves the vertical position of an geom while adjusting the

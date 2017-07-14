@@ -6,6 +6,8 @@
 #' 
 #' @include position-dodge.r
 #' @inheritParams position_dodge
+#' @param padding Padding between boxes at the same position. Boxes are shrunk
+#'   by this proportion to make room for space between them.
 #' @family position adjustments
 #' @export
 #' @examples
@@ -14,10 +16,12 @@
 #'
 #' ggplot(data = iris, aes(Species, Sepal.Length)) +
 #' geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
-position_boxdodge <- function(width = NULL, preserve = c("single", "total")) {
+position_boxdodge <- function(width = NULL, preserve = c("single", "total"),
+                              padding = 0.1) {
   ggproto(NULL, PositionBoxdodge,
     width = width,
-    preserve = match.arg(preserve)
+    preserve = match.arg(preserve),
+    padding = padding
   )  
 }
 
@@ -27,6 +31,7 @@ position_boxdodge <- function(width = NULL, preserve = c("single", "total")) {
 #' @export
 PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
   preserve = "single",
+  padding = 0.1,
   setup_params = function(self, data) {
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warning("Width not defined. Set with `position_boxdodge(width = ?)`",
@@ -41,7 +46,8 @@ PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
 
     list(
       width = self$width,
-      n = n
+      n = n,
+      padding = self$padding
     )
   },
                           
@@ -52,12 +58,13 @@ PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
       name = "position_boxdodge",
       strategy = pos_boxdodge,
       n = params$n,
+      padding = params$padding,
       check.width = FALSE
     )
   }
 )
 
-pos_boxdodge <- function(df, width, n = NULL) {
+pos_boxdodge <- function(df, width, n = NULL, padding = 0.1) {
    
   if (!all(c("xmin", "xmax") %in% names(df))) {
     df$xmin <- df$x
@@ -94,6 +101,16 @@ pos_boxdodge <- function(df, width, n = NULL) {
 
   # x values get moved to between xmin and xmax
   df$x <- rowMeans(df[, c("xmin", "xmax")])
+
+  # If no boxes occupy the same position, there is no need to add padding
+  if (!any(duplicated(df$xid))) {
+    return(df)
+  }
+  
+  # Shrink boxes to add space between them
+  df$pad_width <- df$new_width * (1 - padding)
+  df$xmin <- df$x + (df$pad_width / 2)
+  df$xmax <- df$x - (df$pad_width / 2)
   
   df
 }
