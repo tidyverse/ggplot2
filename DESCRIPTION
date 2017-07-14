@@ -48,7 +48,8 @@ Suggests:
     viridisLite
 Remotes:
     hadley/scales,
-    hadley/svglite
+    hadley/svglite,
+    jimhester/withr
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
