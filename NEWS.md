@@ -3,7 +3,8 @@
 * Ordered factors now behave differently from unordered factors in some cases.
   Ordered factors throw a warning when mapped to shape (unordered factors do
   not). Ordered factors do not throw warnings when mapped to size or alpha
-  (unordered factors do) (@karawoo, #1526).
+  (unordered factors do). Viridis is the default colour and fill scale for
+  ordered factors (@karawoo, #1526).
 
 * The `show.legend` parameter now accepts a named logical vector to hide/show
   only some aesthetics in the legend (@tutuchan, #1798)
