@@ -400,6 +400,18 @@ theme_void <- function(base_size = 11, base_family = "",
     panel.ontop =        FALSE,
     panel.spacing =      unit(half_line, "pt"),
     plot.margin =        unit(c(0, 0, 0, 0), "lines"),
+    plot.title =         element_text(
+                           size = rel(1.2),
+                           hjust = 0, vjust = 1,
+                           margin = margin(t = half_line * 1.2)),
+    plot.subtitle =      element_text(
+                           size = rel(0.9),
+                           hjust = 0, vjust = 1,
+                           margin = margin(t = half_line * 0.9)),
+    plot.caption =       element_text(
+                           size = rel(0.9),
+                           hjust = 1, vjust = 1,
+                           margin = margin(t = half_line * 0.9)),
 
     complete = TRUE
   )

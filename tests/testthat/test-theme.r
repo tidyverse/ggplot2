@@ -164,19 +164,6 @@ test_that("Complete and non-complete themes interact correctly with ggplot objec
   expect_equal(p$plot$theme$text$colour, "red")
   expect_equal(p$plot$theme$text$face, "italic")
 
-  # The final calculated plot theme should not blend a complete theme
-  # with the default theme
-  default_theme <- theme_gray() + theme(axis.text.x = element_text(colour = "red"))
-
-  ptheme <- plot_theme(qplot(1:3, 1:3) + theme_void(), default_theme)
-  expect_null(ptheme$axis.text.x)
-
-  ptheme <- plot_theme(qplot(1:3, 1:3) + theme_gray(), default_theme)
-  expect_true(is.null(ptheme$axis.text.x$colour) || ptheme$axis.text.x$colour != "red")
-
-  ptheme <- plot_theme(qplot(1:3, 1:3) + theme(axis.text.y = element_text(colour = "blue")), default_theme)
-  expect_equal(ptheme$axis.text.x$colour, "red")
-  expect_equal(ptheme$axis.text.y$colour, "blue")
 })
 
 test_that("theme(validate=FALSE) means do not validate_element", {
@@ -238,6 +225,19 @@ test_that("Elements can be merged", {
   )
 })
 
+test_that("Final calculated plot theme should not blend a complete theme with the default theme", {
+  default_theme <- theme_gray() + theme(axis.text.x = element_text(colour = "red"))
+
+  ptheme <- plot_theme(qplot(1:3, 1:3) + theme_void(), default_theme)
+  expect_null(ptheme$axis.text.x)
+
+  ptheme <- plot_theme(qplot(1:3, 1:3) + theme_gray(), default_theme)
+  expect_true(is.null(ptheme$axis.text.x$colour) || ptheme$axis.text.x$colour != "red")
+
+  ptheme <- plot_theme(qplot(1:3, 1:3) + theme(axis.text.y = element_text(colour = "blue")), default_theme)
+  expect_equal(ptheme$axis.text.x$colour, "red")
+  expect_equal(ptheme$axis.text.y$colour, "blue")
+})
 
 # Visual tests ------------------------------------------------------------
 
