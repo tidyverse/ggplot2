@@ -7,12 +7,12 @@
 \usage{
 geom_qq_line(mapping = NULL, data = NULL, geom = "path",
   position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), line.p = c(0.25, 0.75), line.expand = c(-0.1, 0.1),
+  dparams = list(), line.p = c(0.25, 0.75), fullrange = FALSE,
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_qq_line(mapping = NULL, data = NULL, geom = "path",
   position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), line.p = c(0.25, 0.75), line.expand = c(-0.1, 0.1),
+  dparams = list(), line.p = c(0.25, 0.75), fullrange = FALSE,
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
@@ -53,8 +53,8 @@ function.}
 \item{line.p}{Vector of quantiles to use when fitting the Q-Q line, defaults
 defaults to \code{c(.25, .75)}.}
 
-\item{line.expand}{Vector of additive expansion factors along the x-axis,
-defaults to \code{c(-.1, .1)}.}
+\item{fullrange}{should the fit span the full range of the plot, or just
+the data}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

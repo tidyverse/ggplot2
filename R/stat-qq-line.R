@@ -9,8 +9,8 @@
 #'   function.
 #' @param line.p Vector of quantiles to use when fitting the Q-Q line, defaults
 #' defaults to \code{c(.25, .75)}.
-#' @param line.expand Vector of additive expansion factors along the x-axis,
-#' defaults to \code{c(-.1, .1)}.
+#' @param fullrange should the fit span the full range of the plot, or just
+#'   the data
 #' @inheritParams layer
 #' @inheritParams geom_path
 #' @section Computed variables:
@@ -49,7 +49,7 @@ geom_qq_line <- function(mapping = NULL,
                          distribution = stats::qnorm,
                          dparams = list(),
                          line.p = c(.25, .75),
-                         line.expand = c(-.1, .1),
+                         fullrange = FALSE,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {
@@ -66,7 +66,7 @@ geom_qq_line <- function(mapping = NULL,
       dparams = dparams,
       na.rm = na.rm,
       line.p = line.p,
-      line.expand = line.expand,
+      fullrange = fullrange,
       ...
     )
   )
@@ -92,7 +92,7 @@ StatQqLine <- ggproto("StatQqLine", Stat,
                           dparams = list(),
                           na.rm = FALSE,
                           line.p = c(.25, .75),
-                          line.expand = c(-.1, .1)) {
+                          fullrange = FALSE) {
 
    sample <- sort(data$sample)
    n <- length(sample)
@@ -119,15 +119,13 @@ StatQqLine <- ggproto("StatQqLine", Stat,
    slope = diff(y_coords)/diff(x_coords)
    intercept = y_coords[1L] - slope * x_coords[1L]
 
-   if (length(line.expand) != 2) {
-     stop("Parameter line.expand must have length 2.", call = FALSE)
+   if(fullrange & !is.null(scales$x$dimension)){
+     out <- data.frame(x = scales$x$dimension())
+   } else{
+     out <- data.frame(x = range(theoretical))
    }
 
-   out <- data.frame(x = c(min(theoretical) + line.expand[1L],
-                           max(theoretical) + line.expand[2L]))
    out$y <- slope * out$x + intercept
-
    out
-
  }
 )
