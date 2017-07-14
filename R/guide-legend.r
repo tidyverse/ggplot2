@@ -254,15 +254,19 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   guide$geoms <- plyr::llply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
-    layer$show.legend <- unlist(rename_aes(as.list(layer$show.legend)))
-
     if (length(matched) > 0) {
       # This layer contributes to the legend
-      include <- ifelse(
-        !is.null(names(layer$show.legend)),
-        is.na(layer$show.legend[matched]) || layer$show.legend[matched],
+
+      # rename color to colour
+      layer$show.legend <- unlist(rename_aes(as.list(layer$show.legend)))
+
+      # check if this layer should be included, different behaviour depending on
+      # if show.legend is a logical or a named logical vector
+      include <- if (!is.null(names(layer$show.legend))) {
+        is.na(layer$show.legend[matched]) || layer$show.legend[matched]
+      } else {
         is.na(layer$show.legend) || layer$show.legend
-        )
+      }
       if (include) {
         # Default is to include it
 
