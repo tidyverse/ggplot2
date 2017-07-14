@@ -78,7 +78,7 @@ pos_boxdodge <- function(df, width, n = NULL, padding = 0.1) {
     # If n is null, preserve total widths of boxes at each position by dividing
     # widths by the number of elements at that position
     n <- table(df$xid)
-    df$new_width <- (df$xmax - df$xmin) / n[df$xid]
+    df$new_width <- (df$xmax - df$xmin) / as.numeric(n[df$xid])
   } else {
     df$new_width <- (df$xmax - df$xmin) / n
   }
@@ -87,7 +87,11 @@ pos_boxdodge <- function(df, width, n = NULL, padding = 0.1) {
   df$xmax <- df$x + (df$new_width / 2)
 
   # Find the total width of each group of boxes
-  group_sizes <- plyr::ddply(df, "xid", plyr::summarize, size = sum(new_width))
+  group_sizes <- aggregate(
+    list(size = df$new_width),
+    list(xid = df$xid),
+    sum
+  )  
   
   # Starting xmin for each group of boxes
   starts <- group_sizes$xid - (group_sizes$size / 2)
