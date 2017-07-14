@@ -41,8 +41,10 @@
 #'   stat_qq() +
 #'   stat_qq_line()
 #' }
-geom_qq_line <- function(mapping = NULL, data = NULL,
-                         geom = "path", position = "identity",
+geom_qq_line <- function(mapping = NULL,
+                         data = NULL,
+                         geom = "path",
+                         position = "identity",
                          ...,
                          distribution = stats::qnorm,
                          dparams = list(),
@@ -83,7 +85,9 @@ StatQqLine <- ggproto("StatQqLine", Stat,
 
  required_aes = c("sample"),
 
- compute_group = function(data, scales, quantiles = NULL,
+ compute_group = function(data,
+                          scales,
+                          quantiles = NULL,
                           distribution = stats::qnorm,
                           dparams = list(),
                           na.rm = FALSE,
@@ -101,7 +105,8 @@ StatQqLine <- ggproto("StatQqLine", Stat,
    }
 
    theoretical <- do.call(distribution,
-                          c(list(p = quote(quantiles)), dparams))
+                          c(list(p = quote(quantiles)),
+                            dparams))
 
    if (length(line.p) != 2) {
      stop("Cannot fit line quantiles ", line.p,
