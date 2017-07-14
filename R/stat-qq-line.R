@@ -41,6 +41,7 @@
 #'   stat_qq() +
 #'   stat_qq_line()
 #' }
+#' @rdname geom_qq
 geom_qq_line <- function(mapping = NULL,
                          data = NULL,
                          geom = "path",
@@ -73,7 +74,7 @@ geom_qq_line <- function(mapping = NULL,
 }
 
 #' @export
-#' @rdname geom_qq_line
+#' @rdname geom_qq
 stat_qq_line <- geom_qq_line
 
 #' @rdname ggplot2-ggproto
