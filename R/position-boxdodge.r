@@ -12,10 +12,10 @@
 #' @export
 #' @examples
 #' ggplot(data = iris, aes(Species, Sepal.Length)) +
-#' geom_boxplot(aes(colour = Sepal.Width < 3.2))
+#'   geom_boxplot(aes(colour = Sepal.Width < 3.2))
 #'
 #' ggplot(data = iris, aes(Species, Sepal.Length)) +
-#' geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+#'   geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
 position_boxdodge <- function(width = NULL, preserve = c("single", "total"),
                               padding = 0.1) {
   ggproto(NULL, PositionBoxdodge,

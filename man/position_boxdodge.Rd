@@ -25,10 +25,10 @@ horizontal position. \code{position_boxdodge} is a special case of
 }
 \examples{
 ggplot(data = iris, aes(Species, Sepal.Length)) +
-geom_boxplot(aes(colour = Sepal.Width < 3.2))
+  geom_boxplot(aes(colour = Sepal.Width < 3.2))
 
 ggplot(data = iris, aes(Species, Sepal.Length)) +
-geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+  geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
 }
 \seealso{
 Other position adjustments: \code{\link{position_dodge}},
