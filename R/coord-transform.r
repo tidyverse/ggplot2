@@ -179,11 +179,12 @@ train_trans <- function(scale, limits, trans, name) {
   out
 }
 
-# Generate warning when finite values are transformed into infinite values
-#
-# @param old_values A vector of pre-transformation values.
-# @param new_values A vector of post-transformation values.
-# @param axis Which axis the values originate from (e.g. x, y).
+#' Generate warning when finite values are transformed into infinite values
+#'
+#' @param old_values A vector of pre-transformation values.
+#' @param new_values A vector of post-transformation values.
+#' @param axis Which axis the values originate from (e.g. x, y).
+#' @noRd
 warn_new_infinites <- function(old_values, new_values, axis) {
   if (any(is.finite(old_values) & !is.finite(new_values))) {
     warning("Transformation introduced infinite values in ", axis, "-axis", call. = FALSE)
