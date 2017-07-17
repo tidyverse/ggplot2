@@ -29,6 +29,12 @@ ggplot(data = iris, aes(Species, Sepal.Length)) +
 
 ggplot(data = iris, aes(Species, Sepal.Length)) +
   geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+
+ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+  geom_bar(position = position_boxdodge(preserve = "single"))
+
+ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+  geom_bar(position = position_boxdodge(preserve = "total"))
 }
 \seealso{
 Other position adjustments: \code{\link{position_dodge}},
