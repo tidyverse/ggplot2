@@ -75,9 +75,9 @@ collide_box <- function(data, width = NULL, name, strategy,
   # Reorder by x position, then on group. The default stacking order reverses
   # the group in order to match the legend order.
   if (reverse) {
-    data <- data[order(data$x, data$group), ]
-  } else {
     data <- data[order(data$x, -data$group), ]
+  } else {
+    data <- data[order(data$x, data$group), ]
   }
 
   pos <- match.fun(strategy)
