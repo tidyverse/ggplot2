@@ -133,6 +133,8 @@ pos_boxdodge <- function(df, width, n = NULL, padding = 0.05) {
   df$pad_width <- df$new_width * (1 - padding)
   df$xmin <- df$x + (df$pad_width / 2)
   df$xmax <- df$x - (df$pad_width / 2)
+
+  df[, c("xid", "newx", "new_width", "pad_width")] <- NULL
   
   df
 }
