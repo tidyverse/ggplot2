@@ -80,6 +80,12 @@ pos_boxdodge <- function(df, width, n = NULL, padding = 0.05) {
   # xid represents groups of boxes that share the same position
   df$xid <- find_x_overlaps(df)
 
+  # based on xid find newx, i.e. the center of each group of overlapping
+  # elements. for boxes, bars, etc. this should be the same as original x, but
+  # for arbitrary rects it may not be
+  newx <- (tapply(df$xmin, df$xid, min) + tapply(df$xmax, df$xid, max)) / 2
+  df$newx <- newx[df$xid]
+  
   if (is.null(n)) {
     # If n is null, preserve total widths of boxes at each position by dividing
     # widths by the number of elements at that position
@@ -95,12 +101,12 @@ pos_boxdodge <- function(df, width, n = NULL, padding = 0.05) {
   # Find the total width of each group of boxes
   group_sizes <- aggregate(
     list(size = df$new_width),
-    list(xid = df$xid),
+    list(newx = df$newx),
     sum
   )  
   
-  # Starting xmin for each group of boxes
-  starts <- group_sizes$xid - (group_sizes$size / 2)
+  # Starting xmin for each group of elements
+  starts <- group_sizes$newx - (group_sizes$size / 2)
 
   # Set the boxes in place
   for (i in seq_along(starts)) {
