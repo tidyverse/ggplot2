@@ -49,7 +49,7 @@ PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
     } else if ("x" %in% names(data)){
       n <- max(table(data$x))
     } else {
-      n <- max(table((data$xmin + data$xmax) / 2))
+      n <- max(table(find_x_overlaps(data)))
     }
 
     list(
