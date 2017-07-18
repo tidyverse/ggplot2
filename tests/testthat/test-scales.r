@@ -188,3 +188,45 @@ test_that("Scales get their correct titles through layout", {
   expect_identical(p$layout$xlabel(p$plot$labels)$primary, "x")
   expect_identical(p$layout$ylabel(p$plot$labels)$primary, "y")
 })
+
+test_that("Size and alpha scales throw appropriate warnings for factors", {
+  df <- data.frame(
+    x = 1:3,
+    y = 1:3,
+    d = LETTERS[1:3],
+    o = factor(LETTERS[1:3], ordered = TRUE)
+  )
+  p <- ggplot(df, aes(x, y))
+
+  # There should be warnings when unordered factors are mapped to size/alpha
+  expect_warning(
+    ggplot_build(p + geom_point(aes(size = d))),
+    "Using size for a discrete variable is not advised."
+  )
+  expect_warning(
+    ggplot_build(p + geom_point(aes(alpha = d))),
+    "Using alpha for a discrete variable is not advised."
+  )
+  # There should be no warnings for ordered factors
+  expect_warning(ggplot_build(p + geom_point(aes(size = o))), NA)
+  expect_warning(ggplot_build(p + geom_point(aes(alpha = o))), NA) 
+})
+
+test_that("Shape scale throws appropriate warnings for factors", {
+  df <- data.frame(
+    x = 1:3,
+    y = 1:3,
+    d = LETTERS[1:3],
+    o = factor(LETTERS[1:3], ordered = TRUE)
+  )
+  p <- ggplot(df, aes(x, y))
+
+  # There should be no warnings when unordered factors are mapped to shape
+  expect_warning(ggplot_build(p + geom_point(aes(shape = d))), NA)
+
+  # There should be warnings for ordered factors
+  expect_warning(
+    ggplot_build(p + geom_point(aes(shape = o))),
+    "Using shapes for an ordinal variable is not advised"
+  )
+})

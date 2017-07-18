@@ -3,6 +3,7 @@
 \name{scale_shape}
 \alias{scale_shape}
 \alias{scale_shape_discrete}
+\alias{scale_shape_ordinal}
 \alias{scale_shape_continuous}
 \title{Scales for shapes, aka glyphs}
 \usage{
