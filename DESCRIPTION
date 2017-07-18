@@ -22,7 +22,8 @@ Imports:
     scales (>= 0.4.1.9002),
     stats,
     tibble,
-    lazyeval
+    lazyeval,
+    viridisLite
 Suggests:
     covr,
     ggplot2movies,
@@ -43,8 +44,7 @@ Suggests:
     rpart,
     rmarkdown,
     sf (>= 0.3-4),
-    svglite (>= 1.2.0.9001),
-    viridisLite
+    svglite (>= 1.2.0.9001)
 Remotes:
     hadley/scales,
     hadley/svglite
