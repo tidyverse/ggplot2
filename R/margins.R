@@ -61,6 +61,16 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   text_height <- unit(1, "grobheight", text_grob) + cos(angle / 180 * pi) * descent
   text_width <- unit(1, "grobwidth", text_grob) + sin(angle / 180 * pi) * descent
 
+  if (debug) {
+    children <- gList(
+      rectGrob(gp = gpar(fill = "cornsilk", col = NA)),
+      pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
+      text_grob
+    )
+  } else {
+    children <- gList(text_grob)
+  }
+ 
   if (expand_x && expand_y) {
     widths <- unit.c(margin[4], text_width, margin[2])
     heights <- unit.c(margin[1], text_height, margin[3])
@@ -81,17 +91,16 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
     widths <- unit(1, "null")
   } else {
-    return(text_grob)
-  }
-
-  if (debug) {
-    children <- gList(
-      rectGrob(gp = gpar(fill = "cornsilk", col = NA)),
-      pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
-      text_grob
-    )
-  } else {
-    children <- gList(text_grob)
+    widths <- unit(1, "grobwidth", text_grob)
+    heights <- unit(1, "grobheight", text_grob)
+    return(
+      gTree(
+        children = children,
+        widths = widths,
+        heights = heights,
+        cl = "titleGrob"
+      )
+    )        
   }
 
   gTree(
