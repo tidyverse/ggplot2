@@ -61,9 +61,7 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   text_height <- unit(1, "grobheight", text_grob) + cos(angle / 180 * pi) * descent
   text_width <- unit(1, "grobwidth", text_grob) + sin(angle / 180 * pi) * descent
 
-  if (is.null(debug)) {
-    children <- gList(text_grob)
-  } else if (debug) {
+  if (isTRUE(debug)) {
     children <- gList(
       rectGrob(gp = gpar(fill = "cornsilk", col = NA)),
       pointsGrob(x, y, pch = 20, gp = gpar(col = "gold")),
