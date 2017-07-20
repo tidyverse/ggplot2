@@ -55,22 +55,41 @@ This annotation adds tick marks to an axis
 p<-ggplot(msleep, aes(bodywt, brainwt)) + geom_point()
 
 #Default behavior
-p+annotation_ticks(sides=c('l')) #add identity scale minor ticks on y axis
-p+annotation_ticks(sides=c('lb')) #add identity scale minor ticks on x,y axis
+
+#add identity scale minor ticks on y axis
+p+annotation_ticks(sides=c('l'))
+
+#add identity scale minor ticks on x,y axis
+p+annotation_ticks(sides=c('lb'))
 
 #Control number of minor ticks of each side independently
-p+annotation_ticks(sides=c('l','b'),ticks_per_base=c(10,5)) #add identity scale minor ticks on xy axis
+
+#add identity scale minor ticks on x,y axis
+p+annotation_ticks(sides=c('l','b'),ticks_per_base=c(10,5))
 
 #log10 scale
 p1 <- p + scale_x_log10()
-p1+annotation_ticks(sides=c('b'),delog=FALSE) #add minor ticks on log10 scale
-p1+annotation_ticks(sides=c('l','b'),base=c(10,10),delog=c(TRUE,FALSE)) #add minor ticks on both scales
-p1+annotation_ticks(sides=c('l','b'),base=c(10,10),delog=c(TRUE,TRUE)) #add minor ticks on both scales, but force x axis to be identity
+
+#add minor ticks on log10 scale
+p1+annotation_ticks(sides=c('b'),delog=FALSE)
+
+#add minor ticks on both scales
+p1+annotation_ticks(sides=c('l','b'),base=c(10,10),delog=c(TRUE,FALSE))
+
+#add minor ticks on both scales, but force x axis to be identity
+p1+annotation_ticks(sides=c('l','b'),base=c(10,10),delog=c(TRUE,TRUE))
+
 
 #log scale
 p2 <- p + scale_x_continuous(trans='log')
-p2+annotation_ticks(sides=c('b'),base=exp(1),delog=FALSE) #add minor ticks on log scale
-p2+annotation_ticks(sides=c('l','b'),base=c(10,exp(1)),delog=c(TRUE,FALSE)) #add minor ticks on both scales
-p2+annotation_ticks(sides=c('l','b'),base=c(10,exp(1)),delog=c(TRUE,TRUE)) #add minor ticks on both scales, but force x axis to be identity
+
+#add minor ticks on log scale
+p2+annotation_ticks(sides=c('b'),base=exp(1),delog=FALSE)
+
+#add minor ticks on both scales
+p2+annotation_ticks(sides=c('l','b'),base=c(10,exp(1)),delog=c(TRUE,FALSE))
+
+#add minor ticks on both scales, but force x axis to be identity
+p2+annotation_ticks(sides=c('l','b'),base=c(10,exp(1)),delog=c(TRUE,TRUE))
 
 }
