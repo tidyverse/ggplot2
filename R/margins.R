@@ -91,8 +91,8 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
     widths <- unit(1, "null")
   } else {
-    widths <- unit(1, "grobwidth", text_grob)
-    heights <- unit(1, "grobheight", text_grob)
+    widths <- text_width
+    heights <- text_height
     return(
       gTree(
         children = children,

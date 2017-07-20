@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Legend titles and labels get a little extra space around them. Legend titles
+  will no longer overlap the legend at large font sizes (@karawoo, #1881).
+
 * Ordered factors now behave differently from unordered factors in some cases.
   Ordered factors throw a warning when mapped to shape (unordered factors do
   not). Ordered factors do not throw warnings when mapped to size or alpha
