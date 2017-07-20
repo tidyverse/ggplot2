@@ -1,6 +1,6 @@
 # ggplot2 2.2.1.9000
 
-* Box plot position is now controlled by `position_boxdodge()` (@karawoo,
+* Box plot position is now controlled by `position_dodge2()` (@karawoo,
   #2143).
 
 * The `show.legend` parameter now accepts a named logical vector to hide/show

@@ -1,4 +1,4 @@
-context("position_boxdodge")
+context("position_dodge2")
 
 test_that("find_x_overlaps identifies overlapping groups", {
 
@@ -26,7 +26,7 @@ test_that("rectangles are dodged", {
   )
 
   p <- ggplot(df, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax)) +
-    geom_rect(aes(fill = fill), position = "boxdodge", alpha = 0.8)
+    geom_rect(aes(fill = fill), position = "dodge2", alpha = 0.8)
 
   expect_false(any(duplicated(find_x_overlaps(layer_data(p)))))
 })
@@ -39,16 +39,16 @@ test_that("cols at the same x position are dodged", {
   )
 
   p <- ggplot(df, aes(1, n, fill = x)) + 
-    geom_col(position = "boxdodge", alpha = 0.5)
+    geom_col(position = "dodge2", alpha = 0.5)
 
   expect_false(any(duplicated(find_x_overlaps(layer_data(p)))))
 })
 
 test_that("padding argument controls space between elements", {
   p1 <- ggplot(iris, aes(1, Sepal.Length, fill = Sepal.Width < 3.2)) +
-    geom_boxplot(position = position_boxdodge(padding = 0))
+    geom_boxplot(position = position_dodge2(padding = 0))
   p2 <- ggplot(iris, aes(1, Sepal.Length, fill = Sepal.Width < 3.2)) +
-    geom_boxplot(position = position_boxdodge(padding = 0.1))
+    geom_boxplot(position = position_dodge2(padding = 0.1))
 
   d1 <- layer_data(p1)
   d2 <- layer_data(p2)

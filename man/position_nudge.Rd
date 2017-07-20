@@ -35,7 +35,7 @@ ggplot(df, aes(x, y)) +
   geom_text(aes(label = y), nudge_y = -0.1)
 }
 \seealso{
-Other position adjustments: \code{\link{position_boxdodge}},
+Other position adjustments: \code{\link{position_dodge2}},
   \code{\link{position_dodge}},
   \code{\link{position_identity}},
   \code{\link{position_jitterdodge}},

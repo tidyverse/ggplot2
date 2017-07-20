@@ -1,7 +1,7 @@
 #' Position dodge for box plots
 #'
 #' Dodging preserves the vertical position of an geom while adjusting the
-#' horizontal position. `position_boxdodge` is a special case of
+#' horizontal position. `position_dodge2` is a special case of
 #' `position_dodge` for arranging box plots, which can have variable widths.
 #' 
 #' @include position-dodge.r
@@ -18,13 +18,13 @@
 #'   geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
 #'
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
-#'   geom_bar(position = position_boxdodge(preserve = "single"))
+#'   geom_bar(position = position_dodge2(preserve = "single"))
 #' 
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
-#'   geom_bar(position = position_boxdodge(preserve = "total"))
-position_boxdodge <- function(width = NULL, preserve = c("single", "total"),
+#'   geom_bar(position = position_dodge2(preserve = "total"))
+position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
                               padding = 0.05) {
-  ggproto(NULL, PositionBoxdodge,
+  ggproto(NULL, PositionDodge2,
     width = width,
     preserve = match.arg(preserve),
     padding = padding
@@ -35,12 +35,12 @@ position_boxdodge <- function(width = NULL, preserve = c("single", "total"),
 #' @format NULL
 #' @usage NULL
 #' @export
-PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
+PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
   preserve = "single",
   padding = 0.05,
   setup_params = function(self, data) {
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
-      warning("Width not defined. Set with `position_boxdodge(width = ?)`",
+      warning("Width not defined. Set with `position_dodge2(width = ?)`",
         call. = FALSE)
     }
 
@@ -63,8 +63,8 @@ PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
     collide_box(
       data,
       params$width,
-      name = "position_boxdodge",
-      strategy = pos_boxdodge,
+      name = "position_dodge2",
+      strategy = pos_dodge2,
       n = params$n,
       padding = params$padding,
       check.width = FALSE
@@ -72,7 +72,7 @@ PositionBoxdodge <- ggproto("PositionBoxdodge", PositionDodge,
   }
 )
 
-pos_boxdodge <- function(df, width, n = NULL, padding = 0.05) {
+pos_dodge2 <- function(df, width, n = NULL, padding = 0.05) {
 
   if (length(unique(df$group)) == 1) {
     return(df)

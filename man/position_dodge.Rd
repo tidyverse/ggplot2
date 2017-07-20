@@ -67,7 +67,7 @@ p + geom_errorbar(
 )
 }
 \seealso{
-Other position adjustments: \code{\link{position_boxdodge}},
+Other position adjustments: \code{\link{position_dodge2}},
   \code{\link{position_identity}},
   \code{\link{position_jitterdodge}},
   \code{\link{position_jitter}},
