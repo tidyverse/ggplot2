@@ -6,6 +6,7 @@
 \alias{scale_radius}
 \alias{scale_size}
 \alias{scale_size_discrete}
+\alias{scale_size_ordinal}
 \alias{scale_size_area}
 \alias{scale_size_datetime}
 \alias{scale_size_date}

@@ -59,12 +59,24 @@ scale_size <- scale_size_continuous
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_discrete <- function(..., range = c(2, 6)) {
+scale_size_discrete <- function(...) {
   warning("Using size for a discrete variable is not advised.", call. = FALSE)
-  discrete_scale("size", "size_d", function(n) {
-    area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
-    sqrt(area)
-  }, ...)
+  scale_size_ordinal(...)
+}
+
+#' @rdname scale_size
+#' @export
+#' @usage NULL
+scale_size_ordinal <- function(..., range = c(2, 6)) {
+  discrete_scale(
+    "size",
+    "size_d",
+    function(n) {
+      area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
+      sqrt(area)
+    },
+    ...
+  )
 }
 
 #' @inheritDotParams continuous_scale -aesthetics -scale_name -palette -rescaler
