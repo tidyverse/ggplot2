@@ -15,7 +15,7 @@ mean_se(x, mult = 1)
 A data frame with columns \code{y}, \code{ymin}, and \code{ymax}.
 }
 \description{
-For use with \code{\link{stat_summary}}
+For use with \code{\link[=stat_summary]{stat_summary()}}
 }
 \examples{
 x <- rnorm(100)

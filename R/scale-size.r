@@ -1,16 +1,16 @@
 #' Scales for area or radius
 #'
-#' \code{scale_size} scales area, \code{scale_radius} scales radius. The size
+#' `scale_size` scales area, `scale_radius` scales radius. The size
 #' aesthetic is most commonly used for points and text, and humans perceive
 #' the area of points (not their radius), so this provides for optimal
-#' perception. \code{scale_size_area} ensures that a value of 0 is mapped
+#' perception. `scale_size_area` ensures that a value of 0 is mapped
 #' to a size of 0.
 #'
 #' @name scale_size
 #' @inheritParams continuous_scale
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
-#' @seealso \code{\link{scale_size_area}} if you want 0 values to be mapped
+#' @seealso [scale_size_area()] if you want 0 values to be mapped
 #'   to points with size 0.
 #' @examples
 #' p <- ggplot(mpg, aes(displ, hwy, size = hwy)) +
@@ -59,16 +59,27 @@ scale_size <- scale_size_continuous
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_discrete <- function(..., range = c(2, 6)) {
+scale_size_discrete <- function(...) {
   warning("Using size for a discrete variable is not advised.", call. = FALSE)
-  discrete_scale("size", "size_d", function(n) {
-    area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
-    sqrt(area)
-  }, ...)
+  scale_size_ordinal(...)
 }
 
-#' @param ... Other arguments passed on to \code{\link{continuous_scale}}
-#'   to control name, limits, breaks, labels and so forth.
+#' @rdname scale_size
+#' @export
+#' @usage NULL
+scale_size_ordinal <- function(..., range = c(2, 6)) {
+  discrete_scale(
+    "size",
+    "size_d",
+    function(n) {
+      area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
+      sqrt(area)
+    },
+    ...
+  )
+}
+
+#' @inheritDotParams continuous_scale -aesthetics -scale_name -palette -rescaler
 #' @param max_size Size of largest points.
 #' @export
 #' @rdname scale_size
@@ -81,14 +92,13 @@ scale_size_area <- function(..., max_size = 6) {
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_datetime <- function() {
-  scale_size_continuous(trans = "time")
+scale_size_datetime <- function(..., range = c(1, 6)) {
+  datetime_scale("size", "time", palette = area_pal(range), ...)
 }
 
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_date <- function() {
-  scale_size_continuous(trans = "date")
+scale_size_date <- function(..., range = c(1, 6)) {
+  datetime_scale("size", "date", palette = area_pal(range), ...)
 }
-

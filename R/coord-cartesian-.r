@@ -6,9 +6,9 @@
 #' change the underlying data like setting limits on a scale will.
 #'
 #' @param xlim,ylim Limits for the x and y axes.
-#' @param expand If \code{TRUE}, the default, adds a small expansion factor to
-#'   the limits to ensure that data and axes don't overlap. If \code{FALSE},
-#'   limits are taken exactly from the data or \code{xlim}/\code{ylim}.
+#' @param expand If `TRUE`, the default, adds a small expansion factor to
+#'   the limits to ensure that data and axes don't overlap. If `FALSE`,
+#'   limits are taken exactly from the data or `xlim`/`ylim`.
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or

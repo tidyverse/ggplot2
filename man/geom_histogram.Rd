@@ -21,29 +21,29 @@ stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
-   options:
+options:
 
-   If \code{NULL}, the default, the data is inherited from the plot
-   data as specified in the call to \code{\link{ggplot}}.
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-   A \code{data.frame}, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   \code{\link{fortify}} for which variables will be created.
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-   A \code{function} will be called with a single argument,
-   the plot data. The return value must be a \code{data.frame.}, and
-   will be used as the layer data.}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame.}, and
+will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -53,22 +53,24 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{binwidth}{The width of the bins. Can be specified as a numeric value,
-  or a function that calculates width from x.
-  The default is to use \code{bins}
-  bins that cover the range of the data. You should always override
-  this value, exploring multiple widths to find the best to illustrate the
-  stories in your data.
+or a function that calculates width from x.
+The default is to use \code{bins}
+bins that cover the range of the data. You should always override
+this value, exploring multiple widths to find the best to illustrate the
+stories in your data.
 
-  The bin width of a date variable is the number of days in each time; the
-  bin width of a time variable is the number of seconds.}
+The bin width of a date variable is the number of days in each time; the
+bin width of a time variable is the number of seconds.}
 
 \item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30}
 
@@ -85,7 +87,7 @@ specified.}
 \item{boundary}{A boundary between two bins. As with \code{center}, things
 are shifted when \code{boundary} is outside the range of the data. For
 example, to center on integers, use \code{width = 1} and \code{boundary =
-0.5}, even if \code{0.5} is outside the range of the data.  At most one of
+  0.5}, even if \code{0.5} is outside the range of the data.  At most one of
 \code{center} and \code{boundary} may be specified.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving
@@ -107,7 +109,7 @@ polygons are more suitable when you want to compare the distribution
 across a the levels of a categorical variable.
 
 \code{stat_bin} is suitable only for continuous x data. If your x data is
-  discrete, you probably want to use \code{\link{stat_count}}.
+discrete, you probably want to use \code{\link[=stat_count]{stat_count()}}.
 }
 \details{
 By default, the underlying computation (\code{stat_bin}) uses 30 bins -
@@ -117,17 +119,17 @@ story behind your data.
 }
 \section{Aesthetics}{
 
-\code{geom_histogram} uses the same aesthetics as \code{\link{geom_bar}};
-\code{geom_freqpoly} uses the same aesthetics as \code{\link{geom_line}}.
+\code{geom_histogram} uses the same aesthetics as \code{\link[=geom_bar]{geom_bar()}};
+\code{geom_freqpoly} uses the same aesthetics as \code{\link[=geom_line]{geom_line()}}.
 }
 
 \section{Computed variables}{
 
 \describe{
-  \item{count}{number of points in bin}
-  \item{density}{density of points in bin, scaled to integrate to 1}
-  \item{ncount}{count, scaled to maximum of 1}
-  \item{ndensity}{density, scaled to maximum of 1}
+\item{count}{number of points in bin}
+\item{density}{density of points in bin, scaled to integrate to 1}
+\item{ncount}{count, scaled to maximum of 1}
+\item{ndensity}{density, scaled to maximum of 1}
 }
 }
 
@@ -193,7 +195,7 @@ ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
 }
 \seealso{
-\code{\link{stat_count}}, which counts the number of cases at each x
-  posotion, without binning. It is suitable for both discrete and continuous
-  x data, whereas \link{stat_bin} is suitable only for continuous x data.
+\code{\link[=stat_count]{stat_count()}}, which counts the number of cases at each x
+position, without binning. It is suitable for both discrete and continuous
+x data, whereas \link{stat_bin} is suitable only for continuous x data.
 }

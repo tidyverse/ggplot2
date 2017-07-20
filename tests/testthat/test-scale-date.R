@@ -48,3 +48,25 @@ test_that("not cached across calls", {
   expect_equal(layer_scales(p1)$x$timezone, "UTC")
   expect_equal(layer_scales(p2)$x$timezone, "Australia/Lord_Howe")
 })
+
+test_that("datetime size scales work", {
+  p <- ggplot(df, aes(y = y)) + geom_point(aes(time1, size = time1))
+
+  # Default size range is c(1, 6)
+  expect_equal(range(layer_data(p)$size), c(1, 6))
+})
+
+test_that("datetime alpha scales work", {
+  p <- ggplot(df, aes(y = y)) + geom_point(aes(time1, alpha = time1))
+
+  # Default alpha range is c(0.1, 1.0)
+  expect_equal(range(layer_data(p)$alpha), c(0.1, 1.0))
+})
+
+test_that("datetime colour scales work", {
+  p <- ggplot(df, aes(y = y)) +
+    geom_point(aes(time1, colour = time1)) +
+    scale_colour_datetime()
+
+  expect_equal(range(layer_data(p)$colour), c("#132B43", "#56B1F7"))
+})

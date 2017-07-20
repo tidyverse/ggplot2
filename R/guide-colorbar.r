@@ -1,27 +1,27 @@
 #' Continuous colour bar guide
 #'
 #' Colour bar guide shows continuous color scales mapped onto values.
-#' Colour bar is available with \code{scale_fill} and \code{scale_colour}.
+#' Colour bar is available with `scale_fill` and `scale_colour`.
 #' For more information, see the inspiration for this function:
 #' \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 #'
-#' Guides can be specified in each \code{scale_*} or in \code{\link{guides}}.
-#' \code{guide="legend"} in \code{scale_*} is syntactic sugar for
-#' \code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
+#' Guides can be specified in each `scale_*` or in [guides()].
+#' `guide="legend"` in `scale_*` is syntactic sugar for
+#' `guide=guide_legend()` (e.g. `scale_color_manual(guide = "legend")`).
 #' As for how to specify the guide for each scale in more detail,
-#' see \code{\link{guides}}.
+#' see [guides()].
 #'
 #' @inheritParams guide_legend
-#' @param barwidth A numeric or a \code{\link[grid]{unit}} object specifying
-#'   the width of the colorbar. Default value is \code{legend.key.width} or
-#'   \code{legend.key.size} in \code{\link{theme}} or theme.
-#' @param barheight A numeric or a \code{\link[grid]{unit}} object specifying
-#'   the height of the colorbar. Default value is \code{legend.key.height} or
-#'   \code{legend.key.size} in \code{\link{theme}} or theme.
+#' @param barwidth A numeric or a [grid::unit()] object specifying
+#'   the width of the colorbar. Default value is `legend.key.width` or
+#'   `legend.key.size` in [theme()] or theme.
+#' @param barheight A numeric or a [grid::unit()] object specifying
+#'   the height of the colorbar. Default value is `legend.key.height` or
+#'   `legend.key.size` in [theme()] or theme.
 #' @param nbin A numeric specifying the number of bins for drawing colorbar. A
 #'   smoother colorbar for a larger value.
-#' @param raster A logical. If \code{TRUE} then the colorbar is rendered as a
-#'   raster object. If \code{FALSE} then the colorbar is rendered as a set of
+#' @param raster A logical. If `TRUE` then the colorbar is rendered as a
+#'   raster object. If `FALSE` then the colorbar is rendered as a set of
 #'   rectangles. Note that not all graphics devices are capable of rendering
 #'   raster image.
 #' @param ticks A logical specifying if tick marks on colorbar should be
@@ -32,9 +32,9 @@
 #'   be visible.
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
-#' @param default.unit A character string indicating \code{\link[grid]{unit}}
-#'   for \code{barwidth} and \code{barheight}.
-#' @param reverse logical. If \code{TRUE} the colorbar is reversed. By default,
+#' @param default.unit A character string indicating [grid::unit()]
+#'   for `barwidth` and `barheight`.
+#' @param reverse logical. If `TRUE` the colorbar is reversed. By default,
 #'   the highest value is on the top and the lowest value is on the bottom
 #' @param ... ignored.
 #' @return A guide object
@@ -255,10 +255,6 @@ guide_gengrob.colorbar <- function(guide, theme) {
   barlength.c <- switch(guide$direction, "horizontal" = barwidth.c, "vertical" = barheight.c)
   nbreak <- nrow(guide$key)
 
-  # gap between keys etc
-  hgap <- c(convertWidth(unit(0.3, "lines"), "mm"))
-  vgap <- hgap
-
   grob.bar <-
     if (guide$raster) {
       image <- switch(guide$direction, horizontal = t(guide$bar$colour), vertical = rev(guide$bar$colour))
@@ -301,6 +297,10 @@ guide_gengrob.colorbar <- function(guide, theme) {
   title_height <- convertHeight(grobHeight(grob.title), "mm")
   title_height.c <- c(title_height)
 
+  # gap between keys etc
+  hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
+  vgap <- height_cm(theme$legend.spacing.y %||% 0.5 * unit(title_height, "cm"))
+  
   # label
   label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
   grob.label <- {

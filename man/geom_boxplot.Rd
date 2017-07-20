@@ -17,38 +17,38 @@ stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   inherit.aes = TRUE)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
-   options:
+options:
 
-   If \code{NULL}, the default, the data is inherited from the plot
-   data as specified in the call to \code{\link{ggplot}}.
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-   A \code{data.frame}, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   \code{\link{fortify}} for which variables will be created.
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-   A \code{function} will be called with a single argument,
-   the plot data. The return value must be a \code{data.frame.}, and
-   will be used as the layer data.}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame.}, and
+will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{outlier.colour, outlier.color, outlier.fill, outlier.shape, outlier.size, outlier.stroke, outlier.alpha}{Default aesthetics for outliers. Set to \code{NULL} to inherit from the
-  aesthetics used for the box.
+aesthetics used for the box.
 
-  In the unlikely event you specify both US and UK spellings of colour, the
-  US spelling will take precedence.}
+In the unlikely event you specify both US and UK spellings of colour, the
+US spelling will take precedence.}
 
 \item{notch}{if \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
@@ -68,12 +68,14 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_boxplot} and \code{stat_boxplot}.}
@@ -90,7 +92,7 @@ and two whiskers), and all "outlying" points individually.
 The lower and upper hinges correspond to the first and third quartiles
 (the 25th and 75th percentiles). This differs slightly from the method used
 by the \code{boxplot} function, and may be apparent with small samples.
-See \code{\link{boxplot.stats}} for for more information on how hinge
+See \code{\link[=boxplot.stats]{boxplot.stats()}} for for more information on how hinge
 positions are calculated for \code{boxplot}.
 
 The upper whisker extends from the hinge to the largest value no further than
@@ -113,14 +115,14 @@ See McGill et al. (1978) for more details.
 \section{Computed variables}{
 
 \describe{
-  \item{width}{width of boxplot}
-  \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
-  \item{lower}{lower hinge, 25\% quantile}
-  \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
-  \item{middle}{median, 50\% quantile}
-  \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
-  \item{upper}{upper hinge, 75\% quantile}
-  \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
+\item{width}{width of boxplot}
+\item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
+\item{lower}{lower hinge, 25\% quantile}
+\item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
+\item{middle}{median, 50\% quantile}
+\item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
+\item{upper}{upper hinge, 75\% quantile}
+\item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 }
 }
 
@@ -170,10 +172,10 @@ ggplot(df, aes(x)) +
 }
 \references{
 McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
-    box plots. The American Statistician 32, 12-16.
+box plots. The American Statistician 32, 12-16.
 }
 \seealso{
-\code{\link{geom_quantile}} for continuous x,
-  \code{\link{geom_violin}} for a richer display of the distribution, and
-  \code{\link{geom_jitter}} for a useful technique for small data.
+\code{\link[=geom_quantile]{geom_quantile()}} for continuous x,
+\code{\link[=geom_violin]{geom_violin()}} for a richer display of the distribution, and
+\code{\link[=geom_jitter]{geom_jitter()}} for a useful technique for small data.
 }

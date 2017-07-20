@@ -43,7 +43,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
 })
 
 
-test_that("stat_xxx and StatXxx$draw arg defaults match", {
+test_that("stat_xxx and StatXxx$compute_panel arg defaults match", {
   ggplot2_ns <- asNamespace("ggplot2")
   objs <- ls(ggplot2_ns)
   stat_fun_names <- objs[grepl("^stat_", objs)]
@@ -53,12 +53,12 @@ test_that("stat_xxx and StatXxx$draw arg defaults match", {
     c("stat_function")
   )
 
-  # For each geom_xxx function and the corresponding GeomXxx$draw and
-  # GeomXxx$draw_groups functions, make sure that if they have same args, that
+  # For each stat_xxx function and the corresponding StatXxx$compute_panel and
+  # StatXxx$compute_group functions, make sure that if they have same args, that
   # the args have the same default values.
   lapply(stat_fun_names, function(stat_fun_name) {
     stat_fun         <- ggplot2_ns[[stat_fun_name]]
-    calculate        <- stat_fun()$stat$compute
+    calculate        <- stat_fun()$stat$compute_panel
     calculate_groups <- stat_fun()$stat$compute_group
 
     fun_args <- formals(stat_fun)
@@ -69,7 +69,7 @@ test_that("stat_xxx and StatXxx$draw arg defaults match", {
 
     expect_identical(fun_args[common_names], calc_args[common_names],
       info = paste0("Mismatch between arg defaults for ", stat_fun_name,
-        " and ", class(stat_fun()$stat)[1], "'s $compute and/or $compute_groups functions.")
+        " and ", class(stat_fun()$stat)[1], "'s $compute_panel and/or $compute_group functions.")
     )
   })
 })

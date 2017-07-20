@@ -1,34 +1,34 @@
 #' Useful labeller functions
 #'
 #' Labeller functions are in charge of formatting the strip labels of
-#' facet grids and wraps. Most of them accept a \code{multi_line}
+#' facet grids and wraps. Most of them accept a `multi_line`
 #' argument to control whether multiple factors (defined in formulae
-#' such as \code{~first + second}) should be displayed on a single
+#' such as `~first + second`) should be displayed on a single
 #' line separated with commas, or each on their own line.
 #'
-#' \code{label_value()} only displays the value of a factor while
-#' \code{label_both()} displays both the variable name and the factor
-#' value. \code{label_context()} is context-dependent and uses
-#' \code{label_value()} for single factor facetting and
-#' \code{label_both()} when multiple factors are
-#' involved. \code{label_wrap_gen()} uses \code{\link[base]{strwrap}()}
+#' `label_value()` only displays the value of a factor while
+#' `label_both()` displays both the variable name and the factor
+#' value. `label_context()` is context-dependent and uses
+#' `label_value()` for single factor facetting and
+#' `label_both()` when multiple factors are
+#' involved. `label_wrap_gen()` uses [base::strwrap()]
 #' for line wrapping.
 #'
-#' \code{label_parsed()} interprets the labels as plotmath
-#' expressions. \code{\link{label_bquote}()} offers a more flexible
+#' `label_parsed()` interprets the labels as plotmath
+#' expressions. [label_bquote()] offers a more flexible
 #' way of constructing plotmath expressions. See examples and
-#' \code{\link{bquote}()} for details on the syntax of the
+#' [bquote()] for details on the syntax of the
 #' argument.
 #'
 #' @section Writing New Labeller Functions:
 #'
 #'   Note that an easy way to write a labeller function is to
 #'   transform a function operating on character vectors with
-#'   \code{\link{as_labeller}()}.
+#'   [as_labeller()].
 #'
 #'   A labeller function accepts a data frame of labels (character
 #'   vectors) containing one column for each factor. Multiple factors
-#'   occur with formula of the type \code{~first + second}.
+#'   occur with formula of the type `~first + second`.
 #'
 #'   The return value must be a rectangular list where each 'row'
 #'   characterises a single facet. The list elements can be either
@@ -43,17 +43,17 @@
 #'   own line. Then the second facet gets the second elements of each
 #'   vector, and so on.
 #'
-#'   If it's useful to your labeller, you can retrieve the \code{type}
+#'   If it's useful to your labeller, you can retrieve the `type`
 #'   attribute of the incoming data frame of labels. The value of this
 #'   attribute reflects the kind of strips your labeller is dealing
-#'   with: \code{"cols"} for columns and \code{"rows"} for rows. Note
-#'   that \code{\link{facet_wrap}()} has columns by default and rows
-#'   when the strips are switched with the \code{switch} option. The
-#'   \code{facet} attribute also provides metadata on the labels. It
-#'   takes the values \code{"grid"} or \code{"wrap"}.
+#'   with: `"cols"` for columns and `"rows"` for rows. Note
+#'   that [facet_wrap()] has columns by default and rows
+#'   when the strips are switched with the `switch` option. The
+#'   `facet` attribute also provides metadata on the labels. It
+#'   takes the values `"grid"` or `"wrap"`.
 #'
-#'   For compatibility with \code{\link{labeller}()}, each labeller
-#'   function must have the \code{labeller} S3 class.
+#'   For compatibility with [labeller()], each labeller
+#'   function must have the `labeller` S3 class.
 #'
 #' @param labels Data frame of labels. Usually contains only one
 #'   element, but facetting over multiple factors entails multiple
@@ -63,8 +63,8 @@
 #' @param sep String separating variables and values.
 #' @param width Maximum number of characters before wrapping the strip.
 #' @family facet
-#' @seealso \code{\link{labeller}()}, \code{\link{as_labeller}()},
-#'   \code{\link{label_bquote}()}
+#' @seealso [labeller()], [as_labeller()],
+#'   [label_bquote()]
 #' @examples
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
 #' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
@@ -180,7 +180,7 @@ find_names <- function(expr) {
 
 #' Label with mathematical expressions
 #'
-#' \code{label_bquote()} offers a flexible way of labelling
+#' `label_bquote()` offers a flexible way of labelling
 #' facet rows or columns with plotmath expressions. Backquoted
 #' variables will be replaced with their value in the facet.
 #'
@@ -188,7 +188,7 @@ find_names <- function(expr) {
 #' @param cols Backquoted labelling expression for columns.
 #' @param default Default labeller function for the rows or the
 #'   columns when no plotmath expression is provided.
-#' @seealso \link{labellers}, \code{\link{labeller}()},
+#' @seealso \link{labellers}, [labeller()],
 #' @export
 #' @examples
 #' # The variables mentioned in the plotmath expression must be
@@ -271,17 +271,17 @@ resolve_labeller <- function(rows, cols, labels) {
 #' Coerce to labeller function
 #'
 #' This transforms objects to labeller functions. Used internally by
-#' \code{\link{labeller}()}.
+#' [labeller()].
 #' @param x Object to coerce to a labeller function. If a named
 #'   character vector, it is used as a lookup table before being
-#'   passed on to \code{default}. If a non-labeller function, it is
+#'   passed on to `default`. If a non-labeller function, it is
 #'   assumed it takes and returns character vectors and is applied to
 #'   the labels. If a labeller, it is simply applied to the labels.
 #' @param multi_line Whether to display the labels of multiple factors
 #'   on separate lines. This is passed to the labeller function.
 #' @param default Default labeller to process the labels produced by
 #'   lookup tables or modified by non-labeller functions.
-#' @seealso \code{\link{labeller}()}, \link{labellers}
+#' @seealso [labeller()], \link{labellers}
 #' @keywords internal
 #' @export
 #' @examples
@@ -330,22 +330,22 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' different factors. The labeller can be a function or it can be a
 #' named character vectors that will serve as a lookup table.
 #'
-#' In case of functions, if the labeller has class \code{labeller}, it
+#' In case of functions, if the labeller has class `labeller`, it
 #' is directly applied on the data frame of labels. Otherwise, it is
 #' applied to the columns of the data frame of labels. The data frame
 #' is then processed with the function specified in the
-#' \code{.default} argument. This is intended to be used with
+#' `.default` argument. This is intended to be used with
 #' functions taking a character vector such as
-#' \code{\link[Hmisc]{capitalize}}.
+#' [Hmisc::capitalize()].
 #'
 #' @param ... Named arguments of the form \code{variable =
-#'   labeller}. Each labeller is passed to \code{\link{as_labeller}()}
+#'   labeller}. Each labeller is passed to [as_labeller()]
 #'   and can be a lookup table, a function taking and returning
 #'   character vectors, or simply a labeller function.
 #' @param .rows,.cols Labeller for a whole margin (either the rows or
-#'   the columns). It is passed to \code{\link{as_labeller}()}. When a
+#'   the columns). It is passed to [as_labeller()]. When a
 #'   margin-wide labeller is set, make sure you don't mention in
-#'   \code{...} any variable belonging to the margin.
+#'   `...` any variable belonging to the margin.
 #' @param keep.as.numeric Deprecated. All supplied labellers and
 #'   on-labeller functions should be able to work with character
 #'   labels.
@@ -355,9 +355,9 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' @param .default Default labeller for variables not specified. Also
 #'   used with lookup tables or non-labeller functions.
 #' @family facet labeller
-#' @seealso \code{\link{as_labeller}()}, \link{labellers}
-#' @return A labeller function to supply to \code{\link{facet_grid}}
-#'   for the argument \code{labeller}.
+#' @seealso [as_labeller()], \link{labellers}
+#' @return A labeller function to supply to [facet_grid()]
+#'   for the argument `labeller`.
 #' @export
 #' @examples
 #' \donttest{

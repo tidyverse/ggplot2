@@ -3,7 +3,7 @@ NULL
 
 #' Lay out panels in a grid
 #'
-#' \code{facet_grid} forms a matrix of panels defined by row and column
+#' `facet_grid` forms a matrix of panels defined by row and column
 #' facetting variables. It is most useful when you have two discrete
 #' variables, and all combinations of the variables exist in the data.
 #'
@@ -15,40 +15,40 @@ NULL
 #' @param margins either a logical value or a character
 #'   vector. Margins are additional facets which contain all the data
 #'   for each of the possible values of the faceting variables. If
-#'   \code{FALSE}, no additional facets are included (the
-#'   default). If \code{TRUE}, margins are included for all faceting
+#'   `FALSE`, no additional facets are included (the
+#'   default). If `TRUE`, margins are included for all faceting
 #'   variables. If specified as a character vector, it is the names of
 #'   variables for which margins are to be created.
 #' @param scales Are scales shared across all facets (the default,
-#'   \code{"fixed"}), or do they vary across rows (\code{"free_x"}),
-#'   columns (\code{"free_y"}), or both rows and columns (\code{"free"})
-#' @param space If \code{"fixed"}, the default, all panels have the same size.
-#'   If \code{"free_y"} their height will be proportional to the length of the
-#'   y scale; if \code{"free_x"} their width will be proportional to the
-#'  length of the x scale; or if \code{"free"} both height and width will
+#'   `"fixed"`), or do they vary across rows (`"free_x"`),
+#'   columns (`"free_y"`), or both rows and columns (`"free"`)
+#' @param space If `"fixed"`, the default, all panels have the same size.
+#'   If `"free_y"` their height will be proportional to the length of the
+#'   y scale; if `"free_x"` their width will be proportional to the
+#'  length of the x scale; or if `"free"` both height and width will
 #'  vary.  This setting has no effect unless the appropriate scales also vary.
 #' @param labeller A function that takes one data frame of labels and
 #'   returns a list or data frame of character vectors. Each input
 #'   column corresponds to one factor. Thus there will be more than
-#'   one with formulae of the type \code{~cyl + am}. Each output
+#'   one with formulae of the type `~cyl + am`. Each output
 #'   column gets displayed as one separate line in the strip
 #'   label. This function should inherit from the "labeller" S3 class
-#'   for compatibility with \code{\link{labeller}()}. See
-#'   \code{\link{label_value}} for more details and pointers to other
+#'   for compatibility with [labeller()]. See
+#'   [label_value()] for more details and pointers to other
 #'   options.
-#' @param as.table If \code{TRUE}, the default, the facets are laid out like
-#'   a table with highest values at the bottom-right. If \code{FALSE}, the
+#' @param as.table If `TRUE`, the default, the facets are laid out like
+#'   a table with highest values at the bottom-right. If `FALSE`, the
 #'   facets are laid out like a plot with the highest value at the top-right.
 #' @param switch By default, the labels are displayed on the top and
-#'   right of the plot. If \code{"x"}, the top labels will be
-#'   displayed to the bottom. If \code{"y"}, the right-hand side
+#'   right of the plot. If `"x"`, the top labels will be
+#'   displayed to the bottom. If `"y"`, the right-hand side
 #'   labels will be displayed to the left. Can also be set to
-#'   \code{"both"}.
-#' @param shrink If \code{TRUE}, will shrink scales to fit output of
-#'   statistics, not raw data. If \code{FALSE}, will be range of raw data
+#'   `"both"`.
+#' @param shrink If `TRUE`, will shrink scales to fit output of
+#'   statistics, not raw data. If `FALSE`, will be range of raw data
 #'   before statistical summary.
-#' @param drop If \code{TRUE}, the default, all factor levels not used in the
-#'   data will automatically be dropped. If \code{FALSE}, all factor levels
+#' @param drop If `TRUE`, the default, all factor levels not used in the
+#'   data will automatically be dropped. If `FALSE`, all factor levels
 #'   will be shown, regardless of whether or not they appear in the data.
 #' @export
 #' @examples
