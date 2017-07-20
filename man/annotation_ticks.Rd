@@ -4,18 +4,17 @@
 \alias{annotation_ticks}
 \title{Annotation: tick marks}
 \usage{
-annotation_ticks(sides = "b", scale = rep("identity", length(sides)),
-  scaled = TRUE, short = grid::unit(0.1, "cm"), mid = grid::unit(0.2,
-  "cm"), long = grid::unit(0.3, "cm"), colour = "black", size = 0.5,
-  linetype = 1, alpha = 1, color = NULL, ticks_per_base = rep(10,
-  length(sides)), delog = rep(FALSE, length(sides)), ...)
+annotation_ticks(sides = "b", scale = "identity", scaled = TRUE,
+  short = grid::unit(0.1, "cm"), mid = grid::unit(0.2, "cm"),
+  long = grid::unit(0.3, "cm"), colour = "black", size = 0.5,
+  linetype = 1, alpha = 1, color = NULL, ticks_per_base = NULL, ...)
 }
 \arguments{
 \item{sides}{a string that controls which sides of the plot the log ticks appear on.
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
 
-\item{scale}{character, vector of type of scale attributed to the side, Default: rep('identity',length(sides))}
+\item{scale}{character, vector of type of scale attributed to each corresponding side, Default: 'identity'}
 
 \item{scaled}{is the data already log-scaled? This should be \code{TRUE}
 (default) when the data is already transformed with \code{log10()} or when
@@ -41,55 +40,60 @@ long tick marks. In base 10, these are the "1" (or "10") ticks.}
 
 \item{color}{An alias for \code{colour}.}
 
-\item{ticks_per_base}{integer, number of minor ticks between each pair of major ticks, Default: rep(10,length(sides))}
-
-\item{delog}{boolean, if an idenity transformation is needed use set to TRUE, Default: rep(FALSE,length(sides))}
+\item{ticks_per_base}{integer, number of minor ticks between each pair of major ticks, Default: NULL}
 
 \item{...}{Other parameters passed on to the layer}
 }
 \description{
 This annotation adds tick marks to an axis
 }
+\details{
+If scale is of length one it will be replicated to the number of sides given, but if the
+length of scale is larger than one it must match the number of sides given.
+If ticks_per_base is set to NULL the function infers the number of ticks per base to be
+the base of the scale - 1, for example log scale is base exp(1) and
+log10 and identity are base 10. If ticks_per_base is given it follows the same logic as scale.
+}
 \examples{
 
-p<-ggplot(msleep, aes(bodywt, brainwt)) + geom_point()
+p <- ggplot(msleep, aes(bodywt, brainwt)) + geom_point()
 
 #Default behavior
 
 #add identity scale minor ticks on y axis
-p+annotation_ticks(sides=c('l'))
+p + annotation_ticks(sides='l')
 
 #add identity scale minor ticks on x,y axis
-p+annotation_ticks(sides=c('lb'))
+p + annotation_ticks(sides='lb')
 
 #Control number of minor ticks of each side independently
 
 #add identity scale minor ticks on x,y axis
-p+annotation_ticks(sides=c('l','b'),ticks_per_base=c(10,5))
+p + annotation_ticks(sides='lb',ticks_per_base=c(10,5))
 
 #log10 scale
 p1 <- p + scale_x_log10()
 
 #add minor ticks on log10 scale
-p1+annotation_ticks(sides=c('b'),scale='log10')
+p1 + annotation_ticks(sides='b',scale='log10')
 
 #add minor ticks on both scales
-p1+annotation_ticks(sides=c('l','b'),scale=c('identity','log10'))
+p1 + annotation_ticks(sides='lb',scale=c('identity','log10'))
 
 #add minor ticks on both scales, but force x axis to be identity
-p1+annotation_ticks(sides=c('l','b'),scale=c('identity','log10'),delog=c(TRUE,TRUE))
+p1+annotation_ticks(sides='lb',scale='identity')
 
 
 #log scale
 p2 <- p + scale_x_continuous(trans='log')
 
 #add minor ticks on log scale
-p2+annotation_ticks(sides=c('b'),scale=c('log'))
+p2 + annotation_ticks(sides='b',scale='log')
 
 #add minor ticks on both scales
-p2+annotation_ticks(sides=c('l','b'),scale=c('identity','log'))
+p2 + annotation_ticks(sides='lb',scale=c('identity','log'))
 
 #add minor ticks on both scales, but force x axis to be identity
-p2+annotation_ticks(sides=c('l','b'),scale=c('identity','log'),delog=c(TRUE,TRUE))
+p2 + annotation_ticks(sides='lb',scale='identity')
 
 }

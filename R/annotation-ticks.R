@@ -4,54 +4,59 @@
 #'
 #' @export
 #' @inheritParams annotation_logticks
-#' @param scale character, vector of type of scale attributed to the side, Default: rep('identity',length(sides))
-#' @param ticks_per_base integer, number of minor ticks between each pair of major ticks, Default: rep(10,length(sides))
-#' @param delog boolean, if an idenity transformation is needed use set to TRUE, Default: rep(FALSE,length(sides))
+#' @param scale character, vector of type of scale attributed to each corresponding side, Default: 'identity'
+#' @param ticks_per_base integer, number of minor ticks between each pair of major ticks, Default: NULL
+#' @details
+#' If scale is of length one it will be replicated to the number of sides given, but if the
+#' length of scale is larger than one it must match the number of sides given.
+#' If ticks_per_base is set to NULL the function infers the number of ticks per base to be
+#' the base of the scale - 1, for example log scale is base exp(1) and
+#' log10 and identity are base 10. If ticks_per_base is given it follows the same logic as scale.
 #' @examples
 #'
-#' p<-ggplot(msleep, aes(bodywt, brainwt)) + geom_point()
+#' p <- ggplot(msleep, aes(bodywt, brainwt)) + geom_point()
 #'
 #' #Default behavior
 #'
 #' #add identity scale minor ticks on y axis
-#' p+annotation_ticks(sides=c('l'))
+#' p + annotation_ticks(sides='l')
 #'
 #' #add identity scale minor ticks on x,y axis
-#' p+annotation_ticks(sides=c('lb'))
+#' p + annotation_ticks(sides='lb')
 #'
 #' #Control number of minor ticks of each side independently
 #'
 #' #add identity scale minor ticks on x,y axis
-#' p+annotation_ticks(sides=c('l','b'),ticks_per_base=c(10,5))
+#' p + annotation_ticks(sides='lb',ticks_per_base=c(10,5))
 #'
 #' #log10 scale
 #' p1 <- p + scale_x_log10()
 #'
 #' #add minor ticks on log10 scale
-#' p1+annotation_ticks(sides=c('b'),scale='log10')
+#' p1 + annotation_ticks(sides='b',scale='log10')
 #'
 #' #add minor ticks on both scales
-#' p1+annotation_ticks(sides=c('l','b'),scale=c('identity','log10'))
+#' p1 + annotation_ticks(sides='lb',scale=c('identity','log10'))
 #'
 #' #add minor ticks on both scales, but force x axis to be identity
-#' p1+annotation_ticks(sides=c('l','b'),scale=c('identity','log10'),delog=c(TRUE,TRUE))
+#' p1+annotation_ticks(sides='lb',scale='identity')
 #'
 #'
 #' #log scale
 #' p2 <- p + scale_x_continuous(trans='log')
 #'
 #' #add minor ticks on log scale
-#' p2+annotation_ticks(sides=c('b'),scale=c('log'))
+#' p2 + annotation_ticks(sides='b',scale='log')
 #'
 #' #add minor ticks on both scales
-#' p2+annotation_ticks(sides=c('l','b'),scale=c('identity','log'))
+#' p2 + annotation_ticks(sides='lb',scale=c('identity','log'))
 #'
 #' #add minor ticks on both scales, but force x axis to be identity
-#' p2+annotation_ticks(sides=c('l','b'),scale=c('identity','log'),delog=c(TRUE,TRUE))
+#' p2 + annotation_ticks(sides='lb',scale='identity')
 #'
 #' @import grid
 annotation_ticks <- function(sides = "b",
-                             scale = rep('identity',length(sides)) ,
+                             scale = 'identity',
                              scaled = TRUE,
                              short = grid::unit(0.1,"cm"),
                              mid = grid::unit(0.2, "cm"),
@@ -61,8 +66,7 @@ annotation_ticks <- function(sides = "b",
                              linetype = 1,
                              alpha = 1,
                              color = NULL,
-                             ticks_per_base = rep(10,length(sides)),
-                             delog = rep(FALSE,length(sides)),
+                             ticks_per_base = NULL,
                              ...) {
 
     if (!is.null(color))
@@ -81,9 +85,51 @@ annotation_ticks <- function(sides = "b",
     #
     # }
 
-    base<-sapply(scale,function(x) switch(x,'identity'=10,'log10'=10,'log'=exp(1)),USE.NAMES = FALSE)
+    #check for invalid side
+    if(nchar(gsub('[b|t|l|r]','',sides))>0)
+      stop(gsub('[b|t|l|r]','',sides),' is not a valid side: b,t,l,r are valid')
 
-    if(!'delog'%in%names(match.call())) delog<-scale%in%'identity'
+    #split sides to character vector
+    sides <- strsplit(sides,'')[[1]]
+
+    if((length(sides)!=length(scale))){
+
+      if(length(scale)==1){
+
+        scale <- rep(scale,length(sides))
+
+      }else{
+
+        stop('Number of scales does not match the number of sides')
+
+      }
+
+    }
+
+    base <- sapply(scale,function(x) switch(x,'identity'=10,'log10'=10,'log'=exp(1)),USE.NAMES = FALSE)
+
+    if(!'ticks_per_base'%in%names(match.call())){
+
+      ticks_per_base <- base - 1
+
+    }else{
+
+      if((length(sides)!=length(ticks_per_base))){
+
+        if(length(ticks_per_base)==1){
+
+          ticks_per_base <- rep(ticks_per_base,length(sides))
+
+        }else{
+
+          stop('Number of ticks_per_base does not match the number of sides')
+
+        }
+
+      }
+    }
+
+    delog<-scale%in%'identity'
 
 
     layer(
