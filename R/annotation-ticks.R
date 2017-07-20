@@ -4,8 +4,9 @@
 #'
 #' @export
 #' @inheritParams annotation_logticks
-#' @param ticks_per_base integer, number of minor ticks between each pair of major ticks, Default: base-1
-#' @param delog boolean, if an idenity transformation is needed use set to TRUE, Default: FALSE
+#' @param scale character, vector of type of scale attributed to the side, Default: rep('identity',length(sides))
+#' @param ticks_per_base integer, number of minor ticks between each pair of major ticks, Default: rep(10,length(sides))
+#' @param delog boolean, if an idenity transformation is needed use set to TRUE, Default: rep(FALSE,length(sides))
 #' @examples
 #'
 #' p<-ggplot(msleep, aes(bodywt, brainwt)) + geom_point()
@@ -27,30 +28,30 @@
 #' p1 <- p + scale_x_log10()
 #'
 #' #add minor ticks on log10 scale
-#' p1+annotation_ticks(sides=c('b'),delog=FALSE)
+#' p1+annotation_ticks(sides=c('b'),scale='log10')
 #'
 #' #add minor ticks on both scales
-#' p1+annotation_ticks(sides=c('l','b'),base=c(10,10),delog=c(TRUE,FALSE))
+#' p1+annotation_ticks(sides=c('l','b'),scale=c('identity','log10'))
 #'
 #' #add minor ticks on both scales, but force x axis to be identity
-#' p1+annotation_ticks(sides=c('l','b'),base=c(10,10),delog=c(TRUE,TRUE))
+#' p1+annotation_ticks(sides=c('l','b'),scale=c('identity','log10'),delog=c(TRUE,TRUE))
 #'
 #'
 #' #log scale
 #' p2 <- p + scale_x_continuous(trans='log')
 #'
 #' #add minor ticks on log scale
-#' p2+annotation_ticks(sides=c('b'),base=exp(1),delog=FALSE)
+#' p2+annotation_ticks(sides=c('b'),scale=c('log'))
 #'
 #' #add minor ticks on both scales
-#' p2+annotation_ticks(sides=c('l','b'),base=c(10,exp(1)),delog=c(TRUE,FALSE))
+#' p2+annotation_ticks(sides=c('l','b'),scale=c('identity','log'))
 #'
 #' #add minor ticks on both scales, but force x axis to be identity
-#' p2+annotation_ticks(sides=c('l','b'),base=c(10,exp(1)),delog=c(TRUE,TRUE))
+#' p2+annotation_ticks(sides=c('l','b'),scale=c('identity','log'),delog=c(TRUE,TRUE))
 #'
 #' @import grid
 annotation_ticks <- function(sides = "b",
-                             base = rep(10,length(sides)) ,
+                             scale = rep('identity',length(sides)) ,
                              scaled = TRUE,
                              short = grid::unit(0.1,"cm"),
                              mid = grid::unit(0.2, "cm"),
@@ -60,18 +61,53 @@ annotation_ticks <- function(sides = "b",
                              linetype = 1,
                              alpha = 1,
                              color = NULL,
-                             ticks_per_base = rep(base - 1,length(sides)),
-                             delog = rep(TRUE,length(sides)),
+                             ticks_per_base = rep(10,length(sides)),
+                             delog = rep(FALSE,length(sides)),
                              ...) {
 
     if (!is.null(color))
         colour <- color
 
-    layer(data = data.frame(x = NA), mapping = NULL, stat = StatIdentity, geom = GeomTicks,
-        position = PositionIdentity, show.legend = FALSE, inherit.aes = FALSE, params = list(base = base,
-            sides = sides, scaled = scaled, short = short, mid = mid, long = long, colour = colour,
-            size = size, linetype = linetype, alpha = alpha, ticks_per_base = ticks_per_base,
-            delog = delog, ...))
+    # if(!'scale'%in%names(match.call())){
+    #
+    #   scale <- sapply(sides,function(x){
+    #     if(grepl('[b|t]',x))
+    #
+    #          # is there a way to learn what trans is set to at this stage
+    #          # from the object annotation is be applied to?
+    #          # if so then user wont need to supply param to specify non identity scale
+    #
+    #   })
+    #
+    # }
+
+    base<-sapply(scale,function(x) switch(x,'identity'=10,'log10'=10,'log'=exp(1)),USE.NAMES = FALSE)
+
+    if(!'delog'%in%names(match.call())) delog<-scale%in%'identity'
+
+
+    layer(
+      data = data.frame(x = NA),
+      mapping = NULL,
+      stat = StatIdentity,
+      geom = GeomTicks,
+      position = PositionIdentity,
+      show.legend = FALSE,
+      inherit.aes = FALSE,
+      params = list(base = base,
+                    sides = sides,
+                    scaled = scaled,
+                    short = short,
+                    mid = mid,
+                    long = long,
+                    colour = colour,
+                    size = size,
+                    linetype = linetype,
+                    alpha = alpha,
+                    ticks_per_base = ticks_per_base,
+                    delog = delog,
+                    ...)
+      )
 }
 
 #' @rdname ggplot2-ggproto
@@ -84,10 +120,19 @@ GeomTicks <- ggproto("GeomTicks", Geom,
     data
 },
 
-draw_panel = function(data, panel_scales, coord, base = c(10, 10), sides = c("b",
-    "l"), scaled = TRUE, short = grid::unit(0.1, "cm"), mid = grid::unit(0.2, "cm"),
-    long = grid::unit(0.3, "cm"),
-    ticks_per_base = base - 1, delog = c(x = TRUE, y = TRUE)) {
+draw_panel = function(
+  data,
+  panel_scales,
+  coord,
+  base = c(10, 10),
+  sides = c("b","l"),
+  scaled = TRUE,
+  short = grid::unit(0.1, "cm"),
+  mid = grid::unit(0.2, "cm"),
+  long = grid::unit(0.3, "cm"),
+  ticks_per_base = base - 1,
+  delog = c(x = TRUE, y = TRUE)){
+
     ticks <- list()
 
     # Convert these units to numbers so that they can be put in data frames
@@ -115,7 +160,9 @@ draw_panel = function(data, panel_scales, coord, base = c(10, 10), sides = c("b"
                 if (!delog[s])
                   xticks$value <- log(xticks$value, base[s])
             }
+
             names(xticks)[names(xticks) == "value"] <- "x"  # Rename to 'x' for coordinates$transform
+
             xticks <- coord$transform(xticks, panel_scales)
 
             # Make the grobs
@@ -180,8 +227,17 @@ draw_panel = function(data, panel_scales, coord, base = c(10, 10), sides = c("b"
 # position of the log tick on the data axis, for example 1, 2, ..., 9, 10, 20, ...
 # - start: on the other axis, start position of the line (usually 0) - end: on the
 # other axis, end position of the line (for example, .1, .2, or .3)
-calc_ticks <- function(base = 10, ticks_per_base = base - 1, minpow = 0, maxpow = minpow +
-    1, majorTicks = 0, start = 0, shortend = 0.1, midend = 0.2, longend = 0.3, delog = FALSE) {
+calc_ticks <- function(
+  base = 10,
+  ticks_per_base = base - 1,
+  minpow = 0,
+  maxpow = minpow + 1,
+  majorTicks = 0,
+  start = 0,
+  shortend = 0.1,
+  midend = 0.2,
+  longend = 0.3,
+  delog = FALSE){
 
     # Number of blocks of tick marks
     reps <- maxpow - minpow
@@ -191,7 +247,9 @@ calc_ticks <- function(base = 10, ticks_per_base = base - 1, minpow = 0, maxpow 
 
     # For base 10: 1, 1, 1, ..., 1, 1, 1, 2, 2, ... (for example)
     powers <- rep(seq(minpow, maxpow - 1), each = ticks_per_base)
+
     ticks <- ticknums * base^powers
+
     ticks <- c(ticks, base^maxpow)  # Add the last tick mark
 
     # Set all of the ticks short
@@ -209,19 +267,33 @@ calc_ticks <- function(base = 10, ticks_per_base = base - 1, minpow = 0, maxpow 
     tickend[cycleIdx == longtick_after_base] <- midend
 
     if (delog) {
+
         ticksCopy = ticks
+
         regScale = log(ticks, base)
-        majorTicks = sort(unique(c(minpow, regScale[which(regScale %in% majorTicks)],
-            maxpow, majorTicks)))
-        expandScale = c()
+
+        majorTicks = sort(unique(c(minpow,
+                                   regScale[which(regScale %in% majorTicks)],
+                                   maxpow,
+                                   majorTicks)
+                                 )
+                          )
+
+        expandScale <- c()
+
         if (length(majorTicks) > 1) {
+
             for (i in 1:(length(majorTicks) - 1)) {
-                expandScale = c(expandScale, seq(majorTicks[i], majorTicks[i + 1], length.out = (ticks_per_base +
-                  1)))
+                expandScale = c(expandScale,
+                                seq(majorTicks[i], majorTicks[i + 1], length.out = (ticks_per_base + 1))
+                                )
             }
+
             ticks = unique(expandScale)
+
             # Set all of the ticks short
             tickend <- rep(shortend, length(ticks))
+
             # Set the 'major' ticks long
             tickend[which(ticks %in% majorTicks)] <- longend
         }

@@ -4,18 +4,18 @@
 \alias{annotation_ticks}
 \title{Annotation: tick marks}
 \usage{
-annotation_ticks(sides = "b", base = rep(10, length(sides)),
+annotation_ticks(sides = "b", scale = rep("identity", length(sides)),
   scaled = TRUE, short = grid::unit(0.1, "cm"), mid = grid::unit(0.2,
   "cm"), long = grid::unit(0.3, "cm"), colour = "black", size = 0.5,
-  linetype = 1, alpha = 1, color = NULL, ticks_per_base = rep(base - 1,
-  length(sides)), delog = rep(TRUE, length(sides)), ...)
+  linetype = 1, alpha = 1, color = NULL, ticks_per_base = rep(10,
+  length(sides)), delog = rep(FALSE, length(sides)), ...)
 }
 \arguments{
 \item{sides}{a string that controls which sides of the plot the log ticks appear on.
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
 
-\item{base}{the base of the log (default 10)}
+\item{scale}{character, vector of type of scale attributed to the side, Default: rep('identity',length(sides))}
 
 \item{scaled}{is the data already log-scaled? This should be \code{TRUE}
 (default) when the data is already transformed with \code{log10()} or when
@@ -41,9 +41,9 @@ long tick marks. In base 10, these are the "1" (or "10") ticks.}
 
 \item{color}{An alias for \code{colour}.}
 
-\item{ticks_per_base}{integer, number of minor ticks between each pair of major ticks, Default: base-1}
+\item{ticks_per_base}{integer, number of minor ticks between each pair of major ticks, Default: rep(10,length(sides))}
 
-\item{delog}{boolean, if an idenity transformation is needed use set to TRUE, Default: FALSE}
+\item{delog}{boolean, if an idenity transformation is needed use set to TRUE, Default: rep(FALSE,length(sides))}
 
 \item{...}{Other parameters passed on to the layer}
 }
@@ -71,25 +71,25 @@ p+annotation_ticks(sides=c('l','b'),ticks_per_base=c(10,5))
 p1 <- p + scale_x_log10()
 
 #add minor ticks on log10 scale
-p1+annotation_ticks(sides=c('b'),delog=FALSE)
+p1+annotation_ticks(sides=c('b'),scale='log10')
 
 #add minor ticks on both scales
-p1+annotation_ticks(sides=c('l','b'),base=c(10,10),delog=c(TRUE,FALSE))
+p1+annotation_ticks(sides=c('l','b'),scale=c('identity','log10'))
 
 #add minor ticks on both scales, but force x axis to be identity
-p1+annotation_ticks(sides=c('l','b'),base=c(10,10),delog=c(TRUE,TRUE))
+p1+annotation_ticks(sides=c('l','b'),scale=c('identity','log10'),delog=c(TRUE,TRUE))
 
 
 #log scale
 p2 <- p + scale_x_continuous(trans='log')
 
 #add minor ticks on log scale
-p2+annotation_ticks(sides=c('b'),base=exp(1),delog=FALSE)
+p2+annotation_ticks(sides=c('b'),scale=c('log'))
 
 #add minor ticks on both scales
-p2+annotation_ticks(sides=c('l','b'),base=c(10,exp(1)),delog=c(TRUE,FALSE))
+p2+annotation_ticks(sides=c('l','b'),scale=c('identity','log'))
 
 #add minor ticks on both scales, but force x axis to be identity
-p2+annotation_ticks(sides=c('l','b'),base=c(10,exp(1)),delog=c(TRUE,TRUE))
+p2+annotation_ticks(sides=c('l','b'),scale=c('identity','log'),delog=c(TRUE,TRUE))
 
 }
