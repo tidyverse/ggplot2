@@ -71,7 +71,7 @@ NULL
 #' @format NULL
 StatSf <- ggproto("StatSf", Stat,
   compute_group = function(data, scales) {
-    bbox <- sf::st_bbox(data$geometry)
+    bbox <- sf::st_bbox(data[[1]])
     data$xmin <- bbox[["xmin"]]
     data$xmax <- bbox[["xmax"]]
     data$ymin <- bbox[["ymin"]]
@@ -191,8 +191,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     for (layer_data in data) {
-      geometry <- layer_data$geometry
-      if (is.null(geometry))
+      if (inherits(layer_data, "sf"))
+        geometry <- sf::st_geometry(layer_data)
+      else
         next
 
       crs <- sf::st_crs(geometry)
@@ -211,18 +212,17 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       return(data)
 
     lapply(data, function(layer_data) {
-      if (is.null(layer_data$geometry)) {
+      if (! inherits(layer_data, "sf")) {
         return(layer_data)
       }
 
-      layer_data$geometry <- sf::st_transform(layer_data$geometry, params$crs)
-      layer_data
+      sf::st_transform(layer_data, params$crs)
     })
   },
 
   transform = function(self, data, panel_params) {
-    data$geometry <- sf_rescale01(
-      data$geometry,
+    data[[1]] <- sf_rescale01(
+      data[[1]],
       panel_params$x_range,
       panel_params$y_range
     )
@@ -259,7 +259,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     # remove tick labels not on axes 1 (bottom) and 2 (left)
     if (!is.null(graticule$plot12))
       graticule$degree_label[!graticule$plot12] <- NA
-	
+
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
     graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
     graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
