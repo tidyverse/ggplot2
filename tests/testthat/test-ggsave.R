@@ -57,3 +57,17 @@ test_that("text converted to function", {
 test_that("if device is NULL, guess from extension", {
   expect_identical(body(plot_dev(NULL, "test.png"))[[1]], quote(grDevices::png))
 })
+
+
+# parse_dpi ---------------------------------------------------------------
+
+test_that("DPI string values are parsed correctly", {
+  expect_is(parse_dpi("print"), "numeric")
+  expect_is(parse_dpi("screen"), "numeric")
+  expect_is(parse_dpi("retina"), "numeric")
+  expect_is(parse_dpi(100), "numeric")
+})
+
+test_that("invalid DPI string values throw an error", {
+  expect_error(parse_dpi("abc"), "Invalid string DPI value")
+})
