@@ -17,7 +17,7 @@ reference:
   contents:
   - ggplot
   - aes
-  - +.gg
+  - "`+.gg`"
   - ggsave
   - qplot
 
@@ -55,7 +55,7 @@ reference:
 - title: "Layer: annotations"
   desc: >
     Annotation are special types of layer than don't inherit global settings
-    from the plot. Rhey are used to add fixed reference data to plot.
+    from the plot. They are used to add fixed reference data to plot.
   contents:
   - geom_abline
   - annotate
@@ -93,7 +93,7 @@ reference:
     The guides (the axes and legends) help readers interpret your plots.
     Guides are mostly controlled via the scale (e.g. with the `limits`,
     `breaks`, and `labels` arguments), but sometimes you will need additional
-    cover over the guide apperance. Use `guides()` or the `guide` argument to
+    cover over the guide appearance. Use `guides()` or the `guide` argument to
     individual scales along with `guide_colourbar()` or `guide_legend()`.
   contents:
   - guide_colourbar
@@ -195,13 +195,14 @@ reference:
 
 - title: Autoplot and fortify
   desc: >
-    `autoplot()` is an extension mechansim for ggplot2 it provides a way
+    `autoplot()` is an extension mechanism for ggplot2 it provides a way
     for package authors to add methods that work like the base `plot()`
     function, generating useful default plots with little user interaction.
     `fortify()` turns objects into tidy data frames: it has largely been
     superceded by the [broom package](https://github.com/dgrtwo/broom).
   contents:
   - autoplot
+  - autolayer
   - fortify
   - map_data
 
@@ -231,8 +232,6 @@ navbar:
     - text: "------------------"
     - text: "Change log"
       href: news/index.html
-  - text: News
-    href: news/index.html
   right:
   - icon: fa-github fa-lg
     href: https://github.com/tidyverse/ggplot2

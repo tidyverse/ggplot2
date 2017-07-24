@@ -1,11 +1,11 @@
 #' Set guides for each scale
 #'
-#' Guides for each scale can be set scale-by-scale with the \code{guide}
-#' argument, or en masse with \code{guides()}.
+#' Guides for each scale can be set scale-by-scale with the `guide`
+#' argument, or en masse with `guides()`.
 #'
 #' @param ... List of scale name-guide pairs.  The guide can either
 #'   be a string (i.e. "colorbar" or "legend"), or a call to a guide function
-#'   (i.e. \code{\link{guide_colourbar}} or \code{\link{guide_legend}})
+#'   (i.e. [guide_colourbar()] or [guide_legend()])
 #'   specifying additional arguments.
 #' @return A list containing the mapping between scale and guide.
 #' @export

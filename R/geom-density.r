@@ -7,13 +7,13 @@
 #' @section Aesthetics:
 #' \aesthetics{geom}{density}
 #'
-#' @seealso See \code{\link{geom_histogram}}, \code{\link{geom_freqpoly}} for
+#' @seealso See [geom_histogram()], [geom_freqpoly()] for
 #'   other methods of displaying continuous distribution.
-#'   See \code{\link{geom_violin}} for a compact density display.
+#'   See [geom_violin()] for a compact density display.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_density} and \code{stat_density}.
+#'   `geom_density` and `stat_density`.
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(carat)) +

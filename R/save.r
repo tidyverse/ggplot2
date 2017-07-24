@@ -1,6 +1,6 @@
 #' Save a ggplot (or other grid object) with sensible defaults
 #'
-#' \code{ggsave()} is a convenient function for saving a plot. It defaults to
+#' `ggsave()` is a convenient function for saving a plot. It defaults to
 #' saving the last plot that you displayed, using the size of the current
 #' graphics device. It also guesses the type of graphics device from the
 #' extension.
@@ -8,17 +8,17 @@
 #' @param filename File name to create on disk.
 #' @param plot Plot to save, defaults to last plot displayed.
 #' @param device Device to use. Can be either be a device function
-#'   (e.g. \code{\link{png}}), or one of "eps", "ps", "tex" (pictex),
+#'   (e.g. [png()]), or one of "eps", "ps", "tex" (pictex),
 #'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
 #' @param path Path to save plot to (combined with filename).
 #' @param scale Multiplicative scaling factor.
-#' @param width,height,units Plot size in \code{units} ("in", "cm", or "mm").
+#' @param width,height,units Plot size in `units` ("in", "cm", or "mm").
 #'   If not supplied, uses the size of current graphics device.
 #' @param dpi Plot resolution. Applies only to raster output types.
-#' @param limitsize When \code{TRUE} (the default), \code{ggsave} will not
+#' @param limitsize When `TRUE` (the default), `ggsave` will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
-#' @param ... Other arguments passed on to graphics \code{device}.
+#' @param ... Other arguments passed on to graphics `device`.
 #' @export
 #' @examples
 #' \dontrun{

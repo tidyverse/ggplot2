@@ -1,6 +1,6 @@
 #' Text
 #'
-#' \code{geom_text} adds text directly to the plot. \code{geom_label} draws
+#' `geom_text` adds text directly to the plot. `geom_label` draws
 #' a rectangle behind the text, making it easier to read.
 #'
 #' Note the the "width" and "height" of a text element are 0, so stacking
@@ -10,16 +10,22 @@
 #' space they occupy on that plot is not constant in data units: when you
 #' resize a plot, labels stay the same size, but the size of the axes changes.
 #'
+#' `geom_text` and `geom_label` both add a label for each row in the 
+#' data, even if coordinates x, y are set to single values in the call 
+#' to `geom_label` or `geom_text`.
+#' To add labels at specified points use [annotate()] with
+#' `annotate(geom = "text", ...)` or `annotate(geom = "label", ...)`
+#'
 #' @section Aesthetics:
 #' \aesthetics{geom}{text}
 #'
-#' @section \code{geom_label}:
-#' Currently \code{geom_label} does not support the \code{rot} parameter and
-#' is considerably slower than \code{geom_text}. The \code{fill} aesthetic
+#' @section `geom_label`:
+#' Currently `geom_label` does not support the `rot` parameter and
+#' is considerably slower than `geom_text`. The `fill` aesthetic
 #' controls the background colour of the label.
 #'
 #' @section Alignment:
-#' You can modify text alignment with the \code{vjust} and \code{hjust}
+#' You can modify text alignment with the `vjust` and `hjust`
 #' aesthetics. These can either be a number between 0 (right/bottom) and
 #' 1 (top/left) or a character ("left", "middle", "right", "bottom", "center",
 #' "top"). There are two special alignments: "inward" and "outward".
@@ -32,7 +38,7 @@
 #'   displayed as described in ?plotmath
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #'   Useful for offsetting text from points, particularly on discrete scales.
-#' @param check_overlap If \code{TRUE}, text that overlaps previous text in the
+#' @param check_overlap If `TRUE`, text that overlaps previous text in the
 #'   same layer will not be plotted.
 #' @export
 #' @examples

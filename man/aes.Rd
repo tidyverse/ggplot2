@@ -14,7 +14,7 @@ they are so common; all other aesthetics must be named.}
 \description{
 Aesthetic mappings describe how variables in the data are mapped to visual
 properties (aesthetics) of geoms. Aesthetic mappings can be set in
-\code{\link{ggplot2}} and in individual layers.
+\code{\link[=ggplot2]{ggplot2()}} and in individual layers.
 }
 \details{
 This function also standardise aesthetic names by performing partial
@@ -42,6 +42,6 @@ ggplot(mpg) + geom_point(aes(displ, hwy))
 # you can override them, or supply different aesthetics for each layer
 }
 \seealso{
-See \code{\link{aes_}} for a version of \code{aes} that is
-  more suitable for programming with.
+See \code{\link[=aes_]{aes_()}} for a version of \code{aes} that is
+more suitable for programming with.
 }

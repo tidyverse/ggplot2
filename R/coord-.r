@@ -1,42 +1,40 @@
 #' @section Coordinate systems:
 #'
-#' All \code{coord_*} functions (like \code{coord_trans}) return a \code{Coord*}
-#' object (like \code{CoordTrans}). The \code{Coord*} object is responsible for
+#' All `coord_*` functions (like `coord_trans`) return a `Coord*`
+#' object (like `CoordTrans`). The `Coord*` object is responsible for
 #' adjusting the position of overlapping geoms.
 #'
-#' The way that the \code{coord_*} functions work is slightly different from the
-#' \code{geom_*} and \code{stat_*} functions, because a \code{coord_*} function
-#' actually "instantiates" the \code{Coord*} object by creating a descendant,
+#' The way that the `coord_*` functions work is slightly different from the
+#' `geom_*` and `stat_*` functions, because a `coord_*` function
+#' actually "instantiates" the `Coord*` object by creating a descendant,
 #' and returns that.
 #'
-#' Each of the \code{Coord*} objects is a \code{\link{ggproto}} object,
-#' descended from the top-level \code{Coord}.  To create a new type of Coord
+#' Each of the `Coord*` objects is a [ggproto()] object,
+#' descended from the top-level `Coord`.  To create a new type of Coord
 #' object, you typically will want to implement one or more of the following:
 #'
-#' \itemize{
-#'   \item \code{aspect}: Returns the desired aspect ratio for the plot.
-#'   \item \code{labels}: Returns a list containing labels for x and y.
-#'   \item \code{render_fg}: Renders foreground elements.
-#'   \item \code{render_bg}: Renders background elements.
-#'   \item \code{render_axis_h}: Renders the horizontal axes.
-#'   \item \code{render_axis_v}: Renders the vertical axes.
-#'   \item \code{range}: Returns the x and y ranges
-#'   \item \code{train}: Return the trained scale ranges.
-#'   \item \code{transform}: Transforms x and y coordinates.
-#'   \item \code{distance}: Calculates distance.
-#'   \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
-#'     linear; \code{FALSE} otherwise.
+#'   - `aspect`: Returns the desired aspect ratio for the plot.
+#'   - `labels`: Returns a list containing labels for x and y.
+#'   - `render_fg`: Renders foreground elements.
+#'   - `render_bg`: Renders background elements.
+#'   - `render_axis_h`: Renders the horizontal axes.
+#'   - `render_axis_v`: Renders the vertical axes.
+#'   - `range`: Returns the x and y ranges
+#'   - `train`: Return the trained scale ranges.
+#'   - `transform`: Transforms x and y coordinates.
+#'   - `distance`: Calculates distance.
+#'   - `is_linear`: Returns `TRUE` if the coordinate system is
+#'     linear; `FALSE` otherwise.
 #'
-#'   \item \code{setup_params(data)}: Allows the coordinate system to inspect
+#'   - `setup_params(data)`: Allows the coordinate system to inspect
 #'     all layers and return a list of additional parameters that vary based on
 #'     the data. These parameters are currently only passed to the other
-#'     setup functions and \code{train()}.
-#'   \item \code{setup_data(data, params)}: Allows the coordinate system to
+#'     setup functions and `train()`.
+#'   - `setup_data(data, params)`: Allows the coordinate system to
 #'     manipulate the plot data. Should return list of data frames.
-#'   \item \code{setup_layout(layout, params)}: Allows the coordinate
-#'     system to manipulate the \code{layout} data frame which assigns
+#'   - `setup_layout(layout, params)`: Allows the coordinate
+#'     system to manipulate the `layout` data frame which assigns
 #'     data to panels and scales.
-#' }
 #'
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -116,7 +114,7 @@ Coord <- ggproto("Coord",
 #' @keywords internal
 is.Coord <- function(x) inherits(x, "Coord")
 
-expand_default <- function(scale, discrete = c(0, 0.6), continuous = c(0.05, 0)) {
+expand_default <- function(scale, discrete = c(0, 0.6, 0, 0.6), continuous = c(0.05, 0, 0.05, 0)) {
   scale$expand %|W|% if (scale$is_discrete()) discrete else continuous
 }
 
