@@ -63,6 +63,10 @@
 #' @name ggsf
 NULL
 
+geom_column = function(data) {
+  data[[ which(sapply(data, function(x) inherits(x, "sfc")))[1] ]]
+}
+
 # stat --------------------------------------------------------------------
 
 #' @export
@@ -71,7 +75,7 @@ NULL
 #' @format NULL
 StatSf <- ggproto("StatSf", Stat,
   compute_group = function(data, scales) {
-    bbox <- sf::st_bbox(data[[1]])
+    bbox <- sf::st_bbox(geom_column(data))
     data$xmin <- bbox[["xmin"]]
     data$xmax <- bbox[["xmax"]]
     data$ymin <- bbox[["ymin"]]
@@ -221,8 +225,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   transform = function(self, data, panel_params) {
-    data[[1]] <- sf_rescale01(
-      data[[1]],
+    data[[ which(sapply(data, function(x) inherits(x, "sfc")))[1] ]] <- sf_rescale01(
+      geom_column(data),
       panel_params$x_range,
       panel_params$y_range
     )
