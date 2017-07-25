@@ -3,6 +3,9 @@
 * Box plot position is now controlled by `position_dodge2()` (@karawoo,
   #2143).
 
+* `coord_trans()` now generates a warning when a transformation results in x or y 
+  values being non-finite (@foo-bar-baz-qux, #2147).
+  
 * Legend titles and labels get a little extra space around them. Legend titles
   will no longer overlap the legend at large font sizes (@karawoo, #1881).
 
