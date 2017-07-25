@@ -61,7 +61,7 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
   },
                           
   compute_panel = function(data, params, scales) {
-    collide_box(
+    collide2(
       data,
       params$width,
       name = "position_dodge2",

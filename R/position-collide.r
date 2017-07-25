@@ -66,8 +66,9 @@ collide <- function(data, width = NULL, name, strategy,
   }
 }
 
-collide_box <- function(data, width = NULL, name, strategy,
-                        ..., check.width = TRUE, reverse = FALSE) {
+# Alternate version of collide() used by position_dodge2()
+collide2 <- function(data, width = NULL, name, strategy,
+                     ..., check.width = TRUE, reverse = FALSE) {
   dlist <- collide_setup(data, width, name, strategy, check.width, reverse)
   data <- dlist$data
   width <- dlist$width
