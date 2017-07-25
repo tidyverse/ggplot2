@@ -5,7 +5,7 @@
 \title{Position dodge for box plots}
 \usage{
 position_dodge2(width = NULL, preserve = c("single", "total"),
-  padding = 0.05)
+  padding = 0)
 }
 \arguments{
 \item{width}{Dodging width, when different to the width of the individual

@@ -23,7 +23,7 @@
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
 position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
-                              padding = 0.05) {
+                              padding = 0) {
   ggproto(NULL, PositionDodge2,
     width = width,
     preserve = match.arg(preserve),
@@ -37,7 +37,7 @@ position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
 #' @export
 PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
   preserve = "single",
-  padding = 0.05,
+  padding = 0,
   setup_params = function(self, data) {
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warning("Width not defined. Set with `position_dodge2(width = ?)`",
@@ -72,7 +72,7 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
   }
 )
 
-pos_dodge2 <- function(df, width, n = NULL, padding = 0.05) {
+pos_dodge2 <- function(df, width, n = NULL, padding = 0) {
 
   if (length(unique(df$group)) == 1) {
     return(df)

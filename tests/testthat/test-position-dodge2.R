@@ -41,7 +41,7 @@ test_that("cols at the same x position are dodged", {
   p <- ggplot(df, aes(1, n, fill = x)) + 
     geom_col(position = "dodge2", alpha = 0.5)
 
-  expect_false(any(duplicated(find_x_overlaps(layer_data(p)))))
+  expect_false(any(duplicated(layer_data(p)$x)))
 })
 
 test_that("padding argument controls space between elements", {

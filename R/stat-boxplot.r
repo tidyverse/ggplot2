@@ -14,7 +14,8 @@
 #' }
 #' @export
 stat_boxplot <- function(mapping = NULL, data = NULL,
-                         geom = "boxplot", position = "dodge2",
+                         geom = "boxplot",
+                         position = position_dodge2(padding = 0.05),
                          ...,
                          coef = 1.5,
                          na.rm = FALSE,
