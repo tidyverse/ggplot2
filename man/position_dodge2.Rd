@@ -2,7 +2,7 @@
 % Please edit documentation in R/position-dodge2.r
 \name{position_dodge2}
 \alias{position_dodge2}
-\title{Position dodge for box plots}
+\title{Alternate method for dodging overlapping objects}
 \usage{
 position_dodge2(width = NULL, preserve = c("single", "total"),
   padding = 0)
@@ -16,12 +16,13 @@ geoms. See the examples.}
 at a position, or the width of a single element?}
 
 \item{padding}{Padding between boxes at the same position. Boxes are shrunk
-by this proportion to make room for space between them. Defaults to 0.05.}
+by this proportion to make room for space between them. Defaults to 0.}
 }
 \description{
 Dodging preserves the vertical position of an geom while adjusting the
-horizontal position. \code{position_dodge2} is a special case of
-\code{position_dodge} for arranging box plots, which can have variable widths.
+horizontal position. \code{position_dodge2} is a special case of \code{position_dodge}
+for arranging box plots, which can have variable widths. It also works with
+bars and rectangles.
 }
 \examples{
 ggplot(data = iris, aes(Species, Sepal.Length)) +

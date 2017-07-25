@@ -1,13 +1,14 @@
-#' Position dodge for box plots
+#' Alternate method for dodging overlapping objects
 #'
 #' Dodging preserves the vertical position of an geom while adjusting the
-#' horizontal position. `position_dodge2` is a special case of
-#' `position_dodge` for arranging box plots, which can have variable widths.
+#' horizontal position. `position_dodge2` is a special case of `position_dodge`
+#' for arranging box plots, which can have variable widths. It also works with
+#' bars and rectangles.
 #' 
 #' @include position-dodge.r
 #' @inheritParams position_dodge
 #' @param padding Padding between boxes at the same position. Boxes are shrunk
-#'   by this proportion to make room for space between them. Defaults to 0.05.
+#'   by this proportion to make room for space between them. Defaults to 0.
 #' @family position adjustments
 #' @export
 #' @examples
