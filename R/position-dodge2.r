@@ -144,7 +144,7 @@ find_x_overlaps <- function(df) {
   overlaps <- vector(mode = "numeric", length = nrow(df))
   overlaps[1] <- counter <- 1
   for (i in 2:nrow(df)) {
-    if (df$xmin[i] > df$xmax[i - 1]) {
+    if (df$xmin[i] >= df$xmax[i - 1]) {
       counter <- counter + 1
     }
     overlaps[i] <- counter
