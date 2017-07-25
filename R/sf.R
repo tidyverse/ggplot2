@@ -61,8 +61,13 @@
 #' @name ggsf
 NULL
 
-geom_column = function(data) {
-  data[[ which(sapply(data, function(x) inherits(x, "sfc")))[1] ]]
+geom_column <- function(data) {
+  # this may not work well in case more than one geometry list-column is present:
+  which(vapply(data, inherits, TRUE, what = "sfc"))[1] 
+}
+
+is_sf <- function(data) {
+  inherits(data, "sf")
 }
 
 # stat --------------------------------------------------------------------
@@ -73,7 +78,7 @@ geom_column = function(data) {
 #' @format NULL
 StatSf <- ggproto("StatSf", Stat,
   compute_group = function(data, scales) {
-    bbox <- sf::st_bbox(geom_column(data))
+    bbox <- sf::st_bbox(data[[ geom_column(data) ]])
     data$xmin <- bbox[["xmin"]]
     data$xmax <- bbox[["xmax"]]
     data$ymin <- bbox[["ymin"]]
@@ -155,7 +160,7 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
                     inherit.aes = TRUE, ...) {
 
   # Automatically determin name of geometry column
-  if (!is.null(data) && inherits(data, "sf")) {
+  if (!is.null(data) && is_sf(data)) {
     geometry_col <- attr(data, "sf_column")
   } else {
     geometry_col <- "geometry"
@@ -193,9 +198,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     for (layer_data in data) {
-      if (inherits(layer_data, "sf"))
+      if (is_sf(layer_data)) {
         geometry <- sf::st_geometry(layer_data)
-      else
+      } else
         next
 
       crs <- sf::st_crs(geometry)
@@ -214,7 +219,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       return(data)
 
     lapply(data, function(layer_data) {
-      if (! inherits(layer_data, "sf")) {
+      if (! is_sf(layer_data)) {
         return(layer_data)
       }
 
@@ -223,8 +228,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   transform = function(self, data, panel_params) {
-    data[[ which(sapply(data, function(x) inherits(x, "sfc")))[1] ]] <- sf_rescale01(
-      geom_column(data),
+    data[[ geom_column(data) ]] <- sf_rescale01(
+      data[[ geom_column(data) ]],
       panel_params$x_range,
       panel_params$y_range
     )
