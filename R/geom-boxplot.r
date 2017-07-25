@@ -96,7 +96,7 @@
 #' }
 geom_boxplot <- function(mapping = NULL, data = NULL,
                          stat = "boxplot",
-                         position = position_dodge2(padding = 0.05),
+                         position = position_dodge2(padding = 0.1),
                          ...,
                          outlier.colour = NULL,
                          outlier.color = NULL,
