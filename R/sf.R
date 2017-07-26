@@ -62,8 +62,13 @@
 NULL
 
 geom_column <- function(data) {
-  # this may not work well in case more than one geometry list-column is present:
-  which(vapply(data, inherits, TRUE, what = "sfc"))[1] 
+  w = which(vapply(data, inherits, TRUE, what = "sfc"))
+  if (length(w) == 0) {
+    "geometry" # avoids breaks when objects without geometry list-column are examined
+  } else {
+    # this may not be best in case more than one geometry list-column is present:
+    w[1]
+  }
 }
 
 is_sf <- function(data) {
