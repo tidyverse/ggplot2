@@ -62,12 +62,12 @@
 NULL
 
 geom_column <- function(data) {
-  w = which(vapply(data, inherits, TRUE, what = "sfc"))
+  w <- which(vapply(data, inherits, TRUE, what = "sfc"))
   if (length(w) == 0) {
     "geometry" # avoids breaks when objects without geometry list-column are examined
   } else {
     # this may not be best in case more than one geometry list-column is present:
-    w[1]
+    w[[1]]
   }
 }
 
