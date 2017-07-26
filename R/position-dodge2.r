@@ -8,7 +8,7 @@
 #' @include position-dodge.r
 #' @inheritParams position_dodge
 #' @param padding Padding between boxes at the same position. Boxes are shrunk
-#'   by this proportion to make room for space between them. Defaults to 0.
+#'   by this proportion to make room for space between them. Defaults to 0.1.
 #' @family position adjustments
 #' @export
 #' @examples
@@ -24,7 +24,7 @@
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
 position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
-                              padding = 0) {
+                              padding = 0.1) {
   ggproto(NULL, PositionDodge2,
     width = width,
     preserve = match.arg(preserve),
@@ -38,7 +38,7 @@ position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
 #' @export
 PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
   preserve = "single",
-  padding = 0,
+  padding = 0.1,
   setup_params = function(self, data) {
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warning("Width not defined. Set with `position_dodge2(width = ?)`",
@@ -73,7 +73,7 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
   }
 )
 
-pos_dodge2 <- function(df, width, n = NULL, padding = 0) {
+pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
 
   if (length(unique(df$group)) == 1) {
     return(df)

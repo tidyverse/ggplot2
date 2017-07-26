@@ -5,7 +5,7 @@
 \title{Alternate method for dodging overlapping objects}
 \usage{
 position_dodge2(width = NULL, preserve = c("single", "total"),
-  padding = 0)
+  padding = 0.1)
 }
 \arguments{
 \item{width}{Dodging width, when different to the width of the individual
@@ -16,7 +16,7 @@ geoms. See the examples.}
 at a position, or the width of a single element?}
 
 \item{padding}{Padding between boxes at the same position. Boxes are shrunk
-by this proportion to make room for space between them. Defaults to 0.}
+by this proportion to make room for space between them. Defaults to 0.1.}
 }
 \description{
 Dodging preserves the vertical position of an geom while adjusting the
