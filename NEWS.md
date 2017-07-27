@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* `stat_summary_bin()` now understands the `breaks` parameter (@karawoo, #2214)
+
 * `coord_trans()` now generates a warning when a transformation results in x or y 
   values being non-finite (@foo-bar-baz-qux, #2147).
   
