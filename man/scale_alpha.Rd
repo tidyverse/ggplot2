@@ -4,6 +4,7 @@
 \alias{scale_alpha}
 \alias{scale_alpha_continuous}
 \alias{scale_alpha_discrete}
+\alias{scale_alpha_ordinal}
 \alias{scale_alpha_datetime}
 \alias{scale_alpha_date}
 \title{Alpha transparency scales}
@@ -12,7 +13,9 @@ scale_alpha(..., range = c(0.1, 1))
 
 scale_alpha_continuous(..., range = c(0.1, 1))
 
-scale_alpha_discrete(..., range = c(0.1, 1))
+scale_alpha_discrete(...)
+
+scale_alpha_ordinal(..., range = c(0.1, 1))
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=continuous_scale]{continuous_scale()}}

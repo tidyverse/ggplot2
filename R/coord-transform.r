@@ -119,8 +119,12 @@ CoordTrans <- ggproto("CoordTrans", Coord,
     trans_x <- function(data) transform_value(self$trans$x, data, panel_params$x.range)
     trans_y <- function(data) transform_value(self$trans$y, data, panel_params$y.range)
 
-    data <- transform_position(data, trans_x, trans_y)
-    transform_position(data, squish_infinite, squish_infinite)
+    new_data <- transform_position(data, trans_x, trans_y)
+
+    warn_new_infinites(data$x, new_data$x, "x")
+    warn_new_infinites(data$y, new_data$y, "y")
+
+    transform_position(new_data, squish_infinite, squish_infinite)
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
@@ -173,4 +177,16 @@ train_trans <- function(scale, limits, trans, name) {
   )
   names(out) <- paste(name, names(out), sep = ".")
   out
+}
+
+#' Generate warning when finite values are transformed into infinite values
+#'
+#' @param old_values A vector of pre-transformation values.
+#' @param new_values A vector of post-transformation values.
+#' @param axis Which axis the values originate from (e.g. x, y).
+#' @noRd
+warn_new_infinites <- function(old_values, new_values, axis) {
+  if (any(is.finite(old_values) & !is.finite(new_values))) {
+    warning("Transformation introduced infinite values in ", axis, "-axis", call. = FALSE)
+  }
 }

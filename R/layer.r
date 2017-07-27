@@ -31,6 +31,8 @@
 #' @param show.legend logical. Should this layer be included in the legends?
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
+#'   It can also be a named logical vector to finely select the aesthetics to
+#'   display.
 #' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
 #'   that define both data and aesthetics and shouldn't inherit behaviour from
@@ -76,8 +78,8 @@ layer <- function(geom = NULL, stat = NULL,
     show.legend <- params$show_guide
     params$show_guide <- NULL
   }
-  if (!is.logical(show.legend) || length(show.legend) != 1) {
-    warning("`show.legend` must be a logical vector of length 1.", call. = FALSE)
+  if (!is.logical(show.legend)) {
+    warning("`show.legend` must be a logical vector.", call. = FALSE)
     show.legend <- FALSE
   }
 

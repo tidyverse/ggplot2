@@ -1,5 +1,20 @@
 # ggplot2 2.2.1.9000
 
+* `coord_trans()` now generates a warning when a transformation results in x or y 
+  values being non-finite (@foo-bar-baz-qux, #2147).
+  
+* Legend titles and labels get a little extra space around them. Legend titles
+  will no longer overlap the legend at large font sizes (@karawoo, #1881).
+
+* Ordered factors now behave differently from unordered factors in some cases.
+  Ordered factors throw a warning when mapped to shape (unordered factors do
+  not). Ordered factors do not throw warnings when mapped to size or alpha
+  (unordered factors do). Viridis is the default colour and fill scale for
+  ordered factors (@karawoo, #1526).
+
+* The `show.legend` parameter now accepts a named logical vector to hide/show
+  only some aesthetics in the legend (@tutuchan, #1798)
+
 * Default colour maps for continuous data are controlled by global options
   `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which can be set to
   either `"gradient"` or `"viridis"` (@karawoo).

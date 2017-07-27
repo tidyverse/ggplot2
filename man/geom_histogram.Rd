@@ -53,7 +53,9 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
@@ -104,7 +106,7 @@ the x axis into bins and counting the number of observations in each bin.
 Histograms (\code{geom_histogram}) display the count with bars; frequency
 polygons (\code{geom_freqpoly}), display the counts with lines. Frequency
 polygons are more suitable when you want to compare the distribution
-across a the levels of a categorical variable.
+across the levels of a categorical variable.
 
 \code{stat_bin} is suitable only for continuous x data. If your x data is
 discrete, you probably want to use \code{\link[=stat_count]{stat_count()}}.
