@@ -41,12 +41,12 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
 
   compute_group = function(data, scales, fun.data = NULL, fun.y = NULL,
                            fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
-                           bins = 30, binwidth = NULL, origin = NULL, right = FALSE,
-                           na.rm = FALSE) {
+                           bins = 30, binwidth = NULL, breaks = NULL,
+                           origin = NULL, right = FALSE, na.rm = FALSE) {
 
     fun <- make_summary_fun(fun.data, fun.y, fun.ymax, fun.ymin, fun.args)
 
-    breaks <- bin2d_breaks(scales$x, NULL, origin, binwidth, bins, right = right)
+    breaks <- bin2d_breaks(scales$x, breaks, origin, binwidth, bins, right = right)
 
     data$bin <- cut(data$x, breaks, include.lowest = TRUE, labels = FALSE)
     out <- plyr::ddply(data, "bin", fun)
