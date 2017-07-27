@@ -1,47 +1,17 @@
 #' A quantile-quantile line
 #'
 #' @section Aesthetics:
-#' \aesthetics{stat}{qq}
-#' \aesthetics{geom}{path}
+#' \aesthetics{stat}{qq_line}
 #'
-#' @param distribution Distribution function to use, if x not specified
-#' @param dparams Additional parameters passed on to \code{distribution}
-#'   function.
 #' @param line.p Vector of quantiles to use when fitting the Q-Q line, defaults
 #' defaults to \code{c(.25, .75)}.
-#' @param fullrange should the fit span the full range of the plot, or just
+#' @param fullrange Should the q-q line span the full range of the plot, or just
 #'   the data
 #' @inheritParams layer
 #' @inheritParams geom_path
-#' @section Computed variables:
-#' \describe{
-#'   \item{x}{x-coordinates of the endpoints of the line segment connecting the
-#'            points at the chosen quantiles of the theoretical and the sample
-#'            distributions}
-#'   \item{y}{y-coordinates of the endpoints}
-#' }
+#' @inheritParams geom_qq
 #' @export
-#' @examples
-#' \donttest{
-#' df <- data.frame(y = rt(200, df = 5))
-#' p <- ggplot(df, aes(sample = y))
-#' p + stat_qq() + stat_qq_line()
-#'
-#' # Use fitdistr from MASS to estimate distribution params
-#' params <- as.list(MASS::fitdistr(df$y, "t")$estimate)
-#' ggplot(df, aes(sample = y)) +
-#'   stat_qq(distribution = qt, dparams = params["df"]) +
-#'   stat_qq_line(distribution = qt, dparams = params["df"])
-#'
-#' # Using to explore the distribution of a variable
-#' ggplot(mtcars, aes(sample = mpg)) +
-#'   stat_qq() +
-#'   stat_qq_line()
-#' ggplot(mtcars, aes(sample = mpg, colour = factor(cyl))) +
-#'   stat_qq() +
-#'   stat_qq_line()
-#' }
-#' @rdname geom_qq
+#' @describeIn geom_qq Find the endpoints of a useful Q-Q line.
 geom_qq_line <- function(mapping = NULL,
                          data = NULL,
                          geom = "path",

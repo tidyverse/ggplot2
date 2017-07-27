@@ -77,21 +77,20 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link{borders}}.}
-
-\item{distribution}{Distribution function to use, if x not specified}
-
-\item{dparams}{Additional parameters passed on to \code{distribution}
-function.}
 }
 \description{
 A quantile-quantile line
 
 A quantile-quantile plot
 }
+\section{Functions}{
+\itemize{
+\item \code{geom_qq_line}: Find the endpoints of a useful Q-Q line.
+}}
+
 \section{Aesthetics}{
 
-\aesthetics{stat}{qq}
-\aesthetics{geom}{path}
+\aesthetics{stat}{qq_line}
 
 
 \aesthetics{stat}{qq}
@@ -99,17 +98,17 @@ A quantile-quantile plot
 
 \section{Computed variables}{
 
+Variables computed by \code{stat_qq}:
+\describe{
+  \item{sample}{sample quantiles}
+  \item{theoretical}{theoretical quantiles}
+}
+Variables computed by \code{stat_qq_line}:
 \describe{
   \item{x}{x-coordinates of the endpoints of the line segment connecting the
            points at the chosen quantiles of the theoretical and the sample
            distributions}
   \item{y}{y-coordinates of the endpoints}
-}
-
-
-\describe{
-  \item{sample}{sample quantiles}
-  \item{theoretical}{theoretical quantiles}
 }
 }
 
@@ -132,22 +131,5 @@ ggplot(mtcars, aes(sample = mpg)) +
 ggplot(mtcars, aes(sample = mpg, colour = factor(cyl))) +
   stat_qq() +
   stat_qq_line()
-}
-\donttest{
-df <- data.frame(y = rt(200, df = 5))
-p <- ggplot(df, aes(sample = y))
-p + stat_qq()
-p + geom_point(stat = "qq")
-
-# Use fitdistr from MASS to estimate distribution params
-params <- as.list(MASS::fitdistr(df$y, "t")$estimate)
-ggplot(df, aes(sample = y)) +
-  stat_qq(distribution = qt, dparams = params["df"])
-
-# Using to explore the distribution of a variable
-ggplot(mtcars) +
-  stat_qq(aes(sample = mpg))
-ggplot(mtcars) +
-  stat_qq(aes(sample = mpg, colour = factor(cyl)))
 }
 }
