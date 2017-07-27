@@ -386,6 +386,14 @@ find_args <- function(...) {
 # global data
 dummy_data <- function() data.frame(x = NA)
 
+with_seed_null <- function(seed, code) {
+  if (is.null(seed)) {
+    code
+  } else {
+    withr::with_seed(seed, code)
+  }
+}
+
 # Needed to trigger package loading
 #' @importFrom tibble tibble
 NULL
