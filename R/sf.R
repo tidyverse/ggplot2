@@ -67,6 +67,8 @@ geom_column <- function(data) {
     "geometry" # avoids breaks when objects without geometry list-column are examined
   } else {
     # this may not be best in case more than one geometry list-column is present:
+    if (length(w) > 1)
+      warning("more than one geometry column present: taking the first")
     w[[1]]
   }
 }
