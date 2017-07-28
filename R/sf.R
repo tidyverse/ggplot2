@@ -373,7 +373,9 @@ sf_rescale01_x <- function(x, range) {
 
 #' @param crs Use this to select a specific CRS. If not specified, will
 #'   use the CRS defined in the first layer.
-#' @param datum CRS that provides datum to use when generating graticules
+#' @param datum CRS that provides datum to use when generating graticules; 
+#' pass NULL to get the native grid of the data plotted, pass \code{NA} to 
+#' remove the graticule altogether
 #' @param ndiscr number of segments to use for discretizing graticule lines;
 #' try increasing this when graticules look unexpected
 #' @inheritParams coord_cartesian
