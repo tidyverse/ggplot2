@@ -14,7 +14,7 @@ fortify <- function(model, data, ...) UseMethod("fortify")
 #' @export
 fortify.data.frame <- function(model, data, ...) model
 #' @export
-fortify.tbl_df <- function(model, data, ...) dplyr::collect(model)
+fortify.tbl <- function(model, data, ...) dplyr::collect(model)
 #' @export
 fortify.NULL <- function(model, data, ...) waiver()
 #' @export
