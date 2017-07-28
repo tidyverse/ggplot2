@@ -85,7 +85,7 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
   df$xmax <- df$x + (df$new_width / 2)
 
   # Find the total width of each group of elements
-  group_sizes <- aggregate(
+  group_sizes <- stats::aggregate(
     list(size = df$new_width),
     list(newx = df$newx),
     sum
