@@ -1,5 +1,10 @@
 # ggplot2 2.2.1.9000
 
+* `stat_summary_bin()` now understands the `breaks` parameter (@karawoo, #2214)
+
+* `coord_trans()` now generates a warning when a transformation results in x or y 
+  values being non-finite (@foo-bar-baz-qux, #2147).
+  
 * Legend titles and labels get a little extra space around them. Legend titles
   will no longer overlap the legend at large font sizes (@karawoo, #1881).
 
@@ -115,6 +120,8 @@
 * Added new functions `summarise_layout()`, `summarise_coord()`, `summarise_layers()`, which provide summaries of the layout, coordinate systems, and layers, of a built ggplot object. (#2034)
 
 * `ggproto()` produces objects with class `c("ggproto", "gg")`. This was added so that when layers, scales, or other ggproto objects are added together, an informative error message is raised (@jrnold, #2056).
+
+* `position_jitter()` gains a `seed` argument that allows specifying a random seed for reproducible jittering (#1996, @krlmlr).
 
 
 ### sf
