@@ -162,6 +162,7 @@ Collate:
     'position-.r'
     'position-collide.r'
     'position-dodge.r'
+    'position-dodge2.r'
     'position-identity.r'
     'position-jitter.r'
     'position-jitterdodge.R'

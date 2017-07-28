@@ -95,7 +95,7 @@
 #'  )
 #' }
 geom_boxplot <- function(mapping = NULL, data = NULL,
-                         stat = "boxplot", position = "dodge",
+                         stat = "boxplot", position = "dodge2",
                          ...,
                          outlier.colour = NULL,
                          outlier.color = NULL,
@@ -110,6 +110,15 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {
+  
+  # varwidth = TRUE is not compatible with preserve = "total"
+  if (!is.character(position)) {
+    if (identical(position$preserve, "total") & varwidth == TRUE) {
+      warning("Can't preserve total widths when varwidth = TRUE.", call. = FALSE)
+      position$preserve <- "single"
+    }
+  }
+  
   layer(
     data = data,
     mapping = mapping,

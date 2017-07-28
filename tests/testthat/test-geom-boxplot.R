@@ -38,6 +38,15 @@ test_that("can use US spelling of colour", {
   expect_equal(gpar$col, "#FF0000FF")
 })
 
+test_that("boxes with variable widths do not overlap", {
+  p <- ggplot(data = iris, aes(Species, Sepal.Length)) +
+    geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+  d <- layer_data(p)[c("xmin", "xmax")]
+  xid <- find_x_overlaps(d)
+  
+  expect_false(any(duplicated(xid)))
+})
+
 
 # Visual tests ------------------------------------------------------------
 
