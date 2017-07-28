@@ -2,7 +2,7 @@
 #' @rdname position_dodge
 #' @param padding Padding between elements at the same position. Elements are
 #'   shrunk by this proportion to allow space between them. Defaults to 0.1.
-position_dodge2 <- function(width = NULL, preserve = c("total", "single"),
+position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
                               padding = 0.1) {
   ggproto(NULL, PositionDodge2,
     width = width,
