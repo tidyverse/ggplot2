@@ -318,7 +318,11 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   render_axis_h = function(self, panel_params, theme) {
     graticule <- panel_params$graticule
-    east <- graticule[graticule$type == "E" & !is.na(graticule$degree_label), ]
+    if (nrow(graticule) > 0) {
+      east <- graticule[graticule$type == "E" & !is.na(graticule$degree_label), ]
+    } else {
+      east <- graticule
+    }
 
     list(
       top = nullGrob(),
@@ -333,7 +337,11 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   render_axis_v = function(self, panel_params, theme) {
     graticule <- panel_params$graticule
-    north <- graticule[graticule$type == "N" & !is.na(graticule$degree_label), ]
+    if (nrow(graticule) > 0) {
+      north <- graticule[graticule$type == "N" & !is.na(graticule$degree_label), ]
+    } else {
+      north <- graticule
+    }
 
     list(
       left = guide_axis(
