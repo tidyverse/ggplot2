@@ -61,6 +61,22 @@
 #' @name ggsf
 NULL
 
+geom_column <- function(data) {
+  w <- which(vapply(data, inherits, TRUE, what = "sfc"))
+  if (length(w) == 0) {
+    "geometry" # avoids breaks when objects without geometry list-column are examined
+  } else {
+    # this may not be best in case more than one geometry list-column is present:
+    if (length(w) > 1)
+      warning("more than one geometry column present: taking the first")
+    w[[1]]
+  }
+}
+
+is_sf <- function(data) {
+  inherits(data, "sf")
+}
+
 # stat --------------------------------------------------------------------
 
 #' @export
@@ -69,7 +85,7 @@ NULL
 #' @format NULL
 StatSf <- ggproto("StatSf", Stat,
   compute_group = function(data, scales) {
-    bbox <- sf::st_bbox(data$geometry)
+    bbox <- sf::st_bbox(data[[ geom_column(data) ]])
     data$xmin <- bbox[["xmin"]]
     data$xmax <- bbox[["xmax"]]
     data$ymin <- bbox[["ymin"]]
@@ -151,7 +167,7 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
                     inherit.aes = TRUE, ...) {
 
   # Automatically determin name of geometry column
-  if (!is.null(data) && inherits(data, "sf")) {
+  if (!is.null(data) && is_sf(data)) {
     geometry_col <- attr(data, "sf_column")
   } else {
     geometry_col <- "geometry"
@@ -189,8 +205,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     for (layer_data in data) {
-      geometry <- layer_data$geometry
-      if (is.null(geometry))
+      if (is_sf(layer_data)) {
+        geometry <- sf::st_geometry(layer_data)
+      } else
         next
 
       crs <- sf::st_crs(geometry)
@@ -209,18 +226,17 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       return(data)
 
     lapply(data, function(layer_data) {
-      if (is.null(layer_data$geometry)) {
+      if (! is_sf(layer_data)) {
         return(layer_data)
       }
 
-      layer_data$geometry <- sf::st_transform(layer_data$geometry, params$crs)
-      layer_data
+      sf::st_transform(layer_data, params$crs)
     })
   },
 
   transform = function(self, data, panel_params) {
-    data$geometry <- sf_rescale01(
-      data$geometry,
+    data[[ geom_column(data) ]] <- sf_rescale01(
+      data[[ geom_column(data) ]],
       panel_params$x_range,
       panel_params$y_range
     )
@@ -257,13 +273,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     # remove tick labels not on axes 1 (bottom) and 2 (left)
     if (!is.null(graticule$plot12))
       graticule$degree_label[!graticule$plot12] <- NA
-	
+
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
     graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
     graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
     graticule$y_start <- sf_rescale01_x(graticule$y_start, y_range)
     graticule$y_end <- sf_rescale01_x(graticule$y_end, y_range)
-    graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
+    if (any(grepl("degree", graticule$degree_label)))
+      graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
 
     list(
       x_range = x_range,

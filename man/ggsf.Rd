@@ -84,6 +84,7 @@ use the CRS defined in the first layer.}
 
 \item{ndiscr}{number of segments to use for discretizing graticule lines;
 try increasing this when graticules look unexpected}
+
 }
 \description{
 This set geom, stat, and coord are used to visualise simple feature (sf)
