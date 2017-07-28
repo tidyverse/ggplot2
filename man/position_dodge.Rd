@@ -7,7 +7,7 @@
 \usage{
 position_dodge(width = NULL, preserve = c("total", "single"))
 
-position_dodge2(width = NULL, preserve = c("total", "single"),
+position_dodge2(width = NULL, preserve = c("single", "total"),
   padding = 0.1)
 }
 \arguments{
@@ -29,16 +29,16 @@ also works with bars and rectangles.
 }
 \examples{
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
-  geom_bar(position = "dodge")
+  geom_bar(position = "dodge2")
 
-# By default, dodging preserves the total width. You can choose
-# to preserve the width of each element:
+# By default, dodging with `position_dodge2()` preserves the width of each
+# element. You can choose to preserve the total width with:
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
-  geom_bar(position = position_dodge(preserve = "single"))
+  geom_bar(position = position_dodge(preserve = "total"))
 
 \donttest{
 ggplot(diamonds, aes(price, fill = cut)) +
-  geom_histogram(position="dodge")
+  geom_histogram(position="dodge2")
 # see ?geom_bar for more examples
 
 # In this case a frequency polygon is probably a better choice
