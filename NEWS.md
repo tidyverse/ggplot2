@@ -1,7 +1,11 @@
 # ggplot2 2.2.1.9000
 
-* Box plot position is now controlled by `position_dodge2()` (@karawoo,
-  #2143).
+* Box plot position is now controlled by `position_dodge2()`, which can also be
+  used for bars and rectangles. `position_dodge2()` compares the `xmin` and
+  `xmax` values of each element to determine which ones overlap, and dodges them
+  accordingly. This makes it possible to dodge box plots created with
+  `geom_boxplot(varwidth = TRUE)`. The `padding` parameter adds a small amount
+  of padding between elements (@karawoo, #2143).
 
 * `stat_summary_bin()` now understands the `breaks` parameter (@karawoo, #2214)
 
