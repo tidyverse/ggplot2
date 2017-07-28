@@ -27,6 +27,7 @@ Imports:
     withr
 Suggests:
     covr,
+    dplyr,
     ggplot2movies,
     hexbin,
     Hmisc,
