@@ -140,8 +140,7 @@ ggplot(data = df, aes(x, y, group = grp)) +
 See \code{\link[=geom_bar]{geom_bar()}} and \code{\link[=geom_area]{geom_area()}} for
 more examples.
 
-Other position adjustments: \code{\link{position_dodge2}},
-  \code{\link{position_dodge}},
+Other position adjustments: \code{\link{position_dodge}},
   \code{\link{position_identity}},
   \code{\link{position_jitterdodge}},
   \code{\link{position_jitter}},

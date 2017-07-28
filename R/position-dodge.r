@@ -1,7 +1,9 @@
 #' Dodge overlapping objects side-to-side
 #'
 #' Dodging preserves the vertical position of an geom while adjusting the
-#' horizontal position.
+#' horizontal position. `position_dodge2` is a special case of `position_dodge`
+#' for arranging box plots, which can have variable widths. `position_dodge2`
+#' also works with bars and rectangles.
 #'
 #' @inheritParams position_identity
 #' @param width Dodging width, when different to the width of the individual
@@ -58,6 +60,19 @@
 #'   width = 0.2,
 #'   position = position_dodge(width = 0.9)
 #' )
+#'
+#' # Box plots use position_dodge2 by default, and bars can use it too
+#' ggplot(data = iris, aes(Species, Sepal.Length)) +
+#'   geom_boxplot(aes(colour = Sepal.Width < 3.2))
+#'
+#' ggplot(data = iris, aes(Species, Sepal.Length)) +
+#'   geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+#' 
+#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+#'   geom_bar(position = position_dodge2(preserve = "single"))
+#' 
+#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+#'   geom_bar(position = position_dodge2(preserve = "total"))
 position_dodge <- function(width = NULL, preserve = c("total", "single")) {
   ggproto(NULL, PositionDodge,
     width = width,

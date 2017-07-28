@@ -10,8 +10,7 @@ position_identity()
 Don't adjust position
 }
 \seealso{
-Other position adjustments: \code{\link{position_dodge2}},
-  \code{\link{position_dodge}},
+Other position adjustments: \code{\link{position_dodge}},
   \code{\link{position_jitterdodge}},
   \code{\link{position_jitter}},
   \code{\link{position_nudge}},
