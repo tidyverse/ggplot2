@@ -13,7 +13,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   # These aren't actually geoms, or need special parameters and can't be tested this way.
   geom_fun_names <- setdiff(
     geom_fun_names,
-    c("geom_map", "geom_sf", "annotation_custom", "annotation_map",
+    c("geom_map", "geom_sf", "geom_column", "annotation_custom", "annotation_map",
       "annotation_raster", "annotation_id")
   )
 

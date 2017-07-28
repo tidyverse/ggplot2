@@ -7,8 +7,9 @@
 \usage{
 stat_summary_bin(mapping = NULL, data = NULL, geom = "pointrange",
   position = "identity", ..., fun.data = NULL, fun.y = NULL,
-  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), bins = 30,
+  binwidth = NULL, breaks = NULL, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_summary(mapping = NULL, data = NULL, geom = "pointrange",
   position = "identity", ..., fun.data = NULL, fun.y = NULL,
@@ -54,6 +55,22 @@ functions that are each passed a vector of x's and should return a
 single number.}
 
 \item{fun.args}{Optional additional arguments passed on to the functions.}
+
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30}
+
+\item{binwidth}{The width of the bins. Can be specified as a numeric value,
+or a function that calculates width from x.
+The default is to use \code{bins}
+bins that cover the range of the data. You should always override
+this value, exploring multiple widths to find the best to illustrate the
+stories in your data.
+
+The bin width of a date variable is the number of days in each time; the
+bin width of a time variable is the number of seconds.}
+
+\item{breaks}{Alternatively, you can supply a numeric vector giving
+the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
+and \code{boundary}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
