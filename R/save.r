@@ -68,15 +68,18 @@ ggsave <- function(filename, plot = last_plot(),
 #' @return Parsed DPI input value
 #' @noRd
 parse_dpi <- function(dpi) {
-  if (is.character(dpi)) {
-    dpi <- switch(dpi, screen = 72, print = 300, retina = 320, NULL)
-
-    if (is.null(dpi)) {
-      stop("Invalid string DPI value", call. = FALSE)
-    }
+  if (is.character(dpi) && length(dpi) == 1) {
+    switch(dpi,
+      screen = 72,
+      print = 300,
+      retina = 320,
+      stop("Unknown DPI string", call. = FALSE)
+    )
+  } else if (is.numeric(dpi) && length(dpi) == 1) {
+    dpi
+  } else {
+    stop("DPI must be a single number or string", call. = FALSE)
   }
-
-  dpi
 }
 
 plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),

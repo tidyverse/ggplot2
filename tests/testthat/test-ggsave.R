@@ -62,12 +62,20 @@ test_that("if device is NULL, guess from extension", {
 # parse_dpi ---------------------------------------------------------------
 
 test_that("DPI string values are parsed correctly", {
-  expect_is(parse_dpi("print"), "numeric")
-  expect_is(parse_dpi("screen"), "numeric")
-  expect_is(parse_dpi("retina"), "numeric")
-  expect_is(parse_dpi(100), "numeric")
+  expect_type(parse_dpi("print"), "double")
+  expect_type(parse_dpi("screen"), "double")
+  expect_type(parse_dpi("retina"), "double")
+  expect_type(parse_dpi(100), "double")
+  expect_type(parse_dpi(300L), "integer")
 })
 
-test_that("invalid DPI string values throw an error", {
-  expect_error(parse_dpi("abc"), "Invalid string DPI value")
+test_that("invalid single-string DPI values throw an error", {
+  expect_error(parse_dpi("abc"), "Unknown DPI string")
+})
+
+test_that("invalid non-single-string DPI values throw an error", {
+  expect_error(parse_dpi(factor(100)), "DPI must be a single number or string")
+  expect_error(parse_dpi(c("print", "screen")), "DPI must be a single number or string")
+  expect_error(parse_dpi(c(150, 300)), "DPI must be a single number or string")
+  expect_error(parse_dpi(list(150)), "DPI must be a single number or string")
 })
