@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* `position_dodge2()` now has a `reverse` parameter that allows you to reverse
+  the placement order of bars and boxes (@karawoo, #2171).
+
 * Box plot position is now controlled by `position_dodge2()`, which can also be
   used for bars and rectangles. `position_dodge2()` compares the `xmin` and
   `xmax` values of each element to determine which ones overlap, and dodges them
