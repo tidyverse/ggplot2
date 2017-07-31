@@ -22,38 +22,47 @@ margin_width <- function(grob, margins) {
   grobWidth(grob) + margins[2] + margins[4]
 }
 
-titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
-                      margin = NULL, expand_x = FALSE, expand_y = FALSE,
-                      debug = FALSE) {
+title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
+                       debug = FALSE) {
+  
+  if (is.null(label)) return(zeroGrob())
 
-  if (is.null(label))
-    return(zeroGrob())
+  if (missing(x) & missing(y)) {
+    text_grob <- textGrob(label, rot = angle, gp = gp)
 
-  if (is.null(margin)) {
-    margin <- margin(0, 0, 0, 0)
-  }
-
-  angle <- angle %% 360
-  if (angle == 90) {
-    xp <- 1 - vjust
-    yp <- hjust
-  } else if (angle == 180) {
-    xp <- 1 - hjust
-    yp <- 1 - vjust
-  } else if (angle == 270) {
-    xp <- vjust
-    yp <- 1 - hjust
+    # Used to place debugging point
+    x <- unit(hjust, "npc")
+    y <- unit(vjust, "npc")
   } else {
-    xp <- hjust
-    yp <- vjust
+    angle <- angle %% 360
+    if (angle == 90) {
+      xp <- 1 - vjust
+      yp <- hjust
+    } else if (angle == 180) {
+      xp <- 1 - hjust
+      yp <- 1 - vjust
+    } else if (angle == 270) {
+      xp <- vjust
+      yp <- 1 - hjust
+    } else {
+      xp <- hjust
+      yp <- vjust
+    }
+
+    n <- max(length(x), length(y), 1)
+    x <- x %||% unit(rep(xp, n), "npc")
+    y <- y %||% unit(rep(yp, n), "npc")
+
+    text_grob <- textGrob(
+      label,
+      x,
+      y,
+      hjust = hjust,
+      vjust = vjust,
+      rot = angle,
+      gp = gp
+    )
   }
-
-  n <- max(length(x), length(y), 1)
-  x <- x %||% unit(rep(xp, n), "npc")
-  y <- y %||% unit(rep(yp, n), "npc")
-
-  text_grob <- textGrob(label, x, y, hjust = hjust, vjust = vjust,
-    rot = angle, gp = gp)
 
   # The grob dimensions don't include the text descenders, so add on using
   # a little trigonometry. This is only exactly correct when vjust = 1.
@@ -70,20 +79,40 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   } else {
     children <- gList(text_grob)
   }
- 
-  if (expand_x && expand_y) {
+  
+  list(
+    text_grob = children,
+    text_height = text_height,
+    text_width = text_width
+  )
+}
+
+add_margins <- function(text_grob, text_height, text_width, margin = NULL,
+                        gp = gpar(), margin_x = FALSE, margin_y = FALSE, ...) {
+
+  if (is.null(margin)) {
+    margin <- margin(0, 0, 0, 0)
+  }
+
+  if (margin_x && margin_y) {
     widths <- unit.c(margin[4], text_width, margin[2])
     heights <- unit.c(margin[1], text_height, margin[3])
 
-    vp <- viewport(layout = grid.layout(3, 3, heights = heights, widths = widths), gp = gp)
+    vp <- viewport(
+      ...,
+      width = sum(widths),
+      height = sum(height),
+      layout = grid.layout(3, 3, heights = heights, widths = widths),
+      gp = gp
+    )
     child_vp <- viewport(layout.pos.row = 2, layout.pos.col = 2)
-  } else if (expand_x) {
+  } else if (margin_x) {
     widths <- unit.c(margin[4], text_width, margin[2])
     vp <- viewport(layout = grid.layout(1, 3, widths = widths), gp = gp)
     child_vp <- viewport(layout.pos.col = 2)
 
     heights <- unit(1, "null")
-  } else if (expand_y) {
+  } else if (margin_y) {
     heights <- unit.c(margin[1], text_height, margin[3])
 
     vp <- viewport(layout = grid.layout(3, 1, heights = heights), gp = gp)
@@ -95,7 +124,7 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     heights <- text_height
     return(
       gTree(
-        children = children,
+        children = text_grob,
         widths = widths,
         heights = heights,
         cl = "titleGrob"
@@ -104,11 +133,33 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   }
 
   gTree(
-    children = children,
+    children = text_grob,
     vp = vpTree(vp, vpList(child_vp)),
     widths = widths,
     heights = heights,
     cl = "titleGrob"
+  )
+}
+
+
+titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
+                      margin = NULL, margin_x = FALSE, margin_y = FALSE,
+                      debug = FALSE) {
+
+  if (is.null(label))
+    return(zeroGrob())
+
+  # Get text grob, text height, and text width
+  grob_details <- title_spec(label, x, y, hjust, vjust, angle, gp, debug)
+  
+  add_margins(
+    text_grob = grob_details$text_grob,
+    text_height = grob_details$text_height,
+    text_width = grob_details$text_width,
+    gp = gp,
+    margin = margin,
+    margin_x = margin_x,
+    margin_y = margin_y
   )
 }
 
@@ -119,58 +170,5 @@ widthDetails.titleGrob <- function(x) {
 
 #' @export
 heightDetails.titleGrob <- function(x) {
-  sum(x$heights)
-}
-
-# Works like titleGrob, but designed to place one label per viewport.
-# This means it doesn't have the lengths of labels available, so must use
-# alternative layout strategy
-stripGrob <- function(label, hjust, vjust, angle = 0, gp = gpar(),
-                      margin = NULL, debug = FALSE) {
-  if (is.null(margin)) {
-    margin <- margin()
-  }
-
-  text_grob <- textGrob(label, rot = angle, gp = gp)
-
-  widths <- unit.c(margin[4], unit(1, "grobwidth", text_grob), margin[2])
-  heights <- unit.c(margin[1], unit(1, "grobheight", text_grob), margin[3])
-
-  vp <- viewport(
-    hjust, vjust, just = c(hjust, vjust),
-    width = sum(widths),
-    height = sum(heights),
-    layout = grid.layout(3, 3, heights = heights, widths = widths),
-    name = "top"
-  )
-  child_vp <- viewport(layout.pos.row = 2, layout.pos.col = 2)
-
-  if (debug) {
-    children <- gList(
-      rectGrob(gp = gpar(fill = "cornsilk", col = NA)),
-      pointsGrob(unit(hjust, "npc"), unit(vjust, "npc"), pch = 20,
-        gp = gpar(col = "gold")),
-      text_grob
-    )
-  } else {
-    children <- gList(text_grob)
-  }
-
-  gTree(
-    children = children,
-    vp = vpTree(vp, vpList(child_vp)),
-    widths = widths,
-    heights = heights,
-    cl = "stripGrob"
-  )
-}
-
-#' @export
-widthDetails.stripGrob <- function(x) {
-  sum(x$widths)
-}
-
-#' @export
-heightDetails.stripGrob <- function(x) {
   sum(x$heights)
 }
