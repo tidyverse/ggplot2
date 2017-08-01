@@ -15,8 +15,8 @@ guide_axis <- function(at, labels, position = "right", theme) {
   one <- unit(1, "npc")
 
   label_render <- switch(position,
-    top = "axis.text.x.top", bottom = "axis.text.x",
-    left = "axis.text.y", right = "axis.text.y.right"
+    top = "axis.text.x.top", bottom = "axis.text.x.bottom",
+    left = "axis.text.y.left", right = "axis.text.y.right"
   )
 
   label_x <- switch(position,
@@ -47,28 +47,28 @@ guide_axis <- function(at, labels, position = "right", theme) {
     left =  element_render(theme, label_render, labels, y = label_y, expand_x = TRUE))
 
   line <- switch(position,
-    top =    element_render(theme, "axis.line.x", c(0, 1), c(0, 0), id.lengths = 2),
-    bottom = element_render(theme, "axis.line.x", c(0, 1), c(1, 1), id.lengths = 2),
-    right =  element_render(theme, "axis.line.y", c(0, 0), c(0, 1), id.lengths = 2),
-    left =   element_render(theme, "axis.line.y", c(1, 1), c(0, 1), id.lengths = 2)
+    top =    element_render(theme, "axis.line.x.top", c(0, 1), c(0, 0), id.lengths = 2),
+    bottom = element_render(theme, "axis.line.x.bottom", c(0, 1), c(1, 1), id.lengths = 2),
+    right =  element_render(theme, "axis.line.y.right", c(0, 0), c(0, 1), id.lengths = 2),
+    left =   element_render(theme, "axis.line.y.left", c(1, 1), c(0, 1), id.lengths = 2)
   )
 
   nticks <- length(at)
 
   ticks <- switch(position,
-    top = element_render(theme, "axis.ticks.x",
+    top = element_render(theme, "axis.ticks.x.top",
       x          = rep(at, each = 2),
       y          = rep(unit.c(zero, theme$axis.ticks.length), nticks),
       id.lengths = rep(2, nticks)),
-    bottom = element_render(theme, "axis.ticks.x",
+    bottom = element_render(theme, "axis.ticks.x.bottom",
       x          = rep(at, each = 2),
       y          = rep(unit.c(one - theme$axis.ticks.length, one), nticks),
       id.lengths = rep(2, nticks)),
-    right = element_render(theme, "axis.ticks.y",
+    right = element_render(theme, "axis.ticks.y.right",
       x          = rep(unit.c(zero, theme$axis.ticks.length), nticks),
       y          = rep(at, each = 2),
       id.lengths = rep(2, nticks)),
-    left = element_render(theme, "axis.ticks.y",
+    left = element_render(theme, "axis.ticks.y.left",
       x          = rep(unit.c(one - theme$axis.ticks.length, one), nticks),
       y          = rep(at, each = 2),
       id.lengths = rep(2, nticks))

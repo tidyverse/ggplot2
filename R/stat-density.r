@@ -1,17 +1,17 @@
 #' @param bw The smoothing bandwidth to be used.
 #'   If numeric, the standard deviation of the smoothing kernel.
 #'   If character, a rule to choose the bandwidth, as listed in
-#'   \code{\link[stats]{bw.nrd}}.
+#'   [stats::bw.nrd()].
 #' @param adjust A multiplicate bandwidth adjustment. This makes it possible
 #'    to adjust the bandwidth while still using the a bandwidth estimator.
-#'    For exampe, \code{adjust = 1/2} means use half of the default bandwidth.
-#' @param kernel Kernel. See list of available kernels in \code{\link{density}}.
+#'    For example, `adjust = 1/2` means use half of the default bandwidth.
+#' @param kernel Kernel. See list of available kernels in [density()].
 #' @param n number of equally spaced points at which the density is to be
-#'   estimated, should be a power of two, see \code{\link{density}} for
+#'   estimated, should be a power of two, see [density()] for
 #'   details
 #' @param trim This parameter only matters if you are displaying multiple
-#'   densities in one plot. If \code{FALSE}, the default, each density is
-#'   computed on the full range of the data. If \code{TRUE}, each density
+#'   densities in one plot. If `FALSE`, the default, each density is
+#'   computed on the full range of the data. If `TRUE`, each density
 #'   is computed over the range of that group: this typically means the
 #'   estimated x values will not line-up, and hence you won't be able to
 #'   stack density values.
@@ -85,14 +85,15 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     w <- rep(1 / nx, nx)
   }
 
-  # if less than 3 points, spread density evenly over points
-  if (nx < 3) {
+  # if less than 2 points return data frame of NAs and a warning
+  if (nx < 2) {
+    warning("Groups with fewer than two data points have been dropped.", call. = FALSE)
     return(data.frame(
-      x = x,
-      density = w / sum(w),
-      scaled = w / max(w),
-      count = 1,
-      n = nx
+      x = NA,
+      density = NA,
+      scaled = NA,
+      count = NA,
+      n = NA
     ))
   }
 

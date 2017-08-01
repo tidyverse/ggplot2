@@ -1,11 +1,11 @@
 #' @section Scales:
 #'
-#' All \code{scale_*} functions (like \code{scale_x_continuous}) return a
-#' \code{Scale*} object (like \code{ScaleContinuous}). The \code{Scale*}
+#' All `scale_*` functions (like `scale_x_continuous`) return a
+#' `Scale*` object (like `ScaleContinuous`). The `Scale*`
 #' object represents a single scale.
 #'
-#' Each of the \code{Scale*} objects is a \code{\link{ggproto}} object,
-#' descended from the top-level \code{Scale}.
+#' Each of the `Scale*` objects is a [ggproto()] object,
+#' descended from the top-level `Scale`.
 #'
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -40,7 +40,7 @@ Scale <- ggproto("Scale", NULL,
   # Train scale from a data frame.
   #
   # @return updated range (invisibly)
-  # @seealso \code{\link{scale_train}} for scale specific generic method
+  # @seealso [scale_train()] for scale specific generic method
   train_df = function(self, df) {
     if (empty(df)) return()
 
@@ -121,9 +121,9 @@ Scale <- ggproto("Scale", NULL,
   },
 
   # The physical size of the scale.
-  # This always returns a numeric vector of length 2, giving the physical
+  # This always returns a numeric vector of length 4, giving the physical
   # dimensions of a scale.
-  dimension = function(self, expand = c(0, 0)) {
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
     stop("Not implemented", call. = FALSE)
   },
 
@@ -224,8 +224,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     ifelse(!is.na(scaled), scaled, self$na.value)
   },
 
-  dimension = function(self, expand = c(0, 0)) {
-    expand_range(self$get_limits(), expand[1], expand[2])
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
+    expand_range4(self$get_limits(), expand)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
@@ -272,14 +272,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       if (is.null(b)) {
         breaks <- NULL
       } else {
-        b <- b[!is.na(b)]
-        if (length(b) < 2) return()
-
-        bd <- diff(b)[1]
-        if (min(limits) < min(b)) b <- c(b[1] - bd, b)
-        if (max(limits) > max(b)) b <- c(b, b[length(b)] + bd)
-        breaks <- unique(unlist(mapply(seq, b[-length(b)], b[-1], length.out = n + 1,
-          SIMPLIFY = FALSE)))
+        breaks <- self$trans$minor_breaks(b, limits, n)
       }
     } else if (is.function(self$minor_breaks)) {
       # Find breaks in data space, and convert to numeric
@@ -404,8 +397,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
   },
 
-  dimension = function(self, expand = c(0, 0)) {
-    expand_range(length(self$get_limits()), expand[1], expand[2])
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
+    expand_range4(length(self$get_limits()), expand)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
@@ -510,43 +503,36 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   argument (the number of levels in the scale) returns the values that
 #'   they should take
 #' @param name The name of the scale. Used as axis or legend title. If
-#'   \code{NULL}, the default, the name of the scale is taken from the first
+#'   `NULL`, the default, the name of the scale is taken from the first
 #'   mapping used for that aesthetic.
-#' @param breaks One of: \itemize{
-#'   \item \code{NULL} for no breaks
-#'   \item \code{waiver()} for the default breaks computed by the
+#' @param breaks One of:
+#'   - `NULL` for no breaks
+#'   - `waiver()` for the default breaks computed by the
 #'     transformation object
-#'   \item A numeric vector of positions
-#'   \item A function that takes the limits as input and returns breaks
+#'   - A numeric vector of positions
+#'   - A function that takes the limits as input and returns breaks
 #'     as output
-#' }
-#' @param minor_breaks One of: \itemize{
-#'   \item \code{NULL} for no minor breaks
-#'   \item \code{waiver()} for the default breaks (one minor break between
+#' @param minor_breaks One of:
+#'   - `NULL` for no minor breaks
+#'   - `waiver()` for the default breaks (one minor break between
 #'     each major break)
-#'   \item A numeric vector of positions
-#'   \item A function that given the limits returns a vector of minor breaks.
-#' }
-#' @param labels One of: \itemize{
-#'   \item \code{NULL} for no labels
-#'   \item \code{waiver()} for the default labels computed by the
+#'   - A numeric vector of positions
+#'   - A function that given the limits returns a vector of minor breaks.
+#' @param labels One of:
+#'   - `NULL` for no labels
+#'   - `waiver()` for the default labels computed by the
 #'     transformation object
-#'   \item A character vector giving labels (must be same length as \code{breaks})
-#'   \item A function that takes the breaks as input and returns labels
+#'   - A character vector giving labels (must be same length as `breaks`)
+#'   - A function that takes the breaks as input and returns labels
 #'     as output
-#' }
 #' @param limits A numeric vector of length two providing limits of the scale.
-#'   Use \code{NA} to refer to the existing minimum or maximum.
+#'   Use `NA` to refer to the existing minimum or maximum.
 #' @param rescaler  Used by diverging and n colour gradients
-#'   (i.e. \code{\link{scale_colour_gradient2}}, \code{\link{scale_colour_gradientn}}).
-#'   A function used to scale the input values to the range [0, 1].
+#'   (i.e. [scale_colour_gradient2()], [scale_colour_gradientn()]).
+#'   A function used to scale the input values to the range \eqn{[0, 1]}.
 #' @param oob Function that handles limits outside of the scale limits
 #'   (out of bounds). The default replaces out of bounds values with NA.
-#' @param expand A numeric vector of length two giving multiplicative and
-#'   additive expansion constants. These constants ensure that the data is
-#'   placed some distance away from the axes. The defaults are
-#'   \code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
-#'   discrete variables.
+#' @inheritParams scale_x_discrete
 #' @param na.value Missing values will be replaced with this value.
 #' @param trans Either the name of a transformation object, or the
 #'   object itself. Built-in transformations include "asn", "atanh",
@@ -555,11 +541,11 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'
 #'   A transformation object bundles together a transform, it's inverse,
 #'   and methods for generating breaks and labels. Transformation objects
-#'   are defined in the scales package, and are called \code{name_trans}, e.g.
-#'   \code{\link[scales]{boxcox_trans}}. You can create your own
-#'   transformation with \code{\link[scales]{trans_new}}.
+#'   are defined in the scales package, and are called `name_trans`, e.g.
+#'   [scales::boxcox_trans()]. You can create your own
+#'   transformation with [scales::trans_new()].
 #' @param guide A function used to create a guide or its name. See
-#'   \code{\link{guides}} for more info.
+#'   [guides()] for more info.
 #' @param position The position of the axis. "left" or "right" for vertical
 #' scales, "top" or "bottom" for horizontal scales
 #' @param super The super class to use for the constructed scale
@@ -611,15 +597,24 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'
 #' @export
 #' @inheritParams continuous_scale
+#' @param breaks One of: 
+#'   - `NULL` for no breaks
+#'   - `waiver()` for the default breaks computed by the
+#'     transformation object
+#'   - A character vector of breaks
+#'   - A function that takes the limits as input and returns breaks
+#'     as output
+#' @param limits A character vector that defines possible values of the scale
+#'   and their order.
 #' @param drop Should unused factor levels be omitted from the scale?
-#'    The default, \code{TRUE}, uses the levels that appear in the data;
-#'    \code{FALSE} uses all the levels in the factor.
+#'    The default, `TRUE`, uses the levels that appear in the data;
+#'    `FALSE` uses all the levels in the factor.
 #' @param na.translate Unlike continuous scales, discrete scales can easily show
 #'   missing values, and do so by default. If you want to remove missing values
-#'   from a discrete scale, specify \code{na.translate = FALSE}.
-#' @param na.value If \code{na.translate = TRUE}, what value aesthetic
+#'   from a discrete scale, specify `na.translate = FALSE`.
+#' @param na.value If `na.translate = TRUE`, what value aesthetic
 #'   value should missing be displayed as? Does not apply to position scales
-#'   where \code{NA} is always placed at the far right.
+#'   where `NA` is always placed at the far right.
 #' @keywords internal
 discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),

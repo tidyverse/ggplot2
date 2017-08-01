@@ -1,6 +1,6 @@
 #' Create a ggplot layer appropriate to a particular data type
 #'
-#' \code{autolayer} uses ggplot2 to draw a particular layer for an object of a
+#' `autolayer` uses ggplot2 to draw a particular layer for an object of a
 #' particular class in a single command. This defines the S3 generic that
 #' other classes and packages can extend.
 #'
@@ -8,7 +8,7 @@
 #' @param ... other arguments passed to specific methods
 #' @return a ggplot layer
 #' @export
-#' @seealso \code{\link{autoplot}}, \code{\link{ggplot}} and \code{\link{fortify}}
+#' @seealso [autoplot()], [ggplot()] and [fortify()]
 autolayer <- function(object, ...) {
   UseMethod("autolayer")
 }
