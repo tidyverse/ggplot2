@@ -203,6 +203,7 @@ Collate:
     'stat-ellipse.R'
     'stat-function.r'
     'stat-identity.r'
+    'stat-qq-line.R'
     'stat-qq.r'
     'stat-quantile.r'
     'stat-smooth-methods.r'

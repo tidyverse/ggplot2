@@ -18,10 +18,10 @@
 %   R/scale-date.r, R/scale-discrete-.r, R/scale-identity.r, R/stat-bin.r,
 %   R/stat-bin2d.r, R/stat-bindot.r, R/stat-binhex.r, R/stat-boxplot.r,
 %   R/stat-contour.r, R/stat-count.r, R/stat-density-2d.r, R/stat-density.r,
-%   R/stat-ecdf.r, R/stat-ellipse.R, R/stat-function.r, R/stat-identity.r,
-%   R/stat-qq.r, R/stat-quantile.r, R/stat-smooth.r, R/stat-sum.r,
-%   R/stat-summary-2d.r, R/stat-summary-bin.R, R/stat-summary-hex.r,
-%   R/stat-summary.r, R/stat-unique.r, R/stat-ydensity.r
+%   R/stat-ecdf.r, R/stat-ellipse.R, R/stat-function.r, R/stat-identity.r, 
+%   R/stat-qq-line.R, R/stat-qq.r, R/stat-quantile.r, R/stat-smooth.r, 
+%   R/stat-sum.r, R/stat-summary-2d.r, R/stat-summary-bin.R, 
+%   R/stat-summary-hex.r, R/stat-summary.r, R/stat-unique.r, R/stat-ydensity.r
 \docType{data}
 \name{ggplot2-ggproto}
 \alias{ggplot2-ggproto}
@@ -112,6 +112,7 @@
 \alias{StatEllipse}
 \alias{StatFunction}
 \alias{StatIdentity}
+\alias{StatQqLine}
 \alias{StatQq}
 \alias{StatQuantile}
 \alias{StatSmooth}

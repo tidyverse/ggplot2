@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This
+  line makes it easier to judge the fit of the theoretical distribution (@nicksolomon).
+
 * The `ggsave()` DPI parameter now supports 3 string options: "retina" (320
   DPI), "print" (300 DPI), and "screen" (72 DPI) (@foo-bar-baz-qux, #2156).
 
