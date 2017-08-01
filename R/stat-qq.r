@@ -1,7 +1,13 @@
 #' A quantile-quantile plot
 #'
+#' `geom_qq` and `stat_qq` produce quantile-quantile plots. `geom_qq_line` and
+#' `stat_qq_line` compute the slope and intercept of the line connecting the
+#' points at specified quartiles of the theoretical and sample distributions.
+#'
 #' @section Aesthetics:
 #' \aesthetics{stat}{qq}
+#'
+#' \aesthetics{stat}{qq_line}
 #'
 #' @param distribution Distribution function to use, if x not specified
 #' @param dparams Additional parameters passed on to `distribution`
@@ -9,12 +15,12 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @section Computed variables:
-#' Variables computed by \code{stat_qq}:
+#' Variables computed by `stat_qq`:
 #' \describe{
 #'   \item{sample}{sample quantiles}
 #'   \item{theoretical}{theoretical quantiles}
 #' }
-#' Variables computed by \code{stat_qq_line}:
+#' Variables computed by `stat_qq_line`:
 #' \describe{
 #'   \item{x}{x-coordinates of the endpoints of the line segment connecting the
 #'            points at the chosen quantiles of the theoretical and the sample

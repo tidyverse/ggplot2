@@ -1,17 +1,9 @@
-#' A quantile-quantile line
-#'
-#' @section Aesthetics:
-#' \aesthetics{stat}{qq_line}
-#'
+#' @rdname geom_qq
+#' @export
 #' @param line.p Vector of quantiles to use when fitting the Q-Q line, defaults
-#' defaults to \code{c(.25, .75)}.
+#' defaults to `c(.25, .75)`.
 #' @param fullrange Should the q-q line span the full range of the plot, or just
 #'   the data
-#' @inheritParams layer
-#' @inheritParams geom_path
-#' @inheritParams geom_qq
-#' @export
-#' @describeIn geom_qq Find the endpoints of a useful Q-Q line.
 geom_qq_line <- function(mapping = NULL,
                          data = NULL,
                          geom = "path",
@@ -75,24 +67,26 @@ StatQqLine <- ggproto("StatQqLine", Stat,
      stopifnot(length(quantiles) == n)
    }
 
-   theoretical <- do.call(distribution,
-                          c(list(p = quote(quantiles)),
-                            dparams))
+   theoretical <- do.call(
+     distribution,
+     c(list(p = quote(quantiles)), dparams)
+   )
 
    if (length(line.p) != 2) {
-     stop("Cannot fit line quantiles ", line.p,
-          ". Parameter line.p must have length 2.",
-          call = FALSE)
+     stop(
+       "Cannot fit line quantiles ", line.p,
+       ". Parameter line.p must have length 2.",
+       call. = FALSE)
    }
 
    x_coords <- do.call(distribution, c(list(p = line.p), dparams))
    y_coords <- quantile(sample, line.p)
-   slope = diff(y_coords)/diff(x_coords)
-   intercept = y_coords[1L] - slope * x_coords[1L]
+   slope <- diff(y_coords) / diff(x_coords)
+   intercept <- y_coords[1L] - slope * x_coords[1L]
 
-   if (fullrange & !is.null(scales$x$dimension)){
+   if (fullrange & !is.null(scales$x$dimension)) {
      x <- scales$x$dimension()
-   } else{
+   } else {
      x <- range(theoretical)
    }
 

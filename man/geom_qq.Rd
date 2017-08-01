@@ -5,7 +5,7 @@
 \alias{stat_qq_line}
 \alias{geom_qq}
 \alias{stat_qq}
-\title{A quantile-quantile line}
+\title{A quantile-quantile plot}
 \usage{
 geom_qq_line(mapping = NULL, data = NULL, geom = "path",
   position = "identity", ..., distribution = stats::qnorm,
@@ -63,7 +63,7 @@ function.}
 \item{line.p}{Vector of quantiles to use when fitting the Q-Q line, defaults
 defaults to \code{c(.25, .75)}.}
 
-\item{fullrange}{should the fit span the full range of the plot, or just
+\item{fullrange}{Should the q-q line span the full range of the plot, or just
 the data}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
@@ -81,21 +81,15 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
-A quantile-quantile line
-
-A quantile-quantile plot
+\code{geom_qq} and \code{stat_qq} produce quantile-quantile plots. \code{geom_qq_line} and
+\code{stat_qq_line} compute the slope and intercept of the line connecting the
+points at specified quartiles of the theoretical and sample distributions.
 }
-\section{Functions}{
-\itemize{
-\item \code{geom_qq_line}: Find the endpoints of a useful Q-Q line.
-}}
-
 \section{Aesthetics}{
 
-\aesthetics{stat}{qq_line}
-
-
 \aesthetics{stat}{qq}
+
+\aesthetics{stat}{qq_line}
 }
 
 \section{Computed variables}{
@@ -107,10 +101,10 @@ Variables computed by \code{stat_qq}:
 }
 Variables computed by \code{stat_qq_line}:
 \describe{
-  \item{x}{x-coordinates of the endpoints of the line segment connecting the
-           points at the chosen quantiles of the theoretical and the sample
-           distributions}
-  \item{y}{y-coordinates of the endpoints}
+\item{x}{x-coordinates of the endpoints of the line segment connecting the
+points at the chosen quantiles of the theoretical and the sample
+distributions}
+\item{y}{y-coordinates of the endpoints}
 }
 }
 
