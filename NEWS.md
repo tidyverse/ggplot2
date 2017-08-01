@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* The `ggsave()` DPI parameter now supports 3 string options: "retina" (320
+  DPI), "print" (300 DPI), and "screen" (72 DPI) (@foo-bar-baz-qux, #2156).
+
 * `position_dodge2()` now has a `reverse` parameter that allows you to reverse
   the placement order of bars and boxes (@karawoo, #2171).
 
