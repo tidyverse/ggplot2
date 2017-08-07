@@ -24,7 +24,7 @@ margin_width <- function(grob, margins) {
 
 title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
                        debug = FALSE) {
-  
+
   if (is.null(label)) return(zeroGrob())
 
   if (missing(x) & missing(y)) {
@@ -79,7 +79,7 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
   } else {
     children <- gList(text_grob)
   }
-  
+
   list(
     text_grob = children,
     text_height = text_height,
@@ -88,10 +88,18 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
 }
 
 add_margins <- function(text_grob, text_height, text_width, margin = NULL,
-                        gp = gpar(), margin_x = FALSE, margin_y = FALSE, ...) {
+                        gp = gpar(), margin_x = FALSE, margin_y = FALSE,
+                        expand_x = FALSE, expand_y = FALSE) {
 
   if (is.null(margin)) {
     margin <- margin(0, 0, 0, 0)
+  }
+
+  if (expand_x) {
+    text_width <- unit(1, "null")
+  }
+  if (expand_y) {
+    text_height <- unit(1, "null")
   }
 
   if (margin_x && margin_y) {
@@ -99,9 +107,6 @@ add_margins <- function(text_grob, text_height, text_width, margin = NULL,
     heights <- unit.c(margin[1], text_height, margin[3])
 
     vp <- viewport(
-      ...,
-      width = sum(widths),
-      height = sum(heights),
       layout = grid.layout(3, 3, heights = heights, widths = widths),
       gp = gp
     )
@@ -129,7 +134,7 @@ add_margins <- function(text_grob, text_height, text_width, margin = NULL,
         heights = heights,
         cl = "titleGrob"
       )
-    )        
+    )
   }
 
   gTree(
@@ -151,7 +156,7 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 
   # Get text grob, text height, and text width
   grob_details <- title_spec(label, x, y, hjust, vjust, angle, gp, debug)
-  
+
   add_margins(
     text_grob = grob_details$text_grob,
     text_height = grob_details$text_height,
