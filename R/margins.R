@@ -101,7 +101,7 @@ add_margins <- function(text_grob, text_height, text_width, margin = NULL,
     vp <- viewport(
       ...,
       width = sum(widths),
-      height = sum(height),
+      height = sum(heights),
       layout = grid.layout(3, 3, heights = heights, widths = widths),
       gp = gp
     )
