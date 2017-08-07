@@ -558,13 +558,14 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE) {
   }
 
   # Add margins around text grob
-  grobs <- lapply(
+  grobs <- apply(
     grobs,
+    c(1, 2),
     function(x) {
       add_margins(
-        text_grob = x$text_grob,
-        text_height = if (horizontal) heights else x$text_height,
-        text_width = if (!horizontal) widths else x$text_width,
+        text_grob = x[[1]]$text_grob,
+        text_height = if (horizontal) heights else x[[1]]$text_height,
+        text_width = if (!horizontal) widths else x[[1]]$text_width,
         gp = gp,
         margin = element$margin,
         expand_x = horizontal,
@@ -576,18 +577,19 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE) {
   )
 
   # Put text on a strip
-  grobs <- lapply(
+  grobs <- apply(
     grobs,
+    c(1, 2),
     function(label) {
       ggname(
         "strip",
         absoluteGrob(
           gList(
             element_render(theme, "strip.background"),
-            label
+            label[[1]]
           ),
-          width = grobWidth(label),
-          height = grobHeight(label)
+          width = grobWidth(label[[1]]),
+          height = grobHeight(label[[1]])
         )
       )
     })
@@ -598,14 +600,22 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE) {
     widths <- widths + sum(element$margin[c(2, 4)])
   }
 
-  lapply(
+ 
+  apply(
     grobs,
+    1,
     function(x) {
+      if (horizontal) {
+        mat <- matrix(x, ncol = 1)
+      } else {
+        mat <- matrix(x, nrow = 1)
+      }
+      
       gtable_matrix(
         "strip",
-        matrix(matrix(list(x))),
-        widths,
-        heights,
+        mat,
+        rep(widths, ncol(mat)),
+        rep(heights, nrow(mat)),
         clip = clip
       )
     })
