@@ -85,11 +85,11 @@ has a nice
 topic}. This is why it doesn't make sense to use a log-scaled y axis with a
 bar chart.
 
-By default, multiple bar occupying the same \code{x} position will be
-stacked atop one another by \code{\link[=position_stack]{position_stack()}}. If you want them
-to be dodged side-to-side, use \code{\link[=position_dodge]{position_dodge()}}. Finally,
-\code{\link[=position_fill]{position_fill()}} shows relative proportions at each \code{x} by
-stacking the bars and then standardising each bar to have the same height.
+By default, multiple bar occupying the same \code{x} position will be stacked atop
+one another by \code{\link[=position_stack]{position_stack()}}. If you want them to be dodged
+side-to-side, use \code{\link[=position_dodge]{position_dodge()}} or \code{\link[=position_dodge2]{position_dodge2()}}. Finally,
+\code{\link[=position_fill]{position_fill()}} shows relative proportions at each \code{x} by stacking the bars
+and then standardising each bar to have the same height.
 }
 \section{Aesthetics}{
 
@@ -143,7 +143,8 @@ ggplot(df, aes(x)) + geom_histogram(binwidth = 0.5)
 }
 \seealso{
 \code{\link[=geom_histogram]{geom_histogram()}} for continuous data,
-\code{\link[=position_dodge]{position_dodge()}} for creating side-by-side barcharts.
+\code{\link[=position_dodge]{position_dodge()}} and \code{\link[=position_dodge2]{position_dodge2()}} for creating side-by-side
+barcharts.
 
 \code{\link[=stat_bin]{stat_bin()}}, which bins data in ranges and counts the
 cases in each range. It differs from \code{stat_count}, which counts the

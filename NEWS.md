@@ -1,5 +1,37 @@
 # ggplot2 2.2.1.9000
 
+* Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This
+  line makes it easier to judge the fit of the theoretical distribution (@nicksolomon).
+
+* The `ggsave()` DPI parameter now supports 3 string options: "retina" (320
+  DPI), "print" (300 DPI), and "screen" (72 DPI) (@foo-bar-baz-qux, #2156).
+
+* `position_dodge2()` now has a `reverse` parameter that allows you to reverse
+  the placement order of bars and boxes (@karawoo, #2171).
+
+* Box plot position is now controlled by `position_dodge2()`, which can also be
+  used for bars and rectangles. `position_dodge2()` compares the `xmin` and
+  `xmax` values of each element to determine which ones overlap, and dodges them
+  accordingly. This makes it possible to dodge box plots created with
+  `geom_boxplot(varwidth = TRUE)`. The `padding` parameter adds a small amount
+  of padding between elements (@karawoo, #2143).
+
+* `fortify()` gains a method for tbls (@karawoo, #2218)
+
+* `stat_summary_bin()` now understands the `breaks` parameter (@karawoo, #2214)
+
+* `coord_trans()` now generates a warning when a transformation results in x or y 
+  values being non-finite (@foo-bar-baz-qux, #2147).
+  
+* Legend titles and labels get a little extra space around them. Legend titles
+  will no longer overlap the legend at large font sizes (@karawoo, #1881).
+
+* Ordered factors now behave differently from unordered factors in some cases.
+  Ordered factors throw a warning when mapped to shape (unordered factors do
+  not). Ordered factors do not throw warnings when mapped to size or alpha
+  (unordered factors do). Viridis is the default colour and fill scale for
+  ordered factors (@karawoo, #1526).
+
 * The `show.legend` parameter now accepts a named logical vector to hide/show
   only some aesthetics in the legend (@tutuchan, #1798)
 
@@ -106,6 +138,8 @@
 * Added new functions `summarise_layout()`, `summarise_coord()`, `summarise_layers()`, which provide summaries of the layout, coordinate systems, and layers, of a built ggplot object. (#2034)
 
 * `ggproto()` produces objects with class `c("ggproto", "gg")`. This was added so that when layers, scales, or other ggproto objects are added together, an informative error message is raised (@jrnold, #2056).
+
+* `position_jitter()` gains a `seed` argument that allows specifying a random seed for reproducible jittering (#1996, @krlmlr).
 
 
 ### sf

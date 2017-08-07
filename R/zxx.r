@@ -6,6 +6,11 @@
 scale_colour_discrete <- scale_colour_hue
 
 #' @export
+#' @rdname scale_viridis
+#' @usage NULL
+scale_colour_ordinal <- scale_colour_viridis_d
+
+#' @export
 #' @rdname scale_gradient
 #' @usage NULL
 scale_colour_datetime <- function(...,
@@ -47,6 +52,11 @@ scale_colour_date <- function(...,
 #' @rdname scale_hue
 #' @usage NULL
 scale_fill_discrete <- scale_fill_hue
+
+#' @export
+#' @rdname scale_viridis
+#' @usage NULL
+scale_fill_ordinal <- scale_fill_viridis_d
 
 #' @export
 #' @rdname scale_gradient

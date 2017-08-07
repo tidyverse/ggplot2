@@ -5,7 +5,7 @@
 #' Histograms (`geom_histogram`) display the count with bars; frequency
 #' polygons (`geom_freqpoly`), display the counts with lines. Frequency
 #' polygons are more suitable when you want to compare the distribution
-#' across a the levels of a categorical variable.
+#' across the levels of a categorical variable.
 #'
 #' By default, the underlying computation (`stat_bin`) uses 30 bins -
 #' this is not a good default, but the idea is to get you experimenting with

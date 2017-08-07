@@ -15,18 +15,19 @@
 #' topic}. This is why it doesn't make sense to use a log-scaled y axis with a
 #' bar chart.
 #'
-#' By default, multiple bar occupying the same `x` position will be
-#' stacked atop one another by [position_stack()]. If you want them
-#' to be dodged side-to-side, use [position_dodge()]. Finally,
-#' [position_fill()] shows relative proportions at each `x` by
-#' stacking the bars and then standardising each bar to have the same height.
+#' By default, multiple bar occupying the same `x` position will be stacked atop
+#' one another by [position_stack()]. If you want them to be dodged
+#' side-to-side, use [position_dodge()] or [position_dodge2()]. Finally,
+#' [position_fill()] shows relative proportions at each `x` by stacking the bars
+#' and then standardising each bar to have the same height.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{bar}
 #'
 #' @seealso
 #'   [geom_histogram()] for continuous data,
-#'   [position_dodge()] for creating side-by-side barcharts.
+#'   [position_dodge()] and [position_dodge2()] for creating side-by-side
+#'   barcharts.
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
