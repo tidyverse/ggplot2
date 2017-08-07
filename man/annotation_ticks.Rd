@@ -5,9 +5,9 @@
 \title{Annotation: tick marks}
 \usage{
 annotation_ticks(sides = "b", scale = "identity", scaled = TRUE,
-  short = grid::unit(0.1, "cm"), mid = grid::unit(0.2, "cm"),
-  long = grid::unit(0.3, "cm"), colour = "black", size = 0.5,
-  linetype = 1, alpha = 1, color = NULL, ticks_per_base = NULL, ...)
+  short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3, "cm"),
+  colour = "black", size = 0.5, linetype = 1, alpha = 1, color = NULL,
+  ticks_per_base = NULL, ...)
 }
 \arguments{
 \item{sides}{a string that controls which sides of the plot the log ticks appear on.
@@ -58,42 +58,42 @@ log10 and identity are base 10. If ticks_per_base is given it follows the same l
 
 p <- ggplot(msleep, aes(bodywt, brainwt)) + geom_point()
 
-#Default behavior
+# Default behavior
 
-#add identity scale minor ticks on y axis
-p + annotation_ticks(sides='l')
+# add identity scale minor ticks on y axis
+p + annotation_ticks(sides = 'l')
 
-#add identity scale minor ticks on x,y axis
-p + annotation_ticks(sides='lb')
+# add identity scale minor ticks on x,y axis
+p + annotation_ticks(sides = 'lb')
 
-#Control number of minor ticks of each side independently
+# Control number of minor ticks of each side independently
 
-#add identity scale minor ticks on x,y axis
-p + annotation_ticks(sides='lb',ticks_per_base=c(10,5))
+# add identity scale minor ticks on x,y axis
+p + annotation_ticks(sides = 'lb', ticks_per_base = c(10,5))
 
-#log10 scale
+# log10 scale
 p1 <- p + scale_x_log10()
 
-#add minor ticks on log10 scale
-p1 + annotation_ticks(sides='b',scale='log10')
+# add minor ticks on log10 scale
+p1 + annotation_ticks(sides = 'b', scale = 'log10')
 
-#add minor ticks on both scales
-p1 + annotation_ticks(sides='lb',scale=c('identity','log10'))
+# add minor ticks on both scales
+p1 + annotation_ticks(sides = 'lb', scale = c('identity','log10'))
 
-#add minor ticks on both scales, but force x axis to be identity
-p1+annotation_ticks(sides='lb',scale='identity')
+# add minor ticks on both scales, but force x axis to be identity
+p1 + annotation_ticks(sides = 'lb', scale = 'identity')
 
 
-#log scale
-p2 <- p + scale_x_continuous(trans='log')
+# log scale
+p2 <- p + scale_x_continuous(trans = 'log')
 
-#add minor ticks on log scale
-p2 + annotation_ticks(sides='b',scale='log')
+# add minor ticks on log scale
+p2 + annotation_ticks(sides = 'b', scale = 'log')
 
-#add minor ticks on both scales
-p2 + annotation_ticks(sides='lb',scale=c('identity','log'))
+# add minor ticks on both scales
+p2 + annotation_ticks(sides = 'lb', scale = c('identity','log'))
 
-#add minor ticks on both scales, but force x axis to be identity
-p2 + annotation_ticks(sides='lb',scale='identity')
+# add minor ticks on both scales, but force x axis to be identity
+p2 + annotation_ticks(sides = 'lb', scale = 'identity')
 
 }
