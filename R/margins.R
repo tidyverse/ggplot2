@@ -113,9 +113,15 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
 }
 
 #' @export
+widthDetails <- function(x) UseMethod("widthDetails")
+
+#' @export
 widthDetails.titleGrob <- function(x) {
   sum(x$widths)
 }
+
+#' @export
+heightDetails <- function(x) UseMethod("heightDetails")
 
 #' @export
 heightDetails.titleGrob <- function(x) {
