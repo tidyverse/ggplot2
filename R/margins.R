@@ -155,7 +155,16 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     return(zeroGrob())
 
   # Get text grob, text height, and text width
-  grob_details <- title_spec(label, x, y, hjust, vjust, angle, gp, debug)
+  grob_details <- title_spec(
+    label,
+    x = x,
+    y = y,
+    hjust = hjust,
+    vjust = vjust,
+    angle = angle,
+    gp = gp,
+    debug = debug
+  )
 
   add_margins(
     text_grob = grob_details$text_grob,
