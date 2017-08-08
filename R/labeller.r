@@ -520,7 +520,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 
   if (horizontal) {
 
-    grobs <- ggstrip(grobs, theme, element, gp, horizontal)
+    grobs <- ggstrip(grobs, theme, element, gp, horizontal, clip = "on")
 
     list(
       top = grobs,
@@ -529,12 +529,28 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   } else {
 
     grobs_right <- grobs[, rev(seq_len(ncol(grobs))), drop = FALSE]
-    grobs_right <- ggstrip(grobs_right, theme, element, gp, horizontal)
+    
+    grobs_right <- ggstrip(
+      grobs_right,
+      theme,
+      element,
+      gp,
+      horizontal,
+      clip = "on"
+    )
 
     theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
 
     grobs_left <- grobs
-    grobs_left <- ggstrip(grobs_left, theme, element, gp, horizontal)
+
+    grobs_left <- ggstrip(
+      grobs_left,
+      theme,
+      element,
+      gp,
+      horizontal,
+      clip = "off"
+    )
 
     list(
       left = grobs_left,
@@ -545,16 +561,14 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 
 # Grob for strip labels - takes the output from title_spec, adds margins,
 # creates gList with strip background and label, and returns gtable matrix
-ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE) {
+ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
 
   if (horizontal) {
     heights <- max_height(lapply(grobs, function(x) x$text_height))
     widths <- unit(1, "null")
-    clip <- "on"
   } else {
     heights <- unit(1, "null")
     widths <- max_width(lapply(grobs, function(x) x$text_width))
-    clip <- "off"
   }
 
   # Add margins around text grob
