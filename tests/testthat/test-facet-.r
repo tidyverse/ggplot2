@@ -60,3 +60,41 @@ test_that("Facet variables", {
   expect_identical(facet_wrap(~ a)$vars(), "a")
   expect_identical(facet_grid(a ~ b)$vars(), c("a", "b"))
 })
+
+# Visual tests ------------------------------------------------------------
+
+test_that("Facet labels can respect both justification and margin arguments", {
+
+  df <- data.frame(
+    x = 1:2,
+    y = 1:2,
+    z = c("a", "aaaaaaabc"),
+    g = c("b", "bbbbbbbcd")
+  )
+
+  base <- ggplot(df, aes(x, y)) + 
+    geom_point() +
+    facet_grid(g ~ z) +
+    theme_test()
+
+  p1 <- base +
+    theme(strip.text.x = element_text(hjust = 0, margin = margin(5, 5, 5, 5)),
+          strip.text.y = element_text(hjust = 0, margin = margin(5, 5, 5, 5)))
+  
+  p2 <- base +
+    theme(
+      strip.text.x = element_text(
+        angle = 90,
+        hjust = 0,
+        margin = margin(5, 5, 5, 5)
+      ),
+      strip.text.y = element_text(
+        angle = 0,
+        hjust = 0,
+        margin = margin(5, 5, 5, 5)
+      )
+    )
+
+  vdiffr::expect_doppelganger("left justified facet labels with margins", p1)
+  vdiffr::expect_doppelganger("left justified rotated facet labels with margins", p2)
+})
