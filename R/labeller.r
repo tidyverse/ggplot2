@@ -577,9 +577,9 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
     c(1, 2),
     function(x) {
       add_margins(
-        text_grob = x[[1]]$text_grob,
-        text_height = if (horizontal) heights else x[[1]]$text_height,
-        text_width = if (!horizontal) widths else x[[1]]$text_width,
+        grob = x[[1]]$text_grob,
+        height = if (horizontal) heights else x[[1]]$text_height,
+        width = if (!horizontal) widths else x[[1]]$text_width,
         gp = gp,
         margin = element$margin,
         expand_x = horizontal,
