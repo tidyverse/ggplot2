@@ -597,13 +597,11 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
     function(label) {
       ggname(
         "strip",
-        absoluteGrob(
-          gList(
+        gTree(
+          children = gList(
             element_render(theme, "strip.background"),
             label[[1]]
-          ),
-          width = grobWidth(label[[1]]),
-          height = grobHeight(label[[1]])
+          )
         )
       )
     })
