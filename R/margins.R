@@ -80,18 +80,10 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
 }
 
 add_margins <- function(grob, height, width, margin = NULL,
-                        gp = gpar(), margin_x = FALSE, margin_y = FALSE,
-                        expand_x = FALSE, expand_y = FALSE) {
+                        gp = gpar(), margin_x = FALSE, margin_y = FALSE) {
 
   if (is.null(margin)) {
     margin <- margin(0, 0, 0, 0)
-  }
-
-  if (expand_x) {
-    width <- unit(1, "null")
-  }
-  if (expand_y) {
-    height <- unit(1, "null")
   }
 
   if (margin_x && margin_y) {
