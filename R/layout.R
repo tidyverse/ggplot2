@@ -247,8 +247,8 @@ Layout <- ggproto("Layout", NULL,
           theme = theme,
           element = paste0("axis.title.", label, modify),
           label = labels[[label]][[i]],
-          expand_x = label == "y",
-          expand_y = label == "x"
+          margin_x = label == "y",
+          margin_y = label == "x"
         )
       })
     })

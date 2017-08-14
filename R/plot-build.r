@@ -228,15 +228,15 @@ ggplot_gtable <- function(data) {
   }
 
   # Title
-  title <- element_render(theme, "plot.title", plot$labels$title, expand_y = TRUE)
+  title <- element_render(theme, "plot.title", plot$labels$title, margin_y = TRUE)
   title_height <- grobHeight(title)
 
   # Subtitle
-  subtitle <- element_render(theme, "plot.subtitle", plot$labels$subtitle, expand_y = TRUE)
+  subtitle <- element_render(theme, "plot.subtitle", plot$labels$subtitle, margin_y = TRUE)
   subtitle_height <- grobHeight(subtitle)
 
   # whole plot annotation
-  caption <- element_render(theme, "plot.caption", plot$labels$caption, expand_y = TRUE)
+  caption <- element_render(theme, "plot.caption", plot$labels$caption, margin_y = TRUE)
   caption_height <- grobHeight(caption)
 
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), ,

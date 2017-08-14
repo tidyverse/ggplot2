@@ -1,5 +1,9 @@
 # ggplot2 2.2.1.9000
 
+* Strip labels now understand justification relative to the direction of the
+  text, meaning that in y facets the strip text can be placed at either end of
+  the strip using `hjust` (@karawoo).
+
 * Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This
   line makes it easier to judge the fit of the theoretical distribution (@nicksolomon).
 
