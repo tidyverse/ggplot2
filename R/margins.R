@@ -21,6 +21,24 @@ margin_width <- function(grob, margins) {
 
   grobWidth(grob) + margins[2] + margins[4]
 }
+ 
+position_trig <- function(angle, hjust, vjust) {  
+  angler <- angle * (pi / 180)
+
+  # Choose whether to use hjust or vjust or a combination
+  xp <- abs((cos(angler) * hjust) + (sin(angler) * vjust))
+  yp <- abs((cos(angler) * vjust) + (sin(angler) * hjust))
+
+  if (90 <= angle & angle < 270) {
+    xp <- 1 - xp
+  }
+  
+  if (180 <= angle & angle < 360) {
+    yp <- 1 - yp
+  }
+
+  list(xp = xp, yp = yp)
+}
 
 title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
                        debug = FALSE) {
@@ -28,19 +46,9 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
   if (is.null(label)) return(zeroGrob())
 
   angle <- angle %% 360
-  if (angle == 90) {
-    xp <- 1 - vjust
-    yp <- hjust
-  } else if (angle == 180) {
-    xp <- 1 - hjust
-    yp <- 1 - vjust
-  } else if (angle == 270) {
-    xp <- vjust
-    yp <- 1 - hjust
-  } else {
-    xp <- hjust
-    yp <- vjust
-  }
+  pos <- position_trig(angle, hjust, vjust)
+  xp <- pos$xp
+  yp <- pos$yp
 
   n <- max(length(x), length(y), 1)
   x <- x %||% unit(rep(xp, n), "npc")
