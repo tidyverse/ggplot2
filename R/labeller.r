@@ -473,7 +473,16 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
   }
 }
 
-
+#' Build facet strips
+#'
+#' Builds a set of facet strips from a data frame of labels.
+#'
+#' @param label_df Data frame of labels to place in strips.
+#' @param labeller Labelling function.
+#' @param theme A theme object.
+#' @param horizontal Whether the strips are horizontal (e.g. x facets) or not.
+#'
+#' @noRd
 build_strip <- function(label_df, labeller, theme, horizontal) {
   labeller <- match.fun(labeller)
 
@@ -559,8 +568,20 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   }
 }
 
-# Grob for strip labels - takes the output from title_spec, adds margins,
-# creates gList with strip background and label, and returns gtable matrix
+#' Grob for strip labels
+#'
+#' Takes the output from title_spec, adds margins, creates gList with strip
+#' background and label, and returns gtable matrix.
+#'
+#' @param grobs Output from [title_spec()].
+#' @param theme Theme object.
+#' @param element Theme element (see [calc_element()]).
+#' @param gp Additional graphical parameters.
+#' @param horizontal Whether the strips are horizontal (e.g. x facets) or not.
+#' @param clip should drawing be clipped to the specified cells (‘"on"’),the
+#'   entire table (‘"inherit"’), or not at all (‘"off"’).
+#'
+#' @noRd
 ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
 
   if (horizontal) {

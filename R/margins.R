@@ -22,6 +22,16 @@ margin_width <- function(grob, margins) {
   grobWidth(grob) + margins[2] + margins[4]
 }
 
+#' Text grob, height, and width
+#'
+#' This function returns a list containing a text grob (and, optionally,
+#' debugging grobs) and the height and width of the text grob.
+#'
+#' @param x,y x and y locations where the text is to be placed. If `x` and `y`
+#'   are `NULL`, `hjust` and `vjust` are used to determine the location.
+#' @inheritParams titleGrob
+#' 
+#' @noRd
 title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
                        debug = FALSE) {
 
@@ -79,6 +89,19 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
   )
 }
 
+#' Add margins
+#'
+#' Given a text grob, `add_margins()` adds margins around the grob in the
+#' directions determined by `margin_x` and `margin_y`. 
+#' 
+#' @param grob Text grob to add margins to.
+#' @param height,width Usually the height and width of the text grob. Passed as
+#'   separate arguments from the grob itself because in the special case of
+#'   facet strip labels each set of strips should share the same height and
+#'   width, even if the labels are of different length.
+#' @inheritParams titleGrob
+#'
+#' @noRd
 add_margins <- function(grob, height, width, margin = NULL,
                         gp = gpar(), margin_x = FALSE, margin_y = FALSE) {
 
@@ -130,7 +153,25 @@ add_margins <- function(grob, height, width, margin = NULL,
   )
 }
 
-
+#' Create a text grob with the proper location and margins
+#'
+#' `titleGrob()` is called when creating titles and labels for axes, legends,
+#' and facet strips.
+#'
+#' @param label Text to place on the plot. These maybe axis titles, axis labels,
+#'   facet strip titles, etc.
+#' @param x,y x and y locations where the text is to be placed.
+#' @param hjust,vjust Horizontal and vertical justification of the text.
+#' @param angle Angle of rotation of the text.
+#' @param gp Additional graphical parameters in a call to `gpar()`.
+#' @param margin Margins around the text. See [margin()] for more
+#'   details.
+#' @param margin_x,margin_y Whether or not to add margins in the x/y direction.
+#' @param debug If `TRUE`, aids visual debugging by drawing a solid
+#'   rectangle behind the complete text area, and a point where each label
+#'   is anchored.
+#' 
+#' @noRd
 titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
                       margin = NULL, margin_x = FALSE, margin_y = FALSE,
                       debug = FALSE) {
