@@ -585,11 +585,11 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
 
   if (horizontal) {
-    heights <- max_height(lapply(grobs, function(x) x$text_height))
-    widths <- unit(1, "null")
+    height <- max_height(lapply(grobs, function(x) x$text_height))
+    width <- unit(1, "null")
   } else {
-    heights <- unit(1, "null")
-    widths <- max_width(lapply(grobs, function(x) x$text_width))
+    height <- unit(1, "null")
+    width <- max_width(lapply(grobs, function(x) x$text_width))
   }
 
   # Add margins around text grob
@@ -599,8 +599,8 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
     function(x) {
       add_margins(
         grob = x[[1]]$text_grob,
-        height = heights,
-        width = widths,
+        height = height,
+        width = width,
         gp = gp,
         margin = element$margin,
         margin_x = TRUE,
@@ -626,9 +626,9 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
     })
 
   if (horizontal) {
-    heights <- heights + sum(element$margin[c(1, 3)])
+    height <- height + sum(element$margin[c(1, 3)])
   } else {
-    widths <- widths + sum(element$margin[c(2, 4)])
+    width <- width + sum(element$margin[c(2, 4)])
   }
 
  
@@ -645,8 +645,8 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
       gtable_matrix(
         "strip",
         mat,
-        rep(widths, ncol(mat)),
-        rep(heights, nrow(mat)),
+        rep(width, ncol(mat)),
+        rep(height, nrow(mat)),
         clip = clip
       )
     })
