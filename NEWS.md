@@ -1,5 +1,9 @@
 # ggplot2 2.2.1.9000
 
+* Strips gain margins on all sides by default. This means that to fully justify
+  text to the edge of a strip, you will need to also set the margins to 0
+  (@karawoo).
+
 * Strip labels now understand justification relative to the direction of the
   text, meaning that in y facets the strip text can be placed at either end of
   the strip using `hjust` (@karawoo).
