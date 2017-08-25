@@ -1,5 +1,9 @@
 # ggplot2 2.2.1.9000
 
+* Strips gain margins on all sides by default. This means that to fully justify
+  text to the edge of a strip, you will need to also set the margins to 0
+  (@karawoo).
+
 * Rotated strip labels now correctly understand `hjust` and `vjust` parameters
   at all angles (@karawoo).
 
