@@ -22,24 +22,34 @@ margin_width <- function(grob, margins) {
   grobWidth(grob) + margins[2] + margins[4]
 }
 
+#' Text grob, height, and width
+#'
+#' This function returns a list containing a text grob (and, optionally,
+#' debugging grobs) and the height and width of the text grob.
+#'
+#' @param x,y x and y locations where the text is to be placed. If `x` and `y`
+#'   are `NULL`, `hjust` and `vjust` are used to determine the location.
+#' @inheritParams titleGrob
+#' 
+#' @noRd
 title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
                        debug = FALSE) {
 
   if (is.null(label)) return(zeroGrob())
 
   angle <- angle %% 360
-  if (angle == 90) {
-    xp <- 1 - vjust
-    yp <- hjust
-  } else if (angle == 180) {
-    xp <- 1 - hjust
-    yp <- 1 - vjust
-  } else if (angle == 270) {
-    xp <- vjust
-    yp <- 1 - hjust
-  } else {
+  if (0 <= angle & angle < 90) {
     xp <- hjust
     yp <- vjust
+  } else if (90 <= angle & angle < 180) {
+    xp <- 1 - vjust
+    yp <- hjust
+  } else if (180 <= angle & angle < 270) {
+    xp <- 1 - hjust
+    yp <- 1 - vjust
+  } else if (270 <= angle & angle < 360) {
+    xp <- vjust
+    yp <- 1 - hjust
   }
 
   n <- max(length(x), length(y), 1)
@@ -79,24 +89,29 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
   )
 }
 
-add_margins <- function(text_grob, text_height, text_width, margin = NULL,
-                        gp = gpar(), margin_x = FALSE, margin_y = FALSE,
-                        expand_x = FALSE, expand_y = FALSE) {
+#' Add margins
+#'
+#' Given a text grob, `add_margins()` adds margins around the grob in the
+#' directions determined by `margin_x` and `margin_y`. 
+#' 
+#' @param grob Text grob to add margins to.
+#' @param height,width Usually the height and width of the text grob. Passed as
+#'   separate arguments from the grob itself because in the special case of
+#'   facet strip labels each set of strips should share the same height and
+#'   width, even if the labels are of different length.
+#' @inheritParams titleGrob
+#'
+#' @noRd
+add_margins <- function(grob, height, width, margin = NULL,
+                        gp = gpar(), margin_x = FALSE, margin_y = FALSE) {
 
   if (is.null(margin)) {
     margin <- margin(0, 0, 0, 0)
   }
 
-  if (expand_x) {
-    text_width <- unit(1, "null")
-  }
-  if (expand_y) {
-    text_height <- unit(1, "null")
-  }
-
   if (margin_x && margin_y) {
-    widths <- unit.c(margin[4], text_width, margin[2])
-    heights <- unit.c(margin[1], text_height, margin[3])
+    widths <- unit.c(margin[4], width, margin[2])
+    heights <- unit.c(margin[1], height, margin[3])
 
     vp <- viewport(
       layout = grid.layout(3, 3, heights = heights, widths = widths),
@@ -104,24 +119,24 @@ add_margins <- function(text_grob, text_height, text_width, margin = NULL,
     )
     child_vp <- viewport(layout.pos.row = 2, layout.pos.col = 2)
   } else if (margin_x) {
-    widths <- unit.c(margin[4], text_width, margin[2])
+    widths <- unit.c(margin[4], width, margin[2])
     vp <- viewport(layout = grid.layout(1, 3, widths = widths), gp = gp)
     child_vp <- viewport(layout.pos.col = 2)
 
     heights <- unit(1, "null")
   } else if (margin_y) {
-    heights <- unit.c(margin[1], text_height, margin[3])
+    heights <- unit.c(margin[1], height, margin[3])
 
     vp <- viewport(layout = grid.layout(3, 1, heights = heights), gp = gp)
     child_vp <- viewport(layout.pos.row = 2)
 
     widths <- unit(1, "null")
   } else {
-    widths <- text_width
-    heights <- text_height
+    widths <- width
+    heights <- height
     return(
       gTree(
-        children = text_grob,
+        children = grob,
         widths = widths,
         heights = heights,
         cl = "titleGrob"
@@ -130,7 +145,7 @@ add_margins <- function(text_grob, text_height, text_width, margin = NULL,
   }
 
   gTree(
-    children = text_grob,
+    children = grob,
     vp = vpTree(vp, vpList(child_vp)),
     widths = widths,
     heights = heights,
@@ -138,7 +153,25 @@ add_margins <- function(text_grob, text_height, text_width, margin = NULL,
   )
 }
 
-
+#' Create a text grob with the proper location and margins
+#'
+#' `titleGrob()` is called when creating titles and labels for axes, legends,
+#' and facet strips.
+#'
+#' @param label Text to place on the plot. These maybe axis titles, axis labels,
+#'   facet strip titles, etc.
+#' @param x,y x and y locations where the text is to be placed.
+#' @param hjust,vjust Horizontal and vertical justification of the text.
+#' @param angle Angle of rotation of the text.
+#' @param gp Additional graphical parameters in a call to `gpar()`.
+#' @param margin Margins around the text. See [margin()] for more
+#'   details.
+#' @param margin_x,margin_y Whether or not to add margins in the x/y direction.
+#' @param debug If `TRUE`, aids visual debugging by drawing a solid
+#'   rectangle behind the complete text area, and a point where each label
+#'   is anchored.
+#' 
+#' @noRd
 titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
                       margin = NULL, margin_x = FALSE, margin_y = FALSE,
                       debug = FALSE) {
@@ -159,9 +192,9 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
   )
 
   add_margins(
-    text_grob = grob_details$text_grob,
-    text_height = grob_details$text_height,
-    text_width = grob_details$text_width,
+    grob = grob_details$text_grob,
+    height = grob_details$text_height,
+    width = grob_details$text_width,
     gp = gp,
     margin = margin,
     margin_x = margin_x,

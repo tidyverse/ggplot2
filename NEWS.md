@@ -4,6 +4,9 @@
   text to the edge of a strip, you will need to also set the margins to 0
   (@karawoo).
 
+* Rotated strip labels now correctly understand `hjust` and `vjust` parameters
+  at all angles (@karawoo).
+
 * Strip labels now understand justification relative to the direction of the
   text, meaning that in y facets the strip text can be placed at either end of
   the strip using `hjust` (@karawoo).

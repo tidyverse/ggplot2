@@ -473,7 +473,16 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
   }
 }
 
-
+#' Build facet strips
+#'
+#' Builds a set of facet strips from a data frame of labels.
+#'
+#' @param label_df Data frame of labels to place in strips.
+#' @param labeller Labelling function.
+#' @param theme A theme object.
+#' @param horizontal Whether the strips are horizontal (e.g. x facets) or not.
+#'
+#' @noRd
 build_strip <- function(label_df, labeller, theme, horizontal) {
   labeller <- match.fun(labeller)
 
@@ -559,16 +568,28 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   }
 }
 
-# Grob for strip labels - takes the output from title_spec, adds margins,
-# creates gList with strip background and label, and returns gtable matrix
+#' Grob for strip labels
+#'
+#' Takes the output from title_spec, adds margins, creates gList with strip
+#' background and label, and returns gtable matrix.
+#'
+#' @param grobs Output from [title_spec()].
+#' @param theme Theme object.
+#' @param element Theme element (see [calc_element()]).
+#' @param gp Additional graphical parameters.
+#' @param horizontal Whether the strips are horizontal (e.g. x facets) or not.
+#' @param clip should drawing be clipped to the specified cells (‘"on"’),the
+#'   entire table (‘"inherit"’), or not at all (‘"off"’).
+#'
+#' @noRd
 ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
 
   if (horizontal) {
-    heights <- max_height(lapply(grobs, function(x) x$text_height))
-    widths <- unit(1, "null")
+    height <- max_height(lapply(grobs, function(x) x$text_height))
+    width <- unit(1, "null")
   } else {
-    heights <- unit(1, "null")
-    widths <- max_width(lapply(grobs, function(x) x$text_width))
+    height <- unit(1, "null")
+    width <- max_width(lapply(grobs, function(x) x$text_width))
   }
 
   # Add margins around text grob
@@ -577,13 +598,11 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
     c(1, 2),
     function(x) {
       add_margins(
-        text_grob = x[[1]]$text_grob,
-        text_height = if (horizontal) heights else x[[1]]$text_height,
-        text_width = if (!horizontal) widths else x[[1]]$text_width,
+        grob = x[[1]]$text_grob,
+        height = height,
+        width = width,
         gp = gp,
         margin = element$margin,
-        expand_x = horizontal,
-        expand_y = !horizontal,
         margin_x = TRUE,
         margin_y = TRUE
       )
@@ -597,21 +616,19 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
     function(label) {
       ggname(
         "strip",
-        absoluteGrob(
-          gList(
+        gTree(
+          children = gList(
             element_render(theme, "strip.background"),
             label[[1]]
-          ),
-          width = grobWidth(label[[1]]),
-          height = grobHeight(label[[1]])
+          )
         )
       )
     })
 
   if (horizontal) {
-    heights <- heights + sum(element$margin[c(1, 3)])
+    height <- height + sum(element$margin[c(1, 3)])
   } else {
-    widths <- widths + sum(element$margin[c(2, 4)])
+    width <- width + sum(element$margin[c(2, 4)])
   }
 
  
@@ -628,8 +645,8 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
       gtable_matrix(
         "strip",
         mat,
-        rep(widths, ncol(mat)),
-        rep(heights, nrow(mat)),
+        rep(width, ncol(mat)),
+        rep(height, nrow(mat)),
         clip = clip
       )
     })
