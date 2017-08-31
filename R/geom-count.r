@@ -9,7 +9,7 @@
 #'
 #' @param geom,stat Use to override the default connection between
 #'   `geom_count` and `stat_sum`.
-#' @seealso For continuous `x` and `x`, use [geom_bin2d()].
+#' @seealso For continuous `x` and `y`, use [geom_bin2d()].
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
