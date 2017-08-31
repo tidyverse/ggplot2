@@ -149,9 +149,13 @@ theme_grey <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey85", colour = NA),
-    strip.text =         element_text(colour = "grey10", size = rel(0.8)),
-    strip.text.x =       element_text(margin = margin(t = half_line, b = half_line)),
-    strip.text.y =       element_text(angle = -90, margin = margin(l = half_line, r = half_line)),
+    strip.text =         element_text(
+                           colour = "grey10",
+                           size = rel(0.8),
+                           margin = margin(half_line, half_line, half_line, half_line)
+                         ),
+    strip.text.x =       NULL,
+    strip.text.y =       element_text(angle = -90),
     strip.placement =    "inside",
     strip.placement.x =  NULL,
     strip.placement.y =  NULL,
@@ -216,6 +220,8 @@ theme_bw <- function(base_size = 11, base_family = "",
 theme_linedraw <- function(base_size = 11, base_family = "",
                            base_line_size = base_size / 22,
                            base_rect_size = base_size / 22) {
+  half_line <- base_size / 2
+  
   # Starts with theme_bw and then modify some parts
   # = replace all greys with pure black or white
   theme_bw(
@@ -238,7 +244,11 @@ theme_linedraw <- function(base_size = 11, base_family = "",
 
       # strips with black background and white text
       strip.background = element_rect(fill = "black"),
-      strip.text       = element_text(colour = "white", size = rel(0.8)),
+      strip.text       = element_text(
+                           colour = "white",
+                           size = rel(0.8),
+                           margin = margin(half_line, half_line, half_line, half_line)
+                         ),
 
       complete = TRUE
     )
@@ -249,6 +259,8 @@ theme_linedraw <- function(base_size = 11, base_family = "",
 theme_light <- function(base_size = 11, base_family = "",
                         base_line_size = base_size / 22,
                         base_rect_size = base_size / 22) {
+  half_line <- base_size / 2
+  
   # Starts with theme_grey and then modify some parts
   theme_grey(
     base_size = base_size,
@@ -273,7 +285,11 @@ theme_light <- function(base_size = 11, base_family = "",
 
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey70", colour = NA),
-      strip.text       = element_text(colour = "white", size = rel(0.8)),
+      strip.text       = element_text(
+                           colour = "white",
+                           size = rel(0.8),
+                           margin = margin(half_line, half_line, half_line, half_line)
+                         ),
 
       complete = TRUE
     )
@@ -285,6 +301,8 @@ theme_light <- function(base_size = 11, base_family = "",
 theme_dark <- function(base_size = 11, base_family = "",
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22) {
+  half_line <- base_size / 2
+  
   # Starts with theme_grey and then modify some parts
   theme_grey(
     base_size = base_size,
@@ -308,7 +326,11 @@ theme_dark <- function(base_size = 11, base_family = "",
 
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey15", colour = NA),
-      strip.text       = element_text(colour = "grey90", size = rel(0.8)),
+      strip.text       = element_text(
+                           colour = "grey90",
+                           size = rel(0.8),
+                           margin = margin(half_line, half_line, half_line, half_line)
+                         ),
 
       complete = TRUE
     )
@@ -375,6 +397,8 @@ theme_classic <- function(base_size = 11, base_family = "",
 theme_void <- function(base_size = 11, base_family = "",
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22) {
+  half_line <- base_size / 2
+  
   theme(
     # Use only inherited elements and make almost everything blank
     # Only keep indispensable text
@@ -390,7 +414,10 @@ theme_void <- function(base_size = 11, base_family = "",
     axis.title =       element_blank(),
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
-    strip.text =         element_text(size = rel(0.8)),
+    strip.text =         element_text(
+                           size = rel(0.8),
+                           margin = margin(half_line, half_line, half_line, half_line)
+                         ),
     plot.margin =        unit(c(0, 0, 0, 0), "lines"),
 
     complete = TRUE
@@ -480,9 +507,13 @@ theme_test <- function(base_size = 11, base_family = "",
     panel.ontop    =     FALSE,
 
     strip.background =   element_rect(fill = "grey85", colour = "grey20"),
-    strip.text =         element_text(colour = "grey10", size = rel(0.8)),
-    strip.text.x =       element_text(margin = margin(t = half_line, b = half_line)),
-    strip.text.y =       element_text(angle = -90, margin = margin(l = half_line, r = half_line)),
+    strip.text =         element_text(
+                           colour = "grey10",
+                           size = rel(0.8),
+                           margin = margin(half_line, half_line, half_line, half_line)
+                         ),
+    strip.text.x =       NULL,
+    strip.text.y =       element_text(angle = -90),
     strip.placement =    "inside",
     strip.placement.x =  NULL,
     strip.placement.y =  NULL,
