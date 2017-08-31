@@ -83,7 +83,6 @@ p1 + annotation_ticks(sides = 'lb', scale = c('identity','log10'))
 # add minor ticks on both scales, but force x axis to be identity
 p1 + annotation_ticks(sides = 'lb', scale = 'identity')
 
-
 # log scale
 p2 <- p + scale_x_continuous(trans = 'log')
 

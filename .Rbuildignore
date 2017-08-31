@@ -19,3 +19,4 @@ visual_test
 ^README-.*\.png$
 ^logo\.png$
 ^appveyor\.yml$
+lib

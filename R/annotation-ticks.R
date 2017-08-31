@@ -41,7 +41,6 @@
 #' # add minor ticks on both scales, but force x axis to be identity
 #' p1 + annotation_ticks(sides = 'lb', scale = 'identity')
 #'
-#'
 #' # log scale
 #' p2 <- p + scale_x_continuous(trans = 'log')
 #'
@@ -69,25 +68,12 @@ annotation_ticks <- function(sides = "b",
                              ticks_per_base = NULL,
                              ...) {
 
-    if (!is.null(color))
+    if ( !is.null(color) )
         colour <- color
 
-    # if(!'scale'%in%names(match.call())){
-    #
-    #   scale <- sapply(sides,function(x){
-    #     if(grepl('[b|t]',x))
-    #
-    #          # is there a way to learn what trans is set to at this stage
-    #          # from the object annotation is be applied to?
-    #          # if so then user wont need to supply param to specify non identity scale
-    #
-    #   })
-    #
-    # }
-
     #check for invalid side
-    if(grepl("[^btlr]", sides))
-      stop(gsub('[btlr]','',sides),' is not a valid side: b,t,l,r are valid')
+    if( grepl("[^btlr]", sides) )
+      stop( gsub('[btlr]','',sides), ' is not a valid side: b,t,l,r are valid')
 
     #split sides to character vector
     sides <- strsplit(sides,'')[[1]]
@@ -130,7 +116,6 @@ annotation_ticks <- function(sides = "b",
     }
 
     delog <- scale %in% 'identity'
-
 
     layer(
       data = data.frame(x = NA),
@@ -186,8 +171,8 @@ GeomTicks <- ggproto("GeomTicks", Geom,
     mid <- convertUnit(mid, "cm", valueOnly = TRUE)
     long <- convertUnit(long, "cm", valueOnly = TRUE)
 
-    for (s in 1:length(sides)) {
-        if (grepl("[b|t]", sides[s])) {
+    for ( s in 1:length(sides) ) {
+        if ( grepl("[b|t]", sides[s]) ) {
 
             # Get positions of x tick marks
             xticks <- calc_ticks(base = base[s],
@@ -201,8 +186,8 @@ GeomTicks <- ggproto("GeomTicks", Geom,
                                  ticks_per_base = ticks_per_base[s],
                                  delog = delog[s])
 
-            if (scaled) {
-                if (!delog[s])
+            if ( scaled ) {
+                if ( !delog[s] )
                   xticks$value <- log(xticks$value, base[s])
             }
 
@@ -211,34 +196,34 @@ GeomTicks <- ggproto("GeomTicks", Geom,
             xticks <- coord$transform(xticks, panel_scales)
 
             # Make the grobs
-            if (grepl("b", sides[s])) {
-                                       ticks$x_b <-  with(data,
-                                                          segmentsGrob(x0 = unit(xticks$x, "native"),
-                                                                       x1 = unit(xticks$x, "native"),
-                                                                       y0 = unit(xticks$start, "cm"),
-                                                                       y1 = unit(xticks$end, "cm"),
-                                                                       gp = gpar(col = alpha(colour,alpha),
-                                                                                 lty = linetype,
-                                                                                 lwd = size * .pt)
-                                                                       )
-                                                          )
+            if ( grepl("b", sides[s]) ) {
+                  ticks$x_b <- with(data,
+                                    segmentsGrob(x0 = unit(xticks$x, "native"),
+                                                 x1 = unit(xticks$x, "native"),
+                                                 y0 = unit(xticks$start, "cm"),
+                                                 y1 = unit(xticks$end, "cm"),
+                                                 gp = gpar(col = alpha(colour,alpha),
+                                                           lty = linetype,
+                                                           lwd = size * .pt)
+                                                 )
+                                    )
             }
             if (grepl("t", sides[s])) {
-                                        ticks$x_t <- with(data,
-                                                          segmentsGrob(x0 = unit(xticks$x,"native"),
-                                                                       x1 = unit(xticks$x, "native"),
-                                                                       y0 = unit(1, "npc") - unit(xticks$start, "cm"),
-                                                                       y1 = unit(1, "npc") - unit(xticks$end, "cm"),
-                                                                       gp = gpar(col = alpha(colour, alpha),
-                                                                                 lty = linetype,
-                                                                                 lwd = size * .pt)
-                                                                       )
-                                                          )
+                  ticks$x_t <- with(data,
+                                    segmentsGrob(x0 = unit(xticks$x,"native"),
+                                                 x1 = unit(xticks$x, "native"),
+                                                 y0 = unit(1, "npc") - unit(xticks$start, "cm"),
+                                                 y1 = unit(1, "npc") - unit(xticks$end, "cm"),
+                                                 gp = gpar(col = alpha(colour, alpha),
+                                                           lty = linetype,
+                                                           lwd = size * .pt)
+                                                 )
+                                    )
             }
         }
 
 
-        if (grepl("[l|r]", sides[s])) {
+        if ( grepl("[l|r]", sides[s]) ) {
             yticks <- calc_ticks(base = base[s],
                                  minpow = floor(panel_scales$y.range[1]),
                                  maxpow = ceiling(panel_scales$y.range[2]),
@@ -250,8 +235,8 @@ GeomTicks <- ggproto("GeomTicks", Geom,
                                  ticks_per_base = ticks_per_base[s],
                                  delog = delog[s])
 
-            if (scaled) {
-                if (!delog[s]){
+            if ( scaled ) {
+                if ( !delog[s] ){
                     yticks$value <- log(yticks$value, base[s])
                   }
             }
@@ -260,28 +245,28 @@ GeomTicks <- ggproto("GeomTicks", Geom,
             yticks <- coord$transform(yticks, panel_scales)
 
             # Make the grobs
-            if (grepl("l", sides[s])) {
-                ticks$y_l <- with(data,
-                                  segmentsGrob(y0 = unit(yticks$y, "native"),
-                                               y1 = unit(yticks$y, "native"),
-                                               x0 = unit(yticks$start, "cm"),
-                                               x1 = unit(yticks$end, "cm"),
-                                               gp = gpar(col = alpha(colour, alpha),
-                                                         lty = linetype, lwd = size * .pt)
-                                               )
-                                  )
+            if ( grepl("l", sides[s]) ) {
+                  ticks$y_l <- with(data,
+                                    segmentsGrob(y0 = unit(yticks$y, "native"),
+                                                 y1 = unit(yticks$y, "native"),
+                                                 x0 = unit(yticks$start, "cm"),
+                                                 x1 = unit(yticks$end, "cm"),
+                                                 gp = gpar(col = alpha(colour, alpha),
+                                                           lty = linetype, lwd = size * .pt)
+                                                 )
+                                    )
             }
-            if (grepl("r", sides[s])) {
-                ticks$y_r <- with(data,
-                                  segmentsGrob(y0 = unit(yticks$y, "native"),
-                                               y1 = unit(yticks$y, "native"),
-                                               x0 = unit(1, "npc") - unit(yticks$start, "cm"),
-                                               x1 = unit(1, "npc") - unit(yticks$end, "cm"),
-                                               gp = gpar(col = alpha(colour, alpha),
-                                                         lty = linetype,
-                                                         lwd = size * .pt)
-                                               )
-                                  )
+            if ( grepl("r", sides[s]) ) {
+                  ticks$y_r <- with(data,
+                                    segmentsGrob(y0 = unit(yticks$y, "native"),
+                                                 y1 = unit(yticks$y, "native"),
+                                                 x0 = unit(1, "npc") - unit(yticks$start, "cm"),
+                                                 x1 = unit(1, "npc") - unit(yticks$end, "cm"),
+                                                 gp = gpar(col = alpha(colour, alpha),
+                                                           lty = linetype,
+                                                           lwd = size * .pt)
+                                                 )
+                                    )
             }
         }
     }
@@ -332,7 +317,7 @@ calc_ticks <- function(base = 10,
     longtick_after_base <- floor(ticks_per_base/2)
     tickend[cycleIdx == longtick_after_base] <- midend
 
-    if (delog) {
+    if ( delog ) {
 
         ticksCopy <- ticks
 
@@ -349,9 +334,9 @@ calc_ticks <- function(base = 10,
 
         expandScale <- c()
 
-        if (length(majorTicks) > 1) {
+        if ( length(majorTicks) > 1 ) {
 
-            for (i in 1:(length(majorTicks) - 1)) {
+            for ( i in 1:(length(majorTicks) - 1) ) {
                 expandScale <- c(expandScale,
                                 seq(majorTicks[i], majorTicks[i + 1], length.out = (ticks_per_base + 1))
                                 )
