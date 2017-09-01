@@ -407,6 +407,9 @@ There were a number of tweaks to the theme elements that control legends:
 
 * `Scale` extensions can now override the `make_title` and `make_sec_title` 
   methods to let the scale modify the axis/legend titles.
+  
+* `stat_contour` gains new argument `exclude` to remove specific levels. 
+  (@eliocamp)
 
 # ggplot2 2.1.0
 
