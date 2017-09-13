@@ -15,29 +15,29 @@ stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
   inherit.aes = TRUE)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
-   options:
+options:
 
-   If \code{NULL}, the default, the data is inherited from the plot
-   data as specified in the call to \code{\link{ggplot}}.
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-   A \code{data.frame}, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   \code{\link{fortify}} for which variables will be created.
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-   A \code{function} will be called with a single argument,
-   the plot data. The return value must be a \code{data.frame.}, and
-   will be used as the layer data.}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame.}, and
+will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -57,12 +57,14 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_violin} and \code{stat_ydensity}.}
@@ -70,17 +72,17 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
-\code{\link[stats]{bw.nrd}}.}
+\code{\link[stats:bw.nrd]{stats::bw.nrd()}}.}
 
 \item{adjust}{A multiplicate bandwidth adjustment. This makes it possible
 to adjust the bandwidth while still using the a bandwidth estimator.
-For exampe, \code{adjust = 1/2} means use half of the default bandwidth.}
+For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 
-\item{kernel}{Kernel. See list of available kernels in \code{\link{density}}.}
+\item{kernel}{Kernel. See list of available kernels in \code{\link[=density]{density()}}.}
 }
 \description{
 A violin plot is a compact display of a continuous distribution. It is a
-blend of \code{\link{geom_boxplot}} and \code{\link{geom_density}}: a
+blend of \code{\link[=geom_boxplot]{geom_boxplot()}} and \code{\link[=geom_density]{geom_density()}}: a
 violin plot is a mirrored density plot displayed in the same way as a
 boxplot.
 }
@@ -92,13 +94,13 @@ boxplot.
 \section{Computed variables}{
 
 \describe{
-  \item{density}{density estimate}
-  \item{scaled}{density estimate, scaled to maximum of 1}
-  \item{count}{density * number of points - probably useless for violin plots}
-  \item{violinwidth}{density scaled for the violin plot, according to area, counts
-                     or to a constant maximum width}
-  \item{n}{number of points}
-  \item{width}{width of violin bounding box}
+\item{density}{density estimate}
+\item{scaled}{density estimate, scaled to maximum of 1}
+\item{count}{density * number of points - probably useless for violin plots}
+\item{violinwidth}{density scaled for the violin plot, according to area, counts
+or to a constant maximum width}
+\item{n}{number of points}
+\item{width}{width of violin bounding box}
 }
 }
 
@@ -159,6 +161,6 @@ Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
 Plot-Density Trace Synergism. The American Statistician 52, 181-184.
 }
 \seealso{
-\code{\link{geom_violin}} for examples, and \code{\link{stat_density}}
-  for examples with data along the x axis.
+\code{\link[=geom_violin]{geom_violin()}} for examples, and \code{\link[=stat_density]{stat_density()}}
+for examples with data along the x axis.
 }

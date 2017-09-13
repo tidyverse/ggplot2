@@ -7,9 +7,9 @@
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
-#' by the \code{boxplot} function, and may be apparent with small samples.
-#' See \code{\link{boxplot.stats}} for for more information on how hinge
-#' positions are calculated for \code{boxplot}.
+#' by the `boxplot` function, and may be apparent with small samples.
+#' See [boxplot.stats()] for for more information on how hinge
+#' positions are calculated for `boxplot`.
 #'
 #' The upper whisker extends from the hinge to the largest value no further than
 #' 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
@@ -18,36 +18,36 @@
 #' end of the whiskers are called "outlying" points and are plotted
 #' individually.
 #'
-#' In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
+#' In a notched box plot, the notches extend `1.58 * IQR / sqrt(n)`.
 #' This gives a roughly 95\% confidence interval for comparing medians.
 #' See McGill et al. (1978) for more details.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{boxplot}
 #'
-#' @seealso \code{\link{geom_quantile}} for continuous x,
-#'   \code{\link{geom_violin}} for a richer display of the distribution, and
-#'   \code{\link{geom_jitter}} for a useful technique for small data.
+#' @seealso [geom_quantile()] for continuous x,
+#'   [geom_violin()] for a richer display of the distribution, and
+#'   [geom_jitter()] for a useful technique for small data.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_boxplot} and \code{stat_boxplot}.
+#'   `geom_boxplot` and `stat_boxplot`.
 #' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha
-#'   Default aesthetics for outliers. Set to \code{NULL} to inherit from the
+#'   Default aesthetics for outliers. Set to `NULL` to inherit from the
 #'   aesthetics used for the box.
 #'
 #'   In the unlikely event you specify both US and UK spellings of colour, the
 #'   US spelling will take precedence.
-#' @param notch if \code{FALSE} (default) make a standard box plot. If
-#'   \code{TRUE}, make a notched box plot. Notches are used to compare groups;
+#' @param notch if `FALSE` (default) make a standard box plot. If
+#'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
 #'   are significantly different.
 #' @param notchwidth for a notched box plot, width of the notch relative to
 #'   the body (default 0.5)
-#' @param varwidth if \code{FALSE} (default) make a standard box plot. If
-#'   \code{TRUE}, boxes are drawn with widths proportional to the
+#' @param varwidth if `FALSE` (default) make a standard box plot. If
+#'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly
-#'   weighted, using the \code{weight} aesthetic).
+#'   weighted, using the `weight` aesthetic).
 #' @export
 #' @references McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
 #'     box plots. The American Statistician 32, 12-16.
@@ -95,7 +95,7 @@
 #'  )
 #' }
 geom_boxplot <- function(mapping = NULL, data = NULL,
-                         stat = "boxplot", position = "dodge",
+                         stat = "boxplot", position = "dodge2",
                          ...,
                          outlier.colour = NULL,
                          outlier.color = NULL,
@@ -110,6 +110,15 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {
+  
+  # varwidth = TRUE is not compatible with preserve = "total"
+  if (!is.character(position)) {
+    if (identical(position$preserve, "total") & varwidth == TRUE) {
+      warning("Can't preserve total widths when varwidth = TRUE.", call. = FALSE)
+      position$preserve <- "single"
+    }
+  }
+  
   layer(
     data = data,
     mapping = mapping,

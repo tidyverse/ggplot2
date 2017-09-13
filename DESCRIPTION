@@ -16,15 +16,18 @@ Imports:
     digest,
     grid,
     gtable (>= 0.1.1),
+    lazyeval,
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    scales (>= 0.4.1),
+    scales (>= 0.4.1.9002),
     stats,
     tibble,
-    lazyeval
+    viridisLite,
+    withr
 Suggests:
     covr,
+    dplyr,
     ggplot2movies,
     hexbin,
     Hmisc,
@@ -45,7 +48,9 @@ Suggests:
     sf (>= 0.3-4),
     svglite (>= 1.2.0.9001)
 Remotes:
-    hadley/svglite
+    hadley/scales,
+    hadley/svglite,
+    jimhester/withr
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
@@ -157,6 +162,7 @@ Collate:
     'position-.r'
     'position-collide.r'
     'position-dodge.r'
+    'position-dodge2.r'
     'position-identity.r'
     'position-jitter.r'
     'position-jitterdodge.R'
@@ -168,6 +174,7 @@ Collate:
     'scale-.r'
     'scale-alpha.r'
     'scale-brewer.r'
+    'scale-colour.r'
     'scale-continuous.r'
     'scale-date.r'
     'scale-discrete-.r'
@@ -180,6 +187,7 @@ Collate:
     'scale-shape.r'
     'scale-size.r'
     'scale-type.R'
+    'scale-viridis.r'
     'scales-.r'
     'sf.R'
     'stat-bin.r'
@@ -195,6 +203,7 @@ Collate:
     'stat-ellipse.R'
     'stat-function.r'
     'stat-identity.r'
+    'stat-qq-line.R'
     'stat-qq.r'
     'stat-quantile.r'
     'stat-smooth-methods.r'
@@ -224,3 +233,5 @@ Collate:
     'zzz.r'
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
+Roxygen: list(markdown = TRUE)
+Encoding: UTF-8

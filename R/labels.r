@@ -20,17 +20,17 @@ update_labels <- function(p, labels) {
 #'
 #' Good labels are critical for making your plots accessible to a wider
 #' audience. Ensure the axis and legend labels display the full variable name.
-#' Use the plot \code{title} and \code{subtitle} to explain the main findings.
-#' It's common to use the \code{caption} to provide information about the
+#' Use the plot `title` and `subtitle` to explain the main findings.
+#' It's common to use the `caption` to provide information about the
 #' data source.
 #'
 #' You can also set axis and legend labels in the individual scales (using
-#' the first argument, the \code{name}. I recommend doing that if you're
+#' the first argument, the `name`. I recommend doing that if you're
 #' changing other scale options.
 #'
 #' @param label The text for the axis, plot title or caption below the plot.
 #' @param subtitle the text for the subtitle for the plot which will be
-#'        displayed below the title. Leave \code{NULL} for no subtitle.
+#'        displayed below the title. Leave `NULL` for no subtitle.
 #' @param ... A list of new name-value pairs. The name should either be
 #'   an aesthetic, or one of "title", "subtitle", or "caption".
 #' @export

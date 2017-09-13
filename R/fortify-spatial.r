@@ -1,9 +1,9 @@
 #' Fortify method for classes from the sp package.
 #'
 #' To figure out the correct variable name for region, inspect
-#' \code{as.data.frame(model)}.
+#' `as.data.frame(model)`.
 #'
-#' @param model \code{SpatialPolygonsDataFrame} to convert into a dataframe.
+#' @param model `SpatialPolygonsDataFrame` to convert into a dataframe.
 #' @param data not used by this method
 #' @param region name of variable used to split up regions
 #' @param ... not used by this method

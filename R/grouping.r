@@ -4,9 +4,9 @@ NO_GROUP <- -1L
 
 # Ensure that the data frame contains a grouping variable.
 #
-# If the \code{group} variable is not present, then a new group
+# If the `group` variable is not present, then a new group
 # variable is generated from the interaction of all discrete (factor or
-# character) vectors, excluding \code{label}. The special value \code{NO_GROUP}
+# character) vectors, excluding `label`. The special value `NO_GROUP`
 # is used for all observations if no discrete variables exist.
 add_group <- function(data) {
   if (empty(data)) return(data)

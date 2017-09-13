@@ -1,16 +1,16 @@
 #' Polygons
 #'
-#' Polygons are very similar to paths (as drawn by \code{\link{geom_path}})
+#' Polygons are very similar to paths (as drawn by [geom_path()])
 #' except that the start and end points are connected and the inside is
-#' coloured by \code{fill}. The \code{group} aesthetic determines which cases
+#' coloured by `fill`. The `group` aesthetic determines which cases
 #' are connected together into a polygon.
 #'
 #' @section Aesthetics:
 #' \aesthetics{geom}{polygon}
 #'
 #' @seealso
-#'  \code{\link{geom_path}} for an unfilled polygon,
-#'  \code{\link{geom_ribbon}} for a polygon anchored on the x-axis
+#'  [geom_path()] for an unfilled polygon,
+#'  [geom_ribbon()] for a polygon anchored on the x-axis
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point

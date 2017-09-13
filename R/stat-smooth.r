@@ -1,14 +1,14 @@
-#' @param method smoothing method (function) to use, eg. "lm", "glm",
-#'   "gam", "loess", "rlm".
+#' @param method smoothing method (function) to use, eg. `lm`, `glm`,
+#'   `gam`, `loess`, `MASS::rlm`.
 #'
-#'   For \code{method = "auto"} the smoothing method is chosen based on the
-#'   size of the largest group (across all panels). \code{\link{loess}} is
-#'   used for less than 1,000 observations; otherwise \code{\link[mgcv]{gam}} is
-#'   used with \code{formula = y ~ s(x, bs = "cs")}. Somewhat anecdotally,
-#'   \code{loess} gives a better appearance, but is O(n^2) in memory, so does
+#'   For `method = "auto"` the smoothing method is chosen based on the
+#'   size of the largest group (across all panels). [loess()] is
+#'   used for less than 1,000 observations; otherwise [mgcv::gam()] is
+#'   used with `formula = y ~ s(x, bs = "cs")`. Somewhat anecdotally,
+#'   `loess` gives a better appearance, but is O(n^2) in memory, so does
 #'   not work for larger datasets.
-#' @param formula formula to use in smoothing function, eg. \code{y ~ x},
-#'   \code{y ~ poly(x, 2)}, \code{y ~ log(x)}
+#' @param formula formula to use in smoothing function, eg. `y ~ x`,
+#'   `y ~ poly(x, 2)`, `y ~ log(x)`
 #' @param se display confidence interval around smooth? (TRUE by default, see
 #'   level to control
 #' @param fullrange should the fit span the full range of the plot, or just
@@ -19,7 +19,7 @@
 #'   lines.
 #' @param n number of points to evaluate smoother at
 #' @param method.args List of additional arguments passed on to the modelling
-#'   function defined by \code{method}.
+#'   function defined by `method`.
 #' @section Computed variables:
 #' \describe{
 #'   \item{y}{predicted value}

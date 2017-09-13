@@ -1,10 +1,10 @@
 #' Stack overlapping objects on top of each another
 #'
-#' \code{position_stack()} stacks bars on top of each other;
-#' \code{position_fill()} stacks bars and standardises each stack to have
+#' `position_stack()` stacks bars on top of each other;
+#' `position_fill()` stacks bars and standardises each stack to have
 #' constant height.
 #'
-#' \code{position_fill()} and \code{position_stack()} automatically stack
+#' `position_fill()` and `position_stack()` automatically stack
 #' values in reverse order of the group aesthetic, which for bar charts is
 #' usually defined by the fill aesthetic (the default group aesthetic is formed
 #' by the combination of all discrete aesthetics except for x and y). This
@@ -16,7 +16,7 @@
 #'   \item Change the order of the levels in the underyling factor. This
 #'     will change the stacking order, and the order of keys in the legend.
 #'
-#'   \item Set the legend \code{breaks} to change the order of the keys
+#'   \item Set the legend `breaks` to change the order of the keys
 #'     without affecting the stacking.
 #'
 #'   \item Manually set the group aesthetic to change the stacking order
@@ -30,11 +30,11 @@
 #' @family position adjustments
 #' @param vjust Vertical adjustment for geoms that have a position
 #'   (like points or lines), not a dimension (like bars or areas). Set to
-#'   \code{0} to align with the bottom, \code{0.5} for the middle,
-#'   and \code{1} (the default) for the top.
-#' @param reverse If \code{TRUE}, will reverse the default stacking order.
+#'   `0` to align with the bottom, `0.5` for the middle,
+#'   and `1` (the default) for the top.
+#' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
-#' @seealso See \code{\link{geom_bar}} and \code{\link{geom_area}} for
+#' @seealso See [geom_bar()] and [geom_area()] for
 #'   more examples.
 #' @export
 #' @examples

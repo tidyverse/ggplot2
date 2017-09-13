@@ -552,7 +552,7 @@ Complete and incomplete themes behave somewhat differently when added to a ggplo
 
 ## Creating a new facetting
 
-One of the more daunting exercises in ggplot2 extensions is to create a new facetting system. The reason for this is that when creating new facettings you take on the responsibility of how (almost) everything is drawn on the screen, and many do not have experience with directly using [gtable](https://cran.r-project.org/package=gtable) and [grid](https://cran.r-project.org/package=grid) upon which the ggplot2 rendering is build. If you decide to venture into facetting extensions, it is highly recommended to gain proficiency with the above-mentioned packages.
+One of the more daunting exercises in ggplot2 extensions is to create a new facetting system. The reason for this is that when creating new facettings you take on the responsibility of how (almost) everything is drawn on the screen, and many do not have experience with directly using [gtable](https://cran.r-project.org/package=gtable) and [grid](https://cran.r-project.org/package=grid) upon which the ggplot2 rendering is built. If you decide to venture into facetting extensions, it is highly recommended to gain proficiency with the above-mentioned packages.
 
 The `Facet` class in ggplot2 is very powerful as it takes on responsibility of a wide range of tasks. The main tasks of a `Facet` object are:
 

@@ -1,7 +1,9 @@
 #' Dodge overlapping objects side-to-side
 #'
 #' Dodging preserves the vertical position of an geom while adjusting the
-#' horizontal position.
+#' horizontal position. `position_dodge2` is a special case of `position_dodge`
+#' for arranging box plots, which can have variable widths. `position_dodge2`
+#' also works with bars and rectangles.
 #'
 #' @inheritParams position_identity
 #' @param width Dodging width, when different to the width of the individual
@@ -13,17 +15,17 @@
 #' @export
 #' @examples
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
-#'   geom_bar(position = "dodge")
+#'   geom_bar(position = "dodge2")
 #'
-#' # By default, dodging preserves the total width. You can choose
-#' # to preserve the width of each element:
+#' # By default, dodging with `position_dodge2()` preserves the width of each
+#' # element. You can choose to preserve the total width with:
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
-#'   geom_bar(position = position_dodge(preserve = "single"))
+#'   geom_bar(position = position_dodge(preserve = "total"))
 #'
 #' \donttest{
 #' ggplot(diamonds, aes(price, fill = cut)) +
-#'   geom_histogram(position="dodge")
-#' # see ?geom_boxplot and ?geom_bar for more examples
+#'   geom_histogram(position="dodge2")
+#' # see ?geom_bar for more examples
 #'
 #' # In this case a frequency polygon is probably a better choice
 #' ggplot(diamonds, aes(price, colour = cut)) +
@@ -58,6 +60,19 @@
 #'   width = 0.2,
 #'   position = position_dodge(width = 0.9)
 #' )
+#'
+#' # Box plots use position_dodge2 by default, and bars can use it too
+#' ggplot(data = iris, aes(Species, Sepal.Length)) +
+#'   geom_boxplot(aes(colour = Sepal.Width < 3.2))
+#'
+#' ggplot(data = iris, aes(Species, Sepal.Length)) +
+#'   geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
+#' 
+#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+#'   geom_bar(position = position_dodge2(preserve = "single"))
+#' 
+#' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
+#'   geom_bar(position = position_dodge2(preserve = "total"))
 position_dodge <- function(width = NULL, preserve = c("total", "single")) {
   ggproto(NULL, PositionDodge,
     width = width,
@@ -70,7 +85,6 @@ position_dodge <- function(width = NULL, preserve = c("total", "single")) {
 #' @usage NULL
 #' @export
 PositionDodge <- ggproto("PositionDodge", Position,
-  required_aes = "x",
   width = NULL,
   preserve = "total",
   setup_params = function(self, data) {
@@ -91,6 +105,13 @@ PositionDodge <- ggproto("PositionDodge", Position,
     )
   },
 
+  setup_data = function(self, data, params) {
+    if (!"x" %in% names(data) & all(c("xmin", "xmax") %in% names(data))) {
+      data$x <- (data$xmin + data$xmax) / 2
+    }
+    data
+  },
+  
   compute_panel = function(data, params, scales) {
     collide(
       data,
