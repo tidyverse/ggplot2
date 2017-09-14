@@ -1,6 +1,8 @@
 # ggplot2 2.2.1.9000
 
-<<<<<<< HEAD
+* Replacing a coordinate system (other than the default) will now give a message
+  (@Axeman, #2264).
+
 * Strips gain margins on all sides by default. This means that to fully justify
   text to the edge of a strip, you will need to also set the margins to 0
   (@karawoo).
@@ -64,8 +66,6 @@
 * Axes positioned on the top and to the right can now customize their ticks and
   lines separately (@thomasp85, #1899)
 
-=======
->>>>>>> 62207026f9d456e02d1014a664d16ea33743be13
 * `geom_segment` now also takes a `linejoin` parameter. This allows more control over the appearance of the segments, which is especially useful for plotting thick arrows (@Ax3man, #774).
 
 * Theme elements can now be subclassed. Add a `merge_element` method to control
