@@ -79,6 +79,10 @@ add_ggplot <- function(p, object, objectname) {
       names(labels) <- names(object)
       p <- update_labels(p, labels)
   } else if (is.Coord(object)) {
+      if (!is.null(attributes(p$coordinates)$default)) {
+        message("Coordinate system already present. Adding new coordinate ",
+                "system, which will replace the existing one.")
+      }
       p$coordinates <- object
       p
   } else if (is.facet(object)) {

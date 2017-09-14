@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Replacing a coordinate system (other than the default) will now give a message
+  (@Axeman, #2264).
+
 * Strips gain margins on all sides by default. This means that to fully justify
   text to the edge of a strip, you will need to also set the margins to 0
   (@karawoo).

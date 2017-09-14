@@ -102,6 +102,8 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
     plot_env = environment
   ), class = c("gg", "ggplot"))
 
+  attr(p$coordinates, 'default') <- TRUE
+
   p$labels <- make_labels(mapping)
 
   set_last_plot(p)
