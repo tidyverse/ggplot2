@@ -498,8 +498,14 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
 
   element <- calc_element(text_theme, theme)
-  if (inherits(element, "element_blank"))
-    return(zeroGrob())
+
+  if (inherits(element, "element_blank")) {
+    grobs <- rep(list(zeroGrob()), nrow(label_df))
+    return(structure(
+      list(grobs, grobs),
+      names = if (horizontal) c('top', 'bottom') else c('left', 'right')
+    ))
+  }
 
   # Create matrix of labels
   labels <- lapply(labeller(label_df), cbind)
@@ -538,7 +544,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   } else {
 
     grobs_right <- grobs[, rev(seq_len(ncol(grobs))), drop = FALSE]
-    
+
     grobs_right <- ggstrip(
       grobs_right,
       theme,
@@ -631,7 +637,7 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
     width <- width + sum(element$margin[c(2, 4)])
   }
 
- 
+
   apply(
     grobs,
     1,
@@ -641,7 +647,7 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
       } else {
         mat <- matrix(x, nrow = 1)
       }
-      
+
       gtable_matrix(
         "strip",
         mat,

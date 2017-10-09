@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* Fixed bug when setting strips to `element_blank()` (@thomasp85). 
+
 * Strips gain margins on all sides by default. This means that to fully justify
   text to the edge of a strip, you will need to also set the margins to 0
   (@karawoo).
