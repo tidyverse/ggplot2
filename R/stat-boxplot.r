@@ -42,11 +42,15 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatBoxplot <- ggproto("StatBoxplot", Stat,
-  required_aes = c("x", "y"),
+  required_aes = c("y"),
   non_missing_aes = "weight",
+  setup_data = function(data, params) {
+    data$x <- data$x %||% 0
+    data
+  },
 
   setup_params = function(data, params) {
-    params$width <- params$width %||% (resolution(data$x) * 0.75)
+    params$width <- params$width %||% (resolution(data$x %||% 0) * 0.75)
 
     if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
       warning(

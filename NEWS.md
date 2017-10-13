@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* Added support for univariate box plots with no `x` aesthetic (@foo-bar-baz-qux, #2110).
+
 * Fixed bug when setting strips to `element_blank()` (@thomasp85). 
 
 * Strips gain margins on all sides by default. This means that to fully justify
