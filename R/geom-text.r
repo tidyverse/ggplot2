@@ -19,7 +19,7 @@
 #' @section Aesthetics:
 #' \aesthetics{geom}{text}
 #'
-#' @section `geom_label`:
+#' @section geom_label:
 #' Currently `geom_label` does not support the `rot` parameter and
 #' is considerably slower than `geom_text`. The `fill` aesthetic
 #' controls the background colour of the label.
