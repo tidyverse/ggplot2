@@ -38,7 +38,7 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
 argument (the number of levels in the scale) returns the values that
 they should take}
   \item{name}{The name of the scale. Used as axis or legend title. If
-\code{NULL}, the default, the name of the scale is taken from the first
+\code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic.}
   \item{labels}{One of:
 \itemize{

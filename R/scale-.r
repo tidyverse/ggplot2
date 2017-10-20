@@ -503,7 +503,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   argument (the number of levels in the scale) returns the values that
 #'   they should take
 #' @param name The name of the scale. Used as axis or legend title. If
-#'   `NULL`, the default, the name of the scale is taken from the first
+#'   `waiver()`, the default, the name of the scale is taken from the first
 #'   mapping used for that aesthetic.
 #' @param breaks One of:
 #'   - `NULL` for no breaks
