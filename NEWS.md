@@ -1,5 +1,11 @@
 # ggplot2 2.2.1.9000
 
+* Completely re-worked element tree, now based of R6 Class, which permits user-defined theme
+  elements, for use in package extentions etc... Checks have been implemented so that
+  these user-defined theme elements do not clash with the set of protected theme elements,
+  that are otherwise required for the base functioning of ggplot2.
+  (@nhamilton1980)
+
 * Fixed bug when setting strips to `element_blank()` (@thomasp85). 
 
 * Strips gain margins on all sides by default. This means that to fully justify
