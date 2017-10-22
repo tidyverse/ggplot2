@@ -24,7 +24,8 @@ Imports:
     stats,
     tibble,
     viridisLite,
-    withr
+    withr,
+    R6
 Suggests:
     covr,
     dplyr,
