@@ -25,7 +25,7 @@ functioning of base \code{ggplot2}.
 forming the fixed and user defined (if present) elements comprising the element tree.
 }
 \examples{
-#1. Add a single element
+#Add a single element
 add_element('mycustomtitle',el_def("element_text", "title"))
 
 #Without adding the element above, the following would otherwise throw an error,
@@ -34,14 +34,6 @@ mytheme = theme(mycustomtitle = element_text())
 
 #Try to add a reserved name, will throw an error, protecting functionality of base ggplot2
 \dontrun{add_element('plot.title',el_def('element_text','title'))}
-
-#2. Element Tree is based of R6 Class, Has been designed so that chaining is possible
-add_element('A',el_def('element_text', 'title'))$add_element('B',el_def('element_rect','rect'))$add_element('C',el_def('element_line','line'))
-
-#Likewise, without adding the elements above, the following would otherwise throw the same error.
-mytheme = theme(A = element_text(),
-                B = element_rect(),
-                C = element_line())
 
 }
 \author{
