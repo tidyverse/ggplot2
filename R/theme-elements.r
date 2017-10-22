@@ -251,6 +251,7 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #'  "character" class)
 #' @param inherit A vector of strings, naming the elements that this
 #'  element inherits from.
+#' @param description The optional description of the particular element.
 #' @export
 el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   structure(

@@ -13,6 +13,8 @@ or the reserved "character", which means a character vector (not
 
 \item{inherit}{A vector of strings, naming the elements that this
 element inherits from.}
+
+\item{description}{The optional description of the particular element.}
 }
 \description{
 Define an element's class and what other elements it inherits from
