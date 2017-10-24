@@ -84,7 +84,7 @@ add_ggplot <- function(p, object, objectname) {
   } else if (is.facet(object)) {
       p$facet <- object
       p
-  } else if (is.list(object)) {
+  } else if (is.list(object) && is.null(attr(object, 'class'))) {
     for (o in object) {
       p <- p %+% o
     }
@@ -97,9 +97,28 @@ add_ggplot <- function(p, object, objectname) {
     new_labels <- defaults(mapping, default)
     p$labels <- defaults(p$labels, new_labels)
   } else {
-    stop("Don't know how to add ", objectname, " to a plot",
-      call. = FALSE)
+    p <- add_to_ggplot(object, p, objectname)
   }
   set_last_plot(p)
   p
+}
+#' Add custom objects to ggplot
+#'
+#' This generic allows you to add your own methods for adding custom objects to
+#' a ggplot with [+.gg].
+#'
+#' @param object An object to add to the plot
+#' @param p The ggplot object to add `object` to
+#' @param objectname The name of the object to add
+#'
+#' @return A modified ggplot object
+#'
+#' @keywords internal
+#' @export
+add_to_ggplot <- function(object, p, objectname) {
+  UseMethod("add_to_ggplot")
+}
+#' @export
+add_to_ggplot.default <- function(object, p, objectname) {
+  stop("Don't know how to add ", objectname, " to a plot", call. = FALSE)
 }
