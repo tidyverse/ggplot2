@@ -1,6 +1,6 @@
 #' Visualise sf objects
 #'
-#' This set geom, stat, and coord are used to visualise simple feature (sf)
+#' This set of geom, stat, and coord are used to visualise simple feature (sf)
 #' objects. For simple plots, you will only need `geom_sf` as it
 #' uses `stat_sf` and adds `coord_sf` for you. `geom_sf` is
 #' an unusual geom because it will draw different geometric objects depending
@@ -46,7 +46,7 @@
 #'   geom_sf() +
 #'   annotate("point", x = -80, y = 35, colour = "red", size = 4)
 #'
-#' # Thanks to the power of sf, ageom_sf nicely handles varying projections
+#' # Thanks to the power of sf, a geom_sf nicely handles varying projections
 #' # setting the aspect ratio correctly.
 #' library(maps)
 #' world1 <- sf::st_as_sf(map('world', plot = FALSE, fill = TRUE))
@@ -57,7 +57,7 @@
 #'   "+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"
 #' )
 #' ggplot() + geom_sf(data = world2)
-#' }
+#'
 #' @name ggsf
 NULL
 
