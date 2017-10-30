@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* `scale_identity()` once again produces legends by default (#2112)
+
 * Custom objects can now be added using `+` if a `ggplot_add` method has been
   defined for the class of the object (@thomasp85).
   
