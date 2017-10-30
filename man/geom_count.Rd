@@ -108,5 +108,5 @@ d + geom_count(aes(size = ..prop.., group = clarity)) +
   scale_size_area(max_size = 10)
 }
 \seealso{
-For continuous \code{x} and \code{x}, use \code{\link[=geom_bin2d]{geom_bin2d()}}.
+For continuous \code{x} and \code{y}, use \code{\link[=geom_bin2d]{geom_bin2d()}}.
 }

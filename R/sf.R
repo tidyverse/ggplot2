@@ -57,7 +57,7 @@
 #'   "+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"
 #' )
 #' ggplot() + geom_sf(data = world2)
-#'
+#' }
 #' @name ggsf
 NULL
 
