@@ -1,6 +1,6 @@
 # ggplot2 2.2.1.9000
 
-* Custom objects can now be added using `+` if a `add_to_ggplot` method has been
+* Custom objects can now be added using `+` if a `ggplot_add` method has been
   defined for the class of the object (@thomasp85).
 
 * Fixed bug when setting strips to `element_blank()` (@thomasp85). 
