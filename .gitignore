@@ -8,3 +8,5 @@ inst/doc
 man/.Rapp.history
 
 .DS_Store
+
+lib

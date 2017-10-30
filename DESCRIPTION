@@ -75,6 +75,7 @@ Collate:
     'annotation-map.r'
     'geom-raster.r'
     'annotation-raster.r'
+    'annotation-ticks.R'
     'annotation.r'
     'autolayer.r'
     'autoplot.r'
