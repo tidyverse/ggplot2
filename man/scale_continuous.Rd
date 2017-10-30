@@ -36,7 +36,8 @@ scale_y_sqrt(...)
 \arguments{
 \item{name}{The name of the scale. Used as axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic.}
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
 
 \item{breaks}{One of:
 \itemize{

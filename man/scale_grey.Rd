@@ -40,7 +40,8 @@ argument (the number of levels in the scale) returns the values that
 they should take}
   \item{name}{The name of the scale. Used as axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic.}
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
   \item{labels}{One of:
 \itemize{
 \item \code{NULL} for no labels
