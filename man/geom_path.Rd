@@ -98,7 +98,7 @@ ggplot(economics_long, aes(date, value01, colour = variable)) +
   geom_line()
 
 # geom_step() is useful when you want to highlight exactly when
-# the y value chanes
+# the y value changes
 recent <- economics[economics$date > as.Date("2013-01-01"), ]
 ggplot(recent, aes(date, unemploy)) + geom_line()
 ggplot(recent, aes(date, unemploy)) + geom_step()

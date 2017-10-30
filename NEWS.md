@@ -3,6 +3,10 @@
 * Fix bug in secondary axis that would lead to incorrectly placed ticks with
   strong transforms (@thomasp85, #1992)
 
+* Fix `update_geom_defaults()` and `update_stat_defaults()` to allow American spelling of aesthetic parameters (@foo-bar-baz-qux, #2299).
+
+* Fixed bug when setting strips to `element_blank()` (@thomasp85). 
+
 * Strips gain margins on all sides by default. This means that to fully justify
   text to the edge of a strip, you will need to also set the margins to 0
   (@karawoo).

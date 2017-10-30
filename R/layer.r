@@ -325,8 +325,8 @@ find_subclass <- function(super, class, env) {
   name <- paste0(super, camelize(class, first = TRUE))
   obj <- find_global(name, env = env)
 
-  if (is.null(name)) {
-    stop("No ", tolower(super), " called ", name, ".", call. = FALSE)
+  if (is.null(obj)) {
+    stop("No ", tolower(super), " called '", class, "'.", call. = FALSE)
   } else if (!inherits(obj, super)) {
     stop("Found object is not a ", tolower(super), ".", call. = FALSE)
   }

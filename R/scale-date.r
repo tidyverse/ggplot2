@@ -8,12 +8,23 @@
 #'
 #' @inheritParams continuous_scale
 #' @inheritParams scale_x_continuous
+#' @param breaks One of:
+#'   - `NULL` for no breaks
+#'   - `waiver()` for the breaks specified by `date_breaks`
+#'   - A `Date`/`POSIXct` vector giving positions of breaks
+#'   - A function that takes the limits as input and returns breaks as output
 #' @param date_breaks A string giving the distance between breaks like "2
 #'   weeks", or "10 years". If both `breaks` and `date_breaks` are
 #'   specified, `date_breaks` wins.
 #' @param date_minor_breaks A string giving the distance between minor breaks
 #'   like "2 weeks", or "10 years". If both `minor_breaks` and
 #'   `date_minor_breaks` are specified, `date_minor_breaks` wins.
+#' @param minor_breaks One of:
+#'   - `NULL` for no breaks
+#'   - `waiver()` for the breaks specified by `date_minor_breaks`
+#'   - A `Date`/`POSIXct` vector giving positions of minor breaks
+#'   - A function that takes the limits as input and returns minor breaks as
+#'     output
 #' @param date_labels A string giving the formatting specification for the
 #'   labels. Codes are defined in [strftime()]. If both `labels`
 #'   and `date_labels` are specified, `date_labels` wins.
@@ -227,7 +238,7 @@ scale_y_time <- function(name = waiver(),
 }
 
 ## rename to datetime_scale
-datetime_scale <- function(aesthetics, trans, palette, 
+datetime_scale <- function(aesthetics, trans, palette,
                            breaks = pretty_breaks(), minor_breaks = waiver(),
                            labels = waiver(), date_breaks = waiver(),
                            date_labels = waiver(),
@@ -268,7 +279,7 @@ datetime_scale <- function(aesthetics, trans, palette,
   } else {
     scale_class <- ScaleContinuous
   }
-  
+
   sc <- continuous_scale(
     aesthetics,
     name,

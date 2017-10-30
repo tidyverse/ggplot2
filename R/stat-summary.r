@@ -1,7 +1,7 @@
 #' Summarise y values at unique/binned x
 #'
 #' `stat_summary` operates on unique `x`; `stat_summary_bin`
-#' operators on binned `x`. They are more flexible versions of
+#' operates on binned `x`. They are more flexible versions of
 #' [stat_bin()]: instead of just counting, they can compute any
 #' aggregate.
 #'
