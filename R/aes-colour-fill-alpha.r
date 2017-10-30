@@ -14,8 +14,13 @@
 #' c + geom_bar()
 #' # To change the interior colouring use fill aesthetic
 #' c + geom_bar(fill = "red")
+#' # To change the interior colouring using a factor with multiple levels
+#' c + geom_bar(fill = factor)
 #' # Compare with the colour aesthetic which changes just the bar outline
 #' c + geom_bar(colour = "red")
+#' # To change the bar outline with the colour aestheic 
+#' # using a factor with multiple levels
+#' c + geom_bar(colour = factor)
 #' # Combining both, you can see the changes more clearly
 #' c + geom_bar(fill = "white", colour = "red")
 #'
