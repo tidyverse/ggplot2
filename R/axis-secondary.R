@@ -114,10 +114,10 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (self$empty()) return()
 
     # Get original range before transformation
-    inv_range <- scale$trans$inverse(range)
+    along_range <- seq(range[1], range[2], length.out = self$detail)
+    old_range <- scale$trans$inverse(along_range)
 
     # Create mapping between primary and secondary range
-    old_range <- seq(inv_range[1], inv_range[2], length.out = self$detail)
     full_range <- self$transform_range(old_range)
 
     # Test for monotonicity

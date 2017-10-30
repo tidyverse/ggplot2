@@ -178,6 +178,7 @@ ggplot(mpg, aes(displ, hwy)) +
 Note that we don't _have_ to explicitly include the new parameters in the arguments for the layer, `...` will get passed to the right place anyway. But you'll need to document them somewhere so the user knows about them. Here's a brief example. Note `@inheritParams ggplot2::stat_identity`: that will automatically inherit documentation for all the parameters also defined for `stat_identity()`.
 
 ```{r}
+#' @export
 #' @inheritParams ggplot2::stat_identity
 #' @param formula The modelling formula passed to \code{lm}. Should only 
 #'   involve \code{y} and \code{x}
@@ -194,6 +195,8 @@ stat_lm <- function(mapping = NULL, data = NULL, geom = "line",
 }
 
 ```
+
+`stat_lm()` must be exported if you want other people to use it. You could also consider exporting `StatLm` if you want people to extend the underlying object; this should be done with care.
 
 ### Picking defaults
 

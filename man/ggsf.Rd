@@ -86,7 +86,7 @@ use the CRS defined in the first layer.}
 try increasing this when graticules look unexpected}
 }
 \description{
-This set geom, stat, and coord are used to visualise simple feature (sf)
+This set of geom, stat, and coord are used to visualise simple feature (sf)
 objects. For simple plots, you will only need \code{geom_sf} as it
 uses \code{stat_sf} and adds \code{coord_sf} for you. \code{geom_sf} is
 an unusual geom because it will draw different geometric objects depending
@@ -137,7 +137,7 @@ ggplot(nc) +
   geom_sf() +
   annotate("point", x = -80, y = 35, colour = "red", size = 4)
 
-# Thanks to the power of sf, ageom_sf nicely handles varying projections
+# Thanks to the power of sf, a geom_sf nicely handles varying projections
 # setting the aspect ratio correctly.
 library(maps)
 world1 <- sf::st_as_sf(map('world', plot = FALSE, fill = TRUE))
