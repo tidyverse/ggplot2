@@ -22,7 +22,7 @@ update_geom_defaults <- function(geom, new) {
   }
 
   old <- g$default_aes
-  g$default_aes <- defaults(new, old)
+  g$default_aes <- defaults(rename_aes(new), old)
 }
 
 #' @rdname update_defaults
@@ -38,5 +38,5 @@ update_stat_defaults <- function(stat, new) {
   }
 
   old <- g$default_aes
-  g$default_aes <- defaults(new, old)
+  g$default_aes <- defaults(rename_aes(new), old)
 }
