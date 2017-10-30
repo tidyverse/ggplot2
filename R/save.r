@@ -14,7 +14,8 @@
 #' @param scale Multiplicative scaling factor.
 #' @param width,height,units Plot size in `units` ("in", "cm", or "mm").
 #'   If not supplied, uses the size of current graphics device.
-#' @param dpi Plot resolution. Applies only to raster output types.
+#' @param dpi Plot resolution. Also accepts a string input: "retina" (320),
+#'   "print" (300), or "screen" (72). Applies only to raster output types.
 #' @param limitsize When `TRUE` (the default), `ggsave` will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
@@ -44,6 +45,7 @@ ggsave <- function(filename, plot = last_plot(),
                    width = NA, height = NA, units = c("in", "cm", "mm"),
                    dpi = 300, limitsize = TRUE, ...) {
 
+  dpi <- parse_dpi(dpi)
   dev <- plot_dev(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize)
@@ -56,6 +58,28 @@ ggsave <- function(filename, plot = last_plot(),
   grid.draw(plot)
 
   invisible()
+}
+
+#' Parse a DPI input from the user
+#'
+#' Allows handling of special strings when user specifies a DPI like "print".
+#'
+#' @param dpi Input value from user
+#' @return Parsed DPI input value
+#' @noRd
+parse_dpi <- function(dpi) {
+  if (is.character(dpi) && length(dpi) == 1) {
+    switch(dpi,
+      screen = 72,
+      print = 300,
+      retina = 320,
+      stop("Unknown DPI string", call. = FALSE)
+    )
+  } else if (is.numeric(dpi) && length(dpi) == 1) {
+    dpi
+  } else {
+    stop("DPI must be a single number or string", call. = FALSE)
+  }
 }
 
 plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),

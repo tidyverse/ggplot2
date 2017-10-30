@@ -2,12 +2,15 @@
 #' @rdname position_dodge
 #' @param padding Padding between elements at the same position. Elements are
 #'   shrunk by this proportion to allow space between them. Defaults to 0.1.
+#' @param reverse If `TRUE`, will reverse the default stacking order.
+#'   This is useful if you're rotating both the plot and legend.
 position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
-                              padding = 0.1) {
+                            padding = 0.1, reverse = FALSE) {
   ggproto(NULL, PositionDodge2,
     width = width,
     preserve = match.arg(preserve),
-    padding = padding
+    padding = padding,
+    reverse = reverse
   )  
 }
 
@@ -18,6 +21,8 @@ position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
 PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
   preserve = "single",
   padding = 0.1,
+  reverse = FALSE,
+  
   setup_params = function(self, data) {
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warning("Width not defined. Set with `position_dodge2(width = ?)`",
@@ -35,7 +40,8 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
     list(
       width = self$width,
       n = n,
-      padding = self$padding
+      padding = self$padding,
+      reverse = self$reverse
     )
   },
                           
@@ -47,7 +53,8 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
       strategy = pos_dodge2,
       n = params$n,
       padding = params$padding,
-      check.width = FALSE
+      check.width = FALSE,
+      reverse = params$reverse
     )
   }
 )

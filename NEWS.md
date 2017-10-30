@@ -1,5 +1,29 @@
 # ggplot2 2.2.1.9000
 
+* Fix `update_geom_defaults()` and `update_stat_defaults()` to allow American spelling of aesthetic parameters (@foo-bar-baz-qux, #2299).
+
+* Fixed bug when setting strips to `element_blank()` (@thomasp85). 
+
+* Strips gain margins on all sides by default. This means that to fully justify
+  text to the edge of a strip, you will need to also set the margins to 0
+  (@karawoo).
+
+* Rotated strip labels now correctly understand `hjust` and `vjust` parameters
+  at all angles (@karawoo).
+
+* Strip labels now understand justification relative to the direction of the
+  text, meaning that in y facets the strip text can be placed at either end of
+  the strip using `hjust` (@karawoo).
+
+* Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This
+  line makes it easier to judge the fit of the theoretical distribution (@nicksolomon).
+
+* The `ggsave()` DPI parameter now supports 3 string options: "retina" (320
+  DPI), "print" (300 DPI), and "screen" (72 DPI) (@foo-bar-baz-qux, #2156).
+
+* `position_dodge2()` now has a `reverse` parameter that allows you to reverse
+  the placement order of bars and boxes (@karawoo, #2171).
+
 * Box plot position is now controlled by `position_dodge2()`, which can also be
   used for bars and rectangles. `position_dodge2()` compares the `xmin` and
   `xmax` values of each element to determine which ones overlap, and dodges them

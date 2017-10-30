@@ -8,7 +8,7 @@
 position_dodge(width = NULL, preserve = c("total", "single"))
 
 position_dodge2(width = NULL, preserve = c("single", "total"),
-  padding = 0.1)
+  padding = 0.1, reverse = FALSE)
 }
 \arguments{
 \item{width}{Dodging width, when different to the width of the individual
@@ -20,6 +20,9 @@ at a position, or the width of a single element?}
 
 \item{padding}{Padding between elements at the same position. Elements are
 shrunk by this proportion to allow space between them. Defaults to 0.1.}
+
+\item{reverse}{If \code{TRUE}, will reverse the default stacking order.
+This is useful if you're rotating both the plot and legend.}
 }
 \description{
 Dodging preserves the vertical position of an geom while adjusting the
