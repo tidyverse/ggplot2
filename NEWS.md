@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* `stat_density()` has better behaviour if all groups are dropped because they
+  are too small (#2282).
+
 * `scale_identity()` once again produces legends by default (#2112)
 
 * Custom objects can now be added using `+` if a `ggplot_add` method has been

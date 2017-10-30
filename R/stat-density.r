@@ -89,11 +89,11 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
   if (nx < 2) {
     warning("Groups with fewer than two data points have been dropped.", call. = FALSE)
     return(data.frame(
-      x = NA,
-      density = NA,
-      scaled = NA,
-      count = NA,
-      n = NA
+      x = NA_real_,
+      density = NA_real_,
+      scaled = NA_real_,
+      count = NA_real_,
+      n = NA_integer_
     ))
   }
 
