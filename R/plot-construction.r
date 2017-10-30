@@ -60,45 +60,7 @@ add_ggplot <- function(p, object, objectname) {
   if (is.null(object)) return(p)
 
   p <- plot_clone(p)
-  if (is.data.frame(object)) {
-    p$data <- object
-  } else if (is.theme(object)) {
-    p$theme <- update_theme(p$theme, object)
-  } else if (inherits(object, "Scale")) {
-    p$scales$add(object)
-  } else if (inherits(object, "labels")) {
-    p <- update_labels(p, object)
-  } else if (inherits(object, "guides")) {
-    p <- update_guides(p, object)
-  } else if (inherits(object, "uneval")) {
-      p$mapping <- defaults(object, p$mapping)
-      # defaults() doesn't copy class, so copy it.
-      class(p$mapping) <- class(object)
-
-      labels <- lapply(object, deparse)
-      names(labels) <- names(object)
-      p <- update_labels(p, labels)
-  } else if (is.Coord(object)) {
-      p$coordinates <- object
-      p
-  } else if (is.facet(object)) {
-      p$facet <- object
-      p
-  } else if (is.list(object) && is.null(attr(object, 'class'))) {
-    for (o in object) {
-      p <- p %+% o
-    }
-  } else if (is.layer(object)) {
-    p$layers <- append(p$layers, object)
-
-    # Add any new labels
-    mapping <- make_labels(object$mapping)
-    default <- make_labels(object$stat$default_aes)
-    new_labels <- defaults(mapping, default)
-    p$labels <- defaults(p$labels, new_labels)
-  } else {
-    p <- add_to_ggplot(object, p, objectname)
-  }
+  p <- ggplot_add(object, p, objectname)
   set_last_plot(p)
   p
 }
@@ -115,10 +77,71 @@ add_ggplot <- function(p, object, objectname) {
 #'
 #' @keywords internal
 #' @export
-add_to_ggplot <- function(object, p, objectname) {
-  UseMethod("add_to_ggplot")
+ggplot_add <- function(object, p, objectname) {
+  UseMethod("ggplot_add")
 }
 #' @export
-add_to_ggplot.default <- function(object, p, objectname) {
+ggplot_add.default <- function(object, p, objectname) {
   stop("Don't know how to add ", objectname, " to a plot", call. = FALSE)
+}
+#' @export
+ggplot_add.data.frame <- function(object, p, objectname) {
+  p$data <- object
+  p
+}
+#' @export
+ggplot_add.theme <- function(object, p, objectname) {
+  p$theme <- update_theme(p$theme, object)
+  p
+}
+#' @export
+ggplot_add.Scale <- function(object, p, objectname) {
+  p$scales$add(object)
+  p
+}
+#' @export
+ggplot_add.labels <- function(object, p, objectname) {
+  update_labels(p, object)
+}
+#' @export
+ggplot_add.guides <- function(object, p, objectname) {
+  update_guides(p, object)
+}
+#' @export
+ggplot_add.uneval <- function(object, p, objectname) {
+  p$mapping <- defaults(object, p$mapping)
+  # defaults() doesn't copy class, so copy it.
+  class(p$mapping) <- class(object)
+
+  labels <- lapply(object, deparse)
+  names(labels) <- names(object)
+  update_labels(p, labels)
+}
+#' @export
+ggplot_add.Coord <- function(object, p, objectname) {
+  p$coordinates <- object
+  p
+}
+#' @export
+ggplot_add.Facet <- function(object, p, objectname) {
+  p$facet <- object
+  p
+}
+#' @export
+ggplot_add.list <- function(object, p, objectname) {
+  for (o in object) {
+    p <- p %+% o
+  }
+  p
+}
+#' @export
+ggplot_add.Layer <- function(object, p, objectname) {
+  p$layers <- append(p$layers, object)
+
+  # Add any new labels
+  mapping <- make_labels(object$mapping)
+  default <- make_labels(object$stat$default_aes)
+  new_labels <- defaults(mapping, default)
+  p$labels <- defaults(p$labels, new_labels)
+  p
 }
