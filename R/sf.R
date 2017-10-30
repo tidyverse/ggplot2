@@ -318,7 +318,11 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   render_axis_h = function(self, panel_params, theme) {
     graticule <- panel_params$graticule
-    east <- graticule[graticule$type == "E" & !is.na(graticule$degree_label), ]
+    if (nrow(graticule) > 0) {
+      east <- graticule[graticule$type == "E" & !is.na(graticule$degree_label), ]
+    } else {
+      east <- graticule
+    }
 
     list(
       top = nullGrob(),
@@ -333,7 +337,11 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   render_axis_v = function(self, panel_params, theme) {
     graticule <- panel_params$graticule
-    north <- graticule[graticule$type == "N" & !is.na(graticule$degree_label), ]
+    if (nrow(graticule) > 0) {
+      north <- graticule[graticule$type == "N" & !is.na(graticule$degree_label), ]
+    } else {
+      north <- graticule
+    }
 
     list(
       left = guide_axis(
@@ -365,7 +373,9 @@ sf_rescale01_x <- function(x, range) {
 
 #' @param crs Use this to select a specific CRS. If not specified, will
 #'   use the CRS defined in the first layer.
-#' @param datum CRS that provides datum to use when generating graticules
+#' @param datum CRS that provides datum to use when generating graticules; 
+#' pass NULL to get the native grid of the data plotted, pass \code{NA} to 
+#' remove the graticule altogether
 #' @param ndiscr number of segments to use for discretizing graticule lines;
 #' try increasing this when graticules look unexpected
 #' @inheritParams coord_cartesian

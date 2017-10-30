@@ -13,6 +13,10 @@ test_that("geom_sf draws correctly", {
     ggplot() + geom_sf(data = nc) + coord_sf(datum = 4326)
   )
 
+  vdiffr::expect_doppelganger("North Carolina county boundaries without graticule",
+    ggplot() + geom_sf(data = nc) + coord_sf(datum = NA)
+  )
+
   pts <- sf::st_sf(a = 1:2, geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)))
   vdiffr::expect_doppelganger("spatial points",
     ggplot() + geom_sf(data = pts)
