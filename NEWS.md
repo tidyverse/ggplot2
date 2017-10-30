@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Custom objects can now be added using `+` if a `ggplot_add` method has been
+  defined for the class of the object (@thomasp85).
+  
 * Fix bug in secondary axis that would lead to incorrectly placed ticks with
   strong transforms (@thomasp85, #1992)
 
