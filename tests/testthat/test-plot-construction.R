@@ -9,7 +9,7 @@ test_that("Custom object cannot be added without generic", {
 test_that("Methods can be defined for adding custom objects", {
   p <- ggplot()
   custom_object <- structure(list(), class = 'test_object')
-  add_to_ggplot.test_object <- function(object, p, objectname) {
+  ggplot_add.test_object <- function(object, p, objectname) {
     10
   }
   expect_equal(p + custom_object, 10)
