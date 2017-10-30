@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Fix bug in secondary axis that would lead to incorrectly placed ticks with
+  strong transforms (@thomasp85, #1992)
+
 * Fix `update_geom_defaults()` and `update_stat_defaults()` to allow American spelling of aesthetic parameters (@foo-bar-baz-qux, #2299).
 
 * Fixed bug when setting strips to `element_blank()` (@thomasp85). 
