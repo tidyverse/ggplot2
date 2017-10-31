@@ -30,16 +30,16 @@
 #' # Specifying geom_count without a group identifier leads to a plot which is
 #' # not useful:
 #' d <- ggplot(diamonds, aes(x = cut, y = clarity))
-#' d + geom_count(aes(size = ..prop..))
+#' d + geom_count(aes(size = calc(prop)))
 #' # To correct this problem and achieve a more desirable plot, we need
 #' # to specify which group the proportion is to be calculated over.
-#' d + geom_count(aes(size = ..prop.., group = 1)) +
+#' d + geom_count(aes(size = calc(prop), group = 1)) +
 #'   scale_size_area(max_size = 10)
 #'
 #' # Or group by x/y variables to have rows/columns sum to 1.
-#' d + geom_count(aes(size = ..prop.., group = cut)) +
+#' d + geom_count(aes(size = calc(prop), group = cut)) +
 #'   scale_size_area(max_size = 10)
-#' d + geom_count(aes(size = ..prop.., group = clarity)) +
+#' d + geom_count(aes(size = calc(prop), group = clarity)) +
 #'   scale_size_area(max_size = 10)
 geom_count <- function(mapping = NULL, data = NULL,
                        stat = "sum", position = "identity",

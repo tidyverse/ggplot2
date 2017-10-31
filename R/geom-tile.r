@@ -48,11 +48,11 @@
 #' # Inspired by the image-density plots of Ken Knoblauch
 #' cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 #' cars + geom_point()
-#' cars + stat_bin2d(aes(fill = ..count..), binwidth = c(3,1))
-#' cars + stat_bin2d(aes(fill = ..density..), binwidth = c(3,1))
+#' cars + stat_bin2d(aes(fill = calc(count)), binwidth = c(3,1))
+#' cars + stat_bin2d(aes(fill = calc(density)), binwidth = c(3,1))
 #'
-#' cars + stat_density(aes(fill = ..density..), geom = "raster", position = "identity")
-#' cars + stat_density(aes(fill = ..count..), geom = "raster", position = "identity")
+#' cars + stat_density(aes(fill = calc(density)), geom = "raster", position = "identity")
+#' cars + stat_density(aes(fill = calc(count)), geom = "raster", position = "identity")
 #' }
 geom_tile <- function(mapping = NULL, data = NULL,
                       stat = "identity", position = "identity",

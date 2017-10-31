@@ -137,11 +137,11 @@ ggplot(diamonds, aes(depth, fill = cut, colour = cut)) +
 ggplot(diamonds, aes(carat, fill = cut)) +
   geom_density(position = "stack")
 # Preserves marginal densities
-ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+ggplot(diamonds, aes(carat, calc(count), fill = cut)) +
   geom_density(position = "stack")
 
 # You can use position="fill" to produce a conditional density estimate
-ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+ggplot(diamonds, aes(carat, calc(count), fill = cut)) +
   geom_density(position = "fill")
 }
 }

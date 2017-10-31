@@ -20,27 +20,6 @@ test_that("unknown NULL asthetic doesn't create warning (#1909)", {
   expect_warning(geom_point(aes(blah = NULL)), NA)
 })
 
-# Calculated aesthetics ---------------------------------------------------
-
-test_that("Bare name surround by .. is calculated", {
-  expect_true(is_calculated_aes(aes(..density..)))
-  expect_true(is_calculated_aes(aes(..DENSITY..)))
-  expect_false(is_calculated_aes(aes(a..x..b)))
-})
-
-test_that("Calling using variable surround by .. is calculated", {
-  expect_true(is_calculated_aes(aes(mean(..density..))))
-  expect_true(is_calculated_aes(aes(mean(..DENSITY..))))
-  expect_false(is_calculated_aes(aes(mean(a..x..b))))
-})
-
-test_that("strip_dots remove dots around calculated aesthetics", {
-  expect_equal(strip_dots(aes(..density..))$x, quote(density))
-  expect_equal(strip_dots(aes(mean(..density..)))$x, quote(mean(density)))
-  expect_equal(strip_dots(aes(sapply(..density.., function(x) mean(x)))$x),
-               quote(sapply(density, function(x) mean(x))))
-})
-
 # Data extraction ---------------------------------------------------------
 
 test_that("layer_data returns a data.frame", {

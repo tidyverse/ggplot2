@@ -43,7 +43,7 @@ stat_bin2d <- stat_bin_2d
 #' @usage NULL
 #' @export
 StatBin2d <- ggproto("StatBin2d", Stat,
-  default_aes = aes(fill = ..count..),
+  default_aes = aes(fill = calc(count)),
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,

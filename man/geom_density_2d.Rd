@@ -105,7 +105,7 @@ m <- ggplot(faithful, aes(x = eruptions, y = waiting)) +
  ylim(40, 110)
 m + geom_density_2d()
 \donttest{
-m + stat_density_2d(aes(fill = ..level..), geom = "polygon")
+m + stat_density_2d(aes(fill = calc(level)), geom = "polygon")
 
 set.seed(4393)
 dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -115,9 +115,9 @@ d <- ggplot(dsmall, aes(x, y))
 d + geom_density_2d(aes(colour = cut))
 
 # If we turn contouring off, we can use use geoms like tiles:
-d + stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE)
+d + stat_density_2d(geom = "raster", aes(fill = calc(density)), contour = FALSE)
 # Or points:
-d + stat_density_2d(geom = "point", aes(size = ..density..), n = 20, contour = FALSE)
+d + stat_density_2d(geom = "point", aes(size = calc(density)), n = 20, contour = FALSE)
 }
 }
 \seealso{

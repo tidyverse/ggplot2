@@ -260,7 +260,10 @@ Layer <- ggproto("Layer", NULL,
     if (length(new) == 0) return(data)
 
     # Add map stat output to aesthetics
-    stat_data <- plyr::quickdf(lapply(new, eval, data, baseenv()))
+    env <- new.env(parent = baseenv())
+    env$calc <- calc
+
+    stat_data <- plyr::quickdf(lapply(new, eval, data, env))
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed
