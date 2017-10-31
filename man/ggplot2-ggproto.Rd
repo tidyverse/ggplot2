@@ -185,13 +185,7 @@ and ymin and ymax values. It can potentially set other values as well.
 
 
 All \code{coord_*} functions (like \code{coord_trans}) return a \code{Coord*}
-object (like \code{CoordTrans}). The \code{Coord*} object is responsible for
-adjusting the position of overlapping geoms.
-
-The way that the \code{coord_*} functions work is slightly different from the
-\code{geom_*} and \code{stat_*} functions, because a \code{coord_*} function
-actually "instantiates" the \code{Coord*} object by creating a descendant,
-and returns that.
+object (like \code{CoordTrans}).
 
 Each of the \code{Coord*} objects is a \code{\link[=ggproto]{ggproto()}} object,
 descended from the top-level \code{Coord}.  To create a new type of Coord
@@ -204,15 +198,11 @@ object, you typically will want to implement one or more of the following:
 \item \code{render_axis_h}: Renders the horizontal axes.
 \item \code{render_axis_v}: Renders the vertical axes.
 \item \code{range}: Returns the x and y ranges
-\item \code{train}: Return the trained scale ranges.
 \item \code{transform}: Transforms x and y coordinates.
 \item \code{distance}: Calculates distance.
 \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
 linear; \code{FALSE} otherwise.
-\item \code{setup_params(data)}: Allows the coordinate system to inspect
-all layers and return a list of additional parameters that vary based on
-the data. These parameters are currently only passed to the other
-setup functions and \code{train()}.
+\item \code{setup_panel_params(data)}:
 \item \code{setup_data(data, params)}: Allows the coordinate system to
 manipulate the plot data. Should return list of data frames.
 \item \code{setup_layout(layout, params)}: Allows the coordinate
