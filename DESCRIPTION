@@ -79,6 +79,7 @@ Collate:
     'autolayer.r'
     'autoplot.r'
     'axis-secondary.R'
+    'backports.R'
     'bench.r'
     'bin.R'
     'coord-.r'
