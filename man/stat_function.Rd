@@ -67,7 +67,11 @@ the x axis, and the results are drawn (by default) with a line.
 }
 \section{Aesthetics}{
 
-\aesthetics{stat}{function}
+\code{stat_function} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \code{group}
+\item \code{y}
+}
 }
 
 \section{Computed variables}{

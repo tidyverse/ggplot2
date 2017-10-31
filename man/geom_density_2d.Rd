@@ -81,7 +81,16 @@ overplotting. This is a 2d version of \code{\link[=geom_density]{geom_density()}
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{density_2d}
+\code{geom_density_2d} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
 }
 
 \section{Computed variables}{

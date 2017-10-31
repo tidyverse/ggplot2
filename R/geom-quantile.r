@@ -3,9 +3,7 @@
 #' This fits a quantile regression to the data and draws the fitted quantiles
 #' with lines. This is as a continuous analogue to [geom_boxplot()].
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{quantile}
-#'
+#' @eval rd_aesthetics("geom", "quantile")
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point

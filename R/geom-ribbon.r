@@ -11,9 +11,7 @@
 #' see the individual pattern as you move up the stack. See
 #' [position_stack()] for the details of stacking algorithm.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{ribbon}
-#'
+#' @eval rd_aesthetics("geom", "ribbon")
 #' @seealso
 #'   [geom_bar()] for discrete intervals (bars),
 #'   [geom_linerange()] for discrete intervals (lines),

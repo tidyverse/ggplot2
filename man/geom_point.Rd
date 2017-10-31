@@ -89,7 +89,18 @@ Another technique is to make the points transparent (e.g.
 
 \section{Aesthetics}{
 
-\aesthetics{geom}{point}
+\code{geom_point} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{shape}
+\item \code{size}
+\item \code{stroke}
+}
 }
 
 \examples{

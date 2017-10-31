@@ -4,9 +4,7 @@
 #' plot. The function is called with a grid of evenly spaced values along
 #' the x axis, and the results are drawn (by default) with a line.
 #'
-#' @section Aesthetics:
-#' \aesthetics{stat}{function}
-#'
+#' @eval rd_aesthetics("stat", "function")
 #' @param fun function to use. Must be vectorised.
 #' @param n number of points to interpolate along
 #' @param args list of additional arguments to pass to `fun`

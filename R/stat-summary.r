@@ -5,9 +5,7 @@
 #' [stat_bin()]: instead of just counting, they can compute any
 #' aggregate.
 #'
-#' @section Aesthetics:
-#' \aesthetics{stat}{summary}
-#'
+#' @eval rd_aesthetics("stat", "summary")
 #' @seealso [geom_errorbar()], [geom_pointrange()],
 #'  [geom_linerange()], [geom_crossbar()] for geoms to
 #'  display summarised data
@@ -181,7 +179,7 @@ summarise_by_x <- function(data, summary, ...) {
 #'  - [Hmisc::smean.cl.normal()]
 #'  - [Hmisc::smean.sdl()]
 #'  - [Hmisc::smedian.hilow()]
-#' 
+#'
 #' @param x a numeric vector
 #' @param ... other arguments passed on to the respective Hmisc function.
 #' @return A data frame with columns `y`, `ymin`, and `ymax`.

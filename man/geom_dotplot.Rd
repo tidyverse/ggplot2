@@ -109,7 +109,15 @@ to match the number of dots.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{dotplot}
+\code{geom_dotplot} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+}
 }
 
 \section{Computed variables}{

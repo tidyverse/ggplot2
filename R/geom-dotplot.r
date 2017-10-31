@@ -16,9 +16,7 @@
 #' hide the y axis, as in one of the examples, or manually scale it
 #' to match the number of dots.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{dotplot}
-#'
+#' @eval rd_aesthetics("geom", "dotplot")
 #' @section Computed variables:
 #' \describe{
 #'   \item{x}{center of each bin, if binaxis is "x"}

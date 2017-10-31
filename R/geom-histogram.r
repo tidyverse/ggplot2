@@ -15,7 +15,6 @@
 #' different binwidths. You may need to look at a few to uncover the full
 #' story behind your data.
 #'
-#'
 #' @section Aesthetics:
 #' `geom_histogram` uses the same aesthetics as [geom_bar()];
 #' `geom_freqpoly` uses the same aesthetics as [geom_line()].

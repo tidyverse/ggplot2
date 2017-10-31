@@ -5,9 +5,7 @@
 #' variation to the location of each point, and is a useful way of handling
 #' overplotting caused by discreteness in smaller datasets.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{point}
-#'
+#' @eval rd_aesthetics("geom", "point")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams position_jitter

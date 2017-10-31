@@ -81,7 +81,17 @@ performance special case for when all the tiles are the same size.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{tile}
+\code{geom_tile} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
 }
 
 \examples{

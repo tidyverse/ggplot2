@@ -88,7 +88,16 @@ corresponds to a single case which provides the start and end coordinates.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{path}
+\code{geom_path} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
 }
 
 \examples{

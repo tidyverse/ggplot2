@@ -69,7 +69,16 @@ existing data.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{rug}
+\code{geom_rug} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \code{alpha}
+\item \code{colour}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+\item \code{x}
+\item \code{y}
+}
 }
 
 \examples{

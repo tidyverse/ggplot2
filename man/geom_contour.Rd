@@ -77,7 +77,17 @@ to a grid before visualising.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{contour}
+\code{geom_contour} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+\item \code{weight}
+}
 }
 
 \section{Computed variables}{

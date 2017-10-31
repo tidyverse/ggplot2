@@ -8,9 +8,7 @@
 #' are dependent on the overall scale expansion in order not to overplot
 #' existing data.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{rug}
-#'
+#' @eval rd_aesthetics("geom", "rug")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param sides A string that controls which sides of the plot the rugs appear on.

@@ -3,9 +3,7 @@
 #' Various ways of representing a vertical interval defined by `x`,
 #' `ymin` and `ymax`. Each case draws a single graphical object.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{linerange}
-#'
+#' @eval rd_aesthetics("geom", "linerange")
 #' @param fatten A multiplicative factor used to increase the size of the
 #'   middle bar in `geom_crossbar()` and the middle point in
 #'   `geom_pointrange()`.

@@ -91,7 +91,18 @@ need to connect points across multiple cases.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{segment}
+\code{geom_segment} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \strong{\code{xend}}
+\item \strong{\code{yend}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
 }
 
 \examples{

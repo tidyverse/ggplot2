@@ -7,9 +7,7 @@
 #' `y`, `width`, `height`). `geom_raster` is a high
 #' performance special case for when all the tiles are the same size.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{tile}
-#'
+#' @eval rd_aesthetics("geom", "tile")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @export

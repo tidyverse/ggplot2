@@ -93,7 +93,17 @@ and then standardising each bar to have the same height.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{bar}
+\code{geom_bar} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
 }
 
 \section{Computed variables}{

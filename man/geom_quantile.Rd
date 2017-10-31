@@ -81,7 +81,17 @@ with lines. This is as a continuous analogue to \code{\link[=geom_boxplot]{geom_
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{quantile}
+\code{geom_quantile} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+\item \code{weight}
+}
 }
 
 \section{Computed variables}{

@@ -6,11 +6,16 @@ rd_aesthetics <- function(type, name) {
   )
   aes <- rd_aesthetics_item(obj)
 
-  paste("\\code{", type, "_", name, "} ",
-    "understands the following aesthetics (required aesthetics are in bold):\n\n",
-    "\\itemize{\n",
-    paste("  \\item \\code{", aes, "}", collapse = "\n", sep = ""),
-    "\n}\n", sep = "")
+  c(
+    "@section Aesthetics:",
+    paste0(
+      "\\code{", type, "_", name, "} ",
+      "understands the following aesthetics (required aesthetics are in bold):"
+    ),
+    "\\itemize{",
+    paste0("  \\item ", aes),
+    "}"
+  )
 }
 
 rd_aesthetics_item <- function(x) {
@@ -18,7 +23,7 @@ rd_aesthetics_item <- function(x) {
   all <- union(req, sort(x$aesthetics()))
 
   ifelse(all %in% req,
-    paste0("\\strong{", all, "}"),
-    all
+    paste0("\\strong{\\code{", all, "}}"),
+    paste0("\\code{", all, "}")
   )
 }

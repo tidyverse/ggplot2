@@ -2,9 +2,7 @@
 #'
 #' A rotated version of [geom_errorbar()].
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{errorbarh}
-#'
+#' @eval rd_aesthetics("geom", "errorbarh")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @export

@@ -4,9 +4,7 @@
 #' display the results with contours. This can be useful for dealing with
 #' overplotting. This is a 2d version of [geom_density()].
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{density_2d}
-#'
+#' @eval rd_aesthetics("geom", "density_2d")
 #' @seealso [geom_contour()] for information about how contours
 #'  are drawn; [geom_bin2d()] for another way of dealing with
 #'  overplotting.

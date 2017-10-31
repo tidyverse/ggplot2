@@ -79,7 +79,17 @@ Various ways of representing a vertical interval defined by \code{x},
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{linerange}
+\code{geom_linerange} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{ymin}}
+\item \strong{\code{ymax}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
 }
 
 \examples{

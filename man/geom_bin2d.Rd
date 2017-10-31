@@ -75,7 +75,13 @@ in the presence of overplotting.
 }
 \section{Aesthetics}{
 
-\aesthetics{stat}{bin2d}
+\code{stat_bin2d} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{fill}
+\item \code{group}
+}
 }
 
 \examples{

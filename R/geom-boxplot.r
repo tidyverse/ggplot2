@@ -22,8 +22,7 @@
 #' This gives a roughly 95\% confidence interval for comparing medians.
 #' See McGill et al. (1978) for more details.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{boxplot}
+#' @eval rd_aesthetics("geom", "boxplot")
 #'
 #' @seealso [geom_quantile()] for continuous x,
 #'   [geom_violin()] for a richer display of the distribution, and
@@ -110,7 +109,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {
-  
+
   # varwidth = TRUE is not compatible with preserve = "total"
   if (!is.character(position)) {
     if (identical(position$preserve, "total") & varwidth == TRUE) {
@@ -118,7 +117,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
       position$preserve <- "single"
     }
   }
-  
+
   layer(
     data = data,
     mapping = mapping,

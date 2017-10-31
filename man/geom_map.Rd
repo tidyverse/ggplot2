@@ -59,7 +59,16 @@ This is pure annotation, so does not affect position scales.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{map}
+\code{geom_map} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{map_id}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
 }
 
 \examples{

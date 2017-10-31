@@ -94,7 +94,12 @@ aggregate.
 }
 \section{Aesthetics}{
 
-\aesthetics{stat}{summary}
+\code{stat_summary} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{group}
+}
 }
 
 \section{Summary functions}{

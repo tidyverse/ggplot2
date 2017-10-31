@@ -73,7 +73,16 @@ the very regular alignment of \code{\link[=geom_bin2d]{geom_bin2d()}}.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{hex}
+\code{geom_hex} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{size}
+}
 }
 
 \examples{

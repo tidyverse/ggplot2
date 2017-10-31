@@ -109,7 +109,23 @@ See McGill et al. (1978) for more details.
 
 \section{Aesthetics}{
 
-\aesthetics{geom}{boxplot}
+\code{geom_boxplot} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{lower}}
+\item \strong{\code{upper}}
+\item \strong{\code{middle}}
+\item \strong{\code{ymin}}
+\item \strong{\code{ymax}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{shape}
+\item \code{size}
+\item \code{weight}
+}
 }
 
 \section{Computed variables}{

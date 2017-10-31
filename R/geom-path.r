@@ -9,9 +9,7 @@
 #' An alternative parameterisation is [geom_segment()]: each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{path}
-#'
+#' @eval rd_aesthetics("geom", "path")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param lineend Line end style (round, butt, square)

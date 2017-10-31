@@ -57,7 +57,10 @@ Remove duplicates
 }
 \section{Aesthetics}{
 
-\aesthetics{stat}{unique}
+\code{stat_unique} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \code{group}
+}
 }
 
 \examples{

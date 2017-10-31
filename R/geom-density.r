@@ -4,9 +4,7 @@
 #' the histogram. This is a useful alternative to the histogram if for continuous
 #' data that comes from an underlying smooth distribution.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{density}
-#'
+#' @eval rd_aesthetics("geom", "density")
 #' @seealso See [geom_histogram()], [geom_freqpoly()] for
 #'   other methods of displaying continuous distribution.
 #'   See [geom_violin()] for a compact density display.

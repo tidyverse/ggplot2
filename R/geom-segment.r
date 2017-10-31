@@ -8,9 +8,7 @@
 #' Both geoms draw a single segment/curve per case. See `geom_path` if you
 #' need to connect points across multiple cases.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{segment}
-#'
+#' @eval rd_aesthetics("geom", "segment")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param arrow specification for arrow heads, as created by arrow().

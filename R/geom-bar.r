@@ -21,9 +21,7 @@
 #' [position_fill()] shows relative proportions at each `x` by stacking the bars
 #' and then standardising each bar to have the same height.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{bar}
-#'
+#' @eval rd_aesthetics("geom", "bar")
 #' @seealso
 #'   [geom_histogram()] for continuous data,
 #'   [position_dodge()] and [position_dodge2()] for creating side-by-side

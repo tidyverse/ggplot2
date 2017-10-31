@@ -4,9 +4,7 @@
 #' observations at each location, then maps the count to point area. It
 #' useful when you have discrete data and overplotting.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{point}
-#'
+#' @eval rd_aesthetics("geom", "point")
 #' @param geom,stat Use to override the default connection between
 #'   `geom_count` and `stat_sum`.
 #' @seealso For continuous `x` and `y`, use [geom_bin2d()].
