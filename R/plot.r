@@ -95,7 +95,7 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
     scales = scales_list(),
     mapping = mapping,
     theme = list(),
-    coordinates = coord_cartesian(),
+    coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
     plot_env = environment
   ), class = c("gg", "ggplot"))

@@ -123,6 +123,13 @@ ggplot_add.uneval <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.Coord <- function(object, plot, object_name) {
+  if (!isTRUE(plot$coordinates$default)) {
+    message(
+      "Coordinate system already present. Adding new coordinate ",
+      "system, which will replace the existing one."
+    )
+  }
+
   plot$coordinates <- object
   plot
 }

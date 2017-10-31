@@ -9,6 +9,7 @@
 #' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to ensure that data and axes don't overlap. If `FALSE`,
 #'   limits are taken exactly from the data or `xlim`/`ylim`.
+#' @param default Is this the default coordinate system? If `FALSE`
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or
@@ -47,10 +48,12 @@
 #' # When zooming the coordinate system, we see a subset of original 50 bins,
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 1))
-coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE) {
+coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
+                            default = FALSE) {
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
-    expand = expand
+    expand = expand,
+    default = default
   )
 }
 

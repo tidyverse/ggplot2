@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Like scales, coordinate systems now give you a message when you're 
+  replacing any existing coordiante system (#2264)
+
 * `stat_density()` has better behaviour if all groups are dropped because they
   are too small (#2282).
 

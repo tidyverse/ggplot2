@@ -32,6 +32,9 @@
 #' @export
 Coord <- ggproto("Coord",
 
+  # Is this the default coordinate system?
+  default = FALSE,
+
   aspect = function(ranges) NULL,
 
   labels = function(panel_params) panel_params,
