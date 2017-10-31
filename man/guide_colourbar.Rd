@@ -167,3 +167,4 @@ p2 +
 Other guides: \code{\link{guide_legend}},
   \code{\link{guides}}
 }
+\concept{guides}

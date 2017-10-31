@@ -99,3 +99,4 @@ Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_colour_hue}}
 }
+\concept{colour scales}

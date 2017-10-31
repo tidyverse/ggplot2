@@ -30,9 +30,8 @@ subsequent layers unless specifically overridden.
 \code{ggplot()} is used to construct the initial plot object,
 and is almost always followed by \code{+} to add component to the
 plot. There are three common ways to invoke \code{ggplot}:
-
-\enumerate{
-\item \code{ggplot(df, aes(x, y, <other aesthetics>))}
+\itemize{
+\item \code{ggplot(df, aes(x, y, other aesthetics))}
 \item \code{ggplot(df)}
 \item \code{ggplot()}
 }

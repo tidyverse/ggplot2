@@ -9,11 +9,9 @@
 #' and is almost always followed by `+` to add component to the
 #' plot. There are three common ways to invoke `ggplot`:
 #'
-#' \enumerate{
-#'   \item `ggplot(df, aes(x, y, <other aesthetics>))`
-#'   \item `ggplot(df)`
-#'   \item `ggplot()`
-#' }
+#' * `ggplot(df, aes(x, y, other aesthetics))`
+#' * `ggplot(df)`
+#' * `ggplot()`
 #'
 #' The first method is recommended if all layers use the same
 #' data and the same set of aesthetics, although this method

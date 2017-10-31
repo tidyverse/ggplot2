@@ -109,3 +109,4 @@ ggplot(mpg, aes(reorder(manufacturer, displ), cty)) +
 Other position scales: \code{\link{scale_x_continuous}},
   \code{\link{scale_x_date}}
 }
+\concept{position scales}

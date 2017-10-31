@@ -1,6 +1,3 @@
-#' `stat_bin` is suitable only for continuous x data. If your x data is
-#'   discrete, you probably want to use [stat_count()].
-#'
 #' @param binwidth The width of the bins. Can be specified as a numeric value,
 #'   or a function that calculates width from x.
 #'   The default is to use `bins`

@@ -7,10 +7,14 @@
 #' polygons are more suitable when you want to compare the distribution
 #' across the levels of a categorical variable.
 #'
+#' `stat_bin` is suitable only for continuous x data. If your x data is
+#' discrete, you probably want to use [stat_count()].
+#'
 #' By default, the underlying computation (`stat_bin`) uses 30 bins -
 #' this is not a good default, but the idea is to get you experimenting with
 #' different binwidths. You may need to look at a few to uncover the full
 #' story behind your data.
+#'
 #'
 #' @section Aesthetics:
 #' `geom_histogram` uses the same aesthetics as [geom_bar()];

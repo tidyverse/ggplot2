@@ -116,3 +116,4 @@ p + facet_wrap(~vs + cyl2, labeller = label_parsed)
 \code{\link[=labeller]{labeller()}}, \code{\link[=as_labeller]{as_labeller()}},
 \code{\link[=label_bquote]{label_bquote()}}
 }
+\concept{facet}
