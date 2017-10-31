@@ -110,6 +110,7 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
   )
 }
 
+
 # geom --------------------------------------------------------------------
 
 #' @export
@@ -120,44 +121,63 @@ GeomSf <- ggproto("GeomSf", Geom,
   required_aes = "geometry",
   default_aes = aes(
     shape = 19,
-    colour = "grey35",
-    fill = "grey90",
-    size = 0.5,
+    colour = NULL,
+    fill = NULL,
+    size = NULL,
     linetype = 1,
-    alpha = NA
+    alpha = NA,
+    stroke = 0.5
   ),
-  draw_key = draw_key_polygon,
+  draw_key = function(data, params, size) {
+    if ("shape" %in% names(data)) {
+      data <- modifyList(GeomPoint$default_aes, data)
+      draw_key_point(data, params, size)
+    } else {
+      data <- modifyList(GeomPolygon$default_aes, data)
+      draw_key_polygon(data, params, size)
+    }
+  },
 
   draw_panel = function(data, panel_params, coord) {
     if (!inherits(coord, "CoordSf")) {
       stop("geom_sf() must be used with coord_sf()", call. = FALSE)
     }
 
+    # Need to refactor this to generate one grob per geometry type
     coord <- coord$transform(data, panel_params)
-    gpars <- lapply(1:nrow(data), function(i) sf_gpar(coord[i, , drop = FALSE]))
-    grobs <- Map(as_grob, coord$geometry, gp = gpars, shape = coord$shape)
+    grobs <- lapply(1:nrow(data), function(i) {
+      sf_grob(coord[i, , drop = FALSE])
+    })
     do.call("gList", grobs)
   }
 )
 
-sf_gpar <- function(row) {
-  gpar(
-    col = row$colour,
-    fill = alpha(row$fill, row$alpha),
-    lwd = row$size * .pt,
-    lty = row$linetype,
-    lineend = "butt"
-  )
-}
+sf_grob <- function(row) {
+  # Need to extract geometry out of corresponding list column
+  geometry <- row$geometry[[1]]
 
-as_grob <- function(geom, gpar, shape) {
-  if (inherits(geom, c("POINT", "MULTIPOINT"))) {
-    sf::st_as_grob(geom, gp = gpar, pch = shape)
+  if (inherits(geometry, c("POINT", "MULTIPOINT"))) {
+    row <- modifyList(GeomPoint$default_aes, row)
+    gp <- gpar(
+      col = alpha(row$colour, row$alpha),
+      fill = alpha(row$fill, row$alpha),
+      # Stroke is added around the outside of the point
+      fontsize = row$size * .pt + row$stroke * .stroke / 2,
+      lwd = row$stroke * .stroke / 2
+    )
+    sf::st_as_grob(geometry, gp = gp, pch = row$shape)
   } else {
-    sf::st_as_grob(geom, gp = gpar)
+    row <- modifyList(GeomPolygon$default_aes, row)
+    gp <- gpar(
+      col = row$colour,
+      fill = alpha(row$fill, row$alpha),
+      lwd = row$size * .pt,
+      lty = row$linetype,
+      lineend = "butt"
+    )
+    sf::st_as_grob(geometry, gp = gp)
   }
 }
-
 
 #' @export
 #' @rdname ggsf
