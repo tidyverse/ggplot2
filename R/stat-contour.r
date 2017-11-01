@@ -35,7 +35,8 @@ StatContour <- ggproto("StatContour", Stat,
   default_aes = aes(order = calc(level)),
 
   compute_group = function(data, scales, bins = NULL, binwidth = NULL,
-                           breaks = NULL, complete = FALSE, na.rm = FALSE) {
+                           breaks = NULL, complete = FALSE, na.rm = FALSE,
+                           exclude = NULL) {
     # If no parameters set, use pretty bins
     if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {
       breaks <- pretty(range(data$z), 10)
@@ -48,6 +49,8 @@ StatContour <- ggproto("StatContour", Stat,
     if (is.null(breaks)) {
       breaks <- fullseq(range(data$z), binwidth)
     }
+    # Remove excluded breaks
+    breaks <- breaks[!(breaks %in% exclude)]
 
     contour_lines(data, breaks, complete = complete)
   }

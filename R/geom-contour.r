@@ -34,6 +34,9 @@
 #' v + geom_contour(binwidth = 0.01)
 #' v + geom_contour(binwidth = 0.001)
 #'
+#' # Setting exclude removes specific contours
+#' v + geom_contour(binwidth = 0.001, exclude = c(0.002, 0.004))
+#'
 #' # Other parameters
 #' v + geom_contour(aes(colour = calc(level)))
 #' v + geom_contour(colour = "red")
