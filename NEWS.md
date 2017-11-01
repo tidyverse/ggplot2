@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* ggplot2 now works on R 3.1 onwards.
+
 * `facet_grid()` gives a more informative error message if you try to use
   a variable in both rows and cols (#1928)
 

@@ -1,6 +1,6 @@
 # Backport fix from R 3.3:
 # https://github.com/wch/r-source/commit/4efc81c98d262f93de9e7911aaa910f5c63cd00f
-if (getRversion() <= 3.2) {
+if (getRversion() < 3.3) {
   absolute.units <- getFromNamespace("absolute.units", "grid")
   absolute.units.unit <- getFromNamespace("absolute.units.unit", "grid")
   absolute.units.unit.list <- getFromNamespace("absolute.units.unit.list", "grid")
