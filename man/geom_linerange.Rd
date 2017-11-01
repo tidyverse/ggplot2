@@ -126,6 +126,15 @@ dodge <- position_dodge(width=0.9)
 p +
   geom_col(position = dodge) +
   geom_errorbar(aes(ymin = lower, ymax = upper), position = dodge, width = 0.25)
+
+# When using geom_errorbar() with position_dodge2(), extra padding will be
+# needed between the error bars to keep them aligned with the bars.
+p +
+geom_col(position = "dodge2") +
+geom_errorbar(
+  aes(ymin = lower, ymax = upper),
+  position = position_dodge2(width = 0.5, padding = 0.5)
+)
 }
 \seealso{
 \code{\link[=stat_summary]{stat_summary()}} for examples of these guys in use,
