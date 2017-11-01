@@ -413,10 +413,17 @@ theme <- function(line,
   )
 }
 
+is_theme_complete <- function(x) isTRUE(attr(x, "complete"))
+
 
 # Combine plot defaults with current theme to get complete theme for a plot
-plot_theme <- function(x) {
-  defaults(x$theme, theme_get())
+plot_theme <- function(x, default = theme_get()) {
+  theme <- x$theme
+  if (is_theme_complete(theme)) {
+    theme
+  } else {
+    defaults(theme, default)
+  }
 }
 
 #' Modify properties of an element in a theme object
@@ -456,7 +463,7 @@ add_theme <- function(t1, t2, t2name) {
   }
 
   # If either theme is complete, then the combined theme is complete
-  attr(t1, "complete") <- attr(t1, "complete") || attr(t2, "complete")
+  attr(t1, "complete") <- is_theme_complete(t1) || is_theme_complete(t2)
   t1
 }
 
@@ -486,7 +493,7 @@ add_theme <- function(t1, t2, t2name) {
 update_theme <- function(oldtheme, newtheme) {
   # If the newtheme is a complete one, don't bother searching
   # the default theme -- just replace everything with newtheme
-  if (attr(newtheme, "complete"))
+  if (is_theme_complete(newtheme))
     return(newtheme)
 
   # These are elements in newtheme that aren't already set in oldtheme.

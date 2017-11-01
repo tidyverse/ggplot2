@@ -224,6 +224,16 @@ test_that("Elements can be merged", {
   )
 })
 
+test_that("complete plot themes shouldn't inherit from default", {
+  default_theme <- theme_gray() + theme(axis.text.x = element_text(colour = "red"))
+  base <- qplot(1, 1)
+
+  ptheme <- plot_theme(base + theme(axis.text.x = element_text(colour = "blue")), default_theme)
+  expect_equal(ptheme$axis.text.x$colour, "blue")
+
+  ptheme <- plot_theme(base + theme_void(), default_theme)
+  expect_null(ptheme$axis.text.x)
+})
 
 # Visual tests ------------------------------------------------------------
 

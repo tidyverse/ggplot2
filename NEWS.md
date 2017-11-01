@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* Complete themes now always override all elements of the default theme
+  (@has2k1, #2058, #2079)
+
 * Alternative syntax for calculated aesthetics. Instead of using 
   `aes(y = ..count..)` you can (and should!) now use `aes(y = calc(count))`.
   `calc()` is a real function with documentation which hopefully will make
