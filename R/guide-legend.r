@@ -341,7 +341,7 @@ guide_gengrob.legend <- function(guide, theme) {
 
   # gap between keys etc
   hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
-  vgap <- height_cm(theme$legend.spacing.y %||% 0.5 * unit(title_height, "cm"))
+  vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_height, "cm")))
 
   # Labels
   if (!guide$label || is.null(guide$key$.label)) {
