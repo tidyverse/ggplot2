@@ -1,4 +1,10 @@
 #' @inheritParams stat_identity
+#' @param breaks One of:
+#'   - A numeric vector of breaks
+#'   - A function that takes the range of the data as input and returns breaks
+#'     as output
+#' @param bins Number of evenly spaced breaks.
+#' @param binwidth Distance between breaks.
 #' @export
 #' @section Computed variables:
 #' \describe{
@@ -8,6 +14,9 @@
 stat_contour <- function(mapping = NULL, data = NULL,
                          geom = "contour", position = "identity",
                          ...,
+                         breaks = waiver(),
+                         bins = NULL,
+                         binwidth = NULL,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {
@@ -21,6 +30,9 @@ stat_contour <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      breaks = breaks,
+      bins = bins,
+      binwidth = binwidth,
       ...
     )
   )
@@ -35,18 +47,13 @@ StatContour <- ggproto("StatContour", Stat,
   default_aes = aes(order = ..level..),
 
   compute_group = function(data, scales, bins = NULL, binwidth = NULL,
-                           breaks = NULL, complete = FALSE, na.rm = FALSE) {
-    # If no parameters set, use pretty bins
-    if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {
-      breaks <- pretty(range(data$z), 10)
+                           breaks = waiver(), complete = FALSE, na.rm = FALSE) {
+    # Check is.null(breaks) for backwards compatibility
+    if (is.waive(breaks) | is.null(breaks)) {
+      breaks <- breaks_default(binwidth, bins)
     }
-    # If provided, use bins to calculate binwidth
-    if (!is.null(bins)) {
-      binwidth <- diff(range(data$z)) / bins
-    }
-    # If necessary, compute breaks from binwidth
-    if (is.null(breaks)) {
-      breaks <- fullseq(range(data$z), binwidth)
+    if (is.function(breaks)) {
+      breaks <- breaks(range(data$z))
     }
 
     contour_lines(data, breaks, complete = complete)
@@ -116,3 +123,22 @@ poly_dir <- function(x, y) {
 #   geom_path(aes(group = piece, colour = factor(dir)))
 # last_plot() + facet_wrap(~ level)
 
+
+#' @export
+breaks_default <- function(binwidth, bins) {
+  function(range) {
+    # If no parameters set, use pretty bins
+    if (is.null(bins) && is.null(binwidth)) {
+      breaks <- pretty(range, 10)
+    }
+    # If provided, use bins to calculate binwidth
+    if (!is.null(bins)) {
+      binwidth <- diff(range) / bins
+    }
+    # If necessary, compute breaks from binwidth
+    if(!is.null(binwidth)) {
+      breaks <- fullseq(range, binwidth)
+    }
+    return(breaks)
+  }
+}

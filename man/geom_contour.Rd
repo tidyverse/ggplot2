@@ -7,11 +7,12 @@
 \usage{
 geom_contour(mapping = NULL, data = NULL, stat = "contour",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 1, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  linemitre = 1, breaks = waiver(), bins = NULL, binwidth = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_contour(mapping = NULL, data = NULL, geom = "contour",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., breaks = waiver(), bins = NULL,
+  binwidth = NULL, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -49,6 +50,17 @@ to the paired geom/stat.}
 \item{linejoin}{Line join style (round, mitre, bevel)}
 
 \item{linemitre}{Line mitre limit (number greater than 1)}
+
+\item{breaks}{One of:
+\itemize{
+\item A numeric vector of breaks
+\item A function that takes the range of the data as input and returns breaks
+as output
+}}
+
+\item{bins}{Number of evenly spaced breaks.}
+
+\item{binwidth}{Distance between breaks.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -105,6 +117,13 @@ v + geom_contour(bins = 10)
 # between contours
 v + geom_contour(binwidth = 0.01)
 v + geom_contour(binwidth = 0.001)
+
+# Passing your own function to breaks
+my_breaks <- function(range) {
+   b <- ggplot2::breaks_default(binwidth = 0.001, NULL)(range)
+   b[b != 0.004]
+}
+v + geom_contour(breaks = my_breaks)
 
 # Other parameters
 v + geom_contour(aes(colour = ..level..))

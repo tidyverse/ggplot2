@@ -14,6 +14,8 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
+#' @inheritParams stat_contour
+#'
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @export
@@ -36,6 +38,13 @@
 #' v + geom_contour(binwidth = 0.01)
 #' v + geom_contour(binwidth = 0.001)
 #'
+#' # Passing your own function to breaks
+#' my_breaks <- function(range) {
+#'    b <- ggplot2::breaks_default(binwidth = 0.001, NULL)(range)
+#'    b[b != 0.004]
+#' }
+#' v + geom_contour(breaks = my_breaks)
+#'
 #' # Other parameters
 #' v + geom_contour(aes(colour = ..level..))
 #' v + geom_contour(colour = "red")
@@ -48,6 +57,9 @@ geom_contour <- function(mapping = NULL, data = NULL,
                          lineend = "butt",
                          linejoin = "round",
                          linemitre = 1,
+                         breaks = waiver(),
+                         bins = NULL,
+                         binwidth = NULL,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {
@@ -63,6 +75,9 @@ geom_contour <- function(mapping = NULL, data = NULL,
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
+      breaks = breaks,
+      bins = bins,
+      binwidth = binwidth,
       na.rm = na.rm,
       ...
     )
