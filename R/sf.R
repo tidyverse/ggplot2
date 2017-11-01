@@ -26,6 +26,12 @@
 #' either specify it using the `CRS` param, or `coord_sf` will
 #' take it from the first layer that defines a CRS.
 #'
+#' @param show.legend logical. Should this layer be included in the legends?
+#'   `NA`, the default, includes if any aesthetics are mapped.
+#'   `FALSE` never includes, and `TRUE` always includes.
+#'
+#'   You can also set this to one of "polygon", "line", and "point" to
+#'   override the default legend.
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
 #' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
@@ -39,6 +45,13 @@
 #' ggplot() +
 #'   geom_sf(data = nc) +
 #'   geom_sf(data = nc_3857, colour = "red", fill = NA)
+#'
+#' # Unfortunately if you plot other types of feature you'll need to use
+#' # show.legend to tell ggplot2 what type of legend to use
+#' nc_3857$mid <- sf::st_centroid(nc_3857$geometry)
+#' ggplot(nc_3857) +
+#'   geom_sf(fill = NA) +
+#'   geom_sf(aes(geometry = mid, size = AREA), show.legend = "point")
 #'
 #' # You can also use layers with x and y aesthetics: these are
 #' # assumed to already be in the common CRS.
@@ -104,9 +117,18 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
   layer(
-    stat = StatSf, data = data, mapping = mapping, geom = geom,
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    stat = StatSf,
+    data = data,
+    mapping = mapping,
+    geom = geom,
+    position = position,
+    show.legend = if (is.character(show.legend)) TRUE else show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      legend = if (is.character(show.legend)) show.legend else "polygon",
+      ...
+    )
   )
 }
 
@@ -120,7 +142,7 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
 GeomSf <- ggproto("GeomSf", Geom,
   required_aes = "geometry",
   default_aes = aes(
-    shape = 19,
+    shape = NULL,
     colour = NULL,
     fill = NULL,
     size = NULL,
@@ -128,17 +150,8 @@ GeomSf <- ggproto("GeomSf", Geom,
     alpha = NA,
     stroke = 0.5
   ),
-  draw_key = function(data, params, size) {
-    if ("shape" %in% names(data)) {
-      data <- modifyList(GeomPoint$default_aes, data)
-      draw_key_point(data, params, size)
-    } else {
-      data <- modifyList(GeomPolygon$default_aes, data)
-      draw_key_polygon(data, params, size)
-    }
-  },
 
-  draw_panel = function(data, panel_params, coord) {
+  draw_panel = function(data, panel_params, coord, legend = NULL) {
     if (!inherits(coord, "CoordSf")) {
       stop("geom_sf() must be used with coord_sf()", call. = FALSE)
     }
@@ -149,8 +162,22 @@ GeomSf <- ggproto("GeomSf", Geom,
       sf_grob(coord[i, , drop = FALSE])
     })
     do.call("gList", grobs)
+  },
+
+  draw_key = function(data, params, size) {
+    if (params$legend == "point") {
+      data <- modifyList(GeomPoint$default_aes, data)
+      draw_key_point(data, params, size)
+    } else if (params$legend == "line") {
+      data <- modifyList(GeomLine$default_aes, data)
+      draw_key_path(data, params, size)
+    } else {
+      data <- modifyList(GeomPolygon$default_aes, data)
+      draw_key_polygon(data, params, size)
+    }
   }
 )
+
 
 sf_grob <- function(row) {
   # Need to extract geometry out of corresponding list column
@@ -198,9 +225,18 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
 
   c(
     layer(
-      geom = GeomSf, mapping = mapping,  data = data, stat = stat,
-      position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-      params = list(na.rm = na.rm, ...)
+      geom = GeomSf,
+      data = data,
+      mapping = mapping,
+      stat = stat,
+      position = position,
+      show.legend = if (is.character(show.legend)) TRUE else show.legend,
+      inherit.aes = inherit.aes,
+      params = list(
+        na.rm = na.rm,
+        legend = if (is.character(show.legend)) show.legend else "polygon",
+        ...
+      )
     ),
     coord_sf()
   )
