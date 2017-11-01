@@ -50,7 +50,7 @@
 #' # show.legend to tell ggplot2 what type of legend to use
 #' nc_3857$mid <- sf::st_centroid(nc_3857$geometry)
 #' ggplot(nc_3857) +
-#'   geom_sf(fill = NA) +
+#'   geom_sf(colour = "white") +
 #'   geom_sf(aes(geometry = mid, size = AREA), show.legend = "point")
 #'
 #' # You can also use layers with x and y aesthetics: these are
@@ -165,7 +165,7 @@ GeomSf <- ggproto("GeomSf", Geom,
   },
 
   draw_key = function(data, params, size) {
-    data <- modifyList(default_aesthetics(params$legend), data)
+    data <- utils::modifyList(default_aesthetics(params$legend), data)
     if (params$legend == "point") {
       draw_key_point(data, params, size)
     } else if (params$legend == "line") {
@@ -182,7 +182,7 @@ default_aesthetics <- function(type) {
   } else if (type == "line") {
     GeomLine$default_aes
   } else  {
-    modifyList(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
+    utils::modifyList(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
   }
 }
 
@@ -191,7 +191,7 @@ sf_grob <- function(row) {
   geometry <- row$geometry[[1]]
 
   if (inherits(geometry, c("POINT", "MULTIPOINT"))) {
-    row <- modifyList(default_aesthetics("point"), row)
+    row <- utils::modifyList(default_aesthetics("point"), row)
     gp <- gpar(
       col = alpha(row$colour, row$alpha),
       fill = alpha(row$fill, row$alpha),
@@ -201,7 +201,7 @@ sf_grob <- function(row) {
     )
     sf::st_as_grob(geometry, gp = gp, pch = row$shape)
   } else {
-    row <- modifyList(default_aesthetics("poly"), row)
+    row <- utils::modifyList(default_aesthetics("poly"), row)
     gp <- gpar(
       col = row$colour,
       fill = alpha(row$fill, row$alpha),

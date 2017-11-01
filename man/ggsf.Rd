@@ -138,7 +138,7 @@ ggplot() +
 # show.legend to tell ggplot2 what type of legend to use
 nc_3857$mid <- sf::st_centroid(nc_3857$geometry)
 ggplot(nc_3857) +
-  geom_sf(fill = NA) +
+  geom_sf(colour = "white") +
   geom_sf(aes(geometry = mid, size = AREA), show.legend = "point")
 
 # You can also use layers with x and y aesthetics: these are
