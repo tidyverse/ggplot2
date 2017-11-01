@@ -3,7 +3,7 @@
 * Alternative syntax for calculated aesthetics. Instead of using 
   `aes(y = ..count..)` you can (and should!) now use `aes(y = calc(count))`.
   `calc()` is a real function with documentation which hopefully will make
-  this part of ggplot2 confusing. It's particularly nice if for more complex
+  this part of ggplot2 less confusing. It's particularly nice if for more complex
   calculation because you only need to specify once: 
   `aes(y = calc(count / max(count))) (#2059)
 
