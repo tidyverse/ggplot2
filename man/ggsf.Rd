@@ -20,7 +20,7 @@ geom_sf(mapping = aes(), data = NULL, stat = "sf",
   inherit.aes = TRUE, ...)
 
 coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
-  datum = sf::st_crs(4326), ndiscr = 100)
+  datum = sf::st_crs(4326), ndiscr = 100, default = FALSE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -85,6 +85,8 @@ use the CRS defined in the first layer.}
 
 \item{ndiscr}{number of segments to use for discretizing graticule lines;
 try increasing this when graticules look unexpected}
+
+\item{default}{Is this the default coordinate system? If \code{FALSE}}
 }
 \description{
 This set of geom, stat, and coord are used to visualise simple feature (sf)

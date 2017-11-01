@@ -238,7 +238,7 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
         ...
       )
     ),
-    coord_sf()
+    coord_sf(default = TRUE)
   )
 }
 
@@ -428,12 +428,14 @@ sf_rescale01_x <- function(x, range) {
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                     crs = NULL, datum = sf::st_crs(4326), ndiscr = 100) {
+                     crs = NULL, datum = sf::st_crs(4326), ndiscr = 100,
+                     default = FALSE) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
     datum = datum,
     crs = crs,
     ndiscr = ndiscr,
-    expand = expand
+    expand = expand,
+    default = default
   )
 }
