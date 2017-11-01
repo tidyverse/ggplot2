@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* `facet_wrap()` and `facet_grid()` both give better error messages if you
+  attempt to use an unsupported coord with free scales (#2049)
+
 * ggplot2 now works on R 3.1 onwards.
 
 * `facet_grid()` gives a more informative error message if you try to use

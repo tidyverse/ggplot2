@@ -275,6 +275,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     data[order(data$PANEL), , drop = FALSE]
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
+    if (params$free$x || params$free$y)
+      check_coord_freedom(coord)
+
     cols <- which(layout$ROW == 1)
     rows <- which(layout$COL == 1)
     axes <- render_axes(ranges[cols], ranges[rows], coord, theme, transpose = TRUE)

@@ -422,3 +422,21 @@ render_strips <- function(x = NULL, y = NULL, labeller, theme) {
     y = build_strip(y, labeller, theme, FALSE)
   )
 }
+
+
+check_coord_freedom <- function(coord) {
+  # Check first element of class vector because this is a hideous hack on
+  # top of another hideous hack
+  class <- class(coord)[[1]]
+
+  if (class %in% c("CoordCartesian", "CoordFlip")) {
+    return()
+  }
+
+  stop(
+    "Free scales are only supported with `coord_cartesian()` and `coord_flip()`",
+    call. = FALSE
+  )
+}
+
+
