@@ -190,6 +190,15 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     rows <- as.quoted(params$rows)
     cols <- as.quoted(params$cols)
 
+    dups <- intersect(names(rows), names(cols))
+    if (length(dups) > 0) {
+      stop(
+        "Faceting variables can only appear in row or cols, not both.\n",
+        "Problems: ", paste0(dups, collapse = "'"),
+        call. = FALSE
+      )
+    }
+
     base_rows <- combine_vars(data, params$plot_env, rows, drop = params$drop)
     if (!params$as.table) {
       rev_order <- function(x) factor(x, levels = rev(ulevels(x)))

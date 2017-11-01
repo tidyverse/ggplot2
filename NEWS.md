@@ -1,5 +1,8 @@
 # ggplot2 2.2.1.9000
 
+* `facet_grid()` gives a more informative error message if you try to use
+  a variable in both rows and cols (#1928)
+
 * `label_parsed` works once more (#2279)
 
 * Complete themes now always override all elements of the default theme

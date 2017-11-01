@@ -61,6 +61,14 @@ test_that("Facet variables", {
   expect_identical(facet_grid(a ~ b)$vars(), c("a", "b"))
 })
 
+test_that("facet gives clear error if ", {
+  df <- data.frame(x = 1)
+  expect_error(
+    print(ggplot(df, aes(x)) + facet_grid(x ~ x)),
+    "row or cols, not both"
+  )
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("Facet labels can respect both justification and margin arguments", {
@@ -72,7 +80,7 @@ test_that("Facet labels can respect both justification and margin arguments", {
     g = c("b", "bbbbbbbcd")
   )
 
-  base <- ggplot(df, aes(x, y)) + 
+  base <- ggplot(df, aes(x, y)) +
     geom_point() +
     facet_grid(g ~ z) +
     theme_test()
@@ -80,7 +88,7 @@ test_that("Facet labels can respect both justification and margin arguments", {
   p1 <- base +
     theme(strip.text.x = element_text(hjust = 0, margin = margin(5, 5, 5, 5)),
           strip.text.y = element_text(hjust = 0, margin = margin(5, 5, 5, 5)))
-  
+
   p2 <- base +
     theme(
       strip.text.x = element_text(
