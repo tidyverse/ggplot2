@@ -11,7 +11,7 @@ Authors@R: c(
     person("RStudio", role = c("cph"))
     )
 Depends:
-    R (>= 3.3)
+    R (>= 3.1)
 Imports:
     digest,
     grid,
@@ -24,7 +24,7 @@ Imports:
     stats,
     tibble,
     viridisLite,
-    withr
+    withr (>= 2.0.0)
 Suggests:
     covr,
     dplyr,
