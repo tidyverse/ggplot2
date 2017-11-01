@@ -1,5 +1,7 @@
 # ggplot2 2.2.1.9000
 
+* `label_parsed` works once more (#2279)
+
 * Complete themes now always override all elements of the default theme
   (@has2k1, #2058, #2079)
 

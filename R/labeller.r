@@ -519,11 +519,8 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     lineheight = element$lineheight
   )
 
-  # Create text grobs
-  grobs <- apply(
-    labels,
-    c(1, 2),
-    title_spec,
+  # Create text grobs, preserving array layout
+  grobs <- lapply(labels, title_spec,
     x = NULL,
     y = NULL,
     hjust = element$hjust,
@@ -532,6 +529,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     gp = gp,
     debug = element$debug
   )
+  dim(grobs) <- dim(labels)
 
   if (horizontal) {
 

@@ -27,10 +27,12 @@ margin_width <- function(grob, margins) {
 #' This function returns a list containing a text grob (and, optionally,
 #' debugging grobs) and the height and width of the text grob.
 #'
+#' @param label Either `NULL`, a string (length 1 character vector), or
+#'   an expression.
 #' @param x,y x and y locations where the text is to be placed. If `x` and `y`
 #'   are `NULL`, `hjust` and `vjust` are used to determine the location.
 #' @inheritParams titleGrob
-#' 
+#'
 #' @noRd
 title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
                        debug = FALSE) {
@@ -92,8 +94,8 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
 #' Add margins
 #'
 #' Given a text grob, `add_margins()` adds margins around the grob in the
-#' directions determined by `margin_x` and `margin_y`. 
-#' 
+#' directions determined by `margin_x` and `margin_y`.
+#'
 #' @param grob Text grob to add margins to.
 #' @param height,width Usually the height and width of the text grob. Passed as
 #'   separate arguments from the grob itself because in the special case of
@@ -170,7 +172,7 @@ add_margins <- function(grob, height, width, margin = NULL,
 #' @param debug If `TRUE`, aids visual debugging by drawing a solid
 #'   rectangle behind the complete text area, and a point where each label
 #'   is anchored.
-#' 
+#'
 #' @noRd
 titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
                       margin = NULL, margin_x = FALSE, margin_y = FALSE,
