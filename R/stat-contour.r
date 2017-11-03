@@ -125,9 +125,16 @@ poly_dir <- function(x, y) {
 #   geom_path(aes(group = piece, colour = factor(dir)))
 # last_plot() + facet_wrap(~ level)
 
-
+#' Default breaks
+#'
+#' Default behaviour for computing breaks in [stat_contour()].
+#'
+#' @param range The range of the data
+#' @param bins Number of evenly spaced breaks.
+#' @param binwidth Distance between breaks.
+#'
 #' @export
-breaks_default <- function(range, binwidth, bins) {
+breaks_default <- function(range, bins, binwidth) {
   # If no parameters set, use pretty bins
   if (is.null(bins) && is.null(binwidth)) {
     breaks <- pretty(range, 10)
