@@ -70,7 +70,8 @@ fortify.map <- function(model, data, ...) {
 #' }
 map_data <- function(map, region = ".", exact = FALSE, ...) {
   try_require("maps", "map_data")
-  fortify(maps::map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...))
+  map_obj <- maps::map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...)
+  fortify(map_obj)
 }
 
 #' Create a layer of map borders

@@ -236,6 +236,8 @@ up correct aspect ratio, and draws a graticule.
   output from `ggplot_build()`. Also, the object returned from 
   `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
 
+* `map_data()` now works when purrr is loaded (tidyverse#66)
+
 * New functions `summarise_layout()`, `summarise_coord()`, and `summarise_layers()` 
   summarise the layout, coordinate systems, and layers, of a built ggplot object
   (#2034, @wch). This provides a tested API that (e.g.) shiny can depend on.
