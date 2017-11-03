@@ -39,8 +39,8 @@
 #' v + geom_contour(binwidth = 0.001)
 #'
 #' # Passing your own function to breaks
-#' my_breaks <- function(range) {
-#'    b <- ggplot2::breaks_default(binwidth = 0.001, NULL)(range)
+#' my_breaks <- function(range, binwidth, bins) {
+#'    b <- ggplot2::breaks_default(range, binwidth, bins)
 #'    b[b != 0.004]
 #' }
 #' v + geom_contour(breaks = my_breaks)
@@ -57,7 +57,7 @@ geom_contour <- function(mapping = NULL, data = NULL,
                          lineend = "butt",
                          linejoin = "round",
                          linemitre = 1,
-                         breaks = waiver(),
+                         breaks = breaks_default,
                          bins = NULL,
                          binwidth = NULL,
                          na.rm = FALSE,

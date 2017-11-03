@@ -1,8 +1,8 @@
 #' @inheritParams stat_identity
 #' @param breaks One of:
 #'   - A numeric vector of breaks
-#'   - A function that takes the range of the data as input and returns breaks
-#'     as output
+#'   - A function that takes the range of the data, bins and binwidth as input
+#'   and returns breaks as output
 #' @param bins Number of evenly spaced breaks.
 #' @param binwidth Distance between breaks.
 #' @export
@@ -14,7 +14,7 @@
 stat_contour <- function(mapping = NULL, data = NULL,
                          geom = "contour", position = "identity",
                          ...,
-                         breaks = waiver(),
+                         breaks = breaks_default,
                          bins = NULL,
                          binwidth = NULL,
                          na.rm = FALSE,
@@ -43,21 +43,23 @@ stat_contour <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatContour <- ggproto("StatContour", Stat,
-  required_aes = c("x", "y", "z"),
-  default_aes = aes(order = ..level..),
+                       required_aes = c("x", "y", "z"),
+                       default_aes = aes(order = ..level..),
 
-  compute_group = function(data, scales, bins = NULL, binwidth = NULL,
-                           breaks = waiver(), complete = FALSE, na.rm = FALSE) {
-    # Check is.null(breaks) for backwards compatibility
-    if (is.waive(breaks) | is.null(breaks)) {
-      breaks <- breaks_default(binwidth, bins)
-    }
-    if (is.function(breaks)) {
-      breaks <- breaks(range(data$z))
-    }
+                       compute_group = function(data, scales, bins = NULL, binwidth = NULL,
+                                                breaks = breaks_default,
+                                                complete = FALSE, na.rm = FALSE) {
+                         # Check is.null(breaks) for backwards compatibility
+                         if (is.null(breaks)) {
+                           breaks <- breaks_default
+                         }
+                         if (is.function(breaks)) {
+                           breaks <- breaks(range(data$z), bins = bins,
+                                            binwidth = binwidth)
+                         }
 
-    contour_lines(data, breaks, complete = complete)
-  }
+                         contour_lines(data, breaks, complete = complete)
+                       }
 
 )
 
@@ -75,7 +77,7 @@ contour_lines <- function(data, breaks, complete = FALSE) {
 
   if (is.list(z)) {
     stop("Contour requires single `z` at each combination of `x` and `y`.",
-      call. = FALSE)
+         call. = FALSE)
   }
 
   cl <- grDevices::contourLines(
@@ -125,20 +127,18 @@ poly_dir <- function(x, y) {
 
 
 #' @export
-breaks_default <- function(binwidth, bins) {
-  function(range) {
-    # If no parameters set, use pretty bins
-    if (is.null(bins) && is.null(binwidth)) {
-      breaks <- pretty(range, 10)
-    }
-    # If provided, use bins to calculate binwidth
-    if (!is.null(bins)) {
-      binwidth <- diff(range) / bins
-    }
-    # If necessary, compute breaks from binwidth
-    if(!is.null(binwidth)) {
-      breaks <- fullseq(range, binwidth)
-    }
-    return(breaks)
+breaks_default <- function(range, binwidth, bins) {
+  # If no parameters set, use pretty bins
+  if (is.null(bins) && is.null(binwidth)) {
+    breaks <- pretty(range, 10)
   }
+  # If provided, use bins to calculate binwidth
+  if (!is.null(bins)) {
+    binwidth <- diff(range) / bins
+  }
+  # If necessary, compute breaks from binwidth
+  if(!is.null(binwidth)) {
+    breaks <- fullseq(range, binwidth)
+  }
+  return(breaks)
 }

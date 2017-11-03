@@ -7,11 +7,11 @@
 \usage{
 geom_contour(mapping = NULL, data = NULL, stat = "contour",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 1, breaks = waiver(), bins = NULL, binwidth = NULL,
+  linemitre = 1, breaks = breaks_default, bins = NULL, binwidth = NULL,
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_contour(mapping = NULL, data = NULL, geom = "contour",
-  position = "identity", ..., breaks = waiver(), bins = NULL,
+  position = "identity", ..., breaks = breaks_default, bins = NULL,
   binwidth = NULL, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
@@ -54,8 +54,8 @@ to the paired geom/stat.}
 \item{breaks}{One of:
 \itemize{
 \item A numeric vector of breaks
-\item A function that takes the range of the data as input and returns breaks
-as output
+\item A function that takes the range of the data, bins and binwidth as input
+and returns breaks as output
 }}
 
 \item{bins}{Number of evenly spaced breaks.}
@@ -119,8 +119,8 @@ v + geom_contour(binwidth = 0.01)
 v + geom_contour(binwidth = 0.001)
 
 # Passing your own function to breaks
-my_breaks <- function(range) {
-   b <- ggplot2::breaks_default(binwidth = 0.001, NULL)(range)
+my_breaks <- function(range, binwidth, bins) {
+   b <- ggplot2::breaks_default(range, binwidth, bins)
    b[b != 0.004]
 }
 v + geom_contour(breaks = my_breaks)
