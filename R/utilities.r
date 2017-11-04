@@ -394,6 +394,41 @@ with_seed_null <- function(seed, code) {
   }
 }
 
+api_dispatcher <- function(func_new, func_old) {
+  call <- sys.call(-1)
+  ggplot2_api <- "add"
+  tryCatch({
+    # Check if the first argument is a gg object:
+    if ("gplt" %in% names(call)) {
+      gplt <- eval.parent(call[["gplt"]], 2)
+    } else {
+      gplt <- eval.parent(call[[2]], 2)
+    }
+    stopifnot(inherits(gplt, "ggplot"))
+    ggplot2_api <- "pipe"
+  }, error = function(err) {
+    ggplot2_api <- "add"
+  })
+
+  # Choose the right function for the given arguments
+  if (ggplot2_api == "pipe") {
+    name <- deparse(call)
+    call[[".name"]] <- name
+    call[[1]] <- func_new
+  } else if (ggplot2_api == "add") {
+    call[[1]] <- func_old
+  } else {
+    stop("Unknown ggplot2 API")
+  }
+  # evaluate:
+  return(eval.parent(call, 2))
+}
+
+
 # Needed to trigger package loading
 #' @importFrom tibble tibble
 NULL
+
+#' @importFrom magrittr %>%
+#' @export
+magrittr::`%>%`

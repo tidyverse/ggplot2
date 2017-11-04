@@ -31,6 +31,7 @@
 #' `geom_point(shape = ".")`).
 #'
 #' @eval rd_aesthetics("geom", "point")
+#' @param gplt A `gg` object
 #' @inheritParams layer
 #' @param na.rm If `FALSE`, the default, missing values are removed with
 #'   a warning. If `TRUE`, missing values are silently removed.
@@ -42,26 +43,26 @@
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg))
-#' p + geom_point()
+#' p %>% geom_point()
 #'
 #' # Add aesthetic mappings
-#' p + geom_point(aes(colour = factor(cyl)))
-#' p + geom_point(aes(shape = factor(cyl)))
-#' p + geom_point(aes(size = qsec))
+#' p %>% geom_point(aes(colour = factor(cyl)))
+#' p %>% geom_point(aes(shape = factor(cyl)))
+#' p %>% geom_point(aes(size = qsec))
 #'
 #' # Change scales
-#' p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
-#' p + geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
+#' p %>% geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
+#' p %>% geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
 #'
 #' # Set aesthetics to fixed value
-#' ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)
+#' ggplot(mtcars, aes(wt, mpg)) %>% geom_point(colour = "red", size = 3)
 #'
 #' \donttest{
 #' # Varying alpha is useful for large datasets
 #' d <- ggplot(diamonds, aes(carat, price))
-#' d + geom_point(alpha = 1/10)
-#' d + geom_point(alpha = 1/20)
-#' d + geom_point(alpha = 1/100)
+#' d %>% geom_point(alpha = 1/10)
+#' d %>% geom_point(alpha = 1/20)
+#' d %>% geom_point(alpha = 1/100)
 #' }
 #'
 #' # For shapes that have a border (like 21), you can colour the inside and
@@ -74,30 +75,40 @@
 #' # You can create interesting shapes by layering multiple points of
 #' # different sizes
 #' p <- ggplot(mtcars, aes(mpg, wt, shape = factor(cyl)))
-#' p + geom_point(aes(colour = factor(cyl)), size = 4) +
+#' p %>% geom_point(aes(colour = factor(cyl)), size = 4) %>%
 #'   geom_point(colour = "grey90", size = 1.5)
-#' p + geom_point(colour = "black", size = 4.5) +
-#'   geom_point(colour = "pink", size = 4) +
+#' p %>% geom_point(colour = "black", size = 4.5) %>%
+#'   geom_point(colour = "pink", size = 4) %>%
 #'   geom_point(aes(shape = factor(cyl)))
 #'
 #' # These extra layers don't usually appear in the legend, but we can
 #' # force their inclusion
-#' p + geom_point(colour = "black", size = 4.5, show.legend = TRUE) +
-#'   geom_point(colour = "pink", size = 4, show.legend = TRUE) +
+#' p %>% geom_point(colour = "black", size = 4.5, show.legend = TRUE) %>%
+#'   geom_point(colour = "pink", size = 4, show.legend = TRUE) %>%
 #'   geom_point(aes(shape = factor(cyl)))
 #'
 #' # geom_point warns when missing values have been dropped from the data set
 #' # and not plotted, you can turn this off by setting na.rm = TRUE
 #' mtcars2 <- transform(mtcars, mpg = ifelse(runif(32) < 0.2, NA, mpg))
-#' ggplot(mtcars2, aes(wt, mpg)) + geom_point()
-#' ggplot(mtcars2, aes(wt, mpg)) + geom_point(na.rm = TRUE)
+#' ggplot(mtcars2, aes(wt, mpg)) %>% geom_point()
+#' ggplot(mtcars2, aes(wt, mpg)) %>% geom_point(na.rm = TRUE)
 #' }
-geom_point <- function(mapping = NULL, data = NULL,
+geom_point <- function(gplt,
+                       mapping = NULL, data = NULL,
                        stat = "identity", position = "identity",
                        ...,
                        na.rm = FALSE,
                        show.legend = NA,
                        inherit.aes = TRUE) {
+  api_dispatcher(new_geom_point, old_geom_point)
+}
+
+old_geom_point <- function(mapping = NULL, data = NULL,
+                           stat = "identity", position = "identity",
+                           ...,
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE) {
   layer(
     data = data,
     mapping = mapping,
@@ -112,6 +123,24 @@ geom_point <- function(mapping = NULL, data = NULL,
     )
   )
 }
+
+new_geom_point <- function(gplt,
+                           mapping = NULL, data = NULL,
+                           stat = "identity", position = "identity",
+                           ...,
+                           na.rm = FALSE,
+                           show.legend = NA,
+                           inherit.aes = TRUE,
+                           .name = "") {
+  add_gg_elements(gplt,
+                  old_geom_point(mapping = mapping, data = data,
+                                 stat = stat, position = position,
+                                 ...,
+                                 na.rm = na.rm, show.legend = show.legend,
+                                 inherit.aes = inherit.aes),
+                  .name)
+}
+
 
 #' @rdname ggplot2-ggproto
 #' @format NULL

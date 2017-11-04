@@ -15,6 +15,7 @@ Depends:
 Imports:
     digest,
     grid,
+    magrittr (>= 1.5),
     gtable (>= 0.1.1),
     lazyeval,
     MASS,
