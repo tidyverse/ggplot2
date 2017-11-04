@@ -394,11 +394,13 @@ with_seed_null <- function(seed, code) {
   }
 }
 
+# We know that the first argument of the function will be a ggplot object
+# if (and only if) we are using the pipe API.
 api_dispatcher <- function(func_new, func_old) {
   call <- sys.call(-1)
   ggplot2_api <- "add"
   tryCatch({
-    # Check if the first argument is a gg object:
+    # Check if the first argument is a ggplot object:
     if ("gplt" %in% names(call)) {
       gplt <- eval.parent(call[["gplt"]], 2)
     } else {
