@@ -194,6 +194,8 @@ up correct aspect ratio, and draws a graticule.
 
 * Layers no longer warn about unknown aesthetics with value `NULL` (#1909).
 
+* Restored correct scaling for computed variable `ndensity` when binning (@timgoodman, #2324)
+
 ### Coords
 
 * Like scales, coordinate systems now give you a message when you're 
