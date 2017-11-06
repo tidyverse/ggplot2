@@ -4,6 +4,7 @@
 \name{reexports}
 \alias{reexports}
 \alias{alpha}
+\alias{\%>\%}
 \alias{unit}
 \alias{arrow}
 \title{Objects exported from other packages}
@@ -21,6 +22,8 @@ below to see their documentation.
 
 \describe{
   \item{grid}{\code{\link[grid]{unit}}, \code{\link[grid]{arrow}}}
+
+  \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
 
   \item{scales}{\code{\link[scales]{alpha}}}
 }}

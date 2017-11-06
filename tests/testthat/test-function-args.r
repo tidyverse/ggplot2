@@ -27,6 +27,9 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
       return()
 
     fun_args <- formals(geom_fun)
+    if ("gplt" %in% names(fun_args)) {
+      fun_args[["gplt"]] <- NULL
+    }
     draw_args <- c(
       ggproto_formals(geom$draw_layer),
       ggproto_formals(geom$draw_group)
