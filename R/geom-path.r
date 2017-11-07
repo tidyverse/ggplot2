@@ -92,7 +92,7 @@ geom_path <- function(mapping = NULL, data = NULL,
                       ...,
                       lineend = "butt",
                       linejoin = "round",
-                      linemitre = 1,
+                      linemitre = 10,
                       arrow = NULL,
                       na.rm = FALSE,
                       show.legend = NA,
@@ -141,7 +141,7 @@ GeomPath <- ggproto("GeomPath", Geom,
   },
 
   draw_panel = function(data, panel_params, coord, arrow = NULL,
-                        lineend = "butt", linejoin = "round", linemitre = 1,
+                        lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
     if (!anyDuplicated(data$group)) {
       message_wrap("geom_path: Each group consists of only one observation. ",

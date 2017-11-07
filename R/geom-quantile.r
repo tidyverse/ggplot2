@@ -32,7 +32,7 @@ geom_quantile <- function(mapping = NULL, data = NULL,
                           ...,
                           lineend = "butt",
                           linejoin = "round",
-                          linemitre = 1,
+                          linemitre = 10,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE) {

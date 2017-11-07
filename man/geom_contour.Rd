@@ -7,7 +7,7 @@
 \usage{
 geom_contour(mapping = NULL, data = NULL, stat = "contour",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 1, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  linemitre = 10, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_contour(mapping = NULL, data = NULL, geom = "contour",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,

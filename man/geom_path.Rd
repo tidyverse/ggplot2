@@ -8,7 +8,7 @@
 \usage{
 geom_path(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 1, arrow = NULL, na.rm = FALSE, show.legend = NA,
+  linemitre = 10, arrow = NULL, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 
 geom_line(mapping = NULL, data = NULL, stat = "identity",

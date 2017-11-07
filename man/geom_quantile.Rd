@@ -7,7 +7,7 @@
 \usage{
 geom_quantile(mapping = NULL, data = NULL, stat = "quantile",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 1, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  linemitre = 10, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_quantile(mapping = NULL, data = NULL, geom = "quantile",
   position = "identity", ..., quantiles = c(0.25, 0.5, 0.75),
