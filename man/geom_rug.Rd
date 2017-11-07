@@ -79,6 +79,7 @@ existing data.
 \item \code{x}
 \item \code{y}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

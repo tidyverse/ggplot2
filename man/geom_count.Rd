@@ -77,6 +77,7 @@ useful when you have discrete data and overplotting.
 \item \code{size}
 \item \code{stroke}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{

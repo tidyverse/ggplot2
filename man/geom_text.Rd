@@ -112,6 +112,7 @@ To add labels at specified points use \code{\link[=annotate]{annotate()}} with
 \item \code{size}
 \item \code{vjust}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{\code{geom_label}}{

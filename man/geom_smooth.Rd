@@ -120,6 +120,7 @@ scale, and then back-transformed to the response scale.
 \item \code{ymax}
 \item \code{ymin}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{

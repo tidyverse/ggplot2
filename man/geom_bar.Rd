@@ -104,6 +104,7 @@ and then standardising each bar to have the same height.
 \item \code{linetype}
 \item \code{size}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{

@@ -90,6 +90,7 @@ Various ways of representing a vertical interval defined by \code{x},
 \item \code{linetype}
 \item \code{size}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

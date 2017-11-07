@@ -103,6 +103,7 @@ need to connect points across multiple cases.
 \item \code{linetype}
 \item \code{size}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

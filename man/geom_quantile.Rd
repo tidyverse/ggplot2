@@ -92,6 +92,7 @@ with lines. This is as a continuous analogue to \code{\link[=geom_boxplot]{geom_
 \item \code{size}
 \item \code{weight}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{

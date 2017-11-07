@@ -94,6 +94,7 @@ points at specified quartiles of the theoretical and sample distributions.
 \item \code{x}
 \item \code{y}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 
 
 \code{stat_qq_line} understands the following aesthetics (required aesthetics are in bold):
@@ -103,6 +104,7 @@ points at specified quartiles of the theoretical and sample distributions.
 \item \code{x}
 \item \code{y}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{

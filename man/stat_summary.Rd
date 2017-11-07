@@ -100,6 +100,7 @@ aggregate.
 \item \strong{\code{y}}
 \item \code{group}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Summary functions}{

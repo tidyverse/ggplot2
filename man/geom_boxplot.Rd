@@ -126,6 +126,7 @@ See McGill et al. (1978) for more details.
 \item \code{size}
 \item \code{weight}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{

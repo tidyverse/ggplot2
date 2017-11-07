@@ -72,6 +72,7 @@ are connected together into a polygon.
 \item \code{linetype}
 \item \code{size}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

@@ -70,6 +70,7 @@ A rotated version of \code{\link[=geom_errorbar]{geom_errorbar()}}.
 \item \code{linetype}
 \item \code{size}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

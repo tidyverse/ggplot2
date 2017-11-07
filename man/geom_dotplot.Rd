@@ -118,6 +118,7 @@ to match the number of dots.
 \item \code{fill}
 \item \code{group}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{

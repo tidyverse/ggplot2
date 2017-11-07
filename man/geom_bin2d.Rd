@@ -82,6 +82,7 @@ in the presence of overplotting.
 \item \code{fill}
 \item \code{group}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

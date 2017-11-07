@@ -98,6 +98,7 @@ corresponds to a single case which provides the start and end coordinates.
 \item \code{linetype}
 \item \code{size}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

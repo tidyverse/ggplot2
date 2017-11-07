@@ -83,6 +83,7 @@ the very regular alignment of \code{\link[=geom_bin2d]{geom_bin2d()}}.
 \item \code{group}
 \item \code{size}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

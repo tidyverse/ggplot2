@@ -91,6 +91,7 @@ overplotting caused by discreteness in smaller datasets.
 \item \code{size}
 \item \code{stroke}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

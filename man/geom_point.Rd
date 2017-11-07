@@ -101,6 +101,7 @@ Another technique is to make the points transparent (e.g.
 \item \code{size}
 \item \code{stroke}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

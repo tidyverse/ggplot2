@@ -72,6 +72,7 @@ the x axis, and the results are drawn (by default) with a line.
 \item \code{group}
 \item \code{y}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{

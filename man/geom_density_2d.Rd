@@ -91,6 +91,7 @@ overplotting. This is a 2d version of \code{\link[=geom_density]{geom_density()}
 \item \code{linetype}
 \item \code{size}
 }
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{
