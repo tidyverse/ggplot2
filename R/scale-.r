@@ -215,7 +215,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   },
 
   map = function(self, x, limits = self$get_limits()) {
-    x <- self$oob(self$rescaler(x, from = limits))
+    x <- self$rescaler(self$oob(x, range = limits), from = limits)
 
     uniq <- unique(x)
     pal <- self$palette(uniq)
@@ -598,7 +598,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'
 #' @export
 #' @inheritParams continuous_scale
-#' @param breaks One of: 
+#' @param breaks One of:
 #'   - `NULL` for no breaks
 #'   - `waiver()` for the default breaks computed by the
 #'     transformation object

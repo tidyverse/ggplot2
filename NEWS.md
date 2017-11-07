@@ -69,6 +69,8 @@
   warnings when mapped to size or alpha (unordered factors do). Viridis used as
   default colour and fill scale for ordered factors (@karawoo, #1526).
 
+* Fix bug in `scale_*_gradient2()` where points outside limits can sometimes reappear due to rescaling. Now, any rescaling is performed after the limits are enforced (@foo-bar-baz-qux, #2230).
+
 ### Margins
 
 * Strips gain margins on all sides by default. This means that to fully justify
