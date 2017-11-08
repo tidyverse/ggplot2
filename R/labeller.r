@@ -615,6 +615,8 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
     }
   )
 
+  background <- if (horizontal) "strip.background.x" else "strip.background.y"
+
   # Put text on a strip
   grobs <- apply(
     grobs,
@@ -624,7 +626,7 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
         "strip",
         gTree(
           children = gList(
-            element_render(theme, "strip.background"),
+            element_render(theme, background),
             label[[1]]
           )
         )

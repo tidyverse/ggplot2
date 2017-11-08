@@ -137,6 +137,10 @@ up correct aspect ratio, and draws a graticule.
 
 * `label_parsed()` works once again (#2279)
 
+* You can now style the background of horizontal and vertical strips
+  independently with `strip.background.x` and `strip.background.y` 
+  theme settings (#2249).
+
 ### Scales
 
 * `discrete_scale()` documentation updated to match `continuous_scale()` 

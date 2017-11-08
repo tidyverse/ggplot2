@@ -162,6 +162,10 @@
 #'
 #' @param strip.background background of facet labels (`element_rect`;
 #'   inherits from `rect`)
+#' @param strip.background.x backgronud of horizontal facet labels
+#'   (`element_rect`; inherits from `strip.background`)
+#' @param strip.background.y backgronud of vertical facet labels
+#'   (`element_rect`; inherits from `strip.background`)
 #' @param strip.placement placement of strip with respect to axes,
 #'    either "inside" or "outside". Only important when axes and strips are
 #'    on the same side of the plot.
@@ -349,6 +353,8 @@ theme <- function(line,
                   plot.caption,
                   plot.margin,
                   strip.background,
+                  strip.background.x,
+                  strip.background.y,
                   strip.placement,
                   strip.text,
                   strip.text.x,

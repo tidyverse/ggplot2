@@ -326,3 +326,14 @@ test_that("axes can be styled independently", {
     )
   vdiffr::expect_doppelganger("axes_styling", plot)
 })
+
+test_that("strips can be styled independently", {
+  df <- data.frame(x = 1:2, y = 1:2)
+  plot <- ggplot(df, aes(x, y)) +
+    facet_grid(x ~ y) +
+    theme(
+      strip.background.x = element_rect(fill = "red"),
+      strip.background.y = element_rect(fill = "green")
+    )
+  vdiffr::expect_doppelganger("strip_styling", plot)
+})
