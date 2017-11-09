@@ -144,3 +144,49 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 
   draw_key = draw_key_point
 )
+
+#' Translate a string into a valid shape integer code
+#'
+#' @param shape_string
+#'
+#' @return
+#'
+#' @examples
+translate_shape_string <- function(shape_string) {
+  .pch_table <- c("0" = "open_square",
+                  "1" = "open_circle",
+                  "2" = "open_triangle",
+                  "3" = "plus",
+                  "4" = "cross",
+                  "5" = "open_diamond",
+                  "6" = "open_triangle_down",
+                  "7" = "square_cross",
+                  "8" = "asterisk",
+                  "9" = "diamond_plus",
+                  "10" = "circle_plus",
+                  "11" = "star",
+                  "12" = "square_plus",
+                  "13" = "circle_cross",
+                  "14" = "square_triangle",
+                  "15" = "square",
+                  "16" = "small_circle",
+                  "17" = "triangle",
+                  "18" = "diamond",
+                  "19" = "circle",
+                  "20" = "bullet",
+                  "21" = "filled_circle",
+                  "22" = "filled_square",
+                  "23" = "filled_diamond",
+                  "24" = "filled_triangle",
+                  "25" = "filled_triangle_down")
+
+  shape_match <- pmatch(shape_string, .pch_table, duplicates.ok = TRUE)
+
+  if(any(is.na(shape_match))) {
+    bad_string <- shape_string[is.na(shape_match)]
+    collapsed_names <- paste0(bad_string, collapse = "', '")
+    stop(paste0("Invalid shape name: '", collapsed_names, "'"), call. = FALSE)
+  }
+
+  as.integer(names(.pch_table[shape_match]))
+}
