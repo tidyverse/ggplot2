@@ -4,7 +4,7 @@
 \alias{geom_bar}
 \alias{geom_col}
 \alias{stat_count}
-\title{Bars charts}
+\title{Bar charts}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "count",
   position = "stack", ..., width = NULL, binwidth = NULL, na.rm = FALSE,
@@ -18,29 +18,29 @@ stat_count(mapping = NULL, data = NULL, geom = "bar",
   show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
-   options:
+options:
 
-   If \code{NULL}, the default, the data is inherited from the plot
-   data as specified in the call to \code{\link{ggplot}}.
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-   A \code{data.frame}, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   \code{\link{fortify}} for which variables will be created.
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-   A \code{function} will be called with a single argument,
-   the plot data. The return value must be a \code{data.frame.}, and
-   will be used as the layer data.}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame.}, and
+will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -49,19 +49,21 @@ to the paired geom/stat.}
 
 \item{binwidth}{\code{geom_bar} no longer has a binwidth argument - if
 you use it you'll get an warning telling to you use
-\code{\link{geom_histogram}} instead.}
+\code{\link[=geom_histogram]{geom_histogram()}} instead.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Override the default connection between \code{geom_bar} and
 \code{stat_count}.}
@@ -69,7 +71,7 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \description{
 There are two types of bar charts: \code{geom_bar} makes the height of the
 bar proportional to the number of cases in each group (or if the
-\code{weight} aethetic is supplied, the sum of the weights). If you want the
+\code{weight} aesthetic is supplied, the sum of the weights). If you want the
 heights of the bars to represent values in the data, use
 \link{geom_col} instead. \code{geom_bar} uses \code{stat_count} by
 default: it counts the  number of cases at each x position. \code{geom_col}
@@ -83,22 +85,33 @@ has a nice
 topic}. This is why it doesn't make sense to use a log-scaled y axis with a
 bar chart.
 
-By default, multiple bar occupying the same \code{x} position will be
-stacked atop one another by \code{\link{position_stack}}. If you want them
-to be dodged side-to-side, use \code{\link{position_dodge}}. Finally,
-\code{\link{position_fill}} shows relative proportions at each \code{x} by
-stacking the bars and then standardising each bar to have the same height.
+By default, multiple bar occupying the same \code{x} position will be stacked atop
+one another by \code{\link[=position_stack]{position_stack()}}. If you want them to be dodged
+side-to-side, use \code{\link[=position_dodge]{position_dodge()}} or \code{\link[=position_dodge2]{position_dodge2()}}. Finally,
+\code{\link[=position_fill]{position_fill()}} shows relative proportions at each \code{x} by stacking the bars
+and then standardising each bar to have the same height.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{bar}
+\code{geom_bar} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{
 
 \describe{
-  \item{count}{number of points in bin}
-  \item{prop}{groupwise proportion}
+\item{count}{number of points in bin}
+\item{prop}{groupwise proportion}
 }
 }
 
@@ -111,8 +124,19 @@ g + geom_bar()
 # Total engine displacement of each class
 g + geom_bar(aes(weight = displ))
 
+# Bar charts are automatically stacked when multiple bars are placed
+# at the same location. The order of the fill is designed to match
+# the legend
+g + geom_bar(aes(fill = drv))
+
+# If you need to flip the order (because you've flipped the plot)
+# call position_stack() explicitly:
+g +
+ geom_bar(aes(fill = drv), position = position_stack(reverse = TRUE)) +
+ coord_flip() +
+ theme(legend.position = "top")
+
 # To show (e.g.) means, you need geom_col()
-# And, even more succinctly with geom_col()
 df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
 ggplot(df, aes(trt, outcome)) +
   geom_col()
@@ -127,30 +151,15 @@ df <- data.frame(x = rep(c(2.9, 3.1, 4.5), c(5, 10, 4)))
 ggplot(df, aes(x)) + geom_bar()
 # cf. a histogram of the same data
 ggplot(df, aes(x)) + geom_histogram(binwidth = 0.5)
-
-\donttest{
-# Bar charts are automatically stacked when multiple bars are placed
-# at the same location
-g + geom_bar(aes(fill = drv))
-
-# You can instead dodge, or fill them
-g + geom_bar(aes(fill = drv), position = "dodge")
-g + geom_bar(aes(fill = drv), position = "fill")
-
-# To change plot order of bars, change levels in underlying factor
-reorder_size <- function(x) {
-  factor(x, levels = names(sort(table(x))))
-}
-ggplot(mpg, aes(reorder_size(class))) + geom_bar()
-}
 }
 \seealso{
-\code{\link{geom_histogram}} for continuous data,
-  \code{\link{position_dodge}} for creating side-by-side barcharts.
+\code{\link[=geom_histogram]{geom_histogram()}} for continuous data,
+\code{\link[=position_dodge]{position_dodge()}} and \code{\link[=position_dodge2]{position_dodge2()}} for creating side-by-side
+barcharts.
 
-\code{\link{stat_bin}}, which bins data in ranges and counts the
-  cases in each range. It differs from \code{stat_count}, which counts the
-  number of cases at each x position (without binning into ranges).
-  \code{\link{stat_bin}} requires continuous x data, whereas
-  \code{stat_count} can be used for both discrete and continuous x data.
+\code{\link[=stat_bin]{stat_bin()}}, which bins data in ranges and counts the
+cases in each range. It differs from \code{stat_count}, which counts the
+number of cases at each x position (without binning into ranges).
+\code{\link[=stat_bin]{stat_bin()}} requires continuous x data, whereas
+\code{stat_count} can be used for both discrete and continuous x data.
 }

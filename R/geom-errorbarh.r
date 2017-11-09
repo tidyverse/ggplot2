@@ -1,10 +1,8 @@
 #' Horizontal error bars
 #'
-#' A rotated version of \code{\link{geom_errorbar}}.
+#' A rotated version of [geom_errorbar()].
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{errorbarh}
-#'
+#' @eval rd_aesthetics("geom", "errorbarh")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
@@ -55,7 +53,7 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
 
   draw_key = draw_key_path,
 
-  required_aes = c("x", "xmin", "xmax", "y"),
+  required_aes = c("xmin", "xmax", "y"),
 
   setup_data = function(data, params) {
     data$height <- data$height %||%
@@ -66,7 +64,7 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
     )
   },
 
-  draw_panel = function(data, panel_scales, coord, height = NULL) {
+  draw_panel = function(data, panel_params, coord, height = NULL) {
     GeomPath$draw_panel(data.frame(
       x = as.vector(rbind(data$xmax, data$xmax, NA, data$xmax, data$xmin, NA, data$xmin, data$xmin)),
       y = as.vector(rbind(data$ymin, data$ymax, NA, data$y,    data$y,    NA, data$ymin, data$ymax)),
@@ -77,6 +75,6 @@ GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
       group = rep(1:(nrow(data)), each = 8),
       stringsAsFactors = FALSE,
       row.names = 1:(nrow(data) * 8)
-    ), panel_scales, coord)
+    ), panel_params, coord)
   }
 )

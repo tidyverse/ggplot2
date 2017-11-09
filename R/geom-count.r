@@ -1,15 +1,13 @@
 #' Count overlapping points
 #'
-#' This is a variant \code{\link{geom_point}} that counts the number of
+#' This is a variant [geom_point()] that counts the number of
 #' observations at each location, then maps the count to point area. It
 #' useful when you have discrete data and overplotting.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{point}
-#'
+#' @eval rd_aesthetics("geom", "point")
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_count} and \code{stat_sum}.
-#' @seealso For continuous \code{x} and \code{x}, use \code{\link{geom_bin2d}}.
+#'   `geom_count` and `stat_sum`.
+#' @seealso For continuous `x` and `y`, use [geom_bin2d()].
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
@@ -32,16 +30,16 @@
 #' # Specifying geom_count without a group identifier leads to a plot which is
 #' # not useful:
 #' d <- ggplot(diamonds, aes(x = cut, y = clarity))
-#' d + geom_count(aes(size = ..prop..))
+#' d + geom_count(aes(size = calc(prop)))
 #' # To correct this problem and achieve a more desirable plot, we need
 #' # to specify which group the proportion is to be calculated over.
-#' d + geom_count(aes(size = ..prop.., group = 1)) +
+#' d + geom_count(aes(size = calc(prop), group = 1)) +
 #'   scale_size_area(max_size = 10)
 #'
 #' # Or group by x/y variables to have rows/columns sum to 1.
-#' d + geom_count(aes(size = ..prop.., group = cut)) +
+#' d + geom_count(aes(size = calc(prop), group = cut)) +
 #'   scale_size_area(max_size = 10)
-#' d + geom_count(aes(size = ..prop.., group = clarity)) +
+#' d + geom_count(aes(size = calc(prop), group = clarity)) +
 #'   scale_size_area(max_size = 10)
 geom_count <- function(mapping = NULL, data = NULL,
                        stat = "sum", position = "identity",

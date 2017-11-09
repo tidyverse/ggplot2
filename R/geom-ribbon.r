@@ -1,23 +1,21 @@
 #' Ribbons and area plots
 #'
-#' For each x value, \code{geom_ribbon} displays a y interval defined
-#' by \code{ymin} and \code{ymax}. \code{geom_area} is a special case of
-#' \code{geom_ribbon}, where the \code{ymin} is fixed to 0.
+#' For each x value, `geom_ribbon` displays a y interval defined
+#' by `ymin` and `ymax`. `geom_area` is a special case of
+#' `geom_ribbon`, where the `ymin` is fixed to 0.
 #'
 #' An area plot is the continuous analog of a stacked bar chart (see
-#' \code{\link{geom_bar}}), and can be used to show how composition of the
+#' [geom_bar()]), and can be used to show how composition of the
 #' whole varies over the range of x. Choosing the order in which different
 #' components is stacked is very important, as it becomes increasing hard to
 #' see the individual pattern as you move up the stack. See
-#' \code{\link{position_stack}} for the details of stacking algorithm.
+#' [position_stack()] for the details of stacking algorithm.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{ribbon}
-#'
+#' @eval rd_aesthetics("geom", "ribbon")
 #' @seealso
-#'   \code{\link{geom_bar}} for discrete intervals (bars),
-#'   \code{\link{geom_linerange}} for discrete intervals (lines),
-#'   \code{\link{geom_polygon}} for general polygons
+#'   [geom_bar()] for discrete intervals (bars),
+#'   [geom_linerange()] for discrete intervals (lines),
+#'   [geom_polygon()] for general polygons
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
@@ -70,7 +68,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data
   },
 
-  draw_group = function(data, panel_scales, coord, na.rm = FALSE) {
+  draw_group = function(data, panel_params, coord, na.rm = FALSE) {
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group, data$x), ]
 
@@ -94,7 +92,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     positions <- plyr::summarise(data,
       x = c(x, rev(x)), y = c(ymax, rev(ymin)), id = c(ids, rev(ids)))
-    munched <- coord_munch(coord, positions, panel_scales)
+    munched <- coord_munch(coord, positions, panel_params)
 
     ggname("geom_ribbon", polygonGrob(
       munched$x, munched$y, id = munched$id,

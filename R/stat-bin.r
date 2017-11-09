@@ -1,32 +1,31 @@
-#' \code{stat_bin} is suitable only for continuous x data. If your x data is
-#'   discrete, you probably want to use \code{\link{stat_count}}.
-#'
-#' @param binwidth The width of the bins. The default is to use \code{bins}
+#' @param binwidth The width of the bins. Can be specified as a numeric value,
+#'   or a function that calculates width from x.
+#'   The default is to use `bins`
 #'   bins that cover the range of the data. You should always override
 #'   this value, exploring multiple widths to find the best to illustrate the
 #'   stories in your data.
 #'
 #'   The bin width of a date variable is the number of days in each time; the
 #'   bin width of a time variable is the number of seconds.
-#' @param bins Number of bins. Overridden by \code{binwidth}. Defaults to 30
+#' @param bins Number of bins. Overridden by `binwidth`. Defaults to 30
 #' @param center The center of one of the bins.  Note that if center is above or
 #'   below the range of the data, things will be shifted by an appropriate
-#'   number of \code{width}s. To center on integers, for example, use
-#'   \code{width = 1} and \code{center = 0}, even if \code{0} is outside the range
-#'   of the data.  At most one of \code{center} and \code{boundary} may be
+#'   number of `width`s. To center on integers, for example, use
+#'   `width = 1` and `center = 0`, even if `0` is outside the range
+#'   of the data.  At most one of `center` and `boundary` may be
 #'   specified.
-#' @param boundary A boundary between two bins. As with \code{center}, things
-#'   are shifted when \code{boundary} is outside the range of the data. For
-#'   example, to center on integers, use \code{width = 1} and \code{boundary =
-#'   0.5}, even if \code{0.5} is outside the range of the data.  At most one of
-#'   \code{center} and \code{boundary} may be specified.
+#' @param boundary A boundary between two bins. As with `center`, things
+#'   are shifted when `boundary` is outside the range of the data. For
+#'   example, to center on integers, use `width = 1` and \code{boundary =
+#'   0.5}, even if `0.5` is outside the range of the data.  At most one of
+#'   `center` and `boundary` may be specified.
 #' @param breaks Alternatively, you can supply a numeric vector giving
-#'    the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
-#'    and \code{boundary}.
-#' @param closed One of \code{"right"} or \code{"left"} indicating whether right
+#'    the bin boundaries. Overrides `binwidth`, `bins`, `center`,
+#'    and `boundary`.
+#' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
-#' @param pad If \code{TRUE}, adds empty bins at either end of x. This ensures
-#'   frequency polygons touch 0. Defaults to \code{FALSE}.
+#' @param pad If `TRUE`, adds empty bins at either end of x. This ensures
+#'   frequency polygons touch 0. Defaults to `FALSE`.
 #' @section Computed variables:
 #' \describe{
 #'   \item{count}{number of points in bin}
@@ -35,8 +34,8 @@
 #'   \item{ndensity}{density, scaled to maximum of 1}
 #' }
 #'
-#' @seealso \code{\link{stat_count}}, which counts the number of cases at each x
-#'   posotion, without binning. It is suitable for both discrete and continuous
+#' @seealso [stat_count()], which counts the number of cases at each x
+#'   position, without binning. It is suitable for both discrete and continuous
 #'   x data, whereas \link{stat_bin} is suitable only for continuous x data.
 #' @export
 #' @rdname geom_histogram
@@ -86,7 +85,7 @@ StatBin <- ggproto("StatBin", Stat,
       stop("stat_bin() must not be used with a y aesthetic.", call. = FALSE)
     }
     if (is.integer(data$x)) {
-      stop('StatBin requires a continuous x variable the x variable is discrete. Perhaps you want stat="count"?',
+      stop('StatBin requires a continuous x variable: the x variable is discrete. Perhaps you want stat="count"?',
         call. = FALSE)
     }
 
@@ -130,8 +129,11 @@ StatBin <- ggproto("StatBin", Stat,
     if (!is.null(breaks)) {
       bins <- bin_breaks(breaks, closed)
     } else if (!is.null(binwidth)) {
-      bins <- bin_breaks_width(scales$x$dimension(), binwidth, center = center,
-        boundary = boundary, closed = closed)
+      if (is.function(binwidth)) {
+        binwidth <- binwidth(data$x)
+      }
+      bins <- bin_breaks_width(scales$x$dimension(), binwidth,
+        center = center, boundary = boundary, closed = closed)
     } else {
       bins <- bin_breaks_bins(scales$x$dimension(), bins, center = center,
         boundary = boundary, closed = closed)
@@ -139,7 +141,7 @@ StatBin <- ggproto("StatBin", Stat,
     bin_vector(data$x, bins, weight = data$weight, pad = pad)
   },
 
-  default_aes = aes(y = ..count..),
+  default_aes = aes(y = calc(count), weight = 1),
   required_aes = c("x")
 )
 

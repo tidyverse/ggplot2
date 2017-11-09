@@ -1,16 +1,15 @@
 #' Discretise numeric data into categorical
 #'
-#' \code{cut_interval} makes \code{n} groups with equal range, \code{cut_number}
-#' makes \code{n} groups with (approximately) equal numbers of observations;
-#' \code{cut_width} makes groups of width \code{width}.
+#' `cut_interval` makes `n` groups with equal range, `cut_number`
+#' makes `n` groups with (approximately) equal numbers of observations;
+#' `cut_width` makes groups of width `width`.
 #'
 #' @author Randall Prium contributed most of the implementation of
-#'    \code{cut_width}.
+#'    `cut_width`.
 #' @param x numeric vector
 #' @param n number of intervals to create, OR
 #' @param length length of each interval
-#' @param ... other arguments passed on to \code{\link{cut}}
-#' @seealso \code{\link{cut_number}}
+#' @inheritDotParams base::cut.default -x -include.lowest
 #' @export
 #' @examples
 #' table(cut_interval(1:100, 10))
@@ -43,9 +42,9 @@ cut_number <- function(x, n = NULL, ...) {
 #'   all bins. If not specified, uses the "tile layers algorithm", and sets
 #'   the boundary to half of the binwidth.
 #'
-#'   To center on integers, \code{width = 1} and \code{center = 0}.
-#'   \code{boundary = 0.5}.
-#' @param closed One of \code{"right"} or \code{"left"} indicating whether right
+#'   To center on integers, `width = 1` and `center = 0`.
+#'   `boundary = 0.5`.
+#' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
 cut_width <- function(x, width, center = NULL, boundary = NULL, closed = c("right", "left")) {
   x <- as.numeric(x)

@@ -106,6 +106,8 @@ draw_key_crossbar <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_path <- function(data, params, size) {
+  data$linetype[is.na(data$linetype)] <- 0
+
   segmentsGrob(0.1, 0.5, 0.9, 0.5,
     gp = gpar(
       col = alpha(data$colour, data$alpha),

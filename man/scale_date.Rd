@@ -39,41 +39,43 @@ scale_y_time(name = waiver(), breaks = waiver(), minor_breaks = waiver(),
 }
 \arguments{
 \item{name}{The name of the scale. Used as axis or legend title. If
-\code{NULL}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic.}
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
 
-\item{breaks}{One of: \itemize{
-  \item \code{NULL} for no breaks
-  \item \code{waiver()} for the default breaks computed by the
-    transformation object
-  \item A numeric vector of positions
-  \item A function that takes the limits as input and returns breaks
-    as output
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the breaks specified by \code{date_breaks}
+\item A \code{Date}/\code{POSIXct} vector giving positions of breaks
+\item A function that takes the limits as input and returns breaks as output
 }}
 
 \item{date_breaks}{A string giving the distance between breaks like "2
 weeks", or "10 years". If both \code{breaks} and \code{date_breaks} are
 specified, \code{date_breaks} wins.}
 
-\item{labels}{One of: \itemize{
-  \item \code{NULL} for no labels
-  \item \code{waiver()} for the default labels computed by the
-    transformation object
-  \item A character vector giving labels (must be same length as \code{breaks})
-  \item A function that takes the breaks as input and returns labels
-    as output
+\item{labels}{One of:
+\itemize{
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item A function that takes the breaks as input and returns labels
+as output
 }}
 
 \item{date_labels}{A string giving the formatting specification for the
-labels. Codes are defined in \code{\link{strftime}}. If both \code{labels}
+labels. Codes are defined in \code{\link[=strftime]{strftime()}}. If both \code{labels}
 and \code{date_labels} are specified, \code{date_labels} wins.}
 
-\item{minor_breaks}{One of: \itemize{
-  \item \code{NULL} for no minor breaks
-  \item \code{waiver()} for the default breaks (one minor break between
-    each major break)
-  \item A numeric vector of positions
-  \item A function that given the limits returns a vector of minor breaks.
+\item{minor_breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the breaks specified by \code{date_minor_breaks}
+\item A \code{Date}/\code{POSIXct} vector giving positions of minor breaks
+\item A function that takes the limits as input and returns minor breaks as
+output
 }}
 
 \item{date_minor_breaks}{A string giving the distance between minor breaks
@@ -83,11 +85,12 @@ like "2 weeks", or "10 years". If both \code{minor_breaks} and
 \item{limits}{A numeric vector of length two providing limits of the scale.
 Use \code{NA} to refer to the existing minimum or maximum.}
 
-\item{expand}{A numeric vector of length two giving multiplicative and
-additive expansion constants. These constants ensure that the data is
-placed some distance away from the axes. The defaults are
-\code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
-discrete variables.}
+\item{expand}{Vector of range expansion constants used to add some
+padding around the data, to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+to generate the values for the \code{expand} argument. The defaults are to
+expand the scale by 5\% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.}
 
 \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}
@@ -130,3 +133,4 @@ base + scale_x_date(limits = c(Sys.Date() - 7, NA))
 Other position scales: \code{\link{scale_x_continuous}},
   \code{\link{scale_x_discrete}}
 }
+\concept{position scales}

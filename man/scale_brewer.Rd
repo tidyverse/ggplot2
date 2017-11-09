@@ -22,8 +22,9 @@ scale_fill_distiller(..., type = "seq", palette = 1, direction = -1,
   guide = "colourbar")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
-to control name, limits, breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or, for
+\code{distiller} scales, \code{\link[=continuous_scale]{continuous_scale()}} to control name,
+limits, breaks, labels and so forth.}
 
 \item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
 
@@ -66,10 +67,10 @@ interpolate 6 colours from any palette to a continuous scale.
 
 The following palettes are available for use with these scales:
 \describe{
-  \item{Diverging}{BrBG, PiYG, PRGn, PuOr, RdBu, RdGy, RdYlBu, RdYlGn, Spectral}
-  \item{Qualitative}{Accent, Dark2, Paired, Pastel1, Pastel2, Set1, Set2, Set3}
-  \item{Sequential}{Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
-     OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
+\item{Diverging}{BrBG, PiYG, PRGn, PuOr, RdBu, RdGy, RdYlBu, RdYlGn, Spectral}
+\item{Qualitative}{Accent, Dark2, Paired, Pastel1, Pastel2, Set1, Set2, Set3}
+\item{Sequential}{Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
+OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
 }
 }
 
@@ -109,5 +110,7 @@ v + scale_fill_distiller(palette = "Spectral")
 Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_gradient}},
   \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}}
+  \code{\link{scale_colour_hue}},
+  \code{\link{scale_colour_viridis_d}}
 }
+\concept{colour scales}

@@ -5,29 +5,29 @@
 #'
 #' @param base the base of the log (default 10)
 #' @param sides a string that controls which sides of the plot the log ticks appear on.
-#'   It can be set to a string containing any of \code{"trbl"}, for top, right,
+#'   It can be set to a string containing any of `"trbl"`, for top, right,
 #'   bottom, and left.
-#' @param short a \code{\link[grid]{unit}} object specifying the length of the
+#' @param short a [grid::unit()] object specifying the length of the
 #'   short tick marks
-#' @param mid a \code{\link[grid]{unit}} object specifying the length of the
+#' @param mid a [grid::unit()] object specifying the length of the
 #'   middle tick marks. In base 10, these are the "5" ticks.
-#' @param long a \code{\link[grid]{unit}} object specifying the length of the
+#' @param long a [grid::unit()] object specifying the length of the
 #'   long tick marks. In base 10, these are the "1" (or "10") ticks.
-#' @param scaled is the data already log-scaled? This should be \code{TRUE}
-#'   (default) when the data is already transformed with \code{log10()} or when
-#'   using \code{scale_y_log10}. It should be \code{FALSE} when using
-#'   \code{coord_trans(y = "log10")}.
+#' @param scaled is the data already log-scaled? This should be `TRUE`
+#'   (default) when the data is already transformed with `log10()` or when
+#'   using `scale_y_log10`. It should be `FALSE` when using
+#'   `coord_trans(y = "log10")`.
 #' @param colour Colour of the tick marks.
 #' @param size Thickness of tick marks, in mm.
-#' @param linetype Linetype of tick marks (\code{solid}, \code{dashed}, etc.)
+#' @param linetype Linetype of tick marks (`solid`, `dashed`, etc.)
 #' @param alpha The transparency of the tick marks.
-#' @param color An alias for \code{colour}.
+#' @param color An alias for `colour`.
 #' @param ... Other parameters passed on to the layer
 #'
 #' @export
-#' @seealso \code{\link{scale_y_continuous}}, \code{\link{scale_y_log10}} for log scale
+#' @seealso [scale_y_continuous()], [scale_y_log10()] for log scale
 #'   transformations.
-#' @seealso \code{\link{coord_trans}} for log coordinate transformations.
+#' @seealso [coord_trans()] for log coordinate transformations.
 #'
 #' @examples
 #' # Make a log-log plot (without log ticks)
@@ -114,7 +114,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
     data
   },
 
-  draw_panel = function(data, panel_scales, coord, base = 10, sides = "bl",
+  draw_panel = function(data, panel_params, coord, base = 10, sides = "bl",
     scaled = TRUE, short = unit(0.1, "cm"), mid = unit(0.2, "cm"),
     long = unit(0.3, "cm"))
   {
@@ -131,8 +131,8 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       # Get positions of x tick marks
       xticks <- calc_logticks(
         base = base,
-        minpow = floor(panel_scales$x.range[1]),
-        maxpow = ceiling(panel_scales$x.range[2]),
+        minpow = floor(panel_params$x.range[1]),
+        maxpow = ceiling(panel_params$x.range[2]),
         start = 0,
         shortend = short,
         midend = mid,
@@ -143,7 +143,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         xticks$value <- log(xticks$value, base)
 
       names(xticks)[names(xticks) == "value"] <- "x"   # Rename to 'x' for coordinates$transform
-      xticks <- coord$transform(xticks, panel_scales)
+      xticks <- coord$transform(xticks, panel_params)
 
       # Make the grobs
       if (grepl("b", sides)) {
@@ -166,8 +166,8 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
     if (grepl("[l|r]", sides)) {
       yticks <- calc_logticks(
         base = base,
-        minpow = floor(panel_scales$y.range[1]),
-        maxpow = ceiling(panel_scales$y.range[2]),
+        minpow = floor(panel_params$y.range[1]),
+        maxpow = ceiling(panel_params$y.range[2]),
         start = 0,
         shortend = short,
         midend = mid,
@@ -178,7 +178,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
         yticks$value <- log(yticks$value, base)
 
       names(yticks)[names(yticks) == "value"] <- "y"   # Rename to 'y' for coordinates$transform
-      yticks <- coord$transform(yticks, panel_scales)
+      yticks <- coord$transform(yticks, panel_params)
 
       # Make the grobs
       if (grepl("l", sides)) {

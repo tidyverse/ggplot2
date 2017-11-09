@@ -10,7 +10,7 @@ NULL
 #' These geoms act slightly different to other geoms. You can supply the
 #' parameters in two ways: either as arguments to the layer function,
 #' or via aesthetics. If you use arguments, e.g.
-#' \code{geom_abline(intercept = 0, slope = 1)}, then behind the scenes
+#' `geom_abline(intercept = 0, slope = 1)`, then behind the scenes
 #' the geom makes a new data frame containing just the data you've supplied.
 #' That means that the lines will be the same in all facets; if you want them
 #' to vary across facets, construct the data frame yourself and use aesthetics.
@@ -20,24 +20,22 @@ NULL
 #' commonly set in the plot. They also do not affect the x and y scales.
 #'
 #' @section Aesthetics:
-#' These geoms are drawn using with \code{\link{geom_line}} so support the
-#' same aesthetics: \code{alpha}, \code{colour}, \code{linetype} and
-#' \code{size}. They also each have aesthetics that control the position of
+#' These geoms are drawn using with [geom_line()] so support the
+#' same aesthetics: `alpha`, `colour`, `linetype` and
+#' `size`. They also each have aesthetics that control the position of
 #' the line:
 #'
-#' \itemize{
-#'   \item \code{geom_vline}: \code{xintercept}
-#'   \item \code{geom_hline}: \code{yintercept}
-#'   \item \code{geom_abline}: \code{slope} and \code{intercept}
-#' }
+#'   - `geom_vline`: `xintercept`
+#'   - `geom_hline`: `yintercept`
+#'   - `geom_abline`: `slope` and `intercept`
 #'
-#' @seealso See \code{\link{geom_segment}} for a more general approach to
+#' @seealso See [geom_segment()] for a more general approach to
 #'   adding straight line segments to a plot.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param xintercept,yintercept,slope,intercept Parameters that control the
-#'   position of the line. If these are set, \code{data}, \code{mapping} and
-#'   \code{show.legend} are overridden
+#'   position of the line. If these are set, `data`, `mapping` and
+#'   `show.legend` are overridden
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
@@ -112,15 +110,15 @@ geom_abline <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomAbline <- ggproto("GeomAbline", Geom,
-  draw_panel = function(data, panel_scales, coord) {
-    ranges <- coord$range(panel_scales)
+  draw_panel = function(data, panel_params, coord) {
+    ranges <- coord$range(panel_params)
 
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]
     data$y    <- ranges$x[1] * data$slope + data$intercept
     data$yend <- ranges$x[2] * data$slope + data$intercept
 
-    GeomSegment$draw_panel(unique(data), panel_scales, coord)
+    GeomSegment$draw_panel(unique(data), panel_params, coord)
   },
 
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),

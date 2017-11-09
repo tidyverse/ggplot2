@@ -1,8 +1,8 @@
 #' @param bins numeric vector giving number of bins in both vertical and
 #'   horizontal directions. Set to 30 by default.
 #' @param binwidth Numeric vector giving bin width in both vertical and
-#'   horizontal directions. Overrides \code{bins} if both set.
-#' @param drop if \code{TRUE} removes all cells with 0 counts.
+#'   horizontal directions. Overrides `bins` if both set.
+#' @param drop if `TRUE` removes all cells with 0 counts.
 #' @export
 #' @rdname geom_bin2d
 stat_bin_2d <- function(mapping = NULL, data = NULL,
@@ -43,7 +43,7 @@ stat_bin2d <- stat_bin_2d
 #' @usage NULL
 #' @export
 StatBin2d <- ggproto("StatBin2d", Stat,
-  default_aes = aes(fill = ..count..),
+  default_aes = aes(fill = calc(count)),
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,

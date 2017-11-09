@@ -1,15 +1,15 @@
 #' Transformed Cartesian coordinate system
 #'
-#' \code{coord_trans} is different to scale transformations in that it occurs after
+#' `coord_trans` is different to scale transformations in that it occurs after
 #' statistical transformation and will affect the visual appearance of geoms - there is
 #' no guarantee that straight lines will continue to be straight.
 #'
 #' Transformations only work with continuous values: see
-#' \code{\link[scales]{trans_new}} for list of transformations, and instructions
+#' [scales::trans_new()] for list of transformations, and instructions
 #' on how to create your own.
 #'
 #' @param x,y transformers for x and y axes
-#' @param xtrans,ytrans Deprecated; use \code{x} and \code{y} instead.
+#' @param xtrans,ytrans Deprecated; use `x` and `y` instead.
 #' @param limx,limy limits for x and y axes. (Named so for backward
 #'    compatibility)
 #' @export
@@ -110,22 +110,28 @@ coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL
 #' @export
 CoordTrans <- ggproto("CoordTrans", Coord,
 
-  distance = function(self, x, y, scale_details) {
-    max_dist <- dist_euclidean(scale_details$x.range, scale_details$y.range)
+  distance = function(self, x, y, panel_params) {
+    max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)
     dist_euclidean(self$trans$x$transform(x), self$trans$y$transform(y)) / max_dist
   },
 
-  transform = function(self, data, scale_details) {
-    trans_x <- function(data) transform_value(self$trans$x, data, scale_details$x.range)
-    trans_y <- function(data) transform_value(self$trans$y, data, scale_details$y.range)
+  transform = function(self, data, panel_params) {
+    trans_x <- function(data) transform_value(self$trans$x, data, panel_params$x.range)
+    trans_y <- function(data) transform_value(self$trans$y, data, panel_params$y.range)
 
-    data <- transform_position(data, trans_x, trans_y)
-    transform_position(data, squish_infinite, squish_infinite)
+    new_data <- transform_position(data, trans_x, trans_y)
+
+    warn_new_infinites(data$x, new_data$x, "x")
+    warn_new_infinites(data$y, new_data$y, "y")
+
+    transform_position(new_data, squish_infinite, squish_infinite)
   },
 
-  train = function(self, scale_details) {
-    c(train_trans(scale_details$x, self$limits$x, self$trans$x, "x"),
-      train_trans(scale_details$y, self$limits$y, self$trans$y, "y"))
+  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+    c(
+      train_trans(scale_x, self$limits$x, self$trans$x, "x"),
+      train_trans(scale_y, self$limits$y, self$trans$y, "y")
+    )
   }
 )
 
@@ -136,7 +142,7 @@ transform_value <- function(trans, value, range) {
 }
 
 
-train_trans <- function(scale_details, limits, trans, name) {
+train_trans <- function(scale, limits, trans, name) {
   # first, calculate the range that is the numerical limits in data space
 
   # expand defined by scale OR coord
@@ -144,20 +150,20 @@ train_trans <- function(scale_details, limits, trans, name) {
   # Expansion of data range sometimes go beyond domain,
   # so in trans, expansion takes place at the final stage.
   if (is.null(limits)) {
-    range <- scale_details$dimension()
+    range <- scale$dimension()
   } else {
-    range <- range(scale_details$transform(limits))
+    range <- range(scale$transform(limits))
   }
 
   # breaks on data space
-  out <- scale_details$break_info(range)
+  out <- scale$break_info(range)
 
   # trans'd range
   out$range <- trans$transform(out$range)
 
   # expansion if limits are not specified
   if (is.null(limits)) {
-    expand <- expand_default(scale_details)
+    expand <- expand_default(scale)
     out$range <- expand_range(out$range, expand[1], expand[2])
   }
 
@@ -171,4 +177,16 @@ train_trans <- function(scale_details, limits, trans, name) {
   )
   names(out) <- paste(name, names(out), sep = ".")
   out
+}
+
+#' Generate warning when finite values are transformed into infinite values
+#'
+#' @param old_values A vector of pre-transformation values.
+#' @param new_values A vector of post-transformation values.
+#' @param axis Which axis the values originate from (e.g. x, y).
+#' @noRd
+warn_new_infinites <- function(old_values, new_values, axis) {
+  if (any(is.finite(old_values) & !is.finite(new_values))) {
+    warning("Transformation introduced infinite values in ", axis, "-axis", call. = FALSE)
+  }
 }

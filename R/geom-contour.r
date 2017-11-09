@@ -1,20 +1,18 @@
 #' 2d contours of a 3d surface
 #'
-#' ggplot2 can not draw true 3d surfaces, but you can use \code{geom_contour}
-#' and \code{\link{geom_tile}} to visualise 3d surfaces in 2d. To be a valid
+#' ggplot2 can not draw true 3d surfaces, but you can use `geom_contour`
+#' and [geom_tile()] to visualise 3d surfaces in 2d. To be a valid
 #' surface, the data must contain only a single row for each unique combination
-#' of the variables mapped to the \code{x} and \code{y} aesthetics. Contouring
-#' tends to work best when \code{x} and \code{y} form a (roughly) evenly
-#' spaced grid. If you data is not evenly spaced, you may want to interpolate
+#' of the variables mapped to the `x` and `y` aesthetics. Contouring
+#' tends to work best when `x` and `y` form a (roughly) evenly
+#' spaced grid. If your data is not evenly spaced, you may want to interpolate
 #' to a grid before visualising.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{contour}
-#'
+#' @eval rd_aesthetics("geom", "contour")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
-#' @seealso \code{\link{geom_density_2d}}: 2d density contours
+#' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @export
 #' @examples
@@ -37,7 +35,7 @@
 #' v + geom_contour(binwidth = 0.001)
 #'
 #' # Other parameters
-#' v + geom_contour(aes(colour = ..level..))
+#' v + geom_contour(aes(colour = calc(level)))
 #' v + geom_contour(colour = "red")
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")
@@ -47,7 +45,7 @@ geom_contour <- function(mapping = NULL, data = NULL,
                          ...,
                          lineend = "butt",
                          linejoin = "round",
-                         linemitre = 1,
+                         linemitre = 10,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {

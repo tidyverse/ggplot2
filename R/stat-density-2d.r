@@ -1,12 +1,12 @@
 #' @export
 #' @rdname geom_density_2d
-#' @param contour If \code{TRUE}, contour the results of the 2d density
+#' @param contour If `TRUE`, contour the results of the 2d density
 #'   estimation
 #' @param n number of grid points in each direction
-#' @param h Bandwidth (vector of length two). If \code{NULL}, estimated
-#'   using \code{\link[MASS]{bandwidth.nrd}}.
+#' @param h Bandwidth (vector of length two). If `NULL`, estimated
+#'   using [MASS::bandwidth.nrd()].
 #' @section Computed variables:
-#' Same as \code{\link{stat_contour}}
+#' Same as [stat_contour()]
 stat_density_2d <- function(mapping = NULL, data = NULL,
                             geom = "density_2d", position = "identity",
                             ...,

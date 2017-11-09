@@ -3,8 +3,8 @@
 #' The point geom is used to create scatterplots. The scatterplot is most
 #' useful for displaying the relationship between two continuous variables.
 #' It can be used to compare one continuous and one categorical variable, or
-#' two categorical variables, but a variation like \code{\link{geom_jitter}},
-#' \code{\link{geom_count}}, or \code{\link{geom_bin2d}} is usually more
+#' two categorical variables, but a variation like [geom_jitter()],
+#' [geom_count()], or [geom_bin2d()] is usually more
 #' appropriate.
 #'
 #' The \emph{bubblechart} is a scatterplot with a third variable mapped to
@@ -17,28 +17,26 @@
 #' another. This can severely distort the visual appearance of the plot.
 #' There is no one solution to this problem, but there are some techniques
 #' that can help. You can add additional information with
-#' \code{\link{geom_smooth}}, \code{\link{geom_quantile}} or
-#' \code{\link{geom_density_2d}}. If you have few unique x values,
-#' \code{\link{geom_boxplot}} may also be useful.
+#' [geom_smooth()], [geom_quantile()] or
+#' [geom_density_2d()]. If you have few unique x values,
+#' [geom_boxplot()] may also be useful.
 #'
 #' Alternatively, you can
 #' summarise the number of points at each location and display that in some
-#' way, using \code{\link{geom_count}}, \code{\link{geom_hex}}, or
-#' \code{\link{geom_density2d}}.
+#' way, using [geom_count()], [geom_hex()], or
+#' [geom_density2d()].
 #'
 #' Another technique is to make the points transparent (e.g.
-#' \code{geom_point(alpha = 0.05)}) or very small (e.g.
-#' \code{geom_point(shape = ".")}).
+#' `geom_point(alpha = 0.05)`) or very small (e.g.
+#' `geom_point(shape = ".")`).
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{point}
-#'
+#' @eval rd_aesthetics("geom", "point")
 #' @inheritParams layer
-#' @param na.rm If \code{FALSE}, the default, missing values are removed with
-#'   a warning. If \code{TRUE}, missing values are silently removed.
-#' @param ... other arguments passed on to \code{\link{layer}}. These are
+#' @param na.rm If `FALSE`, the default, missing values are removed with
+#'   a warning. If `TRUE`, missing values are silently removed.
+#' @param ... other arguments passed on to [layer()]. These are
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
-#'   \code{color = "red"} or \code{size = 3}. They may also be parameters
+#'   `color = "red"` or `size = 3`. They may also be parameters
 #'   to the paired geom/stat.
 #' @inheritParams layer
 #' @export
@@ -127,8 +125,8 @@ GeomPoint <- ggproto("GeomPoint", Geom,
     alpha = NA, stroke = 0.5
   ),
 
-  draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
-    coords <- coord$transform(data, panel_scales)
+  draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
+    coords <- coord$transform(data, panel_params)
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,

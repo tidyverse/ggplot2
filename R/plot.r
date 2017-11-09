@@ -1,19 +1,17 @@
 #' Create a new ggplot
 #'
-#' \code{ggplot()} initializes a ggplot object. It can be used to
+#' `ggplot()` initializes a ggplot object. It can be used to
 #' declare the input data frame for a graphic and to specify the
 #' set of plot aesthetics intended to be common throughout all
 #' subsequent layers unless specifically overridden.
 #'
-#' \code{ggplot()} is used to construct the initial plot object,
-#' and is almost always followed by \code{+} to add component to the
-#' plot. There are three common ways to invoke \code{ggplot}:
+#' `ggplot()` is used to construct the initial plot object,
+#' and is almost always followed by `+` to add component to the
+#' plot. There are three common ways to invoke `ggplot`:
 #'
-#' \enumerate{
-#'   \item \code{ggplot(df, aes(x, y, <other aesthetics>))}
-#'   \item \code{ggplot(df)}
-#'   \item \code{ggplot()}
-#' }
+#' * `ggplot(df, aes(x, y, other aesthetics))`
+#' * `ggplot(df)`
+#' * `ggplot()`
 #'
 #' The first method is recommended if all layers use the same
 #' data and the same set of aesthetics, although this method
@@ -23,20 +21,20 @@
 #' but no aesthetics are defined up front. This is useful when
 #' one data frame is used predominantly as layers are added,
 #' but the aesthetics may vary from one layer to another. The
-#' third method initializes a skeleton \code{ggplot} object which
+#' third method initializes a skeleton `ggplot` object which
 #' is fleshed out as layers are added. This method is useful when
 #' multiple data frames are used to produce different layers, as
 #' is often the case in complex graphics.
 #'
 #' @param data Default dataset to use for plot. If not already a data.frame,
-#'   will be converted to one by \code{\link{fortify}}. If not specified,
-#'   must be suppled in each layer added to the plot.
+#'   will be converted to one by [fortify()]. If not specified,
+#'   must be supplied in each layer added to the plot.
 #' @param mapping Default list of aesthetic mappings to use for plot.
-#'   If not specified, must be suppled in each layer added to the plot.
+#'   If not specified, must be supplied in each layer added to the plot.
 #' @param ... Other arguments passed on to methods. Not currently used.
-#' @param environment If an variable defined in the aesthetic mapping is not
+#' @param environment If a variable defined in the aesthetic mapping is not
 #'   found in the data, ggplot will look for it in this environment. It defaults
-#'   to using the environment in which \code{ggplot()} is called.
+#'   to using the environment in which `ggplot()` is called.
 #' @export
 #' @examples
 #' # Generate some sample data, then compute mean and standard deviation
@@ -97,7 +95,7 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
     scales = scales_list(),
     mapping = mapping,
     theme = list(),
-    coordinates = coord_cartesian(),
+    coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
     plot_env = environment
   ), class = c("gg", "ggplot"))
@@ -125,7 +123,7 @@ is.ggplot <- function(x) inherits(x, "ggplot")
 #'
 #' Generally, you do not need to print or plot a ggplot2 plot explicitly: the
 #' default top-level print method will do it for you. You will, however, need
-#' to call \code{print()} explicitly if you want to draw a plot inside a
+#' to call `print()` explicitly if you want to draw a plot inside a
 #' function or for loop.
 #'
 #' @param x plot to display
@@ -133,7 +131,7 @@ is.ggplot <- function(x) inherits(x, "ggplot")
 #' @param vp viewport to draw plot in
 #' @param ... other arguments not used by this method
 #' @keywords hplot
-#' @return Invisibly returns the result of \code{\link{ggplot_build}}, which
+#' @return Invisibly returns the result of [ggplot_build()], which
 #'   is a list with components that contain the plot itself, the data,
 #'   information about the scales, panels etc.
 #' @export
@@ -175,7 +173,7 @@ print.ggplot <- function(x, newpage = is.null(vp), vp = NULL, ...) {
     upViewport()
   }
 
-  invisible(data)
+  invisible(x)
 }
 #' @rdname print.ggplot
 #' @method plot ggplot

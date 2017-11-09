@@ -3,18 +3,18 @@ NULL
 
 #' Wrap a 1d ribbon of panels into 2d
 #'
-#' \code{facet_wrap} wraps a 1d sequence of panels into 2d. This is generally
-#' a better use of screen space than \code{\link{facet_grid}} because most
+#' `facet_wrap` wraps a 1d sequence of panels into 2d. This is generally
+#' a better use of screen space than [facet_grid()] because most
 #' displays are roughly rectangular.
 #'
 #' @param facets Either a formula or character vector. Use either a
-#'   one sided formula, \code{~a + b}, or a character vector, \code{c("a", "b")}.
+#'   one sided formula, `~a + b`, or a character vector, `c("a", "b")`.
 #' @param nrow,ncol Number of rows and columns.
-#' @param scales should Scales be fixed (\code{"fixed"}, the default),
-#'   free (\code{"free"}), or free in one dimension (\code{"free_x"},
-#'   \code{"free_y"}).
+#' @param scales should Scales be fixed (`"fixed"`, the default),
+#'   free (`"free"`), or free in one dimension (`"free_x"`,
+#'   `"free_y"`).
 #' @param strip.position By default, the labels are displayed on the top of
-#'   the plot. Using \code{strip.position} it is possible to place the labels on
+#'   the plot. Using `strip.position` it is possible to place the labels on
 #'   either of the four sides by setting \code{strip.position = c("top",
 #'   "bottom", "left", "right")}
 #' @param dir Direction: either "h" for horizontal, the default, or "v", for
@@ -187,11 +187,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     data[order(data$PANEL), ]
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    # If coord is non-cartesian and (x is free or y is free)
-    # then throw error
-    if ((!inherits(coord, "CoordCartesian")) && (params$free$x || params$free$y)) {
-      stop("ggplot2 does not currently support free scales with a non-cartesian coord", call. = FALSE)
-    }
+    if (params$free$x || params$free$y)
+      check_coord_freedom(coord)
+
     if (inherits(coord, "CoordFlip")) {
       if (params$free$x) {
         layout$SCALE_X <- seq_len(nrow(layout))
@@ -338,6 +336,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       }
     }
     panel_table
+  },
+  vars = function(self) {
+    vapply(self$params$facets, as.character, character(1))
   }
 )
 
@@ -347,15 +348,15 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 #' Sanitise the number of rows or columns
 #'
 #' Cleans up the input to be an integer greater than or equal to one, or
-#' \code{NULL}. Intended to be used on the \code{nrow} and \code{ncol}
-#' arguments of \code{facet_wrap}.
-#' @param n Hopefully an integer greater than or equal to one, or \code{NULL},
+#' `NULL`. Intended to be used on the `nrow` and `ncol`
+#' arguments of `facet_wrap`.
+#' @param n Hopefully an integer greater than or equal to one, or `NULL`,
 #' though other inputs are handled.
-#' @return An integer greater than or equal to one, or \code{NULL}.
+#' @return An integer greater than or equal to one, or `NULL`.
 #' @note If the length of the input is greater than one, only the first element
 #' is returned, with a warning.
 #' If the input is not an integer, it will be coerced to be one.
-#' If the value is less than one, \code{NULL} is returned, effectively ignoring
+#' If the value is less than one, `NULL` is returned, effectively ignoring
 #' the argument.
 #' Multiple warnings may be generated.
 #' @examples

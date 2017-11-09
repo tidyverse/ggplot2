@@ -4,9 +4,7 @@
 \name{reexports}
 \alias{reexports}
 \alias{alpha}
-\alias{reexports}
 \alias{unit}
-\alias{reexports}
 \alias{arrow}
 \title{Objects exported from other packages}
 \examples{

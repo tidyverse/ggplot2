@@ -1,21 +1,19 @@
 #' Violin plot
 #'
 #' A violin plot is a compact display of a continuous distribution. It is a
-#' blend of \code{\link{geom_boxplot}} and \code{\link{geom_density}}: a
+#' blend of [geom_boxplot()] and [geom_density()]: a
 #' violin plot is a mirrored density plot displayed in the same way as a
 #' boxplot.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{violin}
-#'
+#' @eval rd_aesthetics("geom", "violin")
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @param draw_quantiles If \code{not(NULL)} (default), draw horizontal lines
+#' @param draw_quantiles If `not(NULL)` (default), draw horizontal lines
 #'   at the given quantiles of the density estimate.
-#' @param trim If \code{TRUE} (default), trim the tails of the violins
-#'   to the range of the data. If \code{FALSE}, don't trim the tails.
+#' @param trim If `TRUE` (default), trim the tails of the violins
+#'   to the range of the data. If `FALSE`, don't trim the tails.
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_violin} and \code{stat_ydensity}.
+#'   `geom_violin` and `stat_ydensity`.
 #' @export
 #' @references Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
 #' Plot-Density Trace Synergism. The American Statistician 52, 181-184.

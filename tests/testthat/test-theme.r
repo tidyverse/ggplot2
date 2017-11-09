@@ -201,3 +201,139 @@ test_that("All elements in complete themes have inherit.blank=TRUE", {
   expect_true(inherit_blanks(theme_minimal()))
   expect_true(inherit_blanks(theme_void()))
 })
+
+test_that("Elements can be merged", {
+  text_base <- element_text(colour = "red", size = 10)
+  expect_equal(
+    merge_element(element_text(colour = "blue"), text_base),
+    element_text(colour = "blue", size = 10)
+  )
+  rect_base <- element_rect(colour = "red", size = 10)
+  expect_equal(
+    merge_element(element_rect(colour = "blue"), rect_base),
+    element_rect(colour = "blue", size = 10)
+  )
+  line_base <- element_line(colour = "red", size = 10)
+  expect_equal(
+    merge_element(element_line(colour = "blue"), line_base),
+    element_line(colour = "blue", size = 10)
+  )
+  expect_error(
+    merge_element(text_base, rect_base),
+    "Only elements of the same class can be merged"
+  )
+})
+
+test_that("complete plot themes shouldn't inherit from default", {
+  default_theme <- theme_gray() + theme(axis.text.x = element_text(colour = "red"))
+  base <- qplot(1, 1)
+
+  ptheme <- plot_theme(base + theme(axis.text.x = element_text(colour = "blue")), default_theme)
+  expect_equal(ptheme$axis.text.x$colour, "blue")
+
+  ptheme <- plot_theme(base + theme_void(), default_theme)
+  expect_null(ptheme$axis.text.x)
+})
+
+# Visual tests ------------------------------------------------------------
+
+test_that("aspect ratio is honored", {
+  df <- data.frame(x = 1:8, y = 1:8, f = gl(2,4), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2))
+  p <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    theme_test() +
+    labs(x = NULL, y = NULL)
+
+  p_a <- p + theme(aspect.ratio = 3)
+  p_b <- p + theme(aspect.ratio = 1 / 3)
+
+  vdiffr::expect_doppelganger("height is 3 times width",
+    p_a
+  )
+  vdiffr::expect_doppelganger("width is 3 times height",
+    p_b
+  )
+
+  vdiffr::expect_doppelganger("height is 3 times width, 2 wrap facets",
+    p_a + facet_wrap(~f)
+  )
+  vdiffr::expect_doppelganger("height is 3 times width, 2 column facets",
+    p_a + facet_grid(.~f)
+  )
+  vdiffr::expect_doppelganger("height is 3 times width, 2 row facets",
+    p_a + facet_grid(f~.)
+  )
+  vdiffr::expect_doppelganger("height is 3 times width, 2x2 facets",
+    p_a + facet_grid(f1~f2)
+  )
+
+})
+
+test_that("themes don't change without acknowledgement", {
+  df <- data.frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  plot <- ggplot(df, aes(x, y, colour = z)) +
+    geom_point() +
+    facet_wrap(~ a)
+
+  vdiffr::expect_doppelganger("theme_bw", plot + theme_bw())
+  vdiffr::expect_doppelganger("theme_classic", plot + theme_classic())
+  vdiffr::expect_doppelganger("theme_dark", plot + theme_dark())
+  vdiffr::expect_doppelganger("theme_minimal", plot + theme_minimal())
+  vdiffr::expect_doppelganger("theme_gray", plot + theme_gray())
+  vdiffr::expect_doppelganger("theme_light", plot + theme_light())
+  vdiffr::expect_doppelganger("theme_void", plot + theme_void())
+  vdiffr::expect_doppelganger("theme_linedraw", plot + theme_linedraw())
+})
+
+test_that("themes look decent at larger base sizes", {
+  df <- data.frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  plot <- ggplot(df, aes(x, y, colour = z)) +
+    geom_point() +
+    facet_wrap(~ a)
+
+  vdiffr::expect_doppelganger("theme_bw_large", plot + theme_bw(base_size = 33))
+  vdiffr::expect_doppelganger("theme_classic_large", plot + theme_classic(base_size = 33))
+  vdiffr::expect_doppelganger("theme_dark_large", plot + theme_dark(base_size = 33))
+  vdiffr::expect_doppelganger("theme_minimal_large", plot + theme_minimal(base_size = 33))
+  vdiffr::expect_doppelganger("theme_gray_large", plot + theme_gray(base_size = 33))
+  vdiffr::expect_doppelganger("theme_light_large", plot + theme_light(base_size = 33))
+  vdiffr::expect_doppelganger("theme_void_large", plot + theme_void(base_size = 33))
+  vdiffr::expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
+})
+
+test_that("axes can be styled independently", {
+  plot <- ggplot() +
+    geom_point(aes(1:10, 1:10)) +
+    scale_x_continuous(sec.axis = dup_axis()) +
+    scale_y_continuous(sec.axis = dup_axis()) +
+    theme(
+      axis.title.x.top = element_text(colour = 'red'),
+      axis.title.x.bottom = element_text(colour = 'green'),
+      axis.title.y.left = element_text(colour = 'blue'),
+      axis.title.y.right = element_text(colour = 'yellow'),
+      axis.text.x.top = element_text(colour = 'red'),
+      axis.text.x.bottom = element_text(colour = 'green'),
+      axis.text.y.left = element_text(colour = 'blue'),
+      axis.text.y.right = element_text(colour = 'yellow'),
+      axis.ticks.x.top = element_line(colour = 'red'),
+      axis.ticks.x.bottom = element_line(colour = 'green'),
+      axis.ticks.y.left = element_line(colour = 'blue'),
+      axis.ticks.y.right = element_line(colour = 'yellow'),
+      axis.line.x.top = element_line(colour = 'red'),
+      axis.line.x.bottom = element_line(colour = 'green'),
+      axis.line.y.left = element_line(colour = 'blue'),
+      axis.line.y.right = element_line(colour = 'yellow')
+    )
+  vdiffr::expect_doppelganger("axes_styling", plot)
+})
+
+test_that("strips can be styled independently", {
+  df <- data.frame(x = 1:2, y = 1:2)
+  plot <- ggplot(df, aes(x, y)) +
+    facet_grid(x ~ y) +
+    theme(
+      strip.background.x = element_rect(fill = "red"),
+      strip.background.y = element_rect(fill = "green")
+    )
+  vdiffr::expect_doppelganger("strip_styling", plot)
+})

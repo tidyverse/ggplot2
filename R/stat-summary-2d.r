@@ -1,30 +1,28 @@
 #' Bin and summarise in 2d (rectangle & hexagons)
 #'
-#' \code{stat_summary_2d} is a 2d variation of \code{\link{stat_summary}}.
-#' \code{stat_summary_hex} is a hexagonal variation of
-#' \code{\link{stat_summary_2d}}. The data are divided into bins defined
-#' by \code{x} and \code{y}, and then the values of \code{z} in each cell is
-#' are summarised with \code{fun}.
+#' `stat_summary_2d` is a 2d variation of [stat_summary()].
+#' `stat_summary_hex` is a hexagonal variation of
+#' [stat_summary_2d()]. The data are divided into bins defined
+#' by `x` and `y`, and then the values of `z` in each cell is
+#' are summarised with `fun`.
 #'
 #' @section Aesthetics:
-#' \itemize{
-#'  \item \code{x}: horizontal position
-#'  \item \code{y}: vertical position
-#'  \item \code{z}: value passed to the summary function
-#' }
+#'  - `x`: horizontal position
+#'  - `y`: vertical position
+#'  - `z`: value passed to the summary function
 #' @section Computed variables:
 #' \describe{
 #'   \item{x,y}{Location}
 #'   \item{value}{Value of summary statistic.}
 #' }
-#' @seealso \code{\link{stat_summary_hex}} for hexagonal summarization.
-#'   \code{\link{stat_bin2d}} for the binning options.
+#' @seealso [stat_summary_hex()] for hexagonal summarization.
+#'   [stat_bin2d()] for the binning options.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams stat_bin_2d
-#' @param drop drop if the output of \code{fun} is \code{NA}.
+#' @param drop drop if the output of `fun` is `NA`.
 #' @param fun function for summary.
-#' @param fun.args A list of extra arguments to pass to \code{fun}
+#' @param fun.args A list of extra arguments to pass to `fun`
 #' @export
 #' @examples
 #' d <- ggplot(diamonds, aes(carat, depth, z = price))
@@ -82,7 +80,7 @@ stat_summary2d <- function(...) {
 #' @usage NULL
 #' @export
 StatSummary2d <- ggproto("StatSummary2d", Stat,
-  default_aes = aes(fill = ..value..),
+  default_aes = aes(fill = calc(value)),
 
   required_aes = c("x", "y", "z"),
 

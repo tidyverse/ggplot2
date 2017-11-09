@@ -1,15 +1,13 @@
 #' Rectangles
 #'
-#' \code{geom_rect} and \code{geom_tile} do the same thing, but are
-#' parameterised differently: \code{geom_rect} uses the locations of the four
-#' corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
-#' \code{geom_tile} uses the center of the tile and its size (\code{x},
-#' \code{y}, \code{width}, \code{height}). \code{geom_raster} is a high
+#' `geom_rect` and `geom_tile` do the same thing, but are
+#' parameterised differently: `geom_rect` uses the locations of the four
+#' corners (`xmin`, `xmax`, `ymin` and `ymax`), while
+#' `geom_tile` uses the center of the tile and its size (`x`,
+#' `y`, `width`, `height`). `geom_raster` is a high
 #' performance special case for when all the tiles are the same size.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{tile}
-#'
+#' @eval rd_aesthetics("geom", "tile")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
@@ -50,11 +48,11 @@
 #' # Inspired by the image-density plots of Ken Knoblauch
 #' cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 #' cars + geom_point()
-#' cars + stat_bin2d(aes(fill = ..count..), binwidth = c(3,1))
-#' cars + stat_bin2d(aes(fill = ..density..), binwidth = c(3,1))
+#' cars + stat_bin2d(aes(fill = calc(count)), binwidth = c(3,1))
+#' cars + stat_bin2d(aes(fill = calc(density)), binwidth = c(3,1))
 #'
-#' cars + stat_density(aes(fill = ..density..), geom = "raster", position = "identity")
-#' cars + stat_density(aes(fill = ..count..), geom = "raster", position = "identity")
+#' cars + stat_density(aes(fill = calc(density)), geom = "raster", position = "identity")
+#' cars + stat_density(aes(fill = calc(count)), geom = "raster", position = "identity")
 #' }
 geom_tile <- function(mapping = NULL, data = NULL,
                       stat = "identity", position = "identity",

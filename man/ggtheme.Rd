@@ -10,34 +10,51 @@
 \alias{theme_minimal}
 \alias{theme_classic}
 \alias{theme_void}
+\alias{theme_test}
 \title{Complete themes}
 \usage{
-theme_grey(base_size = 11, base_family = "")
+theme_grey(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-theme_gray(base_size = 11, base_family = "")
+theme_gray(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-theme_bw(base_size = 11, base_family = "")
+theme_bw(base_size = 11, base_family = "", base_line_size = base_size/22,
+  base_rect_size = base_size/22)
 
-theme_linedraw(base_size = 11, base_family = "")
+theme_linedraw(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-theme_light(base_size = 11, base_family = "")
+theme_light(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-theme_dark(base_size = 11, base_family = "")
+theme_dark(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-theme_minimal(base_size = 11, base_family = "")
+theme_minimal(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-theme_classic(base_size = 11, base_family = "")
+theme_classic(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 
-theme_void(base_size = 11, base_family = "")
+theme_void(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
+
+theme_test(base_size = 11, base_family = "",
+  base_line_size = base_size/22, base_rect_size = base_size/22)
 }
 \arguments{
 \item{base_size}{base font size}
 
 \item{base_family}{base font family}
+
+\item{base_line_size}{base size for line elements}
+
+\item{base_rect_size}{base size for rect elements}
 }
 \description{
 These are complete themes which control all non-data display. Use
-\code{\link{theme}} if you just need to tweak the display of an existing
+\code{\link[=theme]{theme()}} if you just need to tweak the display of an existing
 theme.
 }
 \details{
@@ -72,6 +89,10 @@ A classic-looking theme, with x and y axis lines and no gridlines.}
 
 \item{\code{theme_void}}{
 A completely empty theme.}
+
+\item{\code{theme_test}}{
+A theme for visual unit tests. It should ideally never change except
+for new features.}
 
 }
 }

@@ -11,8 +11,58 @@ scale_colour_grey(..., start = 0.2, end = 0.8, na.value = "red")
 scale_fill_grey(..., start = 0.2, end = 0.8, na.value = "red")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
-to control name, limits, breaks, labels and so forth.}
+\item{...}{Arguments passed on to \code{discrete_scale}
+\describe{
+  \item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks computed by the
+transformation object
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
+  \item{limits}{A character vector that defines possible values of the scale
+and their order.}
+  \item{drop}{Should unused factor levels be omitted from the scale?
+The default, \code{TRUE}, uses the levels that appear in the data;
+\code{FALSE} uses all the levels in the factor.}
+  \item{na.translate}{Unlike continuous scales, discrete scales can easily show
+missing values, and do so by default. If you want to remove missing values
+from a discrete scale, specify \code{na.translate = FALSE}.}
+  \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
+value should missing be displayed as? Does not apply to position scales
+where \code{NA} is always placed at the far right.}
+  \item{aesthetics}{The names of the aesthetics that this scale works with}
+  \item{scale_name}{The name of the scale}
+  \item{palette}{A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the values that
+they should take}
+  \item{name}{The name of the scale. Used as axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+  \item{labels}{One of:
+\itemize{
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item A function that takes the breaks as input and returns labels
+as output
+}}
+  \item{expand}{Vector of range expansion constants used to add some
+padding around the data, to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+to generate the values for the \code{expand} argument. The defaults are to
+expand the scale by 5\% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.}
+  \item{guide}{A function used to create a guide or its name. See
+\code{\link[=guides]{guides()}} for more info.}
+  \item{position}{The position of the axis. "left" or "right" for vertical
+scales, "top" or "bottom" for horizontal scales}
+  \item{super}{The super class to use for the constructed scale}
+}}
 
 \item{start}{gray value at low end of palette}
 
@@ -21,8 +71,8 @@ to control name, limits, breaks, labels and so forth.}
 \item{na.value}{Colour to use for missing values}
 }
 \description{
-Based on \code{\link{gray.colors}}. This is black and white equivalent
-of \code{\link{scale_colour_gradient}}.
+Based on \code{\link[=gray.colors]{gray.colors()}}. This is black and white equivalent
+of \code{\link[=scale_colour_gradient]{scale_colour_gradient()}}.
 }
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt)) + geom_point(aes(colour = factor(cyl)))
@@ -45,5 +95,7 @@ ggplot(mtcars, aes(mpg, wt)) +
 Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_brewer}},
   \code{\link{scale_colour_gradient}},
-  \code{\link{scale_colour_hue}}
+  \code{\link{scale_colour_hue}},
+  \code{\link{scale_colour_viridis_d}}
 }
+\concept{colour scales}

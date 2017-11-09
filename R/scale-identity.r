@@ -2,12 +2,12 @@
 #'
 #' Use this set of scales when your data has already been scaled, i.e. it
 #' already represents aesthetic values that ggplot2 can handle directly
-#' This will not produce a legend unless you also supply the \code{breaks}
-#' and \code{labels}.
+#' This will not produce a legend unless you also supply the `breaks`
+#' and `labels`.
 #'
-#' @param ... Other arguments passed on to \code{\link{discrete_scale}} or
-#'   \code{\link{continuous_scale}}
-#' @param guide Guide to use for this scale. Defaults to \code{"none"}.
+#' @param ... Other arguments passed on to [discrete_scale()] or
+#'   [continuous_scale()]
+#' @param guide Guide to use for this scale. Defaults to `"none"`.
 #' @examples
 #' ggplot(luv_colours, aes(u, v)) +
 #'   geom_point(aes(colour = col), size = 3) +
@@ -138,6 +138,6 @@ ScaleContinuousIdentity <- ggproto("ScaleContinuousIdentity", ScaleContinuous,
   train = function(self, x) {
     # do nothing if no guide, otherwise train so we know what breaks to use
     if (self$guide == "none") return()
-    ggproto_parent(ScaleDiscrete, self)$train(x)
+    ggproto_parent(ScaleContinuous, self)$train(x)
   }
 )

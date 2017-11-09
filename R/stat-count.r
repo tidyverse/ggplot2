@@ -3,11 +3,11 @@
 #'   \item{count}{number of points in bin}
 #'   \item{prop}{groupwise proportion}
 #' }
-#' @seealso \code{\link{stat_bin}}, which bins data in ranges and counts the
-#'   cases in each range. It differs from \code{stat_count}, which counts the
+#' @seealso [stat_bin()], which bins data in ranges and counts the
+#'   cases in each range. It differs from `stat_count`, which counts the
 #'   number of cases at each x position (without binning into ranges).
-#'   \code{\link{stat_bin}} requires continuous x data, whereas
-#'   \code{stat_count} can be used for both discrete and continuous x data.
+#'   [stat_bin()] requires continuous x data, whereas
+#'   `stat_count` can be used for both discrete and continuous x data.
 #'
 #' @export
 #' @rdname geom_bar
@@ -47,7 +47,7 @@ stat_count <- function(mapping = NULL, data = NULL,
 #' @include stat-.r
 StatCount <- ggproto("StatCount", Stat,
   required_aes = "x",
-  default_aes = aes(y = ..count.., weight = 1),
+  default_aes = aes(y = calc(count), weight = 1),
 
   setup_params = function(data, params) {
     if (!is.null(data$y)) {

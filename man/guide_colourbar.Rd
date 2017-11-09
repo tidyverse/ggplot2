@@ -24,16 +24,16 @@ guide_colorbar(title = waiver(), title.position = NULL,
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
 If \code{NULL}, the title is not shown. By default
-(\code{\link{waiver}}), the name of the scale object or the name
-specified in \code{\link{labs}} is used for the title.}
+(\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
+specified in \code{\link[=labs]{labs()}} is used for the title.}
 
 \item{title.position}{A character string indicating the position of a
- title. One of "top" (default for a vertical guide), "bottom", "left"
+title. One of "top" (default for a vertical guide), "bottom", "left"
 (default for a horizontal guide), or "right."}
 
 \item{title.theme}{A theme object for rendering the title text. Usually the
-object of \code{\link{element_text}} is expected. By default, the theme is
-specified by \code{legend.title} in \code{\link{theme}} or theme.}
+object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
+specified by \code{legend.title} in \code{\link[=theme]{theme()}} or theme.}
 
 \item{title.hjust}{A number specifying horizontal justification of the
 title text.}
@@ -49,8 +49,8 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
 "right" (default for vertical guide).}
 
 \item{label.theme}{A theme object for rendering the label text. Usually the
-object of \code{\link{element_text}} is expected. By default, the theme is
-specified by \code{legend.text} in \code{\link{theme}} or theme.}
+object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
+specified by \code{legend.text} in \code{\link[=theme]{theme()}} or theme.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
 label text.}
@@ -58,13 +58,13 @@ label text.}
 \item{label.vjust}{A numeric specifying vertical justification of the label
 text.}
 
-\item{barwidth}{A numeric or a \code{\link[grid]{unit}} object specifying
+\item{barwidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the width of the colorbar. Default value is \code{legend.key.width} or
-\code{legend.key.size} in \code{\link{theme}} or theme.}
+\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
 
-\item{barheight}{A numeric or a \code{\link[grid]{unit}} object specifying
+\item{barheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the height of the colorbar. Default value is \code{legend.key.height} or
-\code{legend.key.size} in \code{\link{theme}} or theme.}
+\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
 
 \item{nbin}{A numeric specifying the number of bins for drawing colorbar. A
 smoother colorbar for a larger value.}
@@ -86,7 +86,7 @@ be visible.}
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
 
-\item{default.unit}{A character string indicating \code{\link[grid]{unit}}
+\item{default.unit}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
 for \code{barwidth} and \code{barheight}.}
 
 \item{reverse}{logical. If \code{TRUE} the colorbar is reversed. By default,
@@ -109,11 +109,11 @@ For more information, see the inspiration for this function:
 \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 }
 \details{
-Guides can be specified in each \code{scale_*} or in \code{\link{guides}}.
+Guides can be specified in each \code{scale_*} or in \code{\link[=guides]{guides()}}.
 \code{guide="legend"} in \code{scale_*} is syntactic sugar for
 \code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
 As for how to specify the guide for each scale in more detail,
-see \code{\link{guides}}.
+see \code{\link[=guides]{guides()}}.
 }
 \examples{
 df <- reshape2::melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
@@ -167,3 +167,4 @@ p2 +
 Other guides: \code{\link{guide_legend}},
   \code{\link{guides}}
 }
+\concept{guides}
