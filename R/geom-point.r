@@ -98,6 +98,15 @@ geom_point <- function(mapping = NULL, data = NULL,
                        na.rm = FALSE,
                        show.legend = NA,
                        inherit.aes = TRUE) {
+  dots <- list(...)
+
+  if(hasArg("shape")) {
+    # Strings of length 1 should not be translated
+    if(is.character(dots$shape) && nchar(dots$shape[1]) > 1) {
+      dots$shape <- translate_shape_string(dots$shape)
+    }
+  }
+
   layer(
     data = data,
     mapping = mapping,
@@ -106,9 +115,9 @@ geom_point <- function(mapping = NULL, data = NULL,
     position = position,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
-    params = list(
+    params = c(
       na.rm = na.rm,
-      ...
+      dots
     )
   )
 }
