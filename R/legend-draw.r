@@ -161,7 +161,7 @@ draw_key_smooth <- function(data, params, size) {
   data$alpha <- 1
 
   grobTree(
-    if (isTRUE(params$se) | is.null(params$se)) rectGrob(gp = gpar(col = NA, fill = data$fill)),
+    if (isTRUE(params$se) || is.null(params$se)) rectGrob(gp = gpar(col = NA, fill = data$fill)),
     draw_key_path(data, params)
   )
 }
