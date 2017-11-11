@@ -107,13 +107,17 @@ Scale <- ggproto("Scale", NULL,
     stop("Not implemented", call. = FALSE)
   },
 
+  #  if scale contains a function, apply it to the default (inverted) scale range
   #  if scale contains a NULL, use the default scale range
   #  if scale contains a NA, use the default range for that axis, otherwise
   #  use the user defined limit for that axis
   get_limits = function(self) {
     if (self$is_empty()) return(c(0, 1))
 
-    if (!is.null(self$limits)) {
+    if (is.function(self$limits)) {
+      # if limits is a function, it expects to work in data space
+      self$trans$transform(self$limits(self$trans$inverse(self$range$range)))
+    } else if (!is.null(self$limits)) {
       ifelse(!is.na(self$limits), self$limits, self$range$range)
     } else {
       self$range$range
@@ -526,8 +530,11 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   - A character vector giving labels (must be same length as `breaks`)
 #'   - A function that takes the breaks as input and returns labels
 #'     as output
-#' @param limits A numeric vector of length two providing limits of the scale.
-#'   Use `NA` to refer to the existing minimum or maximum.
+#' @param limits One of:
+#'   - A numeric vector of length two providing limits of the scale.
+#'     Use `NA` to refer to the existing minimum or maximum
+#'   - A function that accepts the existing (automatic) limits and returns
+#'     new limits
 #' @param rescaler  Used by diverging and n colour gradients
 #'   (i.e. [scale_colour_gradient2()], [scale_colour_gradientn()]).
 #'   A function used to scale the input values to the range \eqn{[0, 1]}.
@@ -565,7 +572,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   }
 
   trans <- as.trans(trans)
-  if (!is.null(limits)) {
+  if (!is.null(limits) && !is.function(limits)) {
     limits <- trans$transform(limits)
   }
 
@@ -598,7 +605,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'
 #' @export
 #' @inheritParams continuous_scale
-#' @param breaks One of: 
+#' @param breaks One of:
 #'   - `NULL` for no breaks
 #'   - `waiver()` for the default breaks computed by the
 #'     transformation object

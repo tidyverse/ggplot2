@@ -2,6 +2,12 @@
 
 ## New features
 
+* Continuous scale limits now accept a function, which must accept the default
+  / automatic limits and return adjusted limits. This makes it possible to write
+  a function that e.g. ensures the limits are always a multiple of 100,
+  regardless of the data. It somewhat parallels the behaviour of breaks and
+  labels in accepting functions (@econandrew, #2307).
+
 * ggplot2 now works on R 3.1 onwards, and uses the 
   [vdiffr](https://github.com/lionel-/vdiffr) package for visual testing.
 
