@@ -245,6 +245,7 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 }
 
 
+
 #' Define an element's class and what other elements it inherits from
 #'
 #' @param class The name of class (like "element_line", "element_text",
@@ -271,7 +272,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 #' the default and user-defined element trees.
 #' @author Nicholas Hamilton, UNSW Sydney
 #' @importFrom R6 R6Class
-R6ElementTree = R6Class('element_tree',
+R6ElementTree = R6Class(
+  'element_tree',
   public = list(
     initialize = function(){
       self$reset(FALSE)
