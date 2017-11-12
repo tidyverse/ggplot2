@@ -57,6 +57,12 @@ NEW FEATURES
   https://github.com/hadley/ggplot2/wiki/labeller#writing-new-labellers
   (@stefanedwards, #910)
 
+* Completely re-worked element tree, now based of R6 Class, which permits user-defined theme
+  elements, for use in package extentions etc... Checks have been implemented so that
+  these user-defined theme elements do not clash with the set of protected theme elements,
+  that are otherwise required for the base functioning of ggplot2.
+  (@nhamilton1980)
+
 BUG FIXES AND MINOR IMPROVEMENTS
 
 * `aes()` no more treats variables like `a..x..b` as a calculated aesthetic.
