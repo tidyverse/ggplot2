@@ -24,7 +24,6 @@ Imports:
     stats,
     tibble,
     viridisLite,
-    R6
     withr (>= 2.0.0)
 Suggests:
     covr,
@@ -48,7 +47,8 @@ Suggests:
     rpart,
     rmarkdown,
     sf (>= 0.3-4),
-    svglite (>= 1.2.0.9001)
+    svglite (>= 1.2.0.9001),
+    R6
 Remotes:
     hadley/scales,
     hadley/svglite,
