@@ -24,8 +24,8 @@ Imports:
     stats,
     tibble,
     viridisLite,
-    withr,
     R6
+    withr (>= 2.0.0)
 Suggests:
     covr,
     dplyr,
@@ -38,6 +38,7 @@ Suggests:
     maptools,
     mgcv,
     multcomp,
+    munsell,
     nlme,
     testthat (>= 0.11.0),
     vdiffr,
@@ -80,6 +81,7 @@ Collate:
     'autolayer.r'
     'autoplot.r'
     'axis-secondary.R'
+    'backports.R'
     'bench.r'
     'bin.R'
     'coord-.r'
@@ -233,6 +235,6 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 6.0.1
+RoxygenNote: 6.0.1.9000
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
