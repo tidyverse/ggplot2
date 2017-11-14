@@ -13,7 +13,7 @@
 #'   - A `scale` overrides the existing scale.
 #'   - A [theme()] modifies the current theme.
 #'   - A `coord` overrides current coordinate system.
-#'   - A `facet` specificatio override current faceting.
+#'   - A `facet` specification override current faceting.
 #'
 #' To replace the current default data frame, you must use \code{\%+\%},
 #' due to S3 method precedence issues.
