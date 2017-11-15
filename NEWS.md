@@ -125,6 +125,9 @@ up correct aspect ratio, and draws a graticule.
   `panel_params` (#1311). These are parameters of the Coord that vary from
   panel to panel.
 
+* Shapes can now be provided using strings instead of integers (i.e.
+  `geom_point(shape = "diamond")`) (@daniel-barnett, #2075). 
+
 ## Minor bug fixes and improvements
 
 ### Facetting
