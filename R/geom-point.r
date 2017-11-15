@@ -99,9 +99,9 @@ geom_point <- function(mapping = NULL, data = NULL,
                        show.legend = NA,
                        inherit.aes = TRUE) {
   dots <- list(...)
-  if(hasArg("shape")) {
+  if (hasArg("shape")) {
     # Numerics/Strings of length 1 should not be translated
-    if(is.character(dots$shape) && nchar(dots$shape[1]) > 1) {
+    if (is.character(dots$shape) && nchar(dots$shape[1]) > 1) {
       dots$shape <- translate_shape_string(dots$shape)
     }
   }
@@ -154,39 +154,44 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 )
 
 translate_shape_string <- function(shape_string) {
-  pch_table <- c("0" = "square open",
-                 "1" = "circle open",
-                 "2" = "triangle open",
-                 "3" = "plus",
-                 "4" = "cross",
-                 "5" = "diamond open",
-                 "6" = "triangle down open",
-                 "7" = "square cross",
-                 "8" = "asterisk",
-                 "9" = "diamond plus",
-                 "10" = "circle plus",
-                 "11" = "star",
-                 "12" = "square plus",
-                 "13" = "circle cross",
-                 "14" = "square triangle",
-                 "15" = "square",
-                 "16" = "circle small",
-                 "17" = "triangle",
-                 "18" = "diamond",
-                 "19" = "circle",
-                 "20" = "bullet",
-                 "21" = "circle filled ",
-                 "22" = "square filled",
-                 "23" = "diamond filled",
-                 "24" = "triangle filled",
-                 "25" = "triangle down filled")
+  pch_table <- c(
+    "0" = "square open",
+    "1" = "circle open",
+    "2" = "triangle open",
+    "3" = "plus",
+    "4" = "cross",
+    "5" = "diamond open",
+    "6" = "triangle down open",
+    "7" = "square cross",
+    "8" = "asterisk",
+    "9" = "diamond plus",
+    "10" = "circle plus",
+    "11" = "star",
+    "12" = "square plus",
+    "13" = "circle cross",
+    "14" = "square triangle",
+    "15" = "square",
+    "16" = "circle small",
+    "17" = "triangle",
+    "18" = "diamond",
+    "19" = "circle",
+    "20" = "bullet",
+    "21" = "circle filled ",
+    "22" = "square filled",
+    "23" = "diamond filled",
+    "24" = "triangle filled",
+    "25" = "triangle down filled"
+  )
 
   shape_match <- pmatch(shape_string, pch_table, duplicates.ok = TRUE)
 
-  if(any(is.na(shape_match))) {
+  if (any(is.na(shape_match))) {
     bad_string <- shape_string[is.na(shape_match)]
     collapsed_names <- paste0(bad_string, collapse = "', '")
-    stop(paste0("Invalid shape name: '", collapsed_names, "'"), call. = FALSE)
+    stop(
+      paste0("Invalid shape name: '", collapsed_names, "'"), 
+      call. = FALSE
+    )
   }
 
   as.integer(names(pch_table[shape_match]))
