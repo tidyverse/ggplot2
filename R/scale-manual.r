@@ -56,7 +56,7 @@ scale_size_manual <- function(..., values) {
 #' @rdname scale_manual
 #' @export
 scale_shape_manual <- function(..., values) {
-  if(is.character(values) && nchar(values[1]) > 1) {
+  if (is.character(values) && nchar(values[1]) > 1) {
     orig_names <- names(values)
     values <- translate_shape_string(values)
     names(values) <- orig_names
