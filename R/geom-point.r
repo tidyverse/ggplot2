@@ -189,7 +189,7 @@ translate_shape_string <- function(shape_string) {
     bad_string <- shape_string[is.na(shape_match)]
     collapsed_names <- paste0(bad_string, collapse = "', '")
     stop(
-      paste0("Invalid shape name: '", collapsed_names, "'"), 
+      "Invalid shape name: '", collapsed_names, "'", 
       call. = FALSE
     )
   }
