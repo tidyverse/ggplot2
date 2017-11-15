@@ -7,11 +7,11 @@
 \usage{
 geom_contour(mapping = NULL, data = NULL, stat = "contour",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 1, breaks = breaks_default, bins = NULL, binwidth = NULL,
+  linemitre = 1, breaks = fullseq, bins = NULL, binwidth = NULL,
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_contour(mapping = NULL, data = NULL, geom = "contour",
-  position = "identity", ..., breaks = breaks_default, bins = NULL,
+  position = "identity", ..., breaks = fullseq, bins = NULL,
   binwidth = NULL, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
@@ -54,7 +54,7 @@ to the paired geom/stat.}
 \item{breaks}{One of:
 \itemize{
 \item A numeric vector of breaks
-\item A function that takes the range of the data, bins and binwidth as input
+\item A function that takes the range of the data and binwidth as input
 and returns breaks as output
 }}
 
