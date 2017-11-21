@@ -190,7 +190,7 @@ guide_train.colorbar <- function(guide, scale) {
 
   # bar specification (number of divs etc)
   .limits <- scale$get_limits()
-  .bar <- discard(pretty(.limits, n = guide$nbin), scale$get_limits())
+  .bar <- seq(.limits[1], .limits[2], length = guide$nbin)
   if (length(.bar) == 0) {
     .bar = unique(.limits)
   }

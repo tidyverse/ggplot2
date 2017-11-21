@@ -71,6 +71,8 @@
 
 * Fix bug in `scale_*_gradient2()` where points outside limits can sometimes reappear due to rescaling. Now, any rescaling is performed after the limits are enforced (@foo-bar-baz-qux, #2230).
 
+* The colorbar shows all colours of the scale (@has2k1, 2343).
+
 ### Margins
 
 * Strips gain margins on all sides by default. This means that to fully justify
