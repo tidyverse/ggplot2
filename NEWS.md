@@ -224,6 +224,10 @@ up correct aspect ratio, and draws a graticule.
 * Complete themes now always override all elements of the default theme
   (@has2k1, #2058, #2079)
 
+* Themes now set default grid colour in `panel.grid` rather than individually
+  in `panel.grid.major` and `panel.grid.minor` individually. This makes it 
+  slightly easier to customise the grid (#2352).
+
 * Fixed bug when setting strips to `element_blank()` (@thomasp85). 
 
 * Axes positioned on the top and to the right can now customize their ticks and
