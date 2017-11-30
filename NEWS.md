@@ -242,6 +242,10 @@ up correct aspect ratio, and draws a graticule.
 
 * `fortify()` gains a method for tbls (@karawoo, #2218)
 
+* `ggplot` gains a method for `grouped_df`s that adds a `.group` variable,
+  which computes a unique value for each group, and automatically sets
+  the group aesthetic to use that variable (#2351).
+
 * `ggproto()` produces objects with class `c("ggproto", "gg")`, allowing for
   a more informative error message when adding layers, scales, or other ggproto 
   objects (@jrnold, #2056).
