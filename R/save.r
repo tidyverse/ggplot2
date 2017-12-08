@@ -54,7 +54,7 @@ ggsave <- function(filename, plot = last_plot(),
     filename <- file.path(path, filename)
   }
   old_dev <- dev.cur()
-  dev(file = filename, width = dim[1], height = dim[2], ...)
+  dev(filename = filename, width = dim[1], height = dim[2], ...)
   on.exit(utils::capture.output({
     grDevices::dev.off()
     dev.set(old_dev)
@@ -120,16 +120,16 @@ plot_dev <- function(device, filename, dpi = 300) {
   if (is.function(device))
     return(device)
 
-  eps <- function(...) {
-    grDevices::postscript(..., onefile = FALSE, horizontal = FALSE,
+  eps <- function(filename, ...) {
+    grDevices::postscript(file = filename, ..., onefile = FALSE, horizontal = FALSE,
       paper = "special")
   }
   devices <- list(
     eps =  eps,
     ps =   eps,
-    tex =  function(...) grDevices::pictex(...),
-    pdf =  function(..., version = "1.4") grDevices::pdf(..., version = version),
-    svg =  function(...) svglite::svglite(...),
+    tex =  function(filename, ...) grDevices::pictex(file = filename, ...),
+    pdf =  function(filename, ..., version = "1.4") grDevices::pdf(file = filename, ..., version = version),
+    svg =  function(filename, ...) svglite::svglite(file = filename, ...),
     emf =  function(...) grDevices::win.metafile(...),
     wmf =  function(...) grDevices::win.metafile(...),
     png =  function(...) grDevices::png(..., res = dpi, units = "in"),

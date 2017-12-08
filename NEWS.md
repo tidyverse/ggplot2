@@ -290,6 +290,8 @@ up correct aspect ratio, and draws a graticule.
 * `ggsave()`'s DPI argument now supports 3 string options: "retina" (320
   DPI), "print" (300 DPI), and "screen" (72 DPI) (@foo-bar-baz-qux, #2156).
 
+* Fixed partial argument matches in `ggsave()`. (#2355)
+
 * `ggsave()` now correctly restores the previous graphics device when several
   graphics devices are open. (#2363)
 
