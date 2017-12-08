@@ -11,6 +11,26 @@ test_that("ggsave creates file", {
   expect_true(file.exists(path))
 })
 
+test_that("ggsave restores previous graphics device", {
+  # When multiple devices are open, dev.off() restores the next one in the list,
+  # not the previously-active one. (#2363)
+  path <- tempfile()
+  on.exit(unlink(path))
+
+  png()
+  png()
+  on.exit({
+    dev.off()
+    dev.off()
+  }, add = TRUE)
+
+  old_dev <- dev.cur()
+  p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+  ggsave(path, p, device = "png", width = 5, height = 5)
+
+  expect_identical(old_dev, dev.cur())
+})
+
 
 # plot_dim ---------------------------------------------------------------
 

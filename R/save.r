@@ -53,8 +53,12 @@ ggsave <- function(filename, plot = last_plot(),
   if (!is.null(path)) {
     filename <- file.path(path, filename)
   }
+  old_dev <- dev.cur()
   dev(file = filename, width = dim[1], height = dim[2], ...)
-  on.exit(utils::capture.output(grDevices::dev.off()))
+  on.exit(utils::capture.output({
+    grDevices::dev.off()
+    dev.set(old_dev)
+  }))
   grid.draw(plot)
 
   invisible()

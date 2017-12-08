@@ -253,6 +253,9 @@ up correct aspect ratio, and draws a graticule.
 * `ggsave()`'s DPI argument now supports 3 string options: "retina" (320
   DPI), "print" (300 DPI), and "screen" (72 DPI) (@foo-bar-baz-qux, #2156).
 
+* `ggsave()` now correctly restores the previous graphics device when several
+  graphics devices are open. (#2363)
+
 * `print.ggplot()` now returns the original ggplot object, instead of the 
   output from `ggplot_build()`. Also, the object returned from 
   `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
