@@ -200,5 +200,5 @@ translate_shape_string <- function(shape_string) {
     stop("Non-unique shape name: '", collapsed_names, "'", call. = FALSE)
   }
 
-  pch_table[shape_match]
+  unname(pch_table[shape_match])
 }
