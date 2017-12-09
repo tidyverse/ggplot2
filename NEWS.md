@@ -69,6 +69,10 @@
   warnings when mapped to size or alpha (unordered factors do). Viridis used as
   default colour and fill scale for ordered factors (@karawoo, #1526).
 
+* Fix bug in `scale_*_gradient2()` where points outside limits can sometimes reappear due to rescaling. Now, any rescaling is performed after the limits are enforced (@foo-bar-baz-qux, #2230).
+
+* The colorbar shows all colours of the scale (@has2k1, 2343).
+
 ### Margins
 
 * Strips gain margins on all sides by default. This means that to fully justify
@@ -223,6 +227,10 @@ up correct aspect ratio, and draws a graticule.
 * Complete themes now always override all elements of the default theme
   (@has2k1, #2058, #2079)
 
+* Themes now set default grid colour in `panel.grid` rather than individually
+  in `panel.grid.major` and `panel.grid.minor` individually. This makes it 
+  slightly easier to customise the grid (#2352).
+
 * Fixed bug when setting strips to `element_blank()` (@thomasp85). 
 
 * Axes positioned on the top and to the right can now customize their ticks and
@@ -236,6 +244,10 @@ up correct aspect ratio, and draws a graticule.
 ### Other
 
 * `fortify()` gains a method for tbls (@karawoo, #2218)
+
+* `ggplot` gains a method for `grouped_df`s that adds a `.group` variable,
+  which computes a unique value for each group, and automatically sets
+  the group aesthetic to use that variable (#2351).
 
 * `ggproto()` produces objects with class `c("ggproto", "gg")`, allowing for
   a more informative error message when adding layers, scales, or other ggproto 

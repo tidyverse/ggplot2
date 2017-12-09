@@ -106,6 +106,16 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
   p
 }
 
+#' @export
+ggplot.grouped_df <- function(data, mapping = aes(), ...,
+                               environment = parent.frame()) {
+
+  data$.group <- dplyr::group_indices(data)
+  mapping$group <- mapping$group %||% quote(.group)
+
+  ggplot.data.frame(data, mapping = mapping, ..., environment = environment)
+}
+
 plot_clone <- function(plot) {
   p <- plot
   p$scales <- plot$scales$clone()
