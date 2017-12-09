@@ -302,7 +302,7 @@ GeomStep <- ggproto("GeomStep", GeomPath,
 #
 # @keyword internal
 stairstep <- function(data, direction="hv") {
-  direction <- match.arg(direction, c("hv", "vh"))
+  direction <- match.arg(direction, c("hv", "vh", "hvh"))
   data <- as.data.frame(data)[order(data$x), ]
   n <- nrow(data)
 
@@ -319,9 +319,19 @@ stairstep <- function(data, direction="hv") {
     xs <- c(1, rep(2:n, each = 2))
   }
 
-  data.frame(
-    x = data$x[xs],
-    y = data$y[ys],
-    data[xs, setdiff(names(data), c("x", "y"))]
-  )
+  if (direction == "hvh") {
+    gaps <- data$x[2:n] - data$x[1:(n-1)]
+
+    data.frame(
+      x = c(data$x[1],data$x[xs[-1]] - (gaps[rep(1:(n-1), each = 2)]/2),data$x[n]),
+      y = c(data$y[ys],data$y[n]),
+      data[c(xs,n), setdiff(names(data), c("x", "y"))]
+    )
+  } else {
+    data.frame(
+      x = data$x[xs],
+      y = data$y[ys],
+      data[xs, setdiff(names(data), c("x", "y"))]
+    )
+  }
 }
