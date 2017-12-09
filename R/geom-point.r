@@ -191,13 +191,17 @@ translate_shape_string <- function(shape_string) {
   if (any(invalid_strings)) {
     bad_string <- unique(shape_string[invalid_strings])
     collapsed_names <- paste0(bad_string, collapse = "', '")
-    stop("Invalid shape name: '", collapsed_names, "'", call. = FALSE)
+    stop(
+      "Invalid shape name: '", collapsed_names, "'",
+      call. = FALSE)
   }
 
   if (any(nonunique_strings)) {
     bad_string <- unique(shape_string[nonunique_strings])
     collapsed_names <- paste0(bad_string, collapse = "', '")
-    stop("Non-unique shape name: '", collapsed_names, "'", call. = FALSE)
+    stop(
+      "Non-unique shape name: '", collapsed_names, "'",
+      call. = FALSE)
   }
 
   unname(pch_table[shape_match])
