@@ -101,6 +101,10 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   if (scale$is_discrete()) {
     breaks <- scale$get_breaks()
     return(-0.5 + seq_len(length(breaks) + 1))
+  } else {
+    if (!is.null(breaks)) {
+      breaks <- scale$transform(breaks)
+    }
   }
 
   if (!is.null(breaks))
