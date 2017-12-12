@@ -207,6 +207,9 @@ up correct aspect ratio, and draws a graticule.
 
 * Restored correct scaling for computed variable `ndensity` when binning (@timgoodman, #2324)
 
+* `stat_bin()` and `stat_bin_2d()` now properly handle the `breaks` parameter when
+  the scales are transformed (@has2k1, #2366).
+
 ### Coords
 
 * Like scales, coordinate systems now give you a message when you're 

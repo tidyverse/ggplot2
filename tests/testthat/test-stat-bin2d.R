@@ -29,3 +29,15 @@ test_that("breaks override binwidth", {
   expect_equal(out$xbin, cut(df$x, adjust_breaks(integer_breaks), include.lowest = TRUE, labels = FALSE))
   expect_equal(out$ybin, cut(df$y, adjust_breaks(half_breaks), include.lowest = TRUE, labels = FALSE))
 })
+
+test_that("breaks are transformed by the scale", {
+  df <- data.frame(x = c(1, 10, 100, 1000), y = 0:3)
+  base <- ggplot(df, aes(x, y)) +
+    stat_bin_2d(
+      breaks = list(x = c(5, 50, 500), y = c(0.5, 1.5, 2.5)))
+
+  out1 <- layer_data(base)
+  out2 <- layer_data(base + scale_x_log10())
+  expect_equal(out1$x, c(27.5, 275))
+  expect_equal(out2$x, c(1.19897, 2.19897))
+})
