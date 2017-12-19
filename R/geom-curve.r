@@ -8,6 +8,7 @@ geom_curve <- function(mapping = NULL, data = NULL,
                        angle = 90,
                        ncp = 5,
                        arrow = NULL,
+                       arrow.fill = NULL,
                        lineend = "butt",
                        na.rm = FALSE,
                        show.legend = NA,
@@ -22,6 +23,7 @@ geom_curve <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       arrow = arrow,
+      arrow.fill = arrow.fill,
       curvature = curvature,
       angle = angle,
       ncp = ncp,
@@ -38,14 +40,18 @@ geom_curve <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomCurve <- ggproto("GeomCurve", GeomSegment,
-  default_aes = aes(colour = "black", fill = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
   draw_panel = function(data, panel_params, coord, curvature = 0.5, angle = 90,
-                        ncp = 5, arrow = NULL, lineend = "butt", na.rm = FALSE) {
+                        ncp = 5, arrow = NULL, arrow.fill, lineend = "butt", na.rm = FALSE) {
+
     if (!coord$is_linear()) {
       warning("geom_curve is not implemented for non-linear coordinates",
         call. = FALSE)
     }
+
     trans <- coord$transform(data, panel_params)
+
+    arrow.fill <- arrow.fill %||% trans$colour
 
     curveGrob(
       trans$x, trans$y, trans$xend, trans$yend,
@@ -54,7 +60,7 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
       square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
       gp = gpar(
         col = alpha(trans$colour, trans$alpha),
-        fill = alpha(trans$fill, trans$alpha),
+        fill = alpha(arrow.fill, trans$alpha),
         lwd = trans$size * .pt,
         lty = trans$linetype,
         lineend = lineend),

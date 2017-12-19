@@ -48,6 +48,10 @@
 * Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This
   line makes it easier to judge the fit of the theoretical distribution 
   (@nicksolomon).
+  
+* Added `arrow.fill` parameter to `geom_segment()` and `geom_curve()` to 
+  enable specifying a separate fill colour for closed arrowheads. (@hrbrmstr
+  and @clauswilke).
 
 ### Scales
 

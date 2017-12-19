@@ -68,7 +68,6 @@ useful when you have variables that describe direction and distance.
 \item \strong{\code{radius}}
 \item \code{alpha}
 \item \code{colour}
-\item \code{fill}
 \item \code{group}
 \item \code{linetype}
 \item \code{size}
