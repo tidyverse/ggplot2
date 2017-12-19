@@ -53,6 +53,7 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
       square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
       gp = gpar(
         col = alpha(trans$colour, trans$alpha),
+        fill = alpha(trans$colour, trans$alpha),
         lwd = trans$size * .pt,
         lty = trans$linetype,
         lineend = lineend),
