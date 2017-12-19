@@ -99,6 +99,7 @@ need to connect points across multiple cases.
 \item \strong{\code{yend}}
 \item \code{alpha}
 \item \code{colour}
+\item \code{fill}
 \item \code{group}
 \item \code{linetype}
 \item \code{size}

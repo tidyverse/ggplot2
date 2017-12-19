@@ -38,6 +38,7 @@ geom_curve <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomCurve <- ggproto("GeomCurve", GeomSegment,
+  default_aes = aes(colour = "black", fill = "black", size = 0.5, linetype = 1, alpha = NA),
   draw_panel = function(data, panel_params, coord, curvature = 0.5, angle = 90,
                         ncp = 5, arrow = NULL, lineend = "butt", na.rm = FALSE) {
     if (!coord$is_linear()) {
@@ -53,7 +54,7 @@ GeomCurve <- ggproto("GeomCurve", GeomSegment,
       square = FALSE, squareShape = 1, inflect = FALSE, open = TRUE,
       gp = gpar(
         col = alpha(trans$colour, trans$alpha),
-        fill = alpha(trans$colour, trans$alpha),
+        fill = alpha(trans$fill, trans$alpha),
         lwd = trans$size * .pt,
         lty = trans$linetype,
         lineend = lineend),
