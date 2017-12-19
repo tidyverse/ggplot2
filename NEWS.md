@@ -20,6 +20,10 @@
   of padding between elements (@karawoo, #2143). A `reverse` parameter allows 
   you to reverse the placement order of bars and boxes (@karawoo, #2171).
   
+* The `geom_segment()` and `geom_curve()`) geoms both have a new 
+  `arrow.fill` parameter which enables specifying a separate fill colour for 
+  closed arrowheads. (@hrbrmstr and @clauswilke, #2375).
+  
 * The `expand` argument for `scale_*_continuous()` and `scale_*_discrete()`
   now accepts separate expansion values for the lower and upper range
   limits. The expansion limits can be specified using the convenience
@@ -48,10 +52,6 @@
 * Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This
   line makes it easier to judge the fit of the theoretical distribution 
   (@nicksolomon).
-  
-* Added `arrow.fill` parameter to `geom_segment()` and `geom_curve()` to 
-  enable specifying a separate fill colour for closed arrowheads. (@hrbrmstr
-  and @clauswilke).
 
 ### Scales
 
