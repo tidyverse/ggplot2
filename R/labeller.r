@@ -552,8 +552,9 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       clip = "on"
     )
 
-    if (inherits(theme$strip.text.y, "element_text")) {
-      theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
+    # Change angle of strip labels for y strips that are placed on the left side
+    if (inherits(element, "element_text")) {
+      element$angle <- adjust_angle(element$angle)
     }
 
     grobs_left <- grobs
