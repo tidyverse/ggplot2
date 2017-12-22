@@ -519,20 +519,9 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     lineheight = element$lineheight
   )
 
-  # Create text grobs, preserving array layout
-  grobs <- lapply(labels, title_spec,
-    x = NULL,
-    y = NULL,
-    hjust = element$hjust,
-    vjust = element$vjust,
-    angle = element$angle,
-    gp = gp,
-    debug = element$debug
-  )
-  dim(grobs) <- dim(labels)
-
   if (horizontal) {
 
+    grobs <- create_strip_labels(labels, element, gp)
     grobs <- ggstrip(grobs, theme, element, gp, horizontal, clip = "on")
 
     list(
@@ -541,6 +530,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     )
   } else {
 
+    grobs <- create_strip_labels(labels, element, gp)
     grobs_right <- grobs[, rev(seq_len(ncol(grobs))), drop = FALSE]
 
     grobs_right <- ggstrip(
@@ -552,11 +542,12 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       clip = "on"
     )
 
-    if (inherits(theme$strip.text.y, "element_text")) {
-      theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
+    # Change angle of strip labels for y strips that are placed on the left side
+    if (inherits(element, "element_text")) {
+      element$angle <- adjust_angle(element$angle)
     }
 
-    grobs_left <- grobs
+    grobs_left <- create_strip_labels(labels, element, gp)
 
     grobs_left <- ggstrip(
       grobs_left,
@@ -572,6 +563,30 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       right = grobs_right
     )
   }
+}
+
+#' Create list of strip labels
+#'
+#' Calls [title_spec()] on all the labels for a set of strips to create a list
+#' of text grobs, heights, and widths.
+#'
+#' @param labels Matrix of strip labels
+#' @param element Theme element (see [calc_element()]).
+#' @param gp Additional graphical parameters.
+#'
+#' @noRd
+create_strip_labels <- function(labels, element, gp) {
+  grobs <- lapply(labels, title_spec,
+    x = NULL,
+    y = NULL,
+    hjust = element$hjust,
+    vjust = element$vjust,
+    angle = element$angle,
+    gp = gp,
+    debug = element$debug
+  )
+  dim(grobs) <- dim(labels)
+  grobs
 }
 
 #' Grob for strip labels
