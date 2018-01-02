@@ -129,6 +129,9 @@ up correct aspect ratio, and draws a graticule.
   `panel_params` (#1311). These are parameters of the Coord that vary from
   panel to panel.
 
+* `ggplot_build` and `ggplot_gtable` are now generics so ggplot-subclasses can
+  define additional behavior during the build stage.
+
 ## Minor bug fixes and improvements
 
 ### Facetting
