@@ -269,6 +269,9 @@ up correct aspect ratio, and draws a graticule.
   summarise the layout, coordinate systems, and layers, of a built ggplot object
   (#2034, @wch). This provides a tested API that (e.g.) shiny can depend on.
 
+* (Internal) Package `mgcv` is now in Imports, as `stat_smooth.R` calls this
+  unconditionally.
+
 # ggplot2 2.2.1
 
 * Fix usage of `structure(NULL)` for R-devel compatibility (#1968).
