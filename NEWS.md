@@ -2,6 +2,12 @@
 
 ## New features
 
+* `aes()` now supports quasiquotation so that you can use `!!`, `!!!`, and
+  `:=`. (ggplot2 does not currently support full tidy evaluation because
+  when I wrote ggplot2 my understanding of NSE was quite flawed, and hence
+  ggplot2 only captures one environment per plot, not one environment
+  per aesthetic. We will fix this in a future release.)
+
 * ggplot2 now works on R 3.1 onwards, and uses the 
   [vdiffr](https://github.com/lionel-/vdiffr) package for visual testing.
 

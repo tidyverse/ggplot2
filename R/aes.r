@@ -58,15 +58,24 @@ NULL
 #' # Aesthetics supplied to ggplot() are used as defaults for every layer
 #' # you can override them, or supply different aesthetics for each layer
 aes <- function(x, y, ...) {
-  aes <- structure(as.list(match.call()[-1]), class = "uneval")
+  exprs <- rlang::enexprs(x = x, y = y, ...)
+  is_missing <- vapply(exprs, rlang::is_missing, logical(1))
+
+  aes <- structure(exprs[!is_missing], class = "uneval")
   rename_aes(aes)
 }
 #' @export
 print.uneval <- function(x, ...) {
-  values <- vapply(x, deparse2, character(1))
-  bullets <- paste0("* ", format(names(x)), " -> ", values, "\n")
+  cat("Aesthetic mapping: \n")
 
-  cat(bullets, sep = "")
+  if (length(x) == 0) {
+    cat("<empty>\n")
+  } else {
+    values <- vapply(x, deparse2, character(1))
+    bullets <- paste0("* ", format(names(x)), " -> ", values, "\n")
+
+    cat(bullets, sep = "")
+  }
 }
 
 #' @export
