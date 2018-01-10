@@ -12,7 +12,7 @@ Authors@R: c(
     )
 Depends:
     R (>= 3.1)
-Imports:
+Imports: 
     digest,
     grid,
     gtable (>= 0.1.1),
@@ -20,6 +20,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
+    rlang (>= 0.1.6.9002),
     scales (>= 0.4.1.9002),
     stats,
     tibble,
@@ -48,10 +49,10 @@ Suggests:
     rmarkdown,
     sf (>= 0.3-4),
     svglite (>= 1.2.0.9001)
-Remotes:
-    hadley/scales,
+Remotes: hadley/scales,
     hadley/svglite,
-    jimhester/withr
+    jimhester/withr,
+    tidyverse/rlang
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
