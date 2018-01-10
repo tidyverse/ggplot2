@@ -20,6 +20,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
+    rlang (>= 0.1.7),
     scales (>= 0.4.1.9002),
     stats,
     tibble,
