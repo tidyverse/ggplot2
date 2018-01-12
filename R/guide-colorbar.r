@@ -299,8 +299,8 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   # gap between keys etc
   hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
-  vgap <- height_cm(theme$legend.spacing.y %||% 0.5 * unit(title_height, "cm"))
-  
+  vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_height, "cm")))
+
   # label
   label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
   grob.label <- {
