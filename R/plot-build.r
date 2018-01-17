@@ -242,6 +242,11 @@ ggplot_gtable.ggplot_built <- function(data) {
   subtitle <- element_render(theme, "plot.subtitle", plot$labels$subtitle, margin_y = TRUE)
   subtitle_height <- grobHeight(subtitle)
 
+  # Tag
+  tag <- element_render(theme, "plot.tag", plot$labels$tag, margin_y = TRUE, margin_x = TRUE)
+  tag_height <- grobHeight(tag)
+  tag_width <- grobWidth(tag)
+
   # whole plot annotation
   caption <- element_render(theme, "plot.caption", plot$labels$caption, margin_y = TRUE)
   caption_height <- grobHeight(caption)
@@ -256,6 +261,11 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, title, name = "title",
     t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
+
+  plot_table <- gtable_add_rows(plot_table, tag_height, pos = 0)
+  plot_table <- gtable_add_cols(plot_table, tag_width, pos = 0)
+  plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
+    t = 1, b = 1, l = 1, r = 1, clip = "off")
 
   plot_table <- gtable_add_rows(plot_table, caption_height, pos = -1)
   plot_table <- gtable_add_grob(plot_table, caption, name = "caption",

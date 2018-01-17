@@ -345,6 +345,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.title          = el_def("element_text", "title"),
   plot.subtitle       = el_def("element_text", "title"),
   plot.caption        = el_def("element_text", "title"),
+  plot.tag            = el_def("element_text", "title"),
   plot.margin         = el_def("margin"),
 
   aspect.ratio        = el_def("character")

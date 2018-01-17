@@ -76,6 +76,10 @@
 * Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This
   line makes it easier to judge the fit of the theoretical distribution 
   (@nicksolomon).
+  
+* Added `tag` label for adding identification tags to the upper left corner of 
+  the plot. A tag is added with the `labs()` function and styling is handled 
+  through the `plot.tag` theme element (@thomasp85).
 
 ### Scales
 

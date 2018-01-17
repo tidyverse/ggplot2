@@ -157,6 +157,8 @@
 #'   inherits from `title`) left-aligned by default
 #' @param plot.caption caption below the plot (text appearance)
 #'   (`element_text`; inherits from `title`) right-aligned by default
+#' @param plot.tag upper-left label to identify a plot (text appearance)
+#'   (`element_text`; inherits from `title`) left-aligned by default
 #' @param plot.margin margin around entire plot (`unit` with the sizes of
 #'   the top, right, bottom, and left margins)
 #'
@@ -351,6 +353,7 @@ theme <- function(line,
                   plot.title,
                   plot.subtitle,
                   plot.caption,
+                  plot.tag,
                   plot.margin,
                   strip.background,
                   strip.background.x,

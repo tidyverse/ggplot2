@@ -17,6 +17,9 @@ test_that("Setting guide labels", {
     expect_identical(labs(caption = "my notice")$caption, "my notice")
     expect_identical(labs(title = "my title",
                           caption = "my notice")$caption, "my notice")
+    expect_identical(labs(tag = "A)")$tag, "A)")
+    expect_identical(labs(title = "my title",
+                          tag = "A)")$tag, "A)")
 
     # Colour
     expect_identical(labs(colour = "my label")$colour, "my label")
