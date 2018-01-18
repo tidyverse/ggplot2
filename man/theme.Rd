@@ -21,10 +21,10 @@ theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
   panel.spacing.y, panel.grid, panel.grid.major, panel.grid.minor,
   panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
   panel.grid.minor.y, panel.ontop, plot.background, plot.title, plot.subtitle,
-  plot.caption, plot.margin, strip.background, strip.background.x,
-  strip.background.y, strip.placement, strip.text, strip.text.x, strip.text.y,
-  strip.switch.pad.grid, strip.switch.pad.wrap, ..., complete = FALSE,
-  validate = TRUE)
+  plot.caption, plot.tag, plot.tag.position, plot.margin, strip.background,
+  strip.background.x, strip.background.y, strip.placement, strip.text,
+  strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
+  complete = FALSE, validate = TRUE)
 }
 \arguments{
 \item{line}{all line elements (\code{element_line})}
@@ -237,6 +237,14 @@ inherits from \code{title}) left-aligned by default}
 
 \item{plot.caption}{caption below the plot (text appearance)
 (\code{element_text}; inherits from \code{title}) right-aligned by default}
+
+\item{plot.tag}{upper-left label to identify a plot (text appearance)
+(\code{element_text}; inherits from \code{title}) left-aligned by default}
+
+\item{plot.tag.position}{The position of the tag as a string ("topleft",
+"top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
+or a coordinate. In the former case extra space will be added to accomodate
+the tag.}
 
 \item{plot.margin}{margin around entire plot (\code{unit} with the sizes of
 the top, right, bottom, and left margins)}

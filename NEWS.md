@@ -77,9 +77,10 @@
   line makes it easier to judge the fit of the theoretical distribution 
   (@nicksolomon).
   
-* Added `tag` label for adding identification tags to the upper left corner of 
-  the plot. A tag is added with the `labs()` function and styling is handled 
-  through the `plot.tag` theme element (@thomasp85).
+* Added `tag` label for adding identification tags to the plot. A tag is added 
+  with the `labs()` function and styling is handled through the `plot.tag` theme 
+  element. Position is specified with the `plot.tag.position` theme setting and
+  defauls to `"topleft"` (@thomasp85).
 
 ### Scales
 

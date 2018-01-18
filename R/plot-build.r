@@ -262,14 +262,70 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- gtable_add_grob(plot_table, title, name = "title",
     t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
 
-  plot_table <- gtable_add_rows(plot_table, tag_height, pos = 0)
-  plot_table <- gtable_add_cols(plot_table, tag_width, pos = 0)
-  plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
-    t = 1, b = 1, l = 1, r = 1, clip = "off")
-
   plot_table <- gtable_add_rows(plot_table, caption_height, pos = -1)
   plot_table <- gtable_add_grob(plot_table, caption, name = "caption",
     t = -1, b = -1, l = min(pans$l), r = max(pans$r), clip = "off")
+
+  plot_table <- gtable_add_rows(plot_table, unit(0, 'pt'), pos = 0)
+  plot_table <- gtable_add_cols(plot_table, unit(0, 'pt'), pos = 0)
+  plot_table <- gtable_add_rows(plot_table, unit(0, 'pt'), pos = -1)
+  plot_table <- gtable_add_cols(plot_table, unit(0, 'pt'), pos = -1)
+
+  tag_pos <- theme$plot.tag.position
+  if (length(tag_pos) == 2) tag_pos <- "manual"
+  stopifnot(tag_pos %in% c("topleft", "top", "topright", "left", "right",
+                           "bottomleft", "bottom", "bottomright", "manual"))
+
+  if (tag_pos == "manual") {
+    xpos <- theme$plot.tag.position[1]
+    ypos <- theme$plot.tag.position[2]
+
+    tag <- editGrob(tag, vp = viewport(x = xpos, y = ypos))
+    plot_table <- gtable_add_grob(plot_table, tag, name = "tag", t = 1,
+                                  b = nrow(plot_table), l = 1,
+                                  r = ncol(plot_table), clip = "off")
+  } else {
+    if (tag_pos == "topleft") {
+      plot_table$widths[1] <- tag_width
+      plot_table$heights[1] <- tag_height
+      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
+                                    t = 1, l = 1, clip = "off")
+    } else if (tag_pos == "top") {
+      plot_table$heights[1] <- tag_height
+      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
+                                    t = 1, l = 1, r = ncol(plot_table),
+                                    clip = "off")
+    } else if (tag_pos == "topright") {
+      plot_table$widths[ncol(plot_table)] <- tag_width
+      plot_table$heights[1] <- tag_height
+      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
+                                    t = 1, l = ncol(plot_table), clip = "off")
+    } else if (tag_pos == "left") {
+      plot_table$widths[1] <- tag_width
+      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
+                                    t = 1, b = nrow(plot_table), l = 1,
+                                    clip = "off")
+    } else if (tag_pos == "right") {
+      plot_table$widths[ncol(plot_table)] <- tag_width
+      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
+                                    t = 1, b = nrow(plot_table), l = ncol(plot_table),
+                                    clip = "off")
+    } else if (tag_pos == "bottomleft") {
+      plot_table$widths[1] <- tag_width
+      plot_table$heights[nrow(plot_table)] <- tag_height
+      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
+                                    t = nrow(plot_table), l = 1, clip = "off")
+    } else if (tag_pos == "bottom") {
+      plot_table$heights[nrow(plot_table)] <- tag_height
+      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
+                                    t = nrow(plot_table), l = 1, r = ncol(plot_table), clip = "off")
+    } else if (tag_pos == "bottomright") {
+      plot_table$widths[ncol(plot_table)] <- tag_width
+      plot_table$heights[nrow(plot_table)] <- tag_height
+      plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
+                                    t = nrow(plot_table), l = ncol(plot_table), clip = "off")
+    }
+  }
 
   # Margins
   plot_table <- gtable_add_rows(plot_table, theme$plot.margin[1], pos = 0)

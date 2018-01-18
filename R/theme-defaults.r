@@ -190,9 +190,9 @@ theme_grey <- function(base_size = 11, base_family = "",
                          ),
     plot.tag =           element_text(
                            size = rel(1.3),
-                           hjust = 0, vjust = 1,
-                           margin = margin(r = half_line, b = half_line * 3)
+                           hjust = 0.5, vjust = 0.5
                          ),
+    plot.tag.position =  'topleft',
     plot.margin =        margin(half_line, half_line, half_line, half_line),
 
     complete = TRUE
@@ -456,9 +456,9 @@ theme_void <- function(base_size = 11, base_family = "",
                          ),
     plot.tag =           element_text(
                            size = rel(1.3),
-                           hjust = 0, vjust = 1,
-                           margin = margin(r = half_line, b = half_line * 3)
+                           hjust = 0.5, vjust = 0.5
                          ),
+    plot.tag.position =  'topleft',
 
     complete = TRUE
   )
@@ -578,9 +578,9 @@ theme_test <- function(base_size = 11, base_family = "",
                          ),
     plot.tag =           element_text(
                            size = rel(1.3),
-                           hjust = 0, vjust = 1,
-                           margin = margin(r = half_line, b = half_line * 3)
+                           hjust = 0.5, vjust = 0.5
                          ),
+    plot.tag.position =  'topleft',
     plot.margin =        margin(half_line, half_line, half_line, half_line),
 
     complete = TRUE

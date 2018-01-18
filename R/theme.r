@@ -159,6 +159,10 @@
 #'   (`element_text`; inherits from `title`) right-aligned by default
 #' @param plot.tag upper-left label to identify a plot (text appearance)
 #'   (`element_text`; inherits from `title`) left-aligned by default
+#' @param plot.tag.position The position of the tag as a string ("topleft",
+#'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
+#'   or a coordinate. In the former case extra space will be added to accomodate
+#'   the tag.
 #' @param plot.margin margin around entire plot (`unit` with the sizes of
 #'   the top, right, bottom, and left margins)
 #'
@@ -354,6 +358,7 @@ theme <- function(line,
                   plot.subtitle,
                   plot.caption,
                   plot.tag,
+                  plot.tag.position,
                   plot.margin,
                   strip.background,
                   strip.background.x,
