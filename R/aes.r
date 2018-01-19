@@ -58,12 +58,18 @@ NULL
 #' # Aesthetics supplied to ggplot() are used as defaults for every layer
 #' # you can override them, or supply different aesthetics for each layer
 aes <- function(x, y, ...) {
-  exprs <- rlang::enexprs(x = x, y = y, ...)
-  is_missing <- vapply(exprs, rlang::is_missing, logical(1))
+  exprs <- rlang::enquos(x = x, y = y, ...)
+  is_missing <- vapply(exprs, rlang::quo_is_missing, logical(1))
 
-  aes <- structure(exprs[!is_missing], class = "uneval")
+  aes <- new_aes(exprs[!is_missing])
   rename_aes(aes)
 }
+
+new_aes <- function(x) {
+  stopifnot(is.list(x))
+  structure(x, class = "uneval")
+}
+
 #' @export
 print.uneval <- function(x, ...) {
   cat("Aesthetic mapping: \n")
@@ -71,23 +77,18 @@ print.uneval <- function(x, ...) {
   if (length(x) == 0) {
     cat("<empty>\n")
   } else {
-    values <- vapply(x, deparse2, character(1))
-    bullets <- paste0("* ", format(names(x)), " -> ", values, "\n")
+    values <- vapply(x, rlang::quo_label, character(1))
+    bullets <- paste0("* `", format(names(x)), "` -> ", values, "\n")
 
     cat(bullets, sep = "")
   }
+
+  invisible(x)
 }
 
 #' @export
-str.uneval <- function(object, ...) utils::str(unclass(object), ...)
-#' @export
-"[.uneval" <- function(x, i, ...) structure(unclass(x)[i], class = "uneval")
-
-#' @export
-as.character.uneval <- function(x, ...) {
-  char <- as.character(unclass(x))
-  names(char) <- names(x)
-  char
+"[.uneval" <- function(x, i, ...) {
+  new_aes(NextMethod())
 }
 
 # Rename American or old-style aesthetics name

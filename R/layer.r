@@ -139,6 +139,7 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
 
+  subset <- rlang::enquos(subset)
 
   ggproto("LayerInstance", Layer,
     geom = geom,
@@ -211,15 +212,16 @@ Layer <- ggproto("Layer", NULL,
 
     # Old subsetting method
     if (!is.null(self$subset)) {
-      include <- data.frame(plyr::eval.quoted(self$subset, data, plot$env))
-      data <- data[rowSums(include, na.rm = TRUE) == ncol(include), ]
+      res <- rlang::eval_tidy(self$subset, data = data)
+      res <- res & !is.na(res)
+      data <- data[res, , drop = FALSE]
     }
 
-    scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
+    scales_add_defaults(plot$scales, data, aesthetics)
 
     # Evaluate and check aesthetics
     aesthetics <- compact(aesthetics)
-    evaled <- lapply(aesthetics, eval, envir = data, enclos = plot$plot_env)
+    evaled <- lapply(aesthetics, rlang::eval_tidy, data = data)
 
     n <- nrow(data)
     if (n == 0) {
@@ -275,7 +277,7 @@ Layer <- ggproto("Layer", NULL,
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed
-    scales_add_defaults(plot$scales, data, new, plot$plot_env)
+    scales_add_defaults(plot$scales, data, new)
     # Transform the values, if the scale say it's ok
     # (see stat_spoke for one exception)
     if (self$stat$retransform) {

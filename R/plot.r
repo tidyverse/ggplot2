@@ -32,9 +32,7 @@
 #' @param mapping Default list of aesthetic mappings to use for plot.
 #'   If not specified, must be supplied in each layer added to the plot.
 #' @param ... Other arguments passed on to methods. Not currently used.
-#' @param environment If a variable defined in the aesthetic mapping is not
-#'   found in the data, ggplot will look for it in this environment. It defaults
-#'   to using the environment in which `ggplot()` is called.
+#' @param environment DEPRECATED. Used prior to tidy evaluation.
 #' @export
 #' @examples
 #' # Generate some sample data, then compute mean and standard deviation
@@ -72,21 +70,28 @@
 #'     width = 0.4
 #'   )
 ggplot <- function(data = NULL, mapping = aes(), ...,
-                   environment = parent.frame()) {
+                   environment = NULL) {
   UseMethod("ggplot")
 }
 
 #' @export
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
-                           environment = parent.frame()) {
+                           environment = NULL) {
   ggplot.data.frame(fortify(data, ...), mapping, environment = environment)
 }
 
 #' @export
 ggplot.data.frame <- function(data, mapping = aes(), ...,
-                              environment = parent.frame()) {
+                              environment = NULL) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
     stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
+  }
+
+  if (!is.null(environment)) {
+    stop(
+      "`environment` is deprecated: environments are now captured by `aes()`",
+      call. = FALSE
+    )
   }
 
   p <- structure(list(
@@ -97,7 +102,7 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
     theme = list(),
     coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
-    plot_env = environment
+    plot_env = parent.frame()
   ), class = c("gg", "ggplot"))
 
   p$labels <- make_labels(mapping)
@@ -108,7 +113,7 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
 
 #' @export
 ggplot.grouped_df <- function(data, mapping = aes(), ...,
-                               environment = parent.frame()) {
+                               environment = NULL) {
 
   data$.group <- dplyr::group_indices(data)
   mapping$group <- mapping$group %||% quote(.group)
