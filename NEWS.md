@@ -275,6 +275,9 @@ up correct aspect ratio, and draws a graticule.
   summarise the layout, coordinate systems, and layers, of a built ggplot object
   (#2034, @wch). This provides a tested API that (e.g.) shiny can depend on.
 
+* Update startup messages to reflect new resources. (#2410, @mine-cetinkaya-rundel)
+
+
 # ggplot2 2.2.1
 
 * Fix usage of `structure(NULL)` for R-devel compatibility (#1968).
