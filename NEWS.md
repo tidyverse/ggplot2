@@ -503,6 +503,8 @@ There were a number of tweaks to the theme elements that control legends:
 * `Scale` extensions can now override the `make_title` and `make_sec_title` 
   methods to let the scale modify the axis/legend titles.
 
+* The random stream is now reset after calling `.onAttach()` (#2409).
+
 # ggplot2 2.1.0
 
 ## New features
