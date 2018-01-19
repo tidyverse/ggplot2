@@ -191,6 +191,9 @@ up correct aspect ratio, and draws a graticule.
 
 * In most cases, using `%>%` instead of `+` should generate an informative
   error (#2400).
+  
+* `layer()` gives considerably better error messages for incorrectly specified
+  `geom`, `stat`, or `position` (#2401).
 
 * In all layers that use it, `linemitre` now defaults to 10 (instead of 1)
   to better match base R.
