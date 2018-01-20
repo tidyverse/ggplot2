@@ -239,45 +239,43 @@ guide_gengrob.colorbar <- function(guide, theme) {
       label.position <- guide$label.position %||% "bottom"
       if (!label.position %in% c("top", "bottom")) stop("label position \"", label.position, "\" is invalid")
 
-      barwidth <- convertWidth(guide$barwidth %||% (theme$legend.key.width * 5), "mm")
-      barheight <- convertHeight(guide$barheight %||% theme$legend.key.height, "mm")
+      barwidth.c <- width_cm(guide$barwidth %||% (theme$legend.key.width * 5))
+      barheight.c <- height_cm(guide$barheight %||% theme$legend.key.height)
     },
     "vertical" = {
       label.position <- guide$label.position %||% "right"
       if (!label.position %in% c("left", "right")) stop("label position \"", label.position, "\" is invalid")
 
-      barwidth <- convertWidth(guide$barwidth %||% theme$legend.key.width, "mm")
-      barheight <- convertHeight(guide$barheight %||% (theme$legend.key.height * 5), "mm")
+      barwidth.c <- width_cm(guide$barwidth %||% theme$legend.key.width)
+      barheight.c <- height_cm(guide$barheight %||% (theme$legend.key.height * 5))
     })
 
-  barwidth.c <- c(barwidth)
-  barheight.c <- c(barheight)
   barlength.c <- switch(guide$direction, "horizontal" = barwidth.c, "vertical" = barheight.c)
   nbreak <- nrow(guide$key)
 
   grob.bar <-
     if (guide$raster) {
       image <- switch(guide$direction, horizontal = t(guide$bar$colour), vertical = rev(guide$bar$colour))
-      rasterGrob(image = image, width = barwidth.c, height = barheight.c, default.units = "mm", gp = gpar(col = NA), interpolate = TRUE)
+      rasterGrob(image = image, width = barwidth.c, height = barheight.c, default.units = "cm", gp = gpar(col = NA), interpolate = TRUE)
     } else {
       switch(guide$direction,
              horizontal = {
                bw <- barwidth.c / nrow(guide$bar)
                bx <- (seq(nrow(guide$bar)) - 1) * bw
-               rectGrob(x = bx, y = 0, vjust = 0, hjust = 0, width = bw, height = barheight.c, default.units = "mm",
+               rectGrob(x = bx, y = 0, vjust = 0, hjust = 0, width = bw, height = barheight.c, default.units = "cm",
                         gp = gpar(col = NA, fill = guide$bar$colour))
              },
              vertical = {
                bh <- barheight.c / nrow(guide$bar)
                by <- (seq(nrow(guide$bar)) - 1) * bh
-               rectGrob(x = 0, y = by, vjust = 0, hjust = 0, width = barwidth.c, height = bh, default.units = "mm",
+               rectGrob(x = 0, y = by, vjust = 0, hjust = 0, width = barwidth.c, height = bh, default.units = "cm",
                         gp = gpar(col = NA, fill = guide$bar$colour))
              })
   }
 
   # tick and label position
   tic_pos.c <- rescale(guide$key$.value, c(0.5, guide$nbin - 0.5), guide$bar$value[c(1, nrow(guide$bar))]) * barlength.c / guide$nbin
-  label_pos <- unit(tic_pos.c, "mm")
+  label_pos <- unit(tic_pos.c, "cm")
   if (!guide$draw.ulim) tic_pos.c <- tic_pos.c[-1]
   if (!guide$draw.llim) tic_pos.c <- tic_pos.c[-length(tic_pos.c)]
 
@@ -296,19 +294,14 @@ guide_gengrob.colorbar <- function(guide, theme) {
     )
   )
 
-
-  title_width <- convertWidth(grobWidth(grob.title), "mm")
-  title_width.c <- c(title_width)
-  title_height <- convertHeight(grobHeight(grob.title), "mm")
-  title_height.c <- c(title_height)
+  title_width.c <- width_cm(grob.title)
+  title_height.c <- height_cm(grob.title)
   title_fontsize <- title.theme$size
   if (is.null(title_fontsize)) title_fontsize <- 0
 
   # gap between keys etc
   hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
-  # multiply by 5 instead of 0.5 due to unit error below. this needs to be fixed
-  # separately (pull request pending).
-  vgap <- height_cm(theme$legend.spacing.y %||% (5 * unit(title_fontsize, "pt")))
+  vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_fontsize, "pt")))
 
   # label
   label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
@@ -338,10 +331,8 @@ guide_gengrob.colorbar <- function(guide, theme) {
     }
   }
 
-  label_width <- convertWidth(grobWidth(grob.label), "mm")
-  label_width.c <- c(label_width)
-  label_height <- convertHeight(grobHeight(grob.label), "mm")
-  label_height.c <- c(label_height)
+  label_width.c <- width_cm(grob.label)
+  label_height.c <- height_cm(grob.label)
 
   # ticks
   grob.ticks <-
@@ -361,7 +352,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
           y1 = rep(tic_pos.c, 2)
         })
       segmentsGrob(x0 = x0, y0 = y0, x1 = x1, y1 = y1,
-                   default.units = "mm", gp = gpar(col = "white", lwd = 0.5, lineend = "butt"))
+                   default.units = "cm", gp = gpar(col = "white", lwd = 0.5, lineend = "butt"))
     }
 
   # layout of bar and label
@@ -436,11 +427,11 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.background <- element_render(theme, "legend.background")
 
   # padding
-  padding <- convertUnit(theme$legend.margin %||% margin(), "mm")
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 
-  gt <- gtable(widths = unit(widths, "mm"), heights = unit(heights, "mm"))
+  gt <- gtable(widths = unit(widths, "cm"), heights = unit(heights, "cm"))
   gt <- gtable_add_grob(gt, grob.background, name = "background", clip = "off",
     t = 1, r = -1, b = -1, l = 1)
   gt <- gtable_add_grob(gt, grob.bar, name = "bar", clip = "off",
