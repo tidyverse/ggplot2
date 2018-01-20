@@ -28,9 +28,9 @@ NULL
 #' properties (aesthetics) of geoms. Aesthetic mappings can be set in
 #' [ggplot2()] and in individual layers.
 #'
-#' This function also standardise aesthetic names by performing partial
+#' This function also standardises aesthetic names by performing partial
 #' matching, converting color to colour, and translating old style R names to
-#' ggplot names (eg. pch to shape, cex to size)
+#' ggplot names (eg. pch to shape, cex to size).
 #'
 #' @param x,y,... List of name value pairs giving aesthetics to map to
 #'   variables. The names for x and y aesthetics are typically omitted because

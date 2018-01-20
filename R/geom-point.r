@@ -12,7 +12,7 @@
 #' another variable is mapped to point shape or colour, however.
 #'
 #' @section Overplotting:
-#' The biggest potential problem with a scatterplot is overplotting: whenever
+#' The biggest potential problem with a scatterplot is overplotting; whenever
 #' you have more than a few points, points may be plotted on top of one
 #' another. This can severely distort the visual appearance of the plot.
 #' There is no one solution to this problem, but there are some techniques
@@ -34,7 +34,7 @@
 #' @inheritParams layer
 #' @param na.rm If `FALSE`, the default, missing values are removed with
 #'   a warning. If `TRUE`, missing values are silently removed.
-#' @param ... other arguments passed on to [layer()]. These are
+#' @param ... Other arguments passed on to [layer()]. These are
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
 #'   `color = "red"` or `size = 3`. They may also be parameters
 #'   to the paired geom/stat.

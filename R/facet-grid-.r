@@ -7,12 +7,12 @@ NULL
 #' facetting variables. It is most useful when you have two discrete
 #' variables, and all combinations of the variables exist in the data.
 #'
-#' @param facets a formula with the rows (of the tabular display) on the LHS
+#' @param facets A formula with the rows (of the tabular display) on the LHS
 #'   and the columns (of the tabular display) on the RHS; the dot in the
 #'   formula is used to indicate there should be no faceting on this dimension
 #'   (either row or column). The formula can also be provided as a string
-#'   instead of a classical formula object
-#' @param margins either a logical value or a character
+#'   instead of a classical formula object.
+#' @param margins Either a logical value or a character
 #'   vector. Margins are additional facets which contain all the data
 #'   for each of the possible values of the faceting variables. If
 #'   `FALSE`, no additional facets are included (the
@@ -21,7 +21,7 @@ NULL
 #'   variables for which margins are to be created.
 #' @param scales Are scales shared across all facets (the default,
 #'   `"fixed"`), or do they vary across rows (`"free_x"`),
-#'   columns (`"free_y"`), or both rows and columns (`"free"`)
+#'   columns (`"free_y"`), or both rows and columns (`"free"`)?
 #' @param space If `"fixed"`, the default, all panels have the same size.
 #'   If `"free_y"` their height will be proportional to the length of the
 #'   y scale; if `"free_x"` their width will be proportional to the

@@ -1,5 +1,5 @@
 #' @rdname geom_boxplot
-#' @param coef length of the whiskers as multiple of IQR.  Defaults to 1.5
+#' @param coef Length of the whiskers as multiple of IQR. Defaults to 1.5.
 #' @inheritParams stat_identity
 #' @section Computed variables:
 #' \describe{
