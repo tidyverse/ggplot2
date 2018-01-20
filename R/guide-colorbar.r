@@ -384,13 +384,13 @@ guide_gengrob.colorbar <- function(guide, theme) {
     "vertical" = {
       switch(label.position,
         "left" = {
-          bl_widths <- c(label_width.c, vgap, barwidth.c)
+          bl_widths <- c(label_width.c, hgap, barwidth.c)
           bl_heights <- barheight.c
           vps <- list(bar.row = 1, bar.col = 3,
                       label.row = 1, label.col = 1)
         },
         "right" = {
-          bl_widths <- c(barwidth.c, vgap, label_width.c)
+          bl_widths <- c(barwidth.c, hgap, label_width.c)
           bl_heights <- barheight.c
           vps <- list(bar.row = 1, bar.col = 1,
                       label.row = 1, label.col = 3)
