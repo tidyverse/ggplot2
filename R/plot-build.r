@@ -39,7 +39,7 @@ ggplot_build.ggplot <- function(plot) {
     out
   }
 
-  # Initialise panels, add extra data for margins & missing facetting
+  # Initialise panels, add extra data for margins & missing faceting
   # variables, and add on a PANEL variable to data
   layout <- create_layout(plot$facet, plot$coordinates)
   data <- layout$setup(layer_data, plot$data, plot$plot_env)

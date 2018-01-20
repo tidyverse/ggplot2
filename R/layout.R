@@ -1,6 +1,6 @@
 # The job of `Layout` is to coordinate:
 # * The coordinate system
-# * The facetting specification
+# * The faceting specification
 # * The individual position scales for each panel
 #
 # This includes managing the parameters for the facet and the coord
@@ -15,7 +15,7 @@ Layout <- ggproto("Layout", NULL,
   coord = NULL,
   coord_params = list(),
 
-  # The facetting specification and its parameters
+  # The faceting specification and its parameters
   facet = NULL,
   facet_params = list(),
 

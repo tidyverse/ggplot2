@@ -313,7 +313,7 @@ The facet system, as well as the internal panel class, has been rewritten in ggp
 
 We have also added the following new fatures.
   
-* `facet_grid()` and `facet_wrap()` now allow expressions in their facetting 
+* `facet_grid()` and `facet_wrap()` now allow expressions in their faceting 
   formulas (@DanRuderman, #1596).
 
 * When `facet_wrap()` results in an uneven number of panels, axes will now be
@@ -474,7 +474,7 @@ There were a number of tweaks to the theme elements that control legends:
   range that allows the density to reach zero (by extending the range 3 
   bandwidths to either side of the data) (#1700).
 
-* `geom_dotplot()` works better when facetting and binning on the y-axis. 
+* `geom_dotplot()` works better when faceting and binning on the y-axis. 
   (#1618, @has2k1).
   
 * `geom_hexbin()` once again supports `..density..` (@mikebirdgeneau, #1688).
@@ -563,7 +563,7 @@ There were a number of tweaks to the theme elements that control legends:
 * `facet_wrap()`/`facet_grid()` works with multiple empty panels of data 
   (#1445).
 
-* `facet_wrap()` correctly swaps `nrow` and `ncol` when facetting vertically
+* `facet_wrap()` correctly swaps `nrow` and `ncol` when faceting vertically
   (#1417).
 
 * `ggsave("x.svg")` now uses svglite to produce the svg (#1432).
@@ -906,7 +906,7 @@ some new features:
   values to help identifying them.
 
 On the programming side, the labeller API has been rewritten in order
-to offer more control when facetting over multiple factors (e.g. with
+to offer more control when faceting over multiple factors (e.g. with
 formulae such as `~cyl + am`). This also means that if you have
 written custom labellers, you will need to update them for this
 version of ggplot.

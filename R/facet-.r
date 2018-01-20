@@ -170,7 +170,7 @@ Facet <- ggproto("Facet", NULL,
 
 # Helpers -----------------------------------------------------------------
 
-#' Is this object a facetting specification?
+#' Is this object a faceting specification?
 #'
 #' @param x object to test
 #' @keywords internal
@@ -208,7 +208,7 @@ df.grid <- function(a, b) {
 # always succeed, even if the variable doesn't exist in the data frame:
 # that makes it possible to repeat data across multiple factors. But
 # when evaluating an expression, you want to see any errors. That does
-# mean you can't have background data when facetting by an expression,
+# mean you can't have background data when faceting by an expression,
 # but that seems like a reasonable tradeoff.
 eval_facet_vars <- function(vars, data, env = emptyenv()) {
   nms <- names(vars)
@@ -232,7 +232,7 @@ eval_facet_var <- function(var, data, env = emptyenv()) {
   } else if (is.call(var)) {
     eval(var, envir = data, enclos = env)
   } else {
-    stop("Must use either variable name or expression when facetting",
+    stop("Must use either variable name or expression when faceting",
       call. = FALSE)
   }
 }
@@ -308,7 +308,7 @@ panel_rows <- function(table) {
   panels <- table$layout[grepl("^panel", table$layout$name), , drop = FALSE]
   unique(panels[, c('t', 'b')])
 }
-#' Take input data and define a mapping between facetting variables and ROW,
+#' Take input data and define a mapping between faceting variables and ROW,
 #' COL and PANEL keys
 #'
 #' @param data A list of data.frames, the first being the plot data and the
@@ -317,7 +317,7 @@ panel_rows <- function(table) {
 #' @param vars A list of quoted symbols matching columns in data
 #' @param drop should missing combinations/levels be dropped
 #'
-#' @return A data.frame with columns for PANEL, ROW, COL, and facetting vars
+#' @return A data.frame with columns for PANEL, ROW, COL, and faceting vars
 #'
 #' @keywords internal
 #' @export
@@ -327,11 +327,11 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   # For each layer, compute the facet values
   values <- compact(plyr::llply(data, eval_facet_vars, vars = vars, env = env))
 
-  # Form the base data frame which contains all combinations of facetting
+  # Form the base data frame which contains all combinations of faceting
   # variables that appear in the data
   has_all <- unlist(plyr::llply(values, length)) == length(vars)
   if (!any(has_all)) {
-    stop("At least one layer must contain all variables used for facetting")
+    stop("At least one layer must contain all variables used for faceting")
   }
 
   base <- unique(plyr::ldply(values[has_all]))

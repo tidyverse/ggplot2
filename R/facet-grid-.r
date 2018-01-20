@@ -4,7 +4,7 @@ NULL
 #' Lay out panels in a grid
 #'
 #' `facet_grid` forms a matrix of panels defined by row and column
-#' facetting variables. It is most useful when you have two discrete
+#' faceting variables. It is most useful when you have two discrete
 #' variables, and all combinations of the variables exist in the data.
 #'
 #' @param facets a formula with the rows (of the tabular display) on the LHS
@@ -62,7 +62,7 @@ NULL
 #' # change the order of variable levels with factor()
 #'
 #' # If you combine a facetted dataset with a dataset that lacks those
-#' # facetting variables, the data will be repeated across the missing
+#' # faceting variables, the data will be repeated across the missing
 #' # combinations:
 #' df <- data.frame(displ = mean(mpg$displ), cty = mean(mpg$cty))
 #' p +
@@ -238,14 +238,14 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     cols <- as.quoted(params$cols)
     vars <- c(names(rows), names(cols))
 
-    # Compute facetting values and add margins
+    # Compute faceting values and add margins
     margin_vars <- list(intersect(names(rows), names(data)),
       intersect(names(cols), names(data)))
     data <- reshape2::add_margins(data, margin_vars, params$margins)
 
     facet_vals <- eval_facet_vars(c(rows, cols), data, params$plot_env)
 
-    # If any facetting variables are missing, add them in by
+    # If any faceting variables are missing, add them in by
     # duplicating the data
     missing_facets <- setdiff(vars, names(facet_vals))
     if (length(missing_facets) > 0) {
@@ -262,7 +262,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     # Add PANEL variable
     if (nrow(facet_vals) == 0) {
-      # Special case of no facetting
+      # Special case of no faceting
       data$PANEL <- NO_PANEL
     } else {
       facet_vals[] <- lapply(facet_vals[], as.factor)
