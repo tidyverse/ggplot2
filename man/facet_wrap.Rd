@@ -14,9 +14,9 @@ one sided formula, \code{~a + b}, or a character vector, \code{c("a", "b")}.}
 
 \item{nrow, ncol}{Number of rows and columns.}
 
-\item{scales}{should Scales be fixed (\code{"fixed"}, the default),
+\item{scales}{Should scales be fixed (\code{"fixed"}, the default),
 free (\code{"free"}), or free in one dimension (\code{"free_x"},
-\code{"free_y"}).}
+\code{"free_y"})?}
 
 \item{shrink}{If \code{TRUE}, will shrink scales to fit output of
 statistics, not raw data. If \code{FALSE}, will be range of raw data
@@ -46,8 +46,8 @@ labels will be displayed to the left. Can also be set to
 data will automatically be dropped. If \code{FALSE}, all factor levels
 will be shown, regardless of whether or not they appear in the data.}
 
-\item{dir}{Direction: either "h" for horizontal, the default, or "v", for
-vertical.}
+\item{dir}{Direction: either \code{"h"} for horizontal, the default, or \code{"v"},
+for vertical.}
 
 \item{strip.position}{By default, the labels are displayed on the top of
 the plot. Using \code{strip.position} it is possible to place the labels on

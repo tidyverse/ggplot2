@@ -34,7 +34,7 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -68,7 +68,7 @@ another variable is mapped to point shape or colour, however.
 }
 \section{Overplotting}{
 
-The biggest potential problem with a scatterplot is overplotting: whenever
+The biggest potential problem with a scatterplot is overplotting; whenever
 you have more than a few points, points may be plotted on top of one
 another. This can severely distort the visual appearance of the plot.
 There is no one solution to this problem, but there are some techniques
