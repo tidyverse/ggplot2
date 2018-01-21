@@ -92,7 +92,7 @@ function defined by \code{method}.}
 }
 \description{
 Aids the eye in seeing patterns in the presence of overplotting.
-\code{geom_smooth} and \code{stat_smooth} are effectively aliases; they
+\code{geom_smooth} and \code{stat_smooth} are effectively aliases: they
 both use the same arguments. Use \code{geom_smooth} unless you want to
 display the results with a non-standard geom.
 }

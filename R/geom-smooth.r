@@ -1,7 +1,7 @@
 #' Smoothed conditional means
 #'
 #' Aids the eye in seeing patterns in the presence of overplotting.
-#' `geom_smooth` and `stat_smooth` are effectively aliases; they
+#' `geom_smooth` and `stat_smooth` are effectively aliases: they
 #' both use the same arguments. Use `geom_smooth` unless you want to
 #' display the results with a non-standard geom.
 #'

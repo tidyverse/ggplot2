@@ -74,8 +74,8 @@ bar proportional to the number of cases in each group (or if the
 \code{weight} aesthetic is supplied, the sum of the weights). If you want the
 heights of the bars to represent values in the data, use
 \link{geom_col} instead. \code{geom_bar} uses \code{stat_count} by
-default; it counts the number of cases at each x position. \code{geom_col}
-uses \code{stat_identity}; it leaves the data as is.
+default: it counts the number of cases at each x position. \code{geom_col}
+uses \code{stat_identity}: it leaves the data as is.
 }
 \details{
 A bar chart uses height to represent a value, and so the base of the

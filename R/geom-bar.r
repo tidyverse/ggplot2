@@ -5,8 +5,8 @@
 #' `weight` aesthetic is supplied, the sum of the weights). If you want the
 #' heights of the bars to represent values in the data, use
 #' \link{geom_col} instead. `geom_bar` uses `stat_count` by
-#' default; it counts the number of cases at each x position. `geom_col`
-#' uses `stat_identity`; it leaves the data as is.
+#' default: it counts the number of cases at each x position. `geom_col`
+#' uses `stat_identity`: it leaves the data as is.
 #'
 #' A bar chart uses height to represent a value, and so the base of the
 #' bar must always be shown to produce a valid visual comparison. Naomi Robbins

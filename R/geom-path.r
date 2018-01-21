@@ -6,7 +6,7 @@
 #' when changes occur. The `group` aesthetic determines which cases are
 #' connected together.
 #'
-#' An alternative parameterisation is [geom_segment()]; each line
+#' An alternative parameterisation is [geom_segment()], where each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
 #' @eval rd_aesthetics("geom", "path")

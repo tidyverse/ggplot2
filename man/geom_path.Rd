@@ -83,7 +83,7 @@ when changes occur. The \code{group} aesthetic determines which cases are
 connected together.
 }
 \details{
-An alternative parameterisation is \code{\link[=geom_segment]{geom_segment()}}; each line
+An alternative parameterisation is \code{\link[=geom_segment]{geom_segment()}}, where each line
 corresponds to a single case which provides the start and end coordinates.
 }
 \section{Aesthetics}{

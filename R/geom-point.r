@@ -12,7 +12,7 @@
 #' another variable is mapped to point shape or colour, however.
 #'
 #' @section Overplotting:
-#' The biggest potential problem with a scatterplot is overplotting; whenever
+#' The biggest potential problem with a scatterplot is overplotting: whenever
 #' you have more than a few points, points may be plotted on top of one
 #' another. This can severely distort the visual appearance of the plot.
 #' There is no one solution to this problem, but there are some techniques

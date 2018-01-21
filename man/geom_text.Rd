@@ -85,7 +85,7 @@ Note that the "width" and "height" of a text element are 0, so stacking
 and dodging text will not work by default, and axis limits are not
 automatically expanded to include all text. Obviously, labels do have
 height and width, but they are physical units, not data units. The amount of
-space they occupy on the plot is not constant in data units; when you
+space they occupy on the plot is not constant in data units: when you
 resize a plot, labels stay the same size, but the size of the axes changes.
 
 \code{geom_text} and \code{geom_label} both add a label for each row in the
