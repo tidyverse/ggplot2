@@ -206,7 +206,7 @@ Thanks to the work of [Lionel Henry](https://github.com/lionel-), facet labels h
 
 1. `facet_wrap()` now supports custom labellers.
 
-1. You can create combined labels when facetting by multiple variables.
+1. You can create combined labels when faceting by multiple variables.
 
 ### Switching the labels
 

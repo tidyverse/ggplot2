@@ -63,7 +63,7 @@ will be shown, regardless of whether or not they appear in the data.}
 }
 \description{
 \code{facet_grid} forms a matrix of panels defined by row and column
-facetting variables. It is most useful when you have two discrete
+faceting variables. It is most useful when you have two discrete
 variables, and all combinations of the variables exist in the data.
 }
 \examples{
@@ -77,7 +77,7 @@ p + facet_grid(drv ~ cyl)
 # change the order of variable levels with factor()
 
 # If you combine a facetted dataset with a dataset that lacks those
-# facetting variables, the data will be repeated across the missing
+# faceting variables, the data will be repeated across the missing
 # combinations:
 df <- data.frame(displ = mean(mpg$displ), cty = mean(mpg$cty))
 p +
