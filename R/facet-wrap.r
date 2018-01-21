@@ -62,7 +62,7 @@ NULL
 #'   facet_wrap(~class, scales = "free")
 #'
 #' # To repeat the same data in every panel, simply construct a data frame
-#' # that does not contain the facetting variable.
+#' # that does not contain the faceting variable.
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point(data = transform(mpg, class = NULL), colour = "grey85") +
 #'   geom_point() +

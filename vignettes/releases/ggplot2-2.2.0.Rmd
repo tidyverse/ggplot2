@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 I'm very pleased to announce ggplot2 2.2.0. It includes four major new features:
 
 * Subtitles and captions.
-* A large rewrite of the facetting system.
+* A large rewrite of the faceting system.
 * Improved theme options.
 * Better stacking.
 
