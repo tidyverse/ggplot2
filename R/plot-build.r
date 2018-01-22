@@ -279,9 +279,12 @@ ggplot_gtable.ggplot_built <- function(data) {
   if (tag_pos == "manual") {
     xpos <- theme$plot.tag.position[1]
     ypos <- theme$plot.tag.position[2]
-
-    tag <- editGrob(tag, vp = viewport(x = xpos, y = ypos))
-    plot_table <- gtable_add_grob(plot_table, tag, name = "tag", t = 1,
+    tag_parent  <- gTree(
+      children = gList(tag),
+      vp = viewport(x = xpos, y = ypos, width = tag_width, height = tag_height,
+                    just = c(theme$plot.tag$hjust, theme$plot.tag$vjust))
+    )
+    plot_table <- gtable_add_grob(plot_table, tag_parent, name = "tag", t = 1,
                                   b = nrow(plot_table), l = 1,
                                   r = ncol(plot_table), clip = "off")
   } else {
