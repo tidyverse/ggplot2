@@ -83,6 +83,13 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
 }
 
 #' @export
+ggplot.function <- function(data = NULL, mapping = aes(), ...,
+                           environment = parent.frame()) {
+  # Added to avoid functions end in ggplot.default
+  stop("You're passing a function as global data.\nHave you misspelled the `data` argument in `ggplot()`", call. = FALSE)
+}
+
+#' @export
 ggplot.data.frame <- function(data, mapping = aes(), ...,
                               environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
