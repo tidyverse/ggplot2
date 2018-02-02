@@ -41,7 +41,7 @@ test_that("fortify.default proves a helpful error with class uneval", {
   expect_error(
     ggplot(aes(x = x)),
     regexp = paste(
-      "`data` must be a data frame, or other object coercible by `fortify\\(\\)`, not an object of class uneval",
+      "`data` must be a data frame, or other object coercible by (.+)",
       "Did you accidentally pass `aes\\(\\)` to the `data` argument?",
       sep = "\\n"
     )
