@@ -835,28 +835,29 @@ FacetTrans <- ggproto("FacetTrans", Facet,
     axis_width_l <- grobWidths(axes$y$left)
     axis_width_r <- grobWidths(axes$y$right)
     ## We do it reverse so we don't change the position of panels when we add axes
-    for (i in rev(seq_along(panel_pos_h))) {
-      panel_table <- gtable::gtable_add_cols(panel_table, axis_width_r[i], panel_pos_h[i])
-      if (params$horizontal) {
-        panel_table <- gtable::gtable_add_grob(panel_table, 
-          rep(axes$y$right[i], length(panel_pos_v)), t = panel_pos_v, l = panel_pos_h[i] + 1, 
+    if (params$horizontal) {
+      for (i in rev(seq_along(panel_pos_h))) {
+        panel_table <- gtable::gtable_add_cols(panel_table, axis_width_r[i], panel_pos_h[i])
+        panel_table <- gtable::gtable_add_grob(panel_table,
+          axes$y$right[i], t = panel_pos_v, l = panel_pos_h[i] + 1,
           clip = "off")
-      } else {
-        panel_table <- gtable::gtable_add_grob(panel_table, 
-          rep(axes$y$right, length(panel_pos_v)), t = panel_pos_v, l = panel_pos_h[i] + 1, 
+
+        panel_table <- gtable::gtable_add_cols(panel_table, axis_width_l[i], panel_pos_h[i] - 1)
+        panel_table <- gtable::gtable_add_grob(panel_table,
+          axes$y$left[i], t = panel_pos_v, l = panel_pos_h[i],
           clip = "off")
       }
-      panel_table <- gtable::gtable_add_cols(panel_table, axis_width_l[i], panel_pos_h[i] - 1)
-      if (params$horizontal) {
-        panel_table <- gtable::gtable_add_grob(panel_table, 
-        rep(axes$y$left[i], length(panel_pos_v)), t = panel_pos_v, l = panel_pos_h[i], 
-        clip = "off")
-      } else {
-        panel_table <- gtable::gtable_add_grob(panel_table, 
-        rep(axes$y$left, length(panel_pos_v)), t = panel_pos_v, l = panel_pos_h[i], 
-        clip = "off")
+    } else {
+        panel_table <- gtable::gtable_add_cols(panel_table, axis_width_r[1], panel_pos_h)
+        panel_table <- gtable::gtable_add_grob(panel_table,
+          axes$y$right, t = panel_pos_v, l = panel_pos_h + 1,
+          clip = "off")
+        panel_table <- gtable::gtable_add_cols(panel_table, axis_width_l[1], panel_pos_h - 1)
+        panel_table <- gtable::gtable_add_grob(panel_table,
+          axes$y$left, t = panel_pos_v, l = panel_pos_h,
+          clip = "off")
       }
-    }
+
     ## Recalculate as gtable has changed
     panel_pos_h <- panel_cols(panel_table)$l
     panel_pos_v <- panel_rows(panel_table)$t
