@@ -198,6 +198,9 @@ up correct aspect ratio, and draws a graticule.
 * `position_jitter()` gains a `seed` argument that allows specifying a random 
   seed for reproducible jittering (#1996, @krlmlr).
 
+* `position_jitterdodge()` gains a `seed` argument that allows specifying
+  a random seed for reproducible jittering (#2445, @slowkow).
+
 * `stat_density()` has better behaviour if all groups are dropped because they
   are too small (#2282).
 
