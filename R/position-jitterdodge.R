@@ -10,14 +10,7 @@
 #' @param jitter.height degree of jitter in y direction. Defaults to 0.
 #' @param dodge.width the amount to dodge in the x direction. Defaults to 0.75,
 #'   the default `position_dodge()` width.
-#' @param seed A random seed to make the jitter reproducible.
-#'   Useful if you need to apply the same jitter twice, e.g., for a point and
-#'   a corresponding label.
-#'   The random seed is reset after jittering.
-#'   If `NA` (the default value), the seed is initialised with a random value;
-#'   this makes sure that two subsequent calls start with a different seed.
-#'   Use `NULL` to use the current random seed and also avoid resetting
-#'   (the behavior of \pkg{ggplot} 2.2.1 and earlier).
+#' @inheritParams position_jitter
 #' @export
 #' @examples
 #' dsub <- diamonds[ sample(nrow(diamonds), 1000), ]
