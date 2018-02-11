@@ -195,11 +195,9 @@ up correct aspect ratio, and draws a graticule.
   default), or ensure that the width of a `single` element is preserved
   (what many people want) (#1935).
 
-* `position_jitter()` gains a `seed` argument that allows specifying a random 
-  seed for reproducible jittering (#1996, @krlmlr).
-
-* `position_jitterdodge()` gains a `seed` argument that allows specifying
-  a random seed for reproducible jittering (#2445, @slowkow).
+* `position_jitter()` and `position_jitterdodge()` gain a `seed` argument that
+  allows specifying a random seed for reproducible jittering (@krlmlr, #1996
+  and @slowkow, #2445).
 
 * `stat_density()` has better behaviour if all groups are dropped because they
   are too small (#2282).
