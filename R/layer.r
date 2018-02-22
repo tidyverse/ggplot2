@@ -139,7 +139,7 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
 
-  subset <- rlang::enquos(subset)
+  subset <- rlang::enquo(subset)
 
   ggproto("LayerInstance", Layer,
     geom = geom,
@@ -211,7 +211,7 @@ Layer <- ggproto("Layer", NULL,
     }
 
     # Old subsetting method
-    if (!is.null(self$subset)) {
+    if (!rlang::quo_is_null(self$subset)) {
       res <- rlang::eval_tidy(self$subset, data = data)
       res <- res & !is.na(res)
       data <- data[res, , drop = FALSE]
