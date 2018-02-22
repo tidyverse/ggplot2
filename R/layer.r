@@ -84,16 +84,9 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
   data <- fortify(data)
-  if (!is.null(mapping) && !inherits(mapping, "uneval")) {
-    msg <- paste0("`mapping` must be created by `aes()`")
-    if (inherits(mapping, "ggplot")) {
-      msg <- paste0(
-        msg, "\n",
-        "Did you use %>% instead of +?"
-      )
-    }
 
-    stop(msg, call. = FALSE)
+  if (!is.null(mapping)) {
+    mapping <- validate_mapping(mapping)
   }
 
   if (is.character(geom))
@@ -154,6 +147,23 @@ layer <- function(geom = NULL, stat = NULL,
     inherit.aes = inherit.aes,
     show.legend = show.legend
   )
+}
+
+validate_mapping <- function(mapping) {
+  if (!inherits(mapping, "uneval")) {
+    msg <- paste0("`mapping` must be created by `aes()`")
+    if (inherits(mapping, "ggplot")) {
+      msg <- paste0(
+        msg, "\n",
+        "Did you use %>% instead of +?"
+      )
+    }
+
+    stop(msg, call. = FALSE)
+  }
+
+  # For backward compatibility with pre-tidy-eval layers
+  new_aes(lapply(mapping, ensure_quosure))
 }
 
 Layer <- ggproto("Layer", NULL,
