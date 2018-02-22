@@ -397,3 +397,14 @@ with_seed_null <- function(seed, code) {
 # Needed to trigger package loading
 #' @importFrom tibble tibble
 NULL
+
+ensure_quosure <- function(x, env = baseenv()) {
+  if (rlang::is_quosure(x)) {
+    return(x)
+  }
+
+  if (!rlang::is_symbolic(x)) {
+    env <- emptyenv()
+  }
+  rlang::new_quosure(x, env)
+}

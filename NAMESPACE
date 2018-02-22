@@ -2,9 +2,12 @@
 
 S3method("$",ggproto)
 S3method("$",ggproto_parent)
+S3method("$<-",uneval)
 S3method("+",gg)
 S3method("[",uneval)
+S3method("[<-",uneval)
 S3method("[[",ggproto)
+S3method("[[<-",uneval)
 S3method(.DollarNames,ggproto)
 S3method(as.list,ggproto)
 S3method(autolayer,default)

@@ -91,6 +91,26 @@ print.uneval <- function(x, ...) {
   new_aes(NextMethod())
 }
 
+# If necessary coerce replacements to quosures for compatibility
+#' @export
+"[[<-.uneval" <- function(x, i, value) {
+  x <- unclass(x)
+  x[[i]] <- ensure_quosure(value)
+  new_aes(x)
+}
+#' @export
+"$<-.uneval" <- function(x, i, value) {
+  i <- rlang::as_string(i)
+  x[[i]] <- value
+  x
+}
+#' @export
+"[<-.uneval" <- function(x, i, value) {
+  x <- unclass(x)
+  x[i] <- lapply(value, ensure_quosure)
+  new_aes(x)
+}
+
 # Rename American or old-style aesthetics name
 rename_aes <- function(x) {
   # Convert prefixes to full names

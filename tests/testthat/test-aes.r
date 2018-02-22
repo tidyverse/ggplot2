@@ -59,6 +59,18 @@ test_that("aes evaluated in environment where plot created", {
   expect_equal(layer_data(f())$x, 10)
 })
 
+test_that("assignment methods create quosures", {
+  mapping <- aes(a, b, c = c)
+  mapping[1] <- list(quote(foo))
+  expect_identical(mapping[[1]], rlang::new_quosure(quote(foo), baseenv()))
+
+  mapping[[2]] <- quote(bar)
+  expect_identical(mapping[[2]], rlang::new_quosure(quote(bar), baseenv()))
+
+  mapping$c <- quote(baz)
+  expect_identical(mapping[[3]], rlang::new_quosure(quote(baz), baseenv()))
+})
+
 
 # Visual tests ------------------------------------------------------------
 
