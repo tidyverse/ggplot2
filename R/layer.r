@@ -273,7 +273,7 @@ Layer <- ggproto("Layer", NULL,
     env <- new.env(parent = baseenv())
     env$calc <- calc
 
-    stat_data <- plyr::quickdf(lapply(new, eval, data, env))
+    stat_data <- plyr::quickdf(lapply(new, rlang::eval_tidy, data, env))
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed
