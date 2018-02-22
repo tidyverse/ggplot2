@@ -158,17 +158,19 @@ aes_ <- function(x, y, ...) {
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
 
-  as_call <- function(x) {
+  caller_env <- parent.frame()
+
+  as_quosure_aes <- function(x) {
     if (is.formula(x) && length(x) == 2) {
-      x[[2]]
+      rlang::as_quosure(x)
     } else if (is.call(x) || is.name(x) || is.atomic(x)) {
-      x
+      rlang::new_quosure(x, caller_env)
     } else {
       stop("Aesthetic must be a one-sided formula, call, name, or constant.",
         call. = FALSE)
     }
   }
-  mapping <- lapply(mapping, as_call)
+  mapping <- lapply(mapping, as_quosure_aes)
   structure(rename_aes(mapping), class = "uneval")
 }
 
@@ -179,11 +181,13 @@ aes_string <- function(x, y, ...) {
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
 
+  caller_env <- parent.frame()
+
   mapping <- lapply(mapping, function(x) {
     if (is.character(x)) {
-      parse(text = x)[[1]]
+      rlang::parse_quo(x, env = caller_env)
     } else {
-      x
+      rlang::new_quosure(x, env = caller_env)
     }
   })
   structure(rename_aes(mapping), class = "uneval")
@@ -205,8 +209,10 @@ aes_all <- function(vars) {
   names(vars) <- vars
   vars <- rename_aes(vars)
 
+  # Quosure the symbols in the empty environment because they can only
+  # refer to the data mask
   structure(
-    lapply(vars, as.name),
+    lapply(vars, function(x) rlang::new_quosure(as.name(x), emptyenv())),
     class = "uneval"
   )
 }

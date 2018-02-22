@@ -2,25 +2,25 @@ context("Creating aesthetic mappings")
 
 test_that("aes() captures input expressions", {
   out <- aes(mpg, wt + 1)
-  expect_equal(out$x, quote(mpg))
-  expect_equal(out$y, quote(wt + 1))
+  expect_identical(out$x, rlang::quo(mpg))
+  expect_identical(out$y, rlang::quo(wt + 1))
 })
 
 test_that("aes_q() uses quoted calls and formulas", {
   out <- aes_q(quote(mpg), ~ wt + 1)
-  expect_equal(out$x, quote(mpg))
-  expect_equal(out$y, quote(wt + 1))
+  expect_identical(out$x, rlang::quo(mpg))
+  expect_identical(out$y, rlang::quo(wt + 1))
 })
 
 test_that("aes_string() parses strings", {
-  expect_equal(aes_string("a + b")$x, quote(a + b))
+  expect_equal(aes_string("a + b")$x, rlang::quo(a + b))
 })
 
 test_that("aes_string() doesn't parse non-strings", {
   old <- options(OutDec = ",")
   on.exit(options(old))
 
-  expect_equal(aes_string(0.4)$x, 0.4)
+  expect_identical(aes_string(0.4)$x, rlang::new_quosure(0.4))
 })
 
 test_that("aes_q() & aes_string() preserves explicit NULLs", {
