@@ -244,7 +244,10 @@ aes_auto <- function(data = NULL, ...) {
 }
 
 mapped_aesthetics <- function(x) {
-  is_null <- vapply(x, is.null, logical(1))
-  names(x)[!is_null]
+  if (is.null(x)) {
+    return(NULL)
+  }
 
+  is_null <- vapply(x, rlang::quo_is_null, logical(1))
+  names(x)[!is_null]
 }
