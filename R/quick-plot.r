@@ -62,24 +62,33 @@
 qplot <- function(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
                   geom = "auto", xlim = c(NA, NA),
                   ylim = c(NA, NA), log = "", main = NULL,
-                  xlab = deparse(substitute(x)), ylab = deparse(substitute(y)),
+                  xlab = NULL, ylab = NULL,
                   asp = NA, stat = NULL, position = NULL) {
 
-  testthat::skip("qplot")
+  caller_env <- parent.frame()
 
   if (!missing(stat)) warning("`stat` is deprecated", call. = FALSE)
   if (!missing(position)) warning("`position` is deprecated", call. = FALSE)
   if (!is.character(geom)) stop("`geom` must be a character vector", call. = FALSE)
 
-  argnames <- names(as.list(match.call(expand.dots = FALSE)[-1]))
-  arguments <- as.list(match.call()[-1])
-  env <- parent.frame()
+  exprs <- rlang::enquos(x = x, y = y, ...)
+  is_missing <- vapply(exprs, rlang::quo_is_missing, logical(1))
+  is_constant <- vapply(exprs, rlang::quo_is_call, logical(1), name = "I")
 
-  aesthetics <- compact(arguments[.all_aesthetics])
-  aesthetics <- aesthetics[!is.constant(aesthetics)]
-  aes_names <- names(aesthetics)
-  aesthetics <- rename_aes(aesthetics)
-  class(aesthetics) <- "uneval"
+  mapping <- new_aes(exprs[!is_missing & !is_constant], env = parent.frame())
+  consts <- exprs[is_constant]
+
+  aes_names <- names(mapping)
+  mapping <- rename_aes(mapping)
+
+
+  xlab <- rlang::quo_name(exprs$x)
+  # Work around quo_name() bug: https://github.com/r-lib/rlang/issues/430
+  if (rlang::quo_is_null(exprs$y)) {
+    ylab <- "NULL"
+  } else {
+    ylab <- rlang::quo_name(exprs$y)
+  }
 
   if (missing(data)) {
     # If data not explicitly specified, will be pulled from workspace
@@ -89,7 +98,8 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
     facetvars <- all.vars(facets)
     facetvars <- facetvars[facetvars != "."]
     names(facetvars) <- facetvars
-    facetsdf <- as.data.frame(mget(facetvars, envir = env))
+    # FIXME?
+    facetsdf <- as.data.frame(mget(facetvars, envir = caller_env))
     if (nrow(facetsdf)) data <- facetsdf
   }
 
@@ -98,22 +108,22 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
     if ("sample" %in% aes_names) {
       geom[geom == "auto"] <- "qq"
     } else if (missing(y)) {
-      x <- eval(aesthetics$x, data, env)
+      x <- rlang::eval_tidy(mapping$x, data, caller_env)
       if (is.discrete(x)) {
         geom[geom == "auto"] <- "bar"
       } else {
         geom[geom == "auto"] <- "histogram"
       }
-      if (missing(ylab)) ylab <- "count"
+      if (is.null(ylab)) ylab <- "count"
     } else {
       if (missing(x)) {
-        aesthetics$x <- bquote(seq_along(.(y)), aesthetics)
+        mapping$x <- rlang::quo(seq_along(!!mapping$y))
       }
       geom[geom == "auto"] <- "point"
     }
   }
 
-  p <- ggplot(data, aesthetics, environment = env)
+  p <- ggplot(data, mapping, environment = NULL)
 
   if (is.null(facets)) {
     p <- p + facet_null()
@@ -127,12 +137,8 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
 
   # Add geoms/statistics
   for (g in geom) {
-    # Arguments are unevaluated because some are aesthetics. Need to evaluate
-    # params - can't do in correct env because that's lost (no lazyeval)
-    # so do the best we can by evaluating in parent frame.
-    params <- arguments[setdiff(names(arguments), c(aes_names, argnames))]
-    params <- lapply(params, eval, parent.frame())
-
+    # We reevaluate constants once per geom for historical reasons?
+    params <- lapply(consts, rlang::eval_tidy)
     p <- p + do.call(paste0("geom_", g), params)
   }
 
