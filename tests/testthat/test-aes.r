@@ -20,7 +20,7 @@ test_that("aes_string() doesn't parse non-strings", {
   old <- options(OutDec = ",")
   on.exit(options(old))
 
-  expect_identical(aes_string(0.4)$x, rlang::new_quosure(0.4))
+  expect_identical(aes_string(0.4)$x, 0.4)
 })
 
 test_that("aes_q() & aes_string() preserves explicit NULLs", {
@@ -59,16 +59,33 @@ test_that("aes evaluated in environment where plot created", {
   expect_equal(layer_data(f())$x, 10)
 })
 
-test_that("assignment methods create quosures", {
+test_that("constants are not wrapped in quosures", {
+  aes <- aes(1L, "foo", 1.5)
+  expect_identical(unclass(aes), list(x = 1L, y = "foo", 1.5))
+})
+
+test_that("assignment methods wrap symbolic objects in quosures", {
   mapping <- aes(a, b, c = c)
   mapping[1] <- list(quote(foo))
-  expect_identical(mapping[[1]], rlang::new_quosure(quote(foo), baseenv()))
+  expect_identical(mapping[[1]], rlang::new_quosure(quote(foo), globalenv()))
 
   mapping[[2]] <- quote(bar)
-  expect_identical(mapping[[2]], rlang::new_quosure(quote(bar), baseenv()))
+  expect_identical(mapping[[2]], rlang::new_quosure(quote(bar), globalenv()))
 
   mapping$c <- quote(baz)
-  expect_identical(mapping[[3]], rlang::new_quosure(quote(baz), baseenv()))
+  expect_identical(mapping[[3]], rlang::new_quosure(quote(baz), globalenv()))
+})
+
+test_that("assignment methods pull unwrap constants from quosures", {
+  mapping <- aes(a, b, c = c)
+  mapping[1] <- list(rlang::quo("foo"))
+  expect_identical(mapping[[1]], "foo")
+
+  mapping[[2]] <- rlang::quo("bar")
+  expect_identical(mapping[[2]], "bar")
+
+  mapping$c <- rlang::quo("baz")
+  expect_identical(mapping[[3]], "baz")
 })
 
 

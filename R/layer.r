@@ -163,7 +163,7 @@ validate_mapping <- function(mapping) {
   }
 
   # For backward compatibility with pre-tidy-eval layers
-  new_aes(lapply(mapping, ensure_quosure))
+  new_aes(mapping)
 }
 
 Layer <- ggproto("Layer", NULL,

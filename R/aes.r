@@ -61,12 +61,30 @@ aes <- function(x, y, ...) {
   exprs <- rlang::enquos(x = x, y = y, ...)
   is_missing <- vapply(exprs, rlang::quo_is_missing, logical(1))
 
-  aes <- new_aes(exprs[!is_missing])
+  aes <- new_aes(exprs[!is_missing], env = parent.frame())
   rename_aes(aes)
 }
 
-new_aes <- function(x) {
+# Wrap symbolic objects in quosures but pull out constants out of
+# quosures for backward-compatibility
+new_aesthetic <- function(x, env = globalenv()) {
+  if (rlang::is_quosure(x)) {
+    if (!rlang::quo_is_symbolic(x)) {
+      x <- rlang::quo_get_expr(x)
+    }
+    return(x)
+  }
+
+  if (rlang::is_symbolic(x)) {
+    x <- rlang::new_quosure(x, env = env)
+    return(x)
+  }
+
+  x
+}
+new_aes <- function(x, env = globalenv()) {
   stopifnot(is.list(x))
+  x <- lapply(x, new_aesthetic, env = env)
   structure(x, class = "uneval")
 }
 
@@ -94,21 +112,15 @@ print.uneval <- function(x, ...) {
 # If necessary coerce replacements to quosures for compatibility
 #' @export
 "[[<-.uneval" <- function(x, i, value) {
-  x <- unclass(x)
-  x[[i]] <- ensure_quosure(value)
-  new_aes(x)
+  new_aes(NextMethod())
 }
 #' @export
 "$<-.uneval" <- function(x, i, value) {
-  i <- rlang::as_string(i)
-  x[[i]] <- value
-  x
+  new_aes(NextMethod())
 }
 #' @export
 "[<-.uneval" <- function(x, i, value) {
-  x <- unclass(x)
-  x[i] <- lapply(value, ensure_quosure)
-  new_aes(x)
+  new_aes(NextMethod())
 }
 
 # Rename American or old-style aesthetics name
@@ -184,7 +196,7 @@ aes_ <- function(x, y, ...) {
     if (is.formula(x) && length(x) == 2) {
       rlang::as_quosure(x)
     } else if (is.call(x) || is.name(x) || is.atomic(x)) {
-      rlang::new_quosure(x, caller_env)
+      new_aesthetic(x, caller_env)
     } else {
       stop("Aesthetic must be a one-sided formula, call, name, or constant.",
         call. = FALSE)
@@ -202,14 +214,13 @@ aes_string <- function(x, y, ...) {
   if (!missing(y)) mapping["y"] <- list(y)
 
   caller_env <- parent.frame()
-
   mapping <- lapply(mapping, function(x) {
     if (is.character(x)) {
-      rlang::parse_quo(x, env = caller_env)
-    } else {
-      rlang::new_quosure(x, env = caller_env)
+      x <- rlang::parse_expr(x)
     }
+    new_aesthetic(x, env = caller_env)
   })
+
   structure(rename_aes(mapping), class = "uneval")
 }
 
@@ -274,6 +285,6 @@ mapped_aesthetics <- function(x) {
     return(NULL)
   }
 
-  is_null <- vapply(x, rlang::quo_is_null, logical(1))
+  is_null <- vapply(x, is.null, logical(1))
   names(x)[!is_null]
 }
