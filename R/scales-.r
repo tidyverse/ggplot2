@@ -88,7 +88,7 @@ scales_transform_df <- function(scales, df) {
 
 # @param aesthetics A list of aesthetic-variable mappings. The name of each
 #   item is the aesthetic, and the value of each item is the variable in data.
-scales_add_defaults <- function(scales, data, aesthetics) {
+scales_add_defaults <- function(scales, data, aesthetics, env) {
   if (is.null(aesthetics)) return()
   names(aesthetics) <- unlist(lapply(names(aesthetics), aes_to_scale))
 
@@ -99,7 +99,7 @@ scales_add_defaults <- function(scales, data, aesthetics) {
   datacols <- lapply(aesthetics[new_aesthetics], rlang::eval_tidy, data = data)
 
   for (aes in names(datacols)) {
-    scales$add(find_scale(aes, datacols[[aes]]))
+    scales$add(find_scale(aes, datacols[[aes]], env))
   }
 
 }

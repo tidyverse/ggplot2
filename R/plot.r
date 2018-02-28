@@ -70,28 +70,21 @@
 #'     width = 0.4
 #'   )
 ggplot <- function(data = NULL, mapping = aes(), ...,
-                   environment = NULL) {
+                   environment = parent.frame()) {
   UseMethod("ggplot")
 }
 
 #' @export
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
-                           environment = NULL) {
+                           environment = parent.frame()) {
   ggplot.data.frame(fortify(data, ...), mapping, environment = environment)
 }
 
 #' @export
 ggplot.data.frame <- function(data, mapping = aes(), ...,
-                              environment = NULL) {
+                              environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
     stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
-  }
-
-  if (!is.null(environment)) {
-    stop(
-      "`environment` is deprecated: environments are now captured by `aes()`",
-      call. = FALSE
-    )
   }
 
   p <- structure(list(
@@ -102,7 +95,7 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
     theme = list(),
     coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
-    plot_env = parent.frame()
+    plot_env = environment
   ), class = c("gg", "ggplot"))
 
   p$labels <- make_labels(mapping)
@@ -113,7 +106,7 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
 
 #' @export
 ggplot.grouped_df <- function(data, mapping = aes(), ...,
-                               environment = NULL) {
+                               environment = parent.frame()) {
 
   data$.group <- dplyr::group_indices(data)
   mapping$group <- mapping$group %||% quote(.group)

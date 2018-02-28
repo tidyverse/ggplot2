@@ -1,9 +1,9 @@
-find_scale <- function(aes, x) {
+find_scale <- function(aes, x, env) {
   type <- scale_type(x)
   candidates <- paste("scale", aes, type, sep = "_")
 
   for (scale in candidates) {
-    scale_f <- find_global(scale, globalenv(), mode = "function")
+    scale_f <- find_global(scale, env, mode = "function")
     if (!is.null(scale_f))
       return(scale_f())
   }

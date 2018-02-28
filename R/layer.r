@@ -227,7 +227,7 @@ Layer <- ggproto("Layer", NULL,
       data <- data[res, , drop = FALSE]
     }
 
-    scales_add_defaults(plot$scales, data, aesthetics)
+    scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate and check aesthetics
     aesthetics <- compact(aesthetics)
@@ -287,7 +287,7 @@ Layer <- ggproto("Layer", NULL,
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed
-    scales_add_defaults(plot$scales, data, new)
+    scales_add_defaults(plot$scales, data, new, plot$plot_env)
     # Transform the values, if the scale say it's ok
     # (see stat_spoke for one exception)
     if (self$stat$retransform) {

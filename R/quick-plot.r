@@ -123,7 +123,7 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
     }
   }
 
-  p <- ggplot(data, mapping, environment = NULL)
+  p <- ggplot(data, mapping, environment = caller_env)
 
   if (is.null(facets)) {
     p <- p + facet_null()
@@ -139,7 +139,7 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
   for (g in geom) {
     # We reevaluate constants once per geom for historical reasons?
     params <- lapply(consts, rlang::eval_tidy)
-    p <- p + do.call(paste0("geom_", g), params)
+    p <- p + do.call(paste0("geom_", g), params, envir = caller_env)
   }
 
   logv <- function(var) var %in% strsplit(log, "")[[1]]
