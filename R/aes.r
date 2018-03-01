@@ -116,7 +116,10 @@ print.uneval <- function(x, ...) {
 }
 #' @export
 "$<-.uneval" <- function(x, i, value) {
-  new_aes(NextMethod())
+  # Can't use NextMethod() because of a bug in R 3.1
+  x <- unclass(x)
+  x[[i]] <- value
+  new_aes(x)
 }
 #' @export
 "[<-.uneval" <- function(x, i, value) {
