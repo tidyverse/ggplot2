@@ -279,8 +279,9 @@ up correct aspect ratio, and draws a graticule.
   summarise the layout, coordinate systems, and layers, of a built ggplot object
   (#2034, @wch). This provides a tested API that (e.g.) shiny can depend on.
 
-* Update startup messages to reflect new resources. (#2410, @mine-cetinkaya-rundel)
+* The height of descenders is now calculated solely on font metrics and doesn't change with the specific letters in the string. This fixes minor alignment issues with plot titles, subtitles, and legend titles. (#2288, @clauswilke)
 
+* Update startup messages to reflect new resources. (#2410, @mine-cetinkaya-rundel)
 
 # ggplot2 2.2.1
 

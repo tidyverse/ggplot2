@@ -68,9 +68,17 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
     gp = gp
   )
 
-  # The grob dimensions don't include the text descenders, so add on using
-  # a little trigonometry. This is only exactly correct when vjust = 1.
-  descent <- descentDetails(text_grob)
+  # The grob dimensions don't include the text descenders, so these need to be added
+  # manually. Because descentDetails calculates the actual descenders of the specific
+  # text label, which depends on the label content, we replace the label with one that
+  # has the common letters with descenders. This guarantees that the grob always has
+  # the same height regardless of whether the text actually contains letters with
+  # descenders or not. The same happens automatically with ascenders already.
+  temp <- editGrob(text_grob, label = "gjpqyQ")
+  descent <- descentDetails(temp)
+
+  # Use trigonometry to calculate grobheight and width for rotated grobs. This is only
+  # exactly correct when vjust = 1.
   text_height <- unit(1, "grobheight", text_grob) + cos(angle / 180 * pi) * descent
   text_width <- unit(1, "grobwidth", text_grob) + sin(angle / 180 * pi) * descent
 
