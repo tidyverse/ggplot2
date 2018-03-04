@@ -302,6 +302,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
   title_height <- convertHeight(grobHeight(grob.title), "mm")
   title_height.c <- c(title_height)
   title_fontsize <- title.theme$size
+  if (is.null(title_fontsize)) title_fontsize <- 0
 
   # gap between keys etc
   hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))

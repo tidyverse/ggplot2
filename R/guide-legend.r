@@ -343,6 +343,7 @@ guide_gengrob.legend <- function(guide, theme) {
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
   title_fontsize <- title.theme$size
+  if (is.null(title_fontsize)) title_fontsize <- 0
 
   # gap between keys etc
   hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
