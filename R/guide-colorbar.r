@@ -282,9 +282,14 @@ guide_gengrob.colorbar <- function(guide, theme) {
   if (!guide$draw.llim) tic_pos.c <- tic_pos.c[-length(tic_pos.c)]
 
   # title
+
+  # obtain the theme for the legend title. We need this both for the title grob
+  # and to obtain the title fontsize.
+  title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
+
   grob.title <- ggname("guide.title",
     element_grob(
-      guide$title.theme %||% calc_element("legend.title", theme),
+      title.theme,
       label = guide$title,
       hjust = guide$title.hjust %||% theme$legend.title.align %||% 0,
       vjust = guide$title.vjust %||% 0.5
@@ -296,10 +301,13 @@ guide_gengrob.colorbar <- function(guide, theme) {
   title_width.c <- c(title_width)
   title_height <- convertHeight(grobHeight(grob.title), "mm")
   title_height.c <- c(title_height)
+  title_fontsize <- title.theme$size
 
   # gap between keys etc
   hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
-  vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_height, "cm")))
+  # multiply by 5 instead of 0.5 due to unit error below. this needs to be fixed
+  # separately (pull request pending).
+  vgap <- height_cm(theme$legend.spacing.y %||% (5 * unit(title_fontsize, "pt")))
 
   # label
   label.theme <- guide$label.theme %||% calc_element("legend.text", theme)

@@ -254,6 +254,11 @@ up correct aspect ratio, and draws a graticule.
 
 * Default themes use `rel()` to set line widths (@baptiste).
 
+* Themes were tweaked for visual consistency and more graceful behavior when changing
+  the base font size. All absolute heights or widths were replaced with heights or 
+  widths that are proportional to the base font size. One relative font size
+  was eliminated. (@clauswilke)
+
 ### Other
 
 * `fortify()` gains a method for tbls (@karawoo, #2218)
