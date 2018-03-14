@@ -69,10 +69,10 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
     df$xmin <- df$x
     df$xmax <- df$x
   }
-  
+
   # to enable functionality when input is not a stat, save copy and reduce df
   df_full <- df
-  if (!all(c("middle") %in% names(df))) {  
+  if (!all(c("ymin") %in% names(df))) {  
     df <- df[!is.na(df$y), ]
     df <- df[!duplicated(df$group), ]
   }
