@@ -105,13 +105,22 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   # Check for deprecated labellers
   labeller <- check_labeller(labeller)
 
+  # Flatten all facets dimensions into a single one
+  facets <- rlang::flatten(as_facets_spec(facets))
+
   ggproto(NULL, FacetWrap,
     shrink = shrink,
-    params = list(facets = as.quoted(facets), free = free,
-    as.table = as.table, strip.position = strip.position,
-    drop = drop, ncol = ncol, nrow = nrow,
-    labeller = labeller,
-    dir = dir)
+    params = list(
+      facets = facets,
+      free = free,
+      as.table = as.table,
+      strip.position = strip.position,
+      drop = drop,
+      ncol = ncol,
+      nrow = nrow,
+      labeller = labeller,
+      dir = dir
+    )
   )
 }
 
@@ -123,8 +132,10 @@ FacetWrap <- ggproto("FacetWrap", Facet,
   shrink = TRUE,
 
   compute_layout = function(data, params) {
-    vars <- as.quoted(params$facets)
-    if (length(vars) == 0) return(layout_null())
+    vars <- params$facets
+    if (length(vars) == 0) {
+      return(layout_null())
+    }
 
     base <- plyr::unrowname(
       combine_vars(data, params$plot_env, vars, drop = params$drop)
@@ -162,9 +173,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (empty(data)) {
       return(cbind(data, PANEL = integer(0)))
     }
-    vars <- as.quoted(params$facets)
+    vars <- params$facets
 
-    facet_vals <- eval_facet_vars(vars, data, params$plot_env)
+    facet_vals <- eval_facets(vars, data, params$plot_env)
     facet_vals[] <- lapply(facet_vals[], as.factor)
 
     missing_facets <- setdiff(names(vars), names(facet_vals))
@@ -338,7 +349,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     panel_table
   },
   vars = function(self) {
-    vapply(self$params$facets, as.character, character(1))
+    names(self$params$facets)
   }
 )
 

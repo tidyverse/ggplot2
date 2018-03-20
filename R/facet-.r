@@ -203,6 +203,127 @@ df.grid <- function(a, b) {
   ))
 }
 
+# A facets spec is a list of facets. A grid facetting needs two facets
+# while a wrap facetting flattens all dimensions and thus accepts any
+# number of facets.
+#
+# A facets is a list of grouping variables. They are typically
+# supplied as variable names but can be expressions.
+#
+# as_facets() is complex due to historical baggage but its main
+# purpose is to create a facets spec from a formula: a + b ~ c + d
+# creates a facets list with two components, each of which bundles two
+# facetting variables.
+
+as_facets_spec <- function(x) {
+  if (inherits(x, "mapping")) {
+    stop("todo mapping")
+  }
+
+  # This needs to happen early because we might get a formula.
+  # facet_grid() directly converted strings to a formula while
+  # facet_wrap() called as.quoted(). Hence this is a little more
+  # complicated for backward compatibility.
+  if (rlang::is_string(x)) {
+    x <- plyr::as.quoted(x)
+    if (rlang::is_formula(x[[1]])) {
+      x <- x[[1]]
+    }
+  }
+
+  # At this level formulas are coerced to lists of lists for backward
+  # compatibility with facet_grid(). The LHS and RHS are treated as
+  # distinct facet dimensions and `+` defines multiple facet variables
+  # inside each dimension.
+  if (rlang::is_formula(x)) {
+    return(f_as_facets_spec(x))
+  }
+
+  # For backward-compatibility with facet_wrap()
+  if (!rlang::is_bare_list(x)) {
+    x <- plyr::as.quoted(x)
+    attributes(x) <- NULL
+  }
+
+  # If we have a list there are two possibilities. We may already have
+  # a proper facet spec structure. Otherwise we coerce each element
+  # with plyr::as.quoted() for backward compatibility with facet_grid().
+  if (is.list(x)) {
+    x <- lapply(x, as_facets)
+  }
+
+  if (sum(vapply(x, length, integer(1))) == 0L) {
+    stop("Must specify at least one variable to facet by", call. = FALSE)
+  }
+
+  x
+}
+
+f_as_facets_spec <- function(f) {
+  lhs <- function(x) if (length(x) == 2) NULL else x[-3]
+  rhs <- function(x) if (length(x) == 2) x else x[-2]
+
+  rows <- f_as_facets(lhs(f))
+  cols <- f_as_facets(rhs(f))
+
+  if (length(rows) + length(cols) == 0) {
+    stop("Must specify at least one variable to facet by", call. = FALSE)
+  }
+
+  if (length(rows)) {
+    list(rows, cols)
+  } else {
+    list(cols)
+  }
+}
+
+
+as_facets <- function(x) {
+  if (is_facets(x)) {
+    return(x)
+  }
+
+  if (rlang::is_formula(x)) {
+    # Use different formula method because plyr's does not handle the
+    # environment correctly.
+    f_as_facets(x)
+  } else {
+    vars <- plyr::as.quoted(x)
+    vars <- lapply(vars, rlang::new_quosure, env = globalenv())
+    rlang::quos_auto_name(vars)
+  }
+}
+f_as_facets <- function(f) {
+  if (is.null(f)) {
+    return(list())
+  }
+
+  env <- rlang::f_env(f) %||% globalenv()
+
+  # as.quoted() handles `+` specifications
+  vars <- plyr::as.quoted(f)
+
+  # `.` in formulas is ignored
+  vars <- discard_dots(vars)
+
+  vars <- lapply(vars, rlang::new_quosure, env)
+  rlang::quos_auto_name(vars)
+}
+discard_dots <- function(x) {
+  x[!vapply(x, identical, logical(1), as.name("."))]
+}
+
+is_facets <- function(x) {
+  if (!is.list(x)) {
+    return(FALSE)
+  }
+  if (!length(x)) {
+    return(FALSE)
+  }
+  all(vapply(x, rlang::is_quosure, logical(1)))
+}
+
+
 # When evaluating variables in a facet specification, we evaluate bare
 # variables and expressions slightly differently. Bare variables should
 # always succeed, even if the variable doesn't exist in the data frame:
@@ -210,31 +331,23 @@ df.grid <- function(a, b) {
 # when evaluating an expression, you want to see any errors. That does
 # mean you can't have background data when faceting by an expression,
 # but that seems like a reasonable tradeoff.
-eval_facet_vars <- function(vars, data, env = emptyenv()) {
-  nms <- names(vars)
-  out <- list()
-
-  for (i in seq_along(vars)) {
-    out[[ nms[[i]] ]] <- eval_facet_var(vars[[i]], data, env = env)
-  }
-
-  tibble::as_tibble(out)
+eval_facets <- function(facets, data, env = globalenv()) {
+  vars <- compact(lapply(facets, eval_facet, data, env = env))
+  tibble::as_tibble(vars)
 }
+eval_facet <- function(facet, data, env = emptyenv()) {
+  if (rlang::quo_is_symbol(facet)) {
+    facet <- as.character(rlang::quo_get_expr(facet))
 
-eval_facet_var <- function(var, data, env = emptyenv()) {
-  if (is.name(var)) {
-    var <- as.character(var)
-    if (var %in% names(data)) {
-      data[[var]]
+    if (facet %in% names(data)) {
+      out <- data[[facet]]
     } else {
-      NULL
+      out <- NULL
     }
-  } else if (is.call(var)) {
-    eval(var, envir = data, enclos = env)
-  } else {
-    stop("Must use either variable name or expression when faceting",
-      call. = FALSE)
+    return(out)
   }
+
+  rlang::eval_tidy(facet, data, env)
 }
 
 layout_null <- function() {
@@ -325,7 +438,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   if (length(vars) == 0) return(data.frame())
 
   # For each layer, compute the facet values
-  values <- compact(plyr::llply(data, eval_facet_vars, vars = vars, env = env))
+  values <- compact(plyr::llply(data, eval_facets, facets = vars, env = env))
 
   # Form the base data frame which contains all combinations of faceting
   # variables that appear in the data

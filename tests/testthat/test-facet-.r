@@ -1,5 +1,46 @@
 context("Facetting")
 
+quo <- rlang::quo
+quoted_obj <- structure(list(), class = "quoted_obj")
+as.quoted.quoted_obj <- function(...) plyr::as.quoted(quote(dispatched), globalenv())
+assign("as.quoted.quoted_obj", as.quoted.quoted_obj, envir = globalenv())
+
+test_that("as_facets_spec() coerces formulas", {
+  expect_identical(as_facets_spec(~foo), list(list(foo = quo(foo))))
+  expect_identical(as_facets_spec(~foo + bar), list(list(foo = quo(foo), bar = quo(bar))))
+
+  expect_identical(as_facets_spec(foo ~ bar), list(list(foo = quo(foo)), list(bar = quo(bar))))
+
+  exp <- list(list(foo = quo(foo), bar = quo(bar)), list(baz = quo(baz), bam = quo(bam)))
+  expect_identical(as_facets_spec(foo + bar ~ baz + bam), exp)
+
+  exp <- list(list(`foo()`= quo(foo()), `bar()` = quo(bar())), list(`baz()` = quo(baz()), `bam()` = quo(bam())))
+  expect_identical(as_facets_spec(foo() + bar() ~ baz() + bam()), exp)
+})
+
+test_that("as_facets_spec() coerces strings containing formulas", {
+  expect_identical(as_facets_spec("foo ~ bar"), as_facets_spec(local(foo ~ bar, globalenv())))
+})
+
+test_that("as_facets_spec() coerces character vectors", {
+  expect_identical(as_facets_spec("foo"), as_facets_spec(local(~foo, globalenv())))
+  expect_identical(as_facets_spec(c("foo", "bar")), as_facets_spec(local(foo ~ bar, globalenv())))
+})
+
+test_that("as_facets_spec() coerces lists", {
+  out <- as_facets_spec(list(quote(foo), c("foo", "bar"), NULL, quoted_obj))
+  exp <- c(as_facets_spec(quote(foo)), list(rlang::flatten(as_facets_spec(c("foo", "bar")))), list(list()), as_facets_spec(quoted_obj))
+  expect_identical(out, exp)
+})
+
+test_that("as_facets_spec() errors with empty specs", {
+  expect_error(as_facets_spec(list()), "at least one variable to facet by")
+  expect_error(as_facets_spec(. ~ .), "at least one variable to facet by")
+  expect_error(as_facets_spec(list(. ~ .)), "at least one variable to facet by")
+  expect_error(as_facets_spec(list(NULL)), "at least one variable to facet by")
+})
+
+
 df <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
 
 test_that("facets split up the data", {
