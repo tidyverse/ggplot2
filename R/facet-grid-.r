@@ -146,26 +146,21 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
     stop("switch must be either 'both', 'x', or 'y'", call. = FALSE)
   }
 
-  # Facets can either be a formula, a string, or a list of things to be
-  # convert to quoted
-  if (is.character(facets)) {
-    facets <- stats::as.formula(facets)
-  }
-  if (is.formula(facets)) {
-    lhs <- function(x) if (length(x) == 2) NULL else x[-3]
-    rhs <- function(x) if (length(x) == 2) x else x[-2]
+  facets <- as_facets_spec(facets)
 
-    rows <- as.quoted(lhs(facets))
-    rows <- rows[!sapply(rows, identical, as.name("."))]
-    cols <- as.quoted(rhs(facets))
-    cols <- cols[!sapply(cols, identical, as.name("."))]
+  n <- length(facets)
+  if (!n) {
+    stop("FIXME: Internal error grid?")
   }
-  if (is.list(facets)) {
-    rows <- as.quoted(facets[[1]])
-    cols <- as.quoted(facets[[2]])
+  if (n > 2L) {
+    stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
   }
-  if (length(rows) + length(cols) == 0) {
-    stop("Must specify at least one variable to facet by", call. = FALSE)
+  if (n == 1L) {
+    rows <- list()
+    cols <- facets[[1]]
+  } else {
+    rows <- facets[[1]]
+    cols <- facets[[2]]
   }
 
   # Check for deprecated labellers
@@ -187,8 +182,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   shrink = TRUE,
 
   compute_layout = function(data, params) {
-    rows <- as.quoted(params$rows)
-    cols <- as.quoted(params$cols)
+    rows <- params$rows
+    cols <- params$cols
 
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
@@ -234,8 +229,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       return(cbind(data, PANEL = integer(0)))
     }
 
-    rows <- as.quoted(params$rows)
-    cols <- as.quoted(params$cols)
+    rows <- params$rows
+    cols <- params$cols
     vars <- c(names(rows), names(cols))
 
     # Compute faceting values and add margins
@@ -243,7 +238,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       intersect(names(cols), names(data)))
     data <- reshape2::add_margins(data, margin_vars, params$margins)
 
-    facet_vals <- eval_facet_vars(c(rows, cols), data, params$plot_env)
+    facet_vals <- eval_facets(c(rows, cols), data, params$plot_env)
 
     # If any faceting variables are missing, add them in by
     # duplicating the data
@@ -405,7 +400,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel_table
   },
   vars = function(self) {
-    vapply(c(self$params$rows, self$params$cols), as.character, character(1))
+    names(c(self$params$rows, self$params$cols))
   }
 )
 
