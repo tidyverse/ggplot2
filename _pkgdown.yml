@@ -1,4 +1,5 @@
 template:
+  ganalytics: "UA-115082821-1"
   package: tidytemplate
   default_assets: false
 
