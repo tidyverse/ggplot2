@@ -215,7 +215,7 @@ df.grid <- function(a, b) {
 # creates a facets list with two components, each of which bundles two
 # facetting variables.
 
-as_facets_spec <- function(x) {
+as_facets_list <- function(x) {
   if (inherits(x, "mapping")) {
     stop("Please use `vars()` to supply facet variables")
   }
@@ -240,7 +240,7 @@ as_facets_spec <- function(x) {
   # distinct facet dimensions and `+` defines multiple facet variables
   # inside each dimension.
   if (rlang::is_formula(x)) {
-    return(f_as_facets_spec(x))
+    return(f_as_facets_list(x))
   }
 
   # For backward-compatibility with facet_wrap()
@@ -263,7 +263,7 @@ as_facets_spec <- function(x) {
   x
 }
 
-f_as_facets_spec <- function(f) {
+f_as_facets_list <- function(f) {
   lhs <- function(x) if (length(x) == 2) NULL else x[-3]
   rhs <- function(x) if (length(x) == 2) x else x[-2]
 

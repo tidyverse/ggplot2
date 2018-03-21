@@ -146,7 +146,7 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
     stop("switch must be either 'both', 'x', or 'y'", call. = FALSE)
   }
 
-  facets <- as_facets_spec(facets)
+  facets <- as_facets_list(facets)
 
   n <- length(facets)
   if (!n) {
