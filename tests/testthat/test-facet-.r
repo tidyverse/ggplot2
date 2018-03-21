@@ -76,6 +76,37 @@ test_that("facet_wrap() accept vars()", {
   expect_identical(layer_data(p1), layer_data(p2))
 })
 
+test_that("facet_grid() accepts vars()", {
+  grid <- facet_grid(vars(a = foo))
+  expect_identical(grid$params$rows, quos(a = foo))
+
+  grid <- facet_grid(vars(a = foo), vars(b = bar))
+  expect_identical(grid$params$rows, quos(a = foo))
+  expect_identical(grid$params$cols, quos(b = bar))
+
+  grid <- facet_grid(vars(foo), vars(bar))
+  expect_identical(grid$params$rows, quos(foo = foo))
+  expect_identical(grid$params$cols, quos(bar = bar))
+
+  expect_equal(facet_grid(vars(am, vs)), facet_grid(am + vs ~ .))
+  expect_equal(facet_grid(vars(am, vs), vars(cyl)), facet_grid(am + vs ~ cyl))
+  expect_equal(facet_grid(NULL, vars(cyl)), facet_grid(. ~ cyl))
+  expect_equal(facet_grid(vars(am, vs), TRUE), facet_grid(am + vs ~ ., margins = TRUE))
+})
+
+test_that("facet_grid() fails if passed both a formula and a vars()", {
+  expect_error(facet_grid(~foo, vars()), "`rows` must be `NULL` or a `vars\\(\\)` list if")
+})
+
+test_that("can't pass formulas to `cols`", {
+  expect_error(facet_grid(NULL, ~foo), "`cols` must be `NULL` or a `vars\\(\\)`")
+})
+
+test_that("can still pass `margins` as second argument", {
+  grid <- facet_grid(~foo, TRUE)
+  expect_true(grid$params$margins)
+})
+
 test_that("vars() accepts optional names", {
   wrap <- facet_wrap(vars(A = a, b))
   expect_named(wrap$params$facets, c("A", "b"))
