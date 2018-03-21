@@ -44,6 +44,9 @@ test_that("as_facets_list() errors with empty specs", {
   expect_error(as_facets_list(list(. ~ .)), "at least one variable to facet by")
   expect_error(as_facets_list(list(NULL)), "at least one variable to facet by")
 })
+
+test_that("as_facets_list() coerces quosure lists", {
+  expect_identical(as_facets_list(vars(foo)), list(rlang::quos(foo = foo)))
 })
 
 
@@ -61,6 +64,21 @@ test_that("facets split up the data", {
   expect_equal(d1, d2)
   expect_equal(d1, d3)
   expect_equal(d1$PANEL, factor(1:3))
+})
+
+test_that("facet_wrap() accept vars()", {
+  p <- ggplot(df, aes(x, y)) + geom_point()
+  p2 <- p + facet_wrap(vars(z))
+
+  p1 <- p + facet_wrap(~z)
+  p2 <- p + facet_wrap(vars(Z = z), labeller = label_both)
+
+  expect_identical(layer_data(p1), layer_data(p2))
+})
+
+test_that("vars() accepts optional names", {
+  wrap <- facet_wrap(vars(A = a, b))
+  expect_named(wrap$params$facets, c("A", "b"))
 })
 
 test_that("facets with free scales scale independently", {

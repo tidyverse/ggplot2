@@ -7,8 +7,13 @@ NULL
 #' a better use of screen space than [facet_grid()] because most
 #' displays are roughly rectangular.
 #'
-#' @param facets Either a formula or character vector. Use either a
-#'   one sided formula, `~a + b`, or a character vector, `c("a", "b")`.
+#' @param facets A set of variables or expressions quoted by [vars()]
+#'   and defining faceting groups on the rows or columns dimension.
+#'   The variables can be named (the names are passed to `labeller`).
+#'
+#'   For backward compatibility with the historical interface, can
+#'   also be a formula or character vector. Use either a one sided
+#'   formula, `~a + b`, or a character vector, `c("a", "b")`.
 #' @param nrow,ncol Number of rows and columns.
 #' @param scales should Scales be fixed (`"fixed"`, the default),
 #'   free (`"free"`), or free in one dimension (`"free_x"`,
@@ -22,14 +27,16 @@ NULL
 #' @inheritParams facet_grid
 #' @export
 #' @examples
-#' ggplot(mpg, aes(displ, hwy)) +
-#'   geom_point() +
-#'   facet_wrap(~class)
+#' p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+#'
+#' # Use vars() to supply faceting variables:
+#' p + facet_wrap(vars(class))
+#'
+#' # The historical interface with formulas is also available:
+#' p + facet_wrap(~class)
 #'
 #' # Control the number of rows and columns with nrow and ncol
-#' ggplot(mpg, aes(displ, hwy)) +
-#'   geom_point() +
-#'   facet_wrap(~class, nrow = 4)
+#' p + facet_wrap(vars(class), nrow = 4)
 #'
 #' \donttest{
 #' # You can facet by multiple variables
