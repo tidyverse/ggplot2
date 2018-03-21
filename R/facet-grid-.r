@@ -7,18 +7,18 @@ NULL
 #' faceting variables. It is most useful when you have two discrete
 #' variables, and all combinations of the variables exist in the data.
 #'
-#' @param facets a formula with the rows (of the tabular display) on the LHS
-#'   and the columns (of the tabular display) on the RHS; the dot in the
-#'   formula is used to indicate there should be no faceting on this dimension
-#'   (either row or column). The formula can also be provided as a string
-#'   instead of a classical formula object
-#' @param margins either a logical value or a character
-#'   vector. Margins are additional facets which contain all the data
-#'   for each of the possible values of the faceting variables. If
-#'   `FALSE`, no additional facets are included (the
-#'   default). If `TRUE`, margins are included for all faceting
-#'   variables. If specified as a character vector, it is the names of
-#'   variables for which margins are to be created.
+#' @param rows,cols A set of variables or expressions quoted by
+#'   [vars()] and defining faceting groups on the rows or columns
+#'   dimension. The variables can be named (the names are passed to
+#'   `labeller`).
+#'
+#'   For backward compatibility with the historical interface, `rows`
+#'   can also be a formula with the rows (of the tabular display) on
+#'   the LHS and the columns (of the tabular display) on the RHS; the
+#'   dot in the formula is used to indicate there should be no
+#'   faceting on this dimension (either row or column). The formula
+#'   can also be provided as a string instead of a classical formula
+#'   object.
 #' @param scales Are scales shared across all facets (the default,
 #'   `"fixed"`), or do they vary across rows (`"free_x"`),
 #'   columns (`"free_y"`), or both rows and columns (`"free"`)
@@ -50,10 +50,25 @@ NULL
 #' @param drop If `TRUE`, the default, all factor levels not used in the
 #'   data will automatically be dropped. If `FALSE`, all factor levels
 #'   will be shown, regardless of whether or not they appear in the data.
+#' @param margins either a logical value or a character
+#'   vector. Margins are additional facets which contain all the data
+#'   for each of the possible values of the faceting variables. If
+#'   `FALSE`, no additional facets are included (the
+#'   default). If `TRUE`, margins are included for all faceting
+#'   variables. If specified as a character vector, it is the names of
+#'   variables for which margins are to be created.
+#' @param facets This argument is soft-deprecated, please us `rows`
+#'   and `cols` instead.
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(displ, cty)) + geom_point()
 #'
+#' # Use vars() to supply variables from the dataset:
+#' p + facet_grid(vars(drv))
+#' p + facet_grid(cols = vars(cyl))
+#' p + facet_grid(vars(drv), vars(cyl))
+#'
+#' # The historical formula interface is also available:
 #' p + facet_grid(. ~ cyl)
 #' p + facet_grid(drv ~ .)
 #' p + facet_grid(drv ~ cyl)
@@ -66,7 +81,7 @@ NULL
 #' # combinations:
 #' df <- data.frame(displ = mean(mpg$displ), cty = mean(mpg$cty))
 #' p +
-#'   facet_grid(. ~ cyl) +
+#'   facet_grid(cols = vars(cyl)) +
 #'   geom_point(data = df, colour = "red", size = 2)
 #'
 #' # Free scales -------------------------------------------------------
@@ -91,7 +106,10 @@ NULL
 #' p
 #'
 #' # label_both() displays both variable name and value
-#' p + facet_grid(vs ~ cyl, labeller = label_both)
+#' p + facet_grid(vars(vs), vars(cyl), labeller = label_both)
+#'
+#' # With vars() it is easy to pass custom names for the faceting groups:
+#' p + facet_grid(vars(`V/S` = vs), vars(cylinder = cyl), labeller = label_both)
 #'
 #' # label_parsed() parses text into mathematical expressions, see ?plotmath
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "sqrt(x, y)"))
@@ -129,7 +147,21 @@ NULL
 #' mg + facet_grid(vs + am ~ gear, margins = c("gear", "am"))
 #' }
 #' @importFrom plyr as.quoted
-facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE) {
+facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
+                       space = "fixed", shrink = TRUE,
+                       labeller = "label_value", as.table = TRUE,
+                       switch = NULL, drop = TRUE, margins = FALSE,
+                       facets = NULL) {
+  # `facets` is soft-deprecated and renamed to `rows`
+  if (!is.null(facets)) {
+    rows <- facets
+  }
+  # Should become a warning in a future release
+  if (is.logical(cols)) {
+    margins <- cols
+    cols <- NULL
+  }
+
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -146,21 +178,17 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
     stop("switch must be either 'both', 'x', or 'y'", call. = FALSE)
   }
 
-  facets <- as_facets_list(facets)
-
-  n <- length(facets)
-  if (!n) {
-    stop("FIXME: Internal error grid?")
-  }
+  facets_list <- grid_as_facets_list(rows, cols)
+  n <- length(facets_list)
   if (n > 2L) {
     stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
   }
   if (n == 1L) {
-    rows <- list()
-    cols <- facets[[1]]
+    rows <- quos()
+    cols <- facets_list[[1]]
   } else {
-    rows <- facets[[1]]
-    cols <- facets[[2]]
+    rows <- facets_list[[1]]
+    cols <- facets_list[[2]]
   }
 
   # Check for deprecated labellers
@@ -172,6 +200,33 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
       free = free, space_free = space_free, labeller = labeller,
       as.table = as.table, switch = switch, drop = drop)
   )
+}
+grid_as_facets_list <- function(rows, cols) {
+  is_rows_vars <- is.null(rows) || rlang::is_quosures(rows)
+  if (!is_rows_vars) {
+    if (!is.null(cols)) {
+      stop("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list", call. = FALSE)
+    }
+    return(as_facets_list(rows))
+  }
+
+  is_cols_vars <- is.null(cols) || rlang::is_quosures(cols)
+  if (!is_cols_vars) {
+    stop("`cols` must be `NULL` or a `vars()` specification", call. = FALSE)
+  }
+
+  if (is.null(rows)) {
+    rows <- quos()
+  } else {
+    rows <- rlang::quos_auto_name(rows)
+  }
+  if (is.null(cols)) {
+    cols <- quos()
+  } else {
+    cols <- rlang::quos_auto_name(cols)
+  }
+
+  list(rows, cols)
 }
 
 #' @rdname ggplot2-ggproto
