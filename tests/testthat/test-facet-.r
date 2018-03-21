@@ -1,48 +1,49 @@
 context("Facetting")
 
-test_that("as_facets_spec() coerces formulas", {
-  expect_identical(as_facets_spec(~foo), list(quos(foo = foo)))
-  expect_identical(as_facets_spec(~foo + bar), list(quos(foo = foo, bar = bar)))
+test_that("as_facets_list() coerces formulas", {
+  expect_identical(as_facets_list(~foo), list(quos(foo = foo)))
+  expect_identical(as_facets_list(~foo + bar), list(quos(foo = foo, bar = bar)))
 
-  expect_identical(as_facets_spec(foo ~ bar), list(quos(foo = foo), quos(bar = bar)))
+  expect_identical(as_facets_list(foo ~ bar), list(quos(foo = foo), quos(bar = bar)))
 
   exp <- list(quos(foo = foo, bar = bar), quos(baz = baz, bam = bam))
-  expect_identical(as_facets_spec(foo + bar ~ baz + bam), exp)
+  expect_identical(as_facets_list(foo + bar ~ baz + bam), exp)
 
   exp <- list(quos(`foo()`= foo(), `bar()` = bar()), quos(`baz()` = baz(), `bam()` = bam()))
-  expect_identical(as_facets_spec(foo() + bar() ~ baz() + bam()), exp)
+  expect_identical(as_facets_list(foo() + bar() ~ baz() + bam()), exp)
 })
 
-test_that("as_facets_spec() coerces strings containing formulas", {
-  expect_identical(as_facets_spec("foo ~ bar"), as_facets_spec(local(foo ~ bar, globalenv())))
+test_that("as_facets_list() coerces strings containing formulas", {
+  expect_identical(as_facets_list("foo ~ bar"), as_facets_list(local(foo ~ bar, globalenv())))
 })
 
-test_that("as_facets_spec() coerces character vectors", {
-  expect_identical(as_facets_spec("foo"), as_facets_spec(local(~foo, globalenv())))
-  expect_identical(as_facets_spec(c("foo", "bar")), as_facets_spec(local(foo ~ bar, globalenv())))
+test_that("as_facets_list() coerces character vectors", {
+  expect_identical(as_facets_list("foo"), as_facets_list(local(~foo, globalenv())))
+  expect_identical(as_facets_list(c("foo", "bar")), as_facets_list(local(foo ~ bar, globalenv())))
 })
 
-test_that("as_facets_spec() coerces lists", {
-  out <- as_facets_spec(list(
+test_that("as_facets_list() coerces lists", {
+  out <- as_facets_list(list(
     quote(foo),
     c("foo", "bar"),
     NULL,
     quoted_obj
   ))
   exp <- c(
-    as_facets_spec(quote(foo)),
-    list(do.call(`c`, as_facets_spec(c("foo", "bar")))),
+    as_facets_list(quote(foo)),
+    list(do.call(base::`c`, as_facets_list(c("foo", "bar")))),
     list(quos_list()),
-    as_facets_spec(quoted_obj)
+    as_facets_list(quoted_obj)
   )
   expect_identical(out, exp)
 })
 
-test_that("as_facets_spec() errors with empty specs", {
-  expect_error(as_facets_spec(list()), "at least one variable to facet by")
-  expect_error(as_facets_spec(. ~ .), "at least one variable to facet by")
-  expect_error(as_facets_spec(list(. ~ .)), "at least one variable to facet by")
-  expect_error(as_facets_spec(list(NULL)), "at least one variable to facet by")
+test_that("as_facets_list() errors with empty specs", {
+  expect_error(as_facets_list(list()), "at least one variable to facet by")
+  expect_error(as_facets_list(. ~ .), "at least one variable to facet by")
+  expect_error(as_facets_list(list(. ~ .)), "at least one variable to facet by")
+  expect_error(as_facets_list(list(NULL)), "at least one variable to facet by")
+})
 })
 
 
