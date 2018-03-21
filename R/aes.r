@@ -47,6 +47,8 @@ NULL
 #' @param x,y,... List of name value pairs giving aesthetics to map to
 #'   variables. The names for x and y aesthetics are typically omitted because
 #'   they are so common; all other aesthetics must be named.
+#' @seealso [vars()] for another quoting function designed for
+#'   faceting specifications.
 #' @export
 #' @examples
 #' aes(x = mpg, y = wt)
