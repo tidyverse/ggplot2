@@ -232,6 +232,7 @@ Collate:
     'utilities-matrix.r'
     'utilities-resolution.r'
     'utilities-table.r'
+    'utilities-tidy-eval.R'
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
