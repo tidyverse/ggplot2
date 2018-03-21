@@ -217,7 +217,11 @@ df.grid <- function(a, b) {
 
 as_facets_spec <- function(x) {
   if (inherits(x, "mapping")) {
-    stop("todo mapping")
+    stop("Please use `vars()` to supply facet variables")
+  }
+  if (inherits(x, "quosures")) {
+    x <- rlang::quos_auto_name(x)
+    return(list(x))
   }
 
   # This needs to happen early because we might get a formula.
@@ -277,7 +281,6 @@ f_as_facets_spec <- function(f) {
   }
 }
 
-
 as_facets <- function(x) {
   if (is_facets(x)) {
     return(x)
@@ -289,13 +292,12 @@ as_facets <- function(x) {
     f_as_facets(x)
   } else {
     vars <- plyr::as.quoted(x)
-    vars <- lapply(vars, rlang::new_quosure, env = globalenv())
-    rlang::quos_auto_name(vars)
+    rlang::as_quosures(vars, globalenv(), named = TRUE)
   }
 }
 f_as_facets <- function(f) {
   if (is.null(f)) {
-    return(list())
+    return(rlang::as_quosures(list()))
   }
 
   env <- rlang::f_env(f) %||% globalenv()
@@ -306,8 +308,7 @@ f_as_facets <- function(f) {
   # `.` in formulas is ignored
   vars <- discard_dots(vars)
 
-  vars <- lapply(vars, rlang::new_quosure, env)
-  rlang::quos_auto_name(vars)
+  rlang::as_quosures(vars, env, named = TRUE)
 }
 discard_dots <- function(x) {
   x[!vapply(x, identical, logical(1), as.name("."))]

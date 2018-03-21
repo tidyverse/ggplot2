@@ -211,8 +211,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel <- plyr::id(base, drop = TRUE)
     panel <- factor(panel, levels = seq_len(attr(panel, "n")))
 
-    rows <- if (is.null(names(rows))) 1L else plyr::id(base[names(rows)], drop = TRUE)
-    cols <- if (is.null(names(cols))) 1L else plyr::id(base[names(cols)], drop = TRUE)
+    rows <- if (!length(names(rows))) 1L else plyr::id(base[names(rows)], drop = TRUE)
+    cols <- if (!length(names(cols))) 1L else plyr::id(base[names(cols)], drop = TRUE)
 
     panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base,
       check.names = FALSE, stringsAsFactors = FALSE)
