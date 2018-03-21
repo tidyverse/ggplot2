@@ -2,11 +2,26 @@
 
 ## New features
 
-* `aes()` now supports quasiquotation so that you can use `!!`, `!!!`, and
-  `:=`. (ggplot2 does not currently support full tidy evaluation because
-  when I wrote ggplot2 my understanding of NSE was quite flawed, and hence
-  ggplot2 only captures one environment per plot, not one environment
-  per aesthetic. We will fix this in a future release.)
+* `aes()` now supports quasiquotation so that you can use `!!`, `!!!`,
+  and `:=`.
+
+* `facet_wrap()` and `facet_grid()` now support `vars()` inputs. Like
+  `dplyr::vars()`, this helper quotes its inputs and supports
+  quasiquotation. For instance you can now supply facetting variables
+  like this: `facet_wrap(vars(am, cyl))` instead of `facet_wrap(~am +
+  cyl)`.
+
+  The first two arguments of `facet_grid()` become `rows` and `cols`
+  and now support `vars()` inputs. Note however that we took special
+  care to ensure complete backward compatibility. With this change
+  `facet_grid(vars(cyl), vars(am, vs))` is equivalent to
+  `facet_grid(cyl ~ am + vs)` and `facet_grid(cols = vars(am, vs))` is
+  equivalent to `facet_grid(. ~ am + vs)`.
+
+  One nice aspect of the new interface is that you can now easily
+  supply names: `facet_grid(vars(Cylinder = cyl), labeller =
+  label_both)` will give nice label titles to the facets. Of course
+  those names can be unquoted with the usual tidy eval syntax.
 
 * ggplot2 now works on R 3.1 onwards, and uses the 
   [vdiffr](https://github.com/lionel-/vdiffr) package for visual testing.
