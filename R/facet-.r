@@ -170,6 +170,12 @@ Facet <- ggproto("Facet", NULL,
 
 # Helpers -----------------------------------------------------------------
 
+#' @rdname aes
+#' @export
+vars <- function(...) {
+  rlang::quos(...)
+}
+
 #' Is this object a faceting specification?
 #'
 #' @param x object to test
