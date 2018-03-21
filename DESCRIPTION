@@ -20,7 +20,7 @@ Imports:
     MASS,
     plyr (>= 1.7.1),
     reshape2,
-    rlang (>= 0.1.6.9002),
+    rlang (>= 0.2.0.9001),
     scales (>= 0.4.1.9002),
     stats,
     tibble,
@@ -52,7 +52,7 @@ Suggests:
 Remotes: hadley/scales,
     hadley/svglite,
     jimhester/withr,
-    tidyverse/rlang
+    lionel-/rlang@1def2e2cffaaa
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
