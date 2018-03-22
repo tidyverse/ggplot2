@@ -14,13 +14,11 @@ facet_grid(rows = NULL, cols = NULL, scales = "fixed", space = "fixed",
 dimension. The variables can be named (the names are passed to
 \code{labeller}).
 
-For backward compatibility with the historical interface, \code{rows}
-can also be a formula with the rows (of the tabular display) on
-the LHS and the columns (of the tabular display) on the RHS; the
-dot in the formula is used to indicate there should be no
-faceting on this dimension (either row or column). The formula
-can also be provided as a string instead of a classical formula
-object.}
+For compatibility with the classic interface, \code{rows} can also be
+a formula with the rows (of the tabular display) on the LHS and
+the columns (of the tabular display) on the RHS; the dot in the
+formula is used to indicate there should be no faceting on this
+dimension (either row or column).}
 
 \item{scales}{Are scales shared across all facets (the default,
 \code{"fixed"}), or do they vary across rows (\code{"free_x"}),

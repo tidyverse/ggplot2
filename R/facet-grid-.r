@@ -12,13 +12,11 @@ NULL
 #'   dimension. The variables can be named (the names are passed to
 #'   `labeller`).
 #'
-#'   For backward compatibility with the historical interface, `rows`
-#'   can also be a formula with the rows (of the tabular display) on
-#'   the LHS and the columns (of the tabular display) on the RHS; the
-#'   dot in the formula is used to indicate there should be no
-#'   faceting on this dimension (either row or column). The formula
-#'   can also be provided as a string instead of a classical formula
-#'   object.
+#'   For compatibility with the classic interface, `rows` can also be
+#'   a formula with the rows (of the tabular display) on the LHS and
+#'   the columns (of the tabular display) on the RHS; the dot in the
+#'   formula is used to indicate there should be no faceting on this
+#'   dimension (either row or column).
 #' @param scales Are scales shared across all facets (the default,
 #'   `"fixed"`), or do they vary across rows (`"free_x"`),
 #'   columns (`"free_y"`), or both rows and columns (`"free"`)
