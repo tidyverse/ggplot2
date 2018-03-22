@@ -290,10 +290,7 @@ as_facets_list <- function(x) {
   # facet_wrap() called as.quoted(). Hence this is a little more
   # complicated for backward compatibility.
   if (rlang::is_string(x)) {
-    x <- plyr::as.quoted(x)
-    if (rlang::is_formula(x[[1]])) {
-      x <- x[[1]]
-    }
+    x <- rlang::parse_expr(x)
   }
 
   # At this level formulas are coerced to lists of lists for backward
@@ -306,13 +303,12 @@ as_facets_list <- function(x) {
 
   # For backward-compatibility with facet_wrap()
   if (!rlang::is_bare_list(x)) {
-    x <- plyr::as.quoted(x)
-    attributes(x) <- NULL
+    x <- as_quoted(x)
   }
 
   # If we have a list there are two possibilities. We may already have
   # a proper facet spec structure. Otherwise we coerce each element
-  # with plyr::as.quoted() for backward compatibility with facet_grid().
+  # with as_quoted() for backward compatibility with facet_grid().
   if (is.list(x)) {
     x <- lapply(x, as_facets)
   }
@@ -322,6 +318,38 @@ as_facets_list <- function(x) {
   }
 
   x
+}
+
+# Compatibility with plyr::as.quoted()
+as_quoted <- function(x) {
+  if (is.character(x)) {
+    return(rlang::parse_exprs(x))
+  }
+  if (is.null(x)) {
+    return(list())
+  }
+  if (rlang::is_formula(x)) {
+    return(simplify(x))
+  }
+  list(x)
+}
+# From plyr:::as.quoted.formula
+simplify <- function(x) {
+  if (length(x) == 2 && rlang::is_symbol(x[[1]], "~")) {
+    return(simplify(x[[2]]))
+  }
+  if (length(x) < 3) {
+    return(list(x))
+  }
+  op <- x[[1]]; a <- x[[2]]; b <- x[[3]]
+
+  if (rlang::is_symbol(op, c("+", "*", "~"))) {
+    c(simplify(a), simplify(b))
+  } else if (rlang::is_symbol(op, "-")) {
+    c(simplify(a), expr(-!!simplify(b)))
+  } else {
+    list(x)
+  }
 }
 
 f_as_facets_list <- function(f) {
@@ -352,7 +380,7 @@ as_facets <- function(x) {
     # environment correctly.
     f_as_facets(x)
   } else {
-    vars <- plyr::as.quoted(x)
+    vars <- as_quoted(x)
     rlang::as_quosures(vars, globalenv(), named = TRUE)
   }
 }

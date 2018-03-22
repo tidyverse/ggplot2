@@ -144,7 +144,6 @@ NULL
 #' mg + facet_grid(vs + am ~ gear, margins = "gear")
 #' mg + facet_grid(vs + am ~ gear, margins = c("gear", "am"))
 #' }
-#' @importFrom plyr as.quoted
 facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        space = "fixed", shrink = TRUE,
                        labeller = "label_value", as.table = TRUE,

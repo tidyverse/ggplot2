@@ -26,14 +26,12 @@ test_that("as_facets_list() coerces lists", {
   out <- as_facets_list(list(
     quote(foo),
     c("foo", "bar"),
-    NULL,
-    quoted_obj
+    NULL
   ))
   exp <- c(
     as_facets_list(quote(foo)),
     list(do.call(base::`c`, as_facets_list(c("foo", "bar")))),
-    list(quos_list()),
-    as_facets_list(quoted_obj)
+    list(quos_list())
   )
   expect_identical(out, exp)
 })
