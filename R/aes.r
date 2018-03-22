@@ -30,13 +30,23 @@ NULL
 #'
 #' This function also standardise aesthetic names by performing partial
 #' matching, converting color to colour, and translating old style R names to
-#' ggplot names (eg. pch to shape, cex to size)
+#' ggplot names (eg. pch to shape, cex to size).
+#'
+#'
+#' @section Quasiquotation:
+#'
+#' `aes()` is a [quoting function][rlang::quotation]. This means that
+#' its inputs are quoted to be evaluated in the context of the
+#' data. This makes it easy to work with variables from the data frame
+#' because you can name those directly. The flip side is that you have
+#' to use [quasiquotation][rlang::quasiquotation] to program with
+#' `aes()`. See a tidy evaluation tutorial such as the [dplyr
+#' programming vignette](http://dplyr.tidyverse.org/articles/programming.html)
+#' to learn more about these techniques.
 #'
 #' @param x,y,... List of name value pairs giving aesthetics to map to
 #'   variables. The names for x and y aesthetics are typically omitted because
 #'   they are so common; all other aesthetics must be named.
-#' @seealso See [aes_()] for a version of `aes` that is
-#'   more suitable for programming with.
 #' @export
 #' @examples
 #' aes(x = mpg, y = wt)
@@ -57,6 +67,27 @@ NULL
 #'
 #' # Aesthetics supplied to ggplot() are used as defaults for every layer
 #' # you can override them, or supply different aesthetics for each layer
+#'
+#'
+#' # aes() is a quoting function, so you need to use tidy evaluation
+#' # techniques to create wrappers around ggplot2 pipelines. The
+#' # simplest case occurs when your wrapper takes dots:
+#' scatter_by <- function(data, ...) {
+#'   ggplot(data) + geom_point(aes(...))
+#' }
+#' scatter_by(mtcars, disp, drat)
+#'
+#' # If your wrapper has a more specific interface with named arguments,
+#' # you need to use the "enquote and unquote" technique:
+#' scatter_by <- function(data, x, y) {
+#'   ggplot(data) + geom_point(aes(!!enquo(x), !!enquo(y)))
+#' }
+#' scatter_by(mtcars, disp, drat)
+#'
+#' # Note that users of your wrapper can use their own functions in the
+#' # quoted expressions and all will resolve as it should!
+#' cut3 <- function(x) cut_number(x, 3)
+#' scatter_by(mtcars, cut3(disp), drat)
 aes <- function(x, y, ...) {
   exprs <- rlang::enquos(x = x, y = y, ...)
   is_missing <- vapply(exprs, rlang::quo_is_missing, logical(1))
