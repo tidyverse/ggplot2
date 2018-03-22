@@ -84,16 +84,9 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
   data <- fortify(data)
-  if (!is.null(mapping) && !inherits(mapping, "uneval")) {
-    msg <- paste0("`mapping` must be created by `aes()`")
-    if (inherits(mapping, "ggplot")) {
-      msg <- paste0(
-        msg, "\n",
-        "Did you use %>% instead of +?"
-      )
-    }
 
-    stop(msg, call. = FALSE)
+  if (!is.null(mapping)) {
+    mapping <- validate_mapping(mapping)
   }
 
   if (is.character(geom))
@@ -139,6 +132,7 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
 
+  subset <- rlang::enquo(subset)
 
   ggproto("LayerInstance", Layer,
     geom = geom,
@@ -153,6 +147,23 @@ layer <- function(geom = NULL, stat = NULL,
     inherit.aes = inherit.aes,
     show.legend = show.legend
   )
+}
+
+validate_mapping <- function(mapping) {
+  if (!inherits(mapping, "uneval")) {
+    msg <- paste0("`mapping` must be created by `aes()`")
+    if (inherits(mapping, "ggplot")) {
+      msg <- paste0(
+        msg, "\n",
+        "Did you use %>% instead of +?"
+      )
+    }
+
+    stop(msg, call. = FALSE)
+  }
+
+  # For backward compatibility with pre-tidy-eval layers
+  new_aes(mapping)
 }
 
 Layer <- ggproto("Layer", NULL,
@@ -210,16 +221,17 @@ Layer <- ggproto("Layer", NULL,
     }
 
     # Old subsetting method
-    if (!is.null(self$subset)) {
-      include <- data.frame(plyr::eval.quoted(self$subset, data, plot$env))
-      data <- data[rowSums(include, na.rm = TRUE) == ncol(include), ]
+    if (!rlang::quo_is_null(self$subset)) {
+      res <- rlang::eval_tidy(self$subset, data = data)
+      res <- res & !is.na(res)
+      data <- data[res, , drop = FALSE]
     }
 
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate and check aesthetics
     aesthetics <- compact(aesthetics)
-    evaled <- lapply(aesthetics, eval, envir = data, enclos = plot$plot_env)
+    evaled <- lapply(aesthetics, rlang::eval_tidy, data = data)
 
     n <- nrow(data)
     if (n == 0) {
@@ -271,7 +283,7 @@ Layer <- ggproto("Layer", NULL,
     env <- new.env(parent = baseenv())
     env$calc <- calc
 
-    stat_data <- plyr::quickdf(lapply(new, eval, data, env))
+    stat_data <- plyr::quickdf(lapply(new, rlang::eval_tidy, data, env))
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed

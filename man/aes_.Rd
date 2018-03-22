@@ -35,6 +35,14 @@ I recommend using \code{aes_()}, because creating the equivalents of
 \code{aes(colour = "my colour")} or \code{aes{x = `X$1`}}
 with \code{aes_string()} is quite clunky.
 }
+\section{Life cycle}{
+
+
+All these functions are soft-deprecated. Please use tidy evaluation
+idioms instead (see the quasiquotation section in
+\code{\link[=aes]{aes()}} documentation).
+}
+
 \examples{
 # Three ways of generating the same aesthetics
 aes(mpg, wt, col = cyl)

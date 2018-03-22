@@ -14,14 +14,18 @@ test_that("qplot works with variables in data frame and parent env", {
 })
 
 test_that("qplot works in non-standard environments", {
-  env <- new.env(parent = globalenv())
-  expr <- quote({
+  p <- local({
     `-1-` <- 10
     x <- 1:10
     qplot(x, breaks = 0:`-1-`)
   })
-
-  expect_is(eval(expr, env), "ggplot")
-
+  expect_is(p, "ggplot")
 })
 
+test_that("qplot() evaluates constants in the right place", {
+  p <- local({
+    foo <- "d"
+    qplot(1, 1, colour = I(paste0("re", foo)))
+  })
+  expect_identical(layer_data(p)$colour, I("red"))
+})
