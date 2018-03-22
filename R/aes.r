@@ -198,6 +198,13 @@ is_position_aes <- function(vars) {
 #' `aes(colour = "my colour")` or \code{aes{x = `X$1`}}
 #' with `aes_string()` is quite clunky.
 #'
+#'
+#' @section Life cycle:
+#'
+#' All these functions are soft-deprecated. Please use tidy evaluation
+#' idioms instead (see the quasiquotation section in
+#' [aes()] documentation).
+#'
 #' @param x,y,... List of name value pairs. Elements must be either
 #'   quoted calls, strings, one-sided formulas or constants.
 #' @seealso [aes()]
