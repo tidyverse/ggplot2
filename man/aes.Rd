@@ -74,3 +74,7 @@ scatter_by(mtcars, disp, drat)
 cut3 <- function(x) cut_number(x, 3)
 scatter_by(mtcars, cut3(disp), drat)
 }
+\seealso{
+\code{\link[=vars]{vars()}} for another quoting function designed for
+faceting specifications.
+}
