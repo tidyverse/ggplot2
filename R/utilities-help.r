@@ -10,7 +10,7 @@ rd_aesthetics <- function(type, name) {
     "@section Aesthetics:",
     paste0(
       "\\code{", type, "_", name, "} ",
-      "understands the following aesthetics (required aesthetics are in bold):"
+      "understands the following aesthetics (required and computed aesthetics are in bold):"
     ),
     "\\itemize{",
     paste0("  \\item ", aes),
