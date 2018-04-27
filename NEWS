@@ -67,7 +67,7 @@ BUG FIXES AND MINOR IMPROVEMENTS
   two unnamed arguments.
 
 * Clipping to the plot panel is now configurable, through a `clip` argument
-  to coordinate systems, e.g. `coord_cartesian(clip = "off")`.
+  to coordinate systems, e.g. `coord_cartesian(clip = "off")`. (@clauswilke, #2536)
 
 * `fortify.SpatialPolygonsDataFrame()` now calls `polygons` without
   requiring the `sp` to be loaded first (@seancarmody, #879).
