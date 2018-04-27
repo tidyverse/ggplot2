@@ -53,11 +53,11 @@ ggsave <- function(filename, plot = last_plot(),
   if (!is.null(path)) {
     filename <- file.path(path, filename)
   }
-  old_dev <- dev.cur()
+  old_dev <- grDevices::dev.cur()
   dev(filename = filename, width = dim[1], height = dim[2], ...)
   on.exit(utils::capture.output({
     grDevices::dev.off()
-    dev.set(old_dev)
+    grDevices::dev.set(old_dev)
   }))
   grid.draw(plot)
 

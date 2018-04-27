@@ -66,20 +66,6 @@ default). If \code{TRUE}, margins are included for all faceting
 variables. If specified as a character vector, it is the names of
 variables for which margins are to be created.}
 
-\item{facets}{A formula with the rows (of the tabular display) on the LHS
-and the columns (of the tabular display) on the RHS; the dot in the
-formula is used to indicate there should be no faceting on this dimension
-(either row or column). The formula can also be provided as a string
-instead of a classical formula object.}
-
-\item{margins}{either a logical value or a character
-vector. Margins are additional facets which contain all the data
-for each of the possible values of the faceting variables. If
-\code{FALSE}, no additional facets are included (the
-default). If \code{TRUE}, margins are included for all faceting
-variables. If specified as a character vector, it is the names of
-variables for which margins are to be created.}
-
 \item{facets}{This argument is soft-deprecated, please us \code{rows}
 and \code{cols} instead.}
 }

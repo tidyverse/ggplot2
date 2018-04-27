@@ -7,18 +7,6 @@ NULL
 #' faceting variables. It is most useful when you have two discrete
 #' variables, and all combinations of the variables exist in the data.
 #'
-#' @param facets A formula with the rows (of the tabular display) on the LHS
-#'   and the columns (of the tabular display) on the RHS; the dot in the
-#'   formula is used to indicate there should be no faceting on this dimension
-#'   (either row or column). The formula can also be provided as a string
-#'   instead of a classical formula object.
-#' @param margins Either a logical value or a character
-#'   vector. Margins are additional facets which contain all the data
-#'   for each of the possible values of the faceting variables. If
-#'   `FALSE`, no additional facets are included (the
-#'   default). If `TRUE`, margins are included for all faceting
-#'   variables. If specified as a character vector, it is the names of
-#'   variables for which margins are to be created.
 #' @param rows,cols A set of variables or expressions quoted by
 #'   [vars()] and defining faceting groups on the rows or columns
 #'   dimension. The variables can be named (the names are passed to
@@ -60,7 +48,7 @@ NULL
 #' @param drop If `TRUE`, the default, all factor levels not used in the
 #'   data will automatically be dropped. If `FALSE`, all factor levels
 #'   will be shown, regardless of whether or not they appear in the data.
-#' @param margins either a logical value or a character
+#' @param margins Either a logical value or a character
 #'   vector. Margins are additional facets which contain all the data
 #'   for each of the possible values of the faceting variables. If
 #'   `FALSE`, no additional facets are included (the
