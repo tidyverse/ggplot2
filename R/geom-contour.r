@@ -8,7 +8,7 @@
 #' spaced grid. If your data is not evenly spaced, you may want to interpolate
 #' to a grid before visualising.
 #'
-#' @eval rd_aesthetics("geom", "contour")
+#' @eval rd_aesthetics("stat", "contour")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path

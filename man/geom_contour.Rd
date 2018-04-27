@@ -77,16 +77,13 @@ to a grid before visualising.
 }
 \section{Aesthetics}{
 
-\code{geom_contour} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_contour} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
-\item \code{alpha}
-\item \code{colour}
+\item \strong{\code{z}}
 \item \code{group}
-\item \code{linetype}
-\item \code{size}
-\item \code{weight}
+\item \code{order}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
