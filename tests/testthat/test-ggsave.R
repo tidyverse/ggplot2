@@ -17,12 +17,9 @@ test_that("ggsave restores previous graphics device", {
   path <- tempfile()
   on.exit(unlink(path))
 
-  png()
-  png()
-  on.exit({
-    dev.off()
-    dev.off()
-  }, add = TRUE)
+  png(tempfile())
+  png(tempfile())
+  on.exit(graphics.off(), add = TRUE)
 
   old_dev <- dev.cur()
   p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
