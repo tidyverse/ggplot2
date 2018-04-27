@@ -9,8 +9,15 @@ facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   switch = NULL, drop = TRUE, dir = "h", strip.position = "top")
 }
 \arguments{
-\item{facets}{Either a formula or character vector. Use either a
-one sided formula, \code{~a + b}, or a character vector, \code{c("a", "b")}.}
+\item{facets}{A set of variables or expressions quoted by \code{\link[=vars]{vars()}}
+and defining faceting groups on the rows or columns dimension.
+The variables can be named (the names are passed to \code{labeller}).
+
+For compatibility with the classic interface, can also be a
+formula or character vector. Use either a one sided formula, `~a
+\itemize{
+\item b\code{, or a character vector,}c("a", "b")`.
+}}
 
 \item{nrow, ncol}{Number of rows and columns.}
 
@@ -60,14 +67,16 @@ a better use of screen space than \code{\link[=facet_grid]{facet_grid()}} becaus
 displays are roughly rectangular.
 }
 \examples{
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  facet_wrap(~class)
+p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+
+# Use vars() to supply faceting variables:
+p + facet_wrap(vars(class))
+
+# The historical interface with formulas is also available:
+p + facet_wrap(~class)
 
 # Control the number of rows and columns with nrow and ncol
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  facet_wrap(~class, nrow = 4)
+p + facet_wrap(vars(class), nrow = 4)
 
 \donttest{
 # You can facet by multiple variables
@@ -100,7 +109,7 @@ ggplot(mpg, aes(displ, hwy)) +
   facet_wrap(~class, scales = "free")
 
 # To repeat the same data in every panel, simply construct a data frame
-# that does not contain the facetting variable.
+# that does not contain the faceting variable.
 ggplot(mpg, aes(displ, hwy)) +
   geom_point(data = transform(mpg, class = NULL), colour = "grey85") +
   geom_point() +

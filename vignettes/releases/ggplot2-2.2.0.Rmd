@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 I'm very pleased to announce ggplot2 2.2.0. It includes four major new features:
 
 * Subtitles and captions.
-* A large rewrite of the facetting system.
+* A large rewrite of the faceting system.
 * Improved theme options.
 * Better stacking.
 
@@ -61,9 +61,9 @@ The plot title is now aligned to the left by default. To return to the previous 
 
 ## Facets
 
-The facet and layout implementation has been moved to ggproto and received a large rewrite and refactoring. This will allow others to create their own facetting systems, as descrbied in the `vignette("extending-ggplot2")`. Along with the rewrite a number of features and improvements has been added, most notably:
+The facet and layout implementation has been moved to ggproto and received a large rewrite and refactoring. This will allow others to create their own faceting systems, as descrbied in the `vignette("extending-ggplot2")`. Along with the rewrite a number of features and improvements has been added, most notably:
 
-*   ou can now use functions in facetting formulas, thanks to 
+*   ou can now use functions in faceting formulas, thanks to 
     [Dan Ruderman](https://github.com/DanRuderman).
   
     ```{r facet-1}

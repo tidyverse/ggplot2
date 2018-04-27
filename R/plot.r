@@ -32,9 +32,7 @@
 #' @param mapping Default list of aesthetic mappings to use for plot.
 #'   If not specified, must be supplied in each layer added to the plot.
 #' @param ... Other arguments passed on to methods. Not currently used.
-#' @param environment If a variable defined in the aesthetic mapping is not
-#'   found in the data, ggplot will look for it in this environment. It defaults
-#'   to using the environment in which `ggplot()` is called.
+#' @param environment DEPRECATED. Used prior to tidy evaluation.
 #' @export
 #' @examples
 #' # Generate some sample data, then compute mean and standard deviation

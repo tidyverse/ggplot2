@@ -29,7 +29,7 @@ new layer.
 \item A \code{scale} overrides the existing scale.
 \item A \code{\link[=theme]{theme()}} modifies the current theme.
 \item A \code{coord} overrides current coordinate system.
-\item A \code{facet} specificatio override current faceting.
+\item A \code{facet} specification override current faceting.
 }
 
 To replace the current default data frame, you must use \code{\%+\%},

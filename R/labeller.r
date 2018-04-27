@@ -9,7 +9,7 @@
 #' `label_value()` only displays the value of a factor while
 #' `label_both()` displays both the variable name and the factor
 #' value. `label_context()` is context-dependent and uses
-#' `label_value()` for single factor facetting and
+#' `label_value()` for single factor faceting and
 #' `label_both()` when multiple factors are
 #' involved. `label_wrap_gen()` uses [base::strwrap()]
 #' for line wrapping.
@@ -56,7 +56,7 @@
 #'   function must have the `labeller` S3 class.
 #'
 #' @param labels Data frame of labels. Usually contains only one
-#'   element, but facetting over multiple factors entails multiple
+#'   element, but faceting over multiple factors entails multiple
 #'   label variables.
 #' @param multi_line Whether to display the labels of multiple factors
 #'   on separate lines.
@@ -297,7 +297,7 @@ resolve_labeller <- function(rows, cols, labels) {
 #' appender <- function(string, suffix = "-foo") paste0(string, suffix)
 #' p + facet_wrap(~am, labeller = as_labeller(appender))
 #'
-#' # If you have more than one facetting variable, be sure to dispatch
+#' # If you have more than one faceting variable, be sure to dispatch
 #' # your labeller to the right variable with labeller()
 #' p + facet_grid(cyl ~ am, labeller = labeller(am = to_string))
 as_labeller <- function(x, default = label_value, multi_line = TRUE) {

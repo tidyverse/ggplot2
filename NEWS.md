@@ -2,6 +2,30 @@
 
 ## New features
 
+* `aes()` now supports quasiquotation so that you can use `!!`, `!!!`,
+  and `:=`. This replaces `aes_()` and `aes_string()` which are now
+  soft-deprecated (but will remain around for a long time).
+
+* `facet_wrap()` and `facet_grid()` now support `vars()` inputs. Like
+  `dplyr::vars()`, this helper quotes its inputs and supports
+  quasiquotation. For instance you can now supply facetting variables
+  like this: `facet_wrap(vars(am, cyl))` instead of `facet_wrap(~am +
+  cyl)`. Note that the formula interface is not going away and will
+  not be deprecated. `vars()` is simply meant to make it easier to
+  create functions around `facet_wrap()` and `facet_grid()`.
+
+  The first two arguments of `facet_grid()` become `rows` and `cols`
+  and now support `vars()` inputs. Note however that we took special
+  care to ensure complete backward compatibility. With this change
+  `facet_grid(vars(cyl), vars(am, vs))` is equivalent to
+  `facet_grid(cyl ~ am + vs)` and `facet_grid(cols = vars(am, vs))` is
+  equivalent to `facet_grid(. ~ am + vs)`.
+
+  One nice aspect of the new interface is that you can now easily
+  supply names: `facet_grid(vars(Cylinder = cyl), labeller =
+  label_both)` will give nice label titles to the facets. Of course
+  those names can be unquoted with the usual tidy eval syntax.
+
 * ggplot2 now works on R 3.1 onwards, and uses the 
   [vdiffr](https://github.com/lionel-/vdiffr) package for visual testing.
 
@@ -165,6 +189,12 @@ up correct aspect ratio, and draws a graticule.
 
 ### Layers
 
+* In most cases, using `%>%` instead of `+` should generate an informative
+  error (#2400).
+  
+* `layer()` gives considerably better error messages for incorrectly specified
+  `geom`, `stat`, or `position` (#2401).
+
 * In all layers that use it, `linemitre` now defaults to 10 (instead of 1)
   to better match base R.
 
@@ -186,8 +216,9 @@ up correct aspect ratio, and draws a graticule.
   default), or ensure that the width of a `single` element is preserved
   (what many people want) (#1935).
 
-* `position_jitter()` gains a `seed` argument that allows specifying a random 
-  seed for reproducible jittering (#1996, @krlmlr).
+* `position_jitter()` and `position_jitterdodge()` gain a `seed` argument that
+  allows specifying a random seed for reproducible jittering (@krlmlr, #1996
+  and @slowkow, #2445).
 
 * `stat_density()` has better behaviour if all groups are dropped because they
   are too small (#2282).
@@ -259,6 +290,11 @@ up correct aspect ratio, and draws a graticule.
 * `ggsave()`'s DPI argument now supports 3 string options: "retina" (320
   DPI), "print" (300 DPI), and "screen" (72 DPI) (@foo-bar-baz-qux, #2156).
 
+* Fixed partial argument matches in `ggsave()`. (#2355)
+
+* `ggsave()` now correctly restores the previous graphics device when several
+  graphics devices are open. (#2363)
+
 * `print.ggplot()` now returns the original ggplot object, instead of the 
   output from `ggplot_build()`. Also, the object returned from 
   `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
@@ -269,8 +305,7 @@ up correct aspect ratio, and draws a graticule.
   summarise the layout, coordinate systems, and layers, of a built ggplot object
   (#2034, @wch). This provides a tested API that (e.g.) shiny can depend on.
 
-* (Internal) Package `mgcv` is now in Imports, as `stat_smooth.R` calls this
-  unconditionally.
+* Update startup messages to reflect new resources. (#2410, @mine-cetinkaya-rundel)
 
 # ggplot2 2.2.1
 
@@ -304,7 +339,7 @@ The facet system, as well as the internal panel class, has been rewritten in ggp
 
 We have also added the following new fatures.
   
-* `facet_grid()` and `facet_wrap()` now allow expressions in their facetting 
+* `facet_grid()` and `facet_wrap()` now allow expressions in their faceting 
   formulas (@DanRuderman, #1596).
 
 * When `facet_wrap()` results in an uneven number of panels, axes will now be
@@ -465,7 +500,7 @@ There were a number of tweaks to the theme elements that control legends:
   range that allows the density to reach zero (by extending the range 3 
   bandwidths to either side of the data) (#1700).
 
-* `geom_dotplot()` works better when facetting and binning on the y-axis. 
+* `geom_dotplot()` works better when faceting and binning on the y-axis. 
   (#1618, @has2k1).
   
 * `geom_hexbin()` once again supports `..density..` (@mikebirdgeneau, #1688).
@@ -499,6 +534,8 @@ There were a number of tweaks to the theme elements that control legends:
 
 * `Scale` extensions can now override the `make_title` and `make_sec_title` 
   methods to let the scale modify the axis/legend titles.
+
+* The random stream is now reset after calling `.onAttach()` (#2409).
 
 # ggplot2 2.1.0
 
@@ -552,7 +589,7 @@ There were a number of tweaks to the theme elements that control legends:
 * `facet_wrap()`/`facet_grid()` works with multiple empty panels of data 
   (#1445).
 
-* `facet_wrap()` correctly swaps `nrow` and `ncol` when facetting vertically
+* `facet_wrap()` correctly swaps `nrow` and `ncol` when faceting vertically
   (#1417).
 
 * `ggsave("x.svg")` now uses svglite to produce the svg (#1432).
@@ -895,7 +932,7 @@ some new features:
   values to help identifying them.
 
 On the programming side, the labeller API has been rewritten in order
-to offer more control when facetting over multiple factors (e.g. with
+to offer more control when faceting over multiple factors (e.g. with
 formulae such as `~cyl + am`). This also means that if you have
 written custom labellers, you will need to update them for this
 version of ggplot.
