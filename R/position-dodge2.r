@@ -19,7 +19,7 @@ position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
 #' @usage NULL
 #' @export
 PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
-  preserve = "single",
+  preserve = "total",
   padding = 0.1,
   reverse = FALSE,
 
