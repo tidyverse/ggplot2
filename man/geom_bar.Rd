@@ -40,7 +40,7 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -74,7 +74,7 @@ bar proportional to the number of cases in each group (or if the
 \code{weight} aesthetic is supplied, the sum of the weights). If you want the
 heights of the bars to represent values in the data, use
 \link{geom_col} instead. \code{geom_bar} uses \code{stat_count} by
-default: it counts the  number of cases at each x position. \code{geom_col}
+default: it counts the number of cases at each x position. \code{geom_col}
 uses \code{stat_identity}: it leaves the data as is.
 }
 \details{
@@ -85,8 +85,8 @@ has a nice
 topic}. This is why it doesn't make sense to use a log-scaled y axis with a
 bar chart.
 
-By default, multiple bar occupying the same \code{x} position will be stacked atop
-one another by \code{\link[=position_stack]{position_stack()}}. If you want them to be dodged
+By default, multiple bars occupying the same \code{x} position will be stacked
+atop one another by \code{\link[=position_stack]{position_stack()}}. If you want them to be dodged
 side-to-side, use \code{\link[=position_dodge]{position_dodge()}} or \code{\link[=position_dodge2]{position_dodge2()}}. Finally,
 \code{\link[=position_fill]{position_fill()}} shows relative proportions at each \code{x} by stacking the bars
 and then standardising each bar to have the same height.

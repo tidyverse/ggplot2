@@ -6,16 +6,16 @@
 #' when changes occur. The `group` aesthetic determines which cases are
 #' connected together.
 #'
-#' An alternative parameterisation is [geom_segment()]: each line
+#' An alternative parameterisation is [geom_segment()], where each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
 #' @eval rd_aesthetics("geom", "path")
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @param lineend Line end style (round, butt, square)
-#' @param linejoin Line join style (round, mitre, bevel)
-#' @param linemitre Line mitre limit (number greater than 1)
-#' @param arrow Arrow specification, as created by [grid::arrow()]
+#' @param lineend Line end style (round, butt, square).
+#' @param linejoin Line join style (round, mitre, bevel).
+#' @param linemitre Line mitre limit (number greater than 1).
+#' @param arrow Arrow specification, as created by [grid::arrow()].
 #' @seealso
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments
@@ -263,7 +263,7 @@ GeomLine <- ggproto("GeomLine", GeomPath,
 )
 
 #' @param direction direction of stairs: 'vh' for vertical then horizontal, or
-#'   'hv' for horizontal then vertical
+#'   'hv' for horizontal then vertical.
 #' @export
 #' @rdname geom_path
 geom_step <- function(mapping = NULL, data = NULL, stat = "identity",

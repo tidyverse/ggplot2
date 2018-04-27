@@ -15,15 +15,15 @@ NULL
 #'   formula or character vector. Use either a one sided formula, `~a
 #'   + b`, or a character vector, `c("a", "b")`.
 #' @param nrow,ncol Number of rows and columns.
-#' @param scales should Scales be fixed (`"fixed"`, the default),
+#' @param scales Should scales be fixed (`"fixed"`, the default),
 #'   free (`"free"`), or free in one dimension (`"free_x"`,
-#'   `"free_y"`).
+#'   `"free_y"`)?
 #' @param strip.position By default, the labels are displayed on the top of
 #'   the plot. Using `strip.position` it is possible to place the labels on
 #'   either of the four sides by setting \code{strip.position = c("top",
 #'   "bottom", "left", "right")}
-#' @param dir Direction: either "h" for horizontal, the default, or "v", for
-#'   vertical.
+#' @param dir Direction: either `"h"` for horizontal, the default, or `"v"`,
+#'   for vertical.
 #' @inheritParams facet_grid
 #' @export
 #' @examples
