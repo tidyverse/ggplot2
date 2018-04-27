@@ -139,6 +139,12 @@
 #' p4 + geom_line()
 #' p4 + geom_line(show.legend = c(color = FALSE))
 #'
+#' # omit legend items 
+#' p5 <- ggplot(mtcars, aes(wt, mpg,colour = factor(cyl))) +
+#'    geom_point() 
+#' p5
+#' p5 + scale_color_discrete(breaks=c(4,8))
+#'
 #' }
 guide_legend <- function(# title
                          title = waiver(),
