@@ -6,6 +6,9 @@
 #' @param theta variable to map angle to (`x` or `y`)
 #' @param start offset of starting point from 12 o'clock in radians
 #' @param direction 1, clockwise; -1, anticlockwise
+#' @param clip Should drawing be clipped to the extent of the plot panel? A
+#'   setting of `"on"` (the default) means yes, and a setting of `"off"`
+#'   means no.
 #' @export
 #' @examples
 #' # NOTE: Use these plots with caution - polar coordinates has
@@ -54,7 +57,7 @@
 #' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 #' }
 #' }
-coord_polar <- function(theta = "x", start = 0, direction = 1) {
+coord_polar <- function(theta = "x", start = 0, direction = 1, clip = "on") {
   theta <- match.arg(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
 
@@ -62,7 +65,8 @@ coord_polar <- function(theta = "x", start = 0, direction = 1) {
     theta = theta,
     r = r,
     start = start,
-    direction = sign(direction)
+    direction = sign(direction),
+    clip = clip
   )
 }
 

@@ -30,6 +30,9 @@
 #'   [mapproj::mapproject()] for more information.
 #' @param xlim,ylim Manually specific x/y limits (in degrees of
 #'   longitude/latitude)
+#' @param clip Should drawing be clipped to the extent of the plot panel? A
+#'   setting of `"on"` (the default) means yes, and a setting of `"off"`
+#'   means no.
 #' @export
 #' @examples
 #' if (require("maps")) {
@@ -85,7 +88,7 @@
 #' # Centered on New York (currently has issues with closing polygons)
 #' worldmap + coord_map("ortho", orientation = c(41, -74, 0))
 #' }
-coord_map <- function(projection="mercator", ..., parameters = NULL, orientation = NULL, xlim = NULL, ylim = NULL) {
+coord_map <- function(projection="mercator", ..., parameters = NULL, orientation = NULL, xlim = NULL, ylim = NULL, clip = "on") {
   if (is.null(parameters)) {
     params <- list(...)
   } else {
@@ -96,7 +99,8 @@ coord_map <- function(projection="mercator", ..., parameters = NULL, orientation
     projection = projection,
     orientation = orientation,
     limits = list(x = xlim, y = ylim),
-    params = params
+    params = params,
+    clip = clip
   )
 }
 

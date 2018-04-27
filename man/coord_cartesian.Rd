@@ -5,7 +5,7 @@
 \title{Cartesian coordinates}
 \usage{
 coord_cartesian(xlim = NULL, ylim = NULL, expand = TRUE,
-  default = FALSE)
+  default = FALSE, clip = "on")
 }
 \arguments{
 \item{xlim, ylim}{Limits for the x and y axes.}
@@ -15,6 +15,10 @@ the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
 \item{default}{Is this the default coordinate system? If \code{FALSE}}
+
+\item{clip}{Should drawing be clipped to the extent of the plot panel? A
+setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
+means no.}
 }
 \description{
 The Cartesian coordinate system is the most familiar, and common, type of

@@ -75,7 +75,7 @@
 #' plot + coord_trans(x = "log10")
 #' plot + coord_trans(x = "sqrt")
 #' }
-coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL,
+coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL, clip = "on",
   xtrans, ytrans)
 {
   if (!missing(xtrans)) {
@@ -99,7 +99,8 @@ coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL
 
   ggproto(NULL, CoordTrans,
     trans = list(x = x, y = y),
-    limits = list(x = limx, y = limy)
+    limits = list(x = limx, y = limy),
+    clip = clip
   )
 }
 

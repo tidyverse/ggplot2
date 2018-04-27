@@ -10,6 +10,9 @@
 #'   the limits to ensure that data and axes don't overlap. If `FALSE`,
 #'   limits are taken exactly from the data or `xlim`/`ylim`.
 #' @param default Is this the default coordinate system? If `FALSE`
+#' @param clip Should drawing be clipped to the extent of the plot panel? A
+#'   setting of `"on"` (the default) means yes, and a setting of `"off"`
+#'   means no.
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or
@@ -49,11 +52,12 @@
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 1))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                            default = FALSE) {
+                            default = FALSE, clip = "on") {
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
     expand = expand,
-    default = default
+    default = default,
+    clip = clip
   )
 }
 
