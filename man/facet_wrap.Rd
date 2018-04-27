@@ -64,7 +64,7 @@ either of the four sides by setting \code{strip.position = c("top",
 \description{
 \code{facet_wrap} wraps a 1d sequence of panels into 2d. This is generally
 a better use of screen space than \code{\link[=facet_grid]{facet_grid()}} because most
-displays are roughly rectangular.
+displays have an aspect ratio (width\\height) lower than 2.
 }
 \examples{
 p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
