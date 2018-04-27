@@ -117,7 +117,7 @@ ggplot_add.uneval <- function(object, plot, object_name) {
   # defaults() doesn't copy class, so copy it.
   class(plot$mapping) <- class(object)
 
-  labels <- lapply(object, deparse)
+  labels <- lapply(object, rlang::quo_name)
   names(labels) <- names(object)
   update_labels(plot, labels)
 }

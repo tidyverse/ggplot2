@@ -77,9 +77,8 @@ If you've mastered the basics and want to learn more, read [ggplot2: Elegant Gra
 
 There are two main places to get help with ggplot2:
 
-1.  The [ggplot2 mailing list][ml] is a friendly place to ask any
-    questions about ggplot2. You must be a member to post messages, 
-    but anyone can read the archived discussions.
+1.  The [community.rstudio.com][https://community.rstudio.com/] is a friendly place to ask any
+    questions about ggplot2.
 
 1.  [stackoverflow][so] is a great source of answers to common ggplot2
     questions. It is also a great place to get help, once you have
@@ -87,7 +86,6 @@ There are two main places to get help with ggplot2:
 
 [ggplot2-book]: http://amzn.to/2fncG50
 [gg-book]: http://amzn.to/2ef1eWp
-[ml]: https://groups.google.com/forum/?fromgroups#!forum/ggplot2
 [so]: http://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50
 [cookbook]: http://amzn.to/2dVfMfn
 [r4ds]: http://r4ds.had.co.nz

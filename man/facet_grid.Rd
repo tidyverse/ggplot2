@@ -4,9 +4,9 @@
 \alias{facet_grid}
 \title{Lay out panels in a grid}
 \usage{
-facet_grid(facets, margins = FALSE, scales = "fixed", space = "fixed",
+facet_grid(rows = NULL, cols = NULL, scales = "fixed", space = "fixed",
   shrink = TRUE, labeller = "label_value", as.table = TRUE,
-  switch = NULL, drop = TRUE)
+  switch = NULL, drop = TRUE, margins = FALSE, facets = NULL)
 }
 \arguments{
 \item{facets}{A formula with the rows (of the tabular display) on the LHS
@@ -22,6 +22,17 @@ for each of the possible values of the faceting variables. If
 default). If \code{TRUE}, margins are included for all faceting
 variables. If specified as a character vector, it is the names of
 variables for which margins are to be created.}
+
+\item{rows, cols}{A set of variables or expressions quoted by
+\code{\link[=vars]{vars()}} and defining faceting groups on the rows or columns
+dimension. The variables can be named (the names are passed to
+\code{labeller}).
+
+For compatibility with the classic interface, \code{rows} can also be
+a formula with the rows (of the tabular display) on the LHS and
+the columns (of the tabular display) on the RHS; the dot in the
+formula is used to indicate there should be no faceting on this
+dimension (either row or column).}
 
 \item{scales}{Are scales shared across all facets (the default,
 \code{"fixed"}), or do they vary across rows (\code{"free_x"}),
@@ -60,6 +71,17 @@ labels will be displayed to the left. Can also be set to
 \item{drop}{If \code{TRUE}, the default, all factor levels not used in the
 data will automatically be dropped. If \code{FALSE}, all factor levels
 will be shown, regardless of whether or not they appear in the data.}
+
+\item{margins}{either a logical value or a character
+vector. Margins are additional facets which contain all the data
+for each of the possible values of the faceting variables. If
+\code{FALSE}, no additional facets are included (the
+default). If \code{TRUE}, margins are included for all faceting
+variables. If specified as a character vector, it is the names of
+variables for which margins are to be created.}
+
+\item{facets}{This argument is soft-deprecated, please us \code{rows}
+and \code{cols} instead.}
 }
 \description{
 \code{facet_grid} forms a matrix of panels defined by row and column
@@ -69,6 +91,12 @@ variables, and all combinations of the variables exist in the data.
 \examples{
 p <- ggplot(mpg, aes(displ, cty)) + geom_point()
 
+# Use vars() to supply variables from the dataset:
+p + facet_grid(vars(drv))
+p + facet_grid(cols = vars(cyl))
+p + facet_grid(vars(drv), vars(cyl))
+
+# The historical formula interface is also available:
 p + facet_grid(. ~ cyl)
 p + facet_grid(drv ~ .)
 p + facet_grid(drv ~ cyl)
@@ -81,7 +109,7 @@ p + facet_grid(drv ~ cyl)
 # combinations:
 df <- data.frame(displ = mean(mpg$displ), cty = mean(mpg$cty))
 p +
-  facet_grid(. ~ cyl) +
+  facet_grid(cols = vars(cyl)) +
   geom_point(data = df, colour = "red", size = 2)
 
 # Free scales -------------------------------------------------------
@@ -106,7 +134,10 @@ p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 p
 
 # label_both() displays both variable name and value
-p + facet_grid(vs ~ cyl, labeller = label_both)
+p + facet_grid(vars(vs), vars(cyl), labeller = label_both)
+
+# With vars() it is easy to pass custom names for the faceting groups:
+p + facet_grid(vars(`V/S` = vs), vars(cylinder = cyl), labeller = label_both)
 
 # label_parsed() parses text into mathematical expressions, see ?plotmath
 mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "sqrt(x, y)"))

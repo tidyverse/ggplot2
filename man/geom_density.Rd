@@ -83,7 +83,7 @@ stack density values.}
 }
 \description{
 Computes and draws kernel density estimate, which is a smoothed version of
-the histogram. This is a useful alternative to the histogram if for continuous
+the histogram. This is a useful alternative to the histogram for continuous
 data that comes from an underlying smooth distribution.
 }
 \section{Aesthetics}{

@@ -8,7 +8,11 @@
 }
 .store <- .plot_store()
 
-# Set last plot created or modified
+#' Set the last plot to be fetched by lastplot()
+#'
+#' @seealso [last_plot()]
+#' @export
+#' @keywords internal
 set_last_plot <- function(value) .store$set(value)
 
 
