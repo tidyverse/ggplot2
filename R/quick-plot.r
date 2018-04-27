@@ -59,7 +59,7 @@
 #' qplot(factor(cyl), wt, data = mtcars, geom = c("boxplot", "jitter"))
 #' qplot(mpg, data = mtcars, geom = "dotplot")
 #' }
-qplot <- function(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
+qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
                   geom = "auto", xlim = c(NA, NA),
                   ylim = c(NA, NA), log = "", main = NULL,
                   xlab = NULL, ylab = NULL,
@@ -76,6 +76,7 @@ qplot <- function(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
   is_constant <- vapply(exprs, rlang::quo_is_call, logical(1), name = "I")
 
   mapping <- new_aes(exprs[!is_missing & !is_constant], env = parent.frame())
+
   consts <- exprs[is_constant]
 
   aes_names <- names(mapping)
