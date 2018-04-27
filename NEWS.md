@@ -307,7 +307,6 @@ up correct aspect ratio, and draws a graticule.
 
 * Update startup messages to reflect new resources. (#2410, @mine-cetinkaya-rundel)
 
-
 # ggplot2 2.2.1
 
 * Fix usage of `structure(NULL)` for R-devel compatibility (#1968).
