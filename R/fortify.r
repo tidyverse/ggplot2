@@ -23,7 +23,7 @@ fortify.function <- function(model, data, ...) model
 fortify.default <- function(model, data, ...) {
   msg <- paste0(
     "`data` must be a data frame, or other object coercible by `fortify()`, ",
-    "not ", obj_desc(x)
+    "not ", obj_desc(model)
   )
   if (inherits(model, "uneval")) {
     msg <- paste0(
