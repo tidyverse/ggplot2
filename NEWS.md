@@ -205,6 +205,9 @@ up correct aspect ratio, and draws a graticule.
 * In all layers that use it, `linemitre` now defaults to 10 (instead of 1)
   to better match base R.
 
+* `geom_boxplot()` now supplies default value if no `x` aesthetic present
+  (@foo-bar-baz-qux, #2110).
+
 * `geom_density()` drops groups with fewer than two data points and throws a
   warning. For groups with two data points, the density values are now
   calculated with `stats::density` (@karawoo, #2127).
