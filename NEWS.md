@@ -1,127 +1,52 @@
 # ggplot2 2.2.1.9000
 
-* Added support for univariate box plots with no `x` aesthetic (@foo-bar-baz-qux, #2110).
+## New features
 
-* Fixed bug when setting strips to `element_blank()` (@thomasp85). 
+* `aes()` now supports quasiquotation so that you can use `!!`, `!!!`,
+  and `:=`. This replaces `aes_()` and `aes_string()` which are now
+  soft-deprecated (but will remain around for a long time).
 
-* Strips gain margins on all sides by default. This means that to fully justify
-  text to the edge of a strip, you will need to also set the margins to 0
-  (@karawoo).
+* `facet_wrap()` and `facet_grid()` now support `vars()` inputs. Like
+  `dplyr::vars()`, this helper quotes its inputs and supports
+  quasiquotation. For instance you can now supply facetting variables
+  like this: `facet_wrap(vars(am, cyl))` instead of `facet_wrap(~am +
+  cyl)`. Note that the formula interface is not going away and will
+  not be deprecated. `vars()` is simply meant to make it easier to
+  create functions around `facet_wrap()` and `facet_grid()`.
 
-* Rotated strip labels now correctly understand `hjust` and `vjust` parameters
-  at all angles (@karawoo).
+  The first two arguments of `facet_grid()` become `rows` and `cols`
+  and now support `vars()` inputs. Note however that we took special
+  care to ensure complete backward compatibility. With this change
+  `facet_grid(vars(cyl), vars(am, vs))` is equivalent to
+  `facet_grid(cyl ~ am + vs)` and `facet_grid(cols = vars(am, vs))` is
+  equivalent to `facet_grid(. ~ am + vs)`.
 
-* Strip labels now understand justification relative to the direction of the
-  text, meaning that in y facets the strip text can be placed at either end of
-  the strip using `hjust` (@karawoo).
+  One nice aspect of the new interface is that you can now easily
+  supply names: `facet_grid(vars(Cylinder = cyl), labeller =
+  label_both)` will give nice label titles to the facets. Of course
+  those names can be unquoted with the usual tidy eval syntax.
 
-* Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This
-  line makes it easier to judge the fit of the theoretical distribution (@nicksolomon).
+* ggplot2 now works on R 3.1 onwards, and uses the 
+  [vdiffr](https://github.com/lionel-/vdiffr) package for visual testing.
 
-* The `ggsave()` DPI parameter now supports 3 string options: "retina" (320
-  DPI), "print" (300 DPI), and "screen" (72 DPI) (@foo-bar-baz-qux, #2156).
+* Alternative syntax for calculated aesthetics. Instead of using 
+  `aes(y = ..count..)` you can (and should!) now use `aes(y = calc(count))`.
+  `calc()` is a real function with documentation which hopefully will make
+  this part of ggplot2 less confusing. It's particularly nice if for more complex
+  calculation because you only need to specify once: 
+  `aes(y = calc(count / max(count))) (#2059)
 
-* `position_dodge2()` now has a `reverse` parameter that allows you to reverse
-  the placement order of bars and boxes (@karawoo, #2171).
-
-* Box plot position is now controlled by `position_dodge2()`, which can also be
+* Boxplot position is now controlled by `position_dodge2()`, which can also be
   used for bars and rectangles. `position_dodge2()` compares the `xmin` and
   `xmax` values of each element to determine which ones overlap, and dodges them
   accordingly. This makes it possible to dodge box plots created with
   `geom_boxplot(varwidth = TRUE)`. The `padding` parameter adds a small amount
-  of padding between elements (@karawoo, #2143).
-
-* `fortify()` gains a method for tbls (@karawoo, #2218)
-
-* `stat_summary_bin()` now understands the `breaks` parameter (@karawoo, #2214)
-
-* `coord_trans()` now generates a warning when a transformation results in x or y 
-  values being non-finite (@foo-bar-baz-qux, #2147).
+  of padding between elements (@karawoo, #2143). A `reverse` parameter allows 
+  you to reverse the placement order of bars and boxes (@karawoo, #2171).
   
-* Legend titles and labels get a little extra space around them. Legend titles
-  will no longer overlap the legend at large font sizes (@karawoo, #1881).
-
-* Ordered factors now behave differently from unordered factors in some cases.
-  Ordered factors throw a warning when mapped to shape (unordered factors do
-  not). Ordered factors do not throw warnings when mapped to size or alpha
-  (unordered factors do). Viridis is the default colour and fill scale for
-  ordered factors (@karawoo, #1526).
-
-* The `show.legend` parameter now accepts a named logical vector to hide/show
-  only some aesthetics in the legend (@tutuchan, #1798)
-
-* Default colour maps for continuous data are controlled by global options
-  `ggplot2.continuous.colour` and `ggplot2.continuous.fill`, which can be set to
-  either `"gradient"` or `"viridis"` (@karawoo).
-
-* Adds built-in support for `viridis` and related colour maps. Use the functions
-  `scale_colour_viridis_c()`/`scale_fill_viridis_c()` for continuous data and
-  `scale_colour_viridis_d()`/`scale_fill_viridis_d()` for discrete data
-  (@karawoo, #1526).
-
-* Updated datetime scales for `alpha`, `size`, `colour`, and `fill` can take
-  `date_breaks` and `date_labels` arguments (@karawoo, #1526).
-
-* `scale_alpha()` gains date and date-time variants (@karawoo, #1526).
-
-* Axes positioned on the top and to the right can now customize their ticks and
-  lines separately (@thomasp85, #1899)
-
-* `geom_segment` now also takes a `linejoin` parameter. This allows more control over the appearance of the segments, which is especially useful for plotting thick arrows (@Ax3man, #774).
-
-* Theme elements can now be subclassed. Add a `merge_element` method to control
-  how properties are inherited from parent element. Add `element_grob` method
-  to define how elements are rendered into grobs (@thomasp85, #1981).
-
-* Theme functions now have the optional parameters `base_line_size` and
-  `base_rect_size` to control the default sizes of line and rectangle elements
-  (@karawoo, #2176).
-
-* Fixed bug in `coord_polar` that prevented secondary axis ticks and labels
-  from being drawn (@dylan-stark, #2072)
-
-* Use `rel()` to set line widths in theme defaults (@baptiste).
-
-* `geom_density` drops groups with fewer than two data points and throws a
-  warning. For groups with two data points, the density values are now
-  calculated with `stats::density` (@karawoo, #2127).
-
-* `geom_smooth` now orders by the `x` aesthetic, making it easier to pass 
-  pre-computed values without manual ordering (@izahn, #2028).
-
-* Fixed bug in `coord_polar` that prevented moving the radius axis
-  to the right (@thomasp85, #2005).
-
-* `discrete_scale` documentation updated to match functionality and 
-  `continuous_scale` (@alistaire47, #2052).
-
-* `geom_smooth()` now knows it has `ymin` and `ymax` aesthetics (#1939).
-
-* Automatic visual unit tests with vdiffr.
-
-* Layers no longer warn about unknown aesthetics who's value is set to 
-  `NULL` (overriding a set aesthetic in the plot) (#1909).
-
-* `scale_type()` generic is now exported and documented. Use this if you 
-  want to extend ggplot2 to work with a new type of vector (#)
-
-* `position_dodge()` gains an `preserve` argument that allows you to control
-  whether the `total` width at each `x` value is preserved (the current 
-  default), or ensure that the width of a `single` element is preserved
-  (what many people want) (#1935).
-
-* `stat_bin` now accepts functions for `binwidth`. This allows better binning when faceting along variables with different ranges (@botanize).
-
-* Legends no longer try and use set aesthetics that are not length one
-  (fixes #1932).
-
-* Added `autolayer()` S3 generic (@mitchelloharawild, #1974).
-
-* Fix warning when using the `weight` aesthetic with `stat_bin()` (through 
-  `geom_histogram()` in particular) (@jiho, #1921).
-  
-* `geom_smooth`'s message for `method="auto"` now reports the formula used,
-  in addition to the name of the smoothing function (@davharris #1951).
+* The `geom_segment()` and `geom_curve()` geoms both have a new 
+  `arrow.fill` parameter which enables specifying a separate fill colour for 
+  closed arrowheads. (@hrbrmstr and @clauswilke, #2375).
   
 * The `expand` argument for `scale_*_continuous()` and `scale_*_discrete()`
   now accepts separate expansion values for the lower and upper range
@@ -148,14 +73,52 @@
   The old syntax for the `expand` argument will of course continue
   to work. (@huftis, #1669)
 
-* `print.ggplot()` now returns the original ggplot object, instead of the output from `ggplot_build()`. Also, the object returned from `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
+* Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This
+  line makes it easier to judge the fit of the theoretical distribution 
+  (@nicksolomon).
 
-* Added new functions `summarise_layout()`, `summarise_coord()`, `summarise_layers()`, which provide summaries of the layout, coordinate systems, and layers, of a built ggplot object. (#2034)
+### Scales
 
-* `ggproto()` produces objects with class `c("ggproto", "gg")`. This was added so that when layers, scales, or other ggproto objects are added together, an informative error message is raised (@jrnold, #2056).
+* New `scale_colour_viridis_c()`/`scale_fill_viridis_c()` (continuous) and
+  `scale_colour_viridis_d()`/`scale_fill_viridis_d()` (discrete) make it
+  easy to use Viridis colour scales.
+  (@karawoo, #1526).
 
-* `position_jitter()` gains a `seed` argument that allows specifying a random seed for reproducible jittering (#1996, @krlmlr).
+* Default colour maps for continuous data are now controlled by global options
+  `ggplot2.continuous.colour` and `ggplot2.continuous.fill`. These can be
+  set to `"gradient"` (the default) or `"viridis"` (@karawoo).
 
+* Improved support for mapping date/time variables to `alpha`, `size`, `colour`, 
+  and `fill` aesthetics, including `date_breaks` and `date_labels` arguments 
+  (@karawoo, #1526), and new `scale_alpha()` variants (@karawoo, #1526).
+
+* Improved support for ordered factors. Ordered factors throw a warning when 
+  mapped to shape (unordered factors do not). Ordered factors do not throw 
+  warnings when mapped to size or alpha (unordered factors do). Viridis used as
+  default colour and fill scale for ordered factors (@karawoo, #1526).
+
+* Fix bug in `scale_*_gradient2()` where points outside limits can sometimes reappear due to rescaling. Now, any rescaling is performed after the limits are enforced (@foo-bar-baz-qux, #2230).
+
+* The colorbar shows all colours of the scale (@has2k1, 2343).
+
+* Guides generated by `geom_text()` (e.g. colour) now accept custom labels using 
+  `guide_legend(override.aes = list(label = "foo"))` (@brianwdavis, #2458).
+
+### Margins
+
+* Strips gain margins on all sides by default. This means that to fully justify
+  text to the edge of a strip, you will need to also set the margins to 0
+  (@karawoo).
+
+* Rotated strip labels now correctly understand `hjust` and `vjust` parameters
+  at all angles (@karawoo).
+
+* Strip labels now understand justification relative to the direction of the
+  text, meaning that in y facets the strip text can be placed at either end of
+  the strip using `hjust` (@karawoo).
+
+* Legend titles and labels get a little extra space around them. Legend titles
+  will no longer overlap the legend at large font sizes (@karawoo, #1881).
 
 ### sf
 
@@ -169,20 +132,190 @@ ggplot(nc) +
 It supports all simple features, automatically aligns CRS across layer, sets 
 up correct aspect ratio, and draws a graticule.
 
-### Coordinate extensions
+## Extension points
+
+* New `autolayer()` S3 generic (@mitchelloharawild, #1974). This is similar
+  to `autoplot()` but produces layers rather than complete plots.
+
+* Custom objects can now be added using `+` if a `ggplot_add` method has been
+  defined for the class of the object (@thomasp85).
+
+* `scale_type()` generic is now exported and documented. Use this if you 
+  want to extend ggplot2 to work with a new type of vector.
+
+* Theme elements can now be subclassed. Add a `merge_element` method to control
+  how properties are inherited from parent element. Add `element_grob` method
+  to define how elements are rendered into grobs (@thomasp85, #1981).
 
 * Coords have gained new extension mechanisms.
   
-  If you have an existing coord extension you will need to revise the
-  specification of the `train()` method. It is now called `setup_panel_params()`
-  (better reflecting what it actually does) and now has arguments
-  `scale_x`, and `scale_y` (the x and y scales respectively) and
-  `param`, a list of plot specific parameters generated by `setup_params()`.
+    If you have an existing coord extension you will need to revise the
+    specification of the `train()` method. It is now called `setup_panel_params()`
+    (better reflecting what it actually does) and now has arguments
+    `scale_x`, and `scale_y` (the x and y scales respectively) and
+    `param`, a list of plot specific parameters generated by `setup_params()`.
 
 * What was formerly called `scale_details` (in coords), `panel_ranges` 
   (in layout) and `panel_scales` (in geoms) are now consistently called
   `panel_params` (#1311). These are parameters of the Coord that vary from
   panel to panel.
+
+* `ggplot_build` and `ggplot_gtable` are now generics so ggplot-subclasses can
+  define additional behavior during the build stage.
+
+## Minor bug fixes and improvements
+
+### Facetting
+
+* `facet_grid()` gives a more informative error message if you try to use
+  a variable in both rows and cols (#1928)
+
+* `facet_wrap()` and `facet_grid()` both give better error messages if you
+  attempt to use an unsupported coord with free scales (#2049)
+
+* `label_parsed()` works once again (#2279)
+
+* You can now style the background of horizontal and vertical strips
+  independently with `strip.background.x` and `strip.background.y` 
+  theme settings (#2249).
+
+### Scales
+
+* `discrete_scale()` documentation updated to match `continuous_scale()` 
+  (@alistaire47, #2052).
+
+* `scale_identity()` once again produces legends by default (#2112).
+
+* Fix bug in secondary axis that would lead to incorrectly placed ticks with
+  strong transforms (@thomasp85, #1992).
+
+* Missing line types now reliably generate missing lines (with standard 
+  warning) (#2206).
+
+* Legends no longer try and use set aesthetics that are not length one (#1932).
+
+### Layers
+
+* In most cases, using `%>%` instead of `+` should generate an informative
+  error (#2400).
+  
+* `layer()` gives considerably better error messages for incorrectly specified
+  `geom`, `stat`, or `position` (#2401).
+
+* In all layers that use it, `linemitre` now defaults to 10 (instead of 1)
+  to better match base R.
+
+* `geom_boxplot()` now supplies default value if no `x` aesthetic present
+  (@foo-bar-baz-qux, #2110).
+
+* `geom_density()` drops groups with fewer than two data points and throws a
+  warning. For groups with two data points, the density values are now
+  calculated with `stats::density` (@karawoo, #2127).
+
+* `geom_segment()` now also takes a `linejoin` parameter. This allows more 
+  control over the appearance of the segments, which is especially useful for 
+  plotting thick arrows (@Ax3man, #774).
+
+* `geom_smooth()` now reports the formula used when `method = "auto"` 
+  (@davharris #1951). It also orders by the `x` aesthetic, making it easier 
+  to pass pre-computed values without manual ordering (@izahn, #2028).
+  It also now knows it has `ymin` and `ymax` aesthetics (#1939).
+
+* `position_dodge()` gains an `preserve` argument that allows you to control
+  whether the `total` width at each `x` value is preserved (the current 
+  default), or ensure that the width of a `single` element is preserved
+  (what many people want) (#1935).
+
+* `position_jitter()` and `position_jitterdodge()` gain a `seed` argument that
+  allows specifying a random seed for reproducible jittering (@krlmlr, #1996
+  and @slowkow, #2445).
+
+* `stat_density()` has better behaviour if all groups are dropped because they
+  are too small (#2282).
+
+* `stat_summary_bin()` now understands the `breaks` parameter (@karawoo, #2214)
+
+* `stat_bin()` now accepts functions for `binwidth`. This allows better binning 
+  when faceting along variables with different ranges (@botanize).
+
+* `stat_bin()` / `geom_histogram()` no longer incorrectly when using the
+  `weight` aesthetic with (@jiho, #1921).
+
+* `update_geom_defaults()` and `update_stat_defaults()` to allow American 
+  spelling of aesthetic parameters (@foo-bar-baz-qux, #2299).
+
+* The `show.legend` parameter now accepts a named logical vector to hide/show
+  only some aesthetics in the legend (@tutuchan, #1798)
+
+* Layers no longer warn about unknown aesthetics with value `NULL` (#1909).
+
+* Restored correct scaling for computed variable `ndensity` when binning (@timgoodman, #2324)
+
+* `stat_bin()` and `stat_bin_2d()` now properly handle the `breaks` parameter when
+  the scales are transformed (@has2k1, #2366).
+
+### Coords
+
+* Like scales, coordinate systems now give you a message when you're 
+  replacing any existing coordiante system (#2264)
+
+* `coord_polar()` now draws secondary axis ticks and labels 
+  (@dylan-stark, #2072), and can draw the radius axis on the right 
+  (@thomasp85, #2005).
+
+* `coord_trans()` now generates a warning when a transformation generates 
+  non-finite values (@foo-bar-baz-qux, #2147).
+  
+### Themes
+
+* Complete themes now always override all elements of the default theme
+  (@has2k1, #2058, #2079)
+
+* Themes now set default grid colour in `panel.grid` rather than individually
+  in `panel.grid.major` and `panel.grid.minor` individually. This makes it 
+  slightly easier to customise the grid (#2352).
+
+* Fixed bug when setting strips to `element_blank()` (@thomasp85). 
+
+* Axes positioned on the top and to the right can now customize their ticks and
+  lines separately (@thomasp85, #1899)
+
+* Themes gain parameters `base_line_size` and `base_rect_size` which control 
+  the default sizes of line and rectangle elements (@karawoo, #2176).
+
+* Default themes use `rel()` to set line widths (@baptiste).
+
+### Other
+
+* `fortify()` gains a method for tbls (@karawoo, #2218)
+
+* `ggplot` gains a method for `grouped_df`s that adds a `.group` variable,
+  which computes a unique value for each group, and automatically sets
+  the group aesthetic to use that variable (#2351).
+
+* `ggproto()` produces objects with class `c("ggproto", "gg")`, allowing for
+  a more informative error message when adding layers, scales, or other ggproto 
+  objects (@jrnold, #2056).
+
+* `ggsave()`'s DPI argument now supports 3 string options: "retina" (320
+  DPI), "print" (300 DPI), and "screen" (72 DPI) (@foo-bar-baz-qux, #2156).
+
+* Fixed partial argument matches in `ggsave()`. (#2355)
+
+* `ggsave()` now correctly restores the previous graphics device when several
+  graphics devices are open. (#2363)
+
+* `print.ggplot()` now returns the original ggplot object, instead of the 
+  output from `ggplot_build()`. Also, the object returned from 
+  `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
+
+* `map_data()` now works when purrr is loaded (tidyverse#66)
+
+* New functions `summarise_layout()`, `summarise_coord()`, and `summarise_layers()` 
+  summarise the layout, coordinate systems, and layers, of a built ggplot object
+  (#2034, @wch). This provides a tested API that (e.g.) shiny can depend on.
+
+* Update startup messages to reflect new resources. (#2410, @mine-cetinkaya-rundel)
 
 # ggplot2 2.2.1
 
@@ -216,7 +349,7 @@ The facet system, as well as the internal panel class, has been rewritten in ggp
 
 We have also added the following new fatures.
   
-* `facet_grid()` and `facet_wrap()` now allow expressions in their facetting 
+* `facet_grid()` and `facet_wrap()` now allow expressions in their faceting 
   formulas (@DanRuderman, #1596).
 
 * When `facet_wrap()` results in an uneven number of panels, axes will now be
@@ -377,7 +510,7 @@ There were a number of tweaks to the theme elements that control legends:
   range that allows the density to reach zero (by extending the range 3 
   bandwidths to either side of the data) (#1700).
 
-* `geom_dotplot()` works better when facetting and binning on the y-axis. 
+* `geom_dotplot()` works better when faceting and binning on the y-axis. 
   (#1618, @has2k1).
   
 * `geom_hexbin()` once again supports `..density..` (@mikebirdgeneau, #1688).
@@ -411,6 +544,8 @@ There were a number of tweaks to the theme elements that control legends:
 
 * `Scale` extensions can now override the `make_title` and `make_sec_title` 
   methods to let the scale modify the axis/legend titles.
+
+* The random stream is now reset after calling `.onAttach()` (#2409).
 
 # ggplot2 2.1.0
 
@@ -464,7 +599,7 @@ There were a number of tweaks to the theme elements that control legends:
 * `facet_wrap()`/`facet_grid()` works with multiple empty panels of data 
   (#1445).
 
-* `facet_wrap()` correctly swaps `nrow` and `ncol` when facetting vertically
+* `facet_wrap()` correctly swaps `nrow` and `ncol` when faceting vertically
   (#1417).
 
 * `ggsave("x.svg")` now uses svglite to produce the svg (#1432).
@@ -807,7 +942,7 @@ some new features:
   values to help identifying them.
 
 On the programming side, the labeller API has been rewritten in order
-to offer more control when facetting over multiple factors (e.g. with
+to offer more control when faceting over multiple factors (e.g. with
 formulae such as `~cyl + am`). This also means that if you have
 written custom labellers, you will need to update them for this
 version of ggplot.

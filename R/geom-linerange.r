@@ -3,9 +3,7 @@
 #' Various ways of representing a vertical interval defined by `x`,
 #' `ymin` and `ymax`. Each case draws a single graphical object.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{linerange}
-#'
+#' @eval rd_aesthetics("geom", "linerange")
 #' @param fatten A multiplicative factor used to increase the size of the
 #'   middle bar in `geom_crossbar()` and the middle point in
 #'   `geom_pointrange()`.
@@ -50,6 +48,15 @@
 #' p +
 #'   geom_col(position = dodge) +
 #'   geom_errorbar(aes(ymin = lower, ymax = upper), position = dodge, width = 0.25)
+#'
+#' # When using geom_errorbar() with position_dodge2(), extra padding will be
+#' # needed between the error bars to keep them aligned with the bars.
+#' p +
+#' geom_col(position = "dodge2") +
+#' geom_errorbar(
+#'   aes(ymin = lower, ymax = upper),
+#'   position = position_dodge2(width = 0.5, padding = 0.5)
+#' )
 geom_linerange <- function(mapping = NULL, data = NULL,
                            stat = "identity", position = "identity",
                            ...,

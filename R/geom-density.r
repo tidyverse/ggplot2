@@ -1,12 +1,10 @@
 #' Smoothed density estimates
 #'
 #' Computes and draws kernel density estimate, which is a smoothed version of
-#' the histogram. This is a useful alternative to the histogram if for continuous
+#' the histogram. This is a useful alternative to the histogram for continuous
 #' data that comes from an underlying smooth distribution.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{density}
-#'
+#' @eval rd_aesthetics("geom", "density")
 #' @seealso See [geom_histogram()], [geom_freqpoly()] for
 #'   other methods of displaying continuous distribution.
 #'   See [geom_violin()] for a compact density display.
@@ -40,11 +38,11 @@
 #' ggplot(diamonds, aes(carat, fill = cut)) +
 #'   geom_density(position = "stack")
 #' # Preserves marginal densities
-#' ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+#' ggplot(diamonds, aes(carat, calc(count), fill = cut)) +
 #'   geom_density(position = "stack")
 #'
 #' # You can use position="fill" to produce a conditional density estimate
-#' ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+#' ggplot(diamonds, aes(carat, calc(count), fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
 geom_density <- function(mapping = NULL, data = NULL,

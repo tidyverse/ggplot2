@@ -162,6 +162,10 @@
 #'
 #' @param strip.background background of facet labels (`element_rect`;
 #'   inherits from `rect`)
+#' @param strip.background.x backgronud of horizontal facet labels
+#'   (`element_rect`; inherits from `strip.background`)
+#' @param strip.background.y backgronud of vertical facet labels
+#'   (`element_rect`; inherits from `strip.background`)
 #' @param strip.placement placement of strip with respect to axes,
 #'    either "inside" or "outside". Only important when axes and strips are
 #'    on the same side of the plot.
@@ -349,6 +353,8 @@ theme <- function(line,
                   plot.caption,
                   plot.margin,
                   strip.background,
+                  strip.background.x,
+                  strip.background.y,
                   strip.placement,
                   strip.text,
                   strip.text.x,
@@ -413,10 +419,17 @@ theme <- function(line,
   )
 }
 
+is_theme_complete <- function(x) isTRUE(attr(x, "complete"))
+
 
 # Combine plot defaults with current theme to get complete theme for a plot
-plot_theme <- function(x) {
-  defaults(x$theme, theme_get())
+plot_theme <- function(x, default = theme_get()) {
+  theme <- x$theme
+  if (is_theme_complete(theme)) {
+    theme
+  } else {
+    defaults(theme, default)
+  }
 }
 
 #' Modify properties of an element in a theme object
@@ -456,7 +469,7 @@ add_theme <- function(t1, t2, t2name) {
   }
 
   # If either theme is complete, then the combined theme is complete
-  attr(t1, "complete") <- attr(t1, "complete") || attr(t2, "complete")
+  attr(t1, "complete") <- is_theme_complete(t1) || is_theme_complete(t2)
   t1
 }
 
@@ -486,7 +499,7 @@ add_theme <- function(t1, t2, t2name) {
 update_theme <- function(oldtheme, newtheme) {
   # If the newtheme is a complete one, don't bother searching
   # the default theme -- just replace everything with newtheme
-  if (attr(newtheme, "complete"))
+  if (is_theme_complete(newtheme))
     return(newtheme)
 
   # These are elements in newtheme that aren't already set in oldtheme.

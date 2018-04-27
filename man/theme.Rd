@@ -21,9 +21,10 @@ theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
   panel.spacing.y, panel.grid, panel.grid.major, panel.grid.minor,
   panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
   panel.grid.minor.y, panel.ontop, plot.background, plot.title, plot.subtitle,
-  plot.caption, plot.margin, strip.background, strip.placement, strip.text,
-  strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
-  complete = FALSE, validate = TRUE)
+  plot.caption, plot.margin, strip.background, strip.background.x,
+  strip.background.y, strip.placement, strip.text, strip.text.x, strip.text.y,
+  strip.switch.pad.grid, strip.switch.pad.wrap, ..., complete = FALSE,
+  validate = TRUE)
 }
 \arguments{
 \item{line}{all line elements (\code{element_line})}
@@ -242,6 +243,12 @@ the top, right, bottom, and left margins)}
 
 \item{strip.background}{background of facet labels (\code{element_rect};
 inherits from \code{rect})}
+
+\item{strip.background.x}{backgronud of horizontal facet labels
+(\code{element_rect}; inherits from \code{strip.background})}
+
+\item{strip.background.y}{backgronud of vertical facet labels
+(\code{element_rect}; inherits from \code{strip.background})}
 
 \item{strip.placement}{placement of strip with respect to axes,
 either "inside" or "outside". Only important when axes and strips are

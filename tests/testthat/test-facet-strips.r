@@ -132,3 +132,9 @@ test_that("strips can be removed", {
   strip_grobs <- g_grobs$grobs[grepl('strip-', g_grobs$layout$name)]
   expect_true(all(sapply(strip_grobs, inherits, 'zeroGrob')))
 })
+
+test_that("y strip labels are rotated when strips are switched", {
+  switched <- p + facet_grid(am ~ cyl, switch = "both")
+  
+  vdiffr::expect_doppelganger("switched facet strips", switched)
+})

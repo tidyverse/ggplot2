@@ -4,7 +4,6 @@
 \alias{scale_size}
 \alias{scale_size_continuous}
 \alias{scale_radius}
-\alias{scale_size}
 \alias{scale_size_discrete}
 \alias{scale_size_ordinal}
 \alias{scale_size_area}
@@ -22,8 +21,9 @@ scale_size_area(..., max_size = 6)
 }
 \arguments{
 \item{name}{The name of the scale. Used as axis or legend title. If
-\code{NULL}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic.}
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
 
 \item{breaks}{One of:
 \itemize{
@@ -68,8 +68,9 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 \item{...}{Arguments passed on to \code{continuous_scale}
 \describe{
   \item{name}{The name of the scale. Used as axis or legend title. If
-\code{NULL}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic.}
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
   \item{breaks}{One of:
 \itemize{
 \item \code{NULL} for no breaks

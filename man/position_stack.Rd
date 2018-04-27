@@ -86,7 +86,7 @@ ggplot(series, aes(time, value)) +
   geom_area(aes(fill = type)) +
   scale_fill_discrete(breaks = c('a', 'b', 'c', 'd'))
 
-# If you've flipped the plot, use reveres = TRUE so the levels
+# If you've flipped the plot, use reverse = TRUE so the levels
 # continue to match
 ggplot(series, aes(time, value)) +
   geom_area(aes(fill = type2), position = position_stack(reverse = TRUE)) +
@@ -146,3 +146,4 @@ Other position adjustments: \code{\link{position_dodge}},
   \code{\link{position_jitter}},
   \code{\link{position_nudge}}
 }
+\concept{position adjustments}

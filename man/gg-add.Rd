@@ -23,13 +23,13 @@ work at each step.
 
 You can add any of the following types of objects:
 \itemize{
-\item A \code{\link[=aes]{aes()}} objects replaces the default aesthetics.
-\item A layer created by a \code{geom_} or \code{stat_} function adds
+\item An \code{\link[=aes]{aes()}} object replaces the default aesthetics.
+\item A layer created by a \code{geom_} or \code{stat_} function adds a
 new layer.
 \item A \code{scale} overrides the existing scale.
 \item A \code{\link[=theme]{theme()}} modifies the current theme.
-\item A \code{coord} overrides current coordinate system.
-\item A \code{facet} specificatio override current faceting.
+\item A \code{coord} overrides the current coordinate system.
+\item A \code{facet} specification overrides the current faceting.
 }
 
 To replace the current default data frame, you must use \code{\%+\%},

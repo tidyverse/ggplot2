@@ -5,9 +5,7 @@
 #' coloured by `fill`. The `group` aesthetic determines which cases
 #' are connected together into a polygon.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{polygon}
-#'
+#' @eval rd_aesthetics("geom", "polygon")
 #' @seealso
 #'  [geom_path()] for an unfilled polygon,
 #'  [geom_ribbon()] for a polygon anchored on the x-axis

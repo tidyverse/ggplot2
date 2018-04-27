@@ -20,7 +20,7 @@ geom_sf(mapping = aes(), data = NULL, stat = "sf",
   inherit.aes = TRUE, ...)
 
 coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
-  datum = sf::st_crs(4326), ndiscr = 100)
+  datum = sf::st_crs(4326), ndiscr = 100, default = FALSE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -53,15 +53,16 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
-It can also be a named logical vector to finely select the aesthetics to
-display.}
+
+You can also set this to one of "polygon", "line", and "point" to
+override the default legend.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -84,9 +85,11 @@ use the CRS defined in the first layer.}
 
 \item{ndiscr}{number of segments to use for discretizing graticule lines;
 try increasing this when graticules look unexpected}
+
+\item{default}{Is this the default coordinate system? If \code{FALSE}}
 }
 \description{
-This set geom, stat, and coord are used to visualise simple feature (sf)
+This set of geom, stat, and coord are used to visualise simple feature (sf)
 objects. For simple plots, you will only need \code{geom_sf} as it
 uses \code{stat_sf} and adds \code{coord_sf} for you. \code{geom_sf} is
 an unusual geom because it will draw different geometric objects depending
@@ -131,13 +134,20 @@ ggplot() +
   geom_sf(data = nc) +
   geom_sf(data = nc_3857, colour = "red", fill = NA)
 
+# Unfortunately if you plot other types of feature you'll need to use
+# show.legend to tell ggplot2 what type of legend to use
+nc_3857$mid <- sf::st_centroid(nc_3857$geometry)
+ggplot(nc_3857) +
+  geom_sf(colour = "white") +
+  geom_sf(aes(geometry = mid, size = AREA), show.legend = "point")
+
 # You can also use layers with x and y aesthetics: these are
 # assumed to already be in the common CRS.
 ggplot(nc) +
   geom_sf() +
   annotate("point", x = -80, y = 35, colour = "red", size = 4)
 
-# Thanks to the power of sf, ageom_sf nicely handles varying projections
+# Thanks to the power of sf, a geom_sf nicely handles varying projections
 # setting the aspect ratio correctly.
 library(maps)
 world1 <- sf::st_as_sf(map('world', plot = FALSE, fill = TRUE))

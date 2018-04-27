@@ -4,7 +4,8 @@
 \alias{coord_cartesian}
 \title{Cartesian coordinates}
 \usage{
-coord_cartesian(xlim = NULL, ylim = NULL, expand = TRUE)
+coord_cartesian(xlim = NULL, ylim = NULL, expand = TRUE,
+  default = FALSE)
 }
 \arguments{
 \item{xlim, ylim}{Limits for the x and y axes.}
@@ -12,6 +13,8 @@ coord_cartesian(xlim = NULL, ylim = NULL, expand = TRUE)
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+
+\item{default}{Is this the default coordinate system? If \code{FALSE}}
 }
 \description{
 The Cartesian coordinate system is the most familiar, and common, type of

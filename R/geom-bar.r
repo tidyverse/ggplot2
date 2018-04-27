@@ -5,7 +5,7 @@
 #' `weight` aesthetic is supplied, the sum of the weights). If you want the
 #' heights of the bars to represent values in the data, use
 #' \link{geom_col} instead. `geom_bar` uses `stat_count` by
-#' default: it counts the  number of cases at each x position. `geom_col`
+#' default: it counts the number of cases at each x position. `geom_col`
 #' uses `stat_identity`: it leaves the data as is.
 #'
 #' A bar chart uses height to represent a value, and so the base of the
@@ -15,15 +15,13 @@
 #' topic}. This is why it doesn't make sense to use a log-scaled y axis with a
 #' bar chart.
 #'
-#' By default, multiple bar occupying the same `x` position will be stacked atop
-#' one another by [position_stack()]. If you want them to be dodged
+#' By default, multiple bars occupying the same `x` position will be stacked
+#' atop one another by [position_stack()]. If you want them to be dodged
 #' side-to-side, use [position_dodge()] or [position_dodge2()]. Finally,
 #' [position_fill()] shows relative proportions at each `x` by stacking the bars
 #' and then standardising each bar to have the same height.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{bar}
-#'
+#' @eval rd_aesthetics("geom", "bar")
 #' @seealso
 #'   [geom_histogram()] for continuous data,
 #'   [position_dodge()] and [position_dodge2()] for creating side-by-side

@@ -30,7 +30,7 @@ will be used as the layer data.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -59,7 +59,17 @@ This is pure annotation, so does not affect position scales.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{map}
+\code{geom_map} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{map_id}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

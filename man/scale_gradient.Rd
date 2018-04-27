@@ -46,8 +46,9 @@ scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
 argument (the number of levels in the scale) returns the values that
 they should take}
   \item{name}{The name of the scale. Used as axis or legend title. If
-\code{NULL}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic.}
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
   \item{breaks}{One of:
 \itemize{
 \item \code{NULL} for no breaks
@@ -180,3 +181,4 @@ Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_hue}},
   \code{\link{scale_colour_viridis_d}}
 }
+\concept{colour scales}

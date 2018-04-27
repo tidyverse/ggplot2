@@ -21,7 +21,7 @@ label_wrap_gen(width = 25, multi_line = TRUE)
 }
 \arguments{
 \item{labels}{Data frame of labels. Usually contains only one
-element, but facetting over multiple factors entails multiple
+element, but faceting over multiple factors entails multiple
 label variables.}
 
 \item{multi_line}{Whether to display the labels of multiple factors
@@ -42,7 +42,7 @@ line separated with commas, or each on their own line.
 \code{label_value()} only displays the value of a factor while
 \code{label_both()} displays both the variable name and the factor
 value. \code{label_context()} is context-dependent and uses
-\code{label_value()} for single factor facetting and
+\code{label_value()} for single factor faceting and
 \code{label_both()} when multiple factors are
 involved. \code{label_wrap_gen()} uses \code{\link[base:strwrap]{base::strwrap()}}
 for line wrapping.
@@ -116,3 +116,4 @@ p + facet_wrap(~vs + cyl2, labeller = label_parsed)
 \code{\link[=labeller]{labeller()}}, \code{\link[=as_labeller]{as_labeller()}},
 \code{\link[=label_bquote]{label_bquote()}}
 }
+\concept{facet}

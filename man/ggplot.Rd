@@ -16,9 +16,7 @@ If not specified, must be supplied in each layer added to the plot.}
 
 \item{...}{Other arguments passed on to methods. Not currently used.}
 
-\item{environment}{If a variable defined in the aesthetic mapping is not
-found in the data, ggplot will look for it in this environment. It defaults
-to using the environment in which \code{ggplot()} is called.}
+\item{environment}{DEPRECATED. Used prior to tidy evaluation.}
 }
 \description{
 \code{ggplot()} initializes a ggplot object. It can be used to
@@ -30,9 +28,8 @@ subsequent layers unless specifically overridden.
 \code{ggplot()} is used to construct the initial plot object,
 and is almost always followed by \code{+} to add component to the
 plot. There are three common ways to invoke \code{ggplot}:
-
-\enumerate{
-\item \code{ggplot(df, aes(x, y, <other aesthetics>))}
+\itemize{
+\item \code{ggplot(df, aes(x, y, other aesthetics))}
 \item \code{ggplot(df)}
 \item \code{ggplot()}
 }

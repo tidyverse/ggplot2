@@ -5,9 +5,7 @@
 #' violin plot is a mirrored density plot displayed in the same way as a
 #' boxplot.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{violin}
-#'
+#' @eval rd_aesthetics("geom", "violin")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param draw_quantiles If `not(NULL)` (default), draw horizontal lines

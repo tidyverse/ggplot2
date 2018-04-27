@@ -8,9 +8,7 @@
 #' spaced grid. If your data is not evenly spaced, you may want to interpolate
 #' to a grid before visualising.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{contour}
-#'
+#' @eval rd_aesthetics("geom", "contour")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
@@ -37,7 +35,7 @@
 #' v + geom_contour(binwidth = 0.001)
 #'
 #' # Other parameters
-#' v + geom_contour(aes(colour = ..level..))
+#' v + geom_contour(aes(colour = calc(level)))
 #' v + geom_contour(colour = "red")
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")
@@ -47,7 +45,7 @@ geom_contour <- function(mapping = NULL, data = NULL,
                          ...,
                          lineend = "butt",
                          linejoin = "round",
-                         linemitre = 1,
+                         linemitre = 10,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {

@@ -141,8 +141,8 @@ theme_grey <- function(base_size = 11, base_family = "",
 
     panel.background =   element_rect(fill = "grey92", colour = NA),
     panel.border =       element_blank(),
-    panel.grid.major =   element_line(colour = "white"),
-    panel.grid.minor =   element_line(colour = "white", size = rel(0.5)),
+    panel.grid =         element_line(colour = "white"),
+    panel.grid.minor =   element_line(size = rel(0.5)),
     panel.spacing =      unit(half_line, "pt"),
     panel.spacing.x =    NULL,
     panel.spacing.y =    NULL,
@@ -204,8 +204,8 @@ theme_bw <- function(base_size = 11, base_family = "",
       panel.background = element_rect(fill = "white", colour = NA),
       panel.border     = element_rect(fill = NA, colour = "grey20"),
       # make gridlines dark, same contrast with white as in theme_grey
-      panel.grid.major = element_line(colour = "grey92"),
-      panel.grid.minor = element_line(colour = "grey92", size = rel(0.5)),
+      panel.grid = element_line(colour = "grey92"),
+      panel.grid.minor = element_line(size = rel(0.5)),
       # contour strips to match panel contour
       strip.background = element_rect(fill = "grey85", colour = "grey20"),
       # match legend key to background
@@ -221,7 +221,7 @@ theme_linedraw <- function(base_size = 11, base_family = "",
                            base_line_size = base_size / 22,
                            base_rect_size = base_size / 22) {
   half_line <- base_size / 2
-  
+
   # Starts with theme_bw and then modify some parts
   # = replace all greys with pure black or white
   theme_bw(
@@ -239,8 +239,9 @@ theme_linedraw <- function(base_size = 11, base_family = "",
 
       # pure black panel border and grid lines, but thinner
       panel.border     = element_rect(fill = NA, colour = "black", size = rel(1)),
-      panel.grid.major = element_line(colour = "black", size = rel(0.1)),
-      panel.grid.minor = element_line(colour = "black", size = rel(0.05)),
+      panel.grid       = element_line(colour = "black"),
+      panel.grid.major = element_line(size = rel(0.1)),
+      panel.grid.minor = element_line(size = rel(0.05)),
 
       # strips with black background and white text
       strip.background = element_rect(fill = "black"),
@@ -260,7 +261,7 @@ theme_light <- function(base_size = 11, base_family = "",
                         base_line_size = base_size / 22,
                         base_rect_size = base_size / 22) {
   half_line <- base_size / 2
-  
+
   # Starts with theme_grey and then modify some parts
   theme_grey(
     base_size = base_size,
@@ -274,8 +275,9 @@ theme_light <- function(base_size = 11, base_family = "",
       panel.border     = element_rect(fill = NA, colour = "grey70", size = rel(1)),
       # light grey, thinner gridlines
       # => make them slightly darker to keep acceptable contrast
-      panel.grid.major = element_line(colour = "grey87", size = rel(0.5)),
-      panel.grid.minor = element_line(colour = "grey87", size = rel(0.25)),
+      panel.grid       = element_line(colour = "grey87"),
+      panel.grid.major = element_line(size = rel(0.5)),
+      panel.grid.minor = element_line(size = rel(0.25)),
 
       # match axes ticks thickness to gridlines and colour to panel border
       axis.ticks       = element_line(colour = "grey70", size = rel(0.5)),
@@ -302,7 +304,7 @@ theme_dark <- function(base_size = 11, base_family = "",
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22) {
   half_line <- base_size / 2
-  
+
   # Starts with theme_grey and then modify some parts
   theme_grey(
     base_size = base_size,
@@ -315,8 +317,9 @@ theme_dark <- function(base_size = 11, base_family = "",
       panel.background = element_rect(fill = "grey50", colour = NA),
       # inverse grid lines contrast compared to theme_grey
       # make them thinner and try to keep the same visual contrast as in theme_light
-      panel.grid.major = element_line(colour = "grey42", size = rel(0.5)),
-      panel.grid.minor = element_line(colour = "grey42", size = rel(0.25)),
+      panel.grid       = element_line(colour = "grey42"),
+      panel.grid.major = element_line(size = rel(0.5)),
+      panel.grid.minor = element_line(size = rel(0.25)),
 
       # match axes ticks thickness to gridlines
       axis.ticks       = element_line(colour = "grey20", size = rel(0.5)),
@@ -398,10 +401,9 @@ theme_void <- function(base_size = 11, base_family = "",
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22) {
   half_line <- base_size / 2
-  
+
+  # Only keep indispensable text: legend and plot titles
   theme(
-    # Use only inherited elements and make almost everything blank
-    # Only keep indispensable text
     line =               element_blank(),
     rect =               element_blank(),
     text =               element_text(
@@ -410,19 +412,39 @@ theme_void <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
-    axis.text =        element_blank(),
-    axis.title =       element_blank(),
+    axis.text =          element_blank(),
+    axis.title =         element_blank(),
+    axis.ticks.length =  unit(0, "pt"),
+    legend.key.size =    unit(1.2, "lines"),
+    legend.position =    "right",
     legend.text =        element_text(size = rel(0.8)),
     legend.title =       element_text(hjust = 0),
-    strip.text =         element_text(
-                           size = rel(0.8),
-                           margin = margin(half_line, half_line, half_line, half_line)
-                         ),
+    strip.text =         element_text(size = rel(0.8)),
+    strip.switch.pad.grid = unit(0.1, "cm"),
+    strip.switch.pad.wrap = unit(0.1, "cm"),
+    panel.ontop =        FALSE,
+    panel.spacing =      unit(half_line, "pt"),
     plot.margin =        unit(c(0, 0, 0, 0), "lines"),
+    plot.title =         element_text(
+                           size = rel(1.2),
+                           hjust = 0, vjust = 1,
+                           margin = margin(t = half_line * 1.2)
+                         ),
+    plot.subtitle =      element_text(
+                           size = rel(0.9),
+                           hjust = 0, vjust = 1,
+                           margin = margin(t = half_line * 0.9)
+                         ),
+    plot.caption =       element_text(
+                           size = rel(0.9),
+                           hjust = 1, vjust = 1,
+                           margin = margin(t = half_line * 0.9)
+                         ),
 
     complete = TRUE
   )
 }
+
 
 #' @export
 #' @rdname ggtheme
@@ -430,7 +452,7 @@ theme_test <- function(base_size = 11, base_family = "",
                        base_line_size = base_size / 22,
                        base_rect_size = base_size / 22) {
   half_line <- base_size / 2
-  
+
   theme(
     line =               element_line(
                            colour = "black", size = base_line_size,

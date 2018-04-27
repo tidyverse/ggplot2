@@ -45,3 +45,4 @@ Other colour scales: \code{\link{scale_colour_brewer}},
   \code{\link{scale_colour_hue}},
   \code{\link{scale_colour_viridis_d}}
 }
+\concept{colour scales}

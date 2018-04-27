@@ -34,7 +34,7 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -58,7 +58,19 @@ A rotated version of \code{\link[=geom_errorbar]{geom_errorbar()}}.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{errorbarh}
+\code{geom_errorbarh} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{xmin}}
+\item \strong{\code{xmax}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{group}
+\item \code{height}
+\item \code{linetype}
+\item \code{size}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{

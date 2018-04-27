@@ -1,5 +1,11 @@
 context("geom-path")
 
+test_that("keep_mid_true drops leading/trailing FALSE", {
+  expect_equal(keep_mid_true(c(F, F)), c(F, F))
+  expect_equal(keep_mid_true(c(F, T, F, T, F)), c(F, T, T, T, F))
+  expect_equal(keep_mid_true(c(T, T, F, T, F)), c(T, T, T, T, F))
+  expect_equal(keep_mid_true(c(F, T, F, T, T)), c(F, T, T, T, T))
+})
 
 # Visual tests ------------------------------------------------------------
 
@@ -26,4 +32,17 @@ test_that("geom_path draws correctly", {
   vdiffr::expect_doppelganger("lines, colour, with changed data order, should have same appearance",
     ggplot(df2) + geom_path(aes(x = value, y = category, group = item, colour = item))
   )
+})
+
+test_that("NA linetype is dropped with warning", {
+  df <- data.frame(x = 1:2, y = 1:2, z = "a")
+
+  expect_warning(
+    vdiffr::expect_doppelganger(
+      "NA linetype",
+      ggplot(df, aes(x, y)) + geom_path(linetype = NA)
+    ),
+    "containing missing values"
+  )
+
 })

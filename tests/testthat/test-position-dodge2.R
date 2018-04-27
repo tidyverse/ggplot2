@@ -64,3 +64,15 @@ test_that("padding argument controls space between elements", {
   expect_equal(gaps(d1), 0)
   expect_equal(gaps(d2), 0.0375)  
 })
+
+test_that("boxes in facetted plots keep the correct width", {
+
+  p <- ggplot(mtcars, aes(x = factor(vs), y = mpg)) +
+    facet_wrap( ~ factor(cyl)) +
+    geom_boxplot()
+
+  d <- layer_data(p)
+
+  expect_true(all(d$xmax - d$xmin == 0.75))
+
+})

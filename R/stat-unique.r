@@ -1,8 +1,6 @@
 #' Remove duplicates
 #'
-#' @section Aesthetics:
-#' \aesthetics{stat}{unique}
-#'
+#' @eval rd_aesthetics("stat", "unique")
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point

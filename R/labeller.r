@@ -9,7 +9,7 @@
 #' `label_value()` only displays the value of a factor while
 #' `label_both()` displays both the variable name and the factor
 #' value. `label_context()` is context-dependent and uses
-#' `label_value()` for single factor facetting and
+#' `label_value()` for single factor faceting and
 #' `label_both()` when multiple factors are
 #' involved. `label_wrap_gen()` uses [base::strwrap()]
 #' for line wrapping.
@@ -56,7 +56,7 @@
 #'   function must have the `labeller` S3 class.
 #'
 #' @param labels Data frame of labels. Usually contains only one
-#'   element, but facetting over multiple factors entails multiple
+#'   element, but faceting over multiple factors entails multiple
 #'   label variables.
 #' @param multi_line Whether to display the labels of multiple factors
 #'   on separate lines.
@@ -297,7 +297,7 @@ resolve_labeller <- function(rows, cols, labels) {
 #' appender <- function(string, suffix = "-foo") paste0(string, suffix)
 #' p + facet_wrap(~am, labeller = as_labeller(appender))
 #'
-#' # If you have more than one facetting variable, be sure to dispatch
+#' # If you have more than one faceting variable, be sure to dispatch
 #' # your labeller to the right variable with labeller()
 #' p + facet_grid(cyl ~ am, labeller = labeller(am = to_string))
 as_labeller <- function(x, default = label_value, multi_line = TRUE) {
@@ -519,22 +519,9 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     lineheight = element$lineheight
   )
 
-  # Create text grobs
-  grobs <- apply(
-    labels,
-    c(1, 2),
-    title_spec,
-    x = NULL,
-    y = NULL,
-    hjust = element$hjust,
-    vjust = element$vjust,
-    angle = element$angle,
-    gp = gp,
-    debug = element$debug
-  )
-
   if (horizontal) {
 
+    grobs <- create_strip_labels(labels, element, gp)
     grobs <- ggstrip(grobs, theme, element, gp, horizontal, clip = "on")
 
     list(
@@ -543,6 +530,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     )
   } else {
 
+    grobs <- create_strip_labels(labels, element, gp)
     grobs_right <- grobs[, rev(seq_len(ncol(grobs))), drop = FALSE]
 
     grobs_right <- ggstrip(
@@ -554,9 +542,12 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       clip = "on"
     )
 
-    theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
+    # Change angle of strip labels for y strips that are placed on the left side
+    if (inherits(element, "element_text")) {
+      element$angle <- adjust_angle(element$angle)
+    }
 
-    grobs_left <- grobs
+    grobs_left <- create_strip_labels(labels, element, gp)
 
     grobs_left <- ggstrip(
       grobs_left,
@@ -572,6 +563,30 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       right = grobs_right
     )
   }
+}
+
+#' Create list of strip labels
+#'
+#' Calls [title_spec()] on all the labels for a set of strips to create a list
+#' of text grobs, heights, and widths.
+#'
+#' @param labels Matrix of strip labels
+#' @param element Theme element (see [calc_element()]).
+#' @param gp Additional graphical parameters.
+#'
+#' @noRd
+create_strip_labels <- function(labels, element, gp) {
+  grobs <- lapply(labels, title_spec,
+    x = NULL,
+    y = NULL,
+    hjust = element$hjust,
+    vjust = element$vjust,
+    angle = element$angle,
+    gp = gp,
+    debug = element$debug
+  )
+  dim(grobs) <- dim(labels)
+  grobs
 }
 
 #' Grob for strip labels
@@ -615,6 +630,8 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
     }
   )
 
+  background <- if (horizontal) "strip.background.x" else "strip.background.y"
+
   # Put text on a strip
   grobs <- apply(
     grobs,
@@ -624,7 +641,7 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
         "strip",
         gTree(
           children = gList(
-            element_render(theme, "strip.background"),
+            element_render(theme, background),
             label[[1]]
           )
         )

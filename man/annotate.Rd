@@ -14,7 +14,7 @@ annotate(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
 \item{x, y, xmin, ymin, xmax, ymax, xend, yend}{positioning aesthetics -
 you must specify at least one of these.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}

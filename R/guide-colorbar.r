@@ -190,7 +190,7 @@ guide_train.colorbar <- function(guide, scale) {
 
   # bar specification (number of divs etc)
   .limits <- scale$get_limits()
-  .bar <- discard(pretty(.limits, n = guide$nbin), scale$get_limits())
+  .bar <- seq(.limits[1], .limits[2], length = guide$nbin)
   if (length(.bar) == 0) {
     .bar = unique(.limits)
   }
@@ -299,8 +299,8 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   # gap between keys etc
   hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
-  vgap <- height_cm(theme$legend.spacing.y %||% 0.5 * unit(title_height, "cm"))
-  
+  vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_height, "cm")))
+
   # label
   label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
   grob.label <- {

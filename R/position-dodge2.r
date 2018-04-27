@@ -11,7 +11,7 @@ position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
     preserve = match.arg(preserve),
     padding = padding,
     reverse = reverse
-  )  
+  )
 }
 
 #' @rdname ggplot2-ggproto
@@ -19,10 +19,10 @@ position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
 #' @usage NULL
 #' @export
 PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
-  preserve = "single",
+  preserve = "total",
   padding = 0.1,
   reverse = FALSE,
-  
+
   setup_params = function(self, data) {
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warning("Width not defined. Set with `position_dodge2(width = ?)`",
@@ -44,7 +44,7 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
       reverse = self$reverse
     )
   },
-                          
+
   compute_panel = function(data, params, scales) {
     collide2(
       data,
@@ -64,12 +64,12 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
   if (length(unique(df$group)) == 1) {
     return(df)
   }
-  
+
   if (!all(c("xmin", "xmax") %in% names(df))) {
     df$xmin <- df$x
     df$xmax <- df$x
   }
-  
+
   # xid represents groups of boxes that share the same position
   df$xid <- find_x_overlaps(df)
 
@@ -78,7 +78,7 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
   # for arbitrary rects it may not be
   newx <- (tapply(df$xmin, df$xid, min) + tapply(df$xmax, df$xid, max)) / 2
   df$newx <- newx[df$xid]
-  
+
   if (is.null(n)) {
     # If n is null, preserve total widths of elements at each position by
     # dividing widths by the number of elements at that position
@@ -87,7 +87,7 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
   } else {
     df$new_width <- (df$xmax - df$xmin) / n
   }
-  
+
   df$xmin <- df$x - (df$new_width / 2)
   df$xmax <- df$x + (df$new_width / 2)
 
@@ -96,8 +96,8 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
     list(size = df$new_width),
     list(newx = df$newx),
     sum
-  )  
-  
+  )
+
   # Starting xmin for each group of elements
   starts <- group_sizes$newx - (group_sizes$size / 2)
 
@@ -115,14 +115,17 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
   if (!any(duplicated(df$xid))) {
     return(df)
   }
-  
+
   # Shrink elements to add space between them
   df$pad_width <- df$new_width * (1 - padding)
   df$xmin <- df$x - (df$pad_width / 2)
   df$xmax <- df$x + (df$pad_width / 2)
 
-  df[, c("xid", "newx", "new_width", "pad_width")] <- NULL
-  
+  df$xid <- NULL
+  df$newx <- NULL
+  df$new_width <- NULL
+  df$pad_width <- NULL
+
   df
 }
 

@@ -8,12 +8,12 @@
 #' Both geoms draw a single segment/curve per case. See `geom_path` if you
 #' need to connect points across multiple cases.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{segment}
-#'
+#' @eval rd_aesthetics("geom", "segment")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param arrow specification for arrow heads, as created by arrow().
+#' @param arrow.fill fill color to use for the arrow head (if closed). `NULL`
+#'        means use `colour` aesthetic.
 #' @param lineend Line end style (round, butt, square).
 #' @param linejoin Line join style (round, mitre, bevel).
 #' @seealso [geom_path()] and [geom_line()] for multi-
@@ -69,6 +69,7 @@ geom_segment <- function(mapping = NULL, data = NULL,
                          stat = "identity", position = "identity",
                          ...,
                          arrow = NULL,
+                         arrow.fill = NULL,
                          lineend = "butt",
                          linejoin = "round",
                          na.rm = FALSE,
@@ -84,6 +85,7 @@ geom_segment <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       arrow = arrow,
+      arrow.fill = arrow.fill,
       lineend = lineend,
       linejoin = linejoin,
       na.rm = na.rm,
@@ -101,7 +103,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
   non_missing_aes = c("linetype", "size", "shape"),
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
-  draw_panel = function(data, panel_params, coord, arrow = NULL,
+  draw_panel = function(data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
 
     data <- remove_missing(data, na.rm = na.rm,
@@ -111,11 +113,12 @@ GeomSegment <- ggproto("GeomSegment", Geom,
 
     if (coord$is_linear()) {
       coord <- coord$transform(data, panel_params)
+      arrow.fill <- arrow.fill %||% coord$colour
       return(segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
         default.units = "native",
         gp = gpar(
           col = alpha(coord$colour, coord$alpha),
-          fill = alpha(coord$colour, coord$alpha),
+          fill = alpha(arrow.fill, coord$alpha),
           lwd = coord$size * .pt,
           lty = coord$linetype,
           lineend = lineend,

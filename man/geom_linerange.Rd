@@ -50,7 +50,7 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -79,7 +79,18 @@ Various ways of representing a vertical interval defined by \code{x},
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{linerange}
+\code{geom_linerange} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{ymin}}
+\item \strong{\code{ymax}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{
@@ -116,6 +127,15 @@ dodge <- position_dodge(width=0.9)
 p +
   geom_col(position = dodge) +
   geom_errorbar(aes(ymin = lower, ymax = upper), position = dodge, width = 0.25)
+
+# When using geom_errorbar() with position_dodge2(), extra padding will be
+# needed between the error bars to keep them aligned with the bars.
+p +
+geom_col(position = "dodge2") +
+geom_errorbar(
+  aes(ymin = lower, ymax = upper),
+  position = position_dodge2(width = 0.5, padding = 0.5)
+)
 }
 \seealso{
 \code{\link[=stat_summary]{stat_summary()}} for examples of these guys in use,

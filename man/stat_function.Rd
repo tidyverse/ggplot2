@@ -33,7 +33,7 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -67,7 +67,12 @@ the x axis, and the results are drawn (by default) with a line.
 }
 \section{Aesthetics}{
 
-\aesthetics{stat}{function}
+\code{stat_function} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \code{group}
+\item \code{y}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{

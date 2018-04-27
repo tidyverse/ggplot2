@@ -9,11 +9,9 @@
 #' and is almost always followed by `+` to add component to the
 #' plot. There are three common ways to invoke `ggplot`:
 #'
-#' \enumerate{
-#'   \item `ggplot(df, aes(x, y, <other aesthetics>))`
-#'   \item `ggplot(df)`
-#'   \item `ggplot()`
-#' }
+#' * `ggplot(df, aes(x, y, other aesthetics))`
+#' * `ggplot(df)`
+#' * `ggplot()`
 #'
 #' The first method is recommended if all layers use the same
 #' data and the same set of aesthetics, although this method
@@ -34,9 +32,7 @@
 #' @param mapping Default list of aesthetic mappings to use for plot.
 #'   If not specified, must be supplied in each layer added to the plot.
 #' @param ... Other arguments passed on to methods. Not currently used.
-#' @param environment If a variable defined in the aesthetic mapping is not
-#'   found in the data, ggplot will look for it in this environment. It defaults
-#'   to using the environment in which `ggplot()` is called.
+#' @param environment DEPRECATED. Used prior to tidy evaluation.
 #' @export
 #' @examples
 #' # Generate some sample data, then compute mean and standard deviation
@@ -85,6 +81,13 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
 }
 
 #' @export
+ggplot.function <- function(data = NULL, mapping = aes(), ...,
+                           environment = parent.frame()) {
+  # Added to avoid functions end in ggplot.default
+  stop("You're passing a function as global data.\nHave you misspelled the `data` argument in `ggplot()`", call. = FALSE)
+}
+
+#' @export
 ggplot.data.frame <- function(data, mapping = aes(), ...,
                               environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
@@ -97,7 +100,7 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
     scales = scales_list(),
     mapping = mapping,
     theme = list(),
-    coordinates = coord_cartesian(),
+    coordinates = coord_cartesian(default = TRUE),
     facet = facet_null(),
     plot_env = environment
   ), class = c("gg", "ggplot"))
@@ -106,6 +109,16 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
 
   set_last_plot(p)
   p
+}
+
+#' @export
+ggplot.grouped_df <- function(data, mapping = aes(), ...,
+                               environment = parent.frame()) {
+
+  data$.group <- dplyr::group_indices(data)
+  mapping$group <- mapping$group %||% quote(.group)
+
+  ggplot.data.frame(data, mapping = mapping, ..., environment = environment)
 }
 
 plot_clone <- function(plot) {

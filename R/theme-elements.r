@@ -334,6 +334,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   panel.ontop         = el_def("logical"),
 
   strip.background    = el_def("element_rect", "rect"),
+  strip.background.x  = el_def("element_rect", "strip.background"),
+  strip.background.y  = el_def("element_rect", "strip.background"),
   strip.text.x        = el_def("element_text", "strip.text"),
   strip.text.y        = el_def("element_text", "strip.text"),
   strip.placement     = el_def("character"),

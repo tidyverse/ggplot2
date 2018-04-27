@@ -9,9 +9,11 @@ addons:
       - libfreetype6
 
 r:
-#  - oldrel
-  - release
-  - devel
+# - 3.1 # because of tidyr <- tidyselect
+- 3.2
+- oldrel
+- release
+- devel
 
 env:
   global:

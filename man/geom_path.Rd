@@ -8,7 +8,7 @@
 \usage{
 geom_path(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 1, arrow = NULL, na.rm = FALSE, show.legend = NA,
+  linemitre = 10, arrow = NULL, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 
 geom_line(mapping = NULL, data = NULL, stat = "identity",
@@ -45,18 +45,18 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{lineend}{Line end style (round, butt, square)}
+\item{lineend}{Line end style (round, butt, square).}
 
-\item{linejoin}{Line join style (round, mitre, bevel)}
+\item{linejoin}{Line join style (round, mitre, bevel).}
 
-\item{linemitre}{Line mitre limit (number greater than 1)}
+\item{linemitre}{Line mitre limit (number greater than 1).}
 
-\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}}
+\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -73,7 +73,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{direction}{direction of stairs: 'vh' for vertical then horizontal, or
-'hv' for horizontal then vertical}
+'hv' for horizontal then vertical.}
 }
 \description{
 \code{geom_path()} connects the observations in the order in which they appear
@@ -83,12 +83,22 @@ when changes occur. The \code{group} aesthetic determines which cases are
 connected together.
 }
 \details{
-An alternative parameterisation is \code{\link[=geom_segment]{geom_segment()}}: each line
+An alternative parameterisation is \code{\link[=geom_segment]{geom_segment()}}, where each line
 corresponds to a single case which provides the start and end coordinates.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{path}
+\code{geom_path} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{
@@ -98,7 +108,7 @@ ggplot(economics_long, aes(date, value01, colour = variable)) +
   geom_line()
 
 # geom_step() is useful when you want to highlight exactly when
-# the y value chanes
+# the y value changes
 recent <- economics[economics$date > as.Date("2013-01-01"), ]
 ggplot(recent, aes(date, unemploy)) + geom_line()
 ggplot(recent, aes(date, unemploy)) + geom_step()

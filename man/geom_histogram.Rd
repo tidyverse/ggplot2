@@ -43,7 +43,7 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -72,7 +72,7 @@ stories in your data.
 The bin width of a date variable is the number of days in each time; the
 bin width of a time variable is the number of seconds.}
 
-\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30}
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.}
@@ -104,17 +104,17 @@ frequency polygons touch 0. Defaults to \code{FALSE}.}
 Visualise the distribution of a single continuous variable by dividing
 the x axis into bins and counting the number of observations in each bin.
 Histograms (\code{geom_histogram}) display the count with bars; frequency
-polygons (\code{geom_freqpoly}), display the counts with lines. Frequency
+polygons (\code{geom_freqpoly}) display the counts with lines. Frequency
 polygons are more suitable when you want to compare the distribution
 across the levels of a categorical variable.
-
-\code{stat_bin} is suitable only for continuous x data. If your x data is
-discrete, you probably want to use \code{\link[=stat_count]{stat_count()}}.
 }
 \details{
-By default, the underlying computation (\code{stat_bin}) uses 30 bins -
+\code{stat_bin} is suitable only for continuous x data. If your x data is
+discrete, you probably want to use \code{\link[=stat_count]{stat_count()}}.
+
+By default, the underlying computation (\code{stat_bin}) uses 30 bins;
 this is not a good default, but the idea is to get you experimenting with
-different binwidths. You may need to look at a few to uncover the full
+different bin widths. You may need to look at a few to uncover the full
 story behind your data.
 }
 \section{Aesthetics}{
@@ -150,7 +150,7 @@ ggplot(diamonds, aes(price, colour = cut)) +
 
 # To make it easier to compare distributions with very different counts,
 # put density on the y axis instead of the default count
-ggplot(diamonds, aes(price, ..density.., colour = cut)) +
+ggplot(diamonds, aes(price, calc(density), colour = cut)) +
   geom_freqpoly(binwidth = 500)
 
 if (require("ggplot2movies")) {

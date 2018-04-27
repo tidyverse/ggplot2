@@ -39,7 +39,7 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -50,15 +50,15 @@ aesthetics used for the box.
 In the unlikely event you specify both US and UK spellings of colour, the
 US spelling will take precedence.}
 
-\item{notch}{if \code{FALSE} (default) make a standard box plot. If
+\item{notch}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, make a notched box plot. Notches are used to compare groups;
 if the notches of two boxes do not overlap, this suggests that the medians
 are significantly different.}
 
-\item{notchwidth}{for a notched box plot, width of the notch relative to
+\item{notchwidth}{For a notched box plot, width of the notch relative to
 the body (default 0.5)}
 
-\item{varwidth}{if \code{FALSE} (default) make a standard box plot. If
+\item{varwidth}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, boxes are drawn with widths proportional to the
 square-roots of the number of observations in the groups (possibly
 weighted, using the \code{weight} aesthetic).}
@@ -80,7 +80,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \item{geom, stat}{Use to override the default connection between
 \code{geom_boxplot} and \code{stat_boxplot}.}
 
-\item{coef}{length of the whiskers as multiple of IQR.  Defaults to 1.5}
+\item{coef}{Length of the whiskers as multiple of IQR. Defaults to 1.5.}
 }
 \description{
 The boxplot compactly displays the distribution of a continuous variable.
@@ -109,7 +109,24 @@ See McGill et al. (1978) for more details.
 
 \section{Aesthetics}{
 
-\aesthetics{geom}{boxplot}
+\code{geom_boxplot} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{lower}}
+\item \strong{\code{upper}}
+\item \strong{\code{middle}}
+\item \strong{\code{ymin}}
+\item \strong{\code{ymax}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{shape}
+\item \code{size}
+\item \code{weight}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{

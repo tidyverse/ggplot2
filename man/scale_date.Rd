@@ -39,17 +39,16 @@ scale_y_time(name = waiver(), breaks = waiver(), minor_breaks = waiver(),
 }
 \arguments{
 \item{name}{The name of the scale. Used as axis or legend title. If
-\code{NULL}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic.}
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
 
 \item{breaks}{One of:
 \itemize{
 \item \code{NULL} for no breaks
-\item \code{waiver()} for the default breaks computed by the
-transformation object
-\item A numeric vector of positions
-\item A function that takes the limits as input and returns breaks
-as output
+\item \code{waiver()} for the breaks specified by \code{date_breaks}
+\item A \code{Date}/\code{POSIXct} vector giving positions of breaks
+\item A function that takes the limits as input and returns breaks as output
 }}
 
 \item{date_breaks}{A string giving the distance between breaks like "2
@@ -72,11 +71,11 @@ and \code{date_labels} are specified, \code{date_labels} wins.}
 
 \item{minor_breaks}{One of:
 \itemize{
-\item \code{NULL} for no minor breaks
-\item \code{waiver()} for the default breaks (one minor break between
-each major break)
-\item A numeric vector of positions
-\item A function that given the limits returns a vector of minor breaks.
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the breaks specified by \code{date_minor_breaks}
+\item A \code{Date}/\code{POSIXct} vector giving positions of minor breaks
+\item A function that takes the limits as input and returns minor breaks as
+output
 }}
 
 \item{date_minor_breaks}{A string giving the distance between minor breaks
@@ -134,3 +133,4 @@ base + scale_x_date(limits = c(Sys.Date() - 7, NA))
 Other position scales: \code{\link{scale_x_continuous}},
   \code{\link{scale_x_discrete}}
 }
+\concept{position scales}

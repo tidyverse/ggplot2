@@ -45,7 +45,7 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -81,7 +81,18 @@ performance special case for when all the tiles are the same size.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{tile}
+\code{geom_tile} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{
@@ -121,10 +132,10 @@ ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0)
 # Inspired by the image-density plots of Ken Knoblauch
 cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 cars + geom_point()
-cars + stat_bin2d(aes(fill = ..count..), binwidth = c(3,1))
-cars + stat_bin2d(aes(fill = ..density..), binwidth = c(3,1))
+cars + stat_bin2d(aes(fill = calc(count)), binwidth = c(3,1))
+cars + stat_bin2d(aes(fill = calc(density)), binwidth = c(3,1))
 
-cars + stat_density(aes(fill = ..density..), geom = "raster", position = "identity")
-cars + stat_density(aes(fill = ..count..), geom = "raster", position = "identity")
+cars + stat_density(aes(fill = calc(density)), geom = "raster", position = "identity")
+cars + stat_density(aes(fill = calc(count)), geom = "raster", position = "identity")
 }
 }

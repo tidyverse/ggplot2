@@ -1,6 +1,6 @@
 #' Visualise sf objects
 #'
-#' This set geom, stat, and coord are used to visualise simple feature (sf)
+#' This set of geom, stat, and coord are used to visualise simple feature (sf)
 #' objects. For simple plots, you will only need `geom_sf` as it
 #' uses `stat_sf` and adds `coord_sf` for you. `geom_sf` is
 #' an unusual geom because it will draw different geometric objects depending
@@ -26,6 +26,12 @@
 #' either specify it using the `CRS` param, or `coord_sf` will
 #' take it from the first layer that defines a CRS.
 #'
+#' @param show.legend logical. Should this layer be included in the legends?
+#'   `NA`, the default, includes if any aesthetics are mapped.
+#'   `FALSE` never includes, and `TRUE` always includes.
+#'
+#'   You can also set this to one of "polygon", "line", and "point" to
+#'   override the default legend.
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
 #' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
@@ -40,13 +46,20 @@
 #'   geom_sf(data = nc) +
 #'   geom_sf(data = nc_3857, colour = "red", fill = NA)
 #'
+#' # Unfortunately if you plot other types of feature you'll need to use
+#' # show.legend to tell ggplot2 what type of legend to use
+#' nc_3857$mid <- sf::st_centroid(nc_3857$geometry)
+#' ggplot(nc_3857) +
+#'   geom_sf(colour = "white") +
+#'   geom_sf(aes(geometry = mid, size = AREA), show.legend = "point")
+#'
 #' # You can also use layers with x and y aesthetics: these are
 #' # assumed to already be in the common CRS.
 #' ggplot(nc) +
 #'   geom_sf() +
 #'   annotate("point", x = -80, y = 35, colour = "red", size = 4)
 #'
-#' # Thanks to the power of sf, ageom_sf nicely handles varying projections
+#' # Thanks to the power of sf, a geom_sf nicely handles varying projections
 #' # setting the aspect ratio correctly.
 #' library(maps)
 #' world1 <- sf::st_as_sf(map('world', plot = FALSE, fill = TRUE))
@@ -104,11 +117,21 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
   layer(
-    stat = StatSf, data = data, mapping = mapping, geom = geom,
-    position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-    params = list(na.rm = na.rm, ...)
+    stat = StatSf,
+    data = data,
+    mapping = mapping,
+    geom = geom,
+    position = position,
+    show.legend = if (is.character(show.legend)) TRUE else show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      na.rm = na.rm,
+      legend = if (is.character(show.legend)) show.legend else "polygon",
+      ...
+    )
   )
 }
+
 
 # geom --------------------------------------------------------------------
 
@@ -119,45 +142,76 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
 GeomSf <- ggproto("GeomSf", Geom,
   required_aes = "geometry",
   default_aes = aes(
-    shape = 19,
-    colour = "grey35",
-    fill = "grey90",
-    size = 0.5,
+    shape = NULL,
+    colour = NULL,
+    fill = NULL,
+    size = NULL,
     linetype = 1,
-    alpha = NA
+    alpha = NA,
+    stroke = 0.5
   ),
-  draw_key = draw_key_polygon,
 
-  draw_panel = function(data, panel_params, coord) {
+  draw_panel = function(data, panel_params, coord, legend = NULL) {
     if (!inherits(coord, "CoordSf")) {
       stop("geom_sf() must be used with coord_sf()", call. = FALSE)
     }
 
+    # Need to refactor this to generate one grob per geometry type
     coord <- coord$transform(data, panel_params)
-    gpars <- lapply(1:nrow(data), function(i) sf_gpar(coord[i, , drop = FALSE]))
-    grobs <- Map(as_grob, coord$geometry, gp = gpars, shape = coord$shape)
+    grobs <- lapply(1:nrow(data), function(i) {
+      sf_grob(coord[i, , drop = FALSE])
+    })
     do.call("gList", grobs)
+  },
+
+  draw_key = function(data, params, size) {
+    data <- utils::modifyList(default_aesthetics(params$legend), data)
+    if (params$legend == "point") {
+      draw_key_point(data, params, size)
+    } else if (params$legend == "line") {
+      draw_key_path(data, params, size)
+    } else {
+      draw_key_polygon(data, params, size)
+    }
   }
 )
 
-sf_gpar <- function(row) {
-  gpar(
-    col = row$colour,
-    fill = alpha(row$fill, row$alpha),
-    lwd = row$size * .pt,
-    lty = row$linetype,
-    lineend = "butt"
-  )
-}
-
-as_grob <- function(geom, gpar, shape) {
-  if (inherits(geom, c("POINT", "MULTIPOINT"))) {
-    sf::st_as_grob(geom, gp = gpar, pch = shape)
-  } else {
-    sf::st_as_grob(geom, gp = gpar)
+default_aesthetics <- function(type) {
+  if (type == "point") {
+    GeomPoint$default_aes
+  } else if (type == "line") {
+    GeomLine$default_aes
+  } else  {
+    utils::modifyList(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
   }
 }
 
+sf_grob <- function(row) {
+  # Need to extract geometry out of corresponding list column
+  geometry <- row$geometry[[1]]
+
+  if (inherits(geometry, c("POINT", "MULTIPOINT"))) {
+    row <- utils::modifyList(default_aesthetics("point"), row)
+    gp <- gpar(
+      col = alpha(row$colour, row$alpha),
+      fill = alpha(row$fill, row$alpha),
+      # Stroke is added around the outside of the point
+      fontsize = row$size * .pt + row$stroke * .stroke / 2,
+      lwd = row$stroke * .stroke / 2
+    )
+    sf::st_as_grob(geometry, gp = gp, pch = row$shape)
+  } else {
+    row <- utils::modifyList(default_aesthetics("poly"), row)
+    gp <- gpar(
+      col = row$colour,
+      fill = alpha(row$fill, row$alpha),
+      lwd = row$size * .pt,
+      lty = row$linetype,
+      lineend = "butt"
+    )
+    sf::st_as_grob(geometry, gp = gp)
+  }
+}
 
 #' @export
 #' @rdname ggsf
@@ -178,11 +232,20 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
 
   c(
     layer(
-      geom = GeomSf, mapping = mapping,  data = data, stat = stat,
-      position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-      params = list(na.rm = na.rm, ...)
+      geom = GeomSf,
+      data = data,
+      mapping = mapping,
+      stat = stat,
+      position = position,
+      show.legend = if (is.character(show.legend)) TRUE else show.legend,
+      inherit.aes = inherit.aes,
+      params = list(
+        na.rm = na.rm,
+        legend = if (is.character(show.legend)) show.legend else "polygon",
+        ...
+      )
     ),
-    coord_sf()
+    coord_sf(default = TRUE)
   )
 }
 
@@ -372,12 +435,14 @@ sf_rescale01_x <- function(x, range) {
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                     crs = NULL, datum = sf::st_crs(4326), ndiscr = 100) {
+                     crs = NULL, datum = sf::st_crs(4326), ndiscr = 100,
+                     default = FALSE) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
     datum = datum,
     crs = crs,
     ndiscr = ndiscr,
-    expand = expand
+    expand = expand,
+    default = default
   )
 }

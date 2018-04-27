@@ -37,7 +37,7 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -83,12 +83,24 @@ stack density values.}
 }
 \description{
 Computes and draws kernel density estimate, which is a smoothed version of
-the histogram. This is a useful alternative to the histogram if for continuous
+the histogram. This is a useful alternative to the histogram for continuous
 data that comes from an underlying smooth distribution.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{density}
+\code{geom_density} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+\item \code{weight}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{
@@ -126,11 +138,11 @@ ggplot(diamonds, aes(depth, fill = cut, colour = cut)) +
 ggplot(diamonds, aes(carat, fill = cut)) +
   geom_density(position = "stack")
 # Preserves marginal densities
-ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+ggplot(diamonds, aes(carat, calc(count), fill = cut)) +
   geom_density(position = "stack")
 
 # You can use position="fill" to produce a conditional density estimate
-ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+ggplot(diamonds, aes(carat, calc(count), fill = cut)) +
   geom_density(position = "fill")
 }
 }

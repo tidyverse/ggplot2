@@ -10,4 +10,5 @@ test_that("compute_density returns useful df and throws warning when <2 values",
 
   expect_equal(nrow(dens), 1)
   expect_equal(names(dens), c("x", "density", "scaled", "count", "n"))
+  expect_type(dens$x, "double")
 })

@@ -181,3 +181,4 @@ p4 + geom_line(show.legend = c(color = FALSE))
 Other guides: \code{\link{guide_colourbar}},
   \code{\link{guides}}
 }
+\concept{guides}

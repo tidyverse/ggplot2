@@ -4,9 +4,7 @@
 #' display the results with contours. This can be useful for dealing with
 #' overplotting. This is a 2d version of [geom_density()].
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{density_2d}
-#'
+#' @eval rd_aesthetics("geom", "density_2d")
 #' @seealso [geom_contour()] for information about how contours
 #'  are drawn; [geom_bin2d()] for another way of dealing with
 #'  overplotting.
@@ -23,7 +21,7 @@
 #'  ylim(40, 110)
 #' m + geom_density_2d()
 #' \donttest{
-#' m + stat_density_2d(aes(fill = ..level..), geom = "polygon")
+#' m + stat_density_2d(aes(fill = calc(level)), geom = "polygon")
 #'
 #' set.seed(4393)
 #' dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -33,16 +31,16 @@
 #' d + geom_density_2d(aes(colour = cut))
 #'
 #' # If we turn contouring off, we can use use geoms like tiles:
-#' d + stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE)
+#' d + stat_density_2d(geom = "raster", aes(fill = calc(density)), contour = FALSE)
 #' # Or points:
-#' d + stat_density_2d(geom = "point", aes(size = ..density..), n = 20, contour = FALSE)
+#' d + stat_density_2d(geom = "point", aes(size = calc(density)), n = 20, contour = FALSE)
 #' }
 geom_density_2d <- function(mapping = NULL, data = NULL,
                             stat = "density2d", position = "identity",
                             ...,
                             lineend = "butt",
                             linejoin = "round",
-                            linemitre = 1,
+                            linemitre = 10,
                             na.rm = FALSE,
                             show.legend = NA,
                             inherit.aes = TRUE) {

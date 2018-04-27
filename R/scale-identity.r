@@ -138,6 +138,6 @@ ScaleContinuousIdentity <- ggproto("ScaleContinuousIdentity", ScaleContinuous,
   train = function(self, x) {
     # do nothing if no guide, otherwise train so we know what breaks to use
     if (self$guide == "none") return()
-    ggproto_parent(ScaleDiscrete, self)$train(x)
+    ggproto_parent(ScaleContinuous, self)$train(x)
   }
 )

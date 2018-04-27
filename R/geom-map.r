@@ -5,9 +5,7 @@ NULL
 #'
 #' This is pure annotation, so does not affect position scales.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{map}
-#'
+#' @eval rd_aesthetics("geom", "map")
 #' @export
 #' @param map Data frame that contains the map coordinates.  This will
 #'   typically be created using [fortify()] on a spatial object.

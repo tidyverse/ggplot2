@@ -224,6 +224,16 @@ test_that("Elements can be merged", {
   )
 })
 
+test_that("complete plot themes shouldn't inherit from default", {
+  default_theme <- theme_gray() + theme(axis.text.x = element_text(colour = "red"))
+  base <- qplot(1, 1)
+
+  ptheme <- plot_theme(base + theme(axis.text.x = element_text(colour = "blue")), default_theme)
+  expect_equal(ptheme$axis.text.x$colour, "blue")
+
+  ptheme <- plot_theme(base + theme_void(), default_theme)
+  expect_null(ptheme$axis.text.x)
+})
 
 # Visual tests ------------------------------------------------------------
 
@@ -315,4 +325,15 @@ test_that("axes can be styled independently", {
       axis.line.y.right = element_line(colour = 'yellow')
     )
   vdiffr::expect_doppelganger("axes_styling", plot)
+})
+
+test_that("strips can be styled independently", {
+  df <- data.frame(x = 1:2, y = 1:2)
+  plot <- ggplot(df, aes(x, y)) +
+    facet_grid(x ~ y) +
+    theme(
+      strip.background.x = element_rect(fill = "red"),
+      strip.background.y = element_rect(fill = "green")
+    )
+  vdiffr::expect_doppelganger("strip_styling", plot)
 })
