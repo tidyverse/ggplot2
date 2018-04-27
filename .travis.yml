@@ -15,6 +15,9 @@ r:
 - release
 - devel
 
+# work around temporary travis + R 3.5 bug
+r_packages: devtools
+
 env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=false
