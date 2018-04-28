@@ -9,17 +9,21 @@ guide_colourbar(title = waiver(), title.position = NULL,
   title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
   label = TRUE, label.position = NULL, label.theme = NULL,
   label.hjust = NULL, label.vjust = NULL, barwidth = NULL,
-  barheight = NULL, nbin = 20, raster = TRUE, ticks = TRUE,
-  draw.ulim = TRUE, draw.llim = TRUE, direction = NULL,
-  default.unit = "line", reverse = FALSE, order = 0, ...)
+  barheight = NULL, nbin = 20, raster = TRUE, frame.colour = NULL,
+  frame.linewidth = 0.5, frame.linetype = 1, ticks = TRUE,
+  ticks.colour = "white", ticks.linewidth = 0.5, draw.ulim = TRUE,
+  draw.llim = TRUE, direction = NULL, default.unit = "line",
+  reverse = FALSE, order = 0, ...)
 
 guide_colorbar(title = waiver(), title.position = NULL,
   title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
   label = TRUE, label.position = NULL, label.theme = NULL,
   label.hjust = NULL, label.vjust = NULL, barwidth = NULL,
-  barheight = NULL, nbin = 20, raster = TRUE, ticks = TRUE,
-  draw.ulim = TRUE, draw.llim = TRUE, direction = NULL,
-  default.unit = "line", reverse = FALSE, order = 0, ...)
+  barheight = NULL, nbin = 20, raster = TRUE, frame.colour = NULL,
+  frame.linewidth = 0.5, frame.linetype = 1, ticks = TRUE,
+  ticks.colour = "white", ticks.linewidth = 0.5, draw.ulim = TRUE,
+  draw.llim = TRUE, direction = NULL, default.unit = "line",
+  reverse = FALSE, order = 0, ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -74,8 +78,21 @@ raster object. If \code{FALSE} then the colorbar is rendered as a set of
 rectangles. Note that not all graphics devices are capable of rendering
 raster image.}
 
+\item{frame.colour}{A string specifying the colour of the frame
+drawn around the bar. If \code{NULL} (the default), no frame is drawn.}
+
+\item{frame.linewidth}{A numeric specifying the width of the frame
+drawn around the bar.}
+
+\item{frame.linetype}{A numeric specifying the linetype of the frame
+drawn around the bar.}
+
 \item{ticks}{A logical specifying if tick marks on colorbar should be
 visible.}
+
+\item{ticks.colour}{A string specifying the color of the tick marks.}
+
+\item{ticks.linewidth}{A numeric specifying the width of the tick marks.}
 
 \item{draw.ulim}{A logical specifying if the upper limit tick marks should
 be visible.}
