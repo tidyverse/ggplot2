@@ -41,7 +41,7 @@ Suggests:
     munsell,
     nlme,
     testthat (>= 0.11.0),
-    vdiffr,
+    vdiffr (>= 0.2.3.9000),
     quantreg,
     knitr,
     rgeos,
@@ -50,6 +50,7 @@ Suggests:
     sf (>= 0.3-4),
     svglite (>= 1.2.0.9001)
 Remotes:
+    lionel-/vdiffr,
     hadley/scales,
     r-lib/rlang
 Enhances: sp
