@@ -51,7 +51,7 @@ test_that("boxes with variable widths do not overlap", {
 # Visual tests ------------------------------------------------------------
 
 test_that("boxplot draws correctly", {
-  vdiffr::expect_doppelganger("outlier colours",
+  expect_doppelganger("outlier colours",
     ggplot(mtcars, aes(x = factor(cyl), y = drat, colour = factor(cyl))) + geom_boxplot(outlier.size = 5)
   )
 })

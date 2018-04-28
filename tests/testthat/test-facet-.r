@@ -197,6 +197,6 @@ test_that("Facet labels can respect both justification and margin arguments", {
       )
     )
 
-  vdiffr::expect_doppelganger("left justified facet labels with margins", p1)
-  vdiffr::expect_doppelganger("left justified rotated facet labels with margins", p2)
+  expect_doppelganger("left justified facet labels with margins", p1)
+  expect_doppelganger("left justified rotated facet labels with margins", p2)
 })

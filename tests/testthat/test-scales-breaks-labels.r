@@ -264,8 +264,8 @@ test_that("minor breaks draws correctly", {
     scale_x_continuous(breaks = 1:3, minor_breaks = c(1.25, 2.75)) +
     scale_y_continuous(breaks = 1:3, minor_breaks = c(1.25, 2.75))
 
-  vdiffr::expect_doppelganger("manual minor breaks", p)
-  vdiffr::expect_doppelganger("manual minor breaks with coord_polar",
+  expect_doppelganger("manual minor breaks", p)
+  expect_doppelganger("manual minor breaks with coord_polar",
     p + coord_polar()
   )
 
@@ -283,15 +283,15 @@ test_that("minor breaks draws correctly", {
       minor_breaks = date_breaks("week")
     )
 
-  vdiffr::expect_doppelganger("months and weeks breaks", p)
-  vdiffr::expect_doppelganger("months and weeks breaks: coord polar", p + coord_polar())
-  vdiffr::expect_doppelganger("default breaks",
+  expect_doppelganger("months and weeks breaks", p)
+  expect_doppelganger("months and weeks breaks: coord polar", p + coord_polar())
+  expect_doppelganger("default breaks",
     ggplot(NULL, aes(letters[1:3], 1:3)) + geom_point()
   )
-  vdiffr::expect_doppelganger("scale_x_continuous(trans = log2_trans()) + scale_y_log10",
+  expect_doppelganger("scale_x_continuous(trans = log2_trans()) + scale_y_log10",
     qplot(1:1e4, 1:1e4) + scale_x_continuous(trans = log2_trans()) + scale_y_log10()
   )
-  vdiffr::expect_doppelganger("x and y transformations",
+  expect_doppelganger("x and y transformations",
     qplot(1:5, 1:5) + scale_x_continuous(trans = exp_trans(2)) + scale_y_continuous(trans = exp_trans(2)) +
       ggtitle("scale_x_continuous(trans = exp_trans(2)) + scale_y_continuous(trans = exp_trans(2))")
   )
@@ -300,22 +300,22 @@ test_that("minor breaks draws correctly", {
 test_that("scale breaks can be removed", {
   dat <- data.frame(x = 1:3, y = 1:3)
 
-  vdiffr::expect_doppelganger("no x breaks",
+  expect_doppelganger("no x breaks",
     ggplot(dat, aes(x = x, y = y)) + geom_point() + scale_x_continuous(breaks = NULL)
   )
-  vdiffr::expect_doppelganger("no y breaks",
+  expect_doppelganger("no y breaks",
     ggplot(dat, aes(x = x, y = y)) + geom_point() + scale_y_continuous(breaks = NULL)
   )
-  vdiffr::expect_doppelganger("no alpha breaks (no legend)",
+  expect_doppelganger("no alpha breaks (no legend)",
     ggplot(dat, aes(x = 1, y = y, alpha = x)) + geom_point() + scale_alpha_continuous(breaks = NULL)
   )
-  vdiffr::expect_doppelganger("no size breaks (no legend)",
+  expect_doppelganger("no size breaks (no legend)",
     ggplot(dat, aes(x = 1, y = y, size = x)) + geom_point() + scale_size_continuous(breaks = NULL)
   )
-  vdiffr::expect_doppelganger("no fill breaks (no legend)",
+  expect_doppelganger("no fill breaks (no legend)",
     ggplot(dat, aes(x = 1, y = y, fill = x)) + geom_point(shape = 21) + scale_fill_continuous(breaks = NULL)
   )
-  vdiffr::expect_doppelganger("no colour breaks (no legend)",
+  expect_doppelganger("no colour breaks (no legend)",
     ggplot(dat, aes(x = 1, y = y, colour = x)) + geom_point() + scale_colour_continuous(breaks = NULL)
   )
 })
