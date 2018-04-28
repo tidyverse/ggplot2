@@ -316,7 +316,7 @@ up correct aspect ratio, and draws a graticule.
   widths that are proportional to the base font size. One relative font size
   was eliminated. (@clauswilke)
 
-### Themes
+### Guides
 
 * Make `guide_colorbar()` more configurable; enable styling of tick marks and
   drawing of frame around the color bar. (@clauswilke)
