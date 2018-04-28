@@ -49,9 +49,8 @@ Suggests:
     rmarkdown,
     sf (>= 0.3-4),
     svglite (>= 1.2.0.9001)
-Remotes: hadley/scales,
-    hadley/svglite,
-    jimhester/withr,
+Remotes:
+    hadley/scales,
     r-lib/rlang
 Enhances: sp
 License: GPL-2 | file LICENSE
