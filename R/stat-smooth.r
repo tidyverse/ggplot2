@@ -4,7 +4,7 @@
 #'   For `method = "auto"` the smoothing method is chosen based on the
 #'   size of the largest group (across all panels). [loess()] is
 #'   used for less than 1,000 observations; otherwise [mgcv::gam()] is
-#'   used with `formula = y ~ s(x, bs = "cs")`. Somewhat anecdotally,
+#'   used with `formula = y ~ mgcv::s(x, bs = "cs")`. Somewhat anecdotally,
 #'   `loess` gives a better appearance, but is O(n^2) in memory, so does
 #'   not work for larger datasets.
 #' @param formula Formula to use in smoothing function, eg. `y ~ x`,
@@ -83,9 +83,9 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         params$method <- "loess"
       } else {
         params$method <- "gam"
-        params$formula <- y ~ s(x, bs = "cs")
+        params$formula <- y ~ mgcv::s(x, bs = "cs")
       }
-      message("`geom_smooth()` using method = '", params$method, 
+      message("`geom_smooth()` using method = '", params$method,
               "' and formula '", deparse(params$formula), "'")
     }
     if (identical(params$method, "gam")) {
