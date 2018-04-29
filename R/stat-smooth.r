@@ -85,7 +85,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         params$method <- "gam"
         params$formula <- y ~ mgcv::s(x, bs = "cs")
       }
-      message("`geom_smooth()` using method = '", params$method,
+      message("`geom_smooth()` using method = '", params$method, 
               "' and formula '", deparse(params$formula), "'")
     }
     if (identical(params$method, "gam")) {
