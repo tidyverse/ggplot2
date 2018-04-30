@@ -202,6 +202,9 @@ up correct aspect ratio, and draws a graticule.
 
 ### Layers
 
+* `annotate` no longer produces an undesired border around annotations when
+  `label.size` is 0, even when saving to PDF (@bfgray3, #2407).
+
 * In most cases, using `%>%` instead of `+` should generate an informative
   error (#2400).
   
