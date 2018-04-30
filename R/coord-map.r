@@ -10,7 +10,7 @@
 #' In general, map projections must account for the fact that the actual length
 #' (in km) of one degree of longitude varies between the equator and the pole.
 #' Near the equator, the ratio between the lengths of one degree of latitude and
-#' one degree of longitude is approximately 1. Near the pole, it is tends
+#' one degree of longitude is approximately 1. Near the pole, it tends
 #' towards infinity because the length of one degree of longitude tends towards
 #' 0. For regions that span only a few degrees and are not too close to the
 #' poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio

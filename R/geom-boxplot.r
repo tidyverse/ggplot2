@@ -37,13 +37,13 @@
 #'
 #'   In the unlikely event you specify both US and UK spellings of colour, the
 #'   US spelling will take precedence.
-#' @param notch if `FALSE` (default) make a standard box plot. If
+#' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
 #'   are significantly different.
-#' @param notchwidth for a notched box plot, width of the notch relative to
+#' @param notchwidth For a notched box plot, width of the notch relative to
 #'   the body (default 0.5)
-#' @param varwidth if `FALSE` (default) make a standard box plot. If
+#' @param varwidth If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly
 #'   weighted, using the `weight` aesthetic).
@@ -111,7 +111,9 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          inherit.aes = TRUE) {
 
   # varwidth = TRUE is not compatible with preserve = "total"
-  if (!is.character(position)) {
+  if (is.character(position)) {
+    if (varwidth == TRUE) position <- position_dodge2(preserve = "single")
+  } else {
     if (identical(position$preserve, "total") & varwidth == TRUE) {
       warning("Can't preserve total widths when varwidth = TRUE.", call. = FALSE)
       position$preserve <- "single"

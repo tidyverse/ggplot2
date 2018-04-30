@@ -487,7 +487,7 @@ This doesn't allow you to use different geoms with the stat, but that seems appr
 
 1. Compare and contrast `GeomPoint` with `GeomSimplePoint`.
 
-1. Compare and contract `GeomPolygon` with `GeomSimplePolygon`.
+1. Compare and contrast `GeomPolygon` with `GeomSimplePolygon`.
 
 ## Creating your own theme
 

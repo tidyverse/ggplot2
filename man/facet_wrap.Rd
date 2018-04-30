@@ -9,14 +9,21 @@ facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   switch = NULL, drop = TRUE, dir = "h", strip.position = "top")
 }
 \arguments{
-\item{facets}{Either a formula or character vector. Use either a
-one sided formula, \code{~a + b}, or a character vector, \code{c("a", "b")}.}
+\item{facets}{A set of variables or expressions quoted by \code{\link[=vars]{vars()}}
+and defining faceting groups on the rows or columns dimension.
+The variables can be named (the names are passed to \code{labeller}).
+
+For compatibility with the classic interface, can also be a
+formula or character vector. Use either a one sided formula, `~a
+\itemize{
+\item b\code{, or a character vector,}c("a", "b")`.
+}}
 
 \item{nrow, ncol}{Number of rows and columns.}
 
-\item{scales}{should Scales be fixed (\code{"fixed"}, the default),
+\item{scales}{Should scales be fixed (\code{"fixed"}, the default),
 free (\code{"free"}), or free in one dimension (\code{"free_x"},
-\code{"free_y"}).}
+\code{"free_y"})?}
 
 \item{shrink}{If \code{TRUE}, will shrink scales to fit output of
 statistics, not raw data. If \code{FALSE}, will be range of raw data
@@ -46,8 +53,8 @@ labels will be displayed to the left. Can also be set to
 data will automatically be dropped. If \code{FALSE}, all factor levels
 will be shown, regardless of whether or not they appear in the data.}
 
-\item{dir}{Direction: either "h" for horizontal, the default, or "v", for
-vertical.}
+\item{dir}{Direction: either \code{"h"} for horizontal, the default, or \code{"v"},
+for vertical.}
 
 \item{strip.position}{By default, the labels are displayed on the top of
 the plot. Using \code{strip.position} it is possible to place the labels on
@@ -60,14 +67,16 @@ a better use of screen space than \code{\link[=facet_grid]{facet_grid()}} becaus
 displays are roughly rectangular.
 }
 \examples{
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  facet_wrap(~class)
+p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+
+# Use vars() to supply faceting variables:
+p + facet_wrap(vars(class))
+
+# The historical interface with formulas is also available:
+p + facet_wrap(~class)
 
 # Control the number of rows and columns with nrow and ncol
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  facet_wrap(~class, nrow = 4)
+p + facet_wrap(vars(class), nrow = 4)
 
 \donttest{
 # You can facet by multiple variables

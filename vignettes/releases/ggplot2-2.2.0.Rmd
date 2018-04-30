@@ -61,9 +61,9 @@ The plot title is now aligned to the left by default. To return to the previous 
 
 ## Facets
 
-The facet and layout implementation has been moved to ggproto and received a large rewrite and refactoring. This will allow others to create their own faceting systems, as descrbied in the `vignette("extending-ggplot2")`. Along with the rewrite a number of features and improvements has been added, most notably:
+The facet and layout implementation has been moved to ggproto and received a large rewrite and refactoring. This will allow others to create their own facetting systems, as described in the `vignette("extending-ggplot2")`. Along with the rewrite a number of features and improvements has been added, most notably:
 
-*   ou can now use functions in faceting formulas, thanks to 
+*   You can now use functions in facetting formulas, thanks to 
     [Dan Ruderman](https://github.com/DanRuderman).
   
     ```{r facet-1}

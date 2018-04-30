@@ -37,7 +37,7 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -83,7 +83,7 @@ stack density values.}
 }
 \description{
 Computes and draws kernel density estimate, which is a smoothed version of
-the histogram. This is a useful alternative to the histogram if for continuous
+the histogram. This is a useful alternative to the histogram for continuous
 data that comes from an underlying smooth distribution.
 }
 \section{Aesthetics}{

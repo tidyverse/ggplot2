@@ -50,7 +50,7 @@ test_that("stat_xxx and StatXxx$compute_panel arg defaults match", {
   # These aren't actually stats, or need special parameters and can't be tested this way.
   stat_fun_names <- setdiff(
     stat_fun_names,
-    c("stat_function")
+    c("stat_function", "stat_sf")
   )
 
   # For each stat_xxx function and the corresponding StatXxx$compute_panel and

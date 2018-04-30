@@ -34,7 +34,7 @@
 #' @inheritParams layer
 #' @param na.rm If `FALSE`, the default, missing values are removed with
 #'   a warning. If `TRUE`, missing values are silently removed.
-#' @param ... other arguments passed on to [layer()]. These are
+#' @param ... Other arguments passed on to [layer()]. These are
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
 #'   `color = "red"` or `size = 3`. They may also be parameters
 #'   to the paired geom/stat.

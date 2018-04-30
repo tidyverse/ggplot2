@@ -3,16 +3,16 @@
 #' Visualise the distribution of a single continuous variable by dividing
 #' the x axis into bins and counting the number of observations in each bin.
 #' Histograms (`geom_histogram`) display the count with bars; frequency
-#' polygons (`geom_freqpoly`), display the counts with lines. Frequency
+#' polygons (`geom_freqpoly`) display the counts with lines. Frequency
 #' polygons are more suitable when you want to compare the distribution
 #' across the levels of a categorical variable.
 #'
 #' `stat_bin` is suitable only for continuous x data. If your x data is
 #' discrete, you probably want to use [stat_count()].
 #'
-#' By default, the underlying computation (`stat_bin`) uses 30 bins -
+#' By default, the underlying computation (`stat_bin`) uses 30 bins;
 #' this is not a good default, but the idea is to get you experimenting with
-#' different binwidths. You may need to look at a few to uncover the full
+#' different bin widths. You may need to look at a few to uncover the full
 #' story behind your data.
 #'
 #' @section Aesthetics:

@@ -9,7 +9,10 @@
 create_layout <- function(facet = FacetNull, coord = CoordCartesian) {
   ggproto(NULL, Layout, facet = facet, coord = coord)
 }
-
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 Layout <- ggproto("Layout", NULL,
   # The coordinate system and its parameters
   coord = NULL,
