@@ -163,6 +163,10 @@ up correct aspect ratio, and draws a graticule.
 * `ggplot_build` and `ggplot_gtable` are now generics so ggplot-subclasses can
   define additional behavior during the build stage.
 
+## Deprecated and defunct
+
+* The long-deprecated `subset` argument to `layer()` has been removed.
+
 ## Minor bug fixes and improvements
 
 ### Facetting

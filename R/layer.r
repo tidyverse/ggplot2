@@ -41,8 +41,6 @@
 #'   supplied parameters and aesthetics are understood by the `geom` or
 #'   `stat`. Use `FALSE` to suppress the checks.
 #' @param params Additional parameters to the `geom` and `stat`.
-#' @param subset DEPRECATED. An older way of subsetting the dataset used in a
-#'   layer.
 #' @keywords internal
 #' @examples
 #' # geom calls are just a short cut for layer
@@ -63,7 +61,7 @@ layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
-                  subset = NULL, show.legend = NA) {
+                  show.legend = NA) {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
   if (is.null(stat))
@@ -128,9 +126,6 @@ layer <- function(geom = NULL, stat = NULL,
     )
   }
 
-
-  subset <- rlang::enquo(subset)
-
   ggproto("LayerInstance", Layer,
     geom = geom,
     geom_params = geom_params,
@@ -139,7 +134,6 @@ layer <- function(geom = NULL, stat = NULL,
     data = data,
     mapping = mapping,
     aes_params = aes_params,
-    subset = subset,
     position = position,
     inherit.aes = inherit.aes,
     show.legend = show.legend
@@ -215,13 +209,6 @@ Layer <- ggproto("Layer", NULL,
     # Override grouping if set in layer
     if (!is.null(self$geom_params$group)) {
       aesthetics[["group"]] <- self$aes_params$group
-    }
-
-    # Old subsetting method
-    if (!rlang::quo_is_null(self$subset)) {
-      res <- rlang::eval_tidy(self$subset, data = data)
-      res <- res & !is.na(res)
-      data <- data[res, , drop = FALSE]
     }
 
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
