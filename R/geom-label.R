@@ -90,7 +90,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
           lineheight = row$lineheight
         ),
         rect.gp = gpar(
-          col = row$colour,
+          col = if (label.size != 0) row$colour else NA,
           fill = alpha(row$fill, row$alpha),
           lwd = label.size * .pt
         )
