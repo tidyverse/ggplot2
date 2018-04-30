@@ -35,7 +35,7 @@ test_that("custom breaks works", {
 })
 
 test_that("sec axis works with skewed transform", {
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "sec_axis, skewed transform",
     ggplot(foo, aes(x, y)) +
       geom_point() +
