@@ -6,9 +6,9 @@
 \title{Map projections}
 \usage{
 coord_map(projection = "mercator", ..., parameters = NULL,
-  orientation = NULL, xlim = NULL, ylim = NULL)
+  orientation = NULL, xlim = NULL, ylim = NULL, clip = "on")
 
-coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE)
+coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on")
 }
 \arguments{
 \item{projection}{projection to use, see
@@ -26,6 +26,10 @@ projections, so you will have to supply your own. See
 
 \item{xlim, ylim}{Manually specific x/y limits (in degrees of
 longitude/latitude)}
+
+\item{clip}{Should drawing be clipped to the extent of the plot panel? A
+setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
+means no. For details, please see \code{\link[=coord_cartesian]{coord_cartesian()}}.}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},

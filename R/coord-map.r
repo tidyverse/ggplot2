@@ -32,7 +32,7 @@
 #'   longitude/latitude)
 #' @param clip Should drawing be clipped to the extent of the plot panel? A
 #'   setting of `"on"` (the default) means yes, and a setting of `"off"`
-#'   means no.
+#'   means no. For details, please see [`coord_cartesian()`].
 #' @export
 #' @examples
 #' if (require("maps")) {
