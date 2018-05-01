@@ -59,6 +59,18 @@ test_that("Polar distance calculation ignores NA's", {
 })
 
 
+test_that("clipping can be turned off and on", {
+  # clip can be turned on and off
+  p <- ggplot() + coord_polar()
+  coord <- ggplot_build(p)$layout$coord
+  expect_equal(coord$clip, "on")
+
+  p <- ggplot() + coord_polar(clip = "off")
+  coord <- ggplot_build(p)$layout$coord
+  expect_equal(coord$clip, "off")
+})
+
+
 # Visual tests ------------------------------------------------------------
 
 test_that("Polar coordinates draws correctly", {

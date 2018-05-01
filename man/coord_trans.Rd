@@ -13,6 +13,10 @@ coord_trans(x = "identity", y = "identity", limx = NULL, limy = NULL,
 \item{limx, limy}{limits for x and y axes. (Named so for backward
 compatibility)}
 
+\item{clip}{Should drawing be clipped to the extent of the plot panel? A
+setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
+means no. For details, please see \code{\link[=coord_cartesian]{coord_cartesian()}}.}
+
 \item{xtrans, ytrans}{Deprecated; use \code{x} and \code{y} instead.}
 }
 \description{

@@ -1,5 +1,22 @@
 context("coord_cartesian")
 
+test_that("clipping can be turned off and on", {
+  # clip on by default
+  p <- ggplot() + coord_cartesian()
+  coord <- ggplot_build(p)$layout$coord
+  expect_equal(coord$clip, "on")
+
+  # clip can be turned on and off
+  p <- ggplot() + coord_cartesian(clip = "off")
+  coord <- ggplot_build(p)$layout$coord
+  expect_equal(coord$clip, "off")
+
+  p <- ggplot() + coord_cartesian(clip = "on")
+  coord <- ggplot_build(p)$layout$coord
+  expect_equal(coord$clip, "on")
+})
+
+
 # Visual tests ------------------------------------------------------------
 
 test_that("cartesian coords draws correctly with limits", {
@@ -13,7 +30,7 @@ test_that("cartesian coords draws correctly with limits", {
   )
 })
 
-test_that("clipping can be turned off and on in cartesian coords", {
+test_that("cartesian coords draws correctly with clipping on or off", {
   df.in <- data.frame(label = c("inside", "inside", "inside", "inside"),
                       x = c(0, 1, 0.5, 0.5),
                       y = c(0.5, 0.5, 0, 1),
@@ -40,27 +57,7 @@ test_that("clipping can be turned off and on in cartesian coords", {
     p + coord_cartesian(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE)
   )
 
-  expect_doppelganger("clip can be turned off, both 'inside' and 'outside' visible",
+  expect_doppelganger("clip turned off, both 'inside' and 'outside' visible",
     p + coord_cartesian(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE, clip = "off")
-  )
-
-  expect_doppelganger("clip can be turned on, only 'inside' visible",
-    p + coord_cartesian(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE, clip = "on")
-  )
-
-  expect_doppelganger("clip on in `facet_wrap()` by default",
-    p + coord_cartesian(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE) + facet_wrap(~x)
-  )
-
-  expect_doppelganger("clip can be turned off in `facet_wrap()`",
-    p + coord_cartesian(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE, clip = "off") + facet_wrap(~x)
-  )
-
-  expect_doppelganger("clip on in `facet_grid()` by default",
-    p + coord_cartesian(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE) + facet_grid(x~y)
-  )
-
-  expect_doppelganger("clip can be turned off in `facet_grid()`",
-    p + coord_cartesian(xlim = c(0, 1), ylim = c(0, 1), expand = FALSE, clip = "off") + facet_grid(x~y)
   )
 })

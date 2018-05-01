@@ -12,6 +12,9 @@
 #' @param xtrans,ytrans Deprecated; use `x` and `y` instead.
 #' @param limx,limy limits for x and y axes. (Named so for backward
 #'    compatibility)
+#' @param clip Should drawing be clipped to the extent of the plot panel? A
+#'   setting of `"on"` (the default) means yes, and a setting of `"off"`
+#'   means no. For details, please see [`coord_cartesian()`].
 #' @export
 #' @examples
 #' \donttest{
