@@ -163,9 +163,16 @@ up correct aspect ratio, and draws a graticule.
 * `ggplot_build` and `ggplot_gtable` are now generics so ggplot-subclasses can
   define additional behavior during the build stage.
 
-## Deprecated and defunct
+## Breaking changes
 
 * The long-deprecated `subset` argument to `layer()` has been removed.
+
+* Internally, ggplot2 now uses `as.data.frame(tibble::as_tibble(x))` to 
+  convert a list into a data frame. This improves ggplot2's support for 
+  list-columns (needed for sf support), at a small cost: you can no longer
+  use matrix-columns. These are rarely used but are produced by `scale()`;
+  to continue use `scale()` you'll need to wrap it with `as.numeric()`, 
+  e.g. `as.numeric(scale(x))`.
 
 ## Minor bug fixes and improvements
 
