@@ -5,7 +5,8 @@
 \alias{coord_equal}
 \title{Cartesian coordinates with fixed "aspect ratio"}
 \usage{
-coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE)
+coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE,
+  clip = "on")
 }
 \arguments{
 \item{ratio}{aspect ratio, expressed as \code{y / x}}
@@ -17,6 +18,15 @@ coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE)
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+
+\item{clip}{Should drawing be clipped to the extent of the plot panel? A
+setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
+means no. In most cases, the default of \code{"on"} should not be changed,
+as setting \code{clip = "off"} can cause unexpected results. It allows
+drawing of data points anywhere on the plot, including in the plot margins. If
+limits are set via \code{xlim} and \code{ylim} and some data points fall outside those
+limits, then those data points may show up in places such as the axes, the
+legend, the plot title, or the plot margins.}
 }
 \description{
 A fixed scale coordinate system forces a specified ratio between the

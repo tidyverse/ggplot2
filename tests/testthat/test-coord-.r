@@ -1,5 +1,11 @@
 context("test-coord-.r")
 
+test_that("clipping is on by default", {
+  p <- ggplot()
+  coord <- ggplot_build(p)$layout$coord
+  expect_equal(coord$clip, "on")
+})
+
 test_that("message when replacing non-default coordinate system", {
 
   df <- data.frame(x = 1, y = 2)

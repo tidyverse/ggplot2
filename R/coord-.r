@@ -35,6 +35,10 @@ Coord <- ggproto("Coord",
   # Is this the default coordinate system?
   default = FALSE,
 
+  # should drawing be clipped to the extent of the plot panel?
+  # "on" = yes, "off" = no
+  clip = "on",
+
   aspect = function(ranges) NULL,
 
   labels = function(panel_params) panel_params,

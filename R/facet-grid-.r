@@ -374,7 +374,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
 
     panel_table <- gtable_matrix("layout", panel_table,
-      panel_widths, panel_heights, respect = respect, clip = "on", z = matrix(1, ncol = ncol, nrow = nrow))
+      panel_widths, panel_heights, respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
     panel_table <- gtable_add_col_space(panel_table,

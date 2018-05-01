@@ -25,10 +25,11 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_area()
 #' last_plot() + coord_flip()
-coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE) {
+coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
   ggproto(NULL, CoordFlip,
     limits = list(x = xlim, y = ylim),
-    expand = expand
+    expand = expand,
+    clip = clip
   )
 }
 

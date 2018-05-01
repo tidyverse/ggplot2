@@ -318,6 +318,9 @@ up correct aspect ratio, and draws a graticule.
 
 ### Other
 
+* Clipping to the plot panel is now configurable, through a `clip` argument
+  to coordinate systems, e.g. `coord_cartesian(clip = "off")`. (@clauswilke, #2536)
+
 * `fortify()` gains a method for tbls (@karawoo, #2218)
 
 * `ggplot` gains a method for `grouped_df`s that adds a `.group` variable,
