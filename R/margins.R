@@ -78,9 +78,10 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
   descent <- descentDetails(temp)
 
   # Use trigonometry to calculate grobheight and width for rotated grobs. This is only
-  # exactly correct when vjust = 1.
-  text_height <- unit(1, "grobheight", text_grob) + cos(angle / 180 * pi) * descent
-  text_width <- unit(1, "grobwidth", text_grob) + sin(angle / 180 * pi) * descent
+  # exactly correct when vjust = 1. We need to take the absolute value so we don't make
+  # the grob smaller when it's flipped over.
+  text_height <- unit(1, "grobheight", text_grob) + abs(cos(angle / 180 * pi)) * descent
+  text_width <- unit(1, "grobwidth", text_grob) + abs(sin(angle / 180 * pi)) * descent
 
   if (isTRUE(debug)) {
     children <- gList(
