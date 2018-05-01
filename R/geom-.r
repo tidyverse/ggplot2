@@ -110,10 +110,13 @@ Geom <- ggproto("Geom",
     missing_aes <- setdiff(names(self$default_aes), names(data))
 
     missing_eval <- lapply(self$default_aes[missing_aes], rlang::eval_tidy)
+    # Needed for geoms with defaults set to NULL (e.g. GeomSf)
+    missing_eval <- compact(missing_eval)
+
     if (empty(data)) {
-      data <- plyr::quickdf(missing_eval)
+      data <- as.data.frame(tibble::as_tibble(missing_eval))
     } else {
-      data[missing_aes] <- missing_eval
+      data[names(missing_eval)] <- missing_eval
     }
 
     # Override mappings with params
