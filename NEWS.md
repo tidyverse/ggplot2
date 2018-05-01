@@ -202,8 +202,11 @@ up correct aspect ratio, and draws a graticule.
 
 ### Layers
 
-* `annotate` no longer produces an undesired border around annotations when
+* `geom_label` no longer produces an undesired border around labels when
   `label.size` is 0, even when saving to PDF (@bfgray3, #2407).
+
+* In `stat-smooth.r`, the `s` in `y ~ s(x, bs = "cs")` is now `mgcv::s`, which
+  eliminates naming conflicts (@bfgray3, #2535).
 
 * In most cases, using `%>%` instead of `+` should generate an informative
   error (#2400).
