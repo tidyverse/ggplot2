@@ -21,7 +21,7 @@ guide_gengrob(guide, theme)
 }
 \description{
 You will need to provide methods for these S3 generics if you want to
-provide your own guide object. They are currently undocumented; use at
+create your own guide object. They are currently undocumented; use at
 your own risk!
 }
 \keyword{internal}
