@@ -50,9 +50,20 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
 
 ![](man/figures/README-example-1.png)<!-- -->
 
-As well as the components built-in to ggplot2, there are many packages
-that provide extensions. See a comprehensive list at
-<http://www.ggplot2-exts.org>.
+## Lifecycle
+
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+
+ggplot2 is now over 10 years old and is used by hundreds of thousands of
+people to make millions of plots. That means, by-and-large, ggplot2
+itself changes relatively little. When we do make changes, they will be
+generally to add new functions or arguments rather than changing the
+behaviour of existing functions, and if we do make changes to existing
+behaviour we will do them for compelling reasons.
+
+If you are looking for innovation, look to ggplot2’s rich ecosystem of
+extensions. See a community maintained list at
+<http://www.ggplot2-exts.org/gallery/>.
 
 ## Learning ggplot2
 
