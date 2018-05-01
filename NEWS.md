@@ -244,6 +244,9 @@ up correct aspect ratio, and draws a graticule.
   to pass pre-computed values without manual ordering (@izahn, #2028).
   It also now knows it has `ymin` and `ymax` aesthetics (#1939).
 
+* `geom_tile()` now once again interprets `width` and `height` correctly 
+  (@malcolmbarrett, #2510)
+
 * `position_dodge()` gains an `preserve` argument that allows you to control
   whether the `total` width at each `x` value is preserved (the current 
   default), or ensure that the width of a `single` element is preserved

@@ -89,8 +89,10 @@ performance special case for when all the tiles are the same size.
 \item \code{colour}
 \item \code{fill}
 \item \code{group}
+\item \code{height}
 \item \code{linetype}
 \item \code{size}
+\item \code{width}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
@@ -114,7 +116,7 @@ df <- data.frame(
   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
 )
 ggplot(df, aes(x, y)) +
-  geom_tile(aes(fill = z))
+  geom_tile(aes(fill = z), colour = "grey50")
 ggplot(df, aes(x, y)) +
   geom_tile(aes(fill = z, width = w), colour = "grey50")
 ggplot(df, aes(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1)) +
