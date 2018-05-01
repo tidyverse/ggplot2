@@ -163,6 +163,10 @@ up correct aspect ratio, and draws a graticule.
 * `ggplot_build` and `ggplot_gtable` are now generics so ggplot-subclasses can
   define additional behavior during the build stage.
 
+* `guide_train()`, `guide_merge()`, `guide_geom()`, and `guide_gengrob()`
+  are now exported as they are needed if you want to design your own guide.
+  They are not currently documented; use at your own risk (#2528).
+
 ## Breaking changes
 
 * The long-deprecated `subset` argument to `layer()` has been removed.
