@@ -325,9 +325,13 @@ guide_gengrob.legend <- function(guide, theme) {
 
   nbreak <- nrow(guide$key)
 
+  # obtain the theme for the legend title. We need this both for the title grob
+  # and to obtain the title fontsize.
+  title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
+
   grob.title <- ggname("guide.title",
     element_grob(
-      guide$title.theme %||% calc_element("legend.title", theme),
+      title.theme,
       label = guide$title,
       hjust = guide$title.hjust %||% theme$legend.title.align %||% 0,
       vjust = guide$title.vjust %||% 0.5,
@@ -338,10 +342,12 @@ guide_gengrob.legend <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
+  title_fontsize <- title.theme$size
+  if (is.null(title_fontsize)) title_fontsize <- 0
 
   # gap between keys etc
   hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
-  vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_height, "cm")))
+  vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_fontsize, "pt")))
 
   # Labels
   if (!guide$label || is.null(guide$key$.label)) {

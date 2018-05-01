@@ -13,33 +13,33 @@
 </defs>
 <rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
 <defs>
-  <clipPath id='cpMC4wMHw2OTAuMDB8NTc2LjAwfDI0LjA5'>
-    <rect x='0.00' y='24.09' width='690.00' height='551.91' />
+  <clipPath id='cpMC4wMHw2OTAuMDB8NTc2LjAwfDI1LjU3'>
+    <rect x='0.00' y='25.57' width='690.00' height='550.43' />
   </clipPath>
 </defs>
-<circle cx='31.36' cy='550.91' r='1.95pt' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' clip-path='url(#cpMC4wMHw2OTAuMDB8NTc2LjAwfDI0LjA5)' />
-<circle cx='345.00' cy='300.05' r='1.95pt' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' clip-path='url(#cpMC4wMHw2OTAuMDB8NTc2LjAwfDI0LjA5)' />
-<circle cx='658.64' cy='49.18' r='1.95pt' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' clip-path='url(#cpMC4wMHw2OTAuMDB8NTc2LjAwfDI0LjA5)' />
+<circle cx='31.36' cy='550.98' r='1.95pt' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' clip-path='url(#cpMC4wMHw2OTAuMDB8NTc2LjAwfDI1LjU3)' />
+<circle cx='345.00' cy='300.79' r='1.95pt' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' clip-path='url(#cpMC4wMHw2OTAuMDB8NTc2LjAwfDI1LjU3)' />
+<circle cx='658.64' cy='50.59' r='1.95pt' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' clip-path='url(#cpMC4wMHw2OTAuMDB8NTc2LjAwfDI1LjU3)' />
 <defs>
   <clipPath id='cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA='>
     <rect x='0.00' y='0.00' width='720.00' height='576.00' />
   </clipPath>
 </defs>
 <defs>
-  <clipPath id='cpMC4wMHw2OTAuMDB8MjQuMDl8MTguMDQ='>
-    <rect x='0.00' y='18.04' width='690.00' height='6.05' />
+  <clipPath id='cpMC4wMHw2OTAuMDB8MjUuNTd8MTcuMDQ='>
+    <rect x='0.00' y='17.04' width='690.00' height='8.53' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMC4wMHw2OTAuMDB8MjQuMDl8MTguMDQ=)'><text x='342.55' y='24.09' style='font-size: 8.80px; font-family: Liberation Sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>1</text></g>
+<g clip-path='url(#cpMC4wMHw2OTAuMDB8MjUuNTd8MTcuMDQ=)'><text x='342.55' y='24.33' style='font-size: 8.80px; font-family: Liberation Sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>1</text></g>
 <defs>
   <clipPath id='cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA='>
     <rect x='0.00' y='0.00' width='720.00' height='576.00' />
   </clipPath>
 </defs>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='695.67' y='284.66' style='font-size: 11.00px; font-family: Liberation Sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>z</text></g>
-<circle cx='704.31' cy='297.08' r='1.95pt' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
-<circle cx='704.31' cy='314.36' r='1.95pt' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='715.11' y='300.10' style='font-size: 8.80px; font-family: Liberation Sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>a</text></g>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='715.11' y='317.38' style='font-size: 8.80px; font-family: Liberation Sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>b</text></g>
-<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='0.00' y='15.65' style='font-size: 13.20px; font-family: Liberation Sans;' textLength='68.14px' lengthAdjust='spacingAndGlyphs'>theme_void</text></g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='695.67' y='284.55' style='font-size: 11.00px; font-family: Liberation Sans;' textLength='5.50px' lengthAdjust='spacingAndGlyphs'>z</text></g>
+<circle cx='704.31' cy='299.91' r='1.95pt' style='stroke-width: 0.71; stroke: #F8766D; fill: #F8766D;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
+<circle cx='704.31' cy='317.19' r='1.95pt' style='stroke-width: 0.71; stroke: #00BFC4; fill: #00BFC4;' clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)' />
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='715.11' y='302.93' style='font-size: 8.80px; font-family: Liberation Sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>a</text></g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='715.11' y='320.21' style='font-size: 8.80px; font-family: Liberation Sans;' textLength='4.89px' lengthAdjust='spacingAndGlyphs'>b</text></g>
+<g clip-path='url(#cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA=)'><text x='0.00' y='14.56' style='font-size: 13.20px; font-family: Liberation Sans;' textLength='68.14px' lengthAdjust='spacingAndGlyphs'>theme_void</text></g>
 </svg>

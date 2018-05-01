@@ -308,6 +308,11 @@ up correct aspect ratio, and draws a graticule.
 
 * Default themes use `rel()` to set line widths (@baptiste).
 
+* Themes were tweaked for visual consistency and more graceful behavior when changing
+  the base font size. All absolute heights or widths were replaced with heights or 
+  widths that are proportional to the base font size. One relative font size
+  was eliminated. (@clauswilke)
+
 ### Other
 
 * `fortify()` gains a method for tbls (@karawoo, #2218)
@@ -337,6 +342,8 @@ up correct aspect ratio, and draws a graticule.
 * New functions `summarise_layout()`, `summarise_coord()`, and `summarise_layers()` 
   summarise the layout, coordinate systems, and layers, of a built ggplot object
   (#2034, @wch). This provides a tested API that (e.g.) shiny can depend on.
+
+* The height of descenders is now calculated solely on font metrics and doesn't change with the specific letters in the string. This fixes minor alignment issues with plot titles, subtitles, and legend titles. (#2288, @clauswilke)
 
 * Update startup messages to reflect new resources. (#2410, @mine-cetinkaya-rundel)
 
