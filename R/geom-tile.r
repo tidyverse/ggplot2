@@ -31,10 +31,10 @@
 #' )
 #' ggplot(df, aes(x, y)) +
 #'   geom_tile(aes(fill = z), colour = "grey50")
-#' ggplot(df, aes(x, y)) +
-#'   geom_tile(aes(fill = z, width = w), colour = "grey50")
+#' ggplot(df, aes(x, y, width = w)) +
+#'   geom_tile(aes(fill = z), colour = "grey50")
 #' ggplot(df, aes(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1)) +
-#'   geom_rect(aes(fill = z, width = w), colour = "grey50")
+#'   geom_rect(aes(fill = z), colour = "grey50")
 #'
 #' \donttest{
 #' # Justification controls where the cells are anchored
