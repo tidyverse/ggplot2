@@ -285,23 +285,23 @@ test_that("aspect ratio is honored", {
   p_a <- p + theme(aspect.ratio = 3)
   p_b <- p + theme(aspect.ratio = 1 / 3)
 
-  vdiffr::expect_doppelganger("height is 3 times width",
+  expect_doppelganger("height is 3 times width",
     p_a
   )
-  vdiffr::expect_doppelganger("width is 3 times height",
+  expect_doppelganger("width is 3 times height",
     p_b
   )
 
-  vdiffr::expect_doppelganger("height is 3 times width, 2 wrap facets",
+  expect_doppelganger("height is 3 times width, 2 wrap facets",
     p_a + facet_wrap(~f)
   )
-  vdiffr::expect_doppelganger("height is 3 times width, 2 column facets",
+  expect_doppelganger("height is 3 times width, 2 column facets",
     p_a + facet_grid(.~f)
   )
-  vdiffr::expect_doppelganger("height is 3 times width, 2 row facets",
+  expect_doppelganger("height is 3 times width, 2 row facets",
     p_a + facet_grid(f~.)
   )
-  vdiffr::expect_doppelganger("height is 3 times width, 2x2 facets",
+  expect_doppelganger("height is 3 times width, 2x2 facets",
     p_a + facet_grid(f1~f2)
   )
 
@@ -313,14 +313,14 @@ test_that("themes don't change without acknowledgement", {
     geom_point() +
     facet_wrap(~ a)
 
-  vdiffr::expect_doppelganger("theme_bw", plot + theme_bw())
-  vdiffr::expect_doppelganger("theme_classic", plot + theme_classic())
-  vdiffr::expect_doppelganger("theme_dark", plot + theme_dark())
-  vdiffr::expect_doppelganger("theme_minimal", plot + theme_minimal())
-  vdiffr::expect_doppelganger("theme_gray", plot + theme_gray())
-  vdiffr::expect_doppelganger("theme_light", plot + theme_light())
-  vdiffr::expect_doppelganger("theme_void", plot + theme_void())
-  vdiffr::expect_doppelganger("theme_linedraw", plot + theme_linedraw())
+  expect_doppelganger("theme_bw", plot + theme_bw())
+  expect_doppelganger("theme_classic", plot + theme_classic())
+  expect_doppelganger("theme_dark", plot + theme_dark())
+  expect_doppelganger("theme_minimal", plot + theme_minimal())
+  expect_doppelganger("theme_gray", plot + theme_gray())
+  expect_doppelganger("theme_light", plot + theme_light())
+  expect_doppelganger("theme_void", plot + theme_void())
+  expect_doppelganger("theme_linedraw", plot + theme_linedraw())
 })
 
 test_that("themes look decent at larger base sizes", {
@@ -329,14 +329,14 @@ test_that("themes look decent at larger base sizes", {
     geom_point() +
     facet_wrap(~ a)
 
-  vdiffr::expect_doppelganger("theme_bw_large", plot + theme_bw(base_size = 33))
-  vdiffr::expect_doppelganger("theme_classic_large", plot + theme_classic(base_size = 33))
-  vdiffr::expect_doppelganger("theme_dark_large", plot + theme_dark(base_size = 33))
-  vdiffr::expect_doppelganger("theme_minimal_large", plot + theme_minimal(base_size = 33))
-  vdiffr::expect_doppelganger("theme_gray_large", plot + theme_gray(base_size = 33))
-  vdiffr::expect_doppelganger("theme_light_large", plot + theme_light(base_size = 33))
-  vdiffr::expect_doppelganger("theme_void_large", plot + theme_void(base_size = 33))
-  vdiffr::expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
+  expect_doppelganger("theme_bw_large", plot + theme_bw(base_size = 33))
+  expect_doppelganger("theme_classic_large", plot + theme_classic(base_size = 33))
+  expect_doppelganger("theme_dark_large", plot + theme_dark(base_size = 33))
+  expect_doppelganger("theme_minimal_large", plot + theme_minimal(base_size = 33))
+  expect_doppelganger("theme_gray_large", plot + theme_gray(base_size = 33))
+  expect_doppelganger("theme_light_large", plot + theme_light(base_size = 33))
+  expect_doppelganger("theme_void_large", plot + theme_void(base_size = 33))
+  expect_doppelganger("theme_linedraw_large", plot + theme_linedraw(base_size = 33))
 })
 
 test_that("axes can be styled independently", {
@@ -362,7 +362,7 @@ test_that("axes can be styled independently", {
       axis.line.y.left = element_line(colour = 'blue'),
       axis.line.y.right = element_line(colour = 'yellow')
     )
-  vdiffr::expect_doppelganger("axes_styling", plot)
+  expect_doppelganger("axes_styling", plot)
 })
 
 test_that("strips can be styled independently", {
@@ -373,5 +373,5 @@ test_that("strips can be styled independently", {
       strip.background.x = element_rect(fill = "red"),
       strip.background.y = element_rect(fill = "green")
     )
-  vdiffr::expect_doppelganger("strip_styling", plot)
+  expect_doppelganger("strip_styling", plot)
 })

@@ -7,5 +7,5 @@ test_that("multiplication works", {
   plot <- ggplot(nc) +
     geom_sf() +
     coord_sf()
-  vdiffr::expect_doppelganger("sf-polygons", plot)
+  expect_doppelganger("sf-polygons", plot)
 })

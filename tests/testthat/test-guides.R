@@ -48,19 +48,19 @@ test_that("show.legend handles named vectors", {
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
-  vdiffr::expect_doppelganger("align facet labels, facets horizontal",
+  expect_doppelganger("align facet labels, facets horizontal",
     qplot(hwy, reorder(model, hwy), data = mpg) +
       facet_grid(manufacturer ~ ., scales = "free", space = "free") +
       theme_test() +
       theme(strip.text.y = element_text(angle = 0))
   )
-  vdiffr::expect_doppelganger("align facet labels, facets vertical",
+  expect_doppelganger("align facet labels, facets vertical",
     qplot(reorder(model, hwy), hwy, data = mpg) +
       facet_grid(. ~ manufacturer, scales = "free", space = "free") +
       theme_test() +
       theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
   )
-  vdiffr::expect_doppelganger("thick axis lines",
+  expect_doppelganger("thick axis lines",
     qplot(wt, mpg, data = mtcars) +
       theme_test() +
       theme(axis.line = element_line(size = 5, lineend = "square"))
@@ -76,40 +76,40 @@ test_that("guides are positioned correctly", {
     scale_x_continuous(breaks = mean(mtcars$mpg), labels = "very very long long axis label") +
     scale_y_continuous(breaks = mean(mtcars$disp), labels = "very very long long axis label")
 
-  vdiffr::expect_doppelganger("legend on left",
+  expect_doppelganger("legend on left",
     p1 + theme(legend.position = "left")
   )
-  vdiffr::expect_doppelganger("legend on bottom",
+  expect_doppelganger("legend on bottom",
     p1 + theme(legend.position = "bottom")
   )
-  vdiffr::expect_doppelganger("legend on right",
+  expect_doppelganger("legend on right",
     p1 + theme(legend.position = "right")
   )
-  vdiffr::expect_doppelganger("legend on top",
+  expect_doppelganger("legend on top",
     p1 + theme(legend.position = "top")
   )
-  vdiffr::expect_doppelganger("facet_grid, legend on left",
+  expect_doppelganger("facet_grid, legend on left",
     p1 + facet_grid(am~vs) + theme(legend.position = "left")
   )
-  vdiffr::expect_doppelganger("facet_grid, legend on bottom",
+  expect_doppelganger("facet_grid, legend on bottom",
     p1 + facet_grid(am~vs) + theme(legend.position = "bottom")
   )
-  vdiffr::expect_doppelganger("facet_grid, legend on right",
+  expect_doppelganger("facet_grid, legend on right",
     p1 + facet_grid(am~vs) + theme(legend.position = "right")
   )
-  vdiffr::expect_doppelganger("facet_grid, legend on top",
+  expect_doppelganger("facet_grid, legend on top",
     p1 + facet_grid(am~vs) + theme(legend.position = "top")
   )
-  vdiffr::expect_doppelganger("facet_wrap, legend on left",
+  expect_doppelganger("facet_wrap, legend on left",
     p1 + facet_wrap(am~vs) + theme(legend.position = "left")
   )
-  vdiffr::expect_doppelganger("facet_wrap, legend on bottom",
+  expect_doppelganger("facet_wrap, legend on bottom",
     p1 + facet_wrap(am~vs) + theme(legend.position = "bottom")
   )
-  vdiffr::expect_doppelganger("facet_wrap, legend on right",
+  expect_doppelganger("facet_wrap, legend on right",
     p1 + facet_wrap(am~vs) + theme(legend.position = "right")
   )
-  vdiffr::expect_doppelganger("facet_wrap, legend on top",
+  expect_doppelganger("facet_wrap, legend on top",
     p1 + facet_wrap(am~vs) + theme(legend.position = "top")
   )
 
@@ -121,19 +121,19 @@ test_that("guides are positioned correctly", {
     theme_test() +
     theme(legend.background = element_rect(colour = "black"))
 
-  vdiffr::expect_doppelganger("padding in legend box", p2)
+  expect_doppelganger("padding in legend box", p2)
 
   # Placement of legend inside
-  vdiffr::expect_doppelganger("legend inside plot, centered",
+  expect_doppelganger("legend inside plot, centered",
     p2 + theme(legend.position = c(.5, .5))
   )
-  vdiffr::expect_doppelganger("legend inside plot, bottom left",
+  expect_doppelganger("legend inside plot, bottom left",
     p2 + theme(legend.justification = c(0,0), legend.position = c(0,0))
   )
-  vdiffr::expect_doppelganger("legend inside plot, top right",
+  expect_doppelganger("legend inside plot, top right",
     p2 + theme(legend.justification = c(1,1), legend.position = c(1,1))
   )
-  vdiffr::expect_doppelganger("legend inside plot, bottom left of legend at center",
+  expect_doppelganger("legend inside plot, bottom left of legend at center",
     p2 + theme(legend.justification = c(0,0), legend.position = c(.5,.5))
   )
 })
