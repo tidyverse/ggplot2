@@ -202,6 +202,9 @@ up correct aspect ratio, and draws a graticule.
 
 ### Layers
 
+* In `stat-smooth.r`, the `s` in `y ~ s(x, bs = "cs")` is now `mgcv::s`, which
+  eliminates naming conflicts (@bfgray3, #2535).
+
 * In most cases, using `%>%` instead of `+` should generate an informative
   error (#2400).
   
