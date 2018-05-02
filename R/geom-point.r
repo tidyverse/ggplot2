@@ -193,7 +193,8 @@ translate_shape_string <- function(shape_string) {
     collapsed_names <- paste0(bad_string, collapse = "', '")
     stop(
       "Invalid shape name: '", collapsed_names, "'",
-      call. = FALSE)
+      call. = FALSE
+    )
   }
 
   if (any(nonunique_strings)) {
@@ -201,7 +202,8 @@ translate_shape_string <- function(shape_string) {
     collapsed_names <- paste0(bad_string, collapse = "', '")
     stop(
       "Non-unique shape name: '", collapsed_names, "'",
-      call. = FALSE)
+      call. = FALSE
+    )
   }
 
   unname(pch_table[shape_match])
