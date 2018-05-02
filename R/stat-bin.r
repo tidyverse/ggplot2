@@ -7,7 +7,7 @@
 #'
 #'   The bin width of a date variable is the number of days in each time; the
 #'   bin width of a time variable is the number of seconds.
-#' @param bins Number of bins. Overridden by `binwidth`. Defaults to 30
+#' @param bins Number of bins. Overridden by `binwidth`. Defaults to 30.
 #' @param center The center of one of the bins.  Note that if center is above or
 #'   below the range of the data, things will be shifted by an appropriate
 #'   number of `width`s. To center on integers, for example, use
@@ -121,12 +121,16 @@ StatBin <- ggproto("StatBin", Stat,
   compute_group = function(data, scales, binwidth = NULL, bins = NULL,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
+                           breaks = NULL,
                            # The following arguments are not used, but must
                            # be listed so parameters are computed correctly
-                           breaks = NULL, origin = NULL, right = NULL,
-                           drop = NULL, width = NULL) {
+                           origin = NULL, right = NULL, drop = NULL,
+                           width = NULL) {
 
     if (!is.null(breaks)) {
+      if (!scales$x$is_discrete()){
+         breaks <- scales$x$transform(breaks)
+      }
       bins <- bin_breaks(breaks, closed)
     } else if (!is.null(binwidth)) {
       if (is.function(binwidth)) {

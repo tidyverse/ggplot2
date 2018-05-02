@@ -10,7 +10,7 @@
 #' In general, map projections must account for the fact that the actual length
 #' (in km) of one degree of longitude varies between the equator and the pole.
 #' Near the equator, the ratio between the lengths of one degree of latitude and
-#' one degree of longitude is approximately 1. Near the pole, it is tends
+#' one degree of longitude is approximately 1. Near the pole, it tends
 #' towards infinity because the length of one degree of longitude tends towards
 #' 0. For regions that span only a few degrees and are not too close to the
 #' poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio
@@ -30,6 +30,9 @@
 #'   [mapproj::mapproject()] for more information.
 #' @param xlim,ylim Manually specific x/y limits (in degrees of
 #'   longitude/latitude)
+#' @param clip Should drawing be clipped to the extent of the plot panel? A
+#'   setting of `"on"` (the default) means yes, and a setting of `"off"`
+#'   means no. For details, please see [`coord_cartesian()`].
 #' @export
 #' @examples
 #' if (require("maps")) {
@@ -85,7 +88,7 @@
 #' # Centered on New York (currently has issues with closing polygons)
 #' worldmap + coord_map("ortho", orientation = c(41, -74, 0))
 #' }
-coord_map <- function(projection="mercator", ..., parameters = NULL, orientation = NULL, xlim = NULL, ylim = NULL) {
+coord_map <- function(projection="mercator", ..., parameters = NULL, orientation = NULL, xlim = NULL, ylim = NULL, clip = "on") {
   if (is.null(parameters)) {
     params <- list(...)
   } else {
@@ -96,7 +99,8 @@ coord_map <- function(projection="mercator", ..., parameters = NULL, orientation
     projection = projection,
     orientation = orientation,
     limits = list(x = xlim, y = ylim),
-    params = params
+    params = params,
+    clip = clip
   )
 }
 

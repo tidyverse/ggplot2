@@ -4,24 +4,22 @@ NULL
 #' Lay out panels in a grid
 #'
 #' `facet_grid` forms a matrix of panels defined by row and column
-#' facetting variables. It is most useful when you have two discrete
+#' faceting variables. It is most useful when you have two discrete
 #' variables, and all combinations of the variables exist in the data.
 #'
-#' @param facets a formula with the rows (of the tabular display) on the LHS
-#'   and the columns (of the tabular display) on the RHS; the dot in the
-#'   formula is used to indicate there should be no faceting on this dimension
-#'   (either row or column). The formula can also be provided as a string
-#'   instead of a classical formula object
-#' @param margins either a logical value or a character
-#'   vector. Margins are additional facets which contain all the data
-#'   for each of the possible values of the faceting variables. If
-#'   `FALSE`, no additional facets are included (the
-#'   default). If `TRUE`, margins are included for all faceting
-#'   variables. If specified as a character vector, it is the names of
-#'   variables for which margins are to be created.
+#' @param rows,cols A set of variables or expressions quoted by
+#'   [vars()] and defining faceting groups on the rows or columns
+#'   dimension. The variables can be named (the names are passed to
+#'   `labeller`).
+#'
+#'   For compatibility with the classic interface, `rows` can also be
+#'   a formula with the rows (of the tabular display) on the LHS and
+#'   the columns (of the tabular display) on the RHS; the dot in the
+#'   formula is used to indicate there should be no faceting on this
+#'   dimension (either row or column).
 #' @param scales Are scales shared across all facets (the default,
 #'   `"fixed"`), or do they vary across rows (`"free_x"`),
-#'   columns (`"free_y"`), or both rows and columns (`"free"`)
+#'   columns (`"free_y"`), or both rows and columns (`"free"`)?
 #' @param space If `"fixed"`, the default, all panels have the same size.
 #'   If `"free_y"` their height will be proportional to the length of the
 #'   y scale; if `"free_x"` their width will be proportional to the
@@ -50,10 +48,25 @@ NULL
 #' @param drop If `TRUE`, the default, all factor levels not used in the
 #'   data will automatically be dropped. If `FALSE`, all factor levels
 #'   will be shown, regardless of whether or not they appear in the data.
+#' @param margins Either a logical value or a character
+#'   vector. Margins are additional facets which contain all the data
+#'   for each of the possible values of the faceting variables. If
+#'   `FALSE`, no additional facets are included (the
+#'   default). If `TRUE`, margins are included for all faceting
+#'   variables. If specified as a character vector, it is the names of
+#'   variables for which margins are to be created.
+#' @param facets This argument is soft-deprecated, please us `rows`
+#'   and `cols` instead.
 #' @export
 #' @examples
 #' p <- ggplot(mpg, aes(displ, cty)) + geom_point()
 #'
+#' # Use vars() to supply variables from the dataset:
+#' p + facet_grid(vars(drv))
+#' p + facet_grid(cols = vars(cyl))
+#' p + facet_grid(vars(drv), vars(cyl))
+#'
+#' # The historical formula interface is also available:
 #' p + facet_grid(. ~ cyl)
 #' p + facet_grid(drv ~ .)
 #' p + facet_grid(drv ~ cyl)
@@ -62,11 +75,11 @@ NULL
 #' # change the order of variable levels with factor()
 #'
 #' # If you combine a facetted dataset with a dataset that lacks those
-#' # facetting variables, the data will be repeated across the missing
+#' # faceting variables, the data will be repeated across the missing
 #' # combinations:
 #' df <- data.frame(displ = mean(mpg$displ), cty = mean(mpg$cty))
 #' p +
-#'   facet_grid(. ~ cyl) +
+#'   facet_grid(cols = vars(cyl)) +
 #'   geom_point(data = df, colour = "red", size = 2)
 #'
 #' # Free scales -------------------------------------------------------
@@ -91,7 +104,10 @@ NULL
 #' p
 #'
 #' # label_both() displays both variable name and value
-#' p + facet_grid(vs ~ cyl, labeller = label_both)
+#' p + facet_grid(vars(vs), vars(cyl), labeller = label_both)
+#'
+#' # With vars() it is easy to pass custom names for the faceting groups:
+#' p + facet_grid(vars(`V/S` = vs), vars(cylinder = cyl), labeller = label_both)
 #'
 #' # label_parsed() parses text into mathematical expressions, see ?plotmath
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "sqrt(x, y)"))
@@ -128,8 +144,21 @@ NULL
 #' mg + facet_grid(vs + am ~ gear, margins = "gear")
 #' mg + facet_grid(vs + am ~ gear, margins = c("gear", "am"))
 #' }
-#' @importFrom plyr as.quoted
-facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed", shrink = TRUE, labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE) {
+facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
+                       space = "fixed", shrink = TRUE,
+                       labeller = "label_value", as.table = TRUE,
+                       switch = NULL, drop = TRUE, margins = FALSE,
+                       facets = NULL) {
+  # `facets` is soft-deprecated and renamed to `rows`
+  if (!is.null(facets)) {
+    rows <- facets
+  }
+  # Should become a warning in a future release
+  if (is.logical(cols)) {
+    margins <- cols
+    cols <- NULL
+  }
+
   scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
   free <- list(
     x = any(scales %in% c("free_x", "free")),
@@ -146,26 +175,17 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
     stop("switch must be either 'both', 'x', or 'y'", call. = FALSE)
   }
 
-  # Facets can either be a formula, a string, or a list of things to be
-  # convert to quoted
-  if (is.character(facets)) {
-    facets <- stats::as.formula(facets)
+  facets_list <- grid_as_facets_list(rows, cols)
+  n <- length(facets_list)
+  if (n > 2L) {
+    stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
   }
-  if (is.formula(facets)) {
-    lhs <- function(x) if (length(x) == 2) NULL else x[-3]
-    rhs <- function(x) if (length(x) == 2) x else x[-2]
-
-    rows <- as.quoted(lhs(facets))
-    rows <- rows[!sapply(rows, identical, as.name("."))]
-    cols <- as.quoted(rhs(facets))
-    cols <- cols[!sapply(cols, identical, as.name("."))]
-  }
-  if (is.list(facets)) {
-    rows <- as.quoted(facets[[1]])
-    cols <- as.quoted(facets[[2]])
-  }
-  if (length(rows) + length(cols) == 0) {
-    stop("Must specify at least one variable to facet by", call. = FALSE)
+  if (n == 1L) {
+    rows <- quos()
+    cols <- facets_list[[1]]
+  } else {
+    rows <- facets_list[[1]]
+    cols <- facets_list[[2]]
   }
 
   # Check for deprecated labellers
@@ -178,6 +198,33 @@ facet_grid <- function(facets, margins = FALSE, scales = "fixed", space = "fixed
       as.table = as.table, switch = switch, drop = drop)
   )
 }
+grid_as_facets_list <- function(rows, cols) {
+  is_rows_vars <- is.null(rows) || rlang::is_quosures(rows)
+  if (!is_rows_vars) {
+    if (!is.null(cols)) {
+      stop("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list", call. = FALSE)
+    }
+    return(as_facets_list(rows))
+  }
+
+  is_cols_vars <- is.null(cols) || rlang::is_quosures(cols)
+  if (!is_cols_vars) {
+    stop("`cols` must be `NULL` or a `vars()` specification", call. = FALSE)
+  }
+
+  if (is.null(rows)) {
+    rows <- quos()
+  } else {
+    rows <- rlang::quos_auto_name(rows)
+  }
+  if (is.null(cols)) {
+    cols <- quos()
+  } else {
+    cols <- rlang::quos_auto_name(cols)
+  }
+
+  list(rows, cols)
+}
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -187,8 +234,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   shrink = TRUE,
 
   compute_layout = function(data, params) {
-    rows <- as.quoted(params$rows)
-    cols <- as.quoted(params$cols)
+    rows <- params$rows
+    cols <- params$cols
 
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
@@ -216,8 +263,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel <- plyr::id(base, drop = TRUE)
     panel <- factor(panel, levels = seq_len(attr(panel, "n")))
 
-    rows <- if (is.null(names(rows))) 1L else plyr::id(base[names(rows)], drop = TRUE)
-    cols <- if (is.null(names(cols))) 1L else plyr::id(base[names(cols)], drop = TRUE)
+    rows <- if (!length(names(rows))) 1L else plyr::id(base[names(rows)], drop = TRUE)
+    cols <- if (!length(names(cols))) 1L else plyr::id(base[names(cols)], drop = TRUE)
 
     panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base,
       check.names = FALSE, stringsAsFactors = FALSE)
@@ -234,18 +281,18 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       return(cbind(data, PANEL = integer(0)))
     }
 
-    rows <- as.quoted(params$rows)
-    cols <- as.quoted(params$cols)
+    rows <- params$rows
+    cols <- params$cols
     vars <- c(names(rows), names(cols))
 
-    # Compute facetting values and add margins
+    # Compute faceting values and add margins
     margin_vars <- list(intersect(names(rows), names(data)),
       intersect(names(cols), names(data)))
     data <- reshape2::add_margins(data, margin_vars, params$margins)
 
-    facet_vals <- eval_facet_vars(c(rows, cols), data, params$plot_env)
+    facet_vals <- eval_facets(c(rows, cols), data, params$plot_env)
 
-    # If any facetting variables are missing, add them in by
+    # If any faceting variables are missing, add them in by
     # duplicating the data
     missing_facets <- setdiff(vars, names(facet_vals))
     if (length(missing_facets) > 0) {
@@ -262,7 +309,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     # Add PANEL variable
     if (nrow(facet_vals) == 0) {
-      # Special case of no facetting
+      # Special case of no faceting
       data$PANEL <- NO_PANEL
     } else {
       facet_vals[] <- lapply(facet_vals[], as.factor)
@@ -327,7 +374,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
 
     panel_table <- gtable_matrix("layout", panel_table,
-      panel_widths, panel_heights, respect = respect, clip = "on", z = matrix(1, ncol = ncol, nrow = nrow))
+      panel_widths, panel_heights, respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
     panel_table <- gtable_add_col_space(panel_table,
@@ -405,7 +452,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     panel_table
   },
   vars = function(self) {
-    vapply(c(self$params$rows, self$params$cols), as.character, character(1))
+    names(c(self$params$rows, self$params$cols))
   }
 )
 

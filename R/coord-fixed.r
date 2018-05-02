@@ -19,13 +19,15 @@
 #' p + coord_fixed(ratio = 1)
 #' p + coord_fixed(ratio = 5)
 #' p + coord_fixed(ratio = 1/5)
+#' p + coord_fixed(xlim = c(15, 30))
 #'
 #' # Resize the plot to see that the specified aspect ratio is maintained
-coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE) {
+coord_fixed <- function(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
   ggproto(NULL, CoordFixed,
     limits = list(x = xlim, y = ylim),
     ratio = ratio,
-    expand = expand
+    expand = expand,
+    clip = clip
   )
 }
 

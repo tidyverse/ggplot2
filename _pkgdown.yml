@@ -7,6 +7,8 @@ home:
   links:
   - text: Learn more
     href: http://r4ds.had.co.nz/data-visualisation.html
+  - text: Extensions
+    href: http://www.ggplot2-exts.org/gallery/
 
 reference:
 - title: Plot basics

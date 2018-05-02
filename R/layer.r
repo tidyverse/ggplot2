@@ -41,8 +41,6 @@
 #'   supplied parameters and aesthetics are understood by the `geom` or
 #'   `stat`. Use `FALSE` to suppress the checks.
 #' @param params Additional parameters to the `geom` and `stat`.
-#' @param subset DEPRECATED. An older way of subsetting the dataset used in a
-#'   layer.
 #' @keywords internal
 #' @examples
 #' # geom calls are just a short cut for layer
@@ -63,7 +61,7 @@ layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
-                  subset = NULL, show.legend = NA) {
+                  show.legend = NA) {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
   if (is.null(stat))
@@ -84,16 +82,14 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
   data <- fortify(data)
-  if (!is.null(mapping) && !inherits(mapping, "uneval")) {
-    stop("Mapping must be created by `aes()` or `aes_()`", call. = FALSE)
+
+  if (!is.null(mapping)) {
+    mapping <- validate_mapping(mapping)
   }
 
-  if (is.character(geom))
-    geom <- find_subclass("Geom", geom, parent.frame())
-  if (is.character(stat))
-    stat <- find_subclass("Stat", stat, parent.frame())
-  if (is.character(position))
-    position <- find_subclass("Position", position, parent.frame())
+  geom <- check_subclass(geom, "Geom", env = parent.frame())
+  stat <- check_subclass(stat, "Stat", env = parent.frame())
+  position <- check_subclass(position, "Position", env = parent.frame())
 
   # Special case for na.rm parameter needed by all layers
   if (is.null(params$na.rm)) {
@@ -130,8 +126,6 @@ layer <- function(geom = NULL, stat = NULL,
     )
   }
 
-
-
   ggproto("LayerInstance", Layer,
     geom = geom,
     geom_params = geom_params,
@@ -140,11 +134,27 @@ layer <- function(geom = NULL, stat = NULL,
     data = data,
     mapping = mapping,
     aes_params = aes_params,
-    subset = subset,
     position = position,
     inherit.aes = inherit.aes,
     show.legend = show.legend
   )
+}
+
+validate_mapping <- function(mapping) {
+  if (!inherits(mapping, "uneval")) {
+    msg <- paste0("`mapping` must be created by `aes()`")
+    if (inherits(mapping, "ggplot")) {
+      msg <- paste0(
+        msg, "\n",
+        "Did you use %>% instead of +?"
+      )
+    }
+
+    stop(msg, call. = FALSE)
+  }
+
+  # For backward compatibility with pre-tidy-eval layers
+  new_aes(mapping)
 }
 
 Layer <- ggproto("Layer", NULL,
@@ -201,17 +211,11 @@ Layer <- ggproto("Layer", NULL,
       aesthetics[["group"]] <- self$aes_params$group
     }
 
-    # Old subsetting method
-    if (!is.null(self$subset)) {
-      include <- data.frame(plyr::eval.quoted(self$subset, data, plot$env))
-      data <- data[rowSums(include, na.rm = TRUE) == ncol(include), ]
-    }
-
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate and check aesthetics
     aesthetics <- compact(aesthetics)
-    evaled <- lapply(aesthetics, eval, envir = data, enclos = plot$plot_env)
+    evaled <- lapply(aesthetics, rlang::eval_tidy, data = data)
 
     n <- nrow(data)
     if (n == 0) {
@@ -263,7 +267,7 @@ Layer <- ggproto("Layer", NULL,
     env <- new.env(parent = baseenv())
     env$calc <- calc
 
-    stat_data <- plyr::quickdf(lapply(new, eval, data, env))
+    stat_data <- plyr::quickdf(lapply(new, rlang::eval_tidy, data, env))
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed
@@ -324,15 +328,51 @@ Layer <- ggproto("Layer", NULL,
 is.layer <- function(x) inherits(x, "Layer")
 
 
-find_subclass <- function(super, class, env) {
-  name <- paste0(super, camelize(class, first = TRUE))
-  obj <- find_global(name, env = env)
 
-  if (is.null(obj)) {
-    stop("No ", tolower(super), " called '", class, "'.", call. = FALSE)
-  } else if (!inherits(obj, super)) {
-    stop("Found object is not a ", tolower(super), ".", call. = FALSE)
+check_subclass <- function(x, subclass,
+                           argname = tolower(subclass),
+                           env = parent.frame()) {
+  if (inherits(x, subclass)) {
+    x
+  } else if (is.character(x) && length(x) == 1) {
+    name <- paste0(subclass, camelize(x, first = TRUE))
+    obj <- find_global(name, env = env)
+
+    if (is.null(obj) || !inherits(obj, subclass)) {
+      stop("Can't find `", argname, "` called \"", x, "\"", call. = FALSE)
+    } else {
+      obj
+    }
+  } else {
+    stop(
+      "`", argname, "` must be either a string or a ", subclass, " object, ",
+      "not ", obj_desc(x),
+      call. = FALSE
+    )
   }
+}
 
-  obj
+obj_desc <- function(x) {
+  if (isS4(x)) {
+    paste0("an S4 object with class ", class(x)[[1]])
+  } else if (is.object(x)) {
+    if (is.data.frame(x)) {
+      "a data frame"
+    } else if (is.factor(x)) {
+      "a factor"
+    } else {
+      paste0("an S3 object with class ", paste(class(x), collapse = "/"))
+    }
+  } else {
+    switch(typeof(x),
+      "NULL" = "a NULL",
+      character = "a character vector",
+      integer = "an integer vector",
+      logical = "a logical vector",
+      double = "a numeric vector",
+      list = "a list",
+      closure = "a function",
+      paste0("a base object of type", typeof(x))
+    )
+  }
 }

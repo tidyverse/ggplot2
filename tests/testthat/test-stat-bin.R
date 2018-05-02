@@ -60,6 +60,16 @@ test_that("fuzzy breaks used when cutting", {
   expect_equal(bins$count, c(1, 1, 1, 1))
 })
 
+test_that("breaks are transformed by the scale", {
+   df <- data.frame(x = rep(1:4, 1:4))
+   base <- ggplot(df, aes(x)) + geom_histogram(breaks = c(1, 2.5, 4))
+
+   out1 <- layer_data(base)
+   out2 <- layer_data(base + scale_x_sqrt())
+   expect_equal(out1$xmin, c(1, 2.5))
+   expect_equal(out2$xmin, sqrt(c(1, 2.5)))
+})
+
 # Underlying binning algorithm --------------------------------------------
 
 comp_bin <- function(df, ...) {

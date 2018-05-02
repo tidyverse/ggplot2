@@ -14,15 +14,15 @@ test_that("check h/v/abline transformed on basic projections", {
     labs(x = NULL, y = NULL) +
     coord_cartesian(expand = FALSE)
 
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "cartesian lines intersect mid-bars",
     plot
   )
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "flipped lines intersect mid-bars",
     plot + coord_flip()
   )
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "polar lines intersect mid-bars",
     plot + coord_polar()
   )
@@ -36,10 +36,10 @@ test_that("curved lines in map projections", {
     geom_vline(xintercept = 176) +
     coord_map()
 
-  vdiffr::expect_doppelganger("straight lines in mercator",
+  expect_doppelganger("straight lines in mercator",
     nzmap
   )
-  vdiffr::expect_doppelganger("lines curved in azequalarea",
+  expect_doppelganger("lines curved in azequalarea",
     nzmap + coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
   )
 })

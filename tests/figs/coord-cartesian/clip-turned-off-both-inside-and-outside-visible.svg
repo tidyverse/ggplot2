@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 720.00 576.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, polygon, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
+<rect x='19.93' y='36.97' width='680.15' height='519.11' style='stroke-width: 1.07; stroke: none; fill: #EBEBEB;' />
+<text transform='translate(28.28,310.94) rotate(-90)' style='font-size: 11.04px; font-family: Liberation Sans;' textLength='28.84px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text transform='translate(691.72,282.10) rotate(-270)' style='font-size: 11.04px; font-family: Liberation Sans;' textLength='28.84px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text x='345.58' y='555.32' style='font-size: 11.04px; font-family: Liberation Sans;' textLength='28.84px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text x='345.58' y='45.32' style='font-size: 11.04px; font-family: Liberation Sans;' textLength='28.84px' lengthAdjust='spacingAndGlyphs'>inside</text>
+<text transform='translate(19.17,314.32) rotate(-90)' style='font-size: 11.04px; font-family: Liberation Sans;' textLength='35.59px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text transform='translate(700.83,278.72) rotate(-270)' style='font-size: 11.04px; font-family: Liberation Sans;' textLength='35.59px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text x='342.20' y='564.43' style='font-size: 11.04px; font-family: Liberation Sans;' textLength='35.59px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text x='342.20' y='36.21' style='font-size: 11.04px; font-family: Liberation Sans;' textLength='35.59px' lengthAdjust='spacingAndGlyphs'>outside</text>
+<text x='19.93' y='29.00' style='font-size: 13.20px; font-family: Liberation Sans;' textLength='272.11px' lengthAdjust='spacingAndGlyphs'>clip turned off, both 'inside' and 'outside' visible</text>
+</svg>

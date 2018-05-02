@@ -108,10 +108,15 @@ Geom <- ggproto("Geom",
   use_defaults = function(self, data, params = list()) {
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
+
+    missing_eval <- lapply(self$default_aes[missing_aes], rlang::eval_tidy)
+    # Needed for geoms with defaults set to NULL (e.g. GeomSf)
+    missing_eval <- compact(missing_eval)
+
     if (empty(data)) {
-      data <- plyr::quickdf(self$default_aes[missing_aes])
+      data <- as.data.frame(tibble::as_tibble(missing_eval))
     } else {
-      data[missing_aes] <- self$default_aes[missing_aes]
+      data[names(missing_eval)] <- missing_eval
     }
 
     # Override mappings with params

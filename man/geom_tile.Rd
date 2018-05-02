@@ -45,7 +45,7 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -89,8 +89,10 @@ performance special case for when all the tiles are the same size.
 \item \code{colour}
 \item \code{fill}
 \item \code{group}
+\item \code{height}
 \item \code{linetype}
 \item \code{size}
+\item \code{width}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
@@ -114,11 +116,11 @@ df <- data.frame(
   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
 )
 ggplot(df, aes(x, y)) +
-  geom_tile(aes(fill = z))
-ggplot(df, aes(x, y)) +
-  geom_tile(aes(fill = z, width = w), colour = "grey50")
+  geom_tile(aes(fill = z), colour = "grey50")
+ggplot(df, aes(x, y, width = w)) +
+  geom_tile(aes(fill = z), colour = "grey50")
 ggplot(df, aes(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1)) +
-  geom_rect(aes(fill = z, width = w), colour = "grey50")
+  geom_rect(aes(fill = z), colour = "grey50")
 
 \donttest{
 # Justification controls where the cells are anchored

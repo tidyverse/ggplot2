@@ -1,6 +1,6 @@
 #' Jitter points to avoid overplotting
 #'
-#' Couterintuitively adding random noise to a plot can sometimes make it
+#' Counterintuitively adding random noise to a plot can sometimes make it
 #' easier to read. Jittering is particularly useful for small datasets with
 #' at least one discrete position.
 #'

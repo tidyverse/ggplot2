@@ -27,7 +27,7 @@ test_that("segment annotations transform with scales", {
     scale_y_reverse(NULL, breaks = NULL) +
     scale_x_continuous(NULL, breaks = NULL)
 
-  vdiffr::expect_doppelganger("line matches points", plot)
+  expect_doppelganger("line matches points", plot)
 })
 
 test_that("annotation_* has dummy data assigned and don't inherit aes", {

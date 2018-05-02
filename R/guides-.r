@@ -294,17 +294,38 @@ guides_build <- function(ggrobs, theme) {
   guides
 }
 
-# S3 dispatches
+# Generics ----------------------------------------------------------------
 
-guide_train <- function(...) UseMethod("guide_train")
+#' S3 generics for guides.
+#'
+#' You will need to provide methods for these S3 generics if you want to
+#' create your own guide object. They are currently undocumented; use at
+#' your own risk!
+#'
+#' @param guide The guide object
+#' @keywords internal
+#' @name guide-exts
+NULL
 
-guide_merge <- function(...) UseMethod("guide_merge")
+#' @export
+#' @rdname guide-exts
+guide_train <- function(guide, scale) UseMethod("guide_train")
 
-guide_geom <- function(...) UseMethod("guide_geom")
+#' @export
+#' @rdname guide-exts
+guide_merge <- function(guide, new_guide) UseMethod("guide_merge")
 
-guide_gengrob <- function(...) UseMethod("guide_gengrob")
+#' @export
+#' @rdname guide-exts
+guide_geom <- function(guide, layers, default_mapping) UseMethod("guide_geom")
 
-# Helpers
+#' @export
+#' @rdname guide-exts
+guide_gengrob <- function(guide, theme) UseMethod("guide_gengrob")
+
+
+# Helpers -----------------------------------------------------------------
+
 matched_aes <- function(layer, guide, defaults) {
   all <- names(c(layer$mapping, if (layer$inherit.aes) defaults, layer$stat$default_aes))
   geom <- c(layer$geom$required_aes, names(layer$geom$default_aes))

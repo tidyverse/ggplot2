@@ -36,7 +36,7 @@ p + facet_wrap(~am, labeller = to_string)
 appender <- function(string, suffix = "-foo") paste0(string, suffix)
 p + facet_wrap(~am, labeller = as_labeller(appender))
 
-# If you have more than one facetting variable, be sure to dispatch
+# If you have more than one faceting variable, be sure to dispatch
 # your labeller to the right variable with labeller()
 p + facet_grid(cyl ~ am, labeller = labeller(am = to_string))
 }

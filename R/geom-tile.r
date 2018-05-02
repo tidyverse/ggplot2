@@ -30,11 +30,11 @@
 #'   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
 #' )
 #' ggplot(df, aes(x, y)) +
-#'   geom_tile(aes(fill = z))
-#' ggplot(df, aes(x, y)) +
-#'   geom_tile(aes(fill = z, width = w), colour = "grey50")
+#'   geom_tile(aes(fill = z), colour = "grey50")
+#' ggplot(df, aes(x, y, width = w)) +
+#'   geom_tile(aes(fill = z), colour = "grey50")
 #' ggplot(df, aes(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1)) +
-#'   geom_rect(aes(fill = z, width = w), colour = "grey50")
+#'   geom_rect(aes(fill = z), colour = "grey50")
 #'
 #' \donttest{
 #' # Justification controls where the cells are anchored
@@ -81,7 +81,7 @@ geom_tile <- function(mapping = NULL, data = NULL,
 #' @export
 #' @include geom-rect.r
 GeomTile <- ggproto("GeomTile", GeomRect,
-  extra_params = c("na.rm", "width", "height"),
+  extra_params = c("na.rm"),
 
   setup_data = function(data, params) {
     data$width <- data$width %||% params$width %||% resolution(data$x, FALSE)
@@ -94,7 +94,7 @@ GeomTile <- ggproto("GeomTile", GeomRect,
   },
 
   default_aes = aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1,
-    alpha = NA),
+    alpha = NA, width = NA, height = NA),
 
   required_aes = c("x", "y"),
 

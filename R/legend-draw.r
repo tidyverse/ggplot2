@@ -173,7 +173,9 @@ draw_key_smooth <- function(data, params, size) {
 #' @export
 #' @rdname draw_key
 draw_key_text <- function(data, params, size) {
-  textGrob("a", 0.5, 0.5,
+  if(is.null(data$label)) data$label <- "a"
+  
+  textGrob(data$label, 0.5, 0.5,
     rot = data$angle,
     gp = gpar(
       col = alpha(data$colour, data$alpha),
