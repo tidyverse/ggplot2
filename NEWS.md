@@ -320,6 +320,12 @@ up correct aspect ratio, and draws a graticule.
 
 * Make `guide_colorbar()` more configurable; enable styling of tick marks and
   drawing of frame around the color bar. (@clauswilke)
+  
+* `guide_colorbar()` now uses `legend.spacing.x` and `legend.spacing.y` correctly,
+  and it can handle multi-line titles. Minor tweaks were made to `guide_legend()`
+  to make sure the two legend functions behave as similarly as possible.
+  (@clauswilke, #2397 and #2398)
+
 
 ### Other
 
@@ -347,11 +353,6 @@ up correct aspect ratio, and draws a graticule.
 * `print.ggplot()` now returns the original ggplot object, instead of the 
   output from `ggplot_build()`. Also, the object returned from 
   `ggplot_build()` now has the class `"ggplot_built"`. (#2034)
-
-* `guide_colorbar()` now correctly uses `legend.spacing.x` and `legend.spacing.y`,
-  and it can handle multi-line titles. Minor tweaks were made to `guide_legend()`
-  to make sure the two legend functions behave as similarly as possible.
-  (@clauswilke, #2397 and #2398)
 
 * `map_data()` now works when purrr is loaded (tidyverse#66)
 

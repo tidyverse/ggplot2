@@ -297,12 +297,19 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   # make frame around color bar if requested (colour is not NULL)
   if (!is.null(guide$frame.colour)) {
-    grob.bar <- grobTree(grob.bar,
-                         rectGrob(width = barwidth.c, height = barheight.c, default.units = "mm",
-                                  gp = gpar(col = guide$frame.colour,
-                                            lwd = guide$frame.linewidth,
-                                            lty = guide$frame.linetype,
-                                            fill = NA)))
+    grob.bar <- grobTree(
+                  grob.bar,
+                  rectGrob(
+                    width = barwidth,
+                    height = barheight,
+                    default.units = "cm",
+                    gp = gpar(
+                      col = guide$frame.colour,
+                      lwd = guide$frame.linewidth,
+                      lty = guide$frame.linetype,
+                      fill = NA)
+                    )
+                  )
   }
 
   # tick and label position
@@ -385,10 +392,14 @@ guide_gengrob.colorbar <- function(guide, theme) {
           x1 = c(rep(barwidth * (1/5), nbreak), rep(barwidth, nbreak))
           y1 = rep(tick_pos, 2)
         })
-      segmentsGrob(x0 = x0, y0 = y0, x1 = x1, y1 = y1,
-                   default.units = "cm", gp = gpar(col = guide$ticks.colour,
-                                                   lwd = guide$ticks.linewidth,
-                                                   lineend = "butt"))
+      segmentsGrob(
+        x0 = x0, y0 = y0, x1 = x1, y1 = y1,
+        default.units = "cm",
+        gp = gpar(
+          col = guide$ticks.colour,
+          lwd = guide$ticks.linewidth,
+          lineend = "butt")
+        )
     }
 
   # layout of bar and label
