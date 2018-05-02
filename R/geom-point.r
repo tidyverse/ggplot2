@@ -190,18 +190,45 @@ translate_shape_string <- function(shape_string) {
 
   if (any(invalid_strings)) {
     bad_string <- unique(shape_string[invalid_strings])
-    collapsed_names <- paste0(bad_string, collapse = "', '")
+    n_bad <- length(bad_string)
+
+    collapsed_names <- sprintf("\n* '%s'", bad_string[1:min(5, n_bad)])
+
+    more_problems <- if (n_bad > 5) {
+      sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
+    }
+
     stop(
-      "Invalid shape name: '", collapsed_names, "'",
+      "Can't find shape name:",
+      collapsed_names,
+      more_problems,
       call. = FALSE
     )
   }
 
   if (any(nonunique_strings)) {
     bad_string <- unique(shape_string[nonunique_strings])
-    collapsed_names <- paste0(bad_string, collapse = "', '")
+    n_bad <- length(bad_string)
+
+    n_matches <- vapply(
+      bad_string[1:min(5, n_bad)],
+      function(shape_string) sum(startsWith(names(pch_table), shape_string)),
+      integer(1)
+    )
+
+    collapsed_names <- sprintf(
+      "\n* '%s' partially matches %d shape names",
+      bad_string[1:min(5, n_bad)], n_matches
+    )
+
+    more_problems <- if (n_bad > 5) {
+      sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
+    }
+
     stop(
-      "Non-unique shape name: '", collapsed_names, "'",
+      "Shape names must be unambiguous:",
+      collapsed_names,
+      more_problems,
       call. = FALSE
     )
   }
