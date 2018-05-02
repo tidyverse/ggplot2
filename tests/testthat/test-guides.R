@@ -157,3 +157,24 @@ test_that("guides title and text are positioned correctly", {
     p + theme(legend.spacing.x = grid::unit(1, "cm"))
   )
 })
+
+test_that("colorbar can be styled", {
+  df <- data.frame(x <- c(0, 1, 2))
+  p <- ggplot(df, aes(x, x, color = x)) + geom_point()
+
+  expect_doppelganger("white-to-red gradient colorbar, white tick marks, no frame",
+    p + scale_color_gradient(low = 'white', high = 'red')
+  )
+
+  expect_doppelganger("white-to-red gradient colorbar, thick black tick marks, green frame",
+    p + scale_color_gradient(
+          low = 'white', high = 'red',
+          guide = guide_colorbar(
+            frame.colour = "green",
+            frame.linewidth = 1.5,
+            ticks.colour = "black",
+            ticks.linewidth = 2.5
+            )
+        )
+    )
+})

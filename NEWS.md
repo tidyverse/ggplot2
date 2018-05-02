@@ -318,8 +318,10 @@ up correct aspect ratio, and draws a graticule.
 
 ### Guides
 
-* Make `guide_colorbar()` more configurable; enable styling of tick marks and
-  drawing of frame around the color bar. (@clauswilke)
+* Make `guide_colorbar()` more configurable: enable styling of tick marks and
+  drawing of frame around the color bar via new arguments `ticks.colour`, 
+  `ticks.linewidth`, `frame.colour`, `frame.linewidth`, and `frame.linetype`.
+  (@clauswilke)
   
 * `guide_colorbar()` now uses `legend.spacing.x` and `legend.spacing.y` correctly,
   and it can handle multi-line titles. Minor tweaks were made to `guide_legend()`
