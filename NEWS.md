@@ -180,7 +180,6 @@ up correct aspect ratio, and draws a graticule.
   use matrix-columns. These are rarely used but are produced by `scale()`;
   to continue use `scale()` you'll need to wrap it with `as.numeric()`, 
   e.g. `as.numeric(scale(x))`.
->>>>>>> upstream/master
 
 ## Minor bug fixes and improvements
 
