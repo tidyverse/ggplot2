@@ -300,8 +300,10 @@ guide_gengrob.colorbar <- function(guide, theme) {
   if (is.null(title_fontsize)) title_fontsize <- 0
 
   # gap between keys etc
-  hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
-  vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_fontsize, "pt")))
+  # the default horizontal and vertical gap need to be the same to avoid strange
+  # effects for certain guide layouts
+  hgap <- width_cm(theme$legend.spacing.x  %||% (0.25 * unit(title_fontsize, "pt")))
+  vgap <- height_cm(theme$legend.spacing.y %||% (0.25 * unit(title_fontsize, "pt")))
 
   # label
   label.theme <- guide$label.theme %||% calc_element("legend.text", theme)

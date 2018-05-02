@@ -137,3 +137,23 @@ test_that("guides are positioned correctly", {
     p2 + theme(legend.justification = c(0,0), legend.position = c(.5,.5))
   )
 })
+
+test_that("guides title and text are positioned correctly", {
+  p <- ggplot(data.frame(x = 1:3, y = 1:3), aes(x, y, color = factor(x), fill = y)) +
+    geom_point(shape = 21) +
+    scale_color_discrete(name = "the\ndiscrete\ncolorscale") +
+    scale_fill_continuous(name = "the\ncontinuous\ncolorscale")
+
+  expect_doppelganger("multi-line guide title works",
+    p + scale_color_discrete(name = "the\ndiscrete\ncolorscale") +
+        scale_fill_continuous(name = "the\ncontinuous\ncolorscale")
+  )
+
+  expect_doppelganger("vertical gap of 1cm between guide title and guide",
+    p + theme(legend.spacing.y = grid::unit(1, "cm"))
+  )
+
+  expect_doppelganger("horizontal gap of 1cm between guide and guide text",
+    p + theme(legend.spacing.x = grid::unit(1, "cm"))
+  )
+})

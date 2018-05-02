@@ -346,8 +346,10 @@ guide_gengrob.legend <- function(guide, theme) {
   if (is.null(title_fontsize)) title_fontsize <- 0
 
   # gap between keys etc
-  hgap <- width_cm(theme$legend.spacing.x  %||% unit(0.3, "line"))
-  vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_fontsize, "pt")))
+  # the default horizontal and vertical gap need to be the same to avoid strange
+  # effects for certain guide layouts
+  hgap <- width_cm(theme$legend.spacing.x  %||% (0.25 * unit(title_fontsize, "pt")))
+  vgap <- height_cm(theme$legend.spacing.y %||% (0.25 * unit(title_fontsize, "pt")))
 
   # Labels
   if (!guide$label || is.null(guide$key$.label)) {
@@ -460,7 +462,7 @@ guide_gengrob.legend <- function(guide, theme) {
       "top" = {
         kl_widths <- pmax(label_widths, key_widths)
         kl_heights <- utils::head(
-          interleave(label_heights, vgap / 2, key_heights, vgap / 2),
+          interleave(label_heights, vgap, key_heights, vgap),
           -1
         )
         vps <- transform(
@@ -474,7 +476,7 @@ guide_gengrob.legend <- function(guide, theme) {
       "bottom" = {
         kl_widths <- pmax(label_widths, key_widths)
         kl_heights <- utils::head(
-          interleave(key_heights, vgap / 2, label_heights, vgap / 2),
+          interleave(key_heights, vgap, label_heights, vgap),
           -1
         )
         vps <- transform(
@@ -487,11 +489,11 @@ guide_gengrob.legend <- function(guide, theme) {
       },
       "left" = {
         kl_widths <- utils::head(
-          interleave(label_widths, hgap / 2, key_widths, hgap / 2),
+          interleave(label_widths, hgap, key_widths, hgap),
           -1
         )
         kl_heights <- utils::head(
-          interleave(pmax(label_heights, key_heights), vgap / 2),
+          interleave(pmax(label_heights, key_heights), vgap),
           -1
         )
         vps <- transform(
@@ -504,11 +506,11 @@ guide_gengrob.legend <- function(guide, theme) {
       },
       "right" = {
         kl_widths <- utils::head(
-          interleave(key_widths, hgap / 2, label_widths, hgap / 2),
+          interleave(key_widths, hgap, label_widths, hgap),
           -1
         )
         kl_heights <- utils::head(
-          interleave(pmax(label_heights, key_heights), vgap / 2),
+          interleave(pmax(label_heights, key_heights), vgap),
           -1
         )
         vps <- transform(
@@ -524,11 +526,11 @@ guide_gengrob.legend <- function(guide, theme) {
       label.position,
       "top" = {
         kl_widths <- utils::head(
-          interleave(pmax(label_widths, key_widths), hgap/2),
+          interleave(pmax(label_widths, key_widths), hgap),
           -1
         )
         kl_heights <- utils::head(
-          interleave(label_heights, vgap / 2, key_heights, vgap / 2),
+          interleave(label_heights, vgap, key_heights, vgap),
           -1
         )
         vps <- transform(
@@ -541,11 +543,11 @@ guide_gengrob.legend <- function(guide, theme) {
       },
       "bottom" = {
         kl_widths <- utils::head(
-          interleave(pmax(label_widths, key_widths), hgap / 2),
+          interleave(pmax(label_widths, key_widths), hgap),
           -1
         )
         kl_heights <- utils::head(
-          interleave(key_heights, vgap / 2, label_heights, vgap / 2),
+          interleave(key_heights, vgap, label_heights, vgap),
           -1
         )
         vps <- transform(
@@ -558,7 +560,7 @@ guide_gengrob.legend <- function(guide, theme) {
       },
       "left" = {
         kl_widths <- utils::head(
-          interleave(label_widths, hgap / 2, key_widths, hgap / 2),
+          interleave(label_widths, hgap, key_widths, hgap),
           -1
         )
         kl_heights <- pmax(key_heights, label_heights)
@@ -572,7 +574,7 @@ guide_gengrob.legend <- function(guide, theme) {
       },
       "right" = {
         kl_widths <- utils::head(
-          interleave(key_widths, hgap / 2, label_widths, hgap / 2),
+          interleave(key_widths, hgap, label_widths, hgap),
           -1
         )
         kl_heights <- pmax(key_heights, label_heights)
