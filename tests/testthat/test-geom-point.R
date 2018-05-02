@@ -1,24 +1,18 @@
-context("translate_shape_string")
+context("geom-point")
 
-test_that("strings translate to their corresponding integers", {
+test_that("single strings translate to their corresponding integers", {
+  expect_equal(translate_shape_string("square open"), 0)
+})
+
+test_that("vectors of strings translate to corresponding integers", {
   shape_strings <- c(
     "square open",
     "circle open",
+    "square open",
     "triangle open"
   )
 
-  expect_equal(translate_shape_string(shape_strings[1]), 0)
-  expect_equal(translate_shape_string(shape_strings), 0:2)
-
-  expect_equal(
-    translate_shape_string(rep.int(shape_strings[1], 10)),
-    rep.int(0, 10)
-  )
-
-  expect_equal(
-    translate_shape_string(rep(shape_strings, each = 4)),
-    rep(0:2, each = 4)
-  )
+  expect_equal(translate_shape_string(shape_strings), c(0, 1, 0, 2))
 })
 
 test_that("single characters are not translated to integers", {
