@@ -18,6 +18,12 @@
 #' @param barheight A numeric or a [grid::unit()] object specifying
 #'   the height of the colorbar. Default value is `legend.key.height` or
 #'   `legend.key.size` in [theme()] or theme.
+#' @param frame.colour A string specifying the colour of the frame
+#'   drawn around the bar. If `NULL` (the default), no frame is drawn.
+#' @param frame.linewidth A numeric specifying the width of the frame
+#'   drawn around the bar.
+#' @param frame.linetype A numeric specifying the linetype of the frame
+#'   drawn around the bar.
 #' @param nbin A numeric specifying the number of bins for drawing colorbar. A
 #'   smoother colorbar for a larger value.
 #' @param raster A logical. If `TRUE` then the colorbar is rendered as a
@@ -26,6 +32,8 @@
 #'   raster image.
 #' @param ticks A logical specifying if tick marks on colorbar should be
 #'   visible.
+#' @param ticks.colour A string specifying the color of the tick marks.
+#' @param ticks.linewidth A numeric specifying the width of the tick marks.
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
 #' @param draw.llim A logical specifying if the lower limit tick marks should
@@ -109,8 +117,15 @@ guide_colourbar <- function(
   nbin = 20,
   raster = TRUE,
 
+  # frame
+  frame.colour = NULL,
+  frame.linewidth = 0.5,
+  frame.linetype = 1,
+
   # ticks
   ticks = TRUE,
+  ticks.colour = "white",
+  ticks.linewidth = 0.5,
   draw.ulim= TRUE,
   draw.llim = TRUE,
 
@@ -146,8 +161,15 @@ guide_colourbar <- function(
     nbin = nbin,
     raster = raster,
 
+    # frame
+    frame.colour = frame.colour,
+    frame.linewidth = frame.linewidth,
+    frame.linetype = frame.linetype,
+
     # ticks
     ticks = ticks,
+    ticks.colour = ticks.colour,
+    ticks.linewidth = ticks.linewidth,
     draw.ulim = draw.ulim,
     draw.llim = draw.llim,
 
@@ -271,6 +293,23 @@ guide_gengrob.colorbar <- function(guide, theme) {
                rectGrob(x = 0, y = by, vjust = 0, hjust = 0, width = barwidth, height = bh, default.units = "cm",
                         gp = gpar(col = NA, fill = guide$bar$colour))
              })
+    }
+
+  # make frame around color bar if requested (colour is not NULL)
+  if (!is.null(guide$frame.colour)) {
+    grob.bar <- grobTree(
+                  grob.bar,
+                  rectGrob(
+                    width = barwidth,
+                    height = barheight,
+                    default.units = "cm",
+                    gp = gpar(
+                      col = guide$frame.colour,
+                      lwd = guide$frame.linewidth,
+                      lty = guide$frame.linetype,
+                      fill = NA)
+                    )
+                  )
   }
 
   # tick and label position
@@ -353,8 +392,14 @@ guide_gengrob.colorbar <- function(guide, theme) {
           x1 = c(rep(barwidth * (1/5), nbreak), rep(barwidth, nbreak))
           y1 = rep(tick_pos, 2)
         })
-      segmentsGrob(x0 = x0, y0 = y0, x1 = x1, y1 = y1,
-                   default.units = "cm", gp = gpar(col = "white", lwd = 0.5, lineend = "butt"))
+      segmentsGrob(
+        x0 = x0, y0 = y0, x1 = x1, y1 = y1,
+        default.units = "cm",
+        gp = gpar(
+          col = guide$ticks.colour,
+          lwd = guide$ticks.linewidth,
+          lineend = "butt")
+        )
     }
 
   # layout of bar and label
