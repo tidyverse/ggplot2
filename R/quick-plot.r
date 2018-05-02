@@ -83,12 +83,16 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   mapping <- rename_aes(mapping)
 
 
-  xlab <- rlang::quo_name(exprs$x)
-  # Work around quo_name() bug: https://github.com/r-lib/rlang/issues/430
-  if (rlang::quo_is_null(exprs$y)) {
-    ylab <- "NULL"
-  } else {
-    ylab <- rlang::quo_name(exprs$y)
+  if (is.null(xlab)) {
+    xlab <- rlang::quo_name(exprs$x)
+  }
+  if (is.null(ylab)) {
+    # Work around quo_name() bug: https://github.com/r-lib/rlang/issues/430
+    if (rlang::quo_is_null(exprs$y)) {
+      ylab <- "NULL"
+    } else {
+      ylab <- rlang::quo_name(exprs$y)
+    }
   }
 
   if (missing(data)) {
