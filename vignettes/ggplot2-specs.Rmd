@@ -166,9 +166,9 @@ Shapes take five types of values:
      
 ```{r out.width = "90%", fig.asp = 0.4, fig.width = 8}
 shape_names <- c(
-  "circle",   paste("circle", c("open", "filled", "cross", "plus", "small")), "bullet",
-  "square",   paste("square", c("open", "filled", "cross", "plus", "triangle")),
-  "diamond",  paste("diamond", c("open", "filled", "plus")),
+  "circle", paste("circle", c("open", "filled", "cross", "plus", "small")), "bullet",
+  "square", paste("square", c("open", "filled", "cross", "plus", "triangle")),
+  "diamond", paste("diamond", c("open", "filled", "plus")),
   "triangle", paste("triangle", c("open", "filled", "square")),
   paste("triangle down", c("open", "filled")),
   "plus", "cross", "asterisk"
@@ -182,9 +182,9 @@ shapes <- data.frame(
 
 ggplot(shapes, aes(x, y)) +
   geom_point(aes(shape = shape_names), fill = "red", size = 5) +
-  geom_text(aes(label = shape_names), nudge_y = -0.3, size = 3.5) + 
-  scale_shape_identity()   +   
-  scale_x_continuous(NULL, breaks = NULL) + 
+  geom_text(aes(label = shape_names), nudge_y = -0.3, size = 3.5) +
+  scale_shape_identity() +
+  scale_x_continuous(NULL, breaks = NULL) +
   scale_y_continuous(NULL, breaks = NULL)
 ```
 
