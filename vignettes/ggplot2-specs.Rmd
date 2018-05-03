@@ -143,7 +143,7 @@ The border of the polygon is controlled by the `colour`, `linetype`, and `size` 
 
 ### Shape {#sec:shape-spec}
 
-Shapes take four types of values:
+Shapes take five types of values:
 
 *   An __integer__ in $[0, 25]$:
 
@@ -161,6 +161,32 @@ Shapes take four types of values:
       scale_x_continuous(NULL, breaks = NULL) + 
       scale_y_continuous(NULL, breaks = NULL)
     ```
+   
+*   The __name__ of the shape:
+     
+```{r out.width = "90%", fig.asp = 0.4, fig.width = 8}
+shape_names <- c(
+  "circle",   paste("circle", c("open", "filled", "cross", "plus", "small")), "bullet",
+  "square",   paste("square", c("open", "filled", "cross", "plus", "triangle")),
+  "diamond",  paste("diamond", c("open", "filled", "plus")),
+  "triangle", paste("triangle", c("open", "filled", "square")),
+  paste("triangle down", c("open", "filled")),
+  "plus", "cross", "asterisk"
+)
+
+shapes <- data.frame(
+  shape_names = shape_names,
+  x = c(1:7, 1:6, 1:3, 5, 1:3, 6, 2:3, 1:3),
+  y = -rep(1:6, c(7, 6, 4, 4, 2, 3))
+)
+
+ggplot(shapes, aes(x, y)) +
+  geom_point(aes(shape = shape_names), fill = "red", size = 5) +
+  geom_text(aes(label = shape_names), nudge_y = -0.3, size = 3.5) + 
+  scale_shape_identity()   +   
+  scale_x_continuous(NULL, breaks = NULL) + 
+  scale_y_continuous(NULL, breaks = NULL)
+```
 
 *   A __single character__, to use that character as a plotting symbol.
 
