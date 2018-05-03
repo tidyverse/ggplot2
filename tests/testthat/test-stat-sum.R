@@ -55,7 +55,7 @@ test_that("summaries are drawn correctly", {
     ggplot(mtcars, aes(x = cyl, y = mpg)) +
       geom_point() +
       stat_summary(
-        fun.data = mean_cl_boot,
+        fun.data = mean_se,
         colour = "red",
         geom = "crossbar",
         width = 0.2
@@ -65,7 +65,7 @@ test_that("summaries are drawn correctly", {
     ggplot(mtcars, aes(x = cyl, y = mpg, group = cyl)) +
       geom_point() +
       stat_summary(
-        fun.data = mean_cl_boot,
+        fun.data = mean_se,
         colour = "red",
         geom = "crossbar",
         width = 0.2
