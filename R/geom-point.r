@@ -170,6 +170,7 @@ translate_shape_string <- function(shape_string) {
     "square plus"           = 12,
     "circle cross"          = 13,
     "square triangle"       = 14,
+    "triangle square"       = 14,
     "square"                = 15,
     "circle small"          = 16,
     "triangle"              = 17,
