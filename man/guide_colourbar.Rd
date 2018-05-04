@@ -13,7 +13,8 @@ guide_colourbar(title = waiver(), title.position = NULL,
   frame.linewidth = 0.5, frame.linetype = 1, ticks = TRUE,
   ticks.colour = "white", ticks.linewidth = 0.5, draw.ulim = TRUE,
   draw.llim = TRUE, direction = NULL, default.unit = "line",
-  reverse = FALSE, order = 0, ...)
+  reverse = FALSE, order = 0, available_aes = c("colour", "color",
+  "fill"), ...)
 
 guide_colorbar(title = waiver(), title.position = NULL,
   title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
@@ -23,7 +24,8 @@ guide_colorbar(title = waiver(), title.position = NULL,
   frame.linewidth = 0.5, frame.linetype = 1, ticks = TRUE,
   ticks.colour = "white", ticks.linewidth = 0.5, draw.ulim = TRUE,
   draw.llim = TRUE, direction = NULL, default.unit = "line",
-  reverse = FALSE, order = 0, ...)
+  reverse = FALSE, order = 0, available_aes = c("colour", "color",
+  "fill"), ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -113,6 +115,9 @@ the highest value is on the top and the lowest value is on the bottom}
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
+
+\item{available_aes}{A vector of charater strings listing the aesthetics
+for which a colorbar can be drawn.}
 
 \item{...}{ignored.}
 }
