@@ -177,6 +177,10 @@ up correct aspect ratio, and draws a graticule.
   use matrix-columns. These are rarely used but are produced by `scale()`;
   to continue use `scale()` you'll need to wrap it with `as.numeric()`, 
   e.g. `as.numeric(scale(x))`.
+  
+* The function `guide_train()` now has an optional parameter `aesthetic`
+  that allows to override the `aesthetic` setting in the scale. This change
+  will only affect code that implements custom guides. (@clauswilke)
 
 ## Minor bug fixes and improvements
 
@@ -210,6 +214,10 @@ up correct aspect ratio, and draws a graticule.
   warning) (#2206).
 
 * Legends no longer try and use set aesthetics that are not length one (#1932).
+
+* All scales that are not position scales now have an `aesthetics` argument
+  that can be used to set the aesthetics the scale works with, regardles of
+  the name of the scale function. (@clauswilke)
 
 ### Layers
 
