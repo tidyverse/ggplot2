@@ -18,24 +18,25 @@
 \title{Gradient colour scales}
 \usage{
 scale_colour_gradient(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "colourbar")
+  space = "Lab", na.value = "grey50", guide = "colourbar",
+  aesthetics = "colour")
 
 scale_fill_gradient(..., low = "#132B43", high = "#56B1F7", space = "Lab",
-  na.value = "grey50", guide = "colourbar")
+  na.value = "grey50", guide = "colourbar", aesthetics = "fill")
 
 scale_colour_gradient2(..., low = muted("red"), mid = "white",
   high = muted("blue"), midpoint = 0, space = "Lab",
-  na.value = "grey50", guide = "colourbar")
+  na.value = "grey50", guide = "colourbar", aesthetics = "colour")
 
 scale_fill_gradient2(..., low = muted("red"), mid = "white",
   high = muted("blue"), midpoint = 0, space = "Lab",
-  na.value = "grey50", guide = "colourbar")
+  na.value = "grey50", guide = "colourbar", aesthetics = "fill")
 
 scale_colour_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", colors)
+  na.value = "grey50", guide = "colourbar", aesthetics = "colour", colors)
 
 scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", colors)
+  na.value = "grey50", guide = "colourbar", aesthetics = "fill", colors)
 }
 \arguments{
 \item{...}{Arguments passed on to \code{continuous_scale}
@@ -112,6 +113,9 @@ other values are deprecated.}
 
 \item{guide}{Type of legend. Use \code{"colourbar"} for continuous
 colour bar, or \code{"legend"} for discrete colour legend.}
+
+\item{aesthetics}{Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with.}
 
 \item{mid}{colour for mid point}
 

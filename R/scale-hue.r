@@ -5,7 +5,9 @@
 #' colour-blind safe palettes.
 #'
 #' @param na.value Colour to use for missing values
-#' @inheritDotParams discrete_scale
+#' @inheritDotParams discrete_scale -aesthetics
+#' @param aesthetics Character string or vector of character strings listing the
+#'   name(s) of the aesthetic(s) that this scale works with.
 #' @inheritParams scales::hue_pal
 #' @rdname scale_hue
 #' @export
@@ -46,14 +48,16 @@
 #'   geom_point(aes(colour = miss)) +
 #'   scale_colour_hue(na.value = "black")
 #' }
-scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1, na.value = "grey50") {
-  discrete_scale("colour", "hue", hue_pal(h, c, l, h.start, direction),
+scale_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
+                             direction = 1, na.value = "grey50", aesthetics = "colour") {
+  discrete_scale(aesthetics, "hue", hue_pal(h, c, l, h.start, direction),
     na.value = na.value, ...)
 }
 
 #' @rdname scale_hue
 #' @export
-scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1, na.value = "grey50") {
-  discrete_scale("fill", "hue", hue_pal(h, c, l, h.start, direction),
+scale_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
+                           direction = 1, na.value = "grey50", aesthetics = "fill") {
+  discrete_scale(aesthetics, "hue", hue_pal(h, c, l, h.start, direction),
     na.value = na.value, ...)
 }

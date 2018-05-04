@@ -191,7 +191,7 @@ guide_colourbar <- function(
 }
 
 #' @export
-guide_train.colorbar <- function(guide, scale) {
+guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # do nothing if scale are inappropriate
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
@@ -210,7 +210,7 @@ guide_train.colorbar <- function(guide, scale) {
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
 
-  ticks <- as.data.frame(setNames(list(scale$map(breaks)), scale$aesthetics[1]))
+  ticks <- as.data.frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
 

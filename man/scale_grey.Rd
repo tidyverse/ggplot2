@@ -6,9 +6,11 @@
 \alias{scale_color_grey}
 \title{Sequential grey colour scales}
 \usage{
-scale_colour_grey(..., start = 0.2, end = 0.8, na.value = "red")
+scale_colour_grey(..., start = 0.2, end = 0.8, na.value = "red",
+  aesthetics = "colour")
 
-scale_fill_grey(..., start = 0.2, end = 0.8, na.value = "red")
+scale_fill_grey(..., start = 0.2, end = 0.8, na.value = "red",
+  aesthetics = "fill")
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
@@ -69,6 +71,9 @@ scales, "top" or "bottom" for horizontal scales}
 \item{end}{gray value at high end of palette}
 
 \item{na.value}{Colour to use for missing values}
+
+\item{aesthetics}{Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with.}
 }
 \description{
 Based on \code{\link[=gray.colors]{gray.colors()}}. This is black and white equivalent

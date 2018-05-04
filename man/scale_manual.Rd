@@ -10,17 +10,17 @@
 \alias{scale_color_manual}
 \title{Create your own discrete scale}
 \usage{
-scale_colour_manual(..., values)
+scale_colour_manual(..., values, aesthetics = "colour")
 
-scale_fill_manual(..., values)
+scale_fill_manual(..., values, aesthetics = "fill")
 
-scale_size_manual(..., values)
+scale_size_manual(..., values, aesthetics = "size")
 
-scale_shape_manual(..., values)
+scale_shape_manual(..., values, aesthetics = "shape")
 
-scale_linetype_manual(..., values)
+scale_linetype_manual(..., values, aesthetics = "linetype")
 
-scale_alpha_manual(..., values)
+scale_alpha_manual(..., values, aesthetics = "alpha")
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
@@ -45,7 +45,6 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
   \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
 value should missing be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
-  \item{aesthetics}{The names of the aesthetics that this scale works with}
   \item{scale_name}{The name of the scale}
   \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
@@ -73,6 +72,9 @@ is a named vector, then the values will be matched based on the names.
 If unnamed, values will be matched in order (usually alphabetical) with
 the limits of the scale. Any data values that don't match will be
 given \code{na.value}.}
+
+\item{aesthetics}{Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with.}
 }
 \description{
 This allows you to specify you own set of mappings from levels in the

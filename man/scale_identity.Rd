@@ -10,23 +10,25 @@
 \alias{scale_color_identity}
 \title{Use values without scaling}
 \usage{
-scale_colour_identity(..., guide = "none")
+scale_colour_identity(..., guide = "none", aesthetics = "colour")
 
-scale_fill_identity(..., guide = "none")
+scale_fill_identity(..., guide = "none", aesthetics = "fill")
 
-scale_shape_identity(..., guide = "none")
+scale_shape_identity(..., guide = "none", aesthetics = "shape")
 
-scale_linetype_identity(..., guide = "none")
+scale_linetype_identity(..., guide = "none", aesthetics = "linetype")
 
-scale_alpha_identity(..., guide = "none")
+scale_alpha_identity(..., guide = "none", aesthetics = "alpha")
 
-scale_size_identity(..., guide = "none")
+scale_size_identity(..., guide = "none", aesthetics = "size")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or
 \code{\link[=continuous_scale]{continuous_scale()}}}
 
 \item{guide}{Guide to use for this scale. Defaults to \code{"none"}.}
+
+\item{aesthetics}{The names of the aesthetics that this scale works with}
 }
 \description{
 Use this set of scales when your data has already been scaled, i.e. it

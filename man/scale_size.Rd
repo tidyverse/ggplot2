@@ -12,12 +12,14 @@
 \title{Scales for area or radius}
 \usage{
 scale_radius(name = waiver(), breaks = waiver(), labels = waiver(),
-  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
+  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend",
+  aesthetics = "size")
 
 scale_size(name = waiver(), breaks = waiver(), labels = waiver(),
-  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
+  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend",
+  aesthetics = "size")
 
-scale_size_area(..., max_size = 6)
+scale_size_area(..., max_size = 6, aesthetics = "size")
 }
 \arguments{
 \item{name}{The name of the scale. Used as axis or legend title. If
@@ -64,6 +66,9 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more info.}
+
+\item{aesthetics}{Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with.}
 
 \item{...}{Arguments passed on to \code{continuous_scale}
 \describe{

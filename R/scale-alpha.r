@@ -8,6 +8,8 @@
 #' @param ... Other arguments passed on to [continuous_scale()]
 #'   or [discrete_scale()] as appropriate, to control name, limits,
 #'   breaks, labels and so forth.
+#' @param aesthetics Character string or vector of character strings listing the
+#'   name(s) of the aesthetic(s) that this scale works with.
 #' @param range Output range of alpha values. Must lie between 0 and 1.
 #' @family colour scales
 #' @export
@@ -18,8 +20,8 @@
 #' p
 #' p + scale_alpha("cylinders")
 #' p + scale_alpha(range = c(0.4, 0.8))
-scale_alpha <- function(..., range = c(0.1, 1)) {
-  continuous_scale("alpha", "alpha_c", rescale_pal(range), ...)
+scale_alpha <- function(..., range = c(0.1, 1), aesthetics = "alpha") {
+  continuous_scale(aesthetics, "alpha_c", rescale_pal(range), ...)
 }
 
 #' @rdname scale_alpha
@@ -35,9 +37,9 @@ scale_alpha_discrete <- function(...) {
 
 #' @rdname scale_alpha
 #' @export
-scale_alpha_ordinal <- function(..., range = c(0.1, 1)) {
+scale_alpha_ordinal <- function(..., range = c(0.1, 1), aesthetics = "alpha") {
   discrete_scale(
-    "alpha",
+    aesthetics,
     "alpha_d",
     function(n) seq(range[1], range[2], length.out = n),
     ...
@@ -47,13 +49,13 @@ scale_alpha_ordinal <- function(..., range = c(0.1, 1)) {
 #' @rdname scale_alpha
 #' @export
 #' @usage NULL
-scale_alpha_datetime <- function(..., range = c(0.1, 1)) {
-  datetime_scale("alpha", "time", palette = rescale_pal(range), ...)
+scale_alpha_datetime <- function(..., range = c(0.1, 1), aesthetics = "alpha") {
+  datetime_scale(aesthetics, "time", palette = rescale_pal(range), ...)
 }
 
 #' @rdname scale_alpha
 #' @export
 #' @usage NULL
-scale_alpha_date <- function(..., range = c(0.1, 1)){
-  datetime_scale("alpha", "date", palette = rescale_pal(range), ...)
+scale_alpha_date <- function(..., range = c(0.1, 1), aesthetics = "alpha"){
+  datetime_scale(aesthetics, "date", palette = rescale_pal(range), ...)
 }

@@ -162,37 +162,38 @@ guides_train <- function(scales, theme, guides, labels) {
 
   gdefs <- list()
   for (scale in scales$scales) {
+    for (output in scale$aesthetics) {
 
-    # guides(XXX) is stored in guides[[XXX]],
-    # which is prior to scale_ZZZ(guide=XXX)
-    # guide is determined in order of:
-    #   + guides(XXX) > + scale_ZZZ(guide=XXX) > default(i.e., legend)
-    output <- scale$aesthetics[1]
-    guide <- guides[[output]] %||% scale$guide
+      # guides(XXX) is stored in guides[[XXX]],
+      # which is prior to scale_ZZZ(guide=XXX)
+      # guide is determined in order of:
+      #   + guides(XXX) > + scale_ZZZ(guide=XXX) > default(i.e., legend)
+      guide <- guides[[output]] %||% scale$guide
 
-    # this should be changed to testing guide == "none"
-    # scale$legend is backward compatibility
-    # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-    if (guide == "none" || (is.logical(guide) && !guide)) next
+      # this should be changed to testing guide == "none"
+      # scale$legend is backward compatibility
+      # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
+      if (guide == "none" || (is.logical(guide) && !guide)) next
 
-    # check the validity of guide.
-    # if guide is character, then find the guide object
-    guide <- validate_guide(guide)
+      # check the validity of guide.
+      # if guide is character, then find the guide object
+      guide <- validate_guide(guide)
 
-    # check the consistency of the guide and scale.
-    if (guide$available_aes != "any" && !scale$aesthetics %in% guide$available_aes)
-      stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
+      # check the consistency of the guide and scale.
+      if (guide$available_aes != "any" && !scale$aesthetics %in% guide$available_aes)
+        stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
 
-    guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
+      guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
 
-    # direction of this grob
-    guide$direction <- guide$direction %||% theme$legend.direction
+      # direction of this grob
+      guide$direction <- guide$direction %||% theme$legend.direction
 
-    # each guide object trains scale within the object,
-    # so Guides (i.e., the container of guides) need not to know about them
-    guide <- guide_train(guide, scale)
+      # each guide object trains scale within the object,
+      # so Guides (i.e., the container of guides) need not to know about them
+      guide <- guide_train(guide, scale, output)
 
-    if (!is.null(guide)) gdefs[[length(gdefs) + 1]] <- guide
+      if (!is.null(guide)) gdefs[[length(gdefs) + 1]] <- guide
+    }
   }
   gdefs
 }
@@ -309,7 +310,7 @@ NULL
 
 #' @export
 #' @rdname guide-exts
-guide_train <- function(guide, scale) UseMethod("guide_train")
+guide_train <- function(guide, scale, aesthetic = NULL) UseMethod("guide_train")
 
 #' @export
 #' @rdname guide-exts

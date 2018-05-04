@@ -4,7 +4,9 @@
 #' data to aesthetic values.
 #'
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position
+#' @inheritDotParams discrete_scale -expand -position -aesthetics
+#' @param aesthetics Character string or vector of character strings listing the
+#'   name(s) of the aesthetic(s) that this scale works with.
 #' @param values a set of aesthetic values to map data values to. If this
 #'   is a named vector, then the values will be matched based on the names.
 #'   If unnamed, values will be matched in order (usually alphabetical) with
@@ -37,38 +39,38 @@ NULL
 
 #' @rdname scale_manual
 #' @export
-scale_colour_manual <- function(..., values) {
-  manual_scale("colour", values, ...)
+scale_colour_manual <- function(..., values, aesthetics = "colour") {
+  manual_scale(aesthetics, values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_fill_manual <- function(..., values) {
-  manual_scale("fill", values, ...)
+scale_fill_manual <- function(..., values, aesthetics = "fill") {
+  manual_scale(aesthetics, values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_size_manual <- function(..., values) {
-  manual_scale("size", values, ...)
+scale_size_manual <- function(..., values, aesthetics = "size") {
+  manual_scale(aesthetics, values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_shape_manual <- function(..., values) {
-  manual_scale("shape", values, ...)
+scale_shape_manual <- function(..., values, aesthetics = "shape") {
+  manual_scale(aesthetics, values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_linetype_manual <- function(..., values) {
-  manual_scale("linetype", values, ...)
+scale_linetype_manual <- function(..., values, aesthetics = "linetype") {
+  manual_scale(aesthetics, values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_alpha_manual <- function(..., values) {
-  manual_scale("alpha", values, ...)
+scale_alpha_manual <- function(..., values, aesthetics = "alpha") {
+  manual_scale(aesthetics, values, ...)
 }
 
 manual_scale <- function(aesthetic, values, ...) {
