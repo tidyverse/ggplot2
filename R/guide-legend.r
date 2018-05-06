@@ -333,10 +333,8 @@ guide_gengrob.legend <- function(guide, theme) {
     element_grob(
       title.theme,
       label = guide$title,
-      hjust = guide$title.hjust %||% theme$legend.title.align %||% 0,
-      vjust = guide$title.vjust %||% 0.5,
-      margin_x = FALSE,
-      margin_y = FALSE
+      hjust = guide$title.hjust %||% theme$legend.title.align %||% title.theme$hjust %||% 0,
+      vjust = guide$title.vjust %||% title.theme$vjust %||% 0.5
     )
   )
 
