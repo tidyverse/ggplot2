@@ -106,7 +106,7 @@ GeomRug <- ggproto("GeomRug", Geom,
     gTree(children = do.call("gList", rugs))
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = 1),
 
   draw_key = draw_key_path
 )

@@ -169,7 +169,7 @@ GeomText <- ggproto("GeomText", Geom,
 
   default_aes = aes(
     colour = "black", size = 3.88, angle = 0, hjust = 0.5,
-    vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2
+    vjust = 0.5, alpha = 1, family = "", fontface = 1, lineheight = 1.2
   ),
 
   draw_panel = function(data, panel_params, coord, parse = FALSE,

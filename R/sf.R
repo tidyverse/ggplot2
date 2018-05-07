@@ -147,7 +147,7 @@ GeomSf <- ggproto("GeomSf", Geom,
     fill = NULL,
     size = NULL,
     linetype = 1,
-    alpha = NA,
+    alpha = 1,
     stroke = 0.5
   ),
 

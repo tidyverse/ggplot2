@@ -175,7 +175,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   required_aes = c("x", "y"),
   non_missing_aes = c("size", "shape"),
 
-  default_aes = aes(colour = "black", fill = "black", alpha = NA),
+  default_aes = aes(colour = "black", fill = "black", alpha = 1),
 
   setup_data = function(data, params) {
     data$width <- data$width %||%
