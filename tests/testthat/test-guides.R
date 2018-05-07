@@ -148,6 +148,10 @@ test_that("guides title and text are positioned correctly", {
   df <- data.frame(x = 1:3, y = 1:3)
   p <- ggplot(df, aes(x, y, color = factor(x), fill = y)) +
     geom_point(shape = 21) +
+    # setting the order explicitly removes the risk for failed doppelgangers
+    # due to legends switching order
+    guides(color = guide_legend(order = 2),
+           fill = guide_colorbar(order = 1)) +
     theme_test()
 
   expect_doppelganger("multi-line guide title works",
