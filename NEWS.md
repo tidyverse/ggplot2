@@ -328,6 +328,8 @@ up correct aspect ratio, and draws a graticule.
   to make sure the two legend functions behave as similarly as possible.
   (@clauswilke, #2397 and #2398)
 
+* Non-angle parameters of `label.theme` or `title.theme` can now be set in `guide_legend()` and
+  `guide_colorbar()`. (@clauswilke, #2544)
 
 ### Other
 
