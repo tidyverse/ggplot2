@@ -328,8 +328,8 @@ up correct aspect ratio, and draws a graticule.
   to make sure the two legend functions behave as similarly as possible.
   (@clauswilke, #2397 and #2398)
   
-* The theme element `legend.title` now respects the settings of `margin`, `hjust`,
-  and `vjust`. (@clauswilke, #2465) 
+* The theme elements `legend.title` and `legend.text` now respect the settings of `margin`,
+  `hjust`, and `vjust`. (@clauswilke, #2465, #1502) 
 
 
 ### Other

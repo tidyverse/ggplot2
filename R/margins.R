@@ -225,11 +225,11 @@ heightDetails.titleGrob <- function(x) {
 
 #' Justifies a grob within a larger drawing area
 #'
-#' `justify_grob()` can be used to take a grob and draw it justified inside a larger
+#' `justify_grobs()` can be used to take one or more grobs and draw them justified inside a larger
 #' drawing area, such as the cell in a gtable. It is needed to correctly place [`titleGrob`]s
 #' with margins.
 #'
-#' @param grob The grob to justify.
+#' @param grobs The single grob or list of grobs to justify.
 #' @param x,y x and y location of the reference point relative to which justification
 #'   should be performed. If `NULL`, justification will be done relative to the
 #'   enclosing drawing area (i.e., `x = hjust` and `y = vjust`).
@@ -238,9 +238,18 @@ heightDetails.titleGrob <- function(x) {
 #'   rectangle behind the complete grob area.
 #'
 #' @noRd
-justify_grob <- function(grob, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, debug = FALSE) {
-  if (inherits(grob, "zeroGrob")) {
-    return(grob)
+justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, debug = FALSE) {
+  if (!inherits(grobs, "grob")) {
+    if (is.list(grobs)) {
+      return(lapply(grobs, justify_grobs, x, y, hjust, vjust, debug))
+    }
+    else {
+      stop("need individual grob or list of grobs as argument.")
+    }
+  }
+
+  if (inherits(grobs, "zeroGrob")) {
+    return(grobs)
   }
 
   x <- x %||% unit(hjust, "npc")
@@ -249,11 +258,11 @@ justify_grob <- function(grob, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, deb
   if (isTRUE(debug)) {
     children <- gList(
       rectGrob(gp = gpar(fill = "khaki", col = NA)),
-      grob
+      grobs
     )
   }
   else {
-    children = gList(grob)
+    children = gList(grobs)
   }
 
   gTree(
@@ -261,8 +270,8 @@ justify_grob <- function(grob, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, deb
     vp = viewport(
       x = x,
       y = y,
-      width = grobWidth(grob),
-      height = grobHeight(grob),
+      width = grobWidth(grobs),
+      height = grobHeight(grobs),
       just = c(hjust, vjust)
     )
   )

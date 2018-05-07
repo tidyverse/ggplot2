@@ -351,15 +351,19 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   # label
   label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
+  hjust <- guide$label.hjust %||% theme$legend.text.align %||% label.theme$hjust %||%
+    if (any(is.expression(guide$key$.label))) 1 else switch(guide$direction, horizontal = 0.5, vertical = 0)
+  vjust <- guide$label.vjust %||% label.theme$vjust %||% 0.5
+
   grob.label <- {
     if (!guide$label)
       zeroGrob()
     else {
-      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||%
-        if (any(is.expression(guide$key$.label))) 1 else switch(guide$direction, horizontal = 0.5, vertical = 0)
-      vjust <- y <- guide$label.vjust %||% 0.5
-      switch(guide$direction, horizontal = {x <- label_pos; y <- vjust}, "vertical" = {x <- hjust; y <- label_pos})
-
+      switch(
+        guide$direction,
+        "horizontal" = {x <- label_pos; y <- vjust; margin_x = FALSE; margin_y = TRUE},
+        "vertical" = {x <- hjust; y <- label_pos; margin_x = TRUE; margin_y = FALSE}
+      )
       label <- guide$key$.label
 
       # If any of the labels are quoted language objects, convert them
@@ -371,8 +375,16 @@ guide_gengrob.colorbar <- function(guide, theme) {
         })
         label <- do.call(c, label)
       }
-      g <- element_grob(element = label.theme, label = label,
-        x = x, y = y, hjust = hjust, vjust = vjust)
+      g <- element_grob(
+        element = label.theme,
+        label = label,
+        x = x,
+        y = y,
+        hjust = hjust,
+        vjust = vjust,
+        margin_x = margin_x,
+        margin_y = margin_y
+      )
       ggname("guide.label", g)
     }
   }
@@ -489,12 +501,16 @@ guide_gengrob.colorbar <- function(guide, theme) {
   gt <- gtable_add_grob(gt, grob.bar, name = "bar", clip = "off",
     t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
     b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
-  gt <- gtable_add_grob(gt, grob.label, name = "label", clip = "off",
+  gt <- gtable_add_grob(
+    gt,
+    grob.label,
+    name = "label",
+    clip = "off",
     t = 1 + min(vps$label.row), r = 1 + max(vps$label.col),
     b = 1 + max(vps$label.row), l = 1 + min(vps$label.col))
   gt <- gtable_add_grob(
     gt,
-    justify_grob(grob.title, hjust = title.hjust, vjust = title.vjust),
+    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust),
     name = "title",
     clip = "off",
     t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),

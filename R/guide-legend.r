@@ -363,8 +363,8 @@ guide_gengrob.legend <- function(guide, theme) {
     # label.theme in param of guide_legend() > theme$legend.text.align > default
     # hjust/vjust in theme$legend.text and label.theme are ignored.
     hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||%
-      if (any(is.expression(guide$key$.label))) 1 else 0
-    vjust <- y <- guide$label.vjust %||% 0.5
+      label.theme$hjust %||% if (any(is.expression(guide$key$.label))) 1 else 0
+    vjust <- y <- guide$label.vjust %||% label.theme$vjust %||% 0.5
 
     grob.labels <- lapply(guide$key$.label, function(label, ...) {
       g <- element_grob(
@@ -374,8 +374,8 @@ guide_gengrob.legend <- function(guide, theme) {
         y = y,
         hjust = hjust,
         vjust = vjust,
-        margin_x = FALSE,
-        margin_y = FALSE
+        margin_x = TRUE,
+        margin_y = TRUE
       )
       ggname("guide.label", g)
     })
@@ -680,7 +680,7 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    justify_grob(grob.title, hjust = title.hjust, vjust = title.vjust),
+    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust),
     name = "title",
     clip = "off",
     t = 1 + min(vps.title.row),
@@ -700,7 +700,7 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    grob.labels,
+    justify_grobs(grob.labels, hjust = hjust, vjust = vjust),
     name = paste("label", vps$label.row, vps$label.col, sep = "-"),
     clip = "off",
     t = 1 + vps$label.row,
