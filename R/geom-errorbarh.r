@@ -49,7 +49,7 @@ geom_errorbarh <- function(mapping = NULL, data = NULL,
 #' @export
 GeomErrorbarh <- ggproto("GeomErrorbarh", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, height = 0.5,
-    alpha = NA),
+    alpha = 1),
 
   draw_key = draw_key_path,
 

@@ -101,7 +101,7 @@ geom_segment <- function(mapping = NULL, data = NULL,
 GeomSegment <- ggproto("GeomSegment", Geom,
   required_aes = c("x", "y", "xend", "yend"),
   non_missing_aes = c("linetype", "size", "shape"),
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = 1),
 
   draw_panel = function(data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
