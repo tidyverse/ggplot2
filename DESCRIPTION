@@ -10,6 +10,7 @@ Authors@R: c(
     person("Winston", "Chang", , "winston@rstudio.com", "aut"),
     person("Kara", "Woo", role = "aut"),
     person("Thomas Lin", "Pedersen", role = "aut"),
+    person("Claus", "Wilke", role = "aut"),
     person("RStudio", role = c("cph"))
     )
 Depends:
