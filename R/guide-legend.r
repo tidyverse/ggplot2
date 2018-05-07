@@ -355,6 +355,10 @@ guide_gengrob.legend <- function(guide, theme) {
   vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_fontsize, "pt")))
 
   # Labels
+
+  # first get the label theme, we need it below even when there are no labels
+  label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
+
   if (!guide$label || is.null(guide$key$.label)) {
     grob.labels <- rep(list(zeroGrob()), nrow(guide$key))
   } else {
@@ -363,9 +367,6 @@ guide_gengrob.legend <- function(guide, theme) {
     just_defaults <- label_just_defaults.legend(guide$direction, label.position)
     # don't set expressions left-justified
     if (just_defaults$hjust == 0 && any(is.expression(guide$key$.label))) just_defaults$hjust <- 1
-
-    # get the label theme
-    label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
 
     # We break inheritance for hjust and vjust, because that's more intuitive here; it still allows manual
     # setting of hjust and vjust if desired. The alternative is to ignore hjust and vjust altogether, which
@@ -693,7 +694,7 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust),
+    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust, debug = title.theme$debug),
     name = "title",
     clip = "off",
     t = 1 + min(vps.title.row),
@@ -713,7 +714,7 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    justify_grobs(grob.labels, hjust = hjust, vjust = vjust),
+    justify_grobs(grob.labels, hjust = hjust, vjust = vjust, debug = label.theme$debug),
     name = paste("label", vps$label.row, vps$label.col, sep = "-"),
     clip = "off",
     t = 1 + vps$label.row,

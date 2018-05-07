@@ -378,8 +378,18 @@ guide_gengrob.colorbar <- function(guide, theme) {
     else {
       switch(
         guide$direction,
-        "horizontal" = {x <- label_pos; y <- vjust; margin_x = FALSE; margin_y = TRUE},
-        "vertical" = {x <- hjust; y <- label_pos; margin_x = TRUE; margin_y = FALSE}
+        "horizontal" = {
+          x <- label_pos
+          y <- rep(vjust, length(label_pos))
+          margin_x = FALSE
+          margin_y = TRUE
+        },
+        "vertical" = {
+          x <- rep(hjust, length(label_pos))
+          y <- label_pos
+          margin_x = TRUE
+          margin_y = FALSE
+        }
       )
       label <- guide$key$.label
 
@@ -527,7 +537,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
     b = 1 + max(vps$label.row), l = 1 + min(vps$label.col))
   gt <- gtable_add_grob(
     gt,
-    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust),
+    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust, debug = title.theme$debug),
     name = "title",
     clip = "off",
     t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),
