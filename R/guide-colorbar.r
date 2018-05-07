@@ -324,12 +324,17 @@ guide_gengrob.colorbar <- function(guide, theme) {
   # and to obtain the title fontsize.
   title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
 
+  title.hjust <- guide$title.hjust %||% theme$legend.title.align %||% title.theme$hjust %||% 0
+  title.vjust <- guide$title.vjust %||% title.theme$vjust %||% 0.5
+
   grob.title <- ggname("guide.title",
     element_grob(
       title.theme,
       label = guide$title,
-      hjust = guide$title.hjust %||% theme$legend.title.align %||% title.theme$hjust %||% 0,
-      vjust = guide$title.vjust %||% title.theme$vjust %||% 0.5
+      hjust = title.hjust,
+      vjust = title.vjust,
+      margin_x = TRUE,
+      margin_y = TRUE
     )
   )
 
@@ -487,7 +492,11 @@ guide_gengrob.colorbar <- function(guide, theme) {
   gt <- gtable_add_grob(gt, grob.label, name = "label", clip = "off",
     t = 1 + min(vps$label.row), r = 1 + max(vps$label.col),
     b = 1 + max(vps$label.row), l = 1 + min(vps$label.col))
-  gt <- gtable_add_grob(gt, grob.title, name = "title", clip = "off",
+  gt <- gtable_add_grob(
+    gt,
+    justify_grob(grob.title, hjust = title.hjust, vjust = title.vjust),
+    name = "title",
+    clip = "off",
     t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),
     b = 1 + max(vps$title.row), l = 1 + min(vps$title.col))
   gt <- gtable_add_grob(gt, grob.ticks, name = "ticks", clip = "off",

@@ -329,12 +329,17 @@ guide_gengrob.legend <- function(guide, theme) {
   # and to obtain the title fontsize.
   title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
 
+  title.hjust <- guide$title.hjust %||% theme$legend.title.align %||% title.theme$hjust %||% 0
+  title.vjust <- guide$title.vjust %||% title.theme$vjust %||% 0.5
+
   grob.title <- ggname("guide.title",
     element_grob(
       title.theme,
       label = guide$title,
-      hjust = guide$title.hjust %||% theme$legend.title.align %||% title.theme$hjust %||% 0,
-      vjust = guide$title.vjust %||% title.theme$vjust %||% 0.5
+      hjust = title.hjust,
+      vjust = title.vjust,
+      margin_x = TRUE,
+      margin_y = TRUE
     )
   )
 
@@ -675,7 +680,7 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    grob.title,
+    justify_grob(grob.title, hjust = title.hjust, vjust = title.vjust),
     name = "title",
     clip = "off",
     t = 1 + min(vps.title.row),
