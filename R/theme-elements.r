@@ -203,10 +203,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   hj <- hjust %||% element$hjust
   margin <- margin %||% element$margin
 
-  angle <- angle %||% element$angle
-  if (is.null(angle)) {
-    stop("Text element requires non-NULL value for 'angle'.")
-  }
+  angle <- angle %||% element$angle %||% 0
 
   # The gp settings can override element_gp
   gp <- gpar(fontsize = size, col = colour,
