@@ -80,7 +80,8 @@
 * Added `tag` label for adding identification tags to the plot. A tag is added 
   with the `labs()` function and styling is handled through the `plot.tag` theme 
   element. Position is specified with the `plot.tag.position` theme setting and
-  defauls to `"topleft"` (@thomasp85).
+  defauls to `"topleft"`. Tags are useful for identifying subplots in a 
+  multiplot figure and often used in the scientific literature (@thomasp85).
 
 ### Scales
 
