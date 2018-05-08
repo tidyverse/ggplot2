@@ -26,3 +26,14 @@ test_that("Setting guide labels", {
     # American spelling
     expect_identical(labs(color = "my label")$colour, "my label")
 })
+
+# Visual tests ------------------------------------------------------------
+
+test_that("geom_violin draws correctly", {
+  dat <- data.frame(x = 1:10, y = 10:1)
+  p <- ggplot(dat, aes(x = x, y = y)) + geom_point() + labs(tag = "Fig. A)")
+
+  vdiffr::expect_doppelganger("defaults", p)
+  vdiffr::expect_doppelganger("Other position", p + theme(plot.tag.position = 'bottom'))
+  vdiffr::expect_doppelganger("Manual", p + theme(plot.tag.position = c(0.05, 0.05)))
+})
