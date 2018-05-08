@@ -44,7 +44,7 @@ geom_raster <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRaster <- ggproto("GeomRaster", Geom,
-  default_aes = aes(fill = "grey20", alpha = 1),
+  default_aes = aes(fill = "grey20", alpha = NA),
   non_missing_aes = "fill",
   required_aes = c("x", "y"),
 
