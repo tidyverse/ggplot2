@@ -257,7 +257,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, d
 
   if (isTRUE(debug)) {
     children <- gList(
-      rectGrob(gp = gpar(fill = "khaki", col = NA)),
+      rectGrob(gp = gpar(fill = "lightcyan", col = NA)),
       grobs
     )
   }
