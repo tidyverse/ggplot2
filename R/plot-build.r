@@ -273,8 +273,12 @@ ggplot_gtable.ggplot_built <- function(data) {
 
   tag_pos <- theme$plot.tag.position
   if (length(tag_pos) == 2) tag_pos <- "manual"
-  stopifnot(tag_pos %in% c("topleft", "top", "topright", "left", "right",
-                           "bottomleft", "bottom", "bottomright", "manual"))
+  valid_pos <- c("topleft", "top", "topright", "left", "right", "bottomleft",
+                 "bottom", "bottomright")
+  if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) {
+    stop("plot.tag.position should be a coordinate or one of ",
+         paste(valid_pos, collapse = ', '), call. = FALSE)
+  }
 
   if (tag_pos == "manual") {
     xpos <- theme$plot.tag.position[1]
