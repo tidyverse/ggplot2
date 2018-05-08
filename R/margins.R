@@ -222,3 +222,57 @@ widthDetails.titleGrob <- function(x) {
 heightDetails.titleGrob <- function(x) {
   sum(x$heights)
 }
+
+#' Justifies a grob within a larger drawing area
+#'
+#' `justify_grobs()` can be used to take one or more grobs and draw them justified inside a larger
+#' drawing area, such as the cell in a gtable. It is needed to correctly place [`titleGrob`]s
+#' with margins.
+#'
+#' @param grobs The single grob or list of grobs to justify.
+#' @param x,y x and y location of the reference point relative to which justification
+#'   should be performed. If `NULL`, justification will be done relative to the
+#'   enclosing drawing area (i.e., `x = hjust` and `y = vjust`).
+#' @param hjust,vjust Horizontal and vertical justification of the grob relative to `x` and `y`.
+#' @param debug If `TRUE`, aids visual debugging by drawing a solid
+#'   rectangle behind the complete grob area.
+#'
+#' @noRd
+justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, debug = FALSE) {
+  if (!inherits(grobs, "grob")) {
+    if (is.list(grobs)) {
+      return(lapply(grobs, justify_grobs, x, y, hjust, vjust, debug))
+    }
+    else {
+      stop("need individual grob or list of grobs as argument.")
+    }
+  }
+
+  if (inherits(grobs, "zeroGrob")) {
+    return(grobs)
+  }
+
+  x <- x %||% unit(hjust, "npc")
+  y <- y %||% unit(vjust, "npc")
+
+  if (isTRUE(debug)) {
+    children <- gList(
+      rectGrob(gp = gpar(fill = "lightcyan", col = NA)),
+      grobs
+    )
+  }
+  else {
+    children = gList(grobs)
+  }
+
+  gTree(
+    children = children,
+    vp = viewport(
+      x = x,
+      y = y,
+      width = grobWidth(grobs),
+      height = grobHeight(grobs),
+      just = c(hjust, vjust)
+    )
+  )
+}

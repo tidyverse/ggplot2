@@ -329,14 +329,17 @@ guide_gengrob.legend <- function(guide, theme) {
   # and to obtain the title fontsize.
   title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
 
+  title.hjust <- guide$title.hjust %||% theme$legend.title.align %||% title.theme$hjust %||% 0
+  title.vjust <- guide$title.vjust %||% title.theme$vjust %||% 0.5
+
   grob.title <- ggname("guide.title",
     element_grob(
       title.theme,
       label = guide$title,
-      hjust = guide$title.hjust %||% theme$legend.title.align %||% 0,
-      vjust = guide$title.vjust %||% 0.5,
-      margin_x = FALSE,
-      margin_y = FALSE
+      hjust = title.hjust,
+      vjust = title.vjust,
+      margin_x = TRUE,
+      margin_y = TRUE
     )
   )
 
@@ -352,16 +355,30 @@ guide_gengrob.legend <- function(guide, theme) {
   vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_fontsize, "pt")))
 
   # Labels
+
+  # first get the label theme, we need it below even when there are no labels
+  label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
+
   if (!guide$label || is.null(guide$key$.label)) {
     grob.labels <- rep(list(zeroGrob()), nrow(guide$key))
   } else {
-    label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
+    # get the defaults for label justification. The defaults are complicated and depend
+    # on the direction of the legend and on label placement
+    just_defaults <- label_just_defaults.legend(guide$direction, label.position)
+    # don't set expressions left-justified
+    if (just_defaults$hjust == 0 && any(is.expression(guide$key$.label))) just_defaults$hjust <- 1
+
+    # We break inheritance for hjust and vjust, because that's more intuitive here; it still allows manual
+    # setting of hjust and vjust if desired. The alternative is to ignore hjust and vjust altogether, which
+    # seems worse
+    if (is.null(guide$label.theme$hjust) && is.null(theme$legend.text$hjust)) label.theme$hjust <- NULL
+    if (is.null(guide$label.theme$vjust) && is.null(theme$legend.text$vjust)) label.theme$vjust <- NULL
 
     # label.theme in param of guide_legend() > theme$legend.text.align > default
-    # hjust/vjust in theme$legend.text and label.theme are ignored.
-    hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||%
-      if (any(is.expression(guide$key$.label))) 1 else 0
-    vjust <- y <- guide$label.vjust %||% 0.5
+    hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||% label.theme$hjust %||%
+      just_defaults$hjust
+    vjust <- y <- guide$label.vjust %||% label.theme$vjust %||%
+      just_defaults$vjust
 
     grob.labels <- lapply(guide$key$.label, function(label, ...) {
       g <- element_grob(
@@ -371,8 +388,8 @@ guide_gengrob.legend <- function(guide, theme) {
         y = y,
         hjust = hjust,
         vjust = vjust,
-        margin_x = FALSE,
-        margin_y = FALSE
+        margin_x = TRUE,
+        margin_y = TRUE
       )
       ggname("guide.label", g)
     })
@@ -677,7 +694,7 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    grob.title,
+    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust, debug = title.theme$debug),
     name = "title",
     clip = "off",
     t = 1 + min(vps.title.row),
@@ -697,7 +714,7 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    grob.labels,
+    justify_grobs(grob.labels, hjust = hjust, vjust = vjust, debug = label.theme$debug),
     name = paste("label", vps$label.row, vps$label.col, sep = "-"),
     clip = "off",
     t = 1 + vps$label.row,
@@ -707,5 +724,34 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt
 }
+
+
+#' Calculate the default hjust and vjust settings depending on legend
+#' direction and position.
+#'
+#' @noRd
+label_just_defaults.legend <- function(direction, position) {
+  if (direction == "horizontal") {
+    switch(
+      position,
+      "top" = list(hjust = 0.5, vjust = 0),
+      "bottom" = list(hjust = 0.5, vjust = 1),
+      "left" = list(hjust = 1, vjust = 0.5),
+      list(hjust = 0, vjust = 0.5)
+    )
+  }
+  else {
+    switch(
+      position,
+      "top" = list(hjust = 0.5, vjust = 0),
+      "bottom" = list(hjust = 0.5, vjust = 1),
+      "left" = list(hjust = 1, vjust = 0.5),
+      list(hjust = 0, vjust = 0.5)
+    )
+
+  }
+
+}
+
 
 globalVariables(c("C", "R", "key.row", "key.col", "label.row", "label.col"))

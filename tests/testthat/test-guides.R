@@ -148,6 +148,10 @@ test_that("guides title and text are positioned correctly", {
   df <- data.frame(x = 1:3, y = 1:3)
   p <- ggplot(df, aes(x, y, color = factor(x), fill = y)) +
     geom_point(shape = 21) +
+    # setting the order explicitly removes the risk for failed doppelgangers
+    # due to legends switching order
+    guides(color = guide_legend(order = 2),
+           fill = guide_colorbar(order = 1)) +
     theme_test()
 
   expect_doppelganger("multi-line guide title works",
@@ -161,6 +165,24 @@ test_that("guides title and text are positioned correctly", {
   expect_doppelganger("horizontal gap of 1cm between guide and guide text",
     p + theme(legend.spacing.x = grid::unit(1, "cm"))
   )
+
+  # now test label positioning, alignment, etc
+  df <- data.frame(x = c(1, 10, 100))
+  p <- ggplot(df, aes(x, x, color = x, size = x)) +
+    geom_point() +
+    # setting the order explicitly removes the risk for failed doppelgangers
+    # due to legends switching order
+    guides(shape = guide_legend(order = 1),
+           color = guide_colorbar(order = 2)) +
+    theme_test()
+
+  expect_doppelganger("guide title and text positioning and alignment via themes",
+    p + theme(
+      legend.title = element_text(hjust = 0.5, margin = margin(t = 30)),
+      legend.text = element_text(hjust = 1, margin = margin(l = 5, t = 10, b = 10))
+    )
+  )
+
 })
 
 test_that("colorbar can be styled", {

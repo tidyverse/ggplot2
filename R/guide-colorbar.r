@@ -256,44 +256,40 @@ guide_geom.colorbar <- function(guide, layers, default_mapping) {
 guide_gengrob.colorbar <- function(guide, theme) {
 
   # settings of location and size
-  switch(guide$direction,
-    "horizontal" = {
-      label.position <- guide$label.position %||% "bottom"
-      if (!label.position %in% c("top", "bottom")) stop("label position \"", label.position, "\" is invalid")
+  if (guide$direction == "horizontal") {
+    label.position <- guide$label.position %||% "bottom"
+    if (!label.position %in% c("top", "bottom")) stop("label position \"", label.position, "\" is invalid")
 
-      barwidth <- width_cm(guide$barwidth %||% (theme$legend.key.width * 5))
-      barheight <- height_cm(guide$barheight %||% theme$legend.key.height)
-    },
-    "vertical" = {
-      label.position <- guide$label.position %||% "right"
-      if (!label.position %in% c("left", "right")) stop("label position \"", label.position, "\" is invalid")
+    barwidth <- width_cm(guide$barwidth %||% (theme$legend.key.width * 5))
+    barheight <- height_cm(guide$barheight %||% theme$legend.key.height)
+  } else { # guide$direction == "vertical"
+    label.position <- guide$label.position %||% "right"
+    if (!label.position %in% c("left", "right")) stop("label position \"", label.position, "\" is invalid")
 
-      barwidth <- width_cm(guide$barwidth %||% theme$legend.key.width)
-      barheight <- height_cm(guide$barheight %||% (theme$legend.key.height * 5))
-    })
+    barwidth <- width_cm(guide$barwidth %||% theme$legend.key.width)
+    barheight <- height_cm(guide$barheight %||% (theme$legend.key.height * 5))
+  }
 
   barlength <- switch(guide$direction, "horizontal" = barwidth, "vertical" = barheight)
   nbreak <- nrow(guide$key)
 
-  grob.bar <-
-    if (guide$raster) {
-      image <- switch(guide$direction, horizontal = t(guide$bar$colour), vertical = rev(guide$bar$colour))
-      rasterGrob(image = image, width = barwidth, height = barheight, default.units = "cm", gp = gpar(col = NA), interpolate = TRUE)
-    } else {
-      switch(guide$direction,
-             horizontal = {
-               bw <- barwidth / nrow(guide$bar)
-               bx <- (seq(nrow(guide$bar)) - 1) * bw
-               rectGrob(x = bx, y = 0, vjust = 0, hjust = 0, width = bw, height = barheight, default.units = "cm",
-                        gp = gpar(col = NA, fill = guide$bar$colour))
-             },
-             vertical = {
-               bh <- barheight / nrow(guide$bar)
-               by <- (seq(nrow(guide$bar)) - 1) * bh
-               rectGrob(x = 0, y = by, vjust = 0, hjust = 0, width = barwidth, height = bh, default.units = "cm",
-                        gp = gpar(col = NA, fill = guide$bar$colour))
-             })
+  # make the bar grob (`grob.bar`)
+  if (guide$raster) {
+    image <- switch(guide$direction, horizontal = t(guide$bar$colour), vertical = rev(guide$bar$colour))
+    grob.bar <-rasterGrob(image = image, width = barwidth, height = barheight, default.units = "cm", gp = gpar(col = NA), interpolate = TRUE)
+  } else {
+    if (guide$direction == "horizontal") {
+      bw <- barwidth / nrow(guide$bar)
+      bx <- (seq(nrow(guide$bar)) - 1) * bw
+      grob.bar <-rectGrob(x = bx, y = 0, vjust = 0, hjust = 0, width = bw, height = barheight, default.units = "cm",
+                          gp = gpar(col = NA, fill = guide$bar$colour))
+    } else { # guide$direction == "vertical"
+      bh <- barheight / nrow(guide$bar)
+      by <- (seq(nrow(guide$bar)) - 1) * bh
+      grob.bar <-rectGrob(x = 0, y = by, vjust = 0, hjust = 0, width = barwidth, height = bh, default.units = "cm",
+                          gp = gpar(col = NA, fill = guide$bar$colour))
     }
+  }
 
   # make frame around color bar if requested (colour is not NULL)
   if (!is.null(guide$frame.colour)) {
@@ -324,12 +320,17 @@ guide_gengrob.colorbar <- function(guide, theme) {
   # and to obtain the title fontsize.
   title.theme <- guide$title.theme %||% calc_element("legend.title", theme)
 
+  title.hjust <- guide$title.hjust %||% theme$legend.title.align %||% title.theme$hjust %||% 0
+  title.vjust <- guide$title.vjust %||% title.theme$vjust %||% 0.5
+
   grob.title <- ggname("guide.title",
     element_grob(
       title.theme,
       label = guide$title,
-      hjust = guide$title.hjust %||% theme$legend.title.align %||% 0,
-      vjust = guide$title.vjust %||% 0.5
+      hjust = title.hjust,
+      vjust = title.vjust,
+      margin_x = TRUE,
+      margin_y = TRUE
     )
   )
 
@@ -344,96 +345,123 @@ guide_gengrob.colorbar <- function(guide, theme) {
   hgap <- width_cm(theme$legend.spacing.x  %||% (0.5 * unit(title_fontsize, "pt")))
   vgap <- height_cm(theme$legend.spacing.y %||% (0.5 * unit(title_fontsize, "pt")))
 
-  # label
+  # Labels
+
+  # get the defaults for label justification. The defaults are complicated and depend
+  # on the direction of the legend and on label placement
+  just_defaults <- label_just_defaults.colorbar(guide$direction, label.position)
+  # don't set expressions left-justified
+  if (just_defaults$hjust == 0 && any(is.expression(guide$key$.label))) just_defaults$hjust <- 1
+
+  # get the label theme
   label.theme <- guide$label.theme %||% calc_element("legend.text", theme)
-  grob.label <- {
-    if (!guide$label)
-      zeroGrob()
-    else {
-      hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||%
-        if (any(is.expression(guide$key$.label))) 1 else switch(guide$direction, horizontal = 0.5, vertical = 0)
-      vjust <- y <- guide$label.vjust %||% 0.5
-      switch(guide$direction, horizontal = {x <- label_pos; y <- vjust}, "vertical" = {x <- hjust; y <- label_pos})
 
-      label <- guide$key$.label
+  # We break inheritance for hjust and vjust, because that's more intuitive here; it still allows manual
+  # setting of hjust and vjust if desired. The alternative is to ignore hjust and vjust altogether, which
+  # seems worse
+  if (is.null(guide$label.theme$hjust) && is.null(theme$legend.text$hjust)) label.theme$hjust <- NULL
+  if (is.null(guide$label.theme$vjust) && is.null(theme$legend.text$vjust)) label.theme$vjust <- NULL
 
-      # If any of the labels are quoted language objects, convert them
-      # to expressions. Labels from formatter functions can return these
-      if (any(vapply(label, is.call, logical(1)))) {
-        label <- lapply(label, function(l) {
-          if (is.call(l)) substitute(expression(x), list(x = l))
-          else l
-        })
-        label <- do.call(c, label)
-      }
-      g <- element_grob(element = label.theme, label = label,
-        x = x, y = y, hjust = hjust, vjust = vjust)
-      ggname("guide.label", g)
+  # label.theme in param of guide_legend() > theme$legend.text.align > default
+  hjust <- guide$label.hjust %||% theme$legend.text.align %||% label.theme$hjust %||%
+    just_defaults$hjust
+  vjust <- guide$label.vjust %||% label.theme$vjust %||%
+    just_defaults$vjust
+
+  # make the label grob (`grob.label`)
+  if (!guide$label)
+    grob.label <- zeroGrob()
+  else {
+    if (guide$direction == "horizontal") {
+      x <- label_pos
+      y <- rep(vjust, length(label_pos))
+      margin_x <- FALSE
+      margin_y <- TRUE
+    } else { # guide$direction == "vertical"
+      x <- rep(hjust, length(label_pos))
+      y <- label_pos
+      margin_x <- TRUE
+      margin_y <- FALSE
     }
+    label <- guide$key$.label
+
+    # If any of the labels are quoted language objects, convert them
+    # to expressions. Labels from formatter functions can return these
+    if (any(vapply(label, is.call, logical(1)))) {
+      label <- lapply(label, function(l) {
+        if (is.call(l)) substitute(expression(x), list(x = l))
+        else l
+      })
+      label <- do.call(c, label)
+    }
+    grob.label <- element_grob(
+      element = label.theme,
+      label = label,
+      x = x,
+      y = y,
+      hjust = hjust,
+      vjust = vjust,
+      margin_x = margin_x,
+      margin_y = margin_y
+    )
+    grob.label <- ggname("guide.label", grob.label)
   }
 
   label_width <- width_cm(grob.label)
   label_height <- height_cm(grob.label)
 
-  # ticks
-  grob.ticks <-
-    if (!guide$ticks) zeroGrob()
-    else {
-      switch(guide$direction,
-        "horizontal" = {
-          x0 = rep(tick_pos, 2)
-          y0 = c(rep(0, nbreak), rep(barheight * (4/5), nbreak))
-          x1 = rep(tick_pos, 2)
-          y1 = c(rep(barheight * (1/5), nbreak), rep(barheight, nbreak))
-        },
-        "vertical" = {
-          x0 = c(rep(0, nbreak), rep(barwidth * (4/5), nbreak))
-          y0 = rep(tick_pos, 2)
-          x1 = c(rep(barwidth * (1/5), nbreak), rep(barwidth, nbreak))
-          y1 = rep(tick_pos, 2)
-        })
-      segmentsGrob(
-        x0 = x0, y0 = y0, x1 = x1, y1 = y1,
-        default.units = "cm",
-        gp = gpar(
-          col = guide$ticks.colour,
-          lwd = guide$ticks.linewidth,
-          lineend = "butt")
-        )
+  # make the ticks grob (`grob.ticks`)
+  if (!guide$ticks)
+    grob.ticks <-zeroGrob()
+  else {
+    if (guide$direction == "horizontal") {
+      x0 <- rep(tick_pos, 2)
+      y0 <- c(rep(0, nbreak), rep(barheight * (4/5), nbreak))
+      x1 <- rep(tick_pos, 2)
+      y1 <- c(rep(barheight * (1/5), nbreak), rep(barheight, nbreak))
+    } else { # guide$direction == "vertical"
+      x0 <- c(rep(0, nbreak), rep(barwidth * (4/5), nbreak))
+      y0 <- rep(tick_pos, 2)
+      x1 <- c(rep(barwidth * (1/5), nbreak), rep(barwidth, nbreak))
+      y1 <- rep(tick_pos, 2)
     }
+    grob.ticks <- segmentsGrob(
+      x0 = x0, y0 = y0, x1 = x1, y1 = y1,
+      default.units = "cm",
+      gp = gpar(
+        col = guide$ticks.colour,
+        lwd = guide$ticks.linewidth,
+        lineend = "butt"
+      )
+    )
+  }
 
   # layout of bar and label
-  switch(guide$direction,
-    "horizontal" = {
-      switch(label.position,
-        "top" = {
-          bl_widths <- barwidth
-          bl_heights <- c(label_height, vgap, barheight)
-          vps <- list(bar.row = 3, bar.col = 1,
-                      label.row = 1, label.col = 1)
-        },
-        "bottom" = {
-          bl_widths <- barwidth
-          bl_heights <- c(barheight, vgap, label_height)
-          vps <- list(bar.row = 1, bar.col = 1,
-                      label.row = 3, label.col = 1)
-        })
-    },
-    "vertical" = {
-      switch(label.position,
-        "left" = {
-          bl_widths <- c(label_width, hgap, barwidth)
-          bl_heights <- barheight
-          vps <- list(bar.row = 1, bar.col = 3,
-                      label.row = 1, label.col = 1)
-        },
-        "right" = {
-          bl_widths <- c(barwidth, hgap, label_width)
-          bl_heights <- barheight
-          vps <- list(bar.row = 1, bar.col = 1,
-                      label.row = 1, label.col = 3)
-        })
-    })
+  if (guide$direction == "horizontal") {
+    if (label.position == "top") {
+      bl_widths <- barwidth
+      bl_heights <- c(label_height, vgap, barheight)
+      vps <- list(bar.row = 3, bar.col = 1,
+                  label.row = 1, label.col = 1)
+    } else { # label.position == "bottom" or other
+      bl_widths <- barwidth
+      bl_heights <- c(barheight, vgap, label_height)
+      vps <- list(bar.row = 1, bar.col = 1,
+                  label.row = 3, label.col = 1)
+    }
+  } else { # guide$direction == "vertical"
+    if (label.position == "left") {
+      bl_widths <- c(label_width, hgap, barwidth)
+      bl_heights <- barheight
+      vps <- list(bar.row = 1, bar.col = 3,
+                  label.row = 1, label.col = 1)
+    } else { # label.position == "right" or other
+      bl_widths <- c(barwidth, hgap, label_width)
+      bl_heights <- barheight
+      vps <- list(bar.row = 1, bar.col = 1,
+                  label.row = 1, label.col = 3)
+    }
+  }
 
   # layout of title and bar+label
   switch(guide$title.position,
@@ -484,10 +512,18 @@ guide_gengrob.colorbar <- function(guide, theme) {
   gt <- gtable_add_grob(gt, grob.bar, name = "bar", clip = "off",
     t = 1 + min(vps$bar.row), r = 1 + max(vps$bar.col),
     b = 1 + max(vps$bar.row), l = 1 + min(vps$bar.col))
-  gt <- gtable_add_grob(gt, grob.label, name = "label", clip = "off",
+  gt <- gtable_add_grob(
+    gt,
+    grob.label,
+    name = "label",
+    clip = "off",
     t = 1 + min(vps$label.row), r = 1 + max(vps$label.col),
     b = 1 + max(vps$label.row), l = 1 + min(vps$label.col))
-  gt <- gtable_add_grob(gt, grob.title, name = "title", clip = "off",
+  gt <- gtable_add_grob(
+    gt,
+    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust, debug = title.theme$debug),
+    name = "title",
+    clip = "off",
     t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),
     b = 1 + max(vps$title.row), l = 1 + min(vps$title.col))
   gt <- gtable_add_grob(gt, grob.ticks, name = "ticks", clip = "off",
@@ -500,3 +536,25 @@ guide_gengrob.colorbar <- function(guide, theme) {
 #' @export
 #' @rdname guide_colourbar
 guide_colorbar <- guide_colourbar
+
+#' Calculate the default hjust and vjust settings depending on legend
+#' direction and position.
+#'
+#' @noRd
+label_just_defaults.colorbar <- function(direction, position) {
+  if (direction == "horizontal") {
+    switch(
+      position,
+      "top" = list(hjust = 0.5, vjust = 0),
+      list(hjust = 0.5, vjust = 1)
+    )
+  }
+  else {
+    switch(
+      position,
+      "left" = list(hjust = 1, vjust = 0.5),
+      list(hjust = 0, vjust = 0.5)
+    )
+  }
+}
+

@@ -327,6 +327,9 @@ up correct aspect ratio, and draws a graticule.
   and it can handle multi-line titles. Minor tweaks were made to `guide_legend()`
   to make sure the two legend functions behave as similarly as possible.
   (@clauswilke, #2397 and #2398)
+  
+* The theme elements `legend.title` and `legend.text` now respect the settings of `margin`,
+  `hjust`, and `vjust`. (@clauswilke, #2465, #1502) 
 
 * Non-angle parameters of `label.theme` or `title.theme` can now be set in `guide_legend()` and
   `guide_colorbar()`. (@clauswilke, #2544)
