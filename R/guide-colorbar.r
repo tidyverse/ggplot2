@@ -273,23 +273,23 @@ guide_gengrob.colorbar <- function(guide, theme) {
   barlength <- switch(guide$direction, "horizontal" = barwidth, "vertical" = barheight)
   nbreak <- nrow(guide$key)
 
-  grob.bar <-
-    if (guide$raster) {
-      image <- switch(guide$direction, horizontal = t(guide$bar$colour), vertical = rev(guide$bar$colour))
-      rasterGrob(image = image, width = barwidth, height = barheight, default.units = "cm", gp = gpar(col = NA), interpolate = TRUE)
-    } else {
-      if (guide$direction == "horizontal") {
-        bw <- barwidth / nrow(guide$bar)
-        bx <- (seq(nrow(guide$bar)) - 1) * bw
-        rectGrob(x = bx, y = 0, vjust = 0, hjust = 0, width = bw, height = barheight, default.units = "cm",
-                 gp = gpar(col = NA, fill = guide$bar$colour))
-      } else { # guide$direction == "vertical"
-        bh <- barheight / nrow(guide$bar)
-        by <- (seq(nrow(guide$bar)) - 1) * bh
-        rectGrob(x = 0, y = by, vjust = 0, hjust = 0, width = barwidth, height = bh, default.units = "cm",
-                gp = gpar(col = NA, fill = guide$bar$colour))
-      }
+  # make the bar grob (`grob.bar`)
+  if (guide$raster) {
+    image <- switch(guide$direction, horizontal = t(guide$bar$colour), vertical = rev(guide$bar$colour))
+    grob.bar <-rasterGrob(image = image, width = barwidth, height = barheight, default.units = "cm", gp = gpar(col = NA), interpolate = TRUE)
+  } else {
+    if (guide$direction == "horizontal") {
+      bw <- barwidth / nrow(guide$bar)
+      bx <- (seq(nrow(guide$bar)) - 1) * bw
+      grob.bar <-rectGrob(x = bx, y = 0, vjust = 0, hjust = 0, width = bw, height = barheight, default.units = "cm",
+                          gp = gpar(col = NA, fill = guide$bar$colour))
+    } else { # guide$direction == "vertical"
+      bh <- barheight / nrow(guide$bar)
+      by <- (seq(nrow(guide$bar)) - 1) * bh
+      grob.bar <-rectGrob(x = 0, y = by, vjust = 0, hjust = 0, width = barwidth, height = bh, default.units = "cm",
+                          gp = gpar(col = NA, fill = guide$bar$colour))
     }
+  }
 
   # make frame around color bar if requested (colour is not NULL)
   if (!is.null(guide$frame.colour)) {
@@ -368,73 +368,73 @@ guide_gengrob.colorbar <- function(guide, theme) {
   vjust <- guide$label.vjust %||% label.theme$vjust %||%
     just_defaults$vjust
 
-  grob.label <- {
-    if (!guide$label)
-      zeroGrob()
-    else {
-      if (guide$direction == "horizontal") {
-        x <- label_pos
-        y <- rep(vjust, length(label_pos))
-        margin_x <- FALSE
-        margin_y <- TRUE
-      } else { # guide$direction == "vertical"
-        x <- rep(hjust, length(label_pos))
-        y <- label_pos
-        margin_x <- TRUE
-        margin_y <- FALSE
-      }
-      label <- guide$key$.label
-
-      # If any of the labels are quoted language objects, convert them
-      # to expressions. Labels from formatter functions can return these
-      if (any(vapply(label, is.call, logical(1)))) {
-        label <- lapply(label, function(l) {
-          if (is.call(l)) substitute(expression(x), list(x = l))
-          else l
-        })
-        label <- do.call(c, label)
-      }
-      g <- element_grob(
-        element = label.theme,
-        label = label,
-        x = x,
-        y = y,
-        hjust = hjust,
-        vjust = vjust,
-        margin_x = margin_x,
-        margin_y = margin_y
-      )
-      ggname("guide.label", g)
+  # make the label grob (`grob.label`)
+  if (!guide$label)
+    grob.label <- zeroGrob()
+  else {
+    if (guide$direction == "horizontal") {
+      x <- label_pos
+      y <- rep(vjust, length(label_pos))
+      margin_x <- FALSE
+      margin_y <- TRUE
+    } else { # guide$direction == "vertical"
+      x <- rep(hjust, length(label_pos))
+      y <- label_pos
+      margin_x <- TRUE
+      margin_y <- FALSE
     }
+    label <- guide$key$.label
+
+    # If any of the labels are quoted language objects, convert them
+    # to expressions. Labels from formatter functions can return these
+    if (any(vapply(label, is.call, logical(1)))) {
+      label <- lapply(label, function(l) {
+        if (is.call(l)) substitute(expression(x), list(x = l))
+        else l
+      })
+      label <- do.call(c, label)
+    }
+    grob.label <- element_grob(
+      element = label.theme,
+      label = label,
+      x = x,
+      y = y,
+      hjust = hjust,
+      vjust = vjust,
+      margin_x = margin_x,
+      margin_y = margin_y
+    )
+    grob.label <- ggname("guide.label", grob.label)
   }
 
   label_width <- width_cm(grob.label)
   label_height <- height_cm(grob.label)
 
-  # ticks
-  grob.ticks <-
-    if (!guide$ticks) zeroGrob()
-    else {
-      if (guide$direction == "horizontal") {
-        x0 <- rep(tick_pos, 2)
-        y0 <- c(rep(0, nbreak), rep(barheight * (4/5), nbreak))
-        x1 <- rep(tick_pos, 2)
-        y1 <- c(rep(barheight * (1/5), nbreak), rep(barheight, nbreak))
-      } else { # guide$direction == "vertical"
-        x0 <- c(rep(0, nbreak), rep(barwidth * (4/5), nbreak))
-        y0 <- rep(tick_pos, 2)
-        x1 <- c(rep(barwidth * (1/5), nbreak), rep(barwidth, nbreak))
-        y1 <- rep(tick_pos, 2)
-      }
-      segmentsGrob(
-        x0 = x0, y0 = y0, x1 = x1, y1 = y1,
-        default.units = "cm",
-        gp = gpar(
-          col = guide$ticks.colour,
-          lwd = guide$ticks.linewidth,
-          lineend = "butt")
-        )
+  # make the ticks grob (`grob.ticks`)
+  if (!guide$ticks)
+    grob.ticks <-zeroGrob()
+  else {
+    if (guide$direction == "horizontal") {
+      x0 <- rep(tick_pos, 2)
+      y0 <- c(rep(0, nbreak), rep(barheight * (4/5), nbreak))
+      x1 <- rep(tick_pos, 2)
+      y1 <- c(rep(barheight * (1/5), nbreak), rep(barheight, nbreak))
+    } else { # guide$direction == "vertical"
+      x0 <- c(rep(0, nbreak), rep(barwidth * (4/5), nbreak))
+      y0 <- rep(tick_pos, 2)
+      x1 <- c(rep(barwidth * (1/5), nbreak), rep(barwidth, nbreak))
+      y1 <- rep(tick_pos, 2)
     }
+    grob.ticks <- segmentsGrob(
+      x0 = x0, y0 = y0, x1 = x1, y1 = y1,
+      default.units = "cm",
+      gp = gpar(
+        col = guide$ticks.colour,
+        lwd = guide$ticks.linewidth,
+        lineend = "butt"
+      )
+    )
+  }
 
   # layout of bar and label
   if (guide$direction == "horizontal") {
