@@ -403,6 +403,14 @@ with_seed_null <- function(seed, code) {
   }
 }
 
+seq_asc <- function(to, from) {
+  if (to > from) {
+    integer()
+  } else {
+    to:from
+  }
+}
+
 # Needed to trigger package loading
 #' @importFrom tibble tibble
 NULL

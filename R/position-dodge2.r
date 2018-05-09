@@ -60,11 +60,6 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
 )
 
 pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
-
-  if (length(unique(df$group)) == 1) {
-    return(df)
-  }
-
   if (!all(c("xmin", "xmax") %in% names(df))) {
     df$xmin <- df$x
     df$xmax <- df$x
@@ -128,9 +123,10 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
 
 # Find groups of overlapping elements that need to be dodged from one another
 find_x_overlaps <- function(df) {
-  overlaps <- vector(mode = "numeric", length = nrow(df))
+  overlaps <- numeric(nrow(df))
   overlaps[1] <- counter <- 1
-  for (i in 2:nrow(df)) {
+
+  for (i in seq_asc(2, nrow(df))) {
     if (df$xmin[i] >= df$xmax[i - 1]) {
       counter <- counter + 1
     }
