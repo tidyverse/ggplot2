@@ -76,6 +76,12 @@
 * Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This
   line makes it easier to judge the fit of the theoretical distribution 
   (@nicksolomon).
+  
+* Added `tag` label for adding identification tags to the plot. A tag is added 
+  with the `labs()` function and styling is handled through the `plot.tag` theme 
+  element. Position is specified with the `plot.tag.position` theme setting and
+  defauls to `"topleft"`. Tags are useful for identifying subplots in a 
+  multiplot figure and often used in the scientific literature (@thomasp85).
 
 ### Scales
 
