@@ -28,6 +28,10 @@ Useful links:
 Authors:
 \itemize{
   \item Winston Chang \email{winston@rstudio.com}
+  \item Kara Woo
+  \item Thomas Lin Pedersen
+  \item Claus Wilke
+  \item Kohske Takahashi
 }
 
 Other contributors:
