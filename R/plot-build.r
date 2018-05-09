@@ -292,42 +292,42 @@ ggplot_gtable.ggplot_built <- function(data) {
                                   r = ncol(plot_table), clip = "off")
   } else {
     if (tag_pos == "topleft") {
-      plot_table$widths[1] <- tag_width
-      plot_table$heights[1] <- tag_height
+      plot_table$widths <- unit.c(tag_width, plot_table$widths[-1])
+      plot_table$heights <- unit.c(tag_height, plot_table$heights[-1])
       plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
                                     t = 1, l = 1, clip = "off")
     } else if (tag_pos == "top") {
-      plot_table$heights[1] <- tag_height
+      plot_table$heights <- unit.c(tag_height, plot_table$heights[-1])
       plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
                                     t = 1, l = 1, r = ncol(plot_table),
                                     clip = "off")
     } else if (tag_pos == "topright") {
-      plot_table$widths[ncol(plot_table)] <- tag_width
-      plot_table$heights[1] <- tag_height
+      plot_table$widths <- unit.c(plot_table$widths[-ncol(plot_table)], tag_width)
+      plot_table$heights <- unit.c(tag_height, plot_table$heights[-1])
       plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
                                     t = 1, l = ncol(plot_table), clip = "off")
     } else if (tag_pos == "left") {
-      plot_table$widths[1] <- tag_width
+      plot_table$widths <- unit.c(tag_width, plot_table$widths[-1])
       plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
                                     t = 1, b = nrow(plot_table), l = 1,
                                     clip = "off")
     } else if (tag_pos == "right") {
-      plot_table$widths[ncol(plot_table)] <- tag_width
+      plot_table$widths <- unit.c(plot_table$widths[-ncol(plot_table)], tag_width)
       plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
                                     t = 1, b = nrow(plot_table), l = ncol(plot_table),
                                     clip = "off")
     } else if (tag_pos == "bottomleft") {
-      plot_table$widths[1] <- tag_width
-      plot_table$heights[nrow(plot_table)] <- tag_height
+      plot_table$widths <- unit.c(tag_width, plot_table$widths[-1])
+      plot_table$heights <- unit.c(plot_table$heights[-nrow(plot_table)], tag_height)
       plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
                                     t = nrow(plot_table), l = 1, clip = "off")
     } else if (tag_pos == "bottom") {
-      plot_table$heights[nrow(plot_table)] <- tag_height
+      plot_table$heights <- unit.c(plot_table$heights[-nrow(plot_table)], tag_height)
       plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
                                     t = nrow(plot_table), l = 1, r = ncol(plot_table), clip = "off")
     } else if (tag_pos == "bottomright") {
-      plot_table$widths[ncol(plot_table)] <- tag_width
-      plot_table$heights[nrow(plot_table)] <- tag_height
+      plot_table$widths <- unit.c(plot_table$widths[-ncol(plot_table)], tag_width)
+      plot_table$heights <- unit.c(plot_table$heights[-nrow(plot_table)], tag_height)
       plot_table <- gtable_add_grob(plot_table, tag, name = "tag",
                                     t = nrow(plot_table), l = ncol(plot_table), clip = "off")
     }
