@@ -70,6 +70,13 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
     df$xmax <- df$x
   }
 
+  # to enable functionality when input is not a stat, save copy and reduce df
+  df_full <- df
+  if (!all(c("ymin") %in% names(df))) {  
+    df <- df[!is.na(df$y), ]
+    df <- df[!duplicated(df$group), ]
+  }
+  
   # xid represents groups of boxes that share the same position
   df$xid <- find_x_overlaps(df)
 
@@ -85,7 +92,7 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
     n <- table(df$xid)
     df$new_width <- (df$xmax - df$xmin) / as.numeric(n[df$xid])
   } else {
-    df$new_width <- (df$xmax - df$xmin) / n
+    df$new_width <- (df$xmax - df$xmin) / max(table(df$xid))
   }
 
   df$xmin <- df$x - (df$new_width / 2)
@@ -111,6 +118,20 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
   # x values get moved to between xmin and xmax
   df$x <- (df$xmin + df$xmax) / 2
 
+  # now that x-positions have been found based on groups, df_full can be populated
+  df_full$xid <- NA
+  df_full$newx <- NA
+  df_full$new_width <- NA
+  
+  for(group in df$group){
+    df_full$x[df_full$group==group] <- df$x[df$group==group]
+    df_full$xid[df_full$group==group] <- df$xid[df$group==group]
+    df_full$newx[df_full$group==group] <- df$newx[df$group==group]
+    df_full$new_width[df_full$group==group] <- df$new_width[df$group==group]    
+  }
+  
+  df <- df_full
+  
   # If no elements occupy the same position, there is no need to add padding
   if (!any(duplicated(df$xid))) {
     return(df)
