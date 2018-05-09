@@ -18,6 +18,9 @@ r:
 # work around temporary travis + R 3.5 bug
 r_packages: devtools
 
+# Install manually because dev vdiffr is not compatible with Appveyor yet
+r_github_packages: lionel-/vdiffr
+
 env:
   global:
   - _R_CHECK_FORCE_SUGGESTS_=false
