@@ -29,11 +29,11 @@ test_that("Setting guide labels", {
 
 # Visual tests ------------------------------------------------------------
 
-test_that("geom_violin draws correctly", {
+test_that("tags are drawn correctly", {
   dat <- data.frame(x = 1:10, y = 10:1)
   p <- ggplot(dat, aes(x = x, y = y)) + geom_point() + labs(tag = "Fig. A)")
 
-  vdiffr::expect_doppelganger("defaults", p)
-  vdiffr::expect_doppelganger("Other position", p + theme(plot.tag.position = 'bottom'))
-  vdiffr::expect_doppelganger("Manual", p + theme(plot.tag.position = c(0.05, 0.05)))
+  expect_doppelganger("defaults", p)
+  expect_doppelganger("Other position", p + theme(plot.tag.position = 'bottom'))
+  expect_doppelganger("Manual", p + theme(plot.tag.position = c(0.05, 0.05)))
 })
