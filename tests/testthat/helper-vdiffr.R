@@ -1,6 +1,11 @@
 
 enable_vdiffr <- TRUE
 
+if (!requireNamespace("vdiffr", quietly = TRUE) ||
+      utils::packageVersion("vdiffr") < "0.2.3.9000") {
+  enable_vdiffr <- FALSE
+}
+
 expect_doppelganger <- function(title, fig,
                                path = NULL,
                                ...,
