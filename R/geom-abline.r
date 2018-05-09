@@ -121,7 +121,7 @@ GeomAbline <- ggproto("GeomAbline", Geom,
     GeomSegment$draw_panel(unique(data), panel_params, coord)
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = 1),
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
   required_aes = c("slope", "intercept"),
 
   draw_key = draw_key_abline

@@ -106,7 +106,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
   },
 
   default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,
-    alpha = 1),
+    alpha = NA),
 
   handle_na = function(data, params) {
     data

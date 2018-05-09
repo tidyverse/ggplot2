@@ -29,7 +29,7 @@ geom_pointrange <- function(mapping = NULL, data = NULL,
 #' @export
 GeomPointrange <- ggproto("GeomPointrange", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
-    fill = NA, alpha = 1, stroke = 1),
+    fill = NA, alpha = NA, stroke = 1),
 
   draw_key = draw_key_pointrange,
 
