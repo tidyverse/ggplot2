@@ -38,7 +38,7 @@ test_that("cols at the same x position are dodged", {
     stringsAsFactors = FALSE
   )
 
-  p <- ggplot(df, aes(1, n, fill = x)) + 
+  p <- ggplot(df, aes(1, n, fill = x)) +
     geom_col(position = "dodge2", alpha = 0.5)
 
   expect_false(any(duplicated(find_x_overlaps(layer_data(p)))))
@@ -62,7 +62,7 @@ test_that("padding argument controls space between elements", {
   }
 
   expect_equal(gaps(d1), 0)
-  expect_equal(gaps(d2), 0.0375)  
+  expect_equal(gaps(d2), 0.0375)
 })
 
 test_that("boxes in facetted plots keep the correct width", {
@@ -75,4 +75,24 @@ test_that("boxes in facetted plots keep the correct width", {
 
   expect_true(all(d$xmax - d$xmin == 0.75))
 
+})
+
+test_that("width of groups computed per facet", {
+  df <- tibble::tribble(
+    ~g1, ~g2,  ~y,
+    "x", "a",  1,
+    "x", "b",  2,
+    "y", "a",  3,
+    "y", "b",  4,
+    "y", "c",  3,
+  )
+
+  p <- ggplot(df, aes("x", y, fill = g2)) +
+    geom_col(position = position_dodge2(preserve = "single")) +
+    facet_wrap(vars(g1))
+
+  d <- layer_data(p)
+  width <- d$xmax - d$xmin
+
+  expect_true(all(width == (0.9 / 3) * 0.9))
 })
