@@ -291,6 +291,8 @@ ggplot_gtable.ggplot_built <- function(data) {
                                   b = nrow(plot_table), l = 1,
                                   r = ncol(plot_table), clip = "off")
   } else {
+    # Widths and heights are reassembled below instead of assigning into them
+    # in order to avoid bug in grid 3.2 and below.
     if (tag_pos == "topleft") {
       plot_table$widths <- unit.c(tag_width, plot_table$widths[-1])
       plot_table$heights <- unit.c(tag_height, plot_table$heights[-1])
