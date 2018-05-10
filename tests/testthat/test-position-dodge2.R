@@ -82,3 +82,23 @@ test_that("boxes in facetted plots keep the correct width", {
   expect_true(all(d$xmax - d$xmin == 0.75))
 
 })
+
+test_that("width of groups computed per facet", {
+  df <- tibble::tribble(
+    ~g1, ~g2,  ~y,
+    "x", "a",  1,
+    "x", "b",  2,
+    "y", "a",  3,
+    "y", "b",  4,
+    "y", "c",  3,
+  )
+
+  p <- ggplot(df, aes("x", y, fill = g2)) +
+    geom_col(position = position_dodge2(preserve = "single")) +
+    facet_wrap(vars(g1))
+
+  d <- layer_data(p)
+  width <- d$xmax - d$xmin
+
+  expect_true(all(width == (0.9 / 3) * 0.9))
+})

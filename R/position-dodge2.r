@@ -31,10 +31,17 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
 
     if (identical(self$preserve, "total")) {
       n <- NULL
-    } else if ("x" %in% names(data)){
-      n <- max(table(data$x))
     } else {
-      n <- max(table(find_x_overlaps(data)))
+      panels <- unname(split(data, data$PANEL))
+      if ("x" %in% names(data)) {
+        # Point geom
+        groups <- lapply(panels, function(panel) table(panel$x))
+      } else {
+        # Interval geom
+        groups <- lapply(panels, find_x_overlaps)
+      }
+      n_groups <- vapply(groups, max, double(1))
+      n <- max(n_groups)
     }
 
     list(

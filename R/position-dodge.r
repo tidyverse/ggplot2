@@ -67,10 +67,10 @@
 #'
 #' ggplot(data = iris, aes(Species, Sepal.Length)) +
 #'   geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
-#' 
+#'
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "single"))
-#' 
+#'
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = position_dodge2(preserve = "total"))
 position_dodge <- function(width = NULL, preserve = c("total", "single")) {
@@ -96,7 +96,9 @@ PositionDodge <- ggproto("PositionDodge", Position,
     if (identical(self$preserve, "total")) {
       n <- NULL
     } else {
-      n <- max(table(data$xmin))
+      panels <- unname(split(data, data$PANEL))
+      ns <- vapply(panels, function(panel) max(table(panel$xmin)), double(1))
+      n <- max(ns)
     }
 
     list(
@@ -111,7 +113,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
     }
     data
   },
-  
+
   compute_panel = function(data, params, scales) {
     collide(
       data,
