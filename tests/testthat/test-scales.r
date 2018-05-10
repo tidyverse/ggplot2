@@ -46,6 +46,7 @@ test_that("mapping works", {
 test_that("identity scale preserves input values", {
   df <- data.frame(x = 1:3, z = letters[1:3])
 
+  # aesthetic-specific scales
   p1 <- ggplot(df,
     aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
     geom_point() +
@@ -61,6 +62,16 @@ test_that("identity scale preserves input values", {
   expect_equal(d1$shape, as.character(df$z))
   expect_equal(d1$size, as.numeric(df$z))
   expect_equal(d1$alpha, as.numeric(df$z))
+
+  # generic scales
+  p2 <- ggplot(df,
+    aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
+    geom_point() +
+    scale_discrete_identity(aesthetics = c("colour", "fill", "shape")) +
+    scale_continuous_identity(aesthetics = c("size", "alpha"))
+  d2 <- layer_data(p2)
+
+  expect_equal(d1, d2)
 })
 
 test_that("position scales updated by all position aesthetics", {

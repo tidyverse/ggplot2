@@ -48,10 +48,25 @@ test_that("insufficient values raise an error", {
 
 })
 
-test_that("values are matched when scale contains more unique valuesthan are in the data", {
+test_that("values are matched when scale contains more unique values than are in the data", {
   s <- scale_colour_manual(values = c("8" = "c", "4" = "a",
     "22" = "d", "6"  = "b"))
   s$train(c("4", "6", "8"))
   expect_equal(s$map(c("4", "6", "8")), c("a", "b", "c"))
 })
 
+
+test_that("generic scale can be used in place of aesthetic-specific scales", {
+  df <- data.frame(x = letters[1:3], y = LETTERS[1:3], z = factor(c(1, 2, 3)))
+  p1 <- ggplot(df, aes(z, z, shape = x, color = y, alpha = z)) +
+    scale_shape_manual(values = 1:3) +
+    scale_colour_manual(values = c("red", "green", "blue")) +
+    scale_alpha_manual(values = c(0.2, 0.4, 0.6))
+
+  p2 <- ggplot(df, aes(z, z, shape = x, color = y, alpha = z)) +
+    scale_discrete_manual(aesthetics = "shape", values = 1:3) +
+    scale_discrete_manual(aesthetics = "colour", values = c("red", "green", "blue")) +
+    scale_discrete_manual(aesthetics = "alpha", values = c(0.2, 0.4, 0.6))
+
+  expect_equal(layer_data(p1), layer_data(p2))
+})
