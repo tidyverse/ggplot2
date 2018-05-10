@@ -83,9 +83,16 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 }
 \description{
 These functions allow you to specify your own set of mappings from levels in the
-data to aesthetic values. The function \code{scale_discrete_manual()} is a generic scale
-that can work with any aesthetic or set of aesthetics provided via the \code{aesthetics}
-argument.
+data to aesthetic values.
+}
+\details{
+The functions \code{scale_colour_manual()}, \code{scale_fill_manual()}, \code{scale_size_manual()},
+etc. work on the aesthetics specified in the scale name: \code{colour}, \code{fill}, \code{size},
+etc. However, the functions \code{scale_colour_manual()} and \code{scale_fill_manual()} also
+have an optional \code{aesthetics} argument that can be used to define both \code{colour} and
+\code{fill} aesthetic mappings via a single function call (see examples). The function
+\code{scale_discrete_manual()} is a generic scale that can work with any aesthetic or set
+of aesthetics provided via the \code{aesthetics} argument.
 }
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt)) +
@@ -95,6 +102,17 @@ p + scale_colour_manual(values = c("red", "blue", "green"))
 # It's recommended to use a named vector
 cols <- c("8" = "red", "4" = "blue", "6" = "darkgreen", "10" = "orange")
 p + scale_colour_manual(values = cols)
+
+# You can set color and fill aesthetics at the same time
+ggplot(
+  mtcars,
+  aes(mpg, wt, colour = factor(cyl), fill = factor(cyl))
+) +
+  geom_point(shape = 21, alpha = 0.5, size = 2) +
+  scale_colour_manual(
+    values = cols,
+    aesthetics = c("colour", "fill")
+  )
 
 # As with other scales you can use breaks to control the appearance
 # of the legend.

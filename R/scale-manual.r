@@ -1,9 +1,15 @@
 #' Create your own discrete scale
 #'
 #' These functions allow you to specify your own set of mappings from levels in the
-#' data to aesthetic values. The function `scale_discrete_manual()` is a generic scale
-#' that can work with any aesthetic or set of aesthetics provided via the `aesthetics`
-#' argument.
+#' data to aesthetic values.
+#'
+#' The functions `scale_colour_manual()`, `scale_fill_manual()`, `scale_size_manual()`,
+#' etc. work on the aesthetics specified in the scale name: `colour`, `fill`, `size`,
+#' etc. However, the functions `scale_colour_manual()` and `scale_fill_manual()` also
+#' have an optional `aesthetics` argument that can be used to define both `colour` and
+#' `fill` aesthetic mappings via a single function call (see examples). The function
+#' `scale_discrete_manual()` is a generic scale that can work with any aesthetic or set
+#' of aesthetics provided via the `aesthetics` argument.
 #'
 #' @inheritParams scale_x_discrete
 #' @inheritDotParams discrete_scale -expand -position -aesthetics
@@ -24,6 +30,17 @@
 #' # It's recommended to use a named vector
 #' cols <- c("8" = "red", "4" = "blue", "6" = "darkgreen", "10" = "orange")
 #' p + scale_colour_manual(values = cols)
+#'
+#' # You can set color and fill aesthetics at the same time
+#' ggplot(
+#'   mtcars,
+#'   aes(mpg, wt, colour = factor(cyl), fill = factor(cyl))
+#' ) +
+#'   geom_point(shape = 21, alpha = 0.5, size = 2) +
+#'   scale_colour_manual(
+#'     values = cols,
+#'     aesthetics = c("colour", "fill")
+#'   )
 #'
 #' # As with other scales you can use breaks to control the appearance
 #' # of the legend.

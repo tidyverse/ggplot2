@@ -41,11 +41,18 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 }
 \description{
 Use this set of scales when your data has already been scaled, i.e. it
-already represents aesthetic values that ggplot2 can handle directly
-This will not produce a legend unless you also supply the \code{breaks},
-\code{labels}, and type of \code{guide} you want. The functions \code{scale_discrete_identity()}
-and \code{scale_continuous_identity()} are generic scales that can work with
-any aesthetic or set of aesthetics provided via the \code{aesthetics}
+already represents aesthetic values that ggplot2 can handle directly.
+These scales will not produce a legend unless you also supply the \code{breaks},
+\code{labels}, and type of \code{guide} you want.
+}
+\details{
+The functions \code{scale_colour_identity()}, \code{scale_fill_identity()}, \code{scale_size_identity()},
+etc. work on the aesthetics specified in the scale name: \code{colour}, \code{fill}, \code{size},
+etc. However, the functions \code{scale_colour_identity()} and \code{scale_fill_identity()} also
+have an optional \code{aesthetics} argument that can be used to define both \code{colour} and
+\code{fill} aesthetic mappings via a single function call. The functions
+\code{scale_discrete_identity()} and \code{scale_continuous_identity()} are generic scales that
+can work with any aesthetic or set of aesthetics provided via the \code{aesthetics}
 argument.
 }
 \examples{
