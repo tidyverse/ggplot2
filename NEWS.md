@@ -76,6 +76,12 @@
 * Added `stat_qq_line()` to make it easy to add a simple line to a Q-Q plot. This
   line makes it easier to judge the fit of the theoretical distribution 
   (@nicksolomon).
+  
+* Added `tag` label for adding identification tags to the plot. A tag is added 
+  with the `labs()` function and styling is handled through the `plot.tag` theme 
+  element. Position is specified with the `plot.tag.position` theme setting and
+  defauls to `"topleft"`. Tags are useful for identifying subplots in a 
+  multiplot figure and often used in the scientific literature (@thomasp85).
 
 ### Scales
 
@@ -318,6 +324,24 @@ up correct aspect ratio, and draws a graticule.
   the base font size. All absolute heights or widths were replaced with heights or 
   widths that are proportional to the base font size. One relative font size
   was eliminated. (@clauswilke)
+
+### Guides
+
+* Make `guide_colorbar()` more configurable: enable styling of tick marks and
+  drawing of frame around the color bar via new arguments `ticks.colour`, 
+  `ticks.linewidth`, `frame.colour`, `frame.linewidth`, and `frame.linetype`.
+  (@clauswilke)
+  
+* `guide_colorbar()` now uses `legend.spacing.x` and `legend.spacing.y` correctly,
+  and it can handle multi-line titles. Minor tweaks were made to `guide_legend()`
+  to make sure the two legend functions behave as similarly as possible.
+  (@clauswilke, #2397 and #2398)
+  
+* The theme elements `legend.title` and `legend.text` now respect the settings of `margin`,
+  `hjust`, and `vjust`. (@clauswilke, #2465, #1502) 
+
+* Non-angle parameters of `label.theme` or `title.theme` can now be set in `guide_legend()` and
+  `guide_colorbar()`. (@clauswilke, #2544)
 
 ### Other
 

@@ -1,3 +1,5 @@
+destination: ../ggplot2-docs
+
 template:
   package: tidytemplate
   default_assets: false

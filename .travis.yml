@@ -9,7 +9,7 @@ addons:
       - libfreetype6
 
 r:
-# - 3.1 # because of tidyr <- tidyselect
+- 3.1
 - 3.2
 - oldrel
 - release
@@ -17,6 +17,9 @@ r:
 
 # work around temporary travis + R 3.5 bug
 r_packages: devtools
+
+# Install manually because dev vdiffr is not compatible with Appveyor yet
+r_github_packages: lionel-/vdiffr
 
 env:
   global:

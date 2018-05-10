@@ -530,11 +530,20 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   # For each layer, compute the facet values
   values <- compact(plyr::llply(data, eval_facets, facets = vars, env = env))
 
-  # Form the base data frame which contains all combinations of faceting
+  # Form the base data.frame which contains all combinations of faceting
   # variables that appear in the data
-  has_all <- unlist(plyr::llply(values, length)) == length(vars)
+  has_all <- unlist(lapply(values, length)) == length(vars)
   if (!any(has_all)) {
-    stop("At least one layer must contain all variables used for faceting")
+    missing <- lapply(values, function(x) setdiff(names(vars), names(x)))
+    missing_txt <- vapply(missing, var_list, character(1))
+    name <- c("Plot", paste0("Layer ", seq_len(length(data) - 1)))
+
+    stop(
+      "At least one layer must contain all faceting variables: ",
+      var_list(names(vars)), ".\n",
+      paste0("* ", name, " is missing ", missing_txt, collapse = "\n"),
+      call. = FALSE
+    )
   }
 
   base <- unique(plyr::ldply(values[has_all]))
