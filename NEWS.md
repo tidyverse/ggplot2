@@ -265,6 +265,9 @@ up correct aspect ratio, and draws a graticule.
   (@davharris #1951). It also orders by the `x` aesthetic, making it easier 
   to pass pre-computed values without manual ordering (@izahn, #2028).
   It also now knows it has `ymin` and `ymax` aesthetics (#1939).
+  
+* Fixed legend-drawing bug when using `geom_smooth()` with stats other than
+  `stat_smooth()` (@clauswilke, #1546).
 
 * `geom_tile()` now once again interprets `width` and `height` correctly 
   (@malcolmbarrett, #2510)
