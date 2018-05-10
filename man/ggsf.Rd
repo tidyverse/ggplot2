@@ -86,7 +86,10 @@ use the CRS defined in the first layer.}
 \item{ndiscr}{number of segments to use for discretizing graticule lines;
 try increasing this when graticules look unexpected}
 
-\item{default}{Is this the default coordinate system? If \code{FALSE}}
+\item{default}{Is this the default coordinate system? If \code{FALSE} (the default),
+then replacing this coordinate system with another one creates a message alerting
+the user that the coordinate system is being replaced. If \code{TRUE}, that warning
+is suppressed.}
 }
 \description{
 This set of geom, stat, and coord are used to visualise simple feature (sf)
