@@ -30,7 +30,7 @@
 #'                   .data
 #' @export           quo quos enquo enquos quo_name
 #' @export           sym ensym syms ensyms
-#' @export           expr exprs enexpr enexprs
+#' @export           expr enexpr enexprs
 #' @export           .data
 NULL
 
