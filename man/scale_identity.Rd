@@ -7,6 +7,8 @@
 \alias{scale_linetype_identity}
 \alias{scale_alpha_identity}
 \alias{scale_size_identity}
+\alias{scale_discrete_identity}
+\alias{scale_continuous_identity}
 \alias{scale_color_identity}
 \title{Use values without scaling}
 \usage{
@@ -14,13 +16,17 @@ scale_colour_identity(..., guide = "none", aesthetics = "colour")
 
 scale_fill_identity(..., guide = "none", aesthetics = "fill")
 
-scale_shape_identity(..., guide = "none", aesthetics = "shape")
+scale_shape_identity(..., guide = "none")
 
-scale_linetype_identity(..., guide = "none", aesthetics = "linetype")
+scale_linetype_identity(..., guide = "none")
 
-scale_alpha_identity(..., guide = "none", aesthetics = "alpha")
+scale_alpha_identity(..., guide = "none")
 
-scale_size_identity(..., guide = "none", aesthetics = "size")
+scale_size_identity(..., guide = "none")
+
+scale_discrete_identity(aesthetics, ..., guide = "none")
+
+scale_continuous_identity(aesthetics, ..., guide = "none")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or
@@ -28,13 +34,19 @@ scale_size_identity(..., guide = "none", aesthetics = "size")
 
 \item{guide}{Guide to use for this scale. Defaults to \code{"none"}.}
 
-\item{aesthetics}{The names of the aesthetics that this scale works with}
+\item{aesthetics}{Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 }
 \description{
 Use this set of scales when your data has already been scaled, i.e. it
 already represents aesthetic values that ggplot2 can handle directly
-This will not produce a legend unless you also supply the \code{breaks}
-and \code{labels}.
+This will not produce a legend unless you also supply the \code{breaks},
+\code{labels}, and type of \code{guide} you want. The functions \code{scale_discrete_identity()}
+and \code{scale_continuous_identity()} are generic scales that can work with
+any aesthetic or set of aesthetics provided via the \code{aesthetics}
+argument.
 }
 \examples{
 ggplot(luv_colours, aes(u, v)) +

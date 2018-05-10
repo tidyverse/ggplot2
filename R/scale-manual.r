@@ -79,7 +79,7 @@ scale_alpha_manual <- function(..., values) {
 
 #' @rdname scale_manual
 #' @export
-scale_discrete_manual <- function(..., values, aesthetics) {
+scale_discrete_manual <- function(aesthetics, ..., values) {
   manual_scale(aesthetics, values, ...)
 }
 

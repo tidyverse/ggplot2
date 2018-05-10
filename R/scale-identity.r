@@ -2,12 +2,18 @@
 #'
 #' Use this set of scales when your data has already been scaled, i.e. it
 #' already represents aesthetic values that ggplot2 can handle directly
-#' This will not produce a legend unless you also supply the `breaks`
-#' and `labels`.
+#' This will not produce a legend unless you also supply the `breaks`,
+#' `labels`, and type of `guide` you want. The functions `scale_discrete_identity()`
+#' and `scale_continuous_identity()` are generic scales that can work with
+#' any aesthetic or set of aesthetics provided via the `aesthetics`
+#' argument.
 #'
 #' @param ... Other arguments passed on to [discrete_scale()] or
 #'   [continuous_scale()]
-#' @param aesthetics The names of the aesthetics that this scale works with
+#' @param aesthetics Character string or vector of character strings listing the
+#'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+#'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
+#'   same time, via `aesthetics = c("colour", "fill")`.
 #' @param guide Guide to use for this scale. Defaults to `"none"`.
 #' @examples
 #' ggplot(luv_colours, aes(u, v)) +
@@ -67,8 +73,8 @@ scale_fill_identity <- function(..., guide = "none", aesthetics = "fill") {
 
 #' @rdname scale_identity
 #' @export
-scale_shape_identity <- function(..., guide = "none", aesthetics = "shape") {
-  sc <- continuous_scale(aesthetics, "identity", identity_pal(), ..., guide = guide,
+scale_shape_identity <- function(..., guide = "none") {
+  sc <- continuous_scale("shape", "identity", identity_pal(), ..., guide = guide,
     super = ScaleDiscreteIdentity)
 
   sc
@@ -76,31 +82,48 @@ scale_shape_identity <- function(..., guide = "none", aesthetics = "shape") {
 
 #' @rdname scale_identity
 #' @export
-scale_linetype_identity <- function(..., guide = "none", aesthetics = "linetype") {
+scale_linetype_identity <- function(..., guide = "none") {
+  sc <- discrete_scale("linetype", "identity", identity_pal(), ..., guide = guide,
+    super = ScaleDiscreteIdentity)
+
+  sc
+}
+
+#' @rdname scale_identity
+#' @export
+scale_alpha_identity <- function(..., guide = "none") {
+  sc <- continuous_scale("alpha", "identity", identity_pal(), ..., guide = guide,
+    super = ScaleContinuousIdentity)
+
+  sc
+}
+
+#' @rdname scale_identity
+#' @export
+scale_size_identity <- function(..., guide = "none") {
+  sc <- continuous_scale("size", "identity", identity_pal(), ..., guide = guide,
+    super = ScaleContinuousIdentity)
+
+  sc
+}
+
+#' @rdname scale_identity
+#' @export
+scale_discrete_identity <- function(aesthetics, ..., guide = "none") {
   sc <- discrete_scale(aesthetics, "identity", identity_pal(), ..., guide = guide,
-    super = ScaleDiscreteIdentity)
+                       super = ScaleDiscreteIdentity)
 
   sc
 }
 
 #' @rdname scale_identity
 #' @export
-scale_alpha_identity <- function(..., guide = "none", aesthetics = "alpha") {
+scale_continuous_identity <- function(aesthetics, ..., guide = "none") {
   sc <- continuous_scale(aesthetics, "identity", identity_pal(), ..., guide = guide,
-    super = ScaleContinuousIdentity)
+                         super = ScaleContinuousIdentity)
 
   sc
 }
-
-#' @rdname scale_identity
-#' @export
-scale_size_identity <- function(..., guide = "none", aesthetics = "size") {
-  sc <- continuous_scale(aesthetics, "identity", identity_pal(), ..., guide = guide,
-    super = ScaleContinuousIdentity)
-
-  sc
-}
-
 
 #' @rdname ggplot2-ggproto
 #' @format NULL

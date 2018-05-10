@@ -23,7 +23,7 @@ scale_linetype_manual(..., values)
 
 scale_alpha_manual(..., values)
 
-scale_discrete_manual(..., values, aesthetics)
+scale_discrete_manual(aesthetics, ..., values)
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}

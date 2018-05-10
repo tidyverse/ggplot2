@@ -215,9 +215,14 @@ up correct aspect ratio, and draws a graticule.
 
 * Legends no longer try and use set aesthetics that are not length one (#1932).
 
-* All scales that are not position scales now have an `aesthetics` argument
-  that can be used to set the aesthetics the scale works with, regardles of
-  the name of the scale function. (@clauswilke)
+* All colour and fill scales now have an `aesthetics` argument that can
+  be used to set the aesthetic(s) the scale works with. This makes it
+  possible to apply a colour scale to both colour and fill aesthetics
+  at the same time, via `aesthetics = c("colour", "fill"). (@clauswilke)
+  
+* Three generic scales were added that work with any aesthetic or set of
+  aesthetics: `scale_continuous_identity()`, `scale_discrete_identity()`,
+  `scale_discrete_manual()`. (@clauswilke) 
 
 ### Layers
 
