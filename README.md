@@ -32,6 +32,10 @@ install.packages("ggplot2")
 devtools::install_github("tidyverse/ggplot2")
 ```
 
+## Cheatsheet
+
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"/></a>
+
 ## Usage
 
 It’s hard to succinctly describe how ggplot2 works because it embodies a
