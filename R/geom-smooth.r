@@ -87,12 +87,12 @@ geom_smooth <- function(mapping = NULL, data = NULL,
 
   params <- list(
     na.rm = na.rm,
+    se = se,
     ...
   )
   if (identical(stat, "smooth")) {
     params$method <- method
     params$formula <- formula
-    params$se <- se
   }
 
   layer(
@@ -115,11 +115,19 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
   setup_data = function(data, params) {
     GeomLine$setup_data(data, params)
   },
-  draw_group = function(data, panel_params, coord) {
+
+  # The `se` argument is set to false here to make sure drawing the
+  # geom and drawing the legend is in synch. If the geom is used by a
+  # stat that doesn't set the `se` argument then `se` will be missing
+  # and the legend key won't be drawn. With `se = FALSE` here the
+  # ribbon won't be drawn either in that case, keeping the overall
+  # behavior predictable and sensible. The user will realize that they
+  # need to set `se = TRUE` to obtain the ribbon and the legend key.
+  draw_group = function(data, panel_params, coord, se = FALSE) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
-    has_ribbon <- !is.null(data$ymax) && !is.null(data$ymin)
+    has_ribbon <- se && !is.null(data$ymax) && !is.null(data$ymin)
 
     gList(
       if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_params, coord),
