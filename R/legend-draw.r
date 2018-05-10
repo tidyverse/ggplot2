@@ -15,6 +15,10 @@ NULL
 #' @export
 #' @rdname draw_key
 draw_key_point <- function(data, params, size) {
+  if (is.character(data$shape)) {
+    data$shape <- translate_shape_string(data$shape)
+  }
+
   pointsGrob(0.5, 0.5,
     pch = data$shape,
     gp = gpar(

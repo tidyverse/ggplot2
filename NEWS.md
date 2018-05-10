@@ -172,6 +172,9 @@ up correct aspect ratio, and draws a graticule.
 * `guide_train()`, `guide_merge()`, `guide_geom()`, and `guide_gengrob()`
   are now exported as they are needed if you want to design your own guide.
   They are not currently documented; use at your own risk (#2528).
+  
+* Shapes can now be provided using strings instead of integers (i.e.
+  `geom_point(shape = "diamond")`) (@daniel-barnett, #2075). 
 
 ## Breaking changes
 
