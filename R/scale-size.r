@@ -8,8 +8,6 @@
 #'
 #' @name scale_size
 #' @inheritParams continuous_scale
-#' @param aesthetics Character string or vector of character strings listing the
-#'   name(s) of the aesthetic(s) that this scale works with.
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
 #' @seealso [scale_size_area()] if you want 0 values to be mapped
@@ -38,8 +36,8 @@ NULL
 #' @usage NULL
 scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                                   limits = NULL, range = c(1, 6),
-                                  trans = "identity", guide = "legend", aesthetics = "size") {
-  continuous_scale(aesthetics, "area", area_pal(range), name = name,
+                                  trans = "identity", guide = "legend") {
+  continuous_scale("size", "area", area_pal(range), name = name,
     breaks = breaks, labels = labels, limits = limits, trans = trans,
     guide = guide)
 }
@@ -48,8 +46,8 @@ scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = w
 #' @export
 scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                          limits = NULL, range = c(1, 6),
-                         trans = "identity", guide = "legend", aesthetics = "size") {
-  continuous_scale(aesthetics, "radius", rescale_pal(range), name = name,
+                         trans = "identity", guide = "legend") {
+  continuous_scale("size", "radius", rescale_pal(range), name = name,
     breaks = breaks, labels = labels, limits = limits, trans = trans,
     guide = guide)
 }
@@ -69,9 +67,9 @@ scale_size_discrete <- function(...) {
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_ordinal <- function(..., range = c(2, 6), aesthetics = "size") {
+scale_size_ordinal <- function(..., range = c(2, 6)) {
   discrete_scale(
-    aesthetics,
+    "size",
     "size_d",
     function(n) {
       area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
@@ -85,8 +83,8 @@ scale_size_ordinal <- function(..., range = c(2, 6), aesthetics = "size") {
 #' @param max_size Size of largest points.
 #' @export
 #' @rdname scale_size
-scale_size_area <- function(..., max_size = 6, aesthetics = "size") {
-  continuous_scale(aesthetics, "area",
+scale_size_area <- function(..., max_size = 6) {
+  continuous_scale("size", "area",
     palette = abs_area(max_size),
     rescaler = rescale_max, ...)
 }
@@ -94,13 +92,13 @@ scale_size_area <- function(..., max_size = 6, aesthetics = "size") {
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_datetime <- function(..., range = c(1, 6), aesthetics = "size") {
-  datetime_scale(aesthetics, "time", palette = area_pal(range), ...)
+scale_size_datetime <- function(..., range = c(1, 6)) {
+  datetime_scale("size", "time", palette = area_pal(range), ...)
 }
 
 #' @rdname scale_size
 #' @export
 #' @usage NULL
-scale_size_date <- function(..., range = c(1, 6), aesthetics = "size") {
-  datetime_scale(aesthetics, "date", palette = area_pal(range), ...)
+scale_size_date <- function(..., range = c(1, 6)) {
+  datetime_scale("size", "date", palette = area_pal(range), ...)
 }

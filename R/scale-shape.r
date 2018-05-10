@@ -9,9 +9,7 @@
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position -aesthetics
-#' @param aesthetics Character string or vector of character strings listing the
-#'   name(s) of the aesthetic(s) that this scale works with.
+#' @inheritDotParams discrete_scale -expand -position
 #' @rdname scale_shape
 #' @export
 #' @examples
@@ -36,8 +34,8 @@
 #'   scale_shape_identity() +
 #'   facet_wrap(~shape) +
 #'   theme_void()
-scale_shape <- function(..., solid = TRUE, aesthetics = "shape") {
-  discrete_scale(aesthetics, "shape_d", shape_pal(solid), ...)
+scale_shape <- function(..., solid = TRUE) {
+  discrete_scale("shape", "shape_d", shape_pal(solid), ...)
 }
 
 #' @rdname scale_shape

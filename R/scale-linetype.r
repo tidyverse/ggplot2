@@ -5,9 +5,7 @@
 #' line types.
 #'
 #' @inheritParams scale_x_discrete
-#' @inheritDotParams discrete_scale -expand -position -na.value -aesthetics
-#' @param aesthetics Character string or vector of character strings listing the
-#'   name(s) of the aesthetic(s) that this scale works with.
+#' @inheritDotParams discrete_scale -expand -position -na.value
 #' @param na.value The linetype to use for `NA` values.
 #' @rdname scale_linetype
 #' @export
@@ -30,8 +28,8 @@
 #'   scale_linetype_identity() +
 #'   facet_grid(linetype ~ .) +
 #'   theme_void(20)
-scale_linetype <- function(..., na.value = "blank", aesthetics = "linetype") {
-  discrete_scale(aesthetics, "linetype_d", linetype_pal(),
+scale_linetype <- function(..., na.value = "blank") {
+  discrete_scale("linetype", "linetype_d", linetype_pal(),
     na.value = na.value, ...)
 }
 
