@@ -213,7 +213,7 @@ translate_shape_string <- function(shape_string) {
 
     n_matches <- vapply(
       bad_string[1:min(5, n_bad)],
-      function(shape_string) sum(startsWith(names(pch_table), shape_string)),
+      function(shape_string) sum(grepl(paste0("^", shape_string), names(pch_table))),
       integer(1)
     )
 
