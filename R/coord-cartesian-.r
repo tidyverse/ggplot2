@@ -9,7 +9,10 @@
 #' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to ensure that data and axes don't overlap. If `FALSE`,
 #'   limits are taken exactly from the data or `xlim`/`ylim`.
-#' @param default Is this the default coordinate system? If `FALSE`
+#' @param default Is this the default coordinate system? If `FALSE` (the default),
+#'   then replacing this coordinate system with another one creates a message alerting
+#'   the user that the coordinate system is being replaced. If `TRUE`, that warning
+#'   is suppressed.
 #' @param clip Should drawing be clipped to the extent of the plot panel? A
 #'   setting of `"on"` (the default) means yes, and a setting of `"off"`
 #'   means no. In most cases, the default of `"on"` should not be changed,

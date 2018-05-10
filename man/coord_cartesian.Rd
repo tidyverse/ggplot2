@@ -14,7 +14,10 @@ coord_cartesian(xlim = NULL, ylim = NULL, expand = TRUE,
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
-\item{default}{Is this the default coordinate system? If \code{FALSE}}
+\item{default}{Is this the default coordinate system? If \code{FALSE} (the default),
+then replacing this coordinate system with another one creates a message alerting
+the user that the coordinate system is being replaced. If \code{TRUE}, that warning
+is suppressed.}
 
 \item{clip}{Should drawing be clipped to the extent of the plot panel? A
 setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
