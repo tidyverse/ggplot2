@@ -215,14 +215,14 @@ guide_legend <- function(# title
 }
 
 #' @export
-guide_train.legend <- function(guide, scale) {
+guide_train.legend <- function(guide, scale, aesthetic = NULL) {
   breaks <- scale$get_breaks()
   if (length(breaks) == 0 || all(is.na(breaks))) {
     return()
   }
 
   key <- as.data.frame(
-    setNames(list(scale$map(breaks)), scale$aesthetics[1]),
+    setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]),
     stringsAsFactors = FALSE
   )
   key$.label <- scale$get_labels(breaks)

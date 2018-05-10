@@ -8,7 +8,7 @@
 \alias{guide_gengrob}
 \title{S3 generics for guides.}
 \usage{
-guide_train(guide, scale)
+guide_train(guide, scale, aesthetic = NULL)
 
 guide_merge(guide, new_guide)
 

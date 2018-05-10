@@ -205,3 +205,17 @@ test_that("colorbar can be styled", {
         )
     )
 })
+
+test_that("guides can handle multiple aesthetics for one scale", {
+  df <- data.frame(x = c(1, 2, 3),
+                   y = c(6, 5, 7))
+
+  p <- ggplot(df, aes(x, y, color = x, fill = y)) +
+    geom_point(shape = 21, size = 3, stroke = 2) +
+    scale_colour_viridis_c(
+      name = "value",
+      option = "B", aesthetics = c("colour", "fill")
+    )
+
+  expect_doppelganger("one combined colorbar for colour and fill aesthetics", p)
+})

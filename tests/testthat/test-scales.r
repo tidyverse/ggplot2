@@ -46,6 +46,7 @@ test_that("mapping works", {
 test_that("identity scale preserves input values", {
   df <- data.frame(x = 1:3, z = letters[1:3])
 
+  # aesthetic-specific scales
   p1 <- ggplot(df,
     aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
     geom_point() +
@@ -61,6 +62,16 @@ test_that("identity scale preserves input values", {
   expect_equal(d1$shape, as.character(df$z))
   expect_equal(d1$size, as.numeric(df$z))
   expect_equal(d1$alpha, as.numeric(df$z))
+
+  # generic scales
+  p2 <- ggplot(df,
+    aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
+    geom_point() +
+    scale_discrete_identity(aesthetics = c("colour", "fill", "shape")) +
+    scale_continuous_identity(aesthetics = c("size", "alpha"))
+  d2 <- layer_data(p2)
+
+  expect_equal(d1, d2)
 })
 
 test_that("position scales updated by all position aesthetics", {
@@ -209,7 +220,7 @@ test_that("Size and alpha scales throw appropriate warnings for factors", {
   )
   # There should be no warnings for ordered factors
   expect_warning(ggplot_build(p + geom_point(aes(size = o))), NA)
-  expect_warning(ggplot_build(p + geom_point(aes(alpha = o))), NA) 
+  expect_warning(ggplot_build(p + geom_point(aes(alpha = o))), NA)
 })
 
 test_that("Shape scale throws appropriate warnings for factors", {
@@ -230,3 +241,44 @@ test_that("Shape scale throws appropriate warnings for factors", {
     "Using shapes for an ordinal variable is not advised"
   )
 })
+
+test_that("Aesthetics can be set independently of scale name", {
+  df <- data.frame(
+    x = LETTERS[1:3],
+    y = LETTERS[4:6]
+  )
+  p <- ggplot(df, aes(x, y, fill = y)) +
+    scale_colour_manual(values = c("red", "green", "blue"), aesthetics = "fill")
+
+  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+})
+
+test_that("Multiple aesthetics can be set with one function call", {
+  df <- data.frame(
+    x = LETTERS[1:3],
+    y = LETTERS[4:6]
+  )
+  p <- ggplot(df, aes(x, y, colour = x, fill = y)) +
+    scale_colour_manual(
+      values = c("grey20", "grey40", "grey60", "red", "green", "blue"),
+      aesthetics = c("colour", "fill")
+    )
+
+  expect_equal(layer_data(p)$colour, c("grey20", "grey40", "grey60"))
+  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+
+  # color order is determined by data order, and breaks are combined where possible
+  df <- data.frame(
+    x = LETTERS[1:3],
+    y = LETTERS[2:4]
+  )
+  p <- ggplot(df, aes(x, y, colour = x, fill = y)) +
+    scale_colour_manual(
+      values = c("cyan", "red", "green", "blue"),
+      aesthetics = c("fill", "colour")
+    )
+
+  expect_equal(layer_data(p)$colour, c("cyan", "red", "green"))
+  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+})
+

@@ -44,6 +44,8 @@
 #'   for `barwidth` and `barheight`.
 #' @param reverse logical. If `TRUE` the colorbar is reversed. By default,
 #'   the highest value is on the top and the lowest value is on the bottom
+#' @param available_aes A vector of charater strings listing the aesthetics
+#'   for which a colorbar can be drawn.
 #' @param ... ignored.
 #' @return A guide object
 #' @export
@@ -134,6 +136,7 @@ guide_colourbar <- function(
   default.unit = "line",
   reverse = FALSE,
   order = 0,
+  available_aes = c("colour", "color", "fill"),
 
   ...) {
 
@@ -180,17 +183,20 @@ guide_colourbar <- function(
     order = order,
 
     # parameter
-    available_aes = c("colour", "color", "fill"), ..., name = "colorbar"),
+    available_aes = available_aes,
+    ...,
+    name = "colorbar"),
     class = c("guide", "colorbar")
   )
 }
 
 #' @export
-guide_train.colorbar <- function(guide, scale) {
+guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # do nothing if scale are inappropriate
-  if (length(intersect(scale$aesthetics, c("color", "colour", "fill"))) == 0) {
-    warning("colorbar guide needs colour or fill scales.")
+  if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
+    warning("colorbar guide needs appropriate scales: ",
+            paste(guide$available_aes, collapse = ", "))
     return(NULL)
   }
   if (scale$is_discrete()) {
@@ -204,7 +210,7 @@ guide_train.colorbar <- function(guide, scale) {
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
 
-  ticks <- as.data.frame(setNames(list(scale$map(breaks)), scale$aesthetics[1]))
+  ticks <- as.data.frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
 
