@@ -73,7 +73,9 @@ scales, "top" or "bottom" for horizontal scales}
 \item{na.value}{Colour to use for missing values}
 
 \item{aesthetics}{Character string or vector of character strings listing the
-name(s) of the aesthetic(s) that this scale works with.}
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 }
 \description{
 Based on \code{\link[=gray.colors]{gray.colors()}}. This is black and white equivalent

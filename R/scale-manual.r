@@ -1,12 +1,16 @@
 #' Create your own discrete scale
 #'
-#' This allows you to specify you own set of mappings from levels in the
-#' data to aesthetic values.
+#' These functions allow you to specify your own set of mappings from levels in the
+#' data to aesthetic values. The function `scale_discrete_manual()` is a generic scale
+#' that can work with any aesthetic or set of aesthetics provided via the `aesthetics`
+#' argument.
 #'
 #' @inheritParams scale_x_discrete
 #' @inheritDotParams discrete_scale -expand -position -aesthetics
 #' @param aesthetics Character string or vector of character strings listing the
-#'   name(s) of the aesthetic(s) that this scale works with.
+#'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+#'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
+#'   same time, via `aesthetics = c("colour", "fill")`.
 #' @param values a set of aesthetic values to map data values to. If this
 #'   is a named vector, then the values will be matched based on the names.
 #'   If unnamed, values will be matched in order (usually alphabetical) with
@@ -51,27 +55,34 @@ scale_fill_manual <- function(..., values, aesthetics = "fill") {
 
 #' @rdname scale_manual
 #' @export
-scale_size_manual <- function(..., values, aesthetics = "size") {
-  manual_scale(aesthetics, values, ...)
+scale_size_manual <- function(..., values) {
+  manual_scale("size", values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_shape_manual <- function(..., values, aesthetics = "shape") {
-  manual_scale(aesthetics, values, ...)
+scale_shape_manual <- function(..., values) {
+  manual_scale("shape", values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_linetype_manual <- function(..., values, aesthetics = "linetype") {
-  manual_scale(aesthetics, values, ...)
+scale_linetype_manual <- function(..., values) {
+  manual_scale("linetype", values, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_alpha_manual <- function(..., values, aesthetics = "alpha") {
+scale_alpha_manual <- function(..., values) {
+  manual_scale("alpha", values, ...)
+}
+
+#' @rdname scale_manual
+#' @export
+scale_discrete_manual <- function(..., values, aesthetics) {
   manual_scale(aesthetics, values, ...)
 }
+
 
 manual_scale <- function(aesthetic, values, ...) {
   pal <- function(n) {

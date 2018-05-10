@@ -44,7 +44,9 @@ options are available: "magma" (or "A"), "inferno" (or "B"), "plasma" (or "C"),
 "viridis" (or "D", the default option) and "cividis" (or "E").}
 
 \item{aesthetics}{Character string or vector of character strings listing the
-name(s) of the aesthetic(s) that this scale works with.}
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the

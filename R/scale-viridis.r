@@ -11,7 +11,9 @@
 #' @param ... Other arguments passed on to [discrete_scale()] or
 #' [continuous_scale()] to control name, limits, breaks, labels and so forth.
 #' @param aesthetics Character string or vector of character strings listing the
-#'   name(s) of the aesthetic(s) that this scale works with.
+#'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+#'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
+#'   same time, via `aesthetics = c("colour", "fill")`.
 #' @family colour scales
 #' @rdname scale_viridis
 #' @export

@@ -7,7 +7,7 @@
 \alias{scale_shape_continuous}
 \title{Scales for shapes, aka glyphs}
 \usage{
-scale_shape(..., solid = TRUE, aesthetics = "shape")
+scale_shape(..., solid = TRUE)
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
@@ -32,6 +32,7 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
   \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
 value should missing be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
+  \item{aesthetics}{The names of the aesthetics that this scale works with}
   \item{scale_name}{The name of the scale}
   \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
@@ -56,9 +57,6 @@ as output
 
 \item{solid}{Should the shapes be solid, \code{TRUE}, or hollow,
 \code{FALSE}?}
-
-\item{aesthetics}{Character string or vector of character strings listing the
-name(s) of the aesthetic(s) that this scale works with.}
 }
 \description{
 \code{scale_shape} maps discrete variables to six easily discernible shapes.

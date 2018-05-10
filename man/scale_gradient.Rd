@@ -115,7 +115,9 @@ other values are deprecated.}
 colour bar, or \code{"legend"} for discrete colour legend.}
 
 \item{aesthetics}{Character string or vector of character strings listing the
-name(s) of the aesthetic(s) that this scale works with.}
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{mid}{colour for mid point}
 

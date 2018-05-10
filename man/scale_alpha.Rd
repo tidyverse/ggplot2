@@ -9,13 +9,13 @@
 \alias{scale_alpha_date}
 \title{Alpha transparency scales}
 \usage{
-scale_alpha(..., range = c(0.1, 1), aesthetics = "alpha")
+scale_alpha(..., range = c(0.1, 1))
 
-scale_alpha_continuous(..., range = c(0.1, 1), aesthetics = "alpha")
+scale_alpha_continuous(..., range = c(0.1, 1))
 
 scale_alpha_discrete(...)
 
-scale_alpha_ordinal(..., range = c(0.1, 1), aesthetics = "alpha")
+scale_alpha_ordinal(..., range = c(0.1, 1))
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=continuous_scale]{continuous_scale()}}
@@ -23,9 +23,6 @@ or \code{\link[=discrete_scale]{discrete_scale()}} as appropriate, to control na
 breaks, labels and so forth.}
 
 \item{range}{Output range of alpha values. Must lie between 0 and 1.}
-
-\item{aesthetics}{Character string or vector of character strings listing the
-name(s) of the aesthetic(s) that this scale works with.}
 }
 \description{
 Alpha-transparency scales are not tremendously useful, but can be a

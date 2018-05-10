@@ -7,7 +7,9 @@
 #' @param na.value Colour to use for missing values
 #' @inheritDotParams discrete_scale -aesthetics
 #' @param aesthetics Character string or vector of character strings listing the
-#'   name(s) of the aesthetic(s) that this scale works with.
+#'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+#'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
+#'   same time, via `aesthetics = c("colour", "fill")`.
 #' @inheritParams scales::hue_pal
 #' @rdname scale_hue
 #' @export

@@ -7,6 +7,7 @@
 \alias{scale_shape_manual}
 \alias{scale_linetype_manual}
 \alias{scale_alpha_manual}
+\alias{scale_discrete_manual}
 \alias{scale_color_manual}
 \title{Create your own discrete scale}
 \usage{
@@ -14,13 +15,15 @@ scale_colour_manual(..., values, aesthetics = "colour")
 
 scale_fill_manual(..., values, aesthetics = "fill")
 
-scale_size_manual(..., values, aesthetics = "size")
+scale_size_manual(..., values)
 
-scale_shape_manual(..., values, aesthetics = "shape")
+scale_shape_manual(..., values)
 
-scale_linetype_manual(..., values, aesthetics = "linetype")
+scale_linetype_manual(..., values)
 
-scale_alpha_manual(..., values, aesthetics = "alpha")
+scale_alpha_manual(..., values)
+
+scale_discrete_manual(..., values, aesthetics)
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
@@ -74,11 +77,15 @@ the limits of the scale. Any data values that don't match will be
 given \code{na.value}.}
 
 \item{aesthetics}{Character string or vector of character strings listing the
-name(s) of the aesthetic(s) that this scale works with.}
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 }
 \description{
-This allows you to specify you own set of mappings from levels in the
-data to aesthetic values.
+These functions allow you to specify your own set of mappings from levels in the
+data to aesthetic values. The function \code{scale_discrete_manual()} is a generic scale
+that can work with any aesthetic or set of aesthetics provided via the \code{aesthetics}
+argument.
 }
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt)) +

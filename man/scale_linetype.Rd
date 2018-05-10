@@ -6,11 +6,11 @@
 \alias{scale_linetype_discrete}
 \title{Scale for line patterns}
 \usage{
-scale_linetype(..., na.value = "blank", aesthetics = "linetype")
+scale_linetype(..., na.value = "blank")
 
 scale_linetype_continuous(...)
 
-scale_linetype_discrete(..., na.value = "blank", aesthetics = "linetype")
+scale_linetype_discrete(..., na.value = "blank")
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
@@ -32,6 +32,7 @@ The default, \code{TRUE}, uses the levels that appear in the data;
   \item{na.translate}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
+  \item{aesthetics}{The names of the aesthetics that this scale works with}
   \item{scale_name}{The name of the scale}
   \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
@@ -55,9 +56,6 @@ as output
 }}
 
 \item{na.value}{The linetype to use for \code{NA} values.}
-
-\item{aesthetics}{Character string or vector of character strings listing the
-name(s) of the aesthetic(s) that this scale works with.}
 }
 \description{
 Default line types based on a set supplied by Richard Pearson,
