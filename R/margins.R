@@ -257,7 +257,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
   }
 
   # adjust hjust, and vjust according to internal angle
-  int_angle <- int_angle %% 360
+  int_angle <- (int_angle %||% 0) %% 360
   if (90 <= int_angle & int_angle < 180) {
     htmp <- hjust
     hjust <- 1 - vjust
