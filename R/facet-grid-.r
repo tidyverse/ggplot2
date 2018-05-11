@@ -62,14 +62,16 @@ NULL
 #' p <- ggplot(mpg, aes(displ, cty)) + geom_point()
 #'
 #' # Use vars() to supply variables from the dataset:
-#' p + facet_grid(vars(drv))
+#' p + facet_grid(rows = vars(drv))
 #' p + facet_grid(cols = vars(cyl))
 #' p + facet_grid(vars(drv), vars(cyl))
 #'
 #' # The historical formula interface is also available:
+#' \donttest{
 #' p + facet_grid(. ~ cyl)
 #' p + facet_grid(drv ~ .)
 #' p + facet_grid(drv ~ cyl)
+#' }
 #'
 #' # To change plot order of facet grid,
 #' # change the order of variable levels with factor()
@@ -99,50 +101,17 @@ NULL
 #'   facet_grid(manufacturer ~ ., scales = "free", space = "free") +
 #'   theme(strip.text.y = element_text(angle = 0))
 #'
-#' # Facet labels ------------------------------------------------------
-#' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
-#' p
-#'
-#' # label_both() displays both variable name and value
-#' p + facet_grid(vars(vs), vars(cyl), labeller = label_both)
-#'
-#' # With vars() it is easy to pass custom names for the faceting groups:
-#' p + facet_grid(vars(`V/S` = vs), vars(cylinder = cyl), labeller = label_both)
-#'
-#' # label_parsed() parses text into mathematical expressions, see ?plotmath
-#' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "sqrt(x, y)"))
-#' ggplot(mtcars, aes(wt, mpg)) +
-#'   geom_point() +
-#'   facet_grid(. ~ cyl2, labeller = label_parsed)
-#'
-#' # label_bquote() makes it easy to construct math expressions
-#' p + facet_grid(. ~ vs, labeller = label_bquote(cols = alpha ^ .(vs)))
-#'
-#' # The facet strips can be displayed near the axes with switch
-#' data <- transform(mtcars,
-#'   am = factor(am, levels = 0:1, c("Automatic", "Manual")),
-#'   gear = factor(gear, levels = 3:5, labels = c("Three", "Four", "Five"))
-#' )
-#' p <- ggplot(data, aes(mpg, disp)) + geom_point()
-#' p + facet_grid(am ~ gear, switch = "both")
-#' # It looks better without boxes around the strips
-#' p + facet_grid(am ~ gear, switch = "both") +
-#'   theme(strip.background = element_blank())
-#'
 #' # Margins ----------------------------------------------------------
 #' \donttest{
 #' # Margins can be specified by logically (all yes or all no) or by specific
 #' # variables as (character) variable names
 #' mg <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
-#' mg + facet_grid(vs + am ~ gear)
 #' mg + facet_grid(vs + am ~ gear, margins = TRUE)
 #' mg + facet_grid(vs + am ~ gear, margins = "am")
 #' # when margins are made over "vs", since the facets for "am" vary
 #' # within the values of "vs", the marginal facet for "vs" is also
 #' # a margin over "am".
 #' mg + facet_grid(vs + am ~ gear, margins = "vs")
-#' mg + facet_grid(vs + am ~ gear, margins = "gear")
-#' mg + facet_grid(vs + am ~ gear, margins = c("gear", "am"))
 #' }
 facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
                        space = "fixed", shrink = TRUE,

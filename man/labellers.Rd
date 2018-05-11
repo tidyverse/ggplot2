@@ -94,8 +94,7 @@ function must have the \code{labeller} S3 class.
 mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
 p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 
-# Displaying only the values
-p + facet_grid(. ~ cyl)
+# The default is label_value
 p + facet_grid(. ~ cyl, labeller = label_value)
 
 \donttest{
@@ -109,7 +108,6 @@ p + facet_grid(am ~ vs+cyl, labeller = label_context)
 # Interpreting the labels as plotmath expressions
 p + facet_grid(. ~ cyl2)
 p + facet_grid(. ~ cyl2, labeller = label_parsed)
-p + facet_wrap(~vs + cyl2, labeller = label_parsed)
 }
 }
 \seealso{
