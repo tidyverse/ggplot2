@@ -287,6 +287,7 @@ ggplot_gtable.ggplot_built <- function(data) {
     tag_parent <- justify_grobs(tag, x = xpos, y = ypos,
                                 hjust = theme$plot.tag$hjust,
                                 vjust = theme$plot.tag$vjust,
+                                int_angle = theme$plot.tag$angle,
                                 debug = theme$plot.tag$debug)
     plot_table <- gtable_add_grob(plot_table, tag_parent, name = "tag", t = 1,
                                   b = nrow(plot_table), l = 1,

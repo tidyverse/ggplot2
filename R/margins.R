@@ -234,14 +234,18 @@ heightDetails.titleGrob <- function(x) {
 #'   should be performed. If `NULL`, justification will be done relative to the
 #'   enclosing drawing area (i.e., `x = hjust` and `y = vjust`).
 #' @param hjust,vjust Horizontal and vertical justification of the grob relative to `x` and `y`.
+#' @param int_angle Internal angle of the grob to be justified. When justifying a text
+#'   grob with rotated text, this argument can be used to make `hjust` and `vjust` operate
+#'   relative to the direction of the text.
 #' @param debug If `TRUE`, aids visual debugging by drawing a solid
 #'   rectangle behind the complete grob area.
 #'
 #' @noRd
-justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, debug = FALSE) {
+justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
+                          int_angle = 0, debug = FALSE) {
   if (!inherits(grobs, "grob")) {
     if (is.list(grobs)) {
-      return(lapply(grobs, justify_grobs, x, y, hjust, vjust, debug))
+      return(lapply(grobs, justify_grobs, x, y, hjust, vjust, int_angle, debug))
     }
     else {
       stop("need individual grob or list of grobs as argument.")
@@ -252,8 +256,24 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, d
     return(grobs)
   }
 
+  # adjust hjust, and vjust according to internal angle
+  int_angle <- int_angle %% 360
+  if (90 <= int_angle & int_angle < 180) {
+    htmp <- hjust
+    hjust <- 1 - vjust
+    vjust <- htmp
+  } else if (180 <= int_angle & int_angle < 270) {
+    hjust <- 1 - hjust
+    vjust <- 1 - vjust
+  } else if (270 <= int_angle & int_angle < 360) {
+    htmp <- hjust
+    hjust <- vjust
+    vjust <- 1 - htmp
+  }
+
   x <- x %||% unit(hjust, "npc")
   y <- y %||% unit(vjust, "npc")
+
 
   if (isTRUE(debug)) {
     children <- gList(
@@ -264,6 +284,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, d
   else {
     children = gList(grobs)
   }
+
 
   result_grob <- gTree(
     children = children,
@@ -276,7 +297,10 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, d
     )
   )
 
+
   if (isTRUE(debug)) {
+    #cat("x, y:", c(x, y), "\n")
+    #cat("E - hjust, vjust:", c(hjust, vjust), "\n")
     grobTree(
       result_grob,
       pointsGrob(x, y, pch = 20, gp = gpar(col = "mediumturquoise"))

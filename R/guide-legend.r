@@ -336,7 +336,7 @@ guide_gengrob.legend <- function(guide, theme) {
     element_grob(
       title.theme,
       label = guide$title,
-      hjust = title.hjust, #hjust and #vjust are set below via justify_grobs()
+      hjust = title.hjust,
       vjust = title.vjust,
       margin_x = TRUE,
       margin_y = TRUE
@@ -383,8 +383,8 @@ guide_gengrob.legend <- function(guide, theme) {
       g <- element_grob(
         element = label.theme,
         label = label,
-        hjust = 0.5,  #hjust and #vjust are set below via justify_grobs()
-        vjust = 0.5,
+        hjust = hjust,
+        vjust = vjust,
         margin_x = TRUE,
         margin_y = TRUE
       )
@@ -691,7 +691,8 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust, debug = title.theme$debug),
+    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust,
+                  int_angle = title.theme$angle, debug = title.theme$debug),
     name = "title",
     clip = "off",
     t = 1 + min(vps.title.row),
@@ -711,7 +712,8 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    justify_grobs(grob.labels, hjust = hjust, vjust = vjust, debug = label.theme$debug),
+    justify_grobs(grob.labels, hjust = hjust, vjust = vjust,
+                  int_angle = label.theme$angle, debug = label.theme$debug),
     name = paste("label", vps$label.row, vps$label.col, sep = "-"),
     clip = "off",
     t = 1 + vps$label.row,
