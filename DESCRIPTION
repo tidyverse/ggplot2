@@ -7,11 +7,12 @@ Description: A system for 'declaratively' creating graphics,
     and it takes care of the details.
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
-    person("Winston", "Chang", , "winston@rstudio.com", "aut"),
-    person("Kara", "Woo", role = "aut"),
+    person("Winston", "Chang", , role = "aut"),
+    person("Lionel", "Henry", , role = "aut"),
     person("Thomas Lin", "Pedersen", role = "aut"),
-    person("Claus", "Wilke", role = "aut"),
     person("Kohske", "Takahashi", role = "aut"),
+    person("Claus", "Wilke", role = "aut"),
+    person("Kara", "Woo", role = "aut"),
     person("RStudio", role = c("cph"))
     )
 Depends:
