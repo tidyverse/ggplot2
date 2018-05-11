@@ -342,8 +342,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
-  title_fontsize <- title.theme$size
-  if (is.null(title_fontsize)) title_fontsize <- 0
+  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||% 0
 
   # gap between keys etc
   # the default horizontal and vertical gap need to be the same to avoid strange
