@@ -25,20 +25,19 @@ represents or the results of the expressions) are used to form
 faceting groups.
 }
 \examples{
-p <- ggplot(diamonds) + geom_point(aes(carat, price))
-p + facet_wrap(vars(cut, clarity))
+p <- ggplot(mtcars, aes(wt, disp)) + geom_point()
+p + facet_wrap(vars(vs, am))
 
 # vars() makes it easy to pass variables from wrapper functions:
 wrap_by <- function(...) {
   facet_wrap(vars(...), labeller = label_both)
 }
-p + wrap_by(cut)
-p + wrap_by(cut, clarity)
-
+p + wrap_by(vs)
+p + wrap_by(vs, am)
 
 # You can also supply expressions to vars(). In this case it's often a
 # good idea to supply a name as well:
-p + wrap_by(depth = cut_number(depth, 3))
+p + wrap_by(drat = cut_number(drat, 3))
 
 # Let's create another function for cutting and wrapping a
 # variable. This time it will take a named argument instead of dots,
@@ -58,7 +57,7 @@ wrap_cut <- function(var, n = 3) {
 }
 
 # Thanks to tidy eval idioms we now have another useful wrapper:
-p + wrap_cut(depth)
+p + wrap_cut(drat)
 }
 \seealso{
 \code{\link[=aes]{aes()}}, \code{\link[=facet_wrap]{facet_wrap()}}, \code{\link[=facet_grid]{facet_grid()}}
