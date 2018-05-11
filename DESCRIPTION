@@ -26,7 +26,7 @@ Imports:
     mgcv,
     plyr (>= 1.7.1),
     reshape2,
-    rlang (>= 0.2.0.9001),
+    rlang,
     scales (>= 0.4.1.9002),
     stats,
     tibble,
@@ -55,8 +55,7 @@ Suggests:
     sf (>= 0.3-4),
     svglite (>= 1.2.0.9001)
 Remotes:
-    hadley/scales,
-    r-lib/rlang
+    hadley/scales
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
@@ -88,6 +87,7 @@ Collate:
     'backports.R'
     'bench.r'
     'bin.R'
+    'compat-quosures.R'
     'coord-.r'
     'coord-cartesian-.r'
     'coord-fixed.r'
