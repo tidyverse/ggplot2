@@ -265,7 +265,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, d
     children = gList(grobs)
   }
 
-  gTree(
+  result_grob <- gTree(
     children = children,
     vp = viewport(
       x = x,
@@ -275,4 +275,13 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, d
       just = c(hjust, vjust)
     )
   )
+
+  if (isTRUE(debug)) {
+    grobTree(
+      result_grob,
+      pointsGrob(x, y, pch = 20, gp = gpar(col = "mediumturquoise"))
+    )
+  } else {
+    result_grob
+  }
 }

@@ -336,7 +336,7 @@ guide_gengrob.legend <- function(guide, theme) {
     element_grob(
       title.theme,
       label = guide$title,
-      hjust = title.hjust,
+      hjust = title.hjust, #hjust and #vjust are set below via justify_grobs()
       vjust = title.vjust,
       margin_x = TRUE,
       margin_y = TRUE
@@ -375,19 +375,17 @@ guide_gengrob.legend <- function(guide, theme) {
     if (is.null(guide$label.theme$vjust) && is.null(theme$legend.text$vjust)) label.theme$vjust <- NULL
 
     # label.theme in param of guide_legend() > theme$legend.text.align > default
-    hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||% label.theme$hjust %||%
+    hjust <- guide$label.hjust %||% theme$legend.text.align %||% label.theme$hjust %||%
       just_defaults$hjust
-    vjust <- y <- guide$label.vjust %||% label.theme$vjust %||%
+    vjust <- guide$label.vjust %||% label.theme$vjust %||%
       just_defaults$vjust
 
     grob.labels <- lapply(guide$key$.label, function(label, ...) {
       g <- element_grob(
         element = label.theme,
         label = label,
-        x = x,
-        y = y,
-        hjust = hjust,
-        vjust = vjust,
+        hjust = 0.5,  #hjust and #vjust are set below via justify_grobs()
+        vjust = 0.5,
         margin_x = TRUE,
         margin_y = TRUE
       )
