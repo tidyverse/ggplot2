@@ -323,6 +323,9 @@ as_facets_list <- function(x) {
 # Compatibility with plyr::as.quoted()
 as_quoted <- function(x) {
   if (is.character(x)) {
+    if (length(x) > 1) {
+      x <- paste(x, collapse = "; ")
+    }
     return(rlang::parse_exprs(x))
   }
   if (is.null(x)) {
@@ -381,12 +384,12 @@ as_facets <- function(x) {
     f_as_facets(x)
   } else {
     vars <- as_quoted(x)
-    rlang::as_quosures(vars, globalenv(), named = TRUE)
+    as_quosures(vars, globalenv(), named = TRUE)
   }
 }
 f_as_facets <- function(f) {
   if (is.null(f)) {
-    return(rlang::as_quosures(list()))
+    return(as_quosures(list()))
   }
 
   env <- rlang::f_env(f) %||% globalenv()
@@ -397,7 +400,7 @@ f_as_facets <- function(f) {
   # `.` in formulas is ignored
   vars <- discard_dots(vars)
 
-  rlang::as_quosures(vars, env, named = TRUE)
+  as_quosures(vars, env, named = TRUE)
 }
 discard_dots <- function(x) {
   x[!vapply(x, identical, logical(1), as.name("."))]

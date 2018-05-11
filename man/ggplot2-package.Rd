@@ -27,11 +27,12 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Winston Chang \email{winston@rstudio.com}
-  \item Kara Woo
+  \item Winston Chang
+  \item Lionel Henry
   \item Thomas Lin Pedersen
-  \item Claus Wilke
   \item Kohske Takahashi
+  \item Claus Wilke
+  \item Kara Woo
 }
 
 Other contributors:

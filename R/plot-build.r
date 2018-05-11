@@ -275,6 +275,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   if (length(tag_pos) == 2) tag_pos <- "manual"
   valid_pos <- c("topleft", "top", "topright", "left", "right", "bottomleft",
                  "bottom", "bottomright")
+
   if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) {
     stop("plot.tag.position should be a coordinate or one of ",
          paste(valid_pos, collapse = ', '), call. = FALSE)
