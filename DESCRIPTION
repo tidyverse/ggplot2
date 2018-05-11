@@ -8,6 +8,7 @@ Description: A system for 'declaratively' creating graphics,
 Authors@R: c(
     person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Winston", "Chang", , role = "aut"),
+    person("Lionel", "Henry", , role = "aut"),
     person("Thomas Lin", "Pedersen", role = "aut"),
     person("Kohske", "Takahashi", role = "aut"),
     person("Claus", "Wilke", role = "aut"),
