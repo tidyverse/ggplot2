@@ -54,6 +54,11 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
     yp <- 1 - hjust
   }
 
+  # Should the above if statements be replaced by this?
+  #rad <- angle * 2 * pi / 360
+  #xp <- cos(rad) * hjust - sin(rad) * vjust + (1 - cos(rad) + sin(rad)) / 2
+  #yp <- sin(rad) * hjust + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
+
   n <- max(length(x), length(y), 1)
   x <- x %||% unit(rep(xp, n), "npc")
   y <- y %||% unit(rep(yp, n), "npc")
@@ -256,20 +261,11 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
     return(grobs)
   }
 
-  # adjust hjust, and vjust according to internal angle
-  int_angle <- (int_angle %||% 0) %% 360
-  if (90 <= int_angle & int_angle < 180) {
-    htmp <- hjust
-    hjust <- 1 - vjust
-    vjust <- htmp
-  } else if (180 <= int_angle & int_angle < 270) {
-    hjust <- 1 - hjust
-    vjust <- 1 - vjust
-  } else if (270 <= int_angle & int_angle < 360) {
-    htmp <- hjust
-    hjust <- vjust
-    vjust <- 1 - htmp
-  }
+  # adjust hjust and vjust according to internal angle
+  rad <- (int_angle %||% 0) * 2 * pi / 360
+  htmp <- hjust
+  hjust <- cos(rad) * htmp - sin(rad) * vjust + (1 - cos(rad) + sin(rad)) / 2
+  vjust <- sin(rad) * htmp + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
 
   x <- x %||% unit(hjust, "npc")
   y <- y %||% unit(vjust, "npc")
