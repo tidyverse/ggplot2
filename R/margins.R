@@ -39,29 +39,13 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
 
   if (is.null(label)) return(zeroGrob())
 
-  angle <- angle %% 360
-  if (0 <= angle & angle < 90) {
-    xp <- hjust
-    yp <- vjust
-  } else if (90 <= angle & angle < 180) {
-    xp <- 1 - vjust
-    yp <- hjust
-  } else if (180 <= angle & angle < 270) {
-    xp <- 1 - hjust
-    yp <- 1 - vjust
-  } else if (270 <= angle & angle < 360) {
-    xp <- vjust
-    yp <- 1 - hjust
-  }
-
-  # Should the above if statements be replaced by this?
-  #rad <- angle * 2 * pi / 360
-  #xp <- cos(rad) * hjust - sin(rad) * vjust + (1 - cos(rad) + sin(rad)) / 2
-  #yp <- sin(rad) * hjust + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
+  # We rotate the justifiation values to obtain the correct x and y reference point,
+  # since hjust and vjust are applied relative to the rotated text frame in textGrob
+  xy <- rotate_just(angle, hjust, vjust)
 
   n <- max(length(x), length(y), 1)
-  x <- x %||% unit(rep(xp, n), "npc")
-  y <- y %||% unit(rep(yp, n), "npc")
+  x <- x %||% unit(rep(xy[1], n), "npc")
+  y <- y %||% unit(rep(xy[2], n), "npc")
 
   text_grob <- textGrob(
     label,
@@ -262,10 +246,9 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
   }
 
   # adjust hjust and vjust according to internal angle
-  rad <- (int_angle %||% 0) * 2 * pi / 360
-  htmp <- hjust
-  hjust <- cos(rad) * htmp - sin(rad) * vjust + (1 - cos(rad) + sin(rad)) / 2
-  vjust <- sin(rad) * htmp + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
+  rjust <- rotate_just(int_angle, hjust, vjust)
+  hjust <- rjust[1]
+  vjust <- rjust[2]
 
   x <- x %||% unit(hjust, "npc")
   y <- y %||% unit(vjust, "npc")
@@ -304,4 +287,23 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
   } else {
     result_grob
   }
+}
+
+
+#' Rotate justification parameters counter-clockwise
+#'
+#' @param angle angle of rotation, in degrees
+#' @param hjust horizontal justification
+#' @param vjust vertical justification
+#' @return A vector with two components, containing the rotated hjust and vjust values
+#'
+#' @noRd
+rotate_just <- function(angle, hjust, vjust) {
+  # convert angle to radians
+  rad <- (angle %||% 0) * pi / 180
+
+  hnew <- cos(rad) * hjust - sin(rad) * vjust + (1 - cos(rad) + sin(rad)) / 2
+  vnew <- sin(rad) * hjust + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
+
+  c(hnew, vnew)
 }
