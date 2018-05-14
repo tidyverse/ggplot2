@@ -526,8 +526,13 @@ guide_gengrob.colorbar <- function(guide, theme) {
     b = 1 + max(vps$label.row), l = 1 + min(vps$label.col))
   gt <- gtable_add_grob(
     gt,
-    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust,
-                  int_angle = title.theme$angle, debug = title.theme$debug),
+    justify_grobs(
+      grob.title,
+      hjust = title.hjust,
+      vjust = title.vjust,
+      int_angle = title.theme$angle,
+      debug = title.theme$debug
+    ),
     name = "title",
     clip = "off",
     t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),

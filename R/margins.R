@@ -41,11 +41,11 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
 
   # We rotate the justifiation values to obtain the correct x and y reference point,
   # since hjust and vjust are applied relative to the rotated text frame in textGrob
-  xy <- rotate_just(angle, hjust, vjust)
+  just <- rotate_just(angle, hjust, vjust)
 
   n <- max(length(x), length(y), 1)
-  x <- x %||% unit(rep(xy[1], n), "npc")
-  y <- y %||% unit(rep(xy[2], n), "npc")
+  x <- x %||% unit(rep(just$hjust, n), "npc")
+  y <- y %||% unit(rep(just$vjust, n), "npc")
 
   text_grob <- textGrob(
     label,
@@ -246,12 +246,10 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
   }
 
   # adjust hjust and vjust according to internal angle
-  rjust <- rotate_just(int_angle, hjust, vjust)
-  hjust <- rjust[1]
-  vjust <- rjust[2]
+  just <- rotate_just(int_angle, hjust, vjust)
 
-  x <- x %||% unit(hjust, "npc")
-  y <- y %||% unit(vjust, "npc")
+  x <- x %||% unit(just$hjust, "npc")
+  y <- y %||% unit(just$vjust, "npc")
 
 
   if (isTRUE(debug)) {
@@ -272,7 +270,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
       y = y,
       width = grobWidth(grobs),
       height = grobHeight(grobs),
-      just = c(hjust, vjust)
+      just = unlist(just)
     )
   )
 
@@ -295,7 +293,7 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
 #' @param angle angle of rotation, in degrees
 #' @param hjust horizontal justification
 #' @param vjust vertical justification
-#' @return A vector with two components, containing the rotated hjust and vjust values
+#' @return A list with two components, `hjust` and `vjust`, containing the rotated hjust and vjust values
 #'
 #' @noRd
 rotate_just <- function(angle, hjust, vjust) {
@@ -305,5 +303,5 @@ rotate_just <- function(angle, hjust, vjust) {
   hnew <- cos(rad) * hjust - sin(rad) * vjust + (1 - cos(rad) + sin(rad)) / 2
   vnew <- sin(rad) * hjust + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
 
-  c(hnew, vnew)
+  list(hjust = hnew, vjust = vnew)
 }
