@@ -144,7 +144,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   for (g in geom) {
     # We reevaluate constants once per geom for historical reasons?
     params <- lapply(consts, rlang::eval_tidy)
-    p <- p + do.call(paste0("geom_", g), params, envir = caller_env)
+    p <- p + do.call(paste0("geom_", g), params)
   }
 
   logv <- function(var) var %in% strsplit(log, "")[[1]]
