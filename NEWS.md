@@ -7,6 +7,12 @@
   symbols. If you compute on the contents of `aes()` you will need to use
   tools from rlang to extract the components that you need. If you are 
   stuck, we're happy to help - please ask on <community.rstudio.com>.
+  
+    A common symptom of this change is "undefined columns selected":
+    this often occurs when the contents of `aes()` are coerced to a character
+    vector and then used to index a data frame. This never worked reliably
+    (i.e. it would fail if the user supplied an expression), so typically
+    indicates that a different approach is warranted (#2591).
 
 * Error: Column `y` must be a 1d atomic vector or a list
 
