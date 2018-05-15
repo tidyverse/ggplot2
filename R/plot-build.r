@@ -271,7 +271,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- gtable_add_rows(plot_table, unit(0, 'pt'), pos = -1)
   plot_table <- gtable_add_cols(plot_table, unit(0, 'pt'), pos = -1)
 
-  tag_pos <- theme$plot.tag.position
+  tag_pos <- theme$plot.tag.position %||% "topleft"
   if (length(tag_pos) == 2) tag_pos <- "manual"
   valid_pos <- c("topleft", "top", "topright", "left", "right", "bottomleft",
                  "bottom", "bottomright")
