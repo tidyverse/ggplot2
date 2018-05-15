@@ -14,9 +14,10 @@
   e.g. `as.numeric(scale(x))`.
   
 * Error: A continuous variable can not be mapped to shape
+  Error: A continuous variable can not be mapped to linetype
 
-  Previously you could map a continuous variable to shape, and it worked
-  but did not produce a useful plot. Now this is a clear error. 
+  Previously you could map a continuous variable to shape or linetyoes, and it
+  worked but did not produce a useful plot. Now these is a clear error. 
   
 * The function `guide_train()` now has an optional parameter `aesthetic`
   that allows you to override the `aesthetic` setting in the scale. This 
