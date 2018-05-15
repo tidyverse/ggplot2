@@ -76,6 +76,7 @@ coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   is_linear = function() TRUE,
+  is_free = function() TRUE,
 
   distance = function(x, y, panel_params) {
     max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)

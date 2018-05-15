@@ -42,6 +42,7 @@ coord_equal <- coord_fixed
 #' @usage NULL
 #' @export
 CoordFixed <- ggproto("CoordFixed", CoordCartesian,
+  is_free = function() FALSE,
 
   aspect = function(self, ranges) {
     diff(ranges$y.range) / diff(ranges$x.range) * self$ratio
