@@ -204,6 +204,8 @@ object, you typically will want to implement one or more of the following:
 \item \code{distance}: Calculates distance.
 \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
 linear; \code{FALSE} otherwise.
+\item \code{is_free}: Returns \code{TRUE} if the coordinate system supports free
+positional scales.
 \item \code{setup_panel_params(data)}:
 \item \code{setup_data(data, params)}: Allows the coordinate system to
 manipulate the plot data. Should return list of data frames.

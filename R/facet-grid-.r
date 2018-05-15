@@ -322,8 +322,9 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     data[order(data$PANEL), , drop = FALSE]
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    if (params$free$x || params$free$y)
-      check_coord_freedom(coord)
+    if ((params$free$x || params$free$y) && !coord$is_free()) {
+      stop(snake_class(coord), " doesn't support free scales", call. = FALSE)
+    }
 
     cols <- which(layout$ROW == 1)
     rows <- which(layout$COL == 1)

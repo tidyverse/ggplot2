@@ -18,7 +18,8 @@
 #'   - `distance`: Calculates distance.
 #'   - `is_linear`: Returns `TRUE` if the coordinate system is
 #'     linear; `FALSE` otherwise.
-#'
+#'   - `is_free`: Returns `TRUE` if the coordinate system supports free
+#'     positional scales.
 #'   - `setup_panel_params(data)`:
 #'   - `setup_data(data, params)`: Allows the coordinate system to
 #'     manipulate the plot data. Should return list of data frames.
@@ -85,6 +86,8 @@ Coord <- ggproto("Coord",
   distance = function(x, y, panel_params) NULL,
 
   is_linear = function() FALSE,
+
+  is_free = function() FALSE,
 
   setup_params = function(data) {
     list()
