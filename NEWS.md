@@ -204,6 +204,10 @@
   that allows you to override the `aesthetic` setting in the scale. This 
   change will only affect code that implements custom guides (@clauswilke).
 
+* If layer data contains columns with identical names an error will be 
+  thrown. In earlier versions the first occuring column was chosen silently,
+  potentially masking that the wrong data was chosen.
+
 ## Minor bug fixes and improvements
 
 ### Faceting
