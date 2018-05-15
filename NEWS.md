@@ -45,6 +45,12 @@
     Free scales only work with selected coordinate systems; previously you'd
     get an incorrect plot.
 
+*   Error in f(...) : unused argument (range = c(0, 1))
+
+    This is because the `oob` argument to scale has been set to a function
+    that only takes a single argument; it needs to take two arguments
+    (`x`, and `range`). 
+
 *   Error: unused argument (output)
   
     The function `guide_train()` now has an optional parameter `aesthetic`
