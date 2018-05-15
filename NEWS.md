@@ -235,7 +235,7 @@
 * Missing line types now reliably generate missing lines (with standard 
   warning) (#2206).
 
-* Legends now ignore set aesthetics that are length one (#1932).
+* Legends now ignore set aesthetics that are not length one (#1932).
 
 * All colour and fill scales now have an `aesthetics` argument that can
   be used to set the aesthetic(s) the scale works with. This makes it
