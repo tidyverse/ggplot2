@@ -2,7 +2,11 @@
 
 ## Breaking changes
 
-* The long-deprecated `subset` argument to `layer()` has been removed.
+* ggplot2 now supports/uses tidy eval which means that the `aes()` is now
+  a list of quosures (expression + environment pairs) rather than a list of
+  symbols. If you compute on the contents of `aes()` you will need to use
+  tools from rlang to extract the components that you need. If you are 
+  stuck, we're happy to help - please ask on <community.rstudio.com>.
 
 * Error: Column `y` must be a 1d atomic vector or a list
 
@@ -17,6 +21,8 @@
 
   Previously `aes_string(x = c("a", "b", "c"))` silently returned 
   `aes(x = a)`. Now this is a clear error.
+
+* The long-deprecated `subset` argument to `layer()` has been removed.
 
 * The function `guide_train()` now has an optional parameter `aesthetic`
   that allows you to override the `aesthetic` setting in the scale. This 
