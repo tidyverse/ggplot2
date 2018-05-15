@@ -1,5 +1,22 @@
 # ggplot2 2.2.1.9000
 
+## Breaking changes
+
+* The long-deprecated `subset` argument to `layer()` has been removed.
+
+* Error: Column `y` must be a 1d atomic vector or a list
+
+  Internally, ggplot2 now uses `as.data.frame(tibble::as_tibble(x))` to 
+  convert a list into a data frame. This improves ggplot2's support for 
+  list-columns (needed for sf support), at a small cost: you can no longer
+  use matrix-columns. These are rarely used but are produced by `scale()`;
+  to continue to use `scale()` you'll need to wrap it with `as.numeric()`, 
+  e.g. `as.numeric(scale(x))`.
+  
+* The function `guide_train()` now has an optional parameter `aesthetic`
+  that allows you to override the `aesthetic` setting in the scale. This 
+  change will only affect code that implements custom guides (@clauswilke).
+
 ## Tidy evaluation
 
 * `aes()` now supports quasiquotation so that you can use `!!`, `!!!`,
@@ -188,23 +205,6 @@
 
 * `scale_type()` generic is now exported and documented. Use this if you 
   want to extend ggplot2 to work with a new type of vector.
-
-## Breaking changes
-
-* The long-deprecated `subset` argument to `layer()` has been removed.
-
-* Error: Column `y` must be a 1d atomic vector or a list
-
-  Internally, ggplot2 now uses `as.data.frame(tibble::as_tibble(x))` to 
-  convert a list into a data frame. This improves ggplot2's support for 
-  list-columns (needed for sf support), at a small cost: you can no longer
-  use matrix-columns. These are rarely used but are produced by `scale()`;
-  to continue to use `scale()` you'll need to wrap it with `as.numeric()`, 
-  e.g. `as.numeric(scale(x))`.
-  
-* The function `guide_train()` now has an optional parameter `aesthetic`
-  that allows you to override the `aesthetic` setting in the scale. This 
-  change will only affect code that implements custom guides (@clauswilke).
 
 ## Minor bug fixes and improvements
 
