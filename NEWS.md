@@ -1,5 +1,80 @@
 # ggplot2 2.2.1.9000
 
+## Breaking changes
+
+*   ggplot2 now supports/uses tidy eval which means that the `aes()` is now
+    a list of quosures (expression + environment pairs) rather than a list of
+    symbols. If you compute on the contents of `aes()` you will need to use
+    tools from rlang to extract the components that you need. If you are 
+    stuck, we're happy to help - please ask on <community.rstudio.com>.
+  
+    A common symptom of this change is "undefined columns selected":
+    this often occurs when the contents of `aes()` are coerced to a character
+    vector and then used to index a data frame. This never worked reliably
+    (i.e. it would fail if the user supplied an expression), so typically
+    indicates that a different approach is warranted (#2591).
+
+*   Error: Column `y` must be a 1d atomic vector or a list
+  
+    Internally, ggplot2 now uses `as.data.frame(tibble::as_tibble(x))` to 
+    convert a list into a data frame. This improves ggplot2's support for 
+    list-columns (needed for sf support), at a small cost: you can no longer
+    use matrix-columns. These are rarely used but are produced by `scale()`;
+    to continue to use `scale()` you'll need to wrap it with `as.numeric()`, 
+    e.g. `as.numeric(scale(x))`.
+  
+*   Error: More than one expression parsed
+  
+    Previously `aes_string(x = c("a", "b", "c"))` silently returned 
+    `aes(x = a)`. Now this is a clear error.
+
+*   Error: `data` must be uniquely named but has duplicate columns
+  
+    If layer data contains columns with identical names an error will be 
+    thrown. In earlier versions the first occuring column was chosen silently,
+    potentially masking that the wrong data was chosen.
+
+*   Error: Aesthetics must be either length 1 or the same as the data
+    
+    Layers are stricter about the columns they will combine into a single
+    data frame. Each aesthetic now must be either the same length as the data
+    frame or a single value. This makes silent recycling errors much less likely.
+
+*   Error: Free scales are only supported with `coord_cartesian()` and `coord_flip()`
+   
+    Free scales only work with selected coordinate systems; previously you'd
+    get an incorrect plot.
+
+*   Error: unused argument (output)
+  
+    The function `guide_train()` now has an optional parameter `aesthetic`
+    that allows you to override the `aesthetic` setting in the scale.
+    To make your code work with the both released and development versions of 
+    ggplot2 appropriate, add `aesthetic = NULL` to the `guide_train()` method
+    signature.
+    
+    ```R
+    # old
+    guide_train.legend <- function(guide, scale) {...}
+    
+    # new 
+    guide_train.legend <- function(guide, scale, aesthetic = NULL) {...}
+    ```
+    
+    Then, inside the function, replace `scale$aesthetics[1]`,
+    `aesthetic %||% scale$aesthetics[1]`. (The %||% operator is defined in the 
+    rlang package).
+    
+    ```R
+    # old
+    setNames(list(scale$map(breaks)), scale$aesthetics[1])
+
+    # new
+    setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1])
+    ```
+
+*   The long-deprecated `subset` argument to `layer()` has been removed.
+
 ## Tidy evaluation
 
 * `aes()` now supports quasiquotation so that you can use `!!`, `!!!`,
@@ -188,21 +263,6 @@
 
 * `scale_type()` generic is now exported and documented. Use this if you 
   want to extend ggplot2 to work with a new type of vector.
-
-## Breaking changes
-
-* The long-deprecated `subset` argument to `layer()` has been removed.
-
-* Internally, ggplot2 now uses `as.data.frame(tibble::as_tibble(x))` to 
-  convert a list into a data frame. This improves ggplot2's support for 
-  list-columns (needed for sf support), at a small cost: you can no longer
-  use matrix-columns. These are rarely used but are produced by `scale()`;
-  to continue to use `scale()` you'll need to wrap it with `as.numeric()`, 
-  e.g. `as.numeric(scale(x))`.
-  
-* The function `guide_train()` now has an optional parameter `aesthetic`
-  that allows you to override the `aesthetic` setting in the scale. This 
-  change will only affect code that implements custom guides (@clauswilke).
 
 ## Minor bug fixes and improvements
 
