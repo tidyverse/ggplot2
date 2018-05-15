@@ -30,7 +30,7 @@
 #'      Used to setup defaults that need to complete dataset, and to inform
 #'      the user of important choices. Should return list of parameters.
 #'   - `setup_data(data, params)`: called once for each layer,
-#'      after `setp_params()`. Should return modified `data`.
+#'      after `setup_params()`. Should return modified `data`.
 #'      Default checks that required aesthetics are present.
 #'
 #' And the following fields
