@@ -113,10 +113,6 @@ p + geom_point(aes(colour = factor(cyl)))
 p + geom_point(aes(shape = factor(cyl)))
 p + geom_point(aes(size = qsec))
 
-# Change scales
-p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
-p + geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
-
 # Set aesthetics to fixed value
 ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)
 

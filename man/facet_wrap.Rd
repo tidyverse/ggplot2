@@ -82,11 +82,7 @@ p + facet_wrap(vars(class), nrow = 4)
 # You can facet by multiple variables
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  facet_wrap(~ cyl + drv)
-# Or use a character vector:
-ggplot(mpg, aes(displ, hwy)) +
-  geom_point() +
-  facet_wrap(c("cyl", "drv"))
+  facet_wrap(vars(cyl, drv))
 
 # Use the `labeller` option to control how labels are printed:
 ggplot(mpg, aes(displ, hwy)) +

@@ -68,17 +68,9 @@
 #' p2 <- p1 + geom_point(aes(size = value))
 #'
 #' # Basic form
-#' p1 + scale_fill_continuous(guide = "legend")
 #' p1 + scale_fill_continuous(guide = guide_legend())
 #'
-#' # Guide title
-#' p1 + scale_fill_continuous(guide = guide_legend(title = "V")) # title text
-#' p1 + scale_fill_continuous(guide = guide_legend(title = NULL)) # no title
-#'
 #' # Control styles
-#'
-#' # key size
-#' p1 + guides(fill = guide_legend(keywidth = 3, keyheight = 1))
 #'
 #' # title position
 #' p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
@@ -112,12 +104,10 @@
 #' )
 #'
 #' # Set aesthetic of legend key
-#'
 #' # very low alpha value make it difficult to see legend key
-#' p3 <- ggplot(diamonds, aes(carat, price)) +
-#'   geom_point(aes(colour = color), alpha = 1/100)
+#' p3 <- ggplot(mtcars, aes(vs, am, colour = factor(cyl))) +
+#'   geom_jitter(alpha = 1/5, width = 0.01, height = 0.01)
 #' p3
-#'
 #' # override.aes overwrites the alpha
 #' p3 + guides(colour = guide_legend(override.aes = list(alpha = 1)))
 #'
@@ -128,17 +118,9 @@
 #' p + guides(col = guide_legend(nrow = 8))
 #' p + guides(col = guide_legend(ncol = 8))
 #' p + guides(col = guide_legend(nrow = 8, byrow = TRUE))
-#' p + guides(col = guide_legend(ncol = 8, byrow = TRUE))
 #'
 #' # reversed order legend
 #' p + guides(col = guide_legend(reverse = TRUE))
-#'
-#' # hide some aesthetics from the legend
-#' p4 <- ggplot(mtcars, aes(mpg, qsec, colour = factor(vs), shape = factor(am))) +
-#'   geom_point()
-#' p4 + geom_line()
-#' p4 + geom_line(show.legend = c(color = FALSE))
-#'
 #' }
 guide_legend <- function(# title
                          title = waiver(),
