@@ -345,8 +345,7 @@ guide_gengrob.legend <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
-  title_fontsize <- title.theme$size
-  if (is.null(title_fontsize)) title_fontsize <- 0
+  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||% 0
 
   # gap between keys etc
   # the default horizontal and vertical gap need to be the same to avoid strange
@@ -375,17 +374,15 @@ guide_gengrob.legend <- function(guide, theme) {
     if (is.null(guide$label.theme$vjust) && is.null(theme$legend.text$vjust)) label.theme$vjust <- NULL
 
     # label.theme in param of guide_legend() > theme$legend.text.align > default
-    hjust <- x <- guide$label.hjust %||% theme$legend.text.align %||% label.theme$hjust %||%
+    hjust <- guide$label.hjust %||% theme$legend.text.align %||% label.theme$hjust %||%
       just_defaults$hjust
-    vjust <- y <- guide$label.vjust %||% label.theme$vjust %||%
+    vjust <- guide$label.vjust %||% label.theme$vjust %||%
       just_defaults$vjust
 
     grob.labels <- lapply(guide$key$.label, function(label, ...) {
       g <- element_grob(
         element = label.theme,
         label = label,
-        x = x,
-        y = y,
         hjust = hjust,
         vjust = vjust,
         margin_x = TRUE,
@@ -694,7 +691,13 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust, debug = title.theme$debug),
+    justify_grobs(
+      grob.title,
+      hjust = title.hjust,
+      vjust = title.vjust,
+      int_angle = title.theme$angle,
+      debug = title.theme$debug
+    ),
     name = "title",
     clip = "off",
     t = 1 + min(vps.title.row),
@@ -714,7 +717,13 @@ guide_gengrob.legend <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
-    justify_grobs(grob.labels, hjust = hjust, vjust = vjust, debug = label.theme$debug),
+    justify_grobs(
+      grob.labels,
+      hjust = hjust,
+      vjust = vjust,
+      int_angle = label.theme$angle,
+      debug = label.theme$debug
+    ),
     name = paste("label", vps$label.row, vps$label.col, sep = "-"),
     clip = "off",
     t = 1 + vps$label.row,

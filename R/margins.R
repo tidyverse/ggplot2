@@ -39,24 +39,13 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
 
   if (is.null(label)) return(zeroGrob())
 
-  angle <- angle %% 360
-  if (0 <= angle & angle < 90) {
-    xp <- hjust
-    yp <- vjust
-  } else if (90 <= angle & angle < 180) {
-    xp <- 1 - vjust
-    yp <- hjust
-  } else if (180 <= angle & angle < 270) {
-    xp <- 1 - hjust
-    yp <- 1 - vjust
-  } else if (270 <= angle & angle < 360) {
-    xp <- vjust
-    yp <- 1 - hjust
-  }
+  # We rotate the justifiation values to obtain the correct x and y reference point,
+  # since hjust and vjust are applied relative to the rotated text frame in textGrob
+  just <- rotate_just(angle, hjust, vjust)
 
   n <- max(length(x), length(y), 1)
-  x <- x %||% unit(rep(xp, n), "npc")
-  y <- y %||% unit(rep(yp, n), "npc")
+  x <- x %||% unit(rep(just$hjust, n), "npc")
+  y <- y %||% unit(rep(just$vjust, n), "npc")
 
   text_grob <- textGrob(
     label,
@@ -234,14 +223,18 @@ heightDetails.titleGrob <- function(x) {
 #'   should be performed. If `NULL`, justification will be done relative to the
 #'   enclosing drawing area (i.e., `x = hjust` and `y = vjust`).
 #' @param hjust,vjust Horizontal and vertical justification of the grob relative to `x` and `y`.
+#' @param int_angle Internal angle of the grob to be justified. When justifying a text
+#'   grob with rotated text, this argument can be used to make `hjust` and `vjust` operate
+#'   relative to the direction of the text.
 #' @param debug If `TRUE`, aids visual debugging by drawing a solid
 #'   rectangle behind the complete grob area.
 #'
 #' @noRd
-justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, debug = FALSE) {
+justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
+                          int_angle = 0, debug = FALSE) {
   if (!inherits(grobs, "grob")) {
     if (is.list(grobs)) {
-      return(lapply(grobs, justify_grobs, x, y, hjust, vjust, debug))
+      return(lapply(grobs, justify_grobs, x, y, hjust, vjust, int_angle, debug))
     }
     else {
       stop("need individual grob or list of grobs as argument.")
@@ -252,8 +245,12 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, d
     return(grobs)
   }
 
-  x <- x %||% unit(hjust, "npc")
-  y <- y %||% unit(vjust, "npc")
+  # adjust hjust and vjust according to internal angle
+  just <- rotate_just(int_angle, hjust, vjust)
+
+  x <- x %||% unit(just$hjust, "npc")
+  y <- y %||% unit(just$vjust, "npc")
+
 
   if (isTRUE(debug)) {
     children <- gList(
@@ -265,14 +262,46 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5, d
     children = gList(grobs)
   }
 
-  gTree(
+
+  result_grob <- gTree(
     children = children,
     vp = viewport(
       x = x,
       y = y,
       width = grobWidth(grobs),
       height = grobHeight(grobs),
-      just = c(hjust, vjust)
+      just = unlist(just)
     )
   )
+
+
+  if (isTRUE(debug)) {
+    #cat("x, y:", c(x, y), "\n")
+    #cat("E - hjust, vjust:", c(hjust, vjust), "\n")
+    grobTree(
+      result_grob,
+      pointsGrob(x, y, pch = 20, gp = gpar(col = "mediumturquoise"))
+    )
+  } else {
+    result_grob
+  }
+}
+
+
+#' Rotate justification parameters counter-clockwise
+#'
+#' @param angle angle of rotation, in degrees
+#' @param hjust horizontal justification
+#' @param vjust vertical justification
+#' @return A list with two components, `hjust` and `vjust`, containing the rotated hjust and vjust values
+#'
+#' @noRd
+rotate_just <- function(angle, hjust, vjust) {
+  # convert angle to radians
+  rad <- (angle %||% 0) * pi / 180
+
+  hnew <- cos(rad) * hjust - sin(rad) * vjust + (1 - cos(rad) + sin(rad)) / 2
+  vnew <- sin(rad) * hjust + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
+
+  list(hjust = hnew, vjust = vnew)
 }

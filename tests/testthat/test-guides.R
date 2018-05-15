@@ -183,6 +183,33 @@ test_that("guides title and text are positioned correctly", {
     )
   )
 
+  # title and label rotation
+  df <- data.frame(x = c(5, 10, 15))
+  p <- ggplot(df, aes(x, x, color = x, fill = 15 - x)) +
+    geom_point(shape = 21, size = 5, stroke = 3) +
+    scale_colour_continuous(
+      name = "value",
+      guide = guide_colorbar(
+        title.theme = element_text(size = 11, angle = 0, hjust = 0.5, vjust = 1),
+        label.theme = element_text(size = 0.8*11, angle = 270, hjust = 0.5, vjust = 1)
+      )
+    ) +
+    scale_fill_continuous(
+      breaks = c(5, 10, 15),
+      limits = c(5, 15),
+      labels = paste("long", c(5, 10, 15)),
+      name = "fill value",
+      guide = guide_legend(
+        direction = "horizontal",
+        title.position = "top",
+        label.position = "bottom",
+        title.theme = element_text(size = 11, angle = 180, hjust = 0, vjust = 1),
+        label.theme = element_text(size = 0.8*11, angle = 90, hjust = 1, vjust = 0.5)
+      )
+    )
+
+  expect_doppelganger("rotated guide titles and labels", p )
+
 })
 
 test_that("colorbar can be styled", {

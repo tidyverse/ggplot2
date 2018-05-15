@@ -342,8 +342,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
-  title_fontsize <- title.theme$size
-  if (is.null(title_fontsize)) title_fontsize <- 0
+  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||% 0
 
   # gap between keys etc
   # the default horizontal and vertical gap need to be the same to avoid strange
@@ -527,7 +526,13 @@ guide_gengrob.colorbar <- function(guide, theme) {
     b = 1 + max(vps$label.row), l = 1 + min(vps$label.col))
   gt <- gtable_add_grob(
     gt,
-    justify_grobs(grob.title, hjust = title.hjust, vjust = title.vjust, debug = title.theme$debug),
+    justify_grobs(
+      grob.title,
+      hjust = title.hjust,
+      vjust = title.vjust,
+      int_angle = title.theme$angle,
+      debug = title.theme$debug
+    ),
     name = "title",
     clip = "off",
     t = 1 + min(vps$title.row), r = 1 + max(vps$title.col),
