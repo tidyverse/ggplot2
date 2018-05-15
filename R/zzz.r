@@ -16,6 +16,14 @@
   })
 }
 
+.onLoad <- function(...) {
+  # To avoid namespace clash with dplyr.
+  # It seems surprising that this hack works
+  if (requireNamespace("dplyr", quietly = TRUE)) {
+    vars <<- dplyr::vars
+  }
+}
+
 release_questions <- function() {
   c(
     "Have you built the book?"
