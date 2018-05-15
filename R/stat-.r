@@ -38,7 +38,7 @@
 #'     Used to setup defaults that need to complete dataset, and to inform
 #'     the user of important choices. Should return list of parameters.
 #'   - `setup_data(data, params)`: called once for each layer,
-#'     after `setp_params()`. Should return modified `data`.
+#'     after `setup_params()`. Should return modified `data`.
 #'     Default methods removes all rows containing a missing value in
 #'     required aesthetics (with a warning if `!na.rm`).
 #'   - `required_aes`: A character vector of aesthetics needed to

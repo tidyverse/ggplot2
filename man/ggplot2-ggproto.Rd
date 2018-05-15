@@ -324,7 +324,7 @@ values rather than the values that are mapped to the aesthetic.
 Used to setup defaults that need to complete dataset, and to inform
 the user of important choices. Should return list of parameters.
 \item \code{setup_data(data, params)}: called once for each layer,
-after \code{setp_params()}. Should return modified \code{data}.
+after \code{setup_params()}. Should return modified \code{data}.
 Default methods removes all rows containing a missing value in
 required aesthetics (with a warning if \code{!na.rm}).
 \item \code{required_aes}: A character vector of aesthetics needed to
@@ -366,7 +366,7 @@ to the individual panels. \code{params} contains the parameters returned by
 Used to setup defaults that need to complete dataset, and to inform
 the user of important choices. Should return list of parameters.
 \item \code{setup_data(data, params)}: called once for each layer,
-after \code{setp_params()}. Should return modified \code{data}.
+after \code{setup_params()}. Should return modified \code{data}.
 Default checks that required aesthetics are present.
 }
 
