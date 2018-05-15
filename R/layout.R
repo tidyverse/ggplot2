@@ -80,7 +80,7 @@ Layout <- ggproto("Layout", NULL,
 
       coord_fg <- self$coord$render_fg(self$panel_params[[i]], theme)
       coord_bg <- self$coord$render_bg(self$panel_params[[i]], theme)
-      if (theme$panel.ontop) {
+      if (isTRUE(theme$panel.ontop)) {
         panel <- c(panel, list(coord_bg), list(coord_fg))
       } else {
         panel <- c(list(coord_bg), panel, list(coord_fg))
