@@ -42,7 +42,7 @@ geom_curve <- function(mapping = NULL, data = NULL,
 GeomCurve <- ggproto("GeomCurve", GeomSegment,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
   draw_panel = function(data, panel_params, coord, curvature = 0.5, angle = 90,
-                        ncp = 5, arrow = NULL, arrow.fill, lineend = "butt", na.rm = FALSE) {
+                        ncp = 5, arrow = NULL, arrow.fill = NULL, lineend = "butt", na.rm = FALSE) {
 
     if (!coord$is_linear()) {
       warning("geom_curve is not implemented for non-linear coordinates",
