@@ -34,6 +34,13 @@
   thrown. In earlier versions the first occuring column was chosen silently,
   potentially masking that the wrong data was chosen.
 
+* Error: Aesthetics must be either length 1 or the same as the data
+  
+  Layers are stricter about the columns they will combine into a single
+  data frame. Each aesthetic now must be either the same length as the data
+  frame or a single value. This makes silent recycling errors much less likely.
+
+
 * The long-deprecated `subset` argument to `layer()` has been removed.
 
 * The function `guide_train()` now has an optional parameter `aesthetic`
