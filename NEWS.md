@@ -12,6 +12,11 @@
   use matrix-columns. These are rarely used but are produced by `scale()`;
   to continue to use `scale()` you'll need to wrap it with `as.numeric()`, 
   e.g. `as.numeric(scale(x))`.
+  
+* Error: More than one expression parsed
+
+  Previously `aes_string(x = c("a", "b", "c"))` silently returned 
+  `aes(x = a)`. Now this is a clear error.
 
 * The function `guide_train()` now has an optional parameter `aesthetic`
   that allows you to override the `aesthetic` setting in the scale. This 
