@@ -28,6 +28,12 @@
   Previously `aes_string(x = c("a", "b", "c"))` silently returned 
   `aes(x = a)`. Now this is a clear error.
 
+* Error: `data` must be uniquely named but has duplicate columns
+
+  If layer data contains columns with identical names an error will be 
+  thrown. In earlier versions the first occuring column was chosen silently,
+  potentially masking that the wrong data was chosen.
+
 * The long-deprecated `subset` argument to `layer()` has been removed.
 
 * The function `guide_train()` now has an optional parameter `aesthetic`
