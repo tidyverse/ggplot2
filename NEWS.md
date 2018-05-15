@@ -45,11 +45,35 @@
   Free scales only work with selected coordinate systems; previously you'd
   get an incorrect plot.
 
-* The long-deprecated `subset` argument to `layer()` has been removed.
+* Error: unused argument (output)
+  
+    The function `guide_train()` now has an optional parameter `aesthetic`
+    that allows you to override the `aesthetic` setting in the scale.
+    To make your code work with the both released and development versions of 
+    ggplot2 appropriate, add `aesthetic = NULL` to the `guide_train()` method
+    signature.
+    
+    ```R
+    # old
+    guide_train.legend <- function(guide, scale) {...}
+    
+    # new 
+    guide_train.legend <- function(guide, scale, aesthetic = NULL) {...}
+    ```
+    
+    Then, inside the function, replace `scale$aesthetics[1]`,
+    `aesthetic %||% scale$aesthetics[1]`. (The %||% operator is defined in the 
+    rlang package).
+    
+    ```R
+    # old
+    setNames(list(scale$map(breaks)), scale$aesthetics[1])
 
-* The function `guide_train()` now has an optional parameter `aesthetic`
-  that allows you to override the `aesthetic` setting in the scale. This 
-  change will only affect code that implements custom guides (@clauswilke).
+    # new
+    setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1])
+    ```
+
+* The long-deprecated `subset` argument to `layer()` has been removed.
 
 ## Tidy evaluation
 
