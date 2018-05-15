@@ -193,7 +193,9 @@
 
 * The long-deprecated `subset` argument to `layer()` has been removed.
 
-* Internally, ggplot2 now uses `as.data.frame(tibble::as_tibble(x))` to 
+* Error: Column `y` must be a 1d atomic vector or a list
+
+  Internally, ggplot2 now uses `as.data.frame(tibble::as_tibble(x))` to 
   convert a list into a data frame. This improves ggplot2's support for 
   list-columns (needed for sf support), at a small cost: you can no longer
   use matrix-columns. These are rarely used but are produced by `scale()`;
