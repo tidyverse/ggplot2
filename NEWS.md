@@ -12,13 +12,7 @@
   use matrix-columns. These are rarely used but are produced by `scale()`;
   to continue to use `scale()` you'll need to wrap it with `as.numeric()`, 
   e.g. `as.numeric(scale(x))`.
-  
-* Error: A continuous variable can not be mapped to shape
-  Error: A continuous variable can not be mapped to linetype
 
-  Previously you could map a continuous variable to shape or linetyoes, and it
-  worked but did not produce a useful plot. Now these is a clear error. 
-  
 * The function `guide_train()` now has an optional parameter `aesthetic`
   that allows you to override the `aesthetic` setting in the scale. This 
   change will only affect code that implements custom guides (@clauswilke).
