@@ -29,3 +29,12 @@ test_that("qplot() evaluates constants in the right place", {
   })
   expect_identical(layer_data(p)$colour, I("red"))
 })
+
+test_that("qplot() evaluates layers in package environment", {
+  geom_line <- function(...) {
+    stop("!!!")
+  }
+
+  expect_error(p <- qplot(1, 1, geom = "line"), NA)
+
+})
