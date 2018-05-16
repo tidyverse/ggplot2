@@ -128,7 +128,7 @@ print.uneval <- function(x, ...) {
     cat("<empty>\n")
   } else {
     values <- vapply(x, rlang::quo_label, character(1))
-    bullets <- paste0("* `", format(names(x)), "` -> ", values, "\n")
+    bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
 
     cat(bullets, sep = "")
   }
