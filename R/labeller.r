@@ -230,7 +230,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
 
   structure(fun, class = "labeller")
 }
-globalVariables(c("x", "."))
+utils::globalVariables(c("x", "."))
 
 #' @rdname labellers
 #' @export

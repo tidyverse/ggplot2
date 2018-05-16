@@ -745,4 +745,4 @@ label_just_defaults.legend <- function(direction, position) {
 }
 
 
-globalVariables(c("C", "R", "key.row", "key.col", "label.row", "label.col"))
+utils::globalVariables(c("C", "R", "key.row", "key.col", "label.row", "label.col"))
