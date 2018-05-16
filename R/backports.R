@@ -6,9 +6,11 @@ if (getRversion() < 3.3) {
   absolute.units.unit.list <- getFromNamespace("absolute.units.unit.list", "grid")
   absolute.units.unit.arithmetic <- getFromNamespace("absolute.units.unit.arithmetic", "grid")
 
-  .onLoad <- function(...) {
+  backport_unit_methods <- function() {
     registerS3method("absolute.units", "unit", absolute.units.unit)
     registerS3method("absolute.units", "unit.list", absolute.units.unit.list)
     registerS3method("absolute.units", "unit.arithmetic", absolute.units.unit.arithmetic)
   }
+} else {
+  backport_unit_methods <- function() {}
 }
