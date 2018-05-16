@@ -93,6 +93,11 @@ test_that("quosures are squashed when creating default label for a mapping", {
   expect_identical(p$labels$x, "identity(cyl)")
 })
 
+test_that("labelling doesn't cause error if aesthetic is nul", {
+  p <- ggplot(mtcars) + aes(x = NULL)
+  expect_null(p$labels$x)
+})
+
 
 # Visual tests ------------------------------------------------------------
 
