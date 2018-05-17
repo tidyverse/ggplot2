@@ -11,8 +11,8 @@ test_that("names surrounded by .. is calculated", {
   expect_equal(is_calculated_aes(aes(f(..x..))), TRUE)
 })
 
-test_that("call to calc() is calculated", {
-  expect_true(is_calculated_aes(aes(calc(x))))
+test_that("call to stat() is calculated", {
+  expect_true(is_calculated_aes(aes(stat(x))))
 })
 
 test_that("strip_dots remove dots around calculated aesthetics", {
@@ -26,5 +26,5 @@ test_that("strip_dots remove dots around calculated aesthetics", {
 
 test_that("calculation stripped from labels", {
   expect_equal(make_labels(aes(x = ..y..)), list(x = "y"))
-  expect_equal(make_labels(aes(x = calc(y))), list(x = "y"))
+  expect_equal(make_labels(aes(x = stat(y))), list(x = "y"))
 })

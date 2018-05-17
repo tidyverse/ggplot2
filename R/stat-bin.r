@@ -145,7 +145,7 @@ StatBin <- ggproto("StatBin", Stat,
     bin_vector(data$x, bins, weight = data$weight, pad = pad)
   },
 
-  default_aes = aes(y = calc(count), weight = 1),
+  default_aes = aes(y = stat(count), weight = 1),
   required_aes = c("x")
 )
 

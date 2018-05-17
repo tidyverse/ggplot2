@@ -36,7 +36,7 @@ stat_binhex <- stat_bin_hex
 #' @usage NULL
 #' @export
 StatBinhex <- ggproto("StatBinhex", Stat,
-  default_aes = aes(weight = 1, fill = calc(count)),
+  default_aes = aes(weight = 1, fill = stat(count)),
 
   required_aes = c("x", "y"),
 
