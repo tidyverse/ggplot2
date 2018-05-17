@@ -77,22 +77,11 @@ ggplot <- function(data = NULL, mapping = aes(), ...,
 #' @export
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
-  ggplot.data.frame(fortify(data, ...), mapping, environment = environment)
-}
-
-#' @export
-ggplot.function <- function(data = NULL, mapping = aes(), ...,
-                           environment = parent.frame()) {
-  # Added to avoid functions end in ggplot.default
-  stop("You're passing a function as global data.\nHave you misspelled the `data` argument in `ggplot()`", call. = FALSE)
-}
-
-#' @export
-ggplot.data.frame <- function(data, mapping = aes(), ...,
-                              environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
     stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
   }
+
+  data <- fortify(data, ...)
 
   p <- structure(list(
     data = data,
@@ -112,11 +101,10 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
 }
 
 #' @export
-ggplot.grouped_df <- function(data, mapping = aes(), ...,
-                               environment = parent.frame()) {
-
-  data$.group <- dplyr::group_indices(data)
-  ggplot.data.frame(data, mapping = mapping, ..., environment = environment)
+ggplot.function <- function(data = NULL, mapping = aes(), ...,
+                            environment = parent.frame()) {
+  # Added to avoid functions end in ggplot.default
+  stop("You're passing a function as global data.\nHave you misspelled the `data` argument in `ggplot()`", call. = FALSE)
 }
 
 plot_clone <- function(plot) {
