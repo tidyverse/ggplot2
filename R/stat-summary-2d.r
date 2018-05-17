@@ -80,7 +80,7 @@ stat_summary2d <- function(...) {
 #' @usage NULL
 #' @export
 StatSummary2d <- ggproto("StatSummary2d", Stat,
-  default_aes = aes(fill = calc(value)),
+  default_aes = aes(fill = stat(value)),
 
   required_aes = c("x", "y", "z"),
 

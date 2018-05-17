@@ -128,12 +128,12 @@
   informative error (#2400).
 
 * New syntax for calculated aesthetics. Instead of using `aes(y = ..count..)` 
-  you can (and should!) use `aes(y = calc(count))`. `calc()` is a real function 
+  you can (and should!) use `aes(y = stat(count))`. `stat()` is a real function 
   with documentation which hopefully will make this part of ggplot2 less 
   confusing (#2059).
   
-  `calc()` is particularly nice for more complex calculations because you 
-  only need to specify it once: `aes(y = calc(count / max(count)))`,
+  `stat()` is particularly nice for more complex calculations because you 
+  only need to specify it once: `aes(y = stat(count / max(count)))`,
   rather than `aes(y = ..count.. / max(..count..))`
   
 * New `tag` label for adding identification tags to plots, typically used for 

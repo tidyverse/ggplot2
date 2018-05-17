@@ -265,7 +265,7 @@ Layer <- ggproto("Layer", NULL,
 
     # Add map stat output to aesthetics
     env <- new.env(parent = baseenv())
-    env$calc <- calc
+    env$stat <- stat
 
     stat_data <- plyr::quickdf(lapply(new, rlang::eval_tidy, data, env))
     names(stat_data) <- names(new)
