@@ -20,9 +20,9 @@ fortify.NULL <- function(model, data, ...) waiver()
 #' @export
 fortify.function <- function(model, data, ...) model
 #' @export
-fortify.grouped_df <- function(data, ...) {
-  data$.group <- dplyr::group_indices(data)
-  data
+fortify.grouped_df <- function(model, data, ...) {
+  model$.group <- dplyr::group_indices(model)
+  model
 }
 #' @export
 fortify.default <- function(model, data, ...) {
