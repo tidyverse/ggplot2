@@ -14,6 +14,11 @@
     (i.e. it would fail if the user supplied an expression), so typically
     indicates that a different approach is warranted (#2591).
 
+    Similarly, if you compute on the `mapping` of an existing ggplot2 object you
+    will also need to use rlang tools to extract the components you need. One
+    common errror related to this change is "invalid 'type' (list) of argument"
+    (#2610).
+
 *   Error: Column `y` must be a 1d atomic vector or a list
   
     Internally, ggplot2 now uses `as.data.frame(tibble::as_tibble(x))` to 
