@@ -20,6 +20,11 @@ fortify.NULL <- function(model, data, ...) waiver()
 #' @export
 fortify.function <- function(model, data, ...) model
 #' @export
+fortify.grouped_df <- function(data, ...) {
+  data$.group <- dplyr::group_indices(data)
+  data
+}
+#' @export
 fortify.default <- function(model, data, ...) {
   msg <- paste0(
     "`data` must be a data frame, or other object coercible by `fortify()`, ",
