@@ -13,8 +13,10 @@ test_that("Default smoothing methods for small and large data sets work", {
   # test small data set
   set.seed(6531)
   x <- rnorm(10)
-  df <- data.frame(x = x,
-                   y = x^2 + 0.5 * rnorm(10))
+  df <- data.frame(
+    x = x,
+    y = x^2 + 0.5 * rnorm(10)
+  )
 
   m <- loess(y ~ x, data = df, span = 0.75)
   range <- range(df$x, na.rm = TRUE)
@@ -30,8 +32,10 @@ test_that("Default smoothing methods for small and large data sets work", {
 
   # test large data set
   x <- rnorm(1001) # 1000 is the cutoff point for gam
-  df <- data.frame(x = x,
-                   y = x^2 + 0.5 * rnorm(1001))
+  df <- data.frame(
+    x = x,
+    y = x^2 + 0.5 * rnorm(1001)
+  )
 
   m <- mgcv::gam(y ~ s(x, bs = "cs"), data = df)
   range <- range(df$x, na.rm = TRUE)
