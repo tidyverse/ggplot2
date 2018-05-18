@@ -81,7 +81,7 @@ documentation pages. Currently, there are three good places to start:
     communication](http://r4ds.had.co.nz/graphics-for-communication.html)
     chapters in [R for data science](http://r4ds.had.co.nz). R for data
     science is designed to give you a comprehensive introduction to the
-    [tidyverse](http://tidyverse.org), and these two chapters will you
+    [tidyverse](http://tidyverse.org), and these two chapters will
     get up to speed with the essentials of ggplot2 as quickly as
     possible.
 
