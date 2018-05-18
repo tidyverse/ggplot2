@@ -297,14 +297,16 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       col_axes <- axes$y$right[layout$SCALE_Y[col_panels]]
       if (params$strip.position == "bottom" &&
           theme$strip.placement != "inside" &&
-          any(!vapply(row_axes, is.zero, logical(length(row_axes))))) {
+          any(!vapply(row_axes, is.zero, logical(1))) &&
+          !params$free$x) {
         warning("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'", call. = FALSE)
       } else {
         axis_mat_x_bottom[row_pos] <- row_axes
       }
       if (params$strip.position == "right" &&
           theme$strip.placement != "inside" &&
-          any(!vapply(col_axes, is.zero, logical(length(col_axes))))) {
+          any(!vapply(col_axes, is.zero, logical(1))) &&
+          !params$free$y) {
         warning("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'", call. = FALSE)
       } else {
         axis_mat_y_right[col_pos] <- col_axes
