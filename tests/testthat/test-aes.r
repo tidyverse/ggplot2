@@ -23,7 +23,7 @@ test_that("aes_string() doesn't parse non-strings", {
   expect_identical(aes_string(0.4)$x, 0.4)
 })
 
-test_that("aes_q() & aes_string() preserves explicit NULLs", {
+test_that("aes_q() & aes_string() preserve explicit NULLs", {
   expect_equal(aes_q(NULL), aes(NULL))
   expect_equal(aes_q(x = NULL), aes(NULL))
   expect_equal(aes_q(colour = NULL), aes(colour = NULL))

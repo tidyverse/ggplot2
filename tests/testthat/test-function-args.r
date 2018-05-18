@@ -42,7 +42,6 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   })
 })
 
-
 test_that("stat_xxx and StatXxx$compute_panel arg defaults match", {
   ggplot2_ns <- asNamespace("ggplot2")
   objs <- ls(ggplot2_ns)

@@ -3,7 +3,7 @@ context("geom_dotplot")
 set.seed(111)
 dat <- data.frame(x = LETTERS[1:2], y = rnorm(30), g = LETTERS[3:5])
 
-test_that("Dodging works", {
+test_that("dodging works", {
   p <- ggplot(dat, aes(x = x, y = y, fill = g)) +
     geom_dotplot(
       binwidth = 0.2,
@@ -34,8 +34,7 @@ test_that("Dodging works", {
   expect_true(all(abs(df$x - df$xmin - dwidth/2) < 1e-6))
 })
 
-
-test_that("Binning works", {
+test_that("binning works", {
   bp <- ggplot(dat, aes(y)) +
     geom_dotplot(binwidth = .4, method = "histodot")
   x <- layer_data(bp)$x
@@ -53,7 +52,6 @@ test_that("Binning works", {
   expect_false(all(abs((x - min(x) + 1e-7) %% .4) < 1e-6))
 })
 
-
 test_that("NA's result in warning from stat_bindot", {
   set.seed(122)
   dat <- data.frame(x = rnorm(20))
@@ -64,7 +62,7 @@ test_that("NA's result in warning from stat_bindot", {
     "Removed 2 rows.*stat_bindot")
 })
 
-test_that("When binning on y-axis, limits depend on the panel", {
+test_that("when binning on y-axis, limits depend on the panel", {
    p <- ggplot(mtcars, aes(factor(cyl), mpg)) +
         geom_dotplot(binaxis='y')
 
@@ -77,6 +75,7 @@ test_that("When binning on y-axis, limits depend on the panel", {
    expect_true(all(equal_limits1))
    expect_false(all(equal_limits2))
 })
+
 
 # Visual tests ------------------------------------------------------------
 

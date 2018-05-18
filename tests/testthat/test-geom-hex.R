@@ -1,6 +1,6 @@
 context("geom_hex")
 
-test_that("density and value summaries available", {
+test_that("density and value summaries are available", {
   df <- data.frame(x = c(1, 1, 1, 2), y = c(1, 1, 1, 2))
   base <- ggplot(df, aes(x, y)) +
     geom_hex()

@@ -1,6 +1,6 @@
 context("Labels")
 
-test_that("Setting guide labels", {
+test_that("setting guide labels works", {
 
     expect_identical(xlab("my label")$x, "my label")
     expect_identical(labs(x = "my label")$x, "my label")
@@ -26,6 +26,7 @@ test_that("Setting guide labels", {
     # American spelling
     expect_identical(labs(color = "my label")$colour, "my label")
 })
+
 
 # Visual tests ------------------------------------------------------------
 

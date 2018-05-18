@@ -209,7 +209,6 @@ test_that("guides title and text are positioned correctly", {
     )
 
   expect_doppelganger("rotated guide titles and labels", p )
-
 })
 
 test_that("colorbar can be styled", {

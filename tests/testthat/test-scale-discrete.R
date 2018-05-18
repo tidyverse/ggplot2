@@ -10,7 +10,7 @@ df <- tibble::tibble(
   y = 1:3
 )
 
-test_that("NAs translated/preserved for position scales", {
+test_that("NAs are translated/preserved for position scales", {
   p1a <- ggplot(df, aes(x1, y)) + geom_point()
   p2a <- ggplot(df, aes(x2, y)) + geom_point()
   p3a <- ggplot(df, aes(x3, y)) + geom_point()
@@ -29,7 +29,7 @@ test_that("NAs translated/preserved for position scales", {
   expect_equal(layer_data(p3b)$x, c(1, 2, NA))
 })
 
-test_that("NAs translated/preserved for non-position scales", {
+test_that("NAs are translated/preserved for non-position scales", {
   p1a <- ggplot(df, aes(y, y, colour = x1)) + geom_point()
   p2a <- ggplot(df, aes(y, y, colour = x2)) + geom_point()
   p3a <- ggplot(df, aes(y, y, colour = x3)) + geom_point()

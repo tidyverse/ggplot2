@@ -64,7 +64,7 @@ test_that("facets split up the data", {
   expect_equal(d1$PANEL, factor(1:3))
 })
 
-test_that("facet_wrap() accept vars()", {
+test_that("facet_wrap() accepts vars()", {
   p <- ggplot(df, aes(x, y)) + geom_point()
   p2 <- p + facet_wrap(vars(z))
 
@@ -130,7 +130,6 @@ test_that("facets with free scales scale independently", {
   expect_true(sd(d3$y) < 1e-10)
 })
 
-
 test_that("shrink parameter affects scaling", {
   l1 <- ggplot(df, aes(1, y)) + geom_point()
   r1 <- pranges(l1)
@@ -148,8 +147,7 @@ test_that("shrink parameter affects scaling", {
   expect_equal(r3$y[[1]], c(1, 3))
 })
 
-
-test_that("Facet variables", {
+test_that("facet variables", {
   expect_identical(facet_null()$vars(), character(0))
   expect_identical(facet_wrap(~ a)$vars(), "a")
   expect_identical(facet_grid(a ~ b)$vars(), c("a", "b"))
@@ -163,9 +161,10 @@ test_that("facet gives clear error if ", {
   )
 })
 
+
 # Visual tests ------------------------------------------------------------
 
-test_that("Facet labels can respect both justification and margin arguments", {
+test_that("facet labels respect both justification and margin arguments", {
 
   df <- data.frame(
     x = 1:2,

@@ -36,5 +36,4 @@ test_that("qplot() evaluates layers in package environment", {
   }
 
   expect_error(p <- qplot(1, 1, geom = "line"), NA)
-
 })

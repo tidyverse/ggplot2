@@ -8,7 +8,7 @@ test_that("labels match breaks, even when outside limits", {
   expect_equal(sc$get_breaks_minor(), c(1, 1.5, 2, 2.5, 3))
 })
 
-test_that("labels must match breaks", {
+test_that("labels match breaks", {
   expect_error(scale_x_discrete(breaks = 1:3, labels = 1:2),
     "must have the same length")
   expect_error(scale_x_continuous(breaks = 1:3, labels = 1:2),
@@ -20,7 +20,6 @@ test_that("labels don't have to match null breaks", {
   expect_true(check_breaks_labels(breaks = NULL, labels = 1:2))
 })
 
-
 test_that("labels don't have extra spaces", {
   labels <- c("a", "abc", "abcdef")
 
@@ -29,18 +28,16 @@ test_that("labels don't have extra spaces", {
 
   expect_equal(sc1$get_labels(), labels)
   expect_equal(sc2$get_labels(), labels)
-
 })
 
-
 test_that("out-of-range breaks are dropped", {
+
   # Limits are explicitly specified, automatic labels
   sc <- scale_x_continuous(breaks = 1:5, limits = c(2, 4))
   bi <- sc$break_info()
   expect_equal(bi$labels, as.character(2:4))
   expect_equal(bi$major, c(0, 0.5, 1))
   expect_equal(bi$major_source, 2:4)
-
 
   # Limits and labels are explicitly specified
   sc <- scale_x_continuous(breaks = 1:5, labels = letters[1:5], limits = c(2, 4))
@@ -49,14 +46,12 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(bi$major, c(0, 0.5, 1))
   expect_equal(bi$major_source, 2:4)
 
-
   # Limits are specified, and all breaks are out of range
   sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)], limits = c(2, 4))
   bi <- sc$break_info()
   expect_equal(length(bi$labels), 0)
   expect_equal(length(bi$major), 0)
   expect_equal(length(bi$major_source), 0)
-
 
   # limits aren't specified, automatic labels
   # limits are set by the data
@@ -67,7 +62,6 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(bi$major_source, 2:4)
   expect_equal(bi$major, c(0, 0.5, 1))
 
-
   # Limits and labels are specified
   sc <- scale_x_continuous(breaks = 1:5, labels = letters[1:5])
   sc$train_df(data.frame(x = 2:4))
@@ -75,7 +69,6 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(bi$labels, letters[2:4])
   expect_equal(bi$major_source, 2:4)
   expect_equal(bi$major, c(0, 0.5, 1))
-
 
   # Limits aren't specified, and all breaks are out of range of data
   sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)])
@@ -86,14 +79,12 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(length(bi$major_source), 0)
 })
 
-
 test_that("no minor breaks when only one break", {
   sc1 <- scale_x_discrete(limits = "a")
   sc2 <- scale_x_continuous(limits = 1)
 
   expect_equal(length(sc1$get_breaks_minor()), 0)
   expect_equal(length(sc2$get_breaks_minor()), 0)
-
 })
 
 init_scale <- function(...) {
@@ -123,11 +114,9 @@ test_that("discrete labels match breaks", {
   sc <- init_scale(breaks = pick_5)
   expect_equal(length(sc$get_breaks()), 5)
   expect_equal(length(sc$get_labels()), 5)
-
 })
 
-
-test_that("scale breaks with numeric log transformation", {
+test_that("scale breaks work with numeric log transformation", {
   sc <- scale_x_continuous(limits = c(1, 1e5), trans = log10_trans())
   expect_equal(sc$get_breaks(), c(0, 2, 4)) # 1, 100, 10000
   expect_equal(sc$get_breaks_minor(), c(0, 1, 2, 3, 4, 5))
@@ -139,7 +128,6 @@ test_that("continuous scales with no data have no breaks or labels", {
   expect_equal(sc$get_breaks(), numeric())
   expect_equal(sc$get_labels(), character())
   expect_equal(sc$get_limits(), c(0, 1))
-
 })
 
 test_that("discrete scales with no data have no breaks or labels", {
@@ -150,7 +138,7 @@ test_that("discrete scales with no data have no breaks or labels", {
   expect_equal(sc$get_limits(), c(0, 1))
 })
 
-test_that("suppressing breaks, minor_breask, and labels", {
+test_that("suppressing breaks, minor_breask, and labels works", {
   expect_equal(scale_x_continuous(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
   expect_equal(scale_x_discrete(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
   expect_equal(scale_x_continuous(minor_breaks = NULL, limits = c(1, 3))$get_breaks_minor(), NULL)
@@ -176,7 +164,6 @@ test_that("suppressing breaks, minor_breask, and labels", {
   expect_error(scale_x_datetime(labels = NA, limits = lims)$get_labels())
   expect_equal(scale_x_datetime(minor_breaks = NULL, limits = lims)$get_breaks_minor(), NULL)
   expect_error(scale_x_datetime(minor_breaks = NA, limits = lims)$get_breaks_minor())
-
 })
 
 test_that("scale_breaks with explicit NA options (deprecated)", {
@@ -213,7 +200,6 @@ test_that("scale_breaks with explicit NA options (deprecated)", {
   scc <- scale_colour_continuous(breaks = NA)
   scc$train(1:3)
   expect_error(scc$get_breaks())
-
 })
 
 
@@ -239,7 +225,6 @@ test_that("breaks can be specified by names of labels", {
   s <- scale_x_discrete(limits = letters[1:3], labels = labels)
   expect_equal(as.vector(s$get_breaks()), letters[1:3])
   expect_equal(as.vector(s$get_labels()), LETTERS[1:3])
-
 })
 
 test_that("only finite or NA values for breaks for transformed scales (#871)", {
@@ -259,7 +244,7 @@ test_that("minor breaks are transformed by scales", {
 
 # Visual tests ------------------------------------------------------------
 
-test_that("minor breaks draws correctly", {
+test_that("minor breaks draw correctly", {
   df <- data.frame(
     x_num = c(1, 3),
     x_chr = c("a", "b"),

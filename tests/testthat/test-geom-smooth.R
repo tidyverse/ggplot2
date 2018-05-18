@@ -1,6 +1,6 @@
 context("geom_smooth")
 
-test_that("Data is ordered by x", {
+test_that("data is ordered by x", {
   df <- data.frame(x = c(1, 5, 2, 3, 4), y = 1:5)
 
   ps <- ggplot(df, aes(x, y))+
@@ -9,7 +9,7 @@ test_that("Data is ordered by x", {
   expect_equal(layer_data(ps)[c("x", "y")], df[order(df$x), ])
 })
 
-test_that("Default smoothing methods for small and large data sets work", {
+test_that("default smoothing methods for small and large data sets work", {
   # test small data set
   set.seed(6531)
   x <- rnorm(10)
@@ -48,8 +48,8 @@ test_that("Default smoothing methods for small and large data sets work", {
     "method = 'gam' and formula 'y ~ s\\(x, bs = \"cs\"\\)"
   )
   expect_equal(plot_data$y, as.numeric(out))
-
 })
+
 
 # Visual tests ------------------------------------------------------------
 

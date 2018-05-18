@@ -11,7 +11,7 @@ panel_layout <- function(facet, data) {
   layout$layout
 }
 
-test_that("grid: single row and single col equivalent", {
+test_that("grid: single row and single col are equivalent", {
   row <- panel_layout(facet_grid(a~.), list(a))
   col <- panel_layout(facet_grid(.~a), list(a))
 
@@ -34,7 +34,7 @@ test_that("grid: includes all combinations", {
   expect_equal(nrow(all), 4)
 })
 
-test_that("wrap and grid equivalent for 1d data", {
+test_that("wrap and grid are equivalent for 1d data", {
   rowg <- panel_layout(facet_grid(a~.), list(a))
   roww <- panel_layout(facet_wrap(~a, ncol = 1), list(a))
   expect_equal(roww, rowg)
@@ -105,7 +105,6 @@ test_that("wrap: drop = FALSE preserves unused levels", {
   wrap_b <- panel_layout(facet_wrap(~b, drop = FALSE), list(a2))
   expect_equal(nrow(wrap_b), 4)
   expect_equal(as.character(wrap_b$b), as.character(4:1))
-
 })
 
 test_that("grid: drop = FALSE preserves unused levels", {
@@ -121,7 +120,6 @@ test_that("grid: drop = FALSE preserves unused levels", {
   expect_equal(nrow(grid_ab), 16)
   expect_equal(as.character(grid_ab$a), as.character(rep(1:4, each = 4)))
   expect_equal(as.character(grid_ab$b), as.character(rep(4:1, 4)))
-
 })
 
 # Missing behaviour ----------------------------------------------------------

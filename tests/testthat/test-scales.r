@@ -24,7 +24,6 @@ test_that("ranges update only for variables listed in aesthetics", {
 
   sc$train_df(data.frame())
   expect_equal(sc$range$range, c(1, 50))
-
 })
 
 test_that("mapping works", {
@@ -74,7 +73,7 @@ test_that("identity scale preserves input values", {
   expect_equal(d1, d2)
 })
 
-test_that("position scales updated by all position aesthetics", {
+test_that("position scales are updated by all position aesthetics", {
   df <- data.frame(x = 1:3, y = 1:3)
 
   aesthetics <- list(
@@ -92,7 +91,6 @@ test_that("position scales updated by all position aesthetics", {
     expect_equal(range$x[[1]], c(1, 3))
     expect_equal(range$y[[1]], c(1, 3))
   })
-
 })
 
 test_that("position scales generate after stats", {
@@ -102,7 +100,6 @@ test_that("position scales generate after stats", {
 
   expect_equal(ranges$x[[1]], c("1"))
   expect_equal(ranges$y[[1]], c(0, 3))
-
 })
 
 test_that("oob affects position values", {
@@ -135,11 +132,9 @@ test_that("oob affects position values", {
   expect_equal(mid_censor[[1]]$y, c(0.5))
   expect_equal(low_squish[[1]]$y, c(0.2, 1, 1))
   expect_equal(mid_squish[[1]]$y, c(0, 0.5, 1))
-
-
 })
 
-test_that("scales looked for in appropriate place", {
+test_that("scales are looked for in appropriate place", {
   xlabel <- function(x) ggplot_build(x)$layout$panel_scales_x[[1]]$name
   p0 <- qplot(mpg, wt, data = mtcars) + scale_x_continuous("0")
   expect_equal(xlabel(p0), "0")
@@ -179,7 +174,7 @@ test_that("find_global searches in the right places", {
     ggplot2::scale_colour_hue)
 })
 
-test_that("Scales warn when transforms introduces non-finite values", {
+test_that("scales warn when transforms introduces non-finite values", {
   df <- data.frame(x = c(1e1, 1e5), y = c(0, 100))
 
   p <- ggplot(df, aes(x, y)) +
@@ -189,7 +184,7 @@ test_that("Scales warn when transforms introduces non-finite values", {
   expect_warning(ggplot_build(p), "Transformation introduced infinite values")
 })
 
-test_that("Scales get their correct titles through layout", {
+test_that("scales get their correct titles through layout", {
   df <- data.frame(x = c(1e1, 1e5), y = c(0, 100))
 
   p <- ggplot(df, aes(x, y)) +
@@ -200,7 +195,7 @@ test_that("Scales get their correct titles through layout", {
   expect_identical(p$layout$ylabel(p$plot$labels)$primary, "y")
 })
 
-test_that("Size and alpha scales throw appropriate warnings for factors", {
+test_that("size and alpha scales throw appropriate warnings for factors", {
   df <- data.frame(
     x = 1:3,
     y = 1:3,
@@ -223,7 +218,7 @@ test_that("Size and alpha scales throw appropriate warnings for factors", {
   expect_warning(ggplot_build(p + geom_point(aes(alpha = o))), NA)
 })
 
-test_that("Shape scale throws appropriate warnings for factors", {
+test_that("shape scale throws appropriate warnings for factors", {
   df <- data.frame(
     x = 1:3,
     y = 1:3,
@@ -242,7 +237,7 @@ test_that("Shape scale throws appropriate warnings for factors", {
   )
 })
 
-test_that("Aesthetics can be set independently of scale name", {
+test_that("aesthetics can be set independently of scale name", {
   df <- data.frame(
     x = LETTERS[1:3],
     y = LETTERS[4:6]
@@ -253,7 +248,7 @@ test_that("Aesthetics can be set independently of scale name", {
   expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
 })
 
-test_that("Multiple aesthetics can be set with one function call", {
+test_that("multiple aesthetics can be set with one function call", {
   df <- data.frame(
     x = LETTERS[1:3],
     y = LETTERS[4:6]
@@ -281,4 +276,3 @@ test_that("Multiple aesthetics can be set with one function call", {
   expect_equal(layer_data(p)$colour, c("cyan", "red", "green"))
   expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
 })
-
