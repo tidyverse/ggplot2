@@ -1,6 +1,6 @@
 context("Scales")
 
-test_that("buidling a plot does not affect its scales", {
+test_that("building a plot does not affect its scales", {
   dat <- data.frame(x = rnorm(20), y = rnorm(20))
 
   p <- ggplot(dat, aes(x, y)) + geom_point()
