@@ -46,6 +46,12 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
   non_missing_aes = "weight",
   setup_data = function(data, params) {
     data$x <- data$x %||% 0
+    data <- remove_missing(
+      data,
+      na.rm = FALSE,
+      vars = "x",
+      name = "stat_boxplot"
+    )
     data
   },
 
