@@ -343,10 +343,8 @@
   plotting thick arrows (@Ax3man, #774).
 
 * `geom_smooth()` now reports the formula used when `method = "auto"` 
-  (@davharris #1951). When mgcv is used, the `s` in `y ~ s(x, bs = "cs")` 
-  is now fully qualified as `mgcv::s()` to avoid name conflicts (@bfgray3, 
-  #2535). `geom_smooth()` now orders by the `x` aesthetic, making it easier 
-  to pass pre-computed values without manual ordering (@izahn, #2028). It 
+  (@davharris #1951). `geom_smooth()` now orders by the `x` aesthetic, making it 
+  easier to pass pre-computed values without manual ordering (@izahn, #2028). It 
   also now knows it has `ymin` and `ymax` aesthetics (#1939). The legend 
   correctly reflects the status of the `se` argument when used with stats 
   other than the default (@clauswilke, #1546).
