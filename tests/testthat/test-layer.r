@@ -20,6 +20,13 @@ test_that("unknown NULL asthetic doesn't create warning (#1909)", {
   expect_warning(geom_point(aes(blah = NULL)), NA)
 })
 
+test_that("column vectors are allowed (#2609)", {
+  df <- data.frame(x = 1:10)
+  df$y <- scale(1:10) # Returns a column vector
+  p <- ggplot(df, aes(x, y))
+  expect_is(layer_data(p), "data.frame")
+})
+
 # Data extraction ---------------------------------------------------------
 
 test_that("layer_data returns a data.frame", {
