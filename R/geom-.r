@@ -116,7 +116,7 @@ Geom <- ggproto("Geom",
     missing_eval <- compact(missing_eval)
 
     if (empty(data)) {
-      data <- as.data.frame(tibble::as_tibble(missing_eval))
+      data <- as_gg_data_frame(missing_eval)
     } else {
       data[names(missing_eval)] <- missing_eval
     }

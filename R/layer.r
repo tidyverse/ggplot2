@@ -235,7 +235,7 @@ Layer <- ggproto("Layer", NULL,
       evaled$PANEL <- data$PANEL
     }
     evaled <- lapply(evaled, unname)
-    evaled <- as.data.frame(tibble::as_tibble(evaled))
+    evaled <- as_gg_data_frame(evaled)
     evaled <- add_group(evaled)
     evaled
   },

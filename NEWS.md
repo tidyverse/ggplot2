@@ -20,14 +20,13 @@
     (#2610).
 
 *   Error: Column `y` must be a 1d atomic vector or a list
-  
-    Internally, ggplot2 now uses `as.data.frame(tibble::as_tibble(x))` to 
-    convert a list into a data frame. This improves ggplot2's support for 
+
+    Internally, ggplot2 now uses `as.data.frame(tibble::as_tibble(x))` to
+    convert a list into a data frame. This improves ggplot2's support for
     list-columns (needed for sf support), at a small cost: you can no longer
-    use matrix-columns. These are rarely used but are produced by `scale()`;
-    to continue to use `scale()` you'll need to wrap it with `as.numeric()`, 
-    e.g. `as.numeric(scale(x))`.
-  
+    use matrix-columns. Note that unlike tibble we still allow column vectors
+    such as returned by `base::scale()` because of their widespread use.
+
 *   Error: More than one expression parsed
   
     Previously `aes_string(x = c("a", "b", "c"))` silently returned 
