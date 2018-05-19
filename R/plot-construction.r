@@ -38,6 +38,12 @@
 #' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
 "+.gg" <- function(e1, e2) {
+  if (missing(e2)) {
+    stop("There's nothing on the left-hand side of `+`. ",
+         "Did you forget to add this object to a ggplot object?",
+         call. = FALSE)
+  }
+
   # Get the name of what was passed in as e2, and pass along so that it
   # can be displayed in error messages
   e2name <- deparse(substitute(e2))
