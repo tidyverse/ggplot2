@@ -156,11 +156,16 @@ Version: 2.1.1
     This typically indicates Rd problems.
     ```
 
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘poppr’
+    ```
+
 *   checking installed package size ... NOTE
     ```
       installed size is  5.7Mb
       sub-directories of 1Mb or more:
-        R       2.1Mb
+        R       2.0Mb
         data    1.3Mb
         files   1.7Mb
     ```
@@ -171,31 +176,10 @@ Version: 0.6.1
 
 ## In both
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘adklakedata-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: adk_lake_shapes
-    > ### Title: Return path to Lake Polygons Shapefile
-    > ### Aliases: adk_lake_shapes
-    > 
-    > ### ** Examples
-    > 
-    > library(sf)
-    Error in library(sf) : there is no package called ‘sf’
-    Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘sf’
     ```
 
 # admixturegraph
@@ -232,6 +216,82 @@ Version: 0.4
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+# afex
+
+Version: 0.20-2
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Missing or unexported objects:
+      ‘lmerTest::anova’ ‘lmerTest::summary’
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Packages unavailable to check Rd xrefs: ‘ez’, ‘ascii’
+    ```
+
+# affycoretools
+
+Version: 1.52.1
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘oligo’
+    ```
+
+*   checking for unstated dependencies in vignettes ... NOTE
+    ```
+    '::' or ':::' import not declared from: ‘XML’
+    ```
+
+# AFM
+
+Version: 1.2.4
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+# afmToolkit
+
+Version: 0.0.1
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘DBI’ ‘assertthat’ ‘tibble’
+      All declared Imports should be used.
     ```
 
 # agridat
@@ -353,52 +413,22 @@ Version: 2.1
 
 ## In both
 
-*   checking whether package ‘alphahull’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/alphahull/new/alphahull.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error in re-building vignettes:
+      ...
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'alphahull.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
+    ```
 
-### Devel
-
-```
-* installing *source* package ‘alphahull’ ...
-** package ‘alphahull’ successfully unpacked and MD5 sums checked
-** libs
-gfortran   -fPIC  -g -O2  -c delaunaycircum.f -o delaunaycircum.o
-gfortran   -fPIC  -g -O2  -c tripack.f -o tripack.o
-/usr/local/clang4/bin/clang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o alphahull.so delaunaycircum.o tripack.o -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/max/github/ggplot2/revdep/checks.noindex/alphahull/new/alphahull.Rcheck/alphahull/libs
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘alphahull’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/alphahull/new/alphahull.Rcheck/alphahull’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘alphahull’ ...
-** package ‘alphahull’ successfully unpacked and MD5 sums checked
-** libs
-gfortran   -fPIC  -g -O2  -c delaunaycircum.f -o delaunaycircum.o
-gfortran   -fPIC  -g -O2  -c tripack.f -o tripack.o
-/usr/local/clang4/bin/clang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o alphahull.so delaunaycircum.o tripack.o -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/max/github/ggplot2/revdep/checks.noindex/alphahull/old/alphahull.Rcheck/alphahull/libs
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘alphahull’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/alphahull/old/alphahull.Rcheck/alphahull’
-
-```
 # ameco
 
 Version: 0.2.9
@@ -680,35 +710,44 @@ Version: 2.4.0
 
 Version: 1.0.3
 
-## Newly broken
-
-*   checking whether package ‘anchoredDistr’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘anchoredDistr’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/anchoredDistr/new/anchoredDistr.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+# AneuFinder
+
+Version: 1.8.0
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking R code for possible problems ... NOTE
+    ```
+    Aneufinder: multiple local function definitions for ‘parallel.helper’
+      with different formal arguments
     ```
 
 # AnglerCreelSurveySimulation
 
 Version: 1.0.2
 
-## Newly broken
+## In both
 
-*   checking whether package ‘AnglerCreelSurveySimulation’ can be installed ... WARNING
+*   checking PDF version of manual ... WARNING
     ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::vars’ by ‘dplyr::vars’ when loading ‘AnglerCreelSurveySimulation’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/AnglerCreelSurveySimulation/new/AnglerCreelSurveySimulation.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
+
+# annotatr
+
+Version: 1.6.0
 
 ## In both
 
@@ -716,6 +755,15 @@ Version: 1.0.2
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    plot_coannotations: no visible binding for global variable ‘.’
+    plot_numerical_coannotations: no visible binding for global variable
+      ‘.’
+    Undefined global functions or variables:
+      .
     ```
 
 # ANOM
@@ -763,11 +811,6 @@ Version: 0.1.1
     This typically indicates Rd problems.
     ```
 
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘tidyquant’
-    ```
-
 *   checking installed package size ... NOTE
     ```
       installed size is  5.3Mb
@@ -795,7 +838,7 @@ Version: 0.2.5
 
 # antitrust
 
-Version: 0.99.7
+Version: 0.99.8
 
 ## In both
 
@@ -821,64 +864,6 @@ Version: 1.0.0
 
 ## In both
 
-*   checking examples ... ERROR
-    ```
-    ...
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    unsupported SEXPTYPE: 19
-    > steatosis_aop_graph <- convert_aop_to_graph(steatosis_aop)
-    Error in (function (cl, name, valueClass)  : 
-      assignment of an object of class “NULL” is not valid for @‘nodes’ in an object of class “graphNEL”; is(value, "vector") is not TRUE
-    Calls: convert_aop_to_graph ... new -> initialize -> initialize -> .local -> <Anonymous>
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/runTests.R’ failed.
-    Last 13 lines of output:
-       
-      1 Test Suite : 
-      aop RUnit Tests - 1 test function, 1 error, 0 failures
-      ERROR in test_aop_backdoor: Error in (function (cl, name, valueClass)  : 
-        assignment of an object of class "NULL" is not valid for @'nodes' in an object of class "graphNEL"; is(value, "vector") is not TRUE
-      
-      Test files with failing tests
-      
-         test_functions.R 
-           test_aop_backdoor 
-      
-      
-      Error in BiocGenerics:::testPackage("aop", pattern = "^test_.*\\.R$") : 
-        unit tests failed for package aop
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 48-50 (aop.Rmd) 
-    Error: processing vignette 'aop.Rmd' failed with diagnostics:
-    assignment of an object of class "NULL" is not valid for @'nodes' in an object of class "graphNEL"; is(value, "vector") is not TRUE
-    Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -891,50 +876,43 @@ Version: 0.6
 
 ## In both
 
-*   checking whether package ‘aoristic’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/aoristic/new/aoristic.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    Malformed Description field: should contain one or more complete sentences.
+    ```
 
-### Devel
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+      ‘slot’
+    aoristic.grid: no visible global function definition for ‘browseURL’
+    aoristic.shp: no visible global function definition for ‘aggregate’
+    aoristic.shp: no visible global function definition for ‘slot’
+    aoristic.shp : <anonymous>: no visible global function definition for
+      ‘as’
+    aoristic.shp : <anonymous>: no visible global function definition for
+      ‘slot’
+    aoristic.shp: no visible global function definition for ‘browseURL’
+    Undefined global functions or variables:
+      aggregate as browseURL colorRampPalette contourLines dev.off image
+      par png quantile slot
+    Consider adding
+      importFrom("grDevices", "colorRampPalette", "contourLines", "dev.off",
+                 "png")
+      importFrom("graphics", "image", "par")
+      importFrom("methods", "as", "slot")
+      importFrom("stats", "aggregate", "quantile")
+      importFrom("utils", "browseURL")
+    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+    contains 'methods').
+    ```
 
-```
-* installing *source* package ‘aoristic’ ...
-** package ‘aoristic’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘spatstat’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- there is no package called ‘polyclip’
-Error : package ‘spatstat’ could not be loaded
-ERROR: lazy loading failed for package ‘aoristic’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/aoristic/new/aoristic.Rcheck/aoristic’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘aoristic’ ...
-** package ‘aoristic’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-Error: package or namespace load failed for ‘spatstat’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- there is no package called ‘polyclip’
-Error : package ‘spatstat’ could not be loaded
-ERROR: lazy loading failed for package ‘aoristic’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/aoristic/old/aoristic.Rcheck/aoristic’
-
-```
 # apsimr
 
 Version: 1.2
@@ -1310,33 +1288,28 @@ Version: 0.4.3
     This typically indicates Rd problems.
     ```
 
+# auditor
+
+Version: 0.2.1
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘DALEX’
+    ```
+
 # autoimage
 
 Version: 2.0
 
 ## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      1: spatstat::owin at testthat/test-rotate.R:14
-      2: getExportedValue(pkg, name)
-      3: asNamespace(ns)
-      4: getNamespace(ns)
-      5: tryCatch(loadNamespace(name), error = function(e) stop(e))
-      6: tryCatchList(expr, classes, parentenv, handlers)
-      7: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-      8: value[[3L]](cond)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 126 SKIPPED: 0 FAILED: 1
-      1. Error: (unknown) (@test-rotate.R#14) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -1413,8 +1386,24 @@ Version: 1.6.0
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking examples ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: working directory was changed to ‘/Users/max/github/ggplot2/revdep/checks.noindex/BaalChIP/new/BaalChIP.Rcheck/BaalChIP/test’, resetting
+      Warning: working directory was changed to ‘/Users/max/github/ggplot2/revdep/checks.noindex/BaalChIP/new/BaalChIP.Rcheck/BaalChIP/test’, resetting
+      Warning: working directory was changed to ‘/Users/max/github/ggplot2/revdep/checks.noindex/BaalChIP/new/BaalChIP.Rcheck/BaalChIP/test’, resetting
+      Warning: working directory was changed to ‘/Users/max/github/ggplot2/revdep/checks.noindex/BaalChIP/new/BaalChIP.Rcheck/BaalChIP/test’, resetting
+      Warning: working directory was changed to ‘/Users/max/github/ggplot2/revdep/checks.noindex/BaalChIP/new/BaalChIP.Rcheck/BaalChIP/test’, resetting
+      Warning: working directory was changed to ‘/Users/max/github/ggplot2/revdep/checks.noindex/BaalChIP/new/BaalChIP.Rcheck/BaalChIP/test’, resetting
+      Warning: working directory was changed to ‘/Users/max/github/ggplot2/revdep/checks.noindex/BaalChIP/new/BaalChIP.Rcheck/BaalChIP/test’, resetting
+      Warning: working directory was changed to ‘/Users/max/github/ggplot2/revdep/checks.noindex/BaalChIP/new/BaalChIP.Rcheck/BaalChIP/test’, resetting
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 *   checking installed package size ... NOTE
     ```
@@ -1699,6 +1688,28 @@ Version: 1.2.0
 
 ## In both
 
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 86 SKIPPED: 0 FAILED: 23
+      1. Failure: Estimates match the given seed (spikes) (@test_parameter_estimation.R#30) 
+      2. Failure: Estimates match the given seed (spikes) (@test_parameter_estimation.R#35) 
+      3. Failure: Estimates match the given seed (spikes) (@test_parameter_estimation.R#39) 
+      4. Failure: Estimates match the given seed (spikes) (@test_parameter_estimation.R#43) 
+      5. Failure: Estimates match the given seed (spikes) (@test_parameter_estimation.R#47) 
+      6. Failure: Estimates match the given seed (spikes) (@test_parameter_estimation.R#54) 
+      7. Failure: Estimates match the given seed (spikes) (@test_parameter_estimation.R#61) 
+      8. Failure: Estimates match the given seed (spikes+batch) (@test_parameter_estimation_batch.R#30) 
+      9. Failure: Estimates match the given seed (spikes+batch) (@test_parameter_estimation_batch.R#35) 
+      1. ...
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -1747,62 +1758,26 @@ Version: 1.1.0
 
 ## Newly broken
 
-*   checking examples ... ERROR
-    ```
-    ...
-    [1] 0.04541
-    
-    --------------------------------------------
-    
-    Credible Interval on (A - B) / B for interval length(s) (0.9) : 
-    
-    $Probability
-              5%          95% 
-    -0.355943366 -0.006198834 
-    
-    --------------------------------------------
-    
-    Posterior Expected Loss for choosing B over A:
-    
-    $Probability
-    [1] 0.2601664
-    
-    > plot(AB1)
-    Error in geom_line() : could not find function "geom_line"
-    Calls: plot ... do.call -> <Anonymous> -> plotDist_ -> <Anonymous> -> do.call
-    Execution halted
-    ```
-
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-         -0.220855266742408, -0.131236325741687, 0.0403874116005306, 0.19461909788326, 0.0911183706022301, 
-         0.322930395783452, 0.0474962113954877, 0.151881500325075, -0.162339934678337, 0.162953354526967, 
-         0.0847354059225813, 0.168433185697805, -0.0156309707702392, 0.0145903259071101, 0.24784112614451, 
-         0.0739139038546604, -0.115386241435621), name = "Mu", percentLift = 0)
-      14: ggplot2::qplot(diff, data = diff, fill = under, binwidth = diff(range(inner))/250, 
-             na.rm = TRUE)
-      15: do.call(paste0("geom_", g), params, envir = caller_env)
+      ── 3. Failure: Success (@test-generics.R#42)  ──────────────────────────────────
+      `print(plot(x))` produced warnings, messages.
+      
+      ── 4. Failure: Success (@test-generics.R#43)  ──────────────────────────────────
+      `print(plot(x, rep(0.5, 4)))` produced warnings, messages.
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 108 SKIPPED: 0 FAILED: 2
-      1. Error: Success (@test-dists.R#23) 
-      2. Error: Success (@test-generics.R#37) 
+      OK: 132 SKIPPED: 0 FAILED: 4
+      1. Failure: Success (@test-generics.R#37) 
+      2. Failure: Success (@test-generics.R#38) 
+      3. Failure: Success (@test-generics.R#42) 
+      4. Failure: Success (@test-generics.R#43) 
       
       Error: testthat unit tests failed
       Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 51-53 (introduction.Rmd) 
-    Error: processing vignette 'introduction.Rmd' failed with diagnostics:
-    could not find function "geom_line"
-    Execution halted
     ```
 
 ## In both
@@ -1837,59 +1812,49 @@ Version: 1.0.0
     This typically indicates Rd problems.
     ```
 
-# bayesDP
-
-Version: 1.3.1
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘Rcpp’
-      All declared Imports should be used.
-    ```
-
-# BayesFM
-
-Version: 0.1.2
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
 # bayesplot
 
 Version: 1.5.0
 
 ## Newly broken
 
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘bayesplot-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: bayesplot-colors
+    > ### Title: Set, get, or view color schemes
+    > ### Aliases: bayesplot-colors color_scheme_set color_scheme_get
+    > ###   color_scheme_view
+    > 
+    > ### ** Examples
+    > 
+    > color_scheme_set("blue")
+    > color_scheme_view()
+    Error in unit(rep(just$vjust, n), "npc") : 
+      'x' and 'units' must have length > 0
+    Calls: <Anonymous> ... element_grob.element_text -> titleGrob -> title_spec -> %||% -> unit
+    Execution halted
+    ```
+
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      1/1 mismatches
       x[1]: "~rep_label"
       y[1]: "rep_label"
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 937 SKIPPED: 18 FAILED: 6
-      1. Failure: mcmc_intervals/areas with rhat (@test-mcmc-intervals.R#89) 
-      2. Failure: mcmc_intervals/areas with rhat (@test-mcmc-intervals.R#98) 
-      3. Failure: mcmc_intervals/areas with rhat (@test-mcmc-intervals.R#99) 
-      4. Failure: mcmc_intervals/areas with rhat (@test-mcmc-intervals.R#105) 
-      5. Failure: mcmc_intervals/areas with rhat (@test-mcmc-intervals.R#109) 
-      6. Failure: ppc_dens,pp_hist,ppc_freqpoly,ppc_boxplot return ggplot objects (@test-ppc-distributions.R#33) 
+      OK: 935 SKIPPED: 18 FAILED: 7
+      1. Error: color_scheme_view returns gtable if length(scheme) >= 1 (@test-aesthetics.R#118) 
+      2. Failure: mcmc_intervals/areas with rhat (@test-mcmc-intervals.R#89) 
+      3. Failure: mcmc_intervals/areas with rhat (@test-mcmc-intervals.R#98) 
+      4. Failure: mcmc_intervals/areas with rhat (@test-mcmc-intervals.R#99) 
+      5. Failure: mcmc_intervals/areas with rhat (@test-mcmc-intervals.R#105) 
+      6. Failure: mcmc_intervals/areas with rhat (@test-mcmc-intervals.R#109) 
+      7. Failure: ppc_dens,pp_hist,ppc_freqpoly,ppc_boxplot return ggplot objects (@test-ppc-distributions.R#33) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -2034,6 +1999,11 @@ Version: 1.0.20
     This typically indicates Rd problems.
     ```
 
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘emdbook’
+    ```
+
 # BCEA
 
 Version: 2.2-5
@@ -2095,8 +2065,11 @@ Version: 3.1.2
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -2110,14 +2083,15 @@ Version: 0.17.1
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘sf’
-    
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
     Package suggested but not available for checking: ‘bcmaps.rdata’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
     ```
 
 # bcp
@@ -2380,8 +2354,11 @@ Version: 1.0.0
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 # belg
 
@@ -2501,34 +2478,6 @@ Version: 0.2.0
 
 Version: 1.3-5
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    
-    Attaching package: 'ggplot2'
-    
-    The following object is masked from 'package:dplyr':
-    
-        vars
-    
-    Quitting from lines 476-485 (benthos.Rmd) 
-    Error: processing vignette 'benthos.Rmd' failed with diagnostics:
-    Free scales are only supported with `coord_cartesian()` and `coord_flip()`
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -2551,7 +2500,31 @@ Version: 0.3.6
 
 # bibliometrix
 
-Version: 1.9.2
+Version: 1.9.3
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+# biclust
+
+Version: 2.0.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+# BiDimRegression
+
+Version: 2.0.0
 
 ## In both
 
@@ -2728,6 +2701,13 @@ Version: 1.12.0
 
 ## In both
 
+*   checking whether package ‘biobroom’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: replacing previous import ‘dplyr::exprs’ by ‘Biobase::exprs’ when loading ‘biobroom’
+    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/biobroom/new/biobroom.Rcheck/00install.out’ for details.
+    ```
+
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -2816,7 +2796,7 @@ Version: 1.0.0
 
 # biogas
 
-Version: 1.10.2
+Version: 1.10.3
 
 ## In both
 
@@ -2888,77 +2868,6 @@ Version: 1.2.1
 
 Version: 3.3-7
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    
-    	> Projecting GuloGulo_AllData_RUN1_RF ...
-    	> Projecting GuloGulo_AllData_RUN2_RF ...
-    -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= Done -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    >                           
-    > 
-    > # 4. Creating the ensemble projections
-    > BIOMOD_EnsembleForecasting( projection.output = myBiomodProjection,
-    +                             EM.output = myBiomodEM)
-    
-    -=-=-=-=-=-=-=-=-=-=-=-= Do Ensemble Models Projections -=-=-=-=-=-=-=-=-=-=-=-=
-    
-    
-    	> Projecting GuloGulo_EMmeanByTSS_RF_mergedRun_mergedData ...Error in calc(formal_predictions, function(x) { : 
-      unused arguments (function(x) {
-        m <- mean(x)
-        if (on_0_1000) m <- round(m)
-        return(m)
-    }, filename = filename, overwrite = TRUE)
-    Calls: BIOMOD_EnsembleForecasting ... .local -> .predict.EMmean_biomod2_model.RasterStack
-    Execution halted
-    ```
-
-*   checking whether package ‘biomod2’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Note: possible error in 'calc(data, function(x) {': unused argument (function(x) {
-      Note: possible error in 'calc(BinaryTransformation(formal_predictions, ': unused arguments (function(x) {
-      Note: possible error in 'calc(formal_predictions, ': unused argument (mean) 
-      Note: possible error in 'calc(formal_predictions, ': unused argument (sd) 
-      Note: possible error in 'calc(formal_predictions, ': unused arguments (cv, filename = filename, overwrite = TRUE, na.rm = TRUE, aszero = TRUE) 
-      Note: possible error in 'calc(formal_predictions, ': unused arguments (function(x) {
-      Note: possible error in 'calc(newdata, function(x) {': unused argument (function(x) {
-      Warning: replacing previous import ‘raster::calc’ by ‘ggplot2::calc’ when loading ‘biomod2’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/biomod2/new/biomod2.Rcheck/00install.out’ for details.
-    Information on the location(s) of code generating the ‘Note’s can be
-    obtained by re-running with environment variable R_KEEP_PKG_SOURCE set
-    to ‘yes’.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-      as.numeric(predict.maxent(get_formal_model(object), x.no.na)[, "1"])
-      proj.out[-attr(x.no.na, "na.action")] <- proj.not.na }
-      return(proj.out) })
-    .predict.MAXENT.Tsuruoka_biomod2_model.RasterStack: possible error in
-      return(proj.out): unused argument (function(x) { proj.out <- rep(NA,
-      nrow(x)) x.no.na <- na.omit(x) if (nrow(x.no.na)) { proj.not.na <-
-      as.numeric(predict.maxent(get_formal_model(object), x.no.na)[, "1"])
-      proj.out[-attr(x.no.na, "na.action")] <- proj.not.na }
-      return(proj.out) })
-    .predict.MAXENT.Tsuruoka_biomod2_model.RasterStack: possible error in
-      }): unused argument (function(x) { proj.out <- rep(NA, nrow(x))
-      x.no.na <- na.omit(x) if (nrow(x.no.na)) { proj.not.na <-
-      as.numeric(predict.maxent(get_formal_model(object), x.no.na)[, "1"])
-      proj.out[-attr(x.no.na, "na.action")] <- proj.not.na }
-      return(proj.out) })
-    BinaryTransformation,RasterStack: possible error in calc(data,
-      function(x) {: unused argument (function(x) { x >= threshold })
-    BinaryTransformation,RasterStack: possible error in x >= threshold:
-      unused argument (function(x) { x >= threshold })
-    BinaryTransformation,RasterStack: possible error in }): unused argument
-      (function(x) { x >= threshold })
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -2985,7 +2894,7 @@ Version: 3.3-7
 
 # BioNetStat
 
-Version: 1.0.1
+Version: 1.0.4
 
 ## In both
 
@@ -3040,7 +2949,7 @@ Version: 0.2.1
     + reduction.under.treatment=0.3,
     + cost.screening=100, cost.keeping=1000)
     > plot_enrichment_summaries(analysis.single.marker)
-    Error: `data` must be uniquely named but has duplicate columns
+    Error: `data` must be uniquely named but has duplicate elements
     Execution halted
     ```
 
@@ -3081,6 +2990,67 @@ Version: 0.2.2
     This typically indicates Rd problems.
     ```
 
+# BioStatR
+
+Version: 2.0.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    cvar: no visible global function definition for ‘sd’
+    eta2: no visible global function definition for ‘lm’
+    eta2: no visible global function definition for ‘as.formula’
+    gg_qqplot: no visible binding for global variable ‘qnorm’
+    gg_qqplot: no visible global function definition for ‘quantile’
+    panel.hist: no visible global function definition for ‘par’
+    panel.hist: no visible global function definition for ‘hist’
+    panel.hist: no visible global function definition for ‘rect’
+    plotcdf2: no visible global function definition for ‘colorRampPalette’
+    plotcdf2 : jet.colors: no visible global function definition for ‘gray’
+    plotcdf2: no visible global function definition for ‘persp’
+    poi.ci: no visible global function definition for ‘qchisq’
+    Undefined global functions or variables:
+      as.formula colorRampPalette gray hist lm par persp qchisq qf qnorm
+      quantile rect sd
+    Consider adding
+      importFrom("grDevices", "colorRampPalette", "gray")
+      importFrom("graphics", "hist", "par", "persp", "rect")
+      importFrom("stats", "as.formula", "lm", "qchisq", "qf", "qnorm",
+                 "quantile", "sd")
+    to your NAMESPACE file.
+    ```
+
+# biotmle
+
+Version: 1.4.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    .biotmle: no visible global function definition for ‘new’
+    Undefined global functions or variables:
+      new
+    Consider adding
+      importFrom("methods", "new")
+    to your NAMESPACE file (and ensure that your DESCRIPTION Imports field
+    contains 'methods').
+    ```
+
 # BIS
 
 Version: 0.2.0
@@ -3090,15 +3060,15 @@ Version: 0.2.0
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
+    Attaching package: 'dplyr'
+    
+    The following objects are masked from 'package:stats':
+    
+        filter, lag
+    
+    The following objects are masked from 'package:base':
     
         intersect, setdiff, setequal, union
-    
-    
-    Attaching package: 'ggplot2'
-    
-    The following object is masked from 'package:dplyr':
-    
-        vars
     
     
     Attaching package: 'zoo'
@@ -3223,35 +3193,33 @@ Version: 0.2
 
 Version: 1.0.0
 
-## Newly broken
+## In both
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
-    
-    The following object is masked from 'package:purrr':
-    
-        discard
-    
-    The following object is masked from 'package:readr':
-    
-        col_factor
-    
-    
-    Attaching package: 'xtable'
-    
-    The following object is masked from 'package:ggdendro':
-    
-        label
-    
-    Quitting from lines 61-62 (./src/part01.Rmd) 
-    Quitting from lines 18-19 (./src/part01.Rmd) 
-    Error: processing vignette 'BloodCancerMultiOmics2017.Rmd' failed with diagnostics:
-    "plot.tag" is not a valid theme element name.
+    ✔ readr   1.1.1     ✔ stringr 1.3.1
+    ✔ tibble  1.4.2     ✔ forcats 0.3.0
+    ── Conflicts ─────────────────────────────────────── tidyverse_conflicts() ──
+    ✖ ggplot2::Position() masks BiocGenerics::Position(), base::Position()
+    ✖ dplyr::collapse()   masks IRanges::collapse()
+    ✖ dplyr::combine()    masks Biobase::combine(), BiocGenerics::combine()
+    ✖ dplyr::count()      masks matrixStats::count()
+    ✖ dplyr::desc()       masks IRanges::desc()
+    ✖ tidyr::expand()     masks S4Vectors::expand()
+    ✖ dplyr::exprs()      masks Biobase::exprs()
+    ✖ dplyr::filter()     masks stats::filter()
+    ✖ dplyr::first()      masks S4Vectors::first()
+    ✖ dplyr::lag()        masks stats::lag()
+    ✖ purrr::reduce()     masks GenomicRanges::reduce(), IRanges::reduce()
+    ✖ dplyr::rename()     masks S4Vectors::rename()
+    ✖ purrr::simplify()   masks DelayedArray::simplify()
+    ✖ dplyr::slice()      masks IRanges::slice()
+    Quitting from lines 230-238 (BloodCancerMultiOmics2017-dataOverview.Rmd) 
+    Error: processing vignette 'BloodCancerMultiOmics2017-dataOverview.Rmd' failed with diagnostics:
+    incorrect number of dimensions
     Execution halted
     ```
-
-## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -3296,6 +3264,29 @@ Version: 0.1.0
 Version: 3.1.2
 
 ## In both
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘blscrapeR-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: qcew_api
+    > ### Title: Request data from the Quarterly Census of Employment and Wages.
+    > ### Aliases: qcew_api
+    > ### Keywords: api bls cpi economics inflation unemployment
+    > 
+    > ### ** Examples
+    > 
+    > 
+    > # A request for the employment levels and wages for NIACS 5112: Software Publishers.
+    > dat <- qcew_api(year=2015, qtr="A", slice="area", sliceCode="US000")
+    Please set a numeric year.
+    Trying BLS servers...
+    URL caused a warning. Please check your parameters and try again: https://data.bls.gov/cew/data/api/2015/A/area/US000.csv
+    Error in qcew_api(year = 2015, qtr = "A", slice = "area", sliceCode = "US000") : 
+      object 'qcewDat' not found
+    Execution halted
+    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -3405,8 +3396,8 @@ ERROR: compilation failed for package ‘BNSP’
 /usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG   -I/usr/local/include   -fPIC  -Wall -g -O2  -c OneResLtnt.c -o OneResLtnt.o
 /usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG   -I/usr/local/include   -fPIC  -Wall -g -O2  -c mvrmGAM.c -o mvrmGAM.o
 mvrmGAM.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
-#include <gsl/gsl_matrix.h>
-OneResLtnt.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
+OneResLtnt.c:#include <gsl/gsl_matrix.h>
+26:10: fatal error: 'gsl/gsl_matrix.h' file not found
          ^~~~~~~~~~~~~~~~~~
 #include <gsl/gsl_matrix.h>
          ^~~~~~~~~~~~~~~~~~
@@ -3440,7 +3431,7 @@ Version: 0.1
 
 # bomrang
 
-Version: 0.1.4
+Version: 0.2.0
 
 ## In both
 
@@ -3450,18 +3441,15 @@ Version: 0.1.4
     This typically indicates Rd problems.
     ```
 
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘rappdirs’
+      All declared Imports should be used.
+    ```
+
 # bootnet
 
 Version: 1.0.1
-
-## Newly broken
-
-*   checking whether package ‘bootnet’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘bootnet’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/bootnet/new/bootnet.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -3474,15 +3462,6 @@ Version: 1.0.1
 # bossMaps
 
 Version: 0.1.0
-
-## Newly broken
-
-*   checking whether package ‘bossMaps’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::calc’ by ‘raster::calc’ when loading ‘bossMaps’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/bossMaps/new/bossMaps.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -3704,12 +3683,16 @@ Version: 0.1.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘sf’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘sp’
+      All declared Imports should be used.
     ```
 
 # breakDown
@@ -3740,15 +3723,6 @@ Version: 1.2
 
 Version: 0.4.1
 
-## Newly broken
-
-*   checking whether package ‘breathtestcore’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘breathtestcore’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/breathtestcore/new/breathtestcore.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -3765,34 +3739,6 @@ Version: 0.4.1
 # breathteststan
 
 Version: 0.4.1
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    +   inner_join(d$record, by = "patient_id") %>%
-    +   select(patient_id, m_in = m.y, m_out = m.x,
-    +          beta_in = beta.y, beta_out = beta.x,
-    +          k_in = k.y, k_out = k.x)
-    # A tibble: 3 x 7
-      patient_id  m_in m_out beta_in beta_out    k_in   k_out
-      <chr>      <dbl> <dbl>   <dbl>    <dbl>   <dbl>   <dbl>
-    1 rec_01        34  36.1    2.19     1.99 0.0140  0.0123 
-    2 rec_02        42  44.7    2.30     2.10 0.0108  0.00965
-    3 rec_03        32  38.1    2.23     2.09 0.00795 0.00657
-    > # For a detailed analysis of the fit, use the shinystan library
-    > # The following plots are somewhat degenerate because
-    > # of the few iterations in stan_fit
-    > suppressPackageStartupMessages(library(rstan))
-    > stan_plot(fit$stan_fit, pars = c("beta[1]","beta[2]","beta[3]"))
-    ci_level: 0.8 (80% intervals)
-    outer_level: 0.95 (95% intervals)
-    Error in if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) { : 
-      missing value where TRUE/FALSE needed
-    Calls: <Anonymous> ... print.ggplot -> ggplot_gtable -> ggplot_gtable.ggplot_built
-    Execution halted
-    ```
 
 ## In both
 
@@ -3811,7 +3757,7 @@ Version: 0.4.1
       sigma(fit) is not strictly more than 0.9. Difference: -0.00781
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 28 SKIPPED: 7 FAILED: 1
+      OK: 27 SKIPPED: 7 FAILED: 1
       1. Failure: Data that cannot be fitted with nls_list/nlme work with stan_fit (@test_stan_fit_2.R#28) 
       
       Error: testthat unit tests failed
@@ -3862,31 +3808,7 @@ Version: 0.1.0
 
 # brms
 
-Version: 2.2.0
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             name <- expr_text(expr)
-             name <- gsub("\n.*$", "...", name)
-             name
-         } else {
-             abort("`expr` must quote a symbol, scalar, or call")
-         })
-      12: abort("`expr` must quote a symbol, scalar, or call")
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 1091 SKIPPED: 1 FAILED: 2
-      1. Error: all S3 methods have reasonable ouputs (@tests.brmsfit-methods.R#276) 
-      2. Error: plotting functions don't throw unexpected errors (@tests.plots.R#52) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
+Version: 2.3.0
 
 ## In both
 
@@ -3907,7 +3829,7 @@ Version: 2.2.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  8.2Mb
+      installed size is  8.3Mb
       sub-directories of 1Mb or more:
         R     5.1Mb
         doc   2.4Mb
@@ -3936,7 +3858,7 @@ Version: 0.4.4
 
 # brotli
 
-Version: 1.1
+Version: 1.2
 
 ## In both
 
@@ -3949,27 +3871,6 @@ Version: 1.1
 # brt
 
 Version: 1.3.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘brt-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: dtavg
-    > ### Title: Average of the Student t Distribution
-    > ### Aliases: dtavg ptavg
-    > ### Keywords: distribution
-    > 
-    > ### ** Examples
-    > 
-    > x=seq(from=-10, to=10, length.out=100)
-    > ggplot2::qplot(x, ptavg(x, df=3, hi=3), geom='line')
-    Error in geom_line() : could not find function "geom_line"
-    Calls: <Anonymous> -> do.call
-    Execution halted
-    ```
 
 ## In both
 
@@ -4186,15 +4087,6 @@ Version: 2.10.0
 
 Version: 0.1
 
-## Newly broken
-
-*   checking whether package ‘bulletr’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘bulletr’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/bulletr/new/bulletr.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -4300,15 +4192,6 @@ Version: 1.16.0
 
 Version: 0.2.2
 
-## Newly broken
-
-*   checking whether package ‘caffsim’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘caffsim’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/caffsim/new/caffsim.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -4327,10 +4210,41 @@ Version: 0.2.2
 
 Version: 1.22.0
 
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    923  amygdala__adult__donor10252 tissue  amygdala, adult, donor10252  CNhs12311
+    885          aorta__adult__pool1 tissue          aorta, adult, pool1  CNhs11760
+                                                                                                                                                              data_url
+    959              http://fantom.gsc.riken.jp/5/datafiles/latest/basic/human.tissue.hCAGE/achilles%2520tendon%252c%2520donor2.CNhs13435.10292-104G4.hg19.ctss.bed.gz
+    840 http://fantom.gsc.riken.jp/5/datafiles/latest/basic/human.tissue.hCAGE/adipose%2520tissue%252c%2520adult%252c%2520pool1.CNhs10615.10010-101C1.hg19.ctss.bed.gz
+    913  http://fantom.gsc.riken.jp/5/datafiles/latest/basic/human.tissue.hCAGE/adrenal%2520gland%252c%2520adult%252c%2520pool1.CNhs11793.10081-102A9.hg19.ctss.bed.gz
+    973     http://fantom.gsc.riken.jp/5/datafiles/latest/basic/human.tissue.hCAGE/amygdala%2520-%2520adult%252c%2520donor10196.CNhs13793.10167-103B5.hg19.ctss.bed.gz
+    923      http://fantom.gsc.riken.jp/5/datafiles/latest/basic/human.tissue.hCAGE/amygdala%252c%2520adult%252c%2520donor10252.CNhs12311.10151-102I7.hg19.ctss.bed.gz
+    885              http://fantom.gsc.riken.jp/5/datafiles/latest/basic/human.tissue.hCAGE/aorta%252c%2520adult%252c%2520pool1.CNhs11760.10052-101G7.hg19.ctss.bed.gz
+    > 
+    > # import selected samples
+    > exampleCAGEset <- importPublicData(source="FANTOM5", dataset = "human",
+    +   sample = c("adipose_tissue__adult__pool1", "adrenal_gland__adult__pool1",
+    +   "aorta__adult__pool1"))
+    Fetching sample: adipose_tissue__adult__pool1...
+    Warning in scan(con, what = list(character(), NULL, integer(), NULL, integer(),  :
+      URL 'http://fantom.gsc.riken.jp/5/datafiles/latest/basic/human.tissue.hCAGE/adipose%2520tissue%252c%2520adult%252c%2520pool1.CNhs10615.10010-101C1.hg19.ctss.bed.gz': status was 'Failure when receiving data from the peer'
+    Error in scan(con, what = list(character(), NULL, integer(), NULL, integer(),  : 
+      cannot read from connection
+    Calls: importPublicData -> importPublicData -> scan
+    Execution halted
+    ```
+
 ## In both
 
-*   R CMD check timed out
-    
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 *   checking installed package size ... NOTE
     ```
@@ -4393,16 +4307,6 @@ Version: 0.1.7
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘sf’
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘sf’
     ```
 
 # CAnD
@@ -4527,7 +4431,7 @@ Version: 1.4.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.9Mb
+      installed size is  6.8Mb
       sub-directories of 1Mb or more:
         data   3.1Mb
         doc    2.8Mb
@@ -4565,9 +4469,9 @@ Version: 1.0.4
     This typically indicates Rd problems.
     ```
 
-# catenary
+# CDECRetrieve
 
-Version: 1.1.2
+Version: 0.1.1
 
 ## In both
 
@@ -4579,120 +4483,9 @@ Version: 1.1.2
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘tidyverse’
+    Namespaces in Imports field not imported from:
+      ‘lazyeval’ ‘purrr’ ‘roxygen2’
       All declared Imports should be used.
-    ```
-
-# CausalImpact
-
-Version: 1.2.3
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ConstructModel: warning in AddDynamicRegression(ss, formula, data =
-      data, sigma.mean.prior = sigma.mean.prior): partial argument match of
-      'sigma.mean.prior' to 'sigma.mean.prior.DEPRECATED'
-    ```
-
-# Causata
-
-Version: 4.2-0
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-      ...
-    Loading required package: Matrix
-    Loading required package: foreach
-    Loaded glmnet 2.0-16
-    
-    Type 'citation("pROC")' for a citation.
-    
-    Attaching package: 'pROC'
-    
-    The following object is masked from 'package:glmnet':
-    
-        auc
-    
-    The following objects are masked from 'package:stats':
-    
-        cov, smooth, var
-    
-    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-      Running 'texi2dvi' on 'Causata-vignette.tex' failed.
-    Calls: buildVignettes -> texi2pdf -> texi2dvi
-    Execution halted
-    ```
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-*   checking DESCRIPTION meta-information ... NOTE
-    ```
-    Malformed Title field: should not end in a period.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    PredictivePowerCv: no visible global function definition for ‘sd’
-    ReadCausataCsv: no visible global function definition for ‘read.csv’
-    ToPmml.GlmnetModelDefinition: no visible global function definition for
-      ‘coef’
-    ToPmml.GlmnetModelDefinition: no visible global function definition for
-      ‘terms.formula’
-    ValidateModel: no visible global function definition for ‘predict’
-    predict.GlmnetModelDefinition: no visible global function definition
-      for ‘model.matrix’
-    predict.GlmnetModelDefinition: no visible binding for global variable
-      ‘contrasts’
-    predict.GlmnetModelDefinition: no visible global function definition
-      for ‘predict’
-    Undefined global functions or variables:
-      coef contrasts dbGetQuery median model.matrix na.omit predict
-      quantile read.csv sd terms.formula
-    Consider adding
-      importFrom("stats", "coef", "contrasts", "median", "model.matrix",
-                 "na.omit", "predict", "quantile", "sd", "terms.formula")
-      importFrom("utils", "read.csv")
-    to your NAMESPACE file.
-    ```
-
-# cbar
-
-Version: 0.1.3
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-# ccfa
-
-Version: 1.0.0
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
     ```
 
 # cdom
@@ -4720,16 +4513,12 @@ Version: 2.44.0
 
 *   checking running R code from vignettes ...
     ```
-    ...
-    > pushViewport(viewport(layout = grid.layout(3, 2)))
-    
-    > dv <- Data(xn)[, , 1]
-    
-    > myPlots(dv, main = "untransformed", plotCol = 1)
-    
-      When sourcing ‘cellhts2.R’:
-    Error: could not find function "geom_qq"
-    Execution halted
+       ‘cellhts2.Rnw’ ... OK
+       ‘cellhts2Complete.Rnw’ ... failed
+       ‘twoChannels.Rnw’ ... OK
+       ‘twoWay.Rnw’ ... OK
+     WARNING
+    Errors in running code in vignettes:
     when running code in ‘cellhts2Complete.Rnw’
       ...
     +     nrow(res)), la .... [TRUNCATED] 
@@ -4741,7 +4530,7 @@ Version: 2.44.0
     recover called non-interactively; frames dumped, use debugger() to view
     > proc.time()
        user  system elapsed 
-     30.851   1.842  33.961 
+     30.350   1.730  33.311 
     ```
 
 *   checking PDF version of manual ... WARNING
@@ -4764,7 +4553,7 @@ Version: 2.44.0
       installed size is  7.2Mb
       sub-directories of 1Mb or more:
         KcViab   2.0Mb
-        R        2.0Mb
+        R        2.1Mb
         doc      1.6Mb
     ```
 
@@ -4786,15 +4575,6 @@ Version: 2.44.0
 *   checking re-building of vignette outputs ... NOTE
     ```
     ...
-        Vignettes contain introductory material; view with
-        'browseVignettes()'. To cite Bioconductor, see
-        'citation("Biobase")', and for packages
-        'citation("pkgname")'.
-    
-    Loading required package: genefilter
-    Loading required package: splots
-    Loading required package: vsn
-    Loading required package: hwriter
     Loading required package: locfit
     locfit 1.5-9.1 	 2013-03-22
     Loading required package: grid
@@ -4802,10 +4582,19 @@ Version: 2.44.0
     We recommend storing this script for future reference along with the report.
     Warning: The R script which produced this cellHTS2 report has not been provided via the 'mainScriptFile' argument.
     We recommend storing this script for future reference along with the report.
-    
-    Error: processing vignette 'cellhts2.Rnw' failed with diagnostics:
-     chunk 36 (label = transfplots) 
-    Error in geom_qq() : could not find function "geom_qq"
+    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+    Warning: Removed 24 rows containing non-finite values (stat_bin).
+    Warning: Removed 446 rows containing non-finite values (stat_binhex).
+    Warning: Removed 53 rows containing missing values (geom_hex).
+    Warning: Removed 24 rows containing non-finite values (stat_qq).
+    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+    Warning: Removed 24 rows containing non-finite values (stat_bin).
+    Warning: Removed 502 rows containing non-finite values (stat_binhex).
+    Warning: Removed 57 rows containing missing values (geom_hex).
+    Warning: Removed 24 rows containing non-finite values (stat_qq).
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'cellhts2.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
     Execution halted
     ```
 
@@ -4830,20 +4619,20 @@ Version: 1.26.0
 *   checking examples ... WARNING
     ```
     Found the following significant warnings:
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpEZh50C’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/Rtmpbfj0Vh’, resetting
     ```
 
 *   checking PDF version of manual ... WARNING
@@ -4974,6 +4763,26 @@ Version: 1.4.0
 
 Version: 0.2.0
 
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Loading required package: ggmap
+    Loading required package: ggplot2
+    Loading required package: RCurl
+    Loading required package: bitops
+    Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=Chicago,%20IL&sensor=false
+    Warning: geocode failed with status OVER_QUERY_LIMIT, location = "Chicago, IL"
+    Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=New%20York&sensor=false
+    Warning: geocode failed with status OVER_QUERY_LIMIT, location = "New York"
+    Quitting from lines 16-23 (getting-started.Rmd) 
+    Error: processing vignette 'getting-started.Rmd' failed with diagnostics:
+    undefined columns selected
+    Execution halted
+    ```
+
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -5096,6 +4905,153 @@ Version: 1.8.5
     This typically indicates Rd problems.
     ```
 
+# ChemmineR
+
+Version: 3.32.0
+
+## In both
+
+*   checking examples ... ERROR
+    ```
+    ...
+    > ### Keywords: datatable,sdfset,compounds,display
+    > 
+    > ### ** Examples
+    > 
+    > 	library(ChemmineR)
+    > 	library(DT)
+    > 	data(sdfsample)
+    > 
+    > 	# this will open a browser to display the result
+    > 	x=SDFDataTable(sdfsample[1:3]) 
+    Error: package or namespace load failed for ‘ChemmineOB’:
+     .onLoad failed in loadNamespace() for 'ChemmineOB', details:
+      call: dyn.load(file, DLLpath = DLLpath, ...)
+      error: unable to load shared object '/Users/max/github/ggplot2/revdep/library.noindex/ChemmineR/ChemmineOB/libs/ChemmineOB.so':
+      dlopen(/Users/max/github/ggplot2/revdep/library.noindex/ChemmineR/ChemmineOB/libs/ChemmineOB.so, 10): Library not loaded: /usr/local/opt/open-babel/lib/libopenbabel.5.dylib
+      Referenced from: /Users/max/github/ggplot2/revdep/library.noindex/ChemmineR/ChemmineOB/libs/ChemmineOB.so
+      Reason: image not found
+    Error in .ensureOB() : 
+      ChemmineOB is required to make use of this function. This package can be installed from BioConductor with the  command 'biocLite("ChemmineOB").  It is not currently available for windows however. See http://bioconductor.org/packages/devel/bioc/html/ChemmineOB.html for more information
+    Calls: SDFDataTable -> cbind -> lapply -> FUN -> sdf2image -> .ensureOB
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/runTests.R’ failed.
+    Last 13 lines of output:
+      
+         test_general.R 
+           test.3dCoords 
+           test.canonicalize 
+           test.exactMassOB 
+           test.formatConversions 
+           test.genAPDescriptors 
+           test.parseV3000 
+           test.propOB 
+           test.smartsSearchOB 
+      
+      
+      Error in BiocGenerics:::testPackage("ChemmineR") : 
+        unit tests failed for package ChemmineR
+      Execution halted
+    ```
+
+*   checking whether package ‘ChemmineR’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      r_wrap.cc:1689:14: warning: explicitly assigning value of variable of type 'void *' to itself [-Wself-assign]
+    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/ChemmineR/new/ChemmineR.Rcheck/00install.out’ for details.
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 44-50 (ChemmineR.Rmd) 
+    Error: processing vignette 'ChemmineR.Rmd' failed with diagnostics:
+    package or namespace load failed for 'ChemmineOB':
+     .onLoad failed in loadNamespace() for 'ChemmineOB', details:
+      call: dyn.load(file, DLLpath = DLLpath, ...)
+      error: unable to load shared object '/Users/max/github/ggplot2/revdep/library.noindex/ChemmineR/ChemmineOB/libs/ChemmineOB.so':
+      dlopen(/Users/max/github/ggplot2/revdep/library.noindex/ChemmineR/ChemmineOB/libs/ChemmineOB.so, 10): Library not loaded: /usr/local/opt/open-babel/lib/libopenbabel.5.dylib
+      Referenced from: /Users/max/github/ggplot2/revdep/library.noindex/ChemmineR/ChemmineOB/libs/ChemmineOB.so
+      Reason: image not found
+    Execution halted
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘ChemmineDrugs’
+    ```
+
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    Packages listed in more than one of Depends, Imports, Suggests, Enhances:
+      ‘png’ ‘ChemmineOB’
+    A package should be listed in only one of these fields.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    'library' or 'require' calls in package code:
+      ‘ChemmineDrugs’ ‘ChemmineOB’ ‘RPostgreSQL’ ‘RSQLite’ ‘fmcsR’ ‘png’
+      ‘snow’
+      Please use :: or requireNamespace() instead.
+      See section 'Suggested packages' in the 'Writing R Extensions' manual.
+    Namespace in Imports field not imported from: ‘BiocGenerics’
+      All declared Imports should be used.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    smartsSearchOB: no visible global function definition for
+      ‘smartsSearch_OB’
+    smile2sdfFile: no visible global function definition for
+      ‘convertFormatFile’
+    smiles2sdf: no visible global function definition for ‘convertFormat’
+    smiles2sdfOB: no visible global function definition for ‘convertFormat’
+    write.SMI: no visible global function definition for ‘write.table’
+    Undefined global functions or variables:
+      AW C1 C1.1 C2 C2.1 browseURL canonicalNumbering_OB clusterApplyLB
+      clusterExport combn convertFormat convertFormatFile convertToImage
+      data dev.off error exactMass_OB fingerprint_OB fmcs forEachMol pdf
+      postgresqlCopyInDataframe postgresqlQuoteId postgresqlTableRef
+      postgresqlgetResult postgresqlpqExec postscript prop_OB rainbow
+      read.delim read.table rgb smartsSearch_OB smiles str string
+      write.table
+    Consider adding
+      importFrom("grDevices", "dev.off", "pdf", "postscript", "rainbow",
+                 "rgb")
+      importFrom("utils", "browseURL", "combn", "data", "read.delim",
+                 "read.table", "str", "write.table")
+    to your NAMESPACE file.
+    ```
+
+*   checking compiled code ... NOTE
+    ```
+    File ‘ChemmineR/libs/ChemmineR.so’:
+      Found ‘__ZNSt3__14cerrE’, possibly from ‘std::cerr’ (C++)
+        Objects: ‘desc.o’, ‘formats.o’, ‘script.o’
+      Found ‘__ZNSt3__14coutE’, possibly from ‘std::cout’ (C++)
+        Object: ‘cluster.o’
+    
+    Compiled code should not call entry points which might terminate R nor
+    write to stdout/stderr instead of to the console, nor use Fortran I/O
+    nor system RNGs.
+    
+    See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
+    ```
+
 # childsds
 
 Version: 0.6.7
@@ -5134,29 +5090,6 @@ Version: 1.4.0
 # ChIPQC
 
 Version: 1.16.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ChIPQC-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ChIPQCreport-methods
-    > ### Title: Generate a summary QC report
-    > ### Aliases: ChIPQCreport-methods ChIPQCreport
-    > ###   ChIPQCreport,ChIPQCexperiment-method ChIPQCreport,ChIPQCsample-method
-    > ###   ChIPQCreport,list-method
-    > ### Keywords: methods
-    > 
-    > ### ** Examples
-    > 
-    > data(example_QCexperiment)
-    > ChIPQCreport(exampleExp,facetBy=c("Tissue","Factor"))
-    Saving 7 x 7 in image
-    Error: `expr` must quote a symbol, scalar, or call
-    Execution halted
-    ```
 
 ## In both
 
@@ -5217,27 +5150,47 @@ Version: 1.16.0
 *   checking re-building of vignette outputs ... NOTE
     ```
     ...
-    
-        anyMissing, rowMedians
-    
-    Loading required package: BiocParallel
-    
-    Attaching package: ‘DelayedArray’
-    
-    The following objects are masked from ‘package:matrixStats’:
-    
-        colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
-    
     The following objects are masked from ‘package:base’:
     
         aperm, apply
     
     
-    
-    Error: processing vignette 'ChIPQC.Rnw' failed with diagnostics:
-     chunk 12 (label = figCoverageHist) 
-    Error : `expr` must quote a symbol, scalar, or call
+    Using Sample as id variables
+    					ChIPQCsample
+    Number of Mapped reads: 341055
+    Number of Mapped reads passing MapQ filter: 251280
+    Percentage Of Reads as Non-Duplicates (NRF): 87.78(0.12)
+    Percentage Of Reads in Blacklisted Regions: 1
+    SSD: 2.5284604834947
+    Fragment Length Cross-Coverage: 0.024498021220288
+    Relative Cross-Coverage: 2.73653622626889
+    Percentage Of Reads in GenomicFeature: 
+    Percentage Of Reads in Peaks: 42.35
+    Number of Peaks: 1118
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'ChIPQC.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
     Execution halted
+    ```
+
+# ChIPseeker
+
+Version: 1.16.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.1Mb
+      sub-directories of 1Mb or more:
+        data   1.5Mb
+        doc    2.9Mb
     ```
 
 # ChIPSeqSpike
@@ -5346,44 +5299,42 @@ Version: 0.4.0
 
 Version: 3.6.1
 
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    Theme element plot.title missing
+    Theme element plot.subtitle missing
+    Theme element plot.tag missing
+    Theme element plot.caption missing
+    Theme element panel.border missing
+    Theme element axis.line.x.bottom missing
+    Theme element axis.ticks.x.bottom missing
+    Theme element axis.line.y.left missing
+    Theme element axis.ticks.y.left missing
+    Theme element plot.title missing
+    Theme element plot.subtitle missing
+    Theme element plot.tag missing
+    Theme element plot.caption missing
+    Theme element panel.border missing
+    Theme element axis.line.x.bottom missing
+    Theme element axis.ticks.x.bottom missing
+    Theme element axis.line.y.left missing
+    Theme element axis.ticks.y.left missing
+    Error in if (position != "none") { : argument is of length zero
+    Calls: <Anonymous> ... print.ggplot -> ggplot_gtable -> ggplot_gtable.ggplot_built
+    Execution halted
+    ```
+
 ## In both
 
-*   checking whether package ‘choroplethr’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/choroplethr/new/choroplethr.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘choroplethr’ ...
-** package ‘choroplethr’ successfully unpacked and MD5 sums checked
-** R
-** data
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘sf’
-ERROR: lazy loading failed for package ‘choroplethr’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/choroplethr/new/choroplethr.Rcheck/choroplethr’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘choroplethr’ ...
-** package ‘choroplethr’ successfully unpacked and MD5 sums checked
-** R
-** data
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘sf’
-ERROR: lazy loading failed for package ‘choroplethr’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/choroplethr/old/choroplethr.Rcheck/choroplethr’
-
-```
 # choroplethrAdmin1
 
 Version: 1.1.1
@@ -5429,7 +5380,7 @@ Version: 0.1.4
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.1Mb
+      installed size is  5.2Mb
       sub-directories of 1Mb or more:
         data   4.9Mb
     ```
@@ -5483,21 +5434,21 @@ Version: 1.6.0
     ...
     Exporting browser files
     =======================
-    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmplyYsMg/SHR-example/BROWSERFILES/combined_mode-combinatorial_binsize1000_stepsize500_combinations_SHR.bed.gz ... 0.11s
-    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmplyYsMg/SHR-example/BROWSERFILES/combined_mode-combinatorial_binsize1000_stepsize500_peaks_H3K27me3-SHR-rep1.bed.gz ... 0.04s
-    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmplyYsMg/SHR-example/BROWSERFILES/combined_mode-combinatorial_binsize1000_stepsize500_peaks_H3K27me3-SHR-rep2.bed.gz ... 0.04s
-    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmplyYsMg/SHR-example/BROWSERFILES/combined_mode-combinatorial_binsize1000_stepsize500_peaks_H3K4me3-SHR-rep1.bed.gz ... 0.03s
-    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmplyYsMg/SHR-example/BROWSERFILES/combined_mode-combinatorial_binsize1000_stepsize500_peaks_H3K4me3-SHR-rep2.bed.gz ... 0.03s
-    ==> Total time spent: 43s <==
-    Enrichment inside of annotations ... 2.15s
-    Enrichment 15000bp before annotations 0.11s
-    Enrichment 15000bp after annotations 0.15s
-    Enrichment 10000bp before annotations 0.14s
-    Enrichment 10000bp before annotations 0.11s
-    Overlaps with annotation ... 0.09s
-    Getting surrounding indices ... 0.04s
-    Getting read counts 0.01s
-    Making the plot ... 0.17s
+    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp8aJZhi/SHR-example/BROWSERFILES/combined_mode-combinatorial_binsize1000_stepsize500_combinations_SHR.bed.gz ... 0.08s
+    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp8aJZhi/SHR-example/BROWSERFILES/combined_mode-combinatorial_binsize1000_stepsize500_peaks_H3K27me3-SHR-rep1.bed.gz ... 0.03s
+    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp8aJZhi/SHR-example/BROWSERFILES/combined_mode-combinatorial_binsize1000_stepsize500_peaks_H3K27me3-SHR-rep2.bed.gz ... 0.03s
+    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp8aJZhi/SHR-example/BROWSERFILES/combined_mode-combinatorial_binsize1000_stepsize500_peaks_H3K4me3-SHR-rep1.bed.gz ... 0.05s
+    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp8aJZhi/SHR-example/BROWSERFILES/combined_mode-combinatorial_binsize1000_stepsize500_peaks_H3K4me3-SHR-rep2.bed.gz ... 0.02s
+    ==> Total time spent: 45s <==
+    Enrichment inside of annotations ... 3.58s
+    Enrichment 15000bp before annotations 0.23s
+    Enrichment 15000bp after annotations 0.3s
+    Enrichment 10000bp before annotations 0.25s
+    Enrichment 10000bp before annotations 0.26s
+    Overlaps with annotation ... 0.23s
+    Getting surrounding indices ... 0.09s
+    Getting read counts 0.04s
+    Making the plot ... 0.26s
     Quitting from lines 420-426 (chromstaR.Rnw) 
     Error: processing vignette 'chromstaR.Rnw' failed with diagnostics:
     unused argument (range = limits)
@@ -5541,25 +5492,6 @@ Version: 1.6.0
 
 Version: 1.2.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘chromVAR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: chromVAR_theme
-    > ### Title: chromVAR_theme
-    > ### Aliases: chromVAR_theme
-    > 
-    > ### ** Examples
-    > 
-    > p <- ggplot2::qplot(1:3,1:3) + chromVAR_theme(18)
-    Error in geom_point() : could not find function "geom_point"
-    Calls: <Anonymous> -> do.call
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -5583,30 +5515,6 @@ Version: 2.3-52
 # CINNA
 
 Version: 1.1.41
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    
-    Attaching package: 'igraph'
-    
-    The following objects are masked from 'package:stats':
-    
-        decompose, spectrum
-    
-    The following object is masked from 'package:base':
-    
-        union
-    
-    Loading required namespace: circlize
-    Quitting from lines 315-318 (CINNA.Rmd) 
-    Error: processing vignette 'CINNA.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~subgraph_cent".  Please rename the columns or make a new column.
-    Execution halted
-    ```
 
 ## In both
 
@@ -5686,56 +5594,6 @@ Version: 2.0.6
 
 Version: 1.0.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > Boston = Boston[row_subset, ]
-    > X = subset(Boston, select = -chas)
-    > 
-    > cvsl = CV.SuperLearner(Boston$chas, X[, 1:2], family = binomial(),
-    +                       cvControl = list(V = 2, stratifyCV = TRUE),
-    +                       SL.library = c("SL.mean", "SL.glm"))
-    Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-    Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-    Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-    Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-    Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-    Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-    Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-    Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-    Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-    Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-    Warning: glm.fit: fitted probabilities numerically 0 or 1 occurred
-    > cvsl_plot_roc(cvsl)
-    Error in geom_line() : could not find function "geom_line"
-    Calls: cvsl_plot_roc -> print -> <Anonymous> -> do.call
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             geom = "line", main = title) + ggplot2::theme_bw() + ggplot2::annotate("text", 
-             x = 0.63, y = 0.15, label = txt, size = 6) + ggplot2::annotate("segment", x = 0, 
-             xend = 1, y = 0, yend = 1))
-      3: ggplot2::qplot(1 - methods::slot(perf1, "x.values")[[1]], methods::slot(perf1, "y.values")[[1]], 
-             xlab = "1 - Specificity (false positives)", ylab = "Sensitivity (true positives)", 
-             geom = "line", main = title)
-      4: do.call(paste0("geom_", g), params, envir = caller_env)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 14 SKIPPED: 0 FAILED: 2
-      1. Error: (unknown) (@test-sl_plot_roc.R#13) 
-      2. Error: (unknown) (@test_cvsl_plot_roc.R#16) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -5782,9 +5640,9 @@ Version: 1.3
 * installing *source* package ‘classify’ ...
 ** package ‘classify’ successfully unpacked and MD5 sums checked
 ** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/classify/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c exp.cpp -o exp.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/classify/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c gpcm.cpp -o gpcm.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/classify/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c rcpp_w_lord.cpp -o rcpp_w_lord.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c exp.cpp -o exp.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c gpcm.cpp -o gpcm.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c rcpp_w_lord.cpp -o rcpp_w_lord.o
 /usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o classify.so exp.o gpcm.o rcpp_w_lord.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
 installing to /Users/max/github/ggplot2/revdep/checks.noindex/classify/new/classify.Rcheck/classify/libs
 ** R
@@ -5829,60 +5687,6 @@ ERROR: lazy loading failed for package ‘classify’
 # ClassifyR
 
 Version: 2.0.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    +     # Leave-one-out cross-validation.
-    +     resubstituteParams <- ResubstituteParams(nFeatures = 2:10,
-    +                                          performanceType = "balanced error",
-    +                                          better = "lower")
-    +     classified <-
-    +     runTests(measurements, classes, "Melanoma", "Different Means",
-    +              validation = "leaveOut", leave = 1,
-    +              params = list(SelectParams(limmaSelection, "Moderated t Statistic",
-    +                                         resubstituteParams = resubstituteParams),
-    +                            TrainParams(DLDAtrainInterface),
-    +                            PredictParams(DLDApredictInterface,
-    +                                          getClasses = function(result) result[["class"]])))
-    +     class(classified)
-    +   }
-    Loading required package: sparsediscrim
-    Warning in socketConnection(host, port, TRUE, TRUE, "a+b", timeout = timeout) :
-      port 11605 cannot be opened
-    Error in socketConnection(host, port, TRUE, TRUE, "a+b", timeout = timeout) : 
-      cannot open the connection
-    Calls: runTests ... .local -> .bpfork -> .bpforkConnect -> socketConnection
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    The following objects are masked from 'package:base':
-    
-        Filter, Find, Map, Position, Reduce, anyDuplicated, append, as.data.frame, basename, cbind, colMeans, colSums,
-        colnames, dirname, do.call, duplicated, eval, evalq, get, grep, grepl, intersect, is.unsorted, lapply, lengths,
-        mapply, match, mget, order, paste, pmax, pmax.int, pmin, pmin.int, rank, rbind, rowMeans, rowSums, rownames,
-        sapply, setdiff, sort, table, tapply, union, unique, unsplit, which, which.max, which.min
-    
-    
-    Attaching package: 'S4Vectors'
-    
-    The following object is masked from 'package:base':
-    
-        expand.grid
-    
-    Loading required package: MultiAssayExperiment
-    Loading required package: BiocParallel
-    Quitting from lines 159-163 (ClassifyR.Rmd) 
-    Error: processing vignette 'ClassifyR.Rmd' failed with diagnostics:
-    A continuous variable can not be mapped to shape
-    Execution halted
-    ```
 
 ## In both
 
@@ -6084,7 +5888,7 @@ Version: 0.1.1
 
 # clusterProfiler
 
-Version: 3.8.0
+Version: 3.8.1
 
 ## In both
 
@@ -6293,24 +6097,10 @@ Version: 1.10.0
 
 *   checking re-building of vignette outputs ... WARNING
     ```
-    ...
-    Trying to automatically install missing LaTeX packages...
-    tlmgr install dvips
-    TeX Live 2017 is frozen forever and will no
-    longer be updated.  This happens in preparation for a new release.
-    
-    If you're interested in helping to pretest the new release (when
-    pretests are available), please read http://tug.org/texlive/pretest.html.
-    Otherwise, just wait, and the new release will be ready in due time.
-    tlmgr: package repository ftp://tug.org/historic/systems/texlive/2017/tlnet-final (not verified: gpg unavailable)
-    [1/2, ??:??/??:??] install: dvips.x86_64-darwin [146k]
-    [2/2, 00:02/00:02] install: dvips [34k]
-    running mktexlsr ...
-    done running mktexlsr.
-    tlmgr: package log updated: /Users/max/Library/TinyTeX/texmf-var/web2c/tlmgr.log
-    tlmgr path add
-    add_link_dir_dir: /usr/local/bin/allcm exists; not making symlink.
-    add_link_dir_dir: /usr/local/bin/texhash exists; not making symlink.
+    Error in re-building vignettes:
+      ...
+    Warning in has_utility("pdfcrop") :
+      pdfcrop not installed or not in PATH
     Quitting from lines 51-61 (FindCNPs.Rmd) 
     Error: processing vignette 'FindCNPs.Rmd' failed with diagnostics:
     unable to find required package 'VanillaICE'
@@ -6632,8 +6422,8 @@ Version: 1.14.0
 *   checking whether package ‘cogena’ can be installed ... WARNING
     ```
     Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘cogena’
       Warning: replacing previous import ‘class::somgrid’ by ‘kohonen::somgrid’ when loading ‘cogena’
+      Warning: replacing previous import ‘dplyr::exprs’ by ‘Biobase::exprs’ when loading ‘cogena’
     See ‘/Users/max/github/ggplot2/revdep/checks.noindex/cogena/new/cogena.Rcheck/00install.out’ for details.
     ```
 
@@ -6770,6 +6560,18 @@ Version: 3.1
     Namespaces in Imports field not imported from:
       ‘flashClust’ ‘speedglm’
       All declared Imports should be used.
+    ```
+
+# colocalization
+
+Version: 1.0.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # colorednoise
@@ -7169,7 +6971,7 @@ Version: 1.3.0
 
 # congressbr
 
-Version: 0.1.1
+Version: 0.1.2
 
 ## In both
 
@@ -7181,7 +6983,7 @@ Version: 0.1.1
 
 *   checking data for non-ASCII characters ... NOTE
     ```
-      Note: found 1 marked UTF-8 string
+      Note: found 187 marked UTF-8 strings
     ```
 
 # Conigrave
@@ -7202,8 +7004,11 @@ Version: 1.2.0
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 # consensusSeekeR
 
@@ -7321,59 +7126,20 @@ Version: 1.0-7
 
 ## In both
 
-*   checking whether package ‘CoordinateCleaner’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/CoordinateCleaner/new/CoordinateCleaner.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 1 marked Latin-1 string
+    ```
 
-### Devel
-
-```
-* installing *source* package ‘CoordinateCleaner’ ...
-** package ‘CoordinateCleaner’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘sf’
-ERROR: lazy loading failed for package ‘CoordinateCleaner’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/CoordinateCleaner/new/CoordinateCleaner.Rcheck/CoordinateCleaner’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘CoordinateCleaner’ ...
-** package ‘CoordinateCleaner’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘sf’
-ERROR: lazy loading failed for package ‘CoordinateCleaner’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/CoordinateCleaner/old/CoordinateCleaner.Rcheck/CoordinateCleaner’
-
-```
 # CopulaDTA
 
 Version: 1.0.0
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 292-293 (CopulaDTA_Vignette.Rmd) 
-    Error: processing vignette 'CopulaDTA_Vignette.Rmd' failed with diagnostics:
-    missing value where TRUE/FALSE needed
-    Execution halted
-    ```
 
 ## In both
 
@@ -7546,9 +7312,9 @@ Version: 1.8.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  9.1Mb
+      installed size is  9.0Mb
       sub-directories of 1Mb or more:
-        data   8.1Mb
+        data   8.0Mb
     ```
 
 # countyfloods
@@ -7573,33 +7339,35 @@ Version: 0.1.0
 
 Version: 1.0.0
 
-## In both
+## Newly broken
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
-    Loading required package: stringr
-    Loading required package: XML
-    
-    Attaching package: 'XML'
-    
-    The following object is masked from 'package:tools':
-    
-        toHTML
-    
-    
-    Attaching package: 'acs'
-    
-    The following object is masked from 'package:base':
-    
-        apply
-    
+    Theme element plot.subtitle missing
+    Theme element plot.tag missing
+    Theme element plot.caption missing
+    Theme element panel.border missing
+    Theme element axis.line.x.bottom missing
+    Theme element axis.ticks.x.bottom missing
+    Theme element axis.line.y.left missing
+    Theme element axis.ticks.y.left missing
+    Theme element plot.title missing
+    Theme element plot.subtitle missing
+    Theme element plot.tag missing
+    Theme element plot.caption missing
+    Theme element panel.border missing
+    Theme element axis.line.x.bottom missing
+    Theme element axis.ticks.x.bottom missing
+    Theme element axis.line.y.left missing
+    Theme element axis.ticks.y.left missing
     Quitting from lines 111-123 (countytimezones.Rmd) 
     Error: processing vignette 'countytimezones.Rmd' failed with diagnostics:
-    package or namespace load failed for 'choroplethr' in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
-     there is no package called 'sf'
+    argument is of length zero
     Execution halted
     ```
+
+## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -7684,45 +7452,6 @@ Version: 0.9.2
     ```
 
 ## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘cowplot-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: draw_image
-    > ### Title: Draw an image
-    > ### Aliases: draw_image
-    > 
-    > ### ** Examples
-    > 
-    > # Use image as plot background
-    > p <- ggplot(iris, aes(x = Sepal.Length, fill = Species)) + geom_density(alpha = 0.7)
-    > ggdraw() +
-    +   draw_image("http://jeroen.github.io/images/tiger.svg") +
-    +   draw_plot(p + theme(legend.box.background = element_rect(color = "white")))
-    OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
-    OMP: Hint: This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://www.intel.com/software/products/support/.
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Loading required package: cowplot
-    Loading required package: ggplot2
-    
-    Attaching package: 'cowplot'
-    
-    The following object is masked from 'package:ggplot2':
-    
-        ggsave
-    
-    Loading required package: grid
-    Loading required package: viridisLite
-    OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
-    OMP: Hint: This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://www.intel.com/software/products/support/.
-    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -7886,11 +7615,6 @@ Version: 2.1.1
     This typically indicates Rd problems.
     ```
 
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘sf’
-    ```
-
 # cRegulome
 
 Version: 0.1.1
@@ -7919,7 +7643,6 @@ Version: 0.0.14
 *   checking whether package ‘cricketr’ can be installed ... WARNING
     ```
     Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘cricketr’
       Warning: replacing previous import ‘ggplot2::autolayer’ by ‘forecast::autolayer’ when loading ‘cricketr’
     See ‘/Users/max/github/ggplot2/revdep/checks.noindex/cricketr/new/cricketr.Rcheck/00install.out’ for details.
     ```
@@ -7994,6 +7717,47 @@ ERROR: lazy loading failed for package ‘crmPack’
 * removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/crmPack/old/crmPack.Rcheck/crmPack’
 
 ```
+# crossmeta
+
+Version: 1.6.0
+
+## In both
+
+*   checking for code/documentation mismatches ... WARNING
+    ```
+    Data with usage in documentation object 'gs.names' but not in code:
+      gs.names
+    
+    Data with usage in documentation object 'gslist' but not in code:
+      gslist
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Missing or unexported objects:
+      ‘crossmeta::gs.names’ ‘crossmeta::gslist’
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    explore_paths : server: no visible binding for global variable ‘gslist’
+    explore_paths : server: no visible binding for global variable
+      ‘gs.names’
+    Undefined global functions or variables:
+      gs.names gslist
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Packages unavailable to check Rd xrefs: ‘PADOG’, ‘GeneMeta’
+    ```
+
 # Crossover
 
 Version: 0.1-17
@@ -8014,8 +7778,8 @@ Version: 0.1-17
 * installing *source* package ‘Crossover’ ...
 ** package ‘Crossover’ successfully unpacked and MD5 sums checked
 ** libs
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/Crossover/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/Crossover/RcppArmadillo/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c Crossover_init.c -o Crossover_init.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/Crossover/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/Crossover/RcppArmadillo/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c searchCOD.cpp -o searchCOD.o
+/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/Crossover/RcppArmadillo/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c Crossover_init.c -o Crossover_init.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/Crossover/RcppArmadillo/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c searchCOD.cpp -o searchCOD.o
 searchCOD.cpp:122:11: warning: ignoring return value of function declared with 'warn_unused_result' attribute [-Wunused-result]
           pinv(trans(X) * cor * X);
           ^~~~
@@ -8352,34 +8116,6 @@ Version: 2.8.0
 
 Version: 1.10.0
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    see ?curatedMetagenomicData and browseVignettes('curatedMetagenomicData') for documentation
-    downloading 0 resources
-    loading from cache 
-        '/Users/max//.ExperimentHub/391'
-    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `curatedMetagenomicData_files/figure-html/unnamed-chunk-18-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
-    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `curatedMetagenomicData_files/figure-html/unnamed-chunk-21-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
-    Warning in vegdist(c(12.95146, 3.07787, 12.5427, 0.00815, 0, 4.77261, 7.03481,  :
-      you have empty rows: their dissimilarities may be meaningless in method "bray"
-    Warning: Transformation introduced infinite values in discrete y-axis
-    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `curatedMetagenomicData_files/figure-html/unnamed-chunk-32-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
-    Warning in estimate_richness(physeq, split = TRUE, measures = measures) :
-      The data you have provided does not have
-    any singletons. This is highly suspicious. Results of richness
-    estimates (for example) are probably unreliable, or wrong, if you have already
-    trimmed low-abundance taxa from the data.
-    
-    We recommended that you find the un-trimmed data and retry.
-    Quitting from lines 330-332 (curatedMetagenomicData.Rmd) 
-    Error: processing vignette 'curatedMetagenomicData.Rmd' failed with diagnostics:
-    A continuous variable can not be mapped to shape
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -8423,32 +8159,6 @@ Version: 1.0
 # cutpointr
 
 Version: 0.7.3
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘cutpointr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plot_sensitivity_specificity
-    > ### Title: Sensitivity and specificity plot from a cutpointr object
-    > ### Aliases: plot_sensitivity_specificity
-    > 
-    > ### ** Examples
-    > 
-    > library(cutpointr)
-    > 
-    > ## Optimal cutpoint for dsi
-    > data(suicide)
-    > opt_cut <- cutpointr(suicide, dsi, suicide)
-    Assuming the positive class is yes
-    Assuming the positive class has higher x values
-    > plot_sensitivity_specificity(opt_cut)
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Error: A continuous variable can not be mapped to linetype
-    Execution halted
-    ```
 
 ## In both
 
@@ -8542,7 +8252,7 @@ Version: 1.3.2
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      Sparseness = 77.35 %
+      Sparseness = 76.1 %
       Sorting covariates by covariateId and rowId
       ── 1. Failure: Data errors and casting in COO-constructor (@test-xyConstructor.R
       `loadNewSeqlCyclopsDataMultipleX(dataPtr, c(1, 1), c(1, 1), NULL)` threw an error with unexpected message.
@@ -8759,7 +8469,7 @@ Version: 0.3.0
 
 # DaMiRseq
 
-Version: 1.4.1
+Version: 1.4.2
 
 ## In both
 
@@ -8834,12 +8544,58 @@ Version: 1.12.1
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking examples ... ERROR
     ```
-    Package required but not available: ‘DAPARdata’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    ...
+    > MEC <- findMECBlock(obj)
+    > obj <- wrapper.impute.detQuant(obj)
+    > obj <- reIntroduceMEC(obj, MEC)
+    > obj <- wrapper.impute.detQuant(obj)
+    > data <- wrapper.limmaCompleteTest(obj, 1)
+    > df <- data.frame(x=data$FC, y = -log10(data$P_Value),index = as.character(rownames(obj)))
+    > colnames(df) <- c("x", "y", "index")
+    > tooltipSlot <- c("Sequence", "Score")
+    > df <- cbind(df,Biobase::fData(obj)[tooltipSlot])
+    > colnames(df) <- gsub(".", "_", colnames(df), fixed=TRUE)
+    > if (ncol(df) > 3){
+    +     colnames(df)[4:ncol(df)] <- 
+    +     paste("tooltip_", colnames(df)[4:ncol(df)], sep="")}
+    > hc_clickFunction <- JS("function(event) {
+    + Shiny.onInputChange('eventPointClicked', [this.index]);}")
+    > cond <- c("25fmol", "10fmol")
+    > diffAnaVolcanoplot_rCharts(df, 2.5, 1, cond,hc_clickFunction) 
+    Error in mutate_impl(.data, dots) : 
+      Column `x` is of unsupported type quoted call
+    Calls: diffAnaVolcanoplot_rCharts ... as.data.frame -> mutate -> mutate.tbl_df -> mutate_impl
+    Execution halted
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    diffAnaVolcanoplot_rCharts: no visible binding for global variable ‘x’
+    diffAnaVolcanoplot_rCharts: no visible binding for global variable ‘y’
+    diffAnaVolcanoplot_rCharts: no visible binding for global variable ‘g’
+    getTextForGOAnalysis: no visible binding for global variable
+      ‘textGOParams’
+    getTextForGOAnalysis: no visible binding for global variable ‘input’
+    Undefined global functions or variables:
+      g input textGOParams x y
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error in re-building vignettes:
+      ...
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'Prostar_UserManual.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
     ```
 
 # darksky
@@ -8857,6 +8613,34 @@ Version: 1.3.0
 # dartR
 
 Version: 1.0.5
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    Assigning 1 unknown individual(s) to 20 target populations
+    Unknown individual: UC_00146 
+    Total number of SNP loci:  255 
+    
+    Table showing number of loci with private alleles
+       0 EmmacMaclGeor 
+       1 EmmacBurnBara EmmacRichCasi EmmacTweeUki 
+       2 EmmacBrisWive EmmacMDBBowm EmmacMDBCudg EmmacMDBForb EmmacMDBMaci EmmacMDBMurrMung 
+       3 EmmacFitzAllig EmmacMDBCond EmmacMDBSanf EmmacRussEube 
+       4 EmmacBurdMist EmmacJohnWari EmmacRoss 
+       6 EmmacCoopEulb 
+       7 EmmacCoopCully 
+       16 EmmacCoopAvin 
+    
+    Data retained for the unknown individual and remaining candidate source populations ( 1 or less loci with private alleles)
+    
+    
+    COMPUTING ASSIGNMENT BASED ON CONFIDENCE ENVELOPES
+    
+    R(16588,0x7fffb40bd380) malloc: *** error for object 0x7fe5bb365828: incorrect checksum for freed object - object was probably modified after being freed.
+    *** set a breakpoint in malloc_error_break to debug
+    ```
 
 ## In both
 
@@ -8945,26 +8729,15 @@ Version: 0.0.2
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘seqHMM’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # dbplot
 
 Version: 0.3.0
-
-## Newly broken
-
-*   checking whether package ‘dbplot’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘dbplot’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/dbplot/new/dbplot.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -9055,6 +8828,51 @@ Version: 1.8
 
 ## In both
 
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      16: freduce(value, `_function_list`)
+      17: function_list[[i]](value)
+      18: init_data(.)
+      19: dplyr::select_(new_plate_data, "well", x_var, y_var)
+      20: select_.data.frame(new_plate_data, "well", x_var, y_var)
+      21: select(.data, !!!dots)
+      22: select.data.frame(.data, !!!dots)
+      23: select_impl(.data, vars)
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 267 SKIPPED: 0 FAILED: 1
+      1. Error: reset works (@test-plate.R#14) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Reading data files into plate... DONE (0 seconds)
+    Initializing plate of type `custom_thresholds`... DONE (0 seconds)
+    Identifying outlier droplets... DONE (0 seconds)
+    Classifying droplets... DONE (0 seconds)
+    Analysis complete
+    Reading data files into plate... DONE (0 seconds)
+    Initializing plate of type `fam_positive_pnpp`... DONE (0 seconds)
+    Identifying failed wells... DONE (0 seconds)
+    Identifying outlier droplets... DONE (0 seconds)
+    Identifying empty droplets... DONE (0 seconds)
+    Classifying droplets... DONE (0 seconds)
+    Reclassifying droplets... skipped (not enough wells with significant mutant clusters)
+    Analysis complete
+    Initializing plate of type `custom_thresholds`... Quitting from lines 348-357 (overview.Rmd) 
+    Error: processing vignette 'overview.Rmd' failed with diagnostics:
+    Column `4` cannot have NA as name
+    Execution halted
+    ```
+
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -9102,10 +8920,10 @@ Version: 1.0.0
     
         Task A: compute kmeans...
     
-            ...finished summarization at 0.045 sec
+            ...finished summarization at 0.037 sec
     
         Task B: find peaks...
-    finished at 0.063 sec
+    finished at 0.088 sec
     
     
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
@@ -9699,16 +9517,14 @@ Version: 0.3
 
 Version: 1.2.0
 
-## Newly broken
+## In both
 
 *   checking whether package ‘DEP’ can be installed ... WARNING
     ```
     Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘DEP’
+      Warning: replacing previous import ‘MSnbase::exprs’ by ‘dplyr::exprs’ when loading ‘DEP’
     See ‘/Users/max/github/ggplot2/revdep/checks.noindex/DEP/new/DEP.Rcheck/00install.out’ for details.
     ```
-
-## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -9838,10 +9654,6 @@ Version: 1.14.0
       ...
     Warning in citation("BiocStyle") :
       no date field in DESCRIPTION file of package 'BiocStyle'
-    Warning in citation("scales") :
-      no date field in DESCRIPTION file of package 'scales'
-    Warning in citation("scales") :
-      could not determine year for 'scales' from package DESCRIPTION file
     Warning in citation("biovizBase") :
       no date field in DESCRIPTION file of package 'biovizBase'
     Warning in citation("TxDb.Hsapiens.UCSC.hg19.knownGene") :
@@ -9854,18 +9666,13 @@ Version: 1.14.0
     Execution halted
     ```
 
+## In both
+
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
     ```
-
-## Newly fixed
-
-*   R CMD check timed out
-    
-
-## In both
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -9876,53 +9683,6 @@ Version: 1.14.0
 # DescribeDisplay
 
 Version: 0.2.5
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘DescribeDisplay-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ggplot.scatmat
-    > ### Title: Create a nice plots in a scatter plot matrix Create a nice
-    > ###   looking plots in a matrix.  The 1d sections along the diagonal have a
-    > ###   smooth density while the values are compared to eachother within the
-    > ###   matrix.
-    > ### Aliases: ggplot.scatmat
-    > ### Keywords: hplot
-    > 
-    > ### ** Examples
-    > 
-    > library(ggplot2)
-    > print(ggplot(dd_example("scatmat")))
-    Error in make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name),  : 
-      variables: "x" have non standard format: "~tars1", "~col", "~pch".  Please rename the columns or make a new column.variables: "colour" have non standard format: "~tars1", "~col", "~pch".  Please rename the columns or make a new column.variables: "shape" have non standard format: "~tars1", "~col", "~pch".  Please rename the columns or make a new column.
-    Calls: print ... do.call -> <Anonymous> -> plot_fn -> make_ggmatrix_plot_obj
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             GGally::ggally_densityDiag(data, mapping, ...) + scale_fill_identity()
-         }, discrete = "barDiag", na = "naDiag"), sectionAes = structure(list(x = ~tars1, 
-             y = ~`NA`, colour = ~col, shape = ~pch), class = "uneval"))
-      8: plot_fn(types, sectionAes)
-      9: make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name), mapping = sectionAes)
-      10: stop(paste("variables: ", paste(shQuote(nonCallNames, type = "cmd"), sep = ", "), 
-             " have non standard format: ", paste(shQuote(unlist(mapping[nonCallVals]), type = "cmd"), 
-                 collapse = ", "), ".  Please rename the columns or make a new column.", sep = ""))
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 0 SKIPPED: 0 FAILED: 1
-      1. Error: all basic examples (@test-examples.R#10) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 ## In both
 
@@ -10055,6 +9815,23 @@ Version: 0.2.2
     ```
     Namespace in Imports field not imported from: ‘utils’
       All declared Imports should be used.
+    ```
+
+# dexter
+
+Version: 0.7.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 109 marked UTF-8 strings
     ```
 
 # dfexplore
@@ -10205,14 +9982,14 @@ Version: 0.2.14
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-             if (is.character(x)) {
                  x <- rlang::parse_expr(x)
              }
              new_aesthetic(x, env = caller_env)
          })
       17: FUN(X[[i]], ...)
       18: rlang::parse_expr(x)
-      19: abort("More than one expression parsed")
+      19: parse_exprs(x)
+      20: abort("`x` must be a string or a R connection")
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
       OK: 375 SKIPPED: 1 FAILED: 1
@@ -10253,44 +10030,6 @@ Version: 1.0.0
 # diagis
 
 Version: 0.1.3-1
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > 
-    > #optimal case
-    > set.seed(42)
-    > s_opt <- sqrt(2)
-    > x_opt <- rnorm(1000, sd = s_opt)
-    > w_opt <- p(x_opt) / q(x_opt, s_opt) 
-    > weighted_mean(x_opt, w_opt)
-    [1] -0.01223051
-    > weighted_var(x_opt, w_opt)
-    [1] 0.9954861
-    > s_inf <- 0.25
-    > x_inf <- rnorm(1000, sd = s_inf)
-    > w_inf <- p(x_inf) / q(x_inf, s_inf)
-    > weighted_mean(x_inf, w_inf) #!!
-    [1] 0.1281881
-    > weighted_var(x_inf, w_inf) #!!
-    [1] 0.2531165
-    > # diagnostic plots
-    > weight_plot(w_inf)
-    Error: Column `y` must be a 1d atomic vector or a list
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 73-74 (diagis.Rmd) 
-    Error: processing vignette 'diagis.Rmd' failed with diagnostics:
-    Column `y` must be a 1d atomic vector or a list
-    Execution halted
-    ```
 
 ## In both
 
@@ -10450,52 +10189,6 @@ Version: 1.0.0
 
 Version: 0.0-4
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘diffeR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: MAD
-    > ### Title: Mean Absolute Deviation (MAD)
-    > ### Aliases: MAD
-    > ### Keywords: spatial
-    > 
-    > ### ** Examples
-    > 
-    > old.par <- par(no.readonly = TRUE)
-    > grid1 <- raster(system.file("external/GRID1_INT.rst", package="diffeR"))
-    > grid2 <- raster(system.file("external/GRID2_INT.rst", package="diffeR"))
-    > strata <- raster(system.file("external/strata_int.rst", package="diffeR"))
-    > MAD(grid1, grid2, strata, eval="original")
-    Error in calc(strata, fun) : unused argument (fun)
-    Calls: MAD
-    Execution halted
-    ```
-
-*   checking whether package ‘diffeR’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Note: possible error in 'calc(strata, fun)': unused argument (fun) 
-      Note: possible error in 'calc(strataM2, fun1)': unused argument (fun1) 
-      Note: possible error in 'calc(tmp1, fun2)': unused argument (fun2) 
-      Note: possible error in 'calc(strataM, sum)': unused argument (sum) 
-      Warning: replacing previous import ‘raster::calc’ by ‘ggplot2::calc’ when loading ‘diffeR’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/diffeR/new/diffeR.Rcheck/00install.out’ for details.
-    Information on the location(s) of code generating the ‘Note’s can be
-    obtained by re-running with environment variable R_KEEP_PKG_SOURCE set
-    to ‘yes’.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    MAD: possible error in calc(strata, fun): unused argument (fun)
-    MAD: possible error in calc(strataM2, fun1): unused argument (fun1)
-    MAD: possible error in calc(tmp1, fun2): unused argument (fun2)
-    MAD: possible error in calc(strataM, sum): unused argument (sum)
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -10611,7 +10304,8 @@ Version: 2017.03.31
 
 *   checking examples ... ERROR
     ```
-    ...
+    Running examples in ‘directlabels-Ex.R’ failed
+    The error most likely occurred in:
     
     > ### Name: direct.label
     > ### Title: Direct labels for color decoding
@@ -10628,10 +10322,7 @@ Version: 2017.03.31
     +   print(direct.label(scatter))
     + }
     Loading required package: ggplot2
-    Error in parse(text = x) : <text>:1:2: unexpected ';'
-    1: ~;
-         ^
-    Calls: print ... lapply -> FUN -> <Anonymous> -> parse_exprs -> parse
+    Error: `x` must be a string or a R connection
     Execution halted
     ```
 
@@ -10640,6 +10331,9 @@ Version: 2017.03.31
      ERROR
     Running the tests in ‘tests/ggplot.R’ failed.
     Last 13 lines of output:
+      +       
+      +       stopifnot(result$hide %in% L$hide)
+      +       stopifnot(length(result$hide) == length(L$hide))
       +       stopifnot(L$colour == result$colour)
       +       ## label it and check for different legends.
       +       dl <- direct.label(L$plot)
@@ -10650,10 +10344,7 @@ Version: 2017.03.31
       + }
       Loading required package: ggplot2
       [1] "qplot"
-      Error in parse(text = x) : <text>:1:2: unexpected ';'
-      1: ~;
-           ^
-      Calls: direct.label ... lapply -> FUN -> <Anonymous> -> parse_exprs -> parse
+      Error: `x` must be a string or a R connection
       Execution halted
     ```
 
@@ -10791,15 +10482,6 @@ Version: 5.1.3
 
 Version: 0.3.0
 
-## Newly broken
-
-*   checking whether package ‘dlookr’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘dlookr’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/dlookr/new/dlookr.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -10854,7 +10536,7 @@ Version: 0.4
     > ## Reduce parlist to parframe
     > parframe <- as.parframe(out)
     > plotValues(parframe)
-    Error: `data` must be uniquely named but has duplicate columns
+    Error: `data` must be uniquely named but has duplicate elements
     Execution halted
     ```
 
@@ -10880,7 +10562,7 @@ Version: 0.4
     2 warnings generated.
     Quitting from lines 211-217 (dMod.Rmd) 
     Error: processing vignette 'dMod.Rmd' failed with diagnostics:
-    `data` must be uniquely named but has duplicate columns
+    `data` must be uniquely named but has duplicate elements
     Execution halted
     ```
 
@@ -10901,12 +10583,12 @@ Version: 1.0.0
 *   checking examples ... ERROR
     ```
     ...
+    > ### ** Examples
     > 
     > 
     > # get annotation information for hg19
     > annoTrack <- getAnnot('hg19')
-    updating metadata: retrieving 1 resource
-    snapshotDate(): 2018-04-23
+    snapshotDate(): 2018-04-30
     Building CpG islands...
     downloading 0 resources
     loading from cache 
@@ -10930,7 +10612,7 @@ Version: 1.0.0
     
     Assuming file type is cov
     Genome hg18 will be built by lifting over hg19 annotations from annotatr
-    snapshotDate(): 2018-04-23
+    snapshotDate(): 2018-04-30
     Building CpG islands...
     downloading 0 resources
     loading from cache 
@@ -10989,15 +10671,6 @@ Version: 4.6-1
 # docxtools
 
 Version: 0.1.1
-
-## Newly broken
-
-*   checking whether package ‘docxtools’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘docxtools’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/docxtools/new/docxtools.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -11094,75 +10767,31 @@ Version: 0.4.1
 
 Version: 0.4
 
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 284-293 (overview.Rmd) 
+    Error: processing vignette 'overview.Rmd' failed with diagnostics:
+    `data` must be uniquely named but has duplicate elements
+    Execution halted
+    ```
+
 ## In both
 
-*   checking whether package ‘dpcR’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/dpcR/new/dpcR.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘dpcR’ ...
-** package ‘dpcR’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘dpcR’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/dpcR/new/dpcR.Rcheck/dpcR’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘dpcR’ ...
-** package ‘dpcR’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘dpcR’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/dpcR/old/dpcR.Rcheck/dpcR’
-
-```
 # dplyr
 
-Version: 0.7.4
+Version: 0.7.5
 
 ## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      3: eval_bare(get_expr(quo), get_env(quo))
-      4: summarise(gdf, out = 1:2)
-      5: summarise.tbl_df(gdf, out = 1:2)
-      6: summarise_impl(.data, dots)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 2670 SKIPPED: 6 FAILED: 3
-      1. Error: mutate() supports unquoted values (@test-mutate.r#721) 
-      2. Failure: summarise() supports unquoted values (@test-summarise.r#980) 
-      3. Error: summarise() supports unquoted values (@test-summarise.r#985) 
-      
-      Error: testthat unit tests failed
-      In addition: Warning message:
-      call dbDisconnect() when finished working with a connection 
-      Execution halted
-    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -11246,45 +10875,31 @@ Version: 1.0.0
 
 Version: 1.8.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    3 FBgn0259735   0.9383577  2 6.255157e-01 7.744480e-01
-    4 FBgn0032785   3.4718633  2 1.762359e-01 3.143951e-01
-    5 FBgn0040297   6.0769622  4 1.934739e-01 3.143951e-01
-    6 FBgn0032979   1.7139224  1 1.904773e-01 3.143951e-01
-    > 
-    > ## Plot feature proportions for a top DTU gene
-    > res <- results(d)
-    > res <- res[order(res$pvalue, decreasing = FALSE), ]
-    > 
-    > top_gene_id <- res$gene_id[1]
-    > 
-    > plotProportions(d, gene_id = top_gene_id, group_variable = "group")
-    > 
-    > plotProportions(d, gene_id = top_gene_id, group_variable = "group", 
-    +   plot_type = "lineplot")
-    > 
-    > plotProportions(d, gene_id = top_gene_id, group_variable = "group", 
-    +   plot_type = "ribbonplot")
-    Coordinate system already present. Adding new coordinate system, which will replace the existing one.
-    Error: Columns `ymin`, `ymax` must be 1d atomic vectors or lists
-    Execution halted
-    ```
-
 ## In both
 
 *   checking re-building of vignette outputs ... WARNING
     ```
-    Error in re-building vignettes:
-      ...
-    Warning in has_utility("pdfcrop") :
-      pdfcrop not installed or not in PATH
-    Quitting from lines 369-379 (DRIMSeq.Rnw) 
-    Error: processing vignette 'DRIMSeq.Rnw' failed with diagnostics:
-    Columns `ymin`, `ymax` must be 1d atomic vectors or lists
+    ...
+      value out of range in 'lgamma'
+    Warning in rowSums(lgamma(y + prec * prop) - lgamma(prop * prec)) :
+      value out of range in 'lgamma'
+    Warning in log(det(n * (-H))) : NaNs produced
+    Warning in log(det(n * (-H))) : NaNs produced
+    Warning in log(det(n * (-H))) : NaNs produced
+    Warning in log(det(n * (-H))) : NaNs produced
+    Warning in log(det(n * (-H))) : NaNs produced
+    Warning in log(det(n * (-H))) : NaNs produced
+    Warning in log(det(n * (-H))) : NaNs produced
+    Warning in log(det(n * (-H))) : NaNs produced
+    Warning in log(det(n * (-H))) : NaNs produced
+    Warning in log(det(n * (-H))) : NaNs produced
+    Warning in rowSums(lgamma(y + prec * prop) - lgamma(prop * prec)) :
+      value out of range in 'lgamma'
+    Warning in rowSums(lgamma(y + prec * prop) - lgamma(prop * prec)) :
+      value out of range in 'lgamma'
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'DRIMSeq.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
     Execution halted
     ```
 
@@ -11327,13 +10942,13 @@ Version: 1.0.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-                 x <- rlang::parse_expr(x)
              }
              new_aesthetic(x, env = caller_env)
          })
       16: FUN(X[[i]], ...)
       17: rlang::parse_expr(x)
-      18: abort("More than one expression parsed")
+      18: parse_exprs(x)
+      19: abort("`x` must be a string or a R connection")
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
       OK: 66 SKIPPED: 0 FAILED: 2
@@ -11356,14 +10971,9 @@ Version: 1.0.0
     Running default monotherapy fitting. Note that if constraints are needed, run mono fitting manually first
     Using constraints: b = 1
     Using constraints: b = 1
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
     Quitting from lines 408-410 (userGuide.Rmd) 
     Error: processing vignette 'userGuide.Rmd' failed with diagnostics:
-    More than one expression parsed
+    `x` must be a string or a R connection
     Execution halted
     ```
 
@@ -11451,7 +11061,7 @@ Version: 2.2.15
 
 # DstarM
 
-Version: 0.2.2
+Version: 0.3.0
 
 ## In both
 
@@ -11459,6 +11069,12 @@ Version: 0.2.2
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘Rcpp’
+      All declared Imports should be used.
     ```
 
 # DTR
@@ -11487,7 +11103,7 @@ Version: 1.3
 
 # dtwclust
 
-Version: 5.3.1
+Version: 5.4.0
 
 ## In both
 
@@ -11529,27 +11145,18 @@ Version: 5.3.1
 
 Version: 0.2.3
 
-## Newly broken
-
-*   checking whether package ‘dtwSat’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::calc’ by ‘raster::calc’ when loading ‘dtwSat’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/dtwSat/new/dtwSat.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
     
-    Attaching package: 'caret'
-    
-    The following object is masked from 'package:survival':
-    
-        cluster
-    
+    If you're interested in helping to pretest the new release (when
+    pretests are available), please read http://tug.org/texlive/pretest.html.
+    Otherwise, just wait, and the new release will be ready in due time.
+    tlmgr: package repository ftp://tug.org/historic/systems/texlive/2017/tlnet-final (not verified: gpg unavailable)
+    tlmgr install: package already present: zapfchan
+    tlmgr path add
     This is BibTeX, Version 0.99d (TeX Live 2017)
     The top-level auxiliary file: applying_twdtw.aux
     The style file: jss.bst
@@ -11760,19 +11367,7 @@ Version: 1.0.59
 
 Version: 0.1.0
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 26-28 (earthtones.rmd) 
-    Error: processing vignette 'earthtones.rmd' failed with diagnostics:
-    cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=36.094994,-111.837962&zoom=12&size=640x640&scale=2&maptype=satellite&language=en-EN&sensor=false'
-    Execution halted
-    ```
-
-## Newly fixed
+## In both
 
 *   checking tests ...
     ```
@@ -11781,7 +11376,7 @@ Version: 0.1.0
     Last 13 lines of output:
       2: quasi_label(enquo(object), label)
       3: eval_bare(get_expr(quo), get_env(quo))
-      4: get_earthtones(method = "kmeans")
+      4: get_earthtones()
       5: ggmap::get_map(location = c(longitude, latitude), maptype = "satellite", zoom = zoom, 
              ...)
       6: get_googlemap(center = location, zoom = zoom, maptype = maptype, scale = scale, messaging = messaging, 
@@ -11789,14 +11384,28 @@ Version: 0.1.0
       7: download.file(url, destfile = tmp, quiet = !messaging, mode = "wb")
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 4 SKIPPED: 0 FAILED: 1
-      1. Error: returns normal (@test-earth.R#6) 
+      OK: 3 SKIPPED: 0 FAILED: 1
+      1. Error: returns normal (@test-earth.R#5) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
 
-## In both
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=36.094994,-111.837962&zoom=12&size=640x640&scale=2&maptype=satellite&language=en-EN&sensor=false
+    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=24.2,-77.88&zoom=11&size=640x640&scale=2&maptype=satellite&language=en-EN&sensor=false
+    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=37.89,-122.28&zoom=11&size=640x640&scale=2&maptype=satellite&language=en-EN&sensor=false
+    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=37.81391,-122.478289&zoom=19&size=640x640&scale=2&maptype=satellite&language=en-EN&sensor=false
+    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=-33.857077,151.214722&zoom=17&size=640x640&scale=2&maptype=satellite&language=en-EN&sensor=false
+    Loading required package: ggplot2
+    Quitting from lines 62-69 (earthtones.rmd) 
+    Error: processing vignette 'earthtones.rmd' failed with diagnostics:
+    cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=24.2,-77.88&zoom=11&size=640x640&scale=2&maptype=satellite&language=en-EN&sensor=false'
+    Execution halted
+    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -11895,12 +11504,10 @@ Version: 0.1.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘sf’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # ecoengine
@@ -11925,21 +11532,6 @@ Version: 1.11.0
 
 Version: 1.2.1-4
 
-## Newly broken
-
-*   checking whether package ‘EcoGenetics’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::calc’ by ‘raster::calc’ when loading ‘EcoGenetics’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/EcoGenetics/new/EcoGenetics.Rcheck/00install.out’ for details.
-    ```
-
-*   checking data for ASCII and uncompressed saves ... WARNING
-    ```
-      Warning message:
-      replacing previous import ‘ggplot2::calc’ by ‘raster::calc’ when loading ‘EcoGenetics’ 
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -11962,7 +11554,7 @@ Version: 1.0.0
 
 # EcoNetGen
 
-Version: 0.1.1
+Version: 0.2.0
 
 ## In both
 
@@ -12042,15 +11634,6 @@ Version: 1.1.1
 # edeaR
 
 Version: 0.8.0
-
-## Newly broken
-
-*   checking whether package ‘edeaR’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘edeaR’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/edeaR/new/edeaR.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -12176,41 +11759,6 @@ Version: 1.0.6
 
 Version: 1.1
 
-## Newly broken
-
-*   checking whether package ‘eechidna’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘eechidna’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/eechidna/new/eechidna.Rcheck/00install.out’ for details.
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-        discard
-    
-    
-    Attaching package: 'gridExtra'
-    
-    The following object is masked from 'package:dplyr':
-    
-        combine
-    
-    
-    Attaching package: 'GGally'
-    
-    The following object is masked from 'package:dplyr':
-    
-        nasa
-    
-    Quitting from lines 277-294 (exploring-election-data.Rmd) 
-    Error: processing vignette 'exploring-election-data.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~Prop_Labour".  Please rename the columns or make a new column.
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -12221,54 +11769,80 @@ Version: 1.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.4Mb
+      installed size is  6.8Mb
       sub-directories of 1Mb or more:
-        data   5.1Mb
+        data   5.4Mb
         doc    1.2Mb
     ```
 
 # eegc
 
-Version: 1.5.0
+Version: 1.6.1
 
 ## In both
 
-*   checking whether package ‘eegc’ can be installed ... ERROR
+*   checking Rd cross-references ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/eegc/new/eegc.Rcheck/00install.out’ for details.
+    Missing link or links in documentation object 'barplotEnrich.Rd':
+      ‘[DOSE]{barplot.enrichResult}’
+    
+    See section 'Cross-references' in the 'Writing R Extensions' manual.
     ```
 
-## Installation
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 27-28 (eegc.Rnw) 
+    Error: processing vignette 'eegc.Rnw' failed with diagnostics:
+    there is no package called 'BiocStyle'
+    Execution halted
+    ```
 
-### Devel
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
-```
-* installing *source* package ‘eegc’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : object ‘plot’ is not exported by 'namespace:clusterProfiler'
-ERROR: lazy loading failed for package ‘eegc’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/eegc/new/eegc.Rcheck/eegc’
+*   checking installed package size ... NOTE
+    ```
+      installed size is 11.7Mb
+      sub-directories of 1Mb or more:
+        data  11.0Mb
+    ```
 
-```
-### CRAN
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    grnPlot: no visible global function definition for ‘legend’
+    markerScatter: no visible global function definition for
+      ‘colorRampPalette’
+    markerScatter: no visible global function definition for ‘plot’
+    markerScatter: no visible global function definition for ‘points’
+    markerScatter: no visible global function definition for ‘lm’
+    markerScatter: no visible global function definition for ‘abline’
+    markerScatter: no visible global function definition for ‘text’
+    markerScatter: no visible global function definition for ‘legend’
+    Undefined global functions or variables:
+      abline adjustcolor axis colorRampPalette control density dev.copy2pdf
+      legend lines lm model.matrix p.adjust par phyper plot points quantile
+      results text title treat
+    Consider adding
+      importFrom("grDevices", "adjustcolor", "colorRampPalette",
+                 "dev.copy2pdf")
+      importFrom("graphics", "abline", "axis", "legend", "lines", "par",
+                 "plot", "points", "text", "title")
+      importFrom("stats", "density", "lm", "model.matrix", "p.adjust",
+                 "phyper", "quantile")
+    to your NAMESPACE file.
+    ```
 
-```
-* installing *source* package ‘eegc’ ...
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error : object ‘plot’ is not exported by 'namespace:clusterProfiler'
-ERROR: lazy loading failed for package ‘eegc’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/eegc/old/eegc.Rcheck/eegc’
+*   checking for unstated dependencies in vignettes ... NOTE
+    ```
+    '::' or ':::' import not declared from: ‘BiocStyle’
+    ```
 
-```
 # EEM
 
 Version: 1.1.1
@@ -12377,26 +11951,6 @@ Version: 1.0
 
 Version: 0.4-2
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘EffectLiteR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: conditionalEffectsPlot
-    > ### Title: Plot conditional effects
-    > ### Aliases: conditionalEffectsPlot
-    > 
-    > ### ** Examples
-    > 
-    > m1 <- effectLite(y="dv", x="x", k="k1", z="z1", control="control", data=example01)
-    > conditionalEffectsPlot(m1, zsel="z1", gxsel="g1", colour="k1")
-    Error in geom_point() : could not find function "geom_point"
-    Calls: conditionalEffectsPlot -> <Anonymous> -> do.call
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -12459,8 +12013,37 @@ Version: 1.8.0
 
 ## In both
 
-*   R CMD check timed out
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    or products. For details, do citation("pathview") within R.
     
+    The pathview downloads and uses KEGG data. Non-academic uses may require a KEGG
+    license agreement (details at http://www.kegg.jp/kegg/legal.html).
+    ##############################################################################
+    
+    KEGG.db contains mappings based on older data because the original
+      resource was removed from the the public domain before the most
+      recent update was produced. This package should now be considered
+      deprecated and future versions of Bioconductor may not have it
+      available.  Users who want more current data are encouraged to
+      look at the KEGGREST or reactome.db packages
+    
+    
+    
+    
+    
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'EGSEA.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 *   checking R code for possible problems ... NOTE
     ```
@@ -12492,18 +12075,27 @@ Version: 2.1
 
 # ELMER
 
-Version: 2.4.0
+Version: 2.4.3
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking package subdirectories ... WARNING
+    ```
+    Invalid citation information in ‘inst/CITATION’:
+      Error in tools:::.parse_CITATION_file(file, meta$Encoding): non-ASCII input in a CITATION file without a declared encoding
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 36.4Mb
+      installed size is 36.1Mb
       sub-directories of 1Mb or more:
-        doc  36.0Mb
+        doc  35.6Mb
     ```
 
 *   checking dependencies in R code ... NOTE
@@ -12518,11 +12110,10 @@ Version: 2.4.0
 *   checking R code for possible problems ... NOTE
     ```
     ...
-      for 'fisher.test'
     heatmapGene: no visible global function definition for 'precede'
     heatmapGene: no visible global function definition for
       'subsetByOverlaps'
-    heatmapGene: no visible global function definition for 'resize'
+    maphg38tohg19: no visible global function definition for 'liftOver'
     motif.enrichment.plot: no visible binding for global variable 'y'
     motif.enrichment.plot: no visible binding for global variable 'x'
     motif.enrichment.plot: no visible binding for global variable 'z'
@@ -12532,13 +12123,19 @@ Version: 2.4.0
     motif.enrichment.plot: no visible binding for global variable 'OR'
     scatter: no visible binding for global variable 'value'
     scatter: no visible global function definition for 'cor.test'
+    scatter: no visible binding for global variable 'mae'
     Undefined global functions or variables:
-      Gene GeneID Hugo_Symbol OR Probe Target cor.test fisher.test label
-      lowerOR motif precede pvalue resize subsetByOverlaps upperOR value x
-      y z
+      Gene GeneID Hugo_Symbol OR Probe TF Target cor.test fisher.test label
+      liftOver lowerOR mae motif precede pvalue subsetByOverlaps upperOR
+      value x y z
     Consider adding
       importFrom("stats", "cor.test", "fisher.test")
     to your NAMESPACE file.
+    ```
+
+*   checking for unstated dependencies in vignettes ... NOTE
+    ```
+    '::' or ':::' import not declared from: ‘devtools’
     ```
 
 # EMAtools
@@ -12686,9 +12283,7 @@ Version: 0.5.1
     Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. Methods in Ecology and Evolution 2017, 8(1):28-36, doi:10.1111/2041-210X.12628
     Quitting from lines 46-54 (phylomoji.Rmd) 
     Error: processing vignette 'phylomoji.Rmd' failed with diagnostics:
-    <text>:1:25: unexpected ')'
-    1: suppressMessages(emoji(~)
-                                ^
+    `x` must be a string or a R connection
     Execution halted
     ```
 
@@ -12735,34 +12330,6 @@ Version: 1.0.0
 
 Version: 0.1.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > xout[y==0,][1:m,] <- xout[1:m,] + 10;          # class 0
-    > yout <- y                                      # wrong classification for vertical outliers
-    > 
-    > ## Don't show: 
-    > set.seed(86)
-    > n <- 5; p <- 15                            
-    > beta <- rep(0,p); beta[1:6] <- 1              
-    > sigma <- 0.5                        
-    > x <- matrix(rnorm(n*p, sigma),nrow=n)   
-    > e <- rnorm(n,0,1)                             # error terms
-    > eps <- 0.1                                    # contamination level
-    > m <- ceiling(eps*n)                           # observations to be contaminated
-    > eout <- e; eout[1:m] <- eout[1:m] + 10        # vertical outliers
-    > yout <- c(x %*% beta + sigma * eout)          # response
-    > xout <- x; xout[1:m,] <- xout[1:m,] + 10      # bad leverage points
-    > fit2 <- enetLTS(xout,yout,alphas=0.5,lambdas=0.05,plot=FALSE)
-    Warning: Option grouped=FALSE enforced in cv.glmnet, since < 3 observations per fold
-    > plot(fit2,method="resid",vers="raw")
-    Press <Enter> to continue...
-    Error: Column `y` must be a 1d atomic vector or a list
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -12773,7 +12340,7 @@ Version: 0.1.0
 
 # enpls
 
-Version: 5.9
+Version: 6.0
 
 ## In both
 
@@ -12789,8 +12356,11 @@ Version: 1.0.0
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 # enrichwith
 
@@ -12861,21 +12431,12 @@ Version: 2.3.0
       sub-directories of 1Mb or more:
         R      3.0Mb
         doc    3.3Mb
-        help   4.3Mb
+        help   4.4Mb
     ```
 
 # EpiCurve
 
 Version: 2.1-1
-
-## Newly broken
-
-*   checking whether package ‘EpiCurve’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::vars’ by ‘dplyr::vars’ when loading ‘EpiCurve’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/EpiCurve/new/EpiCurve.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -13068,17 +12629,17 @@ Version: 1.2.1
 ```
 * installing *source* package ‘esATAC’ ...
 ** libs
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/esATAC/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c BedLine.cpp -o BedLine.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/esATAC/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c BedUtils.cpp -o BedUtils.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/esATAC/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c ChrDivi.cpp -o ChrDivi.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/esATAC/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c CutCountPre.cpp -o CutCountPre.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/esATAC/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c CutSiteCount.cpp -o CutSiteCount.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/esATAC/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c LibComplexQC.cpp -o LibComplexQC.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/esATAC/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/esATAC/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c SortBed.cpp -o SortBed.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/esATAC/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c rcpp_wrapper.cpp -o rcpp_wrapper.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/esATAC/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c renamer.cpp -o renamer.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/esATAC/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c sam2bed.cc -o sam2bed.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c BedLine.cpp -o BedLine.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c BedUtils.cpp -o BedUtils.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c ChrDivi.cpp -o ChrDivi.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c CutCountPre.cpp -o CutCountPre.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c CutSiteCount.cpp -o CutSiteCount.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c LibComplexQC.cpp -o LibComplexQC.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c SortBed.cpp -o SortBed.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c rcpp_wrapper.cpp -o rcpp_wrapper.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c renamer.cpp -o renamer.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -DNDEBUG -DPLF_SYS_LINUX  -DR_EVN_FLAG -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c sam2bed.cc -o sam2bed.o
 sam2bed.cc:111:16: warning: unused variable 'xspm' [-Wunused-variable]
     regmatch_t xspm[1];
                ^
@@ -13167,7 +12728,7 @@ Version: 1.6.0
     Warning: Removed 5 rows containing missing values (geom_point).
     Quitting from lines 260-269 (esetVis-vignette.Rmd) 
     Error: processing vignette 'esetVis-vignette.Rmd' failed with diagnostics:
-    `data` must be uniquely named but has duplicate columns
+    `data` must be uniquely named but has duplicate elements
     Execution halted
     ```
 
@@ -13284,38 +12845,6 @@ Version: 0.1
 
 Version: 0.0.3
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘esmisc-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: theme_edi
-    > ### Title: Custom ggplot2 theme
-    > ### Aliases: theme_edi
-    > 
-    > ### ** Examples
-    > 
-    > library(ggplot2)
-    > p <- ggplot(mtcars) + 
-    +  geom_point(aes(x = wt, y = mpg, 
-    + colour=factor(gear))) + facet_wrap(~am)
-    > p
-    > p + theme_edi()
-    Error in if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) { : 
-      missing value where TRUE/FALSE needed
-    Calls: <Anonymous> ... print.ggplot -> ggplot_gtable -> ggplot_gtable.ggplot_built
-    Execution halted
-    ```
-
-*   checking whether package ‘esmisc’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::calc’ by ‘raster::calc’ when loading ‘esmisc’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/esmisc/new/esmisc.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -13327,15 +12856,6 @@ Version: 0.0.3
 # ESTER
 
 Version: 0.2.0
-
-## Newly broken
-
-*   checking whether package ‘ESTER’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘ESTER’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/ESTER/new/ESTER.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -13452,32 +12972,6 @@ Version: 3.1.5
       Execution halted
     ```
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-        vars
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    trying URL 'http://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?sort=1&file=data%2Ften00081.tsv.gz'
-    Content type 'application/octet-stream;charset=UTF-8' length 13491 bytes (13 KB)
-    ==================================================
-    downloaded 13 KB
-    
-    Table ten00081 cached at /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpWbZ5Pl/eurostat/ten00081_date_code_TF.rds
-    Quitting from lines 291-309 (eurostat_tutorial.Rmd) 
-    Error: processing vignette 'eurostat_tutorial.Rmd' failed with diagnostics:
-    package or namespace load failed for 'tmap' in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
-     there is no package called 'sf'
-    Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -13500,59 +12994,6 @@ Version: 0.10.1
 
 Version: 0.2.3
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘evaluator-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: generate_event_outcomes_plot
-    > ### Title: Display the distribution of threat events contained vs. realized
-    > ###   across all domains
-    > ### Aliases: generate_event_outcomes_plot
-    > 
-    > ### ** Examples
-    > 
-    > data(simulation_results)
-    > data(domains)
-    > dat <- calculate_weak_domains(simulation_results, domains)
-    > generate_event_outcomes_plot(dat)
-    Error in if (label.size == 0) NA else row$colour : 
-      missing value where TRUE/FALSE needed
-    Calls: <Anonymous> ... labelGrob -> gTree -> gpar -> validGP -> numnotnull
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             lineheight = row$lineheight), rect.gp = gpar(col = if (label.size == 0) NA else row$colour, 
-             fill = alpha(row$fill, row$alpha), lwd = label.size * .pt))
-      50: gTree(label = label, x = x, y = y, just = just, padding = padding, r = r, name = name, 
-             text.gp = text.gp, rect.gp = rect.gp, vp = vp, cl = "labelgrob")
-      51: gpar(col = if (label.size == 0) NA else row$colour, fill = alpha(row$fill, row$alpha), 
-             lwd = label.size * .pt)
-      52: validGP(list(...))
-      53: numnotnull("fontsize")
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 84 SKIPPED: 3 FAILED: 1
-      1. Error: Analyze report renders (@test-reports.R#33) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking whether package ‘evaluator’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘evaluator’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/evaluator/new/evaluator.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -13563,7 +13004,7 @@ Version: 0.2.3
 
 # EValue
 
-Version: 1.1.3
+Version: 1.1.4
 
 ## In both
 
@@ -13571,6 +13012,13 @@ Version: 1.1.3
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘devtools’ ‘msm’
+      All declared Imports should be used.
     ```
 
 # EventStudy
@@ -13793,15 +13241,6 @@ ERROR: lazy loading failed for package ‘ewoc’
 
 Version: 0.3.3
 
-## Newly broken
-
-*   checking whether package ‘explor’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘explor’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/explor/new/explor.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -13832,10 +13271,6 @@ Version: 0.8.6
     ```
     Error in re-building vignettes:
       ...
-    
-    Use 'expss_output_rnotebook()' to display tables inside R Notebooks.
-     To return to the console output, use 'expss_output_default()'.
-    
     Quitting from lines 57-64 (labels-support.Rmd) 
     Error: processing vignette 'labels-support.Rmd' failed with diagnostics:
     `data` must be a data frame, or other object coercible by `fortify()`, not an S3 object with class quosures
@@ -13917,15 +13352,6 @@ Version: 0.1
 # eyetrackingR
 
 Version: 0.1.7
-
-## Newly broken
-
-*   checking whether package ‘eyetrackingR’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘eyetrackingR’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/eyetrackingR/new/eyetrackingR.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -14013,6 +13439,18 @@ Version: 0.5.5
       Running 'texi2dvi' on 'vignette.tex' failed.
     Calls: buildVignettes -> texi2pdf -> texi2dvi
     Execution halted
+    ```
+
+# facerec
+
+Version: 0.1.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # facopy
@@ -14208,6 +13646,13 @@ Version: 0.2.0
     Execution halted
     ```
 
+*   checking whether package ‘fastR2’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: replacing previous import ‘ggplot2::stat’ by ‘mosaic::stat’ when loading ‘fastR2’
+    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/fastR2/new/fastR2.Rcheck/00install.out’ for details.
+    ```
+
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -14380,34 +13825,6 @@ Version: 1.0
 # fergm
 
 Version: 0.2.1
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### Name: coef_posterior_density
-    > ### Title: Plots the posterior density for FERGM model terms.
-    > ### Aliases: coef_posterior_density
-    > ### Keywords: FERGM interpret summary
-    > 
-    > ### ** Examples
-    > 
-    > # load example data
-    > data("ergm.fit")
-    > data("fergm.fit")
-    > data("mesa")
-    > 
-    > # You can also look at the density of particular variables
-    >   # using the following built in rstan functions:
-    > plot(fergm.fit$stan.fit, par = "beta")
-    ci_level: 0.8 (80% intervals)
-    outer_level: 0.95 (95% intervals)
-    Error in if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) { : 
-      missing value where TRUE/FALSE needed
-    Calls: <Anonymous> ... print.ggplot -> ggplot_gtable -> ggplot_gtable.ggplot_built
-    Execution halted
-    ```
 
 ## In both
 
@@ -14649,8 +14066,8 @@ Version: 1.0
 * installing *source* package ‘fingerPro’ ...
 ** package ‘fingerPro’ successfully unpacked and MD5 sums checked
 ** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/fingerPro/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/fingerPro/RcppGSL/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/fingerPro/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/fingerPro/RcppGSL/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c fingerprinting.cpp -o fingerprinting.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/fingerPro/RcppGSL/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/fingerPro/RcppGSL/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c fingerprinting.cpp -o fingerprinting.o
 In file included from RcppExports.cpp:4:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/fingerPro/RcppGSL/include/RcppGSL.h:25:
 /Users/max/github/ggplot2/revdep/library.noindex/fingerPro/RcppGSL/include/RcppGSLForward.h:26:10: fatal error: 'gsl/gsl_vector.h' file not found
@@ -14699,7 +14116,7 @@ ERROR: compilation failed for package ‘fingerPro’
 ```
 # fingertipsR
 
-Version: 0.1.5
+Version: 0.1.6
 
 ## In both
 
@@ -14851,31 +14268,33 @@ Version: 1.4.1
 
 Version: 0.4.6
 
-## Newly fixed
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-         estimating directions
-         estimating mean directions and kappas
-         estimating kappas
-         estimating mean dists
-         estimating probs of migration
-         estimating median dists
-         creating output DONE!
-      DONE!
-      bird likely did not move, exiting without result
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 29 SKIPPED: 0 FAILED: 1
-      1. Error: map_flightr_ggmap_works (@test_data_result_summary_and_plotting.R#36) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 ## In both
+
+*   checking examples ... ERROR
+    ```
+    ...
+       estimating directions
+       estimating mean directions and kappas
+       estimating kappas
+       estimating mean dists
+       estimating probs of migration
+       estimating median dists
+       creating output DONE!
+    DONE!
+    > 
+    > plot_util_distr(Result, zoom=6, save=FALSE)
+    function will plot 13 twilights
+    function will plot 13 twilights
+    function will plot 13 twilights
+    Warning: bounding box given to google - spatial extent only approximate.
+    converting bounding box to center/zoom specification. (experimental)
+    Warning in download.file(url, destfile = tmp, quiet = !messaging, mode = "wb") :
+      cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=53.099988,5.25&zoom=6&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false': HTTP status was '403 Forbidden'
+    Error in download.file(url, destfile = tmp, quiet = !messaging, mode = "wb") : 
+      cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=53.099988,5.25&zoom=6&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false'
+    Calls: plot_util_distr ... do.call -> <Anonymous> -> get_googlemap -> download.file
+    Execution halted
+    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -14899,11 +14318,6 @@ Version: 1.1.0
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘multipanelfigure’
     ```
 
 # flowAI
@@ -15037,6 +14451,46 @@ Version: 1.4.0
     This typically indicates Rd problems.
     ```
 
+# fmriqa
+
+Version: 0.3.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+# fontHind
+
+Version: 0.1.1
+
+## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 38-49 (Using_fontHind.Rmd) 
+    Error: processing vignette 'Using_fontHind.Rmd' failed with diagnostics:
+    polygon edge not found
+    Execution halted
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘ggplot2’
+      All declared Imports should be used.
+    ```
+
 # fontMPlus
 
 Version: 0.1.1
@@ -15124,7 +14578,7 @@ Version: 8.3
 
 # ForecastComb
 
-Version: 1.1
+Version: 1.2
 
 ## Newly broken
 
@@ -15263,15 +14717,6 @@ Version: 0.3.1
 # forestmodel
 
 Version: 0.5.0
-
-## Newly broken
-
-*   checking whether package ‘forestmodel’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘forestmodel’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/forestmodel/new/forestmodel.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -15603,27 +15048,14 @@ Version: 1.0.4
 
 Version: 0.2.1
 
-## Newly broken
-
-*   checking whether package ‘FRK’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘FRK’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/FRK/new/FRK.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking re-building of vignette outputs ... WARNING
     ```
-    ...
+    Error in re-building vignettes:
       ...
     
     Attaching package: 'dplyr'
-    
-    The following object is masked from 'package:ggplot2':
-    
-        vars
     
     The following objects are masked from 'package:stats':
     
@@ -15655,7 +15087,7 @@ Version: 0.2.1
     ```
       installed size is  8.1Mb
       sub-directories of 1Mb or more:
-        data   5.4Mb
+        data   5.3Mb
         doc    1.8Mb
     ```
 
@@ -15743,15 +15175,26 @@ Version: 0.1.8
       Execution halted
     ```
 
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 42-45 (benchmarks_discretize.Rmd) 
+    Error: processing vignette 'benchmarks_discretize.Rmd' failed with diagnostics:
+    package or namespace load failed for 'RWeka':
+     .onLoad failed in loadNamespace() for 'rJava', details:
+      call: dyn.load(file, DLLpath = DLLpath, ...)
+      error: unable to load shared object '/Users/max/github/ggplot2/revdep/library.noindex/FSelectorRcpp/rJava/libs/rJava.so':
+      dlopen(/Users/max/github/ggplot2/revdep/library.noindex/FSelectorRcpp/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib
+      Referenced from: /Users/max/github/ggplot2/revdep/library.noindex/FSelectorRcpp/rJava/libs/rJava.so
+      Reason: image not found
+    Execution halted
+    ```
+
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘RTCGA.rnaseq’
     ```
 
 # fSRM
@@ -15852,15 +15295,6 @@ Version: 1.2
 # funModeling
 
 Version: 1.6.7
-
-## Newly broken
-
-*   checking whether package ‘funModeling’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘funModeling’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/funModeling/new/funModeling.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -16074,15 +15508,6 @@ ERROR: lazy loading failed for package ‘G2Sd’
 
 Version: 2.1-1
 
-## Newly broken
-
-*   checking whether package ‘GADMTools’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::vars’ by ‘dplyr::vars’ when loading ‘GADMTools’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/GADMTools/new/GADMTools.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -16213,15 +15638,6 @@ ERROR: lazy loading failed for package ‘GARS’
 
 Version: 0.4.01
 
-## Newly broken
-
-*   checking whether package ‘gastempt’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘gastempt’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/gastempt/new/gastempt.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -16329,7 +15745,7 @@ Version: 1.8.0
 
 # GD
 
-Version: 1.4
+Version: 1.5
 
 ## In both
 
@@ -16752,34 +16168,6 @@ Version: 1.0
 
 Version: 1.4.0
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    Loading required package: magrittr
-    
-    Attaching package: 'GenomicDataCommons'
-    
-    The following object is masked from 'package:stats':
-    
-        filter
-    
-    Quitting from lines 125-127 (overview.Rmd) 
-    Error: processing vignette 'overview.Rmd' failed with diagnostics:
-    failed to rename downloaded file:
-    
-      from: '/Users/max/Library/Caches/GenomicDataCommons/310e2052-8e80-473e-875b-78b402853a66/.partial_download'
-      to: '/Users/max/Library/Caches/GenomicDataCommons/310e2052-8e80-473e-875b-78b402853a66/ad9a29de-7c46-4caa-a802-b18053b4e32d.htseq.counts.gz'
-      reason:
-        cannot rename file
-        '/Users/max/Library/Caches/GenomicDataCommons/310e2052-8e80-473e-875b-78b402853a66/.partial_download'
-        to
-        '/Users/max/Library/Caches/GenomicDataCommons/310e2052-8e80-473e-875b-78b402853a66/ad9a29de-7c46-4caa-a802-b18053b4e32d.htseq.counts.gz',
-        reason 'No such file or directory'
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -16880,46 +16268,17 @@ Version: 0.1.9
 
 ## In both
 
-*   checking whether package ‘geofacet’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/geofacet/new/geofacet.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 217 marked UTF-8 strings
+    ```
 
-### Devel
-
-```
-* installing *source* package ‘geofacet’ ...
-** package ‘geofacet’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘sf’
-ERROR: lazy loading failed for package ‘geofacet’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/geofacet/new/geofacet.Rcheck/geofacet’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘geofacet’ ...
-** package ‘geofacet’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-  there is no package called ‘sf’
-ERROR: lazy loading failed for package ‘geofacet’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/geofacet/old/geofacet.Rcheck/geofacet’
-
-```
 # geoknife
 
 Version: 1.5.5
@@ -16981,15 +16340,6 @@ Version: 0.2.0
 
 Version: 1.0
 
-## Newly broken
-
-*   checking whether package ‘geotoolsR’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘geotoolsR’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/geotoolsR/new/geotoolsR.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -17019,7 +16369,7 @@ Version: 1.0.0
 
 # GERGM
 
-Version: 0.11.2
+Version: 0.13.0
 
 ## In both
 
@@ -17063,15 +16413,6 @@ Version: 0.1.0
 # gespeR
 
 Version: 1.12.0
-
-## Newly broken
-
-*   checking whether package ‘gespeR’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘gespeR’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/gespeR/new/gespeR.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -17123,7 +16464,7 @@ Version: 1.12.0
 
 # getCRUCLdata
 
-Version: 0.2.2
+Version: 0.2.3
 
 ## In both
 
@@ -17131,6 +16472,12 @@ Version: 0.2.2
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘rappdirs’
+      All declared Imports should be used.
     ```
 
 # GetDFPData
@@ -17195,78 +16542,7 @@ Version: 0.1.1
 
 # getTBinR
 
-Version: 0.5.3
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘getTBinR-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: map_tb_burden
-    > ### Title: Map TB Burden
-    > ### Aliases: map_tb_burden
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > ## Map raw incidence rates
-    > map_tb_burden()
-    Loading data from: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmpv9GQiD/TB_burden.rds
-    Loading data from: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmpv9GQiD/TB_data_dict.rds
-    1 results found for your variable search for e_inc_100k
-    Error: `data` must be uniquely named but has duplicate columns
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             layerData = layerData, originalData = originalData, source = source, ...)
-      8: by_layer(function(l, d) l$compute_aesthetics(d, plot))
-      9: f(l = layers[[i]], d = data[[i]])
-      10: l$compute_aesthetics(d, plot)
-      11: f(..., self = self)
-      12: scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
-      13: lapply(aesthetics[new_aesthetics], rlang::eval_tidy, data = data)
-      14: FUN(X[[i]], ...)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 72 SKIPPED: 7 FAILED: 1
-      1. Error: map_tb_burden produces an interactive plot (@test-map_tb_burden.R#56) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    ✖ dplyr::vars()   masks ggplot2::vars()
-    Loading required package: viridisLite
-    
-    Attaching package: 'scales'
-    
-    The following object is masked from 'package:viridis':
-    
-        viridis_pal
-    
-    The following object is masked from 'package:purrr':
-    
-        discard
-    
-    The following object is masked from 'package:readr':
-    
-        col_factor
-    
-    Quitting from lines 58-67 (case_fatality_rate.Rmd) 
-    Error: processing vignette 'case_fatality_rate.Rmd' failed with diagnostics:
-    `data` must be uniquely named but has duplicate columns
-    Execution halted
-    ```
+Version: 0.5.4
 
 ## In both
 
@@ -17344,59 +16620,9 @@ Version: 0.6.0
 
 # GGally
 
-Version: 1.3.2
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    The error most likely occurred in:
-    
-    > ### Name: add_and_overwrite_aes
-    > ### Title: Add new aes
-    > ### Aliases: add_and_overwrite_aes
-    > ### Keywords: internal
-    > 
-    > ### ** Examples
-    > 
-    > data(diamonds, package="ggplot2")
-    > diamonds.samp <- diamonds[sample(1:dim(diamonds)[1], 1000), ]
-    > pm <- ggpairs(diamonds.samp, columns = 5:7,
-    +   mapping = ggplot2::aes(color = color),
-    +   upper = list(continuous = "cor", mapping = ggplot2::aes_string(color = "clarity")),
-    +   lower = list(continuous = "cor", mapping = ggplot2::aes_string(color = "cut")),
-    +   title = "Diamonds Sample"
-    + )
-    Error in make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name),  : 
-      variables: "x" have non standard format: "~depth", "~color".  Please rename the columns or make a new column.variables: "colour" have non standard format: "~depth", "~color".  Please rename the columns or make a new column.
-    Calls: ggpairs ... do.call -> <Anonymous> -> plot_fn -> make_ggmatrix_plot_obj
-    Execution halted
-    ```
+Version: 1.4.0
 
 ## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 347 SKIPPED: 1 FAILED: 74
-      1. Error: crosstalk works with ggduo and ggpairs (@test-crosstalk.R#12) 
-      2. Error: denstrip (@test-gg-plots.R#13) 
-      3. Error: density (@test-gg-plots.R#26) 
-      4. Error: cor (@test-gg-plots.R#36) 
-      5. Error: diagAxis (@test-gg-plots.R#102) 
-      6. Error: dates (@test-gg-plots.R#135) 
-      7. Failure: rescale (@test-gg-plots.R#161) 
-      8. Error: generally works (@test-ggfacet.R#33) 
-      9. Error: legend (@test-gglegend.R#73) 
-      1. ...
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -17443,6 +16669,94 @@ Version: 0.6.0
       Running 'texi2dvi' on 'usageExamples.tex' failed.
     Calls: buildVignettes -> texi2pdf -> texi2dvi
     Execution halted
+    ```
+
+# ggbio
+
+Version: 1.28.0
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    +                       start = sample(1:300, size = N, replace = TRUE),
+    +                       width = sample(70:75, size = N,replace = TRUE)),
+    +               strand = sample(c("+", "-", "*"), size = N,
+    +                 replace = TRUE),
+    +               value = rnorm(N, 10, 3), score = rnorm(N, 100, 30),
+    +               sample = sample(c("Normal", "Tumor"),
+    +                 size = N, replace = TRUE),
+    +               pair = sample(letters, size = N,
+    +                 replace = TRUE))
+    > 
+    > idx <- sample(1:length(gr), size = 50)
+    > 
+    > 
+    > ###################################################
+    > ### code chunk number 3: default
+    > ###################################################
+    > autoplot(gr[idx])
+    Error in min(c(x, xmin), na.rm = TRUE) : 
+      invalid 'type' (list) of argument
+    Calls: autoplot ... scale_by_xlim -> getLimits -> getLimits -> .local -> .getLimits
+    Execution halted
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+## Newly fixed
+
+*   R CMD check timed out
+    
+
+## In both
+
+*   checking whether package ‘ggbio’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: subclass "DoubleFilter" of class "AnnotationFilter" is not local and cannot be updated for new inheritance information; consider setClassUnion()
+    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/ggbio/new/ggbio.Rcheck/00install.out’ for details.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    ':::' call which should be '::': 'ggplot2:::set_last_plot'
+      See the note in ?`:::` about the use of this operator.
+    Unexported objects imported by ':::' calls:
+      'S4Vectors:::top_prenv' 'ggplot2:::add_ggplot' 'ggplot2:::cunion'
+      'ggplot2:::rename_aes' 'ggplot2:::rescale01'
+      See the note in ?`:::` about the use of this operator.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    layout_karyogram,GRanges: no visible binding for global variable 'xend'
+    layout_karyogram,GRanges: no visible binding for global variable 'yend'
+    layout_karyogram,GRanges: no visible binding for global variable 'y2'
+    layout_karyogram,GRanges: no visible binding for global variable
+      'yend2'
+    layout_karyogram,GRanges: no visible binding for global variable 'name'
+    plotFragLength,character-GRanges: no visible binding for global
+      variable '.fragLength'
+    plotSpliceSum,character-EnsDb: possible error in GRangesFilter(which,
+      condition = "overlapping"): unused argument (condition =
+      "overlapping")
+    stat_mismatch,GRanges: no visible binding for global variable 'sts'
+    stat_mismatch,GRanges: no visible binding for global variable 'eds'
+    stat_mismatch,GRanges: no visible binding for global variable 'read'
+    Undefined global functions or variables:
+      .fragLength .layout_circle.stats .x breaks coefs data eds fe fl
+      gieStain ideoCyto indexProbesProcessed midpoint mt name read se
+      stepping sts value variable x xend y y.text y2 yend yend2
+    Consider adding
+      importFrom("utils", "data")
+    to your NAMESPACE file.
     ```
 
 # ggbuildr
@@ -17515,9 +16829,9 @@ Version: 1.8.0
     > fs <- GvHD[1:3]
     > #construct the `ggcyto` object (inherits from `ggplot` class)
     > p <- ggcyto(fs, aes(x = `FSC-H`)) + geom_histogram() 
-    Error in `[.data.table`(dims.tbl, , name) : 
-      j (the 2nd argument inside [...]) is a single symbol but column name 'name' is not found. Perhaps you intended DT[, ..name]. This difference to data.frame is deliberate and explained in FAQ 1.1.
-    Calls: ggcyto -> ggcyto.flowSet -> [ -> [.data.table
+    Error in get(name, envir = asNamespace(pkg), inherits = FALSE) : 
+      object 'ggplot.data.frame' not found
+    Calls: ggcyto -> ggcyto.flowSet -> ::: -> get
     Execution halted
     ```
 
@@ -17536,7 +16850,7 @@ Version: 1.8.0
     Done
     Quitting from lines 59-60 (Top_features_of_ggcyto.Rmd) 
     Error: processing vignette 'Top_features_of_ggcyto.Rmd' failed with diagnostics:
-    j (the 2nd argument inside [...]) is a single symbol but column name 'name' is not found. Perhaps you intended DT[, ..name]. This difference to data.frame is deliberate and explained in FAQ 1.1.
+    object 'ggplot.data.frame' not found
     Execution halted
     ```
 
@@ -17550,7 +16864,7 @@ Version: 1.8.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.0Mb
+      installed size is  6.1Mb
       sub-directories of 1Mb or more:
         doc   5.6Mb
     ```
@@ -17559,14 +16873,15 @@ Version: 1.8.0
     ```
     Namespace in Imports field not imported from: ‘scales’
       All declared Imports should be used.
+    Missing object imported by a ':::' call: ‘ggplot2:::ggplot.data.frame’
     Unexported objects imported by ':::' calls:
       ‘flowWorkspace:::.mergeGates’ ‘flowWorkspace:::compact’
       ‘flowWorkspace:::fix_y_axis’ ‘flowWorkspace:::isNegated’
       ‘ggplot2:::+.gg’ ‘ggplot2:::add_group’ ‘ggplot2:::check_aesthetics’
-      ‘ggplot2:::ggplot.data.frame’ ‘ggplot2:::is.waive’
-      ‘ggplot2:::is_calculated_aes’ ‘ggplot2:::make_scale’
-      ‘ggplot2:::plot_clone’ ‘ggplot2:::print.ggplot’
-      ‘ggplot2:::scales_add_defaults’ ‘ggplot2:::update_theme’
+      ‘ggplot2:::is.waive’ ‘ggplot2:::is_calculated_aes’
+      ‘ggplot2:::make_scale’ ‘ggplot2:::plot_clone’
+      ‘ggplot2:::print.ggplot’ ‘ggplot2:::scales_add_defaults’
+      ‘ggplot2:::update_theme’
       See the note in ?`:::` about the use of this operator.
     ```
 
@@ -17599,56 +16914,6 @@ Version: 1.8.0
 # ggdag
 
 Version: 0.1.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### ** Examples
-    > 
-    > dag <- dagify(m ~ a + b, x ~ a, y ~ b)
-    > 
-    > control_for(dag, var = "m")
-    # A tibble: 8 x 10
-      name      x     y direction to     xend  yend circular collider_line adjusted
-      <chr> <dbl> <dbl> <fct>     <chr> <dbl> <dbl> <lgl>    <lgl>         <fct>   
-    1 a      31.6  23.1 ->        m      31.6  24.6 FALSE    FALSE         unadjus…
-    2 a      31.6  23.1 ->        x      31.6  21.8 FALSE    FALSE         unadjus…
-    3 b      31.6  26.0 ->        m      31.6  24.6 FALSE    FALSE         unadjus…
-    4 b      31.6  26.0 ->        y      31.5  27.3 FALSE    FALSE         unadjus…
-    5 m      31.6  24.6 <NA>      <NA>   NA    NA   FALSE    FALSE         adjusted
-    6 x      31.6  21.8 <NA>      <NA>   NA    NA   FALSE    FALSE         unadjus…
-    7 y      31.5  27.3 <NA>      <NA>   NA    NA   FALSE    FALSE         unadjus…
-    8 a      31.6  23.1 <->       b      31.6  26.0 NA       TRUE          unadjus…
-    > ggdag_adjust(dag, var = "m")
-    Error in arrow.fill %||% trans$colour : 
-      argument "arrow.fill" is missing, with no default
-    Calls: <Anonymous> ... <Anonymous> -> .fun -> do.call -> <Anonymous> -> f -> %||%
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Loading required package: ggplot2
-    
-    Attaching package: 'ggdag'
-    
-    The following object is masked from 'package:ggplot2':
-    
-        expand_scale
-    
-    The following object is masked from 'package:stats':
-    
-        filter
-    
-    Quitting from lines 70-72 (bias-structures.Rmd) 
-    Error: processing vignette 'bias-structures.Rmd' failed with diagnostics:
-    argument "arrow.fill" is missing, with no default
-    Execution halted
-    ```
 
 ## In both
 
@@ -17735,13 +17000,6 @@ Version: 0.2.1
     Execution halted
     ```
 
-*   checking whether package ‘ggedit’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘ggedit’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/ggedit/new/ggedit.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -17753,54 +17011,6 @@ Version: 0.2.1
 # ggeffects
 
 Version: 0.3.3
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ggeffect(fit, terms = "c12hour")
-    # A tibble: 62 x 5
-           x predicted conf.low conf.high group
-     * <dbl>     <dbl>    <dbl>     <dbl> <fct>
-     1     4      74.4     72.3      76.5 1    
-     2     5      74.2     72.1      76.3 1    
-     3     6      73.9     71.9      76.0 1    
-     4     7      73.7     71.6      75.7 1    
-     5     8      73.4     71.4      75.4 1    
-     6     9      73.2     71.2      75.2 1    
-     7    10      72.9     70.9      74.9 1    
-     8    11      72.7     70.7      74.6 1    
-     9    12      72.4     70.5      74.3 1    
-    10    14      71.9     70.0      73.8 1    
-    # ... with 52 more rows
-    > 
-    > mydf <- ggeffect(fit, terms = c("c12hour", "c161sex"))
-    > plot(mydf)
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Error: A continuous variable can not be mapped to linetype
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Following variables had many unique values and were prettified: c12hour. Use `pretty = FALSE` to get smoother plots with all values, however, at the cost of increased memory usage.
-    Following variables had many unique values and were prettified: c12hour. Use `pretty = FALSE` to get smoother plots with all values, however, at the cost of increased memory usage.
-    Following variables had many unique values and were prettified: c12hour. Use `pretty = FALSE` to get smoother plots with all values, however, at the cost of increased memory usage.
-    Following variables had many unique values and were prettified: c12hour. Use `pretty = FALSE` to get smoother plots with all values, however, at the cost of increased memory usage.
-    Following variables had many unique values and were prettified: c12hour. Use `pretty = FALSE` to get smoother plots with all values, however, at the cost of increased memory usage.
-    Following variables had many unique values and were prettified: c12hour. Use `pretty = FALSE` to get smoother plots with all values, however, at the cost of increased memory usage.
-    Following variables had many unique values and were prettified: hp. Use `pretty = FALSE` to get smoother plots with all values, however, at the cost of increased memory usage.
-    Following variables had many unique values and were prettified: c12hour. Use `pretty = FALSE` to get smoother plots with all values, however, at the cost of increased memory usage.
-    Following variables had many unique values and were prettified: c12hour. Use `pretty = FALSE` to get smoother plots with all values, however, at the cost of increased memory usage.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Quitting from lines 191-209 (marginaleffects.Rmd) 
-    Error: processing vignette 'marginaleffects.Rmd' failed with diagnostics:
-    A continuous variable can not be mapped to linetype
-    Execution halted
-    ```
 
 ## In both
 
@@ -17818,27 +17028,6 @@ Version: 0.3.3
 # ggenealogy
 
 Version: 0.3.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘ggenealogy-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plotAncDes
-    > ### Title: Returns the image object to show the ancestors and descendants
-    > ###   of a variety
-    > ### Aliases: plotAncDes
-    > 
-    > ### ** Examples
-    > 
-    > data(sbGeneal)
-    > plotAncDes("Tokyo", sbGeneal, vColor = "red")
-    Error in geom_text() : could not find function "geom_text"
-    Calls: plotAncDes -> <Anonymous> -> do.call
-    Execution halted
-    ```
 
 ## In both
 
@@ -17862,27 +17051,86 @@ Version: 0.3.0
 *   checking re-building of vignette outputs ... NOTE
     ```
     ...
-      geneal: the full genealogy (in data frame format)
-    
-    vertexinfo: (default NULL) either names of columns in the genealogy
-              which should be added to the database as vertex information
-              or a data frame with information for all vertices such that
-              the first column contains vertex names.
-    
-    edgeweights: (default 1) name of a column which contains edge weights
-    
-    isDirected: (default FALSE) should the graph be a directed graph?
-    
-    _S_e_e _A_l_s_o:
-    
-         <URL: https://www.r-project.org> for iGraph information
-    
-    
-    
-    Error: processing vignette 'ggenealogy.Rnw' failed with diagnostics:
-     chunk 23 (label = plotAncDes1) 
-    Error in geom_text() : could not find function "geom_text"
+      conversion failure on 'Gábor Szűcs' in 'mbcsToSbcs': dot substituted for <b1>
+    Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+      conversion failure on 'Barbara Choroś-Tomczyk' in 'mbcsToSbcs': dot substituted for <c5>
+    Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+      conversion failure on 'Barbara Choroś-Tomczyk' in 'mbcsToSbcs': dot substituted for <9b>
+    Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+      conversion failure on 'Barbara Choroś-Tomczyk' in 'mbcsToSbcs': dot substituted for <c5>
+    Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+      conversion failure on 'Barbara Choroś-Tomczyk' in 'mbcsToSbcs': dot substituted for <9b>
+    Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+      conversion failure on 'Ondřej Chochola' in 'mbcsToSbcs': dot substituted for <c5>
+    Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+      conversion failure on 'Ondřej Chochola' in 'mbcsToSbcs': dot substituted for <99>
+    Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+      conversion failure on 'Ondřej Chochola' in 'mbcsToSbcs': dot substituted for <c5>
+    Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y,  :
+      conversion failure on 'Ondřej Chochola' in 'mbcsToSbcs': dot substituted for <99>
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'ggenealogy.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
     Execution halted
+    ```
+
+# ggetho
+
+Version: 0.3.1
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘ggetho-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: ggetho
+    > ### Title: Prepare a ggplot object to represent behavioural data
+    > ### Aliases: ggetho
+    > 
+    > ### ** Examples
+    > 
+    > # We start by making a dataset with 20 animals
+    > metadata <- data.table(id = sprintf("toy_experiment|%02d", 1:20),
+    +                    condition = c("A", "B"))
+    > dt <- toy_activity_data(metadata, 3)
+    > # We build a plot object with **nothing inside** (just the axis)
+    > # we want to show proportion of time sleeping  on the y axis:
+    > pl <- ggetho(dt, aes(y = asleep))
+    Error in ggetho(dt, aes(y = asleep)) : 
+      Either `y` or `z` should be provided as variable of interest
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      Either `y` or `z` should be provided as variable of interest
+      1: ggetho(dt, aes(z = activity)) at testthat/test-stat_tile.R:9
+      2: stop("Either `y` or `z` should be provided as variable of interest")
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 14 SKIPPED: 2 FAILED: 6
+      1. Error: ggetho works well with a variety of expressions (@test-ggetho.R#7) 
+      2. Error: ggetho works well with a variety of expressions (@test-ggetho.R#40) 
+      3. Error: ggetho's time_offset works (@test-ggetho.R#73) 
+      4. Error: annotations work (@test-stat_ld_annotation.R#8) 
+      5. Error: annotations work with unbound limits (@test-stat_ld_annotation.R#29) 
+      6. Error: stat_bar_tile_works (@test-stat_tile.R#9) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # ggExtra
@@ -18020,7 +17268,7 @@ Version: 0.1.1
     +                          colour = colour, alpha = ..index..,
     +                          size = ..index..),
     +                      data = lines)
-    Error: `data` must be uniquely named but has duplicate columns
+    Error: `data` must be uniquely named but has duplicate elements
     Execution halted
     ```
 
@@ -18050,7 +17298,7 @@ Version: 0.1.1
       ...
     Quitting from lines 185-198 (Visual_Guide.Rmd) 
     Error: processing vignette 'Visual_Guide.Rmd' failed with diagnostics:
-    `data` must be uniquely named but has duplicate columns
+    `data` must be uniquely named but has duplicate elements
     Execution halted
     ```
 
@@ -18114,6 +17362,8 @@ Version: 0.4.4
      ERROR
     Running the tests in ‘tests/test-all.R’ failed.
     Last 13 lines of output:
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 1441 SKIPPED: 9 FAILED: 10
       1.  Failure: Check geom_factory works (@test-plotlib.R#152) 
       2.  Failure: Check geom_factory works (@test-plotlib.R#160) 
       3.  Failure: Check geom_factory works (@test-plotlib.R#169) 
@@ -18126,16 +17376,7 @@ Version: 0.4.4
       10. Failure: autoplot.lm works with characters (@test-stats-lm.R#544) 
       
       Error: testthat unit tests failed
-      In addition: Warning message:
-      replacing previous import 'dplyr::vars' by 'ggplot2::vars' when loading 'ggfortify' 
       Execution halted
-    ```
-
-*   checking whether package ‘ggfortify’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘ggfortify’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/ggfortify/new/ggfortify.Rcheck/00install.out’ for details.
     ```
 
 ## In both
@@ -18320,42 +17561,16 @@ Version: 0.0.1
 
 Version: 0.1.5
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    Running examples in ‘ggimage-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: geom_image
-    > ### Title: geom_image
-    > ### Aliases: geom_image
-    > 
-    > ### ** Examples
-    > 
-    > library("ggplot2")
-    > library("ggimage")
-    > set.seed(2017-02-21)
-    > d <- data.frame(x = rnorm(10),
-    +                 y = rnorm(10),
-    +                 image = sample(c("https://www.r-project.org/logo/Rlogo.png",
-    +                                 "https://jeroenooms.github.io/images/frink.png"),
-    +                               size=10, replace = TRUE)
-    +                )
-    > ggplot(d, aes(x, y)) + geom_image(aes(image=image))
-    OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
-    OMP: Hint: This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://www.intel.com/software/products/support/.
-    ```
-
 ## In both
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     Error in re-building vignettes:
       ...
-    OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
-    OMP: Hint: This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://www.intel.com/software/products/support/.
+    Quitting from lines 101-103 (ggimage.Rmd) 
+    Error: processing vignette 'ggimage.Rmd' failed with diagnostics:
+    Failed to download https://raw.githubusercontent.com/ionic-team/ionicons/master/png/512/pie-graph.png (HTTP 404)
+    Execution halted
     ```
 
 *   checking PDF version of manual ... WARNING
@@ -18383,18 +17598,93 @@ Version: 0.4.2
     This typically indicates Rd problems.
     ```
 
-# ggjoy
+# ggiraphExtra
 
-Version: 0.4.0
+Version: 0.1.0
 
 ## Newly broken
 
-*   checking whether package ‘ggjoy’ can be installed ... WARNING
+*   checking examples ... ERROR
     ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::scale_discrete_manual’ by ‘ggridges::scale_discrete_manual’ when loading ‘ggjoy’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/ggjoy/new/ggjoy.Rcheck/00install.out’ for details.
+    Running examples in ‘ggiraphExtra-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: ggAncova
+    > ### Title: Make an interactive plot for an ANCOVA model
+    > ### Aliases: ggAncova ggAncova.default ggAncova.formula ggAncova.lm
+    > 
+    > ### ** Examples
+    > 
+    > require(moonBook)
+    Loading required package: moonBook
+    > require(ggplot2)
+    Loading required package: ggplot2
+    > require(ggiraph)
+    Loading required package: ggiraph
+    > ggAncova(radial,aes(age,NTAV,color=sex),interactive=TRUE)
+    Error in lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...) : 
+      incompatible dimensions
+    Calls: ggAncova ... ggAncova.default -> ggAncova.formula -> lm -> lm.fit
+    Execution halted
     ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ── 1. Error: (unknown) (@test1.R#4)  ───────────────────────────────────────────
+      <text>:1:10: unexpected '~'
+      1: function(~
+                   ^
+      1: ggPoints(aes(x = wt, y = mpg, fill = cyl), data = mtcars, method = "lm", interactive = TRUE, 
+             shape = 21) at testthat/test1.R:4
+      2: eval(parse(text = temp))
+      3: parse(text = temp)
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 1 SKIPPED: 0 FAILED: 1
+      1. Error: (unknown) (@test1.R#4) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Loading required package: ggplot2
+    Loading required package: ggiraph
+    Loading required package: ggiraphExtra
+    Warning in gsub("x", xname, formulas[3]) :
+      argument 'replacement' has length > 1 and only the first element will be used
+    Quitting from lines 28-33 (introduction.Rmd) 
+    Error: processing vignette 'introduction.Rmd' failed with diagnostics:
+    <text>:1:10: unexpected '~'
+    1: function(~
+                 ^
+    Execution halted
+    ```
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘XML’ ‘mapproj’ ‘moonBook’
+      All declared Imports should be used.
+    ```
+
+# ggjoy
+
+Version: 0.4.1
 
 ## In both
 
@@ -18478,13 +17768,6 @@ Version: 2.6.1
 *   checking examples ... ERROR
     ```
     ...
-    Running examples in ‘ggmap-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: theme_nothing
-    > ### Title: Make a blank ggplot2 theme.
-    > ### Aliases: theme_nothing
-    > 
     > ### ** Examples
     > 
     > 
@@ -18496,8 +17779,15 @@ Version: 2.6.1
     > p
     > p + theme_nothing()
     Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-    Error in if (theme$panel.ontop) { : argument is of length zero
-    Calls: <Anonymous> ... ggplot_gtable.ggplot_built -> <Anonymous> -> f -> lapply -> FUN
+    > p + theme_nothing(legend = TRUE) # no difference
+    Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
+    Theme element panel.border missing
+    Theme element axis.line.x.bottom missing
+    Theme element axis.ticks.x.bottom missing
+    Theme element axis.line.y.left missing
+    Theme element axis.ticks.y.left missing
+    Error in if (position != "none") { : argument is of length zero
+    Calls: <Anonymous> ... print.ggplot -> ggplot_gtable -> ggplot_gtable.ggplot_built
     Execution halted
     ```
 
@@ -18507,6 +17797,13 @@ Version: 2.6.1
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.5Mb
+      sub-directories of 1Mb or more:
+        data   5.1Mb
     ```
 
 # ggmcmc
@@ -18580,7 +17877,7 @@ Version: 0.1.2
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
-        vars
+    Attaching package: 'dplyr'
     
     The following objects are masked from 'package:stats':
     
@@ -18636,15 +17933,6 @@ Version: 0.1.2
 
 Version: 0.5.1
 
-## Newly broken
-
-*   checking whether package ‘ggmuller’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘ggmuller’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/ggmuller/new/ggmuller.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -18656,60 +17944,6 @@ Version: 0.5.1
 # ggnetwork
 
 Version: 0.5.1
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-                        Skye Bender-deMoll, University of Washington
-     For citation information, type citation("network").
-     Type help("network-package") to get started.
-    
-    Loading required package: sna
-    Loading required package: statnet.common
-    
-    Attaching package: ‘statnet.common’
-    
-    The following object is masked from ‘package:base’:
-    
-        order
-    
-    sna: Tools for Social Network Analysis
-    Version 2.4 created on 2016-07-23.
-    copyright (c) 2005, Carter T. Butts, University of California-Irvine
-     For citation information, type citation("sna").
-     Type help(package="sna") to get started.
-    
-    Error: Columns `x`, `y`, `xend`, `yend` must be 1d atomic vectors or lists
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-     For citation information, type citation("network").
-     Type help("network-package") to get started.
-    
-    Loading required package: statnet.common
-    
-    Attaching package: 'statnet.common'
-    
-    The following object is masked from 'package:base':
-    
-        order
-    
-    sna: Tools for Social Network Analysis
-    Version 2.4 created on 2016-07-23.
-    copyright (c) 2005, Carter T. Butts, University of California-Irvine
-     For citation information, type citation("sna").
-     Type help(package="sna") to get started.
-    
-    Quitting from lines 130-133 (ggnetwork.Rmd) 
-    Error: processing vignette 'ggnetwork.Rmd' failed with diagnostics:
-    Columns `x`, `y`, `xend`, `yend` must be 1d atomic vectors or lists
-    Execution halted
-    ```
 
 ## In both
 
@@ -19147,15 +18381,6 @@ Version: 1.0.1
 
 Version: 1.0
 
-## Newly broken
-
-*   checking whether package ‘ggraptR’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘ggraptR’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/ggraptR/new/ggraptR.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -19252,7 +18477,7 @@ Version: 1.0
 
 # ggsci
 
-Version: 2.8
+Version: 2.9
 
 ## In both
 
@@ -19400,18 +18625,18 @@ Version: 0.3
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
+      `h_data` not identical to `v_data`.
+      Component 1: Component 11: Mean relative difference: 0.008521532
+      Component 1: Component 12: Mean relative difference: 0.008081391
+      Component 1: Component 13: Mean relative difference: 0.00869822
+      
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 12 SKIPPED: 0 FAILED: 16
-      1. Error: geom_linerangeh() flips (@test-geoms.R#7) 
-      2. Error: geom_pointangeh() flips (@test-geoms.R#13) 
-      3. Error: geom_crossbarh() flips (@test-geoms.R#31) 
-      4. Error: geom_errorbarh() flips (@test-geoms.R#37) 
-      5. Error: geom_barh() flips (@test-geoms.R#45) 
-      6. Error: geom_histogramh() flips (@test-geoms.R#57) 
-      7. Error: geom_violinh() flips (@test-geoms.R#71) 
-      8. Failure: geom_boxploth() flips (@test-geoms.R#81) 
-      9. Error: geom_boxploth() flips (@test-geoms.R#81) 
-      1. ...
+      OK: 19 SKIPPED: 22 FAILED: 5
+      1. Failure: geom_boxploth() flips (@test-geoms.R#81) 
+      2. Failure: geom_boxploth() flips (@test-geoms.R#85) 
+      3. Failure: geom_boxploth() flips (@test-geoms.R#89) 
+      4. Failure: facet_grid() with free scales flips (@test-geoms.R#95) 
+      5. Failure: position_jitterdodge() flips (@test-positions.R#21) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -19434,15 +18659,6 @@ Version: 0.3
 # ggstatsplot
 
 Version: 0.0.2
-
-## Newly broken
-
-*   checking whether package ‘ggstatsplot’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘ggstatsplot’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/ggstatsplot/new/ggstatsplot.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -19544,19 +18760,9 @@ Version: 3.5.0
     +      geom_point(aes(x = wt, y = mpg, shape = factor(gear))) +
     +      facet_wrap(~am)
     > p + theme_stata() + scale_shape_stata()
-    Error in if (theme$panel.ontop) { : argument is of length zero
-    Calls: <Anonymous> ... ggplot_gtable.ggplot_built -> <Anonymous> -> f -> lapply -> FUN
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 108-110 (./children/examples.Rmd) 
-    Quitting from lines 36-40 (./children/examples.Rmd) 
-    Error: processing vignette 'ggthemes.Rmd' failed with diagnostics:
-    argument is of length zero
+    Error in convertUnit(theme$strip.switch.pad.wrap, "cm") : 
+      'x' argument must be a unit object
+    Calls: <Anonymous> ... <Anonymous> -> f -> <Anonymous> -> f -> convertUnit
     Execution halted
     ```
 
@@ -19574,8 +18780,11 @@ Version: 5.16.0
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 *   checking package dependencies ... NOTE
     ```
@@ -19642,6 +18851,27 @@ Version: 5.16.0
     Packages unavailable to check Rd xrefs: ‘MatrixEQTL’, ‘gwascat’
     ```
 
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error in re-building vignettes:
+      ...
+    Loading required package: illuminaHumanv1.db
+    
+    
+    Attaching package: 'Biostrings'
+    
+    The following object is masked from 'package:base':
+    
+        strsplit
+    
+    NOTE: some SNP in rsid were not found in location db SNPlocs.Hsapiens.dbSNP144.GRCh37
+    NOTE: expanding gene ranges by radius 75000 leads to negative start positions that are reset to 1.
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'GGtools.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
+    ```
+
 # ggtree
 
 Version: 1.12.0
@@ -19652,15 +18882,6 @@ Version: 1.12.0
     ```
     ...
     
-    If you use ggtree in published research, please cite:
-    Guangchuang Yu, David Smith, Huachen Zhu, Yi Guan, Tommy Tsan-Yuk Lam. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and other associated data. Methods in Ecology and Evolution 2017, 8(1):28-36, doi:10.1111/2041-210X.12628
-    
-    Attaching package: 'ggtree'
-    
-    The following object is masked from 'package:cowplot':
-    
-        ggsave
-    
     The following object is masked from 'package:ape':
     
         rotate
@@ -19668,9 +18889,18 @@ Version: 1.12.0
     Average angle change [1] 0.205749672759501
     Average angle change [2] 0.0594793517814446
     Average angle change [3] 0.0265103772447353
-    Quitting from lines 107-110 (treeAnnotation.Rmd) 
+    Warning in min(y) : no non-missing arguments to min; returning Inf
+    Warning in max(y) : no non-missing arguments to max; returning -Inf
+    Warning: Removed 1 rows containing missing values (geom_point_g_gtree).
+    Warning: Removed 1 rows containing missing values (geom_point_g_gtree).
+    Warning: Removed 13 rows containing missing values (geom_text).
+    Warning: Removed 12 rows containing missing values (geom_text).
+    Scale for 'fill' is already present. Adding another scale for 'fill',
+    which will replace the existing scale.
+    Warning: The plyr::rename operation has created duplicates for the following name(s): (`size`)
+    Quitting from lines 289-294 (treeAnnotation.Rmd) 
     Error: processing vignette 'treeAnnotation.Rmd' failed with diagnostics:
-    argument "arrow.fill" is missing, with no default
+    invalid color name 'butt'
     Execution halted
     ```
 
@@ -19791,12 +19021,41 @@ Version: 0.2.1.0
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Warning in f(x, order = 1) : value out of range in 'lgamma'
+    Loading required package: stats4
+    Warning in qt((1 - level)/2, df) : NaNs produced
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'glmmTMB.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 15.0Mb
+      installed size is 15.1Mb
       sub-directories of 1Mb or more:
         libs  13.9Mb
     ```
@@ -19996,34 +19255,6 @@ Version: 1.0.2
 
 Version: 2.13.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ##D data(tissue_example)
-    > ##D 
-    > ##D pcr = prcomp(t(tissue_example$exp))
-    > ##D gs_pca = gosummaries(pcr, annotation = tissue_example$annot)
-    > ##D 
-    > ##D plot(gs_pca, classes = "Tissue", components = 1:3, fontsize = 8)
-    > ## End(Not run)
-    > 
-    > # Read metabolomic data
-    > data(metabolomic_example)
-    > 
-    > pca = prcomp(t(metabolomic_example$data))
-    > 
-    > # Turn off GO enricment, since it does not work on metabolites
-    > gs = gosummaries(pca, annotation = metabolomic_example$annot, 
-    +                  show_gene = TRUE, gconvert_target = NULL)
-    > plot(gs, class = "Tissue", components = 1:3, fontsize = 8)
-    Error in geom_histogram(colour = "grey70") : 
-      could not find function "geom_histogram"
-    Calls: plot ... plot_panel -> plot_function -> <Anonymous> -> do.call
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -20184,10 +19415,20 @@ Version: 0.1.1
 
 Version: 1.12.0
 
-## In both
+## Newly broken
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+## Newly fixed
 
 *   R CMD check timed out
     
+
+## In both
 
 *   checking installed package size ... NOTE
     ```
@@ -20282,30 +19523,6 @@ Version: 1.1
 
 Version: 1.5.3.7
 
-## Newly fixed
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      4: withVisible(eval(quote(`_fseq`(`_lhs`)), env, env))
-      5: eval(quote(`_fseq`(`_lhs`)), env, env)
-      6: eval(quote(`_fseq`(`_lhs`)), env, env)
-      7: `_fseq`(`_lhs`)
-      8: freduce(value, `_function_list`)
-      9: function_list[[i]](value)
-      10: setnames(., c(index.col, time.col), c("Index", "Time"))
-      11: stop("Items of 'old' not found in column names: ", paste(old[is.na(i)], collapse = ","))
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 224 SKIPPED: 57 FAILED: 1
-      1. Error: ABS connection (@test_cpi.R#136) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -20386,12 +19603,12 @@ Version: 1.32.0
     ```
     ...
     Loading required package: ggplot2
-    Created folder /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpUlQp3e/Example_LinearNet
+    Created folder /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpHerW02/Example_LinearNet
     Started MCMC chain 1  ============= 
     MCMC chain 1 finished!
     Started MCMC chain 2  ============= 
     MCMC chain 2 finished!
-    Analysis finished. Output plots can be found in folder: "/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpUlQp3e/Example_LinearNet"
+    Analysis finished. Output plots can be found in folder: "/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpHerW02/Example_LinearNet"
     network: Classes for Relational Data
     Version 1.13.0.1 created on 2015-08-31.
     copyright (c) 2005, Carter T. Butts, University of California-Irvine
@@ -20550,6 +19767,87 @@ Version: 0.2.1
     This typically indicates Rd problems.
     ```
 
+# GSCA
+
+Version: 2.10.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Depends: includes the non-default packages:
+      ‘shiny’ ‘sp’ ‘gplots’ ‘ggplot2’ ‘reshape2’ ‘RColorBrewer’ ‘rhdf5’
+    Adding so many packages to the search path is excessive and importing
+    selectively is preferable.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    'library' or 'require' calls in package code:
+      ‘Affyhgu133A2Expr’ ‘Affyhgu133Plus2Expr’ ‘Affyhgu133aExpr’
+      ‘Affymoe4302Expr’
+      Please use :: or requireNamespace() instead.
+      See section 'Suggested packages' in the 'Writing R Extensions' manual.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    GSCAplot: no visible global function definition for ‘title’
+    GSCAplot: no visible global function definition for ‘dev.off’
+    annotatePeaks: no visible binding for global variable ‘allreffile’
+    tabSearch: no visible global function definition for ‘data’
+    tabSearch: no visible binding for global variable ‘Affyhgu133aExprtab’
+    tabSearch: no visible binding for global variable ‘Affymoe4302Exprtab’
+    tabSearch: no visible binding for global variable ‘Affyhgu133A2Exprtab’
+    tabSearch: no visible binding for global variable
+      ‘Affyhgu133Plus2Exprtab’
+    Undefined global functions or variables:
+      Affyhgu133A2Exprtab Affyhgu133Plus2Exprtab Affyhgu133aExprtab
+      Affymoe4302Exprtab P.value SampleType Var1 Var2 allreffile
+      colorRampPalette data dev.off fisher.test geneid hist par pdf qnorm
+      quantile sd str t.stat t.test title value variable write.csv
+      write.table
+    Consider adding
+      importFrom("grDevices", "colorRampPalette", "dev.off", "pdf")
+      importFrom("graphics", "hist", "par", "title")
+      importFrom("stats", "fisher.test", "qnorm", "quantile", "sd", "t.test")
+      importFrom("utils", "data", "str", "write.csv", "write.table")
+    to your NAMESPACE file.
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    ...
+      ...
+    Loading required package: shiny
+    Loading required package: sp
+    Loading required package: gplots
+    
+    Attaching package: ‘gplots’
+    
+    The following object is masked from ‘package:stats’:
+    
+        lowess
+    
+    Loading required package: ggplot2
+    Loading required package: reshape2
+    Loading required package: RColorBrewer
+    Loading required package: rhdf5
+    Loading required package: Affymoe4302Expr
+    Loading required package: Affyhgu133aExpr
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'GSCA.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
+    ```
+
 # gsDesign
 
 Version: 3.0-1
@@ -20626,11 +19924,6 @@ Version: 1.2.0
     This typically indicates Rd problems.
     ```
 
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘sf’
-    ```
-
 # GSparO
 
 Version: 1.0
@@ -20687,11 +19980,8 @@ Version: 1.18.0
 
 ## In both
 
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
+*   R CMD check timed out
+    
 
 *   checking package dependencies ... NOTE
     ```
@@ -20728,32 +20018,6 @@ Version: 1.18.0
     to your NAMESPACE file.
     ```
 
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    ...
-      the condition has length > 1 and only the first element will be used
-    Warning in if (suppressWarnings(is.na(GuitarCoordsFromTxDb))) { :
-      the condition has length > 1 and only the first element will be used
-    Warning in if (suppressWarnings(is.na(GuitarCoordsFromTxDb))) { :
-      the condition has length > 1 and only the first element will be used
-    Warning in if (suppressWarnings(is.na(GuitarCoordsFromTxDb))) { :
-      the condition has length > 1 and only the first element will be used
-    Scale for 'x' is already present. Adding another scale
-    for 'x', which will replace the existing scale.
-    Scale for 'x' is already present. Adding another scale
-    for 'x', which will replace the existing scale.
-    Warning in if (suppressWarnings(is.na(GuitarCoordsFromTxDb))) { :
-      the condition has length > 1 and only the first element will be used
-    Scale for 'x' is already present. Adding another scale
-    for 'x', which will replace the existing scale.
-    Scale for 'x' is already present. Adding another scale
-    for 'x', which will replace the existing scale.
-    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-      Running 'texi2dvi' on 'Guitar-Overview.tex' failed.
-    Calls: buildVignettes -> texi2pdf -> texi2dvi
-    Execution halted
-    ```
-
 # gunsales
 
 Version: 0.1.2
@@ -20783,18 +20047,137 @@ Version: 0.1.4
       Note: found 13617 marked UTF-8 strings
     ```
 
-# gwdegree
+# gwascat
 
-Version: 0.1.1
+Version: 2.12.0
 
 ## Newly broken
 
-*   checking whether package ‘gwdegree’ can be installed ... WARNING
+*   checking examples ... ERROR
     ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘gwdegree’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/gwdegree/new/gwdegree.Rcheck/00install.out’ for details.
+    Running examples in ‘gwascat-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: traitsManh
+    > ### Title: use ggbio facilities to display GWAS results for selected traits
+    > ###   in genomic coordinates
+    > ### Aliases: traitsManh
+    > ### Keywords: models graphics
+    > 
+    > ### ** Examples
+    > 
+    > # do a p-value truncation if you want to reduce compression
+    > data(ebicat38)
+    > library(GenomeInfoDb)
+    > seqlevelsStyle(ebicat38) = "UCSC"
+    > traitsManh(ebicat38)
+    Error in min(c(x, xmin), na.rm = TRUE) : 
+      invalid 'type' (list) of argument
+    Calls: traitsManh ... scale_by_xlim -> getLimits -> getLimits -> .local -> .getLimits
+    Execution halted
     ```
+
+*   checking running R code from vignettes ...
+    ```
+       ‘gwascat.Rnw’ ... failed
+       ‘gwascatOnt.Rmd’ ... OK
+     ERROR
+    Errors in running code in vignettes:
+    when running code in ‘gwascat.Rnw’
+      ...
+        "Crohn's disease"), truncmlp = 25, ...) 
+    NULL
+    
+    > pdf(file = "annman.pdf", width = 8, height = 2)
+    
+    > traitsManh(gwtrunc)
+    
+      When sourcing 'gwascat.R':
+    Error: invalid 'type' (list) of argument
+    Execution halted
+    ```
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package which this enhances but not available for checking: ‘SNPlocs.Hsapiens.dbSNP144.GRCh37’
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 37.7Mb
+      sub-directories of 1Mb or more:
+        data     28.7Mb
+        obo       3.0Mb
+        olddata   2.2Mb
+        tab       1.1Mb
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    chklocs: no visible binding for global variable 'gwrngs19'
+    chklocs: no visible global function definition for 'snpsBySeqname'
+    lo38to19: no visible binding for global variable 'si.hs.37'
+    makeCurrentGwascat: no visible binding for global variable 'si.hs.38'
+    makeCurrentGwascat.legacy: no visible binding for global variable
+      'si.hs.38'
+    snpGenos: no visible global function definition for 'getSNPlocs'
+    tfilt: no visible binding for global variable 'phr'
+    tpad: no visible binding for global variable 'phr'
+    traitsManh: no visible binding for global variable 'PVALUE_MLOG'
+    variantProps: no visible binding for global variable 'gwrngs'
+    Undefined global functions or variables:
+      PVALUE_MLOG getSNPlocs gwrngs gwrngs19 phr si.hs.37 si.hs.38
+      snpsBySeqname
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 6 marked Latin-1 strings
+      Note: found 1 marked UTF-8 string
+    ```
+
+*   checking for unstated dependencies in vignettes ... NOTE
+    ```
+    '::' or ':::' import not declared from: ‘BiocStyle’
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    ...
+    gwascat loaded.  Use data(ebicat38) for hg38 coordinates;
+     data(ebicat37) for hg19 coordinates.
+    gwascat loaded.  Use data(ebicat38) for hg38 coordinates;
+     data(ebicat37) for hg19 coordinates.
+    Loading required package: ggplot2
+    Need specific help about ggbio? try mailing 
+     the maintainer or visit http://tengfei.github.com/ggbio/
+    
+    Attaching package: 'ggbio'
+    
+    The following objects are masked from 'package:ggplot2':
+    
+        geom_bar, geom_rect, geom_segment, ggsave, stat_bin, stat_identity,
+        xlim
+    
+    
+    Error: processing vignette 'gwascat.Rnw' failed with diagnostics:
+     chunk 13 (label = runit) 
+    Error in min(c(x, xmin), na.rm = TRUE) : 
+      invalid 'type' (list) of argument
+    Execution halted
+    ```
+
+# gwdegree
+
+Version: 0.1.1
 
 ## In both
 
@@ -20835,6 +20218,49 @@ Version: 3.18.0.8
         java  144.1Mb
     ```
 
+# h5vc
+
+Version: 2.14.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    callVariantsSingle : <anonymous> : <anonymous>: no visible binding for
+      global variable ‘BlockID’
+    mergeTallyFiles : <anonymous>: no visible binding for global variable
+      ‘group’
+    mergeTallyFiles: no visible binding for global variable ‘SourceFile’
+    mismatchPlot: no visible binding for global variable ‘Sample’
+    plotMutationSpectrum: no visible binding for global variable
+      ‘altAllele’
+    plotMutationSpectrum: no visible binding for global variable ‘tmp’
+    rerunBatchTallies: no visible binding for global variable ‘regID’
+    resizeCohort: no visible binding for global variable ‘newSamples’
+    tallyRangesBatch : <anonymous>: no visible binding for global variable
+      ‘bamFiles’
+    tallyRangesBatch: no visible binding for global variable ‘verbose’
+    Undefined global functions or variables:
+      AF BlockID Sample SourceFile SupFwd SupRev Support altAllele bamFiles
+      binom.test fisher.test group hist newSamples pValue regID tmp verbose
+    Consider adding
+      importFrom("graphics", "hist")
+      importFrom("stats", "binom.test", "fisher.test")
+    to your NAMESPACE file.
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘deepSNV’
+    ```
+
 # harrietr
 
 Version: 0.2.3
@@ -20845,6 +20271,29 @@ Version: 0.2.3
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+# hazus
+
+Version: 0.1
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    extract_hazus_functions: no visible global function definition for
+      ‘data’
+    Undefined global functions or variables:
+      data
+    Consider adding
+      importFrom("utils", "data")
+    to your NAMESPACE file.
     ```
 
 # hBayesDM
@@ -20917,21 +20366,24 @@ Version: 0.2.3
 
 # hdme
 
-Version: 0.1.1
+Version: 0.2.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘Rglpk’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘Rglpk’
     ```
 
 # hdnom
 
-Version: 4.9
+Version: 5.0
 
 ## In both
 
@@ -20979,13 +20431,6 @@ Version: 2.0.0
       
       Error: testthat unit tests failed
       Execution halted
-    ```
-
-*   checking whether package ‘healthcareai’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘healthcareai’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/healthcareai/new/healthcareai.Rcheck/00install.out’ for details.
     ```
 
 ## In both
@@ -21172,34 +20617,6 @@ Version: 1.14.0
 
 Version: 1.16.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    +     snp.sel = match(snpid, HapMap_CEU_Geno$snp.id),
-    +     samp.sel = match(hlatab$training$value$sample.id,
-    +     HapMap_CEU_Geno$sample.id))
-    > test.geno <- hlaGenoSubset(HapMap_CEU_Geno,
-    +     samp.sel=match(hlatab$validation$value$sample.id,
-    +     HapMap_CEU_Geno$sample.id))
-    > 
-    > 
-    > #############################################################################
-    > 
-    > set.seed(100)
-    > 
-    > # train a HIBAG model in parallel with 2 cores
-    > # please use "nclassifier=100" when you use HIBAG for real data
-    > model <- hlaParallelAttrBagging(2, hlatab$training, train.geno, nclassifier=4)
-    Warning in socketConnection("localhost", port = port, server = TRUE, blocking = TRUE,  :
-      port 11099 cannot be opened
-    Error in socketConnection("localhost", port = port, server = TRUE, blocking = TRUE,  : 
-      cannot open the connection
-    Calls: hlaParallelAttrBagging ... makePSOCKcluster -> newPSOCKnode -> socketConnection
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -21222,9 +20639,9 @@ Version: 1.2.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.9Mb
+      installed size is  6.7Mb
       sub-directories of 1Mb or more:
-        data   6.0Mb
+        data   5.8Mb
     ```
 
 *   checking R code for possible problems ... NOTE
@@ -21309,6 +20726,26 @@ Version: 1.0.2
       ‘ggplot2:::build_guides’ ‘ggplot2:::guide_axis’
       ‘ggplot2:::scales_list’
       See the note in ?`:::` about the use of this operator.
+    ```
+
+# highcharter
+
+Version: 0.5.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 16.5Mb
+      sub-directories of 1Mb or more:
+        doc          13.7Mb
+        htmlwidgets   1.8Mb
     ```
 
 # HighDimOut
@@ -21436,34 +20873,6 @@ Version: 1.5.1
 
 Version: 1.0.0
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-        '/Users/max//.ExperimentHub/1117'
-    snapshotDate(): 2018-04-27
-    see ?HMP16SData and browseVignettes('HMP16SData') for documentation
-    downloading 0 resources
-    loading from cache 
-        '/Users/max//.ExperimentHub/1117'
-    snapshotDate(): 2018-04-27
-    see ?HMP16SData and browseVignettes('HMP16SData') for documentation
-    downloading 0 resources
-    loading from cache 
-        '/Users/max//.ExperimentHub/1118'
-    snapshotDate(): 2018-04-27
-    see ?HMP16SData and browseVignettes('HMP16SData') for documentation
-    downloading 0 resources
-    loading from cache 
-        '/Users/max//.ExperimentHub/1118'
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Quitting from lines 227-235 (HMP16SData.Rmd) 
-    Error: processing vignette 'HMP16SData.Rmd' failed with diagnostics:
-    A continuous variable can not be mapped to shape
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -21542,16 +20951,7 @@ Version: 0.9.1
 
 # HTSSIP
 
-Version: 1.3.2
-
-## Newly broken
-
-*   checking whether package ‘HTSSIP’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘HTSSIP’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/HTSSIP/new/HTSSIP.Rcheck/00install.out’ for details.
-    ```
+Version: 1.4.0
 
 ## In both
 
@@ -21559,13 +20959,6 @@ Version: 1.3.2
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.5Mb
-      sub-directories of 1Mb or more:
-        data   4.4Mb
     ```
 
 *   checking dependencies in R code ... NOTE
@@ -21602,8 +20995,7 @@ Version: 0.0.1
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘hurricaneexposure-Ex.R’ failed
-    The error most likely occurred in:
+    ...
     
     > ### Name: default_map
     > ### Title: Create a default map with eastern US states
@@ -21614,8 +21006,16 @@ Version: 0.0.1
     > default_map()
     Warning: `panel.margin` is deprecated. Please use `panel.spacing` property instead
     Theme element panel.border missing
-    Error in if (theme$panel.ontop) { : argument is of length zero
-    Calls: <Anonymous> ... ggplot_gtable.ggplot_built -> <Anonymous> -> f -> lapply -> FUN
+    Theme element axis.line.x.bottom missing
+    Theme element axis.ticks.x.bottom missing
+    Theme element axis.line.x.top missing
+    Theme element axis.ticks.x.top missing
+    Theme element axis.line.y.left missing
+    Theme element axis.ticks.y.left missing
+    Theme element axis.line.y.right missing
+    Theme element axis.ticks.y.right missing
+    Error in if (position != "none") { : argument is of length zero
+    Calls: <Anonymous> ... print.ggplot -> ggplot_gtable -> ggplot_gtable.ggplot_built
     Execution halted
     ```
 
@@ -21634,7 +21034,7 @@ Version: 0.0.1
 
 # hutils
 
-Version: 1.0.0
+Version: 1.1.0
 
 ## In both
 
@@ -21708,12 +21108,16 @@ Version: 0.10.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘sf’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘dbplyr’
+      All declared Imports should be used.
     ```
 
 # hydroscoper
@@ -21731,6 +21135,90 @@ Version: 1.0.0
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 3031 marked UTF-8 strings
+    ```
+
+# hyfo
+
+Version: 1.3.9
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+# hyperSpec
+
+Version: 0.99-20171005
+
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘hyperSpec-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: qplotmap
+    > ### Title: Spectra plotting with ggplot2
+    > ### Aliases: qplotmap
+    > 
+    > ### ** Examples
+    > 
+    > qplotmap (chondro)
+    > qplotmap (chondro) + scale_fill_gradientn (colours = alois.palette ())
+    > 
+    > ## works also with discrete x or y axis:
+    > qplotmap (chondro, mapping = aes (x = x, y = as.factor (y), fill = spc))
+    Error: Discrete value supplied to continuous scale
+    Execution halted
+    ```
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        doc   3.9Mb
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    Warning: local assignments to syntactic functions: ~
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    ...
+    start: 300 support points
+    spectrum      1:    25 support points, noise = 0.0,   5 iterations
+    Fitting with npts.min = 5
+    
+    start: 100 support points
+    spectrum      1:    96 support points, noise = 4.0,   2 iterations
+    Fitting with npts.min = 15
+    
+    start: 300 support points
+    Iteration 1: 153 support points
+    Iteration 2: 93 support points
+    Iteration 3: 54 support points
+    Iteration 4: 38 support points
+    Iteration 5: 32 support points
+    Iteration 6: 29 support points
+    Iteration 7: 29 support points
+    spectrum      1:    29 support points, noise = 15.0,   7 iterations
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'baseline.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
     ```
 
 # IAPWS95
@@ -21760,15 +21248,6 @@ Version: 1.0.0
 # IAT
 
 Version: 0.3
-
-## Newly broken
-
-*   checking whether package ‘IAT’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘IAT’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/IAT/new/IAT.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -21939,15 +21418,6 @@ Version: 1.0.0
 
 Version: 1.8.0
 
-## Newly broken
-
-*   checking whether package ‘iCOBRA’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘iCOBRA’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/iCOBRA/new/iCOBRA.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -21958,7 +21428,7 @@ Version: 1.8.0
 
 # icr
 
-Version: 0.5.3
+Version: 0.5.4
 
 ## In both
 
@@ -21972,48 +21442,6 @@ Version: 0.5.3
 
 Version: 0.3
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    
-    > ### Name: ggplot.ictest
-    > ### Title: Scatterplot Matrix for a ictest Object using ggplot2
-    > ### Aliases: ggplot.ictest
-    > ### Keywords: hplot
-    > 
-    > ### ** Examples
-    > 
-    > # The data
-    > X <- iris[, 1:4]
-    > 
-    > # The aesthetics variables
-    > mapvar <- data.frame(iris[, 5])
-    > colnames(mapvar) <- "species"
-    > 
-    > TestCov <- PCAasymp(X, k = 2)
-    > ggplot(TestCov)
-    Error in make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name),  : 
-      variables: "x" have non standard format: "~PC.1".  Please rename the columns or make a new column.
-    Calls: ggplot ... do.call -> <Anonymous> -> plot_fn -> make_ggmatrix_plot_obj
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Loading required package: JADE
-    Loading required package: ICS
-    Loading required package: mvtnorm
-    Loading required package: ggplot2
-    Quitting from lines 122-127 (PCA.Rmd) 
-    Error: processing vignette 'PCA.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~PC.1".  Please rename the columns or make a new column.
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -22025,109 +21453,6 @@ Version: 0.3
 *   checking Rd cross-references ... NOTE
     ```
     Package unavailable to check Rd xrefs: ‘fICA’
-    ```
-
-# IDE
-
-Version: 0.1.0
-
-## Newly broken
-
-*   checking whether package ‘IDE’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘IDE’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/IDE/new/IDE.Rcheck/00install.out’ for details.
-    ```
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-      Running 'texi2dvi' on 'IDE_intro.tex' failed.
-    Calls: buildVignettes -> texi2pdf -> texi2dvi
-    Execution halted
-    ```
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-# ideal
-
-Version: 1.4.0
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-*   checking for hidden files and directories ... NOTE
-    ```
-    Found the following hidden files and directories:
-      .travis.yml
-    These were most likely included in error. See section ‘Package
-    structure’ in the ‘Writing R Extensions’ manual.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ideal: no visible binding for '<<-' assignment to ‘ideal_env’
-    ideal : <anonymous>: no visible binding for global variable ‘airway’
-    ideal : <anonymous>: no visible binding for global variable ‘ideal_env’
-    Undefined global functions or variables:
-      airway ideal_env
-    ```
-
-# idealstan
-
-Version: 0.2.7
-
-## Newly broken
-
-*   checking whether package ‘idealstan’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘idealstan’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/idealstan/new/idealstan.Rcheck/00install.out’ for details.
-    ```
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning in .local(object, ...) :
-      some chains had errors; consider specifying chains = 1 to debug
-    Warning in .local(object, ...) :
-      some chains had errors; consider specifying chains = 1 to debug
-    Quitting from lines 94-95 (Package_Introduction.Rmd) 
-    Error: processing vignette 'Package_Introduction.Rmd' failed with diagnostics:
-    Column `Rhats` must be a 1d atomic vector or a list
-    Execution halted
-    ```
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  8.0Mb
-      sub-directories of 1Mb or more:
-        data   3.5Mb
-        libs   3.6Mb
     ```
 
 # idm
@@ -22190,7 +21515,7 @@ Version: 1.8.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.1Mb
+      installed size is  6.0Mb
       sub-directories of 1Mb or more:
         doc   5.8Mb
     ```
@@ -22226,6 +21551,13 @@ Version: 1.8.0
 Version: 1.7.0
 
 ## In both
+
+*   checking whether package ‘IHWpaper’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Warning: replacing previous import ‘dplyr::exprs’ by ‘Biobase::exprs’ when loading ‘IHWpaper’
+    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/IHWpaper/new/IHWpaper.Rcheck/00install.out’ for details.
+    ```
 
 *   checking re-building of vignette outputs ... WARNING
     ```
@@ -22432,7 +21764,7 @@ Version: 1.10.0
 
 # iml
 
-Version: 0.4.0
+Version: 0.5.1
 
 ## In both
 
@@ -22440,16 +21772,6 @@ Version: 0.4.0
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘lime’
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘lime’
     ```
 
 # ImmuneSpaceR
@@ -22509,15 +21831,6 @@ Version: 1.8.1
 
 Version: 1.1
 
-## Newly broken
-
-*   checking whether package ‘IMP’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘IMP’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/IMP/new/IMP.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -22568,7 +21881,6 @@ Version: 3.0.1
 *   checking whether package ‘imputeTestbench’ can be installed ... WARNING
     ```
     Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘imputeTestbench’
       Warning: replacing previous import ‘forecast::autolayer’ by ‘ggplot2::autolayer’ when loading ‘imputeTestbench’
     See ‘/Users/max/github/ggplot2/revdep/checks.noindex/imputeTestbench/new/imputeTestbench.Rcheck/00install.out’ for details.
     ```
@@ -22583,7 +21895,7 @@ Version: 3.0.1
 
 # IncDTW
 
-Version: 1.0.1
+Version: 1.0.3
 
 ## In both
 
@@ -22712,7 +22024,7 @@ Version: 0.3.2
 
 # infer
 
-Version: 0.1.1
+Version: 0.2.0
 
 ## In both
 
@@ -22775,7 +22087,7 @@ Version: 2.1.3
 
 # InSilicoVA
 
-Version: 1.1.5
+Version: 1.2.0
 
 ## In both
 
@@ -23097,68 +22409,15 @@ Version: 0.2.0
     This typically indicates Rd problems.
     ```
 
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘sf’
-    ```
-
 # IrisSpatialFeatures
 
 Version: 1.3.0
 
 ## In both
 
-*   checking whether package ‘IrisSpatialFeatures’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/IrisSpatialFeatures/new/IrisSpatialFeatures.Rcheck/00install.out’ for details.
-    ```
+*   R CMD check timed out
+    
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘IrisSpatialFeatures’ ...
-** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/IrisSpatialFeatures/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/IrisSpatialFeatures/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c interaction.cpp -o interaction.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/IrisSpatialFeatures/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c masking.cpp -o masking.o
-/usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o IrisSpatialFeatures.so RcppExports.o interaction.o masking.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/max/github/ggplot2/revdep/checks.noindex/IrisSpatialFeatures/new/IrisSpatialFeatures.Rcheck/IrisSpatialFeatures/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘IrisSpatialFeatures’
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘IrisSpatialFeatures’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/IrisSpatialFeatures/new/IrisSpatialFeatures.Rcheck/IrisSpatialFeatures’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘IrisSpatialFeatures’ ...
-** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/IrisSpatialFeatures/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/IrisSpatialFeatures/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c interaction.cpp -o interaction.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/IrisSpatialFeatures/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c masking.cpp -o masking.o
-/usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o IrisSpatialFeatures.so RcppExports.o interaction.o masking.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/max/github/ggplot2/revdep/checks.noindex/IrisSpatialFeatures/old/IrisSpatialFeatures.Rcheck/IrisSpatialFeatures/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘IrisSpatialFeatures’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/IrisSpatialFeatures/old/IrisSpatialFeatures.Rcheck/IrisSpatialFeatures’
-
-```
 # iSEE
 
 Version: 1.0.1
@@ -23206,7 +22465,7 @@ Version: 1.26.0
     ```
       installed size is  5.4Mb
       sub-directories of 1Mb or more:
-        R      2.0Mb
+        R      2.1Mb
         data   1.9Mb
     ```
 
@@ -23323,82 +22582,6 @@ Version: 1.2.0
 # isomiRs
 
 Version: 1.8.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    
-    > ### Name: isoPLSDAplot
-    > ### Title: Plot components from isoPLSDA analysis (pairs plot)
-    > ### Aliases: isoPLSDAplot
-    > 
-    > ### ** Examples
-    > 
-    > data(mirData)
-    > # Only miRNAs with > 10 reads in all samples.
-    > ids <- isoCounts(mirData, minc=10, mins=6)
-    > ids <- isoNorm(ids, formula=~group)
-    converting counts to integer mode
-    -- note: fitType='parametric', but the dispersion trend was not well captured by the
-       function: y = a/x + b, and a local regression fit was automatically substituted.
-       specify fitType='local' or 'mean' to avoid this message next time.
-    > pls.ids <- isoPLSDA(ids, "group", nperm = 2)
-    > isoPLSDAplot(pls.ids)
-    Error in make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name),  : 
-      variables: "x" have non standard format: "~t1", "~condition".  Please rename the columns or make a new column.variables: "colour" have non standard format: "~t1", "~condition".  Please rename the columns or make a new column.
-    Calls: isoPLSDAplot ... do.call -> <Anonymous> -> plot_fn -> make_ggmatrix_plot_obj
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      11: make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name), mapping = sectionAes)
-      12: stop(paste("variables: ", paste(shQuote(nonCallNames, type = "cmd"), sep = ", "), 
-             " have non standard format: ", paste(shQuote(unlist(mapping[nonCallVals]), type = "cmd"), 
-                 collapse = ", "), ".  Please rename the columns or make a new column.", sep = ""))
-      
-      Dimmension of cor matrix: 20 20 
-      Dimmension of cor matrix: 3 2 
-      Dimmension of cor matrix: 3 2 
-      Dimmension of cor matrix: 0 0 
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 27 SKIPPED: 0 FAILED: 1
-      1. Error: psl-da (@test_basic.R#24) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    The following objects are masked from 'package:matrixStats':
-    
-        colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
-    
-    The following objects are masked from 'package:base':
-    
-        aperm, apply
-    
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    converting counts to integer mode
-    -- note: fitType='parametric', but the dispersion trend was not well captured by the
-       function: y = a/x + b, and a local regression fit was automatically substituted.
-       specify fitType='local' or 'mean' to avoid this message next time.
-    Quitting from lines 245-249 (isomiRs.Rmd) 
-    Error: processing vignette 'isomiRs.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~t1", "~condition".  Please rename the columns or make a new column.variables: "colour" have non standard format: "~t1", "~condition".  Please rename the columns or make a new column.
-    Execution halted
-    ```
 
 ## In both
 
@@ -23533,6 +22716,7 @@ Version: 2.0.0
 *   checking re-building of vignette outputs ... NOTE
     ```
     ...
+    
         expand.grid
     
     Loading required package: IRanges
@@ -23547,7 +22731,6 @@ Version: 2.0.0
         'citation("Biobase")', and for packages 'citation("pkgname")'.
     
     Loading required package: ggplot2
-    Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘ggfortify’
     'select()' returned 1:1 mapping between keys and columns
     'select()' returned 1:1 mapping between keys and columns
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
@@ -23652,8 +22835,9 @@ Version: 0.0.2
     > p <- ggplot(mtcars) + geom_point(aes(x = wt, y = mpg,
     +          colour = factor(gear))) + facet_grid(vs~am)
     > p + theme_dark_bg()
-    Error in if (theme$panel.ontop) { : argument is of length zero
-    Calls: <Anonymous> ... ggplot_gtable.ggplot_built -> <Anonymous> -> f -> lapply -> FUN
+    Error in Ops.unit(one, theme$axis.ticks.length) : 
+      both operands must be units
+    Calls: <Anonymous> ... lapply -> FUN -> f -> render_axis -> guide_axis -> Ops.unit
     Execution halted
     ```
 
@@ -23744,43 +22928,23 @@ Version: 1.0.0
 
 ## Newly broken
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘jtools-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: cat_plot
-    > ### Title: Plot interaction effects between categorical predictors.
-    > ### Aliases: cat_plot
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > library(ggplot2)
-    > fit <- lm(price ~ cut * color, data = diamonds)
-    > cat_plot(fit, pred = color, modx = cut, interval = TRUE)
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Error: A continuous variable can not be mapped to linetype
-    Execution halted
-    ```
-
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
+      3: capture(act$val <- eval_bare(get_expr(quo), get_env(quo)))
+      4: withCallingHandlers(code, message = function(condition) {
+             out$push(condition)
+             invokeRestart("muffleMessage")
+         })
+      5: eval_bare(get_expr(quo), get_env(quo))
+      6: print(plot_coefs(fit, plot.distributions = TRUE))
+      7: plot_coefs(fit, plot.distributions = TRUE)
+      
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 359 SKIPPED: 0 FAILED: 27
+      OK: 385 SKIPPED: 0 FAILED: 1
       1. Error: plot.distributions works (@test-export-summs.R#272) 
-      2. Error: cat_plot handles simple plot (bar) (@test-misc.R#398) 
-      3. Error: cat_plot handles intervals (bar) (@test-misc.R#403) 
-      4. Error: cat_plot handles plotted points (bar) (@test-misc.R#409) 
-      5. Error: cat_plot handles simple plot (line) (@test-misc.R#414) 
-      6. Error: cat_plot handles intervals (line) (@test-misc.R#420) 
-      7. Error: cat_plot handles plotted points (line) (@test-misc.R#426) 
-      8. Error: cat_plot handles point.shape (line) (@test-misc.R#432) 
-      9. Error: cat_plot handles simple plot (point) (@test-misc.R#444) 
-      1. ...
       
       Error: testthat unit tests failed
       Execution halted
@@ -23790,10 +22954,19 @@ Version: 1.0.0
     ```
     Error in re-building vignettes:
       ...
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Quitting from lines 67-68 (categorical.Rmd) 
-    Error: processing vignette 'categorical.Rmd' failed with diagnostics:
-    A continuous variable can not be mapped to linetype
+    Loading required package: grid
+    Loading required package: Matrix
+    Loading required package: survival
+    
+    Attaching package: 'survey'
+    
+    The following object is masked from 'package:graphics':
+    
+        dotchart
+    
+    Quitting from lines 287-288 (summ.Rmd) 
+    Error: processing vignette 'summ.Rmd' failed with diagnostics:
+    argument is of length zero
     Execution halted
     ```
 
@@ -24156,15 +23329,6 @@ Version: 0.3.0
 
 Version: 1.0.5
 
-## Newly broken
-
-*   checking whether package ‘lans2r’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘lans2r’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/lans2r/new/lans2r.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -24429,18 +23593,6 @@ Version: 1.14.0
 
 Version: 0.3.3
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 60-61 (facet-rep-labels.Rmd) 
-    Error: processing vignette 'facet-rep-labels.Rmd' failed with diagnostics:
-    Free scales are only supported with `coord_cartesian()` and `coord_flip()`
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -24604,25 +23756,25 @@ Version: 1.3.5
 
 Version: 0.4.0
 
-## Newly fixed
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      
-      1: h2o.importFile(path) at testthat/test-h2o.R:12
-      2: h2o.importFolder(path, pattern = "", destination_frame = destination_frame, parse, 
-             header, sep, col.names, col.types, na.strings = na.strings, decrypt_tool = decrypt_tool)
-      3: .h2o.__remoteSend(.h2o.__IMPORT, path = path, pattern = pattern)
-      4: .h2o.doSafeREST(h2oRestApiVersion = h2oRestApiVersion, urlSuffix = page, parms = .params, 
+                 ncol(x)))
+      15: h2o.parseRaw(data = rawData, destination_frame = destination_frame, header = header, 
+             sep = sep, col.names = col.names, col.types = col.types, na.strings = na.strings, 
+             blocking = !progressBar, parse_type = parse_type, decrypt_tool = decrypt_tool)
+      16: .h2o.__remoteSend(.h2o.__PARSE, method = "POST", .params = parse.params)
+      17: .h2o.doSafeREST(h2oRestApiVersion = h2oRestApiVersion, urlSuffix = page, parms = .params, 
              method = method)
-      5: stop(msg)
+      18: stop(msg)
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 28 SKIPPED: 0 FAILED: 1
-      1. Error: H2OBinomialClassification: lime explanation only produces one entry per case and feature (@test-h2o.R#12) 
+      OK: 30 SKIPPED: 0 FAILED: 1
+      1. Error: H2OMultinomialClassification: lime explanation only produces one entry per case and feature (@test-h2o.R#64) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -24630,47 +23782,10 @@ Version: 0.4.0
 
 ## In both
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘lime-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plot_superpixels
-    > ### Title: Test super pixel segmentation
-    > ### Aliases: plot_superpixels
-    > 
-    > ### ** Examples
-    > 
-    > image <- system.file('extdata', 'produce.png', package = 'lime')
-    > 
-    > # plot with default settings
-    > plot_superpixels(image)
-    OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
-    OMP: Hint: This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://www.intel.com/software/products/support/.
-    ```
-
-*   checking S3 generic/method consistency ... WARNING
-    ```
-    OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
-    OMP: Hint: This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://www.intel.com/software/products/support/.
-    See section ‘Generic functions and methods’ in the ‘Writing R
-    Extensions’ manual.
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking Rd \usage sections ... NOTE
-    ```
-    OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
-    OMP: Hint: This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://www.intel.com/software/products/support/.
-    The \usage entries for S3 methods should use the \method markup and not
-    their full name.
-    See chapter ‘Writing R documentation files’ in the ‘Writing R
-    Extensions’ manual.
     ```
 
 # LINC
@@ -24679,11 +23794,8 @@ Version: 1.8.0
 
 ## In both
 
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
+*   R CMD check timed out
+    
 
 *   checking installed package size ... NOTE
     ```
@@ -24834,7 +23946,7 @@ Version: 1.0
 
 # live
 
-Version: 1.5.3
+Version: 1.5.4
 
 ## In both
 
@@ -24912,7 +24024,7 @@ Version: 1.1-17
     ```
       installed size is  7.0Mb
       sub-directories of 1Mb or more:
-        R          1.5Mb
+        R          1.4Mb
         doc        2.4Mb
         testdata   1.6Mb
     ```
@@ -25058,7 +24170,7 @@ Version: 1.3
 
 # logitnorm
 
-Version: 0.8.35
+Version: 0.8.36
 
 ## In both
 
@@ -25513,7 +24625,7 @@ Version: 1.6.07
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 11.9Mb
+      installed size is 12.0Mb
       sub-directories of 1Mb or more:
         doc       6.0Mb
         extdata   5.1Mb
@@ -25557,11 +24669,8 @@ Version: 1.0.0
 
 ## In both
 
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
+*   R CMD check timed out
+    
 
 *   checking R code for possible problems ... NOTE
     ```
@@ -25591,7 +24700,7 @@ Version: 1.0.0
 
 # magick
 
-Version: 1.8
+Version: 1.9
 
 ## In both
 
@@ -25599,11 +24708,6 @@ Version: 1.8
     ```
     Installation failed.
     See ‘/Users/max/github/ggplot2/revdep/checks.noindex/magick/new/magick.Rcheck/00install.out’ for details.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking: ‘rsvg’ ‘tesseract’
     ```
 
 ## Installation
@@ -25859,20 +24963,6 @@ Version: 3.10.8
 
 Version: 1.6.1
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning: code chunks must not depend on the uncached chunk "data"
-    Assuming data assay in position 1, with name et is log-transformed.
-    Quitting from lines 93-106 (MAITAnalysis.Rmd) 
-    Error: processing vignette 'MAITAnalysis.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~PC1", "~condition".  Please rename the columns or make a new column.variables: "colour" have non standard format: "~PC1", "~condition".  Please rename the columns or make a new column.
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -25891,9 +24981,9 @@ Version: 1.6.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  8.7Mb
+      installed size is  8.8Mb
       sub-directories of 1Mb or more:
-        R      1.0Mb
+        R      1.1Mb
         data   3.7Mb
         doc    3.7Mb
     ```
@@ -25940,10 +25030,10 @@ Version: 0.3-5
 * installing *source* package ‘matchingMarkets’ ...
 ** package ‘matchingMarkets’ successfully unpacked and MD5 sums checked
 ** libs
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c Options.cc -o Options.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c System.cc -o System.o
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c kprmatcher.cc -o kprmatcher.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c Options.cc -o Options.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c RcppExports.cpp -o RcppExports.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c System.cc -o System.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c kprmatcher.cc -o kprmatcher.o
 In file included from System.cc:24:
 In file included from ../inst/include/System.h:28:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
@@ -25979,13 +25069,20 @@ In file included from Options.cc:21:
         char*   end;
                    ^
                     = nullptr
+In file included from System.cc:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 In file included from kprmatcher.cc:41:
 In file included from ../inst/include/kprmatcher.h:36:
 In file included from ../inst/include/damatcher.h:36:
 In file included from ../inst/include/problem.h:43:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+#include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
+         ^~~~~~~~~~~~
+         <IntTypes.h>
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
@@ -25993,29 +25090,22 @@ In file included from kprmatcher.cc:41:
 In file included from ../inst/include/kprmatcher.h:36:
 In file included from ../inst/include/damatcher.h:36:
 In file included from ../inst/include/problem.h:43:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
-In file included from System.cc:25:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
-#include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
-         ^~~~~~~~~~~~
-         <IntTypes.h>
 In file included from Options.cc:24:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
 2 warnings generated.
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c params.cc -o params.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c params.cc -o params.o
 5 warnings generated.
 In file included from params.cc:32:
 In file included from ../inst/include/Options.h:28:
@@ -26023,7 +25113,7 @@ In file included from ../inst/include/Options.h:28:
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c problem.cc -o problem.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c problem.cc -o problem.o
 In file included from params.cc:32:
 ../inst/include/Options.h:147:13: warning: variable 'end' is uninitialized when used here [-Wuninitialized]
         if (end == NULL) 
@@ -26047,39 +25137,39 @@ In file included from params.cc:32:
                    ^
                     = nullptr
 4 warnings generated.
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c rcp.cc -o rcp.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c rcp.cc -o rcp.o
 2 warnings generated.
 In file included from RcppExports.cpp:4:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
 In file included from RcppExports.cpp:4:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c rpmatcher.cc -o rpmatcher.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c rpmatcher.cc -o rpmatcher.o
 In file included from problem.cc:36:
 In file included from ../inst/include/problem.h:43:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
 In file included from problem.cc:36:
 In file included from ../inst/include/problem.h:43:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
@@ -26087,31 +25177,31 @@ In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingM
 In file included from rcp.cc:33:
 In file included from ../inst/include/rcp.h:41:
 In file included from ../inst/include/problem.h:43:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
 In file included from rcp.cc:33:
 In file included from ../inst/include/rcp.h:41:
 In file included from ../inst/include/problem.h:43:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
 2 warnings generated.
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c runMatch.cpp -o runMatch.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c runMatch.cpp -o runMatch.o
 In file included from rpmatcher.cc:46:
 In file included from ../inst/include/rpmatcher.h:36:
 In file included from ../inst/include/damatcher.h:36:
 In file included from ../inst/include/problem.h:43:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
@@ -26119,100 +25209,100 @@ In file included from rpmatcher.cc:46:
 In file included from ../inst/include/rpmatcher.h:36:
 In file included from ../inst/include/damatcher.h:36:
 In file included from ../inst/include/problem.h:43:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
 2 warnings generated.
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c stabit2Mat1.cpp -o stabit2Mat1.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c stabit2Mat1.cpp -o stabit2Mat1.o
 2 warnings generated.
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c stabit2Sel1.cpp -o stabit2Sel1.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c stabit2Sel1.cpp -o stabit2Sel1.o
 In file included from runMatch.cpp:1:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
 In file included from runMatch.cpp:1:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
 2 warnings generated.
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c stabit2Sel2.cpp -o stabit2Sel2.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c stabit2Sel2.cpp -o stabit2Sel2.o
 2 warnings generated.
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c stabitSel2.cpp -o stabitSel2.o
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c stabitSel2.cpp -o stabitSel2.o
 In file included from stabit2Mat1.cpp:6:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
 In file included from stabit2Mat1.cpp:6:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
 In file included from stabit2Sel1.cpp:6:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
 In file included from stabit2Sel1.cpp:6:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
 In file included from stabit2Sel2.cpp:6:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
 In file included from stabit2Sel2.cpp:6:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
 In file included from stabitSel2.cpp:6:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
          ^~~~~~~~~~~~
          <IntTypes.h>
 In file included from stabitSel2.cpp:6:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/sugar/sugar.h:28:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include/Rcpp/hash/hash.h:25:
 ../inst/include/inttypes.h:34:13: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
 #   include <inttypes.h>
             ^~~~~~~~~~~~
@@ -26282,6 +25372,13 @@ In file included from Options.cc:21:
         char*   end;
                    ^
                     = nullptr
+In file included from System.cc:25:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
+In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
+/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+#include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
+         ^~~~~~~~~~~~
+         <IntTypes.h>
 In file included from kprmatcher.cc:41:
 In file included from ../inst/include/kprmatcher.h:36:
 In file included from ../inst/include/damatcher.h:36:
@@ -26303,13 +25400,6 @@ In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingM
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
-In file included from System.cc:25:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
-In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
-/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/hash/hash.h:25:10: warning: non-portable path to file '<IntTypes.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
-#include <inttypes.h>                   // needed with g++-4.7 to declare intptr_t
-         ^~~~~~~~~~~~
-         <IntTypes.h>
 In file included from Options.cc:24:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp/sugar/sugar.h:28:
@@ -26352,6 +25442,7 @@ In file included from params.cc:32:
 4 warnings generated.
 /usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c rcp.cc -o rcp.o
 2 warnings generated.
+/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c rpmatcher.cc -o rpmatcher.o
 In file included from RcppExports.cpp:4:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include/RcppArmadillo.h:34:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
@@ -26369,7 +25460,6 @@ In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingM
 #   include <inttypes.h>
             ^~~~~~~~~~~~
             <IntTypes.h>
-/usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppProgress/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/RcppArmadillo/include" -I/usr/local/include  -fopenmp -fPIC  -Wall -g -O2 -c rpmatcher.cc -o rpmatcher.o
 In file included from problem.cc:36:
 In file included from ../inst/include/problem.h:43:
 In file included from /Users/max/github/ggplot2/revdep/library.noindex/matchingMarkets/Rcpp/include/Rcpp.h:74:
@@ -26608,10 +25698,10 @@ Version: 1.0.0
 * installing *source* package ‘mbgraphic’ ...
 ** package ‘mbgraphic’ successfully unpacked and MD5 sums checked
 ** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/mbgraphic/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/mbgraphic/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c cmasum.cpp -o cmasum.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/mbgraphic/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c mbgraphic_init.c -o mbgraphic_init.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/mbgraphic/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c variableflip.cpp -o variableflip.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c cmasum.cpp -o cmasum.o
+/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c mbgraphic_init.c -o mbgraphic_init.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c variableflip.cpp -o variableflip.o
 /usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o mbgraphic.so RcppExports.o cmasum.o mbgraphic_init.o variableflip.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
 installing to /Users/max/github/ggplot2/revdep/checks.noindex/mbgraphic/new/mbgraphic.Rcheck/mbgraphic/libs
 ** R
@@ -26659,60 +25749,6 @@ ERROR: lazy loading failed for package ‘mbgraphic’
 # MCbiclust
 
 Version: 1.4.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    Iteration	Correlation Score
-    100 		 0.33875
-    Iteration	Correlation Score
-    100 		 0.35392
-    > 
-    > for(i in 1:3){
-    +     CCLE.cor.vec[[i]] <-  CVEval(gem.part = CCLE.mito,
-    +                                  gem.all = CCLE_small,
-    +                                  seed = CCLE.seed[[i]],
-    +                                 splits = 10)}
-    > 
-    > 
-    > 
-    > CCLE.cor.df <- (as.data.frame(CCLE.cor.vec))
-    > 
-    > CVPlot(cv.df = CCLE.cor.df, geneset.loc = mito.loc,
-    +        geneset.name = "Mitochondrial",alpha1 = 0.5)
-    Error in make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name),  : 
-      variables: "x" have non standard format: "~CV1".  Please rename the columns or make a new column.
-    Calls: CVPlot ... do.call -> <Anonymous> -> plot_fn -> make_ggmatrix_plot_obj
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    
-    Attaching package: 'MASS'
-    
-    The following object is masked from 'package:dplyr':
-    
-        select
-    
-    Warning: Column `CCLE.name` joining factor and character vector, coercing into character vector
-    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `MCbiclust_vignette_files/figure-html/unnamed-chunk-38-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
-    Quitting from lines 519-528 (MCbiclust_vignette.Rmd) 
-    Error: processing vignette 'MCbiclust_vignette.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~CV1".  Please rename the columns or make a new column.
-    Execution halted
-    ```
 
 ## In both
 
@@ -26817,6 +25853,18 @@ Version: 0.2-3
     This typically indicates Rd problems.
     ```
 
+# mCSEA
+
+Version: 1.0.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
 # mdp
 
 Version: 1.0.0
@@ -26871,6 +25919,70 @@ Version: 0.1.5
       Note: found 2694 marked UTF-8 strings
     ```
 
+# MEAL
+
+Version: 1.10.0
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking for missing documentation entries ... WARNING
+    ```
+    Undocumented code objects:
+      'DAPipeline' 'DAProbe' 'DARegion' 'RDAset' 'filterSet'
+      'plotBestFeatures' 'preparePhenotype'
+    All user-level objects in a package should have documentation entries.
+    See chapter ‘Writing R documentation files’ in the ‘Writing R
+    Extensions’ manual.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.9Mb
+      sub-directories of 1Mb or more:
+        doc   5.7Mb
+    ```
+
+*   checking top-level files ... NOTE
+    ```
+    File
+      LICENSE
+    is not mentioned in the DESCRIPTION file.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Missing object imported by a ':::' call: 'MultiDataSet:::nrows'
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+      'betas'
+    correlationMethSNPs: no visible binding for global variable 'num_cores'
+    plotRegion: no visible global function definition for 'data'
+    plotRegion: no visible binding for global variable 'dmrcatedata'
+    plotRegion: no visible binding for global variable 'tx.hg19'
+    plotRegion: no visible binding for global variable 'tx.hg38'
+    plotRegion: no visible binding for global variable 'tx.mm10'
+    plotRegion: no visible global function definition for
+      'subsetByOverlaps'
+    plotRegion: no visible global function definition for 'mcols<-'
+    runBlockFinder: no visible global function definition for 'assays'
+    runBlockFinder: no visible global function definition for 'colData'
+    runRDA: no visible global function definition for 'rowData'
+    runSVA: no visible global function definition for 'resid'
+    Undefined global functions or variables:
+      assays betas colData data dmrcatedata mcols<- num_cores resid rowData
+      subsetByOverlaps tx.hg19 tx.hg38 tx.mm10
+    Consider adding
+      importFrom("stats", "resid")
+      importFrom("utils", "data")
+    to your NAMESPACE file.
+    ```
+
 # meaRtools
 
 Version: 1.0.3
@@ -26902,6 +26014,18 @@ Version: 1.2
     This typically indicates Rd problems.
     ```
 
+# medicare
+
+Version: 0.2.1
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
 # medmod
 
 Version: 1.0.0
@@ -26919,6 +26043,18 @@ Version: 1.0.0
     Namespaces in Imports field not imported from:
       ‘R6’ ‘ggplot2’ ‘lavaan’
       All declared Imports should be used.
+    ```
+
+# MEGENA
+
+Version: 1.3.6
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # mekko
@@ -26988,16 +26124,6 @@ Version: 2.9
 
 Version: 0.2.0
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
-    OMP: Hint This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://openmp.llvm.org/
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -27015,25 +26141,9 @@ Version: 0.2.0
 
 # memery
 
-Version: 0.4.2
+Version: 0.5.0
 
 ## In both
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(memery)
-      Loading required package: showtext
-      Loading required package: sysfonts
-      Loading required package: showtextdb
-      > 
-      > test_check("memery")
-      OMP: Error #15: Initializing libomp.dylib, but found libomp.dylib already initialized.
-      OMP: Hint: This means that multiple copies of the OpenMP runtime have been linked into the program. That is dangerous, since it can degrade performance or cause incorrect results. The best thing to do is to ensure that only a single OpenMP runtime is linked into the process, e.g. by avoiding static linking of the OpenMP runtime in any library. As an unsafe, unsupported, undocumented workaround you can set the environment variable KMP_DUPLICATE_LIB_OK=TRUE to allow the program to continue to execute, but that may cause crashes or silently produce incorrect results. For more information, please see http://www.intel.com/software/products/support/.
-    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -27077,15 +26187,6 @@ Version: 0.2-1
 # merTools
 
 Version: 0.3.0
-
-## Newly broken
-
-*   checking whether package ‘merTools’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘merTools’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/merTools/new/merTools.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -27334,8 +26435,11 @@ Version: 2.12.0
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 *   checking installed package size ... NOTE
     ```
@@ -27429,7 +26533,7 @@ Version: 0.0.2
 
 # metamisc
 
-Version: 0.1.8
+Version: 0.1.9
 
 ## In both
 
@@ -27468,15 +26572,6 @@ Version: 0.0.3
 # metaviz
 
 Version: 0.2.0
-
-## Newly broken
-
-*   checking whether package ‘metaviz’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘metaviz’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/metaviz/new/metaviz.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -27542,7 +26637,7 @@ Version: 1.2.0
     Inside counts for context CHH
       category missing
       category covered
-    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmpno1njW/file15297df70510 ... 0.17s
+    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpyrqSOe/filee7072644caec ... 0.14s
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
       Running 'texi2dvi' on 'methimpute.tex' failed.
     Calls: buildVignettes -> texi2pdf -> texi2dvi
@@ -28031,7 +27126,7 @@ ERROR: lazy loading failed for package ‘microplot’
 ```
 # microsamplingDesign
 
-Version: 1.0.0
+Version: 1.0.2
 
 ## In both
 
@@ -28993,15 +28088,6 @@ Version: 0.0.4
 
 Version: 1.2.0
 
-## Newly broken
-
-*   checking whether package ‘mnreadR’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘mnreadR’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/mnreadR/new/mnreadR.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -29088,7 +28174,7 @@ Version: 0.9-1
     > anorex.1 <- glm(Postwt ~ treatment + offset(Prewt),
     +                 family = gaussian, data = anorexia)
     > lm_plot(anorex.1)
-    Error: More than one expression parsed
+    Error: `x` must be a string or a R connection
     Execution halted
     ```
 
@@ -29103,15 +28189,6 @@ Version: 0.9-1
 # modeldb
 
 Version: 0.1.0
-
-## Newly broken
-
-*   checking whether package ‘modeldb’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘modeldb’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/modeldb/new/modeldb.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -29148,18 +28225,6 @@ Version: 0.1.1
 # MOEADr
 
 Version: 1.1.0
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 243-278 (Comparison_Usage.Rmd) 
-    Error: processing vignette 'Comparison_Usage.Rmd' failed with diagnostics:
-    Discrete value supplied to continuous scale
-    Execution halted
-    ```
 
 ## In both
 
@@ -29329,7 +28394,6 @@ Version: 3.0.0
 *** moving datasets to lazyload DB
 ** inst
 ** byte-compile and prepare package for lazy loading
-Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘morse’
 Error : .onLoad failed in loadNamespace() for 'rjags', details:
   call: dyn.load(file, DLLpath = DLLpath, ...)
   error: unable to load shared object '/Users/max/github/ggplot2/revdep/library.noindex/morse/rjags/libs/rjags.so':
@@ -29421,13 +28485,6 @@ Version: 1.1.1
     Execution halted
     ```
 
-*   checking whether package ‘mosaic’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘mosaic’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/mosaic/new/mosaic.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking re-building of vignette outputs ... WARNING
@@ -29511,30 +28568,6 @@ Version: 0.3.0
 # mousetrap
 
 Version: 3.1.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘mousetrap-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: bezier
-    > ### Title: Create Bezier-curves using the Bernstein approximation.
-    > ### Aliases: bezier
-    > 
-    > ### ** Examples
-    > 
-    > # Generate range of Bezier-curves
-    > bezier_curves <- bezier(w=seq(0,10,.1))
-    > 
-    > # Plot curves
-    > mt_plot(bezier_curves)
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Error: A continuous variable can not be mapped to linetype
-    Execution halted
-    ```
 
 ## In both
 
@@ -29639,34 +28672,6 @@ Version: 1.0.5
 # mrfDepth
 
 Version: 1.0.6
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    Running examples in ‘mrfDepth-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: fom
-    > ### Title: Draws the Functional Outlier Map (FOM)
-    > ### Aliases: fom
-    > ### Keywords: Graphical
-    > 
-    > ### ** Examples
-    > 
-    > data(octane)
-    > 
-    > # To construct the FOM, one first need to calculate 
-    > # the functional outlyingness.
-    > # Note that the option diagnostic in fOutl must be 
-    > # set to TRUE. If not calling fom will result in an 
-    > # error
-    > Result <- fOutl(octane, alpha = 0, type = "fAO", diagnostic = TRUE);
-    > fom(Result)
-    Error: Columns `x`, `y` must be 1d atomic vectors or lists
-    Execution halted
-    ```
 
 ## In both
 
@@ -29827,18 +28832,9 @@ Version: 1.4.0
     Execution halted
     ```
 
-# MSstatsQC
+# MSnID
 
-Version: 1.2.0
-
-## Newly broken
-
-*   checking whether package ‘MSstatsQC’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘MSstatsQC’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/MSstatsQC/new/MSstatsQC.Rcheck/00install.out’ for details.
-    ```
+Version: 1.14.0
 
 ## In both
 
@@ -29848,9 +28844,159 @@ Version: 1.2.0
     This typically indicates Rd problems.
     ```
 
-*   checking package dependencies ... NOTE
+*   checking R code for possible problems ... NOTE
     ```
-    Package suggested but not available for checking: ‘RforProteomics’
+    ...
+    .read_mzIDs.mzR.engine.single.file: no visible binding for global
+      variable ‘DatabaseAccess’
+    .read_mzIDs.mzR.engine.single.file: no visible binding for global
+      variable ‘DatabaseDescription’
+    .read_mzIDs.mzR.engine.single.file: no visible binding for global
+      variable ‘DBseqLength’
+    infer_parsimonious_accessions,MSnID : infer_acc: no visible binding for
+      global variable ‘accession’
+    infer_parsimonious_accessions,MSnID : infer_acc: no visible binding for
+      global variable ‘N’
+    infer_parsimonious_accessions,MSnID : infer_acc: no visible binding for
+      global variable ‘pepSeq’
+    recalibrate,MSnID: no visible global function definition for ‘median’
+    recalibrate,MSnID: no visible global function definition for ‘density’
+    Undefined global functions or variables:
+      DBseqLength DatabaseAccess DatabaseDescription N accession density i
+      location mass median modification name optim pepSeq quantile rnorm
+      spectrumID
+    Consider adding
+      importFrom("stats", "density", "median", "optim", "quantile", "rnorm")
+    to your NAMESPACE file.
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    ...
+      Visit https://lgatto.github.io/MSnbase/ to get started.
+    
+    
+    Attaching package: ‘MSnbase’
+    
+    The following object is masked _by_ ‘.GlobalEnv’:
+    
+        msnset
+    
+    The following object is masked from ‘package:stats’:
+    
+        smooth
+    
+    The following object is masked from ‘package:base’:
+    
+        trimws
+    
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'msnid_vignette.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
+    ```
+
+# msPurity
+
+Version: 1.6.0
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Package in Depends field not imported from: ‘Rcpp’
+      These packages need to be imported from (in the NAMESPACE file)
+      for when this namespace is loaded but not attached.
+    package 'methods' is used but not declared
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    stde: no visible global function definition for ‘sd’
+    stderror: no visible global function definition for ‘sd’
+    xcmsGroupPurity: no visible binding for global variable ‘median’
+    xcmsGroupPurity: no visible global function definition for ‘median’
+    averageSpectra,purityD: no visible binding for global variable ‘i’
+    subtract,purityD: no visible binding for global variable ‘i’
+    validate,purityA: no visible global function definition for ‘head’
+    writeOut,purityD: no visible global function definition for ‘write.csv’
+    Undefined global functions or variables:
+      abline alli approxfun as.dist dev.off dist dnorm fix head i idx
+      legend lines median mtch mtchi na.omit parallel plot png points
+      purity read.csv read.table scanid sd text topn variable write.csv
+    Consider adding
+      importFrom("grDevices", "dev.off", "png")
+      importFrom("graphics", "abline", "legend", "lines", "plot", "points",
+                 "text")
+      importFrom("stats", "approxfun", "as.dist", "dist", "dnorm", "median",
+                 "na.omit", "sd")
+      importFrom("utils", "fix", "head", "read.csv", "read.table",
+                 "write.csv")
+    to your NAMESPACE file.
+    ```
+
+# MSstats
+
+Version: 3.12.0
+
+## In both
+
+*   checking whether package ‘MSstats’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      Note: next used in wrong context: no loop is visible 
+    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/MSstats/new/MSstats.Rcheck/00install.out’ for details.
+    Information on the location(s) of code generating the ‘Note’s can be
+    obtained by re-running with environment variable R_KEEP_PKG_SOURCE set
+    to ‘yes’.
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    groupComparisonPlots: no visible binding for global variable ‘Protein’
+    groupComparisonPlots: no visible binding for global variable ‘logFC’
+    groupComparisonPlots: no visible binding for global variable ‘ciw’
+    linear_quantlim: no visible binding for global variable ‘label’
+    modelBasedQCPlots: no visible binding for global variable ‘residual’
+    nonlinear_quantlim: no visible binding for global variable ‘label’
+    plot_quantlim: no visible binding for global variable ‘x’
+    plot_quantlim: no visible binding for global variable ‘y’
+    plot_quantlim: no visible binding for global variable ‘ymin’
+    plot_quantlim: no visible binding for global variable ‘ymax’
+    plot_quantlim: no visible binding for global variable ‘shape’
+    transformMSstatsToMSnSet: no visible global function definition for
+      ‘sampleNames<-’
+    transformMSstatsToMSnSet: no visible global function definition for
+      ‘featureNames<-’
+    Undefined global functions or variables:
+      ABUNDANCE Intensity LABEL Mean Name PeptideSequence Protein
+      ProteinName RUN Selected_fragments Selected_peptides Training_size
+      Valid_size aggr_Fragment_Annotation aggr_Peak_Area analysis ciw
+      datafeature fea featureNames<- label logFC missing.col ntree residual
+      sampleNames<- shape weight x y ymax ymin
+    ```
+
+# MSstatsQC
+
+Version: 1.2.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # mtconnectR
@@ -29883,37 +29029,10 @@ Version: 1.0.2
 
 ## In both
 
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 930 SKIPPED: 0 FAILED: 12
-      1. Error: mudata_prepare_column and mudata_parse_column are opposites (@test_mudata.io.R#244) 
-      2. Error: mudata_prepare_tbl works as intended (@test_mudata.io.R#288) 
-      3. Error: mudata_prepare_tbl and mudata_parse_tbl are opposites (@test_mudata.io.R#322) 
-      4. Failure: as_* functions produce the expected output type (@test_types.R#210) 
-      5. Failure: wkt parsing returns an sf::sfc (@test_types.R#252) 
-      6. Failure: wkt parsing works when there are parsing errors/NA values (@test_types.R#259) 
-      7. Error: wkt parsing works when there are parsing errors/NA values (@test_types.R#261) 
-      8. Failure: wkt parsing works with zero-length input (@test_types.R#285) 
-      9. Failure: objects generate the correct type strings (@test_types.R#306) 
-      1. ...
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘sf’
     ```
 
 # mudfold
@@ -30069,12 +29188,10 @@ Version: 1.0.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘rsvg’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # multiROC
@@ -30115,7 +29232,7 @@ Version: 0.4.3
     > 
     > complement_slice("5PB")
     Warning: Removed 41 rows containing missing values (geom_text).
-    Error: Free scales are only supported with `coord_cartesian()` and `coord_flip()`
+    Error: coord_fixed doesn't support free scales
     Execution halted
     ```
 
@@ -30163,27 +29280,6 @@ Version: 1.2
 # mvdalab
 
 Version: 1.4
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘mvdalab-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plot.plusminus
-    > ### Title: 2D Graph of the PCA scores associated with a plusminusFit
-    > ### Aliases: plot.plusminus
-    > 
-    > ### ** Examples
-    > 
-    > ###  PLUS-Minus CLASSIFIER WITH validation = 'none', i.e. no CV ###
-    > data(plusMinusDat)
-    > mod1 <- plusminusFit(Y ~., data = plusMinusDat, validation = "none", n_cores = 2)
-    > plot(mod1, ncomp = 2, comps = c(1, 2))
-    Error: Columns `colour`, `shape` must be 1d atomic vectors or lists
-    Execution halted
-    ```
 
 ## In both
 
@@ -30266,8 +29362,8 @@ FFTW library not found, please install fftw-3-3-3 or greater
 configure: creating ./config.status
 config.status: creating src/Makevars
 ** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/mwaved/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/mwaved/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c mwaved.cpp -o mwaved.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c mwaved.cpp -o mwaved.o
 mwaved.cpp:1:10: fatal error: 'fftw3.h' file not found
 #include <fftw3.h>
          ^~~~~~~~~
@@ -30480,15 +29576,6 @@ Version: 1.12.0
 
 Version: 1.6.0
 
-## Newly broken
-
-*   checking whether package ‘netprioR’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘netprioR’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/netprioR/new/netprioR.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -30549,7 +29636,7 @@ Version: 1.40.0
 
 # netSmooth
 
-Version: 1.0.0
+Version: 1.0.1
 
 ## In both
 
@@ -30576,9 +29663,9 @@ Version: 1.0.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.1Mb
+      installed size is  6.6Mb
       sub-directories of 1Mb or more:
-        data   3.6Mb
+        data   4.1Mb
         doc    2.3Mb
     ```
 
@@ -30628,41 +29715,6 @@ Version: 1.1.2
 
 Version: 0.1.1
 
-## Newly broken
-
-*   checking whether package ‘networkreporting’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘networkreporting’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/networkreporting/new/networkreporting.Rcheck/00install.out’ for details.
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Loading required package: functional
-    Loading required package: stringr
-    
-    Attaching package: 'ggplot2'
-    
-    The following object is masked from 'package:dplyr':
-    
-        vars
-    
-    Quitting from lines 221-222 (network_scaleup.Rmd) 
-    Error: processing vignette 'network_scaleup.Rmd' failed with diagnostics:
-    Column `x` must be a 1d atomic vector or a list
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -30686,28 +29738,6 @@ Version: 0.1.2
 # networktools
 
 Version: 1.1.2
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘networktools-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plot.expectedInf
-    > ### Title: Plot "expectedInf" objects
-    > ### Aliases: plot.expectedInf
-    > 
-    > ### ** Examples
-    > 
-    > ## Don't show: 
-    > myNetwork <- cor(depression[,1:5])
-    > ## End(Don't show)
-    > out1 <- expectedInf(myNetwork)
-    > plot(out1$step1)
-    Error: Column `x` must be a 1d atomic vector or a list
-    Execution halted
-    ```
 
 ## In both
 
@@ -30750,15 +29780,6 @@ Version: 1.26.1
 # neuropsychology
 
 Version: 0.5.0
-
-## Newly broken
-
-*   checking whether package ‘neuropsychology’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::vars’ by ‘dplyr::vars’ when loading ‘neuropsychology’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/neuropsychology/new/neuropsychology.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -30903,7 +29924,7 @@ Version: 0.6-10
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 16.5Mb
+      installed size is 16.6Mb
       sub-directories of 1Mb or more:
         CppCode        1.1Mb
         R              6.1Mb
@@ -30926,7 +29947,7 @@ Version: 1.0
 
 # nlmixr
 
-Version: 0.9.0-3
+Version: 0.9.1-0
 
 ## In both
 
@@ -30939,7 +29960,7 @@ Version: 0.9.0-3
 *   checking dependencies in R code ... NOTE
     ```
     Namespaces in Imports field not imported from:
-      ‘dparser’ ‘inline’
+      ‘dparser’ ‘inline’ ‘mvtnorm’
       All declared Imports should be used.
     ```
 
@@ -31000,18 +30021,6 @@ Version: 2.0.6
 # nLTT
 
 Version: 1.4
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 60-65 (get_nltt_values.Rmd) 
-    Error: processing vignette 'get_nltt_values.Rmd' failed with diagnostics:
-    could not find function "geom_step"
-    Execution halted
-    ```
 
 ## In both
 
@@ -31111,15 +30120,6 @@ Version: 0.1.0
 
 Version: 0.1.0
 
-## Newly broken
-
-*   checking whether package ‘NOAAWeather’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘NOAAWeather’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/NOAAWeather/new/NOAAWeather.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -31218,18 +30218,6 @@ Version: 1.0.0
     to your NAMESPACE file.
     ```
 
-# nparACT
-
-Version: 0.8
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
 # NPflow
 
 Version: 0.13.1
@@ -31319,18 +30307,6 @@ Version: 0.3.1
 # nzelect
 
 Version: 0.4.0
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 64-82 (README.Rmd) 
-    Error: processing vignette 'README.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~`proportion Labour`", "~voting_type".  Please rename the columns or make a new column.variables: "colour" have non standard format: "~`proportion Labour`", "~voting_type".  Please rename the columns or make a new column.
-    Execution halted
-    ```
 
 ## In both
 
@@ -31491,13 +30467,13 @@ Version: 1.0.2
 
 Version: 0.2.2
 
-## Newly fixed
+## Newly broken
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     Error in re-building vignettes:
       ...
-    Quitting from lines 68-70 (oecd_vignette_main.Rmd) 
+    Quitting from lines 153-157 (oecd_vignette_main.Rmd) 
     Error: processing vignette 'oecd_vignette_main.Rmd' failed with diagnostics:
     HTTP request failed with status: 429 Too Many Requests
     Execution halted
@@ -31528,25 +30504,6 @@ Version: 0.3.0
 Version: 0.5.1
 
 ## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-# omicRexposome
-
-Version: 1.2.0
-
-## In both
-
-*   checking whether package ‘omicRexposome’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: namespace ‘omicRexposome’ is not available and has been replaced
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/omicRexposome/new/omicRexposome.Rcheck/00install.out’ for details.
-    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -31589,17 +30546,17 @@ Version: 2.10.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-       Ending warning-mutPropGrowth tests Fri May 11 17:13:15 2018 
-        Took  2.08 
+       Ending warning-mutPropGrowth tests Sat May 19 21:06:08 2018 
+        Took  4.38 
       
       
-       Starting wide2long tests Fri May 11 17:13:15 2018 
+       Starting wide2long tests Sat May 19 21:06:08 2018 
       
-       Ending wide2long tests Fri May 11 17:13:15 2018 
-        Took  0.55 
+       Ending wide2long tests Sat May 19 21:06:09 2018 
+        Took  0.79 
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 3213 SKIPPED: 10 FAILED: 1
+      OK: 3201 SKIPPED: 10 FAILED: 1
       1. Failure: We crash as we should (@test.mutPropGrowth.R#482) 
       
       Error: testthat unit tests failed
@@ -31762,7 +30719,7 @@ ERROR: lazy loading failed for package ‘OpenStreetMap’
 ```
 # openVA
 
-Version: 1.0.3
+Version: 1.0.4
 
 ## In both
 
@@ -31838,42 +30795,6 @@ Version: 0.7-2
     This typically indicates Rd problems.
     ```
 
-# optiRum
-
-Version: 0.37.3
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      > test_check("optiRum")
-      Loading required package: optiRum
-      ── 1. Failure: giniChart correctly produce a chart, numeric outcome (@test-giniC
-      `x` inherits from `ggplot_built` not `list`.
-      
-      ── 2. Failure: giniChart correctly produce a chart, factor outcome (@test-giniCh
-      `x` inherits from `ggplot_built` not `list`.
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 117 SKIPPED: 14 FAILED: 2
-      1. Failure: giniChart correctly produce a chart, numeric outcome (@test-giniChart.R#7) 
-      2. Failure: giniChart correctly produce a chart, factor outcome (@test-giniChart.R#14) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
 # optiSel
 
 Version: 2.0
@@ -31936,18 +30857,6 @@ Version: 1.7
     to your NAMESPACE file.
     ```
 
-# ordinalClust
-
-Version: 1.2.1
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
 # ordinalForest
 
 Version: 2.1
@@ -31966,278 +30875,9 @@ Version: 2.1
       All declared Imports should be used.
     ```
 
-# ORFik
-
-Version: 1.0.0
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-# Organism.dplyr
-
-Version: 1.8.0
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Unexported objects imported by ':::' calls:
-      ‘AnnotationDbi:::smartKeys’ ‘GenomicFeatures:::.exons_with_3utr’
-      ‘GenomicFeatures:::.exons_with_5utr’
-      ‘GenomicFeatures:::get_TxDb_seqinfo0’
-      ‘S4Vectors:::extract_data_frame_rows’
-      See the note in ?`:::` about the use of this operator.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    .toGRanges: no visible binding for global variable ‘.’
-    intronsByTranscript,src_organism: no visible binding for global
-      variable ‘.’
-    orgPackageName,src_organism: no visible binding for global variable
-      ‘name’
-    orgPackageName,src_organism: no visible binding for global variable
-      ‘organism’
-    orgPackageName,src_organism: no visible binding for global variable
-      ‘OrgDb’
-    Undefined global functions or variables:
-      . OrgDb name organism
-    ```
-
 # orgR
 
 Version: 0.9.0
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-# OriGen
-
-Version: 1.4.3
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-*   checking compiled code ... NOTE
-    ```
-    File ‘OriGen/libs/OriGen.so’:
-      Found ‘__gfortran_st_close’, possibly from ‘close’ (Fortran)
-        Object: ‘OriGen.o’
-      Found ‘__gfortran_st_open’, possibly from ‘open’ (Fortran)
-        Object: ‘OriGen.o’
-      Found ‘__gfortran_st_read’, possibly from ‘read’ (Fortran)
-        Object: ‘OriGen.o’
-    
-    Compiled code should not call entry points which might terminate R nor
-    write to stdout/stderr instead of to the console, nor use Fortran I/O
-    nor system RNGs.
-    
-    See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
-    ```
-
-# osmplotr
-
-Version: 0.3.0
-
-## In both
-
-*   checking whether package ‘osmplotr’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/osmplotr/new/osmplotr.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘osmplotr’ ...
-** package ‘osmplotr’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘osmplotr’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/osmplotr/new/osmplotr.Rcheck/osmplotr’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘osmplotr’ ...
-** package ‘osmplotr’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘osmplotr’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/osmplotr/old/osmplotr.Rcheck/osmplotr’
-
-```
-# otvPlots
-
-Version: 0.2.0
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      > library(testthat)
-      > library(otvPlots)
-      > 
-      > test_check("otvPlots")
-      ── 1. Failure: expected plot elements are returned (@test_PlotRatesOverTime.R#19
-      as.character(p$facet$params$facets[[1]]) not identical to "job".
-      Lengths differ: 2 is not 1
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 204 SKIPPED: 0 FAILED: 1
-      1. Failure: expected plot elements are returned (@test_PlotRatesOverTime.R#19) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘quantreg’
-      All declared Imports should be used.
-    ```
-
-# outbreaker2
-
-Version: 1.0.1
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘adegenet’
-    ```
-
-# OutbreakTools
-
-Version: 0.1-16
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    835          417 2000-01-10 gene2    417
-    836          418 2000-01-10 gene2    418
-    > x@trees
-    1 phylogenetic trees
-    > 
-    > ## Plotting the dynamic contact network ##
-    > par(mfrow=c(2,2))
-    > plot(get.contacts(x),main="Contact network - days 0-3",displaylabels=TRUE)
-    > plot(get.contacts(x, from=0, to=1.1), main="Contact network - days 0-1",
-    +      displaylabels=TRUE)
-    > plot(get.contacts(x, from=2, to=2.1), main="Contact network - day 2",
-    +      displaylabels=TRUE)
-    > plot(get.contacts(x, from=3, to=3.1), main="Contact network - day 3",
-    +      displaylabels=TRUE)
-    > 
-    > ## Mapping the outbreak (by sex) ##
-    > plot(x,'geo',location=c('lon','lat'),zoom=13,colorBy='Sex')
-    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=51.516439,-0.171146&zoom=13&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Error: A continuous variable can not be mapped to shape
-    Execution halted
-    ```
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    Warning in .local(x, ...) :
-      The following sequence IDs are not in the dataset: 311, 222
-    Warning in .local(x, ...) :
-      The following sequence IDs are not in the dataset: 311, 222
-    Warning in (if (out_format(c("latex", "sweave", "listings"))) sanitize_fn else paste0)(path,  :
-      replaced special characters in figure filename "figs/OutbreakTools-out.width==".8\\textwidth"" -> "figs/OutbreakTools-out.width___.8\\textwidth_"
-    Warning in (if (out_format(c("latex", "sweave", "listings"))) sanitize_fn else paste0)(path,  :
-      dots in figure paths replaced with _ ("figs/OutbreakTools-out_width____8//textwidth_")
-    Warning: The shape palette can deal with a maximum of 6 discrete values because
-    more than 6 becomes difficult to discriminate; you have 11. Consider
-    specifying shapes manually if you must have them.
-    Warning: Removed 58 rows containing missing values (geom_point).
-    Warning: `show_guide` has been deprecated. Please use `show.legend` instead.
-    Warning: `show_guide` has been deprecated. Please use `show.legend` instead.
-    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=51.516439,-0.171146&zoom=14&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Quitting from lines 1022-1023 (OutbreakTools.Rnw) 
-    Error: processing vignette 'OutbreakTools.Rnw' failed with diagnostics:
-    A continuous variable can not be mapped to shape
-    Execution halted
-    ```
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-# OutliersO3
-
-Version: 0.5.4
-
-## Newly broken
-
-*   checking whether package ‘OutliersO3’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::vars’ by ‘dplyr::vars’ when loading ‘OutliersO3’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/OutliersO3/new/OutliersO3.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -32456,15 +31096,6 @@ Version: 1.1.0
 
 Version: 1.2.2
 
-## Newly broken
-
-*   checking whether package ‘paleofire’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::calc’ by ‘raster::calc’ when loading ‘paleofire’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/paleofire/new/paleofire.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -32478,7 +31109,6 @@ Version: 1.2.2
     Error in re-building vignettes:
       ...
     Loading required package: GCD
-    Warning: replacing previous import ‘ggplot2::calc’ by ‘raster::calc’ when loading ‘paleofire’
     This is paleofire v1.2.2 | GCD v4.0.2
     trying URL 'http://blarquez.com/public/data/data_cageo.zip'
     Content type 'application/zip' length 14857 bytes (14 KB)
@@ -32707,12 +31337,15 @@ Version: 0.2.1
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘sf’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 13 marked UTF-8 strings
     ```
 
 # parsemsf
@@ -33028,7 +31661,7 @@ Version: 0.20.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.5Mb
+      installed size is  5.4Mb
       sub-directories of 1Mb or more:
         data      1.7Mb
         extdata   2.2Mb
@@ -33707,6 +32340,18 @@ Version: 1.1
     This typically indicates Rd problems.
     ```
 
+# permutes
+
+Version: 0.1
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
 # perry
 
 Version: 0.2.0
@@ -33756,6 +32401,15 @@ Version: 1.1
 # perturbatr
 
 Version: 1.0.0
+
+## Newly broken
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.7Mb
+      sub-directories of 1Mb or more:
+        data   3.8Mb
+    ```
 
 ## In both
 
@@ -33998,15 +32652,22 @@ Version: 0.2.3.3
 
 # phantasus
 
-Version: 1.0.0
+Version: 1.0.1
 
-## In both
+## Newly broken
+
+*   R CMD check timed out
+    
+
+## Newly fixed
 
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
     ```
+
+## In both
 
 *   checking installed package size ... NOTE
     ```
@@ -34016,12 +32677,29 @@ Version: 1.0.0
         www  12.8Mb
     ```
 
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    Package listed in more than one of Depends, Imports, Suggests, Enhances:
+      ‘svglite’
+    A package should be listed in only one of these fields.
+    ```
+
 *   checking dependencies in R code ... NOTE
     ```
     Unexported objects imported by ':::' calls:
       'GEOquery:::getDirListing' 'opencpu:::rookhandler'
       'opencpu:::tmp_root' 'opencpu:::win_or_mac'
       See the note in ?`:::` about the use of this operator.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    gseaPlot: no visible global function definition for 'setNames'
+    Undefined global functions or variables:
+      setNames
+    Consider adding
+      importFrom("stats", "setNames")
+    to your NAMESPACE file.
     ```
 
 # phase1RMD
@@ -34248,9 +32926,6 @@ Version: 1.28.0
 *   checking re-building of vignette outputs ... NOTE
     ```
     ...
-     
-    //------------please use function changes() to see new changes-------------//
-    
     //------------please report any bug to xinwang2hms@gmail.com---------------//
     
     /////////////////////////////////////////////////////////////////////////////
@@ -34265,6 +32940,9 @@ Version: 1.28.0
     Warning in checkGsetSimmetry(x, gsets, test, B) :
       The provided score is strongly not simmetric or is not centered on 0. You should set paremeter 'center' to TRUE.
     
+    Warning in checkGsetSimmetry(x, gsets, test, B) :
+      The provided score is strongly not simmetric or is not centered on 0. You should set paremeter 'center' to TRUE.
+    
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
       Running 'texi2dvi' on 'phenoTest.tex' failed.
     Calls: buildVignettes -> texi2pdf -> texi2dvi
@@ -34273,43 +32951,14 @@ Version: 1.28.0
 
 # PhenotypeSimulator
 
-Version: 0.2.0
+Version: 0.2.2
 
 ## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘PhenotypeSimulator-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: readStandardGenotypes
-    > ### Title: Read genotypes from file.
-    > ### Aliases: readStandardGenotypes
-    > 
-    > ### ** Examples
-    > 
-    > # Genome format
-    > filename_genome  <- system.file("extdata/genotypes/genome/",
-    + "genotypes_genome.txt",
-    + package = "PhenotypeSimulator") 
-    > data_genome <- readStandardGenotypes(N=100, filename_genome, format ="genome")
-    Warning in data.table::fread(filename, skip = "Samples:", data.table = FALSE,  :
-      Detected 1 column names but the data has 2 columns (i.e. invalid file). Added 1 extra default column name for the first column which is guessed to be row names or an index. Use setnames() afterwards if this guess is not correct, or fix the file write command that created the file to create a valid file.
-    Error in strsplit(data$V2, split = "") : non-character argument
-    Calls: readStandardGenotypes -> matrix -> unlist -> strsplit
-    Execution halted
-    ```
 
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespace in Imports field not imported from: ‘ggplot2’
-      All declared Imports should be used.
     ```
 
 # PhenStat
@@ -34353,18 +33002,6 @@ Version: 2.16.0
 # philr
 
 Version: 1.6.0
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 142-145 (philr-intro.Rmd) 
-    Error: processing vignette 'philr-intro.Rmd' failed with diagnostics:
-    A continuous variable can not be mapped to shape
-    Execution halted
-    ```
 
 ## In both
 
@@ -34577,48 +33214,22 @@ Version: 1.24.0
 
 ## Newly broken
 
-*   checking examples ... ERROR
-    ```
-    ...
-    $rank:  2
-    
-    eigen values: 0.004811 0.00125
-    
-      vector length mode    content           
-    1 $dw    58     numeric category weights  
-    2 $lw    3      numeric collection weights
-    3 $eig   2      numeric eigen values      
-    
-      data.frame nrow ncol content                                       
-    1 $dls       58   2    coordinates of the categories                 
-    2 $li        3    2    coordinates of the collections                
-    3 $c1        57   2    scores of the principal axes of the categories
-    > plot_ordination(esophagus, eso.dpcoa, "samples")
-    No available covariate data to map on the points for this plot `type`
-    > plot_ordination(esophagus, eso.dpcoa, "species")
-    No available covariate data to map on the points for this plot `type`
-    > plot_ordination(esophagus, eso.dpcoa, "biplot")
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Error: A continuous variable can not be mapped to shape
-    Execution halted
-    ```
-
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat-phyloseq.R’ failed.
     Last 13 lines of output:
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 521 SKIPPED: 0 FAILED: 12
+      OK: 543 SKIPPED: 0 FAILED: 70
       1. Failure: all 4 plot_ordination type options result in valid ggplot2 object (@test-plot.R#51) 
       2. Failure: all 4 plot_ordination type options result in valid ggplot2 object (@test-plot.R#52) 
-      3. Error: all 4 plot_ordination type options result in valid ggplot2 object (@test-plot.R#53) 
-      4. Error: plot_ordination: When variables are present or not, color SampleType (@test-plot.R#83) 
-      5. Failure: plot_ordination: When variables are present or not, shape SamplyType (@test-plot.R#105) 
-      6. Error: plot_ordination: When variables are present or not, shape SamplyType (@test-plot.R#106) 
-      7. Error: plot_ordination: When variables are present or not, label SamplyType (@test-plot.R#121) 
-      8. Error: plot_ordination: Continuous variables still mapped, uses added dummy variable (@test-plot.R#138) 
-      9. Error: plot_ordination: Some additional formats and warnings. (@test-plot.R#165) 
+      3. Failure: all 4 plot_ordination type options result in valid ggplot2 object (@test-plot.R#53) 
+      4. Failure: all 4 plot_ordination type options result in valid ggplot2 object (@test-plot.R#54) 
+      5. Failure: plot_ordination: When variables are present or not, color SampleType (@test-plot.R#83) 
+      6. Failure: plot_ordination: When variables are present or not, color SampleType (@test-plot.R#84) 
+      7. Failure: plot_ordination: When variables are present or not, color SampleType (@test-plot.R#85) 
+      8. Failure: plot_ordination: When variables are present or not, color SampleType (@test-plot.R#86) 
+      9. Failure: plot_ordination: When variables are present or not, shape SamplyType (@test-plot.R#105) 
       1. ...
       
       Error: testthat unit tests failed
@@ -34629,9 +33240,18 @@ Version: 1.24.0
     ```
     Error in re-building vignettes:
       ...
-    Quitting from lines 181-183 (phyloseq-FAQ.Rmd) 
-    Error: processing vignette 'phyloseq-FAQ.Rmd' failed with diagnostics:
-    A continuous variable can not be mapped to shape
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `phyloseq-FAQ_files/figure-html/unnamed-chunk-2-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `phyloseq-FAQ_files/figure-html/unnamed-chunk-4-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    Warning: Removed 104 rows containing missing values (geom_errorbar).
+    Warning: Removed 104 rows containing missing values (geom_errorbar).
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `phyloseq-analysis_files/figure-html/EntAbundPlot-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    Warning: Transformation introduced infinite values in discrete y-axis
+    Warning: Transformation introduced infinite values in discrete y-axis
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `phyloseq-analysis_files/figure-html/PCoAScree-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `phyloseq-analysis_files/figure-html/GPCAscree-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    Quitting from lines 421-428 (phyloseq-analysis.Rmd) 
+    Error: processing vignette 'phyloseq-analysis.Rmd' failed with diagnostics:
+    undefined columns selected
     Execution halted
     ```
 
@@ -34714,9 +33334,9 @@ Version: 0.0.1
     ```
     Error in re-building vignettes:
       ...
-    Quitting from lines 175-176 (gt_vignette.Rmd) 
+    Quitting from lines 184-185 (gt_vignette.Rmd) 
     Error: processing vignette 'gt_vignette.Rmd' failed with diagnostics:
-    Columns `xend`, `yend`, `x`, `y` must be 1d atomic vectors or lists
+    Aesthetics must be either length 1 or the same as the data (1): x, y, xend, yend, bins
     Execution halted
     ```
 
@@ -34761,12 +33381,17 @@ Version: 1.8.0
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘XGR’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  6.3Mb
+      sub-directories of 1Mb or more:
+        doc   5.0Mb
     ```
 
 # pid
@@ -34875,18 +33500,6 @@ Version: 0.4.0
 # pkggraph
 
 Version: 0.2.2
-
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 34-58 (vignette_pkggraph.Rmd) 
-    Error: processing vignette 'vignette_pkggraph.Rmd' failed with diagnostics:
-    Columns `xend`, `yend`, `x`, `y` must be 1d atomic vectors or lists
-    Execution halted
-    ```
 
 ## In both
 
@@ -35016,7 +33629,7 @@ Version: 1.6
 
 # PlasmaMutationDetector
 
-Version: 1.7.0
+Version: 1.7.1
 
 ## In both
 
@@ -35029,15 +33642,6 @@ Version: 1.7.0
 # Plasmidprofiler
 
 Version: 0.1.6
-
-## Newly broken
-
-*   checking whether package ‘Plasmidprofiler’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘Plasmidprofiler’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/Plasmidprofiler/new/Plasmidprofiler.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -35075,15 +33679,8 @@ Version: 0.1.0
     +     well = df$well,
     +     plate_id = df$plate,
     +     plate = 96)
-    Error: Free scales are only supported with `coord_cartesian()` and `coord_flip()`
+    Error: coord_fixed doesn't support free scales
     Execution halted
-    ```
-
-*   checking whether package ‘platetools’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘platetools’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/platetools/new/platetools.Rcheck/00install.out’ for details.
     ```
 
 ## In both
@@ -35158,7 +33755,6 @@ Version: 1.18.0
 *   checking re-building of vignette outputs ... NOTE
     ```
     ...
-        Filter, Find, Map, Position, Reduce, anyDuplicated, append,
         as.data.frame, basename, cbind, colMeans, colSums, colnames,
         dirname, do.call, duplicated, eval, evalq, get, grep, grepl,
         intersect, is.unsorted, lapply, lengths, mapply, match, mget,
@@ -35175,6 +33771,7 @@ Version: 1.18.0
     
         expand.grid
     
+    Warning: call dbDisconnect() when finished working with a connection
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
       Running 'texi2dvi' on 'plethy.tex' failed.
     Calls: buildVignettes -> texi2pdf -> texi2dvi
@@ -35212,16 +33809,16 @@ Version: 4.7.1
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 1124 SKIPPED: 25 FAILED: 25
-      1. Error: SharedData produces key/set in ggpairs (@test-animate-highlight.R#28) 
-      2. Failure: Translates both dates and datetimes (with dynamic ticks) correctly (@test-ggplot-lines.R#85) 
-      3. Failure: Translates both dates and datetimes (with dynamic ticks) correctly (@test-ggplot-lines.R#86) 
-      4. Failure: geom_linerange() without a y aesthetic translates to a path (@test-ggplot-lines.R#111) 
-      5. Failure: polygons with different hovertext must be different traces  (@test-ggplot-polygons.R#25) 
-      6. Failure: polygons with different hovertext must be different traces  (@test-ggplot-polygons.R#26) 
-      7. Failure: polygons with different hovertext must be different traces  (@test-ggplot-polygons.R#31) 
-      8. Failure: borders become one trace with NA (@test-ggplot-polygons.R#147) 
-      9. Failure: borders become one trace with NA (@test-ggplot-polygons.R#149) 
+      OK: 1154 SKIPPED: 25 FAILED: 21
+      1. Failure: Translates both dates and datetimes (with dynamic ticks) correctly (@test-ggplot-lines.R#85) 
+      2. Failure: Translates both dates and datetimes (with dynamic ticks) correctly (@test-ggplot-lines.R#86) 
+      3. Failure: geom_linerange() without a y aesthetic translates to a path (@test-ggplot-lines.R#111) 
+      4. Failure: polygons with different hovertext must be different traces  (@test-ggplot-polygons.R#25) 
+      5. Failure: polygons with different hovertext must be different traces  (@test-ggplot-polygons.R#26) 
+      6. Failure: polygons with different hovertext must be different traces  (@test-ggplot-polygons.R#31) 
+      7. Failure: borders become one trace with NA (@test-ggplot-polygons.R#147) 
+      8. Failure: borders become one trace with NA (@test-ggplot-polygons.R#149) 
+      9. Failure: geom_polygon(aes(group)) -> 1 trace (@test-ggplot-polygons.R#162) 
       1. ...
       
       Error: testthat unit tests failed
@@ -35238,7 +33835,7 @@ Version: 4.7.1
 
 *   checking package dependencies ... NOTE
     ```
-    Packages suggested but not available for checking: ‘sf’ ‘RSelenium’
+    Package suggested but not available for checking: ‘RSelenium’
     ```
 
 # plotMElm
@@ -35363,12 +33960,15 @@ Version: 1.0.1
 
 # pmc
 
-Version: 1.0.2
+Version: 1.0.3
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 # pmxTools
 
@@ -35519,18 +34119,6 @@ Version: 1.1.1
 
 Version: 0.3.2
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 125-126 (intro-poped.Rmd) 
-    Error: processing vignette 'intro-poped.Rmd' failed with diagnostics:
-    Discrete value supplied to continuous scale
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -35546,67 +34134,9 @@ Version: 0.3.2
 
 # popEpi
 
-Version: 0.4.4
+Version: 0.4.5
 
 ## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > dt <- makeWeightsDT(ag, print = quote(gender), adjust = as, 
-    +                     values = vs, weights = ws, enclos = TF)
-    > ## or NULL: uses calling frame by default.
-    > dt <- makeWeightsDT(ag, print = quote(gender), adjust = as, 
-    +                     values = vs, weights = ws,
-    +                     enclos = NULL)
-    > ## passing parent.fram(1) is the same thing (as below),
-    > ## but won't pass in testing these examples somehow (but work in real life)
-    > # dt <- makeWeightsDT(ag, print = quote(gender), adjust = as, 
-    > #                     values = vs, weights = ws,
-    > #                     enclos = NULL)                  
-    > 
-    > #### formula usage
-    > form <- Surv(fot, factor(from0to1))~gender
-    > dt <- makeWeightsDT(ag, formula = form, Surv.response = TRUE,
-    +                     adjust = as, values = vs, weights = ws,
-    +                     enclos = NULL)
-    Error in as.data.table.array(xi, keep.rownames = keep.rownames) : 
-      as.data.table.array method should be only called for arrays with 3+ dimensions, for 2 dimensions matrix method should be used
-    Calls: makeWeightsDT ... Surv2DT -> data.table -> as.data.table -> as.data.table.array
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      4: as.data.table(xi, keep.rownames = keep.rownames)
-      5: as.data.table.array(xi, keep.rownames = keep.rownames)
-      6: stop("as.data.table.array method should be only called for arrays with 3+ dimensions, for 2 dimensions matrix method should be used")
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 215 SKIPPED: 41 FAILED: 6
-      1. Error: removing consecutively bad surv.ints is logical w/ & w/out adjusting (@test_survtab_bad_surv_ints.R#16) 
-      2. Error: survtab_ag messages & results due to non-consecutively bad surv.ints are OK (@test_survtab_bad_surv_ints.R#69) 
-      3. Error: surv.obs about the same as Kaplan-Meier & CIFs close to Aalen-Johansen (@test_survtab_observed.R#14) 
-      4. Error: survtab works with more complicated estimation (@test_survtab_observed.R#112) 
-      5. Error: relative survivals about the same as relsurv's (@test_survtab_relative.R#57) 
-      6. Error: evalPopFormula & usePopFormula output is stable (@test_utils.R#251) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 38-67 (survtab_examples.Rmd) 
-    Error: processing vignette 'survtab_examples.Rmd' failed with diagnostics:
-    as.data.table.array method should be only called for arrays with 3+ dimensions, for 2 dimensions matrix method should be used
-    Execution halted
-    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -35643,7 +34173,7 @@ Version: 3.0.0
 
 # poppr
 
-Version: 2.7.1
+Version: 2.8.0
 
 ## In both
 
@@ -35685,76 +34215,6 @@ Version: 2.7.1
       sub-directories of 1Mb or more:
         R     2.1Mb
         doc   2.4Mb
-    ```
-
-# popReconstruct
-
-Version: 1.0-4
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    estMod.rinvGamma.mar29: no visible global function definition for
-      ‘rgamma’
-    life.expectancy.stationary: no visible global function definition for
-      ‘head’
-    life.expectancy.stationary: no visible global function definition for
-      ‘tail’
-    log.lhood.mar29: no visible global function definition for ‘dnorm’
-    log.post.mar29: no visible global function definition for ‘dnorm’
-    popRecon.sampler: no visible global function definition for ‘rnorm’
-    popRecon.sampler: no visible global function definition for ‘runif’
-    Undefined global functions or variables:
-      dnorm head rgamma rnorm runif tail
-    Consider adding
-      importFrom("stats", "dnorm", "rgamma", "rnorm", "runif")
-      importFrom("utils", "head", "tail")
-    to your NAMESPACE file.
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    ...
-    
-    The following object is masked from ‘package:stats’:
-    
-        nobs
-    
-    The following object is masked from ‘package:utils’:
-    
-        object.size
-    
-    The following object is masked from ‘package:base’:
-    
-        startsWith
-    
-    Calculating life expectancy at birth ...
-    ... done
-    Calculating net number of migrants ...
-    ... done
-    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-      Running 'texi2dvi' on 'burkina-faso-females.tex' failed.
-    Calls: buildVignettes -> texi2pdf -> texi2dvi
-    Execution halted
-    ```
-
-# popsom
-
-Version: 4.2
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
     ```
 
 # PortfolioEffectHFT
@@ -35855,76 +34315,69 @@ Version: 0.2.0
 
 ## In both
 
-*   checking whether package ‘ppcSpatial’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/ppcSpatial/new/ppcSpatial.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ppcSpatial’ ...
-** package ‘ppcSpatial’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘ppcSpatial’
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘sf’
-ERROR: lazy loading failed for package ‘ppcSpatial’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/ppcSpatial/new/ppcSpatial.Rcheck/ppcSpatial’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ppcSpatial’ ...
-** package ‘ppcSpatial’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘sf’
-ERROR: lazy loading failed for package ‘ppcSpatial’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/ppcSpatial/old/ppcSpatial.Rcheck/ppcSpatial’
-
-```
 # PPforest
 
 Version: 0.1.0
 
-## Newly broken
+## In both
+
+*   checking examples ... ERROR
+    ```
+    ...
+    Warning in PPclassify2(Tree.result = x[[1]], test.data = xnew, Rule = 1) :
+      restarting interrupted promise evaluation
+    Warning in PPclassify2(Tree.result = x[[1]], test.data = xnew, Rule = 1) :
+      restarting interrupted promise evaluation
+    Warning in PPclassify2(Tree.result = x[[1]], test.data = xnew, Rule = 1) :
+      restarting interrupted promise evaluation
+    Warning in PPclassify2(Tree.result = x[[1]], test.data = xnew, Rule = 1) :Warning in PPclassify2(Tree.result = x[[1]], test.data = xnew, Rule = 1) :
+      restarting interrupted promise evaluation
+    
+      restarting interrupted promise evaluation
+    Warning in PPclassify2(Tree.result = x[[1]], test.data = xnew, Rule = 1) :
+      restarting interrupted promise evaluation
+    Warning in PPclassify2(Tree.result = x[[1]], test.data = xnew, Rule = 1) :
+      restarting interrupted promise evaluation
+    Warning in PPclassify2(Tree.result = x[[1]], test.data = xnew, Rule = 1) :
+      restarting interrupted promise evaluation
+    Warning in PPclassify2(Tree.result = x[[1]], test.data = xnew, Rule = 1) :
+      restarting interrupted promise evaluation
+    Error in do.ply(i) : task 1 failed - "object 'Type' not found"
+    Calls: PPforest ... trees_pred -> <Anonymous> -> llply -> <Anonymous> -> <Anonymous>
+    Execution halted
+    ```
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
     
-        combine
+        nasa
     
-    Loading required package: PPtreeViz
-    Loading required package: ggplot2
+    Loading required package: gridExtra
     
-    Attaching package: 'ggplot2'
+    Attaching package: 'gridExtra'
     
     The following object is masked from 'package:dplyr':
     
-        vars
+        combine
     
+    Loading required package: PPtreeViz
     Loading required package: partykit
     Loading required package: grid
     Loading required package: libcoin
     Loading required package: mvtnorm
     Loading required package: rpart
-    Quitting from lines 118-129 (PPforest-vignette.Rmd) 
+    Quitting from lines 155-160 (PPforest-vignette.Rmd) 
     Error: processing vignette 'PPforest-vignette.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~FL", "~Type".  Please rename the columns or make a new column.variables: "colour" have non standard format: "~FL", "~Type".  Please rename the columns or make a new column.
+    object 'Type' not found
     Execution halted
     ```
-
-## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -36174,30 +34627,6 @@ Version: 1.0.0
 
 Version: 0.99
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘predictmeans-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: covariatemeans
-    > ### Title: Predicted Means of a Linear Model with Covariate Variable(s)
-    > ### Aliases: covariatemeans
-    > 
-    > ### ** Examples
-    > 
-    >   library(predictmeans)
-    >   data(Oats, package="nlme")
-    >   fm <- lme(yield ~ nitro*Variety, random=~1|Block/Variety, data=Oats)
-    > # library(lme4)
-    > # fm <- lmer(yield ~ nitro*Variety+(1|Block/Variety), data=Oats)
-    >   covariatemeans(fm, "Variety", covariate="nitro")
-    dev.new(): using pdf(file="Rplots2.pdf")
-    Error: Column `y` must be a 1d atomic vector or a list
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -36355,15 +34784,6 @@ Version: 3.3
 
 Version: 1.2
 
-## Newly broken
-
-*   checking whether package ‘pRF’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘pRF’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/pRF/new/pRF.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -36374,7 +34794,7 @@ Version: 1.2
 
 # pricesensitivitymeter
 
-Version: 0.2.1
+Version: 0.3.2
 
 ## In both
 
@@ -36399,15 +34819,6 @@ Version: 1.0.3
 # prism
 
 Version: 0.0.7
-
-## Newly broken
-
-*   checking whether package ‘prism’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::calc’ by ‘raster::calc’ when loading ‘prism’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/prism/new/prism.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -36504,15 +34915,6 @@ Version: 1.12.1
 
 Version: 0.3.0
 
-## Newly broken
-
-*   checking whether package ‘processmapR’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘processmapR’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/processmapR/new/processmapR.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -36524,15 +34926,6 @@ Version: 0.3.0
 # processmonitR
 
 Version: 0.1.0
-
-## Newly broken
-
-*   checking whether package ‘processmonitR’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘processmonitR’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/processmonitR/new/processmonitR.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -36745,95 +35138,17 @@ Version: 1.20.0
 
 ## In both
 
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### Title: Class '"ClustDist"'
-    > ### Aliases: ClustDist class:ClustDist ClustDist-class
-    > ###   plot,ClustDist,MSnSet-method show,ClustDist-method
-    > ### Keywords: classes
-    > 
-    > ### ** Examples
-    > 
-    >   showClass("ClustDist")
-    Class "ClustDist" [package "pRoloc"]
-    
-    Slots:
-                                                                            
-    Name:           k       dist       term         id       nrow    clustsz
-    Class:    numeric       list  character  character    numeric       list
-                                
-    Name:  components       fcol
-    Class:     vector  character
-    >   
-    >   library('pRolocdata')
-    Error in library("pRolocdata") : there is no package called ‘pRolocdata’
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      
-      The following object is masked from 'package:mzR':
-      
-          nChrom
-      
-      Loading required package: cluster
-      
-      This is pRoloc version 1.20.0 
-        Visit https://lgatto.github.io/pRoloc/ to get started.
-      
-      Warning message:
-      replacing previous import 'BiocGenerics::var' by 'stats::var' when loading 'MLInterfaces' 
-      > library("pRolocdata")
-      Error in library("pRolocdata") : there is no package called 'pRolocdata'
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    The following object is masked from 'package:tools':
-    
-        toHTML
-    
-    
-    Attaching package: 'annotate'
-    
-    The following object is masked from 'package:mzR':
-    
-        nChrom
-    
-    Loading required package: cluster
-    Warning: replacing previous import 'BiocGenerics::var' by 'stats::var' when loading 'MLInterfaces'
-    
-    This is pRoloc version 1.20.0 
-      Visit https://lgatto.github.io/pRoloc/ to get started.
-    
-    Quitting from lines 87-93 (pRoloc-goannotations.Rmd) 
-    Error: processing vignette 'pRoloc-goannotations.Rmd' failed with diagnostics:
-    there is no package called 'pRolocdata'
-    Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
     ```
 
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘pRolocdata’
-    ```
-
 *   checking installed package size ... NOTE
     ```
       installed size is 12.9Mb
       sub-directories of 1Mb or more:
+        R     1.0Mb
         doc  10.6Mb
     ```
 
@@ -36862,59 +35177,10 @@ Version: 1.14.0
 
 ## In both
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘pRolocGUI-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: pRolocVis
-    > ### Title: Interactive visualisation of spatial proteomics data
-    > ### Aliases: pRolocVis pRolocVis_aggregate pRolocVis_classify
-    > ###   pRolocVis_compare pRolocVis_pca
-    > 
-    > ### ** Examples
-    > 
-    > library("pRoloc")
-    > library("pRolocdata")
-    Error in library("pRolocdata") : there is no package called ‘pRolocdata’
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    
-    Attaching package: 'annotate'
-    
-    The following object is masked from 'package:mzR':
-    
-        nChrom
-    
-    Loading required package: cluster
-    Warning: replacing previous import 'BiocGenerics::var' by 'stats::var' when loading 'MLInterfaces'
-    
-    This is pRoloc version 1.20.0 
-      Visit https://lgatto.github.io/pRoloc/ to get started.
-    
-    
-    This is pRolocGUI version 1.14.0
-    
-    Quitting from lines 77-79 (pRolocGUI.Rmd) 
-    Error: processing vignette 'pRolocGUI.Rmd' failed with diagnostics:
-    there is no package called 'pRolocdata'
-    Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘pRolocdata’
     ```
 
 *   checking DESCRIPTION meta-information ... NOTE
@@ -36975,9 +35241,7 @@ Version: 3.5.1
     Green: Pair positively proportional across all samples.
     Quitting from lines 217-229 (c_indexing.Rmd) 
     Error: processing vignette 'c_indexing.Rmd' failed with diagnostics:
-    <text>:1:2: unexpected ';'
-    1: ~;
-         ^
+    `x` must be a string or a R connection
     Execution halted
     ```
 
@@ -37042,11 +35306,6 @@ Version: 1.16.0
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘RforProteomics’
     ```
 
 *   checking installed package size ... NOTE
@@ -37338,15 +35597,6 @@ Version: 1.1.0
 
 Version: 1.0.2
 
-## Newly broken
-
-*   checking whether package ‘psychmeta’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘psychmeta’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/psychmeta/new/psychmeta.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -37389,7 +35639,7 @@ Version: 1.12.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.7Mb
+      installed size is  5.8Mb
       sub-directories of 1Mb or more:
         doc   5.2Mb
     ```
@@ -37430,6 +35680,38 @@ Version: 1.12.0
 # psyosphere
 
 Version: 0.1.4
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+# PTXQC
+
+Version: 0.92.3
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  8.2Mb
+      sub-directories of 1Mb or more:
+        doc        4.6Mb
+        examples   2.2Mb
+    ```
+
+# PUlasso
+
+Version: 3.1.1
 
 ## In both
 
@@ -37532,12 +35814,12 @@ Version: 1.18.0
     > 
     > destdir <- tempdir()
     > (report <- file.path(destdir, "testQCReport"))
-    [1] "/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpOguSrE/testQCReport"
+    [1] "/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpNUUUWe/testQCReport"
     > 
     > ## pdf report
     > qcReport(qcm, reportname = report)
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-      Running 'texi2dvi' on '/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpOguSrE/testQCReport.tex' failed.
+      Running 'texi2dvi' on '/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpNUUUWe/testQCReport.tex' failed.
     Calls: qcReport ... qcReport -> .local -> reporting_pdf -> <Anonymous> -> texi2dvi
     Execution halted
     ```
@@ -37546,9 +35828,11 @@ Version: 1.18.0
     ```
     Error in re-building vignettes:
       ...
-    Quitting from lines 51-72 (qcmetrics.Rnw) 
+    Warning in has_utility("pdfcrop") :
+      pdfcrop not installed or not in PATH
+    Quitting from lines 290-291 (qcmetrics.Rnw) 
     Error: processing vignette 'qcmetrics.Rnw' failed with diagnostics:
-    there is no package called 'RforProteomics'
+    Running 'texi2dvi' on 'rnadeg.tex' failed.
     Execution halted
     ```
 
@@ -37556,11 +35840,6 @@ Version: 1.18.0
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘RforProteomics’
     ```
 
 *   checking R code for possible problems ... NOTE
@@ -37612,7 +35891,7 @@ Version: 0.0.1
 
 # qdap
 
-Version: 2.2.9
+Version: 2.3.0
 
 ## In both
 
@@ -37692,26 +35971,29 @@ Version: 0.5.5
 
 Version: 0.4.0
 
-## Newly broken
+## In both
 
-*   checking whether package ‘qicharts2’ can be installed ... WARNING
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+# qrqc
+
+Version: 1.34.0
+
+## In both
+
+*   checking whether package ‘qrqc’ can be installed ... WARNING
     ```
     Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘qicharts2’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/qicharts2/new/qicharts2.Rcheck/00install.out’ for details.
+      io.c:347:14: warning: incompatible pointer types initializing 'gzFile *' (aka 'struct gzFile_s **') with an expression of type 'gzFile' (aka 'struct gzFile_s *') [-Wincompatible-pointer-types]
+      io.c:350:21: warning: incompatible pointer types passing 'gzFile *' (aka 'struct gzFile_s **') to parameter of type 'gzFile' (aka 'struct gzFile_s *'); dereference with * [-Wincompatible-pointer-types]
+      io.c:452:21: warning: incompatible pointer types passing 'gzFile *' (aka 'struct gzFile_s **') to parameter of type 'gzFile' (aka 'struct gzFile_s *'); dereference with * [-Wincompatible-pointer-types]
+      io.c:453:14: warning: incompatible pointer types passing 'gzFile *' (aka 'struct gzFile_s **') to parameter of type 'gzFile' (aka 'struct gzFile_s *'); dereference with * [-Wincompatible-pointer-types]
+    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/qrqc/new/qrqc.Rcheck/00install.out’ for details.
     ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 372-379 (qicharts2.Rmd) 
-    Error: processing vignette 'qicharts2.Rmd' failed with diagnostics:
-    missing value where TRUE/FALSE needed
-    Execution halted
-    ```
-
-## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -37719,22 +36001,80 @@ Version: 0.4.0
     This typically indicates Rd problems.
     ```
 
-# qqplotr
-
-Version: 0.0.2
-
-## In both
-
-*   checking PDF version of manual ... WARNING
+*   checking package dependencies ... NOTE
     ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
+    Depends: includes the non-default packages:
+      ‘reshape’ ‘ggplot2’ ‘Biostrings’ ‘biovizBase’ ‘brew’ ‘xtable’
+      ‘Rsamtools’ ‘testthat’
+    Adding so many packages to the search path is excessive and importing
+    selectively is preferable.
+    ```
+
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    Packages listed in more than one of Depends, Imports, Suggests, Enhances:
+      ‘reshape’ ‘ggplot2’ ‘Biostrings’ ‘biovizBase’
+    A package should be listed in only one of these fields.
     ```
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespace in Imports field not imported from: ‘knitr’
-      All declared Imports should be used.
+    Packages in Depends field not imported from:
+      'Rsamtools' 'brew' 'testthat' 'xtable'
+      These packages need to be imported from (in the NAMESPACE file)
+      for when this namespace is loaded but not attached.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    kmerKLPlot,SequenceSummary: no visible binding for global variable
+      'kmer'
+    kmerKLPlot,SequenceSummary: no visible binding for global variable
+      'position'
+    kmerKLPlot,SequenceSummary: no visible binding for global variable 'kl'
+    kmerKLPlot,list : <anonymous>: no visible binding for global variable
+      'kmer'
+    kmerKLPlot,list: no visible binding for global variable 'position'
+    kmerKLPlot,list: no visible binding for global variable 'kl'
+    kmerKLPlot,list: no visible binding for global variable 'kmer'
+    plotGC,SequenceSummary : <local>: no visible global function definition
+      for 'aggregate'
+    qualPlot,FASTQSummary: no visible binding for global variable
+      'position'
+    qualPlot,list: no visible binding for global variable 'position'
+    Undefined global functions or variables:
+      DNAStringSet aggregate base entropy kl kmer na.exclude position
+      quantile write.XStringSet
+    Consider adding
+      importFrom("stats", "aggregate", "na.exclude", "quantile")
+    to your NAMESPACE file.
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    ...
+    Loading required package: biovizBase
+    Loading required package: brew
+    Loading required package: xtable
+    Loading required package: Rsamtools
+    Loading required package: GenomeInfoDb
+    Loading required package: GenomicRanges
+    Loading required package: testthat
+    Warning: Ignoring unknown aesthetics: y
+    `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+    Warning: Ignoring unknown aesthetics: y
+    `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+    Warning: Ignoring unknown aesthetics: y
+    `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+    Warning: Removed 5900 rows containing non-finite values (stat_smooth).
+    Warning: Removed 59 rows containing missing values (geom_linerange).
+    Warning: Removed 59 rows containing missing values (geom_linerange).
+    Warning: Removed 59 rows containing missing values (geom_point).
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'qrqc.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
     ```
 
 # qte
@@ -37815,33 +36155,17 @@ Version: 1.0.0
 
 Version: 0.2.0
 
-## Newly broken
+## In both
 
-*   checking re-building of vignette outputs ... WARNING
+*   checking PDF version of manual ... WARNING
     ```
-    ...
-    
-    The following object is masked from 'package:GGally':
-    
-        nasa
-    
-    The following object is masked from 'package:ggplot2':
-    
-        vars
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Quitting from lines 111-120 (wilcox1973.Rmd) 
-    Error: processing vignette 'wilcox1973.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~MDA".  Please rename the columns or make a new column.
-    Execution halted
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
+
+# quantable
+
+Version: 0.3.6
 
 ## In both
 
@@ -37856,30 +36180,6 @@ Version: 0.2.0
 Version: 1.2.0
 
 ## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘quanteda-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: textplot_keyness
-    > ### Title: Plot word keyness
-    > ### Aliases: textplot_keyness
-    > ### Keywords: textplot
-    > 
-    > ### ** Examples
-    > 
-    > # compare Trump speeches to other Presidents by chi^2
-    > dem_dfm <- data_corpus_inaugural %>%
-    +      corpus_subset(Year > 1980) %>%
-    +      dfm(groups = "President", remove = stopwords("english"), remove_punct = TRUE)
-    > dem_key <- textstat_keyness(dem_dfm, target = "Trump")
-    > textplot_keyness(dem_key, margin = 0.2, n = 10)
-    Error in if (label.size == 0) NA else row$colour : 
-      missing value where TRUE/FALSE needed
-    Calls: <Anonymous> ... labelGrob -> gTree -> gpar -> validGP -> numnotnull
-    Execution halted
-    ```
 
 *   checking tests ...
     ```
@@ -37919,34 +36219,6 @@ Version: 1.2.0
 # QuantNorm
 
 Version: 1.0.3
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > 
-    > #QuantNorm correction
-    > corrected.distance.matrix <- QuantNorm(ENCODE,batches,method='row/column', cor_method='pearson',
-    +                                        logdat=FALSE,standardize = TRUE, tol=1e-4)
-    It may take a long time to standardize the data. 
-    Algorithm converged after 9 iterations. 
-    > 
-    > #Constructing connection matrix
-    > 
-    > mat <- connection.matrix(mat=corrected.distance.matrix,label=colnames(corrected.distance.matrix))
-    > 
-    > #Creating network object and plot
-    > ENCODE.net=network(mat, directed=FALSE)
-    > ENCODE.net %v% "Species" <- c(rep('Human',13),rep('Mouse',13))
-    > p0 <- ggnet2(ENCODE.net,label=TRUE,color = 'Species', palette = "Set2",
-    +              size = 3, vjust = -0.6,mode = "kamadakawai",label.size = 3,
-    +              color.legend = 'Species')+theme(legend.position = 'bottom')
-    Loading required package: scales
-    > plot(p0)
-    Error: Columns `x`, `y`, `xend`, `yend` must be 1d atomic vectors or lists
-    Execution halted
-    ```
 
 ## In both
 
@@ -37997,69 +36269,6 @@ Version: 1.14.0
 # QuantumClone
 
 Version: 1.0.0.6
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > 
-    > cat("Cluster data: will try to cluster between 3 and 4 clones, with 1 maximum search each time,
-    +       and will use priors from preclustering (e.g. k-medoids on A and AB sites)")
-    Cluster data: will try to cluster between 3 and 4 clones, with 1 maximum search each time,
-          and will use priors from preclustering (e.g. k-medoids on A and AB sites)> print("The genotype is provided in the list frame, and
-    +           there is no associated data from FREEC to get genotype from.")
-    [1] "The genotype is provided in the list frame, and\n          there is no associated data from FREEC to get genotype from."
-    > print("The computation will run on a single CPU.")
-    [1] "The computation will run on a single CPU."
-    > Clustering_output<-One_step_clustering(SNV_list = Mutations,
-    + FREEC_list = NULL,contamination = c(0,0),nclone_range = 3:4,
-    + clone_priors = NULL,prior_weight = NULL ,
-    + Initializations = 1,preclustering = "FLASH", simulated = TRUE,
-    + save_plot = TRUE,ncores=1,output_directory="Example")
-    FREEC_list is empty. Checking that there is a genotype column in all samples...
-    Genotype is provided.
-    epsilon set to: 0.00678978815860945
-    Checking all possibilities for Example_1
-    Error in geom_point() : could not find function "geom_point"
-    Calls: One_step_clustering ... plot_cell_from_Return_out -> <Anonymous> -> do.call
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      Iteration: 192 bestvalit: 142.476167 bestmemit:    0.995714    0.260384
-      Iteration: 193 bestvalit: 142.476167 bestmemit:    0.995714    0.260384
-      Iteration: 194 bestvalit: 142.476167 bestmemit:    0.995714    0.260384
-      Iteration: 195 bestvalit: 142.476167 bestmemit:    0.995714    0.260384
-      Iteration: 196 bestvalit: 142.476167 bestmemit:    0.995714    0.260384
-      Iteration: 197 bestvalit: 142.476167 bestmemit:    0.995714    0.260384
-      Iteration: 198 bestvalit: 142.476167 bestmemit:    0.995714    0.260384
-      Iteration: 199 bestvalit: 142.476167 bestmemit:    0.995714    0.260384
-      Iteration: 200 bestvalit: 142.476167 bestmemit:    0.995714    0.260384
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 21 SKIPPED: 0 FAILED: 1
-      1. Error: plot_with_margins_densities returns a dridExtra object (@test-plots.R#15) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    [WARNING] This document format requires a nonempty <title> element.
-      Please specify either 'title' or 'pagetitle' in the metadata.
-      Falling back to 'Release.utf8'
-    Quitting from lines 134-135 (Use_case.Rmd) 
-    Error: processing vignette 'Use_case.Rmd' failed with diagnostics:
-    could not find function "geom_point"
-    Execution halted
-    ```
 
 ## In both
 
@@ -38130,13 +36339,6 @@ Version: 0.1.4
     Execution halted
     ```
 
-*   checking whether package ‘quickpsy’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘quickpsy’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/quickpsy/new/quickpsy.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -38148,15 +36350,6 @@ Version: 0.1.4
 # quickReg
 
 Version: 1.5.0
-
-## Newly broken
-
-*   checking whether package ‘quickReg’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘quickReg’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/quickReg/new/quickReg.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -38444,15 +36637,6 @@ Version: 0.8.0
 
 Version: 0.8.1
 
-## Newly broken
-
-*   checking whether package ‘radiant.data’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘radiant.data’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/radiant.data/new/radiant.data.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -38544,7 +36728,7 @@ Version: 0.4
 
 # RAM
 
-Version: 1.2.1.3
+Version: 1.2.1.7
 
 ## In both
 
@@ -38557,49 +36741,6 @@ Version: 1.2.1.3
 # randomForestExplainer
 
 Version: 0.9
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘randomForestExplainer-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plot_importance_ggpairs
-    > ### Title: Plot importance measures with ggpairs
-    > ### Aliases: plot_importance_ggpairs
-    > 
-    > ### ** Examples
-    > 
-    > forest <- randomForest::randomForest(Species ~ ., data = iris, localImp = TRUE, ntree = 200)
-    > frame <- measure_importance(forest, measures = c("mean_min_depth", "times_a_root"))
-    > plot_importance_ggpairs(frame, measures = c("mean_min_depth", "times_a_root"))
-    Error in make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name),  : 
-      variables: "x" have non standard format: "~mean_min_depth".  Please rename the columns or make a new column.
-    Calls: plot_importance_ggpairs ... do.call -> <Anonymous> -> plot_fn -> make_ggmatrix_plot_obj
-    Execution halted
-    ```
-
-*   checking whether package ‘randomForestExplainer’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘randomForestExplainer’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/randomForestExplainer/new/randomForestExplainer.Rcheck/00install.out’ for details.
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    randomForest 4.6-14
-    Type rfNews() to see new features/changes/bug fixes.
-    Warning: replacing previous import 'dplyr::vars' by 'ggplot2::vars' when loading 'randomForestExplainer'
-    Warning: Using alpha for a discrete variable is not advised.
-    Quitting from lines 149-151 (randomForestExplainer.Rmd) 
-    Error: processing vignette 'randomForestExplainer.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~mean_min_depth".  Please rename the columns or make a new column.
-    Execution halted
-    ```
 
 ## In both
 
@@ -38694,7 +36835,7 @@ Version: 1.1.5
 
 # rangeMapper
 
-Version: 0.3-1
+Version: 0.3-3
 
 ## In both
 
@@ -38723,7 +36864,7 @@ Version: 0.1.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.2Mb
+      installed size is  6.1Mb
       sub-directories of 1Mb or more:
         data   3.6Mb
         doc    1.4Mb
@@ -38952,6 +37093,25 @@ Version: 0.3.5
 
 Version: 1.3-3
 
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Loading required package: Rcpp
+    This is RBesT version 1.3.3
+    This is bayesplot version 1.5.0
+    - Plotting theme set to bayesplot::theme_default()
+    - Online documentation at mc-stan.org/bayesplot
+    Final MCMC sample equivalent to less than 1000 independent draws.
+    Please consider increasing the MCMC simulation size.
+    Quitting from lines 71-78 (customizing_plots.Rmd) 
+    Error: processing vignette 'customizing_plots.Rmd' failed with diagnostics:
+    'x' and 'units' must have length > 0
+    Execution halted
+    ```
+
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -39020,11 +37180,85 @@ Version: 0.0.22
     This typically indicates Rd problems.
     ```
 
-*   checking package dependencies ... NOTE
+# RCAS
+
+Version: 1.6.0
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking dependencies in R code ... NOTE
     ```
-    Package suggested but not available for checking: ‘sf’
+    Namespace in Imports field not imported from: ‘DBI’
+      All declared Imports should be used.
     ```
 
+# rcellminer
+
+Version: 2.2.0
+
+## In both
+
+*   checking whether package ‘rcellminer’ can be installed ... ERROR
+    ```
+    Installation failed.
+    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/rcellminer/new/rcellminer.Rcheck/00install.out’ for details.
+    ```
+
+*   checking for hidden files and directories ... NOTE
+    ```
+    Found the following hidden files and directories:
+      .BBSoptions
+    These were most likely included in error. See section ‘Package
+    structure’ in the ‘Writing R Extensions’ manual.
+    ```
+
+## Installation
+
+### Devel
+
+```
+* installing *source* package ‘rcellminer’ ...
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘rJava’:
+ .onLoad failed in loadNamespace() for 'rJava', details:
+  call: dyn.load(file, DLLpath = DLLpath, ...)
+  error: unable to load shared object '/Users/max/github/ggplot2/revdep/library.noindex/rcellminer/rJava/libs/rJava.so':
+  dlopen(/Users/max/github/ggplot2/revdep/library.noindex/rcellminer/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib
+  Referenced from: /Users/max/github/ggplot2/revdep/library.noindex/rcellminer/rJava/libs/rJava.so
+  Reason: image not found
+Error : package ‘rJava’ could not be loaded
+ERROR: lazy loading failed for package ‘rcellminer’
+* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/rcellminer/new/rcellminer.Rcheck/rcellminer’
+
+```
+### CRAN
+
+```
+* installing *source* package ‘rcellminer’ ...
+** R
+** data
+*** moving datasets to lazyload DB
+** inst
+** byte-compile and prepare package for lazy loading
+Error: package or namespace load failed for ‘rJava’:
+ .onLoad failed in loadNamespace() for 'rJava', details:
+  call: dyn.load(file, DLLpath = DLLpath, ...)
+  error: unable to load shared object '/Users/max/github/ggplot2/revdep/library.noindex/rcellminer/rJava/libs/rJava.so':
+  dlopen(/Users/max/github/ggplot2/revdep/library.noindex/rcellminer/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib
+  Referenced from: /Users/max/github/ggplot2/revdep/library.noindex/rcellminer/rJava/libs/rJava.so
+  Reason: image not found
+Error : package ‘rJava’ could not be loaded
+ERROR: lazy loading failed for package ‘rcellminer’
+* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/rcellminer/old/rcellminer.Rcheck/rcellminer’
+
+```
 # rCGH
 
 Version: 1.10.0
@@ -39081,15 +37315,6 @@ Version: 1.10.0
 # rchess
 
 Version: 0.1
-
-## Newly broken
-
-*   checking whether package ‘rchess’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘rchess’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/rchess/new/rchess.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -39211,18 +37436,18 @@ Version: 0.3.2
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      15: .congresso_api(.$path)
-      16: httr::stop_for_status(resp)
+      ── 5. Failure: Dimensoes do dataframe (@test_votacoes.R#54)  ───────────────────
+      dim(votos_pec241) not equal to c(478, 10).
+      1/2 mismatches
+      [1] 500 - 478 == 22
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 18 SKIPPED: 0 FAILED: 7
+      OK: 48 SKIPPED: 0 FAILED: 5
       1. Failure: GET deputado inexistente (@test_deputados.R#3) 
       2. Error: (unknown) (@test_deputados.R#10) 
-      3. Failure: Dimensoes do dataframe (@test_proposicoes.R#44) 
-      4. Failure: Atributos do dataframe (@test_proposicoes.R#50) 
-      5. Failure: Campos do dataframe (@test_proposicoes.R#56) 
-      6. Error: (unknown) (@test_proposicoes.R#68) 
-      7. Error: (unknown) (@test_votacoes.R#9) 
+      3. Failure: Atributos do dataframe (@test_proposicoes.R#50) 
+      4. Failure: Campos do dataframe (@test_proposicoes.R#56) 
+      5. Failure: Dimensoes do dataframe (@test_votacoes.R#54) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -39243,9 +37468,9 @@ Version: 0.3.2
     
         intersect, setdiff, setequal, union
     
-    Quitting from lines 45-50 (introducao-rcongresso.Rmd) 
-    Error: processing vignette 'introducao-rcongresso.Rmd' failed with diagnostics:
-    Not Found (HTTP 404).
+    Quitting from lines 77-82 (purrr-e-rcongresso.Rmd) 
+    Error: processing vignette 'purrr-e-rcongresso.Rmd' failed with diagnostics:
+    Evaluation error: Not Found (HTTP 404)..
     Execution halted
     ```
 
@@ -39568,45 +37793,9 @@ Version: 0.1.1
 
 # refund
 
-Version: 0.1-16
+Version: 0.1-17
 
 ## In both
-
-*   checking whether package ‘refund’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Note: break used in wrong context: no loop is visible 
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/refund/new/refund.Rcheck/00install.out’ for details.
-    Information on the location(s) of code generating the ‘Note’s can be
-    obtained by re-running with environment variable R_KEEP_PKG_SOURCE set
-    to ‘yes’.
-    ```
-
-*   checking for code/documentation mismatches ... WARNING
-    ```
-    ...
-      Code: function(x, P = NULL, data = NULL, label = "", se1.mult = 1,
-                     se2.mult = 2, partial.resids = FALSE, rug = TRUE, se =
-                     TRUE, scale = -1, n = 100, n2 = 40, n3 = 3, pers =
-                     FALSE, theta = 30, phi = 30, jit = FALSE, xlab = NULL,
-                     ylab = NULL, main = NULL, ylim = NULL, xlim = NULL,
-                     too.far = 0.1, shade = FALSE, shade.col = "gray80",
-                     shift = 0, trans = I, by.resids = FALSE, scheme = 0,
-                     ...)
-      Docs: function(x, P = NULL, data = NULL, label = "", se1.mult = 1,
-                     se2.mult = 2, partial.resids = FALSE, rug = TRUE, se =
-                     TRUE, scale = -1, n = 100, n2 = 40, pers = FALSE,
-                     theta = 30, phi = 30, jit = FALSE, xlab = NULL, ylab =
-                     NULL, main = NULL, ylim = NULL, xlim = NULL, too.far =
-                     0.1, shade = FALSE, shade.col = "gray80", shift = 0,
-                     trans = I, by.resids = FALSE, scheme = 0, ...)
-      Argument names in code not in docs:
-        n3
-      Mismatches in argument names (first 3):
-        Position: 13 Code: n3 Docs: pers
-        Position: 14 Code: pers Docs: theta
-        Position: 15 Code: theta Docs: phi
-    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -39617,15 +37806,6 @@ Version: 0.1-16
 # refund.shiny
 
 Version: 0.3.0
-
-## Newly broken
-
-*   checking whether package ‘refund.shiny’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘refund.shiny’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/refund.shiny/new/refund.shiny.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -39729,18 +37909,13 @@ Version: 1.14.0
     Execution halted
     ```
 
+## In both
+
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
     ```
-
-## Newly fixed
-
-*   R CMD check timed out
-    
-
-## In both
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -39782,15 +37957,6 @@ Version: 1.0.2
 
 Version: 0.1.0
 
-## Newly broken
-
-*   checking whether package ‘reinsureR’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::vars’ by ‘dplyr::vars’ when loading ‘reinsureR’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/reinsureR/new/reinsureR.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -39829,42 +37995,6 @@ Version: 0.1.0
 
 ## In both
 
-*   checking examples ... ERROR
-    ```
-    ...
-    > toyll$date.of.admission <- as.POSIXct(toyll$date.of.admission)
-    > toyll$date.of.discharge <- as.POSIXct(toyll$date.of.discharge)
-    > toyll$contact1.date <- as.POSIXct(toyll$contact1.date)
-    > toyll$contact2.date <- as.POSIXct(toyll$contact2.date)
-    > toyll$contact3.date <- as.POSIXct(toyll$contact3.date)
-    > 
-    > ind.fields <- c(names(toyll)[1:5], "hospital", "fever", "sleepy")
-    > x <- as.ejObject(toyll,
-    +                  recordAttributes=ind.fields,
-    +                  eventDefinitions=list(
-    +                  define_ejEvent(name="admission", date="date.of.admission"),
-    +                  define_ejEvent(name="discharge", date="date.of.discharge"),
-    +                  define_ejEvent(name="contact1", date="contact1.date", attributes="contact1.id"),
-    +                  define_ejEvent(name="contact2", date="contact2.date", attributes="contact2.id"),
-    +                  define_ejEvent(name="contact3", date="contact3.date", attributes="contact3.id")
-    +                  ))
-    > print(x)
-    Error in loadNamespace(j <- i[[1L]], c(lib.loc, .libPaths()), versionCheck = vI[[j]]) : 
-      there is no package called ‘sf’
-    Calls: print ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 68-80 (repijson.Rmd) 
-    Error: processing vignette 'repijson.Rmd' failed with diagnostics:
-    there is no package called 'sf'
-    Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -39893,11 +38023,6 @@ Version: 0.9.4
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘magick’
     ```
 
 *   checking Rd cross-references ... NOTE
@@ -39965,8 +38090,33 @@ Version: 2.20.0
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/runTests.R’ failed.
+    Last 13 lines of output:
+      ERROR in /Users/max/github/ggplot2/revdep/checks.noindex/ReportingTools/new/ReportingTools.Rcheck/ReportingTools/unitTests/test_DESeqResults.R: Error while sourcing  /Users/max/github/ggplot2/revdep/checks.noindex/ReportingTools/new/ReportingTools.Rcheck/ReportingTools/unitTests/test_DESeqResults.R : Error in .requirePackage(package) : 
+        unable to find required package 'DESeq'
+      
+      Test files with failing tests
+      
+         test_DESeqDataSet.R 
+           /Users/max/github/ggplot2/revdep/checks.noindex/ReportingTools/new/ReportingTools.Rcheck/ReportingTools/unitTests/test_DESeqDataSet.R 
+      
+         test_DESeqResults.R 
+           /Users/max/github/ggplot2/revdep/checks.noindex/ReportingTools/new/ReportingTools.Rcheck/ReportingTools/unitTests/test_DESeqResults.R 
+      
+      
+      Error in BiocGenerics:::testPackage("ReportingTools") : 
+        unit tests failed for package ReportingTools
+      Execution halted
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 *   checking R code for possible problems ... NOTE
     ```
@@ -39992,6 +38142,16 @@ Version: 2.20.0
     Undefined global functions or variables:
       HTML columns description div exprs fData featureNames h1 htmlRep keys
       keytype mcols org.Hs.eg.db tag tagList tags
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error in re-building vignettes:
+      ...
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'basicReportingTools.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
     ```
 
 # reproducer
@@ -40085,7 +38245,7 @@ Version: 1.2.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 11.0Mb
+      installed size is 10.9Mb
       sub-directories of 1Mb or more:
         data      2.8Mb
         doc       5.1Mb
@@ -40184,26 +38344,26 @@ Version: 1.18.0
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
-    The following object is masked from 'package:tools':
-    
-        toHTML
-    
-    
-    Attaching package: 'annotate'
-    
-    The following object is masked from 'package:mzR':
-    
-        nChrom
-    
-    Loading required package: cluster
-    Warning: replacing previous import 'BiocGenerics::var' by 'stats::var' when loading 'MLInterfaces'
-    
-    This is pRoloc version 1.20.0 
-      Visit https://lgatto.github.io/pRoloc/ to get started.
-    
-    Quitting from lines 29-46 (RProtVis.Rmd) 
-    Error: processing vignette 'RProtVis.Rmd' failed with diagnostics:
-    there is no package called 'pRolocdata'
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `RProtVis_files/figure-html/histplot-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `RProtVis_files/figure-html/bxplot-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `RProtVis_files/figure-html/mrkplot-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `RProtVis_files/figure-html/dendro-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    trying URL 'ftp://ftp.pride.ebi.ac.uk/pride/data/archive/2012/03/PXD000001/TMT_Erwinia_1uLSike_Top10HCD_isol2_45stepped_60min_01-20141210.mzML'
+    Content type 'unknown' length 450032788 bytes (429.2 MB)
+    ==================================================
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `RProtVis_files/figure-html/mqraw-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `RProtVis_files/figure-html/mqremovebaseline-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `RProtVis_files/figure-html/mqwarp-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    Error: package or namespace load failed for 'rJava':
+     .onLoad failed in loadNamespace() for 'rJava', details:
+      call: dyn.load(file, DLLpath = DLLpath, ...)
+      error: unable to load shared object '/Users/max/github/ggplot2/revdep/library.noindex/RforProteomics/rJava/libs/rJava.so':
+      dlopen(/Users/max/github/ggplot2/revdep/library.noindex/RforProteomics/rJava/libs/rJava.so, 6): Library not loaded: /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home/lib/server/libjvm.dylib
+      Referenced from: /Users/max/github/ggplot2/revdep/library.noindex/RforProteomics/rJava/libs/rJava.so
+      Reason: image not found
+    Quitting from lines 31-50 (RforProteomics.Rmd) 
+    Error: processing vignette 'RforProteomics.Rmd' failed with diagnostics:
+    package 'rJava' could not be loaded
     Execution halted
     ```
 
@@ -40211,12 +38371,6 @@ Version: 1.18.0
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Packages suggested but not available for checking:
-      ‘synapterdata’ ‘pRolocdata’
     ```
 
 *   checking installed package size ... NOTE
@@ -40232,42 +38386,18 @@ Version: 2.1.5
 
 ## In both
 
-*   checking whether package ‘rfPermute’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/rfPermute/new/rfPermute.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘graphics’
+      All declared Imports should be used.
+    ```
 
-### Devel
-
-```
-* installing *source* package ‘rfPermute’ ...
-** package ‘rfPermute’ successfully unpacked and MD5 sums checked
-** R
-** data
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘rfPermute’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/rfPermute/new/rfPermute.Rcheck/rfPermute’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘rfPermute’ ...
-** package ‘rfPermute’ successfully unpacked and MD5 sums checked
-** R
-** data
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘rfPermute’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/rfPermute/old/rfPermute.Rcheck/rfPermute’
-
-```
 # rgbif
 
 Version: 0.9.9
@@ -40383,10 +38513,28 @@ Version: 1.10.0
       Execution halted
     ```
 
-## In both
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 115-131 (RiboProfiling.Rnw) 
+    Error: processing vignette 'RiboProfiling.Rnw' failed with diagnostics:
+    invalid 'type' (list) of argument
+    Execution halted
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+## Newly fixed
 
 *   R CMD check timed out
     
+
+## In both
 
 *   checking whether package ‘RiboProfiling’ can be installed ... WARNING
     ```
@@ -40467,41 +38615,12 @@ Version: 2018.04.21
 
 Version: 1.3.0
 
-## Newly broken
+## In both
 
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-## Newly fixed
-
-*   R CMD check timed out
-    
-
-## In both
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘RITAN-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plot.term_enrichment
-    > ### Title: plot.term_enrichment
-    > ### Aliases: plot.term_enrichment
-    > 
-    > ### ** Examples
-    > 
-    > require(RITANdata)
-    Loading required package: RITANdata
-    > e <- term_enrichment(vac1.day0vs31.de.genes, term_sources = 'GO_slim_generic')
-    Warning in scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  :
-      URL 'ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/locus_groups/protein-coding_gene.txt': status was 'Failure when receiving data from the peer'
-    Error in scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  : 
-      cannot read from connection
-    Calls: term_enrichment ... load_all_protein_coding_symbols -> read.table -> scan
-    Execution halted
     ```
 
 *   checking DESCRIPTION meta-information ... NOTE
@@ -40588,14 +38707,14 @@ Version: 1.0.1
 * installing *source* package ‘RJafroc’ ...
 ** package ‘RJafroc’ successfully unpacked and MD5 sums checked
 ** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/RJafroc/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c BMFuncs.cpp -o BMFuncs.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/RJafroc/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c CBMFuncs.cpp -o CBMFuncs.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/RJafroc/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c CorCBMFuncs.cpp -o CorCBMFuncs.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/RJafroc/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c MyFOM.cpp -o MyFOM.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/RJafroc/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/RJafroc/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RsmFuncs.cpp -o RsmFuncs.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/RJafroc/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c SmAucInt.cpp -o SmAucInt.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/RJafroc/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c Transforms.cpp -o Transforms.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c BMFuncs.cpp -o BMFuncs.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c CBMFuncs.cpp -o CBMFuncs.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c CorCBMFuncs.cpp -o CorCBMFuncs.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c MyFOM.cpp -o MyFOM.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RsmFuncs.cpp -o RsmFuncs.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c SmAucInt.cpp -o SmAucInt.o
+/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/ggplot2/new/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c Transforms.cpp -o Transforms.o
 /usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o RJafroc.so BMFuncs.o CBMFuncs.o CorCBMFuncs.o MyFOM.o RcppExports.o RsmFuncs.o SmAucInt.o Transforms.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
 installing to /Users/max/github/ggplot2/revdep/checks.noindex/RJafroc/new/RJafroc.Rcheck/RJafroc/libs
 ** R
@@ -40686,7 +38805,7 @@ Version: 0.16.1
 
 # rmcfs
 
-Version: 1.2.10
+Version: 1.2.11
 
 ## In both
 
@@ -40890,11 +39009,8 @@ Version: 1.12.1
 
 ## In both
 
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
+*   R CMD check timed out
+    
 
 *   checking package dependencies ... NOTE
     ```
@@ -40916,9 +39032,9 @@ Version: 1.12.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  8.6Mb
+      installed size is  8.5Mb
       sub-directories of 1Mb or more:
-        R     3.1Mb
+        R     3.0Mb
         doc   3.2Mb
     ```
 
@@ -40967,16 +39083,6 @@ Version: 1.12.1
       runLOLA samples seqlengths seqlevels<- sigCategories sites2ignore
       size solve.QP stopCluster sva target tsne type types universeCounts
       useMart v var.diff varFit varLabels x xmlValue y yint
-    ```
-
-*   checking re-building of vignette outputs ... NOTE
-    ```
-    Error in re-building vignettes:
-      ...
-    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-      Running 'texi2dvi' on 'RnBeads.tex' failed.
-    Calls: buildVignettes -> texi2pdf -> texi2dvi
-    Execution halted
     ```
 
 # RndTexExams
@@ -41138,7 +39244,7 @@ Version: 0.7.0
 
 # RNOmni
 
-Version: 0.3.0
+Version: 0.4.0
 
 ## In both
 
@@ -41146,6 +39252,12 @@ Version: 0.3.0
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘mvtnorm’
+      All declared Imports should be used.
     ```
 
 # rnpn
@@ -41196,9 +39308,12 @@ Version: 2.0.7
       ...
     Warning in warn_if_args_exist(list(...)) :
       Extra arguments: 'colour', 'alpha', 'shape' are being ignored.  If these are meant to be aesthetics, submit them using the 'mapping' variable within ggpairs with ggplot2::aes or ggplot2::aes_string.
-    Quitting from lines 905-906 (imputation.Rnw) 
-    Error: processing vignette 'imputation.Rnw' failed with diagnostics:
-    variables: "x" have non standard format: "~X1".  Please rename the columns or make a new column.
+    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'imputation.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
     Execution halted
     ```
 
@@ -41382,7 +39497,7 @@ Version: 1.18.0
 *   checking re-building of vignette outputs ... NOTE
     ```
     ...
-    3: max(p.x-p.x.prev)=0.00009
+    3: max(p.x-p.x.prev)=0.00015
     4: max(p.x-p.x.prev)=0.00000
     
     Start roleswitch with 365 miRNA and 10945 mRNA
@@ -41411,67 +39526,6 @@ Version: 0.5.0
 
 ## In both
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘rollply-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: build_grid_ahull_fill
-    > ### Title: Regular grid in alpha-hull
-    > ### Aliases: build_grid_ahull_fill
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > data(meadow)
-    > 
-    > # Plot a grid with diagnostics
-    > grid <- build_grid_ahull_fill(meadow[ ,c('lon','lat')], 10000,
-    +                               grid_opts = list(verbose = TRUE))
-    Error in build_grid_ahull_fill(meadow[, c("lon", "lat")], 10000, grid_opts = list(verbose = TRUE)) : 
-      Alpha-hull-based grids require package alphahull
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             if (logical.return) 
-                 message(paste("Error:", msg), domain = NA)
-             else stop(msg, call. = FALSE, domain = NA)
-         })
-      3: tryCatchList(expr, classes, parentenv, handlers)
-      4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-      5: value[[3L]](cond)
-      6: stop(msg, call. = FALSE, domain = NA)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 9 SKIPPED: 0 FAILED: 1
-      1. Error: inahull_cpp works (@test_inahull.R#9) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    trying URL 'http://www.nosdonnees.fr/wiki/images/b/b5/EUCircos_Regions_departements_circonscriptions_communes_gps.csv.gz'
-    Content type 'application/x-gzip' length 623285 bytes (608 KB)
-    ==================================================
-    downloaded 608 KB
-    
-    Warning in eval(expr, envir, enclos) : NAs introduced by coercion
-    Warning in eval(expr, envir, enclos) : NAs introduced by coercion
-    Quitting from lines 168-174 (rollply.Rmd) 
-    Error: processing vignette 'rollply.Rmd' failed with diagnostics:
-    Alpha-hull-based grids require package alphahull
-    Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -41496,6 +39550,18 @@ Version: 0.1.0
       All declared Imports should be used.
     ```
 
+# ropenaq
+
+Version: 0.2.6
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
 # rorutadis
 
 Version: 0.4.2
@@ -41514,6 +39580,16 @@ Version: 0.4.2
 
 Version: 1.5
 
+## Newly broken
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.5Mb
+      sub-directories of 1Mb or more:
+        R      2.0Mb
+        data   2.3Mb
+    ```
+
 ## In both
 
 *   checking re-building of vignette outputs ... WARNING
@@ -41530,14 +39606,6 @@ Version: 1.5
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.5Mb
-      sub-directories of 1Mb or more:
-        R      2.0Mb
-        data   2.3Mb
     ```
 
 # rpanel
@@ -41838,47 +39906,6 @@ Version: 0.1-7
 
 Version: 1.0.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘rrr-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: residuals
-    > ### Title: Reduced-Rank Regression Residuals
-    > ### Aliases: residuals
-    > 
-    > ### ** Examples
-    > 
-    > data(tobacco)
-    > tobacco_x <- tobacco[,4:9]
-    > tobacco_y <- tobacco[,1:3]
-    > tobacco_rrr <- rrr(tobacco_x, tobacco_y, rank = 1)
-    > residuals(tobacco_x, tobacco_y, rank = 1, plot = FALSE)
-    Error in make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name),  : 
-      variables: "x" have non standard format: "~index".  Please rename the columns or make a new column.
-    Calls: residuals ... do.call -> <Anonymous> -> plot_fn -> make_ggmatrix_plot_obj
-    Execution halted
-    ```
-
-*   checking whether package ‘rrr’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘rrr’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/rrr/new/rrr.Rcheck/00install.out’ for details.
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 241-242 (rrr.Rmd) 
-    Error: processing vignette 'rrr.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~index".  Please rename the columns or make a new column.
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -41983,15 +40010,6 @@ Version: 0.3.1
 
 Version: 0.2.3
 
-## Newly broken
-
-*   checking whether package ‘rsMove’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::calc’ by ‘raster::calc’ when loading ‘rsMove’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/rsMove/new/rsMove.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -42040,15 +40058,6 @@ Version: 1.3.14
 
 Version: 0.6.1
 
-## Newly broken
-
-*   checking whether package ‘RSSL’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘RSSL’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/RSSL/new/RSSL.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -42071,7 +40080,7 @@ Version: 2.17.3
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 10.0Mb
+      installed size is 10.1Mb
       sub-directories of 1Mb or more:
         libs   7.5Mb
     ```
@@ -42092,7 +40101,7 @@ Version: 2.17.4
     ```
       installed size is 19.0Mb
       sub-directories of 1Mb or more:
-        R      2.0Mb
+        R      2.1Mb
         doc    2.8Mb
         libs  13.5Mb
     ```
@@ -42261,48 +40270,32 @@ Version: 0.1.0
 
 Version: 1.10.0
 
-## Newly broken
-
-*   checking whether package ‘RTCGA’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘RTCGA’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/RTCGA/new/RTCGA.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking examples ... ERROR
     ```
-    Running examples in ‘RTCGA-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: boxplotTCGA
-    > ### Title: Create Boxplots for TCGA Datasets
-    > ### Aliases: boxplotTCGA
+    ...
+    + 	MET = `MET|4233`) %>%  
+    + 	#cancer samples
+    + 	filter(substr(bcr_patient_barcode, 14, 15) == "01") -> ACC_BLCA_BRCA_OV.rnaseq
+    > 	
     > 
-    > ### ** Examples
+    > boxplotTCGA(ACC_BLCA_BRCA_OV.rnaseq, "cohort", "MET")
+    > boxplotTCGA(ACC_BLCA_BRCA_OV.rnaseq, "cohort", "log1p(MET)")
+    > boxplotTCGA(ACC_BLCA_BRCA_OV.rnaseq, "reorder(cohort,log1p(MET), median)", "log1p(MET)")
+    > boxplotTCGA(ACC_BLCA_BRCA_OV.rnaseq, "reorder(cohort,log1p(MET), max)", "log1p(MET)")
+    > boxplotTCGA(ACC_BLCA_BRCA_OV.rnaseq, "reorder(cohort,log1p(MET), median)", "log1p(MET)",
+    + xlab = "Cohort Type", ylab = "Logarithm of MET")
+    > boxplotTCGA(ACC_BLCA_BRCA_OV.rnaseq, "reorder(cohort,log1p(MET), median)", "log1p(MET)", 
+    + xlab = "Cohort Type", ylab = "Logarithm of MET", legend.title = "Cohorts")
+    > boxplotTCGA(ACC_BLCA_BRCA_OV.rnaseq, "reorder(cohort,log1p(MET), median)", "log1p(MET)", 
+    + xlab = "Cohort Type", ylab = "Logarithm of MET", legend.title = "Cohorts", legend = "bottom")
     > 
-    > library(RTCGA.rnaseq)
-    Error in library(RTCGA.rnaseq) : 
-      there is no package called ‘RTCGA.rnaseq’
+    > ## facet example
+    > library(RTCGA.mutations)
+    Error in library(RTCGA.mutations) : 
+      there is no package called ‘RTCGA.mutations’
     Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(RTCGA)
-      Welcome to the RTCGA (version: 1.10.0).
-      Warning message:
-      replacing previous import 'dplyr::vars' by 'ggplot2::vars' when loading 'RTCGA' 
-      > library(RTCGA.rnaseq)
-      Error in library(RTCGA.rnaseq) : 
-        there is no package called 'RTCGA.rnaseq'
-      Execution halted
     ```
 
 *   checking PDF version of manual ... WARNING
@@ -42314,9 +40307,8 @@ Version: 1.10.0
 *   checking package dependencies ... NOTE
     ```
     Packages suggested but not available for checking:
-      ‘RTCGA.rnaseq’ ‘RTCGA.clinical’ ‘RTCGA.mutations’ ‘RTCGA.RPPA’
-      ‘RTCGA.mRNA’ ‘RTCGA.miRNASeq’ ‘RTCGA.methylation’ ‘RTCGA.CNV’
-      ‘RTCGA.PANCAN12’
+      ‘RTCGA.clinical’ ‘RTCGA.mutations’ ‘RTCGA.RPPA’ ‘RTCGA.mRNA’
+      ‘RTCGA.miRNASeq’ ‘RTCGA.methylation’ ‘RTCGA.CNV’ ‘RTCGA.PANCAN12’
     ```
 
 *   checking R code for possible problems ... NOTE
@@ -42339,7 +40331,7 @@ Version: 1.10.0
 
 *   checking Rd cross-references ... NOTE
     ```
-    Packages unavailable to check Rd xrefs: ‘RTCGA.rnaseq’, ‘RTCGA.clinical’, ‘RTCGA.mutations’, ‘RTCGA.CNV’, ‘RTCGA.RPPA’, ‘RTCGA.mRNA’, ‘RTCGA.miRNASeq’, ‘RTCGA.methylation’
+    Packages unavailable to check Rd xrefs: ‘RTCGA.clinical’, ‘RTCGA.mutations’, ‘RTCGA.CNV’, ‘RTCGA.RPPA’, ‘RTCGA.mRNA’, ‘RTCGA.miRNASeq’, ‘RTCGA.methylation’
     ```
 
 # rtematres
@@ -42356,7 +40348,7 @@ Version: 0.2
 
 # rtf
 
-Version: 0.4-11
+Version: 0.4-13
 
 ## In both
 
@@ -42364,32 +40356,6 @@ Version: 0.4-11
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking R code for possible problems ... NOTE
-    ```
-    ...
-    .forest.plot.scale: no visible global function definition for ‘axTicks’
-    .forest.plot.scale : <anonymous>: no visible global function definition
-      for ‘lines’
-    .forest.plot.scale: no visible global function definition for ‘lines’
-    .forest.plot.scale: no visible global function definition for ‘text’
-    .rtf.plot: no visible global function definition for ‘png’
-    .rtf.plot: no visible global function definition for ‘dev.off’
-    .rtf.trellis.object: no visible global function definition for ‘png’
-    .rtf.trellis.object: no visible global function definition for
-      ‘dev.off’
-    addSessionInfo.RTF: no visible global function definition for
-      ‘sessionInfo’
-    Undefined global functions or variables:
-      abline arrows axTicks dev.off lines par plot png points sessionInfo
-      text
-    Consider adding
-      importFrom("grDevices", "dev.off", "png")
-      importFrom("graphics", "abline", "arrows", "axTicks", "lines", "par",
-                 "plot", "points", "text")
-      importFrom("utils", "sessionInfo")
-    to your NAMESPACE file.
     ```
 
 *   checking re-building of vignette outputs ... NOTE
@@ -42583,16 +40549,10 @@ Version: 0.1
     > ### ** Examples
     > 
     > draw(table=2,modulo = 10, label=TRUE)
-    Error in if (theme$panel.ontop) { : argument is of length zero
-    Calls: <Anonymous> ... ggplot_gtable.ggplot_built -> <Anonymous> -> f -> lapply -> FUN
+    Error in Ops.unit(one, theme$axis.ticks.length) : 
+      both operands must be units
+    Calls: <Anonymous> ... <Anonymous> -> f -> render_axis -> guide_axis -> Ops.unit
     Execution halted
-    ```
-
-*   checking whether package ‘rusk’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘rusk’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/rusk/new/rusk.Rcheck/00install.out’ for details.
     ```
 
 ## In both
@@ -42681,6 +40641,32 @@ Version: 1.0.1
     This typically indicates Rd problems.
     ```
 
+# RxODE
+
+Version: 0.7.2-1
+
+## In both
+
+*   checking whether package ‘RxODE’ can be installed ... WARNING
+    ```
+    Found the following significant warnings:
+      rxData.cpp:1587:32: warning: comparison of unsigned expression < 0 is always false [-Wtautological-compare]
+      rxData.cpp:1592:27: warning: comparison of unsigned expression < 0 is always false [-Wtautological-compare]
+    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/RxODE/new/RxODE.Rcheck/00install.out’ for details.
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘n1qn1’
+      All declared Imports should be used.
+    ```
+
 # ryouready
 
 Version: 0.4
@@ -42746,15 +40732,6 @@ Version: 0.2.0
 # saeSim
 
 Version: 0.9.0
-
-## Newly broken
-
-*   checking whether package ‘saeSim’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘saeSim’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/saeSim/new/saeSim.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -42993,9 +40970,9 @@ Version: 1.8.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.7Mb
+      installed size is  6.3Mb
       sub-directories of 1Mb or more:
-        data   3.0Mb
+        data   2.6Mb
         doc    3.0Mb
     ```
 
@@ -43312,7 +41289,7 @@ Version: 1.0.0
     
     output file: qcReport.knit.md
     
-    /usr/local/bin/pandoc +RTS -K512m -RTS qcReport.utf8.md --to html4 --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --output /Users/max/qcReport.html --email-obfuscation none --self-contained --standalone --section-divs --template /Users/max/github/ggplot2/revdep/library.noindex/scmeth/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpkEF9gQ/rmarkdown-str11135268f785f.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
+    /usr/local/bin/pandoc +RTS -K512m -RTS qcReport.utf8.md --to html4 --from markdown+autolink_bare_uris+ascii_identifiers+tex_math_single_backslash --output /Users/max/qcReport.html --email-obfuscation none --self-contained --standalone --section-divs --template /Users/max/github/ggplot2/revdep/library.noindex/scmeth/rmarkdown/rmd/h/default.html --no-highlight --variable highlightjs=1 --variable 'theme:bootstrap' --include-in-header /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpFq8q1l/rmarkdown-str11a5c39a9e313.html --mathjax --variable 'mathjax-url:https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML' 
     pandoc: /Users/max/qcReport_files/figure-html/read_metrics-1.png: openBinaryFile: does not exist (No such file or directory)
     Error: pandoc document conversion failed with error 1
     Execution halted
@@ -43470,15 +41447,6 @@ Version: 0.0.0.9
 
 Version: 1.0
 
-## Newly broken
-
-*   checking whether package ‘SCORPIUS’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘SCORPIUS’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/SCORPIUS/new/SCORPIUS.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -43497,34 +41465,6 @@ Version: 1.0
 # scPipe
 
 Version: 1.2.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### Title: Plot GGAlly pairs plot of QC statistics from
-    > ###   'SingleCellExperiment' object
-    > ### Aliases: plot_QC_pairs
-    > 
-    > ### ** Examples
-    > 
-    > data("sc_sample_data")
-    > data("sc_sample_qc")
-    > sce = SingleCellExperiment(assays = list(counts = as.matrix(sc_sample_data)))
-    > organism(sce) = "mmusculus_gene_ensembl"
-    > gene_id_type(sce) = "ensembl_gene_id"
-    > QC_metrics(sce) = sc_sample_qc
-    > demultiplex_info(sce) = cell_barcode_matching
-    > UMI_dup_info(sce) = UMI_duplication
-    > sce = detect_outlier(sce)
-    > 
-    > plot_QC_pairs(sce)
-    Error in make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name),  : 
-      variables: "x" have non standard format: "~total_count_per_cell", "~outliers".  Please rename the columns or make a new column.variables: "colour" have non standard format: "~total_count_per_cell", "~outliers".  Please rename the columns or make a new column.
-    Calls: plot_QC_pairs ... do.call -> <Anonymous> -> plot_fn -> make_ggmatrix_plot_obj
-    Execution halted
-    ```
 
 ## In both
 
@@ -43711,57 +41651,9 @@ Version: 0.1-3
 
 # sdcMicro
 
-Version: 5.2.0
+Version: 5.3.0
 
 ## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    3 0.18    1 0.80    2    1    1    8  39.0
-    4 1.90    3 9.00    3    1    5   91  17.0
-    5 1.00    4 1.30    3    1    4   13 541.0
-    6 1.00    4 1.40    3    1    1   14   8.0
-    7 0.10    6 0.01    2    1    5    1   5.0
-    8 0.15    1 0.50    2    5    1    5  92.0
-    > f$fk
-    [1] 2 2 2 1 1 1 1 2
-    > f$Fk
-    [1] 110.0  84.5  84.5  17.0 541.0   8.0   5.0 110.0
-    > ## with missings:
-    > x <- francdat
-    > x[3,5] <- NA
-    > x[4,2] <- x[4,4] <- NA
-    > x[5,6]  <- NA
-    > x[6,2]  <- NA
-    > f2 <- freqCalc(x, keyVars=c(2,4,5,6),w=8)
-    Error in `[.data.table`(dat_with_na, , `:=`(tmpid, .I)) : 
-      Cannot use := to add columns to a null data.table (no columns), currently. You can use := to add (empty) columns to a 0-row data.table (1 or more empty columns), though.
-    Calls: freqCalc -> [ -> [.data.table
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testhat.R’ failed.
-    Last 13 lines of output:
-      6 0.0 0 0 1.00 0.00
-      9 0.0 0 0 0.00 1.00
-      
-      Changed observations:
-        variable nrChanges percChanges
-      1     roof         1        1.08
-      ---------------------------------------------------------------------- 
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 5 SKIPPED: 5 FAILED: 2
-      1. Error: data frame method gives the same as method on sdcMicro object (@test_freqCalc.R#7) 
-      2. Error: method1 frequencies should be 2,2,2,2,1 (@test_freqCalc.R#110) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 *   checking re-building of vignette outputs ... WARNING
     ```
@@ -43824,46 +41716,12 @@ Version: 1.1.0
 
 ## In both
 
-*   checking whether package ‘SDLfilter’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/SDLfilter/new/SDLfilter.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘SDLfilter’ ...
-** package ‘SDLfilter’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘SDLfilter’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/SDLfilter/new/SDLfilter.Rcheck/SDLfilter’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘SDLfilter’ ...
-** package ‘SDLfilter’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘SDLfilter’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/SDLfilter/old/SDLfilter.Rcheck/SDLfilter’
-
-```
 # sdmpredictors
 
 Version: 0.2.6
@@ -43890,7 +41748,6 @@ Version: 0.3.2
 
 *   checking re-building of vignette outputs ... NOTE
     ```
-    ...
     Error in re-building vignettes:
       ...
     Loading required package: sp
@@ -43901,13 +41758,6 @@ Version: 0.3.2
     [5] "/Users/max/github/ggplot2/revdep/checks.noindex/sdmvspecies/new/sdmvspecies.Rcheck/sdmvspecies/external/env/bio16.bil"
     [6] "/Users/max/github/ggplot2/revdep/checks.noindex/sdmvspecies/new/sdmvspecies.Rcheck/sdmvspecies/external/env/bio5.bil" 
     [7] "/Users/max/github/ggplot2/revdep/checks.noindex/sdmvspecies/new/sdmvspecies.Rcheck/sdmvspecies/external/env/bio7.bil" 
-    
-    Attaching package: ‘ggplot2’
-    
-    The following object is masked from ‘package:raster’:
-    
-        calc
-    
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
       Running 'texi2dvi' on 'sdmvspecies.tex' failed.
     Calls: buildVignettes -> texi2pdf -> texi2dvi
@@ -43973,15 +41823,6 @@ Version: 0.3-5
 # SEERaBomb
 
 Version: 2018.1
-
-## Newly broken
-
-*   checking whether package ‘SEERaBomb’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘SEERaBomb’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/SEERaBomb/new/SEERaBomb.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -44092,6 +41933,25 @@ Version: 1.0.1
     to your NAMESPACE file.
     ```
 
+# SemNetCleaner
+
+Version: 0.1.1
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘RColorBrewer’ ‘purrr’ ‘tm’
+      All declared Imports should be used.
+    ```
+
 # sensiPhy
 
 Version: 0.8.1
@@ -44198,34 +42058,6 @@ Version: 1.23
 
 Version: 2.2.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    [1] "93% done merging data for SpeedDatum (15 of 16)."
-    [1] "100% done merging data for SpeedDatum (16 of 16)."
-    [1] "Creating data frame for SpeedDatum."
-    [1] "100% done merging data for TelephonyDatum (1 of 1)."
-    [1] "Creating data frame for TelephonyDatum."
-    [1] "14% done merging data for WlanDatum (1 of 7)."
-    [1] "28% done merging data for WlanDatum (2 of 7)."
-    [1] "42% done merging data for WlanDatum (3 of 7)."
-    [1] "57% done merging data for WlanDatum (4 of 7)."
-    [1] "71% done merging data for WlanDatum (5 of 7)."
-    [1] "85% done merging data for WlanDatum (6 of 7)."
-    [1] "100% done merging data for WlanDatum (7 of 7)."
-    [1] "Creating data frame for WlanDatum."
-    > plot(data$LocationDatum)
-    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=38.0676352725243,-78.9510441850485&zoom=10&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
-    Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=38.0676352725243,-78.9510441850485&sensor=false
-    Warning: geocode failed with status OVER_QUERY_LIMIT, location = "38.0676352725243,-78.9510441850485"
-    Error in data.frame(ll.lat = ll[1], ll.lon = ll[2], ur.lat = ur[1], ur.lon = ur[2]) : 
-      arguments imply differing number of rows: 0, 1
-    Calls: plot ... <Anonymous> -> ggmap -> get_map -> get_googlemap -> data.frame
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -44288,8 +42120,37 @@ Version: 1.10.0
 
 ## In both
 
-*   R CMD check timed out
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    		 parameters: 
+    			 test statistic: fisher
     
+    Building most specific GOs .....
+    	( 2352 GO terms found. )
+    
+    Build GO DAG topology ..........
+    	( 5648 GO terms and 12857 relations. )
+    
+    Annotating nodes ...............
+    	( 465 genes annotated to the GO terms. )
+    
+    			 -- Classic Algorithm -- 
+    
+    		 the algorithm is scoring 1035 nontrivial nodes
+    		 parameters: 
+    			 test statistic: fisher
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'SEPA.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 *   checking R code for possible problems ... NOTE
     ```
@@ -44507,7 +42368,7 @@ Version: 1.2.0
 
 # SeqFeatR
 
-Version: 0.2.6
+Version: 0.2.7
 
 ## In both
 
@@ -44571,7 +42432,7 @@ Version: 1.18.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 14.8Mb
+      installed size is 14.9Mb
       sub-directories of 1Mb or more:
         doc        3.7Mb
         seqplots  10.1Mb
@@ -44639,7 +42500,7 @@ Version: 1.0.1
     convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `seqsetvis_overview_files/figure-html/binary heatmap-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
     Quitting from lines 306-314 (seqsetvis_overview.Rmd) 
     Error: processing vignette 'seqsetvis_overview.Rmd' failed with diagnostics:
-    More than one expression parsed
+    `x` must be a string or a R connection
     Execution halted
     ```
 
@@ -44691,7 +42552,7 @@ Version: 2.3.1
       Computing nearest neighbor graph
       Computing SNN
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 280 SKIPPED: 0 FAILED: 2
+      OK: 285 SKIPPED: 0 FAILED: 2
       1. Failure: tSNE plots correctly (@test_seurat_object.R#115) 
       2. Error: tSNE plots correctly (@test_seurat_object.R#116) 
       
@@ -44714,7 +42575,7 @@ Version: 2.3.1
 
 # sf
 
-Version: 0.6-2
+Version: 0.6-3
 
 ## In both
 
@@ -44789,6 +42650,9 @@ Version: 0.2.2
 
 ## In both
 
+*   R CMD check timed out
+    
+
 *   checking S3 generic/method consistency ... WARNING
     ```
     /Users/max/.virtualenvs/r-tensorflow/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
@@ -44822,12 +42686,6 @@ Version: 0.2.2
       from ._conv import register_converters as _register_converters
     /Users/max/.virtualenvs/r-tensorflow/lib/python2.7/site-packages/h5py/__init__.py:36: FutureWarning: Conversion of the second argument of issubdtype from `float` to `np.floating` is deprecated. In future, it will be treated as `np.float64 == np.dtype(float).type`.
       from ._conv import register_converters as _register_converters
-    ```
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
     ```
 
 *   checking dependencies in R code ... NOTE
@@ -44905,18 +42763,6 @@ Version: 0.1.9
 
 Version: 1.3.0
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 187-195 (Multivariate-normal-copula.Rmd) 
-    Error: processing vignette 'Multivariate-normal-copula.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~X1".  Please rename the columns or make a new column.
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -44927,31 +42773,7 @@ Version: 1.3.0
 
 # shiny
 
-Version: 1.0.5
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test-all.R’ failed.
-    Last 13 lines of output:
-      Component "y": 1 string mismatch
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 615 SKIPPED: 3 FAILED: 8
-      1. Failure: ggplot coordmap (@test-plot-coordmap.R#34) 
-      2. Failure: ggplot coordmap (@test-plot-coordmap.R#63) 
-      3. Failure: ggplot coordmap (@test-plot-coordmap.R#73) 
-      4. Failure: ggplot coordmap with facet_wrap (@test-plot-coordmap.R#106) 
-      5. Failure: ggplot coordmap with facet_grid (@test-plot-coordmap.R#155) 
-      6. Failure: ggplot coordmap with facet_grid (@test-plot-coordmap.R#192) 
-      7. Failure: ggplot coordmap with 2D facet_grid (@test-plot-coordmap.R#243) 
-      8. Failure: ggplot coordmap with various scales and coords (@test-plot-coordmap.R#336) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
+Version: 1.1.0
 
 ## In both
 
@@ -44963,9 +42785,9 @@ Version: 1.0.5
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  8.3Mb
+      installed size is  9.4Mb
       sub-directories of 1Mb or more:
-        R     1.0Mb
+        R     2.0Mb
         www   6.4Mb
     ```
 
@@ -45286,6 +43108,13 @@ Version: 1.12.0
     Error in re-building vignettes:
       ...
     Loading required package: Rcpp
+    Warning in fun(libname, pkgname) :
+      mzR has been built against a different Rcpp version (0.12.16)
+    than is installed on your system (0.12.17). This might lead to errors
+    when loading mzR. If you encounter such issues, please send a report,
+    including the output of sessionInfo() to the Bioc support forum at 
+    https://support.bioconductor.org/. For details see also
+    https://github.com/sneumann/mzR/wiki/mzR-Rcpp-compiler-linker-issue.
     
     Error: processing vignette 'SIMAT-vignette.Rnw' failed with diagnostics:
      chunk 9 (label = plotEIC) 
@@ -45385,6 +43214,18 @@ Version: 0.6.0
     This typically indicates Rd problems.
     ```
 
+# simmer.plot
+
+Version: 0.1.13
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
 # simmr
 
 Version: 0.3
@@ -45465,6 +43306,10 @@ Version: 1.3.10
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
+    
+    Reminder (2): Times should be in 1 unit intervals, otherwise this could take awhile.
+    
+    
     Converting "begin" to numeric. Things might get wacky. Please check.
     Converting "end" to numeric. Things might get wacky. Please check.
     Converting "event" to numeric. Things might get wacky. Please check.
@@ -45476,12 +43321,8 @@ Version: 1.3.10
     Doing a final clean up.
     All Xl set to 0.
     All Xl set to 0.
-    `geom_smooth()` using method = 'gam' and formula 'y ~ mgcv::s(x, bs = "cs")'
-    Warning: Computation failed in `stat_smooth()`:
-    invalid type (list) for variable 'mgcv::s(x, bs = "cs")'
-    `geom_smooth()` using method = 'gam' and formula 'y ~ mgcv::s(x, bs = "cs")'
-    Warning: Computation failed in `stat_smooth()`:
-    invalid type (list) for variable 'mgcv::s(x, bs = "cs")'
+    `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
+    `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
       Running 'texi2dvi' on 'simPH-overview.tex' failed.
     Calls: buildVignettes -> texi2pdf -> texi2dvi
@@ -45543,11 +43384,8 @@ Version: 0.2.0
 
 ## In both
 
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
+*   R CMD check timed out
+    
 
 # sincell
 
@@ -45636,48 +43474,19 @@ Version: 1.8.0
 
 ## In both
 
+*   R CMD check timed out
+    
+
 *   checking data for ASCII and uncompressed saves ... WARNING
     ```
       Warning: package needs dependence on R (>= 2.10)
     ```
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    Warning: Removed 8 rows containing non-finite values (stat_ydensity).
-    Warning: Removed 8 rows containing non-finite values (stat_boxplot).
-    Warning: Removed 3 rows containing non-finite values (stat_ydensity).
-    Warning: Removed 3 rows containing non-finite values (stat_boxplot).
-    Warning: Removed 28 rows containing missing values (geom_point).
-    Need specific help about ggbio? try mailing 
-     the maintainer or visit http://tengfei.github.com/ggbio/
-    
-    Attaching package: 'ggbio'
-    
-    The following objects are masked from 'package:ggplot2':
-    
-        geom_bar, geom_rect, geom_segment, ggsave, stat_bin,
-        stat_identity, xlim
-    
-    Scale for 'x' is already present. Adding another scale for 'x', which will
-    replace the existing scale.
-    Quitting from lines 2626-2642 (mTECs.Rnw) 
-    Error: processing vignette 'mTECs.Rnw' failed with diagnostics:
-    invalid 'type' (list) of argument
-    Execution halted
-    ```
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
 *   checking installed package size ... NOTE
     ```
-      installed size is 912.4Mb
+      installed size is 904.5Mb
       sub-directories of 1Mb or more:
-        data  903.0Mb
+        data  895.1Mb
         doc     9.3Mb
     ```
 
@@ -45823,46 +43632,6 @@ Version: 2.7.2
 
 Version: 2.4.1
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > # grouped coefficients
-    > plot_model(m, group.terms = c(1, 2, 3, 3, 3, 4, 4))
-    > 
-    > # multiple plots, as returned from "diagnostic"-plot type,
-    > # can be arranged with 'plot_grid()'
-    > ## Not run: 
-    > ##D p <- plot_model(m, type = "diag")
-    > ##D plot_grid(p)
-    > ## End(Not run)
-    > 
-    > # plot random effects
-    > library(lme4)
-    Loading required package: Matrix
-    > m <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
-    > plot_model(m, type = "re")
-    > 
-    > # plot marginal effects
-    > plot_model(m, type = "eff", terms = "Days")
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Error: A continuous variable can not be mapped to linetype
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning: replacing previous import 'dplyr::vars' by 'ggplot2::vars' when loading 'merTools'
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Quitting from lines 36-49 (plot_interactions.Rmd) 
-    Error: processing vignette 'plot_interactions.Rmd' failed with diagnostics:
-    A continuous variable can not be mapped to linetype
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -45946,9 +43715,9 @@ Version: 1.2.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 23.9Mb
+      installed size is 23.3Mb
       sub-directories of 1Mb or more:
-        data      4.0Mb
+        data      3.5Mb
         extdata  18.3Mb
     ```
 
@@ -46130,6 +43899,36 @@ Version: 1.7.0
     This typically indicates Rd problems.
     ```
 
+# SNPhood
+
+Version: 1.10.0
+
+## In both
+
+*   R CMD check timed out
+    
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is 12.0Mb
+      sub-directories of 1Mb or more:
+        data   4.7Mb
+        doc    6.6Mb
+    ```
+
+*   checking DESCRIPTION meta-information ... NOTE
+    ```
+    BugReports field is not a suitable URL but appears to contain an email address
+      not specified by mailto: nor contained in < >
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    .calcBinomTestVector: no visible binding for global variable ‘pp’
+    Undefined global functions or variables:
+      pp
+    ```
+
 # sNPLS
 
 Version: 0.3.31
@@ -46192,50 +43991,6 @@ Version: 0.16.4.8
 
 Version: 1.12.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘soGGi-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plotRegion
-    > ### Title: Plot regions
-    > ### Aliases: plotRegion plotRegion,ChIPprofile-method
-    > ###   plotRegion.ChIPprofile
-    > 
-    > ### ** Examples
-    > 
-    > data(chipExampleBig)
-    > plotRegion(chipExampleBig[[2]])
-    Scale for 'x' is already present. Adding another scale for 'x', which will
-    replace the existing scale.
-    Error: `expr` must quote a symbol, scalar, or call
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-         } else if (length(expr) == 1) {
-             name <- expr_text(expr)
-             name <- gsub("\n.*$", "...", name)
-             name
-         } else {
-             abort("`expr` must quote a symbol, scalar, or call")
-         })
-      11: abort("`expr` must quote a symbol, scalar, or call")
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 3 SKIPPED: 0 FAILED: 1
-      1. Error: (unknown) (@test_plotting.R#4) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 ## In both
 
 *   checking whether package ‘soGGi’ can be installed ... WARNING
@@ -46258,26 +44013,26 @@ Version: 1.12.0
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
-    
-        anyMissing, rowMedians
-    
-    Loading required package: BiocParallel
-    
-    Attaching package: 'DelayedArray'
-    
-    The following objects are masked from 'package:matrixStats':
-    
-        colMaxs, colMins, colRanges, rowMaxs, rowMins, rowRanges
-    
-    The following objects are masked from 'package:base':
-    
-        aperm, apply
-    
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `figure/quick3-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
+    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `figure/quick3-2.png' @ warning/png.c/MagickPNGWarningHandler/1744.
     Scale for 'x' is already present. Adding another scale for 'x', which will
     replace the existing scale.
-    Quitting from lines 123-124 (soggi.Rnw) 
-    Error: processing vignette 'soggi.Rnw' failed with diagnostics:
-    `expr` must quote a symbol, scalar, or call
+    Scale for 'x' is already present. Adding another scale for 'x', which will
+    replace the existing scale.
+    Scale for 'x' is already present. Adding another scale for 'x', which will
+    replace the existing scale.
+    Scale for 'x' is already present. Adding another scale for 'x', which will
+    replace the existing scale.
+    No id variables; using all as measure variables
+    No id variables; using all as measure variables
+    Scale for 'x' is already present. Adding another scale for 'x', which will
+    replace the existing scale.
+    No id variables; using all as measure variables
+    Scale for 'x' is already present. Adding another scale for 'x', which will
+    replace the existing scale.
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'soggi.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
     Execution halted
     ```
 
@@ -46416,22 +44171,13 @@ Version: 2.16.0
 
 Version: 0.7.26
 
-## Newly broken
-
-*   checking whether package ‘sorvi’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘sorvi’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/sorvi/new/sorvi.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
+    Error in re-building vignettes:
       ...
-    Warning: replacing previous import 'dplyr::vars' by 'ggplot2::vars' when loading 'sorvi'
     sorvi - Tools for Finnish Open Data.
     Copyright (C) 2010-2015 Leo Lahti, Juuso Parkkinen, Juuso Haapanen, Einari Happonen, Jussi Paananen, Joona Lehtomaki ym.
     
@@ -46523,15 +44269,6 @@ Version: 0.1.1
 
 Version: 0.1.0
 
-## Newly broken
-
-*   checking whether package ‘SpaCCr’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘SpaCCr’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/SpaCCr/new/SpaCCr.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -46542,7 +44279,7 @@ Version: 0.1.0
 
 # sparklyr
 
-Version: 0.8.2
+Version: 0.8.3
 
 ## In both
 
@@ -46683,7 +44420,7 @@ Version: 0.0.10
 
 # spartan
 
-Version: 3.0.0
+Version: 3.0.1
 
 ## In both
 
@@ -46774,70 +44511,10 @@ Version: 0.4.8
 
 ## In both
 
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘spbabel-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: as_tibble.sfg
-    > ### Title: Individual geometries as tibbles.
-    > ### Aliases: as_tibble.sfg
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > tibble::as_tibble(sf::st_point(c(1, 1, 1)))
-    Error in loadNamespace(name) : there is no package called ‘sf’
-    Calls: <Anonymous> ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             else stop(msg, call. = FALSE, domain = NA)
-         })
-      3: tryCatchList(expr, classes, parentenv, handlers)
-      4: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-      5: value[[3L]](cond)
-      6: stop(msg, call. = FALSE, domain = NA)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 60 SKIPPED: 1 FAILED: 3
-      1. Error: (unknown) (@test-sf.R#3) 
-      2. Error: (unknown) (@test-sfFromTable.R#3) 
-      3. Error: (unknown) (@test-trip.R#1) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 50-55 (sfbabel.Rmd) 
-    Error: processing vignette 'sfbabel.Rmd' failed with diagnostics:
-    there is no package called 'sf'
-    Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘sf’
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘sf’
     ```
 
 # spcosa
@@ -46906,6 +44583,23 @@ Version: 2.3.1
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+# specmine
+
+Version: 2.0.3
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking package dependencies ... NOTE
+    ```
+    Package suggested but not available for checking: ‘rcytoscapejs’
     ```
 
 # spectacles
@@ -46979,6 +44673,25 @@ Version: 1.3.0
 *   checking dependencies in R code ... NOTE
     ```
     Namespace in Imports field not imported from: ‘maptools’
+      All declared Imports should be used.
+    ```
+
+# spFSR
+
+Version: 1.0.0
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘class’ ‘mlbench’
       All declared Imports should be used.
     ```
 
@@ -47193,110 +44906,24 @@ Version: 1.0.2
 
 ## In both
 
-*   checking whether package ‘sppmix’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/sppmix/new/sppmix.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
+*   checking installed package size ... NOTE
+    ```
+      installed size is  7.1Mb
+      sub-directories of 1Mb or more:
+        data   5.4Mb
+    ```
 
-### Devel
+*   checking data for non-ASCII characters ... NOTE
+    ```
+      Note: found 17 marked UTF-8 strings
+    ```
 
-```
-* installing *source* package ‘sppmix’ ...
-** package ‘sppmix’ successfully unpacked and MD5 sums checked
-** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c ApproxFuncs_sppmix.cpp -o ApproxFuncs_sppmix.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c BDMCMC2d_sppmix.cpp -o BDMCMC2d_sppmix.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c DAMCMC2d_sppmix.cpp -o DAMCMC2d_sppmix.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c HelperFuncs_sppmix.cpp -o HelperFuncs_sppmix.o
-HelperFuncs_sppmix.cpp:586:7: warning: unused variable 'i' [-Wunused-variable]
-  int i,p=W.n_rows;
-      ^
-DAMCMC2d_sppmix.cpp:541:5: warning: unused variable 'Ry' [-Wunused-variable]
-    Ry=max(data.col(1))-min(data.col(1));
-    ^
-DAMCMC2d_sppmix.cpp:540:10: warning: unused variable 'Rx' [-Wunused-variable]
-  double Rx=max(data.col(0))-min(data.col(0)),
-         ^
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c MIPPCondLoc_sppmix.cpp -o MIPPCondLoc_sppmix.o
-1 warning generated.
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c OpsPostGens_sppmix.cpp -o OpsPostGens_sppmix.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c OtherAPIs_sppmix.cpp -o OtherAPIs_sppmix.o
-OpsPostGens_sppmix.cpp:18:11: warning: unused variable 'k' [-Wunused-variable]
-  int i,j,k,L=allgens.size();
-          ^
-OpsPostGens_sppmix.cpp:20:21: warning: unused variable 'n' [-Wunused-variable]
-  int m=mix1.size(),n=pp.n_rows;
-                    ^
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-2 warnings generated.
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c SimulFuncs_sppmix.cpp -o SimulFuncs_sppmix.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c registerDynamicSymbol.c -o registerDynamicSymbol.o
-2 warnings generated.
-/usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o sppmix.so ApproxFuncs_sppmix.o BDMCMC2d_sppmix.o DAMCMC2d_sppmix.o HelperFuncs_sppmix.o MIPPCondLoc_sppmix.o OpsPostGens_sppmix.o OtherAPIs_sppmix.o RcppExports.o SimulFuncs_sppmix.o registerDynamicSymbol.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/max/github/ggplot2/revdep/checks.noindex/sppmix/new/sppmix.Rcheck/sppmix/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘sppmix’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/sppmix/new/sppmix.Rcheck/sppmix’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘sppmix’ ...
-** package ‘sppmix’ successfully unpacked and MD5 sums checked
-** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c ApproxFuncs_sppmix.cpp -o ApproxFuncs_sppmix.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c BDMCMC2d_sppmix.cpp -o BDMCMC2d_sppmix.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c DAMCMC2d_sppmix.cpp -o DAMCMC2d_sppmix.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c HelperFuncs_sppmix.cpp -o HelperFuncs_sppmix.o
-HelperFuncs_sppmix.cpp:586:7: warning: unused variable 'i' [-Wunused-variable]
-  int i,p=W.n_rows;
-      ^
-DAMCMC2d_sppmix.cpp:541:5: warning: unused variable 'Ry' [-Wunused-variable]
-    Ry=max(data.col(1))-min(data.col(1));
-    ^
-DAMCMC2d_sppmix.cpp:540:10: warning: unused variable 'Rx' [-Wunused-variable]
-  double Rx=max(data.col(0))-min(data.col(0)),
-         ^
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c MIPPCondLoc_sppmix.cpp -o MIPPCondLoc_sppmix.o
-1 warning generated.
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c OpsPostGens_sppmix.cpp -o OpsPostGens_sppmix.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c OtherAPIs_sppmix.cpp -o OtherAPIs_sppmix.o
-OpsPostGens_sppmix.cpp:18:11: warning: unused variable 'k' [-Wunused-variable]
-  int i,j,k,L=allgens.size();
-          ^
-OpsPostGens_sppmix.cpp:20:21: warning: unused variable 'n' [-Wunused-variable]
-  int m=mix1.size(),n=pp.n_rows;
-                    ^
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-2 warnings generated.
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c SimulFuncs_sppmix.cpp -o SimulFuncs_sppmix.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I../inst/include/ -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/RcppArmadillo/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/sppmix/mvtnorm/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c registerDynamicSymbol.c -o registerDynamicSymbol.o
-2 warnings generated.
-/usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o sppmix.so ApproxFuncs_sppmix.o BDMCMC2d_sppmix.o DAMCMC2d_sppmix.o HelperFuncs_sppmix.o MIPPCondLoc_sppmix.o OpsPostGens_sppmix.o OtherAPIs_sppmix.o RcppExports.o SimulFuncs_sppmix.o registerDynamicSymbol.o -L/Library/Frameworks/R.framework/Resources/lib -lRlapack -L/Library/Frameworks/R.framework/Resources/lib -lRblas -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/max/github/ggplot2/revdep/checks.noindex/sppmix/old/sppmix.Rcheck/sppmix/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘sppmix’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/sppmix/old/sppmix.Rcheck/sppmix’
-
-```
 # sprm
 
 Version: 1.2.2
@@ -47315,40 +44942,18 @@ Version: 1.0.2
 
 ## In both
 
-*   checking whether package ‘SPUTNIK’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/SPUTNIK/new/SPUTNIK.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘viridisLite’
+      All declared Imports should be used.
+    ```
 
-### Devel
-
-```
-* installing *source* package ‘SPUTNIK’ ...
-** package ‘SPUTNIK’ successfully unpacked and MD5 sums checked
-** R
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘SPUTNIK’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/SPUTNIK/new/SPUTNIK.Rcheck/SPUTNIK’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘SPUTNIK’ ...
-** package ‘SPUTNIK’ successfully unpacked and MD5 sums checked
-** R
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘SPUTNIK’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/SPUTNIK/old/SPUTNIK.Rcheck/SPUTNIK’
-
-```
 # squid
 
 Version: 0.1.1
@@ -47444,15 +45049,6 @@ Version: 1.14.0
 
 Version: 0.2.0
 
-## Newly broken
-
-*   checking whether package ‘stability’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘stability’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/stability/new/stability.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -47478,41 +45074,6 @@ Version: 0.5.3.1
 # staRdom
 
 Version: 1.0.5
-
-## Newly broken
-
-*   checking whether package ‘staRdom’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘staRdom’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/staRdom/new/staRdom.Rcheck/00install.out’ for details.
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    which will replace the existing scale.
-    Scale for 'fill' is already present. Adding another scale for 'fill',
-    which will replace the existing scale.
-    Scale for 'fill' is already present. Adding another scale for 'fill',
-    which will replace the existing scale.
-    Scale for 'fill' is already present. Adding another scale for 'fill',
-    which will replace the existing scale.
-    Scale for 'fill' is already present. Adding another scale for 'fill',
-    which will replace the existing scale.
-    Scale for 'fill' is already present. Adding another scale for 'fill',
-    which will replace the existing scale.
-    Warning: This metric uses either excitation or emission wavelengths that were not present in the data. Data has been interpolated to fit the requested wavelengths.
-    Warning: This metric uses either excitation or emission wavelengths that were not present in the data. Data has been interpolated to fit the requested wavelengths.
-    Warning: This metric uses either excitation or emission wavelengths that were not present in the data. Data has been interpolated to fit the requested wavelengths.
-    Warning: This metric uses either excitation or emission wavelengths that were not present in the data. Data has been interpolated to fit the requested wavelengths.
-    Warning: This metric uses either excitation or emission wavelengths that were not present in the data. Data has been interpolated to fit the requested wavelengths.
-    Warning: This metric uses either excitation or emission wavelengths that were not present in the data. Data has been interpolated to fit the requested wavelengths.
-    Quitting from lines 409-415 (PARAFAC_analysis_of_EEM.Rmd) 
-    Error: processing vignette 'PARAFAC_analysis_of_EEM.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~Comp.1".  Please rename the columns or make a new column.
-    Execution halted
-    ```
 
 ## In both
 
@@ -47712,16 +45273,7 @@ Version: 0.1-0
 
 # stminsights
 
-Version: 0.1.2
-
-## Newly broken
-
-*   checking whether package ‘stminsights’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘stminsights’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/stminsights/new/stminsights.Rcheck/00install.out’ for details.
-    ```
+Version: 0.2.0
 
 ## In both
 
@@ -47742,33 +45294,35 @@ Version: 0.1.2
 
 Version: 0.1.0
 
-## In both
+## Newly fixed
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
     
+        filter, lag
+    
+    The following objects are masked from 'package:base':
+    
+        intersect, setdiff, setequal, union
+    
+    
+    Attaching package: 'gridExtra'
+    
+    The following object is masked from 'package:dplyr':
+    
         combine
     
     Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=georgia&zoom=5&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
     Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=georgia&sensor=false
-    Warning: Removed 703 rows containing missing values (geom_point).
-    Warning: Removed 89 rows containing missing values (geom_point).
-    Warning: Removed 1 rows containing missing values (geom_path).
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Quitting from lines 98-100 (Overview.Rmd) 
-    Error: processing vignette 'Overview.Rmd' failed with diagnostics:
-    package or namespace load failed for 'tigris' in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
-     there is no package called 'sf'
+    Warning: geocode failed with status OVER_QUERY_LIMIT, location = "georgia"
+    Quitting from lines 220-233 (Details.Rmd) 
+    Error: processing vignette 'Details.Rmd' failed with diagnostics:
+    arguments imply differing number of rows: 0, 1
     Execution halted
     ```
+
+## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -47808,72 +45362,18 @@ Version: 2.0.2
 
 ## In both
 
-*   checking whether package ‘strataG’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/strataG/new/strataG.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘survival’
+      All declared Imports should be used.
+    ```
 
-### Devel
-
-```
-* installing *source* package ‘strataG’ ...
-** package ‘strataG’ successfully unpacked and MD5 sums checked
-** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c Hstats_C.cpp -o Hstats_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c misc.funcs.cpp -o misc.funcs.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statChi2_C.cpp -o statChi2_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statFis_C.cpp -o statFis_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statFst_C.cpp -o statFst_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statGst_C.cpp -o statGst_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statJostD_C.cpp -o statJostD_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statPhist_C.cpp -o statPhist_C.o
-/usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o strataG.so Hstats_C.o RcppExports.o init.o misc.funcs.o statChi2_C.o statFis_C.o statFst_C.o statGst_C.o statJostD_C.o statPhist_C.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/max/github/ggplot2/revdep/checks.noindex/strataG/new/strataG.Rcheck/strataG/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘strataG’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/strataG/new/strataG.Rcheck/strataG’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘strataG’ ...
-** package ‘strataG’ successfully unpacked and MD5 sums checked
-** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c Hstats_C.cpp -o Hstats_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c misc.funcs.cpp -o misc.funcs.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statChi2_C.cpp -o statChi2_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statFis_C.cpp -o statFis_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statFst_C.cpp -o statFst_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statGst_C.cpp -o statGst_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statJostD_C.cpp -o statJostD_C.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/strataG/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c statPhist_C.cpp -o statPhist_C.o
-/usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o strataG.so Hstats_C.o RcppExports.o init.o misc.funcs.o statChi2_C.o statFis_C.o statFst_C.o statGst_C.o statJostD_C.o statPhist_C.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/max/github/ggplot2/revdep/checks.noindex/strataG/old/strataG.Rcheck/strataG/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘strataG’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/strataG/old/strataG.Rcheck/strataG’
-
-```
 # strider
 
 Version: 1.1
@@ -48108,24 +45608,21 @@ Version: 0.1.1
 
 *   checking re-building of vignette outputs ... WARNING
     ```
-    ...
+    Error in re-building vignettes:
+      ...
+    
+    Attaching package: 'dplyr'
+    
+    The following objects are masked from 'package:stats':
+    
+        filter, lag
+    
+    The following objects are masked from 'package:base':
+    
+        intersect, setdiff, setequal, union
     
     Loading required package: viridisLite
     Loading required package: ggplot2
-    
-    Attaching package: 'ggplot2'
-    
-    The following object is masked from 'package:dplyr':
-    
-        vars
-    
-    
-    Attaching package: 'sugrrants'
-    
-    The following object is masked from 'package:ggplot2':
-    
-        vars
-    
     Quitting from lines 113-123 (frame-calendar.Rmd) 
     Error: processing vignette 'frame-calendar.Rmd' failed with diagnostics:
     Need at least one column for `hash()`
@@ -48143,15 +45640,6 @@ Version: 0.1.1
 # summariser
 
 Version: 0.1.0
-
-## Newly broken
-
-*   checking whether package ‘summariser’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘summariser’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/summariser/new/summariser.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -48311,77 +45799,87 @@ Version: 0.2.0
 
 Version: 1.16.0
 
+## Newly broken
+
+*   checking examples ... ERROR
+    ```
+    ...
+    length(x) = 10 
+    length(x) = 7 
+    length(x) = 4 
+    > 
+    > ## setting the seed for reproducibility of results involving the RNG
+    > samp <- plapply(as.list(1:3), runif, .seed = 1)
+    ...
+    > 
+    > ## parallel lapply()
+    > res <- plapply(x, quantile, probs = 1:3/4, .parallel = 2)
+    ...
+    > 
+    > ## using a predefined cluster
+    > library("parallel")
+    > cl <- makeCluster(getOption("cl.cores", 2))
+    Warning in socketConnection("localhost", port = port, server = TRUE, blocking = TRUE,  :
+      port 11009 cannot be opened
+    Error in socketConnection("localhost", port = port, server = TRUE, blocking = TRUE,  : 
+      cannot open the connection
+    Calls: makeCluster ... makePSOCKcluster -> newPSOCKnode -> socketConnection
+    Execution halted
+    ```
+
 ## In both
 
-*   checking whether package ‘surveillance’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/surveillance/new/surveillance.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 *   checking package dependencies ... NOTE
     ```
-    Packages suggested but not available for checking: ‘polyclip’ ‘INLA’
+    Package suggested but not available for checking: ‘INLA’
     ```
 
-## Installation
+*   checking installed package size ... NOTE
+    ```
+      installed size is  7.2Mb
+      sub-directories of 1Mb or more:
+        R      2.0Mb
+        doc    2.3Mb
+        help   1.0Mb
+    ```
 
-### Devel
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘scoringRules’
+    ```
 
-```
-* installing *source* package ‘surveillance’ ...
-** package ‘surveillance’ successfully unpacked and MD5 sums checked
-** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c backproj.cc -o backproj.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c determineSources.cc -o determineSources.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c ks.c -o ks.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c stcd-assuncaocorrea.cc -o stcd-assuncaocorrea.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c surveillance.c -o surveillance.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c twins.cc -o twins.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c twinstim_siaf_polyCub_iso.c -o twinstim_siaf_polyCub_iso.o
-/usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o surveillance.so RcppExports.o backproj.o determineSources.o init.o ks.o stcd-assuncaocorrea.o surveillance.o twins.o twinstim_siaf_polyCub_iso.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/max/github/ggplot2/revdep/checks.noindex/surveillance/new/surveillance.Rcheck/surveillance/libs
-** R
-** data
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘surveillance’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/surveillance/new/surveillance.Rcheck/surveillance’
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    ...
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    glrnb: Fitting Poisson model because alpha == 0
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'glrnb.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
+    ```
 
-```
-### CRAN
-
-```
-* installing *source* package ‘surveillance’ ...
-** package ‘surveillance’ successfully unpacked and MD5 sums checked
-** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c backproj.cc -o backproj.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c determineSources.cc -o determineSources.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c init.c -o init.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c ks.c -o ks.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c stcd-assuncaocorrea.cc -o stcd-assuncaocorrea.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c surveillance.c -o surveillance.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c twins.cc -o twins.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/Rcpp/include" -I"/Users/max/github/ggplot2/revdep/library.noindex/surveillance/polyCub/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c twinstim_siaf_polyCub_iso.c -o twinstim_siaf_polyCub_iso.o
-/usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o surveillance.so RcppExports.o backproj.o determineSources.o init.o ks.o stcd-assuncaocorrea.o surveillance.o twins.o twinstim_siaf_polyCub_iso.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-installing to /Users/max/github/ggplot2/revdep/checks.noindex/surveillance/old/surveillance.Rcheck/surveillance/libs
-** R
-** data
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘surveillance’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/surveillance/old/surveillance.Rcheck/surveillance’
-
-```
 # survivALL
 
 Version: 0.9.3
@@ -48500,7 +45998,7 @@ Version: 0.1.4
     > plot(eg_sv, R2_bounds = c(0.5, 1))
     > plot(eg_sv, R2_bounds = c(0.1, 1))
     > plot(eg_sv, type = "beta_plot", variable = "OPENDEC1", error_bar = FALSE)
-    Error: `data` must be uniquely named but has duplicate columns
+    Error: `data` must be uniquely named but has duplicate elements
     Execution halted
     ```
 
@@ -48512,7 +46010,7 @@ Version: 0.1.4
       ...
     Quitting from lines 154-156 (sValues.Rnw) 
     Error: processing vignette 'sValues.Rnw' failed with diagnostics:
-    `data` must be uniquely named but has duplicate columns
+    `data` must be uniquely named but has duplicate elements
     Execution halted
     ```
 
@@ -48592,7 +46090,7 @@ Version: 0.1
     > set.seed(1234)
     > dat = matrix(rnorm(9*4), 9, 4, dimnames=list(paste(1:9),letters[1:4]))
     > radviz(dat, group=c(rep("Group 1",3),rep("Group 2",3),rep("Group 3",3)))
-    Error: `data` must be uniquely named but has duplicate columns
+    Error: `data` must be uniquely named but has duplicate elements
     Execution halted
     ```
 
@@ -48600,9 +46098,9 @@ Version: 0.1
     ```
     Error in re-building vignettes:
       ...
-    Quitting from lines 50-51 (svdvis-vignette.Rmd) 
+    Quitting from lines 78-80 (svdvis-vignette.Rmd) 
     Error: processing vignette 'svdvis-vignette.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~V1".  Please rename the columns or make a new column.
+    `data` must be uniquely named but has duplicate elements
     Execution halted
     ```
 
@@ -48618,15 +46116,6 @@ Version: 0.1
 
 Version: 0.2-8
 
-## Newly broken
-
-*   checking whether package ‘SVMMaj’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘SVMMaj’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/SVMMaj/new/SVMMaj.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -48639,7 +46128,6 @@ Version: 0.2-8
     ```
     Error in re-building vignettes:
       ...
-    Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘SVMMaj’
     Scale for 'y' is already present. Adding another scale for 'y', which will
     replace the existing scale.
     Scale for 'y' is already present. Adding another scale for 'y', which will
@@ -48717,15 +46205,6 @@ Version: 1.10.1
 
 Version: 1.6.0
 
-## Newly broken
-
-*   checking whether package ‘swfdr’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘swfdr’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/swfdr/new/swfdr.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -48751,52 +46230,15 @@ Version: 1.2
 
 ## In both
 
-*   checking whether package ‘swfscMisc’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/swfscMisc/new/swfscMisc.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘swfscMisc’ ...
-** package ‘swfscMisc’ successfully unpacked and MD5 sums checked
-** R
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘swfscMisc’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/swfscMisc/new/swfscMisc.Rcheck/swfscMisc’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘swfscMisc’ ...
-** package ‘swfscMisc’ successfully unpacked and MD5 sums checked
-** R
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘swfscMisc’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/swfscMisc/old/swfscMisc.Rcheck/swfscMisc’
-
-```
 # switchde
 
 Version: 1.6.0
-
-## Newly broken
-
-*   checking whether package ‘switchde’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘switchde’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/switchde/new/switchde.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -48820,41 +46262,10 @@ Version: 0.8.1
 
 ## In both
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Quitting from lines 26-31 (How_to_convert_between_GIS_data_and_SWMM_with_swmmr.Rmd) 
-    Error: processing vignette 'How_to_convert_between_GIS_data_and_SWMM_with_swmmr.Rmd' failed with diagnostics:
-    there is no package called 'sf'
-    Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘sf’
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘sf’
     ```
 
 # SWMPr
@@ -48871,16 +46282,7 @@ Version: 2.3.0
 
 # SWMPrExtension
 
-Version: 0.3.12
-
-## Newly broken
-
-*   checking whether package ‘SWMPrExtension’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘SWMPrExtension’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/SWMPrExtension/new/SWMPrExtension.Rcheck/00install.out’ for details.
-    ```
+Version: 0.3.14
 
 ## In both
 
@@ -48892,8 +46294,7 @@ Version: 0.3.12
 
 *   checking dependencies in R code ... NOTE
     ```
-    Namespaces in Imports field not imported from:
-      ‘rgeos’ ‘stringr’
+    Namespace in Imports field not imported from: ‘rgeos’
       All declared Imports should be used.
     ```
 
@@ -49015,7 +46416,7 @@ Version: 1.4-3
     3    sex age edu smoke
     > f1 <- glm.synds(smoke ~ sex + age + edu, data = s1, family = "binomial")
     > compare(f1, ods) 
-    Error: More than one expression parsed
+    Error: `x` must be a string or a R connection
     Execution halted
     ```
 
@@ -49038,7 +46439,7 @@ Version: 1.4-3
     
     Error: processing vignette 'inference.Rnw' failed with diagnostics:
      chunk 10 
-    Error : More than one expression parsed
+    Error : `x` must be a string or a R connection
     Execution halted
     ```
 
@@ -49280,10 +46681,10 @@ Version: 2.8.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 67.4Mb
+      installed size is 66.8Mb
       sub-directories of 1Mb or more:
         R      2.4Mb
-        data   4.1Mb
+        data   3.6Mb
         doc   60.6Mb
     ```
 
@@ -49499,15 +46900,6 @@ Version: 0.13
 
 Version: 1.0
 
-## Newly broken
-
-*   checking whether package ‘TeachBayes’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘TeachBayes’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/TeachBayes/new/TeachBayes.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -49652,8 +47044,8 @@ Version: 1.0.0
      ERROR
     Running the tests in ‘tests/runTests.R’ failed.
     Last 13 lines of output:
-          'browseVignettes()'. To cite Bioconductor, see
-          'citation("Biobase")', and for packages 'citation("pkgname")'.
+      
+          exprs
       
       
       Attaching package: 'AnnotationDbi'
@@ -49818,12 +47210,10 @@ Version: 0.4.6
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘sf’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # tidyhydat
@@ -49841,15 +47231,6 @@ Version: 0.3.4
 # tidyinftheo
 
 Version: 0.2.1
-
-## Newly broken
-
-*   checking whether package ‘tidyinftheo’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘tidyinftheo’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/tidyinftheo/new/tidyinftheo.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -49892,14 +47273,29 @@ Version: 0.2.1
 
 Version: 0.1.3
 
-## Newly broken
+## In both
 
-*   checking whether package ‘tidyLPA’ can be installed ... WARNING
+*   checking PDF version of manual ... WARNING
     ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘tidyLPA’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/tidyLPA/new/tidyLPA.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
+
+# tidyposterior
+
+Version: 0.0.1
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+# tidyquant
+
+Version: 0.5.5
 
 ## In both
 
@@ -49995,12 +47391,10 @@ Version: 0.7
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘sf’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # tikzDevice
@@ -50029,8 +47423,8 @@ Version: 0.11
     The TeX and log files used for the calculation can help diagnose the
     problem. If these files are missing, rerun the plot and make sure to
     keep the R session open.
-    TeX file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpqEhY5Q/tikzDevice1540d553d127f/tikzStringWidthCalc.tex
-    Log file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpqEhY5Q/tikzDevice1540d553d127f/tikzStringWidthCalc.log
+    TeX file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpHYfjdo/tikzDevice643155ceb40c/tikzStringWidthCalc.tex
+    Log file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpHYfjdo/tikzDevice643155ceb40c/tikzStringWidthCalc.log
     Calls: getLatexStrWidth -> getMetricsFromLatex
     Execution halted
     ```
@@ -50056,8 +47450,8 @@ Version: 0.11
     The TeX and log files used for the calculation can help diagnose the
     problem. If these files are missing, rerun the plot and make sure to
     keep the R session open.
-    TeX file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp4pTWg8/tikzDevice155655b66aa5a/tikzStringWidthCalc.tex
-    Log file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp4pTWg8/tikzDevice155655b66aa5a/tikzStringWidthCalc.log
+    TeX file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmpu6RlYz/tikzDevice64a273bed4d1/tikzStringWidthCalc.tex
+    Log file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmpu6RlYz/tikzDevice64a273bed4d1/tikzStringWidthCalc.log
     Execution halted
     ```
 
@@ -50127,15 +47521,6 @@ Version: 0.1.0
 # timelineS
 
 Version: 0.1.1
-
-## Newly broken
-
-*   checking whether package ‘timelineS’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘timelineS’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/timelineS/new/timelineS.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -50297,119 +47682,6 @@ Version: 1.1.0
     This typically indicates Rd problems.
     ```
 
-# TissueEnrich
-
-Version: 1.0.0
-
-## Newly broken
-
-*   checking whether package ‘TissueEnrich’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::vars’ by ‘dplyr::vars’ when loading ‘TissueEnrich’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/TissueEnrich/new/TissueEnrich.Rcheck/00install.out’ for details.
-    ```
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-# tmap
-
-Version: 1.11-2
-
-## In both
-
-*   checking whether package ‘tmap’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/tmap/new/tmap.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘tmap’ ...
-** package ‘tmap’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘sf’
-ERROR: lazy loading failed for package ‘tmap’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/tmap/new/tmap.Rcheck/tmap’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘tmap’ ...
-** package ‘tmap’ successfully unpacked and MD5 sums checked
-** R
-** data
-** inst
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘sf’
-ERROR: lazy loading failed for package ‘tmap’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/tmap/old/tmap.Rcheck/tmap’
-
-```
-# Tmisc
-
-Version: 0.1.19
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-# toaster
-
-Version: 0.5.5
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      ── 1. Failure: format 'boxplot' works (@test-showData.R#12)  ───────────────────
-      setdiff(p$layout$panel_ranges[[1]]$x.labels, getNumericColumns(notNullNumData)) not equal to character(0).
-      target is NULL, current is character
-      
-      ── 2. Failure: format 'boxplot' with facets works (@test-showData.R#21)  ───────
-      nrow(p$layout$panel_layout) not equal to length(cols).
-      target is NULL, current is numeric
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 496 SKIPPED: 0 FAILED: 2
-      1. Failure: format 'boxplot' works (@test-showData.R#12) 
-      2. Failure: format 'boxplot' with facets works (@test-showData.R#21) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-## In both
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
 # toolmaRk
 
 Version: 0.0.1
@@ -50503,34 +47775,6 @@ Version: 0.3.0
 
 Version: 0.5.5
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    0.951  -0.067  
-    -0.038  0.846  
-    0.229  0.443  
-    -0.084  -0.223  
-    -0.009  -0.127  
-    0.188  -0.136  
-    > path_index(fl_holes, holes)
-    [1] 0.8888866 0.9034753 0.9144009 0.9212867 0.9295719 0.9315650 0.9326219
-    [8] 0.9341583 0.9350965
-    attr(,"class")
-    [1] "path_index"
-    > path_index(fl_holes, cmass)
-    [1] 0.11111341 0.09652468 0.08559911 0.07871328 0.07042810 0.06843499 0.06737811
-    [8] 0.06584170 0.06490351
-    attr(,"class")
-    [1] "path_index"
-    > 
-    > plot(path_index(fl_holes, holes), type = "l")
-    Error in geom_line() : could not find function "geom_line"
-    Calls: plot -> plot.path_index -> <Anonymous> -> do.call
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -50576,15 +47820,6 @@ Version: 0.1.1
 
 Version: 0.1.1
 
-## Newly broken
-
-*   checking whether package ‘toxplot’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘toxplot’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/toxplot/new/toxplot.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -50615,7 +47850,33 @@ Version: 0.1.2
 
 Version: 3.8.0
 
-## Newly broken
+## In both
+
+*   checking examples ... ERROR
+    ```
+    ...
+    Removing duplicate identifiers using quality column 'qupm'...
+    261 out of 261 rows kept for further analysis.
+    Reformating data for input into function 'analyzeTPPCCR' ...
+    Done.
+    No output directory specified. No result files or plots will be produced.
+    Looking for intensity column prefix: 'sumionarea_protein_'
+    Computing fold changes...
+    Done.
+    Found the following column name in attr(data, 'importSettings')$proteinIdCol: 'representative'
+    Found the following column name in attr(data, 'importSettings')$fcStr: 'rel_fc_protein_'
+    Performing median normalization per temperature...
+    Done.
+    Looking for unique ID column: 'unique_ID'
+    Looking for nonZeroCols: 'qusm'
+    Checking which columns in the data table contain the fold change values for fitting and plotting...
+    Normalized data columns detected with prefix 'norm_rel_fc_protein_'. Analysis will be based on these values.
+    This information was found in the attributes of the input data (access with attr(dataTable, 'importSettings'))
+    Performing TPP-CCR dose response curve fitting and generating result table...
+    Error in foldChanges[, refCol] : incorrect number of dimensions
+    Calls: analyze2DTPP ... withCallingHandlers -> analyzeTPPCCR -> tppccrNormalizeToReference
+    Execution halted
+    ```
 
 *   checking tests ...
     ```
@@ -50623,16 +47884,16 @@ Version: 3.8.0
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 13551 SKIPPED: 1 FAILED: 11
-      1. Failure: allOk1 (@test_create_spline_plots.R#66) 
-      2. Failure: allOk2 (@test_create_spline_plots.R#87) 
-      3. Failure: allOk3 (@test_create_spline_plots.R#108) 
-      4. Failure: onlyAlternative (@test_create_spline_plots.R#161) 
-      5. Failure: onlyNull (@test_create_spline_plots.R#185) 
-      6. Failure: noHypothesisNorCondition (@test_create_spline_plots.R#209) 
-      7. Failure: noData (@test_create_spline_plots.R#307) 
-      8. Failure: allOk (@test_predict_and_plot_spline_models.R#27) 
-      9. Failure: allOk_H0 (@test_predict_and_plot_spline_models.R#42) 
+      OK: 385 SKIPPED: 0 FAILED: 35
+      1. Error: allOK (@test_analyze2DTPP.R#14) 
+      2. Error: allOK_scientific_drug_concentration_format (@test_analyze2DTPP.R#37) 
+      3. Error: warning_deprecated_fct_arg (@test_analyze2DTPP.R#62) 
+      4. Error: NPARC_allok (@test_analyzeTPPTR.R#14) 
+      5. Error: NPARC_allok_output (@test_analyzeTPPTR.R#34) 
+      6. Error: NPARC_allok_plot (@test_analyzeTPPTR.R#61) 
+      7. Error: NPARC_allok_files (@test_analyzeTPPTR.R#94) 
+      8. Error: meltCurves_allOK_no_conditions (@test_analyzeTPPTR.R#153) 
+      9. Error: testApplyCoeffs (@test_applyCoeffs.R#9) 
       1. ...
       
       Error: testthat unit tests failed
@@ -50642,35 +47903,33 @@ Version: 3.8.0
 *   checking whether package ‘TPP’ can be installed ... WARNING
     ```
     Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘TPP’
+      Warning: replacing previous import ‘Biobase::exprs’ by ‘dplyr::exprs’ when loading ‘TPP’
     See ‘/Users/max/github/ggplot2/revdep/checks.noindex/TPP/new/TPP.Rcheck/00install.out’ for details.
     ```
-
-## In both
 
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
-    Fitting null models to 47 proteins (using 7 degrees of freedom)
-    Fitting alternative models to 47 proteins (using 7 degrees of freedom)
-    Evaluate goodness of fit of null and alternative models.
-    Runtime (2 CPUs used): 16.88 secs
     
-    Results table created successfully.
+    Filtering by annotation column(s) 'qssm' in treatment group: Panobinostat_1
+      Column qssm between 4 and Inf-> 333 out of 508 proteins passed.
     
-    Joining, by = "Protein_ID"
-    Writing results to file: /Users/max/github/ggplot2/revdep/checks.noindex/TPP/new/TPP.Rcheck/vign_test/TPP/vignettes/NPARC_Vignette_Example/results_TPP_TR.xlsx
-    File created successfully!
+    333 out of 508 proteins passed in total.
     
-    Creating QC plots to visualize median curve fits...
-    done.
+    Filtering by annotation column(s) 'qssm' in treatment group: Panobinostat_2
+      Column qssm between 4 and Inf-> 364 out of 509 proteins passed.
     
-    Creating QC plots to visualize normalization effects...
-    done.
+    364 out of 509 proteins passed in total.
     
-    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-      Running 'texi2dvi' on 'NPARC_analysis_of_TPP_TR_data.tex' failed.
-    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    	2. Find jointP:
+    Detecting intersect between treatment groups (jointP).
+    -> JointP contains 261 proteins.
+    
+    	3. Filtering fold changes:
+    Filtering fold changes in treatment group: Vehicle_1
+    Quitting from lines 73-76 (NPARC_analysis_of_TPP_TR_data.Rnw) 
+    Error: processing vignette 'NPARC_analysis_of_TPP_TR_data.Rnw' failed with diagnostics:
+    incorrect number of dimensions
     Execution halted
     ```
 
@@ -50818,7 +48077,7 @@ Version: 0.7.5
     Loading required package: histry
     Found more than one class "tbl_df" in cache; using the first, from namespace 'trackr'
     Also defined by 'tibble'
-    Creating image directory at /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmpq7HuMb/trackr_img_dir
+    Creating image directory at /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmpew3HwU/trackr_img_dir
     Quitting from lines 146-155 (Extending-trackr.Rnw) 
     Error: processing vignette 'Extending-trackr.Rnw' failed with diagnostics:
     dim(X) must have a positive length
@@ -51072,7 +48331,7 @@ Version: 2.5.0
 
 # treespace
 
-Version: 1.1.2
+Version: 1.1.3
 
 ## In both
 
@@ -51080,6 +48339,13 @@ Version: 1.1.2
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  6.1Mb
+      sub-directories of 1Mb or more:
+        doc   4.7Mb
     ```
 
 # trelliscope
@@ -51097,45 +48363,6 @@ Version: 0.9.8
 # trialr
 
 Version: 0.0.1
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    Iteration:  600 / 2000 [ 30%]  (Warmup)
-    Iteration:  800 / 2000 [ 40%]  (Warmup)
-    Iteration: 1000 / 2000 [ 50%]  (Warmup)
-    Iteration: 1001 / 2000 [ 50%]  (Sampling)
-    Iteration: 1200 / 2000 [ 60%]  (Sampling)
-    Iteration: 1400 / 2000 [ 70%]  (Sampling)
-    Iteration: 1600 / 2000 [ 80%]  (Sampling)
-    Iteration: 1800 / 2000 [ 90%]  (Sampling)
-    Iteration: 2000 / 2000 [100%]  (Sampling)
-    
-     Elapsed Time: 0.183678 seconds (Warm-up)
-                   0.113529 seconds (Sampling)
-                   0.297207 seconds (Total)
-    
-    > rstan::plot(samp, pars = 'p') # Plot the modelled response rates in the subtypes
-    ci_level: 0.8 (80% intervals)
-    outer_level: 0.95 (95% intervals)
-    Error in if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) { : 
-      missing value where TRUE/FALSE needed
-    Calls: <Anonymous> ... print.ggplot -> ggplot_gtable -> ggplot_gtable.ggplot_built
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Loading required package: Rcpp
-    Quitting from lines 120-121 (BEBOP.Rmd) 
-    Error: processing vignette 'BEBOP.Rmd' failed with diagnostics:
-    missing value where TRUE/FALSE needed
-    Execution halted
-    ```
 
 ## In both
 
@@ -51263,6 +48490,40 @@ Version: 0.7.5
 Version: 0.1.2
 
 ## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+# tsbox
+
+Version: 0.0.2
+
+## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      6: date_time_to_tsp(wx[[1]])
+      7: stop("time column needs to specified as the first date of the period", call. = FALSE)
+      
+      "blabla"
+      ── 2. Failure: heuristic high frequency data works (@test_ts_high_freq.R#91)  ──
+      `x` not equal to ts_df(ts_ts(x)).
+      Component "time": Mean absolute difference: 86579
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 340 SKIPPED: 9 FAILED: 2
+      1. Error: Latest tricky stuff works. (@test_tricky.R#9) 
+      2. Failure: heuristic high frequency data works (@test_ts_high_freq.R#91) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -51414,34 +48675,6 @@ Version: 1.2
 
 Version: 1.6.0
 
-## Newly fixed
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### ** Examples
-    > 
-    > extdata.dir <- system.file("extdata", package="TSRchitect")
-    > test.Obj <- loadTSSobj(experimentTitle="Code example", inputDir=extdata.dir,
-    + isPairedBAM=TRUE, sampleNames=c("sample1-rep1", "sample1-rep2",
-    + "sample2-rep1","sample2-rep2"), replicateIDs=c(1,1,2,2))
-    ... loadTSSobj ...
-    
-    Importing paired-end reads ...
-    
-    
-    TSS data were specified to be paired-end read alignments.
-    
-    Beginning import of 4 bam files ...
-    
-    Warning in socketConnection(host, port, TRUE, TRUE, "a+b", timeout = timeout) :
-      port 11626 cannot be opened
-    Error in socketConnection(host, port, TRUE, TRUE, "a+b", timeout = timeout) : 
-      cannot open the connection
-    Calls: loadTSSobj ... .local -> .bpfork -> .bpforkConnect -> socketConnection
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -51503,44 +48736,6 @@ Version: 1.2.1
     Malformed Description field: should contain one or more complete sentences.
     ```
 
-# tukeytrend
-
-Version: 0.4
-
-## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-        aml
-    
-    
-    Attaching package: 'aods3'
-    
-    The following object is masked from 'package:survival':
-    
-        rats
-    
-    Warning in RET$pfunction("adjusted", ...) :
-      Completion with error > abseps
-    Warning in RET$pfunction("adjusted", ...) :
-      Completion with error > abseps
-    Warning: Transformation introduced infinite values in continuous y-axis
-    Warning: Transformation introduced infinite values in continuous y-axis
-    Warning: Removed 12 rows containing non-finite values (stat_boxplot).
-    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-      Running 'texi2dvi' on 'ExamplesTukeytrendtest.tex' failed.
-    Calls: buildVignettes -> texi2pdf -> texi2dvi
-    Execution halted
-    ```
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
 # tvm
 
 Version: 0.3.0
@@ -51556,78 +48751,6 @@ Version: 0.3.0
 # TVTB
 
 Version: 1.6.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > 
-    > # Phenotype file
-    > phenoFile <- system.file("extdata", "moderate_pheno.txt", package = "TVTB")
-    > phenotypes <- S4Vectors::DataFrame(read.table(phenoFile, TRUE, row.names = 1))
-    > 
-    > # TVTB parameters
-    > tparam <- TVTBparam(Genotypes("0|0", c("0|1", "1|0"), "1|1"))
-    > 
-    > # Pre-process variants
-    > vcf <- VariantAnnotation::readVcf(
-    +     vcfFile, param = tparam, colData = phenotypes)
-    > vcf <- VariantAnnotation::expand(vcf, row.names = TRUE)
-    > vcf <- addFrequencies(vcf, "super_pop")
-    > 
-    > # Example usage ----
-    > 
-    > pairsInfo(vcf, "MAF", "super_pop")
-    Error in make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name),  : 
-      variables: "x" have non standard format: "~EUR".  Please rename the columns or make a new column.
-    Calls: pairsInfo ... do.call -> <Anonymous> -> plot_fn -> make_ggmatrix_plot_obj
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-             TRUE       FALSE       FALSE       FALSE       FALSE       FALSE 
-        rs1426654 rs150379789 rs570906312 rs538198029 rs553496066 rs574775672 
-             TRUE        TRUE       FALSE       FALSE        TRUE       FALSE 
-      rs140666229 rs556950130 rs575303689 rs147513140 rs187525777 rs192454382 
-             TRUE       FALSE        TRUE        TRUE       FALSE       FALSE 
-      rs184818838 rs566886499 rs199924625 rs555872528 rs531820822 rs201353600 
-            FALSE       FALSE       FALSE       FALSE       FALSE       FALSE 
-      rs550201688 rs565338261 rs201239799 rs200461129 rs146726548 
-            FALSE       FALSE       FALSE       FALSE        TRUE 
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 226 SKIPPED: 2 FAILED: 1
-      1. Error: all signatures work to completion (@test_pairsInfo-methods.R#28) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Overwriting INFO keys in data:
-    - REF
-    - HET
-    - ALT
-    - AAF
-    - MAF
-    Overwriting INFO keys in header:
-    - REF
-    - HET
-    - ALT
-    - AAF
-    - MAF
-    Quitting from lines 614-615 (Introduction.Rmd) 
-    Error: processing vignette 'Introduction.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~AFR".  Please rename the columns or make a new column.
-    Execution halted
-    ```
 
 ## In both
 
@@ -51651,40 +48774,12 @@ Version: 1.0
 
 ## In both
 
-*   checking whether package ‘tweet2r’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/tweet2r/new/tweet2r.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘tweet2r’ ...
-** package ‘tweet2r’ successfully unpacked and MD5 sums checked
-** R
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘tweet2r’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/tweet2r/new/tweet2r.Rcheck/tweet2r’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘tweet2r’ ...
-** package ‘tweet2r’ successfully unpacked and MD5 sums checked
-** R
-** byte-compile and prepare package for lazy loading
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘tweet2r’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/tweet2r/old/tweet2r.Rcheck/tweet2r’
-
-```
 # twoddpcr
 
 Version: 1.4.0
@@ -51699,7 +48794,7 @@ Version: 1.4.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.9Mb
+      installed size is  6.0Mb
       sub-directories of 1Mb or more:
         data   1.2Mb
         doc    4.1Mb
@@ -51732,15 +48827,6 @@ Version: 0.0.6
 # ukbtools
 
 Version: 0.10.1
-
-## Newly broken
-
-*   checking whether package ‘ukbtools’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘ukbtools’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/ukbtools/new/ukbtools.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -51913,27 +48999,6 @@ Version: 1.3.3
 
 Version: 1.2.3
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘useful-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: plot.kmeans
-    > ### Title: plot.kmeans
-    > ### Aliases: plot.kmeans
-    > 
-    > ### ** Examples
-    > 
-    > 
-    > k1 <- kmeans(x=iris[, 1:4], centers=3)
-    > plot(k1)
-    Don't know how to automatically pick scale for object of type NULL. Defaulting to continuous.
-    Error: A continuous variable can not be mapped to shape
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -51945,27 +49010,6 @@ Version: 1.2.3
 # userfriendlyscience
 
 Version: 0.7.1
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘userfriendlyscience-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: regrInfluential
-    > ### Title: Detecting influential cases in regression analyses
-    > ### Aliases: regrInfluential
-    > ### Keywords: ~kwd1 ~kwd2
-    > 
-    > ### ** Examples
-    > 
-    > regrInfluential(mpg ~ hp, mtcars);
-    Error in make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name),  : 
-      variables: "x" have non standard format: "~mpg", "~indexOfInfluentiality".  Please rename the columns or make a new column.variables: "colour" have non standard format: "~mpg", "~indexOfInfluentiality".  Please rename the columns or make a new column.
-    Calls: regrInfluential ... do.call -> <Anonymous> -> plot_fn -> make_ggmatrix_plot_obj
-    Execution halted
-    ```
 
 ## In both
 
@@ -52077,15 +49121,6 @@ Version: 1.6.0
 # valr
 
 Version: 0.4.0
-
-## Newly broken
-
-*   checking whether package ‘valr’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘valr’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/valr/new/valr.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -52286,13 +49321,8 @@ Version: 1.26.0
       ‘post2g’
     import,VcfFile-ANY-ANY: no visible global function definition for
       ‘checkArgFormat’
-    liftOver,VRanges-Chain: no visible global function definition for
-      ‘update’
     Undefined global functions or variables:
-      ALT GENETIC_CODE REF checkArgFormat post2g update
-    Consider adding
-      importFrom("stats", "update")
-    to your NAMESPACE file.
+      ALT GENETIC_CODE REF checkArgFormat post2g
     ```
 
 *   checking compiled code ... NOTE
@@ -52429,34 +49459,6 @@ Version: 1.2.0
 
 Version: 0.2.3
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### Aliases: expect_doppelganger
-    > 
-    > ### ** Examples
-    > 
-    > ver <- gdtools::version_freetype()
-    > 
-    > if (ver >= "2.6.0") {
-    +   disp_hist_base <- function() hist(mtcars$disp)
-    +   expect_doppelganger("disp-histogram-base", disp_hist_base)
-    + }
-    > 
-    > if (ver >= "2.6.0" && requireNamespace("ggplot2", quietly = TRUE)) {
-    +   library("ggplot2")
-    +   disp_hist_ggplot <- ggplot(mtcars, aes(disp)) + geom_histogram()
-    +   expect_doppelganger("disp-histogram-ggplot", disp_hist_ggplot)
-    + }
-    `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-    Error in if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) { : 
-      missing value where TRUE/FALSE needed
-    Calls: expect_doppelganger ... print.ggplot -> ggplot_gtable -> ggplot_gtable.ggplot_built
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -52537,58 +49539,6 @@ Version: 1.0.0
 
 Version: 1.0.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘vidger-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: vsScatterMatrix
-    > ### Title: Scatter plot matrix of log10(FPKM or CPM) values
-    > ### Aliases: vsScatterMatrix
-    > 
-    > ### ** Examples
-    > 
-    > # Cuffdiff example
-    > data("df.cuff")
-    > vsScatterMatrix(
-    +  data = df.cuff, d.factor = NULL, type = 'cuffdiff', 
-    +  comp = NULL, title = TRUE, grid = TRUE, 
-    +  man.title = 'Example title'
-    + )
-    Error in make_ggmatrix_plot_obj(wrapp(sub_type, funcArgName = sub_type_name),  : 
-      variables: "x" have non standard format: "~hESC".  Please rename the columns or make a new column.
-    Calls: vsScatterMatrix ... do.call -> <Anonymous> -> plot_fn -> make_ggmatrix_plot_obj
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    The following objects are masked from 'package:base':
-    
-        aperm, apply
-    
-    Loading required package: edgeR
-    Loading required package: limma
-    
-    Attaching package: 'limma'
-    
-    The following object is masked from 'package:DESeq2':
-    
-        plotMA
-    
-    The following object is masked from 'package:BiocGenerics':
-    
-        plotMA
-    
-    Quitting from lines 270-274 (vidger.Rmd) 
-    Error: processing vignette 'vidger.Rmd' failed with diagnostics:
-    variables: "x" have non standard format: "~hESC".  Please rename the columns or make a new column.
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -52599,9 +49549,9 @@ Version: 1.0.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.6Mb
+      installed size is  6.0Mb
       sub-directories of 1Mb or more:
-        data   4.7Mb
+        data   4.0Mb
         doc    1.7Mb
     ```
 
@@ -52700,34 +49650,6 @@ Version: 0.1.0
 
 Version: 0.1.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > 
-    > # Plot a VLAD/CRAM chart
-    > library("spcadjust")
-    > data("cardiacsurgery")
-    > cardiacsurgery <- dplyr::mutate(cardiacsurgery, phase=factor(ifelse(date < 2*365, "I", "II")))
-    > S2 <- subset(cardiacsurgery, c(surgeon==2), c("phase", "Parsonnet", "status"))
-    > S2I <- subset(S2, c(phase=="I"))
-    > S2II <- subset(S2, c(phase=="II"))
-    > coeff <- coef(glm(status ~ Parsonnet, data=S2I, family="binomial"))
-    > EO <- sapply(1:nrow(S2), function(i) calceo(df=S2[i, c("Parsonnet", "status")], coeff=coeff))
-    > 
-    > df1 <- data.frame(cbind(subset(S2, select=c("phase")), "n"=1:nrow(S2), "cEO"=cumsum(EO)))
-    > df2 <- tidyr::gather(df1, "variable", value, c(-n, -phase))
-    > 
-    > ggplot2::qplot(data=df2, n, value, colour=phase, geom=c("line", "point"),
-    +                xlab="Patient number", ylab="CUSUM E-O") +
-    +   ggplot2::geom_hline(yintercept=0, linetype="dashed") +
-    +   ggplot2::theme_classic()
-    Error in geom_line() : could not find function "geom_line"
-    Calls: <Anonymous> -> do.call
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -52748,9 +49670,23 @@ Version: 0.1.0
     This typically indicates Rd problems.
     ```
 
+# vmsbase
+
+Version: 2.1.3
+
+## In both
+
+*   checking package dependencies ... ERROR
+    ```
+    Packages required but not available: ‘cairoDevice’ ‘gWidgetsRGtk2’
+    
+    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+    manual.
+    ```
+
 # vortexR
 
-Version: 1.1.4
+Version: 1.1.5
 
 ## In both
 
@@ -52979,41 +49915,6 @@ Version: 1.0.4
 
 Version: 1.1.0
 
-## Newly broken
-
-*   checking whether package ‘VWPre’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘VWPre’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/VWPre/new/VWPre.Rcheck/00install.out’ for details.
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    These occur at time bin(s): 1150
-    Subsequent Empirical Logit calculations may be influenced by the number of samples (depending on the number of observations requested).
-    Sampling rate(s) present in the data are: 20 Hz.
-    
-    There are 50 samples per bin.
-    One data point every 50 millisecond(s)
-    Preparing ELogit output...
-    Number of Observations equal to Number of Samples. 
-     Calculation will be based on Number of Samples.
-    Grand average of Proportion Looks calculated using Event means.
-    Grand average of Proportion Looks calculated using Event means.
-    Grand average of Proportion Looks calculated using Event means.
-    Grand average of Proportion Looks calculated using Event means.
-    Grand average of Proportion Looks calculated using Event means.
-    Grand average of Proportion Looks calculated using Event means.
-    Grand average of Proportion Looks calculated using Event means.
-    Grand average of Proportion Looks calculated using Event means.
-    Quitting from lines 124-139 (SR_Plotting.Rmd) 
-    Error: processing vignette 'SR_Plotting.Rmd' failed with diagnostics:
-    `expr` must quote a symbol, scalar, or call
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -53036,7 +49937,7 @@ Version: 0.7.0
 
 # wakefield
 
-Version: 0.3.0
+Version: 0.3.3
 
 ## In both
 
@@ -53145,7 +50046,7 @@ Version: 1.0.1
 
 # warbleR
 
-Version: 1.1.12
+Version: 1.1.13
 
 ## In both
 
@@ -53155,11 +50056,11 @@ Version: 1.1.12
     This typically indicates Rd problems.
     ```
 
-*   checking dependencies in R code ... NOTE
+*   checking installed package size ... NOTE
     ```
-    Namespaces in Imports field not imported from:
-      ‘pbmcapply’ ‘proxy’ ‘signal’
-      All declared Imports should be used.
+      installed size is  5.7Mb
+      sub-directories of 1Mb or more:
+        doc   4.3Mb
     ```
 
 # waterfalls
@@ -53361,46 +50262,19 @@ Version: 1.2.1
 
 ## In both
 
-*   checking whether package ‘windfarmGA’ can be installed ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Installation failed.
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/windfarmGA/new/windfarmGA.Rcheck/00install.out’ for details.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
-## Installation
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespaces in Imports field not imported from:
+      ‘RandomFields’ ‘data.table’
+      All declared Imports should be used.
+    ```
 
-### Devel
-
-```
-* installing *source* package ‘windfarmGA’ ...
-** package ‘windfarmGA’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Warning in fun(libname, pkgname) : couldn't connect to display ""
-Creating a generic function for ‘toJSON’ from package ‘jsonlite’ in package ‘googleVis’
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘windfarmGA’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/windfarmGA/new/windfarmGA.Rcheck/windfarmGA’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘windfarmGA’ ...
-** package ‘windfarmGA’ successfully unpacked and MD5 sums checked
-** R
-** inst
-** byte-compile and prepare package for lazy loading
-Warning in fun(libname, pkgname) : couldn't connect to display ""
-Creating a generic function for ‘toJSON’ from package ‘jsonlite’ in package ‘googleVis’
-Error in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]) : 
-  there is no package called ‘polyclip’
-ERROR: lazy loading failed for package ‘windfarmGA’
-* removing ‘/Users/max/github/ggplot2/revdep/checks.noindex/windfarmGA/old/windfarmGA.Rcheck/windfarmGA’
-
-```
 # wordbankr
 
 Version: 0.3.0
@@ -53488,7 +50362,6 @@ Version: 1.1.0
 *   checking whether package ‘WRTDStidal’ can be installed ... WARNING
     ```
     Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘WRTDStidal’
       Warning: replacing previous import ‘forecast::autolayer’ by ‘ggplot2::autolayer’ when loading ‘WRTDStidal’
     See ‘/Users/max/github/ggplot2/revdep/checks.noindex/WRTDStidal/new/WRTDStidal.Rcheck/00install.out’ for details.
     ```
@@ -53576,19 +50449,9 @@ Version: 1.12.0
 
 # xgboost
 
-Version: 0.6.4.1
+Version: 0.71.1
 
 ## In both
-
-*   checking examples ... WARNING
-    ```
-    Found the following significant warnings:
-    
-      Warning: 'cBind' is deprecated.
-    Deprecated functions may be defunct as soon as of the next release of
-    R.
-    See ?Deprecated.
-    ```
 
 *   checking re-building of vignette outputs ... WARNING
     ```
@@ -53599,7 +50462,6 @@ Version: 0.6.4.1
     Loading required package: data.table
     Loading required package: vcd
     Loading required package: grid
-       [[ suppressing 10 column names 'TreatmentPlacebo', 'TreatmentTreated', 'SexMale' ... ]]
     Warning in chisq.test(df$Age, output_vector) :
       Chi-squared approximation may be incorrect
     Warning in chisq.test(df$AgeDiscret, output_vector) :
@@ -53617,6 +50479,11 @@ Version: 0.6.4.1
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+*   checking for GNU extensions in Makefiles ... NOTE
+    ```
+    GNU make is a SystemRequirements.
     ```
 
 # XGR
@@ -53741,15 +50608,6 @@ ERROR: lazy loading failed for package ‘XLConnect’
 
 Version: 1.0.1
 
-## Newly broken
-
-*   checking whether package ‘xmrr’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘xmrr’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/xmrr/new/xmrr.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -53778,22 +50636,27 @@ Version: 0.4.2
 
 *   checking examples ... ERROR
     ```
+    ...
     Running examples in ‘xpose-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: amt_vs_idv
-    > ### Title: Compartment kinetics
-    > ### Aliases: amt_vs_idv
+    > ### Name: gg_themes
+    > ### Title: An additional set of themes for ggplot2
+    > ### Aliases: gg_themes theme_bw2 theme_readable
     > 
     > ### ** Examples
     > 
-    > amt_vs_idv(xpdb_ex_pk)
+    > # With the gg_theme theme_readable() (default)
+    > dv_vs_ipred(xpdb_ex_pk, facets = 'SEX')
     Using data from $prob no.1
-    Tidying data by ID, SEX, MED1, MED2, AMT ... and 20 more variables
-    Warning: x is not part of the available keywords. Check ?template_titles for a full list.
-    Error in if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) { : 
-      missing value where TRUE/FALSE needed
-    Calls: <Anonymous> ... print.ggplot -> ggplot_gtable -> ggplot_gtable.ggplot_built
+    Filtering data by EVID == 0
+    Warning: y, x is not part of the available keywords. Check ?template_titles for a full list.
+    > 
+    > # With the gg_theme theme_bw2()
+    > xpdb_ex_pk %>% 
+    +  update_themes(gg_theme = theme_bw2()) %>% 
+    +  dv_vs_ipred(facets = 'SEX')
+    Error: Bad input to the argument `xpdb`
     Execution halted
     ```
 
@@ -53803,7 +50666,7 @@ Version: 0.4.2
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 380 SKIPPED: 6 FAILED: 39
+      OK: 398 SKIPPED: 6 FAILED: 35
       1. Error: (unknown) (@test-console_outputs.R#4) 
       2. Error: (unknown) (@test-edits.R#4) 
       3. Failure: have proper error check for distribution_function res_distrib (@test-plots.R#72) 
@@ -53831,6 +50694,13 @@ Version: 0.4.2
     Execution halted
     ```
 
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        doc   3.7Mb
+    ```
+
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -53842,15 +50712,6 @@ Version: 0.4.2
 # xray
 
 Version: 0.2
-
-## Newly broken
-
-*   checking whether package ‘xray’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘xray’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/xray/new/xray.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -53894,15 +50755,6 @@ Version: 3.4.2
 
 Version: 2.0.3
 
-## Newly broken
-
-*   checking whether package ‘xxIRT’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘xxIRT’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/xxIRT/new/xxIRT.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -53932,15 +50784,6 @@ Version: 1.6.0
 # yorkr
 
 Version: 0.0.7
-
-## Newly broken
-
-*   checking whether package ‘yorkr’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘yorkr’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/yorkr/new/yorkr.Rcheck/00install.out’ for details.
-    ```
 
 ## In both
 
@@ -53972,6 +50815,29 @@ Version: 0.1.2
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+# zeitgebr
+
+Version: 0.3.2
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘ggplot2’
+      All declared Imports should be used.
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘xsp’
     ```
 
 # zenplots
@@ -54034,15 +50900,6 @@ Version: 0.1.7
 
 Version: 1.2.0
 
-## Newly broken
-
-*   checking whether package ‘zFPKM’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘dplyr::vars’ by ‘ggplot2::vars’ when loading ‘zFPKM’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/zFPKM/new/zFPKM.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -54084,15 +50941,6 @@ Version: 1.2.0
 
 Version: 0.5.9
 
-## Newly broken
-
-*   checking whether package ‘zonator’ can be installed ... WARNING
-    ```
-    Found the following significant warnings:
-      Warning: replacing previous import ‘ggplot2::calc’ by ‘raster::calc’ when loading ‘zonator’
-    See ‘/Users/max/github/ggplot2/revdep/checks.noindex/zonator/new/zonator.Rcheck/00install.out’ for details.
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -54109,34 +50957,6 @@ Version: 0.5.9
 # zoo
 
 Version: 1.8-1
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    + ## with different line types
-    + autoplot(zoo(data), facet = NULL) + geom_point() + aes(linetype = Series)
-    + 
-    + ## illustrate just fortify() method
-    + z <- zoo(data)
-    + fortify(z)
-    + fortify(z, melt = TRUE)
-    + fortify(z, melt = TRUE, names = c("Time", NA, "Data"))
-    + fortify(z, melt = TRUE, names = c(Index = "Time"))
-    + 
-    + ## with/without splitting
-    + z <- zoo(cbind(a.A = 1:2, a.B = 2:3, b.A = 3:4, c.B = 4:5))
-    + fortify(z)
-    + fortify(z, melt = TRUE, sep = ".",
-    +   names = list(Series = c("Lower", "Upper")))
-    + 
-    + }
-    Loading required package: ggplot2
-    Loading required package: scales
-    Error: `expr` must quote a symbol, scalar, or call
-    Execution halted
-    ```
 
 ## In both
 
