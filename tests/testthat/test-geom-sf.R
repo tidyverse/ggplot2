@@ -1,5 +1,6 @@
 context("geom-sf")
 
+
 # Visual tests ------------------------------------------------------------
 
 test_that("geom_sf draws correctly", {

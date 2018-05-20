@@ -25,7 +25,6 @@ test_that("layout summary - basic plot", {
   expect_equal(l$yscale[[1]]$range$range, c(12, 44))
 })
 
-
 test_that("layout summary - facet_wrap", {
   lw <- summarise_layout(ggplot_build(pw))
 
@@ -44,7 +43,6 @@ test_that("layout summary - facet_wrap", {
   expect_identical(lw$yscale[[1]], lw$yscale[[2]])
   expect_identical(lw$yscale[[1]], lw$yscale[[3]])
 })
-
 
 test_that("layout summary - facet_grid", {
   lg <- summarise_layout(ggplot_build(pg))
@@ -88,7 +86,6 @@ test_that("layout summary - reversed scales", {
   expect_equal(lr$xscale[[1]]$trans$transform(5), -5)
 })
 
-
 test_that("layout summary - log scales", {
   pl <- p + scale_x_log10() + scale_y_continuous(trans = "log2")
   ll <- summarise_layout(ggplot_build(pl))
@@ -97,7 +94,6 @@ test_that("layout summary - log scales", {
   expect_equal(ll$yscale[[1]]$trans$name, "log-2")
   expect_equal(ll$yscale[[1]]$trans$transform(16), 4)
 })
-
 
 test_that("coord summary - basic", {
   l <- summarise_coord(ggplot_build(p))
@@ -116,7 +112,6 @@ test_that("coord summary - coord_flip", {
   lf <- summarise_coord(ggplot_build(pf))
   expect_identical(lf, list(xlog = NA_real_, ylog = NA_real_, flip = TRUE))
 })
-
 
 test_that("summarise_layers", {
   l <- summarise_layers(ggplot_build(p))

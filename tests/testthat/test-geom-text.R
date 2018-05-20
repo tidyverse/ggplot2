@@ -16,7 +16,7 @@ test_that("inward moves text towards center", {
   )
 })
 
-test_that("outwards moves text away from center", {
+test_that("outward moves text away from center", {
   expect_equal(
     compute_just(c("outward", "outward", "outward"), c(0, 0.5, 1)),
     c(1.0, 0.5, 0)
@@ -28,6 +28,4 @@ test_that("inward points close to center are centered", {
     compute_just(c("inward", "inward", "inward"), c(0.5 - 1e-3, 0.5, 0.5 + 1e-3)),
     c(0.5, 0.5, 0.5)
   )
-
 })
-

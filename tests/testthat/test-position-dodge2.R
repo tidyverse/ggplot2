@@ -80,10 +80,9 @@ test_that("boxes in facetted plots keep the correct width", {
   d <- layer_data(p)
 
   expect_true(all(d$xmax - d$xmin == 0.75))
-
 })
 
-test_that("width of groups computed per facet", {
+test_that("width of groups is computed per facet", {
   df <- tibble::tribble(
     ~g1, ~g2,  ~y,
     "x", "a",  1,

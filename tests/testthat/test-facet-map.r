@@ -10,8 +10,7 @@ panel_map_one <- function(facet, data, plot_data = data) {
   layout$setup(list(data), plot_data)[[1]]
 }
 
-
-test_that("two col cases with no missings adds single extra column", {
+test_that("two col cases with no missings adds a single extra column", {
   loc <- panel_map_one(facet_grid(cyl~vs), mtcars)
 
   expect_equal(nrow(loc), nrow(mtcars))
@@ -19,7 +18,6 @@ test_that("two col cases with no missings adds single extra column", {
 
   match <- unique(loc[c("cyl", "vs", "PANEL")])
   expect_equal(nrow(match), 5)
-
 })
 
 test_that("margins add extra data", {
@@ -27,7 +25,6 @@ test_that("margins add extra data", {
 
   expect_equal(nrow(loc), nrow(df) * 2)
 })
-
 
 test_that("grid: missing facet columns are duplicated", {
   facet <- facet_grid(a~b)
@@ -60,7 +57,6 @@ test_that("wrap: missing facet columns are duplicated", {
   loc_c <- panel_map_one(facet, df_c, plot_data = df)
   expect_equal(nrow(loc_c), 4)
   expect_equal(loc_c$PANEL, factor(1:4))
-
 })
 
 # Missing behaviour ----------------------------------------------------------
@@ -71,7 +67,7 @@ a3 <- data.frame(
   c = factor(c(1:3, NA), exclude = NULL)
 )
 
-test_that("wrap: missing values located correctly", {
+test_that("wrap: missing values are located correctly", {
   facet <- facet_wrap(~b, ncol = 1)
   loc_b <- panel_map_one(facet, data.frame(b = NA), plot_data = a3)
   expect_equal(as.character(loc_b$PANEL), "4")
@@ -81,7 +77,7 @@ test_that("wrap: missing values located correctly", {
   expect_equal(as.character(loc_c$PANEL), "4")
 })
 
-test_that("grid: missing values located correctly", {
+test_that("grid: missing values are located correctly", {
   facet <- facet_grid(b~.)
   loc_b <- panel_map_one(facet, data.frame(b = NA), plot_data = a3)
   expect_equal(as.character(loc_b$PANEL), "4")
@@ -160,5 +156,4 @@ test_that("wrap: facet order follows default data frame order", {
   lay <- get_layout(ggplot(mapping = aes(x, y)) + facet_wrap(~fx) +
     geom_point(data = d) + geom_blank(data = d2))
   expect_equal(as.character(lay$fx), c("c","b","a")[lay$PANEL])
-
 })

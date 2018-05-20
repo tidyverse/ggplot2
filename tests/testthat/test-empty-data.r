@@ -20,7 +20,6 @@ test_that("layers with empty data are silently omitted", {
   expect_equal(nrow(layer_data(d, 1)), 0)
 })
 
-
 test_that("plots with empty data and vectors for aesthetics work", {
   d <- ggplot(NULL, aes(1:5, 1:5)) + geom_point()
   expect_equal(nrow(layer_data(d)), 5)
@@ -31,7 +30,6 @@ test_that("plots with empty data and vectors for aesthetics work", {
   d <- ggplot() + geom_point(aes(1:5, 1:5))
   expect_equal(nrow(layer_data(d)), 5)
 })
-
 
 test_that("layers with empty data are silently omitted with facet_wrap", {
   # Empty data, facet_wrap, throws error
@@ -55,7 +53,6 @@ test_that("layers with empty data are silently omitted with facet_grid", {
   expect_equal(nrow(layer_data(d, 1)), 0)
   expect_equal(nrow(layer_data(d, 2)), nrow(mtcars))
 })
-
 
 test_that("empty data overrides plot defaults", {
   # Should error when totally empty data frame because there's no x and y

@@ -28,7 +28,6 @@ test_that("ggsave restores previous graphics device", {
   expect_identical(old_dev, dev.cur())
 })
 
-
 # plot_dim ---------------------------------------------------------------
 
 test_that("guesses and informs if dim not specified", {
@@ -53,10 +52,9 @@ test_that("scale multiplies height & width", {
   expect_equal(plot_dim(c(5, 5), scale = 2), c(10, 10))
 })
 
-
 # plot_dev ---------------------------------------------------------------------
 
-test_that("function passed back unchanged", {
+test_that("function is passed back unchanged", {
   expect_equal(plot_dev(png), png)
 })
 
@@ -74,7 +72,6 @@ test_that("text converted to function", {
 test_that("if device is NULL, guess from extension", {
   expect_identical(body(plot_dev(NULL, "test.png"))[[1]], quote(grDevices::png))
 })
-
 
 # parse_dpi ---------------------------------------------------------------
 

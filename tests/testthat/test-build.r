@@ -15,7 +15,7 @@ test_that("there is one data frame for each layer", {
   expect_equal(nlayers(l3), 3)
 })
 
-test_that("position aesthetics coerced to correct type", {
+test_that("position aesthetics are coerced to correct type", {
   l1 <- ggplot(df, aes(x, y)) + geom_point()
   d1 <- layer_data(l1, 1)
 

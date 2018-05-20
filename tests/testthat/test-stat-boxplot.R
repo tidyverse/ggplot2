@@ -18,5 +18,4 @@ test_that("stat_boxplot drops missing rows with a warning", {
     ggplot_build(p2),
     "Removed 10 rows containing missing values \\(stat_boxplot\\)\\."
   )
-
 })

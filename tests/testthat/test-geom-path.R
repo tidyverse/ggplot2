@@ -7,6 +7,7 @@ test_that("keep_mid_true drops leading/trailing FALSE", {
   expect_equal(keep_mid_true(c(F, T, F, T, T)), c(F, T, T, T, T))
 })
 
+
 # Visual tests ------------------------------------------------------------
 
 test_that("geom_path draws correctly", {
