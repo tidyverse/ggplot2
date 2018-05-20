@@ -48,7 +48,7 @@ test_that("NAs translated/preserved for non-position scales", {
 
 # Ranges ------------------------------------------------------------------
 
-test_that("discrete ranges also encompas continuous values", {
+test_that("discrete ranges also encompass continuous values", {
   df <- data.frame(x1 = c("a", "b", "c"), x2 = c(0, 2, 4), y = 1:3)
 
   base <- ggplot(df, aes(y = y)) + scale_x_discrete()
