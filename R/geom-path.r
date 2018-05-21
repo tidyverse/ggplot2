@@ -262,8 +262,9 @@ GeomLine <- ggproto("GeomLine", GeomPath,
   }
 )
 
-#' @param direction direction of stairs: 'vh' for vertical then horizontal, or
-#'   'hv' for horizontal then vertical.
+#' @param direction direction of stairs: 'vh' for vertical then horizontal,
+#'   'hv' for horizontal then vertical, or 'mid' for step half-way between
+#'   adjacent x-values.
 #' @export
 #' @rdname geom_path
 geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
