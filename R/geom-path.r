@@ -302,7 +302,7 @@ GeomStep <- ggproto("GeomStep", GeomPath,
 #
 # @keyword internal
 stairstep <- function(data, direction="hv") {
-  direction <- match.arg(direction, c("hv", "vh", "hvh"))
+  direction <- match.arg(direction, c("hv", "vh", "mid"))
   data <- as.data.frame(data)[order(data$x), ]
   n <- nrow(data)
 
@@ -314,24 +314,27 @@ stairstep <- function(data, direction="hv") {
   if (direction == "vh") {
     xs <- rep(1:n, each = 2)[-2*n]
     ys <- c(1, rep(2:n, each = 2))
-  } else {
+  } else if (direction == "hv") {
     ys <- rep(1:n, each = 2)[-2*n]
     xs <- c(1, rep(2:n, each = 2))
-  }
-
-  if (direction == "hvh") {
-    gaps <- data$x[2:n] - data$x[1:(n-1)]
-
-    data.frame(
-      x = c(data$x[1],data$x[xs[-1]] - (gaps[rep(1:(n-1), each = 2)]/2),data$x[n]),
-      y = c(data$y[ys],data$y[n]),
-      data[c(xs,n), setdiff(names(data), c("x", "y"))]
-    )
   } else {
-    data.frame(
-      x = data$x[xs],
-      y = data$y[ys],
-      data[xs, setdiff(names(data), c("x", "y"))]
-    )
+    xs <- rep(1:(n-1), each = 2)
+    ys <- rep(1:n, each = 2)
   }
+
+  if (direction == "mid") {
+    gaps <- data$x[-1] - data$x[-n] # find the distances between adjacent x-values
+    mid_x <- data$x[-n] + gaps/2 # map the mid-point between adjacent x-values
+    x <- c(data$x[1],mid_x[xs],data$x[n])
+    y <- c(data$y[ys])
+    data_attr <- data[c(1,xs,n), setdiff(names(data), c("x", "y"))]
+  } else {
+    x <- data$x[xs]
+    y <- data$y[ys]
+    data_attr <- data[xs, setdiff(names(data), c("x", "y"))]
+  }
+
+  data.frame(x,y,data_attr)
+
+
 }
