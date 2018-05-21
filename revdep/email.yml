@@ -1,4 +1,4 @@
-release_date: ???
-rel_release_date: ???
-my_news_url: ???
-release_version: ???
+release_date: June 25
+rel_release_date: one month
+my_news_url: https://github.com/tidyverse/ggplot2/blob/master/NEWS.md#ggplot2-2219000
+release_version: 2.3.0
