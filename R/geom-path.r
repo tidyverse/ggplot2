@@ -323,7 +323,7 @@ stairstep <- function(data, direction="hv") {
   }
 
   if (direction == "mid") {
-    gaps <- data$x[-1] - data$x[-n] # find the distances between adjacent x-values
+    gaps <- data$x[-1] - data$x[-n]
     mid_x <- data$x[-n] + gaps/2 # map the mid-point between adjacent x-values
     x <- c(data$x[1],mid_x[xs],data$x[n])
     y <- c(data$y[ys])
