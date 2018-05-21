@@ -159,7 +159,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends
-  position <- theme$legend.position
+  position <- theme$legend.position %||% "right"
   if (length(position) == 2) {
     position <- "manual"
   }
