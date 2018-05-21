@@ -2,22 +2,29 @@
 
 ## Breaking changes
 
-*   ggplot2 now supports/uses tidy eval which means that the `aes()` is now
-    a list of quosures (expression + environment pairs) rather than a list of
-    symbols. If you compute on the contents of `aes()` you will need to use
-    tools from rlang to extract the components that you need. If you are 
-    stuck, we're happy to help - please ask on <community.rstudio.com>.
-  
-    A common symptom of this change is "undefined columns selected":
-    this often occurs when the contents of `aes()` are coerced to a character
-    vector and then used to index a data frame. This never worked reliably
-    (i.e. it would fail if the user supplied an expression), so typically
-    indicates that a different approach is warranted (#2591).
-
-    Similarly, if you compute on the `mapping` of an existing ggplot2 object you
-    will also need to use rlang tools to extract the components you need. One
-    common errror related to this change is "invalid 'type' (list) of argument"
-    (#2610).
+*   ggplot2 now supports/uses tidy evaluation (as described below). This is a 
+    major change and breaks a number of packages; we made this breaking change 
+    because it is important to make ggplot2 more programmable, and to be more 
+    consistent with the rest of the tidyverse. The best general (and detailed)
+    introduction to tidy evaluation can be found in the meta programming
+    chapters in [Advanced R](https://adv-r.hadley.nz).
+    
+    The primary developer facing change is that `aes()` is now a list of 
+    quosures (expression + environment pairs) rather than a list of symbols,
+    and you'll need to take a different approach to extracting the information
+    you need. A common symptom of this change are errors "undefined columns 
+    selected" or "invalid 'type' (list) of argument" (#2610). 
+    
+    In this version of ggplot2, you need to describe a mapping in a string, 
+    use `quo_name()` (for shorter labels) or `quo_text()` (if you want 
+    everything). If you do need to extract the value of a variable instead use 
+    `rlang::eval_tidy()`. You may want to condition on 
+    `(packageVersion("ggplot2") <= "2.2.1")` so that your code can work with
+    both released and development versions of ggplot2.
+    
+    We recognise that this is a big change and if you're not already familiar
+    with rlang, there's a lot to learn. If you are stuck, or need any help,
+    please reach out on <https://community.rstudio.com>.
 
 *   Error: Column `y` must be a 1d atomic vector or a list
 
