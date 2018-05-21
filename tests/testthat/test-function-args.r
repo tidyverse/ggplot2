@@ -13,7 +13,7 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   # These aren't actually geoms, or need special parameters and can't be tested this way.
   geom_fun_names <- setdiff(
     geom_fun_names,
-    c("geom_map", "geom_sf", "geom_column", "annotation_custom", "annotation_map",
+    c("geom_map", "geom_sf", "geom_smooth", "geom_column", "annotation_custom", "annotation_map",
       "annotation_raster", "annotation_id")
   )
 
@@ -42,7 +42,6 @@ test_that("geom_xxx and GeomXxx$draw arg defaults match", {
   })
 })
 
-
 test_that("stat_xxx and StatXxx$compute_panel arg defaults match", {
   ggplot2_ns <- asNamespace("ggplot2")
   objs <- ls(ggplot2_ns)
@@ -50,7 +49,7 @@ test_that("stat_xxx and StatXxx$compute_panel arg defaults match", {
   # These aren't actually stats, or need special parameters and can't be tested this way.
   stat_fun_names <- setdiff(
     stat_fun_names,
-    c("stat_function")
+    c("stat_function", "stat_sf")
   )
 
   # For each stat_xxx function and the corresponding StatXxx$compute_panel and

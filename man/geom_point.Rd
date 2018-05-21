@@ -34,7 +34,7 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -112,10 +112,6 @@ p + geom_point()
 p + geom_point(aes(colour = factor(cyl)))
 p + geom_point(aes(shape = factor(cyl)))
 p + geom_point(aes(size = qsec))
-
-# Change scales
-p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
-p + geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
 
 # Set aesthetics to fixed value
 ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)

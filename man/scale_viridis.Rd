@@ -12,18 +12,18 @@
 \title{Viridis colour scales from viridisLite}
 \usage{
 scale_colour_viridis_d(..., alpha = 1, begin = 0, end = 1,
-  direction = 1, option = "D")
+  direction = 1, option = "D", aesthetics = "colour")
 
 scale_fill_viridis_d(..., alpha = 1, begin = 0, end = 1, direction = 1,
-  option = "D")
+  option = "D", aesthetics = "fill")
 
 scale_colour_viridis_c(..., alpha = 1, begin = 0, end = 1,
   direction = 1, option = "D", values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar")
+  na.value = "grey50", guide = "colourbar", aesthetics = "colour")
 
 scale_fill_viridis_c(..., alpha = 1, begin = 0, end = 1, direction = 1,
   option = "D", values = NULL, space = "Lab", na.value = "grey50",
-  guide = "colourbar")
+  guide = "colourbar", aesthetics = "fill")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or
@@ -41,7 +41,12 @@ are ordered from darkest to lightest. If -1, the order of colors is reversed.}
 
 \item{option}{A character string indicating the colormap option to use. Four
 options are available: "magma" (or "A"), "inferno" (or "B"), "plasma" (or "C"),
-and "viridis" (or "D", the default option).}
+"viridis" (or "D", the default option) and "cividis" (or "E").}
+
+\item{aesthetics}{Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the

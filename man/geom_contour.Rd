@@ -39,16 +39,16 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{lineend}{Line end style (round, butt, square)}
+\item{lineend}{Line end style (round, butt, square).}
 
-\item{linejoin}{Line join style (round, mitre, bevel)}
+\item{linejoin}{Line join style (round, mitre, bevel).}
 
-\item{linemitre}{Line mitre limit (number greater than 1)}
+\item{linemitre}{Line mitre limit (number greater than 1).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -118,7 +118,7 @@ v + geom_contour(binwidth = 0.01)
 v + geom_contour(binwidth = 0.001)
 
 # Other parameters
-v + geom_contour(aes(colour = calc(level)))
+v + geom_contour(aes(colour = stat(level)))
 v + geom_contour(colour = "red")
 v + geom_raster(aes(fill = density)) +
   geom_contour(colour = "white")

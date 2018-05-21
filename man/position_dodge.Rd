@@ -7,7 +7,7 @@
 \usage{
 position_dodge(width = NULL, preserve = c("total", "single"))
 
-position_dodge2(width = NULL, preserve = c("single", "total"),
+position_dodge2(width = NULL, preserve = c("total", "single"),
   padding = 0.1, reverse = FALSE)
 }
 \arguments{

@@ -9,6 +9,7 @@ df <- data.frame(
 group <- function(x) as.vector(layer_data(x, 1)$group)
 groups <- function(x) length(unique(group(x)))
 
+
 test_that("one group per combination of discrete vars", {
   plot <- ggplot(df, aes(x, x)) + geom_point()
   expect_equal(group(plot), rep(NO_GROUP, 4))

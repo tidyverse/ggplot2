@@ -367,11 +367,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   render_bg = function(self, panel_params, theme) {
-    line_gp <- gpar(
-      col = theme$panel.grid.major$colour,
-      lwd = theme$panel.grid.major$size,
-      lty = theme$panel.grid.major$linetype
-    )
+    el <- calc_element("panel.grid.major", theme)
+    line_gp <- gpar(col = el$colour, lwd = el$size, lty = el$linetype)
     grobs <- c(
       list(element_render(theme, "panel.background")),
       lapply(sf::st_geometry(panel_params$graticule), sf::st_as_grob, gp = line_gp)

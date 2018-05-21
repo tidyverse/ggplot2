@@ -1,23 +1,23 @@
-#' @param method smoothing method (function) to use, eg. `lm`, `glm`,
+#' @param method Smoothing method (function) to use, eg. `lm`, `glm`,
 #'   `gam`, `loess`, `MASS::rlm`.
 #'
 #'   For `method = "auto"` the smoothing method is chosen based on the
 #'   size of the largest group (across all panels). [loess()] is
 #'   used for less than 1,000 observations; otherwise [mgcv::gam()] is
-#'   used with `formula = y ~ s(x, bs = "cs")`. Somewhat anecdotally,
+#'   used with `formula = y ~ mgcv::s(x, bs = "cs")`. Somewhat anecdotally,
 #'   `loess` gives a better appearance, but is O(n^2) in memory, so does
 #'   not work for larger datasets.
-#' @param formula formula to use in smoothing function, eg. `y ~ x`,
+#' @param formula Formula to use in smoothing function, eg. `y ~ x`,
 #'   `y ~ poly(x, 2)`, `y ~ log(x)`
-#' @param se display confidence interval around smooth? (TRUE by default, see
-#'   level to control
-#' @param fullrange should the fit span the full range of the plot, or just
-#'   the data
-#' @param level level of confidence interval to use (0.95 by default)
+#' @param se Display confidence interval around smooth? (TRUE by default, see
+#'   level to control.)
+#' @param fullrange Should the fit span the full range of the plot, or just
+#'   the data?
+#' @param level Level of confidence interval to use (0.95 by default).
 #' @param span Controls the amount of smoothing for the default loess smoother.
 #'   Smaller numbers produce wigglier lines, larger numbers produce smoother
 #'   lines.
-#' @param n number of points to evaluate smoother at
+#' @param n Number of points at which to evaluate smoother.
 #' @param method.args List of additional arguments passed on to the modelling
 #'   function defined by `method`.
 #' @section Computed variables:
@@ -85,7 +85,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         params$method <- "gam"
         params$formula <- y ~ s(x, bs = "cs")
       }
-      message("`geom_smooth()` using method = '", params$method, 
+      message("`geom_smooth()` using method = '", params$method,
               "' and formula '", deparse(params$formula), "'")
     }
     if (identical(params$method, "gam")) {

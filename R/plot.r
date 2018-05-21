@@ -32,9 +32,7 @@
 #' @param mapping Default list of aesthetic mappings to use for plot.
 #'   If not specified, must be supplied in each layer added to the plot.
 #' @param ... Other arguments passed on to methods. Not currently used.
-#' @param environment If a variable defined in the aesthetic mapping is not
-#'   found in the data, ggplot will look for it in this environment. It defaults
-#'   to using the environment in which `ggplot()` is called.
+#' @param environment DEPRECATED. Used prior to tidy evaluation.
 #' @export
 #' @examples
 #' # Generate some sample data, then compute mean and standard deviation
@@ -79,15 +77,11 @@ ggplot <- function(data = NULL, mapping = aes(), ...,
 #' @export
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
-  ggplot.data.frame(fortify(data, ...), mapping, environment = environment)
-}
-
-#' @export
-ggplot.data.frame <- function(data, mapping = aes(), ...,
-                              environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
     stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
   }
+
+  data <- fortify(data, ...)
 
   p <- structure(list(
     data = data,
@@ -107,13 +101,10 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
 }
 
 #' @export
-ggplot.grouped_df <- function(data, mapping = aes(), ...,
-                               environment = parent.frame()) {
-
-  data$.group <- dplyr::group_indices(data)
-  mapping$group <- mapping$group %||% quote(.group)
-
-  ggplot.data.frame(data, mapping = mapping, ..., environment = environment)
+ggplot.function <- function(data = NULL, mapping = aes(), ...,
+                            environment = parent.frame()) {
+  # Added to avoid functions end in ggplot.default
+  stop("You're passing a function as global data.\nHave you misspelled the `data` argument in `ggplot()`", call. = FALSE)
 }
 
 plot_clone <- function(plot) {

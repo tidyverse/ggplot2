@@ -42,7 +42,7 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -56,7 +56,7 @@ single number.}
 
 \item{fun.args}{Optional additional arguments passed on to the functions.}
 
-\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30}
+\item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
 \item{binwidth}{The width of the bins. Can be specified as a numeric value,
 or a function that calculates width from x.

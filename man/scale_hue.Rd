@@ -10,10 +10,10 @@
 \title{Evenly spaced colours for discrete data}
 \usage{
 scale_colour_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-  direction = 1, na.value = "grey50")
+  direction = 1, na.value = "grey50", aesthetics = "colour")
 
 scale_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-  direction = 1, na.value = "grey50")
+  direction = 1, na.value = "grey50", aesthetics = "fill")
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
@@ -38,7 +38,6 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
   \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
 value should missing be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
-  \item{aesthetics}{The names of the aesthetics that this scale works with}
   \item{scale_name}{The name of the scale}
   \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
@@ -82,6 +81,11 @@ combination of hue and luminance.}
 1 = clockwise, -1 = counter-clockwise}
 
 \item{na.value}{Colour to use for missing values}
+
+\item{aesthetics}{Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 }
 \description{
 This is the default colour scale for categorical variables. It maps each

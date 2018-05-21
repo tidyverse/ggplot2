@@ -36,7 +36,7 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -107,16 +107,16 @@ ggplot(mpg, aes(cty, hwy)) +
 # Specifying geom_count without a group identifier leads to a plot which is
 # not useful:
 d <- ggplot(diamonds, aes(x = cut, y = clarity))
-d + geom_count(aes(size = calc(prop)))
+d + geom_count(aes(size = stat(prop)))
 # To correct this problem and achieve a more desirable plot, we need
 # to specify which group the proportion is to be calculated over.
-d + geom_count(aes(size = calc(prop), group = 1)) +
+d + geom_count(aes(size = stat(prop), group = 1)) +
   scale_size_area(max_size = 10)
 
 # Or group by x/y variables to have rows/columns sum to 1.
-d + geom_count(aes(size = calc(prop), group = cut)) +
+d + geom_count(aes(size = stat(prop), group = cut)) +
   scale_size_area(max_size = 10)
-d + geom_count(aes(size = calc(prop), group = clarity)) +
+d + geom_count(aes(size = stat(prop), group = clarity)) +
   scale_size_area(max_size = 10)
 }
 \seealso{

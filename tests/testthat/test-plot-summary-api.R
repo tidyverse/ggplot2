@@ -25,7 +25,6 @@ test_that("layout summary - basic plot", {
   expect_equal(l$yscale[[1]]$range$range, c(12, 44))
 })
 
-
 test_that("layout summary - facet_wrap", {
   lw <- summarise_layout(ggplot_build(pw))
 
@@ -44,7 +43,6 @@ test_that("layout summary - facet_wrap", {
   expect_identical(lw$yscale[[1]], lw$yscale[[2]])
   expect_identical(lw$yscale[[1]], lw$yscale[[3]])
 })
-
 
 test_that("layout summary - facet_grid", {
   lg <- summarise_layout(ggplot_build(pg))
@@ -88,7 +86,6 @@ test_that("layout summary - reversed scales", {
   expect_equal(lr$xscale[[1]]$trans$transform(5), -5)
 })
 
-
 test_that("layout summary - log scales", {
   pl <- p + scale_x_log10() + scale_y_continuous(trans = "log2")
   ll <- summarise_layout(ggplot_build(pl))
@@ -97,7 +94,6 @@ test_that("layout summary - log scales", {
   expect_equal(ll$yscale[[1]]$trans$name, "log-2")
   expect_equal(ll$yscale[[1]]$trans$transform(16), 4)
 })
-
 
 test_that("coord summary - basic", {
   l <- summarise_coord(ggplot_build(p))
@@ -117,13 +113,14 @@ test_that("coord summary - coord_flip", {
   expect_identical(lf, list(xlog = NA_real_, ylog = NA_real_, flip = TRUE))
 })
 
-
 test_that("summarise_layers", {
   l <- summarise_layers(ggplot_build(p))
-  expect_identical(l$mapping[[1]], list(x = quote(displ), y = quote(hwy)))
+  expect_equal(l$mapping[[1]], list(x = rlang::quo(displ), y = rlang::quo(hwy)))
 
   p2 <- p + geom_point(aes(x = displ/2, y = hwy/2))
   l2 <- summarise_layers(ggplot_build(p2))
-  expect_identical(l2$mapping[[1]], list(x = quote(displ), y = quote(hwy)))
-  expect_identical(l2$mapping[[2]], list(x = quote(displ/2), y = quote(hwy/2)))
+  expect_equal(l2$mapping[[1]], list(x = rlang::quo(displ), y = rlang::quo(hwy)))
+
+  # Here use _identical because the quosures are supposed to be local
+  expect_identical(l2$mapping[[2]], list(x = rlang::quo(displ/2), y = rlang::quo(hwy/2)))
 })

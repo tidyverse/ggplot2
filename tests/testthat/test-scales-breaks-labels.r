@@ -8,7 +8,7 @@ test_that("labels match breaks, even when outside limits", {
   expect_equal(sc$get_breaks_minor(), c(1, 1.5, 2, 2.5, 3))
 })
 
-test_that("labels must match breaks", {
+test_that("labels match breaks", {
   expect_error(scale_x_discrete(breaks = 1:3, labels = 1:2),
     "must have the same length")
   expect_error(scale_x_continuous(breaks = 1:3, labels = 1:2),
@@ -20,7 +20,6 @@ test_that("labels don't have to match null breaks", {
   expect_true(check_breaks_labels(breaks = NULL, labels = 1:2))
 })
 
-
 test_that("labels don't have extra spaces", {
   labels <- c("a", "abc", "abcdef")
 
@@ -29,18 +28,16 @@ test_that("labels don't have extra spaces", {
 
   expect_equal(sc1$get_labels(), labels)
   expect_equal(sc2$get_labels(), labels)
-
 })
 
-
 test_that("out-of-range breaks are dropped", {
+
   # Limits are explicitly specified, automatic labels
   sc <- scale_x_continuous(breaks = 1:5, limits = c(2, 4))
   bi <- sc$break_info()
   expect_equal(bi$labels, as.character(2:4))
   expect_equal(bi$major, c(0, 0.5, 1))
   expect_equal(bi$major_source, 2:4)
-
 
   # Limits and labels are explicitly specified
   sc <- scale_x_continuous(breaks = 1:5, labels = letters[1:5], limits = c(2, 4))
@@ -49,14 +46,12 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(bi$major, c(0, 0.5, 1))
   expect_equal(bi$major_source, 2:4)
 
-
   # Limits are specified, and all breaks are out of range
   sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)], limits = c(2, 4))
   bi <- sc$break_info()
   expect_equal(length(bi$labels), 0)
   expect_equal(length(bi$major), 0)
   expect_equal(length(bi$major_source), 0)
-
 
   # limits aren't specified, automatic labels
   # limits are set by the data
@@ -67,7 +62,6 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(bi$major_source, 2:4)
   expect_equal(bi$major, c(0, 0.5, 1))
 
-
   # Limits and labels are specified
   sc <- scale_x_continuous(breaks = 1:5, labels = letters[1:5])
   sc$train_df(data.frame(x = 2:4))
@@ -75,7 +69,6 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(bi$labels, letters[2:4])
   expect_equal(bi$major_source, 2:4)
   expect_equal(bi$major, c(0, 0.5, 1))
-
 
   # Limits aren't specified, and all breaks are out of range of data
   sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)])
@@ -86,14 +79,12 @@ test_that("out-of-range breaks are dropped", {
   expect_equal(length(bi$major_source), 0)
 })
 
-
 test_that("no minor breaks when only one break", {
   sc1 <- scale_x_discrete(limits = "a")
   sc2 <- scale_x_continuous(limits = 1)
 
   expect_equal(length(sc1$get_breaks_minor()), 0)
   expect_equal(length(sc2$get_breaks_minor()), 0)
-
 })
 
 init_scale <- function(...) {
@@ -123,11 +114,9 @@ test_that("discrete labels match breaks", {
   sc <- init_scale(breaks = pick_5)
   expect_equal(length(sc$get_breaks()), 5)
   expect_equal(length(sc$get_labels()), 5)
-
 })
 
-
-test_that("scale breaks with numeric log transformation", {
+test_that("scale breaks work with numeric log transformation", {
   sc <- scale_x_continuous(limits = c(1, 1e5), trans = log10_trans())
   expect_equal(sc$get_breaks(), c(0, 2, 4)) # 1, 100, 10000
   expect_equal(sc$get_breaks_minor(), c(0, 1, 2, 3, 4, 5))
@@ -139,7 +128,6 @@ test_that("continuous scales with no data have no breaks or labels", {
   expect_equal(sc$get_breaks(), numeric())
   expect_equal(sc$get_labels(), character())
   expect_equal(sc$get_limits(), c(0, 1))
-
 })
 
 test_that("discrete scales with no data have no breaks or labels", {
@@ -150,7 +138,7 @@ test_that("discrete scales with no data have no breaks or labels", {
   expect_equal(sc$get_limits(), c(0, 1))
 })
 
-test_that("suppressing breaks, minor_breask, and labels", {
+test_that("suppressing breaks, minor_breask, and labels works", {
   expect_equal(scale_x_continuous(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
   expect_equal(scale_x_discrete(breaks = NULL, limits = c(1, 3))$get_breaks(), NULL)
   expect_equal(scale_x_continuous(minor_breaks = NULL, limits = c(1, 3))$get_breaks_minor(), NULL)
@@ -176,7 +164,6 @@ test_that("suppressing breaks, minor_breask, and labels", {
   expect_error(scale_x_datetime(labels = NA, limits = lims)$get_labels())
   expect_equal(scale_x_datetime(minor_breaks = NULL, limits = lims)$get_breaks_minor(), NULL)
   expect_error(scale_x_datetime(minor_breaks = NA, limits = lims)$get_breaks_minor())
-
 })
 
 test_that("scale_breaks with explicit NA options (deprecated)", {
@@ -213,7 +200,6 @@ test_that("scale_breaks with explicit NA options (deprecated)", {
   scc <- scale_colour_continuous(breaks = NA)
   scc$train(1:3)
   expect_error(scc$get_breaks())
-
 })
 
 
@@ -239,7 +225,6 @@ test_that("breaks can be specified by names of labels", {
   s <- scale_x_discrete(limits = letters[1:3], labels = labels)
   expect_equal(as.vector(s$get_breaks()), letters[1:3])
   expect_equal(as.vector(s$get_labels()), LETTERS[1:3])
-
 })
 
 test_that("only finite or NA values for breaks for transformed scales (#871)", {
@@ -259,63 +244,83 @@ test_that("minor breaks are transformed by scales", {
 
 # Visual tests ------------------------------------------------------------
 
-test_that("minor breaks draws correctly", {
-  p <- ggplot(NULL, aes(1:3, 1:3)) + geom_point() +
-    scale_x_continuous(breaks = 1:3, minor_breaks = c(1.25, 2.75)) +
-    scale_y_continuous(breaks = 1:3, minor_breaks = c(1.25, 2.75))
-
-  vdiffr::expect_doppelganger("manual minor breaks", p)
-  vdiffr::expect_doppelganger("manual minor breaks with coord_polar",
-    p + coord_polar()
-  )
-
-  set.seed(342)
+test_that("minor breaks draw correctly", {
   df <- data.frame(
-    date = seq(as.Date("2012-2-29"), length.out = 100, by = "1 day")[sample(100, 50)],
-    price = runif(50)
+    x_num = c(1, 3),
+    x_chr = c("a", "b"),
+    x_date = as.Date("2012-2-29") + c(0, 100),
+    x_log = c(1, 1e4),
+    y = c(1, 3)
   )
-  df <- df[order(df$date), ]
-  library(scales)
-  p <- qplot(date, price, data = df, geom = "line") +
-    scale_x_date(
-      labels = date_format("%m/%d"),
-      breaks = date_breaks("month"),
-      minor_breaks = date_breaks("week")
+  theme <- theme_test() +
+    theme(
+      panel.grid.major = element_line(colour = "grey30", size = 0.5),
+      panel.grid.minor = element_line(colour = "grey70")
     )
 
-  vdiffr::expect_doppelganger("months and weeks breaks", p)
-  vdiffr::expect_doppelganger("months and weeks breaks: coord polar", p + coord_polar())
-  vdiffr::expect_doppelganger("default breaks",
-    ggplot(NULL, aes(letters[1:3], 1:3)) + geom_point()
+  p <- ggplot(df, aes(x_num, y)) +
+    geom_blank() +
+    scale_x_continuous(breaks = 1:3, minor_breaks = c(1.25, 2.75)) +
+    scale_y_continuous(breaks = 1:3, minor_breaks = c(1.25, 2.75)) +
+    labs(x = NULL, y = NULL) +
+    theme
+  expect_doppelganger("numeric", p)
+  expect_doppelganger("numeric-polar", p + coord_polar())
+
+  expect_doppelganger("numeric-log",
+    ggplot(df, aes(x_log, x_log)) +
+      scale_x_continuous(trans = log2_trans()) +
+      scale_y_log10() +
+      labs(x = NULL, y = NULL) +
+      theme
   )
-  vdiffr::expect_doppelganger("scale_x_continuous(trans = log2_trans()) + scale_y_log10",
-    qplot(1:1e4, 1:1e4) + scale_x_continuous(trans = log2_trans()) + scale_y_log10()
+  expect_doppelganger("numeric-exp",
+    ggplot(df, aes(x_num, x_num)) +
+      scale_x_continuous(trans = exp_trans(2)) +
+      scale_y_continuous(trans = exp_trans(2)) +
+      labs(x = NULL, y = NULL) +
+      theme
   )
-  vdiffr::expect_doppelganger("x and y transformations",
-    qplot(1:5, 1:5) + scale_x_continuous(trans = exp_trans(2)) + scale_y_continuous(trans = exp_trans(2)) +
-      ggtitle("scale_x_continuous(trans = exp_trans(2)) + scale_y_continuous(trans = exp_trans(2))")
+
+  expect_doppelganger("character",
+    ggplot(df, aes(x_chr, y)) +
+      geom_blank() +
+      labs(x = NULL, y = NULL) +
+      theme
+  )
+
+  expect_doppelganger("date",
+    ggplot(df, aes(x_date, y)) +
+      geom_blank() +
+      scale_x_date(
+        labels = scales::date_format("%m/%d"),
+        breaks = scales::date_breaks("month"),
+        minor_breaks = scales::date_breaks("week")
+      ) +
+      labs(x = NULL, y = NULL) +
+      theme
   )
 })
 
 test_that("scale breaks can be removed", {
   dat <- data.frame(x = 1:3, y = 1:3)
 
-  vdiffr::expect_doppelganger("no x breaks",
+  expect_doppelganger("no x breaks",
     ggplot(dat, aes(x = x, y = y)) + geom_point() + scale_x_continuous(breaks = NULL)
   )
-  vdiffr::expect_doppelganger("no y breaks",
+  expect_doppelganger("no y breaks",
     ggplot(dat, aes(x = x, y = y)) + geom_point() + scale_y_continuous(breaks = NULL)
   )
-  vdiffr::expect_doppelganger("no alpha breaks (no legend)",
+  expect_doppelganger("no alpha breaks (no legend)",
     ggplot(dat, aes(x = 1, y = y, alpha = x)) + geom_point() + scale_alpha_continuous(breaks = NULL)
   )
-  vdiffr::expect_doppelganger("no size breaks (no legend)",
+  expect_doppelganger("no size breaks (no legend)",
     ggplot(dat, aes(x = 1, y = y, size = x)) + geom_point() + scale_size_continuous(breaks = NULL)
   )
-  vdiffr::expect_doppelganger("no fill breaks (no legend)",
+  expect_doppelganger("no fill breaks (no legend)",
     ggplot(dat, aes(x = 1, y = y, fill = x)) + geom_point(shape = 21) + scale_fill_continuous(breaks = NULL)
   )
-  vdiffr::expect_doppelganger("no colour breaks (no legend)",
+  expect_doppelganger("no colour breaks (no legend)",
     ggplot(dat, aes(x = 1, y = y, colour = x)) + geom_point() + scale_colour_continuous(breaks = NULL)
   )
 })

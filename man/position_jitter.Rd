@@ -26,7 +26,7 @@ Use \code{NULL} to use the current random seed and also avoid resetting
 (the behavior of \pkg{ggplot} 2.2.1 and earlier).}
 }
 \description{
-Couterintuitively adding random noise to a plot can sometimes make it
+Counterintuitively adding random noise to a plot can sometimes make it
 easier to read. Jittering is particularly useful for small datasets with
 at least one discrete position.
 }

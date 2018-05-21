@@ -1,8 +1,8 @@
 
 rd_aesthetics <- function(type, name) {
   obj <- switch(type,
-    geom = find_subclass("Geom", name, globalenv()),
-    stat = find_subclass("Stat", name, globalenv())
+    geom = check_subclass(name, "Geom", env = globalenv()),
+    stat = check_subclass(name, "Stat", env = globalenv())
   )
   aes <- rd_aesthetics_item(obj)
 

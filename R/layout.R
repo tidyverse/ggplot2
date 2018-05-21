@@ -1,6 +1,6 @@
 # The job of `Layout` is to coordinate:
 # * The coordinate system
-# * The facetting specification
+# * The faceting specification
 # * The individual position scales for each panel
 #
 # This includes managing the parameters for the facet and the coord
@@ -9,13 +9,16 @@
 create_layout <- function(facet = FacetNull, coord = CoordCartesian) {
   ggproto(NULL, Layout, facet = facet, coord = coord)
 }
-
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
 Layout <- ggproto("Layout", NULL,
   # The coordinate system and its parameters
   coord = NULL,
   coord_params = list(),
 
-  # The facetting specification and its parameters
+  # The faceting specification and its parameters
   facet = NULL,
   facet_params = list(),
 
@@ -77,7 +80,7 @@ Layout <- ggproto("Layout", NULL,
 
       coord_fg <- self$coord$render_fg(self$panel_params[[i]], theme)
       coord_bg <- self$coord$render_bg(self$panel_params[[i]], theme)
-      if (theme$panel.ontop) {
+      if (isTRUE(theme$panel.ontop)) {
         panel <- c(panel, list(coord_bg), list(coord_fg))
       } else {
         panel <- c(list(coord_bg), panel, list(coord_fg))

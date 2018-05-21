@@ -1,4 +1,8 @@
 find_scale <- function(aes, x, env = parent.frame()) {
+  if (is.null(x)) {
+    return(NULL)
+  }
+
   type <- scale_type(x)
   candidates <- paste("scale", aes, type, sep = "_")
 

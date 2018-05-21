@@ -1,6 +1,6 @@
 context("Fortify")
 
-test_that("Spatial polygons have correct ordering", {
+test_that("spatial polygons have correct ordering", {
   skip_if_not_installed("sp")
 
   make_square <- function(x = 0, y = 0, height = 1, width = 1){
@@ -24,7 +24,6 @@ test_that("Spatial polygons have correct ordering", {
                 sp::Polygons(list(make_square(0,1)), 4),
                 sp::Polygons(list(make_square(0,3)), 5))
 
-
   polys_sp <- sp::SpatialPolygons(polys)
   fake_sp <- sp::SpatialPolygonsDataFrame(polys_sp, fake_data)
 
@@ -34,15 +33,15 @@ test_that("Spatial polygons have correct ordering", {
   fake_sp2 <- sp::SpatialPolygonsDataFrame(polys2_sp, fake_data)
 
   expect_equivalent(fortify(fake_sp), plyr::arrange(fortify(fake_sp2), id, order))
-
 })
 
 test_that("fortify.default proves a helpful error with class uneval", {
   expect_error(
     ggplot(aes(x = x)),
-    regex = paste0(
-      "ggplot2 doesn't know how to deal with data of class uneval. ",
-      "Did you accidentally provide the results of `aes\\(\\)` to the `data` argument?"
+    regexp = paste(
+      "`data` must be a data frame, or other object coercible by (.+)",
+      "Did you accidentally pass `aes\\(\\)` to the `data` argument?",
+      sep = "\\n"
     )
   )
 })

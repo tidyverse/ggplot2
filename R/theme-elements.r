@@ -203,10 +203,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
   hj <- hjust %||% element$hjust
   margin <- margin %||% element$margin
 
-  angle <- angle %||% element$angle
-  if (is.null(angle)) {
-    stop("Text element requires non-NULL value for 'angle'.")
-  }
+  angle <- angle %||% element$angle %||% 0
 
   # The gp settings can override element_gp
   gp <- gpar(fontsize = size, col = colour,
@@ -348,6 +345,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.title          = el_def("element_text", "title"),
   plot.subtitle       = el_def("element_text", "title"),
   plot.caption        = el_def("element_text", "title"),
+  plot.tag            = el_def("element_text", "title"),
+  plot.tag.position   = el_def("character"),  # Need to also accept numbers
   plot.margin         = el_def("margin"),
 
   aspect.ratio        = el_def("character")

@@ -360,6 +360,15 @@ warning_wrap <- function(...) {
   warning(paste0(wrapped, collapse = "\n"), call. = FALSE)
 }
 
+var_list <- function(x) {
+  x <- encodeString(x, quote = "`")
+  if (length(x) > 5) {
+    x <- c(x[1:5], paste0("and ", length(x) - 5, " more"))
+  }
+
+  paste0(x, collapse = ", ")
+}
+
 dispatch_args <- function(f, ...) {
   args <- list(...)
   formals <- formals(f)
@@ -394,6 +403,30 @@ with_seed_null <- function(seed, code) {
   }
 }
 
+seq_asc <- function(to, from) {
+  if (to > from) {
+    integer()
+  } else {
+    to:from
+  }
+}
+
 # Needed to trigger package loading
 #' @importFrom tibble tibble
 NULL
+
+# Check inputs with tibble but allow column vectors (see #2609 and #2374)
+as_gg_data_frame <- function(x) {
+  x <- lapply(x, validate_column_vec)
+  as.data.frame(tibble::as_tibble(x))
+}
+validate_column_vec <- function(x) {
+  if (is_column_vec(x)) {
+    dim(x) <- NULL
+  }
+  x
+}
+is_column_vec <- function(x) {
+  dims <- dim(x)
+  length(dims) == 2L && dims[[2]] == 1L
+}

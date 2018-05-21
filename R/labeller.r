@@ -9,7 +9,7 @@
 #' `label_value()` only displays the value of a factor while
 #' `label_both()` displays both the variable name and the factor
 #' value. `label_context()` is context-dependent and uses
-#' `label_value()` for single factor facetting and
+#' `label_value()` for single factor faceting and
 #' `label_both()` when multiple factors are
 #' involved. `label_wrap_gen()` uses [base::strwrap()]
 #' for line wrapping.
@@ -56,7 +56,7 @@
 #'   function must have the `labeller` S3 class.
 #'
 #' @param labels Data frame of labels. Usually contains only one
-#'   element, but facetting over multiple factors entails multiple
+#'   element, but faceting over multiple factors entails multiple
 #'   label variables.
 #' @param multi_line Whether to display the labels of multiple factors
 #'   on separate lines.
@@ -69,8 +69,7 @@
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
 #' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 #'
-#' # Displaying only the values
-#' p + facet_grid(. ~ cyl)
+#' # The default is label_value
 #' p + facet_grid(. ~ cyl, labeller = label_value)
 #'
 #' \donttest{
@@ -84,7 +83,6 @@
 #' # Interpreting the labels as plotmath expressions
 #' p + facet_grid(. ~ cyl2)
 #' p + facet_grid(. ~ cyl2, labeller = label_parsed)
-#' p + facet_wrap(~vs + cyl2, labeller = label_parsed)
 #' }
 #' @name labellers
 NULL
@@ -232,7 +230,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
 
   structure(fun, class = "labeller")
 }
-globalVariables(c("x", "."))
+utils::globalVariables(c("x", "."))
 
 #' @rdname labellers
 #' @export
@@ -297,7 +295,7 @@ resolve_labeller <- function(rows, cols, labels) {
 #' appender <- function(string, suffix = "-foo") paste0(string, suffix)
 #' p + facet_wrap(~am, labeller = as_labeller(appender))
 #'
-#' # If you have more than one facetting variable, be sure to dispatch
+#' # If you have more than one faceting variable, be sure to dispatch
 #' # your labeller to the right variable with labeller()
 #' p + facet_grid(cyl ~ am, labeller = labeller(am = to_string))
 as_labeller <- function(x, default = label_value, multi_line = TRUE) {
@@ -364,12 +362,16 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' p1 <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
 #'
 #' # You can assign different labellers to variables:
-#' p1 + facet_grid(vs + am ~ gear,
-#'   labeller = labeller(vs = label_both, am = label_value))
+#' p1 + facet_grid(
+#'   vs + am ~ gear,
+#'   labeller = labeller(vs = label_both, am = label_value)
+#' )
 #'
 #' # Or whole margins:
-#' p1 + facet_grid(vs + am ~ gear,
-#'   labeller = labeller(.rows = label_both, .cols = label_value))
+#' p1 + facet_grid(
+#'   vs + am ~ gear,
+#'   labeller = labeller(.rows = label_both, .cols = label_value)
+#' )
 #'
 #' # You can supply functions operating on strings:
 #' capitalize <- function(string) {
@@ -399,9 +401,8 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' # then apply a wrap labeller to the columns to prevent cropped text
 #' msleep$conservation2 <- plyr::revalue(msleep$conservation,
 #'   conservation_status)
-#'
-#' p2 %+% msleep + facet_grid(vore ~ conservation2)
-#' p2 %+% msleep +
+#' p3 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
+#' p3 +
 #'   facet_grid(vore ~ conservation2,
 #'     labeller = labeller(conservation2 = label_wrap_gen(10))
 #'   )
@@ -418,8 +419,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' )
 #'
 #' p2 + facet_grid(vore ~ conservation, labeller = global_labeller)
-#' p2 + facet_wrap(~vore, labeller = global_labeller)
-#' p2 %+% msleep + facet_wrap(~conservation2, labeller = global_labeller)
+#' p3 + facet_wrap(~conservation2, labeller = global_labeller)
 #' }
 labeller <- function(..., .rows = NULL, .cols = NULL,
                      keep.as.numeric = NULL, .multi_line = TRUE,
@@ -519,20 +519,9 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     lineheight = element$lineheight
   )
 
-  # Create text grobs, preserving array layout
-  grobs <- lapply(labels, title_spec,
-    x = NULL,
-    y = NULL,
-    hjust = element$hjust,
-    vjust = element$vjust,
-    angle = element$angle,
-    gp = gp,
-    debug = element$debug
-  )
-  dim(grobs) <- dim(labels)
-
   if (horizontal) {
 
+    grobs <- create_strip_labels(labels, element, gp)
     grobs <- ggstrip(grobs, theme, element, gp, horizontal, clip = "on")
 
     list(
@@ -541,6 +530,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     )
   } else {
 
+    grobs <- create_strip_labels(labels, element, gp)
     grobs_right <- grobs[, rev(seq_len(ncol(grobs))), drop = FALSE]
 
     grobs_right <- ggstrip(
@@ -552,11 +542,12 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       clip = "on"
     )
 
-    if (inherits(theme$strip.text.y, "element_text")) {
-      theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
+    # Change angle of strip labels for y strips that are placed on the left side
+    if (inherits(element, "element_text")) {
+      element$angle <- adjust_angle(element$angle)
     }
 
-    grobs_left <- grobs
+    grobs_left <- create_strip_labels(labels, element, gp)
 
     grobs_left <- ggstrip(
       grobs_left,
@@ -572,6 +563,30 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       right = grobs_right
     )
   }
+}
+
+#' Create list of strip labels
+#'
+#' Calls [title_spec()] on all the labels for a set of strips to create a list
+#' of text grobs, heights, and widths.
+#'
+#' @param labels Matrix of strip labels
+#' @param element Theme element (see [calc_element()]).
+#' @param gp Additional graphical parameters.
+#'
+#' @noRd
+create_strip_labels <- function(labels, element, gp) {
+  grobs <- lapply(labels, title_spec,
+    x = NULL,
+    y = NULL,
+    hjust = element$hjust,
+    vjust = element$vjust,
+    angle = element$angle,
+    gp = gp,
+    debug = element$debug
+  )
+  dim(grobs) <- dim(labels)
+  grobs
 }
 
 #' Grob for strip labels

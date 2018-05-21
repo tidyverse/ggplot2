@@ -7,13 +7,13 @@
 #' @section What can you add?:
 #' You can add any of the following types of objects:
 #'
-#'   - A [aes()] objects replaces the default aesthetics.
-#'   - A layer created by a `geom_` or `stat_` function adds
+#'   - An [aes()] object replaces the default aesthetics.
+#'   - A layer created by a `geom_` or `stat_` function adds a
 #'     new layer.
 #'   - A `scale` overrides the existing scale.
 #'   - A [theme()] modifies the current theme.
-#'   - A `coord` overrides current coordinate system.
-#'   - A `facet` specification override current faceting.
+#'   - A `coord` overrides the current coordinate system.
+#'   - A `facet` specification overrides the current faceting.
 #'
 #' To replace the current default data frame, you must use \code{\%+\%},
 #' due to S3 method precedence issues.
@@ -117,7 +117,7 @@ ggplot_add.uneval <- function(object, plot, object_name) {
   # defaults() doesn't copy class, so copy it.
   class(plot$mapping) <- class(object)
 
-  labels <- lapply(object, deparse)
+  labels <- lapply(object, function(x) if (is.null(x)) x else rlang::quo_name(x))
   names(labels) <- names(object)
   update_labels(plot, labels)
 }

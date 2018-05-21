@@ -38,16 +38,16 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{lineend}{Line end style (round, butt, square)}
+\item{lineend}{Line end style (round, butt, square).}
 
-\item{linejoin}{Line join style (round, mitre, bevel)}
+\item{linejoin}{Line join style (round, mitre, bevel).}
 
-\item{linemitre}{Line mitre limit (number greater than 1)}
+\item{linemitre}{Line mitre limit (number greater than 1).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -106,7 +106,7 @@ m <- ggplot(faithful, aes(x = eruptions, y = waiting)) +
  ylim(40, 110)
 m + geom_density_2d()
 \donttest{
-m + stat_density_2d(aes(fill = calc(level)), geom = "polygon")
+m + stat_density_2d(aes(fill = stat(level)), geom = "polygon")
 
 set.seed(4393)
 dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -116,9 +116,9 @@ d <- ggplot(dsmall, aes(x, y))
 d + geom_density_2d(aes(colour = cut))
 
 # If we turn contouring off, we can use use geoms like tiles:
-d + stat_density_2d(geom = "raster", aes(fill = calc(density)), contour = FALSE)
+d + stat_density_2d(geom = "raster", aes(fill = stat(density)), contour = FALSE)
 # Or points:
-d + stat_density_2d(geom = "point", aes(size = calc(density)), n = 20, contour = FALSE)
+d + stat_density_2d(geom = "point", aes(size = stat(density)), n = 20, contour = FALSE)
 }
 }
 \seealso{

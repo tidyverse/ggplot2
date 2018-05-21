@@ -20,13 +20,21 @@ fortify.NULL <- function(model, data, ...) waiver()
 #' @export
 fortify.function <- function(model, data, ...) model
 #' @export
+fortify.grouped_df <- function(model, data, ...) {
+  model$.group <- dplyr::group_indices(model)
+  model
+}
+#' @export
 fortify.default <- function(model, data, ...) {
   msg <- paste0(
-    "ggplot2 doesn't know how to deal with data of class ",
-    paste(class(model), collapse = "/"), "."
+    "`data` must be a data frame, or other object coercible by `fortify()`, ",
+    "not ", obj_desc(model)
   )
   if (inherits(model, "uneval")) {
-    msg <- paste0(msg, " Did you accidentally provide the results of `aes()` to the `data` argument?")
+    msg <- paste0(
+      msg, "\n",
+      "Did you accidentally pass `aes()` to the `data` argument?"
+    )
   }
   stop(msg, call. = FALSE)
 }

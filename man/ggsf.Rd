@@ -62,7 +62,7 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -86,7 +86,10 @@ use the CRS defined in the first layer.}
 \item{ndiscr}{number of segments to use for discretizing graticule lines;
 try increasing this when graticules look unexpected}
 
-\item{default}{Is this the default coordinate system? If \code{FALSE}}
+\item{default}{Is this the default coordinate system? If \code{FALSE} (the default),
+then replacing this coordinate system with another one creates a message alerting
+the user that the coordinate system is being replaced. If \code{TRUE}, that warning
+is suppressed.}
 }
 \description{
 This set of geom, stat, and coord are used to visualise simple feature (sf)

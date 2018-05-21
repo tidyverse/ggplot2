@@ -9,7 +9,18 @@
 #' @param expand If `TRUE`, the default, adds a small expansion factor to
 #'   the limits to ensure that data and axes don't overlap. If `FALSE`,
 #'   limits are taken exactly from the data or `xlim`/`ylim`.
-#' @param default Is this the default coordinate system? If `FALSE`
+#' @param default Is this the default coordinate system? If `FALSE` (the default),
+#'   then replacing this coordinate system with another one creates a message alerting
+#'   the user that the coordinate system is being replaced. If `TRUE`, that warning
+#'   is suppressed.
+#' @param clip Should drawing be clipped to the extent of the plot panel? A
+#'   setting of `"on"` (the default) means yes, and a setting of `"off"`
+#'   means no. In most cases, the default of `"on"` should not be changed,
+#'   as setting `clip = "off"` can cause unexpected results. It allows
+#'   drawing of data points anywhere on the plot, including in the plot margins. If
+#'   limits are set via `xlim` and `ylim` and some data points fall outside those
+#'   limits, then those data points may show up in places such as the axes, the
+#'   legend, the plot title, or the plot margins.
 #' @export
 #' @examples
 #' # There are two ways of zooming the plot display: with scales or
@@ -49,11 +60,12 @@
 #' # displayed bigger
 #' d + coord_cartesian(xlim = c(0, 1))
 coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                            default = FALSE) {
+                            default = FALSE, clip = "on") {
   ggproto(NULL, CoordCartesian,
     limits = list(x = xlim, y = ylim),
     expand = expand,
-    default = default
+    default = default,
+    clip = clip
   )
 }
 
@@ -64,6 +76,7 @@ coord_cartesian <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   is_linear = function() TRUE,
+  is_free = function() TRUE,
 
   distance = function(x, y, panel_params) {
     max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)

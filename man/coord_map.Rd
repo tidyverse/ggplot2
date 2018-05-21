@@ -6,9 +6,9 @@
 \title{Map projections}
 \usage{
 coord_map(projection = "mercator", ..., parameters = NULL,
-  orientation = NULL, xlim = NULL, ylim = NULL)
+  orientation = NULL, xlim = NULL, ylim = NULL, clip = "on")
 
-coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE)
+coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on")
 }
 \arguments{
 \item{projection}{projection to use, see
@@ -27,6 +27,10 @@ projections, so you will have to supply your own. See
 \item{xlim, ylim}{Manually specific x/y limits (in degrees of
 longitude/latitude)}
 
+\item{clip}{Should drawing be clipped to the extent of the plot panel? A
+setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
+means no. For details, please see \code{\link[=coord_cartesian]{coord_cartesian()}}.}
+
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
@@ -43,7 +47,7 @@ smaller areas closer to the equator.
 In general, map projections must account for the fact that the actual length
 (in km) of one degree of longitude varies between the equator and the pole.
 Near the equator, the ratio between the lengths of one degree of latitude and
-one degree of longitude is approximately 1. Near the pole, it is tends
+one degree of longitude is approximately 1. Near the pole, it tends
 towards infinity because the length of one degree of longitude tends towards
 0. For regions that span only a few degrees and are not too close to the
 poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio

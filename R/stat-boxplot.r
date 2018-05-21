@@ -1,5 +1,5 @@
 #' @rdname geom_boxplot
-#' @param coef length of the whiskers as multiple of IQR.  Defaults to 1.5
+#' @param coef Length of the whiskers as multiple of IQR. Defaults to 1.5.
 #' @inheritParams stat_identity
 #' @section Computed variables:
 #' \describe{
@@ -42,11 +42,21 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatBoxplot <- ggproto("StatBoxplot", Stat,
-  required_aes = c("x", "y"),
+  required_aes = c("y"),
   non_missing_aes = "weight",
+  setup_data = function(data, params) {
+    data$x <- data$x %||% 0
+    data <- remove_missing(
+      data,
+      na.rm = FALSE,
+      vars = "x",
+      name = "stat_boxplot"
+    )
+    data
+  },
 
   setup_params = function(data, params) {
-    params$width <- params$width %||% (resolution(data$x) * 0.75)
+    params$width <- params$width %||% (resolution(data$x %||% 0) * 0.75)
 
     if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
       warning(

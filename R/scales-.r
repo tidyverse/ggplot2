@@ -96,10 +96,8 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
   # No new aesthetics, so no new scales to add
   if (is.null(new_aesthetics)) return()
 
-  datacols <- plyr::tryapply(
-    aesthetics[new_aesthetics], eval,
-    envir = data, enclos = env
-  )
+  datacols <- lapply(aesthetics[new_aesthetics], rlang::eval_tidy, data = data)
+  datacols <- compact(datacols)
 
   for (aes in names(datacols)) {
     scales$add(find_scale(aes, datacols[[aes]], env))

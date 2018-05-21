@@ -7,9 +7,9 @@
 #' Each of the `Stat*` objects is a [ggproto()] object, descended
 #' from the top-level `Stat`, and each implements various methods and
 #' fields. To create a new type of Stat object, you typically will want to
-#' implement one or more of the following:
+#' override one or more of the following:
 #'
-#'   - Override one of :
+#'   - One of :
 #'     `compute_layer(self, data, scales, ...)`,
 #'     `compute_panel(self, data, scales, ...)`, or
 #'     `compute_group(self, data, scales, ...)`.
@@ -38,7 +38,7 @@
 #'     Used to setup defaults that need to complete dataset, and to inform
 #'     the user of important choices. Should return list of parameters.
 #'   - `setup_data(data, params)`: called once for each layer,
-#'     after `setp_params()`. Should return modified `data`.
+#'     after `setup_params()`. Should return modified `data`.
 #'     Default methods removes all rows containing a missing value in
 #'     required aesthetics (with a warning if `!na.rm`).
 #'   - `required_aes`: A character vector of aesthetics needed to

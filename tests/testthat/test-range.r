@@ -1,6 +1,6 @@
 context("range")
 
-test_that("continuous ranges expands as expected", {
+test_that("continuous ranges expand as expected", {
   r <- continuous_range()
 
   r$train(1)
@@ -10,7 +10,7 @@ test_that("continuous ranges expands as expected", {
   expect_equal(r$range, c(1, 10))
 })
 
-test_that("discrete ranges expands as expected", {
+test_that("discrete ranges expand as expected", {
   r <- discrete_range()
 
   r$train("a")

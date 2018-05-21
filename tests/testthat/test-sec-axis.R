@@ -18,7 +18,7 @@ test_that("dup_axis() works", {
   expect_equal(breaks$major_source, breaks$sec.major_source)
 })
 
-test_that("custom breaks works", {
+test_that("custom breaks work", {
   custom_breaks <- c(0.01, 0.1, 1, 10, 100)
   p <- ggplot(foo, aes(x, y)) +
     geom_point() +
@@ -35,7 +35,7 @@ test_that("custom breaks works", {
 })
 
 test_that("sec axis works with skewed transform", {
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "sec_axis, skewed transform",
     ggplot(foo, aes(x, y)) +
       geom_point() +

@@ -1,6 +1,6 @@
 context("stat_bin/stat_count")
 
-test_that("stat_bin throws error when y aesthetic present", {
+test_that("stat_bin throws error when y aesthetic is present", {
   dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
   expect_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()),
@@ -25,7 +25,7 @@ test_that("bins specifies the number of bins", {
 test_that("binwidth computes widths for function input", {
   df <- data.frame(x = 1:100)
   out <- layer_data(ggplot(df, aes(x)) + geom_histogram(binwidth = function(x) 5))
-  
+
   expect_equal(nrow(out), 21)
 })
 
@@ -50,14 +50,23 @@ test_that("can use breaks argument", {
   expect_equal(out$count, c(1, 2))
 })
 
-
-test_that("fuzzy breaks used when cutting", {
+test_that("fuzzy breaks are used when cutting", {
   df <- data.frame(x = c(-1, -0.5, -0.4, 0))
   p <- ggplot(df, aes(x)) +
     geom_histogram(binwidth = 0.1, boundary = 0.1, closed = "left")
 
   bins <- layer_data(p) %>% subset(count > 0) %>% .[1:5]
   expect_equal(bins$count, c(1, 1, 1, 1))
+})
+
+test_that("breaks are transformed by the scale", {
+   df <- data.frame(x = rep(1:4, 1:4))
+   base <- ggplot(df, aes(x)) + geom_histogram(breaks = c(1, 2.5, 4))
+
+   out1 <- layer_data(base)
+   out2 <- layer_data(base + scale_x_sqrt())
+   expect_equal(out1$xmin, c(1, 2.5))
+   expect_equal(out2$xmin, sqrt(c(1, 2.5)))
 })
 
 # Underlying binning algorithm --------------------------------------------
@@ -67,7 +76,7 @@ comp_bin <- function(df, ...) {
   layer_data(plot)
 }
 
-test_that("Closed left or right", {
+test_that("closed left or right", {
   dat <- data.frame(x = c(0, 10))
 
   res <- comp_bin(dat, binwidth = 10, pad = FALSE)
@@ -89,8 +98,7 @@ test_that("Closed left or right", {
   expect_identical(res$count, c(1, 1))
 })
 
-
-test_that("Setting boundary and center", {
+test_that("setting boundary and center", {
   # numeric
   df <- data.frame(x = c(0, 30))
 
@@ -115,7 +123,6 @@ test_that("weights are added", {
 
   expect_equal(out$count, df$y)
 })
-
 
 # stat_count --------------------------------------------------------------
 

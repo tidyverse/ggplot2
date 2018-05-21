@@ -1,6 +1,6 @@
 context("coord_polar")
 
-test_that("Polar distance calculation", {
+test_that("polar distance is calculated correctly", {
   dat <- data.frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
     r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5))
@@ -26,9 +26,7 @@ test_that("Polar distance calculation", {
   #   geom_point(alpha=0.3) + coord_polar()
 })
 
-
-
-test_that("Polar distance calculation ignores NA's", {
+test_that("polar distance calculation ignores NA's", {
 
   # These are r and theta values; we'll swap them around for testing
   x1 <- c(0, 0.5, 0.5, NA, 1)
@@ -39,7 +37,6 @@ test_that("Polar distance calculation ignores NA's", {
   dists <- dist_polar(x2, x1)
   expect_equal(is.na(dists), c(FALSE, FALSE, TRUE, TRUE))
 
-
   # NA on the end
   x1 <- c(0, 0.5, 0.5, 1, NA)
   x2 <- c(0,   1,   2, 0,  1)
@@ -47,7 +44,6 @@ test_that("Polar distance calculation ignores NA's", {
   expect_equal(is.na(dists), c(FALSE, FALSE, FALSE, TRUE))
   dists <- dist_polar(x2, x1)
   expect_equal(is.na(dists), c(FALSE, FALSE, FALSE, TRUE))
-
 
   # NAs in each vector - also have NaN
   x1 <- c(0, 0.5, 0.5,  1, NA)
@@ -58,60 +54,75 @@ test_that("Polar distance calculation ignores NA's", {
   expect_equal(is.na(dists), c(TRUE, FALSE, TRUE, TRUE))
 })
 
+test_that("clipping can be turned off and on", {
+  # clip can be turned on and off
+  p <- ggplot() + coord_polar()
+  coord <- ggplot_build(p)$layout$coord
+  expect_equal(coord$clip, "on")
+
+  p <- ggplot() + coord_polar(clip = "off")
+  coord <- ggplot_build(p)$layout$coord
+  expect_equal(coord$clip, "off")
+})
+
 
 # Visual tests ------------------------------------------------------------
 
-test_that("Polar coordinates draws correctly", {
-  dat <- data.frame(x = 0:1, y = rep(1:80, each = 2))
+test_that("polar coordinates draw correctly", {
+  theme <- theme_test() +
+    theme(
+      axis.text.y = element_blank(),
+      axis.title = element_blank(),
+      panel.grid.major = element_line(colour = "grey90")
+    )
+  dat <- data.frame(x = 0:1, y = rep(c(1, 10, 40, 80), each = 2))
 
-  vdiffr::expect_doppelganger("Concentric circles at theta = 1:80",
-    ggplot(dat, aes(x, y, group = factor(y))) + geom_line() + coord_polar()
-  )
-  vdiffr::expect_doppelganger("Concentric circles at theta = 1:80 - 80",
-    ggplot(dat, aes(x, y - 80, group = factor(y))) + geom_line() + coord_polar()
-  )
-  vdiffr::expect_doppelganger("Concentric circles at theta = 1:80 - 40",
-    ggplot(dat, aes(x, y - 40, group = factor(y))) + geom_line() + coord_polar()
-  )
-  vdiffr::expect_doppelganger("Concentric circles at theta = 1:80 + 100",
-    ggplot(dat, aes(x, y + 100, group = factor(y))) + geom_line() + coord_polar()
-  )
-  vdiffr::expect_doppelganger("Concentric circles at theta = 1:80 mult 100",
-    ggplot(dat, aes(x, y * 100, group = factor(y))) + geom_line() + coord_polar() +
-      ggtitle("Concentric circles at theta = 1:80 * 100")
+  expect_doppelganger("three-concentric-circles",
+    ggplot(dat, aes(x, y, group = factor(y))) +
+      geom_path() +
+      coord_polar() +
+      theme
   )
 
   dat <- data.frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
     r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5),
-    g     = 1:8)
-
-  vdiffr::expect_doppelganger("Rays, circular arcs, and spiral arcs",
-    ggplot(dat, aes(theta, r, colour = g)) + geom_path() +
-      geom_point(alpha = 0.3, colour = "black") + coord_polar()
+    g     = 1:8
+  )
+  expect_doppelganger("Rays, circular arcs, and spiral arcs",
+    ggplot(dat, aes(theta, r, colour = g)) +
+      geom_path(show.legend = FALSE) +
+      geom_point(colour = "black") +
+      coord_polar() +
+      theme
   )
 
-  dat <- data.frame(x = LETTERS[1:6], y = 11:16)
-  vdiffr::expect_doppelganger("rose plot with has equal spacing",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") + coord_polar()
+  dat <- data.frame(x = LETTERS[1:3], y = 1:3)
+  expect_doppelganger("rose plot with has equal spacing",
+    ggplot(dat, aes(x, y)) +
+      geom_bar(stat = "identity") +
+      coord_polar() +
+      theme
   )
-  vdiffr::expect_doppelganger("continuous theta has merged low/high values",
-    ggplot(dat, aes(as.numeric(x), y)) + geom_point() + coord_polar()
+  expect_doppelganger("racetrack plot: closed and no center hole",
+    ggplot(dat, aes(x, y)) +
+      geom_bar(stat = "identity") +
+      coord_polar(theta = "y") +
+      theme
   )
-  vdiffr::expect_doppelganger("continuous theta with xlim(0, 6) and ylim(0, 16)",
-    ggplot(dat, aes(as.numeric(x), y)) + geom_point() + coord_polar() +
-      xlim(0, 6) + ylim(0,16)
+  expect_doppelganger("racetrack plot: closed and has center hole",
+    ggplot(dat, aes(x, y)) +
+      geom_bar(stat = "identity") +
+      coord_polar(theta = "y") +
+      scale_x_discrete(expand = c(0, 0.6)) +
+      theme
   )
-  vdiffr::expect_doppelganger("racetrack plot with expand=F: closed and no center hole",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") + coord_polar(theta = "y")
-  )
-  vdiffr::expect_doppelganger("racetrack plot with expand=T: closed and has center hole",
-    ggplot(dat, aes(x, y)) + geom_bar(stat = "identity") + coord_polar(theta = "y") +
-      scale_x_discrete(expand = c(0, 0.6))
-  )
-
-  vdiffr::expect_doppelganger("secondary axis ticks and labels",
-    ggplot(dat, aes(x, y, group = factor(y))) + geom_line() + coord_polar() +
-      scale_y_continuous(sec.axis = sec_axis(~. * 0.1, name = "sec y"))
+  expect_doppelganger("secondary axis ticks and labels",
+    ggplot(dat, aes(x, y, group = factor(y))) +
+      geom_blank() +
+      scale_y_continuous(sec.axis = sec_axis(~. * 0.1, name = "sec y")) +
+      coord_polar() +
+      theme_test() +
+      theme(axis.text.x = element_blank())
   )
 })

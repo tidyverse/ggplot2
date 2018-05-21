@@ -12,6 +12,9 @@
 #' @param xtrans,ytrans Deprecated; use `x` and `y` instead.
 #' @param limx,limy limits for x and y axes. (Named so for backward
 #'    compatibility)
+#' @param clip Should drawing be clipped to the extent of the plot panel? A
+#'   setting of `"on"` (the default) means yes, and a setting of `"off"`
+#'   means no. For details, please see [`coord_cartesian()`].
 #' @export
 #' @examples
 #' \donttest{
@@ -75,7 +78,7 @@
 #' plot + coord_trans(x = "log10")
 #' plot + coord_trans(x = "sqrt")
 #' }
-coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL,
+coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL, clip = "on",
   xtrans, ytrans)
 {
   if (!missing(xtrans)) {
@@ -99,7 +102,8 @@ coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL
 
   ggproto(NULL, CoordTrans,
     trans = list(x = x, y = y),
-    limits = list(x = limx, y = limy)
+    limits = list(x = limx, y = limy),
+    clip = clip
   )
 }
 
@@ -109,7 +113,7 @@ coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL
 #' @usage NULL
 #' @export
 CoordTrans <- ggproto("CoordTrans", Coord,
-
+  is_free = function() TRUE,
   distance = function(self, x, y, panel_params) {
     max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)
     dist_euclidean(self$trans$x$transform(x), self$trans$y$transform(y)) / max_dist

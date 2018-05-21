@@ -37,6 +37,10 @@ install.packages("ggplot2")
 devtools::install_github("tidyverse/ggplot2")
 ```
 
+## Cheatsheet
+
+<a href="https://github.com/rstudio/cheatsheets/blob/master/data-visualization-2.1.pdf"><img src="https://raw.githubusercontent.com/rstudio/cheatsheets/master/pngs/thumbnails/data-visualization-cheatsheet-thumbs.png" width="630" height="252"/></a>  
+
 ## Usage
 
 It's hard to succinctly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with `ggplot()`, supply a dataset and aesthetic mapping (with `aes()`). You then add on layers (like `geom_point()` or `geom_histogram()`), scales (like `scale_colour_brewer()`), faceting specifications (like `facet_wrap()`) and coordinate systems (like `coord_flip()`).
@@ -48,7 +52,14 @@ ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point()
 ```
 
-As well as the components built-in to ggplot2, there are many packages that provide extensions. See a comprehensive list at <http://www.ggplot2-exts.org>.
+
+## Lifecycle
+
+[![lifecycle](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://www.tidyverse.org/lifecycle/#stable)
+
+ggplot2 is now over 10 years old and is used by hundreds of thousands of people to make millions of plots. That means, by-and-large, ggplot2 itself changes relatively little. When we do make changes, they will be generally to add new functions or arguments rather than changing the behaviour of existing functions, and if we do make changes to existing behaviour we will do them for compelling reasons. 
+
+If you are looking for innovation, look to ggplot2's rich ecosystem of extensions. See a community maintained list at <http://www.ggplot2-exts.org/gallery/>.
 
 ## Learning ggplot2
 
@@ -77,17 +88,16 @@ If you've mastered the basics and want to learn more, read [ggplot2: Elegant Gra
 
 There are two main places to get help with ggplot2:
 
-1.  The [ggplot2 mailing list][ml] is a friendly place to ask any
-    questions about ggplot2. You must be a member to post messages, 
-    but anyone can read the archived discussions.
+1.  The [RStudio community][community] is a friendly place to ask any
+    questions about ggplot2.
 
-1.  [stackoverflow][so] is a great source of answers to common ggplot2
+1.  [Stack Overflow][so] is a great source of answers to common ggplot2
     questions. It is also a great place to get help, once you have
     created a reproducible example that illustrates your problem.
 
+[community]: https://community.rstudio.com/
 [ggplot2-book]: http://amzn.to/2fncG50
 [gg-book]: http://amzn.to/2ef1eWp
-[ml]: https://groups.google.com/forum/?fromgroups#!forum/ggplot2
 [so]: http://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50
 [cookbook]: http://amzn.to/2dVfMfn
 [r4ds]: http://r4ds.had.co.nz

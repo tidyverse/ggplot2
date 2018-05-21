@@ -8,7 +8,7 @@ set.seed(1014)
 
 write_icon <- function(name, code) {
   path <- paste0("icons/", name, ".png")
-  png(path, width = 80, height = 80, pointsize = 18)
+  png(path, width = 60, height = 60, pointsize = 18)
   on.exit(dev.off())
 
   grid.draw(code)
@@ -62,6 +62,9 @@ write_icon("coord_map", {
   linesGrob(nz$x, nz$y, default.units = "npc")
 })
 
+file.copy("icons/coord_map.png", "icons/geom_map.png")
+file.copy("icons/coord_map.png", "icons/geom_sf.png")
+
 write_icon("coord_polar", {
   circleGrob(r = c(0.1, 0.25, 0.45),  gp = gpar(fill = NA))
 })
@@ -100,27 +103,18 @@ write_icon("facet_grid", {
   ))
 })
 
-write_icon("facet_null", {
+write_icon("facet_wrap", {
   gTree(children = gList(
     rectGrob(
       0,
-      1,
-      width = 0.95,
+      c(0.49, 1),
+      width = 1,
       height = 0.05,
       hjust = 0,
       vjust = 1,
       gp = gpar(fill = "grey60", col = NA)
     ),
-    rectGrob(
-      0.95,
-      0.95,
-      width = 0.05,
-      height = 0.95,
-      hjust = 0,
-      vjust = 1,
-      gp = gpar(fill = "grey60", col = NA)
-    ),
-    segmentsGrob(c(0, 0.475), c(0.475, 0), c(1, 0.475), c(0.475, 1))
+    segmentsGrob(c(0, 0.5), c(0.5, 0), c(1, 0.5), c(0.5, 1))
   ))
 })
 
@@ -137,6 +131,34 @@ write_icon("geom_bar", {
     vjust = 1,
     gp = gpar(fill = "grey20", col = NA)
   )
+})
+
+write_icon("geom_bin2d", {
+  n <- 5
+  x <- seq(0, 1, length = n + 1)[-(n + 1)]
+  out <- expand.grid(x = x, y = x)
+  fill <- sqrt((out$x - 0.5) ^ 2 + (out$y - 0.5) ^ 2)
+
+  pal <- scales::seq_gradient_pal("#56B1F7", "#132B43")
+  rectGrob(
+    out$x + 1/n/2,
+    out$y + 1/n/2,
+    width = 1/n,
+    height = 1/n,
+    gp = gpar(col = "grey20", fill = pal(scales::rescale(fill)))
+  )
+})
+
+write_icon("geom_blank", {
+  rectGrob(0.5, 0.5,
+    height = 1,
+    width = 1,
+    gp = gpar(fill = "white", col = "black", lwd = 3)
+  )
+})
+
+write_icon("geom_count", {
+  textGrob(expression(Sigma), gp = gpar(cex = 4))
 })
 
 write_icon("geom_histogram", {
@@ -167,14 +189,20 @@ write_icon("geom_boxplot", {
 
 write_icon("geom_crossbar", {
   gTree(children = gList(
+    # crossbar
     rectGrob(
-      c(0.3, 0.7),
-      c(0.6, 0.8),
+      0.3,
+      0.6,
       width = 0.3,
       height = c(0.4, 0.4),
       vjust = 1
     ),
-    segmentsGrob(c(0.15, 0.55), c(0.5, 0.6), c(0.45, 0.85), c(0.5, 0.6))
+    segmentsGrob(c(0.15), c(0.5), c(0.45), c(0.5)),
+
+    # error bar
+    segmentsGrob(0.70, 0.5, 0.70, 0.90),
+    segmentsGrob(0.55, 0.5, 0.85, 0.50),
+    segmentsGrob(0.55, 0.9, 0.85, 0.90)
   ))
 })
 
@@ -191,33 +219,9 @@ write_icon("geom_dotplot", {
   )
 })
 
-write_icon("geom_errorbar", {
-  gTree(children = gList(
-    segmentsGrob(c(0.3, 0.7), c(0.3, 0.5), c(0.3, 0.7), c(0.7, 0.9)),
-    segmentsGrob(c(0.15, 0.55), c(0.3, 0.5), c(0.45, 0.85), c(0.3, 0.5)),
-    segmentsGrob(c(0.15, 0.55), c(0.7, 0.9), c(0.45, 0.85), c(0.7, 0.9))
-  ))
-})
-
-write_icon("geom_errorbarh", {
-  gTree(children = gList(
-    segmentsGrob(c(0.5, 0.3), c(0.70, 0.30), c(0.9, 0.7), c(0.70, 0.30)),
-    segmentsGrob(c(0.5, 0.3), c(0.55, 0.15), c(0.5, 0.3), c(0.85, 0.45)),
-    segmentsGrob(c(0.9, 0.7), c(0.55, 0.15), c(0.9, 0.7), c(0.85, 0.45))
-  ))
-})
-
 write_icon("geom_freqpoly", {
   y <- c(0.2, 0.3, 0.5, 0.6, 0.2, 0.8, 0.5, 0.3)
   linesGrob(seq(0.1, 0.9, by = 0.1), y, gp = gpar(col = "grey20"))
-})
-
-write_icon("geom_hline", {
-  linesGrob(c(0, 1), c(0.5, 0.5))
-})
-
-write_icon("geom_linerange", {
-  segmentsGrob(c(0.3, 0.7), c(0.1, 0.2), c(0.3, 0.7), c(0.7, 0.95))
 })
 
 write_icon("geom_path", {
@@ -234,16 +238,25 @@ write_icon("geom_contour", {
     )))
 })
 
+write_icon("geom_hex", {
+  theta <- seq(0, 2 * pi, length = 7)[-1]
+  polygonGrob(
+    0.5 + 0.4 * sin(theta),
+    0.5 + 0.4 * cos(theta),
+    gp = gpar(fill = "grey50", col = NA)
+  )
+})
+
 write_icon("geom_line", {
   pos <- seq(0, 1, length.out = 5)
-  linesGrob(pos, c(0.2, 0.7, 0.4, 0.8, 0.3))
+  linesGrob(pos, c(0.2, 0.7, 0.4, 0.8, 0.3), gp = gpar(lwd = 3))
 })
 
 write_icon("geom_step", {
-  n <- 15
-  xs <- rep(0:n, each = 2)[-2 * (n + 1)] / 15
-  ys <- c(0, rep(1:n, each = 2)) / 15
-  linesGrob(xs, ys, gp = gpar(col = "grey20"))
+  n <- 10
+  xs <- rep(0:n, each = 2)[-2 * (n + 1)] / n
+  ys <- c(0, rep(1:n, each = 2)) / n
+  linesGrob(xs, ys, gp = gpar(col = "grey20", lwd = 3))
 })
 
 write_icon("geom_point", {
@@ -258,10 +271,9 @@ write_icon("geom_point", {
 })
 
 write_icon("geom_jitter", {
-  pos <- seq(0.1, 0.9, length.out = 6)
   pointsGrob(
-    x = pos,
-    y = jitter(pos, 3),
+    x = c(0.25, 0.22, 0.34, 0.70, 0.77, 0.80),
+    y = c(0.15, 0.24, 0.28, 0.65, 0.90, 0.75),
     pch = 19,
     gp = gpar(col = "black", cex = 0.5),
     default.units = "npc"
@@ -330,6 +342,17 @@ write_icon("geom_ribbon", {
   )
 })
 
+write_icon("geom_spoke", {
+  theta <- seq(0, 2 * pi, length = 10)[-1]
+  r <- seq(0.1, 0.45, length = length(theta))
+  segmentsGrob(
+    0.5, 0.5,
+    0.5 + sin(theta) * r,
+    0.5 + cos(theta) * r,
+    gp = gpar(col = "grey20")
+  )
+})
+
 write_icon("geom_area", {
   polygonGrob(c(0, 0, 0.3, 0.5, 0.8, 1, 1),
     c(0, 1, 0.5, 0.6, 0.3, 0.8, 0),
@@ -340,6 +363,15 @@ write_icon("geom_density", {
   x <- seq(0, 1, length.out = 80)
   y <- dnorm(x, mean = 0.5, sd = 0.15)
   linesGrob(x, 0.05 + y / max(y) * 0.9, default.units = "npc")
+})
+
+
+write_icon("geom_rug", {
+  x <- seq(0.15, 0.95, length = 8)
+  gList(
+    segmentsGrob(x, 0, x, 0 + 0.1, gp = gpar(lwd = 2)),
+    segmentsGrob(0, x, 0 + 0.1, x, gp = gpar(lwd = 2))
+  )
 })
 
 write_icon("geom_segment", {
@@ -389,10 +421,6 @@ write_icon("geom_violin", {
     polygonGrob(x1 + .30, y + .35, default.units = "npc", gp = gp),
     polygonGrob(x2 + .70, y + .55, default.units = "npc", gp = gp)
   ))
-})
-
-write_icon("geom_vline", {
-  linesGrob(c(0.5, 0.5), c(0, 1))
 })
 
 # Position adjustments --------------------------------------------------------
@@ -451,7 +479,8 @@ write_icon("position_stack", {
 write_icon("scale_alpha", {
   x <- c(0.1, 0.3, 0.5, 0.7, 0.9)
   rectGrob(x,
-    width = 0.25,
+    width = 0.3,
+    height = x,
     gp = gpar(fill = scales::alpha("black", x), col = NA))
 })
 
@@ -460,6 +489,31 @@ write_icon("scale_colour_brewer", {
     c(0.1, 0.3, 0.5, 0.7, 0.9),
     width = 0.21,
     gp = gpar(fill = RColorBrewer::brewer.pal(5, "PuOr"), col = NA)
+  )
+})
+
+write_icon("scale_colour_continuous", {
+  g1 <- scale_fill_gradient()
+  g1$train(1:5)
+
+  g2 <- scale_fill_viridis_c()
+  g2$train(1:5)
+
+  x <- c(0.1, 0.3, 0.5, 0.7, 0.9)
+  rectGrob(
+    c(x, x),
+    rep(c(0.25, 0.75), each = 5),
+    width = 0.21,
+    height = 0.5,
+    gp = gpar(fill = c(g1$map(1:5), g2$map(5:1)), col = NA)
+  )
+})
+
+write_icon("scale_colour_viridis_d", {
+  rectGrob(
+    c(0.1, 0.3, 0.5, 0.7, 0.9),
+    width = 0.21,
+    gp = gpar(fill = g$map(1:5), col = NA)
   )
 })
 
@@ -473,18 +527,8 @@ write_icon("scale_colour_gradient", {
   )
 })
 
-write_icon("scale_colour_gradient2", {
-  g <- scale_fill_gradient2()
-  g$train(1:5 - 3)
-  rectGrob(
-    c(0.1, 0.3, 0.5, 0.7, 0.9),
-    width = 0.21,
-    gp = gpar(fill = g$map(1:5 - 3), col = NA)
-  )
-})
-
-write_icon("scale_colour_gradientn", {
-  g <- scale_fill_gradientn(colours = rainbow(7))
+write_icon("scale_colour_viridis", {
+  g <- scale_fill_viridis_c()
   g$train(1:5)
   rectGrob(
     c(0.1, 0.3, 0.5, 0.7, 0.9),
@@ -493,10 +537,11 @@ write_icon("scale_colour_gradientn", {
   )
 })
 
+
 write_icon("scale_colour_grey", {
   rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9),
     width = 0.21,
-    gp = gpar(fill = gray(seq(0, 1, length.out = 5)), col = NA))
+    gp = gpar(fill = gray(seq(0, 0.9, length.out = 5)), col = NA))
 })
 
 write_icon("scale_colour_hue", {
@@ -507,15 +552,11 @@ write_icon("scale_colour_hue", {
     ), col = NA))
 })
 
-write_icon("scale_colour_identity", {
-  textGrob("f(x) = x", gp = gpar(cex = 1.2))
-})
-
 write_icon("scale_linetype", {
   gTree(children = gList(
-    segmentsGrob(0, 0.25, 1, 0.25, gp = gpar(lty = 1)),
-    segmentsGrob(0, 0.50, 1, 0.50, gp = gpar(lty = 2)),
-    segmentsGrob(0, 0.75, 1, 0.75, gp = gpar(lty = 3))
+    segmentsGrob(0, 0.25, 1, 0.25, gp = gpar(lty = 1, lwd = 3)),
+    segmentsGrob(0, 0.50, 1, 0.50, gp = gpar(lty = 2, lwd = 3)),
+    segmentsGrob(0, 0.75, 1, 0.75, gp = gpar(lty = 3, lwd = 3))
   ))
 })
 
@@ -524,12 +565,13 @@ write_icon("scale_colour_manual", {
 })
 
 write_icon("scale_shape", {
+  gp <- gpar(lwd = 3)
   gTree(children = gList(
-    circleGrob(0.7, 0.7, r = 0.1),
-    segmentsGrob(0.2, 0.3, 0.4, 0.3),
-    segmentsGrob(0.3, 0.2, 0.3, 0.4),
-    polygonGrob(c(0.2, 0.2, 0.4, 0.4), c(0.8, 0.6, 0.6, 0.8)),
-    polygonGrob(c(0.6, 0.7, 0.8), c(0.2, 0.4, 0.2))
+    circleGrob(0.7, 0.7, r = 0.1, gp = gp),
+    segmentsGrob(0.2, 0.3, 0.4, 0.3, gp = gp),
+    segmentsGrob(0.3, 0.2, 0.3, 0.4, gp = gp),
+    polygonGrob(c(0.2, 0.2, 0.4, 0.4), c(0.8, 0.6, 0.6, 0.8), gp = gp),
+    polygonGrob(c(0.6, 0.7, 0.8), c(0.2, 0.4, 0.2), gp = gp)
   ))
 })
 
@@ -542,15 +584,5 @@ write_icon("scale_size", {
 })
 
 write_icon("scale_x_date", {
-  textGrob("14/10/1979", gp = gpar(cex = 1))
-})
-
-# Statistics -------------------------------------------------------------------
-
-write_icon("stat_identity", {
-  textGrob('f(x) = x', gp = gpar(cex = 1.2))
-})
-
-write_icon("stat_sum", {
-  textGrob(expression(Sigma), gp = gpar(cex = 4))
+  textGrob("14/10/1979", gp = gpar(cex = 0.9), rot = 45)
 })
