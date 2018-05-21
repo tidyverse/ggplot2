@@ -39,8 +39,8 @@
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
 "+.gg" <- function(e1, e2) {
   if (missing(e2)) {
-    stop("There's nothing on the left-hand side of `+`. ",
-         "Did you forget to add this object to a ggplot object?",
+    stop("Cannot use `+.gg()` with a single argument. ",
+         "Did you accidentally put + on a new line?",
          call. = FALSE)
   }
 
