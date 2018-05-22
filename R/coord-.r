@@ -87,6 +87,8 @@ Coord <- ggproto("Coord",
 
   is_linear = function() FALSE,
 
+  # Does the coordinate system support free scaling of axes in a faceted plot?
+  # Will generally have to return FALSE for coordinate systems that enforce a fixed aspect ratio.
   is_free = function() FALSE,
 
   setup_params = function(data) {
