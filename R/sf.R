@@ -353,6 +353,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
   },
 
+  # CoordSf enforces a fixed aspect ratio -> axes cannot be changed freely under faceting
+  is_free = function() FALSE,
+
   aspect = function(self, panel_params) {
     if (isTRUE(sf::st_is_longlat(panel_params$crs))) {
       # Contributed by @edzer
