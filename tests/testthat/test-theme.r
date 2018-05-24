@@ -364,3 +364,14 @@ test_that("strips can be styled independently", {
     )
   expect_doppelganger("strip_styling", plot)
 })
+
+test_that("rotated axis tick labels work", {
+  df <- data.frame(
+    y = c(1, 2, 3),
+    label = c("short", "medium size", "very long label")
+  )
+
+  plot <- ggplot(df, aes(label, y)) + geom_point() +
+    theme(axis.text.x = element_text(angle = 50, hjust = 1))
+  expect_doppelganger("rotated x axis tick labels", plot)
+})
