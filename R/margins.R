@@ -297,8 +297,14 @@ justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
 #'
 #' @noRd
 rotate_just <- function(angle, hjust, vjust) {
-  ## ideally we would like to do something like the following commented-out lines,
-  ## but it currently breaks things in certain cases
+  ## Ideally we would like to do something like the following commented-out lines,
+  ## but it currently yields unexpected results for angles other than 0, 90, 180, 270.
+  ## Problems arise in particular in cases where the horizontal and the vertical
+  ## alignment model differ, for example, where horizontal alignment is relative to a
+  ## point but vertical alignment is relative to an interval. This case arises for
+  ## x and y axis tick labels.
+  ##
+  ## For more details, see: https://github.com/tidyverse/ggplot2/issues/2653
 
   # # convert angle to radians
   #rad <- (angle %||% 0) * pi / 180
