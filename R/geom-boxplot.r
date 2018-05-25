@@ -37,6 +37,13 @@
 #'
 #'   In the unlikely event you specify both US and UK spellings of colour, the
 #'   US spelling will take precedence.
+#'
+#'   Sometimes it can be useful to hide the outliers, for example when overlaying
+#'   the raw data points on top of the boxplot. Hiding the outliers can be achieved in numerous ways,
+#'   including by setting `outlier.colour = NA`, `outlier.colour = "transparent"`,
+#'   `outlier.shape = NA`, or `outlier.shape = ""`. All these options are equivalent and
+#'   you can choose whichever you prefer.
+#'
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
