@@ -39,10 +39,10 @@
 #'   US spelling will take precedence.
 #'
 #'   Sometimes it can be useful to hide the outliers, for example when overlaying
-#'   the raw data points on top of the boxplot. Hiding the outliers can be achieved in numerous ways,
-#'   including by setting `outlier.colour = NA`, `outlier.colour = "transparent"`,
-#'   `outlier.shape = NA`, or `outlier.shape = ""`. All these options are equivalent and
-#'   you can choose whichever you prefer.
+#'   the raw data points on top of the boxplot. Hiding the outliers can be achieved
+#'   by setting `outlier.shape = NA`. Importantly, this does not remove the outliers,
+#'   it only hides them, so the range calculated for the y-axis will be the
+#'   same with outliers shown and outliers hidden.
 #'
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
