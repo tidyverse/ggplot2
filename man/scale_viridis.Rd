@@ -69,6 +69,13 @@ with common forms of color blindness. See also
 }
 \examples{
 dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
+
+# viridis is the default colour/fill scale for ordered factors
+ggplot(dsamp, aes(carat, price)) +
+  geom_point(aes(colour = clarity))
+
+# Usse viridis_d with discrete data
+dsamp$clarity <- factor(dsamp$clarity, ordered = FALSE)
 (d <- ggplot(dsamp, aes(carat, price)) +
   geom_point(aes(colour = clarity)))
 d + scale_colour_viridis_d()
