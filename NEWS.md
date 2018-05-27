@@ -16,7 +16,7 @@ To be released as 2.3.0
     you need. A common symptom of this change are errors "undefined columns 
     selected" or "invalid 'type' (list) of argument" (#2610). 
     
-    In this version of ggplot2, you need to describe a mapping in a string, 
+    In this version of ggplot2, if you need to describe a mapping in a string, 
     use `quo_name()` (for shorter labels) or `quo_text()` (if you want 
     everything). If you do need to extract the value of a variable instead use 
     `rlang::eval_tidy()`. You may want to condition on 
