@@ -25,7 +25,7 @@ update_labels <- function(p, labels) {
 #' data source. `tag` can be used for adding identification tags.
 #'
 #' You can also set axis and legend labels in the individual scales (using
-#' the first argument, the `name`. I recommend doing that if you're
+#' the first argument, the `name`). I recommend doing that if you're
 #' changing other scale options.
 #'
 #' @param label The text for the axis, plot title or caption below the plot.

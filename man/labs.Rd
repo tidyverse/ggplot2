@@ -33,7 +33,7 @@ data source. \code{tag} can be used for adding identification tags.
 }
 \details{
 You can also set axis and legend labels in the individual scales (using
-the first argument, the \code{name}. I recommend doing that if you're
+the first argument, the \code{name}). I recommend doing that if you're
 changing other scale options.
 }
 \examples{
