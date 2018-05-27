@@ -52,7 +52,7 @@ To be released as 2.3.0
     data frame. Each aesthetic now must be either the same length as the data
     frame or a single value. This makes silent recycling errors much less likely.
 
-*   Error: Free scales are only supported with `coord_cartesian()` and `coord_flip()`
+*   Error: `coord_*` doesn't support free scales 
    
     Free scales only work with selected coordinate systems; previously you'd
     get an incorrect plot.
