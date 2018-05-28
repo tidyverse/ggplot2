@@ -22,17 +22,17 @@ update_labels <- function(p, labels) {
 #' audience. Ensure the axis and legend labels display the full variable name.
 #' Use the plot `title` and `subtitle` to explain the main findings.
 #' It's common to use the `caption` to provide information about the
-#' data source.
+#' data source. `tag` can be used for adding identification tags.
 #'
 #' You can also set axis and legend labels in the individual scales (using
-#' the first argument, the `name`. I recommend doing that if you're
+#' the first argument, the `name`). I recommend doing that if you're
 #' changing other scale options.
 #'
 #' @param label The text for the axis, plot title or caption below the plot.
 #' @param subtitle the text for the subtitle for the plot which will be
 #'        displayed below the title. Leave `NULL` for no subtitle.
 #' @param ... A list of new name-value pairs. The name should either be
-#'   an aesthetic, or one of "title", "subtitle", or "caption".
+#'   an aesthetic, or one of "title", "subtitle", "caption", or "tag".
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
@@ -47,6 +47,10 @@ update_labels <- function(p, labels) {
 #' # The caption appears in the bottom-right, and is often used for
 #' # sources, notes or copyright
 #' p + labs(caption = "(based on data from ...)")
+#'
+#' # The plot tag appears at the top-left, and is typically used
+#' # for labelling a subplot with a letter.
+#' p + labs(title = "title", tag = "A")
 labs <- function(...) {
   args <- list(...)
   if (is.list(args[[1]])) args <- args[[1]]
