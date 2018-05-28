@@ -25,6 +25,17 @@ test_that("setting guide labels works", {
     expect_identical(labs(colour = "my label")$colour, "my label")
     # American spelling
     expect_identical(labs(color = "my label")$colour, "my label")
+
+    # No extra elements exists
+    expect_equivalent(labs(title = "my title"), list(title = "my title"))     # formal argument
+    expect_equivalent(labs(colour = "my label"), list(colour = "my label"))   # dot
+    expect_equivalent(labs(foo = "bar"), list(foo = "bar"))                   # non-existent param
+
+    # labs() can take a list as the first argument
+    expect_identical(labs(list(title = "my title", tag = "A)"))$tag, "A)")
+
+    # NULL is preserved
+    expect_equivalent(labs(title = NULL), list(title = NULL))
 })
 
 
