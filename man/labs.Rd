@@ -7,7 +7,7 @@
 \alias{ggtitle}
 \title{Modify axis, legend, and plot labels}
 \usage{
-labs(...)
+labs(..., title, subtitle, caption, tag)
 
 xlab(label)
 
@@ -16,13 +16,20 @@ ylab(label)
 ggtitle(label, subtitle = NULL)
 }
 \arguments{
-\item{...}{A list of new name-value pairs. The name should either be
-an aesthetic, or one of "title", "subtitle", "caption", or "tag".}
+\item{...}{A list of new name-value pairs. The name should be an aesthetic.}
+
+\item{title}{The text for the title.}
+
+\item{subtitle}{The text for the subtitle for the plot which will be
+displayed below the title. Leave \code{NULL} for no subtitle.}
+
+\item{caption}{The text for the caption which will be displayed in the
+bottom-right of the plot by default.}
+
+\item{tag}{The text for the tag label which will be displayed at the
+top-left of the plot by default.}
 
 \item{label}{The text for the axis, plot title or caption below the plot.}
-
-\item{subtitle}{the text for the subtitle for the plot which will be
-displayed below the title. Leave \code{NULL} for no subtitle.}
 }
 \description{
 Good labels are critical for making your plots accessible to a wider
@@ -53,4 +60,7 @@ p + labs(caption = "(based on data from ...)")
 # The plot tag appears at the top-left, and is typically used
 # for labelling a subplot with a letter.
 p + labs(title = "title", tag = "A")
+
+# If you want to remove a label, set it to NULL.
+p + labs(title = "title") + labs(title = NULL)
 }

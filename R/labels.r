@@ -29,10 +29,14 @@ update_labels <- function(p, labels) {
 #' changing other scale options.
 #'
 #' @param label The text for the axis, plot title or caption below the plot.
-#' @param subtitle the text for the subtitle for the plot which will be
+#' @param title The text for the title.
+#' @param subtitle The text for the subtitle for the plot which will be
 #'        displayed below the title. Leave `NULL` for no subtitle.
-#' @param ... A list of new name-value pairs. The name should either be
-#'   an aesthetic, or one of "title", "subtitle", "caption", or "tag".
+#' @param caption The text for the caption which will be displayed in the
+#'        bottom-right of the plot by default.
+#' @param tag The text for the tag label which will be displayed at the
+#'        top-left of the plot by default.
+#' @param ... A list of new name-value pairs. The name should be an aesthetic.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
@@ -51,10 +55,20 @@ update_labels <- function(p, labels) {
 #' # The plot tag appears at the top-left, and is typically used
 #' # for labelling a subplot with a letter.
 #' p + labs(title = "title", tag = "A")
-labs <- function(...) {
+#'
+#' # If you want to remove a label, set it to NULL.
+#' p + labs(title = "title") + labs(title = NULL)
+labs <- function(..., title, subtitle, caption, tag) {
   args <- list(...)
-  if (is.list(args[[1]])) args <- args[[1]]
+  if (length(args) > 0 && is.list(args[[1]])) args <- args[[1]]
   args <- rename_aes(args)
+
+  # Since NULL should be preserved, we should wrap args with list()
+  if (!missing(title)) args["title"] <- list(title)
+  if (!missing(subtitle)) args["subtitle"] <- list(subtitle)
+  if (!missing(caption)) args["caption"] <- list(caption)
+  if (!missing(tag)) args["tag"] <- list(tag)
+
   structure(args, class = "labels")
 }
 
