@@ -59,16 +59,27 @@ GeomHex <- ggproto("GeomHex", Geom,
       stop("geom_hex() only works with Cartesian coordinates", call. = FALSE)
     }
 
-    coord <- coord$transform(data, panel_params)
+    coords <- coord$transform(data, panel_params)
     ggname("geom_hex", hexGrob(
-      coord$x, coord$y, colour = coord$colour,
-      fill = alpha(coord$fill, coord$alpha)
+      coords$x, coords$y,
+      gp = gpar(
+        col = coords$colour,
+        fill = alpha(coords$fill, coords$alpha),
+        lwd = coords$size * .pt,
+        lty = coords$linetype
+      )
     ))
   },
 
   required_aes = c("x", "y"),
 
-  default_aes = aes(colour = NA, fill = "grey50", size = 0.5, alpha = NA),
+  default_aes = aes(
+    colour = NA,
+    fill = "grey50",
+    size = 0.5,
+    linetype = 1,
+    alpha = NA
+  ),
 
   draw_key = draw_key_polygon
 )
@@ -79,11 +90,10 @@ GeomHex <- ggproto("GeomHex", Geom,
 #
 # @param x positions of hex centres
 # @param y positions
-# @param vector of hex sizes
-# @param border colour
-# @param fill colour
+# @param size vector of hex sizes
+# @param gp graphical parameters
 # @keyword internal
-hexGrob <- function(x, y, size = rep(1, length(x)), colour = "grey50", fill = "grey90") {
+hexGrob <- function(x, y, size = rep(1, length(x)), gp = gpar()) {
   stopifnot(length(y) == length(x))
 
   dx <- resolution(x, FALSE)
@@ -97,6 +107,6 @@ hexGrob <- function(x, y, size = rep(1, length(x)), colour = "grey50", fill = "g
     x = rep.int(hexC$x, n) * rep(size, each = 6) + rep(x, each = 6),
     y = rep.int(hexC$y, n) * rep(size, each = 6) + rep(y, each = 6),
     default.units = "native",
-    id.lengths = rep(6, n), gp = gpar(col = colour, fill = fill)
+    id.lengths = rep(6, n), gp = gp
   )
 }
