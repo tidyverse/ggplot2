@@ -73,7 +73,10 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
   exprs <- rlang::enquos(x = x, y = y, ...)
   is_missing <- vapply(exprs, rlang::quo_is_missing, logical(1))
-  is_constant <- vapply(exprs, rlang::quo_is_call, logical(1), name = "I")
+  # treat arguments as regular parameters if they are wrapped into I() or
+  # if they don't have a name that is in the list of all aesthetics
+  is_constant <- (!names(exprs) %in% .all_aesthetics) |
+    vapply(exprs, rlang::quo_is_call, logical(1), name = "I")
 
   mapping <- new_aes(exprs[!is_missing & !is_constant], env = parent.frame())
 
