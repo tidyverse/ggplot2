@@ -13,7 +13,7 @@ xlab(label)
 
 ylab(label)
 
-ggtitle(label, subtitle = NULL)
+ggtitle(label, subtitle)
 }
 \arguments{
 \item{...}{A list of new name-value pairs. The name should be an aesthetic.}
@@ -21,7 +21,7 @@ ggtitle(label, subtitle = NULL)
 \item{title}{The text for the title.}
 
 \item{subtitle}{The text for the subtitle for the plot which will be
-displayed below the title. Leave \code{NULL} for no subtitle.}
+displayed below the title.}
 
 \item{caption}{The text for the caption which will be displayed in the
 bottom-right of the plot by default.}
@@ -29,7 +29,8 @@ bottom-right of the plot by default.}
 \item{tag}{The text for the tag label which will be displayed at the
 top-left of the plot by default.}
 
-\item{label}{The text for the axis, plot title or caption below the plot.}
+\item{label}{The title of the respective axis (for \code{xlab()} or \code{ylab()}) or
+of the plot (for `ggtitle()``).}
 }
 \description{
 Good labels are critical for making your plots accessible to a wider
@@ -42,6 +43,11 @@ data source. \code{tag} can be used for adding identification tags.
 You can also set axis and legend labels in the individual scales (using
 the first argument, the \code{name}). I recommend doing that if you're
 changing other scale options.
+
+If a plot already has a title, subtitle, caption, etc., and you want to
+remove it, you can do so by setting the respective argument to \code{NULL}. For
+example, if plot \code{p} has a subtitle, then \code{p + labs(subtitle = NULL)} will
+remove the subtitle from the plot.
 }
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()

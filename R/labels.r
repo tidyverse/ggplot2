@@ -28,10 +28,16 @@ update_labels <- function(p, labels) {
 #' the first argument, the `name`). I recommend doing that if you're
 #' changing other scale options.
 #'
-#' @param label The text for the axis, plot title or caption below the plot.
+#' If a plot already has a title, subtitle, caption, etc., and you want to
+#' remove it, you can do so by setting the respective argument to `NULL`. For
+#' example, if plot `p` has a subtitle, then `p + labs(subtitle = NULL)` will
+#' remove the subtitle from the plot.
+#'
+#' @param label The title of the respective axis (for `xlab()` or `ylab()`) or
+#'        of the plot (for `ggtitle()``).
 #' @param title The text for the title.
 #' @param subtitle The text for the subtitle for the plot which will be
-#'        displayed below the title. Leave `NULL` for no subtitle.
+#'        displayed below the title.
 #' @param caption The text for the caption which will be displayed in the
 #'        bottom-right of the plot by default.
 #' @param tag The text for the tag label which will be displayed at the
