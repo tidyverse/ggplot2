@@ -86,6 +86,9 @@ ylab <- function(label) {
 
 #' @rdname labs
 #' @export
-ggtitle <- function(label, subtitle = NULL) {
-  labs(title = label, subtitle = subtitle)
+ggtitle <- function(label, subtitle) {
+  args <- list(title = label)
+  if (!missing(subtitle)) args["subtitle"] <- list(subtitle)
+
+  labs(args)
 }
