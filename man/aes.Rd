@@ -59,7 +59,7 @@ ggplot(mpg, aes(displ, hwy)) + geom_point()
 ggplot(mpg) + geom_point(aes(displ, hwy))
 
 # Tidy evaluation ----------------------------------------------------
-# aes() automated quotes all its arguments, so you need to use tidy
+# aes() automatically quotes all its arguments, so you need to use tidy
 # evaluation to create wrappers around ggplot2 pipelines. The
 # simplest case occurs when your wrapper takes dots:
 scatter_by <- function(data, ...) {
