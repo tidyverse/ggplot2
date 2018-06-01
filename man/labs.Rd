@@ -7,13 +7,14 @@
 \alias{ggtitle}
 \title{Modify axis, legend, and plot labels}
 \usage{
-labs(..., title, subtitle, caption, tag)
+labs(..., title = waiver(), subtitle = waiver(), caption = waiver(),
+  tag = waiver())
 
 xlab(label)
 
 ylab(label)
 
-ggtitle(label, subtitle)
+ggtitle(label, subtitle = waiver())
 }
 \arguments{
 \item{...}{A list of new name-value pairs. The name should be an aesthetic.}

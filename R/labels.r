@@ -64,16 +64,13 @@ update_labels <- function(p, labels) {
 #'
 #' # If you want to remove a label, set it to NULL.
 #' p + labs(title = "title") + labs(title = NULL)
-labs <- function(..., title, subtitle, caption, tag) {
-  args <- list(...)
-  if (length(args) > 0 && is.list(args[[1]])) args <- args[[1]]
+labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(), tag = waiver()) {
+  args <- list(..., title = title, subtitle = subtitle, caption = caption, tag = tag)
+  if (length(args) > 0 && is.list(args[[1]]) && !is.waive(args[[1]])) args <- args[[1]]
   args <- rename_aes(args)
 
-  # Since NULL should be preserved, we should wrap args with list()
-  if (!missing(title)) args["title"] <- list(title)
-  if (!missing(subtitle)) args["subtitle"] <- list(subtitle)
-  if (!missing(caption)) args["caption"] <- list(caption)
-  if (!missing(tag)) args["tag"] <- list(tag)
+  is_waive <- vapply(args, is.waive, logical(1))
+  args <- args[!is_waive]
 
   structure(args, class = "labels")
 }
@@ -92,9 +89,6 @@ ylab <- function(label) {
 
 #' @rdname labs
 #' @export
-ggtitle <- function(label, subtitle) {
-  args <- list(title = label)
-  if (!missing(subtitle)) args["subtitle"] <- list(subtitle)
-
-  labs(args)
+ggtitle <- function(label, subtitle = waiver()) {
+  labs(title = label, subtitle = subtitle)
 }
