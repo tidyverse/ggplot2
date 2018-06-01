@@ -33,7 +33,7 @@ its inputs are quoted to be evaluated in the context of the
 data. This makes it easy to work with variables from the data frame
 because you can name those directly. The flip side is that you have
 to use \link[rlang:quasiquotation]{quasiquotation} to program with
-\code{aes()}. See a tidy evaluation tutorial such as the \href{http://dplyr.tidyverse.org/articles/programming.html}{dplyrprogramming vignette}
+\code{aes()}. See a tidy evaluation tutorial such as the \href{http://dplyr.tidyverse.org/articles/programming.html}{dplyr programming vignette}
 to learn more about these techniques.
 }
 

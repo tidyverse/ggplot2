@@ -49,9 +49,13 @@ to the paired geom/stat.}
 For \code{method = "auto"} the smoothing method is chosen based on the
 size of the largest group (across all panels). \code{\link[=loess]{loess()}} is
 used for less than 1,000 observations; otherwise \code{\link[mgcv:gam]{mgcv::gam()}} is
-used with \code{formula = y ~ mgcv::s(x, bs = "cs")}. Somewhat anecdotally,
+used with \code{formula = y ~ s(x, bs = "cs")}. Somewhat anecdotally,
 \code{loess} gives a better appearance, but is O(n^2) in memory, so does
-not work for larger datasets.}
+not work for larger datasets.
+
+If you have fewer than 1,000 observations but want to use the same \code{gam}
+model that \code{method = "auto"} would use then set
+\code{method = "gam", formula = y ~ s(x, bs = "cs")}.}
 
 \item{formula}{Formula to use in smoothing function, eg. \code{y ~ x},
 \code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
