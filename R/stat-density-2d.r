@@ -65,13 +65,13 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
       lims = c(scales$x$dimension(), scales$y$dimension())
     )
     df <- data.frame(expand.grid(x = dens$x, y = dens$y), z = as.vector(dens$z))
-    df$nz <- df$z / max(df$z)
     df$group <- data$group[1]
 
     if (contour) {
       StatContour$compute_panel(df, scales, bins, binwidth)
     } else {
-      names(df) <- c("x", "y", "density", "scaled", "group")
+      names(df) <- c("x", "y", "density", "group")
+      df$scaled <- df$density / max(df$density)
       df$level <- 1
       df$piece <- 1
       df
