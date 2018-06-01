@@ -48,6 +48,8 @@ NULL
 #'   they are so common; all other aesthetics must be named.
 #' @seealso [vars()] for another quoting function designed for
 #'   faceting specifications.
+#' @return A list with class `uneval`. Components of the list are either
+#'   quosures or constants.
 #' @export
 #' @examples
 #' aes(x = mpg, y = wt)
@@ -56,22 +58,23 @@ NULL
 #' # You can also map aesthetics to functions of variables
 #' aes(x = mpg ^ 2, y = wt / cyl)
 #'
+#' # Or to constants
+#' aes(x = 1, colour = "smooth")
+#'
 #' # Aesthetic names are automatically standardised
 #' aes(col = x)
 #' aes(fg = x)
 #' aes(color = x)
 #' aes(colour = x)
 #'
-#' # aes is almost always used with ggplot() or a layer
+#' # aes() is passed to either ggplot() or specific layer. Aesthetics supplied
+#' # to ggplot() are used as defaults for every layer.
 #' ggplot(mpg, aes(displ, hwy)) + geom_point()
 #' ggplot(mpg) + geom_point(aes(displ, hwy))
 #'
-#' # Aesthetics supplied to ggplot() are used as defaults for every layer
-#' # you can override them, or supply different aesthetics for each layer
-#'
-#'
-#' # aes() is a quoting function, so you need to use tidy evaluation
-#' # techniques to create wrappers around ggplot2 pipelines. The
+#' # Tidy evaluation ----------------------------------------------------
+#' # aes() automatically quotes all its arguments, so you need to use tidy
+#' # evaluation to create wrappers around ggplot2 pipelines. The
 #' # simplest case occurs when your wrapper takes dots:
 #' scatter_by <- function(data, ...) {
 #'   ggplot(data) + geom_point(aes(...))
@@ -79,9 +82,12 @@ NULL
 #' scatter_by(mtcars, disp, drat)
 #'
 #' # If your wrapper has a more specific interface with named arguments,
-#' # you need to use the "enquote and unquote" technique:
+#' # you need "enquote and unquote":
 #' scatter_by <- function(data, x, y) {
-#'   ggplot(data) + geom_point(aes(!!enquo(x), !!enquo(y)))
+#'   x <- enquo(x)
+#'   y <- enquo(y)
+#'
+#'   ggplot(data) + geom_point(aes(!!x, !!y))
 #' }
 #' scatter_by(mtcars, disp, drat)
 #'

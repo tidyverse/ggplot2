@@ -10,11 +10,13 @@ To be released as 2.3.0
     introduction to tidy evaluation can be found in the meta programming
     chapters in [Advanced R](https://adv-r.hadley.nz).
     
-    The primary developer facing change is that `aes()` is now a list of 
-    quosures (expression + environment pairs) rather than a list of symbols,
-    and you'll need to take a different approach to extracting the information
-    you need. A common symptom of this change are errors "undefined columns 
-    selected" or "invalid 'type' (list) of argument" (#2610). 
+    The primary developer facing change is that `aes()` now contains 
+    quosures (expression + environment pairs) rather than symbols, and you'll 
+    need to take a different approach to extracting the information you need. 
+    A common symptom of this change are errors "undefined columns selected" or 
+    "invalid 'type' (list) of argument" (#2610). As in the previous version,
+    constants (like `aes(x = 1)` or `aes(colour = "smoothed")`) are stored
+    as is.
     
     In this version of ggplot2, you need to describe a mapping in a string, 
     use `quo_name()` (for shorter labels) or `quo_text()` (if you want 
