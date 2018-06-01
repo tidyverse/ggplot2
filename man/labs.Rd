@@ -31,7 +31,7 @@ bottom-right of the plot by default.}
 top-left of the plot by default.}
 
 \item{label}{The title of the respective axis (for \code{xlab()} or \code{ylab()}) or
-of the plot (for `ggtitle()``).}
+of the plot (for \code{ggtitle()}).}
 }
 \description{
 Good labels are critical for making your plots accessible to a wider

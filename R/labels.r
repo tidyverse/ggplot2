@@ -34,7 +34,7 @@ update_labels <- function(p, labels) {
 #' remove the subtitle from the plot.
 #'
 #' @param label The title of the respective axis (for `xlab()` or `ylab()`) or
-#'        of the plot (for `ggtitle()``).
+#'        of the plot (for `ggtitle()`).
 #' @param title The text for the title.
 #' @param subtitle The text for the subtitle for the plot which will be
 #'        displayed below the title.
