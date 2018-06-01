@@ -3,6 +3,8 @@
 #' @section Computed variables:
 #' \describe{
 #'  \item{level}{height of contour}
+#'  \item{nlevel}{height of contour, scaled to maximum of 1}
+#'  \item{piece}{contour piece (an integer)}
 #' }
 #' @rdname geom_contour
 stat_contour <- function(mapping = NULL, data = NULL,
@@ -91,7 +93,7 @@ contour_lines <- function(data, breaks, complete = FALSE) {
 
   data.frame(
     level = rep(levels, lengths),
-    nlevel = rep(levels, lengths)/max(rep(levels, lengths), na.rm = TRUE),
+    nlevel = rep(levels, lengths) / max(rep(levels, lengths), na.rm = TRUE),
     x = xs,
     y = ys,
     piece = pieces,

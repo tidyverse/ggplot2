@@ -1,6 +1,13 @@
 #' @export
 #' @rdname geom_hex
 #' @inheritParams stat_bin_2d
+#' @section Computed variables:
+#' \describe{
+#'   \item{count}{number of points in bin}
+#'   \item{density}{density of points in bin, scaled to integrate to 1}
+#'   \item{ncount}{count, scaled to maximum of 1}
+#'   \item{ndensity}{density, scaled to maximum of 1}
+#' }
 stat_bin_hex <- function(mapping = NULL, data = NULL,
                          geom = "hex", position = "identity",
                          ...,
@@ -48,9 +55,9 @@ StatBinhex <- ggproto("StatBinhex", Stat,
     wt <- data$weight %||% rep(1L, nrow(data))
     out <- hexBinSummarise(data$x, data$y, wt, binwidth, sum)
     out$density <- as.vector(out$value / sum(out$value, na.rm = TRUE))
-    out$ndensity <- out$density/max(out$density, na.rm = TRUE)
+    out$ndensity <- out$density / max(out$density, na.rm = TRUE)
     out$count <- out$value
-    out$ncount <- out$count/max(out$count, na.rm = TRUE)
+    out$ncount <- out$count / max(out$count, na.rm = TRUE)
     out$value <- NULL
 
     out

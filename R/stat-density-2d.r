@@ -7,6 +7,11 @@
 #'   using [MASS::bandwidth.nrd()].
 #' @section Computed variables:
 #' Same as [stat_contour()]
+#'
+#' With the addition of:
+#'  \item{density}{the density estimate}
+#'  \item{scaled}{density estimate, scaled to maximum of 1}
+
 stat_density_2d <- function(mapping = NULL, data = NULL,
                             geom = "density_2d", position = "identity",
                             ...,
@@ -60,7 +65,7 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
       lims = c(scales$x$dimension(), scales$y$dimension())
     )
     df <- data.frame(expand.grid(x = dens$x, y = dens$y), z = as.vector(dens$z))
-    df$nz <- df$z/max(df$z)
+    df$nz <- df$z / max(df$z)
     df$group <- data$group[1]
 
     if (contour) {
