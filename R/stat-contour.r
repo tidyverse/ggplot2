@@ -91,6 +91,7 @@ contour_lines <- function(data, breaks, complete = FALSE) {
 
   data.frame(
     level = rep(levels, lengths),
+    nlevel = rep(levels, lengths)/max(rep(levels, lengths), na.rm = TRUE),
     x = xs,
     y = ys,
     piece = pieces,

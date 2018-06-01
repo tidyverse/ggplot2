@@ -74,7 +74,9 @@ StatBin2d <- ggproto("StatBin2d", Stat,
     out$height <- ydim$length
 
     out$count <- out$value
+    out$ncount <- out$count/max(out$count, na.rm = TRUE)
     out$density <- out$count / sum(out$count, na.rm = TRUE)
+    out$ndensity <- out$density/max(out$density, na.rm = TRUE)
     out
   }
 )
