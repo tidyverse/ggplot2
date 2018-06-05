@@ -73,7 +73,7 @@ The facet and layout implementation has been moved to ggproto and received a lar
     ```
 
 *   Axes are now drawn under the panels in `facet_wrap()` when the 
-    rentangle is not completely filled.
+    rectangle is not completely filled.
     
     ```{r facet-2}
     ggplot(mpg, aes(displ, hwy)) + 
