@@ -21,7 +21,7 @@
 #' # viridis is the default colour/fill scale for ordered factors
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 #' ggplot(dsamp, aes(carat, price)) +
-#'   geom_point(aes(colour = clarity)))
+#'   geom_point(aes(colour = clarity))
 #'
 #' # Use viridis_d with discrete data
 #' txsamp <- subset(txhousing, city %in%
