@@ -50,7 +50,7 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-\code{colours} vector. See \code{\link{rescale}} for a convience function
+\code{colours} vector. See \code{\link[=rescale]{rescale()}} for a convience function
 to map an arbitrary range to between 0 and 1.}
 
 \item{space}{colour space in which to calculate gradient. Must be "Lab" -
@@ -68,39 +68,36 @@ with common forms of color blindness. See also
 \url{https://bids.github.io/colormap/}.
 }
 \examples{
-dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
-
 # viridis is the default colour/fill scale for ordered factors
+dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 ggplot(dsamp, aes(carat, price)) +
-  geom_point(aes(colour = clarity))
-
-# Usse viridis_d with discrete data
-dsamp$clarity <- factor(dsamp$clarity, ordered = FALSE)
-(d <- ggplot(dsamp, aes(carat, price)) +
   geom_point(aes(colour = clarity)))
+
+# Use viridis_d with discrete data
+txsamp <- subset(txhousing, city \%in\%
+  c("Houston", "Fort Worth", "San Antonio", "Dallas", "Austin"))
+(d <- ggplot(data = txsamp, aes(x = sales, y = median)) +
+   geom_point(aes(colour = city)))
 d + scale_colour_viridis_d()
 
 # Change scale label
-d + scale_colour_viridis_d("Diamond\\nclarity")
+d + scale_colour_viridis_d("City\\nCenter")
 
 # Select palette to use, see ?scales::viridis_pal for more details
 d + scale_colour_viridis_d(option = "plasma")
 d + scale_colour_viridis_d(option = "inferno")
 
-\donttest{
 # scale_fill_viridis_d works just the same as
 # scale_colour_viridis_d but for fill colours
-p <- ggplot(diamonds, aes(x = price, fill = cut)) +
-  geom_histogram(position = "dodge", binwidth = 1000)
+p <- ggplot(txsamp, aes(x = median, fill = city)) +
+  geom_histogram(position = "dodge", binwidth = 15000)
 p + scale_fill_viridis_d()
 # the order of colour can be reversed
 p + scale_fill_viridis_d(direction = -1)
-}
 
 # Use viridis_c with continous data
-v <- ggplot(faithfuld) +
-  geom_tile(aes(waiting, eruptions, fill = density))
-v
+(v <- ggplot(faithfuld) +
+  geom_tile(aes(waiting, eruptions, fill = density)))
 v + scale_fill_viridis_c()
 v + scale_fill_viridis_c(option = "plasma")
 }
@@ -111,4 +108,3 @@ Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_colour_hue}}
 }
-\concept{colour scales}
