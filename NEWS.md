@@ -1,5 +1,4 @@
-# ggplot2 2.2.1.9000
-To be released as 2.3.0
+# ggplot2 3.0.0
 
 ## Breaking changes
 
