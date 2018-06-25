@@ -10,7 +10,13 @@ exemptLabels: []
 lockLabel: false
 
 # Comment to post before locking. Set to `false` to disable
-lockComment: false
+lockComment: >
+  This old issue has been automatically locked. If you believe you
+  have found a related problem, please file a new issue (with reprex)
+  and link to this issue.
+
+# Stop lockbot from closing as "resolved"
+setLockReason: false
 
 # Limit to only `issues` or `pulls`
 # only: issues
