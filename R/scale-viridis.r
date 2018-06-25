@@ -18,32 +18,36 @@
 #' @rdname scale_viridis
 #' @export
 #' @examples
+#' # viridis is the default colour/fill scale for ordered factors
 #' dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
-#' (d <- ggplot(dsamp, aes(carat, price)) +
-#'   geom_point(aes(colour = clarity)))
+#' ggplot(dsamp, aes(carat, price)) +
+#'   geom_point(aes(colour = clarity))
+#'
+#' # Use viridis_d with discrete data
+#' txsamp <- subset(txhousing, city %in%
+#'   c("Houston", "Fort Worth", "San Antonio", "Dallas", "Austin"))
+#' (d <- ggplot(data = txsamp, aes(x = sales, y = median)) +
+#'    geom_point(aes(colour = city)))
 #' d + scale_colour_viridis_d()
 #'
 #' # Change scale label
-#' d + scale_colour_viridis_d("Diamond\nclarity")
+#' d + scale_colour_viridis_d("City\nCenter")
 #'
 #' # Select palette to use, see ?scales::viridis_pal for more details
 #' d + scale_colour_viridis_d(option = "plasma")
 #' d + scale_colour_viridis_d(option = "inferno")
 #'
-#' \donttest{
 #' # scale_fill_viridis_d works just the same as
 #' # scale_colour_viridis_d but for fill colours
-#' p <- ggplot(diamonds, aes(x = price, fill = cut)) +
-#'   geom_histogram(position = "dodge", binwidth = 1000)
+#' p <- ggplot(txsamp, aes(x = median, fill = city)) +
+#'   geom_histogram(position = "dodge", binwidth = 15000)
 #' p + scale_fill_viridis_d()
 #' # the order of colour can be reversed
 #' p + scale_fill_viridis_d(direction = -1)
-#' }
 #'
 #' # Use viridis_c with continous data
-#' v <- ggplot(faithfuld) +
-#'   geom_tile(aes(waiting, eruptions, fill = density))
-#' v
+#' (v <- ggplot(faithfuld) +
+#'   geom_tile(aes(waiting, eruptions, fill = density)))
 #' v + scale_fill_viridis_c()
 #' v + scale_fill_viridis_c(option = "plasma")
 scale_colour_viridis_d <- function(..., alpha = 1, begin = 0, end = 1,
