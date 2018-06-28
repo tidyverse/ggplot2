@@ -158,9 +158,22 @@ GeomSf <- ggproto("GeomSf", Geom,
 
     # Need to refactor this to generate one grob per geometry type
     coord <- coord$transform(data, panel_params)
-    grobs <- lapply(1:nrow(data), function(i) {
-      sf_grob(coord[i, , drop = FALSE])
-    })
+    if (inherits(data$geometry, "sfc_POINT")) {
+      coord <- utils::modifyList(default_aesthetics("point"), coord)
+      gp <- gpar(
+        col = alpha(coord$colour, coord$alpha),
+        fill = alpha(coord$fill, coord$alpha),
+        # Stroke is added around the outside of the point
+        fontsize = coord$size * .pt + coord$stroke * .stroke / 2,
+        lwd = coord$stroke * .stroke / 2
+      )
+      geometry <- sf::st_combine(coord$geometry)[[1]]
+      grobs <- list(sf::st_as_grob(geometry, gp = gp, pch = coord$shape))
+    } else {
+      grobs <- lapply(1:nrow(data), function(i) {
+        sf_grob(coord[i, , drop = FALSE])
+      })
+    }
     do.call("gList", grobs)
   },
 
