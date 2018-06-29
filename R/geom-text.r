@@ -14,7 +14,7 @@
 #' data, even if coordinates x, y are set to single values in the call
 #' to `geom_label` or `geom_text`.
 #' To add labels at specified points use [annotate()] with
-#' `annotate(geom = "text", ...)` or `annotate(geom = "label", ...)`
+#' `annotate(geom = "text", ...)` or `annotate(geom = "label", ...)`.
 #'
 #' @eval rd_aesthetics("geom", "text")
 #' @section `geom_label`:
@@ -28,12 +28,12 @@
 #' 1 (top/left) or a character (`"left"`, `"middle"`, `"right"`, `"bottom"`,
 #' `"center"`, `"top"`). There are two special alignments: `"inward"` and
 #' `"outward"`. Inward always aligns text towards the center, and outward
-#' aligns it away from the center
+#' aligns it away from the center.
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param parse If `TRUE`, the labels will be parsed into expressions and
-#'   displayed as described in ?plotmath
+#'   displayed as described in `?plotmath`.
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #'   Useful for offsetting text from points, particularly on discrete scales.
 #' @param check_overlap If `TRUE`, text that overlaps previous text in the
@@ -97,7 +97,7 @@
 #' ggplot(data = df, aes(x, y, group = grp)) +
 #'   geom_col(aes(fill = grp), position = "dodge") +
 #'   geom_text(aes(label = y), position = position_dodge(0.9))
-#' # Use you can't nudge and dodge text, so instead adjust the y postion
+#' # Use you can't nudge and dodge text, so instead adjust the y position
 #' ggplot(data = df, aes(x, y, group = grp)) +
 #'   geom_col(aes(fill = grp), position = "dodge") +
 #'   geom_text(

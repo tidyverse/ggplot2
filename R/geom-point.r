@@ -36,7 +36,7 @@
 #'   a warning. If `TRUE`, missing values are silently removed.
 #' @param ... Other arguments passed on to [layer()]. These are
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
-#'   `color = "red"` or `size = 3`. They may also be parameters
+#'   `colour = "red"` or `size = 3`. They may also be parameters
 #'   to the paired geom/stat.
 #' @inheritParams layer
 #' @export
