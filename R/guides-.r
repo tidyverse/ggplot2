@@ -263,7 +263,7 @@ guides_build <- function(ggrobs, theme) {
     # add space between the guide-boxes
     guides <- gtable_add_col_space(guides, theme$legend.spacing.x)
 
-  } else if (theme$legend.box == "vertical") {
+  } else { # theme$legend.box == "vertical"
     # Set justification for each legend
     for (i in seq_along(ggrobs)) {
       ggrobs[[i]] <- editGrob(ggrobs[[i]],
