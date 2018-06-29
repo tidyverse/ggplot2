@@ -7,7 +7,7 @@
 #'
 #' Calculation is performed by the (currently undocumented)
 #' `predictdf` generic and its methods.  For most methods the standard
-#' error bounds are computed using the [predict()] method - the
+#' error bounds are computed using the [predict()] method -- the
 #' exceptions are `loess` which uses a t-based approximation, and
 #' `glm` where the normal confidence interval is constructed on the link
 #' scale, and then back-transformed to the response scale.
@@ -20,14 +20,14 @@
 #' @seealso See individual modelling functions for more details:
 #'   [lm()] for linear smooths,
 #'   [glm()] for generalised linear smooths,
-#'   [loess()] for local smooths
+#'   [loess()] for local smooths.
 #' @export
 #' @examples
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
 #'   geom_smooth()
 #'
-#' # Use span to control the "wiggliness" of the default loess smoother
+#' # Use span to control the "wiggliness" of the default loess smoother.
 #' # The span is the fraction of points used to fit each local regression:
 #' # small numbers make a wigglier curve, larger numbers make a smoother curve.
 #' ggplot(mpg, aes(displ, hwy)) +
@@ -43,8 +43,8 @@
 #'   geom_point() +
 #'   geom_smooth(method = lm, formula = y ~ splines::bs(x, 3), se = FALSE)
 #'
-#' # Smoothes are automatically fit to each group (defined by categorical
-#' # aesthetics or the group aesthetic) and for each facet
+#' # Smooths are automatically fit to each group (defined by categorical
+#' # aesthetics or the group aesthetic) and for each facet.
 #'
 #' ggplot(mpg, aes(displ, hwy, colour = class)) +
 #'   geom_point() +
@@ -73,7 +73,7 @@
 #'   binomial_smooth(formula = y ~ splines::ns(x, 2))
 #'
 #' # But in this case, it's probably better to fit the model yourself
-#' # so you can exercise more control and see whether or not it's a good model
+#' # so you can exercise more control and see whether or not it's a good model.
 #' }
 geom_smooth <- function(mapping = NULL, data = NULL,
                         stat = "smooth", position = "identity",
