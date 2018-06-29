@@ -36,7 +36,7 @@
 #' #  * choose where the ticks appear
 #' p1 + scale_x_continuous(breaks = c(2, 4, 6))
 #'
-#' #  * add what labels they have
+#' #  * add choose your own labels
 #' p1 + scale_x_continuous(
 #'   breaks = c(2, 4, 6),
 #'   label = c("two", "four", "six")
@@ -63,6 +63,7 @@
 #' p1 + scale_y_continuous(trans = scales::reciprocal_trans())
 #'
 #' # You can also create your own. See ?scales::trans_new
+#'
 #' @name scale_continuous
 #' @aliases NULL
 NULL

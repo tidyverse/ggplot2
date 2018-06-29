@@ -532,7 +532,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   (i.e. [scale_colour_gradient2()], [scale_colour_gradientn()]).
 #'   A function used to scale the input values to the range \eqn{[0, 1]}.
 #' @param oob Function that handles limits outside of the scale limits
-#'   (out of bounds). The default replaces out of bounds values with NA.
+#'   (out of bounds). The default replaces out of bounds values with `NA`.
 #' @inheritParams scale_x_discrete
 #' @param na.value Missing values will be replaced with this value.
 #' @param trans Either the name of a transformation object, or the
@@ -540,7 +540,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   "boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
 #'   "logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
 #'
-#'   A transformation object bundles together a transform, it's inverse,
+#'   A transformation object bundles together a transform, its inverse,
 #'   and methods for generating breaks and labels. Transformation objects
 #'   are defined in the scales package, and are called `name_trans`, e.g.
 #'   [scales::boxcox_trans()]. You can create your own
