@@ -20,7 +20,7 @@
 #'   If `NA` (the default value), the seed is initialised with a random value;
 #'   this makes sure that two subsequent calls start with a different seed.
 #'   Use `NULL` to use the current random seed and also avoid resetting
-#'   (the behavior of \pkg{ggplot} 2.2.1 and earlier).
+#'   (the behaviour of \pkg{ggplot} 2.2.1 and earlier).
 #' @export
 #' @examples
 #' # Jittering is useful when you have a discrete position, and a relatively

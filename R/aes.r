@@ -30,7 +30,7 @@ NULL
 #'
 #' This function also standardises aesthetic names by performing partial
 #' matching, converting color to colour, and translating old style R names to
-#' ggplot names (eg. pch to shape, cex to size).
+#' ggplot names (e.g. pch to shape, cex to size).
 #'
 #' @section Quasiquotation:
 #'
@@ -186,7 +186,7 @@ is_position_aes <- function(vars) {
   aes_to_scale(vars) %in% c("x", "y")
 }
 
-#' Define aesthetic mappings programatically
+#' Define aesthetic mappings programmatically
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. [aes()] uses non-standard

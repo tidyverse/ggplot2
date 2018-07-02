@@ -1,8 +1,8 @@
 #' Viridis colour scales from viridisLite
 #'
-#' The `viridis` scales provide color maps that are perceptually uniform in both
-#' color and black-and-white. They are also designed to be perceived by viewers
-#' with common forms of color blindness. See also
+#' The `viridis` scales provide colour maps that are perceptually uniform in both
+#' colour and black-and-white. They are also designed to be perceived by viewers
+#' with common forms of colour blindness. See also
 #' <https://bids.github.io/colormap/>.
 #'
 #' @inheritParams viridisLite::viridis

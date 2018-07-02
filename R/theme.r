@@ -161,7 +161,7 @@
 #'   (`element_text`; inherits from `title`) left-aligned by default
 #' @param plot.tag.position The position of the tag as a string ("topleft",
 #'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
-#'   or a coordinate. If a string, extra space will be added to accomodate the
+#'   or a coordinate. If a string, extra space will be added to accommodate the
 #'   tag.
 #' @param plot.margin margin around entire plot (`unit` with the sizes of
 #'   the top, right, bottom, and left margins)
