@@ -1,3 +1,4 @@
+^CRAN-RELEASE$
 visual_test
 ^.*\.Rproj$
 ^\.Rproj\.user$
