@@ -85,7 +85,7 @@ custom_plot()
 
 theme_set(theme_dark(), override = TRUE)
 
-# Uses theme_dark()
+# Uses theme_dark() instead
 custom_plot()
 
 # Modifying theme objects -----------------------------------------
