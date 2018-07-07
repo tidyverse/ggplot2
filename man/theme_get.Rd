@@ -10,16 +10,18 @@
 \usage{
 theme_get()
 
-theme_set(new)
+theme_set(new, override = FALSE)
 
-theme_update(...)
+theme_update(..., override = FALSE)
 
-theme_replace(...)
+theme_replace(..., override = FALSE)
 
 e1 \%+replace\% e2
 }
 \arguments{
 \item{new}{new theme (a list of theme elements)}
+
+\item{override}{if \code{TRUE}, overrides all theme elements.}
 
 \item{...}{named list of theme settings}
 
@@ -61,7 +63,7 @@ p <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point()
 p
 
-# Use theme_set() to completely override the current theme.
+# Use theme_set() to completely replace the current theme.
 # Here we have the old theme so we can later restore it.
 # Note that the theme is applied when the plot is drawn, not
 # when it is created.
@@ -70,6 +72,21 @@ p
 theme_set(old)
 p
 
+# Completely override existing theme elements with override = TRUE
+
+custom_plot <- function() {
+  ggplot(mtcars, aes(mpg, wt)) +
+    geom_point() +
+    theme_bw()
+}
+
+# Uses theme_bw()
+custom_plot()
+
+theme_set(theme_dark(), override = TRUE)
+
+# Uses theme_dark() instead
+custom_plot()
 
 # Modifying theme objects -----------------------------------------
 # You can use + and \%+replace\% to modify a theme object.

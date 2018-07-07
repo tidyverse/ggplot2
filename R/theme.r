@@ -432,6 +432,7 @@ is_theme_complete <- function(x) isTRUE(attr(x, "complete"))
 
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x, default = theme_get()) {
+  if (theme_env$override) return(theme_get())
   theme <- x$theme
   if (is_theme_complete(theme)) {
     theme

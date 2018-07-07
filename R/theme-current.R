@@ -2,6 +2,7 @@
 #' @include theme-elements.r
 theme_env <- new.env(parent = emptyenv())
 theme_env$current <- theme_gray()
+theme_env$override <- FALSE
 
 #' Get, set, and modify the active theme
 #'
@@ -29,6 +30,7 @@ theme_env$current <- theme_gray()
 #' the theme with `NULL`s.
 #'
 #' @param ... named list of theme settings
+#' @param override if `TRUE`, overrides all theme elements.
 #' @param e1,e2 Theme and element to combine
 #' @return `theme_set`, `theme_update`, and `theme_replace`
 #'   invisibly return the previous theme so you can easily save it, then
@@ -40,7 +42,7 @@ theme_env$current <- theme_gray()
 #'   geom_point()
 #' p
 #'
-#' # Use theme_set() to completely override the current theme.
+#' # Use theme_set() to completely replace the current theme.
 #' # Here we have the old theme so we can later restore it.
 #' # Note that the theme is applied when the plot is drawn, not
 #' # when it is created.
@@ -49,6 +51,21 @@ theme_env$current <- theme_gray()
 #' theme_set(old)
 #' p
 #'
+#' # Completely override existing theme elements with override = TRUE
+#'
+#' custom_plot <- function() {
+#'   ggplot(mtcars, aes(mpg, wt)) +
+#'     geom_point() +
+#'     theme_bw()
+#' }
+#'
+#' # Uses theme_bw()
+#' custom_plot()
+#'
+#' theme_set(theme_dark(), override = TRUE)
+#'
+#' # Uses theme_dark() instead
+#' custom_plot()
 #'
 #' # Modifying theme objects -----------------------------------------
 #' # You can use + and %+replace% to modify a theme object.
@@ -71,8 +88,9 @@ theme_get <- function() {
 
 #' @rdname theme_get
 #' @param new new theme (a list of theme elements)
+#'
 #' @export
-theme_set <- function(new) {
+theme_set <- function(new, override = FALSE) {
   missing <- setdiff(names(theme_gray()), names(new))
   if (length(missing) > 0) {
     warning("New theme missing the following elements: ",
@@ -81,19 +99,22 @@ theme_set <- function(new) {
 
   old <- theme_env$current
   theme_env$current <- new
+
+  theme_env$override <- override
+
   invisible(old)
 }
 
 #' @rdname theme_get
 #' @export
-theme_update <- function(...) {
-  theme_set(theme_get() + theme(...))
+theme_update <- function(..., override = FALSE) {
+  theme_set(theme_get() + theme(...), override = override)
 }
 
 #' @rdname theme_get
 #' @export
-theme_replace <- function(...) {
-  theme_set(theme_get() %+replace% theme(...))
+theme_replace <- function(..., override = FALSE) {
+  theme_set(theme_get() %+replace% theme(...), override = override)
 }
 
 #' @rdname theme_get
