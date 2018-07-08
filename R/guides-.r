@@ -248,7 +248,7 @@ guides_build <- function(ggrobs, theme) {
   yjust <- just[2]
 
   # setting that is different for vertical and horizontal guide-boxes.
-  if (theme$legend.box == "horizontal") {
+  if (identical(theme$legend.box, "horizontal")) {
     # Set justification for each legend
     for (i in seq_along(ggrobs)) {
       ggrobs[[i]] <- editGrob(ggrobs[[i]],
