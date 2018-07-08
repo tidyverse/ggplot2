@@ -561,12 +561,12 @@ calc_element <- function(element, theme, verbose = FALSE) {
   # If the element is defined (and not just inherited), check that
   # it is of the class specified in .element_tree
   if (!is.null(theme[[element]]) &&
-      !inherits(theme[[element]], .element_tree[[element]]$class)) {
-    stop(element, " should have class ", .element_tree[[element]]$class)
+      !inherits(theme[[element]], ggplot_global$element_tree[[element]]$class)) {
+    stop(element, " should have class ", ggplot_global$element_tree[[element]]$class)
   }
 
   # Get the names of parents from the inheritance tree
-  pnames <- .element_tree[[element]]$inherit
+  pnames <- ggplot_global$element_tree[[element]]$inherit
 
   # If no parents, this is a "root" node. Just return this element.
   if (is.null(pnames)) {
