@@ -36,7 +36,7 @@
 #' #  * choose where the ticks appear
 #' p1 + scale_x_continuous(breaks = c(2, 4, 6))
 #'
-#' #  * add choose your own labels
+#' #  * choose your own labels
 #' p1 + scale_x_continuous(
 #'   breaks = c(2, 4, 6),
 #'   label = c("two", "four", "six")
