@@ -39,10 +39,14 @@ test_that("setting guide labels works", {
 
     # ggtitle works in the same way as labs()
     expect_identical(ggtitle("my title")$title, "my title")
-    expect_identical(ggtitle("my title",
-                             subtitle = "my subtitle")$subtitle, "my subtitle")
-    expect_equivalent(ggtitle("my title", subtitle = NULL),
-                      list(title = "my title", subtitle = NULL))
+    expect_identical(
+      ggtitle("my title", subtitle = "my subtitle")$subtitle,
+      "my subtitle"
+    )
+    expect_equivalent(
+      ggtitle("my title", subtitle = NULL),
+      list(title = "my title", subtitle = NULL)
+    )
 })
 
 
