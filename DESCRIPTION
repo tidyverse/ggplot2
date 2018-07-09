@@ -61,6 +61,7 @@ BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
 Collate: 
     'ggproto.r'
+    'ggplot-global.R'
     'aaa-.r'
     'aes-calculated.r'
     'aes-colour-fill-alpha.r'

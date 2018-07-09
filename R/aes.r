@@ -1,27 +1,6 @@
 #' @include utilities.r
 NULL
 
-.all_aesthetics <- c("adj", "alpha", "angle", "bg", "cex", "col", "color",
-  "colour", "fg", "fill", "group", "hjust", "label", "linetype", "lower",
-  "lty", "lwd", "max", "middle", "min", "pch", "radius", "sample", "shape",
-  "size", "srt", "upper", "vjust", "weight", "width", "x", "xend", "xmax",
-  "xmin", "xintercept", "y", "yend", "ymax", "ymin", "yintercept", "z")
-
-.base_to_ggplot <- c(
-  "col"   = "colour",
-  "color" = "colour",
-  "pch"   = "shape",
-  "cex"   = "size",
-  "lty"   = "linetype",
-  "lwd"   = "size",
-  "srt"   = "angle",
-  "adj"   = "hjust",
-  "bg"    = "fill",
-  "fg"    = "colour",
-  "min"   = "ymin",
-  "max"   = "ymax"
-)
-
 #' Construct aesthetic mappings
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
@@ -167,10 +146,10 @@ print.uneval <- function(x, ...) {
 # Rename American or old-style aesthetics name
 rename_aes <- function(x) {
   # Convert prefixes to full names
-  full <- match(names(x), .all_aesthetics)
-  names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
+  full <- match(names(x), ggplot_global$all_aesthetics)
+  names(x)[!is.na(full)] <- ggplot_global$all_aesthetics[full[!is.na(full)]]
 
-  plyr::rename(x, .base_to_ggplot, warn_missing = FALSE)
+  plyr::rename(x, ggplot_global$base_to_ggplot, warn_missing = FALSE)
 }
 
 # Look up the scale that should be used for a given aesthetic
@@ -315,7 +294,7 @@ aes_auto <- function(data = NULL, ...) {
   }
 
   # automatically detected aes
-  vars <- intersect(.all_aesthetics, vars)
+  vars <- intersect(ggplot_global$all_aesthetics, vars)
   names(vars) <- vars
   aes <- lapply(vars, function(x) parse(text = x)[[1]])
 
