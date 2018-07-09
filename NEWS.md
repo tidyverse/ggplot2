@@ -1,3 +1,6 @@
+* `geom_hex()` now understands the `size` and `linetype` aesthetics
+  (@mikmart, #2488).
+
 # ggplot2 2.2.1.9000
 To be released as 2.3.0
 
