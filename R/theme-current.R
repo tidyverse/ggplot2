@@ -23,7 +23,7 @@ ggplot_global$theme_current <- theme_gray()
 #'
 #' `theme_update` uses the `+` operator, so that any unspecified
 #' values in the theme element will default to the values they are set in the
-#' theme. `theme_replace` uses \code{\%+replace\%} tocompletely replace
+#' theme. `theme_replace` uses \code{\%+replace\%} to completely replace
 #' the element, so any unspecified values will overwrite the current value in
 #' the theme with `NULL`s.
 #'
