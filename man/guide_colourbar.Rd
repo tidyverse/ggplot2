@@ -56,7 +56,7 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
 
 \item{label.theme}{A theme object for rendering the label text. Usually the
 object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.text} in \code{\link[=theme]{theme()}} or theme.}
+specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
 label text.}
@@ -65,18 +65,18 @@ label text.}
 text.}
 
 \item{barwidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the width of the colorbar. Default value is \code{legend.key.width} or
+the width of the colourbar. Default value is \code{legend.key.width} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
 
 \item{barheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the height of the colorbar. Default value is \code{legend.key.height} or
+the height of the colourbar. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
 
-\item{nbin}{A numeric specifying the number of bins for drawing colorbar. A
-smoother colorbar for a larger value.}
+\item{nbin}{A numeric specifying the number of bins for drawing colourbar. A
+smoother colourbar for a larger value.}
 
-\item{raster}{A logical. If \code{TRUE} then the colorbar is rendered as a
-raster object. If \code{FALSE} then the colorbar is rendered as a set of
+\item{raster}{A logical. If \code{TRUE} then the colourbar is rendered as a
+raster object. If \code{FALSE} then the colourbar is rendered as a set of
 rectangles. Note that not all graphics devices are capable of rendering
 raster image.}
 
@@ -89,10 +89,10 @@ drawn around the bar.}
 \item{frame.linetype}{A numeric specifying the linetype of the frame
 drawn around the bar.}
 
-\item{ticks}{A logical specifying if tick marks on colorbar should be
+\item{ticks}{A logical specifying if tick marks on colourbar should be
 visible.}
 
-\item{ticks.colour}{A string specifying the color of the tick marks.}
+\item{ticks.colour}{A string specifying the colour of the tick marks.}
 
 \item{ticks.linewidth}{A numeric specifying the width of the tick marks.}
 
@@ -108,16 +108,16 @@ One of "horizontal" or "vertical."}
 \item{default.unit}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
 for \code{barwidth} and \code{barheight}.}
 
-\item{reverse}{logical. If \code{TRUE} the colorbar is reversed. By default,
+\item{reverse}{logical. If \code{TRUE} the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom}
 
-\item{order}{positive integer less that 99 that specifies the order of
+\item{order}{positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
 
-\item{available_aes}{A vector of charater strings listing the aesthetics
-for which a colorbar can be drawn.}
+\item{available_aes}{A vector of character strings listing the aesthetics
+for which a colourbar can be drawn.}
 
 \item{...}{ignored.}
 }
@@ -125,7 +125,7 @@ for which a colorbar can be drawn.}
 A guide object
 }
 \description{
-Colour bar guide shows continuous color scales mapped onto values.
+Colour bar guide shows continuous colour scales mapped onto values.
 Colour bar is available with \code{scale_fill} and \code{scale_colour}.
 For more information, see the inspiration for this function:
 \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
@@ -133,7 +133,7 @@ For more information, see the inspiration for this function:
 \details{
 Guides can be specified in each \code{scale_*} or in \code{\link[=guides]{guides()}}.
 \code{guide="legend"} in \code{scale_*} is syntactic sugar for
-\code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
+\code{guide=guide_legend()} (e.g. \code{scale_colour_manual(guide = "legend")}).
 As for how to specify the guide for each scale in more detail,
 see \code{\link[=guides]{guides()}}.
 }
@@ -144,45 +144,45 @@ p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 p2 <- p1 + geom_point(aes(size = value))
 
 # Basic form
-p1 + scale_fill_continuous(guide = "colorbar")
-p1 + scale_fill_continuous(guide = guide_colorbar())
-p1 + guides(fill = guide_colorbar())
+p1 + scale_fill_continuous(guide = "colourbar")
+p1 + scale_fill_continuous(guide = guide_colourbar())
+p1 + guides(fill = guide_colourbar())
 
 # Control styles
 
 # bar size
-p1 + guides(fill = guide_colorbar(barwidth = 0.5, barheight = 10))
+p1 + guides(fill = guide_colourbar(barwidth = 0.5, barheight = 10))
 
 # no label
-p1 + guides(fill = guide_colorbar(label = FALSE))
+p1 + guides(fill = guide_colourbar(label = FALSE))
 
 # no tick marks
-p1 + guides(fill = guide_colorbar(ticks = FALSE))
+p1 + guides(fill = guide_colourbar(ticks = FALSE))
 
 # label position
-p1 + guides(fill = guide_colorbar(label.position = "left"))
+p1 + guides(fill = guide_colourbar(label.position = "left"))
 
 # label theme
-p1 + guides(fill = guide_colorbar(label.theme = element_text(colour = "blue", angle = 0)))
+p1 + guides(fill = guide_colourbar(label.theme = element_text(colour = "blue", angle = 0)))
 
 # small number of bins
-p1 + guides(fill = guide_colorbar(nbin = 3))
+p1 + guides(fill = guide_colourbar(nbin = 3))
 
 # large number of bins
-p1 + guides(fill = guide_colorbar(nbin = 100))
+p1 + guides(fill = guide_colourbar(nbin = 100))
 
 # make top- and bottom-most ticks invisible
 p1 + scale_fill_continuous(limits = c(0,20), breaks = c(0, 5, 10, 15, 20),
- guide = guide_colorbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
+ guide = guide_colourbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
 
 # guides can be controlled independently
 p2 +
-  scale_fill_continuous(guide = "colorbar") +
+  scale_fill_continuous(guide = "colourbar") +
   scale_size(guide = "legend")
-p2 + guides(fill = "colorbar", size = "legend")
+p2 + guides(fill = "colourbar", size = "legend")
 
 p2 +
-  scale_fill_continuous(guide = guide_colorbar(direction = "horizontal")) +
+  scale_fill_continuous(guide = guide_colourbar(direction = "horizontal")) +
   scale_size(guide = guide_legend(direction = "vertical"))
 }
 \seealso{

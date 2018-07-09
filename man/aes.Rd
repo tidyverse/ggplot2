@@ -23,7 +23,7 @@ properties (aesthetics) of geoms. Aesthetic mappings can be set in
 \details{
 This function also standardises aesthetic names by performing partial
 matching, converting color to colour, and translating old style R names to
-ggplot names (eg. pch to shape, cex to size).
+ggplot names (e.g. pch to shape, cex to size).
 }
 \section{Quasiquotation}{
 

@@ -50,7 +50,7 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-\code{colours} vector. See \code{\link[=rescale]{rescale()}} for a convience function
+\code{colours} vector. See \code{\link{rescale}} for a convience function
 to map an arbitrary range to between 0 and 1.}
 
 \item{space}{colour space in which to calculate gradient. Must be "Lab" -
@@ -62,9 +62,9 @@ other values are deprecated.}
 \code{\link[=guides]{guides()}} for more info.}
 }
 \description{
-The \code{viridis} scales provide color maps that are perceptually uniform in both
-color and black-and-white. They are also designed to be perceived by viewers
-with common forms of color blindness. See also
+The \code{viridis} scales provide colour maps that are perceptually uniform in both
+colour and black-and-white. They are also designed to be perceived by viewers
+with common forms of colour blindness. See also
 \url{https://bids.github.io/colormap/}.
 }
 \examples{
@@ -108,3 +108,4 @@ Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_colour_hue}}
 }
+\concept{colour scales}

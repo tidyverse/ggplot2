@@ -277,10 +277,10 @@ between the layer stack and the foreground defined by the Coord object
 (usually empty). The default is, as above, to return an empty grob.
 \item \code{draw_labels}: Given the gtable returned by \code{draw_panels},
 add axis titles to the gtable. The default is to add one title at each side
-depending on the position and existance of axes.
+depending on the position and existence of axes.
 }
 
-All extension methods recieve the content of the params field as the params
+All extension methods receive the content of the params field as the params
 argument, so the constructor function will generally put all relevant
 information into this field. The only exception is the \code{shrink}
 parameter which is used to determine if scales are retrained after Stat
@@ -356,7 +356,7 @@ following methods:
 \itemize{
 \item \code{compute_layer(self, data, params, panel)} is called once
 per layer. \code{panel} is currently an internal data structure, so
-this method should not be overriden.
+this method should not be overridden.
 \item \code{compute_panel(self, data, params, panel)} is called once per
 panel and should return a modified data frame.
 
