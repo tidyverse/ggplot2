@@ -1,3 +1,4 @@
+^CRAN-RELEASE$
 visual_test
 ^.*\.Rproj$
 ^\.Rproj\.user$
@@ -19,3 +20,4 @@ visual_test
 ^README-.*\.png$
 ^logo\.png$
 ^appveyor\.yml$
+^\.github$

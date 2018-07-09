@@ -40,7 +40,7 @@ StatSum <- ggproto("StatSum", Stat,
   compute_panel = function(data, scales) {
     if (is.null(data$weight)) data$weight <- 1
 
-    group_by <- setdiff(intersect(names(data), .all_aesthetics), "weight")
+    group_by <- setdiff(intersect(names(data), ggplot_global$all_aesthetics), "weight")
 
     counts <- plyr::count(data, group_by, wt_var = "weight")
     counts <- plyr::rename(counts, c(freq = "n"), warn_missing = FALSE)

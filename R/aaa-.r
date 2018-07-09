@@ -1,3 +1,4 @@
+#' @include ggplot-global.R
 #' @include ggproto.r
 NULL
 

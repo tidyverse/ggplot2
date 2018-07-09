@@ -146,7 +146,8 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 )
 
 translate_shape_string <- function(shape_string) {
-  if (nchar(shape_string[1]) == 1) {
+  # strings of length 0 or 1 are interpreted as symbols by grid
+  if (nchar(shape_string[1]) <= 1) {
     return(shape_string)
   }
 

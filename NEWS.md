@@ -1,8 +1,9 @@
+# ggplot2 3.0.0.9000
+
 * `geom_hex()` now understands the `size` and `linetype` aesthetics
   (@mikmart, #2488).
-
-# ggplot2 2.2.1.9000
-To be released as 2.3.0
+  
+# ggplot2 3.0.0
 
 ## Breaking changes
 
@@ -13,16 +14,19 @@ To be released as 2.3.0
     introduction to tidy evaluation can be found in the meta programming
     chapters in [Advanced R](https://adv-r.hadley.nz).
     
-    The primary developer facing change is that `aes()` is now a list of 
-    quosures (expression + environment pairs) rather than a list of symbols,
-    and you'll need to take a different approach to extracting the information
-    you need. A common symptom of this change are errors "undefined columns 
-    selected" or "invalid 'type' (list) of argument" (#2610). 
+    The primary developer facing change is that `aes()` now contains 
+    quosures (expression + environment pairs) rather than symbols, and you'll 
+    need to take a different approach to extracting the information you need. 
+    A common symptom of this change are errors "undefined columns selected" or 
+    "invalid 'type' (list) of argument" (#2610). As in the previous version,
+    constants (like `aes(x = 1)` or `aes(colour = "smoothed")`) are stored
+    as is.
     
-    In this version of ggplot2, you need to describe a mapping in a string, 
-    use `quo_name()` (for shorter labels) or `quo_text()` (if you want 
-    everything). If you do need to extract the value of a variable instead use 
-    `rlang::eval_tidy()`. You may want to condition on 
+    In this version of ggplot2, if you need to describe a mapping in a string, 
+    use `quo_name()` (to generate single-line strings; longer expressions may 
+    be abbreviated) or `quo_text()` (to generate non-abbreviated strings that
+    may span multiple lines). If you do need to extract the value of a variable
+    instead use `rlang::eval_tidy()`. You may want to condition on 
     `(packageVersion("ggplot2") <= "2.2.1")` so that your code can work with
     both released and development versions of ggplot2.
     
@@ -55,7 +59,7 @@ To be released as 2.3.0
     data frame. Each aesthetic now must be either the same length as the data
     frame or a single value. This makes silent recycling errors much less likely.
 
-*   Error: Free scales are only supported with `coord_cartesian()` and `coord_flip()`
+*   Error: `coord_*` doesn't support free scales 
    
     Free scales only work with selected coordinate systems; previously you'd
     get an incorrect plot.

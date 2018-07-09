@@ -1,27 +1,6 @@
 #' @include utilities.r
 NULL
 
-.all_aesthetics <- c("adj", "alpha", "angle", "bg", "cex", "col", "color",
-  "colour", "fg", "fill", "group", "hjust", "label", "linetype", "lower",
-  "lty", "lwd", "max", "middle", "min", "pch", "radius", "sample", "shape",
-  "size", "srt", "upper", "vjust", "weight", "width", "x", "xend", "xmax",
-  "xmin", "xintercept", "y", "yend", "ymax", "ymin", "yintercept", "z")
-
-.base_to_ggplot <- c(
-  "col"   = "colour",
-  "color" = "colour",
-  "pch"   = "shape",
-  "cex"   = "size",
-  "lty"   = "linetype",
-  "lwd"   = "size",
-  "srt"   = "angle",
-  "adj"   = "hjust",
-  "bg"    = "fill",
-  "fg"    = "colour",
-  "min"   = "ymin",
-  "max"   = "ymax"
-)
-
 #' Construct aesthetic mappings
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
@@ -48,6 +27,8 @@ NULL
 #'   they are so common; all other aesthetics must be named.
 #' @seealso [vars()] for another quoting function designed for
 #'   faceting specifications.
+#' @return A list with class `uneval`. Components of the list are either
+#'   quosures or constants.
 #' @export
 #' @examples
 #' aes(x = mpg, y = wt)
@@ -56,22 +37,23 @@ NULL
 #' # You can also map aesthetics to functions of variables
 #' aes(x = mpg ^ 2, y = wt / cyl)
 #'
+#' # Or to constants
+#' aes(x = 1, colour = "smooth")
+#'
 #' # Aesthetic names are automatically standardised
 #' aes(col = x)
 #' aes(fg = x)
 #' aes(color = x)
 #' aes(colour = x)
 #'
-#' # aes is almost always used with ggplot() or a layer
+#' # aes() is passed to either ggplot() or specific layer. Aesthetics supplied
+#' # to ggplot() are used as defaults for every layer.
 #' ggplot(mpg, aes(displ, hwy)) + geom_point()
 #' ggplot(mpg) + geom_point(aes(displ, hwy))
 #'
-#' # Aesthetics supplied to ggplot() are used as defaults for every layer
-#' # you can override them, or supply different aesthetics for each layer
-#'
-#'
-#' # aes() is a quoting function, so you need to use tidy evaluation
-#' # techniques to create wrappers around ggplot2 pipelines. The
+#' # Tidy evaluation ----------------------------------------------------
+#' # aes() automatically quotes all its arguments, so you need to use tidy
+#' # evaluation to create wrappers around ggplot2 pipelines. The
 #' # simplest case occurs when your wrapper takes dots:
 #' scatter_by <- function(data, ...) {
 #'   ggplot(data) + geom_point(aes(...))
@@ -79,9 +61,12 @@ NULL
 #' scatter_by(mtcars, disp, drat)
 #'
 #' # If your wrapper has a more specific interface with named arguments,
-#' # you need to use the "enquote and unquote" technique:
+#' # you need "enquote and unquote":
 #' scatter_by <- function(data, x, y) {
-#'   ggplot(data) + geom_point(aes(!!enquo(x), !!enquo(y)))
+#'   x <- enquo(x)
+#'   y <- enquo(y)
+#'
+#'   ggplot(data) + geom_point(aes(!!x, !!y))
 #' }
 #' scatter_by(mtcars, disp, drat)
 #'
@@ -161,10 +146,10 @@ print.uneval <- function(x, ...) {
 # Rename American or old-style aesthetics name
 rename_aes <- function(x) {
   # Convert prefixes to full names
-  full <- match(names(x), .all_aesthetics)
-  names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
+  full <- match(names(x), ggplot_global$all_aesthetics)
+  names(x)[!is.na(full)] <- ggplot_global$all_aesthetics[full[!is.na(full)]]
 
-  plyr::rename(x, .base_to_ggplot, warn_missing = FALSE)
+  plyr::rename(x, ggplot_global$base_to_ggplot, warn_missing = FALSE)
 }
 
 # Look up the scale that should be used for a given aesthetic
@@ -309,7 +294,7 @@ aes_auto <- function(data = NULL, ...) {
   }
 
   # automatically detected aes
-  vars <- intersect(.all_aesthetics, vars)
+  vars <- intersect(ggplot_global$all_aesthetics, vars)
   names(vars) <- vars
   aes <- lapply(vars, function(x) parse(text = x)[[1]])
 
