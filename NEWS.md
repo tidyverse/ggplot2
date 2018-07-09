@@ -1,5 +1,8 @@
 # ggplot2 3.0.0.9000
 
+* `geom_hex()` now understands the `size` and `linetype` aesthetics
+  (@mikmart, #2488).
+  
 # ggplot2 3.0.0
 
 ## Breaking changes
