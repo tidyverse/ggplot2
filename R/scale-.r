@@ -530,7 +530,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   Use `NA` to refer to the existing minimum or maximum.
 #' @param rescaler  Used by diverging and n colour gradients
 #'   (i.e. [scale_colour_gradient2()], [scale_colour_gradientn()]).
-#'   A function used to scale the input values to the range \eqn{[0, 1]}.
+#'   A function used to scale the input values to the range \[0, 1].
 #' @param oob Function that handles limits outside of the scale limits
 #'   (out of bounds). The default replaces out of bounds values with `NA`.
 #' @inheritParams scale_x_discrete

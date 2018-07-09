@@ -4,8 +4,8 @@
 #' Legend guides for various scales are integrated if possible.
 #'
 #' Guides can be specified in each `scale_*` or in [guides()].
-#' `guide="legend"` in `scale_*` is syntactic sugar for
-#' `guide=guide_legend()` (e.g. `scale_color_manual(guide = "legend")`).
+#' `guide = "legend"` in `scale_*` is syntactic sugar for
+#' `guide = guide_legend()` (e.g. `scale_color_manual(guide = "legend")`).
 #' As for how to specify the guide for each scale in more detail,
 #' see [guides()].
 #'
@@ -30,17 +30,17 @@
 #'   "right" (default for vertical guide).
 #' @param label.theme A theme object for rendering the label text. Usually the
 #'   object of [element_text()] is expected. By default, the theme is
-#'   specified by `legend.text` in [theme()] or theme.
+#'   specified by `legend.text` in [theme()].
 #' @param label.hjust A numeric specifying horizontal justification of the
 #'   label text.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
 #' @param keywidth A numeric or a [grid::unit()] object specifying
 #'   the width of the legend key. Default value is `legend.key.width` or
-#'   `legend.key.size` in [theme()] or theme.
+#'   `legend.key.size` in [theme()].
 #' @param keyheight A numeric or a [grid::unit()] object specifying
 #'   the height of the legend key. Default value is `legend.key.height` or
-#'   `legend.key.size` in [theme()] or theme.
+#'   `legend.key.size` in [theme()].
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
 #' @param default.unit A character string indicating [grid::unit()]
@@ -52,7 +52,7 @@
 #' @param byrow logical. If `FALSE` (the default) the legend-matrix is
 #'   filled by columns, otherwise the legend-matrix is filled by rows.
 #' @param reverse logical. If `TRUE` the order of legends is reversed.
-#' @param order positive integer less that 99 that specifies the order of
+#' @param order positive integer less than 99 that specifies the order of
 #'   this guide among multiple guides. This controls the order in which
 #'   multiple guides are displayed, not the contents of the guide itself.
 #'   If 0 (default), the order is determined by a secret algorithm.
