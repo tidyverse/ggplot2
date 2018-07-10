@@ -33,7 +33,7 @@ default ensures that bar colours align with the default legend.
 There are three ways to override the defaults depending on what you want:
 
 \enumerate{
-\item Change the order of the levels in the underyling factor. This
+\item Change the order of the levels in the underlying factor. This
 will change the stacking order, and the order of keys in the legend.
 
 \item Set the legend \code{breaks} to change the order of the keys

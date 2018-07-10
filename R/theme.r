@@ -85,7 +85,7 @@
 #' @param legend.spacing the spacing between legends (`unit`)
 #' @param legend.spacing.x the horizontal spacing between legends (`unit`);
 #'   inherits from `legend.spacing`
-#' @param legend.spacing.y the horizontal spacing between legends (`unit`);
+#' @param legend.spacing.y the vertical spacing between legends (`unit`);
 #'   inherits from `legend.spacing`
 #' @param legend.key background underneath legend keys (`element_rect`;
 #'   inherits from `rect`)
@@ -125,7 +125,7 @@
 #'   (`element_rect`; inherits from `rect`)
 #' @param panel.border border around plotting area, drawn on top of plot so that
 #'   it covers tick marks and grid lines. This should be used with
-#'   `fill=NA`
+#'   `fill = NA`
 #' (`element_rect`; inherits from `rect`)
 #' @param panel.spacing spacing between facet panels (`unit`)
 #' @param panel.spacing.x horizontal spacing between facet panels (`unit`;
@@ -146,8 +146,8 @@
 #' @param panel.grid.minor.y horizontal minor grid lines (`element_line`;
 #'   inherits from `panel.grid.minor`)
 #' @param panel.ontop option to place the panel (background, gridlines) over
-#'   the data layers.  Usually used with a transparent or blank
-#'   `panel.background`. (`logical`)
+#'   the data layers (`logical`). Usually used with a transparent or blank
+#'   `panel.background`.
 #'
 #' @param plot.background background of the entire plot (`element_rect`;
 #'   inherits from `rect`)
@@ -161,16 +161,16 @@
 #'   (`element_text`; inherits from `title`) left-aligned by default
 #' @param plot.tag.position The position of the tag as a string ("topleft",
 #'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
-#'   or a coordinate. If a string, extra space will be added to accomodate the
+#'   or a coordinate. If a string, extra space will be added to accommodate the
 #'   tag.
 #' @param plot.margin margin around entire plot (`unit` with the sizes of
 #'   the top, right, bottom, and left margins)
 #'
 #' @param strip.background background of facet labels (`element_rect`;
 #'   inherits from `rect`)
-#' @param strip.background.x backgronud of horizontal facet labels
+#' @param strip.background.x background of horizontal facet labels
 #'   (`element_rect`; inherits from `strip.background`)
-#' @param strip.background.y backgronud of vertical facet labels
+#' @param strip.background.y background of vertical facet labels
 #'   (`element_rect`; inherits from `strip.background`)
 #' @param strip.placement placement of strip with respect to axes,
 #'    either "inside" or "outside". Only important when axes and strips are
@@ -188,12 +188,12 @@
 #'
 #' @param ... additional element specifications not part of base ggplot2. If
 #'   supplied `validate` needs to be set to `FALSE`.
-#' @param complete set this to TRUE if this is a complete theme, such as
-#'   the one returned `by theme_grey()`. Complete themes behave
+#' @param complete set this to `TRUE` if this is a complete theme, such as
+#'   the one returned by [theme_grey()]. Complete themes behave
 #'   differently when added to a ggplot object. Also, when setting
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
-#' @param validate `TRUE` to run validate_element, `FALSE` to bypass checks.
+#' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
 #'
 #' @seealso
 #'   [+.gg()] and \code{\link{\%+replace\%}},
@@ -252,7 +252,7 @@
 #' p2 + theme(legend.justification = "top")
 #' p2 + theme(legend.position = "bottom")
 #'
-#' # Or place inside the plot using relative coordinates between 0 and 1
+#' # Or place legends inside the plot using relative coordinates between 0 and 1
 #' # legend.justification sets the corner that the position refers to
 #' p2 + theme(
 #'   legend.position = c(.95, .95),
@@ -269,7 +269,7 @@
 #' )
 #'
 #' # You can also control the display of the keys
-#' # and the justifaction related to the plot area can be set
+#' # and the justification related to the plot area can be set
 #' p2 + theme(legend.key = element_rect(fill = "white", colour = "black"))
 #' p2 + theme(legend.text = element_text(size = 8, colour = "red"))
 #' p2 + theme(legend.title = element_text(face = "bold"))
@@ -532,7 +532,7 @@ update_theme <- function(oldtheme, newtheme) {
 #' Calculate the element properties, by inheriting properties from its parents
 #'
 #' @param element The name of the theme element to calculate
-#' @param theme A theme object (like theme_grey())
+#' @param theme A theme object (like [theme_grey()])
 #' @param verbose If TRUE, print out which elements this one inherits from
 #' @keywords internal
 #' @export

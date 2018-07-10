@@ -29,7 +29,7 @@
 #' number, but is somewhat less flexible. If your summary function computes
 #' multiple values at once (e.g. ymin and ymax), use `fun.data`.
 #'
-#' If no aggregation functions are suppled, will default to
+#' If no aggregation functions are supplied, will default to
 #' [mean_se()].
 #'
 #' @param fun.data A function that is given the complete data and should

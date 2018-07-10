@@ -9,7 +9,7 @@
 #'
 #' @section Geometry aesthetic:
 #' `geom_sf` uses a unique aesthetic: `geometry`, giving an
-#' column of class `sfc` containg simple features data. There
+#' column of class `sfc` containing simple features data. There
 #' are three ways to supply the `geometry` aesthetic:
 #'
 #'   - Do nothing: by default `geom_sf` assumes it is stored in
@@ -429,7 +429,7 @@ sf_rescale01_x <- function(x, range) {
 #' @param crs Use this to select a specific CRS. If not specified, will
 #'   use the CRS defined in the first layer.
 #' @param datum CRS that provides datum to use when generating graticules
-#' @param ndiscr number of segments to use for discretizing graticule lines;
+#' @param ndiscr number of segments to use for discretising graticule lines;
 #' try increasing this when graticules look unexpected
 #' @inheritParams coord_cartesian
 #' @export

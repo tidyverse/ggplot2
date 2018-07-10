@@ -32,7 +32,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
@@ -40,7 +40,7 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{method}{Smoothing method (function) to use, eg. \code{lm}, \code{glm},
@@ -50,8 +50,8 @@ For \code{method = "auto"} the smoothing method is chosen based on the
 size of the largest group (across all panels). \code{\link[=loess]{loess()}} is
 used for less than 1,000 observations; otherwise \code{\link[mgcv:gam]{mgcv::gam()}} is
 used with \code{formula = y ~ s(x, bs = "cs")}. Somewhat anecdotally,
-\code{loess} gives a better appearance, but is O(n^2) in memory, so does
-not work for larger datasets.
+\code{loess} gives a better appearance, but is \eqn{O(N^{2})}{O(N^2)} in memory,
+so does not work for larger datasets.
 
 If you have fewer than 1,000 observations but want to use the same \code{gam}
 model that \code{method = "auto"} would use then set
@@ -60,8 +60,8 @@ model that \code{method = "auto"} would use then set
 \item{formula}{Formula to use in smoothing function, eg. \code{y ~ x},
 \code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
 
-\item{se}{Display confidence interval around smooth? (TRUE by default, see
-level to control.)}
+\item{se}{Display confidence interval around smooth? (\code{TRUE} by default, see
+\code{level} to control.)}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -103,10 +103,10 @@ display the results with a non-standard geom.
 \details{
 Calculation is performed by the (currently undocumented)
 \code{predictdf} generic and its methods.  For most methods the standard
-error bounds are computed using the \code{\link[=predict]{predict()}} method - the
-exceptions are \code{loess} which uses a t-based approximation, and
-\code{glm} where the normal confidence interval is constructed on the link
-scale, and then back-transformed to the response scale.
+error bounds are computed using the \code{\link[=predict]{predict()}} method -- the
+exceptions are \code{loess}, which uses a t-based approximation, and
+\code{glm}, where the normal confidence interval is constructed on the link
+scale and then back-transformed to the response scale.
 }
 \section{Aesthetics}{
 
@@ -124,7 +124,7 @@ scale, and then back-transformed to the response scale.
 \item \code{ymax}
 \item \code{ymin}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
@@ -142,7 +142,7 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   geom_smooth()
 
-# Use span to control the "wiggliness" of the default loess smoother
+# Use span to control the "wiggliness" of the default loess smoother.
 # The span is the fraction of points used to fit each local regression:
 # small numbers make a wigglier curve, larger numbers make a smoother curve.
 ggplot(mpg, aes(displ, hwy)) +
@@ -158,8 +158,8 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   geom_smooth(method = lm, formula = y ~ splines::bs(x, 3), se = FALSE)
 
-# Smoothes are automatically fit to each group (defined by categorical
-# aesthetics or the group aesthetic) and for each facet
+# Smooths are automatically fit to each group (defined by categorical
+# aesthetics or the group aesthetic) and for each facet.
 
 ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point() +
@@ -188,12 +188,12 @@ ggplot(rpart::kyphosis, aes(Age, as.numeric(Kyphosis) - 1)) +
   binomial_smooth(formula = y ~ splines::ns(x, 2))
 
 # But in this case, it's probably better to fit the model yourself
-# so you can exercise more control and see whether or not it's a good model
+# so you can exercise more control and see whether or not it's a good model.
 }
 }
 \seealso{
 See individual modelling functions for more details:
 \code{\link[=lm]{lm()}} for linear smooths,
-\code{\link[=glm]{glm()}} for generalised linear smooths,
-\code{\link[=loess]{loess()}} for local smooths
+\code{\link[=glm]{glm()}} for generalised linear smooths, and
+\code{\link[=loess]{loess()}} for local smooths.
 }

@@ -31,7 +31,8 @@ If not supplied, uses the size of current graphics device.}
 save images larger than 50x50 inches, to prevent the common error of
 specifying dimensions in pixels.}
 
-\item{...}{Other arguments passed on to graphics \code{device}.}
+\item{...}{Other arguments passed on to the graphics device function,
+as specified by \code{device}.}
 }
 \description{
 \code{ggsave()} is a convenient function for saving a plot. It defaults to

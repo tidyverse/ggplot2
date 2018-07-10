@@ -99,7 +99,7 @@ scales, "top" or "bottom" for horizontal scales}
 (\code{NULL}) uses the timezone encoded in the data.}
 
 \item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default replaces out of bounds values with NA.}
+(out of bounds). The default replaces out of bounds values with \code{NA}.}
 
 \item{na.value}{Missing values will be replaced with this value.}
 }

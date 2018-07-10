@@ -67,8 +67,8 @@ They were not designed to be extended to continuous data, but results often
 look good. Your mileage may vary.
 }
 \note{
-The \code{distiller} scales extends brewer to continuous scales by smoothly
-interpolate 6 colours from any palette to a continuous scale.
+The \code{distiller} scales extend brewer to continuous scales by smoothly
+interpolating 6 colours from any palette to a continuous scale.
 }
 \section{Palettes}{
 

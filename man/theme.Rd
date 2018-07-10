@@ -134,7 +134,7 @@ from \code{rect})}
 \item{legend.spacing.x}{the horizontal spacing between legends (\code{unit});
 inherits from \code{legend.spacing}}
 
-\item{legend.spacing.y}{the horizontal spacing between legends (\code{unit});
+\item{legend.spacing.y}{the vertical spacing between legends (\code{unit});
 inherits from \code{legend.spacing}}
 
 \item{legend.key}{background underneath legend keys (\code{element_rect};
@@ -191,7 +191,7 @@ legend box (\code{unit})}
 
 \item{panel.border}{border around plotting area, drawn on top of plot so that
 it covers tick marks and grid lines. This should be used with
-\code{fill=NA}
+\code{fill = NA}
 (\code{element_rect}; inherits from \code{rect})}
 
 \item{panel.spacing}{spacing between facet panels (\code{unit})}
@@ -223,8 +223,8 @@ inherits from \code{panel.grid.minor})}
 inherits from \code{panel.grid.minor})}
 
 \item{panel.ontop}{option to place the panel (background, gridlines) over
-the data layers.  Usually used with a transparent or blank
-\code{panel.background}. (\code{logical})}
+the data layers (\code{logical}). Usually used with a transparent or blank
+\code{panel.background}.}
 
 \item{plot.background}{background of the entire plot (\code{element_rect};
 inherits from \code{rect})}
@@ -243,7 +243,7 @@ inherits from \code{title}) left-aligned by default}
 
 \item{plot.tag.position}{The position of the tag as a string ("topleft",
 "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
-or a coordinate. If a string, extra space will be added to accomodate the
+or a coordinate. If a string, extra space will be added to accommodate the
 tag.}
 
 \item{plot.margin}{margin around entire plot (\code{unit} with the sizes of
@@ -252,10 +252,10 @@ the top, right, bottom, and left margins)}
 \item{strip.background}{background of facet labels (\code{element_rect};
 inherits from \code{rect})}
 
-\item{strip.background.x}{backgronud of horizontal facet labels
+\item{strip.background.x}{background of horizontal facet labels
 (\code{element_rect}; inherits from \code{strip.background})}
 
-\item{strip.background.y}{backgronud of vertical facet labels
+\item{strip.background.y}{background of vertical facet labels
 (\code{element_rect}; inherits from \code{strip.background})}
 
 \item{strip.placement}{placement of strip with respect to axes,
@@ -280,13 +280,13 @@ switched (\code{unit})}
 \item{...}{additional element specifications not part of base ggplot2. If
 supplied \code{validate} needs to be set to \code{FALSE}.}
 
-\item{complete}{set this to TRUE if this is a complete theme, such as
-the one returned \code{by theme_grey()}. Complete themes behave
+\item{complete}{set this to \code{TRUE} if this is a complete theme, such as
+the one returned by \code{\link[=theme_grey]{theme_grey()}}. Complete themes behave
 differently when added to a ggplot object. Also, when setting
 \code{complete = TRUE} all elements will be set to inherit from blank
 elements.}
 
-\item{validate}{\code{TRUE} to run validate_element, \code{FALSE} to bypass checks.}
+\item{validate}{\code{TRUE} to run \code{validate_element()}, \code{FALSE} to bypass checks.}
 }
 \description{
 Use \code{theme()} to modify individual components of a theme, allowing
@@ -356,7 +356,7 @@ p2 + theme(legend.position = "none")
 p2 + theme(legend.justification = "top")
 p2 + theme(legend.position = "bottom")
 
-# Or place inside the plot using relative coordinates between 0 and 1
+# Or place legends inside the plot using relative coordinates between 0 and 1
 # legend.justification sets the corner that the position refers to
 p2 + theme(
   legend.position = c(.95, .95),
@@ -373,7 +373,7 @@ p2 + theme(
 )
 
 # You can also control the display of the keys
-# and the justifaction related to the plot area can be set
+# and the justification related to the plot area can be set
 p2 + theme(legend.key = element_rect(fill = "white", colour = "black"))
 p2 + theme(legend.text = element_text(size = 8, colour = "red"))
 p2 + theme(legend.title = element_text(face = "bold"))

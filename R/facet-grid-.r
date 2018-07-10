@@ -103,7 +103,7 @@ NULL
 #'
 #' # Margins ----------------------------------------------------------
 #' \donttest{
-#' # Margins can be specified by logically (all yes or all no) or by specific
+#' # Margins can be specified logically (all yes or all no) or for specific
 #' # variables as (character) variable names
 #' mg <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
 #' mg + facet_grid(vs + am ~ gear, margins = TRUE)

@@ -4,7 +4,7 @@
 \alias{aes_}
 \alias{aes_string}
 \alias{aes_q}
-\title{Define aesthetic mappings programatically}
+\title{Define aesthetic mappings programmatically}
 \usage{
 aes_(x, y, ...)
 
