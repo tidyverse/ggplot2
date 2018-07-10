@@ -104,9 +104,9 @@ display the results with a non-standard geom.
 Calculation is performed by the (currently undocumented)
 \code{predictdf} generic and its methods.  For most methods the standard
 error bounds are computed using the \code{\link[=predict]{predict()}} method -- the
-exceptions are \code{loess} which uses a t-based approximation, and
-\code{glm} where the normal confidence interval is constructed on the link
-scale, and then back-transformed to the response scale.
+exceptions are \code{loess}, which uses a t-based approximation, and
+\code{glm}, where the normal confidence interval is constructed on the link
+scale and then back-transformed to the response scale.
 }
 \section{Aesthetics}{
 
@@ -194,6 +194,6 @@ ggplot(rpart::kyphosis, aes(Age, as.numeric(Kyphosis) - 1)) +
 \seealso{
 See individual modelling functions for more details:
 \code{\link[=lm]{lm()}} for linear smooths,
-\code{\link[=glm]{glm()}} for generalised linear smooths,
+\code{\link[=glm]{glm()}} for generalised linear smooths, and
 \code{\link[=loess]{loess()}} for local smooths.
 }

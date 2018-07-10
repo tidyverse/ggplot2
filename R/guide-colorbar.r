@@ -24,13 +24,13 @@
 #'   drawn around the bar.
 #' @param frame.linetype A numeric specifying the linetype of the frame
 #'   drawn around the bar.
-#' @param nbin A numeric specifying the number of bins for drawing colourbar. A
-#'   smoother colourbar for a larger value.
+#' @param nbin A numeric specifying the number of bins for drawing the
+#'   colourbar. A smoother colourbar results from a larger value.
 #' @param raster A logical. If `TRUE` then the colourbar is rendered as a
 #'   raster object. If `FALSE` then the colourbar is rendered as a set of
 #'   rectangles. Note that not all graphics devices are capable of rendering
 #'   raster image.
-#' @param ticks A logical specifying if tick marks on colourbar should be
+#' @param ticks A logical specifying if tick marks on the colourbar should be
 #'   visible.
 #' @param ticks.colour A string specifying the colour of the tick marks.
 #' @param ticks.linewidth A numeric specifying the width of the tick marks.

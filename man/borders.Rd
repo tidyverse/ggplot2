@@ -16,7 +16,7 @@ borders(database = "world", regions = ".", fill = NA, colour = "grey50",
 
 \item{colour}{border colour}
 
-\item{xlim, ylim}{latitudinal and longitudinal range for extracting map
+\item{xlim, ylim}{latitudinal and longitudinal ranges for extracting map
 polygons, see \code{\link[maps:map]{maps::map()}} for details.}
 
 \item{...}{Arguments passed on to \code{geom_polygon}

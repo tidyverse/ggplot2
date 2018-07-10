@@ -8,9 +8,9 @@
 #' Calculation is performed by the (currently undocumented)
 #' `predictdf` generic and its methods.  For most methods the standard
 #' error bounds are computed using the [predict()] method -- the
-#' exceptions are `loess` which uses a t-based approximation, and
-#' `glm` where the normal confidence interval is constructed on the link
-#' scale, and then back-transformed to the response scale.
+#' exceptions are `loess`, which uses a t-based approximation, and
+#' `glm`, where the normal confidence interval is constructed on the link
+#' scale and then back-transformed to the response scale.
 #'
 #' @eval rd_aesthetics("geom", "smooth")
 #' @inheritParams layer
@@ -19,7 +19,7 @@
 #'   `geom_smooth` and `stat_smooth`.
 #' @seealso See individual modelling functions for more details:
 #'   [lm()] for linear smooths,
-#'   [glm()] for generalised linear smooths,
+#'   [glm()] for generalised linear smooths, and
 #'   [loess()] for local smooths.
 #' @export
 #' @examples

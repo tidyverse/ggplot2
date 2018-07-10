@@ -72,8 +72,8 @@ the width of the colourbar. Default value is \code{legend.key.width} or
 the height of the colourbar. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
 
-\item{nbin}{A numeric specifying the number of bins for drawing colourbar. A
-smoother colourbar for a larger value.}
+\item{nbin}{A numeric specifying the number of bins for drawing the
+colourbar. A smoother colourbar results from a larger value.}
 
 \item{raster}{A logical. If \code{TRUE} then the colourbar is rendered as a
 raster object. If \code{FALSE} then the colourbar is rendered as a set of
@@ -89,7 +89,7 @@ drawn around the bar.}
 \item{frame.linetype}{A numeric specifying the linetype of the frame
 drawn around the bar.}
 
-\item{ticks}{A logical specifying if tick marks on colourbar should be
+\item{ticks}{A logical specifying if tick marks on the colourbar should be
 visible.}
 
 \item{ticks.colour}{A string specifying the colour of the tick marks.}

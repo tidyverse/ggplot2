@@ -69,7 +69,8 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \code{stat_count()}.}
 }
 \description{
-There are two types of bar charts: \code{geom_bar()} makes the height of the
+There are two types of bar charts: \code{geom_bar()} and \code{geom_col()}.
+\code{geom_bar()} makes the height of the
 bar proportional to the number of cases in each group (or if the
 \code{weight} aesthetic is supplied, the sum of the weights). If you want the
 heights of the bars to represent values in the data, use
