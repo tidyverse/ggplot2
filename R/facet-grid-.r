@@ -17,9 +17,10 @@ NULL
 #'   the columns (of the tabular display) on the RHS; the dot in the
 #'   formula is used to indicate there should be no faceting on this
 #'   dimension (either row or column).
-#' @param scales Are scales shared across all facets (the default,
-#'   `"fixed"`), or do they vary across rows (`"free_x"`),
-#'   columns (`"free_y"`), or both rows and columns (`"free"`)?
+#' @param scales A list of two elements (`x` and `y`). Each element can be either
+#' `"fixed"` (scale limits shared across facets), `"free"` (with varying limits per facet), or
+#'  a named list, with a different scale for each facet value. Previous scale values
+#'  (`"fixed"`, `"free_x"`, `"free_y"`, `"free"` are accepted but soft-deprecated).
 #' @param space If `"fixed"`, the default, all panels have the same size.
 #'   If `"free_y"` their height will be proportional to the length of the
 #'   y scale; if `"free_x"` their width will be proportional to the
@@ -101,6 +102,25 @@ NULL
 #'   facet_grid(manufacturer ~ ., scales = "free", space = "free") +
 #'   theme(strip.text.y = element_text(angle = 0))
 #'
+#' # Custom scales per facet:
+#'  mydf <- data.frame(
+#'    Subject = rep(c("A", "B", "C", "D"), each = 3),
+#'    Magnitude = rep(c("SomeValue", "Percent", "Scientific"), times = 4),
+#'    Value=c(c(170,0.6,2.7E-4),
+#'            c(180, 0.8, 2.5E-4),
+#'            c(160, 0.71, 3.2E-4),
+#'            c(159, 0.62, 3E-4)))
+#'
+#'  scales_y <- list(
+#'    Percent = scale_y_continuous(labels=percent_format()),
+#'    SomeValue = scale_y_continuous(),
+#'    Scientific = scale_y_continuous(labels=scientific_format())
+#'  )
+#'
+#'  ggplot(mydf) +
+#'    geom_point(aes(x=Subject, y=Value)) +
+#'    facet_grid(rows = vars(Magnitude), scales = list(y = scales_y))
+#'
 #' # Margins ----------------------------------------------------------
 #' \donttest{
 #' # Margins can be specified by logically (all yes or all no) or by specific
@@ -128,11 +148,35 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     cols <- NULL
   }
 
-  scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
-  free <- list(
-    x = any(scales %in% c("free_x", "free")),
-    y = any(scales %in% c("free_y", "free"))
-  )
+  if (is.list(scales)) {
+    free <- list(
+      x = identical(scales$x, "free") || is.list(scales$x),
+      y = identical(scales$y, "free") || is.list(scales$y)
+    )
+  } else {
+    scales <- match.arg(scales, c("fixed", "free_x", "free_y", "free"))
+    free <- list(
+      x = any(scales %in% c("free_x", "free")),
+      y = any(scales %in% c("free_y", "free"))
+    )
+  }
+
+  custom_scales <- list(x = NULL, y = NULL)
+  if (is.list(scales)) {
+    # A different scale per facet:
+    if (is.list(scales$x)) {
+      if (is.null(names(scales$x))) {
+        stop("Custom facet scales for x should be named according to facet column values", call. = FALSE)
+      }
+      custom_scales$x <- scales$x
+    }
+    if (is.list(scales$y)) {
+      if (is.null(names(scales$y))) {
+        stop("Custom facet scales for y should be named according to facet row values", call. = FALSE)
+      }
+      custom_scales$y <- scales$y
+    }
+  }
 
   space <- match.arg(space, c("fixed", "free_x", "free_y", "free"))
   space_free <- list(
@@ -163,6 +207,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   ggproto(NULL, FacetGrid,
     shrink = shrink,
     params = list(rows = rows, cols = cols, margins = margins,
+      scales = custom_scales,
       free = free, space_free = space_free, labeller = labeller,
       as.table = as.table, switch = switch, drop = drop)
   )
@@ -289,6 +334,22 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     }
     data
+  },
+  init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
+    scales <- list()
+    if (!is.null(params$scales$x)) {
+      facet_x_names <- as.character(layout[[names(params$cols)]])
+      scales$x <- lapply(params$scales$x[facet_x_names], function(x) x$clone())
+    } else if (!is.null(x_scale)) {
+      scales$x <- plyr::rlply(max(layout$SCALE_X), x_scale$clone())
+    }
+    if (!is.null(params$scales$y)) {
+      facet_y_names <- as.character(layout[[names(params$rows)]])
+      scales$y <- lapply(params$scales$y[facet_y_names], function(x) x$clone())
+    } else if (!is.null(y_scale)) {
+      scales$y <- plyr::rlply(max(layout$SCALE_Y), y_scale$clone())
+    }
+    scales
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {

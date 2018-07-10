@@ -20,9 +20,10 @@ the columns (of the tabular display) on the RHS; the dot in the
 formula is used to indicate there should be no faceting on this
 dimension (either row or column).}
 
-\item{scales}{Are scales shared across all facets (the default,
-\code{"fixed"}), or do they vary across rows (\code{"free_x"}),
-columns (\code{"free_y"}), or both rows and columns (\code{"free"})?}
+\item{scales}{A list of two elements (\code{x} and \code{y}). Each element can be either
+\code{"fixed"} (scale limits shared across facets), \code{"free"} (with varying limits per facet), or
+a named list, with a different scale for each facet value. Previous scale values
+(\code{"fixed"}, \code{"free_x"}, \code{"free_y"}, \code{"free"} are accepted but soft-deprecated).}
 
 \item{space}{If \code{"fixed"}, the default, all panels have the same size.
 If \code{"free_y"} their height will be proportional to the length of the
@@ -116,6 +117,25 @@ ggplot(mpg, aes(drv, model)) +
   geom_point() +
   facet_grid(manufacturer ~ ., scales = "free", space = "free") +
   theme(strip.text.y = element_text(angle = 0))
+
+# Custom scales per facet:
+ mydf <- data.frame(
+   Subject = rep(c("A", "B", "C", "D"), each = 3),
+   Magnitude = rep(c("SomeValue", "Percent", "Scientific"), times = 4),
+   Value=c(c(170,0.6,2.7E-4),
+           c(180, 0.8, 2.5E-4),
+           c(160, 0.71, 3.2E-4),
+           c(159, 0.62, 3E-4)))
+
+ scales_y <- list(
+   Percent = scale_y_continuous(labels=percent_format()),
+   SomeValue = scale_y_continuous(),
+   Scientific = scale_y_continuous(labels=scientific_format())
+ )
+
+ ggplot(mydf) +
+   geom_point(aes(x=Subject, y=Value)) +
+   facet_grid(rows = vars(Magnitude), scales = list(y = scales_y))
 
 # Margins ----------------------------------------------------------
 \donttest{
