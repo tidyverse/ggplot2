@@ -49,7 +49,7 @@
 #'   if the notches of two boxes do not overlap, this suggests that the medians
 #'   are significantly different.
 #' @param notchwidth For a notched box plot, width of the notch relative to
-#'   the body (default = `0.5`)
+#'   the body (defaults to `notchwidth = 0.5`).
 #' @param varwidth If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly

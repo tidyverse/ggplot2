@@ -62,7 +62,7 @@ if the notches of two boxes do not overlap, this suggests that the medians
 are significantly different.}
 
 \item{notchwidth}{For a notched box plot, width of the notch relative to
-the body (default = \code{0.5})}
+the body (defaults to \code{notchwidth = 0.5}).}
 
 \item{varwidth}{If \code{FALSE} (default) make a standard box plot. If
 \code{TRUE}, boxes are drawn with widths proportional to the
