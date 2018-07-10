@@ -288,7 +288,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
       data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     }
-    data[order(data$PANEL), , drop = FALSE]
+    data
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {

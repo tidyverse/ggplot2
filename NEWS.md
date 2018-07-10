@@ -1,8 +1,13 @@
 # ggplot2 3.0.0.9000
 
-* `geom_hex()` now understands the `size` and `linetype` aesthetics
-  (@mikmart, #2488).
+*  `geom_hex()` now understands the `size` and `linetype` aesthetics
+   (@mikmart, #2488).
   
+*   Data is no longer internally reordered when faceting. This makes it safer to
+    feed data columns into `aes()` or into parameters of geoms or stats. However,
+    doing so remains discouraged (@clauswilke).
+
+
 # ggplot2 3.0.0
 
 ## Breaking changes
