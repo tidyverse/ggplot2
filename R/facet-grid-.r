@@ -111,6 +111,7 @@ NULL
 #'            c(160, 0.71, 3.2E-4),
 #'            c(159, 0.62, 3E-4)))
 #'
+#'  library(scales)
 #'  scales_y <- list(
 #'    Percent = scale_y_continuous(labels=percent_format()),
 #'    SomeValue = scale_y_continuous(),
