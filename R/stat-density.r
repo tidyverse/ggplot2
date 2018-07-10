@@ -21,6 +21,8 @@
 #'   \item{count}{density * number of points - useful for stacked density
 #'      plots}
 #'   \item{scaled}{density estimate, scaled to maximum of 1}
+#'   \item{ndensity}{alias for stat(scaled), to mirror the syntax of
+#'    geom_bin}
 #' }
 #' @export
 #' @rdname geom_density
@@ -92,6 +94,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
       x = NA_real_,
       density = NA_real_,
       scaled = NA_real_,
+      ndensity = NA_real_,
       count = NA_real_,
       n = NA_integer_
     ))
@@ -104,6 +107,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     x = dens$x,
     density = dens$y,
     scaled =  dens$y / max(dens$y, na.rm = TRUE),
+    ndensity = dens$y / max(dens$y, na.rm = TRUE),
     count =   dens$y * nx,
     n = nx
   )

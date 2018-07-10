@@ -9,9 +9,10 @@
 #' Same as [stat_contour()]
 #'
 #' With the addition of:
-#'  \item{density}{the density estimate}
-#'  \item{scaled}{density estimate, scaled to maximum of 1}
-
+#' \describe{
+#'   \item{density}{the density estimate}
+#'   \item{ndensity}{density estimate, scaled to maximum of 1}
+#' }
 stat_density_2d <- function(mapping = NULL, data = NULL,
                             geom = "density_2d", position = "identity",
                             ...,
@@ -68,10 +69,10 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
     df$group <- data$group[1]
 
     if (contour) {
-      StatContour$compute_panel(df, scales, bins, binwidth)
+        StatContour$compute_panel(df, scales, bins, binwidth)
     } else {
       names(df) <- c("x", "y", "density", "group")
-      df$scaled <- df$density / max(df$density)
+      df$ndensity <- df$density / max(df$density, na.rm = TRUE)
       df$level <- 1
       df$piece <- 1
       df

@@ -167,6 +167,17 @@
 
 ### Layers: geoms, stats, and position adjustments
 
+* `stat_contour()`, `stat_density2d()`, `stat_bin2d()`,  `stat_binhex()` now
+  include  a normalized version the `level`, `density`, and `count` parameters, 
+  named `nlevel`, `ndensity`, and `ncount`. This mirrors the use of `ndensity`
+  in `stat_density()` and `ncount`/`ndensity` in `stat_bin()`. These stats
+  should be useful for faceted 2D density plots and bin plots in cases where
+  the distribution of density within a facet is more relevant than the absolute
+  density or count across facets. (@bjreisman, #2680)
+
+* `stat_density()` now includes the calculated statistic `nlevel`, an alias 
+  for `scaled`, to better match the syntax of `stat_bin` (@bjreisman, #2680)
+
 * `geom_segment()` and `geom_curve()` have a new `arrow.fill` parameter which 
   allows you to specify a separate fill colour for closed arrowheads 
   (@hrbrmstr and @clauswilke, #2375).
