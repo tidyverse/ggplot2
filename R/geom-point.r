@@ -110,10 +110,10 @@ geom_point <- function(mapping = NULL, data = NULL,
 GeomPoint <- ggproto("GeomPoint", Geom,
   required_aes = c("x", "y"),
   non_missing_aes = c("size", "shape", "colour"),
-  default_aes = aes(
-    shape = 19, colour = "black", size = 1.5, fill = NA,
-    alpha = NA, stroke = 0.5
-  ),
+  default_aes = expr(aes(
+    shape = 19, colour = theme$geom$colour, size = 1.5,
+    fill = NA, alpha = NA, stroke = 0.5
+  )),
 
   draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
     if (is.character(data$shape)) {
