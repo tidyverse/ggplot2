@@ -121,7 +121,7 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   gdefs <- guides_merge(gdefs)
 
   # process layer information
-  gdefs <- guides_geom(gdefs, layers, default_mapping)
+  gdefs <- guides_geom(gdefs, layers, default_mapping, theme)
   if (length(gdefs) == 0) return(zeroGrob())
 
   # generate grob of each guides
@@ -214,8 +214,8 @@ guides_merge <- function(gdefs) {
 }
 
 # process layer information
-guides_geom <- function(gdefs, layers, default_mapping) {
-  compact(lapply(gdefs, guide_geom, layers, default_mapping))
+guides_geom <- function(gdefs, layers, default_mapping, theme) {
+  compact(lapply(gdefs, guide_geom, layers, default_mapping, theme))
 }
 
 # generate grob from each gdef (needs to write this function?)
@@ -318,7 +318,7 @@ guide_merge <- function(guide, new_guide) UseMethod("guide_merge")
 
 #' @export
 #' @rdname guide-exts
-guide_geom <- function(guide, layers, default_mapping) UseMethod("guide_geom")
+guide_geom <- function(guide, layers, default_mapping, theme) UseMethod("guide_geom")
 
 #' @export
 #' @rdname guide-exts

@@ -13,7 +13,11 @@
 #' @rdname update_defaults
 update_geom_defaults <- function(geom, new) {
   g <- check_subclass(geom, "Geom", env = parent.frame())
-  old <- g$default_aes
+
+  env <- new.env()
+  env$theme <- theme_get()
+  old <- rlang::eval_tidy(g$default_aes, env)
+
   g$default_aes <- defaults(rename_aes(new), old)
   invisible()
 }

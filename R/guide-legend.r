@@ -240,7 +240,7 @@ guide_merge.legend <- function(guide, new_guide) {
 }
 
 #' @export
-guide_geom.legend <- function(guide, layers, default_mapping) {
+guide_geom.legend <- function(guide, layers, default_mapping, theme) {
   # arrange common data for vertical and horizontal guide
   guide$geoms <- plyr::llply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
@@ -265,7 +265,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         n <- vapply(layer$aes_params, length, integer(1))
         params <- layer$aes_params[n == 1]
 
-        data <- layer$geom$use_defaults(guide$key[matched], params)
+        data <- layer$geom$use_defaults(guide$key[matched], params, theme)
       } else {
         return(NULL)
       }

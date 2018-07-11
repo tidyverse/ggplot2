@@ -239,7 +239,7 @@ guide_merge.colorbar <- function(guide, new_guide) {
 
 # this guide is not geom-based.
 #' @export
-guide_geom.colorbar <- function(guide, layers, default_mapping) {
+guide_geom.colorbar <- function(guide, layers, default_mapping, theme) {
   # Layers that use this guide
   guide_layers <- plyr::llply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
