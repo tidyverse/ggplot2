@@ -556,6 +556,8 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_,
   trans = "identity", guide = "legend", position = "left", super = ScaleContinuous) {
 
+  aesthetics <- standardize_aes_names(aesthetics)
+
   check_breaks_labels(breaks, labels)
 
   position <- match.arg(position, c("left", "right", "top", "bottom"))
@@ -621,6 +623,8 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
   na.translate = TRUE, na.value = NA, drop = TRUE,
   guide = "legend", position = "left", super = ScaleDiscrete) {
+
+  aesthetics <- standardize_aes_names(aesthetics)
 
   check_breaks_labels(breaks, labels)
 
