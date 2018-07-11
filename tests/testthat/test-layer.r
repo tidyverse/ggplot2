@@ -26,6 +26,18 @@ test_that("column vectors are allowed (#2609)", {
   expect_is(layer_data(p), "data.frame")
 })
 
+test_that("missing aesthetics trigger informative error", {
+  df <- data.frame(x = 1:10)
+  expect_error(
+    ggplot_build(ggplot(df) + geom_line()),
+    "requires the following missing aesthetics:"
+  )
+  expect_error(
+    ggplot_build(ggplot(df) + geom_col()),
+    "requires the following missing aesthetics:"
+  )
+})
+
 # Data extraction ---------------------------------------------------------
 
 test_that("layer_data returns a data.frame", {
