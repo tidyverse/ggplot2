@@ -1,5 +1,8 @@
 # ggplot2 3.0.0.9000
 
+*   All `geom_*()` now display an informative error message when required 
+    aesthetics are missing (@dpseidel, #2637 and #2706).
+
 *   `stat_contour()`, `stat_density2d()`, `stat_bin2d()`,  `stat_binhex()`
     now calculate normalized statistics including `nlevel`, `ndensity`, and
     `ncount`. Also, `stat_density()` now includes the calculated statistic 
