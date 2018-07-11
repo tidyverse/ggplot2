@@ -3,7 +3,7 @@
 *   `stat_contour()`, `stat_density2d()`, `stat_bin2d()`,  `stat_binhex()`
     now calculate normalized statistics including `nlevel`, `ndensity`, and
     `ncount`. Also, `stat_density()` now includes the calculated statistic 
-    `nlevel`, an aliasfor `scaled`, to better match the syntax of `stat_bin()`
+    `nlevel`, an alias for `scaled`, to better match the syntax of `stat_bin()`
     (@bjreisman, #2679).
 
 *  `geom_hex()` now understands the `size` and `linetype` aesthetics
