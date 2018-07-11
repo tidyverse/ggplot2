@@ -95,6 +95,8 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \describe{
 \item{level}{height of contour}
+\item{nlevel}{height of contour, scaled to maximum of 1}
+\item{piece}{contour piece (an integer)}
 }
 }
 
