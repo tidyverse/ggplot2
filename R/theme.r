@@ -21,6 +21,7 @@
 #'   inherits from `text`)
 #' @param aspect.ratio aspect ratio of the panel
 #'
+#' @param geom default geom aesthetics
 #' @param axis.title label of axes (`element_text`; inherits from
 #'   `text`)
 #' @param axis.title.x x axis label (`element_text`; inherits from
@@ -290,6 +291,7 @@ theme <- function(line,
                   text,
                   title,
                   aspect.ratio,
+                  geom,
                   axis.title,
                   axis.title.x,
                   axis.title.x.top,
@@ -510,6 +512,7 @@ update_theme <- function(oldtheme, newtheme) {
   if (is_theme_complete(newtheme))
     return(newtheme)
 
+  if (length(oldtheme) == 0) oldtheme <- theme_get()
   # These are elements in newtheme that aren't already set in oldtheme.
   # They will be pulled from the default theme.
   newitems <- !names(newtheme) %in% names(oldtheme)

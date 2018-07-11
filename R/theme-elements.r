@@ -8,6 +8,7 @@
 #'   - `element_rect`: borders and backgrounds.
 #'   - `element_line`: lines.
 #'   - `element_text`: text.
+#'   - `element_geom`: geom defaults.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
 #' `margins()` is used to specify the margins of elements.
@@ -117,6 +118,18 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
       margin = margin, debug = debug, inherit.blank = inherit.blank),
     class = c("element_text", "element")
+  )
+}
+
+#' @export
+#' @rdname element
+element_geom <- function(fill = NULL, colour = NULL, color = NULL,
+                         inherit.blank = FALSE) {
+
+  if (!is.null(color))  colour <- color
+  structure(
+    list(fill = fill, colour = colour, inherit.blank = inherit.blank),
+    class = c("element_geom", "element")
   )
 }
 
@@ -271,7 +284,7 @@ ggplot_global$element_tree <- list(
   panel.grid.major    = el_def("element_line", "panel.grid"),
   panel.grid.minor    = el_def("element_line", "panel.grid"),
   strip.text          = el_def("element_text", "text"),
-
+  geom                = el_def("element_geom", "geom"),
   axis.line.x         = el_def("element_line", "axis.line"),
   axis.line.x.top     = el_def("element_line", "axis.line.x"),
   axis.line.x.bottom  = el_def("element_line", "axis.line.x"),
