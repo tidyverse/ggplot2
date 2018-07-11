@@ -22,7 +22,7 @@
 #'      plots}
 #'   \item{scaled}{density estimate, scaled to maximum of 1}
 #'   \item{ndensity}{alias for `scaled`, to mirror the syntax of
-#'    `geom_bin()`}
+#'    [`stat_bin()`]}
 #' }
 #' @export
 #' @rdname geom_density

@@ -111,7 +111,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 plots}
 \item{scaled}{density estimate, scaled to maximum of 1}
 \item{ndensity}{alias for \code{scaled}, to mirror the syntax of
-\code{geom_bin()}}
+\code{\link[=stat_bin]{stat_bin()}}}
 }
 }
 
