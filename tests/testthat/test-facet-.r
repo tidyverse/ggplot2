@@ -96,6 +96,14 @@ test_that("facet_grid() fails if passed both a formula and a vars()", {
   expect_error(facet_grid(~foo, vars()), "`rows` must be `NULL` or a `vars\\(\\)` list if")
 })
 
+test_that("facet_grid() accepts custom scales per facet", {
+  sc_y <- list(barpercent = scale_y_continuous(labels = percent_format()),
+               barscientific = scale_y_continuous(labels = scientific_format()))
+  grid <- facet_grid(vars(foo), scales = list(x = "fixed", y = sc_y))
+  expect_identical(grid$params$scales$x, NULL)
+  expect_identical(grid$params$scales$y, sc_y)
+})
+
 test_that("can't pass formulas to `cols`", {
   expect_error(facet_grid(NULL, ~foo), "`cols` must be `NULL` or a `vars\\(\\)`")
 })

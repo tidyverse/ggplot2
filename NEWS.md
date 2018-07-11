@@ -7,6 +7,9 @@
     feed data columns into `aes()` or into parameters of geoms or stats. However,
     doing so remains discouraged (@clauswilke).
 
+*   `facet_grid()` supports a different scale per each facet. This
+    can be used in facetting plots that share one axis but have different
+    units in the other axis (@zeehio, #1613).
 
 # ggplot2 3.0.0
 
