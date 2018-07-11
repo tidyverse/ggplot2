@@ -98,6 +98,19 @@ test_that("labelling doesn't cause error if aesthetic is NULL", {
   expect_null(p$labels$x)
 })
 
+test_that("aes standardises aesthetic names", {
+  # test a few common cases
+  expect_identical(aes(color = x), aes(colour = x))
+  expect_identical(aes(pch = x), aes(shape = x))
+
+  # US to British spelling in substrings
+  expect_identical(aes(point_color = x), aes(point_colour = x))
+  expect_identical(aes(color_point = x), aes(colour_point = x))
+
+  # warning when standardisation creates duplicates
+  expect_warning(aes(color = x, colour = y), "has created duplicates")
+})
+
 
 # Visual tests ------------------------------------------------------------
 
