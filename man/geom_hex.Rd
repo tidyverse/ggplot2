@@ -87,6 +87,16 @@ the very regular alignment of \code{\link[=geom_bin2d]{geom_bin2d()}}.
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
+\section{Computed variables}{
+
+\describe{
+\item{count}{number of points in bin}
+\item{density}{density of points in bin, scaled to integrate to 1}
+\item{ncount}{count, scaled to maximum of 1}
+\item{ndensity}{density, scaled to maximum of 1}
+}
+}
+
 \examples{
 d <- ggplot(diamonds, aes(carat, price))
 d + geom_hex()

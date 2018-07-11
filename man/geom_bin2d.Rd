@@ -85,6 +85,16 @@ in the presence of overplotting.
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
+\section{Computed variables}{
+
+\describe{
+\item{count}{number of points in bin}
+\item{density}{density of points in bin, scaled to integrate to 1}
+\item{ncount}{count, scaled to maximum of 1}
+\item{ndensity}{density, scaled to maximum of 1}
+}
+}
+
 \examples{
 d <- ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10)
 d + geom_bin2d()

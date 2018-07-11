@@ -97,6 +97,12 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \section{Computed variables}{
 
 Same as \code{\link[=stat_contour]{stat_contour()}}
+
+With the addition of:
+\describe{
+\item{density}{the density estimate}
+\item{ndensity}{density estimate, scaled to maximum of 1}
+}
 }
 
 \examples{
@@ -114,6 +120,15 @@ d <- ggplot(dsmall, aes(x, y))
 # If you map an aesthetic to a categorical variable, you will get a
 # set of contours for each value of that variable
 d + geom_density_2d(aes(colour = cut))
+
+# Similarly, if you apply faceting to the plot, contours will be
+# drawn for each facet, but the levels will calculated across all facets
+d + stat_density_2d(aes(fill = stat(level)), geom = "polygon") +
+  facet_grid(. ~ cut) + scale_fill_viridis_c()
+# To override this behavior (for instace, to better visualize the density
+# within each facet), use stat(nlevel)
+d + stat_density_2d(aes(fill = stat(nlevel)), geom = "polygon") +
+  facet_grid(. ~ cut) + scale_fill_viridis_c()
 
 # If we turn contouring off, we can use use geoms like tiles:
 d + stat_density_2d(geom = "raster", aes(fill = stat(density)), contour = FALSE)
