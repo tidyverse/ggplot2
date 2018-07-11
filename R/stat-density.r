@@ -21,8 +21,8 @@
 #'   \item{count}{density * number of points - useful for stacked density
 #'      plots}
 #'   \item{scaled}{density estimate, scaled to maximum of 1}
-#'   \item{ndensity}{alias for stat(scaled), to mirror the syntax of
-#'    geom_bin}
+#'   \item{ndensity}{alias for `stat(scaled)`, to mirror the syntax of
+#'    `geom_bin()`}
 #' }
 #' @export
 #' @rdname geom_density
