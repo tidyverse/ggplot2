@@ -165,12 +165,9 @@ rename_aes <- function(x) {
   names(x) <- standardise_aes_names(names(x))
   duplicated_names <- names(x)[duplicated(names(x))]
   if (length(duplicated_names) > 0L) {
-    duplicated_names_message <- paste0(
-      "`", duplicated_names, "`", collapse = ", "
-    )
+    duplicated_message <- paste0(unique(duplicated_names), collapse = ", ")
     warning(
-      "Standardisation of aesthetics has created duplicates for the ",
-      "following: ", duplicated_names_message, call. = FALSE
+      "Duplicated aesthetics after name standardisation: ", duplicated_message, call. = FALSE
     )
   }
   x
