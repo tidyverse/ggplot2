@@ -34,9 +34,9 @@ fortify.grouped_df <- function(model, data, ...) {
 #' @export
 fortify.default <- function(model, data, ...) {
   msg <- paste0(
-    "`data` must be a data frame, or other object coercible by `fortify()`, ",
-    "not ", obj_desc(model)
+    "`data` must be a data frame, or other object coercible by `fortify()`."
   )
+
   if (inherits(model, "uneval")) {
     msg <- paste0(
       msg, "\n",
