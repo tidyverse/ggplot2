@@ -108,7 +108,7 @@ test_that("aes standardises aesthetic names", {
   expect_identical(aes(color_point = x), aes(colour_point = x))
 
   # warning when standardisation creates duplicates
-  expect_warning(aes(color = x, colour = y), "has created duplicates")
+  expect_warning(aes(color = x, colour = y), "Duplicated aesthetics")
 })
 
 
