@@ -405,11 +405,6 @@ theme <- function(line,
     elements$legend.margin <- margin()
   }
 
-  # Check that all elements have the correct class (element_text, unit, etc)
-  if (validate) {
-    mapply(validate_element, elements, names(elements))
-  }
-
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
     elements <- lapply(elements, function(el) {
@@ -433,10 +428,13 @@ is_theme_complete <- function(x) isTRUE(attr(x, "complete"))
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x, default = theme_get()) {
   theme <- x$theme
-  if (is_theme_complete(theme)) {
-    theme
-  } else {
-    defaults(theme, default)
+  if (!is_theme_complete(theme)) {
+    theme <- defaults(theme, default)
+  }
+
+  # Check that all elements have the correct class (element_text, unit, etc)
+  if (isTRUE(theme$validate)) {
+    mapply(validate_element, elements, names(elements))
   }
 }
 
