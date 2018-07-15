@@ -65,12 +65,13 @@ update_labels <- function(p, labels) {
 #' # If you want to remove a label, set it to NULL.
 #' p + labs(title = "title") + labs(title = NULL)
 labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(), tag = waiver()) {
-  args <- list(..., title = title, subtitle = subtitle, caption = caption, tag = tag)
-  if (length(args) > 0 && is.list(args[[1]]) && !is.waive(args[[1]])) args <- args[[1]]
-  args <- rename_aes(args)
+  args <- rlang::list2(..., title = title, subtitle = subtitle, caption = caption, tag = tag)
 
   is_waive <- vapply(args, is.waive, logical(1))
   args <- args[!is_waive]
+  # remove duplicated arguments
+  args <- args[!duplicated(names(args))]
+  args <- rename_aes(args)
 
   structure(args, class = "labels")
 }

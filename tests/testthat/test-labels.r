@@ -31,8 +31,9 @@ test_that("setting guide labels works", {
     expect_equivalent(labs(colour = "my label"), list(colour = "my label"))   # dot
     expect_equivalent(labs(foo = "bar"), list(foo = "bar"))                   # non-existent param
 
-    # labs() can take a list as the first argument
-    expect_identical(labs(list(title = "my title", tag = "A)"))$tag, "A)")
+    # labs() has list-splicing semantics
+    params <- list(title = "my title", tag = "A)")
+    expect_identical(labs(!!!params)$tag, "A)")
 
     # NULL is preserved
     expect_equivalent(labs(title = NULL), list(title = NULL))
