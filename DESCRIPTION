@@ -212,6 +212,7 @@ Collate:
     'stat-qq-line.R'
     'stat-qq.r'
     'stat-quantile.r'
+    'stat-sf-coordinates.R'
     'stat-smooth-methods.r'
     'stat-smooth.r'
     'stat-sum.r'

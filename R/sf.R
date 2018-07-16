@@ -6,6 +6,7 @@
 #' an unusual geom because it will draw different geometric objects depending
 #' on what simple features are present in the data: you can get points, lines,
 #' or polygons.
+#' For texts and labels, you can use `geom_sf_text` and `geom_sf_text`.
 #'
 #' @section Geometry aesthetic:
 #' `geom_sf` uses a unique aesthetic: `geometry`, giving an
@@ -70,6 +71,11 @@
 #'   "+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"
 #' )
 #' ggplot() + geom_sf(data = world2)
+#'
+#' # To add labels, use geom_sf_label().
+#' ggplot(nc_3867[1:3, ]) +
+#'    geom_sf(aes(fill = AREA)) +
+#'    geom_sf_label(aes(label = NAME))
 #' }
 #' @name ggsf
 NULL
@@ -248,6 +254,115 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
     coord_sf(default = TRUE)
   )
 }
+
+#' @export
+#' @rdname ggsf
+#' @inheritParams geom_label
+#' @inheritParams stat_sf_coordinates
+#' @seealso [stat_sf_coordinates()]
+geom_sf_label <- function(mapping = aes(), data = NULL,
+                          stat = "sf_coordinates", position = "identity",
+                          ...,
+                          parse = FALSE,
+                          nudge_x = 0,
+                          nudge_y = 0,
+                          label.padding = unit(0.25, "lines"),
+                          label.r = unit(0.15, "lines"),
+                          label.size = 0.25,
+                          na.rm = FALSE,
+                          show.legend = NA,
+                          inherit.aes = TRUE,
+                          fun.geometry = sf::st_point_on_surface) {
+
+  # Automatically determin name of geometry column
+  if (!is.null(data) && is_sf(data)) {
+    geometry_col <- attr(data, "sf_column")
+  } else {
+    geometry_col <- "geometry"
+  }
+  if (is.null(mapping$geometry)) {
+    mapping$geometry <- as.name(geometry_col)
+  }
+
+  if (!missing(nudge_x) || !missing(nudge_y)) {
+    if (!missing(position)) {
+      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+    }
+
+    position <- position_nudge(nudge_x, nudge_y)
+  }
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomLabel,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      parse = parse,
+      label.padding = label.padding,
+      label.r = label.r,
+      label.size = label.size,
+      na.rm = na.rm,
+      fun.geometry = fun.geometry,
+      ...
+    )
+  )
+}
+
+#' @export
+#' @rdname ggsf
+#' @inheritParams geom_text
+#' @inheritParams stat_sf_coordinates
+geom_sf_text <- function(mapping = aes(), data = NULL,
+                         stat = "sf_coordinates", position = "identity",
+                         ...,
+                         parse = FALSE,
+                         nudge_x = 0,
+                         nudge_y = 0,
+                         check_overlap = FALSE,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE,
+                         fun.geometry = sf::st_point_on_surface) {
+  # Automatically determin name of geometry column
+  if (!is.null(data) && is_sf(data)) {
+    geometry_col <- attr(data, "sf_column")
+  } else {
+    geometry_col <- "geometry"
+  }
+  if (is.null(mapping$geometry)) {
+    mapping$geometry <- as.name(geometry_col)
+  }
+
+  if (!missing(nudge_x) || !missing(nudge_y)) {
+    if (!missing(position)) {
+      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+    }
+
+    position <- position_nudge(nudge_x, nudge_y)
+  }
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomText,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      parse = parse,
+      check_overlap = check_overlap,
+      na.rm = na.rm,
+      fun.geometry = sf::st_point_on_surface,
+      ...
+    )
+  )
+}
+
 
 #' @export
 scale_type.sfc <- function(x) "identity"
