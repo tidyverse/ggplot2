@@ -112,7 +112,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
   non_missing_aes = c("size", "shape", "colour"),
   default_aes = expr(aes(
     shape = 19, colour = theme$geom$colour, size = 1.5,
-    fill = NA, alpha = NA, stroke = 0.5
+    fill = NA, alpha = theme$geom$alpha, stroke = 0.5
   )),
 
   draw_panel = function(data, panel_params, coord, na.rm = FALSE) {

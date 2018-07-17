@@ -73,13 +73,13 @@ GeomHex <- ggproto("GeomHex", Geom,
 
   required_aes = c("x", "y"),
 
-  default_aes = aes(
+  default_aes = expr(aes(
     colour = NA,
-    fill = "grey50",
+    fill = theme$geom$fill,
     size = 0.5,
     linetype = 1,
-    alpha = NA
-  ),
+    alpha = theme$geom$alpha
+  )),
 
   draw_key = draw_key_polygon
 )

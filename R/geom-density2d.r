@@ -73,5 +73,8 @@ geom_density2d <- geom_density_2d
 #' @usage NULL
 #' @export
 GeomDensity2d <- ggproto("GeomDensity2d", GeomPath,
-  default_aes = aes(colour = "#3366FF", size = 0.5, linetype = 1, alpha = NA)
+  default_aes = expr(aes(
+    colour = theme$geom$colour.accent2,
+    size = 0.5, linetype = 1, alpha = theme$geom$alpha
+  ))
 )

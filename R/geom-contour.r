@@ -73,6 +73,8 @@ geom_contour <- function(mapping = NULL, data = NULL,
 #' @export
 #' @include geom-path.r
 GeomContour <- ggproto("GeomContour", GeomPath,
-  default_aes = aes(weight = 1, colour = "#3366FF", size = 0.5, linetype = 1,
-    alpha = NA)
+  default_aes = expr(aes(
+    weight = 1, colour = theme$geom$colour.accent2,
+    size = 0.5, linetype = 1, alpha = theme$geom$alpha
+  ))
 )

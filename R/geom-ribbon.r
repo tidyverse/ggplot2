@@ -57,8 +57,10 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRibbon <- ggproto("GeomRibbon", Geom,
-  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
-    alpha = NA),
+  default_aes = expr(aes(
+    colour = NA, fill = theme$geom$fill,
+    size = 0.5, linetype = 1, alpha = theme$geom$alpha
+  )),
 
   required_aes = c("x", "ymin", "ymax"),
 
@@ -131,8 +133,10 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomArea <- ggproto("GeomArea", GeomRibbon,
-  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
-    alpha = NA),
+  default_aes = expr(aes(
+    colour = NA, fill = theme$geom$fill,
+    size = 0.5, linetype = 1, alpha = theme$geom$alpha
+  )),
 
   required_aes = c("x", "y"),
 

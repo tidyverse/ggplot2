@@ -141,15 +141,15 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
 #' @format NULL
 GeomSf <- ggproto("GeomSf", Geom,
   required_aes = "geometry",
-  default_aes = aes(
+  default_aes = expr(aes(
     shape = NULL,
     colour = NULL,
     fill = NULL,
     size = NULL,
     linetype = 1,
-    alpha = NA,
+    alpha = theme$geom$alpha,
     stroke = 0.5
-  ),
+  )),
 
   draw_panel = function(data, panel_params, coord, legend = NULL) {
     if (!inherits(coord, "CoordSf")) {

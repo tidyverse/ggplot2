@@ -40,7 +40,10 @@ geom_curve <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomCurve <- ggproto("GeomCurve", GeomSegment,
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = expr(aes(
+    colour = theme$geom$colour, size = 0.5, linetype = 1,
+    alpha = theme$geom$alpha
+  )),
   draw_panel = function(data, panel_params, coord, curvature = 0.5, angle = 90,
                         ncp = 5, arrow = NULL, arrow.fill = NULL, lineend = "butt", na.rm = FALSE) {
 

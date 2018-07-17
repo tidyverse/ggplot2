@@ -132,8 +132,7 @@ geom_text <- function(mapping = NULL, data = NULL,
                       check_overlap = FALSE,
                       na.rm = FALSE,
                       show.legend = NA,
-                      inherit.aes = TRUE)
-{
+                      inherit.aes = TRUE) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
@@ -167,13 +166,15 @@ geom_text <- function(mapping = NULL, data = NULL,
 GeomText <- ggproto("GeomText", Geom,
   required_aes = c("x", "y", "label"),
 
-  default_aes = aes(
-    colour = "black", size = 3.88, angle = 0, hjust = 0.5,
-    vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2
-  ),
+  default_aes = expr(aes(
+    colour = theme$text$colour,
+    size = 3.88, angle = 0, hjust = 0.5, vjust = 0.5,
+    alpha = theme$geom$alpha, family = theme$text$family,
+    fontface = theme$text$face, lineheight = theme$text$lineheight
+  )),
 
   draw_panel = function(data, panel_params, coord, parse = FALSE,
-                        na.rm = FALSE, check_overlap = FALSE) {
+                          na.rm = FALSE, check_overlap = FALSE) {
     lab <- data$label
     if (parse) {
       lab <- parse(text = as.character(lab))
@@ -189,7 +190,8 @@ GeomText <- ggproto("GeomText", Geom,
 
     textGrob(
       lab,
-      data$x, data$y, default.units = "native",
+      data$x, data$y,
+      default.units = "native",
       hjust = data$hjust, vjust = data$vjust,
       rot = data$angle,
       gp = gpar(

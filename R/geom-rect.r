@@ -31,7 +31,7 @@ GeomRect <- ggproto("GeomRect", Geom,
     fill = theme$geom$fill,
     size = 0.5,
     linetype = 1,
-    alpha = NA
+    alpha = theme$geom$alpha
   )),
 
   required_aes = c("xmin", "xmax", "ymin", "ymax"),

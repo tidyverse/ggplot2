@@ -26,8 +26,11 @@ geom_errorbar <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomErrorbar <- ggproto("GeomErrorbar", Geom,
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, width = 0.5,
-    alpha = NA),
+  default_aes = expr(aes(
+    colour = theme$geom$colour,
+    size = 0.5, linetype = 1, width = 0.5,
+    alpha = theme$geom$alpha
+  )),
 
   draw_key = draw_key_path,
 
