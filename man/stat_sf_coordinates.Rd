@@ -75,7 +75,7 @@ ggplot(storms) +
   stat_sf_coordinates()
 
 ggplot(storms) +
-  stat_sf_coordinates(aes(colour = stat(Z))
+  stat_sf_coordinates(aes(colour = stat(Z)))
 }
 
 }
