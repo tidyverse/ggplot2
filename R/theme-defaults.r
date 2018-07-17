@@ -129,7 +129,12 @@ theme_grey <- function(base_size = 11, base_family = "",
                             margin = margin(), debug = FALSE
                          ),
 
-    geom =               element_geom(colour = "black", fill = "grey35"),
+    geom =               element_geom(
+                            colour = "black", colour.accent1 = "grey20",
+                            colour.accent2 = "#3366FF",
+                            fill = "grey35", fill.accent = "white",
+                            alpha = NA
+                          ),
     axis.line =          element_blank(),
     axis.line.x =        NULL,
     axis.line.y =        NULL,
@@ -367,8 +372,12 @@ theme_dark <- function(base_size = 11, base_family = "",
       panel.grid.minor = element_line(size = rel(0.25)),
 
       # make the geom stand out
-      geom =               element_geom(colour = "white", fill = "grey85"),
-
+      geom             = element_geom(
+                           colour = "white", colour.accent1 = "grey90",
+                           colour.accent2 = "#3366FF",
+                           fill = "grey75", fill.accent = "grey35",
+                           alpha = NA
+                         ),
       # match axes ticks thickness to gridlines
       axis.ticks       = element_line(colour = "grey20", size = rel(0.5)),
 
@@ -460,7 +469,12 @@ theme_void <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
-    geom =               element_geom(colour = "black", fill = "grey35"),
+    geom =               element_geom(
+                            colour = "black", colour.accent1 = "grey20",
+                            colour.accent2 = "#3366FF",
+                            fill = "grey35", fill.accent = "white",
+                            alpha = NA
+                         ),
     axis.text =          element_blank(),
     axis.title =         element_blank(),
     axis.ticks.length =  unit(0, "pt"),
@@ -522,7 +536,12 @@ theme_test <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
-    geom =               element_geom(colour = "black", fill = "grey35"),
+    geom =               element_geom(
+                            colour = "black", colour.accent1 = "grey20",
+                            colour.accent2 = "#3366FF",
+                            fill = "grey35", fill.accent = "white",
+                            alpha = NA
+                          ),
     axis.line =          element_blank(),
     axis.line.x =        NULL,
     axis.line.y =        NULL,

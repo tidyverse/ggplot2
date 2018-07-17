@@ -123,16 +123,29 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
 
 #' @export
 #' @rdname element
-element_geom <- function(fill = NULL, colour = NULL, color = NULL,
-                         inherit.blank = FALSE) {
+element_geom <- function(fill = NULL, fill.accent = NULL,
+                         colour = NULL, color = NULL,
+                         colour.accent1 = NULL, color.accent1 = NULL,
+                         colour.accent2 = NULL, color.accent2 = NULL,
+                         alpha = NULL, inherit.blank = FALSE) {
 
-  if (!is.null(color))  colour <- color
+  if (!is.null(color)) colour <- color
+  if (!is.null(color.accent1)) colour.accent1 <- color.accent1
+  if (!is.null(color.accent2)) colour.accent2 <- color.accent2
+
   structure(
-    list(fill = fill, colour = colour, inherit.blank = inherit.blank),
+    list(
+      fill = fill,
+      colour = colour,
+      fill.accent = fill.accent,
+      colour.accent1 = colour.accent1,
+      colour.accent2 = colour.accent2,
+      alpha = alpha,
+      inherit.blank = inherit.blank
+    ),
     class = c("element_geom", "element")
   )
 }
-
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
