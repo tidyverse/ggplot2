@@ -92,6 +92,7 @@ Collate:
     'coord-fixed.r'
     'coord-flip.r'
     'coord-map.r'
+    'coord-mirror.r'
     'coord-munch.r'
     'coord-polar.r'
     'coord-quickmap.R'

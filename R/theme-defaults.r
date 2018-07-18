@@ -233,6 +233,26 @@ theme_gray <- theme_grey
 
 #' @export
 #' @rdname ggtheme
+theme_rtl <- function(base_size = 11, base_family = "",
+                     base_line_size = base_size / 22,
+                     base_rect_size = base_size / 22) {
+  # Starts with theme_grey and then modify some parts
+  theme_grey(
+    base_size = base_size,
+    base_family = base_family,
+    base_line_size = base_line_size,
+    base_rect_size = base_rect_size
+  ) %+replace%
+    theme(
+      legend.position = "left",
+      plot.title = element_text(hjust = 1),
+
+      complete = TRUE
+    )
+}
+
+#' @export
+#' @rdname ggtheme
 theme_bw <- function(base_size = 11, base_family = "",
                      base_line_size = base_size / 22,
                      base_rect_size = base_size / 22) {
