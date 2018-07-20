@@ -7,9 +7,9 @@
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
-#' by the `boxplot` function, and may be apparent with small samples.
+#' by the [boxplot()] function, and may be apparent with small samples.
 #' See [boxplot.stats()] for for more information on how hinge
-#' positions are calculated for `boxplot`.
+#' positions are calculated for [boxplot()].
 #'
 #' The upper whisker extends from the hinge to the largest value no further than
 #' 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
@@ -24,7 +24,7 @@
 #'
 #' @eval rd_aesthetics("geom", "boxplot")
 #'
-#' @seealso [geom_quantile()] for continuous x,
+#' @seealso [geom_quantile()] for continuous `x`,
 #'   [geom_violin()] for a richer display of the distribution, and
 #'   [geom_jitter()] for a useful technique for small data.
 #' @inheritParams layer

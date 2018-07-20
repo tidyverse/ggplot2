@@ -6,15 +6,15 @@
 \title{A box and whiskers plot (in the style of Tukey)}
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge2", ..., outlier.colour = NULL, outlier.color = NULL,
-  outlier.fill = NULL, outlier.shape = 19, outlier.size = 1.5,
-  outlier.stroke = 0.5, outlier.alpha = NULL, notch = FALSE,
-  notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "dodge2", ..., outlier.colour = NULL,
+  outlier.color = NULL, outlier.fill = NULL, outlier.shape = 19,
+  outlier.size = 1.5, outlier.stroke = 0.5, outlier.alpha = NULL,
+  notch = FALSE, notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
-  position = "dodge2", ..., coef = 1.5, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "dodge2", ..., coef = 1.5, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -97,9 +97,9 @@ and two whiskers), and all "outlying" points individually.
 
 The lower and upper hinges correspond to the first and third quartiles
 (the 25th and 75th percentiles). This differs slightly from the method used
-by the \code{boxplot} function, and may be apparent with small samples.
+by the \code{\link[=boxplot]{boxplot()}} function, and may be apparent with small samples.
 See \code{\link[=boxplot.stats]{boxplot.stats()}} for for more information on how hinge
-positions are calculated for \code{boxplot}.
+positions are calculated for \code{\link[=boxplot]{boxplot()}}.
 
 The upper whisker extends from the hinge to the largest value no further than
 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
@@ -115,7 +115,7 @@ See McGill et al. (1978) for more details.
 
 \section{Aesthetics}{
 
-\code{geom_boxplot} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_boxplot()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{lower}}
@@ -198,7 +198,7 @@ McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
 box plots. The American Statistician 32, 12-16.
 }
 \seealso{
-\code{\link[=geom_quantile]{geom_quantile()}} for continuous x,
+\code{\link[=geom_quantile]{geom_quantile()}} for continuous \code{x},
 \code{\link[=geom_violin]{geom_violin()}} for a richer display of the distribution, and
 \code{\link[=geom_jitter]{geom_jitter()}} for a useful technique for small data.
 }

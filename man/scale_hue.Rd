@@ -9,11 +9,13 @@
 \alias{scale_color_hue}
 \title{Evenly spaced colours for discrete data}
 \usage{
-scale_colour_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-  direction = 1, na.value = "grey50", aesthetics = "colour")
+scale_colour_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
+  h.start = 0, direction = 1, na.value = "grey50",
+  aesthetics = "colour")
 
-scale_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-  direction = 1, na.value = "grey50", aesthetics = "fill")
+scale_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
+  h.start = 0, direction = 1, na.value = "grey50",
+  aesthetics = "fill")
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
@@ -42,7 +44,7 @@ where \code{NA} is always placed at the far right.}
   \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
 they should take}
-  \item{name}{The name of the scale. Used as axis or legend title. If
+  \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}

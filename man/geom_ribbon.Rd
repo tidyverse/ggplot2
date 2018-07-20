@@ -73,7 +73,7 @@ see the individual pattern as you move up the stack. See
 }
 \section{Aesthetics}{
 
-\code{geom_ribbon} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_ribbon()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{ymin}}

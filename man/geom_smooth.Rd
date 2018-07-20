@@ -11,9 +11,9 @@ geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
 
 stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
   position = "identity", ..., method = "auto", formula = y ~ x,
-  se = TRUE, n = 80, span = 0.75, fullrange = FALSE, level = 0.95,
-  method.args = list(), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
+  level = 0.95, method.args = list(), na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -43,8 +43,9 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{method}{Smoothing method (function) to use, eg. \code{lm}, \code{glm},
-\code{gam}, \code{loess}, \code{MASS::rlm}.
+\item{method}{Smoothing method (function) to use, accepts either a character vector,
+e.g. \code{"auto"}, \code{"lm"}, \code{"glm"}, \code{"gam"}, \code{"loess"} or a function, e.g.
+\code{MASS::rlm} or \code{mgcv::gam}, \code{lm}, or \code{loess}.
 
 For \code{method = "auto"} the smoothing method is chosen based on the
 size of the largest group (across all panels). \code{\link[=loess]{loess()}} is
@@ -53,7 +54,7 @@ used with \code{formula = y ~ s(x, bs = "cs")}. Somewhat anecdotally,
 \code{loess} gives a better appearance, but is \eqn{O(N^{2})}{O(N^2)} in memory,
 so does not work for larger datasets.
 
-If you have fewer than 1,000 observations but want to use the same \code{gam}
+If you have fewer than 1,000 observations but want to use the same \code{gam()}
 model that \code{method = "auto"} would use then set
 \code{method = "gam", formula = y ~ s(x, bs = "cs")}.}
 
@@ -78,7 +79,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_smooth} and \code{stat_smooth}.}
+\code{geom_smooth()} and \code{stat_smooth()}.}
 
 \item{n}{Number of points at which to evaluate smoother.}
 
@@ -96,21 +97,21 @@ function defined by \code{method}.}
 }
 \description{
 Aids the eye in seeing patterns in the presence of overplotting.
-\code{geom_smooth} and \code{stat_smooth} are effectively aliases: they
-both use the same arguments. Use \code{geom_smooth} unless you want to
+\code{geom_smooth()} and \code{stat_smooth()} are effectively aliases: they
+both use the same arguments. Use \code{geom_smooth()} unless you want to
 display the results with a non-standard geom.
 }
 \details{
 Calculation is performed by the (currently undocumented)
-\code{predictdf} generic and its methods.  For most methods the standard
+\code{predictdf()} generic and its methods.  For most methods the standard
 error bounds are computed using the \code{\link[=predict]{predict()}} method -- the
-exceptions are \code{loess}, which uses a t-based approximation, and
-\code{glm}, where the normal confidence interval is constructed on the link
+exceptions are \code{loess()}, which uses a t-based approximation, and
+\code{glm()}, where the normal confidence interval is constructed on the link
 scale and then back-transformed to the response scale.
 }
 \section{Aesthetics}{
 
-\code{geom_smooth} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_smooth()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

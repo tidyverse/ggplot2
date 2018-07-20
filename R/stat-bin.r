@@ -9,15 +9,15 @@
 #'   bin width of a time variable is the number of seconds.
 #' @param bins Number of bins. Overridden by `binwidth`. Defaults to 30.
 #' @param center The center of one of the bins.  Note that if center is above or
-#'   below the range of the data, things will be shifted by an appropriate
-#'   number of `width`s. To center on integers, for example, use
+#'   below the range of the data, things will be shifted by the appropriate
+#'   `width`. To center on integers, for example, use
 #'   `width = 1` and `center = 0`, even if `0` is outside the range
 #'   of the data.  At most one of `center` and `boundary` may be
 #'   specified.
 #' @param boundary A boundary between two bins. As with `center`, things
 #'   are shifted when `boundary` is outside the range of the data. For
-#'   example, to center on integers, use `width = 1` and \code{boundary =
-#'   0.5}, even if `0.5` is outside the range of the data.  At most one of
+#'   example, to center on integers, use `width = 1` and `boundary = 0.5`,
+#'   even if `0.5` is outside the range of the data.  At most one of
 #'   `center` and `boundary` may be specified.
 #' @param breaks Alternatively, you can supply a numeric vector giving
 #'    the bin boundaries. Overrides `binwidth`, `bins`, `center`,
@@ -36,7 +36,7 @@
 #'
 #' @seealso [stat_count()], which counts the number of cases at each x
 #'   position, without binning. It is suitable for both discrete and continuous
-#'   x data, whereas \link{stat_bin} is suitable only for continuous x data.
+#'   x data, whereas `stat_bin()` is suitable only for continuous x data.
 #' @export
 #' @rdname geom_histogram
 stat_bin <- function(mapping = NULL, data = NULL,

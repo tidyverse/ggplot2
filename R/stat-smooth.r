@@ -1,5 +1,6 @@
-#' @param method Smoothing method (function) to use, eg. `lm`, `glm`,
-#'   `gam`, `loess`, `MASS::rlm`.
+#' @param method Smoothing method (function) to use, accepts either a character vector,
+#'   e.g. `"auto"`, `"lm"`, `"glm"`, `"gam"`, `"loess"` or a function, e.g.
+#'   `MASS::rlm` or `mgcv::gam`, `lm`, or `loess`.
 #'
 #'   For `method = "auto"` the smoothing method is chosen based on the
 #'   size of the largest group (across all panels). [loess()] is
@@ -8,7 +9,7 @@
 #'   `loess` gives a better appearance, but is \eqn{O(N^{2})}{O(N^2)} in memory,
 #'   so does not work for larger datasets.
 #'
-#'   If you have fewer than 1,000 observations but want to use the same `gam`
+#'   If you have fewer than 1,000 observations but want to use the same `gam()`
 #'   model that `method = "auto"` would use then set
 #'   `method = "gam", formula = y ~ s(x, bs = "cs")`.
 #' @param formula Formula to use in smoothing function, eg. `y ~ x`,

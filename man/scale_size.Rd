@@ -12,15 +12,17 @@
 \title{Scales for area or radius}
 \usage{
 scale_radius(name = waiver(), breaks = waiver(), labels = waiver(),
-  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
+  limits = NULL, range = c(1, 6), trans = "identity",
+  guide = "legend")
 
 scale_size(name = waiver(), breaks = waiver(), labels = waiver(),
-  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
+  limits = NULL, range = c(1, 6), trans = "identity",
+  guide = "legend")
 
 scale_size_area(..., max_size = 6)
 }
 \arguments{
-\item{name}{The name of the scale. Used as axis or legend title. If
+\item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
@@ -67,7 +69,7 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{...}{Arguments passed on to \code{continuous_scale}
 \describe{
-  \item{name}{The name of the scale. Used as axis or legend title. If
+  \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
