@@ -13,6 +13,10 @@
     feed data columns into `aes()` or into parameters of geoms or stats. However,
     doing so remains discouraged (@clauswilke).
 
+*   Aesthetic names are now consistently standardised both in `aes()` and in the
+    `aesthetics` argument of scale functions. Also, the US spelling "color"
+    is now always internally converted to "colour", even when part of a longer
+    aesthetic name (e.g., `point_color`) (@clauswilke, #2649).
 
 # ggplot2 3.0.0
 
