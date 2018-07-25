@@ -1,7 +1,6 @@
 #' @include theme-defaults.r
 #' @include theme-elements.r
-theme_env <- new.env(parent = emptyenv())
-theme_env$current <- theme_gray()
+ggplot_global$theme_current <- theme_gray()
 
 #' Get, set, and modify the active theme
 #'
@@ -24,7 +23,7 @@ theme_env$current <- theme_gray()
 #'
 #' `theme_update` uses the `+` operator, so that any unspecified
 #' values in the theme element will default to the values they are set in the
-#' theme. `theme_replace` uses \code{\%+replace\%} tocompletely replace
+#' theme. `theme_replace` uses \code{\%+replace\%} to completely replace
 #' the element, so any unspecified values will overwrite the current value in
 #' the theme with `NULL`s.
 #'
@@ -66,7 +65,7 @@ theme_env$current <- theme_gray()
 #' # theme_update() and theme_replace() are similar except they
 #' # apply directly to the current/active theme.
 theme_get <- function() {
-  theme_env$current
+  ggplot_global$theme_current
 }
 
 #' @rdname theme_get
@@ -79,8 +78,8 @@ theme_set <- function(new) {
       paste(missing, collapse = ", "), call. = FALSE)
   }
 
-  old <- theme_env$current
-  theme_env$current <- new
+  old <- ggplot_global$theme_current
+  ggplot_global$theme_current <- new
   invisible(old)
 }
 

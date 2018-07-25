@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 2.2.1.9000
+Version: 3.0.0.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Description: A system for 'declaratively' creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
@@ -26,7 +26,7 @@ Imports:
     mgcv,
     plyr (>= 1.7.1),
     reshape2,
-    rlang,
+    rlang (>= 0.2.1),
     scales (>= 0.5.0),
     stats,
     tibble,
@@ -61,6 +61,7 @@ BugReports: https://github.com/tidyverse/ggplot2/issues
 LazyData: true
 Collate: 
     'ggproto.r'
+    'ggplot-global.R'
     'aaa-.r'
     'aes-calculated.r'
     'aes-colour-fill-alpha.r'

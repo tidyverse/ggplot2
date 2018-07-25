@@ -15,7 +15,7 @@ rd_aesthetics <- function(type, name) {
     "\\itemize{",
     paste0("  \\item ", aes),
     "}",
-    "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}"
+    "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}."
   )
 }
 

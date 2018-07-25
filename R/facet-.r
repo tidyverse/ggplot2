@@ -66,9 +66,9 @@ NULL
 #'
 #'   - `draw_labels`: Given the gtable returned by `draw_panels`,
 #'   add axis titles to the gtable. The default is to add one title at each side
-#'   depending on the position and existance of axes.
+#'   depending on the position and existence of axes.
 #'
-#' All extension methods recieve the content of the params field as the params
+#' All extension methods receive the content of the params field as the params
 #' argument, so the constructor function will generally put all relevant
 #' information into this field. The only exception is the `shrink`
 #' parameter which is used to determine if scales are retrained after Stat

@@ -37,12 +37,19 @@
 #'
 #'   In the unlikely event you specify both US and UK spellings of colour, the
 #'   US spelling will take precedence.
+#'
+#'   Sometimes it can be useful to hide the outliers, for example when overlaying
+#'   the raw data points on top of the boxplot. Hiding the outliers can be achieved
+#'   by setting `outlier.shape = NA`. Importantly, this does not remove the outliers,
+#'   it only hides them, so the range calculated for the y-axis will be the
+#'   same with outliers shown and outliers hidden.
+#'
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
 #'   are significantly different.
 #' @param notchwidth For a notched box plot, width of the notch relative to
-#'   the body (default 0.5)
+#'   the body (defaults to `notchwidth = 0.5`).
 #' @param varwidth If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly

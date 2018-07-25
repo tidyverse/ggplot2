@@ -21,7 +21,7 @@
 #'    [fortify()] for which variables will be created.
 #'
 #'    A `function` will be called with a single argument,
-#'    the plot data. The return value must be a `data.frame.`, and
+#'    the plot data. The return value must be a `data.frame`, and
 #'    will be used as the layer data.
 #' @param geom The geometric object to use display the data
 #' @param stat The statistical transformation to use on the data for this

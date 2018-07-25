@@ -19,7 +19,8 @@
 #' @param limitsize When `TRUE` (the default), `ggsave` will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
-#' @param ... Other arguments passed on to graphics `device`.
+#' @param ... Other arguments passed on to the graphics device function,
+#'   as specified by `device`.
 #' @export
 #' @examples
 #' \dontrun{

@@ -1,12 +1,13 @@
 #' Bar charts
 #'
-#' There are two types of bar charts: `geom_bar` makes the height of the
+#' There are two types of bar charts: `geom_bar()` and `geom_col()`.
+#' `geom_bar()` makes the height of the
 #' bar proportional to the number of cases in each group (or if the
 #' `weight` aesthetic is supplied, the sum of the weights). If you want the
 #' heights of the bars to represent values in the data, use
-#' \link{geom_col} instead. `geom_bar` uses `stat_count` by
-#' default: it counts the number of cases at each x position. `geom_col`
-#' uses `stat_identity`: it leaves the data as is.
+#' `geom_col()` instead. `geom_bar()` uses `stat_count()` by
+#' default: it counts the number of cases at each x position. `geom_col()`
+#' uses `stat_identity()`: it leaves the data as is.
 #'
 #' A bar chart uses height to represent a value, and so the base of the
 #' bar must always be shown to produce a valid visual comparison. Naomi Robbins
@@ -25,16 +26,16 @@
 #' @seealso
 #'   [geom_histogram()] for continuous data,
 #'   [position_dodge()] and [position_dodge2()] for creating side-by-side
-#'   barcharts.
+#'   bar charts.
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param width Bar width. By default, set to 90\% of the resolution of the data.
-#' @param binwidth `geom_bar` no longer has a binwidth argument - if
+#' @param binwidth `geom_bar()` no longer has a binwidth argument - if
 #'   you use it you'll get an warning telling to you use
 #'   [geom_histogram()] instead.
-#' @param geom,stat Override the default connection between `geom_bar` and
-#'   `stat_count`.
+#' @param geom,stat Override the default connection between `geom_bar()` and
+#'   `stat_count()`.
 #' @examples
 #' # geom_bar is designed to make it easy to create bar charts that show
 #' # counts (or sums of weights)
@@ -111,6 +112,11 @@ geom_bar <- function(mapping = NULL, data = NULL,
 #' @include geom-rect.r
 GeomBar <- ggproto("GeomBar", GeomRect,
   required_aes = c("x", "y"),
+
+  # These aes columns are created by setup_data(). They need to be listed here so
+  # that GeomRect$handle_na() properly removes any bars that fall outside the defined
+  # limits, not just those for which x and y are outside the limits
+  non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
   setup_data = function(data, params) {
     data$width <- data$width %||%

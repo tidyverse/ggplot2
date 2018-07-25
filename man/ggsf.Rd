@@ -39,7 +39,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{geom}{The geometric object to use display the data}
@@ -64,7 +64,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{stat}{The statistical transformation to use on the data for this
@@ -83,7 +83,7 @@ use the CRS defined in the first layer.}
 
 \item{datum}{CRS that provides datum to use when generating graticules}
 
-\item{ndiscr}{number of segments to use for discretizing graticule lines;
+\item{ndiscr}{number of segments to use for discretising graticule lines;
 try increasing this when graticules look unexpected}
 
 \item{default}{Is this the default coordinate system? If \code{FALSE} (the default),
@@ -102,7 +102,7 @@ or polygons.
 \section{Geometry aesthetic}{
 
 \code{geom_sf} uses a unique aesthetic: \code{geometry}, giving an
-column of class \code{sfc} containg simple features data. There
+column of class \code{sfc} containing simple features data. There
 are three ways to supply the \code{geometry} aesthetic:
 \itemize{
 \item Do nothing: by default \code{geom_sf} assumes it is stored in

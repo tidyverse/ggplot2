@@ -33,7 +33,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{stat}{The statistical transformation to use on the data for this
@@ -44,11 +44,11 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{parse}{If \code{TRUE}, the labels will be parsed into expressions and
-displayed as described in ?plotmath}
+displayed as described in \code{?plotmath}.}
 
 \item{nudge_x, nudge_y}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offsetting text from points, particularly on discrete scales.}
@@ -92,7 +92,7 @@ resize a plot, labels stay the same size, but the size of the axes changes.
 data, even if coordinates x, y are set to single values in the call
 to \code{geom_label} or \code{geom_text}.
 To add labels at specified points use \code{\link[=annotate]{annotate()}} with
-\code{annotate(geom = "text", ...)} or \code{annotate(geom = "label", ...)}
+\code{annotate(geom = "text", ...)} or \code{annotate(geom = "label", ...)}.
 }
 \section{Aesthetics}{
 
@@ -112,7 +112,7 @@ To add labels at specified points use \code{\link[=annotate]{annotate()}} with
 \item \code{size}
 \item \code{vjust}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{\code{geom_label}}{
@@ -129,7 +129,7 @@ aesthetics. These can either be a number between 0 (right/bottom) and
 1 (top/left) or a character (\code{"left"}, \code{"middle"}, \code{"right"}, \code{"bottom"},
 \code{"center"}, \code{"top"}). There are two special alignments: \code{"inward"} and
 \code{"outward"}. Inward always aligns text towards the center, and outward
-aligns it away from the center
+aligns it away from the center.
 }
 
 \examples{
@@ -190,7 +190,7 @@ ggplot(data = df, aes(x, y, group = grp)) +
 ggplot(data = df, aes(x, y, group = grp)) +
   geom_col(aes(fill = grp), position = "dodge") +
   geom_text(aes(label = y), position = position_dodge(0.9))
-# Use you can't nudge and dodge text, so instead adjust the y postion
+# Use you can't nudge and dodge text, so instead adjust the y position
 ggplot(data = df, aes(x, y, group = grp)) +
   geom_col(aes(fill = grp), position = "dodge") +
   geom_text(

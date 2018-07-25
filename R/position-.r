@@ -15,7 +15,7 @@
 #'
 #'   - `compute_layer(self, data, params, panel)` is called once
 #'     per layer. `panel` is currently an internal data structure, so
-#'     this method should not be overriden.
+#'     this method should not be overridden.
 #'
 #'   - `compute_panel(self, data, params, panel)` is called once per
 #'     panel and should return a modified data frame.

@@ -79,7 +79,7 @@ expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
 \item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default replaces out of bounds values with NA.}
+(out of bounds). The default replaces out of bounds values with \code{NA}.}
 
 \item{na.value}{Missing values will be replaced with this value.}
 
@@ -88,7 +88,7 @@ object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
 "logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
 
-A transformation object bundles together a transform, it's inverse,
+A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called \code{name_trans}, e.g.
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
@@ -136,7 +136,7 @@ p1 + xlim(2, 6)
 #  * choose where the ticks appear
 p1 + scale_x_continuous(breaks = c(2, 4, 6))
 
-#  * add what labels they have
+#  * choose your own labels
 p1 + scale_x_continuous(
   breaks = c(2, 4, 6),
   label = c("two", "four", "six")
@@ -163,6 +163,7 @@ p1 + scale_y_reverse()
 p1 + scale_y_continuous(trans = scales::reciprocal_trans())
 
 # You can also create your own. See ?scales::trans_new
+
 }
 \seealso{
 \code{\link[=sec_axis]{sec_axis()}} for how to specify secondary axes
