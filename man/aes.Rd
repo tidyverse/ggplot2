@@ -21,9 +21,9 @@ properties (aesthetics) of geoms. Aesthetic mappings can be set in
 \code{\link[=ggplot2]{ggplot2()}} and in individual layers.
 }
 \details{
-This function also standardises aesthetic names by performing partial
-matching, converting color to colour, and translating old style R names to
-ggplot names (e.g. pch to shape, cex to size).
+This function also standardises aesthetic names by converting \code{color} to \code{colour}
+(also in substrings, e.g. \code{point_color} to \code{point_colour}) and translating old style
+R names to ggplot names (eg. \code{pch} to \code{shape}, \code{cex} to \code{size}).
 }
 \section{Quasiquotation}{
 
