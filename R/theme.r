@@ -422,20 +422,34 @@ theme <- function(line,
   )
 }
 
-is_theme_complete <- function(x) isTRUE(attr(x, "complete"))
+# check whether theme is complete
+is_theme_complete <- function(x) isTRUE(attr(x, "complete", exact = TRUE))
 
+# check whether theme should be validated
+is_theme_validate <- function(x) {
+  validate <- attr(x, "validate", exact = TRUE)
+  if (is.null(validate))
+    TRUE # we validate by default
+  else
+    isTRUE(validate)
+}
 
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x, default = theme_get()) {
   theme <- x$theme
+
   if (!is_theme_complete(theme)) {
-    theme <- defaults(theme, default)
+    # can't use `defaults()` here because it strips attributes
+    missing <- setdiff(names(default), names(theme))
+    theme[missing] <- default[missing]
   }
 
   # Check that all elements have the correct class (element_text, unit, etc)
-  if (isTRUE(theme$validate)) {
-    mapply(validate_element, elements, names(elements))
+  if (is_theme_validate(theme)) {
+    mapply(validate_element, theme, names(theme))
   }
+
+  theme
 }
 
 #' Modify properties of an element in a theme object
@@ -518,10 +532,12 @@ update_theme <- function(oldtheme, newtheme) {
   # Turn the 'theme' list into a proper theme object first, and preserve
   # the 'complete' attribute. It's possible that oldtheme is an empty
   # list, and in that case, set complete to FALSE.
-  old.validate <- isTRUE(attr(oldtheme, "validate"))
-  new.validate <- isTRUE(attr(newtheme, "validate"))
+  old.validate <- is_theme_validate(oldtheme)
+  new.validate <- is_theme_validate(newtheme)
   oldtheme <- do.call(theme, c(oldtheme,
-    complete = isTRUE(attr(oldtheme, "complete")),
+    complete = is_theme_complete(oldtheme),
+    # if at least one part of the theme can't be validated then
+    # we don't validate
     validate = old.validate & new.validate))
 
   oldtheme + newtheme

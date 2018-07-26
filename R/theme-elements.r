@@ -146,7 +146,7 @@ element_render <- function(theme, element, ..., name = NULL) {
   # Get the element from the theme, calculating inheritance
   el <- calc_element(element, theme)
   if (is.null(el)) {
-    message("Theme element ", element, " missing")
+    message("Theme element `", element, "` missing")
     return(zeroGrob())
   }
 
@@ -367,7 +367,7 @@ validate_element <- function(el, elname) {
   eldef <- ggplot_global$element_tree[[elname]]
 
   if (is.null(eldef)) {
-    stop('"', elname, '" is not a valid theme element name.')
+    stop("Theme element `", elname, "` is not defined in the element hierarchy.", call. = FALSE)
   }
 
   # NULL values for elements are OK
@@ -377,12 +377,12 @@ validate_element <- function(el, elname) {
     # Need to be a bit looser here since sometimes it's a string like "top"
     # but sometimes its a vector like c(0,0)
     if (!is.character(el) && !is.numeric(el))
-      stop("Element ", elname, " must be a string or numeric vector.")
+      stop("Theme element `", elname, "` must be a string or numeric vector.", call. = FALSE)
   } else if (eldef$class == "margin") {
     if (!is.unit(el) && length(el) == 4)
-      stop("Element ", elname, " must be a unit vector of length 4.")
+      stop("Theme element `", elname, "` must be a unit vector of length 4.", call. = FALSE)
   } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
-      stop("Element ", elname, " must be a ", eldef$class, " object.")
+      stop("Theme element `", elname, "` must be an `", eldef$class, "` object.", call. = FALSE)
   }
   invisible()
 }
