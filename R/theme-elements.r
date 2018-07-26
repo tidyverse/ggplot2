@@ -140,7 +140,16 @@ print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 #' @keywords internal
 is.rel <- function(x) inherits(x, "rel")
 
-# Given a theme object and element name, return a grob for the element
+#' Render a specified theme element into a grob
+#'
+#' Given a theme object and element name, returns a grob for the element.
+#' Uses [`element_grob()`] to generate the grob.
+#' @param theme The theme object
+#' @param element The element name given as character vector
+#' @param ... Other arguments provided to [`element_grob()`]
+#' @param name Character vector added to the name of the grob
+#' @keywords internal
+#' @export
 element_render <- function(theme, element, ..., name = NULL) {
 
   # Get the element from the theme, calculating inheritance
@@ -243,13 +252,17 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 
 
 
-# Define an element's class and what other elements it inherits from
-#
-# @param class The name of class (like "element_line", "element_text",
-#  or the reserved "character", which means a character vector (not
-#  "character" class)
-# @param inherit A vector of strings, naming the elements that this
-#  element inherits from.
+#' Define an element's class and what other elements it inherits from
+#'
+#' @param class The name of class (like "element_line", "element_text",
+#'  or the reserved "character", which means a character vector (not
+#'  "character" class)
+#' @param inherit A vector of strings, naming the elements that this
+#'  element inherits from.
+#' @param description An optional character vector providing a description
+#'  for the element
+#' @keywords internal
+#' @export
 el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   list(class = class, inherit = inherit, description = description)
 }
@@ -363,8 +376,9 @@ ggplot_global$element_tree <- list(
 #
 # @param el an element
 # @param elname the name of the element
-validate_element <- function(el, elname) {
-  eldef <- ggplot_global$element_tree[[elname]]
+# @param element_tree the element tree to validate against
+validate_element <- function(el, elname, element_tree) {
+  eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {
     stop("Theme element `", elname, "` is not defined in the element hierarchy.", call. = FALSE)

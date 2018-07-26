@@ -104,5 +104,14 @@ theme_replace <- function(...) {
 
   # Can't use modifyList here since it works recursively and drops NULLs
   e1[names(e2)] <- e2
+
+  # replace element tree if provided
+  attr(e1, "element_tree") <-
+    attr(e2, "element_tree", exact = TRUE) %||%
+      attr(e1, "element_tree", exact = TRUE)
+
+  # `complete` and `validate` are ignored.
+  # Not sure how `%+replace%` should handle them.
+
   e1
 }

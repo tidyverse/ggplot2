@@ -371,9 +371,10 @@ theme <- function(line,
                   strip.switch.pad.wrap,
                   ...,
                   complete = FALSE,
-                  validate = TRUE
+                  validate = TRUE,
+                  element_tree = NULL
                   ) {
-  elements <- find_args(..., complete = NULL, validate = NULL)
+  elements <- find_args(..., complete = NULL, validate = NULL, element_tree = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
     warning("`axis.ticks.margin` is deprecated. Please set `margin` property ",
@@ -418,7 +419,8 @@ theme <- function(line,
     elements,
     class = c("theme", "gg"),
     complete = complete,
-    validate = validate
+    validate = validate,
+    element_tree = element_tree
   )
 }
 
@@ -434,6 +436,17 @@ is_theme_validate <- function(x) {
     isTRUE(validate)
 }
 
+# obtain the full element tree from a theme,
+# substituting the defaults if needed
+complete_element_tree <- function(theme) {
+  element_tree <- attr(theme, "element_tree", exact = TRUE)
+  if (is.null(element_tree)) {
+    ggplot_global$element_tree
+  } else {
+    defaults(element_tree, ggplot_global$element_tree)
+  }
+}
+
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x, default = theme_get()) {
   theme <- x$theme
@@ -446,7 +459,10 @@ plot_theme <- function(x, default = theme_get()) {
 
   # Check that all elements have the correct class (element_text, unit, etc)
   if (is_theme_validate(theme)) {
-    mapply(validate_element, theme, names(theme))
+    mapply(
+      validate_element, theme, names(theme),
+      MoreArgs = list(element_tree = complete_element_tree(theme))
+    )
   }
 
   theme
@@ -489,7 +505,19 @@ add_theme <- function(t1, t2, t2name) {
   }
 
   # If either theme is complete, then the combined theme is complete
-  attr(t1, "complete") <- is_theme_complete(t1) || is_theme_complete(t2)
+  attr(t1, "complete") <-
+    is_theme_complete(t1) || is_theme_complete(t2)
+
+  # Only validate if both themes should be validated
+  attr(t1, "validate") <-
+    is_theme_validate(t1) && is_theme_validate(t2)
+
+  # Merge element trees if provided
+  attr(t1, "element_tree") <- defaults(
+    attr(t2, "element_tree", exact = TRUE),
+    attr(t1, "element_tree", exact = TRUE)
+  )
+
   t1
 }
 
@@ -531,14 +559,15 @@ update_theme <- function(oldtheme, newtheme) {
   # Update the theme elements with the things from newtheme
   # Turn the 'theme' list into a proper theme object first, and preserve
   # the 'complete' attribute. It's possible that oldtheme is an empty
-  # list, and in that case, set complete to FALSE.
-  old.validate <- is_theme_validate(oldtheme)
-  new.validate <- is_theme_validate(newtheme)
-  oldtheme <- do.call(theme, c(oldtheme,
-    complete = is_theme_complete(oldtheme),
-    # if at least one part of the theme can't be validated then
-    # we don't validate
-    validate = old.validate & new.validate))
+  # list, and in that case, set complete to FALSE but validate to TRUE
+  oldtheme <- do.call(
+    theme,
+    c(
+      oldtheme,
+      complete = is_theme_complete(oldtheme),
+      validate = is_theme_validate(oldtheme)
+    )
+  )
 
   oldtheme + newtheme
 }
@@ -573,14 +602,15 @@ calc_element <- function(element, theme, verbose = FALSE) {
   }
 
   # If the element is defined (and not just inherited), check that
-  # it is of the class specified in .element_tree
+  # it is of the class specified in element_tree
+  element_tree <- complete_element_tree(theme)
   if (!is.null(theme[[element]]) &&
-      !inherits(theme[[element]], ggplot_global$element_tree[[element]]$class)) {
-    stop(element, " should have class ", ggplot_global$element_tree[[element]]$class)
+      !inherits(theme[[element]], element_tree[[element]]$class)) {
+    stop(element, " should have class ", element_tree[[element]]$class)
   }
 
   # Get the names of parents from the inheritance tree
-  pnames <- ggplot_global$element_tree[[element]]$inherit
+  pnames <- element_tree[[element]]$inherit
 
   # If no parents, this is a "root" node. Just return this element.
   if (is.null(pnames)) {

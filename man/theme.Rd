@@ -24,7 +24,7 @@ theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
   plot.caption, plot.tag, plot.tag.position, plot.margin, strip.background,
   strip.background.x, strip.background.y, strip.placement, strip.text,
   strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
-  complete = FALSE, validate = TRUE)
+  complete = FALSE, validate = TRUE, element_tree = NULL)
 }
 \arguments{
 \item{line}{all line elements (\code{element_line})}
