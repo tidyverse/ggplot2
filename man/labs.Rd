@@ -34,8 +34,8 @@ to differentiate between multiple plots.
 }
 \details{
 You can also set axis and legend labels in the individual scales (using
-the first argument, the \code{name}). I recommend doing this if you're
-changing other scale options.
+the first argument, the \code{name}). If you're changing other scale options, this
+is recommended.
 }
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()

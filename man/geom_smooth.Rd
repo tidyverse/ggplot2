@@ -45,7 +45,7 @@ to the paired geom/stat.}
 
 \item{method}{Smoothing method (function) to use, accepts either a character vector,
 e.g. \code{"auto"}, \code{"lm"}, \code{"glm"}, \code{"gam"}, \code{"loess"} or a function, e.g.
-\code{MASS::rlm} or \code{mgcv::gam}, \code{lm}, or \code{loess}.
+\code{MASS::rlm} or \code{mgcv::gam}, \code{base::lm}, or \code{base::loess}.
 
 For \code{method = "auto"} the smoothing method is chosen based on the
 size of the largest group (across all panels). \code{\link[=loess]{loess()}} is
@@ -55,7 +55,7 @@ used with \code{formula = y ~ s(x, bs = "cs")}. Somewhat anecdotally,
 so does not work for larger datasets.
 
 If you have fewer than 1,000 observations but want to use the same \code{gam()}
-model that \code{method = "auto"} would use then set
+model that \code{method = "auto"} would use, then set
 \code{method = "gam", formula = y ~ s(x, bs = "cs")}.}
 
 \item{formula}{Formula to use in smoothing function, eg. \code{y ~ x},
@@ -98,7 +98,7 @@ function defined by \code{method}.}
 \description{
 Aids the eye in seeing patterns in the presence of overplotting.
 \code{geom_smooth()} and \code{stat_smooth()} are effectively aliases: they
-both use the same arguments. Use \code{geom_smooth()} unless you want to
+both use the same arguments. Use \code{stat_smooth()} if you want to
 display the results with a non-standard geom.
 }
 \details{

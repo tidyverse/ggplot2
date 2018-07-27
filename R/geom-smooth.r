@@ -2,7 +2,7 @@
 #'
 #' Aids the eye in seeing patterns in the presence of overplotting.
 #' `geom_smooth()` and `stat_smooth()` are effectively aliases: they
-#' both use the same arguments. Use `geom_smooth()` unless you want to
+#' both use the same arguments. Use `stat_smooth()` if you want to
 #' display the results with a non-standard geom.
 #'
 #' Calculation is performed by the (currently undocumented)

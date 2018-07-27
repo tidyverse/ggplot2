@@ -78,18 +78,15 @@ bin width of a time variable is the number of seconds.}
 \item{geom, stat}{Use to override the default connection between
 \code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}.}
 
-\item{center}{The center of one of the bins.  Note that if center is above or
-below the range of the data, things will be shifted by the appropriate
-\code{width}. To center on integers, for example, use
-\code{width = 1} and \code{center = 0}, even if \code{0} is outside the range
-of the data.  At most one of \code{center} and \code{boundary} may be
-specified.}
-
-\item{boundary}{A boundary between two bins. As with \code{center}, things
-are shifted when \code{boundary} is outside the range of the data. For
-example, to center on integers, use \code{width = 1} and \code{boundary = 0.5},
-even if \code{0.5} is outside the range of the data.  At most one of
-\code{center} and \code{boundary} may be specified.}
+\item{center, boundary}{bin position specifiers. Only one, \code{center} or
+\code{boundary}, may be specified for a single plot. \code{center} specifies the
+center of one of the bins. \code{boundary} specifies the boundary between two
+bins. Note that if either is above or below the range of the data, things
+will be shifted by the appropriate integer multiple of \code{width}.
+For example, to center on integers use \code{width = 1} and \code{center = 0}, even
+if \code{0} is outside the range of the data. Alternatively, this same alignment
+can be specified with \code{width = 1} and \code{boundary = 0.5}, even if \code{0.5} is
+outside the range of the data.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving
 the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
@@ -104,7 +101,7 @@ frequency polygons touch 0. Defaults to \code{FALSE}.}
 \description{
 Visualise the distribution of a single continuous variable by dividing
 the x axis into bins and counting the number of observations in each bin.
-Histograms (\code{geom_histogram()}) display the count with bars; frequency
+Histograms (\code{geom_histogram()}) display the counts with bars; frequency
 polygons (\code{geom_freqpoly()}) display the counts with lines. Frequency
 polygons are more suitable when you want to compare the distribution
 across the levels of a categorical variable.

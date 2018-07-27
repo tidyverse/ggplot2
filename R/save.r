@@ -32,7 +32,7 @@
 #' ggsave("mtcars.pdf", width = 4, height = 4)
 #' ggsave("mtcars.pdf", width = 20, height = 20, units = "cm")
 #'
-#' # cleanup unwanted files with base unlink()
+#' # delete files with base::unlink()
 #' unlink("mtcars.pdf")
 #' unlink("mtcars.png")
 #'

@@ -26,8 +26,8 @@ update_labels <- function(p, labels) {
 #' to differentiate between multiple plots.
 #'
 #' You can also set axis and legend labels in the individual scales (using
-#' the first argument, the `name`). I recommend doing this if you're
-#' changing other scale options.
+#' the first argument, the `name`). If you're changing other scale options, this
+#' is recommended.
 #'
 #' @param label The text for the axis, plot title or caption below the plot.
 #' @param subtitle the text for the subtitle for the plot which will be

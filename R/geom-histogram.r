@@ -2,7 +2,7 @@
 #'
 #' Visualise the distribution of a single continuous variable by dividing
 #' the x axis into bins and counting the number of observations in each bin.
-#' Histograms (`geom_histogram()`) display the count with bars; frequency
+#' Histograms (`geom_histogram()`) display the counts with bars; frequency
 #' polygons (`geom_freqpoly()`) display the counts with lines. Frequency
 #' polygons are more suitable when you want to compare the distribution
 #' across the levels of a categorical variable.
