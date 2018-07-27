@@ -19,6 +19,14 @@
 #' @param limitsize When `TRUE` (the default), `ggsave` will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
+#' @param preset A character string to specify `width` and `height` (and
+#'   `units`) at once. Recognizes common paper sizes (such as "a4" and
+#'   "letter"), common screen resolutions ("4k"), or a resolution specification
+#'   such as "1920x1080". All presets default to landscape orientation, and
+#'   portrait can be specified by appending an "r" (for rotated) to the end of
+#'   the string. This is similar to the `paper` option for
+#'   \code{\link[grDevices]{pdf}()}, but with landscape being the default as
+#'   it's more common. Ignored if `width`/`height` was specified.
 #' @param ... Other arguments passed on to the graphics device function,
 #'   as specified by `device`.
 #' @export
@@ -44,9 +52,21 @@
 ggsave <- function(filename, plot = last_plot(),
                    device = NULL, path = NULL, scale = 1,
                    width = NA, height = NA, units = c("in", "cm", "mm"),
-                   dpi = 300, limitsize = TRUE, ...) {
+                   dpi = 300, limitsize = TRUE, preset = NULL, ...) {
 
   dpi <- parse_dpi(dpi)
+  if (!is.null(preset)) {
+    if (is.na(width) && is.na(height)) {
+      preset_values <- parse_preset(preset, dpi)
+      width <- preset_values$width
+      height <- preset_values$height
+      units <- preset_values$units
+    } else {
+      warning(
+        "Ignoring 'preset = \"", preset, "\"', as width/height was specified."
+      )
+    }
+  }
   dev <- plot_dev(device, filename, dpi = dpi)
   dim <- plot_dim(c(width, height), scale = scale, units = units,
     limitsize = limitsize)
@@ -85,6 +105,80 @@ parse_dpi <- function(dpi) {
   } else {
     stop("DPI must be a single number or string", call. = FALSE)
   }
+}
+
+# Selected size presets obtained from:
+# https://en.wikipedia.org/wiki/Paper_size
+# https://en.wikipedia.org/wiki/Computer_display_standard
+# These are defined here (instead of inside the function below), so that they
+# can be accessed directly from within tests.
+ggsave_presets <- tibble::tribble(
+               ~names, ~width, ~height, ~units,
+                 "a3",    420,     297,   "mm",
+                 "a4",    297,     210,   "mm",
+                 "a5",    210,     148,   "mm",
+             "letter",     11,     8.5,   "in",
+     c("legal", "us"),     14,     8.5,   "in",
+          "executive",   10.5,    7.25,   "in",
+                 "hd",   1280,     720,   "px",
+  c("fhd", "full hd"),   1920,    1080,   "px",
+    c("4k", "4h uhd"),   3840,    1920,   "px",
+    c("5k", "5h uhd"),   5120,    2880,   "px",
+    c("8k", "8h uhd"),   5120,    2880,   "px",
+                "vga",    640,     480,   "px",
+               "svga",    800,     600,   "px",
+                "xga",   1024,     768,   "px",
+               "wxga",   1280,     800,   "px",
+              "wxga+",   1440,     900,   "px",
+               "uxga",   1600,    1200,   "px",
+             "wsxga+",   1680,    1050,   "px",
+              "wqxga",   2560,    1600,   "px"
+)
+
+#' Parse a size preset from the user
+#'
+#' A preset allows `width` and `height` (and `units`) to be specified at once.
+#' It recognizes common paper sizes (such as "a4" and "letter"), common screen
+#' resolutions ("4k"), or a resolution specification such as "1920x1080".
+#'
+#' @param preset Size preset from user
+#' @return Named list of width, height, and units
+#' @noRd
+parse_preset <- function(preset, dpi) {
+  if (!is.character(preset) || length(preset) != 1) {
+    stop("preset must be a character string.", call. = FALSE)
+  }
+  preset <- tolower(preset)
+
+  if (preset %in% unlist(ggsave_presets$names)) {
+    index <-
+      sapply(ggsave_presets$names, function(x) preset %in% x)
+    width <- ggsave_presets$width[index]
+    height <- ggsave_presets$height[index]
+    units <- ggsave_presets$units[index]
+  } else if (sub("r$", "", preset) %in% unlist(ggsave_presets$names)) {
+    index <-
+      sapply(ggsave_presets$names, function(x) sub("r$", "", preset) %in% x)
+    width <- ggsave_presets$height[index]
+    height <- ggsave_presets$width[index]
+    units <- ggsave_presets$units[index]
+  } else if (length(grep("^(\\d+)\\s?x\\s?(\\d+)$", preset)) == 1) {
+    width <- as.numeric(sub("^(\\d+)\\s?x\\s?(\\d+)$", "\\1", preset))
+    height <- as.numeric(sub("^(\\d+)\\s?x\\s?(\\d+)$", "\\2", preset))
+    units <- "px"
+  } else if (length(grep("^(\\d+)\\s?x\\s?(\\d+)r$", preset)) == 1) {
+    width <- as.numeric(sub("^(\\d+)\\s?x\\s?(\\d+)r$", "\\2", preset))
+    height <- as.numeric(sub("^(\\d+)\\s?x\\s?(\\d+)r$", "\\1", preset))
+    units <- "px"
+  } else {
+    stop("Unknown preset: ", preset, call. = FALSE)
+  }
+  if (units == "px") {
+    width <- width / dpi
+    height <- height / dpi
+    units = "in"
+  }
+  list(width = width, height = height, units = units)
 }
 
 plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),

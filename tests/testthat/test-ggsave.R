@@ -93,3 +93,46 @@ test_that("invalid non-single-string DPI values throw an error", {
   expect_error(parse_dpi(c(150, 300)), "DPI must be a single number or string")
   expect_error(parse_dpi(list(150)), "DPI must be a single number or string")
 })
+
+# parse_preset ----------------------------------------------------------------
+
+test_that("presets are formatted as expected", {
+  expect_true(all(ggsave_presets$width >= ggsave_presets$height))
+  landscape_presets <- unlist(ggsave_presets$names)
+  portrait_presets <- paste0(landscape_presets, "r")
+  expect_false(any(duplicated(c(landscape_presets, portrait_presets))))
+})
+
+test_that("invalid preset values throw an error", {
+  expect_error(parse_preset(letters), "preset must be a character string")
+  expect_error(parse_preset(1), "preset must be a character string")
+  expect_error(parse_preset(factor("a")), "preset must be a character string")
+  expect_error(parse_preset("abc"), "Unknown preset")
+})
+
+test_that("presets returned as expected", {
+  expect_equal(
+    parse_preset("a4"),
+    list(width = 297, height = 210, units = "mm")
+  )
+  expect_equal(
+    parse_preset("a4r"),
+    list(width = 210, height = 297, units = "mm")
+  )
+  expect_equal(
+    parse_preset("fhd", dpi = 300),
+    list(width = 1920 / 300, height = 1080 / 300, units = "in")
+  )
+  expect_equal(
+    parse_preset("fhdr", dpi = 300),
+    list(width = 1080 / 300, height = 1920 / 300, units = "in")
+  )
+  expect_equal(
+    parse_preset("1920x1080", dpi = 300),
+    list(width = 1920 / 300, height = 1080 / 300, units = "in")
+  )
+  expect_equal(
+    parse_preset("1920x1080r", dpi = 300),
+    list(width = 1080 / 300, height = 1920 / 300, units = "in")
+  )
+})

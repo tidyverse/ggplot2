@@ -6,7 +6,7 @@
 \usage{
 ggsave(filename, plot = last_plot(), device = NULL, path = NULL,
   scale = 1, width = NA, height = NA, units = c("in", "cm", "mm"),
-  dpi = 300, limitsize = TRUE, ...)
+  dpi = 300, limitsize = TRUE, preset = NULL, ...)
 }
 \arguments{
 \item{filename}{File name to create on disk.}
@@ -30,6 +30,15 @@ If not supplied, uses the size of current graphics device.}
 \item{limitsize}{When \code{TRUE} (the default), \code{ggsave} will not
 save images larger than 50x50 inches, to prevent the common error of
 specifying dimensions in pixels.}
+
+\item{preset}{A character string to specify \code{width} and \code{height} (and
+\code{units}) at once. Recognizes common paper sizes (such as "a4" and
+"letter"), common screen resolutions ("4k"), or a resolution specification
+such as "1920x1080". All presets default to landscape orientation, and
+portrait can be specified by appending an "r" (for rotated) to the end of
+the string. This is similar to the \code{paper} option for
+\code{\link[grDevices]{pdf}()}, but with landscape being the default as
+it's more common. Ignored if \code{width}/\code{height} was specified.}
 
 \item{...}{Other arguments passed on to the graphics device function,
 as specified by \code{device}.}

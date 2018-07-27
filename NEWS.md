@@ -18,6 +18,15 @@
     is now always internally converted to "colour", even when part of a longer
     aesthetic name (e.g., `point_color`) (@clauswilke, #2649).
 
+*   `ggsave()` has a new parameter `preset`, which allows plot `width` and
+    `height` (and `units`) to be specified at once. It recognizes common paper
+    sizes (such as "a4" and "letter"), common screen resolutions ("4k"), or a
+    resolution specification such as "1920x1080". All presets default to
+    landscape orientation, and portrait can be specified by appending an "r"
+    (for rotated) to the end of the string. This is similar to the `paper`
+    option for `grDevices::pdf()`, but with landscape being the default as it's
+    probably a more common choice for plots (@ilarischeinin).
+
 # ggplot2 3.0.0
 
 ## Breaking changes
