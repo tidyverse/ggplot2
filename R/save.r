@@ -61,7 +61,7 @@ ggsave <- function(filename, plot = last_plot(),
       width <- preset_values$width
       height <- preset_values$height
       units <- preset_values$units
-    } else {
+    } else {
       warning(
         "Ignoring 'preset = \"", preset, "\"', as width/height was specified."
       )
