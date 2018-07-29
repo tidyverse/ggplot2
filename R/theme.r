@@ -194,6 +194,9 @@
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
 #' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
+#' @param element_tree optional addition or modification to the element tree,
+#'   which specifies the inheritance relationship of the theme elements. See
+#'   [`el_def()`].
 #'
 #' @seealso
 #'   [+.gg()] and \code{\link{\%+replace\%}},

@@ -287,6 +287,10 @@ differently when added to a ggplot object. Also, when setting
 elements.}
 
 \item{validate}{\code{TRUE} to run \code{validate_element()}, \code{FALSE} to bypass checks.}
+
+\item{element_tree}{optional addition or modification to the element tree,
+which specifies the inheritance relationship of the theme elements. See
+\code{\link[=el_def]{el_def()}}.}
 }
 \description{
 Use \code{theme()} to modify individual components of a theme, allowing

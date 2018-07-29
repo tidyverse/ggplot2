@@ -255,12 +255,12 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #' Define an element's class and what other elements it inherits from
 #'
 #' @param class The name of class (like "element_line", "element_text",
-#'  or the reserved "character", which means a character vector (not
-#'  "character" class)
+#'  or the reserved "character", which implies a character or numeric
+#'  vector, not a class called "character").
 #' @param inherit A vector of strings, naming the elements that this
 #'  element inherits from.
 #' @param description An optional character vector providing a description
-#'  for the element
+#'  for the element.
 #' @keywords internal
 #' @export
 el_def <- function(class = NULL, inherit = NULL, description = NULL) {
