@@ -1,5 +1,8 @@
 # ggplot2 3.0.0.9000
 
+*   Add `subplot_wrap()` and `subplot_grid()` which make it easier to use 
+    faceting as a way to create subplots of different variables (@jiho, #2786).
+
 *   `stat_contour()`, `stat_density2d()`, `stat_bin2d()`,  `stat_binhex()`
     now calculate normalized statistics including `nlevel`, `ndensity`, and
     `ncount`. Also, `stat_density()` now includes the calculated statistic 
