@@ -221,6 +221,7 @@ Collate:
     'stat-summary.r'
     'stat-unique.r'
     'stat-ydensity.r'
+    'subplot.R'
     'summarise-plot.R'
     'summary.r'
     'theme-elements.r'
