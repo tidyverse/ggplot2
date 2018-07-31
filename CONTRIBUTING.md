@@ -124,7 +124,7 @@ Pull requests will be evaluated against a seven point checklist:
     to the appropriate function.
 
 This seems like a lot of work but don't worry if your pull request isn't perfect.
-It's a learning process and Winston and I will be on hand to help you out. 
+It's a learning process and members of the ggplot2 team will be on hand to help you out. 
 A pull request is a process, and unless you've submitted a few in the past 
 it's unlikely that your pull request will be accepted as is.
 
