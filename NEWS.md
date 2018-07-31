@@ -1,5 +1,8 @@
 # ggplot2 3.0.0.9000
 
+*   `sec_axis()` now works as expected when used in combination with tidy eval
+    (@dpseidel, #2788).
+
 *   `stat_contour()`, `stat_density2d()`, `stat_bin2d()`,  `stat_binhex()`
     now calculate normalized statistics including `nlevel`, `ndensity`, and
     `ncount`. Also, `stat_density()` now includes the calculated statistic 
