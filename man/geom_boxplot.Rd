@@ -152,7 +152,6 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \examples{
 p <- ggplot(mpg, aes(class, hwy))
 p + geom_boxplot()
-p + geom_boxplot() + geom_jitter(width = 0.2)
 p + geom_boxplot() + coord_flip()
 
 p + geom_boxplot(notch = TRUE)
@@ -161,6 +160,8 @@ p + geom_boxplot(fill = "white", colour = "#3366FF")
 # By default, outlier points match the colour of the box. Use
 # outlier.colour to override
 p + geom_boxplot(outlier.colour = "red", outlier.shape = 1)
+# Remove outliers when overlaying boxplot with original data points
+p + geom_boxplot(outlier.shape = NA) + geom_jitter(width = 0.2)
 
 # Boxplots are automatically dodged when any aesthetic is a factor
 p + geom_boxplot(aes(colour = drv))
@@ -171,6 +172,7 @@ ggplot(diamonds, aes(carat, price)) +
   geom_boxplot()
 ggplot(diamonds, aes(carat, price)) +
   geom_boxplot(aes(group = cut_width(carat, 0.25)))
+# Adjust the transparency of outliers using outlier.alpha
 ggplot(diamonds, aes(carat, price)) +
   geom_boxplot(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 
