@@ -117,7 +117,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{\code{geom_label()}}{
 
-Currently \code{geom_label()} does not support the \code{rot} parameter and
+Currently \code{geom_label()} does not support the \code{angle} aesthetic and
 is considerably slower than \code{geom_text()}. The \code{fill} aesthetic
 controls the background colour of the label.
 }

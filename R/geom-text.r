@@ -18,7 +18,7 @@
 #'
 #' @eval rd_aesthetics("geom", "text")
 #' @section `geom_label()`:
-#' Currently `geom_label()` does not support the `rot` parameter and
+#' Currently `geom_label()` does not support the `angle` aesthetic and
 #' is considerably slower than `geom_text()`. The `fill` aesthetic
 #' controls the background colour of the label.
 #'
