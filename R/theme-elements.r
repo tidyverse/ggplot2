@@ -1,7 +1,7 @@
 #' Theme elements
 #'
 #' @description
-#' In conjunction with the \link{theme} system, the `element_` functions
+#' In conjunction with the [theme()] system, the `element_` functions
 #' specify the display of how non-data components of the plot are a drawn.
 #'
 #'   - `element_blank`: draws nothing, and assigns no space.
@@ -121,6 +121,12 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
+#' @param colour.accent1,color.accent1 accent colour 1,
+#'   typically a lighter version of colour
+#' @param colour.accent2,color.accent2 accent colour 2,
+#'   typically a bright colour used for geom_smooth et al.
+#' @param fill.accent accent fill colour, typically a darker version of fill
+#' @param alpha colour/fill transparency, between 0 & 1.
 #' @export
 #' @rdname element
 element_geom <- function(fill = NULL, fill.accent = NULL,

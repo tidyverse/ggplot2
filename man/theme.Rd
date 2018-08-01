@@ -4,26 +4,27 @@
 \alias{theme}
 \title{Modify components of a theme}
 \usage{
-theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
-  axis.title.x.top, axis.title.x.bottom, axis.title.y, axis.title.y.left,
-  axis.title.y.right, axis.text, axis.text.x, axis.text.x.top,
-  axis.text.x.bottom, axis.text.y, axis.text.y.left, axis.text.y.right,
-  axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom, axis.ticks.y,
-  axis.ticks.y.left, axis.ticks.y.right, axis.ticks.length, axis.line,
-  axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y,
-  axis.line.y.left, axis.line.y.right, legend.background, legend.margin,
-  legend.spacing, legend.spacing.x, legend.spacing.y, legend.key,
-  legend.key.size, legend.key.height, legend.key.width, legend.text,
-  legend.text.align, legend.title, legend.title.align, legend.position,
-  legend.direction, legend.justification, legend.box, legend.box.just,
-  legend.box.margin, legend.box.background, legend.box.spacing,
-  panel.background, panel.border, panel.spacing, panel.spacing.x,
-  panel.spacing.y, panel.grid, panel.grid.major, panel.grid.minor,
-  panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
-  panel.grid.minor.y, panel.ontop, plot.background, plot.title, plot.subtitle,
-  plot.caption, plot.tag, plot.tag.position, plot.margin, strip.background,
-  strip.background.x, strip.background.y, strip.placement, strip.text,
-  strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
+theme(line, rect, text, title, aspect.ratio, geom, axis.title,
+  axis.title.x, axis.title.x.top, axis.title.x.bottom, axis.title.y,
+  axis.title.y.left, axis.title.y.right, axis.text, axis.text.x,
+  axis.text.x.top, axis.text.x.bottom, axis.text.y, axis.text.y.left,
+  axis.text.y.right, axis.ticks, axis.ticks.x, axis.ticks.x.top,
+  axis.ticks.x.bottom, axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right,
+  axis.ticks.length, axis.line, axis.line.x, axis.line.x.top,
+  axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right,
+  legend.background, legend.margin, legend.spacing, legend.spacing.x,
+  legend.spacing.y, legend.key, legend.key.size, legend.key.height,
+  legend.key.width, legend.text, legend.text.align, legend.title,
+  legend.title.align, legend.position, legend.direction,
+  legend.justification, legend.box, legend.box.just, legend.box.margin,
+  legend.box.background, legend.box.spacing, panel.background,
+  panel.border, panel.spacing, panel.spacing.x, panel.spacing.y,
+  panel.grid, panel.grid.major, panel.grid.minor, panel.grid.major.x,
+  panel.grid.major.y, panel.grid.minor.x, panel.grid.minor.y, panel.ontop,
+  plot.background, plot.title, plot.subtitle, plot.caption, plot.tag,
+  plot.tag.position, plot.margin, strip.background, strip.background.x,
+  strip.background.y, strip.placement, strip.text, strip.text.x,
+  strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
   complete = FALSE, validate = TRUE)
 }
 \arguments{
@@ -37,6 +38,8 @@ theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
 inherits from \code{text})}
 
 \item{aspect.ratio}{aspect ratio of the panel}
+
+\item{geom}{default geom aesthetics}
 
 \item{axis.title}{label of axes (\code{element_text}; inherits from
 \code{text})}

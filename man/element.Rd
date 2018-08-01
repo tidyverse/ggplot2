@@ -6,6 +6,7 @@
 \alias{element_rect}
 \alias{element_line}
 \alias{element_text}
+\alias{element_geom}
 \alias{rel}
 \title{Theme elements}
 \usage{
@@ -13,15 +14,22 @@ margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
 
 element_blank()
 
-element_rect(fill = NULL, colour = NULL, size = NULL, linetype = NULL,
-  color = NULL, inherit.blank = FALSE)
+element_rect(fill = NULL, colour = NULL, size = NULL,
+  linetype = NULL, color = NULL, inherit.blank = FALSE)
 
 element_line(colour = NULL, size = NULL, linetype = NULL,
-  lineend = NULL, color = NULL, arrow = NULL, inherit.blank = FALSE)
+  lineend = NULL, color = NULL, arrow = NULL,
+  inherit.blank = FALSE)
 
-element_text(family = NULL, face = NULL, colour = NULL, size = NULL,
-  hjust = NULL, vjust = NULL, angle = NULL, lineheight = NULL,
-  color = NULL, margin = NULL, debug = NULL, inherit.blank = FALSE)
+element_text(family = NULL, face = NULL, colour = NULL,
+  size = NULL, hjust = NULL, vjust = NULL, angle = NULL,
+  lineheight = NULL, color = NULL, margin = NULL, debug = NULL,
+  inherit.blank = FALSE)
+
+element_geom(fill = NULL, fill.accent = NULL, colour = NULL,
+  color = NULL, colour.accent1 = NULL, color.accent1 = NULL,
+  colour.accent2 = NULL, color.accent2 = NULL, alpha = NULL,
+  inherit.blank = FALSE)
 
 rel(x)
 }
@@ -72,19 +80,30 @@ side of the text facing towards the center of the plot.}
 rectangle behind the complete text area, and a point where each label
 is anchored.}
 
+\item{fill.accent}{accent fill colour, typically a darker version of fill}
+
+\item{colour.accent1, color.accent1}{accent colour 1,
+typically a lighter version of colour}
+
+\item{colour.accent2, color.accent2}{accent colour 2,
+typically a bright colour used for geom_smooth et al.}
+
+\item{alpha}{colour/fill transparency, between 0 & 1.}
+
 \item{x}{A single number specifying size relative to parent element.}
 }
 \value{
 An S3 object of class \code{element}, \code{rel}, or \code{margin}.
 }
 \description{
-In conjunction with the \link{theme} system, the \code{element_} functions
+In conjunction with the \code{\link[=theme]{theme()}} system, the \code{element_} functions
 specify the display of how non-data components of the plot are a drawn.
 \itemize{
 \item \code{element_blank}: draws nothing, and assigns no space.
 \item \code{element_rect}: borders and backgrounds.
 \item \code{element_line}: lines.
 \item \code{element_text}: text.
+\item \code{element_geom}: geom defaults.
 }
 
 \code{rel()} is used to specify sizes relative to the parent,

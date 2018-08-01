@@ -141,15 +141,15 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
 #' @format NULL
 GeomSf <- ggproto("GeomSf", Geom,
   required_aes = "geometry",
-  default_aes = expr(aes(
+  default_aes = aes(
     shape = NULL,
     colour = NULL,
     fill = NULL,
     size = NULL,
     linetype = 1,
-    alpha = theme$geom$alpha,
+    alpha = NA,
     stroke = 0.5
-  )),
+  ),
 
   draw_panel = function(data, panel_params, coord, legend = NULL) {
     if (!inherits(coord, "CoordSf")) {
@@ -178,11 +178,11 @@ GeomSf <- ggproto("GeomSf", Geom,
 
 default_aesthetics <- function(type) {
   if (type == "point") {
-    GeomPoint$default_aes
+    aes(shape = 19, colour = "black", size = 1.5, fill = NA, alpha = NA, stroke = 0.5)
   } else if (type == "line") {
-    GeomLine$default_aes
-  } else  {
-    utils::modifyList(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
+    aes(colour = "black", size = 0.5, linetype = 1, alpha = NA)
+  } else {
+    aes(size = 0.5, linetype = 1, fill = "grey90", colour = "grey35", alpha = NA)
   }
 }
 
