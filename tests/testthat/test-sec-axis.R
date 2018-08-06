@@ -130,14 +130,4 @@ test_that("sec_axis() works for power transformations (monotonicity test doesn't
   scale <- layer_scales(p)$x
   breaks <- scale$break_info()
   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
-
-  p <- ggplot(foo, aes(x, y)) +
-    geom_point() +
-    scale_x_continuous(
-      trans = scales::boxcox_trans(.25),
-      sec.axis = sec_axis(~. / 10)
-    )
-  scale <- layer_scales(p)$x
-  breaks <- scale$break_info()
-  expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
 })
