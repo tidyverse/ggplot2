@@ -47,28 +47,26 @@ test_that("sec axis works with skewed transform", {
   )
 })
 
-test_that("sec axis works with tidy eval",{
-
+test_that("sec axis works with tidy eval", {
   f <- function(df, .x, .y, .z) {
-    x<-enquo(.x)
-    y<-enquo(.y)
-    z<-enquo(.z)
+    x <- enquo(.x)
+    y <- enquo(.y)
+    z <- enquo(.z)
 
-    g <- ggplot(df,aes(x=!!x,y=!!y)) +
-      geom_bar(stat="identity") +
-      geom_point(aes(y=!!z)) +
-      scale_y_continuous(sec.axis = sec_axis(~./10))
+    g <- ggplot(df, aes(x = !!x, y = !!y)) +
+      geom_bar(stat = "identity") +
+      geom_point(aes(y = !!z)) +
+      scale_y_continuous(sec.axis = sec_axis(~. / 10))
 
     g
   }
 
-  t <- tibble(x = letters, y = seq(10,260, 10), z = 1:26)
+  t <- tibble(x = letters, y = seq(10, 260, 10), z = 1:26)
 
   p <- f(t, x, y, z)
 
   scale <- layer_scales(p)$y
   breaks <- scale$break_info()
 
-  expect_equal(breaks$major_source/10, breaks$sec.major_source)
-
-  })
+  expect_equal(breaks$major_source / 10, breaks$sec.major_source)
+})
