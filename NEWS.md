@@ -1,5 +1,10 @@
 # ggplot2 3.0.0.9000
 
+*   `scale_*_date()`, `scale_*_time()` and `scale_*_datetime()` can now display 
+    a secondary axis that is a __one-to-one__ transformation of the primary axis,
+    implemented using the `sec.axis` argument to the scale constructor 
+    (@dpseidel, #2244).
+
 *   `sec_axis()` and `dup_axis()` now return appropriate breaks for the secondary
     axis when applied to log transformed scales (@dpseidel, #2729).
 
