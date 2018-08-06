@@ -1,5 +1,8 @@
 # ggplot2 3.0.0.9000
 
+*   `sec_axis()` and `dup_axis()` now return appropriate breaks for the secondary
+    axis when applied to log transformed scales (@dpseidel, #2729).
+
 *   `sec_axis()` now works as expected when used in combination with tidy eval
     (@dpseidel, #2788).
 

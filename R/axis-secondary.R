@@ -109,7 +109,6 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     rlang::eval_tidy(rlang::f_rhs(self$trans), data = range)
   },
 
-
   break_info = function(self, range, scale) {
     if (self$empty()) return()
 
@@ -125,29 +124,22 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       stop("transformation for secondary axes must be monotonic")
 
     # Get break info for the secondary axis
-    new_range <- range(full_range, na.rm = TRUE)
-    temp_scale <- self$create_scale(new_range)
-    range_info <- temp_scale$break_info()
-
-    # Map the break values back to their correct position on the primary scale
-    old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
-    old_val <- old_range[unlist(old_val)]
-    old_val_trans <- scale$trans$transform(old_val)
-    range_info$major[] <- round(rescale(scale$map(old_val_trans, range(old_val_trans)), from = range), digits = 3)
-
+    new_range <- range(scale$transform(full_range), na.rm = TRUE)
+    sec_scale <- self$create_scale(new_range, scale)
+    range_info <- sec_scale$break_info()
     names(range_info) <- paste0("sec.", names(range_info))
     range_info
   },
 
   # Temporary scale for the purpose of calling break_info()
-  create_scale = function(self, range) {
+  create_scale = function(self, range, primary) {
     scale <- ggproto(NULL, ScaleContinuousPosition,
       name = self$name,
       breaks = self$breaks,
       labels = self$labels,
       limits = range,
       expand = c(0, 0),
-      trans = identity_trans()
+      trans = primary$trans
     )
     scale$train(range)
     scale
