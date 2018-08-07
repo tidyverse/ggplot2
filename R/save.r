@@ -59,7 +59,7 @@ ggsave <- function(filename, plot = last_plot(),
   dev(filename = filename, width = dim[1], height = dim[2], ...)
   on.exit(utils::capture.output({
     grDevices::dev.off()
-    grDevices::dev.set(old_dev)
+    if (old_dev > 1) grDevices::dev.set(old_dev) # restore old device unless null device
   }))
   grid.draw(plot)
 

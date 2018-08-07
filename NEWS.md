@@ -21,6 +21,9 @@
 *   Data is no longer internally reordered when faceting. This makes it safer to
     feed data columns into `aes()` or into parameters of geoms or stats. However,
     doing so remains discouraged (@clauswilke).
+    
+*   `ggsave()` now exits without creating a new graphics device if previously
+    none was open (@clauswilke, #2363).
 
 *   Aesthetic names are now consistently standardised both in `aes()` and in the
     `aesthetics` argument of scale functions. Also, the US spelling "color"
