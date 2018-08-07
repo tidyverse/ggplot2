@@ -1,5 +1,8 @@
 # ggplot2 3.0.0.9000
 
+*   All `geom_*()` now display an informative error message when required 
+    aesthetics are missing (@dpseidel, #2637 and #2706).
+
 *   `sec_axis()` and `dup_axis()` now return appropriate breaks for the secondary
     axis when applied to log transformed scales (@dpseidel, #2729).
 
