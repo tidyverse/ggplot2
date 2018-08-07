@@ -4,15 +4,14 @@
 \alias{label_bquote}
 \title{Label with mathematical expressions}
 \usage{
-label_bquote(rows = NULL, cols = NULL, default = label_value)
+label_bquote(rows = NULL, cols = NULL, default)
 }
 \arguments{
 \item{rows}{Backquoted labelling expression for rows.}
 
 \item{cols}{Backquoted labelling expression for columns.}
 
-\item{default}{Default labeller function for the rows or the
-columns when no plotmath expression is provided.}
+\item{default}{Unused, kept for compatibility.}
 }
 \description{
 \code{label_bquote()} offers a flexible way of labelling
