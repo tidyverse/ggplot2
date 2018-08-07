@@ -65,6 +65,12 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
 )
 
 make_summary_fun <- function(fun.data, fun.y, fun.ymax, fun.ymin, fun.args) {
+  force(fun.data)
+  force(fun.y)
+  force(fun.ymax)
+  force(fun.ymin)
+  force(fun.args)
+
   if (!is.null(fun.data)) {
     # Function that takes complete data frame as input
     fun.data <- match.fun(fun.data)

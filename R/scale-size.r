@@ -68,6 +68,8 @@ scale_size_discrete <- function(...) {
 #' @export
 #' @usage NULL
 scale_size_ordinal <- function(..., range = c(2, 6)) {
+  force(range)
+
   discrete_scale(
     "size",
     "size_d",
