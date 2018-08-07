@@ -19,11 +19,13 @@ stat_qq_line(mapping = NULL, data = NULL, geom = "path",
 
 geom_qq(mapping = NULL, data = NULL, geom = "point",
   position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  dparams = list(), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_qq(mapping = NULL, data = NULL, geom = "point",
   position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  dparams = list(), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -87,7 +89,7 @@ points at specified quartiles of the theoretical and sample distributions.
 }
 \section{Aesthetics}{
 
-\code{stat_qq} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_qq()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{sample}}
 \item \code{group}
@@ -97,7 +99,7 @@ points at specified quartiles of the theoretical and sample distributions.
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 
-\code{stat_qq_line} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_qq_line()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{sample}}
 \item \code{group}

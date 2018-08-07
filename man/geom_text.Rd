@@ -6,15 +6,15 @@
 \title{Text}
 \usage{
 geom_label(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., parse = FALSE, nudge_x = 0, nudge_y = 0,
-  label.padding = unit(0.25, "lines"), label.r = unit(0.15, "lines"),
-  label.size = 0.25, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., parse = FALSE, nudge_x = 0,
+  nudge_y = 0, label.padding = unit(0.25, "lines"),
+  label.r = unit(0.15, "lines"), label.size = 0.25, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 
 geom_text(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., parse = FALSE, nudge_x = 0, nudge_y = 0,
-  check_overlap = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., parse = FALSE, nudge_x = 0,
+  nudge_y = 0, check_overlap = FALSE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -77,7 +77,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 same layer will not be plotted.}
 }
 \description{
-\code{geom_text} adds text directly to the plot. \code{geom_label} draws
+\code{geom_text()} adds text directly to the plot. \code{geom_label()} draws
 a rectangle behind the text, making it easier to read.
 }
 \details{
@@ -88,15 +88,15 @@ height and width, but they are physical units, not data units. The amount of
 space they occupy on the plot is not constant in data units: when you
 resize a plot, labels stay the same size, but the size of the axes changes.
 
-\code{geom_text} and \code{geom_label} both add a label for each row in the
+\code{geom_text()} and \code{geom_label()} add labels for each row in the
 data, even if coordinates x, y are set to single values in the call
-to \code{geom_label} or \code{geom_text}.
+to \code{geom_label()} or \code{geom_text()}.
 To add labels at specified points use \code{\link[=annotate]{annotate()}} with
 \code{annotate(geom = "text", ...)} or \code{annotate(geom = "label", ...)}.
 }
 \section{Aesthetics}{
 
-\code{geom_text} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_text()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -115,10 +115,10 @@ To add labels at specified points use \code{\link[=annotate]{annotate()}} with
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
-\section{\code{geom_label}}{
+\section{\code{geom_label()}}{
 
-Currently \code{geom_label} does not support the \code{angle} aesthetic and
-is considerably slower than \code{geom_text}. The \code{fill} aesthetic
+Currently \code{geom_label()} does not support the \code{angle} aesthetic and
+is considerably slower than \code{geom_text()}. The \code{fill} aesthetic
 controls the background colour of the label.
 }
 

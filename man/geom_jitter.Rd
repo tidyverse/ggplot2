@@ -5,8 +5,8 @@
 \title{Jittered points}
 \usage{
 geom_jitter(mapping = NULL, data = NULL, stat = "identity",
-  position = "jitter", ..., width = NULL, height = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "jitter", ..., width = NULL, height = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -79,7 +79,7 @@ overplotting caused by discreteness in smaller datasets.
 }
 \section{Aesthetics}{
 
-\code{geom_point} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_point()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

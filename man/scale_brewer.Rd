@@ -15,9 +15,9 @@ scale_colour_brewer(..., type = "seq", palette = 1, direction = 1,
 scale_fill_brewer(..., type = "seq", palette = 1, direction = 1,
   aesthetics = "fill")
 
-scale_colour_distiller(..., type = "seq", palette = 1, direction = -1,
-  values = NULL, space = "Lab", na.value = "grey50",
-  guide = "colourbar", aesthetics = "colour")
+scale_colour_distiller(..., type = "seq", palette = 1,
+  direction = -1, values = NULL, space = "Lab",
+  na.value = "grey50", guide = "colourbar", aesthetics = "colour")
 
 scale_fill_distiller(..., type = "seq", palette = 1, direction = -1,
   values = NULL, space = "Lab", na.value = "grey50",
