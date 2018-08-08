@@ -13,8 +13,8 @@ stat_summary_bin(mapping = NULL, data = NULL, geom = "pointrange",
 
 stat_summary(mapping = NULL, data = NULL, geom = "pointrange",
   position = "identity", ..., fun.data = NULL, fun.y = NULL,
-  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -37,7 +37,7 @@ the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{geom}{Use to override the default connection between
-\code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.}
+\code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -94,7 +94,7 @@ aggregate.
 }
 \section{Aesthetics}{
 
-\code{stat_summary} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_summary()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

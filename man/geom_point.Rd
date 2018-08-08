@@ -59,12 +59,8 @@ useful for displaying the relationship between two continuous variables.
 It can be used to compare one continuous and one categorical variable, or
 two categorical variables, but a variation like \code{\link[=geom_jitter]{geom_jitter()}},
 \code{\link[=geom_count]{geom_count()}}, or \code{\link[=geom_bin2d]{geom_bin2d()}} is usually more
-appropriate.
-}
-\details{
-The \emph{bubblechart} is a scatterplot with a third variable mapped to
-the size of points. There are no special names for scatterplots where
-another variable is mapped to point shape or colour, however.
+appropriate. A \emph{bubblechart} is a scatterplot with a third variable
+mapped to the size of points.
 }
 \section{Overplotting}{
 
@@ -89,7 +85,7 @@ Another technique is to make the points transparent (e.g.
 
 \section{Aesthetics}{
 
-\code{geom_point} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_point()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -111,6 +107,7 @@ p + geom_point()
 # Add aesthetic mappings
 p + geom_point(aes(colour = factor(cyl)))
 p + geom_point(aes(shape = factor(cyl)))
+# A "bubblechart":
 p + geom_point(aes(size = qsec))
 
 # Set aesthetics to fixed value

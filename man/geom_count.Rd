@@ -65,7 +65,7 @@ useful when you have discrete data and overplotting.
 }
 \section{Aesthetics}{
 
-\code{geom_point} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_point()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

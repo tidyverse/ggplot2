@@ -7,11 +7,12 @@
 \title{Bar charts}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "count",
-  position = "stack", ..., width = NULL, binwidth = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "stack", ..., width = NULL, binwidth = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 geom_col(mapping = NULL, data = NULL, position = "stack", ...,
-  width = NULL, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  width = NULL, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_count(mapping = NULL, data = NULL, geom = "bar",
   position = "stack", ..., width = NULL, na.rm = FALSE,
@@ -94,7 +95,7 @@ and then standardising each bar to have the same height.
 }
 \section{Aesthetics}{
 
-\code{geom_bar} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_bar()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

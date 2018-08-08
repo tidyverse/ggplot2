@@ -1,12 +1,34 @@
 # ggplot2 3.0.0.9000
 
+*   All `geom_*()` now display an informative error message when required 
+    aesthetics are missing (@dpseidel, #2637 and #2706).
+
+*   `sec_axis()` and `dup_axis()` now return appropriate breaks for the secondary
+    axis when applied to log transformed scales (@dpseidel, #2729).
+
+*   `sec_axis()` now works as expected when used in combination with tidy eval
+    (@dpseidel, #2788).
+
+*   `stat_contour()`, `stat_density2d()`, `stat_bin2d()`,  `stat_binhex()`
+    now calculate normalized statistics including `nlevel`, `ndensity`, and
+    `ncount`. Also, `stat_density()` now includes the calculated statistic 
+    `nlevel`, an alias for `scaled`, to better match the syntax of `stat_bin()`
+    (@bjreisman, #2679).
+
 *  `geom_hex()` now understands the `size` and `linetype` aesthetics
    (@mikmart, #2488).
   
 *   Data is no longer internally reordered when faceting. This makes it safer to
     feed data columns into `aes()` or into parameters of geoms or stats. However,
     doing so remains discouraged (@clauswilke).
+    
+*   `ggsave()` now exits without creating a new graphics device if previously
+    none was open (@clauswilke, #2363).
 
+*   Aesthetic names are now consistently standardised both in `aes()` and in the
+    `aesthetics` argument of scale functions. Also, the US spelling "color"
+    is now always internally converted to "colour", even when part of a longer
+    aesthetic name (e.g., `point_color`) (@clauswilke, #2649).
 
 # ggplot2 3.0.0
 

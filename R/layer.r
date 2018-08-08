@@ -283,7 +283,6 @@ Layer <- ggproto("Layer", NULL,
 
   compute_geom_1 = function(self, data) {
     if (empty(data)) return(data.frame())
-    data <- self$geom$setup_data(data, c(self$geom_params, self$aes_params))
 
     check_required_aesthetics(
       self$geom$required_aes,
@@ -291,7 +290,7 @@ Layer <- ggproto("Layer", NULL,
       snake_class(self$geom)
     )
 
-    data
+    self$geom$setup_data(data, c(self$geom_params, self$aes_params))
   },
 
   compute_position = function(self, data, layout) {

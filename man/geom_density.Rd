@@ -10,9 +10,9 @@ geom_density(mapping = NULL, data = NULL, stat = "density",
   inherit.aes = TRUE)
 
 stat_density(mapping = NULL, data = NULL, geom = "area",
-  position = "stack", ..., bw = "nrd0", adjust = 1, kernel = "gaussian",
-  n = 512, trim = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "stack", ..., bw = "nrd0", adjust = 1,
+  kernel = "gaussian", n = 512, trim = FALSE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -88,7 +88,7 @@ data that comes from an underlying smooth distribution.
 }
 \section{Aesthetics}{
 
-\code{geom_density} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_density()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -110,6 +110,8 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \item{count}{density * number of points - useful for stacked density
 plots}
 \item{scaled}{density estimate, scaled to maximum of 1}
+\item{ndensity}{alias for \code{scaled}, to mirror the syntax of
+\code{\link[=stat_bin]{stat_bin()}}}
 }
 }
 

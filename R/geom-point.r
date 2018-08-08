@@ -5,11 +5,8 @@
 #' It can be used to compare one continuous and one categorical variable, or
 #' two categorical variables, but a variation like [geom_jitter()],
 #' [geom_count()], or [geom_bin2d()] is usually more
-#' appropriate.
-#'
-#' The \emph{bubblechart} is a scatterplot with a third variable mapped to
-#' the size of points. There are no special names for scatterplots where
-#' another variable is mapped to point shape or colour, however.
+#' appropriate. A _bubblechart_ is a scatterplot with a third variable
+#' mapped to the size of points.
 #'
 #' @section Overplotting:
 #' The biggest potential problem with a scatterplot is overplotting: whenever
@@ -47,6 +44,7 @@
 #' # Add aesthetic mappings
 #' p + geom_point(aes(colour = factor(cyl)))
 #' p + geom_point(aes(shape = factor(cyl)))
+#' # A "bubblechart":
 #' p + geom_point(aes(size = qsec))
 #'
 #' # Set aesthetics to fixed value
