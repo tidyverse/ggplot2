@@ -255,11 +255,15 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   draw_key = draw_key_boxplot,
 
-  default_aes = expr(aes(
-    weight = 1, colour = theme$geom$colour.accent1 ,
-    fill = theme$geom$fill.accent, size = 0.5,
-    alpha = theme$geom$alpha, shape = 19, linetype = "solid"
-  )),
+  default_aes = aes(
+    weight = 1,
+    colour = theme$geom$col_1 ,
+    fill = theme$geom$fill_1,
+    size = 0.5,
+    alpha = NA,
+    shape = 19,
+    linetype = "solid"
+   ),
 
   required_aes = c("x", "lower", "upper", "middle", "ymin", "ymax")
 )

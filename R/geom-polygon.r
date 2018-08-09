@@ -105,12 +105,13 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     )
   },
 
-  default_aes = expr(aes(
+  default_aes = aes(
     colour = NA,
     fill = theme$geom$fill,
-    size = 0.5, linetype = 1,
-    alpha = theme$geom$alpha
-  )),
+    size = 0.5,
+    linetype = 1,
+    alpha = NA
+  ),
 
   handle_na = function(data, params) {
     data

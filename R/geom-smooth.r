@@ -139,9 +139,12 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
   required_aes = c("x", "y"),
   optional_aes = c("ymin", "ymax"),
 
-  default_aes = expr(aes(
-    colour = theme$geom$colour.accent2,
-    fill = theme$geom$fill, size = 1,
-    linetype = 1, weight = 1, alpha = 0.4
-  ))
+  default_aes = aes(
+    colour = theme$geom$col_2,
+    fill = theme$geom$fill,
+    size = 1,
+    linetype = 1,
+    weight = 1,
+    alpha = 0.4
+  )
 )

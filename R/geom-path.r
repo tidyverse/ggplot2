@@ -123,10 +123,12 @@ geom_path <- function(mapping = NULL, data = NULL,
 GeomPath <- ggproto("GeomPath", Geom,
   required_aes = c("x", "y"),
 
-  default_aes = expr(aes(
-    colour = theme$geom$colour, size = 0.5, linetype = 1,
-    alpha = theme$geom$alpha
-  )),
+  default_aes = aes(
+    colour = theme$geom$col,
+    size = 0.5,
+    linetype = 1,
+    alpha = NA
+  ),
 
   handle_na = function(data, params) {
     # Drop missing values at the start or end of a line - can't drop in the

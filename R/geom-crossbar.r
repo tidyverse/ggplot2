@@ -32,10 +32,13 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
     GeomErrorbar$setup_data(data, params)
   },
 
-  default_aes = expr(aes(
-    colour = theme$geom$colour, fill = NA, size = 0.5,
-    linetype = 1, alpha = theme$geom$alpha
-  )),
+  default_aes = aes(
+    colour = theme$geom$col,
+    fill = NA,
+    size = 0.5,
+    linetype = 1,
+    alpha = NA
+  ),
 
   required_aes = c("x", "y", "ymin", "ymax"),
 

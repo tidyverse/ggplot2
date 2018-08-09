@@ -166,12 +166,17 @@ geom_text <- function(mapping = NULL, data = NULL,
 GeomText <- ggproto("GeomText", Geom,
   required_aes = c("x", "y", "label"),
 
-  default_aes = expr(aes(
+  default_aes = aes(
     colour = theme$text$colour,
-    size = 3.88, angle = 0, hjust = 0.5, vjust = 0.5,
-    alpha = theme$geom$alpha, family = theme$text$family,
-    fontface = theme$text$face, lineheight = theme$text$lineheight
-  )),
+    size = 3.88,
+    angle = 0,
+    hjust = 0.5,
+    vjust = 0.5,
+    alpha = NA,
+    family = theme$text$family,
+    fontface = theme$text$face,
+    lineheight = theme$text$lineheight
+  ),
 
   draw_panel = function(data, panel_params, coord, parse = FALSE,
                           na.rm = FALSE, check_overlap = FALSE) {

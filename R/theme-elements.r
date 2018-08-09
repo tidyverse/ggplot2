@@ -121,37 +121,46 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
-#' @param colour.accent1,color.accent1 accent colour 1,
+#' @param col default geom colour
+#' @param col_1 accent colour 1,
 #'   typically a lighter version of colour
-#' @param colour.accent2,color.accent2 accent colour 2,
+#' @param col_2 accent colour 2,
 #'   typically a bright colour used for geom_smooth et al.
-#' @param fill.accent accent fill colour, typically a darker version of fill
-#' @param alpha colour/fill transparency, between 0 & 1.
+#' @param fill_1 accent fill colour, typically a darker version of fill
 #' @export
 #' @rdname element
-element_geom <- function(fill = NULL, fill.accent = NULL,
-                         colour = NULL, color = NULL,
-                         colour.accent1 = NULL, color.accent1 = NULL,
-                         colour.accent2 = NULL, color.accent2 = NULL,
-                         alpha = NULL, inherit.blank = FALSE) {
-
-  if (!is.null(color)) colour <- color
-  if (!is.null(color.accent1)) colour.accent1 <- color.accent1
-  if (!is.null(color.accent2)) colour.accent2 <- color.accent2
+element_geom <- function(fill = NULL,
+                         fill_1 = NULL,
+                         col = NULL,
+                         col_1 = NULL,
+                         col_2 = NULL,
+                         inherit.blank = FALSE) {
 
   structure(
     list(
       fill = fill,
-      colour = colour,
-      fill.accent = fill.accent,
-      colour.accent1 = colour.accent1,
-      colour.accent2 = colour.accent2,
-      alpha = alpha,
+      col = col,
+      fill_1 = fill_1,
+      col_1 = col_1,
+      col_2 = col_2,
       inherit.blank = inherit.blank
     ),
     class = c("element_geom", "element")
   )
 }
+
+#' Retrieve geom defaults from plot theme
+#'
+#' @param aes character string nameing a themeable aesthetic, see [element_geom()]
+#' @param theme plot theme
+#'
+#' @keywords internal
+#' @noRd
+#'
+theme_aes <- function(aes, theme){
+  theme$geom[aes][[1]]
+}
+
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
@@ -286,7 +295,6 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   list(class = class, inherit = inherit, description = description)
 }
 
-
 # This data structure represents the theme elements and the inheritance
 # among them.
 ggplot_global$element_tree <- list(
@@ -303,7 +311,6 @@ ggplot_global$element_tree <- list(
   panel.grid.major    = el_def("element_line", "panel.grid"),
   panel.grid.minor    = el_def("element_line", "panel.grid"),
   strip.text          = el_def("element_text", "text"),
-  geom                = el_def("element_geom", "geom"),
   axis.line.x         = el_def("element_line", "axis.line"),
   axis.line.x.top     = el_def("element_line", "axis.line.x"),
   axis.line.x.bottom  = el_def("element_line", "axis.line.x"),
@@ -333,8 +340,8 @@ ggplot_global$element_tree <- list(
   legend.background   = el_def("element_rect", "rect"),
   legend.margin       = el_def("margin"),
   legend.spacing      = el_def("unit"),
-  legend.spacing.x     = el_def("unit", "legend.spacing"),
-  legend.spacing.y     = el_def("unit", "legend.spacing"),
+  legend.spacing.x    = el_def("unit", "legend.spacing"),
+  legend.spacing.y    = el_def("unit", "legend.spacing"),
   legend.key          = el_def("element_rect", "rect"),
   legend.key.height   = el_def("unit", "legend.key.size"),
   legend.key.width    = el_def("unit", "legend.key.size"),
@@ -381,7 +388,8 @@ ggplot_global$element_tree <- list(
   plot.tag.position   = el_def("character"),  # Need to also accept numbers
   plot.margin         = el_def("margin"),
 
-  aspect.ratio        = el_def("character")
+  aspect.ratio        = el_def("character"),
+  geom                = el_def("element_geom", "geom")
 )
 
 

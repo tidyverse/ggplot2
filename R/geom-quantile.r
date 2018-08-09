@@ -61,8 +61,11 @@ geom_quantile <- function(mapping = NULL, data = NULL,
 #' @export
 #' @include geom-path.r
 GeomQuantile <- ggproto("GeomQuantile", GeomPath,
-  default_aes = expr(aes(
-    weight = 1, colour = theme$geom$colour.accent2, size = 0.5, linetype = 1,
-    alpha = theme$geom$alpha
-  ))
+  default_aes = aes(
+    weight = 1,
+    colour = theme$geom$col_2,
+    size = 0.5,
+    linetype = 1,
+    alpha = NA
+  )
 )

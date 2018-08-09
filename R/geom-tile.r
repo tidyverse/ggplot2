@@ -93,10 +93,15 @@ GeomTile <- ggproto("GeomTile", GeomRect,
     )
   },
 
-  default_aes = expr(aes(
-    fill = theme$geom$fill, colour = NA, size = 0.1,
-    linetype = 1, alpha = theme$geom$alpha, width = NA, height = NA
-  )),
+  default_aes = aes(
+    fill = theme$geom$fill,
+    colour = NA,
+    size = 0.1,
+    linetype = 1,
+    alpha = NA,
+    width = NA,
+    height = NA
+  ),
 
   required_aes = c("x", "y"),
 
