@@ -305,8 +305,11 @@ Layer <- ggproto("Layer", NULL,
   compute_geom_2 = function(self, data, plot) {
     if (empty(data)) return(data)
 
+    # evaluate defaults for theme
+    defaults <- self$geom$eval_defaults(theme = plot$theme)
+
     # Combine aesthetics, defaults, & params
-    self$geom$use_defaults(data, self$aes_params, plot$theme)
+    self$geom$use_defaults(data, defaults = defaults, params = self$aes_params)
   },
 
   finish_statistics = function(self, data) {

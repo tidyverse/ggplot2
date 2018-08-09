@@ -106,15 +106,15 @@ Geom <- ggproto("Geom",
 
   setup_data = function(data, params) data,
 
-  # Combine data with defaults and set aesthetics from parameters
-  use_defaults = function(self, data, params = list(), theme) {
-
-    # evaluates defaults given plot theme
+  # evaluate defaults according to theme
+  eval_defaults = function(self, theme) {
     if (length(theme) == 0) theme <- theme_grey()
-    env <- new.env()
-    env$theme <- theme
-    defaults <- rlang::eval_tidy(self$default_aes, env)
 
+    lapply(self$default_aes, rlang::eval_tidy, data = list(theme = theme))
+  },
+
+  # Combine data with defaults and set aesthetics from parameters
+  use_defaults = function(self, data, defaults, params = list()) {
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(defaults), names(data))
 
