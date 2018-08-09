@@ -11,8 +11,8 @@ geom_hex(mapping = NULL, data = NULL, stat = "binhex",
   inherit.aes = TRUE)
 
 stat_bin_hex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", ..., bins = 30, binwidth = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., bins = 30, binwidth = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -73,7 +73,7 @@ the very regular alignment of \code{\link[=geom_bin2d]{geom_bin2d()}}.
 }
 \section{Aesthetics}{
 
-\code{geom_hex} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_hex()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

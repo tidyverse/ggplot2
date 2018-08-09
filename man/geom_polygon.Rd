@@ -61,7 +61,7 @@ are connected together into a polygon.
 }
 \section{Aesthetics}{
 
-\code{geom_polygon} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_polygon()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

@@ -1,16 +1,16 @@
 #' Position scales for continuous data (x & y)
 #'
-#' `scale_x_continuous` and `scale_y_continuous` are the default
+#' `scale_x_continuous()` and `scale_y_continuous()` are the default
 #' scales for continuous x and y aesthetics. There are three variants
 #' that set the `trans` argument for commonly used transformations:
-#' `scale_*_log10`, `scale_*_sqrt` and `scale_*_reverse`.
+#' `scale_*_log10()`, `scale_*_sqrt()` and `scale_*_reverse()`.
 #'
 #' For simple manipulation of labels and limits, you may wish to use
 #' [labs()] and [lims()] instead.
 #'
 #' @inheritParams continuous_scale
 #' @family position scales
-#' @param ... Other arguments passed on to `scale_(x|y)_continuous`
+#' @param ... Other arguments passed on to `scale_(x|y)_continuous()`
 #' @examples
 #' p1 <- ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point()

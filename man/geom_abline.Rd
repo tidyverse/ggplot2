@@ -9,11 +9,11 @@
 geom_abline(mapping = NULL, data = NULL, ..., slope, intercept,
   na.rm = FALSE, show.legend = NA)
 
-geom_hline(mapping = NULL, data = NULL, ..., yintercept, na.rm = FALSE,
-  show.legend = NA)
+geom_hline(mapping = NULL, data = NULL, ..., yintercept,
+  na.rm = FALSE, show.legend = NA)
 
-geom_vline(mapping = NULL, data = NULL, ..., xintercept, na.rm = FALSE,
-  show.legend = NA)
+geom_vline(mapping = NULL, data = NULL, ..., xintercept,
+  na.rm = FALSE, show.legend = NA)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -78,9 +78,9 @@ same aesthetics: \code{alpha}, \code{colour}, \code{linetype} and
 \code{size}. They also each have aesthetics that control the position of
 the line:
 \itemize{
-\item \code{geom_vline}: \code{xintercept}
-\item \code{geom_hline}: \code{yintercept}
-\item \code{geom_abline}: \code{slope} and \code{intercept}
+\item \code{geom_vline()}: \code{xintercept}
+\item \code{geom_hline()}: \code{yintercept}
+\item \code{geom_abline()}: \code{slope} and \code{intercept}
 }
 }
 

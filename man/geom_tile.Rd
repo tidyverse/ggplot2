@@ -81,7 +81,7 @@ performance special case for when all the tiles are the same size.
 }
 \section{Aesthetics}{
 
-\code{geom_tile} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_tile()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

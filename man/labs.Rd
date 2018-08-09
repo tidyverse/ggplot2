@@ -26,15 +26,16 @@ displayed below the title. Leave \code{NULL} for no subtitle.}
 }
 \description{
 Good labels are critical for making your plots accessible to a wider
-audience. Ensure the axis and legend labels display the full variable name.
-Use the plot \code{title} and \code{subtitle} to explain the main findings.
-It's common to use the \code{caption} to provide information about the
-data source. \code{tag} can be used for adding identification tags.
+audience. Always ensure the axis and legend labels display the full
+variable name. Use the plot \code{title} and \code{subtitle} to explain the
+main findings. It's common to use the \code{caption} to provide information
+about the data source. \code{tag} can be used for adding identification tags
+to differentiate between multiple plots.
 }
 \details{
 You can also set axis and legend labels in the individual scales (using
-the first argument, the \code{name}). I recommend doing that if you're
-changing other scale options.
+the first argument, the \code{name}). If you're changing other scale options, this
+is recommended.
 }
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt, colour = cyl)) + geom_point()
