@@ -4,9 +4,10 @@
 \alias{facet_grid}
 \title{Lay out panels in a grid}
 \usage{
-facet_grid(rows = NULL, cols = NULL, scales = "fixed", space = "fixed",
-  shrink = TRUE, labeller = "label_value", as.table = TRUE,
-  switch = NULL, drop = TRUE, margins = FALSE, facets = NULL)
+facet_grid(rows = NULL, cols = NULL, scales = "fixed",
+  space = "fixed", shrink = TRUE, labeller = "label_value",
+  as.table = TRUE, switch = NULL, drop = TRUE, margins = FALSE,
+  facets = NULL)
 }
 \arguments{
 \item{rows, cols}{A set of variables or expressions quoted by
@@ -70,7 +71,7 @@ variables for which margins are to be created.}
 and \code{cols} instead.}
 }
 \description{
-\code{facet_grid} forms a matrix of panels defined by row and column
+\code{facet_grid()} forms a matrix of panels defined by row and column
 faceting variables. It is most useful when you have two discrete
 variables, and all combinations of the variables exist in the data.
 }

@@ -60,7 +60,7 @@ useful when you have variables that describe direction and distance.
 }
 \section{Aesthetics}{
 
-\code{geom_spoke} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_spoke()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

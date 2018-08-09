@@ -4,7 +4,8 @@
 \alias{ggplot}
 \title{Create a new ggplot}
 \usage{
-ggplot(data = NULL, mapping = aes(), ..., environment = parent.frame())
+ggplot(data = NULL, mapping = aes(), ...,
+  environment = parent.frame())
 }
 \arguments{
 \item{data}{Default dataset to use for plot. If not already a data.frame,

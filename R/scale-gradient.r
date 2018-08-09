@@ -15,7 +15,7 @@
 #' @param low,high Colours for low and high ends of the gradient.
 #' @param guide Type of legend. Use `"colourbar"` for continuous
 #'   colour bar, or `"legend"` for discrete colour legend.
-#' @inheritDotParams continuous_scale -na.value -guide
+#' @inheritDotParams continuous_scale -na.value -guide -aesthetics
 #' @seealso [scales::seq_gradient_pal()] for details on underlying
 #'   palette
 #' @family colour scales
