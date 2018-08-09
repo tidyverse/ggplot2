@@ -22,6 +22,14 @@ coord_mirror <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
 CoordMirror <- ggproto("CoordMirror", CoordCartesian,
   modify_scales = function(scales_x, scales_y) {
     lapply(scales_y, scale_flip_position)
+  },
+
+  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
+    params <- ggproto_parent(CoordCartesian, self)$setup_panel_params(scale_x, scale_y, params)
+
+    params$x.range <- rev(params$x.range)
+    params$x.labels <- rev(params$x.labels)
+    params
   }
 )
 
