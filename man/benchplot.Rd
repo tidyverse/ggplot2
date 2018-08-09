@@ -8,7 +8,7 @@ Broken down into construct, build, render and draw times.}
 benchplot(x)
 }
 \arguments{
-\item{x}{expression to create ggplot2 plot}
+\item{x}{code to create ggplot2 plot}
 }
 \description{
 Benchmark plot creation time.
@@ -17,9 +17,5 @@ Broken down into construct, build, render and draw times.
 \examples{
 benchplot(ggplot(mtcars, aes(mpg, wt)) + geom_point())
 benchplot(ggplot(mtcars, aes(mpg, wt)) + geom_point() + facet_grid(. ~ cyl))
-
-# Use tidyeval
-x <- expr(ggplot(mtcars, aes(mpg, wt)) + geom_point())
-benchplot(x)
 }
 \keyword{internal}
