@@ -1,6 +1,6 @@
 # ggplot2 3.0.0.9000
 
-*   `benchplot()` now uses tidy evaluation (@dpseidel, #2699)
+*   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
     
 *   `fortify()` now displays a more informative error message for
     `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
