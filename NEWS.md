@@ -3,8 +3,16 @@
 *   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
     for lines and polygons (@alistaire47, #2826)
 
+*   The function `range()` in `Coord` has been renamed to `backtransform_range()`
+    to clarify its intended meaning. This affects developers of custom coords. It
+    may also affect developers of custom geoms that use the `range()` function. That
+    code should be migrated to use `backtransform_range()` (@clauswilke, breaking change).
+
+*   `geom_hline()`, `geom_vline()`, and `geom_abline()` now work properly
+    with `coord_trans()` (@clauswilke, #2149, #2812).
+
 *   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
-    
+
 *   `fortify()` now displays a more informative error message for
     `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
 

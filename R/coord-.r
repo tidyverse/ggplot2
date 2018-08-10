@@ -77,9 +77,22 @@ Coord <- ggproto("Coord",
   # back into range in given in (possibly scale-transformed)
   # data coordinates
   backtransform_range = function(panel_params) {
-    warning("range backtransformation not implemented in this coord; plot may be wrong.")
+    warning(
+      "range backtransformation not implemented in this coord; plot may be wrong.",
+      call. = FALSE
+      )
     list(x = panel_params$x.range, y = panel_params$y.range)
   },
+
+  # deprecated, do not use or reimplement
+  # kept only for backwards compatibility
+  range = function(self, panel_params) {
+    warning(
+      "function `Coord$range()` is deprecated; use `Coord$backtransform_range()`.",
+      call. = FALSE
+    )
+    self$backtransform_range(panel_params)
+  }
 
   setup_panel_params = function(scale_x, scale_y, params = list()) {
     list()
