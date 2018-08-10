@@ -73,8 +73,12 @@ Coord <- ggproto("Coord",
     )
   },
 
-  range = function(panel_params) {
-    return(list(x = panel_params$x.range, y = panel_params$y.range))
+  # transform range given in transformed coordinates
+  # back into range in given in (possibly scale-transformed)
+  # data coordinates
+  backtransform_range = function(panel_params) {
+    warning("range backtransformation not implemented in this coord; plot may be wrong.")
+    list(x = panel_params$x.range, y = panel_params$y.range)
   },
 
   setup_panel_params = function(scale_x, scale_y, params = list()) {
