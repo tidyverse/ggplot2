@@ -7,9 +7,14 @@
 #' @examples
 #' benchplot(ggplot(mtcars, aes(mpg, wt)) + geom_point())
 #' benchplot(ggplot(mtcars, aes(mpg, wt)) + geom_point() + facet_grid(. ~ cyl))
-benchplot <- function(x) {
+#'
+#' # With tidy eval:
+#' p <- expr(ggplot(mtcars, aes(mpg, wt)) + geom_point())
+#' benchplot(!!p)
 
-  construct <- system.time(force(x))
+benchplot <- function(x) {
+  x <- enquo(x)
+  construct <- system.time(x <- rlang::eval_tidy(x))
   stopifnot(inherits(x, "ggplot"))
 
   build <- system.time(data <- ggplot_build(x))
