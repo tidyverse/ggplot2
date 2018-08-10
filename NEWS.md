@@ -1,5 +1,7 @@
 # ggplot2 3.0.0.9000
 
+*   `benchplot()` now uses tidy evaluation (@dpseidel, #2699)
+    
 *   All `geom_*()` now display an informative error message when required 
     aesthetics are missing (@dpseidel, #2637 and #2706).
 
