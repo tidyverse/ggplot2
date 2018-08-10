@@ -38,7 +38,7 @@ summarise_layout = function(p) {
     setNames(res, facet_vars)
   })
 
-  xyranges <- lapply(l$panel_params, l$coord$range)
+  xyranges <- lapply(l$panel_params, l$coord$backtransform_range)
   layout$xmin <- vapply(xyranges, function(xyrange) xyrange$x[[1]], numeric(1))
   layout$xmax <- vapply(xyranges, function(xyrange) xyrange$x[[2]], numeric(1))
   layout$ymin <- vapply(xyranges, function(xyrange) xyrange$y[[1]], numeric(1))
