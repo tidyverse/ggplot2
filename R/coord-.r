@@ -13,12 +13,13 @@
 #'   - `render_bg`: Renders background elements.
 #'   - `render_axis_h`: Renders the horizontal axes.
 #'   - `render_axis_v`: Renders the vertical axes.
-#'   - `range(panel_params)`: Extracts the panel range provided
+#'   - `backtransform_range(panel_params)`: Extracts the panel range provided
 #'     in `panel_params` (created by `setup_panel_params()`, see below) and
-#'     back-transforms to data coordinates. This back-transformation is needed
+#'     backtransforms to data coordinates. This back-transformation is needed
 #'     for coords such as `coord_flip()`, `coord_polar()`, `coord_trans()` where
 #'     the range in the transformed coordinates differs from the range in the
 #'     untransformed coordinates.
+#'   - `range`: Deprecated, do not implement. Calls `backtransform_range()`.
 #'   - `transform`: Transforms x and y coordinates.
 #'   - `distance`: Calculates distance.
 #'   - `is_linear`: Returns `TRUE` if the coordinate system is
@@ -84,12 +85,22 @@ Coord <- ggproto("Coord",
   # transform range given in transformed coordinates
   # back into range in given in (possibly scale-transformed)
   # data coordinates
-  range = function(panel_params) {
+  backtransform_range = function(panel_params) {
     warning(
       "range backtransformation not implemented in this coord; plot may be wrong.",
       call. = FALSE
       )
     list(x = panel_params$x.range, y = panel_params$y.range)
+  },
+
+  # deprecated, do not use or reimplement
+  # kept only for backwards compatibility
+  range = function(self, panel_params) {
+    warning(
+      "function `Coord$range()` is deprecated; use `Coord$backtransform_range()`.",
+      call. = FALSE
+    )
+    self$backtransform_range(panel_params)
   },
 
   setup_panel_params = function(scale_x, scale_y, params = list()) {

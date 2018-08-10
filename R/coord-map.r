@@ -119,7 +119,7 @@ CoordMap <- ggproto("CoordMap", Coord,
     out
   },
 
-  range = function(panel_params) {
+  backtransform_range = function(panel_params) {
     # range is stored in data coordinates and doesn't have to be back-transformed
     list(x = panel_params$x.range, y = panel_params$y.range)
   },

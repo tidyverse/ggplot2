@@ -201,12 +201,13 @@ object, you typically will want to implement one or more of the following:
 \item \code{render_bg}: Renders background elements.
 \item \code{render_axis_h}: Renders the horizontal axes.
 \item \code{render_axis_v}: Renders the vertical axes.
-\item \code{range(panel_params)}: Extracts the panel range provided
+\item \code{backtransform_range(panel_params)}: Extracts the panel range provided
 in \code{panel_params} (created by \code{setup_panel_params()}, see below) and
-back-transforms to data coordinates. This back-transformation is needed
+backtransforms to data coordinates. This back-transformation is needed
 for coords such as \code{coord_flip()}, \code{coord_polar()}, \code{coord_trans()} where
 the range in the transformed coordinates differs from the range in the
 untransformed coordinates.
+\item \code{range}: Deprecated, do not implement. Calls \code{backtransform_range()}.
 \item \code{transform}: Transforms x and y coordinates.
 \item \code{distance}: Calculates distance.
 \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is

@@ -543,7 +543,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
   },
 
-  range = function(panel_params) {
+  backtransform_range = function(panel_params) {
     list(x = panel_params$x_range, y = panel_params$y_range)
   },
 
