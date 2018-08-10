@@ -28,6 +28,9 @@ fortify.NULL <- function(model, data, ...) waiver()
 fortify.function <- function(model, data, ...) model
 #' @export
 fortify.grouped_df <- function(model, data, ...) {
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("dplyr must be installed to work with grouped_df objects", call. = FALSE)
+  }
   model$.group <- dplyr::group_indices(model)
   model
 }

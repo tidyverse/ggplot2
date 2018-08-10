@@ -1,5 +1,8 @@
 # ggplot2 3.0.0.9000
 
+*   `fortify()` now displays a more informative error message for
+    `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
+
 *   All `geom_*()` now display an informative error message when required 
     aesthetics are missing (@dpseidel, #2637 and #2706).
 
