@@ -92,7 +92,7 @@ Coord <- ggproto("Coord",
       call. = FALSE
     )
     self$backtransform_range(panel_params)
-  }
+  },
 
   setup_panel_params = function(scale_x, scale_y, params = list()) {
     list()
