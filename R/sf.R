@@ -361,6 +361,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
   },
 
+  backtransform_range = function(panel_params) {
+    list(x = panel_params$x_range, y = panel_params$y_range)
+  },
+
   # CoordSf enforces a fixed aspect ratio -> axes cannot be changed freely under faceting
   is_free = function() FALSE,
 
