@@ -36,8 +36,8 @@ test_that("stat_sf_coordinates() handles Z and M coordinates", {
   # XYM
   df_xym <- sf::st_sf(geometry = sf::st_sfc(sf::st_point(c(1, 2, 3), dim = "XYM")))
   expect_identical(
-    # Note that M st_centroid() and st_point_on_surface() cannot handle M dimension
-    # since GEOS does not support it. So we have to use some other function like identity().
+    # Note that st_centroid() and st_point_on_surface() cannot handle M dimension since
+    # GEOS does not support it. So we have to use some other function like identity().
     comp_sf_coord(df_xym, aes(x = stat(Y), y = stat(M)), fun.geometry = identity)[, c("x", "y")],
     data.frame(x = 2, y = 3)
   )
