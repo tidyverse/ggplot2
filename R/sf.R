@@ -272,7 +272,7 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE,
-                          fun.geometry = sf::st_point_on_surface) {
+                          fun.geometry = NULL) {
 
   # Automatically determin name of geometry column
   if (!is.null(data) && is_sf(data)) {
@@ -326,7 +326,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE,
-                         fun.geometry = sf::st_point_on_surface) {
+                         fun.geometry = NULL) {
   # Automatically determin name of geometry column
   if (!is.null(data) && is_sf(data)) {
     geometry_col <- attr(data, "sf_column")

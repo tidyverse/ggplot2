@@ -25,14 +25,12 @@ geom_sf_label(mapping = aes(), data = NULL, stat = "sf_coordinates",
   position = "identity", ..., parse = FALSE, nudge_x = 0,
   nudge_y = 0, label.padding = unit(0.25, "lines"),
   label.r = unit(0.15, "lines"), label.size = 0.25, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE,
-  fun.geometry = sf::st_point_on_surface)
+  show.legend = NA, inherit.aes = TRUE, fun.geometry = NULL)
 
 geom_sf_text(mapping = aes(), data = NULL, stat = "sf_coordinates",
   position = "identity", ..., parse = FALSE, nudge_x = 0,
   nudge_y = 0, check_overlap = FALSE, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE,
-  fun.geometry = sf::st_point_on_surface)
+  show.legend = NA, inherit.aes = TRUE, fun.geometry = NULL)
 
 coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
   datum = sf::st_crs(4326), ndiscr = 100, default = FALSE)
