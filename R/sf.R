@@ -73,7 +73,7 @@
 #' ggplot() + geom_sf(data = world2)
 #'
 #' # To add labels, use geom_sf_label().
-#' ggplot(nc_3867[1:3, ]) +
+#' ggplot(nc_3857[1:3, ]) +
 #'    geom_sf(aes(fill = AREA)) +
 #'    geom_sf_label(aes(label = NAME))
 #' }
