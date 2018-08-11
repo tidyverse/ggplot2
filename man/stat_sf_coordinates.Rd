@@ -49,8 +49,11 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{fun.geometry}{A function that takes a \code{sfc} object and returns a
-\code{sfc_POINT} with the same length as the input (e.g. \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}}).}
+\item{fun.geometry}{A function that takes a \code{sfc} object and returns a \code{sfc_POINT} with the
+same length as the input (e.g. \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}}). Note that the
+function may warn about the incorrectness of the result if the data is not
+projected, but you can ignore this except when you are very careful about
+the exact locations.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -58,16 +61,40 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 }
 \description{
-Extract coordinates from 'sf' objects
+\code{stat_sf_coordinates()} extracts the coordinates from 'sf' objects and
+summarises them to one pair of coordinates (X and Y, and possibly Z and/or M)
+per geometry. This is convenient when you draw an sf object as geoms like
+texts and labels (so \code{\link[=geom_sf_text]{geom_sf_text()}} and \code{\link[=geom_sf_label]{geom_sf_label()}} relies on this).
+}
+\details{
+coordinates of an \code{sf} object can be retrieved by \code{\link[sf:st_coordinates]{sf::st_coordinates()}}.
+But, we cannot simply use \code{sf::st_coordinates()} because, whereas texts and
+labels require exactly one coordinate per geometry, it returns multiple ones
+for a polygon or a line. Thus, these two steps are needed:
+\enumerate{
+\item Choose one point per geometry by some function like \code{sf::st_centroid()}
+and \code{sf::st_point_on_surface()}.
+\item Retrieve coordinates from the points by \code{sf::st_coordinates()}.
+}
+
+For the first step, you can use an arbitrary function via \code{fun.geometry}.
+By default, \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}} is used; This seems more appropriate
+than \code{\link[sf:st_centroid]{sf::st_centroid()}} since lables and texts usually are intended to be
+put within the polygon or the line.
 }
 \section{Computed variables}{
 
 \describe{
 \item{X}{X dimension of the simple feature}
 \item{Y}{Y dimension of the simple feature}
-\item{Z}{Z dimension of the simple feature}
-\item{M}{M dimension of the simple feature}
+\item{Z}{Z dimension of the simple feature (if available)}
+\item{M}{M dimension of the simple feature (if available)}
 }
+
+Note that, while Z and M dimensions are theoretically available, you may
+face errors because sf functions don't always support Z and M. In such cases,
+you can drop these dimensions either beforehand or in a custom \code{fun.geometry}
+by \code{\link[sf:st_zm]{sf::st_zm()}}.
 }
 
 \examples{

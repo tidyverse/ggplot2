@@ -98,8 +98,11 @@ Useful for offsetting text from points, particularly on discrete scales.}
 
 \item{label.size}{Size of label border, in mm.}
 
-\item{fun.geometry}{A function that takes a \code{sfc} object and returns a
-\code{sfc_POINT} with the same length as the input (e.g. \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}}).}
+\item{fun.geometry}{A function that takes a \code{sfc} object and returns a \code{sfc_POINT} with the
+same length as the input (e.g. \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}}). Note that the
+function may warn about the incorrectness of the result if the data is not
+projected, but you can ignore this except when you are very careful about
+the exact locations.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted.}
