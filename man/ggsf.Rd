@@ -99,7 +99,7 @@ Useful for offsetting text from points, particularly on discrete scales.}
 \item{label.size}{Size of label border, in mm.}
 
 \item{fun.geometry}{A function that takes a \code{sfc} object and returns a \code{sfc_POINT} with the
-same length as the input. If \code{NULL}, \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}}) will be
+same length as the input. If \code{NULL}, \code{sf::st_point_on_surface()} will be
 used. Note that the function may warn about the incorrectness of the result
 if the data is not projected, but you can ignore this except when you
 really care about the exact locations.}

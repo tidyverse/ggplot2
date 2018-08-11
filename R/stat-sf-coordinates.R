@@ -7,7 +7,7 @@
 #'
 #' @rdname stat_sf_coordinates
 #' @details
-#' coordinates of an `sf` object can be retrieved by [sf::st_coordinates()].
+#' coordinates of an 'sf' object can be retrieved by `sf::st_coordinates()`.
 #' But, we cannot simply use `sf::st_coordinates()` because, whereas texts and
 #' labels require exactly one coordinate per geometry, it returns multiple ones
 #' for a polygon or a line. Thus, these two steps are needed:
@@ -17,8 +17,8 @@
 #' 2. Retrieve coordinates from the points by `sf::st_coordinates()`.
 #'
 #' For the first step, you can use an arbitrary function via `fun.geometry`.
-#' By default, [sf::st_point_on_surface()] is used; This seems more appropriate
-#' than [sf::st_centroid()] since lables and texts usually are intended to be
+#' By default, `sf::st_point_on_surface()` is used; This seems more appropriate
+#' than `sf::st_centroid()` since lables and texts usually are intended to be
 #' put within the polygon or the line.
 #' 
 #' @section Computed variables:
@@ -32,7 +32,7 @@
 #' Note that, while Z and M dimensions are theoretically available, you may
 #' face errors because sf functions don't always support Z and M. In such cases,
 #' you can drop these dimensions either beforehand or in a custom `fun.geometry`
-#' by [sf::st_zm()].
+#' by `sf::st_zm()`.
 #' 
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
@@ -50,7 +50,7 @@
 #' @inheritParams geom_point
 #' @param fun.geometry
 #'   A function that takes a `sfc` object and returns a `sfc_POINT` with the
-#'   same length as the input. If `NULL`, [sf::st_point_on_surface()]) will be
+#'   same length as the input. If `NULL`, `sf::st_point_on_surface()` will be
 #'   used. Note that the function may warn about the incorrectness of the result
 #'   if the data is not projected, but you can ignore this except when you
 #'   really care about the exact locations.

@@ -50,7 +50,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{fun.geometry}{A function that takes a \code{sfc} object and returns a \code{sfc_POINT} with the
-same length as the input. If \code{NULL}, \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}}) will be
+same length as the input. If \code{NULL}, \code{sf::st_point_on_surface()} will be
 used. Note that the function may warn about the incorrectness of the result
 if the data is not projected, but you can ignore this except when you
 really care about the exact locations.}
@@ -67,7 +67,7 @@ per geometry. This is convenient when you draw an sf object as geoms like
 texts and labels (so \code{\link[=geom_sf_text]{geom_sf_text()}} and \code{\link[=geom_sf_label]{geom_sf_label()}} relies on this).
 }
 \details{
-coordinates of an \code{sf} object can be retrieved by \code{\link[sf:st_coordinates]{sf::st_coordinates()}}.
+coordinates of an 'sf' object can be retrieved by \code{sf::st_coordinates()}.
 But, we cannot simply use \code{sf::st_coordinates()} because, whereas texts and
 labels require exactly one coordinate per geometry, it returns multiple ones
 for a polygon or a line. Thus, these two steps are needed:
@@ -78,8 +78,8 @@ and \code{sf::st_point_on_surface()}.
 }
 
 For the first step, you can use an arbitrary function via \code{fun.geometry}.
-By default, \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}} is used; This seems more appropriate
-than \code{\link[sf:st_centroid]{sf::st_centroid()}} since lables and texts usually are intended to be
+By default, \code{sf::st_point_on_surface()} is used; This seems more appropriate
+than \code{sf::st_centroid()} since lables and texts usually are intended to be
 put within the polygon or the line.
 }
 \section{Computed variables}{
@@ -94,7 +94,7 @@ put within the polygon or the line.
 Note that, while Z and M dimensions are theoretically available, you may
 face errors because sf functions don't always support Z and M. In such cases,
 you can drop these dimensions either beforehand or in a custom \code{fun.geometry}
-by \code{\link[sf:st_zm]{sf::st_zm()}}.
+by \code{sf::st_zm()}.
 }
 
 \examples{
