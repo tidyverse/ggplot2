@@ -10,9 +10,9 @@ geom_density(mapping = NULL, data = NULL, stat = "density",
   inherit.aes = TRUE)
 
 stat_density(mapping = NULL, data = NULL, geom = "area",
-  position = "stack", ..., bw = "nrd0", adjust = 1,
-  kernel = "gaussian", n = 512, trim = FALSE, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "stack", ..., bw = "nrd0", adjust = 1, kernel = "gaussian",
+  n = 512, trim = FALSE, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

@@ -14,16 +14,16 @@
 scale_colour_viridis_d(..., alpha = 1, begin = 0, end = 1,
   direction = 1, option = "D", aesthetics = "colour")
 
-scale_fill_viridis_d(..., alpha = 1, begin = 0, end = 1,
-  direction = 1, option = "D", aesthetics = "fill")
+scale_fill_viridis_d(..., alpha = 1, begin = 0, end = 1, direction = 1,
+  option = "D", aesthetics = "fill")
 
 scale_colour_viridis_c(..., alpha = 1, begin = 0, end = 1,
   direction = 1, option = "D", values = NULL, space = "Lab",
   na.value = "grey50", guide = "colourbar", aesthetics = "colour")
 
-scale_fill_viridis_c(..., alpha = 1, begin = 0, end = 1,
-  direction = 1, option = "D", values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "fill")
+scale_fill_viridis_c(..., alpha = 1, begin = 0, end = 1, direction = 1,
+  option = "D", values = NULL, space = "Lab", na.value = "grey50",
+  guide = "colourbar", aesthetics = "fill")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or

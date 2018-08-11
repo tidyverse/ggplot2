@@ -201,14 +201,23 @@ object, you typically will want to implement one or more of the following:
 \item \code{render_bg}: Renders background elements.
 \item \code{render_axis_h}: Renders the horizontal axes.
 \item \code{render_axis_v}: Renders the vertical axes.
-\item \code{range}: Returns the x and y ranges
+\item \code{backtransform_range(panel_params)}: Extracts the panel range provided
+in \code{panel_params} (created by \code{setup_panel_params()}, see below) and
+backtransforms to data coordinates. This back-transformation is needed
+for coords such as \code{coord_flip()}, \code{coord_polar()}, \code{coord_trans()} where
+the range in the transformed coordinates differs from the range in the
+untransformed coordinates.
+\item \code{range}: Deprecated, do not implement. Calls \code{backtransform_range()}.
 \item \code{transform}: Transforms x and y coordinates.
 \item \code{distance}: Calculates distance.
 \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
 linear; \code{FALSE} otherwise.
 \item \code{is_free}: Returns \code{TRUE} if the coordinate system supports free
-positional scales.
-\item \code{setup_panel_params(data)}:
+positional scales; \code{FALSE} otherwise.
+\item \code{setup_panel_params(scale_x, scale_y, params)}: Determines the appropriate
+x and y ranges for each panel, and also calculates anything else needed to
+render the panel and axes, such as tick positions and labels for major
+and minor ticks. Returns all this information in a named list.
 \item \code{setup_data(data, params)}: Allows the coordinate system to
 manipulate the plot data. Should return list of data frames.
 \item \code{setup_layout(layout, params)}: Allows the coordinate

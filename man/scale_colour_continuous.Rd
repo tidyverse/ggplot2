@@ -5,11 +5,11 @@
 \alias{scale_fill_continuous}
 \title{Continuous colour scales}
 \usage{
-scale_colour_continuous(...,
-  type = getOption("ggplot2.continuous.colour", default = "gradient"))
-
-scale_fill_continuous(..., type = getOption("ggplot2.continuous.fill",
+scale_colour_continuous(..., type = getOption("ggplot2.continuous.colour",
   default = "gradient"))
+
+scale_fill_continuous(..., type = getOption("ggplot2.continuous.fill", default
+  = "gradient"))
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type}
