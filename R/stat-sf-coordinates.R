@@ -50,14 +50,14 @@
 #' @inheritParams geom_point
 #' @param fun.geometry
 #'   A function that takes a `sfc` object and returns a `sfc_POINT` with the
-#'   same length as the input (e.g. [sf::st_point_on_surface()]). Note that the
-#'   function may warn about the incorrectness of the result if the data is not
-#'   projected, but you can ignore this except when you are very careful about
-#'   the exact locations.
+#'   same length as the input. If `NULL`, [sf::st_point_on_surface()]) will be
+#'   used. Note that the function may warn about the incorrectness of the result
+#'   if the data is not projected, but you can ignore this except when you
+#'   really care about the exact locations.
 stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
                                 position = "identity", na.rm = FALSE,
                                 show.legend = NA, inherit.aes = TRUE,
-                                fun.geometry = sf::st_point_on_surface,
+                                fun.geometry = NULL,
                                 ...) {
   # Automatically determin name of geometry column
   if (!is.null(data) && is_sf(data)) {
@@ -91,7 +91,9 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
 #' @export
 StatSfCoordinates <- ggproto(
   "StatSfCoordinates", Stat,
-  compute_group = function(data, scales, fun.geometry = sf::st_point_on_surface) {
+  compute_group = function(data, scales, fun.geometry = NULL) {
+    if (is.null(fun.geometry)) fun.geometry <- sf::st_point_on_surface
+    
     points_sfc <- fun.geometry(data$geometry)
     coordinates <- sf::st_coordinates(points_sfc)
     data <- cbind(data, coordinates)

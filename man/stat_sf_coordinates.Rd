@@ -8,7 +8,7 @@
 \usage{
 stat_sf_coordinates(mapping = aes(), data = NULL, geom = "point",
   position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, fun.geometry = sf::st_point_on_surface, ...)
+  inherit.aes = TRUE, fun.geometry = NULL, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -50,10 +50,10 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{fun.geometry}{A function that takes a \code{sfc} object and returns a \code{sfc_POINT} with the
-same length as the input (e.g. \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}}). Note that the
-function may warn about the incorrectness of the result if the data is not
-projected, but you can ignore this except when you are very careful about
-the exact locations.}
+same length as the input. If \code{NULL}, \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}}) will be
+used. Note that the function may warn about the incorrectness of the result
+if the data is not projected, but you can ignore this except when you
+really care about the exact locations.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like

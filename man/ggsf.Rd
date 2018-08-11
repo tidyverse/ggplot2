@@ -22,15 +22,17 @@ geom_sf(mapping = aes(), data = NULL, stat = "sf",
   inherit.aes = TRUE, ...)
 
 geom_sf_label(mapping = aes(), data = NULL, stat = "sf_coordinates",
-  position = "identity", ..., parse = FALSE, nudge_x = 0, nudge_y = 0,
-  label.padding = unit(0.25, "lines"), label.r = unit(0.15, "lines"),
-  label.size = 0.25, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, fun.geometry = sf::st_point_on_surface)
+  position = "identity", ..., parse = FALSE, nudge_x = 0,
+  nudge_y = 0, label.padding = unit(0.25, "lines"),
+  label.r = unit(0.15, "lines"), label.size = 0.25, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE,
+  fun.geometry = sf::st_point_on_surface)
 
 geom_sf_text(mapping = aes(), data = NULL, stat = "sf_coordinates",
-  position = "identity", ..., parse = FALSE, nudge_x = 0, nudge_y = 0,
-  check_overlap = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, fun.geometry = sf::st_point_on_surface)
+  position = "identity", ..., parse = FALSE, nudge_x = 0,
+  nudge_y = 0, check_overlap = FALSE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE,
+  fun.geometry = sf::st_point_on_surface)
 
 coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
   datum = sf::st_crs(4326), ndiscr = 100, default = FALSE)
@@ -99,10 +101,10 @@ Useful for offsetting text from points, particularly on discrete scales.}
 \item{label.size}{Size of label border, in mm.}
 
 \item{fun.geometry}{A function that takes a \code{sfc} object and returns a \code{sfc_POINT} with the
-same length as the input (e.g. \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}}). Note that the
-function may warn about the incorrectness of the result if the data is not
-projected, but you can ignore this except when you are very careful about
-the exact locations.}
+same length as the input. If \code{NULL}, \code{\link[sf:st_point_on_surface]{sf::st_point_on_surface()}}) will be
+used. Note that the function may warn about the incorrectness of the result
+if the data is not projected, but you can ignore this except when you
+really care about the exact locations.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted.}
