@@ -357,7 +357,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
       parse = parse,
       check_overlap = check_overlap,
       na.rm = na.rm,
-      fun.geometry = sf::st_point_on_surface,
+      fun.geometry = fun.geometry,
       ...
     )
   )
