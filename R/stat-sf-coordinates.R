@@ -61,7 +61,7 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
 #' @export
 StatSfCoordinates <- ggproto(
   "StatSfCoordinates", Stat,
-  compute_group = function(data, scales, fun.geometry) {
+  compute_group = function(data, scales, fun.geometry = sf::st_point_on_surface) {
     points_sfc <- fun.geometry(data$geometry)
     coordinates <- sf::st_coordinates(points_sfc)
     data <- cbind(data, coordinates)
