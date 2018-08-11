@@ -22,6 +22,7 @@
 #' 
 #' @export
 #' @inheritParams stat_identity
+#' @inheritParams geom_point
 #' @param fun.geometry
 #'   A function that takes a `sfc` object and returns a
 #'   `sfc_POINT` with the same length as the input (e.g. [sf::st_point_on_surface()]).
