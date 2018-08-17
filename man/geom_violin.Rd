@@ -7,12 +7,13 @@
 \usage{
 geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
   position = "dodge", ..., draw_quantiles = NULL, trim = TRUE,
-  scale = "area", na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  scale = "area", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
-  position = "dodge", ..., bw = "nrd0", adjust = 1, kernel = "gaussian",
-  trim = TRUE, scale = "area", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "dodge", ..., bw = "nrd0", adjust = 1,
+  kernel = "gaussian", trim = TRUE, scale = "area", na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -88,7 +89,7 @@ boxplot.
 }
 \section{Aesthetics}{
 
-\code{geom_violin} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_violin()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

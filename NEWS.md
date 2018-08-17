@@ -5,6 +5,14 @@
     implemented using the `sec.axis` argument to the scale constructor 
     (@dpseidel, #2244).
 
+*   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
+    
+*   `fortify()` now displays a more informative error message for
+    `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
+
+*   All `geom_*()` now display an informative error message when required 
+    aesthetics are missing (@dpseidel, #2637 and #2706).s
+
 *   `sec_axis()` and `dup_axis()` now return appropriate breaks for the secondary
     axis when applied to log transformed scales (@dpseidel, #2729).
 
@@ -23,6 +31,9 @@
 *   Data is no longer internally reordered when faceting. This makes it safer to
     feed data columns into `aes()` or into parameters of geoms or stats. However,
     doing so remains discouraged (@clauswilke).
+    
+*   `ggsave()` now exits without creating a new graphics device if previously
+    none was open (@clauswilke, #2363).
 
 *   Aesthetic names are now consistently standardised both in `aes()` and in the
     `aesthetics` argument of scale functions. Also, the US spelling "color"

@@ -157,3 +157,19 @@ test_that("sec_axis works with date/time/datetime scales", {
     as.numeric(breaks$sec.major_source)
   )
 })
+
+test_that("sec_axis() works for power transformations (monotonicity test doesn't fail)", {
+  p <- ggplot(foo, aes(x, y)) +
+    geom_point() +
+    scale_x_sqrt(sec.axis = dup_axis())
+  scale <- layer_scales(p)$x
+  breaks <- scale$break_info()
+  expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+
+  p <- ggplot(foo, aes(x, y)) +
+    geom_point() +
+    scale_x_sqrt(sec.axis = sec_axis(~. * 100))
+  scale <- layer_scales(p)$x
+  breaks <- scale$break_info()
+  expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+})

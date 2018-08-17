@@ -3,7 +3,7 @@ NULL
 
 #' Lay out panels in a grid
 #'
-#' `facet_grid` forms a matrix of panels defined by row and column
+#' `facet_grid()` forms a matrix of panels defined by row and column
 #' faceting variables. It is most useful when you have two discrete
 #' variables, and all combinations of the variables exist in the data.
 #'
