@@ -9,11 +9,13 @@
 \alias{scale_color_hue}
 \title{Evenly spaced colours for discrete data}
 \usage{
-scale_colour_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-  direction = 1, na.value = "grey50", aesthetics = "colour")
+scale_colour_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
+  h.start = 0, direction = 1, na.value = "grey50",
+  aesthetics = "colour")
 
-scale_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-  direction = 1, na.value = "grey50", aesthetics = "fill")
+scale_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
+  h.start = 0, direction = 1, na.value = "grey50",
+  aesthetics = "fill")
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
