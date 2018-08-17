@@ -361,7 +361,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
   },
 
-  backtransform_range = function(panel_params) {
+  range = function(panel_params) {
     list(x = panel_params$x_range, y = panel_params$y_range)
   },
 

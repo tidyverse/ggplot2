@@ -37,7 +37,7 @@ geom_vline <- function(mapping = NULL, data = NULL,
 #' @export
 GeomVline <- ggproto("GeomVline", Geom,
   draw_panel = function(data, panel_params, coord) {
-    ranges <- coord$backtransform_range(panel_params)
+    ranges <- coord$range(panel_params)
 
     data$x    <- data$xintercept
     data$xend <- data$xintercept

@@ -119,7 +119,7 @@ CoordTrans <- ggproto("CoordTrans", Coord,
     dist_euclidean(self$trans$x$transform(x), self$trans$y$transform(y)) / max_dist
   },
 
-  backtransform_range = function(self, panel_params) {
+  range = function(self, panel_params) {
     list(
       x = self$trans$x$inverse(panel_params$x.range),
       y = self$trans$y$inverse(panel_params$y.range)

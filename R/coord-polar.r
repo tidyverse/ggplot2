@@ -90,7 +90,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     dist_polar(r, theta)
   },
 
-  backtransform_range = function(self, panel_params) {
+  range = function(self, panel_params) {
     setNames(
       list(panel_params$theta.range, panel_params$r.range),
       c(self$theta, self$r)

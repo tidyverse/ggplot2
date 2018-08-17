@@ -111,7 +111,7 @@ geom_abline <- function(mapping = NULL, data = NULL,
 #' @export
 GeomAbline <- ggproto("GeomAbline", Geom,
   draw_panel = function(data, panel_params, coord) {
-    ranges <- coord$backtransform_range(panel_params)
+    ranges <- coord$range(panel_params)
 
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]

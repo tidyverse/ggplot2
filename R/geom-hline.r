@@ -37,7 +37,7 @@ geom_hline <- function(mapping = NULL, data = NULL,
 #' @export
 GeomHline <- ggproto("GeomHline", Geom,
   draw_panel = function(data, panel_params, coord) {
-    ranges <- coord$backtransform_range(panel_params)
+    ranges <- coord$range(panel_params)
 
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]

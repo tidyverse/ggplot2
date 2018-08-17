@@ -1,5 +1,6 @@
 # ggplot2 3.0.0.9000
 
+<<<<<<< HEAD
 *   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
     for lines and polygons (@alistaire47, #2826)
 
@@ -8,6 +9,8 @@
     may also affect developers of custom geoms that use the `range()` function. That
     code should be migrated to use `backtransform_range()` (@clauswilke, breaking change).
 
+=======
+>>>>>>> undo API cleanup
 *   `geom_hline()`, `geom_vline()`, and `geom_abline()` now work properly
     with `coord_trans()` (@clauswilke, #2149, #2812).
 
