@@ -6,9 +6,9 @@
 \usage{
 continuous_scale(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), minor_breaks = waiver(), labels = waiver(),
-  limits = NULL, rescaler = rescale, oob = censor, expand = waiver(),
-  na.value = NA_real_, trans = "identity", guide = "legend",
-  position = "left", super = ScaleContinuous)
+  limits = NULL, rescaler = rescale, oob = censor,
+  expand = waiver(), na.value = NA_real_, trans = "identity",
+  guide = "legend", position = "left", super = ScaleContinuous)
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with}

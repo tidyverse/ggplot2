@@ -4,13 +4,13 @@
 \alias{guide_legend}
 \title{Legend guide}
 \usage{
-guide_legend(title = waiver(), title.position = NULL, title.theme = NULL,
-  title.hjust = NULL, title.vjust = NULL, label = TRUE,
-  label.position = NULL, label.theme = NULL, label.hjust = NULL,
-  label.vjust = NULL, keywidth = NULL, keyheight = NULL,
-  direction = NULL, default.unit = "line", override.aes = list(),
-  nrow = NULL, ncol = NULL, byrow = FALSE, reverse = FALSE, order = 0,
-  ...)
+guide_legend(title = waiver(), title.position = NULL,
+  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
+  label = TRUE, label.position = NULL, label.theme = NULL,
+  label.hjust = NULL, label.vjust = NULL, keywidth = NULL,
+  keyheight = NULL, direction = NULL, default.unit = "line",
+  override.aes = list(), nrow = NULL, ncol = NULL, byrow = FALSE,
+  reverse = FALSE, order = 0, ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
