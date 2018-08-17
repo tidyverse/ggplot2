@@ -7,8 +7,8 @@
 \usage{
 geom_segment(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., arrow = NULL, arrow.fill = NULL,
-  lineend = "butt", linejoin = "round", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  lineend = "butt", linejoin = "round", na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 geom_curve(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., curvature = 0.5, angle = 90, ncp = 5,

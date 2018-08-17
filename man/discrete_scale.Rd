@@ -6,9 +6,8 @@
 \usage{
 discrete_scale(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), labels = waiver(), limits = NULL,
-  expand = waiver(), na.translate = TRUE, na.value = NA,
-  drop = TRUE, guide = "legend", position = "left",
-  super = ScaleDiscrete)
+  expand = waiver(), na.translate = TRUE, na.value = NA, drop = TRUE,
+  guide = "legend", position = "left", super = ScaleDiscrete)
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with}

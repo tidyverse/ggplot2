@@ -19,8 +19,8 @@ theme_grey(base_size = 11, base_family = "",
 theme_gray(base_size = 11, base_family = "",
   base_line_size = base_size/22, base_rect_size = base_size/22)
 
-theme_bw(base_size = 11, base_family = "",
-  base_line_size = base_size/22, base_rect_size = base_size/22)
+theme_bw(base_size = 11, base_family = "", base_line_size = base_size/22,
+  base_rect_size = base_size/22)
 
 theme_linedraw(base_size = 11, base_family = "",
   base_line_size = base_size/22, base_rect_size = base_size/22)
