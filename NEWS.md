@@ -25,7 +25,7 @@
   
 *   Data is no longer internally reordered when faceting. This makes it safer to
     feed data columns into `aes()` or into parameters of geoms or stats. However,
-    doing so remains discouraged (@clauswilke).
+    doing so remains discouraged (@clauswilke, #2694).
     
 *   `ggsave()` now exits without creating a new graphics device if previously
     none was open (@clauswilke, #2363).
