@@ -50,6 +50,7 @@
 #'
 #' # Set limits
 #' base + scale_x_date(limits = c(Sys.Date() - 7, NA))
+#'
 #' @name scale_date
 #' @aliases NULL
 NULL
@@ -85,12 +86,7 @@ scale_x_date <- function(name = waiver(),
     position = position
   )
 
-  if (!is.waive(sec.axis)) {
-    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
-    sc$secondary.axis <- sec.axis
-  }
-  sc
+  set_sec_axis(sec.axis, sc)
 }
 
 #' @rdname scale_date
@@ -124,12 +120,7 @@ scale_y_date <- function(name = waiver(),
     position = position
   )
 
-  if (!is.waive(sec.axis)) {
-    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
-    sc$secondary.axis <- sec.axis
-  }
-  sc
+  set_sec_axis(sec.axis, sc)
 }
 
 #' @export
@@ -165,12 +156,7 @@ scale_x_datetime <- function(name = waiver(),
     position = position
   )
 
-  if (!is.waive(sec.axis)) {
-    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
-    sc$secondary.axis <- sec.axis
-  }
-  sc
+  set_sec_axis(sec.axis, sc)
 }
 
 
@@ -207,12 +193,7 @@ scale_y_datetime <- function(name = waiver(),
     position = position
   )
 
-  if (!is.waive(sec.axis)) {
-    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
-    sc$secondary.axis <- sec.axis
-  }
-  sc
+  set_sec_axis(sec.axis, sc)
 }
 
 

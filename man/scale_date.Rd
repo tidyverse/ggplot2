@@ -136,6 +136,7 @@ base + scale_x_date(date_minor_breaks = "1 day")
 
 # Set limits
 base + scale_x_date(limits = c(Sys.Date() - 7, NA))
+
 }
 \seealso{
 \code{\link[=sec_axis]{sec_axis()}} for how to specify secondary axes
