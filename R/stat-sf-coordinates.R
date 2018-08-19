@@ -1,13 +1,13 @@
 #' Extract coordinates from 'sf' objects
 #'
 #' `stat_sf_coordinates()` extracts the coordinates from 'sf' objects and
-#' summarises them to one pair of coordinates (X and Y, and possibly Z and/or M)
-#' per geometry. This is convenient when you draw an sf object as geoms like
-#' texts and labels (so [geom_sf_text()] and [geom_sf_label()] relies on this).
+#' summarises them to one pair of coordinates (X and Y) per geometry. This is
+#' convenient when you draw an sf object as geoms like texts and labels (so
+#' [geom_sf_text()] and [geom_sf_label()] relies on this).
 #'
 #' @rdname stat_sf_coordinates
 #' @details
-#' coordinates of an 'sf' object can be retrieved by `sf::st_coordinates()`.
+#' coordinates of an `sf` object can be retrieved by `sf::st_coordinates()`.
 #' But, we cannot simply use `sf::st_coordinates()` because, whereas texts and
 #' labels require exactly one coordinate per geometry, it returns multiple ones
 #' for a polygon or a line. Thus, these two steps are needed:
@@ -17,32 +17,34 @@
 #' 2. Retrieve coordinates from the points by `sf::st_coordinates()`.
 #'
 #' For the first step, you can use an arbitrary function via `fun.geometry`.
-#' By default, `sf::st_point_on_surface()` is used; This seems more appropriate
-#' than `sf::st_centroid()` since lables and texts usually are intended to be
-#' put within the polygon or the line.
+#' By default, `function(x) sf::st_point_on_surface(sf::st_zm(x))` is used;
+#' `sf::st_point_on_surface()` seems more appropriate than `sf::st_centroid()`
+#' since lables and texts usually are intended to be put within the polygon or
+#' the line. `sf::st_zm()` is needed to drop Z and M dimension beforehand,
+#' otherwise `sf::st_point_on_surface()` may fail when the geometries have M
+#' dimension.
 #' 
 #' @section Computed variables:
 #' \describe{
-#'   \item{X}{X dimension of the simple feature}
-#'   \item{Y}{Y dimension of the simple feature}
-#'   \item{Z}{Z dimension of the simple feature (if available)}
-#'   \item{M}{M dimension of the simple feature (if available)}
+#'   \item{x}{X dimension of the simple feature}
+#'   \item{y}{Y dimension of the simple feature}
 #' }
 #'
-#' Note that, while Z and M dimensions are theoretically available, you may
-#' face errors because sf functions don't always support Z and M. In such cases,
-#' you can drop these dimensions either beforehand or in a custom `fun.geometry`
-#' by `sf::st_zm()`.
-#' 
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
-#' storms <- sf::st_read(system.file("shape/storms_xyz.shp", package = "sf"), quiet = TRUE)
+#' nc <- sf::st_read(system.file("shape/nc.shp", package="sf"))
 #' 
-#' ggplot(storms) +
+#' ggplot(nc) +
 #'   stat_sf_coordinates()
 #' 
-#' ggplot(storms) +
-#'   stat_sf_coordinates(aes(colour = stat(Z)))
+#' ggplot(nc) +
+#'   geom_errorbarh(
+#'     aes(xmin = stat(x) - 0.2,
+#'         xmax = stat(x) + 0.2,
+#'         y = stat(y),
+#'         height = 0.04),
+#'     stat = "sf_coordinates"
+#'   )
 #' }
 #' 
 #' @export
@@ -50,10 +52,10 @@
 #' @inheritParams geom_point
 #' @param fun.geometry
 #'   A function that takes a `sfc` object and returns a `sfc_POINT` with the
-#'   same length as the input. If `NULL`, `sf::st_point_on_surface()` will be
-#'   used. Note that the function may warn about the incorrectness of the result
-#'   if the data is not projected, but you can ignore this except when you
-#'   really care about the exact locations.
+#'   same length as the input. If `NULL`, `function(x) sf::st_point_on_surface(sf::st_zm(x))`
+#'   will be used. Note that the function may warn about the incorrectness of
+#'   the result if the data is not projected, but you can ignore this except
+#'   when you really care about the exact locations.
 stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
                                 position = "identity", na.rm = FALSE,
                                 show.legend = NA, inherit.aes = TRUE,
@@ -96,11 +98,12 @@ StatSfCoordinates <- ggproto(
     
     points_sfc <- fun.geometry(data$geometry)
     coordinates <- sf::st_coordinates(points_sfc)
-    data <- cbind(data, coordinates)
+    data$x <- coordinates[, "X"]
+    data$y <- coordinates[, "Y"]
 
     data
   },
 
-  default_aes = aes(x = stat(X), y = stat(Y)),
+  default_aes = aes(x = stat(x), y = stat(y)),
   required_aes = c("geometry")
 )
