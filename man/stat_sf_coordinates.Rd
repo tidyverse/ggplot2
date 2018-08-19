@@ -107,7 +107,6 @@ ggplot(nc) +
         xmax = stat(x) + 0.1,
         y = stat(y),
         height = 0.04),
-    colour = "white",
     stat = "sf_coordinates"
   )
 }
