@@ -19,14 +19,15 @@ update_labels <- function(p, labels) {
 #' Modify axis, legend, and plot labels
 #'
 #' Good labels are critical for making your plots accessible to a wider
-#' audience. Ensure the axis and legend labels display the full variable name.
-#' Use the plot `title` and `subtitle` to explain the main findings.
-#' It's common to use the `caption` to provide information about the
-#' data source. `tag` can be used for adding identification tags.
+#' audience. Always ensure the axis and legend labels display the full
+#' variable name. Use the plot `title` and `subtitle` to explain the
+#' main findings. It's common to use the `caption` to provide information
+#' about the data source. `tag` can be used for adding identification tags
+#' to differentiate between multiple plots.
 #'
 #' You can also set axis and legend labels in the individual scales (using
-#' the first argument, the `name`). I recommend doing that if you're
-#' changing other scale options.
+#' the first argument, the `name`). If you're changing other scale options, this
+#' is recommended.
 #'
 #' If a plot already has a title, subtitle, caption, etc., and you want to
 #' remove it, you can do so by setting the respective argument to `NULL`. For

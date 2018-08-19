@@ -1,6 +1,6 @@
 #' Text
 #'
-#' `geom_text` adds text directly to the plot. `geom_label` draws
+#' `geom_text()` adds text directly to the plot. `geom_label()` draws
 #' a rectangle behind the text, making it easier to read.
 #'
 #' Note that the "width" and "height" of a text element are 0, so stacking
@@ -10,16 +10,16 @@
 #' space they occupy on the plot is not constant in data units: when you
 #' resize a plot, labels stay the same size, but the size of the axes changes.
 #'
-#' `geom_text` and `geom_label` both add a label for each row in the
+#' `geom_text()` and `geom_label()` add labels for each row in the
 #' data, even if coordinates x, y are set to single values in the call
-#' to `geom_label` or `geom_text`.
+#' to `geom_label()` or `geom_text()`.
 #' To add labels at specified points use [annotate()] with
 #' `annotate(geom = "text", ...)` or `annotate(geom = "label", ...)`.
 #'
 #' @eval rd_aesthetics("geom", "text")
-#' @section `geom_label`:
-#' Currently `geom_label` does not support the `rot` parameter and
-#' is considerably slower than `geom_text`. The `fill` aesthetic
+#' @section `geom_label()`:
+#' Currently `geom_label()` does not support the `angle` aesthetic and
+#' is considerably slower than `geom_text()`. The `fill` aesthetic
 #' controls the background colour of the label.
 #'
 #' @section Alignment:

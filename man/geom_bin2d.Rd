@@ -11,8 +11,8 @@ geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
   inherit.aes = TRUE)
 
 stat_bin_2d(mapping = NULL, data = NULL, geom = "tile",
-  position = "identity", ..., bins = 30, binwidth = NULL, drop = TRUE,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., bins = 30, binwidth = NULL,
+  drop = TRUE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -75,7 +75,7 @@ in the presence of overplotting.
 }
 \section{Aesthetics}{
 
-\code{stat_bin2d} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_bin2d()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

@@ -7,12 +7,13 @@
 \usage{
 geom_quantile(mapping = NULL, data = NULL, stat = "quantile",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 10, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  linemitre = 10, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_quantile(mapping = NULL, data = NULL, geom = "quantile",
   position = "identity", ..., quantiles = c(0.25, 0.5, 0.75),
-  formula = NULL, method = "rq", method.args = list(), na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  formula = NULL, method = "rq", method.args = list(),
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -81,7 +82,7 @@ with lines. This is as a continuous analogue to \code{\link[=geom_boxplot]{geom_
 }
 \section{Aesthetics}{
 
-\code{geom_quantile} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_quantile()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

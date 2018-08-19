@@ -34,7 +34,7 @@ scale_x_sqrt(...)
 scale_y_sqrt(...)
 }
 \arguments{
-\item{name}{The name of the scale. Used as axis or legend title. If
+\item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
@@ -99,13 +99,13 @@ scales, "top" or "bottom" for horizontal scales}
 
 \item{sec.axis}{specify a secondary axis}
 
-\item{...}{Other arguments passed on to \code{scale_(x|y)_continuous}}
+\item{...}{Other arguments passed on to \code{scale_(x|y)_continuous()}}
 }
 \description{
-\code{scale_x_continuous} and \code{scale_y_continuous} are the default
+\code{scale_x_continuous()} and \code{scale_y_continuous()} are the default
 scales for continuous x and y aesthetics. There are three variants
 that set the \code{trans} argument for commonly used transformations:
-\code{scale_*_log10}, \code{scale_*_sqrt} and \code{scale_*_reverse}.
+\code{scale_*_log10()}, \code{scale_*_sqrt()} and \code{scale_*_reverse()}.
 }
 \details{
 For simple manipulation of labels and limits, you may wish to use

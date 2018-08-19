@@ -58,7 +58,7 @@ A rotated version of \code{\link[=geom_errorbar]{geom_errorbar()}}.
 }
 \section{Aesthetics}{
 
-\code{geom_errorbarh} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_errorbarh()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{xmin}}
 \item \strong{\code{xmax}}

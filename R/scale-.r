@@ -502,7 +502,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #' @param palette A palette function that when called with a single integer
 #'   argument (the number of levels in the scale) returns the values that
 #'   they should take
-#' @param name The name of the scale. Used as axis or legend title. If
+#' @param name The name of the scale. Used as the axis or legend title. If
 #'   `waiver()`, the default, the name of the scale is taken from the first
 #'   mapping used for that aesthetic. If `NULL`, the legend title will be
 #'   omitted.
