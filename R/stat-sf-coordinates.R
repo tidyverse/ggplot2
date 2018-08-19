@@ -1,7 +1,7 @@
 #' Extract coordinates from 'sf' objects
 #'
 #' `stat_sf_coordinates()` extracts the coordinates from 'sf' objects and
-#' summarises them to one pair of coordinates (X and Y) per geometry. This is
+#' summarises them to one pair of coordinates (x and y) per geometry. This is
 #' convenient when you draw an sf object as geoms like texts and labels (so
 #' [geom_sf_text()] and [geom_sf_label()] relies on this).
 #'
@@ -13,7 +13,7 @@
 #' for a polygon or a line. Thus, these two steps are needed:
 #'
 #' 1. Choose one point per geometry by some function like `sf::st_centroid()`
-#'    and `sf::st_point_on_surface()`.
+#'    or `sf::st_point_on_surface()`.
 #' 2. Retrieve coordinates from the points by `sf::st_coordinates()`.
 #'
 #' For the first step, you can use an arbitrary function via `fun.geometry`.

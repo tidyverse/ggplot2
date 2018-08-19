@@ -62,7 +62,7 @@ to the paired geom/stat.}
 }
 \description{
 \code{stat_sf_coordinates()} extracts the coordinates from 'sf' objects and
-summarises them to one pair of coordinates (X and Y) per geometry. This is
+summarises them to one pair of coordinates (x and y) per geometry. This is
 convenient when you draw an sf object as geoms like texts and labels (so
 \code{\link[=geom_sf_text]{geom_sf_text()}} and \code{\link[=geom_sf_label]{geom_sf_label()}} relies on this).
 }
@@ -73,7 +73,7 @@ labels require exactly one coordinate per geometry, it returns multiple ones
 for a polygon or a line. Thus, these two steps are needed:
 \enumerate{
 \item Choose one point per geometry by some function like \code{sf::st_centroid()}
-and \code{sf::st_point_on_surface()}.
+or \code{sf::st_point_on_surface()}.
 \item Retrieve coordinates from the points by \code{sf::st_coordinates()}.
 }
 
