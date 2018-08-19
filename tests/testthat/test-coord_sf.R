@@ -7,5 +7,10 @@ test_that("multiplication works", {
   plot <- ggplot(nc) +
     geom_sf() +
     coord_sf()
+
+  # Perform minimal test as long as vdiffr test is disabled
+  expect_error(regexp = NA, ggplot_build(plot))
+
+  skip("sf tests are currently unstable")
   expect_doppelganger("sf-polygons", plot)
 })
