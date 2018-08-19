@@ -39,10 +39,12 @@
 #' 
 #' ggplot(nc) +
 #'   geom_errorbarh(
-#'     aes(xmin = stat(x) - 0.2,
-#'         xmax = stat(x) + 0.2,
+#'     aes(geometry = geometry,
+#'         xmin = stat(x) - 0.1,
+#'         xmax = stat(x) + 0.1,
 #'         y = stat(y),
 #'         height = 0.04),
+#'     colour = "white",
 #'     stat = "sf_coordinates"
 #'   )
 #' }
