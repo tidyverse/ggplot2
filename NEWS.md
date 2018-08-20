@@ -35,7 +35,7 @@
     is now always internally converted to "colour", even when part of a longer
     aesthetic name (e.g., `point_color`) (@clauswilke, #2649).
 
-*   `labs()` now has named arguments `title`, `subtitle`, `caption` and `tag` explicitly.
+*   `labs()` now has named arguments `title`, `subtitle`, `caption`, and `tag`.
     Also, `labs()` now accepts tidyeval (@yutannihilation, #2669).
 
 # ggplot2 3.0.0
