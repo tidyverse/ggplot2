@@ -95,7 +95,9 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
 StatSfCoordinates <- ggproto(
   "StatSfCoordinates", Stat,
   compute_group = function(data, scales, fun.geometry = NULL) {
-    if (is.null(fun.geometry)) fun.geometry <- sf::st_point_on_surface
+    if (is.null(fun.geometry)) {
+      fun.geometry <- function(x) sf::st_point_on_surface(sf::st_zm(x))
+    }
     
     points_sfc <- fun.geometry(data$geometry)
     coordinates <- sf::st_coordinates(points_sfc)
