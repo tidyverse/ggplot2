@@ -6,7 +6,7 @@
 #' an unusual geom because it will draw different geometric objects depending
 #' on what simple features are present in the data: you can get points, lines,
 #' or polygons.
-#' For texts and labels, you can use `geom_sf_text` and `geom_sf_text`.
+#' For texts and labels, you can use `geom_sf_text` and `geom_sf_label`.
 #'
 #' @section Geometry aesthetic:
 #' `geom_sf` uses a unique aesthetic: `geometry`, giving an
