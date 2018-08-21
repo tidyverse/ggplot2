@@ -46,8 +46,8 @@ scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
 \describe{
   \item{scale_name}{The name of the scale}
   \item{palette}{A palette function that when called with a numeric vector with
-values in \link{0,1} returns the corresponding values in the range the scale
-maps to.}
+values between 0 and 1 returns the corresponding values in the range the
+scale maps to.}
   \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
