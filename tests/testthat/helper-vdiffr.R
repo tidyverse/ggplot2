@@ -2,15 +2,19 @@
 enable_vdiffr <- TRUE
 
 if (!requireNamespace("vdiffr", quietly = TRUE) ||
-      utils::packageVersion("vdiffr") < "0.2.3.9000") {
+  utils::packageVersion("vdiffr") < "0.2.3.9000") {
+  enable_vdiffr <- FALSE
+}
+
+if (paste(R.Version()$major, R.Version()$minor, sep = ".") < "3.3.0") {
   enable_vdiffr <- FALSE
 }
 
 expect_doppelganger <- function(title, fig,
-                               path = NULL,
-                               ...,
-                               user_fonts = NULL,
-                               verbose = FALSE) {
+                                path = NULL,
+                                ...,
+                                user_fonts = NULL,
+                                verbose = FALSE) {
   if (!enable_vdiffr) {
     expect_error(regexp = NA, ggplot_build(fig))
     return(invisible(NULL))
