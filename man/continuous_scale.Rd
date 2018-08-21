@@ -15,9 +15,9 @@ continuous_scale(aesthetics, scale_name, palette, name = waiver(),
 
 \item{scale_name}{The name of the scale}
 
-\item{palette}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take}
+\item{palette}{A palette function that when called with a numeric vector with
+values in \link{0,1} returns the corresponding values in the range the scale
+maps to.}
 
 \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
