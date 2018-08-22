@@ -6,20 +6,20 @@
 \usage{
 continuous_scale(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), minor_breaks = waiver(), labels = waiver(),
-  limits = NULL, rescaler = rescale, oob = censor, expand = waiver(),
-  na.value = NA_real_, trans = "identity", guide = "legend",
-  position = "left", super = ScaleContinuous)
+  limits = NULL, rescaler = rescale, oob = censor,
+  expand = waiver(), na.value = NA_real_, trans = "identity",
+  guide = "legend", position = "left", super = ScaleContinuous)
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with}
 
 \item{scale_name}{The name of the scale}
 
-\item{palette}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take}
+\item{palette}{A palette function that when called with a numeric vector with
+values between 0 and 1 returns the corresponding values in the range the
+scale maps to.}
 
-\item{name}{The name of the scale. Used as axis or legend title. If
+\item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}

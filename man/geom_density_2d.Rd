@@ -9,7 +9,8 @@
 \usage{
 geom_density_2d(mapping = NULL, data = NULL, stat = "density2d",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 10, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  linemitre = 10, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_density_2d(mapping = NULL, data = NULL, geom = "density_2d",
   position = "identity", ..., contour = TRUE, n = 100, h = NULL,
@@ -81,7 +82,7 @@ overplotting. This is a 2d version of \code{\link[=geom_density]{geom_density()}
 }
 \section{Aesthetics}{
 
-\code{geom_density_2d} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_density_2d()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

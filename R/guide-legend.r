@@ -57,7 +57,6 @@
 #'   multiple guides are displayed, not the contents of the guide itself.
 #'   If 0 (default), the order is determined by a secret algorithm.
 #' @param ... ignored.
-#' @return A guide object
 #' @export
 #' @family guides
 #' @examples
