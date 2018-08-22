@@ -2,13 +2,13 @@
 #'
 #' `stat_sf_coordinates()` extracts the coordinates from 'sf' objects and
 #' summarises them to one pair of coordinates (x and y) per geometry. This is
-#' convenient when you draw an sf object as geoms like texts and labels (so
+#' convenient when you draw an sf object as geoms like text and labels (so
 #' [geom_sf_text()] and [geom_sf_label()] relies on this).
 #'
 #' @rdname stat_sf_coordinates
 #' @details
 #' coordinates of an `sf` object can be retrieved by `sf::st_coordinates()`.
-#' But, we cannot simply use `sf::st_coordinates()` because, whereas texts and
+#' But, we cannot simply use `sf::st_coordinates()` because, whereas text and
 #' labels require exactly one coordinate per geometry, it returns multiple ones
 #' for a polygon or a line. Thus, these two steps are needed:
 #'
@@ -19,7 +19,7 @@
 #' For the first step, you can use an arbitrary function via `fun.geometry`.
 #' By default, `function(x) sf::st_point_on_surface(sf::st_zm(x))` is used;
 #' `sf::st_point_on_surface()` seems more appropriate than `sf::st_centroid()`
-#' since lables and texts usually are intended to be put within the polygon or
+#' since lables and text usually are intended to be put within the polygon or
 #' the line. `sf::st_zm()` is needed to drop Z and M dimension beforehand,
 #' otherwise `sf::st_point_on_surface()` may fail when the geometries have M
 #' dimension.

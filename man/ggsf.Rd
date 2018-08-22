@@ -135,7 +135,7 @@ uses \code{stat_sf} and adds \code{coord_sf} for you. \code{geom_sf} is
 an unusual geom because it will draw different geometric objects depending
 on what simple features are present in the data: you can get points, lines,
 or polygons.
-For texts and labels, you can use \code{geom_sf_text} and \code{geom_sf_label}.
+For text and labels, you can use \code{geom_sf_text()} and \code{geom_sf_label()}.
 }
 \section{Geometry aesthetic}{
 

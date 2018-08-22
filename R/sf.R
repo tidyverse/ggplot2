@@ -6,7 +6,7 @@
 #' an unusual geom because it will draw different geometric objects depending
 #' on what simple features are present in the data: you can get points, lines,
 #' or polygons.
-#' For texts and labels, you can use `geom_sf_text` and `geom_sf_label`.
+#' For text and labels, you can use `geom_sf_text()` and `geom_sf_label()`.
 #'
 #' @section Geometry aesthetic:
 #' `geom_sf` uses a unique aesthetic: `geometry`, giving an
@@ -33,6 +33,7 @@
 #'
 #'   You can also set this to one of "polygon", "line", and "point" to
 #'   override the default legend.
+#' @seealso [stat_sf_coordinates()]
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
 #' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
@@ -259,7 +260,6 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
 #' @rdname ggsf
 #' @inheritParams geom_label
 #' @inheritParams stat_sf_coordinates
-#' @seealso [stat_sf_coordinates()]
 geom_sf_label <- function(mapping = aes(), data = NULL,
                           stat = "sf_coordinates", position = "identity",
                           ...,
