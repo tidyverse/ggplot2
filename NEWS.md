@@ -1,5 +1,8 @@
 # ggplot2 3.0.0.9000
 
+*   `geom_sf()` now respects `lineend`, `linejoin` and `linemitre` parameters 
+    for lines and polygons (@alistaire47, #2826)
+
 *   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
     
 *   `fortify()` now displays a more informative error message for
