@@ -15,7 +15,7 @@
 #'   - `render_axis_v`: Renders the vertical axes.
 #'   - `backtransform_range(panel_params)`: Extracts the panel range provided
 #'     in `panel_params` (created by `setup_panel_params()`, see below) and
-#'     backtransforms to data coordinates. This back-transformation is needed
+#'     back-transforms to data coordinates. This back-transformation is needed
 #'     for coords such as `coord_flip()`, `coord_polar()`, `coord_trans()` where
 #'     the range in the transformed coordinates differs from the range in the
 #'     untransformed coordinates.
