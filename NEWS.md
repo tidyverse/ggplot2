@@ -3,8 +3,11 @@
 *   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
     for lines and polygons (@alistaire47, #2826)
 
+*   `geom_hline()`, `geom_vline()`, and `geom_abline()` now work properly
+    with `coord_trans()` (@clauswilke, #2149, #2812).
+
 *   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
-    
+
 *   `fortify()` now displays a more informative error message for
     `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
 
