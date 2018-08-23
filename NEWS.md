@@ -15,6 +15,10 @@
 
 *   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
 
+*   `coord_sf()` now takes a parameter `graticule_labeling` that can be used
+    to specify which graticules to label on which side of the plot
+    (@clauswilke, #2846).
+    
 *   `fortify()` now displays a more informative error message for
     `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
 

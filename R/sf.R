@@ -541,7 +541,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       x_range = x_range,
       y_range = y_range,
       graticule = graticule,
-      crs = params$crs
+      crs = params$crs,
+      graticule_labeling = self$graticule_labeling
     )
   },
 
@@ -578,53 +579,97 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   render_axis_h = function(self, panel_params, theme) {
     graticule <- panel_params$graticule
 
-    # horizontal axes label degrees east (meridians)
-    # for the bottom side, graticule$plot12 tells us whether
-    # a tick is needed or not
-    ticks_bottom <- graticule[graticule$type == "E" & graticule$plot12, ]
-    # for the top, we need to guess
-    ticks_top <- graticule[graticule$type == "E" & graticule$y_end > 0.99, ]
+    # top axis
+    if (identical(panel_params$graticule_labeling$top, "E") ||
+          identical(panel_params$graticule_labeling$top, "N")) {
+      # we don't generally know which direction graticules run, so need to consider both
+      ticks1 <- graticule[graticule$type == panel_params$graticule_labeling$top &
+                            graticule$y_start > 0.999, ]
+      ticks2 <- graticule[graticule$type == panel_params$graticule_labeling$top &
+                            graticule$y_end > 0.999, ]
+      tick_positions <- c(ticks1$x_start, ticks2$x_end)
+      tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
-    list(
-      top = guide_axis(
-        ticks_top$x_end,
-        ticks_top$degree_label,
+      top <- guide_axis(
+        tick_positions,
+        tick_labels,
         position = "top",
         theme = theme
-      ),
-      bottom = guide_axis(
-        ticks_bottom$x_start,
-        ticks_bottom$degree_label,
+      )
+    } else {
+      top <- zeroGrob()
+    }
+
+    # bottom axis
+    if (identical(panel_params$graticule_labeling$bottom, "E") ||
+          identical(panel_params$graticule_labeling$bottom, "N")) {
+      # we don't generally know which direction graticules run, so need to consider both
+      ticks1 <- graticule[graticule$type == panel_params$graticule_labeling$bottom &
+                           graticule$y_start < 0.001, ]
+      ticks2 <- graticule[graticule$type == panel_params$graticule_labeling$bottom &
+                            graticule$y_end < 0.001, ]
+      tick_positions <- c(ticks1$x_start, ticks2$x_end)
+      tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
+
+      bottom <- guide_axis(
+        tick_positions,
+        tick_labels,
         position = "bottom",
         theme = theme
       )
-    )
+    } else {
+      bottom <- zeroGrob()
+    }
+
+    list(top = top, bottom = bottom)
   },
 
   render_axis_v = function(self, panel_params, theme) {
     graticule <- panel_params$graticule
 
-    # vertical axes label degrees north (parallels)
-    # for the left side, graticule$plot12 tells us whether
-    # a tick is needed or not
-    ticks_left <- graticule[graticule$type == "N" & graticule$plot12, ]
-    # for the right side, we need to guess
-    ticks_right <- graticule[graticule$type == "N" & graticule$x_end > 0.99, ]
+    # left axis
+    if (identical(panel_params$graticule_labeling$left, "E") ||
+        identical(panel_params$graticule_labeling$left, "N")) {
+      # we don't generally know which direction graticules run, so need to consider both
+      ticks1 <- graticule[graticule$type == panel_params$graticule_labeling$left &
+                            graticule$x_start < 0.001, ]
+      ticks2 <- graticule[graticule$type == panel_params$graticule_labeling$left &
+                            graticule$x_end < 0.001, ]
+      tick_positions <- c(ticks1$y_start, ticks2$y_end)
+      tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
-    list(
-      left = guide_axis(
-        ticks_left$y_start,
-        ticks_left$degree_label,
+      left <- guide_axis(
+        tick_positions,
+        tick_labels,
         position = "left",
         theme = theme
-      ),
-      right = guide_axis(
-        ticks_right$y_end,
-        ticks_right$degree_label,
+      )
+    } else {
+      left <- zeroGrob()
+    }
+
+    # right axis
+    if (identical(panel_params$graticule_labeling$right, "E") ||
+        identical(panel_params$graticule_labeling$right, "N")) {
+      # we don't generally know which direction graticules run, so need to consider both
+      ticks1 <- graticule[graticule$type == panel_params$graticule_labeling$right &
+                            graticule$x_start > 0.999, ]
+      ticks2 <- graticule[graticule$type == panel_params$graticule_labeling$right &
+                            graticule$x_end > 0.999, ]
+      tick_positions <- c(ticks1$y_start, ticks2$y_end)
+      tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
+
+      right <- guide_axis(
+        tick_positions,
+        tick_labels,
         position = "right",
         theme = theme
       )
-    )
+    } else {
+      right <- zeroGrob()
+    }
+
+    list(left = left, right = right)
   }
 
 )
@@ -644,21 +689,28 @@ sf_rescale01_x <- function(x, range) {
 }
 
 
-#' @param crs Use this to select a specific CRS. If not specified, will
-#'   use the CRS defined in the first layer.
+#' @param crs Use this to select a specific coordinate reference system (CRS).
+#'   If not specified, will use the CRS defined in the first layer.
 #' @param datum CRS that provides datum to use when generating graticules
+#' @param graticule_labeling Named list of character values specifying which
+#'   graticules (meridians or parallels) should be labeled on which side of the
+#'   plot. Meridians are indicated by `"E"` (for East) and parallels by `"N"`
+#'   (for North). Default is `list(top = NA, right = NA, bottom = "E",
+#'   left = "N")` to label parallels on the left and meridians at the bottom.
 #' @param ndiscr number of segments to use for discretising graticule lines;
 #'   try increasing this when graticules look unexpected
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                     crs = NULL, datum = sf::st_crs(4326), ndiscr = 100,
-                     default = FALSE) {
+                     crs = NULL, datum = sf::st_crs(4326),
+                     graticule_labeling = list(top = NA, right = NA, bottom = "E", left = "N"),
+                     ndiscr = 100, default = FALSE) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
     datum = datum,
     crs = crs,
+    graticule_labeling = graticule_labeling,
     ndiscr = ndiscr,
     expand = expand,
     default = default
