@@ -1,19 +1,19 @@
 #' Visualise sf objects
 #'
 #' This set of geom, stat, and coord are used to visualise simple feature (sf)
-#' objects. For simple plots, you will only need `geom_sf` as it
-#' uses `stat_sf` and adds `coord_sf` for you. `geom_sf` is
+#' objects. For simple plots, you will only need `geom_sf()` as it
+#' uses `stat_sf()` and adds `coord_sf()` for you. `geom_sf()` is
 #' an unusual geom because it will draw different geometric objects depending
 #' on what simple features are present in the data: you can get points, lines,
 #' or polygons.
 #' For text and labels, you can use `geom_sf_text()` and `geom_sf_label()`.
 #'
 #' @section Geometry aesthetic:
-#' `geom_sf` uses a unique aesthetic: `geometry`, giving an
+#' `geom_sf()` uses a unique aesthetic: `geometry`, giving an
 #' column of class `sfc` containing simple features data. There
 #' are three ways to supply the `geometry` aesthetic:
 #'
-#'   - Do nothing: by default `geom_sf` assumes it is stored in
+#'   - Do nothing: by default `geom_sf()` assumes it is stored in
 #'     the `geometry` column.
 #'   - Explicitly pass an `sf` object to the `data` argument.
 #'     This will use the primary geometry column, no matter what it's called.
@@ -24,7 +24,7 @@
 #'
 #' @section CRS:
 #' `coord_sf()` ensures that all layers use a common CRS. You can
-#' either specify it using the `CRS` param, or `coord_sf` will
+#' either specify it using the `CRS` param, or `coord_sf()` will
 #' take it from the first layer that defines a CRS.
 #'
 #' @param show.legend logical. Should this layer be included in the legends?
