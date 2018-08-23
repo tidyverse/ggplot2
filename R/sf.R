@@ -151,7 +151,8 @@ GeomSf <- ggproto("GeomSf", Geom,
     stroke = 0.5
   ),
 
-  draw_panel = function(data, panel_params, coord, legend = NULL) {
+  draw_panel = function(data, panel_params, coord, legend = NULL,
+                        lineend = "butt", linejoin = "round", linemitre = 10) {
     if (!inherits(coord, "CoordSf")) {
       stop("geom_sf() must be used with coord_sf()", call. = FALSE)
     }
@@ -159,7 +160,12 @@ GeomSf <- ggproto("GeomSf", Geom,
     # Need to refactor this to generate one grob per geometry type
     coord <- coord$transform(data, panel_params)
     grobs <- lapply(1:nrow(data), function(i) {
-      sf_grob(coord[i, , drop = FALSE])
+      sf_grob(
+        coord[i, , drop = FALSE],
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre
+      )
     })
     do.call("gList", grobs)
   },
@@ -186,7 +192,7 @@ default_aesthetics <- function(type) {
   }
 }
 
-sf_grob <- function(row) {
+sf_grob <- function(row, lineend, linejoin, linemitre) {
   # Need to extract geometry out of corresponding list column
   geometry <- row$geometry[[1]]
 
@@ -207,7 +213,9 @@ sf_grob <- function(row) {
       fill = alpha(row$fill, row$alpha),
       lwd = row$size * .pt,
       lty = row$linetype,
-      lineend = "butt"
+      lineend = lineend,
+      linejoin = linejoin,
+      linemitre = linemitre
     )
     sf::st_as_grob(geometry, gp = gp)
   }
