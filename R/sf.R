@@ -577,13 +577,24 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   render_axis_h = function(self, panel_params, theme) {
     graticule <- panel_params$graticule
-    east <- graticule[graticule$type == "E" & !is.na(graticule$degree_label), ]
+
+    # horizontal axes label degrees east (meridians)
+    # for the bottom side, graticule$plot12 tells us whether
+    # a tick is needed or not
+    ticks_bottom <- graticule[graticule$type == "E" & graticule$plot12, ]
+    # for the top, we need to guess
+    ticks_top <- graticule[graticule$type == "E" & graticule$y_end > 0.99, ]
 
     list(
-      top = nullGrob(),
+      top = guide_axis(
+        ticks_top$x_end,
+        ticks_top$degree_label,
+        position = "top",
+        theme = theme
+      ),
       bottom = guide_axis(
-        east$x_start,
-        east$degree_label,
+        ticks_bottom$x_start,
+        ticks_bottom$degree_label,
         position = "bottom",
         theme = theme
       )
@@ -592,16 +603,27 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   render_axis_v = function(self, panel_params, theme) {
     graticule <- panel_params$graticule
-    north <- graticule[graticule$type == "N" & !is.na(graticule$degree_label), ]
+
+    # vertical axes label degrees north (parallels)
+    # for the left side, graticule$plot12 tells us whether
+    # a tick is needed or not
+    ticks_left <- graticule[graticule$type == "N" & graticule$plot12, ]
+    # for the right side, we need to guess
+    ticks_right <- graticule[graticule$type == "N" & graticule$x_end > 0.99, ]
 
     list(
       left = guide_axis(
-        north$y_start,
-        north$degree_label,
+        ticks_left$y_start,
+        ticks_left$degree_label,
         position = "left",
         theme = theme
       ),
-      right = nullGrob()
+      right = guide_axis(
+        ticks_right$y_end,
+        ticks_right$degree_label,
+        position = "right",
+        theme = theme
+      )
     )
   }
 
