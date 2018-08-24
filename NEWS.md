@@ -50,6 +50,9 @@
     coordinates of the geometries. You can customize the calculation method via
     `fun.geometry` argument (@yutannihilation, #2761).
 
+*   `labs()` now has named arguments `title`, `subtitle`, `caption`, and `tag`.
+    Also, `labs()` now accepts tidyeval (@yutannihilation, #2669).
+
 # ggplot2 3.0.0
 
 ## Breaking changes

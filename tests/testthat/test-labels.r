@@ -25,6 +25,29 @@ test_that("setting guide labels works", {
     expect_identical(labs(colour = "my label")$colour, "my label")
     # American spelling
     expect_identical(labs(color = "my label")$colour, "my label")
+
+    # No extra elements exists
+    expect_equivalent(labs(title = "my title"), list(title = "my title"))     # formal argument
+    expect_equivalent(labs(colour = "my label"), list(colour = "my label"))   # dot
+    expect_equivalent(labs(foo = "bar"), list(foo = "bar"))                   # non-existent param
+
+    # labs() has list-splicing semantics
+    params <- list(title = "my title", tag = "A)")
+    expect_identical(labs(!!!params)$tag, "A)")
+
+    # NULL is preserved
+    expect_equivalent(labs(title = NULL), list(title = NULL))
+
+    # ggtitle works in the same way as labs()
+    expect_identical(ggtitle("my title")$title, "my title")
+    expect_identical(
+      ggtitle("my title", subtitle = "my subtitle")$subtitle,
+      "my subtitle"
+    )
+    expect_equivalent(
+      ggtitle("my title", subtitle = NULL),
+      list(title = "my title", subtitle = NULL)
+    )
 })
 
 
