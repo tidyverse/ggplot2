@@ -692,11 +692,13 @@ sf_rescale01_x <- function(x, range) {
 #' @param crs Use this to select a specific coordinate reference system (CRS).
 #'   If not specified, will use the CRS defined in the first layer.
 #' @param datum CRS that provides datum to use when generating graticules
-#' @param graticule_labeling Named list of character values specifying which
-#'   graticules (meridians or parallels) should be labeled on which side of the
-#'   plot. Meridians are indicated by `"E"` (for East) and parallels by `"N"`
-#'   (for North). Default is `list(top = NA, right = NA, bottom = "E",
-#'   left = "N")` to label parallels on the left and meridians at the bottom.
+#' @param graticule_labeling Character vector or named list of character values
+#'   specifying which graticules (meridians or parallels) should be labeled on
+#'   which side of the plot. Meridians are indicated by `"E"` (for East) and
+#'   parallels by `"N"` (for North). Default is `"NE--"`, which specifies
+#'   (counter-clockwise from the left) paralleles on the left, meridians on the bottom,
+#'   and nothing on the right or top. Alternatively, this setting could have been
+#'   specified with `list(left = "N", bottom = "E", right = NA, top = NA)`.
 #' @param ndiscr number of segments to use for discretising graticule lines;
 #'   try increasing this when graticules look unexpected
 #' @inheritParams coord_cartesian
@@ -704,8 +706,20 @@ sf_rescale01_x <- function(x, range) {
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      crs = NULL, datum = sf::st_crs(4326),
-                     graticule_labeling = list(top = NA, right = NA, bottom = "E", left = "N"),
+                     graticule_labeling = "NE--",
                      ndiscr = 100, default = FALSE) {
+
+  # graticule labeling can be specified via string or named list
+  if (is.character(graticule_labeling)) {
+    graticule_labeling <- parse_graticule_labeling(graticule_labeling)
+  } else if (!is.list(graticule_labeling)) {
+    warning(
+      "Graticule labeling format not recognized. Proceeding with default settings.",
+      call. = FALSE
+    )
+    graticule_labeling <- list(left = "N", bottom = "E")
+  }
+
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
     datum = datum,
@@ -715,4 +729,9 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     expand = expand,
     default = default
   )
+}
+
+parse_graticule_labeling <- function(x) {
+  labs = unlist(strsplit(x, ""))
+  list(left = labs[1], bottom = labs[2], right = labs[3], top = labs[4])
 }

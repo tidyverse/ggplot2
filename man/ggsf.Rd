@@ -33,8 +33,8 @@ geom_sf_text(mapping = aes(), data = NULL, stat = "sf_coordinates",
   show.legend = NA, inherit.aes = TRUE, fun.geometry = NULL)
 
 coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
-  datum = sf::st_crs(4326), graticule_labeling = list(top = NA, right =
-  NA, bottom = "E", left = "N"), ndiscr = 100, default = FALSE)
+  datum = sf::st_crs(4326), graticule_labeling = "NE--",
+  ndiscr = 100, default = FALSE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -121,10 +121,13 @@ If not specified, will use the CRS defined in the first layer.}
 
 \item{datum}{CRS that provides datum to use when generating graticules}
 
-\item{graticule_labeling}{Named list of character values specifying which
-graticules (meridians or parallels) should be labeled on which side of the
-plot. Meridians are indicated by \code{"E"} (for East) and parallels by \code{"N"}
-(for North). Default is \code{list(top = NA, right = NA, bottom = "E", left = "N")} to label parallels on the left and meridians at the bottom.}
+\item{graticule_labeling}{Character vector or named list of character values
+specifying which graticules (meridians or parallels) should be labeled on
+which side of the plot. Meridians are indicated by \code{"E"} (for East) and
+parallels by \code{"N"} (for North). Default is \code{"NE--"}, which specifies
+(counter-clockwise from the left) paralleles on the left, meridians on the bottom,
+and nothing on the right or top. Alternatively, this setting could have been
+specified with \code{list(left = "N", bottom = "E", right = NA, top = NA)}.}
 
 \item{ndiscr}{number of segments to use for discretising graticule lines;
 try increasing this when graticules look unexpected}
