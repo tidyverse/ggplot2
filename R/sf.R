@@ -294,7 +294,7 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+      stop("`position` and `nudge_x`/`nudge_y` cannot both be specified. Please specify only one.", call. = FALSE)
     }
 
     position <- position_nudge(nudge_x, nudge_y)
@@ -347,7 +347,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+      stop("`position` and `nudge_x`/`nudge_y` cannot both be specified. Please specify only one.", call. = FALSE)
     }
 
     position <- position_nudge(nudge_x, nudge_y)

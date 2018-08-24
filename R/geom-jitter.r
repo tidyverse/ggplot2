@@ -39,7 +39,7 @@ geom_jitter <- function(mapping = NULL, data = NULL,
                         inherit.aes = TRUE) {
   if (!missing(width) || !missing(height)) {
     if (!missing(position)) {
-      stop("Specify either `position` or `width`/`height`", call. = FALSE)
+      stop("`position` and `width`/`height` cannot both be specified. Please specify only one.", call. = FALSE)
     }
 
     position <- position_jitter(width = width, height = height)
