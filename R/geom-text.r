@@ -136,7 +136,7 @@ geom_text <- function(mapping = NULL, data = NULL,
 {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop("`position` and `nudge_x`/`nudge_y` cannot both be specified. Please specify only one.", call. = FALSE)
+      stop("You must specify one of `position` and `nudge_x`/`nudge_y`.", call. = FALSE)
     }
 
     position <- position_nudge(nudge_x, nudge_y)
