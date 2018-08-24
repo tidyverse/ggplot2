@@ -1,5 +1,9 @@
 # ggplot2 3.0.0.9000
 
+*   The error message in `compute_aesthetics()` now provides the names of only
+    aesthetics with mismatched lengths, rather than all aesthetics (@karawoo,
+    #2853).
+
 *   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
     for lines and polygons (@alistaire47, #2826)
 
