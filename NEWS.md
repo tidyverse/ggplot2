@@ -41,6 +41,11 @@
     is now always internally converted to "colour", even when part of a longer
     aesthetic name (e.g., `point_color`) (@clauswilke, #2649).
 
+*   New `geom_sf_label()` and `geom_sf_text()` draw labels and text on sf objects.
+    Under the hood, new `stat_sf_coordinates()` calculates the x and y from the
+    coordinates of the geometries. You can customize the calculation method via
+    `fun.geometry` argument (@yutannihilation, #2761).
+
 # ggplot2 3.0.0
 
 ## Breaking changes

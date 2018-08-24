@@ -1,18 +1,19 @@
 #' Visualise sf objects
 #'
 #' This set of geom, stat, and coord are used to visualise simple feature (sf)
-#' objects. For simple plots, you will only need `geom_sf` as it
-#' uses `stat_sf` and adds `coord_sf` for you. `geom_sf` is
+#' objects. For simple plots, you will only need `geom_sf()` as it
+#' uses `stat_sf()` and adds `coord_sf()` for you. `geom_sf()` is
 #' an unusual geom because it will draw different geometric objects depending
 #' on what simple features are present in the data: you can get points, lines,
 #' or polygons.
+#' For text and labels, you can use `geom_sf_text()` and `geom_sf_label()`.
 #'
 #' @section Geometry aesthetic:
-#' `geom_sf` uses a unique aesthetic: `geometry`, giving an
+#' `geom_sf()` uses a unique aesthetic: `geometry`, giving an
 #' column of class `sfc` containing simple features data. There
 #' are three ways to supply the `geometry` aesthetic:
 #'
-#'   - Do nothing: by default `geom_sf` assumes it is stored in
+#'   - Do nothing: by default `geom_sf()` assumes it is stored in
 #'     the `geometry` column.
 #'   - Explicitly pass an `sf` object to the `data` argument.
 #'     This will use the primary geometry column, no matter what it's called.
@@ -23,7 +24,7 @@
 #'
 #' @section CRS:
 #' `coord_sf()` ensures that all layers use a common CRS. You can
-#' either specify it using the `CRS` param, or `coord_sf` will
+#' either specify it using the `CRS` param, or `coord_sf()` will
 #' take it from the first layer that defines a CRS.
 #'
 #' @param show.legend logical. Should this layer be included in the legends?
@@ -32,6 +33,7 @@
 #'
 #'   You can also set this to one of "polygon", "line", and "point" to
 #'   override the default legend.
+#' @seealso [stat_sf_coordinates()]
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
 #' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
@@ -70,6 +72,11 @@
 #'   "+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"
 #' )
 #' ggplot() + geom_sf(data = world2)
+#'
+#' # To add labels, use geom_sf_label().
+#' ggplot(nc_3857[1:3, ]) +
+#'    geom_sf(aes(fill = AREA)) +
+#'    geom_sf_label(aes(label = NAME))
 #' }
 #' @name ggsf
 NULL
@@ -256,6 +263,114 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
     coord_sf(default = TRUE)
   )
 }
+
+#' @export
+#' @rdname ggsf
+#' @inheritParams geom_label
+#' @inheritParams stat_sf_coordinates
+geom_sf_label <- function(mapping = aes(), data = NULL,
+                          stat = "sf_coordinates", position = "identity",
+                          ...,
+                          parse = FALSE,
+                          nudge_x = 0,
+                          nudge_y = 0,
+                          label.padding = unit(0.25, "lines"),
+                          label.r = unit(0.15, "lines"),
+                          label.size = 0.25,
+                          na.rm = FALSE,
+                          show.legend = NA,
+                          inherit.aes = TRUE,
+                          fun.geometry = NULL) {
+
+  # Automatically determin name of geometry column
+  if (!is.null(data) && is_sf(data)) {
+    geometry_col <- attr(data, "sf_column")
+  } else {
+    geometry_col <- "geometry"
+  }
+  if (is.null(mapping$geometry)) {
+    mapping$geometry <- as.name(geometry_col)
+  }
+
+  if (!missing(nudge_x) || !missing(nudge_y)) {
+    if (!missing(position)) {
+      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+    }
+
+    position <- position_nudge(nudge_x, nudge_y)
+  }
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomLabel,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      parse = parse,
+      label.padding = label.padding,
+      label.r = label.r,
+      label.size = label.size,
+      na.rm = na.rm,
+      fun.geometry = fun.geometry,
+      ...
+    )
+  )
+}
+
+#' @export
+#' @rdname ggsf
+#' @inheritParams geom_text
+#' @inheritParams stat_sf_coordinates
+geom_sf_text <- function(mapping = aes(), data = NULL,
+                         stat = "sf_coordinates", position = "identity",
+                         ...,
+                         parse = FALSE,
+                         nudge_x = 0,
+                         nudge_y = 0,
+                         check_overlap = FALSE,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE,
+                         fun.geometry = NULL) {
+  # Automatically determin name of geometry column
+  if (!is.null(data) && is_sf(data)) {
+    geometry_col <- attr(data, "sf_column")
+  } else {
+    geometry_col <- "geometry"
+  }
+  if (is.null(mapping$geometry)) {
+    mapping$geometry <- as.name(geometry_col)
+  }
+
+  if (!missing(nudge_x) || !missing(nudge_y)) {
+    if (!missing(position)) {
+      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+    }
+
+    position <- position_nudge(nudge_x, nudge_y)
+  }
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomText,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      parse = parse,
+      check_overlap = check_overlap,
+      na.rm = na.rm,
+      fun.geometry = fun.geometry,
+      ...
+    )
+  )
+}
+
 
 #' @export
 scale_type.sfc <- function(x) "identity"
