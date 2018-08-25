@@ -126,10 +126,10 @@ where. Meridians run north-south, and the letters \code{"N"} and \code{"S"} indi
 they should be labeled on their north or south end points, respectively.
 Parallels run east-west, and the letters \code{"E"} and \code{"W"} indicate that they
 should be labeled on their east or west end points, respectively. Thus,
-\code{label_axes = "SW"} would label meridians at their south end and parallels at
-their west end, whereas \code{label_axes = "EW"} would label parallels at both
+\code{label_graticules = "SW"} would label meridians at their south end and parallels at
+their west end, whereas \code{label_graticules = "EW"} would label parallels at both
 ends and meridians not at all. Because meridians and parallels can in general
-intersect with any side of the plot panel, for any choice of \code{label_axes} labels
+intersect with any side of the plot panel, for any choice of \code{label_graticules} labels
 are not guaranteed to reside on only one particular side of the plot panel.
 
 This parameter can be used alone or in combination with \code{label_axes}.}
