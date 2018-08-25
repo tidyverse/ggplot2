@@ -15,8 +15,8 @@
 
 *   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
 
-*   `coord_sf()` now takes a parameter `graticule_labeling` that can be used
-    to specify which graticules to label on which side of the plot
+*   `coord_sf()` now accepts two new parameters `label_graticules` and `label_axes`
+    that can be used to specify which graticules to label on which side of the plot
     (@clauswilke, #2846).
     
 *   `fortify()` now displays a more informative error message for
