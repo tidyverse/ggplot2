@@ -860,7 +860,7 @@ sf_rescale01_x <- function(x, range) {
 #'   specified with `list(left = "N", bottom = "E")`.
 #'
 #'   This parameter can be used alone or in combination with `label_graticules`.
-#' @param label_axes Character vector indicating which graticules should be labeled
+#' @param label_graticules Character vector indicating which graticules should be labeled
 #'   where. Meridians run north-south, and the letters `"N"` and `"S"` indicate that
 #'   they should be labeled on their north or south end points, respectively.
 #'   Parallels run east-west, and the letters `"E"` and `"W"` indicate that they
