@@ -437,6 +437,52 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     data
   },
 
+
+  # internal function used by setup_panel_params,
+  # overrides the graticule labels based on scale settings if necessary
+  get_graticule_labels = function(self, graticule, scale_x, scale_y, params = list()) {
+    # if sf coordinates are not available in degrees latitude and longitude, label
+    # as regular numbers
+    if (is.null(params$crs) || is.na(params$crs) || !isTRUE(sf::st_is_longlat(self$datum))) {
+      x_labeller <- base::format
+      y_labeller <- base::format
+    }
+    else {
+      x_labeller <- degree_labels_EW
+      y_labeller <- degree_labels_NS
+    }
+
+    # if scales provide labeling functions override previous function choices
+    if (is.function(scale_x$labels)) {
+      x_labeller <- scale_x$labels
+    }
+    if (is.function(scale_y$labels)) {
+      y_labeller <- scale_y$labels
+    }
+
+    x_breaks <- graticule[graticule$type == "E", ]$degree
+    if (is.null(scale_x$labels)) {
+      x_labels <- rep(NA, length(x_breaks))
+    } else if (is.character(scale_x$labels)) {
+      x_labels <- scale_x$labels
+    } else {
+      x_labels <- x_labeller(x_breaks)
+    }
+
+    y_breaks <- graticule[graticule$type == "N", ]$degree
+    if (is.null(scale_y$labels)) {
+      y_labels <- rep(NA, length(y_breaks))
+    } else if (is.character(scale_y$labels)) {
+      y_labels <- scale_y$labels
+    } else {
+      y_labels <- y_labeller(y_breaks)
+    }
+
+    # still to do: 1. check lengths of lables vs. breaks; 2. make sure order is correct
+
+    c(x_labels, y_labels)
+  },
+
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # Bounding box of the data
     x_range <- scale_range(scale_x, self$limits$x, self$expand)
@@ -455,6 +501,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       datum = self$datum,
       ndiscr = self$ndiscr
     )
+
+    # override graticule labels provided by sf::st_graticule()
+    graticule$degree_label <- self$get_graticule_labels(graticule, scale_x, scale_y, params)
 
     # remove tick labels not on axes 1 (bottom) and 2 (left)
     if (!is.null(graticule$plot12))
@@ -572,4 +621,24 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     expand = expand,
     default = default
   )
+}
+
+# copied from sp
+# move to scales package at some point?
+
+degree_labels_NS <- function(x) {
+  pos = sign(x) + 2
+  dir = c("*S", "", "*N")
+  paste0(abs(x), "*degree", dir[pos])
+}
+
+degree_labels_EW <- function(x) {
+  x <- ifelse(x > 180, x - 360, x)
+  pos = sign(x) + 2
+  if (any(x == -180))
+    pos[x == -180] = 2
+  if (any(x == 180))
+    pos[x == 180] = 2
+  dir = c("*W", "", "*E")
+  paste0(abs(x), "*degree", dir[pos])
 }
