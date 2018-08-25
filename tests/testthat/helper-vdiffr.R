@@ -1,12 +1,15 @@
+# default is we don't run vdiffr
+enable_vdiffr <- FALSE
 
-enable_vdiffr <- TRUE
-
-if (!requireNamespace("vdiffr", quietly = TRUE) ||
-  utils::packageVersion("vdiffr") < "0.2.3.9000") {
-  enable_vdiffr <- FALSE
+# override default if "NOT_CRAN" is "true" or "RUN_VDIFFR" is "true"
+if (identical(Sys.getenv("NOT_CRAN"), "true") ||
+    identical(Sys.getenv("RUN_VDIFFR"), "true")) {
+  enable_vdiffr <- TRUE
 }
 
-if (paste(R.Version()$major, R.Version()$minor, sep = ".") < "3.3.0") {
+# however, disable vdiffr if version is too old
+if (!requireNamespace("vdiffr", quietly = TRUE) ||
+  utils::packageVersion("vdiffr") < "0.2.3.9000") {
   enable_vdiffr <- FALSE
 }
 
