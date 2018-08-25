@@ -1,13 +1,12 @@
-# default is we don't run vdiffr
-enable_vdiffr <- FALSE
+# default is equal to whether NOT_CRAN is true or not
+enable_vdiffr <- identical(Sys.getenv("NOT_CRAN"), "true")
 
-# override default if "NOT_CRAN" is "true" or "RUN_VDIFFR" is "true"
-if (identical(Sys.getenv("NOT_CRAN"), "true") ||
-    identical(Sys.getenv("RUN_VDIFFR"), "true")) {
-  enable_vdiffr <- TRUE
+# disable vdiffr if explicitly requested
+if (identical(Sys.getenv("SKIP_VDIFFR"), "true")) {
+  enable_vdiffr <- FALSE
 }
 
-# however, disable vdiffr if version is too old
+# disable vdiffr if version is too old
 if (!requireNamespace("vdiffr", quietly = TRUE) ||
   utils::packageVersion("vdiffr") < "0.2.3.9000") {
   enable_vdiffr <- FALSE

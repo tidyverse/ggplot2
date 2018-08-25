@@ -3,18 +3,18 @@ cache: packages
 sudo: true
 dist: trusty
 
-# build matrix; r release has custom env settings
+# build matrix; skip vdiffr on all but r release
 matrix:
   include:
+  - r: 3.1
+    env: SKIP_VDIFFR=true
+  - r: 3.2
+    env: SKIP_VDIFFR=true
+  - r: oldrel
+    env: SKIP_VDIFFR=true
   - r: release
-    env: RUN_VDIFFR=true
-
-# all other builds are not customized
-r:
-- 3.1
-- 3.2
-- oldrel
-- devel
+  - r: devel
+    env: SKIP_VDIFFR=true
 
 # work around temporary travis + R 3.5 bug
 r_packages: devtools
