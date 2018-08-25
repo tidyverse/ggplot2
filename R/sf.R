@@ -576,7 +576,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     ggname("grill", do.call("grobTree", grobs))
   },
 
-  render_axis_h = function(self, panel_params, theme) {
+  # not used, kept around for backup
+  render_axis_h_alt = function(self, panel_params, theme) {
     graticule <- panel_params$graticule
 
     # top axis
@@ -624,7 +625,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     list(top = top, bottom = bottom)
   },
 
-  render_axis_v = function(self, panel_params, theme) {
+  # not used, kept around for backup
+  render_axis_v_alt = function(self, panel_params, theme) {
     graticule <- panel_params$graticule
 
     # left axis
@@ -670,6 +672,142 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     list(left = left, right = right)
+  },
+
+  render_axis_h = function(self, panel_params, theme) {
+    graticule <- panel_params$graticule
+
+    # top axis
+    id1 <- id2 <- integer(0)
+    if ("S" %in% panel_params$graticule_labeling) {
+      id1 <- c(id1, which(graticule$type == "E" & graticule$y_start > 0.999))
+    }
+    if ("N" %in% panel_params$graticule_labeling) {
+      id2 <- c(id2, which(graticule$type == "E" & graticule$y_end > 0.999))
+    }
+    if ("W" %in% panel_params$graticule_labeling) {
+      id1 <- c(id1, which(graticule$type == "N" & graticule$y_start > 0.999))
+    }
+    if ("E" %in% panel_params$graticule_labeling) {
+      id2 <- c(id2, which(graticule$type == "N" & graticule$y_end > 0.999))
+    }
+
+    ticks1 <- graticule[unique(id1), ]
+    ticks2 <- graticule[unique(id2), ]
+    tick_positions <- c(ticks1$x_start, ticks2$x_end)
+    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
+
+    if (length(tick_positions) > 0) {
+      top <- guide_axis(
+        tick_positions,
+        tick_labels,
+        position = "top",
+        theme = theme
+      )
+    } else {
+      top <- zeroGrob()
+    }
+
+    # bottom axis
+    id1 <- id2 <- integer(0)
+    if ("S" %in% panel_params$graticule_labeling) {
+      id1 <- c(id1, which(graticule$type == "E" & graticule$y_start < 0.001))
+    }
+    if ("N" %in% panel_params$graticule_labeling) {
+      id2 <- c(id2, which(graticule$type == "E" & graticule$y_end < 0.001))
+    }
+    if ("W" %in% panel_params$graticule_labeling) {
+      id1 <- c(id1, which(graticule$type == "N" & graticule$y_start < 0.001))
+    }
+    if ("E" %in% panel_params$graticule_labeling) {
+      id2 <- c(id2, which(graticule$type == "N" & graticule$y_end < 0.001))
+    }
+
+    ticks1 <- graticule[unique(id1), ]
+    ticks2 <- graticule[unique(id2), ]
+    tick_positions <- c(ticks1$x_start, ticks2$x_end)
+    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
+
+    if (length(tick_positions) > 0) {
+      bottom <- guide_axis(
+        tick_positions,
+        tick_labels,
+        position = "bottom",
+        theme = theme
+      )
+    } else {
+      bottom <- zeroGrob()
+    }
+
+    list(top = top, bottom = bottom)
+  },
+
+  render_axis_v = function(self, panel_params, theme) {
+    graticule <- panel_params$graticule
+
+    # right axis
+    id1 <- id2 <- integer(0)
+    if ("N" %in% panel_params$graticule_labeling) {
+      id1 <- c(id1, which(graticule$type == "E" & graticule$x_end > 0.999))
+    }
+    if ("S" %in% panel_params$graticule_labeling) {
+      id2 <- c(id2, which(graticule$type == "E" & graticule$x_start > 0.999))
+    }
+    if ("E" %in% panel_params$graticule_labeling) {
+      id1 <- c(id1, which(graticule$type == "N" & graticule$x_end > 0.999))
+    }
+    if ("W" %in% panel_params$graticule_labeling) {
+      id2 <- c(id2, which(graticule$type == "N" & graticule$x_start > 0.999))
+    }
+
+    ticks1 <- graticule[unique(id1), ]
+    ticks2 <- graticule[unique(id2), ]
+    tick_positions <- c(ticks1$y_end, ticks2$y_start)
+    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
+
+    if (length(tick_positions) > 0) {
+      right <- guide_axis(
+        tick_positions,
+        tick_labels,
+        position = "right",
+        theme = theme
+      )
+    } else {
+      right <- zeroGrob()
+    }
+
+    # left axis
+    id1 <- id2 <- integer(0)
+    if ("N" %in% panel_params$graticule_labeling) {
+      id1 <- c(id1, which(graticule$type == "E" & graticule$x_end < 0.001))
+    }
+    if ("S" %in% panel_params$graticule_labeling) {
+      id2 <- c(id2, which(graticule$type == "E" & graticule$x_start < 0.001))
+    }
+    if ("E" %in% panel_params$graticule_labeling) {
+      id1 <- c(id1, which(graticule$type == "N" & graticule$x_end < 0.001))
+    }
+    if ("W" %in% panel_params$graticule_labeling) {
+      id2 <- c(id2, which(graticule$type == "N" & graticule$x_start < 0.001))
+    }
+
+    ticks1 <- graticule[unique(id1), ]
+    ticks2 <- graticule[unique(id2), ]
+    tick_positions <- c(ticks1$y_end, ticks2$y_start)
+    tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
+
+    if (length(tick_positions) > 0) {
+      left <- guide_axis(
+        tick_positions,
+        tick_labels,
+        position = "left",
+        theme = theme
+      )
+    } else {
+      left <- zeroGrob()
+    }
+
+    list(left = left, right = right)
   }
 
 )
@@ -706,9 +844,10 @@ sf_rescale01_x <- function(x, range) {
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      crs = NULL, datum = sf::st_crs(4326),
-                     graticule_labeling = "NE--",
+                     graticule_labeling = "NW",
                      ndiscr = 100, default = FALSE) {
 
+  if (FALSE) { # commented out for now
   # graticule labeling can be specified via string or named list
   if (is.character(graticule_labeling)) {
     graticule_labeling <- parse_graticule_labeling(graticule_labeling)
@@ -719,6 +858,8 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     )
     graticule_labeling <- list(left = "N", bottom = "E")
   }
+  }
+  graticule_labeling <- unlist(strsplit(graticule_labeling, ""))
 
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
