@@ -440,47 +440,47 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   # internal function used by setup_panel_params,
   # overrides the graticule labels based on scale settings if necessary
-  get_graticule_labels = function(self, graticule, scale_x, scale_y, params = list()) {
-    # if sf coordinates are not available in degrees latitude and longitude, label
-    # as regular numbers
-    if (is.null(params$crs) || is.na(params$crs) || !isTRUE(sf::st_is_longlat(self$datum))) {
-      x_labeller <- base::format
-      y_labeller <- base::format
-    }
-    else {
-      x_labeller <- degree_labels_EW
-      y_labeller <- degree_labels_NS
-    }
-
-    # if scales provide labeling functions override previous function choices
-    if (is.function(scale_x$labels)) {
-      x_labeller <- scale_x$labels
-    }
-    if (is.function(scale_y$labels)) {
-      y_labeller <- scale_y$labels
-    }
-
-    x_breaks <- graticule[graticule$type == "E", ]$degree
+  fixup_graticule_labels = function(self, graticule, scale_x, scale_y, params = list()) {
+    x_breaks <- graticule$degree[graticule$type == "E"]
     if (is.null(scale_x$labels)) {
       x_labels <- rep(NA, length(x_breaks))
     } else if (is.character(scale_x$labels)) {
       x_labels <- scale_x$labels
+    } else if (is.function(scale_x$labels)){
+      x_labels <- scale_x$labels(x_breaks)
     } else {
-      x_labels <- x_labeller(x_breaks)
+      x_labels <- graticule$degree_label[graticule$type == "E"]
     }
+    if (length(x_labels) != length(x_breaks)) {
+      stop("Breaks and labels along x direction are different lengths", call. = FALSE)
+    }
+    graticule$degree_label[graticule$type == "E"] <- x_labels
 
-    y_breaks <- graticule[graticule$type == "N", ]$degree
+
+    y_breaks <- graticule$degree[graticule$type == "N"]
     if (is.null(scale_y$labels)) {
       y_labels <- rep(NA, length(y_breaks))
     } else if (is.character(scale_y$labels)) {
       y_labels <- scale_y$labels
+    } else if (is.function(scale_y$labels)){
+      y_labels <- scale_y$labels(y_breaks)
     } else {
-      y_labels <- y_labeller(y_breaks)
+      y_labels <- graticule$degree_label[graticule$type == "N"]
     }
+    if (length(y_labels) != length(y_breaks)) {
+      stop("Breaks and labels along y direction are different lengths", call. = FALSE)
+    }
+    graticule$degree_label[graticule$type == "N"] <- y_labels
 
-    # still to do: 1. check lengths of lables vs. breaks; 2. make sure order is correct
+    # remove tick labels not on axes 1 (bottom) and 2 (left)
+    if (!is.null(graticule$plot12))
+      graticule$degree_label[!graticule$plot12] <- NA
 
-    c(x_labels, y_labels)
+    # parse labels into expressions if required
+    if (any(grepl("degree", graticule$degree_label)))
+      graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
+
+    graticule
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
@@ -502,20 +502,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       ndiscr = self$ndiscr
     )
 
-    # override graticule labels provided by sf::st_graticule()
-    graticule$degree_label <- self$get_graticule_labels(graticule, scale_x, scale_y, params)
-
-    # remove tick labels not on axes 1 (bottom) and 2 (left)
-    if (!is.null(graticule$plot12))
-      graticule$degree_label[!graticule$plot12] <- NA
+    # override graticule labels provided by sf::st_graticule() if necessary
+    graticule <- self$fixup_graticule_labels(graticule, scale_x, scale_y, params)
 
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
     graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
     graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
     graticule$y_start <- sf_rescale01_x(graticule$y_start, y_range)
     graticule$y_end <- sf_rescale01_x(graticule$y_end, y_range)
-    if (any(grepl("degree", graticule$degree_label)))
-      graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
 
     list(
       x_range = x_range,
@@ -621,24 +615,4 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     expand = expand,
     default = default
   )
-}
-
-# copied from sp
-# move to scales package at some point?
-
-degree_labels_NS <- function(x) {
-  pos = sign(x) + 2
-  dir = c("*S", "", "*N")
-  paste0(abs(x), "*degree", dir[pos])
-}
-
-degree_labels_EW <- function(x) {
-  x <- ifelse(x > 180, x - 360, x)
-  pos = sign(x) + 2
-  if (any(x == -180))
-    pos[x == -180] = 2
-  if (any(x == 180))
-    pos[x == 180] = 2
-  dir = c("*W", "", "*E")
-  paste0(abs(x), "*degree", dir[pos])
 }
