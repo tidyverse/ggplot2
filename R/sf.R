@@ -437,6 +437,52 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     data
   },
 
+
+  # internal function used by setup_panel_params,
+  # overrides the graticule labels based on scale settings if necessary
+  fixup_graticule_labels = function(self, graticule, scale_x, scale_y, params = list()) {
+    x_breaks <- graticule$degree[graticule$type == "E"]
+    if (is.null(scale_x$labels)) {
+      x_labels <- rep(NA, length(x_breaks))
+    } else if (is.character(scale_x$labels)) {
+      x_labels <- scale_x$labels
+    } else if (is.function(scale_x$labels)){
+      x_labels <- scale_x$labels(x_breaks)
+    } else {
+      x_labels <- graticule$degree_label[graticule$type == "E"]
+    }
+    if (length(x_labels) != length(x_breaks)) {
+      stop("Breaks and labels along x direction are different lengths", call. = FALSE)
+    }
+    graticule$degree_label[graticule$type == "E"] <- x_labels
+
+
+    y_breaks <- graticule$degree[graticule$type == "N"]
+    if (is.null(scale_y$labels)) {
+      y_labels <- rep(NA, length(y_breaks))
+    } else if (is.character(scale_y$labels)) {
+      y_labels <- scale_y$labels
+    } else if (is.function(scale_y$labels)){
+      y_labels <- scale_y$labels(y_breaks)
+    } else {
+      y_labels <- graticule$degree_label[graticule$type == "N"]
+    }
+    if (length(y_labels) != length(y_breaks)) {
+      stop("Breaks and labels along y direction are different lengths", call. = FALSE)
+    }
+    graticule$degree_label[graticule$type == "N"] <- y_labels
+
+    # remove tick labels not on axes 1 (bottom) and 2 (left)
+    if (!is.null(graticule$plot12))
+      graticule$degree_label[!graticule$plot12] <- NA
+
+    # parse labels into expressions if required
+    if (any(grepl("degree", graticule$degree_label)))
+      graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
+
+    graticule
+  },
+
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # Bounding box of the data
     x_range <- scale_range(scale_x, self$limits$x, self$expand)
@@ -456,17 +502,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       ndiscr = self$ndiscr
     )
 
-    # remove tick labels not on axes 1 (bottom) and 2 (left)
-    if (!is.null(graticule$plot12))
-      graticule$degree_label[!graticule$plot12] <- NA
+    # override graticule labels provided by sf::st_graticule() if necessary
+    graticule <- self$fixup_graticule_labels(graticule, scale_x, scale_y, params)
 
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
     graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
     graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
     graticule$y_start <- sf_rescale01_x(graticule$y_start, y_range)
     graticule$y_end <- sf_rescale01_x(graticule$y_end, y_range)
-    if (any(grepl("degree", graticule$degree_label)))
-      graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
 
     list(
       x_range = x_range,

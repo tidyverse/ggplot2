@@ -3,6 +3,9 @@
 *   The error message in `compute_aesthetics()` now provides the names of only
     aesthetics with mismatched lengths, rather than all aesthetics (@karawoo,
     #2853).
+    
+*   `coord_sf()` now respects manual setting of axis tick labels (@clauswilke,
+    #2857).
 
 *   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
     for lines and polygons (@alistaire47, #2826)
