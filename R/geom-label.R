@@ -63,7 +63,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
                         label.size = 0.25) {
     lab <- data$label
     if (parse) {
-      lab <- parse(text = as.character(lab))
+      lab <- parse_safe(text = as.character(lab))
     }
 
     data <- coord$transform(data, panel_params)

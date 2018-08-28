@@ -430,3 +430,14 @@ is_column_vec <- function(x) {
   dims <- dim(x)
   length(dims) == 2L && dims[[2]] == 1L
 }
+
+# Parse a vector of expressions without silently dropping any items.
+# (see #2864)
+parse_safe <- function(text) {
+  text <- as.character(text)
+  ix <- which(sapply(text, function(x) {
+    length(parse(text = x)) == 0
+  }))
+  text[ix] <- NA
+  parse(text = text)
+}
