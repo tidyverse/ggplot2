@@ -27,7 +27,7 @@
 #'   geom_point() +
 #'   geom_text(aes(label = y), nudge_y = -0.1)
 position_nudge <- function(x = 0, y = 0) {
-  # find the appropriate position adjustment for the given x and y settings
+  # find the appropriate position adjustment for the given x and y settings;
   # not nudging in dimensions that are not required reduces the risk
   # spurious breaks, e.g. when the geom only has an x coordinate but no
   # y coordinate
