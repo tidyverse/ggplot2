@@ -476,10 +476,6 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     if (!is.null(graticule$plot12))
       graticule$degree_label[!graticule$plot12] <- NA
 
-    # parse labels into expressions if required
-    if (any(grepl("degree", graticule$degree_label)))
-      graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
-
     graticule
   },
 
@@ -553,11 +549,18 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     graticule <- panel_params$graticule
     east <- graticule[graticule$type == "E" & !is.na(graticule$degree_label), ]
 
+    labs <- east$degree_label
+
+    # parse labels into expressions if required
+    if (any(grepl("degree", labs))) {
+      labs <- parse_safe(as.character(labs))
+    }
+
     list(
       top = nullGrob(),
       bottom = guide_axis(
         east$x_start,
-        east$degree_label,
+        labs,
         position = "bottom",
         theme = theme
       )
@@ -568,10 +571,17 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     graticule <- panel_params$graticule
     north <- graticule[graticule$type == "N" & !is.na(graticule$degree_label), ]
 
+    labs <- north$degree_label
+
+    # parse labels into expressions if required
+    if (any(grepl("degree", labs))) {
+      labs <- parse_safe(as.character(labs))
+    }
+
     list(
       left = guide_axis(
         north$y_start,
-        north$degree_label,
+        labs,
         position = "left",
         theme = theme
       ),
