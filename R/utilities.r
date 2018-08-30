@@ -433,7 +433,10 @@ is_column_vec <- function(x) {
 
 #' Parse a vector of expressions without silently dropping any items.
 #'
+#' Note that `parse(text = NULL)` does not work and should be avoided.
+#'
 #' For more discussion, see #2864
+#'
 #' @keywords internal
 #' @examples
 #' length(parse(text = c("alpha", "", "gamma")))
