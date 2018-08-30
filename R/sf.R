@@ -159,9 +159,8 @@ LayerSf <- ggproto("LayerSf", Layer,
       geometry_col <- "geometry"
     }
 
-    # isn't quite complete yet, should also check that the global mapping
-    # doesn't contain a setting for geometry
-    if (is.null(self$mapping$geometry)) {
+    if ((isTRUE(self$inherit.aes) && is.null(self$mapping$geometry) && is.null(plot$mapping$geometry)) ||
+        (isFALSE(self$inherit.aes) && is.null(self$mapping$geometry))) {
       self$mapping$geometry <- as.name(geometry_col)
     }
   }
