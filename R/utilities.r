@@ -431,13 +431,20 @@ is_column_vec <- function(x) {
   length(dims) == 2L && dims[[2]] == 1L
 }
 
-# Parse a vector of expressions without silently dropping any items.
-# (see #2864)
+#' Parse a vector of expressions without silently dropping any items.
+#'
+#' For more discussion, see #2864
+#' @keywords internal
+#' @examples
+#' length(parse(text = c("alpha", "", "gamma")))
+#' #> 2
+#' length(parse_safe(text = c("alpha", "", "gamma")))
+#' #> 3
 parse_safe <- function(text) {
-  text <- as.character(text)
-  ix <- which(sapply(text, function(x) {
-    length(parse(text = x)) == 0
-  }))
-  text[ix] <- NA
-  parse(text = text)
+  out <- vector("expression", length(text))
+  for (i in seq_along(text)) {
+    expr <- parse(text = text[[i]])
+    out[[i]] <- if (length(expr) == 0) NA else expr[[1]]
+  }
+  out
 }
