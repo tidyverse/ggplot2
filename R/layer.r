@@ -41,6 +41,8 @@
 #'   supplied parameters and aesthetics are understood by the `geom` or
 #'   `stat`. Use `FALSE` to suppress the checks.
 #' @param params Additional parameters to the `geom` and `stat`.
+#' @param layer_class The type of layer object to be constructued. This allows
+#'   the creation of custom layers. Can usually be left at its default.
 #' @keywords internal
 #' @examples
 #' # geom calls are just a short cut for layer
@@ -61,7 +63,7 @@ layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
-                  show.legend = NA) {
+                  show.legend = NA, layer_class = Layer) {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
   if (is.null(stat))
@@ -130,7 +132,7 @@ layer <- function(geom = NULL, stat = NULL,
     )
   }
 
-  ggproto("LayerInstance", Layer,
+  ggproto("LayerInstance", layer_class,
     geom = geom,
     geom_params = geom_params,
     stat = stat,
@@ -195,6 +197,11 @@ Layer <- ggproto("Layer", NULL,
     } else {
       self$data
     }
+  },
+
+  # hook to allow a layer access to global plot data
+  # as the plot is constructed.
+  setup_layer = function(self, plot) {
   },
 
   compute_aesthetics = function(self, data, plot) {
