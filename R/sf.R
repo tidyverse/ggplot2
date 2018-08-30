@@ -160,7 +160,7 @@ LayerSf <- ggproto("LayerSf", Layer,
     }
 
     if ((isTRUE(self$inherit.aes) && is.null(self$mapping$geometry) && is.null(plot$mapping$geometry)) ||
-        (isFALSE(self$inherit.aes) && is.null(self$mapping$geometry))) {
+        (!isTRUE(self$inherit.aes) && is.null(self$mapping$geometry))) {
       self$mapping$geometry <- as.name(geometry_col)
     }
   }
