@@ -1,8 +1,9 @@
 # default is equal to whether NOT_CRAN is true or not
 enable_vdiffr <- identical(Sys.getenv("NOT_CRAN"), "true")
 
-# disable vdiffr if explicitly requested
-if (identical(Sys.getenv("SKIP_VDIFFR"), "true")) {
+# disable vdiffr if continuous integration run, except whe explicitly requested
+if (identical(Sys.getenv("CI_RUN"), "true") &&
+      !identical(Sys.getenv("VDIFFR"), "true")) {
   enable_vdiffr <- FALSE
 }
 

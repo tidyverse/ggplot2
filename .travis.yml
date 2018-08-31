@@ -3,18 +3,15 @@ cache: packages
 sudo: true
 dist: trusty
 
-# build matrix; skip vdiffr on all but r release
+# build matrix; turn on vdiffr only on r release
 matrix:
   include:
-  - r: 3.1
-    env: SKIP_VDIFFR=true
-  - r: 3.2
-    env: SKIP_VDIFFR=true
-  - r: oldrel
-    env: SKIP_VDIFFR=true
-  - r: release
   - r: devel
-    env: SKIP_VDIFFR=true
+  - r: release
+    env: VDIFFR=true
+  - r: oldrel
+  - r: 3.2
+  - r: 3.1
 
 # work around temporary travis + R 3.5 bug
 r_packages: devtools
@@ -25,7 +22,10 @@ r_github_packages: lionel-/vdiffr
 # environment variables set for all builds
 env:
   global:
+  # don't treat missing suggested packages as error
   - _R_CHECK_FORCE_SUGGESTS_=false
+  # signal that this is a continuous integration run
+  - CI_RUN=true
 
 after_success:
   - Rscript -e 'covr::codecov()'
