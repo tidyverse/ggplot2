@@ -153,16 +153,16 @@ LayerSf <- ggproto("LayerSf", Layer,
     # and add the mapping if it doesn't exist
     data <- self$layer_data(plot$data)
 
-    if (!is.null(data) && is_sf(data)) {
-      geometry_col <- attr(data, "sf_column")
-    } else {
-      geometry_col <- "geometry"
-    }
-
     if ((isTRUE(self$inherit.aes) && is.null(self$mapping$geometry) && is.null(plot$mapping$geometry)) ||
         (!isTRUE(self$inherit.aes) && is.null(self$mapping$geometry))) {
-      self$mapping$geometry <- as.name(geometry_col)
+      if (!is.waive(data) && is_sf(data)) {
+        geometry_col <- attr(data, "sf_column")
+        self$mapping$geometry <- as.name(geometry_col)
+      }
     }
+
+    # call parent for generic layer setup
+    ggproto_parent(Layer, self)$setup_layer(plot)
   }
 )
 
