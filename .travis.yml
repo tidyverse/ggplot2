@@ -8,7 +8,7 @@ matrix:
   include:
   - r: devel
   - r: release
-    env: VDIFFR=true
+    env: USE_VDIFFR=true
   - r: oldrel
   - r: 3.2
   - r: 3.1
@@ -24,8 +24,6 @@ env:
   global:
   # don't treat missing suggested packages as error
   - _R_CHECK_FORCE_SUGGESTS_=false
-  # signal that this is a continuous integration run
-  - CI_RUN=true
 
 after_success:
   - Rscript -e 'covr::codecov()'
