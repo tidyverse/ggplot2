@@ -90,8 +90,6 @@
 \alias{PositionJitter}
 \alias{PositionJitterdodge}
 \alias{PositionNudge}
-\alias{PositionNudgeX}
-\alias{PositionNudgeY}
 \alias{PositionStack}
 \alias{PositionFill}
 \alias{Scale}

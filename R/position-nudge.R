@@ -27,23 +27,10 @@
 #'   geom_point() +
 #'   geom_text(aes(label = y), nudge_y = -0.1)
 position_nudge <- function(x = 0, y = 0) {
-  # find the appropriate position adjustment for the given x and y settings;
-  # not nudging in dimensions that are not required reduces the risk
-  # spurious breaks, e.g. when the geom only has an x coordinate but no
-  # y coordinate
-  if (x != 0) {
-    if (y != 0) {
-      pos <- ggproto(NULL, PositionNudge, x = x, y = y)
-    } else {
-      pos <- ggproto(NULL, PositionNudgeX, x = x)
-    }
-  } else if (y != 0) {
-    pos <- ggproto(NULL, PositionNudgeY, y = y)
-  } else {
-    pos <- ggproto(NULL, PositionIdentity)
-  }
-
-  pos
+  ggproto(NULL, PositionNudge,
+    x = x,
+    y = y
+  )
 }
 
 #' @rdname ggplot2-ggproto
@@ -54,50 +41,21 @@ PositionNudge <- ggproto("PositionNudge", Position,
   x = 0,
   y = 0,
 
-  required_aes = c("x", "y"),
-
   setup_params = function(self, data) {
     list(x = self$x, y = self$y)
   },
 
   compute_layer = function(data, params, panel) {
-    transform_position(data, function(x) x + params$x, function(y) y + params$y)
+    if (params$x != 0) {
+      if (params$y != 0) {
+        transform_position(data, function(x) x + params$x, function(y) y + params$y)
+      } else {
+        transform_position(data, function(x) x + params$x, NULL)
+      }
+    } else if (params$y != 0) {
+      transform_position(data, NULL, function(y) y + params$y)
+    } else {
+      data # if both x and y are 0 we don't need to transform
+    }
   }
 )
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-PositionNudgeX <- ggproto("PositionNudgeX", Position,
-  x = 0,
-
-  required_aes = c("x"),
-
-  setup_params = function(self, data) {
-    list(x = self$x)
-  },
-
-  compute_layer = function(data, params, panel) {
-    transform_position(data, function(x) x + params$x, NULL)
-  }
-)
-
-#' @rdname ggplot2-ggproto
-#' @format NULL
-#' @usage NULL
-#' @export
-PositionNudgeY <- ggproto("PositionNudgeY", Position,
-  y = 0,
-
-  required_aes = c("y"),
-
-  setup_params = function(self, data) {
-    list(y = self$y)
-  },
-
-  compute_layer = function(data, params, panel) {
-    transform_position(data, NULL, function(y) y + params$y)
-  }
-)
-
