@@ -1,10 +1,10 @@
 # default is equal to whether NOT_CRAN is true or not
 enable_vdiffr <- identical(Sys.getenv("NOT_CRAN"), "true")
 
-# disable vdiffr on travis
-if (identical(Sys.getenv("TRAVIS"), "true")) {
-  enable_vdiffr <- FALSE
-}
+## disable vdiffr on travis
+#if (identical(Sys.getenv("TRAVIS"), "true")) {
+#  enable_vdiffr <- FALSE
+#}
 
 # disable or enable vdiffr based on the state of RUN_VDIFFR
 if (identical(Sys.getenv("USE_VDIFFR"), "true")) {

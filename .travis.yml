@@ -24,6 +24,8 @@ env:
   global:
   # don't treat missing suggested packages as error
   - _R_CHECK_FORCE_SUGGESTS_=false
+  # switch off vdiffr by default
+  - USE_VDIFFR=false
 
 after_success:
   - Rscript -e 'covr::codecov()'
