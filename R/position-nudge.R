@@ -41,13 +41,22 @@ PositionNudge <- ggproto("PositionNudge", Position,
   x = 0,
   y = 0,
 
-  required_aes = c("x", "y"),
-
   setup_params = function(self, data) {
     list(x = self$x, y = self$y)
   },
 
   compute_layer = function(data, params, panel) {
-    transform_position(data, function(x) x + params$x, function(y) y + params$y)
+    # transform only the dimensions for which non-zero nudging is requested
+    if (params$x != 0) {
+      if (params$y != 0) {
+        transform_position(data, function(x) x + params$x, function(y) y + params$y)
+      } else {
+        transform_position(data, function(x) x + params$x, NULL)
+      }
+    } else if (params$y != 0) {
+      transform_position(data, NULL, function(y) y + params$y)
+    } else {
+      data # if both x and y are 0 we don't need to transform
+    }
   }
 )

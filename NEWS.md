@@ -56,6 +56,10 @@
 *   `labs()` now has named arguments `title`, `subtitle`, `caption`, and `tag`.
     Also, `labs()` now accepts tidyeval (@yutannihilation, #2669).
 
+*   `position_nudge()` is now more robust and nudges only in the direction
+    requested. This enables, for example, the horizontal nudging of boxplots
+    (@clauswilke, #2733).
+
 # ggplot2 3.0.0
 
 ## Breaking changes
