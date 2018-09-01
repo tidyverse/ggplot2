@@ -199,9 +199,10 @@ Layer <- ggproto("Layer", NULL,
     }
   },
 
-  # hook to allow a layer access to global plot data
-  # as the plot is constructed.
-  setup_layer = function(self, plot) {
+  # hook to allow a layer access to the final layer data
+  # in input form and to global plot info
+  setup_layer = function(self, data, plot) {
+    data
   },
 
   compute_aesthetics = function(self, data, plot) {

@@ -153,10 +153,6 @@ ggplot_add.list <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.Layer <- function(object, plot, object_name) {
-  # allow the layer to modify itself based on plot object
-  # useful for layers that need to access the global data
-  object$setup_layer(plot)
-
   plot$layers <- append(plot$layers, object)
 
   # Add any new labels
