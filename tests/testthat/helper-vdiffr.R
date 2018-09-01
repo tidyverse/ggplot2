@@ -1,12 +1,16 @@
+# default is equal to whether NOT_CRAN is true or not
+enable_vdiffr <- identical(Sys.getenv("NOT_CRAN"), "true")
 
-enable_vdiffr <- TRUE
-
-if (!requireNamespace("vdiffr", quietly = TRUE) ||
-  utils::packageVersion("vdiffr") < "0.2.3.9000") {
+# disable or enable vdiffr based on the state of USE_VDIFFR, if set
+if (identical(Sys.getenv("USE_VDIFFR"), "true")) {
+  enable_vdiffr <- TRUE
+} else if (identical(Sys.getenv("USE_VDIFFR"), "false")) {
   enable_vdiffr <- FALSE
 }
 
-if (paste(R.Version()$major, R.Version()$minor, sep = ".") < "3.3.0") {
+# disable vdiffr if version is too old
+if (!requireNamespace("vdiffr", quietly = TRUE) ||
+  utils::packageVersion("vdiffr") < "0.2.3.9000") {
   enable_vdiffr <- FALSE
 }
 
