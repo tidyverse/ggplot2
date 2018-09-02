@@ -106,17 +106,21 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
   transform_range = function(self, range) {
     range <- structure(data.frame(range), names = '.')
-    rlang::eval_tidy(rlang::f_rhs(self$trans), data = range)
+    rlang::eval_tidy(
+      rlang::f_rhs(self$trans),
+      data = range,
+      env = rlang::f_env(self$trans)
+    )
   },
 
   break_info = function(self, range, scale) {
     if (self$empty()) return()
 
     # Get original range before transformation
-    along_range <- seq(range[1], range[2], length.out = self$detail)
-    old_range <- scale$trans$inverse(along_range)
+    inv_range <- scale$trans$inverse(range)
 
     # Create mapping between primary and secondary range
+    old_range <- seq(inv_range[1], inv_range[2], length.out = self$detail)
     full_range <- self$transform_range(old_range)
 
     # Test for monotonicity

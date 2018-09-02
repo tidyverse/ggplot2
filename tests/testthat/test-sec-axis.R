@@ -93,15 +93,19 @@ test_that("sec axis works with skewed transform", {
 })
 
 test_that("sec axis works with tidy eval", {
+  # decoy, not used
+  a <- 5
+
   f <- function(df, .x, .y, .z) {
     x <- enquo(.x)
     y <- enquo(.y)
     z <- enquo(.z)
+    a <- 10 # scaling of secondary axis
 
     g <- ggplot(df, aes(x = !!x, y = !!y)) +
       geom_bar(stat = "identity") +
       geom_point(aes(y = !!z)) +
-      scale_y_continuous(sec.axis = sec_axis(~. / 10))
+      scale_y_continuous(sec.axis = sec_axis(~. / a))
 
     g
   }
@@ -114,4 +118,20 @@ test_that("sec axis works with tidy eval", {
   breaks <- scale$break_info()
 
   expect_equal(breaks$major_source / 10, breaks$sec.major_source)
+})
+
+test_that("sec_axis() works for power transformations (monotonicity test doesn't fail)", {
+  p <- ggplot(foo, aes(x, y)) +
+    geom_point() +
+    scale_x_sqrt(sec.axis = dup_axis())
+  scale <- layer_scales(p)$x
+  breaks <- scale$break_info()
+  expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+
+  p <- ggplot(foo, aes(x, y)) +
+    geom_point() +
+    scale_x_sqrt(sec.axis = sec_axis(~. * 100))
+  scale <- layer_scales(p)$x
+  breaks <- scale$break_info()
+  expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
 })

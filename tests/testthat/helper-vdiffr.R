@@ -1,16 +1,24 @@
+# default is equal to whether NOT_CRAN is true or not
+enable_vdiffr <- identical(Sys.getenv("NOT_CRAN"), "true")
 
-enable_vdiffr <- TRUE
+# disable or enable vdiffr based on the state of USE_VDIFFR, if set
+if (identical(Sys.getenv("USE_VDIFFR"), "true")) {
+  enable_vdiffr <- TRUE
+} else if (identical(Sys.getenv("USE_VDIFFR"), "false")) {
+  enable_vdiffr <- FALSE
+}
 
+# disable vdiffr if version is too old
 if (!requireNamespace("vdiffr", quietly = TRUE) ||
-      utils::packageVersion("vdiffr") < "0.2.3.9000") {
+  utils::packageVersion("vdiffr") < "0.2.3.9000") {
   enable_vdiffr <- FALSE
 }
 
 expect_doppelganger <- function(title, fig,
-                               path = NULL,
-                               ...,
-                               user_fonts = NULL,
-                               verbose = FALSE) {
+                                path = NULL,
+                                ...,
+                                user_fonts = NULL,
+                                verbose = FALSE) {
   if (!enable_vdiffr) {
     expect_error(regexp = NA, ggplot_build(fig))
     return(invisible(NULL))

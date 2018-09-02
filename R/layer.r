@@ -81,11 +81,15 @@ layer <- function(geom = NULL, stat = NULL,
     show.legend <- FALSE
   }
 
-  data <- fortify(data)
-
+  # we validate mapping before data because in geoms and stats
+  # the mapping is listed before the data argument; this causes
+  # less confusing error messages when layers are accidentally
+  # piped into each other
   if (!is.null(mapping)) {
     mapping <- validate_mapping(mapping)
   }
+
+  data <- fortify(data)
 
   geom <- check_subclass(geom, "Geom", env = parent.frame())
   stat <- check_subclass(stat, "Stat", env = parent.frame())

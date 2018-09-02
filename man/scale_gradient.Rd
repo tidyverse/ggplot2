@@ -45,9 +45,9 @@ scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
 \item{...}{Arguments passed on to \code{continuous_scale}
 \describe{
   \item{scale_name}{The name of the scale}
-  \item{palette}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take}
+  \item{palette}{A palette function that when called with a numeric vector with
+values between 0 and 1 returns the corresponding values in the range the
+scale maps to.}
   \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
@@ -130,7 +130,7 @@ Defaults to 0.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-\code{colours} vector. See \code{\link{rescale}} for a convience function
+\code{colours} vector. See \code{\link[=rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
 }
 \description{

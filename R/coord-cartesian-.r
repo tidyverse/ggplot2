@@ -83,6 +83,10 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     dist_euclidean(x, y) / max_dist
   },
 
+  range = function(panel_params) {
+    list(x = panel_params$x.range, y = panel_params$y.range)
+  },
+
   transform = function(data, panel_params) {
     rescale_x <- function(data) rescale(data, from = panel_params$x.range)
     rescale_y <- function(data) rescale(data, from = panel_params$y.range)

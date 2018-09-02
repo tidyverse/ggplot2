@@ -7,6 +7,8 @@
 \alias{stat_sf}
 \alias{GeomSf}
 \alias{geom_sf}
+\alias{geom_sf_label}
+\alias{geom_sf_text}
 \alias{CoordSf}
 \alias{coord_sf}
 \title{Visualise sf objects}
@@ -18,6 +20,17 @@ stat_sf(mapping = NULL, data = NULL, geom = "rect",
 geom_sf(mapping = aes(), data = NULL, stat = "sf",
   position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
+
+geom_sf_label(mapping = aes(), data = NULL, stat = "sf_coordinates",
+  position = "identity", ..., parse = FALSE, nudge_x = 0,
+  nudge_y = 0, label.padding = unit(0.25, "lines"),
+  label.r = unit(0.15, "lines"), label.size = 0.25, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, fun.geometry = NULL)
+
+geom_sf_text(mapping = aes(), data = NULL, stat = "sf_coordinates",
+  position = "identity", ..., parse = FALSE, nudge_x = 0,
+  nudge_y = 0, check_overlap = FALSE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, fun.geometry = NULL)
 
 coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
   datum = sf::st_crs(4326), ndiscr = 100, default = FALSE)
@@ -70,6 +83,30 @@ to the paired geom/stat.}
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
+\item{parse}{If \code{TRUE}, the labels will be parsed into expressions and
+displayed as described in \code{?plotmath}.}
+
+\item{nudge_x}{Horizontal and vertical adjustment to nudge labels by.
+Useful for offsetting text from points, particularly on discrete scales.}
+
+\item{nudge_y}{Horizontal and vertical adjustment to nudge labels by.
+Useful for offsetting text from points, particularly on discrete scales.}
+
+\item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
+
+\item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
+
+\item{label.size}{Size of label border, in mm.}
+
+\item{fun.geometry}{A function that takes a \code{sfc} object and returns a \code{sfc_POINT} with the
+same length as the input. If \code{NULL}, \code{function(x) sf::st_point_on_surface(sf::st_zm(x))}
+will be used. Note that the function may warn about the incorrectness of
+the result if the data is not projected, but you can ignore this except
+when you really care about the exact locations.}
+
+\item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
+same layer will not be plotted.}
+
 \item{xlim}{Limits for the x and y axes.}
 
 \item{ylim}{Limits for the x and y axes.}
@@ -93,19 +130,20 @@ is suppressed.}
 }
 \description{
 This set of geom, stat, and coord are used to visualise simple feature (sf)
-objects. For simple plots, you will only need \code{geom_sf} as it
-uses \code{stat_sf} and adds \code{coord_sf} for you. \code{geom_sf} is
+objects. For simple plots, you will only need \code{geom_sf()} as it
+uses \code{stat_sf()} and adds \code{coord_sf()} for you. \code{geom_sf()} is
 an unusual geom because it will draw different geometric objects depending
 on what simple features are present in the data: you can get points, lines,
 or polygons.
+For text and labels, you can use \code{geom_sf_text()} and \code{geom_sf_label()}.
 }
 \section{Geometry aesthetic}{
 
-\code{geom_sf} uses a unique aesthetic: \code{geometry}, giving an
+\code{geom_sf()} uses a unique aesthetic: \code{geometry}, giving an
 column of class \code{sfc} containing simple features data. There
 are three ways to supply the \code{geometry} aesthetic:
 \itemize{
-\item Do nothing: by default \code{geom_sf} assumes it is stored in
+\item Do nothing: by default \code{geom_sf()} assumes it is stored in
 the \code{geometry} column.
 \item Explicitly pass an \code{sf} object to the \code{data} argument.
 This will use the primary geometry column, no matter what it's called.
@@ -119,7 +157,7 @@ the plot.
 \section{CRS}{
 
 \code{coord_sf()} ensures that all layers use a common CRS. You can
-either specify it using the \code{CRS} param, or \code{coord_sf} will
+either specify it using the \code{CRS} param, or \code{coord_sf()} will
 take it from the first layer that defines a CRS.
 }
 
@@ -161,6 +199,14 @@ world2 <- sf::st_transform(
   "+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"
 )
 ggplot() + geom_sf(data = world2)
+
+# To add labels, use geom_sf_label().
+ggplot(nc_3857[1:3, ]) +
+   geom_sf(aes(fill = AREA)) +
+   geom_sf_label(aes(label = NAME))
 }
+}
+\seealso{
+\code{\link[=stat_sf_coordinates]{stat_sf_coordinates()}}
 }
 \keyword{datasets}
