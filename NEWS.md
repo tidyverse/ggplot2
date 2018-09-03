@@ -56,6 +56,10 @@
 *   `labs()` now has named arguments `title`, `subtitle`, `caption`, and `tag`.
     Also, `labs()` now accepts tidyeval (@yutannihilation, #2669).
 
+*   `position_nudge()` is now more robust and nudges only in the direction
+    requested. This enables, for example, the horizontal nudging of boxplots
+    (@clauswilke, #2733).
+    
 *   `geom_text(..., parse = TRUE)` now correctly renders the expected number of
     items instead of silently dropping items that are not valid expressions.
     This is also fixed for `geom_label()` and the axis labels for `geom_sf()`
