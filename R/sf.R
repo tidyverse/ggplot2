@@ -507,6 +507,21 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     graticule$y_start <- sf_rescale01_x(graticule$y_start, y_range)
     graticule$y_end <- sf_rescale01_x(graticule$y_end, y_range)
 
+    # Convert 'degree' to the degree symbol
+    parse_ids <- grepl("\\bdegree\\b", graticule$degree_label)
+    if (any(parse_ids)) {
+      graticule$degree_label <- Map(
+        function(parse_id, label) {
+          if (parse_id) {
+            parse(text = label)[[1]]
+          } else {
+            as.expression(label)[[1]]
+          }
+        },
+        parse_ids, graticule$degree_label
+      )
+    }
+
     list(
       x_range = x_range,
       y_range = y_range,
@@ -549,18 +564,11 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     graticule <- panel_params$graticule
     east <- graticule[graticule$type == "E" & !is.na(graticule$degree_label), ]
 
-    labs <- east$degree_label
-
-    # parse labels into expressions if required
-    if (any(grepl("degree", labs))) {
-      labs <- parse_safe(as.character(labs))
-    }
-
     list(
       top = nullGrob(),
       bottom = guide_axis(
         east$x_start,
-        labs,
+        east$degree_label,
         position = "bottom",
         theme = theme
       )
@@ -571,17 +579,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     graticule <- panel_params$graticule
     north <- graticule[graticule$type == "N" & !is.na(graticule$degree_label), ]
 
-    labs <- north$degree_label
-
-    # parse labels into expressions if required
-    if (any(grepl("degree", labs))) {
-      labs <- parse_safe(as.character(labs))
-    }
-
     list(
       left = guide_axis(
         north$y_start,
-        labs,
+        north$degree_label,
         position = "left",
         theme = theme
       ),
