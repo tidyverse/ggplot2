@@ -431,18 +431,15 @@ is_column_vec <- function(x) {
   length(dims) == 2L && dims[[2]] == 1L
 }
 
-#' Parse a vector of expressions without silently dropping any items.
-#'
-#' Note that `parse(text = NULL)` does not work and should be avoided.
-#'
-#' For more discussion, see #2864
-#'
-#' @keywords internal
-#' @examples
-#' length(parse(text = c("alpha", "", "gamma")))
-#' #> 2
-#' length(parse_safe(text = c("alpha", "", "gamma")))
-#' #> 3
+# Parse takes takes n strings and returns n expressions
+# See https://github.com/tidyverse/ggplot2/issues/2864 for discussion
+#
+# parse(text = c("alpha", "", "gamma"))
+# #> expression(alpha, gamma)
+#
+# parse_safe(text = c("alpha", "", "gamma"))
+# #> expression(alpha, NA, gamma)
+#
 parse_safe <- function(text) {
   out <- vector("expression", length(text))
   for (i in seq_along(text)) {
