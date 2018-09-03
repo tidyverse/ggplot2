@@ -56,6 +56,11 @@
 *   `labs()` now has named arguments `title`, `subtitle`, `caption`, and `tag`.
     Also, `labs()` now accepts tidyeval (@yutannihilation, #2669).
 
+*   `geom_text(..., parse = TRUE)` now correctly renders the expected number of
+    items instead of silently dropping items that are not valid expressions.
+    This is also fixed for `geom_label()` and the axis labels for `geom_sf()`
+    (@slowkow, #2867).
+
 # ggplot2 3.0.0
 
 ## Breaking changes
