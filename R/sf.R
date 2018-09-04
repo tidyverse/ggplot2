@@ -383,6 +383,10 @@ scale_type.sfc <- function(x) "identity"
 #' @usage NULL
 #' @format NULL
 CoordSf <- ggproto("CoordSf", CoordCartesian,
+  # parameters that control the parsing of labels plotted in the
+  # N or E directions
+  parse_N_labels = FALSE,
+  parse_E_labels = FALSE,
 
   # Find the first CRS if not already supplied
   setup_params = function(self, data) {
@@ -441,15 +445,22 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   # internal function used by setup_panel_params,
   # overrides the graticule labels based on scale settings if necessary
   fixup_graticule_labels = function(self, graticule, scale_x, scale_y, params = list()) {
+    needs_parsing <- rep(FALSE, nrow(graticule))
+    needs_autoparsing <- rep(FALSE, nrow(graticule))
+
     x_breaks <- graticule$degree[graticule$type == "E"]
     if (is.null(scale_x$labels)) {
       x_labels <- rep(NA, length(x_breaks))
     } else if (is.character(scale_x$labels)) {
       x_labels <- scale_x$labels
+      needs_parsing[graticule$type == "E"] <- self$parse_E_labels
     } else if (is.function(scale_x$labels)){
-      x_labels <- scale_x$labels(x_breaks)
+      # all labels need to be character vectors
+      x_labels <- as.character(scale_x$labels(x_breaks))
+      needs_parsing[graticule$type == "E"] <- self$parse_E_labels
     } else {
       x_labels <- graticule$degree_label[graticule$type == "E"]
+      needs_autoparsing[graticule$type == "E"] <- TRUE
     }
     if (length(x_labels) != length(x_breaks)) {
       stop("Breaks and labels along x direction are different lengths", call. = FALSE)
@@ -462,10 +473,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       y_labels <- rep(NA, length(y_breaks))
     } else if (is.character(scale_y$labels)) {
       y_labels <- scale_y$labels
+      needs_parsing[graticule$type == "N"] <- self$parse_N_labels
     } else if (is.function(scale_y$labels)){
-      y_labels <- scale_y$labels(y_breaks)
+      # all labels need to be character vectors
+      y_labels <- as.character(scale_y$labels(y_breaks))
+      needs_parsing[graticule$type == "N"] <- self$parse_N_labels
     } else {
       y_labels <- graticule$degree_label[graticule$type == "N"]
+      needs_autoparsing[graticule$type == "N"] <- TRUE
     }
     if (length(y_labels) != length(y_breaks)) {
       stop("Breaks and labels along y direction are different lengths", call. = FALSE)
@@ -476,11 +491,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     if (!is.null(graticule$plot12))
       graticule$degree_label[!graticule$plot12] <- NA
 
-    # Convert the string 'degree' to the degree symbol
+    # Parse labels if requested/needed
     has_degree <- grepl("\\bdegree\\b", graticule$degree_label)
-    if (any(has_degree)) {
+    needs_parsing <- needs_parsing | (needs_autoparsing & has_degree)
+    if (any(needs_parsing)) {
       labels <- as.list(graticule$degree_label)
-      labels[has_degree] <- parse_safe(graticule$degree_label[has_degree])
+      labels[needs_parsing] <- parse_safe(graticule$degree_label[needs_parsing])
       graticule$degree_label <- labels
     }
 
@@ -604,12 +620,21 @@ sf_rescale01_x <- function(x, range) {
 #'   use the CRS defined in the first layer.
 #' @param datum CRS that provides datum to use when generating graticules
 #' @param ndiscr number of segments to use for discretising graticule lines;
-#' try increasing this when graticules look unexpected
+#'   try increasing this when graticules look unexpected
+#' @param parse_N_labels If `TRUE`, labels indicating latitude (the degree to which
+#'   we are north or south) are parsed into R expressions before plotting. These
+#'   correspond to y-axis tick labels in a simple latitude-longitude plot.
+#'   Default is `FALSE`.
+#' @param parse_E_labels If `TRUE`, labels indicating longitude (the degree to which
+#'   we are east or west) are parsed into R expressions before plotting. These
+#'   correspond to x-axis tick labels in a simple latitude-longitude plot.
+#'   Default is `FALSE`.
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      crs = NULL, datum = sf::st_crs(4326), ndiscr = 100,
+                     parse_N_labels = FALSE, parse_E_labels = FALSE,
                      default = FALSE) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
@@ -617,6 +642,8 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     crs = crs,
     ndiscr = ndiscr,
     expand = expand,
+    parse_N_labels = parse_N_labels,
+    parse_E_labels = parse_E_labels,
     default = default
   )
 }
