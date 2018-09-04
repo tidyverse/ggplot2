@@ -431,7 +431,7 @@ is_column_vec <- function(x) {
   length(dims) == 2L && dims[[2]] == 1L
 }
 
-# Parse takes n strings and returns n expressions.
+# Parse takes a vector of n lines and returns m expressions.
 # See https://github.com/tidyverse/ggplot2/issues/2864 for discussion.
 #
 # parse(text = c("alpha", "", "gamma"))
