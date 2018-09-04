@@ -476,6 +476,21 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     if (!is.null(graticule$plot12))
       graticule$degree_label[!graticule$plot12] <- NA
 
+    # Convert the string 'degree' to the degree symbol
+    parse_ids <- grepl("\\bdegree\\b", graticule$degree_label)
+    if (any(parse_ids)) {
+      graticule$degree_label <- Map(
+        function(parse_id, label) {
+          if (parse_id) {
+            parse(text = label)[[1]]
+          } else {
+            as.expression(label)[[1]]
+          }
+        },
+        parse_ids, graticule$degree_label
+      )
+    }
+
     graticule
   },
 
@@ -506,21 +521,6 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
     graticule$y_start <- sf_rescale01_x(graticule$y_start, y_range)
     graticule$y_end <- sf_rescale01_x(graticule$y_end, y_range)
-
-    # Convert 'degree' to the degree symbol
-    parse_ids <- grepl("\\bdegree\\b", graticule$degree_label)
-    if (any(parse_ids)) {
-      graticule$degree_label <- Map(
-        function(parse_id, label) {
-          if (parse_id) {
-            parse(text = label)[[1]]
-          } else {
-            as.expression(label)[[1]]
-          }
-        },
-        parse_ids, graticule$degree_label
-      )
-    }
 
     list(
       x_range = x_range,
