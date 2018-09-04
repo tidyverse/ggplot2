@@ -103,14 +103,14 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Missing value handling}{
 
-\code{geom_path()}, \code{geom_line()} and \code{geom_step} handle \code{NA} in this manner:
+\code{geom_path()}, \code{geom_line()}, and \code{geom_step} handle \code{NA} in this manner:
 \itemize{
-\item If \code{NA} is at the middle of the line, it breaks the line. It doesn't
-show any warnings no matter whether \code{na.rm} is \code{TRUE} or \code{FALSE}.
-\item If \code{NA} is at the start or the end of the line and \code{na.rm} is \code{FALSE}
-(default), it removes the \code{NA} with a warning.
-\item If \code{NA} is at the start or the end of the line and \code{na.rm} is \code{TRUE},
-it silently removes the \code{NA}.
+\item If an \code{NA} occurs in the middle of a line, it breaks the line. No warning
+is shown, regardless of whether \code{na.rm} is \code{TRUE} or \code{FALSE}.
+\item If an \code{NA} occurs at the start or the end of the line and \code{na.rm} is \code{FALSE}
+(default), the \code{NA} is removed with a warning.
+\item If an \code{NA} occurs at the start or the end of the line and \code{na.rm} is \code{TRUE},
+the \code{NA} is removed silently, without warning.
 }
 }
 

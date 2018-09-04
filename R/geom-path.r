@@ -20,14 +20,14 @@
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments
 #' @section Missing value handling:
-#' `geom_path()`, `geom_line()` and `geom_step` handle `NA` in this manner:
+#' `geom_path()`, `geom_line()`, and `geom_step` handle `NA` in this manner:
 #'
-#' * If `NA` is at the middle of the line, it breaks the line. It doesn't
-#'   show any warnings no matter whether `na.rm` is `TRUE` or `FALSE`.
-#' * If `NA` is at the start or the end of the line and `na.rm` is `FALSE`
-#'   (default), it removes the `NA` with a warning.
-#' * If `NA` is at the start or the end of the line and `na.rm` is `TRUE`,
-#'   it silently removes the `NA`.
+#' * If an `NA` occurs in the middle of a line, it breaks the line. No warning
+#'   is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
+#' * If an `NA` occurs at the start or the end of the line and `na.rm` is `FALSE`
+#'   (default), the `NA` is removed with a warning.
+#' * If an `NA` occurs at the start or the end of the line and `na.rm` is `TRUE`,
+#'   the `NA` is removed silently, without warning.
 #' @export
 #' @examples
 #' # geom_line() is suitable for time series
