@@ -476,9 +476,13 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     if (!is.null(graticule$plot12))
       graticule$degree_label[!graticule$plot12] <- NA
 
-    # parse labels into expressions if required
-    if (any(grepl("degree", graticule$degree_label)))
-      graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
+    # Convert the string 'degree' to the degree symbol
+    has_degree <- grepl("\\bdegree\\b", graticule$degree_label)
+    if (any(has_degree)) {
+      labels <- as.list(graticule$degree_label)
+      labels[has_degree] <- parse_safe(graticule$degree_label[has_degree])
+      graticule$degree_label <- labels
+    }
 
     graticule
   },

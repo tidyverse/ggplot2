@@ -59,6 +59,12 @@
 *   `position_nudge()` is now more robust and nudges only in the direction
     requested. This enables, for example, the horizontal nudging of boxplots
     (@clauswilke, #2733).
+    
+*   `geom_text(..., parse = TRUE)` now correctly renders the expected number of
+    items instead of silently dropping items that are empty expressions, e.g.
+    the empty string "". If an expression spans multiple lines, we take just
+    the first line and drop the rest. This same issue is also fixed for
+    `geom_label()` and the axis labels for `geom_sf()` (@slowkow, #2867).
 
 # ggplot2 3.0.0
 
