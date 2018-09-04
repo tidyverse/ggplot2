@@ -57,16 +57,20 @@
 #' base + geom_path(size = 10, lineend = "round")
 #' base + geom_path(size = 10, linejoin = "mitre", lineend = "butt")
 #'
-#' # NAs break the line. Use na.rm = T to suppress the warning message
+#' # You can use NAs to break the line.
+#' df <- data.frame(x = 1:5, y = c(1, 2, NA, 4, 5))
+#' ggplot(df, aes(x, y)) + geom_point() + geom_line()
+#'
+#' # If NAs are at the start or end of the line, they are removed with a warning.
 #' df <- data.frame(
 #'   x = 1:5,
 #'   y1 = c(1, 2, 3, 4, NA),
-#'   y2 = c(NA, 2, 3, 4, 5),
-#'   y3 = c(1, 2, NA, 4, 5)
+#'   y2 = c(NA, 2, 3, 4, 5)
 #' )
 #' ggplot(df, aes(x, y1)) + geom_point() + geom_line()
 #' ggplot(df, aes(x, y2)) + geom_point() + geom_line()
-#' ggplot(df, aes(x, y3)) + geom_point() + geom_line()
+#' # Use na.rm = TRUE to suppress the warning message.
+#' ggplot(df, aes(x, y1)) + geom_point() + geom_line(na.rm = TRUE)
 #'
 #' \donttest{
 #' # Setting line type vs colour/size
