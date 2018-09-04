@@ -64,11 +64,6 @@ test_that("parse_safe works with simple expressions", {
     parse_safe(c(NA, "a", NA, "alpha")),
     expression(NA, a, NA, alpha)
   )
-
-  expect_equal(
-    parse_safe(factor(c("alpha", "beta", ""))),
-    expression(2, 3, 1)
-  )
 })
 
 test_that("parse_safe works with multi expressions", {
