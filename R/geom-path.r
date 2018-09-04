@@ -19,6 +19,15 @@
 #' @seealso
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments
+#' @section Missing value handling:
+#' `geom_path()`, `geom_line()` and `geom_step` handle `NA` in this manner:
+#'
+#' * If `NA` is at the middle of the line, it breaks the line. It doesn't
+#'   show any warnings no matter whether `na.rm` is `TRUE` or `FALSE`.
+#' * If `NA` is at the start or the end of the line and `na.rm` is `FALSE`
+#'   (default), it removes the `NA` with a warning.
+#' * If `NA` is at the start or the end of the line and `na.rm` is `TRUE`,
+#'   it silently removes the `NA`.
 #' @export
 #' @examples
 #' # geom_line() is suitable for time series
@@ -60,17 +69,6 @@
 #' # You can use NAs to break the line.
 #' df <- data.frame(x = 1:5, y = c(1, 2, NA, 4, 5))
 #' ggplot(df, aes(x, y)) + geom_point() + geom_line()
-#'
-#' # If NAs are at the start or end of the line, they are removed with a warning.
-#' df <- data.frame(
-#'   x = 1:5,
-#'   y1 = c(1, 2, 3, 4, NA),
-#'   y2 = c(NA, 2, 3, 4, 5)
-#' )
-#' ggplot(df, aes(x, y1)) + geom_point() + geom_line()
-#' ggplot(df, aes(x, y2)) + geom_point() + geom_line()
-#' # Use na.rm = TRUE to suppress the warning message.
-#' ggplot(df, aes(x, y1)) + geom_point() + geom_line(na.rm = TRUE)
 #'
 #' \donttest{
 #' # Setting line type vs colour/size

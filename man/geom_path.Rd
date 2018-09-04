@@ -101,6 +101,19 @@ corresponds to a single case which provides the start and end coordinates.
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
+\section{Missing value handling}{
+
+\code{geom_path()}, \code{geom_line()} and \code{geom_step} handle \code{NA} in this manner:
+\itemize{
+\item If \code{NA} is at the middle of the line, it breaks the line. It doesn't
+show any warnings no matter whether \code{na.rm} is \code{TRUE} or \code{FALSE}.
+\item If \code{NA} is at the start or the end of the line and \code{na.rm} is \code{FALSE}
+(default), it removes the \code{NA} with a warning.
+\item If \code{NA} is at the start or the end of the line and \code{na.rm} is \code{TRUE},
+it silently removes the \code{NA}.
+}
+}
+
 \examples{
 # geom_line() is suitable for time series
 ggplot(economics, aes(date, unemploy)) + geom_line()
@@ -141,17 +154,6 @@ base + geom_path(size = 10, linejoin = "mitre", lineend = "butt")
 # You can use NAs to break the line.
 df <- data.frame(x = 1:5, y = c(1, 2, NA, 4, 5))
 ggplot(df, aes(x, y)) + geom_point() + geom_line()
-
-# If NAs are at the start or end of the line, they are removed with a warning.
-df <- data.frame(
-  x = 1:5,
-  y1 = c(1, 2, 3, 4, NA),
-  y2 = c(NA, 2, 3, 4, 5)
-)
-ggplot(df, aes(x, y1)) + geom_point() + geom_line()
-ggplot(df, aes(x, y2)) + geom_point() + geom_line()
-# Use na.rm = TRUE to suppress the warning message.
-ggplot(df, aes(x, y1)) + geom_point() + geom_line(na.rm = TRUE)
 
 \donttest{
 # Setting line type vs colour/size
