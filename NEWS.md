@@ -61,9 +61,9 @@
     (@clauswilke, #2733).
     
 *   `geom_text(..., parse = TRUE)` now correctly renders the expected number of
-    items instead of silently dropping items that are not valid expressions.
-    This is also fixed for `geom_label()` and the axis labels for `geom_sf()`
-    (@slowkow, #2867).
+    items instead of silently dropping items that are empty expressions, e.g.
+    the empty string "". This is also fixed for `geom_label()` and the axis
+    labels for `geom_sf()` (@slowkow, #2867).
 
 # ggplot2 3.0.0
 
