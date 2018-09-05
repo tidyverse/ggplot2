@@ -451,17 +451,25 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     x_breaks <- graticule$degree[graticule$type == "E"]
     if (is.null(scale_x$labels)) {
       x_labels <- rep(NA, length(x_breaks))
-    } else if (is.character(scale_x$labels)) {
-      x_labels <- scale_x$labels
-      needs_parsing[graticule$type == "E"] <- self$parse_E_labels
-    } else if (is.function(scale_x$labels)){
-      # all labels need to be character vectors
-      x_labels <- as.character(scale_x$labels(x_breaks))
-      needs_parsing[graticule$type == "E"] <- self$parse_E_labels
-    } else {
+    } else if (is.waive(scale_x$labels)) {
       x_labels <- graticule$degree_label[graticule$type == "E"]
       needs_autoparsing[graticule$type == "E"] <- TRUE
+    } else {
+      if (is.function(scale_x$labels)) {
+        x_labels <- scale_x$labels(x_breaks)
+      } else {
+        x_labels <- scale_x$labels
+      }
+
+      if (is.character(x_labels)) {
+        needs_parsing[graticule$type == "E"] <- self$parse_E_labels
+      } else {
+        # all labels need to be temporarily stored as character vectors
+        x_labels <- as.character(x_labels)
+        needs_parsing[graticule$type == "E"] <- TRUE
+      }
     }
+
     if (length(x_labels) != length(x_breaks)) {
       stop("Breaks and labels along x direction are different lengths", call. = FALSE)
     }
@@ -471,16 +479,23 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     y_breaks <- graticule$degree[graticule$type == "N"]
     if (is.null(scale_y$labels)) {
       y_labels <- rep(NA, length(y_breaks))
-    } else if (is.character(scale_y$labels)) {
-      y_labels <- scale_y$labels
-      needs_parsing[graticule$type == "N"] <- self$parse_N_labels
-    } else if (is.function(scale_y$labels)){
-      # all labels need to be character vectors
-      y_labels <- as.character(scale_y$labels(y_breaks))
-      needs_parsing[graticule$type == "N"] <- self$parse_N_labels
-    } else {
+    } else if (is.waive(scale_y$labels)) {
       y_labels <- graticule$degree_label[graticule$type == "N"]
       needs_autoparsing[graticule$type == "N"] <- TRUE
+    } else {
+      if (is.function(scale_y$labels)) {
+        y_labels <- scale_y$labels(y_breaks)
+      } else {
+        y_labels <- scale_y$labels
+      }
+
+      if (is.character(y_labels)) {
+        needs_parsing[graticule$type == "N"] <- self$parse_N_labels
+      } else {
+        # all labels need to be temporarily stored as character vectors
+        y_labels <- as.character(y_labels)
+        needs_parsing[graticule$type == "N"] <- TRUE
+      }
     }
     if (length(y_labels) != length(y_breaks)) {
       stop("Breaks and labels along y direction are different lengths", call. = FALSE)
