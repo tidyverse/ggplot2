@@ -176,8 +176,8 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   non_missing_aes = c("size", "shape"),
 
   default_aes = aes(
-    colour = theme$geom$col,
-    fill = theme$geom$col,
+    colour = from_theme("colour"),
+    fill = from_theme("colour"),
     alpha = NA
   ),
 

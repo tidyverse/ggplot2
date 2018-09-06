@@ -110,7 +110,7 @@ GeomPoint <- ggproto("GeomPoint", Geom,
   non_missing_aes = c("size", "shape", "colour"),
   default_aes = aes(
     shape = 19,
-    colour = theme_aes("col", theme),
+    colour = from_theme("colour"),
     size = 1.5,
     fill = NA,
     alpha = NA,

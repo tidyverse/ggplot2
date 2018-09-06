@@ -104,7 +104,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
   non_missing_aes = c("linetype", "size", "shape"),
 
   default_aes = aes(
-    colour = theme$geom$col,
+    colour = from_theme("colour"),
     size = 0.5,
     linetype = 1,
     alpha = NA

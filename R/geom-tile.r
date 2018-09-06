@@ -94,7 +94,7 @@ GeomTile <- ggproto("GeomTile", GeomRect,
   },
 
   default_aes = aes(
-    fill = theme$geom$fill,
+    fill = from_theme("fill"),
     colour = NA,
     size = 0.1,
     linetype = 1,

@@ -107,7 +107,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 
   default_aes = aes(
     colour = NA,
-    fill = theme$geom$fill,
+    fill = from_theme("fill"),
     size = 0.5,
     linetype = 1,
     alpha = NA

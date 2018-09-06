@@ -76,7 +76,7 @@ GeomDensity <- ggproto("GeomDensity", GeomArea,
   default_aes = aes(
     fill = NA,
     weight = 1,
-    colour = theme$geom$col,
+    colour = from_theme("colour"),
     alpha = NA,
     size = 0.5,
     linetype = 1

@@ -122,7 +122,7 @@ GeomAbline <- ggproto("GeomAbline", Geom,
   },
 
   default_aes = aes(
-    colour = theme$geom$col,
+    colour = from_theme("colour"),
     size = 0.5,
     linetype = 1,
     alpha = NA

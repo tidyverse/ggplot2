@@ -27,7 +27,7 @@ geom_errorbar <- function(mapping = NULL, data = NULL,
 #' @export
 GeomErrorbar <- ggproto("GeomErrorbar", Geom,
   default_aes = aes(
-    colour = theme$geom$col,
+    colour = from_theme("colour"),
     size = 0.5,
     linetype = 1,
     width = 0.5,

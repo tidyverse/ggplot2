@@ -257,8 +257,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   default_aes = aes(
     weight = 1,
-    colour = theme$geom$col_1 ,
-    fill = theme$geom$fill_1,
+    colour = from_theme("colour_1") ,
+    fill = from_theme("fill_1"),
     size = 0.5,
     alpha = NA,
     shape = 19,

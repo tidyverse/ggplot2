@@ -63,7 +63,7 @@ geom_quantile <- function(mapping = NULL, data = NULL,
 GeomQuantile <- ggproto("GeomQuantile", GeomPath,
   default_aes = aes(
     weight = 1,
-    colour = theme$geom$col_2,
+    colour = from_theme("colour_2"),
     size = 0.5,
     linetype = 1,
     alpha = NA

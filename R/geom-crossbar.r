@@ -33,7 +33,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   },
 
   default_aes = aes(
-    colour = theme$geom$col,
+    colour = from_theme("colour"),
     fill = NA,
     size = 0.5,
     linetype = 1,

@@ -167,15 +167,15 @@ GeomText <- ggproto("GeomText", Geom,
   required_aes = c("x", "y", "label"),
 
   default_aes = aes(
-    colour = theme$text$colour,
+    colour = from_theme("colour", element = "text"),
     size = 3.88,
     angle = 0,
     hjust = 0.5,
     vjust = 0.5,
     alpha = NA,
-    family = theme$text$family,
-    fontface = theme$text$face,
-    lineheight = theme$text$lineheight
+    family = from_theme("family", element = "text"),
+    fontface = from_theme("face", element = "text"),
+    lineheight = from_theme("lineheight", element = "text")
   ),
 
   draw_panel = function(data, panel_params, coord, parse = FALSE,

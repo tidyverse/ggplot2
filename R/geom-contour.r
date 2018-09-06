@@ -75,7 +75,7 @@ geom_contour <- function(mapping = NULL, data = NULL,
 GeomContour <- ggproto("GeomContour", GeomPath,
   default_aes = aes(
     weight = 1,
-    colour = theme$geom$col_2,
+    colour = from_theme("colour_2"),
     size = 0.5,
     linetype = 1,
     alpha = NA

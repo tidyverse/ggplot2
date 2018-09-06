@@ -59,7 +59,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
 GeomRibbon <- ggproto("GeomRibbon", Geom,
   default_aes = aes(
     colour = NA,
-    fill = theme$geom$fill,
+    fill = from_theme("fill"),
     size = 0.5,
     linetype = 1,
     alpha = NA
@@ -138,7 +138,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
 GeomArea <- ggproto("GeomArea", GeomRibbon,
   default_aes = aes(
     colour = NA,
-    fill = theme$geom$fill,
+    fill = from_theme("fill"),
     size = 0.5,
     linetype = 1,
     alpha = NA

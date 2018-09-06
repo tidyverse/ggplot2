@@ -108,9 +108,14 @@ Geom <- ggproto("Geom",
 
   # evaluate defaults according to theme
   eval_defaults = function(self, theme) {
+
     if (length(theme) == 0) theme <- theme_grey()
 
-    lapply(self$default_aes, rlang::eval_tidy, data = list(theme = theme))
+    from_theme <- function(aes, element = "geom") {
+      theme[[element]][[aes]]
+    }
+
+    lapply(self$default_aes, rlang::eval_tidy, data = list(from_theme = from_theme))
   },
 
   # Combine data with defaults and set aesthetics from parameters

@@ -44,7 +44,10 @@ geom_raster <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRaster <- ggproto("GeomRaster", Geom,
-  default_aes = aes(fill = theme$geom$fill, alpha = NA),
+  default_aes = aes(
+    fill = from_theme("fill"),
+    alpha = NA
+  ),
   non_missing_aes = "fill",
   required_aes = c("x", "y"),
 
@@ -63,7 +66,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
   },
 
   draw_panel = function(data, panel_params, coord, interpolate = FALSE,
-                        hjust = 0.5, vjust = 0.5) {
+                          hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }

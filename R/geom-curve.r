@@ -41,7 +41,7 @@ geom_curve <- function(mapping = NULL, data = NULL,
 #' @export
 GeomCurve <- ggproto("GeomCurve", GeomSegment,
   default_aes = aes(
-    colour = theme$geom$col,
+    colour = from_theme("colour"),
     size = 0.5,
     linetype = 1,
     alpha = NA

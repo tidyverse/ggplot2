@@ -107,7 +107,7 @@ GeomRug <- ggproto("GeomRug", Geom,
   },
 
   default_aes = aes(
-    colour = theme$geom$col,
+    colour = from_theme("colour"),
     size = 0.5,
     linetype = 1,
     alpha = NA
