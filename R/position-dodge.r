@@ -97,7 +97,19 @@ PositionDodge <- ggproto("PositionDodge", Position,
       n <- NULL
     } else {
       panels <- unname(split(data, data$PANEL))
-      ns <- vapply(panels, function(panel) max(table(panel$xmin)), double(1))
+      ns <- vapply(
+        panels,
+        function(panel) {
+          # we need to find the maximum number of times that the
+          # same xmin is used, but making sure we count each group
+          # only once
+          if (is.null(panel$group)) return(1)
+          groups <- unname(split(panel, panel$group))
+          xmins <- vapply(groups, function(group) group$xmin[1], double(1))
+          max(table(xmins))
+        },
+        double(1)
+      )
       n <- max(ns)
     }
 
