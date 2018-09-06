@@ -130,8 +130,8 @@ theme_grey <- function(base_size = 11, base_family = "",
                          ),
 
     geom =               element_geom(
-                            col = "black", col_1 = "grey20",
-                            col_2 = "#3366FF",
+                            colour = "black", colour_1 = "grey20",
+                            colour_2 = "#3366FF",
                             fill = "grey35", fill_1 = "white"
                           ),
     axis.line =          element_blank(),
@@ -372,8 +372,8 @@ theme_dark <- function(base_size = 11, base_family = "",
 
       # make the geom stand out
       geom             = element_geom(
-                           col = "white", col_1 = "grey90",
-                           col_2 = "#3366FF",
+                           colour = "white", colour_1 = "grey90",
+                           colour_2 = "#809FFF",
                            fill = "grey75", fill_1 = "grey35"
                          ),
       # match axes ticks thickness to gridlines
@@ -468,8 +468,8 @@ theme_void <- function(base_size = 11, base_family = "",
                             margin = margin(), debug = FALSE
                          ),
     geom =               element_geom(
-                            col = "black", col_1 = "grey20",
-                            col_2 = "#3366FF",
+                            colour = "black", colour_1 = "grey20",
+                            colour_2 = "#3366FF",
                             fill = "grey35", fill_1 = "white"
                          ),
     axis.text =          element_blank(),
@@ -534,8 +534,8 @@ theme_test <- function(base_size = 11, base_family = "",
                             margin = margin(), debug = FALSE
                          ),
     geom =               element_geom(
-                            col = "black", col_1 = "grey20",
-                            col_2 = "#3366FF",
+                            colour = "black", colour_1 = "grey20",
+                            colour_2 = "#3366FF",
                             fill = "grey35", fill_1 = "white"
                           ),
     axis.line =          element_blank(),

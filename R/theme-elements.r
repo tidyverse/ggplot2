@@ -121,46 +121,37 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
-#' @param col default geom colour
-#' @param col_1 accent colour 1,
+#' @param colour_1 accent colour 1,
 #'   typically a lighter version of colour
-#' @param col_2 accent colour 2,
+#' @param colour_2 accent colour 2,
 #'   typically a bright colour used for geom_smooth et al.
 #' @param fill_1 accent fill colour, typically a darker version of fill
 #' @export
 #' @rdname element
 element_geom <- function(fill = NULL,
                          fill_1 = NULL,
-                         col = NULL,
-                         col_1 = NULL,
-                         col_2 = NULL,
+                         colour = NULL,
+                         colour_1 = NULL,
+                         colour_2 = NULL,
+                         ...,
                          inherit.blank = FALSE) {
+  extra_aes <- ggplot2:::rename_aes(list(...))
 
-  structure(
+  aes_list <- modifyList(
     list(
-      fill = fill,
-      col = col,
-      fill_1 = fill_1,
-      col_1 = col_1,
-      col_2 = col_2,
+      fill = fill, fill_1 = fill_1, colour = colour,
+      colour_1 = colour_1, colour_2 = colour_2,
       inherit.blank = inherit.blank
     ),
+    extra_aes,
+    keep.null = TRUE
+  )
+
+  structure(
+    aes_list,
     class = c("element_geom", "element")
   )
 }
-
-#' Retrieve geom defaults from plot theme
-#'
-#' @param aes character string nameing a themeable aesthetic, see [element_geom()]
-#' @param theme plot theme
-#'
-#' @keywords internal
-#' @noRd
-#'
-theme_aes <- function(aes, theme){
-  theme$geom[aes][[1]]
-}
-
 
 #' @export
 print.element <- function(x, ...) utils::str(x)
