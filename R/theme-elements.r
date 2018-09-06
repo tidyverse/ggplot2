@@ -121,11 +121,12 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   )
 }
 
-#' @param colour_1 accent colour 1,
+#' @param colour_1 geom accent colour 1,
 #'   typically a lighter version of colour
-#' @param colour_2 accent colour 2,
+#' @param colour_2 geom accent colour 2,
 #'   typically a bright colour used for geom_smooth et al.
-#' @param fill_1 accent fill colour, typically a darker version of fill
+#' @param fill_1 geom accent fill colour, typically a darker version of fill
+#' @param ... other accepted spellings of themable aesthetics, e.g. "color"
 #' @export
 #' @rdname element
 element_geom <- function(fill = NULL,
@@ -135,9 +136,9 @@ element_geom <- function(fill = NULL,
                          colour_2 = NULL,
                          ...,
                          inherit.blank = FALSE) {
-  extra_aes <- ggplot2:::rename_aes(list(...))
+  extra_aes <- rename_aes(list(...))
 
-  aes_list <- modifyList(
+  aes_list <- utils::modifyList(
     list(
       fill = fill, fill_1 = fill_1, colour = colour,
       colour_1 = colour_1, colour_2 = colour_2,

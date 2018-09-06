@@ -26,8 +26,8 @@ element_text(family = NULL, face = NULL, colour = NULL,
   lineheight = NULL, color = NULL, margin = NULL, debug = NULL,
   inherit.blank = FALSE)
 
-element_geom(fill = NULL, fill_1 = NULL, col = NULL, col_1 = NULL,
-  col_2 = NULL, inherit.blank = FALSE)
+element_geom(fill = NULL, fill_1 = NULL, colour = NULL,
+  colour_1 = NULL, colour_2 = NULL, ..., inherit.blank = FALSE)
 
 rel(x)
 }
@@ -78,15 +78,15 @@ side of the text facing towards the center of the plot.}
 rectangle behind the complete text area, and a point where each label
 is anchored.}
 
-\item{fill_1}{accent fill colour, typically a darker version of fill}
+\item{fill_1}{geom accent fill colour, typically a darker version of fill}
 
-\item{col}{default geom colour}
-
-\item{col_1}{accent colour 1,
+\item{colour_1}{geom accent colour 1,
 typically a lighter version of colour}
 
-\item{col_2}{accent colour 2,
+\item{colour_2}{geom accent colour 2,
 typically a bright colour used for geom_smooth et al.}
+
+\item{...}{other accepted spellings of themable aesthetics, e.g. "color"}
 
 \item{x}{A single number specifying size relative to parent element.}
 }
