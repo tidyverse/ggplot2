@@ -10,7 +10,7 @@ if (identical(Sys.getenv("USE_VDIFFR"), "true")) {
 
 # disable vdiffr if version is too old
 if (!requireNamespace("vdiffr", quietly = TRUE) ||
-  utils::packageVersion("vdiffr") < "0.2.3.9000") {
+  utils::packageVersion("vdiffr") < "0.2.3.9001") {
   enable_vdiffr <- FALSE
 }
 

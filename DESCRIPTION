@@ -46,7 +46,7 @@ Suggests:
     munsell,
     nlme,
     testthat (>= 0.11.0),
-    vdiffr,
+    vdiffr (>= 0.2.3.9001),
     quantreg,
     knitr,
     rgeos,
