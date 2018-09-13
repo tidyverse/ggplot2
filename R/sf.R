@@ -441,16 +441,28 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   # internal function used by setup_panel_params,
   # overrides the graticule labels based on scale settings if necessary
   fixup_graticule_labels = function(self, graticule, scale_x, scale_y, params = list()) {
+    needs_parsing <- rep(FALSE, nrow(graticule))
+    needs_autoparsing <- rep(FALSE, nrow(graticule))
+
     x_breaks <- graticule$degree[graticule$type == "E"]
     if (is.null(scale_x$labels)) {
       x_labels <- rep(NA, length(x_breaks))
-    } else if (is.character(scale_x$labels)) {
-      x_labels <- scale_x$labels
-    } else if (is.function(scale_x$labels)){
-      x_labels <- scale_x$labels(x_breaks)
-    } else {
+    } else if (is.waive(scale_x$labels)) {
       x_labels <- graticule$degree_label[graticule$type == "E"]
+      needs_autoparsing[graticule$type == "E"] <- TRUE
+    } else {
+      if (is.function(scale_x$labels)) {
+        x_labels <- scale_x$labels(x_breaks)
+      } else {
+        x_labels <- scale_x$labels
+      }
+
+      # all labels need to be temporarily stored as character vectors,
+      # but expressions need to be parsed afterwards
+      needs_parsing[graticule$type == "E"] <- !(is.character(x_labels) || is.factor(x_labels))
+      x_labels <- as.character(x_labels)
     }
+
     if (length(x_labels) != length(x_breaks)) {
       stop("Breaks and labels along x direction are different lengths", call. = FALSE)
     }
@@ -460,13 +472,22 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     y_breaks <- graticule$degree[graticule$type == "N"]
     if (is.null(scale_y$labels)) {
       y_labels <- rep(NA, length(y_breaks))
-    } else if (is.character(scale_y$labels)) {
-      y_labels <- scale_y$labels
-    } else if (is.function(scale_y$labels)){
-      y_labels <- scale_y$labels(y_breaks)
-    } else {
+    } else if (is.waive(scale_y$labels)) {
       y_labels <- graticule$degree_label[graticule$type == "N"]
+      needs_autoparsing[graticule$type == "N"] <- TRUE
+    } else {
+      if (is.function(scale_y$labels)) {
+        y_labels <- scale_y$labels(y_breaks)
+      } else {
+        y_labels <- scale_y$labels
+      }
+
+      # all labels need to be temporarily stored as character vectors,
+      # but expressions need to be parsed afterwards
+      needs_parsing[graticule$type == "N"] <- !(is.character(y_labels) || is.factor(y_labels))
+      y_labels <- as.character(y_labels)
     }
+
     if (length(y_labels) != length(y_breaks)) {
       stop("Breaks and labels along y direction are different lengths", call. = FALSE)
     }
@@ -476,11 +497,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     if (!is.null(graticule$plot12))
       graticule$degree_label[!graticule$plot12] <- NA
 
-    # Convert the string 'degree' to the degree symbol
+    # Parse labels if requested/needed
     has_degree <- grepl("\\bdegree\\b", graticule$degree_label)
-    if (any(has_degree)) {
+    needs_parsing <- needs_parsing | (needs_autoparsing & has_degree)
+    if (any(needs_parsing)) {
       labels <- as.list(graticule$degree_label)
-      labels[has_degree] <- parse_safe(graticule$degree_label[has_degree])
+      labels[needs_parsing] <- parse_safe(graticule$degree_label[needs_parsing])
       graticule$degree_label <- labels
     }
 
@@ -604,7 +626,7 @@ sf_rescale01_x <- function(x, range) {
 #'   use the CRS defined in the first layer.
 #' @param datum CRS that provides datum to use when generating graticules
 #' @param ndiscr number of segments to use for discretising graticule lines;
-#' try increasing this when graticules look unexpected
+#'   try increasing this when graticules look unexpected
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
