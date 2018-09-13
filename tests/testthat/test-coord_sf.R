@@ -60,6 +60,30 @@ test_that("axis labels can be set manually", {
     c("D", "E", "F")
   )
 
+  # factors are treated like character labels
+  # and are not parsed
+  b <- ggplot_build(
+    plot +
+      scale_x_continuous(
+        breaks = c(1000, 2000, 3000),
+        labels = factor(c("A", "B", "C"))
+      ) +
+      scale_y_continuous(
+        breaks = c(1000, 1500, 2000),
+        labels = factor(c("1 * degree * N", "1.5 * degree * N", "2 * degree * N"))
+      )
+  )
+  graticule <- b$layout$panel_params[[1]]$graticule
+  expect_identical(
+    graticule[graticule$type == "E", ]$degree_label,
+    c("A", "B", "C")
+  )
+  expect_identical(
+    graticule[graticule$type == "N", ]$degree_label,
+    c("1 * degree * N", "1.5 * degree * N", "2 * degree * N")
+  )
+
+
   # expressions mixed with character labels
   b <- ggplot_build(
     plot +
