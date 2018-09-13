@@ -459,11 +459,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
       # all labels need to be temporarily stored as character vectors,
       # but expressions need to be parsed afterwards
-      if (is.character(x_labels) || is.factor(x_labels)) {
-        needs_parsing[graticule$type == "E"] <- FALSE
-      } else {
-        needs_parsing[graticule$type == "E"] <- TRUE
-      }
+      needs_parsing[graticule$type == "E"] <- !(is.character(x_labels) || is.factor(x_labels))
       x_labels <- as.character(x_labels)
     }
 
@@ -488,13 +484,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
       # all labels need to be temporarily stored as character vectors,
       # but expressions need to be parsed afterwards
-      if (is.character(y_labels) || is.factor(y_labels)) {
-        needs_parsing[graticule$type == "N"] <- FALSE
-      } else {
-        needs_parsing[graticule$type == "N"] <- TRUE
-      }
+      needs_parsing[graticule$type == "N"] <- !(is.character(y_labels) || is.factor(y_labels))
       y_labels <- as.character(y_labels)
     }
+
     if (length(y_labels) != length(y_breaks)) {
       stop("Breaks and labels along y direction are different lengths", call. = FALSE)
     }
