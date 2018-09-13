@@ -33,8 +33,7 @@ geom_sf_text(mapping = aes(), data = NULL, stat = "sf_coordinates",
   show.legend = NA, inherit.aes = TRUE, fun.geometry = NULL)
 
 coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
-  datum = sf::st_crs(4326), ndiscr = 100, parse_N_labels = FALSE,
-  parse_E_labels = FALSE, default = FALSE)
+  datum = sf::st_crs(4326), ndiscr = 100, default = FALSE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -123,16 +122,6 @@ use the CRS defined in the first layer.}
 
 \item{ndiscr}{number of segments to use for discretising graticule lines;
 try increasing this when graticules look unexpected}
-
-\item{parse_N_labels}{If \code{TRUE}, labels indicating latitude (the degree to which
-we are north or south) are parsed into R expressions before plotting. These
-correspond to y-axis tick labels in a simple latitude-longitude plot.
-Default is \code{FALSE}.}
-
-\item{parse_E_labels}{If \code{TRUE}, labels indicating longitude (the degree to which
-we are east or west) are parsed into R expressions before plotting. These
-correspond to x-axis tick labels in a simple latitude-longitude plot.
-Default is \code{FALSE}.}
 
 \item{default}{Is this the default coordinate system? If \code{FALSE} (the default),
 then replacing this coordinate system with another one creates a message alerting

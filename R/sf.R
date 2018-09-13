@@ -383,10 +383,6 @@ scale_type.sfc <- function(x) "identity"
 #' @usage NULL
 #' @format NULL
 CoordSf <- ggproto("CoordSf", CoordCartesian,
-  # parameters that control the parsing of labels plotted in the
-  # N or E directions
-  parse_N_labels = FALSE,
-  parse_E_labels = FALSE,
 
   # Find the first CRS if not already supplied
   setup_params = function(self, data) {
@@ -462,7 +458,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       }
 
       if (is.character(x_labels)) {
-        needs_parsing[graticule$type == "E"] <- self$parse_E_labels
+        needs_parsing[graticule$type == "E"] <- FALSE
       } else {
         # all labels need to be temporarily stored as character vectors
         x_labels <- as.character(x_labels)
@@ -490,7 +486,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       }
 
       if (is.character(y_labels)) {
-        needs_parsing[graticule$type == "N"] <- self$parse_N_labels
+        needs_parsing[graticule$type == "N"] <- FALSE
       } else {
         # all labels need to be temporarily stored as character vectors
         y_labels <- as.character(y_labels)
@@ -636,20 +632,11 @@ sf_rescale01_x <- function(x, range) {
 #' @param datum CRS that provides datum to use when generating graticules
 #' @param ndiscr number of segments to use for discretising graticule lines;
 #'   try increasing this when graticules look unexpected
-#' @param parse_N_labels If `TRUE`, labels indicating latitude (the degree to which
-#'   we are north or south) are parsed into R expressions before plotting. These
-#'   correspond to y-axis tick labels in a simple latitude-longitude plot.
-#'   Default is `FALSE`.
-#' @param parse_E_labels If `TRUE`, labels indicating longitude (the degree to which
-#'   we are east or west) are parsed into R expressions before plotting. These
-#'   correspond to x-axis tick labels in a simple latitude-longitude plot.
-#'   Default is `FALSE`.
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      crs = NULL, datum = sf::st_crs(4326), ndiscr = 100,
-                     parse_N_labels = FALSE, parse_E_labels = FALSE,
                      default = FALSE) {
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
@@ -657,8 +644,6 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     crs = crs,
     ndiscr = ndiscr,
     expand = expand,
-    parse_N_labels = parse_N_labels,
-    parse_E_labels = parse_E_labels,
     default = default
   )
 }

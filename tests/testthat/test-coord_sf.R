@@ -84,52 +84,27 @@ test_that("axis labels can be set manually", {
     parsed
   )
 
-  # parsing via coord_sf()
+  # reverse x and y from previous test
   b <- ggplot_build(
     plot +
-      scale_x_continuous(
-        breaks = c(1000, 2000, 3000),
-        labels = c("10^3", "2 %*% 10^3", "3 %*% 10^3")
-      ) +
       scale_y_continuous(
-        breaks = c(1000, 1500, 2000),
-        labels = c("10^3", "1.5 %*% 10^3", "2 %*% 10^3")
+        breaks = c(1000, 2000, 3000),
+        labels = c("A", "B", "C")
       ) +
-      coord_sf(parse_E_labels = TRUE, parse_N_labels = FALSE)
+      scale_x_continuous(
+        breaks = c(1000, 1500, 2000),
+        labels = parse(text = c("10^3", "1.5 %*% 10^3", "2 %*% 10^3"))
+      )
   )
   graticule <- b$layout$panel_params[[1]]$graticule
-  parsed <- vector("list", 3)
-  parsed[1:3] <- parse(text = c("10^3", "2 %*% 10^3", "3 %*% 10^3"))
-  expect_identical(
-    graticule[graticule$type == "E", ]$degree_label,
-    parsed
-  )
   expect_identical(
     graticule[graticule$type == "N", ]$degree_label,
-    as.list(c("10^3", "1.5 %*% 10^3", "2 %*% 10^3"))
-  )
-
-  b <- ggplot_build(
-    plot +
-      scale_x_continuous(
-        breaks = c(1000, 2000, 3000),
-        labels = c("10^3", "2 %*% 10^3", "3 %*% 10^3")
-      ) +
-      scale_y_continuous(
-        breaks = c(1000, 1500, 2000),
-        labels = c("10^3", "1.5 %*% 10^3", "2 %*% 10^3")
-      ) +
-      coord_sf(parse_E_labels = FALSE, parse_N_labels = TRUE)
-  )
-  graticule <- b$layout$panel_params[[1]]$graticule
-  expect_identical(
-    graticule[graticule$type == "E", ]$degree_label,
-    as.list(c("10^3", "2 %*% 10^3", "3 %*% 10^3"))
+    as.list(c("A", "B", "C"))
   )
   parsed <- vector("list", 3)
   parsed[1:3] <- parse(text = c("10^3", "1.5 %*% 10^3", "2 %*% 10^3"))
   expect_identical(
-    graticule[graticule$type == "N", ]$degree_label,
+    graticule[graticule$type == "E", ]$degree_label,
     parsed
   )
 
