@@ -33,7 +33,7 @@ geom_sf_text(mapping = aes(), data = NULL, stat = "sf_coordinates",
   show.legend = NA, inherit.aes = TRUE, fun.geometry = NULL)
 
 coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
-  datum = sf::st_crs(4326), label_graticules = waiver(),
+  datum = sf::st_crs(4326), label_graticule = waiver(),
   label_axes = waiver(), ndiscr = 100, default = FALSE)
 }
 \arguments{
@@ -121,28 +121,28 @@ If not specified, will use the CRS defined in the first layer.}
 
 \item{datum}{CRS that provides datum to use when generating graticules}
 
-\item{label_graticules}{Character vector indicating which graticules should be labeled
+\item{label_graticule}{Character vector indicating which graticule lines should be labeled
 where. Meridians run north-south, and the letters \code{"N"} and \code{"S"} indicate that
 they should be labeled on their north or south end points, respectively.
 Parallels run east-west, and the letters \code{"E"} and \code{"W"} indicate that they
 should be labeled on their east or west end points, respectively. Thus,
-\code{label_graticules = "SW"} would label meridians at their south end and parallels at
-their west end, whereas \code{label_graticules = "EW"} would label parallels at both
+\code{label_graticule = "SW"} would label meridians at their south end and parallels at
+their west end, whereas \code{label_graticule = "EW"} would label parallels at both
 ends and meridians not at all. Because meridians and parallels can in general
-intersect with any side of the plot panel, for any choice of \code{label_graticules} labels
+intersect with any side of the plot panel, for any choice of \code{label_graticule} labels
 are not guaranteed to reside on only one particular side of the plot panel.
 
 This parameter can be used alone or in combination with \code{label_axes}.}
 
 \item{label_axes}{Character vector or named list of character values
-specifying which graticules (meridians or parallels) should be labeled on
+specifying which graticule lines (meridians or parallels) should be labeled on
 which side of the plot. Meridians are indicated by \code{"E"} (for East) and
 parallels by \code{"N"} (for North). Default is \code{"--EN"}, which specifies
 (clockwise from the top) no labels on the top, none on the right, meridians
-on the bottom, and paralleles on the left. Alternatively, this setting could have been
+on the bottom, and parallels on the left. Alternatively, this setting could have been
 specified with \code{list(left = "N", bottom = "E")}.
 
-This parameter can be used alone or in combination with \code{label_graticules}.}
+This parameter can be used alone or in combination with \code{label_graticule}.}
 
 \item{ndiscr}{number of segments to use for discretising graticule lines;
 try increasing this when graticules look unexpected}

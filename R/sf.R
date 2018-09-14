@@ -493,10 +493,6 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
     graticule$degree_label[graticule$type == "N"] <- y_labels
 
-    # remove tick labels not on axes 1 (bottom) and 2 (left)
-    if (!is.null(graticule$plot12))
-      graticule$degree_label[!graticule$plot12] <- NA
-
     # Parse labels if requested/needed
     has_degree <- grepl("\\bdegree\\b", graticule$degree_label)
     needs_parsing <- needs_parsing | (needs_autoparsing & has_degree)
@@ -543,7 +539,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       graticule = graticule,
       crs = params$crs,
       label_axes = self$label_axes,
-      label_graticules = self$label_graticules
+      label_graticule = self$label_graticule
     )
   },
 
@@ -587,16 +583,16 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     id2 <- c(id2, which(graticule$type == panel_params$label_axes$top & graticule$y_end > 0.999))
 
     # labels based on graticule direction
-    if ("S" %in% panel_params$label_graticules) {
+    if ("S" %in% panel_params$label_graticule) {
       id1 <- c(id1, which(graticule$type == "E" & graticule$y_start > 0.999))
     }
-    if ("N" %in% panel_params$label_graticules) {
+    if ("N" %in% panel_params$label_graticule) {
       id2 <- c(id2, which(graticule$type == "E" & graticule$y_end > 0.999))
     }
-    if ("W" %in% panel_params$label_graticules) {
+    if ("W" %in% panel_params$label_graticule) {
       id1 <- c(id1, which(graticule$type == "N" & graticule$y_start > 0.999))
     }
-    if ("E" %in% panel_params$label_graticules) {
+    if ("E" %in% panel_params$label_graticule) {
       id2 <- c(id2, which(graticule$type == "N" & graticule$y_end > 0.999))
     }
 
@@ -623,16 +619,16 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     id2 <- c(id2, which(graticule$type == panel_params$label_axes$bottom & graticule$y_end < 0.001))
 
     # labels based on graticule direction
-    if ("S" %in% panel_params$label_graticules) {
+    if ("S" %in% panel_params$label_graticule) {
       id1 <- c(id1, which(graticule$type == "E" & graticule$y_start < 0.001))
     }
-    if ("N" %in% panel_params$label_graticules) {
+    if ("N" %in% panel_params$label_graticule) {
       id2 <- c(id2, which(graticule$type == "E" & graticule$y_end < 0.001))
     }
-    if ("W" %in% panel_params$label_graticules) {
+    if ("W" %in% panel_params$label_graticule) {
       id1 <- c(id1, which(graticule$type == "N" & graticule$y_start < 0.001))
     }
-    if ("E" %in% panel_params$label_graticules) {
+    if ("E" %in% panel_params$label_graticule) {
       id2 <- c(id2, which(graticule$type == "N" & graticule$y_end < 0.001))
     }
 
@@ -665,16 +661,16 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     id2 <- c(id2, which(graticule$type == panel_params$label_axes$right & graticule$x_start > 0.999))
 
     # labels based on graticule direction
-    if ("N" %in% panel_params$label_graticules) {
+    if ("N" %in% panel_params$label_graticule) {
       id1 <- c(id1, which(graticule$type == "E" & graticule$x_end > 0.999))
     }
-    if ("S" %in% panel_params$label_graticules) {
+    if ("S" %in% panel_params$label_graticule) {
       id2 <- c(id2, which(graticule$type == "E" & graticule$x_start > 0.999))
     }
-    if ("E" %in% panel_params$label_graticules) {
+    if ("E" %in% panel_params$label_graticule) {
       id1 <- c(id1, which(graticule$type == "N" & graticule$x_end > 0.999))
     }
-    if ("W" %in% panel_params$label_graticules) {
+    if ("W" %in% panel_params$label_graticule) {
       id2 <- c(id2, which(graticule$type == "N" & graticule$x_start > 0.999))
     }
 
@@ -701,16 +697,16 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     id2 <- c(id2, which(graticule$type == panel_params$label_axes$left & graticule$x_start < 0.001))
 
     # labels based on graticule direction
-    if ("N" %in% panel_params$label_graticules) {
+    if ("N" %in% panel_params$label_graticule) {
       id1 <- c(id1, which(graticule$type == "E" & graticule$x_end < 0.001))
     }
-    if ("S" %in% panel_params$label_graticules) {
+    if ("S" %in% panel_params$label_graticule) {
       id2 <- c(id2, which(graticule$type == "E" & graticule$x_start < 0.001))
     }
-    if ("E" %in% panel_params$label_graticules) {
+    if ("E" %in% panel_params$label_graticule) {
       id1 <- c(id1, which(graticule$type == "N" & graticule$x_end < 0.001))
     }
-    if ("W" %in% panel_params$label_graticules) {
+    if ("W" %in% panel_params$label_graticule) {
       id2 <- c(id2, which(graticule$type == "N" & graticule$x_start < 0.001))
     }
 
@@ -754,23 +750,23 @@ sf_rescale01_x <- function(x, range) {
 #'   If not specified, will use the CRS defined in the first layer.
 #' @param datum CRS that provides datum to use when generating graticules
 #' @param label_axes Character vector or named list of character values
-#'   specifying which graticules (meridians or parallels) should be labeled on
+#'   specifying which graticule lines (meridians or parallels) should be labeled on
 #'   which side of the plot. Meridians are indicated by `"E"` (for East) and
 #'   parallels by `"N"` (for North). Default is `"--EN"`, which specifies
 #'   (clockwise from the top) no labels on the top, none on the right, meridians
-#'   on the bottom, and paralleles on the left. Alternatively, this setting could have been
+#'   on the bottom, and parallels on the left. Alternatively, this setting could have been
 #'   specified with `list(left = "N", bottom = "E")`.
 #'
-#'   This parameter can be used alone or in combination with `label_graticules`.
-#' @param label_graticules Character vector indicating which graticules should be labeled
+#'   This parameter can be used alone or in combination with `label_graticule`.
+#' @param label_graticule Character vector indicating which graticule lines should be labeled
 #'   where. Meridians run north-south, and the letters `"N"` and `"S"` indicate that
 #'   they should be labeled on their north or south end points, respectively.
 #'   Parallels run east-west, and the letters `"E"` and `"W"` indicate that they
 #'   should be labeled on their east or west end points, respectively. Thus,
-#'   `label_graticules = "SW"` would label meridians at their south end and parallels at
-#'   their west end, whereas `label_graticules = "EW"` would label parallels at both
+#'   `label_graticule = "SW"` would label meridians at their south end and parallels at
+#'   their west end, whereas `label_graticule = "EW"` would label parallels at both
 #'   ends and meridians not at all. Because meridians and parallels can in general
-#'   intersect with any side of the plot panel, for any choice of `label_graticules` labels
+#'   intersect with any side of the plot panel, for any choice of `label_graticule` labels
 #'   are not guaranteed to reside on only one particular side of the plot panel.
 #'
 #'   This parameter can be used alone or in combination with `label_axes`.
@@ -781,39 +777,39 @@ sf_rescale01_x <- function(x, range) {
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      crs = NULL, datum = sf::st_crs(4326),
-                     label_graticules = waiver(),
+                     label_graticule = waiver(),
                      label_axes = waiver(),
                      ndiscr = 100, default = FALSE) {
 
-  if (is.waive(label_graticules) && is.waive(label_axes)) {
-    # if both `label_graticules` and `label_axes` are set to waive then we
+  if (is.waive(label_graticule) && is.waive(label_axes)) {
+    # if both `label_graticule` and `label_axes` are set to waive then we
     # use the default of labels on the left and at the bottom
-    label_graticules <- ""
+    label_graticule <- ""
     label_axes <- "--EN"
   } else {
     # if at least one is set we ignore the other
-    label_graticules <- label_graticules %|W|% ""
+    label_graticule <- label_graticule %|W|% ""
     label_axes <- label_axes %|W|% ""
   }
 
   if (is.character(label_axes)) {
     label_axes <- parse_axes_labeling(label_axes)
   } else if (!is.list(label_axes)) {
-    warning(
-      "Panel labeling format not recognized. Proceeding with default settings.",
+    stop(
+      "Panel labeling format not recognized.",
       call. = FALSE
     )
     label_axes <- list(left = "N", bottom = "E")
   }
 
-  if (is.character(label_graticules)) {
-    label_graticules <- unlist(strsplit(label_graticules, ""))
+  if (is.character(label_graticule)) {
+    label_graticule <- unlist(strsplit(label_graticule, ""))
   } else {
-    warning(
-      "Graticule labeling format not recognized. Proceeding with default settings.",
+    stop(
+      "Graticule labeling format not recognized.",
       call. = FALSE
     )
-    label_graticules <- ""
+    label_graticule <- ""
   }
 
   ggproto(NULL, CoordSf,
@@ -821,7 +817,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     datum = datum,
     crs = crs,
     label_axes = label_axes,
-    label_graticules = label_graticules,
+    label_graticule = label_graticule,
     ndiscr = ndiscr,
     expand = expand,
     default = default
