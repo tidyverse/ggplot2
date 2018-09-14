@@ -6,6 +6,10 @@
     
 *   `coord_sf()` now respects manual setting of axis tick labels (@clauswilke,
     #2857, #2881).
+    
+*   `coord_sf()` now accepts two new parameters `label_graticule` and `label_axes`
+    that can be used to specify which graticules to label on which side of the plot
+    (@clauswilke, #2846).
 
 *   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
     for lines and polygons (@alistaire47, #2826)
@@ -15,10 +19,6 @@
 
 *   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
 
-*   `coord_sf()` now accepts two new parameters `label_graticules` and `label_axes`
-    that can be used to specify which graticules to label on which side of the plot
-    (@clauswilke, #2846).
-    
 *   `fortify()` now displays a more informative error message for
     `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
 
