@@ -5,8 +5,21 @@
     implemented using the `sec.axis` argument to the scale constructor 
     (@dpseidel, #2244).
 
-*   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
+*   The error message in `compute_aesthetics()` now provides the names of only
+    aesthetics with mismatched lengths, rather than all aesthetics (@karawoo,
+    #2853).
     
+*   `coord_sf()` now respects manual setting of axis tick labels (@clauswilke,
+    #2857, #2881).
+
+*   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
+    for lines and polygons (@alistaire47, #2826)
+
+*   `geom_hline()`, `geom_vline()`, and `geom_abline()` now work properly
+    with `coord_trans()` (@clauswilke, #2149, #2812).
+
+*   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
+
 *   `fortify()` now displays a more informative error message for
     `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
 
@@ -30,7 +43,7 @@
   
 *   Data is no longer internally reordered when faceting. This makes it safer to
     feed data columns into `aes()` or into parameters of geoms or stats. However,
-    doing so remains discouraged (@clauswilke).
+    doing so remains discouraged (@clauswilke, #2694).
     
 *   `ggsave()` now exits without creating a new graphics device if previously
     none was open (@clauswilke, #2363).
@@ -39,6 +52,24 @@
     `aesthetics` argument of scale functions. Also, the US spelling "color"
     is now always internally converted to "colour", even when part of a longer
     aesthetic name (e.g., `point_color`) (@clauswilke, #2649).
+
+*   New `geom_sf_label()` and `geom_sf_text()` draw labels and text on sf objects.
+    Under the hood, new `stat_sf_coordinates()` calculates the x and y from the
+    coordinates of the geometries. You can customize the calculation method via
+    `fun.geometry` argument (@yutannihilation, #2761).
+
+*   `labs()` now has named arguments `title`, `subtitle`, `caption`, and `tag`.
+    Also, `labs()` now accepts tidyeval (@yutannihilation, #2669).
+
+*   `position_nudge()` is now more robust and nudges only in the direction
+    requested. This enables, for example, the horizontal nudging of boxplots
+    (@clauswilke, #2733).
+    
+*   `geom_text(..., parse = TRUE)` now correctly renders the expected number of
+    items instead of silently dropping items that are empty expressions, e.g.
+    the empty string "". If an expression spans multiple lines, we take just
+    the first line and drop the rest. This same issue is also fixed for
+    `geom_label()` and the axis labels for `geom_sf()` (@slowkow, #2867).
 
 # ggplot2 3.0.0
 

@@ -141,7 +141,11 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
   transform_range = function(self, range) {
     range <- structure(data.frame(range), names = '.')
-    rlang::eval_tidy(rlang::f_rhs(self$trans), data = range)
+    rlang::eval_tidy(
+      rlang::f_rhs(self$trans),
+      data = range,
+      env = rlang::f_env(self$trans)
+    )
   },
 
   break_info = function(self, range, scale) {

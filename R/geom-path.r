@@ -19,6 +19,15 @@
 #' @seealso
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments
+#' @section Missing value handling:
+#' `geom_path()`, `geom_line()`, and `geom_step` handle `NA` as follows:
+#'
+#' * If an `NA` occurs in the middle of a line, it breaks the line. No warning
+#'   is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
+#' * If an `NA` occurs at the start or the end of the line and `na.rm` is `FALSE`
+#'   (default), the `NA` is removed with a warning.
+#' * If an `NA` occurs at the start or the end of the line and `na.rm` is `TRUE`,
+#'   the `NA` is removed silently, without warning.
 #' @export
 #' @examples
 #' # geom_line() is suitable for time series
@@ -57,16 +66,9 @@
 #' base + geom_path(size = 10, lineend = "round")
 #' base + geom_path(size = 10, linejoin = "mitre", lineend = "butt")
 #'
-#' # NAs break the line. Use na.rm = T to suppress the warning message
-#' df <- data.frame(
-#'   x = 1:5,
-#'   y1 = c(1, 2, 3, 4, NA),
-#'   y2 = c(NA, 2, 3, 4, 5),
-#'   y3 = c(1, 2, NA, 4, 5)
-#' )
-#' ggplot(df, aes(x, y1)) + geom_point() + geom_line()
-#' ggplot(df, aes(x, y2)) + geom_point() + geom_line()
-#' ggplot(df, aes(x, y3)) + geom_point() + geom_line()
+#' # You can use NAs to break the line.
+#' df <- data.frame(x = 1:5, y = c(1, 2, NA, 4, 5))
+#' ggplot(df, aes(x, y)) + geom_point() + geom_line()
 #'
 #' \donttest{
 #' # Setting line type vs colour/size

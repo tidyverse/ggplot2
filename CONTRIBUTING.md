@@ -1,13 +1,20 @@
 # Contributing to ggplot2 development
 
-The goal of this guide is to help you get up and contributing to ggplot2 as quickly as possible. The guide is divided into two main pieces:
+The goal of this guide is to help you get up and contributing to ggplot2 as 
+quickly as possible. The guide is divided into two main pieces:
 
 1. Filing a bug report or feature request in an issue.
 1. Suggesting a change via a pull request.
 
+Please note that 'ggplot2 is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this project, 
+you agree to abide by its terms.
+
 ## Issues
 
-When filing an issue, the most important thing is to include a minimal reproducible example so that we can quickly verify the problem, and then figure out how to fix it. There are three things you need to include to make your example reproducible: required packages, data, code.
+When filing an issue, the most important thing is to include a minimal 
+reproducible example so that we can quickly verify the problem, and then figure 
+out how to fix it. There are three things you need to include to make your 
+example reproducible: required packages, data, code.
 
 1.  **Packages** should be loaded at the top of the script, so it's easy to
     see which ones the example needs.
@@ -34,9 +41,11 @@ When filing an issue, the most important thing is to include a minimal reproduci
     * do your best to remove everything that is not related to the problem.  
      The shorter your code is, the easier it is to understand.
 
-You can check you have actually made a reproducible example by starting up a fresh R session and pasting your script in.
+You can check you have actually made a reproducible example by starting up a 
+fresh R session and pasting your script in.
 
-(Unless you've been specifically asked for it, please don't include the output of `sessionInfo()`.)
+(Unless you've been specifically asked for it, please don't include the output 
+of `sessionInfo()`.)
 
 ## Pull requests
 
@@ -48,7 +57,9 @@ To contribute a change to ggplot2, you follow these steps:
 1. Iterate until either we accept the PR or decide that it's not
    a good fit for ggplot2.
 
-Each of these steps are described in more detail below. This might feel overwhelming the first time you get set up, but it gets easier with practice. If you get stuck at any point, please reach out for help on the [ggplot2-dev](https://groups.google.com/forum/#!forum/ggplot2-dev) mailing list.
+Each of these steps are described in more detail below. This might feel 
+overwhelming the first time you get set up, but it gets easier with practice. 
+If you get stuck at any point, please reach out for help on the [ggplot2-dev](https://groups.google.com/forum/#!forum/ggplot2-dev) mailing list.
 
 If you're not familiar with git or github, please start by reading <http://r-pkgs.had.co.nz/git.html>
 
@@ -89,7 +100,7 @@ Pull requests will be evaluated against a seven point checklist:
     and don't submit any others until the first one has been processed.
 
 1.  __Use ggplot2 coding style__. Please follow the
-    [official ggplot2 style](http://adv-r.had.co.nz/Style.html). Maintaining
+    [official tidyverse style](http://style.tidyverse.org). Maintaining
     a consistent style across the whole code base makes it much easier to
     jump into the code. If you're modifying existing ggplot2 code that
     doesn't follow the style guide, a separate pull request to fix the
@@ -103,17 +114,23 @@ Pull requests will be evaluated against a seven point checklist:
     can get with `install_github("klutometis/roxygen")`. This will be
     available on CRAN in the near future.
 
-<!--
 1.  If fixing a bug or adding a new feature to a non-graphical function,
-    please add a [testthat](https://github.com/hadley/testthat) unit test.
+    please add a [testthat](https://github.com/r-lib/testthat) unit test.
 
 1.  If fixing a bug in the visual output, please add a visual test.
     (Instructions to follow soon)
--->
 
 1.  If you're adding a new graphical feature, please add a short example
     to the appropriate function.
 
-This seems like a lot of work but don't worry if your pull request isn't perfect. It's a learning process and Winston and I will be on hand to help you out. A pull request is a process, and unless you've submitted a few in the past it's unlikely that your pull request will be accepted as is.
+This seems like a lot of work but don't worry if your pull request isn't perfect.
+It's a learning process and members of the ggplot2 team will be on hand to help you out. A pull request is a process, and unless you've submitted a few in the past 
+it's unlikely that your pull request will be accepted as is. All PRs require 
+review and approval from at least one member of the ggplot2 development team 
+before merge.
 
-Finally, remember that ggplot2 is a mature package used by thousands of people. This means that it's extremely difficult (i.e. impossible) to change any existing functionality without breaking someone's code (or another package on CRAN). Please don't submit pull requests that change existing behaviour. Instead, think about how you can add a new feature in a minimally invasive way.
+Finally, remember that ggplot2 is a mature package used by thousands of people. 
+This means that it's extremely difficult (i.e. impossible) to change any existing
+functionality without breaking someone's code (or another package on CRAN). 
+Please don't submit pull requests that change existing behaviour. Instead, 
+think about how you can add a new feature in a minimally invasive way.

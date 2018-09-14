@@ -93,15 +93,19 @@ test_that("sec axis works with skewed transform", {
 })
 
 test_that("sec axis works with tidy eval", {
+  # decoy, not used
+  a <- 5
+
   f <- function(df, .x, .y, .z) {
     x <- enquo(.x)
     y <- enquo(.y)
     z <- enquo(.z)
+    a <- 10 # scaling of secondary axis
 
     g <- ggplot(df, aes(x = !!x, y = !!y)) +
       geom_bar(stat = "identity") +
       geom_point(aes(y = !!z)) +
-      scale_y_continuous(sec.axis = sec_axis(~. / 10))
+      scale_y_continuous(sec.axis = sec_axis(~. / a))
 
     g
   }

@@ -499,9 +499,9 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #' @export
 #' @param aesthetics The names of the aesthetics that this scale works with
 #' @param scale_name The name of the scale
-#' @param palette A palette function that when called with a single integer
-#'   argument (the number of levels in the scale) returns the values that
-#'   they should take
+#' @param palette A palette function that when called with a numeric vector with
+#'   values between 0 and 1 returns the corresponding values in the range the
+#'   scale maps to.
 #' @param name The name of the scale. Used as the axis or legend title. If
 #'   `waiver()`, the default, the name of the scale is taken from the first
 #'   mapping used for that aesthetic. If `NULL`, the legend title will be
@@ -600,6 +600,9 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'
 #' @export
 #' @inheritParams continuous_scale
+#' @param palette A palette function that when called with a single integer
+#'   argument (the number of levels in the scale) returns the values that
+#'   they should take.
 #' @param breaks One of:
 #'   - `NULL` for no breaks
 #'   - `waiver()` for the default breaks computed by the

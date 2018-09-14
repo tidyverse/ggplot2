@@ -14,15 +14,15 @@
 <rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
 <rect x='0.00' y='0.00' width='720.00' height='576.00' style='stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;' />
 <defs>
-  <clipPath id='cpNS40OHw3MTQuNTJ8NTcwLjUyfDIzLjYy'>
-    <rect x='5.48' y='23.62' width='709.04' height='546.90' />
+  <clipPath id='cpNS40OHw3MTQuNTJ8NTcwLjUyfDIyLjUy'>
+    <rect x='5.48' y='22.52' width='709.04' height='548.00' />
   </clipPath>
 </defs>
-<rect x='5.48' y='23.62' width='709.04' height='546.90' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cpNS40OHw3MTQuNTJ8NTcwLjUyfDIzLjYy)' />
-<circle cx='37.71' cy='545.66' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpNS40OHw3MTQuNTJ8NTcwLjUyfDIzLjYy)' />
-<circle cx='682.29' cy='48.48' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpNS40OHw3MTQuNTJ8NTcwLjUyfDIzLjYy)' />
-<line x1='37.71' y1='545.66' x2='682.29' y2='48.48' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' clip-path='url(#cpNS40OHw3MTQuNTJ8NTcwLjUyfDIzLjYy)' />
-<rect x='5.48' y='23.62' width='709.04' height='546.90' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cpNS40OHw3MTQuNTJ8NTcwLjUyfDIzLjYy)' />
+<rect x='5.48' y='22.52' width='709.04' height='548.00' style='stroke-width: 1.07; stroke: none; fill: #FFFFFF;' clip-path='url(#cpNS40OHw3MTQuNTJ8NTcwLjUyfDIyLjUy)' />
+<circle cx='37.71' cy='545.61' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpNS40OHw3MTQuNTJ8NTcwLjUyfDIyLjUy)' />
+<circle cx='682.29' cy='47.43' r='1.95pt' style='stroke-width: 0.71; fill: #000000;' clip-path='url(#cpNS40OHw3MTQuNTJ8NTcwLjUyfDIyLjUy)' />
+<line x1='37.71' y1='545.61' x2='682.29' y2='47.43' style='stroke-width: 1.07; stroke: #FF0000; stroke-linecap: butt;' clip-path='url(#cpNS40OHw3MTQuNTJ8NTcwLjUyfDIyLjUy)' />
+<rect x='5.48' y='22.52' width='709.04' height='548.00' style='stroke-width: 1.07; stroke: #333333;' clip-path='url(#cpNS40OHw3MTQuNTJ8NTcwLjUyfDIyLjUy)' />
 <defs>
   <clipPath id='cpMC4wMHw3MjAuMDB8NTc2LjAwfDAuMDA='>
     <rect x='0.00' y='0.00' width='720.00' height='576.00' />

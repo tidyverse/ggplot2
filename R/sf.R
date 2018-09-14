@@ -1,18 +1,19 @@
 #' Visualise sf objects
 #'
 #' This set of geom, stat, and coord are used to visualise simple feature (sf)
-#' objects. For simple plots, you will only need `geom_sf` as it
-#' uses `stat_sf` and adds `coord_sf` for you. `geom_sf` is
+#' objects. For simple plots, you will only need `geom_sf()` as it
+#' uses `stat_sf()` and adds `coord_sf()` for you. `geom_sf()` is
 #' an unusual geom because it will draw different geometric objects depending
 #' on what simple features are present in the data: you can get points, lines,
 #' or polygons.
+#' For text and labels, you can use `geom_sf_text()` and `geom_sf_label()`.
 #'
 #' @section Geometry aesthetic:
-#' `geom_sf` uses a unique aesthetic: `geometry`, giving an
+#' `geom_sf()` uses a unique aesthetic: `geometry`, giving an
 #' column of class `sfc` containing simple features data. There
 #' are three ways to supply the `geometry` aesthetic:
 #'
-#'   - Do nothing: by default `geom_sf` assumes it is stored in
+#'   - Do nothing: by default `geom_sf()` assumes it is stored in
 #'     the `geometry` column.
 #'   - Explicitly pass an `sf` object to the `data` argument.
 #'     This will use the primary geometry column, no matter what it's called.
@@ -23,7 +24,7 @@
 #'
 #' @section CRS:
 #' `coord_sf()` ensures that all layers use a common CRS. You can
-#' either specify it using the `CRS` param, or `coord_sf` will
+#' either specify it using the `CRS` param, or `coord_sf()` will
 #' take it from the first layer that defines a CRS.
 #'
 #' @param show.legend logical. Should this layer be included in the legends?
@@ -32,6 +33,7 @@
 #'
 #'   You can also set this to one of "polygon", "line", and "point" to
 #'   override the default legend.
+#' @seealso [stat_sf_coordinates()]
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
 #' nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
@@ -70,6 +72,11 @@
 #'   "+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"
 #' )
 #' ggplot() + geom_sf(data = world2)
+#'
+#' # To add labels, use geom_sf_label().
+#' ggplot(nc_3857[1:3, ]) +
+#'    geom_sf(aes(fill = AREA)) +
+#'    geom_sf_label(aes(label = NAME))
 #' }
 #' @name ggsf
 NULL
@@ -151,7 +158,8 @@ GeomSf <- ggproto("GeomSf", Geom,
     stroke = 0.5
   ),
 
-  draw_panel = function(data, panel_params, coord, legend = NULL) {
+  draw_panel = function(data, panel_params, coord, legend = NULL,
+                        lineend = "butt", linejoin = "round", linemitre = 10) {
     if (!inherits(coord, "CoordSf")) {
       stop("geom_sf() must be used with coord_sf()", call. = FALSE)
     }
@@ -159,7 +167,12 @@ GeomSf <- ggproto("GeomSf", Geom,
     # Need to refactor this to generate one grob per geometry type
     coord <- coord$transform(data, panel_params)
     grobs <- lapply(1:nrow(data), function(i) {
-      sf_grob(coord[i, , drop = FALSE])
+      sf_grob(
+        coord[i, , drop = FALSE],
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre
+      )
     })
     do.call("gList", grobs)
   },
@@ -186,7 +199,7 @@ default_aesthetics <- function(type) {
   }
 }
 
-sf_grob <- function(row) {
+sf_grob <- function(row, lineend, linejoin, linemitre) {
   # Need to extract geometry out of corresponding list column
   geometry <- row$geometry[[1]]
 
@@ -207,7 +220,9 @@ sf_grob <- function(row) {
       fill = alpha(row$fill, row$alpha),
       lwd = row$size * .pt,
       lty = row$linetype,
-      lineend = "butt"
+      lineend = lineend,
+      linejoin = linejoin,
+      linemitre = linemitre
     )
     sf::st_as_grob(geometry, gp = gp)
   }
@@ -248,6 +263,114 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
     coord_sf(default = TRUE)
   )
 }
+
+#' @export
+#' @rdname ggsf
+#' @inheritParams geom_label
+#' @inheritParams stat_sf_coordinates
+geom_sf_label <- function(mapping = aes(), data = NULL,
+                          stat = "sf_coordinates", position = "identity",
+                          ...,
+                          parse = FALSE,
+                          nudge_x = 0,
+                          nudge_y = 0,
+                          label.padding = unit(0.25, "lines"),
+                          label.r = unit(0.15, "lines"),
+                          label.size = 0.25,
+                          na.rm = FALSE,
+                          show.legend = NA,
+                          inherit.aes = TRUE,
+                          fun.geometry = NULL) {
+
+  # Automatically determin name of geometry column
+  if (!is.null(data) && is_sf(data)) {
+    geometry_col <- attr(data, "sf_column")
+  } else {
+    geometry_col <- "geometry"
+  }
+  if (is.null(mapping$geometry)) {
+    mapping$geometry <- as.name(geometry_col)
+  }
+
+  if (!missing(nudge_x) || !missing(nudge_y)) {
+    if (!missing(position)) {
+      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+    }
+
+    position <- position_nudge(nudge_x, nudge_y)
+  }
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomLabel,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      parse = parse,
+      label.padding = label.padding,
+      label.r = label.r,
+      label.size = label.size,
+      na.rm = na.rm,
+      fun.geometry = fun.geometry,
+      ...
+    )
+  )
+}
+
+#' @export
+#' @rdname ggsf
+#' @inheritParams geom_text
+#' @inheritParams stat_sf_coordinates
+geom_sf_text <- function(mapping = aes(), data = NULL,
+                         stat = "sf_coordinates", position = "identity",
+                         ...,
+                         parse = FALSE,
+                         nudge_x = 0,
+                         nudge_y = 0,
+                         check_overlap = FALSE,
+                         na.rm = FALSE,
+                         show.legend = NA,
+                         inherit.aes = TRUE,
+                         fun.geometry = NULL) {
+  # Automatically determin name of geometry column
+  if (!is.null(data) && is_sf(data)) {
+    geometry_col <- attr(data, "sf_column")
+  } else {
+    geometry_col <- "geometry"
+  }
+  if (is.null(mapping$geometry)) {
+    mapping$geometry <- as.name(geometry_col)
+  }
+
+  if (!missing(nudge_x) || !missing(nudge_y)) {
+    if (!missing(position)) {
+      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+    }
+
+    position <- position_nudge(nudge_x, nudge_y)
+  }
+
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomText,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      parse = parse,
+      check_overlap = check_overlap,
+      na.rm = na.rm,
+      fun.geometry = fun.geometry,
+      ...
+    )
+  )
+}
+
 
 #' @export
 scale_type.sfc <- function(x) "identity"
@@ -314,6 +437,78 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     data
   },
 
+
+  # internal function used by setup_panel_params,
+  # overrides the graticule labels based on scale settings if necessary
+  fixup_graticule_labels = function(self, graticule, scale_x, scale_y, params = list()) {
+    needs_parsing <- rep(FALSE, nrow(graticule))
+    needs_autoparsing <- rep(FALSE, nrow(graticule))
+
+    x_breaks <- graticule$degree[graticule$type == "E"]
+    if (is.null(scale_x$labels)) {
+      x_labels <- rep(NA, length(x_breaks))
+    } else if (is.waive(scale_x$labels)) {
+      x_labels <- graticule$degree_label[graticule$type == "E"]
+      needs_autoparsing[graticule$type == "E"] <- TRUE
+    } else {
+      if (is.function(scale_x$labels)) {
+        x_labels <- scale_x$labels(x_breaks)
+      } else {
+        x_labels <- scale_x$labels
+      }
+
+      # all labels need to be temporarily stored as character vectors,
+      # but expressions need to be parsed afterwards
+      needs_parsing[graticule$type == "E"] <- !(is.character(x_labels) || is.factor(x_labels))
+      x_labels <- as.character(x_labels)
+    }
+
+    if (length(x_labels) != length(x_breaks)) {
+      stop("Breaks and labels along x direction are different lengths", call. = FALSE)
+    }
+    graticule$degree_label[graticule$type == "E"] <- x_labels
+
+
+    y_breaks <- graticule$degree[graticule$type == "N"]
+    if (is.null(scale_y$labels)) {
+      y_labels <- rep(NA, length(y_breaks))
+    } else if (is.waive(scale_y$labels)) {
+      y_labels <- graticule$degree_label[graticule$type == "N"]
+      needs_autoparsing[graticule$type == "N"] <- TRUE
+    } else {
+      if (is.function(scale_y$labels)) {
+        y_labels <- scale_y$labels(y_breaks)
+      } else {
+        y_labels <- scale_y$labels
+      }
+
+      # all labels need to be temporarily stored as character vectors,
+      # but expressions need to be parsed afterwards
+      needs_parsing[graticule$type == "N"] <- !(is.character(y_labels) || is.factor(y_labels))
+      y_labels <- as.character(y_labels)
+    }
+
+    if (length(y_labels) != length(y_breaks)) {
+      stop("Breaks and labels along y direction are different lengths", call. = FALSE)
+    }
+    graticule$degree_label[graticule$type == "N"] <- y_labels
+
+    # remove tick labels not on axes 1 (bottom) and 2 (left)
+    if (!is.null(graticule$plot12))
+      graticule$degree_label[!graticule$plot12] <- NA
+
+    # Parse labels if requested/needed
+    has_degree <- grepl("\\bdegree\\b", graticule$degree_label)
+    needs_parsing <- needs_parsing | (needs_autoparsing & has_degree)
+    if (any(needs_parsing)) {
+      labels <- as.list(graticule$degree_label)
+      labels[needs_parsing] <- parse_safe(graticule$degree_label[needs_parsing])
+      graticule$degree_label <- labels
+    }
+
+    graticule
+  },
+
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # Bounding box of the data
     x_range <- scale_range(scale_x, self$limits$x, self$expand)
@@ -333,17 +528,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       ndiscr = self$ndiscr
     )
 
-    # remove tick labels not on axes 1 (bottom) and 2 (left)
-    if (!is.null(graticule$plot12))
-      graticule$degree_label[!graticule$plot12] <- NA
+    # override graticule labels provided by sf::st_graticule() if necessary
+    graticule <- self$fixup_graticule_labels(graticule, scale_x, scale_y, params)
 
     sf::st_geometry(graticule) <- sf_rescale01(sf::st_geometry(graticule), x_range, y_range)
     graticule$x_start <- sf_rescale01_x(graticule$x_start, x_range)
     graticule$x_end <- sf_rescale01_x(graticule$x_end, x_range)
     graticule$y_start <- sf_rescale01_x(graticule$y_start, y_range)
     graticule$y_end <- sf_rescale01_x(graticule$y_end, y_range)
-    if (any(grepl("degree", graticule$degree_label)))
-      graticule$degree_label <- lapply(graticule$degree_label, function(x) parse(text = x)[[1]])
 
     list(
       x_range = x_range,
@@ -351,6 +543,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       graticule = graticule,
       crs = params$crs
     )
+  },
+
+  range = function(panel_params) {
+    list(x = panel_params$x_range, y = panel_params$y_range)
   },
 
   # CoordSf enforces a fixed aspect ratio -> axes cannot be changed freely under faceting
@@ -430,7 +626,7 @@ sf_rescale01_x <- function(x, range) {
 #'   use the CRS defined in the first layer.
 #' @param datum CRS that provides datum to use when generating graticules
 #' @param ndiscr number of segments to use for discretising graticule lines;
-#' try increasing this when graticules look unexpected
+#'   try increasing this when graticules look unexpected
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
