@@ -184,8 +184,7 @@ find_names <- function(expr) {
 #'
 #' @param rows Backquoted labelling expression for rows.
 #' @param cols Backquoted labelling expression for columns.
-#' @param default Default labeller function for the rows or the
-#'   columns when no plotmath expression is provided.
+#' @param default Unused, kept for compatibility.
 #' @seealso \link{labellers}, [labeller()],
 #' @export
 #' @examples
@@ -196,7 +195,7 @@ find_names <- function(expr) {
 #' p + facet_grid(. ~ vs, labeller = label_bquote(cols = .(vs) ^ .(vs)))
 #' p + facet_grid(. ~ vs + am, labeller = label_bquote(cols = .(am) ^ .(vs)))
 label_bquote <- function(rows = NULL, cols = NULL,
-                         default = label_value) {
+                         default) {
   cols_quoted <- substitute(cols)
   rows_quoted <- substitute(rows)
   has_warned <- FALSE
