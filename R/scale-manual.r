@@ -102,6 +102,8 @@ scale_discrete_manual <- function(aesthetics, ..., values) {
 
 
 manual_scale <- function(aesthetic, values, ...) {
+  force(values)
+
   pal <- function(n) {
     if (n > length(values)) {
       stop("Insufficient values in manual scale. ", n, " needed but only ",

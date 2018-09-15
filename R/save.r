@@ -118,7 +118,10 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
   dim
 }
 
-plot_dev <- function(device, filename, dpi = 300) {
+plot_dev <- function(device, filename = NULL, dpi = 300) {
+  force(filename)
+  force(dpi)
+
   if (is.function(device))
     return(device)
 
