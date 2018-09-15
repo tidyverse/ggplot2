@@ -755,7 +755,7 @@ sf_rescale01_x <- function(x, range) {
 #'   parallels by `"N"` (for North). Default is `"--EN"`, which specifies
 #'   (clockwise from the top) no labels on the top, none on the right, meridians
 #'   on the bottom, and parallels on the left. Alternatively, this setting could have been
-#'   specified with `list(left = "N", bottom = "E")`.
+#'   specified with `list(bottom = "E", left = "N")`.
 #'
 #'   This parameter can be used alone or in combination with `label_graticule`.
 #' @param label_graticule Character vector indicating which graticule lines should be labeled
