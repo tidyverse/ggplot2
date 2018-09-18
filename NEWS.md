@@ -11,10 +11,11 @@
     that can be used to specify which graticules to label on which side of the plot
     (@clauswilke, #2846).
     
-*   The function `range()` in `Coord` has been renamed to `backtransform_range()`
-    to clarify its intended meaning. This affects developers of custom coords. It
-    may also affect developers of custom geoms that use the `range()` function. That
-    code should be migrated to use `backtransform_range()` (@clauswilke, breaking change).
+*   `Coord` objects now have a function `backtransform_range()` that returns the
+    panel range in data coordinates. This change may affect developers of custom coords. It
+    may also affect developers of custom geoms that use the `range()` function. In
+    some applications, `backtransform_range()` may be more appropriate.
+    (@clauswilke, #2821).
 
 *   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
     for lines and polygons (@alistaire47, #2826)
