@@ -17,7 +17,7 @@ geom_label <- function(mapping = NULL, data = NULL,
                        inherit.aes = TRUE) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+      stop("You must specify either `position` or `nudge_x`/`nudge_y`.", call. = FALSE)
     }
 
     position <- position_nudge(nudge_x, nudge_y)
