@@ -158,6 +158,11 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomBoxplot <- ggproto("GeomBoxplot", Geom,
+
+  # need to declare `width`` here in case this geom is used with a stat that
+  # doesn't have a `width` parameter (e.g., `stat_identity`).
+  extra_params = c("na.rm", "width"),
+
   setup_data = function(data, params) {
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
