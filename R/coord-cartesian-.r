@@ -87,8 +87,8 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     list(x = panel_params$x.range, y = panel_params$y.range)
   },
 
-  backtransform_range = function(panel_params) {
-    list(x = panel_params$x.range, y = panel_params$y.range)
+  backtransform_range = function(self, panel_params) {
+    self$range(panel_params)
   },
 
   transform = function(data, panel_params) {

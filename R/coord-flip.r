@@ -44,7 +44,7 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
     CoordCartesian$transform(data, panel_params)
   },
 
-  backtransform_range = function(panel_params) {
+  backtransform_range = function(self, panel_params) {
     self$range(panel_params)
   },
 
