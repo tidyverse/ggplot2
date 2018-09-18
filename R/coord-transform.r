@@ -126,6 +126,13 @@ CoordTrans <- ggproto("CoordTrans", Coord,
     )
   },
 
+  range = function(self, panel_params) {
+    list(
+      x = panel_params$x.range,
+      y = panel_params$y.range
+    )
+  },
+
   transform = function(self, data, panel_params) {
     trans_x <- function(data) transform_value(self$trans$x, data, panel_params$x.range)
     trans_y <- function(data) transform_value(self$trans$y, data, panel_params$y.range)
