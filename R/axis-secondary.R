@@ -45,6 +45,30 @@
 #' # You can pass in a formula as a shorthand
 #' p + scale_y_continuous(sec.axis = ~.^2)
 #'
+#' # Secondary axes work for date and datetime scales too:
+#' df <- data.frame(
+#'   dx = seq(as.POSIXct("2012-02-29 12:00:00",
+#'                        tz = "UTC",
+#'                        format = "%Y-%m-%d %H:%M:%S"
+#'   ),
+#'   length.out = 10, by = "4 hour"
+#'   ),
+#'   price = seq(20, 200000, length.out = 10)
+#'  )
+#'
+#' # useful for labelling different time scales in the same plot
+#' ggplot(df, aes(x = dx, y = price)) + geom_line() +
+#'   scale_x_datetime("Date", date_labels = "%b %d",
+#'   date_breaks = "6 hour",
+#'   sec.axis = dup_axis(name = "Time of Day",
+#'   labels = scales::time_format("%I %p")))
+#'
+#' # or to transform axes for different timezones
+#' ggplot(df, aes(x = dx, y = price)) + geom_line() +
+#'   scale_x_datetime("GMT", date_labels = "%b %d %I %p",
+#'   sec.axis = sec_axis(~. + 8*3600, name = "GMT+8",
+#'   labels = scales::time_format("%b %d %I %p")))
+#'
 #' @export
 sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver()) {
   if (!is.formula(trans)) stop("transformation for secondary axes must be a formula", call. = FALSE)
@@ -61,9 +85,20 @@ sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = 
 dup_axis <- function(trans = ~., name = derive(), breaks = derive(), labels = derive()) {
   sec_axis(trans, name, breaks, labels)
 }
+
 is.sec_axis <- function(x) {
   inherits(x, "AxisSecondary")
 }
+
+set_sec_axis <- function(sec.axis, scale) {
+  if (!is.waive(sec.axis)) {
+    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
+    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
+    scale$secondary.axis <- sec.axis
+  }
+  return(scale)
+}
+
 #' @rdname sec_axis
 #'
 #' @export

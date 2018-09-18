@@ -1,5 +1,10 @@
 # ggplot2 3.0.0.9000
 
+*   `scale_*_date()`, `scale_*_time()` and `scale_*_datetime()` can now display 
+    a secondary axis that is a __one-to-one__ transformation of the primary axis,
+    implemented using the `sec.axis` argument to the scale constructor 
+    (@dpseidel, #2244).
+
 *   The error message in `compute_aesthetics()` now provides the names of only
     aesthetics with mismatched lengths, rather than all aesthetics (@karawoo,
     #2853).
@@ -23,7 +28,7 @@
     `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
 
 *   All `geom_*()` now display an informative error message when required 
-    aesthetics are missing (@dpseidel, #2637 and #2706).
+    aesthetics are missing (@dpseidel, #2637 and #2706).s
 
 *   `sec_axis()` and `dup_axis()` now return appropriate breaks for the secondary
     axis when applied to log transformed scales (@dpseidel, #2729).

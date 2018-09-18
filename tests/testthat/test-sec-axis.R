@@ -120,6 +120,48 @@ test_that("sec axis works with tidy eval", {
   expect_equal(breaks$major_source / 10, breaks$sec.major_source)
 })
 
+test_that("sec_axis works with date/time/datetime scales", {
+  df <- data.frame(
+    dx = seq(as.POSIXct("2012-02-29 12:00:00",
+      tz = "UTC",
+      format = "%Y-%m-%d %H:%M:%S"
+    ),
+    length.out = 10, by = "4 hour"
+    ),
+    price = seq(20, 200000, length.out = 10)
+  )
+  df$date <- as.Date(df$dx)
+  dt <- ggplot(df, aes(dx, price)) +
+    geom_line() +
+    scale_x_datetime(sec.axis = dup_axis())
+  scale <- layer_scales(dt)$x
+  breaks <- scale$break_info()
+  expect_equal(breaks$major_source, breaks$sec.major_source)
+
+  dt <- ggplot(df, aes(date, price)) +
+    geom_line() +
+    scale_x_date(sec.axis = dup_axis())
+  scale <- layer_scales(dt)$x
+  breaks <- scale$break_info()
+  expect_equal(breaks$major_source, breaks$sec.major_source)
+
+  dt <- ggplot(df, aes(dx, price)) +
+    geom_line() +
+    scale_x_datetime(
+      name = "UTC",
+      sec.axis = dup_axis(~. + 12 * 60 * 60,
+        name = "UTC+12"
+      )
+    )
+  scale <- layer_scales(dt)$x
+  breaks <- scale$break_info()
+
+  expect_equal(
+    as.numeric(breaks$major_source) + 12 * 60 * 60,
+    as.numeric(breaks$sec.major_source)
+  )
+})
+
 test_that("sec_axis() works for power transformations (monotonicity test doesn't fail)", {
   p <- ggplot(foo, aes(x, y)) +
     geom_point() +
