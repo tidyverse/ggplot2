@@ -124,12 +124,11 @@ CoordMap <- ggproto("CoordMap", Coord,
     list(x = panel_params$x.range, y = panel_params$y.range)
   },
 
-  # not sure yet how to implement this, panel params store backtransformed range
   range = function(panel_params) {
-    warning(
-      "range calculation in transformed coordinates not implemented in this coord; results may be wrong.",
-      call. = FALSE
-    )
+    # Range in projected coordinates:
+    #   list(x = panel_params$x.proj, y = panel_params$y.proj)
+    # However, coord_map() does never really work with transformed coordinates,
+    # so return unprojected data coordinates here
     list(x = panel_params$x.range, y = panel_params$y.range)
   },
 
