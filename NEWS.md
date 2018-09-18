@@ -12,9 +12,10 @@
     (@clauswilke, #2846).
     
 *   `Coord` objects now have a function `backtransform_range()` that returns the
-    panel range in data coordinates. This change may affect developers of custom coords. It
-    may also affect developers of custom geoms that use the `range()` function. In
-    some applications, `backtransform_range()` may be more appropriate.
+    panel range in data coordinates. This change may affect developers of custom coords,
+    who now should implement this function. It may also affect developers of custom
+    geoms that use the `range()` function. In some applications, `backtransform_range()`
+    may be more appropriate.
     (@clauswilke, #2821).
 
 *   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
