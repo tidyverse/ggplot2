@@ -545,6 +545,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   backtransform_range = function(panel_params) {
     # this does not actually return backtransformed ranges in the general case, needs fixing
+    warning(
+      "range backtransformation not implemented in this coord; results may be wrong.",
+      call. = FALSE
+    )
     list(x = panel_params$x_range, y = panel_params$y_range)
   },
 

@@ -125,9 +125,13 @@ CoordMap <- ggproto("CoordMap", Coord,
   },
 
   # not sure yet how to implement this, panel params store backtransformed range
-  #range = function(panel_params) {
-  #  list(x = panel_params$x.range, y = panel_params$y.range)
-  #},
+  range = function(panel_params) {
+    warning(
+      "range calculation in transformed coordinates not implemented in this coord; results may be wrong.",
+      call. = FALSE
+    )
+    list(x = panel_params$x.range, y = panel_params$y.range)
+  },
 
   distance = function(x, y, panel_params) {
     max_dist <- dist_central_angle(panel_params$x.range, panel_params$y.range)
