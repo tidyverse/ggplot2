@@ -48,6 +48,12 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
     list(x = panel_params$y.range, y = panel_params$x.range)
   },
 
+  range = function(panel_params) {
+    # summarise_layout() expects the original x and y ranges here,
+    # not the ones we would get after flipping the axes
+    list(x = panel_params$y.range, y = panel_params$x.range)
+  },
+
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     parent <- ggproto_parent(CoordCartesian, self)
     panel_params <- parent$setup_panel_params(scale_x, scale_y, params)

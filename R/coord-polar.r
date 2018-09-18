@@ -98,9 +98,12 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   },
 
   range = function(self, panel_params) {
-    # return angle as x and radius as y
-    # downstream functions (e.g. summarise_layout()) expect x and y
-    list(x = panel_params$theta.range, y = panel_params$r.range)
+    # summarise_layout() expects that the x and y ranges here
+    # match the setting from self$theta and self$r
+    setNames(
+      list(panel_params$theta.range, panel_params$r.range),
+      c(self$theta, self$r)
+    )
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
