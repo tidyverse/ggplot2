@@ -1,5 +1,8 @@
 # ggplot2 3.0.0.9000
 
+*   `geom_boxplot()` now understands the `width` parameter even when used with
+    a non-standard stat, such as `stat_identity()` (@clauswilke, #2893).
+
 *   `scale_*_date()`, `scale_*_time()` and `scale_*_datetime()` can now display 
     a secondary axis that is a __one-to-one__ transformation of the primary axis,
     implemented using the `sec.axis` argument to the scale constructor 
