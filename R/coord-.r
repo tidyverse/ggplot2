@@ -13,12 +13,21 @@
 #'   - `render_bg`: Renders background elements.
 #'   - `render_axis_h`: Renders the horizontal axes.
 #'   - `render_axis_v`: Renders the vertical axes.
+#'   - `backtransform_range(panel_params)`: Extracts the panel range provided
+#'     in `panel_params` (created by `setup_panel_params()`, see below) and
+#'     back-transforms to data coordinates. This back-transformation can be needed
+#'     for coords such as `coord_trans()` where the range in the transformed
+#'     coordinates differs from the range in the untransformed coordinates. Returns
+#'     a list of two ranges, `x` and `y`, and these correspond to the variables
+#'     mapped to the `x` and `y` aesthetics, even for coords such as `coord_flip()`
+#'     where the `x` aesthetic is shown along the y direction and vice versa.
 #'   - `range(panel_params)`: Extracts the panel range provided
 #'     in `panel_params` (created by `setup_panel_params()`, see below) and
-#'     back-transforms to data coordinates. This back-transformation is needed
-#'     for coords such as `coord_flip()`, `coord_polar()`, `coord_trans()` where
-#'     the range in the transformed coordinates differs from the range in the
-#'     untransformed coordinates.
+#'     returns it. Unlike `backtransform_range()`, this function does not perform
+#'     any back-transformation and instead returns final transformed coordinates. Returns
+#'     a list of two ranges, `x` and `y`, and these correspond to the variables
+#'     mapped to the `x` and `y` aesthetics, even for coords such as `coord_flip()`
+#'     where the `x` aesthetic is shown along the y direction and vice versa.
 #'   - `transform`: Transforms x and y coordinates.
 #'   - `distance`: Calculates distance.
 #'   - `is_linear`: Returns `TRUE` if the coordinate system is
@@ -84,11 +93,22 @@ Coord <- ggproto("Coord",
   # transform range given in transformed coordinates
   # back into range in given in (possibly scale-transformed)
   # data coordinates
-  range = function(panel_params) {
+  backtransform_range = function(self, panel_params) {
     warning(
-      "range backtransformation not implemented in this coord; plot may be wrong.",
+      "range backtransformation not implemented in this coord; results may be wrong.",
       call. = FALSE
       )
+    # return result from range function for backwards compatibility
+    # before ggplot2 3.0.1
+    self$range(panel_params)
+  },
+
+  # return range stored in panel_params
+  range = function(panel_params) {
+    warning(
+      "range calculation not implemented in this coord; results may be wrong.",
+      call. = FALSE
+    )
     list(x = panel_params$x.range, y = panel_params$y.range)
   },
 

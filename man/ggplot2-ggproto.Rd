@@ -201,12 +201,21 @@ object, you typically will want to implement one or more of the following:
 \item \code{render_bg}: Renders background elements.
 \item \code{render_axis_h}: Renders the horizontal axes.
 \item \code{render_axis_v}: Renders the vertical axes.
+\item \code{backtransform_range(panel_params)}: Extracts the panel range provided
+in \code{panel_params} (created by \code{setup_panel_params()}, see below) and
+back-transforms to data coordinates. This back-transformation can be needed
+for coords such as \code{coord_trans()} where the range in the transformed
+coordinates differs from the range in the untransformed coordinates. Returns
+a list of two ranges, \code{x} and \code{y}, and these correspond to the variables
+mapped to the \code{x} and \code{y} aesthetics, even for coords such as \code{coord_flip()}
+where the \code{x} aesthetic is shown along the y direction and vice versa.
 \item \code{range(panel_params)}: Extracts the panel range provided
 in \code{panel_params} (created by \code{setup_panel_params()}, see below) and
-back-transforms to data coordinates. This back-transformation is needed
-for coords such as \code{coord_flip()}, \code{coord_polar()}, \code{coord_trans()} where
-the range in the transformed coordinates differs from the range in the
-untransformed coordinates.
+returns it. Unlike \code{backtransform_range()}, this function does not perform
+any back-transformation and instead returns final transformed coordinates. Returns
+a list of two ranges, \code{x} and \code{y}, and these correspond to the variables
+mapped to the \code{x} and \code{y} aesthetics, even for coords such as \code{coord_flip()}
+where the \code{x} aesthetic is shown along the y direction and vice versa.
 \item \code{transform}: Transforms x and y coordinates.
 \item \code{distance}: Calculates distance.
 \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is

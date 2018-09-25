@@ -140,7 +140,7 @@ which side of the plot. Meridians are indicated by \code{"E"} (for East) and
 parallels by \code{"N"} (for North). Default is \code{"--EN"}, which specifies
 (clockwise from the top) no labels on the top, none on the right, meridians
 on the bottom, and parallels on the left. Alternatively, this setting could have been
-specified with \code{list(left = "N", bottom = "E")}.
+specified with \code{list(bottom = "E", left = "N")}.
 
 This parameter can be used alone or in combination with \code{label_graticule}.}
 

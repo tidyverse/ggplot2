@@ -18,6 +18,13 @@
 *   `coord_sf()` now accepts two new parameters, `label_graticule` and `label_axes`,
     that can be used to specify which graticules to label on which side of the plot
     (@clauswilke, #2846).
+    
+*   `Coord` objects now have a function `backtransform_range()` that returns the
+    panel range in data coordinates. This change may affect developers of custom coords,
+    who now should implement this function. It may also affect developers of custom
+    geoms that use the `range()` function. In some applications, `backtransform_range()`
+    may be more appropriate.
+    (@clauswilke, #2821).
 
 *   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
     for lines and polygons (@alistaire47, #2826)

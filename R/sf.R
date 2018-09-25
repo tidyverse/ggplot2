@@ -543,9 +543,19 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
   },
 
+  backtransform_range = function(panel_params) {
+    # this does not actually return backtransformed ranges in the general case, needs fixing
+    warning(
+      "range backtransformation not implemented in this coord; results may be wrong.",
+      call. = FALSE
+    )
+    list(x = panel_params$x_range, y = panel_params$y_range)
+  },
+
   range = function(panel_params) {
     list(x = panel_params$x_range, y = panel_params$y_range)
   },
+
 
   # CoordSf enforces a fixed aspect ratio -> axes cannot be changed freely under faceting
   is_free = function() FALSE,

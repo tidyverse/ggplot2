@@ -15,7 +15,7 @@ coord_munch <- function(coord, data, range, segment_length = 0.01) {
   if (coord$is_linear()) return(coord$transform(data, range))
 
   # range has theta and r values; get corresponding x and y values
-  ranges <- coord$range(range)
+  ranges <- coord$backtransform_range(range)
 
   # Convert any infinite locations into max/min
   # Only need to work with x and y because for munching, those are the
