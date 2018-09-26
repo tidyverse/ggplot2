@@ -13,7 +13,9 @@ ggplot_global$theme_current <- list()
 ggplot_global$element_tree <- list()
 
 # List of all aesthetics known to ggplot
-ggplot_global$all_aesthetics <- c(
+# (In the future, .all_aesthetics should be removed in favor
+# of direct assignment to ggplot_global$all_aesthetics, see below.)
+.all_aesthetics <- c(
   "adj", "alpha", "angle", "bg", "cex", "col", "color",
   "colour", "fg", "fill", "group", "hjust", "label", "linetype", "lower",
   "lty", "lwd", "max", "middle", "min", "pch", "radius", "sample", "shape",
@@ -21,8 +23,12 @@ ggplot_global$all_aesthetics <- c(
   "xmin", "xintercept", "y", "yend", "ymax", "ymin", "yintercept", "z"
 )
 
+ggplot_global$all_aesthetics <- .all_aesthetics
+
 # Aesthetic aliases
-ggplot_global$base_to_ggplot <- c(
+# (In the future, .base_to_ggplot should be removed in favor
+# of direct assignment to ggplot_global$base_to_ggplot, see below.)
+.base_to_ggplot <- c(
   "col"   = "colour",
   "color" = "colour",
   "pch"   = "shape",
@@ -36,3 +42,5 @@ ggplot_global$base_to_ggplot <- c(
   "min"   = "ymin",
   "max"   = "ymax"
 )
+
+ggplot_global$base_to_ggplot <- .base_to_ggplot
