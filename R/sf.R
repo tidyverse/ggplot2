@@ -199,7 +199,7 @@ default_aesthetics <- function(type) {
   }
 }
 
-sf_grob <- function(row, lineend, linejoin, linemitre) {
+sf_grob <- function(row, lineend = "butt", linejoin = "round", linemitre = 10) {
   # Need to extract geometry out of corresponding list column
   geometry <- row$geometry[[1]]
 
