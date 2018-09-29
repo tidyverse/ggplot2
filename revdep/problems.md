@@ -100,45 +100,6 @@ Version: 0.16.8.25
 
 Version: 0.0.1
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-        intersect, setdiff, setequal, union
-    
-    > library("lubridate")
-    
-    Attaching package: ‘lubridate’
-    
-    The following object is masked from ‘package:base’:
-    
-        date
-    
-    > data(act)
-    > dat <- act %>% group_by(subject_ID) %>%
-    +   mutate(start = min(datime_start)) %>%
-    +   ungroup %>% filter(datime_start <= start + days(10), interval_type != "ACTIVE")
-    > plot_Darwent(dat,  acolor = c("#D55E00", "black", "#56B4E9"),
-    +                   tz2 = "Pacific/Auckland",
-    +                   si = c(4, 3, 2.5))
-    Error in manual_scale(aesthetics, values, ...) : 
-      argument "values" is missing, with no default
-    Calls: plot_Darwent -> scale_fill_manual -> manual_scale -> force
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning: package 'dplyr' was built under R version 3.5.1
-    Quitting from lines 142-149 (ActisoftR.Rmd) 
-    Error: processing vignette 'ActisoftR.Rmd' failed with diagnostics:
-    argument "values" is missing, with no default
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -379,7 +340,7 @@ Version: 0.3.1
 
 # ahpsurvey
 
-Version: 0.2.1
+Version: 0.2.2
 
 ## In both
 
@@ -638,28 +599,6 @@ Version: 0.3.0
 
 ## In both
 
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      (Dispersion parameter for binomial family taken to be 1)
-      
-          Null deviance: 41.868  on 13  degrees of freedom
-      Residual deviance: 38.501  on 12  degrees of freedom
-      AIC: 93.075
-      
-      Number of Fisher Scoring iterations: 3
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 214 SKIPPED: 0 FAILED: 2
-      1. Failure: clipboard works (@test-clipboard.R#14) 
-      2. Failure: clipboard works (@test-clipboard.R#20) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -723,20 +662,20 @@ Version: 1.8.0
     > bedfile <- system.file("extdata", "KK150311_VI_07.bam.bed.gz", package="AneuFinderData")
     > binned <- binReads(bedfile, assembly='mm10', binsize=1e6,
     +                   chromosomes=c(1:19,'X','Y'))
-    Reading file KK150311_VI_07.bam.bed.gz ... 0.62s
+    Reading file KK150311_VI_07.bam.bed.gz ... 0.66s
     Fetching chromosome lengths from UCSC ... 1.74s
-    Subsetting chromosomes ... 0.05s
+    Subsetting chromosomes ... 0.04s
     Filtering reads ... 0.07s
     Subsetting specified chromosomes ... 0.02s
-    Calculating complexity ... 0.2s
-    Removing duplicate reads ... 0.12s
-    Calculating coverage ... 0.5s
+    Calculating complexity ... 0.19s
+    Removing duplicate reads ... 0.11s
+    Calculating coverage ... 0.4s
     Making fixed-width bins for bin size 1e+06 ... 0.02s
-    Splitting into strands ... 0.02s
-    Counting overlaps for binsize_1e+06 ... 0.63s
+    Splitting into strands ... 0.01s
+    Counting overlaps for binsize_1e+06 ... 0.64s
     > plot(binned[[1]], type=1)
     Error in levels(dfplot.seg$state) : object 'dfplot.seg' not found
-    Calls: plot ... manual_scale -> force -> stateColors -> intersect -> levels
+    Calls: plot ... manual_scale -> <Anonymous> -> stateColors -> intersect -> levels
     Execution halted
     ```
 
@@ -746,20 +685,20 @@ Version: 1.8.0
          ## End(Not run)
          
     
-    Reading file hg19_diploid.bam.bed.gz ... 2.88s
+    Reading file hg19_diploid.bam.bed.gz ... 2.77s
     Fetching chromosome lengths from UCSC ...Warning in FUN(genome = names(SUPPORTED_UCSC_GENOMES)[idx], circ_seqs = supported_genome$circ_seqs,  :
       NCBI seqlevel was set to NA for hg19 UCSC seqlevel(s) not in the NCBI assembly:
       chrM
-     1.75s
-    Subsetting chromosomes ... 0.05s
-    Filtering reads ... 0.18s
+     1.6s
+    Subsetting chromosomes ... 0.06s
+    Filtering reads ... 0.17s
     Subsetting specified chromosomes ... 0.02s
-    Calculating complexity ... 1.1s
-    Removing duplicate reads ... 0.83s
-    Calculating coverage ... 0.41s
-    Making fixed-width bins for bin size 1e+05 ... 0.05s
-    Splitting into strands ... 0.01s
-    Counting overlaps for binsize_1e+05 ... 0.2s
+    Calculating complexity ... 1.07s
+    Removing duplicate reads ... 0.84s
+    Calculating coverage ... 0.49s
+    Making fixed-width bins for bin size 1e+05 ... 0.06s
+    Splitting into strands ... 0.02s
+    Counting overlaps for binsize_1e+05 ... 0.21s
     Quitting from lines 110-132 (AneuFinder.Rnw) 
     Error: processing vignette 'AneuFinder.Rnw' failed with diagnostics:
     object 'dfplot.seg' not found
@@ -1518,12 +1457,17 @@ Version: 1.7
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘glpkAPI’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  7.9Mb
+      sub-directories of 1Mb or more:
+        data   6.0Mb
     ```
 
 # BACCT
@@ -1843,13 +1787,13 @@ Version: 0.1.0
 *   checking examples ... ERROR
     ```
     ...
-                   2.84199 seconds (Total)
+                   2.57133 seconds (Total)
     
     
     SAMPLING FOR MODEL 'dfa' NOW (CHAIN 2).
     
-    Gradient evaluation took 4.1e-05 seconds
-    1000 transitions using 10 leapfrog steps per transition would take 0.41 seconds.
+    Gradient evaluation took 2.9e-05 seconds
+    1000 transitions using 10 leapfrog steps per transition would take 0.29 seconds.
     Adjust your expectations accordingly!
     
     
@@ -2245,7 +2189,7 @@ Version: 2.0.0
 
 # bdvis
 
-Version: 0.2.20
+Version: 0.2.22
 
 ## In both
 
@@ -2548,7 +2492,7 @@ Version: 1.3-5
 
 # BETS
 
-Version: 0.4.4
+Version: 0.4.9
 
 ## In both
 
@@ -3220,46 +3164,10 @@ Version: 0.5.0
 
 Version: 1.0.2
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-        discard
-    
-    The following object is masked from 'package:readr':
-    
-        col_factor
-    
-    
-    Attaching package: 'xtable'
-    
-    The following object is masked from 'package:ggdendro':
-    
-        label
-    
-    Warning in has_utility("pdfcrop") :
-      pdfcrop not installed or not in PATH
-    Quitting from lines 170-203 (./src/part01.Rmd) 
-    Quitting from lines 18-19 (./src/part01.Rmd) 
-    Error: processing vignette 'BloodCancerMultiOmics2017.Rmd' failed with diagnostics:
-    object '.all_aesthetics' not found
-    Execution halted
-    ```
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-## Newly fixed
+## In both
 
 *   R CMD check timed out
     
-
-## In both
 
 *   checking installed package size ... NOTE
     ```
@@ -3389,7 +3297,7 @@ Version: 0.1
 
 # BNSP
 
-Version: 2.0.7
+Version: 2.0.8
 
 ## In both
 
@@ -3410,10 +3318,10 @@ Version: 2.0.7
 /usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c BNSP_init.c -o BNSP_init.o
 /usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c OneResLtnt.c -o OneResLtnt.o
 /usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c mvrmGAM.c -o mvrmGAM.o
-mvrmGAM.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
+OneResLtnt.c:29:10: fatal error: 'gsl/gsl_matrix.h' file not found
 #include <gsl/gsl_matrix.h>
          ^~~~~~~~~~~~~~~~~~
-OneResLtnt.c:29:10: fatal error: 'gsl/gsl_matrix.h' file not found
+mvrmGAM.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
 #include <gsl/gsl_matrix.h>
          ^~~~~~~~~~~~~~~~~~
 1 error generated.
@@ -3434,10 +3342,10 @@ ERROR: compilation failed for package ‘BNSP’
 /usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c BNSP_init.c -o BNSP_init.o
 /usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c OneResLtnt.c -o OneResLtnt.o
 /usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/BNSP/cubature/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c mvrmGAM.c -o mvrmGAM.o
-mvrmGAM.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
 OneResLtnt.c:29:10: fatal error: 'gsl/gsl_matrix.h' file not found
 #include <gsl/gsl_matrix.h>
          ^~~~~~~~~~~~~~~~~~
+mvrmGAM.c:26:10: fatal error: 'gsl/gsl_matrix.h' file not found
 #include <gsl/gsl_matrix.h>
          ^~~~~~~~~~~~~~~~~~
 1 error generated.
@@ -4788,7 +4696,7 @@ Version: 2.44.0
     recover called non-interactively; frames dumped, use debugger() to view
     > proc.time()
        user  system elapsed 
-     29.568   1.725  32.334 
+     30.938   1.766  33.932 
     ```
 
 *   checking PDF version of manual ... WARNING
@@ -4811,7 +4719,7 @@ Version: 2.44.0
       installed size is  7.2Mb
       sub-directories of 1Mb or more:
         KcViab   2.0Mb
-        R        2.0Mb
+        R        2.1Mb
         doc      1.6Mb
     ```
 
@@ -4877,20 +4785,20 @@ Version: 1.26.0
 *   checking examples ... WARNING
     ```
     Found the following significant warnings:
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpnbCJSv’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpQlKmxh’, resetting
     ```
 
 *   checking PDF version of manual ... WARNING
@@ -5254,12 +5162,12 @@ Version: 3.32.1
      ERROR
     Running the tests in ‘tests/runTests.R’ failed.
     Last 13 lines of output:
+           test.3dCoords 
            test.canonicalize 
            test.exactMassOB 
            test.genAPDescriptors 
            test.parseV3000 
            test.propOB 
-           test.pubchemPUG 
            test.smartsSearchOB 
       
          test_ploting.R 
@@ -5692,13 +5600,6 @@ Version: 0.1.7
     This typically indicates Rd problems.
     ```
 
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        data   4.9Mb
-    ```
-
 *   checking data for non-ASCII characters ... NOTE
     ```
       Note: found 8008 marked UTF-8 strings
@@ -5929,6 +5830,34 @@ ERROR: lazy loading failed for package ‘classify’
 # ClassifyR
 
 Version: 2.0.10
+
+## Newly fixed
+
+*   checking examples ... ERROR
+    ```
+    ...
+    >   #{
+    >     data(asthma)
+    >     resubstituteParams <- ResubstituteParams(nFeatures = seq(5, 25, 5),
+    +                                          performanceType = "balanced error",
+    +                                          better = "lower")
+    >     
+    >     result <- runTests(measurements, classes, "Asthma", "Different Means",
+    +                        permutations = 5,
+    +                        params = list(SelectParams(limmaSelection, "Moderated t Statistic",
+    +                                                   resubstituteParams = resubstituteParams),
+    +                                      TrainParams(DLDAtrainInterface),
+    +                                      PredictParams(DLDApredictInterface,
+    +                                                    getClasses = function(result)
+    +                                                                 result[["class"]]))
+    +                        )
+    Warning in socketConnection(host, port, TRUE, TRUE, "a+b", timeout = timeout) :
+      port 11329 cannot be opened
+    Error in socketConnection(host, port, TRUE, TRUE, "a+b", timeout = timeout) : 
+      cannot open the connection
+    Calls: runTests ... .local -> .bpfork -> .bpforkConnect -> socketConnection
+    Execution halted
+    ```
 
 ## In both
 
@@ -6250,6 +6179,9 @@ Version: 1.16.1
 
 ## In both
 
+*   R CMD check timed out
+    
+
 *   checking compiled code ... WARNING
     ```
     ...
@@ -6274,12 +6206,6 @@ Version: 1.16.1
     nor system RNGs.
     
     See ‘Writing portable packages’ in the ‘Writing R Extensions’ manual.
-    ```
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
     ```
 
 *   checking installed package size ... NOTE
@@ -6723,7 +6649,7 @@ Version: 1.14.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.2Mb
+      installed size is  6.1Mb
       sub-directories of 1Mb or more:
         doc       1.9Mb
         extdata   3.1Mb
@@ -6983,7 +6909,7 @@ Version: 1.16.0
     Error in re-building vignettes:
       ...
     Loading required package: sm
-    Package 'sm', version 2.2-5.5: type help(sm) for summary information
+    Package 'sm', version 2.2-5.6: type help(sm) for summary information
     
     This is package 'modeest' written by P. PONCET.
     For a complete list of functions, use 'library(help = "modeest")' or 'help.start()'.
@@ -7111,27 +7037,31 @@ Version: 0.6.1
 
 Version: 0.2.1
 
-## In both
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
-    Complete output:
-      > library(testthat)
-      > library(comtradr)
-      > 
+    Last 13 lines of output:
       > test_check("comtradr")
-      ── 1. Failure: correct api vals given: type == 'services' (@test-ct_search.R#90)
-      nrow(vals) > 0 isn't true.
+      ── 1. Error: correct api vals given: type == 'services' (@test-ct_search.R#83)  
+      Comtrade API request failed, with status code [409]
+      1: ct_search(reporters = "USA", partners = "World", freq = "annual", start_date = "2015-01-01", 
+             end_date = "2015-12-31", commod_codes = "TOTAL", type = "services") at testthat/test-ct_search.R:83
+      2: execute_api_request(url)
+      3: stop(sprintf("Comtrade API request failed, with status code [%s]", httr::status_code(res)), 
+             call. = FALSE)
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
       OK: 47 SKIPPED: 6 FAILED: 1
-      1. Failure: correct api vals given: type == 'services' (@test-ct_search.R#90) 
+      1. Error: correct api vals given: type == 'services' (@test-ct_search.R#83) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
+
+## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -7244,6 +7174,23 @@ Version: 0.1.3
 
 ## In both
 
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘congressbr-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: sen_bills
+    > ### Title: Downloads and tidies information on the legislation in the
+    > ###   Federal Senate
+    > ### Aliases: sen_bills
+    > 
+    > ### ** Examples
+    > 
+    > pls_5_2010 <- sen_bills(type = "PLS", number = 5, year = 2010)
+    Error: Column `bill_indexing` must be a 1d atomic vector or a list
+    Execution halted
+    ```
+
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -7261,12 +7208,10 @@ Version: 0.4.1
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘miceadds’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # conjoint
@@ -8424,7 +8369,7 @@ Version: 1.10.2
 
 # customLayout
 
-Version: 0.1.0
+Version: 0.2.0
 
 ## In both
 
@@ -8896,16 +8841,6 @@ Version: 1.3.0
 
 Version: 1.0.5
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    R(67360,0x7fff8ce3a380) malloc: *** error for object 0x7fb927367ce0: incorrect checksum for freed object - object was probably modified after being freed.
-    *** set a breakpoint in malloc_error_break to debug
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -9141,7 +9076,7 @@ Version: 1.0.1
     
         Task A: compute kmeans...
     
-            ...finished summarization at 0.038 sec
+            ...finished summarization at 0.035 sec
     
         Task B: find peaks...
     finished at 0.06 sec
@@ -9155,7 +9090,7 @@ Version: 1.0.1
 
 # debrowser
 
-Version: 1.8.4
+Version: 1.8.5
 
 ## In both
 
@@ -9178,12 +9113,17 @@ Version: 1.8.4
     deServer: no visible global function definition for ‘access_token’
     debrowserdataload: no visible binding for global variable ‘demodata’
     getDensityPlot: no visible binding for global variable ‘samples’
+    getGeneList: no visible global function definition for
+      ‘showNotification’
     getMean: no visible binding for global variable ‘norm_data’
+    installpack: no visible global function definition for
+      ‘showNotification’
     plot_pca: no visible binding for global variable ‘x’
     plot_pca: no visible binding for global variable ‘y’
     plot_pca: no visible binding for global variable ‘samples’
     Undefined global functions or variables:
-      access_token debrowser demodata getJsonObj norm_data samples x y
+      access_token debrowser demodata getJsonObj norm_data samples
+      showNotification x y
     ```
 
 # DecisionAnalysis
@@ -9759,14 +9699,6 @@ Version: 1.14.0
 
 Version: 1.14.0
 
-## Newly broken
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
 ## In both
 
 *   R CMD check timed out
@@ -9837,7 +9769,7 @@ Version: 2.10.2
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.8Mb
+      installed size is  5.9Mb
       sub-directories of 1Mb or more:
         doc   4.3Mb
     ```
@@ -10746,7 +10678,7 @@ Version: 0.0.3
     /usr/local/clang4/bin/clang++ -std=gnu++11 -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG -I. -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/dodgr/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2 -c heaps/triheap_ext.cpp -o heaps/triheap_ext.o
     /usr/local/clang4/bin/clang++ -std=gnu++11 -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o dodgr.so RcppExports.o dgraph.o dijkstra.o dodgr_init.o graph-contract.o graph-sample.o graph.o run_sp.o sf-as-network.o heaps/bheap.o heaps/fheap.o heaps/heap23.o heaps/radixheap.o heaps/triheap.o heaps/triheap_ext.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
     ld: warning: text-based stub file /System/Library/Frameworks//CoreFoundation.framework/CoreFoundation.tbd and library file /System/Library/Frameworks//CoreFoundation.framework/CoreFoundation are out of sync. Falling back to library file for linking.
-    installing to /private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpgVTOiI/devtools_install_59ba186e5293/dodgr/libs
+    installing to /private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpG6YtyY/devtools_install_850f68fbd805/dodgr/libs
     ```
 
 *   checking PDF version of manual ... WARNING
@@ -11279,6 +11211,34 @@ Version: 4.1.1
 
 Version: 1.2
 
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    
+    _S_o_u_r_c_e:
+    
+         The Transcript Simulation Data is based on the the paper of
+         Redestig _et al._ (2011).
+    
+    _R_e_f_e_r_e_n_c_e_s:
+    
+         Redestig,H. and Costa,I.G. Detection and interpretation of
+         metabolite-transcript coresponses using combined profiling data.
+         _Bioinformatics_ *27*(13) (2011), pp. i357 65.
+    
+    
+    Warning: Removed 126 rows containing missing values (geom_path).
+    Loading required package: lmms
+    Warning in socketConnection(port = port, server = TRUE, blocking = TRUE,  :
+      port 11203 cannot be opened
+    Quitting from lines 207-212 (DynOmicsUserManual.Rmd) 
+    Error: processing vignette 'DynOmicsUserManual.Rmd' failed with diagnostics:
+    cannot open the connection
+    Execution halted
+    ```
+
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -11466,9 +11426,10 @@ Version: 0.1.0
     ```
     Error in re-building vignettes:
       ...
-    Quitting from lines 26-28 (earthtones.rmd) 
+    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=36.094994,-111.837962&zoom=12&size=640x640&scale=2&maptype=satellite&language=en-EN&sensor=false
+    Quitting from lines 35-36 (earthtones.rmd) 
     Error: processing vignette 'earthtones.rmd' failed with diagnostics:
-    cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=36.094994,-111.837962&zoom=12&size=640x640&scale=2&maptype=satellite&language=en-EN&sensor=false'
+    cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=24.2,-77.88&zoom=11&size=640x640&scale=2&maptype=satellite&language=en-EN&sensor=false'
     Execution halted
     ```
 
@@ -11846,9 +11807,9 @@ Version: 1.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  7.0Mb
+      installed size is  6.4Mb
       sub-directories of 1Mb or more:
-        data   5.6Mb
+        data   5.1Mb
         doc    1.2Mb
     ```
 
@@ -12433,11 +12394,11 @@ Version: 2.3.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 10.6Mb
+      installed size is 11.3Mb
       sub-directories of 1Mb or more:
-        R      3.1Mb
+        R      3.0Mb
         doc    3.3Mb
-        help   3.6Mb
+        help   4.3Mb
     ```
 
 # EpiCurve
@@ -12691,7 +12652,7 @@ Version: 1.2.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 10.0Mb
+      installed size is 10.1Mb
       sub-directories of 1Mb or more:
         doc       3.5Mb
         extdata   5.1Mb
@@ -12709,6 +12670,32 @@ Version: 1.2.1
 Version: 1.6.1
 
 ## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+      Consider 'structure(list(), *)' instead.
+    Warning in structure(x, class = unique(c("AsIs", oldClass(x)))) :
+      Calling 'structure(NULL, *)' is deprecated, as NULL cannot have attributes.
+      Consider 'structure(list(), *)' instead.
+    Warning in structure(x, class = unique(c("AsIs", oldClass(x)))) :
+      Calling 'structure(NULL, *)' is deprecated, as NULL cannot have attributes.
+      Consider 'structure(list(), *)' instead.
+    Warning in structure(x, class = unique(c("AsIs", oldClass(x)))) :
+      Calling 'structure(NULL, *)' is deprecated, as NULL cannot have attributes.
+      Consider 'structure(list(), *)' instead.
+    
+    Attaching package: 'ggvis'
+    
+    The following object is masked from 'package:ggplot2':
+    
+        resolution
+    
+    Quitting from lines 521-532 (esetVis-vignette.Rmd) 
+    Error: processing vignette 'esetVis-vignette.Rmd' failed with diagnostics:
+    could not find function "knit_print.ggvis"
+    Execution halted
+    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -12820,6 +12807,18 @@ Version: 0.1
 # esmisc
 
 Version: 0.0.3
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+# esquisse
+
+Version: 0.1.5
 
 ## In both
 
@@ -13910,6 +13909,30 @@ ERROR: lazy loading failed for package ‘Fgmutils’
 
 Version: 1.6.0
 
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+             max.deparse.length = Inf, encoding = "UTF-8", skip.echo = skips, keep.source = TRUE)
+      3: withVisible(eval(ei, envir))
+      4: eval(ei, envir)
+      5: eval(ei, envir)
+      6: getGEO("GSE19429", AnnotGPL = TRUE) at /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpZDkiuf/Rex76eb5c174541:10
+      7: getAndParseGSEMatrices(GEO, destdir, AnnotGPL = AnnotGPL, getGPL = getGPL, parseCharacteristics = parseCharacteristics)
+      8: download.file(sprintf("https://ftp.ncbi.nlm.nih.gov/geo/series/%s/%s/matrix/%s", 
+             stub, GEO, b[i]), destfile = destfile, mode = "wb", method = getOption("download.file.method.GEOquery"))
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 60 SKIPPED: 1 FAILED: 1
+      1. Error: fgseaLabel example works (@test_gsea_analysis.R#82) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -14276,39 +14299,14 @@ Version: 1.4.1
 
 Version: 0.4.6
 
-## In both
-
-*   checking examples ... ERROR
-    ```
-    ...
-    +----------------------------------+
-    estimating results object
-    estimating quantiles for positions
-    adding 95% credibility intervals to medians
-       estimating distances
-       estimating directions
-       estimating mean directions and kappas
-       estimating kappas
-       estimating mean dists
-       estimating probs of migration
-       estimating median dists
-       creating output DONE!
-    DONE!
-    > 
-    > map.FLightR.ggmap(Result, seasonal.donut.location=NULL, zoom=6, save=FALSE) 
-    Warning in download.file(url, destfile = tmp, quiet = !messaging, mode = "wb") :
-      cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=53.1,5.25&zoom=6&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false': HTTP status was '403 Forbidden'
-    Error in download.file(url, destfile = tmp, quiet = !messaging, mode = "wb") : 
-      cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=53.1,5.25&zoom=6&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false'
-    Calls: map.FLightR.ggmap ... do.call -> <Anonymous> -> get_googlemap -> download.file
-    Execution halted
-    ```
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
+         estimating directions
          estimating mean directions and kappas
          estimating kappas
          estimating mean dists
@@ -14318,13 +14316,14 @@ Version: 0.4.6
       DONE!
       bird likely did not move, exiting without result
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 28 SKIPPED: 0 FAILED: 2
+      OK: 29 SKIPPED: 0 FAILED: 1
       1. Error: map_flightr_ggmap_works (@test_data_result_summary_and_plotting.R#36) 
-      2. Error: plot_util_distr_works (@test_data_result_summary_and_plotting.R#57) 
       
       Error: testthat unit tests failed
       Execution halted
     ```
+
+## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -15640,6 +15639,49 @@ Version: 1.1.1
 
 ## In both
 
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘GDCRNATools-Ex.R’ failed
+    The error most likely occurred in:
+    
+    > ### Name: gdcFilterDuplicate
+    > ### Title: Filter out duplicated samples
+    > ### Aliases: gdcFilterDuplicate
+    > 
+    > ### ** Examples
+    > 
+    > ####### Parse metadata by project id and data type #######
+    > metaMatrix <- gdcParseMetadata(project.id='TARGET-RT', data.type='RNAseq')
+    Warning in file(con, "r") :
+      URL 'https://api.gdc.cancer.gov/files?filters=%7B%22op%22:%22and%22,%22content%22:[%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22cases.project.project_id%22,%22value%22:[%22TARGET-RT%22]%7D%7D,%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.data_category%22,%22value%22:%22Transcriptome%20Profiling%22%7D%7D,%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.data_type%22,%22value%22:%22Gene%20Expression%20Quantification%22%7D%7D,%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.analysis.workflow_type%22,%22value%22:%22HTSeq%20-%20Counts%22%7D%7D]%7D&pretty=true&format=JSON&size=10000&expand=analysis,analysis.input_files,associated_entities,cases,cases.diagnoses,cases.diagnoses.treatments,cases.demographic,cases.project,cases.samples,cases.samples.portions,cases.samples.portions.analytes,cases.samples.portions.analytes.aliquots,cases.samples.portions.slides': status was 'Couldn't connect to server'
+    Error in file(con, "r") : 
+      cannot open the connection to 'https://api.gdc.cancer.gov/files?filters=%7B%22op%22:%22and%22,%22content%22:[%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22cases.project.project_id%22,%22value%22:[%22TARGET-RT%22]%7D%7D,%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.data_category%22,%22value%22:%22Transcriptome%20Profiling%22%7D%7D,%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.data_type%22,%22value%22:%22Gene%20Expression%20Quantification%22%7D%7D,%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.analysis.workflow_type%22,%22value%22:%22HTSeq%20-%20Counts%22%7D%7D]%7D&pretty=true&format=JSON&size=10000&expand=analysis,analysis.input_files,associated_entities,cases,cases.diagnoses,cases.diagnoses.treatments,cases.demographic,cases.project,cases.samples,cases.samples.portions,cases.samples.portions.analytes,cases.samples.portions.analytes.aliquots,cases.samples.portions.slides'
+    Calls: gdcParseMetadata -> <Anonymous> -> paste -> readLines -> file
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      > test_check("GDCRNATools")
+      ── 1. Error: Parse metadata automatically (@test-gdcParseMetadata.R#6)  ────────
+      cannot open the connection to 'https://api.gdc.cancer.gov/files?filters=%7B%22op%22:%22and%22,%22content%22:[%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22cases.project.project_id%22,%22value%22:[%22TCGA-CHOL%22]%7D%7D,%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.data_category%22,%22value%22:%22Transcriptome%20Profiling%22%7D%7D,%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.data_type%22,%22value%22:%22Gene%20Expression%20Quantification%22%7D%7D,%7B%22op%22:%22in%22,%22content%22:%7B%22field%22:%22files.analysis.workflow_type%22,%22value%22:%22HTSeq%20-%20Counts%22%7D%7D]%7D&pretty=true&format=JSON&size=10000&expand=analysis,analysis.input_files,associated_entities,cases,cases.diagnoses,cases.diagnoses.treatments,cases.demographic,cases.project,cases.samples,cases.samples.portions,cases.samples.portions.analytes,cases.samples.portions.analytes.aliquots,cases.samples.portions.slides'
+      1: gdcParseMetadata(project.id = "TCGA-CHOL", data.type = "RNAseq", write.meta = FALSE) at testthat/test-gdcParseMetadata.R:6
+      2: rjson::fromJSON(file = url)
+      3: paste(readLines(file, warn = FALSE), collapse = "")
+      4: readLines(file, warn = FALSE)
+      5: file(con, "r")
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 1 SKIPPED: 0 FAILED: 1
+      1. Error: Parse metadata automatically (@test-gdcParseMetadata.R#6) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
 *   checking re-building of vignette outputs ... WARNING
     ```
     Error in re-building vignettes:
@@ -16050,63 +16092,49 @@ Version: 1.0
 
 Version: 1.4.3
 
-## Newly broken
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    Loading required package: magrittr
-    
-    Attaching package: 'GenomicDataCommons'
-    
-    The following object is masked from 'package:stats':
-    
-        filter
-    
-    Quitting from lines 145-146 (overview.Rmd) 
-    Error: processing vignette 'overview.Rmd' failed with diagnostics:
-    failed to rename downloaded file:
-    
-      from: '/Users/max/Library/Caches/GenomicDataCommons/581b0bcf-a7e5-44ec-818a-9193a0565095/.partial_download'
-      to: '/Users/max/Library/Caches/GenomicDataCommons/581b0bcf-a7e5-44ec-818a-9193a0565095/347a8eeb-204f-41df-98d3-61394d2b7cd7.htseq.counts.gz'
-      reason:
-        cannot rename file
-        '/Users/max/Library/Caches/GenomicDataCommons/581b0bcf-a7e5-44ec-818a-9193a0565095/.partial_download'
-        to
-        '/Users/max/Library/Caches/GenomicDataCommons/581b0bcf-a7e5-44ec-818a-9193a0565095/347a8eeb-204f-41df-98d3-61394d2b7cd7.htseq.counts.gz',
-        reason 'No such file or directory'
-    Execution halted
-    ```
-
-## Newly fixed
+## In both
 
 *   checking examples ... ERROR
     ```
-    ...
-    > # get some example file uuids
-    > uuids <- files() %>%
-    +     filter(~ access == 'open' & file_size < 100000) %>%
-    +     results(size = 3) %>%
-    +     ids()
-    > 
-    > # and get the data, placing it into the gdc_cache() directory
-    > fpaths <- gdcdata(uuids, use_cached=TRUE)
-    Error in .gdc_file_rename(destfile, to, overwrite) : 
-      failed to rename downloaded file:
+    Running examples in ‘GenomicDataCommons-Ex.R’ failed
+    The error most likely occurred in:
     
-      from: '/Users/max/Library/Caches/GenomicDataCommons/6f88847b-5643-4f79-96f0-79bec5e1ed33/.partial_download'
-      to: '/Users/max/Library/Caches/GenomicDataCommons/6f88847b-5643-4f79-96f0-79bec5e1ed33/RIELS_p_TCGA_268_269_N_GenomeWideSNP_6_E12_1306390.nocnv_grch38.seg.v2.txt'
-      reason:
-        cannot rename file
-        '/Users/max/Library/Caches/GenomicDataCommons/6f88847b-5643-4f79-96f0-79bec5e1ed33/.partial_download'
-        to
-        '/Users/max/Library/Caches/GenomicDataCommons/6f88847b-5643-4f79-96f0-79bec5e1ed33/RIELS_p_TCGA_268_269_N_GenomeWideSNP_6_E12_1306390.nocnv_grch38.seg.v2.txt',
-        reason 'No such file or directory'
-    Calls: gdcdata -> mapply -> <Anonymous> -> .gdc_file_rename
+    > ### Name: aggregations
+    > ### Title: aggregations
+    > ### Aliases: aggregations aggregations.GDCQuery aggregations.GDCResponse
+    > 
+    > ### ** Examples
+    > 
+    > library(magrittr)
+    > # Number of each file type
+    > res = files() %>% facet(c('type','data_type')) %>% aggregations()
+    Error in curl::curl_fetch_memory(url, handle = handle) : 
+      Failed to connect to api.gdc.cancer.gov port 443: Connection refused
+    Calls: %>% ... request_fetch -> request_fetch.write_memory -> <Anonymous>
     Execution halted
     ```
 
-## In both
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 8 SKIPPED: 0 FAILED: 9
+      1. Error: status returns correctly (@test_api.R#6) 
+      2. Error: query (@test_api.R#12) 
+      3. Error: cases (@test_api.R#32) 
+      4. Error: files (@test_api.R#40) 
+      5. Error: annotations (@test_api.R#49) 
+      6. Error: mapping (@test_api.R#58) 
+      7. Error: projects (@test_api.R#65) 
+      8. Error: (unknown) (@test_data.R#5) 
+      9. Error: (unknown) (@test_legacy.R#16) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 *   checking Rd \usage sections ... WARNING
     ```
@@ -16118,6 +16146,24 @@ Version: 1.4.3
     The \usage entries must correspond to syntactically valid R code.
     See chapter ‘Writing R documentation files’ in the ‘Writing R
     Extensions’ manual.
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Loading required package: magrittr
+    
+    Attaching package: 'GenomicDataCommons'
+    
+    The following object is masked from 'package:stats':
+    
+        filter
+    
+    Quitting from lines 109-110 (overview.Rmd) 
+    Error: processing vignette 'overview.Rmd' failed with diagnostics:
+    Failed to connect to api.gdc.cancer.gov port 443: Connection refused
+    Execution halted
     ```
 
 *   checking PDF version of manual ... WARNING
@@ -16471,6 +16517,20 @@ Version: 1.5
 
 Version: 0.7
 
+## Newly fixed
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 99-112 (gitrd-vignette-introduction.Rmd) 
+    Error: processing vignette 'gitrd-vignette-introduction.Rmd' failed with diagnostics:
+    Zipped file contains 0 files. This is likelly a problem with the downloaded file. Try running the code again as the corrupted zip file was deleted and will be downloaded again.
+    
+    If the problem persists, my suggestions is to remove the time period with problem.
+    Execution halted
+    ```
+
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -16505,7 +16565,7 @@ Version: 0.1.1
 
 # getTBinR
 
-Version: 0.5.4
+Version: 0.5.5
 
 ## In both
 
@@ -17222,34 +17282,6 @@ Version: 0.1.0
 
 Version: 0.1.7
 
-## Newly fixed
-
-*   checking examples ... ERROR
-    ```
-    ...
-    
-    > ### Name: geom_image
-    > ### Title: geom_image
-    > ### Aliases: geom_image
-    > 
-    > ### ** Examples
-    > 
-    > library("ggplot2")
-    > library("ggimage")
-    > set.seed(2017-02-21)
-    > d <- data.frame(x = rnorm(10),
-    +                 y = rnorm(10),
-    +                 image = sample(c("https://www.r-project.org/logo/Rlogo.png",
-    +                                 "https://jeroenooms.github.io/images/frink.png"),
-    +                               size=10, replace = TRUE)
-    +                )
-    > ggplot(d, aes(x, y)) + geom_image(aes(image=image))
-    Error in curl::curl_fetch_memory(url) : 
-      Timeout was reached: Operation timed out after 10007 milliseconds with 0 out of 0 bytes received
-    Calls: <Anonymous> ... vapply -> FUN -> paste0 -> download_url -> <Anonymous>
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -17286,7 +17318,7 @@ Version: 0.0.1
 
 # ggiraph
 
-Version: 0.4.4
+Version: 0.5.0
 
 ## In both
 
@@ -17396,28 +17428,21 @@ Version: 0.0.1
 
 Version: 2.6.1
 
-## Newly broken
-
-*   checking whether package ‘ggmap’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/ggmap/new/ggmap.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
+## In both
 
 *   checking examples ... ERROR
     ```
     Running examples in ‘ggmap-Ex.R’ failed
     The error most likely occurred in:
     
-    > ### Name: get_map
-    > ### Title: Grab a map.
-    > ### Aliases: get_map
+    > ### Name: print.ggmap
+    > ### Title: Print a map
+    > ### Aliases: print.ggmap
     > 
     > ### ** Examples
     > 
-    > map <- get_map()
+    > 
+    > get_map()
     Warning in download.file(url, destfile = tmp, quiet = !messaging, mode = "wb") :
       cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=29.763284,-95.363271&zoom=10&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false': HTTP status was '403 Forbidden'
     Error in download.file(url, destfile = tmp, quiet = !messaging, mode = "wb") : 
@@ -17432,42 +17457,13 @@ Version: 2.6.1
     This typically indicates Rd problems.
     ```
 
-## Installation
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.5Mb
+      sub-directories of 1Mb or more:
+        data   5.1Mb
+    ```
 
-### Devel
-
-```
-* installing *source* package ‘ggmap’ ...
-** package ‘ggmap’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Error in get(".all_aesthetics", envir = asNamespace("ggplot2")) : 
-  object '.all_aesthetics' not found
-Error : unable to load R code in package ‘ggmap’
-ERROR: lazy loading failed for package ‘ggmap’
-* removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/ggmap/new/ggmap.Rcheck/ggmap’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ggmap’ ...
-** package ‘ggmap’ successfully unpacked and MD5 sums checked
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded
-* DONE (ggmap)
-
-```
 # ggmcmc
 
 Version: 1.1
@@ -17732,7 +17728,7 @@ Version: 0.1.5
 
 # ggquickeda
 
-Version: 0.1.0
+Version: 0.1.1
 
 ## In both
 
@@ -17745,8 +17741,9 @@ Version: 0.1.0
 *   checking dependencies in R code ... NOTE
     ```
     Namespaces in Imports field not imported from:
-      ‘DT’ ‘Hmisc’ ‘colourpicker’ ‘dplyr’ ‘ggrepel’ ‘grDevices’ ‘gridExtra’
-      ‘lazyeval’ ‘markdown’ ‘plotly’ ‘quantreg’ ‘rlang’ ‘shinyjs’ ‘tidyr’
+      ‘DT’ ‘Formula’ ‘Hmisc’ ‘colourpicker’ ‘dplyr’ ‘ggpmisc’ ‘ggrepel’
+      ‘grDevices’ ‘gridExtra’ ‘lazyeval’ ‘markdown’ ‘plotly’ ‘quantreg’
+      ‘rlang’ ‘shinyjs’ ‘table1’ ‘tidyr’
       All declared Imports should be used.
     ```
 
@@ -17844,61 +17841,7 @@ Version: 0.8.0
 
 # ggridges
 
-Version: 0.5.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### Keywords: datasets
-    > 
-    > ### ** Examples
-    > 
-    > library(ggplot2)
-    
-    Attaching package: ‘ggplot2’
-    
-    The following object is masked from ‘package:ggridges’:
-    
-        scale_discrete_manual
-    
-    > 
-    > # default jittered points
-    > ggplot(iris, aes(x = Sepal.Length, y = Species)) +
-    +   geom_density_ridges(jittered_points = TRUE, position = "points_jitter", alpha = 0.7)
-    Picking joint bandwidth of 0.181
-    Error in col[, rep(1, length(alpha)), drop = FALSE] : 
-      subscript out of bounds
-    Calls: <Anonymous> ... grob -> <Anonymous> -> validGP -> numnotnull -> alpha
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Picking joint bandwidth of 3.16
-    Warning: Removed 6 rows containing non-finite values (stat_density_ridges).
-    Loading required package: viridisLite
-    Picking joint bandwidth of 3.37
-    Loading required package: lattice
-    Picking joint bandwidth of 2.8
-    Quitting from lines 108-127 (gallery.Rmd) 
-    Error: processing vignette 'gallery.Rmd' failed with diagnostics:
-    subscript out of bounds
-    Execution halted
-    ```
+Version: 0.5.1
 
 ## In both
 
@@ -18101,15 +18044,7 @@ Version: 0.1.1
 
 Version: 3.0.0
 
-## Newly broken
-
-*   checking whether package ‘ggtern’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/ggtern/new/ggtern.Rcheck/00install.out’ for details.
-    ```
-
-## Newly fixed
+## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -18122,42 +18057,6 @@ Version: 3.0.0
     Package unavailable to check Rd xrefs: ‘chemometrics’
     ```
 
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘ggtern’ ...
-** package ‘ggtern’ successfully unpacked and MD5 sums checked
-** R
-** data
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-Error in get(x, envir = ns, inherits = FALSE) : 
-  object '.element_tree' not found
-Error : unable to load R code in package ‘ggtern’
-ERROR: lazy loading failed for package ‘ggtern’
-* removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/ggtern/new/ggtern.Rcheck/ggtern’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘ggtern’ ...
-** package ‘ggtern’ successfully unpacked and MD5 sums checked
-** R
-** data
-** demo
-** inst
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded
-* DONE (ggtern)
-
-```
 # ggThemeAssist
 
 Version: 0.1.5
@@ -18308,16 +18207,6 @@ Version: 0.8.0
 
 ## In both
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 109-121 (ggvoronoi.Rmd) 
-    Error: processing vignette 'ggvoronoi.Rmd' failed with diagnostics:
-    cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=39.507306,-84.739837&zoom=15&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false'
-    Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -18344,9 +18233,9 @@ Version: 0.1.2
 
 # gifski
 
-Version: 0.8.3
+Version: 0.8.6
 
-## Newly broken
+## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -18354,176 +18243,6 @@ Version: 0.8.3
     This typically indicates Rd problems.
     ```
 
-## Newly fixed
-
-*   checking whether package ‘gifski’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/gifski/old/gifski.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘gifski’ ...
-** package ‘gifski’ successfully unpacked and MD5 sums checked
-info: downloading installer
-info: syncing channel updates for 'stable-x86_64-apple-darwin'
-info: latest update on 2018-09-25, rust version 1.29.1 (b801ae664 2018-09-20)
-info: downloading component 'rustc'
-info: downloading component 'rust-std'
-info: downloading component 'cargo'
-info: downloading component 'rust-docs'
-info: installing component 'rustc'
-info: installing component 'rust-std'
-info: installing component 'cargo'
-info: installing component 'rust-docs'
-info: default toolchain set to 'stable'
-
-  stable installed - rustc 1.29.1 (b801ae664 2018-09-20)
-
-
-Rust is installed now. Great!
-
-To get started you need Cargo's bin directory ($HOME/.cargo/bin) in your PATH 
-environment variable. Next time you log in this will be done automatically.
-
-To configure your current shell run source $HOME/.cargo/env
-** libs
-rm -Rf gifski.so myrustlib/target/release/libmyrustlib.a wrapper.o myrustlib/target
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG   -I/usr/local/include  -pthread -fPIC  -Wall -g -O2  -c wrapper.c -o wrapper.o
-/Users/max/.cargo/bin/cargo build --release --manifest-path=myrustlib/Cargo.toml
-    Updating registry `https://github.com/rust-lang/crates.io-index`
- Downloading gifski v0.8.3
- Downloading gif-dispose v2.1.0
- Downloading clap v2.31.2
- Downloading error-chain v0.11.0
- Downloading imagequant v2.11.9
- Downloading rayon v0.9.0
- Downloading rgb v0.8.7
- Downloading imgref v1.3.4
- Downloading resize v0.3.0
- Downloading lodepng v2.1.5
- Downloading wild v0.1.1
- Downloading gif v0.9.2
- Downloading pbr v1.0.0
- Downloading glob v0.2.11
- Downloading lzw v0.10.0
- Downloading color_quant v1.0.0
- Downloading strsim v0.7.0
- Downloading textwrap v0.9.0
- Downloading bitflags v1.0.3
- Downloading ansi_term v0.11.0
- Downloading vec_map v0.8.0
- Downloading atty v0.2.10
- Downloading unicode-width v0.1.4
- Downloading libc v0.2.40
- Downloading backtrace v0.3.7
- Downloading rustc-demangle v0.1.8
- Downloading cfg-if v0.1.3
- Downloading imagequant-sys v2.11.9
- Downloading cc v1.0.15
- Downloading rayon-core v1.4.0
- Downloading either v1.5.0
- Downloading num_cpus v1.8.0
- Downloading rand v0.4.2
- Downloading lazy_static v1.0.0
- Downloading crossbeam-deque v0.2.0
- Downloading crossbeam-epoch v0.3.1
- Downloading crossbeam-utils v0.2.2
- Downloading scopeguard v0.3.3
- Downloading memoffset v0.2.1
- Downloading nodrop v0.1.12
- Downloading arrayvec v0.4.7
- Downloading time v0.1.39
- Downloading winapi v0.2.8
- Downloading kernel32-sys v0.2.2
- Downloading winapi-build v0.1.1
-   Compiling nodrop v0.1.12
-   Compiling cfg-if v0.1.3
-   Compiling scopeguard v0.3.3
-   Compiling winapi-build v0.1.1
-   Compiling lazy_static v1.0.0
-   Compiling cc v1.0.15
-   Compiling memoffset v0.2.1
-   Compiling rayon-core v1.4.0
-   Compiling libc v0.2.40
-   Compiling rustc-demangle v0.1.8
-   Compiling color_quant v1.0.0
-   Compiling rgb v0.8.7
-   Compiling unicode-width v0.1.4
-   Compiling lzw v0.10.0
-   Compiling winapi v0.2.8
-   Compiling either v1.5.0
-   Compiling imgref v1.3.4
-   Compiling vec_map v0.8.0
-   Compiling strsim v0.7.0
-   Compiling ansi_term v0.11.0
-   Compiling bitflags v1.0.3
-   Compiling glob v0.2.11
-   Compiling resize v0.3.0
-   Compiling wild v0.1.1
-   Compiling crossbeam-utils v0.2.2
-   Compiling arrayvec v0.4.7
-   Compiling kernel32-sys v0.2.2
-   Compiling num_cpus v1.8.0
-   Compiling rand v0.4.2
-   Compiling time v0.1.39
-   Compiling atty v0.2.10
-   Compiling lodepng v2.1.5
-   Compiling backtrace v0.3.7
-   Compiling textwrap v0.9.0
-   Compiling gif v0.9.2
-   Compiling imagequant-sys v2.11.9
-   Compiling crossbeam-epoch v0.3.1
-   Compiling error-chain v0.11.0
-   Compiling clap v2.31.2
-   Compiling gif-dispose v2.1.0
-   Compiling crossbeam-deque v0.2.0
-   Compiling pbr v1.0.0
-   Compiling imagequant v2.11.9
-   Compiling rayon v0.9.0
-   Compiling gifski v0.8.3
-   Compiling myrustlib v0.1.0 (file:///Users/max/github/forks/ggplot2/revdep/checks.noindex/gifski/new/gifski.Rcheck/00_pkg_src/gifski/src/myrustlib)
-    Finished release [optimized] target(s) in 2m 58s
-/usr/local/clang4/bin/clang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o gifski.so wrapper.o -Lmyrustlib/target/release -lmyrustlib -lresolv -pthread -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-clang-4.0: warning: argument unused during compilation: '-pthread' [-Wunused-command-line-argument]
-ld: warning: text-based stub file /System/Library/Frameworks//CoreFoundation.framework/CoreFoundation.tbd and library file /System/Library/Frameworks//CoreFoundation.framework/CoreFoundation are out of sync. Falling back to library file for linking.
-installing to /Users/max/github/forks/ggplot2/revdep/checks.noindex/gifski/new/gifski.Rcheck/gifski/libs
-** R
-** byte-compile and prepare package for lazy loading
-** help
-*** installing help indices
-** building package indices
-** testing if installed package can be loaded
-* DONE (gifski)
-
-```
-### CRAN
-
-```
-* installing *source* package ‘gifski’ ...
-** package ‘gifski’ successfully unpacked and MD5 sums checked
-info: downloading installer
-info: syncing channel updates for 'stable-x86_64-apple-darwin'
-info: latest update on 2018-09-25, rust version 1.29.1 (b801ae664 2018-09-20)
-info: downloading component 'rustc'
-error: component download failed for rustc-x86_64-apple-darwin
-info: caused by: could not rename downloaded file from '/Users/max/.rustup/downloads/3f7289db7a5c64f96c4debb25885927ecfa5a98c8825e1874cc9a7da547e9e3e.partial' to '/Users/max/.rustup/downloads/3f7289db7a5c64f96c4debb25885927ecfa5a98c8825e1874cc9a7da547e9e3e'
-info: caused by: No such file or directory (os error 2)
-** libs
-rm -Rf gifski.so myrustlib/target/release/libmyrustlib.a wrapper.o myrustlib/target
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG   -I/usr/local/include  -pthread -fPIC  -Wall -g -O2  -c wrapper.c -o wrapper.o
-/Users/max/.cargo/bin/cargo build --release --manifest-path=myrustlib/Cargo.toml
-error: no default toolchain configured
-make: *** [myrustlib/target/release/libmyrustlib.a] Error 1
-make: *** Waiting for unfinished jobs....
-ERROR: compilation failed for package ‘gifski’
-* removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/gifski/old/gifski.Rcheck/gifski’
-
-```
 # gitter
 
 Version: 1.1.1
@@ -18745,15 +18464,6 @@ Version: 1.1.0
 
 Version: 1.14.0
 
-## Newly broken
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.2Mb
-      sub-directories of 1Mb or more:
-        data   4.3Mb
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -18768,6 +18478,13 @@ Version: 1.14.0
       .travis.yml
     These were most likely included in error. See section ‘Package
     structure’ in the ‘Writing R Extensions’ manual.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.2Mb
+      sub-directories of 1Mb or more:
+        data   4.3Mb
     ```
 
 *   checking R code for possible problems ... NOTE
@@ -18996,10 +18713,30 @@ Version: 2.16.1
 
 Version: 1.16.0
 
-## In both
+## Newly broken
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'package_vignettes.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+## Newly fixed
 
 *   R CMD check timed out
     
+
+## In both
 
 *   checking whether package ‘GOTHiC’ can be installed ... WARNING
     ```
@@ -19297,12 +19034,12 @@ Version: 1.32.0
     ```
     ...
     Loading required package: ggplot2
-    Created folder /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpQmjP2y/Example_LinearNet
+    Created folder /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpoU3SVe/Example_LinearNet
     Started MCMC chain 1  ============= 
     MCMC chain 1 finished!
     Started MCMC chain 2  ============= 
     MCMC chain 2 finished!
-    Analysis finished. Output plots can be found in folder: "/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpQmjP2y/Example_LinearNet"
+    Analysis finished. Output plots can be found in folder: "/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpoU3SVe/Example_LinearNet"
     network: Classes for Relational Data
     Version 1.13.0.1 created on 2015-08-31.
     copyright (c) 2005, Carter T. Butts, University of California-Irvine
@@ -19939,9 +19676,9 @@ Version: 3.20.0.8
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 146.1Mb
+      installed size is 146.5Mb
       sub-directories of 1Mb or more:
-        java  144.2Mb
+        java  144.7Mb
     ```
 
 # h5vc
@@ -20431,9 +20168,9 @@ Version: 1.2.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.7Mb
+      installed size is  6.6Mb
       sub-directories of 1Mb or more:
-        data   5.8Mb
+        data   5.6Mb
     ```
 
 *   checking R code for possible problems ... NOTE
@@ -20944,19 +20681,6 @@ Version: 0.10.0
 
 Version: 1.1.1
 
-## Newly fixed
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 138-140 (intro_hydroscoper.Rmd) 
-    Quitting from lines 138-140 (intro_hydroscoper.Rmd) 
-    Error: processing vignette 'intro_hydroscoper.Rmd' failed with diagnostics:
-    invalid connection
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -20972,7 +20696,7 @@ Version: 1.1.1
 
 # hyfo
 
-Version: 1.3.9
+Version: 1.4.0
 
 ## In both
 
@@ -21009,7 +20733,7 @@ Version: 0.99-20180627
     Fitting with npts.min = 5
     
     start: 100 support points
-    spectrum      1:   100 support points, noise = 4.0,   1 iterations
+    spectrum      1:    99 support points, noise = 4.0,   2 iterations
     Fitting with npts.min = 15
     
     start: 300 support points
@@ -21305,7 +21029,7 @@ Version: 1.4.0
 
 Version: 0.2.7
 
-## In both
+## Newly broken
 
 *   checking re-building of vignette outputs ... WARNING
     ```
@@ -21318,6 +21042,8 @@ Version: 0.2.7
     object 'all_resid' not found
     Execution halted
     ```
+
+## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -21506,7 +21232,7 @@ Version: 0.41.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 10.2Mb
+      installed size is 10.1Mb
       sub-directories of 1Mb or more:
         data      1.4Mb
         doc       1.1Mb
@@ -22207,7 +21933,7 @@ Version: 0.0.1
 
 # ipumsr
 
-Version: 0.2.0
+Version: 0.3.0
 
 ## In both
 
@@ -22215,6 +21941,12 @@ Version: 0.2.0
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+*   checking dependencies in R code ... NOTE
+    ```
+    Namespace in Imports field not imported from: ‘R6’
+      All declared Imports should be used.
     ```
 
 # IrisSpatialFeatures
@@ -22944,12 +22676,46 @@ Version: 0.1.5
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘distory’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
+*   checking R code for possible problems ... NOTE
+    ```
+    ...
+    as.matrix.multiPhylo : tip2tip: no visible global function definition
+      for ‘cophenetic’
+    bw.nn : <anonymous>: no visible global function definition for
+      ‘quantile’
+    dist.diss: no visible binding for global variable ‘median’
+    dist.diss: no visible global function definition for ‘dist’
+    hist.kdetrees: no visible binding for global variable ‘density’
+    kdetrees : cutoff: no visible global function definition for ‘quantile’
+    kdetrees.complete: no visible global function definition for ‘plot’
+    kdetrees.complete: no visible global function definition for ‘hist’
+    kdetrees.complete: no visible global function definition for
+      ‘write.csv’
+    plot.kdetrees: no visible binding for global variable ‘density’
+    Undefined global functions or variables:
+      cophenetic density dist hist median plot quantile write.csv
+    Consider adding
+      importFrom("graphics", "hist", "plot")
+      importFrom("stats", "cophenetic", "density", "dist", "median",
+                 "quantile")
+      importFrom("utils", "write.csv")
+    to your NAMESPACE file.
+    ```
+
+*   checking re-building of vignette outputs ... NOTE
+    ```
+    Error in re-building vignettes:
+      ...
+    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
+      Running 'texi2dvi' on 'kdetrees.tex' failed.
+    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Execution halted
     ```
 
 # kdtools
@@ -23698,9 +23464,9 @@ Version: 0.1.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.5Mb
+      installed size is  5.3Mb
       sub-directories of 1Mb or more:
-        data      4.3Mb
+        data      4.1Mb
         extdata   1.1Mb
     ```
 
@@ -23720,7 +23486,7 @@ Version: 0.1.0
 
 Version: 0.4.0
 
-## Newly fixed
+## Newly broken
 
 *   checking tests ...
     ```
@@ -23950,30 +23716,6 @@ Version: 0.0.2.1
 # lme4
 
 Version: 1.1-18-1
-
-## Newly fixed
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/glmerWarn.R’ failed.
-    Last 13 lines of output:
-      +     ## then, we can easily get what want
-      +     (mm2 <- model.matrix( ~ ageL+ageQ + ch + ageL:ch, d2))
-      +     ## actually even more compactly now ("drawback": 'ageQ' at end):
-      +     (mm2. <- model.matrix( ~ ageL*ch + ageQ, d2))
-      +     cn2 <- colnames(mm2)
-      +     stopifnot(identical(mm2[,cn2], mm2.[,cn2]))
-      + 
-      + 
-      + 
-      + }
-      Loading required namespace: mlmRev
-      Error in `contrasts<-`(`*tmp*`, value = contr.funs[1 + isOF[nn]]) : 
-        contrasts can be applied only to factors with 2 or more levels
-      Calls: colnames ... model.matrix -> model.matrix.default -> contrasts<-
-      Execution halted
-    ```
 
 ## In both
 
@@ -25009,10 +24751,10 @@ Version: 1.6.1
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  9.1Mb
+      installed size is  8.7Mb
       sub-directories of 1Mb or more:
         R      1.0Mb
-        data   4.1Mb
+        data   3.7Mb
         doc    3.7Mb
     ```
 
@@ -25135,34 +24877,6 @@ Version: 1.0.0
 # MCbiclust
 
 Version: 1.4.0
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > data(CCLE_small)
-    > data(Mitochondrial_genes)
-    > 
-    > mito.loc <- (row.names(CCLE_small) %in% Mitochondrial_genes)
-    > CCLE.mito <- CCLE_small[mito.loc,]
-    > 
-    > set.seed(102)
-    > CCLE.seed <- FindSeed(gem = CCLE.mito,
-    +                       seed.size = 10,
-    +                       iterations = 100,
-    +                       messages = 1000)
-    Iteration	Correlation Score
-    > 
-    > CCLE.sort <- SampleSort(gem = CCLE.mito,seed = CCLE.seed,sort.length = 11)
-    Sort Length 	 Cor Score
-    Warning in socketConnection(port = port, server = TRUE, blocking = TRUE,  :
-      port 11488 cannot be opened
-    Error in socketConnection(port = port, server = TRUE, blocking = TRUE,  : 
-      cannot open the connection
-    Calls: SampleSort ... <Anonymous> -> <Anonymous> -> newSOCKnode -> socketConnection
-    Execution halted
-    ```
 
 ## In both
 
@@ -25551,7 +25265,7 @@ Version: 2.10
 
 # meme
 
-Version: 0.2.0
+Version: 0.2.1
 
 ## In both
 
@@ -25559,13 +25273,6 @@ Version: 0.2.0
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking installed package size ... NOTE
-    ```
-      installed size is  5.4Mb
-      sub-directories of 1Mb or more:
-        doc   4.9Mb
     ```
 
 # memery
@@ -26115,7 +25822,7 @@ Version: 1.2.0
     Inside counts for context CHH
       category missing
       category covered
-    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpW5fPjg/file15d1d77837c48 ... 0.13s
+    Writing to file /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpnywkiO/file12ef47e9da242 ... 0.13s
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
       Running 'texi2dvi' on 'methimpute.tex' failed.
     Calls: buildVignettes -> texi2pdf -> texi2dvi
@@ -26436,18 +26143,13 @@ Version: 0.1.0
 
 Version: 0.1.0
 
-## Newly broken
+## In both
 
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
     ```
-
-## Newly fixed
-
-*   R CMD check timed out
-    
 
 # mhtboot
 
@@ -26594,6 +26296,27 @@ Version: 1.4.0
         there is no package called 'RUnit'
       Calls: <Anonymous> -> library
       Execution halted
+    ```
+
+*   checking running R code from vignettes ...
+    ```
+       ‘MIGSA.Rnw’ using ‘UTF-8’ ... failed
+       ‘gettingPbcmcData.Rnw’ using ‘UTF-8’ ... OK
+       ‘gettingTcgaData.Rnw’ using ‘UTF-8’ ... OK
+     ERROR
+    Errors in running code in vignettes:
+    when running code in ‘MIGSA.Rnw’
+      ...
+    +     sep = "")
+    
+    > MIGSAmGSZres <- MIGSAmGSZ(exprMatrix, gSets, conditions)
+    INFO [2018-09-29 01:24:33] Number of unique permutations: 63
+    INFO [2018-09-29 01:24:33] Getting ranking at cores: 18
+    
+      When sourcing ‘MIGSA.R’:
+    Error: failed to stop ‘SOCKcluster’ cluster: ignoring SIGPIPE signal
+    Execution halted
+    Error: failed to stop ‘SOCKcluster’ cluster: error writing to connection
     ```
 
 *   checking PDF version of manual ... WARNING
@@ -27381,7 +27104,7 @@ Version: 2.13
     ```
       installed size is  5.5Mb
       sub-directories of 1Mb or more:
-        R      2.1Mb
+        R      2.0Mb
         data   2.3Mb
     ```
 
@@ -28217,7 +27940,7 @@ Version: 1.0.35
 
 # mrfDepth
 
-Version: 1.0.8
+Version: 1.0.9
 
 ## In both
 
@@ -29877,7 +29600,7 @@ Version: 0.1.0
 
 # nonmem2R
 
-Version: 0.1.9
+Version: 0.1.10
 
 ## In both
 
@@ -30259,17 +29982,17 @@ Version: 2.10.0
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-       Ending warning-mutPropGrowth tests Tue Sep 25 20:40:24 2018 
-        Took  2.69 
+       Ending warning-mutPropGrowth tests Sat Sep 29 02:09:14 2018 
+        Took  4.07 
       
       
-       Starting wide2long tests Tue Sep 25 20:40:24 2018 
+       Starting wide2long tests Sat Sep 29 02:09:14 2018 
       
-       Ending wide2long tests Tue Sep 25 20:40:24 2018 
-        Took  0.52 
+       Ending wide2long tests Sat Sep 29 02:09:15 2018 
+        Took  0.56 
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 3231 SKIPPED: 10 FAILED: 1
+      OK: 3219 SKIPPED: 10 FAILED: 1
       1. Failure: We crash as we should (@test.mutPropGrowth.R#482) 
       
       Error: testthat unit tests failed
@@ -30405,12 +30128,10 @@ Version: 1.0.7
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘InSilicoVA’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # OptimClassifier
@@ -32390,6 +32111,30 @@ Version: 0.2.0
 
 Version: 0.2.1
 
+## Newly fixed
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      -43.9589 (SE = 2.2112) 
+      
+      Hyperbolic Tangent kernel function. 
+       Hyperparameters : scale =  1  offset =  1 
+      
+                                        
+      C                    1.0000 10.000
+      CV weighted accuracy 0.9138  0.919
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 392 SKIPPED: 0 FAILED: 2
+      1. Error: test fit.subgroup for continuous outcomes and various losses (@test-fitsubgroup.R#779) 
+      2. Error: test fit.subgroup for continuous outcomes and match.id provided (@test-fitsubgroup.R#1539) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -32440,8 +32185,11 @@ Version: 0.1.3
 
 ## In both
 
-*   R CMD check timed out
-    
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
 *   checking dependencies in R code ... NOTE
     ```
@@ -32922,6 +32670,9 @@ Version: 1.28.0
 *   checking re-building of vignette outputs ... NOTE
     ```
     ...
+    /////////////////////////////////////////////////////////////////////////////
+    
+    //------------------    Thanks for using HTSanalyzeR    -------------------//
      
     //------------please use function changes() to see new changes-------------//
     
@@ -32935,9 +32686,6 @@ Version: 1.28.0
     The following object is masked from ‘package:XML’:
     
         addNode
-    
-    Warning in checkGsetSimmetry(x, gsets, test, B) :
-      The provided score is strongly not simmetric or is not centered on 0. You should set paremeter 'center' to TRUE.
     
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
       Running 'texi2dvi' on 'phenoTest.tex' failed.
@@ -33061,7 +32809,7 @@ Version: 0.4.4
 
 # photobiologyInOut
 
-Version: 0.4.16
+Version: 0.4.17-1
 
 ## In both
 
@@ -33293,6 +33041,30 @@ Version: 3.0.2
 # phylotaR
 
 Version: 1.0.0
+
+## Newly broken
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/test-all.R’ failed.
+    Last 13 lines of output:
+      ... Cluster
+      ... Cluster2
+      ... Taxise
+      ... Download
+      ... Cluster
+      ... Cluster2
+      ── 1. Failure: drop_by_rank() works (@test-user-drop.R#36)  ────────────────────
+      length(small_phylota@sids) > length(res@sids) isn't true.
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 175 SKIPPED: 0 FAILED: 1
+      1. Failure: drop_by_rank() works (@test-user-drop.R#36) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 ## In both
 
@@ -34205,7 +33977,7 @@ Version: 1.8
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  6.4Mb
+      installed size is  6.3Mb
       sub-directories of 1Mb or more:
         java   5.1Mb
     ```
@@ -34214,25 +33986,25 @@ Version: 1.8
 
 Version: 0.1.0
 
-## Newly fixed
+## Newly broken
 
 *   checking tests ...
     ```
      ERROR
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
-      10: purrr::map_dfr(., fetch_and_sleep)
-      11: map(.x, .f, ...)
-      12: .f(.x[[i]], ...)
-      13: readr::write_csv(this, write_to, append = TRUE, col_names = FALSE)
-      14: write_delim(x, path, delim = ",", na = na, append = append, col_names = col_names)
-      15: stream_delim(x_out, path, delim, col_names = col_names, append = append, na = na)
-      16: open(path, "ab")
-      17: open.connection(path, "ab")
+      15: purrr::map_dfr(., fetch_and_sleep)
+      16: map(.x, .f, ...)
+      17: .f(.x[[i]], ...)
+      18: readr::write_csv(this, write_to, append = TRUE, col_names = FALSE)
+      19: write_delim(x, path, delim = ",", na = na, append = append, col_names = col_names)
+      20: stream_delim(x_out, path, delim, col_names = col_names, append = append, na = na)
+      21: open(path, "ab")
+      22: open.connection(path, "ab")
       
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 107 SKIPPED: 0 FAILED: 1
-      1. Error: (unknown) (@test_fetch_zones.R#120) 
+      OK: 109 SKIPPED: 0 FAILED: 1
+      1. Error: (unknown) (@test_fetch_zones.R#144) 
       
       Error: testthat unit tests failed
       Execution halted
@@ -34562,7 +34334,7 @@ Version: 0.2.2
 
 # PReMiuM
 
-Version: 3.2.0
+Version: 3.2.1
 
 ## In both
 
@@ -34789,34 +34561,6 @@ Version: 1.10.0
 # pROC
 
 Version: 1.13.0
-
-## Newly fixed
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ## End(Not run)
-    > 
-    > # In parallel
-    > if (require(doParallel)) {
-    +     registerDoParallel(cl <- makeCluster(getOption("mc.cores", 2L)))
-    +     ## Not run: ci(roc2, method="bootstrap", parallel=TRUE)
-    +     ## Don't show: 
-    + ci(roc2, method="bootstrap", parallel=TRUE, boot.n=20)
-    + ## End(Don't show)
-    +     stopCluster(cl)
-    + }
-    Loading required package: doParallel
-    Loading required package: foreach
-    Loading required package: iterators
-    Loading required package: parallel
-    Warning in socketConnection("localhost", port = port, server = TRUE, blocking = TRUE,  :
-      port 11930 cannot be opened
-    Error in socketConnection("localhost", port = port, server = TRUE, blocking = TRUE,  : 
-      cannot open the connection
-    Calls: registerDoParallel ... makePSOCKcluster -> newPSOCKnode -> socketConnection
-    Execution halted
-    ```
 
 ## In both
 
@@ -35527,9 +35271,9 @@ Version: 0.2.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is  5.3Mb
+      installed size is  5.0Mb
       sub-directories of 1Mb or more:
-        data   5.2Mb
+        data   4.9Mb
     ```
 
 *   checking data for non-ASCII characters ... NOTE
@@ -35585,9 +35329,6 @@ Version: 1.12.0
 
 ## In both
 
-*   R CMD check timed out
-    
-
 *   checking whether package ‘psygenet2r’ can be installed ... WARNING
     ```
     Found the following significant warnings:
@@ -35597,6 +35338,12 @@ Version: 1.12.0
     Information on the location(s) of code generating the ‘Note’s can be
     obtained by re-running with environment variable R_KEEP_PKG_SOURCE set
     to ‘yes’.
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 *   checking installed package size ... NOTE
@@ -35655,20 +35402,10 @@ Version: 0.1.4
 
 Version: 0.92.3
 
-## Newly broken
+## In both
 
 *   R CMD check timed out
     
-
-## Newly fixed
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
-## In both
 
 *   checking installed package size ... NOTE
     ```
@@ -35794,12 +35531,12 @@ Version: 1.18.0
     > 
     > destdir <- tempdir()
     > (report <- file.path(destdir, "testQCReport"))
-    [1] "/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpIaQ4PI/testQCReport"
+    [1] "/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmprlppU1/testQCReport"
     > 
     > ## pdf report
     > qcReport(qcm, reportname = report)
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-      Running 'texi2dvi' on '/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpIaQ4PI/testQCReport.tex' failed.
+      Running 'texi2dvi' on '/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmprlppU1/testQCReport.tex' failed.
     Calls: qcReport ... qcReport -> .local -> reporting_pdf -> <Anonymous> -> texi2dvi
     Execution halted
     ```
@@ -37330,7 +37067,7 @@ Version: 2.2.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 10.5Mb
+      installed size is 10.6Mb
       sub-directories of 1Mb or more:
         data   3.0Mb
         doc    6.5Mb
@@ -37506,28 +37243,6 @@ Version: 0.4.6
 
 ## In both
 
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Warning: package 'dplyr' was built under R version 3.5.1
-    
-    Attaching package: 'dplyr'
-    
-    The following objects are masked from 'package:stats':
-    
-        filter, lag
-    
-    The following objects are masked from 'package:base':
-    
-        intersect, setdiff, setequal, union
-    
-    Quitting from lines 150-156 (utilizando-fetch-proposicao.Rmd) 
-    Error: processing vignette 'utilizando-fetch-proposicao.Rmd' failed with diagnostics:
-    API did not return json
-    Execution halted
-    ```
-
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -37550,14 +37265,14 @@ Version: 1.18.0
 *   checking examples ... WARNING
     ```
     Found the following significant warnings:
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpNam4AL’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpNam4AL’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpNam4AL’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpNam4AL’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpNam4AL’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpNam4AL’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpNam4AL’, resetting
-      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpNam4AL’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpqoN84b’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpqoN84b’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpqoN84b’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpqoN84b’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpqoN84b’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpqoN84b’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpqoN84b’, resetting
+      Warning: working directory was changed to ‘/private/var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T/RtmpqoN84b’, resetting
     ```
 
 *   checking PDF version of manual ... WARNING
@@ -38277,7 +37992,7 @@ Version: 1.2.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 10.9Mb
+      installed size is 11.0Mb
       sub-directories of 1Mb or more:
         data      2.8Mb
         doc       5.1Mb
@@ -38594,18 +38309,33 @@ Version: 2018.04.21
 
 Version: 1.4.2
 
-## Newly broken
-
-*   checking PDF version of manual ... WARNING
-    ```
-    LaTeX errors when creating PDF version.
-    This typically indicates Rd problems.
-    ```
-
 ## Newly fixed
 
-*   R CMD check timed out
+*   checking examples ... ERROR
+    ```
+    ...
+    > require(RITANdata)
+    Loading required package: RITANdata
+    > myGeneSet <- c('BRCA1','RAD51C','VAV1','HRAS','ABCC1','CYP1B1','CYP3A5')
+    > 
+    > ## Not run: 
+    > ##D ## We suggest using term_enrichment() instead. E.g.:
+    > ##D e <- enrichment_symbols(myGeneSet, 'GO')
+    > ## End(Not run)
+    > 
+    > ## But, you may use enrichment_symbols() directly for an individual term:
+    > load_geneset_symbols('GO')
+    Loading the requested genesets of "GO"...
     
+    	Loaded 15831 genesets.
+    > e <- enrichment_symbols(myGeneSet, 'DNA_repair')
+    Warning in scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  :
+      URL 'ftp://ftp.ebi.ac.uk/pub/databases/genenames/new/tsv/locus_groups/protein-coding_gene.txt': status was 'Failure when receiving data from the peer'
+    Error in scan(file = file, what = what, sep = sep, quote = quote, dec = dec,  : 
+      cannot read from connection
+    Calls: enrichment_symbols ... load_all_protein_coding_symbols -> read.table -> scan
+    Execution halted
+    ```
 
 ## In both
 
@@ -38619,6 +38349,12 @@ Version: 1.4.2
     The \usage entries must correspond to syntactically valid R code.
     See chapter ‘Writing R documentation files’ in the ‘Writing R
     Extensions’ manual.
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 *   checking DESCRIPTION meta-information ... NOTE
@@ -39147,16 +38883,9 @@ Version: 1.14.0
     Error in re-building vignettes:
       ...
     Warning: package 'limma' was built under R version 3.5.1
-    trying URL 'https://ftp.ncbi.nlm.nih.gov/geo/series/GSE4nnn/GSE4158/matrix/GSE4158_series_matrix.txt.gz'
-    Content type 'application/x-gzip' length 514853 bytes (502 KB)
-    ==================================================
-    downloaded 502 KB
-    
-    Warning in has_utility("pdfcrop") :
-      pdfcrop not installed or not in PATH
-    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-      Running 'texi2dvi' on 'Rnits-vignette.tex' failed.
-    Calls: buildVignettes -> texi2pdf -> texi2dvi
+    Quitting from lines 90-114 (Rnits-vignette.Rnw) 
+    Error: processing vignette 'Rnits-vignette.Rnw' failed with diagnostics:
+    HTTP error 403.
     Execution halted
     ```
 
@@ -39437,7 +39166,7 @@ Version: 1.18.0
 *   checking re-building of vignette outputs ... NOTE
     ```
     ...
-    3: max(p.x-p.x.prev)=0.00006
+    3: max(p.x-p.x.prev)=0.00008
     4: max(p.x-p.x.prev)=0.00000
     
     Start roleswitch with 365 miRNA and 10916 mRNA
@@ -39615,6 +39344,28 @@ ERROR: lazy loading failed for package ‘rpanel’
 Version: 0.2.4
 
 ## In both
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      cannot open URL 'http://research.jisao.washington.edu/pdo/PDO.latest'
+      1: expect_is(download_pdo(), "data.frame") at testthat/test-pdo-download.R:4
+      2: quasi_label(enquo(object), label)
+      3: eval_bare(get_expr(quo), get_env(quo))
+      4: download_pdo()
+      5: pdo_download()
+      6: get_pdo()
+      7: download.file("http://research.jisao.washington.edu/pdo/PDO.latest", pdo)
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 2 SKIPPED: 0 FAILED: 1
+      1. Error: pdo_download (@test-pdo-download.R#4) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -40026,12 +39777,10 @@ Version: 1.3.14
 
 ## In both
 
-*   checking package dependencies ... ERROR
+*   checking PDF version of manual ... WARNING
     ```
-    Package required but not available: ‘EcoHydRology’
-    
-    See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
-    manual.
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 # RSSL
@@ -40445,7 +40194,7 @@ Version: 1.2
 
 # rtweet
 
-Version: 0.6.7
+Version: 0.6.8
 
 ## In both
 
@@ -41036,34 +40785,6 @@ Version: 0.1.2
 
 Version: 1.4.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    ...
-    > ### ** Examples
-    > 
-    >  
-    > # load toy simulated example SingleCellExperiment object to find DD genes  
-    > data(scDatExSim)
-    > 
-    > # set arguments to pass to scDD function
-    > 
-    > prior_param=list(alpha=0.01, mu0=0, s0=0.01, a0=0.01, b0=0.01)
-    > 
-    > # call the scDD function to perform permutations and classify DD genes
-    > 
-    > scDatExSim <- scDD(scDatExSim, prior_param=prior_param, testZeroes=FALSE)
-    Setting up parallel back-end using 18 cores
-    Clustering observed expression data for each gene
-    Warning in socketConnection(host, port, TRUE, TRUE, "a+b", timeout = timeout) :
-      port 11229 cannot be opened
-    Error in socketConnection(host, port, TRUE, TRUE, "a+b", timeout = timeout) : 
-      cannot open the connection
-    Calls: scDD ... .local -> .bpfork -> .bpforkConnect -> socketConnection
-    Execution halted
-    ```
-
 ## In both
 
 *   checking re-building of vignette outputs ... WARNING
@@ -41162,19 +40883,9 @@ Version: 1.0.0
 
 # SCGLR
 
-Version: 2.0.3
+Version: 3.0
 
 ## In both
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
-      Running 'texi2dvi' on 'scglrVignettes.tex' failed.
-    Calls: buildVignettes -> texi2pdf -> texi2dvi
-    Execution halted
-    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -41239,11 +40950,6 @@ Version: 1.2.0
 # scmeth
 
 Version: 1.0.1
-
-## Newly fixed
-
-*   R CMD check timed out
-    
 
 ## In both
 
@@ -41745,6 +41451,30 @@ Version: 1.1.1
 
 Version: 0.2.8
 
+## Newly fixed
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+             invokeRestart("muffleWarning")
+         })
+      5: eval_bare(get_expr(quo), get_env(quo))
+      6: load_layers(c("BO_ph", "MS_bathy_21kya"), rasterstack = FALSE)
+      7: sapply(layercodes, get_layerpath)
+      8: lapply(X = X, FUN = FUN, ...)
+      9: FUN(X[[i]], ...)
+      10: utils::download.file(url, path, method = "auto", quiet = FALSE, mode = "wb")
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 98 SKIPPED: 15 FAILED: 1
+      1. Error: load_layer handles special cases (@test_load.R#139) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -41845,64 +41575,19 @@ Version: 2018.1
 
 ## In both
 
-*   checking whether package ‘SEERaBomb’ can be installed ... ERROR
+*   checking whether package ‘SEERaBomb’ can be installed ... WARNING
     ```
-    Installation failed.
+    Found the following significant warnings:
+      Warning: package ‘dplyr’ was built under R version 3.5.1
     See ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/SEERaBomb/new/SEERaBomb.Rcheck/00install.out’ for details.
     ```
 
-## Installation
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
 
-### Devel
-
-```
-* installing *source* package ‘SEERaBomb’ ...
-** package ‘SEERaBomb’ successfully unpacked and MD5 sums checked
-** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/SEERaBomb/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/SEERaBomb/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c SEERaBomb_init.c -o SEERaBomb_init.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/SEERaBomb/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c fillPYM.cpp -o fillPYM.o
-/usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o SEERaBomb.so RcppExports.o SEERaBomb_init.o fillPYM.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-ld: warning: text-based stub file /System/Library/Frameworks//CoreFoundation.framework/CoreFoundation.tbd and library file /System/Library/Frameworks//CoreFoundation.framework/CoreFoundation are out of sync. Falling back to library file for linking.
-installing to /Users/max/github/forks/ggplot2/revdep/checks.noindex/SEERaBomb/new/SEERaBomb.Rcheck/SEERaBomb/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Warning: package ‘dplyr’ was built under R version 3.5.1
-Error: package or namespace load failed for ‘demography’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- there is no package called ‘ftsa’
-Error : package ‘demography’ could not be loaded
-ERROR: lazy loading failed for package ‘SEERaBomb’
-* removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/SEERaBomb/new/SEERaBomb.Rcheck/SEERaBomb’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘SEERaBomb’ ...
-** package ‘SEERaBomb’ successfully unpacked and MD5 sums checked
-** libs
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/SEERaBomb/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c RcppExports.cpp -o RcppExports.o
-/usr/local/clang4/bin/clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/SEERaBomb/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c SEERaBomb_init.c -o SEERaBomb_init.o
-/usr/local/clang4/bin/clang++ -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG  -I"/Users/max/github/forks/ggplot2/revdep/library.noindex/SEERaBomb/Rcpp/include" -I/usr/local/include   -fPIC  -Wall -g -O2  -c fillPYM.cpp -o fillPYM.o
-/usr/local/clang4/bin/clang++ -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/clang4/lib -o SEERaBomb.so RcppExports.o SEERaBomb_init.o fillPYM.o -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-ld: warning: text-based stub file /System/Library/Frameworks//CoreFoundation.framework/CoreFoundation.tbd and library file /System/Library/Frameworks//CoreFoundation.framework/CoreFoundation are out of sync. Falling back to library file for linking.
-installing to /Users/max/github/forks/ggplot2/revdep/checks.noindex/SEERaBomb/old/SEERaBomb.Rcheck/SEERaBomb/libs
-** R
-** data
-*** moving datasets to lazyload DB
-** inst
-** byte-compile and prepare package for lazy loading
-Warning: package ‘dplyr’ was built under R version 3.5.1
-Error: package or namespace load failed for ‘demography’ in loadNamespace(i, c(lib.loc, .libPaths()), versionCheck = vI[[i]]):
- there is no package called ‘ftsa’
-Error : package ‘demography’ could not be loaded
-ERROR: lazy loading failed for package ‘SEERaBomb’
-* removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/SEERaBomb/old/SEERaBomb.Rcheck/SEERaBomb’
-
-```
 # seewave
 
 Version: 2.1.0
@@ -41935,7 +41620,6 @@ stft.c:3:11: fatal error: 'sndfile.h' file not found
           ^~~~~~~~~~~
 1 error generated.
 make: *** [stft.o] Error 1
-make: *** Waiting for unfinished jobs....
 ERROR: compilation failed for package ‘seewave’
 * removing ‘/Users/max/github/forks/ggplot2/revdep/checks.noindex/seewave/new/seewave.Rcheck/seewave’
 
@@ -42067,12 +41751,11 @@ Version: 1.23
 
 Version: 2.2.0
 
-## In both
+## Newly broken
 
 *   checking examples ... ERROR
     ```
     ...
-    [1] "87% done merging data for SpeedDatum (14 of 16)."
     [1] "93% done merging data for SpeedDatum (15 of 16)."
     [1] "100% done merging data for SpeedDatum (16 of 16)."
     [1] "Creating data frame for SpeedDatum."
@@ -42087,13 +41770,16 @@ Version: 2.2.0
     [1] "100% done merging data for WlanDatum (7 of 7)."
     [1] "Creating data frame for WlanDatum."
     > plot(data$LocationDatum)
-    Warning in download.file(url, destfile = tmp, quiet = !messaging, mode = "wb") :
-      cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=38.0676352725243,-78.9510441850485&zoom=10&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false': HTTP status was '403 Forbidden'
-    Error in download.file(url, destfile = tmp, quiet = !messaging, mode = "wb") : 
-      cannot open URL 'http://maps.googleapis.com/maps/api/staticmap?center=38.0676352725243,-78.9510441850485&zoom=10&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false'
-    Calls: plot ... <Anonymous> -> ggmap -> get_map -> get_googlemap -> download.file
+    Map from URL : http://maps.googleapis.com/maps/api/staticmap?center=38.0676352725243,-78.9510441850485&zoom=10&size=640x640&scale=2&maptype=terrain&language=en-EN&sensor=false
+    Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=38.0676352725243,-78.9510441850485&sensor=false
+    Warning: geocode failed with status OVER_QUERY_LIMIT, location = "38.0676352725243,-78.9510441850485"
+    Error in data.frame(ll.lat = ll[1], ll.lon = ll[2], ur.lat = ur[1], ur.lon = ur[2]) : 
+      arguments imply differing number of rows: 0, 1
+    Calls: plot ... <Anonymous> -> ggmap -> get_map -> get_googlemap -> data.frame
     Execution halted
     ```
+
+## In both
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -42464,75 +42150,6 @@ Version: 1.18.0
 
 Version: 1.0.2
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘seqsetvis-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ssvSignalBandedQuantiles
-    > ### Title: plot profiles from bigwigs
-    > ### Aliases: ssvSignalBandedQuantiles
-    > 
-    > ### ** Examples
-    > 
-    > #rainbow colors
-    > ssvSignalBandedQuantiles(CTCF_in_10a_profiles_gr)
-    Error in manual_scale(aesthetics, values, ...) : 
-      argument "values" is missing, with no default
-    Calls: ssvSignalBandedQuantiles -> scale_color_manual -> manual_scale -> force
-    Execution halted
-    ```
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-      argument "values" is missing, with no default
-      1: ssvSignalBandedQuantiles(test_object, by_ = "sample", hsv_reverse = T) at testthat/test_ssvSignalPlots.R:17
-      2: scale_color_manual(breaks = q2do, palette = cols)
-      3: manual_scale(aesthetics, values, ...)
-      4: force(values)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 817 SKIPPED: 0 FAILED: 4
-      1. Error: ssvSignalBandedQuantiles works with proper inputs (@test_ssvSignalPlots.R#10) 
-      2. Error: ssvSignalBandedQuantiles different hsv setting (@test_ssvSignalPlots.R#17) 
-      3. Error: ssvSignalBandedQuantiles works with proper inputs (@test_ssvSignalPlots.R#10) 
-      4. Error: ssvSignalBandedQuantiles different hsv setting (@test_ssvSignalPlots.R#17) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    ...
-    The following object is masked from 'package:IRanges':
-    
-        shift
-    
-    The following objects are masked from 'package:S4Vectors':
-    
-        first, second
-    
-    
-    Attaching package: 'cowplot'
-    
-    The following object is masked from 'package:ggplot2':
-    
-        ggsave
-    
-    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `seqsetvis_overview_files/figure-html/binary heatmap-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
-    convert: profile 'icc': 'RGB ': RGB color space not permitted on grayscale PNG `seqsetvis_overview_files/figure-html/scatterplot basic-1.png' @ warning/png.c/MagickPNGWarningHandler/1744.
-    Quitting from lines 371-374 (seqsetvis_overview.Rmd) 
-    Error: processing vignette 'seqsetvis_overview.Rmd' failed with diagnostics:
-    argument "values" is missing, with no default
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -42788,39 +42405,7 @@ Version: 0.3.0
 
 # shadowtext
 
-Version: 0.0.2
-
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘shadowtext-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: geom_shadowtext
-    > ### Title: geom_shadowtext
-    > ### Aliases: geom_shadowtext
-    > 
-    > ### ** Examples
-    > 
-    > library(ggplot2)
-    > d <- data.frame(x = rnorm(3), y=rnorm(3), label = c('hello', 'world', '!!!'))
-    > ggplot(d, aes(x,y)) + geom_shadowtext(aes(label=label, color=label), bgcolor='firebrick')
-    Error in col[, rep(1, length(alpha)), drop = FALSE] : 
-      subscript out of bounds
-    Calls: <Anonymous> ... do.call -> <Anonymous> -> f -> shadowtextGrob -> alpha
-    Execution halted
-    ```
-
-*   checking re-building of vignette outputs ... WARNING
-    ```
-    Error in re-building vignettes:
-      ...
-    Quitting from lines 52-75 (shadowtext.Rmd) 
-    Error: processing vignette 'shadowtext.Rmd' failed with diagnostics:
-    subscript out of bounds
-    Execution halted
-    ```
+Version: 0.0.3
 
 ## In both
 
@@ -42876,7 +42461,7 @@ Version: 1.1.0
 
 # ShinyItemAnalysis
 
-Version: 1.2.7
+Version: 1.2.8
 
 ## In both
 
@@ -42890,8 +42475,13 @@ Version: 1.2.7
     ```
     Namespaces in Imports field not imported from:
       ‘DT’ ‘data.table’ ‘gridExtra’ ‘knitr’ ‘latticeExtra’ ‘msm’ ‘plotly’
-      ‘shinyBS’ ‘xtable’
+      ‘shinyBS’ ‘shinydashboard’ ‘xtable’
       All declared Imports should be used.
+    ```
+
+*   checking Rd cross-references ... NOTE
+    ```
+    Package unavailable to check Rd xrefs: ‘WrightMap’
     ```
 
 # shinyjqui
@@ -43354,6 +42944,7 @@ Version: 1.3.10
 *   checking re-building of vignette outputs ... WARNING
     ```
     ...
+    
     Reminder (2): Times should be in 1 unit intervals, otherwise this could take awhile.
     
     
@@ -43369,7 +42960,6 @@ Version: 1.3.10
     All Xl set to 0.
     All Xl set to 0.
     `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
-    Warning: Removed 3 rows containing non-finite values (stat_smooth).
     `geom_smooth()` using method = 'gam' and formula 'y ~ s(x, bs = "cs")'
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
       Running 'texi2dvi' on 'simPH-overview.tex' failed.
@@ -43532,9 +43122,9 @@ Version: 1.8.0
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 913.6Mb
+      installed size is 904.5Mb
       sub-directories of 1Mb or more:
-        data  904.2Mb
+        data  895.1Mb
         doc     9.3Mb
     ```
 
@@ -44382,7 +43972,7 @@ Version: 0.1.0
 
 # sparklyr
 
-Version: 0.8.4
+Version: 0.9.1
 
 ## In both
 
@@ -44390,6 +43980,14 @@ Version: 0.8.4
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
+    ```
+
+*   checking installed package size ... NOTE
+    ```
+      installed size is  5.1Mb
+      sub-directories of 1Mb or more:
+        R      2.0Mb
+        java   1.9Mb
     ```
 
 # sparkTable
@@ -44464,7 +44062,7 @@ Version: 1.2
 
 # SparseSignatures
 
-Version: 1.0.2
+Version: 1.0.3
 
 ## In both
 
@@ -44484,14 +44082,6 @@ Version: 1.0.2
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking for hidden files and directories ... NOTE
-    ```
-    Found the following hidden files and directories:
-      .travis.yml
-    These were most likely included in error. See section ‘Package
-    structure’ in the ‘Writing R Extensions’ manual.
     ```
 
 *   checking R code for possible problems ... NOTE
@@ -45072,34 +44662,6 @@ Version: 0.1.1
 
 Version: 1.0.0
 
-## Newly fixed
-
-*   checking examples ... ERROR
-    ```
-    ...
-      ... 32 regions found.
-    ... Naive step done.
-    Starting HMM step...
-      Building data...
-      ... data built
-      Computing p-values...
-      ... values computed
-      Running HMM...
-      ... HMM run.
-      ... 4 regions found.
-    ... HMM step done.
-    Starting slice step...
-      ... 37 regions found.
-    ... slice step done.
-    Computing differential expression...
-    Warning in socketConnection(host, port, TRUE, TRUE, "a+b", timeout = timeout) :
-      port 11268 cannot be opened
-    Error in socketConnection(host, port, TRUE, TRUE, "a+b", timeout = timeout) : 
-      cannot open the connection
-    Calls: runAll ... .local -> .bpfork -> .bpforkConnect -> socketConnection
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -45118,11 +44680,6 @@ Version: 0.3.3
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘vardpoor’
     ```
 
 # ss3sim
@@ -45838,9 +45395,9 @@ Version: 1.0.4
 
 *   checking installed package size ... NOTE
     ```
-      installed size is 13.0Mb
+      installed size is 12.7Mb
       sub-directories of 1Mb or more:
-        data   9.4Mb
+        data   9.0Mb
         doc    3.3Mb
     ```
 
@@ -45952,7 +45509,7 @@ Version: 1.16.2
     ```
       installed size is  7.3Mb
       sub-directories of 1Mb or more:
-        R      2.0Mb
+        R      2.1Mb
         doc    2.3Mb
         help   1.0Mb
     ```
@@ -46241,30 +45798,6 @@ Version: 0.1
 # SVMMaj
 
 Version: 0.2-8
-
-## Newly fixed
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/test_all.R’ failed.
-    Last 13 lines of output:
-         group 5 of 5 : ***
-      Getting optimal parameters ... 
-      Done 
-      Number of observations:  200 
-      Varying parameters    :  2 
-      Number of gridpoints  :  15 
-      Start cross validation ... 
-      Getting optimal parameters ... 
-      Done 
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 15 SKIPPED: 3 FAILED: 1
-      1. Error: Test for case when test set lies outside of training set (@test_svmmaj.R#134) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 ## In both
 
@@ -46719,6 +46252,18 @@ Version: 0.16.0
       Note: found 3 marked UTF-8 strings
     ```
 
+# taipan
+
+Version: 0.1.2
+
+## In both
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
+    ```
+
 # taRifx
 
 Version: 1.0.6.1
@@ -46837,8 +46382,49 @@ Version: 2.8.4
 
 ## In both
 
-*   R CMD check timed out
+*   checking examples ... ERROR
+    ```
+    Running examples in ‘TCGAbiolinks-Ex.R’ failed
+    The error most likely occurred in:
     
+    > ### Name: GDCdownload
+    > ### Title: Download GDC data
+    > ### Aliases: GDCdownload
+    > 
+    > ### ** Examples
+    > 
+    > query <- GDCquery(project = "TCGA-ACC",
+    +                  data.category =  "Copy number variation",
+    +                  legacy = TRUE,
+    +                  file.type = "hg19.seg",
+    +                  barcode = c("TCGA-OR-A5LR-01A-11D-A29H-01", "TCGA-OR-A5LJ-10A-01D-A29K-01"))
+    Error in value[[3L]](cond) : 
+      GDC server down, try to use this package later
+    Calls: GDCquery ... tryCatch -> tryCatchList -> tryCatchOne -> <Anonymous>
+    Execution halted
+    ```
+
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 41 SKIPPED: 0 FAILED: 13
+      1. Error: GDCdownload API method for one files is working  (@test-prepare-download.R#5) 
+      2. Error: getBarcodeInfo works (@test-prepare-download.R#17) 
+      3. Error: GDCprepare accepts more than one project (@test-prepare-download.R#29) 
+      4. Error: GDCquery can filter by data.category (@test-query.R#5) 
+      5. Error: GDCquery accepts more than one project (@test-query.R#11) 
+      6. Error: GDCquery can filter by sample.type (@test-query.R#23) 
+      7. Error: GDCquery can filter by barcode (@test-query.R#46) 
+      8. Error: GDCquery can filter copy number from legacy data by file type. Case: nocnv_hg18 (@test-query.R#72) 
+      9. Error: GDCquery can filter copy number from legacy data by file type. Case: hg18 (@test-query.R#81) 
+      1. ...
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
 
 *   checking dependencies in R code ... WARNING
     ```
@@ -46851,6 +46437,38 @@ Version: 2.8.4
     All user-level objects in a package should have documentation entries.
     See chapter ‘Writing R documentation files’ in the ‘Writing R
     Extensions’ manual.
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    ==================== DATA Summary ====================
+    ==================== END DATA Summary ====================
+    ==================== T test results ====================
+    ==================== END T test results ====================
+    ==================== DATA Summary ====================
+    ==================== END DATA Summary ====================
+    ==================== T test results ====================
+    ==================== END T test results ====================
+    ==================== DATA Summary ====================
+    ==================== END DATA Summary ====================
+    ==================== T test results ====================
+    ==================== END T test results ====================
+    ==================== DATA Summary ====================
+    ==================== END DATA Summary ====================
+    ==================== T test results ====================
+    ==================== END T test results ====================
+    Loading TCGAbiolinks
+    Quitting from lines 57-58 (clinical.Rmd) 
+    Error: processing vignette 'clinical.Rmd' failed with diagnostics:
+    LibreSSL SSL_read: SSL_ERROR_SYSCALL, errno 54
+    Execution halted
+    ```
+
+*   checking PDF version of manual ... WARNING
+    ```
+    LaTeX errors when creating PDF version.
+    This typically indicates Rd problems.
     ```
 
 *   checking installed package size ... NOTE
@@ -46888,11 +46506,42 @@ Version: 2.8.4
       visNet
     ```
 
+*   checking for unstated dependencies in vignettes ... NOTE
+    ```
+    'library' or 'require' call not declared from: ‘DT’
+    ```
+
 # TCGAbiolinksGUI
 
 Version: 1.6.1
 
 ## In both
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    ...
+    
+    The following objects are masked from 'package:S4Vectors':
+    
+        first, intersect, rename, setdiff, setequal, union
+    
+    The following objects are masked from 'package:BiocGenerics':
+    
+        combine, intersect, setdiff, union
+    
+    The following objects are masked from 'package:stats':
+    
+        filter, lag
+    
+    The following objects are masked from 'package:base':
+    
+        intersect, setdiff, setequal, union
+    
+    Quitting from lines 194-205 (data.Rmd) 
+    Error: processing vignette 'data.Rmd' failed with diagnostics:
+    GDC server down, try to use this package later
+    Execution halted
+    ```
 
 *   checking PDF version of manual ... WARNING
     ```
@@ -47319,6 +46968,38 @@ Version: 0.1.0
 
 ## In both
 
+*   checking tests ...
+    ```
+     ERROR
+    Running the tests in ‘tests/testthat.R’ failed.
+    Last 13 lines of output:
+      ── 1. Error: t4f works for different params (@test-predict.R#51)  ──────────────
+      cannot open URL 'https://gitlab.com/sw1/themetagenomics_data/raw/master/t4f_ref_profiles.rds'
+      1: download_ref(tmp, reference = "silva_ko", overwrite = FALSE) at testthat/test-predict.R:51
+      2: suppressWarnings(utils::download.file(sprintf("https://gitlab.com/sw1/themetagenomics_data/raw/master/%s", 
+             fn), destfile = file.path(destination, fn), method = "auto", mode = "wb", quiet = !verbose))
+      3: withCallingHandlers(expr, warning = function(w) invokeRestart("muffleWarning"))
+      4: utils::download.file(sprintf("https://gitlab.com/sw1/themetagenomics_data/raw/master/%s", 
+             fn), destfile = file.path(destination, fn), method = "auto", mode = "wb", quiet = !verbose)
+      
+      ══ testthat results  ═══════════════════════════════════════════════════════════
+      OK: 45 SKIPPED: 4 FAILED: 1
+      1. Error: t4f works for different params (@test-predict.R#51) 
+      
+      Error: testthat unit tests failed
+      Execution halted
+    ```
+
+*   checking re-building of vignette outputs ... WARNING
+    ```
+    Error in re-building vignettes:
+      ...
+    Quitting from lines 37-39 (functional_prediction.Rmd) 
+    Error: processing vignette 'functional_prediction.Rmd' failed with diagnostics:
+    cannot open URL 'https://gitlab.com/sw1/themetagenomics_data/raw/master/ko_13_5_precalculated.tab.gz'
+    Execution halted
+    ```
+
 *   checking PDF version of manual ... WARNING
     ```
     LaTeX errors when creating PDF version.
@@ -47417,16 +47098,6 @@ Version: 1.0.1
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘jagsUI’
-    ```
-
-*   checking Rd cross-references ... NOTE
-    ```
-    Package unavailable to check Rd xrefs: ‘jagsUI’
     ```
 
 # tidycensus
@@ -47703,8 +47374,8 @@ Version: 0.12
     The TeX and log files used for the calculation can help diagnose the
     problem. If these files are missing, rerun the plot and make sure to
     keep the R session open.
-    TeX file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpdCT5kx/tikzDevicefaec210b8b8f/tikzStringWidthCalc.tex
-    Log file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpdCT5kx/tikzDevicefaec210b8b8f/tikzStringWidthCalc.log
+    TeX file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp1E0Rq8/tikzDevice77f74a197e88/tikzStringWidthCalc.tex
+    Log file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmp1E0Rq8/tikzDevice77f74a197e88/tikzStringWidthCalc.log
     Calls: getLatexStrWidth -> getMetricsFromLatex
     Execution halted
     ```
@@ -47730,8 +47401,8 @@ Version: 0.12
     The TeX and log files used for the calculation can help diagnose the
     problem. If these files are missing, rerun the plot and make sure to
     keep the R session open.
-    TeX file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpDaT5ME/tikzDevicefbae718c54c/tikzStringWidthCalc.tex
-    Log file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//RtmpDaT5ME/tikzDevicefbae718c54c/tikzStringWidthCalc.log
+    TeX file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmpc090Uu/tikzDevice783f784579bf/tikzStringWidthCalc.tex
+    Log file: /var/folders/lb/xhxqmcrd7gv302_b1pdfykh80000gn/T//Rtmpc090Uu/tikzDevice783f784579bf/tikzStringWidthCalc.log
     Execution halted
     ```
 
@@ -48250,7 +47921,7 @@ Version: 3.8.4
     Fitting null models to 47 proteins (using 7 degrees of freedom)
     Fitting alternative models to 47 proteins (using 7 degrees of freedom)
     Evaluate goodness of fit of null and alternative models.
-    Runtime (2 CPUs used): 13.66 secs
+    Runtime (2 CPUs used): 15.52 secs
     
     Results table created successfully.
     
@@ -48699,30 +48370,6 @@ Version: 0.1.7
 
 Version: 1.2.0
 
-## Newly broken
-
-*   checking examples ... ERROR
-    ```
-    Running examples in ‘tricolore-Ex.R’ failed
-    The error most likely occurred in:
-    
-    > ### Name: ColorKeySextant
-    > ### Title: Sextant Scheme Legend
-    > ### Aliases: ColorKeySextant
-    > ### Keywords: internal
-    > 
-    > ### ** Examples
-    > 
-    > tricolore:::ColorKeySextant(center = prop.table(runif(3)),
-    +                            values = c('#01A0C6', '#B8B3D8', '#F11D8C',
-    +                                       '#FFB3B3', '#FFFF00', '#B3DCC3'),
-    +                            label_as = 'pct_diff', show_center = TRUE)
-    Error in get(x, envir = ns, inherits = FALSE) : 
-      object '.all_aesthetics' not found
-    Calls: <Anonymous> ... geom_Lline -> aes -> rename_aes -> getFromNamespace -> get
-    Execution halted
-    ```
-
 ## In both
 
 *   checking PDF version of manual ... WARNING
@@ -48910,30 +48557,6 @@ Version: 0.1.2
 # tsbox
 
 Version: 0.0.3
-
-## Newly broken
-
-*   checking tests ...
-    ```
-     ERROR
-    Running the tests in ‘tests/testthat.R’ failed.
-    Last 13 lines of output:
-         })
-      7: tryCatch(if (missE) ...elt(i) else eval(cl.i, envir = envir), error = function(e) {
-             e$call <- cl.i
-             stop(e)
-         })
-      8: tryCatchList(expr, classes, parentenv, handlers)
-      9: tryCatchOne(expr, names, parentenv, handlers[[1L]])
-      10: value[[3L]](cond)
-      
-      ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 346 SKIPPED: 10 FAILED: 1
-      1. Error: colname guessing works as expected (@test_ts_pc.R#25) 
-      
-      Error: testthat unit tests failed
-      Execution halted
-    ```
 
 ## In both
 
@@ -49929,7 +49552,7 @@ Version: 0.5.0
 
 # vip
 
-Version: 0.1.0
+Version: 0.1.1
 
 ## In both
 
@@ -49937,13 +49560,6 @@ Version: 0.1.0
     ```
     LaTeX errors when creating PDF version.
     This typically indicates Rd problems.
-    ```
-
-*   checking dependencies in R code ... NOTE
-    ```
-    Namespaces in Imports field not imported from:
-      ‘dplyr’ ‘magrittr’ ‘tidyr’
-      All declared Imports should be used.
     ```
 
 # vipor
@@ -49964,7 +49580,7 @@ Version: 0.4.5
       ...
     Loading required package: sm
     Warning in fun(libname, pkgname) : couldn't connect to display ""
-    Package 'sm', version 2.2-5.5: type help(sm) for summary information
+    Package 'sm', version 2.2-5.6: type help(sm) for summary information
     Error in texi2dvi(file = file, pdf = TRUE, clean = clean, quiet = quiet,  : 
       Running 'texi2dvi' on 'methodComparison.tex' failed.
     Calls: buildVignettes -> texi2pdf -> texi2dvi
@@ -50249,11 +49865,6 @@ Version: 1.3.1
     This typically indicates Rd problems.
     ```
 
-*   checking package dependencies ... NOTE
-    ```
-    Package suggested but not available for checking: ‘rqdatatable’
-    ```
-
 # VWPre
 
 Version: 1.1.0
@@ -50519,13 +50130,11 @@ Version: 0.2
 
 Version: 0.2.7
 
-## In both
+## Newly fixed
 
 *   checking examples ... ERROR
     ```
     ...
-    The error most likely occurred in:
-    
     > ### Name: tz_calc
     > ### Title: Get timezone from lat/lon
     > ### Aliases: tz_calc get_tz
@@ -50537,15 +50146,19 @@ Version: 0.2.7
     > tz_calc(lat = 53.881857, lon = -122.786271)
     character(0)
     > tz_calc(coords = c(53.881857, -122.786271))
-    character(0)
+    [1] "America/Vancouver"
     > 
     > # No daylight savings
     > tz_calc(lat = 53.881857, lon = -122.786271, etc = TRUE)
+    [1] "Etc/GMT+8"
+    > tz_calc(coords = c(53.881857, -122.786271), etc = TRUE)
     Error in if (tz <= 0) tz <- paste0("+", abs(tz)) else tz <- paste0("-",  : 
       argument is of length zero
     Calls: tz_calc
     Execution halted
     ```
+
+## In both
 
 *   checking tests ...
     ```
@@ -50553,16 +50166,16 @@ Version: 0.2.7
     Running the tests in ‘tests/testthat.R’ failed.
     Last 13 lines of output:
       ══ testthat results  ═══════════════════════════════════════════════════════════
-      OK: 418 SKIPPED: 5 FAILED: 13
-      1. Failure: tz_calc() returns the correct tz (@test_02_utils.R#4) 
-      2. Error: tz_calc() returns the correct tz (@test_02_utils.R#6) 
-      3. Error: weather (hour) returns a data frame (@test_06_weather_dl.R#6) 
-      4. Error: weather (hour) formats timezone display (@test_06_weather_dl.R#34) 
-      5. Error: weather (hour) formats timezone to UTC with multiple zones (@test_06_weather_dl.R#44) 
-      6. Error: weather (hour) gets all (@test_06_weather_dl.R#61) 
-      7. Error: weather (hour) trims NAs (@test_06_weather_dl.R#73) 
-      8. Error: weather (hour) multiple stations (@test_06_weather_dl.R#80) 
-      9. Error: weather (hour) no data fails nicely (@test_06_weather_dl.R#95) 
+      OK: 420 SKIPPED: 5 FAILED: 12
+      1. Error: tz_calc() returns the correct tz (@test_02_utils.R#6) 
+      2. Error: weather (hour) returns a data frame (@test_06_weather_dl.R#6) 
+      3. Error: weather (hour) formats timezone display (@test_06_weather_dl.R#34) 
+      4. Error: weather (hour) formats timezone to UTC with multiple zones (@test_06_weather_dl.R#44) 
+      5. Error: weather (hour) gets all (@test_06_weather_dl.R#61) 
+      6. Error: weather (hour) trims NAs (@test_06_weather_dl.R#75) 
+      7. Error: weather (hour) multiple stations (@test_06_weather_dl.R#80) 
+      8. Error: weather (hour) no data fails nicely (@test_06_weather_dl.R#95) 
+      9. Error: weather (hour) verbose and quiet (@test_06_weather_dl.R#134) 
       1. ...
       
       Error: testthat unit tests failed
