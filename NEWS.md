@@ -1,76 +1,84 @@
-# ggplot2 3.0.0.9000
+# ggplot2 3.1.0
 
-*   `geom_boxplot()` now understands the `width` parameter even when used with
-    a non-standard stat, such as `stat_identity()` (@clauswilke, #2893).
+## Breaking changes
 
-*   `scale_*_date()`, `scale_*_time()` and `scale_*_datetime()` can now display 
-    a secondary axis that is a __one-to-one__ transformation of the primary axis,
-    implemented using the `sec.axis` argument to the scale constructor 
-    (@dpseidel, #2244).
+This is a minor release and breaking changes have been kept to a minimum. End users of ggplot2 are unlikely to encounter any issues. However, there are a few items that developers of ggplot2 extensions should be aware of. For additional details, see also the discussion accompanying issue #2890.
 
-*   The error message in `compute_aesthetics()` now provides the names of only
-    aesthetics with mismatched lengths, rather than all aesthetics (@karawoo,
-    #2853).
-    
-*   `coord_sf()` now respects manual setting of axis tick labels (@clauswilke,
-    #2857, #2881).
-    
-*   `coord_sf()` now accepts two new parameters, `label_graticule` and `label_axes`,
-    that can be used to specify which graticules to label on which side of the plot
-    (@clauswilke, #2846).
+*   In non-user-facing internal code (specifically in the `aes()` function and in
+    the `aesthetics` argument of scale functions), ggplot2 now always uses the British
+    spelling of aesthetics containing the word "colour". When users specify a "color"
+    aesthetic it is automatically renamed to "colour". This principle is also applied
+    to non-standard aesthetics that contain the word "color". For example, "point_color"
+    is renamed to "point_colour". This convention makes it easier to support both
+    British and American spelling for novel non-standard aesthetics, but it may require
+    some adjustment for packages that have previously introduced non-standard color
+    aesthetics using American spelling. A new function `standardise_aes_names()` is
+    provided in case extension writers need to perform this renaming in their own code
+    (@clauswilke, #2649).
+
+*   Functions that generate other functions (closures) now force the arguments that are
+    used from the generated functions, to avoid hard-to-catch errors. This may affect
+    some users of manual scales (such as `scale_colour_manual()`, `scale_fill_manual()`,
+    etc.) who depend on incorrect behavior (@krlmlr, #2807).
     
 *   `Coord` objects now have a function `backtransform_range()` that returns the
     panel range in data coordinates. This change may affect developers of custom coords,
     who now should implement this function. It may also affect developers of custom
     geoms that use the `range()` function. In some applications, `backtransform_range()`
-    may be more appropriate.
-    (@clauswilke, #2821).
+    may be more appropriate (@clauswilke, #2821).
 
-*   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
-    for lines and polygons (@alistaire47, #2826)
 
-*   `geom_hline()`, `geom_vline()`, and `geom_abline()` now work properly
-    with `coord_trans()` (@clauswilke, #2149, #2812).
+## New features
+
+*   `coord_sf()` has much improved customization of axis tick labels. Labels can now
+    be set manually, and there are two new parameters, `label_graticule` and
+    `label_axes`, that can be used to specify which graticules to label on which side
+    of the plot (@clauswilke, #2846, #2857, #2881).
+    
+*   Two new geoms `geom_sf_label()` and `geom_sf_text()` can draw labels and text
+    on sf objects. Under the hood, a new `stat_sf_coordinates()` calculates the
+    x and y coordinates from the coordinates of the sf geometries. You can customize
+    the calculation method via `fun.geometry` argument (@yutannihilation, #2761).
+    
+
+## Minor improvements and fixes
 
 *   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
+
+*   The error message in `compute_aesthetics()` now provides the names of only
+    aesthetics with mismatched lengths, rather than all aesthetics (@karawoo,
+    #2853).
+
+*   For faceted plots, data is no longer internally reordered. This makes it
+    safer to feed data columns into `aes()` or into parameters of geoms or
+    stats. However, doing so remains discouraged (@clauswilke, #2694).
 
 *   `fortify()` now displays a more informative error message for
     `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
 
 *   All `geom_*()` now display an informative error message when required 
-    aesthetics are missing (@dpseidel, #2637 and #2706).s
+    aesthetics are missing (@dpseidel, #2637 and #2706).
 
-*   `sec_axis()` and `dup_axis()` now return appropriate breaks for the secondary
-    axis when applied to log transformed scales (@dpseidel, #2729).
-
-*   `sec_axis()` now works as expected when used in combination with tidy eval
-    (@dpseidel, #2788).
-
-*   `stat_contour()`, `stat_density2d()`, `stat_bin2d()`,  `stat_binhex()`
-    now calculate normalized statistics including `nlevel`, `ndensity`, and
-    `ncount`. Also, `stat_density()` now includes the calculated statistic 
-    `nlevel`, an alias for `scaled`, to better match the syntax of `stat_bin()`
-    (@bjreisman, #2679).
-
+*   `geom_boxplot()` now understands the `width` parameter even when used with
+    a non-standard stat, such as `stat_identity()` (@clauswilke, #2893).
+    
 *  `geom_hex()` now understands the `size` and `linetype` aesthetics
    (@mikmart, #2488).
-  
-*   Data is no longer internally reordered when faceting. This makes it safer to
-    feed data columns into `aes()` or into parameters of geoms or stats. However,
-    doing so remains discouraged (@clauswilke, #2694).
+    
+*   `geom_hline()`, `geom_vline()`, and `geom_abline()` now work properly
+    with `coord_trans()` (@clauswilke, #2149, #2812).
+    
+*   `geom_text(..., parse = TRUE)` now correctly renders the expected number of
+    items instead of silently dropping items that are empty expressions, e.g.
+    the empty string "". If an expression spans multiple lines, we take just
+    the first line and drop the rest. This same issue is also fixed for
+    `geom_label()` and the axis labels for `geom_sf()` (@slowkow, #2867).
+
+*   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
+    for lines and polygons (@alistaire47, #2826).
     
 *   `ggsave()` now exits without creating a new graphics device if previously
     none was open (@clauswilke, #2363).
-
-*   Aesthetic names are now consistently standardised both in `aes()` and in the
-    `aesthetics` argument of scale functions. Also, the US spelling "color"
-    is now always internally converted to "colour", even when part of a longer
-    aesthetic name (e.g., `point_color`) (@clauswilke, #2649).
-
-*   New `geom_sf_label()` and `geom_sf_text()` draw labels and text on sf objects.
-    Under the hood, new `stat_sf_coordinates()` calculates the x and y from the
-    coordinates of the geometries. You can customize the calculation method via
-    `fun.geometry` argument (@yutannihilation, #2761).
 
 *   `labs()` now has named arguments `title`, `subtitle`, `caption`, and `tag`.
     Also, `labs()` now accepts tidyeval (@yutannihilation, #2669).
@@ -78,12 +86,24 @@
 *   `position_nudge()` is now more robust and nudges only in the direction
     requested. This enables, for example, the horizontal nudging of boxplots
     (@clauswilke, #2733).
+
+*   `sec_axis()` and `dup_axis()` now return appropriate breaks for the secondary
+    axis when applied to log transformed scales (@dpseidel, #2729).
+
+*   `sec_axis()` now works as expected when used in combination with tidy eval
+    (@dpseidel, #2788).
+
+*   `scale_*_date()`, `scale_*_time()` and `scale_*_datetime()` can now display 
+    a secondary axis that is a __one-to-one__ transformation of the primary axis,
+    implemented using the `sec.axis` argument to the scale constructor 
+    (@dpseidel, #2244).
     
-*   `geom_text(..., parse = TRUE)` now correctly renders the expected number of
-    items instead of silently dropping items that are empty expressions, e.g.
-    the empty string "". If an expression spans multiple lines, we take just
-    the first line and drop the rest. This same issue is also fixed for
-    `geom_label()` and the axis labels for `geom_sf()` (@slowkow, #2867).
+*   `stat_contour()`, `stat_density2d()`, `stat_bin2d()`,  `stat_binhex()`
+    now calculate normalized statistics including `nlevel`, `ndensity`, and
+    `ncount`. Also, `stat_density()` now includes the calculated statistic 
+    `nlevel`, an alias for `scaled`, to better match the syntax of `stat_bin()`
+    (@bjreisman, #2679).
+
 
 # ggplot2 3.0.0
 
