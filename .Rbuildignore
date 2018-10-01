@@ -9,6 +9,7 @@ visual_test
 ^cran-comments.md$
 ^data-raw$
 ^CONTRIBUTING\.md$
+^GOVERNANCE\.md$
 ^ISSUE_TEMPLATE\.md$
 ^NEWS$
 ^revdep$
