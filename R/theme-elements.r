@@ -226,11 +226,15 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   default.units = "npc", id.lengths = NULL, ...) {
 
   # The gp settings can override element_gp
-  gp <- gpar(lwd = len0_null(size * .pt), col = colour, lty = linetype,
-             lineend = lineend, fill = colour)
-  element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
-                     lty = element$linetype, lineend = element$lineend,
-                     fill = element$colour)
+  gp <- gpar(
+    col = colour, fill = colour,
+    lwd = len0_null(size * .pt), lty = linetype, lineend = lineend
+  )
+  element_gp <- gpar(
+    col = element$colour, fill = element$colour,
+    lwd = len0_null(element$size * .pt), lty = element$linetype,
+    lineend = element$lineend
+  )
   arrow <- if (is.logical(element$arrow) && !element$arrow) {
     NULL
   } else {
