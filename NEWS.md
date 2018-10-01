@@ -6,11 +6,11 @@ This is a minor release and breaking changes have been kept to a minimum. End us
 
 *   In non-user-facing internal code (specifically in the `aes()` function and in
     the `aesthetics` argument of scale functions), ggplot2 now always uses the British
-    spelling of aesthetics containing the word "colour". When users specify a "color"
-    aesthetic it is automatically renamed to "colour". This principle is also applied
+    spelling for aesthetics containing the word "colour". When users specify a "color"
+    aesthetic it is automatically renamed to "colour". This renaming is also applied
     to non-standard aesthetics that contain the word "color". For example, "point_color"
     is renamed to "point_colour". This convention makes it easier to support both
-    British and American spelling for novel non-standard aesthetics, but it may require
+    British and American spelling for novel, non-standard aesthetics, but it may require
     some adjustment for packages that have previously introduced non-standard color
     aesthetics using American spelling. A new function `standardise_aes_names()` is
     provided in case extension writers need to perform this renaming in their own code
@@ -45,7 +45,7 @@ This is a minor release and breaking changes have been kept to a minimum. End us
 
 *   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
 
-*   The error message in `compute_aesthetics()` now provides the names of only
+*   The error message in `compute_aesthetics()` now only provides the names of
     aesthetics with mismatched lengths, rather than all aesthetics (@karawoo,
     #2853).
 
