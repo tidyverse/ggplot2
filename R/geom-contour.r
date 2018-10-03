@@ -12,6 +12,12 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
+#' @param bins Setting this creates that number of evenly space contours in
+#'  the range of the data.
+#' @param binwidth Setting this creates bins in the range of the data spaced
+#'  by binwidth.
+#' @param breaks Setting this will manually create contours in at the
+#'  specified values.
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @export
@@ -43,6 +49,9 @@
 geom_contour <- function(mapping = NULL, data = NULL,
                          stat = "contour", position = "identity",
                          ...,
+                         bins = NULL,
+                         binwidth = NULL,
+                         breaks = NULL,
                          lineend = "butt",
                          linejoin = "round",
                          linemitre = 10,
@@ -58,6 +67,9 @@ geom_contour <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      bins = NULL,
+      binwidth = NULL,
+      breaks = NULL,
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,

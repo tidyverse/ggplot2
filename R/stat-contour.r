@@ -10,6 +10,9 @@
 stat_contour <- function(mapping = NULL, data = NULL,
                          geom = "contour", position = "identity",
                          ...,
+                         bins = NULL,
+                         binwidth = NULL,
+                         breaks = NULL,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {
@@ -22,6 +25,9 @@ stat_contour <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      bins = bins,
+      binwidth = binwidth,
+      breaks = breaks,
       na.rm = na.rm,
       ...
     )
@@ -37,7 +43,7 @@ StatContour <- ggproto("StatContour", Stat,
   default_aes = aes(order = stat(level)),
 
   compute_group = function(data, scales, bins = NULL, binwidth = NULL,
-                           breaks = NULL, complete = FALSE, na.rm = FALSE) {
+                           breaks = NULL, na.rm = FALSE) {
     # If no parameters set, use pretty bins
     if (is.null(bins) && is.null(binwidth) && is.null(breaks)) {
       breaks <- pretty(range(data$z), 10)
@@ -51,7 +57,7 @@ StatContour <- ggproto("StatContour", Stat,
       breaks <- fullseq(range(data$z), binwidth)
     }
 
-    contour_lines(data, breaks, complete = complete)
+    contour_lines(data, breaks)
   }
 
 )
@@ -65,7 +71,7 @@ StatContour <- ggproto("StatContour", Stat,
 # ggplot(contours, aes(x, y)) +
 #   geom_path() +
 #   facet_wrap(~piece)
-contour_lines <- function(data, breaks, complete = FALSE) {
+contour_lines <- function(data, breaks) {
   z <- tapply(data$z, data[c("x", "y")], identity)
 
   if (is.list(z)) {
