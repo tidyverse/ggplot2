@@ -104,6 +104,10 @@ This is a minor release and breaking changes have been kept to a minimum. End us
     `nlevel`, an alias for `scaled`, to better match the syntax of `stat_bin()`
     (@bjreisman, #2679).
 
+*   New theme elements allowing different ticks lengths for each
+    axis. For instance, this can be used to have inwards ticks on the
+    x-axis (`axis.ticks.length.x`) and and outwards ticks on the
+    y-axis (`axis.ticks.length.y`). (@pank, #1319)
 
 # ggplot2 3.0.0
 

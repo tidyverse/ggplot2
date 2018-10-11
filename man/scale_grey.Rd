@@ -66,9 +66,9 @@ scales, "top" or "bottom" for horizontal scales}
   \item{super}{The super class to use for the constructed scale}
 }}
 
-\item{start}{grey value at low end of palette}
+\item{start}{gray value at low end of palette}
 
-\item{end}{grey value at high end of palette}
+\item{end}{gray value at high end of palette}
 
 \item{na.value}{Colour to use for missing values}
 
