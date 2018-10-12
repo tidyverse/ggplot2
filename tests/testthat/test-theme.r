@@ -361,13 +361,13 @@ test_that("axes ticks can have independent lengths", {
     scale_x_continuous(sec.axis = dup_axis()) +
     scale_y_continuous(sec.axis = dup_axis()) +
     theme(
-        axis.ticks.length.x.top = unit(-.5, "cm"),
-        axis.ticks.length.x.bottom = unit(-.25, "cm"),
-        axis.ticks.length.y.left = unit(.25, "cm"),
-        axis.ticks.length.y.right = unit(.5, "cm"),
-        axis.text.x.bottom = element_text(margin=margin(t=.5, unit="cm")),
-        axis.text.x.top = element_text(margin=margin(b=.75, unit="cm"))
-  )
+      axis.ticks.length.x.top = unit(-.5, "cm"),
+      axis.ticks.length.x.bottom = unit(-.25, "cm"),
+      axis.ticks.length.y.left = unit(.25, "cm"),
+      axis.ticks.length.y.right = unit(.5, "cm"),
+      axis.text.x.bottom = element_text(margin = margin(t = .5, unit = "cm")),
+      axis.text.x.top = element_text(margin = margin(b = .75, unit = "cm"))
+    )
   expect_doppelganger("ticks_length", plot)
 })
 
