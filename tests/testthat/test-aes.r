@@ -89,7 +89,7 @@ test_that("assignment methods pull unwrap constants from quosures", {
 })
 
 test_that("quosures are squashed when creating default label for a mapping", {
-  p <- ggplot(mtcars) + aes(!!quo(identity(!!quo(cyl))))
+  p <- ggplot(mtcars) + aes(!!rlang::quo(identity(!!rlang::quo(cyl))))
   expect_identical(p$labels$x, "identity(cyl)")
 })
 
