@@ -82,57 +82,53 @@ guide_axis <- function(at, labels, position = "right", theme) {
 
   ticks <- switch(position,
     top = element_render(theme, "axis.ticks.x.top",
-      x = rep(at, each = 2),
-      y = rep(unit.c(zero, theme$axis.ticks.length.x.top), nticks),
-      id.lengths = rep(2, nticks)
-    ),
+      x          = rep(at, each = 2),
+      y          = rep(unit.c(zero, theme$axis.ticks.length.x.top), nticks),
+      id.lengths = rep(2, nticks)),
     bottom = element_render(theme, "axis.ticks.x.bottom",
-      x = rep(at, each = 2),
-      y = rep(unit.c(one - theme$axis.ticks.length.x.bottom, one), nticks),
-      id.lengths = rep(2, nticks)
-    ),
+      x          = rep(at, each = 2),
+      y          = rep(unit.c(one - theme$axis.ticks.length.x.bottom, one), nticks),
+      id.lengths = rep(2, nticks)),
     right = element_render(theme, "axis.ticks.y.right",
-      x = rep(unit.c(zero, theme$axis.ticks.length.y.right), nticks),
-      y = rep(at, each = 2),
-      id.lengths = rep(2, nticks)
-    ),
+      x          = rep(unit.c(zero, theme$axis.ticks.length.y.right), nticks),
+      y          = rep(at, each = 2),
+      id.lengths = rep(2, nticks)),
     left = element_render(theme, "axis.ticks.y.left",
-      x = rep(unit.c(one - theme$axis.ticks.length.y.left, one), nticks),
-      y = rep(at, each = 2),
-      id.lengths = rep(2, nticks)
-    )
+      x          = rep(unit.c(one - theme$axis.ticks.length.y.left, one), nticks),
+      y          = rep(at, each = 2),
+      id.lengths = rep(2, nticks))
   )
 
   # Create the gtable for the ticks + labels
   gt <- switch(position,
-    top = gtable_col("axis",
-      grobs = list(labels, ticks),
-      width = one,
+    top    = gtable_col("axis",
+      grobs   = list(labels, ticks),
+      width   = one,
       heights = unit.c(grobHeight(labels), theme$axis.ticks.length.x.top)
     ),
     bottom = gtable_col("axis",
-      grobs = list(ticks, labels),
-      width = one,
+      grobs   = list(ticks, labels),
+      width   = one,
       heights = unit.c(theme$axis.ticks.length.x.bottom, grobHeight(labels))
     ),
-    right = gtable_row("axis",
-      grobs = list(ticks, labels),
-      widths = unit.c(theme$axis.ticks.length.y.right, grobWidth(labels)),
-      height = one
+    right  = gtable_row("axis",
+      grobs   = list(ticks, labels),
+      widths  = unit.c(theme$axis.ticks.length.y.right, grobWidth(labels)),
+      height  = one
     ),
-    left = gtable_row("axis",
-      grobs = list(labels, ticks),
-      widths = unit.c(grobWidth(labels), theme$axis.ticks.length.y.left),
-      height = one
+    left   = gtable_row("axis",
+      grobs   = list(labels, ticks),
+      widths  = unit.c(grobWidth(labels), theme$axis.ticks.length.y.left),
+      height  = one
     )
   )
 
   # Viewport for justifying the axis grob
   justvp <- switch(position,
-    top = viewport(y = 0, just = "bottom", height = gtable_height(gt)),
-    bottom = viewport(y = 1, just = "top", height = gtable_height(gt)),
-    right = viewport(x = 0, just = "left", width = gtable_width(gt)),
-    left = viewport(x = 1, just = "right", width = gtable_width(gt))
+    top    = viewport(y = 0, just = "bottom", height = gtable_height(gt)),
+    bottom = viewport(y = 1, just = "top",    height = gtable_height(gt)),
+    right  = viewport(x = 0, just = "left",   width  = gtable_width(gt)),
+    left   = viewport(x = 1, just = "right",  width  = gtable_width(gt))
   )
 
   absoluteGrob(
