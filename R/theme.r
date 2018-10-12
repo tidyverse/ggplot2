@@ -199,7 +199,7 @@
 #' p1 + theme(
 #'            axis.ticks.length.y = unit(.25, "cm"),
 #'            axis.ticks.length.x = unit(-.25, "cm"),
-#'            axis.text.x=element_text(margin=margin(t=8))
+#'            axis.text.x=element_text(margin=margin(t=.3, unit="cm"))
 #' )
 #' p1 + theme(axis.title.y = element_text(size = rel(1.5), angle = 90))
 #'
