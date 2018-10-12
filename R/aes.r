@@ -75,10 +75,8 @@ NULL
 #' cut3 <- function(x) cut_number(x, 3)
 #' scatter_by(mtcars, cut3(disp), drat)
 aes <- function(x, y, ...) {
-  exprs <- rlang::enquos(x = x, y = y, ...)
-  is_missing <- vapply(exprs, rlang::quo_is_missing, logical(1))
-
-  aes <- new_aes(exprs[!is_missing], env = parent.frame())
+  exprs <- rlang::enquos(x = x, y = y, ..., .ignore_empty = "all")
+  aes <- new_aes(exprs, env = parent.frame())
   rename_aes(aes)
 }
 
