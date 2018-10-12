@@ -71,14 +71,13 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   if (!missing(position)) warning("`position` is deprecated", call. = FALSE)
   if (!is.character(geom)) stop("`geom` must be a character vector", call. = FALSE)
 
-  exprs <- rlang::enquos(x = x, y = y, ...)
-  is_missing <- vapply(exprs, rlang::quo_is_missing, logical(1))
+  exprs <- rlang::enquos(x = x, y = y, ..., .ignore_empty = "all")
   # treat arguments as regular parameters if they are wrapped into I() or
   # if they don't have a name that is in the list of all aesthetics
   is_constant <- (!names(exprs) %in% ggplot_global$all_aesthetics) |
     vapply(exprs, rlang::quo_is_call, logical(1), name = "I")
 
-  mapping <- new_aes(exprs[!is_missing & !is_constant], env = parent.frame())
+  mapping <- new_aes(exprs[!is_constant], env = parent.frame())
 
   consts <- exprs[is_constant]
 
@@ -90,12 +89,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
     xlab <- rlang::quo_name(exprs$x)
   }
   if (is.null(ylab)) {
-    # Work around quo_name() bug: https://github.com/r-lib/rlang/issues/430
-    if (rlang::quo_is_null(exprs$y)) {
-      ylab <- "NULL"
-    } else {
-      ylab <- rlang::quo_name(exprs$y)
-    }
+    ylab <- rlang::quo_name(exprs$y)
   }
 
   if (missing(data)) {
