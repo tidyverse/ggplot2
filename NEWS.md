@@ -53,6 +53,9 @@ This is a minor release and breaking changes have been kept to a minimum. End us
     safer to feed data columns into `aes()` or into parameters of geoms or
     stats. However, doing so remains discouraged (@clauswilke, #2694).
 
+*   `coord_sf()` now also understands the `clip` argument, just like the other
+    coords (@clauswilke, #2938).
+
 *   `fortify()` now displays a more informative error message for
     `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
 
