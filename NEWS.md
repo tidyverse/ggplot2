@@ -954,7 +954,7 @@ There were a number of tweaks to the theme elements that control legends:
 
 ## Major changes
 
-* ggplot no longer throws an error if you your plot has no layers. Instead it 
+* ggplot no longer throws an error if your plot has no layers. Instead it 
   automatically adds `geom_blank()` (#1246).
   
 * New `cut_width()` is a convenient replacement for the verbose
