@@ -43,3 +43,38 @@ test_that("curved lines in map projections", {
     nzmap + coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
   )
 })
+
+# Warning tests ------------------------------------------------------------
+
+test_that("Warning if a supplied mapping is going to be overwritten",{
+  dat <- data.frame(x = LETTERS[1:5], y = 1:5,colour = c(TRUE,TRUE,rep(FALSE,3)))
+  plot <- ggplot(dat, aes(x, y)) +
+    geom_col(width = 1) +
+    geom_point() +
+    facet_wrap(~colour)
+
+  expect_warning(
+    plot + geom_vline(xintercept = 3, aes(colour = colour)),
+    "Using both"
+  )
+
+  expect_warning(
+    plot + geom_hline(yintercept = 3, aes(colour = colour)),
+    "Using both"
+  )
+
+  expect_warning(
+    plot + geom_abline(intercept = 3, aes(colour = colour)),
+    "Using both"
+  )
+
+  expect_warning(
+    plot + geom_abline(intercept = 3,slope=0.5, aes(colour = colour)),
+    "Using both"
+  )
+
+  expect_warning(
+    plot + geom_abline(slope=0.5, aes(colour = colour)),
+    "Using both"
+  )
+})

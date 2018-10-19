@@ -9,6 +9,15 @@ geom_hline <- function(mapping = NULL, data = NULL,
                        na.rm = FALSE,
                        show.legend = NA) {
 
+  # Warn if supplied mapping is going to be overwritten
+  if (!missing(yintercept) && !missing(mapping)) {
+    warning(paste0("Using both `yintercept` and `mapping` may not have the desired result as mapping is overwritten if `yintercept` is specified\n",
+                   "  Consider placing `yintercept` inside your `aes()` call.\n",
+                   "  e.g. `aes(yintercept=2,colour=colour)`"
+            )
+    )
+  }
+
   # Act like an annotation
   if (!missing(yintercept)) {
     data <- data.frame(yintercept = yintercept)
