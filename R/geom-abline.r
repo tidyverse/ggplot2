@@ -80,17 +80,18 @@ geom_abline <- function(mapping = NULL, data = NULL,
     intercept <- 0
   }
 
-  # Warn if supplied mapping is going to be overwritten
-  if ((!missing(slope) || !missing(intercept)) && !missing(mapping)) {
-    warning(paste0("Using both `intercept` and/or `slope` with `mapping` may not have the desired result as mapping is overwritten if either of these is specified\n",
-                   "  Consider placing `intercept` / `slope` inside your `aes()` call.\n",
-                   "  e.g. `aes(intercept=2,colour=colour)`"
-            )
-    )
-  }
-
   # Act like an annotation
   if (!missing(slope) || !missing(intercept)) {
+
+    # Warn if supplied mapping is going to be overwritten
+    if ((!missing(slope) || !missing(intercept)) && !missing(mapping)) {
+      warning(paste0("Using both `intercept` and/or `slope` with `mapping` may not have the desired result as mapping is overwritten if either of these is specified\n",
+                     "  Consider placing `intercept` / `slope` inside your `aes()` call.\n",
+                     "  e.g. `aes(intercept=2,colour=colour)`"
+              )
+      )
+    }
+
     if (missing(slope)) slope <- 1
     if (missing(intercept)) intercept <- 0
 
