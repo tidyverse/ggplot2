@@ -69,7 +69,7 @@ test_that("Warning if a supplied mapping is going to be overwritten",{
   )
 
   expect_warning(
-    plot + geom_abline(slope=0.5, aes(colour = colour)),
+    geom_abline(slope=0.5, aes(colour = colour)),
     "Using both"
   )
 })
