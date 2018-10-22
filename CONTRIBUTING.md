@@ -79,7 +79,7 @@ See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 
 Pull requests will be evaluated against a seven point checklist:
 
-1.  __Motivation__. Your pull request should clearly and concisely motivates the
+1.  __Motivation__. Your pull request should clearly and concisely motivate the
    need for change. Unfortunately neither Winston nor I have much time to
    work on ggplot2 these days, so you need to describe the problem and show
    how your pull request solves it as concisely as possible.
