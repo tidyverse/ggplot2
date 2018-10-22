@@ -80,14 +80,14 @@ See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 Pull requests will be evaluated against a seven point checklist:
 
 1.  __Motivation__. Your pull request should clearly and concisely motivate the
-   need for change. Unfortunately neither Winston nor I have much time to
-   work on ggplot2 these days, so you need to describe the problem and show
-   how your pull request solves it as concisely as possible.
+    need for change. Unfortunately neither Winston nor I have much time to
+    work on ggplot2 these days, so you need to describe the problem and show
+    how your pull request solves it as concisely as possible.
 
-   Also include this motivation in `NEWS` so that when a new release of
-   ggplot2 comes out it's easy for users to see what's changed. Add your
-   item at the top of the file and use markdown for formatting. The
-   news item should end with `(@yourGithubUsername, #the_issue_number)`.
+    Also include this motivation in `NEWS` so that when a new release of
+    ggplot2 comes out it's easy for users to see what's changed. Add your
+    item at the top of the file and use markdown for formatting. The
+    news item should end with `(@yourGithubUsername, #the_issue_number)`.
 
 1.  __Only related changes__. Before you submit your pull request, please
     check to make sure that you haven't accidentally included any unrelated
