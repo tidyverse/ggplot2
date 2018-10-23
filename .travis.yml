@@ -9,15 +9,14 @@ matrix:
   - r: devel
   - r: release
     env: USE_VDIFFR=true
+    r_github_packages: lionel-/vdiffr
   - r: oldrel
   - r: 3.2
+    # TODO: devtools 2.0 raises warnings if some packages are not available
+    r_github_packages: "r-lib/devtools@v1.13.5"
   - r: 3.1
-
-# work around temporary travis + R 3.5 bug
-r_packages: devtools
-
-# Install manually because dev vdiffr is not compatible with Appveyor yet
-r_github_packages: lionel-/vdiffr
+    # TODO: devtools 2.0 raises warnings if some packages are not available
+    r_github_packages: "r-lib/devtools@v1.13.5"
 
 # environment variables set for all builds
 env:
