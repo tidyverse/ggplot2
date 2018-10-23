@@ -12,11 +12,9 @@ matrix:
     r_github_packages: lionel-/vdiffr
   - r: oldrel
   - r: 3.2
-    # TODO: devtools 2.0 raises warnings if some packages are not available
-    r_github_packages: "r-lib/devtools@v1.13.5"
+    env: R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
   - r: 3.1
-    # TODO: devtools 2.0 raises warnings if some packages are not available
-    r_github_packages: "r-lib/devtools@v1.13.5"
+    env: R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
 
 # environment variables set for all builds
 env:
