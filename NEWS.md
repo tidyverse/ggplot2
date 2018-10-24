@@ -53,6 +53,9 @@ This is a minor release and breaking changes have been kept to a minimum. End us
     safer to feed data columns into `aes()` or into parameters of geoms or
     stats. However, doing so remains discouraged (@clauswilke, #2694).
 
+*   `coord_sf()` now also understands the `clip` argument, just like the other
+    coords (@clauswilke, #2938).
+
 *   `fortify()` now displays a more informative error message for
     `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
 
@@ -954,7 +957,7 @@ There were a number of tweaks to the theme elements that control legends:
 
 ## Major changes
 
-* ggplot no longer throws an error if you your plot has no layers. Instead it 
+* ggplot no longer throws an error if your plot has no layers. Instead it 
   automatically adds `geom_blank()` (#1246).
   
 * New `cut_width()` is a convenient replacement for the verbose
