@@ -63,8 +63,7 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
   # has the common letters with descenders. This guarantees that the grob always has
   # the same height regardless of whether the text actually contains letters with
   # descenders or not. The same happens automatically with ascenders already.
-  temp <- editGrob(text_grob, label = "gjpqyQ")
-  descent <- descentDetails(temp)
+  descent <- font_descent(gp$fontfamily, gp$fontface, gp$fontsize, gp$cex)
 
   # Use trigonometry to calculate grobheight and width for rotated grobs. This is only
   # exactly correct when vjust = 1. We need to take the absolute value so we don't make
@@ -328,4 +327,24 @@ rotate_just <- function(angle, hjust, vjust) {
   }
 
   list(hjust = hnew, vjust = vnew)
+}
+descent_cache <- new.env(parent = emptyenv())
+font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
+  key <- paste0(family, ':', face, ":", size, ":", cex)
+
+  descent <- descent_cache[[key]]
+
+  if (is.null(descent)) {
+    descent <- descentDetails(textGrob(
+      label = "gjpqyQ",
+      gp = gpar(
+        fontsize = size,
+        cex = cex,
+        fontfamily = family,
+        fontface = face
+      )
+    ))
+    descent_cache[[key]] <- descent
+  }
+  descent
 }
