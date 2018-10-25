@@ -1,34 +1,34 @@
 #' Useful labeller functions
 #'
 #' Labeller functions are in charge of formatting the strip labels of
-#' facet grids and wraps. Most of them accept a \code{multi_line}
+#' facet grids and wraps. Most of them accept a `multi_line`
 #' argument to control whether multiple factors (defined in formulae
-#' such as \code{~first + second}) should be displayed on a single
+#' such as `~first + second`) should be displayed on a single
 #' line separated with commas, or each on their own line.
 #'
-#' \code{label_value()} only displays the value of a factor while
-#' \code{label_both()} displays both the variable name and the factor
-#' value. \code{label_context()} is context-dependent and uses
-#' \code{label_value()} for single factor facetting and
-#' \code{label_both()} when multiple factors are
-#' involved. \code{label_wrap_gen()} uses \code{\link[base]{strwrap}()}
+#' `label_value()` only displays the value of a factor while
+#' `label_both()` displays both the variable name and the factor
+#' value. `label_context()` is context-dependent and uses
+#' `label_value()` for single factor faceting and
+#' `label_both()` when multiple factors are
+#' involved. `label_wrap_gen()` uses [base::strwrap()]
 #' for line wrapping.
 #'
-#' \code{label_parsed()} interprets the labels as plotmath
-#' expressions. \code{\link{label_bquote}()} offers a more flexible
+#' `label_parsed()` interprets the labels as plotmath
+#' expressions. [label_bquote()] offers a more flexible
 #' way of constructing plotmath expressions. See examples and
-#' \code{\link{bquote}()} for details on the syntax of the
+#' [bquote()] for details on the syntax of the
 #' argument.
 #'
 #' @section Writing New Labeller Functions:
 #'
 #'   Note that an easy way to write a labeller function is to
 #'   transform a function operating on character vectors with
-#'   \code{\link{as_labeller}()}.
+#'   [as_labeller()].
 #'
 #'   A labeller function accepts a data frame of labels (character
 #'   vectors) containing one column for each factor. Multiple factors
-#'   occur with formula of the type \code{~first + second}.
+#'   occur with formula of the type `~first + second`.
 #'
 #'   The return value must be a rectangular list where each 'row'
 #'   characterises a single facet. The list elements can be either
@@ -43,34 +43,33 @@
 #'   own line. Then the second facet gets the second elements of each
 #'   vector, and so on.
 #'
-#'   If it's useful to your labeller, you can retrieve the \code{type}
+#'   If it's useful to your labeller, you can retrieve the `type`
 #'   attribute of the incoming data frame of labels. The value of this
 #'   attribute reflects the kind of strips your labeller is dealing
-#'   with: \code{"cols"} for columns and \code{"rows"} for rows. Note
-#'   that \code{\link{facet_wrap}()} has columns by default and rows
-#'   when the strips are switched with the \code{switch} option. The
-#'   \code{facet} attribute also provides metadata on the labels. It
-#'   takes the values \code{"grid"} or \code{"wrap"}.
+#'   with: `"cols"` for columns and `"rows"` for rows. Note
+#'   that [facet_wrap()] has columns by default and rows
+#'   when the strips are switched with the `switch` option. The
+#'   `facet` attribute also provides metadata on the labels. It
+#'   takes the values `"grid"` or `"wrap"`.
 #'
-#'   For compatibility with \code{\link{labeller}()}, each labeller
-#'   function must have the \code{labeller} S3 class.
+#'   For compatibility with [labeller()], each labeller
+#'   function must have the `labeller` S3 class.
 #'
 #' @param labels Data frame of labels. Usually contains only one
-#'   element, but facetting over multiple factors entails multiple
+#'   element, but faceting over multiple factors entails multiple
 #'   label variables.
 #' @param multi_line Whether to display the labels of multiple factors
 #'   on separate lines.
 #' @param sep String separating variables and values.
 #' @param width Maximum number of characters before wrapping the strip.
 #' @family facet
-#' @seealso \code{\link{labeller}()}, \code{\link{as_labeller}()},
-#'   \code{\link{label_bquote}()}
+#' @seealso [labeller()], [as_labeller()],
+#'   [label_bquote()]
 #' @examples
 #' mtcars$cyl2 <- factor(mtcars$cyl, labels = c("alpha", "beta", "gamma"))
 #' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
 #'
-#' # Displaying only the values
-#' p + facet_grid(. ~ cyl)
+#' # The default is label_value
 #' p + facet_grid(. ~ cyl, labeller = label_value)
 #'
 #' \donttest{
@@ -84,7 +83,6 @@
 #' # Interpreting the labels as plotmath expressions
 #' p + facet_grid(. ~ cyl2)
 #' p + facet_grid(. ~ cyl2, labeller = label_parsed)
-#' p + facet_wrap(~vs + cyl2, labeller = label_parsed)
 #' }
 #' @name labellers
 NULL
@@ -180,7 +178,7 @@ find_names <- function(expr) {
 
 #' Label with mathematical expressions
 #'
-#' \code{label_bquote()} offers a flexible way of labelling
+#' `label_bquote()` offers a flexible way of labelling
 #' facet rows or columns with plotmath expressions. Backquoted
 #' variables will be replaced with their value in the facet.
 #'
@@ -188,7 +186,7 @@ find_names <- function(expr) {
 #' @param cols Backquoted labelling expression for columns.
 #' @param default Default labeller function for the rows or the
 #'   columns when no plotmath expression is provided.
-#' @seealso \link{labellers}, \code{\link{labeller}()},
+#' @seealso \link{labellers}, [labeller()],
 #' @export
 #' @examples
 #' # The variables mentioned in the plotmath expression must be
@@ -232,7 +230,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
 
   structure(fun, class = "labeller")
 }
-globalVariables(c("x", "."))
+utils::globalVariables(c("x", "."))
 
 #' @rdname labellers
 #' @export
@@ -271,17 +269,17 @@ resolve_labeller <- function(rows, cols, labels) {
 #' Coerce to labeller function
 #'
 #' This transforms objects to labeller functions. Used internally by
-#' \code{\link{labeller}()}.
+#' [labeller()].
 #' @param x Object to coerce to a labeller function. If a named
 #'   character vector, it is used as a lookup table before being
-#'   passed on to \code{default}. If a non-labeller function, it is
+#'   passed on to `default`. If a non-labeller function, it is
 #'   assumed it takes and returns character vectors and is applied to
 #'   the labels. If a labeller, it is simply applied to the labels.
 #' @param multi_line Whether to display the labels of multiple factors
 #'   on separate lines. This is passed to the labeller function.
 #' @param default Default labeller to process the labels produced by
 #'   lookup tables or modified by non-labeller functions.
-#' @seealso \code{\link{labeller}()}, \link{labellers}
+#' @seealso [labeller()], \link{labellers}
 #' @keywords internal
 #' @export
 #' @examples
@@ -297,7 +295,7 @@ resolve_labeller <- function(rows, cols, labels) {
 #' appender <- function(string, suffix = "-foo") paste0(string, suffix)
 #' p + facet_wrap(~am, labeller = as_labeller(appender))
 #'
-#' # If you have more than one facetting variable, be sure to dispatch
+#' # If you have more than one faceting variable, be sure to dispatch
 #' # your labeller to the right variable with labeller()
 #' p + facet_grid(cyl ~ am, labeller = labeller(am = to_string))
 as_labeller <- function(x, default = label_value, multi_line = TRUE) {
@@ -330,22 +328,22 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' different factors. The labeller can be a function or it can be a
 #' named character vectors that will serve as a lookup table.
 #'
-#' In case of functions, if the labeller has class \code{labeller}, it
+#' In case of functions, if the labeller has class `labeller`, it
 #' is directly applied on the data frame of labels. Otherwise, it is
 #' applied to the columns of the data frame of labels. The data frame
 #' is then processed with the function specified in the
-#' \code{.default} argument. This is intended to be used with
+#' `.default` argument. This is intended to be used with
 #' functions taking a character vector such as
-#' \code{\link[Hmisc]{capitalize}}.
+#' [Hmisc::capitalize()].
 #'
 #' @param ... Named arguments of the form \code{variable =
-#'   labeller}. Each labeller is passed to \code{\link{as_labeller}()}
+#'   labeller}. Each labeller is passed to [as_labeller()]
 #'   and can be a lookup table, a function taking and returning
 #'   character vectors, or simply a labeller function.
 #' @param .rows,.cols Labeller for a whole margin (either the rows or
-#'   the columns). It is passed to \code{\link{as_labeller}()}. When a
+#'   the columns). It is passed to [as_labeller()]. When a
 #'   margin-wide labeller is set, make sure you don't mention in
-#'   \code{...} any variable belonging to the margin.
+#'   `...` any variable belonging to the margin.
 #' @param keep.as.numeric Deprecated. All supplied labellers and
 #'   on-labeller functions should be able to work with character
 #'   labels.
@@ -355,21 +353,25 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' @param .default Default labeller for variables not specified. Also
 #'   used with lookup tables or non-labeller functions.
 #' @family facet labeller
-#' @seealso \code{\link{as_labeller}()}, \link{labellers}
-#' @return A labeller function to supply to \code{\link{facet_grid}}
-#'   for the argument \code{labeller}.
+#' @seealso [as_labeller()], \link{labellers}
+#' @return A labeller function to supply to [facet_grid()]
+#'   for the argument `labeller`.
 #' @export
 #' @examples
 #' \donttest{
 #' p1 <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
 #'
 #' # You can assign different labellers to variables:
-#' p1 + facet_grid(vs + am ~ gear,
-#'   labeller = labeller(vs = label_both, am = label_value))
+#' p1 + facet_grid(
+#'   vs + am ~ gear,
+#'   labeller = labeller(vs = label_both, am = label_value)
+#' )
 #'
 #' # Or whole margins:
-#' p1 + facet_grid(vs + am ~ gear,
-#'   labeller = labeller(.rows = label_both, .cols = label_value))
+#' p1 + facet_grid(
+#'   vs + am ~ gear,
+#'   labeller = labeller(.rows = label_both, .cols = label_value)
+#' )
 #'
 #' # You can supply functions operating on strings:
 #' capitalize <- function(string) {
@@ -399,9 +401,8 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' # then apply a wrap labeller to the columns to prevent cropped text
 #' msleep$conservation2 <- plyr::revalue(msleep$conservation,
 #'   conservation_status)
-#'
-#' p2 %+% msleep + facet_grid(vore ~ conservation2)
-#' p2 %+% msleep +
+#' p3 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
+#' p3 +
 #'   facet_grid(vore ~ conservation2,
 #'     labeller = labeller(conservation2 = label_wrap_gen(10))
 #'   )
@@ -418,8 +419,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #' )
 #'
 #' p2 + facet_grid(vore ~ conservation, labeller = global_labeller)
-#' p2 + facet_wrap(~vore, labeller = global_labeller)
-#' p2 %+% msleep + facet_wrap(~conservation2, labeller = global_labeller)
+#' p3 + facet_wrap(~conservation2, labeller = global_labeller)
 #' }
 labeller <- function(..., .rows = NULL, .cols = NULL,
                      keep.as.numeric = NULL, .multi_line = TRUE,
@@ -473,7 +473,16 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
   }
 }
 
-
+#' Build facet strips
+#'
+#' Builds a set of facet strips from a data frame of labels.
+#'
+#' @param label_df Data frame of labels to place in strips.
+#' @param labeller Labelling function.
+#' @param theme A theme object.
+#' @param horizontal Whether the strips are horizontal (e.g. x facets) or not.
+#'
+#' @noRd
 build_strip <- function(label_df, labeller, theme, horizontal) {
   labeller <- match.fun(labeller)
 
@@ -486,36 +495,69 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     })
   }
 
+  text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
+
+  element <- calc_element(text_theme, theme)
+
+  if (inherits(element, "element_blank")) {
+    grobs <- rep(list(zeroGrob()), nrow(label_df))
+    return(structure(
+      list(grobs, grobs),
+      names = if (horizontal) c('top', 'bottom') else c('left', 'right')
+    ))
+  }
+
   # Create matrix of labels
   labels <- lapply(labeller(label_df), cbind)
   labels <- do.call("cbind", labels)
 
+  gp <- gpar(
+    fontsize = element$size,
+    col = element$colour,
+    fontfamily = element$family,
+    fontface = element$face,
+    lineheight = element$lineheight
+  )
+
   if (horizontal) {
-    grobs <- apply(labels, c(1, 2), ggstrip, theme = theme,
-      horizontal = horizontal)
-    heights <- unit(apply(grobs, 2, max_height), "cm")
-    grobs <- apply(grobs, 1, function(strips) {
-      gtable_matrix("strip", matrix(strips, ncol = 1), unit(1, "null"), heights, clip = "on")
-    })
+
+    grobs <- create_strip_labels(labels, element, gp)
+    grobs <- ggstrip(grobs, theme, element, gp, horizontal, clip = "on")
+
     list(
       top = grobs,
       bottom = grobs
     )
   } else {
-    grobs_right <- apply(labels, c(1, 2), ggstrip, theme = theme,
-      horizontal = horizontal)
-    grobs_right <- grobs_right[, rev(seq_len(ncol(grobs_right))), drop = FALSE]
-    widths <- unit(apply(grobs_right, 2, max_width), "cm")
-    grobs_right <- apply(grobs_right, 1, function(strips) {
-      gtable_matrix("strip", matrix(strips, nrow = 1), widths, unit(1, "null"), clip = "on")
-    })
-    theme$strip.text.y$angle <- adjust_angle(theme$strip.text.y$angle)
-    grobs_left <- apply(labels, c(1, 2), ggstrip, theme = theme,
-      horizontal = horizontal)
-    widths <- unit(apply(grobs_left, 2, max_width), "cm")
-    grobs_left <- apply(grobs_left, 1, function(strips) {
-      gtable_matrix("strip", matrix(strips, nrow = 1), widths, unit(1, "null"), clip = "off")
-    })
+
+    grobs <- create_strip_labels(labels, element, gp)
+    grobs_right <- grobs[, rev(seq_len(ncol(grobs))), drop = FALSE]
+
+    grobs_right <- ggstrip(
+      grobs_right,
+      theme,
+      element,
+      gp,
+      horizontal,
+      clip = "on"
+    )
+
+    # Change angle of strip labels for y strips that are placed on the left side
+    if (inherits(element, "element_text")) {
+      element$angle <- adjust_angle(element$angle)
+    }
+
+    grobs_left <- create_strip_labels(labels, element, gp)
+
+    grobs_left <- ggstrip(
+      grobs_left,
+      theme,
+      element,
+      gp,
+      horizontal,
+      clip = "off"
+    )
+
     list(
       left = grobs_left,
       right = grobs_right
@@ -523,30 +565,114 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   }
 }
 
-# Grob for strip labels
-ggstrip <- function(text, horizontal = TRUE, theme) {
-  text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
-  if (is.list(text)) text <- text[[1]]
+#' Create list of strip labels
+#'
+#' Calls [title_spec()] on all the labels for a set of strips to create a list
+#' of text grobs, heights, and widths.
+#'
+#' @param labels Matrix of strip labels
+#' @param element Theme element (see [calc_element()]).
+#' @param gp Additional graphical parameters.
+#'
+#' @noRd
+create_strip_labels <- function(labels, element, gp) {
+  grobs <- lapply(labels, title_spec,
+    x = NULL,
+    y = NULL,
+    hjust = element$hjust,
+    vjust = element$vjust,
+    angle = element$angle,
+    gp = gp,
+    debug = element$debug
+  )
+  dim(grobs) <- dim(labels)
+  grobs
+}
 
-  element <- calc_element(text_theme, theme)
-  if (inherits(element, "element_blank"))
-    return(zeroGrob())
+#' Grob for strip labels
+#'
+#' Takes the output from title_spec, adds margins, creates gList with strip
+#' background and label, and returns gtable matrix.
+#'
+#' @param grobs Output from [title_spec()].
+#' @param theme Theme object.
+#' @param element Theme element (see [calc_element()]).
+#' @param gp Additional graphical parameters.
+#' @param horizontal Whether the strips are horizontal (e.g. x facets) or not.
+#' @param clip should drawing be clipped to the specified cells (‘"on"’),the
+#'   entire table (‘"inherit"’), or not at all (‘"off"’).
+#'
+#' @noRd
+ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
 
-  gp <- gpar(fontsize = element$size, col = element$colour,
-    fontfamily = element$family, fontface = element$face,
-    lineheight = element$lineheight)
+  if (horizontal) {
+    height <- max_height(lapply(grobs, function(x) x$text_height))
+    width <- unit(1, "null")
+  } else {
+    height <- unit(1, "null")
+    width <- max_width(lapply(grobs, function(x) x$text_width))
+  }
 
-  label <- stripGrob(text, element$hjust, element$vjust, element$angle,
-    margin = element$margin, gp = gp, debug = element$debug)
+  # Add margins around text grob
+  grobs <- apply(
+    grobs,
+    c(1, 2),
+    function(x) {
+      add_margins(
+        grob = x[[1]]$text_grob,
+        height = height,
+        width = width,
+        gp = gp,
+        margin = element$margin,
+        margin_x = TRUE,
+        margin_y = TRUE
+      )
+    }
+  )
 
-  ggname("strip", absoluteGrob(
-    gList(
-      element_render(theme, "strip.background"),
-      label
-    ),
-    width = grobWidth(label),
-    height = grobHeight(label)
-  ))
+  background <- if (horizontal) "strip.background.x" else "strip.background.y"
+
+  # Put text on a strip
+  grobs <- apply(
+    grobs,
+    c(1, 2),
+    function(label) {
+      ggname(
+        "strip",
+        gTree(
+          children = gList(
+            element_render(theme, background),
+            label[[1]]
+          )
+        )
+      )
+    })
+
+  if (horizontal) {
+    height <- height + sum(element$margin[c(1, 3)])
+  } else {
+    width <- width + sum(element$margin[c(2, 4)])
+  }
+
+
+  apply(
+    grobs,
+    1,
+    function(x) {
+      if (horizontal) {
+        mat <- matrix(x, ncol = 1)
+      } else {
+        mat <- matrix(x, nrow = 1)
+      }
+
+      gtable_matrix(
+        "strip",
+        mat,
+        rep(width, ncol(mat)),
+        rep(height, nrow(mat)),
+        clip = clip
+      )
+    })
 
 }
 

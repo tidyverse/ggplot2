@@ -2,10 +2,10 @@
 % Please edit documentation in R/fortify-multcomp.r
 \name{fortify-multcomp}
 \alias{fortify-multcomp}
-\alias{fortify.cld}
-\alias{fortify.confint.glht}
 \alias{fortify.glht}
+\alias{fortify.confint.glht}
 \alias{fortify.summary.glht}
+\alias{fortify.cld}
 \title{Fortify methods for objects produced by \pkg{multcomp}}
 \usage{
 \method{fortify}{glht}(model, data, ...)
@@ -18,7 +18,7 @@
 }
 \arguments{
 \item{model}{an object of class \code{glht}, \code{confint.glht},
-\code{summary.glht} or \code{\link[multcomp]{cld}}}
+\code{summary.glht} or \code{\link[multcomp:cld]{multcomp::cld()}}}
 
 \item{data, ...}{other arguments to the generic ignored in this method.}
 }
@@ -49,4 +49,3 @@ fortify(cld)
 }
 }
 \keyword{internal}
-

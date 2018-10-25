@@ -9,8 +9,8 @@
 #'   \item{carat}{weight of the diamond (0.2--5.01)}
 #'   \item{cut}{quality of the cut (Fair, Good, Very Good, Premium, Ideal)}
 #'   \item{color}{diamond colour, from J (worst) to D (best)}
-#'   \item{clarity}{a measurement of how clear the diamond is (I1 (worst), SI1,
-#'     SI2, VS1, VS2, VVS1, VVS2, IF (best))}
+#'   \item{clarity}{a measurement of how clear the diamond is (I1 (worst), SI2,
+#'     SI1, VS2, VS1, VVS2, VVS1, IF (best))}
 #'   \item{x}{length in mm (0--10.74)}
 #'   \item{y}{width in mm (0--58.9)}
 #'   \item{z}{depth in mm (0--31.8)}
@@ -23,8 +23,8 @@
 #' US economic time series
 #'
 #' This dataset was produced from US economic time series data available from
-#' \url{http://research.stlouisfed.org/fred2}. \code{economics} is in "wide"
-#' format, \code{economics_long} is in "long" format.
+#' \url{http://research.stlouisfed.org/fred2}. `economics` is in "wide"
+#' format, `economics_long` is in "long" format.
 #'
 #' @format A data frame with 478 rows and 6 variables
 #' \describe{
@@ -164,9 +164,9 @@
 #' @format A data frame with 5,625 observations and 3 variables.
 "faithfuld"
 
-#' \code{colors()} in Luv space
+#' `colors()` in Luv space
 #'
-#' All built-in \code{\link{colors}()} translated into Luv colour space.
+#' All built-in [colors()] translated into Luv colour space.
 #'
 #' @format A data frame with 657 observations and 4 variables:
 #' \describe{

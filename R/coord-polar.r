@@ -3,9 +3,12 @@
 #' The polar coordinate system is most commonly used for pie charts, which
 #' are a stacked bar chart in polar coordinates.
 #'
-#' @param theta variable to map angle to (\code{x} or \code{y})
+#' @param theta variable to map angle to (`x` or `y`)
 #' @param start offset of starting point from 12 o'clock in radians
 #' @param direction 1, clockwise; -1, anticlockwise
+#' @param clip Should drawing be clipped to the extent of the plot panel? A
+#'   setting of `"on"` (the default) means yes, and a setting of `"off"`
+#'   means no. For details, please see [`coord_cartesian()`].
 #' @export
 #' @examples
 #' # NOTE: Use these plots with caution - polar coordinates has
@@ -54,7 +57,7 @@
 #' doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 #' }
 #' }
-coord_polar <- function(theta = "x", start = 0, direction = 1) {
+coord_polar <- function(theta = "x", start = 0, direction = 1, clip = "on") {
   theta <- match.arg(theta, c("x", "y"))
   r <- if (theta == "x") "y" else "x"
 
@@ -62,7 +65,8 @@ coord_polar <- function(theta = "x", start = 0, direction = 1) {
     theta = theta,
     r = r,
     start = start,
-    direction = sign(direction)
+    direction = sign(direction),
+    clip = clip
   )
 }
 
@@ -86,19 +90,19 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     dist_polar(r, theta)
   },
 
-  range = function(self, scale_details) {
+  range = function(self, panel_params) {
     setNames(
-      list(scale_details$theta.range, scale_details$r.range),
+      list(panel_params$theta.range, panel_params$r.range),
       c(self$theta, self$r)
     )
   },
 
-  train = function(self, scale_details) {
+  setup_panel_params = function(self, scale_x, scale_y, params = list()) {
 
     ret <- list(x = list(), y = list())
     for (n in c("x", "y")) {
 
-      scale <- scale_details[[n]]
+      scale <- get(paste0("scale_", n))
       limits <- self$limits[[n]]
 
       if (is.null(limits)) {
@@ -117,66 +121,79 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       ret[[n]]$major <- out$major_source
       ret[[n]]$minor <- out$minor_source
       ret[[n]]$labels <- out$labels
+      ret[[n]]$sec.range <- out$sec.range
+      ret[[n]]$sec.major <- out$sec.major_source
+      ret[[n]]$sec.minor <- out$sec.minor_source
+      ret[[n]]$sec.labels <- out$sec.labels
     }
 
     details = list(
       x.range = ret$x$range, y.range = ret$y$range,
-      x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
-      y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels
+      x.major = ret$x$major, y.major = ret$y$major,
+      x.minor = ret$x$minor, y.minor = ret$y$minor,
+      x.labels = ret$x$labels, y.labels = ret$y$labels,
+      x.sec.range = ret$x$sec.range, y.sec.range = ret$y$sec.range,
+      x.sec.major = ret$x$sec.major, y.sec.major = ret$y$sec.major,
+      x.sec.minor = ret$x$sec.minor, y.sec.minor = ret$y$sec.minor,
+      x.sec.labels = ret$x$sec.labels, y.sec.labels = ret$y$sec.labels
     )
 
     if (self$theta == "y") {
       names(details) <- gsub("x\\.", "r.", names(details))
       names(details) <- gsub("y\\.", "theta.", names(details))
+      details$r.arrange <- scale_x$axis_order()
     } else {
       names(details) <- gsub("x\\.", "theta.", names(details))
       names(details) <- gsub("y\\.", "r.", names(details))
+      details$r.arrange <- scale_y$axis_order()
     }
 
     details
   },
 
-  transform = function(self, data, scale_details) {
+  transform = function(self, data, panel_params) {
     data <- rename_data(self, data)
 
-    data$r  <- r_rescale(self, data$r, scale_details)
-    data$theta <- theta_rescale(self, data$theta, scale_details)
+    data$r  <- r_rescale(self, data$r, panel_params)
+    data$theta <- theta_rescale(self, data$theta, panel_params)
     data$x <- data$r * sin(data$theta) + 0.5
     data$y <- data$r * cos(data$theta) + 0.5
 
     data
   },
 
-  render_axis_v = function(self, scale_details, theme) {
-    arrange <- scale_details$y.arrange %||% c("primary", "secondary")
+  render_axis_v = function(self, panel_params, theme) {
+    arrange <- panel_params$r.arrange %||% c("primary", "secondary")
 
-    x <- r_rescale(self, scale_details$r.major, scale_details) + 0.5
-    guide_axis(x, scale_details$r.labels, "left", theme)
-    axes <- list(
-      left = guide_axis(x, scale_details$r.labels, "left", theme),
-      right = guide_axis(x, scale_details$r.labels, "right", theme)
+    x <- r_rescale(self, panel_params$r.major, panel_params) + 0.5
+    panel_params$r.major <- x
+    if (!is.null(panel_params$r.sec.major)) {
+      panel_params$r.sec.major <- x
+    }
+
+    list(
+      left = render_axis(panel_params, arrange[1], "r", "left", theme),
+      right = render_axis(panel_params, arrange[2], "r", "right", theme)
     )
-    axes[[which(arrange == "secondary")]] <- zeroGrob()
-    axes
   },
 
-  render_axis_h = function(scale_details, theme) {
+  render_axis_h = function(panel_params, theme) {
     list(
       top = zeroGrob(),
       bottom = guide_axis(NA, "", "bottom", theme)
     )
   },
 
-  render_bg = function(self, scale_details, theme) {
-    scale_details <- rename_data(self, scale_details)
+  render_bg = function(self, panel_params, theme) {
+    panel_params <- rename_data(self, panel_params)
 
-    theta <- if (length(scale_details$theta.major) > 0)
-      theta_rescale(self, scale_details$theta.major, scale_details)
-    thetamin <- if (length(scale_details$theta.minor) > 0)
-      theta_rescale(self, scale_details$theta.minor, scale_details)
+    theta <- if (length(panel_params$theta.major) > 0)
+      theta_rescale(self, panel_params$theta.major, panel_params)
+    thetamin <- if (length(panel_params$theta.minor) > 0)
+      theta_rescale(self, panel_params$theta.minor, panel_params)
     thetafine <- seq(0, 2 * pi, length.out = 100)
 
-    rfine <- c(r_rescale(self, scale_details$r.major, scale_details), 0.45)
+    rfine <- c(r_rescale(self, panel_params$r.major, panel_params), 0.45)
 
     # This gets the proper theme element for theta and r grid lines:
     #   panel.grid.major.x or .y
@@ -211,13 +228,13 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     ))
   },
 
-  render_fg = function(self, scale_details, theme) {
-    if (is.null(scale_details$theta.major)) {
+  render_fg = function(self, panel_params, theme) {
+    if (is.null(panel_params$theta.major)) {
       return(element_render(theme, "panel.border"))
     }
 
-    theta <- theta_rescale(self, scale_details$theta.major, scale_details)
-    labels <- scale_details$theta.labels
+    theta <- theta_rescale(self, panel_params$theta.major, panel_params)
+    labels <- panel_params$theta.labels
 
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
@@ -246,13 +263,13 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
   },
 
-  render_fg = function(self, scale_details, theme) {
-    if (is.null(scale_details$theta.major)) {
+  render_fg = function(self, panel_params, theme) {
+    if (is.null(panel_params$theta.major)) {
       return(element_render(theme, "panel.border"))
     }
 
-    theta <- theta_rescale(self, scale_details$theta.major, scale_details)
-    labels <- scale_details$theta.labels
+    theta <- theta_rescale(self, panel_params$theta.major, panel_params)
+    labels <- panel_params$theta.labels
 
     # Combine the two ends of the scale if they are close
     theta <- theta[!is.na(theta)]
@@ -282,12 +299,20 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
   },
 
-  labels = function(self, scale_details) {
+  labels = function(self, panel_params) {
     if (self$theta == "y") {
-      list(x = scale_details$y, y = scale_details$x)
+      list(x = panel_params$y, y = panel_params$x)
     } else {
-      scale_details
+      panel_params
     }
+  },
+
+  modify_scales = function(self, scales_x, scales_y) {
+    if (self$theta != "y")
+      return()
+
+    lapply(scales_x, scale_flip_position)
+    lapply(scales_y, scale_flip_position)
   }
 )
 
@@ -300,16 +325,16 @@ rename_data <- function(coord, data) {
   }
 }
 
-theta_rescale_no_clip <- function(coord, x, scale_details) {
+theta_rescale_no_clip <- function(coord, x, panel_params) {
   rotate <- function(x) (x + coord$start) * coord$direction
-  rotate(rescale(x, c(0, 2 * pi), scale_details$theta.range))
+  rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
 }
 
-theta_rescale <- function(coord, x, scale_details) {
+theta_rescale <- function(coord, x, panel_params) {
   rotate <- function(x) (x + coord$start) %% (2 * pi) * coord$direction
-  rotate(rescale(x, c(0, 2 * pi), scale_details$theta.range))
+  rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
 }
 
-r_rescale <- function(coord, x, scale_details) {
-  rescale(x, c(0, 0.4), scale_details$r.range)
+r_rescale <- function(coord, x, panel_params) {
+  rescale(x, c(0, 0.4), panel_params$r.range)
 }

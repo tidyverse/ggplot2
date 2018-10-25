@@ -8,7 +8,7 @@ annotation_map(map, ...)
 }
 \arguments{
 \item{map}{data frame representing a map.  Most map objects can be
-converted into the right format by using \code{\link{fortify}}}
+converted into the right format by using \code{\link[=fortify]{fortify()}}}
 
 \item{...}{other arguments used to modify aesthetics}
 }
@@ -34,4 +34,3 @@ ggplot(seal2,  aes(x = long, y = lat)) +
   facet_grid(latr ~ longr, scales = "free", space = "free")
 }
 }
-

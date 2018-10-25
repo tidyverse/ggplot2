@@ -5,7 +5,7 @@
 \title{Simultaneously dodge and jitter}
 \usage{
 position_jitterdodge(jitter.width = NULL, jitter.height = 0,
-  dodge.width = 0.75)
+  dodge.width = 0.75, seed = NA)
 }
 \arguments{
 \item{jitter.width}{degree of jitter in x direction. Defaults to 40\% of the
@@ -15,6 +15,15 @@ resolution of the data.}
 
 \item{dodge.width}{the amount to dodge in the x direction. Defaults to 0.75,
 the default \code{position_dodge()} width.}
+
+\item{seed}{A random seed to make the jitter reproducible.
+Useful if you need to apply the same jitter twice, e.g., for a point and
+a corresponding label.
+The random seed is reset after jittering.
+If \code{NA} (the default value), the seed is initialised with a random value;
+this makes sure that two subsequent calls start with a different seed.
+Use \code{NULL} to use the current random seed and also avoid resetting
+(the behavior of \pkg{ggplot} 2.2.1 and earlier).}
 }
 \description{
 This is primarily used for aligning points generated through
@@ -34,4 +43,4 @@ Other position adjustments: \code{\link{position_dodge}},
   \code{\link{position_nudge}},
   \code{\link{position_stack}}
 }
-
+\concept{position adjustments}

@@ -7,10 +7,9 @@ strip_layout <- function(p) {
   data <- data$data
   theme <- plot_theme(plot)
 
-  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout, plot$coordinates),
-    plot$layers, data)
+  geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot$layers, data)
 
-  facet <- layout$render(geom_grobs, data, plot$coordinates, theme, plot$labels)
+  facet <- layout$render(geom_grobs, data, theme, plot$labels)
   layout <- facet$layout
   strip_layout <- layout[grepl("^strip", layout$name), 1:4]
   as.list(strip_layout)
@@ -121,4 +120,21 @@ test_that("facet_grid() switches to both 'x' and 'y'", {
   )
 
   expect_equal(strip_layout(grid_xy), grid_xy_expected)
+})
+
+test_that("strips can be removed", {
+  dat <- data.frame(a = rep(LETTERS[1:10], 10), x = rnorm(100), y = rnorm(100))
+  g <- ggplot(dat, aes(x = x, y = y)) +
+    geom_point() +
+    facet_wrap(~a) +
+    theme(strip.background = element_blank(), strip.text = element_blank())
+  g_grobs <- ggplotGrob(g)
+  strip_grobs <- g_grobs$grobs[grepl('strip-', g_grobs$layout$name)]
+  expect_true(all(sapply(strip_grobs, inherits, 'zeroGrob')))
+})
+
+test_that("y strip labels are rotated when strips are switched", {
+  switched <- p + facet_grid(am ~ cyl, switch = "both")
+  
+  expect_doppelganger("switched facet strips", switched)
 })

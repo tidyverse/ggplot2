@@ -8,17 +8,15 @@ ggplot(data = NULL, mapping = aes(), ..., environment = parent.frame())
 }
 \arguments{
 \item{data}{Default dataset to use for plot. If not already a data.frame,
-will be converted to one by \code{\link{fortify}}. If not specified,
-must be suppled in each layer added to the plot.}
+will be converted to one by \code{\link[=fortify]{fortify()}}. If not specified,
+must be supplied in each layer added to the plot.}
 
 \item{mapping}{Default list of aesthetic mappings to use for plot.
-If not specified, must be suppled in each layer added to the plot.}
+If not specified, must be supplied in each layer added to the plot.}
 
 \item{...}{Other arguments passed on to methods. Not currently used.}
 
-\item{environment}{If an variable defined in the aesthetic mapping is not
-found in the data, ggplot will look for it in this environment. It defaults
-to using the environment in which \code{ggplot()} is called.}
+\item{environment}{DEPRECATED. Used prior to tidy evaluation.}
 }
 \description{
 \code{ggplot()} initializes a ggplot object. It can be used to
@@ -30,11 +28,10 @@ subsequent layers unless specifically overridden.
 \code{ggplot()} is used to construct the initial plot object,
 and is almost always followed by \code{+} to add component to the
 plot. There are three common ways to invoke \code{ggplot}:
-
-\enumerate{
-  \item \code{ggplot(df, aes(x, y, <other aesthetics>))}
-  \item \code{ggplot(df)}
-  \item \code{ggplot()}
+\itemize{
+\item \code{ggplot(df, aes(x, y, other aesthetics))}
+\item \code{ggplot(df)}
+\item \code{ggplot()}
 }
 
 The first method is recommended if all layers use the same
@@ -86,4 +83,3 @@ ggplot() +
     width = 0.4
   )
 }
-

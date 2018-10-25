@@ -6,7 +6,7 @@ NULL
 #' @param hjust,vjust horizontal and vertical justification of the grob.  Each
 #'   justification value should be a number between 0 and 1.  Defaults to 0.5
 #'   for both, centering each pixel over its data location.
-#' @param interpolate If \code{TRUE} interpolate linearly, if \code{FALSE}
+#' @param interpolate If `TRUE` interpolate linearly, if `FALSE`
 #'   (the default) don't interpolate.
 geom_raster <- function(mapping = NULL, data = NULL,
                         stat = "identity", position = "identity",
@@ -62,12 +62,12 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     data
   },
 
-  draw_panel = function(data, panel_scales, coord, interpolate = FALSE,
+  draw_panel = function(data, panel_params, coord, interpolate = FALSE,
                         hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
-    data <- coord$transform(data, panel_scales)
+    data <- coord$transform(data, panel_params)
 
     # Convert vector of data to raster
     x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))

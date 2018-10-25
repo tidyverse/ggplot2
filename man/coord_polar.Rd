@@ -4,7 +4,7 @@
 \alias{coord_polar}
 \title{Polar coordinates}
 \usage{
-coord_polar(theta = "x", start = 0, direction = 1)
+coord_polar(theta = "x", start = 0, direction = 1, clip = "on")
 }
 \arguments{
 \item{theta}{variable to map angle to (\code{x} or \code{y})}
@@ -12,6 +12,10 @@ coord_polar(theta = "x", start = 0, direction = 1)
 \item{start}{offset of starting point from 12 o'clock in radians}
 
 \item{direction}{1, clockwise; -1, anticlockwise}
+
+\item{clip}{Should drawing be clipped to the extent of the plot panel? A
+setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
+means no. For details, please see \code{\link[=coord_cartesian]{coord_cartesian()}}.}
 }
 \description{
 The polar coordinate system is most commonly used for pie charts, which
@@ -65,4 +69,3 @@ doh + geom_bar(width = 0.9, position = "fill") + coord_polar(theta = "y")
 }
 }
 }
-

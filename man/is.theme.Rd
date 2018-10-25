@@ -13,4 +13,3 @@ is.theme(x)
 Reports whether x is a theme object
 }
 \keyword{internal}
-

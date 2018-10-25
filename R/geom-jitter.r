@@ -1,19 +1,17 @@
 #' Jittered points
 #'
 #' The jitter geom is a convenient shortcut for
-#' \code{geom_point(position = "jitter")}. It adds a small amount of random
+#' `geom_point(position = "jitter")`. It adds a small amount of random
 #' variation to the location of each point, and is a useful way of handling
 #' overplotting caused by discreteness in smaller datasets.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{point}
-#'
+#' @eval rd_aesthetics("geom", "point")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams position_jitter
 #' @seealso
-#'  \code{\link{geom_point}} for regular, unjittered points,
-#'  \code{\link{geom_boxplot}} for another way of looking at the conditional
+#'  [geom_point()] for regular, unjittered points,
+#'  [geom_boxplot()] for another way of looking at the conditional
 #'     distribution of a variable
 #' @export
 #' @examples

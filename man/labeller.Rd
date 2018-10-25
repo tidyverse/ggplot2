@@ -9,12 +9,12 @@ labeller(..., .rows = NULL, .cols = NULL, keep.as.numeric = NULL,
 }
 \arguments{
 \item{...}{Named arguments of the form \code{variable =
-labeller}. Each labeller is passed to \code{\link{as_labeller}()}
+  labeller}. Each labeller is passed to \code{\link[=as_labeller]{as_labeller()}}
 and can be a lookup table, a function taking and returning
 character vectors, or simply a labeller function.}
 
 \item{.rows, .cols}{Labeller for a whole margin (either the rows or
-the columns). It is passed to \code{\link{as_labeller}()}. When a
+the columns). It is passed to \code{\link[=as_labeller]{as_labeller()}}. When a
 margin-wide labeller is set, make sure you don't mention in
 \code{...} any variable belonging to the margin.}
 
@@ -30,8 +30,8 @@ function.}
 used with lookup tables or non-labeller functions.}
 }
 \value{
-A labeller function to supply to \code{\link{facet_grid}}
-  for the argument \code{labeller}.
+A labeller function to supply to \code{\link[=facet_grid]{facet_grid()}}
+for the argument \code{labeller}.
 }
 \description{
 This function makes it easy to assign different labellers to
@@ -45,19 +45,23 @@ applied to the columns of the data frame of labels. The data frame
 is then processed with the function specified in the
 \code{.default} argument. This is intended to be used with
 functions taking a character vector such as
-\code{\link[Hmisc]{capitalize}}.
+\code{\link[Hmisc:capitalize]{Hmisc::capitalize()}}.
 }
 \examples{
 \donttest{
 p1 <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
 
 # You can assign different labellers to variables:
-p1 + facet_grid(vs + am ~ gear,
-  labeller = labeller(vs = label_both, am = label_value))
+p1 + facet_grid(
+  vs + am ~ gear,
+  labeller = labeller(vs = label_both, am = label_value)
+)
 
 # Or whole margins:
-p1 + facet_grid(vs + am ~ gear,
-  labeller = labeller(.rows = label_both, .cols = label_value))
+p1 + facet_grid(
+  vs + am ~ gear,
+  labeller = labeller(.rows = label_both, .cols = label_value)
+)
 
 # You can supply functions operating on strings:
 capitalize <- function(string) {
@@ -87,9 +91,8 @@ p2 + facet_grid(vore ~ conservation, labeller = labeller(
 # then apply a wrap labeller to the columns to prevent cropped text
 msleep$conservation2 <- plyr::revalue(msleep$conservation,
   conservation_status)
-
-p2 \%+\% msleep + facet_grid(vore ~ conservation2)
-p2 \%+\% msleep +
+p3 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
+p3 +
   facet_grid(vore ~ conservation2,
     labeller = labeller(conservation2 = label_wrap_gen(10))
   )
@@ -106,11 +109,10 @@ global_labeller <- labeller(
 )
 
 p2 + facet_grid(vore ~ conservation, labeller = global_labeller)
-p2 + facet_wrap(~vore, labeller = global_labeller)
-p2 \%+\% msleep + facet_wrap(~conservation2, labeller = global_labeller)
+p3 + facet_wrap(~conservation2, labeller = global_labeller)
 }
 }
 \seealso{
-\code{\link{as_labeller}()}, \link{labellers}
+\code{\link[=as_labeller]{as_labeller()}}, \link{labellers}
 }
-
+\concept{facet labeller}

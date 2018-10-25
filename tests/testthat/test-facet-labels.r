@@ -19,11 +19,11 @@ get_labels_info <- function(facet, panel, ...) {
 
 get_labels_info.FacetGrid <- function(facet, layout, type) {
   if (type == "rows") {
-    labels <- unique(layout$panel_layout[names(facet$params$rows)])
+    labels <- unique(layout$layout[names(facet$params$rows)])
     attr(labels, "type") <- "rows"
     attr(labels, "facet") <- "grid"
   } else {
-    labels <- unique(layout$panel_layout[names(facet$params$cols)])
+    labels <- unique(layout$layout[names(facet$params$cols)])
     attr(labels, "type") <- "cols"
     attr(labels, "facet") <- "grid"
   }
@@ -31,7 +31,7 @@ get_labels_info.FacetGrid <- function(facet, layout, type) {
 }
 
 get_labels_info.FacetWrap <- function(facet, layout) {
-  labels <- layout$panel_layout[names(facet$params$facets)]
+  labels <- layout$layout[names(facet$params$facets)]
   attr(labels, "facet") <- "wrap"
   if (!is.null(facet$params$switch) && facet$params$switch == "x") {
     attr(labels, "type") <- "rows"
@@ -144,4 +144,18 @@ test_that("old school labellers still work", {
 
   expected_labels <- cbind(paste("var =", c(4, 6, 8)))
   expect_identical(get_labels_matrix(p, "cols"), expected_labels)
+})
+
+
+# Visual test -------------------------------------------------------------
+
+test_that("parsed labels are rendered correctly", {
+  df <- data.frame(x = 1, y = 1, f = "alpha ^ beta")
+
+  expect_doppelganger(
+    "parsed facet labels",
+    ggplot(df, aes(x, y)) +
+      labs(x = NULL, y = NULL) +
+      facet_wrap(~ f, labeller = label_parsed)
+  )
 })

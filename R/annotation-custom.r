@@ -17,7 +17,7 @@ NULL
 #' @param ymin,ymax y location (in data coordinates) giving vertical
 #'   location of raster
 #' @export
-#' @note \code{annotation_custom} expects the grob to fill the entire viewport
+#' @note `annotation_custom` expects the grob to fill the entire viewport
 #' defined by xmin, xmax, ymin, ymax. Grobs with a different (absolute) size
 #' will be center-justified in that region.
 #' Inf values can be used to fill the full plot panel (see examples).
@@ -68,14 +68,14 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
     data
   },
 
-  draw_panel = function(data, panel_scales, coord, grob, xmin, xmax,
+  draw_panel = function(data, panel_params, coord, grob, xmin, xmax,
                         ymin, ymax) {
     if (!inherits(coord, "CoordCartesian")) {
       stop("annotation_custom only works with Cartesian coordinates",
         call. = FALSE)
     }
     corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
-    data <- coord$transform(corners, panel_scales)
+    data <- coord$transform(corners, panel_params)
 
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)

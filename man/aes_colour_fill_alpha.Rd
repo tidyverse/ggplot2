@@ -2,13 +2,13 @@
 % Please edit documentation in R/aes-colour-fill-alpha.r
 \name{aes_colour_fill_alpha}
 \alias{aes_colour_fill_alpha}
-\alias{color}
 \alias{colour}
+\alias{color}
 \alias{fill}
 \title{Colour related aesthetics: colour, fill and alpha}
 \description{
 This page demonstrates the usage of a sub-group
-of aesthetics; colour, fill and alpha.
+of aesthetics: colour, fill and alpha.
 }
 \examples{
 \donttest{
@@ -59,4 +59,3 @@ j
 j + scale_fill_manual(values = alpha(c("blue", "red"), .3))
 }
 }
-

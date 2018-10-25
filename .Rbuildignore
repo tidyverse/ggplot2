@@ -8,6 +8,7 @@ visual_test
 ^cran-comments.md$
 ^data-raw$
 ^CONTRIBUTING\.md$
+^ISSUE_TEMPLATE\.md$
 ^NEWS$
 ^revdep$
 ^\.httr-oauth$
@@ -17,3 +18,4 @@ visual_test
 ^README\.Rmd$
 ^README-.*\.png$
 ^logo\.png$
+^appveyor\.yml$

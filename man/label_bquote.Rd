@@ -28,6 +28,5 @@ p + facet_grid(. ~ vs, labeller = label_bquote(cols = .(vs) ^ .(vs)))
 p + facet_grid(. ~ vs + am, labeller = label_bquote(cols = .(am) ^ .(vs)))
 }
 \seealso{
-\link{labellers}, \code{\link{labeller}()},
+\link{labellers}, \code{\link[=labeller]{labeller()}},
 }
-

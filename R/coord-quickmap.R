@@ -1,10 +1,11 @@
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname coord_map
-coord_quickmap <- function(xlim = NULL, ylim = NULL, expand = TRUE) {
+coord_quickmap <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
   ggproto(NULL, CoordQuickmap,
     limits = list(x = xlim, y = ylim),
-    expand = expand
+    expand = expand,
+    clip = clip
   )
 }
 

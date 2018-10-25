@@ -33,7 +33,7 @@ stat_sum <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatSum <- ggproto("StatSum", Stat,
-  default_aes = aes(size = ..n.., weight = 1),
+  default_aes = aes(size = stat(n), weight = 1),
 
   required_aes = c("x", "y"),
 

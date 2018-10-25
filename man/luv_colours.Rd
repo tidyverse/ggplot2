@@ -13,7 +13,6 @@
 luv_colours
 }
 \description{
-All built-in \code{\link{colors}()} translated into Luv colour space.
+All built-in \code{\link[=colors]{colors()}} translated into Luv colour space.
 }
 \keyword{datasets}
-

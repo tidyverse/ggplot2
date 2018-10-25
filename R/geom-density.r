@@ -1,19 +1,17 @@
 #' Smoothed density estimates
 #'
 #' Computes and draws kernel density estimate, which is a smoothed version of
-#' the histogram. This is a useful alternative to the histogram if for continuous
+#' the histogram. This is a useful alternative to the histogram for continuous
 #' data that comes from an underlying smooth distribution.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{density}
-#'
-#' @seealso See \code{\link{geom_histogram}}, \code{\link{geom_freqpoly}} for
+#' @eval rd_aesthetics("geom", "density")
+#' @seealso See [geom_histogram()], [geom_freqpoly()] for
 #'   other methods of displaying continuous distribution.
-#'   See \code{\link{geom_violin}} for a compact density display.
+#'   See [geom_violin()] for a compact density display.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_density} and \code{stat_density}.
+#'   `geom_density` and `stat_density`.
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(carat)) +
@@ -40,11 +38,11 @@
 #' ggplot(diamonds, aes(carat, fill = cut)) +
 #'   geom_density(position = "stack")
 #' # Preserves marginal densities
-#' ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+#' ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
 #'   geom_density(position = "stack")
 #'
 #' # You can use position="fill" to produce a conditional density estimate
-#' ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+#' ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
 geom_density <- function(mapping = NULL, data = NULL,

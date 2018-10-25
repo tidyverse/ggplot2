@@ -15,29 +15,29 @@ stat_density(mapping = NULL, data = NULL, geom = "area",
   inherit.aes = TRUE)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
 
 \item{data}{The data to be displayed in this layer. There are three
-   options:
+options:
 
-   If \code{NULL}, the default, the data is inherited from the plot
-   data as specified in the call to \code{\link{ggplot}}.
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
 
-   A \code{data.frame}, or other object, will override the plot
-   data. All objects will be fortified to produce a data frame. See
-   \code{\link{fortify}} for which variables will be created.
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[=fortify]{fortify()}} for which variables will be created.
 
-   A \code{function} will be called with a single argument,
-   the plot data. The return value must be a \code{data.frame.}, and
-   will be used as the layer data.}
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame.}, and
+will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -47,12 +47,14 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 
 \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
-the default plot specification, e.g. \code{\link{borders}}.}
+the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_density} and \code{stat_density}.}
@@ -60,16 +62,16 @@ the default plot specification, e.g. \code{\link{borders}}.}
 \item{bw}{The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
-\code{\link[stats]{bw.nrd}}.}
+\code{\link[stats:bw.nrd]{stats::bw.nrd()}}.}
 
 \item{adjust}{A multiplicate bandwidth adjustment. This makes it possible
 to adjust the bandwidth while still using the a bandwidth estimator.
-For exampe, \code{adjust = 1/2} means use half of the default bandwidth.}
+For example, \code{adjust = 1/2} means use half of the default bandwidth.}
 
-\item{kernel}{Kernel. See list of available kernels in \code{\link{density}}.}
+\item{kernel}{Kernel. See list of available kernels in \code{\link[=density]{density()}}.}
 
 \item{n}{number of equally spaced points at which the density is to be
-estimated, should be a power of two, see \code{\link{density}} for
+estimated, should be a power of two, see \code{\link[=density]{density()}} for
 details}
 
 \item{trim}{This parameter only matters if you are displaying multiple
@@ -81,23 +83,36 @@ stack density values.}
 }
 \description{
 Computes and draws kernel density estimate, which is a smoothed version of
-the histogram. This is a useful alternative to the histogram if for continuous
+the histogram. This is a useful alternative to the histogram for continuous
 data that comes from an underlying smooth distribution.
 }
 \section{Aesthetics}{
 
-\aesthetics{geom}{density}
+\code{geom_density} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+\item \code{weight}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \section{Computed variables}{
 
 \describe{
-  \item{density}{density estimate}
-  \item{count}{density * number of points - useful for stacked density
-     plots}
-  \item{scaled}{density estimate, scaled to maximum of 1}
+\item{density}{density estimate}
+\item{count}{density * number of points - useful for stacked density
+plots}
+\item{scaled}{density estimate, scaled to maximum of 1}
 }
 }
+
 \examples{
 ggplot(diamonds, aes(carat)) +
   geom_density()
@@ -123,17 +138,16 @@ ggplot(diamonds, aes(depth, fill = cut, colour = cut)) +
 ggplot(diamonds, aes(carat, fill = cut)) +
   geom_density(position = "stack")
 # Preserves marginal densities
-ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
   geom_density(position = "stack")
 
 # You can use position="fill" to produce a conditional density estimate
-ggplot(diamonds, aes(carat, ..count.., fill = cut)) +
+ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
   geom_density(position = "fill")
 }
 }
 \seealso{
-See \code{\link{geom_histogram}}, \code{\link{geom_freqpoly}} for
-  other methods of displaying continuous distribution.
-  See \code{\link{geom_violin}} for a compact density display.
+See \code{\link[=geom_histogram]{geom_histogram()}}, \code{\link[=geom_freqpoly]{geom_freqpoly()}} for
+other methods of displaying continuous distribution.
+See \code{\link[=geom_violin]{geom_violin()}} for a compact density display.
 }
-

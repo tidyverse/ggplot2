@@ -1,28 +1,26 @@
 #' Smoothed conditional means
 #'
 #' Aids the eye in seeing patterns in the presence of overplotting.
-#' \code{geom_smooth} and \code{stat_smooth} are effectively aliases: they
-#' both use the same arguments. Use \code{geom_smooth} unless you want to
+#' `geom_smooth` and `stat_smooth` are effectively aliases: they
+#' both use the same arguments. Use `geom_smooth` unless you want to
 #' display the results with a non-standard geom.
 #'
 #' Calculation is performed by the (currently undocumented)
-#' \code{predictdf} generic and its methods.  For most methods the standard
-#' error bounds are computed using the \code{\link{predict}} method - the
-#' exceptions are \code{loess} which uses a t-based approximation, and
-#' \code{glm} where the normal confidence interval is constructed on the link
+#' `predictdf` generic and its methods.  For most methods the standard
+#' error bounds are computed using the [predict()] method - the
+#' exceptions are `loess` which uses a t-based approximation, and
+#' `glm` where the normal confidence interval is constructed on the link
 #' scale, and then back-transformed to the response scale.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{smooth}
-#'
+#' @eval rd_aesthetics("geom", "smooth")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_smooth} and \code{stat_smooth}.
+#'   `geom_smooth` and `stat_smooth`.
 #' @seealso See individual modelling functions for more details:
-#'   \code{\link{lm}} for linear smooths,
-#'   \code{\link{glm}} for generalised linear smooths,
-#'   \code{\link{loess}} for local smooths
+#'   [lm()] for linear smooths,
+#'   [glm()] for generalised linear smooths,
+#'   [loess()] for local smooths
 #' @export
 #' @examples
 #' ggplot(mpg, aes(displ, hwy)) +
@@ -39,18 +37,18 @@
 #' # Instead of a loess smooth, you can use any other modelling function:
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
-#'   geom_smooth(method = "lm", se = FALSE)
+#'   geom_smooth(method = lm, se = FALSE)
 #'
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
-#'   geom_smooth(method = "lm", formula = y ~ splines::bs(x, 3), se = FALSE)
+#'   geom_smooth(method = lm, formula = y ~ splines::bs(x, 3), se = FALSE)
 #'
 #' # Smoothes are automatically fit to each group (defined by categorical
 #' # aesthetics or the group aesthetic) and for each facet
 #'
 #' ggplot(mpg, aes(displ, hwy, colour = class)) +
 #'   geom_point() +
-#'   geom_smooth(se = FALSE, method = "lm")
+#'   geom_smooth(se = FALSE, method = lm)
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
 #'   geom_smooth(span = 0.8) +
@@ -89,12 +87,12 @@ geom_smooth <- function(mapping = NULL, data = NULL,
 
   params <- list(
     na.rm = na.rm,
+    se = se,
     ...
   )
   if (identical(stat, "smooth")) {
     params$method <- method
     params$formula <- formula
-    params$se <- se
   }
 
   layer(
@@ -114,21 +112,33 @@ geom_smooth <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomSmooth <- ggproto("GeomSmooth", Geom,
-  draw_group = function(data, panel_scales, coord) {
+  setup_data = function(data, params) {
+    GeomLine$setup_data(data, params)
+  },
+
+  # The `se` argument is set to false here to make sure drawing the
+  # geom and drawing the legend is in synch. If the geom is used by a
+  # stat that doesn't set the `se` argument then `se` will be missing
+  # and the legend key won't be drawn. With `se = FALSE` here the
+  # ribbon won't be drawn either in that case, keeping the overall
+  # behavior predictable and sensible. The user will realize that they
+  # need to set `se = TRUE` to obtain the ribbon and the legend key.
+  draw_group = function(data, panel_params, coord, se = FALSE) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
-    has_ribbon <- !is.null(data$ymax) && !is.null(data$ymin)
+    has_ribbon <- se && !is.null(data$ymax) && !is.null(data$ymin)
 
     gList(
-      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_scales, coord),
-      GeomLine$draw_panel(path, panel_scales, coord)
+      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_params, coord),
+      GeomLine$draw_panel(path, panel_params, coord)
     )
   },
 
   draw_key = draw_key_smooth,
 
   required_aes = c("x", "y"),
+  optional_aes = c("ymin", "ymax"),
 
   default_aes = aes(colour = "#3366FF", fill = "grey60", size = 1,
     linetype = 1, weight = 1, alpha = 0.4)

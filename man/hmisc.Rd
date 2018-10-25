@@ -25,15 +25,14 @@ median_hilow(x, ...)
 A data frame with columns \code{y}, \code{ymin}, and \code{ymax}.
 }
 \description{
-These are wrappers around functions from \pkg{Hmsic} designed to make them
-easier to use with \code{\link{stat_summary}}. See the Hmisc documentation
+These are wrappers around functions from \pkg{Hmisc} designed to make them
+easier to use with \code{\link[=stat_summary]{stat_summary()}}. See the Hmisc documentation
 for more details:
-
 \itemize{
- \item \code{\link[Hmisc]{smean.cl.boot}}
- \item \code{\link[Hmisc]{smean.cl.normal}}
- \item \code{\link[Hmisc]{smean.sdl}}
- \item \code{\link[Hmisc]{smedian.hilow}}
+\item \code{\link[Hmisc:smean.cl.boot]{Hmisc::smean.cl.boot()}}
+\item \code{\link[Hmisc:smean.cl.normal]{Hmisc::smean.cl.normal()}}
+\item \code{\link[Hmisc:smean.sdl]{Hmisc::smean.sdl()}}
+\item \code{\link[Hmisc:smedian.hilow]{Hmisc::smedian.hilow()}}
 }
 }
 \examples{
@@ -43,4 +42,3 @@ mean_cl_normal(x)
 mean_sdl(x)
 median_hilow(x)
 }
-

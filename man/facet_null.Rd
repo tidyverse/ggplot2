@@ -15,9 +15,8 @@ before statistical summary.}
 Facet specification: a single panel.
 }
 \examples{
-# facet_null is the default facetting specification if you
+# facet_null is the default faceting specification if you
 # don't override it with facet_grid or facet_wrap
 ggplot(mtcars, aes(mpg, wt)) + geom_point()
 }
 \keyword{internal}
-

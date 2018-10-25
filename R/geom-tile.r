@@ -1,15 +1,13 @@
 #' Rectangles
 #'
-#' \code{geom_rect} and \code{geom_tile} do the same thing, but are
-#' parameterised differently: \code{geom_rect} uses the locations of the four
-#' corners (\code{xmin}, \code{xmax}, \code{ymin} and \code{ymax}), while
-#' \code{geom_tile} uses the center of the tile and its size (\code{x},
-#' \code{y}, \code{width}, \code{height}). \code{geom_raster} is a high
+#' `geom_rect` and `geom_tile` do the same thing, but are
+#' parameterised differently: `geom_rect` uses the locations of the four
+#' corners (`xmin`, `xmax`, `ymin` and `ymax`), while
+#' `geom_tile` uses the center of the tile and its size (`x`,
+#' `y`, `width`, `height`). `geom_raster` is a high
 #' performance special case for when all the tiles are the same size.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{tile}
-#'
+#' @eval rd_aesthetics("geom", "tile")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @export
@@ -32,11 +30,11 @@
 #'   w = rep(diff(c(0, 4, 6, 8, 10, 14)), 2)
 #' )
 #' ggplot(df, aes(x, y)) +
-#'   geom_tile(aes(fill = z))
-#' ggplot(df, aes(x, y)) +
-#'   geom_tile(aes(fill = z, width = w), colour = "grey50")
+#'   geom_tile(aes(fill = z), colour = "grey50")
+#' ggplot(df, aes(x, y, width = w)) +
+#'   geom_tile(aes(fill = z), colour = "grey50")
 #' ggplot(df, aes(xmin = x - w / 2, xmax = x + w / 2, ymin = y, ymax = y + 1)) +
-#'   geom_rect(aes(fill = z, width = w), colour = "grey50")
+#'   geom_rect(aes(fill = z), colour = "grey50")
 #'
 #' \donttest{
 #' # Justification controls where the cells are anchored
@@ -50,11 +48,11 @@
 #' # Inspired by the image-density plots of Ken Knoblauch
 #' cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 #' cars + geom_point()
-#' cars + stat_bin2d(aes(fill = ..count..), binwidth = c(3,1))
-#' cars + stat_bin2d(aes(fill = ..density..), binwidth = c(3,1))
+#' cars + stat_bin2d(aes(fill = stat(count)), binwidth = c(3,1))
+#' cars + stat_bin2d(aes(fill = stat(density)), binwidth = c(3,1))
 #'
-#' cars + stat_density(aes(fill = ..density..), geom = "raster", position = "identity")
-#' cars + stat_density(aes(fill = ..count..), geom = "raster", position = "identity")
+#' cars + stat_density(aes(fill = stat(density)), geom = "raster", position = "identity")
+#' cars + stat_density(aes(fill = stat(count)), geom = "raster", position = "identity")
 #' }
 geom_tile <- function(mapping = NULL, data = NULL,
                       stat = "identity", position = "identity",
@@ -83,7 +81,7 @@ geom_tile <- function(mapping = NULL, data = NULL,
 #' @export
 #' @include geom-rect.r
 GeomTile <- ggproto("GeomTile", GeomRect,
-  extra_params = c("na.rm", "width", "height"),
+  extra_params = c("na.rm"),
 
   setup_data = function(data, params) {
     data$width <- data$width %||% params$width %||% resolution(data$x, FALSE)
@@ -96,7 +94,7 @@ GeomTile <- ggproto("GeomTile", GeomRect,
   },
 
   default_aes = aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1,
-    alpha = NA),
+    alpha = NA, width = NA, height = NA),
 
   required_aes = c("x", "y"),
 

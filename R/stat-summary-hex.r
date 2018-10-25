@@ -37,7 +37,7 @@ stat_summary_hex <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatSummaryHex <- ggproto("StatSummaryHex", Stat,
-  default_aes = aes(fill = ..value..),
+  default_aes = aes(fill = stat(value)),
 
   required_aes = c("x", "y", "z"),
 

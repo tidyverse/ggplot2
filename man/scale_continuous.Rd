@@ -2,12 +2,12 @@
 % Please edit documentation in R/scale-continuous.r
 \name{scale_continuous}
 \alias{scale_x_continuous}
-\alias{scale_x_log10}
-\alias{scale_x_reverse}
-\alias{scale_x_sqrt}
 \alias{scale_y_continuous}
+\alias{scale_x_log10}
 \alias{scale_y_log10}
+\alias{scale_x_reverse}
 \alias{scale_y_reverse}
+\alias{scale_x_sqrt}
 \alias{scale_y_sqrt}
 \title{Position scales for continuous data (x & y)}
 \usage{
@@ -35,43 +35,48 @@ scale_y_sqrt(...)
 }
 \arguments{
 \item{name}{The name of the scale. Used as axis or legend title. If
-\code{NULL}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic.}
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
 
-\item{breaks}{One of: \itemize{
-  \item \code{NULL} for no breaks
-  \item \code{waiver()} for the default breaks computed by the
-    transformation object
-  \item A numeric vector of positions
-  \item A function that takes the limits as input and returns breaks
-    as output
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks computed by the
+transformation object
+\item A numeric vector of positions
+\item A function that takes the limits as input and returns breaks
+as output
 }}
 
-\item{minor_breaks}{One of: \itemize{
-  \item \code{NULL} for no minor breaks
-  \item \code{waiver()} for the default breaks (one minor break between
-    each major break)
-  \item A numeric vector of positions
-  \item A function that given the limits returns a vector of minor breaks.
+\item{minor_breaks}{One of:
+\itemize{
+\item \code{NULL} for no minor breaks
+\item \code{waiver()} for the default breaks (one minor break between
+each major break)
+\item A numeric vector of positions
+\item A function that given the limits returns a vector of minor breaks.
 }}
 
-\item{labels}{One of: \itemize{
-  \item \code{NULL} for no labels
-  \item \code{waiver()} for the default labels computed by the
-    transformation object
-  \item A character vector giving labels (must be same length as \code{breaks})
-  \item A function that takes the breaks as input and returns labels
-    as output
+\item{labels}{One of:
+\itemize{
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item A function that takes the breaks as input and returns labels
+as output
 }}
 
 \item{limits}{A numeric vector of length two providing limits of the scale.
 Use \code{NA} to refer to the existing minimum or maximum.}
 
-\item{expand}{A numeric vector of length two giving multiplicative and
-additive expansion constants. These constants ensure that the data is
-placed some distance away from the axes. The defaults are
-\code{c(0.05, 0)} for continuous variables, and \code{c(0, 0.6)} for
-discrete variables.}
+\item{expand}{Vector of range expansion constants used to add some
+padding around the data, to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+to generate the values for the \code{expand} argument. The defaults are to
+expand the scale by 5\% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.}
 
 \item{oob}{Function that handles limits outside of the scale limits
 (out of bounds). The default replaces out of bounds values with NA.}
@@ -79,20 +84,20 @@ discrete variables.}
 \item{na.value}{Missing values will be replaced with this value.}
 
 \item{trans}{Either the name of a transformation object, or the
-  object itself. Built-in transformations include "asn", "atanh",
-  "boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-  "logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
+"logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
 
-  A transformation object bundles together a transform, it's inverse,
-  and methods for generating breaks and labels. Transformation objects
-  are defined in the scales package, and are called \code{name_trans}, e.g.
-  \code{\link[scales]{boxcox_trans}}. You can create your own
-  transformation with \code{\link[scales]{trans_new}}.}
+A transformation object bundles together a transform, it's inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called \code{name_trans}, e.g.
+\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
+transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}
 
-\item{sec.axis}{specifify a secondary axis}
+\item{sec.axis}{specify a secondary axis}
 
 \item{...}{Other arguments passed on to \code{scale_(x|y)_continuous}}
 }
@@ -104,7 +109,7 @@ that set the \code{trans} argument for commonly used transformations:
 }
 \details{
 For simple manipulation of labels and limits, you may wish to use
-\code{\link{labs}()} and \code{\link{lims}()} instead.
+\code{\link[=labs]{labs()}} and \code{\link[=lims]{lims()}} instead.
 }
 \examples{
 p1 <- ggplot(mpg, aes(displ, hwy)) +
@@ -160,9 +165,9 @@ p1 + scale_y_continuous(trans = scales::reciprocal_trans())
 # You can also create your own. See ?scales::trans_new
 }
 \seealso{
-\code{\link{sec_axis}} for how to specify secondary axes
+\code{\link[=sec_axis]{sec_axis()}} for how to specify secondary axes
 
 Other position scales: \code{\link{scale_x_date}},
   \code{\link{scale_x_discrete}}
 }
-
+\concept{position scales}

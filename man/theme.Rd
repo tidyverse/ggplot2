@@ -5,19 +5,24 @@
 \title{Modify components of a theme}
 \usage{
 theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
-  axis.title.x.top, axis.title.y, axis.title.y.right, axis.text, axis.text.x,
-  axis.text.x.top, axis.text.y, axis.text.y.right, axis.ticks, axis.ticks.x,
-  axis.ticks.y, axis.ticks.length, axis.line, axis.line.x, axis.line.y,
-  legend.background, legend.margin, legend.spacing, legend.spacing.x,
-  legend.spacing.y, legend.key, legend.key.size, legend.key.height,
-  legend.key.width, legend.text, legend.text.align, legend.title,
-  legend.title.align, legend.position, legend.direction, legend.justification,
-  legend.box, legend.box.just, legend.box.margin, legend.box.background,
-  legend.box.spacing, panel.background, panel.border, panel.spacing,
-  panel.spacing.x, panel.spacing.y, panel.grid, panel.grid.major,
-  panel.grid.minor, panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
+  axis.title.x.top, axis.title.x.bottom, axis.title.y, axis.title.y.left,
+  axis.title.y.right, axis.text, axis.text.x, axis.text.x.top,
+  axis.text.x.bottom, axis.text.y, axis.text.y.left, axis.text.y.right,
+  axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom, axis.ticks.y,
+  axis.ticks.y.left, axis.ticks.y.right, axis.ticks.length, axis.line,
+  axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y,
+  axis.line.y.left, axis.line.y.right, legend.background, legend.margin,
+  legend.spacing, legend.spacing.x, legend.spacing.y, legend.key,
+  legend.key.size, legend.key.height, legend.key.width, legend.text,
+  legend.text.align, legend.title, legend.title.align, legend.position,
+  legend.direction, legend.justification, legend.box, legend.box.just,
+  legend.box.margin, legend.box.background, legend.box.spacing,
+  panel.background, panel.border, panel.spacing, panel.spacing.x,
+  panel.spacing.y, panel.grid, panel.grid.major, panel.grid.minor,
+  panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
   panel.grid.minor.y, panel.ontop, plot.background, plot.title, plot.subtitle,
-  plot.caption, plot.margin, strip.background, strip.placement, strip.text,
+  plot.caption, plot.tag, plot.tag.position, plot.margin, strip.background,
+  strip.background.x, strip.background.y, strip.placement, strip.text,
   strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
   complete = FALSE, validate = TRUE)
 }
@@ -42,8 +47,14 @@ inherits from \code{text})}
 \item{axis.title.x.top}{x axis label on top axis (\code{element_text};
 inherits from \code{axis.title.x})}
 
+\item{axis.title.x.bottom}{x axis label on bottom axis (\code{element_text};
+inherits from \code{axis.title.x})}
+
 \item{axis.title.y}{y axis label (\code{element_text}; inherits from
 \code{axis.title})}
+
+\item{axis.title.y.left}{y axis label on left axis (\code{element_text};
+inherits from \code{axis.title.y})}
 
 \item{axis.title.y.right}{y axis label on right axis (\code{element_text};
 inherits from \code{axis.title.y})}
@@ -57,8 +68,14 @@ inherits from \code{axis.title.y})}
 \item{axis.text.x.top}{x axis tick labels on top axis (\code{element_text};
 inherits from \code{axis.text.x})}
 
+\item{axis.text.x.bottom}{x axis tick labels on bottom axis (\code{element_text};
+inherits from \code{axis.text.x})}
+
 \item{axis.text.y}{y axis tick labels (\code{element_text}; inherits from
 \code{axis.text})}
+
+\item{axis.text.y.left}{y axis tick labels on left axis
+(\code{element_text}; inherits from \code{axis.text.y})}
 
 \item{axis.text.y.right}{y axis tick labels on right axis
 (\code{element_text}; inherits from \code{axis.text.y})}
@@ -69,8 +86,20 @@ inherits from \code{axis.text.x})}
 \item{axis.ticks.x}{x axis tick marks (\code{element_line}; inherits from
 \code{axis.ticks})}
 
+\item{axis.ticks.x.top}{x axis tick marks on top axis (\code{element_line};
+inherits from \code{axis.ticks.x})}
+
+\item{axis.ticks.x.bottom}{x axis tick marks on bottom axis (\code{element_line};
+inherits from \code{axis.ticks.x})}
+
 \item{axis.ticks.y}{y axis tick marks (\code{element_line}; inherits from
 \code{axis.ticks})}
+
+\item{axis.ticks.y.left}{y axis tick marks on left axis (\code{element_line};
+inherits from \code{axis.ticks.y})}
+
+\item{axis.ticks.y.right}{y axis tick marks on right axis (\code{element_line};
+inherits from \code{axis.ticks.y})}
 
 \item{axis.ticks.length}{length of tick marks (\code{unit})}
 
@@ -80,8 +109,20 @@ inherits from \code{axis.text.x})}
 \item{axis.line.x}{line along x axis (\code{element_line}; inherits from
 \code{axis.line})}
 
+\item{axis.line.x.top}{line along x axis on top axis (\code{element_line};
+inherits from \code{axis.line.x})}
+
+\item{axis.line.x.bottom}{line along x axis on bottom axis (\code{element_line};
+inherits from \code{axis.line.x})}
+
 \item{axis.line.y}{line along y axis (\code{element_line}; inherits from
 \code{axis.line})}
+
+\item{axis.line.y.left}{line along y axis on left axis (\code{element_line};
+inherits from \code{axis.line.y})}
+
+\item{axis.line.y.right}{line along y axis on right axis (\code{element_line};
+inherits from \code{axis.line.y})}
 
 \item{legend.background}{background of legend (\code{element_rect}; inherits
 from \code{rect})}
@@ -137,7 +178,7 @@ bounding box, when there are multiple legends ("top", "bottom", "left", or
 "right")}
 
 \item{legend.box.margin}{margins around the full legend area, as specified
-using \code{\link{margin}}}
+using \code{\link[=margin]{margin()}}}
 
 \item{legend.box.background}{background of legend area (\code{element_rect};
 inherits from \code{rect})}
@@ -149,8 +190,8 @@ legend box (\code{unit})}
 (\code{element_rect}; inherits from \code{rect})}
 
 \item{panel.border}{border around plotting area, drawn on top of plot so that
-  it covers tick marks and grid lines. This should be used with
-  \code{fill=NA}
+it covers tick marks and grid lines. This should be used with
+\code{fill=NA}
 (\code{element_rect}; inherits from \code{rect})}
 
 \item{panel.spacing}{spacing between facet panels (\code{unit})}
@@ -197,11 +238,25 @@ inherits from \code{title}) left-aligned by default}
 \item{plot.caption}{caption below the plot (text appearance)
 (\code{element_text}; inherits from \code{title}) right-aligned by default}
 
+\item{plot.tag}{upper-left label to identify a plot (text appearance)
+(\code{element_text}; inherits from \code{title}) left-aligned by default}
+
+\item{plot.tag.position}{The position of the tag as a string ("topleft",
+"top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
+or a coordinate. If a string, extra space will be added to accomodate the
+tag.}
+
 \item{plot.margin}{margin around entire plot (\code{unit} with the sizes of
 the top, right, bottom, and left margins)}
 
 \item{strip.background}{background of facet labels (\code{element_rect};
 inherits from \code{rect})}
+
+\item{strip.background.x}{backgronud of horizontal facet labels
+(\code{element_rect}; inherits from \code{strip.background})}
+
+\item{strip.background.y}{backgronud of vertical facet labels
+(\code{element_rect}; inherits from \code{strip.background})}
 
 \item{strip.placement}{placement of strip with respect to axes,
 either "inside" or "outside". Only important when axes and strips are
@@ -236,7 +291,7 @@ elements.}
 \description{
 Use \code{theme()} to modify individual components of a theme, allowing
 you to control the appearance of all non-data components of the plot.
-\code{theme()} only affects a single plot: see \code{\link{theme_update}} if
+\code{theme()} only affects a single plot: see \code{\link[=theme_update]{theme_update()}} if
 you want modify the active theme, to affect all subsequent plots.
 }
 \section{Theme inheritance}{
@@ -249,6 +304,7 @@ directly or indirectly from \code{text}; all lines inherit from
 This means that you can modify the appearance of multiple elements by
 setting a single high-level component.
 }
+
 \examples{
 p1 <- ggplot(mtcars, aes(wt, mpg)) +
   geom_point() +
@@ -335,9 +391,8 @@ p3 + theme(panel.spacing = unit(1, "lines"))
 }
 }
 \seealso{
-\code{\link{+.gg}} and \code{\link{\%+replace\%}},
-  \code{\link{element_blank}}, \code{\link{element_line}},
-  \code{\link{element_rect}}, and \code{\link{element_text}} for
-  details of the specific theme elements.
+\code{\link[=+.gg]{+.gg()}} and \code{\link{\%+replace\%}},
+\code{\link[=element_blank]{element_blank()}}, \code{\link[=element_line]{element_line()}},
+\code{\link[=element_rect]{element_rect()}}, and \code{\link[=element_text]{element_text()}} for
+details of the specific theme elements.
 }
-

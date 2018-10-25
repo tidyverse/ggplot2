@@ -1,11 +1,9 @@
 #' Line segments parameterised by location, direction and distance
 #'
-#' This is a polar parameterisation of \code{\link{geom_segment}}. It is
+#' This is a polar parameterisation of [geom_segment()]. It is
 #' useful when you have variables that describe direction and distance.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{spoke}
-#'
+#' @eval rd_aesthetics("geom", "spoke")
 #' @inheritParams layer
 #' @inheritParams geom_segment
 #' @export

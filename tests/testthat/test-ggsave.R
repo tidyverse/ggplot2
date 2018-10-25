@@ -11,6 +11,22 @@ test_that("ggsave creates file", {
   expect_true(file.exists(path))
 })
 
+test_that("ggsave restores previous graphics device", {
+  # When multiple devices are open, dev.off() restores the next one in the list,
+  # not the previously-active one. (#2363)
+  path <- tempfile()
+  on.exit(unlink(path))
+
+  png(tempfile())
+  png(tempfile())
+  on.exit(graphics.off(), add = TRUE)
+
+  old_dev <- dev.cur()
+  p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+  ggsave(path, p, device = "png", width = 5, height = 5)
+
+  expect_identical(old_dev, dev.cur())
+})
 
 # plot_dim ---------------------------------------------------------------
 
@@ -36,10 +52,9 @@ test_that("scale multiplies height & width", {
   expect_equal(plot_dim(c(5, 5), scale = 2), c(10, 10))
 })
 
-
 # plot_dev ---------------------------------------------------------------------
 
-test_that("function passed back unchanged", {
+test_that("function is passed back unchanged", {
   expect_equal(plot_dev(png), png)
 })
 
@@ -56,4 +71,25 @@ test_that("text converted to function", {
 
 test_that("if device is NULL, guess from extension", {
   expect_identical(body(plot_dev(NULL, "test.png"))[[1]], quote(grDevices::png))
+})
+
+# parse_dpi ---------------------------------------------------------------
+
+test_that("DPI string values are parsed correctly", {
+  expect_type(parse_dpi("print"), "double")
+  expect_type(parse_dpi("screen"), "double")
+  expect_type(parse_dpi("retina"), "double")
+  expect_type(parse_dpi(100), "double")
+  expect_type(parse_dpi(300L), "integer")
+})
+
+test_that("invalid single-string DPI values throw an error", {
+  expect_error(parse_dpi("abc"), "Unknown DPI string")
+})
+
+test_that("invalid non-single-string DPI values throw an error", {
+  expect_error(parse_dpi(factor(100)), "DPI must be a single number or string")
+  expect_error(parse_dpi(c("print", "screen")), "DPI must be a single number or string")
+  expect_error(parse_dpi(c(150, 300)), "DPI must be a single number or string")
+  expect_error(parse_dpi(list(150)), "DPI must be a single number or string")
 })

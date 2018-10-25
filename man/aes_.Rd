@@ -2,8 +2,8 @@
 % Please edit documentation in R/aes.r
 \name{aes_}
 \alias{aes_}
-\alias{aes_q}
 \alias{aes_string}
+\alias{aes_q}
 \title{Define aesthetic mappings programatically}
 \usage{
 aes_(x, y, ...)
@@ -18,7 +18,7 @@ quoted calls, strings, one-sided formulas or constants.}
 }
 \description{
 Aesthetic mappings describe how variables in the data are mapped to visual
-properties (aesthetics) of geoms. \code{\link{aes}} uses non-standard
+properties (aesthetics) of geoms. \code{\link[=aes]{aes()}} uses non-standard
 evaluation to capture the variable names. \code{aes_} and \code{aes_string}
 require you to explicitly quote the inputs either with \code{""} for
 \code{aes_string()}, or with \code{quote} or \code{~} for \code{aes_()}.
@@ -29,12 +29,20 @@ require you to explicitly quote the inputs either with \code{""} for
 \code{aes_string} and \code{aes_} are particularly useful when writing
 functions that create plots because you can use strings or quoted
 names/calls to define the aesthetic mappings, rather than having to use
-\code{\link{substitute}} to generate a call to \code{aes()}.
+\code{\link[=substitute]{substitute()}} to generate a call to \code{aes()}.
 
 I recommend using \code{aes_()}, because creating the equivalents of
 \code{aes(colour = "my colour")} or \code{aes{x = `X$1`}}
 with \code{aes_string()} is quite clunky.
 }
+\section{Life cycle}{
+
+
+All these functions are soft-deprecated. Please use tidy evaluation
+idioms instead (see the quasiquotation section in
+\code{\link[=aes]{aes()}} documentation).
+}
+
 \examples{
 # Three ways of generating the same aesthetics
 aes(mpg, wt, col = cyl)
@@ -54,6 +62,5 @@ aes(col = x)
 aes_(col = as.name(var))
 }
 \seealso{
-\code{\link{aes}}
+\code{\link[=aes]{aes()}}
 }
-

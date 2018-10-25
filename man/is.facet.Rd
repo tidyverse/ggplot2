@@ -2,7 +2,7 @@
 % Please edit documentation in R/facet-.r
 \name{is.facet}
 \alias{is.facet}
-\title{Is this object a facetting specification?}
+\title{Is this object a faceting specification?}
 \usage{
 is.facet(x)
 }
@@ -10,7 +10,6 @@ is.facet(x)
 \item{x}{object to test}
 }
 \description{
-Is this object a facetting specification?
+Is this object a faceting specification?
 }
 \keyword{internal}
-

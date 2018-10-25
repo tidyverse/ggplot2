@@ -1,81 +1,105 @@
 #' Modify components of a theme
 #'
-#' Use \code{theme()} to modify individual components of a theme, allowing
+#' Use `theme()` to modify individual components of a theme, allowing
 #' you to control the appearance of all non-data components of the plot.
-#' \code{theme()} only affects a single plot: see \code{\link{theme_update}} if
+#' `theme()` only affects a single plot: see [theme_update()] if
 #' you want modify the active theme, to affect all subsequent plots.
 #'
 #' @section Theme inheritance:
 #' Theme elements inherit properties from other theme elements.
-#' For example, \code{axis.title.x} inherits from \code{axis.title},
-#' which in turn inherits from \code{text}. All text elements inherit
-#' directly or indirectly from \code{text}; all lines inherit from
-#' \code{line}, and all rectangular objects inherit from \code{rect}.
+#' For example, `axis.title.x` inherits from `axis.title`,
+#' which in turn inherits from `text`. All text elements inherit
+#' directly or indirectly from `text`; all lines inherit from
+#' `line`, and all rectangular objects inherit from `rect`.
 #' This means that you can modify the appearance of multiple elements by
 #' setting a single high-level component.
 #'
-#' @param line all line elements (\code{element_line})
-#' @param rect all rectangular elements (\code{element_rect})
-#' @param text all text elements (\code{element_text})
-#' @param title all title elements: plot, axes, legends (\code{element_text};
-#'   inherits from \code{text})
+#' @param line all line elements (`element_line`)
+#' @param rect all rectangular elements (`element_rect`)
+#' @param text all text elements (`element_text`)
+#' @param title all title elements: plot, axes, legends (`element_text`;
+#'   inherits from `text`)
 #' @param aspect.ratio aspect ratio of the panel
 #'
-#' @param axis.title label of axes (\code{element_text}; inherits from
-#'   \code{text})
-#' @param axis.title.x x axis label (\code{element_text}; inherits from
-#'   \code{axis.title})
-#' @param axis.title.x.top x axis label on top axis (\code{element_text};
-#'   inherits from \code{axis.title.x})
-#' @param axis.title.y y axis label (\code{element_text}; inherits from
-#'   \code{axis.title})
-#' @param axis.title.y.right y axis label on right axis (\code{element_text};
-#'   inherits from \code{axis.title.y})
-#' @param axis.text tick labels along axes (\code{element_text}; inherits from
-#'   \code{text})
-#' @param axis.text.x x axis tick labels (\code{element_text}; inherits from
-#'   \code{axis.text})
-#' @param axis.text.x.top x axis tick labels on top axis (\code{element_text};
-#'   inherits from \code{axis.text.x})
-#' @param axis.text.y y axis tick labels (\code{element_text}; inherits from
-#'   \code{axis.text})
+#' @param axis.title label of axes (`element_text`; inherits from
+#'   `text`)
+#' @param axis.title.x x axis label (`element_text`; inherits from
+#'   `axis.title`)
+#' @param axis.title.x.top x axis label on top axis (`element_text`;
+#'   inherits from `axis.title.x`)
+#' @param axis.title.x.bottom x axis label on bottom axis (`element_text`;
+#'   inherits from `axis.title.x`)
+#' @param axis.title.y y axis label (`element_text`; inherits from
+#'   `axis.title`)
+#' @param axis.title.y.left y axis label on left axis (`element_text`;
+#'   inherits from `axis.title.y`)
+#' @param axis.title.y.right y axis label on right axis (`element_text`;
+#'   inherits from `axis.title.y`)
+#' @param axis.text tick labels along axes (`element_text`; inherits from
+#'   `text`)
+#' @param axis.text.x x axis tick labels (`element_text`; inherits from
+#'   `axis.text`)
+#' @param axis.text.x.top x axis tick labels on top axis (`element_text`;
+#'   inherits from `axis.text.x`)
+#' @param axis.text.x.bottom x axis tick labels on bottom axis (`element_text`;
+#'   inherits from `axis.text.x`)
+#' @param axis.text.y y axis tick labels (`element_text`; inherits from
+#'   `axis.text`)
+#' @param axis.text.y.left y axis tick labels on left axis
+#'   (`element_text`; inherits from `axis.text.y`)
 #' @param axis.text.y.right y axis tick labels on right axis
-#'   (\code{element_text}; inherits from \code{axis.text.y})
-#' @param axis.ticks tick marks along axes (\code{element_line}; inherits from
-#'   \code{line})
-#' @param axis.ticks.x x axis tick marks (\code{element_line}; inherits from
-#'   \code{axis.ticks})
-#' @param axis.ticks.y y axis tick marks (\code{element_line}; inherits from
-#'   \code{axis.ticks})
-#' @param axis.ticks.length length of tick marks (\code{unit})
-#' @param axis.line lines along axes (\code{element_line}; inherits from
-#'   \code{line})
-#' @param axis.line.x line along x axis (\code{element_line}; inherits from
-#'   \code{axis.line})
-#' @param axis.line.y line along y axis (\code{element_line}; inherits from
-#'   \code{axis.line})
+#'   (`element_text`; inherits from `axis.text.y`)
+#' @param axis.ticks tick marks along axes (`element_line`; inherits from
+#'   `line`)
+#' @param axis.ticks.x x axis tick marks (`element_line`; inherits from
+#'   `axis.ticks`)
+#' @param axis.ticks.x.top x axis tick marks on top axis (`element_line`;
+#'   inherits from `axis.ticks.x`)
+#' @param axis.ticks.x.bottom x axis tick marks on bottom axis (`element_line`;
+#'   inherits from `axis.ticks.x`)
+#' @param axis.ticks.y y axis tick marks (`element_line`; inherits from
+#'   `axis.ticks`)
+#' @param axis.ticks.y.left y axis tick marks on left axis (`element_line`;
+#'   inherits from `axis.ticks.y`)
+#' @param axis.ticks.y.right y axis tick marks on right axis (`element_line`;
+#'   inherits from `axis.ticks.y`)
+#' @param axis.ticks.length length of tick marks (`unit`)
+#' @param axis.line lines along axes (`element_line`; inherits from
+#'   `line`)
+#' @param axis.line.x line along x axis (`element_line`; inherits from
+#'   `axis.line`)
+#' @param axis.line.x.top line along x axis on top axis (`element_line`;
+#'   inherits from `axis.line.x`)
+#' @param axis.line.x.bottom line along x axis on bottom axis (`element_line`;
+#'   inherits from `axis.line.x`)
+#' @param axis.line.y line along y axis (`element_line`; inherits from
+#'   `axis.line`)
+#' @param axis.line.y.left line along y axis on left axis (`element_line`;
+#'   inherits from `axis.line.y`)
+#' @param axis.line.y.right line along y axis on right axis (`element_line`;
+#'   inherits from `axis.line.y`)
 #'
-#' @param legend.background background of legend (\code{element_rect}; inherits
-#'   from \code{rect})
-#' @param legend.margin the margin around each legend (\code{margin})
-#' @param legend.spacing the spacing between legends (\code{unit})
-#' @param legend.spacing.x the horizontal spacing between legends (\code{unit});
-#'   inherits from \code{legend.spacing}
-#' @param legend.spacing.y the horizontal spacing between legends (\code{unit});
-#'   inherits from \code{legend.spacing}
-#' @param legend.key background underneath legend keys (\code{element_rect};
-#'   inherits from \code{rect})
-#' @param legend.key.size size of legend keys (\code{unit})
-#' @param legend.key.height key background height (\code{unit}; inherits from
-#'   \code{legend.key.size})
-#' @param legend.key.width key background width (\code{unit}; inherits from
-#'   \code{legend.key.size})
-#' @param legend.text legend item labels (\code{element_text}; inherits from
-#'   \code{text})
+#' @param legend.background background of legend (`element_rect`; inherits
+#'   from `rect`)
+#' @param legend.margin the margin around each legend (`margin`)
+#' @param legend.spacing the spacing between legends (`unit`)
+#' @param legend.spacing.x the horizontal spacing between legends (`unit`);
+#'   inherits from `legend.spacing`
+#' @param legend.spacing.y the horizontal spacing between legends (`unit`);
+#'   inherits from `legend.spacing`
+#' @param legend.key background underneath legend keys (`element_rect`;
+#'   inherits from `rect`)
+#' @param legend.key.size size of legend keys (`unit`)
+#' @param legend.key.height key background height (`unit`; inherits from
+#'   `legend.key.size`)
+#' @param legend.key.width key background width (`unit`; inherits from
+#'   `legend.key.size`)
+#' @param legend.text legend item labels (`element_text`; inherits from
+#'   `text`)
 #' @param legend.text.align alignment of legend labels (number from 0 (left) to
 #'   1 (right))
-#' @param legend.title title of legend (\code{element_text}; inherits from
-#'   \code{title})
+#' @param legend.title title of legend (`element_text`; inherits from
+#'   `title`)
 #' @param legend.title.align alignment of legend title (number from 0 (left) to
 #'   1 (right))
 #' @param legend.position the position of legends ("none", "left", "right",
@@ -91,80 +115,90 @@
 #'   bounding box, when there are multiple legends ("top", "bottom", "left", or
 #'   "right")
 #' @param legend.box.margin margins around the full legend area, as specified
-#'   using \code{\link{margin}}
-#' @param legend.box.background background of legend area (\code{element_rect};
-#'   inherits from \code{rect})
+#'   using [margin()]
+#' @param legend.box.background background of legend area (`element_rect`;
+#'   inherits from `rect`)
 #' @param legend.box.spacing The spacing between the plotting area and the
-#'   legend box (\code{unit})
+#'   legend box (`unit`)
 #'
 #' @param panel.background background of plotting area, drawn underneath plot
-#'   (\code{element_rect}; inherits from \code{rect})
+#'   (`element_rect`; inherits from `rect`)
 #' @param panel.border border around plotting area, drawn on top of plot so that
 #'   it covers tick marks and grid lines. This should be used with
-#'   \code{fill=NA}
-#' (\code{element_rect}; inherits from \code{rect})
-#' @param panel.spacing spacing between facet panels (\code{unit})
-#' @param panel.spacing.x horizontal spacing between facet panels (\code{unit};
-#'   inherits from \code{panel.spacing})
-#' @param panel.spacing.y vertical spacing between facet panels (\code{unit};
-#'   inherits from \code{panel.spacing})
-#' @param panel.grid grid lines (\code{element_line}; inherits from \code{line})
-#' @param panel.grid.major major grid lines (\code{element_line}; inherits from
-#'   \code{panel.grid})
-#' @param panel.grid.minor minor grid lines (\code{element_line}; inherits from
-#' \code{panel.grid})
-#' @param panel.grid.major.x vertical major grid lines (\code{element_line};
-#'   inherits from \code{panel.grid.major})
-#' @param panel.grid.major.y horizontal major grid lines (\code{element_line};
-#'   inherits from \code{panel.grid.major})
-#' @param panel.grid.minor.x vertical minor grid lines (\code{element_line};
-#'   inherits from \code{panel.grid.minor})
-#' @param panel.grid.minor.y horizontal minor grid lines (\code{element_line};
-#'   inherits from \code{panel.grid.minor})
+#'   `fill=NA`
+#' (`element_rect`; inherits from `rect`)
+#' @param panel.spacing spacing between facet panels (`unit`)
+#' @param panel.spacing.x horizontal spacing between facet panels (`unit`;
+#'   inherits from `panel.spacing`)
+#' @param panel.spacing.y vertical spacing between facet panels (`unit`;
+#'   inherits from `panel.spacing`)
+#' @param panel.grid grid lines (`element_line`; inherits from `line`)
+#' @param panel.grid.major major grid lines (`element_line`; inherits from
+#'   `panel.grid`)
+#' @param panel.grid.minor minor grid lines (`element_line`; inherits from
+#' `panel.grid`)
+#' @param panel.grid.major.x vertical major grid lines (`element_line`;
+#'   inherits from `panel.grid.major`)
+#' @param panel.grid.major.y horizontal major grid lines (`element_line`;
+#'   inherits from `panel.grid.major`)
+#' @param panel.grid.minor.x vertical minor grid lines (`element_line`;
+#'   inherits from `panel.grid.minor`)
+#' @param panel.grid.minor.y horizontal minor grid lines (`element_line`;
+#'   inherits from `panel.grid.minor`)
 #' @param panel.ontop option to place the panel (background, gridlines) over
 #'   the data layers.  Usually used with a transparent or blank
-#'   \code{panel.background}. (\code{logical})
+#'   `panel.background`. (`logical`)
 #'
-#' @param plot.background background of the entire plot (\code{element_rect};
-#'   inherits from \code{rect})
-#' @param plot.title plot title (text appearance) (\code{element_text}; inherits
-#'   from \code{title}) left-aligned by default
-#' @param plot.subtitle plot subtitle (text appearance) (\code{element_text};
-#'   inherits from \code{title}) left-aligned by default
+#' @param plot.background background of the entire plot (`element_rect`;
+#'   inherits from `rect`)
+#' @param plot.title plot title (text appearance) (`element_text`; inherits
+#'   from `title`) left-aligned by default
+#' @param plot.subtitle plot subtitle (text appearance) (`element_text`;
+#'   inherits from `title`) left-aligned by default
 #' @param plot.caption caption below the plot (text appearance)
-#'   (\code{element_text}; inherits from \code{title}) right-aligned by default
-#' @param plot.margin margin around entire plot (\code{unit} with the sizes of
+#'   (`element_text`; inherits from `title`) right-aligned by default
+#' @param plot.tag upper-left label to identify a plot (text appearance)
+#'   (`element_text`; inherits from `title`) left-aligned by default
+#' @param plot.tag.position The position of the tag as a string ("topleft",
+#'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
+#'   or a coordinate. If a string, extra space will be added to accomodate the
+#'   tag.
+#' @param plot.margin margin around entire plot (`unit` with the sizes of
 #'   the top, right, bottom, and left margins)
 #'
-#' @param strip.background background of facet labels (\code{element_rect};
-#'   inherits from \code{rect})
+#' @param strip.background background of facet labels (`element_rect`;
+#'   inherits from `rect`)
+#' @param strip.background.x backgronud of horizontal facet labels
+#'   (`element_rect`; inherits from `strip.background`)
+#' @param strip.background.y backgronud of vertical facet labels
+#'   (`element_rect`; inherits from `strip.background`)
 #' @param strip.placement placement of strip with respect to axes,
 #'    either "inside" or "outside". Only important when axes and strips are
 #'    on the same side of the plot.
-#' @param strip.text facet labels (\code{element_text}; inherits from
-#'   \code{text})
+#' @param strip.text facet labels (`element_text`; inherits from
+#'   `text`)
 #' @param strip.text.x facet labels along horizontal direction
-#'   (\code{element_text}; inherits from \code{strip.text})
+#'   (`element_text`; inherits from `strip.text`)
 #' @param strip.text.y facet labels along vertical direction
-#'   (\code{element_text}; inherits from \code{strip.text})
+#'   (`element_text`; inherits from `strip.text`)
 #' @param strip.switch.pad.grid space between strips and axes when strips are
-#'   switched (\code{unit})
+#'   switched (`unit`)
 #' @param strip.switch.pad.wrap space between strips and axes when strips are
-#'   switched (\code{unit})
+#'   switched (`unit`)
 #'
 #' @param ... additional element specifications not part of base ggplot2. If
-#'   supplied \code{validate} needs to be set to \code{FALSE}.
+#'   supplied `validate` needs to be set to `FALSE`.
 #' @param complete set this to TRUE if this is a complete theme, such as
-#'   the one returned \code{by theme_grey()}. Complete themes behave
+#'   the one returned `by theme_grey()`. Complete themes behave
 #'   differently when added to a ggplot object. Also, when setting
-#'   \code{complete = TRUE} all elements will be set to inherit from blank
+#'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
-#' @param validate \code{TRUE} to run validate_element, \code{FALSE} to bypass checks.
+#' @param validate `TRUE` to run validate_element, `FALSE` to bypass checks.
 #'
 #' @seealso
-#'   \code{\link{+.gg}} and \code{\link{\%+replace\%}},
-#'   \code{\link{element_blank}}, \code{\link{element_line}},
-#'   \code{\link{element_rect}}, and \code{\link{element_text}} for
+#'   [+.gg()] and \code{\link{\%+replace\%}},
+#'   [element_blank()], [element_line()],
+#'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.
 #' @export
 #' @examples
@@ -259,20 +293,32 @@ theme <- function(line,
                   axis.title,
                   axis.title.x,
                   axis.title.x.top,
+                  axis.title.x.bottom,
                   axis.title.y,
+                  axis.title.y.left,
                   axis.title.y.right,
                   axis.text,
                   axis.text.x,
                   axis.text.x.top,
+                  axis.text.x.bottom,
                   axis.text.y,
+                  axis.text.y.left,
                   axis.text.y.right,
                   axis.ticks,
                   axis.ticks.x,
+                  axis.ticks.x.top,
+                  axis.ticks.x.bottom,
                   axis.ticks.y,
+                  axis.ticks.y.left,
+                  axis.ticks.y.right,
                   axis.ticks.length,
                   axis.line,
                   axis.line.x,
+                  axis.line.x.top,
+                  axis.line.x.bottom,
                   axis.line.y,
+                  axis.line.y.left,
+                  axis.line.y.right,
                   legend.background,
                   legend.margin,
                   legend.spacing,
@@ -311,8 +357,12 @@ theme <- function(line,
                   plot.title,
                   plot.subtitle,
                   plot.caption,
+                  plot.tag,
+                  plot.tag.position,
                   plot.margin,
                   strip.background,
+                  strip.background.x,
+                  strip.background.y,
                   strip.placement,
                   strip.text,
                   strip.text.x,
@@ -377,16 +427,23 @@ theme <- function(line,
   )
 }
 
+is_theme_complete <- function(x) isTRUE(attr(x, "complete"))
+
 
 # Combine plot defaults with current theme to get complete theme for a plot
-plot_theme <- function(x) {
-  defaults(x$theme, theme_get())
+plot_theme <- function(x, default = theme_get()) {
+  theme <- x$theme
+  if (is_theme_complete(theme)) {
+    theme
+  } else {
+    defaults(theme, default)
+  }
 }
 
 #' Modify properties of an element in a theme object
 #'
 #' @param t1 A theme object
-#' @param t2 A theme object that is to be added to \code{t1}
+#' @param t2 A theme object that is to be added to `t1`
 #' @param t2name A name of the t2 object. This is used for printing
 #'   informative error messages.
 #' @keywords internal
@@ -409,14 +466,8 @@ add_theme <- function(t1, t2, t2name) {
       # If y is NULL, or a string or numeric vector, or is element_blank, just replace x
       x <- y
     } else {
-      # If x is not NULL, then copy over the non-NULL properties from y
-      # Get logical vector of non-NULL properties in y
-      idx <- !vapply(y, is.null, logical(1))
-      # Get the names of TRUE items
-      idx <- names(idx[idx])
-
-      # Update non-NULL items
-      x[idx] <- y[idx]
+      # If x is not NULL, then merge into y
+      x <- merge_element(y, x)
     }
 
     # Assign it back to t1
@@ -426,7 +477,7 @@ add_theme <- function(t1, t2, t2name) {
   }
 
   # If either theme is complete, then the combined theme is complete
-  attr(t1, "complete") <- attr(t1, "complete") || attr(t2, "complete")
+  attr(t1, "complete") <- is_theme_complete(t1) || is_theme_complete(t2)
   t1
 }
 
@@ -456,7 +507,7 @@ add_theme <- function(t1, t2, t2name) {
 update_theme <- function(oldtheme, newtheme) {
   # If the newtheme is a complete one, don't bother searching
   # the default theme -- just replace everything with newtheme
-  if (attr(newtheme, "complete"))
+  if (is_theme_complete(newtheme))
     return(newtheme)
 
   # These are elements in newtheme that aren't already set in oldtheme.
@@ -538,6 +589,49 @@ calc_element <- function(element, theme, verbose = FALSE) {
   Reduce(combine_elements, parents, theme[[element]])
 }
 
+#' Merge a parent element into a child element
+#'
+#' This is a generic and element classes must provide an implementation of this
+#' method
+#'
+#' @param new The child element in the theme hierarchy
+#' @param old The parent element in the theme hierarchy
+#' @return A modified version of `new` updated with the properties of
+#' `old`
+#' @keywords internal
+#' @export
+#' @examples
+#' new <- element_text(colour = "red")
+#' old <- element_text(colour = "blue", size = 10)
+#'
+#' # Adopt size but ignore colour
+#' merge_element(new, old)
+#'
+merge_element <- function(new, old) {
+  UseMethod("merge_element")
+}
+#' @rdname merge_element
+#' @export
+merge_element.default <- function(new, old) {
+  stop("No method for merging ", class(new)[1], " into ", class(old)[1], call. = FALSE)
+}
+#' @rdname merge_element
+#' @export
+merge_element.element <- function(new, old) {
+  if (!inherits(new, class(old)[1])) {
+    stop("Only elements of the same class can be merged", call. = FALSE)
+  }
+  # Override NULL properties of new with the values in old
+  # Get logical vector of NULL properties in new
+  idx <- vapply(new, is.null, logical(1))
+  # Get the names of TRUE items
+  idx <- names(idx[idx])
+
+  # Update non-NULL items
+  new[idx] <- old[idx]
+
+  new
+}
 
 # Combine the properties of two elements
 #

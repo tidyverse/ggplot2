@@ -3,8 +3,8 @@
 #' The point geom is used to create scatterplots. The scatterplot is most
 #' useful for displaying the relationship between two continuous variables.
 #' It can be used to compare one continuous and one categorical variable, or
-#' two categorical variables, but a variation like \code{\link{geom_jitter}},
-#' \code{\link{geom_count}}, or \code{\link{geom_bin2d}} is usually more
+#' two categorical variables, but a variation like [geom_jitter()],
+#' [geom_count()], or [geom_bin2d()] is usually more
 #' appropriate.
 #'
 #' The \emph{bubblechart} is a scatterplot with a third variable mapped to
@@ -17,28 +17,26 @@
 #' another. This can severely distort the visual appearance of the plot.
 #' There is no one solution to this problem, but there are some techniques
 #' that can help. You can add additional information with
-#' \code{\link{geom_smooth}}, \code{\link{geom_quantile}} or
-#' \code{\link{geom_density_2d}}. If you have few unique x values,
-#' \code{\link{geom_boxplot}} may also be useful.
+#' [geom_smooth()], [geom_quantile()] or
+#' [geom_density_2d()]. If you have few unique x values,
+#' [geom_boxplot()] may also be useful.
 #'
 #' Alternatively, you can
 #' summarise the number of points at each location and display that in some
-#' way, using \code{\link{geom_count}}, \code{\link{geom_hex}}, or
-#' \code{\link{geom_density2d}}.
+#' way, using [geom_count()], [geom_hex()], or
+#' [geom_density2d()].
 #'
 #' Another technique is to make the points transparent (e.g.
-#' \code{geom_point(alpha = 0.05)}) or very small (e.g.
-#' \code{geom_point(shape = ".")}).
+#' `geom_point(alpha = 0.05)`) or very small (e.g.
+#' `geom_point(shape = ".")`).
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{point}
-#'
+#' @eval rd_aesthetics("geom", "point")
 #' @inheritParams layer
-#' @param na.rm If \code{FALSE}, the default, missing values are removed with
-#'   a warning. If \code{TRUE}, missing values are silently removed.
-#' @param ... other arguments passed on to \code{\link{layer}}. These are
+#' @param na.rm If `FALSE`, the default, missing values are removed with
+#'   a warning. If `TRUE`, missing values are silently removed.
+#' @param ... Other arguments passed on to [layer()]. These are
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
-#'   \code{color = "red"} or \code{size = 3}. They may also be parameters
+#'   `color = "red"` or `size = 3`. They may also be parameters
 #'   to the paired geom/stat.
 #' @inheritParams layer
 #' @export
@@ -50,10 +48,6 @@
 #' p + geom_point(aes(colour = factor(cyl)))
 #' p + geom_point(aes(shape = factor(cyl)))
 #' p + geom_point(aes(size = qsec))
-#'
-#' # Change scales
-#' p + geom_point(aes(colour = cyl)) + scale_colour_gradient(low = "blue")
-#' p + geom_point(aes(shape = factor(cyl))) + scale_shape(solid = FALSE)
 #'
 #' # Set aesthetics to fixed value
 #' ggplot(mtcars, aes(wt, mpg)) + geom_point(colour = "red", size = 3)
@@ -127,8 +121,12 @@ GeomPoint <- ggproto("GeomPoint", Geom,
     alpha = NA, stroke = 0.5
   ),
 
-  draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
-    coords <- coord$transform(data, panel_scales)
+  draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
+    if (is.character(data$shape)) {
+      data$shape <- translate_shape_string(data$shape)
+    }
+
+    coords <- coord$transform(data, panel_params)
     ggname("geom_point",
       pointsGrob(
         coords$x, coords$y,
@@ -146,3 +144,92 @@ GeomPoint <- ggproto("GeomPoint", Geom,
 
   draw_key = draw_key_point
 )
+
+translate_shape_string <- function(shape_string) {
+  # strings of length 0 or 1 are interpreted as symbols by grid
+  if (nchar(shape_string[1]) <= 1) {
+    return(shape_string)
+  }
+
+  pch_table <- c(
+    "square open"           = 0,
+    "circle open"           = 1,
+    "triangle open"         = 2,
+    "plus"                  = 3,
+    "cross"                 = 4,
+    "diamond open"          = 5,
+    "triangle down open"    = 6,
+    "square cross"          = 7,
+    "asterisk"              = 8,
+    "diamond plus"          = 9,
+    "circle plus"           = 10,
+    "star"                  = 11,
+    "square plus"           = 12,
+    "circle cross"          = 13,
+    "square triangle"       = 14,
+    "triangle square"       = 14,
+    "square"                = 15,
+    "circle small"          = 16,
+    "triangle"              = 17,
+    "diamond"               = 18,
+    "circle"                = 19,
+    "bullet"                = 20,
+    "circle filled"         = 21,
+    "square filled"         = 22,
+    "diamond filled"        = 23,
+    "triangle filled"       = 24,
+    "triangle down filled"  = 25
+  )
+
+  shape_match <- charmatch(shape_string, names(pch_table))
+
+  invalid_strings <- is.na(shape_match)
+  nonunique_strings <- shape_match == 0
+
+  if (any(invalid_strings)) {
+    bad_string <- unique(shape_string[invalid_strings])
+    n_bad <- length(bad_string)
+
+    collapsed_names <- sprintf("\n* '%s'", bad_string[1:min(5, n_bad)])
+
+    more_problems <- if (n_bad > 5) {
+      sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
+    }
+
+    stop(
+      "Can't find shape name:",
+      collapsed_names,
+      more_problems,
+      call. = FALSE
+    )
+  }
+
+  if (any(nonunique_strings)) {
+    bad_string <- unique(shape_string[nonunique_strings])
+    n_bad <- length(bad_string)
+
+    n_matches <- vapply(
+      bad_string[1:min(5, n_bad)],
+      function(shape_string) sum(grepl(paste0("^", shape_string), names(pch_table))),
+      integer(1)
+    )
+
+    collapsed_names <- sprintf(
+      "\n* '%s' partially matches %d shape names",
+      bad_string[1:min(5, n_bad)], n_matches
+    )
+
+    more_problems <- if (n_bad > 5) {
+      sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
+    }
+
+    stop(
+      "Shape names must be unambiguous:",
+      collapsed_names,
+      more_problems,
+      call. = FALSE
+    )
+  }
+
+  unname(pch_table[shape_match])
+}

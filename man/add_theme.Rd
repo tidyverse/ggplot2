@@ -18,4 +18,3 @@ informative error messages.}
 Modify properties of an element in a theme object
 }
 \keyword{internal}
-

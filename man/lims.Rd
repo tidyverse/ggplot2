@@ -14,15 +14,15 @@ ylim(...)
 }
 \arguments{
 \item{...}{A name-value pair. The name must be an aesthetic, and the value
-  must be either a length-2 numeric, a character, a factor, or a date/time.
+must be either a length-2 numeric, a character, a factor, or a date/time.
 
-  A numeric value will create a continuous scale. If the larger value
-  comes first, the scale will be reversed. You can leave one value as
-  \code{NA} to compute from the range of the data.
+A numeric value will create a continuous scale. If the larger value
+comes first, the scale will be reversed. You can leave one value as
+\code{NA} to compute from the range of the data.
 
-  A character or factor value will create a discrete scale.
+A character or factor value will create a discrete scale.
 
-  A date-time value will create a continuous date/time scale.}
+A date-time value will create a continuous date/time scale.}
 }
 \description{
 This is a shortcut for supplying the \code{limits} argument to the
@@ -60,7 +60,6 @@ ggplot(big, aes(mpg, wt, colour = factor(cyl))) +
 }
 \seealso{
 For changing x or y axis limits \strong{without} dropping data
-  observations, see \code{\link{coord_cartesian}}. To expand the range of
-  a plot to always include certain values, see \code{\link{expand_limits}}.
+observations, see \code{\link[=coord_cartesian]{coord_cartesian()}}. To expand the range of
+a plot to always include certain values, see \code{\link[=expand_limits]{expand_limits()}}.
 }
-

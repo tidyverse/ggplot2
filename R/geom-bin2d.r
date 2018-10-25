@@ -2,18 +2,17 @@
 #'
 #' Divides the plane into rectangles, counts the number of cases in
 #' each rectangle, and then (by default) maps the number of cases to the
-#' rectangle's fill. This is a useful alternative to \code{\link{geom_point}}
+#' rectangle's fill. This is a useful alternative to [geom_point()]
 #' in the presence of overplotting.
 #'
-#' @section Aesthetics:
-#' \aesthetics{stat}{bin2d}
+#' @eval rd_aesthetics("stat", "bin2d")
 #'
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_bin2d} and \code{stat_bin2d}.
-#' @seealso \code{\link{stat_binhex}} for hexagonal binning
+#'   `geom_bin2d` and `stat_bin2d`.
+#' @seealso [stat_binhex()] for hexagonal binning
 #' @examples
 #' d <- ggplot(diamonds, aes(x, y)) + xlim(4, 10) + ylim(4, 10)
 #' d + geom_bin2d()

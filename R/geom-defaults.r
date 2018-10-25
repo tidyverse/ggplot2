@@ -1,8 +1,8 @@
 #' Modify geom/stat aesthetic defaults for future plots
 #'
-#' @param stat,geom Name of geom/stat to modify (like \code{"point"} or
-#'   \code{"bin"}), or a Geom/Stat object (like \code{GeomPoint} or
-#'   \code{StatBin}).
+#' @param stat,geom Name of geom/stat to modify (like `"point"` or
+#'   `"bin"`), or a Geom/Stat object (like `GeomPoint` or
+#'   `StatBin`).
 #' @param new Named list of aesthetics.
 #' @keywords internal
 #' @export
@@ -12,31 +12,17 @@
 #' update_geom_defaults("point", list(colour = "black"))
 #' @rdname update_defaults
 update_geom_defaults <- function(geom, new) {
-  if (is.character(geom)) {
-    g <- find_subclass("Geom", geom, parent.frame())
-  } else if (inherits(geom, "Geom")) {
-    g <- geom
-  } else {
-    stop('`geom` must be a string (like "point") or a Geom object (like GeomPoint).',
-      call. = FALSE)
-  }
-
+  g <- check_subclass(geom, "Geom", env = parent.frame())
   old <- g$default_aes
-  g$default_aes <- defaults(new, old)
+  g$default_aes <- defaults(rename_aes(new), old)
+  invisible()
 }
 
 #' @rdname update_defaults
 #' @export
 update_stat_defaults <- function(stat, new) {
-  if (is.character(stat)) {
-    g <- find_subclass("Stat", stat, parent.frame())
-  } else if (inherits(stat, "Stat")) {
-    g <- stat
-  } else {
-    stop('`stat` must be a string (like "point") or a Stat object (like StatBin).',
-      call. = FALSE)
-  }
-
+  g <- check_subclass(stat, "Stat", env = parent.frame())
   old <- g$default_aes
-  g$default_aes <- defaults(new, old)
+  g$default_aes <- defaults(rename_aes(new), old)
+  invisible()
 }

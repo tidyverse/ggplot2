@@ -10,7 +10,7 @@
 e1 \%+\% e2
 }
 \arguments{
-\item{e1}{An object of class \code{\link{ggplot}} or a \code{\link{theme}}.}
+\item{e1}{An object of class \code{\link[=ggplot]{ggplot()}} or a \code{\link[=theme]{theme()}}.}
 
 \item{e2}{A plot component, as described below.}
 }
@@ -22,15 +22,14 @@ work at each step.
 \section{What can you add?}{
 
 You can add any of the following types of objects:
-
 \itemize{
-  \item A \code{\link{aes}()} objects replaces the default aesthetics.
-  \item A layer created by a \code{geom_} or \code{stat_} function adds
-    new layer.
-  \item A \code{scale} overrides the existing scale.
-  \item A \code{\link{theme}} modifies the current theme.
-  \item A \code{coord} overrides current coordinate system.
-  \item A \code{facet} specificatio override current faceting.
+\item An \code{\link[=aes]{aes()}} object replaces the default aesthetics.
+\item A layer created by a \code{geom_} or \code{stat_} function adds a
+new layer.
+\item A \code{scale} overrides the existing scale.
+\item A \code{\link[=theme]{theme()}} modifies the current theme.
+\item A \code{coord} overrides the current coordinate system.
+\item A \code{facet} specification overrides the current faceting.
 }
 
 To replace the current default data frame, you must use \code{\%+\%},
@@ -39,6 +38,7 @@ due to S3 method precedence issues.
 You can also supply a list, in which case each element of the list will
 be added in turn.
 }
+
 \examples{
 base <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 base + geom_smooth()
@@ -51,6 +51,5 @@ base \%+\% subset(mpg, fl == "p")
 base + list(subset(mpg, fl == "p"), geom_smooth())
 }
 \seealso{
-\code{\link{theme}}
+\code{\link[=theme]{theme()}}
 }
-

@@ -19,12 +19,15 @@ test_that("dates in segment annotation work", {
 })
 
 test_that("segment annotations transform with scales", {
-  # This should be a visual test, but contriubtion documentation does not
-  # explain how to make one
-  ggplot(mtcars, aes(wt, mpg)) +
+  # Line should match data points
+  df <- data.frame(x = c(1, 10), y = c(10, 1))
+  plot <- ggplot(df, aes(x, y)) +
     geom_point() +
-    annotate("segment", x = 2, y = 10, xend = 5, yend = 30, colour = "red") +
-    scale_y_reverse()
+    annotate("segment", x = 1, y = 10, xend = 10, yend = 1, colour = "red") +
+    scale_y_reverse(NULL, breaks = NULL) +
+    scale_x_continuous(NULL, breaks = NULL)
+
+  expect_doppelganger("line matches points", plot)
 })
 
 test_that("annotation_* has dummy data assigned and don't inherit aes", {

@@ -1,27 +1,27 @@
 #' Create a new layer
 #'
 #' A layer is a combination of data, stat and geom with a potential position
-#' adjustment. Usually layers are created using \code{geom_*} or \code{stat_*}
+#' adjustment. Usually layers are created using `geom_*` or `stat_*`
 #' calls but it can also be created directly using this function.
 #'
 #' @export
 #' @inheritParams geom_point
-#' @param mapping Set of aesthetic mappings created by \code{\link{aes}} or
-#'   \code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+#' @param mapping Set of aesthetic mappings created by [aes()] or
+#'   [aes_()]. If specified and `inherit.aes = TRUE` (the
 #'   default), it is combined with the default mapping at the top level of the
-#'   plot. You must supply \code{mapping} if there is no plot mapping.
+#'   plot. You must supply `mapping` if there is no plot mapping.
 #' @param data The data to be displayed in this layer. There are three
 #'    options:
 #'
-#'    If \code{NULL}, the default, the data is inherited from the plot
-#'    data as specified in the call to \code{\link{ggplot}}.
+#'    If `NULL`, the default, the data is inherited from the plot
+#'    data as specified in the call to [ggplot()].
 #'
-#'    A \code{data.frame}, or other object, will override the plot
+#'    A `data.frame`, or other object, will override the plot
 #'    data. All objects will be fortified to produce a data frame. See
-#'    \code{\link{fortify}} for which variables will be created.
+#'    [fortify()] for which variables will be created.
 #'
-#'    A \code{function} will be called with a single argument,
-#'    the plot data. The return value must be a \code{data.frame.}, and
+#'    A `function` will be called with a single argument,
+#'    the plot data. The return value must be a `data.frame.`, and
 #'    will be used as the layer data.
 #' @param geom The geometric object to use display the data
 #' @param stat The statistical transformation to use on the data for this
@@ -29,18 +29,18 @@
 #' @param position Position adjustment, either as a string, or the result of
 #'  a call to a position adjustment function.
 #' @param show.legend logical. Should this layer be included in the legends?
-#'   \code{NA}, the default, includes if any aesthetics are mapped.
-#'   \code{FALSE} never includes, and \code{TRUE} always includes.
-#' @param inherit.aes If \code{FALSE}, overrides the default aesthetics,
+#'   `NA`, the default, includes if any aesthetics are mapped.
+#'   `FALSE` never includes, and `TRUE` always includes.
+#'   It can also be a named logical vector to finely select the aesthetics to
+#'   display.
+#' @param inherit.aes If `FALSE`, overrides the default aesthetics,
 #'   rather than combining with them. This is most useful for helper functions
 #'   that define both data and aesthetics and shouldn't inherit behaviour from
-#'   the default plot specification, e.g. \code{\link{borders}}.
-#' @param check.aes,check.param If \code{TRUE}, the default, will check that
-#'   supplied parameters and aesthetics are understood by the \code{geom} or
-#'   \code{stat}. Use \code{FALSE} to suppress the checks.
-#' @param params Additional parameters to the \code{geom} and \code{stat}.
-#' @param subset DEPRECATED. An older way of subsetting the dataset used in a
-#'   layer.
+#'   the default plot specification, e.g. [borders()].
+#' @param check.aes,check.param If `TRUE`, the default, will check that
+#'   supplied parameters and aesthetics are understood by the `geom` or
+#'   `stat`. Use `FALSE` to suppress the checks.
+#' @param params Additional parameters to the `geom` and `stat`.
 #' @keywords internal
 #' @examples
 #' # geom calls are just a short cut for layer
@@ -61,7 +61,7 @@ layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
-                  subset = NULL, show.legend = NA) {
+                  show.legend = NA) {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
   if (is.null(stat))
@@ -76,22 +76,20 @@ layer <- function(geom = NULL, stat = NULL,
     show.legend <- params$show_guide
     params$show_guide <- NULL
   }
-  if (!is.logical(show.legend) || length(show.legend) != 1) {
-    warning("`show.legend` must be a logical vector of length 1.", call. = FALSE)
+  if (!is.logical(show.legend)) {
+    warning("`show.legend` must be a logical vector.", call. = FALSE)
     show.legend <- FALSE
   }
 
   data <- fortify(data)
-  if (!is.null(mapping) && !inherits(mapping, "uneval")) {
-    stop("Mapping must be created by `aes()` or `aes_()`", call. = FALSE)
+
+  if (!is.null(mapping)) {
+    mapping <- validate_mapping(mapping)
   }
 
-  if (is.character(geom))
-    geom <- find_subclass("Geom", geom, parent.frame())
-  if (is.character(stat))
-    stat <- find_subclass("Stat", stat, parent.frame())
-  if (is.character(position))
-    position <- find_subclass("Position", position, parent.frame())
+  geom <- check_subclass(geom, "Geom", env = parent.frame())
+  stat <- check_subclass(stat, "Stat", env = parent.frame())
+  position <- check_subclass(position, "Position", env = parent.frame())
 
   # Special case for na.rm parameter needed by all layers
   if (is.null(params$na.rm)) {
@@ -116,7 +114,10 @@ layer <- function(geom = NULL, stat = NULL,
     )
   }
 
-  extra_aes <- setdiff(names(mapping), c(geom$aesthetics(), stat$aesthetics()))
+  extra_aes <- setdiff(
+    mapped_aesthetics(mapping),
+    c(geom$aesthetics(), stat$aesthetics())
+  )
   if (check.aes && length(extra_aes) > 0) {
     warning(
       "Ignoring unknown aesthetics: ", paste(extra_aes, collapse = ", "),
@@ -124,8 +125,6 @@ layer <- function(geom = NULL, stat = NULL,
       immediate. = TRUE
     )
   }
-
-
 
   ggproto("LayerInstance", Layer,
     geom = geom,
@@ -135,11 +134,27 @@ layer <- function(geom = NULL, stat = NULL,
     data = data,
     mapping = mapping,
     aes_params = aes_params,
-    subset = subset,
     position = position,
     inherit.aes = inherit.aes,
     show.legend = show.legend
   )
+}
+
+validate_mapping <- function(mapping) {
+  if (!inherits(mapping, "uneval")) {
+    msg <- paste0("`mapping` must be created by `aes()`")
+    if (inherits(mapping, "ggplot")) {
+      msg <- paste0(
+        msg, "\n",
+        "Did you use %>% instead of +?"
+      )
+    }
+
+    stop(msg, call. = FALSE)
+  }
+
+  # For backward compatibility with pre-tidy-eval layers
+  new_aes(mapping)
 }
 
 Layer <- ggproto("Layer", NULL,
@@ -196,17 +211,11 @@ Layer <- ggproto("Layer", NULL,
       aesthetics[["group"]] <- self$aes_params$group
     }
 
-    # Old subsetting method
-    if (!is.null(self$subset)) {
-      include <- data.frame(plyr::eval.quoted(self$subset, data, plot$env))
-      data <- data[rowSums(include, na.rm = TRUE) == ncol(include), ]
-    }
-
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate and check aesthetics
     aesthetics <- compact(aesthetics)
-    evaled <- lapply(aesthetics, eval, envir = data, enclos = plot$plot_env)
+    evaled <- lapply(aesthetics, rlang::eval_tidy, data = data)
 
     n <- nrow(data)
     if (n == 0) {
@@ -226,7 +235,7 @@ Layer <- ggproto("Layer", NULL,
       evaled$PANEL <- data$PANEL
     }
     evaled <- lapply(evaled, unname)
-    evaled <- data.frame(evaled, stringsAsFactors = FALSE)
+    evaled <- as_gg_data_frame(evaled)
     evaled <- add_group(evaled)
     evaled
   },
@@ -255,7 +264,10 @@ Layer <- ggproto("Layer", NULL,
     if (length(new) == 0) return(data)
 
     # Add map stat output to aesthetics
-    stat_data <- plyr::quickdf(lapply(new, eval, data, baseenv()))
+    env <- new.env(parent = baseenv())
+    env$stat <- stat
+
+    stat_data <- plyr::quickdf(lapply(new, rlang::eval_tidy, data, env))
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed
@@ -302,29 +314,65 @@ Layer <- ggproto("Layer", NULL,
     self$stat$finish_layer(data, self$stat_params)
   },
 
-  draw_geom = function(self, data, layout, coord) {
+  draw_geom = function(self, data, layout) {
     if (empty(data)) {
-      n <- nrow(layout$panel_layout)
+      n <- nrow(layout$layout)
       return(rep(list(zeroGrob()), n))
     }
 
     data <- self$geom$handle_na(data, self$geom_params)
-    self$geom$draw_layer(data, self$geom_params, layout, coord)
+    self$geom$draw_layer(data, self$geom_params, layout, layout$coord)
   }
 )
 
 is.layer <- function(x) inherits(x, "Layer")
 
 
-find_subclass <- function(super, class, env) {
-  name <- paste0(super, camelize(class, first = TRUE))
-  obj <- find_global(name, env = env)
 
-  if (is.null(name)) {
-    stop("No ", tolower(super), " called ", name, ".", call. = FALSE)
-  } else if (!inherits(obj, super)) {
-    stop("Found object is not a ", tolower(super), ".", call. = FALSE)
+check_subclass <- function(x, subclass,
+                           argname = tolower(subclass),
+                           env = parent.frame()) {
+  if (inherits(x, subclass)) {
+    x
+  } else if (is.character(x) && length(x) == 1) {
+    name <- paste0(subclass, camelize(x, first = TRUE))
+    obj <- find_global(name, env = env)
+
+    if (is.null(obj) || !inherits(obj, subclass)) {
+      stop("Can't find `", argname, "` called \"", x, "\"", call. = FALSE)
+    } else {
+      obj
+    }
+  } else {
+    stop(
+      "`", argname, "` must be either a string or a ", subclass, " object, ",
+      "not ", obj_desc(x),
+      call. = FALSE
+    )
   }
+}
 
-  obj
+obj_desc <- function(x) {
+  if (isS4(x)) {
+    paste0("an S4 object with class ", class(x)[[1]])
+  } else if (is.object(x)) {
+    if (is.data.frame(x)) {
+      "a data frame"
+    } else if (is.factor(x)) {
+      "a factor"
+    } else {
+      paste0("an S3 object with class ", paste(class(x), collapse = "/"))
+    }
+  } else {
+    switch(typeof(x),
+      "NULL" = "a NULL",
+      character = "a character vector",
+      integer = "an integer vector",
+      logical = "a logical vector",
+      double = "a numeric vector",
+      list = "a list",
+      closure = "a function",
+      paste0("a base object of type", typeof(x))
+    )
+  }
 }

@@ -5,63 +5,58 @@ df_a <- unique(df["a"])
 df_b <- unique(df["b"])
 df_c <- unique(data.frame(c = 1))
 
+panel_map_one <- function(facet, data, plot_data = data) {
+  layout <- create_layout(facet)
+  layout$setup(list(data), plot_data)[[1]]
+}
 
-test_that("two col cases with no missings adds single extra column", {
-  facet <- facet_grid(cyl~vs)
-  layout <- facet$train(list(mtcars))
-  loc <- facet$map(mtcars, layout)
+test_that("two col cases with no missings adds a single extra column", {
+  loc <- panel_map_one(facet_grid(cyl~vs), mtcars)
 
   expect_equal(nrow(loc), nrow(mtcars))
   expect_equal(ncol(loc), ncol(mtcars) + 1)
 
   match <- unique(loc[c("cyl", "vs", "PANEL")])
   expect_equal(nrow(match), 5)
-
 })
 
 test_that("margins add extra data", {
-  facet <- facet_grid(a~b, margins = "b")
-  layout <- facet$train(list(df))
-  loc <- facet$map(df, layout)
+  loc <- panel_map_one(facet_grid(a~b, margins = "b"), df)
 
   expect_equal(nrow(loc), nrow(df) * 2)
 })
 
-
 test_that("grid: missing facet columns are duplicated", {
   facet <- facet_grid(a~b)
-  layout <- facet$train(list(df))
 
-  loc_a <- facet$map(df_a, layout)
+  loc_a <- panel_map_one(facet, df_a, plot_data = df)
   expect_equal(nrow(loc_a), 4)
   expect_equal(loc_a$PANEL, factor(1:4))
 
-  loc_b <- facet$map(df_b, layout)
+  loc_b <- panel_map_one(facet, df_b, plot_data = df)
   expect_equal(nrow(loc_b), 4)
   expect_equal(loc_b$PANEL, factor(1:4))
 
-  loc_c <- facet$map(df_c, layout)
+  loc_c <- panel_map_one(facet, df_c, plot_data = df)
   expect_equal(nrow(loc_c), 4)
   expect_equal(loc_c$PANEL, factor(1:4))
 })
 
 test_that("wrap: missing facet columns are duplicated", {
   facet <- facet_wrap(~a+b, ncol = 1)
-  layout <- facet$train(list(df))
 
-  loc_a <- facet$map(df_a, layout)
+  loc_a <- panel_map_one(facet, df_a, plot_data = df)
   expect_equal(nrow(loc_a), 4)
   expect_equal(loc_a$PANEL, factor(1:4))
   expect_equal(loc_a$a, c(1, 1, 2, 2))
 
-  loc_b <- facet$map(df_b, layout)
+  loc_b <- panel_map_one(facet, df_b, plot_data = df)
   expect_equal(nrow(loc_b), 4)
   expect_equal(loc_b$PANEL, factor(1:4))
 
-  loc_c <- facet$map(df_c, layout)
+  loc_c <- panel_map_one(facet, df_c, plot_data = df)
   expect_equal(nrow(loc_c), 4)
   expect_equal(loc_c$PANEL, factor(1:4))
-
 })
 
 # Missing behaviour ----------------------------------------------------------
@@ -72,34 +67,29 @@ a3 <- data.frame(
   c = factor(c(1:3, NA), exclude = NULL)
 )
 
-test_that("wrap: missing values located correctly", {
+test_that("wrap: missing values are located correctly", {
   facet <- facet_wrap(~b, ncol = 1)
-  layout_b <- facet$train(list(a3))
-  loc_b <- facet$map(data.frame(b = NA), layout_b)
+  loc_b <- panel_map_one(facet, data.frame(b = NA), plot_data = a3)
   expect_equal(as.character(loc_b$PANEL), "4")
 
   facet <- facet_wrap(~c, ncol = 1)
-  layout_c <- facet$train(list(a3))
-  loc_c <- facet$map(data.frame(c = NA), layout_c)
+  loc_c <- panel_map_one(facet, data.frame(c = NA), plot_data = a3)
   expect_equal(as.character(loc_c$PANEL), "4")
-
 })
 
-test_that("grid: missing values located correctly", {
+test_that("grid: missing values are located correctly", {
   facet <- facet_grid(b~.)
-  layout_b <- facet$train(list(a3))
-  loc_b <- facet$map(data.frame(b = NA), layout_b)
+  loc_b <- panel_map_one(facet, data.frame(b = NA), plot_data = a3)
   expect_equal(as.character(loc_b$PANEL), "4")
 
   facet <- facet_grid(c~.)
-  layout_c <- facet$train(list(a3))
-  loc_c <- facet$map(data.frame(c = NA), layout_c)
+  loc_c <- panel_map_one(facet, data.frame(c = NA), plot_data = a3)
   expect_equal(as.character(loc_c$PANEL), "4")
 })
 
 # Facet order ----------------------------------------------------------------
 
-get_layout <- function(p)  ggplot_build(p)$layout$panel_layout
+get_layout <- function(p)  ggplot_build(p)$layout$layout
 
 # Data with factor f with levels CBA
 d <- data.frame(x = 1:9, y = 1:9,
@@ -166,5 +156,4 @@ test_that("wrap: facet order follows default data frame order", {
   lay <- get_layout(ggplot(mapping = aes(x, y)) + facet_wrap(~fx) +
     geom_point(data = d) + geom_blank(data = d2))
   expect_equal(as.character(lay$fx), c("c","b","a")[lay$PANEL])
-
 })

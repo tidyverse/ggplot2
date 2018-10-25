@@ -5,14 +5,12 @@ NULL
 #'
 #' This is pure annotation, so does not affect position scales.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{map}
-#'
+#' @eval rd_aesthetics("geom", "map")
 #' @export
 #' @param map Data frame that contains the map coordinates.  This will
-#'   typically be created using \code{\link{fortify}} on a spatial object.
-#'   It must contain columns \code{x} or \code{long}, \code{y} or
-#'   \code{lat}, and \code{region} or \code{id}.
+#'   typically be created using [fortify()] on a spatial object.
+#'   It must contain columns `x` or `long`, `y` or
+#'   `lat`, and `region` or `id`.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @examples
@@ -96,7 +94,7 @@ geom_map <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomMap <- ggproto("GeomMap", GeomPolygon,
-  draw_panel = function(data, panel_scales, coord, map) {
+  draw_panel = function(data, panel_params, coord, map) {
     # Only use matching data and map ids
     common <- intersect(data$map_id, map$id)
     data <- data[data$map_id %in% common, , drop = FALSE]
@@ -104,7 +102,7 @@ GeomMap <- ggproto("GeomMap", GeomPolygon,
 
     # Munch, then set up id variable for polygonGrob -
     # must be sequential integers
-    coords <- coord_munch(coord, map, panel_scales)
+    coords <- coord_munch(coord, map, panel_params)
     coords$group <- coords$group %||% coords$id
     grob_id <- match(coords$group, unique(coords$group))
 

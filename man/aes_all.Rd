@@ -17,4 +17,3 @@ aes_all(names(mtcars))
 aes_all(c("x", "y", "col", "pch"))
 }
 \keyword{internal}
-

@@ -1,26 +1,24 @@
 #' Connect observations
 #'
-#' \code{geom_path()} connects the observations in the order in which they appear
-#' in the data. \code{geom_line()} connects them in order of the variable on the
-#' x axis. \code{geom_step()} creates a stairstep plot, highlighting exactly
-#' when changes occur. The \code{group} aesthetic determines which cases are
+#' `geom_path()` connects the observations in the order in which they appear
+#' in the data. `geom_line()` connects them in order of the variable on the
+#' x axis. `geom_step()` creates a stairstep plot, highlighting exactly
+#' when changes occur. The `group` aesthetic determines which cases are
 #' connected together.
 #'
-#' An alternative parameterisation is \code{\link{geom_segment}}: each line
+#' An alternative parameterisation is [geom_segment()], where each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{path}
-#'
+#' @eval rd_aesthetics("geom", "path")
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @param lineend Line end style (round, butt, square)
-#' @param linejoin Line join style (round, mitre, bevel)
-#' @param linemitre Line mitre limit (number greater than 1)
-#' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
+#' @param lineend Line end style (round, butt, square).
+#' @param linejoin Line join style (round, mitre, bevel).
+#' @param linemitre Line mitre limit (number greater than 1).
+#' @param arrow Arrow specification, as created by [grid::arrow()].
 #' @seealso
-#'  \code{\link{geom_polygon}}: Filled paths (polygons);
-#'  \code{\link{geom_segment}}: Line segments
+#'  [geom_polygon()]: Filled paths (polygons);
+#'  [geom_segment()]: Line segments
 #' @export
 #' @examples
 #' # geom_line() is suitable for time series
@@ -29,7 +27,7 @@
 #'   geom_line()
 #'
 #' # geom_step() is useful when you want to highlight exactly when
-#' # the y value chanes
+#' # the y value changes
 #' recent <- economics[economics$date > as.Date("2013-01-01"), ]
 #' ggplot(recent, aes(date, unemploy)) + geom_line()
 #' ggplot(recent, aes(date, unemploy)) + geom_step()
@@ -94,7 +92,7 @@ geom_path <- function(mapping = NULL, data = NULL,
                       ...,
                       lineend = "butt",
                       linejoin = "round",
-                      linemitre = 1,
+                      linemitre = 10,
                       arrow = NULL,
                       na.rm = FALSE,
                       show.legend = NA,
@@ -128,21 +126,10 @@ GeomPath <- ggproto("GeomPath", Geom,
   default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
   handle_na = function(data, params) {
-    keep <- function(x) {
-      # from first non-missing to last non-missing
-      first <- match(FALSE, x, nomatch = 1) - 1
-      last <- length(x) - match(FALSE, rev(x), nomatch = 1) + 1
-      c(
-        rep(FALSE, first),
-        rep(TRUE, last - first),
-        rep(FALSE, length(x) - last)
-      )
-    }
     # Drop missing values at the start or end of a line - can't drop in the
     # middle since you expect those to be shown by a break in the line
-    missing <- !stats::complete.cases(data[c("x", "y", "size", "colour",
-      "linetype")])
-    kept <- stats::ave(missing, data$group, FUN = keep)
+    complete <- stats::complete.cases(data[c("x", "y", "size", "colour", "linetype")])
+    kept <- stats::ave(complete, data$group, FUN = keep_mid_true)
     data <- data[kept, ]
 
     if (!all(kept) && !params$na.rm) {
@@ -153,8 +140,8 @@ GeomPath <- ggproto("GeomPath", Geom,
     data
   },
 
-  draw_panel = function(data, panel_scales, coord, arrow = NULL,
-                        lineend = "butt", linejoin = "round", linemitre = 1,
+  draw_panel = function(data, panel_params, coord, arrow = NULL,
+                        lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = FALSE) {
     if (!anyDuplicated(data$group)) {
       message_wrap("geom_path: Each group consists of only one observation. ",
@@ -163,7 +150,7 @@ GeomPath <- ggproto("GeomPath", Geom,
 
     # must be sorted on group
     data <- data[order(data$group), , drop = FALSE]
-    munched <- coord_munch(coord, data, panel_scales)
+    munched <- coord_munch(coord, data, panel_params)
 
     # Silently drop lines with less than two points, preserving order
     rows <- stats::ave(seq_len(nrow(munched)), munched$group, FUN = length)
@@ -227,6 +214,23 @@ GeomPath <- ggproto("GeomPath", Geom,
   draw_key = draw_key_path
 )
 
+# Trim false values from left and right: keep all values from
+# first TRUE to last TRUE
+keep_mid_true <- function(x) {
+  first <- match(TRUE, x) - 1
+  if (is.na(first)) {
+    return(rep(FALSE, length(x)))
+  }
+
+  last <- length(x) - match(TRUE, rev(x)) + 1
+  c(
+    rep(FALSE, first),
+    rep(TRUE, last - first),
+    rep(FALSE, length(x) - last)
+  )
+}
+
+
 #' @export
 #' @rdname geom_path
 geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
@@ -259,7 +263,7 @@ GeomLine <- ggproto("GeomLine", GeomPath,
 )
 
 #' @param direction direction of stairs: 'vh' for vertical then horizontal, or
-#'   'hv' for horizontal then vertical
+#'   'hv' for horizontal then vertical.
 #' @export
 #' @rdname geom_path
 geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
@@ -287,14 +291,14 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @export
 #' @include geom-path.r
 GeomStep <- ggproto("GeomStep", GeomPath,
-  draw_panel = function(data, panel_scales, coord, direction = "hv") {
+  draw_panel = function(data, panel_params, coord, direction = "hv") {
     data <- plyr::ddply(data, "group", stairstep, direction = direction)
-    GeomPath$draw_panel(data, panel_scales, coord)
+    GeomPath$draw_panel(data, panel_params, coord)
   }
 )
 
 # Calculate stairsteps
-# Used by \code{\link{geom_step}}
+# Used by [geom_step()]
 #
 # @keyword internal
 stairstep <- function(data, direction="hv") {

@@ -1,17 +1,15 @@
 #' Contours of a 2d density estimate
 #'
-#' Perform a 2D kernel density estimation using \code{\link[MASS]{kde2d}} and
+#' Perform a 2D kernel density estimation using [MASS::kde2d()] and
 #' display the results with contours. This can be useful for dealing with
-#' overplotting. This is a 2d version of \code{\link{geom_density}}.
+#' overplotting. This is a 2d version of [geom_density()].
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{density_2d}
-#'
-#' @seealso \code{\link{geom_contour}} for information about how contours
-#'  are drawn; \code{\link{geom_bin2d}} for another way of dealing with
+#' @eval rd_aesthetics("geom", "density_2d")
+#' @seealso [geom_contour()] for information about how contours
+#'  are drawn; [geom_bin2d()] for another way of dealing with
 #'  overplotting.
 #' @param geom,stat Use to override the default connection between
-#'   \code{geom_density_2d} and \code{stat_density_2d}.
+#'   `geom_density_2d` and `stat_density_2d`.
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
@@ -23,7 +21,7 @@
 #'  ylim(40, 110)
 #' m + geom_density_2d()
 #' \donttest{
-#' m + stat_density_2d(aes(fill = ..level..), geom = "polygon")
+#' m + stat_density_2d(aes(fill = stat(level)), geom = "polygon")
 #'
 #' set.seed(4393)
 #' dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -33,16 +31,16 @@
 #' d + geom_density_2d(aes(colour = cut))
 #'
 #' # If we turn contouring off, we can use use geoms like tiles:
-#' d + stat_density_2d(geom = "raster", aes(fill = ..density..), contour = FALSE)
+#' d + stat_density_2d(geom = "raster", aes(fill = stat(density)), contour = FALSE)
 #' # Or points:
-#' d + stat_density_2d(geom = "point", aes(size = ..density..), n = 20, contour = FALSE)
+#' d + stat_density_2d(geom = "point", aes(size = stat(density)), n = 20, contour = FALSE)
 #' }
 geom_density_2d <- function(mapping = NULL, data = NULL,
                             stat = "density2d", position = "identity",
                             ...,
                             lineend = "butt",
                             linejoin = "round",
-                            linemitre = 1,
+                            linemitre = 10,
                             na.rm = FALSE,
                             show.legend = NA,
                             inherit.aes = TRUE) {

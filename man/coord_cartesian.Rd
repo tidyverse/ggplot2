@@ -4,7 +4,8 @@
 \alias{coord_cartesian}
 \title{Cartesian coordinates}
 \usage{
-coord_cartesian(xlim = NULL, ylim = NULL, expand = TRUE)
+coord_cartesian(xlim = NULL, ylim = NULL, expand = TRUE,
+  default = FALSE, clip = "on")
 }
 \arguments{
 \item{xlim, ylim}{Limits for the x and y axes.}
@@ -12,6 +13,20 @@ coord_cartesian(xlim = NULL, ylim = NULL, expand = TRUE)
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
+
+\item{default}{Is this the default coordinate system? If \code{FALSE} (the default),
+then replacing this coordinate system with another one creates a message alerting
+the user that the coordinate system is being replaced. If \code{TRUE}, that warning
+is suppressed.}
+
+\item{clip}{Should drawing be clipped to the extent of the plot panel? A
+setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
+means no. In most cases, the default of \code{"on"} should not be changed,
+as setting \code{clip = "off"} can cause unexpected results. It allows
+drawing of data points anywhere on the plot, including in the plot margins. If
+limits are set via \code{xlim} and \code{ylim} and some data points fall outside those
+limits, then those data points may show up in places such as the axes, the
+legend, the plot title, or the plot margins.}
 }
 \description{
 The Cartesian coordinate system is the most familiar, and common, type of
@@ -57,4 +72,3 @@ d + scale_x_continuous(limits = c(0, 1))
 # displayed bigger
 d + coord_cartesian(xlim = c(0, 1))
 }
-

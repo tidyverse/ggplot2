@@ -32,7 +32,7 @@ stat_contour <- function(mapping = NULL, data = NULL,
 #' @export
 StatContour <- ggproto("StatContour", Stat,
   required_aes = c("x", "y", "z"),
-  default_aes = aes(order = ..level..),
+  default_aes = aes(order = stat(level)),
 
   compute_group = function(data, scales, bins = NULL, binwidth = NULL,
                            breaks = NULL, complete = FALSE, na.rm = FALSE) {

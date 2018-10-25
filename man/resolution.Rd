@@ -27,4 +27,3 @@ resolution((1:10) - 0.5, FALSE)
 resolution(c(2, 10, 20, 50))
 resolution(c(2L, 10L, 20L, 50L))
 }
-

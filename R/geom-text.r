@@ -1,38 +1,42 @@
 #' Text
 #'
-#' \code{geom_text} adds text directly to the plot. \code{geom_label} draws
+#' `geom_text` adds text directly to the plot. `geom_label` draws
 #' a rectangle behind the text, making it easier to read.
 #'
-#' Note the the "width" and "height" of a text element are 0, so stacking
+#' Note that the "width" and "height" of a text element are 0, so stacking
 #' and dodging text will not work by default, and axis limits are not
 #' automatically expanded to include all text. Obviously, labels do have
 #' height and width, but they are physical units, not data units. The amount of
-#' space they occupy on that plot is not constant in data units: when you
+#' space they occupy on the plot is not constant in data units: when you
 #' resize a plot, labels stay the same size, but the size of the axes changes.
 #'
-#' @section Aesthetics:
-#' \aesthetics{geom}{text}
+#' `geom_text` and `geom_label` both add a label for each row in the
+#' data, even if coordinates x, y are set to single values in the call
+#' to `geom_label` or `geom_text`.
+#' To add labels at specified points use [annotate()] with
+#' `annotate(geom = "text", ...)` or `annotate(geom = "label", ...)`
 #'
-#' @section \code{geom_label}:
-#' Currently \code{geom_label} does not support the \code{rot} parameter and
-#' is considerably slower than \code{geom_text}. The \code{fill} aesthetic
+#' @eval rd_aesthetics("geom", "text")
+#' @section `geom_label`:
+#' Currently `geom_label` does not support the `rot` parameter and
+#' is considerably slower than `geom_text`. The `fill` aesthetic
 #' controls the background colour of the label.
 #'
 #' @section Alignment:
-#' You can modify text alignment with the \code{vjust} and \code{hjust}
+#' You can modify text alignment with the `vjust` and `hjust`
 #' aesthetics. These can either be a number between 0 (right/bottom) and
-#' 1 (top/left) or a character ("left", "middle", "right", "bottom", "center",
-#' "top"). There are two special alignments: "inward" and "outward".
-#' Inward always aligns text towards the center, and outward aligns
-#' it away from the center
+#' 1 (top/left) or a character (`"left"`, `"middle"`, `"right"`, `"bottom"`,
+#' `"center"`, `"top"`). There are two special alignments: `"inward"` and
+#' `"outward"`. Inward always aligns text towards the center, and outward
+#' aligns it away from the center
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @param parse If TRUE, the labels will be parsed into expressions and
+#' @param parse If `TRUE`, the labels will be parsed into expressions and
 #'   displayed as described in ?plotmath
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #'   Useful for offsetting text from points, particularly on discrete scales.
-#' @param check_overlap If \code{TRUE}, text that overlaps previous text in the
+#' @param check_overlap If `TRUE`, text that overlaps previous text in the
 #'   same layer will not be plotted.
 #' @export
 #' @examples
@@ -168,14 +172,14 @@ GeomText <- ggproto("GeomText", Geom,
     vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2
   ),
 
-  draw_panel = function(data, panel_scales, coord, parse = FALSE,
+  draw_panel = function(data, panel_params, coord, parse = FALSE,
                         na.rm = FALSE, check_overlap = FALSE) {
     lab <- data$label
     if (parse) {
       lab <- parse(text = as.character(lab))
     }
 
-    data <- coord$transform(data, panel_scales)
+    data <- coord$transform(data, panel_params)
     if (is.character(data$vjust)) {
       data$vjust <- compute_just(data$vjust, data$y)
     }

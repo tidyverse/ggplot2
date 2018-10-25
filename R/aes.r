@@ -26,17 +26,30 @@ NULL
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. Aesthetic mappings can be set in
-#' \code{\link{ggplot2}} and in individual layers.
+#' [ggplot2()] and in individual layers.
 #'
-#' This function also standardise aesthetic names by performing partial
+#' This function also standardises aesthetic names by performing partial
 #' matching, converting color to colour, and translating old style R names to
-#' ggplot names (eg. pch to shape, cex to size)
+#' ggplot names (eg. pch to shape, cex to size).
+#'
+#' @section Quasiquotation:
+#'
+#' `aes()` is a [quoting function][rlang::quotation]. This means that
+#' its inputs are quoted to be evaluated in the context of the
+#' data. This makes it easy to work with variables from the data frame
+#' because you can name those directly. The flip side is that you have
+#' to use [quasiquotation][rlang::quasiquotation] to program with
+#' `aes()`. See a tidy evaluation tutorial such as the [dplyr
+#' programming vignette](http://dplyr.tidyverse.org/articles/programming.html)
+#' to learn more about these techniques.
 #'
 #' @param x,y,... List of name value pairs giving aesthetics to map to
 #'   variables. The names for x and y aesthetics are typically omitted because
 #'   they are so common; all other aesthetics must be named.
-#' @seealso See \code{\link{aes_}} for a version of \code{aes} that is
-#'   more suitable for programming with.
+#' @seealso [vars()] for another quoting function designed for
+#'   faceting specifications.
+#' @return A list with class `uneval`. Components of the list are either
+#'   quosures or constants.
 #' @export
 #' @examples
 #' aes(x = mpg, y = wt)
@@ -45,40 +58,110 @@ NULL
 #' # You can also map aesthetics to functions of variables
 #' aes(x = mpg ^ 2, y = wt / cyl)
 #'
+#' # Or to constants
+#' aes(x = 1, colour = "smooth")
+#'
 #' # Aesthetic names are automatically standardised
 #' aes(col = x)
 #' aes(fg = x)
 #' aes(color = x)
 #' aes(colour = x)
 #'
-#' # aes is almost always used with ggplot() or a layer
+#' # aes() is passed to either ggplot() or specific layer. Aesthetics supplied
+#' # to ggplot() are used as defaults for every layer.
 #' ggplot(mpg, aes(displ, hwy)) + geom_point()
 #' ggplot(mpg) + geom_point(aes(displ, hwy))
 #'
-#' # Aesthetics supplied to ggplot() are used as defaults for every layer
-#' # you can override them, or supply different aesthetics for each layer
+#' # Tidy evaluation ----------------------------------------------------
+#' # aes() automatically quotes all its arguments, so you need to use tidy
+#' # evaluation to create wrappers around ggplot2 pipelines. The
+#' # simplest case occurs when your wrapper takes dots:
+#' scatter_by <- function(data, ...) {
+#'   ggplot(data) + geom_point(aes(...))
+#' }
+#' scatter_by(mtcars, disp, drat)
+#'
+#' # If your wrapper has a more specific interface with named arguments,
+#' # you need "enquote and unquote":
+#' scatter_by <- function(data, x, y) {
+#'   x <- enquo(x)
+#'   y <- enquo(y)
+#'
+#'   ggplot(data) + geom_point(aes(!!x, !!y))
+#' }
+#' scatter_by(mtcars, disp, drat)
+#'
+#' # Note that users of your wrapper can use their own functions in the
+#' # quoted expressions and all will resolve as it should!
+#' cut3 <- function(x) cut_number(x, 3)
+#' scatter_by(mtcars, cut3(disp), drat)
 aes <- function(x, y, ...) {
-  aes <- structure(as.list(match.call()[-1]), class = "uneval")
+  exprs <- rlang::enquos(x = x, y = y, ...)
+  is_missing <- vapply(exprs, rlang::quo_is_missing, logical(1))
+
+  aes <- new_aes(exprs[!is_missing], env = parent.frame())
   rename_aes(aes)
 }
-#' @export
-print.uneval <- function(x, ...) {
-  values <- vapply(x, deparse2, character(1))
-  bullets <- paste0("* ", format(names(x)), " -> ", values, "\n")
 
-  cat(bullets, sep = "")
+# Wrap symbolic objects in quosures but pull out constants out of
+# quosures for backward-compatibility
+new_aesthetic <- function(x, env = globalenv()) {
+  if (rlang::is_quosure(x)) {
+    if (!rlang::quo_is_symbolic(x)) {
+      x <- rlang::quo_get_expr(x)
+    }
+    return(x)
+  }
+
+  if (rlang::is_symbolic(x)) {
+    x <- rlang::new_quosure(x, env = env)
+    return(x)
+  }
+
+  x
+}
+new_aes <- function(x, env = globalenv()) {
+  stopifnot(is.list(x))
+  x <- lapply(x, new_aesthetic, env = env)
+  structure(x, class = "uneval")
 }
 
 #' @export
-str.uneval <- function(object, ...) utils::str(unclass(object), ...)
-#' @export
-"[.uneval" <- function(x, i, ...) structure(unclass(x)[i], class = "uneval")
+print.uneval <- function(x, ...) {
+  cat("Aesthetic mapping: \n")
+
+  if (length(x) == 0) {
+    cat("<empty>\n")
+  } else {
+    values <- vapply(x, rlang::quo_label, character(1))
+    bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
+
+    cat(bullets, sep = "")
+  }
+
+  invisible(x)
+}
 
 #' @export
-as.character.uneval <- function(x, ...) {
-  char <- as.character(unclass(x))
-  names(char) <- names(x)
-  char
+"[.uneval" <- function(x, i, ...) {
+  new_aes(NextMethod())
+}
+
+# If necessary coerce replacements to quosures for compatibility
+#' @export
+"[[<-.uneval" <- function(x, i, value) {
+  new_aes(NextMethod())
+}
+#' @export
+"$<-.uneval" <- function(x, i, value) {
+  # Can't use NextMethod() because of a bug in R 3.1
+  x <- unclass(x)
+  x[[i]] <- value
+  new_aes(x)
+}
+#' @export
+"[<-.uneval" <- function(x, i, value) {
+  new_aes(NextMethod())
 }
 
 # Rename American or old-style aesthetics name
@@ -106,25 +189,32 @@ is_position_aes <- function(vars) {
 #' Define aesthetic mappings programatically
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
-#' properties (aesthetics) of geoms. \code{\link{aes}} uses non-standard
-#' evaluation to capture the variable names. \code{aes_} and \code{aes_string}
-#' require you to explicitly quote the inputs either with \code{""} for
-#' \code{aes_string()}, or with \code{quote} or \code{~} for \code{aes_()}.
-#' (\code{aes_q} is an alias to \code{aes_}). This makes \code{aes_} and
-#' \code{aes_string} easy to program with.
+#' properties (aesthetics) of geoms. [aes()] uses non-standard
+#' evaluation to capture the variable names. `aes_` and `aes_string`
+#' require you to explicitly quote the inputs either with `""` for
+#' `aes_string()`, or with `quote` or `~` for `aes_()`.
+#' (`aes_q` is an alias to `aes_`). This makes `aes_` and
+#' `aes_string` easy to program with.
 #'
-#' \code{aes_string} and \code{aes_} are particularly useful when writing
+#' `aes_string` and `aes_` are particularly useful when writing
 #' functions that create plots because you can use strings or quoted
 #' names/calls to define the aesthetic mappings, rather than having to use
-#' \code{\link{substitute}} to generate a call to \code{aes()}.
+#' [substitute()] to generate a call to `aes()`.
 #'
-#' I recommend using \code{aes_()}, because creating the equivalents of
-#' \code{aes(colour = "my colour")} or \code{aes{x = `X$1`}}
-#' with \code{aes_string()} is quite clunky.
+#' I recommend using `aes_()`, because creating the equivalents of
+#' `aes(colour = "my colour")` or \code{aes{x = `X$1`}}
+#' with `aes_string()` is quite clunky.
+#'
+#'
+#' @section Life cycle:
+#'
+#' All these functions are soft-deprecated. Please use tidy evaluation
+#' idioms instead (see the quasiquotation section in
+#' [aes()] documentation).
 #'
 #' @param x,y,... List of name value pairs. Elements must be either
 #'   quoted calls, strings, one-sided formulas or constants.
-#' @seealso \code{\link{aes}}
+#' @seealso [aes()]
 #' @export
 #' @examples
 #' # Three ways of generating the same aesthetics
@@ -148,17 +238,19 @@ aes_ <- function(x, y, ...) {
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
 
-  as_call <- function(x) {
+  caller_env <- parent.frame()
+
+  as_quosure_aes <- function(x) {
     if (is.formula(x) && length(x) == 2) {
-      x[[2]]
+      rlang::as_quosure(x)
     } else if (is.call(x) || is.name(x) || is.atomic(x)) {
-      x
+      new_aesthetic(x, caller_env)
     } else {
       stop("Aesthetic must be a one-sided formula, call, name, or constant.",
         call. = FALSE)
     }
   }
-  mapping <- lapply(mapping, as_call)
+  mapping <- lapply(mapping, as_quosure_aes)
   structure(rename_aes(mapping), class = "uneval")
 }
 
@@ -169,13 +261,14 @@ aes_string <- function(x, y, ...) {
   if (!missing(x)) mapping["x"] <- list(x)
   if (!missing(y)) mapping["y"] <- list(y)
 
+  caller_env <- parent.frame()
   mapping <- lapply(mapping, function(x) {
     if (is.character(x)) {
-      parse(text = x)[[1]]
-    } else {
-      x
+      x <- rlang::parse_expr(x)
     }
+    new_aesthetic(x, env = caller_env)
   })
+
   structure(rename_aes(mapping), class = "uneval")
 }
 
@@ -195,8 +288,10 @@ aes_all <- function(vars) {
   names(vars) <- vars
   vars <- rename_aes(vars)
 
+  # Quosure the symbols in the empty environment because they can only
+  # refer to the data mask
   structure(
-    lapply(vars, as.name),
+    lapply(vars, function(x) rlang::new_quosure(as.name(x), emptyenv())),
     class = "uneval"
   )
 }
@@ -231,4 +326,13 @@ aes_auto <- function(data = NULL, ...) {
   }
 
   structure(rename_aes(aes), class = "uneval")
+}
+
+mapped_aesthetics <- function(x) {
+  if (is.null(x)) {
+    return(NULL)
+  }
+
+  is_null <- vapply(x, is.null, logical(1))
+  names(x)[!is_null]
 }

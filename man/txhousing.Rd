@@ -13,7 +13,7 @@
 \item{median}{Median sale price}
 \item{listings}{Total active listings}
 \item{inventory}{"Months inventory": amount of time it would take to sell
-  all current listings at current pace of sales.}
+all current listings at current pace of sales.}
 }}
 \usage{
 txhousing
@@ -23,4 +23,3 @@ Information about the housing market in Texas provided by the TAMU
 real estate center, \url{http://recenter.tamu.edu/}.
 }
 \keyword{datasets}
-
