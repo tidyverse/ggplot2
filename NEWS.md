@@ -1,3 +1,7 @@
+* Re-generate economics data. This leads to minor changes in the computation
+  of PCE, but more importantly, strips the grouping attributes from
+  `economics_long`.
+
 # ggplot2 3.1.0
 
 ## Breaking changes

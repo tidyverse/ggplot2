@@ -9,15 +9,20 @@ library(dplyr)
 series <- c("PCE", "POP", "PSAVERT", "UEMPMED", "UNEMPLOY")
 url <- paste0("http://research.stlouisfed.org/fred2/series/", series, "/downloaddata/", series, ".csv")
 
-fields <- lapply(url, read_csv)
+fields <- map(url, read_csv,
+  col_types = cols(
+    DATE = col_date(format = ""),
+    VALUE = col_double()
+  )
+)
 
 economics <- fields %>%
   map2(tolower(series), function(x, series) setNames(x, c("date", series))) %>%
   reduce(inner_join, by = "date") %>%
-  mutate(date = structure(date, class = "Date")) # Not sure why this is lost
+  filter(date <= as.Date("2015-04-01"))
 
 write.csv(economics, "data-raw/economics.csv", row.names = FALSE, quote = FALSE)
-devtools::use_data(economics, overwrite = TRUE)
+usethis::use_data(economics, overwrite = TRUE)
 
 rescale01 <- function(x) (x - min(x)) / diff(range(x))
 economics_long <- economics %>%
@@ -26,4 +31,4 @@ economics_long <- economics %>%
   mutate(value01 = rescale01(value)) %>%
   ungroup()
 
-devtools::use_data(economics_long, overwrite = TRUE)
+usethis::use_data(economics_long, overwrite = TRUE)
