@@ -223,22 +223,7 @@ ggplot(data, aes(mpg, disp)) +
   facet_grid(am ~ gear, switch = "both")
 ```
 
-This is especially useful when the labels directly characterise the axes. In that situation, switching the labels can make the plot clearer and more readable. You may also want to use a neutral label background by setting `strip.background` to `element_blank()`:
-
-```{r}
-data <- mtcars %>% 
-  mutate(
-    Logarithmic = log(mpg),
-    Inverse = 1 / mpg,
-    Cubic = mpg ^ 3,
-    Original = mpg
-) %>% tidyr::gather(transformation, mpg2, Logarithmic:Original)
-
-ggplot(data, aes(mpg2, disp)) +
-  geom_point() +
-  facet_wrap(~transformation, scales = "free", switch = "x") +
-  theme(strip.background = element_blank())
-```
+This is especially useful when the labels directly characterise the axes. In that situation, switching the labels can make the plot clearer and more readable. You may also want to use a neutral label background by setting `strip.background` to `element_blank()`.
 
 ### Wrap labeller
 
