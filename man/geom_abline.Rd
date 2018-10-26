@@ -9,11 +9,11 @@
 geom_abline(mapping = NULL, data = NULL, ..., slope, intercept,
   na.rm = FALSE, show.legend = NA)
 
-geom_hline(mapping = NULL, data = NULL, ..., yintercept, na.rm = FALSE,
-  show.legend = NA)
+geom_hline(mapping = NULL, data = NULL, ..., yintercept,
+  na.rm = FALSE, show.legend = NA)
 
-geom_vline(mapping = NULL, data = NULL, ..., xintercept, na.rm = FALSE,
-  show.legend = NA)
+geom_vline(mapping = NULL, data = NULL, ..., xintercept,
+  na.rm = FALSE, show.legend = NA)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -32,12 +32,12 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
@@ -78,9 +78,9 @@ same aesthetics: \code{alpha}, \code{colour}, \code{linetype} and
 \code{size}. They also each have aesthetics that control the position of
 the line:
 \itemize{
-\item \code{geom_vline}: \code{xintercept}
-\item \code{geom_hline}: \code{yintercept}
-\item \code{geom_abline}: \code{slope} and \code{intercept}
+\item \code{geom_vline()}: \code{xintercept}
+\item \code{geom_hline()}: \code{yintercept}
+\item \code{geom_abline()}: \code{slope} and \code{intercept}
 }
 }
 

@@ -12,8 +12,8 @@ NULL
 #'   The variables can be named (the names are passed to `labeller`).
 #'
 #'   For compatibility with the classic interface, can also be a
-#'   formula or character vector. Use either a one sided formula, `~a
-#'   + b`, or a character vector, `c("a", "b")`.
+#'   formula or character vector. Use either a one sided formula, `~a + b`,
+#'   or a character vector, `c("a", "b")`.
 #' @param nrow,ncol Number of rows and columns.
 #' @param scales Should scales be fixed (`"fixed"`, the default),
 #'   free (`"free"`), or free in one dimension (`"free_x"`,
@@ -199,7 +199,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     keys <- plyr::join.keys(facet_vals, layout, by = names(vars))
 
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
-    data[order(data$PANEL), ]
+    data
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {

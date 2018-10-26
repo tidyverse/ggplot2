@@ -108,7 +108,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
   },
 
   setup_data = function(self, data, params) {
-    if (!"x" %in% names(data) & all(c("xmin", "xmax") %in% names(data))) {
+    if (!"x" %in% names(data) && all(c("xmin", "xmax") %in% names(data))) {
       data$x <- (data$xmin + data$xmax) / 2
     }
     data

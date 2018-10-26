@@ -14,13 +14,23 @@ fortify <- function(model, data, ...) UseMethod("fortify")
 #' @export
 fortify.data.frame <- function(model, data, ...) model
 #' @export
-fortify.tbl <- function(model, data, ...) dplyr::collect(model)
+fortify.tbl_df <- function(model, data, ...) model
+#' @export
+fortify.tbl <- function(model, data, ...) {
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("dplyr must be installed to work with tbl objects", call. = FALSE)
+  }
+  dplyr::collect(model)
+}
 #' @export
 fortify.NULL <- function(model, data, ...) waiver()
 #' @export
 fortify.function <- function(model, data, ...) model
 #' @export
 fortify.grouped_df <- function(model, data, ...) {
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("dplyr must be installed to work with grouped_df objects", call. = FALSE)
+  }
   model$.group <- dplyr::group_indices(model)
   model
 }

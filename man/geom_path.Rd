@@ -36,7 +36,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{stat}{The statistical transformation to use on the data for this
@@ -47,7 +47,7 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{lineend}{Line end style (round, butt, square).}
@@ -88,7 +88,7 @@ corresponds to a single case which provides the start and end coordinates.
 }
 \section{Aesthetics}{
 
-\code{geom_path} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_path()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -98,7 +98,20 @@ corresponds to a single case which provides the start and end coordinates.
 \item \code{linetype}
 \item \code{size}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
+\section{Missing value handling}{
+
+\code{geom_path()}, \code{geom_line()}, and \code{geom_step} handle \code{NA} as follows:
+\itemize{
+\item If an \code{NA} occurs in the middle of a line, it breaks the line. No warning
+is shown, regardless of whether \code{na.rm} is \code{TRUE} or \code{FALSE}.
+\item If an \code{NA} occurs at the start or the end of the line and \code{na.rm} is \code{FALSE}
+(default), the \code{NA} is removed with a warning.
+\item If an \code{NA} occurs at the start or the end of the line and \code{na.rm} is \code{TRUE},
+the \code{NA} is removed silently, without warning.
+}
 }
 
 \examples{
@@ -138,16 +151,9 @@ base + geom_path(size = 10)
 base + geom_path(size = 10, lineend = "round")
 base + geom_path(size = 10, linejoin = "mitre", lineend = "butt")
 
-# NAs break the line. Use na.rm = T to suppress the warning message
-df <- data.frame(
-  x = 1:5,
-  y1 = c(1, 2, 3, 4, NA),
-  y2 = c(NA, 2, 3, 4, 5),
-  y3 = c(1, 2, NA, 4, 5)
-)
-ggplot(df, aes(x, y1)) + geom_point() + geom_line()
-ggplot(df, aes(x, y2)) + geom_point() + geom_line()
-ggplot(df, aes(x, y3)) + geom_point() + geom_line()
+# You can use NAs to break the line.
+df <- data.frame(x = 1:5, y = c(1, 2, NA, 4, 5))
+ggplot(df, aes(x, y)) + geom_point() + geom_line()
 
 \donttest{
 # Setting line type vs colour/size

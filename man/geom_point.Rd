@@ -25,7 +25,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{stat}{The statistical transformation to use on the data for this
@@ -36,7 +36,7 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
@@ -59,12 +59,8 @@ useful for displaying the relationship between two continuous variables.
 It can be used to compare one continuous and one categorical variable, or
 two categorical variables, but a variation like \code{\link[=geom_jitter]{geom_jitter()}},
 \code{\link[=geom_count]{geom_count()}}, or \code{\link[=geom_bin2d]{geom_bin2d()}} is usually more
-appropriate.
-}
-\details{
-The \emph{bubblechart} is a scatterplot with a third variable mapped to
-the size of points. There are no special names for scatterplots where
-another variable is mapped to point shape or colour, however.
+appropriate. A \emph{bubblechart} is a scatterplot with a third variable
+mapped to the size of points.
 }
 \section{Overplotting}{
 
@@ -74,7 +70,7 @@ another. This can severely distort the visual appearance of the plot.
 There is no one solution to this problem, but there are some techniques
 that can help. You can add additional information with
 \code{\link[=geom_smooth]{geom_smooth()}}, \code{\link[=geom_quantile]{geom_quantile()}} or
-\code{\link[=geom_density_2d]{geom_density_2d()}}. If you have few unique x values,
+\code{\link[=geom_density_2d]{geom_density_2d()}}. If you have few unique \code{x} values,
 \code{\link[=geom_boxplot]{geom_boxplot()}} may also be useful.
 
 Alternatively, you can
@@ -89,7 +85,7 @@ Another technique is to make the points transparent (e.g.
 
 \section{Aesthetics}{
 
-\code{geom_point} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_point()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -101,7 +97,7 @@ Another technique is to make the points transparent (e.g.
 \item \code{size}
 \item \code{stroke}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{
@@ -111,6 +107,7 @@ p + geom_point()
 # Add aesthetic mappings
 p + geom_point(aes(colour = factor(cyl)))
 p + geom_point(aes(shape = factor(cyl)))
+# A "bubblechart":
 p + geom_point(aes(size = qsec))
 
 # Set aesthetics to fixed value
@@ -138,12 +135,6 @@ p + geom_point(aes(colour = factor(cyl)), size = 4) +
   geom_point(colour = "grey90", size = 1.5)
 p + geom_point(colour = "black", size = 4.5) +
   geom_point(colour = "pink", size = 4) +
-  geom_point(aes(shape = factor(cyl)))
-
-# These extra layers don't usually appear in the legend, but we can
-# force their inclusion
-p + geom_point(colour = "black", size = 4.5, show.legend = TRUE) +
-  geom_point(colour = "pink", size = 4, show.legend = TRUE) +
   geom_point(aes(shape = factor(cyl)))
 
 # geom_point warns when missing values have been dropped from the data set

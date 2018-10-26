@@ -1,3 +1,4 @@
+^CRAN-RELEASE$
 visual_test
 ^.*\.Rproj$
 ^\.Rproj\.user$
@@ -8,6 +9,7 @@ visual_test
 ^cran-comments.md$
 ^data-raw$
 ^CONTRIBUTING\.md$
+^GOVERNANCE\.md$
 ^ISSUE_TEMPLATE\.md$
 ^NEWS$
 ^revdep$
@@ -19,3 +21,4 @@ visual_test
 ^README-.*\.png$
 ^logo\.png$
 ^appveyor\.yml$
+^\.github$

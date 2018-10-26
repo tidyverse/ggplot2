@@ -19,7 +19,8 @@
 #' @param limitsize When `TRUE` (the default), `ggsave` will not
 #'   save images larger than 50x50 inches, to prevent the common error of
 #'   specifying dimensions in pixels.
-#' @param ... Other arguments passed on to graphics `device`.
+#' @param ... Other arguments passed on to the graphics device function,
+#'   as specified by `device`.
 #' @export
 #' @examples
 #' \dontrun{
@@ -31,6 +32,7 @@
 #' ggsave("mtcars.pdf", width = 4, height = 4)
 #' ggsave("mtcars.pdf", width = 20, height = 20, units = "cm")
 #'
+#' # delete files with base::unlink()
 #' unlink("mtcars.pdf")
 #' unlink("mtcars.png")
 #'
@@ -57,7 +59,7 @@ ggsave <- function(filename, plot = last_plot(),
   dev(filename = filename, width = dim[1], height = dim[2], ...)
   on.exit(utils::capture.output({
     grDevices::dev.off()
-    grDevices::dev.set(old_dev)
+    if (old_dev > 1) grDevices::dev.set(old_dev) # restore old device unless null device
   }))
   grid.draw(plot)
 
@@ -116,7 +118,10 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
   dim
 }
 
-plot_dev <- function(device, filename, dpi = 300) {
+plot_dev <- function(device, filename = NULL, dpi = 300) {
+  force(filename)
+  force(dpi)
+
   if (is.function(device))
     return(device)
 

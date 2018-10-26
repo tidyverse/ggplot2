@@ -4,8 +4,8 @@
 \alias{borders}
 \title{Create a layer of map borders}
 \usage{
-borders(database = "world", regions = ".", fill = NA, colour = "grey50",
-  xlim = NULL, ylim = NULL, ...)
+borders(database = "world", regions = ".", fill = NA,
+  colour = "grey50", xlim = NULL, ylim = NULL, ...)
 }
 \arguments{
 \item{database}{map data, see \code{\link[maps:map]{maps::map()}} for details}
@@ -16,7 +16,7 @@ borders(database = "world", regions = ".", fill = NA, colour = "grey50",
 
 \item{colour}{border colour}
 
-\item{xlim, ylim}{latitudinal and logitudinal range for extracting map
+\item{xlim, ylim}{latitudinal and longitudinal ranges for extracting map
 polygons, see \code{\link[maps:map]{maps::map()}} for details.}
 
 \item{...}{Arguments passed on to \code{geom_polygon}
@@ -36,7 +36,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
   \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}

@@ -5,11 +5,8 @@
 #' It can be used to compare one continuous and one categorical variable, or
 #' two categorical variables, but a variation like [geom_jitter()],
 #' [geom_count()], or [geom_bin2d()] is usually more
-#' appropriate.
-#'
-#' The \emph{bubblechart} is a scatterplot with a third variable mapped to
-#' the size of points. There are no special names for scatterplots where
-#' another variable is mapped to point shape or colour, however.
+#' appropriate. A _bubblechart_ is a scatterplot with a third variable
+#' mapped to the size of points.
 #'
 #' @section Overplotting:
 #' The biggest potential problem with a scatterplot is overplotting: whenever
@@ -18,7 +15,7 @@
 #' There is no one solution to this problem, but there are some techniques
 #' that can help. You can add additional information with
 #' [geom_smooth()], [geom_quantile()] or
-#' [geom_density_2d()]. If you have few unique x values,
+#' [geom_density_2d()]. If you have few unique `x` values,
 #' [geom_boxplot()] may also be useful.
 #'
 #' Alternatively, you can
@@ -36,7 +33,7 @@
 #'   a warning. If `TRUE`, missing values are silently removed.
 #' @param ... Other arguments passed on to [layer()]. These are
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
-#'   `color = "red"` or `size = 3`. They may also be parameters
+#'   `colour = "red"` or `size = 3`. They may also be parameters
 #'   to the paired geom/stat.
 #' @inheritParams layer
 #' @export
@@ -47,6 +44,7 @@
 #' # Add aesthetic mappings
 #' p + geom_point(aes(colour = factor(cyl)))
 #' p + geom_point(aes(shape = factor(cyl)))
+#' # A "bubblechart":
 #' p + geom_point(aes(size = qsec))
 #'
 #' # Set aesthetics to fixed value
@@ -74,12 +72,6 @@
 #'   geom_point(colour = "grey90", size = 1.5)
 #' p + geom_point(colour = "black", size = 4.5) +
 #'   geom_point(colour = "pink", size = 4) +
-#'   geom_point(aes(shape = factor(cyl)))
-#'
-#' # These extra layers don't usually appear in the legend, but we can
-#' # force their inclusion
-#' p + geom_point(colour = "black", size = 4.5, show.legend = TRUE) +
-#'   geom_point(colour = "pink", size = 4, show.legend = TRUE) +
 #'   geom_point(aes(shape = factor(cyl)))
 #'
 #' # geom_point warns when missing values have been dropped from the data set

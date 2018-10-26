@@ -11,8 +11,8 @@ geom_hex(mapping = NULL, data = NULL, stat = "binhex",
   inherit.aes = TRUE)
 
 stat_bin_hex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", ..., bins = 30, binwidth = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., bins = 30, binwidth = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -31,7 +31,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
@@ -39,7 +39,7 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
@@ -73,7 +73,7 @@ the very regular alignment of \code{\link[=geom_bin2d]{geom_bin2d()}}.
 }
 \section{Aesthetics}{
 
-\code{geom_hex} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_hex()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -81,9 +81,20 @@ the very regular alignment of \code{\link[=geom_bin2d]{geom_bin2d()}}.
 \item \code{colour}
 \item \code{fill}
 \item \code{group}
+\item \code{linetype}
 \item \code{size}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
+\section{Computed variables}{
+
+\describe{
+\item{count}{number of points in bin}
+\item{density}{density of points in bin, scaled to integrate to 1}
+\item{ncount}{count, scaled to maximum of 1}
+\item{ndensity}{density, scaled to maximum of 1}
+}
 }
 
 \examples{

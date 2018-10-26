@@ -7,9 +7,9 @@
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
-#' by the `boxplot` function, and may be apparent with small samples.
+#' by the [boxplot()] function, and may be apparent with small samples.
 #' See [boxplot.stats()] for for more information on how hinge
-#' positions are calculated for `boxplot`.
+#' positions are calculated for [boxplot()].
 #'
 #' The upper whisker extends from the hinge to the largest value no further than
 #' 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
@@ -24,7 +24,7 @@
 #'
 #' @eval rd_aesthetics("geom", "boxplot")
 #'
-#' @seealso [geom_quantile()] for continuous x,
+#' @seealso [geom_quantile()] for continuous `x`,
 #'   [geom_violin()] for a richer display of the distribution, and
 #'   [geom_jitter()] for a useful technique for small data.
 #' @inheritParams layer
@@ -49,7 +49,7 @@
 #'   if the notches of two boxes do not overlap, this suggests that the medians
 #'   are significantly different.
 #' @param notchwidth For a notched box plot, width of the notch relative to
-#'   the body (default 0.5)
+#'   the body (defaults to `notchwidth = 0.5`).
 #' @param varwidth If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly
@@ -60,7 +60,6 @@
 #' @examples
 #' p <- ggplot(mpg, aes(class, hwy))
 #' p + geom_boxplot()
-#' p + geom_boxplot() + geom_jitter(width = 0.2)
 #' p + geom_boxplot() + coord_flip()
 #'
 #' p + geom_boxplot(notch = TRUE)
@@ -69,6 +68,8 @@
 #' # By default, outlier points match the colour of the box. Use
 #' # outlier.colour to override
 #' p + geom_boxplot(outlier.colour = "red", outlier.shape = 1)
+#' # Remove outliers when overlaying boxplot with original data points
+#' p + geom_boxplot(outlier.shape = NA) + geom_jitter(width = 0.2)
 #'
 #' # Boxplots are automatically dodged when any aesthetic is a factor
 #' p + geom_boxplot(aes(colour = drv))
@@ -79,6 +80,7 @@
 #'   geom_boxplot()
 #' ggplot(diamonds, aes(carat, price)) +
 #'   geom_boxplot(aes(group = cut_width(carat, 0.25)))
+#' # Adjust the transparency of outliers using outlier.alpha
 #' ggplot(diamonds, aes(carat, price)) +
 #'   geom_boxplot(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 #'
@@ -156,6 +158,11 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomBoxplot <- ggproto("GeomBoxplot", Geom,
+
+  # need to declare `width`` here in case this geom is used with a stat that
+  # doesn't have a `width` parameter (e.g., `stat_identity`).
+  extra_params = c("na.rm", "width"),
+
   setup_data = function(data, params) {
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)

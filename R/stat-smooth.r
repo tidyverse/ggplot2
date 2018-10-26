@@ -1,20 +1,21 @@
-#' @param method Smoothing method (function) to use, eg. `lm`, `glm`,
-#'   `gam`, `loess`, `MASS::rlm`.
+#' @param method Smoothing method (function) to use, accepts either a character vector,
+#'   e.g. `"auto"`, `"lm"`, `"glm"`, `"gam"`, `"loess"` or a function, e.g.
+#'   `MASS::rlm` or `mgcv::gam`, `base::lm`, or `base::loess`.
 #'
 #'   For `method = "auto"` the smoothing method is chosen based on the
 #'   size of the largest group (across all panels). [loess()] is
 #'   used for less than 1,000 observations; otherwise [mgcv::gam()] is
 #'   used with `formula = y ~ s(x, bs = "cs")`. Somewhat anecdotally,
-#'   `loess` gives a better appearance, but is O(n^2) in memory, so does
-#'   not work for larger datasets.
+#'   `loess` gives a better appearance, but is \eqn{O(N^{2})}{O(N^2)} in memory,
+#'   so does not work for larger datasets.
 #'
-#'   If you have fewer than 1,000 observations but want to use the same `gam`
-#'   model that `method = "auto"` would use then set
+#'   If you have fewer than 1,000 observations but want to use the same `gam()`
+#'   model that `method = "auto"` would use, then set
 #'   `method = "gam", formula = y ~ s(x, bs = "cs")`.
 #' @param formula Formula to use in smoothing function, eg. `y ~ x`,
 #'   `y ~ poly(x, 2)`, `y ~ log(x)`
-#' @param se Display confidence interval around smooth? (TRUE by default, see
-#'   level to control.)
+#' @param se Display confidence interval around smooth? (`TRUE` by default, see
+#'   `level` to control.)
 #' @param fullrange Should the fit span the full range of the plot, or just
 #'   the data?
 #' @param level Level of confidence interval to use (0.95 by default).

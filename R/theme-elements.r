@@ -256,7 +256,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
 
 # This data structure represents the theme elements and the inheritance
-# among them.
+# among them. (In the future, .element_tree should be removed in favor
+# of direct assignment to ggplot_global$element_tree, see below.)
 .element_tree <- list(
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
@@ -352,6 +353,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   aspect.ratio        = el_def("character")
 )
 
+ggplot_global$element_tree <- .element_tree
 
 # Check that an element object has the proper class
 #
@@ -364,7 +366,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 # @param el an element
 # @param elname the name of the element
 validate_element <- function(el, elname) {
-  eldef <- .element_tree[[elname]]
+  eldef <- ggplot_global$element_tree[[elname]]
 
   if (is.null(eldef)) {
     stop('"', elname, '" is not a valid theme element name.')
