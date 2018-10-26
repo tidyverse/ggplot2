@@ -13,6 +13,8 @@ The job of the project lead is to set the strategic objectives of the project an
 
 The project lead of ggplot2 is [Hadley Wickham](http://github.com/hadley).
 
+The project lead is bound by the [code of conduct](CODE_OF_CONDUCT.md).
+
 ## Core developers
 
 Core developers are GitHub administrators and [package authors](https://github.com/tidyverse/ggplot2/blob/master/DESCRIPTION#L8). This means that they have the ability of make changes to project code, and receive credit when others cite the package.
@@ -30,12 +32,16 @@ The core developers of ggplot2 are:
 * [Claus Wilke](https://github.com/clauswilke)
 * [Kara Woo](https://github.com/karawoo)
 
+The core develoeprs are bound by the [code of conduct](CODE_OF_CONDUCT.md).
+
 ## Contributors
 
 Contributors are community members who interact with the project on GitHub either by filing new issues, improving existing issues, or submitting pull requests. Anyone can become a contributor. There is no expectation of commitment to the project, no specific skill requirements and no selection process. To become a contributor, a community member simply has to perform one or more actions described above.
 
 Specific advice for contributing to the project is provided in
 [CONTRIBUTING.md](https://github.com/tidyverse/ggplot2/blob/master/CONTRIBUTING.md)
+
+All contributors must follow the [code of conduct](CODE_OF_CONDUCT.md).
 
 ## Users
 

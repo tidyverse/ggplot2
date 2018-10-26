@@ -18,7 +18,7 @@ Code of Conduct. Project maintainers who do not follow the Code of Conduct may b
 from the project team.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by 
-opening an issue or contacting one or more of the project maintainers.
+opening an issue or contacting the project lead or one of the core developers.
 
 This Code of Conduct is adapted from the Contributor Covenant 
 (http://contributor-covenant.org), version 1.0.0, available at 
