@@ -5,47 +5,11 @@ Attribution-ShareAlike 4.0 International License. -->
 
 # Roles and responsibilities
 
-This project has a __project lead__, team of __core developers__, and a large community of __contributors__ and __users__.
-
-## Project lead
-
-The job of the project lead is to set the strategic objectives of the project and communicate these clearly to the community, ensuring that the project survives in the long term. The core developers and community actively contribute to the day-to-day maintenance of the project; the project lead sets general strategic direction and approves API changes. In case of disagreement, the project lead has the last word.
-
-The project lead of ggplot2 is [Hadley Wickham](http://github.com/hadley).
-
-The project lead is bound by the [code of conduct](CODE_OF_CONDUCT.md).
-
-## Core developers
-
-Core developers are GitHub administrators and [package authors](https://github.com/tidyverse/ggplot2/blob/master/DESCRIPTION#L8). This means that they have the ability of make changes to project code, and receive credit when others cite the package.
-
-While core developers do have the ability to modify source directly, this ability is rarely used. Instead, proposed changes are submitted as pull requests, and are only merged after they have been reviewed by at least one other core developer. Changes to the API (especially breaking changes) must also be approved by the project lead. Core developers are also empowered to review and merge pull requests from contributors. 
-
-Core developers are recruited from contributors. An invitation to join the core team will be extended to anyone who has made a major contribution, either through a small number of large changes, or a consistent pattern of smaller contributions. Any existing core developer can propose a contributor be invited to the core team, pending confirmation by existing authors.
-
-The core developers of ggplot2 are:
-
-* [Winston Chang](https://github.com/wch)
-* [Lionel Henry](https://github.com/lionel- )
-* [Thomas Lin Pedersen](https://github.com/thomasp85)
-* [Kohske Takahashi](https://github.com/kohske)
-* [Claus Wilke](https://github.com/clauswilke)
-* [Kara Woo](https://github.com/karawoo)
-
-The core develoeprs are bound by the [code of conduct](CODE_OF_CONDUCT.md).
-
-## Contributors
-
-Contributors are community members who interact with the project on GitHub either by filing new issues, improving existing issues, or submitting pull requests. Anyone can become a contributor. There is no expectation of commitment to the project, no specific skill requirements and no selection process. To become a contributor, a community member simply has to perform one or more actions described above.
-
-Specific advice for contributing to the project is provided in
-[CONTRIBUTING.md](https://github.com/tidyverse/ggplot2/blob/master/CONTRIBUTING.md)
-
-All contributors must follow the [code of conduct](CODE_OF_CONDUCT.md).
+This project has a large community __users__ and __contributors__, a team of __core developers__, and a __project lead__.
 
 ## Users
 
-Users are community members who use the package, without interacting with GitHub. They are the most important members of the community: without them, the project would have no purpose. 
+Anyone who creates visualisations with ggplot2 is a user. They are the most important members of the community: without them, the project would have no purpose. 
 
 Users are encouraged to participate in the life of the project and the community as much as possible. User contributions enable the project team to ensure that they are satisfying the needs of those users. Common user activities include (but are not limited to):
 
@@ -54,6 +18,42 @@ Users are encouraged to participate in the life of the project and the community
 - providing moral support (a 'thank you' goes a long way)
 
 Users who continue to engage with the project and its community will often find themselves becoming more and more involved. Such users may then go on to become contributors, as described above.
+
+## Contributors
+
+Contributors interact with the project on GitHub by filing new issues, improving existing issues, or submitting pull requests. Anyone can become a contributor: there is no expectation of commitment to the project, no specific skill requirements, and no selection process. The only obligation is to follow the [code of conduct](CODE_OF_CONDUCT.md).
+
+Specific advice for contributing to the project can be found in
+[CONTRIBUTING.md](https://github.com/tidyverse/ggplot2/blob/master/CONTRIBUTING.md).
+
+## Core developers
+
+Core developers are collectively responsible for day-to-day development of the package, including responding to issues and reviewing pull requests. They are GitHub administrators and [package authors](https://github.com/tidyverse/ggplot2/blob/master/DESCRIPTION#L8), which means that they have the ability to make changes to project code, and receive credit when others cite the package.
+
+While core developers can modify code directly, this ability is rarely used. Instead, changes are proposed as pull requests, and are only merged after they have been reviewed by at least one other core developer. Changes to the API (especially breaking changes) must also be approved by the project lead. 
+
+Core developers are recruited from contributors. An invitation to join the core team can be extended to anyone who has made a major contribution, either through a small number of large changes, or a consistent pattern of smaller contributions. Any existing core developer can propose a contributor be invited to the core team by emailing the project lead. The project lead will the confirm the invitation with existing core developers.
+
+The core developers of ggplot2 are:
+
+* [Winston Chang](https://github.com/wch)
+* [Lionel Henry](https://github.com/lionel-)
+* [Thomas Lin Pedersen](https://github.com/thomasp85)
+* [Kohske Takahashi](https://github.com/kohske)
+* [Claus Wilke](https://github.com/clauswilke)
+* [Kara Woo](https://github.com/karawoo)
+
+All core developers are bound by the [code of conduct](CODE_OF_CONDUCT.md).
+
+## Project lead
+
+The project lead, [Hadley Wickham](http://github.com/hadley), is responsible for:
+
+* Setting, and clearly communication the strategic objectives of the project.
+* Mediating any conflicts amongst the core developers.
+* Ensuring that the project survives in the long term.
+
+The project lead is bound by the [code of conduct](CODE_OF_CONDUCT.md).
 
 # Decision-making process
 
