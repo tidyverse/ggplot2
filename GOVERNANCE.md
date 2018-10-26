@@ -19,7 +19,7 @@ Core developers are GitHub administrators and [package authors](https://github.c
 
 While core developers do have the ability to modify source directly, this ability is rarely used. Instead, proposed changes are submitted as pull requests, and are only merged after they have been reviewed by at least one other core developer. Changes to the API (especially breaking changes) must also be approved by the project lead. Core developers are also empowered to review and merge pull requests from contributors. 
 
-Core developers are recruited from contributors. An invitation to join the core team will be extended to anyone who has made a major contribution, either through a small number of large changes, or a consistent pattern of smaller contributions. Any existing core developer can propose a contributor for be invited to the core team, pending confirmation by existing authors.
+Core developers are recruited from contributors. An invitation to join the core team will be extended to anyone who has made a major contribution, either through a small number of large changes, or a consistent pattern of smaller contributions. Any existing core developer can propose a contributor be invited to the core team, pending confirmation by existing authors.
 
 The core developers of ggplot2 are:
 
