@@ -30,7 +30,7 @@ Layout <- ggproto("Layout", NULL,
   panel_scales_y = NULL,
   panel_params = NULL,
 
-  setup = function(self, data, plot_data = data.frame(), plot_env = emptyenv()) {
+  setup = function(self, data, plot_data = new_data_frame(), plot_env = emptyenv()) {
     data <- c(list(plot_data), data)
 
     # Setup facets
