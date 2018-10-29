@@ -32,7 +32,7 @@ Core developers are collectively responsible for day-to-day development of the p
 
 While core developers can modify code directly, this ability is rarely used. Instead, changes are proposed as pull requests, and are only merged after they have been reviewed by at least one other core developer. Changes to the API (especially breaking changes) must also be approved by the project lead. 
 
-Core developers are recruited from contributors. An invitation to join the core team can be extended to anyone who has made a major contribution, either through a small number of large changes, or a consistent pattern of smaller contributions. Any existing core developer can propose a contributor be invited to the core team by emailing the project lead. The project lead will the confirm the invitation with the other core developers.
+Core developers are recruited from contributors. An invitation to join the core team can be extended to anyone who has made a major contribution, either through a small number of large changes, or a consistent pattern of smaller contributions. Any existing core developer can propose a contributor be invited to the core team by emailing the project lead. The project lead will confirm the invitation with the other core developers.
 
 The core developers of ggplot2 are:
 
