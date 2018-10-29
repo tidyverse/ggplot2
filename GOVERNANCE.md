@@ -9,7 +9,7 @@ This project has a large community of __users__ and __contributors__, a team of 
 
 ## Users
 
-People who create visualizations with ggplot2 are the most important members of the community; with these users, this project would have no purpose.
+People who create visualizations with ggplot2 are the most important members of the community; without these users, this project would have no purpose.
 
 Users are encouraged to participate in the life of the project and the community as much as possible. User contributions help ensure that the project is satisfying users' needs. Common user activities include (but are not limited to):
 
@@ -32,7 +32,7 @@ Core developers are collectively responsible for day-to-day development of the p
 
 While core developers can modify code directly, this ability is rarely used. Instead, changes are proposed as pull requests, and are only merged after they have been reviewed by at least one other core developer. Changes to the API (especially breaking changes) must also be approved by the project lead. 
 
-Core developers are recruited from contributors. An invitation to join the core team can be extended to anyone who has made a major contribution, either through a small number of large changes, or a consistent pattern of smaller contributions. Any existing core developer can propose a contributor be invited to the core team by emailing the project lead. The project lead will the confirm the invitation with existing core developers.
+Core developers are recruited from contributors. An invitation to join the core team can be extended to anyone who has made a major contribution, either through a small number of large changes, or a consistent pattern of smaller contributions. Any existing core developer can propose a contributor be invited to the core team by emailing the project lead. The project lead will the confirm the invitation with the other core developers.
 
 The core developers of ggplot2 are:
 
