@@ -5,13 +5,13 @@ Attribution-ShareAlike 4.0 International License. -->
 
 # Roles and responsibilities
 
-This project has a large community __users__ and __contributors__, a team of __core developers__, and a __project lead__.
+This project has a large community of __users__ and __contributors__, a team of __core developers__, and a __project lead__.
 
 ## Users
 
-Anyone who creates visualisations with ggplot2 is a user. They are the most important members of the community: without them, the project would have no purpose. 
+People who create visualizations with ggplot2 are the most important members of the community; with these users, this project would have no purpose.
 
-Users are encouraged to participate in the life of the project and the community as much as possible. User contributions enable the project team to ensure that they are satisfying the needs of those users. Common user activities include (but are not limited to):
+Users are encouraged to participate in the life of the project and the community as much as possible. User contributions help ensure that the project is satisfying users' needs. Common user activities include (but are not limited to):
 
 - evangelising about the project
 - asking and answering on community forums
@@ -21,7 +21,7 @@ Users who continue to engage with the project and its community will often find 
 
 ## Contributors
 
-Contributors interact with the project on GitHub by filing new issues, improving existing issues, or submitting pull requests. Anyone can become a contributor: there is no expectation of commitment to the project, no specific skill requirements, and no selection process. The only obligation is to follow the [code of conduct](CODE_OF_CONDUCT.md).
+Contributors interact with the project on GitHub by filing new issues, improving existing issues, or submitting pull requests. Anyone can become a contributor: there is no expectation of commitment to the project, no required set of skills, and no selection process. The only obligation is to follow the [code of conduct](CODE_OF_CONDUCT.md).
 
 Specific advice for contributing to the project can be found in
 [CONTRIBUTING.md](https://github.com/tidyverse/ggplot2/blob/master/CONTRIBUTING.md).
@@ -57,4 +57,4 @@ The project lead is bound by the [code of conduct](CODE_OF_CONDUCT.md).
 
 # Decision-making process
 
-This project makes decisions according to a consensus model where suggestions are considered and discussed between the community and core developers. In case of conflict, the project lead’s word is final. If the community chooses to question the wisdom of the actions of a core developer, the project lead can review their decision, and either uphold or reverse them.
+This project makes decisions according to a consensus model where suggestions are considered and discussed between the community and core developers, typically in GitHub issues. Where consensus cannot be reached, the project lead's word is final. If the community questions a decision, the project lead may review it and either uphold or reverse it.
