@@ -3,8 +3,8 @@ url: ggplot2.tidyverse.org
 template:
   package: tidytemplate
 
-development:
-  mode: auto
+# development:
+#   mode: auto
 
 home:
   strip_header: true
