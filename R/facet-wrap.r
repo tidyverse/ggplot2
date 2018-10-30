@@ -12,8 +12,8 @@ NULL
 #'   The variables can be named (the names are passed to `labeller`).
 #'
 #'   For compatibility with the classic interface, can also be a
-#'   formula or character vector. Use either a one sided formula, `~a
-#'   + b`, or a character vector, `c("a", "b")`.
+#'   formula or character vector. Use either a one sided formula, `~a + b`,
+#'   or a character vector, `c("a", "b")`.
 #' @param nrow,ncol Number of rows and columns.
 #' @param scales Should scales be fixed (`"fixed"`, the default),
 #'   free (`"free"`), or free in one dimension (`"free_x"`,

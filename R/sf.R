@@ -789,7 +789,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      crs = NULL, datum = sf::st_crs(4326),
                      label_graticule = waiver(),
                      label_axes = waiver(),
-                     ndiscr = 100, default = FALSE) {
+                     ndiscr = 100, default = FALSE, clip = "on") {
 
   if (is.waive(label_graticule) && is.waive(label_axes)) {
     # if both `label_graticule` and `label_axes` are set to waive then we
@@ -830,7 +830,8 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     label_graticule = label_graticule,
     ndiscr = ndiscr,
     expand = expand,
-    default = default
+    default = default,
+    clip = clip
   )
 }
 

@@ -1,4 +1,4 @@
-release_date: June 25
-rel_release_date: WEEK
-my_news_url: https://github.com/tidyverse/ggplot2/blob/master/NEWS.md#ggplot2-2219000
-release_version: 2.3.0
+release_date: Oct 10
+rel_release_date: one week
+my_news_url: https://github.com/tidyverse/ggplot2/blob/master/NEWS.md#ggplot2-310
+release_version: 3.1.0
