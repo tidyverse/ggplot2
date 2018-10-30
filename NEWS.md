@@ -1,5 +1,7 @@
 # ggplot2 3.1.0.9000
 
+* Closed arrows in `element_line()` are now filled (@yutannihilation, #2924).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
