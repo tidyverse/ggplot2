@@ -9,7 +9,16 @@ matrix:
   - r: devel
   - r: release
     env: USE_VDIFFR=true
-    r_github_packages: lionel-/vdiffr
+    r_github_packages:
+    - lionel-/vdiffr
+    - tidyverse/tidytemplate
+    - r-lib/pkgdown
+
+    deploy:
+      provider: script
+      script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
+      skip_cleanup: true
+
   - r: oldrel
   - r: 3.2
     env: R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
