@@ -85,7 +85,7 @@ geom_abline <- function(mapping = NULL, data = NULL,
 
     # Warn if supplied mapping is going to be overwritten
     if (!missing(mapping)) {
-      warning(paste0("Using both `intercept` and/or `slope` with `mapping` may",
+      warning(paste0("Using `intercept` and/or `slope` with `mapping` may",
                      " not have the desired result as mapping is overwritten",
                      " if either of these is specified\n"
               )
