@@ -160,3 +160,15 @@ test_that("axis labels can be set manually", {
 
 })
 
+test_that("Inf is squished to range", {
+  skip_if_not_installed("sf")
+
+  d <- cdata(
+    ggplot(sf::st_point(c(0, 0))) +
+      geom_sf() +
+      annotate("text", -Inf, Inf, label = "Top-left")
+  )
+
+  expect_equal(d[[2]]$x, 0)
+  expect_equal(d[[2]]$y, 1)
+})
