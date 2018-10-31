@@ -60,7 +60,7 @@ test_that("Warning if a supplied mapping is going to be overwritten",{
 
   expect_warning(
     geom_abline(intercept = 3, aes(colour = colour)),
-    "Using both"
+    "Using "
   )
 
   expect_warning(
