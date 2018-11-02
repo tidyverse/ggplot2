@@ -11,6 +11,7 @@ visual_test
 ^CONTRIBUTING\.md$
 ^GOVERNANCE\.md$
 ^ISSUE_TEMPLATE\.md$
+^CODE_OF_CONDUCT\.md$
 ^NEWS$
 ^revdep$
 ^\.httr-oauth$
