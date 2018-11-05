@@ -28,3 +28,7 @@ test_that("calculation stripped from labels", {
   expect_equal(make_labels(aes(x = ..y..)), list(x = "y"))
   expect_equal(make_labels(aes(x = stat(y))), list(x = "y"))
 })
+
+test_that("make_labels() deprases variable without backticks", {
+  expect_equal(make_labels(aes(x = `a b`)), list(x = "a b"))
+})
