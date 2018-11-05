@@ -91,7 +91,7 @@ make_labels <- function(mapping) {
     if (is.atomic(mapping)) {
       aesthetic
     } else {
-      x <- rlang::quo_text(strip_dots(mapping))
+      x <- rlang::quo_name(strip_dots(mapping))
       if (length(x) > 1) {
         x <- paste0(x[[1]], "...")
       }
