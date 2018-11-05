@@ -1,8 +1,10 @@
+url: ggplot2.tidyverse.org
+
 template:
   package: tidytemplate
 
-development:
-  mode: auto
+# development:
+#   mode: auto
 
 home:
   strip_header: true
@@ -225,14 +227,16 @@ navbar:
   - text: News
     menu:
     - text: "Release notes"
+    - text: "Version 3.0.0"
+      href: https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/
     - text: "Version 2.2.0"
-      href: articles/releases/ggplot2-2.2.0.html
+      href: https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/
     - text: "Version 2.1.0"
-      href: articles/releases/ggplot2-2.1.0.html
+      href: https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/
     - text: "Version 2.0.0"
-      href: articles/releases/ggplot2-2.0.0.html
+      href: https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/
     - text: "Version 1.0.0"
-      href: articles/releases/ggplot2-1.0.0.html
+      href: https://blog.rstudio.com/2015/01/09/ggplot2-updates/
     - text: "------------------"
     - text: "Change log"
       href: news/index.html

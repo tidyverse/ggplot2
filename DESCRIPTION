@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.1.0
+Version: 3.1.0.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Description: A system for 'declaratively' creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
@@ -13,6 +13,7 @@ Authors@R: c(
     person("Kohske", "Takahashi", role = "aut"),
     person("Claus", "Wilke", role = "aut"),
     person("Kara", "Woo", role = "aut"),
+    person("Hiroaki", "Yutani", role = "aut"),
     person("RStudio", role = c("cph"))
     )
 Depends:
