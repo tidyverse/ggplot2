@@ -24,11 +24,16 @@ test_that("strip_dots remove dots around calculated aesthetics", {
   )
 })
 
-test_that("calculation stripped from labels", {
-  expect_equal(make_labels(aes(x = ..y..)), list(x = "y"))
-  expect_equal(make_labels(aes(x = stat(y))), list(x = "y"))
-})
+test_that("make_labels() deprases mappings properly", {
+  # calculation stripped from labels
+  expect_identical(make_labels(aes(x = ..y..)), list(x = "y"))
+  expect_identical(make_labels(aes(x = stat(y))), list(x = "y"))
 
-test_that("make_labels() deprases variable without backticks", {
-  expect_equal(make_labels(aes(x = `a b`)), list(x = "a b"))
+  # symbol is always deparsed without backticks
+  expect_identical(make_labels(aes(x = `a b`)), list(x = "a b"))
+  # long expression is abbreviated with ...
+  expect_identical(make_labels(aes(x = 2 * x * exp(`coef 1` * x^2) * 2 * x * exp(`coef 1` * x^2) * 2 * x)),
+                   list(x = "2 * x * exp(`coef 1` * x^2) * 2 * x * exp(`coef 1` * x^2) * 2 * ..."))
+  # if the mapping is a literal, the aesthetics is used
+  expect_identical(make_labels(aes(x = 1)), list(x = "x"))
 })
