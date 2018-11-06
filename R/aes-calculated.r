@@ -87,7 +87,7 @@ strip_dots <- function(expr) {
 # Convert aesthetic mapping into text labels
 make_labels <- function(mapping) {
   default_label <- function(aesthetic, mapping) {
-    # e.g., geom_smooth(aes(colour = "loess"))
+    # e.g., geom_smooth(aes(colour = "loess")) or aes(y = NULL)
     if (is.atomic(mapping)) {
       return(aesthetic)
     }

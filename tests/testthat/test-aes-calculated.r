@@ -34,6 +34,7 @@ test_that("make_labels() deprases mappings properly", {
   # long expression is abbreviated with ...
   expect_identical(make_labels(aes(x = 2 * x * exp(`coef 1` * x^2) * 2 * x * exp(`coef 1` * x^2) * 2 * x)),
                    list(x = "2 * x * exp(`coef 1` * x^2) * 2 * x * exp(`coef 1` * x^2) * 2 * ..."))
-  # if the mapping is a literal, the aesthetics is used
+  # if the mapping is a literal or NULL, the aesthetics is used
   expect_identical(make_labels(aes(x = 1)), list(x = "x"))
+  expect_identical(make_labels(aes(x = NULL)), list(x = "x"))
 })
