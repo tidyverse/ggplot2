@@ -149,7 +149,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     n <- attr(id, "n")
 
     dims <- wrap_dims(n, params$nrow, params$ncol)
-    layout <- new_data_frame(PANEL = factor(id, levels = seq_len(n)))
+    layout <- new_data_frame(list(PANEL = factor(id, levels = seq_len(n))))
 
     if (params$as.table) {
       layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
