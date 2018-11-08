@@ -90,25 +90,25 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
   # if less than 2 points return data frame of NAs and a warning
   if (nx < 2) {
     warning("Groups with fewer than two data points have been dropped.", call. = FALSE)
-    return(data.frame(
+    return(new_data_frame(list(
       x = NA_real_,
       density = NA_real_,
       scaled = NA_real_,
       ndensity = NA_real_,
       count = NA_real_,
       n = NA_integer_
-    ))
+    )))
   }
 
   dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
     kernel = kernel, n = n, from = from, to = to)
 
-  data.frame(
+  new_data_frame(list(
     x = dens$x,
     density = dens$y,
     scaled =  dens$y / max(dens$y, na.rm = TRUE),
     ndensity = dens$y / max(dens$y, na.rm = TRUE),
     count =   dens$y * nx,
-    n = nx
-  )
+    n = rep(nx, length(dens$x))
+  ))
 }

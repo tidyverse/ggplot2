@@ -162,10 +162,10 @@ GeomPath <- ggproto("GeomPath", Geom,
     # Work out whether we should use lines or segments
     attr <- plyr::ddply(munched, "group", function(df) {
       linetype <- unique(df$linetype)
-      data.frame(
+      new_data_Frame(list(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
         constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
-      )
+      ))
     })
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
@@ -321,9 +321,11 @@ stairstep <- function(data, direction="hv") {
     xs <- c(1, rep(2:n, each = 2))
   }
 
-  data.frame(
-    x = data$x[xs],
-    y = data$y[ys],
+  new_data_frame(c(
+    list(
+      x = data$x[xs],
+      y = data$y[ys]
+    ),
     data[xs, setdiff(names(data), c("x", "y"))]
-  )
+  ))
 }

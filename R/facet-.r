@@ -494,10 +494,10 @@ find_panel <- function(table) {
   panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
 
   new_data_frame(list(
-    t = min(panels$t),
-    r = max(panels$r),
-    b = max(panels$b),
-    l = min(panels$l)
+    t = min(.subset2(panels, "t")),
+    r = max(.subset2(panels, "r")),
+    b = max(.subset2(panels, "b")),
+    l = min(.subset2(panels, "l"))
   ))
 }
 #' @rdname find_panel

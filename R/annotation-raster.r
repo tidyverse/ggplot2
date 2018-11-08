@@ -76,7 +76,7 @@ GeomRasterAnn <- ggproto("GeomRasterAnn", Geom,
       stop("annotation_raster only works with Cartesian coordinates",
         call. = FALSE)
     }
-    corners <- data.frame(x = c(xmin, xmax), y = c(ymin, ymax))
+    corners <- new_data_frame(list(x = c(xmin, xmax), y = c(ymin, ymax)))
     data <- coord$transform(corners, panel_params)
 
     x_rng <- range(data$x, na.rm = TRUE)

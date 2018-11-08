@@ -202,7 +202,7 @@ wrap_hmisc <- function(fun) {
     result <- do.call(fun, list(x = quote(x), ...))
 
     plyr::rename(
-      data.frame(t(result)),
+      new_data_frame(as.list(result)),
       c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax"),
       warn_missing = FALSE
     )
@@ -236,5 +236,5 @@ mean_se <- function(x, mult = 1) {
   x <- stats::na.omit(x)
   se <- mult * sqrt(stats::var(x) / length(x))
   mean <- mean(x)
-  data.frame(y = mean, ymin = mean - se, ymax = mean + se)
+  new_data_frame(list(y = mean, ymin = mean - se, ymax = mean + se))
 }

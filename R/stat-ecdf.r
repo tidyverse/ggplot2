@@ -77,7 +77,7 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     }
     y <- ecdf(data$x)(x)
 
-    data.frame(x = x, y = y)
+    new_data_frame(list(x = x, y = y))
   },
 
   default_aes = aes(y = stat(y)),

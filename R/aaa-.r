@@ -13,7 +13,7 @@ NULL
 #' @name ggplot2-ggproto
 NULL
 
-# Fast data.frame constructor
+# Fast data.frame constructor and indexing
 # No checking, recycling etc. unless asked for
 new_data_frame <- function(x = list(), n = NULL) {
   if (is.null(n)) {
@@ -36,4 +36,10 @@ mat_2_df <- function(x, .check = FALSE) {
   x <- split(x, rep(seq_len(ncol(x))), each = nrow(x))
   names(x) <- c_names
   new_data_frame(x)
+}
+
+df_col <- .subset2
+
+df_rows <- function(x, i) {
+  new_data_frame(lapply(x, `[`, i = i))
 }

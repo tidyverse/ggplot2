@@ -136,7 +136,7 @@ StatBindot <- ggproto("StatBindot", Stat,
 # It returns a data frame with the original data (x), weights, bin #, and the bin centers.
 densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range = NULL) {
 
-    if (length(stats::na.omit(x)) == 0) return(data.frame())
+    if (length(stats::na.omit(x)) == 0) return(new_data_frame())
     if (is.null(weight))  weight <- rep(1, length(x))
     weight[is.na(weight)] <- 0
 
@@ -162,7 +162,12 @@ densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range
         bin[i] <- cbin
     }
 
-    results <- data.frame(x, bin, binwidth, weight)
+    results <- new_data_frame(list(
+      x = x,
+      bin = bin,
+      binwidth = rep(binwidth, length(x)),
+      weight = weight
+    ))
     results <- plyr::ddply(results, "bin", function(df) {
                     df$bincenter = (min(df$x) + max(df$x)) / 2
                     return(df)
