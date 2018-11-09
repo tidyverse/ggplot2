@@ -74,8 +74,8 @@ GeomRect <- ggproto("GeomRect", Geom,
 #
 # @keyword internal
 rect_to_poly <- function(xmin, xmax, ymin, ymax) {
-  data.frame(
+  new_data_frame(list(
     y = c(ymax, ymax, ymin, ymin, ymax),
     x = c(xmin, xmax, xmax, xmin, xmin)
-  )
+  ))
 }

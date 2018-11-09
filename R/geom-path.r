@@ -162,7 +162,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     # Work out whether we should use lines or segments
     attr <- plyr::ddply(munched, "group", function(df) {
       linetype <- unique(df$linetype)
-      new_data_Frame(list(
+      new_data_frame(list(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
         constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
       ))

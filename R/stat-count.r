@@ -64,11 +64,11 @@ StatCount <- ggproto("StatCount", Stat,
     count <- as.numeric(tapply(weight, x, sum, na.rm = TRUE))
     count[is.na(count)] <- 0
 
-    data.frame(
+    new_data_frame(list(
       count = count,
       prop = count / sum(abs(count)),
       x = sort(unique(x)),
-      width = width
-    )
+      width = rep(width, length.out = length(count))
+    ))
   }
 )

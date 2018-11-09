@@ -443,13 +443,12 @@ guide_gengrob.legend <- function(guide, theme) {
   )
 
   if (guide$byrow) {
-    vps <- data.frame(
+    vps <- new_data_frame(list(
       R = ceiling(seq(nbreak) / legend.ncol),
       C = (seq(nbreak) - 1) %% legend.ncol + 1
-    )
+    ))
   } else {
-    vps <- as.data.frame(arrayInd(seq(nbreak), dim(key_sizes)))
-    names(vps) <- c("R", "C")
+    vps <- mat_2_df(arrayInd(seq(nbreak), dim(key_sizes)), c("R", "C"))
   }
 
   # layout of key-label depends on the direction of the guide

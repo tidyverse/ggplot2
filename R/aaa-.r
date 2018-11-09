@@ -31,10 +31,10 @@ validate_data_frame <- function(x) {
   if (is.null(names(x))) stop('Columns must be named', call. = FALSE)
 }
 
-mat_2_df <- function(x, .check = FALSE) {
-  c_names <- colnames(x)
-  x <- split(x, rep(seq_len(ncol(x))), each = nrow(x))
-  names(x) <- c_names
+mat_2_df <- function(x, col_names = NULL, .check = FALSE) {
+  if (is.null(col_names)) col_names <- colnames(x)
+  x <- split(x, rep(seq_len(ncol(x)), each = nrow(x)))
+  if (!is.null(col_names)) names(x) <- col_names
   new_data_frame(x)
 }
 

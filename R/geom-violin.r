@@ -171,10 +171,10 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
   violin.xmaxvs <- (stats::approxfun(data$y, data$xmaxv))(ys)
 
   # We have two rows per segment drawn. Each segment gets its own group.
-  data.frame(
+  new_data_frame(list(
     x = interleave(violin.xminvs, violin.xmaxvs),
     y = rep(ys, each = 2),
     group = rep(ys, each = 2)
-  )
+  ))
 }
 
