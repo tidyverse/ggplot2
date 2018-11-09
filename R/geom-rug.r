@@ -66,6 +66,10 @@ GeomRug <- ggproto("GeomRug", Geom,
     rugs <- list()
     data <- coord$transform(data, panel_params)
 
+    if (inherits(coord, 'CoordFlip')) {
+      sides <- chartr('tblr', 'rlbt', sides)
+    }
+
     gp <- gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
     if (!is.null(data$x)) {
       if (grepl("b", sides)) {

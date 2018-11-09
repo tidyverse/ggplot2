@@ -1,5 +1,8 @@
 # ggplot2 3.1.0.9000
 
+*   `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
+
+
 # ggplot2 3.1.0
 
 ## Breaking changes
