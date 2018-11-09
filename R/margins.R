@@ -330,7 +330,8 @@ rotate_just <- function(angle, hjust, vjust) {
 }
 descent_cache <- new.env(parent = emptyenv())
 font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
-  key <- paste0(family, ':', face, ":", size, ":", cex)
+  cur_dev <- names(dev.cur())
+  key <- paste0(cur_dev, ':', family, ':', face, ":", size, ":", cex)
 
   descent <- descent_cache[[key]]
 
