@@ -1,7 +1,7 @@
 # ggplot2 3.1.0.9000
 
 * Default labels are now generated more consistently; e.g., symbols no longer
-  get backticks, and long expressions are abreviated with `...`
+  get backticks, and long expressions are abbreviated with `...`
   (@yutannihilation, #2981).
 
 # ggplot2 3.1.0
