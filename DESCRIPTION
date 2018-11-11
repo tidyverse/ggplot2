@@ -54,7 +54,8 @@ Suggests:
     rpart,
     rmarkdown,
     sf (>= 0.3-4),
-    svglite (>= 1.2.0.9001)
+    svglite (>= 1.2.0.9001),
+    profvis
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
