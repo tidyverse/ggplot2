@@ -176,15 +176,15 @@ the data and the axes.</p>
       <td><p>vector of multiplicative range expansion factors.
 If length 1, both the lower and upper limits of the scale
 are expanded outwards by <code>mult</code>. If length 2, the lower limit
-is expanded by <code>mult[1]</code> and the upper limit by <code>mult[2]</code>.</p></td>
+is expanded by <code><a href='http://www.rdocumentation.org/packages/base/topics/Extract'>mult[1]</a></code> and the upper limit by <code><a href='http://www.rdocumentation.org/packages/base/topics/Extract'>mult[2]</a></code>.</p></td>
     </tr>
     <tr>
       <th>add</th>
       <td><p>vector of additive range expansion constants.
 If length 1, both the lower and upper limits of the scale
 are expanded outwards by <code>add</code> units. If length 2, the
-lower limit is expanded by <code>add[1]</code> and the upper
-limit by <code>add[2]</code>.</p></td>
+lower limit is expanded by <code><a href='http://www.rdocumentation.org/packages/base/topics/Extract'>add[1]</a></code> and the upper
+limit by <code><a href='http://www.rdocumentation.org/packages/base/topics/Extract'>add[2]</a></code>.</p></td>
     </tr>
     </table>
     
@@ -192,15 +192,15 @@ limit by <code>add[2]</code>.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># No space below the bars but 10% above them</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>) +
-  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>factor</span>(<span class='no'>cyl</span>))) +
-  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expand_scale</span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>.1</span>)))</div><div class='img'><img src='expand_scale-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>))) +
+  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expand_scale</span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>.1</span>)))</div><div class='img'><img src='expand_scale-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Add 2 units of space on the left and right of the data</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'>subset</span>(<span class='no'>diamonds</span>, <span class='no'>carat</span> <span class='kw'>&gt;</span> <span class='fl'>2</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>, <span class='no'>clarity</span>)) +
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>diamonds</span>, <span class='no'>carat</span> <span class='kw'>&gt;</span> <span class='fl'>2</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>, <span class='no'>clarity</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>() +
   <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expand_scale</span>(<span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='expand_scale-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Reproduce the default range expansion used</span>
 <span class='co'># when the ‘expand’ argument is not specified</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'>subset</span>(<span class='no'>diamonds</span>, <span class='no'>carat</span> <span class='kw'>&gt;</span> <span class='fl'>2</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>, <span class='no'>price</span>)) +
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>diamonds</span>, <span class='no'>carat</span> <span class='kw'>&gt;</span> <span class='fl'>2</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>, <span class='no'>price</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>() +
   <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expand_scale</span>(<span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>.6</span>)) +
   <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expand_scale</span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fl'>.05</span>))</div><div class='img'><img src='expand_scale-3.png' alt='' width='700' height='433' /></div></pre>

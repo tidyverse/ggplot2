@@ -163,7 +163,7 @@ subsequent layers unless specifically overridden.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ggplot</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(), <span class='no'>...</span>,
-  <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'>parent.frame</span>())</pre>
+  <span class='kw'>environment</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/sys.parent'>parent.frame</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -215,11 +215,11 @@ is often the case in complex graphics.</p>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Generate some sample data, then compute mean and standard deviation</span>
 <span class='co'># in each group</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(
-  <span class='kw'>gp</span> <span class='kw'>=</span> <span class='fu'>factor</span>(<span class='fu'>rep</span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>)),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>30</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
+  <span class='kw'>gp</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>10</span>)),
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>30</span>)
 )
-<span class='no'>ds</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/plyr/topics/ddply'>ddply</a></span>(<span class='no'>df</span>, <span class='st'>"gp"</span>, <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/plyr/topics/summarise'>summarise</a></span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fu'>mean</span>(<span class='no'>y</span>), <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fu'>sd</span>(<span class='no'>y</span>))
+<span class='no'>ds</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/plyr/topics/ddply'>ddply</a></span>(<span class='no'>df</span>, <span class='st'>"gp"</span>, <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/plyr/topics/summarise'>summarise</a></span>, <span class='kw'>mean</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>y</span>), <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/sd'>sd</a></span>(<span class='no'>y</span>))
 
 <span class='co'># The summary data frame ds is used to plot larger red points on top</span>
 <span class='co'># of the raw data. Note that we don't need to supply `data` or `mapping`</span>

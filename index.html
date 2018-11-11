@@ -132,10 +132,10 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># The easiest way to get ggplot2 is to install the whole tidyverse:</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">install.packages</span>(<span class="st">"tidyverse"</span>)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"tidyverse"</span>)</a>
 <a class="sourceLine" id="cb1-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co"># Alternatively, install just ggplot2:</span></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">install.packages</span>(<span class="st">"ggplot2"</span>)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="http://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"ggplot2"</span>)</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="co"># Or the the development version from GitHub:</span></a>
 <a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co"># install.packages("devtools")</span></a>
@@ -150,7 +150,7 @@
 <h2 class="hasAnchor">
 <a href="#usage" class="anchor"></a>Usage</h2>
 <p>It’s hard to succinctly describe how ggplot2 works because it embodies a deep philosophy of visualisation. However, in most cases you start with <code><a href="reference/ggplot.html">ggplot()</a></code>, supply a dataset and aesthetic mapping (with <code><a href="reference/aes.html">aes()</a></code>). You then add on layers (like <code><a href="reference/geom_point.html">geom_point()</a></code> or <code><a href="reference/geom_histogram.html">geom_histogram()</a></code>), scales (like <code><a href="reference/scale_brewer.html">scale_colour_brewer()</a></code>), faceting specifications (like <code><a href="reference/facet_wrap.html">facet_wrap()</a></code>) and coordinate systems (like <code><a href="reference/coord_flip.html">coord_flip()</a></code>).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(ggplot2)</a>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="http://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggplot2)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw"><a href="reference/ggplot.html">ggplot</a></span>(mpg, <span class="kw"><a href="reference/aes.html">aes</a></span>(displ, hwy, <span class="dt">colour =</span> class)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb2-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="reference/geom_point.html">geom_point</a></span>()</a></code></pre></div>

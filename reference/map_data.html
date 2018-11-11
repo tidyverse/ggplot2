@@ -190,14 +190,14 @@ for more details.</p></td>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"maps"</span>)) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='no'>states</span> <span class='kw'>&lt;-</span> <span class='fu'>map_data</span>(<span class='st'>"state"</span>)
 <span class='no'>arrests</span> <span class='kw'>&lt;-</span> <span class='no'>USArrests</span>
-<span class='fu'>names</span>(<span class='no'>arrests</span>) <span class='kw'>&lt;-</span> <span class='fu'>tolower</span>(<span class='fu'>names</span>(<span class='no'>arrests</span>))
-<span class='no'>arrests</span>$<span class='no'>region</span> <span class='kw'>&lt;-</span> <span class='fu'>tolower</span>(<span class='fu'>rownames</span>(<span class='no'>USArrests</span>))
+<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>arrests</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/chartr'>tolower</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>arrests</span>))
+<span class='no'>arrests</span>$<span class='no'>region</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/chartr'>tolower</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/colnames'>rownames</a></span>(<span class='no'>USArrests</span>))
 
-<span class='no'>choro</span> <span class='kw'>&lt;-</span> <span class='fu'>merge</span>(<span class='no'>states</span>, <span class='no'>arrests</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"region"</span>)
-<span class='no'>choro</span> <span class='kw'>&lt;-</span> <span class='no'>choro</span>[<span class='fu'>order</span>(<span class='no'>choro</span>$<span class='no'>order</span>), ]
+<span class='no'>choro</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/merge'>merge</a></span>(<span class='no'>states</span>, <span class='no'>arrests</span>, <span class='kw'>sort</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"region"</span>)
+<span class='no'>choro</span> <span class='kw'>&lt;-</span> <span class='no'>choro</span>[<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/order'>order</a></span>(<span class='no'>choro</span>$<span class='no'>order</span>), ]
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>choro</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>long</span>, <span class='no'>lat</span>)) +
   <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>assault</span>)) +
   <span class='fu'><a href='coord_map.html'>coord_map</a></span>(<span class='st'>"albers"</span>,  <span class='kw'>at0</span> <span class='kw'>=</span> <span class='fl'>45.5</span>, <span class='kw'>lat1</span> <span class='kw'>=</span> <span class='fl'>29.5</span>)

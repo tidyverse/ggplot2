@@ -188,7 +188,7 @@ uses <code><a href='stat_identity.html'>stat_identity()</a></code>: it leaves th
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -214,7 +214,7 @@ a call to a position adjustment function.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
+<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -317,7 +317,7 @@ number of cases at each <code>x</code> position (without binning into ranges).
  <span class='fu'><a href='coord_flip.html'>coord_flip</a></span>() +
  <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='st'>"top"</span>)</div><div class='img'><img src='geom_bar-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To show (e.g.) means, you need geom_col()</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>trt</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>), <span class='kw'>outcome</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>2.3</span>, <span class='fl'>1.9</span>, <span class='fl'>3.2</span>))
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>trt</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"a"</span>, <span class='st'>"b"</span>, <span class='st'>"c"</span>), <span class='kw'>outcome</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2.3</span>, <span class='fl'>1.9</span>, <span class='fl'>3.2</span>))
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>trt</span>, <span class='no'>outcome</span>)) +
   <span class='fu'>geom_col</span>()</div><div class='img'><img src='geom_bar-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># But geom_point() displays exactly the same information and doesn't</span>
 <span class='co'># require the y-axis to touch zero.</span>
@@ -325,7 +325,7 @@ number of cases at each <code>x</code> position (without binning into ranges).
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='geom_bar-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use geom_bar() with continuous data, in which case</span>
 <span class='co'># it will show counts at unique locations</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>rep</span>(<span class='fu'>c</span>(<span class='fl'>2.9</span>, <span class='fl'>3.1</span>, <span class='fl'>4.5</span>), <span class='fu'>c</span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span>)))
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2.9</span>, <span class='fl'>3.1</span>, <span class='fl'>4.5</span>), <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>4</span>)))
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) + <span class='fu'>geom_bar</span>()</div><div class='img'><img src='geom_bar-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># cf. a histogram of the same data</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) + <span class='fu'><a href='geom_histogram.html'>geom_histogram</a></span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='img'><img src='geom_bar-8.png' alt='' width='700' height='433' /></div></pre>
   </div>

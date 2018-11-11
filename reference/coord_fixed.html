@@ -161,7 +161,7 @@ MASS::eqscplot(), but it works for all types of graphics." />
     <p>A fixed scale coordinate system forces a specified ratio between the
 physical representation of data units on the axes. The ratio represents the
 number of units on the y-axis equivalent to one unit on the x-axis. The
-default, <code>ratio = 1</code>, ensures that one unit on the x-axis is the same
+default, <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>ratio = 1</a></code>, ensures that one unit on the x-axis is the same
 length as one unit on the y-axis. Ratios higher than one make units on the
 y axis longer than units on the x-axis, and vice versa. This is similar to
 <code><a href='http://www.rdocumentation.org/packages/MASS/topics/eqscplot'>MASS::eqscplot()</a></code>, but it works for all types of graphics.</p>
@@ -176,7 +176,7 @@ y axis longer than units on the x-axis, and vice versa. This is similar to
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ratio</th>
-      <td><p>aspect ratio, expressed as <code>y / x</code></p></td>
+      <td><p>aspect ratio, expressed as <code><a href='http://www.rdocumentation.org/packages/base/topics/Arithmetic'>y / x</a></code></p></td>
     </tr>
     <tr>
       <th>xlim</th>
@@ -197,7 +197,7 @@ limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</
       <td><p>Should drawing be clipped to the extent of the plot panel? A
 setting of <code>"on"</code> (the default) means yes, and a setting of <code>"off"</code>
 means no. In most cases, the default of <code>"on"</code> should not be changed,
-as setting <code>clip = "off"</code> can cause unexpected results. It allows
+as setting <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>clip = "off"</a></code> can cause unexpected results. It allows
 drawing of data points anywhere on the plot, including in the plot margins. If
 limits are set via <code>xlim</code> and <code>ylim</code> and some data points fall outside those
 limits, then those data points may show up in places such as the axes, the
@@ -211,7 +211,7 @@ legend, the plot title, or the plot margins.</p></td>
 <span class='co'># adjusting the plot aspect ratio</span>
 
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='coord_fixed-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>15</span>, <span class='fl'>30</span>))</div><div class='img'><img src='coord_fixed-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='coord_fixed-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>))</div><div class='img'><img src='coord_fixed-4.png' alt='' width='700' height='433' /></div><div class='input'>
 # Resize the plot to see that the specified aspect ratio is maintained
 </div></pre>
   </div>

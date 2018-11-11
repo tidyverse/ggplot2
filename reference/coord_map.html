@@ -190,7 +190,7 @@ the projection, and <code>parameters</code> for unnamed parameters.
     <tr>
       <th>orientation</th>
       <td><p>projection orientation, which defaults to
-<code>c(90, 0, mean(range(x)))</code>.  This is not optimal for many
+<code><a href='http://www.rdocumentation.org/packages/base/topics/c'>c(90, 0, mean(range(x)))</a></code>.  This is not optimal for many
 projections, so you will have to supply your own. See
 <code><a href='http://www.rdocumentation.org/packages/mapproj/topics/mapproject'>mapproj::mapproject()</a></code> for more information.</p></td>
     </tr>
@@ -228,7 +228,7 @@ plots like <code><a href='geom_tile.html'>geom_tile()</a></code>) at the expense
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"maps"</span>)) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='no'>nz</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"nz"</span>)
 <span class='co'># Prepare a map of NZ</span>
 <span class='no'>nzmap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nz</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>long</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>)) +
@@ -243,8 +243,8 @@ plots like <code><a href='geom_tile.html'>geom_tile()</a></code>) at the expense
 
 <span class='co'># Other projections</span>
 <span class='no'>nzmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"cylindrical"</span>)
-<span class='no'>nzmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"azequalarea"</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>36.92</span>, <span class='fl'>174.6</span>, <span class='fl'>0</span>))
-<span class='no'>nzmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"lambert"</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>37</span>, -<span class='fl'>44</span>))
+<span class='no'>nzmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"azequalarea"</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>36.92</span>, <span class='fl'>174.6</span>, <span class='fl'>0</span>))
+<span class='no'>nzmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"lambert"</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>37</span>, -<span class='fl'>44</span>))
 
 <span class='no'>states</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"state"</span>)
 <span class='no'>usamap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>states</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>long</span>, <span class='no'>lat</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>)) +
@@ -277,9 +277,9 @@ plots like <code><a href='geom_tile.html'>geom_tile()</a></code>) at the expense
 <span class='co'># Orthographic projection with default orientation (looking down at North pole)</span>
 <span class='no'>worldmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"ortho"</span>)
 <span class='co'># Looking up up at South Pole</span>
-<span class='no'>worldmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"ortho"</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>90</span>, <span class='fl'>0</span>, <span class='fl'>0</span>))
+<span class='no'>worldmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"ortho"</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>90</span>, <span class='fl'>0</span>, <span class='fl'>0</span>))
 <span class='co'># Centered on New York (currently has issues with closing polygons)</span>
-<span class='no'>worldmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"ortho"</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>41</span>, -<span class='fl'>74</span>, <span class='fl'>0</span>))
+<span class='no'>worldmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"ortho"</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>41</span>, -<span class='fl'>74</span>, <span class='fl'>0</span>))
 }</div><div class='img'><img src='coord_map-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -191,29 +191,29 @@ means no. For details, please see <code><a href='coord_cartesian.html'>coord_car
 <span class='co'># grammar.  Use with EXTREME caution.</span>
 
 <span class='co'>#' # A pie chart = stacked bar chart + polar coordinates</span>
-<span class='no'>pie</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>factor</span>(<span class='fl'>1</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>factor</span>(<span class='no'>cyl</span>))) +
+<span class='no'>pie</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='fl'>1</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>))) +
  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 <span class='no'>pie</span> + <span class='fu'>coord_polar</span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='st'>"y"</span>)</div><div class='img'><img src='coord_polar-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div><div class='input'>
 <span class='co'># A coxcomb plot = bar chart + polar coordinates</span>
-<span class='no'>cxc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>factor</span>(<span class='no'>cyl</span>))) +
+<span class='no'>cxc</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>))) +
   <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>)
 <span class='no'>cxc</span> + <span class='fu'>coord_polar</span>()</div><div class='img'><img src='coord_polar-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># A new type of plot?</span>
 <span class='no'>cxc</span> + <span class='fu'>coord_polar</span>(<span class='kw'>theta</span> <span class='kw'>=</span> <span class='st'>"y"</span>)</div><div class='img'><img src='coord_polar-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># The bullseye chart</span>
 <span class='no'>pie</span> + <span class='fu'>coord_polar</span>()</div><div class='img'><img src='coord_polar-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Hadley's favourite pie chart</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(
-  <span class='kw'>variable</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"does not resemble"</span>, <span class='st'>"resembles"</span>),
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>20</span>, <span class='fl'>80</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
+  <span class='kw'>variable</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"does not resemble"</span>, <span class='st'>"resembles"</span>),
+  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>80</span>)
 )
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>""</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>variable</span>)) +
   <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>) +
-  <span class='fu'><a href='scale_manual.html'>scale_fill_manual</a></span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"red"</span>, <span class='st'>"yellow"</span>)) +
+  <span class='fu'><a href='scale_manual.html'>scale_fill_manual</a></span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"red"</span>, <span class='st'>"yellow"</span>)) +
   <span class='fu'>coord_polar</span>(<span class='st'>"y"</span>, <span class='kw'>start</span> <span class='kw'>=</span> <span class='no'>pi</span> / <span class='fl'>3</span>) +
   <span class='fu'><a href='labs.html'>labs</a></span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='st'>"Pac man"</span>)</div><div class='img'><img src='coord_polar-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Windrose + doughnut plot</span>
-<span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"ggplot2movies"</span>)) {
+<span class='kw'>if</span> (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
 <span class='no'>movies</span>$<span class='no'>rrating</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cut_interval.html'>cut_interval</a></span>(<span class='no'>movies</span>$<span class='no'>rating</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 <span class='no'>movies</span>$<span class='no'>budgetq</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='cut_interval.html'>cut_number</a></span>(<span class='no'>movies</span>$<span class='no'>budget</span>, <span class='fl'>4</span>)
 

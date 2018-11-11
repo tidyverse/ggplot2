@@ -162,22 +162,22 @@ points at specified quartiles of the theoretical and sample distributions.</p>
 
     <pre class="usage"><span class='fu'>geom_qq_line</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>qnorm</a></span>,
-  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>line.p</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>), <span class='kw'>fullrange</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>line.p</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>), <span class='kw'>fullrange</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>stat_qq_line</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>qnorm</a></span>,
-  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>line.p</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>), <span class='kw'>fullrange</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>line.p</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.75</span>), <span class='kw'>fullrange</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>geom_qq</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>qnorm</a></span>,
-  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>stat_qq</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>distribution</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>qnorm</a></span>,
-  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -186,7 +186,7 @@ points at specified quartiles of the theoretical and sample distributions.</p>
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -216,7 +216,7 @@ a call to a position adjustment function.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
+<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -231,7 +231,7 @@ function.</p></td>
     <tr>
       <th>line.p</th>
       <td><p>Vector of quantiles to use when fitting the Q-Q line, defaults
-defaults to <code>c(.25, .75)</code>.</p></td>
+defaults to <code><a href='http://www.rdocumentation.org/packages/base/topics/c'>c(.25, .75)</a></code>.</p></td>
     </tr>
     <tr>
       <th>fullrange</th>
@@ -291,17 +291,17 @@ distributions</p></dd>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'>rt</span>(<span class='fl'>200</span>, <span class='kw'>df</span> <span class='kw'>=</span> <span class='fl'>5</span>))
+    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/TDist'>rt</a></span>(<span class='fl'>200</span>, <span class='kw'>df</span> <span class='kw'>=</span> <span class='fl'>5</span>))
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>y</span>))
 <span class='no'>p</span> + <span class='fu'>stat_qq</span>() + <span class='fu'>stat_qq_line</span>()</div><div class='img'><img src='geom_qq-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use fitdistr from MASS to estimate distribution params</span>
-<span class='no'>params</span> <span class='kw'>&lt;-</span> <span class='fu'>as.list</span>(<span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/MASS/topics/fitdistr'>fitdistr</a></span>(<span class='no'>df</span>$<span class='no'>y</span>, <span class='st'>"t"</span>)$<span class='no'>estimate</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
+<span class='no'>params</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>as.list</a></span>(<span class='kw pkg'>MASS</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/MASS/topics/fitdistr'>fitdistr</a></span>(<span class='no'>df</span>$<span class='no'>y</span>, <span class='st'>"t"</span>)$<span class='no'>estimate</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
   <span class='fu'>stat_qq</span>(<span class='kw'>distribution</span> <span class='kw'>=</span> <span class='no'>qt</span>, <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='no'>params</span>[<span class='st'>"df"</span>]) +
   <span class='fu'>stat_qq_line</span>(<span class='kw'>distribution</span> <span class='kw'>=</span> <span class='no'>qt</span>, <span class='kw'>dparams</span> <span class='kw'>=</span> <span class='no'>params</span>[<span class='st'>"df"</span>])</div><div class='img'><img src='geom_qq-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using to explore the distribution of a variable</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>mpg</span>)) +
   <span class='fu'>stat_qq</span>() +
-  <span class='fu'>stat_qq_line</span>()</div><div class='img'><img src='geom_qq-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>mpg</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'>factor</span>(<span class='no'>cyl</span>))) +
+  <span class='fu'>stat_qq_line</span>()</div><div class='img'><img src='geom_qq-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>sample</span> <span class='kw'>=</span> <span class='no'>mpg</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>))) +
   <span class='fu'>stat_qq</span>() +
   <span class='fu'>stat_qq_line</span>()</div><div class='img'><img src='geom_qq-4.png' alt='' width='700' height='433' /></div></pre>
   </div>

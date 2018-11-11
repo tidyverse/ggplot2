@@ -189,7 +189,7 @@ quoted calls, strings, one-sided formulas or constants.</p></td>
     <p><code>aes_string</code> and <code>aes_</code> are particularly useful when writing
 functions that create plots because you can use strings or quoted
 names/calls to define the aesthetic mappings, rather than having to use
-<code>substitute()</code> to generate a call to <code><a href='aes.html'>aes()</a></code>.</p>
+<code><a href='http://www.rdocumentation.org/packages/base/topics/substitute'>substitute()</a></code> to generate a call to <code><a href='aes.html'>aes()</a></code>.</p>
 <p>I recommend using <code>aes_()</code>, because creating the equivalents of
 <code><a href='aes.html'>aes(colour = "my colour")</a></code> or <code>aes{x = `X$1`}</code>
 with <code>aes_string()</code> is quite clunky.</p>
@@ -211,7 +211,7 @@ idioms instead (see the quasiquotation section in
 <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>cyl</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `x`      -&gt; `mpg`
 #&gt; * `y`      -&gt; `wt`
-#&gt; * `colour` -&gt; `cyl`</div><div class='input'><span class='fu'>aes_</span>(<span class='fu'>quote</span>(<span class='no'>mpg</span>), <span class='fu'>quote</span>(<span class='no'>wt</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>quote</span>(<span class='no'>cyl</span>))</div><div class='output co'>#&gt; Aesthetic mapping: 
+#&gt; * `colour` -&gt; `cyl`</div><div class='input'><span class='fu'>aes_</span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/substitute'>quote</a></span>(<span class='no'>mpg</span>), <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/substitute'>quote</a></span>(<span class='no'>wt</span>), <span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/substitute'>quote</a></span>(<span class='no'>cyl</span>))</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; `cyl`
 #&gt; * `x`      -&gt; `mpg`
 #&gt; * `y`      -&gt; `wt`</div><div class='input'><span class='fu'>aes_</span>(~<span class='no'>mpg</span>, ~<span class='no'>wt</span>, <span class='kw'>col</span> <span class='kw'>=</span> ~<span class='no'>cyl</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
@@ -233,7 +233,7 @@ idioms instead (see the quasiquotation section in
 <span class='co'># Convert strings to names with as.name</span>
 <span class='no'>var</span> <span class='kw'>&lt;-</span> <span class='st'>"cyl"</span>
 <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='no'>x</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
-#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes_</span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>as.name</span>(<span class='no'>var</span>))</div><div class='output co'>#&gt; Aesthetic mapping: 
+#&gt; * `colour` -&gt; `x`</div><div class='input'><span class='fu'>aes_</span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/name'>as.name</a></span>(<span class='no'>var</span>))</div><div class='output co'>#&gt; Aesthetic mapping: 
 #&gt; * `colour` -&gt; `cyl`</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

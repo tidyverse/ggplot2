@@ -179,7 +179,7 @@ bottom, and left.</p></td>
     <tr>
       <th>scaled</th>
       <td><p>is the data already log-scaled? This should be <code>TRUE</code>
-(default) when the data is already transformed with <code>log10()</code> or when
+(default) when the data is already transformed with <code><a href='http://www.rdocumentation.org/packages/base/topics/Log'>log10()</a></code> or when
 using <code>scale_y_log10</code>. It should be <code>FALSE</code> when using
 <code><a href='coord_trans.html'>coord_trans(y = "log10")</a></code>.</p></td>
     </tr>
@@ -250,7 +250,7 @@ transformations.</p>
 <span class='no'>a</span> + <span class='fu'>annotation_logticks</span>(<span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"trbl"</span>) + <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>panel.grid.minor</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span>())</div><div class='img'><img src='annotation_logticks-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Another way to get the same results as 'a' above: log-transform the data before</span>
 <span class='co'># plotting it. Also hide the minor grid lines.</span>
-<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'>log10</span>(<span class='no'>bodywt</span>), <span class='fu'>log10</span>(<span class='no'>brainwt</span>))) +
+<span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/Log'>log10</a></span>(<span class='no'>bodywt</span>), <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/Log'>log10</a></span>(<span class='no'>brainwt</span>))) +
  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
  <span class='fu'><a href='scale_continuous.html'>scale_x_continuous</a></span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"body"</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/scales/topics/math_format'>math_format</a></span>(<span class='fl'>10</span>^<span class='no'>.x</span>)) +
  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"brain"</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/scales/topics/math_format'>math_format</a></span>(<span class='fl'>10</span>^<span class='no'>.x</span>)) +

@@ -163,7 +163,7 @@ extension.</p>
     </div>
 
     <pre class="usage"><span class='fu'>ggsave</span>(<span class='no'>filename</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fu'><a href='last_plot.html'>last_plot</a></span>(), <span class='kw'>device</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"in"</span>, <span class='st'>"cm"</span>, <span class='st'>"mm"</span>),
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"in"</span>, <span class='st'>"cm"</span>, <span class='st'>"mm"</span>),
   <span class='kw'>dpi</span> <span class='kw'>=</span> <span class='fl'>300</span>, <span class='kw'>limitsize</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -180,7 +180,7 @@ extension.</p>
     <tr>
       <th>device</th>
       <td><p>Device to use. Can be either be a device function
-(e.g. <code>png()</code>), or one of "eps", "ps", "tex" (pictex),
+(e.g. <code><a href='http://www.rdocumentation.org/packages/grDevices/topics/png'>png()</a></code>), or one of "eps", "ps", "tex" (pictex),
 "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).</p></td>
     </tr>
     <tr>
@@ -226,14 +226,14 @@ as specified by <code>device</code>.</p></td>
 <span class='fu'>ggsave</span>(<span class='st'>"mtcars.pdf"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>units</span> <span class='kw'>=</span> <span class='st'>"cm"</span>)
 
 <span class='co'># delete files with base::unlink()</span>
-<span class='fu'>unlink</span>(<span class='st'>"mtcars.pdf"</span>)
-<span class='fu'>unlink</span>(<span class='st'>"mtcars.png"</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/unlink'>unlink</a></span>(<span class='st'>"mtcars.pdf"</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/unlink'>unlink</a></span>(<span class='st'>"mtcars.png"</span>)
 
 <span class='co'># specify device when saving to a file with unknown extension</span>
 <span class='co'># (for example a server supplied temporary file)</span>
-<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'>tempfile</span>()
+<span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/tempfile'>tempfile</a></span>()
 <span class='fu'>ggsave</span>(<span class='no'>file</span>, <span class='kw'>device</span> <span class='kw'>=</span> <span class='st'>"pdf"</span>)
-<span class='fu'>unlink</span>(<span class='no'>file</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/unlink'>unlink</a></span>(<span class='no'>file</span>)
 <span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

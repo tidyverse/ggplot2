@@ -350,7 +350,7 @@ legend box (<code>unit</code>)</p></td>
       <th>panel.border</th>
       <td><p>border around plotting area, drawn on top of plot so that
 it covers tick marks and grid lines. This should be used with
-<code>fill = NA</code>
+<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>fill = NA</a></code>
 (<code><a href='element.html'>element_rect()</a></code>; inherits from <code>rect</code>)</p></td>
     </tr>
     <tr>
@@ -452,7 +452,7 @@ supplied <code>validate</code> needs to be set to <code>FALSE</code>.</p></td>
       <td><p>set this to <code>TRUE</code> if this is a complete theme, such as
 the one returned by <code><a href='ggtheme.html'>theme_grey()</a></code>. Complete themes behave
 differently when added to a ggplot object. Also, when setting
-<code>complete = TRUE</code> all elements will be set to inherit from blank
+<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>complete = TRUE</a></code> all elements will be set to inherit from blank
 elements.</p></td>
     </tr>
     <tr>
@@ -504,7 +504,7 @@ details of the specific theme elements.</p></div>
 <span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>axis.line</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_line</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey80"</span>))</div><div class='img'><img src='theme-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>axis.text</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"blue"</span>))</div><div class='img'><img src='theme-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>axis.ticks</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_line</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='theme-11.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>axis.ticks.length</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/grid/topics/unit'>unit</a></span>(<span class='fl'>.25</span>, <span class='st'>"cm"</span>))</div><div class='img'><img src='theme-12.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p1</span> + <span class='fu'>theme</span>(<span class='kw'>axis.title.y</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>rel</a></span>(<span class='fl'>1.5</span>), <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>90</span>))</div><div class='img'><img src='theme-13.png' alt='' width='700' height='433' /></div><div class='input'>
 </div><div class='input'><span class='co'># Legend --------------------------------------------------------------------</span>
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) +
-  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'>factor</span>(<span class='no'>cyl</span>), <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fu'>factor</span>(<span class='no'>vs</span>))) +
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>), <span class='kw'>shape</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>vs</span>))) +
   <span class='fu'><a href='labs.html'>labs</a></span>(
     <span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"Weight (1000 lbs)"</span>,
     <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"Fuel economy (mpg)"</span>,
@@ -517,8 +517,8 @@ details of the specific theme elements.</p></div>
 <span class='co'># Or place legends inside the plot using relative coordinates between 0 and 1</span>
 <span class='co'># legend.justification sets the corner that the position refers to</span>
 <span class='no'>p2</span> + <span class='fu'>theme</span>(
-  <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>.95</span>, <span class='fl'>.95</span>),
-  <span class='kw'>legend.justification</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"right"</span>, <span class='st'>"top"</span>),
+  <span class='kw'>legend.position</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>.95</span>, <span class='fl'>.95</span>),
+  <span class='kw'>legend.justification</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"top"</span>),
   <span class='kw'>legend.box.just</span> <span class='kw'>=</span> <span class='st'>"right"</span>,
   <span class='kw'>legend.margin</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>margin</a></span>(<span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>, <span class='fl'>6</span>)
 )</div><div class='img'><img src='theme-18.png' alt='' width='700' height='433' /></div><div class='input'>

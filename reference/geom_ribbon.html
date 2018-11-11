@@ -174,7 +174,7 @@ by <code>ymin</code> and <code>ymax</code>. <code>geom_area</code> is a special 
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -205,7 +205,7 @@ a call to a position adjustment function.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
+<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -263,7 +263,7 @@ see the individual pattern as you move up the stack. See
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Generate data</span>
-<span class='no'>huron</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>1875</span>:<span class='fl'>1972</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fu'>as.vector</span>(<span class='no'>LakeHuron</span>))
+<span class='no'>huron</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>year</span> <span class='kw'>=</span> <span class='fl'>1875</span>:<span class='fl'>1972</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/vector'>as.vector</a></span>(<span class='no'>LakeHuron</span>))
 <span class='no'>h</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>huron</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>year</span>))
 
 <span class='no'>h</span> + <span class='fu'>geom_ribbon</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>ymax</span><span class='kw'>=</span><span class='no'>level</span>))</div><div class='img'><img src='geom_ribbon-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>h</span> + <span class='fu'>geom_area</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>level</span>))</div><div class='img'><img src='geom_ribbon-2.png' alt='' width='700' height='433' /></div><div class='input'>

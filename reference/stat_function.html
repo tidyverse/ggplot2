@@ -162,7 +162,7 @@ the x axis, and the results are drawn (by default) with a line.</p>
 
     <pre class="usage"><span class='fu'>stat_function</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"path"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='no'>fun</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>101</span>,
-  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>list</span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -171,7 +171,7 @@ the x axis, and the results are drawn (by default) with a line.</p>
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -201,7 +201,7 @@ a call to a position adjustment function.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
+<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -260,26 +260,26 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>set.seed</span>(<span class='fl'>1492</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>rnorm</span>(<span class='fl'>100</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>1492</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>)
 )
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>df</span>$<span class='no'>x</span>
 <span class='no'>base</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) + <span class='fu'><a href='geom_density.html'>geom_density</a></span>()
-<span class='no'>base</span> + <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='stat_function-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>base</span> + <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>3</span>))</div><div class='img'><img src='stat_function-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>base</span> + <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>)</div><div class='img'><img src='stat_function-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>base</span> + <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>3</span>))</div><div class='img'><img src='stat_function-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Plot functions without data</span>
 <span class='co'># Examples adapted from Kohske Takahashi</span>
 
 <span class='co'># Specify range of x-axis</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>2</span>)), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) +
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>2</span>)), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) +
   <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>exp</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"line"</span>)</div><div class='img'><img src='stat_function-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Plot a normal curve</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>5</span>, <span class='fl'>5</span>)), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) + <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>)</div><div class='img'><img src='stat_function-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>5</span>, <span class='fl'>5</span>)), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) + <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>)</div><div class='img'><img src='stat_function-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To specify a different mean or sd, use the args parameter to supply new values</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(-<span class='fl'>5</span>, <span class='fl'>5</span>)), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) +
-  <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'>list</span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>.5</span>))</div><div class='img'><img src='stat_function-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>5</span>, <span class='fl'>5</span>)), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) +
+  <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>dnorm</span>, <span class='kw'>args</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>mean</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>.5</span>))</div><div class='img'><img src='stat_function-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Two functions on the same plot</span>
-<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'>data.frame</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='fl'>0</span>, <span class='fl'>10</span>)), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>))
+<span class='no'>f</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>)), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>))
 <span class='no'>f</span> + <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>sin</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>) +
   <span class='fu'>stat_function</span>(<span class='kw'>fun</span> <span class='kw'>=</span> <span class='no'>cos</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"blue"</span>)</div><div class='img'><img src='stat_function-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Using a custom function</span>

@@ -177,7 +177,7 @@ and two whiskers), and all "outlying" points individually.</p>
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -203,7 +203,7 @@ a call to a position adjustment function.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
+<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -214,7 +214,7 @@ aesthetics used for the box.</p>
 US spelling will take precedence.</p>
 <p>Sometimes it can be useful to hide the outliers, for example when overlaying
 the raw data points on top of the boxplot. Hiding the outliers can be achieved
-by setting <code>outlier.shape = NA</code>. Importantly, this does not remove the outliers,
+by setting <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>outlier.shape = NA</a></code>. Importantly, this does not remove the outliers,
 it only hides them, so the range calculated for the y-axis will be the
 same with outliers shown and outliers hidden.</p></td>
     </tr>
@@ -228,7 +228,7 @@ are significantly different.</p></td>
     <tr>
       <th>notchwidth</th>
       <td><p>For a notched box plot, width of the notch relative to
-the body (defaults to <code>notchwidth = 0.5</code>).</p></td>
+the body (defaults to <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>notchwidth = 0.5</a></code>).</p></td>
     </tr>
     <tr>
       <th>varwidth</th>
@@ -273,16 +273,16 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     
     <p>The lower and upper hinges correspond to the first and third quartiles
 (the 25th and 75th percentiles). This differs slightly from the method used
-by the <code>boxplot()</code> function, and may be apparent with small samples.
-See <code>boxplot.stats()</code> for for more information on how hinge
-positions are calculated for <code>boxplot()</code>.</p>
+by the <code><a href='http://www.rdocumentation.org/packages/graphics/topics/boxplot'>boxplot()</a></code> function, and may be apparent with small samples.
+See <code><a href='http://www.rdocumentation.org/packages/grDevices/topics/boxplot.stats'>boxplot.stats()</a></code> for for more information on how hinge
+positions are calculated for <code><a href='http://www.rdocumentation.org/packages/graphics/topics/boxplot'>boxplot()</a></code>.</p>
 <p>The upper whisker extends from the hinge to the largest value no further than
 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
 between the first and third quartiles). The lower whisker extends from the
 hinge to the smallest value at most 1.5 * IQR of the hinge. Data beyond the
 end of the whiskers are called "outlying" points and are plotted
 individually.</p>
-<p>In a notched box plot, the notches extend <code>1.58 * IQR / sqrt(n)</code>.
+<p>In a notched box plot, the notches extend <code><a href='http://www.rdocumentation.org/packages/base/topics/Arithmetic'>1.58 * IQR / sqrt(n)</a></code>.
 This gives a roughly 95% confidence interval for comparing medians.
 See McGill et al. (1978) for more details.</p>
     
@@ -350,14 +350,14 @@ box plots. The American Statistician 32, 12-16.</p>
   <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='cut_interval.html'>cut_width</a></span>(<span class='no'>carat</span>, <span class='fl'>0.25</span>)), <span class='kw'>outlier.alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='img'><img src='geom_boxplot-11.png' alt='' width='700' height='433' /></div><div class='input'>
 </div><div class='input'><span class='co'># It's possible to draw a boxplot with your own computations if you</span>
 <span class='co'># use stat = "identity":</span>
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>rnorm</span>(<span class='fl'>100</span>)
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
   <span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fu'>min</span>(<span class='no'>y</span>),
-  <span class='kw'>y25</span> <span class='kw'>=</span> <span class='fu'>quantile</span>(<span class='no'>y</span>, <span class='fl'>0.25</span>),
-  <span class='kw'>y50</span> <span class='kw'>=</span> <span class='fu'>median</span>(<span class='no'>y</span>),
-  <span class='kw'>y75</span> <span class='kw'>=</span> <span class='fu'>quantile</span>(<span class='no'>y</span>, <span class='fl'>0.75</span>),
-  <span class='kw'>y100</span> <span class='kw'>=</span> <span class='fu'>max</span>(<span class='no'>y</span>)
+  <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/Extremes'>min</a></span>(<span class='no'>y</span>),
+  <span class='kw'>y25</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/quantile'>quantile</a></span>(<span class='no'>y</span>, <span class='fl'>0.25</span>),
+  <span class='kw'>y50</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/median'>median</a></span>(<span class='no'>y</span>),
+  <span class='kw'>y75</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/quantile'>quantile</a></span>(<span class='no'>y</span>, <span class='fl'>0.75</span>),
+  <span class='kw'>y100</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/Extremes'>max</a></span>(<span class='no'>y</span>)
 )
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>)) +
   <span class='fu'>geom_boxplot</span>(

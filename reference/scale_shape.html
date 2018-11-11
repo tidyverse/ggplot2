@@ -191,8 +191,8 @@ The default, <code>TRUE</code>, uses the levels that appear in the data;
 <code>FALSE</code> uses all the levels in the factor.</p></dd>
   <dt>na.translate</dt><dd><p>Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
-from a discrete scale, specify <code>na.translate = FALSE</code>.</p></dd>
-  <dt>na.value</dt><dd><p>If <code>na.translate = TRUE</code>, what value aesthetic
+from a discrete scale, specify <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>na.translate = FALSE</a></code>.</p></dd>
+  <dt>na.value</dt><dd><p>If <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>na.translate = TRUE</a></code>, what value aesthetic
 value should missing be displayed as? Does not apply to position scales
 where <code>NA</code> is always placed at the far right.</p></dd>
   <dt>aesthetics</dt><dd><p>The names of the aesthetics that this scale works with</p></dd>
@@ -224,17 +224,17 @@ as output</p></li>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>dsmall</span> <span class='kw'>&lt;-</span> <span class='no'>diamonds</span>[<span class='fu'>sample</span>(<span class='fu'>nrow</span>(<span class='no'>diamonds</span>), <span class='fl'>100</span>), ]
+    <pre class="examples"><div class='input'><span class='no'>dsmall</span> <span class='kw'>&lt;-</span> <span class='no'>diamonds</span>[<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>diamonds</span>), <span class='fl'>100</span>), ]
 
 (<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>dsmall</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='no'>cut</span>)))</div><div class='output co'>#&gt; <span class='warning'>Warning: Using shapes for an ordinal variable is not advised</span></div><div class='img'><img src='scale_shape-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_shape</span>(<span class='kw'>solid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) <span class='co'># the default</span></div><div class='img'><img src='scale_shape-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_shape</span>(<span class='kw'>solid</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='scale_shape-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_shape</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"Cut of diamond"</span>)</div><div class='img'><img src='scale_shape-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To change order of levels, change order of</span>
 <span class='co'># underlying factor</span>
-<span class='fu'>levels</span>(<span class='no'>dsmall</span>$<span class='no'>cut</span>) <span class='kw'>&lt;-</span> <span class='fu'>c</span>(<span class='st'>"Fair"</span>, <span class='st'>"Good"</span>, <span class='st'>"Very Good"</span>, <span class='st'>"Premium"</span>, <span class='st'>"Ideal"</span>)
+<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/levels'>levels</a></span>(<span class='no'>dsmall</span>$<span class='no'>cut</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Fair"</span>, <span class='st'>"Good"</span>, <span class='st'>"Very Good"</span>, <span class='st'>"Premium"</span>, <span class='st'>"Ideal"</span>)
 
 <span class='co'># Need to recreate plot to pick up new data</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>dsmall</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>price</span>, <span class='no'>carat</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='no'>cut</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Using shapes for an ordinal variable is not advised</span></div><div class='img'><img src='scale_shape-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Show a list of available shapes</span>
-<span class='no'>df_shapes</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>24</span>)
+<span class='no'>df_shapes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='fl'>0</span>:<span class='fl'>24</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df_shapes</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fl'>0</span>, <span class='fl'>0</span>, <span class='kw'>shape</span> <span class='kw'>=</span> <span class='no'>shape</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>shape</span> <span class='kw'>=</span> <span class='no'>shape</span>), <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>5</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>'red'</span>) +
   <span class='fu'><a href='scale_identity.html'>scale_shape_identity</a></span>() +

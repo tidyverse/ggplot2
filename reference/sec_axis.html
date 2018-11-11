@@ -222,14 +222,14 @@ is a duplication of the primary axis, effectively mirroring the primary axis.</p
 <span class='co'># You can pass in a formula as a shorthand</span>
 <span class='no'>p</span> + <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>sec.axis</span> <span class='kw'>=</span> ~<span class='no'>.</span>^<span class='fl'>2</span>)</div><div class='img'><img src='sec_axis-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Secondary axes work for date and datetime scales too:</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'>data.frame</span>(
-  <span class='kw'>dx</span> <span class='kw'>=</span> <span class='fu'>seq</span>(<span class='fu'>as.POSIXct</span>(<span class='st'>"2012-02-29 12:00:00"</span>,
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
+  <span class='kw'>dx</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/as.POSIXlt'>as.POSIXct</a></span>(<span class='st'>"2012-02-29 12:00:00"</span>,
                        <span class='kw'>tz</span> <span class='kw'>=</span> <span class='st'>"UTC"</span>,
                        <span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"%Y-%m-%d %H:%M:%S"</span>
   ),
   <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='st'>"4 hour"</span>
   ),
-  <span class='kw'>price</span> <span class='kw'>=</span> <span class='fu'>seq</span>(<span class='fl'>20</span>, <span class='fl'>200000</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>)
+  <span class='kw'>price</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>20</span>, <span class='fl'>200000</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>)
  )
 
 <span class='co'># useful for labelling different time scales in the same plot</span>

@@ -184,22 +184,22 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'>require</span>(<span class='st'>"multcomp"</span>)) {
-<span class='no'>amod</span> <span class='kw'>&lt;-</span> <span class='fu'>aov</span>(<span class='no'>breaks</span> ~ <span class='no'>wool</span> + <span class='no'>tension</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>warpbreaks</span>)
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"multcomp"</span>)) {
+<span class='no'>amod</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/aov'>aov</a></span>(<span class='no'>breaks</span> ~ <span class='no'>wool</span> + <span class='no'>tension</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>warpbreaks</span>)
 <span class='no'>wht</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/multcomp/topics/glht'>glht</a></span>(<span class='no'>amod</span>, <span class='kw'>linfct</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/multcomp/topics/glht'>mcp</a></span>(<span class='kw'>tension</span> <span class='kw'>=</span> <span class='st'>"Tukey"</span>))
 
 <span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='no'>wht</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>wht</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>lhs</span>, <span class='no'>estimate</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 
-<span class='no'>CI</span> <span class='kw'>&lt;-</span> <span class='fu'>confint</span>(<span class='no'>wht</span>)
+<span class='no'>CI</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/confint'>confint</a></span>(<span class='no'>wht</span>)
 <span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='no'>CI</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>CI</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>lhs</span>, <span class='no'>estimate</span>, <span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lwr</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upr</span>)) +
    <span class='fu'><a href='geom_linerange.html'>geom_pointrange</a></span>()
 
-<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='fu'>summary</span>(<span class='no'>wht</span>))
+<span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>wht</span>))
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>lhs</span>, <span class='no'>estimate</span>)) +
    <span class='fu'><a href='geom_linerange.html'>geom_linerange</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lwr</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upr</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>CI</span>) +
-   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'>summary</span>(<span class='no'>wht</span>)) +
+   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>p</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/summary'>summary</a></span>(<span class='no'>wht</span>)) +
    <span class='fu'><a href='scale_size.html'>scale_size</a></span>(<span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"reverse"</span>)
 
 <span class='no'>cld</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/multcomp/topics/cld'>cld</a></span>(<span class='no'>wht</span>)
