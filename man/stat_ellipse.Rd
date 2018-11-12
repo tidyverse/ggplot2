@@ -5,8 +5,9 @@
 \title{Compute normal confidence ellipses}
 \usage{
 stat_ellipse(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", ..., type = "t", level = 0.95, segments = 51,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., type = "t", level = 0.95,
+  segments = 51, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -25,7 +26,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{geom}{The geometric object to use display the data}
@@ -35,7 +36,7 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{type}{The type of ellipse.

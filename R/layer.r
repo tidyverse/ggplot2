@@ -21,7 +21,7 @@
 #'    [fortify()] for which variables will be created.
 #'
 #'    A `function` will be called with a single argument,
-#'    the plot data. The return value must be a `data.frame.`, and
+#'    the plot data. The return value must be a `data.frame`, and
 #'    will be used as the layer data.
 #' @param geom The geometric object to use display the data
 #' @param stat The statistical transformation to use on the data for this
@@ -81,11 +81,15 @@ layer <- function(geom = NULL, stat = NULL,
     show.legend <- FALSE
   }
 
-  data <- fortify(data)
-
+  # we validate mapping before data because in geoms and stats
+  # the mapping is listed before the data argument; this causes
+  # less confusing error messages when layers are accidentally
+  # piped into each other
   if (!is.null(mapping)) {
     mapping <- validate_mapping(mapping)
   }
+
+  data <- fortify(data)
 
   geom <- check_subclass(geom, "Geom", env = parent.frame())
   stat <- check_subclass(stat, "Stat", env = parent.frame())
@@ -283,7 +287,6 @@ Layer <- ggproto("Layer", NULL,
 
   compute_geom_1 = function(self, data) {
     if (empty(data)) return(data.frame())
-    data <- self$geom$setup_data(data, c(self$geom_params, self$aes_params))
 
     check_required_aesthetics(
       self$geom$required_aes,
@@ -291,7 +294,7 @@ Layer <- ggproto("Layer", NULL,
       snake_class(self$geom)
     )
 
-    data
+    self$geom$setup_data(data, c(self$geom_params, self$aes_params))
   },
 
   compute_position = function(self, data, layout) {

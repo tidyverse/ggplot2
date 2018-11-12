@@ -7,6 +7,8 @@
 \alias{stat_sf}
 \alias{GeomSf}
 \alias{geom_sf}
+\alias{geom_sf_label}
+\alias{geom_sf_text}
 \alias{CoordSf}
 \alias{coord_sf}
 \title{Visualise sf objects}
@@ -19,8 +21,21 @@ geom_sf(mapping = aes(), data = NULL, stat = "sf",
   position = "identity", na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE, ...)
 
+geom_sf_label(mapping = aes(), data = NULL, stat = "sf_coordinates",
+  position = "identity", ..., parse = FALSE, nudge_x = 0,
+  nudge_y = 0, label.padding = unit(0.25, "lines"),
+  label.r = unit(0.15, "lines"), label.size = 0.25, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, fun.geometry = NULL)
+
+geom_sf_text(mapping = aes(), data = NULL, stat = "sf_coordinates",
+  position = "identity", ..., parse = FALSE, nudge_x = 0,
+  nudge_y = 0, check_overlap = FALSE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, fun.geometry = NULL)
+
 coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
-  datum = sf::st_crs(4326), ndiscr = 100, default = FALSE)
+  datum = sf::st_crs(4326), label_graticule = waiver(),
+  label_axes = waiver(), ndiscr = 100, default = FALSE,
+  clip = "on")
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -39,7 +54,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{geom}{The geometric object to use display the data}
@@ -64,11 +79,35 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
+
+\item{parse}{If \code{TRUE}, the labels will be parsed into expressions and
+displayed as described in \code{?plotmath}.}
+
+\item{nudge_x}{Horizontal and vertical adjustment to nudge labels by.
+Useful for offsetting text from points, particularly on discrete scales.}
+
+\item{nudge_y}{Horizontal and vertical adjustment to nudge labels by.
+Useful for offsetting text from points, particularly on discrete scales.}
+
+\item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
+
+\item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
+
+\item{label.size}{Size of label border, in mm.}
+
+\item{fun.geometry}{A function that takes a \code{sfc} object and returns a \code{sfc_POINT} with the
+same length as the input. If \code{NULL}, \code{function(x) sf::st_point_on_surface(sf::st_zm(x))}
+will be used. Note that the function may warn about the incorrectness of
+the result if the data is not projected, but you can ignore this except
+when you really care about the exact locations.}
+
+\item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
+same layer will not be plotted.}
 
 \item{xlim}{Limits for the x and y axes.}
 
@@ -78,34 +117,67 @@ layer, as a string.}
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
-\item{crs}{Use this to select a specific CRS. If not specified, will
-use the CRS defined in the first layer.}
+\item{crs}{Use this to select a specific coordinate reference system (CRS).
+If not specified, will use the CRS defined in the first layer.}
 
 \item{datum}{CRS that provides datum to use when generating graticules}
 
-\item{ndiscr}{number of segments to use for discretizing graticule lines;
+\item{label_graticule}{Character vector indicating which graticule lines should be labeled
+where. Meridians run north-south, and the letters \code{"N"} and \code{"S"} indicate that
+they should be labeled on their north or south end points, respectively.
+Parallels run east-west, and the letters \code{"E"} and \code{"W"} indicate that they
+should be labeled on their east or west end points, respectively. Thus,
+\code{label_graticule = "SW"} would label meridians at their south end and parallels at
+their west end, whereas \code{label_graticule = "EW"} would label parallels at both
+ends and meridians not at all. Because meridians and parallels can in general
+intersect with any side of the plot panel, for any choice of \code{label_graticule} labels
+are not guaranteed to reside on only one particular side of the plot panel.
+
+This parameter can be used alone or in combination with \code{label_axes}.}
+
+\item{label_axes}{Character vector or named list of character values
+specifying which graticule lines (meridians or parallels) should be labeled on
+which side of the plot. Meridians are indicated by \code{"E"} (for East) and
+parallels by \code{"N"} (for North). Default is \code{"--EN"}, which specifies
+(clockwise from the top) no labels on the top, none on the right, meridians
+on the bottom, and parallels on the left. Alternatively, this setting could have been
+specified with \code{list(bottom = "E", left = "N")}.
+
+This parameter can be used alone or in combination with \code{label_graticule}.}
+
+\item{ndiscr}{number of segments to use for discretising graticule lines;
 try increasing this when graticules look unexpected}
 
 \item{default}{Is this the default coordinate system? If \code{FALSE} (the default),
 then replacing this coordinate system with another one creates a message alerting
 the user that the coordinate system is being replaced. If \code{TRUE}, that warning
 is suppressed.}
+
+\item{clip}{Should drawing be clipped to the extent of the plot panel? A
+setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
+means no. In most cases, the default of \code{"on"} should not be changed,
+as setting \code{clip = "off"} can cause unexpected results. It allows
+drawing of data points anywhere on the plot, including in the plot margins. If
+limits are set via \code{xlim} and \code{ylim} and some data points fall outside those
+limits, then those data points may show up in places such as the axes, the
+legend, the plot title, or the plot margins.}
 }
 \description{
 This set of geom, stat, and coord are used to visualise simple feature (sf)
-objects. For simple plots, you will only need \code{geom_sf} as it
-uses \code{stat_sf} and adds \code{coord_sf} for you. \code{geom_sf} is
+objects. For simple plots, you will only need \code{geom_sf()} as it
+uses \code{stat_sf()} and adds \code{coord_sf()} for you. \code{geom_sf()} is
 an unusual geom because it will draw different geometric objects depending
 on what simple features are present in the data: you can get points, lines,
 or polygons.
+For text and labels, you can use \code{geom_sf_text()} and \code{geom_sf_label()}.
 }
 \section{Geometry aesthetic}{
 
-\code{geom_sf} uses a unique aesthetic: \code{geometry}, giving an
-column of class \code{sfc} containg simple features data. There
+\code{geom_sf()} uses a unique aesthetic: \code{geometry}, giving an
+column of class \code{sfc} containing simple features data. There
 are three ways to supply the \code{geometry} aesthetic:
 \itemize{
-\item Do nothing: by default \code{geom_sf} assumes it is stored in
+\item Do nothing: by default \code{geom_sf()} assumes it is stored in
 the \code{geometry} column.
 \item Explicitly pass an \code{sf} object to the \code{data} argument.
 This will use the primary geometry column, no matter what it's called.
@@ -119,7 +191,7 @@ the plot.
 \section{CRS}{
 
 \code{coord_sf()} ensures that all layers use a common CRS. You can
-either specify it using the \code{CRS} param, or \code{coord_sf} will
+either specify it using the \code{CRS} param, or \code{coord_sf()} will
 take it from the first layer that defines a CRS.
 }
 
@@ -161,6 +233,14 @@ world2 <- sf::st_transform(
   "+proj=laea +y_0=0 +lon_0=155 +lat_0=-90 +ellps=WGS84 +no_defs"
 )
 ggplot() + geom_sf(data = world2)
+
+# To add labels, use geom_sf_label().
+ggplot(nc_3857[1:3, ]) +
+   geom_sf(aes(fill = AREA)) +
+   geom_sf_label(aes(label = NAME))
 }
+}
+\seealso{
+\code{\link[=stat_sf_coordinates]{stat_sf_coordinates()}}
 }
 \keyword{datasets}

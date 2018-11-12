@@ -7,11 +7,12 @@
 \title{Bar charts}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "count",
-  position = "stack", ..., width = NULL, binwidth = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "stack", ..., width = NULL, binwidth = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 geom_col(mapping = NULL, data = NULL, position = "stack", ...,
-  width = NULL, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  width = NULL, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_count(mapping = NULL, data = NULL, geom = "bar",
   position = "stack", ..., width = NULL, na.rm = FALSE,
@@ -34,7 +35,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
@@ -42,12 +43,12 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
 
-\item{binwidth}{\code{geom_bar} no longer has a binwidth argument - if
+\item{binwidth}{\code{geom_bar()} no longer has a binwidth argument - if
 you use it you'll get an warning telling to you use
 \code{\link[=geom_histogram]{geom_histogram()}} instead.}
 
@@ -65,25 +66,23 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{geom, stat}{Override the default connection between \code{geom_bar} and
-\code{stat_count}.}
+\item{geom, stat}{Override the default connection between \code{geom_bar()} and
+\code{stat_count()}.}
 }
 \description{
-There are two types of bar charts: \code{geom_bar} makes the height of the
+There are two types of bar charts: \code{geom_bar()} and \code{geom_col()}.
+\code{geom_bar()} makes the height of the
 bar proportional to the number of cases in each group (or if the
 \code{weight} aesthetic is supplied, the sum of the weights). If you want the
 heights of the bars to represent values in the data, use
-\link{geom_col} instead. \code{geom_bar} uses \code{stat_count} by
-default: it counts the number of cases at each x position. \code{geom_col}
-uses \code{stat_identity}: it leaves the data as is.
+\code{geom_col()} instead. \code{geom_bar()} uses \code{stat_count()} by
+default: it counts the number of cases at each x position. \code{geom_col()}
+uses \code{stat_identity()}: it leaves the data as is.
 }
 \details{
 A bar chart uses height to represent a value, and so the base of the
-bar must always be shown to produce a valid visual comparison. Naomi Robbins
-has a nice
-\href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this
-topic}. This is why it doesn't make sense to use a log-scaled y axis with a
-bar chart.
+bar must always be shown to produce a valid visual comparison. This is why
+it doesn't make sense to use a log-scaled y axis with a bar chart.
 
 By default, multiple bars occupying the same \code{x} position will be stacked
 atop one another by \code{\link[=position_stack]{position_stack()}}. If you want them to be dodged
@@ -93,7 +92,7 @@ and then standardising each bar to have the same height.
 }
 \section{Aesthetics}{
 
-\code{geom_bar} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_bar()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -104,7 +103,7 @@ and then standardising each bar to have the same height.
 \item \code{linetype}
 \item \code{size}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
@@ -155,11 +154,11 @@ ggplot(df, aes(x)) + geom_histogram(binwidth = 0.5)
 \seealso{
 \code{\link[=geom_histogram]{geom_histogram()}} for continuous data,
 \code{\link[=position_dodge]{position_dodge()}} and \code{\link[=position_dodge2]{position_dodge2()}} for creating side-by-side
-barcharts.
+bar charts.
 
 \code{\link[=stat_bin]{stat_bin()}}, which bins data in ranges and counts the
 cases in each range. It differs from \code{stat_count}, which counts the
-number of cases at each x position (without binning into ranges).
-\code{\link[=stat_bin]{stat_bin()}} requires continuous x data, whereas
-\code{stat_count} can be used for both discrete and continuous x data.
+number of cases at each \code{x} position (without binning into ranges).
+\code{\link[=stat_bin]{stat_bin()}} requires continuous \code{x} data, whereas
+\code{stat_count} can be used for both discrete and continuous \code{x} data.
 }

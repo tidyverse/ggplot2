@@ -3,7 +3,7 @@ NULL
 
 #' Lay out panels in a grid
 #'
-#' `facet_grid` forms a matrix of panels defined by row and column
+#' `facet_grid()` forms a matrix of panels defined by row and column
 #' faceting variables. It is most useful when you have two discrete
 #' variables, and all combinations of the variables exist in the data.
 #'
@@ -103,7 +103,7 @@ NULL
 #'
 #' # Margins ----------------------------------------------------------
 #' \donttest{
-#' # Margins can be specified by logically (all yes or all no) or by specific
+#' # Margins can be specified logically (all yes or all no) or for specific
 #' # variables as (character) variable names
 #' mg <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
 #' mg + facet_grid(vs + am ~ gear, margins = TRUE)
@@ -288,7 +288,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
       data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     }
-    data[order(data$PANEL), , drop = FALSE]
+    data
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {

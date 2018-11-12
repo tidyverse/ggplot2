@@ -17,5 +17,9 @@ Broken down into construct, build, render and draw times.
 \examples{
 benchplot(ggplot(mtcars, aes(mpg, wt)) + geom_point())
 benchplot(ggplot(mtcars, aes(mpg, wt)) + geom_point() + facet_grid(. ~ cyl))
+
+# With tidy eval:
+p <- expr(ggplot(mtcars, aes(mpg, wt)) + geom_point())
+benchplot(!!p)
 }
 \keyword{internal}

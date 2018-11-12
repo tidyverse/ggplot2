@@ -88,19 +88,19 @@ documentation pages. Currently, there are three good places to start:
 2.  If you’d like to take an interactive online course, try [Data
     visualisation with
     ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1)
-    by Rick Scavetta on datacamp.
+    by Rick Scavetta on DataCamp.
 
 3.  If you want to dive into making common graphics as quickly as
     possible, I recommend [The R Graphics
     Cookbook](http://amzn.to/2dVfMfn) by Winston Chang. It provides a
     set of recipes to solve common graphics problems. A 2nd edition is
-    due out in 2017.
+    due out in 2018.
 
 If you’ve mastered the basics and want to learn more, read [ggplot2:
 Elegant Graphics for Data Analysis](http://amzn.to/2fncG50). It
 describes the theoretical underpinnings of ggplot2 and shows you how all
 the pieces fit together. This book helps you understand the theory that
-underpins ggplot2, and will help you create new types of graphic
+underpins ggplot2, and will help you create new types of graphics
 specifically tailored to your needs. The book is not available for free,
 but you can find the complete source for the book at
 <https://github.com/hadley/ggplot2-book>.

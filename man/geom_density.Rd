@@ -10,9 +10,9 @@ geom_density(mapping = NULL, data = NULL, stat = "density",
   inherit.aes = TRUE)
 
 stat_density(mapping = NULL, data = NULL, geom = "area",
-  position = "stack", ..., bw = "nrd0", adjust = 1, kernel = "gaussian",
-  n = 512, trim = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "stack", ..., bw = "nrd0", adjust = 1,
+  kernel = "gaussian", n = 512, trim = FALSE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -31,7 +31,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
@@ -39,7 +39,7 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
@@ -88,7 +88,7 @@ data that comes from an underlying smooth distribution.
 }
 \section{Aesthetics}{
 
-\code{geom_density} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_density()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -100,7 +100,7 @@ data that comes from an underlying smooth distribution.
 \item \code{size}
 \item \code{weight}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
@@ -110,6 +110,8 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 \item{count}{density * number of points - useful for stacked density
 plots}
 \item{scaled}{density estimate, scaled to maximum of 1}
+\item{ndensity}{alias for \code{scaled}, to mirror the syntax of
+\code{\link[=stat_bin]{stat_bin()}}}
 }
 }
 

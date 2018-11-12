@@ -31,7 +31,7 @@ test_that("grid: missing facet columns are duplicated", {
 
   loc_a <- panel_map_one(facet, df_a, plot_data = df)
   expect_equal(nrow(loc_a), 4)
-  expect_equal(loc_a$PANEL, factor(1:4))
+  expect_equal(loc_a$PANEL, factor(c(1, 3, 2, 4)))
 
   loc_b <- panel_map_one(facet, df_b, plot_data = df)
   expect_equal(nrow(loc_b), 4)
@@ -47,8 +47,8 @@ test_that("wrap: missing facet columns are duplicated", {
 
   loc_a <- panel_map_one(facet, df_a, plot_data = df)
   expect_equal(nrow(loc_a), 4)
-  expect_equal(loc_a$PANEL, factor(1:4))
-  expect_equal(loc_a$a, c(1, 1, 2, 2))
+  expect_equal(loc_a$PANEL, factor(c(1, 3, 2, 4)))
+  expect_equal(loc_a$a, c(1, 2, 1, 2))
 
   loc_b <- panel_map_one(facet, df_b, plot_data = df)
   expect_equal(nrow(loc_b), 4)

@@ -45,6 +45,30 @@
 #' # You can pass in a formula as a shorthand
 #' p + scale_y_continuous(sec.axis = ~.^2)
 #'
+#' # Secondary axes work for date and datetime scales too:
+#' df <- data.frame(
+#'   dx = seq(as.POSIXct("2012-02-29 12:00:00",
+#'                        tz = "UTC",
+#'                        format = "%Y-%m-%d %H:%M:%S"
+#'   ),
+#'   length.out = 10, by = "4 hour"
+#'   ),
+#'   price = seq(20, 200000, length.out = 10)
+#'  )
+#'
+#' # useful for labelling different time scales in the same plot
+#' ggplot(df, aes(x = dx, y = price)) + geom_line() +
+#'   scale_x_datetime("Date", date_labels = "%b %d",
+#'   date_breaks = "6 hour",
+#'   sec.axis = dup_axis(name = "Time of Day",
+#'   labels = scales::time_format("%I %p")))
+#'
+#' # or to transform axes for different timezones
+#' ggplot(df, aes(x = dx, y = price)) + geom_line() +
+#'   scale_x_datetime("GMT", date_labels = "%b %d %I %p",
+#'   sec.axis = sec_axis(~. + 8*3600, name = "GMT+8",
+#'   labels = scales::time_format("%b %d %I %p")))
+#'
 #' @export
 sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver()) {
   if (!is.formula(trans)) stop("transformation for secondary axes must be a formula", call. = FALSE)
@@ -61,9 +85,20 @@ sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = 
 dup_axis <- function(trans = ~., name = derive(), breaks = derive(), labels = derive()) {
   sec_axis(trans, name, breaks, labels)
 }
+
 is.sec_axis <- function(x) {
   inherits(x, "AxisSecondary")
 }
+
+set_sec_axis <- function(sec.axis, scale) {
+  if (!is.waive(sec.axis)) {
+    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
+    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
+    scale$secondary.axis <- sec.axis
+  }
+  return(scale)
+}
+
 #' @rdname sec_axis
 #'
 #' @export
@@ -106,18 +141,21 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
   transform_range = function(self, range) {
     range <- structure(data.frame(range), names = '.')
-    f_eval(self$trans, range)
+    rlang::eval_tidy(
+      rlang::f_rhs(self$trans),
+      data = range,
+      env = rlang::f_env(self$trans)
+    )
   },
-
 
   break_info = function(self, range, scale) {
     if (self$empty()) return()
 
     # Get original range before transformation
-    along_range <- seq(range[1], range[2], length.out = self$detail)
-    old_range <- scale$trans$inverse(along_range)
+    inv_range <- scale$trans$inverse(range)
 
     # Create mapping between primary and secondary range
+    old_range <- seq(inv_range[1], inv_range[2], length.out = self$detail)
     full_range <- self$transform_range(old_range)
 
     # Test for monotonicity
@@ -125,29 +163,22 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       stop("transformation for secondary axes must be monotonic")
 
     # Get break info for the secondary axis
-    new_range <- range(full_range, na.rm = TRUE)
-    temp_scale <- self$create_scale(new_range)
-    range_info <- temp_scale$break_info()
-
-    # Map the break values back to their correct position on the primary scale
-    old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
-    old_val <- old_range[unlist(old_val)]
-    old_val_trans <- scale$trans$transform(old_val)
-    range_info$major[] <- round(rescale(scale$map(old_val_trans, range(old_val_trans)), from = range), digits = 3)
-
+    new_range <- range(scale$transform(full_range), na.rm = TRUE)
+    sec_scale <- self$create_scale(new_range, scale)
+    range_info <- sec_scale$break_info()
     names(range_info) <- paste0("sec.", names(range_info))
     range_info
   },
 
   # Temporary scale for the purpose of calling break_info()
-  create_scale = function(self, range) {
+  create_scale = function(self, range, primary) {
     scale <- ggproto(NULL, ScaleContinuousPosition,
       name = self$name,
       breaks = self$breaks,
       labels = self$labels,
       limits = range,
       expand = c(0, 0),
-      trans = identity_trans()
+      trans = primary$trans
     )
     scale$train(range)
     scale

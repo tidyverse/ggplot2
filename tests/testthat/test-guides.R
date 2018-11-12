@@ -191,7 +191,8 @@ test_that("guides title and text are positioned correctly", {
       name = "value",
       guide = guide_colorbar(
         title.theme = element_text(size = 11, angle = 0, hjust = 0.5, vjust = 1),
-        label.theme = element_text(size = 0.8*11, angle = 270, hjust = 0.5, vjust = 1)
+        label.theme = element_text(size = 0.8*11, angle = 270, hjust = 0.5, vjust = 1),
+        order = 2 # set guide order to keep visual test stable
       )
     ) +
     scale_fill_continuous(
@@ -204,7 +205,8 @@ test_that("guides title and text are positioned correctly", {
         title.position = "top",
         label.position = "bottom",
         title.theme = element_text(size = 11, angle = 180, hjust = 0, vjust = 1),
-        label.theme = element_text(size = 0.8*11, angle = 90, hjust = 1, vjust = 0.5)
+        label.theme = element_text(size = 0.8*11, angle = 90, hjust = 1, vjust = 0.5),
+        order = 1
       )
     )
 

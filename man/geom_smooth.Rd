@@ -11,9 +11,9 @@ geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
 
 stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
   position = "identity", ..., method = "auto", formula = y ~ x,
-  se = TRUE, n = 80, span = 0.75, fullrange = FALSE, level = 0.95,
-  method.args = list(), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
+  level = 0.95, method.args = list(), na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -32,7 +32,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
@@ -40,28 +40,29 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{method}{Smoothing method (function) to use, eg. \code{lm}, \code{glm},
-\code{gam}, \code{loess}, \code{MASS::rlm}.
+\item{method}{Smoothing method (function) to use, accepts either a character vector,
+e.g. \code{"auto"}, \code{"lm"}, \code{"glm"}, \code{"gam"}, \code{"loess"} or a function, e.g.
+\code{MASS::rlm} or \code{mgcv::gam}, \code{base::lm}, or \code{base::loess}.
 
 For \code{method = "auto"} the smoothing method is chosen based on the
 size of the largest group (across all panels). \code{\link[=loess]{loess()}} is
 used for less than 1,000 observations; otherwise \code{\link[mgcv:gam]{mgcv::gam()}} is
 used with \code{formula = y ~ s(x, bs = "cs")}. Somewhat anecdotally,
-\code{loess} gives a better appearance, but is O(n^2) in memory, so does
-not work for larger datasets.
+\code{loess} gives a better appearance, but is \eqn{O(N^{2})}{O(N^2)} in memory,
+so does not work for larger datasets.
 
-If you have fewer than 1,000 observations but want to use the same \code{gam}
-model that \code{method = "auto"} would use then set
+If you have fewer than 1,000 observations but want to use the same \code{gam()}
+model that \code{method = "auto"} would use, then set
 \code{method = "gam", formula = y ~ s(x, bs = "cs")}.}
 
 \item{formula}{Formula to use in smoothing function, eg. \code{y ~ x},
 \code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
 
-\item{se}{Display confidence interval around smooth? (TRUE by default, see
-level to control.)}
+\item{se}{Display confidence interval around smooth? (\code{TRUE} by default, see
+\code{level} to control.)}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -78,7 +79,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom, stat}{Use to override the default connection between
-\code{geom_smooth} and \code{stat_smooth}.}
+\code{geom_smooth()} and \code{stat_smooth()}.}
 
 \item{n}{Number of points at which to evaluate smoother.}
 
@@ -96,21 +97,21 @@ function defined by \code{method}.}
 }
 \description{
 Aids the eye in seeing patterns in the presence of overplotting.
-\code{geom_smooth} and \code{stat_smooth} are effectively aliases: they
-both use the same arguments. Use \code{geom_smooth} unless you want to
+\code{geom_smooth()} and \code{stat_smooth()} are effectively aliases: they
+both use the same arguments. Use \code{stat_smooth()} if you want to
 display the results with a non-standard geom.
 }
 \details{
 Calculation is performed by the (currently undocumented)
-\code{predictdf} generic and its methods.  For most methods the standard
-error bounds are computed using the \code{\link[=predict]{predict()}} method - the
-exceptions are \code{loess} which uses a t-based approximation, and
-\code{glm} where the normal confidence interval is constructed on the link
-scale, and then back-transformed to the response scale.
+\code{predictdf()} generic and its methods.  For most methods the standard
+error bounds are computed using the \code{\link[=predict]{predict()}} method -- the
+exceptions are \code{loess()}, which uses a t-based approximation, and
+\code{glm()}, where the normal confidence interval is constructed on the link
+scale and then back-transformed to the response scale.
 }
 \section{Aesthetics}{
 
-\code{geom_smooth} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_smooth()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -124,7 +125,7 @@ scale, and then back-transformed to the response scale.
 \item \code{ymax}
 \item \code{ymin}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
@@ -142,7 +143,7 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   geom_smooth()
 
-# Use span to control the "wiggliness" of the default loess smoother
+# Use span to control the "wiggliness" of the default loess smoother.
 # The span is the fraction of points used to fit each local regression:
 # small numbers make a wigglier curve, larger numbers make a smoother curve.
 ggplot(mpg, aes(displ, hwy)) +
@@ -158,8 +159,8 @@ ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   geom_smooth(method = lm, formula = y ~ splines::bs(x, 3), se = FALSE)
 
-# Smoothes are automatically fit to each group (defined by categorical
-# aesthetics or the group aesthetic) and for each facet
+# Smooths are automatically fit to each group (defined by categorical
+# aesthetics or the group aesthetic) and for each facet.
 
 ggplot(mpg, aes(displ, hwy, colour = class)) +
   geom_point() +
@@ -188,12 +189,12 @@ ggplot(rpart::kyphosis, aes(Age, as.numeric(Kyphosis) - 1)) +
   binomial_smooth(formula = y ~ splines::ns(x, 2))
 
 # But in this case, it's probably better to fit the model yourself
-# so you can exercise more control and see whether or not it's a good model
+# so you can exercise more control and see whether or not it's a good model.
 }
 }
 \seealso{
 See individual modelling functions for more details:
 \code{\link[=lm]{lm()}} for linear smooths,
-\code{\link[=glm]{glm()}} for generalised linear smooths,
-\code{\link[=loess]{loess()}} for local smooths
+\code{\link[=glm]{glm()}} for generalised linear smooths, and
+\code{\link[=loess]{loess()}} for local smooths.
 }

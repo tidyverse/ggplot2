@@ -9,13 +9,13 @@ rd_aesthetics <- function(type, name) {
   c(
     "@section Aesthetics:",
     paste0(
-      "\\code{", type, "_", name, "} ",
+      "\\code{", type, "_", name, "()} ",
       "understands the following aesthetics (required aesthetics are in bold):"
     ),
     "\\itemize{",
     paste0("  \\item ", aes),
     "}",
-    "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}"
+    "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}."
   )
 }
 

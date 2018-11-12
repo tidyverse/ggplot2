@@ -7,8 +7,8 @@
 #' more information.
 #'
 #' @note
-#' The `distiller` scales extends brewer to continuous scales by smoothly
-#' interpolate 6 colours from any palette to a continuous scale.
+#' The `distiller` scales extend brewer to continuous scales by smoothly
+#' interpolating 6 colours from any palette to a continuous scale.
 #'
 #' @details
 #' The `brewer` scales were carefully designed and tested on discrete data.

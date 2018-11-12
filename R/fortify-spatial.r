@@ -108,3 +108,16 @@ fortify.Line <- function(model, data, ...) {
   df$order <- 1:nrow(df)
   df
 }
+
+
+#' @export
+#' @method fortify sfc
+fortify.sfc <- function(model, data, ...) {
+  sf::st_sf(geometry = model)
+}
+
+#' @export
+#' @method fortify sfg
+fortify.sfg <- function(model, data, ...) {
+  sf::st_sf(geometry = sf::st_sfc(model))
+}
