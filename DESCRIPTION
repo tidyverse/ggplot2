@@ -20,6 +20,7 @@ Depends:
     R (>= 3.1)
 Imports: 
     digest,
+    grDevices,
     grid,
     gtable (>= 0.1.1),
     lazyeval,
@@ -32,14 +33,14 @@ Imports:
     stats,
     tibble,
     viridisLite,
-    withr (>= 2.0.0),
-    grDevices
+    withr (>= 2.0.0)
 Suggests:
     covr,
     dplyr,
     ggplot2movies,
     hexbin,
     Hmisc,
+    knitr,
     lattice,
     mapproj,
     maps,
@@ -47,16 +48,15 @@ Suggests:
     multcomp,
     munsell,
     nlme,
-    testthat (>= 0.11.0),
-    vdiffr, 
+    profvis,
     quantreg,
-    knitr,
     rgeos,
-    rpart,
     rmarkdown,
+    rpart,
     sf (>= 0.3-4),
     svglite (>= 1.2.0.9001),
-    profvis
+    testthat (>= 0.11.0),
+    vdiffr
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
