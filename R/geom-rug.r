@@ -66,6 +66,12 @@ GeomRug <- ggproto("GeomRug", Geom,
     rugs <- list()
     data <- coord$transform(data, panel_params)
 
+    # For coord_flip, coord$tranform does not flip the sides where to
+    # draw the rugs. We have to flip them.
+    if (inherits(coord, 'CoordFlip')) {
+      sides <- chartr('tblr', 'rlbt', sides)
+    }
+
     gp <- gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
     if (!is.null(data$x)) {
       if (grepl("b", sides)) {
