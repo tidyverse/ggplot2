@@ -25,9 +25,9 @@
     for (var i = 0; i < links.length; i++) {
       if (links[i].getAttribute("href") === "#")
         continue;
-      var path = paths(links[i].pathname);
+      var nav_path = paths(links[i].pathname);
 
-      var length = prefix_length(cur_path, path);
+      var length = prefix_length(nav_path, cur_path);
       if (length > max_length) {
         max_length = length;
         pos = i;
