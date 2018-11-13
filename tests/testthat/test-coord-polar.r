@@ -75,7 +75,7 @@ test_that("polar coordinates draw correctly", {
       axis.title = element_blank(),
       panel.grid.major = element_line(colour = "grey90")
     )
-  dat <- data_frame(x = 0:1, y = rep(c(1, 10, 40, 80), each = 2))
+  dat <- data_frame(x = rep(0:1, 4), y = rep(c(1, 10, 40, 80), each = 2))
 
   expect_doppelganger("three-concentric-circles",
     ggplot(dat, aes(x, y, group = factor(y))) +

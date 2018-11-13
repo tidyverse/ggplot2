@@ -214,7 +214,7 @@ test_that("guides title and text are positioned correctly", {
 })
 
 test_that("colorbar can be styled", {
-  df <- data_frame(x <- c(0, 1, 2))
+  df <- data_frame(x = c(0, 1, 2))
   p <- ggplot(df, aes(x, x, color = x)) + geom_point()
 
   expect_doppelganger("white-to-red gradient colorbar, white tick marks, no frame",

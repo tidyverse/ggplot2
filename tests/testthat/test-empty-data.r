@@ -94,7 +94,7 @@ test_that("empty layers still generate one grob per panel", {
 })
 
 test_that("missing layers generate one grob per panel", {
-  df <- data_frame(x = 1:4, y = 1:2, g = 1:2)
+  df <- data_frame(x = 1:4, y = rep(1:2, 2), g = rep(1:2, 2))
   base <- ggplot(df, aes(x, y)) + geom_point(shape = NA, na.rm = TRUE)
 
   expect_equal(length(layer_grob(base)), 1)
