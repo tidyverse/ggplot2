@@ -336,7 +336,7 @@ font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
   descent <- descent_cache[[key]]
 
   if (is.null(descent)) {
-    descent <- descentDetails(textGrob(
+    descent <- convertHeight(grobDescent(textGrob(
       label = "gjpqyQ",
       gp = gpar(
         fontsize = size,
@@ -344,7 +344,7 @@ font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
         fontfamily = family,
         fontface = face
       )
-    ))
+    )), 'inches')
     descent_cache[[key]] <- descent
   }
   descent
