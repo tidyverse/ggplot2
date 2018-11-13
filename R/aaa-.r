@@ -17,13 +17,24 @@ NULL
 # No checking, recycling etc. unless asked for
 new_data_frame <- function(x = list(), n = NULL) {
   if (is.null(n)) {
-    n <- if (length(x) == 0) 0 else length(x[[1]])
+    n <- if (length(x) == 0) 0 else max(lengths(x))
+  }
+  for (i in seq_along(x)) {
+    if (length(x[[i]]) != n) x[[i]] <- rep(x[[i]], length.out = n)
   }
 
   class(x) <- "data.frame"
 
   attr(x, "row.names") <- .set_row_names(n)
   x
+}
+
+data_frame <- function(...) {
+  new_data_frame(list(...))
+}
+
+data.frame <- function(...) {
+  stop('Please use `data_frame()` or `new_data_frame()` instead of `data.frame()` for better performance. See the vignette "ggplot2 internal programming guidelines" for details.', call. = FALSE)
 }
 
 validate_data_frame <- function(x) {
@@ -38,7 +49,7 @@ mat_2_df <- function(x, col_names = NULL, .check = FALSE) {
   new_data_frame(x)
 }
 
-df_col <- .subset2
+df_col <- function(x, name) .subset2(x, name)
 
 df_rows <- function(x, i) {
   new_data_frame(lapply(x, `[`, i = i))

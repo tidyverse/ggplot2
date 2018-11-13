@@ -97,7 +97,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
       ndensity = NA_real_,
       count = NA_real_,
       n = NA_integer_
-    )))
+    ), n = 1))
   }
 
   dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
@@ -109,6 +109,6 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
     scaled =  dens$y / max(dens$y, na.rm = TRUE),
     ndensity = dens$y / max(dens$y, na.rm = TRUE),
     count =   dens$y * nx,
-    n = rep(nx, length(dens$x))
-  ))
+    n = nx
+  ), n = length(dens$x))
 }

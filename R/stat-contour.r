@@ -98,7 +98,7 @@ contour_lines <- function(data, breaks, complete = FALSE) {
     y = ys,
     piece = pieces,
     group = groups
-  ))
+  ), n = length(xs))
 }
 
 # 1 = clockwise, -1 = counterclockwise, 0 = 0 area

@@ -236,5 +236,5 @@ mean_se <- function(x, mult = 1) {
   x <- stats::na.omit(x)
   se <- mult * sqrt(stats::var(x) / length(x))
   mean <- mean(x)
-  new_data_frame(list(y = mean, ymin = mean - se, ymax = mean + se))
+  new_data_frame(list(y = mean, ymin = mean - se, ymax = mean + se), n = 1)
 }

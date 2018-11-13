@@ -393,7 +393,7 @@ find_args <- function(...) {
 
 # Used in annotations to ensure printed even when no
 # global data
-dummy_data <- function() new_data_frame(list(x = NA))
+dummy_data <- function() new_data_frame(list(x = NA), n = 1)
 
 with_seed_null <- function(seed, code) {
   if (is.null(seed)) {

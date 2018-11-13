@@ -222,7 +222,7 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   if (length(.bar) == 0) {
     .bar = unique(.limits)
   }
-  guide$bar <- new_data_frame(list(colour = scale$map(.bar), value = .bar))
+  guide$bar <- new_data_frame(list(colour = scale$map(.bar), value = .bar), n = length(.bar))
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]

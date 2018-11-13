@@ -216,8 +216,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         yend = c(data$ymax, data$ymin),
         alpha = c(NA_real_, NA_real_)
       ),
-      lapply(common, rep, 2)
-    ))
+      common
+    ), n = 2)
 
     box <- new_data_frame(c(
       list(
@@ -235,18 +235,17 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     ))
 
     if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
-      n_out <- length(data$outliers[[1]])
       outliers <- new_data_frame(list(
         y = data$outliers[[1]],
-        x = rep(data$x[1], n_out),
-        colour = rep(outlier.colour %||% data$colour[1], n_out),
-        fill = rep(outlier.fill %||% data$fill[1], n_out),
-        shape = rep(outlier.shape %||% data$shape[1], n_out),
-        size = rep(outlier.size %||% data$size[1], n_out),
-        stroke = rep(outlier.stroke %||% data$stroke[1], n_out),
-        fill = rep(NA, n_out),
-        alpha = rep(outlier.alpha %||% data$alpha[1], n_out)
-      ))
+        x = data$x[1],
+        colour = outlier.colour %||% data$colour[1],
+        fill = outlier.fill %||% data$fill[1],
+        shape = outlier.shape %||% data$shape[1],
+        size = outlier.size %||% data$size[1],
+        stroke = outlier.stroke %||% data$stroke[1],
+        fill = NA,
+        alpha = outlier.alpha %||% data$alpha[1]
+      ), n = length(data$outliers[[1]]))
       outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
     } else {
       outliers_grob <- NULL

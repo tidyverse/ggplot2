@@ -498,7 +498,7 @@ find_panel <- function(table) {
     r = max(.subset2(panels, "r")),
     b = max(.subset2(panels, "b")),
     l = min(.subset2(panels, "l"))
-  ))
+  ), n = 1)
 }
 #' @rdname find_panel
 #' @export

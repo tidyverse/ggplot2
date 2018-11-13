@@ -165,7 +165,7 @@ GeomPath <- ggproto("GeomPath", Geom,
       new_data_frame(list(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
         constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
-      ))
+      ), n = 1)
     })
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)

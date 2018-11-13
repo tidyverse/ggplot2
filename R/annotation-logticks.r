@@ -238,7 +238,7 @@ calc_logticks <- function(base = 10, ticks_per_base = base - 1,
   longtick_after_base <- floor(ticks_per_base/2)
   tickend[ cycleIdx == longtick_after_base ] <- midend
 
-  tickdf <- new_data_frame(list(value = ticks, start = rep(start, length(ticks)), end = tickend))
+  tickdf <- new_data_frame(list(value = ticks, start = rep(start, length(ticks)), end = tickend), n = length(ticks))
 
   return(tickdf)
 }

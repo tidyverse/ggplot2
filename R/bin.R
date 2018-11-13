@@ -166,5 +166,5 @@ bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
     density = density,
     ncount = count / max(abs(count)),
     ndensity = density / max(abs(density))
-  ))
+  ), n = length(count))
 }

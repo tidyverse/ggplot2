@@ -140,7 +140,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   },
 
   transform_range = function(self, range) {
-    range <- new_data_frame(list("." = range))
+    range <- new_data_frame(list(. = range))
     rlang::eval_tidy(
       rlang::f_rhs(self$trans),
       data = range,

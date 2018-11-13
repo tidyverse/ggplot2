@@ -27,7 +27,7 @@ fortify.map <- function(model, data, ...) {
     lat = model$y,
     group = cumsum(is.na(model$x) & is.na(model$y)) + 1,
     order = seq_along(model$x)
-  ))
+  ), n = length(model$x))
 
   names <- do.call("rbind", lapply(strsplit(model$names, "[:,]"), "[", 1:2))
   df$region <- names[df$group, 1]

@@ -165,9 +165,9 @@ densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range
     results <- new_data_frame(list(
       x = x,
       bin = bin,
-      binwidth = rep(binwidth, length(x)),
+      binwidth = binwidth,
       weight = weight
-    ))
+    ), n = length(x))
     results <- plyr::ddply(results, "bin", function(df) {
                     df$bincenter = (min(df$x) + max(df$x)) / 2
                     return(df)

@@ -68,7 +68,7 @@ StatCount <- ggproto("StatCount", Stat,
       count = count,
       prop = count / sum(abs(count)),
       x = sort(unique(x)),
-      width = rep(width, length.out = length(count))
-    ))
+      width = width
+    ), n = length(count))
   }
 )
