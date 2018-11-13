@@ -168,7 +168,7 @@ named character vectors that will serve as a lookup table.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Named arguments of the form <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>variable =
+      <td><p>Named arguments of the form <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>variable =
   labeller</a></code>. Each labeller is passed to <code><a href='as_labeller.html'>as_labeller()</a></code>
 and can be a lookup table, a function taking and returning
 character vectors, or simply a labeller function.</p></td>
@@ -212,7 +212,7 @@ applied to the columns of the data frame of labels. The data frame
 is then processed with the function specified in the
 <code>.default</code> argument. This is intended to be used with
 functions taking a character vector such as
-<code><a href='http://www.rdocumentation.org/packages/Hmisc/topics/capitalize'>Hmisc::capitalize()</a></code>.</p>
+<code><a href='https://www.rdocumentation.org/packages/Hmisc/topics/capitalize'>Hmisc::capitalize()</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -234,13 +234,13 @@ functions taking a character vector such as
 )</div><div class='img'><img src='labeller-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can supply functions operating on strings:</span>
 <span class='no'>capitalize</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>string</span>) {
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/substr'>substr</a></span>(<span class='no'>string</span>, <span class='fl'>1</span>, <span class='fl'>1</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/chartr'>toupper</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/substr'>substr</a></span>(<span class='no'>string</span>, <span class='fl'>1</span>, <span class='fl'>1</span>))
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/substr'>substr</a></span>(<span class='no'>string</span>, <span class='fl'>1</span>, <span class='fl'>1</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/chartr'>toupper</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/substr'>substr</a></span>(<span class='no'>string</span>, <span class='fl'>1</span>, <span class='fl'>1</span>))
   <span class='no'>string</span>
 }
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sleep_total</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>awake</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 <span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>vore</span> <span class='kw'>=</span> <span class='no'>capitalize</span>))</div><div class='img'><img src='labeller-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or use character vectors as lookup tables:</span>
-<span class='no'>conservation_status</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
+<span class='no'>conservation_status</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(
   <span class='kw'>cd</span> <span class='kw'>=</span> <span class='st'>"Conservation Dependent"</span>,
   <span class='kw'>en</span> <span class='kw'>=</span> <span class='st'>"Endangered"</span>,
   <span class='kw'>lc</span> <span class='kw'>=</span> <span class='st'>"Least concern"</span>,
@@ -256,7 +256,7 @@ functions taking a character vector such as
 ))</div><div class='img'><img src='labeller-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># In the following example, we rename the levels to the long form,</span>
 <span class='co'># then apply a wrap labeller to the columns to prevent cropped text</span>
-<span class='no'>msleep</span>$<span class='no'>conservation2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/plyr/topics/revalue'>revalue</a></span>(<span class='no'>msleep</span>$<span class='no'>conservation</span>,
+<span class='no'>msleep</span>$<span class='no'>conservation2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/plyr/topics/revalue'>revalue</a></span>(<span class='no'>msleep</span>$<span class='no'>conservation</span>,
   <span class='no'>conservation_status</span>)
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sleep_total</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>awake</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 <span class='no'>p3</span> +

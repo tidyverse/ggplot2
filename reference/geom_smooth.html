@@ -169,7 +169,7 @@ display the results with a non-standard geom.</p>
 <span class='fu'>stat_smooth</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"smooth"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"auto"</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>y</span> ~ <span class='no'>x</span>,
   <span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>fullrange</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>method.args</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>method.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -178,7 +178,7 @@ display the results with a non-standard geom.</p>
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -204,28 +204,28 @@ a call to a position adjustment function.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
+<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
       <th>method</th>
       <td><p>Smoothing method (function) to use, accepts either a character vector,
 e.g. <code>"auto"</code>, <code>"lm"</code>, <code>"glm"</code>, <code>"gam"</code>, <code>"loess"</code> or a function, e.g.
-<code><a href='http://www.rdocumentation.org/packages/MASS/topics/rlm'>MASS::rlm</a></code> or <code><a href='http://www.rdocumentation.org/packages/mgcv/topics/gam'>mgcv::gam</a></code>, <code>base::lm</code>, or <code>base::loess</code>.</p>
-<p>For <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>method = "auto"</a></code> the smoothing method is chosen based on the
-size of the largest group (across all panels). <code><a href='http://www.rdocumentation.org/packages/stats/topics/loess'>loess()</a></code> is
-used for less than 1,000 observations; otherwise <code><a href='http://www.rdocumentation.org/packages/mgcv/topics/gam'>mgcv::gam()</a></code> is
-used with <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>formula = y ~ s(x, bs = "cs")</a></code>. Somewhat anecdotally,
+<code><a href='https://www.rdocumentation.org/packages/MASS/topics/rlm'>MASS::rlm</a></code> or <code><a href='https://www.rdocumentation.org/packages/mgcv/topics/gam'>mgcv::gam</a></code>, <code>base::lm</code>, or <code>base::loess</code>.</p>
+<p>For <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>method = "auto"</a></code> the smoothing method is chosen based on the
+size of the largest group (across all panels). <code><a href='https://www.rdocumentation.org/packages/stats/topics/loess'>loess()</a></code> is
+used for less than 1,000 observations; otherwise <code><a href='https://www.rdocumentation.org/packages/mgcv/topics/gam'>mgcv::gam()</a></code> is
+used with <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>formula = y ~ s(x, bs = "cs")</a></code>. Somewhat anecdotally,
 <code>loess</code> gives a better appearance, but is \(O(N^{2})\) in memory,
 so does not work for larger datasets.</p>
 <p>If you have fewer than 1,000 observations but want to use the same <code>gam()</code>
-model that <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>method = "auto"</a></code> would use, then set
+model that <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>method = "auto"</a></code> would use, then set
 <code>method = "gam", formula = y ~ s(x, bs = "cs")</code>.</p></td>
     </tr>
     <tr>
       <th>formula</th>
-      <td><p>Formula to use in smoothing function, eg. <code><a href='http://www.rdocumentation.org/packages/base/topics/tilde'>y ~ x</a></code>,
-<code><a href='http://www.rdocumentation.org/packages/base/topics/tilde'>y ~ poly(x, 2)</a></code>, <code><a href='http://www.rdocumentation.org/packages/base/topics/tilde'>y ~ log(x)</a></code></p></td>
+      <td><p>Formula to use in smoothing function, eg. <code><a href='https://www.rdocumentation.org/packages/base/topics/tilde'>y ~ x</a></code>,
+<code><a href='https://www.rdocumentation.org/packages/base/topics/tilde'>y ~ poly(x, 2)</a></code>, <code><a href='https://www.rdocumentation.org/packages/base/topics/tilde'>y ~ log(x)</a></code></p></td>
     </tr>
     <tr>
       <th>se</th>
@@ -287,9 +287,9 @@ function defined by <code>method</code>.</p></td>
 
     <p>Calculation is performed by the (currently undocumented)
 <code>predictdf()</code> generic and its methods.  For most methods the standard
-error bounds are computed using the <code><a href='http://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code> method -- the
-exceptions are <code><a href='http://www.rdocumentation.org/packages/stats/topics/loess'>loess()</a></code>, which uses a t-based approximation, and
-<code><a href='http://www.rdocumentation.org/packages/stats/topics/glm'>glm()</a></code>, where the normal confidence interval is constructed on the link
+error bounds are computed using the <code><a href='https://www.rdocumentation.org/packages/stats/topics/predict'>predict()</a></code> method -- the
+exceptions are <code><a href='https://www.rdocumentation.org/packages/stats/topics/loess'>loess()</a></code>, which uses a t-based approximation, and
+<code><a href='https://www.rdocumentation.org/packages/stats/topics/glm'>glm()</a></code>, where the normal confidence interval is constructed on the link
 scale and then back-transformed to the response scale.</p>
     
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
@@ -322,9 +322,9 @@ scale and then back-transformed to the response scale.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See individual modelling functions for more details:
-<code><a href='http://www.rdocumentation.org/packages/stats/topics/lm'>lm()</a></code> for linear smooths,
-<code><a href='http://www.rdocumentation.org/packages/stats/topics/glm'>glm()</a></code> for generalised linear smooths, and
-<code><a href='http://www.rdocumentation.org/packages/stats/topics/loess'>loess()</a></code> for local smooths.</p></div>
+<code><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm()</a></code> for linear smooths,
+<code><a href='https://www.rdocumentation.org/packages/stats/topics/glm'>glm()</a></code> for generalised linear smooths, and
+<code><a href='https://www.rdocumentation.org/packages/stats/topics/loess'>loess()</a></code> for local smooths.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -343,7 +343,7 @@ scale and then back-transformed to the response scale.</p>
   <span class='fu'>geom_smooth</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='no'>lm</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_smooth-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>geom_smooth</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='no'>lm</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>y</span> ~ <span class='kw pkg'>splines</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/splines/topics/bs'>bs</a></span>(<span class='no'>x</span>, <span class='fl'>3</span>), <span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_smooth-4.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_smooth</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='no'>lm</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>y</span> ~ <span class='kw pkg'>splines</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/splines/topics/bs'>bs</a></span>(<span class='no'>x</span>, <span class='fl'>3</span>), <span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_smooth-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Smooths are automatically fit to each group (defined by categorical</span>
 <span class='co'># aesthetics or the group aesthetic) and for each facet.</span>
 
@@ -354,20 +354,20 @@ scale and then back-transformed to the response scale.</p>
   <span class='fu'>geom_smooth</span>(<span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.8</span>) +
   <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>drv</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div><div class='input'><span class='no'>binomial_smooth</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>...</span>) {
-  <span class='fu'>geom_smooth</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"glm"</span>, <span class='kw'>method.args</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"binomial"</span>), <span class='no'>...</span>)
+  <span class='fu'>geom_smooth</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"glm"</span>, <span class='kw'>method.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"binomial"</span>), <span class='no'>...</span>)
 }
 <span class='co'># To fit a logistic regression, you need to coerce the values to</span>
 <span class='co'># a numeric vector lying between 0 and 1.</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/rpart/topics/kyphosis'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>Age</span>, <span class='no'>Kyphosis</span>)) +
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/rpart/topics/kyphosis'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>Age</span>, <span class='no'>Kyphosis</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) +
   <span class='fu'>binomial_smooth</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_smooth()`:</span>
 #&gt; <span class='warning'>y values must be 0 &lt;= y &lt;= 1</span></div><div class='img'><img src='geom_smooth-7.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/rpart/topics/kyphosis'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>Age</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/numeric'>as.numeric</a></span>(<span class='no'>Kyphosis</span>) - <span class='fl'>1</span>)) +
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/rpart/topics/kyphosis'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>Age</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>as.numeric</a></span>(<span class='no'>Kyphosis</span>) - <span class='fl'>1</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) +
   <span class='fu'>binomial_smooth</span>()</div><div class='img'><img src='geom_smooth-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='no'><a href='http://www.rdocumentation.org/packages/rpart/topics/kyphosis'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>Age</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/numeric'>as.numeric</a></span>(<span class='no'>Kyphosis</span>) - <span class='fl'>1</span>)) +
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='no'><a href='https://www.rdocumentation.org/packages/rpart/topics/kyphosis'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>Age</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/numeric'>as.numeric</a></span>(<span class='no'>Kyphosis</span>) - <span class='fl'>1</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) +
-  <span class='fu'>binomial_smooth</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>y</span> ~ <span class='kw pkg'>splines</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/splines/topics/ns'>ns</a></span>(<span class='no'>x</span>, <span class='fl'>2</span>))</div><div class='img'><img src='geom_smooth-9.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>binomial_smooth</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>y</span> ~ <span class='kw pkg'>splines</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/splines/topics/ns'>ns</a></span>(<span class='no'>x</span>, <span class='fl'>2</span>))</div><div class='img'><img src='geom_smooth-9.png' alt='' width='700' height='433' /></div><div class='input'>
 # But in this case, it's probably better to fit the model yourself
 # so you can exercise more control and see whether or not it's a good model.
 </div></pre>

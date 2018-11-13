@@ -157,16 +157,16 @@ function or for loop." />
     
     <p>Generally, you do not need to print or plot a ggplot2 plot explicitly: the
 default top-level print method will do it for you. You will, however, need
-to call <code><a href='http://www.rdocumentation.org/packages/base/topics/print'>print()</a></code> explicitly if you want to draw a plot inside a
+to call <code><a href='https://www.rdocumentation.org/packages/base/topics/print'>print()</a></code> explicitly if you want to draw a plot inside a
 function or for loop.</p>
     
     </div>
 
     <pre class="usage"><span class='co'># S3 method for ggplot</span>
-<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='kw'>newpage</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/NULL'>is.null</a></span>(<span class='no'>vp</span>), <span class='kw'>vp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='no'>x</span>, <span class='kw'>newpage</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NULL'>is.null</a></span>(<span class='no'>vp</span>), <span class='kw'>vp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
 <span class='co'># S3 method for ggplot</span>
-<span class='fu'><a href='http://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>newpage</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/NULL'>is.null</a></span>(<span class='no'>vp</span>), <span class='kw'>vp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>newpage</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NULL'>is.null</a></span>(<span class='no'>vp</span>), <span class='kw'>vp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,7 +197,7 @@ information about the scales, panels etc.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>colours</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(~<span class='no'>class</span>, ~<span class='no'>drv</span>, ~<span class='no'>fl</span>)
+    <pre class="examples"><div class='input'><span class='no'>colours</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(~<span class='no'>class</span>, ~<span class='no'>drv</span>, ~<span class='no'>fl</span>)
 
 <span class='co'># Doesn't seem to do anything!</span>
 <span class='kw'>for</span> (<span class='no'>colour</span> <span class='kw'>in</span> <span class='no'>colours</span>) {
@@ -207,7 +207,7 @@ information about the scales, panels etc.</p>
 
 <span class='co'># Works when we explicitly print the plots</span>
 <span class='kw'>for</span> (<span class='no'>colour</span> <span class='kw'>in</span> <span class='no'>colours</span>) {
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes_.html'>aes_</a></span>(~ <span class='no'>displ</span>, ~ <span class='no'>hwy</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>colour</span>)) +
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/print'>print</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes_.html'>aes_</a></span>(~ <span class='no'>displ</span>, ~ <span class='no'>hwy</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>colour</span>)) +
     <span class='fu'><a href='geom_point.html'>geom_point</a></span>())
 }</div><div class='img'><img src='print.ggplot-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='print.ggplot-2.png' alt='' width='700' height='433' /></div><div class='img'><img src='print.ggplot-3.png' alt='' width='700' height='433' /></div></pre>
   </div>

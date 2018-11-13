@@ -170,7 +170,7 @@ for communication graphics.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>database</th>
-      <td><p>map data, see <code><a href='http://www.rdocumentation.org/packages/maps/topics/map'>maps::map()</a></code> for details</p></td>
+      <td><p>map data, see <code><a href='https://www.rdocumentation.org/packages/maps/topics/map'>maps::map()</a></code> for details</p></td>
     </tr>
     <tr>
       <th>regions</th>
@@ -187,13 +187,13 @@ for communication graphics.</p>
     <tr>
       <th>xlim, ylim</th>
       <td><p>latitudinal and longitudinal ranges for extracting map
-polygons, see <code><a href='http://www.rdocumentation.org/packages/maps/topics/map'>maps::map()</a></code> for details.</p></td>
+polygons, see <code><a href='https://www.rdocumentation.org/packages/maps/topics/map'>maps::map()</a></code> for details.</p></td>
     </tr>
     <tr>
       <th>...</th>
       <td><p>Arguments passed on to <code>geom_polygon</code></p><dl class='dl-horizontal'>
   <dt>mapping</dt><dd><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
   <dt>data</dt><dd><p>The data to be displayed in this layer. There are three
@@ -230,17 +230,17 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 
 <span class='no'>ia</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"county"</span>, <span class='st'>"iowa"</span>)
-<span class='no'>mid_range</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/range'>range</a></span>(<span class='no'>x</span>))
-<span class='no'>seats</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/plyr/topics/ddply'>ddply</a></span>(<span class='no'>ia</span>, <span class='st'>"subregion"</span>, <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/plyr/topics/colwise'>colwise</a></span>(<span class='no'>mid_range</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"lat"</span>, <span class='st'>"long"</span>)))
+<span class='no'>mid_range</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/range'>range</a></span>(<span class='no'>x</span>))
+<span class='no'>seats</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/plyr/topics/ddply'>ddply</a></span>(<span class='no'>ia</span>, <span class='st'>"subregion"</span>, <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/plyr/topics/colwise'>colwise</a></span>(<span class='no'>mid_range</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"lat"</span>, <span class='st'>"long"</span>)))
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>ia</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>long</span>, <span class='no'>lat</span>)) +
   <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey60"</span>) +
   <span class='fu'><a href='geom_text.html'>geom_text</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>subregion</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>seats</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>45</span>)
 
-<span class='fu'><a href='http://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>us.cities</span>)
-<span class='no'>capitals</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>us.cities</span>, <span class='no'>capital</span> <span class='kw'>==</span> <span class='fl'>2</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>us.cities</span>)
+<span class='no'>capitals</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>us.cities</span>, <span class='no'>capital</span> <span class='kw'>==</span> <span class='fl'>2</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>capitals</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>long</span>, <span class='no'>lat</span>)) +
   <span class='fu'>borders</span>(<span class='st'>"state"</span>) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>pop</span>)) +
@@ -249,7 +249,7 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 
 <span class='co'># Same map, with some world context</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>capitals</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>long</span>, <span class='no'>lat</span>)) +
-  <span class='fu'>borders</span>(<span class='st'>"world"</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>130</span>, -<span class='fl'>60</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>50</span>)) +
+  <span class='fu'>borders</span>(<span class='st'>"world"</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>130</span>, -<span class='fl'>60</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>50</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>pop</span>)) +
   <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>() +
   <span class='fu'><a href='coord_map.html'>coord_quickmap</a></span>()

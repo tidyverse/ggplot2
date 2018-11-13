@@ -172,7 +172,7 @@ convenient when you draw an sf object as geoms like text and labels (so
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -221,7 +221,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     <tr>
       <th>fun.geometry</th>
       <td><p>A function that takes a <code>sfc</code> object and returns a <code>sfc_POINT</code> with the
-same length as the input. If <code>NULL</code>, <code><a href='http://www.rdocumentation.org/packages/base/topics/function'>function(x) sf::st_point_on_surface(sf::st_zm(x))</a></code>
+same length as the input. If <code>NULL</code>, <code><a href='https://www.rdocumentation.org/packages/base/topics/function'>function(x) sf::st_point_on_surface(sf::st_zm(x))</a></code>
 will be used. Note that the function may warn about the incorrectness of
 the result if the data is not projected, but you can ignore this except
 when you really care about the exact locations.</p></td>
@@ -230,27 +230,27 @@ when you really care about the exact locations.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
+<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>coordinates of an <code>sf</code> object can be retrieved by <code><a href='http://www.rdocumentation.org/packages/sf/topics/st_coordinates'>sf::st_coordinates()</a></code>.
-But, we cannot simply use <code><a href='http://www.rdocumentation.org/packages/sf/topics/st_coordinates'>sf::st_coordinates()</a></code> because, whereas text and
+    <p>coordinates of an <code>sf</code> object can be retrieved by <code><a href='https://www.rdocumentation.org/packages/sf/topics/st_coordinates'>sf::st_coordinates()</a></code>.
+But, we cannot simply use <code><a href='https://www.rdocumentation.org/packages/sf/topics/st_coordinates'>sf::st_coordinates()</a></code> because, whereas text and
 labels require exactly one coordinate per geometry, it returns multiple ones
 for a polygon or a line. Thus, these two steps are needed:</p><ol>
-<li><p>Choose one point per geometry by some function like <code><a href='http://www.rdocumentation.org/packages/sf/topics/geos_unary'>sf::st_centroid()</a></code>
-or <code><a href='http://www.rdocumentation.org/packages/sf/topics/geos_unary'>sf::st_point_on_surface()</a></code>.</p></li>
-<li><p>Retrieve coordinates from the points by <code><a href='http://www.rdocumentation.org/packages/sf/topics/st_coordinates'>sf::st_coordinates()</a></code>.</p></li>
+<li><p>Choose one point per geometry by some function like <code><a href='https://www.rdocumentation.org/packages/sf/topics/geos_unary'>sf::st_centroid()</a></code>
+or <code><a href='https://www.rdocumentation.org/packages/sf/topics/geos_unary'>sf::st_point_on_surface()</a></code>.</p></li>
+<li><p>Retrieve coordinates from the points by <code><a href='https://www.rdocumentation.org/packages/sf/topics/st_coordinates'>sf::st_coordinates()</a></code>.</p></li>
 </ol>
     <p>For the first step, you can use an arbitrary function via <code>fun.geometry</code>.
-By default, <code><a href='http://www.rdocumentation.org/packages/base/topics/function'>function(x) sf::st_point_on_surface(sf::st_zm(x))</a></code> is used;
-<code><a href='http://www.rdocumentation.org/packages/sf/topics/geos_unary'>sf::st_point_on_surface()</a></code> seems more appropriate than <code><a href='http://www.rdocumentation.org/packages/sf/topics/geos_unary'>sf::st_centroid()</a></code>
+By default, <code><a href='https://www.rdocumentation.org/packages/base/topics/function'>function(x) sf::st_point_on_surface(sf::st_zm(x))</a></code> is used;
+<code><a href='https://www.rdocumentation.org/packages/sf/topics/geos_unary'>sf::st_point_on_surface()</a></code> seems more appropriate than <code><a href='https://www.rdocumentation.org/packages/sf/topics/geos_unary'>sf::st_centroid()</a></code>
 since lables and text usually are intended to be put within the polygon or
-the line. <code><a href='http://www.rdocumentation.org/packages/sf/topics/st_zm'>sf::st_zm()</a></code> is needed to drop Z and M dimension beforehand,
-otherwise <code><a href='http://www.rdocumentation.org/packages/sf/topics/geos_unary'>sf::st_point_on_surface()</a></code> may fail when the geometries have M
+the line. <code><a href='https://www.rdocumentation.org/packages/sf/topics/st_zm'>sf::st_zm()</a></code> is needed to drop Z and M dimension beforehand,
+otherwise <code><a href='https://www.rdocumentation.org/packages/sf/topics/geos_unary'>sf::st_point_on_surface()</a></code> may fail when the geometries have M
 dimension.</p>
     
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
@@ -263,8 +263,8 @@ dimension.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/ns-load'>requireNamespace</a></span>(<span class='st'>"sf"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
-<span class='no'>nc</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/sf/topics/st_read'>st_read</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"sf"</span>))
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ns-load'>requireNamespace</a></span>(<span class='st'>"sf"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
+<span class='no'>nc</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/sf/topics/st_read'>st_read</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"sf"</span>))
 
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>nc</span>) +
   <span class='fu'>stat_sf_coordinates</span>()

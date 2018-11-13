@@ -178,7 +178,7 @@ boxplot.</p>
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -204,7 +204,7 @@ a call to a position adjustment function.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
+<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -253,17 +253,17 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
       <td><p>The smoothing bandwidth to be used.
 If numeric, the standard deviation of the smoothing kernel.
 If character, a rule to choose the bandwidth, as listed in
-<code><a href='http://www.rdocumentation.org/packages/stats/topics/bandwidth'>stats::bw.nrd()</a></code>.</p></td>
+<code><a href='https://www.rdocumentation.org/packages/stats/topics/bandwidth'>stats::bw.nrd()</a></code>.</p></td>
     </tr>
     <tr>
       <th>adjust</th>
       <td><p>A multiplicate bandwidth adjustment. This makes it possible
 to adjust the bandwidth while still using the a bandwidth estimator.
-For example, <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>adjust = 1/2</a></code> means use half of the default bandwidth.</p></td>
+For example, <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>adjust = 1/2</a></code> means use half of the default bandwidth.</p></td>
     </tr>
     <tr>
       <th>kernel</th>
-      <td><p>Kernel. See list of available kernels in <code><a href='http://www.rdocumentation.org/packages/stats/topics/density'>density()</a></code>.</p></td>
+      <td><p>Kernel. See list of available kernels in <code><a href='https://www.rdocumentation.org/packages/stats/topics/density'>density()</a></code>.</p></td>
     </tr>
     </table>
     
@@ -307,7 +307,7 @@ for examples with data along the x axis.</p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>), <span class='no'>mpg</span>))
+    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>), <span class='no'>mpg</span>))
 <span class='no'>p</span> + <span class='fu'>geom_violin</span>()</div><div class='img'><img src='geom_violin-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_violin</span>() + <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='img'><img src='geom_violin-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Scale maximum width proportional to sample size:</span>
@@ -321,13 +321,13 @@ for examples with data along the x axis.</p></div>
 <span class='co'># Add aesthetic mappings</span>
 <span class='co'># Note that violins are automatically dodged when any aesthetic is</span>
 <span class='co'># a factor</span>
-<span class='no'>p</span> + <span class='fu'>geom_violin</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>cyl</span>))</div><div class='img'><img src='geom_violin-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_violin</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>)))</div><div class='img'><img src='geom_violin-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_violin</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>vs</span>)))</div><div class='img'><img src='geom_violin-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_violin</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>am</span>)))</div><div class='img'><img src='geom_violin-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>geom_violin</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>cyl</span>))</div><div class='img'><img src='geom_violin-7.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_violin</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>)))</div><div class='img'><img src='geom_violin-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_violin</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>vs</span>)))</div><div class='img'><img src='geom_violin-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_violin</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>am</span>)))</div><div class='img'><img src='geom_violin-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Set aesthetics to fixed value</span>
 <span class='no'>p</span> + <span class='fu'>geom_violin</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"grey80"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"#3366FF"</span>)</div><div class='img'><img src='geom_violin-11.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Show quartiles</span>
-<span class='no'>p</span> + <span class='fu'>geom_violin</span>(<span class='kw'>draw_quantiles</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>))</div><div class='img'><img src='geom_violin-12.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>geom_violin</span>(<span class='kw'>draw_quantiles</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>))</div><div class='img'><img src='geom_violin-12.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Scales vs. coordinate transforms -------</span>
-<span class='kw'>if</span> (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
+<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
 <span class='co'># Scale transformations occur before the density statistics are computed.</span>
 <span class='co'># Coordinate transformations occur afterwards.  Observe the effect on the</span>
 <span class='co'># number of outliers.</span>

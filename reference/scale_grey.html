@@ -153,7 +153,7 @@ of scale_colour_gradient()." />
 
     <div class="ref-description">
     
-    <p>Based on <code><a href='http://www.rdocumentation.org/packages/grDevices/topics/gray.colors'>gray.colors()</a></code>. This is black and white equivalent
+    <p>Based on <code><a href='https://www.rdocumentation.org/packages/grDevices/topics/gray.colors'>gray.colors()</a></code>. This is black and white equivalent
 of <code><a href='scale_gradient.html'>scale_colour_gradient()</a></code>.</p>
     
     </div>
@@ -189,8 +189,8 @@ The default, <code>TRUE</code>, uses the levels that appear in the data;
 <code>FALSE</code> uses all the levels in the factor.</p></dd>
   <dt>na.translate</dt><dd><p>Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
-from a discrete scale, specify <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>na.translate = FALSE</a></code>.</p></dd>
-  <dt>na.value</dt><dd><p>If <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>na.translate = TRUE</a></code>, what value aesthetic
+from a discrete scale, specify <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>na.translate = FALSE</a></code>.</p></dd>
+  <dt>na.value</dt><dd><p>If <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>na.translate = TRUE</a></code>, what value aesthetic
 value should missing be displayed as? Does not apply to position scales
 where <code>NA</code> is always placed at the far right.</p></dd>
   <dt>aesthetics</dt><dd><p>The names of the aesthetics that this scale works with</p></dd>
@@ -238,7 +238,7 @@ scales, "top" or "bottom" for horizontal scales</p></dd>
       <td><p>Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 example, to apply colour settings to the <code>colour</code> and <code>fill</code> aesthetics at the
-same time, via <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>aesthetics = c("colour", "fill")</a></code>.</p></td>
+same time, via <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>aesthetics = c("colour", "fill")</a></code>.</p></td>
     </tr>
     </table>
     
@@ -252,12 +252,12 @@ same time, via <code><a href='http://www.rdocumentation.org/packages/base/topics
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>)))
+    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>)))
 <span class='no'>p</span> + <span class='fu'>scale_colour_grey</span>()</div><div class='img'><img src='scale_grey-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>scale_colour_grey</span>(<span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>0</span>)</div><div class='img'><img src='scale_grey-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You may want to turn off the pale grey background with this scale</span>
 <span class='no'>p</span> + <span class='fu'>scale_colour_grey</span>() + <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()</div><div class='img'><img src='scale_grey-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Colour of missing values is controlled with na.value:</span>
-<span class='no'>miss</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>1</span>:<span class='fl'>5</span>), <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>mtcars</span>), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
+<span class='no'>miss</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>NA</span>, <span class='fl'>1</span>:<span class='fl'>5</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>mtcars</span>), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>miss</span>)) +
   <span class='fu'>scale_colour_grey</span>()</div><div class='img'><img src='scale_grey-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) +

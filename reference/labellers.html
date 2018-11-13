@@ -159,7 +159,7 @@ line separated with commas, or each on their own line." />
     <p>Labeller functions are in charge of formatting the strip labels of
 facet grids and wraps. Most of them accept a <code>multi_line</code>
 argument to control whether multiple factors (defined in formulae
-such as <code><a href='http://www.rdocumentation.org/packages/base/topics/tilde'>~first + second</a></code>) should be displayed on a single
+such as <code><a href='https://www.rdocumentation.org/packages/base/topics/tilde'>~first + second</a></code>) should be displayed on a single
 line separated with commas, or each on their own line.</p>
     
     </div>
@@ -205,12 +205,12 @@ on separate lines.</p></td>
 value. <code>label_context()</code> is context-dependent and uses
 <code>label_value()</code> for single factor faceting and
 <code>label_both()</code> when multiple factors are
-involved. <code>label_wrap_gen()</code> uses <code><a href='http://www.rdocumentation.org/packages/base/topics/strwrap'>base::strwrap()</a></code>
+involved. <code>label_wrap_gen()</code> uses <code><a href='https://www.rdocumentation.org/packages/base/topics/strwrap'>base::strwrap()</a></code>
 for line wrapping.</p>
 <p><code>label_parsed()</code> interprets the labels as plotmath
 expressions. <code><a href='label_bquote.html'>label_bquote()</a></code> offers a more flexible
 way of constructing plotmath expressions. See examples and
-<code><a href='http://www.rdocumentation.org/packages/base/topics/bquote'>bquote()</a></code> for details on the syntax of the
+<code><a href='https://www.rdocumentation.org/packages/base/topics/bquote'>bquote()</a></code> for details on the syntax of the
 argument.</p>
     
     <h2 class="hasAnchor" id="writing-new-labeller-functions"><a class="anchor" href="#writing-new-labeller-functions"></a>Writing New Labeller Functions</h2>
@@ -221,7 +221,7 @@ transform a function operating on character vectors with
 <code><a href='as_labeller.html'>as_labeller()</a></code>.</p>
 <p>A labeller function accepts a data frame of labels (character
 vectors) containing one column for each factor. Multiple factors
-occur with formula of the type <code><a href='http://www.rdocumentation.org/packages/base/topics/tilde'>~first + second</a></code>.</p>
+occur with formula of the type <code><a href='https://www.rdocumentation.org/packages/base/topics/tilde'>~first + second</a></code>.</p>
 <p>The return value must be a rectangular list where each 'row'
 characterises a single facet. The list elements can be either
 character vectors or lists of plotmath expressions. When multiple
@@ -251,7 +251,7 @@ function must have the <code>labeller</code> S3 class.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>mtcars</span>$<span class='no'>cyl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>mtcars</span>$<span class='no'>cyl</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"alpha"</span>, <span class='st'>"beta"</span>, <span class='st'>"gamma"</span>))
+    <pre class="examples"><div class='input'><span class='no'>mtcars</span>$<span class='no'>cyl2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>mtcars</span>$<span class='no'>cyl</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"alpha"</span>, <span class='st'>"beta"</span>, <span class='st'>"gamma"</span>))
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 
 <span class='co'># The default is label_value</span>

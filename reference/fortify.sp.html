@@ -154,7 +154,7 @@ as.data.frame(model)." />
     <div class="ref-description">
     
     <p>To figure out the correct variable name for region, inspect
-<code><a href='http://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame(model)</a></code>.</p>
+<code><a href='https://www.rdocumentation.org/packages/base/topics/as.data.frame'>as.data.frame(model)</a></code>.</p>
     
     </div>
 
@@ -203,9 +203,9 @@ as.data.frame(model)." />
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maptools"</span>)) {
- <span class='no'>sids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"shapes/sids.shp"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"maptools"</span>)
- <span class='no'>nc1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/maptools/topics/readShapePoly'>readShapePoly</a></span>(<span class='no'>sids</span>,
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maptools"</span>)) {
+ <span class='no'>sids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"shapes/sids.shp"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"maptools"</span>)
+ <span class='no'>nc1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/maptools/topics/readShapePoly'>readShapePoly</a></span>(<span class='no'>sids</span>,
    <span class='kw'>proj4string</span> <span class='kw'>=</span> <span class='fu'>CRS</span>(<span class='st'>"+proj=longlat +datum=NAD27"</span>))
  <span class='no'>nc1_df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='fortify.html'>fortify</a></span>(<span class='no'>nc1</span>)
 }</div><div class='output co'>#&gt; <span class='message'>Loading required package: maptools</span></div><div class='output co'>#&gt; <span class='message'>Loading required package: sp</span></div><div class='output co'>#&gt; <span class='message'>Checking rgeos availability: TRUE</span></div><div class='output co'>#&gt; <span class='warning'>Warning: readShapePoly is deprecated; use rgdal::readOGR or sf::st_read</span></div><div class='output co'>#&gt; <span class='message'>Regions defined for each Polygons</span></div></pre>

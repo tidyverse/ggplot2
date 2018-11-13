@@ -184,7 +184,7 @@ limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</
       <td><p>Should drawing be clipped to the extent of the plot panel? A
 setting of <code>"on"</code> (the default) means yes, and a setting of <code>"off"</code>
 means no. In most cases, the default of <code>"on"</code> should not be changed,
-as setting <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>clip = "off"</a></code> can cause unexpected results. It allows
+as setting <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>clip = "off"</a></code> can cause unexpected results. It allows
 drawing of data points anywhere on the plot, including in the plot margins. If
 limits are set via <code>xlim</code> and <code>ylim</code> and some data points fall outside those
 limits, then those data points may show up in places such as the axes, the
@@ -204,7 +204,7 @@ legend, the plot title, or the plot margins.</p></td>
   <span class='fu'><a href='geom_histogram.html'>geom_histogram</a></span>()
 <span class='no'>h</span></div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='coord_flip-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>h</span> + <span class='fu'>coord_flip</span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='coord_flip-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>h</span> + <span class='fu'>coord_flip</span>() + <span class='fu'><a href='scale_continuous.html'>scale_x_reverse</a></span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='coord_flip-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use it to flip line and area plots:</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>y</span> <span class='kw'>=</span> (<span class='fl'>1</span>:<span class='fl'>5</span>) ^ <span class='fl'>2</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>5</span>, <span class='kw'>y</span> <span class='kw'>=</span> (<span class='fl'>1</span>:<span class='fl'>5</span>) ^ <span class='fl'>2</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
   <span class='fu'><a href='geom_ribbon.html'>geom_area</a></span>()</div><div class='img'><img src='coord_flip-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='last_plot.html'>last_plot</a></span>() + <span class='fu'>coord_flip</span>()</div><div class='img'><img src='coord_flip-6.png' alt='' width='700' height='433' /></div></pre>
   </div>

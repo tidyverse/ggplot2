@@ -161,7 +161,7 @@ calls but it can also be created directly using this function.</p>
     </div>
 
     <pre class="usage"><span class='fu'>layer</span>(<span class='kw'>geom</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>check.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>check.param</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -192,7 +192,7 @@ will be used as the layer data.</p></td>
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -234,12 +234,12 @@ display.</p></td>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='layer-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># shortcut for</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'>layer</span>(<span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-    <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
   )</div><div class='img'><img src='layer-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># use a function as data to plot a subset of global data</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'>layer</span>(<span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>head</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>head</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
   )</div><div class='img'><img src='layer-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>

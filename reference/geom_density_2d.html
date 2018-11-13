@@ -154,7 +154,7 @@ overplotting. This is a 2d version of geom_density()." />
 
     <div class="ref-description">
     
-    <p>Perform a 2D kernel density estimation using <code><a href='http://www.rdocumentation.org/packages/MASS/topics/kde2d'>MASS::kde2d()</a></code> and
+    <p>Perform a 2D kernel density estimation using <code><a href='https://www.rdocumentation.org/packages/MASS/topics/kde2d'>MASS::kde2d()</a></code> and
 display the results with contours. This can be useful for dealing with
 overplotting. This is a 2d version of <code><a href='geom_density.html'>geom_density()</a></code>.</p>
     
@@ -175,7 +175,7 @@ overplotting. This is a 2d version of <code><a href='geom_density.html'>geom_den
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -201,7 +201,7 @@ a call to a position adjustment function.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
+<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -253,7 +253,7 @@ estimation</p></td>
     <tr>
       <th>h</th>
       <td><p>Bandwidth (vector of length two). If <code>NULL</code>, estimated
-using <code><a href='http://www.rdocumentation.org/packages/MASS/topics/bandwidth.nrd'>MASS::bandwidth.nrd()</a></code>.</p></td>
+using <code><a href='https://www.rdocumentation.org/packages/MASS/topics/bandwidth.nrd'>MASS::bandwidth.nrd()</a></code>.</p></td>
     </tr>
     </table>
     
@@ -292,8 +292,8 @@ overplotting.</p></div>
  <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='fl'>0.5</span>, <span class='fl'>6</span>) +
  <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='fl'>40</span>, <span class='fl'>110</span>)
 <span class='no'>m</span> + <span class='fu'>geom_density_2d</span>()</div><div class='img'><img src='geom_density_2d-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>m</span> + <span class='fu'>stat_density_2d</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'><a href='stat.html'>stat</a></span>(<span class='no'>level</span>)), <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"polygon"</span>)</div><div class='img'><img src='geom_density_2d-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>4393</span>)
-<span class='no'>dsmall</span> <span class='kw'>&lt;-</span> <span class='no'>diamonds</span>[<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>diamonds</span>), <span class='fl'>1000</span>), ]
+<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/Random'>set.seed</a></span>(<span class='fl'>4393</span>)
+<span class='no'>dsmall</span> <span class='kw'>&lt;-</span> <span class='no'>diamonds</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>diamonds</span>), <span class='fl'>1000</span>), ]
 <span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>dsmall</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))
 <span class='co'># If you map an aesthetic to a categorical variable, you will get a</span>
 <span class='co'># set of contours for each value of that variable</span>

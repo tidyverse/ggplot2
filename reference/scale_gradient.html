@@ -239,8 +239,8 @@ object itself. Built-in transformations include "asn", "atanh",
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>name_trans</code>, e.g.
-<code><a href='http://www.rdocumentation.org/packages/scales/topics/boxcox_trans'>scales::boxcox_trans()</a></code>. You can create your own
-transformation with <code><a href='http://www.rdocumentation.org/packages/scales/topics/trans_new'>scales::trans_new()</a></code>.</p></dd>
+<code><a href='https://www.rdocumentation.org/packages/scales/topics/boxcox_trans'>scales::boxcox_trans()</a></code>. You can create your own
+transformation with <code><a href='https://www.rdocumentation.org/packages/scales/topics/trans_new'>scales::trans_new()</a></code>.</p></dd>
   <dt>position</dt><dd><p>The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales</p></dd>
   <dt>super</dt><dd><p>The super class to use for the constructed scale</p></dd>
@@ -275,7 +275,7 @@ colour bar, or <code>"legend"</code> for discrete colour legend.</p></td>
       <td><p>Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 example, to apply colour settings to the <code>colour</code> and <code>fill</code> aesthetics at the
-same time, via <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>aesthetics = c("colour", "fill")</a></code>.</p></td>
+same time, via <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>aesthetics = c("colour", "fill")</a></code>.</p></td>
     </tr>
     <tr>
       <th>mid</th>
@@ -309,7 +309,7 @@ Munsell colour system.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='http://www.rdocumentation.org/packages/scales/topics/seq_gradient_pal'>scales::seq_gradient_pal()</a></code> for details on underlying
+    <div class='dont-index'><p><code><a href='https://www.rdocumentation.org/packages/scales/topics/seq_gradient_pal'>scales::seq_gradient_pal()</a></code> for details on underlying
 palette</p>
 <p>Other colour scales: <code><a href='scale_alpha.html'>scale_alpha</a></code>,
   <code><a href='scale_brewer.html'>scale_colour_brewer</a></code>,
@@ -319,11 +319,11 @@ palette</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>100</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>100</span>),
-  <span class='kw'>z1</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>),
-  <span class='kw'>z2</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/MathFun'>abs</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>))
+    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>100</span>),
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Uniform'>runif</a></span>(<span class='fl'>100</span>),
+  <span class='kw'>z1</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>),
+  <span class='kw'>z2</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/MathFun'>abs</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>100</span>))
 )
 
 <span class='co'># Default colour scale colours from light blue to dark blue</span>
@@ -336,11 +336,11 @@ palette</p>
 <span class='co'># Use your own colour scale with gradientn</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>z1</span>)) +
-  <span class='fu'>scale_colour_gradientn</span>(<span class='kw'>colours</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/grDevices/topics/palettes'>terrain.colors</a></span>(<span class='fl'>10</span>))</div><div class='img'><img src='scale_gradient-3.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>scale_colour_gradientn</span>(<span class='kw'>colours</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>terrain.colors</a></span>(<span class='fl'>10</span>))</div><div class='img'><img src='scale_gradient-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Equivalent fill scales do the same job for the fill aesthetic</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>waiting</span>, <span class='no'>eruptions</span>)) +
   <span class='fu'><a href='geom_tile.html'>geom_raster</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>density</span>)) +
-  <span class='fu'>scale_fill_gradientn</span>(<span class='kw'>colours</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/grDevices/topics/palettes'>terrain.colors</a></span>(<span class='fl'>10</span>))</div><div class='img'><img src='scale_gradient-4.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>scale_fill_gradientn</span>(<span class='kw'>colours</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grDevices/topics/palettes'>terrain.colors</a></span>(<span class='fl'>10</span>))</div><div class='img'><img src='scale_gradient-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Adjust colour choices with low and high</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>z2</span>)) +

@@ -187,7 +187,7 @@ with common forms of colour blindness. See also
     <tr>
       <th>alpha</th>
       <td><p>The alpha transparency, a number in [0,1], see argument alpha in
-<code><a href='http://www.rdocumentation.org/packages/grDevices/topics/hsv'>hsv</a></code>.</p></td>
+<code><a href='https://www.rdocumentation.org/packages/grDevices/topics/hsv'>hsv</a></code>.</p></td>
     </tr>
     <tr>
       <th>begin</th>
@@ -213,7 +213,7 @@ options are available: "magma" (or "A"), "inferno" (or "B"), "plasma" (or "C"),
       <td><p>Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 example, to apply colour settings to the <code>colour</code> and <code>fill</code> aesthetics at the
-same time, via <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>aesthetics = c("colour", "fill")</a></code>.</p></td>
+same time, via <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>aesthetics = c("colour", "fill")</a></code>.</p></td>
     </tr>
     <tr>
       <th>values</th>
@@ -249,12 +249,12 @@ other values are deprecated.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># viridis is the default colour/fill scale for ordered factors</span>
-<span class='no'>dsamp</span> <span class='kw'>&lt;-</span> <span class='no'>diamonds</span>[<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>diamonds</span>), <span class='fl'>1000</span>), ]
+<span class='no'>dsamp</span> <span class='kw'>&lt;-</span> <span class='no'>diamonds</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>diamonds</span>), <span class='fl'>1000</span>), ]
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>dsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>clarity</span>))</div><div class='img'><img src='scale_viridis-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use viridis_d with discrete data</span>
-<span class='no'>txsamp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>txhousing</span>, <span class='no'>city</span> <span class='kw'>%in%</span>
-  <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Houston"</span>, <span class='st'>"Fort Worth"</span>, <span class='st'>"San Antonio"</span>, <span class='st'>"Dallas"</span>, <span class='st'>"Austin"</span>))
+<span class='no'>txsamp</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>txhousing</span>, <span class='no'>city</span> <span class='kw'>%in%</span>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Houston"</span>, <span class='st'>"Fort Worth"</span>, <span class='st'>"San Antonio"</span>, <span class='st'>"Dallas"</span>, <span class='st'>"Austin"</span>))
 (<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>txsamp</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sales</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>median</span>)) +
    <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>city</span>)))</div><div class='img'><img src='scale_viridis-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_colour_viridis_d</span>()</div><div class='img'><img src='scale_viridis-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Change scale label</span>

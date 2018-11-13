@@ -161,13 +161,13 @@
 <ol>
 <li><p><strong>Packages</strong> should be loaded at the top of the script, so it’s easy to see which ones the example needs.</p></li>
 <li>
-<p>The easiest way to include <strong>data</strong> is to use <code><a href="http://www.rdocumentation.org/packages/base/topics/dput">dput()</a></code> to generate the R code to recreate it. For example, to recreate the <code>mtcars</code> dataset in R, I’d perform the following steps:</p>
+<p>The easiest way to include <strong>data</strong> is to use <code><a href="https://www.rdocumentation.org/packages/base/topics/dput">dput()</a></code> to generate the R code to recreate it. For example, to recreate the <code>mtcars</code> dataset in R, I’d perform the following steps:</p>
 <ol>
-<li>Run <code><a href="http://www.rdocumentation.org/packages/base/topics/dput">dput(mtcars)</a></code> in R</li>
+<li>Run <code><a href="https://www.rdocumentation.org/packages/base/topics/dput">dput(mtcars)</a></code> in R</li>
 <li>Copy the output</li>
 <li>In my reproducible script, type <code>mtcars &lt;-</code> then paste.</li>
 </ol>
-<p>But even better is if you can create a <code><a href="http://www.rdocumentation.org/packages/base/topics/data.frame">data.frame()</a></code> with just a handful of rows and columns that still illustrates the problem.</p>
+<p>But even better is if you can create a <code><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame()</a></code> with just a handful of rows and columns that still illustrates the problem.</p>
 </li>
 <li>
 <p>Spend a little bit of time ensuring that your <strong>code</strong> is easy for others to read:</p>
@@ -180,7 +180,7 @@ The shorter your code is, the easier it is to understand.</p></li>
 </li>
 </ol>
 <p>You can check you have actually made a reproducible example by starting up a fresh R session and pasting your script in.</p>
-<p>(Unless you’ve been specifically asked for it, please don’t include the output of <code><a href="http://www.rdocumentation.org/packages/utils/topics/sessionInfo">sessionInfo()</a></code>.)</p>
+<p>(Unless you’ve been specifically asked for it, please don’t include the output of <code><a href="https://www.rdocumentation.org/packages/utils/topics/sessionInfo">sessionInfo()</a></code>.)</p>
 </div>
 <div id="pull-requests" class="section level2">
 <h2 class="hasAnchor">
@@ -219,7 +219,7 @@ See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 </li>
 <li><p><strong>Use ggplot2 coding style</strong>. Please follow the <a href="http://style.tidyverse.org">official tidyverse style</a>. Maintaining a consistent style across the whole code base makes it much easier to jump into the code. If you’re modifying existing ggplot2 code that doesn’t follow the style guide, a separate pull request to fix the style would be greatly appreciated.</p></li>
 <li>
-<p>If you’re adding new parameters or a new function, you’ll also need to document them with <a href="https://github.com/klutometis/roxygen">roxygen</a>. Make sure to re-run <code><a href="http://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code> on the code before submitting.</p>
+<p>If you’re adding new parameters or a new function, you’ll also need to document them with <a href="https://github.com/klutometis/roxygen">roxygen</a>. Make sure to re-run <code><a href="https://www.rdocumentation.org/packages/devtools/topics/document">devtools::document()</a></code> on the code before submitting.</p>
 <p>Currently, ggplot2 uses the development version of roxygen2, which you can get with <code>install_github("klutometis/roxygen")</code>. This will be available on CRAN in the near future.</p>
 </li>
 <li><p>If fixing a bug or adding a new feature to a non-graphical function, please add a <a href="https://github.com/r-lib/testthat">testthat</a> unit test.</p></li>

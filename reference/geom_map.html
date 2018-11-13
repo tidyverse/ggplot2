@@ -165,7 +165,7 @@
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -191,7 +191,7 @@ layer, as a string.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
+<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -243,18 +243,18 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <span class='co'># other the values associated with each polygon (values).  An id</span>
 <span class='co'># variable links the two together</span>
 
-<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1.1"</span>, <span class='st'>"2.1"</span>, <span class='st'>"1.2"</span>, <span class='st'>"2.2"</span>, <span class='st'>"1.3"</span>, <span class='st'>"2.3"</span>))
+<span class='no'>ids</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"1.1"</span>, <span class='st'>"2.1"</span>, <span class='st'>"1.2"</span>, <span class='st'>"2.2"</span>, <span class='st'>"1.3"</span>, <span class='st'>"2.3"</span>))
 
-<span class='no'>values</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
+<span class='no'>values</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
   <span class='kw'>id</span> <span class='kw'>=</span> <span class='no'>ids</span>,
-  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>3.1</span>, <span class='fl'>3.1</span>, <span class='fl'>3.2</span>, <span class='fl'>3.15</span>, <span class='fl'>3.5</span>)
+  <span class='kw'>value</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>3</span>, <span class='fl'>3.1</span>, <span class='fl'>3.1</span>, <span class='fl'>3.2</span>, <span class='fl'>3.15</span>, <span class='fl'>3.5</span>)
 )
 
-<span class='no'>positions</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='no'>ids</span>, <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>4</span>),
-  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1.1</span>, <span class='fl'>1.2</span>, <span class='fl'>2.5</span>, <span class='fl'>1.1</span>, <span class='fl'>0.3</span>,
+<span class='no'>positions</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/rep'>rep</a></span>(<span class='no'>ids</span>, <span class='kw'>each</span> <span class='kw'>=</span> <span class='fl'>4</span>),
+  <span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0.3</span>, <span class='fl'>1.1</span>, <span class='fl'>2.2</span>, <span class='fl'>1.1</span>, <span class='fl'>1.2</span>, <span class='fl'>2.5</span>, <span class='fl'>1.1</span>, <span class='fl'>0.3</span>,
   <span class='fl'>0.5</span>, <span class='fl'>1.2</span>, <span class='fl'>2.5</span>, <span class='fl'>1.2</span>, <span class='fl'>1.3</span>, <span class='fl'>2.7</span>, <span class='fl'>1.2</span>, <span class='fl'>0.5</span>, <span class='fl'>0.6</span>, <span class='fl'>1.3</span>),
-  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>, <span class='fl'>2.1</span>, <span class='fl'>1.7</span>, <span class='fl'>1</span>, <span class='fl'>1.5</span>,
+  <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>0</span>, <span class='fl'>0.5</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>, <span class='fl'>2.1</span>, <span class='fl'>1.7</span>, <span class='fl'>1</span>, <span class='fl'>1.5</span>,
   <span class='fl'>2.2</span>, <span class='fl'>2.1</span>, <span class='fl'>1.7</span>, <span class='fl'>2.1</span>, <span class='fl'>3.2</span>, <span class='fl'>2.8</span>, <span class='fl'>2.1</span>, <span class='fl'>2.2</span>, <span class='fl'>3.3</span>, <span class='fl'>3.2</span>)
 )
 
@@ -266,9 +266,9 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
   <span class='fu'>geom_map</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>map_id</span> <span class='kw'>=</span> <span class='no'>id</span>), <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>positions</span>) +
   <span class='fu'><a href='expand_limits.html'>expand_limits</a></span>(<span class='no'>positions</span>) + <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='fl'>0</span>, <span class='fl'>3</span>)</div><div class='img'><img src='geom_map-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Better example</span>
-<span class='no'>crimes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>state</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/chartr'>tolower</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/colnames'>rownames</a></span>(<span class='no'>USArrests</span>)), <span class='no'>USArrests</span>)
-<span class='no'>crimesm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reshape2</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/reshape2/topics/melt'>melt</a></span>(<span class='no'>crimes</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>)
-<span class='kw'>if</span> (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>maps</span>)) {
+<span class='no'>crimes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>state</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/chartr'>tolower</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>rownames</a></span>(<span class='no'>USArrests</span>)), <span class='no'>USArrests</span>)
+<span class='no'>crimesm</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reshape2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/reshape2/topics/melt'>melt</a></span>(<span class='no'>crimes</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>maps</span>)) {
   <span class='no'>states_map</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"state"</span>)
   <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>crimes</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>map_id</span> <span class='kw'>=</span> <span class='no'>state</span>)) +
     <span class='fu'>geom_map</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>Murder</span>), <span class='kw'>map</span> <span class='kw'>=</span> <span class='no'>states_map</span>) +

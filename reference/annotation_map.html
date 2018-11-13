@@ -174,17 +174,17 @@ converted into the right format by using <code><a href='fortify.html'>fortify()<
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
+    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='no'>usamap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"state"</span>)
 
-<span class='no'>seal.sub</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>seals</span>, <span class='no'>long</span> <span class='kw'>&gt;</span> -<span class='fl'>130</span> <span class='kw'>&amp;</span> <span class='no'>lat</span> <span class='kw'>&lt;</span> <span class='fl'>45</span> <span class='kw'>&amp;</span> <span class='no'>lat</span> <span class='kw'>&gt;</span> <span class='fl'>40</span>)
+<span class='no'>seal.sub</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>seals</span>, <span class='no'>long</span> <span class='kw'>&gt;</span> -<span class='fl'>130</span> <span class='kw'>&amp;</span> <span class='no'>lat</span> <span class='kw'>&lt;</span> <span class='fl'>45</span> <span class='kw'>&amp;</span> <span class='no'>lat</span> <span class='kw'>&gt;</span> <span class='fl'>40</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>seal.sub</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>long</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat</span>)) +
   <span class='fu'>annotation_map</span>(<span class='no'>usamap</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>) +
   <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>long</span> + <span class='no'>delta_long</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>lat</span> + <span class='no'>delta_lat</span>))
 
-<span class='no'>seal2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/transform'>transform</a></span>(<span class='no'>seal.sub</span>,
-  <span class='kw'>latr</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/cut'>cut</a></span>(<span class='no'>lat</span>, <span class='fl'>2</span>),
-  <span class='kw'>longr</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/cut'>cut</a></span>(<span class='no'>long</span>, <span class='fl'>2</span>))
+<span class='no'>seal2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/transform'>transform</a></span>(<span class='no'>seal.sub</span>,
+  <span class='kw'>latr</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cut'>cut</a></span>(<span class='no'>lat</span>, <span class='fl'>2</span>),
+  <span class='kw'>longr</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cut'>cut</a></span>(<span class='no'>long</span>, <span class='fl'>2</span>))
 
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>seal2</span>,  <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>long</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat</span>)) +
   <span class='fu'>annotation_map</span>(<span class='no'>usamap</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>) +

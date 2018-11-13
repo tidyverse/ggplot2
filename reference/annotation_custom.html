@@ -200,18 +200,18 @@ Inf values can be used to fill the full plot panel (see examples).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Dummy plot</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>)
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>10</span>)
 <span class='no'>base</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
   <span class='fu'><a href='geom_blank.html'>geom_blank</a></span>() +
   <span class='fu'><a href='ggtheme.html'>theme_bw</a></span>()
 
 <span class='co'># Full panel annotation</span>
 <span class='no'>base</span> + <span class='fu'>annotation_custom</span>(
-  <span class='kw'>grob</span> <span class='kw'>=</span> <span class='kw pkg'>grid</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/grid/topics/grid.roundrect'>roundrectGrob</a></span>(),
+  <span class='kw'>grob</span> <span class='kw'>=</span> <span class='kw pkg'>grid</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/grid/topics/grid.roundrect'>roundrectGrob</a></span>(),
   <span class='kw'>xmin</span> <span class='kw'>=</span> -<span class='fl'>Inf</span>, <span class='kw'>xmax</span> <span class='kw'>=</span> <span class='fl'>Inf</span>, <span class='kw'>ymin</span> <span class='kw'>=</span> -<span class='fl'>Inf</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='fl'>Inf</span>
 )</div><div class='img'><img src='annotation_custom-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Inset plot</span>
-<span class='no'>df2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span> , <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>)
+<span class='no'>df2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span> , <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 <span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplotGrob.html'>ggplotGrob</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df2</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
   <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>plot.background</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_rect</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>)))

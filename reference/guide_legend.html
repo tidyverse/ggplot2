@@ -163,7 +163,7 @@ Legend guides for various scales are integrated if possible.</p>
   <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>label.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keywidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>keyheight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>default.unit</span> <span class='kw'>=</span> <span class='st'>"line"</span>,
-  <span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -227,13 +227,13 @@ text.</p></td>
     </tr>
     <tr>
       <th>keywidth</th>
-      <td><p>A numeric or a <code><a href='http://www.rdocumentation.org/packages/grid/topics/unit'>grid::unit()</a></code> object specifying
+      <td><p>A numeric or a <code><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>grid::unit()</a></code> object specifying
 the width of the legend key. Default value is <code>legend.key.width</code> or
 <code>legend.key.size</code> in <code><a href='theme.html'>theme()</a></code>.</p></td>
     </tr>
     <tr>
       <th>keyheight</th>
-      <td><p>A numeric or a <code><a href='http://www.rdocumentation.org/packages/grid/topics/unit'>grid::unit()</a></code> object specifying
+      <td><p>A numeric or a <code><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>grid::unit()</a></code> object specifying
 the height of the legend key. Default value is <code>legend.key.height</code> or
 <code>legend.key.size</code> in <code><a href='theme.html'>theme()</a></code>.</p></td>
     </tr>
@@ -244,7 +244,7 @@ One of "horizontal" or "vertical."</p></td>
     </tr>
     <tr>
       <th>default.unit</th>
-      <td><p>A character string indicating <code><a href='http://www.rdocumentation.org/packages/grid/topics/unit'>grid::unit()</a></code>
+      <td><p>A character string indicating <code><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>grid::unit()</a></code>
 for <code>keywidth</code> and <code>keyheight</code>.</p></td>
     </tr>
     <tr>
@@ -285,8 +285,8 @@ If 0 (default), the order is determined by a secret algorithm.</p></td>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Guides can be specified in each <code>scale_*</code> or in <code><a href='guides.html'>guides()</a></code>.
-<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>guide = "legend"</a></code> in <code>scale_*</code> is syntactic sugar for
-<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>guide = guide_legend()</a></code> (e.g. <code><a href='scale_manual.html'>scale_color_manual(guide = "legend")</a></code>).
+<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>guide = "legend"</a></code> in <code>scale_*</code> is syntactic sugar for
+<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>guide = guide_legend()</a></code> (e.g. <code><a href='scale_manual.html'>scale_color_manual(guide = "legend")</a></code>).
 As for how to specify the guide for each scale in more detail,
 see <code><a href='guides.html'>guides()</a></code>.</p>
     
@@ -297,7 +297,7 @@ see <code><a href='guides.html'>guides()</a></code>.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reshape2</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/reshape2/topics/melt'>melt</a></span>(<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/outer'>outer</a></span>(<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='fl'>1</span>:<span class='fl'>4</span>), <span class='kw'>varnames</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"X1"</span>, <span class='st'>"X2"</span>))
+    <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reshape2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/reshape2/topics/melt'>melt</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/outer'>outer</a></span>(<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='fl'>1</span>:<span class='fl'>4</span>), <span class='kw'>varnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"X1"</span>, <span class='st'>"X2"</span>))
 
 <span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>X1</span>, <span class='no'>X2</span>)) + <span class='fu'><a href='geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>value</span>))
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='no'>p1</span> + <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>value</span>))
@@ -322,8 +322,8 @@ see <code><a href='guides.html'>guides()</a></code>.</p>
 <span class='co'># label position</span>
 <span class='no'>p1</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>label.position</span> <span class='kw'>=</span> <span class='st'>"left"</span>, <span class='kw'>label.hjust</span> <span class='kw'>=</span> <span class='fl'>1</span>))</div><div class='img'><img src='guide_legend-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># label styles</span>
-<span class='no'>p1</span> + <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(<span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='st'>"long"</span>, <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>)),
+<span class='no'>p1</span> + <span class='fu'><a href='scale_colour_continuous.html'>scale_fill_continuous</a></span>(<span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>),
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/paste'>paste</a></span>(<span class='st'>"long"</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>5</span>, <span class='fl'>10</span>, <span class='fl'>15</span>)),
   <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(
     <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"horizontal"</span>,
     <span class='kw'>title.position</span> <span class='kw'>=</span> <span class='st'>"top"</span>,
@@ -335,12 +335,12 @@ see <code><a href='guides.html'>guides()</a></code>.</p>
 )</div><div class='img'><img src='guide_legend-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Set aesthetic of legend key</span>
 <span class='co'># very low alpha value make it difficult to see legend key</span>
-<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>vs</span>, <span class='no'>am</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>))) +
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>vs</span>, <span class='no'>am</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>))) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>5</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.01</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)
 <span class='no'>p3</span></div><div class='img'><img src='guide_legend-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># override.aes overwrites the alpha</span>
-<span class='no'>p3</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>)))</div><div class='img'><img src='guide_legend-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p3</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>)))</div><div class='img'><img src='guide_legend-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># multiple row/col legends</span>
-<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>20</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>20</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>20</span>])
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>20</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>20</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>20</span>])
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>color</span>))
 <span class='no'>p</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>8</span>))</div><div class='img'><img src='guide_legend-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>ncol</span> <span class='kw'>=</span> <span class='fl'>8</span>))</div><div class='img'><img src='guide_legend-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'><a href='guides.html'>guides</a></span>(<span class='kw'>col</span> <span class='kw'>=</span> <span class='fu'>guide_legend</span>(<span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))</div><div class='img'><img src='guide_legend-10.png' alt='' width='700' height='433' /></div><div class='input'>

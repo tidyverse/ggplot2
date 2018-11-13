@@ -177,7 +177,7 @@ across the levels of a categorical variable.</p>
 <span class='fu'>stat_bin</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"bar"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='no'>...</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>center</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>closed</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>), <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>closed</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>), <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -186,7 +186,7 @@ across the levels of a categorical variable.</p>
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -212,7 +212,7 @@ a call to a position adjustment function.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
+<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -262,9 +262,9 @@ bin width of a time variable is the number of seconds.</p></td>
 center of one of the bins. <code>boundary</code> specifies the boundary between two
 bins. Note that if either is above or below the range of the data, things
 will be shifted by the appropriate integer multiple of <code>width</code>.
-For example, to center on integers use <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>width = 1</a></code> and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>center = 0</a></code>, even
+For example, to center on integers use <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>width = 1</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>center = 0</a></code>, even
 if <code>0</code> is outside the range of the data. Alternatively, this same alignment
-can be specified with <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>width = 1</a></code> and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>boundary = 0.5</a></code>, even if <code>0.5</code> is
+can be specified with <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>width = 1</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>boundary = 0.5</a></code>, even if <code>0.5</code> is
 outside the range of the data.</p></td>
     </tr>
     <tr>
@@ -331,7 +331,7 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
 <span class='co'># put density on the y axis instead of the default count</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>price</span>, <span class='fu'><a href='stat.html'>stat</a></span>(<span class='no'>density</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cut</span>)) +
   <span class='fu'>geom_freqpoly</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-6.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
+<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
 <span class='co'># Often we don't want the height of the bar to represent the</span>
 <span class='co'># count of observations, but the sum of some other variable.</span>
 <span class='co'># For example, the following plot shows the number of movies</span>
@@ -367,8 +367,8 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
 <span class='co'># You can specify a function for calculating binwidth,</span>
 <span class='co'># particularly useful when faceting along variables with</span>
 <span class='co'># different ranges</span>
-<span class='no'>mtlong</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reshape2</span><span class='kw ns'>::</span><span class='fu'><a href='http://www.rdocumentation.org/packages/reshape2/topics/melt'>melt</a></span>(<span class='no'>mtcars</span>)</div><div class='output co'>#&gt; <span class='message'>No id variables; using all as measure variables</span></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtlong</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>value</span>)) + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>variable</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>'free_x'</span>) +
-  <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>2</span> * <span class='fu'><a href='http://www.rdocumentation.org/packages/stats/topics/IQR'>IQR</a></span>(<span class='no'>x</span>) / (<span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>x</span>)^(<span class='fl'>1</span>/<span class='fl'>3</span>)))</div><div class='img'><img src='geom_histogram-8.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>mtlong</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reshape2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/reshape2/topics/melt'>melt</a></span>(<span class='no'>mtcars</span>)</div><div class='output co'>#&gt; <span class='message'>No id variables; using all as measure variables</span></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtlong</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>value</span>)) + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>variable</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>'free_x'</span>) +
+  <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>2</span> * <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/IQR'>IQR</a></span>(<span class='no'>x</span>) / (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/length'>length</a></span>(<span class='no'>x</span>)^(<span class='fl'>1</span>/<span class='fl'>3</span>)))</div><div class='img'><img src='geom_histogram-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

@@ -164,8 +164,8 @@ with lines. This is as a continuous analogue to <code><a href='geom_boxplot.html
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>stat_quantile</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"quantile"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>quantiles</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>),
-  <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"rq"</span>, <span class='kw'>method.args</span> <span class='kw'>=</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>quantiles</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.25</span>, <span class='fl'>0.5</span>, <span class='fl'>0.75</span>),
+  <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"rq"</span>, <span class='kw'>method.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(),
   <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -174,7 +174,7 @@ with lines. This is as a continuous analogue to <code><a href='geom_boxplot.html
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -200,7 +200,7 @@ a call to a position adjustment function.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='http://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
+<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -251,7 +251,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     <tr>
       <th>method</th>
       <td><p>Quantile regression method to use.  Currently only supports
-<code><a href='http://www.rdocumentation.org/packages/quantreg/topics/rq'>quantreg::rq()</a></code>.</p></td>
+<code><a href='https://www.rdocumentation.org/packages/quantreg/topics/rq'>quantreg::rq()</a></code>.</p></td>
     </tr>
     <tr>
       <th>method.args</th>
@@ -290,7 +290,7 @@ function defined by <code>method</code>.</p></td>
 #&gt; <span class='message'>    backsolve</span></div><div class='output co'>#&gt; <span class='message'></span>
 #&gt; <span class='message'>Attaching package: ‘quantreg’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:survival’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    untangle.specials</span></div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>m</span> + <span class='fu'>geom_quantile</span>(<span class='kw'>quantiles</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>q10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.95</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
+#&gt; <span class='message'>    untangle.specials</span></div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>m</span> + <span class='fu'>geom_quantile</span>(<span class='kw'>quantiles</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>q10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.95</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
 <span class='no'>m</span> + <span class='fu'>geom_quantile</span>(<span class='kw'>quantiles</span> <span class='kw'>=</span> <span class='no'>q10</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use rqss to fit smooth quantiles</span>
 <span class='no'>m</span> + <span class='fu'>geom_quantile</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"rqss"</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ qss(x, lambda = 1)</span></div><div class='img'><img src='geom_quantile-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Note that rqss doesn't pick a smoothing constant automatically, so</span>
