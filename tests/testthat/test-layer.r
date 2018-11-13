@@ -40,8 +40,8 @@ test_that("missing aesthetics trigger informative error", {
 
 test_that("if an aes is mapped to a function that returns NULL, it is removed", {
   df <- data.frame(x = 1:10)
-  wrap <- function(...) tryCatch(..., error = function(e) NULL)
-  p <- cdata(ggplot(df, aes(x, wrap(no_such_column))))
+  null <- function(...) NULL
+  p <- cdata(ggplot(df, aes(x, null())))
   expect_identical(names(p[[1]]), c("x", "PANEL", "group"))
 })
 
