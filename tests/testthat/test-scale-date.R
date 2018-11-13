@@ -4,7 +4,7 @@ base_time <- function(tz = "") {
   as.POSIXct(strptime("2015-06-01", "%Y-%m-%d", tz = tz))
 }
 
-df <- data.frame(
+df <- data_frame(
   time1 = base_time("") + 0:6 * 3600,
   time2 = base_time("UTC") + 0:6 * 3600,
   time3 = base_time("Australia/Lord_Howe") + (0:6 + 13) * 3600, # has half hour offset

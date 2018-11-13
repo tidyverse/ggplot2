@@ -15,7 +15,7 @@ test_that("geom_path draws correctly", {
 
   nCategory <- 5
   nItem <- 6
-  df <- data.frame(category = rep(LETTERS[1:nCategory], 1, each = nItem),
+  df <- data_frame(category = rep(LETTERS[1:nCategory], 1, each = nItem),
                    item = paste("Item#", rep(1:nItem, nCategory, each = 1), sep = ''),
                    value = rep(1:nItem, nCategory, each = 1) + runif(nCategory * nItem) * 0.8)
 
@@ -36,7 +36,7 @@ test_that("geom_path draws correctly", {
 })
 
 test_that("NA linetype is dropped with warning", {
-  df <- data.frame(x = 1:2, y = 1:2, z = "a")
+  df <- data_frame(x = 1:2, y = 1:2, z = "a")
 
   # Somehow the warning does not slip through on ggplot_build()
   if (enable_vdiffr) {

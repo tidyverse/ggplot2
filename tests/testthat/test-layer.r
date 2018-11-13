@@ -20,14 +20,14 @@ test_that("unknown NULL asthetic doesn't create warning (#1909)", {
 })
 
 test_that("column vectors are allowed (#2609)", {
-  df <- data.frame(x = 1:10)
+  df <- data_frame(x = 1:10)
   df$y <- scale(1:10) # Returns a column vector
   p <- ggplot(df, aes(x, y))
   expect_is(layer_data(p), "data.frame")
 })
 
 test_that("missing aesthetics trigger informative error", {
-  df <- data.frame(x = 1:10)
+  df <- data_frame(x = 1:10)
   expect_error(
     ggplot_build(ggplot(df) + geom_line()),
     "requires the following missing aesthetics:"

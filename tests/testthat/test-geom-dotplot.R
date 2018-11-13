@@ -1,7 +1,7 @@
 context("geom_dotplot")
 
 set.seed(111)
-dat <- data.frame(x = LETTERS[1:2], y = rnorm(30), g = LETTERS[3:5])
+dat <- data_frame(x = LETTERS[1:2], y = rnorm(30), g = LETTERS[3:5])
 
 test_that("dodging works", {
   p <- ggplot(dat, aes(x = x, y = y, fill = g)) +
@@ -54,7 +54,7 @@ test_that("binning works", {
 
 test_that("NA's result in warning from stat_bindot", {
   set.seed(122)
-  dat <- data.frame(x = rnorm(20))
+  dat <- data_frame(x = rnorm(20))
   dat$x[c(2,10)] <- NA
 
   # Need to assign it to a var here so that it doesn't automatically print
@@ -81,7 +81,7 @@ test_that("when binning on y-axis, limits depend on the panel", {
 
 test_that("geom_dotplot draws correctly", {
   set.seed(112)
-  dat <- data.frame(x = rnorm(20), g = LETTERS[1:2])
+  dat <- data_frame(x = rnorm(20), g = LETTERS[1:2])
 
   # Basic dotplot with binning along x axis
   expect_doppelganger("basic dotplot with dot-density binning, binwidth = .4",
@@ -145,7 +145,7 @@ test_that("geom_dotplot draws correctly", {
   )
 
   # Binning along y, with multiple grouping factors
-  dat2 <- data.frame(x = LETTERS[1:3], y = rnorm(90), g = LETTERS[1:2])
+  dat2 <- data_frame(x = factor(LETTERS[1:3]), y = rnorm(90), g = factor(LETTERS[1:2]))
 
   expect_doppelganger("bin y, three x groups, stack centerwhole",
     ggplot(dat2, aes(x, y)) + geom_dotplot(binwidth = .25, binaxis = "y", stackdir = "centerwhole")
