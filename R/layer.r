@@ -218,8 +218,8 @@ Layer <- ggproto("Layer", NULL,
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate and check aesthetics
-    aesthetics <- compact(aesthetics)
     evaled <- lapply(aesthetics, rlang::eval_tidy, data = data)
+    evaled <- compact(evaled)
 
     n <- nrow(data)
     if (n == 0) {

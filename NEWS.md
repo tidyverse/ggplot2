@@ -6,6 +6,9 @@
   get backticks, and long expressions are abbreviated with `...`
   (@yutannihilation, #2981).
 
+* Aesthetic mappings now accept functions that return `NULL` (@yutannihilation,
+  #2997)
+
 # ggplot2 3.1.0
 
 ## Breaking changes
