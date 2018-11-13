@@ -136,6 +136,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (!is.formula(self$trans)) stop("transformation for secondary axes must be a formula", call. = FALSE)
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
+    if (is.waive(self$breaks)) self$breaks <- scale$trans$breaks
     if (is.derived(self$labels)) self$labels <- scale$labels
   },
 
@@ -152,33 +153,45 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (self$empty()) return()
 
     # Get original range before transformation
-    inv_range <- scale$trans$inverse(range)
+    along_range <- seq(range[1], range[2], length.out = self$detail)
+    old_range <- scale$trans$inverse(along_range)
 
     # Create mapping between primary and secondary range
-    old_range <- seq(inv_range[1], inv_range[2], length.out = self$detail)
     full_range <- self$transform_range(old_range)
+
+    # # opposite approach -- monotonicity fix
+    # inv_range <- scale$trans$inverse(range)
+    # old_range <- seq(inv_range[1], inv_range[2], length.out = self$detail)
+    # full_range <- self$transform_range(old_range)
 
     # Test for monotonicity
     if (length(unique(sign(diff(full_range)))) != 1)
       stop("transformation for secondary axes must be monotonic")
 
     # Get break info for the secondary axis
-    new_range <- range(scale$transform(full_range), na.rm = TRUE)
-    sec_scale <- self$create_scale(new_range, scale)
-    range_info <- sec_scale$break_info()
+    new_range <- range(full_range, na.rm = TRUE)
+    temp_scale <- self$create_scale(new_range)
+    range_info <- temp_scale$break_info()
+
+    # Map the break values back to their correct position on the primary scale
+    old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
+    old_val <- old_range[unlist(old_val)]
+    old_val_trans <- scale$trans$transform(old_val)
+    range_info$major[] <- round(rescale(scale$map(old_val_trans, range(old_val_trans)), from = range), digits = 3)
+
     names(range_info) <- paste0("sec.", names(range_info))
     range_info
   },
 
   # Temporary scale for the purpose of calling break_info()
-  create_scale = function(self, range, primary) {
+  create_scale = function(self, range) {
     scale <- ggproto(NULL, ScaleContinuousPosition,
-      name = self$name,
-      breaks = self$breaks,
-      labels = self$labels,
-      limits = range,
-      expand = c(0, 0),
-      trans = primary$trans
+                     name = self$name,
+                     breaks = self$breaks,
+                     labels = self$labels,
+                     limits = range,
+                     expand = c(0, 0),
+                     trans = identity_trans()
     )
     scale$train(range)
     scale
