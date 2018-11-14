@@ -152,10 +152,10 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (self$empty()) return()
 
     # Get original range before transformation
-    inv_range <- scale$trans$inverse(range)
+    along_range <- seq(range[1], range[2], length.out = self$detail)
+    old_range <- scale$trans$inverse(along_range)
 
     # Create mapping between primary and secondary range
-    old_range <- seq(inv_range[1], inv_range[2], length.out = self$detail)
     full_range <- self$transform_range(old_range)
 
     # Test for monotonicity
@@ -165,7 +165,12 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     # Get break info for the secondary axis
     new_range <- range(scale$transform(full_range), na.rm = TRUE)
     sec_scale <- self$create_scale(new_range, scale)
+
     range_info <- sec_scale$break_info()
+    old_val <-  old_range[unlist(lapply(range_info$major_source, function(x) which.min(abs(scale$trans$transform(full_range) - x))))]
+    old_val_trans <- scale$trans$transform(old_val)
+    range_info$major[] <- round(rescale(scale$map(old_val_trans, range(old_val_trans)), from = range), digits = 3)
+
     names(range_info) <- paste0("sec.", names(range_info))
     range_info
   },
