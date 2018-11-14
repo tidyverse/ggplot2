@@ -9,6 +9,8 @@
 * Aesthetic mappings now accept functions that return `NULL` (@yutannihilation,
   #2997)
 
+* Closed arrows in `element_line()` are now filled (@yutannihilation, #2924).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
