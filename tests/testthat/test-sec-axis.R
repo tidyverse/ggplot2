@@ -167,7 +167,7 @@ test_that("sec_axis works with date/time/datetime scales", {
 
 test_that("sec_axis() handles secondary power transformations", {
   set.seed(111)
-  df <- data.frame(
+  df <- data_frame(
     x = rnorm(100),
     y = rnorm(100)
   )
@@ -217,7 +217,7 @@ test_that("sec_axis() respects custom transformations", {
   # Create data
   x <- seq(-1, 1, length.out = 1000)
   y <- c(x[x < 0] + 1, -x[x > 0] + 1) + 1e-6
-  dat <- data.frame(x = c(NA, x), y = c(1, y))
+  dat <- data_frame(x = c(NA, x), y = c(1, y))
 
   expect_doppelganger(
     "sec_axis, custom transform",
