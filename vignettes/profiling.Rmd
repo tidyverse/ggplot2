@@ -61,3 +61,6 @@ are summarised below:
   `grid::descentDetails()` to ensure that they are aligned across plots, but 
   this is quite heavy. These calls are now cached so they only have to be 
   calculated once per font setting.
+- **Speed up position transformation** The `transform_position` helper was 
+  unreasonably slow due to the slowness of getting and assigning columns in 
+  data.frame. The input is now treated as a list during transformation.
