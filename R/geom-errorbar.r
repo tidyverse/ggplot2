@@ -51,7 +51,6 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
       size = rep(data$size, each = 8),
       linetype = rep(data$linetype, each = 8),
       group = rep(1:(nrow(data)), each = 8),
-      stringsAsFactors = FALSE,
       row.names = 1:(nrow(data) * 8)
     )), panel_params, coord)
   }
