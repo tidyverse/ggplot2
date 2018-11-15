@@ -75,6 +75,8 @@ Position <- ggproto("Position",
 #' @keywords internal
 #' @export
 transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
+  oldclass <- class(df)
+  df <- unclass(df)
   scales <- aes_to_scale(names(df))
 
   if (!is.null(trans_x)) {
@@ -83,6 +85,8 @@ transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
   if (!is.null(trans_y)) {
     df[scales == "y"] <- lapply(df[scales == "y"], trans_y, ...)
   }
+
+  class(df) <- oldclass
 
   df
 }
