@@ -1,13 +1,21 @@
 # ggplot2 3.1.0.9000
 
-*   `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
+* `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
+
+* Layers now have a new member function `setup_layer()` which is called at the
+  very beginning of the plot building process and which has access to the original
+  input data and the plot object being built. This function allows the creation of
+  custom layers that autogenerate aesthetic mappings based on the input data or that
+  filter the input data in some form. One example is the new `LayerSf` class which
+  locates the geometry column in sf objects and sets up an aesthetic mapping for it
+  (@clauswilke, #2872).
 
 * Default labels are now generated more consistently; e.g., symbols no longer
   get backticks, and long expressions are abbreviated with `...`
   (@yutannihilation, #2981).
 
 * Aesthetic mappings now accept functions that return `NULL` (@yutannihilation,
-  #2997)
+  #2997).
 
 * Closed arrows in `element_line()` are now filled (@yutannihilation, #2924).
 

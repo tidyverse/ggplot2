@@ -135,9 +135,35 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
       na.rm = na.rm,
       legend = if (is.character(show.legend)) show.legend else "polygon",
       ...
-    )
+    ),
+    layer_class = LayerSf
   )
 }
+
+
+# A special sf layer that auto-maps geometry data to the `geometry` aesthetic
+
+#' @export
+#' @rdname ggsf
+#' @usage NULL
+#' @format NULL
+LayerSf <- ggproto("LayerSf", Layer,
+  setup_layer = function(self, data, plot) {
+    # process generic layer setup first
+    data <- ggproto_parent(Layer, self)$setup_layer(data, plot)
+
+    # automatically determine the name of the geometry column
+    # and add the mapping if it doesn't exist
+    if ((isTRUE(self$inherit.aes) && is.null(self$mapping$geometry) && is.null(plot$mapping$geometry)) ||
+        (!isTRUE(self$inherit.aes) && is.null(self$mapping$geometry))) {
+      if (is_sf(data)) {
+        geometry_col <- attr(data, "sf_column")
+        self$mapping$geometry <- as.name(geometry_col)
+      }
+    }
+    data
+  }
+)
 
 
 # geom --------------------------------------------------------------------
@@ -234,17 +260,6 @@ sf_grob <- function(row, lineend = "butt", linejoin = "round", linemitre = 10) {
 geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
-
-  # Automatically determin name of geometry column
-  if (!is.null(data) && is_sf(data)) {
-    geometry_col <- attr(data, "sf_column")
-  } else {
-    geometry_col <- "geometry"
-  }
-  if (is.null(mapping$geometry)) {
-    mapping$geometry <- as.name(geometry_col)
-  }
-
   c(
     layer(
       geom = GeomSf,
@@ -258,7 +273,8 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
         na.rm = na.rm,
         legend = if (is.character(show.legend)) show.legend else "polygon",
         ...
-      )
+      ),
+      layer_class = LayerSf
     ),
     coord_sf(default = TRUE)
   )
@@ -281,16 +297,6 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
                           show.legend = NA,
                           inherit.aes = TRUE,
                           fun.geometry = NULL) {
-
-  # Automatically determin name of geometry column
-  if (!is.null(data) && is_sf(data)) {
-    geometry_col <- attr(data, "sf_column")
-  } else {
-    geometry_col <- "geometry"
-  }
-  if (is.null(mapping$geometry)) {
-    mapping$geometry <- as.name(geometry_col)
-  }
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
@@ -316,7 +322,8 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
       na.rm = na.rm,
       fun.geometry = fun.geometry,
       ...
-    )
+    ),
+    layer_class = LayerSf
   )
 }
 
@@ -335,15 +342,6 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
                          show.legend = NA,
                          inherit.aes = TRUE,
                          fun.geometry = NULL) {
-  # Automatically determin name of geometry column
-  if (!is.null(data) && is_sf(data)) {
-    geometry_col <- attr(data, "sf_column")
-  } else {
-    geometry_col <- "geometry"
-  }
-  if (is.null(mapping$geometry)) {
-    mapping$geometry <- as.name(geometry_col)
-  }
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
@@ -367,7 +365,8 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
       na.rm = na.rm,
       fun.geometry = fun.geometry,
       ...
-    )
+    ),
+    layer_class = LayerSf
   )
 }
 
