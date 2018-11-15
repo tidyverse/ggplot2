@@ -1,6 +1,6 @@
 context('Empty data')
 
-df0 <- data.frame(mpg = numeric(0), wt = numeric(0), am = numeric(0), cyl = numeric(0))
+df0 <- data_frame(mpg = numeric(0), wt = numeric(0), am = numeric(0), cyl = numeric(0))
 
 test_that("layers with empty data are silently omitted", {
   # Empty data (no visible points)
@@ -24,7 +24,7 @@ test_that("plots with empty data and vectors for aesthetics work", {
   d <- ggplot(NULL, aes(1:5, 1:5)) + geom_point()
   expect_equal(nrow(layer_data(d)), 5)
 
-  d <- ggplot(data.frame(), aes(1:5, 1:5)) + geom_point()
+  d <- ggplot(data_frame(), aes(1:5, 1:5)) + geom_point()
   expect_equal(nrow(layer_data(d)), 5)
 
   d <- ggplot() + geom_point(aes(1:5, 1:5))
@@ -58,13 +58,13 @@ test_that("empty data overrides plot defaults", {
   # Should error when totally empty data frame because there's no x and y
   d <- ggplot(mtcars, aes(mpg, wt)) +
     geom_point() +
-    geom_point(data = data.frame())
+    geom_point(data = data_frame())
   expect_error(layer_data(d), "not found")
 
   # No extra points when x and y vars don't exist but are set
   d <- ggplot(mtcars, aes(mpg, wt)) +
     geom_point() +
-    geom_point(data = data.frame(), x = 20, y = 3)
+    geom_point(data = data_frame(), x = 20, y = 3)
   expect_equal(nrow(layer_data(d, 1)), nrow(mtcars))
   expect_equal(nrow(layer_data(d, 2)), 0)
 
@@ -83,7 +83,7 @@ test_that("layer inherits data from plot when data = NULL", {
 })
 
 test_that("empty layers still generate one grob per panel", {
-  df <- data.frame(x = 1:3, y = c("a", "b", "c"))
+  df <- data_frame(x = 1:3, y = c("a", "b", "c"))
 
   d <- ggplot(df, aes(x, y)) +
     geom_point(data = df[0, ]) +
@@ -94,7 +94,7 @@ test_that("empty layers still generate one grob per panel", {
 })
 
 test_that("missing layers generate one grob per panel", {
-  df <- data.frame(x = 1:4, y = 1:2, g = 1:2)
+  df <- data_frame(x = 1:4, y = rep(1:2, 2), g = rep(1:2, 2))
   base <- ggplot(df, aes(x, y)) + geom_point(shape = NA, na.rm = TRUE)
 
   expect_equal(length(layer_grob(base)), 1)

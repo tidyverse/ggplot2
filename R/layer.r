@@ -246,7 +246,7 @@ Layer <- ggproto("Layer", NULL,
 
   compute_statistic = function(self, data, layout) {
     if (empty(data))
-      return(data.frame())
+      return(new_data_frame())
 
     params <- self$stat$setup_params(data, self$stat_params)
     data <- self$stat$setup_data(data, params)
@@ -254,7 +254,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   map_statistic = function(self, data, plot) {
-    if (empty(data)) return(data.frame())
+    if (empty(data)) return(new_data_frame())
 
     # Assemble aesthetics from layer, plot and stat mappings
     aesthetics <- self$mapping
@@ -286,7 +286,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_geom_1 = function(self, data) {
-    if (empty(data)) return(data.frame())
+    if (empty(data)) return(new_data_frame())
 
     check_required_aesthetics(
       self$geom$required_aes,
@@ -298,7 +298,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_position = function(self, data, layout) {
-    if (empty(data)) return(data.frame())
+    if (empty(data)) return(new_data_frame())
 
     params <- self$position$setup_params(data)
     data <- self$position$setup_data(data, params)

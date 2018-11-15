@@ -62,7 +62,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE) {
-    if (nrow(data) < 3) return(data.frame())
+    if (nrow(data) < 3) return(new_data_frame())
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
     bw <- calc_bw(data$y, bw)

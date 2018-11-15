@@ -9,7 +9,7 @@ test_that("colourbar trains without labels", {
 })
 
 test_that("Colorbar respects show.legend in layer", {
-  df <- data.frame(x = 1:3, y = 1)
+  df <- data_frame(x = 1:3, y = 1)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = FALSE)
   expect_false("guide-box" %in% ggplotGrob(p)$layout$name)
@@ -30,7 +30,7 @@ test_that("show.legend handles named vectors", {
     n
   }
 
-  df <- data.frame(x = 1:3, y = 20:22)
+  df <- data_frame(x = 1:3, y = 20:22)
   p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
     geom_point(size = 20)
   expect_equal(n_legends(p), 2)
@@ -68,7 +68,7 @@ test_that("axis guides are drawn correctly", {
 })
 
 test_that("guides are positioned correctly", {
-  df <- data.frame(x = 1, y = 1, z = factor("a"))
+  df <- data_frame(x = 1, y = 1, z = factor("a"))
 
   p1 <- ggplot(df, aes(x, y, colour = z)) +
     geom_point() +
@@ -120,7 +120,7 @@ test_that("guides are positioned correctly", {
   )
 
   # padding
-  dat <- data.frame(x = LETTERS[1:3], y = 1)
+  dat <- data_frame(x = LETTERS[1:3], y = 1)
   p2 <- ggplot(dat, aes(x, y, fill = x, colour = 1:3)) +
     geom_bar(stat = "identity") +
     guides(color = "colorbar") +
@@ -145,7 +145,7 @@ test_that("guides are positioned correctly", {
 })
 
 test_that("guides title and text are positioned correctly", {
-  df <- data.frame(x = 1:3, y = 1:3)
+  df <- data_frame(x = 1:3, y = 1:3)
   p <- ggplot(df, aes(x, y, color = factor(x), fill = y)) +
     geom_point(shape = 21) +
     # setting the order explicitly removes the risk for failed doppelgangers
@@ -167,7 +167,7 @@ test_that("guides title and text are positioned correctly", {
   )
 
   # now test label positioning, alignment, etc
-  df <- data.frame(x = c(1, 10, 100))
+  df <- data_frame(x = c(1, 10, 100))
   p <- ggplot(df, aes(x, x, color = x, size = x)) +
     geom_point() +
     # setting the order explicitly removes the risk for failed doppelgangers
@@ -184,7 +184,7 @@ test_that("guides title and text are positioned correctly", {
   )
 
   # title and label rotation
-  df <- data.frame(x = c(5, 10, 15))
+  df <- data_frame(x = c(5, 10, 15))
   p <- ggplot(df, aes(x, x, color = x, fill = 15 - x)) +
     geom_point(shape = 21, size = 5, stroke = 3) +
     scale_colour_continuous(
@@ -214,7 +214,7 @@ test_that("guides title and text are positioned correctly", {
 })
 
 test_that("colorbar can be styled", {
-  df <- data.frame(x <- c(0, 1, 2))
+  df <- data_frame(x = c(0, 1, 2))
   p <- ggplot(df, aes(x, x, color = x)) + geom_point()
 
   expect_doppelganger("white-to-red gradient colorbar, white tick marks, no frame",
@@ -235,7 +235,7 @@ test_that("colorbar can be styled", {
 })
 
 test_that("guides can handle multiple aesthetics for one scale", {
-  df <- data.frame(x = c(1, 2, 3),
+  df <- data_frame(x = c(1, 2, 3),
                    y = c(6, 5, 7))
 
   p <- ggplot(df, aes(x, y, color = x, fill = y)) +
