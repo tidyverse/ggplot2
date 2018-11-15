@@ -41,9 +41,8 @@ data.frame <- function(...) {
   stop('Please use `data_frame()` or `new_data_frame()` instead of `data.frame()` for better performance. See the vignette "ggplot2 internal programming guidelines" for details.', call. = FALSE)
 }
 
-mat_2_df <- function(x, col_names = NULL, .check = FALSE) {
-  if (is.null(col_names)) col_names <- colnames(x)
-  x <- split(x, rep(seq_len(ncol(x)), each = nrow(x)))
+mat_2_df <- function(x, col_names = colnames(x), .check = FALSE) {
+  x <- lapply(seq_len(ncol(x)), function(i) x[, i])
   if (!is.null(col_names)) names(x) <- col_names
   new_data_frame(x)
 }
