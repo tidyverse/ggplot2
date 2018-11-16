@@ -52,3 +52,17 @@ df_col <- function(x, name) .subset2(x, name)
 df_rows <- function(x, i) {
   new_data_frame(lapply(x, `[`, i = i))
 }
+
+# More performant modifyList without recursion
+modify_list <- function(old, new, keep_null = FALSE) {
+  if (keep_null) {
+    for (i in names(new)) {
+      old[i] <- list(new[[i]])
+    }
+  } else {
+    for (i in names(new)) {
+      old[[i]] <- new[[i]]
+    }
+  }
+  old
+}

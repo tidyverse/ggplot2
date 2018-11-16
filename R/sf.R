@@ -204,7 +204,7 @@ GeomSf <- ggproto("GeomSf", Geom,
   },
 
   draw_key = function(data, params, size) {
-    data <- utils::modifyList(default_aesthetics(params$legend), data)
+    data <- modify_list(default_aesthetics(params$legend), data)
     if (params$legend == "point") {
       draw_key_point(data, params, size)
     } else if (params$legend == "line") {
@@ -221,7 +221,7 @@ default_aesthetics <- function(type) {
   } else if (type == "line") {
     GeomLine$default_aes
   } else  {
-    utils::modifyList(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
+    modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
   }
 }
 
@@ -230,7 +230,7 @@ sf_grob <- function(row, lineend = "butt", linejoin = "round", linemitre = 10) {
   geometry <- row$geometry[[1]]
 
   if (inherits(geometry, c("POINT", "MULTIPOINT"))) {
-    row <- utils::modifyList(default_aesthetics("point"), row)
+    row <- modify_list(default_aesthetics("point"), row)
     gp <- gpar(
       col = alpha(row$colour, row$alpha),
       fill = alpha(row$fill, row$alpha),
@@ -240,7 +240,7 @@ sf_grob <- function(row, lineend = "butt", linejoin = "round", linemitre = 10) {
     )
     sf::st_as_grob(geometry, gp = gp, pch = row$shape)
   } else {
-    row <- utils::modifyList(default_aesthetics("poly"), row)
+    row <- modify_list(default_aesthetics("poly"), row)
     gp <- gpar(
       col = row$colour,
       fill = alpha(row$fill, row$alpha),
