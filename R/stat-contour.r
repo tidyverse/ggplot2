@@ -97,7 +97,7 @@ contour_lines <- function(data, breaks, complete = FALSE) {
     x = xs,
     y = ys,
     piece = pieces,
-    group = groups
+    group = factor(groups)
   ), n = length(xs))
 }
 
