@@ -153,9 +153,10 @@
 </h1>
 <ul>
 <li><p><code><a href="../reference/geom_rug.html">geom_rug()</a></code> now works with <code><a href="../reference/coord_flip.html">coord_flip()</a></code> (<a href='https://github.com/has2k1'>@has2k1</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2987'>#2987</a>).</p></li>
+<li><p>Layers now have a new member function <code>setup_layer()</code> which is called at the very beginning of the plot building process and which has access to the original input data and the plot object being built. This function allows the creation of custom layers that autogenerate aesthetic mappings based on the input data or that filter the input data in some form. One example is the new <code>LayerSf</code> class which locates the geometry column in sf objects and sets up an aesthetic mapping for it (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2872'>#2872</a>).</p></li>
 <li><p>Default labels are now generated more consistently; e.g., symbols no longer get backticks, and long expressions are abbreviated with <code>...</code> (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2981'>#2981</a>).</p></li>
 <li>Aesthetic mappings now accept functions that return <code>NULL</code> (<a href='https://github.com/yutannihilation'>@yutannihilation</a>,
-<p><a href='https://github.com/tidyverse/ggplot2/issues/2997'>#2997</a>)</p>
+<p><a href='https://github.com/tidyverse/ggplot2/issues/2997'>#2997</a>).</p>
 </li>
 <li><p>Closed arrows in <code><a href="../reference/element.html">element_line()</a></code> are now filled (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2924'>#2924</a>).</p></li>
 </ul>
