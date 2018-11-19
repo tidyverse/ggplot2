@@ -33,8 +33,7 @@ Imports:
     stats,
     tibble,
     viridisLite,
-    withr (>= 2.0.0),
-    grDevices
+    withr (>= 2.0.0)
 Suggests:
     covr,
     dplyr,
