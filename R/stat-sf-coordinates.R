@@ -23,7 +23,7 @@
 #' the line. `sf::st_zm()` is needed to drop Z and M dimension beforehand,
 #' otherwise `sf::st_point_on_surface()` may fail when the geometries have M
 #' dimension.
-#' 
+#'
 #' @section Computed variables:
 #' \describe{
 #'   \item{x}{X dimension of the simple feature}
@@ -33,10 +33,10 @@
 #' @examples
 #' if (requireNamespace("sf", quietly = TRUE)) {
 #' nc <- sf::st_read(system.file("shape/nc.shp", package="sf"))
-#' 
+#'
 #' ggplot(nc) +
 #'   stat_sf_coordinates()
-#' 
+#'
 #' ggplot(nc) +
 #'   geom_errorbarh(
 #'     aes(geometry = geometry,
@@ -47,7 +47,7 @@
 #'     stat = "sf_coordinates"
 #'   )
 #' }
-#' 
+#'
 #' @export
 #' @inheritParams stat_identity
 #' @inheritParams geom_point
@@ -62,16 +62,6 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
                                 show.legend = NA, inherit.aes = TRUE,
                                 fun.geometry = NULL,
                                 ...) {
-  # Automatically determin name of geometry column
-  if (!is.null(data) && is_sf(data)) {
-    geometry_col <- attr(data, "sf_column")
-  } else {
-    geometry_col <- "geometry"
-  }
-  if (is.null(mapping$geometry)) {
-    mapping$geometry <- as.name(geometry_col)
-  }
-
   layer(
     stat = StatSfCoordinates,
     data = data,
@@ -84,7 +74,8 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
       na.rm = na.rm,
       fun.geometry = fun.geometry,
       ...
-    )
+    ),
+    layer_class = LayerSf
   )
 }
 
@@ -98,7 +89,7 @@ StatSfCoordinates <- ggproto(
     if (is.null(fun.geometry)) {
       fun.geometry <- function(x) sf::st_point_on_surface(sf::st_zm(x))
     }
-    
+
     points_sfc <- fun.geometry(data$geometry)
     coordinates <- sf::st_coordinates(points_sfc)
     data$x <- coordinates[, "X"]

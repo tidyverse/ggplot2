@@ -86,11 +86,11 @@ make_summary_fun <- function(fun.data, fun.y, fun.ymax, fun.ymin, fun.args) {
     }
 
     function(df, ...) {
-      data.frame(
+      new_data_frame(list(
         ymin = call_f(fun.ymin, df$y),
         y = call_f(fun.y, df$y),
         ymax = call_f(fun.ymax, df$y)
-      )
+      ))
     }
   } else {
     message("No summary function supplied, defaulting to `mean_se()")

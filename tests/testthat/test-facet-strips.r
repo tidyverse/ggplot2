@@ -123,7 +123,7 @@ test_that("facet_grid() switches to both 'x' and 'y'", {
 })
 
 test_that("strips can be removed", {
-  dat <- data.frame(a = rep(LETTERS[1:10], 10), x = rnorm(100), y = rnorm(100))
+  dat <- data_frame(a = rep(LETTERS[1:10], 10), x = rnorm(100), y = rnorm(100))
   g <- ggplot(dat, aes(x = x, y = y)) +
     geom_point() +
     facet_wrap(~a) +
@@ -135,6 +135,6 @@ test_that("strips can be removed", {
 
 test_that("y strip labels are rotated when strips are switched", {
   switched <- p + facet_grid(am ~ cyl, switch = "both")
-  
+
   expect_doppelganger("switched facet strips", switched)
 })

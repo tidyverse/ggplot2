@@ -1,7 +1,7 @@
 context("coord_polar")
 
 test_that("polar distance is calculated correctly", {
-  dat <- data.frame(
+  dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
     r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5))
 
@@ -75,7 +75,7 @@ test_that("polar coordinates draw correctly", {
       axis.title = element_blank(),
       panel.grid.major = element_line(colour = "grey90")
     )
-  dat <- data.frame(x = 0:1, y = rep(c(1, 10, 40, 80), each = 2))
+  dat <- data_frame(x = rep(0:1, 4), y = rep(c(1, 10, 40, 80), each = 2))
 
   expect_doppelganger("three-concentric-circles",
     ggplot(dat, aes(x, y, group = factor(y))) +
@@ -84,7 +84,7 @@ test_that("polar coordinates draw correctly", {
       theme
   )
 
-  dat <- data.frame(
+  dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
     r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5),
     g     = 1:8
@@ -97,7 +97,7 @@ test_that("polar coordinates draw correctly", {
       theme
   )
 
-  dat <- data.frame(x = LETTERS[1:3], y = 1:3)
+  dat <- data_frame(x = LETTERS[1:3], y = 1:3)
   expect_doppelganger("rose plot with has equal spacing",
     ggplot(dat, aes(x, y)) +
       geom_bar(stat = "identity") +

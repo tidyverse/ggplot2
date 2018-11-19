@@ -71,7 +71,7 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       xmax <- max(data$x, na.rm = TRUE)
       xseq <- seq(xmin, xmax, length.out = 100)
     }
-    grid <- data.frame(x = xseq)
+    grid <- new_data_frame(list(x = xseq))
 
     method <- match.fun(method)
 

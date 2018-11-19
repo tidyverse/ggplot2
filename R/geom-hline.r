@@ -11,7 +11,7 @@ geom_hline <- function(mapping = NULL, data = NULL,
 
   # Act like an annotation
   if (!missing(yintercept)) {
-    data <- data.frame(yintercept = yintercept)
+    data <- new_data_frame(list(yintercept = yintercept))
     mapping <- aes(yintercept = yintercept)
     show.legend <- FALSE
   }
