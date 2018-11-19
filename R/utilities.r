@@ -308,6 +308,14 @@ upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
 to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
 
+tolower <- function(x) {
+  stop('Please use `to_lower_ascii()`, which works fine in Turkish locale.', call. = FALSE)
+}
+
+toupper <- function(x) {
+  stop('Please use `to_upper_ascii()`, which works fine in Turkish locale.', call. = FALSE)
+}
+
 # Convert a snake_case string to camelCase
 camelize <- function(x, first = FALSE) {
   x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
