@@ -302,6 +302,12 @@ has_name <- function(x) {
   !is.na(nms) & nms != ""
 }
 
+# Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
+lower_ascii <- "abcdefghijklmnopqrstuvwxyz"
+upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+tolower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
+toupper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
+
 # Convert a snake_case string to camelCase
 camelize <- function(x, first = FALSE) {
   x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
@@ -313,11 +319,11 @@ snakeize <- function(x) {
   x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
   x <- gsub(".", "_", x, fixed = TRUE)
   x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
-  tolower(x)
+  tolower_ascii(x)
 }
 
 firstUpper <- function(s) {
-  paste(toupper(substring(s, 1,1)), substring(s, 2), sep = "")
+  paste0(toupper_ascii(substring(s, 1, 1)), substring(s, 2))
 }
 
 snake_class <- function(x) {

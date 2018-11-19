@@ -46,7 +46,7 @@ fortify.glht <- function(model, data, ...) {
 #' @export
 fortify.confint.glht <- function(model, data, ...) {
   coef <- model$confint
-  colnames(coef) <- tolower(colnames(coef))
+  colnames(coef) <- tolower_ascii(colnames(coef))
 
   plyr::unrowname(base::data.frame(
     lhs = rownames(coef),
