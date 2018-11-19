@@ -39,15 +39,10 @@ df_rows <- function(x, i) {
 }
 
 # More performant modifyList without recursion
-modify_list <- function(old, new, keep_null = FALSE) {
-  if (keep_null) {
-    for (i in names(new)) {
-      old[i] <- list(new[[i]])
-    }
-  } else {
-    for (i in names(new)) {
-      old[[i]] <- new[[i]]
-    }
-  }
+modify_list <- function(old, new) {
+  for (i in names(new)) old[[i]] <- new[[i]]
   old
+}
+modifyList <- function(...) {
+  stop('Please use `modify_list()` instead of `modifyList()` for better performance. See the vignette "ggplot2 internal programming guidelines" for details.', call. = FALSE)
 }
