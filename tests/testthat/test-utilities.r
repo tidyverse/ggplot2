@@ -87,3 +87,18 @@ test_that("parse_safe works with multi expressions", {
     expression(NA, 1, 2, a)
   )
 })
+
+test_that("Turkish dotless and dotted i are handled properly", {
+  # check if tr_TR locale is available
+  x <- try(system("locale -a", intern = TRUE), silent = TRUE)
+  skip_if_not(any(x == "tr_TR"))
+
+  withr::with_locale(
+    c(LC_CTYPE = "tr_TR.UTF-8"),
+    {
+      expect_identical(to_upper_ascii("i"), "I")
+      expect_identical(to_lower_ascii("I"), "i")
+      expect_identical(firstUpper("identity"), "Identity")
+    }
+  )
+})
