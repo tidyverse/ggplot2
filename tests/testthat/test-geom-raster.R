@@ -7,7 +7,7 @@ test_that("geom_raster draws correctly", {
   set.seed(1)
 
   # 3 x 2 ----------------------------------------------------------------------
-  df <- data.frame(x = rep(c(-1, 1), each = 3), y = rep(-1:1, 2), z = 1:6)
+  df <- data_frame(x = rep(c(-1, 1), each = 3), y = rep(-1:1, 2), z = 1:6)
 
   expect_doppelganger("3 x 2",
     ggplot(df, aes(x, y, fill = z)) + geom_raster() + geom_point(colour = "red")
@@ -22,7 +22,7 @@ test_that("geom_raster draws correctly", {
   )
 
   # 1 x 3 ----------------------------------------------------------------------
-  df <- data.frame(x = -1:1, y = 0, z = 1:3)
+  df <- data_frame(x = -1:1, y = 0, z = 1:3)
 
   expect_doppelganger("1 x 3",
     ggplot(df, aes(x, y, fill = z)) + geom_raster() + geom_point(colour = "red")
@@ -38,7 +38,7 @@ test_that("geom_raster draws correctly", {
 
   # 3 x 1 ----------------------------------------------------------------------
 
-  df <- data.frame(x = 0, y = -1:1, z = 1:3)
+  df <- data_frame(x = 0, y = -1:1, z = 1:3)
   expect_doppelganger("3 x 1",
     ggplot(df, aes(x, y, fill = z)) + geom_raster() + geom_point(colour = "red")
   )

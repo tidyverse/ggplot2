@@ -5,6 +5,7 @@
 \alias{ggsf}
 \alias{StatSf}
 \alias{stat_sf}
+\alias{LayerSf}
 \alias{GeomSf}
 \alias{geom_sf}
 \alias{geom_sf_label}

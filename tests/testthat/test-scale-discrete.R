@@ -49,7 +49,7 @@ test_that("NAs are translated/preserved for non-position scales", {
 # Ranges ------------------------------------------------------------------
 
 test_that("discrete ranges also encompass continuous values", {
-  df <- data.frame(x1 = c("a", "b", "c"), x2 = c(0, 2, 4), y = 1:3)
+  df <- data_frame(x1 = c("a", "b", "c"), x2 = c(0, 2, 4), y = 1:3)
 
   base <- ggplot(df, aes(y = y)) + scale_x_discrete()
 
@@ -63,7 +63,7 @@ test_that("discrete ranges also encompass continuous values", {
 })
 
 test_that("discrete scale shrinks to range when setting limits", {
-  df <- data.frame(x = letters[1:10], y = 1:10)
+  df <- data_frame(x = letters[1:10], y = 1:10)
   p <- ggplot(df, aes(x, y)) + geom_point() +
     scale_x_discrete(limits = c("a", "b"))
 

@@ -1,7 +1,7 @@
 context("position_dodge")
 
 test_that("can control whether to preserve total or individual width", {
-  df <- data.frame(x = c("a", "b", "b"), y = c("a", "a", "b"))
+  df <- data_frame(x = c("a", "b", "b"), y = c("a", "a", "b"))
 
   p_total <- ggplot(df, aes(x, fill = y)) +
     geom_bar(position = position_dodge(preserve = "total"), width = 1)
