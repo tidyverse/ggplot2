@@ -19,6 +19,8 @@
 
 * Closed arrows in `element_line()` are now filled (@yutannihilation, #2924).
 
+* ggplot2 now works in Turkish locale (@yutannihilation, #3011).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
