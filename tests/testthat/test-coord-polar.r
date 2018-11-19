@@ -67,8 +67,8 @@ test_that("clipping can be turned off and on", {
 
 test_that("Inf is squished to range", {
   d <- cdata(
-    ggplot(data_frame(x = LETTERS[1:3], y = 1:3), aes(x, y)) +
-      geom_bar(stat = "identity") +
+    ggplot(data_frame(x = "a", y = 1), aes(x, y)) +
+      geom_col() +
       coord_polar() +
       annotate("text", Inf, Inf, label = "Top-Center") +
       annotate("text", -Inf, -Inf, label = "Center-Center")
