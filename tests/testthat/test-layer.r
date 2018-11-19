@@ -61,9 +61,16 @@ test_that("layer_data returns a data.frame", {
 # Locale ------------------------------------------------------------------
 
 test_that("Turkish dotless and dotted i are handled properly", {
+  # check if tr_TR locale is available
+  x <- try(system("locale -a", intern = TRUE), silent = TRUE)
+  skip_if_not(any(x == "tr_TR"))
+
   withr::with_locale(
     c(LC_CTYPE = "tr_TR.UTF-8"),
-    expect_identical(toupper("i"), "\u0130"),
-    expect_s3_class(stat_identity()$stat, "StatIdentity")
+    {
+      expect_identical(toupper("i"), "\u0130")
+      expect_identical(to_upper_ascii("i"), "I")
+      expect_s3_class(stat_identity()$stat, "StatIdentity")
+    }
   )
 })
