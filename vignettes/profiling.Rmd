@@ -67,3 +67,6 @@ are summarised below:
   and will just lead to slower code. The `data.frame()` call is now only used
   when dealing with output from other packages where the extra safety is a 
   benefit.
+- **Speed up position transformation** The `transform_position` helper was 
+  unreasonably slow due to the slowness of getting and assigning columns in 
+  data.frame. The input is now treated as a list during transformation.
