@@ -75,6 +75,7 @@ Position <- ggproto("Position",
 #' @keywords internal
 #' @export
 transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
+  # Treat df as list during transformation for faster set/get
   oldclass <- class(df)
   df <- unclass(df)
   scales <- aes_to_scale(names(df))
