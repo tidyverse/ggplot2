@@ -14,7 +14,7 @@ test_that("USA state map drawn", {
 
 test_that("Inf is squished to range", {
   d <- cdata(
-    ggplot(data.frame(x = 0, y = 0)) +
+    ggplot(data_frame(x = 0, y = 0)) +
       geom_point(aes(x,y)) +
       annotate("text", -Inf, Inf, label = "Top-left") +
       coord_map()
