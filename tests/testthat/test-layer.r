@@ -57,3 +57,13 @@ test_that("layer_data returns a data.frame", {
   l <- geom_point(data = nrow)
   expect_error(l$layer_data(mtcars), "Data function must return a data.frame")
 })
+
+# Locale ------------------------------------------------------------------
+
+test_that("Turkish dotless and dotted i are handled properly", {
+  withr::with_locale(
+    c(LC_CTYPE = "tr_TR.UTF-8"),
+    expect_identical(toupper("i"), "\u0130"),
+    expect_s3_class(stat_identity()$stat, "StatIdentity")
+  )
+})
