@@ -1,7 +1,7 @@
 context("Scales")
 
 test_that("building a plot does not affect its scales", {
-  dat <- data.frame(x = rnorm(20), y = rnorm(20))
+  dat <- data_frame(x = rnorm(20), y = rnorm(20))
 
   p <- ggplot(dat, aes(x, y)) + geom_point()
   expect_equal(length(p$scales$scales), 0)
@@ -13,37 +13,37 @@ test_that("building a plot does not affect its scales", {
 test_that("ranges update only for variables listed in aesthetics", {
   sc <- scale_alpha()
 
-  sc$train_df(data.frame(alpha = 1:10))
+  sc$train_df(data_frame(alpha = 1:10))
   expect_equal(sc$range$range, c(1, 10))
 
-  sc$train_df(data.frame(alpha = 50))
+  sc$train_df(data_frame(alpha = 50))
   expect_equal(sc$range$range, c(1, 50))
 
-  sc$train_df(data.frame(beta = 100))
+  sc$train_df(data_frame(beta = 100))
   expect_equal(sc$range$range, c(1, 50))
 
-  sc$train_df(data.frame())
+  sc$train_df(data_frame())
   expect_equal(sc$range$range, c(1, 50))
 })
 
 test_that("mapping works", {
   sc <- scale_alpha(range = c(0, 1), na.value = 0)
-  sc$train_df(data.frame(alpha = 1:10))
+  sc$train_df(data_frame(alpha = 1:10))
 
   expect_equal(
-    sc$map_df(data.frame(alpha = 1:10))[[1]],
+    sc$map_df(data_frame(alpha = 1:10))[[1]],
     seq(0, 1, length.out = 10)
   )
 
-  expect_equal(sc$map_df(data.frame(alpha = NA))[[1]], 0)
+  expect_equal(sc$map_df(data_frame(alpha = NA))[[1]], 0)
 
   expect_equal(
-    sc$map_df(data.frame(alpha = c(-10, 11)))[[1]],
+    sc$map_df(data_frame(alpha = c(-10, 11)))[[1]],
     c(0, 0))
 })
 
 test_that("identity scale preserves input values", {
-  df <- data.frame(x = 1:3, z = letters[1:3])
+  df <- data_frame(x = 1:3, z = factor(letters[1:3]))
 
   # aesthetic-specific scales
   p1 <- ggplot(df,
@@ -74,7 +74,7 @@ test_that("identity scale preserves input values", {
 })
 
 test_that("position scales are updated by all position aesthetics", {
-  df <- data.frame(x = 1:3, y = 1:3)
+  df <- data_frame(x = 1:3, y = 1:3)
 
   aesthetics <- list(
     aes(xend = x, yend = x),
@@ -94,7 +94,7 @@ test_that("position scales are updated by all position aesthetics", {
 })
 
 test_that("position scales generate after stats", {
-  df <- data.frame(x = factor(c(1, 1, 1)))
+  df <- data_frame(x = factor(c(1, 1, 1)))
   plot <- ggplot(df, aes(x)) + geom_bar()
   ranges <- pranges(plot)
 
@@ -103,7 +103,7 @@ test_that("position scales generate after stats", {
 })
 
 test_that("oob affects position values", {
-  dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
+  dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
   base <- ggplot(dat, aes(x, y)) +
     geom_col() +
     annotate("point", x = "a", y = c(-Inf, Inf))
@@ -175,7 +175,7 @@ test_that("find_global searches in the right places", {
 })
 
 test_that("scales warn when transforms introduces non-finite values", {
-  df <- data.frame(x = c(1e1, 1e5), y = c(0, 100))
+  df <- data_frame(x = c(1e1, 1e5), y = c(0, 100))
 
   p <- ggplot(df, aes(x, y)) +
     geom_point(size = 5) +
@@ -185,7 +185,7 @@ test_that("scales warn when transforms introduces non-finite values", {
 })
 
 test_that("scales get their correct titles through layout", {
-  df <- data.frame(x = c(1e1, 1e5), y = c(0, 100))
+  df <- data_frame(x = c(1e1, 1e5), y = c(0, 100))
 
   p <- ggplot(df, aes(x, y)) +
     geom_point(size = 5)
@@ -196,7 +196,7 @@ test_that("scales get their correct titles through layout", {
 })
 
 test_that("size and alpha scales throw appropriate warnings for factors", {
-  df <- data.frame(
+  df <- data_frame(
     x = 1:3,
     y = 1:3,
     d = LETTERS[1:3],
@@ -219,7 +219,7 @@ test_that("size and alpha scales throw appropriate warnings for factors", {
 })
 
 test_that("shape scale throws appropriate warnings for factors", {
-  df <- data.frame(
+  df <- data_frame(
     x = 1:3,
     y = 1:3,
     d = LETTERS[1:3],
@@ -238,7 +238,7 @@ test_that("shape scale throws appropriate warnings for factors", {
 })
 
 test_that("aesthetics can be set independently of scale name", {
-  df <- data.frame(
+  df <- data_frame(
     x = LETTERS[1:3],
     y = LETTERS[4:6]
   )
@@ -249,7 +249,7 @@ test_that("aesthetics can be set independently of scale name", {
 })
 
 test_that("multiple aesthetics can be set with one function call", {
-  df <- data.frame(
+  df <- data_frame(
     x = LETTERS[1:3],
     y = LETTERS[4:6]
   )
@@ -263,7 +263,7 @@ test_that("multiple aesthetics can be set with one function call", {
   expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
 
   # color order is determined by data order, and breaks are combined where possible
-  df <- data.frame(
+  df <- data_frame(
     x = LETTERS[1:3],
     y = LETTERS[2:4]
   )

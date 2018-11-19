@@ -16,7 +16,7 @@ test_that("spatial polygons have correct ordering", {
     p
   }
 
-  fake_data <- data.frame(ids = 1:5, region = c(1,1,2,3,4))
+  fake_data <- data_frame(ids = 1:5, region = c(1,1,2,3,4))
   rownames(fake_data) <- 1:5
   polys <- list(sp::Polygons(list(make_square(), make_hole()), 1),
                 sp::Polygons(list(make_square(1,0), make_square(2, 0)), 2),

@@ -1,7 +1,7 @@
 context("geom_rule")
 # tests for geom_vline, geom_hline & geom_abline
 
-df <- data.frame(x = 1:3, y = 3:1)
+df <- data_frame(x = 1:3, y = 3:1)
 p <- ggplot(df, aes(x, y)) + geom_point()
 p_col <- ggplot(df, aes(x, y, colour = factor(x))) + geom_point()
 

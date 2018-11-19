@@ -252,10 +252,10 @@ CoordMap <- ggproto("CoordMap", Coord,
       ))
     }
 
-    x_intercept <- with(panel_params, data.frame(
+    x_intercept <- with(panel_params, new_data_frame(list(
       x = x.major,
       y = y.range[1]
-    ))
+    ), n = length(x.major)))
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
@@ -276,10 +276,10 @@ CoordMap <- ggproto("CoordMap", Coord,
       ))
     }
 
-    x_intercept <- with(panel_params, data.frame(
+    x_intercept <- with(panel_params, new_data_frame(list(
       x = x.range[1],
       y = y.major
-    ))
+    ), n = length(y.major)))
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(

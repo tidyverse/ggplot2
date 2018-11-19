@@ -1,7 +1,7 @@
 context("position_nudge")
 
 test_that("nudging works in both dimensions simultaneously", {
-  df <- data.frame(x = 1:3)
+  df <- data_frame(x = 1:3)
 
   p <- ggplot(df, aes(x, x, xmax = x, xmin = x, ymax = x, ymin = x)) +
     geom_point(position = position_nudge(x = 1, y = 2))
@@ -17,7 +17,7 @@ test_that("nudging works in both dimensions simultaneously", {
 })
 
 test_that("nudging works in individual dimensions", {
-  df <- data.frame(x = 1:3)
+  df <- data_frame(x = 1:3)
 
   # nudging in x
   # use an empty layer so can test individual aesthetics

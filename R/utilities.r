@@ -393,7 +393,7 @@ find_args <- function(...) {
 
 # Used in annotations to ensure printed even when no
 # global data
-dummy_data <- function() data.frame(x = NA)
+dummy_data <- function() new_data_frame(list(x = NA), n = 1)
 
 with_seed_null <- function(seed, code) {
   if (is.null(seed)) {
@@ -418,7 +418,7 @@ NULL
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
   x <- lapply(x, validate_column_vec)
-  as.data.frame(tibble::as_tibble(x))
+  new_data_frame(tibble::as_tibble(x))
 }
 validate_column_vec <- function(x) {
   if (is_column_vec(x)) {

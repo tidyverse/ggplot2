@@ -2,12 +2,12 @@ context("position_dodge2")
 
 test_that("find_x_overlaps identifies overlapping groups", {
 
-  df1 <- data.frame(
+  df1 <- data_frame(
     xmin = c(1, 3, 6, 11, 13),
     xmax = c(5, 7, 9, 15, 16)
   )
 
-  df2 <- data.frame(
+  df2 <- data_frame(
     xmin = c(0.85, 0.80, 1.90, 1.90, 2.80),
     xmax = c(1.15, 1.20, 2.10, 2.05, 3.20)
   )
@@ -17,13 +17,13 @@ test_that("find_x_overlaps identifies overlapping groups", {
 })
 
 test_that("single element is rescaled based on n", {
-  df <- data.frame(xmin = 1, xmax = 2)
+  df <- data_frame(xmin = 1, xmax = 2)
   out <- pos_dodge2(df, n = 2)
   expect_equal(out$xmax - out$xmin, 0.5)
 })
 
 test_that("rectangles are dodged", {
-  df <- data.frame(
+  df <- data_frame(
     xmin = c(1, 3, 6, 11, 13),
     xmax = c(5, 7, 9, 15, 16),
     ymin = c(1, 1, 5, 2, 2),
@@ -38,7 +38,7 @@ test_that("rectangles are dodged", {
 })
 
 test_that("cols at the same x position are dodged", {
-  df <- data.frame(
+  df <- data_frame(
     x = c("a", "a", "b"),
     n = c(1, 5, 10),
     stringsAsFactors = FALSE

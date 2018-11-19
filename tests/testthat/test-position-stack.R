@@ -1,7 +1,7 @@
 context("position_stack")
 
 test_that("data is sorted prior to stacking", {
-  df <- data.frame(
+  df <- data_frame(
     x = rep(c(1:10), 3),
     var = rep(c("a", "b", "c"), 10),
     y = round(runif(30, 1, 5))
@@ -13,7 +13,7 @@ test_that("data is sorted prior to stacking", {
 })
 
 test_that("negative and positive values are handled separately", {
-  df <- data.frame(
+  df <- data_frame(
     x = c(1,1,1,2,2),
     g = c(1,2,3,1,2),
     y = c(1,-1,1,2,-3)
@@ -29,7 +29,7 @@ test_that("negative and positive values are handled separately", {
 })
 
 test_that("can request reverse stacking", {
-  df <- data.frame(
+  df <- data_frame(
     y = c(-2, 2, -1, 1),
     g = c("a", "a", "b", "b")
   )
@@ -40,7 +40,7 @@ test_that("can request reverse stacking", {
 })
 
 test_that("data with no extent is stacked correctly", {
-  df = data.frame(
+  df <- data_frame(
     x = c(1, 1),
     y = c(-40, -75),
     group = letters[1:2]

@@ -91,13 +91,13 @@ Stat <- ggproto("Stat",
       tryCatch(do.call(self$compute_panel, args), error = function(e) {
         warning("Computation failed in `", snake_class(self), "()`:\n",
           e$message, call. = FALSE)
-        data.frame()
+        new_data_frame()
       })
     })
   },
 
   compute_panel = function(self, data, scales, ...) {
-    if (empty(data)) return(data.frame())
+    if (empty(data)) return(new_data_frame())
 
     groups <- split(data, data$group)
     stats <- lapply(groups, function(group) {
@@ -105,7 +105,7 @@ Stat <- ggproto("Stat",
     })
 
     stats <- mapply(function(new, old) {
-      if (empty(new)) return(data.frame())
+      if (empty(new)) return(new_data_frame())
       unique <- uniquecols(old)
       missing <- !(names(unique) %in% names(new))
       cbind(

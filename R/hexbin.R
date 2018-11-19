@@ -34,7 +34,7 @@ hexBinSummarise <- function(x, y, z, binwidth, fun = mean, fun.args = list(), dr
   value <- do.call(tapply, c(list(quote(z), quote(hb@cID), quote(fun)), fun.args))
 
   # Convert to data frame
-  out <- as.data.frame(hexbin::hcell2xy(hb))
+  out <- new_data_frame(hexbin::hcell2xy(hb))
   out$value <- as.vector(value)
 
   if (drop) out <- stats::na.omit(out)
