@@ -1,6 +1,6 @@
 pandoc: '2.2'
 pkgdown: 1.1.0.9000
-pkgdown_sha: 9f7d0025689c6fc14c55d7af52dba698972694e3
+pkgdown_sha: 11facef9e1e52cd26bce76684a4835a32b7e35d2
 articles:
   extending-ggplot2: extending-ggplot2.html
   ggplot2-specs: ggplot2-specs.html
