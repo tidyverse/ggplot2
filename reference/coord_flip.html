@@ -35,7 +35,7 @@
 vertical, horizontal. This is primarily useful for converting geoms and
 statistics which display y conditional on x, to x conditional on y." />
 
-<meta property="og:image" content="ggplot2.tidyverse.org/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -184,7 +184,7 @@ limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</
       <td><p>Should drawing be clipped to the extent of the plot panel? A
 setting of <code>"on"</code> (the default) means yes, and a setting of <code>"off"</code>
 means no. In most cases, the default of <code>"on"</code> should not be changed,
-as setting <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>clip = "off"</a></code> can cause unexpected results. It allows
+as setting <code>clip = "off"</code> can cause unexpected results. It allows
 drawing of data points anywhere on the plot, including in the plot margins. If
 limits are set via <code>xlim</code> and <code>ylim</code> and some data points fall outside those
 limits, then those data points may show up in places such as the axes, the

@@ -39,7 +39,7 @@ on what simple features are present in the data: you can get points, lines,
 or polygons.
 For text and labels, you can use geom_sf_text() and geom_sf_label()." />
 
-<meta property="og:image" content="ggplot2.tidyverse.org/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -198,7 +198,7 @@ For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_l
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -248,7 +248,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
+<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -286,7 +286,7 @@ Useful for offsetting text from points, particularly on discrete scales.</p></td
     <tr>
       <th>fun.geometry</th>
       <td><p>A function that takes a <code>sfc</code> object and returns a <code>sfc_POINT</code> with the
-same length as the input. If <code>NULL</code>, <code><a href='https://www.rdocumentation.org/packages/base/topics/function'>function(x) sf::st_point_on_surface(sf::st_zm(x))</a></code>
+same length as the input. If <code>NULL</code>, <code>function(x) sf::st_point_on_surface(sf::st_zm(x))</code>
 will be used. Note that the function may warn about the incorrectness of
 the result if the data is not projected, but you can ignore this except
 when you really care about the exact locations.</p></td>
@@ -326,8 +326,8 @@ where. Meridians run north-south, and the letters <code>"N"</code> and <code>"S"
 they should be labeled on their north or south end points, respectively.
 Parallels run east-west, and the letters <code>"E"</code> and <code>"W"</code> indicate that they
 should be labeled on their east or west end points, respectively. Thus,
-<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>label_graticule = "SW"</a></code> would label meridians at their south end and parallels at
-their west end, whereas <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>label_graticule = "EW"</a></code> would label parallels at both
+<code>label_graticule = "SW"</code> would label meridians at their south end and parallels at
+their west end, whereas <code>label_graticule = "EW"</code> would label parallels at both
 ends and meridians not at all. Because meridians and parallels can in general
 intersect with any side of the plot panel, for any choice of <code>label_graticule</code> labels
 are not guaranteed to reside on only one particular side of the plot panel.</p>
@@ -361,7 +361,7 @@ is suppressed.</p></td>
       <td><p>Should drawing be clipped to the extent of the plot panel? A
 setting of <code>"on"</code> (the default) means yes, and a setting of <code>"off"</code>
 means no. In most cases, the default of <code>"on"</code> should not be changed,
-as setting <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>clip = "off"</a></code> can cause unexpected results. It allows
+as setting <code>clip = "off"</code> can cause unexpected results. It allows
 drawing of data points anywhere on the plot, including in the plot margins. If
 limits are set via <code>xlim</code> and <code>ylim</code> and some data points fall outside those
 limits, then those data points may show up in places such as the axes, the

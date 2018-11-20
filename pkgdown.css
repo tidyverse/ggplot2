@@ -58,6 +58,11 @@ img {
   max-width: 100%;
 }
 
+/* Fix bug in bootstrap (only seen in firefox) */
+summary {
+  display: list-item;
+}
+
 /* Typographic tweaking ---------------------------------*/
 
 .contents h1.page-header {

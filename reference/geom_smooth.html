@@ -36,7 +36,7 @@ geom_smooth() and stat_smooth() are effectively aliases: they
 both use the same arguments. Use stat_smooth() if you want to
 display the results with a non-standard geom." />
 
-<meta property="og:image" content="ggplot2.tidyverse.org/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -178,7 +178,7 @@ display the results with a non-standard geom.</p>
     <tr>
       <th>mapping</th>
       <td><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
-<code><a href='aes_.html'>aes_()</a></code>. If specified and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>inherit.aes = TRUE</a></code> (the
+<code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></td>
     </tr>
@@ -204,7 +204,7 @@ a call to a position adjustment function.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code><a href='layer.html'>layer()</a></code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>colour = "red"</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>size = 3</a></code>. They may also be parameters
+<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
@@ -212,20 +212,20 @@ to the paired geom/stat.</p></td>
       <td><p>Smoothing method (function) to use, accepts either a character vector,
 e.g. <code>"auto"</code>, <code>"lm"</code>, <code>"glm"</code>, <code>"gam"</code>, <code>"loess"</code> or a function, e.g.
 <code><a href='https://www.rdocumentation.org/packages/MASS/topics/rlm'>MASS::rlm</a></code> or <code><a href='https://www.rdocumentation.org/packages/mgcv/topics/gam'>mgcv::gam</a></code>, <code>base::lm</code>, or <code>base::loess</code>.</p>
-<p>For <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>method = "auto"</a></code> the smoothing method is chosen based on the
+<p>For <code>method = "auto"</code> the smoothing method is chosen based on the
 size of the largest group (across all panels). <code><a href='https://www.rdocumentation.org/packages/stats/topics/loess'>loess()</a></code> is
 used for less than 1,000 observations; otherwise <code><a href='https://www.rdocumentation.org/packages/mgcv/topics/gam'>mgcv::gam()</a></code> is
-used with <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>formula = y ~ s(x, bs = "cs")</a></code>. Somewhat anecdotally,
+used with <code>formula = y ~ s(x, bs = "cs")</code>. Somewhat anecdotally,
 <code>loess</code> gives a better appearance, but is \(O(N^{2})\) in memory,
 so does not work for larger datasets.</p>
 <p>If you have fewer than 1,000 observations but want to use the same <code>gam()</code>
-model that <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>method = "auto"</a></code> would use, then set
+model that <code>method = "auto"</code> would use, then set
 <code>method = "gam", formula = y ~ s(x, bs = "cs")</code>.</p></td>
     </tr>
     <tr>
       <th>formula</th>
-      <td><p>Formula to use in smoothing function, eg. <code><a href='https://www.rdocumentation.org/packages/base/topics/tilde'>y ~ x</a></code>,
-<code><a href='https://www.rdocumentation.org/packages/base/topics/tilde'>y ~ poly(x, 2)</a></code>, <code><a href='https://www.rdocumentation.org/packages/base/topics/tilde'>y ~ log(x)</a></code></p></td>
+      <td><p>Formula to use in smoothing function, eg. <code>y ~ x</code>,
+<code>y ~ poly(x, 2)</code>, <code>y ~ log(x)</code></p></td>
     </tr>
     <tr>
       <th>se</th>

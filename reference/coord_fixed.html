@@ -39,7 +39,7 @@ length as one unit on the y-axis. Ratios higher than one make units on the
 y axis longer than units on the x-axis, and vice versa. This is similar to
 MASS::eqscplot(), but it works for all types of graphics." />
 
-<meta property="og:image" content="ggplot2.tidyverse.org/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -161,7 +161,7 @@ MASS::eqscplot(), but it works for all types of graphics." />
     <p>A fixed scale coordinate system forces a specified ratio between the
 physical representation of data units on the axes. The ratio represents the
 number of units on the y-axis equivalent to one unit on the x-axis. The
-default, <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>ratio = 1</a></code>, ensures that one unit on the x-axis is the same
+default, <code>ratio = 1</code>, ensures that one unit on the x-axis is the same
 length as one unit on the y-axis. Ratios higher than one make units on the
 y axis longer than units on the x-axis, and vice versa. This is similar to
 <code><a href='https://www.rdocumentation.org/packages/MASS/topics/eqscplot'>MASS::eqscplot()</a></code>, but it works for all types of graphics.</p>
@@ -176,7 +176,7 @@ y axis longer than units on the x-axis, and vice versa. This is similar to
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>ratio</th>
-      <td><p>aspect ratio, expressed as <code><a href='https://www.rdocumentation.org/packages/base/topics/Arithmetic'>y / x</a></code></p></td>
+      <td><p>aspect ratio, expressed as <code>y / x</code></p></td>
     </tr>
     <tr>
       <th>xlim</th>
@@ -197,7 +197,7 @@ limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</
       <td><p>Should drawing be clipped to the extent of the plot panel? A
 setting of <code>"on"</code> (the default) means yes, and a setting of <code>"off"</code>
 means no. In most cases, the default of <code>"on"</code> should not be changed,
-as setting <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>clip = "off"</a></code> can cause unexpected results. It allows
+as setting <code>clip = "off"</code> can cause unexpected results. It allows
 drawing of data points anywhere on the plot, including in the plot margins. If
 limits are set via <code>xlim</code> and <code>ylim</code> and some data points fall outside those
 limits, then those data points may show up in places such as the axes, the

@@ -35,7 +35,7 @@
 makes n groups with (approximately) equal numbers of observations;
 cut_width makes groups of width width." />
 
-<meta property="og:image" content="ggplot2.tidyverse.org/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -190,7 +190,7 @@ makes <code>n</code> groups with (approximately) equal numbers of observations;
     intervals into which <code>x</code> is to be cut.</p></dd>
   <dt>labels</dt><dd><p>labels for the levels of the resulting category.  By default,
     labels are constructed using <code>"(a,b]"</code> interval notation.  If
-    <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>labels = FALSE</a></code>, simple integer codes are returned instead of
+    <code>labels = FALSE</code>, simple integer codes are returned instead of
     a factor.</p></dd>
   <dt>right</dt><dd><p>logical, indicating if the intervals should be closed on
     the right (and open on the left) or vice versa.</p></dd>
@@ -210,8 +210,8 @@ a bin. Since all bins are aligned, specifying the position of a single bin
 (which doesn't need to be in the range of the data) affects the location of
 all bins. If not specified, uses the "tile layers algorithm", and sets
 the boundary to half of the binwidth.</p>
-<p>To center on integers, <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>width = 1</a></code> and <code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>center = 0</a></code>.
-<code><a href='https://www.rdocumentation.org/packages/base/topics/assignOps'>boundary = 0.5</a></code>.</p></td>
+<p>To center on integers, <code>width = 1</code> and <code>center = 0</code>.
+<code>boundary = 0.5</code>.</p></td>
     </tr>
     <tr>
       <th>closed</th>
