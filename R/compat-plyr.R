@@ -79,35 +79,98 @@ id <- function(.variables, drop = FALSE) {
     res
   }
 }
-
-count <- function (df, vars = NULL, wt_var = NULL) {
-  if (is.atomic(df)) {
-    df <- new_data_frame(list(x = df))
-  }
-  if (!is.null(vars)) {
-    df2 <- quickdf(eval.quoted(vars, df))
-  }
-  else {
-    df2 <- df
-  }
-  id <- ninteraction(df2, drop = TRUE)
+# Adapted from plyr::count
+count <- function(df, vars = NULL, wt_var = NULL) {
+  df2 <- new_data_frame(.subset(df, vars))
+  id <- id(df2, drop = TRUE)
   u_id <- !duplicated(id)
   labels <- df2[u_id, , drop = FALSE]
   labels <- labels[order(id[u_id]), , drop = FALSE]
-  if (is.null(wt_var) && "freq" %in% names(df)) {
-    message("Using freq as weighting variable")
-    wt_var <- "freq"
-  }
-  if (!is.null(wt_var)) {
-    wt_var <- as.quoted(wt_var)
-    if (length(wt_var) > 1) {
-      stop("wt_var must be a single variable", call. = FALSE)
+  wt <- .subset2(df, wt_var)
+  freq <- vapply(wt, id, sum)
+  new_data_frame(list(labels = labels, n = freq))
+}
+
+rbind_dfs <- function(dfs) {
+  out <- list()
+  columns <- unique(unlist(lapply(dfs, names)))
+  nrows <- vapply(dfs, .row_names_info, integer(1), type = 2L)
+  total <- sum(nrows)
+  if (length(columns) == 0) return(new_data_frame(list(), total))
+  allocated <- rep(FALSE, length(columns))
+  names(allocated) <- columns
+  for (df in dfs) {
+    new_columns <- intersect(names(df), columns[!allocated])
+    for (col in new_columns) {
+      out[[col]] <- rep(df[[col]][1][NA], total)
     }
-    wt <- eval.quoted(wt_var, df)[[1]]
-    freq <- vaggregate(wt, id, sum, .default = 0)
+    allocated[new_columns] <- TRUE
+    if (all(allocated)) break
+  }
+  pos <- c(cumsum(nrows) - nrows + 1)
+  for (i in seq_along(dfs)) {
+    df <- dfs[[i]]
+    rng <- seq(pos[i], length.out = nrows[i])
+    for (col in names(df)) {
+      out[[col]][rng] <- df[[col]]
+    }
+  }
+  attributes(out) <- list(class = "data.frame", row.names = .set_row_names(total))
+  out
+}
+# Adapted from plyr::join.keys
+join_keys <- function(x, y, by) {
+  joint <- rbind_dfs(list(x[by], y[by]))
+  keys <- id(joint, drop = TRUE)
+  n_x <- nrow(x)
+  n_y <- nrow(y)
+  list(x = keys[seq_len(n_x)], y = keys[n_x + seq_len(n_y)],
+       n = attr(keys, "n"))
+}
+revalue <- function(x, replace) {
+  if (is.character(x)) {
+    x[match(names(replace), x)] <- replace
+  } else if (is.factor(x)) {
+    lev <- levels(x)
+    lev[match(names(replace), lev)] <- replace
+    levels(x) <- lev
+  } else if (!is.null(x)) {
+    stop("x is not a factor or character vector", call. = FALSE)
+  }
+  x
+}
+simplify_formula <- function(x) {
+  if (length(x) == 2 && x[[1]] == as.name("~")) {
+    return(simplify(x[[2]]))
+  }
+  if (length(x) < 3)
+    return(list(x))
+  op <- x[[1]]
+  a <- x[[2]]
+  b <- x[[3]]
+  if (op == as.name("+") || op == as.name("*") || op ==
+      as.name("~")) {
+    c(simplify(a), simplify(b))
+  }
+  else if (op == as.name("-")) {
+    c(simplify(a), bquote(-.(x), list(x = simplify(b))))
   }
   else {
-    freq <- tabulate(id, attr(id, "n"))
+    list(x)
   }
-  unrowname(data.frame(labels, freq))
+}
+as.quoted <- function(x, env = parent.frame()) {
+  x <- if (is.character(x)) {
+    lapply(x, function(x) parse(text = x)[[1]])
+  } else if (is.formula(x)) {
+    simplify_formula(x)
+  } else {
+    stop("Only knows how to quote characters and formula", call. = FALSE)
+  }
+  attributes(x) <- list(env = env, class = 'quoted')
+  x
+}
+round_any <- function(x, accuracy, f = round) {
+  if (!is.numeric(x)) stop("x must be numeric", call. = FALSE)
+  f(x/accuracy) * accuracy
 }
