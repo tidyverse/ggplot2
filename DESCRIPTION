@@ -33,8 +33,7 @@ Imports:
     stats,
     tibble,
     viridisLite,
-    withr (>= 2.0.0),
-    grDevices
+    withr (>= 2.0.0)
 Suggests:
     covr,
     dplyr,
@@ -166,6 +165,7 @@ Collate:
     'layout.R'
     'limits.r'
     'margins.R'
+    'performance.R'
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'

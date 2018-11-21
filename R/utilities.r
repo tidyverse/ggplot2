@@ -302,6 +302,20 @@ has_name <- function(x) {
   !is.na(nms) & nms != ""
 }
 
+# Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
+lower_ascii <- "abcdefghijklmnopqrstuvwxyz"
+upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
+to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
+
+tolower <- function(x) {
+  stop('Please use `to_lower_ascii()`, which works fine in all locales.', call. = FALSE)
+}
+
+toupper <- function(x) {
+  stop('Please use `to_upper_ascii()`, which works fine in all locales.', call. = FALSE)
+}
+
 # Convert a snake_case string to camelCase
 camelize <- function(x, first = FALSE) {
   x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
@@ -313,11 +327,11 @@ snakeize <- function(x) {
   x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
   x <- gsub(".", "_", x, fixed = TRUE)
   x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
-  tolower(x)
+  to_lower_ascii(x)
 }
 
 firstUpper <- function(s) {
-  paste(toupper(substring(s, 1,1)), substring(s, 2), sep = "")
+  paste0(to_upper_ascii(substring(s, 1, 1)), substring(s, 2))
 }
 
 snake_class <- function(x) {
@@ -388,7 +402,7 @@ find_args <- function(...) {
   vals <- mget(args, envir = env)
   vals <- vals[!vapply(vals, is_missing_arg, logical(1))]
 
-  utils::modifyList(vals, list(..., `...` = NULL))
+  modify_list(vals, list(..., `...` = NULL))
 }
 
 # Used in annotations to ensure printed even when no

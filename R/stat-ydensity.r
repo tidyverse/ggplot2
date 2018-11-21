@@ -110,7 +110,7 @@ calc_bw <- function(x, bw) {
     if (length(x) < 2)
       stop("need at least 2 points to select a bandwidth automatically", call. = FALSE)
     bw <- switch(
-      tolower(bw),
+      to_lower_ascii(bw),
       nrd0 = stats::bw.nrd0(x),
       nrd = stats::bw.nrd(x),
       ucv = stats::bw.ucv(x),

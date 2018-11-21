@@ -67,3 +67,10 @@ are summarised below:
   and will just lead to slower code. The `data.frame()` call is now only used
   when dealing with output from other packages where the extra safety is a 
   benefit.
+- **Use a performant alternative to `utils::modifyList`** `modifyList()` is a 
+  nice convenience function but carries a lot of overhead. It was mainly used
+  in the plot element constructions where it slowed down the application of 
+  theme settings. A more performant version has been added and used throughout.
+- **Speed up position transformation** The `transform_position` helper was 
+  unreasonably slow due to the slowness of getting and assigning columns in 
+  data.frame. The input is now treated as a list during transformation.

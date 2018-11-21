@@ -341,7 +341,7 @@ is.layer <- function(x) inherits(x, "Layer")
 
 
 check_subclass <- function(x, subclass,
-                           argname = tolower(subclass),
+                           argname = to_lower_ascii(subclass),
                            env = parent.frame()) {
   if (inherits(x, subclass)) {
     x
