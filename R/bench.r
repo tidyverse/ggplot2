@@ -23,7 +23,7 @@ benchplot <- function(x) {
 
   times <- rbind(construct, build, render, draw)[, 1:3]
 
-  plyr::unrowname(base::data.frame(
+  unrowname(base::data.frame(
     step = c("construct", "build", "render", "draw", "TOTAL"),
     rbind(times, colSums(times))))
 }

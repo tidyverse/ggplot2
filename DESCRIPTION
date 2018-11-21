@@ -90,6 +90,7 @@ Collate:
     'backports.R'
     'bench.r'
     'bin.R'
+    'compat-plyr.R'
     'compat-quosures.R'
     'coord-.r'
     'coord-cartesian-.r'
@@ -244,6 +245,6 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
