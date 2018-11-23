@@ -145,7 +145,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       combine_vars(data, params$plot_env, vars, drop = params$drop)
     )
 
-    id <- plyr::id(base, drop = TRUE)
+    id <- id(base, drop = TRUE)
     n <- attr(id, "n")
 
     dims <- wrap_dims(n, params$nrow, params$ncol)
@@ -196,7 +196,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         to_add[facet_rep, , drop = FALSE]))
     }
 
-    keys <- plyr::join.keys(facet_vals, layout, by = names(vars))
+    keys <- join_keys(facet_vals, layout, by = names(vars))
 
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     data

@@ -1,4 +1,6 @@
+# Adds missing elements to a vector from a default vector
 defaults <- function(x, y) c(x, y[setdiff(names(y), names(x))])
+# Remove rownames from data frames and matrices
 unrowname <- function(x) {
   if (is.data.frame(x)) {
     attr(x, "row.names") <- .set_row_names(.row_names_info(x, 2L))
@@ -9,6 +11,21 @@ unrowname <- function(x) {
   }
   x
 }
+#' Rename elements in a list, data.frame or vector
+#'
+#' This is akin to `dplyr::rename` and `plyr::rename`. It renames elements given
+#' as names in the `replace` vector to the values in the `replace` vector
+#' without touching elements not referenced.
+#'
+#' @param x A data.frame or a named vector or list
+#' @param replace A named character vector. The names identifies the elements in
+#' `x` that should be renamed and the values gives the new names.
+#'
+#' @return `x`, with new names according to `replace`
+#'
+#' @keywords internal
+#' @export
+#'
 rename <- function(x, replace) {
   current_names <- names(x)
   old_names <- names(replace)
@@ -21,6 +38,7 @@ rename <- function(x, replace) {
   x
 }
 # Adapted from plyr:::id_vars
+# Create a unique id for elements in a single vector
 id_var <- function(x, drop = FALSE) {
   if (length(x) == 0) {
     id <- integer()
@@ -39,7 +57,22 @@ id_var <- function(x, drop = FALSE) {
   attr(id, "n") <- n
   id
 }
-# Adapted from plyr::id
+#' Create an unique integer id for each unique row in a data.frame
+#'
+#' Properties:
+#' - `order(id)` is equivalent to `do.call(order, df)`
+#' - rows containing the same data have the same value
+#' - if `drop = FALSE` then room for all possibilites
+#'
+#' @param .variables list of variables
+#' @param drop Should unused factor levels be dropped?
+#'
+#' @return An integer vector with attribute `n` giving the total number of
+#' possible unique rows
+#'
+#' @keywords internal
+#' @export
+#'
 id <- function(.variables, drop = FALSE) {
   nrows <- NULL
   if (is.data.frame(.variables)) {
@@ -79,46 +112,40 @@ id <- function(.variables, drop = FALSE) {
     res
   }
 }
-# Adapted from plyr::count
+#' Count number of occurences for each unique combination of variables
+#'
+#' Each unique combination of the variables in `df` given by `vars` will be
+#' identified and their occurences counted. If `wt_var` is given the counts will
+#' be weighted by the values in this column.
+#'
+#' @param df A data.frame
+#' @param vars A vector of column names. If `NULL` all columns in `df` will be
+#' used
+#' @param wt_var The name of a column to use as weight
+#'
+#' @return A data.frame with the unique combinations counted along with a `n`
+#' column giving the counts
+#'
+#' @keywords internal
+#' @export
+#'
 count <- function(df, vars = NULL, wt_var = NULL) {
-  df2 <- new_data_frame(.subset(df, vars))
+  df2 <- if (is.null(vars)) df else df[vars]
   id <- id(df2, drop = TRUE)
   u_id <- !duplicated(id)
   labels <- df2[u_id, , drop = FALSE]
   labels <- labels[order(id[u_id]), , drop = FALSE]
-  wt <- .subset2(df, wt_var)
-  freq <- vapply(wt, id, sum)
-  new_data_frame(list(labels = labels, n = freq))
-}
-
-rbind_dfs <- function(dfs) {
-  out <- list()
-  columns <- unique(unlist(lapply(dfs, names)))
-  nrows <- vapply(dfs, .row_names_info, integer(1), type = 2L)
-  total <- sum(nrows)
-  if (length(columns) == 0) return(new_data_frame(list(), total))
-  allocated <- rep(FALSE, length(columns))
-  names(allocated) <- columns
-  for (df in dfs) {
-    new_columns <- intersect(names(df), columns[!allocated])
-    for (col in new_columns) {
-      out[[col]] <- rep(df[[col]][1][NA], total)
-    }
-    allocated[new_columns] <- TRUE
-    if (all(allocated)) break
+  if (is.null(wt_var)) {
+    freq <- tabulate(id, attr(id, "n"))
+  } else {
+    wt <- .subset2(df, wt_var)
+    freq <- vapply(split(wt, id), sum, numeric(1))
   }
-  pos <- c(cumsum(nrows) - nrows + 1)
-  for (i in seq_along(dfs)) {
-    df <- dfs[[i]]
-    rng <- seq(pos[i], length.out = nrows[i])
-    for (col in names(df)) {
-      out[[col]][rng] <- df[[col]]
-    }
-  }
-  attributes(out) <- list(class = "data.frame", row.names = .set_row_names(total))
-  out
+  new_data_frame(c(as.list(labels), list(n = freq)))
 }
 # Adapted from plyr::join.keys
+# Create a shared unique id across two data frames such that common variable
+# combinations in the two data frames gets the same id
 join_keys <- function(x, y, by) {
   joint <- rbind_dfs(list(x[by], y[by]))
   keys <- id(joint, drop = TRUE)
@@ -127,11 +154,30 @@ join_keys <- function(x, y, by) {
   list(x = keys[seq_len(n_x)], y = keys[n_x + seq_len(n_y)],
        n = attr(keys, "n"))
 }
+#' Replace specified values with new values, in a factor or character vector
+#'
+#' An easy to use substitution of elements in a string-like vector (character or
+#' factor). If `x` is a character vector the matching elements will be replaced
+#' directly and if `x` is a factor the matching levels will be replaced
+#'
+#' @param x A character or factor vector
+#' @param replace A named character vector with the names corresponding to the
+#' elements to replace and the values giving the replacement.
+#'
+#' @return A vector of the same class as `x` with the given values replaced
+#'
+#' @keywords internal
+#' @export
+#'
 revalue <- function(x, replace) {
   if (is.character(x)) {
+    replace <- replace[names(replace) %in% x]
+    if (length(replace) == 0) return(x)
     x[match(names(replace), x)] <- replace
   } else if (is.factor(x)) {
     lev <- levels(x)
+    replace <- replace[names(replace) %in% lev]
+    if (length(replace) == 0) return(x)
     lev[match(names(replace), lev)] <- replace
     levels(x) <- lev
   } else if (!is.null(x)) {
@@ -139,6 +185,7 @@ revalue <- function(x, replace) {
   }
   x
 }
+# Iterate through a formula and return a quoted version
 simplify_formula <- function(x) {
   if (length(x) == 2 && x[[1]] == as.name("~")) {
     return(simplify(x[[2]]))
@@ -159,18 +206,129 @@ simplify_formula <- function(x) {
     list(x)
   }
 }
+#' Create a quoted version of x
+#'
+#' This function captures the special meaning of formulas in the context of
+#' facets in ggplot2, where `+` have special meaning. It works as
+#' `plyr::as.quoted` but only for the special cases of `character`, `call`, and
+#' `formula` input as these are the only situations relevant for ggplot2.
+#'
+#' @param x A formula, string, or call to be quoted
+#' @param env The environment to a attach to the quoted expression.
+#'
+#' @keywords internal
+#' @export
+#'
 as.quoted <- function(x, env = parent.frame()) {
   x <- if (is.character(x)) {
     lapply(x, function(x) parse(text = x)[[1]])
   } else if (is.formula(x)) {
     simplify_formula(x)
+  } else if (is.call(x)) {
+    as.list(x)[-1]
   } else {
-    stop("Only knows how to quote characters and formula", call. = FALSE)
+    stop("Only knows how to quote characters, calls, and formula", call. = FALSE)
   }
   attributes(x) <- list(env = env, class = 'quoted')
   x
 }
+# round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
   if (!is.numeric(x)) stop("x must be numeric", call. = FALSE)
   f(x/accuracy) * accuracy
+}
+#' Bind data frames together by common column names
+#'
+#' This function is akin to `plyr::rbind.fill`, `dplyr::bind_rows`, and
+#' `data.table::rbindlist`. It takes data frames in a list and stacks them on
+#' top of each other, filling out values with `NA` if the column is missing from
+#' a data.frame
+#'
+#' @param dfs A list of data frames
+#'
+#' @return A data.frame with the union of all columns from the data frames given
+#' in `dfs`
+#'
+#' @keywords internal
+#' @export
+#'
+rbind_dfs <- function(dfs) {
+  out <- list()
+  columns <- unique(unlist(lapply(dfs, names)))
+  nrows <- vapply(dfs, .row_names_info, integer(1), type = 2L)
+  total <- sum(nrows)
+  if (length(columns) == 0) return(new_data_frame(list(), total))
+  allocated <- rep(FALSE, length(columns))
+  names(allocated) <- columns
+  col_levels <- list()
+  for (df in dfs) {
+    new_columns <- intersect(names(df), columns[!allocated])
+    for (col in new_columns) {
+      if (is.factor(df[[col]])) {
+        all_factors <- all(vapply(dfs, function(df) {
+          val <- .subset2(df, col)
+          is.null(val) || is.factor(val)
+        }, logical(1)))
+        if (all_factors) {
+          col_levels[[col]] <- unique(unlist(lapply(dfs, function(df) levels(.subset2(df, col)))))
+        }
+        out[[col]] <- rep(NA_character_, total)
+      } else {
+        out[[col]] <- rep(.subset2(df, col)[1][NA], total)
+      }
+    }
+    allocated[new_columns] <- TRUE
+    if (all(allocated)) break
+  }
+  pos <- c(cumsum(nrows) - nrows + 1)
+  for (i in seq_along(dfs)) {
+    df <- dfs[[i]]
+    rng <- seq(pos[i], length.out = nrows[i])
+    for (col in names(df)) {
+      if (inherits(df[[col]], 'factor')) {
+        out[[col]][rng] <- as.character(df[[col]])
+      } else {
+        out[[col]][rng] <- df[[col]]
+      }
+    }
+  }
+  for (col in names(col_levels)) {
+    out[[col]] <- factor(out[[col]], levels = col_levels[[col]])
+  }
+  attributes(out) <- list(class = "data.frame", names = names(out), row.names = .set_row_names(total))
+  out
+}
+#' Apply function to unique subsets of a data.frame
+#'
+#' This function is akin to `plyr::ddply`. It takes a single data.frame,
+#' splits it by the unique combinations of the columns given in `by`, apply a
+#' function to each split, and then reassembles the results into a sigle
+#' data.frame again.
+#'
+#' @param df A data.frame
+#' @param by A character vector of column names to split by
+#' @param fun A function to apply to each split
+#' @param ... Further arguments to `fun`
+#' @param drop Should unused factor levels in the columns given in `by` be
+#' dropped.
+#'
+#' @return A data.frame if the result of `fun` does not include the columns
+#' given in `by` these will be prepended to the result.
+#'
+#' @keywords internal
+#' @export
+dapply <- function(df, by, fun, ..., drop = TRUE) {
+  grouping_cols <- lapply(setNames(by, by), function(col) .subset2(df, col))
+  ids <- id(grouping_cols, drop = drop)
+  group_rows <- split(seq_len(nrow(df)), ids)
+  rbind_dfs(lapply(seq_along(group_rows), function(i) {
+    cur_data <- df_rows(df, group_rows[[i]])
+    res <- fun(cur_data, ...)
+    if (is.null(res)) return(res)
+    if (length(res) == 0) return(new_data_frame())
+    vars <- lapply(setNames(by, by), function(col) .subset2(cur_data, col)[1])
+    if (is.matrix(res)) res <- split_matrix(res)
+    if (is.null(names(res))) names(res) <- paste0("V", seq_along(res))
+    new_data_frame(modify_list(unclass(vars), unclass(res)))
+  }))
 }

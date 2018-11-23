@@ -337,7 +337,15 @@ firstUpper <- function(s) {
 snake_class <- function(x) {
   snakeize(class(x)[1])
 }
-
+#' Is a data.frame empty
+#'
+#' An empty data.frame is defined as either `NULL` or a data.frame with zero
+#' rows or columns
+#'
+#' @param df A data.frame or `NULL`
+#'
+#' @keywords internal
+#' @export
 empty <- function(df) {
   is.null(df) || nrow(df) == 0 || ncol(df) == 0
 }

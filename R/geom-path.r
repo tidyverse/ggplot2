@@ -160,7 +160,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     if (nrow(munched) < 2) return(zeroGrob())
 
     # Work out whether we should use lines or segments
-    attr <- plyr::ddply(munched, "group", function(df) {
+    attr <- dapply(munched, "group", function(df) {
       linetype <- unique(df$linetype)
       new_data_frame(list(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
@@ -294,7 +294,7 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @include geom-path.r
 GeomStep <- ggproto("GeomStep", GeomPath,
   draw_panel = function(data, panel_params, coord, direction = "hv") {
-    data <- plyr::ddply(data, "group", stairstep, direction = direction)
+    data <- dapply(data, "group", stairstep, direction = direction)
     GeomPath$draw_panel(data, panel_params, coord)
   }
 )

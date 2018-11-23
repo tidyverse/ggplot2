@@ -7,8 +7,8 @@ hex_binwidth <- function(bins = 30, scales) {
 
 hex_bounds <- function(x, binwidth) {
   c(
-    plyr::round_any(min(x), binwidth, floor) - 1e-6,
-    plyr::round_any(max(x), binwidth, ceiling) + 1e-6
+    round_any(min(x), binwidth, floor) - 1e-6,
+    round_any(max(x), binwidth, ceiling) + 1e-6
   )
 }
 
