@@ -1,4 +1,16 @@
-# Adds missing elements to a vector from a default vector
+#' Adds missing elements to a vector from a default vector
+#'
+#' This function appends a given named vector or list with additional elements
+#' from a default vector, only adding those that does not already exist in the
+#' first.
+#'
+#' @param x,y Named vectors or lists
+#'
+#' @return `x` with missing values from `y` appended
+#'
+#' @keywords internal
+#' @export
+#'
 defaults <- function(x, y) c(x, y[setdiff(names(y), names(x))])
 # Remove rownames from data frames and matrices
 unrowname <- function(x) {
