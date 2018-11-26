@@ -433,7 +433,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       function(x) sf_rescale01_x(x, panel_params$y_range)
     )
 
-    data
+    transform_position(data, squish_infinite, squish_infinite)
   },
 
 
