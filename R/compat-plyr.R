@@ -330,7 +330,7 @@ rbind_dfs <- function(dfs) {
 #' @keywords internal
 #' @export
 dapply <- function(df, by, fun, ..., drop = TRUE) {
-  grouping_cols <- lapply(setNames(by, by), function(col) .subset2(df, col))
+  grouping_cols <- .subset(df, by)
   ids <- id(grouping_cols, drop = drop)
   group_rows <- split(seq_len(nrow(df)), ids)
   rbind_dfs(lapply(seq_along(group_rows), function(i) {
