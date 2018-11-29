@@ -170,6 +170,17 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
     # Get break info for the secondary axis
     new_range <- range(full_range, na.rm = TRUE)
+
+    # ugly patch for date and datetime scales
+    # assumes transformation will always be linear.
+    # may want to make an informative error.
+    if (scale$trans$name %in% c("date", "time") ){
+      temp_scale <- self$create_scale(new_range, trans = scale$trans)
+      range_info <- temp_scale$break_info()
+      names(range_info) <- paste0("sec.", names(range_info))
+      return(range_info)
+    }
+
     temp_scale <- self$create_scale(new_range)
     range_info <- temp_scale$break_info()
 
@@ -184,14 +195,14 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   },
 
   # Temporary scale for the purpose of calling break_info()
-  create_scale = function(self, range) {
+  create_scale = function(self, range, trans = identity_trans()) {
     scale <- ggproto(NULL, ScaleContinuousPosition,
                      name = self$name,
                      breaks = self$breaks,
                      labels = self$labels,
                      limits = range,
                      expand = c(0, 0),
-                     trans = identity_trans()
+                     trans = trans
     )
     scale$train(range)
     scale
