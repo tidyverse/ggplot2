@@ -1,7 +1,7 @@
 context("coord_polar")
 
 test_that("polar distance is calculated correctly", {
-  dat <- data.frame(
+  dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
     r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5))
 
@@ -65,6 +65,22 @@ test_that("clipping can be turned off and on", {
   expect_equal(coord$clip, "off")
 })
 
+test_that("Inf is squished to range", {
+  d <- cdata(
+    ggplot(data_frame(x = "a", y = 1), aes(x, y)) +
+      geom_col() +
+      coord_polar() +
+      annotate("text", Inf, Inf, label = "Top-Center") +
+      annotate("text", -Inf, -Inf, label = "Center-Center")
+  )
+
+  # 0.4 is the upper limit of radius hardcoded in r_rescale()
+  expect_equal(d[[2]]$r, 0.4)
+  expect_equal(d[[2]]$theta, 0)
+  expect_equal(d[[3]]$r, 0)
+  expect_equal(d[[3]]$theta, 0)
+})
+
 
 # Visual tests ------------------------------------------------------------
 
@@ -75,7 +91,7 @@ test_that("polar coordinates draw correctly", {
       axis.title = element_blank(),
       panel.grid.major = element_line(colour = "grey90")
     )
-  dat <- data.frame(x = 0:1, y = rep(c(1, 10, 40, 80), each = 2))
+  dat <- data_frame(x = rep(0:1, 4), y = rep(c(1, 10, 40, 80), each = 2))
 
   expect_doppelganger("three-concentric-circles",
     ggplot(dat, aes(x, y, group = factor(y))) +
@@ -84,7 +100,7 @@ test_that("polar coordinates draw correctly", {
       theme
   )
 
-  dat <- data.frame(
+  dat <- data_frame(
     theta = c(0, 2*pi,   2,   6, 6, 1,    1,  0),
     r     = c(0,    0, 0.5, 0.5, 1, 1, 0.75, .5),
     g     = 1:8
@@ -97,7 +113,7 @@ test_that("polar coordinates draw correctly", {
       theme
   )
 
-  dat <- data.frame(x = LETTERS[1:3], y = 1:3)
+  dat <- data_frame(x = LETTERS[1:3], y = 1:3)
   expect_doppelganger("rose plot with has equal spacing",
     ggplot(dat, aes(x, y)) +
       geom_bar(stat = "identity") +

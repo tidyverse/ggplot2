@@ -11,3 +11,15 @@ test_that("USA state map drawn", {
       coord_map("mercator")
   )
 })
+
+test_that("Inf is squished to range", {
+  d <- cdata(
+    ggplot(data_frame(x = 0, y = 0)) +
+      geom_point(aes(x,y)) +
+      annotate("text", -Inf, Inf, label = "Top-left") +
+      coord_map()
+  )
+
+  expect_equal(d[[2]]$x, 0)
+  expect_equal(d[[2]]$y, 1)
+})

@@ -54,7 +54,7 @@ test_that("setting guide labels works", {
 # Visual tests ------------------------------------------------------------
 
 test_that("tags are drawn correctly", {
-  dat <- data.frame(x = 1:10, y = 10:1)
+  dat <- data_frame(x = 1:10, y = 10:1)
   p <- ggplot(dat, aes(x = x, y = y)) + geom_point() + labs(tag = "Fig. A)")
 
   expect_doppelganger("defaults", p)

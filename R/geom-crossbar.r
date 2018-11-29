@@ -54,7 +54,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
       middle$x <- middle$x + notchindent
       middle$xend <- middle$xend - notchindent
 
-      box <- data.frame(
+      box <- new_data_frame(list(
         x = c(
           data$xmin, data$xmin, data$xmin + notchindent, data$xmin, data$xmin,
           data$xmax, data$xmax, data$xmax - notchindent, data$xmax, data$xmax,
@@ -65,26 +65,25 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
           data$ymin, data$ynotchlower, data$y, data$ynotchupper, data$ymax,
           data$ymax
         ),
-        alpha = data$alpha,
-        colour = data$colour,
-        size = data$size,
-        linetype = data$linetype, fill = data$fill,
-        group = seq_len(nrow(data)),
-        stringsAsFactors = FALSE
-      )
+        alpha = rep(data$alpha, 11),
+        colour = rep(data$colour, 11),
+        size = rep(data$size, 11),
+        linetype = rep(data$linetype, 11),
+        fill = rep(data$fill, 11),
+        group = rep(seq_len(nrow(data)), 11)
+      ))
     } else {
       # No notch
-      box <- data.frame(
+      box <- new_data_frame(list(
         x = c(data$xmin, data$xmin, data$xmax, data$xmax, data$xmin),
         y = c(data$ymax, data$ymin, data$ymin, data$ymax, data$ymax),
-        alpha = data$alpha,
-        colour = data$colour,
-        size = data$size,
-        linetype = data$linetype,
-        fill = data$fill,
-        group = seq_len(nrow(data)), # each bar forms it's own group
-        stringsAsFactors = FALSE
-      )
+        alpha = rep(data$alpha, 5),
+        colour = rep(data$colour, 5),
+        size = rep(data$size, 5),
+        linetype = rep(data$linetype, 5),
+        fill = rep(data$fill, 5),
+        group = rep(seq_len(nrow(data)), 5) # each bar forms it's own group
+      ))
     }
 
     ggname("geom_crossbar", gTree(children = gList(

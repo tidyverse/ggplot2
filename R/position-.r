@@ -55,7 +55,7 @@ Position <- ggproto("Position",
 
   compute_layer = function(self, data, params, layout) {
     plyr::ddply(data, "PANEL", function(data) {
-      if (empty(data)) return(data.frame())
+      if (empty(data)) return(new_data_frame())
 
       scales <- layout$get_scales(data$PANEL[1])
       self$compute_panel(data = data, params = params, scales = scales)
@@ -75,6 +75,9 @@ Position <- ggproto("Position",
 #' @keywords internal
 #' @export
 transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
+  # Treat df as list during transformation for faster set/get
+  oldclass <- class(df)
+  df <- unclass(df)
   scales <- aes_to_scale(names(df))
 
   if (!is.null(trans_x)) {
@@ -83,6 +86,8 @@ transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
   if (!is.null(trans_y)) {
     df[scales == "y"] <- lapply(df[scales == "y"], trans_y, ...)
   }
+
+  class(df) <- oldclass
 
   df
 }

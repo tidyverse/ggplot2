@@ -48,7 +48,7 @@ test_that("as_facets_list() coerces quosure lists", {
 })
 
 
-df <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
+df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
 
 test_that("facets split up the data", {
   l1 <- ggplot(df, aes(x, y)) + geom_point() + facet_wrap(~z)
@@ -154,7 +154,7 @@ test_that("facet variables", {
 })
 
 test_that("facet gives clear error if ", {
-  df <- data.frame(x = 1)
+  df <- data_frame(x = 1)
   expect_error(
     print(ggplot(df, aes(x)) + facet_grid(x ~ x)),
     "row or cols, not both"
@@ -166,7 +166,7 @@ test_that("facet gives clear error if ", {
 
 test_that("facet labels respect both justification and margin arguments", {
 
-  df <- data.frame(
+  df <- data_frame(
     x = 1:2,
     y = 1:2,
     z = c("a", "aaaaaaabc"),

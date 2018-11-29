@@ -164,6 +164,7 @@ Collate:
     'layout.R'
     'limits.r'
     'margins.R'
+    'performance.R'
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'
@@ -243,6 +244,6 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
