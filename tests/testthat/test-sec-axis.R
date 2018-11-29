@@ -124,7 +124,10 @@ test_that("sec axis works with tidy eval", {
   scale <- layer_scales(p)$y
   breaks <- scale$break_info()
 
+  # test transform
   expect_equal(breaks$major_source / 10, breaks$sec.major_source)
+  # test positioning
+  expect_equal(round(breaks$major, 2), round(breaks$sec.major, 2))
 })
 
 test_that("sec_axis works with date/time/datetime scales", {
@@ -185,3 +188,75 @@ test_that("sec_axis works with date/time/datetime scales", {
 #   breaks <- scale$break_info()
 #   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
 # })
+
+
+test_that("sec_axis() handles secondary power transformations", {
+  set.seed(111)
+  df <- data_frame(
+    x = rnorm(100),
+    y = rnorm(100)
+  )
+  p <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    scale_y_continuous(sec.axis = sec_axis(trans = (~2^.)))
+
+  scale <- layer_scales(p)$y
+  breaks <- scale$break_info()
+
+  expect_equal(round(breaks$major[4:6], 2), round(breaks$sec.major[c(1, 2, 4)], 2))
+
+  expect_doppelganger(
+    "sec_axis, sec power transform",
+    ggplot() +
+      geom_point(aes(x = 1:10, y = rep(5, 10))) +
+      scale_x_continuous(sec.axis = sec_axis(~log10(.)))
+  )
+})
+
+test_that("sec_axis() respects custom transformations", {
+  # Custom transform code submitted by DInfanger, Issue #2798
+  magnify_trans_log <- function(interval_low = 0.05, interval_high = 1, reducer = 0.05, reducer2 = 8) {
+    trans <- Vectorize(function(x, i_low = interval_low, i_high = interval_high, r = reducer, r2 = reducer2) {
+      if (is.na(x) || (x >= i_low & x <= i_high)) {
+        x
+      } else if (x < i_low & !is.na(x)) {
+        (log10(x / r) / r2 + i_low)
+      } else {
+        log10((x - i_high) / r + i_high) / r2
+      }
+    })
+
+    inv <- Vectorize(function(x, i_low = interval_low, i_high = interval_high, r = reducer, r2 = reducer2) {
+      if (is.na(x) || (x >= i_low & x <= i_high)) {
+        x
+      } else if (x < i_low & !is.na(x)) {
+        10^(-(i_low - x) * r2) * r
+      } else {
+        i_high + 10^(x * r2) * r - i_high * r
+      }
+    })
+
+    trans_new(name = "customlog", transform = trans, inverse = inv, domain = c(1e-16, Inf))
+  }
+
+  # Create data
+  x <- seq(-1, 1, length.out = 1000)
+  y <- c(x[x < 0] + 1, -x[x > 0] + 1) + 1e-6
+  dat <- data_frame(x = c(NA, x), y = c(1, y))
+
+  expect_doppelganger(
+    "sec_axis, custom transform",
+    ggplot(dat, aes(x = x, y = y)) +
+      geom_line(size = 1, na.rm = T) +
+      scale_y_continuous(
+        trans = magnify_trans_log(interval_low = 0.5, interval_high = 1, reducer = 0.5, reducer2 = 8)
+        , breaks = c(0.001, 0.01, 0.1, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
+        , limits = c(0.001, 1)
+        , sec.axis = sec_axis(
+          trans = ~. * (1 / 2)
+          , breaks = c(0.001, 0.01, 0.1, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5)
+        )
+      ) + theme_linedraw()
+  )
+})
+
