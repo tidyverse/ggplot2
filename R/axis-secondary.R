@@ -159,11 +159,6 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     # Create mapping between primary and secondary range
     full_range <- self$transform_range(old_range)
 
-    # # opposite approach -- monotonicity fix
-    # inv_range <- scale$trans$inverse(range)
-    # old_range <- seq(inv_range[1], inv_range[2], length.out = self$detail)
-    # full_range <- self$transform_range(old_range)
-
     # Test for monotonicity
     if (length(unique(sign(diff(full_range)))) != 1)
       stop("transformation for secondary axes must be monotonic")
@@ -171,9 +166,8 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     # Get break info for the secondary axis
     new_range <- range(full_range, na.rm = TRUE)
 
-    # ugly patch for date and datetime scales
-    # assumes transformation will always be linear.
-    # may want to make an informative error.
+    # ugly (temporary) patch for date and datetime scales just to maintain functionality
+    # works for linear secondary transforms that respect the time or date transform
     if (scale$trans$name %in% c("date", "time") ){
       temp_scale <- self$create_scale(new_range, trans = scale$trans)
       range_info <- temp_scale$break_info()
