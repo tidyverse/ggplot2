@@ -21,6 +21,9 @@
 
 * ggplot2 now works in Turkish locale (@yutannihilation, #3011).
 
+* `GeomRibbon` and `GeomArea` now sort the data along the x-axis in the 
+  `setup_data()` method rather than as part of `draw_group()` (@thomasp85, #3023)
+
 # ggplot2 3.1.0
 
 ## Breaking changes
