@@ -116,6 +116,10 @@ CoordMap <- ggproto("CoordMap", Coord,
 
     out$x <- rescale(out$x, 0:1, panel_params$x.proj)
     out$y <- rescale(out$y, 0:1, panel_params$y.proj)
+    # mproject() converts Inf to NA, so we need to restore them from data.
+    out$x[is.infinite(data$x)] <- squish_infinite(data$x)
+    out$y[is.infinite(data$y)] <- squish_infinite(data$y)
+
     out
   },
 

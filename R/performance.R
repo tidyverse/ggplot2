@@ -27,6 +27,7 @@ data.frame <- function(...) {
 }
 
 mat_2_df <- function(x, col_names = colnames(x), .check = FALSE) {
+  force(col_names)
   x <- lapply(seq_len(ncol(x)), function(i) x[, i])
   if (!is.null(col_names)) names(x) <- col_names
   new_data_frame(x)

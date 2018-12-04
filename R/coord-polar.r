@@ -337,10 +337,12 @@ theta_rescale_no_clip <- function(coord, x, panel_params) {
 }
 
 theta_rescale <- function(coord, x, panel_params) {
+  x <- squish_infinite(x, panel_params$theta.range)
   rotate <- function(x) (x + coord$start) %% (2 * pi) * coord$direction
   rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
 }
 
 r_rescale <- function(coord, x, panel_params) {
+  x <- squish_infinite(x, panel_params$r.range)
   rescale(x, c(0, 0.4), panel_params$r.range)
 }
