@@ -26,7 +26,7 @@
       if (links[i].getAttribute("href") === "#")
         continue;
       // Ignore external links
-      if (links[i].host !== "")
+      if (links[i].host !== location.host)
         continue;
 
       var nav_path = paths(links[i].pathname);
