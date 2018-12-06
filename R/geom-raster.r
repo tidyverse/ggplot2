@@ -67,11 +67,20 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     if (!inherits(coord, "CoordCartesian")) {
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
+
+    # if x and/or y are integer, use it as is
+    x_pos <- data$x - 1L
+    y_pos <- data$y - 1L
+
     data <- coord$transform(data, panel_params)
 
-    # Convert vector of data to raster
-    x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))
-    y_pos <- as.integer((data$y - min(data$y)) / resolution(data$y, FALSE))
+    # Convert vector of data to raster if x and/or y are not integer
+    if (!is.integer(x_pos)) {
+      x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))
+    }
+    if (!is.integer(y_pos)) {
+      y_pos <- as.integer((data$y - min(data$y)) / resolution(data$y, FALSE))
+    }
 
     nrow <- max(y_pos) + 1
     ncol <- max(x_pos) + 1
