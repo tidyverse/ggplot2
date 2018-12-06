@@ -65,7 +65,7 @@ summary {
 
 /* Typographic tweaking ---------------------------------*/
 
-.contents h1.page-header {
+.contents .page-header {
   margin-top: calc(-60px + 1em);
 }
 
