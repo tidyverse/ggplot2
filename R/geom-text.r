@@ -127,21 +127,11 @@ geom_text <- function(mapping = NULL, data = NULL,
                       stat = "identity", position = "identity",
                       ...,
                       parse = FALSE,
-                      nudge_x = 0,
-                      nudge_y = 0,
                       check_overlap = FALSE,
                       na.rm = FALSE,
                       show.legend = NA,
                       inherit.aes = TRUE)
 {
-  if (!missing(nudge_x) || !missing(nudge_y)) {
-    if (!missing(position)) {
-      stop("You must specify either `position` or `nudge_x`/`nudge_y`.", call. = FALSE)
-    }
-
-    position <- position_nudge(nudge_x, nudge_y)
-  }
-
   layer(
     data = data,
     mapping = mapping,
@@ -168,8 +158,33 @@ GeomText <- ggproto("GeomText", Geom,
 
   default_aes = aes(
     colour = "black", size = 3.88, angle = 0, hjust = 0.5,
-    vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2
+    vjust = 0.5, alpha = NA, family = "", fontface = 1, lineheight = 1.2,
+    nudge_x = 0, nudge_y = 0
   ),
+
+  setup_data = function(self, data, params) {
+    # Nudging needs to be applied at this stage of plot construction to
+    # make sure scales are adjusted appropriately. This requires some
+    # work to handle all combinations of aesthetics, parameters, and
+    # defaults.
+
+    n <- nrow(data)
+
+    # if nudge_x or nudge_y are given as params, check length
+    check_aesthetics(params[na.omit(match(c("nudge_x", "nudge_y"), names(params)))], n)
+
+    nudge_x <- data$nudge_x %||% params$nudge_x %||% self$default_aes$nudge_x
+    nudge_x <- rep_len(nudge_x, n)
+    idx <- !is.na(nudge_x)
+    data$x[idx] <- data$x[idx] + nudge_x[idx]
+
+    nudge_y <- data$nudge_y %||% params$nudge_y %||% self$default_aes$nudge_y
+    nudge_y <- rep_len(nudge_y, n)
+    idy <- !is.na(nudge_y)
+    data$y[idy] <- data$y[idy] + nudge_y[idy]
+
+    data
+  },
 
   draw_panel = function(data, panel_params, coord, parse = FALSE,
                         na.rm = FALSE, check_overlap = FALSE) {
