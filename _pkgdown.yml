@@ -227,6 +227,8 @@ navbar:
   - text: News
     menu:
     - text: "Release notes"
+    - text: "Version 3.1.0"
+      href: https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/
     - text: "Version 3.0.0"
       href: https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/
     - text: "Version 2.2.0"
