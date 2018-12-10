@@ -9,7 +9,7 @@
 #' @return `x` with missing values from `y` appended
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 #'
 defaults <- function(x, y) c(x, y[setdiff(names(y), names(x))])
 # Remove rownames from data frames and matrices
@@ -36,7 +36,7 @@ unrowname <- function(x) {
 #' @return `x`, with new names according to `replace`
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 #'
 rename <- function(x, replace) {
   current_names <- names(x)
@@ -83,7 +83,7 @@ id_var <- function(x, drop = FALSE) {
 #' possible unique rows
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 #'
 id <- function(.variables, drop = FALSE) {
   nrows <- NULL
@@ -139,7 +139,7 @@ id <- function(.variables, drop = FALSE) {
 #' column giving the counts
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 #'
 count <- function(df, vars = NULL, wt_var = NULL) {
   df2 <- if (is.null(vars)) df else df[vars]
@@ -179,7 +179,7 @@ join_keys <- function(x, y, by) {
 #' @return A vector of the same class as `x` with the given values replaced
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 #'
 revalue <- function(x, replace) {
   if (is.character(x)) {
@@ -229,7 +229,7 @@ simplify_formula <- function(x) {
 #' @param env The environment to a attach to the quoted expression.
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 #'
 as.quoted <- function(x, env = parent.frame()) {
   x <- if (is.character(x)) {
@@ -262,7 +262,7 @@ round_any <- function(x, accuracy, f = round) {
 #' in `dfs`
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 #'
 rbind_dfs <- function(dfs) {
   out <- list()
@@ -328,7 +328,7 @@ rbind_dfs <- function(dfs) {
 #' given in `by` these will be prepended to the result.
 #'
 #' @keywords internal
-#' @export
+#' @noRd
 dapply <- function(df, by, fun, ..., drop = TRUE) {
   grouping_cols <- .subset(df, by)
   ids <- id(grouping_cols, drop = drop)
