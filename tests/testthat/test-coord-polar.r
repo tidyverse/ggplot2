@@ -65,6 +65,22 @@ test_that("clipping can be turned off and on", {
   expect_equal(coord$clip, "off")
 })
 
+test_that("Inf is squished to range", {
+  d <- cdata(
+    ggplot(data_frame(x = "a", y = 1), aes(x, y)) +
+      geom_col() +
+      coord_polar() +
+      annotate("text", Inf, Inf, label = "Top-Center") +
+      annotate("text", -Inf, -Inf, label = "Center-Center")
+  )
+
+  # 0.4 is the upper limit of radius hardcoded in r_rescale()
+  expect_equal(d[[2]]$r, 0.4)
+  expect_equal(d[[2]]$theta, 0)
+  expect_equal(d[[3]]$r, 0)
+  expect_equal(d[[3]]$theta, 0)
+})
+
 
 # Visual tests ------------------------------------------------------------
 
