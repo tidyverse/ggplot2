@@ -68,14 +68,14 @@ GeomRaster <- ggproto("GeomRaster", Geom,
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
 
-    # We assume integer x and y means discrete scale.
-    # In that case, use the value before transformation.
+    # We assume integer x and/or y mean they are discrete values.
+    # In that case, use the untransformed values as positions.
     x_pos <- data$x - 1L
     y_pos <- data$y - 1L
 
     data <- coord$transform(data, panel_params)
 
-    # Convert vector of data to raster if x and/or y are not integer
+    # if x and/or y are continuous, calculate the locations in the raster by their values.
     if (!is.integer(x_pos)) {
       x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))
     }
