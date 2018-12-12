@@ -62,6 +62,10 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
   required_aes = c("x", "ymin", "ymax"),
 
+  setup_data = function(data, params) {
+    transform(data[order(data$PANEL, data$group, data$x), ], y = ymin)
+  },
+
   draw_key = draw_key_polygon,
 
   handle_na = function(data, params) {
@@ -70,7 +74,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
   draw_group = function(data, panel_params, coord, na.rm = FALSE) {
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
-    data <- data[order(data$group, data$x), ]
+    data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
     aes <- unique(data[c("colour", "fill", "size", "linetype", "alpha")])
@@ -141,6 +145,6 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
   required_aes = c("x", "y"),
 
   setup_data = function(data, params) {
-    transform(data, ymin = 0, ymax = y)
+    transform(data[order(data$PANEL, data$group, data$x), ], ymin = 0, ymax = y)
   }
 )
