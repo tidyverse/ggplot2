@@ -68,7 +68,8 @@ GeomRaster <- ggproto("GeomRaster", Geom,
       stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
     }
 
-    # if x and/or y are integer, use it as is
+    # We assume integer x and y means discrete scale.
+    # In that case, use the value before transformation.
     x_pos <- data$x - 1L
     y_pos <- data$y - 1L
 
