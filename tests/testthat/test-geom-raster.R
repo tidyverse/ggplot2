@@ -61,3 +61,32 @@ test_that("geom_raster draws correctly", {
     qplot(x, y, data = df, fill = factor(col), geom = "raster")
   )
 })
+
+test_that("geom_raster draws discrete scale sparsely", {
+  # for discrete values, the tiles are seperated
+  df <- data_frame(x = factor(c("a", "c"), levels = c("a", "b", "c", "d")))
+  d <- layer_data(
+    ggplot(df, aes(x, x)) +
+      geom_raster() +
+      scale_x_discrete(drop = FALSE) +
+      scale_y_discrete(drop = FALSE)
+  )
+
+  expect_equal(d$x,    c(1L, 3L))
+  expect_equal(d$xmin, c(0.5, 2.5))
+  expect_equal(d$xmax, c(1.5, 3.5))
+  expect_equal(d$y,    c(1L, 3L))
+  expect_equal(d$ymin, c(0.5, 2.5))
+  expect_equal(d$ymax, c(1.5, 3.5))
+
+  # for continuous values, the tiles are neighboring
+  df2 <- data_frame(x = c(1L, 3L))
+  d2 <- layer_data(ggplot(df2, aes(x, x)) + geom_raster())
+
+  expect_equal(d2$x,    c(1, 3))
+  expect_equal(d2$xmin, c(0, 2))
+  expect_equal(d2$xmax, c(2, 4))
+  expect_equal(d2$y,    c(1, 3))
+  expect_equal(d2$ymin, c(0, 2))
+  expect_equal(d2$ymax, c(2, 4))
+})
