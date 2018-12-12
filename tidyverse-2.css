@@ -2,6 +2,12 @@ body {font-size: 16px;}
 h1 {font-size: 40px;}
 h2 {font-size: 30px;}
 
+.contents .page-header {
+  margin-top: 10px;
+}
+
+.ref-arguments th {vertical-align: top;}
+
 /* navbar ----------------------------------------------- */
 
 .navbar .info {
