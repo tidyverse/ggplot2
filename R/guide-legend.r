@@ -656,7 +656,7 @@ guide_gengrob.legend <- function(guide, theme) {
   krows <- rep(vps$key.row, each = ngeom)
 
   # padding
-  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm", valueOnly = TRUE)
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 
