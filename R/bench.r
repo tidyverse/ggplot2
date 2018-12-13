@@ -22,8 +22,10 @@ benchplot <- function(x) {
   draw <- system.time(grid.draw(grob))
 
   times <- rbind(construct, build, render, draw)[, 1:3]
+  times <- rbind(times, colSums(times))
 
-  plyr::unrowname(base::data.frame(
+  cbind(
     step = c("construct", "build", "render", "draw", "TOTAL"),
-    rbind(times, colSums(times))))
+    mat_2_df(times)
+  )
 }

@@ -89,8 +89,7 @@ p2 + facet_grid(vore ~ conservation, labeller = labeller(
 
 # In the following example, we rename the levels to the long form,
 # then apply a wrap labeller to the columns to prevent cropped text
-msleep$conservation2 <- plyr::revalue(msleep$conservation,
-  conservation_status)
+msleep$conservation2 <- revalue(msleep$conservation, conservation_status)
 p3 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
 p3 +
   facet_grid(vore ~ conservation2,

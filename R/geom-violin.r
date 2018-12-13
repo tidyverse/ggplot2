@@ -105,7 +105,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
       params$width %||% (resolution(data$x, FALSE) * 0.9)
 
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
-    plyr::ddply(data, "group", transform,
+    dapply(data, "group", transform,
       xmin = x - width / 2,
       xmax = x + width / 2
     )
@@ -120,8 +120,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
     # Make sure it's sorted properly to draw the outline
     newdata <- rbind(
-      plyr::arrange(transform(data, x = xminv), y),
-      plyr::arrange(transform(data, x = xmaxv), -y)
+      transform(data, x = xminv)[order(data$y), ],
+      transform(data, x = xmaxv)[order(data$y, decreasing = TRUE), ]
     )
 
     # Close the polygon: set first and last point the same

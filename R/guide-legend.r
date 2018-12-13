@@ -242,7 +242,7 @@ guide_merge.legend <- function(guide, new_guide) {
 #' @export
 guide_geom.legend <- function(guide, layers, default_mapping) {
   # arrange common data for vertical and horizontal guide
-  guide$geoms <- plyr::llply(layers, function(layer) {
+  guide$geoms <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
     if (length(matched) > 0) {
@@ -654,7 +654,7 @@ guide_gengrob.legend <- function(guide, theme) {
   krows <- rep(vps$key.row, each = ngeom)
 
   # padding
-  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm", valueOnly = TRUE)
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 
