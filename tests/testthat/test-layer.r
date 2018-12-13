@@ -42,7 +42,7 @@ test_that("if an aes is mapped to a function that returns NULL, it is removed", 
   df <- data_frame(x = 1:10)
   null <- function(...) NULL
   p <- cdata(ggplot(df, aes(x, null())))
-  expect_identical(names(p[[1]]), c("x", "PANEL", "group"))
+  expect_identical(names(p[[1]]), c("PANEL", "x", "group"))
 })
 
 # Data extraction ---------------------------------------------------------

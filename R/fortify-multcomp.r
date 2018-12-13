@@ -33,7 +33,7 @@ NULL
 #' @rdname fortify-multcomp
 #' @export
 fortify.glht <- function(model, data, ...) {
-  plyr::unrowname(base::data.frame(
+  unrowname(base::data.frame(
     lhs = rownames(model$linfct),
     rhs = model$rhs,
     estimate = stats::coef(model),
@@ -48,7 +48,7 @@ fortify.confint.glht <- function(model, data, ...) {
   coef <- model$confint
   colnames(coef) <- to_lower_ascii(colnames(coef))
 
-  plyr::unrowname(base::data.frame(
+  unrowname(base::data.frame(
     lhs = rownames(coef),
     rhs = model$rhs,
     coef,
@@ -64,7 +64,7 @@ fortify.summary.glht <- function(model, data, ...) {
     model$test[c("coefficients", "sigma", "tstat", "pvalues")])
   names(coef) <- c("estimate", "se", "t", "p")
 
-  plyr::unrowname(base::data.frame(
+  unrowname(base::data.frame(
     lhs = rownames(coef),
     rhs = model$rhs,
     coef,
@@ -77,7 +77,7 @@ fortify.summary.glht <- function(model, data, ...) {
 #' @rdname fortify-multcomp
 #' @export
 fortify.cld <- function(model, data, ...) {
-  plyr::unrowname(base::data.frame(
+  unrowname(base::data.frame(
     lhs = names(model$mcletters$Letters),
     letters = model$mcletters$Letters,
     check.names = FALSE,

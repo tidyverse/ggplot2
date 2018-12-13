@@ -127,7 +127,7 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   stopifnot(is.numeric(binwidth), length(binwidth) == 1)
 
   if (is.null(origin) || identical(origin, NA)) {
-    origin <- plyr::round_any(range[1], binwidth, floor)
+    origin <- round_any(range[1], binwidth, floor)
   }
   stopifnot(is.numeric(origin), length(origin) == 1)
 

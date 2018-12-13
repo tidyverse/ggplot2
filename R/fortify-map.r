@@ -96,7 +96,9 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 #'
 #' ia <- map_data("county", "iowa")
 #' mid_range <- function(x) mean(range(x))
-#' seats <- plyr::ddply(ia, "subregion", plyr::colwise(mid_range, c("lat", "long")))
+#' seats <- do.call(rbind, lapply(split(ia, ia$subregion), function(d) {
+#'   data.frame(lat = mid_range(d$lat), long = mid_range(d$long))
+#' }))
 #' ggplot(ia, aes(long, lat)) +
 #'   geom_polygon(aes(group = group), fill = NA, colour = "grey60") +
 #'   geom_text(aes(label = subregion), data = seats, size = 2, angle = 45)

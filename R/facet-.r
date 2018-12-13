@@ -91,10 +91,10 @@ Facet <- ggproto("Facet", NULL,
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
     if (!is.null(x_scale)) {
-      scales$x <- plyr::rlply(max(layout$SCALE_X), x_scale$clone())
+      scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) x_scale$clone())
     }
     if (!is.null(y_scale)) {
-      scales$y <- plyr::rlply(max(layout$SCALE_Y), y_scale$clone())
+      scales$y <- lapply(seq_len(max(layout$SCALE_Y)), function(i) y_scale$clone())
     }
     scales
   },
@@ -243,7 +243,7 @@ NO_PANEL <- -1L
 unique_combs <- function(df) {
   if (length(df) == 0) return()
 
-  unique_values <- plyr::llply(df, ulevels)
+  unique_values <- lapply(df, ulevels)
   rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE,
     KEEP.OUT.ATTRS = TRUE))
 }
@@ -256,7 +256,7 @@ df.grid <- function(a, b) {
     i_a = seq_len(nrow(a)),
     i_b = seq_len(nrow(b))
   )
-  plyr::unrowname(cbind(
+  unrowname(cbind(
     a[indexes$i_a, , drop = FALSE],
     b[indexes$i_b, , drop = FALSE]
   ))
@@ -393,7 +393,7 @@ f_as_facets <- function(f) {
   env <- rlang::f_env(f) %||% globalenv()
 
   # as.quoted() handles `+` specifications
-  vars <- plyr::as.quoted(f)
+  vars <- as.quoted(f)
 
   # `.` in formulas is ignored
   vars <- discard_dots(vars)
@@ -529,7 +529,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   if (length(vars) == 0) return(new_data_frame())
 
   # For each layer, compute the facet values
-  values <- compact(plyr::llply(data, eval_facets, facets = vars, env = env))
+  values <- compact(lapply(data, eval_facets, facets = vars, env = env))
 
   # Form the base data.frame which contains all combinations of faceting
   # variables that appear in the data
@@ -547,7 +547,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     )
   }
 
-  base <- unique(plyr::ldply(values[has_all]))
+  base <- unique(rbind_dfs(values[has_all]))
   if (!drop) {
     base <- unique_combs(base)
   }

@@ -55,7 +55,7 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
     breaks <- bin2d_breaks(scales$x, breaks, origin, binwidth, bins, right = right)
 
     data$bin <- cut(data$x, breaks, include.lowest = TRUE, labels = FALSE)
-    out <- plyr::ddply(data, "bin", fun)
+    out <- dapply(data, "bin", fun)
 
     locs <- bin_loc(breaks, out$bin)
     out$x <- locs$mid

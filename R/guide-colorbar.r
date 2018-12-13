@@ -241,7 +241,7 @@ guide_merge.colorbar <- function(guide, new_guide) {
 #' @export
 guide_geom.colorbar <- function(guide, layers, default_mapping) {
   # Layers that use this guide
-  guide_layers <- plyr::llply(layers, function(layer) {
+  guide_layers <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
     if (length(matched) && ((is.na(layer$show.legend) || layer$show.legend))) {
