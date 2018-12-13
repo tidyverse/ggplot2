@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Benchmark plot creation time.
-Broken down into construct, build, render and draw times. — benchplot • ggplot2</title>
+<title>Is a data.frame empty — empty • ggplot2</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,11 +29,10 @@ Broken down into construct, build, render and draw times. — benchplot • ggpl
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
-<meta property="og:title" content="Benchmark plot creation time.
-Broken down into construct, build, render and draw times. — benchplot" />
+<meta property="og:title" content="Is a data.frame empty — empty" />
 
-<meta property="og:description" content="Benchmark plot creation time.
-Broken down into construct, build, render and draw times." />
+<meta property="og:description" content="An empty data.frame is defined as either NULL or a data.frame with zero
+rows or columns" />
 
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -151,59 +149,36 @@ Broken down into construct, build, render and draw times." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Benchmark plot creation time.
-Broken down into construct, build, render and draw times.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/bench.r'><code>R/bench.r</code></a></small>
-    <div class="hidden name"><code>benchplot.Rd</code></div>
+    <h1>Is a data.frame empty</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/utilities.r'><code>R/utilities.r</code></a></small>
+    <div class="hidden name"><code>empty.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Benchmark plot creation time.
-Broken down into construct, build, render and draw times.</p>
+    <p>An empty data.frame is defined as either <code>NULL</code> or a data.frame with zero
+rows or columns</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>benchplot</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>empty</span>(<span class='no'>df</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>code to create ggplot2 plot</p></td>
+      <th>df</th>
+      <td><p>A data.frame or <code>NULL</code></p></td>
     </tr>
     </table>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())</div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.004        0   0.003
-#&gt; 2     build     0.016        0   0.015
-#&gt; 3    render     0.040        0   0.041
-#&gt; 4      draw     0.040        0   0.040
-#&gt; 5     TOTAL     0.100        0   0.099</div><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl</span>))</div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.004        0   0.004
-#&gt; 2     build     0.028        0   0.026
-#&gt; 3    render     0.096        0   0.094
-#&gt; 4      draw     0.064        0   0.064
-#&gt; 5     TOTAL     0.192        0   0.188</div><div class='input'>
-<span class='co'># With tidy eval:</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>expr</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())
-<span class='fu'>benchplot</span>(!!<span class='no'>p</span>)</div><div class='img'><img src='benchplot-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.004        0   0.003
-#&gt; 2     build     0.016        0   0.015
-#&gt; 3    render     0.040        0   0.041
-#&gt; 4      draw     0.040        0   0.039
-#&gt; 5     TOTAL     0.100        0   0.098</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+                </ul>
 
   </div>
 </div>
