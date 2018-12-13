@@ -507,7 +507,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.background <- element_render(theme, "legend.background")
 
   # padding
-  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm", valueOnly = TRUE)
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 
