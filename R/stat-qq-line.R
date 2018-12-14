@@ -90,6 +90,6 @@ StatQqLine <- ggproto("StatQqLine", Stat,
      x <- range(theoretical)
    }
 
-   data.frame(x = x, y = slope * x + intercept)
+   new_data_frame(list(x = x, y = slope * x + intercept))
  }
 )

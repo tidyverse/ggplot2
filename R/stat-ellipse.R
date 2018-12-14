@@ -113,7 +113,6 @@ calculate_ellipse <- function(data, vars, type, level, segments){
     ellipse <- t(center + radius * t(unit.circle %*% chol_decomp))
   }
 
-  ellipse <- as.data.frame(ellipse)
   colnames(ellipse) <- vars
-  ellipse
+  mat_2_df(ellipse)
 }

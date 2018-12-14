@@ -31,14 +31,14 @@ test_that("cartesian coords draws correctly with limits", {
 })
 
 test_that("cartesian coords draws correctly with clipping on or off", {
-  df.in <- data.frame(label = c("inside", "inside", "inside", "inside"),
+  df.in <- data_frame(label = c("inside", "inside", "inside", "inside"),
                       x = c(0, 1, 0.5, 0.5),
                       y = c(0.5, 0.5, 0, 1),
                       angle = c(90, 270, 0, 0),
                       hjust = c(0.5, 0.5, 0.5, 0.5),
                       vjust = c(1.1, 1.1, -0.1, 1.1))
 
-  df.out <- data.frame(label = c("outside", "outside", "outside", "outside"),
+  df.out <- data_frame(label = c("outside", "outside", "outside", "outside"),
                        x = c(0, 1, 0.5, 0.5),
                        y = c(0.5, 0.5, 0, 1),
                        angle = c(90, 270, 0, 0),

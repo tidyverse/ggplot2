@@ -11,7 +11,7 @@ geom_vline <- function(mapping = NULL, data = NULL,
 
   # Act like an annotation
   if (!missing(xintercept)) {
-    data <- data.frame(xintercept = xintercept)
+    data <- new_data_frame(list(xintercept = xintercept))
     mapping <- aes(xintercept = xintercept)
     show.legend <- FALSE
   }

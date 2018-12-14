@@ -1,7 +1,7 @@
 context("sec-axis")
 
 x <- exp(seq(log(0.001), log(1000), length.out = 100))
-foo <- data.frame(
+foo <- data_frame(
   x = x,
   y = x / (1 + x)
 )
@@ -21,7 +21,7 @@ test_that("dup_axis() works", {
 })
 
 test_that("sec_axis() breaks work for log-transformed scales", {
-  df <- data.frame(
+  df <- data_frame(
     x = c("A", "B", "C"),
     y = c(10, 100, 1000)
   )
@@ -121,7 +121,7 @@ test_that("sec axis works with tidy eval", {
 })
 
 test_that("sec_axis works with date/time/datetime scales", {
-  df <- data.frame(
+  df <- data_frame(
     dx = seq(as.POSIXct("2012-02-29 12:00:00",
       tz = "UTC",
       format = "%Y-%m-%d %H:%M:%S"

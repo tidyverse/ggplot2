@@ -116,6 +116,10 @@ CoordMap <- ggproto("CoordMap", Coord,
 
     out$x <- rescale(out$x, 0:1, panel_params$x.proj)
     out$y <- rescale(out$y, 0:1, panel_params$y.proj)
+    # mproject() converts Inf to NA, so we need to restore them from data.
+    out$x[is.infinite(data$x)] <- squish_infinite(data$x)
+    out$y[is.infinite(data$y)] <- squish_infinite(data$y)
+
     out
   },
 
@@ -248,10 +252,10 @@ CoordMap <- ggproto("CoordMap", Coord,
       ))
     }
 
-    x_intercept <- with(panel_params, data.frame(
+    x_intercept <- with(panel_params, new_data_frame(list(
       x = x.major,
       y = y.range[1]
-    ))
+    ), n = length(x.major)))
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
@@ -272,10 +276,10 @@ CoordMap <- ggproto("CoordMap", Coord,
       ))
     }
 
-    x_intercept <- with(panel_params, data.frame(
+    x_intercept <- with(panel_params, new_data_frame(list(
       x = x.range[1],
       y = y.major
-    ))
+    ), n = length(y.major)))
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(

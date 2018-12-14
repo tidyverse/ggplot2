@@ -1,7 +1,7 @@
 context("Aes - setting values")
 
 test_that("aesthetic parameters match length of data", {
-  df <- data.frame(x = 1:5, y = 1:5)
+  df <- data_frame(x = 1:5, y = 1:5)
   p <- ggplot(df, aes(x, y))
 
   set_colours <- function(colours) {
@@ -16,7 +16,7 @@ test_that("aesthetic parameters match length of data", {
 })
 
 test_that("legend filters out aesthetics not of length 1", {
-  df <- data.frame(x = 1:5, y = 1:5)
+  df <- data_frame(x = 1:5, y = 1:5)
   p <- ggplot(df, aes(x, y, colour = factor(x))) +
     geom_point(alpha = seq(0, 1, length = 5))
 
@@ -26,7 +26,7 @@ test_that("legend filters out aesthetics not of length 1", {
 })
 
 test_that("alpha affects only fill colour of solid geoms", {
-  df <- data.frame(x = 1:2, y = 1)
+  df <- data_frame(x = 1:2, y = 1)
 
   poly <- ggplot(df, aes(x = x, y)) +
     geom_polygon(fill = "red", colour = "red", alpha = 0.5)

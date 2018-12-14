@@ -3,7 +3,7 @@ cdata <- function(plot) {
   pieces <- ggplot_build(plot)
 
   lapply(pieces$data, function(d) {
-    plyr::ddply(d, "PANEL", function(panel_data) {
+    dapply(d, "PANEL", function(panel_data) {
       scales <- pieces$layout$get_scales(panel_data$PANEL[1])
       panel_params <- plot$coordinates$setup_panel_params(scales$x, scales$y)
       plot$coordinates$transform(panel_data, panel_params)
