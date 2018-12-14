@@ -382,12 +382,12 @@ as_facets <- function(x) {
     f_as_facets(x)
   } else {
     vars <- as_quoted(x)
-    as_quosures(vars, globalenv(), named = TRUE)
+    rlang::as_quosures(vars, globalenv(), named = TRUE)
   }
 }
 f_as_facets <- function(f) {
   if (is.null(f)) {
-    return(as_quosures(list()))
+    return(rlang::as_quosures(list()))
   }
 
   env <- rlang::f_env(f) %||% globalenv()
@@ -398,7 +398,7 @@ f_as_facets <- function(f) {
   # `.` in formulas is ignored
   vars <- discard_dots(vars)
 
-  as_quosures(vars, env, named = TRUE)
+  rlang::as_quosures(vars, env, named = TRUE)
 }
 discard_dots <- function(x) {
   x[!vapply(x, identical, logical(1), as.name("."))]
