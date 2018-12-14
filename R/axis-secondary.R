@@ -71,7 +71,10 @@
 #'
 #' @export
 sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver()) {
-  if (!is.formula(trans)) stop("transformation for secondary axes must be a formula", call. = FALSE)
+  # sec_axis() historically accpeted two-sided formula, so be permissive.
+  if (length(trans) > 2) trans <- trans[c(1,3)]
+
+  trans <- rlang::as_function(trans)
   ggproto(NULL, AxisSecondary,
     trans = trans,
     name = name,
@@ -133,19 +136,14 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   # Inherit settings from the primary axis/scale
   init = function(self, scale) {
     if (self$empty()) return()
-    if (!is.formula(self$trans)) stop("transformation for secondary axes must be a formula", call. = FALSE)
+    if (!is.function(self$trans)) stop("transformation for secondary axes must be a function", call. = FALSE)
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
     if (is.derived(self$labels)) self$labels <- scale$labels
   },
 
   transform_range = function(self, range) {
-    range <- new_data_frame(list(. = range))
-    rlang::eval_tidy(
-      rlang::f_rhs(self$trans),
-      data = range,
-      env = rlang::f_env(self$trans)
-    )
+    self$trans(range)
   },
 
   break_info = function(self, range, scale) {
