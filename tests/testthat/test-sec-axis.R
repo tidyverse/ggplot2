@@ -20,6 +20,16 @@ test_that("dup_axis() works", {
   expect_equal(breaks$major_source, breaks$sec.major_source)
 })
 
+test_that("sex axis works with division (#1804)", {
+  expect_doppelganger(
+    "sec_axis, with division",
+    ggplot(mpg, aes(displ, hwy)) +
+      geom_point() +
+      scale_y_continuous(sec.axis = sec_axis(~ 235 / ., name = "100km / L"))
+  )
+})
+
+
 test_that("sec_axis() breaks work for log-transformed scales", {
   df <- data_frame(
     x = c("A", "B", "C"),
@@ -42,13 +52,13 @@ test_that("sec_axis() breaks work for log-transformed scales", {
   # sec_axis() with transform
   p <- ggplot(data = df, aes(x, y)) +
     geom_point() +
-    scale_y_log10(sec.axis = sec_axis(~. * 100))
+    scale_y_log10(sec.axis = sec_axis(~ . * 100))
 
   scale <- layer_scales(p)$y
   breaks <- scale$break_info()
 
   # test value
-  expect_equal(breaks$major_source, log10(breaks$sec.major_source)-2)
+  expect_equal(breaks$major_source, log10(breaks$sec.major_source) - 2)
   # test position
   expect_equal(breaks$major, round(breaks$sec.major, 1))
 
@@ -57,7 +67,7 @@ test_that("sec_axis() breaks work for log-transformed scales", {
   custom_breaks <- c(10, 20, 40, 200, 400, 800)
   p <- ggplot(data = df, aes(x, y)) +
     geom_point() +
-    scale_y_log10(breaks = custom_breaks, sec.axis = sec_axis(~. * 100))
+    scale_y_log10(breaks = custom_breaks, sec.axis = sec_axis(~ . * 100))
 
   scale <- layer_scales(p)$y
   breaks <- scale$break_info()
@@ -90,7 +100,7 @@ test_that("sec axis works with skewed transform", {
       scale_x_continuous(
         name = "Unit A", trans = "log",
         breaks = c(0.001, 0.01, 0.1, 1, 10, 100, 1000),
-        sec.axis = sec_axis(~. * 100,
+        sec.axis = sec_axis(~ . * 100,
           name = "Unit B",
           labels = derive(),
           breaks = derive()
@@ -112,7 +122,7 @@ test_that("sec axis works with tidy eval", {
     g <- ggplot(df, aes(x = !!x, y = !!y)) +
       geom_bar(stat = "identity") +
       geom_point(aes(y = !!z)) +
-      scale_y_continuous(sec.axis = sec_axis(~. / a))
+      scale_y_continuous(sec.axis = sec_axis(~ . / a))
 
     g
   }
@@ -130,66 +140,6 @@ test_that("sec axis works with tidy eval", {
   expect_equal(round(breaks$major, 2), round(breaks$sec.major, 2))
 })
 
-test_that("sec_axis works with date/time/datetime scales", {
-  df <- data_frame(
-    dx = seq(as.POSIXct("2012-02-29 12:00:00",
-      tz = "UTC",
-      format = "%Y-%m-%d %H:%M:%S"
-    ),
-    length.out = 10, by = "4 hour"
-    ),
-    price = seq(20, 200000, length.out = 10)
-  )
-  df$date <- as.Date(df$dx)
-  dt <- ggplot(df, aes(dx, price)) +
-    geom_line() +
-    scale_x_datetime(sec.axis = dup_axis())
-  scale <- layer_scales(dt)$x
-  breaks <- scale$break_info()
-  expect_equal(breaks$major_source, breaks$sec.major_source)
-
-  dt <- ggplot(df, aes(date, price)) +
-    geom_line() +
-    scale_x_date(sec.axis = dup_axis())
-  scale <- layer_scales(dt)$x
-  breaks <- scale$break_info()
-  expect_equal(breaks$major_source, breaks$sec.major_source)
-
-  dt <- ggplot(df, aes(dx, price)) +
-    geom_line() +
-    scale_x_datetime(
-      name = "UTC",
-      sec.axis = dup_axis(~. + 12 * 60 * 60,
-        name = "UTC+12"
-      )
-    )
-  scale <- layer_scales(dt)$x
-  breaks <- scale$break_info()
-
-  expect_equal(
-    as.numeric(breaks$major_source) + 12 * 60 * 60,
-    as.numeric(breaks$sec.major_source)
-  )
-})
-
-# Currently fails do to necessary reversion of #2805
-# test_that("sec_axis() works for power transformations (monotonicity test doesn't fail)", {
-#   p <- ggplot(foo, aes(x, y)) +
-#     geom_point() +
-#     scale_x_sqrt(sec.axis = dup_axis())
-#   scale <- layer_scales(p)$x
-#   breaks <- scale$break_info()
-#   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
-#
-#   p <- ggplot(foo, aes(x, y)) +
-#     geom_point() +
-#     scale_x_sqrt(sec.axis = sec_axis(~. * 100))
-#   scale <- layer_scales(p)$x
-#   breaks <- scale$break_info()
-#   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
-# })
-
-
 test_that("sec_axis() handles secondary power transformations", {
   set.seed(111)
   df <- data_frame(
@@ -198,7 +148,7 @@ test_that("sec_axis() handles secondary power transformations", {
   )
   p <- ggplot(df, aes(x, y)) +
     geom_point() +
-    scale_y_continuous(sec.axis = sec_axis(trans = (~2^.)))
+    scale_y_continuous(sec.axis = sec_axis(trans = (~ 2^.)))
 
   scale <- layer_scales(p)$y
   breaks <- scale$break_info()
@@ -209,7 +159,7 @@ test_that("sec_axis() handles secondary power transformations", {
     "sec_axis, sec power transform",
     ggplot() +
       geom_point(aes(x = 1:10, y = rep(5, 10))) +
-      scale_x_continuous(sec.axis = sec_axis(~log10(.)))
+      scale_x_continuous(sec.axis = sec_axis(~ log10(.)))
   )
 })
 
@@ -249,14 +199,125 @@ test_that("sec_axis() respects custom transformations", {
     ggplot(dat, aes(x = x, y = y)) +
       geom_line(size = 1, na.rm = T) +
       scale_y_continuous(
-        trans = magnify_trans_log(interval_low = 0.5, interval_high = 1, reducer = 0.5, reducer2 = 8)
-        , breaks = c(0.001, 0.01, 0.1, 0.5, 0.6, 0.7, 0.8, 0.9, 1)
-        , limits = c(0.001, 1)
-        , sec.axis = sec_axis(
-          trans = ~. * (1 / 2)
-          , breaks = c(0.001, 0.01, 0.1, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5)
+        trans =
+          magnify_trans_log(interval_low = 0.5, interval_high = 1, reducer = 0.5, reducer2 = 8), breaks =
+          c(0.001, 0.01, 0.1, 0.5, 0.6, 0.7, 0.8, 0.9, 1), limits =
+          c(0.001, 1), sec.axis = sec_axis(
+          trans =
+            ~ . * (1 / 2), breaks = c(0.001, 0.01, 0.1, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5)
         )
       ) + theme_linedraw()
   )
 })
 
+test_that("sec_axis works with date/time/datetime scales", {
+  df <- data_frame(
+    dx = seq(as.POSIXct("2012-02-29 12:00:00",
+      tz = "UTC",
+      format = "%Y-%m-%d %H:%M:%S"
+    ),
+    length.out = 10, by = "4 hour"
+    ),
+    price = seq(20, 200000, length.out = 10)
+  )
+  df$date <- as.Date(df$dx)
+
+  # date scale, dup_axis
+  dt <- ggplot(df, aes(dx, price)) +
+    geom_line() +
+    scale_x_datetime(sec.axis = dup_axis())
+  scale <- layer_scales(dt)$x
+  breaks <- scale$break_info()
+  expect_equal(breaks$major_source, breaks$sec.major_source)
+
+  # datetime scale
+  dt <- ggplot(df, aes(date, price)) +
+    geom_line() +
+    scale_x_date(sec.axis = dup_axis())
+  scale <- layer_scales(dt)$x
+  breaks <- scale$break_info()
+  expect_equal(breaks$major_source, breaks$sec.major_source)
+
+  # sec_axis
+  dt <- ggplot(df, aes(dx, price)) +
+    geom_line() +
+    scale_x_datetime(
+      name = "UTC",
+      sec.axis = sec_axis(~ . + 12 * 60 * 60,
+        name = "UTC+12"
+      )
+    )
+  scale <- layer_scales(dt)$x
+  breaks <- scale$break_info()
+
+  expect_equal(
+    as.numeric(breaks$major_source) + 12 * 60 * 60,
+    as.numeric(breaks$sec.major_source)
+  )
+
+  # visual test, datetime scales, reprex #1936
+  df <- data_frame(
+    x = as.POSIXct(c(
+      "2016-11-30 00:00:00",
+      "2016-11-30 06:00:00",
+      "2016-11-30 12:00:00",
+      "2016-11-30 18:00:00",
+      "2016-12-01 00:00:00"
+    ), tz = "UTC"),
+    y = c(0, -1, 0, 1, 0)
+  )
+
+  expect_doppelganger(
+    "sec_axis, datetime scale",
+    ggplot(df, aes(x = x, y = y)) +
+      geom_line() +
+      scale_x_datetime("UTC",
+        date_breaks = "2 hours", date_labels = "%I%p",
+        sec.axis = dup_axis(~ . - 8 * 60 * 60, name = "PST")
+      )
+  )
+})
+
+test_that("sec.axis allows independent trans btwn primary and secondary axes", {
+  data <- data_frame(
+    Value = c(0.18, 0.29, 0.35, 0.46, 0.50, 0.50, 0.51),
+    Probability = c(0.045, 0.090, 0.136, 0.181, 0.227, 0.272, 0.318)
+  )
+  expect_doppelganger(
+    "sec_axis, independent transformations",
+    ggplot(data = data, aes(Probability, Value)) + geom_point() +
+      scale_x_continuous(
+        trans = scales::probability_trans(distribution = "norm", lower.tail = FALSE),
+        sec.axis = sec_axis(trans = ~ 1 / ., name = "Return Period")
+      )
+  )
+})
+
+# Currently fails do to necessary reversion of #2805
+# test_that("sec_axis() works for power transformations (monotonicity test doesn't fail)", {
+#   testdat <- data_frame(
+#     x = runif(11),
+#     y = seq(0, 1, 0.1)
+#   )
+#
+#   p <- ggplot(data = testdat, aes(x = x, y = y)) +
+#     geom_point() +
+#     scale_y_continuous(sec.axis = sec_axis(trans = ~ .^0.5), expand = c(0, 0))
+#   scale <- layer_scales(p)$x
+#   breaks <- scale$break_info()
+#   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+#
+#   p <- ggplot(foo, aes(x, y)) +
+#     geom_point() +
+#     scale_x_sqrt(sec.axis = dup_axis())
+#   scale <- layer_scales(p)$x
+#   breaks <- scale$break_info()
+#   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+#
+#   p <- ggplot(foo, aes(x, y)) +
+#     geom_point() +
+#     scale_x_sqrt(sec.axis = sec_axis(~ . * 100))
+#   scale <- layer_scales(p)$x
+#   breaks <- scale$break_info()
+#   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+# })
