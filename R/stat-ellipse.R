@@ -154,7 +154,7 @@ calculate_ellipse <- function(data, vars, formula, type, level, segments){
       # Q <- chol(shape, pivot = FALSE)
       # rotation <- t(unit.circle %*% Q) 
     # compute radius of ellipse 
-    radius <- sqrt(dfn * stats::qf(level, dfn, dfd))
+    radius <- sqrt(stats::qchisq(level, dfn))
     # center/radius/rotation variables have now been computed for type "confidence"
   # compute ellipse for types other than "confidence"
   } else {
