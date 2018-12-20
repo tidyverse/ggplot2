@@ -85,7 +85,7 @@ StatEllipse <- ggproto("StatEllipse", Stat,
 calculate_ellipse <- function(data, vars, type, level, segments){
 
   # accept only recognized ellipse types
-  if (!type %in% c("t", "norm", "euclid", "confidence")) {
+  if (!type %in% c("t", "norm", "euclid")) {
     message("Unrecognized ellipse type")
     ellipse <- rbind(as.numeric(c(NA, NA)))
   # stop if dataset is too small
