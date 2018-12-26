@@ -165,7 +165,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     panels <- cbind(layout, unrowname(base))
     panels <- panels[order(panels$PANEL), , drop = FALSE]
-    rownames(panels) <- NULL
+    panels <- new_data_frame(panels)
 
     # Add scale identification
     panels$SCALE_X <- if (params$free$x) seq_len(n) else 1L

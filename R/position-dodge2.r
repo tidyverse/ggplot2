@@ -102,7 +102,7 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
 
   # Set the elements in place
   for (i in seq_along(starts)) {
-    divisions <- cumsum(c(starts[i], df[df$xid == i, "new_width"]))
+    divisions <- cumsum(c(starts[i], df[df$xid == i, ]$new_width))
     df[df$xid == i, "xmin"] <- divisions[-length(divisions)]
     df[df$xid == i, "xmax"] <- divisions[-1]
   }

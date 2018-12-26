@@ -17,6 +17,13 @@
 }
 
 .onLoad <- function(...) {
+  vctrs::s3_register("base::$", "tbl_df", base::.subset2)
+  vctrs::s3_register("base::transform", "tbl_df", function(`_data`, ...) {
+    res <- NextMethod()
+    class(res) <- class(`_data`)
+    res
+  })
+
   backport_unit_methods()
 
   # To avoid namespace clash with dplyr.

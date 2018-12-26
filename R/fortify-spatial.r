@@ -22,7 +22,7 @@ NULL
 #' @export
 #' @method fortify SpatialPolygonsDataFrame
 fortify.SpatialPolygonsDataFrame <- function(model, data, region = NULL, ...) {
-  attr <- as.data.frame(model)
+  attr <- new_data_frame(as.data.frame(model))
   # If not specified, split into regions based on polygons
   if (is.null(region)) {
     coords <- rbind_dfs(lapply(model@polygons,fortify))
@@ -67,7 +67,7 @@ fortify.Polygons <- function(model, data, ...) {
 #' @export
 #' @method fortify Polygon
 fortify.Polygon <- function(model, data, ...) {
-  df <- as.data.frame(model@coords)
+  df <- new_data_frame(as.data.frame(model@coords))
   names(df) <- c("long", "lat")
   df$order <- 1:nrow(df)
   df$hole <- model@hole
@@ -103,7 +103,7 @@ fortify.Lines <- function(model, data, ...) {
 #' @export
 #' @method fortify Line
 fortify.Line <- function(model, data, ...) {
-  df <- as.data.frame(model@coords)
+  df <- new_data_frame(as.data.frame(model@coords))
   names(df) <- c("long", "lat")
   df$order <- 1:nrow(df)
   df

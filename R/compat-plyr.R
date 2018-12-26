@@ -307,7 +307,7 @@ rbind_dfs <- function(dfs) {
   for (col in names(col_levels)) {
     out[[col]] <- factor(out[[col]], levels = col_levels[[col]])
   }
-  attributes(out) <- list(class = "data.frame", names = names(out), row.names = .set_row_names(total))
+  attributes(out) <- list(class = c("tbl_df", "tbl", "data.frame"), names = names(out), row.names = .set_row_names(total))
   out
 }
 #' Apply function to unique subsets of a data.frame

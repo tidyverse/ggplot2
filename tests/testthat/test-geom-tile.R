@@ -19,10 +19,10 @@ test_that("accepts width and height aesthetics", {
     geom_tile(fill = NA, colour = "black", size = 1)
   out <- layer_data(p)
 
-  boundary <- as.data.frame(tibble::tribble(
+  boundary <- tibble::tribble(
     ~xmin, ~xmax, ~ymin, ~ymax,
        -1,    1,     -1,    1,
        -2,    2,     -2,    2
-  ))
+  )
   expect_equal(out[c("xmin", "xmax", "ymin", "ymax")], boundary)
 })

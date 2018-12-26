@@ -58,7 +58,6 @@ try_require <- function(package, fun) {
 # @keyword internal
 uniquecols <- function(df) {
   df <- df[1, sapply(df, function(x) length(unique(x)) == 1), drop = FALSE]
-  rownames(df) <- 1:nrow(df)
   df
 }
 

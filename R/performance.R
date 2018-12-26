@@ -12,7 +12,7 @@ new_data_frame <- function(x = list(), n = NULL) {
     x[[i]] <- rep(x[[i]], n)
   }
 
-  class(x) <- "data.frame"
+  class(x) <- c("tbl_df", "tbl", "data.frame")
 
   attr(x, "row.names") <- .set_row_names(n)
   x
@@ -32,7 +32,7 @@ split_matrix <- function(x, col_names = colnames(x)) {
   if (!is.null(col_names)) names(x) <- col_names
   x
 }
-              
+
 mat_2_df <- function(x, col_names = colnames(x)) {
   new_data_frame(split_matrix(x, col_names))
 }

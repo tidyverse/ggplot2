@@ -237,7 +237,6 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     panels <- new_data_frame(c(list(PANEL = panel, ROW = rows, COL = cols), base))
     panels <- panels[order(panels$PANEL), , drop = FALSE]
-    rownames(panels) <- NULL
 
     panels$SCALE_X <- if (params$free$x) panels$COL else 1L
     panels$SCALE_Y <- if (params$free$y) panels$ROW else 1L

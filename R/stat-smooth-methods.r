@@ -16,9 +16,9 @@ predictdf.default <- function(model, xseq, se, level) {
   if (se) {
     fit <- as.data.frame(pred$fit)
     names(fit) <- c("y", "ymin", "ymax")
-    base::data.frame(x = xseq, fit, se = pred$se.fit)
+    data_frame(x = xseq, fit, se = pred$se.fit)
   } else {
-    base::data.frame(x = xseq, y = as.vector(pred))
+    data_frame(x = xseq, y = as.vector(pred))
   }
 }
 
@@ -29,7 +29,7 @@ predictdf.glm <- function(model, xseq, se, level) {
 
   if (se) {
     std <- stats::qnorm(level / 2 + 0.5)
-    base::data.frame(
+    data_frame(
       x = xseq,
       y = model$family$linkinv(as.vector(pred$fit)),
       ymin = model$family$linkinv(as.vector(pred$fit - std * pred$se.fit)),
@@ -37,7 +37,7 @@ predictdf.glm <- function(model, xseq, se, level) {
       se = as.vector(pred$se.fit)
     )
   } else {
-    base::data.frame(x = xseq, y = model$family$linkinv(as.vector(pred)))
+    data_frame(x = xseq, y = model$family$linkinv(as.vector(pred)))
   }
 }
 
@@ -50,9 +50,9 @@ predictdf.loess <- function(model, xseq, se, level) {
     ci <- pred$se.fit * stats::qt(level / 2 + .5, pred$df)
     ymin = y - ci
     ymax = y + ci
-    base::data.frame(x = xseq, y, ymin, ymax, se = pred$se.fit)
+    data_frame(x = xseq, y, ymin, ymax, se = pred$se.fit)
   } else {
-    base::data.frame(x = xseq, y = as.vector(pred))
+    data_frame(x = xseq, y = as.vector(pred))
   }
 }
 
@@ -64,8 +64,8 @@ predictdf.locfit <- function(model, xseq, se, level) {
     y = pred$fit
     ymin = y - pred$se.fit
     ymax = y + pred$se.fit
-    base::data.frame(x = xseq, y, ymin, ymax, se = pred$se.fit)
+    data_frame(x = xseq, y, ymin, ymax, se = pred$se.fit)
   } else {
-    base::data.frame(x = xseq, y = as.vector(pred))
+    data_frame(x = xseq, y = as.vector(pred))
   }
 }

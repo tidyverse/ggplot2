@@ -305,7 +305,7 @@ GeomStep <- ggproto("GeomStep", GeomPath,
 # @keyword internal
 stairstep <- function(data, direction="hv") {
   direction <- match.arg(direction, c("hv", "vh"))
-  data <- as.data.frame(data)[order(data$x), ]
+  data <- new_data_frame(as.data.frame(data)[order(data$x), ])
   n <- nrow(data)
 
   if (n <= 1) {
