@@ -27,6 +27,8 @@
 * `coord_sf()`, `coord_map()`, and `coord_polar()` now squash `-Inf` and `Inf`
   into the min and max of the plot (@yutannihilation, #2972).
 
+* `stat_bin()` now handles data with only one unique value (@yutannihilation #3047).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
