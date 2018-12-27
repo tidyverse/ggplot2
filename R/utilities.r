@@ -227,7 +227,7 @@ expand_range4 <- function(limits, expand) {
 #'   scale_x_discrete(expand = expand_scale(add = 2))
 #'
 #' # Reproduce the default range expansion used
-#' # when the ‘expand’ argument is not specified
+#' # when the 'expand' argument is not specified
 #' ggplot(subset(diamonds, carat > 2), aes(cut, price)) +
 #'   geom_jitter() +
 #'   scale_x_discrete(expand = expand_scale(add = .6)) +
