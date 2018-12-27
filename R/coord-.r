@@ -64,12 +64,11 @@ Coord <- ggproto("Coord",
   render_fg = function(panel_params, theme) element_render(theme, "panel.border"),
 
   render_bg = function(panel_params, theme) {
-    x.major <- if (length(panel_params$x.major) > 0) unit(panel_params$x.major, "native")
-    x.minor <- if (length(panel_params$x.minor) > 0) unit(panel_params$x.minor, "native")
-    y.major <- if (length(panel_params$y.major) > 0) unit(panel_params$y.major, "native")
-    y.minor <- if (length(panel_params$y.minor) > 0) unit(panel_params$y.minor, "native")
-
-    guide_grid(theme, x.minor, x.major, y.minor, y.major)
+    guide_grid(theme,
+               panel_params$x.minor,
+               panel_params$x.major,
+               panel_params$y.minor,
+               panel_params$y.major)
   },
 
   render_axis_h = function(panel_params, theme) {

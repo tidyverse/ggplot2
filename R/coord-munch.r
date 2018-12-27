@@ -112,8 +112,8 @@ dist_polar <- function(r, theta) {
   # Rename x and y columns to r and t, since we're working in polar
   # Note that 'slope' actually means the spiral slope, 'a' in the spiral
   #   formula r = a * theta
-  lf <- plyr::rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
-    yintercept = "r_int",  xintercept = "t_int"), warn_missing = FALSE)
+  lf <- rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
+    yintercept = "r_int",  xintercept = "t_int"))
 
   # Re-normalize the theta values so that intercept for each is 0
   # This is necessary for calculating spiral arc length.

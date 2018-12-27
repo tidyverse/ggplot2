@@ -31,8 +31,9 @@ test_that("spatial polygons have correct ordering", {
   polys2 <- rev(polys)
   polys2_sp <- sp::SpatialPolygons(polys2)
   fake_sp2 <- sp::SpatialPolygonsDataFrame(polys2_sp, fake_data)
+  fake_sp2_fortified <- fortify(fake_sp2)
 
-  expect_equivalent(fortify(fake_sp), plyr::arrange(fortify(fake_sp2), id, order))
+  expect_equivalent(fortify(fake_sp), fake_sp2_fortified[order(fake_sp2_fortified$id, fake_sp2_fortified$order), ])
 })
 
 test_that("fortify.default proves a helpful error with class uneval", {

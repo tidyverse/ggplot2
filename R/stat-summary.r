@@ -161,8 +161,8 @@ StatSummary <- ggproto("StatSummary", Stat,
 # @param other arguments passed on to summary function
 # @keyword internal
 summarise_by_x <- function(data, summary, ...) {
-  summary <- plyr::ddply(data, c("group", "x"), summary, ...)
-  unique <- plyr::ddply(data, c("group", "x"), uniquecols)
+  summary <- dapply(data, c("group", "x"), summary, ...)
+  unique <- dapply(data, c("group", "x"), uniquecols)
   unique$y <- NULL
 
   merge(summary, unique, by = c("x", "group"), sort = FALSE)
@@ -201,10 +201,9 @@ wrap_hmisc <- function(fun) {
     fun <- getExportedValue("Hmisc", fun)
     result <- do.call(fun, list(x = quote(x), ...))
 
-    plyr::rename(
+    rename(
       new_data_frame(as.list(result)),
-      c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax"),
-      warn_missing = FALSE
+      c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax")
     )
   }
 }

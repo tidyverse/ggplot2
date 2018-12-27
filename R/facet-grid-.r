@@ -229,11 +229,11 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     base <- unique(base)
 
     # Create panel info dataset
-    panel <- plyr::id(base, drop = TRUE)
+    panel <- id(base, drop = TRUE)
     panel <- factor(panel, levels = seq_len(attr(panel, "n")))
 
-    rows <- if (!length(names(rows))) rep(1L, length(panel)) else plyr::id(base[names(rows)], drop = TRUE)
-    cols <- if (!length(names(cols))) rep(1L, length(panel)) else plyr::id(base[names(cols)], drop = TRUE)
+    rows <- if (!length(names(rows))) rep(1L, length(panel)) else id(base[names(rows)], drop = TRUE)
+    cols <- if (!length(names(cols))) rep(1L, length(panel)) else id(base[names(cols)], drop = TRUE)
 
     panels <- new_data_frame(c(list(PANEL = panel, ROW = rows, COL = cols), base))
     panels <- panels[order(panels$PANEL), , drop = FALSE]
@@ -269,8 +269,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       data_rep <- rep.int(1:nrow(data), nrow(to_add))
       facet_rep <- rep(1:nrow(to_add), each = nrow(data))
 
-      data <- plyr::unrowname(data[data_rep, , drop = FALSE])
-      facet_vals <- plyr::unrowname(cbind(
+      data <- unrowname(data[data_rep, , drop = FALSE])
+      facet_vals <- unrowname(cbind(
         facet_vals[data_rep, ,  drop = FALSE],
         to_add[facet_rep, , drop = FALSE]))
     }
@@ -283,7 +283,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       facet_vals[] <- lapply(facet_vals[], as.factor)
       facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
 
-      keys <- plyr::join.keys(facet_vals, layout, by = vars)
+      keys <- join_keys(facet_vals, layout, by = vars)
 
       data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     }

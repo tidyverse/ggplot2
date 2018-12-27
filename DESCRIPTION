@@ -26,9 +26,8 @@ Imports:
     lazyeval,
     MASS,
     mgcv,
-    plyr (>= 1.7.1),
     reshape2,
-    rlang (>= 0.2.1),
+    rlang (>= 0.3.0),
     scales (>= 0.5.0),
     stats,
     tibble,
@@ -71,6 +70,7 @@ Collate:
     'aes-group-order.r'
     'aes-linetype-size-shape.r'
     'aes-position.r'
+    'compat-plyr.R'
     'utilities.r'
     'aes.r'
     'legend-draw.r'
@@ -89,7 +89,6 @@ Collate:
     'backports.R'
     'bench.r'
     'bin.R'
-    'compat-quosures.R'
     'coord-.r'
     'coord-cartesian-.r'
     'coord-fixed.r'
