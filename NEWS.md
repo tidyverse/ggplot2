@@ -27,6 +27,10 @@
 * `coord_sf()`, `coord_map()`, and `coord_polar()` now squash `-Inf` and `Inf`
   into the min and max of the plot (@yutannihilation, #2972).
 
+* `geom_tile()` and `geom_rect()` now draw rectangles without notches at the
+  corners. The style of the corner can be controlled by `lineend` and `linejoin`
+  parameters (@yutannihilation, #3050).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
