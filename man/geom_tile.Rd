@@ -12,12 +12,12 @@ geom_raster(mapping = NULL, data = NULL, stat = "identity",
   inherit.aes = TRUE)
 
 geom_rect(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., lineend = "square", linejoin = "mitre",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 geom_tile(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., lineend = "square", linejoin = "mitre",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -70,6 +70,10 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+
+\item{lineend}{Line end style (round, butt, square).}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
 }
 \description{
 \code{geom_rect} and \code{geom_tile} do the same thing, but are
