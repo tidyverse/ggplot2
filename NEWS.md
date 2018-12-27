@@ -27,6 +27,8 @@
 * `coord_sf()`, `coord_map()`, and `coord_polar()` now squash `-Inf` and `Inf`
   into the min and max of the plot (@yutannihilation, #2972).
 
+* `geom_raster()` now draws discrete values correctly (@yutannihilation, #3028).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
