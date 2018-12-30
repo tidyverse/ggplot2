@@ -21,8 +21,9 @@ scale_colour_gradient(..., low = "#132B43", high = "#56B1F7",
   space = "Lab", na.value = "grey50", guide = "colourbar",
   aesthetics = "colour")
 
-scale_fill_gradient(..., low = "#132B43", high = "#56B1F7", space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "fill")
+scale_fill_gradient(..., low = "#132B43", high = "#56B1F7",
+  space = "Lab", na.value = "grey50", guide = "colourbar",
+  aesthetics = "fill")
 
 scale_colour_gradient2(..., low = muted("red"), mid = "white",
   high = muted("blue"), midpoint = 0, space = "Lab",
@@ -33,10 +34,12 @@ scale_fill_gradient2(..., low = muted("red"), mid = "white",
   na.value = "grey50", guide = "colourbar", aesthetics = "fill")
 
 scale_colour_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "colour", colors)
+  na.value = "grey50", guide = "colourbar", aesthetics = "colour",
+  colors)
 
 scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "fill", colors)
+  na.value = "grey50", guide = "colourbar", aesthetics = "fill",
+  colors)
 }
 \arguments{
 \item{...}{Arguments passed on to \code{continuous_scale}
@@ -128,7 +131,7 @@ Defaults to 0.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-\code{colours} vector. See \code{\link{rescale}} for a convience function
+\code{colours} vector. See \code{\link[=rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
 }
 \description{

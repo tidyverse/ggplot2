@@ -11,8 +11,8 @@ geom_hex(mapping = NULL, data = NULL, stat = "binhex",
   inherit.aes = TRUE)
 
 stat_bin_hex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", ..., bins = 30, binwidth = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., bins = 30, binwidth = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

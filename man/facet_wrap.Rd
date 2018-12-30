@@ -16,7 +16,7 @@ The variables can be named (the names are passed to \code{labeller}).
 For compatibility with the classic interface, can also be a
 formula or character vector. Use either a one sided formula, `~a
 \itemize{
-\item b\code{, or a character vector,}c("a", "b")`.
+\item b\code{, or a character vector, }c("a", "b")`.
 }}
 
 \item{nrow, ncol}{Number of rows and columns.}

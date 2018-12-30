@@ -9,11 +9,11 @@
 geom_abline(mapping = NULL, data = NULL, ..., slope, intercept,
   na.rm = FALSE, show.legend = NA)
 
-geom_hline(mapping = NULL, data = NULL, ..., yintercept, na.rm = FALSE,
-  show.legend = NA)
+geom_hline(mapping = NULL, data = NULL, ..., yintercept,
+  na.rm = FALSE, show.legend = NA)
 
-geom_vline(mapping = NULL, data = NULL, ..., xintercept, na.rm = FALSE,
-  show.legend = NA)
+geom_vline(mapping = NULL, data = NULL, ..., xintercept,
+  na.rm = FALSE, show.legend = NA)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

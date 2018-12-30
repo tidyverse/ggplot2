@@ -5,8 +5,9 @@
 \title{Compute normal confidence ellipses}
 \usage{
 stat_ellipse(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", ..., type = "t", level = 0.95, segments = 51,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., type = "t", level = 0.95,
+  segments = 51, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -92,7 +93,7 @@ ggplot(faithful, aes(waiting, eruptions, fill = eruptions > 3)) +
   stat_ellipse(geom = "polygon")
 }
 \references{
-John Fox and Sanford Weisberg (2011). An {R} Companion to
+John Fox and Sanford Weisberg (2011). An \R Companion to
 Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
 \url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
 }

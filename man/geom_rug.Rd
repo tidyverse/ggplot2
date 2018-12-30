@@ -63,7 +63,7 @@ with the two 1d marginal distributions. Rug plots display individual
 cases so are best used with smaller datasets.
 }
 \details{
-The rug lines are drawn with a fixed size (3% of the total plot size) so
+The rug lines are drawn with a fixed size (3\% of the total plot size) so
 are dependent on the overall scale expansion in order not to overplot
 existing data.
 }
