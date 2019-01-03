@@ -98,7 +98,8 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
   if (bins < 1) {
     stop("Need at least one bin.", call. = FALSE)
   } else if (zero_range(x_range)) {
-    width <- 1
+    # 0.1 is the same width as the expansion `expand_default()` gives for 0-width data
+    width <- 0.1
   } else if (bins == 1) {
     width <- diff(x_range)
     boundary <- x_range[1]
