@@ -74,8 +74,8 @@ test_that("geom_histogram() can be drawn over a 0-width range (#3043)", {
   out <- layer_data(ggplot(df, aes(x)) + geom_histogram())
 
   expect_equal(nrow(out), 1)
-  expect_equal(out$xmin, 0.5)
-  expect_equal(out$xmax, 1.5)
+  expect_equal(out$xmin, 0.95)
+  expect_equal(out$xmax, 1.05)
 })
 
 # Underlying binning algorithm --------------------------------------------
