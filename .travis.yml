@@ -10,7 +10,6 @@ matrix:
   - r: release
     env: USE_VDIFFR=true
     r_github_packages:
-    - lionel-/vdiffr
     - tidyverse/tidytemplate
     - r-lib/pkgdown
 
