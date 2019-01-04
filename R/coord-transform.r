@@ -92,14 +92,14 @@ coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL
   if (!missing(limx)) {
     gg_dep("3.1.0", "`limx` arguments is deprecated; please use `xlim` instead.")
     if (!is.null(xlim)) {
-      stop("Must not provie both `xlim` and `limx`; please use `xlim` only.")
+      stop("Must not provide both `xlim` and `limx`; please use `xlim` only.")
     }
     xlim <- limx
   }
   if (!missing(limy)) {
     gg_dep("3.1.0", "`limy` arguments is deprecated; please use `ylim` instead.")
     if (!is.null(ylim)) {
-      stop("Must not provie both `ylim` and `limy`; please use `ylim` only.")
+      stop("Must not provide both `ylim` and `limy`; please use `ylim` only.")
     }
     ylim <- limy
   }
