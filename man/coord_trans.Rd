@@ -10,14 +10,15 @@ coord_trans(x = "identity", y = "identity", limx = NULL,
 \arguments{
 \item{x, y}{transformers for x and y axes}
 
-\item{limx, limy}{limits for x and y axes. (Named so for backward
-compatibility)}
+\item{limx, limy}{Deprecated; use \code{xlim} and \code{ylim} instead.}
 
 \item{clip}{Should drawing be clipped to the extent of the plot panel? A
 setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
 means no. For details, please see \code{\link[=coord_cartesian]{coord_cartesian()}}.}
 
 \item{xtrans, ytrans}{Deprecated; use \code{x} and \code{y} instead.}
+
+\item{xlim, ylim}{limits for x and y axes.}
 }
 \description{
 \code{coord_trans} is different to scale transformations in that it occurs after

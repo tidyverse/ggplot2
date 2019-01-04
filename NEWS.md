@@ -1,5 +1,8 @@
 # ggplot2 3.1.0.9000
 
+* `coord_trans()` now uses `xlim` and `ylim`; `limx` and `limy` are
+  deprecated (@billdenney).
+
 * `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
 
 * Layers now have a new member function `setup_layer()` which is called at the
