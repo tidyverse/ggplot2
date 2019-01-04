@@ -78,8 +78,8 @@
 #' plot + coord_trans(x = "log10")
 #' plot + coord_trans(x = "sqrt")
 #' }
-coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL, clip = "on",
-  xtrans, ytrans)
+coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL, clip = "on",
+  xtrans, ytrans, limx, limy)
 {
   if (!missing(xtrans)) {
     gg_dep("1.0.1", "`xtrans` arguments is deprecated; please use `x` instead.")
@@ -89,20 +89,27 @@ coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL
     gg_dep("1.0.1", "`ytrans` arguments is deprecated; please use `y` instead.")
     y <- ytrans
   }
+  if (!missing(limx)) {
+    gg_dep("3.1.0", "`limx` arguments is deprecated; please use `xlim` instead.")
+    if (!is.null(xlim)) {
+      stop("Must not provie both `xlim` and `limx`; please use `xlim` only.")
+    }
+    xlim <- limx
+  }
+  if (!missing(limy)) {
+    gg_dep("3.1.0", "`limy` arguments is deprecated; please use `ylim` instead.")
+    if (!is.null(ylim)) {
+      stop("Must not provie both `ylim` and `limy`; please use `ylim` only.")
+    }
+    ylim <- limy
+  }
 
-  # @kohske
-  # Now limits are implemented.
-  # But for backward compatibility, xlim -> limx, ylim -> ylim
-  # Because there are many examples such as
-  # > coord_trans(x = "log10", y = "log10")
-  # Maybe this is changed.
   if (is.character(x)) x <- as.trans(x)
   if (is.character(y)) y <- as.trans(y)
 
-
   ggproto(NULL, CoordTrans,
     trans = list(x = x, y = y),
-    limits = list(x = limx, y = limy),
+    limits = list(x = xlim, y = ylim),
     clip = clip
   )
 }

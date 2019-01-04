@@ -4,13 +4,13 @@
 \alias{coord_trans}
 \title{Transformed Cartesian coordinate system}
 \usage{
-coord_trans(x = "identity", y = "identity", limx = NULL,
-  limy = NULL, clip = "on", xtrans, ytrans)
+coord_trans(x = "identity", y = "identity", xlim = NULL,
+  ylim = NULL, clip = "on", xtrans, ytrans, limx, limy)
 }
 \arguments{
 \item{x, y}{transformers for x and y axes}
 
-\item{limx, limy}{Deprecated; use \code{xlim} and \code{ylim} instead.}
+\item{xlim, ylim}{limits for x and y axes.}
 
 \item{clip}{Should drawing be clipped to the extent of the plot panel? A
 setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
@@ -18,7 +18,7 @@ means no. For details, please see \code{\link[=coord_cartesian]{coord_cartesian(
 
 \item{xtrans, ytrans}{Deprecated; use \code{x} and \code{y} instead.}
 
-\item{xlim, ylim}{limits for x and y axes.}
+\item{limx, limy}{Deprecated; use \code{xlim} and \code{ylim} instead.}
 }
 \description{
 \code{coord_trans} is different to scale transformations in that it occurs after
