@@ -149,10 +149,8 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     )
   },
 
-  break_info = function(self, range, scale) {
-    if (self$empty()) return()
-
-    # Get original range before transformation
+  mono_test = function(self, scale){
+    range <- scale$range$range
     along_range <- seq(range[1], range[2], length.out = self$detail)
     old_range <- scale$trans$inverse(along_range)
 
@@ -162,6 +160,20 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     # Test for monotonicity
     if (length(unique(sign(diff(full_range)))) != 1)
       stop("transformation for secondary axes must be monotonic")
+  },
+
+  break_info = function(self, range, scale) {
+    if (self$empty()) return()
+
+    # Test for monotonicity on unexpanded range
+    self$mono_test(scale)
+
+    # Get scale's original range before transformation
+    along_range <- seq(range[1], range[2], length.out = self$detail)
+    old_range <- scale$trans$inverse(along_range)
+
+    # Create mapping between primary and secondary range
+    full_range <- self$transform_range(old_range)
 
     # Get break info for the secondary axis
     new_range <- range(full_range, na.rm = TRUE)

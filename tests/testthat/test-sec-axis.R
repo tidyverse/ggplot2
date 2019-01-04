@@ -25,7 +25,8 @@ test_that("sex axis works with division (#1804)", {
     "sec_axis, with division",
     ggplot(mpg, aes(displ, hwy)) +
       geom_point() +
-      scale_y_continuous(sec.axis = sec_axis(~ 235 / ., name = "100km / L"))
+      scale_y_continuous(sec.axis = sec_axis(~ 235 / ., name = "100km / L")) +
+      theme_linedraw()
   )
 })
 
@@ -105,7 +106,7 @@ test_that("sec axis works with skewed transform", {
           labels = derive(),
           breaks = derive()
         )
-      )
+      ) + theme_linedraw()
   )
 })
 
@@ -159,7 +160,8 @@ test_that("sec_axis() handles secondary power transformations", {
     "sec_axis, sec power transform",
     ggplot() +
       geom_point(aes(x = 1:10, y = rep(5, 10))) +
-      scale_x_continuous(sec.axis = sec_axis(~ log10(.)))
+      scale_x_continuous(sec.axis = sec_axis(~ log10(.))) +
+      theme_linedraw()
   )
 })
 
@@ -274,7 +276,7 @@ test_that("sec_axis works with date/time/datetime scales", {
       scale_x_datetime("UTC",
         date_breaks = "2 hours", date_labels = "%I%p",
         sec.axis = dup_axis(~ . - 8 * 60 * 60, name = "PST")
-      )
+      ) + theme_linedraw()
   )
 })
 
@@ -289,35 +291,45 @@ test_that("sec.axis allows independent trans btwn primary and secondary axes", {
       scale_x_continuous(
         trans = scales::probability_trans(distribution = "norm", lower.tail = FALSE),
         sec.axis = sec_axis(trans = ~ 1 / ., name = "Return Period")
-      )
+      ) + theme_linedraw()
   )
 })
 
 # Currently fails do to necessary reversion of #2805
-# test_that("sec_axis() works for power transformations (monotonicity test doesn't fail)", {
-#   testdat <- data_frame(
-#     x = runif(11),
-#     y = seq(0, 1, 0.1)
-#   )
-#
-#   p <- ggplot(data = testdat, aes(x = x, y = y)) +
-#     geom_point() +
-#     scale_y_continuous(sec.axis = sec_axis(trans = ~ .^0.5), expand = c(0, 0))
-#   scale <- layer_scales(p)$x
-#   breaks <- scale$break_info()
-#   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
-#
-#   p <- ggplot(foo, aes(x, y)) +
-#     geom_point() +
-#     scale_x_sqrt(sec.axis = dup_axis())
-#   scale <- layer_scales(p)$x
-#   breaks <- scale$break_info()
-#   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
-#
-#   p <- ggplot(foo, aes(x, y)) +
-#     geom_point() +
-#     scale_x_sqrt(sec.axis = sec_axis(~ . * 100))
-#   scale <- layer_scales(p)$x
-#   breaks <- scale$break_info()
-#   expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
-# })
+test_that("sec_axis() works for power transformations (monotonicity test doesn't fail)", {
+  data <- data_frame(
+    x = seq(0, 1, length.out = 100),
+    y = seq(0, 4, length.out = 100)
+  )
+  expect_doppelganger(
+    "sec axis monotonicity test",
+    ggplot(data, aes(x, y)) +
+      geom_line() +
+      scale_y_continuous(trans = "sqrt", sec.axis = dup_axis()) + theme_linedraw()
+  )
+
+  testdat <- data_frame(
+    x = runif(11),
+    y = seq(0, 1, 0.1)
+  )
+  p <- ggplot(data = testdat, aes(x = x, y = y)) +
+    geom_point() +
+    scale_y_continuous(sec.axis = sec_axis(trans = ~ .^0.5))
+  scale <- layer_scales(p)$y
+  breaks <- scale$break_info()
+  expect_equal(breaks$major, sqrt(breaks$sec.major), tolerance = .005)
+
+  p <- ggplot(foo, aes(x, y)) +
+    geom_point() +
+    scale_x_sqrt(sec.axis = dup_axis())
+  scale <- layer_scales(p)$x
+  breaks <- scale$break_info()
+  expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+
+  p <- ggplot(foo, aes(x, y)) +
+    geom_point() +
+    scale_x_sqrt(sec.axis = sec_axis(~ . * 100))
+  scale <- layer_scales(p)$x
+  breaks <- scale$break_info()
+  expect_equal(breaks$major, breaks$sec.major, tolerance = .001)
+})
