@@ -118,7 +118,7 @@ test_that("aesthetics are drawn correctly", {
   dat <- data_frame(xvar = letters[1:3], yvar = 7:9)
 
   expect_doppelganger("stat='identity'",
-    ggplot(dat, aes(x = xvar, y = yvar)) + geom_bar(stat = "identity", colour = "red")
+    ggplot(dat, aes(x = xvar, y = yvar)) + geom_bar(stat = "identity")
   )
   expect_doppelganger("stat='identity', width=0.5",
     ggplot(dat, aes(x = xvar, y = yvar)) + geom_bar(stat = "identity", width = 0.5)
