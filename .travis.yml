@@ -8,7 +8,7 @@ matrix:
   include:
   - r: devel
   - r: release
-    env: USE_VDIFFR=true
+    env: VDIFFR_RUN_TESTS=true
     r_github_packages:
     - tidyverse/tidytemplate
     - r-lib/pkgdown
@@ -30,7 +30,7 @@ env:
   # don't treat missing suggested packages as error
   - _R_CHECK_FORCE_SUGGESTS_=false
   # switch off vdiffr by default
-  - USE_VDIFFR=false
+  - VDIFFR_RUN_TESTS=false
 
 after_success:
   - Rscript -e 'covr::codecov()'
