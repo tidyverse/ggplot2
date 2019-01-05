@@ -1,0 +1,123 @@
+body {font-size: 16px;}
+h1 {font-size: 40px;}
+h2 {font-size: 30px;}
+
+.contents .page-header {
+  margin-top: 10px;
+}
+
+.ref-arguments th {vertical-align: top;}
+
+/* navbar ----------------------------------------------- */
+
+.navbar .info {
+  float: left;
+  height: 50px;
+  width: 140px;
+  font-size: 80%;
+  position: relative;
+  margin-left: 5px;
+}
+.navbar .info .partof {
+  position: absolute;
+  top: 0;
+}
+.navbar .info .version {
+  position: absolute;
+  bottom: 0;
+}
+.navbar .info .version-danger {
+  font-weight: bold;
+  color: orange;
+}
+
+.navbar-form {
+  margin-top: 3px;
+  margin-bottom: 0;
+}
+
+.navbar-toggle {
+  margin-top: 8px;
+  margin-bottom: 5px;
+}
+
+.navbar-nav li a {
+  padding-bottom: 10px;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  background-color: #eee;
+  border-radius: 3px;
+}
+
+/* footer ------------------------------------------------ */
+
+footer {
+  margin-top: 45px;
+  padding: 35px 0 36px;
+  border-top: 1px solid #e5e5e5;
+
+  display: flex;
+  color: #666;
+}
+footer p {
+  margin-bottom: 0;
+}
+footer .tidyverse {
+  flex: 1;
+  margin-right: 1em;
+}
+footer .author {
+  flex: 1;
+  text-align: right;
+  margin-left: 1em;
+}
+
+/* sidebar ------------------------------------------------ */
+
+#sidebar h2 {
+  font-size: 1.6em;
+  margin-top: 1em;
+  margin-bottom: 0.25em;
+}
+
+#sidebar .list-unstyled li {
+  margin-bottom: 0.5em;
+  line-height: 1.4;
+}
+
+#sidebar small {
+  color: #777;
+}
+
+#sidebar .nav {
+  padding-left: 0px;
+  list-style-type: none;
+  color: #5a9ddb;
+}
+
+#sidebar .nav > li {
+  padding: 10px 0 0px 20px;
+  display: list-item;
+  line-height: 20px;
+  background-image: url(./tocBullet.svg);
+  background-repeat: no-repeat;
+  background-size: 16px 280px;
+  background-position: left 0px;
+}
+
+#sidebar .nav > li.active {
+  background-position: left -240px;
+}
+
+#sidebar a {
+  padding: 0px;
+  color: #5a9ddb;
+  background-color: transparent;
+}
+
+#sidebar a:hover {
+  background-color: transparent;
+  text-decoration: underline;
+}
