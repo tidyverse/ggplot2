@@ -55,7 +55,7 @@ Suggests:
     sf (>= 0.3-4),
     svglite (>= 1.2.0.9001),
     testthat (>= 0.11.0),
-    vdiffr
+    vdiffr (>= 0.3.0)
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2

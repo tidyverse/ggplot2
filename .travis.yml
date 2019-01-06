@@ -8,7 +8,7 @@ matrix:
   include:
   - r: devel
   - r: release
-    env: USE_VDIFFR=true
+    env: VDIFFR_RUN_TESTS=true
     before_cache:
     - Rscript -e 'remotes::install_cran("pkgdown")'
     - Rscript -e 'remotes::install_github("tidyverse/tidytemplate")'
@@ -28,7 +28,7 @@ env:
   # don't treat missing suggested packages as error
   - _R_CHECK_FORCE_SUGGESTS_=false
   # switch off vdiffr by default
-  - USE_VDIFFR=false
+  - VDIFFR_RUN_TESTS=false
 
 after_success:
   - Rscript -e 'covr::codecov()'
