@@ -9,10 +9,9 @@ matrix:
   - r: devel
   - r: release
     env: VDIFFR_RUN_TESTS=true
-    r_github_packages:
-    - tidyverse/tidytemplate
-    - r-lib/pkgdown
-
+    before_cache:
+    - Rscript -e 'remotes::install_cran("pkgdown")'
+    - Rscript -e 'remotes::install_github("tidyverse/tidytemplate")'
     deploy:
       provider: script
       script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
