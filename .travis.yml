@@ -16,7 +16,6 @@ matrix:
       provider: script
       script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
       skip_cleanup: true
-
   - r: oldrel
   - r: 3.2
     env: R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
