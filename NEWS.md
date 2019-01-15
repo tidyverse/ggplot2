@@ -1,5 +1,7 @@
 # ggplot2 3.1.0.9000
 
+* `coord_map()` now can have axes on the top and right (@karawoo, #3042).
+
 * `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
 
 * Layers now have a new member function `setup_layer()` which is called at the
