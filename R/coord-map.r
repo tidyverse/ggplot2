@@ -244,7 +244,7 @@ CoordMap <- ggproto("CoordMap", Coord,
   },
 
   render_axis_h = function(self, panel_params, theme) {
-    arrange <- panel_params$x.arrange %||% c("primary", "secondary")
+    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
 
     if (is.null(panel_params$x.major)) {
       return(list(
