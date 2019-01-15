@@ -1,5 +1,9 @@
 # ggplot2 3.1.0.9000
 
+* Facet strips on the left side of plots now have clipping turned on, preventing
+  text from running out of the strip and borders from looking thicker than for
+  other strips (@karawoo, #2772 and #3061).
+
 * `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
 
 * Layers now have a new member function `setup_layer()` which is called at the
