@@ -12,6 +12,17 @@ test_that("USA state map drawn", {
   )
 })
 
+test_that("coord_map scale position can be switched", {
+  expect_doppelganger(
+    "coord_map switched scale position",
+    p_us +
+      geom_polygon(fill = NA, colour = "grey50") +
+      coord_map("mercator") +
+      scale_y_continuous(position = "right") +
+      scale_x_continuous(position = "top")
+  )
+})
+
 test_that("Inf is squished to range", {
   d <- cdata(
     ggplot(data_frame(x = 0, y = 0)) +
