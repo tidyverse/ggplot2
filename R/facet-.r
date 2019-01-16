@@ -91,10 +91,10 @@ Facet <- ggproto("Facet", NULL,
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
     if (!is.null(x_scale)) {
-      scales$x <- plyr::rlply(max(layout$SCALE_X), x_scale$clone())
+      scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) x_scale$clone())
     }
     if (!is.null(y_scale)) {
-      scales$y <- plyr::rlply(max(layout$SCALE_Y), y_scale$clone())
+      scales$y <- lapply(seq_len(max(layout$SCALE_Y)), function(i) y_scale$clone())
     }
     scales
   },
@@ -243,7 +243,7 @@ NO_PANEL <- -1L
 unique_combs <- function(df) {
   if (length(df) == 0) return()
 
-  unique_values <- plyr::llply(df, ulevels)
+  unique_values <- lapply(df, ulevels)
   rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE,
     KEEP.OUT.ATTRS = TRUE))
 }
@@ -256,7 +256,7 @@ df.grid <- function(a, b) {
     i_a = seq_len(nrow(a)),
     i_b = seq_len(nrow(b))
   )
-  plyr::unrowname(cbind(
+  unrowname(cbind(
     a[indexes$i_a, , drop = FALSE],
     b[indexes$i_b, , drop = FALSE]
   ))
@@ -382,23 +382,23 @@ as_facets <- function(x) {
     f_as_facets(x)
   } else {
     vars <- as_quoted(x)
-    as_quosures(vars, globalenv(), named = TRUE)
+    rlang::as_quosures(vars, globalenv(), named = TRUE)
   }
 }
 f_as_facets <- function(f) {
   if (is.null(f)) {
-    return(as_quosures(list()))
+    return(rlang::as_quosures(list()))
   }
 
   env <- rlang::f_env(f) %||% globalenv()
 
   # as.quoted() handles `+` specifications
-  vars <- plyr::as.quoted(f)
+  vars <- as.quoted(f)
 
   # `.` in formulas is ignored
   vars <- discard_dots(vars)
 
-  as_quosures(vars, env, named = TRUE)
+  rlang::as_quosures(vars, env, named = TRUE)
 }
 discard_dots <- function(x) {
   x[!vapply(x, identical, logical(1), as.name("."))]
@@ -443,7 +443,7 @@ eval_facet <- function(facet, data, env = emptyenv()) {
 
 layout_null <- function() {
   # PANEL needs to be a factor to be consistent with other facet types
-  data.frame(PANEL = factor(1), ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
+  new_data_frame(list(PANEL = factor(1), ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1))
 }
 
 check_layout <- function(x) {
@@ -493,12 +493,12 @@ find_panel <- function(table) {
   layout <- table$layout
   panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
 
-  data.frame(
-    t = min(panels$t),
-    r = max(panels$r),
-    b = max(panels$b),
-    l = min(panels$l)
-  )
+  new_data_frame(list(
+    t = min(.subset2(panels, "t")),
+    r = max(.subset2(panels, "r")),
+    b = max(.subset2(panels, "b")),
+    l = min(.subset2(panels, "l"))
+  ), n = 1)
 }
 #' @rdname find_panel
 #' @export
@@ -526,10 +526,10 @@ panel_rows <- function(table) {
 #' @keywords internal
 #' @export
 combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
-  if (length(vars) == 0) return(data.frame())
+  if (length(vars) == 0) return(new_data_frame())
 
   # For each layer, compute the facet values
-  values <- compact(plyr::llply(data, eval_facets, facets = vars, env = env))
+  values <- compact(lapply(data, eval_facets, facets = vars, env = env))
 
   # Form the base data.frame which contains all combinations of faceting
   # variables that appear in the data
@@ -547,7 +547,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     )
   }
 
-  base <- unique(plyr::ldply(values[has_all]))
+  base <- unique(rbind_dfs(values[has_all]))
   if (!drop) {
     base <- unique_combs(base)
   }

@@ -8,17 +8,14 @@ matrix:
   include:
   - r: devel
   - r: release
-    env: USE_VDIFFR=true
-    r_github_packages:
-    - lionel-/vdiffr
-    - tidyverse/tidytemplate
-    - r-lib/pkgdown
-
+    env: VDIFFR_RUN_TESTS=true
+    before_cache:
+    - Rscript -e 'remotes::install_cran("pkgdown")'
+    - Rscript -e 'remotes::install_github("tidyverse/tidytemplate")'
     deploy:
       provider: script
       script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
       skip_cleanup: true
-
   - r: oldrel
   - r: 3.2
     env: R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
@@ -31,7 +28,7 @@ env:
   # don't treat missing suggested packages as error
   - _R_CHECK_FORCE_SUGGESTS_=false
   # switch off vdiffr by default
-  - USE_VDIFFR=false
+  - VDIFFR_RUN_TESTS=false
 
 after_success:
   - Rscript -e 'covr::codecov()'

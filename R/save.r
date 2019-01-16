@@ -145,7 +145,7 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
   )
 
   if (is.null(device)) {
-    device <- tolower(tools::file_ext(filename))
+    device <- to_lower_ascii(tools::file_ext(filename))
   }
 
   if (!is.character(device) || length(device) != 1) {

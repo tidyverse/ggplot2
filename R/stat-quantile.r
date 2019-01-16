@@ -71,12 +71,12 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       xmax <- max(data$x, na.rm = TRUE)
       xseq <- seq(xmin, xmax, length.out = 100)
     }
-    grid <- data.frame(x = xseq)
+    grid <- new_data_frame(list(x = xseq))
 
     method <- match.fun(method)
 
-    plyr::ldply(quantiles, quant_pred, data = data, method = method,
-      formula = formula, weight = weight, grid = grid, method.args = method.args)
+    rbind_dfs(lapply(quantiles, quant_pred, data = data, method = method,
+      formula = formula, weight = weight, grid = grid, method.args = method.args))
   }
 )
 

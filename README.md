@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggplot2 <img src="man/figures/logo.png" align="right" />
+# ggplot2 <img src="man/figures/logo.png" align="right" width="120" />
 
 [![Travis Build
 Status](https://travis-ci.org/tidyverse/ggplot2.svg?branch=master)](https://travis-ci.org/tidyverse/ggplot2)

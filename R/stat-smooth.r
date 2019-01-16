@@ -106,7 +106,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
                            na.rm = FALSE) {
     if (length(unique(data$x)) < 2) {
       # Not enough data to perform fit
-      return(data.frame())
+      return(new_data_frame())
     }
 
     if (is.null(data$weight)) data$weight <- 1

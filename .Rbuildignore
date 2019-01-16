@@ -1,3 +1,4 @@
+^pkgdown$
 ^CRAN-RELEASE$
 visual_test
 ^.*\.Rproj$

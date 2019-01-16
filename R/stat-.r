@@ -86,18 +86,18 @@ Stat <- ggproto("Stat",
     params <- params[intersect(names(params), self$parameters())]
 
     args <- c(list(data = quote(data), scales = quote(scales)), params)
-    plyr::ddply(data, "PANEL", function(data) {
+    dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
       tryCatch(do.call(self$compute_panel, args), error = function(e) {
         warning("Computation failed in `", snake_class(self), "()`:\n",
           e$message, call. = FALSE)
-        data.frame()
+        new_data_frame()
       })
     })
   },
 
   compute_panel = function(self, data, scales, ...) {
-    if (empty(data)) return(data.frame())
+    if (empty(data)) return(new_data_frame())
 
     groups <- split(data, data$group)
     stats <- lapply(groups, function(group) {
@@ -105,7 +105,7 @@ Stat <- ggproto("Stat",
     })
 
     stats <- mapply(function(new, old) {
-      if (empty(new)) return(data.frame())
+      if (empty(new)) return(new_data_frame())
       unique <- uniquecols(old)
       missing <- !(names(unique) %in% names(new))
       cbind(
@@ -114,7 +114,7 @@ Stat <- ggproto("Stat",
       )
     }, stats, groups, SIMPLIFY = FALSE)
 
-    do.call(plyr::rbind.fill, stats)
+    rbind_dfs(stats)
   },
 
   compute_group = function(self, data, scales) {

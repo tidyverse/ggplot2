@@ -22,10 +22,12 @@
 #'   geom_polygon(aes(group = group), colour = "white")
 #' }
 fortify.map <- function(model, data, ...) {
-  df <- as.data.frame(model[c("x", "y")])
-  names(df) <- c("long", "lat")
-  df$group <- cumsum(is.na(df$long) & is.na(df$lat)) + 1
-  df$order <- 1:nrow(df)
+  df <- new_data_frame(list(
+    long = model$x,
+    lat = model$y,
+    group = cumsum(is.na(model$x) & is.na(model$y)) + 1,
+    order = seq_along(model$x)
+  ), n = length(model$x))
 
   names <- do.call("rbind", lapply(strsplit(model$names, "[:,]"), "[", 1:2))
   df$region <- names[df$group, 1]
@@ -94,7 +96,9 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 #'
 #' ia <- map_data("county", "iowa")
 #' mid_range <- function(x) mean(range(x))
-#' seats <- plyr::ddply(ia, "subregion", plyr::colwise(mid_range, c("lat", "long")))
+#' seats <- do.call(rbind, lapply(split(ia, ia$subregion), function(d) {
+#'   data.frame(lat = mid_range(d$lat), long = mid_range(d$long))
+#' }))
 #' ggplot(ia, aes(long, lat)) +
 #'   geom_polygon(aes(group = group), fill = NA, colour = "grey60") +
 #'   geom_text(aes(label = subregion), data = seats, size = 2, angle = 45)

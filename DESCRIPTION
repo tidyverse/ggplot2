@@ -26,9 +26,8 @@ Imports:
     lazyeval,
     MASS,
     mgcv,
-    plyr (>= 1.7.1),
     reshape2,
-    rlang (>= 0.2.1),
+    rlang (>= 0.3.0),
     scales (>= 0.5.0),
     stats,
     tibble,
@@ -56,7 +55,7 @@ Suggests:
     sf (>= 0.3-4),
     svglite (>= 1.2.0.9001),
     testthat (>= 0.11.0),
-    vdiffr
+    vdiffr (>= 0.3.0)
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
@@ -71,6 +70,7 @@ Collate:
     'aes-group-order.r'
     'aes-linetype-size-shape.r'
     'aes-position.r'
+    'compat-plyr.R'
     'utilities.r'
     'aes.r'
     'legend-draw.r'
@@ -89,7 +89,6 @@ Collate:
     'backports.R'
     'bench.r'
     'bin.R'
-    'compat-quosures.R'
     'coord-.r'
     'coord-cartesian-.r'
     'coord-fixed.r'
@@ -164,6 +163,7 @@ Collate:
     'layout.R'
     'limits.r'
     'margins.R'
+    'performance.R'
     'plot-build.r'
     'plot-construction.r'
     'plot-last.r'
@@ -243,6 +243,6 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8

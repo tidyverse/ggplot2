@@ -150,7 +150,7 @@ test_that("old school labellers still work", {
 # Visual test -------------------------------------------------------------
 
 test_that("parsed labels are rendered correctly", {
-  df <- data.frame(x = 1, y = 1, f = "alpha ^ beta")
+  df <- data_frame(x = 1, y = 1, f = "alpha ^ beta")
 
   expect_doppelganger(
     "parsed facet labels",
