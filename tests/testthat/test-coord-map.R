@@ -1,9 +1,9 @@
 context("coord_map")
 
-test_that("USA state map drawn", {
-  us_map <- map_data("usa")
-  p_us <- ggplot(us_map, aes(x = long, y = lat, group = group))
+us_map <- map_data("usa")
+p_us <- ggplot(us_map, aes(x = long, y = lat, group = group))
 
+test_that("USA state map drawn", {
   expect_doppelganger(
     "USA mercator",
     p_us +
