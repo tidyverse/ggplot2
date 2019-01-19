@@ -1,7 +1,5 @@
 # ggplot2 3.1.0.9000
 
-* `layer_data()`, `layer_grob()`, and `layer_scales()` now have documentation for `i` and `j` arguments (@malcolmbarrett, #2818).
-
 * `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
 
 * Layers now have a new member function `setup_layer()` which is called at the
