@@ -23,6 +23,8 @@
 * Default labels are now generated more consistently; e.g., symbols no longer
   get backticks, and long expressions are abbreviated with `...`
   (@yutannihilation, #2981).
+  
+* Diverging brewer color scale now has the correct mid-point color (@dariyasydykova, #3072).
 
 * Aesthetic mappings now accept functions that return `NULL` (@yutannihilation,
   #2997).
