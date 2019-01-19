@@ -5,8 +5,8 @@
 \title{Rug plots in the margins}
 \usage{
 geom_rug(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., sides = "bl", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., outside = FALSE, sides = "bl",
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -38,6 +38,8 @@ a call to a position adjustment function.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{outside}{logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use \code{coord_cartesian(clip = "off")}. When set to TRUE, also consider changing the sides argument to "tr". See examples.}
 
 \item{sides}{A string that controls which sides of the plot the rugs appear on.
 It can be set to a string containing any of \code{"trbl"}, for top, right,
@@ -98,4 +100,15 @@ ggplot(mpg, aes(displ, cty)) +
 ggplot(mpg, aes(displ, cty)) +
   geom_jitter() +
   geom_rug(alpha = 1/2, position = "jitter")
+
+# move the rug tassels to outside the plot
+# remember to set clip = "off".
+p + geom_rug(outside = TRUE) +
+  coord_cartesian(clip = "off")
+
+# set sides to top right, and then move the margins
+p + geom_rug(outside = TRUE, sides = "tr") +
+   coord_cartesian(clip = "off") +
+   theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+
 }
