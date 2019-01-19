@@ -26,6 +26,8 @@
 
 * `coord_sf()`, `coord_map()`, and `coord_polar()` now squash `-Inf` and `Inf`
   into the min and max of the plot (@yutannihilation, #2972).
+  
+* `scale_fill_identity()` now works correctly with `guide = "legend"` (@malcolmbarrett, #3075)
 
 # ggplot2 3.1.0
 
