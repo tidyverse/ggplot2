@@ -1,4 +1,6 @@
 # ggplot2 3.1.0.9000
+  
+* `scale_shape_identity()` now works correctly with `guide = "legend"` (@malcolmbarrett, #3029)
 
 * Facet strips on the left side of plots now have clipping turned on, preventing
   text from running out of the strip and borders from looking thicker than for
