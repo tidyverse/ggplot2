@@ -6,7 +6,7 @@
 #' contain all information about axis limits, breaks etc.
 #'
 #' `layer_data()`, `layer_grob()`, and `layer_scales()` are helper
-#' functions that returns the data, grob, or scales associated with a given
+#' functions that return the data, grob, or scales associated with a given
 #' layer. These are useful for tests.
 #'
 #' @param plot ggplot object
