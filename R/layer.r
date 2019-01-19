@@ -229,6 +229,15 @@ Layer <- ggproto("Layer", NULL,
     evaled <- lapply(aesthetics, rlang::eval_tidy, data = data)
     evaled <- compact(evaled)
 
+    nondata_cols <- check_nondata_cols(evaled)
+    if(length(nondata_cols) > 0){
+      msg <- paste0(
+        "Aesthetics must be valid data columns: ", nondata_cols,
+        ". Did you forget to add stat()?"
+      )
+      stop(msg, call. = FALSE)
+      }
+
     n <- nrow(data)
     if (n == 0) {
       # No data, so look at longest evaluated aesthetic
@@ -280,6 +289,17 @@ Layer <- ggproto("Layer", NULL,
     env$stat <- stat
 
     stat_data <- new_data_frame(lapply(new, rlang::eval_tidy, data, env))
+
+    # Check that all columns in aesthetic stats are valid data
+    nondata_stat_cols <- check_nondata_cols(stat_data)
+    if(length(nondata_stat_cols) > 0){
+      msg <- paste0(
+        "Aesthetics must be valid computed stats: ", nondata_stat_cols,
+        ". Did you map your stat in the wrong layer?"
+      )
+      stop(msg, call. = FALSE)
+    }
+
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed
