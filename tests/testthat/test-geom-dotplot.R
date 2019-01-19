@@ -177,6 +177,23 @@ test_that("geom_dotplot draws correctly", {
     ggplot(dat2, aes(as.numeric(x), y)) + geom_dotplot(binwidth = .2, binaxis = "y", stackdir = "center")
   )
 
+  # border width and size
+  expect_doppelganger(
+    "variable linetype and size work when specified as parameters",
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, fill = "red", col = "blue", linetype = 2, size = 3)
+  )
+  expect_doppelganger(
+    "variable linetype and size work when specified as aesthetics",
+    ggplot(
+      dat,
+      aes(
+        x,
+        linetype = rep(c("a", "b"), length.out = nrow(dat)),
+        size = rep(c(1, 2), length.out = nrow(dat)))
+    ) +
+      geom_dotplot(binwidth = .4, fill = "red", col = "blue")
+  )
+
   # Stacking groups
   expect_doppelganger("stackgroups with 3 groups, dot-density with aligned bins",
     ggplot(dat2, aes(y, fill = x)) + geom_dotplot(binwidth = .25, stackgroups = TRUE, binpositions = "all", alpha = 0.5)

@@ -175,7 +175,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   required_aes = c("x", "y"),
   non_missing_aes = c("size", "shape"),
 
-  default_aes = aes(colour = "black", fill = "black", alpha = NA),
+  default_aes = aes(colour = "black", fill = "black", alpha = NA, size = 1, linetype = "solid"),
 
   setup_data = function(data, params) {
     data$width <- data$width %||%
@@ -276,7 +276,8 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
                   stackposition = tdata$stackpos, stackratio = stackratio,
                   default.units = "npc",
                   gp = gpar(col = alpha(tdata$colour, tdata$alpha),
-                            fill = alpha(tdata$fill, tdata$alpha)))
+                            fill = alpha(tdata$fill, tdata$alpha),
+                            lwd = tdata$size, lty = tdata$linetype))
     )
   },
 

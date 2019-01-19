@@ -117,6 +117,8 @@ to match the number of dots.
 \item \code{colour}
 \item \code{fill}
 \item \code{group}
+\item \code{linetype}
+\item \code{size}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
