@@ -83,6 +83,9 @@
 #' # Expand dot diameter
 #' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
 #'
+#' # Change stroke width, linetype
+#' ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, fill = "white", stroke = 2)
+#'
 #' \donttest{
 #' # Examples with stacking along y axis instead of x
 #' ggplot(mtcars, aes(x = 1, y = mpg)) +
@@ -175,7 +178,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
   required_aes = c("x", "y"),
   non_missing_aes = c("size", "shape"),
 
-  default_aes = aes(colour = "black", fill = "black", alpha = NA, size = 1, linetype = "solid"),
+  default_aes = aes(colour = "black", fill = "black", alpha = NA, stroke = 1, linetype = "solid"),
 
   setup_data = function(data, params) {
     data$width <- data$width %||%
@@ -277,7 +280,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
                   default.units = "npc",
                   gp = gpar(col = alpha(tdata$colour, tdata$alpha),
                             fill = alpha(tdata$fill, tdata$alpha),
-                            lwd = tdata$size, lty = tdata$linetype))
+                            lwd = tdata$stroke, lty = tdata$linetype))
     )
   },
 

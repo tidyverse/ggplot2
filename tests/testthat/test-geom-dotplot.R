@@ -180,7 +180,7 @@ test_that("geom_dotplot draws correctly", {
   # border width and size
   expect_doppelganger(
     "variable linetype and size work when specified as parameters",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, fill = "red", col = "blue", linetype = 2, size = 3)
+    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, fill = "red", col = "blue", linetype = 2, stroke = 3)
   )
   expect_doppelganger(
     "variable linetype and size work when specified as aesthetics",
@@ -189,9 +189,10 @@ test_that("geom_dotplot draws correctly", {
       aes(
         x,
         linetype = rep(c("a", "b"), length.out = nrow(dat)),
-        size = rep(c(1, 2), length.out = nrow(dat)))
+        stroke = rep(c(1, 2), length.out = nrow(dat)))
     ) +
-      geom_dotplot(binwidth = .4, fill = "red", col = "blue")
+      geom_dotplot(binwidth = .4, fill = "red", col = "blue") +
+      continuous_scale("stroke", "scaleName", function(x) scales::rescale(x, to = c(1, 6)))
   )
 
   # Stacking groups
