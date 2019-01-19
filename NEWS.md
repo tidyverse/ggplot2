@@ -1,4 +1,6 @@
 # ggplot2 3.1.0.9000
+  
+* `scale_fill_identity()` now works correctly with `guide = "legend"` (@malcolmbarrett, #3075)
 
 * `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
 
@@ -26,8 +28,6 @@
 
 * `coord_sf()`, `coord_map()`, and `coord_polar()` now squash `-Inf` and `Inf`
   into the min and max of the plot (@yutannihilation, #2972).
-  
-* `scale_fill_identity()` now works correctly with `guide = "legend"` (@malcolmbarrett, #3075)
 
 # ggplot2 3.1.0
 
