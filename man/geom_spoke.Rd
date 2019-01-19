@@ -57,6 +57,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \description{
 This is a polar parameterisation of \code{\link[=geom_segment]{geom_segment()}}. It is
 useful when you have variables that describe direction and distance.
+The angles start from east and increase counterclockwise.
 }
 \section{Aesthetics}{
 

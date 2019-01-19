@@ -4,7 +4,7 @@
 #' with the two 1d marginal distributions. Rug plots display individual
 #' cases so are best used with smaller datasets.
 #'
-#' The rug lines are drawn with a fixed size (3% of the total plot size) so
+#' The rug lines are drawn with a fixed size (3\% of the total plot size) so
 #' are dependent on the overall scale expansion in order not to overplot
 #' existing data.
 #'
@@ -14,6 +14,7 @@
 #' @param sides A string that controls which sides of the plot the rugs appear on.
 #'   It can be set to a string containing any of `"trbl"`, for top, right,
 #'   bottom, and left.
+#' @param outside logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use `coord_cartesian(clip = "off")`. When set to TRUE, also consider changing the sides argument to "tr". See examples.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg)) +
@@ -31,9 +32,21 @@
 #' ggplot(mpg, aes(displ, cty)) +
 #'   geom_jitter() +
 #'   geom_rug(alpha = 1/2, position = "jitter")
+#'
+#' # move the rug tassels to outside the plot
+#' # remember to set clip = "off".
+#' p + geom_rug(outside = TRUE) +
+#'   coord_cartesian(clip = "off")
+#'
+#' # set sides to top right, and then move the margins
+#' p + geom_rug(outside = TRUE, sides = "tr") +
+#'    coord_cartesian(clip = "off") +
+#'    theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+#'
 geom_rug <- function(mapping = NULL, data = NULL,
                      stat = "identity", position = "identity",
                      ...,
+                     outside = FALSE,
                      sides = "bl",
                      na.rm = FALSE,
                      show.legend = NA,
@@ -47,6 +60,7 @@ geom_rug <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      outside = outside,
       sides = sides,
       na.rm = na.rm,
       ...
@@ -62,7 +76,7 @@ geom_rug <- function(mapping = NULL, data = NULL,
 GeomRug <- ggproto("GeomRug", Geom,
   optional_aes = c("x", "y"),
 
-  draw_panel = function(data, panel_params, coord, sides = "bl") {
+  draw_panel = function(data, panel_params, coord, sides = "bl", outside) {
     rugs <- list()
     data <- coord$transform(data, panel_params)
 
@@ -72,12 +86,19 @@ GeomRug <- ggproto("GeomRug", Geom,
       sides <- chartr('tblr', 'rlbt', sides)
     }
 
+    # move the rug to outside the main plot space
+    rug_length <- if (!outside) {
+      list(min = 0.03, max = 0.97)
+    } else {
+      list(min = -0.03, max = 1.03)
+    }
+
     gp <- gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
     if (!is.null(data$x)) {
       if (grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-          y0 = unit(0, "npc"), y1 = unit(0.03, "npc"),
+          y0 = unit(0, "npc"), y1 = unit(rug_length$min, "npc"),
           gp = gp
         )
       }
@@ -85,7 +106,7 @@ GeomRug <- ggproto("GeomRug", Geom,
       if (grepl("t", sides)) {
         rugs$x_t <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-          y0 = unit(1, "npc"), y1 = unit(0.97, "npc"),
+          y0 = unit(1, "npc"), y1 = unit(rug_length$max, "npc"),
           gp = gp
         )
       }
@@ -95,7 +116,7 @@ GeomRug <- ggproto("GeomRug", Geom,
       if (grepl("l", sides)) {
         rugs$y_l <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-          x0 = unit(0, "npc"), x1 = unit(0.03, "npc"),
+          x0 = unit(0, "npc"), x1 = unit(rug_length$min, "npc"),
           gp = gp
         )
       }
@@ -103,7 +124,7 @@ GeomRug <- ggproto("GeomRug", Geom,
       if (grepl("r", sides)) {
         rugs$y_r <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-          x0 = unit(1, "npc"), x1 = unit(0.97, "npc"),
+          x0 = unit(1, "npc"), x1 = unit(rug_length$max, "npc"),
           gp = gp
         )
       }

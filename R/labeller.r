@@ -553,7 +553,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       element,
       gp,
       horizontal,
-      clip = "off"
+      clip = "on"
     )
 
     list(
