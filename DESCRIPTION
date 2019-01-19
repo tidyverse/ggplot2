@@ -6,11 +6,11 @@ Description: A system for 'declaratively' creating graphics,
     how to map variables to aesthetics, what graphical primitives to use,
     and it takes care of the details.
 Authors@R: c(
-    person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Winston", "Chang", , role = "aut"),
     person("Lionel", "Henry", , role = "aut"),
     person("Thomas Lin", "Pedersen", role = "aut"),
     person("Kohske", "Takahashi", role = "aut"),
+    person("Hadley", "Wickham", , "hadley@rstudio.com", c("aut", "cre")),
     person("Claus", "Wilke", role = "aut"),
     person("Kara", "Woo", role = "aut"),
     person("Hiroaki", "Yutani", role = "aut"),
