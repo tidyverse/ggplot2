@@ -1,6 +1,6 @@
 # ggplot2 3.1.0.9000
 
-* `geom_rug()` gains an "outside" option to allow for moving the rug tassels to outside the plot area. (@njtierney, #)
+* `geom_rug()` gains an "outside" option to allow for moving the rug tassels to outside the plot area. (@njtierney, #3085)
 
 * `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
 
