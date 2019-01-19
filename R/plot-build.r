@@ -1,11 +1,11 @@
 #' Build ggplot for rendering.
 #'
-#' `ggplot_build` takes the plot object, and performs all steps necessary
+#' `ggplot_build()` takes the plot object, and performs all steps necessary
 #' to produce an object that can be rendered.  This function outputs two pieces:
 #' a list of data frames (one for each layer), and a panel object, which
 #' contain all information about axis limits, breaks etc.
 #'
-#' `layer_data`, `layer_grob`, and `layer_scales` are helper
+#' `layer_data()`, `layer_grob()`, and `layer_scales()` are helper
 #' functions that returns the data, grob, or scales associated with a given
 #' layer. These are useful for tests.
 #'
