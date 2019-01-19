@@ -8,7 +8,7 @@
 #'
 #' @note
 #' The `distiller` scales extend brewer to continuous scales by smoothly
-#' interpolating 6 colours from any palette to a continuous scale.
+#' interpolating 7 colours from any palette to a continuous scale.
 #'
 #' @details
 #' The `brewer` scales were carefully designed and tested on discrete data.
@@ -84,8 +84,9 @@ scale_colour_distiller <- function(..., type = "seq", palette = 1, direction = -
     warning("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
   }
   continuous_scale(aesthetics, "distiller",
-    gradient_n_pal(brewer_pal(type, palette, direction)(6), values, space), na.value = na.value, guide = guide, ...)
-  # NB: 6 colours per palette gives nice gradients; more results in more saturated colours which do not look as good
+    gradient_n_pal(brewer_pal(type, palette, direction)(7), values, space), na.value = na.value, guide = guide, ...)
+  # NB: 6-7 colours per palette gives nice gradients; more results in more saturated colours which do not look as good
+  # For diverging scales, you need an odd number to make sure the mid-point is in the center
 }
 
 #' @export
@@ -96,7 +97,7 @@ scale_fill_distiller <- function(..., type = "seq", palette = 1, direction = -1,
     warning("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
   }
   continuous_scale(aesthetics, "distiller",
-    gradient_n_pal(brewer_pal(type, palette, direction)(6), values, space), na.value = na.value, guide = guide, ...)
+    gradient_n_pal(brewer_pal(type, palette, direction)(7), values, space), na.value = na.value, guide = guide, ...)
 }
 
 # icon.brewer <- function() {
