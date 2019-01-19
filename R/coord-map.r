@@ -189,7 +189,8 @@ CoordMap <- ggproto("CoordMap", Coord,
       x.range = ret$x$range, y.range = ret$y$range,
       x.proj = ret$x$proj, y.proj = ret$y$proj,
       x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
-      y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels
+      y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels,
+      x.arrange = scale_x$axis_order(), y.arrange = scale_y$axis_order()
     )
     details
   },
@@ -243,7 +244,7 @@ CoordMap <- ggproto("CoordMap", Coord,
   },
 
   render_axis_h = function(self, panel_params, theme) {
-    arrange <- panel_params$x.arrange %||% c("primary", "secondary")
+    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
 
     if (is.null(panel_params$x.major)) {
       return(list(
@@ -259,8 +260,8 @@ CoordMap <- ggproto("CoordMap", Coord,
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
-      bottom = guide_axis(pos$x, panel_params$x.labels, "bottom", theme),
-      top = guide_axis(pos$x, panel_params$x.labels, "top", theme)
+      top = guide_axis(pos$x, panel_params$x.labels, "top", theme),
+      bottom = guide_axis(pos$x, panel_params$x.labels, "bottom", theme)
     )
     axes[[which(arrange == "secondary")]] <- zeroGrob()
     axes
