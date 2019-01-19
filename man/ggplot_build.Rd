@@ -17,6 +17,13 @@ layer_grob(plot, i = 1L)
 }
 \arguments{
 \item{plot}{ggplot object}
+
+\item{i}{An integer. In \code{layer_data}, the data to return (in the order added to the
+plot). In \code{layer_grob}, the grob to return (in the order added to the
+plot). In \code{layer_scales}, the row of a facet to return scales for.}
+
+\item{j}{An integer. In \code{layer_scales}, the column of a facet to return
+scales for.}
 }
 \description{
 \code{ggplot_build} takes the plot object, and performs all steps necessary

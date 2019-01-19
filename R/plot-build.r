@@ -10,6 +10,11 @@
 #' layer. These are useful for tests.
 #'
 #' @param plot ggplot object
+#' @param i An integer. In `layer_data`, the data to return (in the order added to the
+#'   plot). In `layer_grob`, the grob to return (in the order added to the
+#'   plot). In `layer_scales`, the row of a facet to return scales for.
+#' @param j An integer. In `layer_scales`, the column of a facet to return
+#'   scales for.
 #' @seealso [print.ggplot()] and [benchplot()] for
 #'  functions that contain the complete set of steps for generating
 #'  a ggplot2 plot.
