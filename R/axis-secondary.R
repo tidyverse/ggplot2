@@ -29,6 +29,15 @@
 #' `dup_axis` is provide as a shorthand for creating a secondary axis that
 #' is a duplication of the primary axis, effectively mirroring the primary axis.
 #'
+#' As of v3.1, date and datetime scales have limited secondary axis capabilities.
+#' Unlike other continuous scales, secondary axis transformations for date and datetime scales
+#' must respect their primary POSIX data structure.
+#' This means they may only be transformed via addition or subtraction, e.g.
+#' `~. + hms::hms(days = 8)`, or
+#' `~.- 8*60*60`. Nonlinear transformations will return an error.
+#' To produce a time-since-event secondary axis in this context, users
+#' may consider adapting secondary axis labels.
+#'
 #' @examples
 #' p <- ggplot(mtcars, aes(cyl, mpg)) +
 #'   geom_point()
@@ -46,7 +55,7 @@
 #' p + scale_y_continuous(sec.axis = ~.^2)
 #'
 #' # Secondary axes work for date and datetime scales too:
-#' df <- data.frame(
+#' df <- data_frame(
 #'   dx = seq(as.POSIXct("2012-02-29 12:00:00",
 #'                        tz = "UTC",
 #'                        format = "%Y-%m-%d %H:%M:%S"
@@ -56,7 +65,7 @@
 #'   price = seq(20, 200000, length.out = 10)
 #'  )
 #'
-#' # useful for labelling different time scales in the same plot
+#' # This may useful for labelling different time scales in the same plot
 #' ggplot(df, aes(x = dx, y = price)) + geom_line() +
 #'   scale_x_datetime("Date", date_labels = "%b %d",
 #'   date_breaks = "6 hour",
@@ -178,9 +187,9 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     # Get break info for the secondary axis
     new_range <- range(full_range, na.rm = TRUE)
 
-    # ugly (temporary) patch for date and datetime scales just to maintain functionality
-    # works for linear secondary transforms that respect the time or date transform
-    if (scale$trans$name %in% c("date", "time") ){
+    # patch for date and datetime scales just to maintain functionality
+    # works only for linear secondary transforms that respect the time or date transform
+    if (scale$trans$name %in% c("date", "time")){
       temp_scale <- self$create_scale(new_range, trans = scale$trans)
       range_info <- temp_scale$break_info()
       names(range_info) <- paste0("sec.", names(range_info))
