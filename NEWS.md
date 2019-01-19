@@ -28,7 +28,7 @@
   into the min and max of the plot (@yutannihilation, #2972).
 
 * `stat_bin()` will now error when the number of bins exceed 1e6 to avoid 
-  accidentally freezing the user session
+  accidentally freezing the user session (@thomasp85).
 
 # ggplot2 3.1.0
 
