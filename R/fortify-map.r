@@ -73,7 +73,7 @@ fortify.map <- function(model, data, ...) {
 #' ggplot(choro, aes(long, lat)) +
 #'   geom_polygon(aes(group = group, fill = assault / murder)) +
 #'   coord_map("albers",  at0 = 45.5, lat1 = 29.5)
-#'  }
+#' }
 map_data <- function(map, region = ".", exact = FALSE, ...) {
   try_require("maps", "map_data")
   map_obj <- maps::map(map, region, exact = exact, plot = FALSE, fill = TRUE, ...)
@@ -101,7 +101,7 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 #' ia <- map_data("county", "iowa")
 #' mid_range <- function(x) mean(range(x))
 #' seats <- do.call(rbind, lapply(split(ia, ia$subregion), function(d) {
-#'  data.frame(lat = mid_range(d$lat), long = mid_range(d$long), subregion = unique(d$subregion))
+#'   data.frame(lat = mid_range(d$lat), long = mid_range(d$long), subregion = unique(d$subregion))
 #' }))
 #'
 #' ggplot(ia, aes(long, lat)) +
