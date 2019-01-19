@@ -17,15 +17,22 @@ layer_grob(plot, i = 1L)
 }
 \arguments{
 \item{plot}{ggplot object}
+
+\item{i}{An integer. In \code{layer_data()}, the data to return (in the order added to the
+plot). In \code{layer_grob()}, the grob to return (in the order added to the
+plot). In \code{layer_scales()}, the row of a facet to return scales for.}
+
+\item{j}{An integer. In \code{layer_scales()}, the column of a facet to return
+scales for.}
 }
 \description{
-\code{ggplot_build} takes the plot object, and performs all steps necessary
+\code{ggplot_build()} takes the plot object, and performs all steps necessary
 to produce an object that can be rendered.  This function outputs two pieces:
 a list of data frames (one for each layer), and a panel object, which
 contain all information about axis limits, breaks etc.
 }
 \details{
-\code{layer_data}, \code{layer_grob}, and \code{layer_scales} are helper
+\code{layer_data()}, \code{layer_grob()}, and \code{layer_scales()} are helper
 functions that returns the data, grob, or scales associated with a given
 layer. These are useful for tests.
 }
