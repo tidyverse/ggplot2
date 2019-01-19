@@ -1,6 +1,6 @@
 # ggplot2 3.1.0.9000
   
-* `scale_fill_identity()` now works correctly with `guide = "legend"` (@malcolmbarrett, #3075)
+* `scale_fill_identity()` now works correctly with `guide = "legend"` (@malcolmbarrett, #3029)
 
 * `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
 
