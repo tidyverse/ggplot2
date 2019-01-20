@@ -179,10 +179,6 @@ test_that("geom_dotplot draws correctly", {
 
   # border width and size
   expect_doppelganger(
-    "variable linetype and size work when specified as parameters",
-    ggplot(dat, aes(x)) + geom_dotplot(binwidth = .4, fill = "red", col = "blue", linetype = 2, stroke = 3)
-  )
-  expect_doppelganger(
     "variable linetype and size work when specified as aesthetics",
     ggplot(
       dat,

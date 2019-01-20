@@ -162,7 +162,7 @@ ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
 # Expand dot diameter
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
 
-# Change stroke width, linetype
+# Change dot fill colour, stroke width
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, fill = "white", stroke = 2)
 
 \donttest{
