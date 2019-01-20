@@ -185,7 +185,8 @@ test_that("geom_dotplot draws correctly", {
       aes(
         x,
         linetype = rep(c("a", "b"), length.out = nrow(dat)),
-        stroke = rep(c(1, 2), length.out = nrow(dat)))
+        stroke = rep(c(1, 2), length.out = nrow(dat))
+      )
     ) +
       geom_dotplot(binwidth = .4, fill = "red", col = "blue") +
       continuous_scale("stroke", "scaleName", function(x) scales::rescale(x, to = c(1, 6)))
