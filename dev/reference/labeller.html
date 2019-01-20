@@ -259,13 +259,14 @@ functions taking a character vector such as
 ))</div><div class='img'><img src='labeller-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># In the following example, we rename the levels to the long form,</span>
 <span class='co'># then apply a wrap labeller to the columns to prevent cropped text</span>
-<span class='no'>msleep</span>$<span class='no'>conservation2</span> <span class='kw'>&lt;-</span> <span class='fu'>revalue</span>(<span class='no'>msleep</span>$<span class='no'>conservation</span>, <span class='no'>conservation_status</span>)</div><div class='output co'>#&gt; <span class='error'>Error in revalue(msleep$conservation, conservation_status): could not find function "revalue"</span></div><div class='input'><span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sleep_total</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>awake</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+<span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/match'>match</a></span>(<span class='no'>msleep</span>$<span class='no'>conservation</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>conservation_status</span>))
+<span class='no'>msleep</span>$<span class='no'>conservation2</span> <span class='kw'>&lt;-</span> <span class='no'>conservation_status</span>[<span class='no'>idx</span>]
+
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sleep_total</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>awake</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 <span class='no'>p3</span> +
   <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation2</span>,
     <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>conservation2</span> <span class='kw'>=</span> <span class='fu'><a href='labellers.html'>label_wrap_gen</a></span>(<span class='fl'>10</span>))
-  )</div><div class='output co'>#&gt; <span class='error'>Error: At least one layer must contain all faceting variables: `conservation2`.</span>
-#&gt; <span class='error'>* Plot is missing `conservation2`</span>
-#&gt; <span class='error'>* Layer 1 is missing `conservation2`</span></div><div class='input'>
+  )</div><div class='img'><img src='labeller-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># labeller() is especially useful to act as a global labeller. You</span>
 <span class='co'># can set it up once and use it on a range of different plots with</span>
 <span class='co'># different facet specifications.</span>
@@ -277,9 +278,7 @@ functions taking a character vector such as
   <span class='kw'>.default</span> <span class='kw'>=</span> <span class='no'>label_both</span>
 )
 
-<span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>conservation2</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='output co'>#&gt; <span class='error'>Error: At least one layer must contain all faceting variables: `conservation2`.</span>
-#&gt; <span class='error'>* Plot is missing `conservation2`</span>
-#&gt; <span class='error'>* Layer 1 is missing `conservation2`</span></div><div class='img'><img src='labeller-6.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>conservation2</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
