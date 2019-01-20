@@ -31,7 +31,7 @@
 
 <meta property="og:title" content="Build ggplot for rendering. — ggplot_build" />
 
-<meta property="og:description" content="ggplot_build takes the plot object, and performs all steps necessary
+<meta property="og:description" content="ggplot_build() takes the plot object, and performs all steps necessary
 to produce an object that can be rendered.  This function outputs two pieces:
 a list of data frames (one for each layer), and a panel object, which
 contain all information about axis limits, breaks etc." />
@@ -158,7 +158,7 @@ contain all information about axis limits, breaks etc." />
 
     <div class="ref-description">
     
-    <p><code>ggplot_build</code> takes the plot object, and performs all steps necessary
+    <p><code>ggplot_build()</code> takes the plot object, and performs all steps necessary
 to produce an object that can be rendered.  This function outputs two pieces:
 a list of data frames (one for each layer), and a panel object, which
 contain all information about axis limits, breaks etc.</p>
@@ -180,12 +180,23 @@ contain all information about axis limits, breaks etc.</p>
       <th>plot</th>
       <td><p>ggplot object</p></td>
     </tr>
+    <tr>
+      <th>i</th>
+      <td><p>An integer. In <code>layer_data()</code>, the data to return (in the order added to the
+plot). In <code>layer_grob()</code>, the grob to return (in the order added to the
+plot). In <code>layer_scales()</code>, the row of a facet to return scales for.</p></td>
+    </tr>
+    <tr>
+      <th>j</th>
+      <td><p>An integer. In <code>layer_scales()</code>, the column of a facet to return
+scales for.</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p><code>layer_data</code>, <code>layer_grob</code>, and <code>layer_scales</code> are helper
-functions that returns the data, grob, or scales associated with a given
+    <p><code>layer_data()</code>, <code>layer_grob()</code>, and <code>layer_scales()</code> are helper
+functions that return the data, grob, or scales associated with a given
 layer. These are useful for tests.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>

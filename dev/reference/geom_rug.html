@@ -164,8 +164,8 @@ cases so are best used with smaller datasets.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_rug</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"bl"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>outside</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"bl"</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,6 +206,10 @@ a call to a position adjustment function.</p></td>
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
+    </tr>
+    <tr>
+      <th>outside</th>
+      <td><p>logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use <code><a href='coord_cartesian.html'>coord_cartesian(clip = "off")</a></code>. When set to TRUE, also consider changing the sides argument to "tr". See examples.</p></td>
     </tr>
     <tr>
       <th>sides</th>
@@ -265,7 +269,16 @@ existing data.</p>
   <span class='fu'>geom_rug</span>()</div><div class='img'><img src='geom_rug-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>cty</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>() +
-  <span class='fu'>geom_rug</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"jitter"</span>)</div><div class='img'><img src='geom_rug-6.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>geom_rug</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"jitter"</span>)</div><div class='img'><img src='geom_rug-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># move the rug tassels to outside the plot</span>
+<span class='co'># remember to set clip = "off".</span>
+<span class='no'>p</span> + <span class='fu'>geom_rug</span>(<span class='kw'>outside</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
+  <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(<span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"off"</span>)</div><div class='img'><img src='geom_rug-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># set sides to top right, and then move the margins</span>
+<span class='no'>p</span> + <span class='fu'>geom_rug</span>(<span class='kw'>outside</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"tr"</span>) +
+   <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(<span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"off"</span>) +
+   <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>plot.margin</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>margin</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='st'>"cm"</span>))</div><div class='img'><img src='geom_rug-8.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
