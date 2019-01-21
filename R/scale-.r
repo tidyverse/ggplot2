@@ -498,7 +498,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #' @format NULL
 #' @usage NULL
 #' @export
-ScaleBin <- ggproto("ScaleBin", Scale,
+ScaleBinned <- ggproto("ScaleBinned", Scale,
   range = continuous_range(),
   na.value = NA_real_,
   oob = squish,
@@ -776,11 +776,11 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   )
 }
 
-continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
-                             breaks = waiver(), labels = waiver(), limits = NULL,
-                             oob = squish, expand = waiver(), na.value = NA_real_,
-                             n_bins = NULL, right = TRUE, trans = "identity",
-                             guide = "legend", position = "left", super = ScaleBin) {
+binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
+                         breaks = waiver(), labels = waiver(), limits = NULL,
+                         oob = squish, expand = waiver(), na.value = NA_real_,
+                         n_bins = NULL, right = TRUE, trans = "identity",
+                         guide = "legend", position = "left", super = ScaleBinned) {
 
   aesthetics <- standardise_aes_names(aesthetics)
 
