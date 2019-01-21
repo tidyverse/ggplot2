@@ -75,7 +75,7 @@ p + scale_y_continuous(sec.axis = dup_axis())
 p + scale_y_continuous(sec.axis = ~.^2)
 
 # Secondary axes work for date and datetime scales too:
-df <- data_frame(
+df <- data.frame(
   dx = seq(as.POSIXct("2012-02-29 12:00:00",
                        tz = "UTC",
                        format = "\%Y-\%m-\%d \%H:\%M:\%S"
