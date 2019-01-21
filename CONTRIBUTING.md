@@ -79,15 +79,15 @@ See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 
 Pull requests will be evaluated against a seven point checklist:
 
-1.  __Motivation__. Your pull request should clearly and concisely motivates the
-   need for change. Unfortunately neither Winston nor I have much time to
-   work on ggplot2 these days, so you need to describe the problem and show
-   how your pull request solves it as concisely as possible.
+1.  __Motivation__. Your pull request should clearly and concisely motivate the
+    need for change. Unfortunately neither Winston nor I have much time to
+    work on ggplot2 these days, so you need to describe the problem and show
+    how your pull request solves it as concisely as possible.
 
-   Also include this motivation in `NEWS` so that when a new release of
-   ggplot2 comes out it's easy for users to see what's changed. Add your
-   item at the top of the file and use markdown for formatting. The
-   news item should end with `(@yourGithubUsername, #the_issue_number)`.
+    Also include this motivation in `NEWS` so that when a new release of
+    ggplot2 comes out it's easy for users to see what's changed. Add your
+    item at the top of the file and use markdown for formatting. The
+    news item should end with `(@yourGithubUsername, #the_issue_number)`.
 
 1.  __Only related changes__. Before you submit your pull request, please
     check to make sure that you haven't accidentally included any unrelated
@@ -124,8 +124,9 @@ Pull requests will be evaluated against a seven point checklist:
     to the appropriate function.
 
 This seems like a lot of work but don't worry if your pull request isn't perfect.
-It's a learning process and members of the ggplot2 team will be on hand to help you out. A pull request is a process, and unless you've submitted a few in the past 
-it's unlikely that your pull request will be accepted as is. All PRs require 
+It's a learning process and members of the ggplot2 team will be on hand to help you
+out. A pull request ("PR") is a process, and unless you've submitted a few in the
+past it's unlikely that your pull request will be accepted as is. All PRs require
 review and approval from at least one member of the ggplot2 development team 
 before merge.
 

@@ -5,7 +5,7 @@ context("scale_date")
 
 test_that("date scale draws correctly", {
   set.seed(321)
-  df <- data.frame(
+  df <- data_frame(
     dx = seq(as.Date("2012-02-29"), length.out = 100, by = "1 day")[sample(100, 50)],
     price = runif(50)
   )

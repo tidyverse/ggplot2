@@ -8,7 +8,7 @@ test_that("clipping is on by default", {
 
 test_that("message when replacing non-default coordinate system", {
 
-  df <- data.frame(x = 1, y = 2)
+  df <- data_frame(x = 1, y = 2)
   gg <- ggplot(df, aes(x, y))
 
   expect_message(gg + coord_cartesian(), NA)

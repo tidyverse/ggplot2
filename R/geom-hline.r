@@ -15,11 +15,11 @@ geom_hline <- function(mapping = NULL, data = NULL,
     if (!missing(mapping)) {
       warning(paste0("Using both `yintercept` and `mapping` may not have the",
                      " desired result as mapping is overwritten if",
-                     " `yintercept` is specified\n")
+                     " `yintercept` is specified\n"
               )
+      )
     }
-
-    data <- data.frame(yintercept = yintercept)
+    data <- new_data_frame(list(yintercept = yintercept))
     mapping <- aes(yintercept = yintercept)
     show.legend <- FALSE
   }

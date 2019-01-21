@@ -15,20 +15,20 @@ cunion <- function(a, b) {
 interleave <- function(...) UseMethod("interleave")
 #' @export
 interleave.unit <- function(...) {
-  do.call("unit.c", do.call("interleave.default", plyr::llply(list(...), as.list)))
+  do.call("unit.c", do.call("interleave.default", lapply(list(...), as.list)))
 }
 #' @export
 interleave.default <- function(...) {
   vectors <- list(...)
 
   # Check lengths
-  lengths <- unique(setdiff(plyr::laply(vectors, length), 1))
+  lengths <- unique(setdiff(vapply(vectors, length, integer(1)), 1L))
   if (length(lengths) == 0) lengths <- 1
   stopifnot(length(lengths) <= 1)
 
   # Replicate elements of length one up to correct length
-  singletons <- plyr::laply(vectors, length) == 1
-  vectors[singletons] <- plyr::llply(vectors[singletons], rep, lengths)
+  singletons <- vapply(vectors, length, integer(1)) == 1L
+  vectors[singletons] <- lapply(vectors[singletons], rep, lengths)
 
   # Interleave vectors
   n <- lengths

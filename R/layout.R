@@ -30,7 +30,7 @@ Layout <- ggproto("Layout", NULL,
   panel_scales_y = NULL,
   panel_params = NULL,
 
-  setup = function(self, data, plot_data = data.frame(), plot_env = emptyenv()) {
+  setup = function(self, data, plot_data = new_data_frame(), plot_env = emptyenv()) {
     data <- c(list(plot_data), data)
 
     # Setup facets
@@ -270,10 +270,9 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
   if (length(vars) == 0) return()
   if (nrow(data) == 0) return()
 
-  n <- length(scales)
   if (any(is.na(scale_id))) stop()
 
-  scale_index <- plyr::split_indices(scale_id, n)
+  scale_index <- unname(split(seq_along(scale_id), scale_id))
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {

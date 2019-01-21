@@ -1,7 +1,7 @@
 context("geom_dotplot")
 
 set.seed(111)
-dat <- data.frame(x = LETTERS[1:2], y = rnorm(30), g = LETTERS[3:5])
+dat <- data_frame(x = rep(LETTERS[1:2], 15), y = rnorm(30), g = rep(LETTERS[3:5], 10))
 
 test_that("dodging works", {
   p <- ggplot(dat, aes(x = x, y = y, fill = g)) +
@@ -54,7 +54,7 @@ test_that("binning works", {
 
 test_that("NA's result in warning from stat_bindot", {
   set.seed(122)
-  dat <- data.frame(x = rnorm(20))
+  dat <- data_frame(x = rnorm(20))
   dat$x[c(2,10)] <- NA
 
   # Need to assign it to a var here so that it doesn't automatically print
@@ -81,7 +81,7 @@ test_that("when binning on y-axis, limits depend on the panel", {
 
 test_that("geom_dotplot draws correctly", {
   set.seed(112)
-  dat <- data.frame(x = rnorm(20), g = LETTERS[1:2])
+  dat <- data_frame(x = rnorm(20), g = rep(LETTERS[1:2], 10))
 
   # Basic dotplot with binning along x axis
   expect_doppelganger("basic dotplot with dot-density binning, binwidth = .4",
@@ -145,7 +145,7 @@ test_that("geom_dotplot draws correctly", {
   )
 
   # Binning along y, with multiple grouping factors
-  dat2 <- data.frame(x = LETTERS[1:3], y = rnorm(90), g = LETTERS[1:2])
+  dat2 <- data_frame(x = rep(factor(LETTERS[1:3]), 30), y = rnorm(90), g = rep(factor(LETTERS[1:2]), 45))
 
   expect_doppelganger("bin y, three x groups, stack centerwhole",
     ggplot(dat2, aes(x, y)) + geom_dotplot(binwidth = .25, binaxis = "y", stackdir = "centerwhole")
@@ -175,6 +175,21 @@ test_that("geom_dotplot draws correctly", {
   )
   expect_doppelganger("bin y, continous x-axis, single x group",
     ggplot(dat2, aes(as.numeric(x), y)) + geom_dotplot(binwidth = .2, binaxis = "y", stackdir = "center")
+  )
+
+  # border width and size
+  expect_doppelganger(
+    "variable linetype and size work when specified as aesthetics",
+    ggplot(
+      dat,
+      aes(
+        x,
+        linetype = rep(c("a", "b"), length.out = nrow(dat)),
+        stroke = rep(c(1, 2), length.out = nrow(dat))
+      )
+    ) +
+      geom_dotplot(binwidth = .4, fill = "red", col = "blue") +
+      continuous_scale("stroke", "scaleName", function(x) scales::rescale(x, to = c(1, 6)))
   )
 
   # Stacking groups

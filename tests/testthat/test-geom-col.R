@@ -1,7 +1,7 @@
 context("geom_col")
 
 test_that("geom_col removes columns with parts outside the plot limits", {
-  dat <- data.frame(x = c(1, 2, 3))
+  dat <- data_frame(x = c(1, 2, 3))
 
   p <- ggplot(dat, aes(x, x)) + geom_col()
 

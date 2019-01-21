@@ -20,7 +20,7 @@ to (e.g.) make the legend box 2 cm wide, or combine multiple plots into
 a single display, preserving aspect ratios across the plots.
 }
 \seealso{
-\code{\link[=print.ggplot]{print.ggplot()}} and \code{link{benchplot}} for
+\code{\link[=print.ggplot]{print.ggplot()}} and \code{\link[=benchplot]{benchplot()}} for
 for functions that contain the complete set of steps for generating
 a ggplot2 plot.
 }

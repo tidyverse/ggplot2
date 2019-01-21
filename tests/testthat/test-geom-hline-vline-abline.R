@@ -4,7 +4,7 @@ context("geom-hline-vline-abline")
 # Visual tests ------------------------------------------------------------
 
 test_that("check h/v/abline transformed on basic projections", {
-  dat <- data.frame(x = LETTERS[1:5], y = 1:5)
+  dat <- data_frame(x = LETTERS[1:5], y = 1:5)
   plot <- ggplot(dat, aes(x, y)) +
     geom_col(width = 1) +
     geom_point() +

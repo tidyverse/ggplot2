@@ -19,7 +19,7 @@ geom_vline <- function(mapping = NULL, data = NULL,
               )
       )
     }
-    data <- data.frame(xintercept = xintercept)
+    data <- new_data_frame(list(xintercept = xintercept))
     mapping <- aes(xintercept = xintercept)
     show.legend <- FALSE
   }

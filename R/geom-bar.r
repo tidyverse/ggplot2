@@ -10,11 +10,8 @@
 #' uses `stat_identity()`: it leaves the data as is.
 #'
 #' A bar chart uses height to represent a value, and so the base of the
-#' bar must always be shown to produce a valid visual comparison. Naomi Robbins
-#' has a nice
-#' \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this
-#' topic}. This is why it doesn't make sense to use a log-scaled y axis with a
-#' bar chart.
+#' bar must always be shown to produce a valid visual comparison. This is why
+#' it doesn't make sense to use a log-scaled y axis with a bar chart.
 #'
 #' By default, multiple bars occupying the same `x` position will be stacked
 #' atop one another by [position_stack()]. If you want them to be dodged
@@ -23,6 +20,8 @@
 #' and then standardising each bar to have the same height.
 #'
 #' @eval rd_aesthetics("geom", "bar")
+#' @eval rd_aesthetics("geom", "col")
+#' @eval rd_aesthetics("stat", "count")
 #' @seealso
 #'   [geom_histogram()] for continuous data,
 #'   [position_dodge()] and [position_dodge2()] for creating side-by-side
