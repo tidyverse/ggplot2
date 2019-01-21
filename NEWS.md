@@ -1,7 +1,7 @@
 # ggplot2 3.1.0.9000
   
 * `scale_color_continuous()` now points at `scale_colour_continuos()` so that it 
-  will handle `type` = "viridis" as the documentation states (@hlendway, #3079).
+  will handle `type = "viridis"` as the documentation states (@hlendway, #3079).
 
 * `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
 
