@@ -494,6 +494,123 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 )
 
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+ScaleBin <- ggproto("ScaleBin", Scale,
+  range = continuous_range(),
+  na.value = NA_real_,
+  oob = squish,
+  n_bins = NULL,
+  right = TRUE,
+
+  is_discrete = function() TRUE,
+
+  train = function(self, x) {
+    if (length(x) == 0) return()
+    self$range$train(x)
+  },
+
+  transform = function(x) {
+    x
+  },
+
+  map = function(self, x, limits = self$get_limits()) {
+    breaks <- self$get_breaks(limits)
+
+    x_binned <- cut(x, c(limits[1], breaks, limits[2]), labels = FALSE,
+                    include.lowest = TRUE, right = self$right)
+
+    if (!is.null(self$palette.cache)) {
+      pal <- self$palette.cache
+    } else {
+      pal <- self$palette(length(self$breaks) + 1)
+      self$palette.cache <- pal
+    }
+
+    pal[x_binned]
+  },
+
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
+    expand_range4(length(self$get_limits()), expand)
+  },
+
+  get_breaks = function(self, limits = self$get_limits()) {
+    if (self$is_empty()) return(numeric())
+
+    if (is.null(self$breaks)) {
+      return(NULL)
+    } else if (identical(self$breaks, NA)) {
+      stop("Invalid breaks specification. Use NULL, not NA", call. = FALSE)
+    } else if (is.waive(self$breaks)) {
+      if (is.null(self$n_bins)) {
+        stop("Either breaks or n_bins must be specified", call. = FALSE)
+      }
+      width <- range(limits) / self$n_bins
+      breaks <- limits[1] + seq_len(n_bins - 1) * width
+    } else if (is.function(self$breaks)) {
+      breaks <- self$breaks(limits, n_bins)
+    } else {
+      breaks <- self$breaks
+    }
+
+    breaks
+  },
+
+  get_breaks_minor = function(...) NULL,
+
+  get_labels = function(self, breaks = self$get_breaks()) {
+    if (is.null(breaks)) return(NULL)
+
+    breaks <- self$trans$inverse(breaks)
+
+    if (is.null(self$labels)) {
+      return(NULL)
+    } else if (identical(self$labels, NA)) {
+      stop("Invalid labels specification. Use NULL, not NA", call. = FALSE)
+    } else if (is.waive(self$labels)) {
+      labels <- self$trans$format(breaks)
+    } else if (is.function(self$labels)) {
+      labels <- self$labels(breaks)
+    } else {
+      labels <- self$labels
+    }
+    if (length(labels) != length(breaks)) {
+      stop("Breaks and labels are different lengths")
+    }
+    labels
+  },
+
+  clone = function(self) {
+    new <- ggproto(NULL, self)
+    new$range <- continuous_range()
+    new
+  },
+
+  break_info = function(self, range = NULL) {
+    # range
+    if (is.null(range)) range <- self$dimension()
+
+    # major breaks
+    major <- self$get_breaks(range)
+
+    # labels
+    labels <- self$get_labels(major)
+
+    # drop oob breaks/labels by testing major == NA
+    if (!is.null(labels)) labels <- labels[!is.na(major)]
+    if (!is.null(major)) major <- major[!is.na(major)]
+
+    # rescale breaks [0, 1], which are used by coord/guide
+    major_n <- rescale(major, from = range)
+
+    list(range = range, labels = labels,
+         major = major_n, minor = NULL,
+         major_source = major, minor_source = NULL)
+  }
+)
+
 #' Continuous scale constructor.
 #'
 #' @export
@@ -659,6 +776,52 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   )
 }
 
+continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
+                             breaks = waiver(), labels = waiver(), limits = NULL,
+                             oob = squish, expand = waiver(), na.value = NA_real_,
+                             n_bins = NULL, right = TRUE, trans = "identity",
+                             guide = "legend", position = "left", super = ScaleBin) {
+
+  aesthetics <- standardise_aes_names(aesthetics)
+
+  check_breaks_labels(breaks, labels)
+
+  position <- match.arg(position, c("left", "right", "top", "bottom"))
+
+  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
+    guide <- "none"
+  }
+
+  trans <- as.trans(trans)
+  if (!is.null(limits)) {
+    limits <- trans$transform(limits)
+  }
+
+  ggproto(NULL, super,
+    call = match.call(),
+
+    aesthetics = aesthetics,
+    scale_name = scale_name,
+    palette = palette,
+
+    range = continuous_range(),
+    limits = limits,
+    trans = trans,
+    na.value = na.value,
+    expand = expand,
+    oob = oob,
+    n_bins = n_bins,
+    right = right,
+
+    name = name,
+    breaks = breaks,
+    minor_breaks = minor_breaks,
+
+    labels = labels,
+    guide = guide,
+    position = position
+  )
+}
 # In place modification of a scale to change the primary axis
 scale_flip_position <- function(scale) {
   scale$position <- switch(scale$position,
