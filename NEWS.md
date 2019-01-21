@@ -1,6 +1,13 @@
 # ggplot2 3.1.0.9000
 
-* `geom_hline()`, `geom_vline()` & `geom_abline()` now ... (@RichardJActon, #2950)
+* `geom_hline()`, `geom_vline()` & `geom_abline()` now throw a warning if the user supplies both an xintercept, yintercept or slope value & a mapping such as this:
+  
+  ```R
+  geom_hline(yintercept = 3, aes(colour = colour))
+ 
+  ```
+  
+  The above will cause the user supplied mapping to be ignored/overwritten and as users might resaonably expect the above to work given that other geoms do  not have this behaviour, they will now be warned about mapping being overwritten. (@RichardJActon, #2950)
   
 * `scale_shape_identity()` now works correctly with `guide = "legend"` (@malcolmbarrett, #3029)
 
