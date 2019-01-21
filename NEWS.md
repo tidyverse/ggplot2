@@ -1,5 +1,8 @@
 # ggplot2 3.1.0.9000
   
+* `scale_color_continuous()` now points at `scale_colour_continuos()` so that it 
+  will handle `type = "viridis"` as the documentation states (@hlendway, #3079).
+
 * `scale_shape_identity()` now works correctly with `guide = "legend"` (@malcolmbarrett, #3029)
 
 * Facet strips on the left side of plots now have clipping turned on, preventing
