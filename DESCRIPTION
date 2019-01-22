@@ -182,6 +182,7 @@ Collate:
     'save.r'
     'scale-.r'
     'scale-alpha.r'
+    'scale-binned.R'
     'scale-brewer.r'
     'scale-colour.r'
     'scale-continuous.r'

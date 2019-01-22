@@ -106,7 +106,8 @@ ggplot(mpg, aes(reorder(manufacturer, displ), cty)) +
 }
 }
 \seealso{
-Other position scales: \code{\link{scale_x_continuous}},
+Other position scales: \code{\link{scale_x_binned}},
+  \code{\link{scale_x_continuous}},
   \code{\link{scale_x_date}}
 }
 \concept{position scales}

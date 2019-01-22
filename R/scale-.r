@@ -207,7 +207,13 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   transform = function(self, x) {
      new_x <- self$trans$transform(x)
      if (any(is.finite(x) != is.finite(new_x))) {
-       type <- if (self$scale_name == "position_c") "continuous" else "discrete"
+       type <- if (self$scale_name == "position_c") {
+         "continuous"
+       } else if (self$scale_name == "position_d") {
+         "discrete"
+       } else {
+         "binned"
+       }
        axis <- if ("x" %in% self$aesthetics) "x" else "y"
        warning("Transformation introduced infinite values in ", type, " ", axis, "-axis", call. = FALSE)
      }
@@ -504,10 +510,15 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   oob = squish,
   n_bins = NULL,
   right = TRUE,
+  after_stat = FALSE,
 
   is_discrete = function() TRUE,
 
   train = function(self, x) {
+    if (!is.numeric(x)) {
+      stop("Binned scales only support continuous data", call. = FALSE)
+    }
+
     if (length(x) == 0) return()
     self$range$train(x)
   },
@@ -517,23 +528,27 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   },
 
   map = function(self, x, limits = self$get_limits()) {
-    breaks <- self$get_breaks(limits)
-
-    x_binned <- cut(x, c(limits[1], breaks, limits[2]), labels = FALSE,
-                    include.lowest = TRUE, right = self$right)
-
-    if (!is.null(self$palette.cache)) {
-      pal <- self$palette.cache
+    if (after_stat) {
+      x
     } else {
-      pal <- self$palette(length(self$breaks) + 1)
-      self$palette.cache <- pal
-    }
+      breaks <- self$get_breaks(limits)
 
-    pal[x_binned]
+      x_binned <- cut(x, c(limits[1], breaks, limits[2]), labels = FALSE,
+                      include.lowest = TRUE, right = self$right)
+
+      if (!is.null(self$palette.cache)) {
+        pal <- self$palette.cache
+      } else {
+        pal <- self$palette(length(self$breaks) + 1)
+        self$palette.cache <- pal
+      }
+
+      pal[x_binned]
+    }
   },
 
   dimension = function(self, expand = c(0, 0, 0, 0)) {
-    expand_range4(length(self$get_limits()), expand)
+    expand_range4(self$get_limits(), expand)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
@@ -547,13 +562,15 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       if (is.null(self$n_bins)) {
         stop("Either breaks or n_bins must be specified", call. = FALSE)
       }
-      width <- range(limits) / self$n_bins
-      breaks <- limits[1] + seq_len(n_bins - 1) * width
+      width <- diff(limits) / self$n_bins
+      breaks <- limits[1] + seq_len(self$n_bins - 1) * width
     } else if (is.function(self$breaks)) {
-      breaks <- self$breaks(limits, n_bins)
+      breaks <- self$breaks(limits, self$n_bins)
     } else {
       breaks <- self$breaks
     }
+
+    self$breaks <- breaks
 
     breaks
   },
@@ -776,6 +793,13 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   )
 }
 
+#' Binning scale constructor
+#'
+#' @inheritParams continuous_scale
+#' @param n_bins The number of bins to create if breaks are not given directly
+#' @param right Should values on the border between bins be part of the right
+#' (upper) bin?
+#' @keywords internal
 binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                          breaks = waiver(), labels = waiver(), limits = NULL,
                          oob = squish, expand = waiver(), na.value = NA_real_,
@@ -815,7 +839,6 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
     name = name,
     breaks = breaks,
-    minor_breaks = minor_breaks,
 
     labels = labels,
     guide = guide,

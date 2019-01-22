@@ -168,7 +168,8 @@ p1 + scale_y_continuous(trans = scales::reciprocal_trans())
 \seealso{
 \code{\link[=sec_axis]{sec_axis()}} for how to specify secondary axes
 
-Other position scales: \code{\link{scale_x_date}},
+Other position scales: \code{\link{scale_x_binned}},
+  \code{\link{scale_x_date}},
   \code{\link{scale_x_discrete}}
 }
 \concept{position scales}
