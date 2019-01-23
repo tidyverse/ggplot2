@@ -88,7 +88,7 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
   breaks <- seq(origin, max_x, width)
 
   if (length(breaks) > 1e6) {
-    stop("Number of bins exceeds the maximum of 1e6", call. = FALSE)
+    stop("The number of bins exceeds the maximum of 1e6. Did you make binwidth too small?", call. = FALSE)
   }
 
   bin_breaks(breaks, closed = closed)

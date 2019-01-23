@@ -124,6 +124,17 @@ test_that("weights are added", {
   expect_equal(out$count, df$y)
 })
 
+test_that("bin errors at high bin counts", {
+  df <- data_frame(
+    x = runif(1e5, max = 2e6)
+  )
+  p <- ggplot(df) + geom_histogram(aes(x = x), binwidth = 1)
+
+  expect_warning(
+    ggplot_build(p),
+    "The number of bins exceeds the maximum of 1e6. Did you make binwidth too small?")
+})
+
 # stat_count --------------------------------------------------------------
 
 test_that("stat_count throws error when y aesthetic present", {
