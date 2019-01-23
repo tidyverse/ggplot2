@@ -46,7 +46,7 @@ test_that("curved lines in map projections", {
 
 # Warning tests ------------------------------------------------------------
 
-test_that("Warning if a supplied mapping is going to be overwritten",{
+test_that("Warning if a supplied mapping is going to be overwritten", {
 
   expect_warning(
     geom_vline(xintercept = 3, aes(colour = colour)),
