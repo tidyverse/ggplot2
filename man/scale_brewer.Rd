@@ -68,7 +68,7 @@ look good. Your mileage may vary.
 }
 \note{
 The \code{distiller} scales extend brewer to continuous scales by smoothly
-interpolating 6 colours from any palette to a continuous scale.
+interpolating 7 colours from any palette to a continuous scale.
 }
 \section{Palettes}{
 

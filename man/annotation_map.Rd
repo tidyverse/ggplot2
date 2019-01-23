@@ -23,7 +23,9 @@ seal.sub <- subset(seals, long > -130 & lat < 45 & lat > 40)
 ggplot(seal.sub, aes(x = long, y = lat)) +
   annotation_map(usamap, fill = "NA", colour = "grey50") +
   geom_segment(aes(xend = long + delta_long, yend = lat + delta_lat))
+}
 
+if (require("maps")) {
 seal2 <- transform(seal.sub,
   latr = cut(lat, 2),
   longr = cut(long, 2))

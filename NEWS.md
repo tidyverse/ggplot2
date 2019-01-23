@@ -1,4 +1,17 @@
 # ggplot2 3.1.0.9000
+  
+* `scale_color_continuous()` now points at `scale_colour_continuos()` so that it 
+  will handle `type = "viridis"` as the documentation states (@hlendway, #3079).
+
+* `scale_shape_identity()` now works correctly with `guide = "legend"` (@malcolmbarrett, #3029)
+
+* Facet strips on the left side of plots now have clipping turned on, preventing
+  text from running out of the strip and borders from looking thicker than for
+  other strips (@karawoo, #2772 and #3061).
+
+* `coord_map()` now can have axes on the top and right (@karawoo, #3042).
+
+* `geom_rug()` gains an "outside" option to allow for moving the rug tassels to outside the plot area. (@njtierney, #3085)
 
 * `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
 
@@ -13,6 +26,8 @@
 * Default labels are now generated more consistently; e.g., symbols no longer
   get backticks, and long expressions are abbreviated with `...`
   (@yutannihilation, #2981).
+  
+* Diverging brewer color scale now has the correct mid-point color (@dariyasydykova, #3072).
 
 * Aesthetic mappings now accept functions that return `NULL` (@yutannihilation,
   #2997).
