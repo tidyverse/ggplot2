@@ -467,13 +467,17 @@ check_layout <- function(x) {
 #'
 #' @keywords internal
 #' @export
-max_height <- function(grobs) {
-  unit(max(unlist(lapply(grobs, height_cm))), "cm")
+max_height <- function(grobs, value_only = FALSE) {
+  height <- max(unlist(lapply(grobs, height_cm)))
+  if (!value_only) height <- unit(height, "cm")
+  height
 }
 #' @rdname max_height
 #' @export
-max_width <- function(grobs) {
-  unit(max(unlist(lapply(grobs, width_cm))), "cm")
+max_width <- function(grobs, value_only = FALSE) {
+  width <- max(unlist(lapply(grobs, width_cm)))
+  if (!value_only) width <- unit(width, "cm")
+  width
 }
 #' Find panels in a gtable
 #'
