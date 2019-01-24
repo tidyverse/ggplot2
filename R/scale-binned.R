@@ -56,25 +56,41 @@ scale_y_binned <- function(name = waiver(), n_bins = 10, breaks = waiver(),
 #' @export
 ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
   after_stat = FALSE,
+
+  train = function(self, x) {
+    if (!is.numeric(x)) {
+      stop("Binned scales only support continuous data", call. = FALSE)
+    }
+
+    if (length(x) == 0 || self$after_stat) return()
+    self$range$train(x)
+  },
+
   map = function(self, x, limits = self$get_limits()) {
+    breaks <- self$get_breaks(limits)
+    all_breaks <- unique(sort(c(limits[1], breaks, limits[2])))
+
     if (self$after_stat) {
-      x
+      # Backtransform to original scale
+      x_binned <- cut(x, seq_len(length(all_breaks) + 1) - 0.5, labels = FALSE,
+                      include.lowest = TRUE, right = self$right)
+      # lowest <- tapply(x, x_binned, min)
+      # lowest <- lowest[match(seq_len(length(all_breaks) - 1), as.integer(names(lowest)))]
+      # highest <- tapply(x, x_binned, max)
+      # highest <- highest[match(seq_len(length(all_breaks) - 1), as.integer(names(highest)))]
+      #
+      # (x - x_binned + .5) * (highest - lowest)[x_binned] * diff(all_breaks)[x_binned] + all_breaks[x_binned]
+
+      (x - x_binned + .5) * diff(all_breaks)[x_binned] + all_breaks[x_binned]
     } else {
       self$after_stat <- TRUE
 
       x <- as.numeric(self$oob(x, limits))
       x <- ifelse(!is.na(x), x, self$na.value)
-
-      breaks <- self$get_breaks(limits)
-
-      all_breaks <- c(limits[1], breaks, limits[2])
-
       x_binned <- cut(x, all_breaks, labels = FALSE,
                       include.lowest = TRUE, right = self$right)
 
-      midpoints <- all_breaks[-1] - diff(all_breaks) / 2
-
-      midpoints[x_binned]
+      x_binned # Return integer form so stat treat it like a discrete scale
     }
   },
   reset = function(self) {
