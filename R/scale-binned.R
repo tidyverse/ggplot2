@@ -57,6 +57,8 @@ scale_y_binned <- function(name = waiver(), n_bins = 10, breaks = waiver(),
 ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
   after_stat = FALSE,
 
+  is_discrete = function() FALSE,
+
   train = function(self, x) {
     if (!is.numeric(x)) {
       stop("Binned scales only support continuous data", call. = FALSE)
@@ -83,8 +85,6 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
 
       (x - x_binned + .5) * diff(all_breaks)[x_binned] + all_breaks[x_binned]
     } else {
-      self$after_stat <- TRUE
-
       x <- as.numeric(self$oob(x, limits))
       x <- ifelse(!is.na(x), x, self$na.value)
       x_binned <- cut(x, all_breaks, labels = FALSE,
@@ -94,6 +94,10 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
     }
   },
   reset = function(self) {
-    NULL
+    self$after_stat <- TRUE
+    self$range$reset()
+    limits <- self$get_limits()
+    breaks <- self$get_breaks(limits)
+    self$range$train(c(limits, breaks))
   }
 )
