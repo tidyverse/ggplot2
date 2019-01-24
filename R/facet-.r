@@ -462,8 +462,11 @@ check_layout <- function(x) {
 #' Get the maximal width/length of a list of grobs
 #'
 #' @param grobs A list of grobs
+#' @param value_only Should the return value be a simple numeric vector giving
+#' the maximum in cm
 #'
-#' @return The largest value. measured in cm as a unit object
+#' @return The largest value. measured in cm as a unit object or a numeric
+#' vector depending on `value_only`
 #'
 #' @keywords internal
 #' @export
