@@ -281,10 +281,22 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       axis_mat_y_left[, -1] <- list(zeroGrob())
       axis_mat_y_right[, -ncol] <- list(zeroGrob())
     }
-    axis_height_top <- unit(apply(axis_mat_x_top, 1, max_height, value_only = TRUE), "cm")
-    axis_height_bottom <- unit(apply(axis_mat_x_bottom, 1, max_height, value_only = TRUE), "cm")
-    axis_width_left <- unit(apply(axis_mat_y_left, 2, max_width, value_only = TRUE), "cm")
-    axis_width_right <- unit(apply(axis_mat_y_right, 2, max_width, value_only = TRUE), "cm")
+    axis_height_top <- unit(
+      apply(axis_mat_x_top, 1, max_height, value_only = TRUE),
+      "cm"
+    )
+    axis_height_bottom <- unit(
+      apply(axis_mat_x_bottom, 1, max_height, value_only = TRUE),
+      "cm"
+    )
+    axis_width_left <- unit(
+      apply(axis_mat_y_left, 2, max_width, value_only = TRUE),
+      "cm"
+    )
+    axis_width_right <- unit(
+      apply(axis_mat_y_right, 2, max_width, value_only = TRUE),
+      "cm"
+    )
     # Add back missing axes
     if (any(empties)) {
       first_row <- which(apply(empties, 1, any))[1] - 1
