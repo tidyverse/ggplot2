@@ -243,7 +243,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       breaks <- limits[1]
     } else if (is.waive(self$breaks)) {
       if (!is.null(self$n_breaks)) {
+        old_n <- get("n", environment(self$trans$breaks))
         assign("n", self$n_breaks, environment(self$trans$breaks))
+        on.exit(assign("n", old_n, environment(self$trans$breaks)))
       }
       breaks <- self$trans$breaks(limits)
     } else if (is.function(self$breaks)) {
