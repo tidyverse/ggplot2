@@ -462,18 +462,25 @@ check_layout <- function(x) {
 #' Get the maximal width/length of a list of grobs
 #'
 #' @param grobs A list of grobs
+#' @param value_only Should the return value be a simple numeric vector giving
+#' the maximum in cm
 #'
-#' @return The largest value. measured in cm as a unit object
+#' @return The largest value. measured in cm as a unit object or a numeric
+#' vector depending on `value_only`
 #'
 #' @keywords internal
 #' @export
-max_height <- function(grobs) {
-  unit(max(unlist(lapply(grobs, height_cm))), "cm")
+max_height <- function(grobs, value_only = FALSE) {
+  height <- max(unlist(lapply(grobs, height_cm)))
+  if (!value_only) height <- unit(height, "cm")
+  height
 }
 #' @rdname max_height
 #' @export
-max_width <- function(grobs) {
-  unit(max(unlist(lapply(grobs, width_cm))), "cm")
+max_width <- function(grobs, value_only = FALSE) {
+  width <- max(unlist(lapply(grobs, width_cm)))
+  if (!value_only) width <- unit(width, "cm")
+  width
 }
 #' Find panels in a gtable
 #'
