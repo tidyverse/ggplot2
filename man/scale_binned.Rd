@@ -5,15 +5,15 @@
 \alias{scale_y_binned}
 \title{Positional scales for binning continuous data (x & y)}
 \usage{
-scale_x_binned(name = waiver(), n_bins = 10, breaks = waiver(),
+scale_x_binned(name = waiver(), n_breaks = 10, breaks = waiver(),
   labels = waiver(), limits = NULL, expand = waiver(),
   oob = squish, na.value = NA_real_, right = TRUE,
-  trans = "identity", position = "bottom")
+  show_limits = FALSE, trans = "identity", position = "bottom")
 
-scale_y_binned(name = waiver(), n_bins = 10, breaks = waiver(),
+scale_y_binned(name = waiver(), n_breaks = 10, breaks = waiver(),
   labels = waiver(), limits = NULL, expand = waiver(),
   oob = squish, na.value = NA_real_, right = TRUE,
-  trans = "identity", position = "left")
+  show_limits = FALSE, trans = "identity", position = "left")
 }
 \description{
 \code{scale_x_binned()} and \code{scale_y_binned()} are scales that discretize

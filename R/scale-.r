@@ -508,9 +508,10 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   range = continuous_range(),
   na.value = NA_real_,
   oob = squish,
-  n_bins = NULL,
+  n_breaks = NULL,
   right = TRUE,
   after_stat = FALSE,
+  show_limits = FALSE,
 
   is_discrete = function() TRUE,
 
@@ -554,21 +555,25 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   get_breaks = function(self, limits = self$get_limits()) {
     if (self$is_empty()) return(numeric())
 
+    limits <- self$trans$inverse(limits)
+
     if (is.null(self$breaks)) {
       return(NULL)
     } else if (identical(self$breaks, NA)) {
       stop("Invalid breaks specification. Use NULL, not NA", call. = FALSE)
     } else if (is.waive(self$breaks)) {
-      if (is.null(self$n_bins)) {
-        stop("Either breaks or n_bins must be specified", call. = FALSE)
+      if (!is.null(self$n_breaks)) {
+        assign("n", self$n_breaks, environment(self$trans$breaks))
       }
-      width <- diff(limits) / self$n_bins
-      breaks <- limits[1] + seq_len(self$n_bins - 1) * width
+      breaks <- self$trans$breaks(limits)
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits, self$n_bins)
     } else {
       breaks <- self$breaks
     }
+
+    # Breaks must be within limits
+    breaks <- breaks[breaks >= limits[1] & breaks <= limits[2]]
 
     self$breaks <- breaks
 
@@ -611,6 +616,10 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
     # major breaks
     major <- self$get_breaks(range)
+    if (self$show_limits) {
+      limits <- self$get_limits()
+      major <- sort(unique(c(limits, major)))
+    }
 
     # labels
     labels <- self$get_labels(major)
@@ -796,15 +805,19 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' Binning scale constructor
 #'
 #' @inheritParams continuous_scale
-#' @param n_bins The number of bins to create if breaks are not given directly
+#' @param n_breaks The number of break points to create if breaks are not given
+#' directly. It will attempt to find nice breakpoint and may thus not give the
+#' exact number of breaks as requested.
 #' @param right Should values on the border between bins be part of the right
 #' (upper) bin?
+#' @param show_limits should the limits of the scale appear as ticks
 #' @keywords internal
 binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                          breaks = waiver(), labels = waiver(), limits = NULL,
                          oob = squish, expand = waiver(), na.value = NA_real_,
-                         n_bins = NULL, right = TRUE, trans = "identity",
-                         guide = "legend", position = "left", super = ScaleBinned) {
+                         n_breaks = NULL, right = TRUE, trans = "identity",
+                         show_limits = FALSE, guide = "legend", position = "left",
+                         super = ScaleBinned) {
 
   aesthetics <- standardise_aes_names(aesthetics)
 
@@ -834,8 +847,9 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     na.value = na.value,
     expand = expand,
     oob = oob,
-    n_bins = n_bins,
+    n_breaks = n_breaks,
     right = right,
+    show_limits = show_limits,
 
     name = name,
     breaks = breaks,

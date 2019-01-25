@@ -21,32 +21,32 @@ NULL
 #' @rdname scale_binned
 #'
 #' @export
-scale_x_binned <- function(name = waiver(), n_bins = 10, breaks = waiver(),
+scale_x_binned <- function(name = waiver(), n_breaks = 10, breaks = waiver(),
                            labels = waiver(), limits = NULL, expand = waiver(),
                            oob = squish, na.value = NA_real_, right = TRUE,
-                           trans = "identity", position = "bottom") {
+                           show_limits = FALSE, trans = "identity", position = "bottom") {
   binned_scale(
     aesthetics = c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper"),
     scale_name = "position_b", palette = identity, name = name, breaks = breaks,
     labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
-    n_bins = n_bins, right = right, trans = trans, guide = "none",
-    position = position, super = ScaleBinnedPosition
+    n_breaks = n_breaks, right = right, trans = trans, show_limits = show_limits,
+    guide = "none", position = position, super = ScaleBinnedPosition
   )
 }
 
 #' @rdname scale_binned
 #'
 #' @export
-scale_y_binned <- function(name = waiver(), n_bins = 10, breaks = waiver(),
+scale_y_binned <- function(name = waiver(), n_breaks = 10, breaks = waiver(),
                            labels = waiver(), limits = NULL, expand = waiver(),
                            oob = squish, na.value = NA_real_, right = TRUE,
-                           trans = "identity", position = "left") {
+                           show_limits = FALSE, trans = "identity", position = "left") {
   binned_scale(
     aesthetics = c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper"),
     scale_name = "position_b", palette = identity, name = name, breaks = breaks,
     labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
-    n_bins = n_bins, right = right, trans = trans, guide = "none",
-    position = position, super = ScaleBinnedPosition
+    n_breaks = n_breaks, right = right, trans = trans, show_limits = show_limits,
+    guide = "none", position = position, super = ScaleBinnedPosition
   )
 }
 
@@ -76,13 +76,6 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
       # Backtransform to original scale
       x_binned <- cut(x, seq_len(length(all_breaks) + 1) - 0.5, labels = FALSE,
                       include.lowest = TRUE, right = self$right)
-      # lowest <- tapply(x, x_binned, min)
-      # lowest <- lowest[match(seq_len(length(all_breaks) - 1), as.integer(names(lowest)))]
-      # highest <- tapply(x, x_binned, max)
-      # highest <- highest[match(seq_len(length(all_breaks) - 1), as.integer(names(highest)))]
-      #
-      # (x - x_binned + .5) * (highest - lowest)[x_binned] * diff(all_breaks)[x_binned] + all_breaks[x_binned]
-
       (x - x_binned + .5) * diff(all_breaks)[x_binned] + all_breaks[x_binned]
     } else {
       x <- as.numeric(self$oob(x, limits))
@@ -95,9 +88,9 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
   },
   reset = function(self) {
     self$after_stat <- TRUE
-    self$range$reset()
     limits <- self$get_limits()
     breaks <- self$get_breaks(limits)
+    self$range$reset()
     self$range$train(c(limits, breaks))
   }
 )

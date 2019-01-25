@@ -7,8 +7,9 @@
 binned_scale(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), labels = waiver(), limits = NULL,
   oob = squish, expand = waiver(), na.value = NA_real_,
-  n_bins = NULL, right = TRUE, trans = "identity",
-  guide = "legend", position = "left", super = ScaleBinned)
+  n_breaks = NULL, right = TRUE, trans = "identity",
+  show_limits = FALSE, guide = "legend", position = "left",
+  super = ScaleBinned)
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with}
@@ -59,7 +60,9 @@ expand the scale by 5\% on each side for continuous variables, and by
 
 \item{na.value}{Missing values will be replaced with this value.}
 
-\item{n_bins}{The number of bins to create if breaks are not given directly}
+\item{n_breaks}{The number of break points to create if breaks are not given
+directly. It will attempt to find nice breakpoint and may thus not give the
+exact number of breaks as requested.}
 
 \item{right}{Should values on the border between bins be part of the right
 (upper) bin?}
@@ -74,6 +77,8 @@ and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called \code{name_trans}, e.g.
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+
+\item{show_limits}{should the limits of the scale appear as ticks}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more info.}
