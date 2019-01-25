@@ -159,9 +159,9 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>max_height</span>(<span class='no'>grobs</span>)
+    <pre class="usage"><span class='fu'>max_height</span>(<span class='no'>grobs</span>, <span class='kw'>value_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>max_width</span>(<span class='no'>grobs</span>)</pre>
+<span class='fu'>max_width</span>(<span class='no'>grobs</span>, <span class='kw'>value_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,11 +170,17 @@
       <th>grobs</th>
       <td><p>A list of grobs</p></td>
     </tr>
+    <tr>
+      <th>value_only</th>
+      <td><p>Should the return value be a simple numeric vector giving
+the maximum in cm</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The largest value. measured in cm as a unit object</p>
+    <p>The largest value. measured in cm as a unit object or a numeric
+vector depending on <code>value_only</code></p>
     
 
   </div>
