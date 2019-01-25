@@ -3,7 +3,6 @@
 geom_rect <- function(mapping = NULL, data = NULL,
                       stat = "identity", position = "identity",
                       ...,
-                      lineend = "square",
                       linejoin = "mitre",
                       na.rm = FALSE,
                       show.legend = NA,
@@ -17,7 +16,6 @@ geom_rect <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
-      lineend = lineend,
       linejoin = linejoin,
       na.rm = na.rm,
       ...
@@ -35,8 +33,7 @@ GeomRect <- ggproto("GeomRect", Geom,
 
   required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-  draw_panel = function(self, data, panel_params, coord,
-                        lineend = "square", linejoin = "mitre") {
+  draw_panel = function(self, data, panel_params, coord, linejoin = "mitre") {
     if (!coord$is_linear()) {
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
@@ -63,7 +60,6 @@ GeomRect <- ggproto("GeomRect", Geom,
           fill = alpha(coords$fill, coords$alpha),
           lwd = coords$size * .pt,
           lty = coords$linetype,
-          lineend = lineend,
           linejoin = linejoin
         )
       ))
@@ -80,7 +76,7 @@ GeomRect <- ggproto("GeomRect", Geom,
 # @keyword internal
 rect_to_poly <- function(xmin, xmax, ymin, ymax) {
   new_data_frame(list(
-    y = c(ymax, ymax, ymin, ymin, ymax),
-    x = c(xmin, xmax, xmax, xmin, xmin)
+    y = c(ymax, ymax, ymin, ymin),
+    x = c(xmin, xmax, xmax, xmin)
   ))
 }

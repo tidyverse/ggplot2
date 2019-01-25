@@ -58,7 +58,6 @@
 geom_tile <- function(mapping = NULL, data = NULL,
                       stat = "identity", position = "identity",
                       ...,
-                      lineend = "square",
                       linejoin = "mitre",
                       na.rm = FALSE,
                       show.legend = NA,
@@ -72,7 +71,6 @@ geom_tile <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
-      lineend = lineend,
       linejoin = linejoin,
       na.rm = na.rm,
       ...
