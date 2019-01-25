@@ -21,7 +21,7 @@ dotstackGrob <- function(
          name = name, gp = gp, vp = vp, cl = "dotstackGrob")
 }
 # Only cross-version reliable way to check the unit of a unit object
-is_npc <- function(x) isTRUE(grepl('npc', as.character(x)))
+is_npc <- function(x) isTRUE(grepl('^[^+^-^\\*]*[^s]npc$', as.character(x)))
 
 #' @export
 makeContext.dotstackGrob <- function(x, recording = TRUE) {
