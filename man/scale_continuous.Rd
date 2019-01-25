@@ -12,14 +12,16 @@
 \title{Position scales for continuous data (x & y)}
 \usage{
 scale_x_continuous(name = waiver(), breaks = waiver(),
-  minor_breaks = waiver(), labels = waiver(), limits = NULL,
-  expand = waiver(), oob = censor, na.value = NA_real_,
-  trans = "identity", position = "bottom", sec.axis = waiver())
+  minor_breaks = waiver(), n_breaks = NULL, labels = waiver(),
+  limits = NULL, expand = waiver(), oob = censor,
+  na.value = NA_real_, trans = "identity", position = "bottom",
+  sec.axis = waiver())
 
 scale_y_continuous(name = waiver(), breaks = waiver(),
-  minor_breaks = waiver(), labels = waiver(), limits = NULL,
-  expand = waiver(), oob = censor, na.value = NA_real_,
-  trans = "identity", position = "left", sec.axis = waiver())
+  minor_breaks = waiver(), n_breaks = NULL, labels = waiver(),
+  limits = NULL, expand = waiver(), oob = censor,
+  na.value = NA_real_, trans = "identity", position = "left",
+  sec.axis = waiver())
 
 scale_x_log10(...)
 
@@ -57,6 +59,11 @@ each major break)
 \item A numeric vector of positions
 \item A function that given the limits returns a vector of minor breaks.
 }}
+
+\item{n_breaks}{An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if \code{breaks = waiver()}. Use \code{NULL} to use the default
+number of breaks given by the transformation.}
 
 \item{labels}{One of:
 \itemize{

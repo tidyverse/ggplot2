@@ -90,6 +90,10 @@ each major break)
 \item A numeric vector of positions
 \item A function that given the limits returns a vector of minor breaks.
 }}
+  \item{n_breaks}{An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if \code{breaks = waiver()}. Use \code{NULL} to use the default
+number of breaks given by the transformation.}
   \item{labels}{One of:
 \itemize{
 \item \code{NULL} for no labels

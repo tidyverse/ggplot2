@@ -196,6 +196,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   rescaler = rescale, # Used by diverging and n colour gradients x
   oob = censor,
   minor_breaks = waiver(),
+  n_breaks = NULL,
 
   is_discrete = function() FALSE,
 
@@ -241,6 +242,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     } else if (zero_range(as.numeric(limits))) {
       breaks <- limits[1]
     } else if (is.waive(self$breaks)) {
+      if (!is.null(self$n_breaks)) {
+        assign("n", self$n_breaks, environment(self$trans$breaks))
+      }
       breaks <- self$trans$breaks(limits)
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits)
@@ -519,6 +523,10 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'     each major break)
 #'   - A numeric vector of positions
 #'   - A function that given the limits returns a vector of minor breaks.
+#' @param n_breaks An integer guiding the number of major breaks. The algorithm
+#'   may choose a slightly different number to ensure nice break labels. Will
+#'   only have an effect if `breaks = waiver()`. Use `NULL` to use the default
+#'   number of breaks given by the transformation.
 #' @param labels One of:
 #'   - `NULL` for no labels
 #'   - `waiver()` for the default labels computed by the
@@ -552,8 +560,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #' @param super The super class to use for the constructed scale
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
-  breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL,
-  rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_,
+  breaks = waiver(), minor_breaks = waiver(), n_breaks = NULL, labels = waiver(),
+  limits = NULL, rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_,
   trans = "identity", guide = "legend", position = "left", super = ScaleContinuous) {
 
   aesthetics <- standardise_aes_names(aesthetics)
@@ -589,6 +597,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     name = name,
     breaks = breaks,
     minor_breaks = minor_breaks,
+    n_breaks = n_breaks,
 
     labels = labels,
     guide = guide,
