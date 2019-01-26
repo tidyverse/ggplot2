@@ -47,6 +47,8 @@
 * `stat_bin()` will now error when the number of bins exceeds 1e6 to avoid 
   accidentally freezing the user session (@thomasp85).
 
+* `stat_bin()` now handles data with only one unique value (@yutannihilation #3047).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
