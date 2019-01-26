@@ -173,6 +173,7 @@
 <li><p><code>GeomRibbon</code> and <code>GeomArea</code> now sort the data along the x-axis in the <code>setup_data()</code> method rather than as part of <code>draw_group()</code> (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3023'>#3023</a>)</p></li>
 <li><p><code><a href="../reference/ggsf.html">coord_sf()</a></code>, <code><a href="../reference/coord_map.html">coord_map()</a></code>, and <code><a href="../reference/coord_polar.html">coord_polar()</a></code> now squash <code>-Inf</code> and <code>Inf</code> into the min and max of the plot (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2972'>#2972</a>).</p></li>
 <li><p><code><a href="../reference/geom_histogram.html">stat_bin()</a></code> will now error when the number of bins exceeds 1e6 to avoid accidentally freezing the user session (<a href='https://github.com/thomasp85'>@thomasp85</a>).</p></li>
+<li><p><code><a href="../reference/geom_histogram.html">stat_bin()</a></code> now handles data with only one unique value (<a href='https://github.com/yutannihilation'>@yutannihilation</a> <a href='https://github.com/tidyverse/ggplot2/issues/3047'>#3047</a>).</p></li>
 </ul>
 </div>
     <div id="ggplot2-3-1-0" class="section level1">
