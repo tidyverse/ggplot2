@@ -133,6 +133,10 @@ test_that("weights are added", {
   expect_equal(out$count, df$y)
 })
 
+test_that("bin errors at high bin counts", {
+  expect_error(bin_breaks_width(c(1, 2e6), 1), "The number of histogram bins")
+})
+
 # stat_count --------------------------------------------------------------
 
 test_that("stat_count throws error when y aesthetic present", {

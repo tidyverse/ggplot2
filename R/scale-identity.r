@@ -81,7 +81,7 @@ scale_fill_identity <- function(..., guide = "none", aesthetics = "fill") {
 #' @export
 scale_shape_identity <- function(..., guide = "none") {
   sc <- continuous_scale("shape", "identity", identity_pal(), ..., guide = guide,
-    super = ScaleDiscreteIdentity)
+    super = ScaleContinuousIdentity)
 
   sc
 }

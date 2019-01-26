@@ -38,14 +38,11 @@ test_that("geom_path draws correctly", {
 test_that("NA linetype is dropped with warning", {
   df <- data_frame(x = 1:2, y = 1:2, z = "a")
 
-  # Somehow the warning does not slip through on ggplot_build()
-  if (enable_vdiffr) {
-    expect_warning(
-      expect_doppelganger(
-        "NA linetype",
-        ggplot(df, aes(x, y)) + geom_path(linetype = NA)
-      ),
-      "containing missing values"
-    )
-  }
+  expect_warning(
+    expect_doppelganger(
+      "NA linetype",
+      ggplot(df, aes(x, y)) + geom_path(linetype = NA)
+    ),
+    "containing missing values"
+  )
 })

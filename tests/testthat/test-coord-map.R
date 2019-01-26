@@ -1,14 +1,25 @@
 context("coord_map")
 
-test_that("USA state map drawn", {
-  us_map <- map_data("usa")
-  p_us <- ggplot(us_map, aes(x = long, y = lat, group = group))
+us_map <- map_data("usa")
+p_us <- ggplot(us_map, aes(x = long, y = lat, group = group))
 
+test_that("USA state map drawn", {
   expect_doppelganger(
     "USA mercator",
     p_us +
       geom_polygon(fill = NA, colour = "grey50") +
       coord_map("mercator")
+  )
+})
+
+test_that("coord_map scale position can be switched", {
+  expect_doppelganger(
+    "coord_map switched scale position",
+    p_us +
+      geom_polygon(fill = NA, colour = "grey50") +
+      coord_map("mercator") +
+      scale_y_continuous(position = "right") +
+      scale_x_continuous(position = "top")
   )
 })
 
