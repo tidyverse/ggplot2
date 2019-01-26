@@ -162,3 +162,20 @@ ggplot_add.Layer <- function(object, plot, object_name) {
   plot$labels <- defaults(plot$labels, new_labels)
   plot
 }
+#' @export
+ggplot_add.function <- function(object, plot, object_name) {
+  # Allow examples such as:
+  #   ggplot(mtcars, aes(x = disp, y = mpg)) + geom_point
+  # just as dplyr allows both of:
+  #   5 %>% sin()
+  #   5 %>% sin
+  env <- parent.frame()
+  object <- do.call(object, args = list(), envir = env)
+  # prevent any confusing cycling.
+  if(is.function(object)) {
+    stop("ggplot_add.function, right hand side evaluated to another function.",
+         call. = FALSE)
+  }
+  # re-dispatch
+  ggplot_add(object, plot, object_name)
+}
