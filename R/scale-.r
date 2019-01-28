@@ -242,12 +242,19 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     } else if (zero_range(as.numeric(limits))) {
       breaks <- limits[1]
     } else if (is.waive(self$breaks)) {
-      if (!is.null(self$n_breaks)) {
-        old_n <- get("n", environment(self$trans$breaks))
-        assign("n", self$n_breaks, environment(self$trans$breaks))
-        on.exit(assign("n", old_n, environment(self$trans$breaks)))
+      change_breaks <- if (!is.null(self$n_breaks)) {
+        if (trans_support_nbreaks(self$trans)) {
+          TRUE
+        } else {
+          warning("The transformation does not support changing number of breaks.\nPlease provide a transformation object that does or avoid using the `n_breaks` argument.", call. = FALSE)
+          FALSE
+        }
       }
-      breaks <- self$trans$breaks(limits)
+      breaks <- if (change_breaks) {
+        self$trans$breaks(limits, self$n_breaks)
+      } else {
+        self$trans$breaks(limits)
+      }
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits)
     } else {
@@ -680,4 +687,7 @@ scale_flip_position <- function(scale) {
     scale$position
   )
   invisible()
+}
+trans_support_nbreaks <- function(trans) {
+  "n" %in% names(formals(trans$breaks))
 }
