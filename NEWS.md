@@ -1,6 +1,6 @@
 # ggplot2 3.1.0.9000
 
-* `geom_rug()` gains a "length" option to allow for changing the length of the rug lines. (@daniel-wells, #)
+* `geom_rug()` gains a "length" option to allow for changing the length of the rug lines. (@daniel-wells, #3109)
 
 * `geom_hline()`, `geom_vline()`, and `geom_abline()` now throw a warning if the user supplies both an `xintercept`, `yintercept`, or `slope` value and a mapping (@RichardJActon, #2950).
   
