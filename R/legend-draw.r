@@ -49,7 +49,8 @@ draw_key_rect <- function(data, params, size) {
   rectGrob(gp = gpar(
     col = NA,
     fill = alpha(data$fill, data$alpha),
-    lty = data$linetype
+    lty = data$linetype,
+    lineend = "square" # workaround for Windows
   ))
 }
 #' @export

@@ -60,6 +60,7 @@ GeomRect <- ggproto("GeomRect", Geom,
           fill = alpha(coords$fill, coords$alpha),
           lwd = coords$size * .pt,
           lty = coords$linetype,
+          lineend = "square", # workaround for Windows
           linejoin = linejoin
         )
       ))
