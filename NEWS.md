@@ -50,8 +50,8 @@
 * `stat_bin()` now handles data with only one unique value (@yutannihilation #3047).
 
 * `geom_tile()` and `geom_rect()` now draw rectangles without notches at the
-  corners. The style of the corner can be controlled by `lineend` and `linejoin`
-  parameters (@yutannihilation, #3050).
+  corners. The style of the corner can be controlled by `linejoin` parameters
+  (@yutannihilation, #3050).
 
 # ggplot2 3.1.0
 
