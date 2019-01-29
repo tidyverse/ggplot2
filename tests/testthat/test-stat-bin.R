@@ -69,6 +69,15 @@ test_that("breaks are transformed by the scale", {
    expect_equal(out2$xmin, sqrt(c(1, 2.5)))
 })
 
+test_that("geom_histogram() can be drawn over a 0-width range (#3043)", {
+  df <- data_frame(x = rep(1, 100))
+  out <- layer_data(ggplot(df, aes(x)) + geom_histogram())
+
+  expect_equal(nrow(out), 1)
+  expect_equal(out$xmin, 0.95)
+  expect_equal(out$xmax, 1.05)
+})
+
 # Underlying binning algorithm --------------------------------------------
 
 comp_bin <- function(df, ...) {
@@ -122,6 +131,10 @@ test_that("weights are added", {
   out <- layer_data(p)
 
   expect_equal(out$count, df$y)
+})
+
+test_that("bin errors at high bin counts", {
+  expect_error(bin_breaks_width(c(1, 2e6), 1), "The number of histogram bins")
 })
 
 # stat_count --------------------------------------------------------------

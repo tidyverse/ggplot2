@@ -272,7 +272,10 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
 
   if (any(is.na(scale_id))) stop()
 
-  scale_index <- unname(split(seq_along(scale_id), scale_id))
+  scale_index <- unname(split(
+    seq_along(scale_id),
+    factor(scale_id, levels = seq_along(scales))
+  ))
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {

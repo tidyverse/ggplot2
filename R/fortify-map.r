@@ -15,7 +15,9 @@
 #' head(fortify(ca))
 #' ggplot(ca, aes(long, lat)) +
 #'   geom_polygon(aes(group = group))
+#' }
 #'
+#' if (require("maps")) {
 #' tx <- map("county", "texas", plot = FALSE, fill = TRUE)
 #' head(fortify(tx))
 #' ggplot(tx, aes(long, lat)) +
@@ -65,7 +67,9 @@ fortify.map <- function(model, data, ...) {
 #' ggplot(choro, aes(long, lat)) +
 #'   geom_polygon(aes(group = group, fill = assault)) +
 #'   coord_map("albers",  at0 = 45.5, lat1 = 29.5)
+#' }
 #'
+#' if (require("maps")) {
 #' ggplot(choro, aes(long, lat)) +
 #'   geom_polygon(aes(group = group, fill = assault / murder)) +
 #'   coord_map("albers",  at0 = 45.5, lat1 = 29.5)
@@ -97,12 +101,15 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 #' ia <- map_data("county", "iowa")
 #' mid_range <- function(x) mean(range(x))
 #' seats <- do.call(rbind, lapply(split(ia, ia$subregion), function(d) {
-#'   data.frame(lat = mid_range(d$lat), long = mid_range(d$long))
+#'   data.frame(lat = mid_range(d$lat), long = mid_range(d$long), subregion = unique(d$subregion))
 #' }))
+#'
 #' ggplot(ia, aes(long, lat)) +
 #'   geom_polygon(aes(group = group), fill = NA, colour = "grey60") +
 #'   geom_text(aes(label = subregion), data = seats, size = 2, angle = 45)
+#' }
 #'
+#' if (require("maps")) {
 #' data(us.cities)
 #' capitals <- subset(us.cities, capital == 2)
 #' ggplot(capitals, aes(long, lat)) +
@@ -110,7 +117,9 @@ map_data <- function(map, region = ".", exact = FALSE, ...) {
 #'   geom_point(aes(size = pop)) +
 #'   scale_size_area() +
 #'   coord_quickmap()
+#' }
 #'
+#' if (require("maps")) {
 #' # Same map, with some world context
 #' ggplot(capitals, aes(long, lat)) +
 #'   borders("world", xlim = c(-130, -60), ylim = c(20, 50)) +
