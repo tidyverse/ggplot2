@@ -50,7 +50,7 @@ geom_rug <- function(mapping = NULL, data = NULL,
                      ...,
                      outside = FALSE,
                      sides = "bl",
-					 length = 0.03,
+                     length = 0.03,
                      na.rm = FALSE,
                      show.legend = NA,
                      inherit.aes = TRUE) {
@@ -65,7 +65,7 @@ geom_rug <- function(mapping = NULL, data = NULL,
     params = list(
       outside = outside,
       sides = sides,
-	  length = length,
+      length = length,
       na.rm = na.rm,
       ...
     )
