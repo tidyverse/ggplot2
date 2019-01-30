@@ -162,6 +162,7 @@ Collate:
     'labeller.r'
     'labels.r'
     'layer.r'
+    'layer-sf.R'
     'layout.R'
     'limits.r'
     'margins.R'
