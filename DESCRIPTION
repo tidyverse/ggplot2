@@ -216,6 +216,7 @@ Collate:
     'stat-qq.r'
     'stat-quantile.r'
     'stat-sf-coordinates.R'
+    'stat-sf.R'
     'stat-smooth-methods.r'
     'stat-smooth.r'
     'stat-sum.r'
