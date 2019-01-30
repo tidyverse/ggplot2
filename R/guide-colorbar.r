@@ -548,6 +548,15 @@ guide_gengrob.colorbar <- function(guide, theme) {
 #' @rdname guide_colourbar
 guide_colorbar <- guide_colourbar
 
+#' @export
+#' @rdname guide_colourbar
+guide_coloursteps <- function(raster = FALSE, ticks = FALSE, nbin = 100, ...) {
+  guide_colourbar(raster = raster, ticks = ticks, nbin = nbin, ...)
+}
+#' @export
+#' @rdname guide_colourbar
+guide_colorsteps <- guide_coloursteps
+
 #' Calculate the default hjust and vjust settings depending on legend
 #' direction and position.
 #'
