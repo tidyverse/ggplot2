@@ -3,6 +3,8 @@
 \name{guide_colourbar}
 \alias{guide_colourbar}
 \alias{guide_colorbar}
+\alias{guide_coloursteps}
+\alias{guide_colorsteps}
 \title{Continuous colour bar guide}
 \usage{
 guide_colourbar(title = waiver(), title.position = NULL,
@@ -26,6 +28,10 @@ guide_colorbar(title = waiver(), title.position = NULL,
   draw.llim = TRUE, direction = NULL, default.unit = "line",
   reverse = FALSE, order = 0, available_aes = c("colour", "color",
   "fill"), ...)
+
+guide_coloursteps(raster = FALSE, ticks = FALSE, nbin = 100, ...)
+
+guide_colorsteps(raster = FALSE, ticks = FALSE, nbin = 100, ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.

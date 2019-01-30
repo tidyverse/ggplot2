@@ -7,7 +7,7 @@
 binned_scale(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), labels = waiver(), limits = NULL,
   oob = squish, expand = waiver(), na.value = NA_real_,
-  n_breaks = NULL, right = TRUE, trans = "identity",
+  n_breaks = 7, right = TRUE, trans = "identity",
   show_limits = FALSE, guide = "legend", position = "left",
   super = ScaleBinned)
 }

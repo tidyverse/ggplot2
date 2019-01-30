@@ -100,6 +100,27 @@ scale_fill_distiller <- function(..., type = "seq", palette = 1, direction = -1,
     gradient_n_pal(brewer_pal(type, palette, direction)(7), values, space), na.value = na.value, guide = guide, ...)
 }
 
+#' @export
+#' @rdname scale_brewer
+scale_colour_blender <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "colour") {
+  # warn about using a qualitative brewer palette to generate the gradient
+  type <- match.arg(type, c("seq", "div", "qual"))
+  if (type == "qual") {
+    warning("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
+  }
+  binned_scale(aesthetics, "blender", brewer_pal(type, palette, direction), na.value = na.value, guide = guide, ...)
+}
+
+#' @export
+#' @rdname scale_brewer
+scale_fill_blender <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "fill") {
+  type <- match.arg(type, c("seq", "div", "qual"))
+  if (type == "qual") {
+    warning("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
+  }
+  binned_scale(aesthetics, "distiller", brewer_pal(type, palette, direction), na.value = na.value, guide = guide, ...)
+}
+
 # icon.brewer <- function() {
 #   rectGrob(c(0.1, 0.3, 0.5, 0.7, 0.9), width = 0.21,
 #     gp = gpar(fill = RColorBrewer::brewer.pal(5, "PuOr"), col = NA)

@@ -117,3 +117,24 @@ scale_fill_gradientn <- function(..., colours, values = NULL, space = "Lab", na.
   continuous_scale(aesthetics, "gradientn",
     gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
 }
+#' @rdname scale_gradient
+#' @export
+scale_colour_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
+                               na.value = "grey50", guide = "coloursteps", aesthetics = "colour") {
+  binned_scale(aesthetics, "steps", seq_stepped_pal(low, high, space),
+                   na.value = na.value, guide = guide, ...)
+}
+#' @rdname scale_gradient
+#' @export
+scale_fill_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
+                               na.value = "grey50", guide = "coloursteps", aesthetics = "fill") {
+  binned_scale(aesthetics, "steps", seq_stepped_pal(low, high, space),
+               na.value = na.value, guide = guide, ...)
+}
+
+seq_stepped_pal <- function(low, high, space) {
+  pal <- seq_gradient_pal(low, high, space)
+  function(n) {
+    pal(seq(0, 1, length.out = n))
+  }
+}

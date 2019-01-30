@@ -7,12 +7,17 @@
 \alias{scale_fill_gradient2}
 \alias{scale_colour_gradientn}
 \alias{scale_fill_gradientn}
+\alias{scale_colour_steps}
+\alias{scale_fill_steps}
+\alias{scale_colour_binned}
 \alias{scale_colour_datetime}
 \alias{scale_colour_date}
 \alias{scale_fill_datetime}
 \alias{scale_fill_date}
 \alias{scale_color_continuous}
+\alias{scale_color_binned}
 \alias{scale_color_gradient}
+\alias{scale_color_steps}
 \alias{scale_color_gradient2}
 \alias{scale_color_gradientn}
 \title{Gradient colour scales}
@@ -40,6 +45,14 @@ scale_colour_gradientn(..., colours, values = NULL, space = "Lab",
 scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
   na.value = "grey50", guide = "colourbar", aesthetics = "fill",
   colors)
+
+scale_colour_steps(..., low = "#132B43", high = "#56B1F7",
+  space = "Lab", na.value = "grey50", guide = "coloursteps",
+  aesthetics = "colour")
+
+scale_fill_steps(..., low = "#132B43", high = "#56B1F7",
+  space = "Lab", na.value = "grey50", guide = "coloursteps",
+  aesthetics = "fill")
 }
 \arguments{
 \item{...}{Arguments passed on to \code{continuous_scale}

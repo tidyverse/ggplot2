@@ -13,6 +13,11 @@ scale_colour_ordinal <- scale_colour_viridis_d
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
+scale_colour_binned <- scale_colour_steps
+
+#' @export
+#' @rdname scale_gradient
+#' @usage NULL
 scale_colour_datetime <- function(...,
                                   low = "#132B43",
                                   high = "#56B1F7",
@@ -110,9 +115,19 @@ scale_color_brewer <- scale_colour_brewer
 scale_color_distiller <- scale_colour_distiller
 
 #' @export
+#' @rdname scale_brewer
+#' @usage NULL
+scale_color_blender <- scale_colour_blender
+
+#' @export
 #' @rdname scale_gradient
 #' @usage NULL
 scale_color_continuous <- scale_colour_continuous
+
+#' @export
+#' @rdname scale_gradient
+#' @usage NULL
+scale_color_binned <- scale_colour_binned
 
 #' @export
 #' @rdname scale_hue
@@ -123,6 +138,11 @@ scale_color_discrete <- scale_colour_hue
 #' @rdname scale_gradient
 #' @usage NULL
 scale_color_gradient <- scale_colour_gradient
+
+#' @export
+#' @rdname scale_gradient
+#' @usage NULL
+scale_color_steps <- scale_colour_steps
 
 #' @export
 #' @rdname scale_gradient
