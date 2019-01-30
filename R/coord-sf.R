@@ -1,4 +1,3 @@
-
 #' @export
 #' @rdname ggsf
 #' @usage NULL

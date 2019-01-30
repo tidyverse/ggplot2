@@ -141,6 +141,7 @@ Collate:
     'geom-pointrange.r'
     'geom-quantile.r'
     'geom-rug.r'
+    'geom-sf.R'
     'geom-smooth.r'
     'geom-spoke.r'
     'geom-text.r'
