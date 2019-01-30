@@ -513,7 +513,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   after_stat = FALSE,
   show_limits = FALSE,
 
-  is_discrete = function() TRUE,
+  is_discrete = function() FALSE,
 
   train = function(self, x) {
     if (!is.numeric(x)) {
@@ -529,7 +529,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   },
 
   map = function(self, x, limits = self$get_limits()) {
-    if (after_stat) {
+    if (self$after_stat) {
       x
     } else {
       breaks <- self$get_breaks(limits)
@@ -568,6 +568,26 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         on.exit(assign("n", old_n, environment(self$trans$breaks)))
       }
       breaks <- self$trans$breaks(limits)
+      # Ensure terminal bins are same width if limits not set
+      if (is.null(self$limits)) {
+        nbreaks <- length(breaks)
+        if (nbreaks >= 2) {
+          new_limits <- c(2 * breaks[1] - breaks[2], 2 * breaks[nbreaks] - breaks[nbreaks - 1])
+          if (breaks[nbreaks] > limits[2]) {
+            new_limits[2] <- breaks[nbreaks]
+            breaks <- breaks[-nbreaks]
+          }
+          if (breaks[1] < limits[1]) {
+            new_limits[1] <- breaks[1]
+            breaks <- breaks[-1]
+          }
+          limits <- new_limits
+          self$limits <- limits
+        } else {
+          bin_size <- max(breaks[1] - limits[1], limits[2] - breaks[1])
+          limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
+        }
+      }
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits, self$n_bins)
     } else {
@@ -618,6 +638,13 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
     # major breaks
     major <- self$get_breaks(range)
+
+    if (!is.null(self$palette.cache)) {
+      pal <- self$palette.cache
+    } else {
+      pal <- self$palette(length(major) + 1)
+    }
+
     if (self$show_limits) {
       limits <- self$get_limits()
       major <- sort(unique(c(limits, major)))
@@ -626,15 +653,8 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     # labels
     labels <- self$get_labels(major)
 
-    # drop oob breaks/labels by testing major == NA
-    if (!is.null(labels)) labels <- labels[!is.na(major)]
-    if (!is.null(major)) major <- major[!is.na(major)]
-
-    # rescale breaks [0, 1], which are used by coord/guide
-    major_n <- rescale(major, from = range)
-
     list(range = range, labels = labels,
-         major = major_n, minor = NULL,
+         major = pal, minor = NULL,
          major_source = major, minor_source = NULL)
   }
 )
@@ -817,7 +837,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                          breaks = waiver(), labels = waiver(), limits = NULL,
                          oob = squish, expand = waiver(), na.value = NA_real_,
-                         n_breaks = NULL, right = TRUE, trans = "identity",
+                         n_breaks = 7, right = TRUE, trans = "identity",
                          show_limits = FALSE, guide = "legend", position = "left",
                          super = ScaleBinned) {
 

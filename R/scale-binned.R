@@ -57,8 +57,6 @@ scale_y_binned <- function(name = waiver(), n_breaks = 10, breaks = waiver(),
 ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
   after_stat = FALSE,
 
-  is_discrete = function() FALSE,
-
   train = function(self, x) {
     if (!is.numeric(x)) {
       stop("Binned scales only support continuous data", call. = FALSE)
@@ -92,5 +90,26 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
     breaks <- self$get_breaks(limits)
     self$range$reset()
     self$range$train(c(limits, breaks))
+  },
+  break_info = function(self, range = NULL) {
+    # range
+    if (is.null(range)) range <- self$dimension()
+
+    # major breaks
+    major <- self$get_breaks(range)
+    if (self$show_limits) {
+      limits <- self$get_limits()
+      major <- sort(unique(c(limits, major)))
+    }
+
+    # labels
+    labels <- self$get_labels(major)
+
+    # rescale breaks [0, 1], which are used by coord/guide
+    major_n <- rescale(major, from = range)
+
+    list(range = range, labels = labels,
+         major = major_n, minor = NULL,
+         major_source = major, minor_source = NULL)
   }
 )
