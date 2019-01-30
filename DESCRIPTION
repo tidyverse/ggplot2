@@ -97,6 +97,7 @@ Collate:
     'coord-munch.r'
     'coord-polar.r'
     'coord-quickmap.R'
+    'coord-sf.R'
     'coord-transform.r'
     'data.R'
     'facet-.r'
