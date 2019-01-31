@@ -128,6 +128,12 @@ If 0 (default), the order is determined by a secret algorithm.}
 for which a colourbar can be drawn.}
 
 \item{...}{ignored.}
+
+\item{even_steps}{Should the bin sizes reflect their size or be even across all
+bins? Defaults to \code{TRUE}}
+
+\item{show_limits}{Should labels for the outer limits of the bins be printed?
+Default is \code{NULL} which makes the guide use the setting from the scale}
 }
 \value{
 A guide object

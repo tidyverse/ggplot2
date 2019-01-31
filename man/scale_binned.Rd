@@ -15,14 +15,75 @@ scale_y_binned(name = waiver(), n_breaks = 10, breaks = waiver(),
   oob = squish, na.value = NA_real_, right = TRUE,
   show_limits = FALSE, trans = "identity", position = "left")
 }
+\arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
+\item{n_breaks}{The number of break points to create if breaks are not given
+directly. It will attempt to find nice breakpoint and may thus not give the
+exact number of breaks as requested.}
+
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks computed by the
+transformation object
+\item A numeric vector of positions
+\item A function that takes the limits as input and returns breaks
+as output
+}}
+
+\item{labels}{One of:
+\itemize{
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item A function that takes the breaks as input and returns labels
+as output
+}}
+
+\item{limits}{A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum.}
+
+\item{expand}{Vector of range expansion constants used to add some
+padding around the data, to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+to generate the values for the \code{expand} argument. The defaults are to
+expand the scale by 5\% on each side for continuous variables, and by
+0.6 units on each side for discrete variables.}
+
+\item{oob}{Function that handles limits outside of the scale limits
+(out of bounds). The default replaces out of bounds values with \code{NA}.}
+
+\item{na.value}{Missing values will be replaced with this value.}
+
+\item{right}{Should values on the border between bins be part of the right
+(upper) bin?}
+
+\item{show_limits}{should the limits of the scale appear as ticks}
+
+\item{trans}{Either the name of a transformation object, or the
+object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
+"logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+
+A transformation object bundles together a transform, its inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called \code{name_trans}, e.g.
+\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
+transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+
+\item{position}{The position of the axis. "left" or "right" for vertical
+scales, "top" or "bottom" for horizontal scales}
+}
 \description{
 \code{scale_x_binned()} and \code{scale_y_binned()} are scales that discretize
 continuous position data. You can use these scales to transform continuous
 inputs before using it with a geom that requires discrete positions. An
 example is using \code{scale_x_binned()} with \code{\link[=geom_bar]{geom_bar()}} to create a histogram.
-}
-\details{
-#' @inheritParams binned_scale
 }
 \examples{
 # Create a histogram by binning the x-axis

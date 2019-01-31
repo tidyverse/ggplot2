@@ -550,6 +550,11 @@ guide_colorbar <- guide_colourbar
 
 #' @export
 #' @rdname guide_colourbar
+#'
+#' @param even_steps Should the bin sizes reflect their size or be even across all
+#'   bins? Defaults to `TRUE`
+#' @param show_limits Should labels for the outer limits of the bins be printed?
+#'   Default is `NULL` which makes the guide use the setting from the scale
 guide_coloursteps <- function(even_steps = TRUE, show_limits = NULL, ticks = FALSE, nbin = 100, ...) {
   guide <- guide_colourbar(raster = FALSE, ticks = ticks, nbin = nbin, ...)
   guide$even_steps <- even_steps

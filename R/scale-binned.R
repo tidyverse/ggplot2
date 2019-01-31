@@ -5,7 +5,7 @@
 #' inputs before using it with a geom that requires discrete positions. An
 #' example is using `scale_x_binned()` with [geom_bar()] to create a histogram.
 #'
-#' #' @inheritParams binned_scale
+#' @inheritParams binned_scale
 #'
 #' @family position scales
 #' @name scale_binned
