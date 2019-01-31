@@ -29,9 +29,11 @@ guide_colorbar(title = waiver(), title.position = NULL,
   reverse = FALSE, order = 0, available_aes = c("colour", "color",
   "fill"), ...)
 
-guide_coloursteps(raster = FALSE, ticks = FALSE, nbin = 100, ...)
+guide_coloursteps(even_steps = TRUE, show_limits = NULL,
+  ticks = FALSE, nbin = 100, ...)
 
-guide_colorsteps(raster = FALSE, ticks = FALSE, nbin = 100, ...)
+guide_colorsteps(even_steps = TRUE, show_limits = NULL,
+  ticks = FALSE, nbin = 100, ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.

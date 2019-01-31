@@ -550,12 +550,49 @@ guide_colorbar <- guide_colourbar
 
 #' @export
 #' @rdname guide_colourbar
-guide_coloursteps <- function(raster = FALSE, ticks = FALSE, nbin = 100, ...) {
-  guide_colourbar(raster = raster, ticks = ticks, nbin = nbin, ...)
+guide_coloursteps <- function(even_steps = TRUE, show_limits = NULL, ticks = FALSE, nbin = 100, ...) {
+  guide <- guide_colourbar(raster = FALSE, ticks = ticks, nbin = nbin, ...)
+  guide$even_steps <- even_steps
+  guide$show_limits <- show_limits
+  class(guide) <- c('colorsteps', class(guide))
+  guide
 }
 #' @export
 #' @rdname guide_colourbar
 guide_colorsteps <- guide_coloursteps
+
+#' @export
+guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
+  if (guide$even_steps) {
+    breaks <- scale$get_breaks()
+    if (length(breaks) == 0 || all(is.na(breaks)))
+      return()
+    limits <- scale$get_limits()
+    all_breaks <- c(limits[1], breaks, limits[2])
+    bin_at <- all_breaks[-1] - diff(all_breaks) / 2
+    ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
+    ticks$.value <- seq_along(breaks) - 0.5
+    ticks$.label <- scale$get_labels(breaks)
+    guide$nbin <- length(breaks) + 1
+    guide$key <- ticks
+    guide$bar <- new_data_frame(list(colour = scale$map(bin_at), value = seq_along(bin_at) - 1), n = length(bin_at))
+    if (guide$reverse) {
+      guide$key <- guide$key[nrow(guide$key):1, ]
+      guide$bar <- guide$bar[nrow(guide$bar):1, ]
+    }
+    guide$hash <- with(guide, digest::digest(list(title, key$.label, bar, name)))
+  } else {
+    guide <- NextMethod()
+  }
+  if (guide$show_limits %||% scale$show_limits %||% FALSE) {
+    edges <- rescale(c(0, 1), to = guide$bar$value[c(1, nrow(guide$bar))], from = c(0.5, guide$nbin - 0.5) / guide$nbin)
+    limits <- scale$get_limits()
+    guide$key <- guide$key[c(NA, seq_len(nrow(guide$key)), NA), , drop = FALSE]
+    guide$key$.value[c(1, nrow(guide$key))] <- edges
+    guide$key$.label[c(1, nrow(guide$key))] <- scale$get_labels(limits)
+  }
+  guide
+}
 
 #' Calculate the default hjust and vjust settings depending on legend
 #' direction and position.
