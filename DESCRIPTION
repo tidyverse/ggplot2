@@ -151,6 +151,7 @@ Collate:
     'grob-dotstack.r'
     'grob-null.r'
     'grouping.r'
+    'guide-bins.R'
     'guide-colorbar.r'
     'guide-legend.r'
     'guides-.r'
