@@ -524,8 +524,20 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     self$range$train(x)
   },
 
-  transform = function(x) {
-    x
+  transform = function(self, x) {
+    new_x <- self$trans$transform(x)
+    if (any(is.finite(x) != is.finite(new_x))) {
+      type <- if (self$scale_name == "position_c") {
+        "continuous"
+      } else if (self$scale_name == "position_d") {
+        "discrete"
+      } else {
+        "binned"
+      }
+      axis <- if ("x" %in% self$aesthetics) "x" else "y"
+      warning("Transformation introduced infinite values in ", type, " ", axis, "-axis", call. = FALSE)
+    }
+    new_x
   },
 
   map = function(self, x, limits = self$get_limits()) {
@@ -582,11 +594,11 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
             breaks <- breaks[-1]
           }
           limits <- new_limits
-          self$limits <- limits
         } else {
           bin_size <- max(breaks[1] - limits[1], limits[2] - breaks[1])
           limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
         }
+        self$limits <- self$trans$transform(limits)
       }
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits, self$n_bins)
@@ -596,10 +608,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
 
     # Breaks must be within limits
     breaks <- breaks[breaks >= limits[1] & breaks <= limits[2]]
-
     self$breaks <- breaks
 
-    breaks
+    self$trans$transform(breaks)
   },
 
   get_breaks_minor = function(...) NULL,
