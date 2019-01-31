@@ -442,15 +442,15 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   }
 
   ggproto(NULL, CoordSf,
-          limits = list(x = xlim, y = ylim),
-          datum = datum,
-          crs = crs,
-          label_axes = label_axes,
-          label_graticule = label_graticule,
-          ndiscr = ndiscr,
-          expand = expand,
-          default = default,
-          clip = clip
+    limits = list(x = xlim, y = ylim),
+    datum = datum,
+    crs = crs,
+    label_axes = label_axes,
+    label_graticule = label_graticule,
+    ndiscr = ndiscr,
+    expand = expand,
+    default = default,
+    clip = clip
   )
 }
 
