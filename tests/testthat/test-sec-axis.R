@@ -20,6 +20,19 @@ test_that("dup_axis() works", {
   expect_equal(breaks$major_source, breaks$sec.major_source)
 })
 
+test_that("sec_axis() works with subtraction", {
+  p <- ggplot(foo, aes(x, y)) +
+    geom_point() +
+    scale_y_continuous(
+      sec.axis = sec_axis(~1-.)
+    )
+  scale <- layer_scales(p)$y
+  expect_equal(scale$sec_name(), scale$name)
+  breaks <- scale$break_info()
+  expect_equal(breaks$minor, breaks$sec.minor)
+  expect_equal(breaks$major_source, breaks$sec.major_source)
+})
+
 test_that("sex axis works with division (#1804)", {
   expect_doppelganger(
     "sec_axis, with division",
