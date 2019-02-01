@@ -195,7 +195,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   render_bg = function(self, panel_params, theme) {
     el <- calc_element("panel.grid.major", theme)
-    line_gp <- gpar(col = el$colour, lwd = el$size, lty = el$linetype)
+
+    # we don't draw the graticules if the major panel grid is
+    # turned off
+    if (inherits(el, "element_blank")) {
+      return(zeroGrob())
+    }
+
+    line_gp <- gpar(col = el$colour, lwd = el$size*.pt, lty = el$linetype)
     grobs <- c(
       list(element_render(theme, "panel.background")),
       lapply(sf::st_geometry(panel_params$graticule), sf::st_as_grob, gp = line_gp)
