@@ -20,7 +20,7 @@ Broken down into construct, build, render and draw times. — benchplot • ggpl
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -29,6 +29,8 @@ Broken down into construct, build, render and draw times. — benchplot • ggpl
 <link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
+
+
 
 <meta property="og:title" content="Benchmark plot creation time.
 Broken down into construct, build, render and draw times. — benchplot" />
@@ -178,24 +180,24 @@ Broken down into construct, build, render and draw times.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())</div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.004        0   0.003
-#&gt; 2     build     0.012        0   0.014
+#&gt; 1 construct     0.000        0   0.003
+#&gt; 2     build     0.016        0   0.015
 #&gt; 3    render     0.040        0   0.039
-#&gt; 4      draw     0.036        0   0.036
+#&gt; 4      draw     0.036        0   0.035
 #&gt; 5     TOTAL     0.092        0   0.092</div><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl</span>))</div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.004        0   0.003
-#&gt; 2     build     0.024        0   0.024
-#&gt; 3    render     0.088        0   0.087
+#&gt; 1 construct     0.004        0   0.004
+#&gt; 2     build     0.024        0   0.026
+#&gt; 3    render     0.088        0   0.086
 #&gt; 4      draw     0.060        0   0.060
-#&gt; 5     TOTAL     0.176        0   0.174</div><div class='input'>
+#&gt; 5     TOTAL     0.176        0   0.176</div><div class='input'>
 <span class='co'># With tidy eval:</span>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>expr</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())
 <span class='fu'>benchplot</span>(!!<span class='no'>p</span>)</div><div class='img'><img src='benchplot-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;        step user.self sys.self elapsed
 #&gt; 1 construct     0.004        0   0.003
-#&gt; 2     build     0.016        0   0.014
+#&gt; 2     build     0.012        0   0.014
 #&gt; 3    render     0.040        0   0.038
-#&gt; 4      draw     0.036        0   0.037
-#&gt; 5     TOTAL     0.096        0   0.092</div></pre>
+#&gt; 4      draw     0.036        0   0.036
+#&gt; 5     TOTAL     0.092        0   0.091</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
