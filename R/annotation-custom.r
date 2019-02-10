@@ -42,11 +42,11 @@ NULL
 #' base +
 #'   annotation_custom(grob = g, xmin = 1, xmax = 10, ymin = 8, ymax = 10)
 annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf) {
-  data <- new_data_frame(list(x = c(xmin, xmax), y = c(ymin, ymax)), n = 2)
+  data <- new_data_frame(list(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax), n = 1)
 
   layer(
     data = data,
-    mapping = aes(x = x, y = y),
+    mapping = aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
     stat = StatIdentity,
     position = PositionIdentity,
     geom = GeomCustomAnn,
@@ -64,8 +64,6 @@ annotation_custom <- function(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax =
 GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
   extra_params = "",
 
-  required_aes = c("x", "y"),
-
   handle_na = function(data, params) {
     data
   },
@@ -75,6 +73,7 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
       stop("annotation_custom only works with Cartesian coordinates",
         call. = FALSE)
     }
+    data <- new_data_frame(list(x = c(data$xmin, data$xmax), y = c(data$ymin, data$ymax)), n = 2)
     data <- coord$transform(data, panel_params)
 
     x_rng <- range(data$x, na.rm = TRUE)
@@ -84,7 +83,9 @@ GeomCustomAnn <- ggproto("GeomCustomAnn", Geom,
                    width = diff(x_rng), height = diff(y_rng),
                    just = c("center","center"))
     editGrob(grob, vp = vp, name = paste(grob$name, annotation_id()))
-  }
+  },
+
+  required_aes = c("xmin", "xmax", "ymin", "ymax")
 )
 
 annotation_id <- local({
