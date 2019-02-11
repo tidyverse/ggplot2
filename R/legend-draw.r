@@ -112,7 +112,14 @@ draw_key_crossbar <- function(data, params, size) {
 draw_key_path <- function(data, params, size) {
   data$linetype[is.na(data$linetype)] <- 0
 
-  segmentsGrob(0.1, 0.5, 0.9, 0.5,
+  # Scale the arrow to fit within the draw key
+  if(!is.null(params$arrow)){
+    params$arrow$length <- unit(0.3, "npc")
+  }
+
+  linesGrob(
+    x = c(0, 0.4, 0.6, 1),
+    y = c(0.1, 0.6, 0.4, 0.9),
     gp = gpar(
       col = alpha(data$colour, data$alpha),
       lwd = data$size * .pt,
