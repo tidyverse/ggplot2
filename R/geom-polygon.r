@@ -3,7 +3,10 @@
 #' Polygons are very similar to paths (as drawn by [geom_path()])
 #' except that the start and end points are connected and the inside is
 #' coloured by `fill`. The `group` aesthetic determines which cases
-#' are connected together into a polygon.
+#' are connected together into a polygon. From R 3.6 and onwards it is possible
+#' to draw polygons with holes by providing a subgroup aesthetic that
+#' differentiate the outer ring points from those describing holes in the
+#' polygon.
 #'
 #' @eval rd_aesthetics("geom", "polygon")
 #' @seealso
@@ -52,6 +55,22 @@
 #'
 #' # And if the positions are in longitude and latitude, you can use
 #' # coord_map to produce different map projections.
+#'
+#' # As of R version 3.6 geom_polygon supports polygons with holes
+#' # Use the subgroup aesthetic to differentiate holes from the main polygon
+#'
+#' holes <- do.call(rbind, lapply(split(datapoly, datapoly$id), function(df) {
+#'   df$x <- df$x + 0.5 * (mean(df$x) - df$x)
+#'   df$y <- df$y + 0.5 * (mean(df$y) - df$y)
+#'   df
+#' }))
+#' datapoly$subid <- 1L
+#' holes$subid <- 2L
+#' datapoly <- rbind(datapoly, holes)
+#'
+#' p <- ggplot(datapoly, aes(x = x, y = y)) +
+#'   geom_polygon(aes(fill = value, group = id, subgroup = subid))
+#' p
 geom_polygon <- function(mapping = NULL, data = NULL,
                          stat = "identity", position = "identity",
                          ...,
@@ -83,30 +102,60 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
     if (n == 1) return(zeroGrob())
 
     munched <- coord_munch(coord, data, panel_params)
-    # Sort by group to make sure that colors, fill, etc. come in same order
-    munched <- munched[order(munched$group), ]
 
-    # For gpar(), there is one entry per polygon (not one entry per point).
-    # We'll pull the first value from each group, and assume all these values
-    # are the same within each group.
-    first_idx <- !duplicated(munched$group)
-    first_rows <- munched[first_idx, ]
+    if (is.null(munched$subgroup)) {
+      # Sort by group to make sure that colors, fill, etc. come in same order
+      munched <- munched[order(munched$group), ]
 
-    ggname("geom_polygon",
-      polygonGrob(munched$x, munched$y, default.units = "native",
-        id = munched$group,
-        gp = gpar(
-          col = first_rows$colour,
-          fill = alpha(first_rows$fill, first_rows$alpha),
-          lwd = first_rows$size * .pt,
-          lty = first_rows$linetype
-        )
+      # For gpar(), there is one entry per polygon (not one entry per point).
+      # We'll pull the first value from each group, and assume all these values
+      # are the same within each group.
+      first_idx <- !duplicated(munched$group)
+      first_rows <- munched[first_idx, ]
+
+      ggname("geom_polygon",
+             polygonGrob(munched$x, munched$y, default.units = "native",
+                         id = munched$group,
+                         gp = gpar(
+                           col = first_rows$colour,
+                           fill = alpha(first_rows$fill, first_rows$alpha),
+                           lwd = first_rows$size * .pt,
+                           lty = first_rows$linetype
+                         )
+             )
       )
-    )
+    } else {
+      if (!grid_has_multipath) {
+        stop("Polygons with holes are only supported in R versions from 3.6 and onwards", call. = FALSE)
+      }
+      # Sort by group to make sure that colors, fill, etc. come in same order
+      munched <- munched[order(munched$group, munched$subgroup), ]
+      id <- match(munched$subgroup, unique(munched$subgroup))
+
+      # For gpar(), there is one entry per polygon (not one entry per point).
+      # We'll pull the first value from each group, and assume all these values
+      # are the same within each group.
+      first_idx <- !duplicated(munched$group)
+      first_rows <- munched[first_idx, ]
+
+      ggname("geom_polygon",
+             pathGrob(munched$x, munched$y, default.units = "native",
+                      id = id, pathId = munched$group,
+                      rule = "evenodd",
+                      gp = gpar(
+                        col = first_rows$colour,
+                        fill = alpha(first_rows$fill, first_rows$alpha),
+                        lwd = first_rows$size * .pt,
+                        lty = first_rows$linetype
+                      )
+             )
+      )
+    }
+
   },
 
   default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,
-    alpha = NA),
+    alpha = NA, subgroup = NULL),
 
   handle_na = function(data, params) {
     data

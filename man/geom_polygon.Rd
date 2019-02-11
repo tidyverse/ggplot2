@@ -57,7 +57,10 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 Polygons are very similar to paths (as drawn by \code{\link[=geom_path]{geom_path()}})
 except that the start and end points are connected and the inside is
 coloured by \code{fill}. The \code{group} aesthetic determines which cases
-are connected together into a polygon.
+are connected together into a polygon. From R 3.6 and onwards it is possible
+to draw polygons with holes by providing a subgroup aesthetic that
+differentiate the outer ring points from those describing holes in the
+polygon.
 }
 \section{Aesthetics}{
 
@@ -71,6 +74,7 @@ are connected together into a polygon.
 \item \code{group}
 \item \code{linetype}
 \item \code{size}
+\item \code{subgroup}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -115,6 +119,22 @@ p + geom_line(data = stream, colour = "grey30", size = 5)
 
 # And if the positions are in longitude and latitude, you can use
 # coord_map to produce different map projections.
+
+# As of R version 3.6 geom_polygon supports polygons with holes
+# Use the subgroup aesthetic to differentiate holes from the main polygon
+
+holes <- do.call(rbind, lapply(split(datapoly, datapoly$id), function(df) {
+  df$x <- df$x + 0.5 * (mean(df$x) - df$x)
+  df$y <- df$y + 0.5 * (mean(df$y) - df$y)
+  df
+}))
+datapoly$subid <- 1L
+holes$subid <- 2L
+datapoly <- rbind(datapoly, holes)
+
+p <- ggplot(datapoly, aes(x = x, y = y)) +
+  geom_polygon(aes(fill = value, group = id, subgroup = subid))
+p
 }
 \seealso{
 \code{\link[=geom_path]{geom_path()}} for an unfilled polygon,
