@@ -105,15 +105,7 @@ GeomSf <- ggproto("GeomSf", Geom,
 
     # Need to refactor this to generate one grob per geometry type
     coord <- coord$transform(data, panel_params)
-    grobs <- lapply(1:nrow(data), function(i) {
-      sf_grob(
-        coord[i, , drop = FALSE],
-        lineend = lineend,
-        linejoin = linejoin,
-        linemitre = linemitre
-      )
-    })
-    do.call("gList", grobs)
+    sf_grob(coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre)
   },
 
   draw_key = function(data, params, size) {
@@ -138,33 +130,37 @@ default_aesthetics <- function(type) {
   }
 }
 
-sf_grob <- function(row, lineend = "butt", linejoin = "round", linemitre = 10) {
+sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10) {
   # Need to extract geometry out of corresponding list column
-  geometry <- row$geometry[[1]]
-
-  if (inherits(geometry, c("POINT", "MULTIPOINT"))) {
-    row <- modify_list(default_aesthetics("point"), row)
-    gp <- gpar(
-      col = alpha(row$colour, row$alpha),
-      fill = alpha(row$fill, row$alpha),
-      # Stroke is added around the outside of the point
-      fontsize = row$size * .pt + row$stroke * .stroke / 2,
-      lwd = row$stroke * .stroke / 2
-    )
-    sf::st_as_grob(geometry, gp = gp, pch = row$shape)
-  } else {
-    row <- modify_list(default_aesthetics("poly"), row)
-    gp <- gpar(
-      col = row$colour,
-      fill = alpha(row$fill, row$alpha),
-      lwd = row$size * .pt,
-      lty = row$linetype,
-      lineend = lineend,
-      linejoin = linejoin,
-      linemitre = linemitre
-    )
-    sf::st_as_grob(geometry, gp = gp)
-  }
+  geometry <- x$geometry
+  type <- sf_types[sf::st_geometry_type(geometry)]
+  is_point <- type %in% 'point'
+  type_ind <- match(type, c('point', 'line', 'other'))
+  defaults <- list(
+    GeomPoint$default_aes,
+    GeomLine$default_aes,
+    modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
+  )
+  default_names <- unique(unlist(lapply(defaults, names)))
+  defaults <- lapply(setNames(default_names, default_names), function(n) {
+    unlist(lapply(defaults, function(def) def[[n]] %||% NA))
+  })
+  alpha <- x$alpha %||% defaults$alpha[type_ind]
+  col <- x$colour %||% defaults$colour[type_ind]
+  col[is_point] <- alpha(col[is_point], alpha[is_point])
+  fill <- x$fill %||% defaults$fill[type_ind]
+  fill <- alpha(fill, alpha)
+  size <- x$size %||% defaults$size[type_ind]
+  stroke <- (x$stroke %||% defaults$stroke[1]) * .stroke / 2
+  fontsize <- size * .pt + stroke
+  lwd <- ifelse(is_point, stroke, size * .pt)
+  pch <- x$shape %||% defaults$shape[type_ind]
+  lty <- x$linetype %||% defaults$linetype[type_ind]
+  gp <- gpar(
+    col = col, fill = fill, fontsize = fontsize, lwd = lwd, lty = lty,
+    lineend = lineend, linejoin = linejoin, linemitre = linemitre
+  )
+  sf::st_as_grob(geometry, pch = pch, gp = gp)
 }
 
 #' @export
@@ -282,3 +278,11 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
     layer_class = LayerSf
   )
 }
+
+sf_types <- c(GEOMETRY = "other", POINT = "point", LINESTRING = "line",
+              POLYGON = "other", MULTIPOINT = "point", MULTILINESTRING = "line",
+              MULTIPOLYGON = "other", GEOMETRYCOLLECTION = "other",
+              CIRCULARSTRING = "line", COMPOUNDCURVE = "other", CURVEPOLYGON = "other",
+              MULTICURVE = "other", MULTISURFACE = "other", CURVE = "other",
+              SURFACE = "other", POLYHEDRALSURFACE = "other", TIN = "other",
+              TRIANGLE = "other")
