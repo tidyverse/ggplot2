@@ -59,7 +59,7 @@ except that the start and end points are connected and the inside is
 coloured by \code{fill}. The \code{group} aesthetic determines which cases
 are connected together into a polygon. From R 3.6 and onwards it is possible
 to draw polygons with holes by providing a subgroup aesthetic that
-differentiate the outer ring points from those describing holes in the
+differentiates the outer ring points from those describing holes in the
 polygon.
 }
 \section{Aesthetics}{
@@ -120,7 +120,7 @@ p + geom_line(data = stream, colour = "grey30", size = 5)
 # And if the positions are in longitude and latitude, you can use
 # coord_map to produce different map projections.
 
-# As of R version 3.6 geom_polygon supports polygons with holes
+# As of R version 3.6 geom_polygon() supports polygons with holes
 # Use the subgroup aesthetic to differentiate holes from the main polygon
 
 holes <- do.call(rbind, lapply(split(datapoly, datapoly$id), function(df) {

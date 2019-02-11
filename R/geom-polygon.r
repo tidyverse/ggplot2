@@ -5,7 +5,7 @@
 #' coloured by `fill`. The `group` aesthetic determines which cases
 #' are connected together into a polygon. From R 3.6 and onwards it is possible
 #' to draw polygons with holes by providing a subgroup aesthetic that
-#' differentiate the outer ring points from those describing holes in the
+#' differentiates the outer ring points from those describing holes in the
 #' polygon.
 #'
 #' @eval rd_aesthetics("geom", "polygon")
@@ -56,7 +56,7 @@
 #' # And if the positions are in longitude and latitude, you can use
 #' # coord_map to produce different map projections.
 #'
-#' # As of R version 3.6 geom_polygon supports polygons with holes
+#' # As of R version 3.6 geom_polygon() supports polygons with holes
 #' # Use the subgroup aesthetic to differentiate holes from the main polygon
 #'
 #' holes <- do.call(rbind, lapply(split(datapoly, datapoly$id), function(df) {
@@ -113,16 +113,18 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       first_idx <- !duplicated(munched$group)
       first_rows <- munched[first_idx, ]
 
-      ggname("geom_polygon",
-             polygonGrob(munched$x, munched$y, default.units = "native",
-                         id = munched$group,
-                         gp = gpar(
-                           col = first_rows$colour,
-                           fill = alpha(first_rows$fill, first_rows$alpha),
-                           lwd = first_rows$size * .pt,
-                           lty = first_rows$linetype
-                         )
-             )
+      ggname(
+        "geom_polygon",
+        polygonGrob(
+          munched$x, munched$y, default.units = "native",
+          id = munched$group,
+          gp = gpar(
+            col = first_rows$colour,
+            fill = alpha(first_rows$fill, first_rows$alpha),
+            lwd = first_rows$size * .pt,
+            lty = first_rows$linetype
+          )
+        )
       )
     } else {
       if (!grid_has_multipath) {
@@ -138,17 +140,19 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
       first_idx <- !duplicated(munched$group)
       first_rows <- munched[first_idx, ]
 
-      ggname("geom_polygon",
-             pathGrob(munched$x, munched$y, default.units = "native",
-                      id = id, pathId = munched$group,
-                      rule = "evenodd",
-                      gp = gpar(
-                        col = first_rows$colour,
-                        fill = alpha(first_rows$fill, first_rows$alpha),
-                        lwd = first_rows$size * .pt,
-                        lty = first_rows$linetype
-                      )
-             )
+      ggname(
+        "geom_polygon",
+        pathGrob(
+          munched$x, munched$y, default.units = "native",
+          id = id, pathId = munched$group,
+          rule = "evenodd",
+          gp = gpar(
+            col = first_rows$colour,
+            fill = alpha(first_rows$fill, first_rows$alpha),
+            lwd = first_rows$size * .pt,
+            lty = first_rows$linetype
+          )
+        )
       )
     }
 
