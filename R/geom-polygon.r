@@ -127,8 +127,8 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
         )
       )
     } else {
-      if (!grid_has_multipath) {
-        stop("Polygons with holes are only supported in R versions from 3.6 and onwards", call. = FALSE)
+      if (utils::packageVersion('grid') < "3.6") {
+        stop("Polygons with holes requires R 3.6 or above", call. = FALSE)
       }
       # Sort by group to make sure that colors, fill, etc. come in same order
       munched <- munched[order(munched$group, munched$subgroup), ]

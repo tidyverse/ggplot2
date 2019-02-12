@@ -44,5 +44,3 @@ ggplot_global$all_aesthetics <- .all_aesthetics
 )
 
 ggplot_global$base_to_ggplot <- .base_to_ggplot
-
-grid_has_multipath <- packageVersion('grid') >= "3.6"
