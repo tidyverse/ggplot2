@@ -54,6 +54,9 @@
 
 * `stat_bin()` now handles data with only one unique value (@yutannihilation #3047).
 
+* `geom_polygon()` can now draw polygons with holes using the new `subgroup` 
+  aesthetic. This functionality requires R 3.6 (@thomasp85, #3128)
+
 # ggplot2 3.1.0
 
 ## Breaking changes
