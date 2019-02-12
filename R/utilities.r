@@ -42,9 +42,18 @@ clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
 }
 
-try_require <- function(package, fun) {
+
+# Test whether package `package` is available. `fun` provides
+# the name of the ggplot2 function that uses this package, and is
+# used only to produce a meaningful error message if the
+# package is not available.
+#
+# Set `attach = TRUE` if you want to attach the package, not
+# just make sure it is available. It is generally recommended to
+# not set `attach = TRUE`.
+try_require <- function(package, fun, attach = FALSE) {
   if (requireNamespace(package, quietly = TRUE)) {
-    library(package, character.only = TRUE)
+    if (isTRUE(attach)) library(package, character.only = TRUE)
     return(invisible())
   }
 
