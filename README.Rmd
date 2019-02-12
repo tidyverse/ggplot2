@@ -70,7 +70,7 @@ If you are new to ggplot2 you are better off starting with a systematic introduc
     [R for data science][r4ds]. R for data science is designed to
     give you a comprehensive introduction to the
     [tidyverse](http://tidyverse.org), and these two chapters will
-    you get up to speed with the essentials of ggplot2 as quickly as 
+    get you up to speed with the essentials of ggplot2 as quickly as 
     possible.
     
 1.  If you'd like to take an interactive online course, try
