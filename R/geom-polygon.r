@@ -15,6 +15,10 @@
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param rule Either `"evenodd"` or `"winding"`. If polygons with holes are
+#' being drawn (using the `subgroup` aesthetic) this argument defines how the
+#' hole coordinates are interpreted. See the examples in [grid::pathGrob()] for
+#' an explanation.
 #' @examples
 #' # When using geom_polygon, you will typically need two data frames:
 #' # one contains the coordinates of each polygon (positions),  and the
@@ -73,6 +77,7 @@
 #' p
 geom_polygon <- function(mapping = NULL, data = NULL,
                          stat = "identity", position = "identity",
+                         rule = "evenodd",
                          ...,
                          na.rm = FALSE,
                          show.legend = NA,
@@ -87,6 +92,7 @@ geom_polygon <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      rule = rule,
       ...
     )
   )
@@ -97,7 +103,7 @@ geom_polygon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(data, panel_params, coord) {
+  draw_panel = function(data, panel_params, coord, rule = "evenodd") {
     n <- nrow(data)
     if (n == 1) return(zeroGrob())
 
@@ -145,7 +151,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
         pathGrob(
           munched$x, munched$y, default.units = "native",
           id = id, pathId = munched$group,
-          rule = "evenodd",
+          rule = rule,
           gp = gpar(
             col = first_rows$colour,
             fill = alpha(first_rows$fill, first_rows$alpha),

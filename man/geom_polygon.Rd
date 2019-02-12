@@ -5,8 +5,8 @@
 \title{Polygons}
 \usage{
 geom_polygon(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", rule = "evenodd", ..., na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -33,6 +33,11 @@ layer, as a string.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{rule}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
+being drawn (using the \code{subgroup} aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in \code{\link[grid:pathGrob]{grid::pathGrob()}} for
+an explanation.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
