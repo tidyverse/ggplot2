@@ -197,6 +197,10 @@ polygons, see <code><a href='https://www.rdocumentation.org/packages/maps/topics
     <tr>
       <th>...</th>
       <td><p>Arguments passed on to <code>geom_polygon</code></p><dl class='dl-horizontal'>
+  <dt>rule</dt><dd><p>Either <code>"evenodd"</code> or <code>"winding"</code>. If polygons with holes are
+being drawn (using the <code>subgroup</code> aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in <code><a href='https://www.rdocumentation.org/packages/grid/topics/grid.path'>grid::pathGrob()</a></code> for
+an explanation.</p></dd>
   <dt>mapping</dt><dd><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
 <code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
