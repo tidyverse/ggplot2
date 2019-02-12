@@ -1,7 +1,7 @@
 #' @param quantiles conditional quantiles of y to calculate and display
 #' @param formula formula relating y variables to x variables
-#' @param method Quantile regression method to use.  Currently only supports
-#'    [quantreg::rq()].
+#' @param method Quantile regression method to use. Available options are `"rq"` (for
+#'    [`quantreg::rq()`]) and `"rqss"` (for [`quantreg::rqss()`]).
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @section Computed variables:
