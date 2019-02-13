@@ -54,9 +54,6 @@ StatQuantile <- ggproto("StatQuantile", Stat,
 
     if (is.null(formula)) {
       if (method == "rqss") {
-        # this should not be needed, since quantreg imports MatrixModels
-        # try_require("MatrixModels", "stat_quantile")
-
         # we need to attach quantreg for qss to work inside formula
         require("quantreg")
         formula <- eval(substitute(y ~ qss(x, lambda = lambda)),
