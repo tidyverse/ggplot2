@@ -50,11 +50,15 @@ StatQuantile <- ggproto("StatQuantile", Stat,
   compute_group = function(data, scales, quantiles = c(0.25, 0.5, 0.75),
                            formula = NULL, xseq = NULL, method = "rq",
                            method.args = list(), lambda = 1, na.rm = FALSE) {
-    try_require("quantreg", "stat_quantile", attach = TRUE)
+    try_require("quantreg", "stat_quantile")
 
     if (is.null(formula)) {
       if (method == "rqss") {
-        try_require("MatrixModels", "stat_quantile", attach = TRUE)
+        # this should not be needed, since quantreg imports MatrixModels
+        # try_require("MatrixModels", "stat_quantile")
+
+        # we need to attach quantreg for qss to work inside formula
+        require("quantreg")
         formula <- eval(substitute(y ~ qss(x, lambda = lambda)),
           list(lambda = lambda))
       } else {
@@ -73,7 +77,13 @@ StatQuantile <- ggproto("StatQuantile", Stat,
     }
     grid <- new_data_frame(list(x = xseq))
 
-    method <- match.fun(method)
+    # if method was specified as a character string, replace with
+    # the corresponding function
+    if (is.character(method)) {
+      if (identical(method, "rq")) method <- quantreg::rq
+      else if (identical(method, "rqss")) method <- quantreg::rqss
+      else method <- match.fun(method) # allow users to supply their own methods
+    }
 
     rbind_dfs(lapply(quantiles, quant_pred, data = data, method = method,
       formula = formula, weight = weight, grid = grid, method.args = method.args))
