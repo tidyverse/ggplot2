@@ -21,6 +21,10 @@ polygons, see \code{\link[maps:map]{maps::map()}} for details.}
 
 \item{...}{Arguments passed on to \code{geom_polygon}
 \describe{
+  \item{rule}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
+being drawn (using the \code{subgroup} aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in \code{\link[grid:pathGrob]{grid::pathGrob()}} for
+an explanation.}
   \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
 \code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
@@ -67,7 +71,7 @@ if (require("maps")) {
 ia <- map_data("county", "iowa")
 mid_range <- function(x) mean(range(x))
 seats <- do.call(rbind, lapply(split(ia, ia$subregion), function(d) {
- data.frame(lat = mid_range(d$lat), long = mid_range(d$long), subregion = unique(d$subregion))
+  data.frame(lat = mid_range(d$lat), long = mid_range(d$long), subregion = unique(d$subregion))
 }))
 
 ggplot(ia, aes(long, lat)) +

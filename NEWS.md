@@ -1,4 +1,11 @@
 # ggplot2 3.1.0.9000
+
+* `coord_sf()` graticule lines are now drawn in the same thickness as 
+  panel grid lines in `coord_cartesian()`, and seting panel grid
+  lines to `element_blank()` now also works in `coord_sf()` 
+  (@clauswilke, #2991, #2525).
+
+* `geom_hline()`, `geom_vline()`, and `geom_abline()` now throw a warning if the user supplies both an `xintercept`, `yintercept`, or `slope` value and a mapping (@RichardJActon, #2950).
   
 * `scale_color_continuous()` now points at `scale_colour_continuos()` so that it 
   will handle `type = "viridis"` as the documentation states (@hlendway, #3079).
@@ -41,6 +48,14 @@
 
 * `coord_sf()`, `coord_map()`, and `coord_polar()` now squash `-Inf` and `Inf`
   into the min and max of the plot (@yutannihilation, #2972).
+
+* `stat_bin()` will now error when the number of bins exceeds 1e6 to avoid 
+  accidentally freezing the user session (@thomasp85).
+
+* `stat_bin()` now handles data with only one unique value (@yutannihilation #3047).
+
+* `geom_polygon()` can now draw polygons with holes using the new `subgroup` 
+  aesthetic. This functionality requires R 3.6 (@thomasp85, #3128)
 
 # ggplot2 3.1.0
 

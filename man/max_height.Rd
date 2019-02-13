@@ -5,15 +5,19 @@
 \alias{max_width}
 \title{Get the maximal width/length of a list of grobs}
 \usage{
-max_height(grobs)
+max_height(grobs, value_only = FALSE)
 
-max_width(grobs)
+max_width(grobs, value_only = FALSE)
 }
 \arguments{
 \item{grobs}{A list of grobs}
+
+\item{value_only}{Should the return value be a simple numeric vector giving
+the maximum in cm}
 }
 \value{
-The largest value. measured in cm as a unit object
+The largest value. measured in cm as a unit object or a numeric
+vector depending on \code{value_only}
 }
 \description{
 Get the maximal width/length of a list of grobs
