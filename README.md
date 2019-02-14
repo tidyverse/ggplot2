@@ -92,7 +92,7 @@ documentation pages. Currently, there are three good places to start:
 
 3.  If you want to dive into making common graphics as quickly as
     possible, I recommend [The R Graphics
-    Cookbook](https://www.amazon.com/Graphics-Cookbook-Practical-Recipes-Visualizing/dp/1491978600/ref=dp_ob_title_bk) by Winston Chang. It provides a
+    Cookbook](https://amzn.to/2TU78ip) by Winston Chang. It provides a
     set of recipes to solve common graphics problems.
 
 If you’ve mastered the basics and want to learn more, read [ggplot2:

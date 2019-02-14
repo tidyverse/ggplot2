@@ -99,7 +99,7 @@ There are two main places to get help with ggplot2:
 [ggplot2-book]: http://amzn.to/2fncG50
 [gg-book]: http://amzn.to/2ef1eWp
 [so]: http://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50
-[cookbook]: https://www.amazon.com/Graphics-Cookbook-Practical-Recipes-Visualizing/dp/1491978600/ref=dp_ob_title_bk 
+[cookbook]: https://amzn.to/2TU78ip 
 [r4ds]: http://r4ds.had.co.nz
 [r4ds-vis]: http://r4ds.had.co.nz/data-visualisation.html
 [r4ds-comm]: http://r4ds.had.co.nz/graphics-for-communication.html
