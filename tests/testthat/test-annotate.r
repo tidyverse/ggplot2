@@ -30,22 +30,35 @@ test_that("segment annotations transform with scales", {
   expect_doppelganger("line matches points", plot)
 })
 
-test_that("annotation_* has dummy data assigned and don't inherit aes", {
-  custom <- annotation_custom(zeroGrob())
-  logtick <- annotation_logticks()
+test_that("annotation_custom() has data and don't inherit aes", {
+  custom <- annotation_custom(zeroGrob(), xmin = -1, xmax = 1, ymin = -1, ymax = 1)
+
+  expect_equal(custom$data, data_frame(xmin = -1, xmax = 1, ymin = -1, ymax = 1))
+  # can be transformed
+  expect_equal(layer_data(ggplot() + custom + scale_x_reverse() + scale_y_reverse())[, c("xmin", "xmax", "ymin", "ymax")],
+               data_frame(xmin = 1, xmax = -1, ymin = 1, ymax = -1))
+
+  expect_false(custom$inherit.aes)
+})
+
+test_that("annotation_raster() has data and don't inherit aes", {
+  rainbow <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)
+  raster <- annotation_raster(rainbow, 15, 20, 3, 4)
+  expect_equal(raster$data, dummy_data())
+  expect_false(raster$inherit.aes)
+})
+
+test_that("annotation_map() has data and don't inherit aes", {
   library(maps)
   usamap <- map_data("state")
   map <- annotation_map(usamap)
-  rainbow <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)
-  raster <- annotation_raster(rainbow, 15, 20, 3, 4)
-  dummy <- dummy_data()
-  expect_equal(custom$data, dummy)
-  expect_equal(logtick$data, dummy)
-  expect_equal(map$data, dummy)
-  expect_equal(raster$data, dummy)
-
-  expect_false(custom$inherit.aes)
-  expect_false(logtick$inherit.aes)
+  expect_equal(map$data, dummy_data())
   expect_false(map$inherit.aes)
-  expect_false(raster$inherit.aes)
+})
+
+test_that("annotation_logstick() has dummy data assigned and don't inherit aes", {
+  logtick <- annotation_logticks()
+  expect_equal(logtick$data, dummy_data())
+
+  expect_false(logtick$inherit.aes)
 })
