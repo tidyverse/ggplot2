@@ -54,10 +54,13 @@ StatQuantile <- ggproto("StatQuantile", Stat,
 
     if (is.null(formula)) {
       if (method == "rqss") {
-        # we need to attach quantreg for qss to work inside formula
-        require("quantreg")
-        formula <- eval(substitute(y ~ qss(x, lambda = lambda)),
-          list(lambda = lambda))
+        formula <- eval(
+          substitute(y ~ qss(x, lambda = lambda)),
+          list(lambda = lambda)
+        )
+        # make qss function available in case it is needed;
+        # works around limitation in quantreg
+        qss <- quantreg::qss
       } else {
         formula <- y ~ x
       }
@@ -76,10 +79,12 @@ StatQuantile <- ggproto("StatQuantile", Stat,
 
     # if method was specified as a character string, replace with
     # the corresponding function
-    if (is.character(method)) {
-      if (identical(method, "rq")) method <- quantreg::rq
-      else if (identical(method, "rqss")) method <- quantreg::rqss
-      else method <- match.fun(method) # allow users to supply their own methods
+    if (identical(method, "rq")) {
+      method <- quantreg::rq
+    } else if (identical(method, "rqss")) {
+      method <- quantreg::rqss
+    } else {
+      method <- match.fun(method) # allow users to supply their own methods
     }
 
     rbind_dfs(lapply(quantiles, quant_pred, data = data, method = method,
