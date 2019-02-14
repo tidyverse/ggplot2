@@ -53,17 +53,15 @@ test_that("annotation_raster() has data and don't inherit aes", {
   expect_false(raster$inherit.aes)
 })
 
-test_that("annotation_map() has data and don't inherit aes", {
+test_that("annotation_map() and annotation_logstick() has dummy data assigned and don't inherit aes", {
   library(maps)
   usamap <- map_data("state")
   map <- annotation_map(usamap)
-  expect_equal(map$data, dummy_data())
-  expect_false(map$inherit.aes)
-})
-
-test_that("annotation_logstick() has dummy data assigned and don't inherit aes", {
   logtick <- annotation_logticks()
+
+  expect_equal(map$data, dummy_data())
   expect_equal(logtick$data, dummy_data())
 
+  expect_false(map$inherit.aes)
   expect_false(logtick$inherit.aes)
 })
