@@ -44,7 +44,12 @@ test_that("annotation_custom() has data and don't inherit aes", {
 test_that("annotation_raster() has data and don't inherit aes", {
   rainbow <- matrix(hcl(seq(0, 360, length.out = 50 * 50), 80, 70), nrow = 50)
   raster <- annotation_raster(rainbow, 15, 20, 3, 4)
-  expect_equal(raster$data, dummy_data())
+
+  expect_equal(raster$data, data_frame(xmin = 15, xmax = 20, ymin = 3, ymax = 4))
+  # can be transformed
+  expect_equal(layer_data(ggplot() + raster + scale_x_reverse() + scale_y_reverse())[, c("xmin", "xmax", "ymin", "ymax")],
+               data_frame(xmin = -15, xmax = -20, ymin = -3, ymax = -4))
+
   expect_false(raster$inherit.aes)
 })
 
