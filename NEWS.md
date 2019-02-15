@@ -5,6 +5,11 @@
   lines to `element_blank()` now also works in `coord_sf()` 
   (@clauswilke, #2991, #2525).
 
+* ggplot2 no longer attaches any external packages when using functions that depend on
+  packages that are suggested but not imported by ggplot2. The affected functions
+  include `geom_hex()`, `stat_binhex()`, `stat_summary_hex()`, `geom_quantile()`,
+  `stat_quantile()`, and `map_data()` (@clauswilke, #3126).
+
 * `geom_hline()`, `geom_vline()`, and `geom_abline()` now throw a warning if the user supplies both an `xintercept`, `yintercept`, or `slope` value and a mapping (@RichardJActon, #2950).
   
 * `scale_color_continuous()` now points at `scale_colour_continuos()` so that it 
