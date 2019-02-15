@@ -255,8 +255,8 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     </tr>
     <tr>
       <th>method</th>
-      <td><p>Quantile regression method to use.  Currently only supports
-<code><a href='https://www.rdocumentation.org/packages/quantreg/topics/rq'>quantreg::rq()</a></code>.</p></td>
+      <td><p>Quantile regression method to use. Available options are <code>"rq"</code> (for
+<code><a href='https://www.rdocumentation.org/packages/quantreg/topics/rq'>quantreg::rq()</a></code>) and <code>"rqss"</code> (for <code><a href='https://www.rdocumentation.org/packages/quantreg/topics/rqss'>quantreg::rqss()</a></code>).</p></td>
     </tr>
     <tr>
       <th>method.args</th>
@@ -289,13 +289,7 @@ function defined by <code>method</code>.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='fl'>1</span> / <span class='no'>hwy</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>m</span> + <span class='fu'>geom_quantile</span>()</div><div class='output co'>#&gt; <span class='message'>Loading required package: SparseM</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘SparseM’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:base’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    backsolve</span></div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: ‘quantreg’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:survival’:</span>
-#&gt; <span class='message'></span>
-#&gt; <span class='message'>    untangle.specials</span></div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>m</span> + <span class='fu'>geom_quantile</span>(<span class='kw'>quantiles</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>q10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.95</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
+<span class='no'>m</span> + <span class='fu'>geom_quantile</span>()</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>m</span> + <span class='fu'>geom_quantile</span>(<span class='kw'>quantiles</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>q10</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>0.05</span>, <span class='fl'>0.95</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fl'>0.05</span>)
 <span class='no'>m</span> + <span class='fu'>geom_quantile</span>(<span class='kw'>quantiles</span> <span class='kw'>=</span> <span class='no'>q10</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ x</span></div><div class='img'><img src='geom_quantile-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can also use rqss to fit smooth quantiles</span>
 <span class='no'>m</span> + <span class='fu'>geom_quantile</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"rqss"</span>)</div><div class='output co'>#&gt; <span class='message'>Smoothing formula not specified. Using: y ~ qss(x, lambda = 1)</span></div><div class='img'><img src='geom_quantile-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Note that rqss doesn't pick a smoothing constant automatically, so</span>
