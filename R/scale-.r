@@ -539,7 +539,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   object itself. Built-in transformations include "asn", "atanh",
 #'   "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 #'   "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal", 
-#'      "reverse", "sqrt" and "time".
+#'   "reverse", "sqrt" and "time".
 #'
 #'   A transformation object bundles together a transform, its inverse,
 #'   and methods for generating breaks and labels. Transformation objects
