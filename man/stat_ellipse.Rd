@@ -2,7 +2,7 @@
 % Please edit documentation in R/stat-ellipse.R
 \name{stat_ellipse}
 \alias{stat_ellipse}
-\title{Compute normal confidence ellipses}
+\title{Compute normal data ellipses}
 \usage{
 stat_ellipse(mapping = NULL, data = NULL, geom = "path",
   position = "identity", ..., type = "t", level = 0.95,
@@ -67,7 +67,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
 The method for calculating the ellipses has been modified from
-\code{car::ellipse} (Fox and Weisberg, 2011)
+\code{car::dataEllipse} (Fox and Weisberg, 2011)
 }
 \examples{
 ggplot(faithful, aes(waiting, eruptions)) +
