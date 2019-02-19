@@ -173,6 +173,7 @@ Layer <- ggproto("Layer", NULL,
   mapping = NULL,
   position = NULL,
   inherit.aes = FALSE,
+  layer_params = NULL,
 
   print = function(self) {
     if (!is.null(self$mapping)) {
@@ -203,6 +204,35 @@ Layer <- ggproto("Layer", NULL,
   # in input form and to global plot info
   setup_layer = function(self, data, plot) {
     data
+  },
+
+  # hook to generate the layer_params object that gets passed to
+  # Geom$draw_layer()
+  build_init = function(self, index, plot, layout) {
+    force(index)
+    scales <- plot$scales
+    force(layout)
+
+    layer_params <- list(
+      index = index,
+      get_scale = function(scale, panel = NA) {
+        if(scale %in% c("x", "y")) {
+          # depends on panel
+          if(identical(panel, NA)) stop("Position scale depends on panel")
+          if(scale == "x") {
+            layout$panel_scales_x[[panel]]
+          } else if(scale == "y") {
+            layout$panel_scales_y[[panel]]
+          } else {
+            stop("Unknown position scale: ", scale)
+          }
+        } else {
+          scales$get_scales(scale)
+        }
+      }
+    )
+
+    self$layer_params <- layer_params
   },
 
   compute_aesthetics = function(self, data, plot) {
@@ -332,7 +362,7 @@ Layer <- ggproto("Layer", NULL,
     }
 
     data <- self$geom$handle_na(data, self$geom_params)
-    self$geom$draw_layer(data, self$geom_params, layout, layout$coord)
+    self$geom$draw_layer(data, self$geom_params, layout, layout$coord, self$layer_params)
   }
 )
 
