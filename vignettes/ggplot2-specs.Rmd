@@ -234,6 +234,9 @@ ggplot(df, aes(1, x)) +
   geom_text(aes(label = fontface, fontface = fontface))
 ```
 
+### Font size
+
+The `size` of text is measured in mm. 1 pt = 0.35 mm.
 
 ### Justification
 
