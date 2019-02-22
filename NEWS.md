@@ -59,6 +59,9 @@
 
 * `stat_bin()` now handles data with only one unique value (@yutannihilation #3047).
 
+* `stat_function()` now accepts rlang/purrr style anonymous functions for the 
+  `fun` parameter (@dkahle, #3159).
+
 * `geom_polygon()` can now draw polygons with holes using the new `subgroup` 
   aesthetic. This functionality requires R 3.6 (@thomasp85, #3128)
 

@@ -3,5 +3,5 @@
 
 #' @import scales grid gtable
 #' @importFrom stats setNames
-#' @importFrom rlang quo quos
+#' @importFrom rlang quo quos as_function
 NULL
