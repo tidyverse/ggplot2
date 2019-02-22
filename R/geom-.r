@@ -71,7 +71,7 @@ Geom <- ggproto("Geom",
     )
   },
 
-  draw_layer = function(self, data, params, layout, coord, layer_params) {
+  draw_layer = function(self, data, params, layout, coord, layer_params, ...) {
     if (empty(data)) {
       n <- if (is.factor(data$PANEL)) nlevels(data$PANEL) else 1L
       return(rep(list(zeroGrob()), n))
