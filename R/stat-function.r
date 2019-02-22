@@ -5,7 +5,7 @@
 #' the x axis, and the results are drawn (by default) with a line.
 #'
 #' @eval rd_aesthetics("stat", "function")
-#' @param fun function to use. Must be vectorised.
+#' @param fun function to use or formula. Must be vectorised.
 #' @param n number of points to interpolate along
 #' @param args list of additional arguments to pass to `fun`
 #' @param xlim Optionally, restrict the range of the function to this range.
@@ -49,6 +49,7 @@
 #' # Using a custom function
 #' test <- function(x) {x ^ 2 + x + 20}
 #' f + stat_function(fun = test)
+#' f + stat_function(fun = ~ .x^2 + .x + 20)
 stat_function <- function(mapping = NULL, data = NULL,
                           geom = "path", position = "identity",
                           ...,
@@ -96,6 +97,8 @@ StatFunction <- ggproto("StatFunction", Stat,
       # to original values
       x_trans <- scales$x$trans$inverse(xseq)
     }
+
+    if (is.formula(fun)) fun <- rlang::as_function(fun)
 
     new_data_frame(list(
       x = xseq,

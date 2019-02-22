@@ -39,7 +39,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{fun}{function to use. Must be vectorised.}
+\item{fun}{function to use or formula. Must be vectorised.}
 
 \item{xlim}{Optionally, restrict the range of the function to this range.}
 
@@ -116,4 +116,5 @@ f + stat_function(fun = sin, colour = "red") +
 # Using a custom function
 test <- function(x) {x ^ 2 + x + 20}
 f + stat_function(fun = test)
+f + stat_function(fun = ~ .x^2 + .x + 20)
 }
