@@ -208,20 +208,13 @@ Layer <- ggproto("Layer", NULL,
     # Geom$draw_layer()
     scales <- plot$scales
     self$layer_params <- ggproto("LayerParams", NULL,
-      scales = plot$scales,
       get_scale = function(self, scale, panel, layout) {
         if(scale %in% c("x", "y")) {
           # depends on panel
           if(identical(panel, NA)) stop("Position scale depends on panel")
-          if(scale == "x") {
-            layout$panel_scales_x[[panel]]
-          } else if(scale == "y") {
-            layout$panel_scales_y[[panel]]
-          } else {
-            stop("Unknown position scale: ", scale)
-          }
+          layout$get_scales(panel)[[scale]]
         } else {
-          self$scales$get_scales(scale)
+          scales$get_scales(scale)
         }
       }
     )
