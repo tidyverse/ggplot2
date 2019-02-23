@@ -210,7 +210,7 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
 
-  ticks <- as.data.frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
+  ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
 
@@ -222,7 +222,7 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   if (length(.bar) == 0) {
     .bar = unique(.limits)
   }
-  guide$bar <- data.frame(colour = scale$map(.bar), value = .bar, stringsAsFactors = FALSE)
+  guide$bar <- new_data_frame(list(colour = scale$map(.bar), value = .bar), n = length(.bar))
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]
@@ -241,7 +241,7 @@ guide_merge.colorbar <- function(guide, new_guide) {
 #' @export
 guide_geom.colorbar <- function(guide, layers, default_mapping) {
   # Layers that use this guide
-  guide_layers <- plyr::llply(layers, function(layer) {
+  guide_layers <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
     if (length(matched) && ((is.na(layer$show.legend) || layer$show.legend))) {
@@ -507,7 +507,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.background <- element_render(theme, "legend.background")
 
   # padding
-  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm", valueOnly = TRUE)
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 

@@ -1,3 +1,67 @@
+# ggplot2 3.1.0.9000
+
+* `coord_sf()` graticule lines are now drawn in the same thickness as 
+  panel grid lines in `coord_cartesian()`, and seting panel grid
+  lines to `element_blank()` now also works in `coord_sf()` 
+  (@clauswilke, #2991, #2525).
+
+* ggplot2 no longer attaches any external packages when using functions that depend on
+  packages that are suggested but not imported by ggplot2. The affected functions
+  include `geom_hex()`, `stat_binhex()`, `stat_summary_hex()`, `geom_quantile()`,
+  `stat_quantile()`, and `map_data()` (@clauswilke, #3126).
+
+* `geom_hline()`, `geom_vline()`, and `geom_abline()` now throw a warning if the user supplies both an `xintercept`, `yintercept`, or `slope` value and a mapping (@RichardJActon, #2950).
+  
+* `scale_color_continuous()` now points at `scale_colour_continuos()` so that it 
+  will handle `type = "viridis"` as the documentation states (@hlendway, #3079).
+
+* `scale_shape_identity()` now works correctly with `guide = "legend"` (@malcolmbarrett, #3029)
+
+* Facet strips on the left side of plots now have clipping turned on, preventing
+  text from running out of the strip and borders from looking thicker than for
+  other strips (@karawoo, #2772 and #3061).
+
+* `coord_map()` now can have axes on the top and right (@karawoo, #3042).
+
+* `geom_rug()` gains an "outside" option to allow for moving the rug tassels to outside the plot area. (@njtierney, #3085)
+
+* `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
+
+* Layers now have a new member function `setup_layer()` which is called at the
+  very beginning of the plot building process and which has access to the original
+  input data and the plot object being built. This function allows the creation of
+  custom layers that autogenerate aesthetic mappings based on the input data or that
+  filter the input data in some form. One example is the new `LayerSf` class which
+  locates the geometry column in sf objects and sets up an aesthetic mapping for it
+  (@clauswilke, #2872).
+
+* Default labels are now generated more consistently; e.g., symbols no longer
+  get backticks, and long expressions are abbreviated with `...`
+  (@yutannihilation, #2981).
+  
+* Diverging brewer color scale now has the correct mid-point color (@dariyasydykova, #3072).
+
+* Aesthetic mappings now accept functions that return `NULL` (@yutannihilation,
+  #2997).
+
+* Closed arrows in `element_line()` are now filled (@yutannihilation, #2924).
+
+* ggplot2 now works in Turkish locale (@yutannihilation, #3011).
+
+* `GeomRibbon` and `GeomArea` now sort the data along the x-axis in the 
+  `setup_data()` method rather than as part of `draw_group()` (@thomasp85, #3023)
+
+* `coord_sf()`, `coord_map()`, and `coord_polar()` now squash `-Inf` and `Inf`
+  into the min and max of the plot (@yutannihilation, #2972).
+
+* `stat_bin()` will now error when the number of bins exceeds 1e6 to avoid 
+  accidentally freezing the user session (@thomasp85).
+
+* `stat_bin()` now handles data with only one unique value (@yutannihilation #3047).
+
+* `geom_polygon()` can now draw polygons with holes using the new `subgroup` 
+  aesthetic. This functionality requires R 3.6 (@thomasp85, #3128)
+
 * Re-generate economics data. This leads to minor changes in the computation
   of PCE, but more importantly, strips the grouping attributes from
   `economics_long`.

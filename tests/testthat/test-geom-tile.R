@@ -1,7 +1,7 @@
 context("geom_tile")
 
 test_that("accepts width and height params", {
-  df <- data.frame(x = c("a", "b"), y = c("a", "b"))
+  df <- data_frame(x = c("a", "b"), y = c("a", "b"))
 
   out1 <- layer_data(ggplot(df, aes(x, y)) + geom_tile())
   expect_equal(out1$xmin, c(0.5, 1.5))
@@ -13,7 +13,7 @@ test_that("accepts width and height params", {
 })
 
 test_that("accepts width and height aesthetics", {
-  df <- data.frame(x = 0, y = 0, width = c(2, 4), height = c(2, 4))
+  df <- data_frame(x = 0, y = 0, width = c(2, 4), height = c(2, 4))
 
   p <- ggplot(df, aes(x, y, width = width, height = height)) +
     geom_tile(fill = NA, colour = "black", size = 1)

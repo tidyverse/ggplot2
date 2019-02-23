@@ -56,7 +56,7 @@ test_that("out-of-range breaks are dropped", {
   # limits aren't specified, automatic labels
   # limits are set by the data
   sc <- scale_x_continuous(breaks = 1:5)
-  sc$train_df(data.frame(x = 2:4))
+  sc$train_df(data_frame(x = 2:4))
   bi <- sc$break_info()
   expect_equal(bi$labels, as.character(2:4))
   expect_equal(bi$major_source, 2:4)
@@ -64,7 +64,7 @@ test_that("out-of-range breaks are dropped", {
 
   # Limits and labels are specified
   sc <- scale_x_continuous(breaks = 1:5, labels = letters[1:5])
-  sc$train_df(data.frame(x = 2:4))
+  sc$train_df(data_frame(x = 2:4))
   bi <- sc$break_info()
   expect_equal(bi$labels, letters[2:4])
   expect_equal(bi$major_source, 2:4)
@@ -72,7 +72,7 @@ test_that("out-of-range breaks are dropped", {
 
   # Limits aren't specified, and all breaks are out of range of data
   sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)])
-  sc$train_df(data.frame(x = 2:4))
+  sc$train_df(data_frame(x = 2:4))
   bi <- sc$break_info()
   expect_equal(length(bi$labels), 0)
   expect_equal(length(bi$major), 0)
@@ -245,7 +245,7 @@ test_that("minor breaks are transformed by scales", {
 # Visual tests ------------------------------------------------------------
 
 test_that("minor breaks draw correctly", {
-  df <- data.frame(
+  df <- data_frame(
     x_num = c(1, 3),
     x_chr = c("a", "b"),
     x_date = as.Date("2012-2-29") + c(0, 100),
@@ -303,7 +303,7 @@ test_that("minor breaks draw correctly", {
 })
 
 test_that("scale breaks can be removed", {
-  dat <- data.frame(x = 1:3, y = 1:3)
+  dat <- data_frame(x = 1:3, y = 1:3)
 
   expect_doppelganger("no x breaks",
     ggplot(dat, aes(x = x, y = y)) + geom_point() + scale_x_continuous(breaks = NULL)

@@ -33,6 +33,7 @@ Authors:
   \item Kohske Takahashi
   \item Claus Wilke
   \item Kara Woo
+  \item Hiroaki Yutani
 }
 
 Other contributors:

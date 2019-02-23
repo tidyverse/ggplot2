@@ -141,15 +141,15 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       return(layout_null())
     }
 
-    base <- plyr::unrowname(
+    base <- unrowname(
       combine_vars(data, params$plot_env, vars, drop = params$drop)
     )
 
-    id <- plyr::id(base, drop = TRUE)
+    id <- id(base, drop = TRUE)
     n <- attr(id, "n")
 
     dims <- wrap_dims(n, params$nrow, params$ncol)
-    layout <- data.frame(PANEL = factor(id, levels = seq_len(n)))
+    layout <- new_data_frame(list(PANEL = factor(id, levels = seq_len(n))))
 
     if (params$as.table) {
       layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
@@ -163,7 +163,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       layout[c("ROW", "COL")] <- layout[c("COL", "ROW")]
     }
 
-    panels <- cbind(layout, plyr::unrowname(base))
+    panels <- cbind(layout, unrowname(base))
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
 
@@ -190,13 +190,13 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       data_rep <- rep.int(1:nrow(data), nrow(to_add))
       facet_rep <- rep(1:nrow(to_add), each = nrow(data))
 
-      data <- plyr::unrowname(data[data_rep, , drop = FALSE])
-      facet_vals <- plyr::unrowname(cbind(
+      data <- unrowname(data[data_rep, , drop = FALSE])
+      facet_vals <- unrowname(cbind(
         facet_vals[data_rep, ,  drop = FALSE],
         to_add[facet_rep, , drop = FALSE]))
     }
 
-    keys <- plyr::join.keys(facet_vals, layout, by = names(vars))
+    keys <- join_keys(facet_vals, layout, by = names(vars))
 
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     data
@@ -281,10 +281,22 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       axis_mat_y_left[, -1] <- list(zeroGrob())
       axis_mat_y_right[, -ncol] <- list(zeroGrob())
     }
-    axis_height_top <- unit(apply(axis_mat_x_top, 1, max_height), "cm")
-    axis_height_bottom <- unit(apply(axis_mat_x_bottom, 1, max_height), "cm")
-    axis_width_left <- unit(apply(axis_mat_y_left, 2, max_width), "cm")
-    axis_width_right <- unit(apply(axis_mat_y_right, 2, max_width), "cm")
+    axis_height_top <- unit(
+      apply(axis_mat_x_top, 1, max_height, value_only = TRUE),
+      "cm"
+    )
+    axis_height_bottom <- unit(
+      apply(axis_mat_x_bottom, 1, max_height, value_only = TRUE),
+      "cm"
+    )
+    axis_width_left <- unit(
+      apply(axis_mat_y_left, 2, max_width, value_only = TRUE),
+      "cm"
+    )
+    axis_width_right <- unit(
+      apply(axis_mat_y_right, 2, max_width, value_only = TRUE),
+      "cm"
+    )
     # Add back missing axes
     if (any(empties)) {
       first_row <- which(apply(empties, 1, any))[1] - 1
@@ -295,8 +307,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       col_panels <- which(layout$ROW > first_row & layout$COL == first_col)
       col_pos <- convertInd(layout$ROW[col_panels], layout$COL[col_panels], nrow)
       col_axes <- axes$y$right[layout$SCALE_Y[col_panels]]
+      inside <- (theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "bottom" &&
-          theme$strip.placement != "inside" &&
+          !inside &&
           any(!vapply(row_axes, is.zero, logical(1))) &&
           !params$free$x) {
         warning("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'", call. = FALSE)
@@ -304,7 +317,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         axis_mat_x_bottom[row_pos] <- row_axes
       }
       if (params$strip.position == "right" &&
-          theme$strip.placement != "inside" &&
+          !inside &&
           any(!vapply(col_axes, is.zero, logical(1))) &&
           !params$free$y) {
         warning("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'", call. = FALSE)
@@ -322,34 +335,34 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     strip_mat <- empty_table
     strip_mat[panel_pos] <- unlist(unname(strips), recursive = FALSE)[[params$strip.position]]
     if (params$strip.position %in% c("top", "bottom")) {
-      inside <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
+      inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "top") {
-        placement <- if (inside) -1 else -2
+        placement <- if (inside_x) -1 else -2
         strip_pad <- axis_height_top
       } else {
-        placement <- if (inside) 0 else 1
+        placement <- if (inside_x) 0 else 1
         strip_pad <- axis_height_bottom
       }
-      strip_height <- unit(apply(strip_mat, 1, max_height), "cm")
+      strip_height <- unit(apply(strip_mat, 1, max_height, value_only = TRUE), "cm")
       panel_table <- weave_tables_row(panel_table, strip_mat, placement, strip_height, strip_name, 2, coord$clip)
-      if (!inside) {
-        strip_pad[unclass(strip_pad) != 0] <- strip_padding
+      if (!inside_x) {
+        strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
         panel_table <- weave_tables_row(panel_table, row_shift = placement, row_height = strip_pad)
       }
     } else {
-      inside <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
+      inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "left") {
-        placement <- if (inside) -1 else -2
+        placement <- if (inside_y) -1 else -2
         strip_pad <- axis_width_left
       } else {
-        placement <- if (inside) 0 else 1
+        placement <- if (inside_y) 0 else 1
         strip_pad <- axis_width_right
       }
-      strip_pad[unclass(strip_pad) != 0] <- strip_padding
-      strip_width <- unit(apply(strip_mat, 2, max_width), "cm")
+      strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
+      strip_width <- unit(apply(strip_mat, 2, max_width, value_only = TRUE), "cm")
       panel_table <- weave_tables_col(panel_table, strip_mat, placement, strip_width, strip_name, 2, coord$clip)
-      if (!inside) {
-        strip_pad[unclass(strip_pad) != 0] <- strip_padding
+      if (!inside_y) {
+        strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
         panel_table <- weave_tables_col(panel_table, col_shift = placement, col_width = strip_pad)
       }
     }

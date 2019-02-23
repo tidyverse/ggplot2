@@ -7,7 +7,7 @@ test_that("names of values used in manual scales", {
 })
 
 
-dat <- data.frame(g = c("B","A","A"))
+dat <- data_frame(g = c("B","A","A"))
 p <- ggplot(dat, aes(g, fill = g)) + geom_bar()
 col <- c("A" = "red", "B" = "green", "C" = "blue")
 
@@ -27,7 +27,7 @@ test_that("named values work regardless of order", {
 })
 
 test_that("missing values are replaced with na.value", {
-  df <- data.frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
+  df <- data_frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
   p <- ggplot(df, aes(x, y, colour = z)) +
     geom_point() +
     scale_colour_manual(values = c("black", "black"), na.value = "red")
@@ -36,7 +36,7 @@ test_that("missing values are replaced with na.value", {
 })
 
 test_that("insufficient values raise an error", {
-  df <- data.frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
+  df <- data_frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
   p <- qplot(x, y, data = df, colour = z)
 
   expect_error(ggplot_build(p + scale_colour_manual(values = "black")),
@@ -54,7 +54,7 @@ test_that("values are matched when scale contains more unique values than are in
 })
 
 test_that("generic scale can be used in place of aesthetic-specific scales", {
-  df <- data.frame(x = letters[1:3], y = LETTERS[1:3], z = factor(c(1, 2, 3)))
+  df <- data_frame(x = letters[1:3], y = LETTERS[1:3], z = factor(c(1, 2, 3)))
   p1 <- ggplot(df, aes(z, z, shape = x, color = y, alpha = z)) +
     scale_shape_manual(values = 1:3) +
     scale_colour_manual(values = c("red", "green", "blue")) +
