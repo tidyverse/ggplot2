@@ -223,6 +223,10 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     base_cols <- combine_vars(data, params$plot_env, cols, drop = params$drop)
     base <- df.grid(base_rows, base_cols)
 
+    if (nrow(base) == 0) {
+      return(new_data_frame(list(PANEL = 1L, ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)))
+    }
+
     # Add margins
     base <- reshape2::add_margins(base, list(names(rows), names(cols)), params$margins)
     # Work around bug in reshape2
@@ -252,6 +256,11 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     rows <- params$rows
     cols <- params$cols
     vars <- c(names(rows), names(cols))
+
+    if (length(vars) == 0) {
+      data$PANEL <- layout$PANEL
+      return(data)
+    }
 
     # Compute faceting values and add margins
     margin_vars <- list(intersect(names(rows), names(data)),

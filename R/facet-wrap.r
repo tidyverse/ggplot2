@@ -177,7 +177,13 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (empty(data)) {
       return(cbind(data, PANEL = integer(0)))
     }
+
     vars <- params$facets
+
+    if (length(vars) == 0) {
+      data$PANEL <- 1L
+      return(data)
+    }
 
     facet_vals <- eval_facets(vars, data, params$plot_env)
     facet_vals[] <- lapply(facet_vals[], as.factor)
@@ -229,7 +235,12 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
 
-    labels_df <- layout[names(params$facets)]
+    if (length(params$facets) == 0) {
+      # add a dummy labels
+      labels_df <- new_data_frame(list("(empty)" = "(empty)"), n = 1)
+    } else {
+      labels_df <- layout[names(params$facets)]
+    }
     attr(labels_df, "facet") <- "wrap"
     strips <- render_strips(
       structure(labels_df, type = "rows"),
