@@ -25,9 +25,9 @@
 #'
 #' # stat_function is useful for overlaying functions
 #' set.seed(1492)
-#' base <- ggplot(data.frame(x = rnorm(100)), aes(x))
-#' base + geom_density()
-#' base + geom_density() + stat_function(fun = dnorm, colour = "red")
+#' ggplot(data.frame(x = rnorm(100)), aes(x)) +
+#'   geom_density() +
+#'   stat_function(fun = dnorm, colour = "red")
 #'
 #' # To plot functions without data, specify range of x-axis
 #' base <- ggplot(data.frame(x = c(-5, 5)), aes(x))
@@ -37,8 +37,6 @@
 #' # The underlying mechanics evaluate the function at discrete points
 #' # and connect the points with lines
 #' base <- ggplot(data.frame(x = c(-5, 5)), aes(x))
-#' base + stat_function(fun = dnorm)
-#' base + stat_function(fun = dnorm, geom = "path") # same
 #' base + stat_function(fun = dnorm, geom = "point")
 #' base + stat_function(fun = dnorm, geom = "point", n = 20)
 #' base + stat_function(fun = dnorm, n = 20)
@@ -55,7 +53,6 @@
 #' # Using a custom named function
 #' f <- function(.x) .5*exp(-abs(.x))
 #' base + stat_function(fun = f)
-#' base + stat_function(fun = "f")
 #'
 stat_function <- function(mapping = NULL, data = NULL,
                           geom = "path", position = "identity",
