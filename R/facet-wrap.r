@@ -111,6 +111,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   # Flatten all facets dimensions into a single one
   facets_list <- as_facets_list(facets)
   facets <- rlang::flatten_if(facets_list, rlang::is_list)
+  facets <- compact(facets)
 
   ggproto(NULL, FacetWrap,
     shrink = shrink,

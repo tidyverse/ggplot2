@@ -311,10 +311,6 @@ as_facets_list <- function(x) {
     x <- lapply(x, as_facets)
   }
 
-  if (sum(vapply(x, length, integer(1))) == 0L) {
-    stop("Must specify at least one variable to facet by", call. = FALSE)
-  }
-
   x
 }
 

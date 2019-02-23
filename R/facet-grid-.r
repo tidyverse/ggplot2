@@ -192,7 +192,7 @@ grid_as_facets_list <- function(rows, cols) {
     cols <- rlang::quos_auto_name(cols)
   }
 
-  list(rows, cols)
+  list(compact(rows), compact(cols))
 }
 
 #' @rdname ggplot2-ggproto
