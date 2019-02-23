@@ -6,10 +6,23 @@ library(purrr)
 library(tidyr)
 library(dplyr)
 
-series <- c("PCE", "POP", "PSAVERT", "UEMPMED", "UNEMPLOY")
-url <- paste0("http://research.stlouisfed.org/fred2/series/", series, "/downloaddata/", series, ".csv")
+# create directory for storing raw CSVs
+RAW_CSV_DIR <- "data-raw/economics_raw/"
+dir.create(RAW_CSV_DIR, showWarnings = FALSE)
 
-fields <- map(url, read_csv,
+# paths to CSV files
+series <- c("PCE", "POP", "PSAVERT", "UEMPMED", "UNEMPLOY")
+csv <- file.path(RAW_CSV_DIR, paste0(series, ".csv"))
+
+# These CSVs are available from http://research.stlouisfed.org/fred2, but the
+# data might not be the same due to some revisions. So, we store the CSVs under
+# data-raw/ (See the discussion on #2962). To update, use the following code:
+#
+#   url <- paste0("http://research.stlouisfed.org/fred2/series/", series, "/downloaddata/", series, ".csv")
+#   walk2(url, csv, function(x, dest) download.file(x, destfile = dest))
+
+# read the CSV files
+fields <- map(csv, read_csv,
   col_types = cols(
     DATE = col_date(format = ""),
     VALUE = col_double()
