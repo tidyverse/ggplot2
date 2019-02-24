@@ -2,6 +2,16 @@
 
 * `geom_rug()` gains a "length" option to allow for changing the length of the rug lines. (@daniel-wells, #3109)
 
+* `coord_sf()` graticule lines are now drawn in the same thickness as 
+  panel grid lines in `coord_cartesian()`, and seting panel grid
+  lines to `element_blank()` now also works in `coord_sf()` 
+  (@clauswilke, #2991, #2525).
+
+* ggplot2 no longer attaches any external packages when using functions that depend on
+  packages that are suggested but not imported by ggplot2. The affected functions
+  include `geom_hex()`, `stat_binhex()`, `stat_summary_hex()`, `geom_quantile()`,
+  `stat_quantile()`, and `map_data()` (@clauswilke, #3126).
+
 * `geom_hline()`, `geom_vline()`, and `geom_abline()` now throw a warning if the user supplies both an `xintercept`, `yintercept`, or `slope` value and a mapping (@RichardJActon, #2950).
   
 * `scale_color_continuous()` now points at `scale_colour_continuos()` so that it 
@@ -50,6 +60,9 @@
   accidentally freezing the user session (@thomasp85).
 
 * `stat_bin()` now handles data with only one unique value (@yutannihilation #3047).
+
+* `geom_polygon()` can now draw polygons with holes using the new `subgroup` 
+  aesthetic. This functionality requires R 3.6 (@thomasp85, #3128)
 
 # ggplot2 3.1.0
 

@@ -70,8 +70,8 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{formula}{formula relating y variables to x variables}
 
-\item{method}{Quantile regression method to use.  Currently only supports
-\code{\link[quantreg:rq]{quantreg::rq()}}.}
+\item{method}{Quantile regression method to use. Available options are \code{"rq"} (for
+\code{\link[quantreg:rq]{quantreg::rq()}}) and \code{"rqss"} (for \code{\link[quantreg:rqss]{quantreg::rqss()}}).}
 
 \item{method.args}{List of additional arguments passed on to the modelling
 function defined by \code{method}.}
