@@ -238,7 +238,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     if (length(params$facets) == 0) {
       # add a dummy labels
-      labels_df <- new_data_frame(list("(empty)" = "(empty)"), n = 1)
+      labels_df <- new_data_frame(list("(all)" = "(all)"), n = 1)
     } else {
       labels_df <- layout[names(params$facets)]
     }
