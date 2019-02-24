@@ -255,7 +255,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         include <- is.na(layer$show.legend[matched]) ||
           layer$show.legend[matched]
       } else {
-        include <- is.na(layer$show.legend) || layer$show.legend
+        include <- isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend)
       }
 
       if (include) {
