@@ -6,7 +6,7 @@
 \usage{
 geom_rug(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., outside = FALSE, sides = "bl",
-  length = 0.03, na.rm = FALSE, show.legend = NA,
+  length = unit(0.03, "npc"), na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 }
 \arguments{
@@ -46,7 +46,7 @@ to the paired geom/stat.}
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
 
-\item{length}{numeric that sets the length of the rug lines as a fraction of the plot size. Use scale expansion to avoid overplotting of data.}
+\item{length}{A \code{\link[grid:unit]{grid::unit()}} object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}

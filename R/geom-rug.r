@@ -11,7 +11,7 @@
 #'   It can be set to a string containing any of `"trbl"`, for top, right,
 #'   bottom, and left.
 #' @param outside logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use `coord_cartesian(clip = "off")`. When set to TRUE, also consider changing the sides argument to "tr". See examples.
-#' @param length numeric that sets the length of the rug lines as a fraction of the plot size. Use scale expansion to avoid overplotting of data.
+#' @param length A [grid::unit()] object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg)) +
@@ -50,7 +50,7 @@ geom_rug <- function(mapping = NULL, data = NULL,
                      ...,
                      outside = FALSE,
                      sides = "bl",
-                     length = 0.03,
+                     length = unit(0.03, "npc"),
                      na.rm = FALSE,
                      show.legend = NA,
                      inherit.aes = TRUE) {
@@ -81,6 +81,9 @@ GeomRug <- ggproto("GeomRug", Geom,
   optional_aes = c("x", "y"),
 
   draw_panel = function(data, panel_params, coord, sides = "bl", length, outside) {
+    if (!is(length, "unit")) {
+      stop("'length' must be a 'unit' object.")
+    }
     rugs <- list()
     data <- coord$transform(data, panel_params)
 
@@ -92,9 +95,9 @@ GeomRug <- ggproto("GeomRug", Geom,
 
     # move the rug to outside the main plot space
     rug_length <- if (!outside) {
-      list(min = length, max = 1 - length)
+      list(min = length, max = unit(1, "npc") - length)
     } else {
-      list(min = -length, max = 1 + length)
+      list(min = -1 * length, max = unit(1, "npc") + length)
     }
 
     gp <- gpar(col = alpha(data$colour, data$alpha), lty = data$linetype, lwd = data$size * .pt)
@@ -102,7 +105,7 @@ GeomRug <- ggproto("GeomRug", Geom,
       if (grepl("b", sides)) {
         rugs$x_b <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-          y0 = unit(0, "npc"), y1 = unit(rug_length$min, "npc"),
+          y0 = unit(0, "npc"), y1 = rug_length$min,
           gp = gp
         )
       }
@@ -110,7 +113,7 @@ GeomRug <- ggproto("GeomRug", Geom,
       if (grepl("t", sides)) {
         rugs$x_t <- segmentsGrob(
           x0 = unit(data$x, "native"), x1 = unit(data$x, "native"),
-          y0 = unit(1, "npc"), y1 = unit(rug_length$max, "npc"),
+          y0 = unit(1, "npc"), y1 = rug_length$max,
           gp = gp
         )
       }
@@ -120,7 +123,7 @@ GeomRug <- ggproto("GeomRug", Geom,
       if (grepl("l", sides)) {
         rugs$y_l <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-          x0 = unit(0, "npc"), x1 = unit(rug_length$min, "npc"),
+          x0 = unit(0, "npc"), x1 = rug_length$min,
           gp = gp
         )
       }
@@ -128,7 +131,7 @@ GeomRug <- ggproto("GeomRug", Geom,
       if (grepl("r", sides)) {
         rugs$y_r <- segmentsGrob(
           y0 = unit(data$y, "native"), y1 = unit(data$y, "native"),
-          x0 = unit(1, "npc"), x1 = unit(rug_length$max, "npc"),
+          x0 = unit(1, "npc"), x1 = rug_length$max,
           gp = gp
         )
       }
