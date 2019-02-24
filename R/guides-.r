@@ -180,7 +180,7 @@ guides_train <- function(scales, theme, guides, labels) {
       guide <- validate_guide(guide)
 
       # check the consistency of the guide and scale.
-      if (identical(guide$available_aes, "any") && any(!scale$aesthetics %in% guide$available_aes))
+      if (!identical(guide$available_aes, "any") && !any(scale$aesthetics %in% guide$available_aes))
         stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
 
       guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
