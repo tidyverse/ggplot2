@@ -563,7 +563,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   position <- match.arg(position, c("left", "right", "top", "bottom"))
 
-  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
+  if (is.null(breaks) && all(is_position_aes(aesthetics)) && identical(guide, "none")) {
     guide <- "none"
   }
 
@@ -634,7 +634,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   position <- match.arg(position, c("left", "right", "top", "bottom"))
 
-  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
+  if (is.null(breaks) && all(is_position_aes(aesthetics)) && identical(guide, "none")) {
     guide <- "none"
   }
 
