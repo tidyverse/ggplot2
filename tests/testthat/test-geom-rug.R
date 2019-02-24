@@ -20,3 +20,10 @@ test_that("coord_flip flips the rugs", {
   expect_equal(length(b[[1]]$children[[1]]$y0), 1)
   expect_equal(length(b[[1]]$children[[1]]$y1), 1)
 })
+
+
+test_that("Rug length needs unit object", {
+  p <- ggplot(df, aes(x,y))
+  expect_is(p + geom_rug(length=grid::unit(0.01, "npc")), "ggplot")
+  expect_error(print(p + geom_rug(length=0.01)))
+})
