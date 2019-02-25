@@ -271,7 +271,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       }
     } else {
       # This layer does not contribute to the legend
-      if (isTRUE(is.na(layer$show.legend)) || isFALSE(layer$show.legend)) {
+      if (isTRUE(is.na(layer$show.legend)) || !isTRUE(layer$show.legend)) {
         # Default is to exclude it
         return(NULL)
       } else {
