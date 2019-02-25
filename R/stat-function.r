@@ -6,7 +6,7 @@
 #'
 #' @eval rd_aesthetics("stat", "function")
 #' @param fun Function to use. Either 1) an anonymous function in the base or
-#'   rlang formula syntax (see \code{\link[rlang:as_function]{as_function()}})
+#'   rlang formula syntax (see [rlang::as_function()])
 #'   or 2) a quoted or character name referencing a function; see examples. Must
 #'   be vectorised.
 #' @param n Number of points to interpolate along
@@ -19,7 +19,7 @@
 #'   \item{x}{x's along a grid}
 #'   \item{y}{value of function evaluated at corresponding x}
 #' }
-#' @seealso \code{\link[rlang:as_function]{as_function()}}
+#' @seealso [rlang::as_function()]
 #' @export
 #' @examples
 #'

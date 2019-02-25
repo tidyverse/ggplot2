@@ -40,7 +40,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 
 \item{fun}{Function to use. Either 1) an anonymous function in the base or
-rlang formula syntax (see \code{\link[rlang:as_function]{as_function()}})
+rlang formula syntax (see \code{\link[rlang:as_function]{rlang::as_function()}})
 or 2) a quoted or character name referencing a function; see examples. Must
 be vectorised.}
 
@@ -122,5 +122,5 @@ base + stat_function(fun = f)
 
 }
 \seealso{
-\code{\link[rlang:as_function]{as_function()}}
+\code{\link[rlang:as_function]{rlang::as_function()}}
 }
