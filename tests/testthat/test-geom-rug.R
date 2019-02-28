@@ -21,9 +21,25 @@ test_that("coord_flip flips the rugs", {
   expect_equal(length(b[[1]]$children[[1]]$y1), 1)
 })
 
-
 test_that("Rug length needs unit object", {
   p <- ggplot(df, aes(x,y))
   expect_is(p + geom_rug(length=grid::unit(0.01, "npc")), "ggplot")
   expect_error(print(p + geom_rug(length=0.01)))
 })
+
+test_that("Rug lengths are correct", {
+  a <- layer_grob(p, 2)
+
+  # Check default lengths
+  expect_equal(a[[1]]$children[[1]]$x0, unit(0, "npc"))
+  expect_equal(a[[1]]$children[[1]]$x1, unit(0.03, "npc"))
+
+  p <- ggplot(df, aes(x, y)) + geom_point() + geom_rug(sides = 'l', length = unit(12, "pt"))
+  b <- layer_grob(p, 2)
+
+  # Check default length is changed
+  expect_equal(a[[1]]$children[[1]]$x0, unit(0, "npc"))
+  expect_equal(b[[1]]$children[[1]]$x1, unit(12, "pt"))
+
+})
+
