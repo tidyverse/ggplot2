@@ -42,8 +42,8 @@
 #'
 #' # increase the line length and
 #' # expand axis to avoid overplotting
-#' p + geom_rug(length = unit(0.05,"npc")) +
-#'    scale_y_continuous(expand=c(0.1,0.1))
+#' p + geom_rug(length = unit(0.05, "npc")) +
+#'    scale_y_continuous(expand = c(0.1, 0.1))
 #'
 geom_rug <- function(mapping = NULL, data = NULL,
                      stat = "identity", position = "identity",
