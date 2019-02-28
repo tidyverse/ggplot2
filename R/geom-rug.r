@@ -4,6 +4,11 @@
 #' with the two 1d marginal distributions. Rug plots display individual
 #' cases so are best used with smaller datasets.
 #'
+#' By default, the rug lines are drawn with a length that corresponds to 3%
+#' of the total plot size. Since the default scale expansion of for continuous
+#' variables is 5% at both ends of the scale, the rug will not overlap with
+#' any data points under the default settings.
+#'
 #' @eval rd_aesthetics("geom", "rug")
 #' @inheritParams layer
 #' @inheritParams geom_point
