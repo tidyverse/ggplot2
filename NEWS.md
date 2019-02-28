@@ -1,6 +1,6 @@
 # ggplot2 3.1.0.9000
 
-* `geom_rug()` gains a "length" option to allow for changing the length of the rug lines. (@daniel-wells, #3109)
+* `geom_rug()` gains a `length` option to allow for changing the length of the rug lines. (@daniel-wells, #3109)
 
 * `coord_sf()` graticule lines are now drawn in the same thickness as 
   panel grid lines in `coord_cartesian()`, and seting panel grid
