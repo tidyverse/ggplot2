@@ -1,5 +1,8 @@
 # ggplot2 3.1.0.9000
 
+* Scales are now accessible to the `Geom` at draw time through a new 
+  `layer_params` argument to `Geom$draw_layer()` (#3116).
+
 * `coord_sf()` graticule lines are now drawn in the same thickness as 
   panel grid lines in `coord_cartesian()`, and seting panel grid
   lines to `element_blank()` now also works in `coord_sf()` 
