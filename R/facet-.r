@@ -274,7 +274,7 @@ df.grid <- function(a, b) {
 # creates a facets list with two components, each of which bundles two
 # facetting variables.
 
-expand_facet_specs <- function(x) {
+as_facets_list <- function(x) {
   if (rlang::is_quosures(x)) {
     x <- rlang::quos_auto_name(x)
     return(list(x))
@@ -311,11 +311,6 @@ expand_facet_specs <- function(x) {
   x
 }
 
-# get compacted specs
-as_facets_list <- function(x) {
-  x <- expand_facet_specs(x)
-  x <- lapply(x, compact)
-  x
 validate_facet_specs <- function(x) {
   if (inherits(x, "uneval")) {
     stop("Please use `vars()` to supply facet variables", call. = FALSE)
