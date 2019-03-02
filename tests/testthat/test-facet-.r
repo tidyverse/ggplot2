@@ -2,11 +2,7 @@ context("Facetting")
 
 test_that("as_facets_list() coerces formulas", {
   expect_identical(as_facets_list(~foo), list(quos(), quos(foo = foo)))
-  expect_identical(wrap_as_facets_list(~foo), quos(foo = foo))
-
   expect_identical(as_facets_list(~foo + bar), list(quos(), quos(foo = foo, bar = bar)))
-  expect_identical(wrap_as_facets_list(~foo + bar), quos(foo = foo, bar = bar))
-
   expect_identical(as_facets_list(foo ~ bar), list(quos(foo = foo), quos(bar = bar)))
 
   exp <- list(quos(foo = foo, bar = bar), quos(baz = baz, bam = bam))
@@ -14,6 +10,12 @@ test_that("as_facets_list() coerces formulas", {
 
   exp <- list(quos(`foo()`= foo(), `bar()` = bar()), quos(`baz()` = baz(), `bam()` = bam()))
   expect_identical(as_facets_list(foo() + bar() ~ baz() + bam()), exp)
+})
+
+test_that("wrap_as_facets_list() returns quosures", {
+  expect_identical(wrap_as_facets_list(~foo), quos(foo = foo))
+  expect_identical(wrap_as_facets_list(~foo + bar), quos(foo = foo, bar = bar))
+  expect_identical(wrap_as_facets_list(foo ~ bar), quos(foo = foo, bar = bar))
 })
 
 test_that("as_facets_list() coerces strings containing formulas", {
@@ -45,11 +47,16 @@ test_that("as_facets_list() accepts empty specs", {
   expect_equal(as_facets_list(. ~ .), list(quos(), quos()))
   expect_equal(as_facets_list(list(. ~ .)), list(quos()))
   expect_equal(as_facets_list(list(NULL)), list(quos()))
-  
+
   expect_equal(wrap_as_facets_list(list()), quos())
   expect_equal(wrap_as_facets_list(. ~ .), quos())
   expect_equal(wrap_as_facets_list(list(. ~ .)), quos())
   expect_equal(wrap_as_facets_list(list(NULL)), quos())
+
+  expect_equal(grid_as_facets_list(list(), NULL), list(rows = quos(), cols = quos()))
+  expect_equal(grid_as_facets_list(. ~ ., NULL), list(rows = quos(), cols = quos()))
+  expect_equal(grid_as_facets_list(list(. ~ .), NULL), list(rows = quos(), cols = quos()))
+  expect_equal(grid_as_facets_list(list(NULL), NULL), list(rows = quos(), cols = quos()))
 })
 
 test_that("as_facets_list() coerces quosure lists", {
@@ -57,9 +64,8 @@ test_that("as_facets_list() coerces quosure lists", {
 })
 
 test_that("facets rejects aes()", {
-  expect_error(as_facets_list(aes(foo)), "Please use `vars()` to supply facet variables")
-  expect_error(facet_wrap(aes(foo)), "Please use `vars()` to supply facet variables")
-  expect_error(facet_grid(aes(foo)), "Please use `vars()` to supply facet variables")
+  expect_error(facet_wrap(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
+  expect_error(facet_grid(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
 })
 
 df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
