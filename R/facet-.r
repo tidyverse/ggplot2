@@ -275,9 +275,6 @@ df.grid <- function(a, b) {
 # facetting variables.
 
 expand_facet_specs <- function(x) {
-  if (inherits(x, "uneval")) {
-    stop("Please use `vars()` to supply facet variables", call. = FALSE)
-  }
   if (rlang::is_quosures(x)) {
     x <- rlang::quos_auto_name(x)
     return(list(x))
@@ -319,6 +316,10 @@ as_facets_list <- function(x) {
   x <- expand_facet_specs(x)
   x <- lapply(x, compact)
   x
+validate_facet_specs <- function(x) {
+  if (inherits(x, "uneval")) {
+    stop("Please use `vars()` to supply facet variables", call. = FALSE)
+  }
 }
 
 # Compatibility with plyr::as.quoted()

@@ -128,6 +128,8 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
 }
 
 wrap_as_facets_list <- function(x) {
+  validate_facet_specs(x)
+
   facets_list <- as_facets_list(x)
   facets <- rlang::flatten_if(facets_list, rlang::is_list)
   rlang::as_quosures(compact(facets))

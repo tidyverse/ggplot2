@@ -160,6 +160,9 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   )
 }
 grid_as_facets_list <- function(rows, cols) {
+  validate_facet_specs(rows)
+  validate_facet_specs(cols)
+
   is_rows_vars <- is.null(rows) || rlang::is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
