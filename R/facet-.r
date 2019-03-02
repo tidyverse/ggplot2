@@ -275,10 +275,10 @@ df.grid <- function(a, b) {
 # facetting variables.
 
 expand_facet_specs <- function(x) {
-  if (inherits(x, "mapping")) {
-    stop("Please use `vars()` to supply facet variables")
+  if (inherits(x, "uneval")) {
+    stop("Please use `vars()` to supply facet variables", call. = FALSE)
   }
-  if (inherits(x, "quosures")) {
+  if (rlang::is_quosures(x)) {
     x <- rlang::quos_auto_name(x)
     return(list(x))
   }
