@@ -145,7 +145,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
-  if (length(facets_list) != 2L) {
+  if (!identical(names(facets_list), c("rows", "cols"))) {
     stop("A grid facet specification must have exactly 2 specs; rows and cols", call. = FALSE)
   }
 
@@ -154,11 +154,13 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,
-    params = list(rows = facets_list[[1]], cols = facets_list[[2]], margins = margins,
+    params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
       free = free, space_free = space_free, labeller = labeller,
       as.table = as.table, switch = switch, drop = drop)
   )
 }
+
+# returns a list containing exactly two quosures `rows` and `cols`
 grid_as_facets_list <- function(rows, cols) {
   validate_facet_specs(rows)
   validate_facet_specs(cols)
@@ -168,11 +170,14 @@ grid_as_facets_list <- function(rows, cols) {
     if (!is.null(cols)) {
       stop("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list", call. = FALSE)
     }
+    # For backward-compatibility
     facets <- as_facets_list(rows)
-    if (length(facets) == 1) { # e.g. facet_grid(list(~ a + b))
-      facets[2] <- quos()
+    if (length(facets) > 2L) {
+      stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
     }
-    return(facets)
+    rows <- if (length(facets) >= 1) facets[[1]] else rlang::quos()
+    cols <- if (length(facets) >= 2) facets[[2]] else rlang::quos()
+    return(list(rows = rows, cols = cols))
   }
 
   is_cols_vars <- is.null(cols) || rlang::is_quosures(cols)
@@ -180,18 +185,12 @@ grid_as_facets_list <- function(rows, cols) {
     stop("`cols` must be `NULL` or a `vars()` specification", call. = FALSE)
   }
 
-  if (is.null(rows)) {
-    rows <- quos()
-  } else {
-    rows <- rlang::quos_auto_name(rows)
-  }
-  if (is.null(cols)) {
-    cols <- quos()
-  } else {
-    cols <- rlang::quos_auto_name(cols)
-  }
-
-  list(compact(rows), compact(cols))
+  rows <- compact(rows %||% rlang::quos())
+  cols <- compact(cols %||% rlang::quos())
+  list(
+    rows = rlang::quos_auto_name(rows),
+    cols = rlang::quos_auto_name(cols)
+  )
 }
 
 #' @rdname ggplot2-ggproto

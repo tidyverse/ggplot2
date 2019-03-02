@@ -127,6 +127,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 }
 
+# returns quosures
 wrap_as_facets_list <- function(x) {
   validate_facet_specs(x)
 
