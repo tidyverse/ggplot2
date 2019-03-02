@@ -1,8 +1,11 @@
 context("Facetting")
 
 test_that("as_facets_list() coerces formulas", {
-  expect_identical(as_facets_list(~foo), list(quos(foo = foo)))
-  expect_identical(as_facets_list(~foo + bar), list(quos(foo = foo, bar = bar)))
+  expect_identical(as_facets_list(~foo), list(quos(), quos(foo = foo)))
+  expect_identical(wrap_as_facets_list(~foo), quos(foo = foo))
+
+  expect_identical(as_facets_list(~foo + bar), list(quos(), quos(foo = foo, bar = bar)))
+  expect_identical(wrap_as_facets_list(~foo + bar), quos(foo = foo, bar = bar))
 
   expect_identical(as_facets_list(foo ~ bar), list(quos(foo = foo), quos(bar = bar)))
 
@@ -18,8 +21,9 @@ test_that("as_facets_list() coerces strings containing formulas", {
 })
 
 test_that("as_facets_list() coerces character vectors", {
-  expect_identical(as_facets_list("foo"), as_facets_list(local(~foo, globalenv())))
-  expect_identical(as_facets_list(c("foo", "bar")), as_facets_list(local(foo ~ bar, globalenv())))
+  expect_identical(as_facets_list("foo"), list(quos(foo = foo)))
+  expect_identical(as_facets_list(c("foo", "bar")), list(quos(foo = foo), quos(bar = bar)))
+  expect_identical(wrap_as_facets_list(c("foo", "bar")), quos(foo = foo, bar = bar))
 })
 
 test_that("as_facets_list() coerces lists", {
@@ -36,11 +40,16 @@ test_that("as_facets_list() coerces lists", {
   expect_identical(out, exp)
 })
 
-test_that("as_facets_list() errors with empty specs", {
-  expect_error(as_facets_list(list()), "at least one variable to facet by")
-  expect_error(as_facets_list(. ~ .), "at least one variable to facet by")
-  expect_error(as_facets_list(list(. ~ .)), "at least one variable to facet by")
-  expect_error(as_facets_list(list(NULL)), "at least one variable to facet by")
+test_that("as_facets_list() accepts empty specs", {
+  expect_equal(as_facets_list(list()), list())
+  expect_equal(as_facets_list(. ~ .), list(quos(), quos()))
+  expect_equal(as_facets_list(list(. ~ .)), list(quos()))
+  expect_equal(as_facets_list(list(NULL)), list(quos()))
+  
+  expect_equal(wrap_as_facets_list(list()), quos())
+  expect_equal(wrap_as_facets_list(. ~ .), quos())
+  expect_equal(wrap_as_facets_list(list(. ~ .)), quos())
+  expect_equal(wrap_as_facets_list(list(NULL)), quos())
 })
 
 test_that("as_facets_list() coerces quosure lists", {
