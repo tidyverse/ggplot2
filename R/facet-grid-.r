@@ -145,16 +145,8 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
-  n <- length(facets_list)
-  if (n > 2L) {
-    stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
-  }
-  if (n == 1L) {
-    rows <- quos()
-    cols <- facets_list[[1]]
-  } else {
-    rows <- facets_list[[1]]
-    cols <- facets_list[[2]]
+  if (length(facets_list) != 2L) {
+    stop("A grid facet specification must have exactly 2 specs; rows and cols", call. = FALSE)
   }
 
   # Check for deprecated labellers
@@ -162,7 +154,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,
-    params = list(rows = rows, cols = cols, margins = margins,
+    params = list(rows = facets_list[[1]], cols = facets_list[[2]], margins = margins,
       free = free, space_free = space_free, labeller = labeller,
       as.table = as.table, switch = switch, drop = drop)
   )
@@ -173,7 +165,11 @@ grid_as_facets_list <- function(rows, cols) {
     if (!is.null(cols)) {
       stop("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list", call. = FALSE)
     }
-    return(as_facets_list(rows))
+    facets <- as_facets_list(rows)
+    if (length(facets) == 1) { # e.g. facet_grid(list(~ a + b))
+      facets[2] <- quos()
+    }
+    return(facets)
   }
 
   is_cols_vars <- is.null(cols) || rlang::is_quosures(cols)

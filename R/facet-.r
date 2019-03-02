@@ -274,7 +274,7 @@ df.grid <- function(a, b) {
 # creates a facets list with two components, each of which bundles two
 # facetting variables.
 
-as_facets_list <- function(x) {
+expand_facet_specs <- function(x) {
   if (inherits(x, "mapping")) {
     stop("Please use `vars()` to supply facet variables")
   }
@@ -311,6 +311,13 @@ as_facets_list <- function(x) {
     x <- lapply(x, as_facets)
   }
 
+  x
+}
+
+# get compacted specs
+as_facets_list <- function(x) {
+  x <- expand_facet_specs(x)
+  x <- lapply(x, compact)
   x
 }
 
@@ -356,15 +363,7 @@ f_as_facets_list <- function(f) {
   rows <- f_as_facets(lhs(f))
   cols <- f_as_facets(rhs(f))
 
-  if (length(rows) + length(cols) == 0) {
-    stop("Must specify at least one variable to facet by", call. = FALSE)
-  }
-
-  if (length(rows)) {
-    list(rows, cols)
-  } else {
-    list(cols)
-  }
+  list(rows, cols)
 }
 
 as_facets <- function(x) {
