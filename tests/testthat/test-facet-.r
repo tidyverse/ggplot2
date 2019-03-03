@@ -46,12 +46,8 @@ test_that("as_facets_list() coerces lists", {
   expect_identical(out, exp)
 })
 
-test_that("as_facets_list() accepts empty specs", {
-  expect_equal(as_facets_list(list()), list())
-  expect_equal(as_facets_list(. ~ .), list(quos(), quos()))
-  expect_equal(as_facets_list(list(. ~ .)), list(quos()))
-  expect_equal(as_facets_list(list(NULL)), list(quos()))
-
+test_that("wrap_as_facets_list() and grid_as_facets_list() accept empty specs", {
+  expect_equal(wrap_as_facets_list(NULL), quos())
   expect_equal(wrap_as_facets_list(list()), quos())
   expect_equal(wrap_as_facets_list(. ~ .), quos())
   expect_equal(wrap_as_facets_list(list(. ~ .)), quos())
@@ -61,6 +57,11 @@ test_that("as_facets_list() accepts empty specs", {
   expect_equal(grid_as_facets_list(. ~ ., NULL), list(rows = quos(), cols = quos()))
   expect_equal(grid_as_facets_list(list(. ~ .), NULL), list(rows = quos(), cols = quos()))
   expect_equal(grid_as_facets_list(list(NULL), NULL), list(rows = quos(), cols = quos()))
+})
+
+test_that("wrap_as_facets_list() and grid_as_facets_list() compact specs", {
+  expect_equal(wrap_as_facets_list(vars(foo, NULL, bar)), quos(foo = foo, bar = bar))
+  expect_equal(grid_as_facets_list(vars(foo, NULL, bar), NULL), list(rows = quos(foo = foo, bar = bar), cols = quos()))
 })
 
 test_that("as_facets_list() coerces quosure lists", {
