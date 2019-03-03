@@ -185,8 +185,8 @@ grid_as_facets_list <- function(rows, cols) {
     stop("`cols` must be `NULL` or a `vars()` specification", call. = FALSE)
   }
 
-  rows <- compact(rows %||% rlang::quos())
-  cols <- compact(cols %||% rlang::quos())
+  rows <- compact_quos(rows %||% rlang::quos())
+  cols <- compact_quos(cols %||% rlang::quos())
   list(
     rows = rlang::quos_auto_name(rows),
     cols = rlang::quos_auto_name(cols)

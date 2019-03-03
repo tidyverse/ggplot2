@@ -317,6 +317,11 @@ validate_facet_specs <- function(x) {
   }
 }
 
+compact_quos <- function(x) {
+  null <- vapply(x, rlang::quo_is_null, logical(1))
+  x[!null]
+}
+
 # Compatibility with plyr::as.quoted()
 as_quoted <- function(x) {
   if (is.character(x)) {
