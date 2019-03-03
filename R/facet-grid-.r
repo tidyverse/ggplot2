@@ -165,13 +165,15 @@ grid_as_facets_list <- function(rows, cols) {
       stop("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list", call. = FALSE)
     }
     # For backward-compatibility
-    facets <- as_facets_list(rows)
-    if (length(facets) > 2L) {
+    facets_list <- as_facets_list(rows)
+    if (length(facets_list) > 2L) {
       stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
     }
-    rows <- if (length(facets) >= 1) facets[[1]] else rlang::quos()
-    cols <- if (length(facets) >= 2) facets[[2]] else rlang::quos()
-    return(list(rows = rows, cols = cols))
+    # fill with empty quosures
+    facets <- list(rows = rlang::quos(), cols = rlang::quos())
+    facets[seq_along(facets_list)] <- facets_list
+    # Do not compact the legacy specs
+    return(facets)
   }
 
   is_cols_vars <- is.null(cols) || rlang::is_quosures(cols)
