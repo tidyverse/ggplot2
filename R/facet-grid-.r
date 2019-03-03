@@ -145,9 +145,6 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
-  if (!identical(names(facets_list), c("rows", "cols"))) {
-    stop("A grid facet specification must have exactly 2 specs; rows and cols", call. = FALSE)
-  }
 
   # Check for deprecated labellers
   labeller <- check_labeller(labeller)
