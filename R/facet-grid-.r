@@ -162,9 +162,6 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
 
 # returns a list containing exactly two quosures `rows` and `cols`
 grid_as_facets_list <- function(rows, cols) {
-  validate_facet_specs(rows)
-  validate_facet_specs(cols)
-
   is_rows_vars <- is.null(rows) || rlang::is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
@@ -185,11 +182,9 @@ grid_as_facets_list <- function(rows, cols) {
     stop("`cols` must be `NULL` or a `vars()` specification", call. = FALSE)
   }
 
-  rows <- compact_quos(rows %||% rlang::quos())
-  cols <- compact_quos(cols %||% rlang::quos())
   list(
-    rows = rlang::quos_auto_name(rows),
-    cols = rlang::quos_auto_name(cols)
+    rows = compact_facets(as_facets_list(rows)),
+    cols = compact_facets(as_facets_list(cols))
   )
 }
 

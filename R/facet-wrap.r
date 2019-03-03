@@ -129,22 +129,8 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
 
 # returns quosures
 wrap_as_facets_list <- function(x) {
-  validate_facet_specs(x)
-
-  if (is.null(x)) {
-    return(rlang::quos())
-  }
-
-  if (rlang::is_quosures(x)) {
-    facets <- x
-  } else {
-    facets_list <- as_facets_list(x)
-    facets <- rlang::flatten_if(facets_list, rlang::is_list)
-    facets <- rlang::as_quosures(facets)
-  }
-
-  facets <- compact_quos(facets)
-  rlang::quos_auto_name(facets)
+  facets_list <- as_facets_list(x)
+  compact_facets(facets_list)
 }
 
 #' @rdname ggplot2-ggproto
