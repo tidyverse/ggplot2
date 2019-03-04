@@ -1,5 +1,7 @@
 # ggplot2 3.1.0.9000
 
+* `geom_rug()` gains a `length` option to allow for changing the length of the rug lines. (@daniel-wells, #3109)
+
 * `coord_sf()` graticule lines are now drawn in the same thickness as 
   panel grid lines in `coord_cartesian()`, and seting panel grid
   lines to `element_blank()` now also works in `coord_sf()` 
@@ -61,6 +63,9 @@
 
 * `geom_polygon()` can now draw polygons with holes using the new `subgroup` 
   aesthetic. This functionality requires R 3.6 (@thomasp85, #3128)
+
+* `x0` and `y0` is now recognized positional aesthetics so they will get scaled 
+  if used in extension geoms and stats (@thomasp85, #3168)
 
 * Re-generate economics data. This leads to minor changes in the computation
   of PCE, but more importantly, strips the grouping attributes from
