@@ -134,8 +134,8 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10) {
   # Need to extract geometry out of corresponding list column
   geometry <- x$geometry
   type <- sf_types[sf::st_geometry_type(geometry)]
-  is_point <- type %in% 'point'
-  type_ind <- match(type, c('point', 'line', 'other'))
+  is_point <- type %in% "point"
+  type_ind <- match(type, c("point", "line", "other"))
   defaults <- list(
     GeomPoint$default_aes,
     GeomLine$default_aes,
