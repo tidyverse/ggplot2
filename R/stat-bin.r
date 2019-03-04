@@ -1,5 +1,7 @@
 #' @param binwidth The width of the bins. Can be specified as a numeric value,
-#'   or a function that calculates width from x.
+#'   or a function that calculates width from unscaled x. When specifying a 
+#'   function along with a grouping structure, the function will be called
+#'   once per group. 
 #'   The default is to use `bins`
 #'   bins that cover the range of the data. You should always override
 #'   this value, exploring multiple widths to find the best to illustrate the
