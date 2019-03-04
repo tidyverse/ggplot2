@@ -62,6 +62,9 @@
 * `geom_polygon()` can now draw polygons with holes using the new `subgroup` 
   aesthetic. This functionality requires R 3.6 (@thomasp85, #3128)
 
+* `x0` and `y0` is now recognized positional aesthetics so they will get scaled 
+  if used in extension geoms and stats (@thomasp85, #3168)
+
 # ggplot2 3.1.0
 
 ## Breaking changes
