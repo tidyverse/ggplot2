@@ -376,10 +376,7 @@ sf_rescale01 <- function(x, x_range, y_range) {
     return(x)
   }
 
-  # Shift + affine transformation to rescale to [0, 1] x [0, 1]
-  # Contributed by @edzer
-  (x - c(x_range[1], y_range[1])) *
-    diag(1 / c(diff(x_range), diff(y_range)))
+  sf::st_normalize(x, c(x_range[1], y_range[1], x_range[2], y_range[2]))
 }
 sf_rescale01_x <- function(x, range) {
   (x - range[1]) / diff(range)
