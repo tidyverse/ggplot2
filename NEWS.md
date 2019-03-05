@@ -67,9 +67,9 @@
 * `x0` and `y0` is now recognized positional aesthetics so they will get scaled 
   if used in extension geoms and stats (@thomasp85, #3168)
 
-* Re-generate economics data. This leads to minor changes in the computation
-  of PCE, but more importantly, strips the grouping attributes from
-  `economics_long`.
+* Re-generate economics data. This leads to some changes in the values of all
+  columns (especially in `psavert`), but more importantly, strips the grouping
+  attributes from `economics_long`.
 
 # ggplot2 3.1.0
 
