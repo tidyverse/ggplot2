@@ -127,7 +127,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   )
 }
 
-# returns quosures
+# Returns a quosures object
 wrap_as_facets_list <- function(x) {
   facets_list <- as_facets_list(x)
   compact_facets(facets_list)
@@ -241,7 +241,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
 
     if (length(params$facets) == 0) {
-      # add a dummy label
+      # Add a dummy label
       labels_df <- new_data_frame(list("(all)" = "(all)"), n = 1)
     } else {
       labels_df <- layout[names(params$facets)]

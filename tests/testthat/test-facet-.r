@@ -68,7 +68,7 @@ test_that("as_facets_list() coerces quosure lists", {
   expect_identical(as_facets_list(vars(foo)), list(rlang::quos(foo = foo)))
 })
 
-test_that("facets rejects aes()", {
+test_that("facets reject aes()", {
   expect_error(facet_wrap(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
   expect_error(facet_grid(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
 })

@@ -314,7 +314,7 @@ as_facets_list <- function(x) {
   x
 }
 
-# flatten a list of quosures to a quosures object, and remove NULL quosure
+# Flatten a list of quosures objects to a quosures object, and compact it
 compact_facets <- function(x) {
   x <- rlang::flatten_if(x, rlang::is_list)
   null <- vapply(x, rlang::quo_is_null, logical(1))

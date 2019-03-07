@@ -157,7 +157,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   )
 }
 
-# returns a list containing exactly two quosures `rows` and `cols`
+# Returns a list of quosures objects. The list has exactly two elements, `rows` and `cols`.
 grid_as_facets_list <- function(rows, cols) {
   is_rows_vars <- is.null(rows) || rlang::is_quosures(rows)
   if (!is_rows_vars) {
@@ -169,7 +169,7 @@ grid_as_facets_list <- function(rows, cols) {
     if (length(facets_list) > 2L) {
       stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
     }
-    # fill with empty quosures
+    # Fill with empty quosures
     facets <- list(rows = rlang::quos(), cols = rlang::quos())
     facets[seq_along(facets_list)] <- facets_list
     # Do not compact the legacy specs
