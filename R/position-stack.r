@@ -225,7 +225,7 @@ PositionFill <- ggproto("PositionFill", PositionStack,
 
 stack_var <- function(data) {
   if (!is.null(data$ymax)) {
-    if (any(data$ymin != 0 && data$ymax != 0, na.rm = TRUE)) {
+    if (any(data$ymin != 0 & data$ymax != 0, na.rm = TRUE)) {
       warning("Stacking not well defined when not anchored on the axis", call. = FALSE)
     }
     "ymax"

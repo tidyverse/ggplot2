@@ -52,7 +52,7 @@ Suggests:
     rgeos,
     rmarkdown,
     rpart,
-    sf (>= 0.3-4),
+    sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
     testthat (>= 0.11.0),
     vdiffr (>= 0.3.0)
