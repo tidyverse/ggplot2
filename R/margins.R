@@ -4,7 +4,9 @@
 #' @rdname element
 #' @export
 margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
-  structure(unit(c(t, r, b, l), unit), class = c("margin", "unit"))
+  u <- unit(c(t, r, b, l), unit)
+  class(u) <- c("margin", class(u))
+  u
 }
 is.margin <- function(x) {
   inherits(x, "margin")
