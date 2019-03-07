@@ -70,6 +70,9 @@
 * Re-generate economics data. This leads to some changes in the values of all
   columns (especially in `psavert`), but more importantly, strips the grouping
   attributes from `economics_long`.
+  
+* `facet_wrap()` and `facet_grid()` now automatically remove NULL from facet
+  specs, and accept empty specs (@yutannihilation, #3070, #2986).
 
 # ggplot2 3.1.0
 
