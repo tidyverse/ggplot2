@@ -12,12 +12,6 @@ test_that("as_facets_list() coerces formulas", {
   expect_identical(as_facets_list(foo() + bar() ~ baz() + bam()), exp)
 })
 
-test_that("wrap_as_facets_list() returns quosures", {
-  expect_identical(wrap_as_facets_list(~foo), quos(foo = foo))
-  expect_identical(wrap_as_facets_list(~foo + bar), quos(foo = foo, bar = bar))
-  expect_identical(wrap_as_facets_list(foo ~ bar), quos(foo = foo, bar = bar))
-})
-
 test_that("as_facets_list() coerces strings containing formulas", {
   expect_identical(as_facets_list("foo ~ bar"), as_facets_list(local(foo ~ bar, globalenv())))
 })
@@ -46,6 +40,27 @@ test_that("as_facets_list() coerces lists", {
   expect_identical(out, exp)
 })
 
+test_that("as_facets_list() coerces quosures objectss", {
+  expect_identical(as_facets_list(vars(foo)), list(quos(foo = foo)))
+})
+
+test_that("facets reject aes()", {
+  expect_error(facet_wrap(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
+  expect_error(facet_grid(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
+})
+
+test_that("wrap_as_facets_list() returns a quosures object with compacted", {
+  expect_identical(wrap_as_facets_list(vars(foo)), quos(foo = foo))
+  expect_identical(wrap_as_facets_list(~foo + bar), quos(foo = foo, bar = bar))
+  expect_identical(wrap_as_facets_list(vars(foo, NULL, bar)), quos(foo = foo, bar = bar))
+})
+
+test_that("grid_as_facets_list() returns a list of quosures objects with compacted", {
+  expect_identical(grid_as_facets_list(vars(foo), NULL), list(rows = quos(foo = foo), cols = quos()))
+  expect_identical(grid_as_facets_list(~foo, NULL), list(rows = quos(), cols = quos(foo = foo)))
+  expect_identical(grid_as_facets_list(vars(foo, NULL, bar), NULL), list(rows = quos(foo = foo, bar = bar), cols = quos()))
+})
+
 test_that("wrap_as_facets_list() and grid_as_facets_list() accept empty specs", {
   expect_identical(wrap_as_facets_list(NULL), quos())
   expect_identical(wrap_as_facets_list(list()), quos())
@@ -57,20 +72,6 @@ test_that("wrap_as_facets_list() and grid_as_facets_list() accept empty specs", 
   expect_identical(grid_as_facets_list(. ~ ., NULL), list(rows = quos(), cols = quos()))
   expect_identical(grid_as_facets_list(list(. ~ .), NULL), list(rows = quos(), cols = quos()))
   expect_identical(grid_as_facets_list(list(NULL), NULL), list(rows = quos(), cols = quos()))
-})
-
-test_that("wrap_as_facets_list() and grid_as_facets_list() compact specs", {
-  expect_identical(wrap_as_facets_list(vars(foo, NULL, bar)), quos(foo = foo, bar = bar))
-  expect_identical(grid_as_facets_list(vars(foo, NULL, bar), NULL), list(rows = quos(foo = foo, bar = bar), cols = quos()))
-})
-
-test_that("as_facets_list() coerces quosure lists", {
-  expect_identical(as_facets_list(vars(foo)), list(rlang::quos(foo = foo)))
-})
-
-test_that("facets reject aes()", {
-  expect_error(facet_wrap(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
-  expect_error(facet_grid(aes(foo)), "Please use `vars()` to supply facet variables", fixed = TRUE)
 })
 
 df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
@@ -134,6 +135,23 @@ test_that("vars() accepts optional names", {
   wrap <- facet_wrap(vars(A = a, b))
   expect_named(wrap$params$facets, c("A", "b"))
 })
+
+test_that("facets_wrap() compacts the facet spec and accept empty spec", {
+  p <- ggplot(df, aes(x, y)) + geom_point() + facet_wrap(vars(NULL))
+  d <- layer_data(p)
+
+  expect_equal(d$PANEL, c(1L, 1L, 1L))
+  expect_equal(d$group, c(-1L, -1L, -1L))
+})
+
+test_that("facets_grid() compacts the facet spec and accept empty spec", {
+  p <- ggplot(df, aes(x, y)) + geom_point() + facet_grid(vars(NULL))
+  d <- layer_data(p)
+
+  expect_equal(d$PANEL, c(1L, 1L, 1L))
+  expect_equal(d$group, c(-1L, -1L, -1L))
+})
+
 
 test_that("facets with free scales scale independently", {
   l1 <- ggplot(df, aes(x, y)) + geom_point() +
