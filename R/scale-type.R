@@ -1,5 +1,8 @@
 find_scale <- function(aes, x, env = parent.frame()) {
-  if (is.null(x)) {
+  # Inf is ambiguous; it can be used either with continuous scales or with
+  # discrete scales, so just skip in the hope that we will have a better guess
+  # with the other layers
+  if (is.null(x) || all(is.infinite(x))) {
     return(NULL)
   }
 
