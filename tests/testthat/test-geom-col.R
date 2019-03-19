@@ -14,3 +14,12 @@ test_that("geom_col removes columns with parts outside the plot limits", {
     "Removed 1 rows containing missing values"
   )
 })
+
+test_that("geom_col() ignores width", {
+  dat <- data_frame(x = c(1, 2, 3))
+
+
+  p <- ggplot(dat, aes(x, x, width = x)) + geom_col()
+  d <- layer_data(p)
+  expect_equal(d$xmax - d$xmin, c(0.9, 0.9, 0.9))
+})
