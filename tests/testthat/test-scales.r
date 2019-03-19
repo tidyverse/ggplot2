@@ -135,14 +135,21 @@ test_that("oob affects position values", {
 })
 
 test_that("all-Inf layers are not used for determining the type of scale", {
-  d <- data_frame(x = c("a", "b"))
-  p <- ggplot(d, aes(x, x)) +
+  d1 <- data_frame(x = c("a", "b"))
+  p1 <- ggplot(d1, aes(x, x)) +
     # Inf is numeric, but means discrete values in this case
     annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf, fill = "black") +
     geom_point()
 
-  b <- ggplot_build(p)
-  expect_s3_class(b$layout$panel_scales_x[[1]], "ScaleDiscretePosition")
+  b1 <- ggplot_build(p1)
+  expect_s3_class(b1$layout$panel_scales_x[[1]], "ScaleDiscretePosition")
+
+  p2 <- ggplot() +
+    # If the layer non-Inf value, it's considered
+    annotate("rect", xmin = -Inf, xmax = 0, ymin = -Inf, ymax = Inf, fill = "black")
+
+  b2 <- ggplot_build(p2)
+  expect_s3_class(b2$layout$panel_scales_x[[1]], "ScaleContinuousPosition")
 })
 
 test_that("scales are looked for in appropriate place", {
