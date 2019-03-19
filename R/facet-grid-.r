@@ -150,7 +150,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
     stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
   }
   if (n == 1L) {
-    rows <- quos()
+    rows <- rlang::quos()
     cols <- facets_list[[1]]
   } else {
     rows <- facets_list[[1]]
@@ -182,12 +182,12 @@ grid_as_facets_list <- function(rows, cols) {
   }
 
   if (is.null(rows)) {
-    rows <- quos()
+    rows <- rlang::quos()
   } else {
     rows <- rlang::quos_auto_name(rows)
   }
   if (is.null(cols)) {
-    cols <- quos()
+    cols <- rlang::quos()
   } else {
     cols <- rlang::quos_auto_name(cols)
   }
