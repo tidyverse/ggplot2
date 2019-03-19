@@ -1,10 +1,14 @@
 body {font-size: 16px;}
 h1 {font-size: 40px;}
 h2 {font-size: 30px;}
+h3 {font-size: 23px;}
 
 .contents .page-header {
   margin-top: 10px;
 }
+
+/* reduce h3 margin for proper nesting under h2 */
+.contents h3 {margin-top: -60px}
 
 .ref-arguments th {vertical-align: top;}
 

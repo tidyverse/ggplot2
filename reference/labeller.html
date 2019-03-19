@@ -19,7 +19,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -29,13 +29,15 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+
+
 <meta property="og:title" content="Construct labelling specification — labeller" />
 
 <meta property="og:description" content="This function makes it easy to assign different labellers to
 different factors. The labeller can be a function or it can be a
 named character vectors that will serve as a lookup table." />
 
-<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -76,7 +78,7 @@ named character vectors that will serve as a lookup table." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0</span>
         </div>
       </div>
     </div>
@@ -109,22 +111,16 @@ named character vectors that will serve as a lookup table." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
+      <a href="../articles/releases/ggplot2-2.2.0.html">Version 2.2.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
+      <a href="../articles/releases/ggplot2-2.1.0.html">Version 2.1.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
+      <a href="../articles/releases/ggplot2-2.0.0.html">Version 2.0.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
+      <a href="../articles/releases/ggplot2-1.0.0.html">Version 1.0.0</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -259,13 +255,13 @@ functions taking a character vector such as
 ))</div><div class='img'><img src='labeller-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># In the following example, we rename the levels to the long form,</span>
 <span class='co'># then apply a wrap labeller to the columns to prevent cropped text</span>
-<span class='no'>msleep</span>$<span class='no'>conservation2</span> <span class='kw'>&lt;-</span> <span class='fu'>revalue</span>(<span class='no'>msleep</span>$<span class='no'>conservation</span>, <span class='no'>conservation_status</span>)</div><div class='output co'>#&gt; <span class='error'>Error in revalue(msleep$conservation, conservation_status): could not find function "revalue"</span></div><div class='input'><span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sleep_total</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>awake</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+<span class='no'>msleep</span>$<span class='no'>conservation2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/plyr/topics/revalue'>revalue</a></span>(<span class='no'>msleep</span>$<span class='no'>conservation</span>,
+  <span class='no'>conservation_status</span>)
+<span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sleep_total</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>awake</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 <span class='no'>p3</span> +
   <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation2</span>,
     <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>conservation2</span> <span class='kw'>=</span> <span class='fu'><a href='labellers.html'>label_wrap_gen</a></span>(<span class='fl'>10</span>))
-  )</div><div class='output co'>#&gt; <span class='error'>Error: At least one layer must contain all faceting variables: `conservation2`.</span>
-#&gt; <span class='error'>* Plot is missing `conservation2`</span>
-#&gt; <span class='error'>* Layer 1 is missing `conservation2`</span></div><div class='input'>
+  )</div><div class='img'><img src='labeller-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># labeller() is especially useful to act as a global labeller. You</span>
 <span class='co'># can set it up once and use it on a range of different plots with</span>
 <span class='co'># different facet specifications.</span>
@@ -277,9 +273,7 @@ functions taking a character vector such as
   <span class='kw'>.default</span> <span class='kw'>=</span> <span class='no'>label_both</span>
 )
 
-<span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>conservation2</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='output co'>#&gt; <span class='error'>Error: At least one layer must contain all faceting variables: `conservation2`.</span>
-#&gt; <span class='error'>* Plot is missing `conservation2`</span>
-#&gt; <span class='error'>* Layer 1 is missing `conservation2`</span></div><div class='img'><img src='labeller-6.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>conservation2</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -305,7 +299,7 @@ functions taking a character vector such as
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

@@ -19,7 +19,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -29,9 +29,11 @@
 <script src="../pkgdown.js"></script>
 <link href="../tidyverse-2.css" rel="stylesheet">
 
+
+
 <meta property="og:title" content="Changelog" />
 
-<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -72,7 +74,7 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0.9000</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0</span>
         </div>
       </div>
     </div>
@@ -105,22 +107,16 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
+      <a href="../articles/releases/ggplot2-2.2.0.html">Version 2.2.0</a>
     </li>
     <li>
-      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
+      <a href="../articles/releases/ggplot2-2.1.0.html">Version 2.1.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
+      <a href="../articles/releases/ggplot2-2.0.0.html">Version 2.0.0</a>
     </li>
     <li>
-      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
-    </li>
-    <li>
-      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
+      <a href="../articles/releases/ggplot2-1.0.0.html">Version 1.0.0</a>
     </li>
     <li class="divider"></li>
     <li>
@@ -150,23 +146,6 @@
       <small>Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="ggplot2-3-1-0-9000" class="section level1">
-<h1 class="page-header">
-<a href="#ggplot2-3-1-0-9000" class="anchor"></a>ggplot2 3.1.0.9000<small> Unreleased </small>
-</h1>
-<ul>
-<li><p><code><a href="../reference/geom_rug.html">geom_rug()</a></code> now works with <code><a href="../reference/coord_flip.html">coord_flip()</a></code> (<a href='https://github.com/has2k1'>@has2k1</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2987'>#2987</a>).</p></li>
-<li><p>Layers now have a new member function <code>setup_layer()</code> which is called at the very beginning of the plot building process and which has access to the original input data and the plot object being built. This function allows the creation of custom layers that autogenerate aesthetic mappings based on the input data or that filter the input data in some form. One example is the new <code>LayerSf</code> class which locates the geometry column in sf objects and sets up an aesthetic mapping for it (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2872'>#2872</a>).</p></li>
-<li><p>Default labels are now generated more consistently; e.g., symbols no longer get backticks, and long expressions are abbreviated with <code>...</code> (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2981'>#2981</a>).</p></li>
-<li>Aesthetic mappings now accept functions that return <code>NULL</code> (<a href='https://github.com/yutannihilation'>@yutannihilation</a>,
-<p><a href='https://github.com/tidyverse/ggplot2/issues/2997'>#2997</a>).</p>
-</li>
-<li><p>Closed arrows in <code><a href="../reference/element.html">element_line()</a></code> are now filled (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2924'>#2924</a>).</p></li>
-<li><p>ggplot2 now works in Turkish locale (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3011'>#3011</a>).</p></li>
-<li><p><code>GeomRibbon</code> and <code>GeomArea</code> now sort the data along the x-axis in the <code>setup_data()</code> method rather than as part of <code>draw_group()</code> (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3023'>#3023</a>)</p></li>
-<li><p><code><a href="../reference/ggsf.html">coord_sf()</a></code>, <code><a href="../reference/coord_map.html">coord_map()</a></code>, and <code><a href="../reference/coord_polar.html">coord_polar()</a></code> now squash <code>-Inf</code> and <code>Inf</code> into the min and max of the plot (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2972'>#2972</a>).</p></li>
-</ul>
-</div>
     <div id="ggplot2-3-1-0" class="section level1">
 <h1 class="page-header">
 <a href="#ggplot2-3-1-0" class="anchor"></a>ggplot2 3.1.0<small> 2018-10-25 </small>
@@ -278,7 +257,7 @@
 <ul>
 <li><p><code><a href="../reference/aes.html">aes()</a></code> now supports quasiquotation so that you can use <code>!!</code>, <code>!!!</code>, and <code>:=</code>. This replaces <code><a href="../reference/aes_.html">aes_()</a></code> and <code><a href="../reference/aes_.html">aes_string()</a></code> which are now soft-deprecated (but will remain around for a long time).</p></li>
 <li>
-<p><code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> and <code><a href="../reference/facet_grid.html">facet_grid()</a></code> now support <code><a href="../reference/vars.html">vars()</a></code> inputs. Like <code><a href="http://dplyr.tidyverse.org/reference/vars.html">dplyr::vars()</a></code>, this helper quotes its inputs and supports quasiquotation. For instance, you can now supply faceting variables like this: <code><a href="../reference/facet_wrap.html">facet_wrap(vars(am, cyl))</a></code> instead of <code><a href="../reference/facet_wrap.html">facet_wrap(~am + cyl)</a></code>. Note that the formula interface is not going away and will not be deprecated. <code><a href="../reference/vars.html">vars()</a></code> is simply meant to make it easier to create functions around <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> and <code><a href="../reference/facet_grid.html">facet_grid()</a></code>.</p>
+<p><code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> and <code><a href="../reference/facet_grid.html">facet_grid()</a></code> now support <code><a href="../reference/vars.html">vars()</a></code> inputs. Like <code><a href="https://dplyr.tidyverse.org/reference/vars.html">dplyr::vars()</a></code>, this helper quotes its inputs and supports quasiquotation. For instance, you can now supply faceting variables like this: <code><a href="../reference/facet_wrap.html">facet_wrap(vars(am, cyl))</a></code> instead of <code><a href="../reference/facet_wrap.html">facet_wrap(~am + cyl)</a></code>. Note that the formula interface is not going away and will not be deprecated. <code><a href="../reference/vars.html">vars()</a></code> is simply meant to make it easier to create functions around <code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> and <code><a href="../reference/facet_grid.html">facet_grid()</a></code>.</p>
 <p>The first two arguments of <code><a href="../reference/facet_grid.html">facet_grid()</a></code> become <code>rows</code> and <code>cols</code> and now support <code><a href="../reference/vars.html">vars()</a></code> inputs. Note however that we took special care to ensure complete backward compatibility. With this change <code><a href="../reference/facet_grid.html">facet_grid(vars(cyl), vars(am, vs))</a></code> is equivalent to <code><a href="../reference/facet_grid.html">facet_grid(cyl ~ am + vs)</a></code>, and <code><a href="../reference/facet_grid.html">facet_grid(cols = vars(am, vs))</a></code> is equivalent to <code><a href="../reference/facet_grid.html">facet_grid(. ~ am + vs)</a></code>.</p>
 <p>One nice aspect of the new interface is that you can now easily supply names: <code><a href="../reference/facet_grid.html">facet_grid(vars(Cylinder = cyl), labeller = label_both)</a></code> will give nice label titles to the facets. Of course, those names can be unquoted with the usual tidy eval syntax.</p>
 </li>
@@ -925,7 +904,6 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#ggplot2-3-1-0-9000">3.1.0.9000</a></li>
         <li><a href="#ggplot2-3-1-0">3.1.0</a></li>
         <li><a href="#ggplot2-3-0-0">3.0.0</a></li>
         <li><a href="#ggplot2-2-2-1">2.2.1</a></li>
@@ -945,7 +923,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
