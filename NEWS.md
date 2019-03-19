@@ -74,6 +74,8 @@
   columns (especially in `psavert`), but more importantly, strips the grouping
   attributes from `economics_long`.
 
+* All-`Inf` layers are now ignored for picking the scale (@yutannihilation, #3184).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
