@@ -118,6 +118,10 @@ GeomBar <- ggproto("GeomBar", GeomRect,
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
   setup_data = function(data, params) {
+    # Contrary to the case of geom_col(), the `width` in `data` is very likely
+    # a calculated column by Stat. So, geom_bar() should use data$width if
+    # available. Note that StatIdentity is not the case, but, as we cannot know
+    # what Stat was used, we can do nothing here.
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
     transform(data,

@@ -38,8 +38,11 @@ GeomCol <- ggproto("GeomCol", GeomRect,
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
   setup_data = function(data, params) {
-    data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
+    # To ensure bar widths are constant within a PANEL, `width` is not allowed
+    # to be mapped to data. So, even if the `data` already contains `width`, it
+    # should be ignored except when the width is calculated by Stat. But, as
+    # geom_col() uses stat_identity() fixedly, this is not the case.
+    data$width <- params$width %||% (resolution(data$x, FALSE) * 0.9)
     transform(data,
       ymin = pmin(y, 0), ymax = pmax(y, 0),
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
