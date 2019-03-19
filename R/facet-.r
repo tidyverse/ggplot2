@@ -318,7 +318,7 @@ as_facets_list <- function(x) {
 compact_facets <- function(x) {
   x <- rlang::flatten_if(x, rlang::is_list)
   null <- vapply(x, rlang::quo_is_null, logical(1))
-  rlang::as_quosures(x[!null])
+  rlang::new_quosures(x[!null])
 }
 
 # Compatibility with plyr::as.quoted()
