@@ -134,6 +134,17 @@ test_that("oob affects position values", {
   expect_equal(mid_squish[[1]]$y, c(0, 0.5, 1))
 })
 
+test_that("all-Inf layers are not used for determining the type of scale", {
+  d <- data_frame(x = c("a", "b"))
+  p <- ggplot(d, aes(x, x)) +
+    # Inf is numeric, but means discrete values in this case
+    annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf, fill = "black") +
+    geom_point()
+
+  b <- ggplot_build(p)
+  expect_s3_class(b$layout$panel_scales_x[[1]], "ScaleDiscretePosition")
+})
+
 test_that("scales are looked for in appropriate place", {
   xlabel <- function(x) ggplot_build(x)$layout$panel_scales_x[[1]]$name
   p0 <- qplot(mpg, wt, data = mtcars) + scale_x_continuous("0")
