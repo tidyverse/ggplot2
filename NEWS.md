@@ -1,8 +1,8 @@
 # ggplot2 3.1.0.9000
 
-This is a minor release with a main emphasis on internal changes to make ggplot2 
-faster and more consistent. The few semi-breaking changes there are will only 
-affect the aesthetics of the plot (but not break code) or, potentially, 
+This is a minor release with an emphasis on internal changes to make ggplot2 
+faster and more consistent. The few interface changes will only affect the 
+aesthetics of the plot in minor ways, and will only potentially break code of
 extension developers if they have relied on internals that have been changed. 
 This release also sees the addition of Hiroaki Yutani (@yutannihilation) to the 
 core developer team.
@@ -20,7 +20,8 @@ core developer team.
   - Using a faster data.frame constructor as well as faster indexing into 
     data.frames
     
-  - Remove all dependencies on plyr and implement faster replacement functions.
+  - emoving the plyr dependency, replacing plyr functions with faster 
+    equivalents.
 
 * `geom_polygon()` can now draw polygons with holes using the new `subgroup` 
   aesthetic. This functionality requires R 3.6.0 (@thomasp85, #3128)
@@ -35,6 +36,18 @@ core developer team.
   outside the plot area (@njtierney, #3085) and a `length` option to allow for 
   changing the length of the rug lines (@daniel-wells, #3109). 
 
+## Extensions
+
+* Layers now have a new member function `setup_layer()` which is called at the
+  very beginning of the plot building process and which has access to the 
+  original input data and the plot object being built. This function allows the 
+  creation of custom layers that autogenerate aesthetic mappings based on the 
+  input data or that filter the input data in some form. This is mainly of 
+  interest to extension developers (@clauswilke, #2872).
+
+* `x0` and `y0` are now recognized positional aesthetics so they will get scaled 
+  if used in extension geoms and stats (@thomasp85, #3168)
+
 ## Minor improvements and bug fixes
 
 * `coord_map()` now can have axes on the top and right (@karawoo, #3042).
@@ -47,19 +60,15 @@ core developer team.
   now also works in `coord_sf()` 
   (@clauswilke, #2991, #2525).
 
-* Re-generate economics data. This leads to some changes in the values of all
-  columns (especially in `psavert`), but more importantly, strips the grouping
-  attributes from `economics_long`.
+* `economics` data has been regenerated. This leads to some changes in the
+  values of all columns (especially in `psavert`), but more importantly, strips 
+  the grouping attributes from `economics_long`.
 
-* Closed arrows in `element_line()` are now filled (@yutannihilation, #2924).
+* `element_line()` now fills closed arrows (@yutannihilation, #2924).
 
 * Facet strips on the left side of plots now have clipping turned on, preventing
   text from running out of the strip and borders from looking thicker than for
   other strips (@karawoo, #2772 and #3061).
-
-* `GeomRibbon` and `GeomArea` now sort the data along the x-axis in the 
-  `setup_data()` method rather than as part of `draw_group()` (@thomasp85, 
-  #3023)
 
 * ggplot2 now works in Turkish locale (@yutannihilation, #3011).
 
@@ -68,6 +77,10 @@ core developer team.
   affected functions include `geom_hex()`, `stat_binhex()`, 
   `stat_summary_hex()`, `geom_quantile()`, `stat_quantile()`, and `map_data()` 
   (@clauswilke, #3126).
+  
+* `geom_area()` and `geom_ribbon()` now sort the data along the x-axis in the 
+  `setup_data()` method rather than as part of `draw_group()` (@thomasp85, 
+  #3023)
 
 * `geom_hline()`, `geom_vline()`, and `geom_abline()` now throw a warning if the 
   user supplies both an `xintercept`, `yintercept`, or `slope` value and a 
@@ -79,20 +92,13 @@ core developer team.
   get backticks, and long expressions are abbreviated with `...`
   (@yutannihilation, #2981).
 
-* Layers now have a new member function `setup_layer()` which is called at the
-  very beginning of the plot building process and which has access to the 
-  original input data and the plot object being built. This function allows the 
-  creation of custom layers that autogenerate aesthetic mappings based on the 
-  input data or that filter the input data in some form. This is mainly of 
-  interest to extension developers (@clauswilke, #2872).
-
 * All-`Inf` layers are now ignored for picking the scale (@yutannihilation, 
   #3184).
   
-* Diverging brewer color scale now has the correct mid-point color 
+* Diverging Brewer colour palette now use the correct mid-point colour 
   (@dariyasydykova, #3072).
   
-* `scale_color_continuous()` now points at `scale_colour_continuous()` so that 
+* `scale_color_continuous()` now points to `scale_colour_continuous()` so that 
   it will handle `type = "viridis"` as the documentation states (@hlendway, 
   #3079).
 
@@ -104,9 +110,6 @@ core developer team.
 
 * `stat_bin()` now handles data with only one unique value (@yutannihilation 
   #3047).
-
-* `x0` and `y0` are now recognized positional aesthetics so they will get scaled 
-  if used in extension geoms and stats (@thomasp85, #3168)
 
 # ggplot2 3.1.0
 
