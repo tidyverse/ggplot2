@@ -83,9 +83,8 @@ core developer team.
   very beginning of the plot building process and which has access to the 
   original input data and the plot object being built. This function allows the 
   creation of custom layers that autogenerate aesthetic mappings based on the 
-  input data or that filter the input data in some form. One example is the new 
-  `LayerSf` class which locates the geometry column in sf objects and sets up an 
-  aesthetic mapping for it (@clauswilke, #2872).
+  input data or that filter the input data in some form. This is mainly of 
+  interest to extension developers (@clauswilke, #2872).
 
 * All-`Inf` layers are now ignored for picking the scale (@yutannihilation, 
   #3184).
