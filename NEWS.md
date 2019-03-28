@@ -92,8 +92,9 @@ core developer team.
 * Diverging brewer color scale now has the correct mid-point color 
   (@dariyasydykova, #3072).
   
-* `scale_color_continuous()` now points at `scale_colour_continuos()` so that it 
-  will handle `type = "viridis"` as the documentation states (@hlendway, #3079).
+* `scale_color_continuous()` now points at `scale_colour_continuous()` so that 
+  it will handle `type = "viridis"` as the documentation states (@hlendway, 
+  #3079).
 
 * `scale_shape_identity()` now works correctly with `guide = "legend"` 
   (@malcolmbarrett, #3029)
