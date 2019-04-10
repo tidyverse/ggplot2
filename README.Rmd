@@ -73,9 +73,8 @@ If you are new to ggplot2 you are better off starting with a systematic introduc
     get you up to speed with the essentials of ggplot2 as quickly as 
     possible.
     
-1.  If you'd like to take an interactive online course, try
-    [Data visualisation with ggplot2][datacamp] by Rick Scavetta
-    on DataCamp.
+1.  If you'd like to take an online course, try
+    [Data Visualization in R With ggplot2][oreilly] by Kara Woo.
 
 1.  If you want to dive into making common graphics as quickly 
     as possible, I recommend [The R Graphics Cookbook][cookbook] 
@@ -103,4 +102,4 @@ There are two main places to get help with ggplot2:
 [r4ds]: http://r4ds.had.co.nz
 [r4ds-vis]: http://r4ds.had.co.nz/data-visualisation.html
 [r4ds-comm]: http://r4ds.had.co.nz/graphics-for-communication.html
-[datacamp]: https://www.datacamp.com/courses/data-visualization-with-ggplot2-1
+[oreilly]: http://shop.oreilly.com/product/0636920052807.do

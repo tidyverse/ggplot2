@@ -85,10 +85,9 @@ documentation pages. Currently, there are three good places to start:
     you up to speed with the essentials of ggplot2 as quickly as
     possible.
 
-2.  If you’d like to take an interactive online course, try [Data
-    visualisation with
-    ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1)
-    by Rick Scavetta on DataCamp.
+2.  If you’d like to take an online course, try [Data Visualization in R
+    With ggplot2](http://shop.oreilly.com/product/0636920052807.do) by
+    Kara Woo.
 
 3.  If you want to dive into making common graphics as quickly as
     possible, I recommend [The R Graphics
