@@ -20,6 +20,7 @@
 #' table(cut_width(runif(1000), 0.1))
 #' table(cut_width(runif(1000), 0.1, boundary = 0))
 #' table(cut_width(runif(1000), 0.1, center = 0))
+#' table(cut_width(runif(1000), 0.1, labels = FALSE))
 cut_interval <- function(x, n = NULL, length = NULL, ...) {
   cut(x, breaks(x, "width", n, length), include.lowest = TRUE, ...)
 }
