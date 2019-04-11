@@ -7,7 +7,7 @@
 layer(geom = NULL, stat = NULL, data = NULL, mapping = NULL,
   position = NULL, params = list(), inherit.aes = TRUE,
   check.aes = TRUE, check.param = TRUE, show.legend = NA,
-  layer_class = Layer)
+  key_glyph = NULL, layer_class = Layer)
 }
 \arguments{
 \item{geom}{The geometric object to use display the data}
@@ -53,6 +53,9 @@ supplied parameters and aesthetics are understood by the \code{geom} or
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.}
+
+\item{key_glyph}{A legend key drawing function or a string providing the
+function name minus the \code{draw_key_} prefix. See \link{draw_key} for details.}
 
 \item{layer_class}{The type of layer object to be constructued. This is
 intended for ggplot2 internal use only.}

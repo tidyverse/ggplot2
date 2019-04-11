@@ -174,7 +174,7 @@ draw_key_smooth <- function(data, params, size) {
 #' @rdname draw_key
 draw_key_text <- function(data, params, size) {
   if(is.null(data$label)) data$label <- "a"
-  
+
   textGrob(data$label, 0.5, 0.5,
     rot = data$angle,
     gp = gpar(
@@ -207,3 +207,26 @@ draw_key_vline <- function(data, params, size) {
     )
   )
 }
+
+#' @export
+#' @rdname draw_key
+draw_key_timeseries <- function(data, params, size) {
+  if (is.null(data$linetype)) {
+    data$linetype <- rep_len(0, nrow(data))
+  }
+  data$linetype[is.na(data$linetype)] <- 0
+
+  grid::linesGrob(
+    x = c(0, 0.4, 0.6, 1),
+    y = c(0.1, 0.6, 0.4, 0.9),
+    gp = gpar(
+      col = alpha(data$colour, data$alpha),
+      lwd = data$size * .pt,
+      lty = data$linetype,
+      lineend = "butt"
+    )
+  )
+}
+
+
+

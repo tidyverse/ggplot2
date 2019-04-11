@@ -17,6 +17,7 @@
 \alias{draw_key_text}
 \alias{draw_key_label}
 \alias{draw_key_vline}
+\alias{draw_key_timeseries}
 \title{Key drawing functions}
 \usage{
 draw_key_point(data, params, size)
@@ -48,6 +49,8 @@ draw_key_text(data, params, size)
 draw_key_label(data, params, size)
 
 draw_key_vline(data, params, size)
+
+draw_key_timeseries(data, params, size)
 }
 \arguments{
 \item{data}{A single row data frame containing the scaled aesthetics to
