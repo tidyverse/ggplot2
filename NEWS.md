@@ -20,7 +20,7 @@ core developer team.
   - Using a faster data.frame constructor as well as faster indexing into 
     data.frames
     
-  - emoving the plyr dependency, replacing plyr functions with faster 
+  - Removing the plyr dependency, replacing plyr functions with faster 
     equivalents.
 
 * `geom_polygon()` can now draw polygons with holes using the new `subgroup` 
