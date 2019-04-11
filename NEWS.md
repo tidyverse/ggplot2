@@ -1,5 +1,7 @@
 # ggplot2 3.1.1.9000
 
+# ggplot2 3.1.1
+
 This is a minor release with an emphasis on internal changes to make ggplot2 
 faster and more consistent. The few interface changes will only affect the 
 aesthetics of the plot in minor ways, and will only potentially break code of
