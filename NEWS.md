@@ -50,6 +50,9 @@ core developer team.
 
 ## Minor improvements and bug fixes
 
+* `cut_width()` now accepts `...` to pass further arguments to `base::cut.default()`
+   like `cut_number()` and `cut_interval()` already did (@cderv, #3055)
+
 * `coord_map()` now can have axes on the top and right (@karawoo, #3042).
 
 * `coord_sf()`, `coord_map()`, and `coord_polar()` now squash `-Inf` and `Inf`
