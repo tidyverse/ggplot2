@@ -212,6 +212,14 @@ Except for the <code>trans</code> argument any of the arguments can be set to
 settings from the primary axis.</p>
 <p><code>dup_axis</code> is provide as a shorthand for creating a secondary axis that
 is a duplication of the primary axis, effectively mirroring the primary axis.</p>
+<p>As of v3.1, date and datetime scales have limited secondary axis capabilities.
+Unlike other continuous scales, secondary axis transformations for date and datetime scales
+must respect their primary POSIX data structure.
+This means they may only be transformed via addition or subtraction, e.g.
+<code>~. + hms::hms(days = 8)</code>, or
+<code>~.- 8*60*60</code>. Nonlinear transformations will return an error.
+To produce a time-since-event secondary axis in this context, users
+may consider adapting secondary axis labels.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -237,7 +245,7 @@ is a duplication of the primary axis, effectively mirroring the primary axis.</p
   <span class='kw'>price</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fl'>20</span>, <span class='fl'>200000</span>, <span class='kw'>length.out</span> <span class='kw'>=</span> <span class='fl'>10</span>)
  )
 
-<span class='co'># useful for labelling different time scales in the same plot</span>
+<span class='co'># This may useful for labelling different time scales in the same plot</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>dx</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>price</span>)) + <span class='fu'><a href='geom_path.html'>geom_line</a></span>() +
   <span class='fu'><a href='scale_date.html'>scale_x_datetime</a></span>(<span class='st'>"Date"</span>, <span class='kw'>date_labels</span> <span class='kw'>=</span> <span class='st'>"%b %d"</span>,
   <span class='kw'>date_breaks</span> <span class='kw'>=</span> <span class='st'>"6 hour"</span>,
