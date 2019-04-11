@@ -1,10 +1,7 @@
+#' @include layer.r
+
 # A special sf layer that auto-maps geometry data to the `geometry` aesthetic
 
-#' @export
-#' @include layer.r
-#' @rdname ggsf
-#' @usage NULL
-#' @format NULL
 LayerSf <- ggproto("LayerSf", Layer,
   setup_layer = function(self, data, plot) {
     # process generic layer setup first
