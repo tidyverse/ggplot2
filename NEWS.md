@@ -107,6 +107,8 @@ core developer team.
 
 * `stat_bin()` will now error when the number of bins exceeds 1e6 to avoid 
   accidentally freezing the user session (@thomasp85).
+  
+* `sec_axis()` now places ticks accurately when using nonlinear transformations (@dpseidel, #2978).
 
 * `facet_wrap()` and `facet_grid()` now automatically remove NULL from facet
   specs, and accept empty specs (@yutannihilation, #3070, #2986).
