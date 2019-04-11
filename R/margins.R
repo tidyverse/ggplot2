@@ -334,20 +334,26 @@ descent_cache <- new.env(parent = emptyenv())
 font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
   cur_dev <- names(grDevices::dev.cur())
   key <- paste0(cur_dev, ':', family, ':', face, ":", size, ":", cex)
+  descents <- lapply(key, function(k) {
+    descent <- descent_cache[[k]]
 
-  descent <- descent_cache[[key]]
-
-  if (is.null(descent)) {
-    descent <- convertHeight(grobDescent(textGrob(
-      label = "gjpqyQ",
-      gp = gpar(
-        fontsize = size,
-        cex = cex,
-        fontfamily = family,
-        fontface = face
-      )
-    )), 'inches')
-    descent_cache[[key]] <- descent
+    if (is.null(descent)) {
+      descent <- convertHeight(grobDescent(textGrob(
+        label = "gjpqyQ",
+        gp = gpar(
+          fontsize = size,
+          cex = cex,
+          fontfamily = family,
+          fontface = face
+        )
+      )), 'inches')
+      descent_cache[[k]] <- descent
+    }
+    descent
+  })
+  if (length(descents) == 1) {
+    descents[[1]]
+  } else {
+    do.call(unit.c, descents)
   }
-  descent
 }
