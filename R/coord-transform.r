@@ -82,24 +82,24 @@ coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL
   xtrans, ytrans, limx, limy)
 {
   if (!missing(xtrans)) {
-    gg_dep("1.0.1", "`xtrans` arguments is deprecated; please use `x` instead.")
+    gg_dep("1.0.1", "The `xtrans` argument is deprecated; please use `x` instead.")
     x <- xtrans
   }
   if (!missing(ytrans)) {
-    gg_dep("1.0.1", "`ytrans` arguments is deprecated; please use `y` instead.")
+    gg_dep("1.0.1", "The `ytrans` argument is deprecated; please use `y` instead.")
     y <- ytrans
   }
   if (!missing(limx)) {
-    gg_dep("3.1.0", "`limx` arguments is deprecated; please use `xlim` instead.")
+    gg_dep("3.1.0", "The `limx` argument is deprecated; please use `xlim` instead.")
     if (!is.null(xlim)) {
-      stop("Must not provide both `xlim` and `limx`; please use `xlim` only.")
+      stop("You must not provide both `xlim` and `limx`; please use `xlim` only.")
     }
     xlim <- limx
   }
   if (!missing(limy)) {
-    gg_dep("3.1.0", "`limy` arguments is deprecated; please use `ylim` instead.")
+    gg_dep("3.1.0", "The `limy` argument is deprecated; please use `ylim` instead.")
     if (!is.null(ylim)) {
-      stop("Must not provide both `ylim` and `limy`; please use `ylim` only.")
+      stop("You must not provide both `ylim` and `limy`; please use `ylim` only.")
     }
     ylim <- limy
   }
