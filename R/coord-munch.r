@@ -28,6 +28,9 @@ coord_munch <- function(coord, data, range, segment_length = 0.01) {
   # Calculate distances using coord distance metric
   dist <- coord$distance(data$x, data$y, range)
   dist[data$group[-1] != data$group[-nrow(data)]] <- NA
+  if (!is.null(data$subgroup)) {
+    dist[data$subgroup[-1] != data$subgroup[-nrow(data)]] <- NA
+  }
 
   # Munch and then transform result
   munched <- munch_data(data, dist, segment_length)

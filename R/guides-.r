@@ -173,14 +173,14 @@ guides_train <- function(scales, theme, guides, labels) {
       # this should be changed to testing guide == "none"
       # scale$legend is backward compatibility
       # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-      if (guide == "none" || (is.logical(guide) && !guide)) next
+      if (identical(guide, "none") || isFALSE(guide)) next
 
       # check the validity of guide.
       # if guide is character, then find the guide object
       guide <- validate_guide(guide)
 
       # check the consistency of the guide and scale.
-      if (guide$available_aes != "any" && !scale$aesthetics %in% guide$available_aes)
+      if (!identical(guide$available_aes, "any") && !any(scale$aesthetics %in% guide$available_aes))
         stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
 
       guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])

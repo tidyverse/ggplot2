@@ -54,8 +54,8 @@ supplied parameters and aesthetics are understood by the \code{geom} or
 It can also be a named logical vector to finely select the aesthetics to
 display.}
 
-\item{layer_class}{The type of layer object to be constructued. This allows
-the creation of custom layers. Can usually be left at its default.}
+\item{layer_class}{The type of layer object to be constructued. This is
+intended for ggplot2 internal use only.}
 }
 \description{
 A layer is a combination of data, stat and geom with a potential position

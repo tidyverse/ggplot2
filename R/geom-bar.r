@@ -20,6 +20,8 @@
 #' and then standardising each bar to have the same height.
 #'
 #' @eval rd_aesthetics("geom", "bar")
+#' @eval rd_aesthetics("geom", "col")
+#' @eval rd_aesthetics("stat", "count")
 #' @seealso
 #'   [geom_histogram()] for continuous data,
 #'   [position_dodge()] and [position_dodge2()] for creating side-by-side

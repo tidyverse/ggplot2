@@ -58,8 +58,11 @@ single number.}
 
 \item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
-\item{binwidth}{The width of the bins. Can be specified as a numeric value,
-or a function that calculates width from x.
+\item{binwidth}{The width of the bins. Can be specified as a numeric value
+or as a function that calculates width from unscaled x. Here, "unscaled x"
+refers to the original x values in the data, before application of any
+scale transformation. When specifying a function along with a grouping
+structure, the function will be called once per group.
 The default is to use \code{bins}
 bins that cover the range of the data. You should always override
 this value, exploring multiple widths to find the best to illustrate the

@@ -23,7 +23,9 @@ ca <- map("county", "ca", plot = FALSE, fill = TRUE)
 head(fortify(ca))
 ggplot(ca, aes(long, lat)) +
   geom_polygon(aes(group = group))
+}
 
+if (require("maps")) {
 tx <- map("county", "texas", plot = FALSE, fill = TRUE)
 head(fortify(tx))
 ggplot(tx, aes(long, lat)) +

@@ -48,6 +48,15 @@ settings from the primary axis.
 
 \code{dup_axis} is provide as a shorthand for creating a secondary axis that
 is a duplication of the primary axis, effectively mirroring the primary axis.
+
+As of v3.1, date and datetime scales have limited secondary axis capabilities.
+Unlike other continuous scales, secondary axis transformations for date and datetime scales
+must respect their primary POSIX data structure.
+This means they may only be transformed via addition or subtraction, e.g.
+\code{~. + hms::hms(days = 8)}, or
+\code{~.- 8*60*60}. Nonlinear transformations will return an error.
+To produce a time-since-event secondary axis in this context, users
+may consider adapting secondary axis labels.
 }
 \examples{
 p <- ggplot(mtcars, aes(cyl, mpg)) +
@@ -76,7 +85,7 @@ df <- data.frame(
   price = seq(20, 200000, length.out = 10)
  )
 
-# useful for labelling different time scales in the same plot
+# This may useful for labelling different time scales in the same plot
 ggplot(df, aes(x = dx, y = price)) + geom_line() +
   scale_x_datetime("Date", date_labels = "\%b \%d",
   date_breaks = "6 hour",
