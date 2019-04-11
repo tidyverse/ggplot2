@@ -4,6 +4,10 @@ test_that("no scale for NULL aesthetic", {
   expect_equal(find_scale("colour", NULL), NULL)
 })
 
+test_that("no scale for Inf aesthetic", {
+  expect_equal(find_scale("colour", Inf), NULL)
+})
+
 test_that("message + continuous for unknown type", {
   x <- structure(1:10, class = "ggplot2_foo")
 

@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.1.0.9000
+Version: 3.1.1.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Description: A system for 'declaratively' creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
@@ -52,7 +52,7 @@ Suggests:
     rgeos,
     rmarkdown,
     rpart,
-    sf (>= 0.3-4),
+    sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
     testthat (>= 0.11.0),
     vdiffr (>= 0.3.0)

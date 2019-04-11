@@ -109,8 +109,7 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   labeller <- check_labeller(labeller)
 
   # Flatten all facets dimensions into a single one
-  facets_list <- as_facets_list(facets)
-  facets <- rlang::flatten_if(facets_list, rlang::is_list)
+  facets <- wrap_as_facets_list(facets)
 
   ggproto(NULL, FacetWrap,
     shrink = shrink,
@@ -126,6 +125,12 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
       dir = dir
     )
   )
+}
+
+# Returns a quosures object
+wrap_as_facets_list <- function(x) {
+  facets_list <- as_facets_list(x)
+  compact_facets(facets_list)
 }
 
 #' @rdname ggplot2-ggproto
@@ -177,7 +182,13 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (empty(data)) {
       return(cbind(data, PANEL = integer(0)))
     }
+
     vars <- params$facets
+
+    if (length(vars) == 0) {
+      data$PANEL <- 1L
+      return(data)
+    }
 
     facet_vals <- eval_facets(vars, data, params$plot_env)
     facet_vals[] <- lapply(facet_vals[], as.factor)
@@ -229,7 +240,12 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
 
-    labels_df <- layout[names(params$facets)]
+    if (length(params$facets) == 0) {
+      # Add a dummy label
+      labels_df <- new_data_frame(list("(all)" = "(all)"), n = 1)
+    } else {
+      labels_df <- layout[names(params$facets)]
+    }
     attr(labels_df, "facet") <- "wrap"
     strips <- render_strips(
       structure(labels_df, type = "rows"),
@@ -307,8 +323,9 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       col_panels <- which(layout$ROW > first_row & layout$COL == first_col)
       col_pos <- convertInd(layout$ROW[col_panels], layout$COL[col_panels], nrow)
       col_axes <- axes$y$right[layout$SCALE_Y[col_panels]]
+      inside <- (theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "bottom" &&
-          theme$strip.placement != "inside" &&
+          !inside &&
           any(!vapply(row_axes, is.zero, logical(1))) &&
           !params$free$x) {
         warning("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'", call. = FALSE)
@@ -316,7 +333,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
         axis_mat_x_bottom[row_pos] <- row_axes
       }
       if (params$strip.position == "right" &&
-          theme$strip.placement != "inside" &&
+          !inside &&
           any(!vapply(col_axes, is.zero, logical(1))) &&
           !params$free$y) {
         warning("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'", call. = FALSE)
@@ -334,33 +351,33 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     strip_mat <- empty_table
     strip_mat[panel_pos] <- unlist(unname(strips), recursive = FALSE)[[params$strip.position]]
     if (params$strip.position %in% c("top", "bottom")) {
-      inside <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
+      inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "top") {
-        placement <- if (inside) -1 else -2
+        placement <- if (inside_x) -1 else -2
         strip_pad <- axis_height_top
       } else {
-        placement <- if (inside) 0 else 1
+        placement <- if (inside_x) 0 else 1
         strip_pad <- axis_height_bottom
       }
       strip_height <- unit(apply(strip_mat, 1, max_height, value_only = TRUE), "cm")
       panel_table <- weave_tables_row(panel_table, strip_mat, placement, strip_height, strip_name, 2, coord$clip)
-      if (!inside) {
+      if (!inside_x) {
         strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
         panel_table <- weave_tables_row(panel_table, row_shift = placement, row_height = strip_pad)
       }
     } else {
-      inside <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
+      inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "left") {
-        placement <- if (inside) -1 else -2
+        placement <- if (inside_y) -1 else -2
         strip_pad <- axis_width_left
       } else {
-        placement <- if (inside) 0 else 1
+        placement <- if (inside_y) 0 else 1
         strip_pad <- axis_width_right
       }
       strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
       strip_width <- unit(apply(strip_mat, 2, max_width, value_only = TRUE), "cm")
       panel_table <- weave_tables_col(panel_table, strip_mat, placement, strip_width, strip_name, 2, coord$clip)
-      if (!inside) {
+      if (!inside_y) {
         strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
         panel_table <- weave_tables_col(panel_table, col_shift = placement, col_width = strip_pad)
       }

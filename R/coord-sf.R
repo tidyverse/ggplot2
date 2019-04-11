@@ -195,11 +195,22 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   render_bg = function(self, panel_params, theme) {
     el <- calc_element("panel.grid.major", theme)
-    line_gp <- gpar(col = el$colour, lwd = el$size, lty = el$linetype)
-    grobs <- c(
-      list(element_render(theme, "panel.background")),
-      lapply(sf::st_geometry(panel_params$graticule), sf::st_as_grob, gp = line_gp)
-    )
+
+    # we don't draw the graticules if the major panel grid is
+    # turned off
+    if (inherits(el, "element_blank")) {
+      grobs <- list(element_render(theme, "panel.background"))
+    } else {
+      line_gp <- gpar(
+        col = el$colour,
+        lwd = len0_null(el$size*.pt),
+        lty = el$linetype
+      )
+      grobs <- c(
+        list(element_render(theme, "panel.background")),
+        lapply(sf::st_geometry(panel_params$graticule), sf::st_as_grob, gp = line_gp)
+      )
+    }
     ggname("grill", do.call("grobTree", grobs))
   },
 
@@ -365,10 +376,7 @@ sf_rescale01 <- function(x, x_range, y_range) {
     return(x)
   }
 
-  # Shift + affine transformation to rescale to [0, 1] x [0, 1]
-  # Contributed by @edzer
-  (x - c(x_range[1], y_range[1])) *
-    diag(1 / c(diff(x_range), diff(y_range)))
+  sf::st_normalize(x, c(x_range[1], y_range[1], x_range[2], y_range[2]))
 }
 sf_rescale01_x <- function(x, range) {
   (x - range[1]) / diff(range)

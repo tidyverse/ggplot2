@@ -15,7 +15,7 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @examples
-#' #' # Create a simple example dataset
+#' # Create a simple example dataset
 #' df <- data.frame(
 #'   trt = factor(c(1, 1, 2, 2)),
 #'   resp = c(1, 5, 3, 4),

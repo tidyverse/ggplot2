@@ -537,8 +537,9 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #' @param na.value Missing values will be replaced with this value.
 #' @param trans Either the name of a transformation object, or the
 #'   object itself. Built-in transformations include "asn", "atanh",
-#'   "boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-#'   "logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+#'   "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+#'   "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal", 
+#'   "reverse", "sqrt" and "time".
 #'
 #'   A transformation object bundles together a transform, its inverse,
 #'   and methods for generating breaks and labels. Transformation objects
@@ -562,7 +563,8 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   position <- match.arg(position, c("left", "right", "top", "bottom"))
 
-  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
+  # If the scale is non-positional, break = NULL means removing the guide
+  if (is.null(breaks) && all(!is_position_aes(aesthetics))) {
     guide <- "none"
   }
 
@@ -633,7 +635,8 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 
   position <- match.arg(position, c("left", "right", "top", "bottom"))
 
-  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
+  # If the scale is non-positional, break = NULL means removing the guide
+  if (is.null(breaks) && all(!is_position_aes(aesthetics))) {
     guide <- "none"
   }
 

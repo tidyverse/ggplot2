@@ -63,8 +63,11 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{binwidth}{The width of the bins. Can be specified as a numeric value,
-or a function that calculates width from x.
+\item{binwidth}{The width of the bins. Can be specified as a numeric value
+or as a function that calculates width from unscaled x. Here, "unscaled x"
+refers to the original x values in the data, before application of any
+scale transformation. When specifying a function along with a grouping
+structure, the function will be called once per group.
 The default is to use \code{bins}
 bins that cover the range of the data. You should always override
 this value, exploring multiple widths to find the best to illustrate the
@@ -185,9 +188,9 @@ m <- ggplot(movies, aes(x = rating))
 m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 }
 
-# You can specify a function for calculating binwidth,
+# You can specify a function for calculating binwidth, which is
 # particularly useful when faceting along variables with
-# different ranges
+# different ranges because the function will be called once per facet
 mtlong <- reshape2::melt(mtcars)
 ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))

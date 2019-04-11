@@ -94,7 +94,7 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{
-#' # Create a simple example dataset
+# Create a simple example dataset
 df <- data.frame(
   trt = factor(c(1, 1, 2, 2)),
   resp = c(1, 5, 3, 4),
