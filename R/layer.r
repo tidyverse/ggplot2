@@ -108,7 +108,7 @@ layer <- function(geom = NULL, stat = NULL,
   # params since all geoms/stats forward ... to params
   if (!is.null(params$key_glyph)) {
     key_glyph <- params$key_glyph
-    params$key_glyph <- NULL # remove to avoid warning of unknown parameter
+    params$key_glyph <- NULL # remove to avoid warning about unknown parameter
   }
 
   # Split up params between aesthetics, geom, and stat
