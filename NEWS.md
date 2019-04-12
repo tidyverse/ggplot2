@@ -106,8 +106,8 @@ This is a minor release and breaking changes have been kept to a minimum. End us
 
 *   New theme elements allowing different ticks lengths for each
     axis. For instance, this can be used to have inwards ticks on the
-    x-axis (`axis.ticks.length.x`) and and outwards ticks on the
-    y-axis (`axis.ticks.length.y`). (@pank, #2935)
+    x-axis (`axis.ticks.length.x`) and outwards ticks on the y-axis
+    (`axis.ticks.length.y`). (@pank, #2935)
 
 # ggplot2 3.0.0
 

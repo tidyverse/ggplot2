@@ -193,15 +193,20 @@
 #' )
 #'
 #' # Axes ----------------------------------------------------------------------
+#' # Change styles of axes texts and lines
 #' p1 + theme(axis.line = element_line(size = 3, colour = "grey80"))
 #' p1 + theme(axis.text = element_text(colour = "blue"))
 #' p1 + theme(axis.ticks = element_line(size = 2))
-#' p1 + theme(
-#'            axis.ticks.length.y = unit(.25, "cm"),
-#'            axis.ticks.length.x = unit(-.25, "cm"),
-#'            axis.text.x=element_text(margin=margin(t=.3, unit="cm"))
-#' )
+#'
+#' # Change the appearance of the y-axis title
 #' p1 + theme(axis.title.y = element_text(size = rel(1.5), angle = 90))
+#'
+#' # Make ticks point outwards on y-axis and upwards on x-axis
+#' p1 + theme(
+#'   axis.ticks.length.y = unit(.25, "cm"),
+#'   axis.ticks.length.x = unit(-.25, "cm"),
+#'   axis.text.x = element_text(margin = margin(t = .3, unit = "cm"))
+#' )
 #'
 #' \donttest{
 #' # Legend --------------------------------------------------------------------
