@@ -12,8 +12,9 @@ geom_quantile(mapping = NULL, data = NULL, stat = "quantile",
 
 stat_quantile(mapping = NULL, data = NULL, geom = "quantile",
   position = "identity", ..., quantiles = c(0.25, 0.5, 0.75),
-  formula = NULL, method = "rq", method.args = list(),
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  formula = NULL, method = "rq", se = FALSE, level = 0.95,
+  n = 100, fullrange = FALSE, method.args = list(), na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -111,11 +112,17 @@ q10 <- seq(0.05, 0.95, by = 0.05)
 m + geom_quantile(quantiles = q10)
 
 # You can also use rqss to fit smooth quantiles
-m + geom_quantile(method = "rqss")
+m <- ggplot(mpg, aes(displ, hwy))
+m + stat_quantile(aes(fill = factor(..quantile..), col = factor(..quantile..)),
+ method = "rqss", geom = "smooth", se = TRUE,
+ alpha = 0.14)+
+ geom_quantile(method = "rqss", n = 100, size=3, alpha = 0.2)+
+ geom_quantile(method = "rqss", n = 5)
+
 # Note that rqss doesn't pick a smoothing constant automatically, so
 # you'll need to tweak lambda yourself
 m + geom_quantile(method = "rqss", lambda = 0.1)
 
 # Set aesthetics to fixed value
-m + geom_quantile(colour = "red", size = 2, alpha = 0.5)
+m + geom_quantile(colour = "red", size = 2, alpha = 0.5, se = TRUE)
 }

@@ -16,6 +16,10 @@ stat_quantile <- function(mapping = NULL, data = NULL,
                           quantiles = c(0.25, 0.5, 0.75),
                           formula = NULL,
                           method = "rq",
+                          se = FALSE,
+                          level = 0.95,
+                          n = 100,
+                          fullrange = FALSE,
                           method.args = list(),
                           na.rm = FALSE,
                           show.legend = NA,
@@ -31,6 +35,10 @@ stat_quantile <- function(mapping = NULL, data = NULL,
     params = list(
       quantiles = quantiles,
       formula = formula,
+      se = se,
+      level = level,
+      n = n,
+      fullrange = fullrange,
       method = method,
       method.args = method.args,
       na.rm = na.rm,
@@ -49,7 +57,14 @@ StatQuantile <- ggproto("StatQuantile", Stat,
 
   compute_group = function(data, scales, quantiles = c(0.25, 0.5, 0.75),
                            formula = NULL, xseq = NULL, method = "rq",
+                           se = FALSE, level = 0.95, n = 100, fullrange = FALSE,
                            method.args = list(), lambda = 1, na.rm = FALSE) {
+
+    if (length(unique(data$x)) < 2) {
+      # Not enough data to perform fit
+      return(new_data_frame())
+    }
+
     try_require("quantreg", "stat_quantile")
 
     if (is.null(formula)) {
@@ -71,9 +86,22 @@ StatQuantile <- ggproto("StatQuantile", Stat,
     if (is.null(data$weight)) data$weight <- 1
 
     if (is.null(xseq)) {
-      xmin <- min(data$x, na.rm = TRUE)
-      xmax <- max(data$x, na.rm = TRUE)
-      xseq <- seq(xmin, xmax, length.out = 100)
+      if (is.integer(data$x)) {
+        if (fullrange) {
+          message("fullrange is not possible with qr/rqss forcing fullrange = FALSE")
+          xseq <- sort(unique(data$x))
+        } else {
+          xseq <- sort(unique(data$x))
+        }
+      } else {
+        if (fullrange) {
+          message("fullrange is not possible with qr/rqss forcing fullrange = FALSE")
+          range <- range(data$x, na.rm = TRUE)
+        } else {
+          range <- range(data$x, na.rm = TRUE)
+        }
+        xseq <- seq(range[1], range[2], length.out = n)
+      }
     }
     grid <- new_data_frame(list(x = xseq))
 
@@ -88,17 +116,22 @@ StatQuantile <- ggproto("StatQuantile", Stat,
     }
 
     rbind_dfs(lapply(quantiles, quant_pred, data = data, method = method,
+                     se = se, level = level,
       formula = formula, weight = weight, grid = grid, method.args = method.args))
   }
 )
 
 quant_pred <- function(quantile, data, method, formula, weight, grid,
-                       method.args = method.args) {
+                       method.args = method.args, se , level) {
   args <- c(list(quote(formula), data = quote(data), tau = quote(quantile),
     weights = quote(weight)), method.args)
   model <- do.call(method, args)
-
+  interval = if (se) "confidence" else "none"
   grid$y <- stats::predict(model, newdata = grid)
+  if (se){
+    grid$ymin <- predict(model, newdata = grid,interval = interval)[,2]
+    grid$ymax <- predict(model, newdata = grid,interval = interval)[,3]
+  }
   grid$quantile <- quantile
   grid$group <- paste(data$group[1], quantile, sep = "-")
 
