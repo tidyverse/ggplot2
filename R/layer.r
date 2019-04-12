@@ -142,7 +142,6 @@ layer <- function(geom = NULL, stat = NULL,
   }
 
   # adjust the legend draw key if requested
-
   geom <- set_draw_key(geom, key_glyph)
 
   ggproto("LayerInstance", layer_class,
@@ -402,7 +401,7 @@ obj_desc <- function(x) {
 }
 
 # helper function to adjust the draw_key slot of a geom
-# if a custom key glyp is requested
+# if a custom key glyph is requested
 set_draw_key <- function(geom, draw_key = NULL) {
   if (is.null(draw_key)) {
     return(geom)
