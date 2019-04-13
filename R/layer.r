@@ -230,10 +230,10 @@ Layer <- ggproto("Layer", NULL,
     evaled <- compact(evaled)
 
     nondata_cols <- check_nondata_cols(evaled)
-    if(length(nondata_cols) > 0){
+    if (length(nondata_cols) > 0) {
       msg <- paste0(
-        "Aesthetics must be valid data columns: ", nondata_cols,
-        ". Did you forget to add stat()?"
+        "Aesthetics must be valid data columns: `", deparse(aesthetics[[nondata_cols]]),
+        "`. Did you mistype the name of a data column or forget to add stat()?"
       )
       stop(msg, call. = FALSE)
       }
@@ -292,10 +292,10 @@ Layer <- ggproto("Layer", NULL,
 
     # Check that all columns in aesthetic stats are valid data
     nondata_stat_cols <- check_nondata_cols(stat_data)
-    if(length(nondata_stat_cols) > 0){
+    if (length(nondata_stat_cols) > 0) {
       msg <- paste0(
-        "Aesthetics must be valid computed stats: ", nondata_stat_cols,
-        ". Did you map your stat in the wrong layer?"
+        "Aesthetics must be valid computed stats: `", deparse(aesthetics[[nondata_stat_cols]]),
+        "`. Did you map your stat in the wrong layer?"
       )
       stop(msg, call. = FALSE)
     }
