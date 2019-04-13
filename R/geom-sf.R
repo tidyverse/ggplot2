@@ -170,7 +170,7 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
   c(
-    layer(
+    layer_sf(
       geom = GeomSf,
       data = data,
       mapping = mapping,
@@ -182,8 +182,7 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
         na.rm = na.rm,
         legend = if (is.character(show.legend)) show.legend else "polygon",
         ...
-      ),
-      layer_class = LayerSf
+      )
     ),
     coord_sf(default = TRUE)
   )
@@ -215,7 +214,7 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
     position <- position_nudge(nudge_x, nudge_y)
   }
 
-  layer(
+  layer_sf(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -231,8 +230,7 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
       na.rm = na.rm,
       fun.geometry = fun.geometry,
       ...
-    ),
-    layer_class = LayerSf
+    )
   )
 }
 
@@ -260,7 +258,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
     position <- position_nudge(nudge_x, nudge_y)
   }
 
-  layer(
+  layer_sf(
     data = data,
     mapping = mapping,
     stat = stat,
@@ -274,8 +272,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
       na.rm = na.rm,
       fun.geometry = fun.geometry,
       ...
-    ),
-    layer_class = LayerSf
+    )
   )
 }
 

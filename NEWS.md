@@ -44,6 +44,10 @@ core developer team.
   creation of custom layers that autogenerate aesthetic mappings based on the 
   input data or that filter the input data in some form. This is mainly of 
   interest to extension developers (@clauswilke, #2872).
+  
+* A new layer type `layer_sf()` can auto-detect and auto-map sf geometry
+  columns in the data. It should be used by extension developers who are writing
+  new sf-based geoms or stats (@clauswilke, #3232).
 
 * `x0` and `y0` are now recognized positional aesthetics so they will get scaled 
   if used in extension geoms and stats (@thomasp85, #3168)
