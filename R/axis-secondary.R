@@ -4,7 +4,7 @@
 #' secondary axis, positioned opposite of the primary axis. All secondary
 #' axes must be based on a one-to-one transformation of the primary axes.
 #'
-#' @param trans A transformation formula
+#' @param trans A formula or function of transformation
 #'
 #' @param name The name of the secondary axis
 #'
@@ -33,8 +33,8 @@
 #' Unlike other continuous scales, secondary axis transformations for date and datetime scales
 #' must respect their primary POSIX data structure.
 #' This means they may only be transformed via addition or subtraction, e.g.
-#' `~. + hms::hms(days = 8)`, or
-#' `~.- 8*60*60`. Nonlinear transformations will return an error.
+#' `~ . + hms::hms(days = 8)`, or
+#' `~ . - 8*60*60`. Nonlinear transformations will return an error.
 #' To produce a time-since-event secondary axis in this context, users
 #' may consider adapting secondary axis labels.
 #'
@@ -43,16 +43,16 @@
 #'   geom_point()
 #'
 #' # Create a simple secondary axis
-#' p + scale_y_continuous(sec.axis = sec_axis(~.+10))
+#' p + scale_y_continuous(sec.axis = sec_axis(~ . + 10))
 #'
 #' # Inherit the name from the primary axis
-#' p + scale_y_continuous("Miles/gallon", sec.axis = sec_axis(~.+10, name = derive()))
+#' p + scale_y_continuous("Miles/gallon", sec.axis = sec_axis(~ . + 10, name = derive()))
 #'
 #' # Duplicate the primary axis
 #' p + scale_y_continuous(sec.axis = dup_axis())
 #'
 #' # You can pass in a formula as a shorthand
-#' p + scale_y_continuous(sec.axis = ~.^2)
+#' p + scale_y_continuous(sec.axis = ~ .^2)
 #'
 #' # Secondary axes work for date and datetime scales too:
 #' df <- data.frame(
@@ -75,12 +75,15 @@
 #' # or to transform axes for different timezones
 #' ggplot(df, aes(x = dx, y = price)) + geom_line() +
 #'   scale_x_datetime("GMT", date_labels = "%b %d %I %p",
-#'   sec.axis = sec_axis(~. + 8*3600, name = "GMT+8",
+#'   sec.axis = sec_axis(~ . + 8 * 3600, name = "GMT+8",
 #'   labels = scales::time_format("%b %d %I %p")))
 #'
 #' @export
 sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver()) {
-  if (!is.formula(trans)) stop("transformation for secondary axes must be a formula", call. = FALSE)
+  # sec_axis() historically accpeted two-sided formula, so be permissive.
+  if (length(trans) > 2) trans <- trans[c(1,3)]
+
+  trans <- rlang::as_function(trans)
   ggproto(NULL, AxisSecondary,
     trans = trans,
     name = name,
@@ -142,7 +145,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   # Inherit settings from the primary axis/scale
   init = function(self, scale) {
     if (self$empty()) return()
-    if (!is.formula(self$trans)) stop("transformation for secondary axes must be a formula", call. = FALSE)
+    if (!is.function(self$trans)) stop("transformation for secondary axes must be a function", call. = FALSE)
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
     if (is.waive(self$breaks)) self$breaks <- scale$trans$breaks
@@ -150,12 +153,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   },
 
   transform_range = function(self, range) {
-    range <- new_data_frame(list(. = range))
-    rlang::eval_tidy(
-      rlang::f_rhs(self$trans),
-      data = range,
-      env = rlang::f_env(self$trans)
-    )
+    self$trans(range)
   },
 
   mono_test = function(self, scale){

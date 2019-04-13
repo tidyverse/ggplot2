@@ -119,6 +119,8 @@ core developer team.
 * `stat_bin()` now handles data with only one unique value (@yutannihilation 
   #3047).
 
+* `sec_axis()` now accepts functions as well as formulas (@yutannihilation, #3031).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
