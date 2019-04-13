@@ -121,6 +121,9 @@ core developer team.
 
 * `sec_axis()` now accepts functions as well as formulas (@yutannihilation, #3031).
 
+* `Stat$compute_layer()` and `Position$compute_layer()` now have the same names of
+  arguments (@yutannihilation, #3202).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
