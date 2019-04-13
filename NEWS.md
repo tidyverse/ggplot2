@@ -121,6 +121,9 @@ core developer team.
 
 * `sec_axis()` now accepts functions as well as formulas (@yutannihilation, #3031).
 
+* `geom_*()` and `stat_*()` now accepts purrr-style lambda notation
+  (@yutannihilation, #3138).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
