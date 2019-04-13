@@ -53,8 +53,8 @@ As of v3.1, date and datetime scales have limited secondary axis capabilities.
 Unlike other continuous scales, secondary axis transformations for date and datetime scales
 must respect their primary POSIX data structure.
 This means they may only be transformed via addition or subtraction, e.g.
-\code{~. + hms::hms(days = 8)}, or
-\code{~.- 8*60*60}. Nonlinear transformations will return an error.
+\code{~ . + hms::hms(days = 8)}, or
+\code{~ . - 8*60*60}. Nonlinear transformations will return an error.
 To produce a time-since-event secondary axis in this context, users
 may consider adapting secondary axis labels.
 }
@@ -63,16 +63,16 @@ p <- ggplot(mtcars, aes(cyl, mpg)) +
   geom_point()
 
 # Create a simple secondary axis
-p + scale_y_continuous(sec.axis = sec_axis(~.+10))
+p + scale_y_continuous(sec.axis = sec_axis(~ . + 10))
 
 # Inherit the name from the primary axis
-p + scale_y_continuous("Miles/gallon", sec.axis = sec_axis(~.+10, name = derive()))
+p + scale_y_continuous("Miles/gallon", sec.axis = sec_axis(~ . + 10, name = derive()))
 
 # Duplicate the primary axis
 p + scale_y_continuous(sec.axis = dup_axis())
 
 # You can pass in a formula as a shorthand
-p + scale_y_continuous(sec.axis = ~.^2)
+p + scale_y_continuous(sec.axis = ~ .^2)
 
 # Secondary axes work for date and datetime scales too:
 df <- data.frame(
@@ -95,7 +95,7 @@ ggplot(df, aes(x = dx, y = price)) + geom_line() +
 # or to transform axes for different timezones
 ggplot(df, aes(x = dx, y = price)) + geom_line() +
   scale_x_datetime("GMT", date_labels = "\%b \%d \%I \%p",
-  sec.axis = sec_axis(~. + 8*3600, name = "GMT+8",
+  sec.axis = sec_axis(~ . + 8 * 3600, name = "GMT+8",
   labels = scales::time_format("\%b \%d \%I \%p")))
 
 }
