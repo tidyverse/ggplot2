@@ -112,7 +112,7 @@ scale_color_distiller <- scale_colour_distiller
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_color_continuous <- scale_colour_gradient
+scale_color_continuous <- scale_colour_continuous
 
 #' @export
 #' @rdname scale_hue

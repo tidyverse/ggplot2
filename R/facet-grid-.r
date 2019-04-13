@@ -145,35 +145,35 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
-  n <- length(facets_list)
-  if (n > 2L) {
-    stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
-  }
-  if (n == 1L) {
-    rows <- quos()
-    cols <- facets_list[[1]]
-  } else {
-    rows <- facets_list[[1]]
-    cols <- facets_list[[2]]
-  }
 
   # Check for deprecated labellers
   labeller <- check_labeller(labeller)
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,
-    params = list(rows = rows, cols = cols, margins = margins,
+    params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
       free = free, space_free = space_free, labeller = labeller,
       as.table = as.table, switch = switch, drop = drop)
   )
 }
+
+# Returns a list of quosures objects. The list has exactly two elements, `rows` and `cols`.
 grid_as_facets_list <- function(rows, cols) {
   is_rows_vars <- is.null(rows) || rlang::is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
       stop("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list", call. = FALSE)
     }
-    return(as_facets_list(rows))
+    # For backward-compatibility
+    facets_list <- as_facets_list(rows)
+    if (length(facets_list) > 2L) {
+      stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
+    }
+    # Fill with empty quosures
+    facets <- list(rows = rlang::quos(), cols = rlang::quos())
+    facets[seq_along(facets_list)] <- facets_list
+    # Do not compact the legacy specs
+    return(facets)
   }
 
   is_cols_vars <- is.null(cols) || rlang::is_quosures(cols)
@@ -181,18 +181,10 @@ grid_as_facets_list <- function(rows, cols) {
     stop("`cols` must be `NULL` or a `vars()` specification", call. = FALSE)
   }
 
-  if (is.null(rows)) {
-    rows <- quos()
-  } else {
-    rows <- rlang::quos_auto_name(rows)
-  }
-  if (is.null(cols)) {
-    cols <- quos()
-  } else {
-    cols <- rlang::quos_auto_name(cols)
-  }
-
-  list(rows, cols)
+  list(
+    rows = compact_facets(as_facets_list(rows)),
+    cols = compact_facets(as_facets_list(cols))
+  )
 }
 
 #' @rdname ggplot2-ggproto
@@ -223,6 +215,10 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     base_cols <- combine_vars(data, params$plot_env, cols, drop = params$drop)
     base <- df.grid(base_rows, base_cols)
 
+    if (nrow(base) == 0) {
+      return(new_data_frame(list(PANEL = 1L, ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)))
+    }
+
     # Add margins
     base <- reshape2::add_margins(base, list(names(rows), names(cols)), params$margins)
     # Work around bug in reshape2
@@ -252,6 +248,11 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     rows <- params$rows
     cols <- params$cols
     vars <- c(names(rows), names(cols))
+
+    if (length(vars) == 0) {
+      data$PANEL <- layout$PANEL
+      return(data)
+    }
 
     # Compute faceting values and add margins
     margin_vars <- list(intersect(names(rows), names(data)),

@@ -29,6 +29,15 @@
 #' `dup_axis` is provide as a shorthand for creating a secondary axis that
 #' is a duplication of the primary axis, effectively mirroring the primary axis.
 #'
+#' As of v3.1, date and datetime scales have limited secondary axis capabilities.
+#' Unlike other continuous scales, secondary axis transformations for date and datetime scales
+#' must respect their primary POSIX data structure.
+#' This means they may only be transformed via addition or subtraction, e.g.
+#' `~. + hms::hms(days = 8)`, or
+#' `~.- 8*60*60`. Nonlinear transformations will return an error.
+#' To produce a time-since-event secondary axis in this context, users
+#' may consider adapting secondary axis labels.
+#'
 #' @examples
 #' p <- ggplot(mtcars, aes(cyl, mpg)) +
 #'   geom_point()
@@ -56,7 +65,7 @@
 #'   price = seq(20, 200000, length.out = 10)
 #'  )
 #'
-#' # useful for labelling different time scales in the same plot
+#' # This may useful for labelling different time scales in the same plot
 #' ggplot(df, aes(x = dx, y = price)) + geom_line() +
 #'   scale_x_datetime("Date", date_labels = "%b %d",
 #'   date_breaks = "6 hour",
@@ -139,6 +148,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (!is.function(self$trans)) stop("transformation for secondary axes must be a function", call. = FALSE)
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
+    if (is.waive(self$breaks)) self$breaks <- scale$trans$breaks
     if (is.derived(self$labels)) self$labels <- scale$labels
   },
 
@@ -146,37 +156,66 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     self$trans(range)
   },
 
-  break_info = function(self, range, scale) {
-    if (self$empty()) return()
-
-    # Get original range before transformation
-    inv_range <- scale$trans$inverse(range)
+  mono_test = function(self, scale){
+    range <- scale$range$range
+    along_range <- seq(range[1], range[2], length.out = self$detail)
+    old_range <- scale$trans$inverse(along_range)
 
     # Create mapping between primary and secondary range
-    old_range <- seq(inv_range[1], inv_range[2], length.out = self$detail)
     full_range <- self$transform_range(old_range)
 
     # Test for monotonicity
     if (length(unique(sign(diff(full_range)))) != 1)
       stop("transformation for secondary axes must be monotonic")
+  },
+
+  break_info = function(self, range, scale) {
+    if (self$empty()) return()
+
+    # Test for monotonicity on unexpanded range
+    self$mono_test(scale)
+
+    # Get scale's original range before transformation
+    along_range <- seq(range[1], range[2], length.out = self$detail)
+    old_range <- scale$trans$inverse(along_range)
+
+    # Create mapping between primary and secondary range
+    full_range <- self$transform_range(old_range)
 
     # Get break info for the secondary axis
-    new_range <- range(scale$transform(full_range), na.rm = TRUE)
-    sec_scale <- self$create_scale(new_range, scale)
-    range_info <- sec_scale$break_info()
+    new_range <- range(full_range, na.rm = TRUE)
+
+    # patch for date and datetime scales just to maintain functionality
+    # works only for linear secondary transforms that respect the time or date transform
+    if (scale$trans$name %in% c("date", "time")){
+      temp_scale <- self$create_scale(new_range, trans = scale$trans)
+      range_info <- temp_scale$break_info()
+      names(range_info) <- paste0("sec.", names(range_info))
+      return(range_info)
+    }
+
+    temp_scale <- self$create_scale(new_range)
+    range_info <- temp_scale$break_info()
+
+    # Map the break values back to their correct position on the primary scale
+    old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
+    old_val <- old_range[unlist(old_val)]
+    old_val_trans <- scale$trans$transform(old_val)
+    range_info$major[] <- round(rescale(scale$map(old_val_trans, range(old_val_trans)), from = range), digits = 3)
+
     names(range_info) <- paste0("sec.", names(range_info))
     range_info
   },
 
   # Temporary scale for the purpose of calling break_info()
-  create_scale = function(self, range, primary) {
+  create_scale = function(self, range, trans = identity_trans()) {
     scale <- ggproto(NULL, ScaleContinuousPosition,
-      name = self$name,
-      breaks = self$breaks,
-      labels = self$labels,
-      limits = range,
-      expand = c(0, 0),
-      trans = primary$trans
+                     name = self$name,
+                     breaks = self$breaks,
+                     labels = self$labels,
+                     limits = range,
+                     expand = c(0, 0),
+                     trans = trans
     )
     scale$train(range)
     scale

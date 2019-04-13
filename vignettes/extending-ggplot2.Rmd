@@ -61,7 +61,7 @@ StatChull <- ggproto("StatChull", Stat,
 )
 ```
 
-The two most important components are the `compute_group()` method (which does the computation), and the `required_aes` field, which lists which aesthetics must be present in order to for the stat to work.
+The two most important components are the `compute_group()` method (which does the computation), and the `required_aes` field, which lists which aesthetics must be present in order for the stat to work.
 
 Next we write a layer function. Unfortunately, due to an early design mistake I called these either `stat_()` or `geom_()`. A better decision would have been to call them `layer_()` functions: that's a more accurate description because every layer involves a stat _and_ a geom. 
 

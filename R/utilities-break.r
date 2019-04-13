@@ -20,6 +20,7 @@
 #' table(cut_width(runif(1000), 0.1))
 #' table(cut_width(runif(1000), 0.1, boundary = 0))
 #' table(cut_width(runif(1000), 0.1, center = 0))
+#' table(cut_width(runif(1000), 0.1, labels = FALSE))
 cut_interval <- function(x, n = NULL, length = NULL, ...) {
   cut(x, breaks(x, "width", n, length), include.lowest = TRUE, ...)
 }
@@ -46,7 +47,7 @@ cut_number <- function(x, n = NULL, ...) {
 #'   `boundary = 0.5`.
 #' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
-cut_width <- function(x, width, center = NULL, boundary = NULL, closed = c("right", "left")) {
+cut_width <- function(x, width, center = NULL, boundary = NULL, closed = c("right", "left"), ...) {
   x <- as.numeric(x)
   width <- as.numeric(width)
 
@@ -80,7 +81,7 @@ cut_width <- function(x, width, center = NULL, boundary = NULL, closed = c("righ
   max_x <- max(x, na.rm = TRUE) + (1 - 1e-08) * width
 
   breaks <- seq(min_x, max_x, width)
-  cut(x, breaks, include.lowest = TRUE, right = (closed == "right"))
+  cut(x, breaks, include.lowest = TRUE, right = (closed == "right"), ...)
 }
 
 # Find the left side of left-most bin

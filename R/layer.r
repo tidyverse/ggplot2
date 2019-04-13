@@ -41,8 +41,8 @@
 #'   supplied parameters and aesthetics are understood by the `geom` or
 #'   `stat`. Use `FALSE` to suppress the checks.
 #' @param params Additional parameters to the `geom` and `stat`.
-#' @param layer_class The type of layer object to be constructued. This allows
-#'   the creation of custom layers. Can usually be left at its default.
+#' @param layer_class The type of layer object to be constructued. This is
+#'   intended for ggplot2 internal use only.
 #' @keywords internal
 #' @examples
 #' # geom calls are just a short cut for layer

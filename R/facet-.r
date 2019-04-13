@@ -275,10 +275,10 @@ df.grid <- function(a, b) {
 # facetting variables.
 
 as_facets_list <- function(x) {
-  if (inherits(x, "mapping")) {
-    stop("Please use `vars()` to supply facet variables")
+  if (inherits(x, "uneval")) {
+    stop("Please use `vars()` to supply facet variables", call. = FALSE)
   }
-  if (inherits(x, "quosures")) {
+  if (rlang::is_quosures(x)) {
     x <- rlang::quos_auto_name(x)
     return(list(x))
   }
@@ -311,11 +311,14 @@ as_facets_list <- function(x) {
     x <- lapply(x, as_facets)
   }
 
-  if (sum(vapply(x, length, integer(1))) == 0L) {
-    stop("Must specify at least one variable to facet by", call. = FALSE)
-  }
-
   x
+}
+
+# Flatten a list of quosures objects to a quosures object, and compact it
+compact_facets <- function(x) {
+  x <- rlang::flatten_if(x, rlang::is_list)
+  null <- vapply(x, rlang::quo_is_null, logical(1))
+  rlang::new_quosures(x[!null])
 }
 
 # Compatibility with plyr::as.quoted()
@@ -360,15 +363,7 @@ f_as_facets_list <- function(f) {
   rows <- f_as_facets(lhs(f))
   cols <- f_as_facets(rhs(f))
 
-  if (length(rows) + length(cols) == 0) {
-    stop("Must specify at least one variable to facet by", call. = FALSE)
-  }
-
-  if (length(rows)) {
-    list(rows, cols)
-  } else {
-    list(cols)
-  }
+  list(rows, cols)
 }
 
 as_facets <- function(x) {
@@ -462,18 +457,25 @@ check_layout <- function(x) {
 #' Get the maximal width/length of a list of grobs
 #'
 #' @param grobs A list of grobs
+#' @param value_only Should the return value be a simple numeric vector giving
+#' the maximum in cm
 #'
-#' @return The largest value. measured in cm as a unit object
+#' @return The largest value. measured in cm as a unit object or a numeric
+#' vector depending on `value_only`
 #'
 #' @keywords internal
 #' @export
-max_height <- function(grobs) {
-  unit(max(unlist(lapply(grobs, height_cm))), "cm")
+max_height <- function(grobs, value_only = FALSE) {
+  height <- max(unlist(lapply(grobs, height_cm)))
+  if (!value_only) height <- unit(height, "cm")
+  height
 }
 #' @rdname max_height
 #' @export
-max_width <- function(grobs) {
-  unit(max(unlist(lapply(grobs, width_cm))), "cm")
+max_width <- function(grobs, value_only = FALSE) {
+  width <- max(unlist(lapply(grobs, width_cm)))
+  if (!value_only) width <- unit(width, "cm")
+  width
 }
 #' Find panels in a gtable
 #'

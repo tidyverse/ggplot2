@@ -42,9 +42,13 @@ clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
 }
 
+
+# Test whether package `package` is available. `fun` provides
+# the name of the ggplot2 function that uses this package, and is
+# used only to produce a meaningful error message if the
+# package is not available.
 try_require <- function(package, fun) {
   if (requireNamespace(package, quietly = TRUE)) {
-    library(package, character.only = TRUE)
     return(invisible())
   }
 
@@ -227,7 +231,7 @@ expand_range4 <- function(limits, expand) {
 #'   scale_x_discrete(expand = expand_scale(add = 2))
 #'
 #' # Reproduce the default range expansion used
-#' # when the ‘expand’ argument is not specified
+#' # when the 'expand' argument is not specified
 #' ggplot(subset(diamonds, carat > 2), aes(cut, price)) +
 #'   geom_jitter() +
 #'   scale_x_discrete(expand = expand_scale(add = .6)) +

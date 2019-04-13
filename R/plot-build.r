@@ -1,15 +1,20 @@
 #' Build ggplot for rendering.
 #'
-#' `ggplot_build` takes the plot object, and performs all steps necessary
+#' `ggplot_build()` takes the plot object, and performs all steps necessary
 #' to produce an object that can be rendered.  This function outputs two pieces:
 #' a list of data frames (one for each layer), and a panel object, which
 #' contain all information about axis limits, breaks etc.
 #'
-#' `layer_data`, `layer_grob`, and `layer_scales` are helper
-#' functions that returns the data, grob, or scales associated with a given
+#' `layer_data()`, `layer_grob()`, and `layer_scales()` are helper
+#' functions that return the data, grob, or scales associated with a given
 #' layer. These are useful for tests.
 #'
 #' @param plot ggplot object
+#' @param i An integer. In `layer_data()`, the data to return (in the order added to the
+#'   plot). In `layer_grob()`, the grob to return (in the order added to the
+#'   plot). In `layer_scales()`, the row of a facet to return scales for.
+#' @param j An integer. In `layer_scales()`, the column of a facet to return
+#'   scales for.
 #' @seealso [print.ggplot()] and [benchplot()] for
 #'  functions that contain the complete set of steps for generating
 #'  a ggplot2 plot.

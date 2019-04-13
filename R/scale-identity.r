@@ -81,7 +81,7 @@ scale_fill_identity <- function(..., guide = "none", aesthetics = "fill") {
 #' @export
 scale_shape_identity <- function(..., guide = "none") {
   sc <- continuous_scale("shape", "identity", identity_pal(), ..., guide = guide,
-    super = ScaleDiscreteIdentity)
+    super = ScaleContinuousIdentity)
 
   sc
 }
@@ -146,7 +146,7 @@ ScaleDiscreteIdentity <- ggproto("ScaleDiscreteIdentity", ScaleDiscrete,
 
   train = function(self, x) {
     # do nothing if no guide, otherwise train so we know what breaks to use
-    if (self$guide == "none") return()
+    if (identical(self$guide, "none")) return()
     ggproto_parent(ScaleDiscrete, self)$train(x)
   }
 )
@@ -167,7 +167,7 @@ ScaleContinuousIdentity <- ggproto("ScaleContinuousIdentity", ScaleContinuous,
 
   train = function(self, x) {
     # do nothing if no guide, otherwise train so we know what breaks to use
-    if (self$guide == "none") return()
+    if (identical(self$guide, "none")) return()
     ggproto_parent(ScaleContinuous, self)$train(x)
   }
 )
