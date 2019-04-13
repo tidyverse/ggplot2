@@ -382,7 +382,7 @@ following methods:</p><ul>
 <li><p><code>compute_layer(self, data, params, panel)</code> is called once
 per layer. <code>panel</code> is currently an internal data structure, so
 this method should not be overridden.</p></li>
-<li><p><code>compute_panel(self, data, params, panel)</code> is called once per
+<li><p><code>compute_panel(self, data, params, scales)</code> is called once per
 panel and should return a modified data frame.</p>
 <p><code>data</code> is a data frame containing the variables named according
 to the aesthetics that they're mapped to. <code>scales</code> is a list
