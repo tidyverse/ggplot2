@@ -1,7 +1,217 @@
-# ggplot2 3.0.0.9000
+# ggplot2 3.1.1.9000
+
+This is a minor release with an emphasis on internal changes to make ggplot2 
+faster and more consistent. The few interface changes will only affect the 
+aesthetics of the plot in minor ways, and will only potentially break code of
+extension developers if they have relied on internals that have been changed. 
+This release also sees the addition of Hiroaki Yutani (@yutannihilation) to the 
+core developer team.
+
+## New features
+
+* This release includes a range of internal changes that speeds up plot 
+  generation. None of the changes are user facing and will not break any code,
+  but in general ggplot2 should feel much faster. The changes includes, but are
+  not limited to:
+  
+  - Caching ascent and descent dimensions of text to avoid recalculating it for
+    every title.
+  
+  - Using a faster data.frame constructor as well as faster indexing into 
+    data.frames
+    
+  - Removing the plyr dependency, replacing plyr functions with faster 
+    equivalents.
+
+* `geom_polygon()` can now draw polygons with holes using the new `subgroup` 
+  aesthetic. This functionality requires R 3.6.0 (@thomasp85, #3128)
+
+* Aesthetic mappings now accept functions that return `NULL` (@yutannihilation,
+  #2997).
+
+* `stat_function()` now accepts rlang/purrr style anonymous functions for the 
+  `fun` parameter (@dkahle, #3159).
+
+* `geom_rug()` gains an "outside" option to allow for moving the rug tassels to 
+  outside the plot area (@njtierney, #3085) and a `length` option to allow for 
+  changing the length of the rug lines (@daniel-wells, #3109). 
+
+## Extensions
+
+* Layers now have a new member function `setup_layer()` which is called at the
+  very beginning of the plot building process and which has access to the 
+  original input data and the plot object being built. This function allows the 
+  creation of custom layers that autogenerate aesthetic mappings based on the 
+  input data or that filter the input data in some form. This is mainly of 
+  interest to extension developers (@clauswilke, #2872).
+
+* `x0` and `y0` are now recognized positional aesthetics so they will get scaled 
+  if used in extension geoms and stats (@thomasp85, #3168)
+
+## Minor improvements and bug fixes
+
+* `cut_width()` now accepts `...` to pass further arguments to `base::cut.default()`
+   like `cut_number()` and `cut_interval()` already did (@cderv, #3055)
+
+* `coord_map()` now can have axes on the top and right (@karawoo, #3042).
+
+* `coord_sf()`, `coord_map()`, and `coord_polar()` now squash `-Inf` and `Inf`
+  into the min and max of the plot (@yutannihilation, #2972).
+
+* `coord_sf()` graticule lines are now drawn in the same thickness as panel grid 
+  lines in `coord_cartesian()`, and seting panel grid lines to `element_blank()` 
+  now also works in `coord_sf()` 
+  (@clauswilke, #2991, #2525).
+
+* `economics` data has been regenerated. This leads to some changes in the
+  values of all columns (especially in `psavert`), but more importantly, strips 
+  the grouping attributes from `economics_long`.
+
+* `element_line()` now fills closed arrows (@yutannihilation, #2924).
+
+* Facet strips on the left side of plots now have clipping turned on, preventing
+  text from running out of the strip and borders from looking thicker than for
+  other strips (@karawoo, #2772 and #3061).
+
+* ggplot2 now works in Turkish locale (@yutannihilation, #3011).
+
+* ggplot2 no longer attaches any external packages when using functions that 
+  depend on packages that are suggested but not imported by ggplot2. The 
+  affected functions include `geom_hex()`, `stat_binhex()`, 
+  `stat_summary_hex()`, `geom_quantile()`, `stat_quantile()`, and `map_data()` 
+  (@clauswilke, #3126).
+  
+* `geom_area()` and `geom_ribbon()` now sort the data along the x-axis in the 
+  `setup_data()` method rather than as part of `draw_group()` (@thomasp85, 
+  #3023)
+
+* `geom_hline()`, `geom_vline()`, and `geom_abline()` now throw a warning if the 
+  user supplies both an `xintercept`, `yintercept`, or `slope` value and a 
+  mapping (@RichardJActon, #2950).
+
+* `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
+
+* Default labels are now generated more consistently; e.g., symbols no longer
+  get backticks, and long expressions are abbreviated with `...`
+  (@yutannihilation, #2981).
+
+* All-`Inf` layers are now ignored for picking the scale (@yutannihilation, 
+  #3184).
+  
+* Diverging Brewer colour palette now use the correct mid-point colour 
+  (@dariyasydykova, #3072).
+  
+* `scale_color_continuous()` now points to `scale_colour_continuous()` so that 
+  it will handle `type = "viridis"` as the documentation states (@hlendway, 
+  #3079).
+
+* `scale_shape_identity()` now works correctly with `guide = "legend"` 
+  (@malcolmbarrett, #3029)
+
+* `stat_bin()` will now error when the number of bins exceeds 1e6 to avoid 
+  accidentally freezing the user session (@thomasp85).
+  
+* `sec_axis()` now places ticks accurately when using nonlinear transformations (@dpseidel, #2978).
+
+* `facet_wrap()` and `facet_grid()` now automatically remove NULL from facet
+  specs, and accept empty specs (@yutannihilation, #3070, #2986).
+
+* `stat_bin()` now handles data with only one unique value (@yutannihilation 
+  #3047).
+
+* `sec_axis()` now accepts functions as well as formulas (@yutannihilation, #3031).
+
+# ggplot2 3.1.0
+
+## Breaking changes
+
+This is a minor release and breaking changes have been kept to a minimum. End users of ggplot2 are unlikely to encounter any issues. However, there are a few items that developers of ggplot2 extensions should be aware of. For additional details, see also the discussion accompanying issue #2890.
+
+*   In non-user-facing internal code (specifically in the `aes()` function and in
+    the `aesthetics` argument of scale functions), ggplot2 now always uses the British
+    spelling for aesthetics containing the word "colour". When users specify a "color"
+    aesthetic it is automatically renamed to "colour". This renaming is also applied
+    to non-standard aesthetics that contain the word "color". For example, "point_color"
+    is renamed to "point_colour". This convention makes it easier to support both
+    British and American spelling for novel, non-standard aesthetics, but it may require
+    some adjustment for packages that have previously introduced non-standard color
+    aesthetics using American spelling. A new function `standardise_aes_names()` is
+    provided in case extension writers need to perform this renaming in their own code
+    (@clauswilke, #2649).
+
+*   Functions that generate other functions (closures) now force the arguments that are
+    used from the generated functions, to avoid hard-to-catch errors. This may affect
+    some users of manual scales (such as `scale_colour_manual()`, `scale_fill_manual()`,
+    etc.) who depend on incorrect behavior (@krlmlr, #2807).
+    
+*   `Coord` objects now have a function `backtransform_range()` that returns the
+    panel range in data coordinates. This change may affect developers of custom coords,
+    who now should implement this function. It may also affect developers of custom
+    geoms that use the `range()` function. In some applications, `backtransform_range()`
+    may be more appropriate (@clauswilke, #2821).
+
+
+## New features
+
+*   `coord_sf()` has much improved customization of axis tick labels. Labels can now
+    be set manually, and there are two new parameters, `label_graticule` and
+    `label_axes`, that can be used to specify which graticules to label on which side
+    of the plot (@clauswilke, #2846, #2857, #2881).
+    
+*   Two new geoms `geom_sf_label()` and `geom_sf_text()` can draw labels and text
+    on sf objects. Under the hood, a new `stat_sf_coordinates()` calculates the
+    x and y coordinates from the coordinates of the sf geometries. You can customize
+    the calculation method via `fun.geometry` argument (@yutannihilation, #2761).
+    
+
+## Minor improvements and fixes
+
+*   `benchplot()` now uses tidy evaluation (@dpseidel, #2699).
+
+*   The error message in `compute_aesthetics()` now only provides the names of
+    aesthetics with mismatched lengths, rather than all aesthetics (@karawoo,
+    #2853).
+
+*   For faceted plots, data is no longer internally reordered. This makes it
+    safer to feed data columns into `aes()` or into parameters of geoms or
+    stats. However, doing so remains discouraged (@clauswilke, #2694).
+
+*   `coord_sf()` now also understands the `clip` argument, just like the other
+    coords (@clauswilke, #2938).
+
+*   `fortify()` now displays a more informative error message for
+    `grouped_df()` objects when dplyr is not installed (@jimhester, #2822).
 
 *   All `geom_*()` now display an informative error message when required 
     aesthetics are missing (@dpseidel, #2637 and #2706).
+
+*   `geom_boxplot()` now understands the `width` parameter even when used with
+    a non-standard stat, such as `stat_identity()` (@clauswilke, #2893).
+    
+*  `geom_hex()` now understands the `size` and `linetype` aesthetics
+   (@mikmart, #2488).
+    
+*   `geom_hline()`, `geom_vline()`, and `geom_abline()` now work properly
+    with `coord_trans()` (@clauswilke, #2149, #2812).
+    
+*   `geom_text(..., parse = TRUE)` now correctly renders the expected number of
+    items instead of silently dropping items that are empty expressions, e.g.
+    the empty string "". If an expression spans multiple lines, we take just
+    the first line and drop the rest. This same issue is also fixed for
+    `geom_label()` and the axis labels for `geom_sf()` (@slowkow, #2867).
+
+*   `geom_sf()` now respects `lineend`, `linejoin`, and `linemitre` parameters 
+    for lines and polygons (@alistaire47, #2826).
+    
+*   `ggsave()` now exits without creating a new graphics device if previously
+    none was open (@clauswilke, #2363).
+
+*   `labs()` now has named arguments `title`, `subtitle`, `caption`, and `tag`.
+    Also, `labs()` now accepts tidyeval (@yutannihilation, #2669).
+
+*   `position_nudge()` is now more robust and nudges only in the direction
+    requested. This enables, for example, the horizontal nudging of boxplots
+    (@clauswilke, #2733).
 
 *   `sec_axis()` and `dup_axis()` now return appropriate breaks for the secondary
     axis when applied to log transformed scales (@dpseidel, #2729).
@@ -9,26 +219,17 @@
 *   `sec_axis()` now works as expected when used in combination with tidy eval
     (@dpseidel, #2788).
 
+*   `scale_*_date()`, `scale_*_time()` and `scale_*_datetime()` can now display 
+    a secondary axis that is a __one-to-one__ transformation of the primary axis,
+    implemented using the `sec.axis` argument to the scale constructor 
+    (@dpseidel, #2244).
+    
 *   `stat_contour()`, `stat_density2d()`, `stat_bin2d()`,  `stat_binhex()`
     now calculate normalized statistics including `nlevel`, `ndensity`, and
     `ncount`. Also, `stat_density()` now includes the calculated statistic 
     `nlevel`, an alias for `scaled`, to better match the syntax of `stat_bin()`
     (@bjreisman, #2679).
 
-*  `geom_hex()` now understands the `size` and `linetype` aesthetics
-   (@mikmart, #2488).
-  
-*   Data is no longer internally reordered when faceting. This makes it safer to
-    feed data columns into `aes()` or into parameters of geoms or stats. However,
-    doing so remains discouraged (@clauswilke).
-    
-*   `ggsave()` now exits without creating a new graphics device if previously
-    none was open (@clauswilke, #2363).
-
-*   Aesthetic names are now consistently standardised both in `aes()` and in the
-    `aesthetics` argument of scale functions. Also, the US spelling "color"
-    is now always internally converted to "colour", even when part of a longer
-    aesthetic name (e.g., `point_color`) (@clauswilke, #2649).
 
 # ggplot2 3.0.0
 
@@ -879,7 +1080,7 @@ There were a number of tweaks to the theme elements that control legends:
 
 ## Major changes
 
-* ggplot no longer throws an error if you your plot has no layers. Instead it 
+* ggplot no longer throws an error if your plot has no layers. Instead it 
   automatically adds `geom_blank()` (#1246).
   
 * New `cut_width()` is a convenient replacement for the verbose

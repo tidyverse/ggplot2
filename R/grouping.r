@@ -16,12 +16,12 @@ add_group <- function(data) {
     disc[names(disc) %in% c("label", "PANEL")] <- FALSE
 
     if (any(disc)) {
-      data$group <- plyr::id(data[disc], drop = TRUE)
+      data$group <- id(data[disc], drop = TRUE)
     } else {
       data$group <- NO_GROUP
     }
   } else {
-    data$group <- plyr::id(data["group"], drop = TRUE)
+    data$group <- id(data["group"], drop = TRUE)
   }
 
   data

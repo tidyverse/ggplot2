@@ -81,12 +81,12 @@ Geom <- ggproto("Geom",
     params <- params[intersect(names(params), self$parameters())]
 
     args <- c(list(quote(data), quote(panel_params), quote(coord)), params)
-    plyr::dlply(data, "PANEL", function(data) {
+    lapply(split(data, data$PANEL), function(data) {
       if (empty(data)) return(zeroGrob())
 
       panel_params <- layout$panel_params[[data$PANEL[1]]]
       do.call(self$draw_panel, args)
-    }, .drop = FALSE)
+    })
   },
 
   draw_panel = function(self, data, panel_params, coord, ...) {
@@ -184,7 +184,7 @@ check_aesthetics <- function(x, n) {
 
   stop(
     "Aesthetics must be either length 1 or the same as the data (", n, "): ",
-    paste(names(!good), collapse = ", "),
+    paste(names(which(!good)), collapse = ", "),
     call. = FALSE
   )
 }

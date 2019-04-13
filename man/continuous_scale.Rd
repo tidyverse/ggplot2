@@ -15,9 +15,9 @@ continuous_scale(aesthetics, scale_name, palette, name = waiver(),
 
 \item{scale_name}{The name of the scale}
 
-\item{palette}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take}
+\item{palette}{A palette function that when called with a numeric vector with
+values between 0 and 1 returns the corresponding values in the range the
+scale maps to.}
 
 \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
@@ -74,8 +74,9 @@ expand the scale by 5\% on each side for continuous variables, and by
 
 \item{trans}{Either the name of a transformation object, or the
 object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-"logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects

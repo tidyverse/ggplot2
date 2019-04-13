@@ -4,7 +4,9 @@
 #' @rdname element
 #' @export
 margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
-  structure(unit(c(t, r, b, l), unit), class = c("margin", "unit"))
+  u <- unit(c(t, r, b, l), unit)
+  class(u) <- c("margin", class(u))
+  u
 }
 is.margin <- function(x) {
   inherits(x, "margin")
@@ -63,8 +65,7 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
   # has the common letters with descenders. This guarantees that the grob always has
   # the same height regardless of whether the text actually contains letters with
   # descenders or not. The same happens automatically with ascenders already.
-  temp <- editGrob(text_grob, label = "gjpqyQ")
-  descent <- descentDetails(temp)
+  descent <- font_descent(gp$fontfamily, gp$fontface, gp$fontsize, gp$cex)
 
   # Use trigonometry to calculate grobheight and width for rotated grobs. This is only
   # exactly correct when vjust = 1. We need to take the absolute value so we don't make
@@ -328,4 +329,31 @@ rotate_just <- function(angle, hjust, vjust) {
   }
 
   list(hjust = hnew, vjust = vnew)
+}
+descent_cache <- new.env(parent = emptyenv())
+font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
+  cur_dev <- names(grDevices::dev.cur())
+  key <- paste0(cur_dev, ':', family, ':', face, ":", size, ":", cex)
+  descents <- lapply(key, function(k) {
+    descent <- descent_cache[[k]]
+
+    if (is.null(descent)) {
+      descent <- convertHeight(grobDescent(textGrob(
+        label = "gjpqyQ",
+        gp = gpar(
+          fontsize = size,
+          cex = cex,
+          fontfamily = family,
+          fontface = face
+        )
+      )), 'inches')
+      descent_cache[[k]] <- descent
+    }
+    descent
+  })
+  if (length(descents) == 1) {
+    descents[[1]]
+  } else {
+    do.call(unit.c, descents)
+  }
 }

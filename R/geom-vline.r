@@ -11,7 +11,15 @@ geom_vline <- function(mapping = NULL, data = NULL,
 
   # Act like an annotation
   if (!missing(xintercept)) {
-    data <- data.frame(xintercept = xintercept)
+    # Warn if supplied mapping is going to be overwritten
+    if (!missing(mapping)) {
+      warning(paste0("Using both `xintercept` and `mapping` may not have the",
+                     " desired result as mapping is overwritten if",
+                     " `xintercept` is specified\n"
+              )
+      )
+    }
+    data <- new_data_frame(list(xintercept = xintercept))
     mapping <- aes(xintercept = xintercept)
     show.legend <- FALSE
   }
@@ -37,7 +45,7 @@ geom_vline <- function(mapping = NULL, data = NULL,
 #' @export
 GeomVline <- ggproto("GeomVline", Geom,
   draw_panel = function(data, panel_params, coord) {
-    ranges <- coord$range(panel_params)
+    ranges <- coord$backtransform_range(panel_params)
 
     data$x    <- data$xintercept
     data$xend <- data$xintercept

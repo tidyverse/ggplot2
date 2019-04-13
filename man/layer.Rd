@@ -6,7 +6,8 @@
 \usage{
 layer(geom = NULL, stat = NULL, data = NULL, mapping = NULL,
   position = NULL, params = list(), inherit.aes = TRUE,
-  check.aes = TRUE, check.param = TRUE, show.legend = NA)
+  check.aes = TRUE, check.param = TRUE, show.legend = NA,
+  layer_class = Layer)
 }
 \arguments{
 \item{geom}{The geometric object to use display the data}
@@ -52,6 +53,9 @@ supplied parameters and aesthetics are understood by the \code{geom} or
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.}
+
+\item{layer_class}{The type of layer object to be constructued. This is
+intended for ggplot2 internal use only.}
 }
 \description{
 A layer is a combination of data, stat and geom with a potential position

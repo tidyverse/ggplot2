@@ -184,8 +184,7 @@ find_names <- function(expr) {
 #'
 #' @param rows Backquoted labelling expression for rows.
 #' @param cols Backquoted labelling expression for columns.
-#' @param default Default labeller function for the rows or the
-#'   columns when no plotmath expression is provided.
+#' @param default Unused, kept for compatibility.
 #' @seealso \link{labellers}, [labeller()],
 #' @export
 #' @examples
@@ -196,7 +195,7 @@ find_names <- function(expr) {
 #' p + facet_grid(. ~ vs, labeller = label_bquote(cols = .(vs) ^ .(vs)))
 #' p + facet_grid(. ~ vs + am, labeller = label_bquote(cols = .(am) ^ .(vs)))
 label_bquote <- function(rows = NULL, cols = NULL,
-                         default = label_value) {
+                         default) {
   cols_quoted <- substitute(cols)
   rows_quoted <- substitute(rows)
   has_warned <- FALSE
@@ -399,8 +398,9 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #'
 #' # In the following example, we rename the levels to the long form,
 #' # then apply a wrap labeller to the columns to prevent cropped text
-#' msleep$conservation2 <- plyr::revalue(msleep$conservation,
-#'   conservation_status)
+#' idx <- match(msleep$conservation, names(conservation_status))
+#' msleep$conservation2 <- conservation_status[idx]
+#'
 #' p3 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
 #' p3 +
 #'   facet_grid(vore ~ conservation2,
@@ -555,7 +555,7 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
       element,
       gp,
       horizontal,
-      clip = "off"
+      clip = "on"
     )
 
     list(

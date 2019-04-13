@@ -117,6 +117,8 @@ to match the number of dots.
 \item \code{colour}
 \item \code{fill}
 \item \code{group}
+\item \code{linetype}
+\item \code{stroke}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -159,6 +161,9 @@ ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
 
 # Expand dot diameter
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
+
+# Change dot fill colour, stroke width
+ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, fill = "white", stroke = 2)
 
 \donttest{
 # Examples with stacking along y axis instead of x

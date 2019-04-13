@@ -68,6 +68,7 @@ This is pure annotation, so does not affect position scales.
 \item \code{group}
 \item \code{linetype}
 \item \code{size}
+\item \code{subgroup}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

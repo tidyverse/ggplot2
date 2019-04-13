@@ -158,6 +158,11 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomBoxplot <- ggproto("GeomBoxplot", Geom,
+
+  # need to declare `width`` here in case this geom is used with a stat that
+  # doesn't have a `width` parameter (e.g., `stat_identity`).
+  extra_params = c("na.rm", "width"),
+
   setup_data = function(data, params) {
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
@@ -195,41 +200,42 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
                         outlier.alpha = NULL,
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
 
-    common <- data.frame(
+    common <- list(
       colour = data$colour,
       size = data$size,
       linetype = data$linetype,
       fill = alpha(data$fill, data$alpha),
-      group = data$group,
-      stringsAsFactors = FALSE
+      group = data$group
     )
 
-    whiskers <- data.frame(
-      x = data$x,
-      xend = data$x,
-      y = c(data$upper, data$lower),
-      yend = c(data$ymax, data$ymin),
-      alpha = NA,
-      common,
-      stringsAsFactors = FALSE
-    )
+    whiskers <- new_data_frame(c(
+      list(
+        x = c(data$x, data$x),
+        xend = c(data$x, data$x),
+        y = c(data$upper, data$lower),
+        yend = c(data$ymax, data$ymin),
+        alpha = c(NA_real_, NA_real_)
+      ),
+      common
+    ), n = 2)
 
-    box <- data.frame(
-      xmin = data$xmin,
-      xmax = data$xmax,
-      ymin = data$lower,
-      y = data$middle,
-      ymax = data$upper,
-      ynotchlower = ifelse(notch, data$notchlower, NA),
-      ynotchupper = ifelse(notch, data$notchupper, NA),
-      notchwidth = notchwidth,
-      alpha = data$alpha,
-      common,
-      stringsAsFactors = FALSE
-    )
+    box <- new_data_frame(c(
+      list(
+        xmin = data$xmin,
+        xmax = data$xmax,
+        ymin = data$lower,
+        y = data$middle,
+        ymax = data$upper,
+        ynotchlower = ifelse(notch, data$notchlower, NA),
+        ynotchupper = ifelse(notch, data$notchupper, NA),
+        notchwidth = notchwidth,
+        alpha = data$alpha
+      ),
+      common
+    ))
 
     if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
-      outliers <- data.frame(
+      outliers <- new_data_frame(list(
         y = data$outliers[[1]],
         x = data$x[1],
         colour = outlier.colour %||% data$colour[1],
@@ -238,9 +244,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         size = outlier.size %||% data$size[1],
         stroke = outlier.stroke %||% data$stroke[1],
         fill = NA,
-        alpha = outlier.alpha %||% data$alpha[1],
-        stringsAsFactors = FALSE
-      )
+        alpha = outlier.alpha %||% data$alpha[1]
+      ), n = length(data$outliers[[1]]))
       outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
     } else {
       outliers_grob <- NULL

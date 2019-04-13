@@ -1,3 +1,4 @@
+^pkgdown$
 ^CRAN-RELEASE$
 visual_test
 ^.*\.Rproj$
@@ -9,7 +10,9 @@ visual_test
 ^cran-comments.md$
 ^data-raw$
 ^CONTRIBUTING\.md$
+^GOVERNANCE\.md$
 ^ISSUE_TEMPLATE\.md$
+^CODE_OF_CONDUCT\.md$
 ^NEWS$
 ^revdep$
 ^\.httr-oauth$
@@ -21,3 +24,4 @@ visual_test
 ^logo\.png$
 ^appveyor\.yml$
 ^\.github$
+^vignettes/profilings

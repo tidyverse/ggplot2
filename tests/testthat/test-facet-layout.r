@@ -1,9 +1,9 @@
 context("Facetting (layout)")
 
-a <- data.frame(a = c(1, 1, 2, 2), b = c(1, 2, 1, 1))
-b <- data.frame(a = 3)
-c <- data.frame(b = 3)
-empty <- data.frame()
+a <- data_frame(a = c(1, 1, 2, 2), b = c(1, 2, 1, 1))
+b <- data_frame(a = 3)
+c <- data_frame(b = 3)
+empty <- data_frame()
 
 panel_layout <- function(facet, data) {
   layout <- create_layout(facet)
@@ -28,7 +28,7 @@ test_that("grid: single row and single col are equivalent", {
 })
 
 test_that("grid: includes all combinations", {
-  d <- data.frame(a = c(1, 2), b = c(2, 1))
+  d <- data_frame(a = c(1, 2), b = c(2, 1))
   all <- panel_layout(facet_grid(a~b), list(d))
 
   expect_equal(nrow(all), 4)
@@ -92,7 +92,7 @@ test_that("grid: as.table reverses rows", {
 
 # Drop behaviour -------------------------------------------------------------
 
-a2 <- data.frame(
+a2 <- data_frame(
   a = factor(1:3, levels = 1:4),
   b = factor(1:3, levels = 4:1)
 )
@@ -124,7 +124,7 @@ test_that("grid: drop = FALSE preserves unused levels", {
 
 # Missing behaviour ----------------------------------------------------------
 
-a3 <- data.frame(
+a3 <- data_frame(
   a = c(1:3, NA),
   b = factor(c(1:3, NA)),
   c = factor(c(1:3, NA), exclude = NULL)

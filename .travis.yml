@@ -3,27 +3,34 @@ cache: packages
 sudo: true
 dist: trusty
 
-addons:
-  apt:
-    packages:
-      - libfreetype6
+# build matrix; turn on vdiffr only on r release
+matrix:
+  include:
+  - r: devel
+    # avoind errors due to world clock API (hopefully can be removed in future)
+    env: _R_CHECK_SYSTEM_CLOCK_=false
+  - r: release
+    env: VDIFFR_RUN_TESTS=true
+    before_cache:
+    - Rscript -e 'remotes::install_cran("pkgdown")'
+    - Rscript -e 'remotes::install_github("tidyverse/tidytemplate")'
+    deploy:
+      provider: script
+      script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
+      skip_cleanup: true
+  - r: oldrel
+  - r: 3.2
+    env: R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
+  - r: 3.1
+    env: R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
 
-r:
-- 3.1
-- 3.2
-- oldrel
-- release
-- devel
-
-# work around temporary travis + R 3.5 bug
-r_packages: devtools
-
-# Install manually because dev vdiffr is not compatible with Appveyor yet
-r_github_packages: lionel-/vdiffr
-
+# environment variables set for all builds
 env:
   global:
+  # don't treat missing suggested packages as error
   - _R_CHECK_FORCE_SUGGESTS_=false
+  # switch off vdiffr by default
+  - VDIFFR_RUN_TESTS=false
 
 after_success:
   - Rscript -e 'covr::codecov()'
