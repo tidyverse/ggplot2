@@ -75,7 +75,7 @@ NULL
 #' cut3 <- function(x) cut_number(x, 3)
 #' scatter_by(mtcars, cut3(disp), drat)
 aes <- function(x, y, ...) {
-  exprs <- rlang::enquos(x = x, y = y, ..., .ignore_empty = "all")
+  exprs <- enquos(x = x, y = y, ..., .ignore_empty = "all")
   aes <- new_aes(exprs, env = parent.frame())
   rename_aes(aes)
 }
@@ -83,15 +83,15 @@ aes <- function(x, y, ...) {
 # Wrap symbolic objects in quosures but pull out constants out of
 # quosures for backward-compatibility
 new_aesthetic <- function(x, env = globalenv()) {
-  if (rlang::is_quosure(x)) {
-    if (!rlang::quo_is_symbolic(x)) {
-      x <- rlang::quo_get_expr(x)
+  if (is_quosure(x)) {
+    if (!quo_is_symbolic(x)) {
+      x <- quo_get_expr(x)
     }
     return(x)
   }
 
-  if (rlang::is_symbolic(x)) {
-    x <- rlang::new_quosure(x, env = env)
+  if (is_symbolic(x)) {
+    x <- new_quosure(x, env = env)
     return(x)
   }
 
@@ -110,7 +110,7 @@ print.uneval <- function(x, ...) {
   if (length(x) == 0) {
     cat("<empty>\n")
   } else {
-    values <- vapply(x, rlang::quo_label, character(1))
+    values <- vapply(x, quo_label, character(1))
     bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
 
     cat(bullets, sep = "")
@@ -240,7 +240,7 @@ aes_ <- function(x, y, ...) {
 
   as_quosure_aes <- function(x) {
     if (is.formula(x) && length(x) == 2) {
-      rlang::as_quosure(x)
+      as_quosure(x)
     } else if (is.call(x) || is.name(x) || is.atomic(x)) {
       new_aesthetic(x, caller_env)
     } else {
@@ -262,7 +262,7 @@ aes_string <- function(x, y, ...) {
   caller_env <- parent.frame()
   mapping <- lapply(mapping, function(x) {
     if (is.character(x)) {
-      x <- rlang::parse_expr(x)
+      x <- parse_expr(x)
     }
     new_aesthetic(x, env = caller_env)
   })
@@ -289,7 +289,7 @@ aes_all <- function(vars) {
   # Quosure the symbols in the empty environment because they can only
   # refer to the data mask
   structure(
-    lapply(vars, function(x) rlang::new_quosure(as.name(x), emptyenv())),
+    lapply(vars, function(x) new_quosure(as.name(x), emptyenv())),
     class = "uneval"
   )
 }

@@ -102,7 +102,7 @@ StatFunction <- ggproto("StatFunction", Stat,
       x_trans <- scales$x$trans$inverse(xseq)
     }
 
-    if (is.formula(fun)) fun <- rlang::as_function(fun)
+    if (is.formula(fun)) fun <- as_function(fun)
 
     new_data_frame(list(
       x = xseq,
