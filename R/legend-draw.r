@@ -247,6 +247,3 @@ draw_key_timeseries <- function(data, params, size) {
     )
   )
 }
-
-
-
