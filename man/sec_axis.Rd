@@ -15,7 +15,7 @@ dup_axis(trans = ~., name = derive(), breaks = derive(),
 derive()
 }
 \arguments{
-\item{trans}{A transformation formula}
+\item{trans}{A formula or function of transformation}
 
 \item{name}{The name of the secondary axis}
 
