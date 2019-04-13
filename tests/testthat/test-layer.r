@@ -54,6 +54,8 @@ test_that("layer_data returns a data.frame", {
   expect_equal(l$layer_data(mtcars), head(mtcars))
   l <- geom_point(data = head)
   expect_equal(l$layer_data(mtcars), head(mtcars))
+  l <- geom_point(data = ~ head(.))
+  expect_equal(l$layer_data(mtcars), head(mtcars))
   l <- geom_point(data = nrow)
   expect_error(l$layer_data(mtcars), "Data function must return a data.frame")
 })
