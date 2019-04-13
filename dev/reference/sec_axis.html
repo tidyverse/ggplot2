@@ -181,7 +181,7 @@ axes must be based on a one-to-one transformation of the primary axes.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>trans</th>
-      <td><p>A transformation formula</p></td>
+      <td><p>A formula or function of transformation</p></td>
     </tr>
     <tr>
       <th>name</th>
@@ -219,8 +219,8 @@ is a duplication of the primary axis, effectively mirroring the primary axis.</p
 Unlike other continuous scales, secondary axis transformations for date and datetime scales
 must respect their primary POSIX data structure.
 This means they may only be transformed via addition or subtraction, e.g.
-<code>~. + hms::hms(days = 8)</code>, or
-<code>~.- 8*60*60</code>. Nonlinear transformations will return an error.
+<code>~ . + hms::hms(days = 8)</code>, or
+<code>~ . - 8*60*60</code>. Nonlinear transformations will return an error.
 To produce a time-since-event secondary axis in this context, users
 may consider adapting secondary axis labels.</p>
     
@@ -230,13 +230,13 @@ may consider adapting secondary axis labels.</p>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 
 <span class='co'># Create a simple secondary axis</span>
-<span class='no'>p</span> + <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>sec_axis</span>(~<span class='no'>.</span>+<span class='fl'>10</span>))</div><div class='img'><img src='sec_axis-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>sec_axis</span>(~ <span class='no'>.</span> + <span class='fl'>10</span>))</div><div class='img'><img src='sec_axis-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Inherit the name from the primary axis</span>
-<span class='no'>p</span> + <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='st'>"Miles/gallon"</span>, <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>sec_axis</span>(~<span class='no'>.</span>+<span class='fl'>10</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>derive</span>()))</div><div class='img'><img src='sec_axis-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='st'>"Miles/gallon"</span>, <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>sec_axis</span>(~ <span class='no'>.</span> + <span class='fl'>10</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>derive</span>()))</div><div class='img'><img src='sec_axis-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Duplicate the primary axis</span>
 <span class='no'>p</span> + <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>dup_axis</span>())</div><div class='img'><img src='sec_axis-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can pass in a formula as a shorthand</span>
-<span class='no'>p</span> + <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>sec.axis</span> <span class='kw'>=</span> ~<span class='no'>.</span>^<span class='fl'>2</span>)</div><div class='img'><img src='sec_axis-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>sec.axis</span> <span class='kw'>=</span> ~ <span class='no'>.</span>^<span class='fl'>2</span>)</div><div class='img'><img src='sec_axis-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Secondary axes work for date and datetime scales too:</span>
 <span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
   <span class='kw'>dx</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/as.POSIXlt'>as.POSIXct</a></span>(<span class='st'>"2012-02-29 12:00:00"</span>,
@@ -257,7 +257,7 @@ may consider adapting secondary axis labels.</p>
 <span class='co'># or to transform axes for different timezones</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>dx</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>price</span>)) + <span class='fu'><a href='geom_path.html'>geom_line</a></span>() +
   <span class='fu'><a href='scale_date.html'>scale_x_datetime</a></span>(<span class='st'>"GMT"</span>, <span class='kw'>date_labels</span> <span class='kw'>=</span> <span class='st'>"%b %d %I %p"</span>,
-  <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>sec_axis</span>(~<span class='no'>.</span> + <span class='fl'>8</span>*<span class='fl'>3600</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"GMT+8"</span>,
+  <span class='kw'>sec.axis</span> <span class='kw'>=</span> <span class='fu'>sec_axis</span>(~ <span class='no'>.</span> + <span class='fl'>8</span> * <span class='fl'>3600</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='st'>"GMT+8"</span>,
   <span class='kw'>labels</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/scales/topics/date_format'>time_format</a></span>(<span class='st'>"%b %d %I %p"</span>)))</div><div class='img'><img src='sec_axis-6.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
