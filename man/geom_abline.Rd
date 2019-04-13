@@ -9,17 +9,14 @@
 geom_abline(mapping = NULL, data = NULL, ..., slope, intercept,
   na.rm = FALSE, show.legend = NA)
 
-geom_hline(mapping = NULL, data = NULL, ..., yintercept, na.rm = FALSE,
-  show.legend = NA)
+geom_hline(mapping = NULL, data = NULL, ..., yintercept,
+  na.rm = FALSE, show.legend = NA)
 
-geom_vline(mapping = NULL, data = NULL, ..., xintercept, na.rm = FALSE,
-  show.legend = NA)
+geom_vline(mapping = NULL, data = NULL, ..., xintercept,
+  na.rm = FALSE, show.legend = NA)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
-\code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or \code{\link[=aes_]{aes_()}}.}
 
 \item{data}{The data to be displayed in this layer. There are three
 options:
@@ -32,12 +29,12 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
@@ -51,7 +48,7 @@ display.}
 
 \item{xintercept, yintercept, slope, intercept}{Parameters that control the
 position of the line. If these are set, \code{data}, \code{mapping} and
-\code{show.legend} are overridden}
+\code{show.legend} are overridden.}
 }
 \description{
 These geoms add reference lines (sometimes called rules) to a plot, either
@@ -59,7 +56,7 @@ horizontal, vertical, or diagonal (specified by slope and intercept).
 These are useful for annotating plots.
 }
 \details{
-These geoms act slightly different to other geoms. You can supply the
+These geoms act slightly differently from other geoms. You can supply the
 parameters in two ways: either as arguments to the layer function,
 or via aesthetics. If you use arguments, e.g.
 \code{geom_abline(intercept = 0, slope = 1)}, then behind the scenes
@@ -78,9 +75,9 @@ same aesthetics: \code{alpha}, \code{colour}, \code{linetype} and
 \code{size}. They also each have aesthetics that control the position of
 the line:
 \itemize{
-\item \code{geom_vline}: \code{xintercept}
-\item \code{geom_hline}: \code{yintercept}
-\item \code{geom_abline}: \code{slope} and \code{intercept}
+\item \code{geom_vline()}: \code{xintercept}
+\item \code{geom_hline()}: \code{yintercept}
+\item \code{geom_abline()}: \code{slope} and \code{intercept}
 }
 }
 

@@ -6,15 +6,15 @@
 \title{Text}
 \usage{
 geom_label(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., parse = FALSE, nudge_x = 0, nudge_y = 0,
-  label.padding = unit(0.25, "lines"), label.r = unit(0.15, "lines"),
-  label.size = 0.25, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., parse = FALSE, nudge_x = 0,
+  nudge_y = 0, label.padding = unit(0.25, "lines"),
+  label.r = unit(0.15, "lines"), label.size = 0.25, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 
 geom_text(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., parse = FALSE, nudge_x = 0, nudge_y = 0,
-  check_overlap = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., parse = FALSE, nudge_x = 0,
+  nudge_y = 0, check_overlap = FALSE, na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -33,7 +33,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{stat}{The statistical transformation to use on the data for this
@@ -42,13 +42,13 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{parse}{If TRUE, the labels will be parsed into expressions and
-displayed as described in ?plotmath}
+\item{parse}{If \code{TRUE}, the labels will be parsed into expressions and
+displayed as described in \code{?plotmath}.}
 
 \item{nudge_x, nudge_y}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offsetting text from points, particularly on discrete scales.}
@@ -77,26 +77,26 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 same layer will not be plotted.}
 }
 \description{
-\code{geom_text} adds text directly to the plot. \code{geom_label} draws
+\code{geom_text()} adds text directly to the plot. \code{geom_label()} draws
 a rectangle behind the text, making it easier to read.
 }
 \details{
-Note the the "width" and "height" of a text element are 0, so stacking
+Note that the "width" and "height" of a text element are 0, so stacking
 and dodging text will not work by default, and axis limits are not
 automatically expanded to include all text. Obviously, labels do have
 height and width, but they are physical units, not data units. The amount of
-space they occupy on that plot is not constant in data units: when you
+space they occupy on the plot is not constant in data units: when you
 resize a plot, labels stay the same size, but the size of the axes changes.
 
-\code{geom_text} and \code{geom_label} both add a label for each row in the
+\code{geom_text()} and \code{geom_label()} add labels for each row in the
 data, even if coordinates x, y are set to single values in the call
-to \code{geom_label} or \code{geom_text}.
+to \code{geom_label()} or \code{geom_text()}.
 To add labels at specified points use \code{\link[=annotate]{annotate()}} with
-\code{annotate(geom = "text", ...)} or \code{annotate(geom = "label", ...)}
+\code{annotate(geom = "text", ...)} or \code{annotate(geom = "label", ...)}.
 }
 \section{Aesthetics}{
 
-\code{geom_text} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_text()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -112,13 +112,13 @@ To add labels at specified points use \code{\link[=annotate]{annotate()}} with
 \item \code{size}
 \item \code{vjust}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
-\section{\code{geom_label}}{
+\section{\code{geom_label()}}{
 
-Currently \code{geom_label} does not support the \code{rot} parameter and
-is considerably slower than \code{geom_text}. The \code{fill} aesthetic
+Currently \code{geom_label()} does not support the \code{angle} aesthetic and
+is considerably slower than \code{geom_text()}. The \code{fill} aesthetic
 controls the background colour of the label.
 }
 
@@ -126,10 +126,10 @@ controls the background colour of the label.
 
 You can modify text alignment with the \code{vjust} and \code{hjust}
 aesthetics. These can either be a number between 0 (right/bottom) and
-1 (top/left) or a character ("left", "middle", "right", "bottom", "center",
-"top"). There are two special alignments: "inward" and "outward".
-Inward always aligns text towards the center, and outward aligns
-it away from the center
+1 (top/left) or a character (\code{"left"}, \code{"middle"}, \code{"right"}, \code{"bottom"},
+\code{"center"}, \code{"top"}). There are two special alignments: \code{"inward"} and
+\code{"outward"}. Inward always aligns text towards the center, and outward
+aligns it away from the center.
 }
 
 \examples{
@@ -190,7 +190,7 @@ ggplot(data = df, aes(x, y, group = grp)) +
 ggplot(data = df, aes(x, y, group = grp)) +
   geom_col(aes(fill = grp), position = "dodge") +
   geom_text(aes(label = y), position = position_dodge(0.9))
-# Use you can't nudge and dodge text, so instead adjust the y postion
+# Use you can't nudge and dodge text, so instead adjust the y position
 ggplot(data = df, aes(x, y, group = grp)) +
   geom_col(aes(fill = grp), position = "dodge") +
   geom_text(

@@ -9,36 +9,42 @@
 \alias{scale_y_time}
 \title{Position scales for date/time data}
 \usage{
-scale_x_date(name = waiver(), breaks = waiver(), date_breaks = waiver(),
-  labels = waiver(), date_labels = waiver(), minor_breaks = waiver(),
-  date_minor_breaks = waiver(), limits = NULL, expand = waiver(),
-  position = "bottom")
+scale_x_date(name = waiver(), breaks = waiver(),
+  date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
+  minor_breaks = waiver(), date_minor_breaks = waiver(),
+  limits = NULL, expand = waiver(), position = "bottom",
+  sec.axis = waiver())
 
-scale_y_date(name = waiver(), breaks = waiver(), date_breaks = waiver(),
-  labels = waiver(), date_labels = waiver(), minor_breaks = waiver(),
-  date_minor_breaks = waiver(), limits = NULL, expand = waiver(),
-  position = "left")
+scale_y_date(name = waiver(), breaks = waiver(),
+  date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
+  minor_breaks = waiver(), date_minor_breaks = waiver(),
+  limits = NULL, expand = waiver(), position = "left",
+  sec.axis = waiver())
 
 scale_x_datetime(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
-  minor_breaks = waiver(), date_minor_breaks = waiver(), timezone = NULL,
-  limits = NULL, expand = waiver(), position = "bottom")
+  minor_breaks = waiver(), date_minor_breaks = waiver(),
+  timezone = NULL, limits = NULL, expand = waiver(),
+  position = "bottom", sec.axis = waiver())
 
 scale_y_datetime(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
-  minor_breaks = waiver(), date_minor_breaks = waiver(), timezone = NULL,
-  limits = NULL, expand = waiver(), position = "left")
+  minor_breaks = waiver(), date_minor_breaks = waiver(),
+  timezone = NULL, limits = NULL, expand = waiver(),
+  position = "left", sec.axis = waiver())
 
-scale_x_time(name = waiver(), breaks = waiver(), minor_breaks = waiver(),
-  labels = waiver(), limits = NULL, expand = waiver(), oob = censor,
-  na.value = NA_real_, position = "bottom")
+scale_x_time(name = waiver(), breaks = waiver(),
+  minor_breaks = waiver(), labels = waiver(), limits = NULL,
+  expand = waiver(), oob = censor, na.value = NA_real_,
+  position = "bottom", sec.axis = waiver())
 
-scale_y_time(name = waiver(), breaks = waiver(), minor_breaks = waiver(),
-  labels = waiver(), limits = NULL, expand = waiver(), oob = censor,
-  na.value = NA_real_, position = "left")
+scale_y_time(name = waiver(), breaks = waiver(),
+  minor_breaks = waiver(), labels = waiver(), limits = NULL,
+  expand = waiver(), oob = censor, na.value = NA_real_,
+  position = "left", sec.axis = waiver())
 }
 \arguments{
-\item{name}{The name of the scale. Used as axis or legend title. If
+\item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
@@ -95,11 +101,13 @@ expand the scale by 5\% on each side for continuous variables, and by
 \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}
 
+\item{sec.axis}{specify a secondary axis}
+
 \item{timezone}{The timezone to use for display on the axes. The default
 (\code{NULL}) uses the timezone encoded in the data.}
 
 \item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default replaces out of bounds values with NA.}
+(out of bounds). The default replaces out of bounds values with \code{NA}.}
 
 \item{na.value}{Missing values will be replaced with this value.}
 }
@@ -128,8 +136,11 @@ base + scale_x_date(date_minor_breaks = "1 day")
 
 # Set limits
 base + scale_x_date(limits = c(Sys.Date() - 7, NA))
+
 }
 \seealso{
+\code{\link[=sec_axis]{sec_axis()}} for how to specify secondary axes
+
 Other position scales: \code{\link{scale_x_continuous}},
   \code{\link{scale_x_discrete}}
 }

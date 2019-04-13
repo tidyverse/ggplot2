@@ -2,6 +2,7 @@
 #'
 #' This is a polar parameterisation of [geom_segment()]. It is
 #' useful when you have variables that describe direction and distance.
+#' The angles start from east and increase counterclockwise.
 #'
 #' @eval rd_aesthetics("geom", "spoke")
 #' @inheritParams layer

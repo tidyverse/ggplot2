@@ -4,7 +4,7 @@
 #'   shrunk by this proportion to allow space between them. Defaults to 0.1.
 #' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
-position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
+position_dodge2 <- function(width = NULL, preserve = c("total", "single"),
                             padding = 0.1, reverse = FALSE) {
   ggproto(NULL, PositionDodge2,
     width = width,
@@ -19,7 +19,7 @@ position_dodge2 <- function(width = NULL, preserve = c("single", "total"),
 #' @usage NULL
 #' @export
 PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
-  preserve = "single",
+  preserve = "total",
   padding = 0.1,
   reverse = FALSE,
 
@@ -31,10 +31,17 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
 
     if (identical(self$preserve, "total")) {
       n <- NULL
-    } else if ("x" %in% names(data)){
-      n <- max(table(data$x))
     } else {
-      n <- max(table(find_x_overlaps(data)))
+      panels <- unname(split(data, data$PANEL))
+      if ("x" %in% names(data)) {
+        # Point geom
+        groups <- lapply(panels, function(panel) table(panel$x))
+      } else {
+        # Interval geom
+        groups <- lapply(panels, find_x_overlaps)
+      }
+      n_groups <- vapply(groups, max, double(1))
+      n <- max(n_groups)
     }
 
     list(
@@ -60,11 +67,6 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
 )
 
 pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
-
-  if (length(unique(df$group)) == 1) {
-    return(df)
-  }
-
   if (!all(c("xmin", "xmax") %in% names(df))) {
     df$xmin <- df$x
     df$xmax <- df$x
@@ -87,9 +89,6 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
   } else {
     df$new_width <- (df$xmax - df$xmin) / n
   }
-
-  df$xmin <- df$x - (df$new_width / 2)
-  df$xmax <- df$x + (df$new_width / 2)
 
   # Find the total width of each group of elements
   group_sizes <- stats::aggregate(
@@ -131,9 +130,10 @@ pos_dodge2 <- function(df, width, n = NULL, padding = 0.1) {
 
 # Find groups of overlapping elements that need to be dodged from one another
 find_x_overlaps <- function(df) {
-  overlaps <- vector(mode = "numeric", length = nrow(df))
+  overlaps <- numeric(nrow(df))
   overlaps[1] <- counter <- 1
-  for (i in 2:nrow(df)) {
+
+  for (i in seq_asc(2, nrow(df))) {
     if (df$xmin[i] >= df$xmax[i - 1]) {
       counter <- counter + 1
     }

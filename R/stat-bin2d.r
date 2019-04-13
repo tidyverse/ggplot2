@@ -5,6 +5,13 @@
 #' @param drop if `TRUE` removes all cells with 0 counts.
 #' @export
 #' @rdname geom_bin2d
+#' @section Computed variables:
+#' \describe{
+#'   \item{count}{number of points in bin}
+#'   \item{density}{density of points in bin, scaled to integrate to 1}
+#'   \item{ncount}{count, scaled to maximum of 1}
+#'   \item{ndensity}{density, scaled to maximum of 1}
+#' }
 stat_bin_2d <- function(mapping = NULL, data = NULL,
                         geom = "tile", position = "identity",
                         ...,
@@ -43,7 +50,7 @@ stat_bin2d <- stat_bin_2d
 #' @usage NULL
 #' @export
 StatBin2d <- ggproto("StatBin2d", Stat,
-  default_aes = aes(fill = calc(count)),
+  default_aes = aes(fill = stat(count)),
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
@@ -74,7 +81,9 @@ StatBin2d <- ggproto("StatBin2d", Stat,
     out$height <- ydim$length
 
     out$count <- out$value
+    out$ncount <- out$count / max(out$count, na.rm = TRUE)
     out$density <- out$count / sum(out$count, na.rm = TRUE)
+    out$ndensity <- out$density / max(out$density, na.rm = TRUE)
     out
   }
 )
@@ -101,6 +110,10 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   if (scale$is_discrete()) {
     breaks <- scale$get_breaks()
     return(-0.5 + seq_len(length(breaks) + 1))
+  } else {
+    if (!is.null(breaks)) {
+      breaks <- scale$transform(breaks)
+    }
   }
 
   if (!is.null(breaks))
@@ -114,7 +127,7 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   stopifnot(is.numeric(binwidth), length(binwidth) == 1)
 
   if (is.null(origin) || identical(origin, NA)) {
-    origin <- plyr::round_any(range[1], binwidth, floor)
+    origin <- round_any(range[1], binwidth, floor)
   }
   stopifnot(is.numeric(origin), length(origin) == 1)
 

@@ -2,28 +2,28 @@
 #'
 #' Visualise the distribution of a single continuous variable by dividing
 #' the x axis into bins and counting the number of observations in each bin.
-#' Histograms (`geom_histogram`) display the count with bars; frequency
-#' polygons (`geom_freqpoly`), display the counts with lines. Frequency
+#' Histograms (`geom_histogram()`) display the counts with bars; frequency
+#' polygons (`geom_freqpoly()`) display the counts with lines. Frequency
 #' polygons are more suitable when you want to compare the distribution
 #' across the levels of a categorical variable.
 #'
-#' `stat_bin` is suitable only for continuous x data. If your x data is
+#' `stat_bin()` is suitable only for continuous x data. If your x data is
 #' discrete, you probably want to use [stat_count()].
 #'
-#' By default, the underlying computation (`stat_bin`) uses 30 bins -
+#' By default, the underlying computation (`stat_bin()`) uses 30 bins;
 #' this is not a good default, but the idea is to get you experimenting with
-#' different binwidths. You may need to look at a few to uncover the full
+#' different bin widths. You may need to look at a few to uncover the full
 #' story behind your data.
 #'
 #' @section Aesthetics:
-#' `geom_histogram` uses the same aesthetics as [geom_bar()];
-#' `geom_freqpoly` uses the same aesthetics as [geom_line()].
+#' `geom_histogram()` uses the same aesthetics as [geom_bar()];
+#' `geom_freqpoly()` uses the same aesthetics as [geom_line()].
 #'
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
-#'   `geom_histogram`/`geom_freqpoly` and `stat_bin`.
+#'   `geom_histogram()`/`geom_freqpoly()` and `stat_bin()`.
 #' @examples
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_histogram()
@@ -41,7 +41,7 @@
 #'
 #' # To make it easier to compare distributions with very different counts,
 #' # put density on the y axis instead of the default count
-#' ggplot(diamonds, aes(price, calc(density), colour = cut)) +
+#' ggplot(diamonds, aes(price, stat(density), colour = cut)) +
 #'   geom_freqpoly(binwidth = 500)
 #'
 #' if (require("ggplot2movies")) {
@@ -78,9 +78,9 @@
 #' m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 #' }
 #'
-#' # You can specify a function for calculating binwidth,
+#' # You can specify a function for calculating binwidth, which is
 #' # particularly useful when faceting along variables with
-#' # different ranges
+#' # different ranges because the function will be called once per facet
 #' mtlong <- reshape2::melt(mtcars)
 #' ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
 #'   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))

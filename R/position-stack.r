@@ -13,7 +13,7 @@
 #' There are three ways to override the defaults depending on what you want:
 #'
 #' \enumerate{
-#'   \item Change the order of the levels in the underyling factor. This
+#'   \item Change the order of the levels in the underlying factor. This
 #'     will change the stacking order, and the order of keys in the legend.
 #'
 #'   \item Set the legend `breaks` to change the order of the keys
@@ -225,7 +225,7 @@ PositionFill <- ggproto("PositionFill", PositionStack,
 
 stack_var <- function(data) {
   if (!is.null(data$ymax)) {
-    if (any(data$ymin != 0 && data$ymax != 0, na.rm = TRUE)) {
+    if (any(data$ymin != 0 & data$ymax != 0, na.rm = TRUE)) {
       warning("Stacking not well defined when not anchored on the axis", call. = FALSE)
     }
     "ymax"

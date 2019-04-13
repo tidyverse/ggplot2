@@ -2,7 +2,7 @@
 % Please edit documentation in R/facet-.r
 \name{combine_vars}
 \alias{combine_vars}
-\title{Take input data and define a mapping between facetting variables and ROW,
+\title{Take input data and define a mapping between faceting variables and ROW,
 COL and PANEL keys}
 \usage{
 combine_vars(data, env = emptyenv(), vars = NULL, drop = TRUE)
@@ -18,10 +18,10 @@ subsequent individual layer data}
 \item{drop}{should missing combinations/levels be dropped}
 }
 \value{
-A data.frame with columns for PANEL, ROW, COL, and facetting vars
+A data.frame with columns for PANEL, ROW, COL, and faceting vars
 }
 \description{
-Take input data and define a mapping between facetting variables and ROW,
+Take input data and define a mapping between faceting variables and ROW,
 COL and PANEL keys
 }
 \keyword{internal}

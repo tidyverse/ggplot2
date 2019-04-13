@@ -7,12 +7,13 @@
 \alias{scale_shape_manual}
 \alias{scale_linetype_manual}
 \alias{scale_alpha_manual}
+\alias{scale_discrete_manual}
 \alias{scale_color_manual}
 \title{Create your own discrete scale}
 \usage{
-scale_colour_manual(..., values)
+scale_colour_manual(..., values, aesthetics = "colour")
 
-scale_fill_manual(..., values)
+scale_fill_manual(..., values, aesthetics = "fill")
 
 scale_size_manual(..., values)
 
@@ -21,10 +22,15 @@ scale_shape_manual(..., values)
 scale_linetype_manual(..., values)
 
 scale_alpha_manual(..., values)
+
+scale_discrete_manual(aesthetics, ..., values)
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
 \describe{
+  \item{palette}{A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the values that
+they should take.}
   \item{breaks}{One of:
 \itemize{
 \item \code{NULL} for no breaks
@@ -45,12 +51,8 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
   \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
 value should missing be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
-  \item{aesthetics}{The names of the aesthetics that this scale works with}
   \item{scale_name}{The name of the scale}
-  \item{palette}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take}
-  \item{name}{The name of the scale. Used as axis or legend title. If
+  \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
@@ -73,10 +75,24 @@ is a named vector, then the values will be matched based on the names.
 If unnamed, values will be matched in order (usually alphabetical) with
 the limits of the scale. Any data values that don't match will be
 given \code{na.value}.}
+
+\item{aesthetics}{Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 }
 \description{
-This allows you to specify you own set of mappings from levels in the
+These functions allow you to specify your own set of mappings from levels in the
 data to aesthetic values.
+}
+\details{
+The functions \code{scale_colour_manual()}, \code{scale_fill_manual()}, \code{scale_size_manual()},
+etc. work on the aesthetics specified in the scale name: \code{colour}, \code{fill}, \code{size},
+etc. However, the functions \code{scale_colour_manual()} and \code{scale_fill_manual()} also
+have an optional \code{aesthetics} argument that can be used to define both \code{colour} and
+\code{fill} aesthetic mappings via a single function call (see examples). The function
+\code{scale_discrete_manual()} is a generic scale that can work with any aesthetic or set
+of aesthetics provided via the \code{aesthetics} argument.
 }
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt)) +
@@ -86,6 +102,17 @@ p + scale_colour_manual(values = c("red", "blue", "green"))
 # It's recommended to use a named vector
 cols <- c("8" = "red", "4" = "blue", "6" = "darkgreen", "10" = "orange")
 p + scale_colour_manual(values = cols)
+
+# You can set color and fill aesthetics at the same time
+ggplot(
+  mtcars,
+  aes(mpg, wt, colour = factor(cyl), fill = factor(cyl))
+) +
+  geom_point(shape = 21, alpha = 0.5, size = 2) +
+  scale_colour_manual(
+    values = cols,
+    aesthetics = c("colour", "fill")
+  )
 
 # As with other scales you can use breaks to control the appearance
 # of the legend.

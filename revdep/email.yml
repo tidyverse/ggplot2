@@ -1,0 +1,4 @@
+release_date: Oct 10
+rel_release_date: one week
+my_news_url: https://github.com/tidyverse/ggplot2/blob/master/NEWS.md#ggplot2-310
+release_version: 3.1.0

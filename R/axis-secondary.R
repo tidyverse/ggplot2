@@ -4,7 +4,7 @@
 #' secondary axis, positioned opposite of the primary axis. All secondary
 #' axes must be based on a one-to-one transformation of the primary axes.
 #'
-#' @param trans A transformation formula
+#' @param trans A formula or function of transformation
 #'
 #' @param name The name of the secondary axis
 #'
@@ -29,25 +29,61 @@
 #' `dup_axis` is provide as a shorthand for creating a secondary axis that
 #' is a duplication of the primary axis, effectively mirroring the primary axis.
 #'
+#' As of v3.1, date and datetime scales have limited secondary axis capabilities.
+#' Unlike other continuous scales, secondary axis transformations for date and datetime scales
+#' must respect their primary POSIX data structure.
+#' This means they may only be transformed via addition or subtraction, e.g.
+#' `~ . + hms::hms(days = 8)`, or
+#' `~ . - 8*60*60`. Nonlinear transformations will return an error.
+#' To produce a time-since-event secondary axis in this context, users
+#' may consider adapting secondary axis labels.
+#'
 #' @examples
 #' p <- ggplot(mtcars, aes(cyl, mpg)) +
 #'   geom_point()
 #'
 #' # Create a simple secondary axis
-#' p + scale_y_continuous(sec.axis = sec_axis(~.+10))
+#' p + scale_y_continuous(sec.axis = sec_axis(~ . + 10))
 #'
 #' # Inherit the name from the primary axis
-#' p + scale_y_continuous("Miles/gallon", sec.axis = sec_axis(~.+10, name = derive()))
+#' p + scale_y_continuous("Miles/gallon", sec.axis = sec_axis(~ . + 10, name = derive()))
 #'
 #' # Duplicate the primary axis
 #' p + scale_y_continuous(sec.axis = dup_axis())
 #'
 #' # You can pass in a formula as a shorthand
-#' p + scale_y_continuous(sec.axis = ~.^2)
+#' p + scale_y_continuous(sec.axis = ~ .^2)
+#'
+#' # Secondary axes work for date and datetime scales too:
+#' df <- data.frame(
+#'   dx = seq(as.POSIXct("2012-02-29 12:00:00",
+#'                        tz = "UTC",
+#'                        format = "%Y-%m-%d %H:%M:%S"
+#'   ),
+#'   length.out = 10, by = "4 hour"
+#'   ),
+#'   price = seq(20, 200000, length.out = 10)
+#'  )
+#'
+#' # This may useful for labelling different time scales in the same plot
+#' ggplot(df, aes(x = dx, y = price)) + geom_line() +
+#'   scale_x_datetime("Date", date_labels = "%b %d",
+#'   date_breaks = "6 hour",
+#'   sec.axis = dup_axis(name = "Time of Day",
+#'   labels = scales::time_format("%I %p")))
+#'
+#' # or to transform axes for different timezones
+#' ggplot(df, aes(x = dx, y = price)) + geom_line() +
+#'   scale_x_datetime("GMT", date_labels = "%b %d %I %p",
+#'   sec.axis = sec_axis(~ . + 8 * 3600, name = "GMT+8",
+#'   labels = scales::time_format("%b %d %I %p")))
 #'
 #' @export
 sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver()) {
-  if (!is.formula(trans)) stop("transformation for secondary axes must be a formula", call. = FALSE)
+  # sec_axis() historically accpeted two-sided formula, so be permissive.
+  if (length(trans) > 2) trans <- trans[c(1,3)]
+
+  trans <- rlang::as_function(trans)
   ggproto(NULL, AxisSecondary,
     trans = trans,
     name = name,
@@ -61,9 +97,20 @@ sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = 
 dup_axis <- function(trans = ~., name = derive(), breaks = derive(), labels = derive()) {
   sec_axis(trans, name, breaks, labels)
 }
+
 is.sec_axis <- function(x) {
   inherits(x, "AxisSecondary")
 }
+
+set_sec_axis <- function(sec.axis, scale) {
+  if (!is.waive(sec.axis)) {
+    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
+    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
+    scale$secondary.axis <- sec.axis
+  }
+  return(scale)
+}
+
 #' @rdname sec_axis
 #'
 #' @export
@@ -98,22 +145,19 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   # Inherit settings from the primary axis/scale
   init = function(self, scale) {
     if (self$empty()) return()
-    if (!is.formula(self$trans)) stop("transformation for secondary axes must be a formula", call. = FALSE)
+    if (!is.function(self$trans)) stop("transformation for secondary axes must be a function", call. = FALSE)
     if (is.derived(self$name) && !is.waive(scale$name)) self$name <- scale$name
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
+    if (is.waive(self$breaks)) self$breaks <- scale$trans$breaks
     if (is.derived(self$labels)) self$labels <- scale$labels
   },
 
   transform_range = function(self, range) {
-    range <- structure(data.frame(range), names = '.')
-    f_eval(self$trans, range)
+    self$trans(range)
   },
 
-
-  break_info = function(self, range, scale) {
-    if (self$empty()) return()
-
-    # Get original range before transformation
+  mono_test = function(self, scale){
+    range <- scale$range$range
     along_range <- seq(range[1], range[2], length.out = self$detail)
     old_range <- scale$trans$inverse(along_range)
 
@@ -123,9 +167,33 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     # Test for monotonicity
     if (length(unique(sign(diff(full_range)))) != 1)
       stop("transformation for secondary axes must be monotonic")
+  },
+
+  break_info = function(self, range, scale) {
+    if (self$empty()) return()
+
+    # Test for monotonicity on unexpanded range
+    self$mono_test(scale)
+
+    # Get scale's original range before transformation
+    along_range <- seq(range[1], range[2], length.out = self$detail)
+    old_range <- scale$trans$inverse(along_range)
+
+    # Create mapping between primary and secondary range
+    full_range <- self$transform_range(old_range)
 
     # Get break info for the secondary axis
     new_range <- range(full_range, na.rm = TRUE)
+
+    # patch for date and datetime scales just to maintain functionality
+    # works only for linear secondary transforms that respect the time or date transform
+    if (scale$trans$name %in% c("date", "time")){
+      temp_scale <- self$create_scale(new_range, trans = scale$trans)
+      range_info <- temp_scale$break_info()
+      names(range_info) <- paste0("sec.", names(range_info))
+      return(range_info)
+    }
+
     temp_scale <- self$create_scale(new_range)
     range_info <- temp_scale$break_info()
 
@@ -140,14 +208,14 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
   },
 
   # Temporary scale for the purpose of calling break_info()
-  create_scale = function(self, range) {
+  create_scale = function(self, range, trans = identity_trans()) {
     scale <- ggproto(NULL, ScaleContinuousPosition,
-      name = self$name,
-      breaks = self$breaks,
-      labels = self$labels,
-      limits = range,
-      expand = c(0, 0),
-      trans = identity_trans()
+                     name = self$name,
+                     breaks = self$breaks,
+                     labels = self$labels,
+                     limits = range,
+                     expand = c(0, 0),
+                     trans = trans
     )
     scale$train(range)
     scale

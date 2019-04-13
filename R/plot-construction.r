@@ -7,13 +7,13 @@
 #' @section What can you add?:
 #' You can add any of the following types of objects:
 #'
-#'   - A [aes()] objects replaces the default aesthetics.
-#'   - A layer created by a `geom_` or `stat_` function adds
+#'   - An [aes()] object replaces the default aesthetics.
+#'   - A layer created by a `geom_` or `stat_` function adds a
 #'     new layer.
 #'   - A `scale` overrides the existing scale.
 #'   - A [theme()] modifies the current theme.
-#'   - A `coord` overrides current coordinate system.
-#'   - A `facet` specificatio override current faceting.
+#'   - A `coord` overrides the current coordinate system.
+#'   - A `facet` specification overrides the current faceting.
 #'
 #' To replace the current default data frame, you must use \code{\%+\%},
 #' due to S3 method precedence issues.
@@ -38,6 +38,12 @@
 #' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
 "+.gg" <- function(e1, e2) {
+  if (missing(e2)) {
+    stop("Cannot use `+.gg()` with a single argument. ",
+         "Did you accidentally put + on a new line?",
+         call. = FALSE)
+  }
+
   # Get the name of what was passed in as e2, and pass along so that it
   # can be displayed in error messages
   e2name <- deparse(substitute(e2))
@@ -117,7 +123,7 @@ ggplot_add.uneval <- function(object, plot, object_name) {
   # defaults() doesn't copy class, so copy it.
   class(plot$mapping) <- class(object)
 
-  labels <- lapply(object, deparse)
+  labels <- make_labels(object)
   names(labels) <- names(object)
   update_labels(plot, labels)
 }

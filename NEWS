@@ -544,7 +544,7 @@ SCALES
 
 * Scales now automatically shrink to what is actually displayed on the plot,
   not the underlying data used for statistical transformation. If you want the
-  old behaviour, supply `shrink = FALSE` to the facetting specification.
+  old behaviour, supply `shrink = FALSE` to the faceting specification.
   (Fixes #125)
 
 * `scale_colour_gradient` and `scale_fill_gradient` now use a colour scheme
@@ -554,7 +554,7 @@ SCALES
 FACETS
 
 * Converted from proto to S3 objects, and class methods (somewhat) documented
-  in `facet.r`. This should make it easier to develop new types of facetting
+  in `facet.r`. This should make it easier to develop new types of faceting
   specifications.
 
 * The new `facet_null` specification is applied in the default case of no
@@ -892,7 +892,7 @@ BUG FIXES
 
 * order aesthetic now correctly affects position adjustments  (Fixes #70)
 
-* qplot loads facetting variables from global environment more correctly
+* qplot loads faceting variables from global environment more correctly
 
 * scale_date and scale_date_time now work with infinite positions
 
@@ -993,7 +993,7 @@ BUG FIXES
 * facet_grid with scales = "free" and space = "free" now calculates space
   correctly if the range of the scale is < 1 (fixes #1)
 
-* facet_grid works once more when facetting with multiple variables in one
+* facet_grid works once more when faceting with multiple variables in one
   direction (fixes #11)
 
 * facet_wrap now sets aspect ratio correctly
@@ -1085,7 +1085,7 @@ New features
 
 Dealing with missing values
 
-* facet_wrap: add drop argument to control whether or not panels for non-existent combinations of facetting variables should be dropped or not.  Defaults to TRUE
+* facet_wrap: add drop argument to control whether or not panels for non-existent combinations of faceting variables should be dropped or not.  Defaults to TRUE
 
 * scale_discrete: empty factor levels will be preserved, unless drop = TRUE
 
@@ -1098,7 +1098,7 @@ Bug fixes
 
 * facet_wrap: contents guaranteed to be clipped to panel
 
-* facet_wrap: corrected labelling when facetting by multiple variables (thank
+* facet_wrap: corrected labelling when faceting by multiple variables (thank
   to Charlotte Wickham for a clear test case)
 
 * geom_histogram now works with negative weights (provided position =
@@ -1388,7 +1388,7 @@ Bug fixes
   variables ignored when generating default group value)
 
 * facet_grid: fix long standing bug when combining datasets with different
-  levels of facetting variable
+  levels of faceting variable
 
 * geom_smooth calls stat::predict explicitly to avoid conflicts with packages
   that override predict for S4 model classes

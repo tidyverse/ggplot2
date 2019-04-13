@@ -1,7 +1,7 @@
 # Test the complete path from plot specification to rendered data
 context("Plot building")
 
-df <- data.frame(x = 1:3, y = 3:1, z = letters[1:3])
+df <- data_frame(x = 1:3, y = 3:1, z = letters[1:3])
 
 test_that("there is one data frame for each layer", {
   nlayers <- function(x) length(ggplot_build(x)$data)
@@ -15,7 +15,7 @@ test_that("there is one data frame for each layer", {
   expect_equal(nlayers(l3), 3)
 })
 
-test_that("position aesthetics coerced to correct type", {
+test_that("position aesthetics are coerced to correct type", {
   l1 <- ggplot(df, aes(x, y)) + geom_point()
   d1 <- layer_data(l1, 1)
 
@@ -48,7 +48,7 @@ test_that("non-position aesthetics are mapped", {
 })
 
 test_that("strings are not converted to factors", {
-  df <- data.frame(x = 1:2, y = 2:1, label = c("alpha", "beta"), stringsAsFactors = FALSE)
+  df <- data_frame(x = 1:2, y = 2:1, label = c("alpha", "beta"), stringsAsFactors = FALSE)
   p <- ggplot(df, aes(x, y)) +
     geom_text(aes(label = label), parse = TRUE)
 

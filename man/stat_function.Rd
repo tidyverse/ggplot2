@@ -5,8 +5,9 @@
 \title{Compute function for each x value}
 \usage{
 stat_function(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", ..., fun, xlim = NULL, n = 101, args = list(),
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., fun, xlim = NULL, n = 101,
+  args = list(), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -25,7 +26,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{geom}{The geometric object to use display the data}
@@ -33,18 +34,21 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{fun}{function to use. Must be vectorised.}
+\item{fun}{Function to use. Either 1) an anonymous function in the base or
+rlang formula syntax (see \code{\link[rlang:as_function]{rlang::as_function()}})
+or 2) a quoted or character name referencing a function; see examples. Must
+be vectorised.}
 
 \item{xlim}{Optionally, restrict the range of the function to this range.}
 
-\item{n}{number of points to interpolate along}
+\item{n}{Number of points to interpolate along}
 
-\item{args}{list of additional arguments to pass to \code{fun}}
+\item{args}{List of additional arguments to pass to \code{fun}}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -61,18 +65,18 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
-This stat makes it easy to superimpose a function on top of an existing
-plot. The function is called with a grid of evenly spaced values along
-the x axis, and the results are drawn (by default) with a line.
+This stat makes it easy to superimpose a function on top of an existing plot.
+The function is called with a grid of evenly spaced values along the x axis,
+and the results are drawn (by default) with a line.
 }
 \section{Aesthetics}{
 
-\code{stat_function} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_function()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \code{group}
 \item \code{y}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
@@ -84,35 +88,39 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
 }
 
 \examples{
+
+# stat_function is useful for overlaying functions
 set.seed(1492)
-df <- data.frame(
-  x = rnorm(100)
-)
-x <- df$x
-base <- ggplot(df, aes(x)) + geom_density()
-base + stat_function(fun = dnorm, colour = "red")
-base + stat_function(fun = dnorm, colour = "red", args = list(mean = 3))
+ggplot(data.frame(x = rnorm(100)), aes(x)) +
+  geom_density() +
+  stat_function(fun = dnorm, colour = "red")
 
-# Plot functions without data
-# Examples adapted from Kohske Takahashi
+# To plot functions without data, specify range of x-axis
+base <- ggplot(data.frame(x = c(-5, 5)), aes(x))
+base + stat_function(fun = dnorm)
+base + stat_function(fun = dnorm, args = list(mean = 2, sd = .5))
 
-# Specify range of x-axis
-ggplot(data.frame(x = c(0, 2)), aes(x)) +
-  stat_function(fun = exp, geom = "line")
-
-# Plot a normal curve
-ggplot(data.frame(x = c(-5, 5)), aes(x)) + stat_function(fun = dnorm)
-
-# To specify a different mean or sd, use the args parameter to supply new values
-ggplot(data.frame(x = c(-5, 5)), aes(x)) +
-  stat_function(fun = dnorm, args = list(mean = 2, sd = .5))
+# The underlying mechanics evaluate the function at discrete points
+# and connect the points with lines
+base <- ggplot(data.frame(x = c(-5, 5)), aes(x))
+base + stat_function(fun = dnorm, geom = "point")
+base + stat_function(fun = dnorm, geom = "point", n = 20)
+base + stat_function(fun = dnorm, n = 20)
 
 # Two functions on the same plot
-f <- ggplot(data.frame(x = c(0, 10)), aes(x))
-f + stat_function(fun = sin, colour = "red") +
-  stat_function(fun = cos, colour = "blue")
+base +
+  stat_function(fun = dnorm, colour = "red") +
+  stat_function(fun = dt, colour = "blue", args = list(df = 1))
 
-# Using a custom function
-test <- function(x) {x ^ 2 + x + 20}
-f + stat_function(fun = test)
+# Using a custom anonymous function
+base + stat_function(fun = function(.x) .5*exp(-abs(.x)))
+base + stat_function(fun = ~ .5*exp(-abs(.x)))
+
+# Using a custom named function
+f <- function(.x) .5*exp(-abs(.x))
+base + stat_function(fun = f)
+
+}
+\seealso{
+\code{\link[rlang:as_function]{rlang::as_function()}}
 }

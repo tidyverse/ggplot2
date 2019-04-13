@@ -1,3 +1,4 @@
+docs
 .Rproj.user
 .Rhistory
 .RData
@@ -6,5 +7,9 @@ inst/doc
 .*.Rnb.cached
 
 man/.Rapp.history
-
 .DS_Store
+revdep/checks
+revdep/library
+revdep/checks.noindex
+revdep/library.noindex
+revdep/data.sqlite

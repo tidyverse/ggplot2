@@ -1,33 +1,33 @@
 #' Smoothed conditional means
 #'
 #' Aids the eye in seeing patterns in the presence of overplotting.
-#' `geom_smooth` and `stat_smooth` are effectively aliases: they
-#' both use the same arguments. Use `geom_smooth` unless you want to
+#' `geom_smooth()` and `stat_smooth()` are effectively aliases: they
+#' both use the same arguments. Use `stat_smooth()` if you want to
 #' display the results with a non-standard geom.
 #'
 #' Calculation is performed by the (currently undocumented)
-#' `predictdf` generic and its methods.  For most methods the standard
-#' error bounds are computed using the [predict()] method - the
-#' exceptions are `loess` which uses a t-based approximation, and
-#' `glm` where the normal confidence interval is constructed on the link
-#' scale, and then back-transformed to the response scale.
+#' `predictdf()` generic and its methods.  For most methods the standard
+#' error bounds are computed using the [predict()] method -- the
+#' exceptions are `loess()`, which uses a t-based approximation, and
+#' `glm()`, where the normal confidence interval is constructed on the link
+#' scale and then back-transformed to the response scale.
 #'
 #' @eval rd_aesthetics("geom", "smooth")
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param geom,stat Use to override the default connection between
-#'   `geom_smooth` and `stat_smooth`.
+#'   `geom_smooth()` and `stat_smooth()`.
 #' @seealso See individual modelling functions for more details:
 #'   [lm()] for linear smooths,
-#'   [glm()] for generalised linear smooths,
-#'   [loess()] for local smooths
+#'   [glm()] for generalised linear smooths, and
+#'   [loess()] for local smooths.
 #' @export
 #' @examples
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
 #'   geom_smooth()
 #'
-#' # Use span to control the "wiggliness" of the default loess smoother
+#' # Use span to control the "wiggliness" of the default loess smoother.
 #' # The span is the fraction of points used to fit each local regression:
 #' # small numbers make a wigglier curve, larger numbers make a smoother curve.
 #' ggplot(mpg, aes(displ, hwy)) +
@@ -43,8 +43,8 @@
 #'   geom_point() +
 #'   geom_smooth(method = lm, formula = y ~ splines::bs(x, 3), se = FALSE)
 #'
-#' # Smoothes are automatically fit to each group (defined by categorical
-#' # aesthetics or the group aesthetic) and for each facet
+#' # Smooths are automatically fit to each group (defined by categorical
+#' # aesthetics or the group aesthetic) and for each facet.
 #'
 #' ggplot(mpg, aes(displ, hwy, colour = class)) +
 #'   geom_point() +
@@ -73,7 +73,7 @@
 #'   binomial_smooth(formula = y ~ splines::ns(x, 2))
 #'
 #' # But in this case, it's probably better to fit the model yourself
-#' # so you can exercise more control and see whether or not it's a good model
+#' # so you can exercise more control and see whether or not it's a good model.
 #' }
 geom_smooth <- function(mapping = NULL, data = NULL,
                         stat = "smooth", position = "identity",
@@ -87,12 +87,12 @@ geom_smooth <- function(mapping = NULL, data = NULL,
 
   params <- list(
     na.rm = na.rm,
+    se = se,
     ...
   )
   if (identical(stat, "smooth")) {
     params$method <- method
     params$formula <- formula
-    params$se <- se
   }
 
   layer(
@@ -115,11 +115,19 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
   setup_data = function(data, params) {
     GeomLine$setup_data(data, params)
   },
-  draw_group = function(data, panel_params, coord) {
+
+  # The `se` argument is set to false here to make sure drawing the
+  # geom and drawing the legend is in synch. If the geom is used by a
+  # stat that doesn't set the `se` argument then `se` will be missing
+  # and the legend key won't be drawn. With `se = FALSE` here the
+  # ribbon won't be drawn either in that case, keeping the overall
+  # behavior predictable and sensible. The user will realize that they
+  # need to set `se = TRUE` to obtain the ribbon and the legend key.
+  draw_group = function(data, panel_params, coord, se = FALSE) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
-    has_ribbon <- !is.null(data$ymax) && !is.null(data$ymin)
+    has_ribbon <- se && !is.null(data$ymax) && !is.null(data$ymin)
 
     gList(
       if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_params, coord),

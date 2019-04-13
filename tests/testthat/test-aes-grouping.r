@@ -1,6 +1,6 @@
 context("Aesthetics (grouping)")
 
-df <- data.frame(
+df <- data_frame(
   x = 1:4,
   a = c("a", "a", "b", "b"),
   b = c("a", "b", "a", "b")
@@ -8,6 +8,7 @@ df <- data.frame(
 
 group <- function(x) as.vector(layer_data(x, 1)$group)
 groups <- function(x) length(unique(group(x)))
+
 
 test_that("one group per combination of discrete vars", {
   plot <- ggplot(df, aes(x, x)) + geom_point()

@@ -32,9 +32,7 @@
 #' @param mapping Default list of aesthetic mappings to use for plot.
 #'   If not specified, must be supplied in each layer added to the plot.
 #' @param ... Other arguments passed on to methods. Not currently used.
-#' @param environment If a variable defined in the aesthetic mapping is not
-#'   found in the data, ggplot will look for it in this environment. It defaults
-#'   to using the environment in which `ggplot()` is called.
+#' @param environment DEPRECATED. Used prior to tidy evaluation.
 #' @export
 #' @examples
 #' # Generate some sample data, then compute mean and standard deviation
@@ -43,7 +41,9 @@
 #'   gp = factor(rep(letters[1:3], each = 10)),
 #'   y = rnorm(30)
 #' )
-#' ds <- plyr::ddply(df, "gp", plyr::summarise, mean = mean(y), sd = sd(y))
+#' ds <- do.call(rbind, lapply(split(df, df$gp), function(d) {
+#'   data.frame(mean = mean(d$y), sd = sd(d$y), gp = d$gp)
+#' }))
 #'
 #' # The summary data frame ds is used to plot larger red points on top
 #' # of the raw data. Note that we don't need to supply `data` or `mapping`
@@ -79,15 +79,11 @@ ggplot <- function(data = NULL, mapping = aes(), ...,
 #' @export
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
-  ggplot.data.frame(fortify(data, ...), mapping, environment = environment)
-}
-
-#' @export
-ggplot.data.frame <- function(data, mapping = aes(), ...,
-                              environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
     stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
   }
+
+  data <- fortify(data, ...)
 
   p <- structure(list(
     data = data,
@@ -104,6 +100,13 @@ ggplot.data.frame <- function(data, mapping = aes(), ...,
 
   set_last_plot(p)
   p
+}
+
+#' @export
+ggplot.function <- function(data = NULL, mapping = aes(), ...,
+                            environment = parent.frame()) {
+  # Added to avoid functions end in ggplot.default
+  stop("You're passing a function as global data.\nHave you misspelled the `data` argument in `ggplot()`", call. = FALSE)
 }
 
 plot_clone <- function(plot) {

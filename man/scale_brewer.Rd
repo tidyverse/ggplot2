@@ -9,17 +9,19 @@
 \alias{scale_color_distiller}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
-scale_colour_brewer(..., type = "seq", palette = 1, direction = 1)
+scale_colour_brewer(..., type = "seq", palette = 1, direction = 1,
+  aesthetics = "colour")
 
-scale_fill_brewer(..., type = "seq", palette = 1, direction = 1)
+scale_fill_brewer(..., type = "seq", palette = 1, direction = 1,
+  aesthetics = "fill")
 
-scale_colour_distiller(..., type = "seq", palette = 1, direction = -1,
-  values = NULL, space = "Lab", na.value = "grey50",
-  guide = "colourbar")
+scale_colour_distiller(..., type = "seq", palette = 1,
+  direction = -1, values = NULL, space = "Lab",
+  na.value = "grey50", guide = "colourbar", aesthetics = "colour")
 
 scale_fill_distiller(..., type = "seq", palette = 1, direction = -1,
   values = NULL, space = "Lab", na.value = "grey50",
-  guide = "colourbar")
+  guide = "colourbar", aesthetics = "fill")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or, for
@@ -31,13 +33,18 @@ limits, breaks, labels and so forth.}
 \item{palette}{If a string, will use that named palette.  If a number, will
 index into the list of palettes of appropriate \code{type}}
 
-\item{direction}{Sets the order of colors in the scale. If 1, the default,
-colors are as output by \code{\link[RColorBrewer]{brewer.pal}}. If -1, the
-order of colors is reversed.}
+\item{direction}{Sets the order of colours in the scale. If 1, the default,
+colours are as output by \code{\link[RColorBrewer:brewer.pal]{RColorBrewer::brewer.pal()}}. If -1, the
+order of colours is reversed.}
+
+\item{aesthetics}{Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-\code{colours} vector. See \code{\link{rescale}} for a convience function
+\code{colours} vector. See \code{\link[=rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
 
 \item{space}{colour space in which to calculate gradient. Must be "Lab" -
@@ -60,8 +67,8 @@ They were not designed to be extended to continuous data, but results often
 look good. Your mileage may vary.
 }
 \note{
-The \code{distiller} scales extends brewer to continuous scales by smoothly
-interpolate 6 colours from any palette to a continuous scale.
+The \code{distiller} scales extend brewer to continuous scales by smoothly
+interpolating 7 colours from any palette to a continuous scale.
 }
 \section{Palettes}{
 

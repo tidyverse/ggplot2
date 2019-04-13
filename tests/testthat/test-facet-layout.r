@@ -1,9 +1,9 @@
 context("Facetting (layout)")
 
-a <- data.frame(a = c(1, 1, 2, 2), b = c(1, 2, 1, 1))
-b <- data.frame(a = 3)
-c <- data.frame(b = 3)
-empty <- data.frame()
+a <- data_frame(a = c(1, 1, 2, 2), b = c(1, 2, 1, 1))
+b <- data_frame(a = 3)
+c <- data_frame(b = 3)
+empty <- data_frame()
 
 panel_layout <- function(facet, data) {
   layout <- create_layout(facet)
@@ -11,7 +11,7 @@ panel_layout <- function(facet, data) {
   layout$layout
 }
 
-test_that("grid: single row and single col equivalent", {
+test_that("grid: single row and single col are equivalent", {
   row <- panel_layout(facet_grid(a~.), list(a))
   col <- panel_layout(facet_grid(.~a), list(a))
 
@@ -28,13 +28,13 @@ test_that("grid: single row and single col equivalent", {
 })
 
 test_that("grid: includes all combinations", {
-  d <- data.frame(a = c(1, 2), b = c(2, 1))
+  d <- data_frame(a = c(1, 2), b = c(2, 1))
   all <- panel_layout(facet_grid(a~b), list(d))
 
   expect_equal(nrow(all), 4)
 })
 
-test_that("wrap and grid equivalent for 1d data", {
+test_that("wrap and grid are equivalent for 1d data", {
   rowg <- panel_layout(facet_grid(a~.), list(a))
   roww <- panel_layout(facet_wrap(~a, ncol = 1), list(a))
   expect_equal(roww, rowg)
@@ -92,7 +92,7 @@ test_that("grid: as.table reverses rows", {
 
 # Drop behaviour -------------------------------------------------------------
 
-a2 <- data.frame(
+a2 <- data_frame(
   a = factor(1:3, levels = 1:4),
   b = factor(1:3, levels = 4:1)
 )
@@ -105,7 +105,6 @@ test_that("wrap: drop = FALSE preserves unused levels", {
   wrap_b <- panel_layout(facet_wrap(~b, drop = FALSE), list(a2))
   expect_equal(nrow(wrap_b), 4)
   expect_equal(as.character(wrap_b$b), as.character(4:1))
-
 })
 
 test_that("grid: drop = FALSE preserves unused levels", {
@@ -121,12 +120,11 @@ test_that("grid: drop = FALSE preserves unused levels", {
   expect_equal(nrow(grid_ab), 16)
   expect_equal(as.character(grid_ab$a), as.character(rep(1:4, each = 4)))
   expect_equal(as.character(grid_ab$b), as.character(rep(4:1, 4)))
-
 })
 
 # Missing behaviour ----------------------------------------------------------
 
-a3 <- data.frame(
+a3 <- data_frame(
   a = c(1:3, NA),
   b = factor(c(1:3, NA)),
   c = factor(c(1:3, NA), exclude = NULL)

@@ -1,104 +1,77 @@
 #' Modify components of a theme
 #'
-#' Use `theme()` to modify individual components of a theme, allowing
-#' you to control the appearance of all non-data components of the plot.
-#' `theme()` only affects a single plot: see [theme_update()] if
-#' you want modify the active theme, to affect all subsequent plots.
+#' Themes are a powerful way to customize the non-data components of your
+#' plots: i.e. titles, labels, fonts, background, gridlines, and legends.
+#' Themes can be used to give plots a consistent customized look.
+#' Modify a single plot's theme using `theme()`; see [theme_update()] if
+#' you want modify the active theme, to affect all subsequent plots. Theme
+#' elements are documented together according to inheritance, read more
+#' about theme inheritance below.
 #'
 #' @section Theme inheritance:
-#' Theme elements inherit properties from other theme elements.
-#' For example, `axis.title.x` inherits from `axis.title`,
-#' which in turn inherits from `text`. All text elements inherit
+#' Theme elements inherit properties from other theme elements heirarchically.
+#' For example, `axis.title.x.bottom` inherits from `axis.title.x` which inherits
+#' from `axis.title`, which in turn inherits from `text`. All text elements inherit
 #' directly or indirectly from `text`; all lines inherit from
 #' `line`, and all rectangular objects inherit from `rect`.
 #' This means that you can modify the appearance of multiple elements by
 #' setting a single high-level component.
 #'
-#' @param line all line elements (`element_line`)
-#' @param rect all rectangular elements (`element_rect`)
-#' @param text all text elements (`element_text`)
-#' @param title all title elements: plot, axes, legends (`element_text`;
+#' Learn more about setting these aesthetics in `vignette("ggplot2-specs")`.
+#'
+#' @param line all line elements ([element_line()])
+#' @param rect all rectangular elements ([element_rect()])
+#' @param text all text elements ([element_text()])
+#' @param title all title elements: plot, axes, legends ([element_text()];
 #'   inherits from `text`)
 #' @param aspect.ratio aspect ratio of the panel
 #'
-#' @param axis.title label of axes (`element_text`; inherits from
-#'   `text`)
-#' @param axis.title.x x axis label (`element_text`; inherits from
-#'   `axis.title`)
-#' @param axis.title.x.top x axis label on top axis (`element_text`;
-#'   inherits from `axis.title.x`)
-#' @param axis.title.x.bottom x axis label on bottom axis (`element_text`;
-#'   inherits from `axis.title.x`)
-#' @param axis.title.y y axis label (`element_text`; inherits from
-#'   `axis.title`)
-#' @param axis.title.y.left y axis label on left axis (`element_text`;
-#'   inherits from `axis.title.y`)
-#' @param axis.title.y.right y axis label on right axis (`element_text`;
-#'   inherits from `axis.title.y`)
-#' @param axis.text tick labels along axes (`element_text`; inherits from
-#'   `text`)
-#' @param axis.text.x x axis tick labels (`element_text`; inherits from
-#'   `axis.text`)
-#' @param axis.text.x.top x axis tick labels on top axis (`element_text`;
-#'   inherits from `axis.text.x`)
-#' @param axis.text.x.bottom x axis tick labels on bottom axis (`element_text`;
-#'   inherits from `axis.text.x`)
-#' @param axis.text.y y axis tick labels (`element_text`; inherits from
-#'   `axis.text`)
-#' @param axis.text.y.left y axis tick labels on left axis
-#'   (`element_text`; inherits from `axis.text.y`)
-#' @param axis.text.y.right y axis tick labels on right axis
-#'   (`element_text`; inherits from `axis.text.y`)
-#' @param axis.ticks tick marks along axes (`element_line`; inherits from
-#'   `line`)
-#' @param axis.ticks.x x axis tick marks (`element_line`; inherits from
-#'   `axis.ticks`)
-#' @param axis.ticks.x.top x axis tick marks on top axis (`element_line`;
-#'   inherits from `axis.ticks.x`)
-#' @param axis.ticks.x.bottom x axis tick marks on bottom axis (`element_line`;
-#'   inherits from `axis.ticks.x`)
-#' @param axis.ticks.y y axis tick marks (`element_line`; inherits from
-#'   `axis.ticks`)
-#' @param axis.ticks.y.left y axis tick marks on left axis (`element_line`;
-#'   inherits from `axis.ticks.y`)
-#' @param axis.ticks.y.right y axis tick marks on right axis (`element_line`;
-#'   inherits from `axis.ticks.y`)
+#' @param axis.title,axis.title.x,axis.title.y,axis.title.x.top,axis.title.x.bottom,axis.title.y.left,axis.title.y.right
+#'   labels of axes ([element_text()]). Specify all axes' labels (`axis.title`),
+#'   labels by plane (using `axis.title.x` or `axis.title.y`), or individually
+#'   for each axis (using `axis.title.x.bottom`, `axis.title.x.top`,
+#'   `axis.title.y.left`, `axis.title.y.right`). `axis.title.*.*` inherits from
+#'   `axis.title.*` which inherits from `axis.title`, which in turn inherits
+#'   from `text`
+#' @param axis.text,axis.text.x,axis.text.y,axis.text.x.top,axis.text.x.bottom,axis.text.y.left,axis.text.y.right
+#'   tick labels along axes ([element_text()]). Specify all axis tick labels (`axis.text`),
+#'   tick labels by plane (using `axis.text.x` or `axis.text.y`), or individually
+#'   for each axis (using `axis.text.x.bottom`, `axis.text.x.top`,
+#'   `axis.text.y.left`, `axis.text.y.right`). `axis.text.*.*` inherits from
+#'   `axis.text.*` which inherits from `axis.text`, which in turn inherits
+#'   from `text`
+#' @param axis.ticks,axis.ticks.x,axis.ticks.x.top,axis.ticks.x.bottom,axis.ticks.y,axis.ticks.y.left,axis.ticks.y.right
+#'   tick marks along axes ([element_line()]). Specify all tick marks (`axis.ticks`),
+#'   ticks by plane (using `axis.ticks.x` or `axis.ticks.y`), or individually
+#'   for each axis (using `axis.ticks.x.bottom`, `axis.ticks.x.top`,
+#'   `axis.ticks.y.left`, `axis.ticks.y.right`). `axis.ticks.*.*` inherits from
+#'   `axis.ticks.*` which inherits from `axis.ticks`, which in turn inherits
+#'   from `line`
 #' @param axis.ticks.length length of tick marks (`unit`)
-#' @param axis.line lines along axes (`element_line`; inherits from
-#'   `line`)
-#' @param axis.line.x line along x axis (`element_line`; inherits from
-#'   `axis.line`)
-#' @param axis.line.x.top line along x axis on top axis (`element_line`;
-#'   inherits from `axis.line.x`)
-#' @param axis.line.x.bottom line along x axis on bottom axis (`element_line`;
-#'   inherits from `axis.line.x`)
-#' @param axis.line.y line along y axis (`element_line`; inherits from
-#'   `axis.line`)
-#' @param axis.line.y.left line along y axis on left axis (`element_line`;
-#'   inherits from `axis.line.y`)
-#' @param axis.line.y.right line along y axis on right axis (`element_line`;
-#'   inherits from `axis.line.y`)
+#' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right
+#'   lines along axes ([element_line()]). Specify lines along all axes (`axis.line`),
+#'   lines for each plane (using `axis.line.x` or `axis.line.y`), or individually
+#'   for each axis (using `axis.line.x.bottom`, `axis.line.x.top`,
+#'   `axis.line.y.left`, `axis.line.y.right`). `axis.line.*.*` inherits from
+#'   `axis.line.*` which inherits from `axis.line`, which in turn inherits
+#'   from `line`
 #'
-#' @param legend.background background of legend (`element_rect`; inherits
+#' @param legend.background background of legend ([element_rect()]; inherits
 #'   from `rect`)
-#' @param legend.margin the margin around each legend (`margin`)
-#' @param legend.spacing the spacing between legends (`unit`)
-#' @param legend.spacing.x the horizontal spacing between legends (`unit`);
-#'   inherits from `legend.spacing`
-#' @param legend.spacing.y the horizontal spacing between legends (`unit`);
-#'   inherits from `legend.spacing`
-#' @param legend.key background underneath legend keys (`element_rect`;
+#' @param legend.margin the margin around each legend ([margin()])
+#' @param legend.spacing,legend.spacing.x,legend.spacing.y
+#'   the spacing between legends (`unit`). `legend.spacing.x` & `legend.spacing.y`
+#'   inherit from `legend.spacing` or can be specified separately
+#' @param legend.key background underneath legend keys ([element_rect()];
 #'   inherits from `rect`)
-#' @param legend.key.size size of legend keys (`unit`)
-#' @param legend.key.height key background height (`unit`; inherits from
-#'   `legend.key.size`)
-#' @param legend.key.width key background width (`unit`; inherits from
-#'   `legend.key.size`)
-#' @param legend.text legend item labels (`element_text`; inherits from
+#' @param legend.key.size,legend.key.height,legend.key.width
+#'   size of legend keys (`unit`); key background height & width inherit from
+#'   `legend.key.size` or can be specified separately
+#' @param legend.text legend item labels ([element_text()]; inherits from
 #'   `text`)
 #' @param legend.text.align alignment of legend labels (number from 0 (left) to
 #'   1 (right))
-#' @param legend.title title of legend (`element_text`; inherits from
+#' @param legend.title title of legend ([element_text()]; inherits from
 #'   `title`)
 #' @param legend.title.align alignment of legend title (number from 0 (left) to
 #'   1 (right))
@@ -116,65 +89,61 @@
 #'   "right")
 #' @param legend.box.margin margins around the full legend area, as specified
 #'   using [margin()]
-#' @param legend.box.background background of legend area (`element_rect`;
+#' @param legend.box.background background of legend area ([element_rect()];
 #'   inherits from `rect`)
 #' @param legend.box.spacing The spacing between the plotting area and the
 #'   legend box (`unit`)
 #'
 #' @param panel.background background of plotting area, drawn underneath plot
-#'   (`element_rect`; inherits from `rect`)
+#'   ([element_rect()]; inherits from `rect`)
 #' @param panel.border border around plotting area, drawn on top of plot so that
 #'   it covers tick marks and grid lines. This should be used with
-#'   `fill=NA`
-#' (`element_rect`; inherits from `rect`)
-#' @param panel.spacing spacing between facet panels (`unit`)
-#' @param panel.spacing.x horizontal spacing between facet panels (`unit`;
-#'   inherits from `panel.spacing`)
-#' @param panel.spacing.y vertical spacing between facet panels (`unit`;
-#'   inherits from `panel.spacing`)
-#' @param panel.grid grid lines (`element_line`; inherits from `line`)
-#' @param panel.grid.major major grid lines (`element_line`; inherits from
-#'   `panel.grid`)
-#' @param panel.grid.minor minor grid lines (`element_line`; inherits from
-#' `panel.grid`)
-#' @param panel.grid.major.x vertical major grid lines (`element_line`;
-#'   inherits from `panel.grid.major`)
-#' @param panel.grid.major.y horizontal major grid lines (`element_line`;
-#'   inherits from `panel.grid.major`)
-#' @param panel.grid.minor.x vertical minor grid lines (`element_line`;
-#'   inherits from `panel.grid.minor`)
-#' @param panel.grid.minor.y horizontal minor grid lines (`element_line`;
-#'   inherits from `panel.grid.minor`)
+#'   `fill = NA`
+#'   ([element_rect()]; inherits from `rect`)
+#' @param panel.spacing,panel.spacing.x,panel.spacing.y spacing between facet
+#'   panels (`unit`). `panel.spacing.x` & `panel.spacing.y` inherit from `panel.spacing`
+#'   or can be specified separately.
+#' @param panel.grid,panel.grid.major,panel.grid.minor,panel.grid.major.x,panel.grid.major.y,panel.grid.minor.x,panel.grid.minor.y
+#'   grid lines ([element_line()]). Specify major grid lines,
+#'   or minor grid lines separately (using `panel.grid.major` or `panel.grid.minor`)
+#'   or individually for each axis (using `panel.grid.major.x`, `panel.grid.minor.x`,
+#'   `panel.grid.major.y`, `panel.grid.minor.y`).  Y axis grid lines are horizontal
+#'   and x axis grid lines are vertical. `panel.grid.*.*` inherits from
+#'   `panel.grid.*` which inherits from `panel.grid`, which in turn inherits
+#'   from `line`
 #' @param panel.ontop option to place the panel (background, gridlines) over
-#'   the data layers.  Usually used with a transparent or blank
-#'   `panel.background`. (`logical`)
+#'   the data layers (`logical`). Usually used with a transparent or blank
+#'   `panel.background`.
 #'
-#' @param plot.background background of the entire plot (`element_rect`;
+#' @param plot.background background of the entire plot ([element_rect()];
 #'   inherits from `rect`)
-#' @param plot.title plot title (text appearance) (`element_text`; inherits
+#' @param plot.title plot title (text appearance) ([element_text()]; inherits
 #'   from `title`) left-aligned by default
-#' @param plot.subtitle plot subtitle (text appearance) (`element_text`;
+#' @param plot.subtitle plot subtitle (text appearance) ([element_text()];
 #'   inherits from `title`) left-aligned by default
 #' @param plot.caption caption below the plot (text appearance)
-#'   (`element_text`; inherits from `title`) right-aligned by default
+#'   ([element_text()]; inherits from `title`) right-aligned by default
+#' @param plot.tag upper-left label to identify a plot (text appearance)
+#'   ([element_text()]; inherits from `title`) left-aligned by default
+#' @param plot.tag.position The position of the tag as a string ("topleft",
+#'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
+#'   or a coordinate. If a string, extra space will be added to accommodate the
+#'   tag.
 #' @param plot.margin margin around entire plot (`unit` with the sizes of
 #'   the top, right, bottom, and left margins)
 #'
-#' @param strip.background background of facet labels (`element_rect`;
-#'   inherits from `rect`)
-#' @param strip.background.x backgronud of horizontal facet labels
-#'   (`element_rect`; inherits from `strip.background`)
-#' @param strip.background.y backgronud of vertical facet labels
-#'   (`element_rect`; inherits from `strip.background`)
+#' @param strip.background,strip.background.x,strip.background.y
+#'   background of facet labels ([element_rect()];
+#'   inherits from `rect`). Horizontal facet background (`strip.background.x`)
+#'   & vertical facet background (`strip.background.y`) inherit from
+#'   `strip.background` or can be specified separately
 #' @param strip.placement placement of strip with respect to axes,
 #'    either "inside" or "outside". Only important when axes and strips are
 #'    on the same side of the plot.
-#' @param strip.text facet labels (`element_text`; inherits from
-#'   `text`)
-#' @param strip.text.x facet labels along horizontal direction
-#'   (`element_text`; inherits from `strip.text`)
-#' @param strip.text.y facet labels along vertical direction
-#'   (`element_text`; inherits from `strip.text`)
+#' @param strip.text,strip.text.x,strip.text.y facet labels ([element_text()];
+#'   inherits from  `text`). Horizontal facet labels (`strip.text.x`) & vertical
+#'   facet labels (`strip.text.y`) inherit from `strip.text` or can be specified
+#'   separately
 #' @param strip.switch.pad.grid space between strips and axes when strips are
 #'   switched (`unit`)
 #' @param strip.switch.pad.wrap space between strips and axes when strips are
@@ -182,12 +151,12 @@
 #'
 #' @param ... additional element specifications not part of base ggplot2. If
 #'   supplied `validate` needs to be set to `FALSE`.
-#' @param complete set this to TRUE if this is a complete theme, such as
-#'   the one returned `by theme_grey()`. Complete themes behave
+#' @param complete set this to `TRUE` if this is a complete theme, such as
+#'   the one returned by [theme_grey()]. Complete themes behave
 #'   differently when added to a ggplot object. Also, when setting
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
-#' @param validate `TRUE` to run validate_element, `FALSE` to bypass checks.
+#' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
 #'
 #' @seealso
 #'   [+.gg()] and \code{\link{\%+replace\%}},
@@ -246,7 +215,7 @@
 #' p2 + theme(legend.justification = "top")
 #' p2 + theme(legend.position = "bottom")
 #'
-#' # Or place inside the plot using relative coordinates between 0 and 1
+#' # Or place legends inside the plot using relative coordinates between 0 and 1
 #' # legend.justification sets the corner that the position refers to
 #' p2 + theme(
 #'   legend.position = c(.95, .95),
@@ -263,7 +232,7 @@
 #' )
 #'
 #' # You can also control the display of the keys
-#' # and the justifaction related to the plot area can be set
+#' # and the justification related to the plot area can be set
 #' p2 + theme(legend.key = element_rect(fill = "white", colour = "black"))
 #' p2 + theme(legend.text = element_text(size = 8, colour = "red"))
 #' p2 + theme(legend.title = element_text(face = "bold"))
@@ -351,6 +320,8 @@ theme <- function(line,
                   plot.title,
                   plot.subtitle,
                   plot.caption,
+                  plot.tag,
+                  plot.tag.position,
                   plot.margin,
                   strip.background,
                   strip.background.x,
@@ -453,7 +424,7 @@ add_theme <- function(t1, t2, t2name) {
     if (is.null(x) || inherits(x, "element_blank")) {
       # If x is NULL or element_blank, then just assign it y
       x <- y
-    } else if (is.null(y) || is.character(y) || is.numeric(y) ||
+    } else if (is.null(y) || is.character(y) || is.numeric(y) || is.unit(y) ||
                is.logical(y) || inherits(y, "element_blank")) {
       # If y is NULL, or a string or numeric vector, or is element_blank, just replace x
       x <- y
@@ -524,7 +495,7 @@ update_theme <- function(oldtheme, newtheme) {
 #' Calculate the element properties, by inheriting properties from its parents
 #'
 #' @param element The name of the theme element to calculate
-#' @param theme A theme object (like theme_grey())
+#' @param theme A theme object (like [theme_grey()])
 #' @param verbose If TRUE, print out which elements this one inherits from
 #' @keywords internal
 #' @export
@@ -553,12 +524,12 @@ calc_element <- function(element, theme, verbose = FALSE) {
   # If the element is defined (and not just inherited), check that
   # it is of the class specified in .element_tree
   if (!is.null(theme[[element]]) &&
-      !inherits(theme[[element]], .element_tree[[element]]$class)) {
-    stop(element, " should have class ", .element_tree[[element]]$class)
+      !inherits(theme[[element]], ggplot_global$element_tree[[element]]$class)) {
+    stop(element, " should have class ", ggplot_global$element_tree[[element]]$class)
   }
 
   # Get the names of parents from the inheritance tree
-  pnames <- .element_tree[[element]]$inherit
+  pnames <- ggplot_global$element_tree[[element]]$inherit
 
   # If no parents, this is a "root" node. Just return this element.
   if (is.null(pnames)) {

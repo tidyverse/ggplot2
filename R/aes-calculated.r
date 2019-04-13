@@ -4,9 +4,9 @@
 #' however, you want to map from variables computed by the aesthetic. The
 #' most common example of this is the height of bars in [geom_histogram()]:
 #' the height does not come from a variable in the underlying data, but
-#' is instead mapped to the `count` computed by [stat_bin()]. The `calc()`
-#' function is a flag to ggplot2 to it that you want to use
-#' __calculated__ aesthetics produced by the statistic.
+#' is instead mapped to the `count` computed by [stat_bin()]. The `stat()`
+#' function is a flag to ggplot2 to it that you want to use calculated
+#' aesthetics produced by the statistic.
 #'
 #' This replaces the older approach of surrounding the variable name with
 #' `..`.
@@ -16,12 +16,12 @@
 #' @examples
 #' # Default histogram display
 #' ggplot(mpg, aes(displ)) +
-#'   geom_histogram(aes(y = calc(count)))
+#'   geom_histogram(aes(y = stat(count)))
 #'
 #' # Scale tallest bin to 1
 #' ggplot(mpg, aes(displ)) +
-#'   geom_histogram(aes(y = calc(count / max(count))))
-calc <- function(x) {
+#'   geom_histogram(aes(y = stat(count / max(count))))
+stat <- function(x) {
   x
 }
 
@@ -43,7 +43,7 @@ is_calculated <- function(x) {
   } else if (is.symbol(x)) {
     is_dotted_var(as.character(x))
   } else if (is.call(x)) {
-    if (identical(x[[1]], quote(calc))) {
+    if (identical(x[[1]], quote(stat))) {
       TRUE
     } else {
       any(vapply(x, is_calculated, logical(1)))
@@ -67,7 +67,7 @@ strip_dots <- function(expr) {
       expr
     }
   } else if (is.call(expr)) {
-    if (identical(expr[[1]], quote(calc))) {
+    if (identical(expr[[1]], quote(stat))) {
       strip_dots(expr[[2]])
     } else {
       expr[-1] <- lapply(expr[-1], strip_dots)
@@ -87,16 +87,19 @@ strip_dots <- function(expr) {
 # Convert aesthetic mapping into text labels
 make_labels <- function(mapping) {
   default_label <- function(aesthetic, mapping) {
-    # e.g., geom_smooth(aes(colour = "loess"))
+    # e.g., geom_smooth(aes(colour = "loess")) or aes(y = NULL)
     if (is.atomic(mapping)) {
-      aesthetic
-    } else {
-      x <- deparse(strip_dots(mapping))
-      if (length(x) > 1) {
-        x <- paste0(x[[1]], "...")
-      }
-      x
+      return(aesthetic)
     }
+
+    mapping <- strip_dots(mapping)
+    if (rlang::is_quosure(mapping) && rlang::quo_is_symbol(mapping)) {
+      name <- rlang::as_string(rlang::quo_get_expr(mapping))
+    } else {
+      name <- rlang::quo_text(mapping)
+      name <- gsub("\n.*$", "...", name)
+    }
+    name
   }
   Map(default_label, names(mapping), mapping)
 }

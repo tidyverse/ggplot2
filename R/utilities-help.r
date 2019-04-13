@@ -1,21 +1,21 @@
 
 rd_aesthetics <- function(type, name) {
   obj <- switch(type,
-    geom = find_subclass("Geom", name, globalenv()),
-    stat = find_subclass("Stat", name, globalenv())
+    geom = check_subclass(name, "Geom", env = globalenv()),
+    stat = check_subclass(name, "Stat", env = globalenv())
   )
   aes <- rd_aesthetics_item(obj)
 
   c(
     "@section Aesthetics:",
     paste0(
-      "\\code{", type, "_", name, "} ",
+      "\\code{", type, "_", name, "()} ",
       "understands the following aesthetics (required aesthetics are in bold):"
     ),
     "\\itemize{",
     paste0("  \\item ", aes),
     "}",
-    "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}"
+    "Learn more about setting these aesthetics in \\code{vignette(\"ggplot2-specs\")}."
   )
 }
 

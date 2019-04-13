@@ -6,14 +6,14 @@
 \title{Line segments and curves}
 \usage{
 geom_segment(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., arrow = NULL, lineend = "butt",
-  linejoin = "round", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., arrow = NULL, arrow.fill = NULL,
+  lineend = "butt", linejoin = "round", na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 
 geom_curve(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., curvature = 0.5, angle = 90, ncp = 5,
-  arrow = NULL, lineend = "butt", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  arrow = NULL, arrow.fill = NULL, lineend = "butt", na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -32,7 +32,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{stat}{The statistical transformation to use on the data for this
@@ -41,12 +41,15 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{arrow}{specification for arrow heads, as created by arrow().}
+
+\item{arrow.fill}{fill colour to use for the arrow head (if closed). \code{NULL}
+means use \code{colour} aesthetic.}
 
 \item{lineend}{Line end style (round, butt, square).}
 
@@ -91,7 +94,7 @@ need to connect points across multiple cases.
 }
 \section{Aesthetics}{
 
-\code{geom_segment} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_segment()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -103,7 +106,7 @@ need to connect points across multiple cases.
 \item \code{linetype}
 \item \code{size}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{

@@ -10,8 +10,8 @@ cut_interval(x, n = NULL, length = NULL, ...)
 
 cut_number(x, n = NULL, ...)
 
-cut_width(x, width, center = NULL, boundary = NULL, closed = c("right",
-  "left"))
+cut_width(x, width, center = NULL, boundary = NULL,
+  closed = c("right", "left"), ...)
 }
 \arguments{
 \item{x}{numeric vector}
@@ -64,6 +64,7 @@ table(cut_number(runif(1000), 10))
 table(cut_width(runif(1000), 0.1))
 table(cut_width(runif(1000), 0.1, boundary = 0))
 table(cut_width(runif(1000), 0.1, center = 0))
+table(cut_width(runif(1000), 0.1, labels = FALSE))
 }
 \author{
 Randall Prium contributed most of the implementation of

@@ -19,11 +19,13 @@ stat_qq_line(mapping = NULL, data = NULL, geom = "path",
 
 geom_qq(mapping = NULL, data = NULL, geom = "point",
   position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  dparams = list(), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_qq(mapping = NULL, data = NULL, geom = "point",
   position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  dparams = list(), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -42,7 +44,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{geom}{The geometric object to use display the data}
@@ -50,9 +52,9 @@ will be used as the layer data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{distribution}{Distribution function to use, if x not specified}
@@ -87,24 +89,24 @@ points at specified quartiles of the theoretical and sample distributions.
 }
 \section{Aesthetics}{
 
-\code{stat_qq} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_qq()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{sample}}
 \item \code{group}
 \item \code{x}
 \item \code{y}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 
-\code{stat_qq_line} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_qq_line()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{sample}}
 \item \code{group}
 \item \code{x}
 \item \code{y}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{

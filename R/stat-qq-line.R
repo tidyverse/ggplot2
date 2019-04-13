@@ -44,7 +44,7 @@ stat_qq_line <- geom_qq_line
 #' @usage NULL
 #' @export
 StatQqLine <- ggproto("StatQqLine", Stat,
- default_aes = aes(x = calc(x), y = calc(y)),
+ default_aes = aes(x = stat(x), y = stat(y)),
 
  required_aes = c("sample"),
 
@@ -90,6 +90,6 @@ StatQqLine <- ggproto("StatQqLine", Stat,
      x <- range(theoretical)
    }
 
-   data.frame(x = x, y = slope * x + intercept)
+   new_data_frame(list(x = x, y = slope * x + intercept))
  }
 )

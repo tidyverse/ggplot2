@@ -1,17 +1,23 @@
+url: https://ggplot2.tidyverse.org
+
 template:
   package: tidytemplate
-  default_assets: false
+
+development:
+  mode: auto
 
 home:
   strip_header: true
   links:
   - text: Learn more
     href: http://r4ds.had.co.nz/data-visualisation.html
+  - text: Extensions
+    href: http://www.ggplot2-exts.org/gallery/
 
 reference:
 - title: Plot basics
   desc: >
-    All ggplot2 plots with a call to `ggplot()`, supplying default data and
+    All ggplot2 plots begin with a call to `ggplot()`, supplying default data and
     aesthethic mappings, specified by `aes()`. You then add layers, scales,
     coords and facets with `+`. To save a plot to disk, use `ggsave()`.
   contents:
@@ -54,8 +60,8 @@ reference:
 
 - title: "Layer: annotations"
   desc: >
-    Annotation are special types of layer than don't inherit global settings
-    from the plot. They are used to add fixed reference data to plot.
+    Annotations are a special type of layer that don't inherit global settings
+    from the plot. They are used to add fixed reference data to plots.
   contents:
   - geom_abline
   - annotate
@@ -68,7 +74,7 @@ reference:
 - title: Aesthetics
   desc: >
     The following help topics give a broad overview of some of the ways
-    you can use each aesthetic
+    you can use each aesthetic.
   contents:
   - aes_colour_fill_alpha
   - aes_group_order
@@ -93,7 +99,7 @@ reference:
     The guides (the axes and legends) help readers interpret your plots.
     Guides are mostly controlled via the scale (e.g. with the `limits`,
     `breaks`, and `labels` arguments), but sometimes you will need additional
-    cover over the guide appearance. Use `guides()` or the `guide` argument to
+    control over guide appearance. Use `guides()` or the `guide` argument to
     individual scales along with `guide_colourbar()` or `guide_legend()`.
   contents:
   - guide_colourbar
@@ -195,11 +201,11 @@ reference:
 
 - title: Autoplot and fortify
   desc: >
-    `autoplot()` is an extension mechanism for ggplot2 it provides a way
+    `autoplot()` is an extension mechanism for ggplot2: it provides a way
     for package authors to add methods that work like the base `plot()`
     function, generating useful default plots with little user interaction.
     `fortify()` turns objects into tidy data frames: it has largely been
-    superceded by the [broom package](https://github.com/dgrtwo/broom).
+    superceded by the [broom package](https://github.com/tidyverse/broom).
   contents:
   - autoplot
   - autolayer
@@ -221,17 +227,23 @@ navbar:
   - text: News
     menu:
     - text: "Release notes"
+    - text: "Version 3.1.0"
+      href: https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/
+    - text: "Version 3.0.0"
+      href: https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/
     - text: "Version 2.2.0"
-      href: articles/releases/ggplot2-2.2.0.html
+      href: https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/
     - text: "Version 2.1.0"
-      href: articles/releases/ggplot2-2.1.0.html
+      href: https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/
     - text: "Version 2.0.0"
-      href: articles/releases/ggplot2-2.0.0.html
+      href: https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/
     - text: "Version 1.0.0"
-      href: articles/releases/ggplot2-1.0.0.html
+      href: https://blog.rstudio.com/2015/01/09/ggplot2-updates/
     - text: "------------------"
     - text: "Change log"
       href: news/index.html
+  - text: Extensions
+    href: http://www.ggplot2-exts.org/gallery/
   right:
   - icon: fa-github fa-lg
     href: https://github.com/tidyverse/ggplot2

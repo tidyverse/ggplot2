@@ -4,7 +4,9 @@
 #' @rdname element
 #' @export
 margin <- function(t = 0, r = 0, b = 0, l = 0, unit = "pt") {
-  structure(unit(c(t, r, b, l), unit), class = c("margin", "unit"))
+  u <- unit(c(t, r, b, l), unit)
+  class(u) <- c("margin", class(u))
+  u
 }
 is.margin <- function(x) {
   inherits(x, "margin")
@@ -39,24 +41,13 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
 
   if (is.null(label)) return(zeroGrob())
 
-  angle <- angle %% 360
-  if (0 <= angle & angle < 90) {
-    xp <- hjust
-    yp <- vjust
-  } else if (90 <= angle & angle < 180) {
-    xp <- 1 - vjust
-    yp <- hjust
-  } else if (180 <= angle & angle < 270) {
-    xp <- 1 - hjust
-    yp <- 1 - vjust
-  } else if (270 <= angle & angle < 360) {
-    xp <- vjust
-    yp <- 1 - hjust
-  }
+  # We rotate the justifiation values to obtain the correct x and y reference point,
+  # since hjust and vjust are applied relative to the rotated text frame in textGrob
+  just <- rotate_just(angle, hjust, vjust)
 
   n <- max(length(x), length(y), 1)
-  x <- x %||% unit(rep(xp, n), "npc")
-  y <- y %||% unit(rep(yp, n), "npc")
+  x <- x %||% unit(rep(just$hjust, n), "npc")
+  y <- y %||% unit(rep(just$vjust, n), "npc")
 
   text_grob <- textGrob(
     label,
@@ -68,11 +59,19 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
     gp = gp
   )
 
-  # The grob dimensions don't include the text descenders, so add on using
-  # a little trigonometry. This is only exactly correct when vjust = 1.
-  descent <- descentDetails(text_grob)
-  text_height <- unit(1, "grobheight", text_grob) + cos(angle / 180 * pi) * descent
-  text_width <- unit(1, "grobwidth", text_grob) + sin(angle / 180 * pi) * descent
+  # The grob dimensions don't include the text descenders, so these need to be added
+  # manually. Because descentDetails calculates the actual descenders of the specific
+  # text label, which depends on the label content, we replace the label with one that
+  # has the common letters with descenders. This guarantees that the grob always has
+  # the same height regardless of whether the text actually contains letters with
+  # descenders or not. The same happens automatically with ascenders already.
+  descent <- font_descent(gp$fontfamily, gp$fontface, gp$fontsize, gp$cex)
+
+  # Use trigonometry to calculate grobheight and width for rotated grobs. This is only
+  # exactly correct when vjust = 1. We need to take the absolute value so we don't make
+  # the grob smaller when it's flipped over.
+  text_height <- unit(1, "grobheight", text_grob) + abs(cos(angle / 180 * pi)) * descent
+  text_width <- unit(1, "grobwidth", text_grob) + abs(sin(angle / 180 * pi)) * descent
 
   if (isTRUE(debug)) {
     children <- gList(
@@ -212,4 +211,149 @@ widthDetails.titleGrob <- function(x) {
 #' @export
 heightDetails.titleGrob <- function(x) {
   sum(x$heights)
+}
+
+#' Justifies a grob within a larger drawing area
+#'
+#' `justify_grobs()` can be used to take one or more grobs and draw them justified inside a larger
+#' drawing area, such as the cell in a gtable. It is needed to correctly place [`titleGrob`]s
+#' with margins.
+#'
+#' @param grobs The single grob or list of grobs to justify.
+#' @param x,y x and y location of the reference point relative to which justification
+#'   should be performed. If `NULL`, justification will be done relative to the
+#'   enclosing drawing area (i.e., `x = hjust` and `y = vjust`).
+#' @param hjust,vjust Horizontal and vertical justification of the grob relative to `x` and `y`.
+#' @param int_angle Internal angle of the grob to be justified. When justifying a text
+#'   grob with rotated text, this argument can be used to make `hjust` and `vjust` operate
+#'   relative to the direction of the text.
+#' @param debug If `TRUE`, aids visual debugging by drawing a solid
+#'   rectangle behind the complete grob area.
+#'
+#' @noRd
+justify_grobs <- function(grobs, x = NULL, y = NULL, hjust = 0.5, vjust = 0.5,
+                          int_angle = 0, debug = FALSE) {
+  if (!inherits(grobs, "grob")) {
+    if (is.list(grobs)) {
+      return(lapply(grobs, justify_grobs, x, y, hjust, vjust, int_angle, debug))
+    }
+    else {
+      stop("need individual grob or list of grobs as argument.")
+    }
+  }
+
+  if (inherits(grobs, "zeroGrob")) {
+    return(grobs)
+  }
+
+  # adjust hjust and vjust according to internal angle
+  just <- rotate_just(int_angle, hjust, vjust)
+
+  x <- x %||% unit(just$hjust, "npc")
+  y <- y %||% unit(just$vjust, "npc")
+
+
+  if (isTRUE(debug)) {
+    children <- gList(
+      rectGrob(gp = gpar(fill = "lightcyan", col = NA)),
+      grobs
+    )
+  }
+  else {
+    children = gList(grobs)
+  }
+
+
+  result_grob <- gTree(
+    children = children,
+    vp = viewport(
+      x = x,
+      y = y,
+      width = grobWidth(grobs),
+      height = grobHeight(grobs),
+      just = unlist(just)
+    )
+  )
+
+
+  if (isTRUE(debug)) {
+    #cat("x, y:", c(x, y), "\n")
+    #cat("E - hjust, vjust:", c(hjust, vjust), "\n")
+    grobTree(
+      result_grob,
+      pointsGrob(x, y, pch = 20, gp = gpar(col = "mediumturquoise"))
+    )
+  } else {
+    result_grob
+  }
+}
+
+
+#' Rotate justification parameters counter-clockwise
+#'
+#' @param angle angle of rotation, in degrees
+#' @param hjust horizontal justification
+#' @param vjust vertical justification
+#' @return A list with two components, `hjust` and `vjust`, containing the rotated hjust and vjust values
+#'
+#' @noRd
+rotate_just <- function(angle, hjust, vjust) {
+  ## Ideally we would like to do something like the following commented-out lines,
+  ## but it currently yields unexpected results for angles other than 0, 90, 180, 270.
+  ## Problems arise in particular in cases where the horizontal and the vertical
+  ## alignment model differ, for example, where horizontal alignment is relative to a
+  ## point but vertical alignment is relative to an interval. This case arises for
+  ## x and y axis tick labels.
+  ##
+  ## For more details, see: https://github.com/tidyverse/ggplot2/issues/2653
+
+  # # convert angle to radians
+  #rad <- (angle %||% 0) * pi / 180
+  #
+  #hnew <- cos(rad) * hjust - sin(rad) * vjust + (1 - cos(rad) + sin(rad)) / 2
+  #vnew <- sin(rad) * hjust + cos(rad) * vjust + (1 - cos(rad) - sin(rad)) / 2
+
+  angle <- (angle %||% 0) %% 360
+  if (0 <= angle & angle < 90) {
+    hnew <- hjust
+    vnew <- vjust
+  } else if (90 <= angle & angle < 180) {
+    hnew <- 1 - vjust
+    vnew <- hjust
+  } else if (180 <= angle & angle < 270) {
+    hnew <- 1 - hjust
+    vnew <- 1 - vjust
+  } else if (270 <= angle & angle < 360) {
+    hnew <- vjust
+    vnew <- 1 - hjust
+  }
+
+  list(hjust = hnew, vjust = vnew)
+}
+descent_cache <- new.env(parent = emptyenv())
+font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
+  cur_dev <- names(grDevices::dev.cur())
+  key <- paste0(cur_dev, ':', family, ':', face, ":", size, ":", cex)
+  descents <- lapply(key, function(k) {
+    descent <- descent_cache[[k]]
+
+    if (is.null(descent)) {
+      descent <- convertHeight(grobDescent(textGrob(
+        label = "gjpqyQ",
+        gp = gpar(
+          fontsize = size,
+          cex = cex,
+          fontfamily = family,
+          fontface = face
+        )
+      )), 'inches')
+      descent_cache[[k]] <- descent
+    }
+    descent
+  })
+  if (length(descents) == 1) {
+    descents[[1]]
+  } else {
+    do.call(unit.c, descents)
+  }
 }

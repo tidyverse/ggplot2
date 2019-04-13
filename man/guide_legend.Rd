@@ -4,13 +4,13 @@
 \alias{guide_legend}
 \title{Legend guide}
 \usage{
-guide_legend(title = waiver(), title.position = NULL, title.theme = NULL,
-  title.hjust = NULL, title.vjust = NULL, label = TRUE,
-  label.position = NULL, label.theme = NULL, label.hjust = NULL,
-  label.vjust = NULL, keywidth = NULL, keyheight = NULL,
-  direction = NULL, default.unit = "line", override.aes = list(),
-  nrow = NULL, ncol = NULL, byrow = FALSE, reverse = FALSE, order = 0,
-  ...)
+guide_legend(title = waiver(), title.position = NULL,
+  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
+  label = TRUE, label.position = NULL, label.theme = NULL,
+  label.hjust = NULL, label.vjust = NULL, keywidth = NULL,
+  keyheight = NULL, direction = NULL, default.unit = "line",
+  override.aes = list(), nrow = NULL, ncol = NULL, byrow = FALSE,
+  reverse = FALSE, order = 0, ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -41,7 +41,7 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
 
 \item{label.theme}{A theme object for rendering the label text. Usually the
 object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.text} in \code{\link[=theme]{theme()}} or theme.}
+specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
 label text.}
@@ -51,11 +51,11 @@ text.}
 
 \item{keywidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the width of the legend key. Default value is \code{legend.key.width} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
+\code{legend.key.size} in \code{\link[=theme]{theme()}}.}
 
 \item{keyheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the height of the legend key. Default value is \code{legend.key.height} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
+\code{legend.key.size} in \code{\link[=theme]{theme()}}.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
@@ -75,15 +75,12 @@ filled by columns, otherwise the legend-matrix is filled by rows.}
 
 \item{reverse}{logical. If \code{TRUE} the order of legends is reversed.}
 
-\item{order}{positive integer less that 99 that specifies the order of
+\item{order}{positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
 
 \item{...}{ignored.}
-}
-\value{
-A guide object
 }
 \description{
 Legend type guide shows key (i.e., geoms) mapped onto values.
@@ -91,8 +88,8 @@ Legend guides for various scales are integrated if possible.
 }
 \details{
 Guides can be specified in each \code{scale_*} or in \code{\link[=guides]{guides()}}.
-\code{guide="legend"} in \code{scale_*} is syntactic sugar for
-\code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
+\code{guide = "legend"} in \code{scale_*} is syntactic sugar for
+\code{guide = guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
 As for how to specify the guide for each scale in more detail,
 see \code{\link[=guides]{guides()}}.
 }
@@ -104,17 +101,9 @@ p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 p2 <- p1 + geom_point(aes(size = value))
 
 # Basic form
-p1 + scale_fill_continuous(guide = "legend")
 p1 + scale_fill_continuous(guide = guide_legend())
 
-# Guide title
-p1 + scale_fill_continuous(guide = guide_legend(title = "V")) # title text
-p1 + scale_fill_continuous(guide = guide_legend(title = NULL)) # no title
-
 # Control styles
-
-# key size
-p1 + guides(fill = guide_legend(keywidth = 3, keyheight = 1))
 
 # title position
 p1 + guides(fill = guide_legend(title = "LEFT", title.position = "left"))
@@ -148,12 +137,10 @@ p1 + scale_fill_continuous(breaks = c(5, 10, 15),
 )
 
 # Set aesthetic of legend key
-
 # very low alpha value make it difficult to see legend key
-p3 <- ggplot(diamonds, aes(carat, price)) +
-  geom_point(aes(colour = color), alpha = 1/100)
+p3 <- ggplot(mtcars, aes(vs, am, colour = factor(cyl))) +
+  geom_jitter(alpha = 1/5, width = 0.01, height = 0.01)
 p3
-
 # override.aes overwrites the alpha
 p3 + guides(colour = guide_legend(override.aes = list(alpha = 1)))
 
@@ -164,17 +151,9 @@ p <- ggplot(df, aes(x, y)) +
 p + guides(col = guide_legend(nrow = 8))
 p + guides(col = guide_legend(ncol = 8))
 p + guides(col = guide_legend(nrow = 8, byrow = TRUE))
-p + guides(col = guide_legend(ncol = 8, byrow = TRUE))
 
 # reversed order legend
 p + guides(col = guide_legend(reverse = TRUE))
-
-# hide some aesthetics from the legend
-p4 <- ggplot(mtcars, aes(mpg, qsec, colour = factor(vs), shape = factor(am))) +
-  geom_point()
-p4 + geom_line()
-p4 + geom_line(show.legend = c(color = FALSE))
-
 }
 }
 \seealso{

@@ -23,10 +23,10 @@ The random seed is reset after jittering.
 If \code{NA} (the default value), the seed is initialised with a random value;
 this makes sure that two subsequent calls start with a different seed.
 Use \code{NULL} to use the current random seed and also avoid resetting
-(the behavior of \pkg{ggplot} 2.2.1 and earlier).}
+(the behaviour of \pkg{ggplot} 2.2.1 and earlier).}
 }
 \description{
-Couterintuitively adding random noise to a plot can sometimes make it
+Counterintuitively adding random noise to a plot can sometimes make it
 easier to read. Jittering is particularly useful for small datasets with
 at least one discrete position.
 }

@@ -7,7 +7,7 @@ NULL
 #' horizontal, vertical, or diagonal (specified by slope and intercept).
 #' These are useful for annotating plots.
 #'
-#' These geoms act slightly different to other geoms. You can supply the
+#' These geoms act slightly differently from other geoms. You can supply the
 #' parameters in two ways: either as arguments to the layer function,
 #' or via aesthetics. If you use arguments, e.g.
 #' `geom_abline(intercept = 0, slope = 1)`, then behind the scenes
@@ -25,17 +25,18 @@ NULL
 #' `size`. They also each have aesthetics that control the position of
 #' the line:
 #'
-#'   - `geom_vline`: `xintercept`
-#'   - `geom_hline`: `yintercept`
-#'   - `geom_abline`: `slope` and `intercept`
+#'   - `geom_vline()`: `xintercept`
+#'   - `geom_hline()`: `yintercept`
+#'   - `geom_abline()`: `slope` and `intercept`
 #'
 #' @seealso See [geom_segment()] for a more general approach to
 #'   adding straight line segments to a plot.
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param mapping Set of aesthetic mappings created by [aes()] or [aes_()].
 #' @param xintercept,yintercept,slope,intercept Parameters that control the
 #'   position of the line. If these are set, `data`, `mapping` and
-#'   `show.legend` are overridden
+#'   `show.legend` are overridden.
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg)) + geom_point()
@@ -82,10 +83,24 @@ geom_abline <- function(mapping = NULL, data = NULL,
 
   # Act like an annotation
   if (!missing(slope) || !missing(intercept)) {
+
+    # Warn if supplied mapping is going to be overwritten
+    if (!missing(mapping)) {
+      warning(paste0("Using `intercept` and/or `slope` with `mapping` may",
+                     " not have the desired result as mapping is overwritten",
+                     " if either of these is specified\n"
+              )
+      )
+    }
+
     if (missing(slope)) slope <- 1
     if (missing(intercept)) intercept <- 0
+    n_slopes <- max(length(slope), length(intercept))
 
-    data <- data.frame(intercept = intercept, slope = slope)
+    data <- new_data_frame(list(
+      intercept = intercept,
+      slope = slope
+    ), n = n_slopes)
     mapping <- aes(intercept = intercept, slope = slope)
     show.legend <- FALSE
   }
@@ -111,7 +126,7 @@ geom_abline <- function(mapping = NULL, data = NULL,
 #' @export
 GeomAbline <- ggproto("GeomAbline", Geom,
   draw_panel = function(data, panel_params, coord) {
-    ranges <- coord$range(panel_params)
+    ranges <- coord$backtransform_range(panel_params)
 
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]

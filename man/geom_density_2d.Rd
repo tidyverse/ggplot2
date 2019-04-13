@@ -9,7 +9,8 @@
 \usage{
 geom_density_2d(mapping = NULL, data = NULL, stat = "density2d",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 10, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  linemitre = 10, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_density_2d(mapping = NULL, data = NULL, geom = "density_2d",
   position = "identity", ..., contour = TRUE, n = 100, h = NULL,
@@ -32,22 +33,22 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{lineend}{Line end style (round, butt, square)}
+\item{lineend}{Line end style (round, butt, square).}
 
-\item{linejoin}{Line join style (round, mitre, bevel)}
+\item{linejoin}{Line join style (round, mitre, bevel).}
 
-\item{linemitre}{Line mitre limit (number greater than 1)}
+\item{linemitre}{Line mitre limit (number greater than 1).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -81,7 +82,7 @@ overplotting. This is a 2d version of \code{\link[=geom_density]{geom_density()}
 }
 \section{Aesthetics}{
 
-\code{geom_density_2d} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_density_2d()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -91,12 +92,18 @@ overplotting. This is a 2d version of \code{\link[=geom_density]{geom_density()}
 \item \code{linetype}
 \item \code{size}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
 
 Same as \code{\link[=stat_contour]{stat_contour()}}
+
+With the addition of:
+\describe{
+\item{density}{the density estimate}
+\item{ndensity}{density estimate, scaled to maximum of 1}
+}
 }
 
 \examples{
@@ -106,7 +113,7 @@ m <- ggplot(faithful, aes(x = eruptions, y = waiting)) +
  ylim(40, 110)
 m + geom_density_2d()
 \donttest{
-m + stat_density_2d(aes(fill = calc(level)), geom = "polygon")
+m + stat_density_2d(aes(fill = stat(level)), geom = "polygon")
 
 set.seed(4393)
 dsmall <- diamonds[sample(nrow(diamonds), 1000), ]
@@ -115,10 +122,19 @@ d <- ggplot(dsmall, aes(x, y))
 # set of contours for each value of that variable
 d + geom_density_2d(aes(colour = cut))
 
+# Similarly, if you apply faceting to the plot, contours will be
+# drawn for each facet, but the levels will calculated across all facets
+d + stat_density_2d(aes(fill = stat(level)), geom = "polygon") +
+  facet_grid(. ~ cut) + scale_fill_viridis_c()
+# To override this behavior (for instace, to better visualize the density
+# within each facet), use stat(nlevel)
+d + stat_density_2d(aes(fill = stat(nlevel)), geom = "polygon") +
+  facet_grid(. ~ cut) + scale_fill_viridis_c()
+
 # If we turn contouring off, we can use use geoms like tiles:
-d + stat_density_2d(geom = "raster", aes(fill = calc(density)), contour = FALSE)
+d + stat_density_2d(geom = "raster", aes(fill = stat(density)), contour = FALSE)
 # Or points:
-d + stat_density_2d(geom = "point", aes(size = calc(density)), n = 20, contour = FALSE)
+d + stat_density_2d(geom = "point", aes(size = stat(density)), n = 20, contour = FALSE)
 }
 }
 \seealso{

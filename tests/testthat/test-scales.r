@@ -1,7 +1,7 @@
 context("Scales")
 
-test_that("buidling a plot does not affect its scales", {
-  dat <- data.frame(x = rnorm(20), y = rnorm(20))
+test_that("building a plot does not affect its scales", {
+  dat <- data_frame(x = rnorm(20), y = rnorm(20))
 
   p <- ggplot(dat, aes(x, y)) + geom_point()
   expect_equal(length(p$scales$scales), 0)
@@ -13,39 +13,39 @@ test_that("buidling a plot does not affect its scales", {
 test_that("ranges update only for variables listed in aesthetics", {
   sc <- scale_alpha()
 
-  sc$train_df(data.frame(alpha = 1:10))
+  sc$train_df(data_frame(alpha = 1:10))
   expect_equal(sc$range$range, c(1, 10))
 
-  sc$train_df(data.frame(alpha = 50))
+  sc$train_df(data_frame(alpha = 50))
   expect_equal(sc$range$range, c(1, 50))
 
-  sc$train_df(data.frame(beta = 100))
+  sc$train_df(data_frame(beta = 100))
   expect_equal(sc$range$range, c(1, 50))
 
-  sc$train_df(data.frame())
+  sc$train_df(data_frame())
   expect_equal(sc$range$range, c(1, 50))
-
 })
 
 test_that("mapping works", {
   sc <- scale_alpha(range = c(0, 1), na.value = 0)
-  sc$train_df(data.frame(alpha = 1:10))
+  sc$train_df(data_frame(alpha = 1:10))
 
   expect_equal(
-    sc$map_df(data.frame(alpha = 1:10))[[1]],
+    sc$map_df(data_frame(alpha = 1:10))[[1]],
     seq(0, 1, length.out = 10)
   )
 
-  expect_equal(sc$map_df(data.frame(alpha = NA))[[1]], 0)
+  expect_equal(sc$map_df(data_frame(alpha = NA))[[1]], 0)
 
   expect_equal(
-    sc$map_df(data.frame(alpha = c(-10, 11)))[[1]],
+    sc$map_df(data_frame(alpha = c(-10, 11)))[[1]],
     c(0, 0))
 })
 
 test_that("identity scale preserves input values", {
-  df <- data.frame(x = 1:3, z = letters[1:3])
+  df <- data_frame(x = 1:3, z = factor(letters[1:3]))
 
+  # aesthetic-specific scales
   p1 <- ggplot(df,
     aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
     geom_point() +
@@ -61,10 +61,20 @@ test_that("identity scale preserves input values", {
   expect_equal(d1$shape, as.character(df$z))
   expect_equal(d1$size, as.numeric(df$z))
   expect_equal(d1$alpha, as.numeric(df$z))
+
+  # generic scales
+  p2 <- ggplot(df,
+    aes(x, z, colour = z, fill = z, shape = z, size = x, alpha = x)) +
+    geom_point() +
+    scale_discrete_identity(aesthetics = c("colour", "fill", "shape")) +
+    scale_continuous_identity(aesthetics = c("size", "alpha"))
+  d2 <- layer_data(p2)
+
+  expect_equal(d1, d2)
 })
 
-test_that("position scales updated by all position aesthetics", {
-  df <- data.frame(x = 1:3, y = 1:3)
+test_that("position scales are updated by all position aesthetics", {
+  df <- data_frame(x = 1:3, y = 1:3)
 
   aesthetics <- list(
     aes(xend = x, yend = x),
@@ -81,21 +91,19 @@ test_that("position scales updated by all position aesthetics", {
     expect_equal(range$x[[1]], c(1, 3))
     expect_equal(range$y[[1]], c(1, 3))
   })
-
 })
 
 test_that("position scales generate after stats", {
-  df <- data.frame(x = factor(c(1, 1, 1)))
+  df <- data_frame(x = factor(c(1, 1, 1)))
   plot <- ggplot(df, aes(x)) + geom_bar()
   ranges <- pranges(plot)
 
   expect_equal(ranges$x[[1]], c("1"))
   expect_equal(ranges$y[[1]], c(0, 3))
-
 })
 
 test_that("oob affects position values", {
-  dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
+  dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
   base <- ggplot(dat, aes(x, y)) +
     geom_col() +
     annotate("point", x = "a", y = c(-Inf, Inf))
@@ -124,11 +132,27 @@ test_that("oob affects position values", {
   expect_equal(mid_censor[[1]]$y, c(0.5))
   expect_equal(low_squish[[1]]$y, c(0.2, 1, 1))
   expect_equal(mid_squish[[1]]$y, c(0, 0.5, 1))
-
-
 })
 
-test_that("scales looked for in appropriate place", {
+test_that("all-Inf layers are not used for determining the type of scale", {
+  d1 <- data_frame(x = c("a", "b"))
+  p1 <- ggplot(d1, aes(x, x)) +
+    # Inf is numeric, but means discrete values in this case
+    annotate("rect", xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf, fill = "black") +
+    geom_point()
+
+  b1 <- ggplot_build(p1)
+  expect_s3_class(b1$layout$panel_scales_x[[1]], "ScaleDiscretePosition")
+
+  p2 <- ggplot() +
+    # If the layer non-Inf value, it's considered
+    annotate("rect", xmin = -Inf, xmax = 0, ymin = -Inf, ymax = Inf, fill = "black")
+
+  b2 <- ggplot_build(p2)
+  expect_s3_class(b2$layout$panel_scales_x[[1]], "ScaleContinuousPosition")
+})
+
+test_that("scales are looked for in appropriate place", {
   xlabel <- function(x) ggplot_build(x)$layout$panel_scales_x[[1]]$name
   p0 <- qplot(mpg, wt, data = mtcars) + scale_x_continuous("0")
   expect_equal(xlabel(p0), "0")
@@ -168,8 +192,8 @@ test_that("find_global searches in the right places", {
     ggplot2::scale_colour_hue)
 })
 
-test_that("Scales warn when transforms introduces non-finite values", {
-  df <- data.frame(x = c(1e1, 1e5), y = c(0, 100))
+test_that("scales warn when transforms introduces non-finite values", {
+  df <- data_frame(x = c(1e1, 1e5), y = c(0, 100))
 
   p <- ggplot(df, aes(x, y)) +
     geom_point(size = 5) +
@@ -178,8 +202,8 @@ test_that("Scales warn when transforms introduces non-finite values", {
   expect_warning(ggplot_build(p), "Transformation introduced infinite values")
 })
 
-test_that("Scales get their correct titles through layout", {
-  df <- data.frame(x = c(1e1, 1e5), y = c(0, 100))
+test_that("scales get their correct titles through layout", {
+  df <- data_frame(x = c(1e1, 1e5), y = c(0, 100))
 
   p <- ggplot(df, aes(x, y)) +
     geom_point(size = 5)
@@ -189,8 +213,8 @@ test_that("Scales get their correct titles through layout", {
   expect_identical(p$layout$ylabel(p$plot$labels)$primary, "y")
 })
 
-test_that("Size and alpha scales throw appropriate warnings for factors", {
-  df <- data.frame(
+test_that("size and alpha scales throw appropriate warnings for factors", {
+  df <- data_frame(
     x = 1:3,
     y = 1:3,
     d = LETTERS[1:3],
@@ -209,11 +233,11 @@ test_that("Size and alpha scales throw appropriate warnings for factors", {
   )
   # There should be no warnings for ordered factors
   expect_warning(ggplot_build(p + geom_point(aes(size = o))), NA)
-  expect_warning(ggplot_build(p + geom_point(aes(alpha = o))), NA) 
+  expect_warning(ggplot_build(p + geom_point(aes(alpha = o))), NA)
 })
 
-test_that("Shape scale throws appropriate warnings for factors", {
-  df <- data.frame(
+test_that("shape scale throws appropriate warnings for factors", {
+  df <- data_frame(
     x = 1:3,
     y = 1:3,
     d = LETTERS[1:3],
@@ -229,4 +253,44 @@ test_that("Shape scale throws appropriate warnings for factors", {
     ggplot_build(p + geom_point(aes(shape = o))),
     "Using shapes for an ordinal variable is not advised"
   )
+})
+
+test_that("aesthetics can be set independently of scale name", {
+  df <- data_frame(
+    x = LETTERS[1:3],
+    y = LETTERS[4:6]
+  )
+  p <- ggplot(df, aes(x, y, fill = y)) +
+    scale_colour_manual(values = c("red", "green", "blue"), aesthetics = "fill")
+
+  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+})
+
+test_that("multiple aesthetics can be set with one function call", {
+  df <- data_frame(
+    x = LETTERS[1:3],
+    y = LETTERS[4:6]
+  )
+  p <- ggplot(df, aes(x, y, colour = x, fill = y)) +
+    scale_colour_manual(
+      values = c("grey20", "grey40", "grey60", "red", "green", "blue"),
+      aesthetics = c("colour", "fill")
+    )
+
+  expect_equal(layer_data(p)$colour, c("grey20", "grey40", "grey60"))
+  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
+
+  # color order is determined by data order, and breaks are combined where possible
+  df <- data_frame(
+    x = LETTERS[1:3],
+    y = LETTERS[2:4]
+  )
+  p <- ggplot(df, aes(x, y, colour = x, fill = y)) +
+    scale_colour_manual(
+      values = c("cyan", "red", "green", "blue"),
+      aesthetics = c("fill", "colour")
+    )
+
+  expect_equal(layer_data(p)$colour, c("cyan", "red", "green"))
+  expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
 })

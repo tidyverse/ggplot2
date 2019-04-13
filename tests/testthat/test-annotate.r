@@ -20,14 +20,14 @@ test_that("dates in segment annotation work", {
 
 test_that("segment annotations transform with scales", {
   # Line should match data points
-  df <- data.frame(x = c(1, 10), y = c(10, 1))
+  df <- data_frame(x = c(1, 10), y = c(10, 1))
   plot <- ggplot(df, aes(x, y)) +
     geom_point() +
     annotate("segment", x = 1, y = 10, xend = 10, yend = 1, colour = "red") +
     scale_y_reverse(NULL, breaks = NULL) +
     scale_x_continuous(NULL, breaks = NULL)
 
-  vdiffr::expect_doppelganger("line matches points", plot)
+  expect_doppelganger("line matches points", plot)
 })
 
 test_that("annotation_* has dummy data assigned and don't inherit aes", {

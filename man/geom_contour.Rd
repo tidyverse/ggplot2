@@ -7,7 +7,8 @@
 \usage{
 geom_contour(mapping = NULL, data = NULL, stat = "contour",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 10, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  linemitre = 10, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_contour(mapping = NULL, data = NULL, geom = "contour",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
@@ -30,7 +31,7 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
+the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data.}
 
 \item{stat}{The statistical transformation to use on the data for this
@@ -39,16 +40,16 @@ layer, as a string.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{lineend}{Line end style (round, butt, square)}
+\item{lineend}{Line end style (round, butt, square).}
 
-\item{linejoin}{Line join style (round, mitre, bevel)}
+\item{linejoin}{Line join style (round, mitre, bevel).}
 
-\item{linemitre}{Line mitre limit (number greater than 1)}
+\item{linemitre}{Line mitre limit (number greater than 1).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -77,7 +78,7 @@ to a grid before visualising.
 }
 \section{Aesthetics}{
 
-\code{geom_contour} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_contour()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -88,13 +89,15 @@ to a grid before visualising.
 \item \code{size}
 \item \code{weight}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Computed variables}{
 
 \describe{
 \item{level}{height of contour}
+\item{nlevel}{height of contour, scaled to maximum of 1}
+\item{piece}{contour piece (an integer)}
 }
 }
 
@@ -118,7 +121,7 @@ v + geom_contour(binwidth = 0.01)
 v + geom_contour(binwidth = 0.001)
 
 # Other parameters
-v + geom_contour(aes(colour = calc(level)))
+v + geom_contour(aes(colour = stat(level)))
 v + geom_contour(colour = "red")
 v + geom_raster(aes(fill = density)) +
   geom_contour(colour = "white")

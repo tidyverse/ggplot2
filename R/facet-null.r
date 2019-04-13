@@ -7,7 +7,7 @@ NULL
 #' @keywords internal
 #' @export
 #' @examples
-#' # facet_null is the default facetting specification if you
+#' # facet_null is the default faceting specification if you
 #' # don't override it with facet_grid or facet_wrap
 #' ggplot(mtcars, aes(mpg, wt)) + geom_point()
 facet_null <- function(shrink = TRUE) {
@@ -30,10 +30,10 @@ FacetNull <- ggproto("FacetNull", Facet,
     # Need the is.waive check for special case where no data, but aesthetics
     # are mapped to vectors
     if (is.waive(data))
-      return(tibble(PANEL = factor()))
+      return(new_data_frame(list(PANEL = factor())))
 
     if (empty(data))
-      return(cbind(data, PANEL = factor()))
+      return(new_data_frame(c(data, list(PANEL = factor()))))
 
     # Needs to be a factor to be consistent with other facet types
     data$PANEL <- factor(1)
@@ -63,7 +63,7 @@ FacetNull <- ggproto("FacetNull", Facet,
     grob_widths <- unit.c(grobWidth(axis_v$left), unit(1, "null"), grobWidth(axis_v$right))
     grob_heights <- unit.c(grobHeight(axis_h$top), unit(aspect_ratio, "null"), grobHeight(axis_h$bottom))
     grob_names <- c("spacer", "axis-l", "spacer", "axis-t", "panel", "axis-b", "spacer", "axis-r", "spacer")
-    grob_clip <- c("off", "off", "off", "off", "on", "off", "off", "off", "off")
+    grob_clip <- c("off", "off", "off", "off", coord$clip, "off", "off", "off", "off")
 
     layout <- gtable_matrix("layout", all,
       widths = grob_widths, heights = grob_heights,

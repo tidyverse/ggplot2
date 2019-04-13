@@ -6,19 +6,28 @@
 #' when changes occur. The `group` aesthetic determines which cases are
 #' connected together.
 #'
-#' An alternative parameterisation is [geom_segment()]: each line
+#' An alternative parameterisation is [geom_segment()], where each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
 #' @eval rd_aesthetics("geom", "path")
 #' @inheritParams layer
 #' @inheritParams geom_point
-#' @param lineend Line end style (round, butt, square)
-#' @param linejoin Line join style (round, mitre, bevel)
-#' @param linemitre Line mitre limit (number greater than 1)
-#' @param arrow Arrow specification, as created by [grid::arrow()]
+#' @param lineend Line end style (round, butt, square).
+#' @param linejoin Line join style (round, mitre, bevel).
+#' @param linemitre Line mitre limit (number greater than 1).
+#' @param arrow Arrow specification, as created by [grid::arrow()].
 #' @seealso
 #'  [geom_polygon()]: Filled paths (polygons);
 #'  [geom_segment()]: Line segments
+#' @section Missing value handling:
+#' `geom_path()`, `geom_line()`, and `geom_step` handle `NA` as follows:
+#'
+#' * If an `NA` occurs in the middle of a line, it breaks the line. No warning
+#'   is shown, regardless of whether `na.rm` is `TRUE` or `FALSE`.
+#' * If an `NA` occurs at the start or the end of the line and `na.rm` is `FALSE`
+#'   (default), the `NA` is removed with a warning.
+#' * If an `NA` occurs at the start or the end of the line and `na.rm` is `TRUE`,
+#'   the `NA` is removed silently, without warning.
 #' @export
 #' @examples
 #' # geom_line() is suitable for time series
@@ -57,16 +66,9 @@
 #' base + geom_path(size = 10, lineend = "round")
 #' base + geom_path(size = 10, linejoin = "mitre", lineend = "butt")
 #'
-#' # NAs break the line. Use na.rm = T to suppress the warning message
-#' df <- data.frame(
-#'   x = 1:5,
-#'   y1 = c(1, 2, 3, 4, NA),
-#'   y2 = c(NA, 2, 3, 4, 5),
-#'   y3 = c(1, 2, NA, 4, 5)
-#' )
-#' ggplot(df, aes(x, y1)) + geom_point() + geom_line()
-#' ggplot(df, aes(x, y2)) + geom_point() + geom_line()
-#' ggplot(df, aes(x, y3)) + geom_point() + geom_line()
+#' # You can use NAs to break the line.
+#' df <- data.frame(x = 1:5, y = c(1, 2, NA, 4, 5))
+#' ggplot(df, aes(x, y)) + geom_point() + geom_line()
 #'
 #' \donttest{
 #' # Setting line type vs colour/size
@@ -158,12 +160,12 @@ GeomPath <- ggproto("GeomPath", Geom,
     if (nrow(munched) < 2) return(zeroGrob())
 
     # Work out whether we should use lines or segments
-    attr <- plyr::ddply(munched, "group", function(df) {
+    attr <- dapply(munched, "group", function(df) {
       linetype <- unique(df$linetype)
-      data.frame(
+      new_data_frame(list(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
         constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
-      )
+      ), n = 1)
     })
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
@@ -263,7 +265,7 @@ GeomLine <- ggproto("GeomLine", GeomPath,
 )
 
 #' @param direction direction of stairs: 'vh' for vertical then horizontal, or
-#'   'hv' for horizontal then vertical
+#'   'hv' for horizontal then vertical.
 #' @export
 #' @rdname geom_path
 geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
@@ -292,7 +294,7 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @include geom-path.r
 GeomStep <- ggproto("GeomStep", GeomPath,
   draw_panel = function(data, panel_params, coord, direction = "hv") {
-    data <- plyr::ddply(data, "group", stairstep, direction = direction)
+    data <- dapply(data, "group", stairstep, direction = direction)
     GeomPath$draw_panel(data, panel_params, coord)
   }
 )
@@ -319,9 +321,11 @@ stairstep <- function(data, direction="hv") {
     xs <- c(1, rep(2:n, each = 2))
   }
 
-  data.frame(
-    x = data$x[xs],
-    y = data$y[ys],
+  new_data_frame(c(
+    list(
+      x = data$x[xs],
+      y = data$y[ys]
+    ),
     data[xs, setdiff(names(data), c("x", "y"))]
-  )
+  ))
 }

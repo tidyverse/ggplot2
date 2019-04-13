@@ -52,12 +52,16 @@ functions taking a character vector such as
 p1 <- ggplot(mtcars, aes(x = mpg, y = wt)) + geom_point()
 
 # You can assign different labellers to variables:
-p1 + facet_grid(vs + am ~ gear,
-  labeller = labeller(vs = label_both, am = label_value))
+p1 + facet_grid(
+  vs + am ~ gear,
+  labeller = labeller(vs = label_both, am = label_value)
+)
 
 # Or whole margins:
-p1 + facet_grid(vs + am ~ gear,
-  labeller = labeller(.rows = label_both, .cols = label_value))
+p1 + facet_grid(
+  vs + am ~ gear,
+  labeller = labeller(.rows = label_both, .cols = label_value)
+)
 
 # You can supply functions operating on strings:
 capitalize <- function(string) {
@@ -85,11 +89,11 @@ p2 + facet_grid(vore ~ conservation, labeller = labeller(
 
 # In the following example, we rename the levels to the long form,
 # then apply a wrap labeller to the columns to prevent cropped text
-msleep$conservation2 <- plyr::revalue(msleep$conservation,
-  conservation_status)
+idx <- match(msleep$conservation, names(conservation_status))
+msleep$conservation2 <- conservation_status[idx]
 
-p2 \%+\% msleep + facet_grid(vore ~ conservation2)
-p2 \%+\% msleep +
+p3 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
+p3 +
   facet_grid(vore ~ conservation2,
     labeller = labeller(conservation2 = label_wrap_gen(10))
   )
@@ -106,8 +110,7 @@ global_labeller <- labeller(
 )
 
 p2 + facet_grid(vore ~ conservation, labeller = global_labeller)
-p2 + facet_wrap(~vore, labeller = global_labeller)
-p2 \%+\% msleep + facet_wrap(~conservation2, labeller = global_labeller)
+p3 + facet_wrap(~conservation2, labeller = global_labeller)
 }
 }
 \seealso{

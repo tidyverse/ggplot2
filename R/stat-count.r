@@ -5,9 +5,9 @@
 #' }
 #' @seealso [stat_bin()], which bins data in ranges and counts the
 #'   cases in each range. It differs from `stat_count`, which counts the
-#'   number of cases at each x position (without binning into ranges).
-#'   [stat_bin()] requires continuous x data, whereas
-#'   `stat_count` can be used for both discrete and continuous x data.
+#'   number of cases at each `x` position (without binning into ranges).
+#'   [stat_bin()] requires continuous `x` data, whereas
+#'   `stat_count` can be used for both discrete and continuous `x` data.
 #'
 #' @export
 #' @rdname geom_bar
@@ -47,7 +47,7 @@ stat_count <- function(mapping = NULL, data = NULL,
 #' @include stat-.r
 StatCount <- ggproto("StatCount", Stat,
   required_aes = "x",
-  default_aes = aes(y = calc(count), weight = 1),
+  default_aes = aes(y = stat(count), weight = 1),
 
   setup_params = function(data, params) {
     if (!is.null(data$y)) {
@@ -64,11 +64,11 @@ StatCount <- ggproto("StatCount", Stat,
     count <- as.numeric(tapply(weight, x, sum, na.rm = TRUE))
     count[is.na(count)] <- 0
 
-    data.frame(
+    new_data_frame(list(
       count = count,
       prop = count / sum(abs(count)),
       x = sort(unique(x)),
       width = width
-    )
+    ), n = length(count))
   }
 )

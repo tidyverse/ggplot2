@@ -4,7 +4,7 @@ context("geom-hline-vline-abline")
 # Visual tests ------------------------------------------------------------
 
 test_that("check h/v/abline transformed on basic projections", {
-  dat <- data.frame(x = LETTERS[1:5], y = 1:5)
+  dat <- data_frame(x = LETTERS[1:5], y = 1:5)
   plot <- ggplot(dat, aes(x, y)) +
     geom_col(width = 1) +
     geom_point() +
@@ -14,15 +14,15 @@ test_that("check h/v/abline transformed on basic projections", {
     labs(x = NULL, y = NULL) +
     coord_cartesian(expand = FALSE)
 
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "cartesian lines intersect mid-bars",
     plot
   )
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "flipped lines intersect mid-bars",
     plot + coord_flip()
   )
-  vdiffr::expect_doppelganger(
+  expect_doppelganger(
     "polar lines intersect mid-bars",
     plot + coord_polar()
   )
@@ -36,10 +36,40 @@ test_that("curved lines in map projections", {
     geom_vline(xintercept = 176) +
     coord_map()
 
-  vdiffr::expect_doppelganger("straight lines in mercator",
+  expect_doppelganger("straight lines in mercator",
     nzmap
   )
-  vdiffr::expect_doppelganger("lines curved in azequalarea",
+  expect_doppelganger("lines curved in azequalarea",
     nzmap + coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
+  )
+})
+
+# Warning tests ------------------------------------------------------------
+
+test_that("Warning if a supplied mapping is going to be overwritten", {
+
+  expect_warning(
+    geom_vline(xintercept = 3, aes(colour = colour)),
+    "Using both"
+  )
+
+  expect_warning(
+    geom_hline(yintercept = 3, aes(colour = colour)),
+    "Using both"
+  )
+
+  expect_warning(
+    geom_abline(intercept = 3, aes(colour = colour)),
+    "Using "
+  )
+
+  expect_warning(
+    geom_abline(intercept = 3, slope = 0.5, aes(colour = colour)),
+    "Using "
+  )
+
+  expect_warning(
+    geom_abline(slope=0.5, aes(colour = colour)),
+    "Using "
   )
 })

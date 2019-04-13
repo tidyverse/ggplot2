@@ -25,10 +25,11 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_area()
 #' last_plot() + coord_flip()
-coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE) {
+coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
   ggproto(NULL, CoordFlip,
     limits = list(x = xlim, y = ylim),
-    expand = expand
+    expand = expand,
+    clip = clip
   )
 }
 
@@ -43,7 +44,13 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
     CoordCartesian$transform(data, panel_params)
   },
 
+  backtransform_range = function(self, panel_params) {
+    self$range(panel_params)
+  },
+
   range = function(panel_params) {
+    # summarise_layout() expects the original x and y ranges here,
+    # not the ones we would get after flipping the axes
     list(x = panel_params$y.range, y = panel_params$x.range)
   },
 

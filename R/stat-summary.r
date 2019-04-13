@@ -29,7 +29,7 @@
 #' number, but is somewhat less flexible. If your summary function computes
 #' multiple values at once (e.g. ymin and ymax), use `fun.data`.
 #'
-#' If no aggregation functions are suppled, will default to
+#' If no aggregation functions are supplied, will default to
 #' [mean_se()].
 #'
 #' @param fun.data A function that is given the complete data and should
@@ -161,8 +161,8 @@ StatSummary <- ggproto("StatSummary", Stat,
 # @param other arguments passed on to summary function
 # @keyword internal
 summarise_by_x <- function(data, summary, ...) {
-  summary <- plyr::ddply(data, c("group", "x"), summary, ...)
-  unique <- plyr::ddply(data, c("group", "x"), uniquecols)
+  summary <- dapply(data, c("group", "x"), summary, ...)
+  unique <- dapply(data, c("group", "x"), uniquecols)
   unique$y <- NULL
 
   merge(summary, unique, by = c("x", "group"), sort = FALSE)
@@ -201,10 +201,9 @@ wrap_hmisc <- function(fun) {
     fun <- getExportedValue("Hmisc", fun)
     result <- do.call(fun, list(x = quote(x), ...))
 
-    plyr::rename(
-      data.frame(t(result)),
-      c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax"),
-      warn_missing = FALSE
+    rename(
+      new_data_frame(as.list(result)),
+      c(Median = "y", Mean = "y", Lower = "ymin", Upper = "ymax")
     )
   }
 }
@@ -236,5 +235,5 @@ mean_se <- function(x, mult = 1) {
   x <- stats::na.omit(x)
   se <- mult * sqrt(stats::var(x) / length(x))
   mean <- mean(x)
-  data.frame(y = mean, ymin = mean - se, ymax = mean + se)
+  new_data_frame(list(y = mean, ymin = mean - se, ymax = mean + se), n = 1)
 }

@@ -33,17 +33,17 @@ stat_sum <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatSum <- ggproto("StatSum", Stat,
-  default_aes = aes(size = calc(n), weight = 1),
+  default_aes = aes(size = stat(n), weight = 1),
 
   required_aes = c("x", "y"),
 
   compute_panel = function(data, scales) {
     if (is.null(data$weight)) data$weight <- 1
 
-    group_by <- setdiff(intersect(names(data), .all_aesthetics), "weight")
+    group_by <- setdiff(intersect(names(data), ggplot_global$all_aesthetics), "weight")
 
-    counts <- plyr::count(data, group_by, wt_var = "weight")
-    counts <- plyr::rename(counts, c(freq = "n"), warn_missing = FALSE)
+    counts <- count(data, group_by, wt_var = "weight")
+    counts <- rename(counts, c(freq = "n"))
     counts$prop <- stats::ave(counts$n, counts$group, FUN = prop.table)
     counts
   }

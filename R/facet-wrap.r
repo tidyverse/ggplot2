@@ -7,39 +7,42 @@ NULL
 #' a better use of screen space than [facet_grid()] because most
 #' displays are roughly rectangular.
 #'
-#' @param facets Either a formula or character vector. Use either a
-#'   one sided formula, `~a + b`, or a character vector, `c("a", "b")`.
+#' @param facets A set of variables or expressions quoted by [vars()]
+#'   and defining faceting groups on the rows or columns dimension.
+#'   The variables can be named (the names are passed to `labeller`).
+#'
+#'   For compatibility with the classic interface, can also be a
+#'   formula or character vector. Use either a one sided formula, `~a + b`,
+#'   or a character vector, `c("a", "b")`.
 #' @param nrow,ncol Number of rows and columns.
-#' @param scales should Scales be fixed (`"fixed"`, the default),
+#' @param scales Should scales be fixed (`"fixed"`, the default),
 #'   free (`"free"`), or free in one dimension (`"free_x"`,
-#'   `"free_y"`).
+#'   `"free_y"`)?
 #' @param strip.position By default, the labels are displayed on the top of
 #'   the plot. Using `strip.position` it is possible to place the labels on
 #'   either of the four sides by setting \code{strip.position = c("top",
 #'   "bottom", "left", "right")}
-#' @param dir Direction: either "h" for horizontal, the default, or "v", for
-#'   vertical.
+#' @param dir Direction: either `"h"` for horizontal, the default, or `"v"`,
+#'   for vertical.
 #' @inheritParams facet_grid
 #' @export
 #' @examples
-#' ggplot(mpg, aes(displ, hwy)) +
-#'   geom_point() +
-#'   facet_wrap(~class)
+#' p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
+#'
+#' # Use vars() to supply faceting variables:
+#' p + facet_wrap(vars(class))
+#'
+#' # The historical interface with formulas is also available:
+#' p + facet_wrap(~class)
 #'
 #' # Control the number of rows and columns with nrow and ncol
-#' ggplot(mpg, aes(displ, hwy)) +
-#'   geom_point() +
-#'   facet_wrap(~class, nrow = 4)
+#' p + facet_wrap(vars(class), nrow = 4)
 #'
 #' \donttest{
 #' # You can facet by multiple variables
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
-#'   facet_wrap(~ cyl + drv)
-#' # Or use a character vector:
-#' ggplot(mpg, aes(displ, hwy)) +
-#'   geom_point() +
-#'   facet_wrap(c("cyl", "drv"))
+#'   facet_wrap(vars(cyl, drv))
 #'
 #' # Use the `labeller` option to control how labels are printed:
 #' ggplot(mpg, aes(displ, hwy)) +
@@ -62,7 +65,7 @@ NULL
 #'   facet_wrap(~class, scales = "free")
 #'
 #' # To repeat the same data in every panel, simply construct a data frame
-#' # that does not contain the facetting variable.
+#' # that does not contain the faceting variable.
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point(data = transform(mpg, class = NULL), colour = "grey85") +
 #'   geom_point() +
@@ -105,14 +108,29 @@ facet_wrap <- function(facets, nrow = NULL, ncol = NULL, scales = "fixed",
   # Check for deprecated labellers
   labeller <- check_labeller(labeller)
 
+  # Flatten all facets dimensions into a single one
+  facets <- wrap_as_facets_list(facets)
+
   ggproto(NULL, FacetWrap,
     shrink = shrink,
-    params = list(facets = as.quoted(facets), free = free,
-    as.table = as.table, strip.position = strip.position,
-    drop = drop, ncol = ncol, nrow = nrow,
-    labeller = labeller,
-    dir = dir)
+    params = list(
+      facets = facets,
+      free = free,
+      as.table = as.table,
+      strip.position = strip.position,
+      drop = drop,
+      ncol = ncol,
+      nrow = nrow,
+      labeller = labeller,
+      dir = dir
+    )
   )
+}
+
+# Returns a quosures object
+wrap_as_facets_list <- function(x) {
+  facets_list <- as_facets_list(x)
+  compact_facets(facets_list)
 }
 
 #' @rdname ggplot2-ggproto
@@ -123,18 +141,20 @@ FacetWrap <- ggproto("FacetWrap", Facet,
   shrink = TRUE,
 
   compute_layout = function(data, params) {
-    vars <- as.quoted(params$facets)
-    if (length(vars) == 0) return(layout_null())
+    vars <- params$facets
+    if (length(vars) == 0) {
+      return(layout_null())
+    }
 
-    base <- plyr::unrowname(
+    base <- unrowname(
       combine_vars(data, params$plot_env, vars, drop = params$drop)
     )
 
-    id <- plyr::id(base, drop = TRUE)
+    id <- id(base, drop = TRUE)
     n <- attr(id, "n")
 
     dims <- wrap_dims(n, params$nrow, params$ncol)
-    layout <- data.frame(PANEL = factor(id, levels = seq_len(n)))
+    layout <- new_data_frame(list(PANEL = factor(id, levels = seq_len(n))))
 
     if (params$as.table) {
       layout$ROW <- as.integer((id - 1L) %/% dims[2] + 1L)
@@ -148,7 +168,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       layout[c("ROW", "COL")] <- layout[c("COL", "ROW")]
     }
 
-    panels <- cbind(layout, plyr::unrowname(base))
+    panels <- cbind(layout, unrowname(base))
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
 
@@ -162,9 +182,15 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     if (empty(data)) {
       return(cbind(data, PANEL = integer(0)))
     }
-    vars <- as.quoted(params$facets)
 
-    facet_vals <- eval_facet_vars(vars, data, params$plot_env)
+    vars <- params$facets
+
+    if (length(vars) == 0) {
+      data$PANEL <- 1L
+      return(data)
+    }
+
+    facet_vals <- eval_facets(vars, data, params$plot_env)
     facet_vals[] <- lapply(facet_vals[], as.factor)
 
     missing_facets <- setdiff(names(vars), names(facet_vals))
@@ -175,20 +201,21 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       data_rep <- rep.int(1:nrow(data), nrow(to_add))
       facet_rep <- rep(1:nrow(to_add), each = nrow(data))
 
-      data <- plyr::unrowname(data[data_rep, , drop = FALSE])
-      facet_vals <- plyr::unrowname(cbind(
+      data <- unrowname(data[data_rep, , drop = FALSE])
+      facet_vals <- unrowname(cbind(
         facet_vals[data_rep, ,  drop = FALSE],
         to_add[facet_rep, , drop = FALSE]))
     }
 
-    keys <- plyr::join.keys(facet_vals, layout, by = names(vars))
+    keys <- join_keys(facet_vals, layout, by = names(vars))
 
     data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
-    data[order(data$PANEL), ]
+    data
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
-    if (params$free$x || params$free$y)
-      check_coord_freedom(coord)
+    if ((params$free$x || params$free$y) && !coord$is_free()) {
+      stop(snake_class(coord), " doesn't support free scales", call. = FALSE)
+    }
 
     if (inherits(coord, "CoordFlip")) {
       if (params$free$x) {
@@ -213,7 +240,12 @@ FacetWrap <- ggproto("FacetWrap", Facet,
 
     axes <- render_axes(ranges, ranges, coord, theme, transpose = TRUE)
 
-    labels_df <- layout[names(params$facets)]
+    if (length(params$facets) == 0) {
+      # Add a dummy label
+      labels_df <- new_data_frame(list("(all)" = "(all)"), n = 1)
+    } else {
+      labels_df <- layout[names(params$facets)]
+    }
     attr(labels_df, "facet") <- "wrap"
     strips <- render_strips(
       structure(labels_df, type = "rows"),
@@ -240,7 +272,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     empties <- apply(panel_table, c(1,2), function(x) is.zero(x[[1]]))
     panel_table <- gtable_matrix("layout", panel_table,
      widths = unit(rep(1, ncol), "null"),
-     heights = unit(rep(aspect_ratio, nrow), "null"), respect = respect, clip = "on", z = matrix(1, ncol = ncol, nrow = nrow))
+     heights = unit(rep(aspect_ratio, nrow), "null"), respect = respect, clip = coord$clip, z = matrix(1, ncol = ncol, nrow = nrow))
     panel_table$layout$name <- paste0('panel-', rep(seq_len(ncol), nrow), '-', rep(seq_len(nrow), each = ncol))
 
     panel_table <- gtable_add_col_space(panel_table,
@@ -265,10 +297,22 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       axis_mat_y_left[, -1] <- list(zeroGrob())
       axis_mat_y_right[, -ncol] <- list(zeroGrob())
     }
-    axis_height_top <- unit(apply(axis_mat_x_top, 1, max_height), "cm")
-    axis_height_bottom <- unit(apply(axis_mat_x_bottom, 1, max_height), "cm")
-    axis_width_left <- unit(apply(axis_mat_y_left, 2, max_width), "cm")
-    axis_width_right <- unit(apply(axis_mat_y_right, 2, max_width), "cm")
+    axis_height_top <- unit(
+      apply(axis_mat_x_top, 1, max_height, value_only = TRUE),
+      "cm"
+    )
+    axis_height_bottom <- unit(
+      apply(axis_mat_x_bottom, 1, max_height, value_only = TRUE),
+      "cm"
+    )
+    axis_width_left <- unit(
+      apply(axis_mat_y_left, 2, max_width, value_only = TRUE),
+      "cm"
+    )
+    axis_width_right <- unit(
+      apply(axis_mat_y_right, 2, max_width, value_only = TRUE),
+      "cm"
+    )
     # Add back missing axes
     if (any(empties)) {
       first_row <- which(apply(empties, 1, any))[1] - 1
@@ -279,16 +323,19 @@ FacetWrap <- ggproto("FacetWrap", Facet,
       col_panels <- which(layout$ROW > first_row & layout$COL == first_col)
       col_pos <- convertInd(layout$ROW[col_panels], layout$COL[col_panels], nrow)
       col_axes <- axes$y$right[layout$SCALE_Y[col_panels]]
+      inside <- (theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "bottom" &&
-          theme$strip.placement != "inside" &&
-          any(!vapply(row_axes, is.zero, logical(length(row_axes))))) {
+          !inside &&
+          any(!vapply(row_axes, is.zero, logical(1))) &&
+          !params$free$x) {
         warning("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'", call. = FALSE)
       } else {
         axis_mat_x_bottom[row_pos] <- row_axes
       }
       if (params$strip.position == "right" &&
-          theme$strip.placement != "inside" &&
-          any(!vapply(col_axes, is.zero, logical(length(col_axes))))) {
+          !inside &&
+          any(!vapply(col_axes, is.zero, logical(1))) &&
+          !params$free$y) {
         warning("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'", call. = FALSE)
       } else {
         axis_mat_y_right[col_pos] <- col_axes
@@ -304,41 +351,41 @@ FacetWrap <- ggproto("FacetWrap", Facet,
     strip_mat <- empty_table
     strip_mat[panel_pos] <- unlist(unname(strips), recursive = FALSE)[[params$strip.position]]
     if (params$strip.position %in% c("top", "bottom")) {
-      inside <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
+      inside_x <- (theme$strip.placement.x %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "top") {
-        placement <- if (inside) -1 else -2
+        placement <- if (inside_x) -1 else -2
         strip_pad <- axis_height_top
       } else {
-        placement <- if (inside) 0 else 1
+        placement <- if (inside_x) 0 else 1
         strip_pad <- axis_height_bottom
       }
-      strip_height <- unit(apply(strip_mat, 1, max_height), "cm")
-      panel_table <- weave_tables_row(panel_table, strip_mat, placement, strip_height, strip_name, 2, "on")
-      if (!inside) {
-        strip_pad[unclass(strip_pad) != 0] <- strip_padding
+      strip_height <- unit(apply(strip_mat, 1, max_height, value_only = TRUE), "cm")
+      panel_table <- weave_tables_row(panel_table, strip_mat, placement, strip_height, strip_name, 2, coord$clip)
+      if (!inside_x) {
+        strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
         panel_table <- weave_tables_row(panel_table, row_shift = placement, row_height = strip_pad)
       }
     } else {
-      inside <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
+      inside_y <- (theme$strip.placement.y %||% theme$strip.placement %||% "inside") == "inside"
       if (params$strip.position == "left") {
-        placement <- if (inside) -1 else -2
+        placement <- if (inside_y) -1 else -2
         strip_pad <- axis_width_left
       } else {
-        placement <- if (inside) 0 else 1
+        placement <- if (inside_y) 0 else 1
         strip_pad <- axis_width_right
       }
-      strip_pad[unclass(strip_pad) != 0] <- strip_padding
-      strip_width <- unit(apply(strip_mat, 2, max_width), "cm")
-      panel_table <- weave_tables_col(panel_table, strip_mat, placement, strip_width, strip_name, 2, "on")
-      if (!inside) {
-        strip_pad[unclass(strip_pad) != 0] <- strip_padding
+      strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
+      strip_width <- unit(apply(strip_mat, 2, max_width, value_only = TRUE), "cm")
+      panel_table <- weave_tables_col(panel_table, strip_mat, placement, strip_width, strip_name, 2, coord$clip)
+      if (!inside_y) {
+        strip_pad[as.numeric(strip_pad) != 0] <- strip_padding
         panel_table <- weave_tables_col(panel_table, col_shift = placement, col_width = strip_pad)
       }
     }
     panel_table
   },
   vars = function(self) {
-    vapply(self$params$facets, as.character, character(1))
+    names(self$params$facets)
   }
 )
 

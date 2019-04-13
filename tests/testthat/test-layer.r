@@ -1,6 +1,5 @@
 context("Layer")
 
-
 # Parameters --------------------------------------------------------------
 
 test_that("aesthetics go in aes_params", {
@@ -18,6 +17,32 @@ test_that("unknown aesthietcs create warning", {
 
 test_that("unknown NULL asthetic doesn't create warning (#1909)", {
   expect_warning(geom_point(aes(blah = NULL)), NA)
+})
+
+test_that("column vectors are allowed (#2609)", {
+  df <- data_frame(x = 1:10)
+  df$y <- scale(1:10) # Returns a column vector
+  p <- ggplot(df, aes(x, y))
+  expect_is(layer_data(p), "data.frame")
+})
+
+test_that("missing aesthetics trigger informative error", {
+  df <- data_frame(x = 1:10)
+  expect_error(
+    ggplot_build(ggplot(df) + geom_line()),
+    "requires the following missing aesthetics:"
+  )
+  expect_error(
+    ggplot_build(ggplot(df) + geom_col()),
+    "requires the following missing aesthetics:"
+  )
+})
+
+test_that("if an aes is mapped to a function that returns NULL, it is removed", {
+  df <- data_frame(x = 1:10)
+  null <- function(...) NULL
+  p <- cdata(ggplot(df, aes(x, null())))
+  expect_identical(names(p[[1]]), c("PANEL", "x", "group"))
 })
 
 # Data extraction ---------------------------------------------------------
