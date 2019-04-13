@@ -107,7 +107,7 @@ Scale <- ggproto("Scale", NULL,
   },
 
   #  if scale is a function, apply it to the default (inverted) scale range
-  #  if scale contains a NULL, use the default scale range
+  #  if scale is NULL, use the default scale range
   #  if scale contains a NA, use the default range for that axis, otherwise
   #  use the user defined limit for that axis
   get_limits = function(self) {
