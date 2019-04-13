@@ -47,8 +47,14 @@ transformation object
 as output
 }}
 
-\item{limits}{A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum.}
+\item{limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale range
+\item A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum
+\item A function that accepts the existing (automatic) limits and returns
+new limits
+}}
 
 \item{range}{a numeric vector of length 2 that specifies the minimum and
 maximum size of the plotting symbol after transformation.}
@@ -100,8 +106,14 @@ transformation object
 \item A function that takes the breaks as input and returns labels
 as output
 }}
-  \item{limits}{A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum.}
+  \item{limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale range
+\item A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum
+\item A function that accepts the existing (automatic) limits and returns
+new limits
+}}
   \item{oob}{Function that handles limits outside of the scale limits
 (out of bounds). The default replaces out of bounds values with \code{NA}.}
   \item{na.value}{Missing values will be replaced with this value.}
