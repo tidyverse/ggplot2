@@ -8,7 +8,7 @@
 
 * `coord_map()` now can have axes on the top and right (@karawoo, #3042).
 
-* Clearer error messages for innappropriate aesthetics. (@clairemcwhite, #3060).
+* Clearer error messages for inappropriate aesthetics (@clairemcwhite, #3060).
 
 * `geom_rug()` gains an "outside" option to allow for moving the rug tassels to outside the plot area. (@njtierney, #3085)
 
