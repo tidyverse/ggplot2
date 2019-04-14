@@ -375,3 +375,13 @@ test_that("rotated axis tick labels work", {
     theme(axis.text.x = element_text(angle = 50, hjust = 1))
   expect_doppelganger("rotated x axis tick labels", plot)
 })
+
+test_that("right to left theme specification works", {
+  df2 <- data_frame(x = letters[1:10], y = 1:10, z = rep(c("A", "B"), 5))
+  plot <- ggplot(df2, aes(x, y, col = z)) +
+    geom_point() +
+    coord_mirror() +
+    theme_rtl() +
+    ggtitle("Right Aligned Title")
+  expect_doppelganger("right to left theme", plot)
+})

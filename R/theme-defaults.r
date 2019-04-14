@@ -115,19 +115,19 @@ theme_grey <- function(base_size = 11, base_family = "",
     # Elements in this first block aren't used directly, but are inherited
     # by others
     line =               element_line(
-                           colour = "black", size = base_line_size,
-                           linetype = 1, lineend = "butt"
-                         ),
+      colour = "black", size = base_line_size,
+      linetype = 1, lineend = "butt"
+    ),
     rect =               element_rect(
-                           fill = "white", colour = "black",
-                           size = base_rect_size, linetype = 1
-                         ),
+      fill = "white", colour = "black",
+      size = base_rect_size, linetype = 1
+    ),
     text =               element_text(
-                            family = base_family, face = "plain",
-                            colour = "black", size = base_size,
-                            lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
-                            margin = margin(), debug = FALSE
-                         ),
+      family = base_family, face = "plain",
+      colour = "black", size = base_size,
+      lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
+      margin = margin(), debug = FALSE
+    ),
 
     axis.line =          element_blank(),
     axis.line.x =        NULL,
@@ -140,23 +140,23 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.ticks =         element_line(colour = "grey20"),
     axis.ticks.length =  unit(half_line / 2, "pt"),
     axis.title.x =       element_text(
-                           margin = margin(t = half_line / 2),
-                           vjust = 1
-                         ),
+      margin = margin(t = half_line / 2),
+      vjust = 1
+    ),
     axis.title.x.top =   element_text(
-                           margin = margin(b = half_line / 2),
-                           vjust = 0
-                         ),
+      margin = margin(b = half_line / 2),
+      vjust = 0
+    ),
     axis.title.y =       element_text(
-                           angle = 90,
-                           margin = margin(r = half_line / 2),
-                           vjust = 1
-                         ),
+      angle = 90,
+      margin = margin(r = half_line / 2),
+      vjust = 1
+    ),
     axis.title.y.right = element_text(
-                           angle = -90,
-                           margin = margin(l = half_line / 2),
-                           vjust = 0
-                         ),
+      angle = -90,
+      margin = margin(l = half_line / 2),
+      vjust = 0
+    ),
 
     legend.background =  element_rect(colour = NA),
     legend.spacing =     unit(2 * half_line, "pt"),
@@ -190,10 +190,10 @@ theme_grey <- function(base_size = 11, base_family = "",
 
     strip.background =   element_rect(fill = "grey85", colour = NA),
     strip.text =         element_text(
-                           colour = "grey10",
-                           size = rel(0.8),
-                           margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
-                         ),
+      colour = "grey10",
+      size = rel(0.8),
+      margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
+    ),
     strip.text.x =       NULL,
     strip.text.y =       element_text(angle = -90),
     strip.placement =    "inside",
@@ -204,23 +204,23 @@ theme_grey <- function(base_size = 11, base_family = "",
 
     plot.background =    element_rect(colour = "white"),
     plot.title =         element_text( # font size "large"
-                           size = rel(1.2),
-                           hjust = 0, vjust = 1,
-                           margin = margin(b = half_line)
-                         ),
+      size = rel(1.2),
+      hjust = 0, vjust = 1,
+      margin = margin(b = half_line)
+    ),
     plot.subtitle =      element_text( # font size "regular"
-                           hjust = 0, vjust = 1,
-                           margin = margin(b = half_line)
-                         ),
+      hjust = 0, vjust = 1,
+      margin = margin(b = half_line)
+    ),
     plot.caption =       element_text( # font size "small"
-                           size = rel(0.8),
-                           hjust = 1, vjust = 1,
-                           margin = margin(t = half_line)
-                         ),
+      size = rel(0.8),
+      hjust = 1, vjust = 1,
+      margin = margin(t = half_line)
+    ),
     plot.tag =           element_text(
-                           size = rel(1.2),
-                           hjust = 0.5, vjust = 0.5
-                         ),
+      size = rel(1.2),
+      hjust = 0.5, vjust = 0.5
+    ),
     plot.tag.position =  'topleft',
     plot.margin =        margin(half_line, half_line, half_line, half_line),
 
@@ -230,26 +230,6 @@ theme_grey <- function(base_size = 11, base_family = "",
 #' @export
 #' @rdname ggtheme
 theme_gray <- theme_grey
-
-#' @export
-#' @rdname ggtheme
-theme_rtl <- function(base_size = 11, base_family = "",
-                     base_line_size = base_size / 22,
-                     base_rect_size = base_size / 22) {
-  # Starts with theme_grey and then modify some parts
-  theme_grey(
-    base_size = base_size,
-    base_family = base_family,
-    base_line_size = base_line_size,
-    base_rect_size = base_rect_size
-  ) %+replace%
-    theme(
-      legend.position = "left",
-      plot.title = element_text(hjust = 1),
-
-      complete = TRUE
-    )
-}
 
 #' @export
 #' @rdname ggtheme
@@ -310,10 +290,10 @@ theme_linedraw <- function(base_size = 11, base_family = "",
       # strips with black background and white text
       strip.background = element_rect(fill = "black"),
       strip.text       = element_text(
-                           colour = "white",
-                           size = rel(0.8),
-                           margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
-                         ),
+        colour = "white",
+        size = rel(0.8),
+        margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
+      ),
 
       complete = TRUE
     )
@@ -352,10 +332,10 @@ theme_light <- function(base_size = 11, base_family = "",
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey70", colour = NA),
       strip.text       = element_text(
-                           colour = "white",
-                           size = rel(0.8),
-                           margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
-                         ),
+        colour = "white",
+        size = rel(0.8),
+        margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
+      ),
 
       complete = TRUE
     )
@@ -394,10 +374,10 @@ theme_dark <- function(base_size = 11, base_family = "",
       # dark strips with light text (inverse contrast compared to theme_grey)
       strip.background = element_rect(fill = "grey15", colour = NA),
       strip.text       = element_text(
-                           colour = "grey90",
-                           size = rel(0.8),
-                           margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
-                         ),
+        colour = "grey90",
+        size = rel(0.8),
+        margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
+      ),
 
       complete = TRUE
     )
@@ -471,11 +451,11 @@ theme_void <- function(base_size = 11, base_family = "",
     line =               element_blank(),
     rect =               element_blank(),
     text =               element_text(
-                            family = base_family, face = "plain",
-                            colour = "black", size = base_size,
-                            lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
-                            margin = margin(), debug = FALSE
-                         ),
+      family = base_family, face = "plain",
+      colour = "black", size = base_size,
+      lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
+      margin = margin(), debug = FALSE
+    ),
     axis.text =          element_blank(),
     axis.title =         element_blank(),
     axis.ticks.length =  unit(0, "pt"),
@@ -491,23 +471,23 @@ theme_void <- function(base_size = 11, base_family = "",
     panel.spacing =      unit(half_line, "pt"),
     plot.margin =        unit(c(0, 0, 0, 0), "lines"),
     plot.title =         element_text(
-                           size = rel(1.2),
-                           hjust = 0, vjust = 1,
-                           margin = margin(t = half_line)
-                         ),
+      size = rel(1.2),
+      hjust = 0, vjust = 1,
+      margin = margin(t = half_line)
+    ),
     plot.subtitle =      element_text(
-                           hjust = 0, vjust = 1,
-                           margin = margin(t = half_line)
-                         ),
+      hjust = 0, vjust = 1,
+      margin = margin(t = half_line)
+    ),
     plot.caption =       element_text(
-                           size = rel(0.8),
-                           hjust = 1, vjust = 1,
-                           margin = margin(t = half_line)
-                         ),
+      size = rel(0.8),
+      hjust = 1, vjust = 1,
+      margin = margin(t = half_line)
+    ),
     plot.tag =           element_text(
-                           size = rel(1.2),
-                           hjust = 0.5, vjust = 0.5
-                         ),
+      size = rel(1.2),
+      hjust = 0.5, vjust = 0.5
+    ),
     plot.tag.position =  'topleft',
 
     complete = TRUE
@@ -524,19 +504,19 @@ theme_test <- function(base_size = 11, base_family = "",
 
   theme(
     line =               element_line(
-                           colour = "black", size = base_line_size,
-                           linetype = 1, lineend = "butt"
-                         ),
+      colour = "black", size = base_line_size,
+      linetype = 1, lineend = "butt"
+    ),
     rect =               element_rect(
-                           fill = "white", colour = "black",
-                           size = base_rect_size, linetype = 1
-                         ),
+      fill = "white", colour = "black",
+      size = base_rect_size, linetype = 1
+    ),
     text =               element_text(
-                            family = base_family, face = "plain",
-                            colour = "black", size = base_size,
-                            lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
-                            margin = margin(), debug = FALSE
-                         ),
+      family = base_family, face = "plain",
+      colour = "black", size = base_size,
+      lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
+      margin = margin(), debug = FALSE
+    ),
 
     axis.line =          element_blank(),
     axis.line.x =        NULL,
@@ -549,23 +529,23 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.ticks =         element_line(colour = "grey20"),
     axis.ticks.length =  unit(half_line / 2, "pt"),
     axis.title.x =       element_text(
-                           margin = margin(t = half_line / 2),
-                           vjust = 1
-                         ),
+      margin = margin(t = half_line / 2),
+      vjust = 1
+    ),
     axis.title.x.top =   element_text(
-                           margin = margin(b = half_line / 2),
-                           vjust = 0
-                         ),
+      margin = margin(b = half_line / 2),
+      vjust = 0
+    ),
     axis.title.y =       element_text(
-                           angle = 90,
-                           margin = margin(r = half_line / 2),
-                           vjust = 1
-                         ),
+      angle = 90,
+      margin = margin(r = half_line / 2),
+      vjust = 1
+    ),
     axis.title.y.right = element_text(
-                           angle = -90,
-                           margin = margin(l = half_line / 2),
-                           vjust = 0
-                         ),
+      angle = -90,
+      margin = margin(l = half_line / 2),
+      vjust = 0
+    ),
 
     legend.background =  element_rect(colour = NA),
     legend.spacing =     unit(2 * half_line, "pt"),
@@ -599,10 +579,10 @@ theme_test <- function(base_size = 11, base_family = "",
 
     strip.background =   element_rect(fill = "grey85", colour = "grey20"),
     strip.text =         element_text(
-                           colour = "grey10",
-                           size = rel(0.8),
-                           margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
-                         ),
+      colour = "grey10",
+      size = rel(0.8),
+      margin = margin(0.8 * half_line, 0.8 * half_line, 0.8 * half_line, 0.8 * half_line)
+    ),
     strip.text.x =       NULL,
     strip.text.y =       element_text(angle = -90),
     strip.placement =    "inside",
@@ -613,26 +593,47 @@ theme_test <- function(base_size = 11, base_family = "",
 
     plot.background =    element_rect(colour = "white"),
     plot.title =         element_text(
-                           size = rel(1.2),
-                           hjust = 0, vjust = 1,
-                           margin = margin(b = half_line)
-                         ),
+      size = rel(1.2),
+      hjust = 0, vjust = 1,
+      margin = margin(b = half_line)
+    ),
     plot.subtitle =      element_text(
-                           hjust = 0, vjust = 1,
-                           margin = margin(b = half_line)
-                         ),
+      hjust = 0, vjust = 1,
+      margin = margin(b = half_line)
+    ),
     plot.caption =       element_text(
-                           size = rel(0.8),
-                           hjust = 1, vjust = 1,
-                           margin = margin(t = half_line)
-                         ),
+      size = rel(0.8),
+      hjust = 1, vjust = 1,
+      margin = margin(t = half_line)
+    ),
     plot.tag =           element_text(
-                           size = rel(1.2),
-                           hjust = 0.5, vjust = 0.5
-                         ),
+      size = rel(1.2),
+      hjust = 0.5, vjust = 0.5
+    ),
     plot.tag.position =  'topleft',
     plot.margin =        margin(half_line, half_line, half_line, half_line),
 
     complete = TRUE
+  )
+}
+
+#' Right to Left Theme
+#'
+#' Partial theme for plotting in right to left languages.
+#'
+#' Sets legend left of plot and right-aligns title.
+#' @export
+#' @seealso [coord_mirror()]
+#' @examples
+#' df2 <- data.frame(x = letters[1:10], y = 1:10, z = rep(c("A", "B"), 5))
+#' ggplot(df2, aes(x, y, col = z)) +
+#'   geom_point() +
+#'   coord_mirror() +
+#'   theme_rtl() +
+#'   ggtitle("Right Aligned Title")
+theme_rtl <- function() {
+  theme(
+    legend.position = "left",
+    plot.title = element_text(hjust = 1)
   )
 }
