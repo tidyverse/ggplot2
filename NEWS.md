@@ -35,6 +35,9 @@ core developer team.
 * `geom_rug()` gains an "outside" option to allow for moving the rug tassels to 
   outside the plot area (@njtierney, #3085) and a `length` option to allow for 
   changing the length of the rug lines (@daniel-wells, #3109). 
+  
+* New partial theme, `theme_rtl()`, and new coord, `coord_mirror()`, are now
+  available to implement right to left plotting with ggplot2 (@dpseidel, #2817).
 
 ## Extensions
 
