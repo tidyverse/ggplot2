@@ -24,7 +24,7 @@ core developer team.
     equivalents.
 
 * `geom_polygon()` can now draw polygons with holes using the new `subgroup` 
-  aesthetic. This functionality requires R 3.6.0 (@thomasp85, #3128).
+  aesthetic. This functionality requires R 3.6.0 (@thomasp85, #3128)
 
 * Aesthetic mappings now accept functions that return `NULL` (@yutannihilation,
   #2997).
@@ -46,7 +46,7 @@ core developer team.
   interest to extension developers (@clauswilke, #2872).
 
 * `x0` and `y0` are now recognized positional aesthetics so they will get scaled 
-  if used in extension geoms and stats (@thomasp85, #3168).
+  if used in extension geoms and stats (@thomasp85, #3168)
   
 * Continuous scale limits now accept functions which accept the default
   limits and return adjusted limits. This makes it possible to write
@@ -56,7 +56,7 @@ core developer team.
 ## Minor improvements and bug fixes
 
 * `cut_width()` now accepts `...` to pass further arguments to `base::cut.default()`
-   like `cut_number()` and `cut_interval()` already did (@cderv, #3055).
+   like `cut_number()` and `cut_interval()` already did (@cderv, #3055)
 
 * `coord_map()` now can have axes on the top and right (@karawoo, #3042).
 
@@ -88,7 +88,7 @@ core developer team.
   
 * `geom_area()` and `geom_ribbon()` now sort the data along the x-axis in the 
   `setup_data()` method rather than as part of `draw_group()` (@thomasp85, 
-  #3023).
+  #3023)
 
 * `geom_hline()`, `geom_vline()`, and `geom_abline()` now throw a warning if the 
   user supplies both an `xintercept`, `yintercept`, or `slope` value and a 
@@ -111,7 +111,7 @@ core developer team.
   #3079).
 
 * `scale_shape_identity()` now works correctly with `guide = "legend"` 
-  (@malcolmbarrett, #3029).
+  (@malcolmbarrett, #3029)
 
 * `stat_bin()` will now error when the number of bins exceeds 1e6 to avoid 
   accidentally freezing the user session (@thomasp85).
@@ -121,7 +121,8 @@ core developer team.
 * `facet_wrap()` and `facet_grid()` now automatically remove NULL from facet
   specs, and accept empty specs (@yutannihilation, #3070, #2986).
 
-* `stat_bin()` now handles data with only one unique value (@yutannihilation, #3047).
+* `stat_bin()` now handles data with only one unique value (@yutannihilation 
+  #3047).
 
 * `sec_axis()` now accepts functions as well as formulas (@yutannihilation, #3031).
 
