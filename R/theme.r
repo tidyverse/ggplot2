@@ -201,7 +201,7 @@
 #' # Change the appearance of the y-axis title
 #' p1 + theme(axis.title.y = element_text(size = rel(1.5), angle = 90))
 #'
-#' # Make ticks point outwards on y-axis and upwards on x-axis
+#' # Make ticks point outwards on y-axis and inwards on x-axis
 #' p1 + theme(
 #'   axis.ticks.length.y = unit(.25, "cm"),
 #'   axis.ticks.length.x = unit(-.25, "cm"),
