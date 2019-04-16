@@ -14,6 +14,31 @@ guide_axis <- function(at, labels, position = "right", theme) {
   zero <- unit(0, "npc")
   one <- unit(1, "npc")
 
+  theme$axis.ticks.length.x.bottom <- with(
+    theme,
+    axis.ticks.length.x.bottom %||%
+      axis.ticks.length.x %||%
+      axis.ticks.length
+  )
+  theme$axis.ticks.length.x.top <- with(
+    theme,
+    axis.ticks.length.x.top %||%
+      axis.ticks.length.x %||%
+      axis.ticks.length
+  )
+  theme$axis.ticks.length.y.left <- with(
+    theme,
+    axis.ticks.length.y.left %||%
+      axis.ticks.length.y %||%
+      axis.ticks.length
+  )
+  theme$axis.ticks.length.y.right <- with(
+    theme,
+    axis.ticks.length.y.right %||%
+      axis.ticks.length.y %||%
+      axis.ticks.length
+  )
+
   label_render <- switch(position,
     top = "axis.text.x.top", bottom = "axis.text.x.bottom",
     left = "axis.text.y.left", right = "axis.text.y.right"
@@ -22,12 +47,12 @@ guide_axis <- function(at, labels, position = "right", theme) {
   label_x <- switch(position,
     top = ,
     bottom = at,
-    right = theme$axis.ticks.length,
-    left = one - theme$axis.ticks.length
+    right = theme$axis.ticks.length.y.right,
+    left = one - theme$axis.ticks.length.y.left
   )
   label_y <- switch(position,
-    top = theme$axis.ticks.length,
-    bottom = one - theme$axis.ticks.length,
+    top = theme$axis.ticks.length.x.top,
+    bottom = one - theme$axis.ticks.length.x.bottom,
     right = ,
     left = at
   )
@@ -58,18 +83,18 @@ guide_axis <- function(at, labels, position = "right", theme) {
   ticks <- switch(position,
     top = element_render(theme, "axis.ticks.x.top",
       x          = rep(at, each = 2),
-      y          = rep(unit.c(zero, theme$axis.ticks.length), nticks),
+      y          = rep(unit.c(zero, theme$axis.ticks.length.x.top), nticks),
       id.lengths = rep(2, nticks)),
     bottom = element_render(theme, "axis.ticks.x.bottom",
       x          = rep(at, each = 2),
-      y          = rep(unit.c(one - theme$axis.ticks.length, one), nticks),
+      y          = rep(unit.c(one - theme$axis.ticks.length.x.bottom, one), nticks),
       id.lengths = rep(2, nticks)),
     right = element_render(theme, "axis.ticks.y.right",
-      x          = rep(unit.c(zero, theme$axis.ticks.length), nticks),
+      x          = rep(unit.c(zero, theme$axis.ticks.length.y.right), nticks),
       y          = rep(at, each = 2),
       id.lengths = rep(2, nticks)),
     left = element_render(theme, "axis.ticks.y.left",
-      x          = rep(unit.c(one - theme$axis.ticks.length, one), nticks),
+      x          = rep(unit.c(one - theme$axis.ticks.length.y.left, one), nticks),
       y          = rep(at, each = 2),
       id.lengths = rep(2, nticks))
   )
@@ -79,21 +104,21 @@ guide_axis <- function(at, labels, position = "right", theme) {
     top    = gtable_col("axis",
       grobs   = list(labels, ticks),
       width   = one,
-      heights = unit.c(grobHeight(labels), theme$axis.ticks.length)
+      heights = unit.c(grobHeight(labels), theme$axis.ticks.length.x.top)
     ),
     bottom = gtable_col("axis",
       grobs   = list(ticks, labels),
       width   = one,
-      heights = unit.c(theme$axis.ticks.length, grobHeight(labels))
+      heights = unit.c(theme$axis.ticks.length.x.bottom, grobHeight(labels))
     ),
     right  = gtable_row("axis",
       grobs   = list(ticks, labels),
-      widths  = unit.c(theme$axis.ticks.length, grobWidth(labels)),
+      widths  = unit.c(theme$axis.ticks.length.y.right, grobWidth(labels)),
       height  = one
     ),
     left   = gtable_row("axis",
       grobs   = list(labels, ticks),
-      widths  = unit.c(grobWidth(labels), theme$axis.ticks.length),
+      widths  = unit.c(grobWidth(labels), theme$axis.ticks.length.y.left),
       height  = one
     )
   )

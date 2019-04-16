@@ -121,6 +121,11 @@ core developer team.
 
 * `sec_axis()` now accepts functions as well as formulas (@yutannihilation, #3031).
 
+*   New theme elements allowing different ticks lengths for each axis. For instance,
+    this can be used to have inwards ticks on the x-axis (`axis.ticks.length.x`) and
+    outwards ticks on the y-axis (`axis.ticks.length.y`) (@pank, #2935).
+
+
 # ggplot2 3.1.0
 
 ## Breaking changes
@@ -229,7 +234,6 @@ This is a minor release and breaking changes have been kept to a minimum. End us
     `ncount`. Also, `stat_density()` now includes the calculated statistic 
     `nlevel`, an alias for `scaled`, to better match the syntax of `stat_bin()`
     (@bjreisman, #2679).
-
 
 # ggplot2 3.0.0
 
