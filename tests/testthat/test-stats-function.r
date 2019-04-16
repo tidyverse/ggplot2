@@ -1,7 +1,7 @@
 context("stat_function")
 
 test_that("uses scale limits, not data limits", {
-  dat <- data.frame(x = c(0.1, 1:100))
+  dat <- data_frame(x = c(0.1, 1:100))
   dat$y <- dexp(dat$x)
 
   base <- ggplot(dat, aes(x, y)) +
@@ -25,7 +25,7 @@ test_that("uses scale limits, not data limits", {
 })
 
 test_that("works with discrete x", {
-  dat <- data.frame(x = c("a", "b"))
+  dat <- data_frame(x = c("a", "b"))
 
   base <- ggplot(dat, aes(x, group = 1)) +
     stat_function(fun = as.numeric, geom = "point", n = 2)
@@ -33,4 +33,17 @@ test_that("works with discrete x", {
 
   expect_equal(ret$x, 1:2)
   expect_equal(ret$y, 1:2)
+})
+
+test_that("works with formula syntax", {
+  dat <- data_frame(x = 1:10)
+
+  base <- ggplot(dat, aes(x, group = 1)) +
+    stat_function(fun = ~ .x^2, geom = "point", n = 5) +
+    scale_x_continuous(limits = c(0, 10))
+  ret <- layer_data(base)
+
+  s <- seq(0, 10, length.out = 5)
+  expect_equal(ret$x, s)
+  expect_equal(ret$y, s^2)
 })

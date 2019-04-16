@@ -440,7 +440,7 @@ add_theme <- function(t1, t2, t2name) {
     if (is.null(x) || inherits(x, "element_blank")) {
       # If x is NULL or element_blank, then just assign it y
       x <- y
-    } else if (is.null(y) || is.character(y) || is.numeric(y) ||
+    } else if (is.null(y) || is.character(y) || is.numeric(y) || is.unit(y) ||
                is.logical(y) || inherits(y, "element_blank")) {
       # If y is NULL, or a string or numeric vector, or is element_blank, just replace x
       x <- y

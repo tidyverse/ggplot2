@@ -186,7 +186,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     fill = element$fill, lty = element$linetype)
 
-  rectGrob(x, y, width, height, gp = utils::modifyList(element_gp, gp), ...)
+  rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
 }
 
 
@@ -214,7 +214,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
     lineheight = element$lineheight)
 
   titleGrob(label, x, y, hjust = hj, vjust = vj, angle = angle,
-    gp = utils::modifyList(element_gp, gp), margin = margin,
+    gp = modify_list(element_gp, gp), margin = margin,
     margin_x = margin_x, margin_y = margin_y, debug = element$debug)
 }
 
@@ -226,9 +226,15 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   default.units = "npc", id.lengths = NULL, ...) {
 
   # The gp settings can override element_gp
-  gp <- gpar(lwd = len0_null(size * .pt), col = colour, lty = linetype, lineend = lineend)
-  element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
-    lty = element$linetype, lineend = element$lineend)
+  gp <- gpar(
+    col = colour, fill = colour,
+    lwd = len0_null(size * .pt), lty = linetype, lineend = lineend
+  )
+  element_gp <- gpar(
+    col = element$colour, fill = element$colour,
+    lwd = len0_null(element$size * .pt), lty = element$linetype,
+    lineend = element$lineend
+  )
   arrow <- if (is.logical(element$arrow) && !element$arrow) {
     NULL
   } else {
@@ -236,7 +242,7 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   }
   polylineGrob(
     x, y, default.units = default.units,
-    gp = utils::modifyList(element_gp, gp),
+    gp = modify_list(element_gp, gp),
     id.lengths = id.lengths, arrow = arrow, ...
   )
 }

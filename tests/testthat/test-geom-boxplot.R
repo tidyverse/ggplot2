@@ -2,7 +2,7 @@ context("geom_boxplot")
 
 # thanks wch for providing the test code
 test_that("geom_boxplot range includes all outliers", {
-  dat <- data.frame(x = 1, y = c(-(1:20) ^ 3, (1:20) ^ 3) )
+  dat <- data_frame(x = 1, y = c(-(1:20) ^ 3, (1:20) ^ 3) )
   p <- ggplot_build(ggplot(dat, aes(x,y)) + geom_boxplot())
 
   miny <- p$layout$panel_params[[1]]$y.range[1]
@@ -31,7 +31,7 @@ test_that("geom_boxplot for continuous x gives warning if more than one x (#992)
 })
 
 test_that("can use US spelling of colour", {
-  df <- data.frame(x = 1, y = c(1:5, 100))
+  df <- data_frame(x = 1, y = c(1:5, 100))
   plot <- ggplot(df, aes(x, y)) + geom_boxplot(outlier.color = "red")
 
   gpar <- layer_grob(plot)[[1]]$children[[1]]$children[[1]]$gp
@@ -43,7 +43,7 @@ test_that("boxes with variable widths do not overlap", {
     geom_boxplot(aes(colour = Sepal.Width < 3.2), varwidth = TRUE)
   d <- layer_data(p)[c("xmin", "xmax")]
   xid <- find_x_overlaps(d)
-  
+
   expect_false(any(duplicated(xid)))
 })
 

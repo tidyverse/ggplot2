@@ -1,7 +1,7 @@
 #' @param quantiles conditional quantiles of y to calculate and display
 #' @param formula formula relating y variables to x variables
-#' @param method Quantile regression method to use.  Currently only supports
-#'    [quantreg::rq()].
+#' @param method Quantile regression method to use. Available options are `"rq"` (for
+#'    [`quantreg::rq()`]) and `"rqss"` (for [`quantreg::rqss()`]).
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @section Computed variables:
@@ -54,9 +54,13 @@ StatQuantile <- ggproto("StatQuantile", Stat,
 
     if (is.null(formula)) {
       if (method == "rqss") {
-        try_require("MatrixModels", "stat_quantile")
-        formula <- eval(substitute(y ~ qss(x, lambda = lambda)),
-          list(lambda = lambda))
+        formula <- eval(
+          substitute(y ~ qss(x, lambda = lambda)),
+          list(lambda = lambda)
+        )
+        # make qss function available in case it is needed;
+        # works around limitation in quantreg
+        qss <- quantreg::qss
       } else {
         formula <- y ~ x
       }
@@ -71,12 +75,20 @@ StatQuantile <- ggproto("StatQuantile", Stat,
       xmax <- max(data$x, na.rm = TRUE)
       xseq <- seq(xmin, xmax, length.out = 100)
     }
-    grid <- data.frame(x = xseq)
+    grid <- new_data_frame(list(x = xseq))
 
-    method <- match.fun(method)
+    # if method was specified as a character string, replace with
+    # the corresponding function
+    if (identical(method, "rq")) {
+      method <- quantreg::rq
+    } else if (identical(method, "rqss")) {
+      method <- quantreg::rqss
+    } else {
+      method <- match.fun(method) # allow users to supply their own methods
+    }
 
-    plyr::ldply(quantiles, quant_pred, data = data, method = method,
-      formula = formula, weight = weight, grid = grid, method.args = method.args)
+    rbind_dfs(lapply(quantiles, quant_pred, data = data, method = method,
+      formula = formula, weight = weight, grid = grid, method.args = method.args))
   }
 )
 

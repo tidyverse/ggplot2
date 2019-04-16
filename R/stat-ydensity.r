@@ -62,7 +62,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE) {
-    if (nrow(data) < 3) return(data.frame())
+    if (nrow(data) < 3) return(new_data_frame())
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
     bw <- calc_bw(data$y, bw)
@@ -110,7 +110,7 @@ calc_bw <- function(x, bw) {
     if (length(x) < 2)
       stop("need at least 2 points to select a bandwidth automatically", call. = FALSE)
     bw <- switch(
-      tolower(bw),
+      to_lower_ascii(bw),
       nrd0 = stats::bw.nrd0(x),
       nrd = stats::bw.nrd(x),
       ucv = stats::bw.ucv(x),

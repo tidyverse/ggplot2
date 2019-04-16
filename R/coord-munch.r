@@ -28,6 +28,9 @@ coord_munch <- function(coord, data, range, segment_length = 0.01) {
   # Calculate distances using coord distance metric
   dist <- coord$distance(data$x, data$y, range)
   dist[data$group[-1] != data$group[-nrow(data)]] <- NA
+  if (!is.null(data$subgroup)) {
+    dist[data$subgroup[-1] != data$subgroup[-nrow(data)]] <- NA
+  }
 
   # Munch and then transform result
   munched <- munch_data(data, dist, segment_length)
@@ -60,7 +63,7 @@ munch_data <- function(data, dist = NULL, segment_length = 0.01) {
   id <- c(rep(seq_len(nrow(data) - 1), extra), nrow(data))
   aes_df <- data[id, setdiff(names(data), c("x", "y")), drop = FALSE]
 
-  plyr::unrowname(data.frame(x = x, y = y, aes_df))
+  new_data_frame(c(list(x = x, y = y), unclass(aes_df)))
 }
 
 # Interpolate.
@@ -112,8 +115,8 @@ dist_polar <- function(r, theta) {
   # Rename x and y columns to r and t, since we're working in polar
   # Note that 'slope' actually means the spiral slope, 'a' in the spiral
   #   formula r = a * theta
-  lf <- plyr::rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
-    yintercept = "r_int",  xintercept = "t_int"), warn_missing = FALSE)
+  lf <- rename(lf, c(x1 = "t1", x2 = "t2", y1 = "r1", y2 = "r2",
+    yintercept = "r_int",  xintercept = "t_int"))
 
   # Re-normalize the theta values so that intercept for each is 0
   # This is necessary for calculating spiral arc length.
@@ -171,9 +174,9 @@ find_line_formula <- function(x, y) {
   slope <- diff(y) / diff(x)
   yintercept <- y[-1] - (slope * x[-1])
   xintercept <- x[-1] - (y[-1] / slope)
-  data.frame(x1 = x[-length(x)], y1 = y[-length(y)],
+  new_data_frame(list(x1 = x[-length(x)], y1 = y[-length(y)],
     x2 = x[-1], y2 = y[-1],
-    slope = slope, yintercept = yintercept, xintercept = xintercept)
+    slope = slope, yintercept = yintercept, xintercept = xintercept))
 }
 
 # Spiral arc length

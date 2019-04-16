@@ -41,6 +41,8 @@
 #'   supplied parameters and aesthetics are understood by the `geom` or
 #'   `stat`. Use `FALSE` to suppress the checks.
 #' @param params Additional parameters to the `geom` and `stat`.
+#' @param layer_class The type of layer object to be constructued. This is
+#'   intended for ggplot2 internal use only.
 #' @keywords internal
 #' @examples
 #' # geom calls are just a short cut for layer
@@ -61,7 +63,7 @@ layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
-                  show.legend = NA) {
+                  show.legend = NA, layer_class = Layer) {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
   if (is.null(stat))
@@ -130,7 +132,7 @@ layer <- function(geom = NULL, stat = NULL,
     )
   }
 
-  ggproto("LayerInstance", Layer,
+  ggproto("LayerInstance", layer_class,
     geom = geom,
     geom_params = geom_params,
     stat = stat,
@@ -197,6 +199,12 @@ Layer <- ggproto("Layer", NULL,
     }
   },
 
+  # hook to allow a layer access to the final layer data
+  # in input form and to global plot info
+  setup_layer = function(self, data, plot) {
+    data
+  },
+
   compute_aesthetics = function(self, data, plot) {
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (self$inherit.aes) {
@@ -218,8 +226,8 @@ Layer <- ggproto("Layer", NULL,
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate and check aesthetics
-    aesthetics <- compact(aesthetics)
     evaled <- lapply(aesthetics, rlang::eval_tidy, data = data)
+    evaled <- compact(evaled)
 
     n <- nrow(data)
     if (n == 0) {
@@ -246,7 +254,7 @@ Layer <- ggproto("Layer", NULL,
 
   compute_statistic = function(self, data, layout) {
     if (empty(data))
-      return(data.frame())
+      return(new_data_frame())
 
     params <- self$stat$setup_params(data, self$stat_params)
     data <- self$stat$setup_data(data, params)
@@ -254,7 +262,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   map_statistic = function(self, data, plot) {
-    if (empty(data)) return(data.frame())
+    if (empty(data)) return(new_data_frame())
 
     # Assemble aesthetics from layer, plot and stat mappings
     aesthetics <- self$mapping
@@ -271,7 +279,7 @@ Layer <- ggproto("Layer", NULL,
     env <- new.env(parent = baseenv())
     env$stat <- stat
 
-    stat_data <- plyr::quickdf(lapply(new, rlang::eval_tidy, data, env))
+    stat_data <- new_data_frame(lapply(new, rlang::eval_tidy, data, env))
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed
@@ -286,7 +294,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_geom_1 = function(self, data) {
-    if (empty(data)) return(data.frame())
+    if (empty(data)) return(new_data_frame())
 
     check_required_aesthetics(
       self$geom$required_aes,
@@ -298,7 +306,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_position = function(self, data, layout) {
-    if (empty(data)) return(data.frame())
+    if (empty(data)) return(new_data_frame())
 
     params <- self$position$setup_params(data)
     data <- self$position$setup_data(data, params)
@@ -333,7 +341,7 @@ is.layer <- function(x) inherits(x, "Layer")
 
 
 check_subclass <- function(x, subclass,
-                           argname = tolower(subclass),
+                           argname = to_lower_ascii(subclass),
                            env = parent.frame()) {
   if (inherits(x, subclass)) {
     x
