@@ -3,7 +3,7 @@
 #' The `layer_sf()` function is a variant of [`layer()`] meant to be used by
 #' extension developers who are writing new sf-based geoms or stats.
 #' The sf layer checks whether the data contains a geometry column, and
-#' if one is found it is automatically mapped to the `geomtry` aesthetic.
+#' if one is found it is automatically mapped to the `geometry` aesthetic.
 #' @include layer.r
 #' @inheritParams layer
 #' @keywords internal
