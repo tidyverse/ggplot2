@@ -114,7 +114,22 @@ Stat <- ggproto("Stat",
       )
     }, stats, groups, SIMPLIFY = FALSE)
 
-    rbind_dfs(stats)
+    data_new <- rbind_dfs(stats)
+
+    # The above code will drop columns that are not constant within groups and not
+    # carried over/recreated by the stat. This can produce unexpeted results,
+    # and hence we warn about it.
+    dropped <- base::setdiff(names(data), names(data_new))
+    if (length(dropped) > 0) {
+      warn_message <- paste0(
+        length(dropped), " aesthetic(s) dropped during statistical transformation: ",
+        paste0(dropped, collapse = ", "),
+        ".\nDid you forget to define a group aesthetic or to convert a numeric variable ",
+        "into a factor?"
+      )
+      warning(warn_message, call. = FALSE)
+    }
+    data_new
   },
 
   compute_group = function(self, data, scales) {
