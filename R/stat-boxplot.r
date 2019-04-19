@@ -44,6 +44,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("y"),
   non_missing_aes = "weight",
+  dropped_aes = c("y"),
   setup_data = function(data, params) {
     data$x <- data$x %||% 0
     data <- remove_missing(

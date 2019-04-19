@@ -61,6 +61,10 @@ Stat <- ggproto("Stat",
 
   non_missing_aes = character(),
 
+  # aesthetics that are dropped from the data frame during the
+  # process of the statistical transformation
+  dropped_aes = character(),
+
   setup_params = function(data, params) {
     params
   },
@@ -119,7 +123,7 @@ Stat <- ggproto("Stat",
     # The above code will drop columns that are not constant within groups and not
     # carried over/recreated by the stat. This can produce unexpeted results,
     # and hence we warn about it.
-    dropped <- base::setdiff(names(data), names(data_new))
+    dropped <- base::setdiff(names(data), base::union(self$dropped_aes, names(data_new)))
     if (length(dropped) > 0) {
       warn_message <- paste0(
         length(dropped), " aesthetic(s) dropped during statistical transformation: ",
