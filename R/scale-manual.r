@@ -104,7 +104,7 @@ scale_discrete_manual <- function(aesthetics, ..., values) {
 manual_scale <- function(aesthetic, values = NULL, ...) {
   # check for missing `values` parameter, in lieu of providing
   # a default to all the different scale_*_manual() functions
-  if (rlang::is_missing(values)) {
+  if (is_missing(values)) {
     values <- NULL
   } else {
     force(values)

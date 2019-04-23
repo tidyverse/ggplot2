@@ -47,7 +47,8 @@
 #'   `axis.ticks.y.left`, `axis.ticks.y.right`). `axis.ticks.*.*` inherits from
 #'   `axis.ticks.*` which inherits from `axis.ticks`, which in turn inherits
 #'   from `line`
-#' @param axis.ticks.length length of tick marks (`unit`)
+#' @param axis.ticks.length,axis.ticks.length.x,axis.ticks.length.x.top,axis.ticks.length.x.bottom,axis.ticks.length.y,axis.ticks.length.y.left,axis.ticks.length.y.right
+#' length of tick marks (`unit`)
 #' @param axis.line,axis.line.x,axis.line.x.top,axis.line.x.bottom,axis.line.y,axis.line.y.left,axis.line.y.right
 #'   lines along axes ([element_line()]). Specify lines along all axes (`axis.line`),
 #'   lines for each plane (using `axis.line.x` or `axis.line.y`), or individually
@@ -192,11 +193,20 @@
 #' )
 #'
 #' # Axes ----------------------------------------------------------------------
+#' # Change styles of axes texts and lines
 #' p1 + theme(axis.line = element_line(size = 3, colour = "grey80"))
 #' p1 + theme(axis.text = element_text(colour = "blue"))
 #' p1 + theme(axis.ticks = element_line(size = 2))
-#' p1 + theme(axis.ticks.length = unit(.25, "cm"))
+#'
+#' # Change the appearance of the y-axis title
 #' p1 + theme(axis.title.y = element_text(size = rel(1.5), angle = 90))
+#'
+#' # Make ticks point outwards on y-axis and inwards on x-axis
+#' p1 + theme(
+#'   axis.ticks.length.y = unit(.25, "cm"),
+#'   axis.ticks.length.x = unit(-.25, "cm"),
+#'   axis.text.x = element_text(margin = margin(t = .3, unit = "cm"))
+#' )
 #'
 #' \donttest{
 #' # Legend --------------------------------------------------------------------
@@ -275,6 +285,12 @@ theme <- function(line,
                   axis.ticks.y.left,
                   axis.ticks.y.right,
                   axis.ticks.length,
+                  axis.ticks.length.x,
+                  axis.ticks.length.x.top,
+                  axis.ticks.length.x.bottom,
+                  axis.ticks.length.y,
+                  axis.ticks.length.y.left,
+                  axis.ticks.length.y.right,
                   axis.line,
                   axis.line.x,
                   axis.line.x.top,

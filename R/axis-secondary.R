@@ -83,7 +83,7 @@ sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = 
   # sec_axis() historically accpeted two-sided formula, so be permissive.
   if (length(trans) > 2) trans <- trans[c(1,3)]
 
-  trans <- rlang::as_function(trans)
+  trans <- as_function(trans)
   ggproto(NULL, AxisSecondary,
     trans = trans,
     name = name,

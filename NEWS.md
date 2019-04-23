@@ -42,8 +42,14 @@ core developer team.
   very beginning of the plot building process and which has access to the 
   original input data and the plot object being built. This function allows the 
   creation of custom layers that autogenerate aesthetic mappings based on the 
-  input data or that filter the input data in some form. This is mainly of 
-  interest to extension developers (@clauswilke, #2872).
+  input data or that filter the input data in some form. For the time being, this
+  feature is not exported, but it has enabled the development of a new layer type,
+  `layer_sf()` (see next item). Other special-purpose layer types may be added
+  in the future (@clauswilke, #2872).
+  
+* A new layer type `layer_sf()` can auto-detect and auto-map sf geometry
+  columns in the data. It should be used by extension developers who are writing
+  new sf-based geoms or stats (@clauswilke, #3232).
 
 * `x0` and `y0` are now recognized positional aesthetics so they will get scaled 
   if used in extension geoms and stats (@thomasp85, #3168)
@@ -107,6 +113,9 @@ core developer team.
 
 * `scale_shape_identity()` now works correctly with `guide = "legend"` 
   (@malcolmbarrett, #3029)
+  
+* `scale_continuous` will now draw axis line even if the length of breaks is 0
+  (@thomasp85, #3257)
 
 * `stat_bin()` will now error when the number of bins exceeds 1e6 to avoid 
   accidentally freezing the user session (@thomasp85).
@@ -120,6 +129,10 @@ core developer team.
   #3047).
 
 * `sec_axis()` now accepts functions as well as formulas (@yutannihilation, #3031).
+
+*   New theme elements allowing different ticks lengths for each axis. For instance,
+    this can be used to have inwards ticks on the x-axis (`axis.ticks.length.x`) and
+    outwards ticks on the y-axis (`axis.ticks.length.y`) (@pank, #2935).
 
 * The arguments of `Stat*$compute_layer()` and `Position*$compute_layer()` are
   now renamed to always match the ones of `Stat$compute_layer()` and
@@ -233,7 +246,6 @@ This is a minor release and breaking changes have been kept to a minimum. End us
     `ncount`. Also, `stat_density()` now includes the calculated statistic 
     `nlevel`, an alias for `scaled`, to better match the syntax of `stat_bin()`
     (@bjreisman, #2679).
-
 
 # ggplot2 3.0.0
 
