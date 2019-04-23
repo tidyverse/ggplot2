@@ -1,6 +1,25 @@
+#' Create a new sf layer that auto-maps geometry data
+#'
+#' The `layer_sf()` function is a variant of [`layer()`] meant to be used by
+#' extension developers who are writing new sf-based geoms or stats.
+#' The sf layer checks whether the data contains a geometry column, and
+#' if one is found it is automatically mapped to the `geometry` aesthetic.
 #' @include layer.r
-
-# A special sf layer that auto-maps geometry data to the `geometry` aesthetic
+#' @inheritParams layer
+#' @keywords internal
+#' @export
+layer_sf <- function(geom = NULL, stat = NULL,
+                     data = NULL, mapping = NULL,
+                     position = NULL, params = list(),
+                     inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
+                     show.legend = NA) {
+  layer(
+    geom = geom, stat = stat, data = data, mapping = mapping,
+    position = position, params = params, inherit.aes = inherit.aes,
+    check.aes = check.aes, check.param = check.param,
+    show.legend = show.legend, layer_class = LayerSf
+  )
+}
 
 LayerSf <- ggproto("LayerSf", Layer,
   setup_layer = function(self, data, plot) {

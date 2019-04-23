@@ -22,7 +22,7 @@ StatSf <- ggproto("StatSf", Stat,
 stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
                     position = "identity", na.rm = FALSE, show.legend = NA,
                     inherit.aes = TRUE, ...) {
-  layer(
+  layer_sf(
     stat = StatSf,
     data = data,
     mapping = mapping,
@@ -34,8 +34,7 @@ stat_sf <- function(mapping = NULL, data = NULL, geom = "rect",
       na.rm = na.rm,
       legend = if (is.character(show.legend)) show.legend else "polygon",
       ...
-    ),
-    layer_class = LayerSf
+    )
   )
 }
 
