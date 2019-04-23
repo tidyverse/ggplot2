@@ -28,7 +28,7 @@ fortify.NULL <- function(model, data, ...) waiver()
 fortify.function <- function(model, data, ...) model
 # accept purrr-style lambda notation
 #' @export
-fortify.formula <- function(model, data, ...) rlang::as_function(model)
+fortify.formula <- function(model, data, ...) as_function(model)
 #' @export
 fortify.grouped_df <- function(model, data, ...) {
   if (!requireNamespace("dplyr", quietly = TRUE)) {
