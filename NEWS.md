@@ -91,6 +91,9 @@ core developer team.
 
 * `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
 
+* `geom_violin()` no longer throws an error when quantile lines falls outside 
+  the violin polygon (@thomasp85, #3254)
+
 * Default labels are now generated more consistently; e.g., symbols no longer
   get backticks, and long expressions are abbreviated with `...`
   (@yutannihilation, #2981).
