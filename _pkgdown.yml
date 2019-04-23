@@ -242,6 +242,8 @@ navbar:
     - text: "------------------"
     - text: "Change log"
       href: news/index.html
+  - text: Extensions
+    href: http://www.ggplot2-exts.org/gallery/
   right:
   - icon: fa-github fa-lg
     href: https://github.com/tidyverse/ggplot2

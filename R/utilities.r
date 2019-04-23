@@ -42,9 +42,13 @@ clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
 }
 
+
+# Test whether package `package` is available. `fun` provides
+# the name of the ggplot2 function that uses this package, and is
+# used only to produce a meaningful error message if the
+# package is not available.
 try_require <- function(package, fun) {
   if (requireNamespace(package, quietly = TRUE)) {
-    library(package, character.only = TRUE)
     return(invisible())
   }
 

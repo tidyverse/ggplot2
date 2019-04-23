@@ -1,6 +1,6 @@
 context("coord_sf")
 
-test_that("multiplication works", {
+test_that("basic plot builds without error", {
   skip_if_not_installed("sf")
 
   nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
@@ -15,6 +15,18 @@ test_that("multiplication works", {
   expect_doppelganger("sf-polygons", plot)
 })
 
+test_that("graticule lines can be removed via theme", {
+  skip_if_not_installed("sf")
+
+  df <- data_frame(x = c(1, 2, 3), y = c(1, 2, 3))
+  plot <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    coord_sf() +
+    theme_gray() + # to test for presence of background grob
+    theme(panel.grid = element_blank())
+
+  expect_doppelganger("no panel grid", plot)
+})
 
 test_that("axis labels can be set manually", {
   skip_if_not_installed("sf")

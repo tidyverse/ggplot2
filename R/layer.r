@@ -41,8 +41,8 @@
 #'   supplied parameters and aesthetics are understood by the `geom` or
 #'   `stat`. Use `FALSE` to suppress the checks.
 #' @param params Additional parameters to the `geom` and `stat`.
-#' @param layer_class The type of layer object to be constructued. This allows
-#'   the creation of custom layers. Can usually be left at its default.
+#' @param layer_class The type of layer object to be constructued. This is
+#'   intended for ggplot2 internal use only.
 #' @keywords internal
 #' @examples
 #' # geom calls are just a short cut for layer
@@ -226,7 +226,7 @@ Layer <- ggproto("Layer", NULL,
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate and check aesthetics
-    evaled <- lapply(aesthetics, rlang::eval_tidy, data = data)
+    evaled <- lapply(aesthetics, eval_tidy, data = data)
     evaled <- compact(evaled)
 
     n <- nrow(data)
@@ -279,7 +279,7 @@ Layer <- ggproto("Layer", NULL,
     env <- new.env(parent = baseenv())
     env$stat <- stat
 
-    stat_data <- new_data_frame(lapply(new, rlang::eval_tidy, data, env))
+    stat_data <- new_data_frame(lapply(new, eval_tidy, data, env))
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed

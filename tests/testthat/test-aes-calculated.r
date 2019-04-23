@@ -16,11 +16,11 @@ test_that("call to stat() is calculated", {
 })
 
 test_that("strip_dots remove dots around calculated aesthetics", {
-  expect_identical(strip_dots(aes(..density..))$x, rlang::quo(density))
-  expect_identical(strip_dots(aes(mean(..density..)))$x, rlang::quo(mean(density)))
+  expect_identical(strip_dots(aes(..density..))$x, quo(density))
+  expect_identical(strip_dots(aes(mean(..density..)))$x, quo(mean(density)))
   expect_equal(
     strip_dots(aes(sapply(..density.., function(x) mean(x)))$x),
-    rlang::quo(sapply(density, function(x) mean(x)))
+    quo(sapply(density, function(x) mean(x)))
   )
 })
 
