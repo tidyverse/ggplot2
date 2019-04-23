@@ -59,8 +59,10 @@
 #' }
 guides <- function(...) {
   args <- list(...)
-  if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
-  args <- rename_aes(args)
+  if (length(args) > 0) {
+    if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
+    args <- rename_aes(args)
+  }
   structure(args, class = "guides")
 }
 
