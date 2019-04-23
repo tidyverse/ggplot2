@@ -10,6 +10,8 @@ theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
   axis.text.x.bottom, axis.text.y, axis.text.y.left, axis.text.y.right,
   axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom,
   axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right, axis.ticks.length,
+  axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom,
+  axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right,
   axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y,
   axis.line.y.left, axis.line.y.right, legend.background, legend.margin,
   legend.spacing, legend.spacing.x, legend.spacing.y, legend.key,
@@ -60,7 +62,7 @@ for each axis (using \code{axis.ticks.x.bottom}, \code{axis.ticks.x.top},
 \code{axis.ticks.*} which inherits from \code{axis.ticks}, which in turn inherits
 from \code{line}}
 
-\item{axis.ticks.length}{length of tick marks (\code{unit})}
+\item{axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right}{length of tick marks (\code{unit})}
 
 \item{axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right}{lines along axes (\code{\link[=element_line]{element_line()}}). Specify lines along all axes (\code{axis.line}),
 lines for each plane (using \code{axis.line.x} or \code{axis.line.y}), or individually
@@ -252,7 +254,11 @@ p1 + theme(
 p1 + theme(axis.line = element_line(size = 3, colour = "grey80"))
 p1 + theme(axis.text = element_text(colour = "blue"))
 p1 + theme(axis.ticks = element_line(size = 2))
-p1 + theme(axis.ticks.length = unit(.25, "cm"))
+p1 + theme(
+           axis.ticks.length.y = unit(.25, "cm"),
+           axis.ticks.length.x = unit(-.25, "cm"),
+           axis.text.x=element_text(margin=margin(t=.3, unit="cm"))
+)
 p1 + theme(axis.title.y = element_text(size = rel(1.5), angle = 90))
 
 \donttest{

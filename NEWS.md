@@ -107,6 +107,9 @@ core developer team.
 
 * `scale_shape_identity()` now works correctly with `guide = "legend"` 
   (@malcolmbarrett, #3029)
+  
+* `scale_continuous` will now draw axis line even if the length of breaks is 0
+  (@thomasp85, #3257)
 
 * `stat_bin()` will now error when the number of bins exceeds 1e6 to avoid 
   accidentally freezing the user session (@thomasp85).
@@ -121,8 +124,13 @@ core developer team.
 
 * `sec_axis()` now accepts functions as well as formulas (@yutannihilation, #3031).
 
+*   New theme elements allowing different ticks lengths for each axis. For instance,
+    this can be used to have inwards ticks on the x-axis (`axis.ticks.length.x`) and
+    outwards ticks on the y-axis (`axis.ticks.length.y`) (@pank, #2935).
+
 * `geom_*()` and `stat_*()` now accepts purrr-style lambda notation
   (@yutannihilation, #3138).
+
 
 # ggplot2 3.1.0
 
@@ -232,7 +240,6 @@ This is a minor release and breaking changes have been kept to a minimum. End us
     `ncount`. Also, `stat_density()` now includes the calculated statistic 
     `nlevel`, an alias for `scaled`, to better match the syntax of `stat_bin()`
     (@bjreisman, #2679).
-
 
 # ggplot2 3.0.0
 

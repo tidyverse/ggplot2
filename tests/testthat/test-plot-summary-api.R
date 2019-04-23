@@ -115,12 +115,12 @@ test_that("coord summary - coord_flip", {
 
 test_that("summarise_layers", {
   l <- summarise_layers(ggplot_build(p))
-  expect_equal(l$mapping[[1]], list(x = rlang::quo(displ), y = rlang::quo(hwy)))
+  expect_equal(l$mapping[[1]], list(x = quo(displ), y = quo(hwy)))
 
   p2 <- p + geom_point(aes(x = displ/2, y = hwy/2))
   l2 <- summarise_layers(ggplot_build(p2))
-  expect_equal(l2$mapping[[1]], list(x = rlang::quo(displ), y = rlang::quo(hwy)))
+  expect_equal(l2$mapping[[1]], list(x = quo(displ), y = quo(hwy)))
 
   # Here use _identical because the quosures are supposed to be local
-  expect_identical(l2$mapping[[2]], list(x = rlang::quo(displ/2), y = rlang::quo(hwy/2)))
+  expect_identical(l2$mapping[[2]], list(x = quo(displ/2), y = quo(hwy/2)))
 })
