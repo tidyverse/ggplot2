@@ -217,6 +217,7 @@
 <p><a href='https://github.com/tidyverse/ggplot2/issues/3079'>#3079</a>).</p>
 </li>
 <li><p><code><a href="../reference/scale_identity.html">scale_shape_identity()</a></code> now works correctly with <code>guide = "legend"</code> (<a href='https://github.com/malcolmbarrett'>@malcolmbarrett</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3029'>#3029</a>)</p></li>
+<li><p><code>scale_continuous</code> will now draw axis line even if the length of breaks is 0 (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3257'>#3257</a>)</p></li>
 <li><p><code><a href="../reference/geom_histogram.html">stat_bin()</a></code> will now error when the number of bins exceeds 1e6 to avoid accidentally freezing the user session (<a href='https://github.com/thomasp85'>@thomasp85</a>).</p></li>
 <li><p><code><a href="../reference/sec_axis.html">sec_axis()</a></code> now places ticks accurately when using nonlinear transformations (<a href='https://github.com/dpseidel'>@dpseidel</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2978'>#2978</a>).</p></li>
 <li><p><code><a href="../reference/facet_wrap.html">facet_wrap()</a></code> and <code><a href="../reference/facet_grid.html">facet_grid()</a></code> now automatically remove NULL from facet specs, and accept empty specs (<a href='https://github.com/yutannihilation'>@yutannihilation</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3070'>#3070</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2986'>#2986</a>).</p></li>
