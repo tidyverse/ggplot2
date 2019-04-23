@@ -107,6 +107,9 @@ core developer team.
 
 * `scale_shape_identity()` now works correctly with `guide = "legend"` 
   (@malcolmbarrett, #3029)
+  
+* `scale_continuous` will now draw axis line even if the length of breaks is 0
+  (@thomasp85, #3257)
 
 * `stat_bin()` will now error when the number of bins exceeds 1e6 to avoid 
   accidentally freezing the user session (@thomasp85).

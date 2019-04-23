@@ -5,14 +5,27 @@
 # @param position of axis (top, bottom, left or right)
 # @param range of data values
 guide_axis <- function(at, labels, position = "right", theme) {
-  if (length(at) == 0)
-    return(zeroGrob())
-
-  at <- unit(at, "native")
+  line <- switch(position,
+    top =    element_render(theme, "axis.line.x.top", c(0, 1), c(0, 0), id.lengths = 2),
+    bottom = element_render(theme, "axis.line.x.bottom", c(0, 1), c(1, 1), id.lengths = 2),
+    right =  element_render(theme, "axis.line.y.right", c(0, 0), c(0, 1), id.lengths = 2),
+    left =   element_render(theme, "axis.line.y.left", c(1, 1), c(0, 1), id.lengths = 2)
+  )
   position <- match.arg(position, c("top", "bottom", "right", "left"))
 
   zero <- unit(0, "npc")
   one <- unit(1, "npc")
+
+  if (length(at) == 0) {
+    vertical <- position %in% c("left", "right")
+    return(absoluteGrob(
+      gList(line),
+      width = if (vertical) zero else one,
+      height = if (vertical) one else zero
+    ))
+  }
+
+  at <- unit(at, "native")
 
   theme$axis.ticks.length.x.bottom <- with(
     theme,
@@ -71,12 +84,7 @@ guide_axis <- function(at, labels, position = "right", theme) {
     right = ,
     left =  element_render(theme, label_render, labels, y = label_y, margin_x = TRUE))
 
-  line <- switch(position,
-    top =    element_render(theme, "axis.line.x.top", c(0, 1), c(0, 0), id.lengths = 2),
-    bottom = element_render(theme, "axis.line.x.bottom", c(0, 1), c(1, 1), id.lengths = 2),
-    right =  element_render(theme, "axis.line.y.right", c(0, 0), c(0, 1), id.lengths = 2),
-    left =   element_render(theme, "axis.line.y.left", c(1, 1), c(0, 1), id.lengths = 2)
-  )
+
 
   nticks <- length(at)
 
