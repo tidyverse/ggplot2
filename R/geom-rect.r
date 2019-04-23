@@ -41,7 +41,7 @@ GeomRect <- ggproto("GeomRect", Geom,
 
       polys <- lapply(split(data, seq_len(nrow(data))), function(row) {
         poly <- rect_to_poly(row$xmin, row$xmax, row$ymin, row$ymax)
-        aes <- new_data_frame(row[aesthetics])[rep(1,4), ]
+        aes <- new_data_frame(row[aesthetics])[rep(1,5), ]
 
         GeomPolygon$draw_panel(cbind(poly, aes), panel_params, coord)
       })
@@ -72,12 +72,15 @@ GeomRect <- ggproto("GeomRect", Geom,
 
 
 # Convert rectangle to polygon
-# Useful for non-Cartesian coordinate systems where it's easy to work purely in terms of locations, rather than locations and dimensions.
+# Useful for non-Cartesian coordinate systems where it's easy to work purely in
+# terms of locations, rather than locations and dimensions. Note that, though
+# `polygonGrob()` expects an open form, closed form is needed for correct
+# munching (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-458406857).
 #
 # @keyword internal
 rect_to_poly <- function(xmin, xmax, ymin, ymax) {
   new_data_frame(list(
-    y = c(ymax, ymax, ymin, ymin),
-    x = c(xmin, xmax, xmax, xmin)
+    y = c(ymax, ymax, ymin, ymin, ymax),
+    x = c(xmin, xmax, xmax, xmin, xmax)
   ))
 }
