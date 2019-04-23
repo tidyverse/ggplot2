@@ -17,9 +17,9 @@ test_that("as_facets_list() coerces strings containing formulas", {
 })
 
 test_that("as_facets_list() coerces character vectors", {
-  foo <- rlang::new_quosure(quote(foo), globalenv())
-  bar <- rlang::new_quosure(quote(bar), globalenv())
-  foobar <- rlang::as_quosures(list(foo, bar), named = TRUE)
+  foo <- new_quosure(quote(foo), globalenv())
+  bar <- new_quosure(quote(bar), globalenv())
+  foobar <- as_quosures(list(foo, bar), named = TRUE)
 
   expect_identical(as_facets_list("foo"), list(foobar[1]))
   expect_identical(as_facets_list(c("foo", "bar")), list(foobar[1], foobar[2]))

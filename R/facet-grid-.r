@@ -159,7 +159,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
 
 # Returns a list of quosures objects. The list has exactly two elements, `rows` and `cols`.
 grid_as_facets_list <- function(rows, cols) {
-  is_rows_vars <- is.null(rows) || rlang::is_quosures(rows)
+  is_rows_vars <- is.null(rows) || is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
       stop("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list", call. = FALSE)
@@ -170,13 +170,13 @@ grid_as_facets_list <- function(rows, cols) {
       stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
     }
     # Fill with empty quosures
-    facets <- list(rows = rlang::quos(), cols = rlang::quos())
+    facets <- list(rows = quos(), cols = quos())
     facets[seq_along(facets_list)] <- facets_list
     # Do not compact the legacy specs
     return(facets)
   }
 
-  is_cols_vars <- is.null(cols) || rlang::is_quosures(cols)
+  is_cols_vars <- is.null(cols) || is_quosures(cols)
   if (!is_cols_vars) {
     stop("`cols` must be `NULL` or a `vars()` specification", call. = FALSE)
   }

@@ -226,7 +226,7 @@ Layer <- ggproto("Layer", NULL,
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate and check aesthetics
-    evaled <- lapply(aesthetics, rlang::eval_tidy, data = data)
+    evaled <- lapply(aesthetics, eval_tidy, data = data)
     evaled <- compact(evaled)
 
     n <- nrow(data)
@@ -279,7 +279,7 @@ Layer <- ggproto("Layer", NULL,
     env <- new.env(parent = baseenv())
     env$stat <- stat
 
-    stat_data <- new_data_frame(lapply(new, rlang::eval_tidy, data, env))
+    stat_data <- new_data_frame(lapply(new, eval_tidy, data, env))
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed

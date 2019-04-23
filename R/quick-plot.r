@@ -71,11 +71,11 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   if (!missing(position)) warning("`position` is deprecated", call. = FALSE)
   if (!is.character(geom)) stop("`geom` must be a character vector", call. = FALSE)
 
-  exprs <- rlang::enquos(x = x, y = y, ..., .ignore_empty = "all")
+  exprs <- enquos(x = x, y = y, ..., .ignore_empty = "all")
   # treat arguments as regular parameters if they are wrapped into I() or
   # if they don't have a name that is in the list of all aesthetics
   is_constant <- (!names(exprs) %in% ggplot_global$all_aesthetics) |
-    vapply(exprs, rlang::quo_is_call, logical(1), name = "I")
+    vapply(exprs, quo_is_call, logical(1), name = "I")
 
   mapping <- new_aes(exprs[!is_constant], env = parent.frame())
 
@@ -86,10 +86,10 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
 
   if (is.null(xlab)) {
-    xlab <- rlang::quo_name(exprs$x)
+    xlab <- quo_name(exprs$x)
   }
   if (is.null(ylab)) {
-    ylab <- rlang::quo_name(exprs$y)
+    ylab <- quo_name(exprs$y)
   }
 
   if (missing(data)) {
@@ -110,7 +110,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
     if ("sample" %in% aes_names) {
       geom[geom == "auto"] <- "qq"
     } else if (missing(y)) {
-      x <- rlang::eval_tidy(mapping$x, data, caller_env)
+      x <- eval_tidy(mapping$x, data, caller_env)
       if (is.discrete(x)) {
         geom[geom == "auto"] <- "bar"
       } else {
@@ -119,7 +119,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
       if (is.null(ylab)) ylab <- "count"
     } else {
       if (missing(x)) {
-        mapping$x <- rlang::quo(seq_along(!!mapping$y))
+        mapping$x <- quo(seq_along(!!mapping$y))
       }
       geom[geom == "auto"] <- "point"
     }
@@ -140,7 +140,7 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   # Add geoms/statistics
   for (g in geom) {
     # We reevaluate constants once per geom for historical reasons?
-    params <- lapply(consts, rlang::eval_tidy)
+    params <- lapply(consts, eval_tidy)
     p <- p + do.call(paste0("geom_", g), params)
   }
 
