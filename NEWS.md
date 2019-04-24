@@ -53,6 +53,11 @@ core developer team.
 
 * `x0` and `y0` are now recognized positional aesthetics so they will get scaled 
   if used in extension geoms and stats (@thomasp85, #3168)
+  
+* Continuous scale limits now accept functions which accept the default
+  limits and return adjusted limits. This makes it possible to write
+  a function that e.g. ensures the limits are always a multiple of 100,
+  regardless of the data (@econandrew, #2307).
 
 ## Minor improvements and bug fixes
 
