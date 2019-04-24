@@ -117,7 +117,7 @@ ggplot_build.ggplot <- function(plot) {
 #' @export
 #' @rdname ggplot_build
 layer_data <- function(plot, i = 1L) {
-  tibble::as_tibble(ggplot_build(plot)$data[[i]])
+  ggplot_build(plot)$data[[i]]
 }
 
 #' @export
