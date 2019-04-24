@@ -11,7 +11,7 @@ dat <- data_frame(g = c("B","A","A"))
 p <- ggplot(dat, aes(g, fill = g)) + geom_bar()
 col <- c("A" = "red", "B" = "green", "C" = "blue")
 
-cols <- function(x) ggplot_build(x)$data[[1]][, "fill"]
+cols <- function(x) ggplot_build(x)$data[[1]][["fill"]]
 
 test_that("named values work regardless of order", {
   fill_scale <- function(order) scale_fill_manual(values = col[order],
