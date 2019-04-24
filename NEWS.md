@@ -42,8 +42,14 @@ core developer team.
   very beginning of the plot building process and which has access to the 
   original input data and the plot object being built. This function allows the 
   creation of custom layers that autogenerate aesthetic mappings based on the 
-  input data or that filter the input data in some form. This is mainly of 
-  interest to extension developers (@clauswilke, #2872).
+  input data or that filter the input data in some form. For the time being, this
+  feature is not exported, but it has enabled the development of a new layer type,
+  `layer_sf()` (see next item). Other special-purpose layer types may be added
+  in the future (@clauswilke, #2872).
+  
+* A new layer type `layer_sf()` can auto-detect and auto-map sf geometry
+  columns in the data. It should be used by extension developers who are writing
+  new sf-based geoms or stats (@clauswilke, #3232).
 
 * `x0` and `y0` are now recognized positional aesthetics so they will get scaled 
   if used in extension geoms and stats (@thomasp85, #3168)
@@ -128,9 +134,12 @@ core developer team.
     this can be used to have inwards ticks on the x-axis (`axis.ticks.length.x`) and
     outwards ticks on the y-axis (`axis.ticks.length.y`) (@pank, #2935).
 
+* The arguments of `Stat*$compute_layer()` and `Position*$compute_layer()` are
+  now renamed to always match the ones of `Stat$compute_layer()` and
+  `Position$compute_layer()` (@yutannihilation, #3202).
+
 * `geom_*()` and `stat_*()` now accepts purrr-style lambda notation
   (@yutannihilation, #3138).
-
 
 # ggplot2 3.1.0
 
