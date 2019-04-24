@@ -134,6 +134,9 @@ core developer team.
     this can be used to have inwards ticks on the x-axis (`axis.ticks.length.x`) and
     outwards ticks on the y-axis (`axis.ticks.length.y`) (@pank, #2935).
 
+* The arguments of `Stat*$compute_layer()` and `Position*$compute_layer()` are
+  now renamed to always match the ones of `Stat$compute_layer()` and
+  `Position$compute_layer()` (@yutannihilation, #3202).
 
 # ggplot2 3.1.0
 
