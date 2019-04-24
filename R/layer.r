@@ -22,7 +22,8 @@
 #'
 #'    A `function` will be called with a single argument,
 #'    the plot data. The return value must be a `data.frame`, and
-#'    will be used as the layer data.
+#'    will be used as the layer data. A `function` can be created
+#'    from a `formula` (e.g. `~ head(.x, 10)`).
 #' @param geom The geometric object to use display the data
 #' @param stat The statistical transformation to use on the data for this
 #'    layer, as a string.

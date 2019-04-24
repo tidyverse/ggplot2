@@ -138,6 +138,9 @@ core developer team.
   now renamed to always match the ones of `Stat$compute_layer()` and
   `Position$compute_layer()` (@yutannihilation, #3202).
 
+* `geom_*()` and `stat_*()` now accepts purrr-style lambda notation
+  (@yutannihilation, #3138).
+
 # ggplot2 3.1.0
 
 ## Breaking changes
