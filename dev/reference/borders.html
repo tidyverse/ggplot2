@@ -220,7 +220,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
-will be used as the layer data.</p></dd>
+will be used as the layer data. A <code>function</code> can be created
+from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
   <dt>stat</dt><dd><p>The statistical transformation to use on the data for this
 layer, as a string.</p></dd>
   <dt>position</dt><dd><p>Position adjustment, either as a string, or the result of

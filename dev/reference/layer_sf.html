@@ -36,7 +36,7 @@
 <meta property="og:description" content="The layer_sf() function is a variant of layer() meant to be used by
 extension developers who are writing new sf-based geoms or stats.
 The sf layer checks whether the data contains a geometry column, and
-if one is found it is automatically mapped to the geomtry aesthetic." />
+if one is found it is automatically mapped to the geometry aesthetic." />
 
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -166,7 +166,7 @@ if one is found it is automatically mapped to the geomtry aesthetic." />
     <p>The <code>layer_sf()</code> function is a variant of <code><a href='layer.html'>layer()</a></code> meant to be used by
 extension developers who are writing new sf-based geoms or stats.
 The sf layer checks whether the data contains a geometry column, and
-if one is found it is automatically mapped to the <code>geomtry</code> aesthetic.</p>
+if one is found it is automatically mapped to the <code>geometry</code> aesthetic.</p>
     
     </div>
 
@@ -197,7 +197,8 @@ data. All objects will be fortified to produce a data frame. See
 <code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
-will be used as the layer data.</p></td>
+will be used as the layer data. A <code>function</code> can be created
+from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     </tr>
     <tr>
       <th>mapping</th>
