@@ -105,6 +105,9 @@ ggplot_build.ggplot <- function(plot) {
   # Let Layout modify data before rendering
   data <- layout$finish_data(data)
 
+  # Convert to tibble
+  data <- lapply(data, tibble::as_tibble)
+
   structure(
     list(data = data, layout = layout, plot = plot),
     class = "ggplot_built"
@@ -114,7 +117,7 @@ ggplot_build.ggplot <- function(plot) {
 #' @export
 #' @rdname ggplot_build
 layer_data <- function(plot, i = 1L) {
-  ggplot_build(plot)$data[[i]]
+  tibble::as_tibble(ggplot_build(plot)$data[[i]])
 }
 
 #' @export

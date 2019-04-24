@@ -56,6 +56,8 @@ core developer team.
 
 ## Minor improvements and bug fixes
 
+* `ggplot_build()` and `layer_data()` now return data as `tibble`s (@malcolmbarrett, #)
+
 * `cut_width()` now accepts `...` to pass further arguments to `base::cut.default()`
    like `cut_number()` and `cut_interval()` already did (@cderv, #3055)
 
