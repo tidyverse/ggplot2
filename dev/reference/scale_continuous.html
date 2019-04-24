@@ -236,8 +236,13 @@ as output</p></li>
     </tr>
     <tr>
       <th>limits</th>
-      <td><p>A numeric vector of length two providing limits of the scale.
-Use <code>NA</code> to refer to the existing minimum or maximum.</p></td>
+      <td><p>One of:</p><ul>
+<li><p><code>NULL</code> to use the default scale range</p></li>
+<li><p>A numeric vector of length two providing limits of the scale.
+Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
+<li><p>A function that accepts the existing (automatic) limits and returns
+new limits</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>expand</th>

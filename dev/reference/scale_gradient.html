@@ -232,8 +232,14 @@ transformation object</p></li>
 <li><p>A function that takes the breaks as input and returns labels
 as output</p></li>
 </ul></p></dd>
-  <dt>limits</dt><dd><p>A numeric vector of length two providing limits of the scale.
-Use <code>NA</code> to refer to the existing minimum or maximum.</p></dd>
+  <dt>limits</dt><dd><p>One of:
+<ul>
+<li><p><code>NULL</code> to use the default scale range</p></li>
+<li><p>A numeric vector of length two providing limits of the scale.
+Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
+<li><p>A function that accepts the existing (automatic) limits and returns
+new limits</p></li>
+</ul></p></dd>
   <dt>rescaler</dt><dd><p>Used by diverging and n colour gradients
 (i.e. <code>scale_colour_gradient2()</code>, <code>scale_colour_gradientn()</code>).
 A function used to scale the input values to the range [0, 1].</p></dd>

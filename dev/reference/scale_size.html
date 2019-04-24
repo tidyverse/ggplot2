@@ -216,8 +216,13 @@ as output</p></li>
     </tr>
     <tr>
       <th>limits</th>
-      <td><p>A numeric vector of length two providing limits of the scale.
-Use <code>NA</code> to refer to the existing minimum or maximum.</p></td>
+      <td><p>One of:</p><ul>
+<li><p><code>NULL</code> to use the default scale range</p></li>
+<li><p>A numeric vector of length two providing limits of the scale.
+Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
+<li><p>A function that accepts the existing (automatic) limits and returns
+new limits</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>range</th>
@@ -275,8 +280,14 @@ transformation object</p></li>
 <li><p>A function that takes the breaks as input and returns labels
 as output</p></li>
 </ul></p></dd>
-  <dt>limits</dt><dd><p>A numeric vector of length two providing limits of the scale.
-Use <code>NA</code> to refer to the existing minimum or maximum.</p></dd>
+  <dt>limits</dt><dd><p>One of:
+<ul>
+<li><p><code>NULL</code> to use the default scale range</p></li>
+<li><p>A numeric vector of length two providing limits of the scale.
+Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
+<li><p>A function that accepts the existing (automatic) limits and returns
+new limits</p></li>
+</ul></p></dd>
   <dt>oob</dt><dd><p>Function that handles limits outside of the scale limits
 (out of bounds). The default replaces out of bounds values with <code>NA</code>.</p></dd>
   <dt>na.value</dt><dd><p>Missing values will be replaced with this value.</p></dd>
