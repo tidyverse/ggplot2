@@ -45,7 +45,7 @@ PositionNudge <- ggproto("PositionNudge", Position,
     list(x = self$x, y = self$y)
   },
 
-  compute_layer = function(data, params, panel) {
+  compute_layer = function(self, data, params, layout) {
     # transform only the dimensions for which non-zero nudging is requested
     if (any(params$x != 0)) {
       if (any(params$y != 0)) {

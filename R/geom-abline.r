@@ -33,6 +33,7 @@ NULL
 #'   adding straight line segments to a plot.
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param mapping Set of aesthetic mappings created by [aes()] or [aes_()].
 #' @param xintercept,yintercept,slope,intercept Parameters that control the
 #'   position of the line. If these are set, `data`, `mapping` and
 #'   `show.legend` are overridden.
@@ -82,6 +83,16 @@ geom_abline <- function(mapping = NULL, data = NULL,
 
   # Act like an annotation
   if (!missing(slope) || !missing(intercept)) {
+
+    # Warn if supplied mapping is going to be overwritten
+    if (!missing(mapping)) {
+      warning(paste0("Using `intercept` and/or `slope` with `mapping` may",
+                     " not have the desired result as mapping is overwritten",
+                     " if either of these is specified\n"
+              )
+      )
+    }
+
     if (missing(slope)) slope <- 1
     if (missing(intercept)) intercept <- 0
     n_slopes <- max(length(slope), length(intercept))

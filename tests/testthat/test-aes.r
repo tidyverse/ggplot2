@@ -2,18 +2,18 @@ context("Creating aesthetic mappings")
 
 test_that("aes() captures input expressions", {
   out <- aes(mpg, wt + 1)
-  expect_identical(out$x, rlang::quo(mpg))
-  expect_identical(out$y, rlang::quo(wt + 1))
+  expect_identical(out$x, quo(mpg))
+  expect_identical(out$y, quo(wt + 1))
 })
 
 test_that("aes_q() uses quoted calls and formulas", {
   out <- aes_q(quote(mpg), ~ wt + 1)
-  expect_identical(out$x, rlang::quo(mpg))
-  expect_identical(out$y, rlang::quo(wt + 1))
+  expect_identical(out$x, quo(mpg))
+  expect_identical(out$y, quo(wt + 1))
 })
 
 test_that("aes_string() parses strings", {
-  expect_equal(aes_string("a + b")$x, rlang::quo(a + b))
+  expect_equal(aes_string("a + b")$x, quo(a + b))
 })
 
 test_that("aes_string() doesn't parse non-strings", {
@@ -67,24 +67,24 @@ test_that("constants are not wrapped in quosures", {
 test_that("assignment methods wrap symbolic objects in quosures", {
   mapping <- aes(a, b, c = c)
   mapping[1] <- list(quote(foo))
-  expect_identical(mapping[[1]], rlang::new_quosure(quote(foo), globalenv()))
+  expect_identical(mapping[[1]], new_quosure(quote(foo), globalenv()))
 
   mapping[[2]] <- quote(bar)
-  expect_identical(mapping[[2]], rlang::new_quosure(quote(bar), globalenv()))
+  expect_identical(mapping[[2]], new_quosure(quote(bar), globalenv()))
 
   mapping$c <- quote(baz)
-  expect_identical(mapping[[3]], rlang::new_quosure(quote(baz), globalenv()))
+  expect_identical(mapping[[3]], new_quosure(quote(baz), globalenv()))
 })
 
 test_that("assignment methods pull unwrap constants from quosures", {
   mapping <- aes(a, b, c = c)
-  mapping[1] <- list(rlang::quo("foo"))
+  mapping[1] <- list(quo("foo"))
   expect_identical(mapping[[1]], "foo")
 
-  mapping[[2]] <- rlang::quo("bar")
+  mapping[[2]] <- quo("bar")
   expect_identical(mapping[[2]], "bar")
 
-  mapping$c <- rlang::quo("baz")
+  mapping$c <- quo("baz")
   expect_identical(mapping[[3]], "baz")
 })
 

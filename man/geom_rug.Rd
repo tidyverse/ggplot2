@@ -6,7 +6,8 @@
 \usage{
 geom_rug(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., outside = FALSE, sides = "bl",
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  length = unit(0.03, "npc"), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -45,6 +46,8 @@ to the paired geom/stat.}
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
 
+\item{length}{A \code{\link[grid:unit]{grid::unit()}} object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.}
+
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
@@ -65,9 +68,10 @@ with the two 1d marginal distributions. Rug plots display individual
 cases so are best used with smaller datasets.
 }
 \details{
-The rug lines are drawn with a fixed size (3\% of the total plot size) so
-are dependent on the overall scale expansion in order not to overplot
-existing data.
+By default, the rug lines are drawn with a length that corresponds to 3\%
+of the total plot size. Since the default scale expansion of for continuous
+variables is 5\% at both ends of the scale, the rug will not overlap with
+any data points under the default settings.
 }
 \section{Aesthetics}{
 
@@ -110,5 +114,10 @@ p + geom_rug(outside = TRUE) +
 p + geom_rug(outside = TRUE, sides = "tr") +
    coord_cartesian(clip = "off") +
    theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+
+# increase the line length and
+# expand axis to avoid overplotting
+p + geom_rug(length = unit(0.05, "npc")) +
+   scale_y_continuous(expand = c(0.1, 0.1))
 
 }

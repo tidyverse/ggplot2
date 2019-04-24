@@ -1,7 +1,6 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' @import scales grid gtable
+#' @import scales grid gtable rlang
 #' @importFrom stats setNames
-#' @importFrom rlang quo quos
 NULL
