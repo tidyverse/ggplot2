@@ -42,7 +42,7 @@ test_that("function aesthetics are wrapped with stat()", {
   df <- data_frame(x = 1:10)
   expect_error(
     ggplot_build(ggplot(df, aes(density)) + geom_tile(stat = "density")),
-    "Aesthetics must be valid data columns:"
+    "Aesthetics must be valid data columns"
   )
 })
 
@@ -50,7 +50,7 @@ test_that("computed stats are in appropriate layer", {
   df <- data_frame(x = 1:10)
   expect_error(
     ggplot_build(ggplot(df, aes(x = x, stat(density))) + geom_tile(stat = "density") + geom_point()),
-    "Aesthetics must be valid computed stats:"
+    "Aesthetics must be valid computed stats"
   )
 })
 
