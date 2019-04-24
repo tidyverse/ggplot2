@@ -664,7 +664,7 @@
 <a href="#mapping-data-into-panels" class="anchor"></a>Mapping data into panels</h3>
 <p>In order for ggplot2 to know which data should go where it needs the data to be assigned to a panel. The purpose of the mapping step is to assign a <code>PANEL</code> column to the layer data identifying which panel it belongs to.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">mapping &lt;-<span class="st"> </span><span class="cf">function</span>(data, layout, params) {</a>
-<a class="sourceLine" id="cb24-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw"><a href="../reference/empty.html">empty</a></span>(data)) {</a>
+<a class="sourceLine" id="cb24-2" data-line-number="2">  <span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NULL">is.null</a></span>(data) <span class="op">||</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(data) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
 <a class="sourceLine" id="cb24-3" data-line-number="3">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">return</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(data, <span class="dt">PANEL =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">integer</a></span>(<span class="dv">0</span>)))</a>
 <a class="sourceLine" id="cb24-4" data-line-number="4">  }</a>
 <a class="sourceLine" id="cb24-5" data-line-number="5">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">rbind</a></span>(</a>
@@ -799,7 +799,7 @@
 <a class="sourceLine" id="cb29-17" data-line-number="17">  },</a>
 <a class="sourceLine" id="cb29-18" data-line-number="18">  <span class="co"># Same as before</span></a>
 <a class="sourceLine" id="cb29-19" data-line-number="19">  <span class="dt">map_data =</span> <span class="cf">function</span>(data, layout, params) {</a>
-<a class="sourceLine" id="cb29-20" data-line-number="20">    <span class="cf">if</span> (<span class="kw"><a href="../reference/empty.html">empty</a></span>(data)) {</a>
+<a class="sourceLine" id="cb29-20" data-line-number="20">    <span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/NULL">is.null</a></span>(data) <span class="op">||</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/nrow">nrow</a></span>(data) <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) {</a>
 <a class="sourceLine" id="cb29-21" data-line-number="21">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">return</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">cbind</a></span>(data, <span class="dt">PANEL =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">integer</a></span>(<span class="dv">0</span>)))</a>
 <a class="sourceLine" id="cb29-22" data-line-number="22">    }</a>
 <a class="sourceLine" id="cb29-23" data-line-number="23">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/cbind">rbind</a></span>(</a>
