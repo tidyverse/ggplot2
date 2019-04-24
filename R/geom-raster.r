@@ -49,18 +49,23 @@ GeomRaster <- ggproto("GeomRaster", Geom,
   required_aes = c("x", "y"),
 
   setup_data = function(data, params) {
+    precision <- sqrt(.Machine$double.eps)
     hjust <- params$hjust %||% 0.5
     vjust <- params$vjust %||% 0.5
 
-    x_diff <- diff(sort(unique(data$x)))
-    if (!length(unique(x_diff)) == 1) {
+    x_diff <- diff(sort(unique(as.numeric(data$x))))
+    if (length(x_diff) == 0) {
+      w <- 1
+    } else if (any(abs(diff(x_diff)) > precision)) {
       warning("Raster pixels are placed at uneven horizontal intervals and will be shifted. Consider using geom_tile() instead.")
       w <- min(x_diff)
     } else {
       w <- x_diff[1]
     }
-    y_diff <- diff(sort(unique(data$y)))
-    if (!length(unique(x_diff)) == 1) {
+    y_diff <- diff(sort(unique(as.numeric(data$y))))
+    if (length(y_diff) == 0) {
+      h <- 1
+    } else if (any(abs(diff(y_diff)) > precision)) {
       warning("Raster pixels are placed at uneven vertical intervals and will be shifted. Consider using geom_tile() instead.")
       h <- min(y_diff)
     } else {
