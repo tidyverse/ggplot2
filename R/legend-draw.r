@@ -50,7 +50,10 @@ draw_key_rect <- function(data, params, size) {
     col = NA,
     fill = alpha(data$fill, data$alpha),
     lty = data$linetype,
-    lineend = "square" # workaround for Windows
+    linejoin = data$linejoin,
+    # `lineend` is a workaround for Windows and intentionally kept unexposed
+    # as an argument. (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-457504667)
+    lineend = if (identical(data$linejoin, "round")) "round" else "square"
   ))
 }
 #' @export
