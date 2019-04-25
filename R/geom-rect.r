@@ -60,8 +60,10 @@ GeomRect <- ggproto("GeomRect", Geom,
           fill = alpha(coords$fill, coords$alpha),
           lwd = coords$size * .pt,
           lty = coords$linetype,
-          lineend = "square", # workaround for Windows
-          linejoin = linejoin
+          linejoin = linejoin,
+          # `lineend` is a workaround for Windows and intentionally kept unexposed
+          # as an argument. (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-457504667)
+          lineend = if (identical(linejoin, "round")) "round" else "square"
         )
       ))
     }
