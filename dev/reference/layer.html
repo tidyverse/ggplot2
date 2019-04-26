@@ -171,7 +171,7 @@ calls but it can also be created directly using this function.</p>
     <pre class="usage"><span class='fu'>layer</span>(<span class='kw'>geom</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>check.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>check.param</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>layer_class</span> <span class='kw'>=</span> <span class='no'>Layer</span>)</pre>
+  <span class='kw'>key_glyph</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>layer_class</span> <span class='kw'>=</span> <span class='no'>Layer</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -235,6 +235,11 @@ supplied parameters and aesthetics are understood by the <code>geom</code> or
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.</p></td>
+    </tr>
+    <tr>
+      <th>key_glyph</th>
+      <td><p>A legend key drawing function or a string providing the
+function name minus the <code>draw_key_</code> prefix. See <a href='draw_key.html'>draw_key</a> for details.</p></td>
     </tr>
     <tr>
       <th>layer_class</th>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Key drawing functions — draw_key • ggplot2</title>
+<title>Key glyphs for legends — draw_key • ggplot2</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,10 +31,13 @@
 
 
 
-<meta property="og:title" content="Key drawing functions — draw_key" />
+<meta property="og:title" content="Key glyphs for legends — draw_key" />
 
-<meta property="og:description" content="Each Geom has an associated function that draws the key when the geom needs
-to be displayed in a legend. These are the options built into ggplot2." />
+<meta property="og:description" content="Each geom has an associated function that draws the key when the geom needs
+to be displayed in a legend. These functions are called draw_key_*, where
+* stands for the name of the respective key glyph. The key glyphs can be
+customized for individual geoms by providing a geom with the key_glyph
+argument (see layer() or examples below.)" />
 
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -154,15 +157,18 @@ to be displayed in a legend. These are the options built into ggplot2." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Key drawing functions</h1>
+    <h1>Key glyphs for legends</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/legend-draw.r'><code>R/legend-draw.r</code></a></small>
     <div class="hidden name"><code>draw_key.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Each Geom has an associated function that draws the key when the geom needs
-to be displayed in a legend. These are the options built into ggplot2.</p>
+    <p>Each geom has an associated function that draws the key when the geom needs
+to be displayed in a legend. These functions are called <code>draw_key_*</code>, where
+<code>*</code> stands for the name of the respective key glyph. The key glyphs can be
+customized for individual geoms by providing a geom with the <code>key_glyph</code>
+argument (see <code><a href='layer.html'>layer()</a></code> or examples below.)</p>
     
     </div>
 
@@ -194,7 +200,9 @@ to be displayed in a legend. These are the options built into ggplot2.</p>
 
 <span class='fu'>draw_key_label</span>(<span class='no'>data</span>, <span class='no'>params</span>, <span class='no'>size</span>)
 
-<span class='fu'>draw_key_vline</span>(<span class='no'>data</span>, <span class='no'>params</span>, <span class='no'>size</span>)</pre>
+<span class='fu'>draw_key_vline</span>(<span class='no'>data</span>, <span class='no'>params</span>, <span class='no'>size</span>)
+
+<span class='fu'>draw_key_timeseries</span>(<span class='no'>data</span>, <span class='no'>params</span>, <span class='no'>size</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,6 +227,12 @@ display in this key</p></td>
     <p>A grid grob.</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>economics</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>date</span>, <span class='no'>psavert</span>, <span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"savings rate"</span>))
+<span class='co'># key glyphs can be specified by their name</span>
+<span class='no'>p</span> + <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='kw'>key_glyph</span> <span class='kw'>=</span> <span class='st'>"timeseries"</span>)</div><div class='img'><img src='draw_key-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># key glyphs can be specified via their drawing function</span>
+<span class='no'>p</span> + <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='kw'>key_glyph</span> <span class='kw'>=</span> <span class='no'>draw_key_rect</span>)</div><div class='img'><img src='draw_key-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -226,7 +240,9 @@ display in this key</p></td>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
