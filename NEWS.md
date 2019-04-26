@@ -105,6 +105,9 @@ core developer team.
 * `geom_violin()` no longer throws an error when quantile lines fall outside 
   the violin polygon (@thomasp85, #3254).
 
+* `guide_legend()` and `guide_colorbar()` now use appropriate spacing between legend
+  key glyphs and legend text even if the legend title is missing (@clauswilke, #2943).
+
 * Default labels are now generated more consistently; e.g., symbols no longer
   get backticks, and long expressions are abbreviated with `...`
   (@yutannihilation, #2981).
