@@ -12,7 +12,7 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param arrow specification for arrow heads, as created by arrow().
-#' @param arrow.fill fill color to use for the arrow head (if closed). `NULL`
+#' @param arrow.fill fill colour to use for the arrow head (if closed). `NULL`
 #'        means use `colour` aesthetic.
 #' @param lineend Line end style (round, butt, square).
 #' @param linejoin Line join style (round, mitre, bevel).
@@ -130,8 +130,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
 
     data$group <- 1:nrow(data)
     starts <- subset(data, select = c(-xend, -yend))
-    ends <- plyr::rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"),
-      warn_missing = FALSE)
+    ends <- rename(subset(data, select = c(-x, -y)), c("xend" = "x", "yend" = "y"))
 
     pieces <- rbind(starts, ends)
     pieces <- pieces[order(pieces$group),]

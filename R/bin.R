@@ -87,6 +87,10 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
   max_x <- x_range[2] + (1 - 1e-08) * width
   breaks <- seq(origin, max_x, width)
 
+  if (length(breaks) > 1e6) {
+    stop("The number of histogram bins must be less than 1,000,000.\nDid you make `binwidth` too small?", call. = FALSE)
+  }
+
   bin_breaks(breaks, closed = closed)
 }
 
@@ -97,6 +101,9 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
   bins <- as.integer(bins)
   if (bins < 1) {
     stop("Need at least one bin.", call. = FALSE)
+  } else if (zero_range(x_range)) {
+    # 0.1 is the same width as the expansion `expand_default()` gives for 0-width data
+    width <- 0.1
   } else if (bins == 1) {
     width <- diff(x_range)
     boundary <- x_range[1]
@@ -157,7 +164,7 @@ bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
   xmin = x - width / 2, xmax = x + width / 2) {
   density <- count / width / sum(abs(count))
 
-  data.frame(
+  new_data_frame(list(
     count = count,
     x = x,
     xmin = xmin,
@@ -165,7 +172,6 @@ bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
     width = width,
     density = density,
     ncount = count / max(abs(count)),
-    ndensity = density / max(abs(density)),
-    stringsAsFactors = FALSE
-  )
+    ndensity = density / max(abs(density))
+  ), n = length(count))
 }

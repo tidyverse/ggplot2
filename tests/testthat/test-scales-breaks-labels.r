@@ -56,7 +56,7 @@ test_that("out-of-range breaks are dropped", {
   # limits aren't specified, automatic labels
   # limits are set by the data
   sc <- scale_x_continuous(breaks = 1:5)
-  sc$train_df(data.frame(x = 2:4))
+  sc$train_df(data_frame(x = 2:4))
   bi <- sc$break_info()
   expect_equal(bi$labels, as.character(2:4))
   expect_equal(bi$major_source, 2:4)
@@ -64,7 +64,7 @@ test_that("out-of-range breaks are dropped", {
 
   # Limits and labels are specified
   sc <- scale_x_continuous(breaks = 1:5, labels = letters[1:5])
-  sc$train_df(data.frame(x = 2:4))
+  sc$train_df(data_frame(x = 2:4))
   bi <- sc$break_info()
   expect_equal(bi$labels, letters[2:4])
   expect_equal(bi$major_source, 2:4)
@@ -72,7 +72,7 @@ test_that("out-of-range breaks are dropped", {
 
   # Limits aren't specified, and all breaks are out of range of data
   sc <- scale_x_continuous(breaks = c(1,5), labels = letters[c(1,5)])
-  sc$train_df(data.frame(x = 2:4))
+  sc$train_df(data_frame(x = 2:4))
   bi <- sc$break_info()
   expect_equal(length(bi$labels), 0)
   expect_equal(length(bi$major), 0)
@@ -202,7 +202,6 @@ test_that("scale_breaks with explicit NA options (deprecated)", {
   expect_error(scc$get_breaks())
 })
 
-
 test_that("breaks can be specified by names of labels", {
   labels <- setNames(LETTERS[1:4], letters[1:4])
 
@@ -241,11 +240,17 @@ test_that("minor breaks are transformed by scales", {
   expect_equal(sc$get_breaks_minor(), c(0, 1, 2))
 })
 
+test_that("continuous limits accepts functions", {
+  p <- ggplot(mpg, aes(class, hwy)) +
+    scale_y_continuous(limits = function(lims) (c(lims[1] - 10, lims[2] + 100)))
+
+  expect_equal(layer_scales(p)$y$get_limits(), c(range(mpg$hwy)[1] - 10, range(mpg$hwy)[2] + 100))
+})
 
 # Visual tests ------------------------------------------------------------
 
 test_that("minor breaks draw correctly", {
-  df <- data.frame(
+  df <- data_frame(
     x_num = c(1, 3),
     x_chr = c("a", "b"),
     x_date = as.Date("2012-2-29") + c(0, 100),
@@ -303,7 +308,7 @@ test_that("minor breaks draw correctly", {
 })
 
 test_that("scale breaks can be removed", {
-  dat <- data.frame(x = 1:3, y = 1:3)
+  dat <- data_frame(x = 1:3, y = 1:3)
 
   expect_doppelganger("no x breaks",
     ggplot(dat, aes(x = x, y = y)) + geom_point() + scale_x_continuous(breaks = NULL)
@@ -322,5 +327,20 @@ test_that("scale breaks can be removed", {
   )
   expect_doppelganger("no colour breaks (no legend)",
     ggplot(dat, aes(x = 1, y = y, colour = x)) + geom_point() + scale_colour_continuous(breaks = NULL)
+  )
+})
+
+test_that("functional limits work for continuous scales", {
+  limiter <- function(by) {
+    function(limits) {
+      low <- floor(limits[1] / by) * by
+      high <- ceiling(limits[2] / by) * by
+      c(low, high)
+    }
+  }
+
+  expect_doppelganger(
+    "functional limits",
+    ggplot(mpg, aes(class)) + geom_bar(aes(fill = drv)) + scale_y_continuous(limits = limiter(50))
   )
 })

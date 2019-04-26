@@ -5,8 +5,8 @@
 \title{Jittered points}
 \usage{
 geom_jitter(mapping = NULL, data = NULL, stat = "identity",
-  position = "jitter", ..., width = NULL, height = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "jitter", ..., width = NULL, height = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -25,8 +25,9 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
-will be used as the layer data.}
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
@@ -36,7 +37,7 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{width}{Amount of vertical and horizontal jitter. The jitter
@@ -79,7 +80,7 @@ overplotting caused by discreteness in smaller datasets.
 }
 \section{Aesthetics}{
 
-\code{geom_point} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_point()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -91,7 +92,7 @@ overplotting caused by discreteness in smaller datasets.
 \item \code{size}
 \item \code{stroke}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{

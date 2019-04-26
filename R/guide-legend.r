@@ -4,8 +4,8 @@
 #' Legend guides for various scales are integrated if possible.
 #'
 #' Guides can be specified in each `scale_*` or in [guides()].
-#' `guide="legend"` in `scale_*` is syntactic sugar for
-#' `guide=guide_legend()` (e.g. `scale_color_manual(guide = "legend")`).
+#' `guide = "legend"` in `scale_*` is syntactic sugar for
+#' `guide = guide_legend()` (e.g. `scale_color_manual(guide = "legend")`).
 #' As for how to specify the guide for each scale in more detail,
 #' see [guides()].
 #'
@@ -30,17 +30,17 @@
 #'   "right" (default for vertical guide).
 #' @param label.theme A theme object for rendering the label text. Usually the
 #'   object of [element_text()] is expected. By default, the theme is
-#'   specified by `legend.text` in [theme()] or theme.
+#'   specified by `legend.text` in [theme()].
 #' @param label.hjust A numeric specifying horizontal justification of the
 #'   label text.
 #' @param label.vjust A numeric specifying vertical justification of the label
 #'   text.
 #' @param keywidth A numeric or a [grid::unit()] object specifying
 #'   the width of the legend key. Default value is `legend.key.width` or
-#'   `legend.key.size` in [theme()] or theme.
+#'   `legend.key.size` in [theme()].
 #' @param keyheight A numeric or a [grid::unit()] object specifying
 #'   the height of the legend key. Default value is `legend.key.height` or
-#'   `legend.key.size` in [theme()] or theme.
+#'   `legend.key.size` in [theme()].
 #' @param direction  A character string indicating the direction of the guide.
 #'   One of "horizontal" or "vertical."
 #' @param default.unit A character string indicating [grid::unit()]
@@ -52,12 +52,11 @@
 #' @param byrow logical. If `FALSE` (the default) the legend-matrix is
 #'   filled by columns, otherwise the legend-matrix is filled by rows.
 #' @param reverse logical. If `TRUE` the order of legends is reversed.
-#' @param order positive integer less that 99 that specifies the order of
+#' @param order positive integer less than 99 that specifies the order of
 #'   this guide among multiple guides. This controls the order in which
 #'   multiple guides are displayed, not the contents of the guide itself.
 #'   If 0 (default), the order is determined by a secret algorithm.
 #' @param ... ignored.
-#' @return A guide object
 #' @export
 #' @family guides
 #' @examples
@@ -203,10 +202,11 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
     return()
   }
 
-  key <- as.data.frame(
-    setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]),
-    stringsAsFactors = FALSE
-  )
+  # in the key data frame, use either the aesthetic provided as
+  # argument to this function or, as a fall back, the first in the vector
+  # of possible aesthetics handled by the scale
+  aes_column_name <- aesthetic %||% scale$aesthetics[1]
+  key <- new_data_frame(setNames(list(scale$map(breaks)), aes_column_name))
   key$.label <- scale$get_labels(breaks)
 
   # Drop out-of-range values for continuous scale
@@ -242,7 +242,7 @@ guide_merge.legend <- function(guide, new_guide) {
 #' @export
 guide_geom.legend <- function(guide, layers, default_mapping) {
   # arrange common data for vertical and horizontal guide
-  guide$geoms <- plyr::llply(layers, function(layer) {
+  guide$geoms <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
     if (length(matched) > 0) {
@@ -255,7 +255,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         include <- is.na(layer$show.legend[matched]) ||
           layer$show.legend[matched]
       } else {
-        include <- is.na(layer$show.legend) || layer$show.legend
+        include <- isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend)
       }
 
       if (include) {
@@ -271,7 +271,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       }
     } else {
       # This layer does not contribute to the legend
-      if (is.na(layer$show.legend) || !layer$show.legend) {
+      if (isTRUE(is.na(layer$show.legend)) || !isTRUE(layer$show.legend)) {
         # Default is to exclude it
         return(NULL)
       } else {
@@ -280,7 +280,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     }
 
     # override.aes in guide_legend manually changes the geom
-    data <- utils::modifyList(data, guide$override.aes)
+    data <- modify_list(data, guide$override.aes)
 
     list(
       draw_key = layer$geom$draw_key,
@@ -442,13 +442,12 @@ guide_gengrob.legend <- function(guide, theme) {
   )
 
   if (guide$byrow) {
-    vps <- data.frame(
+    vps <- new_data_frame(list(
       R = ceiling(seq(nbreak) / legend.ncol),
       C = (seq(nbreak) - 1) %% legend.ncol + 1
-    )
+    ))
   } else {
-    vps <- as.data.frame(arrayInd(seq(nbreak), dim(key_sizes)))
-    names(vps) <- c("R", "C")
+    vps <- mat_2_df(arrayInd(seq(nbreak), dim(key_sizes)), c("R", "C"))
   }
 
   # layout of key-label depends on the direction of the guide
@@ -655,7 +654,7 @@ guide_gengrob.legend <- function(guide, theme) {
   krows <- rep(vps$key.row, each = ngeom)
 
   # padding
-  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm", valueOnly = TRUE)
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 

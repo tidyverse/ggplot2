@@ -265,7 +265,7 @@ test_that("titleGrob() and margins() work correctly", {
 # Visual tests ------------------------------------------------------------
 
 test_that("aspect ratio is honored", {
-  df <- data.frame(x = 1:8, y = 1:8, f = gl(2,4), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2))
+  df <- cbind(data_frame(x = 1:8, y = 1:8, f = gl(2,4)), expand.grid(f1 = 1:2, f2 = 1:2, rep = 1:2))
   p <- ggplot(df, aes(x, y)) +
     geom_point() +
     theme_test() +
@@ -297,7 +297,7 @@ test_that("aspect ratio is honored", {
 })
 
 test_that("themes don't change without acknowledgement", {
-  df <- data.frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  df <- data_frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
   plot <- ggplot(df, aes(x, y, colour = z)) +
     geom_point() +
     facet_wrap(~ a)
@@ -313,7 +313,7 @@ test_that("themes don't change without acknowledgement", {
 })
 
 test_that("themes look decent at larger base sizes", {
-  df <- data.frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
+  df <- data_frame(x = 1:3, y = 1:3, z = c("a", "b", "a"), a = 1)
   plot <- ggplot(df, aes(x, y, colour = z)) +
     geom_point() +
     facet_wrap(~ a)
@@ -354,8 +354,25 @@ test_that("axes can be styled independently", {
   expect_doppelganger("axes_styling", plot)
 })
 
+test_that("axes ticks can have independent lengths", {
+  plot <- ggplot() +
+    theme_test() +
+    geom_point(aes(1:10, 1:10)) +
+    scale_x_continuous(sec.axis = dup_axis()) +
+    scale_y_continuous(sec.axis = dup_axis()) +
+    theme(
+      axis.ticks.length.x.top = unit(-.5, "cm"),
+      axis.ticks.length.x.bottom = unit(-.25, "cm"),
+      axis.ticks.length.y.left = unit(.25, "cm"),
+      axis.ticks.length.y.right = unit(.5, "cm"),
+      axis.text.x.bottom = element_text(margin = margin(t = .5, unit = "cm")),
+      axis.text.x.top = element_text(margin = margin(b = .75, unit = "cm"))
+    )
+  expect_doppelganger("ticks_length", plot)
+})
+
 test_that("strips can be styled independently", {
-  df <- data.frame(x = 1:2, y = 1:2)
+  df <- data_frame(x = 1:2, y = 1:2)
   plot <- ggplot(df, aes(x, y)) +
     facet_grid(x ~ y) +
     theme(
@@ -363,4 +380,15 @@ test_that("strips can be styled independently", {
       strip.background.y = element_rect(fill = "green")
     )
   expect_doppelganger("strip_styling", plot)
+})
+
+test_that("rotated axis tick labels work", {
+  df <- data_frame(
+    y = c(1, 2, 3),
+    label = c("short", "medium size", "very long label")
+  )
+
+  plot <- ggplot(df, aes(label, y)) + geom_point() +
+    theme(axis.text.x = element_text(angle = 50, hjust = 1))
+  expect_doppelganger("rotated x axis tick labels", plot)
 })

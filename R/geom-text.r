@@ -1,6 +1,6 @@
 #' Text
 #'
-#' `geom_text` adds text directly to the plot. `geom_label` draws
+#' `geom_text()` adds text directly to the plot. `geom_label()` draws
 #' a rectangle behind the text, making it easier to read.
 #'
 #' Note that the "width" and "height" of a text element are 0, so stacking
@@ -10,16 +10,16 @@
 #' space they occupy on the plot is not constant in data units: when you
 #' resize a plot, labels stay the same size, but the size of the axes changes.
 #'
-#' `geom_text` and `geom_label` both add a label for each row in the
+#' `geom_text()` and `geom_label()` add labels for each row in the
 #' data, even if coordinates x, y are set to single values in the call
-#' to `geom_label` or `geom_text`.
+#' to `geom_label()` or `geom_text()`.
 #' To add labels at specified points use [annotate()] with
-#' `annotate(geom = "text", ...)` or `annotate(geom = "label", ...)`
+#' `annotate(geom = "text", ...)` or `annotate(geom = "label", ...)`.
 #'
 #' @eval rd_aesthetics("geom", "text")
-#' @section `geom_label`:
-#' Currently `geom_label` does not support the `rot` parameter and
-#' is considerably slower than `geom_text`. The `fill` aesthetic
+#' @section `geom_label()`:
+#' Currently `geom_label()` does not support the `angle` aesthetic and
+#' is considerably slower than `geom_text()`. The `fill` aesthetic
 #' controls the background colour of the label.
 #'
 #' @section Alignment:
@@ -28,12 +28,12 @@
 #' 1 (top/left) or a character (`"left"`, `"middle"`, `"right"`, `"bottom"`,
 #' `"center"`, `"top"`). There are two special alignments: `"inward"` and
 #' `"outward"`. Inward always aligns text towards the center, and outward
-#' aligns it away from the center
+#' aligns it away from the center.
 #'
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @param parse If `TRUE`, the labels will be parsed into expressions and
-#'   displayed as described in ?plotmath
+#'   displayed as described in `?plotmath`.
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #'   Useful for offsetting text from points, particularly on discrete scales.
 #' @param check_overlap If `TRUE`, text that overlaps previous text in the
@@ -97,7 +97,7 @@
 #' ggplot(data = df, aes(x, y, group = grp)) +
 #'   geom_col(aes(fill = grp), position = "dodge") +
 #'   geom_text(aes(label = y), position = position_dodge(0.9))
-#' # Use you can't nudge and dodge text, so instead adjust the y postion
+#' # Use you can't nudge and dodge text, so instead adjust the y position
 #' ggplot(data = df, aes(x, y, group = grp)) +
 #'   geom_col(aes(fill = grp), position = "dodge") +
 #'   geom_text(
@@ -136,7 +136,7 @@ geom_text <- function(mapping = NULL, data = NULL,
 {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+      stop("You must specify either `position` or `nudge_x`/`nudge_y`.", call. = FALSE)
     }
 
     position <- position_nudge(nudge_x, nudge_y)
@@ -159,7 +159,6 @@ geom_text <- function(mapping = NULL, data = NULL,
   )
 }
 
-
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -176,7 +175,7 @@ GeomText <- ggproto("GeomText", Geom,
                         na.rm = FALSE, check_overlap = FALSE) {
     lab <- data$label
     if (parse) {
-      lab <- parse(text = as.character(lab))
+      lab <- parse_safe(as.character(lab))
     }
 
     data <- coord$transform(data, panel_params)

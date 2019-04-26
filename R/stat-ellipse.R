@@ -3,7 +3,7 @@
 #' The method for calculating the ellipses has been modified from
 #' `car::ellipse` (Fox and Weisberg, 2011)
 #'
-#' @references John Fox and Sanford Weisberg (2011). An {R} Companion to
+#' @references John Fox and Sanford Weisberg (2011). An \R Companion to
 #'   Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
 #'   \url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
 #' @param level The confidence level at which to draw an ellipse (default is 0.95),
@@ -113,7 +113,6 @@ calculate_ellipse <- function(data, vars, type, level, segments){
     ellipse <- t(center + radius * t(unit.circle %*% chol_decomp))
   }
 
-  ellipse <- as.data.frame(ellipse)
   colnames(ellipse) <- vars
-  ellipse
+  mat_2_df(ellipse)
 }

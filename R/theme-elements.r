@@ -186,7 +186,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     fill = element$fill, lty = element$linetype)
 
-  rectGrob(x, y, width, height, gp = utils::modifyList(element_gp, gp), ...)
+  rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
 }
 
 
@@ -214,7 +214,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
     lineheight = element$lineheight)
 
   titleGrob(label, x, y, hjust = hj, vjust = vj, angle = angle,
-    gp = utils::modifyList(element_gp, gp), margin = margin,
+    gp = modify_list(element_gp, gp), margin = margin,
     margin_x = margin_x, margin_y = margin_y, debug = element$debug)
 }
 
@@ -226,9 +226,15 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   default.units = "npc", id.lengths = NULL, ...) {
 
   # The gp settings can override element_gp
-  gp <- gpar(lwd = len0_null(size * .pt), col = colour, lty = linetype, lineend = lineend)
-  element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
-    lty = element$linetype, lineend = element$lineend)
+  gp <- gpar(
+    col = colour, fill = colour,
+    lwd = len0_null(size * .pt), lty = linetype, lineend = lineend
+  )
+  element_gp <- gpar(
+    col = element$colour, fill = element$colour,
+    lwd = len0_null(element$size * .pt), lty = element$linetype,
+    lineend = element$lineend
+  )
   arrow <- if (is.logical(element$arrow) && !element$arrow) {
     NULL
   } else {
@@ -236,7 +242,7 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   }
   polylineGrob(
     x, y, default.units = default.units,
-    gp = utils::modifyList(element_gp, gp),
+    gp = modify_list(element_gp, gp),
     id.lengths = id.lengths, arrow = arrow, ...
   )
 }
@@ -256,7 +262,8 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
 
 # This data structure represents the theme elements and the inheritance
-# among them.
+# among them. (In the future, .element_tree should be removed in favor
+# of direct assignment to ggplot_global$element_tree, see below.)
 .element_tree <- list(
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
@@ -285,6 +292,12 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   axis.text.y.left    = el_def("element_text", "axis.text.y"),
   axis.text.y.right   = el_def("element_text", "axis.text.y"),
   axis.ticks.length   = el_def("unit"),
+  axis.ticks.length.x = el_def("unit", "axis.ticks.length"),
+  axis.ticks.length.x.top = el_def("unit", "axis.ticks.length.x"),
+  axis.ticks.length.x.bottom = el_def("unit", "axis.ticks.length.x"),
+  axis.ticks.length.y  = el_def("unit", "axis.ticks.length"),
+  axis.ticks.length.y.left = el_def("unit", "axis.ticks.length.y"),
+  axis.ticks.length.y.right = el_def("unit", "axis.ticks.length.y"),
   axis.ticks.x        = el_def("element_line", "axis.ticks"),
   axis.ticks.x.top    = el_def("element_line", "axis.ticks.x"),
   axis.ticks.x.bottom = el_def("element_line", "axis.ticks.x"),
@@ -352,6 +365,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   aspect.ratio        = el_def("character")
 )
 
+ggplot_global$element_tree <- .element_tree
 
 # Check that an element object has the proper class
 #
@@ -364,7 +378,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 # @param el an element
 # @param elname the name of the element
 validate_element <- function(el, elname) {
-  eldef <- .element_tree[[elname]]
+  eldef <- ggplot_global$element_tree[[elname]]
 
   if (is.null(eldef)) {
     stop('"', elname, '" is not a valid theme element name.')

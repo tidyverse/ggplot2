@@ -59,8 +59,10 @@
 #' }
 guides <- function(...) {
   args <- list(...)
-  if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
-  args <- rename_aes(args)
+  if (length(args) > 0) {
+    if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
+    args <- rename_aes(args)
+  }
   structure(args, class = "guides")
 }
 
@@ -173,14 +175,14 @@ guides_train <- function(scales, theme, guides, labels) {
       # this should be changed to testing guide == "none"
       # scale$legend is backward compatibility
       # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-      if (guide == "none" || (is.logical(guide) && !guide)) next
+      if (identical(guide, "none") || isFALSE(guide)) next
 
       # check the validity of guide.
       # if guide is character, then find the guide object
       guide <- validate_guide(guide)
 
       # check the consistency of the guide and scale.
-      if (guide$available_aes != "any" && !scale$aesthetics %in% guide$available_aes)
+      if (!identical(guide$available_aes, "any") && !any(scale$aesthetics %in% guide$available_aes))
         stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
 
       guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
@@ -248,7 +250,7 @@ guides_build <- function(ggrobs, theme) {
   yjust <- just[2]
 
   # setting that is different for vertical and horizontal guide-boxes.
-  if (theme$legend.box == "horizontal") {
+  if (identical(theme$legend.box, "horizontal")) {
     # Set justification for each legend
     for (i in seq_along(ggrobs)) {
       ggrobs[[i]] <- editGrob(ggrobs[[i]],
@@ -263,7 +265,7 @@ guides_build <- function(ggrobs, theme) {
     # add space between the guide-boxes
     guides <- gtable_add_col_space(guides, theme$legend.spacing.x)
 
-  } else if (theme$legend.box == "vertical") {
+  } else { # theme$legend.box == "vertical"
     # Set justification for each legend
     for (i in seq_along(ggrobs)) {
       ggrobs[[i]] <- editGrob(ggrobs[[i]],

@@ -74,7 +74,7 @@ scales_map_df <- function(scales, df) {
 
   mapped <- unlist(lapply(scales$scales, function(scale) scale$map_df(df = df)), recursive = FALSE)
 
-  plyr::quickdf(c(mapped, df[setdiff(names(df), names(mapped))]))
+  new_data_frame(c(mapped, df[setdiff(names(df), names(mapped))]))
 }
 
 # Transform values to cardinal representation
@@ -83,7 +83,7 @@ scales_transform_df <- function(scales, df) {
 
   transformed <- unlist(lapply(scales$scales, function(s) s$transform_df(df = df)),
     recursive = FALSE)
-  plyr::quickdf(c(transformed, df[setdiff(names(df), names(transformed))]))
+  new_data_frame(c(transformed, df[setdiff(names(df), names(transformed))]))
 }
 
 # @param aesthetics A list of aesthetic-variable mappings. The name of each
@@ -96,7 +96,7 @@ scales_add_defaults <- function(scales, data, aesthetics, env) {
   # No new aesthetics, so no new scales to add
   if (is.null(new_aesthetics)) return()
 
-  datacols <- lapply(aesthetics[new_aesthetics], rlang::eval_tidy, data = data)
+  datacols <- lapply(aesthetics[new_aesthetics], eval_tidy, data = data)
   datacols <- compact(datacols)
 
   for (aes in names(datacols)) {

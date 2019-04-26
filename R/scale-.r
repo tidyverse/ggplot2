@@ -14,7 +14,6 @@
 Scale <- ggproto("Scale", NULL,
 
   call = NULL,
-
   aesthetics = aes(),
   scale_name = NULL,
   palette = function() {
@@ -107,16 +106,20 @@ Scale <- ggproto("Scale", NULL,
     stop("Not implemented", call. = FALSE)
   },
 
-  #  if scale contains a NULL, use the default scale range
+  #  if scale is a function, apply it to the default (inverted) scale range
+  #  if scale is NULL, use the default scale range
   #  if scale contains a NA, use the default range for that axis, otherwise
   #  use the user defined limit for that axis
   get_limits = function(self) {
     if (self$is_empty()) return(c(0, 1))
 
-    if (!is.null(self$limits)) {
-      ifelse(!is.na(self$limits), self$limits, self$range$range)
-    } else {
+    if (is.null(self$limits)) {
       self$range$range
+    } else if (is.function(self$limits)) {
+      # if limits is a function, it expects to work in data space
+      self$trans$transform(self$limits(self$trans$inverse(self$range$range)))
+    } else {
+      ifelse(is.na(self$limits), self$range$range, self$limits)
     }
   },
 
@@ -499,10 +502,10 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #' @export
 #' @param aesthetics The names of the aesthetics that this scale works with
 #' @param scale_name The name of the scale
-#' @param palette A palette function that when called with a single integer
-#'   argument (the number of levels in the scale) returns the values that
-#'   they should take
-#' @param name The name of the scale. Used as axis or legend title. If
+#' @param palette A palette function that when called with a numeric vector with
+#'   values between 0 and 1 returns the corresponding values in the range the
+#'   scale maps to.
+#' @param name The name of the scale. Used as the axis or legend title. If
 #'   `waiver()`, the default, the name of the scale is taken from the first
 #'   mapping used for that aesthetic. If `NULL`, the legend title will be
 #'   omitted.
@@ -526,21 +529,26 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 #'   - A character vector giving labels (must be same length as `breaks`)
 #'   - A function that takes the breaks as input and returns labels
 #'     as output
-#' @param limits A numeric vector of length two providing limits of the scale.
-#'   Use `NA` to refer to the existing minimum or maximum.
+#' @param limits One of:
+#'   - `NULL` to use the default scale range
+#'   - A numeric vector of length two providing limits of the scale.
+#'     Use `NA` to refer to the existing minimum or maximum
+#'   - A function that accepts the existing (automatic) limits and returns
+#'     new limits
 #' @param rescaler  Used by diverging and n colour gradients
 #'   (i.e. [scale_colour_gradient2()], [scale_colour_gradientn()]).
-#'   A function used to scale the input values to the range \eqn{[0, 1]}.
+#'   A function used to scale the input values to the range \[0, 1].
 #' @param oob Function that handles limits outside of the scale limits
-#'   (out of bounds). The default replaces out of bounds values with NA.
+#'   (out of bounds). The default replaces out of bounds values with `NA`.
 #' @inheritParams scale_x_discrete
 #' @param na.value Missing values will be replaced with this value.
 #' @param trans Either the name of a transformation object, or the
 #'   object itself. Built-in transformations include "asn", "atanh",
-#'   "boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-#'   "logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+#'   "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+#'   "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+#'   "reverse", "sqrt" and "time".
 #'
-#'   A transformation object bundles together a transform, it's inverse,
+#'   A transformation object bundles together a transform, its inverse,
 #'   and methods for generating breaks and labels. Transformation objects
 #'   are defined in the scales package, and are called `name_trans`, e.g.
 #'   [scales::boxcox_trans()]. You can create your own
@@ -556,16 +564,19 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_,
   trans = "identity", guide = "legend", position = "left", super = ScaleContinuous) {
 
+  aesthetics <- standardise_aes_names(aesthetics)
+
   check_breaks_labels(breaks, labels)
 
   position <- match.arg(position, c("left", "right", "top", "bottom"))
 
-  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
+  # If the scale is non-positional, break = NULL means removing the guide
+  if (is.null(breaks) && all(!is_position_aes(aesthetics))) {
     guide <- "none"
   }
 
   trans <- as.trans(trans)
-  if (!is.null(limits)) {
+  if (!is.null(limits) && !is.function(limits)) {
     limits <- trans$transform(limits)
   }
 
@@ -598,6 +609,9 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'
 #' @export
 #' @inheritParams continuous_scale
+#' @param palette A palette function that when called with a single integer
+#'   argument (the number of levels in the scale) returns the values that
+#'   they should take.
 #' @param breaks One of:
 #'   - `NULL` for no breaks
 #'   - `waiver()` for the default breaks computed by the
@@ -622,11 +636,14 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   na.translate = TRUE, na.value = NA, drop = TRUE,
   guide = "legend", position = "left", super = ScaleDiscrete) {
 
+  aesthetics <- standardise_aes_names(aesthetics)
+
   check_breaks_labels(breaks, labels)
 
   position <- match.arg(position, c("left", "right", "top", "bottom"))
 
-  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
+  # If the scale is non-positional, break = NULL means removing the guide
+  if (is.null(breaks) && all(!is_position_aes(aesthetics))) {
     guide <- "none"
   }
 

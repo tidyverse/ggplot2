@@ -13,14 +13,31 @@
 #'   - `render_bg`: Renders background elements.
 #'   - `render_axis_h`: Renders the horizontal axes.
 #'   - `render_axis_v`: Renders the vertical axes.
-#'   - `range`: Returns the x and y ranges
+#'   - `backtransform_range(panel_params)`: Extracts the panel range provided
+#'     in `panel_params` (created by `setup_panel_params()`, see below) and
+#'     back-transforms to data coordinates. This back-transformation can be needed
+#'     for coords such as `coord_trans()` where the range in the transformed
+#'     coordinates differs from the range in the untransformed coordinates. Returns
+#'     a list of two ranges, `x` and `y`, and these correspond to the variables
+#'     mapped to the `x` and `y` aesthetics, even for coords such as `coord_flip()`
+#'     where the `x` aesthetic is shown along the y direction and vice versa.
+#'   - `range(panel_params)`: Extracts the panel range provided
+#'     in `panel_params` (created by `setup_panel_params()`, see below) and
+#'     returns it. Unlike `backtransform_range()`, this function does not perform
+#'     any back-transformation and instead returns final transformed coordinates. Returns
+#'     a list of two ranges, `x` and `y`, and these correspond to the variables
+#'     mapped to the `x` and `y` aesthetics, even for coords such as `coord_flip()`
+#'     where the `x` aesthetic is shown along the y direction and vice versa.
 #'   - `transform`: Transforms x and y coordinates.
 #'   - `distance`: Calculates distance.
 #'   - `is_linear`: Returns `TRUE` if the coordinate system is
 #'     linear; `FALSE` otherwise.
 #'   - `is_free`: Returns `TRUE` if the coordinate system supports free
-#'     positional scales.
-#'   - `setup_panel_params(data)`:
+#'     positional scales; `FALSE` otherwise.
+#'   - `setup_panel_params(scale_x, scale_y, params)`: Determines the appropriate
+#'     x and y ranges for each panel, and also calculates anything else needed to
+#'     render the panel and axes, such as tick positions and labels for major
+#'     and minor ticks. Returns all this information in a named list.
 #'   - `setup_data(data, params)`: Allows the coordinate system to
 #'     manipulate the plot data. Should return list of data frames.
 #'   - `setup_layout(layout, params)`: Allows the coordinate
@@ -47,12 +64,11 @@ Coord <- ggproto("Coord",
   render_fg = function(panel_params, theme) element_render(theme, "panel.border"),
 
   render_bg = function(panel_params, theme) {
-    x.major <- if (length(panel_params$x.major) > 0) unit(panel_params$x.major, "native")
-    x.minor <- if (length(panel_params$x.minor) > 0) unit(panel_params$x.minor, "native")
-    y.major <- if (length(panel_params$y.major) > 0) unit(panel_params$y.major, "native")
-    y.minor <- if (length(panel_params$y.minor) > 0) unit(panel_params$y.minor, "native")
-
-    guide_grid(theme, x.minor, x.major, y.minor, y.major)
+    guide_grid(theme,
+               panel_params$x.minor,
+               panel_params$x.major,
+               panel_params$y.minor,
+               panel_params$y.major)
   },
 
   render_axis_h = function(panel_params, theme) {
@@ -73,8 +89,26 @@ Coord <- ggproto("Coord",
     )
   },
 
+  # transform range given in transformed coordinates
+  # back into range in given in (possibly scale-transformed)
+  # data coordinates
+  backtransform_range = function(self, panel_params) {
+    warning(
+      "range backtransformation not implemented in this coord; results may be wrong.",
+      call. = FALSE
+      )
+    # return result from range function for backwards compatibility
+    # before ggplot2 3.0.1
+    self$range(panel_params)
+  },
+
+  # return range stored in panel_params
   range = function(panel_params) {
-    return(list(x = panel_params$x.range, y = panel_params$y.range))
+    warning(
+      "range calculation not implemented in this coord; results may be wrong.",
+      call. = FALSE
+    )
+    list(x = panel_params$x.range, y = panel_params$y.range)
   },
 
   setup_panel_params = function(scale_x, scale_y, params = list()) {
@@ -87,6 +121,8 @@ Coord <- ggproto("Coord",
 
   is_linear = function() FALSE,
 
+  # Does the coordinate system support free scaling of axes in a faceted plot?
+  # Will generally have to return FALSE for coordinate systems that enforce a fixed aspect ratio.
   is_free = function() FALSE,
 
   setup_params = function(data) {

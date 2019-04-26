@@ -2,7 +2,7 @@
 #'
 #' `scale_*_gradient` creates a two colour gradient (low-high),
 #' `scale_*_gradient2` creates a diverging colour gradient (low-mid-high),
-#' `scale_*_gradientn` creats a n-colour gradient.
+#' `scale_*_gradientn` creates a n-colour gradient.
 #'
 #' Default colours are generated with \pkg{munsell} and
 #' `mnsl(c("2.5PB 2/4", "2.5PB 7/10"))`. Generally, for continuous
@@ -15,7 +15,7 @@
 #' @param low,high Colours for low and high ends of the gradient.
 #' @param guide Type of legend. Use `"colourbar"` for continuous
 #'   colour bar, or `"legend"` for discrete colour legend.
-#' @inheritDotParams continuous_scale -na.value -guide
+#' @inheritDotParams continuous_scale -na.value -guide -aesthetics
 #' @seealso [scales::seq_gradient_pal()] for details on underlying
 #'   palette
 #' @family colour scales

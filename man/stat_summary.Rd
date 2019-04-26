@@ -13,8 +13,8 @@ stat_summary_bin(mapping = NULL, data = NULL, geom = "pointrange",
 
 stat_summary(mapping = NULL, data = NULL, geom = "pointrange",
   position = "identity", ..., fun.data = NULL, fun.y = NULL,
-  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -33,18 +33,19 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
-will be used as the layer data.}
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{geom}{Use to override the default connection between
-\code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.}
+\code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
 \item{fun.data}{A function that is given the complete data and should
@@ -58,8 +59,11 @@ single number.}
 
 \item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
-\item{binwidth}{The width of the bins. Can be specified as a numeric value,
-or a function that calculates width from x.
+\item{binwidth}{The width of the bins. Can be specified as a numeric value
+or as a function that calculates width from unscaled x. Here, "unscaled x"
+refers to the original x values in the data, before application of any
+scale transformation. When specifying a function along with a grouping
+structure, the function will be called once per group.
 The default is to use \code{bins}
 bins that cover the range of the data. You should always override
 this value, exploring multiple widths to find the best to illustrate the
@@ -94,13 +98,13 @@ aggregate.
 }
 \section{Aesthetics}{
 
-\code{stat_summary} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_summary()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
 \item \code{group}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \section{Summary functions}{
@@ -123,7 +127,7 @@ A simple vector function is easiest to work with as you can return a single
 number, but is somewhat less flexible. If your summary function computes
 multiple values at once (e.g. ymin and ymax), use \code{fun.data}.
 
-If no aggregation functions are suppled, will default to
+If no aggregation functions are supplied, will default to
 \code{\link[=mean_se]{mean_se()}}.
 }
 

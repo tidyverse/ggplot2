@@ -5,6 +5,13 @@
 #' @param drop if `TRUE` removes all cells with 0 counts.
 #' @export
 #' @rdname geom_bin2d
+#' @section Computed variables:
+#' \describe{
+#'   \item{count}{number of points in bin}
+#'   \item{density}{density of points in bin, scaled to integrate to 1}
+#'   \item{ncount}{count, scaled to maximum of 1}
+#'   \item{ndensity}{density, scaled to maximum of 1}
+#' }
 stat_bin_2d <- function(mapping = NULL, data = NULL,
                         geom = "tile", position = "identity",
                         ...,
@@ -74,7 +81,9 @@ StatBin2d <- ggproto("StatBin2d", Stat,
     out$height <- ydim$length
 
     out$count <- out$value
+    out$ncount <- out$count / max(out$count, na.rm = TRUE)
     out$density <- out$count / sum(out$count, na.rm = TRUE)
+    out$ndensity <- out$density / max(out$density, na.rm = TRUE)
     out
   }
 )
@@ -118,7 +127,7 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   stopifnot(is.numeric(binwidth), length(binwidth) == 1)
 
   if (is.null(origin) || identical(origin, NA)) {
-    origin <- plyr::round_any(range[1], binwidth, floor)
+    origin <- round_any(range[1], binwidth, floor)
   }
   stopifnot(is.numeric(origin), length(origin) == 1)
 

@@ -49,16 +49,45 @@
 #' }
 #'
 #' @examples
-#' p <- ggplot(mtcars) + geom_point(aes(x = wt, y = mpg,
-#'      colour = factor(gear))) + facet_wrap(~am)
-#' p + theme_gray() # the default
-#' p + theme_bw()
-#' p + theme_linedraw()
-#' p + theme_light()
-#' p + theme_dark()
-#' p + theme_minimal()
-#' p + theme_classic()
-#' p + theme_void()
+#' mtcars2 <- within(mtcars, {
+#'   vs <- factor(vs, labels = c("V-shaped", "Straight"))
+#'   am <- factor(am, labels = c("Automatic", "Manual"))
+#'   cyl  <- factor(cyl)
+#'   gear <- factor(gear)
+#' })
+#'
+#' p1 <- ggplot(mtcars2) +
+#'   geom_point(aes(x = wt, y = mpg, colour = gear)) +
+#'   labs(title = "Fuel economy declines as weight increases",
+#'        subtitle = "(1973-74)",
+#'        caption = "Data from the 1974 Motor Trend US magazine.",
+#'        tag = "Figure 1",
+#'        x = "Weight (1000 lbs)",
+#'        y = "Fuel economy (mpg)",
+#'        colour = "Gears")
+#'
+#' p1 + theme_gray() # the default
+#' p1 + theme_bw()
+#' p1 + theme_linedraw()
+#' p1 + theme_light()
+#' p1 + theme_dark()
+#' p1 + theme_minimal()
+#' p1 + theme_classic()
+#' p1 + theme_void()
+#'
+#' # Theme examples with panels
+#' \donttest{
+#' p2 <- p1 + facet_grid(vs ~ am)
+#'
+#' p2 + theme_gray() # the default
+#' p2 + theme_bw()
+#' p2 + theme_linedraw()
+#' p2 + theme_light()
+#' p2 + theme_dark()
+#' p2 + theme_minimal()
+#' p2 + theme_classic()
+#' p2 + theme_void()
+#' }
 #' @name ggtheme
 #' @aliases NULL
 NULL
@@ -110,6 +139,12 @@ theme_grey <- function(base_size = 11, base_family = "",
     axis.text.y.right =  element_text(margin = margin(l = 0.8 * half_line / 2), hjust = 0),
     axis.ticks =         element_line(colour = "grey20"),
     axis.ticks.length =  unit(half_line / 2, "pt"),
+    axis.ticks.length.x = NULL,
+    axis.ticks.length.x.top = NULL,
+    axis.ticks.length.x.bottom = NULL,
+    axis.ticks.length.y = NULL,
+    axis.ticks.length.y.left = NULL,
+    axis.ticks.length.y.right = NULL,
     axis.title.x =       element_text(
                            margin = margin(t = half_line / 2),
                            vjust = 1
@@ -430,6 +465,13 @@ theme_void <- function(base_size = 11, base_family = "",
     axis.text =          element_blank(),
     axis.title =         element_blank(),
     axis.ticks.length =  unit(0, "pt"),
+    axis.ticks.length.x = NULL,
+    axis.ticks.length.x.top = NULL,
+    axis.ticks.length.x.bottom = NULL,
+    axis.ticks.length.y = NULL,
+    axis.ticks.length.y.left = NULL,
+    axis.ticks.length.y.right = NULL,
+    legend.box =         NULL,
     legend.key.size =    unit(1.2, "lines"),
     legend.position =    "right",
     legend.text =        element_text(size = rel(0.8)),
@@ -498,6 +540,12 @@ theme_test <- function(base_size = 11, base_family = "",
     axis.text.y.right =  element_text(margin = margin(l = 0.8 * half_line / 2), hjust = 0),
     axis.ticks =         element_line(colour = "grey20"),
     axis.ticks.length =  unit(half_line / 2, "pt"),
+    axis.ticks.length.x = NULL,
+    axis.ticks.length.x.top = NULL,
+    axis.ticks.length.x.bottom = NULL,
+    axis.ticks.length.y = NULL,
+    axis.ticks.length.y.left = NULL,
+    axis.ticks.length.y.right = NULL,
     axis.title.x =       element_text(
                            margin = margin(t = half_line / 2),
                            vjust = 1

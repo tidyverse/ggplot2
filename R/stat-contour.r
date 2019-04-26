@@ -1,8 +1,11 @@
 #' @inheritParams stat_identity
 #' @export
+#' @eval rd_aesthetics("stat", "contour")
 #' @section Computed variables:
 #' \describe{
 #'  \item{level}{height of contour}
+#'  \item{nlevel}{height of contour, scaled to maximum of 1}
+#'  \item{piece}{contour piece (an integer)}
 #' }
 #' @rdname geom_contour
 stat_contour <- function(mapping = NULL, data = NULL,
@@ -77,7 +80,7 @@ contour_lines <- function(data, breaks, complete = FALSE) {
 
   if (length(cl) == 0) {
     warning("Not possible to generate contour data", call. = FALSE)
-    return(data.frame())
+    return(new_data_frame())
   }
 
   # Convert list of lists into single data frame
@@ -89,13 +92,14 @@ contour_lines <- function(data, breaks, complete = FALSE) {
   # Add leading zeros so that groups can be properly sorted later
   groups <- paste(data$group[1], sprintf("%03d", pieces), sep = "-")
 
-  data.frame(
+  new_data_frame(list(
     level = rep(levels, lengths),
+    nlevel = rep(levels, lengths) / max(rep(levels, lengths), na.rm = TRUE),
     x = xs,
     y = ys,
     piece = pieces,
-    group = groups
-  )
+    group = factor(groups)
+  ), n = length(xs))
 }
 
 # 1 = clockwise, -1 = counterclockwise, 0 = 0 area

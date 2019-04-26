@@ -7,9 +7,9 @@
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
-#' by the `boxplot` function, and may be apparent with small samples.
+#' by the [boxplot()] function, and may be apparent with small samples.
 #' See [boxplot.stats()] for for more information on how hinge
-#' positions are calculated for `boxplot`.
+#' positions are calculated for [boxplot()].
 #'
 #' The upper whisker extends from the hinge to the largest value no further than
 #' 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
@@ -24,7 +24,7 @@
 #'
 #' @eval rd_aesthetics("geom", "boxplot")
 #'
-#' @seealso [geom_quantile()] for continuous x,
+#' @seealso [geom_quantile()] for continuous `x`,
 #'   [geom_violin()] for a richer display of the distribution, and
 #'   [geom_jitter()] for a useful technique for small data.
 #' @inheritParams layer
@@ -37,12 +37,19 @@
 #'
 #'   In the unlikely event you specify both US and UK spellings of colour, the
 #'   US spelling will take precedence.
+#'
+#'   Sometimes it can be useful to hide the outliers, for example when overlaying
+#'   the raw data points on top of the boxplot. Hiding the outliers can be achieved
+#'   by setting `outlier.shape = NA`. Importantly, this does not remove the outliers,
+#'   it only hides them, so the range calculated for the y-axis will be the
+#'   same with outliers shown and outliers hidden.
+#'
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
 #'   are significantly different.
 #' @param notchwidth For a notched box plot, width of the notch relative to
-#'   the body (default 0.5)
+#'   the body (defaults to `notchwidth = 0.5`).
 #' @param varwidth If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, boxes are drawn with widths proportional to the
 #'   square-roots of the number of observations in the groups (possibly
@@ -53,7 +60,6 @@
 #' @examples
 #' p <- ggplot(mpg, aes(class, hwy))
 #' p + geom_boxplot()
-#' p + geom_boxplot() + geom_jitter(width = 0.2)
 #' p + geom_boxplot() + coord_flip()
 #'
 #' p + geom_boxplot(notch = TRUE)
@@ -62,6 +68,8 @@
 #' # By default, outlier points match the colour of the box. Use
 #' # outlier.colour to override
 #' p + geom_boxplot(outlier.colour = "red", outlier.shape = 1)
+#' # Remove outliers when overlaying boxplot with original data points
+#' p + geom_boxplot(outlier.shape = NA) + geom_jitter(width = 0.2)
 #'
 #' # Boxplots are automatically dodged when any aesthetic is a factor
 #' p + geom_boxplot(aes(colour = drv))
@@ -72,6 +80,7 @@
 #'   geom_boxplot()
 #' ggplot(diamonds, aes(carat, price)) +
 #'   geom_boxplot(aes(group = cut_width(carat, 0.25)))
+#' # Adjust the transparency of outliers using outlier.alpha
 #' ggplot(diamonds, aes(carat, price)) +
 #'   geom_boxplot(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 #'
@@ -149,6 +158,11 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomBoxplot <- ggproto("GeomBoxplot", Geom,
+
+  # need to declare `width`` here in case this geom is used with a stat that
+  # doesn't have a `width` parameter (e.g., `stat_identity`).
+  extra_params = c("na.rm", "width"),
+
   setup_data = function(data, params) {
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
@@ -186,41 +200,42 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
                         outlier.alpha = NULL,
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
 
-    common <- data.frame(
+    common <- list(
       colour = data$colour,
       size = data$size,
       linetype = data$linetype,
       fill = alpha(data$fill, data$alpha),
-      group = data$group,
-      stringsAsFactors = FALSE
+      group = data$group
     )
 
-    whiskers <- data.frame(
-      x = data$x,
-      xend = data$x,
-      y = c(data$upper, data$lower),
-      yend = c(data$ymax, data$ymin),
-      alpha = NA,
-      common,
-      stringsAsFactors = FALSE
-    )
+    whiskers <- new_data_frame(c(
+      list(
+        x = c(data$x, data$x),
+        xend = c(data$x, data$x),
+        y = c(data$upper, data$lower),
+        yend = c(data$ymax, data$ymin),
+        alpha = c(NA_real_, NA_real_)
+      ),
+      common
+    ), n = 2)
 
-    box <- data.frame(
-      xmin = data$xmin,
-      xmax = data$xmax,
-      ymin = data$lower,
-      y = data$middle,
-      ymax = data$upper,
-      ynotchlower = ifelse(notch, data$notchlower, NA),
-      ynotchupper = ifelse(notch, data$notchupper, NA),
-      notchwidth = notchwidth,
-      alpha = data$alpha,
-      common,
-      stringsAsFactors = FALSE
-    )
+    box <- new_data_frame(c(
+      list(
+        xmin = data$xmin,
+        xmax = data$xmax,
+        ymin = data$lower,
+        y = data$middle,
+        ymax = data$upper,
+        ynotchlower = ifelse(notch, data$notchlower, NA),
+        ynotchupper = ifelse(notch, data$notchupper, NA),
+        notchwidth = notchwidth,
+        alpha = data$alpha
+      ),
+      common
+    ))
 
     if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
-      outliers <- data.frame(
+      outliers <- new_data_frame(list(
         y = data$outliers[[1]],
         x = data$x[1],
         colour = outlier.colour %||% data$colour[1],
@@ -229,9 +244,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         size = outlier.size %||% data$size[1],
         stroke = outlier.stroke %||% data$stroke[1],
         fill = NA,
-        alpha = outlier.alpha %||% data$alpha[1],
-        stringsAsFactors = FALSE
-      )
+        alpha = outlier.alpha %||% data$alpha[1]
+      ), n = length(data$outliers[[1]]))
       outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
     } else {
       outliers_grob <- NULL

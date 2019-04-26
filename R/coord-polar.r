@@ -90,7 +90,13 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     dist_polar(r, theta)
   },
 
+  backtransform_range = function(self, panel_params) {
+    self$range(panel_params)
+  },
+
   range = function(self, panel_params) {
+    # summarise_layout() expects that the x and y ranges here
+    # match the setting from self$theta and self$r
     setNames(
       list(panel_params$theta.range, panel_params$r.range),
       c(self$theta, self$r)
@@ -319,9 +325,9 @@ CoordPolar <- ggproto("CoordPolar", Coord,
 
 rename_data <- function(coord, data) {
   if (coord$theta == "y") {
-    plyr::rename(data, c("y" = "theta", "x" = "r"), warn_missing = FALSE)
+    rename(data, c("y" = "theta", "x" = "r"))
   } else {
-    plyr::rename(data, c("y" = "r", "x" = "theta"), warn_missing = FALSE)
+    rename(data, c("y" = "r", "x" = "theta"))
   }
 }
 
@@ -331,10 +337,12 @@ theta_rescale_no_clip <- function(coord, x, panel_params) {
 }
 
 theta_rescale <- function(coord, x, panel_params) {
+  x <- squish_infinite(x, panel_params$theta.range)
   rotate <- function(x) (x + coord$start) %% (2 * pi) * coord$direction
   rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
 }
 
 r_rescale <- function(coord, x, panel_params) {
+  x <- squish_infinite(x, panel_params$r.range)
   rescale(x, c(0, 0.4), panel_params$r.range)
 }

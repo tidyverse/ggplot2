@@ -1,16 +1,16 @@
 #' Position scales for continuous data (x & y)
 #'
-#' `scale_x_continuous` and `scale_y_continuous` are the default
+#' `scale_x_continuous()` and `scale_y_continuous()` are the default
 #' scales for continuous x and y aesthetics. There are three variants
 #' that set the `trans` argument for commonly used transformations:
-#' `scale_*_log10`, `scale_*_sqrt` and `scale_*_reverse`.
+#' `scale_*_log10()`, `scale_*_sqrt()` and `scale_*_reverse()`.
 #'
 #' For simple manipulation of labels and limits, you may wish to use
 #' [labs()] and [lims()] instead.
 #'
 #' @inheritParams continuous_scale
 #' @family position scales
-#' @param ... Other arguments passed on to `scale_(x|y)_continuous`
+#' @param ... Other arguments passed on to `scale_(x|y)_continuous()`
 #' @examples
 #' p1 <- ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point()
@@ -36,7 +36,7 @@
 #' #  * choose where the ticks appear
 #' p1 + scale_x_continuous(breaks = c(2, 4, 6))
 #'
-#' #  * add what labels they have
+#' #  * choose your own labels
 #' p1 + scale_x_continuous(
 #'   breaks = c(2, 4, 6),
 #'   label = c("two", "four", "six")
@@ -63,6 +63,7 @@
 #' p1 + scale_y_continuous(trans = scales::reciprocal_trans())
 #'
 #' # You can also create your own. See ?scales::trans_new
+#'
 #' @name scale_continuous
 #' @aliases NULL
 NULL
@@ -79,18 +80,15 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                na.value = NA_real_, trans = "identity",
                                position = "bottom", sec.axis = waiver()) {
   sc <- continuous_scale(
-    c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper"),
+    c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper", "x0"),
     "position_c", identity, name = name, breaks = breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,
     guide = "none", position = position, super = ScaleContinuousPosition
   )
-  if (!is.waive(sec.axis)) {
-    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
-    sc$secondary.axis <- sec.axis
-  }
-  sc
+
+  set_sec_axis(sec.axis, sc)
+
 }
 
 #' @rdname scale_continuous
@@ -101,18 +99,14 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
                                na.value = NA_real_, trans = "identity",
                                position = "left", sec.axis = waiver()) {
   sc <- continuous_scale(
-    c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper"),
+    c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper", "y0"),
     "position_c", identity, name = name, breaks = breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,
     guide = "none", position = position, super = ScaleContinuousPosition
   )
-  if (!is.waive(sec.axis)) {
-    if (is.formula(sec.axis)) sec.axis <- sec_axis(sec.axis)
-    if (!is.sec_axis(sec.axis)) stop("Secondary axes must be specified using 'sec_axis()'")
-    sc$secondary.axis <- sec.axis
-  }
-  sc
+
+  set_sec_axis(sec.axis, sc)
 }
 
 

@@ -4,7 +4,7 @@ context("geom-hline-vline-abline")
 # Visual tests ------------------------------------------------------------
 
 test_that("check h/v/abline transformed on basic projections", {
-  dat <- data.frame(x = LETTERS[1:5], y = 1:5)
+  dat <- data_frame(x = LETTERS[1:5], y = 1:5)
   plot <- ggplot(dat, aes(x, y)) +
     geom_col(width = 1) +
     geom_point() +
@@ -41,5 +41,35 @@ test_that("curved lines in map projections", {
   )
   expect_doppelganger("lines curved in azequalarea",
     nzmap + coord_map(projection = 'azequalarea', orientation = c(-36.92, 174.6, 0))
+  )
+})
+
+# Warning tests ------------------------------------------------------------
+
+test_that("Warning if a supplied mapping is going to be overwritten", {
+
+  expect_warning(
+    geom_vline(xintercept = 3, aes(colour = colour)),
+    "Using both"
+  )
+
+  expect_warning(
+    geom_hline(yintercept = 3, aes(colour = colour)),
+    "Using both"
+  )
+
+  expect_warning(
+    geom_abline(intercept = 3, aes(colour = colour)),
+    "Using "
+  )
+
+  expect_warning(
+    geom_abline(intercept = 3, slope = 0.5, aes(colour = colour)),
+    "Using "
+  )
+
+  expect_warning(
+    geom_abline(slope=0.5, aes(colour = colour)),
+    "Using "
   )
 })

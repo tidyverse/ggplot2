@@ -11,15 +11,19 @@ aes(x, y, ...)
 variables. The names for x and y aesthetics are typically omitted because
 they are so common; all other aesthetics must be named.}
 }
+\value{
+A list with class \code{uneval}. Components of the list are either
+quosures or constants.
+}
 \description{
 Aesthetic mappings describe how variables in the data are mapped to visual
 properties (aesthetics) of geoms. Aesthetic mappings can be set in
 \code{\link[=ggplot2]{ggplot2()}} and in individual layers.
 }
 \details{
-This function also standardises aesthetic names by performing partial
-matching, converting color to colour, and translating old style R names to
-ggplot names (eg. pch to shape, cex to size).
+This function also standardises aesthetic names by converting \code{color} to \code{colour}
+(also in substrings, e.g. \code{point_color} to \code{point_colour}) and translating old style
+R names to ggplot names (eg. \code{pch} to \code{shape}, \code{cex} to \code{size}).
 }
 \section{Quasiquotation}{
 
@@ -40,22 +44,23 @@ aes(mpg, wt)
 # You can also map aesthetics to functions of variables
 aes(x = mpg ^ 2, y = wt / cyl)
 
+# Or to constants
+aes(x = 1, colour = "smooth")
+
 # Aesthetic names are automatically standardised
 aes(col = x)
 aes(fg = x)
 aes(color = x)
 aes(colour = x)
 
-# aes is almost always used with ggplot() or a layer
+# aes() is passed to either ggplot() or specific layer. Aesthetics supplied
+# to ggplot() are used as defaults for every layer.
 ggplot(mpg, aes(displ, hwy)) + geom_point()
 ggplot(mpg) + geom_point(aes(displ, hwy))
 
-# Aesthetics supplied to ggplot() are used as defaults for every layer
-# you can override them, or supply different aesthetics for each layer
-
-
-# aes() is a quoting function, so you need to use tidy evaluation
-# techniques to create wrappers around ggplot2 pipelines. The
+# Tidy evaluation ----------------------------------------------------
+# aes() automatically quotes all its arguments, so you need to use tidy
+# evaluation to create wrappers around ggplot2 pipelines. The
 # simplest case occurs when your wrapper takes dots:
 scatter_by <- function(data, ...) {
   ggplot(data) + geom_point(aes(...))
@@ -63,9 +68,12 @@ scatter_by <- function(data, ...) {
 scatter_by(mtcars, disp, drat)
 
 # If your wrapper has a more specific interface with named arguments,
-# you need to use the "enquote and unquote" technique:
+# you need "enquote and unquote":
 scatter_by <- function(data, x, y) {
-  ggplot(data) + geom_point(aes(!!enquo(x), !!enquo(y)))
+  x <- enquo(x)
+  y <- enquo(y)
+
+  ggplot(data) + geom_point(aes(!!x, !!y))
 }
 scatter_by(mtcars, disp, drat)
 

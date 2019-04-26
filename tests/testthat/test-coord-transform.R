@@ -5,7 +5,7 @@ test_that("warnings are generated when cord_trans() results in new infinite valu
     geom_bar(aes(x = cut)) +
     coord_trans(y = "log10")
 
-  p2 <- ggplot(data.frame(a = c(1, 2, 0), b = c(10, 6, 4)), aes(a, b)) +
+  p2 <- ggplot(data_frame(a = c(1, 2, 0), b = c(10, 6, 4)), aes(a, b)) +
     geom_point() +
     coord_trans(x = "log")
 
@@ -14,7 +14,7 @@ test_that("warnings are generated when cord_trans() results in new infinite valu
 })
 
 test_that("no warnings are generated when original data has Inf values, but no new Inf values created from the transformation", {
-  p <- ggplot(data.frame(x = c(-Inf, 2, 0), y = c(Inf, 6, 4)), aes(x, y)) +
+  p <- ggplot(data_frame(x = c(-Inf, 2, 0), y = c(Inf, 6, 4)), aes(x, y)) +
     geom_point() +
     coord_trans(x = 'identity')
 

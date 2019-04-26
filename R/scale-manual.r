@@ -101,7 +101,15 @@ scale_discrete_manual <- function(aesthetics, ..., values) {
 }
 
 
-manual_scale <- function(aesthetic, values, ...) {
+manual_scale <- function(aesthetic, values = NULL, ...) {
+  # check for missing `values` parameter, in lieu of providing
+  # a default to all the different scale_*_manual() functions
+  if (is_missing(values)) {
+    values <- NULL
+  } else {
+    force(values)
+  }
+
   pal <- function(n) {
     if (n > length(values)) {
       stop("Insufficient values in manual scale. ", n, " needed but only ",

@@ -1,26 +1,5 @@
-#' @include utilities.r
+#' @include utilities.r compat-plyr.R
 NULL
-
-.all_aesthetics <- c("adj", "alpha", "angle", "bg", "cex", "col", "color",
-  "colour", "fg", "fill", "group", "hjust", "label", "linetype", "lower",
-  "lty", "lwd", "max", "middle", "min", "pch", "radius", "sample", "shape",
-  "size", "srt", "upper", "vjust", "weight", "width", "x", "xend", "xmax",
-  "xmin", "xintercept", "y", "yend", "ymax", "ymin", "yintercept", "z")
-
-.base_to_ggplot <- c(
-  "col"   = "colour",
-  "color" = "colour",
-  "pch"   = "shape",
-  "cex"   = "size",
-  "lty"   = "linetype",
-  "lwd"   = "size",
-  "srt"   = "angle",
-  "adj"   = "hjust",
-  "bg"    = "fill",
-  "fg"    = "colour",
-  "min"   = "ymin",
-  "max"   = "ymax"
-)
 
 #' Construct aesthetic mappings
 #'
@@ -28,9 +7,9 @@ NULL
 #' properties (aesthetics) of geoms. Aesthetic mappings can be set in
 #' [ggplot2()] and in individual layers.
 #'
-#' This function also standardises aesthetic names by performing partial
-#' matching, converting color to colour, and translating old style R names to
-#' ggplot names (eg. pch to shape, cex to size).
+#' This function also standardises aesthetic names by converting `color` to `colour`
+#' (also in substrings, e.g. `point_color` to `point_colour`) and translating old style
+#' R names to ggplot names (eg. `pch` to `shape`, `cex` to `size`).
 #'
 #' @section Quasiquotation:
 #'
@@ -48,6 +27,8 @@ NULL
 #'   they are so common; all other aesthetics must be named.
 #' @seealso [vars()] for another quoting function designed for
 #'   faceting specifications.
+#' @return A list with class `uneval`. Components of the list are either
+#'   quosures or constants.
 #' @export
 #' @examples
 #' aes(x = mpg, y = wt)
@@ -56,22 +37,23 @@ NULL
 #' # You can also map aesthetics to functions of variables
 #' aes(x = mpg ^ 2, y = wt / cyl)
 #'
+#' # Or to constants
+#' aes(x = 1, colour = "smooth")
+#'
 #' # Aesthetic names are automatically standardised
 #' aes(col = x)
 #' aes(fg = x)
 #' aes(color = x)
 #' aes(colour = x)
 #'
-#' # aes is almost always used with ggplot() or a layer
+#' # aes() is passed to either ggplot() or specific layer. Aesthetics supplied
+#' # to ggplot() are used as defaults for every layer.
 #' ggplot(mpg, aes(displ, hwy)) + geom_point()
 #' ggplot(mpg) + geom_point(aes(displ, hwy))
 #'
-#' # Aesthetics supplied to ggplot() are used as defaults for every layer
-#' # you can override them, or supply different aesthetics for each layer
-#'
-#'
-#' # aes() is a quoting function, so you need to use tidy evaluation
-#' # techniques to create wrappers around ggplot2 pipelines. The
+#' # Tidy evaluation ----------------------------------------------------
+#' # aes() automatically quotes all its arguments, so you need to use tidy
+#' # evaluation to create wrappers around ggplot2 pipelines. The
 #' # simplest case occurs when your wrapper takes dots:
 #' scatter_by <- function(data, ...) {
 #'   ggplot(data) + geom_point(aes(...))
@@ -79,9 +61,12 @@ NULL
 #' scatter_by(mtcars, disp, drat)
 #'
 #' # If your wrapper has a more specific interface with named arguments,
-#' # you need to use the "enquote and unquote" technique:
+#' # you need "enquote and unquote":
 #' scatter_by <- function(data, x, y) {
-#'   ggplot(data) + geom_point(aes(!!enquo(x), !!enquo(y)))
+#'   x <- enquo(x)
+#'   y <- enquo(y)
+#'
+#'   ggplot(data) + geom_point(aes(!!x, !!y))
 #' }
 #' scatter_by(mtcars, disp, drat)
 #'
@@ -90,25 +75,23 @@ NULL
 #' cut3 <- function(x) cut_number(x, 3)
 #' scatter_by(mtcars, cut3(disp), drat)
 aes <- function(x, y, ...) {
-  exprs <- rlang::enquos(x = x, y = y, ...)
-  is_missing <- vapply(exprs, rlang::quo_is_missing, logical(1))
-
-  aes <- new_aes(exprs[!is_missing], env = parent.frame())
+  exprs <- enquos(x = x, y = y, ..., .ignore_empty = "all")
+  aes <- new_aes(exprs, env = parent.frame())
   rename_aes(aes)
 }
 
 # Wrap symbolic objects in quosures but pull out constants out of
 # quosures for backward-compatibility
 new_aesthetic <- function(x, env = globalenv()) {
-  if (rlang::is_quosure(x)) {
-    if (!rlang::quo_is_symbolic(x)) {
-      x <- rlang::quo_get_expr(x)
+  if (is_quosure(x)) {
+    if (!quo_is_symbolic(x)) {
+      x <- quo_get_expr(x)
     }
     return(x)
   }
 
-  if (rlang::is_symbolic(x)) {
-    x <- rlang::new_quosure(x, env = env)
+  if (is_symbolic(x)) {
+    x <- new_quosure(x, env = env)
     return(x)
   }
 
@@ -127,7 +110,7 @@ print.uneval <- function(x, ...) {
   if (length(x) == 0) {
     cat("<empty>\n")
   } else {
-    values <- vapply(x, rlang::quo_label, character(1))
+    values <- vapply(x, quo_label, character(1))
     bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
 
     cat(bullets, sep = "")
@@ -158,13 +141,34 @@ print.uneval <- function(x, ...) {
   new_aes(NextMethod())
 }
 
-# Rename American or old-style aesthetics name
-rename_aes <- function(x) {
-  # Convert prefixes to full names
-  full <- match(names(x), .all_aesthetics)
-  names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
+#' Standardise aesthetic names
+#'
+#' This function standardises aesthetic names by converting `color` to `colour`
+#' (also in substrings, e.g. `point_color` to `point_colour`) and translating old style
+#' R names to ggplot names (eg. `pch` to `shape`, `cex` to `size`).
+#' @param x Character vector of aesthetics names, such as `c("colour", "size", "shape")`.
+#' @return Character vector of standardised names.
+#' @keywords internal
+#' @export
+standardise_aes_names <- function(x) {
+  # convert US to UK spelling of colour
+  x <- sub("color", "colour", x, fixed = TRUE)
 
-  plyr::rename(x, .base_to_ggplot, warn_missing = FALSE)
+  # convert old-style aesthetics names to ggplot version
+  revalue(x, ggplot_global$base_to_ggplot)
+}
+
+# x is a list of aesthetic mappings, as generated by aes()
+rename_aes <- function(x) {
+  names(x) <- standardise_aes_names(names(x))
+  duplicated_names <- names(x)[duplicated(names(x))]
+  if (length(duplicated_names) > 0L) {
+    duplicated_message <- paste0(unique(duplicated_names), collapse = ", ")
+    warning(
+      "Duplicated aesthetics after name standardisation: ", duplicated_message, call. = FALSE
+    )
+  }
+  x
 }
 
 # Look up the scale that should be used for a given aesthetic
@@ -180,7 +184,7 @@ is_position_aes <- function(vars) {
   aes_to_scale(vars) %in% c("x", "y")
 }
 
-#' Define aesthetic mappings programatically
+#' Define aesthetic mappings programmatically
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. [aes()] uses non-standard
@@ -236,7 +240,7 @@ aes_ <- function(x, y, ...) {
 
   as_quosure_aes <- function(x) {
     if (is.formula(x) && length(x) == 2) {
-      rlang::as_quosure(x)
+      as_quosure(x)
     } else if (is.call(x) || is.name(x) || is.atomic(x)) {
       new_aesthetic(x, caller_env)
     } else {
@@ -258,7 +262,7 @@ aes_string <- function(x, y, ...) {
   caller_env <- parent.frame()
   mapping <- lapply(mapping, function(x) {
     if (is.character(x)) {
-      x <- rlang::parse_expr(x)
+      x <- parse_expr(x)
     }
     new_aesthetic(x, env = caller_env)
   })
@@ -285,7 +289,7 @@ aes_all <- function(vars) {
   # Quosure the symbols in the empty environment because they can only
   # refer to the data mask
   structure(
-    lapply(vars, function(x) rlang::new_quosure(as.name(x), emptyenv())),
+    lapply(vars, function(x) new_quosure(as.name(x), emptyenv())),
     class = "uneval"
   )
 }
@@ -309,7 +313,7 @@ aes_auto <- function(data = NULL, ...) {
   }
 
   # automatically detected aes
-  vars <- intersect(.all_aesthetics, vars)
+  vars <- intersect(ggplot_global$all_aesthetics, vars)
   names(vars) <- vars
   aes <- lapply(vars, function(x) parse(text = x)[[1]])
 

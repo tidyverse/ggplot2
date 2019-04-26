@@ -1,22 +1,22 @@
 #' Continuous colour bar guide
 #'
-#' Colour bar guide shows continuous color scales mapped onto values.
+#' Colour bar guide shows continuous colour scales mapped onto values.
 #' Colour bar is available with `scale_fill` and `scale_colour`.
 #' For more information, see the inspiration for this function:
 #' \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 #'
 #' Guides can be specified in each `scale_*` or in [guides()].
 #' `guide="legend"` in `scale_*` is syntactic sugar for
-#' `guide=guide_legend()` (e.g. `scale_color_manual(guide = "legend")`).
+#' `guide=guide_legend()` (e.g. `scale_colour_manual(guide = "legend")`).
 #' As for how to specify the guide for each scale in more detail,
 #' see [guides()].
 #'
 #' @inheritParams guide_legend
 #' @param barwidth A numeric or a [grid::unit()] object specifying
-#'   the width of the colorbar. Default value is `legend.key.width` or
+#'   the width of the colourbar. Default value is `legend.key.width` or
 #'   `legend.key.size` in [theme()] or theme.
 #' @param barheight A numeric or a [grid::unit()] object specifying
-#'   the height of the colorbar. Default value is `legend.key.height` or
+#'   the height of the colourbar. Default value is `legend.key.height` or
 #'   `legend.key.size` in [theme()] or theme.
 #' @param frame.colour A string specifying the colour of the frame
 #'   drawn around the bar. If `NULL` (the default), no frame is drawn.
@@ -24,15 +24,15 @@
 #'   drawn around the bar.
 #' @param frame.linetype A numeric specifying the linetype of the frame
 #'   drawn around the bar.
-#' @param nbin A numeric specifying the number of bins for drawing colorbar. A
-#'   smoother colorbar for a larger value.
-#' @param raster A logical. If `TRUE` then the colorbar is rendered as a
-#'   raster object. If `FALSE` then the colorbar is rendered as a set of
+#' @param nbin A numeric specifying the number of bins for drawing the
+#'   colourbar. A smoother colourbar results from a larger value.
+#' @param raster A logical. If `TRUE` then the colourbar is rendered as a
+#'   raster object. If `FALSE` then the colourbar is rendered as a set of
 #'   rectangles. Note that not all graphics devices are capable of rendering
 #'   raster image.
-#' @param ticks A logical specifying if tick marks on colorbar should be
+#' @param ticks A logical specifying if tick marks on the colourbar should be
 #'   visible.
-#' @param ticks.colour A string specifying the color of the tick marks.
+#' @param ticks.colour A string specifying the colour of the tick marks.
 #' @param ticks.linewidth A numeric specifying the width of the tick marks.
 #' @param draw.ulim A logical specifying if the upper limit tick marks should
 #'   be visible.
@@ -42,10 +42,10 @@
 #'   One of "horizontal" or "vertical."
 #' @param default.unit A character string indicating [grid::unit()]
 #'   for `barwidth` and `barheight`.
-#' @param reverse logical. If `TRUE` the colorbar is reversed. By default,
+#' @param reverse logical. If `TRUE` the colourbar is reversed. By default,
 #'   the highest value is on the top and the lowest value is on the bottom
-#' @param available_aes A vector of charater strings listing the aesthetics
-#'   for which a colorbar can be drawn.
+#' @param available_aes A vector of character strings listing the aesthetics
+#'   for which a colourbar can be drawn.
 #' @param ... ignored.
 #' @return A guide object
 #' @export
@@ -57,45 +57,45 @@
 #' p2 <- p1 + geom_point(aes(size = value))
 #'
 #' # Basic form
-#' p1 + scale_fill_continuous(guide = "colorbar")
-#' p1 + scale_fill_continuous(guide = guide_colorbar())
-#' p1 + guides(fill = guide_colorbar())
+#' p1 + scale_fill_continuous(guide = "colourbar")
+#' p1 + scale_fill_continuous(guide = guide_colourbar())
+#' p1 + guides(fill = guide_colourbar())
 #'
 #' # Control styles
 #'
 #' # bar size
-#' p1 + guides(fill = guide_colorbar(barwidth = 0.5, barheight = 10))
+#' p1 + guides(fill = guide_colourbar(barwidth = 0.5, barheight = 10))
 #'
 #' # no label
-#' p1 + guides(fill = guide_colorbar(label = FALSE))
+#' p1 + guides(fill = guide_colourbar(label = FALSE))
 #'
 #' # no tick marks
-#' p1 + guides(fill = guide_colorbar(ticks = FALSE))
+#' p1 + guides(fill = guide_colourbar(ticks = FALSE))
 #'
 #' # label position
-#' p1 + guides(fill = guide_colorbar(label.position = "left"))
+#' p1 + guides(fill = guide_colourbar(label.position = "left"))
 #'
 #' # label theme
-#' p1 + guides(fill = guide_colorbar(label.theme = element_text(colour = "blue", angle = 0)))
+#' p1 + guides(fill = guide_colourbar(label.theme = element_text(colour = "blue", angle = 0)))
 #'
 #' # small number of bins
-#' p1 + guides(fill = guide_colorbar(nbin = 3))
+#' p1 + guides(fill = guide_colourbar(nbin = 3))
 #'
 #' # large number of bins
-#' p1 + guides(fill = guide_colorbar(nbin = 100))
+#' p1 + guides(fill = guide_colourbar(nbin = 100))
 #'
 #' # make top- and bottom-most ticks invisible
 #' p1 + scale_fill_continuous(limits = c(0,20), breaks = c(0, 5, 10, 15, 20),
-#'  guide = guide_colorbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
+#'  guide = guide_colourbar(nbin=100, draw.ulim = FALSE, draw.llim = FALSE))
 #'
 #' # guides can be controlled independently
 #' p2 +
-#'   scale_fill_continuous(guide = "colorbar") +
+#'   scale_fill_continuous(guide = "colourbar") +
 #'   scale_size(guide = "legend")
-#' p2 + guides(fill = "colorbar", size = "legend")
+#' p2 + guides(fill = "colourbar", size = "legend")
 #'
 #' p2 +
-#'   scale_fill_continuous(guide = guide_colorbar(direction = "horizontal")) +
+#'   scale_fill_continuous(guide = guide_colourbar(direction = "horizontal")) +
 #'   scale_size(guide = guide_legend(direction = "vertical"))
 guide_colourbar <- function(
 
@@ -195,12 +195,12 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # do nothing if scale are inappropriate
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warning("colorbar guide needs appropriate scales: ",
+    warning("colourbar guide needs appropriate scales: ",
             paste(guide$available_aes, collapse = ", "))
     return(NULL)
   }
   if (scale$is_discrete()) {
-    warning("colorbar guide needs continuous scales.")
+    warning("colourbar guide needs continuous scales.")
     return(NULL)
   }
 
@@ -210,7 +210,7 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
 
-  ticks <- as.data.frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
+  ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
 
@@ -218,11 +218,11 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # bar specification (number of divs etc)
   .limits <- scale$get_limits()
-  .bar <- seq(.limits[1], .limits[2], length = guide$nbin)
+  .bar <- seq(.limits[1], .limits[2], length.out = guide$nbin)
   if (length(.bar) == 0) {
     .bar = unique(.limits)
   }
-  guide$bar <- data.frame(colour = scale$map(.bar), value = .bar, stringsAsFactors = FALSE)
+  guide$bar <- new_data_frame(list(colour = scale$map(.bar), value = .bar), n = length(.bar))
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]
@@ -241,10 +241,10 @@ guide_merge.colorbar <- function(guide, new_guide) {
 #' @export
 guide_geom.colorbar <- function(guide, layers, default_mapping) {
   # Layers that use this guide
-  guide_layers <- plyr::llply(layers, function(layer) {
+  guide_layers <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
-    if (length(matched) && ((is.na(layer$show.legend) || layer$show.legend))) {
+    if (length(matched) > 0 && (isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend))) {
       layer
     } else {
       # This layer does not use this guide
@@ -507,7 +507,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.background <- element_render(theme, "legend.background")
 
   # padding
-  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm", valueOnly = TRUE)
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 

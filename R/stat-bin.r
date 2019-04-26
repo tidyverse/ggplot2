@@ -1,5 +1,8 @@
-#' @param binwidth The width of the bins. Can be specified as a numeric value,
-#'   or a function that calculates width from x.
+#' @param binwidth The width of the bins. Can be specified as a numeric value
+#'   or as a function that calculates width from unscaled x. Here, "unscaled x" 
+#'   refers to the original x values in the data, before application of any 
+#'   scale transformation. When specifying a function along with a grouping
+#'   structure, the function will be called once per group. 
 #'   The default is to use `bins`
 #'   bins that cover the range of the data. You should always override
 #'   this value, exploring multiple widths to find the best to illustrate the
@@ -8,17 +11,15 @@
 #'   The bin width of a date variable is the number of days in each time; the
 #'   bin width of a time variable is the number of seconds.
 #' @param bins Number of bins. Overridden by `binwidth`. Defaults to 30.
-#' @param center The center of one of the bins.  Note that if center is above or
-#'   below the range of the data, things will be shifted by an appropriate
-#'   number of `width`s. To center on integers, for example, use
-#'   `width = 1` and `center = 0`, even if `0` is outside the range
-#'   of the data.  At most one of `center` and `boundary` may be
-#'   specified.
-#' @param boundary A boundary between two bins. As with `center`, things
-#'   are shifted when `boundary` is outside the range of the data. For
-#'   example, to center on integers, use `width = 1` and \code{boundary =
-#'   0.5}, even if `0.5` is outside the range of the data.  At most one of
-#'   `center` and `boundary` may be specified.
+#' @param center,boundary bin position specifiers. Only one, `center` or
+#'   `boundary`, may be specified for a single plot. `center` specifies the
+#'   center of one of the bins. `boundary` specifies the boundary between two
+#'   bins. Note that if either is above or below the range of the data, things
+#'   will be shifted by the appropriate integer multiple of `width`.
+#'   For example, to center on integers use `width = 1` and `center = 0`, even
+#'   if `0` is outside the range of the data. Alternatively, this same alignment
+#'   can be specified with `width = 1` and `boundary = 0.5`, even if `0.5` is
+#'   outside the range of the data.
 #' @param breaks Alternatively, you can supply a numeric vector giving
 #'    the bin boundaries. Overrides `binwidth`, `bins`, `center`,
 #'    and `boundary`.
@@ -36,7 +37,7 @@
 #'
 #' @seealso [stat_count()], which counts the number of cases at each x
 #'   position, without binning. It is suitable for both discrete and continuous
-#'   x data, whereas \link{stat_bin} is suitable only for continuous x data.
+#'   x data, whereas `stat_bin()` is suitable only for continuous x data.
 #' @export
 #' @rdname geom_histogram
 stat_bin <- function(mapping = NULL, data = NULL,

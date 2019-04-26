@@ -38,6 +38,12 @@
 #' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
 "+.gg" <- function(e1, e2) {
+  if (missing(e2)) {
+    stop("Cannot use `+.gg()` with a single argument. ",
+         "Did you accidentally put + on a new line?",
+         call. = FALSE)
+  }
+
   # Get the name of what was passed in as e2, and pass along so that it
   # can be displayed in error messages
   e2name <- deparse(substitute(e2))
@@ -117,7 +123,7 @@ ggplot_add.uneval <- function(object, plot, object_name) {
   # defaults() doesn't copy class, so copy it.
   class(plot$mapping) <- class(object)
 
-  labels <- lapply(object, function(x) if (is.null(x)) x else rlang::quo_name(x))
+  labels <- make_labels(object)
   names(labels) <- names(object)
   update_labels(plot, labels)
 }

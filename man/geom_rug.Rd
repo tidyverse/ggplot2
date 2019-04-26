@@ -5,8 +5,9 @@
 \title{Rug plots in the margins}
 \usage{
 geom_rug(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., sides = "bl", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., outside = FALSE, sides = "bl",
+  length = unit(0.03, "npc"), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -25,8 +26,9 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
-will be used as the layer data.}
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
@@ -36,12 +38,16 @@ a call to a position adjustment function.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{outside}{logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use \code{coord_cartesian(clip = "off")}. When set to TRUE, also consider changing the sides argument to "tr". See examples.}
 
 \item{sides}{A string that controls which sides of the plot the rugs appear on.
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
+
+\item{length}{A \code{\link[grid:unit]{grid::unit()}} object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -63,13 +69,14 @@ with the two 1d marginal distributions. Rug plots display individual
 cases so are best used with smaller datasets.
 }
 \details{
-The rug lines are drawn with a fixed size (3% of the total plot size) so
-are dependent on the overall scale expansion in order not to overplot
-existing data.
+By default, the rug lines are drawn with a length that corresponds to 3\%
+of the total plot size. Since the default scale expansion of for continuous
+variables is 5\% at both ends of the scale, the rug will not overlap with
+any data points under the default settings.
 }
 \section{Aesthetics}{
 
-\code{geom_rug} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_rug()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \code{alpha}
 \item \code{colour}
@@ -79,7 +86,7 @@ existing data.
 \item \code{x}
 \item \code{y}
 }
-Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{
@@ -98,4 +105,20 @@ ggplot(mpg, aes(displ, cty)) +
 ggplot(mpg, aes(displ, cty)) +
   geom_jitter() +
   geom_rug(alpha = 1/2, position = "jitter")
+
+# move the rug tassels to outside the plot
+# remember to set clip = "off".
+p + geom_rug(outside = TRUE) +
+  coord_cartesian(clip = "off")
+
+# set sides to top right, and then move the margins
+p + geom_rug(outside = TRUE, sides = "tr") +
+   coord_cartesian(clip = "off") +
+   theme(plot.margin = margin(1, 1, 1, 1, "cm"))
+
+# increase the line length and
+# expand axis to avoid overplotting
+p + geom_rug(length = unit(0.05, "npc")) +
+   scale_y_continuous(expand = c(0.1, 0.1))
+
 }

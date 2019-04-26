@@ -12,7 +12,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# ggplot2 <img src="man/figures/logo.png" align="right" />
+# ggplot2 <img src="man/figures/logo.png" align="right" width="120" />
 
 [![Travis Build Status](https://travis-ci.org/tidyverse/ggplot2.svg?branch=master)](https://travis-ci.org/tidyverse/ggplot2)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/ggplot2?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/ggplot2)
@@ -70,19 +70,18 @@ If you are new to ggplot2 you are better off starting with a systematic introduc
     [R for data science][r4ds]. R for data science is designed to
     give you a comprehensive introduction to the
     [tidyverse](http://tidyverse.org), and these two chapters will
-    you get up to speed with the essentials of ggplot2 as quickly as 
+    get you up to speed with the essentials of ggplot2 as quickly as 
     possible.
     
-1.  If you'd like to take an interactive online course, try
-    [Data visualisation with ggplot2][datacamp] by Rick Scavetta
-    on datacamp.
+1.  If you'd like to take an online course, try
+    [Data Visualization in R With ggplot2][oreilly] by Kara Woo.
 
 1.  If you want to dive into making common graphics as quickly 
     as possible, I recommend [The R Graphics Cookbook][cookbook] 
     by Winston Chang. It provides a set of recipes to solve common
-    graphics problems. A 2nd edition is due out in 2017.
+    graphics problems.
     
-If you've mastered the basics and want to learn more, read [ggplot2: Elegant Graphics for Data Analysis][ggplot2-book]. It describes the theoretical underpinnings of ggplot2 and shows you how all the pieces fit together. This book helps you understand the theory that underpins ggplot2, and will help you create new types of graphic specifically tailored to your needs. The book is not available for free, but you can find the complete source for the book at <https://github.com/hadley/ggplot2-book>.
+If you've mastered the basics and want to learn more, read [ggplot2: Elegant Graphics for Data Analysis][ggplot2-book]. It describes the theoretical underpinnings of ggplot2 and shows you how all the pieces fit together. This book helps you understand the theory that underpins ggplot2, and will help you create new types of graphics specifically tailored to your needs. The book is not available for free, but you can find the complete source for the book at <https://github.com/hadley/ggplot2-book>.
 
 ## Getting help
 
@@ -99,8 +98,8 @@ There are two main places to get help with ggplot2:
 [ggplot2-book]: http://amzn.to/2fncG50
 [gg-book]: http://amzn.to/2ef1eWp
 [so]: http://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50
-[cookbook]: http://amzn.to/2dVfMfn
+[cookbook]: https://amzn.to/2TU78ip 
 [r4ds]: http://r4ds.had.co.nz
 [r4ds-vis]: http://r4ds.had.co.nz/data-visualisation.html
 [r4ds-comm]: http://r4ds.had.co.nz/graphics-for-communication.html
-[datacamp]: https://www.datacamp.com/courses/data-visualization-with-ggplot2-1
+[oreilly]: http://shop.oreilly.com/product/0636920052807.do

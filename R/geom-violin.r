@@ -105,7 +105,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
       params$width %||% (resolution(data$x, FALSE) * 0.9)
 
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
-    plyr::ddply(data, "group", transform,
+    dapply(data, "group", transform,
       xmin = x - width / 2,
       xmax = x + width / 2
     )
@@ -120,8 +120,8 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
     # Make sure it's sorted properly to draw the outline
     newdata <- rbind(
-      plyr::arrange(transform(data, x = xminv), y),
-      plyr::arrange(transform(data, x = xmaxv), -y)
+      transform(data, x = xminv)[order(data$y), ],
+      transform(data, x = xmaxv)[order(data$y, decreasing = TRUE), ]
     )
 
     # Close the polygon: set first and last point the same
@@ -136,12 +136,17 @@ GeomViolin <- ggproto("GeomViolin", Geom,
       quantiles <- create_quantile_segment_frame(data, draw_quantiles)
       aesthetics <- data[
         rep(1, nrow(quantiles)),
-        setdiff(names(data), c("x", "y")),
+        setdiff(names(data), c("x", "y", "group")),
         drop = FALSE
       ]
       aesthetics$alpha <- rep(1, nrow(quantiles))
       both <- cbind(quantiles, aesthetics)
-      quantile_grob <- GeomPath$draw_panel(both, ...)
+      both <- both[!is.na(both$group), , drop = FALSE]
+      quantile_grob <- if (nrow(both) == 0) {
+        zeroGrob()
+      } else {
+        GeomPath$draw_panel(both, ...)
+      }
 
       ggname("geom_violin", grobTree(
         GeomPolygon$draw_panel(newdata, ...),
@@ -171,10 +176,10 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
   violin.xmaxvs <- (stats::approxfun(data$y, data$xmaxv))(ys)
 
   # We have two rows per segment drawn. Each segment gets its own group.
-  data.frame(
+  new_data_frame(list(
     x = interleave(violin.xminvs, violin.xmaxvs),
     y = rep(ys, each = 2),
     group = rep(ys, each = 2)
-  )
+  ))
 }
 

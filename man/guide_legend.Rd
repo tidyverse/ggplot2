@@ -4,13 +4,13 @@
 \alias{guide_legend}
 \title{Legend guide}
 \usage{
-guide_legend(title = waiver(), title.position = NULL, title.theme = NULL,
-  title.hjust = NULL, title.vjust = NULL, label = TRUE,
-  label.position = NULL, label.theme = NULL, label.hjust = NULL,
-  label.vjust = NULL, keywidth = NULL, keyheight = NULL,
-  direction = NULL, default.unit = "line", override.aes = list(),
-  nrow = NULL, ncol = NULL, byrow = FALSE, reverse = FALSE, order = 0,
-  ...)
+guide_legend(title = waiver(), title.position = NULL,
+  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
+  label = TRUE, label.position = NULL, label.theme = NULL,
+  label.hjust = NULL, label.vjust = NULL, keywidth = NULL,
+  keyheight = NULL, direction = NULL, default.unit = "line",
+  override.aes = list(), nrow = NULL, ncol = NULL, byrow = FALSE,
+  reverse = FALSE, order = 0, ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -41,7 +41,7 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
 
 \item{label.theme}{A theme object for rendering the label text. Usually the
 object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.text} in \code{\link[=theme]{theme()}} or theme.}
+specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
 label text.}
@@ -51,11 +51,11 @@ text.}
 
 \item{keywidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the width of the legend key. Default value is \code{legend.key.width} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
+\code{legend.key.size} in \code{\link[=theme]{theme()}}.}
 
 \item{keyheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the height of the legend key. Default value is \code{legend.key.height} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
+\code{legend.key.size} in \code{\link[=theme]{theme()}}.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
@@ -75,15 +75,12 @@ filled by columns, otherwise the legend-matrix is filled by rows.}
 
 \item{reverse}{logical. If \code{TRUE} the order of legends is reversed.}
 
-\item{order}{positive integer less that 99 that specifies the order of
+\item{order}{positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
 
 \item{...}{ignored.}
-}
-\value{
-A guide object
 }
 \description{
 Legend type guide shows key (i.e., geoms) mapped onto values.
@@ -91,8 +88,8 @@ Legend guides for various scales are integrated if possible.
 }
 \details{
 Guides can be specified in each \code{scale_*} or in \code{\link[=guides]{guides()}}.
-\code{guide="legend"} in \code{scale_*} is syntactic sugar for
-\code{guide=guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
+\code{guide = "legend"} in \code{scale_*} is syntactic sugar for
+\code{guide = guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
 As for how to specify the guide for each scale in more detail,
 see \code{\link[=guides]{guides()}}.
 }

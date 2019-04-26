@@ -12,15 +12,17 @@
 \title{Scales for area or radius}
 \usage{
 scale_radius(name = waiver(), breaks = waiver(), labels = waiver(),
-  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
+  limits = NULL, range = c(1, 6), trans = "identity",
+  guide = "legend")
 
 scale_size(name = waiver(), breaks = waiver(), labels = waiver(),
-  limits = NULL, range = c(1, 6), trans = "identity", guide = "legend")
+  limits = NULL, range = c(1, 6), trans = "identity",
+  guide = "legend")
 
 scale_size_area(..., max_size = 6)
 }
 \arguments{
-\item{name}{The name of the scale. Used as axis or legend title. If
+\item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
@@ -45,18 +47,25 @@ transformation object
 as output
 }}
 
-\item{limits}{A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum.}
+\item{limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale range
+\item A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum
+\item A function that accepts the existing (automatic) limits and returns
+new limits
+}}
 
 \item{range}{a numeric vector of length 2 that specifies the minimum and
 maximum size of the plotting symbol after transformation.}
 
 \item{trans}{Either the name of a transformation object, or the
 object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-"logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
 
-A transformation object bundles together a transform, it's inverse,
+A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called \code{name_trans}, e.g.
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
@@ -67,7 +76,7 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{...}{Arguments passed on to \code{continuous_scale}
 \describe{
-  \item{name}{The name of the scale. Used as axis or legend title. If
+  \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
@@ -97,17 +106,24 @@ transformation object
 \item A function that takes the breaks as input and returns labels
 as output
 }}
-  \item{limits}{A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum.}
+  \item{limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale range
+\item A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum
+\item A function that accepts the existing (automatic) limits and returns
+new limits
+}}
   \item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default replaces out of bounds values with NA.}
+(out of bounds). The default replaces out of bounds values with \code{NA}.}
   \item{na.value}{Missing values will be replaced with this value.}
   \item{trans}{Either the name of a transformation object, or the
 object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-"logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
 
-A transformation object bundles together a transform, it's inverse,
+A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called \code{name_trans}, e.g.
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
