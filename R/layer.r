@@ -42,6 +42,8 @@
 #'   supplied parameters and aesthetics are understood by the `geom` or
 #'   `stat`. Use `FALSE` to suppress the checks.
 #' @param params Additional parameters to the `geom` and `stat`.
+#' @param key_glyph A legend key drawing function or a string providing the
+#'   function name minus the `draw_key_` prefix. See [draw_key] for details.
 #' @param layer_class The type of layer object to be constructued. This is
 #'   intended for ggplot2 internal use only.
 #' @keywords internal
@@ -64,7 +66,7 @@ layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
-                  show.legend = NA, layer_class = Layer) {
+                  show.legend = NA, key_glyph = NULL, layer_class = Layer) {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
   if (is.null(stat))
@@ -103,6 +105,13 @@ layer <- function(geom = NULL, stat = NULL,
     params$na.rm <- FALSE
   }
 
+  # Special case for key_glyph parameter which is handed in through
+  # params since all geoms/stats forward ... to params
+  if (!is.null(params$key_glyph)) {
+    key_glyph <- params$key_glyph
+    params$key_glyph <- NULL # remove to avoid warning about unknown parameter
+  }
+
   # Split up params between aesthetics, geom, and stat
   params <- rename_aes(params)
   aes_params  <- params[intersect(names(params), geom$aesthetics())]
@@ -132,6 +141,9 @@ layer <- function(geom = NULL, stat = NULL,
       immediate. = TRUE
     )
   }
+
+  # adjust the legend draw key if requested
+  geom <- set_draw_key(geom, key_glyph)
 
   ggproto("LayerInstance", layer_class,
     geom = geom,
@@ -388,3 +400,18 @@ obj_desc <- function(x) {
     )
   }
 }
+
+# helper function to adjust the draw_key slot of a geom
+# if a custom key glyph is requested
+set_draw_key <- function(geom, draw_key = NULL) {
+  if (is.null(draw_key)) {
+    return(geom)
+  }
+  if (is.character(draw_key)) {
+    draw_key <- paste0("draw_key_", draw_key)
+  }
+  draw_key <- match.fun(draw_key)
+
+  ggproto("", geom, draw_key = draw_key)
+}
+

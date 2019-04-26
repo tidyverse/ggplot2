@@ -35,6 +35,11 @@ core developer team.
 * `geom_rug()` gains an "outside" option to allow for moving the rug tassels to 
   outside the plot area (@njtierney, #3085) and a `length` option to allow for 
   changing the length of the rug lines (@daniel-wells, #3109). 
+  
+* All geoms now take a `key_glyph` paramter that allows users to customize
+  how legend keys are drawn (@clauswilke, #3145). In addition, a new key glyph
+  `timeseries` is provided to draw nice legends for time series
+  (@mitchelloharawild, #3145).
 
 ## Extensions
 
