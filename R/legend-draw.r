@@ -59,7 +59,7 @@ draw_key_abline <- function(data, params, size) {
 draw_key_rect <- function(data, params, size) {
   rectGrob(gp = gpar(
     col = NA,
-    fill = alpha(data$fill %||% data$colour, data$alpha),
+    fill = alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
     lty = data$linetype %||% 1
   ))
 }
