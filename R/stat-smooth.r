@@ -14,11 +14,15 @@
 #'   `method = "gam", formula = y ~ s(x, bs = "cs")`.
 #' @param formula Formula to use in smoothing function, eg. `y ~ x`,
 #'   `y ~ poly(x, 2)`, `y ~ log(x)`
-#' @param se Display confidence interval around smooth? (`TRUE` by default, see
-#'   `level` to control.)
+#' @param se Display interval around smooth? (`TRUE` by default, see
+#'   `level` to control, `interval` for type.)
 #' @param fullrange Should the fit span the full range of the plot, or just
 #'   the data?
-#' @param level Level of confidence interval to use (0.95 by default).
+#' @param level Confidence/tolerance level to use (0.95 by default).
+#' @param interval Type of interval calculation (`confidence` by default).
+#'   `confidence` produces pointwise confidence intervals for the mean. For
+#'   linear models, (e.g., method = `lm`) `prediction` produces pointwise
+#'   prediction intervals for new response observations.
 #' @param span Controls the amount of smoothing for the default loess smoother.
 #'   Smaller numbers produce wigglier lines, larger numbers produce smoother
 #'   lines.
@@ -28,8 +32,8 @@
 #' @section Computed variables:
 #' \describe{
 #'   \item{y}{predicted value}
-#'   \item{ymin}{lower pointwise confidence interval around the mean}
-#'   \item{ymax}{upper pointwise confidence interval around the mean}
+#'   \item{ymin}{lower interval value}
+#'   \item{ymax}{upper interval value}
 #'   \item{se}{standard error}
 #' }
 #' @export
@@ -44,6 +48,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
                         span = 0.75,
                         fullrange = FALSE,
                         level = 0.95,
+                        interval = "confidence",
                         method.args = list(),
                         na.rm = FALSE,
                         show.legend = NA,
@@ -63,6 +68,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
       n = n,
       fullrange = fullrange,
       level = level,
+      interval = interval,
       na.rm = na.rm,
       method.args = method.args,
       span = span,
@@ -102,8 +108,8 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
   compute_group = function(data, scales, method = "auto", formula = y~x,
                            se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
-                           xseq = NULL, level = 0.95, method.args = list(),
-                           na.rm = FALSE) {
+                           xseq = NULL, level = 0.95, interval = "confidence",
+                           method.args = list(), na.rm = FALSE) {
     if (length(unique(data$x)) < 2) {
       # Not enough data to perform fit
       return(new_data_frame())
@@ -137,7 +143,10 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     base.args <- list(quote(formula), data = quote(data), weights = quote(weight))
     model <- do.call(method, c(base.args, method.args))
 
-    predictdf(model, xseq, se, level)
+    interval <- match.arg(interval, c("none", "confidence", "prediction"))
+    interval <- if (se) interval else "none"
+
+    predictdf(model, xseq, se, level, interval)
   },
 
   required_aes = c("x", "y")

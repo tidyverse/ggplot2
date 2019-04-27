@@ -6,12 +6,12 @@
 # @alias predictdf.glm
 # @alias predictdf.loess
 # @alias predictdf.locfit
-predictdf <- function(model, xseq, se, level) UseMethod("predictdf")
+predictdf <- function(model, xseq, se, level, interval) UseMethod("predictdf")
 
 #' @export
-predictdf.default <- function(model, xseq, se, level) {
+predictdf.default <- function(model, xseq, se, level, interval) {
   pred <- stats::predict(model, newdata = new_data_frame(list(x = xseq)), se.fit = se,
-    level = level, interval = if (se) "confidence" else "none")
+    level = level, interval = interval)
 
   if (se) {
     fit <- as.data.frame(pred$fit)
@@ -23,7 +23,10 @@ predictdf.default <- function(model, xseq, se, level) {
 }
 
 #' @export
-predictdf.glm <- function(model, xseq, se, level) {
+predictdf.glm <- function(model, xseq, se, level, interval) {
+  if(se & interval == "prediction")
+    message("interval = '", interval, "' not supported, using interval = 'confidence'")
+
   pred <- stats::predict(model, newdata = data_frame(x = xseq), se.fit = se,
     type = "link")
 
@@ -42,7 +45,10 @@ predictdf.glm <- function(model, xseq, se, level) {
 }
 
 #' @export
-predictdf.loess <- function(model, xseq, se, level) {
+predictdf.loess <- function(model, xseq, se, level, interval) {
+  if(se & interval == "prediction")
+    message("interval = '", interval, "' not supported, using interval = 'confidence'")
+
   pred <- stats::predict(model, newdata = data_frame(x = xseq), se = se)
 
   if (se) {
@@ -57,7 +63,10 @@ predictdf.loess <- function(model, xseq, se, level) {
 }
 
 #' @export
-predictdf.locfit <- function(model, xseq, se, level) {
+predictdf.locfit <- function(model, xseq, se, level, interval) {
+  if(se & interval == "prediction")
+    message("interval = '", interval, "' not supported, using interval = 'confidence'")
+
   pred <- stats::predict(model, newdata = data_frame(x = xseq), se.fit = se)
 
   if (se) {

@@ -1,3 +1,6 @@
+* `stat_smooth()` and `geom_smooth()` now supports prediction intervals using 
+  the `interval` argument when method = lm (@baderstine, #3214)
+
 # ggplot2 3.1.1.9000
 
 This is a minor release with an emphasis on internal changes to make ggplot2 
