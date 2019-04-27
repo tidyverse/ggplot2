@@ -83,8 +83,6 @@ core developer team.
 
 * Clearer error messages for inappropriate aesthetics (@clairemcwhite, #3060).
 
-* `geom_rug()` gains an "outside" option to allow for moving the rug tassels to outside the plot area. (@njtierney, #3085)
-
 * ggplot2 no longer attaches any external packages when using functions that 
   depend on packages that are suggested but not imported by ggplot2. The 
   affected functions include `geom_hex()`, `stat_binhex()`, 
