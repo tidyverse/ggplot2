@@ -41,16 +41,16 @@ test_that("missing aesthetics trigger informative error", {
 test_that("function aesthetics are wrapped with stat()", {
   df <- data_frame(x = 1:10)
   expect_error(
-    ggplot_build(ggplot(df, aes(density)) + geom_tile(stat = "density")),
-    "Aesthetics must be valid data columns"
+    ggplot_build(ggplot(df, aes(fill = density, colour = density)) + geom_point()),
+    "Problematic aesthetic(s): colour = density, fill = density"
   )
 })
 
 test_that("computed stats are in appropriate layer", {
   df <- data_frame(x = 1:10)
   expect_error(
-    ggplot_build(ggplot(df, aes(x = x, stat(density))) + geom_tile(stat = "density") + geom_point()),
-    "Aesthetics must be valid computed stats"
+    ggplot_build(ggplot(df, aes(colour = stat(density), fill = stat(density))) + geom_point()),
+    "Problematic aesthetic(s): colour = stat(density), fill = stat(density)"
   )
 })
 
