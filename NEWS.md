@@ -91,6 +91,8 @@ core developer team.
 
 * ggplot2 now works in Turkish locale (@yutannihilation, #3011).
 
+* Clearer error messages for inappropriate aesthetics (@clairemcwhite, #3060).
+
 * ggplot2 no longer attaches any external packages when using functions that 
   depend on packages that are suggested but not imported by ggplot2. The 
   affected functions include `geom_hex()`, `stat_binhex()`, 

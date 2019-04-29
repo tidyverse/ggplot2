@@ -38,6 +38,24 @@ test_that("missing aesthetics trigger informative error", {
   )
 })
 
+test_that("function aesthetics are wrapped with stat()", {
+  df <- data_frame(x = 1:10)
+  expect_error(
+    ggplot_build(ggplot(df, aes(colour = density, fill = density)) + geom_point()),
+    "Aesthetics must be valid data columns. Problematic aesthetic(s): colour = density, fill = density",
+    fixed = TRUE
+  )
+})
+
+test_that("computed stats are in appropriate layer", {
+  df <- data_frame(x = 1:10)
+  expect_error(
+    ggplot_build(ggplot(df, aes(colour = stat(density), fill = stat(density))) + geom_point()),
+    "Aesthetics must be valid computed stats. Problematic aesthetic(s): colour = stat(density), fill = stat(density)",
+    fixed = TRUE
+  )
+})
+
 test_that("if an aes is mapped to a function that returns NULL, it is removed", {
   df <- data_frame(x = 1:10)
   null <- function(...) NULL
