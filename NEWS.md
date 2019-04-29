@@ -71,6 +71,8 @@ core developer team.
 
 * `coord_map()` now can have axes on the top and right (@karawoo, #3042).
 
+* `coord_polar()` now correctly rescales the secondary axis (@linzi-sg, #3278)
+
 * `coord_sf()`, `coord_map()`, and `coord_polar()` now squash `-Inf` and `Inf`
   into the min and max of the plot (@yutannihilation, #2972).
 
