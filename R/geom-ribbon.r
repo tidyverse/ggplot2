@@ -64,7 +64,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
   setup_data = function(data, params) {
     if (is.null(data$ymin) && is.null(data$ymax)) {
-      stop("Either ymin or ymax must be given as an aesthetic", call. = FALSE)
+      stop("Either ymin or ymax must be given as an aesthetic.", call. = FALSE)
     }
     data <- data[order(data$PANEL, data$group, data$x), , drop = FALSE]
     data$y <- data$ymin %||% data$ymax
