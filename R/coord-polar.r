@@ -160,7 +160,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   transform = function(self, data, panel_params) {
     data <- rename_data(self, data)
 
-    data$r  <- r_rescale(self, data$r, panel_params)
+    data$r  <- r_rescale(self, data$r, panel_params$r.range)
     data$theta <- theta_rescale(self, data$theta, panel_params)
     data$x <- data$r * sin(data$theta) + 0.5
     data$y <- data$r * cos(data$theta) + 0.5
@@ -171,10 +171,14 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   render_axis_v = function(self, panel_params, theme) {
     arrange <- panel_params$r.arrange %||% c("primary", "secondary")
 
-    x <- r_rescale(self, panel_params$r.major, panel_params) + 0.5
+    x <- r_rescale(self, panel_params$r.major, panel_params$r.range) + 0.5
     panel_params$r.major <- x
     if (!is.null(panel_params$r.sec.major)) {
-      panel_params$r.sec.major <- x
+      panel_params$r.sec.major <- r_rescale(
+        self,
+        panel_params$r.sec.major,
+        panel_params$r.sec.range
+      ) + 0.5
     }
 
     list(
@@ -199,7 +203,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       theta_rescale(self, panel_params$theta.minor, panel_params)
     thetafine <- seq(0, 2 * pi, length.out = 100)
 
-    rfine <- c(r_rescale(self, panel_params$r.major, panel_params), 0.45)
+    rfine <- c(r_rescale(self, panel_params$r.major, panel_params$r.range), 0.45)
 
     # This gets the proper theme element for theta and r grid lines:
     #   panel.grid.major.x or .y
@@ -342,7 +346,7 @@ theta_rescale <- function(coord, x, panel_params) {
   rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
 }
 
-r_rescale <- function(coord, x, panel_params) {
-  x <- squish_infinite(x, panel_params$r.range)
-  rescale(x, c(0, 0.4), panel_params$r.range)
+r_rescale <- function(coord, x, range) {
+  x <- squish_infinite(x, range)
+  rescale(x, c(0, 0.4), range)
 }
