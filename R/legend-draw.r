@@ -60,11 +60,7 @@ draw_key_rect <- function(data, params, size) {
   rectGrob(gp = gpar(
     col = NA,
     fill = alpha(data$fill %||% data$colour %||% "grey20", data$alpha),
-    lty = data$linetype %||% 1,
-    linejoin = data$linejoin,
-    # `lineend` is a workaround for Windows and intentionally kept unexposed
-    # as an argument. (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-457504667)
-    lineend = if (identical(data$linejoin, "round")) "round" else "square"
+    lty = data$linetype %||% 1
   ))
 }
 #' @export
@@ -84,7 +80,10 @@ draw_key_polygon <- function(data, params, size) {
       fill = alpha(data$fill %||% "grey20", data$alpha),
       lty = data$linetype %||% 1,
       lwd = lwd * .pt,
-      linejoin = "mitre"
+      linejoin = params$linejoin %||% "mitre",
+      # `lineend` is a workaround for Windows and intentionally kept unexposed
+      # as an argument. (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-457504667)
+      lineend = if (identical(params$linejoin, "round")) "round" else "square"
   ))
 }
 
