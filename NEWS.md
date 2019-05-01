@@ -35,6 +35,11 @@ core developer team.
 * `geom_rug()` gains an "outside" option to allow for moving the rug tassels to 
   outside the plot area (@njtierney, #3085) and a `length` option to allow for 
   changing the length of the rug lines (@daniel-wells, #3109). 
+  
+* All geoms now take a `key_glyph` paramter that allows users to customize
+  how legend keys are drawn (@clauswilke, #3145). In addition, a new key glyph
+  `timeseries` is provided to draw nice legends for time series
+  (@mitchelloharawild, #3145).
 
 ## Extensions
 
@@ -42,11 +47,22 @@ core developer team.
   very beginning of the plot building process and which has access to the 
   original input data and the plot object being built. This function allows the 
   creation of custom layers that autogenerate aesthetic mappings based on the 
-  input data or that filter the input data in some form. This is mainly of 
-  interest to extension developers (@clauswilke, #2872).
+  input data or that filter the input data in some form. For the time being, this
+  feature is not exported, but it has enabled the development of a new layer type,
+  `layer_sf()` (see next item). Other special-purpose layer types may be added
+  in the future (@clauswilke, #2872).
+  
+* A new layer type `layer_sf()` can auto-detect and auto-map sf geometry
+  columns in the data. It should be used by extension developers who are writing
+  new sf-based geoms or stats (@clauswilke, #3232).
 
 * `x0` and `y0` are now recognized positional aesthetics so they will get scaled 
   if used in extension geoms and stats (@thomasp85, #3168)
+  
+* Continuous scale limits now accept functions which accept the default
+  limits and return adjusted limits. This makes it possible to write
+  a function that e.g. ensures the limits are always a multiple of 100,
+  regardless of the data (@econandrew, #2307).
 
 ## Minor improvements and bug fixes
 
@@ -54,6 +70,8 @@ core developer team.
    like `cut_number()` and `cut_interval()` already did (@cderv, #3055)
 
 * `coord_map()` now can have axes on the top and right (@karawoo, #3042).
+
+* `coord_polar()` now correctly rescales the secondary axis (@linzi-sg, #3278)
 
 * `coord_sf()`, `coord_map()`, and `coord_polar()` now squash `-Inf` and `Inf`
   into the min and max of the plot (@yutannihilation, #2972).
@@ -75,6 +93,8 @@ core developer team.
 
 * ggplot2 now works in Turkish locale (@yutannihilation, #3011).
 
+* Clearer error messages for inappropriate aesthetics (@clairemcwhite, #3060).
+
 * ggplot2 no longer attaches any external packages when using functions that 
   depend on packages that are suggested but not imported by ggplot2. The 
   affected functions include `geom_hex()`, `stat_binhex()`, 
@@ -90,6 +110,12 @@ core developer team.
   mapping (@RichardJActon, #2950).
 
 * `geom_rug()` now works with `coord_flip()` (@has2k1, #2987).
+
+* `geom_violin()` no longer throws an error when quantile lines fall outside 
+  the violin polygon (@thomasp85, #3254).
+
+* `guide_legend()` and `guide_colorbar()` now use appropriate spacing between legend
+  key glyphs and legend text even if the legend title is missing (@clauswilke, #2943).
 
 * Default labels are now generated more consistently; e.g., symbols no longer
   get backticks, and long expressions are abbreviated with `...`
@@ -128,6 +154,12 @@ core developer team.
     this can be used to have inwards ticks on the x-axis (`axis.ticks.length.x`) and
     outwards ticks on the y-axis (`axis.ticks.length.y`) (@pank, #2935).
 
+* The arguments of `Stat*$compute_layer()` and `Position*$compute_layer()` are
+  now renamed to always match the ones of `Stat$compute_layer()` and
+  `Position$compute_layer()` (@yutannihilation, #3202).
+
+* `geom_*()` and `stat_*()` now accepts purrr-style lambda notation
+  (@yutannihilation, #3138).
 
 * `geom_tile()` and `geom_rect()` now draw rectangles without notches at the
   corners. The style of the corner can be controlled by `linejoin` parameters

@@ -67,7 +67,7 @@ default). If \code{TRUE}, margins are included for all faceting
 variables. If specified as a character vector, it is the names of
 variables for which margins are to be created.}
 
-\item{facets}{This argument is soft-deprecated, please us \code{rows}
+\item{facets}{This argument is soft-deprecated, please use \code{rows}
 and \code{cols} instead.}
 }
 \description{

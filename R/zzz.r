@@ -19,6 +19,10 @@
 .onLoad <- function(...) {
   backport_unit_methods()
 
+  .zeroGrob <<- grob(cl = "zeroGrob", name = "NULL")
+
+  ggplot_global$theme_current <- theme_gray()
+
   # To avoid namespace clash with dplyr.
   # It seems surprising that this hack works
   if (requireNamespace("dplyr", quietly = TRUE)) {

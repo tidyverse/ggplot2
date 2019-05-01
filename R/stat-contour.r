@@ -1,5 +1,6 @@
 #' @inheritParams stat_identity
 #' @export
+#' @eval rd_aesthetics("stat", "contour")
 #' @section Computed variables:
 #' \describe{
 #'  \item{level}{height of contour}

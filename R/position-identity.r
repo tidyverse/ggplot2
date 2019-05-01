@@ -11,7 +11,7 @@ position_identity <- function() {
 #' @usage NULL
 #' @export
 PositionIdentity <- ggproto("PositionIdentity", Position,
-  compute_layer = function(data, params, scales) {
+  compute_layer = function(self, data, params, layout) {
     data
   }
 )

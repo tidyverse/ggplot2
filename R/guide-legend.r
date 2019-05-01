@@ -327,7 +327,8 @@ guide_gengrob.legend <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
-  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||% 0
+  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||%
+    calc_element("text", theme)$size %||% 11
 
   # gap between keys etc
   # the default horizontal and vertical gap need to be the same to avoid strange

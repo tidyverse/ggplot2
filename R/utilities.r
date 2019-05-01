@@ -341,21 +341,21 @@ firstUpper <- function(s) {
 snake_class <- function(x) {
   snakeize(class(x)[1])
 }
-#' Is a data.frame empty
-#'
-#' An empty data.frame is defined as either `NULL` or a data.frame with zero
-#' rows or columns
-#'
-#' @param df A data.frame or `NULL`
-#'
-#' @keywords internal
-#' @export
+
 empty <- function(df) {
   is.null(df) || nrow(df) == 0 || ncol(df) == 0
 }
 
 is.discrete <- function(x) {
   is.factor(x) || is.character(x) || is.logical(x)
+}
+
+# This function checks that all columns of a dataframe `x` are data and
+# returns the names of any columns that are not.
+# We define "data" as atomic types or lists, not functions or otherwise
+check_nondata_cols <- function(x) {
+  idx <- (vapply(x, function(x) rlang::is_vector(x), logical(1)))
+  names(x)[which(!idx)]
 }
 
 compact <- function(x) {

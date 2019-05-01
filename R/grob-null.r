@@ -4,7 +4,9 @@
 #' @export
 zeroGrob <- function() .zeroGrob
 
-.zeroGrob <- grob(cl = "zeroGrob", name = "NULL")
+# Will get assigned in .onLoad()
+.zeroGrob <- NULL
+
 #' @export
 #' @method widthDetails zeroGrob
 widthDetails.zeroGrob <- function(x) unit(0, "cm")

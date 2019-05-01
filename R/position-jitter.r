@@ -72,7 +72,7 @@ PositionJitter <- ggproto("PositionJitter", Position,
     )
   },
 
-  compute_layer = function(data, params, panel) {
+  compute_layer = function(self, data, params, layout) {
     trans_x <- if (params$width > 0) function(x) jitter(x, amount = params$width)
     trans_y <- if (params$height > 0) function(x) jitter(x, amount = params$height)
 
