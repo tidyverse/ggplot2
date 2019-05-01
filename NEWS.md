@@ -161,6 +161,10 @@ core developer team.
 * `geom_*()` and `stat_*()` now accepts purrr-style lambda notation
   (@yutannihilation, #3138).
 
+* `geom_tile()` and `geom_rect()` now draw rectangles without notches at the
+  corners. The style of the corner can be controlled by `linejoin` parameters
+  (@yutannihilation, #3050).
+
 # ggplot2 3.1.0
 
 ## Breaking changes

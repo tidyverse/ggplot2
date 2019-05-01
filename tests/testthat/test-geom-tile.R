@@ -26,3 +26,13 @@ test_that("accepts width and height aesthetics", {
   ))
   expect_equal(out[c("xmin", "xmax", "ymin", "ymax")], boundary)
 })
+
+test_that("accepts linejoin parameter", {
+  df <- data_frame(x = c("a", "b"), y = c("a", "b"))
+
+  gp1 <- layer_grob(ggplot(df, aes(x, y)) + geom_tile())[[1]]$gp
+  expect_equal(gp1$linejoin, "mitre")
+
+  gp2 <- layer_grob(ggplot(df, aes(x, y)) + geom_tile(linejoin = "round"))[[1]]$gp
+  expect_equal(gp2$linejoin, "round")
+})
