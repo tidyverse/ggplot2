@@ -204,6 +204,30 @@ test_that("facet gives clear error if ", {
   )
 })
 
+# Variable combinations ---------------------------------------------------
+
+test_that("combine_vars() generates the correct combinations with multiple data frames", {
+  df <- expand.grid(letter = c("a", "b"), number = c(1, 2), boolean = c(TRUE, FALSE))
+
+  vars <- vars(letter = letter, number = number)
+  expect_identical(
+    combine_vars(list(df), vars = vars),
+    combine_vars(list(df, df), vars = vars)
+  )
+  expect_identical(
+    combine_vars(list(df), vars = vars),
+    combine_vars(list(df, df[character(0)]), vars = vars)
+  )
+  expect_identical(
+    combine_vars(list(df), vars = vars),
+    combine_vars(list(df, df["letter"]), vars = vars)
+  )
+  expect_identical(
+    combine_vars(list(df), vars = vars),
+    combine_vars(list(df, df[c("letter", "number")]), vars = vars)
+  )
+})
+
 
 # Visual tests ------------------------------------------------------------
 
