@@ -18,10 +18,10 @@ matrix:
       provider: script
       script: Rscript -e 'pkgdown::deploy_site_github(verbose = TRUE)'
       skip_cleanup: true
-  - r: oldrel
+  - r: 3.5
+  - r: 3.4
+  - r: 3.3
   - r: 3.2
-    env: R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
-  - r: 3.1
     env: R_REMOTES_NO_ERRORS_FROM_WARNINGS=true
 
 # environment variables set for all builds

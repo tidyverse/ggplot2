@@ -7,6 +7,9 @@ extension developers if they have relied on internals that have been changed.
 This release also sees the addition of Hiroaki Yutani (@yutannihilation) to the 
 core developer team.
 
+With the release of R 3.6, ggplot2 now requires the R version to be at least 3.2,
+as the tidyverse is committed to support 5 major versions of R.
+
 ## New features
 
 * This release includes a range of internal changes that speeds up plot 
