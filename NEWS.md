@@ -66,6 +66,8 @@ core developer team.
 
 ## Minor improvements and bug fixes
 
+* The `formula` argument to `geom_smooth()` now defaults to `NULL` and is filled in with the approprate formula in the function body (@bfgray3, #3205).
+
 * `cut_width()` now accepts `...` to pass further arguments to `base::cut.default()`
    like `cut_number()` and `cut_interval()` already did (@cderv, #3055)
 

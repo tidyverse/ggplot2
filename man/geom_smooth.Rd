@@ -6,11 +6,11 @@
 \title{Smoothed conditional means}
 \usage{
 geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-  position = "identity", ..., method = "auto", formula = y ~ x,
+  position = "identity", ..., method = "auto", formula = NULL,
   se = TRUE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
-  position = "identity", ..., method = "auto", formula = y ~ x,
+  position = "identity", ..., method = "auto", formula = NULL,
   se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
   level = 0.95, method.args = list(), na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE)
@@ -60,7 +60,9 @@ model that \code{method = "auto"} would use, then set
 \code{method = "gam", formula = y ~ s(x, bs = "cs")}.}
 
 \item{formula}{Formula to use in smoothing function, eg. \code{y ~ x},
-\code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
+\code{y ~ poly(x, 2)}, \code{y ~ log(x)}. \code{NULL} by default, in which case
+\code{method = "auto"} implies \code{formula = y ~ x} when there are fewer than 1,000
+observations and \code{formula = y ~ s(x, bs = "cs")} otherwise.}
 
 \item{se}{Display confidence interval around smooth? (\code{TRUE} by default, see
 \code{level} to control.)}

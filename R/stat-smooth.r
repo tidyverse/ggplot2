@@ -13,7 +13,9 @@
 #'   model that `method = "auto"` would use, then set
 #'   `method = "gam", formula = y ~ s(x, bs = "cs")`.
 #' @param formula Formula to use in smoothing function, eg. `y ~ x`,
-#'   `y ~ poly(x, 2)`, `y ~ log(x)`
+#'   `y ~ poly(x, 2)`, `y ~ log(x)`. `NULL` by default, in which case
+#'   `method = "auto"` implies `formula = y ~ x` when there are fewer than 1,000
+#'   observations and `formula = y ~ s(x, bs = "cs")` otherwise.
 #' @param se Display confidence interval around smooth? (`TRUE` by default, see
 #'   `level` to control.)
 #' @param fullrange Should the fit span the full range of the plot, or just
@@ -38,7 +40,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
                         geom = "smooth", position = "identity",
                         ...,
                         method = "auto",
-                        formula = y ~ x,
+                        formula = NULL,
                         se = TRUE,
                         n = 80,
                         span = 0.75,
@@ -86,9 +88,10 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
       if (max_group < 1000) {
         params$method <- "loess"
+        params$formula <- params$formula %||% (y ~ x)
       } else {
         params$method <- "gam"
-        params$formula <- y ~ s(x, bs = "cs")
+        params$formula <- params$formula %||% (y ~ s(x, bs = "cs"))
       }
       message("`geom_smooth()` using method = '", params$method,
               "' and formula '", deparse(params$formula), "'")
@@ -100,7 +103,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     params
   },
 
-  compute_group = function(data, scales, method = "auto", formula = y~x,
+  compute_group = function(data, scales, method = "auto", formula = NULL,
                            se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
                            xseq = NULL, level = 0.95, method.args = list(),
                            na.rm = FALSE) {
