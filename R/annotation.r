@@ -48,8 +48,8 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
   lengths <- vapply(aesthetics, length, integer(1))
   n <- unique(setdiff(lengths, 1L))
   if (length(n) == 0L) n <- 1L # if all lengths are equal to 1L then above line fails, this fixes that
-  unequal <- length(n) > 1L
-  if (unequal) {
+
+  if (length(n) > 1L) {
     bad <- lengths != 1L
     details <- paste(names(aesthetics)[bad], " (", lengths[bad], ")",
       sep = "", collapse = ", ")
