@@ -4,7 +4,7 @@ new_data_frame <- function(x = list(), n = NULL) {
   if (length(x) != 0 && is.null(names(x))) stop("Elements must be named", call. = FALSE)
   lengths <- vapply(x, length, integer(1))
   if (is.null(n)) {
-    n <- if (length(x) == 0) 0 else max(lengths)
+    n <- if (length(x) == 0 || min(lengths) == 0) 0 else max(lengths)
   }
   for (i in seq_along(x)) {
     if (lengths[i] == n) next
@@ -32,7 +32,7 @@ split_matrix <- function(x, col_names = colnames(x)) {
   if (!is.null(col_names)) names(x) <- col_names
   x
 }
-              
+
 mat_2_df <- function(x, col_names = colnames(x)) {
   new_data_frame(split_matrix(x, col_names))
 }
