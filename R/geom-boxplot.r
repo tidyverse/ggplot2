@@ -200,6 +200,14 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
                         outlier.alpha = NULL,
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
 
+    # this may occur when using geom_boxplot(stat = "identity")
+    if (nrow(data) != 1) {
+      stop(
+        "Can't draw more than one boxplot per group. Did you forget aes(group=...)?",
+        call. = FALSE
+      )
+    }
+
     common <- list(
       colour = data$colour,
       size = data$size,
