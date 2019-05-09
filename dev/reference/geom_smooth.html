@@ -220,7 +220,7 @@ to the paired geom/stat.</p></td>
       <th>method</th>
       <td><p>Smoothing method (function) to use, accepts either a character vector,
 e.g. <code>"auto"</code>, <code>"lm"</code>, <code>"glm"</code>, <code>"gam"</code>, <code>"loess"</code> or a function, e.g.
-<code><a href='https://www.rdocumentation.org/packages/MASS/topics/rlm'>MASS::rlm</a></code> or <code><a href='https://www.rdocumentation.org/packages/mgcv/topics/gam'>mgcv::gam</a></code>, <code>base::lm</code>, or <code>base::loess</code>.</p>
+<code><a href='https://www.rdocumentation.org/packages/MASS/topics/rlm'>MASS::rlm</a></code> or <code><a href='https://www.rdocumentation.org/packages/mgcv/topics/gam'>mgcv::gam</a></code>, <code><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>stats::lm</a></code>, or <code><a href='https://www.rdocumentation.org/packages/stats/topics/loess'>stats::loess</a></code>.</p>
 <p>For <code>method = "auto"</code> the smoothing method is chosen based on the
 size of the largest group (across all panels). <code><a href='https://www.rdocumentation.org/packages/stats/topics/loess'>loess()</a></code> is
 used for less than 1,000 observations; otherwise <code><a href='https://www.rdocumentation.org/packages/mgcv/topics/gam'>mgcv::gam()</a></code> is
