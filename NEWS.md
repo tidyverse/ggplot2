@@ -7,6 +7,12 @@ extension developers if they have relied on internals that have been changed.
 This release also sees the addition of Hiroaki Yutani (@yutannihilation) to the 
 core developer team.
 
+Two patches (#2996 and #3050) fixed minor rendering problems. In most cases, the
+visual changes are so subtle that they are difficult to see with the naked eye.
+However, these changes are detected by the vdiffr package, and therefore any
+package developers who use vdiffr to test for visual correctness of ggplot2 plots
+will have to regenerate all reference images.
+
 ## New features
 
 * This release includes a range of internal changes that speeds up plot 
