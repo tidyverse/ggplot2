@@ -17,8 +17,10 @@ core developer team.
   
 * In some cases, ggplot2 now produces a warning or an error for code that previously
   produced plot output. In all these cases, the previous plot output was accidental,
-  and the plotting code uses the ggplot2 API in a way that leads to undefined
-  behavior.
+  and the plotting code uses the ggplot2 API in a way that would lead to undefined
+  behavior. Examples include a missing `group` aesthetic in `geom_boxplot()` (#3316),
+  annotations across multiple facets (#3305), and not using aesthetic mappings when
+  drawing ribbons with `geom_ribbon()` (#3318).
 
 ## New features
 
