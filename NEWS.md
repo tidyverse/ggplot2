@@ -7,11 +7,18 @@ extension developers if they have relied on internals that have been changed.
 This release also sees the addition of Hiroaki Yutani (@yutannihilation) to the 
 core developer team.
 
-Two patches (#2996 and #3050) fixed minor rendering problems. In most cases, the
-visual changes are so subtle that they are difficult to see with the naked eye.
-However, these changes are detected by the vdiffr package, and therefore any
-package developers who use vdiffr to test for visual correctness of ggplot2 plots
-will have to regenerate all reference images.
+## Breaking changes
+
+* Two patches (#2996 and #3050) fixed minor rendering problems. In most cases,
+  the visual changes are so subtle that they are difficult to see with the naked
+  eye. However, these changes are detected by the vdiffr package, and therefore
+  any package developers who use vdiffr to test for visual correctness of ggplot2
+  plots will have to regenerate all reference images.
+  
+* In some cases, ggplot2 now produces a warning or an error for code that previously
+  produced plot output. In all these cases, the previous plot output was accidental,
+  and the plotting code uses the ggplot2 API in a way that leads to undefined
+  behavior.
 
 ## New features
 
