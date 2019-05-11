@@ -160,6 +160,14 @@
 <a href="#ggplot2-3-1-1-9000" class="anchor"></a>ggplot2 3.1.1.9000<small> Unreleased </small>
 </h1>
 <p>This is a minor release with an emphasis on internal changes to make ggplot2 faster and more consistent. The few interface changes will only affect the aesthetics of the plot in minor ways, and will only potentially break code of extension developers if they have relied on internals that have been changed. This release also sees the addition of Hiroaki Yutani (<a href='https://github.com/yutannihilation'>@yutannihilation</a>) to the core developer team.</p>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<ul>
+<li><p>Two patches (<a href='https://github.com/tidyverse/ggplot2/issues/2996'>#2996</a> and <a href='https://github.com/tidyverse/ggplot2/issues/3050'>#3050</a>) fixed minor rendering problems. In most cases, the visual changes are so subtle that they are difficult to see with the naked eye. However, these changes are detected by the vdiffr package, and therefore any package developers who use vdiffr to test for visual correctness of ggplot2 plots will have to regenerate all reference images.</p></li>
+<li><p>In some cases, ggplot2 now produces a warning or an error for code that previously produced plot output. In all these cases, the previous plot output was accidental, and the plotting code uses the ggplot2 API in a way that would lead to undefined behavior. Examples include a missing <code>group</code> aesthetic in <code><a href="../reference/geom_boxplot.html">geom_boxplot()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/3316'>#3316</a>), annotations across multiple facets (<a href='https://github.com/tidyverse/ggplot2/issues/3305'>#3305</a>), and not using aesthetic mappings when drawing ribbons with <code><a href="../reference/geom_ribbon.html">geom_ribbon()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/3318'>#3318</a>).</p></li>
+</ul>
+</div>
 <div id="new-features" class="section level2">
 <h2 class="hasAnchor">
 <a href="#new-features" class="anchor"></a>New features</h2>
@@ -244,9 +252,9 @@
 <h1 class="page-header">
 <a href="#ggplot2-3-1-0" class="anchor"></a>ggplot2 3.1.0<small> 2018-10-25 </small>
 </h1>
-<div id="breaking-changes" class="section level2">
+<div id="breaking-changes-1" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
 <p>This is a minor release and breaking changes have been kept to a minimum. End users of ggplot2 are unlikely to encounter any issues. However, there are a few items that developers of ggplot2 extensions should be aware of. For additional details, see also the discussion accompanying issue <a href='https://github.com/tidyverse/ggplot2/issues/2890'>#2890</a>.</p>
 <ul>
 <li><p>In non-user-facing internal code (specifically in the <code><a href="../reference/aes.html">aes()</a></code> function and in the <code>aesthetics</code> argument of scale functions), ggplot2 now always uses the British spelling for aesthetics containing the word “colour”. When users specify a “color” aesthetic it is automatically renamed to “colour”. This renaming is also applied to non-standard aesthetics that contain the word “color”. For example, “point_color” is renamed to “point_colour”. This convention makes it easier to support both British and American spelling for novel, non-standard aesthetics, but it may require some adjustment for packages that have previously introduced non-standard color aesthetics using American spelling. A new function <code><a href="../reference/standardise_aes_names.html">standardise_aes_names()</a></code> is provided in case extension writers need to perform this renaming in their own code (<a href='https://github.com/clauswilke'>@clauswilke</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2649'>#2649</a>).</p></li>
@@ -293,9 +301,9 @@
 <h1 class="page-header">
 <a href="#ggplot2-3-0-0" class="anchor"></a>ggplot2 3.0.0<small> 2018-07-03 </small>
 </h1>
-<div id="breaking-changes-1" class="section level2">
+<div id="breaking-changes-2" class="section level2">
 <h2 class="hasAnchor">
-<a href="#breaking-changes-1" class="anchor"></a>Breaking changes</h2>
+<a href="#breaking-changes-2" class="anchor"></a>Breaking changes</h2>
 <ul>
 <li>
 <p>ggplot2 now supports/uses tidy evaluation (as described below). This is a major change and breaks a number of packages; we made this breaking change because it is important to make ggplot2 more programmable, and to be more consistent with the rest of the tidyverse. The best general (and detailed) introduction to tidy evaluation can be found in the meta programming chapters in <a href="https://adv-r.hadley.nz">Advanced R</a>.</p>
