@@ -292,12 +292,16 @@ rbind_dfs <- function(dfs) {
     allocated[new_columns] <- TRUE
     if (all(allocated)) break
   }
+  is_date <- lapply(out, inherits, 'Date')
   pos <- c(cumsum(nrows) - nrows + 1)
   for (i in seq_along(dfs)) {
     df <- dfs[[i]]
     rng <- seq(pos[i], length.out = nrows[i])
     for (col in names(df)) {
-      if (inherits(df[[col]], 'factor')) {
+      date_col <- inherits(df[[col]], 'Date')
+      if (is_date[[col]] && !date_col) {
+        out[[col]][rng] <- as.Date(unclass(df[[col]]), origin = date_origin)
+      } else if (date_col || inherits(df[[col]], 'factor')) {
         out[[col]][rng] <- as.character(df[[col]])
       } else {
         out[[col]][rng] <- df[[col]]
@@ -310,6 +314,7 @@ rbind_dfs <- function(dfs) {
   attributes(out) <- list(class = "data.frame", names = names(out), row.names = .set_row_names(total))
   out
 }
+date_origin <- Sys.Date() - unclass(Sys.Date())
 #' Apply function to unique subsets of a data.frame
 #'
 #' This function is akin to `plyr::ddply`. It takes a single data.frame,
@@ -333,6 +338,7 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
   grouping_cols <- .subset(df, by)
   ids <- id(grouping_cols, drop = drop)
   group_rows <- split(seq_len(nrow(df)), ids)
+  fallback_order <- unique(c(by, names(df)))
   rbind_dfs(lapply(seq_along(group_rows), function(i) {
     cur_data <- df_rows(df, group_rows[[i]])
     res <- fun(cur_data, ...)
@@ -341,6 +347,8 @@ dapply <- function(df, by, fun, ..., drop = TRUE) {
     vars <- lapply(setNames(by, by), function(col) .subset2(cur_data, col)[1])
     if (is.matrix(res)) res <- split_matrix(res)
     if (is.null(names(res))) names(res) <- paste0("V", seq_along(res))
-    new_data_frame(modify_list(unclass(vars), unclass(res)))
+    if (all(by %in% names(res))) return(new_data_frame(unclass(res)))
+    res <- modify_list(unclass(vars), unclass(res))
+    new_data_frame(res[intersect(c(fallback_order, names(res)), names(res))])
   }))
 }
