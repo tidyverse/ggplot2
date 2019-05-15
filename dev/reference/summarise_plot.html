@@ -227,15 +227,15 @@ contains information about aesthetic mapping for each layer.</p>
 <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot_build.html'>ggplot_build</a></span>(<span class='no'>p</span>)
 
 <span class='fu'>summarise_layout</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; # A tibble: 7 x 10
-#&gt;   panel   row   col vars     xmin  xmax  ymin  ymax xscale         yscale       
-#&gt;   &lt;fct&gt; &lt;int&gt; &lt;int&gt; &lt;list&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;         &lt;list&gt;       
-#&gt; 1 1         1     1 &lt;list …  1.33  7.27  10.4  45.6 &lt;S3: ScaleCon… &lt;S3: ScaleCo…
-#&gt; 2 2         1     2 &lt;list …  1.33  7.27  10.4  45.6 &lt;S3: ScaleCon… &lt;S3: ScaleCo…
-#&gt; 3 3         1     3 &lt;list …  1.33  7.27  10.4  45.6 &lt;S3: ScaleCon… &lt;S3: ScaleCo…
-#&gt; 4 4         2     1 &lt;list …  1.33  7.27  10.4  45.6 &lt;S3: ScaleCon… &lt;S3: ScaleCo…
-#&gt; 5 5         2     2 &lt;list …  1.33  7.27  10.4  45.6 &lt;S3: ScaleCon… &lt;S3: ScaleCo…
-#&gt; 6 6         2     3 &lt;list …  1.33  7.27  10.4  45.6 &lt;S3: ScaleCon… &lt;S3: ScaleCo…
-#&gt; 7 7         3     1 &lt;list …  1.33  7.27  10.4  45.6 &lt;S3: ScaleCon… &lt;S3: ScaleCo…</div><div class='input'><span class='fu'>summarise_coord</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; $xlog
+#&gt;   panel   row   col vars        xmin  xmax  ymin  ymax xscale     yscale    
+#&gt;   &lt;fct&gt; &lt;int&gt; &lt;int&gt; &lt;list&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;     &lt;list&gt;    
+#&gt; 1 1         1     1 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
+#&gt; 2 2         1     2 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
+#&gt; 3 3         1     3 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
+#&gt; 4 4         2     1 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
+#&gt; 5 5         2     2 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
+#&gt; 6 6         2     3 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
+#&gt; 7 7         3     1 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;</div><div class='input'><span class='fu'>summarise_coord</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; $xlog
 #&gt; [1] NA
 #&gt; 
 #&gt; $ylog
