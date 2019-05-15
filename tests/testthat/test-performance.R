@@ -1,7 +1,6 @@
 context("Performance related alternatives")
 
-# ********************
-# modify_list()
+# modify_list() -----------------------------------------------------------
 
 testlist <- list(
   a = 5.5,
@@ -37,8 +36,7 @@ test_that("modify_list erases null elements", {
 })
 
 
-# ********************
-# new_data_frame()
+# new_data_frame() --------------------------------------------------------
 
 test_that("new_data_frame handles zero-length inputs", {
   # zero-length input creates zero-length data frame

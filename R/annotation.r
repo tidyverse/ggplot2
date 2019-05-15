@@ -46,8 +46,13 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
 
   # Check that all aesthetic have compatible lengths
   lengths <- vapply(aesthetics, length, integer(1))
-  n <- unique(setdiff(lengths, 1L))
-  if (length(n) == 0L) n <- 1L # if all lengths are equal to 1L then above line fails, this fixes that
+
+  # To determine the final number of rows `n` in the data frame,
+  # we need to find the unique lengths not equal to 1L (and there
+  # should be at most one such length). However, if all lengths
+  # are equal to 1L, then the final number of rows is also 1L.
+  n <- unique(setdiff(lengths, 1L)) # unique lengths except 1L
+  if (length(n) == 0L) n <- 1L # all lengths are equal to 1L
 
   if (length(n) > 1L) {
     bad <- lengths != 1L
