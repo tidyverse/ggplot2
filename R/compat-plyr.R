@@ -293,15 +293,25 @@ rbind_dfs <- function(dfs) {
     if (all(allocated)) break
   }
   is_date <- lapply(out, inherits, 'Date')
+  is_time <- lapply(out, inherits, 'POSIXct')
   pos <- c(cumsum(nrows) - nrows + 1)
   for (i in seq_along(dfs)) {
     df <- dfs[[i]]
     rng <- seq(pos[i], length.out = nrows[i])
     for (col in names(df)) {
       date_col <- inherits(df[[col]], 'Date')
+      time_col <- inherits(df[[col]], 'POSIXct')
       if (is_date[[col]] && !date_col) {
-        out[[col]][rng] <- as.Date(unclass(df[[col]]), origin = date_origin)
-      } else if (date_col || inherits(df[[col]], 'factor')) {
+        out[[col]][rng] <- as.Date(
+          unclass(df[[col]]),
+          origin = ggplot_global$date_origin
+        )
+      } else if (is_time[[col]] && !time_col) {
+        out[[col]][rng] <- as.POSIXct(
+          unclass(df[[col]]),
+          origin = ggplot_global$time_origin
+        )
+      } else if (date_col || time_col || inherits(df[[col]], 'factor')) {
         out[[col]][rng] <- as.character(df[[col]])
       } else {
         out[[col]][rng] <- df[[col]]
@@ -311,10 +321,13 @@ rbind_dfs <- function(dfs) {
   for (col in names(col_levels)) {
     out[[col]] <- factor(out[[col]], levels = col_levels[[col]])
   }
-  attributes(out) <- list(class = "data.frame", names = names(out), row.names = .set_row_names(total))
+  attributes(out) <- list(
+    class = "data.frame",
+    names = names(out),
+    row.names = .set_row_names(total)
+  )
   out
 }
-date_origin <- Sys.Date() - unclass(Sys.Date())
 #' Apply function to unique subsets of a data.frame
 #'
 #' This function is akin to `plyr::ddply`. It takes a single data.frame,
