@@ -10,6 +10,21 @@ core developer team.
 With the release of R 3.6, ggplot2 now requires the R version to be at least 3.2,
 as the tidyverse is committed to support 5 major versions of R.
 
+## Breaking changes
+
+* Two patches (#2996 and #3050) fixed minor rendering problems. In most cases,
+  the visual changes are so subtle that they are difficult to see with the naked
+  eye. However, these changes are detected by the vdiffr package, and therefore
+  any package developers who use vdiffr to test for visual correctness of ggplot2
+  plots will have to regenerate all reference images.
+  
+* In some cases, ggplot2 now produces a warning or an error for code that previously
+  produced plot output. In all these cases, the previous plot output was accidental,
+  and the plotting code uses the ggplot2 API in a way that would lead to undefined
+  behavior. Examples include a missing `group` aesthetic in `geom_boxplot()` (#3316),
+  annotations across multiple facets (#3305), and not using aesthetic mappings when
+  drawing ribbons with `geom_ribbon()` (#3318).
+
 ## New features
 
 * This release includes a range of internal changes that speeds up plot 

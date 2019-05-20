@@ -47,6 +47,16 @@ test_that("boxes with variable widths do not overlap", {
   expect_false(any(duplicated(xid)))
 })
 
+test_that("boxplots with a group size >1 error", {
+  p <- ggplot(
+    data_frame(x = "one value", y = 3, value = 4:6),
+    aes(x, ymin = 0, lower = 1, middle = y, upper = value, ymax = 10)
+  ) +
+    geom_boxplot(stat = "identity")
+
+  expect_equal(nrow(layer_data(p, 1)), 3)
+  expect_error(layer_grob(p, 1), "Can't draw more than one boxplot")
+})
 
 # Visual tests ------------------------------------------------------------
 
