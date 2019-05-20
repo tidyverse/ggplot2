@@ -23,6 +23,12 @@
 
   ggplot_global$theme_current <- theme_gray()
 
+  # Used by rbind_dfs
+  date <- Sys.Date()
+  ggplot_global$date_origin <- date - unclass(date)
+  time <- Sys.time()
+  ggplot_global$time_origin <- time - unclass(time)
+
   # To avoid namespace clash with dplyr.
   # It seems surprising that this hack works
   if (requireNamespace("dplyr", quietly = TRUE)) {
