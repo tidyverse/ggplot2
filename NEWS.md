@@ -1,3 +1,12 @@
+# ggplot2 3.2.0.9000
+
+## Minor improvements and bug fixes
+
+* `geom_abline()`, `geom_hline()`, and `geom_vline()` now issue 
+  more informative warnings when supplied with set aesthetics
+  (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
+  and mapped aesthetics (i.e., `data` and/or `mapping`).
+
 # ggplot2 3.1.1.9000
 
 This is a minor release with an emphasis on internal changes to make ggplot2 
