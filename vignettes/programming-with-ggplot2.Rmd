@@ -17,26 +17,21 @@ For the programming bit, there is already several quite good articles: https://r
 Need a good continuing example:
 
 ```{r}
-ggplot(mpg, aes(x = factor(1), fill = class)) +
-  geom_bar() +
-  geom_text(aes(label = stat(count)), stat = "count", position = position_stack(vjust = 0.5)) +
-  coord_polar("y", start = 0) +
-  labs(x = NULL, y = NULL)
+ggplot(mpg) + 
+  geom_bar(aes(x = class)) + 
+  coord_flip()
 ```
 
 ## Making a plot function
 
 ```{r}
-pie_summary <- function(data, column) {
-  ggplot(data, aes(x = factor(1), fill = !!enquo(column))) +
-    geom_bar() +
-    geom_text(aes(label = stat(count)), stat = "count", position = position_stack(vjust = 0.5)) +
-    coord_polar("y", start = 0) +
-    labs(x = NULL, y = NULL)
+col_summary <- function(data, col) {
+  ggplot(mpg) + 
+    geom_bar(aes(x = !!enquo(col))) + 
+    coord_flip()
 }
 
-pie_summary(mpg, class)
-pie_summary(mpg, toupper(class))
+col_summary(mpg, class)
 ```
 
 ### Creating a theme function
@@ -48,18 +43,17 @@ Call it `theme_*()`.
 Examples: __cowplot__, __ggthemes__
 
 ```{r}
-theme_pie_summary <- function(...) {
+theme_col_summary <- function(...) {
   theme_grey(...) %+replace% 
     theme(
+      panel.border = element_rect(size = 1, fill = NA),
       panel.background = element_blank(),
-      axis.text = element_blank(),
-      axis.ticks = element_blank(),
-      panel.grid = element_blank()
+      panel.grid = element_line(colour = "grey80")
     )
 }
 
-pie_summary(mpg, class) + 
-  theme_pie_summary()
+col_summary(mpg, class) + 
+  theme_col_summary()
 ```
 
 ## Using ggplot2 within a package
@@ -68,38 +62,27 @@ Programming with __ggplot2__ within a package adds several constraints, particul
 
 ### Refering to ggplot2 within package functions
 
-import them into the `NAMESPACE` (e.g., by adding `#' @importFrom ggplot2 ggplot` to any roxygen documentation block) or using `::` (e.g., `ggplot2::ggplot()`)  Note that if you import anything from __ggplot2__, you'll have to include it in Imports rather than Suggests. 
+import them into the `NAMESPACE` (e.g., by adding `#' @importFrom ggplot2 ggplot` to any roxygen documentation block)  Note that if you import anything from __ggplot2__, you'll have to include it in Imports rather than Suggests. 
 
 ```{r}
-#' @importFrom ggplot2 ggplot aes geom_bar geom_text stat position_stack coord_polar labs
+#' @importFrom ggplot2 ggplot aes geom_bar coord_flip
 #' @importFrom rlang !! enquo
-pie_summary <- function(data, column) {
-  ggplot(data, aes(x = factor(1), fill = !!enquo(column))) +
-    geom_bar() +
-    geom_text(
-      aes(label = stat(count)),
-      stat = "count",
-      position = position_stack(vjust = 0.5)
-    ) +
-    coord_polar("y", start = 0) +
-    labs(x = NULL, y = NULL)
+col_summary <- function(data, col) {
+  ggplot(mpg) + 
+    geom_bar(aes(x = !!enquo(col))) + 
+    coord_flip()
 }
 ```
 
+or using `::` (e.g., `ggplot2::ggplot()`). Note that `!!` and infix operators (e.g., `%+replace%`) must be imported or assigned, as R does not provide a way to qualify these operators.
+
 ```{r}
 `!!` <- rlang::`!!`
-stat <- ggplot2::stat
 
-pie_summary <- function(data, column) {
-  ggplot2::ggplot(data, ggplot2::aes(x = factor(1), fill = !!rlang::enquo(column))) +
-    ggplot2::geom_bar() +
-    ggplot2::geom_text(
-      ggplot2::aes(label = stat(count)), 
-      stat = "count", 
-      position = ggplot2::position_stack(vjust = 0.5)
-    ) +
-    ggplot2::coord_polar("y", start = 0) +
-    ggplot2::labs(x = NULL, y = NULL)
+col_summary <- function(data, col) {
+  ggplot2::ggplot(mpg) + 
+    ggplot2::geom_bar(ggplot2::aes(x = !!rlang::enquo(col))) + 
+    ggplot2::coord_flip()
 }
 ```
 
@@ -124,19 +107,13 @@ If the user specifies a specific part of the mapping (like the variable from a d
 
 ```{r}
 #' @importFrom rlang !! sym
-pie_summary <- function(data, column) {
-  ggplot(data, aes(x = factor(1), fill = !!sym(column))) +
-    geom_bar() +
-    geom_text(
-      aes(label = stat(count)), 
-      stat = "count", 
-      position = position_stack(vjust = 0.5)
-    ) +
-    coord_polar("y", start = 0) +
-    labs(x = NULL, y = NULL)
+col_summary <- function(data, col) {
+  ggplot(mpg) + 
+    geom_bar(aes(x = !!sym(col))) + 
+    coord_flip()
 }
 
-pie_summary(mpg, "class")
+col_summary(mpg, "class")
 ```
 
 
@@ -144,17 +121,13 @@ To use the same kind of non-standard evaluation that `aes()` uses, use `enquo()`
 
 ```{r}
 #' @importFrom rlang !! enquo
-pie_summary <- function(data, column) {
-  ggplot(data, aes(x = factor(1), fill = !!enquo(column))) +
-    geom_bar() +
-    geom_text(
-      aes(label = stat(count)), 
-      stat = "count", 
-      position = position_stack(vjust = 0.5)
-    ) +
-    coord_polar("y", start = 0) +
-    labs(x = NULL, y = NULL)
+col_summary <- function(data, col) {
+  ggplot(mpg) + 
+    geom_bar(aes(x = !!enquo(col))) + 
+    coord_flip()
 }
+
+col_summary(mpg, class)
 ```
 
 ### Making a good plot function
