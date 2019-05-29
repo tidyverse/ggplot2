@@ -19,31 +19,32 @@ This vignette is intended for package developers who use __ggplot2__ functions w
 As with any function from another package, you will have to list __ggplot2__ in your `DESCRIPTION` under `Imports` or `Suggests` and refer to its functions using `::` (e.g., `ggplot2::function_name`).
 
 ```{r}
-plot_mpg_classes <- function() {
+mpg_drv_summary <- function() {
   ggplot2::ggplot(ggplot2::mpg) + 
-    ggplot2::geom_bar(ggplot2::aes(x = .data$class)) + 
+    ggplot2::geom_bar(ggplot2::aes(x = .data$drv)) + 
     ggplot2::coord_flip()
 }
 ```
 
 ```{r, include=FALSE}
-plot_mpg_classes()
+# make sure this function runs!
+mpg_drv_summary()
 ```
-
 
 If you use __ggplot2__ functions frequently, you may wish to import one or more functions from __ggplot2__ into your `NAMESPACE`. If you use __roxygen2__, you can include `#' @importFrom ggplot2 <one or more function names>`. in any roxygen comment block (this will not work for datasets). If you do this, you will need to put __ggplot2__ in your `Imports` rather than your `Suggests`.
 
 ```{r}
 #' @importFrom ggplot2 ggplot aes geom_bar coord_flip
-plot_mpg_classes <- function() {
+mpg_drv_summary <- function() {
   ggplot(ggplot2::mpg) + 
-    geom_bar(aes(x = .data$class)) + 
+    geom_bar(aes(x = drv)) + 
     coord_flip()
 }
 ```
 
 ```{r, include=FALSE}
-plot_mpg_classes()
+# make sure this function runs!
+mpg_drv_summary()
 ```
 
 If you use infix operators from __ggplot2__ like `%+replace%` and you want to keep __ggplot2__ in `Suggests`, you can assign the operator within the function before it is used.
@@ -57,7 +58,8 @@ theme_custom <- function(...) {
 ```
 
 ```{r, include=FALSE}
-plot_mpg_classes() + theme_custom()
+# make sure this function runs!
+mpg_drv_summary() + theme_custom()
 ```
 
 If you have __ggplot2__ in your `Imports` anyway, it is much easier to import the infix into your namespace.
@@ -71,89 +73,73 @@ theme_custom <- function(...) {
 ```
 
 ```{r, include=FALSE}
-plot_mpg_classes() + theme_custom()
+mpg_drv_summary() + theme_custom()
 ```
 
-Even if you use many __ggplot2__ functions in your package, it is unwise to use __ggplot2__ in `Depends` or import the entire package into your `NAMESPACE`. Using __ggplot2__ in `Depends` will attach __ggplot2__ when your package is attached, which includes when your package is tested. This makes it difficult to ensure that others can use the functions in your package without attaching it (i.e., using `::`). Similarly, importing all 450 of __ggplot2__'s exported objects into your namespace makes it difficult to separate the responsibility of your package and the responsibility of __ggplot2__, in addition to making it difficult for readers of your code to figure out where the functions are coming from!
+Even if you use many __ggplot2__ functions in your package, it is unwise to use __ggplot2__ in `Depends` or import the entire package into your `NAMESPACE`. Using __ggplot2__ in `Depends` will attach __ggplot2__ when your package is attached, which includes when your package is tested. This makes it difficult to ensure that others can use the functions in your package without attaching it (i.e., using `::`). Similarly, importing all 450 of __ggplot2__'s exported objects into your namespace makes it difficult to separate the responsibility of your package and the responsibility of __ggplot2__, in addition to making it difficult for readers of your code to figure out where functions are coming from!
 
 ## Using aes() and vars() in a package function
 
-Examples: __ggdag__ uses `utils::globalVariables()`: https://github.com/malcolmbarrett/ggdag/blob/424bcb35126a7b7c0ec76429c0306dcaba38b764/R/utils.R#L2-L51
+To create any graphic using __ggplot2__ you will probably need to use `aes()` at least once. If your graphic uses facets, you might be using `vars()` or formula notation to refer to columns in the data. Both of these functions use non-standard evaluation, so if you try to use them in a function within a package they will result in a CMD check note:
 
-To create any graphic using __ggplot2__ you will probably need to use `aes()` at least once. If your graphic uses facets, you will need to use `vars()`. Both of these functions are intended to refer to variables that exist in the data, so the CMD check will give you a warning if you try to use either inside a function. 
+```{r}
+mpg_drv_summary <- function() {
+  ggplot(mpg) + 
+    geom_bar(aes(x = drv)) + 
+    coord_flip()
+}
+```
 
-There are two situations in which you might use these. The first is when you already know the mapping in advance. In this case, you should use the `.data` pronoun from __rlang__:
+```
+N  checking R code for possible problems (2.7s)
+   mpg_drv_summary: no visible binding for global variable ‘drv’
+   Undefined global functions or variables:
+     drv
+```
+
+If you already know the mapping in advance (like the above example) you should use the `.data` pronoun from __rlang__:
 
 ```{r}
 #' @importFrom rlang .data
-residual_histogram <- function(fit) {
-  plot_data <- data.frame(residual = stats::resid(fit))
-  ggplot(plot_data, aes(x = .data$residual)) + geom_histogram()
+mpg_drv_summary <- function() {
+  ggplot(mpg) + 
+    geom_bar(aes(x = .data$drv)) + 
+    coord_flip()
 }
-
-test_fit <- lm(hwy ~ cty, data = mpg)
-residual_histogram(test_fit)
 ```
 
-If the user specifies a specific part of the mapping (like the variable from a data frame), you can either have this specified as a column name (e.g., `column = "class"`) or using the same kind of non-standard evaluation used by `aes()` and `vars()` (e.g., `column = class`). In the first case, use `rlang::sym()` to create an unevaluated expression with the name, then use `!!` to evaluate it within `aes()`.
+If the user specifies a part of the mapping, you can either have this specified as a column name (e.g., `col = "drv"`) or using the same kind of non-standard evaluation used by `aes()` and `vars()` (e.g., `col = drv`). In the first case, use `.data[[col]]`:
 
 ```{r}
-#' @importFrom rlang !! sym
+#' @importFrom rlang .data
 col_summary <- function(data, col) {
   ggplot(mpg) + 
-    geom_bar(aes(x = !!sym(col))) + 
+    geom_bar(aes(x = .data[[col]])) + 
     coord_flip()
 }
 
-col_summary(mpg, "class")
+col_summary(mpg, "drv")
 ```
 
+To use the same kind of non-standard evaluation that `aes()` uses, use `{{ col }}` to pass the unevaluated expression the user typed in `col` to `aes()`.
 
-To use the same kind of non-standard evaluation that `aes()` uses, use `enquo()` to capture the user input, and `!!` pass the (unevaluated) user input in to `aes()`:
+<!-- this uses development rlang, which is not yet released -->
 
-```{r}
-#' @importFrom rlang !! enquo
+```{r, eval=FALSE}
 col_summary <- function(data, col) {
   ggplot(mpg) + 
-    geom_bar(aes(x = !!enquo(col))) + 
+    geom_bar(aes(x = {{ col }})) + 
     coord_flip()
 }
 
-col_summary(mpg, class)
+col_summary(mpg, drv)
 ```
 
-https://www.tidyverse.org/articles/2018/07/ggplot2-tidy-evaluation/
+To summarise, if you know the mapping or facet specification in advance, use `aes(.data$col)` or `vars(.data$col)`. If you have the column name as a character scalar, use `aes(.data[[col]]` or `vars(.data[[col]])`. If you would like your function to look and feel like `aes()` and `vars()`, use `aes({{ col }})` or `vars({{ col }})`. 
 
-Please don't:
+You will see a lot of other ways to do this in the wild, but the syntax we use here is the only one we can guarantee will work in the future! In particular, don't use `aes_()` or `aes_string()`, as they are deprecated and may be removed in a future version. Finally, don't skip the step of creating a data frame and a mapping to pass in to `ggplot()` or its layers! You will see other ways of doing this in the wild, but these rely on undocumented behaviour and fail in unexpected ways.
 
-- Use `annotate()` to avoid using `aes()`
-- Use `aes_()` or `aes_string()`: These functions are deprecated and at some point will be removed
-
-## Common tasks + best practices
-
-### Creating a theme function
-
-On themes: It's always good practice to start with an existing theme (e.g. `theme_grey()`) and then `%+replace%` the elements that should be changed. This is the right strategy even if seemingly all elements are replaced.
-
-Call it `theme_*()`.
-
-Examples: __cowplot__, __ggthemes__
-
-```{r}
-theme_col_summary <- function(...) {
-  theme_grey(...) %+replace% 
-    theme(
-      panel.border = element_rect(size = 1, fill = NA),
-      panel.background = element_blank(),
-      panel.grid = element_line(colour = "grey80")
-    )
-}
-
-col_summary(mpg, class) + 
-  theme_col_summary()
-```
-
-- Don't calculate anything during the build phase (like theme defaults). Instead, make a getter and a setter
+## Best practices for common tasks
 
 ### Using ggplot2 to visualize an object
 
@@ -223,6 +209,36 @@ If you don't use __ggplot2__ for your visualizations but would like to implement
 
 Don't implement an S3 generic like `plot()`, or `autoplot()` if you don't have any control over the S3 object (it makes it hard for the package developer who does have control over the S3 to change the underlying data structure).
 
+### Creating a new theme
+
+When creating a new theme, it's always good practice to start with an existing theme (e.g. `theme_grey()`) and then `%+replace%` the elements that should be changed. This is the right strategy even if seemingly all elements are replaced, as not doing so makes it difficult for us to improve themes by adding new elements. There are many excellent examples of themes in the __ggthemes__ package.
+
+```{r}
+#' @importFrom ggplot2 %+replace%
+theme_custom <- function(...) {
+  theme_grey(...) %+replace% 
+    theme(
+      panel.border = element_rect(size = 1, fill = NA),
+      panel.background = element_blank(),
+      panel.grid = element_line(colour = "grey80")
+    )
+}
+
+mpg_drv_summary() + theme_custom()
+```
+
+It is important that the theme be calculated after the package is loaded. If not, the theme object is stored in the compiled bytecode of the built package, which may or may not align with you installed version of __ggplot2__! If your package has a default theme for its visualizations, the correct way to load it is to have a function that returns the default theme:
+
+```{r}
+default_theme <- function() {
+  theme_custom()
+}
+
+mpg_drv_summary2 <- function() {
+  mpg_drv_summary() + default_theme()
+}
+```
+
 ### Testing ggplot2 output
 
 We suggest testing the output of ggplot2 in using the __vdiffr__ package, which is a tool to manage visual test cases (this is how we test __ggplot2__). If changes in __ggplot2__ or your code introduce a change in the visual output of a ggplot, tests will fail when you run them locally or on Travis. These tests do not run on CRAN
@@ -238,15 +254,3 @@ test_that("output of ggplot() is stable", {
 ```
 
 Don't use `expect_reference()`, or test the internal representation of a ggplot object (unless your package created some part of the internal representation).
-
-## Imports or Suggests
-
-In documentation (examples, vignettes) make sure you put __ggplot2__ in `Suggests`.
-
-If your package doesn't really use ggplot2 but would like to provide compatibility for other ggplot2 users, use Suggests (you may have to use some `.onLoad()` tricks to register S3). Can't find a good example with ggplot2, but __sf__ does this for __dplyr__.
-
-If your package uses ggplot2 to visualize the data structures used by your package (e.g., __rstan__)
-
-- Please don't include __ggplot2__ in the Imports when you only use it in your package documentation (i.e., examples and/or vignettes).
-
-- If you include __ggplot2__ in Suggests, you may have to include some other packages, since the dependencies of 
