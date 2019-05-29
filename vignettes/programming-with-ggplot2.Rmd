@@ -8,95 +8,87 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.width = 7, fig.height = 7, fig.align = "center")
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.show = "hide")
 library(ggplot2)
 ```
 
-For the programming bit, there is already several quite good articles: https://rpubs.com/hadley/97970, https://www.tidyverse.org/articles/2018/07/ggplot2-tidy-evaluation/
+This vignette is intended for package developers who use __ggplot2__ functions within their package functions and documentation. As of this writing, this includes over 2,000 packages on CRAN and many more elsewhere! Programming with __ggplot2__ within a package adds several constraints, particularly if you would like to submit the package to CRAN. In particular, programming within an R package changes the way you refer to functions from __ggplot2__ and how you use __ggplot2__'s non-standard evaluation within `aes()` and `vars()`.
 
-Need a good continuing example:
+## Referring to ggplot2 functions
 
-```{r}
-ggplot(mpg) + 
-  geom_bar(aes(x = class)) + 
-  coord_flip()
-```
-
-## Making a plot function
+As with any function from another package, you will have to list __ggplot2__ in your `DESCRIPTION` under `Imports` or `Suggests` and refer to its functions using `::` (e.g., `ggplot2::function_name`).
 
 ```{r}
-col_summary <- function(data, col) {
-  ggplot(mpg) + 
-    geom_bar(aes(x = !!enquo(col))) + 
-    coord_flip()
-}
-
-col_summary(mpg, class)
-```
-
-### Creating a theme function
-
-On themes: It's always good practice to start with an existing theme (e.g. `theme_grey()`) and then `%+replace%` the elements that should be changed. This is the right strategy even if seemingly all elements are replaced.
-
-Call it `theme_*()`.
-
-Examples: __cowplot__, __ggthemes__
-
-```{r}
-theme_col_summary <- function(...) {
-  theme_grey(...) %+replace% 
-    theme(
-      panel.border = element_rect(size = 1, fill = NA),
-      panel.background = element_blank(),
-      panel.grid = element_line(colour = "grey80")
-    )
-}
-
-col_summary(mpg, class) + 
-  theme_col_summary()
-```
-
-## Using ggplot2 within a package
-
-Programming with __ggplot2__ within a package adds several constraints, particularly if you would like to submit the package to CRAN. Functions within packages need to refer to functions in other packages explicitly (e.g., by importing them or using `::`), and be careful about non-standard evaluation (e.g., using `aes()` and `vars()`) to avoied a CMD check warning.
-
-### Refering to ggplot2 within package functions
-
-import them into the `NAMESPACE` (e.g., by adding `#' @importFrom ggplot2 ggplot` to any roxygen documentation block)  Note that if you import anything from __ggplot2__, you'll have to include it in Imports rather than Suggests. 
-
-```{r}
-#' @importFrom ggplot2 ggplot aes geom_bar coord_flip
-#' @importFrom rlang !! enquo
-col_summary <- function(data, col) {
-  ggplot(mpg) + 
-    geom_bar(aes(x = !!enquo(col))) + 
-    coord_flip()
-}
-```
-
-or using `::` (e.g., `ggplot2::ggplot()`). Note that `!!` and infix operators (e.g., `%+replace%`) must be imported or assigned, as R does not provide a way to qualify these operators.
-
-```{r}
-`!!` <- rlang::`!!`
-
-col_summary <- function(data, col) {
-  ggplot2::ggplot(mpg) + 
-    ggplot2::geom_bar(ggplot2::aes(x = !!rlang::enquo(col))) + 
+plot_mpg_classes <- function() {
+  ggplot2::ggplot(ggplot2::mpg) + 
+    ggplot2::geom_bar(ggplot2::aes(x = .data$class)) + 
     ggplot2::coord_flip()
 }
 ```
 
-### Using aes() and vars() in a package function
+```{r, include=FALSE}
+plot_mpg_classes()
+```
 
-To create any graphic using __ggplot2__ you will use `aes()` at least once. If your graphic uses facets, you will need to use `vars()`. Both of these functions are intended to refer to variables that exist in the data, so the CMD check will give you a warning if you try to use either inside a function. 
+
+If you use __ggplot2__ functions frequently, you may wish to import one or more functions from __ggplot2__ into your `NAMESPACE`. If you use __roxygen2__, you can include `#' @importFrom ggplot2 <one or more function names>`. in any roxygen comment block (this will not work for datasets). If you do this, you will need to put __ggplot2__ in your `Imports` rather than your `Suggests`.
+
+```{r}
+#' @importFrom ggplot2 ggplot aes geom_bar coord_flip
+plot_mpg_classes <- function() {
+  ggplot(ggplot2::mpg) + 
+    geom_bar(aes(x = .data$class)) + 
+    coord_flip()
+}
+```
+
+```{r, include=FALSE}
+plot_mpg_classes()
+```
+
+If you use infix operators from __ggplot2__ like `%+replace%` and you want to keep __ggplot2__ in `Suggests`, you can assign the operator within the function before it is used.
+
+```{r}
+theme_custom <- function(...) {
+  `%+replace%` <- ggplot2::`%+replace%`
+  ggplot2::theme_grey(...) %+replace% 
+    ggplot2::theme(panel.background = ggplot2::element_blank())
+}
+```
+
+```{r, include=FALSE}
+plot_mpg_classes() + theme_custom()
+```
+
+If you have __ggplot2__ in your `Imports` anyway, it is much easier to import the infix into your namespace.
+
+```{r}
+#' @importFrom ggplot2 %+replace%
+theme_custom <- function(...) {
+  ggplot2::theme_grey(...) %+replace% 
+    ggplot2::theme(panel.background = ggplot2::element_blank())
+}
+```
+
+```{r, include=FALSE}
+plot_mpg_classes() + theme_custom()
+```
+
+Even if you use many __ggplot2__ functions in your package, it is unwise to use __ggplot2__ in `Depends` or import the entire package into your `NAMESPACE`. Using __ggplot2__ in `Depends` will attach __ggplot2__ when your package is attached, which includes when your package is tested. This makes it difficult to ensure that others can use the functions in your package without attaching it (i.e., using `::`). Similarly, importing all 450 of __ggplot2__'s exported objects into your namespace makes it difficult to separate the responsibility of your package and the responsibility of __ggplot2__, in addition to making it difficult for readers of your code to figure out where the functions are coming from!
+
+## Using aes() and vars() in a package function
+
+Examples: __ggdag__ uses `utils::globalVariables()`: https://github.com/malcolmbarrett/ggdag/blob/424bcb35126a7b7c0ec76429c0306dcaba38b764/R/utils.R#L2-L51
+
+To create any graphic using __ggplot2__ you will probably need to use `aes()` at least once. If your graphic uses facets, you will need to use `vars()`. Both of these functions are intended to refer to variables that exist in the data, so the CMD check will give you a warning if you try to use either inside a function. 
 
 There are two situations in which you might use these. The first is when you already know the mapping in advance. In this case, you should use the `.data` pronoun from __rlang__:
 
 ```{r}
 #' @importFrom rlang .data
-residual_histogram <- function(fit, ...) {
-  plot_data <- data.frame(residual = resid(fit))
-  ggplot(plot_data, aes(x = .data$residual)) + geom_histogram(...)
+residual_histogram <- function(fit) {
+  plot_data <- data.frame(residual = stats::resid(fit))
+  ggplot(plot_data, aes(x = .data$residual)) + geom_histogram()
 }
 
 test_fit <- lm(hwy ~ cty, data = mpg)
@@ -130,34 +122,114 @@ col_summary <- function(data, col) {
 col_summary(mpg, class)
 ```
 
-### Making a good plot function
+https://www.tidyverse.org/articles/2018/07/ggplot2-tidy-evaluation/
 
-Automatically generated plots usually require some kind of modification, so it's worth thinking about the limitations of your function.
+Please don't:
 
-- Have a separate function that transforms your object into one or more data frames. This lets users make their own plots. Good example is __ggdendro__, which creates dendrograms using __ggplot2__ but also computes the data necessary for users to make their own. For objects that can be converted into a single data frame, implementing the `ggplot2::fortify()` generic is a good way to do this (see `fortify.SpatialPolygonsDataFrame()`).
+- Use `annotate()` to avoid using `aes()`
+- Use `aes_()` or `aes_string()`: These functions are deprecated and at some point will be removed
 
-- `plot()` vs. `autoplot()`: make sure `plot()` methods `print()` their output:
+## Common tasks + best practices
 
-```r
-make_a_ggplot <- function(object, ...) {
-  ggplot(object) + ...
+### Creating a theme function
+
+On themes: It's always good practice to start with an existing theme (e.g. `theme_grey()`) and then `%+replace%` the elements that should be changed. This is the right strategy even if seemingly all elements are replaced.
+
+Call it `theme_*()`.
+
+Examples: __cowplot__, __ggthemes__
+
+```{r}
+theme_col_summary <- function(...) {
+  theme_grey(...) %+replace% 
+    theme(
+      panel.border = element_rect(size = 1, fill = NA),
+      panel.background = element_blank(),
+      panel.grid = element_line(colour = "grey80")
+    )
 }
 
-plot.my_class <- function(x, ...) {
-  print(make_a_ggplot(x))
+col_summary(mpg, class) + 
+  theme_col_summary()
+```
+
+- Don't calculate anything during the build phase (like theme defaults). Instead, make a getter and a setter
+
+### Using ggplot2 to visualize an object
+
+__ggplot2__ is commomly used in packages to visualize objects (e.g., in a `plot()`-style function).
+
+```{r}
+my_distr <- structure(
+  c(
+    "2seater" = 5 / 234,
+    "compact" = 47 / 234,
+    "midsize" = 41 / 234,
+    "minivan" = 11 / 234,
+    "pickup" = 33 / 234,
+    "subcompact" = 35 / 234,
+    "suv" = 62 / 234
+  ),
+  class = "discrete_distr"
+)
+```
+
+Create a function that transforms the object into one or more data frames. This lets users make their own plots. Good example is __ggdendro__, which creates dendrograms using __ggplot2__ but also computes the data necessary for users to make their own.
+
+```{r}
+discrete_distr_data <- function(x, ...) {
+  data.frame(
+    value = names(x),
+    probability = as.numeric(x),
+    stringsAsFactors = FALSE
+  )
 }
 ```
 
-Using `plot()` may lead to confusion as users may expect the ususal arguments to be implemented (e.g., `xlim`, `ylim`).
+Implement the `autoplot()` method for your object
 
-Don't implement an S3 generic like `plot()`, `fortify()`, or `autoplot()` if you don't have any control over the S3 object (it makes it hard for the package developer who does have control over the S3 to change the underlying data structure).
+```{r}
+#' @importFrom ggplot2 autoplot
+#' @importFrom rlang .data
+autoplot.discrete_distr <- function(object, ...) {
+  plot_data <- discrete_distr_data(object)
+  ggplot(plot_data, aes(.data$value, .data$probability)) +
+    geom_col() +
+    coord_flip() +
+    labs(x = "Value", y = "Probability")
+}
+
+autoplot(my_distr)
+```
+
+- `plot()` vs. `autoplot()`: make sure `plot()` methods `print()` their output:
+
+```{r}
+#' @importFrom graphics plot
+plot.discrete_distr <- function(x, ...) {
+  print(autoplot(x))
+}
+```
+
+If you don't use __ggplot2__ for your visualizations but would like to implement `autoplot()` for users that do, it is possible to register your generics only if __ggplot2__ is installed using `vctrs::s3_register()`.
+
+```{r}
+.onLoad <- function(...) {
+  if (requireNamespace("ggplot2", quietly = TRUE)) {
+    vctrs::s3_register("ggplot2::autoplot", "discrete_distr")
+  }
+}
+```
+
+Don't implement an S3 generic like `plot()`, or `autoplot()` if you don't have any control over the S3 object (it makes it hard for the package developer who does have control over the S3 to change the underlying data structure).
 
 ### Testing ggplot2 output
 
-We suggest testing the output of ggplot2 in using the __vdiffr__ package, which is a tool to manage visual test cases (this is how we test __ggplot2__). If changes in __ggplot2__ or your code introduce a change in the visual output of a ggplot, tests will fail when you run them locally. These tests do not run on CRAN
+We suggest testing the output of ggplot2 in using the __vdiffr__ package, which is a tool to manage visual test cases (this is how we test __ggplot2__). If changes in __ggplot2__ or your code introduce a change in the visual output of a ggplot, tests will fail when you run them locally or on Travis. These tests do not run on CRAN
 
 - Use __testthat__: `usethis::use_testthat()` if you aren't already.
-- Use `expect_doppleganger(<name of plot>, <ggplot objecct>)`
+- Add __vdiffr__ to Suggests in your DESCRIPTION (`usethis::use_package("vdiffr", "Suggests")`).
+- Use `expect_doppleganger(<name of plot>, <ggplot object>)`
 
 ```r
 test_that("output of ggplot() is stable", {
@@ -165,7 +237,9 @@ test_that("output of ggplot() is stable", {
 })
 ```
 
-### Imports or Suggests
+Don't use `expect_reference()`, or test the internal representation of a ggplot object (unless your package created some part of the internal representation).
+
+## Imports or Suggests
 
 In documentation (examples, vignettes) make sure you put __ggplot2__ in `Suggests`.
 
@@ -173,9 +247,6 @@ If your package doesn't really use ggplot2 but would like to provide compatibili
 
 If your package uses ggplot2 to visualize the data structures used by your package (e.g., __rstan__)
 
+- Please don't include __ggplot2__ in the Imports when you only use it in your package documentation (i.e., examples and/or vignettes).
 
-### Please don't do these things
-
-- Use `annotate()` to avoid using `aes()`
-- Use `aes_()` or `aes_string()`: These functions are deprecated and at some point will be removed
-- Incluse __ggplot2__ in the Imports when you only use it in your package documentation (i.e., examples and/or vignettes).
+- If you include __ggplot2__ in Suggests, you may have to include some other packages, since the dependencies of 
