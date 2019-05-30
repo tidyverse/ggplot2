@@ -111,10 +111,10 @@ test_that("aes standardises aesthetic names", {
   expect_warning(aes(color = x, colour = y), "Duplicated aesthetics")
 })
 
-test_that("Improper use of $ is detected by check_aes_extract_usage()", {
+test_that("Improper use of $ and [[ is detected by check_aes_extract_usage()", {
 
   returns_x <- function() "x"
-  df <- tibble::tibble(x = 1:5, nested_df = tibble::tibble(x = 6:10))
+  df <- data_frame(x = 1:5, nested_df = data_frame(x = 6:10))
 
   # valid extraction in aes()
   expect_silent(check_aes_extract_usage(aes(x), df))
@@ -141,12 +141,18 @@ test_that("Improper use of $ is detected by check_aes_extract_usage()", {
   )
 })
 
+test_that("Warnings are issued for improper use of $ and [[ in plots", {
+  df <- data_frame(x = 1:3, y = 3:1)
+  p <- ggplot(df, aes(df$x, df$y)) + geom_point()
+  expect_warning(ggplot_build(p), "Use of `df\\$x` is discouraged")
+})
+
 test_that("Column names are correctly extracted from quosures", {
 
   returns_x <- function() "x"
-  df <- tibble::tibble(x = 1:5, y = 12, nested_df = tibble::tibble(x = 6:10))
+  df <- data_frame(x = 1:5, y = 12, nested_df = data_frame(x = 6:10))
   returns_df <- function() df
-  not_df <- tibble::tibble(x = 1:5)
+  not_df <- data_frame(x = 1:5)
 
   # valid ways to map a column
   expect_setequal(quo_column_refs(quo(x), df), "x")
@@ -177,6 +183,12 @@ test_that("Column names are correctly extracted from quosures", {
   expect_identical(quo_column_refs(quo(not_a_column$x), df), character(0))
   expect_identical(quo_column_refs(quo(not_df$x), df), character(0))
   expect_identical(quo_column_refs(quo(not_a_function()), df), character(0))
+})
+
+test_that("Warnings are issued when zero columns from data are mapped", {
+  df <- data_frame(x = 1:3, y = 3:1)
+  p <- ggplot(df, aes(x, y)) + geom_hline(aes(yintercept = 1.5))
+  expect_warning(ggplot_build(p), "zero mapped columns")
 })
 
 # Visual tests ------------------------------------------------------------

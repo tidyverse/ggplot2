@@ -336,20 +336,32 @@ mapped_aesthetics <- function(x) {
 }
 
 
-check_aes_extract_usage <- function(mapping, data) {
-  lapply(mapping, check_aes_extract_usage_quo, data)
-  invisible(mapping)
+#' Check a mapping for discouraged usage
+#'
+#' @param mapping A mapping created with [aes()]
+#' @param data The data to be mapped from
+#'
+#' @noRd
+check_aes <- function(mapping, data) {
+  check_aes_extract_usage(mapping, data)
+  check_aes_column_refs(mapping, data)
 }
 
+# Checks that $ and [[ are not used when the target *is* the data
+check_aes_extract_usage <- function(mapping, data) {
+  lapply(mapping, check_aes_extract_usage_quo, data)
+}
+
+# Checks that mapping refers to at least one column in data
 check_aes_column_refs <- function(mapping, data) {
+  if (empty(data) || length(mapping) == 0) return()
+
   data_name <- as_label(enquo(data))
   cols_in_mapping <- unlist(lapply(mapping, quo_column_refs, data))
 
   if (length(cols_in_mapping) == 0) {
     warning("Mapping contains zero mapped columns from data", call. = FALSE)
   }
-
-  invisible(mapping)
 }
 
 check_aes_extract_usage_quo <- function(quosure, data) {
@@ -359,7 +371,7 @@ check_aes_extract_usage_quo <- function(quosure, data) {
 #' @importFrom rlang is_call
 check_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
   if (is_call(x, "[[") || is_call(x, "$")) {
-    if(extract_target_is_data(x, data, env)) {
+    if (extract_target_is_data(x, data, env)) {
       good_usage <- check_aes_get_alternative_usage(x)
       warning(
         "Use of `", format(x), "` is discouraged. ",
@@ -372,8 +384,6 @@ check_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
   } else if (is.pairlist(x)) {
     lapply(x, check_aes_extract_usage_expr, data, env)
   }
-
-  invisible()
 }
 
 check_aes_get_alternative_usage <- function(x) {
@@ -405,7 +415,7 @@ expr_column_refs <- function(x, data, env = emptyenv()) {
     }
   } else if (is_call(x, "$") && extract_target_is_quo_data(x, data, env)) {
     as.character(x[[3]])
-  } else if(is_call(x, "$")) {
+  } else if (is_call(x, "$")) {
     expr_column_refs(x[[2]], data, env)
   } else if (is.call(x)) {
     new_names <- lapply(x, expr_column_refs, data, env)
@@ -430,7 +440,7 @@ column_ref_from_index <- function(index, data) {
 
 extract_target_is_data <- function(x, data, env) {
   data_eval <- try(eval_tidy(x[[2]], data, env), silent = TRUE)
-  rlang::is_reference(data_eval, data)
+  identical(data_eval, data)
 }
 
 extract_target_is_quo_data <- function(x, data, env) {
