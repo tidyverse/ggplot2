@@ -196,7 +196,7 @@ plot.discrete_distr <- function(x, ...) {
 
 If you don't use ggplot2 for your visualizations but would like to implement `autoplot()` for users that do, it is possible to register your generics only if ggplot2 is installed using `vctrs::s3_register()`.
 
-```{r}
+```{r, eval=FALSE}
 .onLoad <- function(...) {
   if (requireNamespace("ggplot2", quietly = TRUE)) {
     vctrs::s3_register("ggplot2::autoplot", "discrete_distr")
