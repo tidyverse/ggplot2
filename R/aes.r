@@ -334,3 +334,44 @@ mapped_aesthetics <- function(x) {
   is_null <- vapply(x, is.null, logical(1))
   names(x)[!is_null]
 }
+
+check_aes_extract_usage <- function(mapping, data) {
+  lapply(mapping, check_aes_extract_usage_quo, data)
+  invisible(mapping)
+}
+
+check_aes_extract_usage_quo <- function(quosure, data) {
+  check_aes_extract_usage_expr(rlang::get_expr(quosure), data, rlang::get_env(quosure))
+}
+
+check_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
+  if (rlang::is_call(x, "[[") || rlang::is_call(x, "$")) {
+    data_eval <- eval_tidy(x[[2]], data, env)
+    if(rlang::is_reference(data_eval, data)) {
+      good_usage <- check_aes_get_alternative_usage(x)
+      warning(
+        "Use of `", format(x), "` is discouraged. ",
+        "Use `", good_usage,  "` instead.",
+        call. = FALSE
+      )
+    }
+  } else if (is.call(x)) {
+    lapply(x, check_aes_extract_usage_expr, data, env)
+  } else if (is.pairlist(x)) {
+    lapply(x, check_aes_extract_usage_expr, data, env)
+  }
+
+  invisible()
+}
+
+check_aes_get_alternative_usage <- function(x) {
+  if(rlang::is_call(x, "[[")) {
+    good_call <- x
+    good_call[[2]] <- quote(.data)
+    format(good_call)
+  } else if(rlang::is_call(x, "$")) {
+    as.character(x[[3]])
+  } else {
+    stop("Don't know how to get alternative usage for `", format(x), "`")
+  }
+}

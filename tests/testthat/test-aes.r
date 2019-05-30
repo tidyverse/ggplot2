@@ -111,6 +111,37 @@ test_that("aes standardises aesthetic names", {
   expect_warning(aes(color = x, colour = y), "Duplicated aesthetics")
 })
 
+test_that("Improper use of $ is detected by check_aes_extract_usage()", {
+  check_aes_extract_usage <- ggplot2:::check_aes_extract_usage
+
+  returns_x <- function() "x"
+  df <- tibble::tibble(x = 1:5, nested_df = tibble::tibble(x = 6:10))
+
+  # valid extraction in aes()
+  expect_silent(check_aes_extract_usage(aes(x), df))
+  expect_silent(check_aes_extract_usage(aes(.data$x), df))
+  expect_silent(check_aes_extract_usage(aes(.data[["x"]]), df))
+  expect_silent(check_aes_extract_usage(aes(.data[[!!quo("x")]]), df))
+  expect_silent(check_aes_extract_usage(aes(.data[[returns_x()]]), df))
+  expect_silent(check_aes_extract_usage(aes(!!sym("x")), df))
+  expect_silent(check_aes_extract_usage(aes(x * 10), df))
+  expect_silent(check_aes_extract_usage(aes(nested_df$x), df))
+  expect_silent(check_aes_extract_usage(aes(nested_df[["x"]]), df))
+  expect_silent(check_aes_extract_usage(aes(.data[[c("nested_df", "x")]]), df))
+  expect_silent(check_aes_extract_usage(aes(.data[[c(2, 1)]]), df))
+  expect_silent(check_aes_extract_usage(aes(.data[[1]]), df))
+
+  # bad: use of extraction
+  expect_warning(
+    check_aes_extract_usage(aes(df$x), df),
+    "Use of `df\\$x` is discouraged"
+  )
+  expect_warning(
+    check_aes_extract_usage(aes(df[["x"]]), df),
+    'Use of `df\\[\\["x"\\]\\]` is discouraged'
+  )
+})
+
 
 # Visual tests ------------------------------------------------------------
 
