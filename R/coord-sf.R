@@ -246,7 +246,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       top <- draw_axis(
         tick_positions,
         tick_labels,
-        position = "top",
+        axis_position = "top",
         theme = theme
       )
     } else {
@@ -282,7 +282,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       bottom <- draw_axis(
         tick_positions,
         tick_labels,
-        position = "bottom",
+        axis_position = "bottom",
         theme = theme
       )
     } else {
@@ -324,7 +324,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       right <- draw_axis(
         tick_positions,
         tick_labels,
-        position = "right",
+        axis_position = "right",
         theme = theme
       )
     } else {
@@ -360,7 +360,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       left <- draw_axis(
         tick_positions,
         tick_labels,
-        position = "left",
+        axis_position = "left",
         theme = theme
       )
     } else {

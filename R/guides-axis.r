@@ -1,146 +1,139 @@
-# Grob for axes
-#
-# @param position of ticks
-# @param labels at ticks
-# @param position of axis (top, bottom, left or right)
-# @param range of data values
-draw_axis <- function(at, labels, position = "right", theme) {
-  line <- switch(position,
-    top =    element_render(theme, "axis.line.x.top", c(0, 1), c(0, 0), id.lengths = 2),
-    bottom = element_render(theme, "axis.line.x.bottom", c(0, 1), c(1, 1), id.lengths = 2),
-    right =  element_render(theme, "axis.line.y.right", c(0, 0), c(0, 1), id.lengths = 2),
-    left =   element_render(theme, "axis.line.y.left", c(1, 1), c(0, 1), id.lengths = 2)
-  )
-  position <- match.arg(position, c("top", "bottom", "right", "left"))
 
-  zero <- unit(0, "npc")
-  one <- unit(1, "npc")
+#' Grob for axes
+#'
+#' @param break_position position of ticks
+#' @param break_labels labels at ticks
+#' @param axis_position position of axis (top, bottom, left or right)
+#' @param theme A [theme()] object
+#'
+#' @noRd
+#'
+draw_axis <- function(break_positions, break_labels, axis_position, theme) {
 
-  if (length(at) == 0) {
-    vertical <- position %in% c("left", "right")
-    return(absoluteGrob(
-      gList(line),
-      width = if (vertical) zero else one,
-      height = if (vertical) one else zero
-    ))
+  axis_position <- match.arg(axis_position, c("top", "bottom", "right", "left"))
+  aesthetic <- if(axis_position %in% c("top", "bottom")) "x" else "y"
+
+  is_vertical <- axis_position %in% c("left",  "right")
+  is_second <- axis_position %in% c("right", "top") # refers to positive npc coordinates
+  is_first_gtable <- axis_position %in% c("left", "top") # refers to position in gtable
+  n_breaks <- length(break_positions)
+  opposite_positions <- c("top" = "bottom", "bottom" = "top", "right" = "left", "left" = "right")
+  axis_position_opposite <- unname(opposite_positions[axis_position])
+
+  # resolve elements
+  line_element_name <- paste0("axis.line.", aesthetic, ".", axis_position)
+  tick_element_name <- paste0("axis.ticks.", aesthetic, ".", axis_position)
+  tick_length_element_name <- paste0("axis.ticks.length.", aesthetic, ".", axis_position)
+  label_element_name <- paste0("axis.text.", aesthetic, ".", axis_position)
+
+  line_element <- calc_element(line_element_name, theme)
+  tick_element <- calc_element(tick_element_name, theme)
+  tick_length <- calc_element(tick_length_element_name, theme)
+  label_element <- calc_element(label_element_name, theme)
+
+  if (is_vertical) {
+    position_dim <- "y"
+    non_position_dim <- "x"
+    position_size <- "height"
+    non_position_size <- "width"
+    label_margin_name <- "margin_x"
+    gtable_element <- gtable_row
+    measure_gtable <- gtable_width
+    measure_labels <- grobWidth
+  } else {
+    position_dim <- "x"
+    non_position_dim <- "y"
+    position_size <- "width"
+    non_position_size <- "height"
+    label_margin_name <- "margin_y"
+    gtable_element <- gtable_col
+    measure_gtable <- gtable_height
+    measure_labels <- grobHeight
   }
 
-  at <- unit(at, "native")
-
-  theme$axis.ticks.length.x.bottom <- with(
-    theme,
-    axis.ticks.length.x.bottom %||%
-      axis.ticks.length.x %||%
-      axis.ticks.length
-  )
-  theme$axis.ticks.length.x.top <- with(
-    theme,
-    axis.ticks.length.x.top %||%
-      axis.ticks.length.x %||%
-      axis.ticks.length
-  )
-  theme$axis.ticks.length.y.left <- with(
-    theme,
-    axis.ticks.length.y.left %||%
-      axis.ticks.length.y %||%
-      axis.ticks.length
-  )
-  theme$axis.ticks.length.y.right <- with(
-    theme,
-    axis.ticks.length.y.right %||%
-      axis.ticks.length.y %||%
-      axis.ticks.length
-  )
-
-  label_render <- switch(position,
-    top = "axis.text.x.top", bottom = "axis.text.x.bottom",
-    left = "axis.text.y.left", right = "axis.text.y.right"
-  )
-
-  label_x <- switch(position,
-    top = ,
-    bottom = at,
-    right = theme$axis.ticks.length.y.right,
-    left = one - theme$axis.ticks.length.y.left
-  )
-  label_y <- switch(position,
-    top = theme$axis.ticks.length.x.top,
-    bottom = one - theme$axis.ticks.length.x.bottom,
-    right = ,
-    left = at
-  )
-
-  if (is.list(labels)) {
-    if (any(sapply(labels, is.language))) {
-      labels <- do.call(expression, labels)
-    } else {
-      labels <- unlist(labels)
-    }
+  if (is_second) {
+    tick_direction <- 1
+    non_position_panel <- unit(0, "npc")
+    tick_coordinate_order <- c(2, 1)
+  } else {
+    tick_direction <- -1
+    non_position_panel <- unit(1, "npc")
+    tick_coordinate_order <- c(1, 2)
   }
 
-  labels <- switch(position,
-    top = ,
-    bottom = element_render(theme, label_render, labels, x = label_x, margin_y = TRUE),
-    right = ,
-    left =  element_render(theme, label_render, labels, y = label_y, margin_x = TRUE))
+  if (is_first_gtable) {
+    table_order <- c("labels", "ticks")
+  } else {
+    table_order <- c("ticks", "labels")
+  }
 
-
-
-  nticks <- length(at)
-
-  ticks <- switch(position,
-    top = element_render(theme, "axis.ticks.x.top",
-      x          = rep(at, each = 2),
-      y          = rep(unit.c(zero, theme$axis.ticks.length.x.top), nticks),
-      id.lengths = rep(2, nticks)),
-    bottom = element_render(theme, "axis.ticks.x.bottom",
-      x          = rep(at, each = 2),
-      y          = rep(unit.c(one - theme$axis.ticks.length.x.bottom, one), nticks),
-      id.lengths = rep(2, nticks)),
-    right = element_render(theme, "axis.ticks.y.right",
-      x          = rep(unit.c(zero, theme$axis.ticks.length.y.right), nticks),
-      y          = rep(at, each = 2),
-      id.lengths = rep(2, nticks)),
-    left = element_render(theme, "axis.ticks.y.left",
-      x          = rep(unit.c(one - theme$axis.ticks.length.y.left, one), nticks),
-      y          = rep(at, each = 2),
-      id.lengths = rep(2, nticks))
+  # draw elements
+  line_coords <- list(
+    position = unit(c(0, 1), "npc"),
+    non_position = unit.c(non_position_panel, non_position_panel)
   )
+  names(line_coords) <- c(position_dim, non_position_dim)
+  line_grob <- do.call(element_grob, c(list(line_element), line_coords))
 
-  # Create the gtable for the ticks + labels
-  gt <- switch(position,
-    top    = gtable_col("axis",
-      grobs   = list(labels, ticks),
-      width   = one,
-      heights = unit.c(grobHeight(labels), theme$axis.ticks.length.x.top)
-    ),
-    bottom = gtable_col("axis",
-      grobs   = list(ticks, labels),
-      width   = one,
-      heights = unit.c(theme$axis.ticks.length.x.bottom, grobHeight(labels))
-    ),
-    right  = gtable_row("axis",
-      grobs   = list(ticks, labels),
-      widths  = unit.c(theme$axis.ticks.length.y.right, grobWidth(labels)),
-      height  = one
-    ),
-    left   = gtable_row("axis",
-      grobs   = list(labels, ticks),
-      widths  = unit.c(grobWidth(labels), theme$axis.ticks.length.y.left),
-      height  = one
+  if (n_breaks == 0) {
+    return(
+      absoluteGrob(
+        gList(line_grob),
+        width = grobWidth(line_grob),
+        height = grobHeight(line_grob)
+      )
     )
+  }
+
+  label_coords <- list(
+    position = unit(break_positions, "native"),
+    label = break_labels,
+    margin = TRUE
   )
 
-  # Viewport for justifying the axis grob
-  justvp <- switch(position,
-    top    = viewport(y = 0, just = "bottom", height = gtable_height(gt)),
-    bottom = viewport(y = 1, just = "top",    height = gtable_height(gt)),
-    right  = viewport(x = 0, just = "left",   width  = gtable_width(gt)),
-    left   = viewport(x = 1, just = "right",  width  = gtable_width(gt))
+  tick_coords <- list(
+    position = rep(label_coords$position, each = 2),
+    non_position = rep(
+      unit.c(non_position_panel + (tick_direction * tick_length), non_position_panel)[tick_coordinate_order],
+      times = n_breaks
+    ),
+    id.lengths = rep(2, times = n_breaks)
   )
+
+  names(label_coords) <- c(position_dim, "label", label_margin_name)
+  names(tick_coords) <- c(position_dim, non_position_dim, "id.lengths")
+
+  grobs <- list(
+    line = line_grob,
+    labels = do.call(element_grob, c(list(label_element), label_coords)),
+    ticks = do.call(element_grob, c(list(tick_element), tick_coords))
+  )
+
+  # assemble elements
+  gt_element_order <- match(table_order, c("labels", "ticks"))
+  gt_dims <- list(
+    dims = unit.c(measure_labels(grobs$labels), tick_length),
+    dim = unit(1, "npc")
+  )
+  gt_dims$dims <- gt_dims$dims[gt_element_order]
+  names(gt_dims) <- c(paste0(non_position_size, "s"), position_size)
+
+  gt <- do.call(
+    gtable_element,
+    c(list(name = "axis", grobs = grobs[table_order]), gt_dims)
+  )
+
+  justvp_args <- list(
+    non_position_dim = non_position_panel,
+    just = axis_position_opposite,
+    non_position_size = measure_gtable(gt)
+  )
+  names(justvp_args) <- c(non_position_dim, "just", non_position_size)
+
+  justvp <- do.call(viewport, justvp_args)
 
   absoluteGrob(
-    gList(line, gt),
+    gList(grobs$line, gt),
     width = gtable_width(gt),
     height = gtable_height(gt),
     vp = justvp
