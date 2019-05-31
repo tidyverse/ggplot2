@@ -11,7 +11,7 @@
 draw_axis <- function(break_positions, break_labels, axis_position, theme) {
 
   axis_position <- match.arg(axis_position, c("top", "bottom", "right", "left"))
-  aesthetic <- if(axis_position %in% c("top", "bottom")) "x" else "y"
+  aesthetic <- if (axis_position %in% c("top", "bottom")) "x" else "y"
 
   # resolve elements
   line_element_name <- paste0("axis.line.", aesthetic, ".", axis_position)
@@ -27,27 +27,27 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme) {
   # conditionally set parameters that depend on axis orientation
   is_vertical <- axis_position %in% c("left",  "right")
 
-  position_dim <- if(is_vertical) "y" else "x"
-  non_position_dim <- if(is_vertical) "x" else "y"
-  position_size <- if(is_vertical) "height" else "width"
-  non_position_size <- if(is_vertical) "width" else "height"
-  label_margin_name <- if(is_vertical) "margin_x" else "margin_y"
-  gtable_element <- if(is_vertical) gtable_row else gtable_col
-  measure_gtable <- if(is_vertical) gtable_width else gtable_height
-  measure_labels <- if(is_vertical) grobWidth else grobHeight
+  position_dim <- if (is_vertical) "y" else "x"
+  non_position_dim <- if (is_vertical) "x" else "y"
+  position_size <- if (is_vertical) "height" else "width"
+  non_position_size <- if (is_vertical) "width" else "height"
+  label_margin_name <- if (is_vertical) "margin_x" else "margin_y"
+  gtable_element <- if (is_vertical) gtable_row else gtable_col
+  measure_gtable <- if (is_vertical) gtable_width else gtable_height
+  measure_labels <- if (is_vertical) grobWidth else grobHeight
 
   # conditionally set parameters that depend on which side of the panel
   # the axis is on
   is_second <- axis_position %in% c("right", "top")
 
-  tick_direction <- if(is_second) 1 else -1
-  non_position_panel <- if(is_second) unit(0, "npc") else unit(1, "npc")
-  tick_coordinate_order <- if(is_second) c(2, 1) else c(1, 2)
+  tick_direction <- if (is_second) 1 else -1
+  non_position_panel <- if (is_second) unit(0, "npc") else unit(1, "npc")
+  tick_coordinate_order <- if (is_second) c(2, 1) else c(1, 2)
 
   # conditionally set the gtable ordering
   labels_first_gtable <- axis_position %in% c("left", "top") # refers to position in gtable
 
-  table_order <- if(labels_first_gtable) c("labels", "ticks") else c("ticks", "labels")
+  table_order <- if (labels_first_gtable) c("labels", "ticks") else c("ticks", "labels")
 
   # set common parameters
   n_breaks <- length(break_positions)
