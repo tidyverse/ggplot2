@@ -213,6 +213,12 @@ test_that("elements can be merged", {
   )
 })
 
+test_that("theme elements that don't inherit from element can be combined", {
+  expect_identical(combine_elements(1, NULL), 1)
+  expect_identical(combine_elements(NULL, 1), 1)
+  expect_identical(combine_elements(1, 0), 1)
+})
+
 test_that("complete plot themes shouldn't inherit from default", {
   default_theme <- theme_gray() + theme(axis.text.x = element_text(colour = "red"))
   base <- qplot(1, 1)
