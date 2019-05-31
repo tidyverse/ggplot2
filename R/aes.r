@@ -365,10 +365,9 @@ check_aes_column_refs <- function(mapping, data) {
 }
 
 check_aes_extract_usage_quo <- function(quosure, data) {
-  check_aes_extract_usage_expr(rlang::get_expr(quosure), data, rlang::get_env(quosure))
+  check_aes_extract_usage_expr(get_expr(quosure), data, get_env(quosure))
 }
 
-#' @importFrom rlang is_call
 check_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
   if (is_call(x, "[[") || is_call(x, "$")) {
     if (extract_target_is_data(x, data, env)) {
@@ -399,7 +398,7 @@ check_aes_get_alternative_usage <- function(x) {
 }
 
 quo_column_refs <- function(quosure, data) {
-  expr_column_refs(rlang::get_expr(quosure), data, rlang::get_env(quosure))
+  expr_column_refs(get_expr(quosure), data, get_env(quosure))
 }
 
 expr_column_refs <- function(x, data, env = emptyenv()) {
