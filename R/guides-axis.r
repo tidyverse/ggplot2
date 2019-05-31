@@ -4,7 +4,7 @@
 # @param labels at ticks
 # @param position of axis (top, bottom, left or right)
 # @param range of data values
-guide_axis <- function(at, labels, position = "right", theme) {
+draw_axis <- function(at, labels, position = "right", theme) {
   line <- switch(position,
     top =    element_render(theme, "axis.line.x.top", c(0, 1), c(0, 0), id.lengths = 2),
     bottom = element_render(theme, "axis.line.x.bottom", c(0, 1), c(1, 1), id.lengths = 2),

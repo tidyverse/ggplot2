@@ -243,7 +243,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
     if (length(tick_positions) > 0) {
-      top <- guide_axis(
+      top <- draw_axis(
         tick_positions,
         tick_labels,
         position = "top",
@@ -279,7 +279,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
     if (length(tick_positions) > 0) {
-      bottom <- guide_axis(
+      bottom <- draw_axis(
         tick_positions,
         tick_labels,
         position = "bottom",
@@ -321,7 +321,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
     if (length(tick_positions) > 0) {
-      right <- guide_axis(
+      right <- draw_axis(
         tick_positions,
         tick_labels,
         position = "right",
@@ -357,7 +357,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
     if (length(tick_positions) > 0) {
-      left <- guide_axis(
+      left <- draw_axis(
         tick_positions,
         tick_labels,
         position = "left",
