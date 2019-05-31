@@ -13,13 +13,6 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme) {
   axis_position <- match.arg(axis_position, c("top", "bottom", "right", "left"))
   aesthetic <- if(axis_position %in% c("top", "bottom")) "x" else "y"
 
-  is_vertical <- axis_position %in% c("left",  "right")
-  is_second <- axis_position %in% c("right", "top") # refers to positive npc coordinates
-  is_first_gtable <- axis_position %in% c("left", "top") # refers to position in gtable
-  n_breaks <- length(break_positions)
-  opposite_positions <- c("top" = "bottom", "bottom" = "top", "right" = "left", "left" = "right")
-  axis_position_opposite <- unname(opposite_positions[axis_position])
-
   # resolve elements
   line_element_name <- paste0("axis.line.", aesthetic, ".", axis_position)
   tick_element_name <- paste0("axis.ticks.", aesthetic, ".", axis_position)
@@ -31,41 +24,35 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme) {
   tick_length <- calc_element(tick_length_element_name, theme)
   label_element <- calc_element(label_element_name, theme)
 
-  if (is_vertical) {
-    position_dim <- "y"
-    non_position_dim <- "x"
-    position_size <- "height"
-    non_position_size <- "width"
-    label_margin_name <- "margin_x"
-    gtable_element <- gtable_row
-    measure_gtable <- gtable_width
-    measure_labels <- grobWidth
-  } else {
-    position_dim <- "x"
-    non_position_dim <- "y"
-    position_size <- "width"
-    non_position_size <- "height"
-    label_margin_name <- "margin_y"
-    gtable_element <- gtable_col
-    measure_gtable <- gtable_height
-    measure_labels <- grobHeight
-  }
+  # conditionally set parameters that depend on axis orientation
+  is_vertical <- axis_position %in% c("left",  "right")
 
-  if (is_second) {
-    tick_direction <- 1
-    non_position_panel <- unit(0, "npc")
-    tick_coordinate_order <- c(2, 1)
-  } else {
-    tick_direction <- -1
-    non_position_panel <- unit(1, "npc")
-    tick_coordinate_order <- c(1, 2)
-  }
+  position_dim <- if(is_vertical) "y" else "x"
+  non_position_dim <- if(is_vertical) "x" else "y"
+  position_size <- if(is_vertical) "height" else "width"
+  non_position_size <- if(is_vertical) "width" else "height"
+  label_margin_name <- if(is_vertical) "margin_x" else "margin_y"
+  gtable_element <- if(is_vertical) gtable_row else gtable_col
+  measure_gtable <- if(is_vertical) gtable_width else gtable_height
+  measure_labels <- if(is_vertical) grobWidth else grobHeight
 
-  if (is_first_gtable) {
-    table_order <- c("labels", "ticks")
-  } else {
-    table_order <- c("ticks", "labels")
-  }
+  # conditionally set parameters that depend on which side of the panel
+  # the axis is on
+  is_second <- axis_position %in% c("right", "top")
+
+  tick_direction <- if(is_second) 1 else -1
+  non_position_panel <- if(is_second) unit(0, "npc") else unit(1, "npc")
+  tick_coordinate_order <- if(is_second) c(2, 1) else c(1, 2)
+
+  # conditionally set the gtable ordering
+  labels_first_gtable <- axis_position %in% c("left", "top") # refers to position in gtable
+
+  table_order <- if(labels_first_gtable) c("labels", "ticks") else c("ticks", "labels")
+
+  # set common parameters
+  n_breaks <- length(break_positions)
+  opposite_positions <- c("top" = "bottom", "bottom" = "top", "right" = "left", "left" = "right")
+  axis_position_opposite <- unname(opposite_positions[axis_position])
 
   # draw elements
   line_coords <- list(
