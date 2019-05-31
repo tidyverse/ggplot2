@@ -98,7 +98,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     }
     if (identical(params$method, "gam")) {
       params$method <- mgcv::gam
-      params$formula <- params$formula %||% y ~ s(x, bs = "cs")
+      params$formula <- params$formula %||% (y ~ s(x, bs = "cs"))
     } else {
       params$formula <- params$formula %||% (y ~ x)
     }
