@@ -55,12 +55,11 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme) {
   axis_position_opposite <- unname(opposite_positions[axis_position])
 
   # draw elements
-  line_coords <- list(
-    position = unit(c(0, 1), "npc"),
-    non_position = unit.c(non_position_panel, non_position_panel)
+  line_grob <- exec(
+    element_grob, line_element,
+    !!position_dim := unit(c(0, 1), "npc"),
+    !!non_position_dim := unit.c(non_position_panel, non_position_panel)
   )
-  names(line_coords) <- c(position_dim, non_position_dim)
-  line_grob <- do.call(element_grob, c(list(line_element), line_coords))
 
   if (n_breaks == 0) {
     return(
@@ -72,55 +71,45 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme) {
     )
   }
 
-  label_coords <- list(
-    position = unit(break_positions, "native"),
-    label = break_labels,
-    margin = TRUE
+  labels_grob <- exec(
+    element_grob, label_element,
+    !!position_dim := unit(break_positions, "native"),
+    !!label_margin_name := TRUE,
+    label = break_labels
   )
 
-  tick_coords <- list(
-    position = rep(label_coords$position, each = 2),
-    non_position = rep(
+  ticks_grob <- exec(
+    element_grob, tick_element,
+    !!position_dim := rep(unit(break_positions, "native"), each = 2),
+    !!non_position_dim := rep(
       unit.c(non_position_panel + (tick_direction * tick_length), non_position_panel)[tick_coordinate_order],
       times = n_breaks
     ),
     id.lengths = rep(2, times = n_breaks)
   )
 
-  names(label_coords) <- c(position_dim, "label", label_margin_name)
-  names(tick_coords) <- c(position_dim, non_position_dim, "id.lengths")
+  # create gtable
+  table_order_int <- match(table_order, c("labels", "ticks"))
+  non_position_sizes <- paste0(non_position_size, "s")
 
-  grobs <- list(
-    line = line_grob,
-    labels = do.call(element_grob, c(list(label_element), label_coords)),
-    ticks = do.call(element_grob, c(list(tick_element), tick_coords))
-  )
-
-  # assemble elements
-  gt_element_order <- match(table_order, c("labels", "ticks"))
-  gt_dims <- list(
-    dims = unit.c(measure_labels(grobs$labels), tick_length),
-    dim = unit(1, "npc")
-  )
-  gt_dims$dims <- gt_dims$dims[gt_element_order]
-  names(gt_dims) <- c(paste0(non_position_size, "s"), position_size)
-
-  gt <- do.call(
+  gt <- exec(
     gtable_element,
-    c(list(name = "axis", grobs = grobs[table_order]), gt_dims)
+    name = "axis",
+    grobs = list(labels_grob, ticks_grob)[table_order_int],
+    !!non_position_sizes := unit.c(measure_labels(labels_grob), tick_length)[table_order_int],
+    !!position_size := unit(1, "npc")
   )
 
-  justvp_args <- list(
-    non_position_dim = non_position_panel,
-    just = axis_position_opposite,
-    non_position_size = measure_gtable(gt)
+  # create viewport
+  justvp <- exec(
+    viewport,
+    !!non_position_dim := non_position_panel,
+    !!non_position_size := measure_gtable(gt),
+    just = axis_position_opposite
   )
-  names(justvp_args) <- c(non_position_dim, "just", non_position_size)
-
-  justvp <- do.call(viewport, justvp_args)
 
   absoluteGrob(
-    gList(grobs$line, gt),
+    gList(line_grob, gt),
     width = gtable_width(gt),
     height = gtable_height(gt),
     vp = justvp
