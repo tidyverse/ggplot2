@@ -141,54 +141,10 @@ test_that("Improper use of $ and [[ is detected by check_aes_extract_usage()", {
   )
 })
 
-test_that("Warnings are issued for improper use of $ and [[ in plots", {
+test_that("Warnings are issued for extract usage in plots", {
   df <- data_frame(x = 1:3, y = 3:1)
   p <- ggplot(df, aes(df$x, df$y)) + geom_point()
   expect_warning(ggplot_build(p), "Use of `df\\$x` is discouraged")
-})
-
-test_that("Column names are correctly extracted from quosures", {
-
-  returns_x <- function() "x"
-  df <- data_frame(x = 1:5, y = 12, nested_df = data_frame(x = 6:10))
-  returns_df <- function() df
-  not_df <- data_frame(x = 1:5)
-
-  # valid ways to map a column
-  expect_setequal(quo_column_refs(quo(x), df), "x")
-  expect_setequal(quo_column_refs(quo(x * y), df), c("x", "y"))
-  expect_setequal(quo_column_refs(quo(.data$x), df), "x")
-  expect_setequal(quo_column_refs(quo(.data[["x"]]), df), "x")
-  expect_setequal(quo_column_refs(quo(.data[[!!quo("x")]]), df), "x")
-  expect_setequal(quo_column_refs(quo(.data[[returns_x()]]), df), "x")
-  expect_setequal(quo_column_refs(quo(!!sym("x")), df), "x")
-  expect_setequal(quo_column_refs(quo(x * 10), df), "x")
-  expect_setequal(quo_column_refs(quo(nested_df$x), df), "nested_df")
-  expect_setequal(quo_column_refs(quo(nested_df[["x"]]), df), "nested_df")
-  expect_setequal(quo_column_refs(quo(.data[[c("nested_df", "x")]]), df), "nested_df")
-  expect_setequal(quo_column_refs(quo(.data[[c(3, 1)]]), df), "nested_df")
-  expect_setequal(quo_column_refs(quo(.data[[1]]), df), "x")
-
-  # spurious ways to map a column that don't currently fail
-  expect_setequal(quo_column_refs(quo(df$x), df), "x")
-  expect_setequal(quo_column_refs(quo(returns_df()$x), df), "x")
-  expect_setequal(quo_column_refs(quo(df[["x"]]), df), "x")
-
-  # no columns mapped
-  expect_identical(quo_column_refs(quo(), df), character(0))
-  expect_identical(quo_column_refs(quo(not_a_column), df), character(0))
-  expect_identical(quo_column_refs(quo(not_a_column * also_not_a_column), df), character(0))
-
-  # evaluation errors should result in zero mapped columns
-  expect_identical(quo_column_refs(quo(not_a_column$x), df), character(0))
-  expect_identical(quo_column_refs(quo(not_df$x), df), character(0))
-  expect_identical(quo_column_refs(quo(not_a_function()), df), character(0))
-})
-
-test_that("Warnings are issued when zero columns from data are mapped", {
-  df <- data_frame(x = 1:3, y = 3:1)
-  p <- ggplot(df, aes(x, y)) + geom_hline(aes(yintercept = 1.5))
-  expect_warning(ggplot_build(p), "zero mapped columns")
 })
 
 # Visual tests ------------------------------------------------------------

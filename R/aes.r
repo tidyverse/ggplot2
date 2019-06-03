@@ -338,30 +338,14 @@ mapped_aesthetics <- function(x) {
 
 #' Check a mapping for discouraged usage
 #'
+#' Checks that `$` and `[[` are not used when the target *is* the data
+#'
 #' @param mapping A mapping created with [aes()]
 #' @param data The data to be mapped from
 #'
 #' @noRd
-check_aes <- function(mapping, data) {
-  check_aes_extract_usage(mapping, data)
-  check_aes_column_refs(mapping, data)
-}
-
-# Checks that $ and [[ are not used when the target *is* the data
 check_aes_extract_usage <- function(mapping, data) {
   lapply(mapping, check_aes_extract_usage_quo, data)
-}
-
-# Checks that mapping refers to at least one column in data
-check_aes_column_refs <- function(mapping, data) {
-  if (empty(data) || length(mapping) == 0) return()
-
-  data_name <- as_label(enquo(data))
-  cols_in_mapping <- unlist(lapply(mapping, quo_column_refs, data))
-
-  if (length(cols_in_mapping) == 0) {
-    warning("Mapping contains zero mapped columns from data", call. = FALSE)
-  }
 }
 
 check_aes_extract_usage_quo <- function(quosure, data) {
@@ -380,68 +364,21 @@ check_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
     }
   } else if (is.call(x)) {
     lapply(x, check_aes_extract_usage_expr, data, env)
-  } else if (is.pairlist(x)) {
-    lapply(x, check_aes_extract_usage_expr, data, env)
   }
 }
 
 check_aes_get_alternative_usage <- function(x) {
   if (is_call(x, "[[")) {
-    good_call <- x
-    good_call[[2]] <- quote(.data)
+    good_call <- call2("[[", quote(.data), x[[3]])
     format(good_call)
   } else if (is_call(x, "$")) {
     as.character(x[[3]])
   } else {
-    stop("Don't know how to get alternative usage for `", format(x), "`")
-  }
-}
-
-quo_column_refs <- function(quosure, data) {
-  expr_column_refs(get_expr(quosure), data, get_env(quosure))
-}
-
-expr_column_refs <- function(x, data, env = emptyenv()) {
-  if (is.name(x) && (as.character(x) %in% names(data))) {
-    as.character(x)
-  } else if (is_call(x, "[[") && extract_target_is_quo_data(x, data, env)) {
-    # in extract calls from .data, the index is not overscoped with the data
-    index_value <- try(eval_tidy(x[[3]], data = NULL, env), silent = TRUE)
-    if (inherits(index_value, "try-error")) {
-      character(0)
-    } else {
-      column_ref_from_index(index_value, data)
-    }
-  } else if (is_call(x, "$") && extract_target_is_quo_data(x, data, env)) {
-    as.character(x[[3]])
-  } else if (is_call(x, "$")) {
-    expr_column_refs(x[[2]], data, env)
-  } else if (is.call(x)) {
-    new_names <- lapply(x, expr_column_refs, data, env)
-    unlist(new_names)
-  } else if (is.pairlist(x)) {
-    new_names <- lapply(x, expr_column_refs, data, env)
-    unlist(new_names)
-  } else {
-    character(0)
-  }
-}
-
-column_ref_from_index <- function(index, data) {
-  if (is.character(index)) {
-    index[1]
-  } else if (is.numeric(index)) {
-    names(data)[index[1]]
-  } else {
-    character(0)
+    stop("Don't know how to get alternative usage for `", format(x), "`", call. = FALSE)
   }
 }
 
 extract_target_is_data <- function(x, data, env) {
   data_eval <- try(eval_tidy(x[[2]], data, env), silent = TRUE)
   identical(data_eval, data)
-}
-
-extract_target_is_quo_data <- function(x, data, env) {
-  identical(x[[2]], quote(.data)) || extract_target_is_data(x, data, env)
 }

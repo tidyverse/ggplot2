@@ -243,7 +243,7 @@ Layer <- ggproto("Layer", NULL,
     evaled <- compact(evaled)
 
     # Check for discouraged usage in mapping
-    check_aes(aesthetics, data[setdiff(names(data), "PANEL")])
+    check_aes_extract_usage(aesthetics, data[setdiff(names(data), "PANEL")])
 
     # Check aesthetic values
     nondata_cols <- check_nondata_cols(evaled)
