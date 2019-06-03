@@ -27,30 +27,18 @@ guide_axis <- function(at, labels, position = "right", theme) {
 
   at <- unit(at, "native")
 
-  theme$axis.ticks.length.x.bottom <- with(
-    theme,
-    axis.ticks.length.x.bottom %||%
-      axis.ticks.length.x %||%
-      axis.ticks.length
-  )
-  theme$axis.ticks.length.x.top <- with(
-    theme,
-    axis.ticks.length.x.top %||%
-      axis.ticks.length.x %||%
-      axis.ticks.length
-  )
-  theme$axis.ticks.length.y.left <- with(
-    theme,
-    axis.ticks.length.y.left %||%
-      axis.ticks.length.y %||%
-      axis.ticks.length
-  )
-  theme$axis.ticks.length.y.right <- with(
-    theme,
-    axis.ticks.length.y.right %||%
-      axis.ticks.length.y %||%
-      axis.ticks.length
-  )
+  theme$axis.ticks.length.x.bottom <- theme$axis.ticks.length.x.bottom %||%
+    theme$axis.ticks.length.x %||%
+    theme$axis.ticks.length
+  theme$axis.ticks.length.x.top <- theme$axis.ticks.length.x.top %||%
+    theme$axis.ticks.length.x %||%
+    theme$axis.ticks.length
+  theme$axis.ticks.length.y.left <- theme$axis.ticks.length.y.left %||%
+    theme$axis.ticks.length.y %||%
+    theme$axis.ticks.length
+  theme$axis.ticks.length.y.right <- theme$axis.ticks.length.y.right %||%
+    theme$axis.ticks.length.y %||%
+    theme$axis.ticks.length
 
   label_render <- switch(position,
     top = "axis.text.x.top", bottom = "axis.text.x.bottom",
