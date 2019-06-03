@@ -16,7 +16,7 @@ This vignette is intended for package developers who use ggplot2 within their pa
 
 ## Referring to ggplot2 functions
 
-As with any function from another package, you will have to list ggplot2 in your `DESCRIPTION` under `Imports` or `Suggests` and refer to its functions using `::` (e.g., `ggplot2::function_name`).
+As with any function from another package, you will have to list ggplot2 in your `DESCRIPTION` under `Imports` and refer to its functions using `::` (e.g., `ggplot2::function_name`):
 
 ```{r}
 mpg_drv_summary <- function() {
@@ -31,7 +31,7 @@ mpg_drv_summary <- function() {
 mpg_drv_summary()
 ```
 
-If you use ggplot2 functions frequently, you may wish to import one or more functions from ggplot2 into your `NAMESPACE`. If you use [roxygen2](https://cran.r-project.org/package=roxygen2), you can include `#' @importFrom ggplot2 <one or more function names>` in any roxygen comment block (this will not work for datasets like `mpg`). If you do this, you will need to put ggplot2 in your `Imports` rather than your `Suggests`.
+If you use ggplot2 functions frequently, you may wish to import one or more functions from ggplot2 into your `NAMESPACE`. If you use [roxygen2](https://cran.r-project.org/package=roxygen2), you can include `#' @importFrom ggplot2 <one or more function names>` in any roxygen comment block (this will not work for datasets like `mpg`).
 
 ```{r}
 #' @importFrom ggplot2 ggplot aes geom_bar coord_flip
@@ -45,36 +45,6 @@ mpg_drv_summary <- function() {
 ```{r, include=FALSE}
 # make sure this function runs!
 mpg_drv_summary()
-```
-
-If you use infix operators from ggplot2 like `%+replace%` and you want to keep ggplot2 in `Suggests`, you can assign the operator within the function before it is used.
-
-```{r}
-theme_custom <- function(...) {
-  `%+replace%` <- ggplot2::`%+replace%`
-  
-  ggplot2::theme_grey(...) %+replace% 
-    ggplot2::theme(panel.background = ggplot2::element_blank())
-}
-```
-
-```{r, include=FALSE}
-# make sure this function runs!
-mpg_drv_summary() + theme_custom()
-```
-
-If you have ggplot2 in your `Imports` anyway, it is much easier to import the infix into your namespace.
-
-```{r}
-#' @importFrom ggplot2 %+replace%
-theme_custom <- function(...) {
-  ggplot2::theme_grey(...) %+replace% 
-    ggplot2::theme(panel.background = ggplot2::element_blank())
-}
-```
-
-```{r, include=FALSE}
-mpg_drv_summary() + theme_custom()
 ```
 
 Even if you use many ggplot2 functions in your package, it is unwise to use ggplot2 in `Depends` or import the entire package into your `NAMESPACE`. Using ggplot2 in `Depends` will attach ggplot2 when your package is attached, which includes when your package is tested. This makes it difficult to ensure that others can use the functions in your package without attaching it (i.e., using `::`). Similarly, importing all 450 of ggplot2's exported objects into your namespace makes it difficult to separate the responsibility of your package and the responsibility of ggplot2, in addition to making it difficult for readers of your code to figure out where functions are coming from!
@@ -99,6 +69,12 @@ N  checking R code for possible problems (2.7s)
      drv
 ```
 
+There are three situations in which you will encounter this problem:
+
+- You already know the column name or expression in advance.
+- You have the column name as a character vector.
+- The user specifies the column name or expression, and you want your function to use the same kind of non-standard evaluation used by `aes()` and `vars()`.
+
 If you already know the mapping in advance (like the above example) you should use the `.data` pronoun from [rlang](https://cran.r-project.org/package=rlang) to make it explicit that you are referring to the `drv` in the data and not some other variable named `drv` (which may or may not exist elsewhere).
 
 ```{r}
@@ -110,7 +86,7 @@ mpg_drv_summary <- function() {
 }
 ```
 
-If the user specifies a part of the mapping, you can either specify this as a column name (e.g., `col = "drv"`) or using the same kind of non-standard evaluation used by `aes()` and `vars()` (e.g., `col = drv`). In the first case, use `.data[[col]]`:
+If you have the column name as a character vector (e.g., `col = "drv"`), use `.data[[col]]`:
 
 ```{r}
 #' @importFrom rlang .data
@@ -123,7 +99,7 @@ col_summary <- function(data, col) {
 col_summary(mpg, "drv")
 ```
 
-To use the same kind of non-standard evaluation that `aes()` uses, use `{{ col }}` to pass the unevaluated expression the user typed in `col` to `aes()`.
+To use the same kind of non-standard evaluation used by `aes()` and `vars()`, use `{{ col }}` to pass the unevaluated expression the user typed in `col` to `aes()`.
 
 <!-- this uses development rlang, which is not yet released -->
 
@@ -137,9 +113,9 @@ col_summary <- function(data, col) {
 col_summary(mpg, drv)
 ```
 
-To summarise, if you know the mapping or facet specification is `col` in advance, use `aes(.data$col)` or `vars(.data$col)`. If `col` is a variable that contains the column name as a character scalar, use `aes(.data[[col]]` or `vars(.data[[col]])`. If you would like the behaviour of `col` to look and feel like `aes()` and `vars()`, use `aes({{ col }})` or `vars({{ col }})`. 
+To summarise, if you know the mapping or facet specification is `col` in advance, use `aes(.data$col)` or `vars(.data$col)`. If `col` is a variable that contains the column name as a character scalar, use `aes(.data[[col]]` or `vars(.data[[col]])`. If you would like the behaviour of `col` to look and feel like `aes()` and `vars()`, use `aes({{ col }})` or `vars({{ col }})`.
 
-You will see a lot of other ways to do this in the wild, but the syntax we use here is the only one we can guarantee will work in the future! In particular, don't use `aes_()` or `aes_string()`, as they are deprecated and may be removed in a future version. Finally, don't skip the step of creating a data frame and a mapping to pass in to `ggplot()` or its layers! You will see other ways of doing this in the wild, but these rely on undocumented behaviour and can fail in unexpected ways.
+You will see a lot of other ways to do this in the wild, but the syntax we use here is the only one we can guarantee will work in the future! In particular, don't use `aes_()` or `aes_string()`, as they are deprecated and may be removed in a future version. Finally, don't skip the step of creating a data frame and a mapping to pass in to `ggplot()` or its layers! You will see other ways of doing this in the wild, but these may rely on undocumented behaviour and can fail in unexpected ways.
 
 ## Best practices for common tasks
 
@@ -194,17 +170,7 @@ plot.discrete_distr <- function(x, ...) {
 }
 ```
 
-If you don't use ggplot2 for your visualizations but would like to implement `autoplot()` for users that do, it is possible to register your generics only if ggplot2 is installed using `vctrs::s3_register()`.
-
-```{r, eval=FALSE}
-.onLoad <- function(...) {
-  if (requireNamespace("ggplot2", quietly = TRUE)) {
-    vctrs::s3_register("ggplot2::autoplot", "discrete_distr")
-  }
-}
-```
-
-It is considered bad practice to implement an S3 generic like `plot()`, or `autoplot()` if you don't have any control over the S3 object, as it makes it hard for the package developer who does have control over the S3 to implement the method themselves. This shouldn't stop you from creating your own functions to visualize these objects!
+It is considered bad practice to implement an S3 generic like `plot()`, or `autoplot()` if you don't own the S3 object, as it makes it hard for the package developer who does have control over the S3 to implement the method themselves. This shouldn't stop you from creating your own functions to visualize these objects!
 
 ### Creating a new theme
 
@@ -244,4 +210,32 @@ We suggest testing the output of ggplot2 in using the [vdiffr](https://cran.r-pr
 test_that("output of ggplot() is stable", {
   vdiffr::expect_doppelganger("A blank plot", ggplot())
 })
+```
+
+### ggplot2 in `Suggests`
+
+If you use ggplot2 in your package, most likely you will want to list it under `Imports`. If you would like to list ggplot2 in `Suggests` instead, you will not be able to `#' @importFrom ggplot2 ...` (i.e., you must refer to ggplot2 objects using `::`). If you use infix operators from ggplot2 like `%+replace%` and you want to keep ggplot2 in `Suggests`, you can assign the operator within the function before it is used:
+
+```{r}
+theme_custom <- function(...) {
+  `%+replace%` <- ggplot2::`%+replace%`
+  
+  ggplot2::theme_grey(...) %+replace% 
+    ggplot2::theme(panel.background = ggplot2::element_blank())
+}
+```
+
+```{r, include=FALSE}
+# make sure this function runs!
+mpg_drv_summary() + theme_custom()
+```
+
+Generally, if you add a method for a ggplot2 generic like `autoplot()`, ggplot2 should be in `Imports`. If for some reason you would like to keep ggplot2 in `Suggests`, it is possible to register your generics only if ggplot2 is installed using `vctrs::s3_register()`. If you do this, you should copy and paste the source of `vctrs::s3_register()` into your own package to avoid adding a [vctrs](https://cran.r-project.org/package=vctrs) dependency.
+
+```{r, eval=FALSE}
+.onLoad <- function(...) {
+  if (requireNamespace("ggplot2", quietly = TRUE)) {
+    vctrs::s3_register("ggplot2::autoplot", "discrete_distr")
+  }
+}
 ```
