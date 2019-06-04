@@ -8,8 +8,8 @@ NULL
 #' [ggplot2()] and in individual layers.
 #'
 #' This function also standardises aesthetic names by converting `color` to `colour`
-#' (also in substrings, e.g. `point_color` to `point_colour`) and translating old style
-#' R names to ggplot names (eg. `pch` to `shape`, `cex` to `size`).
+#' (also in substrings, e.g., `point_color` to `point_colour`) and translating old style
+#' R names to ggplot names (e.g., `pch` to `shape` and `cex` to `size`).
 #'
 #' @section Quasiquotation:
 #'
@@ -22,9 +22,10 @@ NULL
 #' programming vignette](http://dplyr.tidyverse.org/articles/programming.html)
 #' to learn more about these techniques.
 #'
-#' @param x,y,... List of name value pairs giving aesthetics to map to
-#'   variables. The names for x and y aesthetics are typically omitted because
-#'   they are so common; all other aesthetics must be named.
+#' @param x,y,... List of name-value pairs in the form `aesthetic = column_name`
+#'   describing which variables in the layer data should be mapped to which
+#'   aesthetics used by paired geom/stat. The names for x and y aesthetics are typically
+#'   omitted because they are so common; all other aesthetics must be named.
 #' @seealso [vars()] for another quoting function designed for
 #'   faceting specifications.
 #' @return A list with class `uneval`. Components of the list are either
@@ -344,18 +345,16 @@ mapped_aesthetics <- function(x) {
 #' @param data The data to be mapped from
 #'
 #' @noRd
-check_aes_extract_usage <- function(mapping, data) {
-  lapply(mapping, check_aes_extract_usage_quo, data)
+warn_for_aes_extract_usage <- function(mapping, data) {
+  lapply(mapping, function(quosure) {
+    warn_for_aes_extract_usage_expr(get_expr(quosure), data, get_env(quosure))
+  })
 }
 
-check_aes_extract_usage_quo <- function(quosure, data) {
-  check_aes_extract_usage_expr(get_expr(quosure), data, get_env(quosure))
-}
-
-check_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
+warn_for_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
   if (is_call(x, "[[") || is_call(x, "$")) {
-    if (extract_target_is_data(x, data, env)) {
-      good_usage <- check_aes_get_alternative_usage(x)
+    if (extract_target_is_likely_data(x, data, env)) {
+      good_usage <- alternative_aes_extract_usage(x)
       warning(
         "Use of `", format(x), "` is discouraged. ",
         "Use `", good_usage,  "` instead.",
@@ -363,11 +362,11 @@ check_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
       )
     }
   } else if (is.call(x)) {
-    lapply(x, check_aes_extract_usage_expr, data, env)
+    lapply(x, warn_for_aes_extract_usage_expr, data, env)
   }
 }
 
-check_aes_get_alternative_usage <- function(x) {
+alternative_aes_extract_usage <- function(x) {
   if (is_call(x, "[[")) {
     good_call <- call2("[[", quote(.data), x[[3]])
     format(good_call)
@@ -378,7 +377,13 @@ check_aes_get_alternative_usage <- function(x) {
   }
 }
 
-extract_target_is_data <- function(x, data, env) {
-  data_eval <- try(eval_tidy(x[[2]], data, env), silent = TRUE)
-  identical(data_eval, data)
+extract_target_is_likely_data <- function(x, data, env) {
+  if(!is.name(x[[2]])) {
+    return(FALSE)
+  }
+
+  tryCatch({
+    data_eval <- eval_tidy(x[[2]], data, env)
+    identical(data_eval, data)
+  }, error = function(err) FALSE)
 }
