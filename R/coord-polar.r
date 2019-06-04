@@ -190,7 +190,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   render_axis_h = function(panel_params, theme) {
     list(
       top = zeroGrob(),
-      bottom = guide_axis(NA, "", "bottom", theme)
+      bottom = draw_axis(NA, "", "bottom", theme)
     )
   },
 

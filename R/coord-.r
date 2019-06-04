@@ -158,9 +158,9 @@ expand_default <- function(scale, discrete = c(0, 0.6, 0, 0.6), continuous = c(0
 # generated
 render_axis <- function(panel_params, axis, scale, position, theme) {
   if (axis == "primary") {
-    guide_axis(panel_params[[paste0(scale, ".major")]], panel_params[[paste0(scale, ".labels")]], position, theme)
+    draw_axis(panel_params[[paste0(scale, ".major")]], panel_params[[paste0(scale, ".labels")]], position, theme)
   } else if (axis == "secondary" && !is.null(panel_params[[paste0(scale, ".sec.major")]])) {
-    guide_axis(panel_params[[paste0(scale, ".sec.major")]], panel_params[[paste0(scale, ".sec.labels")]], position, theme)
+    draw_axis(panel_params[[paste0(scale, ".sec.major")]], panel_params[[paste0(scale, ".sec.labels")]], position, theme)
   } else {
     zeroGrob()
   }
