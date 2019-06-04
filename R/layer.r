@@ -238,10 +238,14 @@ Layer <- ggproto("Layer", NULL,
 
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
-    # Evaluate and check aesthetics
+    # Evaluate aesthetics
     evaled <- lapply(aesthetics, eval_tidy, data = data)
     evaled <- compact(evaled)
 
+    # Check for discouraged usage in mapping
+    warn_for_aes_extract_usage(aesthetics, data[setdiff(names(data), "PANEL")])
+
+    # Check aesthetic values
     nondata_cols <- check_nondata_cols(evaled)
     if (length(nondata_cols) > 0) {
       msg <- paste0(
