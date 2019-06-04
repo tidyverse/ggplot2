@@ -22,10 +22,13 @@ NULL
 #' programming vignette](http://dplyr.tidyverse.org/articles/programming.html)
 #' to learn more about these techniques.
 #'
-#' @param x,y,... List of name-value pairs in the form `aesthetic = column_name`
+#' @param x,y,... List of name-value pairs in the form `aesthetic = variable`
 #'   describing which variables in the layer data should be mapped to which
-#'   aesthetics used by paired geom/stat. The names for x and y aesthetics are typically
-#'   omitted because they are so common; all other aesthetics must be named.
+#'   aesthetics used by the paired geom/stat. The expression `variable` is
+#'   evaluated within the layer data, so there is no need to refer to
+#'   the original dataset (i.e., use `ggplot(df, aes(variable))`
+#'   instead of `ggplot(df, aes(df$variable))`). The names for x and y aesthetics
+#'   are typically omitted because they are so common; all other aesthetics must be named.
 #' @seealso [vars()] for another quoting function designed for
 #'   faceting specifications.
 #' @return A list with class `uneval`. Components of the list are either
@@ -378,7 +381,7 @@ alternative_aes_extract_usage <- function(x) {
 }
 
 extract_target_is_likely_data <- function(x, data, env) {
-  if(!is.name(x[[2]])) {
+  if (!is.name(x[[2]])) {
     return(FALSE)
   }
 
