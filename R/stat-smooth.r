@@ -88,10 +88,8 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
       if (max_group < 1000) {
         params$method <- "loess"
-        params$formula <- params$formula %||% (y ~ x)
       } else {
         params$method <- "gam"
-        params$formula <- params$formula %||% (y ~ s(x, bs = "cs"))
       }
       message("`geom_smooth()` using method = '", params$method,
               "' and formula '", deparse(params$formula), "'")
