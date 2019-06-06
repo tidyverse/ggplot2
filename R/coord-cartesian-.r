@@ -193,17 +193,6 @@ view_scale_from_break_info <- function(break_info, aesthetic, name, is_discrete)
   )
 }
 
-scale_range <- function(scale, limits = NULL, expand = TRUE) {
-  expansion <- if (expand) expand_default(scale) else expand_scale(0, 0)
-
-  if (is.null(limits)) {
-    scale$dimension(expansion)
-  } else {
-    continuous_range <- range(scale$transform(limits))
-    expand_range4(continuous_range, expansion)
-  }
-}
-
 draw_view_scale <- function(view_scale, axis_position, theme) {
   if(is.null(view_scale)) {
     return(zeroGrob())
