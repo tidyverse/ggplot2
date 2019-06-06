@@ -168,6 +168,6 @@ test_that("stat_count preserves x order for continuous and discrete", {
   mtcars$carb3 <- factor(mtcars$carb, levels = c(4,1,2,3,6,8))
   b <- ggplot_build(ggplot(mtcars, aes(carb3)) + geom_bar())
   expect_identical(b$data[[1]]$x, 1:6)
-  expect_identical(b$layout$panel_params[[1]]$x.labels, c("4","1","2","3","6","8"))
+  expect_identical(b$layout$panel_params[[1]]$x.scale$get_labels(), c("4","1","2","3","6","8"))
   expect_identical(b$data[[1]]$y, c(10,7,10,3,1,1))
 })

@@ -79,12 +79,12 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   is_free = function() TRUE,
 
   distance = function(x, y, panel_params) {
-    max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)
+    max_dist <- dist_euclidean(panel_params$x.scale$dimension(), panel_params$y.scale$dimension())
     dist_euclidean(x, y) / max_dist
   },
 
   range = function(panel_params) {
-    list(x = panel_params$x.range, y = panel_params$y.range)
+    list(x = panel_params$x.scale$dimension(), y = panel_params$y.scale$dimension())
   },
 
   backtransform_range = function(self, panel_params) {
@@ -92,37 +92,122 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   },
 
   transform = function(data, panel_params) {
-    rescale_x <- function(data) rescale(data, from = panel_params$x.range)
-    rescale_y <- function(data) rescale(data, from = panel_params$y.range)
-
-    data <- transform_position(data, rescale_x, rescale_y)
+    data <- transform_position(data, panel_params$x.scale$map, panel_params$y.scale$map)
     transform_position(data, squish_infinite, squish_infinite)
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-    train_cartesian <- function(scale, limits, name) {
-      range <- scale_range(scale, limits, self$expand)
-
-      out <- scale$break_info(range)
-      out$arrange <- scale$axis_order()
-      names(out) <- paste(name, names(out), sep = ".")
-      out
-    }
-
     c(
-      train_cartesian(scale_x, self$limits$x, "x"),
-      train_cartesian(scale_y, self$limits$y, "y")
+      view_scales_from_scale(scale_x, self$limits$x, self$expand),
+      view_scales_from_scale(scale_y, self$limits$y, self$expand)
+    )
+  },
+
+  render_bg = function(panel_params, theme) {
+    guide_grid(
+      theme,
+      panel_params$x.scale$break_positions_minor(),
+      panel_params$x.scale$break_positions(),
+      panel_params$y.scale$break_positions_minor(),
+      panel_params$y.scale$break_positions()
+    )
+  },
+
+  render_axis_h = function(panel_params, theme) {
+    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
+    arrange_scale_keys <- c("primary" = "x.scale", "secondary" = "x.sec_scale")[arrange]
+    arrange_scales <- panel_params[arrange_scale_keys]
+
+    list(
+      top = draw_view_scale(arrange_scales[[1]], "top", theme),
+      bottom = draw_view_scale(arrange_scales[[2]], "bottom", theme)
+    )
+  },
+
+  render_axis_v = function(panel_params, theme) {
+    arrange <- panel_params$y.arrange %||% c("primary", "secondary")
+    arrange_scale_keys <- c("primary" = "y.scale", "secondary" = "y.sec_scale")[arrange]
+    arrange_scales <- panel_params[arrange_scale_keys]
+
+    list(
+      left = draw_view_scale(arrange_scales[[1]], "left", theme),
+      right = draw_view_scale(arrange_scales[[2]], "right", theme)
     )
   }
 )
 
+view_scales_from_scale <- function(scale, limits = NULL, expand = TRUE) {
+  expansion <- if (expand) expand_default(scale) else expand_scale(0, 0)
+
+  if (is.null(limits)) {
+    continuous_range <- scale$dimension(expansion)
+  } else {
+    continuous_range <- range(scale$transform(limits))
+    continuous_range <- expand_range4(continuous_range, expansion)
+  }
+
+  break_info_all <- scale$break_info(continuous_range)
+  aesthetic <- scale$aesthetics[1]
+
+  break_info <- break_info_all[!grepl("^sec\\.", names(break_info_all))]
+  sec_break_info <- break_info_all[grepl("^sec\\.", names(break_info_all))]
+  names(sec_break_info) <- gsub("^sec\\.", "", names(sec_break_info))
+
+  view_scales <- list(
+    scale = view_scale_from_break_info(break_info, aesthetic, scale$name, scale$is_discrete()),
+    sec_scale = view_scale_from_break_info(
+      sec_break_info,
+      if (!scale$is_discrete()) scale$sec_name(),
+      paste0(aesthetic, ".sec"),
+      scale$is_discrete()
+    ),
+    arrange = scale$axis_order(),
+    range = break_info_all$range
+  )
+  names(view_scales) <- paste0(aesthetic, ".", names(view_scales))
+
+  view_scales
+}
+
+view_scale_from_break_info <- function(break_info, aesthetic, name, is_discrete) {
+  if(length(break_info) == 0) {
+    return(NULL)
+  }
+
+  force(is_discrete)
+  force(break_info)
+
+  ggproto("ViewScale", NULL,
+    name = name,
+    aesthetics = aesthetic,
+    break_info = break_info,
+    is_empty = function() is.null(break_info$major) && is.null(break_info$minor),
+    is_discrete = function() is_discrete,
+    dimension = function() break_info$range,
+    get_breaks = function() break_info$major_source,
+    get_breaks_minor = function() break_info$major_source,
+    break_positions = function() break_info$major,
+    break_positions_minor = function() break_info$minor,
+    get_labels = function() break_info$labels,
+    map = function(x) rescale(x, from = break_info$range, to = c(0, 1))
+  )
+}
+
 scale_range <- function(scale, limits = NULL, expand = TRUE) {
-  expansion <- if (expand) expand_default(scale) else c(0, 0)
+  expansion <- if (expand) expand_default(scale) else expand_scale(0, 0)
 
   if (is.null(limits)) {
     scale$dimension(expansion)
   } else {
-    range <- range(scale$transform(limits))
-    expand_range(range, expansion[1], expansion[2])
+    continuous_range <- range(scale$transform(limits))
+    expand_range4(continuous_range, expansion)
   }
+}
+
+draw_view_scale <- function(view_scale, axis_position, theme) {
+  if(is.null(view_scale)) {
+    return(zeroGrob())
+  }
+
+  draw_axis(view_scale$break_positions(), view_scale$get_labels(), axis_position, theme)
 }

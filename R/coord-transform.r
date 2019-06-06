@@ -150,6 +150,34 @@ CoordTrans <- ggproto("CoordTrans", Coord,
       train_trans(scale_x, self$limits$x, self$trans$x, "x"),
       train_trans(scale_y, self$limits$y, self$trans$y, "y")
     )
+  },
+
+  render_bg = function(panel_params, theme) {
+    guide_grid(
+      theme,
+      panel_params$x.minor,
+      panel_params$x.major,
+      panel_params$y.minor,
+      panel_params$y.major
+    )
+  },
+
+  render_axis_h = function(panel_params, theme) {
+    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
+
+    list(
+      top = render_axis(panel_params, arrange[1], "x", "top", theme),
+      bottom = render_axis(panel_params, arrange[2], "x", "bottom", theme)
+    )
+  },
+
+  render_axis_v = function(panel_params, theme) {
+    arrange <- panel_params$y.arrange %||% c("primary", "secondary")
+
+    list(
+      left = render_axis(panel_params, arrange[1], "y", "left", theme),
+      right = render_axis(panel_params, arrange[2], "y", "right", theme)
+    )
   }
 )
 
