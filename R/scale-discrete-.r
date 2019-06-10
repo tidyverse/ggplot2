@@ -6,15 +6,8 @@
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
-#' @inheritDotParams discrete_scale -expand -position
-#' @param expand Vector of range expansion constants used to add some
-#'   padding around the data, to ensure that they are placed some distance
-#'   away from the axes. Use the convenience function [expand_scale()]
-#'   to generate the values for the `expand` argument. The defaults are to
-#'   expand the scale by 5\% on each side for continuous variables, and by
-#'   0.6 units on each side for discrete variables.
-#' @param position The position of the axis. `left` or `right` for y
-#' axes, `top` or `bottom` for x axes
+#' @inheritDotParams discrete_scale
+#' @inheritParams discrete_scale
 #' @rdname scale_discrete
 #' @family position scales
 #' @export

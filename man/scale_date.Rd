@@ -97,15 +97,15 @@ Use \code{NA} to refer to the existing minimum or maximum
 new limits
 }}
 
-\item{expand}{Vector of range expansion constants used to add some
-padding around the data, to ensure that they are placed some distance
+\item{expand}{For position scales, a vector of range expansion constants used to add some
+padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
-\item{position}{The position of the axis. "left" or "right" for vertical
-scales, "top" or "bottom" for horizontal scales}
+\item{position}{For position scales, The position of the axis.
+\code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 
 \item{sec.axis}{specify a secondary axis}
 
@@ -113,7 +113,8 @@ scales, "top" or "bottom" for horizontal scales}
 (\code{NULL}) uses the timezone encoded in the data.}
 
 \item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default replaces out of bounds values with \code{NA}.}
+(out of bounds). The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+bounds values with \code{NA}.}
 
 \item{na.value}{Missing values will be replaced with this value.}
 }

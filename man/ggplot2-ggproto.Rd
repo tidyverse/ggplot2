@@ -401,12 +401,74 @@ that must be present for this position adjustment to work.
 \section{Scales}{
 
 
-All \code{scale_*} functions (like \code{scale_x_continuous}) return a
-\code{Scale*} object (like \code{ScaleContinuous}). The \code{Scale*}
-object represents a single scale.
+All \code{scale_*} functions like \code{\link[=scale_x_continuous]{scale_x_continuous()}} return a \code{Scale*}
+object like \code{ScaleContinuous}. Each of the \code{Scale*} objects is a \code{\link[=ggproto]{ggproto()}}
+object, descended from the top-level \code{Scale}.
 
-Each of the \code{Scale*} objects is a \code{\link[=ggproto]{ggproto()}} object,
-descended from the top-level \code{Scale}.
+Properties not documented in \code{\link[=continuous_scale]{continuous_scale()}} or \code{\link[=discrete_scale]{discrete_scale()}}:
+\itemize{
+\item \code{call} The call to \code{\link[=continuous_scale]{continuous_scale()}} or \code{\link[=discrete_scale]{discrete_scale()}} that constructed
+the scale.
+\item \code{range} One of \code{continuous_range()} or \code{discrete_range()}.
+}
+
+Methods:
+\itemize{
+\item \code{is_discrete()} Returns \code{TRUE} if the scale is a discrete scale
+\item \code{is_empty()} Returns \code{TRUE} if the scale contains no information (i.e.,
+it has no information with which to calculate its \code{limits}).
+\item \code{clone()} Returns a copy of the scale that can be trained
+independently without affecting the original scale.
+\item \code{transform()} Transforms a vector of values using \code{self$trans}.
+This occurs before the \code{Stat} is calculated.
+\item \code{train()} Update the \code{self$range} of observed (transformed) data values with
+a vector of (possibly) new values.
+\item \code{reset()} Reset the \code{self$range} of observed data values. For discrete
+position scales, only the continuous range is reset.
+\item \code{map()} Map transformed data values to some output value as
+determined by \code{self$rescaler} and \code{self$pallete} (except for position scales,
+which do not use the default implementation of this method). The output corresponds
+to the transformed data value in aesthetic space (e.g., a color, line width, or size).
+\item \code{transform_df()}, \code{train_df()}, \code{map_df()} These \code{_df} variants
+accept a data frame, and apply the \code{transform}, \code{train}, and \code{map} methods
+(respectively) to the columns whose names are in \code{self$aesthetics}.
+\item \code{get_limits()} Calculates the final scale limits in transformed data space
+based on the combination of \code{self$limits} and/or the range of observed values
+(\code{self$range}).
+\item \code{get_breaks()} Calculates the final scale breaks in transformed data space
+based on on the combination of \code{self$breaks}, \code{self$trans$breaks()} (for
+continuous scales), and \code{limits}. Breaks outside of \code{limits} are assigned
+a value of \code{NA} (continuous scales) or dropped (discrete scales).
+\item \code{get_labels()} Calculates labels for a given set of (transformed) \code{breaks}
+based on the combination of \code{self$labels} and \code{breaks}.
+\item \code{get_breaks_minor()} For continuous scales, calculates the final scale minor breaks
+in transformed data space based on the rescaled \code{breaks}, the value of \code{self$minor_breaks},
+and the value of \code{self$trans$minor_breaks()}. Discrete scales always return \code{NULL}.
+\item \code{make_title()} Hook to modify the title that is calculated during guide construction
+(for non-position scales) or when the \code{Layout} calculates the x and y labels
+(position scales).
+}
+
+These methods are only valid for position (x and y) scales:
+\itemize{
+\item \code{dimension()} For continuous scales, the dimension is the same concept as the limits.
+For discrete scales, \code{dimension()} returns a continuous range, where the limits
+would be placed at integer positions. \code{dimension()} optionally expands
+this range given an expantion of length 4 (see \code{\link[=expand_scale]{expand_scale()}}).
+\item \code{break_info()} Returns a \code{list()} with calculated values needed for the \code{Coord}
+to transform values in transformed data space. Axis and grid guides also use
+these values to draw guides. This is called with
+a (usually expanded) continuous range, such as that returned by \code{self$dimension()}
+(even for discrete scales). The list has components \code{major_source}
+(\code{self$get_breaks()} for continuous scales, or \code{seq_along(self$get_breaks())}
+for discrete scales), \code{major} (the rescaled value of \code{major_source}, ignoring
+\code{self$rescaler}), \code{minor} (the rescaled value of \code{minor_source}, ignoring
+\code{self$rescaler}), \code{range} (the range that was passed in to \code{break_info()}),
+\code{labels} (the label values, one for each element in \code{breaks}).
+\item \code{axis_order()} One of \code{c("primary", "secondary")} or \code{c("secondary", "primary")}
+\item \code{make_sec_title()} Hook to modify the title for the second axis that is calculated
+when the \code{Layout} calculates the x and y labels.
+}
 }
 
 \seealso{
