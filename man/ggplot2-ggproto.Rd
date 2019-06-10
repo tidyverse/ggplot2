@@ -426,9 +426,15 @@ a vector of (possibly) new values.
 \item \code{reset()} Reset the \code{self$range} of observed data values. For discrete
 position scales, only the continuous range is reset.
 \item \code{map()} Map transformed data values to some output value as
-determined by \code{self$rescaler} and \code{self$pallete} (except for position scales,
+determined by \code{self$rescale()} and \code{self$pallete} (except for position scales,
 which do not use the default implementation of this method). The output corresponds
 to the transformed data value in aesthetic space (e.g., a color, line width, or size).
+\item \code{rescale()} Rescale transformed data to the the range 0, 1. This is most useful for
+position scales. For continuous scales, \code{rescale()} uses the \code{rescaler} that
+was provided to the constructor. \code{rescale()} does not apply \code{self$oob()} to
+its input, which means that discrete values outside \code{limits} will be \code{NA}, and
+values that are outside \code{range} will have values less than 0 or greater than 1.
+This allows guides more control over how out-of-bounds values are displayed.
 \item \code{transform_df()}, \code{train_df()}, \code{map_df()} These \code{_df} variants
 accept a data frame, and apply the \code{transform}, \code{train}, and \code{map} methods
 (respectively) to the columns whose names are in \code{self$aesthetics}.

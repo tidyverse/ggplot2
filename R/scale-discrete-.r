@@ -101,9 +101,13 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     }
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0)) {
+  rescale = function(self, x, limits = self$get_limits(), range = self$dimension(limits = limits)) {
+    rescale(x, from = range)
+  },
+
+  dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
     c_range <- self$range_c$range
-    d_range <- self$get_limits()
+    d_range <- limits
 
     if (self$is_empty()) {
       c(0, 1)

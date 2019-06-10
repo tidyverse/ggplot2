@@ -213,9 +213,16 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'   position scales, only the continuous range is reset.
 #'
 #' - `map()` Map transformed data values to some output value as
-#'   determined by `self$rescaler` and `self$pallete` (except for position scales,
+#'   determined by `self$rescale()` and `self$pallete` (except for position scales,
 #'   which do not use the default implementation of this method). The output corresponds
 #'   to the transformed data value in aesthetic space (e.g., a color, line width, or size).
+#'
+#' - `rescale()` Rescale transformed data to the the range 0, 1. This is most useful for
+#'   position scales. For continuous scales, `rescale()` uses the `rescaler` that
+#'   was provided to the constructor. `rescale()` does not apply `self$oob()` to
+#'   its input, which means that discrete values outside `limits` will be `NA`, and
+#'   values that are outside `range` will have values less than 0 or greater than 1.
+#'   This allows guides more control over how out-of-bounds values are displayed.
 #'
 #' - `transform_df()`, `train_df()`, `map_df()` These `_df` variants
 #'   accept a data frame, and apply the `transform`, `train`, and `map` methods
@@ -354,6 +361,10 @@ Scale <- ggproto("Scale", NULL,
     stop("Not implemented", call. = FALSE)
   },
 
+  rescale = function(self, x, limits = self$get_limits(), range = self$dimension()) {
+    stop("Not implemented", call. = FALSE)
+  },
+
   get_limits = function(self) {
     if (self$is_empty()) {
       return(c(0, 1))
@@ -369,11 +380,11 @@ Scale <- ggproto("Scale", NULL,
     }
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0)) {
+  dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
     stop("Not implemented", call. = FALSE)
   },
 
-  get_breaks = function(self, limits = self$get_limits()) {
+  get_breaks = function(self, limits = self$get_limits(), censor = TRUE) {
     stop("Not implemented", call. = FALSE)
   },
 
@@ -463,7 +474,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   },
 
   map = function(self, x, limits = self$get_limits()) {
-    x <- self$rescaler(self$oob(x, range = limits), from = limits)
+    x <- self$rescale(self$oob(x, range = limits), limits)
 
     uniq <- unique(x)
     pal <- self$palette(uniq)
@@ -472,11 +483,15 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     ifelse(!is.na(scaled), scaled, self$na.value)
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0)) {
-    expand_range4(self$get_limits(), expand)
+  rescale = function(self, x, limits = self$get_limits(), range = limits) {
+    self$rescaler(x, from = range)
   },
 
-  get_breaks = function(self, limits = self$get_limits()) {
+  dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
+    expand_range4(limits, expand)
+  },
+
+  get_breaks = function(self, limits = self$get_limits(), censor = TRUE) {
     if (self$is_empty()) {
       return(numeric())
     }
@@ -503,8 +518,13 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     }
 
     # Breaks in data space need to be converted back to transformed space
-    # And any breaks outside the dimensions need to be flagged as missing
-    breaks <- censor(self$trans$transform(breaks), self$trans$transform(limits), only.finite = FALSE)
+    breaks <- self$trans$transform(breaks)
+
+    if (censor) {
+      # Any breaks outside the dimensions can be flagged as missing
+      breaks <- censor(breaks, self$trans$transform(limits), only.finite = FALSE)
+    }
+
     breaks
   },
 
@@ -565,6 +585,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(labels) != length(breaks)) {
       stop("Breaks and labels are different lengths", call. = FALSE)
     }
+
     labels
   },
 
@@ -666,11 +687,15 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0)) {
-    expand_range4(length(self$get_limits()), expand)
+  rescale = function(self, x, limits = self$get_limits(), range = c(1, length(limits))) {
+    rescale(x, match(as.character(x), limits), from = range)
   },
 
-  get_breaks = function(self, limits = self$get_limits()) {
+  dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
+    expand_range4(c(1, length(limits)), expand)
+  },
+
+  get_breaks = function(self, limits = self$get_limits(), censor = TRUE) {
     if (self$is_empty()) {
       return(numeric())
     }
@@ -691,9 +716,13 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       breaks <- self$breaks
     }
 
-    # Breaks can only occur only on values in domain
-    in_domain <- intersect(breaks, self$get_limits())
-    structure(in_domain, pos = match(in_domain, breaks))
+    if (censor) {
+      # Breaks should only occur only on values in domain
+      in_domain <- intersect(breaks, limits)
+      structure(in_domain, pos = match(in_domain, breaks))
+    } else {
+      breaks
+    }
   },
 
   get_breaks_minor = function(...) NULL,
