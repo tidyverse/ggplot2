@@ -293,10 +293,6 @@ Scale <- ggproto("Scale", NULL,
     stop("Not implemented", call. = FALSE)
   },
 
-  # Train scale from a data frame.
-  #
-  # @return updated range (invisibly)
-  # @seealso [scale_train()] for scale specific generic method
   train_df = function(self, df) {
     if (empty(df)) return()
 
@@ -307,12 +303,10 @@ Scale <- ggproto("Scale", NULL,
     invisible()
   },
 
-  # Train an individual scale from a vector of data.
   train = function(self, x) {
     stop("Not implemented", call. = FALSE)
   },
 
-  # Reset scale, untraining ranges
   reset = function(self) {
     self$range$reset()
   },
@@ -321,12 +315,15 @@ Scale <- ggproto("Scale", NULL,
     is.null(self$range$range) && is.null(self$limits)
   },
 
-  # @return list of transformed variables
   transform_df = function(self, df) {
-    if (empty(df)) return()
+    if (empty(df)) {
+      return()
+    }
 
     aesthetics <- intersect(self$aesthetics, names(df))
-    if (length(aesthetics) == 0) return()
+    if (length(aesthetics) == 0) {
+      return()
+    }
 
     lapply(df[aesthetics], self$transform)
   },
@@ -335,13 +332,16 @@ Scale <- ggproto("Scale", NULL,
     stop("Not implemented", call. = FALSE)
   },
 
-  # @return list of mapped variables
   map_df = function(self, df, i = NULL) {
-    if (empty(df)) return()
+    if (empty(df)) {
+      return()
+    }
 
     aesthetics <- intersect(self$aesthetics, names(df))
     names(aesthetics) <- aesthetics
-    if (length(aesthetics) == 0) return()
+    if (length(aesthetics) == 0) {
+      return()
+    }
 
     if (is.null(i)) {
       lapply(aesthetics, function(j) self$map(df[[j]]))
@@ -355,7 +355,9 @@ Scale <- ggproto("Scale", NULL,
   },
 
   get_limits = function(self) {
-    if (self$is_empty()) return(c(0, 1))
+    if (self$is_empty()) {
+      return(c(0, 1))
+    }
 
     if (is.null(self$limits)) {
       self$range$range
@@ -406,14 +408,19 @@ Scale <- ggproto("Scale", NULL,
   make_title = function(title) {
     title
   },
+
   make_sec_title = function(title) {
     title
   }
 )
 
 check_breaks_labels <- function(breaks, labels) {
-  if (is.null(breaks)) return(TRUE)
-  if (is.null(labels)) return(TRUE)
+  if (is.null(breaks)) {
+    return(TRUE)
+  }
+  if (is.null(labels)) {
+    return(TRUE)
+  }
 
   bad_labels <- is.atomic(breaks) && is.atomic(labels) &&
     length(breaks) != length(labels)
@@ -439,7 +446,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   is_discrete = function() FALSE,
 
   train = function(self, x) {
-    if (length(x) == 0) return()
+    if (length(x) == 0) {
+      return()
+    }
     self$range$train(x)
   },
 
@@ -531,7 +540,9 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   },
 
   get_labels = function(self, breaks = self$get_breaks()) {
-    if (is.null(breaks)) return(NULL)
+    if (is.null(breaks)) {
+      return(NULL)
+    }
 
     breaks <- self$trans$inverse(breaks)
 
