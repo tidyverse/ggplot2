@@ -89,7 +89,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   reset = function(self) {
-    # Can't reset discrete scale because no way to recover values
+    # Can't reset discrete position scale because no way to recover values
     self$range_c$reset()
   },
 
@@ -102,7 +102,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   rescale = function(self, x, limits = self$get_limits(), range = self$dimension(limits = limits)) {
-    rescale(x, from = range)
+    rescale(self$map(x, limits = limits), from = range)
   },
 
   dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
@@ -121,10 +121,6 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
         expand_range4(c(1, length(d_range)), expand)
       )
     }
-  },
-
-  get_breaks = function(self, limits = self$get_limits()) {
-    ggproto_parent(ScaleDiscrete, self)$get_breaks(limits)
   },
 
   clone = function(self) {
