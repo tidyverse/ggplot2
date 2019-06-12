@@ -150,8 +150,8 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   aesthetic <- scale$aesthetics[1]
 
   view_scales <- list(
-    view_scale(scale, limits, continuous_range),
-    sec = second_view_scale(scale, limits, continuous_range),
+    view_scale_primary(scale, limits, continuous_range),
+    sec = view_scale_secondary(scale, limits, continuous_range),
     arrange = scale$axis_order(),
     range = continuous_range
   )

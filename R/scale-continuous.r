@@ -147,35 +147,6 @@ ScaleContinuousPosition <- ggproto("ScaleContinuousPosition", ScaleContinuous,
   }
 )
 
-# this function is a hack that is difficult to avoid given the complex implementation of second axes
-second_view_scale <- function(scale, limits = scale$get_limits(), range = scale$dimension(limits = limits)) {
-  if (is.null(scale$secondary.axis) || is.waive(scale$secondary.axis) || scale$secondary.axis$empty()) {
-    view_scale_empty()
-  } else {
-    scale$secondary.axis$init(scale)
-    break_info <- scale$secondary.axis$break_info(range, scale)
-    names(break_info) <- gsub("sec\\.", "", names(break_info))
-
-    ggproto(
-      "ViewScaleSecondary", NULL,
-      scale = scale,
-      name = scale$sec_name(),
-      make_title = function(self, title) scale$make_sec_title(title),
-      aesthetics = paste0(scale$aesthetics, ".sec"),
-      break_info = break_info,
-      is_empty = function() is.null(break_info$major) && is.null(break_info$minor),
-      is_discrete = function(self) self$scale$is_discrete(),
-      dimension = function() break_info$range,
-      get_breaks = function() break_info$major_source,
-      get_breaks_minor = function() break_info$minor_source,
-      break_positions = function() break_info$major,
-      break_positions_minor = function() break_info$minor,
-      get_labels = function() break_info$labels,
-      rescale = function(x) rescale(x, from = break_info$range, to = c(0, 1))
-    )
-  }
-}
-
 # Transformed scales ---------------------------------------------------------
 
 #' @rdname scale_continuous
