@@ -11,7 +11,6 @@ test_that("basic plot builds without error", {
   # Perform minimal test as long as vdiffr test is disabled
   expect_error(regexp = NA, ggplot_build(plot))
 
-  skip("sf tests are currently unstable")
   expect_doppelganger("sf-polygons", plot)
 })
 
