@@ -38,29 +38,29 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
 }
 
 # this function is a hack that is difficult to avoid given the complex implementation of second axes
-view_scale_secondary <- function(scale, limits = scale$get_limits(), range = scale$dimension(limits = limits)) {
+view_scale_secondary <- function(scale, limits = scale$get_limits(),
+                                 continuous_range = scale$dimension(limits = limits)) {
   if (is.null(scale$secondary.axis) || is.waive(scale$secondary.axis) || scale$secondary.axis$empty()) {
     view_scale_empty()
   } else {
     scale$secondary.axis$init(scale)
-    break_info <- scale$secondary.axis$break_info(range, scale)
+    break_info <- scale$secondary.axis$break_info(continuous_range, scale)
     names(break_info) <- gsub("sec\\.", "", names(break_info))
 
-    ggproto(
-      "ViewScaleSecondary", NULL,
+    ggproto(NULL, ViewScale,
       scale = scale,
-      name = scale$sec_name(),
-      make_title = function(self, title) scale$make_sec_title(title),
-      aesthetics = paste0(scale$aesthetics, ".sec"),
       break_info = break_info,
-      is_empty = function() is.null(break_info$major) && is.null(break_info$minor),
-      is_discrete = function(self) self$scale$is_discrete(),
-      dimension = function() break_info$range,
-      get_breaks = function() break_info$major_source,
-      get_breaks_minor = function() break_info$minor_source,
-      break_positions = function() break_info$major,
-      break_positions_minor = function() break_info$minor,
-      get_labels = function() break_info$labels,
+      aesthetics = paste0(scale$aesthetics, ".sec"),
+      name = scale$sec_name(),
+      make_title = function(self, title) self$scale$make_sec_title(title),
+
+      dimension = function(self) self$break_info$range,
+      get_limits = function(self) self$break_info$range,
+      get_breaks = function(self) self$break_info$major_source,
+      get_breaks_minor = function(self) self$break_info$minor_source,
+      break_positions = function(self) self$break_info$major,
+      break_positions_minor = function(self) self$break_info$minor,
+      get_labels = function(self) self$break_info$labels,
       rescale = function(x) rescale(x, from = break_info$range, to = c(0, 1))
     )
   }
@@ -84,6 +84,9 @@ view_scale_empty <- function() {
 }
 
 ViewScale <- ggproto("ViewScale", NULL,
+  # map, rescale, and make_title need a reference
+  # to the original scale
+  scale = ggproto(NULL, Scale),
   aesthetics = NULL,
   name = waiver(),
   scale_is_discrete = FALSE,
@@ -92,10 +95,6 @@ ViewScale <- ggproto("ViewScale", NULL,
   breaks = NULL,
   labels = NULL,
   minor_breaks = NULL,
-
-  # map, rescale, and make_title need a reference
-  # to the original scale
-  scale = ggproto(NULL, Scale),
 
   is_empty = function(self) {
     is.null(self$get_breaks()) && is.null(self$get_breaks_minor())
