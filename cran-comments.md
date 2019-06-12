@@ -1,3 +1,10 @@
+This is a resubmission with changes as requested by CRAN
+
+- Remove broken link in ggplot2-spec.Rmd vignette.
+- Reduce the examples in coord_map.Rd
+
+-------
+
 ## Test environments
 * local OS X install, R 3.6.0
 * ubuntu 14.04 (on travis-ci), R 3.6.0
