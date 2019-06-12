@@ -71,6 +71,15 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme) {
     )
   }
 
+  # break_labels can be a list() of language objects
+  if (is.list(break_labels)) {
+    if (any(vapply(break_labels, is.language, logical(1)))) {
+      break_labels <- do.call(expression, break_labels)
+    } else {
+      break_labels <- unlist(break_labels)
+    }
+  }
+
   labels_grob <- exec(
     element_grob, label_element,
     !!position_dim := unit(break_positions, "native"),
