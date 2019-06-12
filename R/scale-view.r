@@ -1,9 +1,11 @@
 
 #' View scale constructor
 #'
-#' View scales the immutable result of the trained and expanded scales.
-#' Calls to its methods should return identical results to the scale
-#' methods.
+#' View scales are an implementation of `Scale` objects that have fixed
+#' limits, dimension, breaks, labels, and minor breaks. They are used as
+#' the immutable result of the trained scales that have been assigned
+#' `limits` and a `continuous_range` from the coordinate system's
+#' implementation of scale expantion.
 #'
 #' @param scale The scale from which to construct a view scale.
 #' @param limits The final scale limits
