@@ -199,6 +199,7 @@ Collate:
     'scale-shape.r'
     'scale-size.r'
     'scale-type.R'
+    'scale-view.r'
     'scale-viridis.r'
     'scales-.r'
     'stat-bin.r'
