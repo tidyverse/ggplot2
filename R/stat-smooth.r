@@ -105,7 +105,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         y ~ x
       }
       msg <- if (is.null(msg)) {
-        msg <- paste0("`geom_smooth()` using formula = '", deparse(params$formula), "'")
+        msg <- paste0("`geom_smooth()` using formula '", deparse(params$formula), "'")
       } else {
         msg <- paste0(msg, " and formula '", deparse(params$formula), "'")
       }
