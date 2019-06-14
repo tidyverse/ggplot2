@@ -1,8 +1,10 @@
-#' @param method Smoothing method (function) to use, accepts either a character vector,
-#'   e.g. `"auto"`, `"lm"`, `"glm"`, `"gam"`, `"loess"` or a function, e.g.
-#'   `MASS::rlm` or `mgcv::gam`, `base::lm`, or `base::loess`.
+#' @param method Smoothing method (function) to use, accepts either
+#'   `NULL` or a character vector, e.g. `"lm"`, `"glm"`, `"gam"`, `"loess"`
+#'   or a function, e.g. `MASS::rlm` or `mgcv::gam`, `stats::lm`, or `stats::loess`.
+#'   `"auto"` is also accepted for backwards compatibility.  It is equivalent to
+#'   `NULL`.
 #'
-#'   For `method = "auto"` the smoothing method is chosen based on the
+#'   For `method = NULL` the smoothing method is chosen based on the
 #'   size of the largest group (across all panels). [loess()] is
 #'   used for less than 1,000 observations; otherwise [mgcv::gam()] is
 #'   used with `formula = y ~ s(x, bs = "cs")`. Somewhat anecdotally,
@@ -10,11 +12,11 @@
 #'   so does not work for larger datasets.
 #'
 #'   If you have fewer than 1,000 observations but want to use the same `gam()`
-#'   model that `method = "auto"` would use, then set
+#'   model that `method = NULL` would use, then set
 #'   `method = "gam", formula = y ~ s(x, bs = "cs")`.
 #' @param formula Formula to use in smoothing function, eg. `y ~ x`,
 #'   `y ~ poly(x, 2)`, `y ~ log(x)`. `NULL` by default, in which case
-#'   `method = "auto"` implies `formula = y ~ x` when there are fewer than 1,000
+#'   `method = NULL` implies `formula = y ~ x` when there are fewer than 1,000
 #'   observations and `formula = y ~ s(x, bs = "cs")` otherwise.
 #' @param se Display confidence interval around smooth? (`TRUE` by default, see
 #'   `level` to control.)
@@ -39,7 +41,7 @@
 stat_smooth <- function(mapping = NULL, data = NULL,
                         geom = "smooth", position = "identity",
                         ...,
-                        method = "auto",
+                        method = NULL,
                         formula = NULL,
                         se = TRUE,
                         n = 80,
@@ -59,7 +61,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
-      method = method,
+      method = if (!is.null(method) && identical(method, "auto")) NULL else method,
       formula = formula,
       se = se,
       n = n,
@@ -80,7 +82,8 @@ stat_smooth <- function(mapping = NULL, data = NULL,
 StatSmooth <- ggproto("StatSmooth", Stat,
 
   setup_params = function(data, params) {
-    if (identical(params$method, "auto")) {
+    msg <- NULL
+    if (is.null(params$method)) {
       # Use loess for small datasets, gam with a cubic regression basis for
       # larger. Based on size of the _largest_ group to avoid bad memory
       # behaviour of loess
@@ -91,20 +94,35 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       } else {
         params$method <- "gam"
       }
-      message("`geom_smooth()` using method = '", params$method,
-              "' and formula '", deparse(params$formula), "'")
+
+      msg <- paste0("`geom_smooth()` using method = '", params$method, "'")
     }
+
+    if (is.null(params$formula)) {
+      params$formula <- if (identical(params$method, "gam")) {
+        y ~ s(x, bs = "cs")
+      } else {
+        y ~ x
+      }
+      msg <- if (is.null(msg)) {
+        msg <- paste0("`geom_smooth()` using formula = '", deparse(params$formula), "'")
+      } else {
+        msg <- paste0(msg, " and formula '", deparse(params$formula), "'")
+      }
+    }
+
     if (identical(params$method, "gam")) {
       params$method <- mgcv::gam
-      params$formula <- params$formula %||% (y ~ s(x, bs = "cs"))
-    } else {
-      params$formula <- params$formula %||% (y ~ x)
+    }
+
+    if (!is.null(msg)) {
+      message(msg)
     }
 
     params
   },
 
-  compute_group = function(data, scales, method = "auto", formula = NULL,
+  compute_group = function(data, scales, method = NULL, formula = NULL,
                            se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
                            xseq = NULL, level = 0.95, method.args = list(),
                            na.rm = FALSE) {

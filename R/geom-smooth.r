@@ -78,7 +78,7 @@
 geom_smooth <- function(mapping = NULL, data = NULL,
                         stat = "smooth", position = "identity",
                         ...,
-                        method = "auto",
+                        method = NULL,
                         formula = NULL,
                         se = TRUE,
                         na.rm = FALSE,
@@ -91,7 +91,7 @@ geom_smooth <- function(mapping = NULL, data = NULL,
     ...
   )
   if (identical(stat, "smooth")) {
-    params$method <- method
+    params$method <- if (!is.null(method) && identical(method, "auto")) NULL else method
     params$formula <- formula
   }
 
