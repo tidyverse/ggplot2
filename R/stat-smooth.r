@@ -82,7 +82,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
 StatSmooth <- ggproto("StatSmooth", Stat,
 
   setup_params = function(data, params) {
-    msg <- NULL
+    msg <- character()
     if (is.null(params$method)) {
       # Use loess for small datasets, gam with a cubic regression basis for
       # larger. Based on size of the _largest_ group to avoid bad memory
@@ -95,7 +95,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         params$method <- "gam"
       }
 
-      msg <- paste0("`geom_smooth()` using method = '", params$method, "'")
+      msg <- c(msg, paste0("method = '", params$method, "'"))
     }
 
     if (is.null(params$formula)) {
@@ -104,19 +104,15 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       } else {
         y ~ x
       }
-      msg <- if (is.null(msg)) {
-        msg <- paste0("`geom_smooth()` using formula '", deparse(params$formula), "'")
-      } else {
-        msg <- paste0(msg, " and formula '", deparse(params$formula), "'")
-      }
+      msg <- c(msg, paste0("formula '", deparse(params$formula), "'"))
     }
 
     if (identical(params$method, "gam")) {
       params$method <- mgcv::gam
     }
 
-    if (!is.null(msg)) {
-      message(msg)
+    if (length(msg) > 0) {
+      message("`geom_smooth()` using ", paste0(msg, collapse = " and "))
     }
 
     params
