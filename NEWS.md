@@ -1,3 +1,10 @@
+# ggplot2 (development version)
+
+* `geom_abline()`, `geom_hline()`, and `geom_vline()` now issue 
+  more informative warnings when supplied with set aesthetics
+  (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
+  and mapped aesthetics (i.e., `data` and/or `mapping`).
+
 # ggplot2 3.1.1.9000
 
 This is a minor release with an emphasis on internal changes to make ggplot2 
@@ -6,6 +13,21 @@ aesthetics of the plot in minor ways, and will only potentially break code of
 extension developers if they have relied on internals that have been changed. 
 This release also sees the addition of Hiroaki Yutani (@yutannihilation) to the 
 core developer team.
+
+## Breaking changes
+
+* Two patches (#2996 and #3050) fixed minor rendering problems. In most cases,
+  the visual changes are so subtle that they are difficult to see with the naked
+  eye. However, these changes are detected by the vdiffr package, and therefore
+  any package developers who use vdiffr to test for visual correctness of ggplot2
+  plots will have to regenerate all reference images.
+  
+* In some cases, ggplot2 now produces a warning or an error for code that previously
+  produced plot output. In all these cases, the previous plot output was accidental,
+  and the plotting code uses the ggplot2 API in a way that would lead to undefined
+  behavior. Examples include a missing `group` aesthetic in `geom_boxplot()` (#3316),
+  annotations across multiple facets (#3305), and not using aesthetic mappings when
+  drawing ribbons with `geom_ribbon()` (#3318).
 
 ## New features
 

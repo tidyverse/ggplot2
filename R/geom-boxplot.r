@@ -159,7 +159,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
 #' @export
 GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
-  # need to declare `width`` here in case this geom is used with a stat that
+  # need to declare `width` here in case this geom is used with a stat that
   # doesn't have a `width` parameter (e.g., `stat_identity`).
   extra_params = c("na.rm", "width"),
 
@@ -199,6 +199,14 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
                         outlier.size = 1.5, outlier.stroke = 0.5,
                         outlier.alpha = NULL,
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
+
+    # this may occur when using geom_boxplot(stat = "identity")
+    if (nrow(data) != 1) {
+      stop(
+        "Can't draw more than one boxplot per group. Did you forget aes(group = ...)?",
+        call. = FALSE
+      )
+    }
 
     common <- list(
       colour = data$colour,

@@ -7,9 +7,13 @@
 aes(x, y, ...)
 }
 \arguments{
-\item{x, y, ...}{List of name value pairs giving aesthetics to map to
-variables. The names for x and y aesthetics are typically omitted because
-they are so common; all other aesthetics must be named.}
+\item{x, y, ...}{List of name-value pairs in the form \code{aesthetic = variable}
+describing which variables in the layer data should be mapped to which
+aesthetics used by the paired geom/stat. The expression \code{variable} is
+evaluated within the layer data, so there is no need to refer to
+the original dataset (i.e., use \code{ggplot(df, aes(variable))}
+instead of \code{ggplot(df, aes(df$variable))}). The names for x and y aesthetics
+are typically omitted because they are so common; all other aesthetics must be named.}
 }
 \value{
 A list with class \code{uneval}. Components of the list are either
@@ -22,8 +26,8 @@ properties (aesthetics) of geoms. Aesthetic mappings can be set in
 }
 \details{
 This function also standardises aesthetic names by converting \code{color} to \code{colour}
-(also in substrings, e.g. \code{point_color} to \code{point_colour}) and translating old style
-R names to ggplot names (eg. \code{pch} to \code{shape}, \code{cex} to \code{size}).
+(also in substrings, e.g., \code{point_color} to \code{point_colour}) and translating old style
+R names to ggplot names (e.g., \code{pch} to \code{shape} and \code{cex} to \code{size}).
 }
 \section{Quasiquotation}{
 
