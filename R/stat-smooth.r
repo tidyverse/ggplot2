@@ -61,7 +61,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
-      method = if (!is.null(method) && identical(method, "auto")) NULL else method,
+      method = method,
       formula = formula,
       se = se,
       n = n,
@@ -83,7 +83,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
   setup_params = function(data, params) {
     msg <- character()
-    if (is.null(params$method)) {
+    if (is.null(params$method) || identical(params$method, "auto")) {
       # Use loess for small datasets, gam with a cubic regression basis for
       # larger. Based on size of the _largest_ group to avoid bad memory
       # behaviour of loess
