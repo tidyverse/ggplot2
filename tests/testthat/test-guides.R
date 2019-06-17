@@ -1,5 +1,7 @@
 context("Guides")
 
+skip_on_cran() # This test suite is long-running (on cran) and is skipped
+
 test_that("colourbar trains without labels", {
   g <- guide_colorbar()
   sc <- scale_colour_continuous(limits = c(0, 4), labels = NULL)

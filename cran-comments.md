@@ -1,7 +1,6 @@
 This is a resubmission with changes as requested by CRAN
 
-- Remove broken link in ggplot2-spec.Rmd vignette.
-- Reduce the examples in coord_map.Rd
+- Remove a subset of unit tests when running on CRAN to keep check time low
 
 -------
 
