@@ -37,7 +37,7 @@
 different factors. The labeller can be a function or it can be a
 named character vectors that will serve as a lookup table." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -78,7 +78,7 @@ named character vectors that will serve as a lookup table." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.0</span>
         </div>
       </div>
     </div>
@@ -111,22 +111,31 @@ named character vectors that will serve as a lookup table." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/releases/ggplot2-2.2.0.html">Version 2.2.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.1.0.html">Version 2.1.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.0.0.html">Version 2.0.0</a>
+      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-1.0.0.html">Version 1.0.0</a>
+      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
     </li>
     <li class="divider"></li>
     <li>
       <a href="../news/index.html">Change log</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
         <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -255,8 +264,9 @@ functions taking a character vector such as
 ))</div><div class='img'><img src='labeller-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># In the following example, we rename the levels to the long form,</span>
 <span class='co'># then apply a wrap labeller to the columns to prevent cropped text</span>
-<span class='no'>msleep</span>$<span class='no'>conservation2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/plyr/topics/revalue'>revalue</a></span>(<span class='no'>msleep</span>$<span class='no'>conservation</span>,
-  <span class='no'>conservation_status</span>)
+<span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/match'>match</a></span>(<span class='no'>msleep</span>$<span class='no'>conservation</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/names'>names</a></span>(<span class='no'>conservation_status</span>))
+<span class='no'>msleep</span>$<span class='no'>conservation2</span> <span class='kw'>&lt;-</span> <span class='no'>conservation_status</span>[<span class='no'>idx</span>]
+
 <span class='no'>p3</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sleep_total</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>awake</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
 <span class='no'>p3</span> +
   <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation2</span>,
@@ -299,7 +309,7 @@ functions taking a character vector such as
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

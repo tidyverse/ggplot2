@@ -35,7 +35,7 @@
 
 <meta property="og:description" content="Get the maximal width/length of a list of grobs" />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -76,7 +76,7 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.0</span>
         </div>
       </div>
     </div>
@@ -109,22 +109,31 @@
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/releases/ggplot2-2.2.0.html">Version 2.2.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.1.0.html">Version 2.1.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.0.0.html">Version 2.0.0</a>
+      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-1.0.0.html">Version 1.0.0</a>
+      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
     </li>
     <li class="divider"></li>
     <li>
       <a href="../news/index.html">Change log</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
         <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -155,9 +164,9 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>max_height</span>(<span class='no'>grobs</span>)
+    <pre class="usage"><span class='fu'>max_height</span>(<span class='no'>grobs</span>, <span class='kw'>value_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>max_width</span>(<span class='no'>grobs</span>)</pre>
+<span class='fu'>max_width</span>(<span class='no'>grobs</span>, <span class='kw'>value_only</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,11 +175,17 @@
       <th>grobs</th>
       <td><p>A list of grobs</p></td>
     </tr>
+    <tr>
+      <th>value_only</th>
+      <td><p>Should the return value be a simple numeric vector giving
+the maximum in cm</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The largest value. measured in cm as a unit object</p>
+    <p>The largest value. measured in cm as a unit object or a numeric
+vector depending on <code>value_only</code></p>
     
 
   </div>
@@ -192,7 +207,7 @@
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

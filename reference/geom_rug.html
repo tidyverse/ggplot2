@@ -37,7 +37,7 @@
 with the two 1d marginal distributions. Rug plots display individual
 cases so are best used with smaller datasets." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -78,7 +78,7 @@ cases so are best used with smaller datasets." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.0</span>
         </div>
       </div>
     </div>
@@ -111,22 +111,31 @@ cases so are best used with smaller datasets." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/releases/ggplot2-2.2.0.html">Version 2.2.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.1.0.html">Version 2.1.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.0.0.html">Version 2.0.0</a>
+      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-1.0.0.html">Version 1.0.0</a>
+      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
     </li>
     <li class="divider"></li>
     <li>
       <a href="../news/index.html">Change log</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
         <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -160,8 +169,9 @@ cases so are best used with smaller datasets.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_rug</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"bl"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>outside</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"bl"</span>,
+  <span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>unit</a></span>(<span class='fl'>0.03</span>, <span class='st'>"npc"</span>), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -184,7 +194,8 @@ data. All objects will be fortified to produce a data frame. See
 <code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
-will be used as the layer data.</p></td>
+will be used as the layer data. A <code>function</code> can be created
+from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     </tr>
     <tr>
       <th>stat</th>
@@ -204,10 +215,18 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
+      <th>outside</th>
+      <td><p>logical that controls whether to move the rug tassels outside of the plot area. Default is off (FALSE). You will also need to use <code><a href='coord_cartesian.html'>coord_cartesian(clip = "off")</a></code>. When set to TRUE, also consider changing the sides argument to "tr". See examples.</p></td>
+    </tr>
+    <tr>
       <th>sides</th>
       <td><p>A string that controls which sides of the plot the rugs appear on.
 It can be set to a string containing any of <code>"trbl"</code>, for top, right,
 bottom, and left.</p></td>
+    </tr>
+    <tr>
+      <th>length</th>
+      <td><p>A <code><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>grid::unit()</a></code> object that sets the length of the rug lines. Use scale expansion to avoid overplotting of data.</p></td>
     </tr>
     <tr>
       <th>na.rm</th>
@@ -233,9 +252,10 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The rug lines are drawn with a fixed size (3<!-- % of the total plot size) so -->
-are dependent on the overall scale expansion in order not to overplot
-existing data.</p>
+    <p>By default, the rug lines are drawn with a length that corresponds to 3%
+of the total plot size. Since the default scale expansion of for continuous
+variables is 5% at both ends of the scale, the rug will not overlap with
+any data points under the default settings.</p>
     
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
@@ -261,7 +281,20 @@ existing data.</p>
   <span class='fu'>geom_rug</span>()</div><div class='img'><img src='geom_rug-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>cty</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>() +
-  <span class='fu'>geom_rug</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"jitter"</span>)</div><div class='img'><img src='geom_rug-6.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>geom_rug</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>2</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"jitter"</span>)</div><div class='img'><img src='geom_rug-6.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># move the rug tassels to outside the plot</span>
+<span class='co'># remember to set clip = "off".</span>
+<span class='no'>p</span> + <span class='fu'>geom_rug</span>(<span class='kw'>outside</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
+  <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(<span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"off"</span>)</div><div class='img'><img src='geom_rug-7.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># set sides to top right, and then move the margins</span>
+<span class='no'>p</span> + <span class='fu'>geom_rug</span>(<span class='kw'>outside</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>sides</span> <span class='kw'>=</span> <span class='st'>"tr"</span>) +
+   <span class='fu'><a href='coord_cartesian.html'>coord_cartesian</a></span>(<span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"off"</span>) +
+   <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>plot.margin</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>margin</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='st'>"cm"</span>))</div><div class='img'><img src='geom_rug-8.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># increase the line length and</span>
+<span class='co'># expand axis to avoid overplotting</span>
+<span class='no'>p</span> + <span class='fu'>geom_rug</span>(<span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>unit</a></span>(<span class='fl'>0.05</span>, <span class='st'>"npc"</span>)) +
+   <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0.1</span>, <span class='fl'>0.1</span>))</div><div class='img'><img src='geom_rug-9.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -285,7 +318,7 @@ existing data.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

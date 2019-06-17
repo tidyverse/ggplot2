@@ -40,7 +40,7 @@ scale_*_discrete.
 The expansions vectors are used to add some space between
 the data and the axes." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -81,7 +81,7 @@ the data and the axes." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.0</span>
         </div>
       </div>
     </div>
@@ -114,22 +114,31 @@ the data and the axes." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/releases/ggplot2-2.2.0.html">Version 2.2.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.1.0.html">Version 2.1.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.0.0.html">Version 2.0.0</a>
+      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-1.0.0.html">Version 1.0.0</a>
+      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
     </li>
     <li class="divider"></li>
     <li>
       <a href="../news/index.html">Change log</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
         <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -198,7 +207,7 @@ limit by <code>add[2]</code>.</p></td>
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>() +
   <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expand_scale</span>(<span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='expand_scale-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Reproduce the default range expansion used</span>
-<span class='co'># when the ‘expand’ argument is not specified</span>
+<span class='co'># when the 'expand' argument is not specified</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>diamonds</span>, <span class='no'>carat</span> <span class='kw'>&gt;</span> <span class='fl'>2</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>, <span class='no'>price</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>() +
   <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expand_scale</span>(<span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>.6</span>)) +
@@ -222,7 +231,7 @@ limit by <code>add[2]</code>.</p></td>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

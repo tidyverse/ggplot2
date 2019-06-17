@@ -36,9 +36,12 @@
 <meta property="og:description" content="Polygons are very similar to paths (as drawn by geom_path())
 except that the start and end points are connected and the inside is
 coloured by fill. The group aesthetic determines which cases
-are connected together into a polygon." />
+are connected together into a polygon. From R 3.6 and onwards it is possible
+to draw polygons with holes by providing a subgroup aesthetic that
+differentiates the outer ring points from those describing holes in the
+polygon." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -79,7 +82,7 @@ are connected together into a polygon." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.0</span>
         </div>
       </div>
     </div>
@@ -112,22 +115,31 @@ are connected together into a polygon." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/releases/ggplot2-2.2.0.html">Version 2.2.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.1.0.html">Version 2.1.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.0.0.html">Version 2.0.0</a>
+      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-1.0.0.html">Version 1.0.0</a>
+      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
     </li>
     <li class="divider"></li>
     <li>
       <a href="../news/index.html">Change log</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
         <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -157,13 +169,16 @@ are connected together into a polygon." />
     <p>Polygons are very similar to paths (as drawn by <code><a href='geom_path.html'>geom_path()</a></code>)
 except that the start and end points are connected and the inside is
 coloured by <code>fill</code>. The <code>group</code> aesthetic determines which cases
-are connected together into a polygon.</p>
+are connected together into a polygon. From R 3.6 and onwards it is possible
+to draw polygons with holes by providing a subgroup aesthetic that
+differentiates the outer ring points from those describing holes in the
+polygon.</p>
     
     </div>
 
     <pre class="usage"><span class='fu'>geom_polygon</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>rule</span> <span class='kw'>=</span> <span class='st'>"evenodd"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,7 +201,8 @@ data. All objects will be fortified to produce a data frame. See
 <code><a href='fortify.html'>fortify()</a></code> for which variables will be created.</p>
 <p>A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
-will be used as the layer data.</p></td>
+will be used as the layer data. A <code>function</code> can be created
+from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     </tr>
     <tr>
       <th>stat</th>
@@ -197,6 +213,13 @@ layer, as a string.</p></td>
       <th>position</th>
       <td><p>Position adjustment, either as a string, or the result of
 a call to a position adjustment function.</p></td>
+    </tr>
+    <tr>
+      <th>rule</th>
+      <td><p>Either <code>"evenodd"</code> or <code>"winding"</code>. If polygons with holes are
+being drawn (using the <code>subgroup</code> aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in <code><a href='https://www.rdocumentation.org/packages/grid/topics/grid.path'>grid::pathGrob()</a></code> for
+an explanation.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -239,6 +262,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <li><p><code>group</code></p></li>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
+<li><p><code>subgroup</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
@@ -283,8 +307,26 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 )
 
 <span class='no'>p</span> + <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>stream</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey30"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='img'><img src='geom_polygon-2.png' alt='' width='700' height='433' /></div><div class='input'>
-# And if the positions are in longitude and latitude, you can use
-# coord_map to produce different map projections.
+<span class='co'># And if the positions are in longitude and latitude, you can use</span>
+<span class='co'># coord_map to produce different map projections.</span>
+
+<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/packageDescription'>packageVersion</a></span>(<span class='st'>"grid"</span>) <span class='kw'>&gt;=</span> <span class='st'>"3.6"</span>) {
+  <span class='co'># As of R version 3.6 geom_polygon() supports polygons with holes</span>
+  <span class='co'># Use the subgroup aesthetic to differentiate holes from the main polygon</span>
+
+  <span class='no'>holes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/do.call'>do.call</a></span>(<span class='no'>rbind</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/split'>split</a></span>(<span class='no'>datapoly</span>, <span class='no'>datapoly</span>$<span class='no'>id</span>), <span class='kw'>function</span>(<span class='no'>df</span>) {
+    <span class='no'>df</span>$<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='no'>df</span>$<span class='no'>x</span> + <span class='fl'>0.5</span> * (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>df</span>$<span class='no'>x</span>) - <span class='no'>df</span>$<span class='no'>x</span>)
+    <span class='no'>df</span>$<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='no'>df</span>$<span class='no'>y</span> + <span class='fl'>0.5</span> * (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>df</span>$<span class='no'>y</span>) - <span class='no'>df</span>$<span class='no'>y</span>)
+    <span class='no'>df</span>
+  }))
+  <span class='no'>datapoly</span>$<span class='no'>subid</span> <span class='kw'>&lt;-</span> <span class='fl'>1L</span>
+  <span class='no'>holes</span>$<span class='no'>subid</span> <span class='kw'>&lt;-</span> <span class='fl'>2L</span>
+  <span class='no'>datapoly</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cbind'>rbind</a></span>(<span class='no'>datapoly</span>, <span class='no'>holes</span>)
+
+  <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>datapoly</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>)) +
+    <span class='fu'>geom_polygon</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>value</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>id</span>, <span class='kw'>subgroup</span> <span class='kw'>=</span> <span class='no'>subid</span>))
+  <span class='no'>p</span>
+}</div><div class='img'><img src='geom_polygon-3.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -309,7 +351,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

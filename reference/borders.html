@@ -38,7 +38,7 @@ on to your plot. This is a good place to start if you need some crude
 reference lines, but you'll typically want something more sophisticated
 for communication graphics." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -79,7 +79,7 @@ for communication graphics." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.0</span>
         </div>
       </div>
     </div>
@@ -112,22 +112,31 @@ for communication graphics." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/releases/ggplot2-2.2.0.html">Version 2.2.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.1.0.html">Version 2.1.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.0.0.html">Version 2.0.0</a>
+      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-1.0.0.html">Version 1.0.0</a>
+      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
     </li>
     <li class="divider"></li>
     <li>
       <a href="../news/index.html">Change log</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
         <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -191,6 +200,10 @@ polygons, see <code><a href='https://www.rdocumentation.org/packages/maps/topics
     <tr>
       <th>...</th>
       <td><p>Arguments passed on to <code>geom_polygon</code></p><dl class='dl-horizontal'>
+  <dt>rule</dt><dd><p>Either <code>"evenodd"</code> or <code>"winding"</code>. If polygons with holes are
+being drawn (using the <code>subgroup</code> aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in <code><a href='https://www.rdocumentation.org/packages/grid/topics/grid.path'>grid::pathGrob()</a></code> for
+an explanation.</p></dd>
   <dt>mapping</dt><dd><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
 <code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
@@ -207,7 +220,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A <code>function</code> will be called with a single argument,
 the plot data. The return value must be a <code>data.frame</code>, and
-will be used as the layer data.</p></dd>
+will be used as the layer data. A <code>function</code> can be created
+from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
   <dt>stat</dt><dd><p>The statistical transformation to use on the data for this
 layer, as a string.</p></dd>
   <dt>position</dt><dd><p>Position adjustment, either as a string, or the result of
@@ -233,11 +247,15 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 
 <span class='no'>ia</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"county"</span>, <span class='st'>"iowa"</span>)
 <span class='no'>mid_range</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/range'>range</a></span>(<span class='no'>x</span>))
-<span class='no'>seats</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/plyr/topics/ddply'>ddply</a></span>(<span class='no'>ia</span>, <span class='st'>"subregion"</span>, <span class='kw pkg'>plyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/plyr/topics/colwise'>colwise</a></span>(<span class='no'>mid_range</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"lat"</span>, <span class='st'>"long"</span>)))
+<span class='no'>seats</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/do.call'>do.call</a></span>(<span class='no'>rbind</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/lapply'>lapply</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/split'>split</a></span>(<span class='no'>ia</span>, <span class='no'>ia</span>$<span class='no'>subregion</span>), <span class='kw'>function</span>(<span class='no'>d</span>) {
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>lat</span> <span class='kw'>=</span> <span class='fu'>mid_range</span>(<span class='no'>d</span>$<span class='no'>lat</span>), <span class='kw'>long</span> <span class='kw'>=</span> <span class='fu'>mid_range</span>(<span class='no'>d</span>$<span class='no'>long</span>), <span class='kw'>subregion</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/unique'>unique</a></span>(<span class='no'>d</span>$<span class='no'>subregion</span>))
+}))
+
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>ia</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>long</span>, <span class='no'>lat</span>)) +
   <span class='fu'><a href='geom_polygon.html'>geom_polygon</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey60"</span>) +
   <span class='fu'><a href='geom_text.html'>geom_text</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>subregion</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>seats</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>45</span>)
-
+}</div><div class='img'><img src='borders-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>us.cities</span>)
 <span class='no'>capitals</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>us.cities</span>, <span class='no'>capital</span> <span class='kw'>==</span> <span class='fl'>2</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>capitals</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>long</span>, <span class='no'>lat</span>)) +
@@ -245,14 +263,15 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>pop</span>)) +
   <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>() +
   <span class='fu'><a href='coord_map.html'>coord_quickmap</a></span>()
-
+}</div><div class='img'><img src='borders-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># Same map, with some world context</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>capitals</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>long</span>, <span class='no'>lat</span>)) +
   <span class='fu'>borders</span>(<span class='st'>"world"</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>130</span>, -<span class='fl'>60</span>), <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>20</span>, <span class='fl'>50</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>pop</span>)) +
   <span class='fu'><a href='scale_size.html'>scale_size_area</a></span>() +
   <span class='fu'><a href='coord_map.html'>coord_quickmap</a></span>()
-}</div><div class='img'><img src='borders-1.png' alt='' width='700' height='433' /></div></pre>
+}</div><div class='img'><img src='borders-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -272,7 +291,7 @@ a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>

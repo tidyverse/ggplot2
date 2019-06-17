@@ -4,8 +4,8 @@ pkgdown_sha: ~
 articles:
   extending-ggplot2: extending-ggplot2.html
   ggplot2-specs: ggplot2-specs.html
-  ggplot2-1.0.0: releases/ggplot2-1.0.0.html
-  ggplot2-2.0.0: releases/ggplot2-2.0.0.html
-  ggplot2-2.1.0: releases/ggplot2-2.1.0.html
-  ggplot2-2.2.0: releases/ggplot2-2.2.0.html
+  profiling: profiling.html
+urls:
+  reference: https://ggplot2.tidyverse.org/reference
+  article: https://ggplot2.tidyverse.org/articles
 

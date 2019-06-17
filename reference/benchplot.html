@@ -38,7 +38,7 @@ Broken down into construct, build, render and draw times. — benchplot" />
 <meta property="og:description" content="Benchmark plot creation time.
 Broken down into construct, build, render and draw times." />
 
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -79,7 +79,7 @@ Broken down into construct, build, render and draw times." />
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.1.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.0</span>
         </div>
       </div>
     </div>
@@ -112,22 +112,31 @@ Broken down into construct, build, render and draw times." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="../articles/releases/ggplot2-2.2.0.html">Version 2.2.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.1.0.html">Version 2.1.0</a>
+      <a href="https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/">Version 3.0.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-2.0.0.html">Version 2.0.0</a>
+      <a href="https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/">Version 2.2.0</a>
     </li>
     <li>
-      <a href="../articles/releases/ggplot2-1.0.0.html">Version 1.0.0</a>
+      <a href="https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/">Version 2.1.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/">Version 2.0.0</a>
+    </li>
+    <li>
+      <a href="https://blog.rstudio.com/2015/01/09/ggplot2-updates/">Version 1.0.0</a>
     </li>
     <li class="divider"></li>
     <li>
       <a href="../news/index.html">Change log</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="http://www.ggplot2-exts.org/gallery/">Extensions</a>
 </li>
         <li>
   <a href="https://github.com/tidyverse/ggplot2">
@@ -174,24 +183,24 @@ Broken down into construct, build, render and draw times.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())</div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.004        0   0.005
-#&gt; 2     build     0.016        0   0.017
-#&gt; 3    render     0.044        0   0.043
-#&gt; 4      draw     0.036        0   0.036
-#&gt; 5     TOTAL     0.100        0   0.101</div><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl</span>))</div><div class='output co'>#&gt;        step user.self sys.self elapsed
 #&gt; 1 construct     0.004        0   0.003
-#&gt; 2     build     0.024        0   0.026
-#&gt; 3    render     0.092        0   0.093
-#&gt; 4      draw     0.060        0   0.061
-#&gt; 5     TOTAL     0.180        0   0.183</div><div class='input'>
+#&gt; 2     build     0.016        0   0.013
+#&gt; 3    render     0.024        0   0.025
+#&gt; 4      draw     0.032        0   0.033
+#&gt; 5     TOTAL     0.076        0   0.074</div><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl</span>))</div><div class='output co'>#&gt;        step user.self sys.self elapsed
+#&gt; 1 construct     0.004        0   0.004
+#&gt; 2     build     0.024        0   0.023
+#&gt; 3    render     0.060        0   0.061
+#&gt; 4      draw     0.052        0   0.054
+#&gt; 5     TOTAL     0.140        0   0.142</div><div class='input'>
 <span class='co'># With tidy eval:</span>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>expr</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())
 <span class='fu'>benchplot</span>(!!<span class='no'>p</span>)</div><div class='img'><img src='benchplot-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.004        0   0.003
-#&gt; 2     build     0.016        0   0.015
-#&gt; 3    render     0.044        0   0.046
-#&gt; 4      draw     0.036        0   0.037
-#&gt; 5     TOTAL     0.100        0   0.101</div></pre>
+#&gt; 1 construct     0.004        0   0.002
+#&gt; 2     build     0.012        0   0.012
+#&gt; 3    render     0.024        0   0.025
+#&gt; 4      draw     0.036        0   0.032
+#&gt; 5     TOTAL     0.076        0   0.071</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -211,7 +220,7 @@ Broken down into construct, build, render and draw times.</p>
 
 <div class="author">
   <p>
-    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo.
+    Developed by <a href='http://hadley.nz'>Hadley Wickham</a>, Winston Chang, Lionel Henry, Thomas Lin Pedersen, Kohske Takahashi, Claus Wilke, Kara Woo, Hiroaki Yutani.
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
