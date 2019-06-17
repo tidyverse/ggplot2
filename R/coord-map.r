@@ -289,8 +289,8 @@ CoordMap <- ggproto("CoordMap", Coord,
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
-      top = guide_axis(pos$x, panel_params$x.labels, "top", theme),
-      bottom = guide_axis(pos$x, panel_params$x.labels, "bottom", theme)
+      top = draw_axis(pos$x, panel_params$x.labels, "top", theme),
+      bottom = draw_axis(pos$x, panel_params$x.labels, "bottom", theme)
     )
     axes[[which(arrange == "secondary")]] <- zeroGrob()
     axes
@@ -313,8 +313,8 @@ CoordMap <- ggproto("CoordMap", Coord,
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
-      left = guide_axis(pos$y, panel_params$y.labels, "left", theme),
-      right = guide_axis(pos$y, panel_params$y.labels, "right", theme)
+      left = draw_axis(pos$y, panel_params$y.labels, "left", theme),
+      right = draw_axis(pos$y, panel_params$y.labels, "right", theme)
     )
     axes[[which(arrange == "secondary")]] <- zeroGrob()
     axes

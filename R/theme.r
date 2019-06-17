@@ -612,21 +612,38 @@ merge_element.element <- function(new, old) {
   new
 }
 
-# Combine the properties of two elements
-#
-# @param e1 An element object
-# @param e2 An element object which e1 inherits from
+#' Combine the properties of two elements
+#'
+#' @param e1 An element object
+#' @param e2 An element object from which e1 inherits
+#'
+#' @noRd
+#'
 combine_elements <- function(e1, e2) {
 
   # If e2 is NULL, nothing to inherit
-  if (is.null(e2) || inherits(e1, "element_blank"))  return(e1)
+  if (is.null(e2) || inherits(e1, "element_blank")) {
+    return(e1)
+  }
+
   # If e1 is NULL inherit everything from e2
-  if (is.null(e1)) return(e2)
+  if (is.null(e1)) {
+    return(e2)
+  }
+
+  # If neither of e1 or e2 are element_* objects, return e1
+  if (!inherits(e1, "element") && !inherits(e2, "element")) {
+    return(e1)
+  }
+
   # If e2 is element_blank, and e1 inherits blank inherit everything from e2,
   # otherwise ignore e2
   if (inherits(e2, "element_blank")) {
-    if (e1$inherit.blank) return(e2)
-    else return(e1)
+    if (e1$inherit.blank) {
+      return(e2)
+    } else {
+      return(e1)
+    }
   }
 
   # If e1 has any NULL properties, inherit them from e2
