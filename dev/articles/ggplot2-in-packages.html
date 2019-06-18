@@ -81,6 +81,9 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
     <li>
@@ -141,9 +144,9 @@
 <a href="#referring-to-ggplot2-functions" class="anchor"></a>Referring to ggplot2 functions</h2>
 <p>As with any function from another package, you will have to list ggplot2 in your <code>DESCRIPTION</code> under <code>Imports</code> and refer to its functions using <code>::</code> (e.g., <code>ggplot2::function_name</code>):</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">mpg_drv_summary &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  ggplot2<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggplot">ggplot</a></span>(ggplot2<span class="op">::</span>mpg) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">    </span>ggplot2<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/geom_bar">geom_bar</a></span>(ggplot2<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/aes">aes</a></span>(<span class="dt">x =</span> .data<span class="op">$</span>drv)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">    </span>ggplot2<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/coord_flip">coord_flip</a></span>()</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">  ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span>(ggplot2<span class="op">::</span>mpg) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="st">    </span>ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span>(ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span>(<span class="dt">x =</span> .data<span class="op">$</span>drv)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="st">    </span>ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/coord_flip.html">coord_flip</a></span>()</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5">}</a></code></pre></div>
 <p>If you use ggplot2 functions frequently, you may wish to import one or more functions from ggplot2 into your <code>NAMESPACE</code>. If you use <a href="https://cran.r-project.org/package=roxygen2">roxygen2</a>, you can include <code>#' @importFrom ggplot2 &lt;one or more object names&gt;</code> in any roxygen comment block (this will not work for datasets like <code>mpg</code>).</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co">#' @importFrom ggplot2 ggplot aes geom_bar coord_flip</span></a>
@@ -289,8 +292,8 @@
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">theme_custom &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2">  <span class="st">`</span><span class="dt">%+replace%</span><span class="st">`</span> &lt;-<span class="st"> </span>ggplot2<span class="op">::</span><span class="st">`</span><span class="dt">%+replace%</span><span class="st">`</span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3">  </a>
-<a class="sourceLine" id="cb15-4" data-line-number="4">  ggplot2<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/ggtheme">theme_grey</a></span>(...) <span class="op">%+replace%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="st">    </span>ggplot2<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/theme">theme</a></span>(<span class="dt">panel.background =</span> ggplot2<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/ggplot2/topics/element">element_blank</a></span>())</a>
+<a class="sourceLine" id="cb15-4" data-line-number="4">  ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_grey</a></span>(...) <span class="op">%+replace%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb15-5" data-line-number="5"><span class="st">    </span>ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span>(<span class="dt">panel.background =</span> ggplot2<span class="op">::</span><span class="kw"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span>())</a>
 <a class="sourceLine" id="cb15-6" data-line-number="6">}</a></code></pre></div>
 <p>Generally, if you add a method for a ggplot2 generic like <code><a href="../reference/autoplot.html">autoplot()</a></code>, ggplot2 should be in <code>Imports</code>. If for some reason you would like to keep ggplot2 in <code>Suggests</code>, it is possible to register your generics only if ggplot2 is installed using <code><a href="https://www.rdocumentation.org/packages/vctrs/topics/s3_register">vctrs::s3_register()</a></code>. If you do this, you should copy and paste the source of <code><a href="https://www.rdocumentation.org/packages/vctrs/topics/s3_register">vctrs::s3_register()</a></code> into your own package to avoid adding a <a href="https://vctrs.r-lib.org/">vctrs</a> dependency.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">.onLoad &lt;-<span class="st"> </span><span class="cf">function</span>(...) {</a>

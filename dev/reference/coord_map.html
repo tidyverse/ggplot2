@@ -120,6 +120,9 @@ smaller areas closer to the equator." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/">Version 3.2.0</a>
+    </li>
+    <li>
       <a href="https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/">Version 3.1.0</a>
     </li>
     <li>
@@ -261,14 +264,8 @@ plots like <code><a href='geom_tile.html'>geom_tile()</a></code>) at the expense
 }</div><div class='img'><img src='coord_map-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># Other projections</span>
-<span class='no'>nzmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"cylindrical"</span>)
-}</div><div class='img'><img src='coord_map-4.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='no'>nzmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"azequalarea"</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>36.92</span>, <span class='fl'>174.6</span>, <span class='fl'>0</span>))
-}</div><div class='img'><img src='coord_map-5.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
-<span class='no'>nzmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"lambert"</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>37</span>, -<span class='fl'>44</span>))
-}</div><div class='img'><img src='coord_map-6.png' alt='' width='700' height='433' /></div><div class='input'>
+}</div><div class='img'><img src='coord_map-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='no'>states</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"state"</span>)
 <span class='no'>usamap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>states</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>long</span>, <span class='no'>lat</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>)) +
@@ -276,38 +273,29 @@ plots like <code><a href='geom_tile.html'>geom_tile()</a></code>) at the expense
 
 <span class='co'># Use cartesian coordinates</span>
 <span class='no'>usamap</span>
-}</div><div class='img'><img src='coord_map-7.png' alt='' width='700' height='433' /></div><div class='input'>
+}</div><div class='img'><img src='coord_map-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># With mercator projection</span>
 <span class='no'>usamap</span> + <span class='fu'>coord_map</span>()
-}</div><div class='img'><img src='coord_map-8.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
-<span class='no'>usamap</span> + <span class='fu'>coord_quickmap</span>()
-}</div><div class='img'><img src='coord_map-9.png' alt='' width='700' height='433' /></div><div class='input'>
+}</div><div class='img'><img src='coord_map-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># See ?mapproject for coordinate systems and their parameters</span>
 <span class='no'>usamap</span> + <span class='fu'>coord_map</span>(<span class='st'>"gilbert"</span>)
-}</div><div class='img'><img src='coord_map-10.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
-<span class='no'>usamap</span> + <span class='fu'>coord_map</span>(<span class='st'>"lagrange"</span>)
-}</div><div class='img'><img src='coord_map-11.png' alt='' width='700' height='433' /></div><div class='input'>
+}</div><div class='img'><img src='coord_map-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># For most projections, you'll need to set the orientation yourself</span>
 <span class='co'># as the automatic selection done by mapproject is not available to</span>
 <span class='co'># ggplot</span>
 <span class='no'>usamap</span> + <span class='fu'>coord_map</span>(<span class='st'>"orthographic"</span>)
-}</div><div class='img'><img src='coord_map-12.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
-<span class='no'>usamap</span> + <span class='fu'>coord_map</span>(<span class='st'>"stereographic"</span>)
-}</div><div class='img'><img src='coord_map-13.png' alt='' width='700' height='433' /></div><div class='input'>
+}</div><div class='img'><img src='coord_map-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='no'>usamap</span> + <span class='fu'>coord_map</span>(<span class='st'>"conic"</span>, <span class='kw'>lat0</span> <span class='kw'>=</span> <span class='fl'>30</span>)
-}</div><div class='img'><img src='coord_map-14.png' alt='' width='700' height='433' /></div><div class='input'>
+}</div><div class='img'><img src='coord_map-9.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='no'>usamap</span> + <span class='fu'>coord_map</span>(<span class='st'>"bonne"</span>, <span class='kw'>lat0</span> <span class='kw'>=</span> <span class='fl'>50</span>)
-}</div><div class='img'><img src='coord_map-15.png' alt='' width='700' height='433' /></div><div class='input'>
+}</div><div class='img'><img src='coord_map-10.png' alt='' width='700' height='433' /></div><div class='input'>
+</div><span class='co'># NOT RUN {</span>
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
-
 <span class='co'># World map, using geom_path instead of geom_polygon</span>
 <span class='no'>world</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='map_data.html'>map_data</a></span>(<span class='st'>"world"</span>)
 <span class='no'>worldmap</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>world</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>long</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat</span>, <span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>)) +
@@ -317,15 +305,18 @@ plots like <code><a href='geom_tile.html'>geom_tile()</a></code>) at the expense
 
 <span class='co'># Orthographic projection with default orientation (looking down at North pole)</span>
 <span class='no'>worldmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"ortho"</span>)
-}</div><div class='img'><img src='coord_map-16.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># Looking up up at South Pole</span>
 <span class='no'>worldmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"ortho"</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(-<span class='fl'>90</span>, <span class='fl'>0</span>, <span class='fl'>0</span>))
-}</div><div class='img'><img src='coord_map-17.png' alt='' width='700' height='433' /></div><div class='input'>
+}
+
 <span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
 <span class='co'># Centered on New York (currently has issues with closing polygons)</span>
 <span class='no'>worldmap</span> + <span class='fu'>coord_map</span>(<span class='st'>"ortho"</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>41</span>, -<span class='fl'>74</span>, <span class='fl'>0</span>))
-}</div><div class='img'><img src='coord_map-18.png' alt='' width='700' height='433' /></div></pre>
+}
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
