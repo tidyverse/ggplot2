@@ -17,10 +17,10 @@
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = "dodge2")
 #'
-#' # By default, dodging with `position_dodge2()` preserves the width of each
-#' # element. You can choose to preserve the total width with:
+#' # By default, dodging with `position_dodge2()` preserves the total width of
+#' # the elements. You can choose to preserve the width of each element with:
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
-#'   geom_bar(position = position_dodge(preserve = "total"))
+#'   geom_bar(position = position_dodge2(preserve = "single"))
 #'
 #' \donttest{
 #' ggplot(diamonds, aes(price, fill = cut)) +

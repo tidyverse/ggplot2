@@ -17,7 +17,7 @@ Authors@R: c(
     person("RStudio", role = c("cph"))
     )
 Depends:
-    R (>= 3.1)
+    R (>= 3.2)
 Imports: 
     digest,
     grDevices,

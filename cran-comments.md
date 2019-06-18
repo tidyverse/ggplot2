@@ -1,86 +1,128 @@
+This is a resubmission with changes as requested by CRAN
+
+- Remove a subset of unit tests when running on CRAN to keep check time low
+
+-------
+
 ## Test environments
-* OS X install: R 3.4
-* win-builder: R-devel
-* travis-ci: R 3.1, R 3.2, R 3.3, R 3.4, R-devel
+* local OS X install, R 3.6.0
+* ubuntu 14.04 (on travis-ci), R 3.6.0
+* win-builder (devel and release)
 
 ## R CMD check results
 
-There were no ERRORs, WARNING or NOTEs
+0 errors | 0 warnings | 1 note
 
-We checked 2338 reverse dependencies (1971 from CRAN + 367 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
+* checking installed package size ... NOTE
+    installed size is  6.2Mb
+    sub-directories of 1Mb or more:
+      doc   3.4Mb
 
- * We saw 3 new problems
- * We failed to check 53 packages
+## revdepcheck results
 
-Issues with CRAN packages are summarised below.
+We checked 2675 reverse dependencies (2265 from CRAN + 410 from BioConductor), comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 6 new problems
+ * We failed to check 76 packages
+
+Issues with CRAN packages are summarised below. The maintainers of the packages have been notified and most fixes are already on the way to CRAN.
 
 ### New problems
 (This reports the first line of each new failure)
 
-* FLightR
+* bayesAB
   checking examples ... ERROR
-  Appears to unrelated - API key problem
 
-* lime
+* CSTools
   checking tests ...
-  Appears to unrelated - file download problem
 
-* postal
+* ggstatsplot
   checking tests ...
-  Appears to be unrelated - looks like file read problem
+
+* HistDAWass
+  checking examples ... ERROR
+
+* MTLR
+  checking tests ...
+
+* vdiffr
+  checking tests ...
 
 ### Failed to check
 
-* ALA4R                  (check timed out)
-* av                     (failed to install)
-* BACCT                  (failed to install)
-* bamdit                 (failed to install)
-* BayesRS                (failed to install)
-* BMSC                   (failed to install)
-* BNSP                   (failed to install)
-* bsam                   (failed to install)
-* BTSPAS                 (failed to install)
-* choroplethr            (failed to install)
-* classify               (failed to install)
-* CoordinateCleaner      (failed to install)
-* crmPack                (failed to install)
-* DeLorean               (failed to install)
-* dynr                   (failed to install)
-* ewoc                   (failed to install)
-* fdq                    (failed to install)
-* Fgmutils               (failed to install)
-* fieldRS                (failed to install)
-* fingerPro              (failed to install)
-* gastempt               (failed to install)
-* GENEAsphere            (failed to install)
-* geofacet               (failed to install)
-* ggstatsplot            (check timed out)
-* GmAMisc                (failed to install)
-* HTSSIP                 (check timed out)
-* ITGM                   (failed to install)
-* jarbes                 (failed to install)
-* JointAI                (failed to install)
-* MetaStan               (failed to install)
-* milr                   (check timed out)
-* morse                  (failed to install)
-* mwaved                 (failed to install)
-* onemap                 (check timed out)
-* pcaPA                  (failed to install)
-* phase1RMD              (failed to install)
-* phylosim               (check timed out)
-* pmc                    (check timed out)
-* ppcSpatial             (failed to install)
-* RcmdrPlugin.FuzzyClust (check timed out)
-* rpanel                 (failed to install)
-* rstan                  (check timed out)
-* rstanarm               (check timed out)
-* rsvg                   (failed to install)
-* seewave                (failed to install)
-* SeqFeatR               (failed to install)
-* sf                     (failed to install)
-* simmr                  (failed to install)
-* simulator              (check timed out)
-* TeachingDemos          (check timed out)
-* trialr                 (failed to install)
-* walker                 (check timed out)
-* zooaRchGUI             (failed to install)
+* aslib                  (NA)
+* BACA                   (NA)
+* BACCT                  (NA)
+* bamdit                 (NA)
+* BayesRS                (NA)
+* BMSC                   (NA)
+* BNSP                   (NA)
+* BPEC                   (NA)
+* bsam                   (NA)
+* BTSPAS                 (NA)
+* CaliCo                 (NA)
+* CollapsABEL            (NA)
+* colorednoise           (NA)
+* crmPack                (NA)
+* Crossover              (NA)
+* Deducer                (NA)
+* DeLorean               (NA)
+* DiversityOccupancy     (NA)
+* dynfrail               (NA)
+* dynr                   (NA)
+* evoper                 (NA)
+* ewoc                   (NA)
+* fingerPro              (NA)
+* fsdaR                  (NA)
+* G2Sd                   (NA)
+* growthPheno            (NA)
+* imageData              (NA)
+* imbalance              (NA)
+* InSilicoVA             (NA)
+* jarbes                 (NA)
+* joineRML               (NA)
+* JointAI                (NA)
+* likeLTD                (NA)
+* lilikoi                (NA)
+* lime                   (NA)
+* llama                  (NA)
+* LLSR                   (NA)
+* matchingMarkets        (NA)
+* mbgraphic              (NA)
+* mcmcabn                (NA)
+* MetaStan               (NA)
+* mleap                  (NA)
+* morse                  (NA)
+* mwaved                 (NA)
+* NPflow                 (NA)
+* oceanis                (NA)
+* OpenStreetMap          (NA)
+* openVA                 (NA)
+* petro.One              (NA)
+* phase1PRMD             (NA)
+* phase1RMD              (NA)
+* pimeta                 (NA)
+* poppr                  (NA)
+* PortfolioEffectHFT     (NA)
+* qdap                   (NA)
+* RcmdrPlugin.FuzzyClust (NA)
+* Rdrools                (NA)
+* RDS                    (NA)
+* rmcfs                  (NA)
+* robustHD               (NA)
+* rpanel                 (NA)
+* rpf                    (NA)
+* rrepast                (NA)
+* RSCAT                  (NA)
+* rstanarm               (NA)
+* rstap                  (NA)
+* rsvg                   (NA)
+* RtutoR                 (NA)
+* SeqFeatR               (NA)
+* simmr                  (NA)
+* sitmo                  (NA)
+* spcosa                 (NA)
+* TeachingDemos          (NA)
+* vortexR                (NA)
+* XLConnect              (NA)
+* zooaRchGUI             (NA)

@@ -5,7 +5,7 @@
   (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
   and mapped aesthetics (i.e., `data` and/or `mapping`).
 
-# ggplot2 3.1.1.9000
+# ggplot2 3.2.0
 
 This is a minor release with an emphasis on internal changes to make ggplot2 
 faster and more consistent. The few interface changes will only affect the 
@@ -13,6 +13,9 @@ aesthetics of the plot in minor ways, and will only potentially break code of
 extension developers if they have relied on internals that have been changed. 
 This release also sees the addition of Hiroaki Yutani (@yutannihilation) to the 
 core developer team.
+
+With the release of R 3.6, ggplot2 now requires the R version to be at least 3.2,
+as the tidyverse is committed to support 5 major versions of R.
 
 ## Breaking changes
 
