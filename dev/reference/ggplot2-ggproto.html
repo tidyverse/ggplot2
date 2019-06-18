@@ -414,11 +414,74 @@ that must be present for this position adjustment to work.</p></li>
     <h2 class="hasAnchor" id="scales"><a class="anchor" href="#scales"></a>Scales</h2>
 
     
-    <p>All <code>scale_*</code> functions (like <code>scale_x_continuous</code>) return a
-<code>Scale*</code> object (like <code>ScaleContinuous</code>). The <code>Scale*</code>
-object represents a single scale.</p>
-<p>Each of the <code>Scale*</code> objects is a <code><a href='ggproto.html'>ggproto()</a></code> object,
-descended from the top-level <code>Scale</code>.</p>
+    <p>All <code>scale_*</code> functions like <code><a href='scale_continuous.html'>scale_x_continuous()</a></code> return a <code>Scale*</code>
+object like <code>ScaleContinuous</code>. Each of the <code>Scale*</code> objects is a <code><a href='ggproto.html'>ggproto()</a></code>
+object, descended from the top-level <code>Scale</code>.</p>
+<p>Properties not documented in <code><a href='continuous_scale.html'>continuous_scale()</a></code> or <code><a href='discrete_scale.html'>discrete_scale()</a></code>:</p><ul>
+<li><p><code>call</code> The call to <code><a href='continuous_scale.html'>continuous_scale()</a></code> or <code><a href='discrete_scale.html'>discrete_scale()</a></code> that constructed
+the scale.</p></li>
+<li><p><code>range</code> One of <code>continuous_range()</code> or <code>discrete_range()</code>.</p></li>
+</ul>
+    <p>Methods:</p><ul>
+<li><p><code>is_discrete()</code> Returns <code>TRUE</code> if the scale is a discrete scale</p></li>
+<li><p><code>is_empty()</code> Returns <code>TRUE</code> if the scale contains no information (i.e.,
+it has no information with which to calculate its <code>limits</code>).</p></li>
+<li><p><code>clone()</code> Returns a copy of the scale that can be trained
+independently without affecting the original scale.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/base/topics/transform'>transform()</a></code> Transforms a vector of values using <code>self$trans</code>.
+This occurs before the <code>Stat</code> is calculated.</p></li>
+<li><p><code>train()</code> Update the <code>self$range</code> of observed (transformed) data values with
+a vector of (possibly) new values.</p></li>
+<li><p><code>reset()</code> Reset the <code>self$range</code> of observed data values. For discrete
+position scales, only the continuous range is reset.</p></li>
+<li><p><code>map()</code> Map transformed data values to some output value as
+determined by <code>self$rescale()</code> and <code>self$pallete</code> (except for position scales,
+which do not use the default implementation of this method). The output corresponds
+to the transformed data value in aesthetic space (e.g., a color, line width, or size).</p></li>
+<li><p><code>rescale()</code> Rescale transformed data to the the range 0, 1. This is most useful for
+position scales. For continuous scales, <code>rescale()</code> uses the <code>rescaler</code> that
+was provided to the constructor. <code>rescale()</code> does not apply <code>self$oob()</code> to
+its input, which means that discrete values outside <code>limits</code> will be <code>NA</code>, and
+values that are outside <code>range</code> will have values less than 0 or greater than 1.
+This allows guides more control over how out-of-bounds values are displayed.</p></li>
+<li><p><code>transform_df()</code>, <code>train_df()</code>, <code>map_df()</code> These <code>_df</code> variants
+accept a data frame, and apply the <code>transform</code>, <code>train</code>, and <code>map</code> methods
+(respectively) to the columns whose names are in <code>self$aesthetics</code>.</p></li>
+<li><p><code>get_limits()</code> Calculates the final scale limits in transformed data space
+based on the combination of <code>self$limits</code> and/or the range of observed values
+(<code>self$range</code>).</p></li>
+<li><p><code>get_breaks()</code> Calculates the final scale breaks in transformed data space
+based on on the combination of <code>self$breaks</code>, <code>self$trans$breaks()</code> (for
+continuous scales), and <code>limits</code>. Breaks outside of <code>limits</code> are assigned
+a value of <code>NA</code> (continuous scales) or dropped (discrete scales).</p></li>
+<li><p><code>get_labels()</code> Calculates labels for a given set of (transformed) <code>breaks</code>
+based on the combination of <code>self$labels</code> and <code>breaks</code>.</p></li>
+<li><p><code>get_breaks_minor()</code> For continuous scales, calculates the final scale minor breaks
+in transformed data space based on the rescaled <code>breaks</code>, the value of <code>self$minor_breaks</code>,
+and the value of <code>self$trans$minor_breaks()</code>. Discrete scales always return <code>NULL</code>.</p></li>
+<li><p><code>make_title()</code> Hook to modify the title that is calculated during guide construction
+(for non-position scales) or when the <code>Layout</code> calculates the x and y labels
+(position scales).</p></li>
+</ul>
+    <p>These methods are only valid for position (x and y) scales:</p><ul>
+<li><p><code>dimension()</code> For continuous scales, the dimension is the same concept as the limits.
+For discrete scales, <code>dimension()</code> returns a continuous range, where the limits
+would be placed at integer positions. <code>dimension()</code> optionally expands
+this range given an expantion of length 4 (see <code><a href='expand_scale.html'>expand_scale()</a></code>).</p></li>
+<li><p><code>break_info()</code> Returns a <code><a href='https://www.rdocumentation.org/packages/base/topics/list'>list()</a></code> with calculated values needed for the <code>Coord</code>
+to transform values in transformed data space. Axis and grid guides also use
+these values to draw guides. This is called with
+a (usually expanded) continuous range, such as that returned by <code>self$dimension()</code>
+(even for discrete scales). The list has components <code>major_source</code>
+(<code>self$get_breaks()</code> for continuous scales, or <code><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_along(self$get_breaks())</a></code>
+for discrete scales), <code>major</code> (the rescaled value of <code>major_source</code>, ignoring
+<code>self$rescaler</code>), <code>minor</code> (the rescaled value of <code>minor_source</code>, ignoring
+<code>self$rescaler</code>), <code>range</code> (the range that was passed in to <code>break_info()</code>),
+<code>labels</code> (the label values, one for each element in <code>breaks</code>).</p></li>
+<li><p><code>axis_order()</code> One of <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("primary", "secondary")</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("secondary", "primary")</a></code></p></li>
+<li><p><code>make_sec_title()</code> Hook to modify the title for the second axis that is calculated
+when the <code>Layout</code> calculates the x and y labels.</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
