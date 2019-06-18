@@ -6,15 +6,8 @@
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
-#' @inheritDotParams discrete_scale -expand -position
-#' @param expand Vector of range expansion constants used to add some
-#'   padding around the data, to ensure that they are placed some distance
-#'   away from the axes. Use the convenience function [expand_scale()]
-#'   to generate the values for the `expand` argument. The defaults are to
-#'   expand the scale by 5\% on each side for continuous variables, and by
-#'   0.6 units on each side for discrete variables.
-#' @param position The position of the axis. `left` or `right` for y
-#' axes, `top` or `bottom` for x axes
+#' @inheritDotParams discrete_scale
+#' @inheritParams discrete_scale
 #' @rdname scale_discrete
 #' @family position scales
 #' @export
@@ -96,7 +89,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   reset = function(self) {
-    # Can't reset discrete scale because no way to recover values
+    # Can't reset discrete position scale because no way to recover values
     self$range_c$reset()
   },
 
@@ -108,9 +101,13 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     }
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0)) {
+  rescale = function(self, x, limits = self$get_limits(), range = self$dimension(limits = limits)) {
+    rescale(self$map(x, limits = limits), from = range)
+  },
+
+  dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
     c_range <- self$range_c$range
-    d_range <- self$get_limits()
+    d_range <- limits
 
     if (self$is_empty()) {
       c(0, 1)
@@ -124,10 +121,6 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
         expand_range4(c(1, length(d_range)), expand)
       )
     }
-  },
-
-  get_breaks = function(self, limits = self$get_limits()) {
-    ggproto_parent(ScaleDiscrete, self)$get_breaks(limits)
   },
 
   clone = function(self) {

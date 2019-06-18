@@ -44,10 +44,11 @@ scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
 \arguments{
 \item{...}{Arguments passed on to \code{continuous_scale}
 \describe{
-  \item{scale_name}{The name of the scale}
+  \item{scale_name}{The name of the scale that should be used for error messages
+associated with this scale.}
   \item{palette}{A palette function that when called with a numeric vector with
-values between 0 and 1 returns the corresponding values in the range the
-scale maps to.}
+values between 0 and 1 returns the corresponding output values
+(e.g., \code{\link[scales:area_pal]{scales::area_pal()}}).}
   \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
@@ -56,10 +57,10 @@ omitted.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-transformation object
+\link[scales:trans_new]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output
+as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}})
 }}
   \item{minor_breaks}{One of:
 \itemize{
@@ -86,31 +87,34 @@ Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
 new limits
 }}
-  \item{rescaler}{Used by diverging and n colour gradients
-(i.e. \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}}, \code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}).
-A function used to scale the input values to the range [0, 1].}
+  \item{rescaler}{A function used to scale the input values to the
+range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
+diverging and n colour gradients (i.e., \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}},
+\code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
+scales, which ways use \code{\link[scales:rescale]{scales::rescale()}}.}
   \item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default replaces out of bounds values with \code{NA}.}
-  \item{trans}{Either the name of a transformation object, or the
-object itself. Built-in transformations include "asn", "atanh",
+(out of bounds). The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+bounds values with \code{NA}.}
+  \item{trans}{For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
 "reverse", "sqrt" and "time".
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \code{name_trans}, e.g.
-\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
+are defined in the scales package, and are called \code{<name>_trans} (e.g.,
+\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
-  \item{position}{The position of the axis. "left" or "right" for vertical
-scales, "top" or "bottom" for horizontal scales}
-  \item{super}{The super class to use for the constructed scale}
-  \item{expand}{Vector of range expansion constants used to add some
-padding around the data, to ensure that they are placed some distance
+  \item{expand}{For position scales, a vector of range expansion constants used to add some
+padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
+  \item{position}{For position scales, The position of the axis.
+\code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+  \item{super}{The super class to use for the constructed scale}
 }}
 
 \item{low, high}{Colours for low and high ends of the gradient.}
