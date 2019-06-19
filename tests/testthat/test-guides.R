@@ -123,6 +123,12 @@ test_that("axis guides are drawn correctly", {
     "axis guides, vertical negative rotation",
     function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = -90)
   )
+
+  # dodged text
+  expect_doppelganger(
+    "axis guides, texted dodged into rows/cols",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e9), n_dodge = 2)
+  )
 })
 
 test_that("axis guides are drawn correctly in plots", {
