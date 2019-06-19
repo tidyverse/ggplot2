@@ -54,18 +54,24 @@ test_that("axis_label_overlap_priority always returns the correct number of elem
   expect_setequal(axis_label_overlap_priority(100), seq_len(100))
 })
 
+test_that("axis_label_element_overrides errors when angles are outside the range [0, 90]", {
+  expect_is(axis_label_element_overrides("bottom", 0), "element")
+  expect_error(axis_label_element_overrides("bottom", 91), "`angle` must")
+  expect_error(axis_label_element_overrides("bottom", -91), "`angle` must")
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
   theme_test_axis <- theme_test() + theme(axis.line = element_line(size = 0.5))
   test_draw_axis <- function(n_breaks = 3,
-                             break_labels = as.character,
+                             labels = as.character,
                              positions = c("top", "right", "bottom", "left"),
                              theme = theme_test_axis,
                              ...) {
 
     break_positions <- seq_len(n_breaks) / (n_breaks + 1)
-    break_labels <- break_labels(seq_len(n_breaks))
+    break_labels <- labels(seq_len(n_breaks))
 
     # create the axes
     axes <- lapply(positions, function(position) {
@@ -86,13 +92,37 @@ test_that("axis guides are drawn correctly", {
   expect_doppelganger("axis guides basic", function() test_draw_axis())
   expect_doppelganger("axis guides, zero breaks", function() test_draw_axis(n_breaks = 0))
 
-  # long label strategies
-  long_labels <- function(b) comma(b * 1e9)
+  # overlapping text
   expect_doppelganger(
     "axis guides, check overlap",
-    function() test_draw_axis(20, long_labels, check.overlap = TRUE)
+    function() test_draw_axis(20, labels = function(b) comma(b * 1e9), check.overlap = TRUE)
   )
 
+  # rotated text
+  expect_doppelganger(
+    "axis guides, zero rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = 0)
+  )
+
+  expect_doppelganger(
+    "axis guides, positive rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = 45)
+  )
+
+  expect_doppelganger(
+    "axis guides, negative rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = -45)
+  )
+
+  expect_doppelganger(
+    "axis guides, vertical rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = 90)
+  )
+
+  expect_doppelganger(
+    "axis guides, vertical negative rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = -90)
+  )
 })
 
 test_that("axis guides are drawn correctly in plots", {

@@ -9,7 +9,7 @@
 #' @noRd
 #'
 draw_axis <- function(break_positions, break_labels, axis_position, theme,
-                      check.overlap = FALSE) {
+                      check.overlap = FALSE, angle = NULL) {
 
   axis_position <- match.arg(axis_position, c("top", "bottom", "right", "left"))
   aesthetic <- if (axis_position %in% c("top", "bottom")) "x" else "y"
@@ -24,6 +24,14 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
   tick_element <- calc_element(tick_element_name, theme)
   tick_length <- calc_element(tick_length_element_name, theme)
   label_element <- calc_element(label_element_name, theme)
+
+  # override label element parameters for rotation
+  if (inherits(label_element, "element_text")) {
+    label_element <- merge_element(
+      axis_label_element_overrides(axis_position, angle),
+      label_element
+    )
+  }
 
   # conditionally set parameters that depend on axis orientation
   is_vertical <- axis_position %in% c("left",  "right")
@@ -143,7 +151,7 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
 #' @noRd
 #'
 axis_label_overlap_priority <- function(n) {
-  if(n <= 0) return(numeric(0))
+  if (n <= 0) return(numeric(0))
 
   first <- 1
   last <- n
@@ -156,4 +164,52 @@ axis_label_overlap_priority <- function(n) {
   )
 
   unique(order)
+}
+
+#' Override axis text angle and alignment
+#'
+#' @param axis_position One of bottom, left, top, or right
+#' @param angle The text angle, or NULL to override nothing
+#'
+#' @return An [element_text()] that contains parameters that should be
+#'   overridden from the user- or theme-supplied element.
+#' @noRd
+#'
+axis_label_element_overrides <- function(axis_position, angle = NULL) {
+  if (is.null(angle)) {
+    return(element_text(angle = NULL, hjust = NULL, vjust = NULL))
+  }
+
+  # it is not worth the effort to align upside-down labels properly
+  if (angle > 90 || angle < -90) {
+    stop("`angle` must be between 90 and -90", call. = FALSE)
+  }
+
+  if (axis_position == "bottom") {
+    element_text(
+      angle = angle,
+      hjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
+      vjust = if (abs(angle) == 90) 0.5 else 1
+    )
+  } else if (axis_position == "left") {
+    element_text(
+      angle = angle,
+      hjust = if (abs(angle) == 90) 0.5 else 1,
+      vjust = if (angle > 0) 0 else if (angle < 0) 1 else 0.5,
+    )
+  } else if (axis_position == "top") {
+    element_text(
+      angle = angle,
+      hjust = if (angle > 0) 0 else if (angle < 0) 1 else 0.5,
+      vjust = if (abs(angle) == 90) 0.5 else 0
+    )
+  } else if (axis_position == "right") {
+    element_text(
+      angle = angle,
+      hjust = if (abs(angle) == 90) 0.5 else 0,
+      vjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
+    )
+  } else {
+    stop("Unrecognized position: '", axis_position, "'", call. = FALSE)
+  }
 }
