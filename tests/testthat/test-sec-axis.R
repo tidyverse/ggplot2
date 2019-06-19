@@ -226,6 +226,9 @@ test_that("sec_axis() respects custom transformations", {
 })
 
 test_that("sec_axis works with date/time/datetime scales", {
+  # datetime labels are locale dependent
+  withr::local_locale(c(LC_TIME = "C"))
+
   df <- data_frame(
     dx = seq(as.POSIXct("2012-02-29 12:00:00",
       tz = "UTC",
