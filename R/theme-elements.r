@@ -215,7 +215,7 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
 
   titleGrob(label, x, y, hjust = hj, vjust = vj, angle = angle,
     gp = modify_list(element_gp, gp), margin = margin,
-    margin_x = margin_x, margin_y = margin_y, debug = element$debug)
+    margin_x = margin_x, margin_y = margin_y, debug = element$debug, ...)
 }
 
 

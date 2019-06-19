@@ -4,11 +4,12 @@
 #' @param break_position position of ticks
 #' @param break_labels labels at ticks
 #' @param axis_position position of axis (top, bottom, left or right)
-#' @param theme A [theme()] object
+#' @param theme A complete [theme()] object
 #'
 #' @noRd
 #'
-draw_axis <- function(break_positions, break_labels, axis_position, theme) {
+draw_axis <- function(break_positions, break_labels, axis_position, theme,
+                      check.overlap = FALSE) {
 
   axis_position <- match.arg(axis_position, c("top", "bottom", "right", "left"))
   aesthetic <- if (axis_position %in% c("top", "bottom")) "x" else "y"
@@ -80,11 +81,18 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme) {
     }
   }
 
+  if (check.overlap) {
+    priority <- axis_label_overlap_priority(n_breaks)
+    break_labels <- break_labels[priority]
+    break_positions <- break_positions[priority]
+  }
+
   labels_grob <- exec(
     element_grob, label_element,
     !!position_dim := unit(break_positions, "native"),
     !!label_margin_name := TRUE,
-    label = break_labels
+    label = break_labels,
+    check.overlap = check.overlap
   )
 
   ticks_grob <- exec(
@@ -123,4 +131,29 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme) {
     height = gtable_height(gt),
     vp = justvp
   )
+}
+
+#' Deterine the label priority for a given number of labels
+#'
+#' @param n The number of labels
+#'
+#' @return The vector `seq_len(n)` arranged such that the
+#'   first, last, and middle elements are recursively
+#'   placed at the beginning of the vector.
+#' @noRd
+#'
+axis_label_overlap_priority <- function(n) {
+  if(n <= 0) return(numeric(0))
+
+  first <- 1
+  last <- n
+  middle <- (n + 1) %/% 2
+
+  order <- c(
+    first, last, middle,
+    first + axis_label_overlap_priority(middle - first - 1),
+    middle + axis_label_overlap_priority(last - middle - 1)
+  )
+
+  unique(order)
 }

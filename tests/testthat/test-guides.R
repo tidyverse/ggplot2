@@ -46,6 +46,13 @@ test_that("show.legend handles named vectors", {
   expect_equal(n_legends(p), 0)
 })
 
+test_that("axis_label_overlap_priority always returns the correct number of elements", {
+  expect_identical(axis_label_overlap_priority(0), numeric(0))
+  expect_setequal(axis_label_overlap_priority(1), seq_len(1))
+  expect_setequal(axis_label_overlap_priority(5), seq_len(5))
+  expect_setequal(axis_label_overlap_priority(10), seq_len(10))
+  expect_setequal(axis_label_overlap_priority(100), seq_len(100))
+})
 
 # Visual tests ------------------------------------------------------------
 
@@ -75,8 +82,17 @@ test_that("axis guides are drawn correctly", {
     plot(gt)
   }
 
-  expect_doppelganger("axis guides basic", test_draw_axis)
+  # basic
+  expect_doppelganger("axis guides basic", function() test_draw_axis())
   expect_doppelganger("axis guides, zero breaks", function() test_draw_axis(n_breaks = 0))
+
+  # long label strategies
+  long_labels <- function(b) comma(b * 1e9)
+  expect_doppelganger(
+    "axis guides, check overlap",
+    function() test_draw_axis(20, long_labels, check.overlap = TRUE)
+  )
+
 })
 
 test_that("axis guides are drawn correctly in plots", {
