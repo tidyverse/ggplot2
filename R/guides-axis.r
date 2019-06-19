@@ -5,6 +5,11 @@
 #' @param break_labels labels at ticks
 #' @param axis_position position of axis (top, bottom, left or right)
 #' @param theme A complete [theme()] object
+#' @param check.overlap silently remove overlapping labels,
+#'   (recursively) prioritizing the first, last, and middle labels.
+#' @param angle The angle at which the text should be rotated (between
+#'   -90 and 90), or `NULL` if the angle should be obtained from the
+#'   `theme`.
 #'
 #' @noRd
 #'
@@ -90,7 +95,7 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
   }
 
   if (check.overlap) {
-    priority <- axis_label_overlap_priority(n_breaks)
+    priority <- axis_label_priority(n_breaks)
     break_labels <- break_labels[priority]
     break_positions <- break_positions[priority]
   }
@@ -150,20 +155,26 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
 #'   placed at the beginning of the vector.
 #' @noRd
 #'
-axis_label_overlap_priority <- function(n) {
-  if (n <= 0) return(numeric(0))
+axis_label_priority <- function(n) {
+  if (n <= 0) {
+    return(numeric(0))
+  }
 
-  first <- 1
-  last <- n
-  middle <- (n + 1) %/% 2
+  c(1, n, axis_label_priority_between(1, n))
+}
 
-  order <- c(
-    first, last, middle,
-    first + axis_label_overlap_priority(middle - first - 1),
-    middle + axis_label_overlap_priority(last - middle - 1)
+axis_label_priority_between <- function(x, y) {
+  n <- y - x + 1
+  if (n <= 2) {
+    return(numeric(0))
+  }
+
+  mid <- x - 1 + (n + 1) %/% 2
+  c(
+    mid,
+    axis_label_priority_between(x, mid),
+    axis_label_priority_between(mid, y)
   )
-
-  unique(order)
 }
 
 #' Override axis text angle and alignment

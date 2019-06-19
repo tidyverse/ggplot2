@@ -47,11 +47,11 @@ test_that("show.legend handles named vectors", {
 })
 
 test_that("axis_label_overlap_priority always returns the correct number of elements", {
-  expect_identical(axis_label_overlap_priority(0), numeric(0))
-  expect_setequal(axis_label_overlap_priority(1), seq_len(1))
-  expect_setequal(axis_label_overlap_priority(5), seq_len(5))
-  expect_setequal(axis_label_overlap_priority(10), seq_len(10))
-  expect_setequal(axis_label_overlap_priority(100), seq_len(100))
+  expect_identical(axis_label_priority(0), numeric(0))
+  expect_setequal(axis_label_priority(1), seq_len(1))
+  expect_setequal(axis_label_priority(5), seq_len(5))
+  expect_setequal(axis_label_priority(10), seq_len(10))
+  expect_setequal(axis_label_priority(100), seq_len(100))
 })
 
 test_that("axis_label_element_overrides errors when angles are outside the range [0, 90]", {
