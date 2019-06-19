@@ -50,6 +50,36 @@ test_that("show.legend handles named vectors", {
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
+  theme_test_axis <- theme_test() + theme(axis.line = element_line(size = 0.5))
+  test_draw_axis <- function(n_breaks = 3,
+                             break_labels = as.character,
+                             positions = c("top", "right", "bottom", "left"),
+                             theme = theme_test_axis,
+                             ...) {
+
+    break_positions <- seq_len(n_breaks) / (n_breaks + 1)
+    break_labels <- break_labels(seq_len(n_breaks))
+
+    # create the axes
+    axes <- lapply(positions, function(position) {
+      draw_axis(break_positions, break_labels, axis_position = position, theme = theme, ...)
+    })
+    axes_grob <- gTree(children = do.call(gList, axes))
+
+    # arrange them so there's some padding on each side
+    gt <- gtable(
+      widths = unit(c(0.05, 0.9, 0.05), "npc"),
+      heights = unit(c(0.05, 0.9, 0.05), "npc")
+    )
+    gt <- gtable_add_grob(gt, list(axes_grob), 2, 2, clip = "off")
+    plot(gt)
+  }
+
+  expect_doppelganger("axis guides basic", test_draw_axis)
+  expect_doppelganger("axis guides, zero breaks", function() test_draw_axis(n_breaks = 0))
+})
+
+test_that("axis guides are drawn correctly in plots", {
   expect_doppelganger("align facet labels, facets horizontal",
     qplot(hwy, reorder(model, hwy), data = mpg) +
       facet_grid(manufacturer ~ ., scales = "free", space = "free") +
