@@ -86,6 +86,15 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
     )
   }
 
+  # break_labels can be a list() of language objects
+  if (is.list(break_labels)) {
+    if (any(vapply(break_labels, is.language, logical(1)))) {
+      break_labels <- do.call(expression, break_labels)
+    } else {
+      break_labels <- unlist(break_labels)
+    }
+  }
+
   # calculate multiple rows/columns of labels (which is usually 1)
   dodge_pos <- rep(seq_len(n_dodge), length.out = n_breaks)
   dodge_indices <- split(seq_len(n_breaks), dodge_pos)
@@ -148,15 +157,6 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
 
 draw_axis_labels <- function(break_positions, break_labels, label_element,
                              position_dim, label_margin_name, check.overlap) {
-
-  # break_labels can be a list() of language objects
-  if (is.list(break_labels)) {
-    if (any(vapply(break_labels, is.language, logical(1)))) {
-      break_labels <- do.call(expression, break_labels)
-    } else {
-      break_labels <- unlist(break_labels)
-    }
-  }
 
   if (check.overlap) {
     priority <- axis_label_priority(length(break_positions))
