@@ -178,21 +178,24 @@ draw_axis_labels <- function(break_positions, break_labels, label_element, is_ve
       stop("Cannot align end labels for horizontal axis when `angle` is not 0", call. = FALSE)
     }
 
-    first_label <- exec(element_grob, label_element, label = break_labels[1])
-    last_label <- exec(element_grob, label_element, label = break_labels[n_breaks])
-
-    first_label_dim <- measure_labels_pos(first_label)
-    last_label_dim <- measure_labels_pos(last_label)
-    just <- label_element$hjust
-
-    break_positions[1] <- max(
-      break_positions[1],
-      unit(0, "npc") + first_label_dim * just
+    # get the (to be evaluated at draw time) size of each label in the position dimension
+    label_dims <- do.call(
+      unit.c,
+      lapply(break_labels, function(label) {
+        measure_labels_pos(exec(element_grob, label_element, label = label))
+      })
     )
 
-    break_positions[n_breaks] <- min(
-      break_positions[n_breaks],
-      unit(1, "npc") - last_label_dim * (1 - just)
+    just <- label_element$hjust
+
+    break_positions <- unit.pmax(
+      break_positions,
+      unit(0, "npc") + label_dims * just
+    )
+
+    break_positions <- unit.pmin(
+      break_positions,
+      unit(1, "npc") - label_dims * (1 - just)
     )
   }
 
