@@ -7,9 +7,9 @@
 #' @param theme A complete [theme()] object
 #' @param check.overlap silently remove overlapping labels,
 #'   (recursively) prioritizing the first, last, and middle labels.
-#' @param angle The angle at which the text should be rotated (between
-#'   -90 and 90), or `NULL` if the angle should be obtained from the
-#'   `theme`.
+#' @param angle Compared to setting the angle in [theme()] / [element_text()],
+#'   this also uses some heuristics to automatically pick the `hjust` and `vjust` that
+#'   you probably want.
 #' @param n_dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
@@ -173,7 +173,7 @@ draw_axis_labels <- function(break_positions, break_labels, label_element,
   )
 }
 
-#' Deterine the label priority for a given number of labels
+#' Determine the label priority for a given number of labels
 #'
 #' @param n The number of labels
 #'
