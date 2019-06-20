@@ -13,11 +13,14 @@
 #' @param n_dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
+#' @param align_ends Ensure end labels are within the bounds of the axis
+#'   space.
 #'
 #' @noRd
 #'
 draw_axis <- function(break_positions, break_labels, axis_position, theme,
-                      check.overlap = FALSE, angle = NULL, n_dodge = 1) {
+                      check.overlap = FALSE, angle = NULL, n_dodge = 1,
+                      align_ends = FALSE) {
 
   axis_position <- match.arg(axis_position, c("top", "bottom", "right", "left"))
   aesthetic <- if (axis_position %in% c("top", "bottom")) "x" else "y"
@@ -48,10 +51,9 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
   non_position_dim <- if (is_vertical) "x" else "y"
   position_size <- if (is_vertical) "height" else "width"
   non_position_size <- if (is_vertical) "width" else "height"
-  label_margin_name <- if (is_vertical) "margin_x" else "margin_y"
   gtable_element <- if (is_vertical) gtable_row else gtable_col
   measure_gtable <- if (is_vertical) gtable_width else gtable_height
-  measure_labels <- if (is_vertical) grobWidth else grobHeight
+  measure_labels_non_pos <- if (is_vertical) grobWidth else grobHeight
 
   # conditionally set parameters that depend on which side of the panel
   # the axis is on
@@ -104,9 +106,9 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
       break_positions = break_positions[indices],
       break_labels = break_labels[indices],
       label_element = label_element,
-      position_dim = position_dim,
-      label_margin_name = label_margin_name,
-      check.overlap = check.overlap
+      is_vertical = is_vertical,
+      check.overlap = check.overlap,
+      align_ends = align_ends
     )
   })
 
@@ -122,7 +124,7 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
 
   # create gtable
   non_position_sizes <- paste0(non_position_size, "s")
-  label_dims <- do.call(unit.c, lapply(label_grobs, measure_labels))
+  label_dims <- do.call(unit.c, lapply(label_grobs, measure_labels_non_pos))
   grobs <- c(list(ticks_grob), label_grobs)
   grob_dims <- unit.c(tick_length, label_dims)
 
@@ -155,18 +157,54 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
   )
 }
 
-draw_axis_labels <- function(break_positions, break_labels, label_element,
-                             position_dim, label_margin_name, check.overlap) {
+draw_axis_labels <- function(break_positions, break_labels, label_element, is_vertical,
+                             check.overlap = FALSE, align_ends = FALSE) {
+
+  position_dim <- if (is_vertical) "y" else "x"
+  label_margin_name <- if (is_vertical) "margin_x" else "margin_y"
+  measure_labels_pos <- if (is_vertical) grobHeight else grobWidth
+
+  n_breaks <- length(break_positions)
+  break_positions <- unit(break_positions, "native")
+
+  if (align_ends) {
+
+    # getting the alignment code to work properly for text that isn't parallel
+    # to the axis is a lot of effort for little gain
+    if (is_vertical && abs(label_element$angle) != 90) {
+      stop("Cannot align end labels for vertical axis when `angle` is not 90 or -90", call. = FALSE)
+    }
+    if (!is_vertical && label_element$angle != 0) {
+      stop("Cannot align end labels for horizontal axis when `angle` is not 0", call. = FALSE)
+    }
+
+    first_label <- exec(element_grob, label_element, label = break_labels[1])
+    last_label <- exec(element_grob, label_element, label = break_labels[n_breaks])
+
+    first_label_dim <- measure_labels_pos(first_label)
+    last_label_dim <- measure_labels_pos(last_label)
+    just <- label_element$hjust
+
+    break_positions[1] <- max(
+      break_positions[1],
+      unit(0, "npc") + first_label_dim * just
+    )
+
+    break_positions[n_breaks] <- min(
+      break_positions[n_breaks],
+      unit(1, "npc") - last_label_dim * (1 - just)
+    )
+  }
 
   if (check.overlap) {
-    priority <- axis_label_priority(length(break_positions))
+    priority <- axis_label_priority(n_breaks)
     break_labels <- break_labels[priority]
     break_positions <- break_positions[priority]
   }
 
   labels_grob <- exec(
     element_grob, label_element,
-    !!position_dim := unit(break_positions, "native"),
+    !!position_dim := break_positions,
     !!label_margin_name := TRUE,
     label = break_labels,
     check.overlap = check.overlap
