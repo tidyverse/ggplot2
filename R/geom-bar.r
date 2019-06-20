@@ -71,6 +71,39 @@
 #' ggplot(df, aes(x)) + geom_bar()
 #' # cf. a histogram of the same data
 #' ggplot(df, aes(x)) + geom_histogram(binwidth = 0.5)
+#'
+#' # You can use position_fill() for comparing proportions
+#' ggplot(mpg, aes(x = class, fill = drv)) +
+#'   geom_bar(position = "fill")
+#' # If you want to display proportions as labels,
+#' # you can use groupwise proportions
+#' # (the 'group' aesthetic needs to be defined)
+#' ggplot(mpg, aes(x = class, fill = drv, group = class)) +
+#'   geom_bar(position = "fill") +
+#'   geom_text(
+#'   aes(label = scales::percent(..prop..)),
+#'   stat = "count",
+#'   position = position_fill(.5)
+#' )
+#'
+#' # You can use position_dodge() to compare two distributions
+#' titanic <- as.data.frame(Titanic)
+#' ggplot(titanic, aes(x = Class, fill = Age, weight = Freq)) +
+#'   geom_bar(position = "dodge")
+#' # If you want to adjust of the size of each age group,
+#' # you can use groupwise proportions
+#' # (the 'group' aesthetic needs to be defined)
+#' ggplot(titanic, aes(x = Class, fill = Age, weight = Freq, group = Age, y = ..prop..)) +
+#'   geom_bar(position = "dodge")
+#' # If you want to display the proportions as labels
+#' ggplot(titanic, aes(x = Class, fill = Age, weight = Freq, group = Age, y = ..prop..)) +
+#'   geom_bar(position = "dodge") +
+#'   geom_text(
+#'     aes(label = scales::percent(..prop..)),
+#'     stat = "count",
+#'     position = position_dodge(width = .9),
+#'     vjust = "top"
+#'   )
 geom_bar <- function(mapping = NULL, data = NULL,
                      stat = "count", position = "stack",
                      ...,

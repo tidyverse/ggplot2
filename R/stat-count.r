@@ -8,6 +8,9 @@
 #'   number of cases at each `x` position (without binning into ranges).
 #'   [stat_bin()] requires continuous `x` data, whereas
 #'   `stat_count` can be used for both discrete and continuous `x` data.
+#'   `..prop..` corresponds to groupwise proportions, i.e. all proportions
+#'   for a specific group sum to 1. The group could be define using the
+#'   `group` aesthetic (see examples).
 #'
 #' @export
 #' @rdname geom_bar
@@ -56,19 +59,21 @@ StatCount <- ggproto("StatCount", Stat,
     params
   },
 
-  compute_group = function(self, data, scales, width = NULL) {
-    x <- data$x
-    weight <- data$weight %||% rep(1, length(x))
-    width <- width %||% (resolution(x) * 0.9)
+  compute_panel = function(self, data, scales, width = NULL) {
+    data$weight <- data$weight %||% rep(1, nrow(data))
+    width <- width %||% (resolution(data$x) * 0.9)
 
-    count <- as.numeric(tapply(weight, x, sum, na.rm = TRUE))
-    count[is.na(count)] <- 0
+    # sum weights for each combination of group and aesthetics
+    # the use of . allows to consider all aesthetics defined in data
+    cp <- aggregate(weight ~ ., data = data, sum, na.rm = TRUE)
+    names(cp)[which(names(cp) == "weight")] <- "count"
+    cp$count[is.na(cp$count)] <- 0
 
-    new_data_frame(list(
-      count = count,
-      prop = count / sum(abs(count)),
-      x = sort(unique(x)),
-      width = width
-    ), n = length(count))
+    # groupwise proportions
+    f <- function(x) {sum(abs(x))}
+    cp$prop <- cp$count / ave(cp$count, cp$group, FUN = f)
+    cp$width <- width
+
+    cp
   }
 )
