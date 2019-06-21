@@ -60,17 +60,6 @@ test_that("axis_label_element_overrides errors when angles are outside the range
   expect_error(axis_label_element_overrides("bottom", -91), "`angle` must")
 })
 
-test_that("label end alignment errors when alignment is not possible", {
-  expect_error(
-    draw_axis(1, "1", "left", theme_test(), angle = 0, align_ends = TRUE),
-    "Cannot align end labels"
-  )
-  expect_error(
-    draw_axis(1, "1", "bottom", theme_test(), angle = 90, align_ends = TRUE),
-    "Cannot align end labels"
-  )
-})
-
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
@@ -139,46 +128,6 @@ test_that("axis guides are drawn correctly", {
   expect_doppelganger(
     "axis guides, text dodged into rows/cols",
     function() test_draw_axis(10, labels = function(b) comma(b * 1e9), n_dodge = 2)
-  )
-
-  # end alignment
-  expect_doppelganger(
-    "axis guides, ends aligned (horizontal)",
-    function() {
-      test_draw_axis(
-        break_positions = c(0.01, 0.99),
-        labels = function(b) comma(b * 1e9),
-        positions = c("top", "bottom"),
-        angle = 0,
-        align_ends = TRUE
-      )
-    }
-  )
-
-  expect_doppelganger(
-    "axis guides, ends aligned (vertical positive)",
-    function() {
-      test_draw_axis(
-        break_positions = c(0.01, 0.99),
-        labels = function(b) comma(b * 1e9),
-        positions = c("left", "right"),
-        angle = 90,
-        align_ends = TRUE
-      )
-    }
-  )
-
-  expect_doppelganger(
-    "axis guides, ends aligned (vertical negative)",
-    function() {
-      test_draw_axis(
-        break_positions = c(0.01, 0.99),
-        labels = function(b) comma(b * 1e9),
-        positions = c("left", "right"),
-        angle = -90,
-        align_ends = TRUE
-      )
-    }
   )
 })
 
