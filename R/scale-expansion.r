@@ -73,31 +73,13 @@ expand_range4 <- function(limits, expand) {
   c(lower, upper)
 }
 
-#' Calculate the final range
-#'
-#' @param scale A position scale (e.g., [scale_x_continuous()] or [scale_x_discrete()])
-#' @param limits The user-supplied limits, in untransformed data space
-#' @param expand `TRUE` if the final limits should be expanded, `FALSE` otherwise
-#'
-#' @return The (possibly expanded) `limits`
-#' @noRd
-#'
-scale_range <- function(scale, limits = NULL, expand = TRUE) {
-  expansion <- if (expand) expand_default(scale) else expand_scale(0, 0)
-
-  if (is.null(limits)) {
-    scale$dimension(expansion)
-  } else {
-    continuous_range <- range(scale$transform(limits))
-    expand_range4(continuous_range, expansion)
-  }
-}
-
 #' Calculate the final scale dimension
 #'
 #' @param scale A position scale (e.g., [scale_x_continuous()] or [scale_x_discrete()])
 #' @param scale_limits The scale-supplied limits, in transformed data space
 #' @param coord_limits The user-supplied limits, in untransformed data space
+#'   (or `NULL` for no user-supplied limits). `NA` values will fall back to the
+#'   scale limits.
 #' @param expansion The length-4 expansion to use, calculated by [expand_scale()]
 #'   or [expand_default()].
 #' @param coord_trans A transformation defining the space where
@@ -106,9 +88,11 @@ scale_range <- function(scale, limits = NULL, expand = TRUE) {
 #' @return The (possibly expanded) scale limits, in scale-transformed data space
 #' @noRd
 #'
-scale_dimension <- function(scale, coord_limits = c(NA_real_, NA_real_),
+scale_dimension <- function(scale, coord_limits = NULL,
                             expansion = expand_scale(0, 0),
                             coord_trans = identity_trans()) {
+
+  coord_limits <- coord_limits %||% c(NA_real_, NA_real_)
 
   # transform coord limits to transformed scale data space
   coord_limits_scale <- scale$trans$transform(coord_limits)
