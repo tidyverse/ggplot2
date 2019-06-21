@@ -44,45 +44,6 @@ expand_scale = function(mult = 0, add = 0) {
   c(mult[1], add[1], mult[2], add[2])
 }
 
-
-#' Calculate limits for continuous scales
-#'
-#' @param limits a numeric vector of length 2 or a function that will be
-#'   called on `default_limits` that returns a numeric vector of length 2.
-#'   The `limits` are in transformed data space.
-#' @param default_limits a numeric vector of length 2 to be used as a
-#'   fallback for `NA` limits. This is usually the minimum and maximum
-#'   value observed in the transformed data.
-#' @param trans The transform (see [scales::trans_new()]) that was used
-#'   to calculate `limits` and `default_limits`.
-#'
-#' @noRd
-#'
-calculate_limits <- function(limits = c(NA_real_, NA_real_),
-                             default_limits = c(NA_real_, NA_real_),
-                             trans = identity_trans()) {
-
-  if (!is.numeric(default_limits) || (length(default_limits) != 2)) {
-    stop("`default_limits` must be a numeric vector of length 2")
-  }
-
-  if (is.function(limits)) {
-    # if limits is a function, it expects to work in trans$inverse() space
-    limits <- trans$transform(limits(trans$inverse(default_limits)))
-  }
-
-  if (!is.numeric(limits) || (length(limits) != 2)) {
-    stop(
-      "`limits` must be a numeric vector of length 2 or a function of `default_limits` ",
-      "that returns a numeric vector of length 2.",
-      call. = FALSE
-    )
-  }
-
-  # replace NA limits with corresponding value in default_limits
-  ifelse(is.na(limits), default_limits, limits)
-}
-
 #' Expand a numeric range
 #'
 #' @param limits A numeric vector of length 2 giving the
@@ -112,12 +73,11 @@ expand_range4 <- function(limits, expand) {
   c(lower, upper)
 }
 
-
 #' Calculate the final range
 #'
 #' @param scale A position scale (e.g., [scale_x_continuous()] or [scale_x_discrete()])
 #' @param limits The user-supplied limits, in untransformed data space
-#' @param expand `TRUE` of the final limits should be expanded, `FALSE` otherwise
+#' @param expand `TRUE` if the final limits should be expanded, `FALSE` otherwise
 #'
 #' @return The (possibly expanded) `limits`
 #' @noRd
@@ -133,12 +93,54 @@ scale_range <- function(scale, limits = NULL, expand = TRUE) {
   }
 }
 
+#' Calculate the final scale dimension
+#'
+#' @param scale A position scale (e.g., [scale_x_continuous()] or [scale_x_discrete()])
+#' @param scale_limits The scale-supplied limits, in transformed data space
+#' @param coord_limits The user-supplied limits, in untransformed data space
+#' @param expansion The length-4 expansion to use, calculated by [expand_scale()]
+#'   or [expand_default()].
+#' @param coord_trans A transformation defining the space where
+#'   expansion should take place.
+#'
+#' @return The (possibly expanded) scale limits, in scale-transformed data space
+#' @noRd
+#'
+scale_dimension <- function(scale, coord_limits = c(NA_real_, NA_real_),
+                            expansion = expand_scale(0, 0),
+                            coord_trans = identity_trans()) {
 
+  # transform coord limits to transformed scale data space
+  coord_limits_scale <- scale$trans$transform(coord_limits)
 
-expand_default <- function(scale, discrete = c(0, 0.6, 0, 0.6), continuous = c(0.05, 0, 0.05, 0)) {
-  if (!is.waive(scale$expand)) {
-    return(scale$expand)
+  # replace scale limits with non-NA coord limits
+  scale_limits <- ifelse(is.na(coord_limits_scale), scale$dimension(), coord_limits_scale)
+
+  # expand limits in coordinate space
+  coord_limits <- coord_trans$transform(scale_limits)
+  coord_limits <- expand_range4(coord_limits, expansion)
+  final_scale_limits <- coord_trans$inverse(coord_limits)
+
+  # if any non-finite values were introduced in the transformations,
+  # replace them with the original scale limits
+  ifelse(is.finite(final_scale_limits), final_scale_limits, scale_limits)
+}
+
+#' Calculate the default expansion for a scale
+#'
+#' @param scale A position scale (e.g., [scale_x_continuous()] or [scale_x_discrete()])
+#' @param discrete,continuous Default scale expansion factors for
+#'   discrete and continuous scales, respectively.
+#' @param expand Should any expansion be applied?
+#'
+#' @return One of `discrete`, `continuous`, or `scale$expand`
+#' @noRd
+#'
+expand_default <- function(scale, discrete = expand_scale(add = 0.6),
+                           continuous = expand_scale(mult = 0.05), expand = TRUE) {
+  if (!expand) {
+    return(expand_scale(0, 0))
   }
 
-  if (scale$is_discrete()) discrete else continuous
+  scale$expand %|W|% if (scale$is_discrete()) discrete else continuous
 }

@@ -190,7 +190,7 @@ Collate:
     'scale-continuous.r'
     'scale-date.r'
     'scale-discrete-.r'
-    'scale-expantion.r'
+    'scale-expansion.r'
     'scale-gradient.r'
     'scale-grey.r'
     'scale-hue.r'
