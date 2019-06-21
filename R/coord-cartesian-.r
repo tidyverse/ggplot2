@@ -137,16 +137,9 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 )
 
 view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
-  expansion <- if (expand) expand_default(scale) else expand_scale(0, 0)
+  expansion <- expand_default(scale, expand = expand)
   limits <- scale$get_limits()
-
-  if (is.null(coord_limits)) {
-    continuous_range <- scale$dimension(expansion, limits)
-  } else {
-    continuous_range <- range(scale$transform(coord_limits))
-    continuous_range <- expand_range4(continuous_range, expansion)
-  }
-
+  continuous_range <- scale$dimension(expansion, coord_limits = coord_limits)
   aesthetic <- scale$aesthetics[1]
 
   view_scales <- list(

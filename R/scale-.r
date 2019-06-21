@@ -380,7 +380,7 @@ Scale <- ggproto("Scale", NULL,
     }
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
+  dimension = function(self, expand = expand_scale(0, 0), limits = self$get_limits()) {
     stop("Not implemented", call. = FALSE)
   },
 
@@ -487,7 +487,12 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     self$rescaler(x, from = range)
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
+  dimension = function(self, expand = expand_scale(0, 0), limits = self$get_limits(),
+                       coord_limits = NULL) {
+    coord_limits <- coord_limits %||% self$trans$inverse(c(NA, NA))
+    coord_limits_scale <- self$trans$transform(coord_limits)
+    limits <- ifelse(is.na(coord_limits_scale), limits, coord_limits_scale)
+
     expand_range4(limits, expand)
   },
 
@@ -688,7 +693,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     rescale(x, match(as.character(x), limits), from = range)
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
+  dimension = function(self, expand = expand_scale(0, 0), limits = self$get_limits()) {
     expand_range4(c(1, length(limits)), expand)
   },
 

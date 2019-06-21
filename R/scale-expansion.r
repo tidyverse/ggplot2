@@ -60,6 +60,10 @@ expand_range4 <- function(limits, expand) {
     length(expand) %in% c(2,4)
   )
 
+  if (all(!is.finite(limits))) {
+    return(c(-Inf, Inf))
+  }
+
   # If only two expansion constants are given (i.e. the old syntax),
   # reuse them to generate a four-element expansion vector
   if (length(expand) == 2) {
@@ -71,43 +75,6 @@ expand_range4 <- function(limits, expand) {
   lower <- expand_range(limits, expand[1], expand[2])[1]
   upper <- expand_range(limits, expand[3], expand[4])[2]
   c(lower, upper)
-}
-
-#' Calculate the final scale dimension
-#'
-#' @param scale A position scale (e.g., [scale_x_continuous()] or [scale_x_discrete()])
-#' @param scale_limits The scale-supplied limits, in transformed data space
-#' @param coord_limits The user-supplied limits, in untransformed data space
-#'   (or `NULL` for no user-supplied limits). `NA` values will fall back to the
-#'   scale limits.
-#' @param expansion The length-4 expansion to use, calculated by [expand_scale()]
-#'   or [expand_default()].
-#' @param coord_trans A transformation defining the space where
-#'   expansion should take place.
-#'
-#' @return The (possibly expanded) scale limits, in scale-transformed data space
-#' @noRd
-#'
-scale_dimension <- function(scale, coord_limits = NULL,
-                            expansion = expand_scale(0, 0),
-                            coord_trans = identity_trans()) {
-
-  coord_limits <- coord_limits %||% c(NA_real_, NA_real_)
-
-  # transform coord limits to transformed scale data space
-  coord_limits_scale <- scale$trans$transform(coord_limits)
-
-  # replace scale limits with non-NA coord limits
-  scale_limits <- ifelse(is.na(coord_limits_scale), scale$dimension(), coord_limits_scale)
-
-  # expand limits in coordinate space
-  coord_limits <- coord_trans$transform(scale_limits)
-  coord_limits <- expand_range4(coord_limits, expansion)
-  final_scale_limits <- coord_trans$inverse(coord_limits)
-
-  # if any non-finite values were introduced in the transformations,
-  # replace them with the original scale limits
-  ifelse(is.finite(final_scale_limits), final_scale_limits, scale_limits)
 }
 
 #' Calculate the default expansion for a scale
