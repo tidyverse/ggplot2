@@ -37,7 +37,7 @@ margin_width <- function(grob, margins) {
 #'
 #' @noRd
 title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
-                       debug = FALSE) {
+                       debug = FALSE, check.overlap = FALSE) {
 
   if (is.null(label)) return(zeroGrob())
 
@@ -56,7 +56,8 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
     hjust = hjust,
     vjust = vjust,
     rot = angle,
-    gp = gp
+    gp = gp,
+    check.overlap = check.overlap
   )
 
   # The grob dimensions don't include the text descenders, so these need to be added
@@ -175,7 +176,7 @@ add_margins <- function(grob, height, width, margin = NULL,
 #' @noRd
 titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
                       margin = NULL, margin_x = FALSE, margin_y = FALSE,
-                      debug = FALSE) {
+                      debug = FALSE, check.overlap = FALSE) {
 
   if (is.null(label))
     return(zeroGrob())
@@ -189,7 +190,8 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     vjust = vjust,
     angle = angle,
     gp = gp,
-    debug = debug
+    debug = debug,
+    check.overlap = check.overlap
   )
 
   add_margins(
