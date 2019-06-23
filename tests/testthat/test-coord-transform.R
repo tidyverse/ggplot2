@@ -20,3 +20,28 @@ test_that("no warnings are generated when original data has Inf values, but no n
 
   expect_silent(benchplot(p))
 })
+
+test_that("coord_trans() expands axes the identically coord_cartesian()", {
+  p <- ggplot(mpg, aes(class, hwy)) + geom_point()
+  built_cartesian <- ggplot_build(p + coord_cartesian())
+  built_trans <- ggplot_build(p + coord_trans())
+
+  cartesian_params <- built_cartesian$layout$panel_params[[1]]
+  trans_params <- built_trans$layout$panel_params[[1]]
+
+  expect_identical(cartesian_params$x.range, trans_params$x.range)
+  expect_identical(cartesian_params$y.range, trans_params$y.range)
+})
+
+test_that("coord_trans(expand = FALSE) expands axes the identically coord_cartesian(expand = FALSE)", {
+  p <- ggplot(mpg, aes(class, hwy)) + geom_point()
+  built_cartesian <- ggplot_build(p + coord_cartesian(expand = FALSE))
+  built_trans <- ggplot_build(p + coord_trans(expand = FALSE))
+
+  cartesian_params <- built_cartesian$layout$panel_params[[1]]
+  trans_params <- built_trans$layout$panel_params[[1]]
+
+  expect_identical(cartesian_params$x.range, trans_params$x.range)
+  expect_identical(cartesian_params$y.range, trans_params$y.range)
+})
+
