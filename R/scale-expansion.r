@@ -160,10 +160,10 @@ expand_limits_discrete_trans <- function(limits, coord_limits = c(NA, NA),
                                          expansion = expand_scale(0, 0), trans = identity_trans(),
                                          range_continuous = NULL) {
 
-  is_empty <- is.null(limits) && is.null(range_continuous)
-  is_only_continuous <- is.null(limits)
-  is_only_discrete <- is.null(range_continuous)
   n_limits <- length(limits)
+  is_empty <- is.null(limits) && is.null(range_continuous)
+  is_only_continuous <- n_limits == 0
+  is_only_discrete <- is.null(range_continuous)
 
   if (is_empty) {
     expand_limits_continuous_trans(c(0, 1), coord_limits, expansion, trans)
