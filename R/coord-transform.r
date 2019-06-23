@@ -205,15 +205,23 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
   out <- scale$break_info(continuous_ranges$continuous_range)
 
   # range in coord space has already been calculated
-  out$range <- continuous_ranges$continuous_range_coord
+  # needs to be in increasing order for transform_value() to work
+  out$range <- range(continuous_ranges$continuous_range_coord)
 
   # major and minor values in coordinate data
   out$major_source <- transform_value(trans, out$major_source, out$range)
   out$minor_source <- transform_value(trans, out$minor_source, out$range)
+  out$sec.major_source <- transform_value(trans, out$sec.major_source, out$range)
+  out$sec.minor_source <- transform_value(trans, out$sec.minor_source, out$range)
 
   out <- list(
-    range = out$range, labels = out$labels,
-    major = out$major_source, minor = out$minor_source
+    range = out$range,
+    labels = out$labels,
+    major = out$major_source,
+    minor = out$minor_source,
+    sec.labels = out$sec.labels,
+    sec.major = out$sec.major_source,
+    sec.minor = out$sec.minor_source
   )
   names(out) <- paste(name, names(out), sep = ".")
   out

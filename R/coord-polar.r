@@ -124,8 +124,8 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       ret[[n]]$minor <- out$minor_source
       ret[[n]]$labels <- out$labels
       ret[[n]]$sec.range <- out$sec.range
-      ret[[n]]$sec.major <- out$sec.major_source
-      ret[[n]]$sec.minor <- out$sec.minor_source
+      ret[[n]]$sec.major <- out$sec.major_source_user
+      ret[[n]]$sec.minor <- out$sec.minor_source_user
       ret[[n]]$sec.labels <- out$sec.labels
     }
 
