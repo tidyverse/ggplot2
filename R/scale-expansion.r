@@ -105,6 +105,7 @@ expand_default <- function(scale, discrete = expand_scale(add = 0.6),
 #' the domain of the transformation (e.g., a lower limit of 0 with a square root
 #' transformation).
 #'
+#' @param scale A position scale (see [scale_x_continuous()] and [scale_x_discrete()])
 #' @param limits The initial scale limits, in scale-transformed space.
 #' @param coord_limits The user-provided limits in scale-transformed space,
 #'   which may include one more more NA values, in which case those limits
@@ -117,7 +118,25 @@ expand_default <- function(scale, discrete = expand_scale(add = 0.6),
 #'   which is the expanded range in coordinate-transformed space.
 #'
 #' @noRd
-#'
+expand_limits_scale <- function(scale, expansion = expand_scale(0, 0), limits = waiver(),
+                                coord_limits = NULL) {
+  limits <- limits %|W|% scale$get_limits()
+
+  if (scale$is_discrete()) {
+    coord_limits <- coord_limits %||% c(NA_real_, NA_real_)
+    expand_limits_discrete(
+      limits,
+      coord_limits,
+      expansion,
+      range_continuous = scale$range_c$range
+    )
+  } else {
+    coord_limits <- coord_limits %||% scale$trans$inverse(c(NA_real_, NA_real_))
+    coord_limits_scale <- scale$trans$transform(coord_limits)
+    expand_limits_continuous(limits, coord_limits_scale, expansion)
+  }
+}
+
 expand_limits_continuous <- function(limits, coord_limits = c(NA, NA), expansion = expand_scale(0, 0)) {
   expand_limits_continuous_trans(limits, coord_limits, expansion)$continuous_range
 }

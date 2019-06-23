@@ -112,11 +112,11 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       limits <- self$limits[[n]]
 
       if (self$theta == n) {
-        expand <- expand_default(scale, c(0, 0.5), c(0, 0))
+        expansion <- expand_default(scale, c(0, 0.5), c(0, 0))
       } else {
-        expand <- expand_default(scale, c(0, 0),   c(0, 0))
+        expansion <- expand_default(scale, c(0, 0),   c(0, 0))
       }
-      range <- scale$dimension(expand, coord_limits = limits)
+      range <- expand_limits_scale(scale, expansion, coord_limits = limits)
 
       out <- scale$break_info(range)
       ret[[n]]$range <- out$range

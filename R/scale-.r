@@ -487,11 +487,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     self$rescaler(x, from = range)
   },
 
-  dimension = function(self, expand = expand_scale(0, 0), limits = self$get_limits(),
-                       coord_limits = NULL) {
-    coord_limits <- coord_limits %||% self$trans$inverse(c(NA, NA))
-    coord_limits_scale <- self$trans$transform(coord_limits)
-    expand_limits_continuous(limits, coord_limits_scale, expand)
+  dimension = function(self, expand = expand_scale(0, 0), limits = self$get_limits()) {
+    expand_limits_scale(self, expand, limits)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
