@@ -53,7 +53,6 @@ test_that("coord_trans(y = 'log10') expands the x axis identically to scale_y_lo
   cartesian_params <- built_cartesian$layout$panel_params[[1]]
   trans_params <- built_trans$layout$panel_params[[1]]
 
-  expect_identical(cartesian_params$x.range, trans_params$x.range)
   expect_identical(cartesian_params$y.range, trans_params$y.range)
 })
 
@@ -67,24 +66,34 @@ test_that("coord_trans() expands axes outside the domain of the axis trans", {
   cartesian_params <- built_cartesian$layout$panel_params[[1]]
   trans_params <- built_trans$layout$panel_params[[1]]
 
-  expect_identical(cartesian_params$x.range, trans_params$x.range)
   expect_identical(cartesian_params$y.range, trans_params$y.range)
 })
 
-test_that("coord_trans() can use the reverse transformation for continuous axes", {
+test_that("coord_trans() works with the reverse transformation", {
   df <- data_frame(x = c("1-one", "2-two", "3-three"), y = c(20, 30, 40))
 
-  ggplot(df, aes(x, y)) +
-    geom_point() +
-    coord_trans(x = "reverse")
+  p <- ggplot(df, aes(x, y)) + geom_point()
+  built_cartesian <- ggplot_build(p + scale_y_reverse())
+  built_trans <- ggplot_build(p + coord_trans(y = "reverse"))
 
   cartesian_params <- built_cartesian$layout$panel_params[[1]]
   trans_params <- built_trans$layout$panel_params[[1]]
 
-  expect_identical(cartesian_params$x.range, trans_params$x.range)
   expect_identical(cartesian_params$y.range, trans_params$y.range)
 })
 
+test_that("coord_trans() can reverse discrete axes", {
+  df <- data_frame(x = c("1-one", "2-two", "3-three"), y = c(20, 30, 40))
+
+  p <- ggplot(df, aes(x, y)) + geom_point()
+  built_cartesian <- ggplot_build(p)
+  built_trans <- ggplot_build(p + coord_trans(x = "reverse"))
+
+  cartesian_params <- built_cartesian$layout$panel_params[[1]]
+  trans_params <- built_trans$layout$panel_params[[1]]
+
+  expect_identical(cartesian_params$x.range, -rev(trans_params$x.range))
+})
 
 test_that("basic coord_trans() plot displays both continuous and discrete axes", {
   expect_doppelganger(

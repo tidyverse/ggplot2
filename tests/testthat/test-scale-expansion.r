@@ -88,3 +88,14 @@ test_that("expand_limits_discrete() can override limits with a both discrete and
     c(0, 2)
   )
 })
+
+test_that("expand_limits_continuous_trans() works with inverted transformations", {
+  limit_info <- expand_limits_continuous_trans(
+    c(1, 2),
+    expansion = expand_scale(add = 1),
+    trans = reverse_trans()
+  )
+
+  expect_identical(limit_info$continuous_range, c(0, 3))
+  expect_identical(limit_info$continuous_range_coord, c(0, -3))
+})

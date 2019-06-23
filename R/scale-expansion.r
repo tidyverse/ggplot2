@@ -142,7 +142,15 @@ expand_limits_continuous_trans <- function(limits, coord_limits = c(NA, NA),
 
   # expand limits in coordinate space
   continuous_range_coord <- trans$transform(limits)
-  continuous_range_coord <- expand_range4(continuous_range_coord, expansion)
+
+  # range expansion expects values in increasing order, which may not be true
+  # for reciprocal/reverse transformations
+  if (all(is.finite(continuous_range_coord)) && diff(continuous_range_coord) < 0) {
+    continuous_range_coord <- rev(expand_range4(rev(continuous_range_coord), expansion))
+  } else {
+    continuous_range_coord <- expand_range4(continuous_range_coord, expansion)
+  }
+
   final_scale_limits <- trans$inverse(continuous_range_coord)
 
   # if any non-finite values were introduced in the transformations,
