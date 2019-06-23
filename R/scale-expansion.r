@@ -118,6 +118,7 @@ expand_default <- function(scale, discrete = expand_scale(add = 0.6),
 #'   which is the expanded range in coordinate-transformed space.
 #'
 #' @noRd
+#'
 expand_limits_scale <- function(scale, expansion = expand_scale(0, 0), limits = waiver(),
                                 coord_limits = NULL) {
   limits <- limits %|W|% scale$get_limits()
@@ -126,35 +127,37 @@ expand_limits_scale <- function(scale, expansion = expand_scale(0, 0), limits = 
     coord_limits <- coord_limits %||% c(NA_real_, NA_real_)
     expand_limits_discrete(
       limits,
-      coord_limits,
       expansion,
+      coord_limits,
       range_continuous = scale$range_c$range
     )
   } else {
+    # using the inverse transform to resolve the NA value is needed for date/datetime/time
+    # scales, which refuse to transform objects of the incorrect type
     coord_limits <- coord_limits %||% scale$trans$inverse(c(NA_real_, NA_real_))
     coord_limits_scale <- scale$trans$transform(coord_limits)
-    expand_limits_continuous(limits, coord_limits_scale, expansion)
+    expand_limits_continuous(limits, expansion, coord_limits_scale)
   }
 }
 
-expand_limits_continuous <- function(limits, coord_limits = c(NA, NA), expansion = expand_scale(0, 0)) {
-  expand_limits_continuous_trans(limits, coord_limits, expansion)$continuous_range
+expand_limits_continuous <- function(limits, expansion = expand_scale(0, 0), coord_limits = c(NA, NA)) {
+  expand_limits_continuous_trans(limits, expansion, coord_limits)$continuous_range
 }
 
-expand_limits_discrete <- function(limits, coord_limits = c(NA, NA), expansion = expand_scale(0, 0),
+expand_limits_discrete <- function(limits, expansion = expand_scale(0, 0), coord_limits = c(NA, NA),
                                    range_continuous = NULL) {
   limit_info <- expand_limits_discrete_trans(
     limits,
-    coord_limits,
     expansion,
+    coord_limits,
     range_continuous = range_continuous
   )
 
   limit_info$continuous_range
 }
 
-expand_limits_continuous_trans <- function(limits, coord_limits = c(NA, NA),
-                                           expansion = expand_scale(0, 0), trans = identity_trans()) {
+expand_limits_continuous_trans <- function(limits, expansion = expand_scale(0, 0),
+                                           coord_limits = c(NA, NA), trans = identity_trans()) {
 
   # let non-NA coord_limits override the scale limits
   limits <- ifelse(is.na(coord_limits), limits, coord_limits)
@@ -183,8 +186,8 @@ expand_limits_continuous_trans <- function(limits, coord_limits = c(NA, NA),
   )
 }
 
-expand_limits_discrete_trans <- function(limits, coord_limits = c(NA, NA),
-                                         expansion = expand_scale(0, 0), trans = identity_trans(),
+expand_limits_discrete_trans <- function(limits, expansion = expand_scale(0, 0),
+                                         coord_limits = c(NA, NA), trans = identity_trans(),
                                          range_continuous = NULL) {
 
   n_limits <- length(limits)
@@ -193,18 +196,18 @@ expand_limits_discrete_trans <- function(limits, coord_limits = c(NA, NA),
   is_only_discrete <- is.null(range_continuous)
 
   if (is_empty) {
-    expand_limits_continuous_trans(c(0, 1), coord_limits, expansion, trans)
+    expand_limits_continuous_trans(c(0, 1), expansion, coord_limits, trans)
   } else if (is_only_continuous) {
-    expand_limits_continuous_trans(range_continuous, coord_limits, expansion, trans)
+    expand_limits_continuous_trans(range_continuous, expansion, coord_limits, trans)
   } else if (is_only_discrete) {
-    expand_limits_continuous_trans(c(1, n_limits), coord_limits, expansion, trans)
+    expand_limits_continuous_trans(c(1, n_limits), expansion, coord_limits, trans)
   } else {
     # continuous and discrete
-    limit_info_discrete <- expand_limits_continuous_trans(c(1, n_limits), coord_limits, expansion, trans)
+    limit_info_discrete <- expand_limits_continuous_trans(c(1, n_limits), expansion, coord_limits, trans)
 
     # don't expand continuous range if there is also a discrete range
     limit_info_continuous <- expand_limits_continuous_trans(
-      range_continuous, coord_limits, expand_scale(0, 0), trans
+      range_continuous, expand_scale(0, 0), coord_limits, trans
     )
 
     # prefer expanded discrete range, but allow continuous range to further expand the range

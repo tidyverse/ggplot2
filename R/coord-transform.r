@@ -185,8 +185,8 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
   if (scale$is_discrete()) {
     continuous_ranges <- expand_limits_discrete_trans(
       scale$get_limits(),
-      coord_limits,
       expansion,
+      coord_limits,
       trans,
       range_continuous = scale$range_c$range
     )
@@ -195,8 +195,8 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
     coord_limits <- scale$trans$transform(coord_limits)
     continuous_ranges <- expand_limits_continuous_trans(
       scale$get_limits(),
-      coord_limits,
       expansion,
+      coord_limits,
       trans
     )
   }
