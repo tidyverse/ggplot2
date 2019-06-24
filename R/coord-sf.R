@@ -127,16 +127,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # Bounding box of the data
-    x_range <- expand_limits_scale(
-      scale_x,
-      expand_default(scale_x, expand = self$expand),
-      coord_limits = self$limits$x
-    )
-    y_range <- expand_limits_scale(
-      scale_y,
-      expand_default(scale_y, expand = self$expand),
-      coord_limits = self$limits$y
-    )
+    expansion_x <- expand_default(scale_x, expand = self$expand)
+    x_range <- expand_limits_scale(scale_x, expansion_x, coord_limits = self$limits$x)
+    expansion_y <- expand_default(scale_y, expand = self$expand)
+    y_range <- expand_limits_scale(scale_y, expansion_y, coord_limits = self$limits$y)
     bbox <- c(
       x_range[1], y_range[1],
       x_range[2], y_range[2]
