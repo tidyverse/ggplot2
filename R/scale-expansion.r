@@ -35,7 +35,7 @@
 #'   scale_x_discrete(expand = expand_scale(add = .6)) +
 #'   scale_y_continuous(expand = expand_scale(mult = .05))
 #'
-expand_scale = function(mult = 0, add = 0) {
+expand_scale <- function(mult = 0, add = 0) {
   stopifnot(
     is.numeric(mult), (length(mult) %in% 1:2),
     is.numeric(add), (length(add) %in% 1:2)
