@@ -2,7 +2,9 @@
 
 * `coord_trans()` now draws second axes and accepts `xlim`, `ylim`,
   and `expand` arguments to bring it up to feature parity with 
-  `coord_cartesian()` (@paleolimbot, #2990).
+  `coord_cartesian()`. The `xtrans` and `ytrans` arguments that were 
+  deprecated in version 1.0.1 in favour of `x` and `y` 
+  were removed (@paleolimbot, #2990).
 
 * `coord_trans()` now calculates breaks using the expanded range 
   (previously these were calculated using the unexpanded range, 
