@@ -35,10 +35,11 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
 
   # override label element parameters for rotation
   if (inherits(label_element, "element_text")) {
-    label_element <- merge_element(
-      axis_label_element_overrides(axis_position, angle),
-      label_element
-    )
+    label_overrides <- axis_label_element_overrides(axis_position, angle)
+    # label_overrides is always an element_text(), but in order for the merge to
+    # keep the new class, the override must also have the new class
+    class(label_overrides) <- class(label_element)
+    label_element <- merge_element(label_overrides, label_element)
   }
 
   # conditionally set parameters that depend on axis orientation
