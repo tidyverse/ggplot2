@@ -5,8 +5,8 @@
 \title{Transformed Cartesian coordinate system}
 \usage{
 coord_trans(x = "identity", y = "identity", xlim = NULL,
-  ylim = NULL, limx = NULL, limy = NULL, clip = "on",
-  expand = TRUE)
+  ylim = NULL, limx = "DEPRECATED", limy = "DEPRECATED",
+  clip = "on", expand = TRUE)
 }
 \arguments{
 \item{x, y}{Transformers for x and y axes or their names.}
@@ -15,7 +15,7 @@ coord_trans(x = "identity", y = "identity", xlim = NULL,
 
 \item{ylim}{Limits for the x and y axes.}
 
-\item{limx, limy}{These are deprecated - use \code{xlim} and \code{ylim} instead.}
+\item{limx, limy}{\strong{Deprecated}: use \code{xlim} and \code{ylim} instead.}
 
 \item{clip}{Should drawing be clipped to the extent of the plot panel? A
 setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}

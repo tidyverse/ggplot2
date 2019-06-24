@@ -10,7 +10,7 @@
 #'
 #' @inheritParams coord_cartesian
 #' @param x,y Transformers for x and y axes or their names.
-#' @param limx,limy These are deprecated - use `xlim` and `ylim` instead.
+#' @param limx,limy **Deprecated**: use `xlim` and `ylim` instead.
 #' @export
 #' @examples
 #' \donttest{
@@ -75,7 +75,7 @@
 #' plot + coord_trans(x = "sqrt")
 #' }
 coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL,
-                        limx = NULL, limy = NULL, clip = "on", expand = TRUE) {
+                        limx = "DEPRECATED", limy = "DEPRECATED", clip = "on", expand = TRUE) {
   if (!missing(limx)) {
     gg_dep("3.2.0", "`limx` argument is deprecated; please use `xlim` instead.")
     xlim <- limx
