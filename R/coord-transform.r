@@ -77,11 +77,11 @@
 coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL,
                         limx = "DEPRECATED", limy = "DEPRECATED", clip = "on", expand = TRUE) {
   if (!missing(limx)) {
-    gg_dep("3.2.0", "`limx` argument is deprecated; please use `xlim` instead.")
+    warning("`limx` argument is deprecated; please use `xlim` instead.", call. = FALSE)
     xlim <- limx
   }
   if (!missing(limy)) {
-    gg_dep("3.2.0", "`limy` argument is deprecated; please use `ylim` instead.")
+    warning("`limy` argument is deprecated; please use `ylim` instead.", call. = FALSE)
     ylim <- limy
   }
 
