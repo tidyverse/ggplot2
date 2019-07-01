@@ -177,30 +177,45 @@ no guarantee that straight lines will continue to be straight.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>coord_trans</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>limx</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>limy</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>, <span class='no'>xtrans</span>, <span class='no'>ytrans</span>)</pre>
+    <pre class="usage"><span class='fu'>coord_trans</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>limx</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>, <span class='kw'>limy</span> <span class='kw'>=</span> <span class='st'>"DEPRECATED"</span>,
+  <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x, y</th>
-      <td><p>transformers for x and y axes</p></td>
+      <td><p>Transformers for x and y axes or their names.</p></td>
+    </tr>
+    <tr>
+      <th>xlim</th>
+      <td><p>Limits for the x and y axes.</p></td>
+    </tr>
+    <tr>
+      <th>ylim</th>
+      <td><p>Limits for the x and y axes.</p></td>
     </tr>
     <tr>
       <th>limx, limy</th>
-      <td><p>limits for x and y axes. (Named so for backward
-compatibility)</p></td>
+      <td><p><strong>Deprecated</strong>: use <code>xlim</code> and <code>ylim</code> instead.</p></td>
     </tr>
     <tr>
       <th>clip</th>
       <td><p>Should drawing be clipped to the extent of the plot panel? A
 setting of <code>"on"</code> (the default) means yes, and a setting of <code>"off"</code>
-means no. For details, please see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>.</p></td>
+means no. In most cases, the default of <code>"on"</code> should not be changed,
+as setting <code>clip = "off"</code> can cause unexpected results. It allows
+drawing of data points anywhere on the plot, including in the plot margins. If
+limits are set via <code>xlim</code> and <code>ylim</code> and some data points fall outside those
+limits, then those data points may show up in places such as the axes, the
+legend, the plot title, or the plot margins.</p></td>
     </tr>
     <tr>
-      <th>xtrans, ytrans</th>
-      <td><p>Deprecated; use <code>x</code> and <code>y</code> instead.</p></td>
+      <th>expand</th>
+      <td><p>If <code>TRUE</code>, the default, adds a small expansion factor to
+the limits to ensure that data and axes don't overlap. If <code>FALSE</code>,
+limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</p></td>
     </tr>
     </table>
     
@@ -253,7 +268,7 @@ on how to create your own.</p>
   <span class='fu'><a href='geom_smooth.html'>geom_smooth</a></span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"lm"</span>) +
   <span class='fu'><a href='scale_continuous.html'>scale_x_log10</a></span>() +
   <span class='fu'><a href='scale_continuous.html'>scale_y_log10</a></span>() +
-  <span class='fu'>coord_trans</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/scales/topics/exp_trans'>exp_trans</a></span>(<span class='fl'>10</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/scales/topics/exp_trans'>exp_trans</a></span>(<span class='fl'>10</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='img'><img src='coord_trans-6.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>coord_trans</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/scales/topics/exp_trans'>exp_trans</a></span>(<span class='fl'>10</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw pkg'>scales</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/scales/topics/exp_trans'>exp_trans</a></span>(<span class='fl'>10</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='output co'>#&gt; <span class='warning'>Warning: NaNs produced</span></div><div class='img'><img src='coord_trans-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># cf.</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +

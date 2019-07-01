@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Discrete scale constructor — discrete_scale • ggplot2</title>
+<title>Generate expansion vector for scales — expansion • ggplot2</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,9 +31,12 @@
 
 
 
-<meta property="og:title" content="Discrete scale constructor — discrete_scale" />
+<meta property="og:title" content="Generate expansion vector for scales — expansion" />
 
-<meta property="og:description" content="Discrete scale constructor" />
+<meta property="og:description" content="This is a convenience function for generating scale expansion vectors
+for the expand argument of scale_(x|y)_continuous
+and scale_(x|y)_discrete. The expansion vectors are used to
+add some space between the data and the axes." />
 
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -162,124 +165,69 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Discrete scale constructor</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/scale-.r'><code>R/scale-.r</code></a></small>
-    <div class="hidden name"><code>discrete_scale.Rd</code></div>
+    <h1>Generate expansion vector for scales</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/scale-expansion.r'><code>R/scale-expansion.r</code></a></small>
+    <div class="hidden name"><code>expansion.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Discrete scale constructor</p>
+    <p>This is a convenience function for generating scale expansion vectors
+for the <code>expand</code> argument of <a href='scale_continuous.html'>scale_(x|y)_continuous</a>
+and <a href='scale_discrete.html'>scale_(x|y)_discrete</a>. The expansion vectors are used to
+add some space between the data and the axes.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>discrete_scale</span>(<span class='no'>aesthetics</span>, <span class='no'>scale_name</span>, <span class='no'>palette</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>na.translate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"legend"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>,
-  <span class='kw'>super</span> <span class='kw'>=</span> <span class='no'>ScaleDiscrete</span>)</pre>
+    <pre class="usage"><span class='fu'>expansion</span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>0</span>)
+
+<span class='fu'>expand_scale</span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>aesthetics</th>
-      <td><p>The names of the aesthetics that this scale works with.</p></td>
+      <th>mult</th>
+      <td><p>vector of multiplicative range expansion factors.
+If length 1, both the lower and upper limits of the scale
+are expanded outwards by <code>mult</code>. If length 2, the lower limit
+is expanded by <code>mult[1]</code> and the upper limit by <code>mult[2]</code>.</p></td>
     </tr>
     <tr>
-      <th>scale_name</th>
-      <td><p>The name of the scale that should be used for error messages
-associated with this scale.</p></td>
-    </tr>
-    <tr>
-      <th>palette</th>
-      <td><p>A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take (e.g., <code><a href='https://www.rdocumentation.org/packages/scales/topics/hue_pal'>scales::hue_pal()</a></code>).</p></td>
-    </tr>
-    <tr>
-      <th>name</th>
-      <td><p>The name of the scale. Used as the axis or legend title. If
-<code><a href='waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
-mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
-omitted.</p></td>
-    </tr>
-    <tr>
-      <th>breaks</th>
-      <td><p>One of:</p><ul>
-<li><p><code>NULL</code> for no breaks</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks (the scale limits)</p></li>
-<li><p>A character vector of breaks</p></li>
-<li><p>A function that takes the limits as input and returns breaks
-as output</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>labels</th>
-      <td><p>One of:</p><ul>
-<li><p><code>NULL</code> for no labels</p></li>
-<li><p><code><a href='waiver.html'>waiver()</a></code> for the default labels computed by the
-transformation object</p></li>
-<li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
-<li><p>A function that takes the breaks as input and returns labels
-as output</p></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>limits</th>
-      <td><p>A character vector that defines possible values of the scale
-and their order.</p></td>
-    </tr>
-    <tr>
-      <th>expand</th>
-      <td><p>For position scales, a vector of range expansion constants used to add some
-padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href='expansion.html'>expansion()</a></code>
-to generate the values for the <code>expand</code> argument. The defaults are to
-expand the scale by 5% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.</p></td>
-    </tr>
-    <tr>
-      <th>na.translate</th>
-      <td><p>Unlike continuous scales, discrete scales can easily show
-missing values, and do so by default. If you want to remove missing values
-from a discrete scale, specify <code>na.translate = FALSE</code>.</p></td>
-    </tr>
-    <tr>
-      <th>na.value</th>
-      <td><p>If <code>na.translate = TRUE</code>, what value aesthetic
-value should missing be displayed as? Does not apply to position scales
-where <code>NA</code> is always placed at the far right.</p></td>
-    </tr>
-    <tr>
-      <th>drop</th>
-      <td><p>Should unused factor levels be omitted from the scale?
-The default, <code>TRUE</code>, uses the levels that appear in the data;
-<code>FALSE</code> uses all the levels in the factor.</p></td>
-    </tr>
-    <tr>
-      <th>guide</th>
-      <td><p>A function used to create a guide or its name. See
-<code><a href='guides.html'>guides()</a></code> for more information.</p></td>
-    </tr>
-    <tr>
-      <th>position</th>
-      <td><p>For position scales, The position of the axis.
-<code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></td>
-    </tr>
-    <tr>
-      <th>super</th>
-      <td><p>The super class to use for the constructed scale</p></td>
+      <th>add</th>
+      <td><p>vector of additive range expansion constants.
+If length 1, both the lower and upper limits of the scale
+are expanded outwards by <code>add</code> units. If length 2, the
+lower limit is expanded by <code>add[1]</code> and the upper
+limit by <code>add[2]</code>.</p></td>
     </tr>
     </table>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># No space below the bars but 10% above them</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>) +
+  <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>))) +
+  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expansion</span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>.1</span>)))</div><div class='img'><img src='expansion-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Add 2 units of space on the left and right of the data</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>diamonds</span>, <span class='no'>carat</span> <span class='kw'>&gt;</span> <span class='fl'>2</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>, <span class='no'>clarity</span>)) +
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>() +
+  <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expansion</span>(<span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>2</span>))</div><div class='img'><img src='expansion-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Reproduce the default range expansion used</span>
+<span class='co'># when the 'expand' argument is not specified</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>diamonds</span>, <span class='no'>carat</span> <span class='kw'>&gt;</span> <span class='fl'>2</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>, <span class='no'>price</span>)) +
+  <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>() +
+  <span class='fu'><a href='scale_discrete.html'>scale_x_discrete</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expansion</span>(<span class='kw'>add</span> <span class='kw'>=</span> <span class='fl'>.6</span>)) +
+  <span class='fu'><a href='scale_continuous.html'>scale_y_continuous</a></span>(<span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'>expansion</span>(<span class='kw'>mult</span> <span class='kw'>=</span> <span class='fl'>.05</span>))</div><div class='img'><img src='expansion-3.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-                </ul>
+            
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
