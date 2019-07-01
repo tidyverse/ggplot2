@@ -1,6 +1,6 @@
 # ggplot2 (development version)
 
-* `expand_scale()` was soft-deprecated in favour of `expansion()` for setting
+* `expand_scale()` was deprecated in favour of `expansion()` for setting
   the `expand` argument of `x` and `y` scales (@paleolimbot).
 
 * `coord_trans()` now draws second axes and accepts `xlim`, `ylim`,
