@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `expand_scale()` was soft-deprecated in favour of `expansion()` for setting
+  the `expand` argument of `x` and `y` scales (@paleolimbot).
+
 * `coord_trans()` now draws second axes and accepts `xlim`, `ylim`,
   and `expand` arguments to bring it up to feature parity with 
   `coord_cartesian()`. The `xtrans` and `ytrans` arguments that were 
