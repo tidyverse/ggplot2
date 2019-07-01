@@ -3,7 +3,7 @@
 #'
 #' This is a convenience function for generating scale expansion vectors
 #' for the `expand` argument of [scale_(x|y)_continuous][scale_x_continuous()]
-#' and [scale_(x|y)_discrete][scale_x_discrete()]. The expansions vectors are used to
+#' and [scale_(x|y)_discrete][scale_x_discrete()]. The expansion vectors are used to
 #' add some space between the data and the axes.
 #'
 #' @param mult vector of multiplicative range expansion factors.

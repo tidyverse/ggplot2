@@ -24,7 +24,7 @@ limit by \code{add[2]}.}
 \description{
 This is a convenience function for generating scale expansion vectors
 for the \code{expand} argument of \link[=scale_x_continuous]{scale_(x|y)_continuous}
-and \link[=scale_x_discrete]{scale_(x|y)_discrete}. The expansions vectors are used to
+and \link[=scale_x_discrete]{scale_(x|y)_discrete}. The expansion vectors are used to
 add some space between the data and the axes.
 }
 \examples{
