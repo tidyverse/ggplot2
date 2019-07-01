@@ -178,7 +178,7 @@ transform_value <- function(trans, value, range) {
 }
 
 train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
-  expansion <- expand_default(scale, expand = expand)
+  expansion <- default_expansion(scale, expand = expand)
   scale_trans <- scale$trans %||% identity_trans()
   coord_limits <- coord_limits %||% scale_trans$inverse(c(NA, NA))
 

@@ -112,9 +112,9 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       limits <- self$limits[[n]]
 
       if (self$theta == n) {
-        expansion <- expand_default(scale, c(0, 0.5), c(0, 0))
+        expansion <- default_expansion(scale, c(0, 0.5), c(0, 0))
       } else {
-        expansion <- expand_default(scale, c(0, 0),   c(0, 0))
+        expansion <- default_expansion(scale, c(0, 0),   c(0, 0))
       }
       range <- expand_limits_scale(scale, expansion, coord_limits = limits)
 
