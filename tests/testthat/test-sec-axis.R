@@ -16,8 +16,15 @@ test_that("dup_axis() works", {
   scale <- layer_scales(p)$x
   expect_equal(scale$sec_name(), scale$name)
   breaks <- scale$break_info()
-  expect_equal(breaks$minor, breaks$sec.minor)
-  expect_equal(breaks$major_source, breaks$sec.major_source)
+  expect_equal(breaks$minor_source, breaks$sec.minor_source_user)
+  expect_equal(breaks$major_source, breaks$sec.major_source_user)
+
+  # these aren't exactly equal because the sec_axis trans is based on a
+  # (default) 1000-point approximation
+  expect_true(all(abs(breaks$major_source - round(breaks$sec.major_source) <= 1)))
+  expect_true(all(abs(breaks$minor_source - round(breaks$sec.minor_source) <= 1)))
+  expect_equal(round(breaks$major, 3), round(breaks$major, 3))
+  expect_equal(round(breaks$minor, 3), round(breaks$minor, 3))
 })
 
 test_that("sec_axis() works with subtraction", {
@@ -29,8 +36,15 @@ test_that("sec_axis() works with subtraction", {
   scale <- layer_scales(p)$y
   expect_equal(scale$sec_name(), scale$name)
   breaks <- scale$break_info()
-  expect_equal(breaks$minor, breaks$sec.minor)
-  expect_equal(breaks$major_source, breaks$sec.major_source)
+  expect_equal(breaks$minor_source, breaks$sec.minor_source_user)
+  expect_equal(breaks$major_source, breaks$sec.major_source_user)
+
+  # these aren't exactly equal because the sec_axis trans is based on a
+  # (default) 1000-point approximation
+  expect_true(all(abs(breaks$major_source - round(breaks$sec.major_source) <= 1)))
+  expect_true(all(abs(breaks$minor_source - round(breaks$sec.minor_source) <= 1)))
+  expect_equal(round(breaks$major, 3), round(breaks$major, 3))
+  expect_equal(round(breaks$minor, 3), round(breaks$minor, 3))
 })
 
 test_that("sex axis works with division (#1804)", {
@@ -59,7 +73,9 @@ test_that("sec_axis() breaks work for log-transformed scales", {
   breaks <- scale$break_info()
 
   # test value
-  expect_equal(breaks$major_source, log10(breaks$sec.major_source))
+  expect_equal(breaks$major_source, log10(breaks$sec.major_source_user))
+  expect_equal(round(breaks$major_source, 2), round(breaks$sec.major_source, 2))
+
   # test position
   expect_equal(breaks$major, round(breaks$sec.major, 1))
 
@@ -72,7 +88,9 @@ test_that("sec_axis() breaks work for log-transformed scales", {
   breaks <- scale$break_info()
 
   # test value
-  expect_equal(breaks$major_source, log10(breaks$sec.major_source) - 2)
+  expect_equal(breaks$major_source, log10(breaks$sec.major_source_user) - 2)
+  expect_equal(breaks$major_source, round(breaks$sec.major_source, 2))
+
   # test position
   expect_equal(breaks$major, round(breaks$sec.major, 1))
 
@@ -87,7 +105,7 @@ test_that("sec_axis() breaks work for log-transformed scales", {
   breaks <- scale$break_info()
 
   expect_equal(breaks$major_source, log(custom_breaks, base = 10))
-  expect_equal(log_breaks()(df$y) * 100, breaks$sec.major_source)
+  expect_equal(log_breaks()(df$y) * 100, breaks$sec.major_source_user)
 })
 
 test_that("custom breaks work", {
@@ -103,7 +121,7 @@ test_that("custom breaks work", {
     )
   scale <- layer_scales(p)$x
   breaks <- scale$break_info()
-  expect_equal(custom_breaks, breaks$sec.major_source)
+  expect_equal(custom_breaks, breaks$sec.major_source_user)
 })
 
 test_that("sec axis works with skewed transform", {
@@ -149,7 +167,7 @@ test_that("sec axis works with tidy eval", {
   breaks <- scale$break_info()
 
   # test transform
-  expect_equal(breaks$major_source / 10, breaks$sec.major_source)
+  expect_equal(breaks$major_source / 10, breaks$sec.major_source_user)
   # test positioning
   expect_equal(round(breaks$major, 2), round(breaks$sec.major, 2))
 })
@@ -246,7 +264,7 @@ test_that("sec_axis works with date/time/datetime scales", {
     scale_x_datetime(sec.axis = dup_axis())
   scale <- layer_scales(dt)$x
   breaks <- scale$break_info()
-  expect_equal(breaks$major_source, breaks$sec.major_source)
+  expect_equal(breaks$major_source, breaks$sec.major_source_user)
 
   # datetime scale
   dt <- ggplot(df, aes(date, price)) +
@@ -254,7 +272,7 @@ test_that("sec_axis works with date/time/datetime scales", {
     scale_x_date(sec.axis = dup_axis())
   scale <- layer_scales(dt)$x
   breaks <- scale$break_info()
-  expect_equal(breaks$major_source, breaks$sec.major_source)
+  expect_equal(breaks$major_source, breaks$sec.major_source_user)
 
   # sec_axis
   dt <- ggplot(df, aes(dx, price)) +
@@ -270,7 +288,7 @@ test_that("sec_axis works with date/time/datetime scales", {
 
   expect_equal(
     as.numeric(breaks$major_source) + 12 * 60 * 60,
-    as.numeric(breaks$sec.major_source)
+    as.numeric(breaks$sec.major_source_user)
   )
 
   # visual test, datetime scales, reprex #1936

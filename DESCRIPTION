@@ -54,7 +54,7 @@ Suggests:
     rpart,
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
-    testthat (>= 0.11.0),
+    testthat (>= 2.1.0),
     vdiffr (>= 0.3.0)
 Enhances: sp
 License: GPL-2 | file LICENSE
@@ -190,6 +190,7 @@ Collate:
     'scale-continuous.r'
     'scale-date.r'
     'scale-discrete-.r'
+    'scale-expansion.r'
     'scale-gradient.r'
     'scale-grey.r'
     'scale-hue.r'

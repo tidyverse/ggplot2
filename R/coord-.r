@@ -126,10 +126,6 @@ Coord <- ggproto("Coord",
 #' @keywords internal
 is.Coord <- function(x) inherits(x, "Coord")
 
-expand_default <- function(scale, discrete = c(0, 0.6, 0, 0.6), continuous = c(0.05, 0, 0.05, 0)) {
-  scale$expand %|W|% if (scale$is_discrete()) discrete else continuous
-}
-
 # Renders an axis with the correct orientation or zeroGrob if no axis should be
 # generated
 render_axis <- function(panel_params, axis, scale, position, theme) {

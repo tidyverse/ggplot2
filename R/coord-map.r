@@ -181,12 +181,7 @@ CoordMap <- ggproto("CoordMap", Coord,
     for (n in c("x", "y")) {
       scale <- get(paste0("scale_", n))
       limits <- self$limits[[n]]
-
-      if (is.null(limits)) {
-        range <- scale$dimension(expand_default(scale))
-      } else {
-        range <- range(scale$transform(limits))
-      }
+      range <- expand_limits_scale(scale, default_expansion(scale), coord_limits = limits)
       ranges[[n]] <- range
     }
 

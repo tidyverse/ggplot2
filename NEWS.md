@@ -1,5 +1,28 @@
 # ggplot2 (development version)
 
+* `expand_scale()` was deprecated in favour of `expansion()` for setting
+  the `expand` argument of `x` and `y` scales (@paleolimbot).
+
+* `coord_trans()` now draws second axes and accepts `xlim`, `ylim`,
+  and `expand` arguments to bring it up to feature parity with 
+  `coord_cartesian()`. The `xtrans` and `ytrans` arguments that were 
+  deprecated in version 1.0.1 in favour of `x` and `y` 
+  were removed (@paleolimbot, #2990).
+
+* `coord_trans()` now calculates breaks using the expanded range 
+  (previously these were calculated using the unexpanded range, 
+  which resulted in differences between plots made with `coord_trans()`
+  and those made with `coord_cartesian()`). The expansion for discrete axes 
+  in `coord_trans()` was also updated such that it behaves identically
+  to that in `coord_cartesian()` (@paleolimbot, #3338).
+
+* All `coord_*()` functions with `xlim` and `ylim` arguments now accept
+  vectors with `NA` as a placeholder for the minimum or maximum value
+  (e.g., `ylim = c(0, NA)` would zoom the y-axis from 0 to the 
+  maximum value observed in the data). This mimics the behaviour
+  of the `limits` argument in continuous scale functions
+  (@paleolimbot, #2907).
+
 * `geom_abline()`, `geom_hline()`, and `geom_vline()` now issue 
   more informative warnings when supplied with set aesthetics
   (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)

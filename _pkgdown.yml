@@ -94,7 +94,7 @@ reference:
   - labs
   - lims
   - expand_limits
-  - expand_scale
+  - expansion
   - starts_with("scale_")
 
 - title: "Guides: axes and legends"

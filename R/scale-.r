@@ -62,7 +62,7 @@
 #'   [guides()] for more information.
 #' @param expand For position scales, a vector of range expansion constants used to add some
 #'   padding around the data to ensure that they are placed some distance
-#'   away from the axes. Use the convenience function [expand_scale()]
+#'   away from the axes. Use the convenience function [expansion()]
 #'   to generate the values for the `expand` argument. The defaults are to
 #'   expand the scale by 5\% on each side for continuous variables, and by
 #'   0.6 units on each side for discrete variables.
@@ -253,7 +253,7 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' - `dimension()` For continuous scales, the dimension is the same concept as the limits.
 #'   For discrete scales, `dimension()` returns a continuous range, where the limits
 #'   would be placed at integer positions. `dimension()` optionally expands
-#'   this range given an expantion of length 4 (see [expand_scale()]).
+#'   this range given an expantion of length 4 (see [expansion()]).
 #'
 #' - `break_info()` Returns a `list()` with calculated values needed for the `Coord`
 #'   to transform values in transformed data space. Axis and grid guides also use
@@ -380,7 +380,7 @@ Scale <- ggproto("Scale", NULL,
     }
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
+  dimension = function(self, expand = expansion(0, 0), limits = self$get_limits()) {
     stop("Not implemented", call. = FALSE)
   },
 
@@ -487,8 +487,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     self$rescaler(x, from = range)
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
-    expand_range4(limits, expand)
+  dimension = function(self, expand = expansion(0, 0), limits = self$get_limits()) {
+    expand_limits_scale(self, expand, limits)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
@@ -688,8 +688,8 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     rescale(x, match(as.character(x), limits), from = range)
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0), limits = self$get_limits()) {
-    expand_range4(c(1, length(limits)), expand)
+  dimension = function(self, expand = expansion(0, 0), limits = self$get_limits()) {
+    expand_limits_discrete(limits, expand = expand)
   },
 
   get_breaks = function(self, limits = self$get_limits()) {
