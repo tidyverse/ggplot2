@@ -49,6 +49,7 @@ expansion <- function(mult = 0, add = 0) {
 #' @rdname expansion
 #' @export
 expand_scale <- function(mult = 0, add = 0) {
+  .Deprecated(msg = "`expand_scale()` is deprecated; use `expansion()` instead.")
   expansion(mult, add)
 }
 

@@ -1,4 +1,8 @@
 
+test_that("expand_scale() produces a deprecation warning", {
+  expect_warning(expand_scale(), "deprecated")
+})
+
 # Expanding continuous scales -----------------------------------------
 
 test_that("expand_limits_continuous() can override limits", {
