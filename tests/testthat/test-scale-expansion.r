@@ -8,12 +8,12 @@ test_that("expand_limits_continuous() can override limits", {
 })
 
 test_that("expand_limits_continuous() expands limits", {
-  expect_identical(expand_limits_continuous(c(1, 2), expansion = expand_scale(add = 1)), c(0, 3))
+  expect_identical(expand_limits_continuous(c(1, 2), expand = expansion(add = 1)), c(0, 3))
 })
 
 test_that("expand_limits_continuous() expands coord-supplied limits", {
   expect_identical(
-    expand_limits_continuous(c(1, 2), coord_limits = c(0, 4), expansion = expand_scale(add = 1)),
+    expand_limits_continuous(c(1, 2), coord_limits = c(0, 4), expand = expansion(add = 1)),
     c(-1, 5)
   )
 })
@@ -21,25 +21,25 @@ test_that("expand_limits_continuous() expands coord-supplied limits", {
 test_that("expand_limits_continuous_trans() expands limits in coordinate space", {
   limit_info <- expand_limits_continuous_trans(
     c(1, 2),
-    expansion = expand_scale(add = 0.5),
+    expand = expansion(add = 0.5),
     trans = log10_trans()
   )
 
   expect_identical(
     limit_info$continuous_range,
-    10^(expand_range4(log10(c(1, 2)), expand_scale(add = 0.5)))
+    10^(expand_range4(log10(c(1, 2)), expansion(add = 0.5)))
   )
 
   expect_identical(
     limit_info$continuous_range_coord,
-    expand_range4(log10(c(1, 2)), expand_scale(add = 0.5))
+    expand_range4(log10(c(1, 2)), expansion(add = 0.5))
   )
 })
 
 test_that("introduced non-finite values fall back on scale limits", {
   limit_info <- expand_limits_continuous_trans(
     c(1, 100),
-    expansion = expand_scale(add = 2),
+    expand = expansion(add = 2),
     trans = sqrt_trans()
   )
 
@@ -92,7 +92,7 @@ test_that("expand_limits_discrete() can override limits with a both discrete and
 test_that("expand_limits_continuous_trans() works with inverted transformations", {
   limit_info <- expand_limits_continuous_trans(
     c(1, 2),
-    expansion = expand_scale(add = 1),
+    expand = expansion(add = 1),
     trans = reverse_trans()
   )
 

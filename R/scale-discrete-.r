@@ -105,7 +105,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     rescale(self$map(x, limits = limits), from = range)
   },
 
-  dimension = function(self, expand = expand_scale(0, 0), limits = self$get_limits()) {
+  dimension = function(self, expand = expansion(0, 0), limits = self$get_limits()) {
     expand_limits_scale(self, expand, limits)
   },
 
