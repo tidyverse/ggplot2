@@ -1,4 +1,124 @@
 
+#' Axis guide
+#'
+#' Axis guides are the visual representation of position scales like those
+#' created with [scale_(x|y)_continuous()][scale_x_continuous()] and
+#' [scale_(x|y)_discrete()][scale_x_discrete()].
+#'
+#' @inheritParams guide_legend
+#' @param line.theme An [element_line()] to use as a template for the line
+#'   along the axis. Usually set with [theme(axis.line = ...)][theme()].
+#' @param tick.theme An [element_line()] to use as a template for the ticks
+#'   along the axis. Usually set with [theme(axis.ticks = ...)][theme()].
+#' @param tick.length A [grid::unit()]. Usually set with
+#'   [theme(axis.ticks.length = ...)][theme()].
+#' @param position Where this guide should be drawn: one of top, bottom,
+#'   left, or right.
+#'
+#' @export
+#'
+guide_axis <- function(# label (axis.text*)
+                       label = TRUE,
+                       label.theme = NULL,
+
+                       # axis line (axis.line*)
+                       line.theme = NULL,
+
+                       # axis ticks (axis.ticks*)
+                       tick.theme = NULL,
+                       tick.length = NULL,
+
+                       # general
+                       order = 0,
+                       position = waiver(),
+                       ...
+) {
+  structure(
+    list(
+      # label
+      label = label,
+      label.theme = label.theme,
+
+      # axis line (axis.line*)
+      line.theme = line.theme,
+
+      # axis ticks (axis.ticks*)
+      tick.theme = tick.theme,
+      tick.length = tick.length,
+
+      # general
+      order = order,
+      position = position,
+
+      # parameter
+      available_aes = c("x", "y"),
+      ...,
+
+      name = "axis"
+    ),
+    class = c("guide", "axis")
+  )
+}
+
+#' @export
+guide_train.axis <- function(guide, scale, aesthetic = NULL) {
+
+  aesthetic <- aesthetic %||% scale$aesthetics[1]
+  breaks <- scale$get_breaks()
+
+  empty_ticks <- new_data_frame(
+    list(aesthetic = numeric(0), .value = numeric(0), .label = character(0))
+  )
+  names(empty_ticks) <- c(aesthetic, ".value", ".label")
+
+  if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
+    warning(
+      "axis guide needs appropriate scales: ",
+      paste(guide$available_aes, collapse = ", "),
+      call. = FALSE
+    )
+    guide$key <- empty_ticks
+  } else if (length(breaks) == 0) {
+    guide$key <- empty_ticks
+  } else {
+    ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic))
+    ticks$.value <- breaks
+    ticks$.label <- scale$get_labels(breaks)
+
+    if (is.list(ticks$.label)) {
+      if (any(sapply(ticks$.label, is.language))) {
+        ticks$.label <- do.call(expression, ticks$.label)
+      } else {
+        ticks$.label <- unlist(ticks$.label)
+      }
+    }
+
+    guide$key <- ticks
+  }
+
+  guide$name <- paste0(guide$name, "_", aesthetic)
+  guide$hash <- digest::digest(list(guide$title, guide$key$.value, guide$key$.label, guide$name))
+  guide
+}
+
+# discards the new guide
+#' @export
+guide_merge.axis <- function(guide, new_guide) {
+  guide
+}
+
+# axis guides don't care which geometry uses these aesthetics
+#' @export
+guide_geom.axis <- function(guide, layers, default_mapping) {
+  guide
+}
+
+#' @export
+guide_gengrob.axis <- function(guide, theme) {
+  stop("Not implemented", call. = FALSE)
+}
+
+
 #' Grob for axes
 #'
 #' @param break_position position of ticks
