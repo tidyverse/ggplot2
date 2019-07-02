@@ -91,11 +91,11 @@ Coord <- ggproto("Coord",
     list()
   },
 
-  setup_panel_guides = function(self, panel_params, guides, params) {
+  setup_panel_guides = function(self, panel_params, guides, params = list()) {
     panel_params
   },
 
-  train_panel_guides = function(self, panel_params, layers, default_mapping, params) {
+  train_panel_guides = function(self, panel_params, layers, default_mapping, params = list()) {
     panel_params
   },
 

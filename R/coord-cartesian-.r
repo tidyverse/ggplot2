@@ -103,6 +103,53 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     )
   },
 
+  setup_panel_guides = function(self, panel_params, guides, params = list()) {
+    aesthetics <- c("x", "y", "x.sec", "y.sec")
+    names(aesthetics) <- aesthetics
+
+    # resolve the specified guide from the scale and/or guides
+    guides <- lapply(aesthetics, function(aesthetic) {
+      resolve_guide(
+        aesthetic,
+        panel_params[[aesthetic]],
+        guides,
+        default = guide_axis(),
+        null = guide_none()
+      )
+    })
+
+    # resolve the guide definition as a "guide" S3
+    guides <- lapply(guides, validate_guide)
+
+    # if there is an "position" specification in the scale, pass this on to the guide
+    # ideally, this should be specified in the guide
+    guides <- lapply(aesthetics, function(aesthetic) {
+      guide <- guides[[aesthetic]]
+      scale <- panel_params[[aesthetic]]
+      # position could be NULL here for an empty scale
+      guide$position <- guide$position %|W|% scale$position
+      guide
+    })
+
+    panel_params$guides <- guides
+    panel_params
+  },
+
+  train_panel_guides = function(self, panel_params, layers, default_mapping, params = list()) {
+    aesthetics <- c("x", "y", "x.sec", "y.sec")
+    names(aesthetics) <- aesthetics
+
+    panel_params$guides <- lapply(aesthetics, function(aesthetic) {
+      guide <- panel_params$guides[[aesthetic]]
+      guide <- guide_train(guide, panel_params[[aesthetic]], aesthetic)
+      guide <- guide_transform(guide, self, panel_params)
+      guide <- guide_geom(guide, layers, default_mapping)
+      guide
+    })
+
+    panel_params
+  },
+
   render_bg = function(panel_params, theme) {
     guide_grid(
       theme,
@@ -114,24 +161,16 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   },
 
   render_axis_h = function(panel_params, theme) {
-    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
-    arrange_scale_keys <- c("primary" = "x", "secondary" = "x.sec")[arrange]
-    arrange_scales <- panel_params[arrange_scale_keys]
-
     list(
-      top = draw_view_scale_axis(arrange_scales[[1]], "top", theme),
-      bottom = draw_view_scale_axis(arrange_scales[[2]], "bottom", theme)
+      top = guides_grob_col(panel_params$guides, position = "top", theme = theme),
+      bottom = guides_grob_col(panel_params$guides, position = "bottom", theme = theme)
     )
   },
 
   render_axis_v = function(panel_params, theme) {
-    arrange <- panel_params$y.arrange %||% c("primary", "secondary")
-    arrange_scale_keys <- c("primary" = "y", "secondary" = "y.sec")[arrange]
-    arrange_scales <- panel_params[arrange_scale_keys]
-
     list(
-      left = draw_view_scale_axis(arrange_scales[[1]], "left", theme),
-      right = draw_view_scale_axis(arrange_scales[[2]], "right", theme)
+      left = guides_grob_row(panel_params$guides, position = "left", theme = theme),
+      right = guides_grob_row(panel_params$guides, position = "right", theme = theme)
     )
   }
 )
@@ -151,6 +190,38 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   names(view_scales) <- c(aesthetic, paste0(aesthetic, ".", names(view_scales)[-1]))
 
   view_scales
+}
+
+guides_grob_col <- function(guides, position, theme) {
+  guides <- guides_filter(guides, position)
+  if (length(guides) == 0) {
+    return(zeroGrob())
+  }
+
+  # FIXME: this needs to combine all the grobs, not sure how to do this just yet
+  grobs <- lapply(guides, guide_gengrob, theme)
+  grobs[[1]]
+}
+
+guides_grob_row <- function(guides, position, theme) {
+  guides <- guides_filter(guides, position)
+  if (length(guides) == 0) {
+    return(zeroGrob())
+  }
+
+  # FIXME: this needs to combine all the grobs, not sure how to do this just yet
+  grobs <- lapply(guides, guide_gengrob, theme)
+  grobs[[1]]
+}
+
+guides_filter <- function(guides, position) {
+  has_position <- vapply(
+    guides,
+    function(guide) identical(guide$position, position),
+    logical(1)
+  )
+
+  guides[has_position]
 }
 
 draw_view_scale_axis <- function(view_scale, axis_position, theme) {

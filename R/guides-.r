@@ -154,6 +154,11 @@ legend_position <- function(position) {
   }
 }
 
+# resolve the guide from the scale and guides
+resolve_guide <- function(aesthetic, scale, guides, default = "none", null = "none") {
+  guides[[aesthetic]] %||% scale$guide %|W|% default %||% null
+}
+
 # validate guide object
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
@@ -176,7 +181,7 @@ guides_train <- function(scales, theme, guides, labels) {
       # which is prior to scale_ZZZ(guide=XXX)
       # guide is determined in order of:
       #   + guides(XXX) > + scale_ZZZ(guide=XXX) > default(i.e., legend)
-      guide <- guides[[output]] %||% scale$guide
+      guide <- resolve_guide(output, scale, guides)
 
       # this should be changed to testing guide == "none"
       # scale$legend is backward compatibility

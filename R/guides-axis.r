@@ -83,7 +83,7 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
   } else {
     ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic))
     ticks$.value <- breaks
-    ticks$.label <- scale$get_labels(breaks)
+    ticks$.label <- scale$get_labels()
 
     if (is.list(ticks$.label)) {
       if (any(sapply(ticks$.label, is.language))) {
@@ -101,6 +101,27 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
   guide
 }
 
+# haven't made this an S3 yet...
+guide_transform <- function(guide, coord, panel_params) {
+  if (is.null(guide$position) || nrow(guide$key) == 0) {
+    return(guide)
+  }
+
+  aesthetics <- names(guide$key)[!grepl("^\\.", names(guide$key))]
+
+  if (!all(c("x", "y") %in% aesthetics)) {
+    other_aesthetic <- setdiff(c("x", "y"), aesthetics)
+    override_value <- if (guide$position %in% c("bottom", "left")) -Inf else Inf
+    guide$key[[other_aesthetic]] <- override_value
+    guide$key <- coord$transform(guide$key, panel_params)
+    guide$key[[other_aesthetic]] <- NULL
+  } else {
+    guide$key <- coord$transform(guide$key, panel_params)
+  }
+
+  guide
+}
+
 # discards the new guide
 #' @export
 guide_merge.axis <- function(guide, new_guide) {
@@ -115,7 +136,14 @@ guide_geom.axis <- function(guide, layers, default_mapping) {
 
 #' @export
 guide_gengrob.axis <- function(guide, theme) {
-  stop("Not implemented", call. = FALSE)
+  aesthetic <- names(guide$key)[!grepl("^\\.", names(guide$key))][1]
+
+  draw_axis(
+    break_positions = guide$key[[aesthetic]],
+    break_labels = guide$key$.label,
+    axis_position = guide$position,
+    theme = theme
+  )
 }
 
 

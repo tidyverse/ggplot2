@@ -26,6 +26,8 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
 
   ggproto(NULL, ViewScale,
     scale = scale,
+    guide = scale$guide,
+    position = scale$position,
     aesthetics = scale$aesthetics,
     name = scale$name,
     scale_is_discrete = scale$is_discrete(),
@@ -47,10 +49,24 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
     break_info <- scale$secondary.axis$break_info(continuous_range, scale)
     names(break_info) <- gsub("sec\\.", "", names(break_info))
 
+    # flip position from the original scale by default
+    # this can (should) be overridden in the guide
+    position <- switch(scale$position,
+      top = "bottom",
+      bottom = "top",
+      left = "right",
+      right = "left",
+      scale$position
+    )
+
     ggproto(NULL, ViewScale,
       scale = scale,
+      guide = scale$secondary_axis$guide,
+      position = position,
       break_info = break_info,
-      aesthetics = paste0(scale$aesthetics, ".sec"),
+      # as far as scales are concerned, this is a regular scale with
+      # different breaks and labels in a different data space
+      aesthetics = scale$aesthetics,
       name = scale$sec_name(),
       make_title = function(self, title) self$scale$make_sec_title(title),
 
@@ -87,6 +103,8 @@ ViewScale <- ggproto("ViewScale", NULL,
   # map, rescale, and make_title need a reference
   # to the original scale
   scale = ggproto(NULL, Scale),
+  guide = guide_none(),
+  position = NULL,
   aesthetics = NULL,
   name = waiver(),
   scale_is_discrete = FALSE,
