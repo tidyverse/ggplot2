@@ -73,7 +73,7 @@ update_guides <- function(p, guides) {
 }
 
 
-# building guides - called in ggplotGrob (plot-render.r)
+# building non-position guides - called in ggplotGrob (plot-build.r)
 #
 # the procedure is as follows:
 #
@@ -116,7 +116,13 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   }
 
   # scales -> data for guides
-  gdefs <- guides_train(scales = scales, theme = theme, guides = guides, labels = labels)
+  gdefs <- guides_train(
+    scales = scales$non_position_scales(),
+    theme = theme,
+    guides = guides,
+    labels = labels
+  )
+
   if (length(gdefs) == 0) return(zeroGrob())
 
   # merge overlay guides

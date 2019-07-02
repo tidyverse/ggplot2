@@ -12,36 +12,36 @@
 scale_x_date(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
   minor_breaks = waiver(), date_minor_breaks = waiver(),
-  limits = NULL, expand = waiver(), position = "bottom",
-  sec.axis = waiver())
+  limits = NULL, expand = waiver(), guide = waiver(),
+  position = "bottom", sec.axis = waiver())
 
 scale_y_date(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
   minor_breaks = waiver(), date_minor_breaks = waiver(),
-  limits = NULL, expand = waiver(), position = "left",
-  sec.axis = waiver())
+  limits = NULL, expand = waiver(), guide = waiver(),
+  position = "left", sec.axis = waiver())
 
 scale_x_datetime(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
   minor_breaks = waiver(), date_minor_breaks = waiver(),
   timezone = NULL, limits = NULL, expand = waiver(),
-  position = "bottom", sec.axis = waiver())
+  guide = waiver(), position = "bottom", sec.axis = waiver())
 
 scale_y_datetime(name = waiver(), breaks = waiver(),
   date_breaks = waiver(), labels = waiver(), date_labels = waiver(),
   minor_breaks = waiver(), date_minor_breaks = waiver(),
   timezone = NULL, limits = NULL, expand = waiver(),
-  position = "left", sec.axis = waiver())
+  guide = waiver(), position = "left", sec.axis = waiver())
 
 scale_x_time(name = waiver(), breaks = waiver(),
   minor_breaks = waiver(), labels = waiver(), limits = NULL,
   expand = waiver(), oob = censor, na.value = NA_real_,
-  position = "bottom", sec.axis = waiver())
+  guide = waiver(), position = "bottom", sec.axis = waiver())
 
 scale_y_time(name = waiver(), breaks = waiver(),
   minor_breaks = waiver(), labels = waiver(), limits = NULL,
   expand = waiver(), oob = censor, na.value = NA_real_,
-  position = "left", sec.axis = waiver())
+  guide = waiver(), position = "left", sec.axis = waiver())
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -103,6 +103,9 @@ away from the axes. Use the convenience function \code{\link[=expansion]{expansi
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
+
+\item{guide}{A function used to create a guide or its name. See
+\code{\link[=guides]{guides()}} for more information.}
 
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}

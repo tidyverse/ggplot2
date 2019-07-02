@@ -14,12 +14,14 @@
 scale_x_continuous(name = waiver(), breaks = waiver(),
   minor_breaks = waiver(), labels = waiver(), limits = NULL,
   expand = waiver(), oob = censor, na.value = NA_real_,
-  trans = "identity", position = "bottom", sec.axis = waiver())
+  trans = "identity", guide = waiver(), position = "bottom",
+  sec.axis = waiver())
 
 scale_y_continuous(name = waiver(), breaks = waiver(),
   minor_breaks = waiver(), labels = waiver(), limits = NULL,
   expand = waiver(), oob = censor, na.value = NA_real_,
-  trans = "identity", position = "left", sec.axis = waiver())
+  trans = "identity", guide = waiver(), position = "left",
+  sec.axis = waiver())
 
 scale_x_log10(...)
 
@@ -101,6 +103,9 @@ and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called \code{<name>_trans} (e.g.,
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+
+\item{guide}{A function used to create a guide or its name. See
+\code{\link[=guides]{guides()}} for more information.}
 
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
