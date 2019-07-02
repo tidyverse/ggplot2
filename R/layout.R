@@ -209,6 +209,25 @@ Layout <- ggproto("Layout", NULL,
     invisible()
   },
 
+  setup_panel_guides = function(self, guides, layers, default_mapping) {
+    self$panel_params <- lapply(
+      self$panel_params,
+      self$coord$setup_panel_guides,
+      guides,
+      self$coord_params
+    )
+
+    self$panel_params <- lapply(
+      self$panel_params,
+      self$coord$train_panel_guides,
+      layers,
+      default_mapping,
+      self$coord_params
+    )
+
+    invisible()
+  },
+
   xlabel = function(self, labels) {
     primary <- self$panel_scales_x[[1]]$name %|W|% labels$x
     primary <- self$panel_scales_x[[1]]$make_title(primary)

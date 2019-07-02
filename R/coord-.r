@@ -91,6 +91,14 @@ Coord <- ggproto("Coord",
     list()
   },
 
+  setup_panel_guides = function(self, panel_params, guides, params) {
+    panel_params
+  },
+
+  train_panel_guides = function(self, panel_params, layers, default_mapping, params) {
+    panel_params
+  },
+
   transform = function(data, range) NULL,
 
   distance = function(x, y, panel_params) NULL,
