@@ -141,7 +141,7 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
     panel_params$guides <- lapply(aesthetics, function(aesthetic) {
       guide <- panel_params$guides[[aesthetic]]
-      guide <- guide_train(guide, panel_params[[aesthetic]], aesthetic)
+      guide <- guide_train(guide, panel_params[[aesthetic]])
       guide <- guide_transform(guide, self, panel_params)
       guide <- guide_geom(guide, layers, default_mapping)
       guide

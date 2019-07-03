@@ -61,7 +61,7 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
 
     ggproto(NULL, ViewScale,
       scale = scale,
-      guide = scale$secondary_axis$guide,
+      guide = scale$secondary.axis$guide,
       position = position,
       break_info = break_info,
       # as far as scales are concerned, this is a regular scale with
