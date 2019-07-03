@@ -151,6 +151,18 @@ test_that("axis guides are drawn correctly in plots", {
   )
 })
 
+test_that("axis guides can be customized", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    scale_y_continuous(
+      sec.axis = dup_axis(guide = guide_axis(n_dodge = 2)),
+      guide = guide_axis(n_dodge = 2)
+    ) +
+    scale_x_discrete(guide = guide_axis(n_dodge = 2))
+
+  expect_doppelganger("guide_axis() customization", plot)
+})
+
 test_that("guides are positioned correctly", {
   df <- data_frame(x = 1, y = 1, z = factor("a"))
 

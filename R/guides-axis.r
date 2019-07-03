@@ -5,46 +5,29 @@
 #' created with [scale_(x|y)_continuous()][scale_x_continuous()] and
 #' [scale_(x|y)_discrete()][scale_x_discrete()].
 #'
-#' @inheritParams guide_legend
-#' @param line.theme An [element_line()] to use as a template for the line
-#'   along the axis. Usually set with [theme(axis.line = ...)][theme()].
-#' @param tick.theme An [element_line()] to use as a template for the ticks
-#'   along the axis. Usually set with [theme(axis.ticks = ...)][theme()].
-#' @param tick.length A [grid::unit()]. Usually set with
-#'   [theme(axis.ticks.length = ...)][theme()].
+#' @param check.overlap silently remove overlapping labels,
+#'   (recursively) prioritizing the first, last, and middle labels.
+#' @param angle Compared to setting the angle in [theme()] / [element_text()],
+#'   this also uses some heuristics to automatically pick the `hjust` and `vjust` that
+#'   you probably want.
+#' @param n_dodge The number of rows (for vertical axes) or columns (for
+#'   horizontal axes) that should be used to render the labels. This is
+#'   useful for displaying labels that would otherwise overlap.
+#' @param order Used to determine the order of the guides (left-to-right,
+#'   top-to-bottom), if more than one  guide must be drawn at the same location.
 #' @param position Where this guide should be drawn: one of top, bottom,
 #'   left, or right.
 #'
 #' @export
 #'
-guide_axis <- function(# label (axis.text*)
-                       label = TRUE,
-                       label.theme = NULL,
-
-                       # axis line (axis.line*)
-                       line.theme = NULL,
-
-                       # axis ticks (axis.ticks*)
-                       tick.theme = NULL,
-                       tick.length = NULL,
-
-                       # general
-                       order = 0,
-                       position = waiver(),
-                       ...
-) {
+guide_axis <- function(check.overlap = FALSE, angle = NULL, n_dodge = 1,
+                       order = 0, position = waiver()) {
   structure(
     list(
-      # label
-      label = label,
-      label.theme = label.theme,
-
-      # axis line (axis.line*)
-      line.theme = line.theme,
-
-      # axis ticks (axis.ticks*)
-      tick.theme = tick.theme,
-      tick.length = tick.length,
+      # customizations
+      check.overlap = check.overlap,
+      angle = angle,
+      n_dodge = n_dodge,
 
       # general
       order = order,
@@ -52,7 +35,6 @@ guide_axis <- function(# label (axis.text*)
 
       # parameter
       available_aes = c("x", "y"),
-      ...,
 
       name = "axis"
     ),
@@ -141,7 +123,10 @@ guide_gengrob.axis <- function(guide, theme) {
     break_positions = guide$key[[aesthetic]],
     break_labels = guide$key$.label,
     axis_position = guide$position,
-    theme = theme
+    theme = theme,
+    check.overlap = guide$check.overlap,
+    angle = guide$angle,
+    n_dodge = guide$n_dodge
   )
 }
 

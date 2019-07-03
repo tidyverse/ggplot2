@@ -4,36 +4,26 @@
 \alias{guide_axis}
 \title{Axis guide}
 \usage{
-guide_axis(label = TRUE, label.theme = NULL, line.theme = NULL,
-  tick.theme = NULL, tick.length = NULL, order = 0,
-  position = waiver(), ...)
+guide_axis(check.overlap = FALSE, angle = NULL, n_dodge = 1,
+  order = 0, position = waiver())
 }
 \arguments{
-\item{label}{logical. If \code{TRUE} then the labels are drawn. If
-\code{FALSE} then the labels are invisible.}
+\item{check.overlap}{silently remove overlapping labels,
+(recursively) prioritizing the first, last, and middle labels.}
 
-\item{label.theme}{A theme object for rendering the label text. Usually the
-object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
+\item{angle}{Compared to setting the angle in \code{\link[=theme]{theme()}} / \code{\link[=element_text]{element_text()}},
+this also uses some heuristics to automatically pick the \code{hjust} and \code{vjust} that
+you probably want.}
 
-\item{line.theme}{An \code{\link[=element_line]{element_line()}} to use as a template for the line
-along the axis. Usually set with \link[=theme]{theme(axis.line = ...)}.}
+\item{n_dodge}{The number of rows (for vertical axes) or columns (for
+horizontal axes) that should be used to render the labels. This is
+useful for displaying labels that would otherwise overlap.}
 
-\item{tick.theme}{An \code{\link[=element_line]{element_line()}} to use as a template for the ticks
-along the axis. Usually set with \link[=theme]{theme(axis.ticks = ...)}.}
-
-\item{tick.length}{A \code{\link[grid:unit]{grid::unit()}}. Usually set with
-\link[=theme]{theme(axis.ticks.length = ...)}.}
-
-\item{order}{positive integer less than 99 that specifies the order of
-this guide among multiple guides. This controls the order in which
-multiple guides are displayed, not the contents of the guide itself.
-If 0 (default), the order is determined by a secret algorithm.}
+\item{order}{Used to determine the order of the guides (left-to-right,
+top-to-bottom), if more than one  guide must be drawn at the same location.}
 
 \item{position}{Where this guide should be drawn: one of top, bottom,
 left, or right.}
-
-\item{...}{ignored.}
 }
 \description{
 Axis guides are the visual representation of position scales like those
