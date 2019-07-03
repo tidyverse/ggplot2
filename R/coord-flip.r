@@ -40,7 +40,7 @@ coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
 CoordFlip <- ggproto("CoordFlip", CoordCartesian,
 
   transform = function(data, panel_params) {
-    data <- flip_labels(data)
+    data <- flip_axes_labels(data)
     CoordCartesian$transform(data, panel_params)
   },
 
@@ -58,11 +58,11 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     parent <- ggproto_parent(CoordCartesian, self)
     panel_params <- parent$setup_panel_params(scale_x, scale_y, params)
-    flip_labels(panel_params)
+    flip_axes_labels(panel_params)
   },
 
   labels = function(panel_params) {
-    flip_labels(CoordCartesian$labels(panel_params))
+    flip_axes_labels(CoordCartesian$labels(panel_params))
   },
 
   setup_layout = function(layout, params) {
@@ -72,14 +72,29 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
   },
 
   modify_scales = function(scales_x, scales_y) {
-    lapply(scales_x, scale_flip_position)
-    lapply(scales_y, scale_flip_position)
+    lapply(scales_x, scale_flip_axis)
+    lapply(scales_y, scale_flip_axis)
   }
 
 )
 
+# In-place modification of a scale position to swap axes
+scale_flip_axis <- function(scale) {
+  scale$position <- switch(scale$position,
+    top = "right",
+    bottom = "left",
+    left = "bottom",
+    right = "top",
+    scale$position
+  )
 
-flip_labels <- function(x) {
+  invisible(scale)
+}
+
+# maintaining the position of the x* and y* names is
+# important for re-using the same guide_transform()
+# as CoordCartesian
+flip_axes_labels <- function(x) {
   old_names <- names(x)
 
   new_names <- old_names

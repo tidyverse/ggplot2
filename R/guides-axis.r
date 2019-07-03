@@ -114,7 +114,6 @@ guide_transform <- function(guide, coord, panel_params) {
     override_value <- if (guide$position %in% c("bottom", "left")) -Inf else Inf
     guide$key[[other_aesthetic]] <- override_value
     guide$key <- coord$transform(guide$key, panel_params)
-    guide$key[[other_aesthetic]] <- NULL
   } else {
     guide$key <- coord$transform(guide$key, panel_params)
   }
