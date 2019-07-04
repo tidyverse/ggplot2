@@ -79,13 +79,13 @@ labs <- function(..., title = waiver(), subtitle = waiver(), caption = waiver(),
 
 #' @rdname labs
 #' @export
-xlab <- function(label) {
+xlab <- function(label = NULL) {
   labs(x = label)
 }
 
 #' @rdname labs
 #' @export
-ylab <- function(label) {
+ylab <- function(label = NULL) {
   labs(y = label)
 }
 
