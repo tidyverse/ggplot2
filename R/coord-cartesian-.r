@@ -195,24 +195,30 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
 
 guides_grob_col <- function(guides, position, theme) {
   guides <- guides_filter(guides, position)
-  if (length(guides) == 0) {
-    return(zeroGrob())
-  }
-
-  # FIXME: this needs to combine all the grobs, not sure how to do this just yet
   grobs <- lapply(guides, guide_gengrob, theme)
-  grobs[[1]]
+
+  if (length(grobs) == 0) {
+    return(zeroGrob())
+  } else if (length(grobs) == 1) {
+    grobs[[1]]
+  } else {
+    heights <- do.call(unit.c, lapply(grobs, grobHeight))
+    gtable_col("axis", grobs = grobs, width = unit(1, "npc"), heights = heights)
+  }
 }
 
 guides_grob_row <- function(guides, position, theme) {
   guides <- guides_filter(guides, position)
-  if (length(guides) == 0) {
-    return(zeroGrob())
-  }
-
-  # FIXME: this needs to combine all the grobs, not sure how to do this just yet
   grobs <- lapply(guides, guide_gengrob, theme)
-  grobs[[1]]
+
+  if (length(grobs) == 0) {
+    return(zeroGrob())
+  } else if (length(grobs) == 1) {
+    grobs[[1]]
+  } else {
+    widths <- do.call(unit.c, lapply(grobs, grobWidth))
+    gtable_row("axis", grobs = grobs, height = unit(1, "npc"), widths = widths)
+  }
 }
 
 guides_filter <- function(guides, position) {
@@ -222,13 +228,7 @@ guides_filter <- function(guides, position) {
     logical(1)
   )
 
-  guides[has_position]
-}
-
-draw_view_scale_axis <- function(view_scale, axis_position, theme) {
-  if(is.null(view_scale) || view_scale$is_empty()) {
-    return(zeroGrob())
-  }
-
-  draw_axis(view_scale$break_positions(), view_scale$get_labels(), axis_position, theme)
+  guides <- guides[has_position]
+  guides_order <- vapply(guides, function(guide) as.numeric(guide$order)[1], numeric(1))
+  guides[order(guides_order)]
 }
