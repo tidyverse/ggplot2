@@ -60,6 +60,14 @@ test_that("axis_label_element_overrides errors when angles are outside the range
   expect_error(axis_label_element_overrides("bottom", -91), "`angle` must")
 })
 
+test_that("a warning is generated when guides are drawn at a location that doesn't make sense", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    scale_y_continuous(guide = guide_axis(position = "top"))
+  built <- expect_silent(ggplot_build(plot))
+  expect_warning(ggplot_gtable(built), "Position guide is perpendicular")
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
@@ -161,6 +169,30 @@ test_that("axis guides can be customized", {
     scale_x_discrete(guide = guide_axis(n_dodge = 2))
 
   expect_doppelganger("guide_axis() customization", plot)
+})
+
+test_that("guides can be specified in guides()", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    guides(
+      x = guide_axis(n_dodge = 2),
+      y = guide_axis(n_dodge = 2),
+      x.sec = guide_axis(n_dodge = 2),
+      y.sec = guide_axis(n_dodge = 2)
+    )
+
+  expect_doppelganger("guides specified in guides()", plot)
+})
+
+test_that("more than one panel guide can be specified for a given position", {
+  ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    guides(
+      y = guide_axis(order = 1),
+      y.sec = guide_axis(order = 2)
+    )
+
+  expect_true(FALSE) # doesn't work yet
 })
 
 test_that("guides are positioned correctly", {

@@ -91,13 +91,16 @@ guide_transform <- function(guide, coord, panel_params) {
 
   aesthetics <- names(guide$key)[!grepl("^\\.", names(guide$key))]
 
-  if (!all(c("x", "y") %in% aesthetics)) {
+  if (all(c("x", "y") %in% aesthetics)) {
+    guide$key <- coord$transform(guide$key, panel_params)
+  } else {
     other_aesthetic <- setdiff(c("x", "y"), aesthetics)
     override_value <- if (guide$position %in% c("bottom", "left")) -Inf else Inf
     guide$key[[other_aesthetic]] <- override_value
+
     guide$key <- coord$transform(guide$key, panel_params)
-  } else {
-    guide$key <- coord$transform(guide$key, panel_params)
+
+    warn_for_guide_position(guide)
   }
 
   guide
@@ -386,5 +389,30 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
     )
   } else {
     stop("Unrecognized position: '", axis_position, "'", call. = FALSE)
+  }
+}
+
+warn_for_guide_position <- function(guide) {
+  if (empty(guide$key) || nrow(guide$key) == 1) {
+    return()
+  }
+
+  # this is trying to catch when a user specifies a position perpendicular
+  # to the direction of the axis (e.g., a "y" axis on "top")
+
+  if (guide$position %in% c("top", "bottom")) {
+    position_aes <- "x"
+  } else if(guide$position %in% c("left", "right")) {
+    position_aes <- "y"
+  } else {
+    return()
+  }
+
+  if (length(unique(guide$key[[position_aes]])) == 1) {
+    warning(
+      "Position guide is perpendicular to the intended axis. ",
+      "Did you mean to specify a different guide `position`?",
+      call. = FALSE
+    )
   }
 }

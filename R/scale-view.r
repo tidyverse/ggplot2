@@ -42,8 +42,14 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
 # this function is a hack that is difficult to avoid given the complex implementation of second axes
 view_scale_secondary <- function(scale, limits = scale$get_limits(),
                                  continuous_range = scale$dimension(limits = limits)) {
+
   if (is.null(scale$secondary.axis) || is.waive(scale$secondary.axis) || scale$secondary.axis$empty()) {
-    view_scale_empty()
+    # if there is no second axis, return the primary scale with no guide
+    # this guide can be overridden using guides()
+    primary_scale <- view_scale_primary(scale, limits, continuous_range)
+    scale_flip_position(primary_scale)
+    primary_scale$guide <- guide_none()
+    primary_scale
   } else {
     scale$secondary.axis$init(scale)
     break_info <- scale$secondary.axis$break_info(continuous_range, scale)
