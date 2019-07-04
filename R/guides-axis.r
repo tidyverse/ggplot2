@@ -83,8 +83,8 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
   guide
 }
 
-# haven't made this an S3 yet...
-guide_transform <- function(guide, coord, panel_params) {
+#' @export
+guide_transform.axis <- function(guide, coord, panel_params) {
   if (is.null(guide$position) || nrow(guide$key) == 0) {
     return(guide)
   }

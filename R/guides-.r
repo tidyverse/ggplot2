@@ -335,6 +335,10 @@ guide_geom <- function(guide, layers, default_mapping) UseMethod("guide_geom")
 
 #' @export
 #' @rdname guide-exts
+guide_transform <- function(guide, coord, panel_params) UseMethod("guide_transform")
+
+#' @export
+#' @rdname guide-exts
 guide_gengrob <- function(guide, theme) UseMethod("guide_gengrob")
 
 

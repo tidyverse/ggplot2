@@ -25,6 +25,11 @@ guide_geom.guide_none <- function(guide, layers, default_mapping) {
 }
 
 #' @export
+guide_transform.guide_none <- function(guide, coord, panel_params) {
+  guide
+}
+
+#' @export
 guide_gengrob.guide_none <- function(guide, theme, ...) {
   zeroGrob()
 }
