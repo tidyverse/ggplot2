@@ -163,15 +163,15 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   render_axis_h = function(panel_params, theme) {
     list(
-      top = guides_grob_col(panel_params$guides, position = "top", theme = theme),
-      bottom = guides_grob_col(panel_params$guides, position = "bottom", theme = theme)
+      top = guides_grob(panel_params$guides, position = "top", theme = theme),
+      bottom = guides_grob(panel_params$guides, position = "bottom", theme = theme)
     )
   },
 
   render_axis_v = function(panel_params, theme) {
     list(
-      left = guides_grob_row(panel_params$guides, position = "left", theme = theme),
-      right = guides_grob_row(panel_params$guides, position = "right", theme = theme)
+      left = guides_grob(panel_params$guides, position = "left", theme = theme),
+      right = guides_grob(panel_params$guides, position = "right", theme = theme)
     )
   }
 )
@@ -193,8 +193,8 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   view_scales
 }
 
-guides_grob_col <- function(guides, position, theme) {
-  guides <- guides_filter(guides, position)
+guides_grob <- function(guides, position, theme) {
+  guides <- guides_filter_by_position(guides, position)
   grobs <- lapply(guides, guide_gengrob, theme)
 
   if (length(grobs) == 0) {
@@ -202,26 +202,15 @@ guides_grob_col <- function(guides, position, theme) {
   } else if (length(grobs) == 1) {
     grobs[[1]]
   } else {
-    heights <- do.call(unit.c, lapply(grobs, grobHeight))
-    gtable_col("axis", grobs = grobs, width = unit(1, "npc"), heights = heights)
-  }
-}
-
-guides_grob_row <- function(guides, position, theme) {
-  guides <- guides_filter(guides, position)
-  grobs <- lapply(guides, guide_gengrob, theme)
-
-  if (length(grobs) == 0) {
-    return(zeroGrob())
-  } else if (length(grobs) == 1) {
+    warning(
+      "More than one panel guide found at `position = \"", position, "\". ",
+      "Only showing the first guide."
+    )
     grobs[[1]]
-  } else {
-    widths <- do.call(unit.c, lapply(grobs, grobWidth))
-    gtable_row("axis", grobs = grobs, height = unit(1, "npc"), widths = widths)
   }
 }
 
-guides_filter <- function(guides, position) {
+guides_filter_by_position <- function(guides, position) {
   has_position <- vapply(
     guides,
     function(guide) identical(guide$position, position),
