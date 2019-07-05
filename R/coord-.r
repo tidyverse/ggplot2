@@ -145,16 +145,3 @@ render_axis <- function(panel_params, axis, scale, position, theme) {
     zeroGrob()
   }
 }
-
-panel_label_default <- function(scale, aesthetic, labels) {
-  primary <- scale$name %|W|% labels[[aesthetic]]
-  primary <- scale$make_title(primary)
-  secondary <- if (is.null(scale$secondary.axis)) {
-    waiver()
-  } else {
-    scale$sec_name()
-  } %|W|% labels[[paste0("sec.", aesthetic)]]
-  if (is.derived(secondary)) secondary <- primary
-  secondary <- scale$make_sec_title(secondary)
-  list(primary = primary, secondary = secondary)[scale$axis_order()]
-}
