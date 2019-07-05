@@ -68,7 +68,7 @@ test_that("a warning is generated when guides are drawn at a location that doesn
   expect_warning(ggplot_gtable(built), "Position guide is perpendicular")
 })
 
-test_that("a warning is generated when more than one panel guide is drawn at a location", {
+test_that("a warning is generated when more than one position guide is drawn at a location", {
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +
     guides(
@@ -76,7 +76,7 @@ test_that("a warning is generated when more than one panel guide is drawn at a l
       y.sec = guide_axis(position = "left")
     )
   built <- expect_silent(ggplot_build(plot))
-  expect_warning(ggplot_gtable(built), "More than one panel guide")
+  expect_warning(ggplot_gtable(built), "More than one position guide")
 })
 
 # Visual tests ------------------------------------------------------------

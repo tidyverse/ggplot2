@@ -203,7 +203,7 @@ guides_grob <- function(guides, position, theme) {
     grobs[[1]]
   } else {
     warning(
-      "More than one panel guide found at `position = \"", position, "\". ",
+      "More than one position guide found at `position = \"", position, "\". ",
       "Only showing the first guide."
     )
     grobs[[1]]
