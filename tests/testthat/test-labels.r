@@ -8,6 +8,9 @@ test_that("setting guide labels works", {
     expect_identical(ylab("my label")$y, "my label")
     expect_identical(labs(y = "my label")$y, "my label")
 
+    expect_identical(xlab()$x, NULL)
+    expect_identical(ylab()$y, NULL)
+
     # Plot titles
     expect_identical(labs(title = "my title")$title, "my title")
     expect_identical(labs(title = "my title",

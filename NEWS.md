@@ -27,6 +27,10 @@
   more informative warnings when supplied with set aesthetics
   (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
   and mapped aesthetics (i.e., `data` and/or `mapping`).
+  
+* `xlab()` and `ylab()` now have `NULL` as a default value for the
+  `label` parameter, making it easier to remove axis labels from plots
+  (@moredatapls, #3393)
 
 # ggplot2 3.2.0
 

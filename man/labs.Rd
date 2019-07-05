@@ -10,9 +10,9 @@
 labs(..., title = waiver(), subtitle = waiver(), caption = waiver(),
   tag = waiver())
 
-xlab(label)
+xlab(label = NULL)
 
-ylab(label)
+ylab(label = NULL)
 
 ggtitle(label, subtitle = waiver())
 }
