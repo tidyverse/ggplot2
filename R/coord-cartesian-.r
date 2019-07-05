@@ -163,15 +163,15 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
 
   render_axis_h = function(panel_params, theme) {
     list(
-      top = guides_grob(panel_params$guides, position = "top", theme = theme),
-      bottom = guides_grob(panel_params$guides, position = "bottom", theme = theme)
+      top = panel_guides_grob(panel_params$guides, position = "top", theme = theme),
+      bottom = panel_guides_grob(panel_params$guides, position = "bottom", theme = theme)
     )
   },
 
   render_axis_v = function(panel_params, theme) {
     list(
-      left = guides_grob(panel_params$guides, position = "left", theme = theme),
-      right = guides_grob(panel_params$guides, position = "right", theme = theme)
+      left = panel_guides_grob(panel_params$guides, position = "left", theme = theme),
+      right = panel_guides_grob(panel_params$guides, position = "right", theme = theme)
     )
   }
 )
@@ -193,7 +193,7 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   view_scales
 }
 
-guides_grob <- function(guides, position, theme) {
+panel_guides_grob <- function(guides, position, theme) {
   guides <- guides_filter_by_position(guides, position)
   grobs <- lapply(guides, guide_gengrob, theme)
 
