@@ -3,10 +3,19 @@
 #'
 #' This guide draws nothing.
 #'
+#' @inheritParams guide_axis
+#'
 #' @export
 #'
-guide_none <- function() {
-  structure(list(available_aes = "any"), class = c("guide", "guide_none"))
+guide_none <- function(title = waiver(), position = waiver()) {
+  structure(
+    list(
+      title = title,
+      position = position,
+      available_aes = "any"
+    ),
+    class = c("guide", "guide_none")
+  )
 }
 
 #' @export

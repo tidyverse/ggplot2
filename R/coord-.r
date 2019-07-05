@@ -59,7 +59,7 @@ Coord <- ggproto("Coord",
 
   aspect = function(ranges) NULL,
 
-  labels = function(panel_params) panel_params,
+  labels = function(labels, panel_params) labels,
 
   render_fg = function(panel_params, theme) element_render(theme, "panel.border"),
 
@@ -144,4 +144,17 @@ render_axis <- function(panel_params, axis, scale, position, theme) {
   } else {
     zeroGrob()
   }
+}
+
+panel_label_default <- function(scale, aesthetic, labels) {
+  primary <- scale$name %|W|% labels[[aesthetic]]
+  primary <- scale$make_title(primary)
+  secondary <- if (is.null(scale$secondary.axis)) {
+    waiver()
+  } else {
+    scale$sec_name()
+  } %|W|% labels[[paste0("sec.", aesthetic)]]
+  if (is.derived(secondary)) secondary <- primary
+  secondary <- scale$make_sec_title(secondary)
+  list(primary = primary, secondary = secondary)[scale$axis_order()]
 }

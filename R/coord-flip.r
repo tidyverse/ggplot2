@@ -61,8 +61,8 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
     flip_axes_labels(panel_params)
   },
 
-  labels = function(panel_params) {
-    flip_axes_labels(CoordCartesian$labels(panel_params))
+  labels = function(labels, panel_params) {
+    flip_axes_labels(CoordCartesian$labels(labels, panel_params))
   },
 
   setup_layout = function(layout, params) {

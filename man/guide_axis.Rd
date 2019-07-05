@@ -4,8 +4,8 @@
 \alias{guide_axis}
 \title{Axis guide}
 \usage{
-guide_axis(check.overlap = FALSE, angle = NULL, n_dodge = 1,
-  order = 0, position = waiver())
+guide_axis(title = waiver(), check.overlap = FALSE, angle = NULL,
+  n_dodge = 1, order = 0, position = waiver())
 }
 \arguments{
 \item{check.overlap}{silently remove overlapping labels,
@@ -29,4 +29,20 @@ left, or right.}
 Axis guides are the visual representation of position scales like those
 created with \link[=scale_x_continuous]{scale_(x|y)_continuous()} and
 \link[=scale_x_discrete]{scale_(x|y)_discrete()}.
+}
+\examples{
+# plot with overlapping text
+p <- ggplot(mpg, aes(cty * 100, hwy * 100)) +
+  geom_point() +
+  facet_wrap(vars(class))
+
+# axis guides can be customized in the scale_* functions or
+# using guides()
+p + scale_x_continuous(guide = guide_axis(n_dodge = 2))
+p + guides(x = guide_axis(n_dodge = 2))
+
+# can also be used to add a duplicate guide
+p + guides(x = guide_axis(n_dodge = 2), y.sec = guide_axis())
+
+
 }

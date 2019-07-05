@@ -195,6 +195,20 @@ test_that("guides can be specified in guides()", {
   expect_doppelganger("guides specified in guides()", plot)
 })
 
+test_that("guides have the final say in x and y", {
+  df <- data_frame(x = 1, y = 1)
+  plot <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    guides(
+      x = guide_none(title = "x (primary)"),
+      y = guide_none(title = "y (primary)"),
+      x.sec = guide_none(title = "x (secondary)"),
+      y.sec = guide_none(title = "y (secondary)")
+    )
+
+  expect_doppelganger("position guide titles", plot)
+})
+
 test_that("guides are positioned correctly", {
   df <- data_frame(x = 1, y = 1, z = factor("a"))
 

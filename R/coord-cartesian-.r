@@ -151,6 +151,25 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     panel_params
   },
 
+  labels = function(self, labels, panel_params) {
+    positions_x <- c("top", "bottom")
+    positions_y <- c("left", "right")
+
+    list(
+      x = lapply(c(1, 2), function(i) panel_guide_label(
+          panel_params$guides,
+          position = positions_x[[i]],
+          default_label = labels$x[[i]]
+        )
+      ),
+      y = lapply(c(1, 2), function(i) panel_guide_label(
+        panel_params$guides,
+        position = positions_y[[i]],
+        default_label = labels$y[[i]])
+      )
+    )
+  },
+
   render_bg = function(panel_params, theme) {
     guide_grid(
       theme,
@@ -191,6 +210,16 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
   names(view_scales) <- c(aesthetic, paste0(aesthetic, ".", names(view_scales)[-1]))
 
   view_scales
+}
+
+panel_guide_label <- function(guides, position, default_label) {
+  guides <- guides_filter_by_position(guides, position)
+
+  if (length(guides) == 0) {
+    default_label
+  } else {
+    guides[[1]]$title %||% waiver() %|W|% default_label
+  }
 }
 
 panel_guides_grob <- function(guides, position, theme) {

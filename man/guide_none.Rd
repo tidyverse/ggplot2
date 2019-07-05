@@ -4,7 +4,11 @@
 \alias{guide_none}
 \title{Empty guide}
 \usage{
-guide_none()
+guide_none(title = waiver(), position = waiver())
+}
+\arguments{
+\item{position}{Where this guide should be drawn: one of top, bottom,
+left, or right.}
 }
 \description{
 This guide draws nothing.

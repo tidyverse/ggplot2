@@ -104,10 +104,13 @@ Layout <- ggproto("Layout", NULL,
     )
 
     # Draw individual labels, then add to gtable
-    labels <- self$coord$labels(list(
-      x = self$xlabel(labels),
-      y = self$ylabel(labels)
-    ))
+    labels <- self$coord$labels(
+      list(
+        x = self$xlabel(labels),
+        y = self$ylabel(labels)
+      ),
+      self$panel_params[[1]]
+    )
     labels <- self$render_labels(labels, theme)
     self$facet$draw_labels(
       plot_table,
