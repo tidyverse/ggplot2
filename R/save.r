@@ -71,7 +71,7 @@ ggsave <- function(filename, plot = last_plot(),
   }))
   grid.draw(plot)
 
-  invisible()
+  invisible(filename)
 }
 
 #' Parse a DPI input from the user
