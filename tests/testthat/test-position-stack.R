@@ -21,6 +21,7 @@ test_that("can request reverse stacking", {
     geom_col(position = position_stack(reverse = TRUE))
   dat <- layer_data(p)
   expect_equal(dat$ymin, c(0, 2))
+  expect_doppelganger("reverse stacking", p)
 })
 
 test_that("data with no extent is stacked correctly", {
@@ -35,4 +36,14 @@ test_that("data with no extent is stacked correctly", {
 
   expect_equal(layer_data(p0)$y, c(-115, -75))
   expect_equal(layer_data(p1)$y, c(-75, 0))
+})
+
+test_that("can stack negative values", {
+  df <- data_frame(
+    x = c(1, 1, 1, 2, 2),
+    g = c(1, 2, 3, 1, 2),
+    y = c(1, -1, 1, 2, -3)
+  )
+  p <- ggplot(df, aes(x, y, fill = factor(g))) + geom_col()
+  expect_doppelganger("negative stacking", p)
 })
