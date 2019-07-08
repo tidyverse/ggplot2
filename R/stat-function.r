@@ -4,13 +4,15 @@
 #' The function is called with a grid of evenly spaced values along the x axis,
 #' and the results are drawn (by default) with a line.
 #'
+#'
+#'
 #' @eval rd_aesthetics("stat", "function")
 #' @param fun Function to use. Either 1) an anonymous function in the base or
 #'   rlang formula syntax (see [rlang::as_function()])
 #'   or 2) a quoted or character name referencing a function; see examples. Must
 #'   be vectorised.
 #' @param n Number of points to interpolate along
-#' @param args List of additional arguments to pass to `fun`
+#' @param args List of additional arguments passed on to the function defined by `fun`.
 #' @param xlim Optionally, restrict the range of the function to this range.
 #' @inheritParams layer
 #' @inheritParams geom_point
