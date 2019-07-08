@@ -214,12 +214,13 @@ before statistical summary.</p></td>
       <td><p>A function that takes one data frame of labels and
 returns a list or data frame of character vectors. Each input
 column corresponds to one factor. Thus there will be more than
-one with formulae of the type <code>~cyl + am</code>. Each output
+one with <code><a href='vars.html'>vars(cyl, am)</a></code>. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with <code><a href='labeller.html'>labeller()</a></code>. See
-<code><a href='labellers.html'>label_value()</a></code> for more details and pointers to other
-options.</p></td>
+for compatibility with <code><a href='labeller.html'>labeller()</a></code>. You can use different labeling
+functions for different kind of labels, for example use <code><a href='labellers.html'>label_parsed()</a></code> for
+formatting facet labels. <code><a href='labellers.html'>label_value()</a></code> is used by default,
+check it for more details and pointers to other options.</p></td>
     </tr>
     <tr>
       <th>as.table</th>
@@ -261,45 +262,43 @@ either of the four sides by setting <code>strip.position = c("top",
 
 <span class='co'># Use vars() to supply faceting variables:</span>
 <span class='no'>p</span> + <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>class</span>))</div><div class='img'><img src='facet_wrap-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># The historical interface with formulas is also available:</span>
-<span class='no'>p</span> + <span class='fu'>facet_wrap</span>(~<span class='no'>class</span>)</div><div class='img'><img src='facet_wrap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Control the number of rows and columns with nrow and ncol</span>
-<span class='no'>p</span> + <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>class</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='img'><img src='facet_wrap-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>class</span>), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>4</span>)</div><div class='img'><img src='facet_wrap-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div><div class='input'><span class='co'># You can facet by multiple variables</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cyl</span>, <span class='no'>drv</span>))</div><div class='img'><img src='facet_wrap-4.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cyl</span>, <span class='no'>drv</span>))</div><div class='img'><img src='facet_wrap-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use the `labeller` option to control how labels are printed:</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"cyl"</span>, <span class='st'>"drv"</span>), <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='st'>"label_both"</span>)</div><div class='img'><img src='facet_wrap-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cyl</span>, <span class='no'>drv</span>), <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='st'>"label_both"</span>)</div><div class='img'><img src='facet_wrap-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To change the order in which the panels appear, change the levels</span>
 <span class='co'># of the underlying factor.</span>
 <span class='no'>mpg</span>$<span class='no'>class2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/reorder.factor'>reorder</a></span>(<span class='no'>mpg</span>$<span class='no'>class</span>, <span class='no'>mpg</span>$<span class='no'>displ</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>facet_wrap</span>(~<span class='no'>class2</span>)</div><div class='img'><img src='facet_wrap-6.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>class2</span>))</div><div class='img'><img src='facet_wrap-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># By default, the same scales are used for all panels. You can allow</span>
 <span class='co'># scales to vary across the panels with the `scales` argument.</span>
 <span class='co'># Free scales make it easier to see patterns within each panel, but</span>
 <span class='co'># harder to compare across panels.</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>facet_wrap</span>(~<span class='no'>class</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>)</div><div class='img'><img src='facet_wrap-7.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>class</span>), <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>)</div><div class='img'><img src='facet_wrap-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To repeat the same data in every panel, simply construct a data frame</span>
 <span class='co'># that does not contain the faceting variable.</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/transform'>transform</a></span>(<span class='no'>mpg</span>, <span class='kw'>class</span> <span class='kw'>=</span> <span class='kw'>NULL</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey85"</span>) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>facet_wrap</span>(~<span class='no'>class</span>)</div><div class='img'><img src='facet_wrap-8.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>class</span>))</div><div class='img'><img src='facet_wrap-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use `strip.position` to display the facet labels at the side of your</span>
 <span class='co'># choice. Setting it to `bottom` makes it act as a subtitle for the axis.</span>
 <span class='co'># This is typically used with free scales and a theme without boxes around</span>
 <span class='co'># strip labels.</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>economics_long</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>date</span>, <span class='no'>value</span>)) +
   <span class='fu'><a href='geom_path.html'>geom_line</a></span>() +
-  <span class='fu'>facet_wrap</span>(~<span class='no'>variable</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"free_y"</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>strip.position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>) +
-  <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>strip.background</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span>(), <span class='kw'>strip.placement</span> <span class='kw'>=</span> <span class='st'>"outside"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'</span></div><div class='img'><img src='facet_wrap-9.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>variable</span>), <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"free_y"</span>, <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>strip.position</span> <span class='kw'>=</span> <span class='st'>"top"</span>) +
+  <span class='fu'><a href='theme.html'>theme</a></span>(<span class='kw'>strip.background</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_blank</a></span>(), <span class='kw'>strip.placement</span> <span class='kw'>=</span> <span class='st'>"outside"</span>)</div><div class='img'><img src='facet_wrap-8.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

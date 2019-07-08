@@ -249,7 +249,10 @@ as output</p></li>
 Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 <li><p>A function that accepts the existing (automatic) limits and returns
 new limits</p></li>
-</ul></p></dd>
+</ul>
+
+Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system (see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></dd>
   <dt>rescaler</dt><dd><p>A function used to scale the input values to the
 range [0, 1]. This is always <code><a href='https://www.rdocumentation.org/packages/scales/topics/rescale'>scales::rescale()</a></code>, except for
 diverging and n colour gradients (i.e., <code>scale_colour_gradient2()</code>,

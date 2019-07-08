@@ -251,7 +251,10 @@ as output</p></li>
 Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 <li><p>A function that accepts the existing (automatic) limits and returns
 new limits</p></li>
-</ul></td>
+</ul>
+
+<p>Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system (see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></td>
     </tr>
     <tr>
       <th>expand</th>

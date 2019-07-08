@@ -166,7 +166,7 @@ information." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Continuous colour scales</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/scale-colour.r'><code>R/scale-colour.r</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/scale-colour.r'><code>R/scale-colour.r</code></a>, <a href='https://github.com/tidyverse/ggplot2/blob/master/R/zxx.r'><code>R/zxx.r</code></a></small>
     <div class="hidden name"><code>scale_colour_continuous.Rd</code></div>
     </div>
 
@@ -199,6 +199,23 @@ colour scale to use</p></td>
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="color-blindness"><a class="anchor" href="#color-blindness"></a>Color Blindness</h2>
+
+    
+    <p>Many color palettes derived from RGB combinations (like the "rainbow" color
+palette) are not suitable to support all viewers, especially those with
+color vision deficiencies. Using <code>viridis</code> type, which is perceptually
+uniform in both colour and black-and-white display is an easy option to
+ensure good perceptive properties of your visulizations.
+The colorspace package offers functionalities</p><ul>
+<li><p>to generate color palettes with good perceptive properties,</p></li>
+<li><p>to analyse a given color palette, like emulating color blindness,</p></li>
+<li><p>and to modify a given color palette for better perceptivity.</p></li>
+</ul>
+    <p>For more information on color vision deficiencies and suitable color choices
+see the <a href='https://arxiv.org/abs/1903.06490'>paper on the colorspace package</a>
+and references therein.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='scale_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='scale_viridis.html'>scale_colour_viridis_c()</a></code>,
@@ -218,6 +235,8 @@ colour scale to use</p></td>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#color-blindness">Color Blindness</a></li>
+
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>

@@ -231,7 +231,10 @@ as output</p></li>
 Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 <li><p>A function that accepts the existing (automatic) limits and returns
 new limits</p></li>
-</ul></td>
+</ul>
+
+<p>Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system (see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></td>
     </tr>
     <tr>
       <th>range</th>
@@ -296,7 +299,10 @@ as output</p></li>
 Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 <li><p>A function that accepts the existing (automatic) limits and returns
 new limits</p></li>
-</ul></p></dd>
+</ul>
+
+Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system (see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></dd>
   <dt>oob</dt><dd><p>Function that handles limits outside of the scale limits
 (out of bounds). The default (<code><a href='https://www.rdocumentation.org/packages/scales/topics/censor'>scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></dd>

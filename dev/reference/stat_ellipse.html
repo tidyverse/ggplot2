@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Compute normal confidence ellipses — stat_ellipse • ggplot2</title>
+<title>Compute normal data ellipses — stat_ellipse • ggplot2</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -31,10 +31,10 @@
 
 
 
-<meta property="og:title" content="Compute normal confidence ellipses — stat_ellipse" />
+<meta property="og:title" content="Compute normal data ellipses — stat_ellipse" />
 
 <meta property="og:description" content="The method for calculating the ellipses has been modified from
-car::ellipse (Fox and Weisberg, 2011)" />
+car::dataEllipse (Fox and Weisberg, 2011)" />
 
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -163,7 +163,7 @@ car::ellipse (Fox and Weisberg, 2011)" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Compute normal confidence ellipses</h1>
+    <h1>Compute normal data ellipses</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/stat-ellipse.R'><code>R/stat-ellipse.R</code></a></small>
     <div class="hidden name"><code>stat_ellipse.Rd</code></div>
     </div>
@@ -171,7 +171,7 @@ car::ellipse (Fox and Weisberg, 2011)" />
     <div class="ref-description">
     
     <p>The method for calculating the ellipses has been modified from
-<code>car::ellipse</code> (Fox and Weisberg, 2011)</p>
+<code>car::dataEllipse</code> (Fox and Weisberg, 2011)</p>
     
     </div>
 
@@ -231,7 +231,7 @@ This ellipse probably won't appear circular unless <code><a href='coord_fixed.ht
     </tr>
     <tr>
       <th>level</th>
-      <td><p>The confidence level at which to draw an ellipse (default is 0.95),
+      <td><p>The level at which to draw an ellipse,
 or, if <code>type="euclid"</code>, the radius of the circle to be drawn.</p></td>
     </tr>
     <tr>
