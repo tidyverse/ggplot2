@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* stacking text when calculating the labels and the y axis with
+  `stat_summary()` now works (@ikosmidis, #2709)
+
 * `expand_scale()` was deprecated in favour of `expansion()` for setting
   the `expand` argument of `x` and `y` scales (@paleolimbot).
 
