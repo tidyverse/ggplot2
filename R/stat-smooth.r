@@ -139,8 +139,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     if (is.character(method)) {
       if (identical(method, "gam")) {
         method <- mgcv::gam
-      }
-      else {
+      } else {
         method <- match.fun(method)
       }
     }
