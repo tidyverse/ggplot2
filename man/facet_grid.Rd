@@ -38,12 +38,13 @@ before statistical summary.}
 \item{labeller}{A function that takes one data frame of labels and
 returns a list or data frame of character vectors. Each input
 column corresponds to one factor. Thus there will be more than
-one with formulae of the type \code{~cyl + am}. Each output
+one with \code{vars(cyl, am)}. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with \code{\link[=labeller]{labeller()}}. See
-\code{\link[=label_value]{label_value()}} for more details and pointers to other
-options.}
+for compatibility with \code{\link[=labeller]{labeller()}}. You can use different labeling
+functions for different kind of labels, for example use \code{\link[=label_parsed]{label_parsed()}} for
+formatting facet labels. \code{\link[=label_value]{label_value()}} is used by default,
+check it for more details and pointers to other options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
 a table with highest values at the bottom-right. If \code{FALSE}, the
@@ -74,6 +75,7 @@ and \code{cols} instead.}
 \code{facet_grid()} forms a matrix of panels defined by row and column
 faceting variables. It is most useful when you have two discrete
 variables, and all combinations of the variables exist in the data.
+If you have only one variable with many levels, try \code{\link[=facet_wrap]{facet_wrap()}}.
 }
 \examples{
 p <- ggplot(mpg, aes(displ, cty)) + geom_point()
@@ -82,13 +84,6 @@ p <- ggplot(mpg, aes(displ, cty)) + geom_point()
 p + facet_grid(rows = vars(drv))
 p + facet_grid(cols = vars(cyl))
 p + facet_grid(vars(drv), vars(cyl))
-
-# The historical formula interface is also available:
-\donttest{
-p + facet_grid(. ~ cyl)
-p + facet_grid(drv ~ .)
-p + facet_grid(drv ~ cyl)
-}
 
 # To change plot order of facet grid,
 # change the order of variable levels with factor()
@@ -108,7 +103,7 @@ p +
 mt <- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) +
   geom_point()
 
-mt + facet_grid(. ~ cyl, scales = "free")
+mt + facet_grid(vars(cyl), scales = "free")
 
 # If scales and space are free, then the mapping between position
 # and values in the data will be the same across all panels. This
