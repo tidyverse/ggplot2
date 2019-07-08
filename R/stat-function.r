@@ -5,8 +5,6 @@
 #' and the results are drawn (by default) with a line.
 #'
 #'
-#'
-#' @eval rd_aesthetics("stat", "function")
 #' @param fun Function to use. Either 1) an anonymous function in the base or
 #'   rlang formula syntax (see [rlang::as_function()])
 #'   or 2) a quoted or character name referencing a function; see examples. Must
