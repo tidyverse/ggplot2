@@ -2,6 +2,8 @@
 
 * Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
 
+* `ggdep()` was deprecated (@perezp44, #3382).
+
 * Added weight aesthetic option to `stat_density()` and made scaling of 
   weights the default (@annennenne, #2902)
 

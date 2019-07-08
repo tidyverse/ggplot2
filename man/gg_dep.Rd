@@ -13,6 +13,7 @@ gg_dep(version, msg)
 \item{msg}{The message to print.}
 }
 \description{
+This function is deprecated.
 Version numbers have the format <major>.<minor>.<subminor>, like 0.9.2.
 This function compares the current version number of ggplot2 against the
 specified \code{version}, which is the most recent version before the
