@@ -6,6 +6,8 @@ ggplot2 1.0.1
 * Improvements to order of colours and legend display for continuous colour
   scales extracted from colorbrewer palettes by `scale_*_distiller()` (@jiho, 1076)
 
+* `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
+
 ggplot2 1.0.0
 ----------------------------------------------------------------
 
