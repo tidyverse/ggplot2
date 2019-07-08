@@ -38,11 +38,11 @@ before statistical summary.}
 \item{labeller}{A function that takes one data frame of labels and
 returns a list or data frame of character vectors. Each input
 column corresponds to one factor. Thus there will be more than
-one with formulae of the type \code{vars(cyl, am)}. Each output
+one with \code{vars(cyl, am)}. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
 for compatibility with \code{\link[=labeller]{labeller()}}. You can use different labeling
-functions to have different kind of labels, for example use \code{\link[=label_parsed]{label_parsed()}} for
+functions for different kind of labels, for example use \code{\link[=label_parsed]{label_parsed()}} for
 formatting facet labels. \code{\link[=label_value]{label_value()}} is used by default,
 check it for more details and pointers to other options.}
 
@@ -75,7 +75,7 @@ and \code{cols} instead.}
 \code{facet_grid()} forms a matrix of panels defined by row and column
 faceting variables. It is most useful when you have two discrete
 variables, and all combinations of the variables exist in the data.
-When having only one variable to facet use \code{\link[=facet_wrap]{facet_wrap()}}.
+If you have only one variable with many levels, try \code{\link[=facet_wrap]{facet_wrap()}}.
 }
 \examples{
 p <- ggplot(mpg, aes(displ, cty)) + geom_point()
