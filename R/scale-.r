@@ -38,6 +38,9 @@
 #'     Use `NA` to refer to the existing minimum or maximum
 #'   - A function that accepts the existing (automatic) limits and returns
 #'     new limits
+#'
+#'  Note that setting limits on positional scales can unpredictably remove data.
+#'  If the purpose is to zoom, use the limit argument in the coordinate system.
 #' @param rescaler A function used to scale the input values to the
 #'   range \[0, 1]. This is always [scales::rescale()], except for
 #'   diverging and n colour gradients (i.e., [scale_colour_gradient2()],

@@ -61,7 +61,10 @@ as output
 Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
 new limits
-}}
+}
+
+Note that setting limits on positional scales can unpredictably remove data.
+If the purpose is to zoom, use the limit argument in the coordinate system.}
 
 \item{rescaler}{A function used to scale the input values to the
 range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
