@@ -33,11 +33,9 @@
 
 <meta property="og:title" content="Position scales for discrete data — scale_x_discrete" />
 
-<meta property="og:description" content="You can use continuous positions even with a discrete position scale -
-this allows you (e.g.) to place labels between bars in a bar chart.
-Continuous positions are numeric values starting at one for the first
-level, and increasing by one for each level (i.e. the labels are placed
-at integer positions).  This is what allows jittering to work." />
+<meta property="og:description" content="scale_x_discrete and scale_y_discrete are used to set the values for
+discrete x and y scale aesthetics. For simple manipulation of scale labels
+and limits, you may wish to use labs() and lims() instead." />
 
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -173,11 +171,9 @@ at integer positions).  This is what allows jittering to work." />
 
     <div class="ref-description">
     
-    <p>You can use continuous positions even with a discrete position scale -
-this allows you (e.g.) to place labels between bars in a bar chart.
-Continuous positions are numeric values starting at one for the first
-level, and increasing by one for each level (i.e. the labels are placed
-at integer positions).  This is what allows jittering to work.</p>
+    <p><code>scale_x_discrete</code> and <code>scale_y_discrete</code> are used to set the values for
+discrete x and y scale aesthetics. For simple manipulation of scale labels
+and limits, you may wish to use <code><a href='labs.html'>labs()</a></code> and <code><a href='lims.html'>lims()</a></code> instead.</p>
     
     </div>
 
@@ -258,6 +254,14 @@ expand the scale by 5% on each side for continuous variables, and by
     </tr>
     </table>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>You can use continuous positions even with a discrete position scale -
+this allows you (e.g.) to place labels between bars in a bar chart.
+Continuous positions are numeric values starting at one for the first
+level, and increasing by one for each level (i.e. the labels are placed
+at integer positions).  This is what allows jittering to work.</p>
+    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other position scales: <code><a href='scale_continuous.html'>scale_x_continuous</a></code>,
@@ -290,6 +294,8 @@ expand the scale by 5% on each side for continuous variables, and by
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       
+      <li><a href="#details">Details</a></li>
+
       <li><a href="#see-also">See also</a></li>
       
       <li><a href="#examples">Examples</a></li>
