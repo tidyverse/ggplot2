@@ -5,7 +5,7 @@
 #' @param n number of grid points in each direction
 #' @param h Bandwidth (vector of length two). If `NULL`, estimated
 #'   using [MASS::bandwidth.nrd()].
-#' @param adjust A multiplicate bandwidth adjustment to be used if 'h' is
+#' @param adjust A multiplicative bandwidth adjustment to be used if 'h' is
 #'    'NULL'. This makes it possible to adjust the bandwidth while still
 #'    using the a bandwidth estimator. For example, `adjust = 1/2` means
 #'    use half of the default bandwidth.
