@@ -77,7 +77,7 @@ estimation}
 \item{h}{Bandwidth (vector of length two). If \code{NULL}, estimated
 using \code{\link[MASS:bandwidth.nrd]{MASS::bandwidth.nrd()}}.}
 
-\item{adjust}{A multiplicate bandwidth adjustment to be used if 'h' is
+\item{adjust}{A multiplicative bandwidth adjustment to be used if 'h' is
 'NULL'. This makes it possible to adjust the bandwidth while still
 using the a bandwidth estimator. For example, \code{adjust = 1/2} means
 use half of the default bandwidth.}
