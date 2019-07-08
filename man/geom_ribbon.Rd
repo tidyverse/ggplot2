@@ -60,8 +60,8 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
-For each x value, \code{geom_ribbon} displays a y interval defined
-by \code{ymin} and \code{ymax}. \code{geom_area} is a special case of
+For each x value, \code{geom_ribbon()} displays a y interval defined
+by \code{ymin} and \code{ymax}. \code{geom_area()} is a special case of
 \code{geom_ribbon}, where the \code{ymin} is fixed to 0 and \code{y} is used instead
 of \code{ymax}.
 }
