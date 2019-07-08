@@ -152,6 +152,11 @@ ggplot_add.list <- function(object, plot, object_name) {
   plot
 }
 #' @export
+ggplot_add.by <- function(object, plot, object_name) {
+  ggplot_add.list(object, plot, object_name)
+}
+
+#' @export
 ggplot_add.Layer <- function(object, plot, object_name) {
   plot$layers <- append(plot$layers, object)
 
