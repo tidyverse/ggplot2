@@ -70,9 +70,9 @@ NULL
 
 #' @rdname scale_continuous
 #'
-#' @param sec.axis specify a secondary axis
+#' @param sec.axis [sec_axis()] is used to specify a secondary axis.
 #'
-#' @seealso [sec_axis()] for how to specify secondary axes
+#' @seealso
 #' @export
 scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),
