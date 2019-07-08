@@ -83,9 +83,17 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   get_limits = function(self) {
-    if (self$is_empty()) return(c(0, 1))
-
-    self$limits %||% self$range$range %||% integer()
+      if (self$is_empty()) {
+          c(0, 1)
+      } else if (!is.null(self$limits) & !is.function(self$limits)){
+          self$limits
+      } else if (is.null(self$limits)) {
+          self$range$range
+      } else if (is.function(self$limits)) {
+          self$limits(self$range$range)
+      } else {
+          integer(0)
+      }
   },
 
   is_empty = function(self) {

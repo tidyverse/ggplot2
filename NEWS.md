@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Allowed reversing of discrete scales by re-writing `get_limits()` (@AnneLyng, #3115)
+
 * Added weight aesthetic option to `stat_density()` and made scaling of 
   weights the default (@annennenne, #2902)
 
