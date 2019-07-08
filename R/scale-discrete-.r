@@ -1,17 +1,14 @@
 #' Position scales for discrete data
 #'
 #' `scale_x_discrete` and `scale_y_discrete` are used to set the values for
-#' discrete x and y scale aesthetics.
-#'
-#' For simple manipulation of scale labels and limits, you may wish to use
-#' [labs()] and [lims()] instead.
+#' discrete x and y scale aesthetics. For simple manipulation of scale labels
+#' and limits, you may wish to use [labs()] and [lims()] instead.
 #'
 #' You can use continuous positions even with a discrete position scale -
 #' this allows you (e.g.) to place labels between bars in a bar chart.
 #' Continuous positions are numeric values starting at one for the first
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
-#'
 #'
 #' @inheritDotParams discrete_scale
 #' @inheritParams discrete_scale
