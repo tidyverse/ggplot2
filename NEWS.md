@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
 * `stat_smooth()` user `REML` by default, if `method = "gam"` and
-  `gam`'s method is not specified.
+  `gam`'s method is not specified (@ikosmidis, #2630).
 
 * `expand_scale()` was deprecated in favour of `expansion()` for setting
   the `expand` argument of `x` and `y` scales (@paleolimbot).
