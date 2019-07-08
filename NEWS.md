@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Changed `theme_grey()` setting for legend key so that it creates no 
+  border (`NA`) rather than drawing a white one. (@annennenne, #3180)
+
 * Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
 
 * `ggdep()` was deprecated (@perezp44, #3382).
