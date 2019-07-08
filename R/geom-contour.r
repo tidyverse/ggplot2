@@ -12,11 +12,6 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
-#' @param bins Number of contour bins. Overridden by `binwidth`.
-#' @param binwidth The width of the contour bins. Overridden by `breaks`.
-#' @param breaks Numeric vector to set the contour breaks.
-#' Overrides `binwidth` and `bins`. By default, this is a vector of
-#' length ten with equidistant breaks.
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @export
@@ -48,9 +43,6 @@
 geom_contour <- function(mapping = NULL, data = NULL,
                          stat = "contour", position = "identity",
                          ...,
-                         bins = NULL,
-                         binwidth = NULL,
-                         breaks = NULL,
                          lineend = "butt",
                          linejoin = "round",
                          linemitre = 10,
@@ -66,9 +58,6 @@ geom_contour <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
-      bins = bins,
-      binwidth = binwidth,
-      breaks = breaks,
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
