@@ -17,7 +17,8 @@ ggsave(filename, plot = last_plot(), device = NULL, path = NULL,
 (e.g. \code{\link[=png]{png()}}), or one of "eps", "ps", "tex" (pictex),
 "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).}
 
-\item{path}{Path to save plot to (combined with filename).}
+\item{path}{Path of the directory to save plot to, defaults to the working
+directory (filename is appended to form the fully qualified file name).}
 
 \item{scale}{Multiplicative scaling factor.}
 

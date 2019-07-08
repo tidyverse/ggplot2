@@ -18,7 +18,8 @@
 #' @param device Device to use. Can either be a device function
 #'   (e.g. [png()]), or one of "eps", "ps", "tex" (pictex),
 #'   "pdf", "jpeg", "tiff", "png", "bmp", "svg" or "wmf" (windows only).
-#' @param path Path to save plot to (combined with filename).
+#' @param path Path of the directory to save plot to, defaults to the working
+#'   directory (filename is appended to form the fully qualified file name).
 #' @param scale Multiplicative scaling factor.
 #' @param width,height,units Plot size in `units` ("in", "cm", or "mm").
 #'   If not supplied, uses the size of current graphics device.
