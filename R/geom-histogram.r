@@ -12,8 +12,10 @@
 #'
 #' By default, the underlying computation (`stat_bin()`) uses 30 bins;
 #' this is not a good default, but the idea is to get you experimenting with
-#' different bin widths. You may need to look at a few to uncover the full
-#' story behind your data.
+#' different number of bins. You can also experiment modifying the `binwidth` with
+#' `center` or `boundary` arguments. `binwidth` overrides `bins` so you should do
+#' one change at a time. You may need to look at a few options to uncover
+#' the full story behind your data.
 #'
 #' @section Aesthetics:
 #' `geom_histogram()` uses the same aesthetics as [geom_bar()];
