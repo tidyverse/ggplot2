@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Added weight aesthetic option to `stat_density()` and made scaling of 
+  weights the default (@annennenne, #2902)
+
 * `expand_scale()` was deprecated in favour of `expansion()` for setting
   the `expand` argument of `x` and `y` scales (@paleolimbot).
 
