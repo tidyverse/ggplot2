@@ -80,6 +80,10 @@ Continuous positions are numeric values starting at one for the first
 level, and increasing by one for each level (i.e. the labels are placed
 at integer positions).  This is what allows jittering to work.
 }
+\details{
+For simple manipulation of scale labels and limits, you may wish to use
+\code{\link[=labs]{labs()}} and \code{\link[=lims]{lims()}} instead.
+}
 \examples{
 ggplot(diamonds, aes(cut)) + geom_bar()
 

@@ -6,6 +6,9 @@
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
+#' For simple manipulation of scale labels and limits, you may wish to use
+#' [labs()] and [lims()] instead.
+#'
 #' @inheritDotParams discrete_scale
 #' @inheritParams discrete_scale
 #' @rdname scale_discrete

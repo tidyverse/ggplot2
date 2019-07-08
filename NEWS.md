@@ -27,6 +27,8 @@
   more informative warnings when supplied with set aesthetics
   (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
   and mapped aesthetics (i.e., `data` and/or `mapping`).
+  
+* Added link to `labs()` and `limits()` to `scale_(x|y)_discrete` (#3301, @Maschette)
 
 # ggplot2 3.2.0
 
