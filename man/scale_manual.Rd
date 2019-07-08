@@ -94,6 +94,25 @@ have an optional \code{aesthetics} argument that can be used to define both \cod
 \code{scale_discrete_manual()} is a generic scale that can work with any aesthetic or set
 of aesthetics provided via the \code{aesthetics} argument.
 }
+\section{Color Blindness}{
+
+Many color palettes derived from RGB combinations (like the "rainbow" color
+palette) are not suitable to support all viewers, especially those with
+color vision deficiencies. Using \code{viridis} type, which is perceptually
+uniform in both colour and black-and-white display is an easy option to
+ensure good perceptive properties of your visulizations.
+The colorspace package offers functionalities
+\itemize{
+\item to generate color palettes with good perceptive properties,
+\item to analyse a given color palette, like emulating color blindness,
+\item and to modify a given color palette for better perceptivity.
+}
+
+For more information on color vision deficiencies and suitable color choices
+see the \href{https://arxiv.org/abs/1903.06490}{paper on the colorspace package}
+and references therein.
+}
+
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = factor(cyl)))
