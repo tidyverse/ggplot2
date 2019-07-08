@@ -353,7 +353,7 @@ as_labeller <- function(x, default = label_value, multi_line = TRUE) {
 #'   used with lookup tables or non-labeller functions.
 #' @family facet labeller
 #' @seealso [as_labeller()], \link{labellers}
-#' @return A labeller function to supply to [facet_grid()]
+#' @return A labeller function to supply to [facet_grid()] or [facet_wrap()]
 #'   for the argument `labeller`.
 #' @export
 #' @examples
