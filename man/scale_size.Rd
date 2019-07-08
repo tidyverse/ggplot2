@@ -56,8 +56,8 @@ Use \code{NA} to refer to the existing minimum or maximum
 new limits
 }
 
-Note that setting limits on positional scales can unpredictably remove data.
-If the purpose is to zoom, use the limit argument in the coordinate system.}
+Note that setting limits on positional scales will \strong{remove} data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system (see \code{\link[=coord_cartesian]{coord_cartesian()}}).}
 
 \item{range}{a numeric vector of length 2 that specifies the minimum and
 maximum size of the plotting symbol after transformation.}
@@ -118,8 +118,8 @@ Use \code{NA} to refer to the existing minimum or maximum
 new limits
 }
 
-Note that setting limits on positional scales can unpredictably remove data.
-If the purpose is to zoom, use the limit argument in the coordinate system.}
+Note that setting limits on positional scales will \strong{remove} data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system (see \code{\link[=coord_cartesian]{coord_cartesian()}}).}
   \item{oob}{Function that handles limits outside of the scale limits
 (out of bounds). The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.}

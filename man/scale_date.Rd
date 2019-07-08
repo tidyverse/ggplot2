@@ -97,8 +97,8 @@ Use \code{NA} to refer to the existing minimum or maximum
 new limits
 }
 
-Note that setting limits on positional scales can unpredictably remove data.
-If the purpose is to zoom, use the limit argument in the coordinate system.}
+Note that setting limits on positional scales will \strong{remove} data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system (see \code{\link[=coord_cartesian]{coord_cartesian()}}).}
 
 \item{expand}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
