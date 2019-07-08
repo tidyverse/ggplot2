@@ -195,7 +195,8 @@ PositionStack <- ggproto("PositionStack", Position,
       )
     }
 
-    rbind(neg, pos)
+    stacked <- rbind(neg, pos)
+    stacked[order(stacked$group, stacked$x), ]
   }
 )
 
