@@ -110,7 +110,7 @@ scale_color_brewer <- scale_colour_brewer
 scale_color_distiller <- scale_colour_distiller
 
 #' @export
-#' @rdname scale_gradient
+#' @rdname scale_colour_continuous
 #' @usage NULL
 scale_color_continuous <- scale_colour_continuous
 
