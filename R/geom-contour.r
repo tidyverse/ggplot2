@@ -12,6 +12,11 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
+#' @param bins Number of contour bins. Overridden by `binwidth`.
+#' @param binwidth The width of the contour bins. Overridden by `breaks`.
+#' @param breaks Numeric vector to set the contour breaks.
+#' Overrides `binwidth` and `bins`. By default, this is a vector of
+#' length ten with equidistant breaks.
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @export

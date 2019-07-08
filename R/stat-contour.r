@@ -1,4 +1,9 @@
 #' @inheritParams stat_identity
+#' @param bins Number of contour bins. Overridden by `binwidth`.
+#' @param binwidth The width of the contour bins. Overridden by `breaks`.
+#' @param breaks Numeric vector to set the contour breaks.
+#' Overrides `binwidth` and `bins`. By default, this is a vector of
+#' length ten with equidistant breaks.
 #' @export
 #' @eval rd_aesthetics("stat", "contour")
 #' @section Computed variables:
