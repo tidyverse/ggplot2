@@ -1,7 +1,5 @@
 # ggplot2 (development version)
 
-* Improve facet documentation (@paleolimbot, #3290)
-
 * `expand_scale()` was deprecated in favour of `expansion()` for setting
   the `expand` argument of `x` and `y` scales (@paleolimbot).
 
