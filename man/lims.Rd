@@ -57,9 +57,29 @@ ggplot(small, aes(mpg, wt, colour = factor(cyl))) +
 ggplot(big, aes(mpg, wt, colour = factor(cyl))) +
   geom_point() +
   lims(colour = c("4", "6", "8"))
+
+# There are two ways of setting the axis limits: with limis or
+# with coordinate systems.  They work in two rather different ways.
+
+ p <- ggplot(mtcars, aes(disp, wt)) +
+ geom_point() +
+ geom_smooth()
+
+ p
+
+# Setting the limits on lims converts all values outside the range
+# to NA as in [scale_x_continuous()]
+ p + lims(x = c(325, 500))
+
+# For changing x or y axis limits \\strong{without} dropping data
+# observations use [coord_cartesian()]. Setting the limits on the
+# coordinate system performs a visual zoom.
+ p + coord_cartesian(xlim = c(325, 500))
+
 }
 \seealso{
 For changing x or y axis limits \strong{without} dropping data
 observations, see \code{\link[=coord_cartesian]{coord_cartesian()}}. To expand the range of
-a plot to always include certain values, see \code{\link[=expand_limits]{expand_limits()}}.
+a plot to always include certain values, see \code{\link[=expand_limits]{expand_limits()}}. Other
+position scales, see \code{\link[=scale_x_discrete(), scale_x_continuous]{scale_x_discrete(), scale_x_continuous()}}.
 }
