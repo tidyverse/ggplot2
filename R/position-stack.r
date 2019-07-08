@@ -176,10 +176,9 @@ PositionStack <- ggproto("PositionStack", Position,
       return(data)
     }
 
-    ## ymax_position <- ifelse(is.na(data$ymax), data$y, data$ymax)
-    ## negative <- ymax_position < 0
-
     negative <- data$ymax < 0
+    negative <- data$ymax < 0
+    negative[is.na(negative)] <- FALSE
 
     neg <- data[negative, , drop = FALSE]
     pos <- data[!negative, , drop = FALSE]
