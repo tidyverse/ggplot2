@@ -1,8 +1,9 @@
 #' Ribbons and area plots
 #'
-#' For each x value, `geom_ribbon` displays a y interval defined
-#' by `ymin` and `ymax`. `geom_area` is a special case of
-#' `geom_ribbon`, where the `ymin` is fixed to 0.
+#' For each x value, `geom_ribbon()` displays a y interval defined
+#' by `ymin` and `ymax`. `geom_area()` is a special case of
+#' `geom_ribbon`, where the `ymin` is fixed to 0 and `y` is used instead
+#' of `ymax`.
 #'
 #' An area plot is the continuous analogue of a stacked bar chart (see
 #' [geom_bar()]), and can be used to show how composition of the
