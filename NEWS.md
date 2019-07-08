@@ -28,7 +28,6 @@
   (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
   and mapped aesthetics (i.e., `data` and/or `mapping`).
   
-* Added link to `labs()` and `lims()` to `scale_(x|y)_discrete` (#3301, @Maschette)
 
 # ggplot2 3.2.0
 
