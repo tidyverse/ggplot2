@@ -5,7 +5,7 @@
 #'   For `method = "auto"` the smoothing method is chosen based on the
 #'   size of the largest group (across all panels). [stats::loess()] is
 #'   used for less than 1,000 observations; otherwise [mgcv::gam()] is
-#'   used with `formula = y ~ s(x, bs = "cs")`. Somewhat anecdotally,
+#'   used with `formula = y ~ s(x, bs = "cs")` with \code{method = "REML"}. Somewhat anecdotally,
 #'   `loess` gives a better appearance, but is \eqn{O(N^{2})}{O(N^2)} in memory,
 #'   so does not work for larger datasets.
 #'
