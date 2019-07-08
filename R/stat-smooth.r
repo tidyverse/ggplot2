@@ -126,14 +126,10 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       }
     }
 
+
     ## Special case span because it's the most commonly used model argument
     if (identical(method, "loess")) {
       method.args$span <- span
-    }
-
-    ## If gam and gam's method is not specified by the user then use REML
-    if (identical(method, "gam") && is.null(method.args$method)) {
-      method.args$method <- "REML"
     }
 
     if (is.character(method)) {
@@ -142,6 +138,11 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       } else {
         method <- match.fun(method)
       }
+    }
+
+    ## If gam and gam's method is not specified by the user then use REML
+    if (identical(method, mgcv::gam) && is.null(method.args$method)) {
+      method.args$method <- "REML"
     }
 
     base.args <- list(quote(formula), data = quote(data), weights = quote(weight))
