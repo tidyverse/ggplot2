@@ -94,11 +94,6 @@ StatSmooth <- ggproto("StatSmooth", Stat,
               "' and formula '", deparse(params$formula), "'")
     }
 
-    ## IK, 08 July 2019: Do we need this?
-    ## if (identical(params$method, "gam")) {
-    ##   params$method <- mgcv::gam
-    ## }
-
     params
   },
 
@@ -140,7 +135,14 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         method.args$method <- "REML"
     }
 
-    if (is.character(method)) method <- match.fun(method)
+    if (is.character(method)) {
+        if (identical(method, "gam")) {
+          method <- mgcv::gam
+        }
+        else {
+            method <- match.fun(method)
+        }
+    }
 
     base.args <- list(quote(formula), data = quote(data), weights = quote(weight))
     model <- do.call(method, c(base.args, method.args))
