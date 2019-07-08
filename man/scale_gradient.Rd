@@ -164,6 +164,14 @@ df <- data.frame(
   z2 = abs(rnorm(100))
 )
 
+# Dataframe with missing values
+df_na <- data.frame(
+  value = seq(1,20),
+  x = runif(20),
+  y = runif(20),
+  z1 = c(rep(NA, 10), rnorm(10))
+)
+
 # Default colour scale colours from light blue to dark blue
 ggplot(df, aes(x, y)) +
   geom_point(aes(colour = z2))
@@ -189,6 +197,19 @@ ggplot(df, aes(x, y)) +
   scale_colour_gradient(low = "white", high = "black")
 # Avoid red-green colour contrasts because ~10\% of men have difficulty
 # seeing them
+
+# Pass `na.value = NA` with the fill aesthetic for no fill for missing values
+ggplot(df_na, aes(x = value, y)) +
+  geom_bar(aes(fill = z1), stat = "identity") +
+  scale_fill_gradient(low = "yellow", high = "red",
+                      na.value = NA)
+
+# Pass `na.value = NA` with the colour aesthetic to hide data points with missing values
+ ggplot(df_na, aes(x, y)) +
+   geom_point(aes(colour = z1)) +
+   scale_colour_gradient(low = "yellow", high = "red",
+                         na.value = NA)
+
 }
 \seealso{
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
