@@ -131,7 +131,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     }
 
     ## If gam and gam's method is not specified by the user then use REML
-    if (identical(method, "gam") & is.null(method.args$method)) {
+    if (identical(method, "gam") && is.null(method.args$method)) {
         method.args$method <- "REML"
     }
 
