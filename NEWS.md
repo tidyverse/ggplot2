@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
+
 * Added weight aesthetic option to `stat_density()` and made scaling of 
   weights the default (@annennenne, #2902)
 
