@@ -5,7 +5,7 @@
 #'   For `method = "auto"` the smoothing method is chosen based on the
 #'   size of the largest group (across all panels). [stats::loess()] is
 #'   used for less than 1,000 observations; otherwise [mgcv::gam()] is
-#'   used with `formula = y ~ s(x, bs = "cs")` with \code{method = "REML"}. Somewhat anecdotally,
+#'   used with `formula = y ~ s(x, bs = "cs")` with `method = "REML"`. Somewhat anecdotally,
 #'   `loess` gives a better appearance, but is \eqn{O(N^{2})}{O(N^2)} in memory,
 #'   so does not work for larger datasets.
 #'
@@ -76,7 +76,6 @@ stat_smooth <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatSmooth <- ggproto("StatSmooth", Stat,
-
   setup_params = function(data, params) {
     if (identical(params$method, "auto")) {
       # Use loess for small datasets, gam with a cubic regression basis for
@@ -90,17 +89,19 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         params$method <- "gam"
         params$formula <- y ~ s(x, bs = "cs")
       }
-      message("`geom_smooth()` using method = '", params$method,
-              "' and formula '", deparse(params$formula), "'")
+      message(
+        "`geom_smooth()` using method = '", params$method,
+        "' and formula '", deparse(params$formula), "'"
+      )
     }
 
     params
   },
 
-  compute_group = function(data, scales, method = "auto", formula = y~x,
-                           se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
-                           xseq = NULL, level = 0.95, method.args = list(),
-                           na.rm = FALSE) {
+  compute_group = function(data, scales, method = "auto", formula = y ~ x,
+                             se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
+                             xseq = NULL, level = 0.95, method.args = list(),
+                             na.rm = FALSE) {
     if (length(unique(data$x)) < 2) {
       # Not enough data to perform fit
       return(new_data_frame())
@@ -132,16 +133,16 @@ StatSmooth <- ggproto("StatSmooth", Stat,
 
     ## If gam and gam's method is not specified by the user then use REML
     if (identical(method, "gam") && is.null(method.args$method)) {
-        method.args$method <- "REML"
+      method.args$method <- "REML"
     }
 
     if (is.character(method)) {
-        if (identical(method, "gam")) {
-          method <- mgcv::gam
-        }
-        else {
-            method <- match.fun(method)
-        }
+      if (identical(method, "gam")) {
+        method <- mgcv::gam
+      }
+      else {
+        method <- match.fun(method)
+      }
     }
 
     base.args <- list(quote(formula), data = quote(data), weights = quote(weight))
