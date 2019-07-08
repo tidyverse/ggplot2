@@ -1,6 +1,6 @@
 # ggplot2 (development version)
 
-* `ggdep()` was deprecated (@perezp44, #3382)
+* `ggdep()` was deprecated (@perezp44, #3382).
 
 * `expand_scale()` was deprecated in favour of `expansion()` for setting
   the `expand` argument of `x` and `y` scales (@paleolimbot).
