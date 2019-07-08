@@ -3,7 +3,11 @@
 * Changed `theme_grey()` setting for legend key so that it creates no 
   border (`NA`) rather than drawing a white one. (@annennenne, #3180)
 
-* Added weight aesthetic option to stat_density() and made scaling of 
+* Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
+
+* `ggdep()` was deprecated (@perezp44, #3382).
+
+* Added weight aesthetic option to `stat_density()` and made scaling of 
   weights the default (@annennenne, #2902)
 
 * `expand_scale()` was deprecated in favour of `expansion()` for setting
@@ -33,6 +37,8 @@
   more informative warnings when supplied with set aesthetics
   (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
   and mapped aesthetics (i.e., `data` and/or `mapping`).
+  
+* `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
 
 # ggplot2 3.2.0
 
