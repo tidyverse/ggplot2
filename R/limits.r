@@ -55,23 +55,22 @@
 #' last_month <- Sys.Date() - 0:59
 #' df <- data.frame(
 #'   date = last_month,
-#'   price = c(rnorm(30, mean = 15), runif(30)+0.2*(1:30))
+#'   price = c(rnorm(30, mean = 15), runif(30) + 0.2 * (1:30))
 #' )
 #'
 #' p <- ggplot(df, aes(date, price)) +
-#'   geom_line()
+#'   geom_line() +
+#'   stat_smooth()
 #'
-#' p + stat_smooth()
+#' p
 #'
 #' # Setting the limits with the scale discards all data outside the range.
-#' p + lims(x= c(Sys.Date() - 30, NA), y = c(10,20)) +
-#'   stat_smooth()
+#' p + lims(x= c(Sys.Date() - 30, NA), y = c(10, 20))
 #'
 #' # For changing x or y axis limits **without** dropping data
 #' # observations use [coord_cartesian()]. Setting the limits on the
 #' # coordinate system performs a visual zoom.
-#' p + coord_cartesian(xlim =c(Sys.Date() - 30, NA), ylim = c(10,20)) +
-#'   stat_smooth()
+#' p + coord_cartesian(xlim =c(Sys.Date() - 30, NA), ylim = c(10, 20))
 #'
 lims <- function(...) {
   args <- list(...)
