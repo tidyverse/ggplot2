@@ -43,22 +43,13 @@
 #'   diverging and n colour gradients (i.e., [scale_colour_gradient2()],
 #'   [scale_colour_gradientn()]). The `rescaler` is ignored by position
 #'   scales, which ways use [scales::rescale()].
-<<<<<<< Updated upstream
-#' @param oob Function that handles limits outside of the scale limits
-#'   (out of bounds). The default ([scales::censor()]) replaces out of
-#'   bounds values with `NA`. ([scales::squish()]) can also be used,
-#'   which squish the out-of-bounds values into range and
-#'   ([scales::squish_infinite()]) which squish infinite values into range.
-=======
 #' @param oob One of:
 #'   - Function that handles limits outside of the scale limits
 #'   (out of bounds).
 #'   - The default ([scales::censor()]) replaces out of
 #'   bounds values with `NA`.
 #'   - [scales::squish()] for squishing out of bounds values into range.
-#'   - [scales::squish_infinite()] for squishing infitite values to range.
-#'
->>>>>>> Stashed changes
+#'   - [scales::squish_infinite()] for squishing infitite values into range.
 #' @param na.value Missing values will be replaced with this value.
 #' @param trans For continuous scales, the name of a transformation object
 #'   or the object itself. Built-in transformations include "asn", "atanh",
