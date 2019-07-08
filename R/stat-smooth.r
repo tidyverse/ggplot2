@@ -93,9 +93,11 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       message("`geom_smooth()` using method = '", params$method,
               "' and formula '", deparse(params$formula), "'")
     }
-    if (identical(params$method, "gam")) {
-      params$method <- mgcv::gam
-    }
+
+    ## IK, 08 July 2019: Do we need this?
+    ## if (identical(params$method, "gam")) {
+    ##   params$method <- mgcv::gam
+    ## }
 
     params
   },
@@ -127,9 +129,15 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         xseq <- seq(range[1], range[2], length.out = n)
       }
     }
-    # Special case span because it's the most commonly used model argument
+
+    ## Special case span because it's the most commonly used model argument
     if (identical(method, "loess")) {
       method.args$span <- span
+    }
+
+    ## If gam and gam's method is not specified by the user then use REML
+    if (identical(method, "gam") & is.null(method.args$method)) {
+        method.args$method <- "REML"
     }
 
     if (is.character(method)) method <- match.fun(method)
