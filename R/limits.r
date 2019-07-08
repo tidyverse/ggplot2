@@ -16,8 +16,8 @@
 #'   A date-time value will create a continuous date/time scale.
 #' @seealso For changing x or y axis limits \strong{without} dropping data
 #'   observations, see [coord_cartesian()]. To expand the range of
-#'   a plot to always include certain values, see [expand_limits()]. Other
-#'   position scales, see [scale_x_discrete(), scale_x_continuous()].
+#'   a plot to always include certain values, see [expand_limits()]. For other
+#'   types of data, see [scale_x_discrete(), scale_x_continuous(), scale_x_date()].
 #'
 #' @export
 #' @examples
@@ -49,23 +49,29 @@
 #'   geom_point() +
 #'   lims(colour = c("4", "6", "8"))
 #'
-#' # There are two ways of setting the axis limits: with limis or
-#' # with coordinate systems.  They work in two rather different ways.
+#' # There are two ways of setting the axis limits: with limits or
+#' # with coordinate systems. They work in two rather different ways.
 #'
-#'  p <- ggplot(mtcars, aes(disp, wt)) +
-#'  geom_point() +
-#'  geom_smooth()
+#' last_month <- Sys.Date() - 0:59
+#' df <- data.frame(
+#'   date = last_month,
+#'   price = c(rnorm(30, mean = 15), runif(30)+0.2*(1:30))
+#' )
 #'
-#'  p
+#' p <- ggplot(df, aes(date, price)) +
+#'   geom_line()
 #'
-#' # Setting the limits on lims converts all values outside the range
-#' # to NA as in [scale_x_continuous()]
-#'  p + lims(x = c(325, 500))
+#' p + stat_smooth()
 #'
-#' # For changing x or y axis limits \strong{without} dropping data
+#' # Setting the limits with the scale discards all data outside the range.
+#' p + lims(x= c(Sys.Date() - 30, NA), y = c(10,20)) +
+#'   stat_smooth()
+#'
+#' # For changing x or y axis limits **without** dropping data
 #' # observations use [coord_cartesian()]. Setting the limits on the
 #' # coordinate system performs a visual zoom.
-#'  p + coord_cartesian(xlim = c(325, 500))
+#' p + coord_cartesian(xlim =c(Sys.Date() - 30, NA), ylim = c(10,20)) +
+#'   stat_smooth()
 #'
 lims <- function(...) {
   args <- list(...)
