@@ -77,14 +77,6 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom}{The geometric object to use display the data}
-
-\item{bins}{Number of contour bins. Overridden by \code{binwidth}.}
-
-\item{binwidth}{The width of the contour bins. Overridden by \code{breaks}.}
-
-\item{breaks}{Numeric vector to set the contour breaks.
-Overrides \code{binwidth} and \code{bins}. By default, this is a vector of
-length ten with equidistant breaks.}
 }
 \description{
 ggplot2 can not draw true 3d surfaces, but you can use \code{geom_contour}
