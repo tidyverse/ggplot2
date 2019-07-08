@@ -1,7 +1,7 @@
 #' Ribbons and area plots
 #'
-#' For each x value, `geom_ribbon` displays a y interval defined
-#' by `ymin` and `ymax`. `geom_area` is a special case of
+#' For each x value, `geom_ribbon()` displays a y interval defined
+#' by `ymin` and `ymax`. `geom_area()` is a special case of
 #' `geom_ribbon`, where the `ymin` is fixed to 0 and `y` is used instead
 #' of `ymax`.
 #'
