@@ -6,6 +6,8 @@ ggplot2 1.0.1
 * Improvements to order of colours and legend display for continuous colour
   scales extracted from colorbrewer palettes by `scale_*_distiller()` (@jiho, 1076)
 
+* Improve facet documentation (@paleolimbot, #3290)
+
 ggplot2 1.0.0
 ----------------------------------------------------------------
 

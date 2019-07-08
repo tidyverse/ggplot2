@@ -30,12 +30,13 @@ before statistical summary.}
 \item{labeller}{A function that takes one data frame of labels and
 returns a list or data frame of character vectors. Each input
 column corresponds to one factor. Thus there will be more than
-one with formulae of the type \code{~cyl + am}. Each output
+one with formulae of the type \code{vars(cyl, am)}. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with \code{\link[=labeller]{labeller()}}. See
-\code{\link[=label_value]{label_value()}} for more details and pointers to other
-options.}
+for compatibility with \code{\link[=labeller]{labeller()}}. You can use different labeling
+functions to have different kind of labels, for example use \code{\link[=label_parsed]{label_parsed()}} for
+formatting facet labels. \code{\link[=label_value]{label_value()}} is used by default,
+check it for more details and pointers to other options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
 a table with highest values at the bottom-right. If \code{FALSE}, the
@@ -70,9 +71,6 @@ p <- ggplot(mpg, aes(displ, hwy)) + geom_point()
 # Use vars() to supply faceting variables:
 p + facet_wrap(vars(class))
 
-# The historical interface with formulas is also available:
-p + facet_wrap(~class)
-
 # Control the number of rows and columns with nrow and ncol
 p + facet_wrap(vars(class), nrow = 4)
 
@@ -85,14 +83,14 @@ ggplot(mpg, aes(displ, hwy)) +
 # Use the `labeller` option to control how labels are printed:
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  facet_wrap(c("cyl", "drv"), labeller = "label_both")
+  facet_wrap(vars(cyl, drv), labeller = "label_both")
 
 # To change the order in which the panels appear, change the levels
 # of the underlying factor.
 mpg$class2 <- reorder(mpg$class, mpg$displ)
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  facet_wrap(~class2)
+  facet_wrap(vars(class2))
 
 # By default, the same scales are used for all panels. You can allow
 # scales to vary across the panels with the `scales` argument.
@@ -100,14 +98,14 @@ ggplot(mpg, aes(displ, hwy)) +
 # harder to compare across panels.
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
-  facet_wrap(~class, scales = "free")
+  facet_wrap(vars(class), scales = "free")
 
 # To repeat the same data in every panel, simply construct a data frame
 # that does not contain the faceting variable.
 ggplot(mpg, aes(displ, hwy)) +
   geom_point(data = transform(mpg, class = NULL), colour = "grey85") +
   geom_point() +
-  facet_wrap(~class)
+  facet_wrap(vars(class))
 
 # Use `strip.position` to display the facet labels at the side of your
 # choice. Setting it to `bottom` makes it act as a subtitle for the axis.
@@ -115,7 +113,7 @@ ggplot(mpg, aes(displ, hwy)) +
 # strip labels.
 ggplot(economics_long, aes(date, value)) +
   geom_line() +
-  facet_wrap(~variable, scales = "free_y", nrow = 2, strip.position = "bottom") +
+  facet_wrap(vars(variable), scales = "free_y", nrow = 2, strip.position = "top") +
   theme(strip.background = element_blank(), strip.placement = "outside")
 }
 }
