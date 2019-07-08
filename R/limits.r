@@ -17,7 +17,8 @@
 #' @seealso For changing x or y axis limits \strong{without} dropping data
 #'   observations, see [coord_cartesian()]. To expand the range of
 #'   a plot to always include certain values, see [expand_limits()]. For other
-#'   types of data, see [scale_x_discrete(), scale_x_continuous(), scale_x_date()].
+#'   types of data, see [scale_x_discrete()], [scale_x_continuous()],
+#'   [scale_x_date()].
 #'
 #' @export
 #' @examples
