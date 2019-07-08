@@ -178,24 +178,7 @@ rescale01 <- function(x) {
 
 #' Give a deprecation error, warning, or message, depending on version number.
 #'
-#' Version numbers have the format <major>.<minor>.<subminor>, like 0.9.2.
-#' This function compares the current version number of ggplot2 against the
-#' specified `version`, which is the most recent version before the
-#' function (or other object) was deprecated.
-#'
-#' `gg_dep` will give an error, warning, or message, depending on the
-#' difference between the current ggplot2 version and the specified
-#' `version`.
-#'
-#' If the current major number is greater than `version`'s major number,
-#' or if the current minor number is more than 1 greater than `version`'s
-#' minor number, give an error.
-#'
-#' If the current minor number differs from `version`'s minor number by
-#' one, give a warning.
-#'
-#' If the current subminor number differs from `version`'s subminor
-#' number, print a message.
+#' This function is deprecated.
 #'
 #' @param version The last version of ggplot2 where this function was good
 #'   (in other words, the last version where it was not deprecated).
@@ -203,6 +186,7 @@ rescale01 <- function(x) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
+  .Deprecate()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
 

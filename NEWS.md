@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `ggdep()` was deprecated (@perezp44, #3382).
+
 * Added weight aesthetic option to `stat_density()` and made scaling of 
   weights the default (@annennenne, #2902)
 
