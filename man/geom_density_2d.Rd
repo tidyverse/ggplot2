@@ -14,7 +14,8 @@ geom_density_2d(mapping = NULL, data = NULL, stat = "density2d",
 
 stat_density_2d(mapping = NULL, data = NULL, geom = "density_2d",
   position = "identity", ..., contour = TRUE, n = 100, h = NULL,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  adjust = c(1, 1), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -75,6 +76,11 @@ estimation}
 
 \item{h}{Bandwidth (vector of length two). If \code{NULL}, estimated
 using \code{\link[MASS:bandwidth.nrd]{MASS::bandwidth.nrd()}}.}
+
+\item{adjust}{A multiplicate bandwidth adjustment to be used if 'h' is
+'NULL'. This makes it possible to adjust the bandwidth while still
+using the a bandwidth estimator. For example, \code{adjust = 1/2} means
+use half of the default bandwidth.}
 }
 \description{
 Perform a 2D kernel density estimation using \code{\link[MASS:kde2d]{MASS::kde2d()}} and
