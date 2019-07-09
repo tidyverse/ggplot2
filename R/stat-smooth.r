@@ -99,9 +99,9 @@ StatSmooth <- ggproto("StatSmooth", Stat,
   },
 
   compute_group = function(data, scales, method = "auto", formula = y ~ x,
-                             se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
-                             xseq = NULL, level = 0.95, method.args = list(),
-                             na.rm = FALSE) {
+                           se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
+                           xseq = NULL, level = 0.95, method.args = list(),
+                           na.rm = FALSE) {
     if (length(unique(data$x)) < 2) {
       # Not enough data to perform fit
       return(new_data_frame())
@@ -126,8 +126,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
       }
     }
 
-
-    ## Special case span because it's the most commonly used model argument
+    # Special case span because it's the most commonly used model argument
     if (identical(method, "loess")) {
       method.args$span <- span
     }
@@ -139,8 +138,7 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         method <- match.fun(method)
       }
     }
-
-    ## If gam and gam's method is not specified by the user then use REML
+    # If gam and gam's method is not specified by the user then use REML
     if (identical(method, mgcv::gam) && is.null(method.args$method)) {
       method.args$method <- "REML"
     }
