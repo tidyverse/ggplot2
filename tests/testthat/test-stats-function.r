@@ -49,9 +49,9 @@ test_that("works with formula syntax", {
 })
 
 test_that("`mapping` is not used by stat_function()", {
-  expect_warning(stat_function(aes(), fun = identity), "Ignoring `mapping`")
+  expect_warning(stat_function(aes(), fun = identity), "`mapping` is not used")
 })
 
 test_that("`data` is not used by stat_function()", {
-  expect_warning(stat_function(aes(), fun = identity), "Ignoring `data`")
+  expect_warning(stat_function(data = mtcars, fun = identity), "`data` is not used")
 })

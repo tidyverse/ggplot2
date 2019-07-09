@@ -64,6 +64,15 @@ stat_function <- function(mapping = NULL, data = NULL,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE) {
+
+  # Warn if supplied mapping and/or data is going to be overwritten
+  if (!is.null(mapping)) {
+    warning("`mapping` is not used by stat_function()", call. = FALSE)
+  }
+  if (!is.null(data)) {
+    warning("`data` is not used by stat_function()", call. = FALSE)
+  }
+
   layer(
     data = data,
     mapping = mapping,
@@ -81,15 +90,6 @@ stat_function <- function(mapping = NULL, data = NULL,
       ...
     )
   )
-
-  # Warn if supplied mapping and/or data is going to be overwritten
-  if (!is.null(mapping)) {
-    warning("`mapping` is not used by stat_function()", call. = FALSE)
-  }
-  if (!is.null(data)) {
-    warning("`data` is not used by stat_function()", call. = FALSE)
-  }
-
 }
 
 #' @rdname ggplot2-ggproto
