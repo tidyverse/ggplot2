@@ -84,12 +84,11 @@ stat_function <- function(mapping = NULL, data = NULL,
 
   # Warn if supplied mapping and/or data is going to be overwritten
   if (!is.null(mapping)) {
-    warn_overwritten_args("stat_function()", "mapping", "group")
+    warning("`mapping` is not used by stat_function()", call. = FALSE)
   }
   if (!is.null(data)) {
-    warn_overwritten_args("stat_function()", "data", "group")
+    warning("`data` is not used by stat_function()", call. = FALSE)
   }
-
 
 }
 
