@@ -233,7 +233,7 @@ e.g. <code>"auto"</code>, <code>"lm"</code>, <code>"glm"</code>, <code>"gam"</co
 <p>For <code>method = "auto"</code> the smoothing method is chosen based on the
 size of the largest group (across all panels). <code><a href='https://www.rdocumentation.org/packages/stats/topics/loess'>stats::loess()</a></code> is
 used for less than 1,000 observations; otherwise <code><a href='https://www.rdocumentation.org/packages/mgcv/topics/gam'>mgcv::gam()</a></code> is
-used with <code>formula = y ~ s(x, bs = "cs")</code>. Somewhat anecdotally,
+used with <code>formula = y ~ s(x, bs = "cs")</code> with <code>method = "REML"</code>. Somewhat anecdotally,
 <code>loess</code> gives a better appearance, but is \(O(N^{2})\) in memory,
 so does not work for larger datasets.</p>
 <p>If you have fewer than 1,000 observations but want to use the same <code>gam()</code>
