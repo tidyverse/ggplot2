@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `stat_smooth()` user `REML` by default, if `method = "gam"` and
+  `gam`'s method is not specified (@ikosmidis, #2630).
+
 * Changed `theme_grey()` setting for legend key so that it creates no 
   border (`NA`) rather than drawing a white one. (@annennenne, #3180)
 
