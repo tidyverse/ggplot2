@@ -337,7 +337,6 @@ stairstep <- function(data, direction="hv") {
     data_attr <- data[xs, setdiff(names(data), c("x", "y"))]
   }
 
-  data_frame(x, y, data_attr)
-
+  new_data_frame(c(list(x=x, y=y), data_attr))
 
 }
