@@ -74,9 +74,12 @@ contour_lines <- function(data, breaks, complete = FALSE) {
       call. = FALSE)
   }
 
-  cl <- grDevices::contourLines(
-    x = sort(unique(data$x)), y = sort(unique(data$y)), z = z,
-    levels = breaks)
+  cl <- isoband::isolines(
+    x = sort(unique(data$x)),
+    y = sort(unique(data$y)),
+    z = t(z),
+    levels = breaks
+  )
 
   if (length(cl) == 0) {
     warning("Not possible to generate contour data", call. = FALSE)
@@ -85,21 +88,25 @@ contour_lines <- function(data, breaks, complete = FALSE) {
 
   # Convert list of lists into single data frame
   lengths <- vapply(cl, function(x) length(x$x), integer(1))
-  levels <- vapply(cl, "[[", "level", FUN.VALUE = double(1))
+  levels <- as.numeric(names(cl))
   xs <- unlist(lapply(cl, "[[", "x"), use.names = FALSE)
   ys <- unlist(lapply(cl, "[[", "y"), use.names = FALSE)
+  ids <- unlist(lapply(cl, "[[", "id"), use.names = FALSE)
   pieces <- rep(seq_along(cl), lengths)
   # Add leading zeros so that groups can be properly sorted later
-  groups <- paste(data$group[1], sprintf("%03d", pieces), sep = "-")
+  groups <- paste(data$group[1], sprintf("%03d", pieces), sprintf("%03d", ids), sep = "-")
 
-  new_data_frame(list(
-    level = rep(levels, lengths),
-    nlevel = rep(levels, lengths) / max(rep(levels, lengths), na.rm = TRUE),
-    x = xs,
-    y = ys,
-    piece = pieces,
-    group = factor(groups)
-  ), n = length(xs))
+  new_data_frame(
+    list(
+      level = rep(levels, lengths),
+      nlevel = rep(levels, lengths) / max(rep(levels, lengths), na.rm = TRUE),
+      x = xs,
+      y = ys,
+      piece = pieces,
+      group = factor(groups)
+    ),
+    n = length(xs)
+  )
 }
 
 # 1 = clockwise, -1 = counterclockwise, 0 = 0 area
