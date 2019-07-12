@@ -2,15 +2,27 @@
 % Please edit documentation in R/geom-contour.r, R/stat-contour.r
 \name{geom_contour}
 \alias{geom_contour}
+\alias{geom_contour_filled}
 \alias{stat_contour}
+\alias{stat_contour_filled}
 \title{2d contours of a 3d surface}
 \usage{
 geom_contour(mapping = NULL, data = NULL, stat = "contour",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 10, na.rm = FALSE, show.legend = NA,
+  linemitre = 10, bins = NULL, binwidth = NULL, breaks = NULL,
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+
+geom_contour_filled(mapping = NULL, data = NULL, stat = "contour",
+  position = "identity", ..., bins = NULL, binwidth = NULL,
+  breaks = NULL, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 
 stat_contour(mapping = NULL, data = NULL, geom = "contour",
+  position = "identity", ..., bins = NULL, binwidth = NULL,
+  breaks = NULL, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+
+stat_contour_filled(mapping = NULL, data = NULL, geom = "polygon",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 }
@@ -51,6 +63,11 @@ to the paired geom/stat.}
 \item{linejoin}{Line join style (round, mitre, bevel).}
 
 \item{linemitre}{Line mitre limit (number greater than 1).}
+
+\item{bins, binwidth}{Calculate \code{breaks} using evenly-spaced values. Use \code{NULL}
+to use the default \code{\link[=pretty]{pretty()}} breaks.}
+
+\item{breaks}{A vector of breaks (overrides \code{bins} and \code{bindwidth}).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
