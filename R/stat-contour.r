@@ -52,61 +52,79 @@ StatContour <- ggproto("StatContour", Stat,
       breaks <- fullseq(range(data$z), binwidth)
     }
 
-    contour_lines(data, breaks)
-  }
+    if (complete) {
+      isobands <- xyz_to_isobands(data, breaks)
+      path_df <- iso_to_path(isobands, data$group[1])
 
+      # level here should be a factor
+      path_df$level <- factor(path_df$level, levels = names(isobands))
+
+    } else {
+      isolines <- xyz_to_isolines(data, breaks)
+      path_df <- iso_to_path(isolines, data$group[1])
+
+      # level is expected to be numeric in this case
+      path_df$level <- as.numeric(path_df$level)
+
+    }
+
+    path_df$nlevel <- rescale(
+      as.numeric(path_df$level),
+      to = c(0, 1)
+    )
+
+    path_df
+  }
 )
 
-
-# v3d <- reshape2::melt(volcano)
-# names(v3d) <- c("x", "y", "z")
-#
-# breaks <- seq(95, 195, length.out = 10)
-# contours <- contourLines(v3d, breaks)
-# ggplot(contours, aes(x, y)) +
-#   geom_path() +
-#   facet_wrap(~piece)
-contour_lines <- function(data, breaks) {
-  isolines <- xyz_to_isoline(data, breaks)
-  isoline_to_path(isolines, data$group[1])
-}
-
-xyz_to_isoline <- function(data, breaks) {
+z_matrix <- function(data) {
   z <- tapply(data$z, data[c("y", "x")], identity)
 
   if (is.list(z)) {
-    stop("Contour requires single `z` at each combination of `x` and `y`.",
-         call. = FALSE)
+    stop(
+      "Contour requires single `z` at each combination of `x` and `y`.",
+      call. = FALSE
+    )
   }
 
+  z
+}
+
+xyz_to_isolines <- function(data, breaks) {
   isoband::isolines(
     x = sort(unique(data$x)),
     y = sort(unique(data$y)),
-    z = z,
+    z = z_matrix(data),
     levels = breaks
   )
 }
 
-isoline_to_path <- function(isolines, group = 1) {
-  if (length(isolines) == 0) {
-    warning("Not possible to generate contour data", call. = FALSE)
-    return(new_data_frame())
-  }
+xyz_to_isobands <- function(data, breaks) {
+  isoband::isobands(
+    x = sort(unique(data$x)),
+    y = sort(unique(data$y)),
+    z = z_matrix(data),
+    levels_low = c(-Inf, breaks),
+    levels_high = c(breaks, Inf)
+  )
+}
+
+iso_to_path <- function(isolines, group = 1) {
 
   # Convert list of lists into single data frame
   lengths <- vapply(isolines, function(x) length(x$x), integer(1))
-  levels <- as.numeric(names(isolines))
+  levels <- names(isolines)
   xs <- unlist(lapply(isolines, "[[", "x"), use.names = FALSE)
   ys <- unlist(lapply(isolines, "[[", "y"), use.names = FALSE)
   ids <- unlist(lapply(isolines, "[[", "id"), use.names = FALSE)
   pieces <- rep(seq_along(isolines), lengths)
+
   # Add leading zeros so that groups can be properly sorted later
   groups <- paste(group, sprintf("%03d", pieces), sprintf("%03d", ids), sep = "-")
 
   new_data_frame(
     list(
       level = rep(levels, lengths),
-      nlevel = rep(levels, lengths) / max(rep(levels, lengths), na.rm = TRUE),
       x = xs,
       y = ys,
       piece = pieces,
@@ -115,22 +133,3 @@ isoline_to_path <- function(isolines, group = 1) {
     n = length(xs)
   )
 }
-
-# 1 = clockwise, -1 = counterclockwise, 0 = 0 area
-# From http://stackoverflow.com/questions/1165647
-# x <- c(5, 6, 4, 1, 1)
-# y <- c(0, 4, 5, 5, 0)
-# poly_dir(x, y)
-poly_dir <- function(x, y) {
-  xdiff <- c(x[-1], x[1]) - x
-  ysum <- c(y[-1], y[1]) + y
-  sign(sum(xdiff * ysum))
-}
-
-# To fix breaks and complete the polygons, we need to add 0-4 corner points.
-#
-# contours <- ddply(contours, "piece", mutate, dir = ggplot2:::poly_dir(x, y))
-# ggplot(contours, aes(x, y)) +
-#   geom_path(aes(group = piece, colour = factor(dir)))
-# last_plot() + facet_wrap(~ level)
-
