@@ -69,11 +69,7 @@ StatContour <- ggproto("StatContour", Stat,
   default_aes = aes(order = stat(level)),
 
   compute_group = function(data, scales, bins = NULL, binwidth = NULL,
-                           breaks = NULL, complete = "DEPRECATED", na.rm = FALSE) {
-
-    if (!missing(complete)) {
-      warning("stat_contour(): `complete` is deprecated. Use `stat_filled_contour()` instead.")
-    }
+                           breaks = NULL, na.rm = FALSE) {
 
     z_range <- range(data$z, na.rm = TRUE, finite = TRUE)
     breaks <- contour_breaks(z_range, bins, binwidth, breaks)
@@ -173,13 +169,13 @@ xyz_to_isobands <- function(data, breaks) {
 
 #' Compute input matrix for isoband functions
 #'
-#' Note that grDevices::contourLines() needs transposed
+#' Note that [grDevices::contourLines()] needs transposed
 #' output to the matrix returned by this function.
 #'
 #' @param data A data frame with columns `x`, `y`, and `z`.
 #'
 #' @return A [matrix()]
-#' @export
+#' @noRd
 #'
 isoband_z_matrix <- function(data) {
   z <- tapply(data$z, data[c("y", "x")], identity)

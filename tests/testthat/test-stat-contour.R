@@ -1,44 +1,30 @@
 
-test_that("the `complete` paramter in stat_contour() throws a deprecation warning", {
-  p <- ggplot(faithfuld, aes(waiting, eruptions)) +
-    stat_contour(aes(z = density, col = stat(level)), complete = TRUE)
+context("stat-contour")
 
-  expect_warning(ggplot_build(p), "`complete` is deprecated")
+test_that("geom_contour_filled() and stat_contour_filled() result in identical layer data", {
+  p <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
+  p1 <- p + stat_contour_filled()
+  p2 <- p + geom_contour_filled()
+  expect_identical(layer_data(p1), layer_data(p2))
 })
 
+test_that("geom_contour() and stat_contour() result in identical layer data", {
+  p <- ggplot(faithfuld, aes(waiting, eruptions, z = density))
+  p1 <- p + stat_contour()
+  p2 <- p + geom_contour()
+  expect_identical(layer_data(p1), layer_data(p2))
+})
 
-isoline_to_tbl <- function(cl_iso) {
-  new_data_frame(
-    list(
-      level = as.numeric(names(cl_iso)),
-      contours = cl_iso
-    ),
-    n = length(cl_iso)
-  )
-}
+test_that("basic stat_contour() plot builds", {
+  p <- ggplot(faithfuld, aes(waiting, eruptions)) +
+    geom_contour(aes(z = density, col = factor(stat(level))))
 
-tbl_to_isoline <- function(tbl) {
-  cl_iso <- tbl$contours
-  names(cl_iso) <- as.character(tbl$level)
-  class(cl_iso) <- c("isolines", "iso")
-  cl_iso
-}
+  expect_doppelganger("basic stat_contour() plot", p)
+})
 
-xyz <- data_frame(x = faithfuld$waiting, y = faithfuld$eruptions, z = faithfuld$density)
-breaks <- c(0, 0.01, 0.02, 0.03, 0.04)
+test_that("basic stat_contour_filled() plot builds", {
+  p <- ggplot(faithfuld, aes(waiting, eruptions)) +
+    stat_contour_filled(aes(z = density))
 
-cl_iso <- xyz_to_isoline(xyz, breaks)
-
-x <- 10*1:ncol(volcano)
-y <- 10*1:nrow(volcano)
-
-breaks <- c(100, 110, 120, 130, 140, 150, 160, 170, 180, 190)
-
-cl_iso <- isoband::isolines(x, y, volcano, levels = breaks)
-
-tbl_to_isoline(isoline_to_tbl(cl_iso))
-
-
-
-
-
+  expect_doppelganger("basic stat_contour_filled() plot", p)
+})

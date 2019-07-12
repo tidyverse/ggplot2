@@ -28,6 +28,9 @@
 #'   geom_density_2d()
 #'
 #' \donttest{
+#' # use geom_contour_filled() for filled contours
+#' v + geom_contour_filled()
+#'
 #' # Setting bins creates evenly spaced contours in the range of the data
 #' v + geom_contour(bins = 2)
 #' v + geom_contour(bins = 10)
@@ -79,7 +82,7 @@ geom_contour <- function(mapping = NULL, data = NULL,
 #' @rdname geom_contour
 #' @export
 geom_contour_filled <- function(mapping = NULL, data = NULL,
-                                stat = "contour", position = "identity",
+                                stat = "contour_filled", position = "identity",
                                 ...,
                                 bins = NULL,
                                 binwidth = NULL,

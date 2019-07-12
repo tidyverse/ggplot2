@@ -12,9 +12,9 @@ geom_contour(mapping = NULL, data = NULL, stat = "contour",
   linemitre = 10, bins = NULL, binwidth = NULL, breaks = NULL,
   na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
-geom_contour_filled(mapping = NULL, data = NULL, stat = "contour",
-  position = "identity", ..., bins = NULL, binwidth = NULL,
-  breaks = NULL, na.rm = FALSE, show.legend = NA,
+geom_contour_filled(mapping = NULL, data = NULL,
+  stat = "contour_filled", position = "identity", ..., bins = NULL,
+  binwidth = NULL, breaks = NULL, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 
 stat_contour(mapping = NULL, data = NULL, geom = "contour",
@@ -140,6 +140,9 @@ ggplot(faithful, aes(waiting, eruptions)) +
   geom_density_2d()
 
 \donttest{
+# use geom_contour_filled() for filled contours
+v + geom_contour_filled()
+
 # Setting bins creates evenly spaced contours in the range of the data
 v + geom_contour(bins = 2)
 v + geom_contour(bins = 10)
