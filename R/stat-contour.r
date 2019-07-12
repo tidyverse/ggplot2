@@ -52,7 +52,7 @@ StatContour <- ggproto("StatContour", Stat,
       breaks <- fullseq(range(data$z), binwidth)
     }
 
-    contour_lines(data, breaks, complete = complete)
+    contour_lines(data, breaks)
   }
 
 )
@@ -66,35 +66,42 @@ StatContour <- ggproto("StatContour", Stat,
 # ggplot(contours, aes(x, y)) +
 #   geom_path() +
 #   facet_wrap(~piece)
-contour_lines <- function(data, breaks, complete = FALSE) {
-  z <- tapply(data$z, data[c("x", "y")], identity)
+contour_lines <- function(data, breaks) {
+  isolines <- xyz_to_isoline(data, breaks)
+  isoline_to_path(isolines, data$group[1])
+}
+
+xyz_to_isoline <- function(data, breaks) {
+  z <- tapply(data$z, data[c("y", "x")], identity)
 
   if (is.list(z)) {
     stop("Contour requires single `z` at each combination of `x` and `y`.",
-      call. = FALSE)
+         call. = FALSE)
   }
 
-  cl <- isoband::isolines(
+  isoband::isolines(
     x = sort(unique(data$x)),
     y = sort(unique(data$y)),
-    z = t(z),
+    z = z,
     levels = breaks
   )
+}
 
-  if (length(cl) == 0) {
+isoline_to_path <- function(isolines, group = 1) {
+  if (length(isolines) == 0) {
     warning("Not possible to generate contour data", call. = FALSE)
     return(new_data_frame())
   }
 
   # Convert list of lists into single data frame
-  lengths <- vapply(cl, function(x) length(x$x), integer(1))
-  levels <- as.numeric(names(cl))
-  xs <- unlist(lapply(cl, "[[", "x"), use.names = FALSE)
-  ys <- unlist(lapply(cl, "[[", "y"), use.names = FALSE)
-  ids <- unlist(lapply(cl, "[[", "id"), use.names = FALSE)
-  pieces <- rep(seq_along(cl), lengths)
+  lengths <- vapply(isolines, function(x) length(x$x), integer(1))
+  levels <- as.numeric(names(isolines))
+  xs <- unlist(lapply(isolines, "[[", "x"), use.names = FALSE)
+  ys <- unlist(lapply(isolines, "[[", "y"), use.names = FALSE)
+  ids <- unlist(lapply(isolines, "[[", "id"), use.names = FALSE)
+  pieces <- rep(seq_along(isolines), lengths)
   # Add leading zeros so that groups can be properly sorted later
-  groups <- paste(data$group[1], sprintf("%03d", pieces), sprintf("%03d", ids), sep = "-")
+  groups <- paste(group, sprintf("%03d", pieces), sprintf("%03d", ids), sep = "-")
 
   new_data_frame(
     list(
