@@ -1,7 +1,7 @@
 # ggplot2 (development version)
 
-* `stat_contour_filled()`/`geom_contour_filled()`, which compute 
-  and draw filled contours of gridded data were added (@paleolimbot, #3044).
+* Added `stat_contour_filled()` and `geom_contour_filled()`, which compute 
+  and draw filled contours of gridded data (@paleolimbot, #3044).
 
 * `geom_contour()` and `stat_contour()` now use the isoband package
   to compute contour lines. The `complete` parameter (which was undocumented
