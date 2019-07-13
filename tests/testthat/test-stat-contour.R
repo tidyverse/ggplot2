@@ -19,6 +19,9 @@ test_that("basic stat_contour() plot builds", {
   p <- ggplot(faithfuld, aes(waiting, eruptions)) +
     geom_contour(aes(z = density, col = factor(stat(level))))
 
+  expect_silent(ggplot_build(p))
+
+  skip("stat_contour() visual tests are unstable")
   expect_doppelganger("basic stat_contour() plot", p)
 })
 
@@ -26,5 +29,8 @@ test_that("basic stat_contour_filled() plot builds", {
   p <- ggplot(faithfuld, aes(waiting, eruptions)) +
     stat_contour_filled(aes(z = density))
 
+  expect_silent(ggplot_build(p))
+
+  skip("stat_contour() visual tests are unstable")
   expect_doppelganger("basic stat_contour_filled() plot", p)
 })
