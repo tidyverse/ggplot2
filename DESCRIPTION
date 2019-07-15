@@ -39,6 +39,7 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
+    isoband,
     knitr,
     lattice,
     mapproj,
@@ -55,8 +56,7 @@ Suggests:
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
     testthat (>= 2.1.0),
-    vdiffr (>= 0.3.0),
-    isoband
+    vdiffr (>= 0.3.0)
 Enhances: sp
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
