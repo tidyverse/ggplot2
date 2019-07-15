@@ -1,16 +1,16 @@
 
 context("stat-contour")
 
-test_that("isoband_z_matrix() errors when there is more than one z per x+y", {
+test_that("a warning is issued when there is more than one z per x+y", {
   tbl <- data_frame(x = c(1, 1, 2), y = c(1, 1, 2), z = 3)
-  expect_error(isoband_z_matrix(tbl), "Contour requires single")
-})
-
-test_that("a warning is issued when zero contours were generated", {
-  # this occurs with sparse data
-  tbl <- data_frame(x = c(1, 27, 32), y = c(1, 1, 30), z = c(1, 2, 3))
   p <- ggplot(tbl, aes(x, y, z = z)) + geom_contour()
   expect_warning(ggplot_build(p), "Zero contours were generated")
+})
+
+test_that("contouring sparse data results in a warning", {
+  tbl <- data_frame(x = c(1, 27, 32), y = c(1, 1, 30), z = c(1, 2, 3))
+  p <- ggplot(tbl, aes(x, y, z = z)) + geom_contour()
+  expect_warning(ggplot_build(p), "Number of x coordinates must match")
 })
 
 test_that("contour breaks can be set manually and by bins and binwidth", {

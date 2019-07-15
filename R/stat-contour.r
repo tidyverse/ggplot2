@@ -178,16 +178,17 @@ xyz_to_isobands <- function(data, breaks) {
 #' @noRd
 #'
 isoband_z_matrix <- function(data) {
-  z <- tapply(data$z, data[c("y", "x")], identity)
+  # Convert vector of data to raster
+  x_pos <- as.integer((data$x - min(data$x)) / resolution(data$x, FALSE))
+  y_pos <- as.integer((max(data$y) - data$y) / resolution(data$y, FALSE))
 
-  if (is.list(z)) {
-    stop(
-      "Contour requires single `z` at each combination of `x` and `y`.",
-      call. = FALSE
-    )
-  }
+  nrow <- max(y_pos) + 1
+  ncol <- max(x_pos) + 1
 
-  z
+  raster <- matrix(NA_real_, nrow = nrow, ncol = ncol)
+  raster[cbind(nrow - y_pos, x_pos + 1)] <- data$z
+
+  raster
 }
 
 #' Convert the output of isoband functions
