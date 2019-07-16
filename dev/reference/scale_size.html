@@ -230,11 +230,11 @@ as output</p></li>
 <li><p>A numeric vector of length two providing limits of the scale.
 Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 <li><p>A function that accepts the existing (automatic) limits and returns
-new limits</p></li>
-</ul>
-
-<p>Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
-If the purpose is to zoom, use the limit argument in the coordinate system (see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></td>
+new limits
+Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
+</ul></td>
     </tr>
     <tr>
       <th>range</th>
@@ -298,14 +298,20 @@ as output</p></li>
 <li><p>A numeric vector of length two providing limits of the scale.
 Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
 <li><p>A function that accepts the existing (automatic) limits and returns
-new limits</p></li>
-</ul>
-
+new limits
 Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
-If the purpose is to zoom, use the limit argument in the coordinate system (see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></dd>
-  <dt>oob</dt><dd><p>Function that handles limits outside of the scale limits
-(out of bounds). The default (<code><a href='https://www.rdocumentation.org/packages/scales/topics/censor'>scales::censor()</a></code>) replaces out of
-bounds values with <code>NA</code>.</p></dd>
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
+</ul></p></dd>
+  <dt>oob</dt><dd><p>One of:
+<ul>
+<li><p>Function that handles limits outside of the scale limits
+(out of bounds).</p></li>
+<li><p>The default (<code><a href='https://www.rdocumentation.org/packages/scales/topics/censor'>scales::censor()</a></code>) replaces out of
+bounds values with <code>NA</code>.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/scales/topics/squish'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
+<li><p><code><a href='https://www.rdocumentation.org/packages/scales/topics/squish_infinite'>scales::squish_infinite()</a></code> for squishing infitite values into range.</p></li>
+</ul></p></dd>
   <dt>na.value</dt><dd><p>Missing values will be replaced with this value.</p></dd>
   <dt>trans</dt><dd><p>For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
