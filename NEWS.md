@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+* Added `stat_contour_filled()` and `geom_contour_filled()`, which compute 
+  and draw filled contours of gridded data (@paleolimbot, #3044).
+
+* `geom_contour()` and `stat_contour()` now use the isoband package
+  to compute contour lines. The `complete` parameter (which was undocumented
+  and has been unused for at least four years) was removed (@paleolimbot, #3044).
+
 * `stat_smooth()` user `REML` by default, if `method = "gam"` and
   `gam`'s method is not specified (@ikosmidis, #2630).
 
