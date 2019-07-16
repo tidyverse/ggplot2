@@ -12,6 +12,9 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
+#' @param bins,binwidth Calculate `breaks` using evenly-spaced values. Use `NULL`
+#'   to use the default [pretty()] breaks.
+#' @param breaks A vector of breaks (overrides `bins` and `bindwidth`).
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
 #' @export
@@ -25,6 +28,9 @@
 #'   geom_density_2d()
 #'
 #' \donttest{
+#' # use geom_contour_filled() for filled contours
+#' v + geom_contour_filled()
+#'
 #' # Setting bins creates evenly spaced contours in the range of the data
 #' v + geom_contour(bins = 2)
 #' v + geom_contour(bins = 10)
@@ -46,6 +52,9 @@ geom_contour <- function(mapping = NULL, data = NULL,
                          lineend = "butt",
                          linejoin = "round",
                          linemitre = 10,
+                         bins = NULL,
+                         binwidth = NULL,
+                         breaks = NULL,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {
@@ -61,6 +70,38 @@ geom_contour <- function(mapping = NULL, data = NULL,
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
+      bins = bins,
+      binwidth = binwidth,
+      breaks = breaks,
+      na.rm = na.rm,
+      ...
+    )
+  )
+}
+
+#' @rdname geom_contour
+#' @export
+geom_contour_filled <- function(mapping = NULL, data = NULL,
+                                stat = "contour_filled", position = "identity",
+                                ...,
+                                bins = NULL,
+                                binwidth = NULL,
+                                breaks = NULL,
+                                na.rm = FALSE,
+                                show.legend = NA,
+                                inherit.aes = TRUE) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomPolygon,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      bins = bins,
+      binwidth = binwidth,
+      breaks = breaks,
       na.rm = na.rm,
       ...
     )
@@ -73,6 +114,11 @@ geom_contour <- function(mapping = NULL, data = NULL,
 #' @export
 #' @include geom-path.r
 GeomContour <- ggproto("GeomContour", GeomPath,
-  default_aes = aes(weight = 1, colour = "#3366FF", size = 0.5, linetype = 1,
-    alpha = NA)
+  default_aes = aes(
+    weight = 1,
+    colour = "#3366FF",
+    size = 0.5,
+    linetype = 1,
+    alpha = NA
+  )
 )

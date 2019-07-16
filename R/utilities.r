@@ -186,7 +186,7 @@ rescale01 <- function(x) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
-  .Deprecate()
+  .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
 

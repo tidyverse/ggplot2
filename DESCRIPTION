@@ -39,6 +39,7 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
+    isoband,
     knitr,
     lattice,
     mapproj,

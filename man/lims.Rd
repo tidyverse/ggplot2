@@ -86,5 +86,5 @@ p + coord_cartesian(xlim =c(Sys.Date() - 30, NA), ylim = c(10, 20))
 For changing x or y axis limits \strong{without} dropping data
 observations, see \code{\link[=coord_cartesian]{coord_cartesian()}}. To expand the range of
 a plot to always include certain values, see \code{\link[=expand_limits]{expand_limits()}}. For other
-types of data, see \code{\link[=scale_x_discrete(), scale_x_continuous(), scale_x_date]{scale_x_discrete(), scale_x_continuous(), scale_x_date()}}.
+types of data, see \code{\link[=scale_x_discrete]{scale_x_discrete()}}, \code{\link[=scale_x_continuous]{scale_x_continuous()}}, \code{\link[=scale_x_date]{scale_x_date()}}.
 }
