@@ -8,9 +8,10 @@
 \title{2d contours of a 3d surface}
 \usage{
 geom_contour(mapping = NULL, data = NULL, stat = "contour",
-  position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 10, bins = NULL, binwidth = NULL, breaks = NULL,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., bins = NULL, binwidth = NULL,
+  breaks = NULL, lineend = "butt", linejoin = "round",
+  linemitre = 10, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 geom_contour_filled(mapping = NULL, data = NULL,
   stat = "contour_filled", position = "identity", ..., bins = NULL,
@@ -23,7 +24,8 @@ stat_contour(mapping = NULL, data = NULL, geom = "contour",
   inherit.aes = TRUE)
 
 stat_contour_filled(mapping = NULL, data = NULL, geom = "polygon",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
+  position = "identity", ..., bins = NULL, binwidth = NULL,
+  breaks = NULL, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 }
 \arguments{
@@ -64,18 +66,13 @@ to the paired geom/stat.}
 
 \item{breaks}{Numeric vector to set the contour breaks.
 Overrides \code{binwidth} and \code{bins}. By default, this is a vector of
-length ten with equidistant breaks.}
+length ten with \code{\link[=pretty]{pretty()}} breaks.}
 
 \item{lineend}{Line end style (round, butt, square).}
 
 \item{linejoin}{Line join style (round, mitre, bevel).}
 
 \item{linemitre}{Line mitre limit (number greater than 1).}
-
-\item{bins, binwidth}{Calculate \code{breaks} using evenly-spaced values. Use \code{NULL}
-to use the default \code{\link[=pretty]{pretty()}} breaks.}
-
-\item{breaks}{A vector of breaks (overrides \code{bins} and \code{bindwidth}).}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
@@ -92,6 +89,8 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom}{The geometric object to use display the data}
+
+\item{breaks}{A vector of breaks (overrides \code{bins} and \code{bindwidth}).}
 }
 \description{
 ggplot2 can not draw true 3d surfaces, but you can use \code{geom_contour}

@@ -12,8 +12,11 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
-#' @param bins,binwidth Calculate `breaks` using evenly-spaced values. Use `NULL`
-#'   to use the default [pretty()] breaks.
+#' @param bins Number of contour bins. Overridden by `binwidth`.
+#' @param binwidth The width of the contour bins. Overridden by `breaks`.
+#' @param breaks Numeric vector to set the contour breaks.
+#'   Overrides `binwidth` and `bins`. By default, this is a vector of
+#'   length ten with [pretty()] breaks.
 #' @param breaks A vector of breaks (overrides `bins` and `bindwidth`).
 #' @seealso [geom_density_2d()]: 2d density contours
 #' @export
@@ -55,9 +58,6 @@ geom_contour <- function(mapping = NULL, data = NULL,
                          lineend = "butt",
                          linejoin = "round",
                          linemitre = 10,
-                         bins = NULL,
-                         binwidth = NULL,
-                         breaks = NULL,
                          na.rm = FALSE,
                          show.legend = NA,
                          inherit.aes = TRUE) {
@@ -76,9 +76,6 @@ geom_contour <- function(mapping = NULL, data = NULL,
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
-      bins = bins,
-      binwidth = binwidth,
-      breaks = breaks,
       na.rm = na.rm,
       ...
     )
