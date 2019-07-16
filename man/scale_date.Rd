@@ -107,7 +107,7 @@ expand the scale by 5\% on each side for continuous variables, and by
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 
-\item{sec.axis}{specify a secondary axis}
+\item{sec.axis}{\code{\link[=sec_axis]{sec_axis()}} is used to specify a secondary axis.}
 
 \item{timezone}{The timezone to use for display on the axes. The default
 (\code{NULL}) uses the timezone encoded in the data.}

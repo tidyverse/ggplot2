@@ -72,7 +72,6 @@ NULL
 #'
 #' @param sec.axis [sec_axis()] is used to specify a secondary axis.
 #'
-#' @seealso
 #' @export
 scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),
