@@ -64,7 +64,7 @@ stat_density <- function(mapping = NULL, data = NULL,
 #' @export
 StatDensity <- ggproto("StatDensity", Stat,
   required_aes = "x",
-  default_aes = aes(y = stat(density), fill = NA),
+  default_aes = aes(y = stat(density), fill = NA, weight = NULL),
 
   compute_group = function(data, scales, bw = "nrd0", adjust = 1, kernel = "gaussian",
                            n = 512, trim = FALSE, na.rm = FALSE) {
@@ -85,6 +85,8 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
   nx <- length(x)
   if (is.null(w)) {
     w <- rep(1 / nx, nx)
+  } else {
+    w <- w / sum(w)
   }
 
   # if less than 2 points return data frame of NAs and a warning

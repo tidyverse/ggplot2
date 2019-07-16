@@ -1,5 +1,27 @@
 # ggplot2 (development version)
 
+* Allowed reversing of discrete scales by re-writing `get_limits()` (@AnneLyng, #3115)
+
+* Added `stat_contour_filled()` and `geom_contour_filled()`, which compute 
+  and draw filled contours of gridded data (@paleolimbot, #3044).
+
+* `geom_contour()` and `stat_contour()` now use the isoband package
+  to compute contour lines. The `complete` parameter (which was undocumented
+  and has been unused for at least four years) was removed (@paleolimbot, #3044).
+
+* `stat_smooth()` user `REML` by default, if `method = "gam"` and
+  `gam`'s method is not specified (@ikosmidis, #2630).
+
+* Changed `theme_grey()` setting for legend key so that it creates no 
+  border (`NA`) rather than drawing a white one. (@annennenne, #3180)
+
+* Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
+
+* `ggdep()` was deprecated (@perezp44, #3382).
+
+* Added weight aesthetic option to `stat_density()` and made scaling of 
+  weights the default (@annennenne, #2902)
+
 * `expand_scale()` was deprecated in favour of `expansion()` for setting
   the `expand` argument of `x` and `y` scales (@paleolimbot).
 
@@ -27,6 +49,8 @@
   more informative warnings when supplied with set aesthetics
   (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
   and mapped aesthetics (i.e., `data` and/or `mapping`).
+  
+* `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
 
 # ggplot2 3.2.0
 

@@ -23,11 +23,15 @@
 #'   \item{Sequential}{Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
 #'      OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
 #' }
+#' Modify the palette through the `palette` arguement.
 #'
 #' @inheritParams scales::brewer_pal
 #' @inheritParams scale_colour_hue
 #' @inheritParams scale_colour_gradient
 #' @inheritParams scales::gradient_n_pal
+#' @param palette If a string, will use that named palette. If a number, will index into
+#'   the list of palettes of appropriate `type`. The list of available palettes can found
+#'   in the Palettes section.
 #' @param ... Other arguments passed on to [discrete_scale()] or, for
 #'   `distiller` scales, [continuous_scale()] to control name,
 #'   limits, breaks, labels and so forth.

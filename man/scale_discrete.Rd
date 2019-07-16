@@ -74,6 +74,11 @@ expand the scale by 5\% on each side for continuous variables, and by
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 }
 \description{
+\code{scale_x_discrete} and \code{scale_y_discrete} are used to set the values for
+discrete x and y scale aesthetics. For simple manipulation of scale labels
+and limits, you may wish to use \code{\link[=labs]{labs()}} and \code{\link[=lims]{lims()}} instead.
+}
+\details{
 You can use continuous positions even with a discrete position scale -
 this allows you (e.g.) to place labels between bars in a bar chart.
 Continuous positions are numeric values starting at one for the first

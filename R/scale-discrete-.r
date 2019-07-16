@@ -1,5 +1,9 @@
 #' Position scales for discrete data
 #'
+#' `scale_x_discrete` and `scale_y_discrete` are used to set the values for
+#' discrete x and y scale aesthetics. For simple manipulation of scale labels
+#' and limits, you may wish to use [labs()] and [lims()] instead.
+#'
 #' You can use continuous positions even with a discrete position scale -
 #' this allows you (e.g.) to place labels between bars in a bar chart.
 #' Continuous positions are numeric values starting at one for the first
@@ -79,9 +83,17 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   get_limits = function(self) {
-    if (self$is_empty()) return(c(0, 1))
-
-    self$limits %||% self$range$range %||% integer()
+      if (self$is_empty()) {
+          c(0, 1)
+      } else if (!is.null(self$limits) & !is.function(self$limits)){
+          self$limits
+      } else if (is.null(self$limits)) {
+          self$range$range
+      } else if (is.function(self$limits)) {
+          self$limits(self$range$range)
+      } else {
+          integer(0)
+      }
   },
 
   is_empty = function(self) {
