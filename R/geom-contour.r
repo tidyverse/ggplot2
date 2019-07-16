@@ -17,9 +17,7 @@
 #' @param breaks Numeric vector to set the contour breaks.
 #'   Overrides `binwidth` and `bins`. By default, this is a vector of
 #'   length ten with [pretty()] breaks.
-#' @param breaks A vector of breaks (overrides `bins` and `bindwidth`).
 #' @seealso [geom_density_2d()]: 2d density contours
-#' @export
 #' @export
 #' @examples
 #' #' # Basic plot

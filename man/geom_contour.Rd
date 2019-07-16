@@ -89,8 +89,6 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{geom}{The geometric object to use display the data}
-
-\item{breaks}{A vector of breaks (overrides \code{bins} and \code{bindwidth}).}
 }
 \description{
 ggplot2 can not draw true 3d surfaces, but you can use \code{geom_contour}
