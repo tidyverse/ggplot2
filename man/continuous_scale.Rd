@@ -61,10 +61,10 @@ as output
 Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
 new limits
-}
-
 Note that setting limits on positional scales will \strong{remove} data outside of the limits.
-If the purpose is to zoom, use the limit argument in the coordinate system (see \code{\link[=coord_cartesian]{coord_cartesian()}}).}
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see \code{\link[=coord_cartesian]{coord_cartesian()}}).
+}}
 
 \item{rescaler}{A function used to scale the input values to the
 range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
@@ -72,9 +72,15 @@ diverging and n colour gradients (i.e., \code{\link[=scale_colour_gradient2]{sca
 \code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
 scales, which ways use \code{\link[scales:rescale]{scales::rescale()}}.}
 
-\item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
-bounds values with \code{NA}.}
+\item{oob}{One of:
+\itemize{
+\item Function that handles limits outside of the scale limits
+(out of bounds).
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+bounds values with \code{NA}.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
+}}
 
 \item{expand}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
