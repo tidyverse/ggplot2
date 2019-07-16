@@ -114,9 +114,15 @@ Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
 new limits
 }}
-  \item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
-bounds values with \code{NA}.}
+  \item{oob}{One of:
+\itemize{
+\item Function that handles limits outside of the scale limits
+(out of bounds).
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+bounds values with \code{NA}.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
+}}
   \item{na.value}{Missing values will be replaced with this value.}
   \item{trans}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",

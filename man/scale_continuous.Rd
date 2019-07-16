@@ -84,9 +84,15 @@ to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
-\item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
-bounds values with \code{NA}.}
+\item{oob}{One of:
+\itemize{
+\item Function that handles limits outside of the scale limits
+(out of bounds).
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+bounds values with \code{NA}.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
+}}
 
 \item{na.value}{Missing values will be replaced with this value.}
 
