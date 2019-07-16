@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Allowed reversing of discrete scales by re-writing `get_limits()` (@AnneLyng, #3115)
+
 * Added `stat_contour_filled()` and `geom_contour_filled()`, which compute 
   and draw filled contours of gridded data (@paleolimbot, #3044).
 
