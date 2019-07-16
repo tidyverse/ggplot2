@@ -95,6 +95,9 @@ like "2 weeks", or "10 years". If both \code{minor_breaks} and
 Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
 new limits
+Note that setting limits on positional scales will \strong{remove} data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see \code{\link[=coord_cartesian]{coord_cartesian()}}).
 }}
 
 \item{expand}{For position scales, a vector of range expansion constants used to add some
