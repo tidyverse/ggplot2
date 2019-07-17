@@ -130,7 +130,7 @@
 #'   "top", "topright", "left", "right", "bottomleft", "bottom", "bottomright)
 #'   or a coordinate. If a string, extra space will be added to accommodate the
 #'   tag.
-#' @param plot.margin margin around entire plot (`unit` with the sizes of
+#' @param plot.margin margin around entire plot (`margin` with the sizes of
 #'   the top, right, bottom, and left margins)
 #'
 #' @param strip.background,strip.background.x,strip.background.y
