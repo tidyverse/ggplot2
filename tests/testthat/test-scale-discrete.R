@@ -69,3 +69,9 @@ test_that("discrete scale shrinks to range when setting limits", {
 
   expect_equal(layer_scales(p)$x$dimension(c(0, 1)), c(0, 3))
 })
+
+test_that("discrete position scales can accept functional limits", {
+  scale <- scale_x_discrete(limits = rev)
+  scale$train(c("a", "b", "c"))
+  expect_identical(scale$get_limits(), c("c", "b", "a"))
+})

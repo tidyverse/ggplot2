@@ -35,7 +35,6 @@
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
 #'   `colour = "red"` or `size = 3`. They may also be parameters
 #'   to the paired geom/stat.
-#' @inheritParams layer
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg))

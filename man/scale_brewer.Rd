@@ -30,8 +30,9 @@ limits, breaks, labels and so forth.}
 
 \item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
 
-\item{palette}{If a string, will use that named palette.  If a number, will
-index into the list of palettes of appropriate \code{type}}
+\item{palette}{If a string, will use that named palette. If a number, will index into
+the list of palettes of appropriate \code{type}. The list of available palettes can found
+in the Palettes section.}
 
 \item{direction}{Sets the order of colours in the scale. If 1, the default,
 colours are as output by \code{\link[RColorBrewer:brewer.pal]{RColorBrewer::brewer.pal()}}. If -1, the
@@ -79,6 +80,7 @@ The following palettes are available for use with these scales:
 \item{Sequential}{Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
 OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
 }
+Modify the palette through the \code{palette} arguement.
 }
 
 \examples{

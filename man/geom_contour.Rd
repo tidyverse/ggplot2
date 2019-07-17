@@ -2,16 +2,30 @@
 % Please edit documentation in R/geom-contour.r, R/stat-contour.r
 \name{geom_contour}
 \alias{geom_contour}
+\alias{geom_contour_filled}
 \alias{stat_contour}
+\alias{stat_contour_filled}
 \title{2d contours of a 3d surface}
 \usage{
 geom_contour(mapping = NULL, data = NULL, stat = "contour",
-  position = "identity", ..., lineend = "butt", linejoin = "round",
+  position = "identity", ..., bins = NULL, binwidth = NULL,
+  breaks = NULL, lineend = "butt", linejoin = "round",
   linemitre = 10, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 
+geom_contour_filled(mapping = NULL, data = NULL,
+  stat = "contour_filled", position = "identity", ..., bins = NULL,
+  binwidth = NULL, breaks = NULL, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+
 stat_contour(mapping = NULL, data = NULL, geom = "contour",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
+  position = "identity", ..., bins = NULL, binwidth = NULL,
+  breaks = NULL, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
+
+stat_contour_filled(mapping = NULL, data = NULL, geom = "polygon",
+  position = "identity", ..., bins = NULL, binwidth = NULL,
+  breaks = NULL, na.rm = FALSE, show.legend = NA,
   inherit.aes = TRUE)
 }
 \arguments{
@@ -45,6 +59,14 @@ a call to a position adjustment function.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{bins}{Number of contour bins. Overridden by \code{binwidth}.}
+
+\item{binwidth}{The width of the contour bins. Overridden by \code{breaks}.}
+
+\item{breaks}{Numeric vector to set the contour breaks.
+Overrides \code{binwidth} and \code{bins}. By default, this is a vector of
+length ten with \code{\link[=pretty]{pretty()}} breaks.}
 
 \item{lineend}{Line end style (round, butt, square).}
 
@@ -123,6 +145,9 @@ ggplot(faithful, aes(waiting, eruptions)) +
   geom_density_2d()
 
 \donttest{
+# use geom_contour_filled() for filled contours
+v + geom_contour_filled()
+
 # Setting bins creates evenly spaced contours in the range of the data
 v + geom_contour(bins = 2)
 v + geom_contour(bins = 10)

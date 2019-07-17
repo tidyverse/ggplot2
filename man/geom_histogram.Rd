@@ -69,8 +69,8 @@ or as a function that calculates width from unscaled x. Here, "unscaled x"
 refers to the original x values in the data, before application of any
 scale transformation. When specifying a function along with a grouping
 structure, the function will be called once per group.
-The default is to use \code{bins}
-bins that cover the range of the data. You should always override
+The default is to use the number of bins in \code{bins},
+covering the range of the data. You should always override
 this value, exploring multiple widths to find the best to illustrate the
 stories in your data.
 
@@ -116,8 +116,10 @@ discrete, you probably want to use \code{\link[=stat_count]{stat_count()}}.
 
 By default, the underlying computation (\code{stat_bin()}) uses 30 bins;
 this is not a good default, but the idea is to get you experimenting with
-different bin widths. You may need to look at a few to uncover the full
-story behind your data.
+different number of bins. You can also experiment modifying the \code{binwidth} with
+\code{center} or \code{boundary} arguments. \code{binwidth} overrides \code{bins} so you should do
+one change at a time. You may need to look at a few options to uncover
+the full story behind your data.
 }
 \section{Aesthetics}{
 
