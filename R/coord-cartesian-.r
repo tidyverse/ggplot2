@@ -156,17 +156,19 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
     positions_y <- c("left", "right")
 
     list(
-      x = lapply(c(1, 2), function(i) panel_guide_label(
+      x = lapply(c(1, 2), function(i) {
+        panel_guide_label(
           panel_params$guides,
           position = positions_x[[i]],
           default_label = labels$x[[i]]
         )
-      ),
-      y = lapply(c(1, 2), function(i) panel_guide_label(
-        panel_params$guides,
-        position = positions_y[[i]],
-        default_label = labels$y[[i]])
-      )
+      }),
+      y = lapply(c(1, 2), function(i) {
+        panel_guide_label(
+          panel_params$guides,
+          position = positions_y[[i]],
+          default_label = labels$y[[i]])
+      })
     )
   },
 
