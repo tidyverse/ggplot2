@@ -186,9 +186,10 @@ to a grid before visualising.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_contour</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"contour"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>,
-  <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>,
+  <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>geom_contour_filled</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"contour_filled"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -201,7 +202,8 @@ to a grid before visualising.</p>
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>stat_contour_filled</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"polygon"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -246,6 +248,20 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.</p></td>
     </tr>
     <tr>
+      <th>bins</th>
+      <td><p>Number of contour bins. Overridden by <code>binwidth</code>.</p></td>
+    </tr>
+    <tr>
+      <th>binwidth</th>
+      <td><p>The width of the contour bins. Overridden by <code>breaks</code>.</p></td>
+    </tr>
+    <tr>
+      <th>breaks</th>
+      <td><p>Numeric vector to set the contour breaks.
+Overrides <code>binwidth</code> and <code>bins</code>. By default, this is a vector of
+length ten with <code><a href='https://www.rdocumentation.org/packages/base/topics/pretty'>pretty()</a></code> breaks.</p></td>
+    </tr>
+    <tr>
       <th>lineend</th>
       <td><p>Line end style (round, butt, square).</p></td>
     </tr>
@@ -256,15 +272,6 @@ to the paired geom/stat.</p></td>
     <tr>
       <th>linemitre</th>
       <td><p>Line mitre limit (number greater than 1).</p></td>
-    </tr>
-    <tr>
-      <th>bins, binwidth</th>
-      <td><p>Calculate <code>breaks</code> using evenly-spaced values. Use <code>NULL</code>
-to use the default <code><a href='https://www.rdocumentation.org/packages/base/topics/pretty'>pretty()</a></code> breaks.</p></td>
-    </tr>
-    <tr>
-      <th>breaks</th>
-      <td><p>A vector of breaks (overrides <code>bins</code> and <code>bindwidth</code>).</p></td>
     </tr>
     <tr>
       <th>na.rm</th>
