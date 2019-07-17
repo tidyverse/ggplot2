@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* stacking text when calculating the labels and the y axis with
+  `stat_summary()` now works (@ikosmidis, #2709)
+
 * Allowed reversing of discrete scales by re-writing `get_limits()` (@AnneLyng, #3115)
 
 * Added `stat_contour_filled()` and `geom_contour_filled()`, which compute 
