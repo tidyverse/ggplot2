@@ -28,7 +28,8 @@ This is useful if you're rotating both the plot and legend.}
 Dodging preserves the vertical position of an geom while adjusting the
 horizontal position. \code{position_dodge2} is a special case of \code{position_dodge}
 for arranging box plots, which can have variable widths. \code{position_dodge2}
-also works with bars and rectangles.
+also works with bars and rectangles. But unlike \code{position_dodge},
+\code{position_dodge2} works without a grouping variable in a layer.
 }
 \examples{
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
