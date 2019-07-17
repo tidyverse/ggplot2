@@ -217,10 +217,10 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
 panel_guide_label <- function(guides, position, default_label) {
   guides <- guides_filter_by_position(guides, position)
 
-  if (length(guides) == 0) {
+  if (length(guides) == 0 || is.null(guides[[1]]$title)) {
     default_label
   } else {
-    guides[[1]]$title %||% waiver() %|W|% default_label
+    guides[[1]]$title %|W|% default_label
   }
 }
 
