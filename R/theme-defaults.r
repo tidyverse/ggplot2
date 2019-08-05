@@ -22,7 +22,7 @@
 #'
 #' \item{`theme_linedraw`}{
 #' A theme with only black lines of various widths on white backgrounds,
-#' reminiscent of a line drawings. Serves a purpose similar to `theme_bw`.
+#' reminiscent of a line drawing. Serves a purpose similar to `theme_bw`.
 #' Note that this theme has some very thin lines (<< 1 pt) which some journals
 #' may refuse.}
 #'
