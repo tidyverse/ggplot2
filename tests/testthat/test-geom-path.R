@@ -12,30 +12,32 @@ test_that("keep_mid_true drops leading/trailing FALSE", {
 
 test_that("stairstep() does not error with too few observations", {
   df <- data_frame(x = 1, y = 1)
-  expect_silent(ggplot2:::stairstep(df))
+  expect_silent(stairstep(df))
+})
+
+test_that("stairstep() exists with error when an invalid `direction` is given", {
+  df <- data_frame(x = 1:3, y = 1:3)
+  expect_error(stairstep(df, direction="invalid"))
 })
 
 test_that("stairstep() output is correct for direction = 'vh'", {
   df <- data_frame(x = 1:3, y = 1:3)
-  stepped_expected <- structure(list(x = c(1L, 1L, 2L, 2L, 3L), y = c(1L, 2L, 2L, 3L, 3L)),
-                                class = "data.frame", row.names = c(NA, -5L))
-  stepped <- ggplot2:::stairstep(df, direction = "vh")
+  stepped_expected <- data_frame(x = c(1L, 1L, 2L, 2L, 3L), y = c(1L, 2L, 2L, 3L, 3L))
+  stepped <- stairstep(df, direction = "vh")
   expect_equal(stepped, stepped_expected)
 })
 
 test_that("stairstep() output is correct for direction = 'hv'", {
   df <- data_frame(x = 1:3, y = 1:3)
-  stepped_expected <- structure(list(x = c(1L, 2L, 2L, 3L, 3L), y = c(1L, 1L, 2L, 2L, 3L)),
-                                class = "data.frame", row.names = c(NA, -5L))
-  stepped <- ggplot2:::stairstep(df, direction = "hv")
+  stepped_expected <- data_frame(x = c(1L, 2L, 2L, 3L, 3L), y = c(1L, 1L, 2L, 2L, 3L))
+  stepped <- stairstep(df, direction = "hv")
   expect_equal(stepped, stepped_expected)
 })
 
 test_that("stairstep() output is correct for direction = 'mid'", {
   df <- data_frame(x = 1:3, y = 1:3)
-  stepped_expected <- structure(list(x = c(1, 1.5, 1.5, 2.5, 2.5, 3), y = c(1L, 1L, 2L, 2L, 3L, 3L)),
-                                class = "data.frame", row.names = c(NA, -6L))
-  stepped <- ggplot2:::stairstep(df, direction = "mid")
+  stepped_expected <- data_frame(x = c(1, 1.5, 1.5, 2.5, 2.5, 3), y = c(1L, 1L, 2L, 2L, 3L, 3L))
+  stepped <- stairstep(df, direction = "mid")
   expect_equal(stepped, stepped_expected)
 })
 

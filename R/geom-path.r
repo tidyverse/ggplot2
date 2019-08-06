@@ -324,7 +324,7 @@ stairstep <- function(data, direction = "hv") {
     xs <- rep(1:(n-1), each = 2)
     ys <- rep(1:n, each = 2)
   } else {
-    stop("Parameter `direction` is invalid. Accepted values are 'hv', 'vh', 'mid'.")
+    stop("Parameter `direction` is invalid.")
   }
 
   if (direction == "mid") {
