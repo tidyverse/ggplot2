@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.2.0
+Version: 3.2.1
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Description: A system for 'declaratively' creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
