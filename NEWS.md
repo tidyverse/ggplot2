@@ -1,3 +1,15 @@
+# ggplot2 3.2.1
+
+This is a patch release fixing a few regressions introduced in 3.2.0 as well as
+fixing some unit tests that broke due to upstream changes.
+
+* `position_stack()` no longer changes the order of the input data. Changes to 
+  the internal behaviour of `geom_ribbon()` made this reordering problematic 
+  with ribbons that spanned `y = 0` (#3471)
+* Using `qplot()` with a single positional aesthetic will no longer title the
+  non-specified scale as `"NULL"` (#3473)
+* Fixes unit tests for sf graticule labels caused by chages to sf
+
 # ggplot2 3.2.0
 
 This is a minor release with an emphasis on internal changes to make ggplot2 
