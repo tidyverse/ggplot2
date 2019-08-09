@@ -28,7 +28,7 @@ test_that("graticule lines can be removed via theme", {
   expect_doppelganger("no panel grid", plot)
 })
 
-test_that("axis labels can be set manually", {
+test_that("axis labels are correct for manual breaks", {
   skip_if_not_installed("sf")
 
   plot <- ggplot(sf::st_polygon(list(matrix(1e3*c(1, 2, 3, 1, 1, 3, 2, 1), ncol = 2)))) +
@@ -49,6 +49,13 @@ test_that("axis labels can be set manually", {
     graticule[graticule$type == "N", ]$degree_label,
     c("1000", "1500", "2000")
   )
+})
+
+test_that("axis labels can be set manually", {
+  skip_if_not_installed("sf")
+
+  plot <- ggplot(sf::st_polygon(list(matrix(1e3*c(1, 2, 3, 1, 1, 3, 2, 1), ncol = 2)))) +
+    geom_sf()
 
   # character labels
   b <- ggplot_build(
@@ -71,9 +78,14 @@ test_that("axis labels can be set manually", {
     graticule[graticule$type == "N", ]$degree_label,
     c("D", "E", "F")
   )
+})
 
-  # factors are treated like character labels
-  # and are not parsed
+test_that("factors are treated like character labels and are not parsed", {
+  skip_if_not_installed("sf")
+
+  plot <- ggplot(sf::st_polygon(list(matrix(1e3*c(1, 2, 3, 1, 1, 3, 2, 1), ncol = 2)))) +
+    geom_sf()
+
   b <- ggplot_build(
     plot +
       scale_x_continuous(
@@ -94,9 +106,14 @@ test_that("axis labels can be set manually", {
     graticule[graticule$type == "N", ]$degree_label,
     c("1 * degree * N", "1.5 * degree * N", "2 * degree * N")
   )
+})
 
+test_that("expressions can be mixed with character labels", {
+  skip_if_not_installed("sf")
 
-  # expressions mixed with character labels
+  plot <- ggplot(sf::st_polygon(list(matrix(1e3*c(1, 2, 3, 1, 1, 3, 2, 1), ncol = 2)))) +
+    geom_sf()
+
   b <- ggplot_build(
     plot +
       scale_x_continuous(
@@ -143,33 +160,32 @@ test_that("axis labels can be set manually", {
     graticule[graticule$type == "E", ]$degree_label,
     parsed
   )
+})
 
-  # autoparsing of degree labels
+test_that("degree labels are automatically parsed", {
+  skip_if_not_installed("sf")
+
   data <- sf::st_sfc(
     sf::st_polygon(list(matrix(1e1*c(1, 2, 3, 1, 1, 3, 2, 1), ncol = 2))),
     crs = 4326 # basic long-lat crs
   )
-
   plot <- ggplot(data) + geom_sf()
-
   b <- ggplot_build(
     plot +
       scale_x_continuous(breaks = c(10, 20, 30)) +
       scale_y_continuous(breaks = c(10, 15, 20))
   )
-  graticule <- b$layout$panel_params[[1]]$graticule
-  parsed <- vector("list", 3)
-  parsed[1:3] <- parse(text = c("10*degree*E", "20*degree*E", "30*degree*E"))
-  expect_identical(
-    graticule[graticule$type == "E", ]$degree_label,
-    parsed
-  )
-  parsed[1:3] <- parse(text = c("10*degree*N", "15*degree*N", "20*degree*N"))
-  expect_identical(
-    graticule[graticule$type == "N", ]$degree_label,
-    parsed
-  )
 
+  graticule <- b$layout$panel_params[[1]]$graticule
+  expect_setequal(
+    graticule[graticule$type == "N", ]$degree,
+    c(10, 15, 20)
+  )
+  expect_setequal(
+    graticule[graticule$type == "E", ]$degree,
+    c(10, 20, 30)
+  )
+  expect_true(all(vapply(graticule$degree_label, is.language, logical(1))))
 })
 
 test_that("Inf is squished to range", {
