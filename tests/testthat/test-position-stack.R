@@ -21,11 +21,11 @@ test_that("negative and positive values are handled separately", {
   p <- ggplot(df, aes(x, y, fill = factor(g))) + geom_col()
   dat <- layer_data(p)
 
-  expect_equal(dat$ymin[dat$x == 1], c(-1, 0, 1))
-  expect_equal(dat$ymax[dat$x == 1], c(0, 1, 2))
+  expect_equal(dat$ymin[dat$x == 1], c(0, -1, 1))
+  expect_equal(dat$ymax[dat$x == 1], c(1, 0, 2))
 
-  expect_equal(dat$ymin[dat$x == 2], c(-3, 0))
-  expect_equal(dat$ymax[dat$x == 2], c(0, 2))
+  expect_equal(dat$ymin[dat$x == 2], c(0, -3))
+  expect_equal(dat$ymax[dat$x == 2], c(2, 0))
 })
 
 test_that("can request reverse stacking", {
@@ -36,7 +36,7 @@ test_that("can request reverse stacking", {
   p <- ggplot(df, aes(1, y, fill = g)) +
     geom_col(position = position_stack(reverse = TRUE))
   dat <- layer_data(p)
-  expect_equal(dat$ymin, c(-2, -3, 0, 2))
+  expect_equal(dat$ymin, c(-2, 0, -3, 2))
 })
 
 test_that("data with no extent is stacked correctly", {
