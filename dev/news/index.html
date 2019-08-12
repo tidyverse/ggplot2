@@ -74,7 +74,7 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.2.0.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.2.1.9000</span>
         </div>
       </div>
     </div>
@@ -164,6 +164,18 @@
       <small>Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="ggplot2-3-2-1" class="section level1">
+<h1 class="page-header">
+<a href="#ggplot2-3-2-1" class="anchor"></a>ggplot2 3.2.1<small> 2019-08-10 </small>
+</h1>
+<p>This is a patch release fixing a few regressions introduced in 3.2.0 as well as fixing some unit tests that broke due to upstream changes.</p>
+<ul>
+<li>
+<code><a href="../reference/position_stack.html">position_stack()</a></code> no longer changes the order of the input data. Changes to the internal behaviour of <code><a href="../reference/geom_ribbon.html">geom_ribbon()</a></code> made this reordering problematic with ribbons that spanned <code>y = 0</code> (<a href='https://github.com/tidyverse/ggplot2/issues/3471'>#3471</a>)</li>
+<li>Using <code><a href="../reference/qplot.html">qplot()</a></code> with a single positional aesthetic will no longer title the non-specified scale as <code>"NULL"</code> (<a href='https://github.com/tidyverse/ggplot2/issues/3473'>#3473</a>)</li>
+<li>Fixes unit tests for sf graticule labels caused by chages to sf</li>
+</ul>
+</div>
     <div id="ggplot2-3-2-0" class="section level1">
 <h1 class="page-header">
 <a href="#ggplot2-3-2-0" class="anchor"></a>ggplot2 3.2.0<small> 2019-06-16 </small>
@@ -1016,6 +1028,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#ggplot2-3-2-1">3.2.1</a></li>
         <li><a href="#ggplot2-3-2-0">3.2.0</a></li>
         <li><a href="#ggplot2-3-1-0">3.1.0</a></li>
         <li><a href="#ggplot2-3-0-0">3.0.0</a></li>
