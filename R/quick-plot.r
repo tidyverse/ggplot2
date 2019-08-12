@@ -71,13 +71,14 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
   if (!missing(position)) warning("`position` is deprecated", call. = FALSE)
   if (!is.character(geom)) stop("`geom` must be a character vector", call. = FALSE)
 
-  exprs <- enquos(x = x, y = y, ..., .ignore_empty = "all")
+  exprs <- enquos(x = x, y = y, ...)
+  is_missing <- vapply(exprs, quo_is_missing, logical(1))
   # treat arguments as regular parameters if they are wrapped into I() or
   # if they don't have a name that is in the list of all aesthetics
   is_constant <- (!names(exprs) %in% ggplot_global$all_aesthetics) |
     vapply(exprs, quo_is_call, logical(1), name = "I")
 
-  mapping <- new_aes(exprs[!is_constant], env = parent.frame())
+  mapping <- new_aes(exprs[!is_missing & !is_constant], env = parent.frame())
 
   consts <- exprs[is_constant]
 
