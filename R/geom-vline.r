@@ -11,14 +11,14 @@ geom_vline <- function(mapping = NULL, data = NULL,
 
   # Act like an annotation
   if (!missing(xintercept)) {
-    # Warn if supplied mapping is going to be overwritten
-    if (!missing(mapping)) {
-      warning(paste0("Using both `xintercept` and `mapping` may not have the",
-                     " desired result as mapping is overwritten if",
-                     " `xintercept` is specified\n"
-              )
-      )
+    # Warn if supplied mapping and/or data is going to be overwritten
+    if (!is.null(mapping)) {
+      warn_overwritten_args("geom_vline()", "mapping", "xintercept")
     }
+    if (!is.null(data)) {
+      warn_overwritten_args("geom_vline()", "data", "xintercept")
+    }
+
     data <- new_data_frame(list(xintercept = xintercept))
     mapping <- aes(xintercept = xintercept)
     show.legend <- FALSE

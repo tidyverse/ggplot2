@@ -3,16 +3,20 @@ context("coord_sf")
 test_that("basic plot builds without error", {
   skip_if_not_installed("sf")
 
-  nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
-  plot <- ggplot(nc) +
-    geom_sf() +
-    coord_sf()
+  nc_tiny_coords <- matrix(
+    c(-81.473, -81.741, -81.67, -81.345, -81.266, -81.24, -81.473,
+      36.234, 36.392, 36.59, 36.573, 36.437, 36.365, 36.234),
+    ncol = 2
+  )
 
-  # Perform minimal test as long as vdiffr test is disabled
-  expect_error(regexp = NA, ggplot_build(plot))
+  nc <- sf::st_as_sf(
+    data_frame(
+      NAME = "ashe",
+      geometry = sf::st_sfc(sf::st_polygon(list(nc_tiny_coords)), crs = 4326)
+    )
+  )
 
-  skip("sf tests are currently unstable")
-  expect_doppelganger("sf-polygons", plot)
+  expect_doppelganger("sf-polygons", ggplot(nc) + geom_sf() + coord_sf())
 })
 
 test_that("graticule lines can be removed via theme", {

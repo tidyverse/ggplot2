@@ -3,7 +3,8 @@
 #' Dodging preserves the vertical position of an geom while adjusting the
 #' horizontal position. `position_dodge2` is a special case of `position_dodge`
 #' for arranging box plots, which can have variable widths. `position_dodge2`
-#' also works with bars and rectangles.
+#' also works with bars and rectangles. But unlike `position_dodge`,
+#' `position_dodge2` works without a grouping variable in a layer.
 #'
 #' @inheritParams position_identity
 #' @param width Dodging width, when different to the width of the individual

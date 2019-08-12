@@ -111,16 +111,12 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       scale <- get(paste0("scale_", n))
       limits <- self$limits[[n]]
 
-      if (is.null(limits)) {
-        if (self$theta == n) {
-          expand <- expand_default(scale, c(0, 0.5), c(0, 0))
-        } else {
-          expand <- expand_default(scale, c(0, 0),   c(0, 0))
-        }
-        range <- scale$dimension(expand)
+      if (self$theta == n) {
+        expansion <- default_expansion(scale, c(0, 0.5), c(0, 0))
       } else {
-        range <- range(scale_transform(scale, limits))
+        expansion <- default_expansion(scale, c(0, 0),   c(0, 0))
       }
+      range <- expand_limits_scale(scale, expansion, coord_limits = limits)
 
       out <- scale$break_info(range)
       ret[[n]]$range <- out$range
@@ -128,8 +124,8 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       ret[[n]]$minor <- out$minor_source
       ret[[n]]$labels <- out$labels
       ret[[n]]$sec.range <- out$sec.range
-      ret[[n]]$sec.major <- out$sec.major_source
-      ret[[n]]$sec.minor <- out$sec.minor_source
+      ret[[n]]$sec.major <- out$sec.major_source_user
+      ret[[n]]$sec.minor <- out$sec.minor_source_user
       ret[[n]]$sec.labels <- out$sec.labels
     }
 
@@ -190,7 +186,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   render_axis_h = function(panel_params, theme) {
     list(
       top = zeroGrob(),
-      bottom = guide_axis(NA, "", "bottom", theme)
+      bottom = draw_axis(NA, "", "bottom", theme)
     )
   },
 

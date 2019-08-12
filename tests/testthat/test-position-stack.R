@@ -52,3 +52,9 @@ test_that("data with no extent is stacked correctly", {
   expect_equal(layer_data(p0)$y, c(-75, -115))
   expect_equal(layer_data(p1)$y, c(0, -75))
 })
+
+test_that("position_stack() can stack correctly when ymax is NA", {
+  df <- data_frame(x = c(1, 1), y = c(1, 1))
+  p <- ggplot(df, aes(x, y, ymax = NA_real_)) + geom_point(position = "stack")
+  expect_equal(layer_data(p)$y, c(1, 2))
+})

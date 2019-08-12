@@ -127,8 +127,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # Bounding box of the data
-    x_range <- scale_range(scale_x, self$limits$x, self$expand)
-    y_range <- scale_range(scale_y, self$limits$y, self$expand)
+    expansion_x <- default_expansion(scale_x, expand = self$expand)
+    x_range <- expand_limits_scale(scale_x, expansion_x, coord_limits = self$limits$x)
+    expansion_y <- default_expansion(scale_y, expand = self$expand)
+    y_range <- expand_limits_scale(scale_y, expansion_y, coord_limits = self$limits$y)
     bbox <- c(
       x_range[1], y_range[1],
       x_range[2], y_range[2]
@@ -243,10 +245,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
     if (length(tick_positions) > 0) {
-      top <- guide_axis(
+      top <- draw_axis(
         tick_positions,
         tick_labels,
-        position = "top",
+        axis_position = "top",
         theme = theme
       )
     } else {
@@ -279,10 +281,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
     if (length(tick_positions) > 0) {
-      bottom <- guide_axis(
+      bottom <- draw_axis(
         tick_positions,
         tick_labels,
-        position = "bottom",
+        axis_position = "bottom",
         theme = theme
       )
     } else {
@@ -321,10 +323,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
     if (length(tick_positions) > 0) {
-      right <- guide_axis(
+      right <- draw_axis(
         tick_positions,
         tick_labels,
-        position = "right",
+        axis_position = "right",
         theme = theme
       )
     } else {
@@ -357,10 +359,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     tick_labels <- c(ticks1$degree_label, ticks2$degree_label)
 
     if (length(tick_positions) > 0) {
-      left <- guide_axis(
+      left <- draw_axis(
         tick_positions,
         tick_labels,
-        position = "left",
+        axis_position = "left",
         theme = theme
       )
     } else {

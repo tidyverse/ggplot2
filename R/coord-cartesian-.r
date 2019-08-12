@@ -79,12 +79,12 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   is_free = function() TRUE,
 
   distance = function(x, y, panel_params) {
-    max_dist <- dist_euclidean(panel_params$x.range, panel_params$y.range)
+    max_dist <- dist_euclidean(panel_params$x$dimension(), panel_params$y$dimension())
     dist_euclidean(x, y) / max_dist
   },
 
   range = function(panel_params) {
-    list(x = panel_params$x.range, y = panel_params$y.range)
+    list(x = panel_params$x$dimension(), y = panel_params$y$dimension())
   },
 
   backtransform_range = function(self, panel_params) {
@@ -92,37 +92,71 @@ CoordCartesian <- ggproto("CoordCartesian", Coord,
   },
 
   transform = function(data, panel_params) {
-    rescale_x <- function(data) rescale(data, from = panel_params$x.range)
-    rescale_y <- function(data) rescale(data, from = panel_params$y.range)
-
-    data <- transform_position(data, rescale_x, rescale_y)
+    data <- transform_position(data, panel_params$x$rescale, panel_params$y$rescale)
     transform_position(data, squish_infinite, squish_infinite)
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-    train_cartesian <- function(scale, limits, name) {
-      range <- scale_range(scale, limits, self$expand)
-
-      out <- scale$break_info(range)
-      out$arrange <- scale$axis_order()
-      names(out) <- paste(name, names(out), sep = ".")
-      out
-    }
-
     c(
-      train_cartesian(scale_x, self$limits$x, "x"),
-      train_cartesian(scale_y, self$limits$y, "y")
+      view_scales_from_scale(scale_x, self$limits$x, self$expand),
+      view_scales_from_scale(scale_y, self$limits$y, self$expand)
+    )
+  },
+
+  render_bg = function(panel_params, theme) {
+    guide_grid(
+      theme,
+      panel_params$x$break_positions_minor(),
+      panel_params$x$break_positions(),
+      panel_params$y$break_positions_minor(),
+      panel_params$y$break_positions()
+    )
+  },
+
+  render_axis_h = function(panel_params, theme) {
+    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
+    arrange_scale_keys <- c("primary" = "x", "secondary" = "x.sec")[arrange]
+    arrange_scales <- panel_params[arrange_scale_keys]
+
+    list(
+      top = draw_view_scale_axis(arrange_scales[[1]], "top", theme),
+      bottom = draw_view_scale_axis(arrange_scales[[2]], "bottom", theme)
+    )
+  },
+
+  render_axis_v = function(panel_params, theme) {
+    arrange <- panel_params$y.arrange %||% c("primary", "secondary")
+    arrange_scale_keys <- c("primary" = "y", "secondary" = "y.sec")[arrange]
+    arrange_scales <- panel_params[arrange_scale_keys]
+
+    list(
+      left = draw_view_scale_axis(arrange_scales[[1]], "left", theme),
+      right = draw_view_scale_axis(arrange_scales[[2]], "right", theme)
     )
   }
 )
 
-scale_range <- function(scale, limits = NULL, expand = TRUE) {
-  expansion <- if (expand) expand_default(scale) else c(0, 0)
+view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
+  expansion <- default_expansion(scale, expand = expand)
+  limits <- scale$get_limits()
+  continuous_range <- expand_limits_scale(scale, expansion, limits, coord_limits = coord_limits)
+  aesthetic <- scale$aesthetics[1]
 
-  if (is.null(limits)) {
-    scale$dimension(expansion)
-  } else {
-    range <- range(scale$transform(limits))
-    expand_range(range, expansion[1], expansion[2])
+  view_scales <- list(
+    view_scale_primary(scale, limits, continuous_range),
+    sec = view_scale_secondary(scale, limits, continuous_range),
+    arrange = scale$axis_order(),
+    range = continuous_range
+  )
+  names(view_scales) <- c(aesthetic, paste0(aesthetic, ".", names(view_scales)[-1]))
+
+  view_scales
+}
+
+draw_view_scale_axis <- function(view_scale, axis_position, theme) {
+  if(is.null(view_scale) || view_scale$is_empty()) {
+    return(zeroGrob())
   }
+
+  draw_axis(view_scale$break_positions(), view_scale$get_labels(), axis_position, theme)
 }

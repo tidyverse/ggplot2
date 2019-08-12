@@ -1,20 +1,17 @@
 #' Position scales for discrete data
 #'
+#' `scale_x_discrete` and `scale_y_discrete` are used to set the values for
+#' discrete x and y scale aesthetics. For simple manipulation of scale labels
+#' and limits, you may wish to use [labs()] and [lims()] instead.
+#'
 #' You can use continuous positions even with a discrete position scale -
 #' this allows you (e.g.) to place labels between bars in a bar chart.
 #' Continuous positions are numeric values starting at one for the first
 #' level, and increasing by one for each level (i.e. the labels are placed
 #' at integer positions).  This is what allows jittering to work.
 #'
-#' @inheritDotParams discrete_scale -expand -position
-#' @param expand Vector of range expansion constants used to add some
-#'   padding around the data, to ensure that they are placed some distance
-#'   away from the axes. Use the convenience function [expand_scale()]
-#'   to generate the values for the `expand` argument. The defaults are to
-#'   expand the scale by 5\% on each side for continuous variables, and by
-#'   0.6 units on each side for discrete variables.
-#' @param position The position of the axis. `left` or `right` for y
-#' axes, `top` or `bottom` for x axes
+#' @inheritDotParams discrete_scale
+#' @inheritParams discrete_scale
 #' @rdname scale_discrete
 #' @family position scales
 #' @export
@@ -86,9 +83,17 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   get_limits = function(self) {
-    if (self$is_empty()) return(c(0, 1))
-
-    self$limits %||% self$range$range %||% integer()
+      if (self$is_empty()) {
+          c(0, 1)
+      } else if (!is.null(self$limits) & !is.function(self$limits)){
+          self$limits
+      } else if (is.null(self$limits)) {
+          self$range$range
+      } else if (is.function(self$limits)) {
+          self$limits(self$range$range)
+      } else {
+          integer(0)
+      }
   },
 
   is_empty = function(self) {
@@ -96,7 +101,7 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
   },
 
   reset = function(self) {
-    # Can't reset discrete scale because no way to recover values
+    # Can't reset discrete position scale because no way to recover values
     self$range_c$reset()
   },
 
@@ -108,26 +113,12 @@ ScaleDiscretePosition <- ggproto("ScaleDiscretePosition", ScaleDiscrete,
     }
   },
 
-  dimension = function(self, expand = c(0, 0, 0, 0)) {
-    c_range <- self$range_c$range
-    d_range <- self$get_limits()
-
-    if (self$is_empty()) {
-      c(0, 1)
-    } else if (is.null(self$range$range)) { # only continuous
-      expand_range4(c_range, expand)
-    } else if (is.null(c_range)) { # only discrete
-      expand_range4(c(1, length(d_range)), expand)
-    } else { # both
-      range(
-        c_range,
-        expand_range4(c(1, length(d_range)), expand)
-      )
-    }
+  rescale = function(self, x, limits = self$get_limits(), range = self$dimension(limits = limits)) {
+    rescale(self$map(x, limits = limits), from = range)
   },
 
-  get_breaks = function(self, limits = self$get_limits()) {
-    ggproto_parent(ScaleDiscrete, self)$get_breaks(limits)
+  dimension = function(self, expand = expansion(0, 0), limits = self$get_limits()) {
+    expand_limits_scale(self, expand, limits)
   },
 
   clone = function(self) {

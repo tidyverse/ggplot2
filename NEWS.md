@@ -1,5 +1,60 @@
 # ggplot2 (development version)
 
+* stacking text when calculating the labels and the y axis with
+  `stat_summary()` now works (@ikosmidis, #2709)
+
+* Allowed reversing of discrete scales by re-writing `get_limits()` (@AnneLyng, #3115)
+
+* Added `stat_contour_filled()` and `geom_contour_filled()`, which compute 
+  and draw filled contours of gridded data (@paleolimbot, #3044).
+
+* `geom_contour()` and `stat_contour()` now use the isoband package
+  to compute contour lines. The `complete` parameter (which was undocumented
+  and has been unused for at least four years) was removed (@paleolimbot, #3044).
+
+* `stat_smooth()` user `REML` by default, if `method = "gam"` and
+  `gam`'s method is not specified (@ikosmidis, #2630).
+
+* Changed `theme_grey()` setting for legend key so that it creates no 
+  border (`NA`) rather than drawing a white one. (@annennenne, #3180)
+
+* Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
+
+* `ggdep()` was deprecated (@perezp44, #3382).
+
+* Added weight aesthetic option to `stat_density()` and made scaling of 
+  weights the default (@annennenne, #2902)
+
+* `expand_scale()` was deprecated in favour of `expansion()` for setting
+  the `expand` argument of `x` and `y` scales (@paleolimbot).
+
+* `coord_trans()` now draws second axes and accepts `xlim`, `ylim`,
+  and `expand` arguments to bring it up to feature parity with 
+  `coord_cartesian()`. The `xtrans` and `ytrans` arguments that were 
+  deprecated in version 1.0.1 in favour of `x` and `y` 
+  were removed (@paleolimbot, #2990).
+
+* `coord_trans()` now calculates breaks using the expanded range 
+  (previously these were calculated using the unexpanded range, 
+  which resulted in differences between plots made with `coord_trans()`
+  and those made with `coord_cartesian()`). The expansion for discrete axes 
+  in `coord_trans()` was also updated such that it behaves identically
+  to that in `coord_cartesian()` (@paleolimbot, #3338).
+
+* All `coord_*()` functions with `xlim` and `ylim` arguments now accept
+  vectors with `NA` as a placeholder for the minimum or maximum value
+  (e.g., `ylim = c(0, NA)` would zoom the y-axis from 0 to the 
+  maximum value observed in the data). This mimics the behaviour
+  of the `limits` argument in continuous scale functions
+  (@paleolimbot, #2907).
+
+* `geom_abline()`, `geom_hline()`, and `geom_vline()` now issue 
+  more informative warnings when supplied with set aesthetics
+  (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
+  and mapped aesthetics (i.e., `data` and/or `mapping`).
+  
+* `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
+
 # ggplot2 3.2.1
 
 This is a patch release fixing a few regressions introduced in 3.2.0 as well as

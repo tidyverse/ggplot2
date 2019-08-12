@@ -111,6 +111,46 @@ test_that("aes standardises aesthetic names", {
   expect_warning(aes(color = x, colour = y), "Duplicated aesthetics")
 })
 
+test_that("warn_for_aes_extract_usage() warns for discouraged uses of $ and [[ within aes()", {
+
+  df <- data_frame(x = 1:5, nested_df = data_frame(x = 6:10))
+
+  expect_warning(
+    warn_for_aes_extract_usage(aes(df$x), df),
+    "Use of `df\\$x` is discouraged"
+  )
+
+  expect_warning(
+    warn_for_aes_extract_usage(aes(df[["x"]]), df),
+    'Use of `df\\[\\["x"\\]\\]` is discouraged'
+  )
+})
+
+test_that("warn_for_aes_extract_usage() does not evaluate function calls", {
+  df <- data_frame(x = 1:5, nested_df = data_frame(x = 6:10))
+  returns_df <- function() df
+
+  expect_warning(warn_for_aes_extract_usage(aes(df$x), df))
+  expect_silent(warn_for_aes_extract_usage(aes(returns_df()$x), df))
+})
+
+test_that("warn_for_aes_extract_usage() does not warn for valid uses of $ and [[ within aes()", {
+  df <- data_frame(x = 1:5, nested_df = data_frame(x = 6:10))
+
+  # use of .data
+  expect_silent(warn_for_aes_extract_usage(aes(.data$x), df))
+  expect_silent(warn_for_aes_extract_usage(aes(.data[["x"]]), df))
+
+  # use of $ for a nested data frame column
+  expect_silent(warn_for_aes_extract_usage(aes(nested_df$x), df))
+  expect_silent(warn_for_aes_extract_usage(aes(nested_df[["x"]]), df))
+})
+
+test_that("Warnings are issued when plots use discouraged extract usage within aes()", {
+  df <- data_frame(x = 1:3, y = 1:3)
+  p <- ggplot(df, aes(df$x, y)) + geom_point()
+  expect_warning(ggplot_build(p), "Use of `df\\$x` is discouraged")
+})
 
 # Visual tests ------------------------------------------------------------
 
