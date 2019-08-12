@@ -1,3 +1,5 @@
+# ggplot2 (development version)
+
 # ggplot2 3.2.1
 
 This is a patch release fixing a few regressions introduced in 3.2.0 as well as
