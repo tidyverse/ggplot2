@@ -76,7 +76,7 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.0</span>
+          <span class="version version-default" data-toggle="tooltip" data-placement="bottom" title="Released version">3.2.1</span>
         </div>
       </div>
     </div>
@@ -227,15 +227,15 @@ contains information about aesthetic mapping for each layer.</p>
 <span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot_build.html'>ggplot_build</a></span>(<span class='no'>p</span>)
 
 <span class='fu'>summarise_layout</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; # A tibble: 7 x 10
-#&gt;   panel   row   col vars        xmin  xmax  ymin  ymax xscale     yscale    
-#&gt;   &lt;fct&gt; &lt;int&gt; &lt;int&gt; &lt;list&gt;     &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;     &lt;list&gt;    
-#&gt; 1 1         1     1 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
-#&gt; 2 2         1     2 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
-#&gt; 3 3         1     3 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
-#&gt; 4 4         2     1 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
-#&gt; 5 5         2     2 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
-#&gt; 6 6         2     3 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;
-#&gt; 7 7         3     1 &lt;list [1]&gt;  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntnP&gt;</div><div class='input'><span class='fu'>summarise_coord</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; $xlog
+#&gt;   panel   row   col vars             xmin  xmax  ymin  ymax xscale     yscale   
+#&gt;   &lt;fct&gt; &lt;int&gt; &lt;int&gt; &lt;list&gt;          &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;list&gt;     &lt;list&gt;   
+#&gt; 1 1         1     1 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
+#&gt; 2 2         1     2 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
+#&gt; 3 3         1     3 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
+#&gt; 4 4         2     1 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
+#&gt; 5 5         2     2 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
+#&gt; 6 6         2     3 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…
+#&gt; 7 7         3     1 &lt;named list [1…  1.33  7.27  10.4  45.6 &lt;SclCntnP&gt; &lt;SclCntn…</div><div class='input'><span class='fu'>summarise_coord</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; $xlog
 #&gt; [1] NA
 #&gt; 
 #&gt; $ylog
@@ -244,9 +244,9 @@ contains information about aesthetic mapping for each layer.</p>
 #&gt; $flip
 #&gt; [1] FALSE
 #&gt; </div><div class='input'><span class='fu'>summarise_layers</span>(<span class='no'>b</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 1
-#&gt;   mapping   
-#&gt;   &lt;list&gt;    
-#&gt; 1 &lt;list [2]&gt;</div><div class='input'>
+#&gt;   mapping         
+#&gt;   &lt;list&gt;          
+#&gt; 1 &lt;named list [2]&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
