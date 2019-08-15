@@ -7,7 +7,7 @@
 \usage{
 geom_ribbon(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  inherit.aes = TRUE, alpha_to = c("fill", "colour", "color", "both"))
 
 geom_area(mapping = NULL, data = NULL, stat = "identity",
   position = "stack", na.rm = FALSE, show.legend = NA,
@@ -58,6 +58,8 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+
+\item{alpha_to}{Whether to apply alpha to "fill" (default), "colour" ("color"), or "both".}
 }
 \description{
 For each x value, \code{geom_ribbon()} displays a y interval defined

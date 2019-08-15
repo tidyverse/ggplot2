@@ -10,8 +10,7 @@ geom_rect <- function(mapping = NULL, data = NULL,
                       show.legend = NA,
                       inherit.aes = TRUE,
                       alpha_to = c("fill", "colour", "color", "both")) {
-  alpha_to <- match.arg(alpha_to)
-  if (alpha_to == "color") alpha_to <- "colour"
+  alpha_to <- standardise_aes_names(match.arg(alpha_to))
   layer(
     data = data,
     mapping = mapping,
@@ -56,16 +55,6 @@ GeomRect <- ggproto("GeomRect", Geom,
       ggname("bar", do.call("grobTree", polys))
     } else {
       coords <- coord$transform(data, panel_params)
-      alpha_fill <- if (alpha_to %in% c("fill", "both")) {
-        function(colour) alpha(colour, coords$alpha)
-      } else {
-        identity
-      }
-      alpha_colour <- if (alpha_to %in% c("colour", "both")) {
-        function(colour) alpha(colour, coords$alpha)
-      } else {
-        identity
-      }
       ggname("geom_rect", rectGrob(
         coords$xmin, coords$ymax,
         width = coords$xmax - coords$xmin,
@@ -73,8 +62,8 @@ GeomRect <- ggproto("GeomRect", Geom,
         default.units = "native",
         just = c("left", "top"),
         gp = gpar(
-          col = alpha_colour(coords$colour),
-          fill = alpha_fill(coords$fill),
+          col = alpha_col(coords$colour, coords$alpha, alpha_to),
+          fill = alpha_fill(coords$fill, coords$alpha, alpha_to),
           lwd = coords$size * .pt,
           lty = coords$linetype,
           linejoin = linejoin,

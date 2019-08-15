@@ -15,6 +15,8 @@
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param alpha_to
+#'  Whether to apply alpha to "fill" (default), "colour" ("color"), or "both".
 #' @param rule Either `"evenodd"` or `"winding"`. If polygons with holes are
 #' being drawn (using the `subgroup` aesthetic) this argument defines how the
 #' hole coordinates are interpreted. See the examples in [grid::pathGrob()] for
@@ -84,7 +86,8 @@ geom_polygon <- function(mapping = NULL, data = NULL,
                          ...,
                          na.rm = FALSE,
                          show.legend = NA,
-                         inherit.aes = TRUE) {
+                         alpha_to = c("fill", "colour", "color", "both")) {
+  alpha_to <- standardise_aes_names(match.arg(alpha_to))
   layer(
     data = data,
     mapping = mapping,
@@ -96,6 +99,7 @@ geom_polygon <- function(mapping = NULL, data = NULL,
     params = list(
       na.rm = na.rm,
       rule = rule,
+      alpha_to = alpha_to,
       ...
     )
   )
@@ -106,7 +110,8 @@ geom_polygon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomPolygon <- ggproto("GeomPolygon", Geom,
-  draw_panel = function(data, panel_params, coord, rule = "evenodd") {
+  draw_panel = function(data, panel_params, coord, rule = "evenodd",
+                        alpha_to = "fill") {
     n <- nrow(data)
     if (n == 1) return(zeroGrob())
 
@@ -128,8 +133,8 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
           munched$x, munched$y, default.units = "native",
           id = munched$group,
           gp = gpar(
-            col = first_rows$colour,
-            fill = alpha(first_rows$fill, first_rows$alpha),
+            col = alpha_col(first_rows$colour, first_rows$alpha, alpha_to),
+            fill = alpha_fill(first_rows$fill, first_rows$alpha, alpha_to),
             lwd = first_rows$size * .pt,
             lty = first_rows$linetype
           )

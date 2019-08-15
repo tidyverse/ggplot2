@@ -7,6 +7,17 @@
 #'   geom_point(colour = alpha("blue", 0.5))
 scales::alpha
 
+alpha_fill <- function(colour, alpha = NA, alpha_to = "fill") {
+  if (alpha_to %in% c("fill", "both")) return(alpha(colour, alpha))
+  colour
+}
+
+# alpha_to is "fill" by default for backward compatibility
+alpha_col <- function(colour, alpha = NA, alpha_to = "fill") {
+  if (alpha_to %in% c("colour", "both")) return(alpha(colour, alpha))
+  colour
+}
+
 "%||%" <- function(a, b) {
   if (!is.null(a)) a else b
 }

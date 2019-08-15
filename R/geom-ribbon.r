@@ -19,6 +19,8 @@
 #'   [geom_polygon()] for general polygons
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param alpha_to
+#'  Whether to apply alpha to "fill" (default), "colour" ("color"), or "both".
 #' @export
 #' @examples
 #' # Generate data
@@ -37,7 +39,9 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
                         ...,
                         na.rm = FALSE,
                         show.legend = NA,
-                        inherit.aes = TRUE) {
+                        inherit.aes = TRUE,
+                        alpha_to = c("fill", "colour", "color", "both")) {
+  alpha_to <- standardise_aes_names(match.arg(alpha_to))
   layer(
     data = data,
     mapping = mapping,
@@ -48,6 +52,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      alpha_to = alpha_to,
       ...
     )
   )
@@ -78,7 +83,8 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data
   },
 
-  draw_group = function(data, panel_params, coord, na.rm = FALSE) {
+  draw_group = function(data, panel_params, coord, na.rm = FALSE,
+                        alpha_to = "fill") {
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group), ]
 
@@ -112,8 +118,8 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       munched$x, munched$y, id = munched$id,
       default.units = "native",
       gp = gpar(
-        fill = alpha(aes$fill, aes$alpha),
-        col = aes$colour,
+        fill = alpha_fill(aes$fill, aes$alpha, alpha_to),
+        col = alpha_col(aes$colour, aes$alpha, alpha_to),
         lwd = aes$size * .pt,
         lty = aes$linetype)
     ))
