@@ -18,6 +18,8 @@ alpha_col <- function(colour, alpha = NA, alpha_to = "fill") {
   colour
 }
 
+standardize_alpha_to <- function(x) sub("color", "colour", x, fixed = TRUE)
+
 "%||%" <- function(a, b) {
   if (!is.null(a)) a else b
 }

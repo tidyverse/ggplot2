@@ -87,7 +87,7 @@ geom_polygon <- function(mapping = NULL, data = NULL,
                          na.rm = FALSE,
                          show.legend = NA,
                          alpha_to = c("fill", "colour", "color", "both")) {
-  alpha_to <- standardise_aes_names(match.arg(alpha_to))
+  alpha_to <- standardize_alpha_to(match.arg(alpha_to))
   layer(
     data = data,
     mapping = mapping,

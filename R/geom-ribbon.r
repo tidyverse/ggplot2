@@ -41,7 +41,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
                         show.legend = NA,
                         inherit.aes = TRUE,
                         alpha_to = c("fill", "colour", "color", "both")) {
-  alpha_to <- standardise_aes_names(match.arg(alpha_to))
+  alpha_to <- standardize_alpha_to(match.arg(alpha_to))
   layer(
     data = data,
     mapping = mapping,
