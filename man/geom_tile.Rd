@@ -13,7 +13,8 @@ geom_raster(mapping = NULL, data = NULL, stat = "identity",
 
 geom_rect(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., linejoin = "mitre", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  show.legend = NA, inherit.aes = TRUE, alpha_to = c("fill",
+  "colour", "color", "both"))
 
 geom_tile(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., linejoin = "mitre", na.rm = FALSE,
@@ -73,6 +74,8 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{linejoin}{Line join style (round, mitre, bevel).}
+
+\item{alpha_to}{Whether to apply alpha to "fill" (default), "colour" ("color"), or "both".}
 }
 \description{
 \code{geom_rect} and \code{geom_tile} do the same thing, but are

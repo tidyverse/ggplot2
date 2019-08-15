@@ -1,4 +1,6 @@
 #' @export
+#' @param alpha_to
+#'  Whether to apply alpha to "fill" (default), "colour" ("color"), or "both".
 #' @rdname geom_tile
 geom_rect <- function(mapping = NULL, data = NULL,
                       stat = "identity", position = "identity",
@@ -6,7 +8,10 @@ geom_rect <- function(mapping = NULL, data = NULL,
                       linejoin = "mitre",
                       na.rm = FALSE,
                       show.legend = NA,
-                      inherit.aes = TRUE) {
+                      inherit.aes = TRUE,
+                      alpha_to = c("fill", "colour", "color", "both")) {
+  alpha_to <- match.arg(alpha_to)
+  if (alpha_to == "color") alpha_to <- "colour"
   layer(
     data = data,
     mapping = mapping,
@@ -18,6 +23,7 @@ geom_rect <- function(mapping = NULL, data = NULL,
     params = list(
       linejoin = linejoin,
       na.rm = na.rm,
+      alpha_to = alpha_to,
       ...
     )
   )
@@ -33,7 +39,8 @@ GeomRect <- ggproto("GeomRect", Geom,
 
   required_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-  draw_panel = function(self, data, panel_params, coord, linejoin = "mitre") {
+  draw_panel = function(self, data, panel_params, coord, linejoin = "mitre",
+                        alpha_to = "fill") {
     if (!coord$is_linear()) {
       aesthetics <- setdiff(
         names(data), c("x", "y", "xmin", "xmax", "ymin", "ymax")
@@ -49,6 +56,16 @@ GeomRect <- ggproto("GeomRect", Geom,
       ggname("bar", do.call("grobTree", polys))
     } else {
       coords <- coord$transform(data, panel_params)
+      alpha_fill <- if (alpha_to %in% c("fill", "both")) {
+        function(colour) alpha(colour, coords$alpha)
+      } else {
+        identity
+      }
+      alpha_colour <- if (alpha_to %in% c("colour", "both")) {
+        function(colour) alpha(colour, coords$alpha)
+      } else {
+        identity
+      }
       ggname("geom_rect", rectGrob(
         coords$xmin, coords$ymax,
         width = coords$xmax - coords$xmin,
@@ -56,8 +73,8 @@ GeomRect <- ggproto("GeomRect", Geom,
         default.units = "native",
         just = c("left", "top"),
         gp = gpar(
-          col = coords$colour,
-          fill = alpha(coords$fill, coords$alpha),
+          col = alpha_colour(coords$colour),
+          fill = alpha_fill(coords$fill),
           lwd = coords$size * .pt,
           lty = coords$linetype,
           linejoin = linejoin,
