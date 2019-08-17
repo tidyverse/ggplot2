@@ -250,7 +250,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
 
       # check if this layer should be included, different behaviour depending on
       # if show.legend is a logical or a named logical vector
-      if (!is.null(names(layer$show.legend))) {
+      if (is_named(layer$show.legend)) {
         layer$show.legend <- rename_aes(layer$show.legend)
         include <- is.na(layer$show.legend[matched]) ||
           layer$show.legend[matched]
