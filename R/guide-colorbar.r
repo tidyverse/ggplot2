@@ -244,10 +244,24 @@ guide_geom.colorbar <- function(guide, layers, default_mapping) {
   guide_layers <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
-    if (length(matched) > 0 && (isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend))) {
+    if (length(matched) == 0) {
+      # This layer does not use this guide
+      return(NULL)
+    }
+
+    # check if this layer should be included, different behaviour depending on
+    # if show.legend is a logical or a named logical vector
+    if (is_named(layer$show.legend)) {
+      layer$show.legend <- rename_aes(layer$show.legend)
+      include <- isTRUE(is.na(layer$show.legend[matched])) ||
+        any(layer$show.legend[matched])
+    } else {
+      include <- isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend)
+    }
+
+    if (include) {
       layer
     } else {
-      # This layer does not use this guide
       NULL
     }
   })
