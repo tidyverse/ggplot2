@@ -55,6 +55,8 @@
   
 * `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
 
+* `geom_sf()` now removes rows that contain missing `shape`/`size`/`colour` (#3483, @yutannihilation)
+
 # ggplot2 3.2.1
 
 This is a patch release fixing a few regressions introduced in 3.2.0 as well as
