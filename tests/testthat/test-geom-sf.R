@@ -64,3 +64,22 @@ test_that("geom_sf_text() and geom_sf_label() draws correctly", {
     ggplot() + geom_sf_label(data = nc_3857, aes(label = NAME))
   )
 })
+
+test_that("geom_sf() removes rows containing missing aes", {
+  skip_if_not_installed("sf")
+  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+
+  grob_xy_length <- function(x) {
+    g <- layer_grob(x)[[1]]
+    c(length(g$x), length(g$y))
+  }
+
+  pts <- sf::st_sf(
+    geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)),
+    val_c = c(1, NA),
+    val_d = c("a", NA)
+  )
+
+  expect_identical(grob_xy_length(ggplot(pts) + geom_sf(aes(size = val_c))), c(1L, 1L))
+  expect_identical(grob_xy_length(ggplot(pts) + geom_sf(aes(shape = val_d))), c(1L, 1L))
+})
