@@ -76,10 +76,24 @@ test_that("geom_sf() removes rows containing missing aes", {
 
   pts <- sf::st_sf(
     geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)),
-    val_c = c(1, NA),
-    val_d = c("a", NA)
+    size = c(1, NA),
+    shape = c("a", NA),
+    colour = c("red", NA)
   )
 
-  expect_identical(grob_xy_length(ggplot(pts) + geom_sf(aes(size = val_c))), c(1L, 1L))
-  expect_identical(grob_xy_length(ggplot(pts) + geom_sf(aes(shape = val_d))), c(1L, 1L))
+  p <- ggplot(pts) + geom_sf()
+  expect_warning(
+    expect_identical(grob_xy_length(p + aes(size = size)), c(1L, 1L)),
+    "Removed 1 rows containing missing values"
+  )
+  expect_warning(
+    expect_identical(grob_xy_length(p + aes(shape = shape)), c(1L, 1L)),
+    "Removed 1 rows containing missing values"
+  )
+  # default colour scale maps a colour even to a NA, so identity scale is needed to see if NA is removed
+  expect_warning(
+    expect_identical(grob_xy_length(p + aes(colour = colour) + scale_colour_identity()),
+                     c(1L, 1L)),
+    "Removed 1 rows containing missing values"
+  )
 })
