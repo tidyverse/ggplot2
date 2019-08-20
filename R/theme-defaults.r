@@ -214,6 +214,7 @@ theme_grey <- function(base_size = 11, base_family = "",
                            hjust = 0, vjust = 1,
                            margin = margin(b = half_line)
                          ),
+    plot.title.position = "panel",
     plot.subtitle =      element_text( # font size "regular"
                            hjust = 0, vjust = 1,
                            margin = margin(b = half_line)
