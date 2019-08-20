@@ -333,29 +333,36 @@ rotate_just <- function(angle, hjust, vjust) {
   list(hjust = hnew, vjust = vnew)
 }
 descent_cache <- new.env(parent = emptyenv())
+# Important: This function is not vectorized. Do not use to look up multiple
+# font descents at once.
 font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
   cur_dev <- names(grDevices::dev.cur())
-  key <- paste0(cur_dev, ':', family, ':', face, ":", size, ":", cex)
-  descents <- lapply(key, function(k) {
-    descent <- descent_cache[[k]]
-
-    if (is.null(descent)) {
-      descent <- convertHeight(grobDescent(textGrob(
-        label = "gjpqyQ",
-        gp = gpar(
-          fontsize = size,
-          cex = cex,
-          fontfamily = family,
-          fontface = face
-        )
-      )), 'inches')
-      descent_cache[[k]] <- descent
-    }
-    descent
-  })
-  if (length(descents) == 1) {
-    descents[[1]]
+  if (cur_dev == "null device") {
+    cache <- FALSE   # don't cache if no device open
   } else {
-    do.call(unit.c, descents)
+    cache <- TRUE
   }
+  key <- paste0(cur_dev, ':', family, ':', face, ":", size, ":", cex)
+  # we only look up the first result; this function is not vectorized
+  key <- key[1]
+
+  descent <- descent_cache[[key]]
+
+  if (is.null(descent)) {
+    descent <- convertHeight(grobDescent(textGrob(
+      label = "gjpqyQ",
+      gp = gpar(
+        fontsize = size,
+        cex = cex,
+        fontfamily = family,
+        fontface = face
+      )
+    )), 'inches')
+
+    if (cache) {
+      descent_cache[[key]] <- descent
+    }
+  }
+
+  descent
 }
