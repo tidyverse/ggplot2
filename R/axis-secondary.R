@@ -120,8 +120,6 @@ derive <- function() {
 is.derived <- function(x) {
   inherits(x, "derived")
 }
-#' @importFrom lazyeval f_eval
-#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
