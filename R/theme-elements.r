@@ -373,6 +373,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.title.position = el_def("character"),
   plot.subtitle       = el_def("element_text", "title"),
   plot.caption        = el_def("element_text", "title"),
+  plot.caption.position = el_def("character"),
   plot.tag            = el_def("element_text", "title"),
   plot.tag.position   = el_def("character"),  # Need to also accept numbers
   plot.margin         = el_def("margin"),

@@ -224,6 +224,7 @@ theme_grey <- function(base_size = 11, base_family = "",
                            hjust = 1, vjust = 1,
                            margin = margin(t = half_line)
                          ),
+    plot.caption.position = "panel",
     plot.tag =           element_text(
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5
@@ -498,6 +499,7 @@ theme_void <- function(base_size = 11, base_family = "",
                            hjust = 1, vjust = 1,
                            margin = margin(t = half_line)
                          ),
+    plot.caption.position = "panel",
     plot.tag =           element_text(
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5
@@ -627,6 +629,7 @@ theme_test <- function(base_size = 11, base_family = "",
                            hjust = 1, vjust = 1,
                            margin = margin(t = half_line)
                          ),
+    plot.caption.position = "panel",
     plot.tag =           element_text(
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5

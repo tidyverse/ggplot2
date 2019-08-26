@@ -401,7 +401,7 @@ test_that("rotated axis tick labels work", {
   expect_doppelganger("rotated x axis tick labels", plot)
 })
 
-test_that("plot title can be aligned to entire plot", {
+test_that("plot titles and caption can be aligned to entire plot", {
   df <- data_frame(
     x = 1:3,
     y = 1:3,
@@ -413,8 +413,19 @@ test_that("plot title can be aligned to entire plot", {
     labs(
       title = "Plot title aligned to entire plot",
       subtitle = "Subtitle aligned to entire plot",
-      caption = "Caption aligned to entire plot"
+      caption = "Caption aligned to panels"
     ) +
     theme(plot.title.position = "plot")
-  expect_doppelganger("title aligned to entire plot", plot)
+  expect_doppelganger("titles aligned to entire plot", plot)
+
+  plot <- ggplot(df, aes(x, y, color = z)) +
+    geom_point() + facet_wrap(~z) +
+    labs(
+      title = "Plot title aligned to panels",
+      subtitle = "Subtitle aligned to panels",
+      caption = "Caption aligned to entire plot"
+    ) +
+    theme(plot.caption.position = "plot")
+  expect_doppelganger("caption aligned to entire plot", plot)
+
 })
