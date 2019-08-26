@@ -20,7 +20,7 @@
 
 * Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
 
-* `ggdep()` was deprecated (@perezp44, #3382).
+* `gg_dep()` was deprecated (@perezp44, #3382).
 
 * Added weight aesthetic option to `stat_density()` and made scaling of 
   weights the default (@annennenne, #2902)
@@ -54,6 +54,8 @@
   and mapped aesthetics (i.e., `data` and/or `mapping`).
   
 * `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
+
+* `geom_sf()` now removes rows that contain missing `shape`/`size`/`colour` (#3483, @yutannihilation)
 
 * Fix a bug when `show.legend` is a named logical vector (#3461, @yutannihilation).
 
