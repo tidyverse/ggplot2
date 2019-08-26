@@ -57,6 +57,8 @@
 
 * `geom_sf()` now removes rows that contain missing `shape`/`size`/`colour` (#3483, @yutannihilation)
 
+* Fix a bug when `show.legend` is a named logical vector (#3461, @yutannihilation).
+
 # ggplot2 3.2.1
 
 This is a patch release fixing a few regressions introduced in 3.2.0 as well as
