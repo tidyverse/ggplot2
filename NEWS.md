@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* `element_text()` now issues a warning when vectorized arguments are provided, as in
+  `colour = c("red", "green", "blue")`. Such use is discouraged and not officially supported
+   (@clauswilke, #3492).
+
 * stacking text when calculating the labels and the y axis with
   `stat_summary()` now works (@ikosmidis, #2709)
 
