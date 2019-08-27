@@ -44,6 +44,10 @@
 #'   it only hides them, so the range calculated for the y-axis will be the
 #'   same with outliers shown and outliers hidden.
 #'
+#' @param separate.middle Controls whether to color the middle bar separately, 
+#'   default is `TRUE`, if `FALSE`, the middle bar is colored with the outline of the boxplot
+#' @param middle.colour, middle.color Set the color of middle bar separately, 
+#'   only effects when separate.middle is `TRUE`
 #' @param notch If `FALSE` (default) make a standard box plot. If
 #'   `TRUE`, make a notched box plot. Notches are used to compare groups;
 #'   if the notches of two boxes do not overlap, this suggests that the medians
@@ -112,6 +116,9 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          outlier.size = 1.5,
                          outlier.stroke = 0.5,
                          outlier.alpha = NULL,
+                         separate.middle = TRUE,
+                         middle.colour = "grey20",
+                         middle.color = NULL,
                          notch = FALSE,
                          notchwidth = 0.5,
                          varwidth = FALSE,
@@ -144,6 +151,8 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
       outlier.size = outlier.size,
       outlier.stroke = outlier.stroke,
       outlier.alpha = outlier.alpha,
+      separate.middle = separate.middle,
+      middle.colour = middle.color %||% middle.colour,
       notch = notch,
       notchwidth = notchwidth,
       varwidth = varwidth,
@@ -198,6 +207,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
                         outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
                         outlier.alpha = NULL,
+                        separate.middle = TRUE,
+                        middle.colour = "grey20",
                         notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
 
     # this may occur when using geom_boxplot(stat = "identity")
@@ -262,8 +273,13 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     ggname("geom_boxplot", grobTree(
       outliers_grob,
       GeomSegment$draw_panel(whiskers, panel_params, coord),
-      GeomCrossbar$draw_panel(box, fatten = fatten, panel_params, coord)
-    ))
+      GeomCrossbar$draw_panel(box, 
+                              fatten = fatten, 
+                              separate.middle = separate.middle,
+                              middle.colour = middle.colour,
+                              panel_params, coord)
+      )
+    )
   },
 
   draw_key = draw_key_boxplot,

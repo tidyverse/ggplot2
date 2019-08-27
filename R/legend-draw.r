@@ -100,7 +100,7 @@ draw_key_boxplot <- function(data, params, size) {
     linesGrob(0.5, c(0.1, 0.25)),
     linesGrob(0.5, c(0.75, 0.9)),
     rectGrob(height = 0.5, width = 0.75),
-    linesGrob(c(0.125, 0.875), 0.5),
+    linesGrob(c(0.125, 0.875), 0.5, gp = if (params$separate.middle) {gpar(col = params$middle.colour %||% "grey20")}),
     gp = gpar(
       col = data$colour %||% "grey20",
       fill = alpha(data$fill %||% "white", data$alpha),
@@ -115,7 +115,7 @@ draw_key_boxplot <- function(data, params, size) {
 draw_key_crossbar <- function(data, params, size) {
   grobTree(
     rectGrob(height = 0.5, width = 0.75),
-    linesGrob(c(0.125, 0.875), 0.5),
+    linesGrob(c(0.125, 0.875), 0.5, gp = if (params$separate.middle) {gpar(col = params$middle.colour %||% "grey20")}),
     gp = gpar(
       col = data$colour %||% "grey20",
       fill = alpha(data$fill %||% "white", data$alpha),

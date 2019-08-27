@@ -3,6 +3,9 @@
 geom_crossbar <- function(mapping = NULL, data = NULL,
                           stat = "identity", position = "identity",
                           ...,
+                          separate.middle = TRUE,
+                          middle.colour = "grey20",
+                          middle.color = NULL,
                           fatten = 2.5,
                           na.rm = FALSE,
                           show.legend = NA,
@@ -16,6 +19,8 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+    	separate.middle = separate.middle,
+      middle.colour = middle.color %||% middle.colour,
       fatten = fatten,
       na.rm = na.rm,
       ...
@@ -39,8 +44,17 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
   draw_key = draw_key_crossbar,
 
-  draw_panel = function(data, panel_params, coord, fatten = 2.5, width = NULL) {
+  draw_panel = function(data, 
+                        panel_params, 
+                        coord, fatten = 2.5, 
+                        width = NULL, 
+                        separate.middle = TRUE, 
+                        middle.colour = "grey20") {
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
+    
+    if (separate.middle) {
+      middle$colour <- middle.colour
+    }
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
       !is.na(data$ynotchlower) && !is.na(data$ynotchupper)
