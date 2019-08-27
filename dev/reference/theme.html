@@ -204,11 +204,11 @@ about theme inheritance below.</p>
   <span class='no'>panel.spacing.y</span>, <span class='no'>panel.grid</span>, <span class='no'>panel.grid.major</span>, <span class='no'>panel.grid.minor</span>,
   <span class='no'>panel.grid.major.x</span>, <span class='no'>panel.grid.major.y</span>, <span class='no'>panel.grid.minor.x</span>,
   <span class='no'>panel.grid.minor.y</span>, <span class='no'>panel.ontop</span>, <span class='no'>plot.background</span>, <span class='no'>plot.title</span>,
-  <span class='no'>plot.subtitle</span>, <span class='no'>plot.caption</span>, <span class='no'>plot.tag</span>, <span class='no'>plot.tag.position</span>, <span class='no'>plot.margin</span>,
-  <span class='no'>strip.background</span>, <span class='no'>strip.background.x</span>, <span class='no'>strip.background.y</span>,
-  <span class='no'>strip.placement</span>, <span class='no'>strip.text</span>, <span class='no'>strip.text.x</span>, <span class='no'>strip.text.y</span>,
-  <span class='no'>strip.switch.pad.grid</span>, <span class='no'>strip.switch.pad.wrap</span>, <span class='no'>...</span>, <span class='kw'>complete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='no'>plot.title.position</span>, <span class='no'>plot.subtitle</span>, <span class='no'>plot.caption</span>, <span class='no'>plot.caption.position</span>,
+  <span class='no'>plot.tag</span>, <span class='no'>plot.tag.position</span>, <span class='no'>plot.margin</span>, <span class='no'>strip.background</span>,
+  <span class='no'>strip.background.x</span>, <span class='no'>strip.background.y</span>, <span class='no'>strip.placement</span>, <span class='no'>strip.text</span>,
+  <span class='no'>strip.text.x</span>, <span class='no'>strip.text.y</span>, <span class='no'>strip.switch.pad.grid</span>, <span class='no'>strip.switch.pad.wrap</span>,
+  <span class='no'>...</span>, <span class='kw'>complete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -403,6 +403,15 @@ inherits from <code>rect</code>)</p></td>
       <th>plot.title</th>
       <td><p>plot title (text appearance) (<code><a href='element.html'>element_text()</a></code>; inherits
 from <code>title</code>) left-aligned by default</p></td>
+    </tr>
+    <tr>
+      <th>plot.title.position, plot.caption.position</th>
+      <td><p>Alignment of the plot title/subtitle
+and caption.  The setting for <code>plot.title.position</code> applies to both
+the title and the subtitle. A value of "panel" (the default) means that
+titles and/or caption are aligned to the plot panels. A value of "plot" means
+that titles and/or caption are aligned to the entire plot (minus any space
+for margins and plot tag).</p></td>
     </tr>
     <tr>
       <th>plot.subtitle</th>
