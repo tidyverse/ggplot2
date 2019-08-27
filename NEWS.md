@@ -21,6 +21,11 @@
 
 * Changed `theme_grey()` setting for legend key so that it creates no 
   border (`NA`) rather than drawing a white one. (@annennenne, #3180)
+  
+* Themes have gained two new parameters, `plot.title.position` and 
+  `plot.caption.position`, that can be used to customize how plot
+  title/subtitle and plot caption are positioned relative to the overall plot
+  (@clauswilke, #3252).
 
 * Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
 
