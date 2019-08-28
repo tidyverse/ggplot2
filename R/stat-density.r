@@ -63,25 +63,36 @@ stat_density <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatDensity <- ggproto("StatDensity", Stat,
-  required_aes = "x",
-  default_aes = aes(y = stat(density), fill = NA, weight = NULL),
+  default_aes = aes(x = stat(density), y = stat(density), fill = NA, weight = NULL),
+
+  setup_params = function(data, params) {
+    params$main_aes <- "x"
+    if (is.null(data$x) && is.null(params$x)) {
+      if (is.null(data$y) && is.null(params$y)) {
+        stop("stat_bin() requires either an x or y aesthetic.", call. = FALSE)
+      } else {
+        params$main_aes <- "y"
+      }
+    }
+    params
+  },
 
   compute_group = function(data, scales, bw = "nrd0", adjust = 1, kernel = "gaussian",
-                           n = 512, trim = FALSE, na.rm = FALSE) {
+                           n = 512, trim = FALSE, na.rm = FALSE, main_aes = "x") {
     if (trim) {
-      range <- range(data$x, na.rm = TRUE)
+      range <- range(data[[main_aes]], na.rm = TRUE)
     } else {
-      range <- scales$x$dimension()
+      range <- scales[[main_aes]]$dimension()
     }
 
-    compute_density(data$x, data$weight, from = range[1], to = range[2],
-      bw = bw, adjust = adjust, kernel = kernel, n = n)
+    compute_density(data[[main_aes]], data$weight, from = range[1], to = range[2],
+      bw = bw, adjust = adjust, kernel = kernel, n = n, main_aes = main_aes)
   }
 
 )
 
 compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
-                            kernel = "gaussian", n = 512) {
+                            kernel = "gaussian", n = 512, main_aes = "x") {
   nx <- length(x)
   if (is.null(w)) {
     w <- rep(1 / nx, nx)
@@ -92,25 +103,30 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
   # if less than 2 points return data frame of NAs and a warning
   if (nx < 2) {
     warning("Groups with fewer than two data points have been dropped.", call. = FALSE)
-    return(new_data_frame(list(
+    density <- new_data_frame(list(
       x = NA_real_,
       density = NA_real_,
       scaled = NA_real_,
       ndensity = NA_real_,
       count = NA_real_,
       n = NA_integer_
-    ), n = 1))
+    ), n = 1)
+    names(density)[1] <- main_aes
+    return(density)
   }
 
   dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
     kernel = kernel, n = n, from = from, to = to)
 
-  new_data_frame(list(
+  density <- new_data_frame(list(
     x = dens$x,
     density = dens$y,
     scaled =  dens$y / max(dens$y, na.rm = TRUE),
     ndensity = dens$y / max(dens$y, na.rm = TRUE),
     count =   dens$y * nx,
-    n = nx
+    n = nx,
+    main_aes = main_aes
   ), n = length(dens$x))
+  names(density)[1] <- main_aes
+  return(density)
 }
