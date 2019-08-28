@@ -38,11 +38,18 @@ GeomCol <- ggproto("GeomCol", GeomRect,
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
   setup_data = function(data, params) {
+    params$main_aes <- detect_direction(data)
     data$width <- data$width %||%
-      params$width %||% (resolution(data$x, FALSE) * 0.9)
-    transform(data,
-      ymin = pmin(y, 0), ymax = pmax(y, 0),
-      xmin = x - width / 2, xmax = x + width / 2, width = NULL
+      params$width %||% (resolution(data[[params$main_aes]], FALSE) * 0.9)
+    switch(params$main_aes,
+      x = transform(data,
+        ymin = pmin(y, 0), ymax = pmax(y, 0),
+        xmin = x - width / 2, xmax = x + width / 2, width = NULL
+      ),
+      y = transform(data,
+        xmin = pmin(x, 0), xmax = pmax(x, 0),
+        ymin = y - width / 2, ymax = y + width / 2, width = NULL
+      )
     )
   },
 
