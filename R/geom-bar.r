@@ -141,5 +141,39 @@ GeomBar <- ggproto("GeomBar", GeomRect,
 
 detect_direction <- function(data) {
   if (!is.null(data$main_aes)) return(data$main_aes[1])
-  if (any(c("ymin", "ymax") %in% names(data))) "y" else "x"
+
+  if (any(c("ymin", "ymax") %in% names(data))) {
+    return("y")
+  }
+  if (any(c("ymin", "ymax") %in% names(data))) {
+    return("x")
+  }
+  y_is_int <- all(data$y == round(data$y))
+  x_is_int <- all(data$x == round(data$x))
+  if (xor(y_is_int, x_is_int)) {
+    if (x_is_int) {
+      return("x")
+    } else {
+      return("y")
+    }
+  }
+  y_diff <- diff(unique(sort(data$y)))
+  x_diff <- diff(unique(sort(data$x)))
+  if (y_is_int && x_is_int) {
+    if (sum(x_diff == 1) >= sum(y_diff == 1)) {
+      return("x")
+    } else {
+      return("y")
+    }
+  }
+  y_is_regular <- all((y_diff / min(y_diff)) %% 1 < .Machine$double.eps)
+  x_is_regular <- all((x_diff / min(x_diff)) %% 1 < .Machine$double.eps)
+  if (xor(y_is_regular, x_is_regular)) {
+    if (x_is_regular) {
+      return("x")
+    } else {
+      return("y")
+    }
+  }
+  "x"
 }
