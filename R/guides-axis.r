@@ -83,7 +83,7 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
   } else {
     ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic))
     ticks$.value <- breaks
-    ticks$.label <- scale$get_labels()
+    ticks$.label <- scale$get_labels(breaks)
 
     if (is.list(ticks$.label)) {
       if (any(sapply(ticks$.label, is.language))) {

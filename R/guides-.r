@@ -338,6 +338,17 @@ guide_geom <- function(guide, layers, default_mapping) UseMethod("guide_geom")
 guide_transform <- function(guide, coord, panel_params) UseMethod("guide_transform")
 
 #' @export
+guide_transform.default <- function(guide, coord, panel_params) {
+  stop(
+    "Guide with class ",
+    paste(class(guide), collapse = " / "),
+    " does not implement guide_transform(). ",
+    "Did you mean to use guide_axis()?",
+    call. = FALSE
+  )
+}
+
+#' @export
 #' @rdname guide-exts
 guide_gengrob <- function(guide, theme) UseMethod("guide_gengrob")
 

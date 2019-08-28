@@ -34,7 +34,6 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
     limits = limits,
     continuous_range = continuous_range,
     breaks = breaks,
-    labels = scale$get_labels(breaks),
     minor_breaks = minor_breaks
   )
 }
@@ -82,7 +81,7 @@ view_scale_secondary <- function(scale, limits = scale$get_limits(),
       get_breaks_minor = function(self) self$break_info$minor_source,
       break_positions = function(self) self$break_info$major,
       break_positions_minor = function(self) self$break_info$minor,
-      get_labels = function(self) self$break_info$labels,
+      get_labels = function(self, breaks = self$get_breaks()) self$break_info$labels,
       rescale = function(x) rescale(x, from = break_info$range, to = c(0, 1))
     )
   }
@@ -96,7 +95,7 @@ view_scale_empty <- function() {
     get_limits = function() c(0, 1),
     get_breaks = function() NULL,
     get_breaks_minor = function() NULL,
-    get_labels = function() NULL,
+    get_labels = function(breaks = NULL) breaks,
     rescale = function(x) stop("Not implemented", call. = FALSE),
     map = function(x) stop("Not implemented", call. = FALSE),
     make_title = function(title) title,
@@ -117,7 +116,6 @@ ViewScale <- ggproto("ViewScale", NULL,
   limits = NULL,
   continuous_range = NULL,
   breaks = NULL,
-  labels = NULL,
   minor_breaks = NULL,
 
   is_empty = function(self) {
@@ -128,7 +126,7 @@ ViewScale <- ggproto("ViewScale", NULL,
   get_limits = function(self) self$limits,
   get_breaks = function(self) self$breaks,
   get_breaks_minor = function(self) self$minor_breaks,
-  get_labels = function(self) self$labels,
+  get_labels = function(self, breaks = self$get_breaks()) self$scale$get_labels(breaks),
   rescale = function(self, x) {
     self$scale$rescale(x, self$limits, self$continuous_range)
   },

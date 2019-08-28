@@ -99,6 +99,15 @@ test_that("guide_none() can be used in non-position scales", {
   expect_identical(guides, zeroGrob())
 })
 
+test_that("Using non-position guides for position scales results in an informative error", {
+  p <- ggplot(mpg, aes(cty, hwy)) +
+    geom_point() +
+    scale_x_continuous(guide = guide_legend())
+
+  built <- ggplot_build(p)
+  expect_error(ggplot_gtable(built), "does not implement guide_transform()")
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
