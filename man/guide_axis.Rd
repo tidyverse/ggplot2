@@ -5,7 +5,7 @@
 \title{Axis guide}
 \usage{
 guide_axis(title = waiver(), check.overlap = FALSE, angle = NULL,
-  n_dodge = 1, order = 0, position = waiver())
+  n.dodge = 1, order = 0, position = waiver())
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -20,7 +20,7 @@ specified in \code{\link[=labs]{labs()}} is used for the title.}
 this also uses some heuristics to automatically pick the \code{hjust} and \code{vjust} that
 you probably want.}
 
-\item{n_dodge}{The number of rows (for vertical axes) or columns (for
+\item{n.dodge}{The number of rows (for vertical axes) or columns (for
 horizontal axes) that should be used to render the labels. This is
 useful for displaying labels that would otherwise overlap.}
 
@@ -43,11 +43,11 @@ p <- ggplot(mpg, aes(cty * 100, hwy * 100)) +
 
 # axis guides can be customized in the scale_* functions or
 # using guides()
-p + scale_x_continuous(guide = guide_axis(n_dodge = 2))
+p + scale_x_continuous(guide = guide_axis(n.dodge = 2))
 p + guides(x = guide_axis(angle = 90))
 
 # can also be used to add a duplicate guide
-p + guides(x = guide_axis(n_dodge = 2), y.sec = guide_axis())
+p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
 
 
 }

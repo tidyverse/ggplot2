@@ -166,7 +166,7 @@ test_that("axis guides are drawn correctly", {
   # dodged text
   expect_doppelganger(
     "axis guides, text dodged into rows/cols",
-    function() test_draw_axis(10, labels = function(b) comma(b * 1e9), n_dodge = 2)
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e9), n.dodge = 2)
   )
 })
 
@@ -194,10 +194,10 @@ test_that("axis guides can be customized", {
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +
     scale_y_continuous(
-      sec.axis = dup_axis(guide = guide_axis(n_dodge = 2)),
-      guide = guide_axis(n_dodge = 2)
+      sec.axis = dup_axis(guide = guide_axis(n.dodge = 2)),
+      guide = guide_axis(n.dodge = 2)
     ) +
-    scale_x_discrete(guide = guide_axis(n_dodge = 2))
+    scale_x_discrete(guide = guide_axis(n.dodge = 2))
 
   expect_doppelganger("guide_axis() customization", plot)
 })
@@ -206,10 +206,10 @@ test_that("guides can be specified in guides()", {
   plot <- ggplot(mpg, aes(class, hwy)) +
     geom_point() +
     guides(
-      x = guide_axis(n_dodge = 2),
-      y = guide_axis(n_dodge = 2),
-      x.sec = guide_axis(n_dodge = 2),
-      y.sec = guide_axis(n_dodge = 2)
+      x = guide_axis(n.dodge = 2),
+      y = guide_axis(n.dodge = 2),
+      x.sec = guide_axis(n.dodge = 2),
+      y.sec = guide_axis(n.dodge = 2)
     )
 
   expect_doppelganger("guides specified in guides()", plot)

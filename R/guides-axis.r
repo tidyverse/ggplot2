@@ -11,7 +11,7 @@
 #' @param angle Compared to setting the angle in [theme()] / [element_text()],
 #'   this also uses some heuristics to automatically pick the `hjust` and `vjust` that
 #'   you probably want.
-#' @param n_dodge The number of rows (for vertical axes) or columns (for
+#' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
 #' @param order Used to determine the order of the guides (left-to-right,
@@ -29,14 +29,14 @@
 #'
 #' # axis guides can be customized in the scale_* functions or
 #' # using guides()
-#' p + scale_x_continuous(guide = guide_axis(n_dodge = 2))
+#' p + scale_x_continuous(guide = guide_axis(n.dodge = 2))
 #' p + guides(x = guide_axis(angle = 90))
 #'
 #' # can also be used to add a duplicate guide
-#' p + guides(x = guide_axis(n_dodge = 2), y.sec = guide_axis())
+#' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
 #'
 #'
-guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL, n_dodge = 1,
+guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL, n.dodge = 1,
                        order = 0, position = waiver()) {
   structure(
     list(
@@ -45,7 +45,7 @@ guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL, n_
       # customizations
       check.overlap = check.overlap,
       angle = angle,
-      n_dodge = n_dodge,
+      n.dodge = n.dodge,
 
       # general
       order = order,
@@ -147,7 +147,7 @@ guide_gengrob.axis <- function(guide, theme) {
     theme = theme,
     check.overlap = guide$check.overlap,
     angle = guide$angle,
-    n_dodge = guide$n_dodge
+    n.dodge = guide$n.dodge
   )
 }
 
@@ -163,14 +163,14 @@ guide_gengrob.axis <- function(guide, theme) {
 #' @param angle Compared to setting the angle in [theme()] / [element_text()],
 #'   this also uses some heuristics to automatically pick the `hjust` and `vjust` that
 #'   you probably want.
-#' @param n_dodge The number of rows (for vertical axes) or columns (for
+#' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
 #'
 #' @noRd
 #'
 draw_axis <- function(break_positions, break_labels, axis_position, theme,
-                      check.overlap = FALSE, angle = NULL, n_dodge = 1) {
+                      check.overlap = FALSE, angle = NULL, n.dodge = 1) {
 
   axis_position <- match.arg(axis_position, c("top", "bottom", "right", "left"))
   aesthetic <- if (axis_position %in% c("top", "bottom")) "x" else "y"
@@ -249,7 +249,7 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
   }
 
   # calculate multiple rows/columns of labels (which is usually 1)
-  dodge_pos <- rep(seq_len(n_dodge), length.out = n_breaks)
+  dodge_pos <- rep(seq_len(n.dodge), length.out = n_breaks)
   dodge_indices <- split(seq_len(n_breaks), dodge_pos)
 
   label_grobs <- lapply(dodge_indices, function(indices) {
