@@ -226,7 +226,9 @@ panel_guide_label <- function(guides, position, default_label) {
 
 panel_guides_grob <- function(guides, position, theme) {
   guides <- guides_filter_by_position(guides, position)
-  grobs <- lapply(guides, guide_gengrob, theme)
+  is_none <- vapply(guides, inherits, "guide_none", FUN.VALUE = logical(1))
+
+  grobs <- lapply(guides[!is_none], guide_gengrob, theme)
 
   if (length(grobs) == 0) {
     return(zeroGrob())
