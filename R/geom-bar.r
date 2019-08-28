@@ -143,10 +143,18 @@ detect_direction <- function(data) {
   if (!is.null(data$main_aes)) return(data$main_aes[1])
 
   if (any(c("ymin", "ymax") %in% names(data))) {
-    return("y")
+    if ("y" %in% names(data)) {
+      return("y")
+    } else {
+      return("x")
+    }
   }
-  if (any(c("ymin", "ymax") %in% names(data))) {
-    return("x")
+  if (any(c("xmin", "xmax") %in% names(data))) {
+    if ("x" %in% names(data)) {
+      return("x")
+    } else {
+      return("y")
+    }
   }
   y_is_int <- all(data$y == round(data$y))
   x_is_int <- all(data$x == round(data$x))
