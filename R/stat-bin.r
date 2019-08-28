@@ -82,11 +82,17 @@ stat_bin <- function(mapping = NULL, data = NULL,
 #' @export
 StatBin <- ggproto("StatBin", Stat,
   setup_params = function(data, params) {
-    if (!is.null(data$y) || !is.null(params$y)) {
-      stop("stat_bin() must not be used with a y aesthetic.", call. = FALSE)
+    params$main_aes <- "x"
+    if (is.null(data$x) && is.null(params$x)) {
+      if (is.null(data$y) && is.null(params$y)) {
+        stop("stat_bin() requires either an x or y aesthetic.", call. = FALSE)
+      } else {
+        params$main_aes <- "y"
+      }
     }
-    if (is.integer(data$x)) {
-      stop('StatBin requires a continuous x variable: the x variable is discrete. Perhaps you want stat="count"?',
+    if (is.integer(data[[params$main_aes]])) {
+      stop('StatBin requires a continuous ', params$main_aes, ' variable: the ',
+           params$main_aes, ' variable is discrete. Perhaps you want stat="count"?',
         call. = FALSE)
     }
 
@@ -122,31 +128,30 @@ StatBin <- ggproto("StatBin", Stat,
   compute_group = function(data, scales, binwidth = NULL, bins = NULL,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
-                           breaks = NULL,
+                           breaks = NULL, main_aes = 'x',
                            # The following arguments are not used, but must
                            # be listed so parameters are computed correctly
                            origin = NULL, right = NULL, drop = NULL,
                            width = NULL) {
 
     if (!is.null(breaks)) {
-      if (!scales$x$is_discrete()){
-         breaks <- scales$x$transform(breaks)
+      if (!scales[[main_aes]]$is_discrete()) {
+         breaks <- scales[[main_aes]]$transform(breaks)
       }
       bins <- bin_breaks(breaks, closed)
     } else if (!is.null(binwidth)) {
       if (is.function(binwidth)) {
-        binwidth <- binwidth(data$x)
+        binwidth <- binwidth(data[[main_aes]])
       }
-      bins <- bin_breaks_width(scales$x$dimension(), binwidth,
+      bins <- bin_breaks_width(scales[[main_aes]]$dimension(), binwidth,
         center = center, boundary = boundary, closed = closed)
     } else {
-      bins <- bin_breaks_bins(scales$x$dimension(), bins, center = center,
+      bins <- bin_breaks_bins(scales[[main_aes]]$dimension(), bins, center = center,
         boundary = boundary, closed = closed)
     }
-    bin_vector(data$x, bins, weight = data$weight, pad = pad)
+    bin_vector(data[[main_aes]], bins, weight = data$weight, pad = pad, main_aes = main_aes)
   },
 
-  default_aes = aes(y = stat(count), weight = 1),
-  required_aes = c("x")
+  default_aes = aes(x = stat(count), y = stat(count), weight = 1)
 )
 

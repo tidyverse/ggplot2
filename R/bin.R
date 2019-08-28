@@ -118,11 +118,11 @@ bin_breaks_bins <- function(x_range, bins = 30, center = NULL,
 
 # Compute bins ------------------------------------------------------------
 
-bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
+bin_vector <- function(x, bins, weight = NULL, pad = FALSE, main_aes = "x") {
   stopifnot(is_bins(bins))
 
   if (all(is.na(x))) {
-    return(bin_out(length(x), NA, NA, xmin = NA, xmax = NA))
+    return(bin_out(length(x), NA, NA, min = NA, max = NA, main_aes = main_aes))
   }
 
   if (is.null(weight)) {
@@ -157,21 +157,24 @@ bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
     bin_x <- c(bin_x, NA)
   }
 
-  bin_out(bin_count, bin_x, bin_widths)
+  bin_out(bin_count, bin_x, bin_widths, main_aes = main_aes)
 }
 
 bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
-  xmin = x - width / 2, xmax = x + width / 2) {
+  min = x - width / 2, max = x + width / 2, main_aes = "x") {
   density <- count / width / sum(abs(count))
 
-  new_data_frame(list(
+  bins <- new_data_frame(list(
     count = count,
     x = x,
-    xmin = xmin,
-    xmax = xmax,
+    xmin = min,
+    xmax = max,
     width = width,
     density = density,
     ncount = count / max(abs(count)),
-    ndensity = density / max(abs(density))
+    ndensity = density / max(abs(density)),
+    main_aes = main_aes
   ), n = length(count))
+  names(bins)[c(2, 3, 4)] <- paste0(main_aes, c('', 'min', 'max'))
+  bins
 }
