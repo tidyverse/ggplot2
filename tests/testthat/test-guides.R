@@ -79,6 +79,26 @@ test_that("a warning is generated when more than one position guide is drawn at 
   expect_warning(ggplot_gtable(built), "More than one position guide")
 })
 
+test_that("guide_none() can be used in non-position scales", {
+  p <- ggplot(mpg, aes(cty, hwy, colour = class)) +
+    geom_point() +
+    scale_color_discrete(guide = guide_none())
+
+  built <- ggplot_build(p)
+  plot <- built$plot
+  guides <- build_guides(
+    plot$scales,
+    plot$layers,
+    plot$mapping,
+    "right",
+    theme_gray(),
+    plot$guides,
+    plot$labels
+  )
+
+  expect_identical(guides, zeroGrob())
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {

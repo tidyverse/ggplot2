@@ -186,7 +186,7 @@ guides_train <- function(scales, theme, guides, labels) {
       # this should be changed to testing guide == "none"
       # scale$legend is backward compatibility
       # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-      if (identical(guide, "none") || isFALSE(guide)) next
+      if (identical(guide, "none") || isFALSE(guide) || inherits(guide, "guide_none")) next
 
       # check the validity of guide.
       # if guide is character, then find the guide object
