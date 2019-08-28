@@ -215,35 +215,16 @@ view_scales_from_scale <- function(scale, coord_limits = NULL, expand = TRUE) {
 }
 
 panel_guide_label <- function(guides, position, default_label) {
-  guides <- guides_filter_by_position(guides, position)
-
-  if (length(guides) == 0 || is.null(guides[[1]]$title)) {
-    default_label
-  } else {
-    guides[[1]]$title %|W|% default_label
-  }
+  guide <- guide_for_position(guides, position) %||% guide_none(title = NULL)
+  guide$title %|W|% default_label
 }
 
 panel_guides_grob <- function(guides, position, theme) {
-  guides <- guides_filter_by_position(guides, position)
-  is_none <- vapply(guides, inherits, "guide_none", FUN.VALUE = logical(1))
-
-  grobs <- lapply(guides[!is_none], guide_gengrob, theme)
-
-  if (length(grobs) == 0) {
-    return(zeroGrob())
-  } else if (length(grobs) == 1) {
-    grobs[[1]]
-  } else {
-    warning(
-      "More than one position guide found at `position = \"", position, "\". ",
-      "Only showing the first guide."
-    )
-    grobs[[1]]
-  }
+  guide <- guide_for_position(guides, position) %||% guide_none()
+  guide_gengrob(guide, theme)
 }
 
-guides_filter_by_position <- function(guides, position) {
+guide_for_position <- function(guides, position) {
   has_position <- vapply(
     guides,
     function(guide) identical(guide$position, position),
@@ -252,5 +233,5 @@ guides_filter_by_position <- function(guides, position) {
 
   guides <- guides[has_position]
   guides_order <- vapply(guides, function(guide) as.numeric(guide$order)[1], numeric(1))
-  guides[order(guides_order)]
+  Reduce(guide_merge, guides[order(guides_order)])
 }

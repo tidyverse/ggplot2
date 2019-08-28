@@ -25,7 +25,7 @@ guide_train.guide_none <- function(guide, scale, aesthetic = NULL) {
 
 #' @export
 guide_merge.guide_none <- function(guide, new_guide) {
-  guide
+  new_guide
 }
 
 #' @export

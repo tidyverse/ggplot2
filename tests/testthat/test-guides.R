@@ -76,7 +76,7 @@ test_that("a warning is generated when more than one position guide is drawn at 
       y.sec = guide_axis(position = "left")
     )
   built <- expect_silent(ggplot_build(plot))
-  expect_warning(ggplot_gtable(built), "More than one position guide")
+  expect_warning(ggplot_gtable(built), "Discarding guide")
 })
 
 test_that("guide_none() can be used in non-position scales", {
