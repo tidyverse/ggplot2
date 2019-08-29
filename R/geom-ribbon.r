@@ -62,19 +62,16 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
                     ymax = NULL, colour = NA, fill = "grey20", size = 0.5,
                     linetype = 1, alpha = NA),
 
-  #required_aes = c("x", "ymin", "ymax"),
-
   setup_data = function(data, params) {
     data$main_aes <- detect_direction(data)
-    sub_aes <- if (data$main_aes[1] == "x") "y" else "x"
-    min <- paste0(sub_aes, "min")
-    max <- paste0(sub_aes, "max")
+    vars <- c(main = "x", sub = "y", min = "ymin", max = "ymax")
+    if (data$main_aes[1] == "x") vars <- switch_position(vars)
 
-    if (is.null(data[[min]]) && is.null(data[[max]])) {
-      stop("Either ", min, " or ", max, " must be given as an aesthetic.", call. = FALSE)
+    if (is.null(data[[vars["min"]]]) && is.null(data[[vars["max"]]])) {
+      stop("Either ", vars["min"], " or ", vars["max"], " must be given as an aesthetic.", call. = FALSE)
     }
-    data <- data[order(data$PANEL, data$group, data[[data$main_aes[1]]]), , drop = FALSE]
-    data[[sub_aes]] <- data[[min]] %||% data[[max]]
+    data <- data[order(data$PANEL, data$group, data[[vars["main"]]]), , drop = FALSE]
+    data[[vars["sub"]]] <- data[[vars["min"]]] %||% data[[vars["max"]]]
     data
   },
 
@@ -86,8 +83,8 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
   draw_group = function(data, panel_params, coord, na.rm = FALSE) {
     main_aes <- data$main_aes[1]
-    aes_def <- if (main_aes == "x") c("x", "ymin", "ymax") else c("y", "xmin", "xmax")
-    if (na.rm) data <- data[stats::complete.cases(data[aes_def]), ]
+    if (main_aes == "y") names(data) <- switch_position(names(data))
+    if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
@@ -104,23 +101,19 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     # has distinct polygon numbers for sequences of non-NA values and NA
     # for NA values in the original data.  Example: c(NA, 2, 2, 2, NA, NA,
     # 4, 4, 4, NA)
-    missing_pos <- !stats::complete.cases(data[aes_def])
+    missing_pos <- !stats::complete.cases(data[c("x", "ymin", "ymax")])
     ids <- cumsum(missing_pos) + 1
     ids[missing_pos] <- NA
 
     data <- unclass(data) #for faster indexing
-    positions <- switch(main_aes,
-      x = new_data_frame(list(
-        x = c(data$x, rev(data$x)),
-        y = c(data$ymax, rev(data$ymin)),
-        id = c(ids, rev(ids))
-      )),
-      y = new_data_frame(list(
-        x = c(data$xmax, rev(data$xmin)),
-        y = c(data$y, rev(data$y)),
-        id = c(ids, rev(ids))
-      ))
-    )
+    positions <- new_data_frame(list(
+      x = c(data$x, rev(data$x)),
+      y = c(data$ymax, rev(data$ymin)),
+      id = c(ids, rev(ids))
+    ))
+
+    if (main_aes == "y") names(positions) <- switch_position(names(positions))
+
     munched <- coord_munch(coord, positions, panel_params)
 
     ggname("geom_ribbon", polygonGrob(

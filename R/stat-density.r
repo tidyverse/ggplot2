@@ -85,14 +85,17 @@ StatDensity <- ggproto("StatDensity", Stat,
       range <- scales[[main_aes]]$dimension()
     }
 
-    compute_density(data[[main_aes]], data$weight, from = range[1], to = range[2],
-      bw = bw, adjust = adjust, kernel = kernel, n = n, main_aes = main_aes)
+    density <- compute_density(data[[main_aes]], data$weight, from = range[1],
+      to = range[2], bw = bw, adjust = adjust, kernel = kernel, n = n)
+    density$main_aes <- main_aes
+    if (main_aes == "y") names(density) <- switch_position(names(density))
+    density
   }
 
 )
 
 compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
-                            kernel = "gaussian", n = 512, main_aes = "x") {
+                            kernel = "gaussian", n = 512) {
   nx <- length(x)
   if (is.null(w)) {
     w <- rep(1 / nx, nx)
@@ -111,22 +114,18 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
       count = NA_real_,
       n = NA_integer_
     ), n = 1)
-    names(density)[1] <- main_aes
     return(density)
   }
 
   dens <- stats::density(x, weights = w, bw = bw, adjust = adjust,
     kernel = kernel, n = n, from = from, to = to)
 
-  density <- new_data_frame(list(
+  new_data_frame(list(
     x = dens$x,
     density = dens$y,
     scaled =  dens$y / max(dens$y, na.rm = TRUE),
     ndensity = dens$y / max(dens$y, na.rm = TRUE),
     count =   dens$y * nx,
-    n = nx,
-    main_aes = main_aes
+    n = nx
   ), n = length(dens$x))
-  names(density)[1] <- main_aes
-  return(density)
 }

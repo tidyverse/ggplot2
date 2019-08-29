@@ -388,3 +388,71 @@ parse_safe <- function(text) {
   }
   out
 }
+
+# Sniff out the intended direction based on the mapped aesthetics, returning as
+# soon as possible to make minimal work
+detect_direction <- function(data) {
+  if (!is.null(data$main_aes)) return(data$main_aes[1])
+
+  if (any(c("ymin", "ymax") %in% names(data))) {
+    if ("y" %in% names(data)) {
+      return("y")
+    } else {
+      return("x")
+    }
+  }
+  if (any(c("xmin", "xmax") %in% names(data))) {
+    if ("x" %in% names(data)) {
+      return("x")
+    } else {
+      return("y")
+    }
+  }
+  y_is_int <- all(data$y == round(data$y))
+  x_is_int <- all(data$x == round(data$x))
+  if (xor(y_is_int, x_is_int)) {
+    if (x_is_int) {
+      return("x")
+    } else {
+      return("y")
+    }
+  }
+  y_diff <- diff(unique(sort(data$y)))
+  x_diff <- diff(unique(sort(data$x)))
+  if (y_is_int && x_is_int) {
+    if (sum(x_diff == 1) >= sum(y_diff == 1)) {
+      return("x")
+    } else {
+      return("y")
+    }
+  }
+  y_is_regular <- all((y_diff / min(y_diff)) %% 1 < .Machine$double.eps)
+  x_is_regular <- all((x_diff / min(x_diff)) %% 1 < .Machine$double.eps)
+  if (xor(y_is_regular, x_is_regular)) {
+    if (x_is_regular) {
+      return("x")
+    } else {
+      return("y")
+    }
+  }
+  "x"
+}
+
+# Switch x and y variables in a data frame
+switch_position <- function(aesthetics) {
+  # We should have these as globals somewhere
+  x <- c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper", "x0")
+  y <- c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper", "y0")
+  x_aes <- match(aesthetics, x)
+  x_aes_pos <- which(!is.na(x_aes))
+  y_aes <- match(aesthetics, y)
+  y_aes_pos <- which(!is.na(y_aes))
+  if (length(x_aes_pos) > 0) {
+    aesthetics[x_aes_pos] <- y[x_aes[x_aes_pos]]
+  }
+  if (length(y_aes_pos) > 0) {
+    aesthetics[y_aes_pos] <- x[y_aes[y_aes_pos]]
+  }
+  aesthetics
+}
+

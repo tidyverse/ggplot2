@@ -149,7 +149,10 @@ StatBin <- ggproto("StatBin", Stat,
       bins <- bin_breaks_bins(scales[[main_aes]]$dimension(), bins, center = center,
         boundary = boundary, closed = closed)
     }
-    bin_vector(data[[main_aes]], bins, weight = data$weight, pad = pad, main_aes = main_aes)
+    bins <- bin_vector(data[[main_aes]], bins, weight = data$weight, pad = pad)
+    bins$main_aes <- main_aes
+    if (main_aes == "y") names(bins) <- switch_position(names(bins))
+    bins
   },
 
   default_aes = aes(x = stat(count), y = stat(count), weight = 1)
