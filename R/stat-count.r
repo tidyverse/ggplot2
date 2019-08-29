@@ -52,7 +52,7 @@ StatCount <- ggproto("StatCount", Stat,
     params$main_aes <- "x"
     if (is.null(data$x) && is.null(params$x)) {
       if (is.null(data$y) && is.null(params$y)) {
-        stop("stat_bin() requires either an x or y aesthetic.", call. = FALSE)
+        stop("stat_count() requires either an x or y aesthetic.", call. = FALSE)
       } else {
         params$main_aes <- "y"
       }
