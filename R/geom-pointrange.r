@@ -28,15 +28,20 @@ geom_pointrange <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomPointrange <- ggproto("GeomPointrange", Geom,
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, shape = 19,
+  default_aes = aes(x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL,
+    ymax = NULL, colour = "black", size = 0.5, linetype = 1, shape = 19,
     fill = NA, alpha = NA, stroke = 1),
 
   draw_key = draw_key_pointrange,
 
-  required_aes = c("x", "y", "ymin", "ymax"),
+  setup_data = function(data, params) {
+    GeomLinerange$setup_data(data, params)
+  },
 
   draw_panel = function(data, panel_params, coord, fatten = 4) {
-    if (is.null(data$y))
+    main_aes <- data$main_aes[1]
+    sub_aes <- if (main_aes == "x") "y" else "x"
+    if (is.null(data[[sub_aes]]))
       return(GeomLinerange$draw_panel(data, panel_params, coord))
 
     ggname("geom_pointrange",

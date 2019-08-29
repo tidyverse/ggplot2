@@ -83,14 +83,30 @@ geom_linerange <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomLinerange <- ggproto("GeomLinerange", Geom,
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL,
+    ymax = NULL, colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
   draw_key = draw_key_vpath,
 
-  required_aes = c("x", "ymin", "ymax"),
+  setup_data = function(data, params) {
+    if (all(c("y", "xmin", "xmax") %in% names(data))) {
+      main_aes <- "y"
+    } else if (all(c("x", "ymin", "ymax") %in% names(data))) {
+      main_aes <- "x"
+    } else {
+      stop("Either, `x`, `ymin`, and `ymax` or `y`, `xmin`, and `xmax` must be supplied", call. = FALSE)
+    }
+    data$main_aes <- main_aes
+
+    data
+  },
 
   draw_panel = function(data, panel_params, coord) {
-    data <- transform(data, xend = x, y = ymin, yend = ymax)
+    main_aes <- data$main_aes[1]
+    data <- switch(main_aes,
+      x = transform(data, xend = x, y = ymin, yend = ymax),
+      y = transform(data, yend = y, x = xmin, xend = xmax)
+    )
     ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord))
   }
 )
