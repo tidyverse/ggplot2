@@ -40,12 +40,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
   draw_panel = function(data, panel_params, coord, fatten = 2.5, width = NULL) {
     main_aes <- data$main_aes[1] %||% "x"
-    if (main_aes == "y") {
-      data <- transform(data, x = y, y = x, xmin = ymin, ymin = xmin, xmax = ymax, ymax = xmax)
-      if (!is.null(data$xnotchlower) && !is.null(data$xnotchupper)) {
-        data <- transform(data, ynotchlower = xnotchlower, ynotchupper = xnotchupper)
-      }
-    }
+    if (main_aes == "y") names(data) <- switch_position(names(data))
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
@@ -92,8 +87,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
       ))
     }
     if (main_aes == "y") {
-      box <- transform(box, x = y, y = x)
-      middle <- transform(middle, x = y, xend = yend, y = x, yend = xend)
+      names(box) <- switch_position(names(box))
+      names(middle) <- switch_position(names(middle))
     }
     ggname("geom_crossbar", gTree(children = gList(
       GeomPolygon$draw_panel(box, panel_params, coord),
