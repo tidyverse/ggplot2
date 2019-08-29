@@ -32,14 +32,20 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
     GeomErrorbar$setup_data(data, params)
   },
 
-  default_aes = aes(colour = "black", fill = NA, size = 0.5, linetype = 1,
+  default_aes = aes(x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL,
+    ymax = NULL, colour = "black", fill = NA, size = 0.5, linetype = 1,
     alpha = NA),
-
-  required_aes = c("x", "y", "ymin", "ymax"),
 
   draw_key = draw_key_crossbar,
 
   draw_panel = function(data, panel_params, coord, fatten = 2.5, width = NULL) {
+    main_aes <- data$main_aes[1] %||% "x"
+    if (main_aes == "y") {
+      data <- transform(data, x = y, y = x, xmin = ymin, ymin = xmin, xmax = ymax, ymax = xmax)
+      if (!is.null(data$xnotchlower) && !is.null(data$xnotchupper)) {
+        data <- transform(data, ynotchlower = xnotchlower, ynotchupper = xnotchupper)
+      }
+    }
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
@@ -85,7 +91,10 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
         group = rep(seq_len(nrow(data)), 5) # each bar forms it's own group
       ))
     }
-
+    if (main_aes == "y") {
+      box <- transform(box, x = y, y = x)
+      middle <- transform(middle, x = y, xend = yend, y = x, yend = xend)
+    }
     ggname("geom_crossbar", gTree(children = gList(
       GeomPolygon$draw_panel(box, panel_params, coord),
       GeomSegment$draw_panel(middle, panel_params, coord)
