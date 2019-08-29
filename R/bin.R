@@ -122,7 +122,7 @@ bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
   stopifnot(is_bins(bins))
 
   if (all(is.na(x))) {
-    return(bin_out(length(x), NA, NA, min = NA, max = NA))
+    return(bin_out(length(x), NA, NA, xmin = NA, xmax = NA))
   }
 
   if (is.null(weight)) {
@@ -161,14 +161,14 @@ bin_vector <- function(x, bins, weight = NULL, pad = FALSE) {
 }
 
 bin_out <- function(count = integer(0), x = numeric(0), width = numeric(0),
-  min = x - width / 2, max = x + width / 2) {
+  xmin = x - width / 2, xmax = x + width / 2) {
   density <- count / width / sum(abs(count))
 
   new_data_frame(list(
     count = count,
     x = x,
-    xmin = min,
-    xmax = max,
+    xmin = xmin,
+    xmax = xmax,
     width = width,
     density = density,
     ncount = count / max(abs(count)),
