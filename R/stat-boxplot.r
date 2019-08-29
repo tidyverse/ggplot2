@@ -45,29 +45,51 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
   required_aes = c("y"),
   non_missing_aes = "weight",
   setup_data = function(data, params) {
-    data$x <- data$x %||% 0
+    data[[params$main_aes]] <- data[[params$main_aes]] %||% 0
     data <- remove_missing(
       data,
       na.rm = FALSE,
-      vars = "x",
+      vars = params$main_aes,
       name = "stat_boxplot"
     )
     data
   },
 
   setup_params = function(data, params) {
-    params$width <- params$width %||% (resolution(data$x %||% 0) * 0.75)
+    if (is.null(data$x)) {
+      params$main_aes <- "x"
+    } else if (is.null(data$y)) {
+      params$main_aes <- "y"
+    } else {
+      x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
+      if (all(x_groups == 1)) {
+        params$main_aes <- "x"
+      } else {
+        y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
+        if (all(y_groups == 1)) {
+          params$main_aes <- "y"
+        } else {
+          params$main_aes <- detect_direction(data)
+        }
+      }
+    }
 
-    if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
+    if (is.null(data$x) && is.null(params$x) && is.null(data$y) && is.null(params$y)) {
+      stop("stat_boxplot() requires either an x or y aesthetic.", call. = FALSE)
+    }
+    params$width <- params$width %||% (resolution(data[[params$main_aes]] %||% 0) * 0.75)
+
+    if (is.double(data[[params$main_aes]]) && !has_groups(data) && any(data[[params$main_aes]] != data[[params$main_aes]][1L])) {
       warning(
-        "Continuous x aesthetic -- did you forget aes(group=...)?",
+        "Continuous ", params$main_aes, " aesthetic -- did you forget aes(group=...)?",
         call. = FALSE)
     }
 
     params
   },
 
-  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5) {
+  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, main_aes = "x") {
+    if (main_aes == "y") names(data) <- switch_position(names(data))
     qs <- c(0, 0.25, 0.5, 0.75, 1)
 
     if (!is.null(data$weight)) {
@@ -103,6 +125,8 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     df$x <- if (is.factor(data$x)) data$x[1] else mean(range(data$x))
     df$width <- width
     df$relvarwidth <- sqrt(n)
+    df$main_aes <- main_aes
+    if (main_aes == "y") names(df) <- switch_position(names(df))
     df
   }
 )
