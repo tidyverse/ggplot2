@@ -60,8 +60,24 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   required_aes = c("x", "y"),
   non_missing_aes = "weight",
 
+  setup_params = function(data, params) {
+    x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
+    if (all(x_groups == 1)) {
+      params$main_aes <- "x"
+    } else {
+      y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
+      if (all(y_groups == 1)) {
+        params$main_aes <- "y"
+      } else {
+        params$main_aes <- detect_direction(data)
+      }
+    }
+
+    params
+  },
+
   compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
-                       kernel = "gaussian", trim = TRUE, na.rm = FALSE) {
+                       kernel = "gaussian", trim = TRUE, na.rm = FALSE, main_aes = "x") {
     if (nrow(data) < 3) return(new_data_frame())
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
@@ -83,7 +99,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                            kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                           scale = "area") {
+                           scale = "area", main_aes = "x") {
+    if (main_aes == "y") names(data) <- switch_position(names(data))
     data <- ggproto_parent(Stat, self)$compute_panel(
       data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
       trim = trim, na.rm = na.rm
@@ -100,6 +117,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
       # width: constant width (density scaled to a maximum of 1)
       width = data$scaled
     )
+    if (main_aes == "y") names(data) <- switch_position(names(data))
+    data$main_aes <- main_aes
     data
   }
 
