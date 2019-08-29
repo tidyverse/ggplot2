@@ -32,7 +32,6 @@
 
 
 <meta property="og:title" content="Theme elements — margin" />
-
 <meta property="og:description" content="In conjunction with the theme system, the element_ functions
 specify the display of how non-data components of the plot are a drawn.
 element_blank: draws nothing, and assigns no space.
@@ -40,12 +39,11 @@ element_rect: borders and backgrounds.
 element_line: lines.
 element_text: text.
 " />
-
 <meta property="og:description" content="rel() is used to specify sizes relative to the parent,
 margins() is used to specify the margins of elements." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -177,7 +175,6 @@ margins() is used to specify the margins of elements." />
     </div>
 
     <div class="ref-description">
-    
     <p>In conjunction with the <a href='theme.html'>theme</a> system, the <code>element_</code> functions
 specify the display of how non-data components of the plot are a drawn.</p><ul>
 <li><p><code>element_blank</code>: draws nothing, and assigns no space.</p></li>
@@ -185,10 +182,8 @@ specify the display of how non-data components of the plot are a drawn.</p><ul>
 <li><p><code>element_line</code>: lines.</p></li>
 <li><p><code>element_text</code>: text.</p></li>
 </ul>
-
     <p><code>rel()</code> is used to specify sizes relative to the parent,
 <code>margins()</code> is used to specify the margins of elements.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>margin</span>(<span class='kw'>t</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>l</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"pt"</span>)
@@ -208,7 +203,7 @@ specify the display of how non-data components of the plot are a drawn.</p><ul>
   <span class='kw'>inherit.blank</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
 <span class='fu'>rel</span>(<span class='no'>x</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -297,11 +292,10 @@ is anchored.</p></td>
       <td><p>A single number specifying size relative to parent element.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>An S3 object of class <code>element</code>, <code>rel</code>, or <code>margin</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>plot</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
@@ -330,9 +324,7 @@ is anchored.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

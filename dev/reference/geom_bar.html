@@ -32,7 +32,6 @@
 
 
 <meta property="og:title" content="Bar charts — geom_bar" />
-
 <meta property="og:description" content="There are two types of bar charts: geom_bar() and geom_col().
 geom_bar() makes the height of the
 bar proportional to the number of cases in each group (or if the
@@ -41,9 +40,9 @@ heights of the bars to represent values in the data, use
 geom_col() instead. geom_bar() uses stat_count() by
 default: it counts the number of cases at each x position. geom_col()
 uses stat_identity(): it leaves the data as is." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -175,7 +174,6 @@ uses stat_identity(): it leaves the data as is." />
     </div>
 
     <div class="ref-description">
-    
     <p>There are two types of bar charts: <code>geom_bar()</code> and <code>geom_col()</code>.
 <code>geom_bar()</code> makes the height of the
 bar proportional to the number of cases in each group (or if the
@@ -184,7 +182,6 @@ heights of the bars to represent values in the data, use
 <code>geom_col()</code> instead. <code>geom_bar()</code> uses <code>stat_count()</code> by
 default: it counts the number of cases at each x position. <code>geom_col()</code>
 uses <code><a href='stat_identity.html'>stat_identity()</a></code>: it leaves the data as is.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_bar</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"count"</span>,
@@ -198,7 +195,7 @@ uses <code><a href='stat_identity.html'>stat_identity()</a></code>: it leaves th
 <span class='fu'>stat_count</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"bar"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='no'>...</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -271,7 +268,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <code>stat_count()</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>A bar chart uses height to represent a value, and so the base of the
@@ -282,7 +279,6 @@ atop one another by <code><a href='position_stack.html'>position_stack()</a></co
 side-to-side, use <code><a href='position_dodge.html'>position_dodge()</a></code> or <code><a href='position_dodge.html'>position_dodge2()</a></code>. Finally,
 <code><a href='position_stack.html'>position_fill()</a></code> shows relative proportions at each <code>x</code> by stacking the bars
 and then standardising each bar to have the same height.</p>
-    
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -312,7 +308,6 @@ and then standardising each bar to have the same height.</p>
 <li><p><code>weight</code></p></li>
 <li><p><code>y</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -320,7 +315,6 @@ and then standardising each bar to have the same height.</p>
 <dt>count</dt><dd><p>number of points in bin</p></dd>
 <dt>prop</dt><dd><p>groupwise proportion</p></dd>
 </dl>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='geom_histogram.html'>geom_histogram()</a></code> for continuous data,
@@ -331,7 +325,6 @@ cases in each range. It differs from <code>stat_count</code>, which counts the
 number of cases at each <code>x</code> position (without binning into ranges).
 <code><a href='geom_histogram.html'>stat_bin()</a></code> requires continuous <code>x</code> data, whereas
 <code>stat_count</code> can be used for both discrete and continuous <code>x</code> data.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># geom_bar is designed to make it easy to create bar charts that show</span>
@@ -367,15 +360,10 @@ number of cases at each <code>x</code> position (without binning into ranges).
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#computed-variables">Computed variables</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

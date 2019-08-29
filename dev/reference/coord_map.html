@@ -32,16 +32,15 @@
 
 
 <meta property="og:title" content="Map projections — coord_map" />
-
 <meta property="og:description" content="coord_map projects a portion of the earth, which is approximately
 spherical, onto a flat 2D plane using any projection defined by the
 mapproj package. Map projections do not, in general, preserve straight
 lines, so this requires considerable computation. coord_quickmap is a
 quick approximation that does preserve straight lines. It works best for
 smaller areas closer to the equator." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -173,14 +172,12 @@ smaller areas closer to the equator." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>coord_map</code> projects a portion of the earth, which is approximately
 spherical, onto a flat 2D plane using any projection defined by the
 <code>mapproj</code> package. Map projections do not, in general, preserve straight
 lines, so this requires considerable computation. <code>coord_quickmap</code> is a
 quick approximation that does preserve straight lines. It works best for
 smaller areas closer to the equator.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>coord_map</span>(<span class='kw'>projection</span> <span class='kw'>=</span> <span class='st'>"mercator"</span>, <span class='no'>...</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -188,7 +185,7 @@ smaller areas closer to the equator.</p>
 
 <span class='fu'>coord_quickmap</span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -229,7 +226,7 @@ the limits to ensure that data and axes don't overlap. If <code>FALSE</code>,
 limits are taken exactly from the data or <code>xlim</code>/<code>ylim</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>In general, map projections must account for the fact that the actual length
@@ -242,7 +239,6 @@ poles, setting the aspect ratio of the plot to the appropriate lat/lon ratio
 approximates the usual mercator projection. This is what
 <code>coord_quickmap</code> does, and is much faster (particularly for complex
 plots like <code><a href='geom_tile.html'>geom_tile()</a></code>) at the expense of correctness.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='st'>"maps"</span>)) {
@@ -322,9 +318,7 @@ plots like <code><a href='geom_tile.html'>geom_tile()</a></code>) at the expense
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

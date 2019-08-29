@@ -32,13 +32,12 @@
 
 
 <meta property="og:title" content="Construct labelling specification — labeller" />
-
 <meta property="og:description" content="This function makes it easy to assign different labellers to
 different factors. The labeller can be a function or it can be a
 named character vectors that will serve as a lookup table." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -170,16 +169,14 @@ named character vectors that will serve as a lookup table." />
     </div>
 
     <div class="ref-description">
-    
     <p>This function makes it easy to assign different labellers to
 different factors. The labeller can be a function or it can be a
 named character vectors that will serve as a lookup table.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>labeller</span>(<span class='no'>...</span>, <span class='kw'>.rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>.cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keep.as.numeric</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>.multi_line</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>.default</span> <span class='kw'>=</span> <span class='no'>label_value</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -215,12 +212,11 @@ function.</p></td>
 used with lookup tables or non-labeller functions.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A labeller function to supply to <code><a href='facet_grid.html'>facet_grid()</a></code> or <code><a href='facet_wrap.html'>facet_wrap()</a></code>
 for the argument <code>labeller</code>.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>In case of functions, if the labeller has class <code>labeller</code>, it
@@ -230,11 +226,9 @@ is then processed with the function specified in the
 <code>.default</code> argument. This is intended to be used with
 functions taking a character vector such as
 <code><a href='https://www.rdocumentation.org/packages/Hmisc/topics/capitalize'>Hmisc::capitalize()</a></code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='as_labeller.html'>as_labeller()</a></code>, <a href='labellers.html'>labellers</a></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>mpg</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
@@ -298,13 +292,9 @@ functions taking a character vector such as
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

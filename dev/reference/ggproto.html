@@ -32,12 +32,11 @@
 
 
 <meta property="og:title" content="Create a new ggproto object — ggproto" />
-
 <meta property="og:description" content="Construct a new object with ggproto, test with is.proto,
 and access parent methods/fields with ggproto_parent." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -169,10 +168,8 @@ and access parent methods/fields with ggproto_parent." />
     </div>
 
     <div class="ref-description">
-    
     <p>Construct a new object with <code>ggproto</code>, test with <code>is.proto</code>,
 and access parent methods/fields with <code>ggproto_parent</code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>ggproto</span>(<span class='kw'>`_class`</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>`_inherit`</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
@@ -180,7 +177,7 @@ and access parent methods/fields with <code>ggproto_parent</code>.</p>
 <span class='fu'>ggproto_parent</span>(<span class='no'>parent</span>, <span class='no'>self</span>)
 
 <span class='fu'>is.ggproto</span>(<span class='no'>x</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -208,7 +205,7 @@ inherit from any object.</p></td>
       <td><p>An object to test.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>ggproto implements a protype based OO system which blurs the lines between
@@ -218,7 +215,6 @@ inheritance, and has faster performance.</p>
 <p>In most cases, creating a new OO system to be used by a single package is
 not a good idea. However, it was the least-bad solution for ggplot2 because
 it required the fewest changes to an already complex code base.</p>
-    
     <h2 class="hasAnchor" id="calling-methods"><a class="anchor" href="#calling-methods"></a>Calling methods</h2>
 
     
@@ -230,13 +226,11 @@ method <code>addx = function(self, n) n + self$x</code>. Then, to call this
 function, you would use <code>Adder$addx(10)</code> -- the <code>self</code> is passed
 in automatically by the wrapper function. <code>self</code> be located anywhere
 in the function signature, although customarily it comes first.</p>
-    
     <h2 class="hasAnchor" id="calling-methods-in-a-parent"><a class="anchor" href="#calling-methods-in-a-parent"></a>Calling methods in a parent</h2>
 
     
     <p>To explicitly call a methods in a parent, use
 <code>ggproto_parent(Parent, self)</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>Adder</span> <span class='kw'>&lt;-</span> <span class='fu'>ggproto</span>(<span class='st'>"Adder"</span>,
@@ -259,13 +253,9 @@ in the function signature, although customarily it comes first.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#calling-methods">Calling methods</a></li>
-
       <li><a href="#calling-methods-in-a-parent">Calling methods in a parent</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -32,14 +32,13 @@
 
 
 <meta property="og:title" content="Lay out panels in a grid — facet_grid" />
-
 <meta property="og:description" content="facet_grid() forms a matrix of panels defined by row and column
 faceting variables. It is most useful when you have two discrete
 variables, and all combinations of the variables exist in the data.
 If you have only one variable with many levels, try facet_wrap()." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -171,19 +170,17 @@ If you have only one variable with many levels, try facet_wrap()." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>facet_grid()</code> forms a matrix of panels defined by row and column
 faceting variables. It is most useful when you have two discrete
 variables, and all combinations of the variables exist in the data.
 If you have only one variable with many levels, try <code><a href='facet_wrap.html'>facet_wrap()</a></code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>facet_grid</span>(<span class='kw'>rows</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
   <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>, <span class='kw'>shrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='st'>"label_value"</span>,
   <span class='kw'>as.table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>switch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>margins</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>facets</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -268,7 +265,7 @@ variables for which margins are to be created.</p></td>
 and <code>cols</code> instead.</p></td>
     </tr>
     </table>
-    
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>cty</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
@@ -313,7 +310,6 @@ and <code>cols</code> instead.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-            
       <li><a href="#examples">Examples</a></li>
     </ul>
 

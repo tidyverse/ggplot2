@@ -32,12 +32,11 @@
 
 
 <meta property="og:title" content="Text — geom_label" />
-
 <meta property="og:description" content="geom_text() adds text directly to the plot. geom_label() draws
 a rectangle behind the text, making it easier to read." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -169,10 +168,8 @@ a rectangle behind the text, making it easier to read." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>geom_text()</code> adds text directly to the plot. <code>geom_label()</code> draws
 a rectangle behind the text, making it easier to read.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_label</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
@@ -185,7 +182,7 @@ a rectangle behind the text, making it easier to read.</p>
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -275,7 +272,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 same layer will not be plotted.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Note that the "width" and "height" of a text element are 0, so stacking
@@ -289,7 +286,6 @@ data, even if coordinates x, y are set to single values in the call
 to <code>geom_label()</code> or <code>geom_text()</code>.
 To add labels at specified points use <code><a href='annotate.html'>annotate()</a></code> with
 <code><a href='annotate.html'>annotate(geom = "text", ...)</a></code> or <code><a href='annotate.html'>annotate(geom = "label", ...)</a></code>.</p>
-    
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -308,14 +304,12 @@ To add labels at specified points use <code><a href='annotate.html'>annotate()</
 <li><p><code>size</code></p></li>
 <li><p><code>vjust</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="geom-label-"><a class="anchor" href="#geom-label-"></a><code>geom_label()</code></h2>
 
     
     <p>Currently <code>geom_label()</code> does not support the <code>angle</code> aesthetic and
 is considerably slower than <code>geom_text()</code>. The <code>fill</code> aesthetic
 controls the background colour of the label.</p>
-    
     <h2 class="hasAnchor" id="alignment"><a class="anchor" href="#alignment"></a>Alignment</h2>
 
     
@@ -325,7 +319,6 @@ aesthetics. These can either be a number between 0 (right/bottom) and
 <code>"center"</code>, <code>"top"</code>). There are two special alignments: <code>"inward"</code> and
 <code>"outward"</code>. Inward always aligns text towards the center, and outward
 aligns it away from the center.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/colnames'>rownames</a></span>(<span class='no'>mtcars</span>)))
@@ -394,15 +387,10 @@ aligns it away from the center.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#geom-label-"><code>geom_label()</code></a></li>
-
       <li><a href="#alignment">Alignment</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

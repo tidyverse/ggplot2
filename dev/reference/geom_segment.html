@@ -32,14 +32,13 @@
 
 
 <meta property="og:title" content="Line segments and curves — geom_segment" />
-
 <meta property="og:description" content="geom_segment draws a straight line between points (x, y) and
 (xend, yend). geom_curve draws a curved line. See the underlying
 drawing function grid::curveGrob() for the parameters that
 control the curve." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -171,12 +170,10 @@ control the curve." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>geom_segment</code> draws a straight line between points (x, y) and
 (xend, yend). <code>geom_curve</code> draws a curved line. See the underlying
 drawing function <code><a href='https://www.rdocumentation.org/packages/grid/topics/grid.curve'>grid::curveGrob()</a></code> for the parameters that
 control the curve.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_segment</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
@@ -188,7 +185,7 @@ control the curve.</p>
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>curvature</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fl'>90</span>, <span class='kw'>ncp</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>arrow.fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -287,12 +284,11 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     More control points creates a smoother curve.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Both geoms draw a single segment/curve per case. See <code>geom_path</code> if you
 need to connect points across multiple cases.</p>
-    
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -307,14 +303,12 @@ need to connect points across multiple cases.</p>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='geom_path.html'>geom_path()</a></code> and <code><a href='geom_path.html'>geom_line()</a></code> for multi-
 segment lines and paths.</p>
 <p><code><a href='geom_spoke.html'>geom_spoke()</a></code> for a segment parameterised by a location
 (x, y), and an angle and radius.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>b</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) +
@@ -358,13 +352,9 @@ segment lines and paths.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

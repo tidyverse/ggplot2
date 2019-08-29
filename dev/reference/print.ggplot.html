@@ -32,14 +32,13 @@
 
 
 <meta property="og:title" content="Explicitly draw plot — print.ggplot" />
-
 <meta property="og:description" content="Generally, you do not need to print or plot a ggplot2 plot explicitly: the
 default top-level print method will do it for you. You will, however, need
 to call print() explicitly if you want to draw a plot inside a
 function or for loop." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -171,12 +170,10 @@ function or for loop." />
     </div>
 
     <div class="ref-description">
-    
     <p>Generally, you do not need to print or plot a ggplot2 plot explicitly: the
 default top-level print method will do it for you. You will, however, need
 to call <code><a href='https://www.rdocumentation.org/packages/base/topics/print'>print()</a></code> explicitly if you want to draw a plot inside a
 function or for loop.</p>
-    
     </div>
 
     <pre class="usage"><span class='co'># S3 method for ggplot</span>
@@ -184,7 +181,7 @@ function or for loop.</p>
 
 <span class='co'># S3 method for ggplot</span>
 <span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>x</span>, <span class='kw'>newpage</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/NULL'>is.null</a></span>(<span class='no'>vp</span>), <span class='kw'>vp</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -205,13 +202,12 @@ function or for loop.</p>
       <td><p>other arguments not used by this method</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>Invisibly returns the result of <code><a href='ggplot_build.html'>ggplot_build()</a></code>, which
 is a list with components that contain the plot itself, the data,
 information about the scales, panels etc.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>colours</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(~<span class='no'>class</span>, ~<span class='no'>drv</span>, ~<span class='no'>fl</span>)
@@ -232,9 +228,7 @@ information about the scales, panels etc.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -32,7 +32,6 @@
 
 
 <meta property="og:title" content="2d contours of a 3d surface — geom_contour" />
-
 <meta property="og:description" content="ggplot2 can not draw true 3d surfaces, but you can use geom_contour
 and geom_tile() to visualise 3d surfaces in 2d. To be a valid
 surface, the data must contain only a single row for each unique combination
@@ -40,9 +39,9 @@ of the variables mapped to the x and y aesthetics. Contouring
 tends to work best when x and y form a (roughly) evenly
 spaced grid. If your data is not evenly spaced, you may want to interpolate
 to a grid before visualising." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -174,7 +173,6 @@ to a grid before visualising." />
     </div>
 
     <div class="ref-description">
-    
     <p>ggplot2 can not draw true 3d surfaces, but you can use <code>geom_contour</code>
 and <code><a href='geom_tile.html'>geom_tile()</a></code> to visualise 3d surfaces in 2d. To be a valid
 surface, the data must contain only a single row for each unique combination
@@ -182,7 +180,6 @@ of the variables mapped to the <code>x</code> and <code>y</code> aesthetics. Con
 tends to work best when <code>x</code> and <code>y</code> form a (roughly) evenly
 spaced grid. If your data is not evenly spaced, you may want to interpolate
 to a grid before visualising.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_contour</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"contour"</span>,
@@ -205,7 +202,7 @@ to a grid before visualising.</p>
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -298,7 +295,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
       <td><p>The geometric object to use display the data</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -319,7 +316,6 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <li><p><code>group</code></p></li>
 <li><p><code>order</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -328,11 +324,9 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <dt>nlevel</dt><dd><p>height of contour, scaled to maximum of 1</p></dd>
 <dt>piece</dt><dd><p>contour piece (an integer)</p></dd>
 </dl>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='geom_density_2d.html'>geom_density_2d()</a></code>: 2d density contours</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>#' # Basic plot</span>
@@ -356,13 +350,9 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#computed-variables">Computed variables</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

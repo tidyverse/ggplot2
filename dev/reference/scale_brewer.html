@@ -32,14 +32,13 @@
 
 
 <meta property="og:title" content="Sequential, diverging and qualitative colour scales from colorbrewer.org — scale_colour_brewer" />
-
 <meta property="og:description" content="The brewer scales provides sequential, diverging and qualitative
 colour schemes from ColorBrewer. These are particularly well suited to
 display discrete values on a map. See http://colorbrewer2.org for
 more information." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -171,12 +170,10 @@ more information." />
     </div>
 
     <div class="ref-description">
-    
     <p>The <code>brewer</code> scales provides sequential, diverging and qualitative
 colour schemes from ColorBrewer. These are particularly well suited to
 display discrete values on a map. See <a href='http://colorbrewer2.org'>http://colorbrewer2.org</a> for
 more information.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>scale_colour_brewer</span>(<span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"seq"</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -192,7 +189,7 @@ more information.</p>
 <span class='fu'>scale_fill_distiller</span>(<span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"seq"</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>direction</span> <span class='kw'>=</span> -<span class='fl'>1</span>,
   <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>, <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
   <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -247,18 +244,16 @@ other values are deprecated.</p></td>
 colour bar, or <code>"legend"</code> for discrete colour legend.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The <code>brewer</code> scales were carefully designed and tested on discrete data.
 They were not designed to be extended to continuous data, but results often
 look good. Your mileage may vary.</p>
-    
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The <code>distiller</code> scales extend brewer to continuous scales by smoothly
 interpolating 7 colours from any palette to a continuous scale.</p>
-    
     <h2 class="hasAnchor" id="palettes"><a class="anchor" href="#palettes"></a>Palettes</h2>
 
     
@@ -268,7 +263,6 @@ interpolating 7 colours from any palette to a continuous scale.</p>
 <dt>Sequential</dt><dd><p>Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
 OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd</p></dd>
 </dl><p>Modify the palette through the <code>palette</code> arguement.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other colour scales: <code><a href='scale_alpha.html'>scale_alpha</a></code>,
@@ -276,7 +270,6 @@ OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd</p><
   <code><a href='scale_grey.html'>scale_colour_grey</a></code>,
   <code><a href='scale_hue.html'>scale_colour_hue</a></code>,
   <code><a href='scale_viridis.html'>scale_colour_viridis_d</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>dsamp</span> <span class='kw'>&lt;-</span> <span class='no'>diamonds</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>diamonds</span>), <span class='fl'>1000</span>), ]
@@ -302,15 +295,10 @@ OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd</p><
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#note">Note</a></li>
-
       <li><a href="#palettes">Palettes</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

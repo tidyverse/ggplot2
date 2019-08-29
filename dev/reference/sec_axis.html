@@ -32,13 +32,12 @@
 
 
 <meta property="og:title" content="Specify a secondary axis — sec_axis" />
-
 <meta property="og:description" content="This function is used in conjunction with a position scale to create a
 secondary axis, positioned opposite of the primary axis. All secondary
 axes must be based on a one-to-one transformation of the primary axes." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -170,11 +169,9 @@ axes must be based on a one-to-one transformation of the primary axes." />
     </div>
 
     <div class="ref-description">
-    
     <p>This function is used in conjunction with a position scale to create a
 secondary axis, positioned opposite of the primary axis. All secondary
 axes must be based on a one-to-one transformation of the primary axes.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>sec_axis</span>(<span class='kw'>trans</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
@@ -184,7 +181,7 @@ axes must be based on a one-to-one transformation of the primary axes.</p>
   <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>derive</span>())
 
 <span class='fu'>derive</span>()</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -215,7 +212,7 @@ axes must be based on a one-to-one transformation of the primary axes.</p>
 </ul></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>sec_axis</code> is used to create the specifications for a secondary axis.
@@ -232,7 +229,6 @@ This means they may only be transformed via addition or subtraction, e.g.
 <code>~ . - 8*60*60</code>. Nonlinear transformations will return an error.
 To produce a time-since-event secondary axis in this context, users
 may consider adapting secondary axis labels.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cyl</span>, <span class='no'>mpg</span>)) +
@@ -274,9 +270,7 @@ may consider adapting secondary axis labels.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

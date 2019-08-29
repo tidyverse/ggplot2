@@ -32,15 +32,14 @@
 
 
 <meta property="og:title" content="Create an annotation layer — annotate" />
-
 <meta property="og:description" content="This function adds geoms to a plot, but unlike typical a geom function,
 the properties of the geoms are not mapped from variables of a data frame,
 but are instead passed in as vectors. This is useful for adding small annotations
 (such as text labels) or if you have your data in vectors, and for some
 reason don't want to put them in a data frame." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -172,19 +171,17 @@ reason don't want to put them in a data frame." />
     </div>
 
     <div class="ref-description">
-    
     <p>This function adds geoms to a plot, but unlike typical a geom function,
 the properties of the geoms are not mapped from variables of a data frame,
 but are instead passed in as vectors. This is useful for adding small annotations
 (such as text labels) or if you have your data in vectors, and for some
 reason don't want to put them in a data frame.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>annotate</span>(<span class='no'>geom</span>, <span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xmin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xmax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>ymin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>,
   <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -210,14 +207,13 @@ to the paired geom/stat.</p></td>
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Note that all position aesthetics are scaled (i.e. they will expand the
 limits of the plot so they are visible), but all other aesthetics are
 set. This means that layers created with this function will never
 affect the legend.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>wt</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>mpg</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
@@ -234,9 +230,7 @@ affect the legend.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

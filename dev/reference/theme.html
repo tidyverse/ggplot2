@@ -32,7 +32,6 @@
 
 
 <meta property="og:title" content="Modify components of a theme — theme" />
-
 <meta property="og:description" content="Themes are a powerful way to customize the non-data components of your
 plots: i.e. titles, labels, fonts, background, gridlines, and legends.
 Themes can be used to give plots a consistent customized look.
@@ -40,9 +39,9 @@ Modify a single plot's theme using theme(); see theme_update() if
 you want modify the active theme, to affect all subsequent plots. Theme
 elements are documented together according to inheritance, read more
 about theme inheritance below." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -174,7 +173,6 @@ about theme inheritance below." />
     </div>
 
     <div class="ref-description">
-    
     <p>Themes are a powerful way to customize the non-data components of your
 plots: i.e. titles, labels, fonts, background, gridlines, and legends.
 Themes can be used to give plots a consistent customized look.
@@ -182,7 +180,6 @@ Modify a single plot's theme using <code>theme()</code>; see <code><a href='them
 you want modify the active theme, to affect all subsequent plots. Theme
 elements are documented together according to inheritance, read more
 about theme inheritance below.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>theme</span>(<span class='no'>line</span>, <span class='no'>rect</span>, <span class='no'>text</span>, <span class='no'>title</span>, <span class='no'>aspect.ratio</span>, <span class='no'>axis.title</span>, <span class='no'>axis.title.x</span>,
@@ -209,7 +206,7 @@ about theme inheritance below.</p>
   <span class='no'>strip.background.x</span>, <span class='no'>strip.background.y</span>, <span class='no'>strip.placement</span>, <span class='no'>strip.text</span>,
   <span class='no'>strip.text.x</span>, <span class='no'>strip.text.y</span>, <span class='no'>strip.switch.pad.grid</span>, <span class='no'>strip.switch.pad.wrap</span>,
   <span class='no'>...</span>, <span class='kw'>complete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -488,7 +485,7 @@ elements.</p></td>
       <td><p><code>TRUE</code> to run <code>validate_element()</code>, <code>FALSE</code> to bypass checks.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="theme-inheritance"><a class="anchor" href="#theme-inheritance"></a>Theme inheritance</h2>
 
     
@@ -500,14 +497,12 @@ directly or indirectly from <code>text</code>; all lines inherit from
 This means that you can modify the appearance of multiple elements by
 setting a single high-level component.</p>
 <p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='gg-add.html'>+.gg()</a></code> and <code><a href='theme_get.html'>%+replace%</a></code>,
 <code><a href='element.html'>element_blank()</a></code>, <code><a href='element.html'>element_line()</a></code>,
 <code><a href='element.html'>element_rect()</a></code>, and <code><a href='element.html'>element_text()</a></code> for
 details of the specific theme elements.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) +
@@ -580,11 +575,8 @@ details of the specific theme elements.</p></div>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#theme-inheritance">Theme inheritance</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

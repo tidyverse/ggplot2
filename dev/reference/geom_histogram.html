@@ -32,16 +32,15 @@
 
 
 <meta property="og:title" content="Histograms and frequency polygons — geom_freqpoly" />
-
 <meta property="og:description" content="Visualise the distribution of a single continuous variable by dividing
 the x axis into bins and counting the number of observations in each bin.
 Histograms (geom_histogram()) display the counts with bars; frequency
 polygons (geom_freqpoly()) display the counts with lines. Frequency
 polygons are more suitable when you want to compare the distribution
 across the levels of a categorical variable." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -173,14 +172,12 @@ across the levels of a categorical variable." />
     </div>
 
     <div class="ref-description">
-    
     <p>Visualise the distribution of a single continuous variable by dividing
 the x axis into bins and counting the number of observations in each bin.
 Histograms (<code>geom_histogram()</code>) display the counts with bars; frequency
 polygons (<code>geom_freqpoly()</code>) display the counts with lines. Frequency
 polygons are more suitable when you want to compare the distribution
 across the levels of a categorical variable.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_freqpoly</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
@@ -196,7 +193,7 @@ across the levels of a categorical variable.</p>
   <span class='kw'>center</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>closed</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>), <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -305,7 +302,7 @@ or left edges of bins are included in the bin.</p></td>
 frequency polygons touch 0. Defaults to <code>FALSE</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>stat_bin()</code> is suitable only for continuous x data. If your x data is
@@ -316,13 +313,11 @@ different number of bins. You can also experiment modifying the <code>binwidth</
 <code>center</code> or <code>boundary</code> arguments. <code>binwidth</code> overrides <code>bins</code> so you should do
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.</p>
-    
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
     <p><code>geom_histogram()</code> uses the same aesthetics as <code><a href='geom_bar.html'>geom_bar()</a></code>;
 <code>geom_freqpoly()</code> uses the same aesthetics as <code><a href='geom_path.html'>geom_line()</a></code>.</p>
-    
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -332,13 +327,11 @@ the full story behind your data.</p>
 <dt>ncount</dt><dd><p>count, scaled to maximum of 1</p></dd>
 <dt>ndensity</dt><dd><p>density, scaled to maximum of 1</p></dd>
 </dl>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='geom_bar.html'>stat_count()</a></code>, which counts the number of cases at each x
 position, without binning. It is suitable for both discrete and continuous
 x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>)) +
@@ -397,15 +390,10 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#computed-variables">Computed variables</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

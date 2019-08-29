@@ -32,13 +32,12 @@
 
 
 <meta property="og:title" content="Count overlapping points — geom_count" />
-
 <meta property="og:description" content="This is a variant geom_point() that counts the number of
 observations at each location, then maps the count to point area. It
 useful when you have discrete data and overplotting." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -170,11 +169,9 @@ useful when you have discrete data and overplotting." />
     </div>
 
     <div class="ref-description">
-    
     <p>This is a variant <code><a href='geom_point.html'>geom_point()</a></code> that counts the number of
 observations at each location, then maps the count to point area. It
 useful when you have discrete data and overplotting.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_count</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sum"</span>,
@@ -184,7 +181,7 @@ useful when you have discrete data and overplotting.</p>
 <span class='fu'>stat_sum</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"point"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -247,7 +244,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <code>geom_count</code> and <code>stat_sum</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -262,7 +259,6 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <li><p><code>size</code></p></li>
 <li><p><code>stroke</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -270,11 +266,9 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <dt>n</dt><dd><p>number of observations at position</p></dd>
 <dt>prop</dt><dd><p>percent of points in that panel at that position</p></dd>
 </dl>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>For continuous <code>x</code> and <code>y</code>, use <code><a href='geom_bin2d.html'>geom_bin2d()</a></code>.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cty</span>, <span class='no'>hwy</span>)) +
@@ -305,13 +299,9 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#computed-variables">Computed variables</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

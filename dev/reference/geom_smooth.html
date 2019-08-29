@@ -32,14 +32,13 @@
 
 
 <meta property="og:title" content="Smoothed conditional means — geom_smooth" />
-
 <meta property="og:description" content="Aids the eye in seeing patterns in the presence of overplotting.
 geom_smooth() and stat_smooth() are effectively aliases: they
 both use the same arguments. Use stat_smooth() if you want to
 display the results with a non-standard geom." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -171,12 +170,10 @@ display the results with a non-standard geom." />
     </div>
 
     <div class="ref-description">
-    
     <p>Aids the eye in seeing patterns in the presence of overplotting.
 <code>geom_smooth()</code> and <code>stat_smooth()</code> are effectively aliases: they
 both use the same arguments. Use <code>stat_smooth()</code> if you want to
 display the results with a non-standard geom.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_smooth</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"smooth"</span>,
@@ -188,7 +185,7 @@ display the results with a non-standard geom.</p>
   <span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>fullrange</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>method.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -300,7 +297,7 @@ the data?</p></td>
 function defined by <code>method</code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Calculation is performed by the (currently undocumented)
@@ -309,7 +306,6 @@ error bounds are computed using the <code><a href='https://www.rdocumentation.or
 exceptions are <code><a href='https://www.rdocumentation.org/packages/stats/topics/loess'>loess()</a></code>, which uses a t-based approximation, and
 <code><a href='https://www.rdocumentation.org/packages/stats/topics/glm'>glm()</a></code>, where the normal confidence interval is constructed on the link
 scale and then back-transformed to the response scale.</p>
-    
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -326,7 +322,6 @@ scale and then back-transformed to the response scale.</p>
 <li><p><code>ymax</code></p></li>
 <li><p><code>ymin</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -336,14 +331,12 @@ scale and then back-transformed to the response scale.</p>
 <dt>ymax</dt><dd><p>upper pointwise confidence interval around the mean</p></dd>
 <dt>se</dt><dd><p>standard error</p></dd>
 </dl>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See individual modelling functions for more details:
 <code><a href='https://www.rdocumentation.org/packages/stats/topics/lm'>lm()</a></code> for linear smooths,
 <code><a href='https://www.rdocumentation.org/packages/stats/topics/glm'>glm()</a></code> for generalised linear smooths, and
 <code><a href='https://www.rdocumentation.org/packages/stats/topics/loess'>loess()</a></code> for local smooths.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
@@ -394,15 +387,10 @@ scale and then back-transformed to the response scale.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#computed-variables">Computed variables</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

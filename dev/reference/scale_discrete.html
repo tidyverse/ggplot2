@@ -32,13 +32,12 @@
 
 
 <meta property="og:title" content="Position scales for discrete data — scale_x_discrete" />
-
 <meta property="og:description" content="scale_x_discrete and scale_y_discrete are used to set the values for
 discrete x and y scale aesthetics. For simple manipulation of scale labels
 and limits, you may wish to use labs() and lims() instead." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -170,17 +169,15 @@ and limits, you may wish to use labs() and lims() instead." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>scale_x_discrete</code> and <code>scale_y_discrete</code> are used to set the values for
 discrete x and y scale aesthetics. For simple manipulation of scale labels
 and limits, you may wish to use <code><a href='labs.html'>labs()</a></code> and <code><a href='lims.html'>lims()</a></code> instead.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>scale_x_discrete</span>(<span class='no'>...</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)
 
 <span class='fu'>scale_y_discrete</span>(<span class='no'>...</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -253,7 +250,7 @@ expand the scale by 5% on each side for continuous variables, and by
 <code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>You can use continuous positions even with a discrete position scale -
@@ -261,12 +258,10 @@ this allows you (e.g.) to place labels between bars in a bar chart.
 Continuous positions are numeric values starting at one for the first
 level, and increasing by one for each level (i.e. the labels are placed
 at integer positions).  This is what allows jittering to work.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other position scales: <code><a href='scale_continuous.html'>scale_x_continuous</a></code>,
   <code><a href='scale_date.html'>scale_x_date</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>)) + <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='scale_discrete-1.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -293,11 +288,8 @@ at integer positions).  This is what allows jittering to work.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

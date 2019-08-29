@@ -32,14 +32,13 @@
 
 
 <meta property="og:title" content="Violin plot — geom_violin" />
-
 <meta property="og:description" content="A violin plot is a compact display of a continuous distribution. It is a
 blend of geom_boxplot() and geom_density(): a
 violin plot is a mirrored density plot displayed in the same way as a
 boxplot." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -171,12 +170,10 @@ boxplot." />
     </div>
 
     <div class="ref-description">
-    
     <p>A violin plot is a compact display of a continuous distribution. It is a
 blend of <code><a href='geom_boxplot.html'>geom_boxplot()</a></code> and <code><a href='geom_density.html'>geom_density()</a></code>: a
 violin plot is a mirrored density plot displayed in the same way as a
 boxplot.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_violin</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"ydensity"</span>,
@@ -188,7 +185,7 @@ boxplot.</p>
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>, <span class='no'>...</span>, <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"area"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -284,7 +281,7 @@ For example, <code>adjust = 1/2</code> means use half of the default bandwidth.<
       <td><p>Kernel. See list of available kernels in <code><a href='https://www.rdocumentation.org/packages/stats/topics/density'>density()</a></code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -299,7 +296,6 @@ For example, <code>adjust = 1/2</code> means use half of the default bandwidth.<
 <li><p><code>size</code></p></li>
 <li><p><code>weight</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -312,17 +308,14 @@ or to a constant maximum width</p></dd>
 <dt>n</dt><dd><p>number of points</p></dd>
 <dt>width</dt><dd><p>width of violin bounding box</p></dd>
 </dl>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Hintze, J. L., Nelson, R. D. (1998) Violin Plots: A Box
 Plot-Density Trace Synergism. The American Statistician 52, 181-184.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>geom_violin()</code> for examples, and <code><a href='geom_density.html'>stat_density()</a></code>
 for examples with data along the x axis.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/factor'>factor</a></span>(<span class='no'>cyl</span>), <span class='no'>mpg</span>))
@@ -366,15 +359,10 @@ for examples with data along the x axis.</p></div>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#computed-variables">Computed variables</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

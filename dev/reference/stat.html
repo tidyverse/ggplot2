@@ -32,7 +32,6 @@
 
 
 <meta property="og:title" content="Calculated aesthetics — stat" />
-
 <meta property="og:description" content="Most aesthetics are mapped from variables found in the data. Sometimes,
 however, you want to map from variables computed by the aesthetic. The
 most common example of this is the height of bars in geom_histogram():
@@ -40,9 +39,9 @@ the height does not come from a variable in the underlying data, but
 is instead mapped to the count computed by stat_bin(). The stat()
 function is a flag to ggplot2 to it that you want to use calculated
 aesthetics produced by the statistic." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -174,7 +173,6 @@ aesthetics produced by the statistic." />
     </div>
 
     <div class="ref-description">
-    
     <p>Most aesthetics are mapped from variables found in the data. Sometimes,
 however, you want to map from variables computed by the aesthetic. The
 most common example of this is the height of bars in <code><a href='geom_histogram.html'>geom_histogram()</a></code>:
@@ -182,11 +180,10 @@ the height does not come from a variable in the underlying data, but
 is instead mapped to the <code>count</code> computed by <code><a href='geom_histogram.html'>stat_bin()</a></code>. The <code>stat()</code>
 function is a flag to ggplot2 to it that you want to use calculated
 aesthetics produced by the statistic.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>stat</span>(<span class='no'>x</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -195,12 +192,11 @@ aesthetics produced by the statistic.</p>
       <td><p>An aesthetic expression using variables calculated by the stat.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This replaces the older approach of surrounding the variable name with
 <code>..</code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Default histogram display</span>
@@ -214,9 +210,7 @@ aesthetics produced by the statistic.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -32,13 +32,12 @@
 
 
 <meta property="og:title" content="A box and whiskers plot (in the style of Tukey) — geom_boxplot" />
-
 <meta property="og:description" content="The boxplot compactly displays the distribution of a continuous variable.
 It visualises five summary statistics (the median, two hinges
 and two whiskers), and all &quot;outlying&quot; points individually." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -170,11 +169,9 @@ and two whiskers), and all &quot;outlying&quot; points individually." />
     </div>
 
     <div class="ref-description">
-    
     <p>The boxplot compactly displays the distribution of a continuous variable.
 It visualises five summary statistics (the median, two hinges
 and two whiskers), and all "outlying" points individually.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_boxplot</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
@@ -187,7 +184,7 @@ and two whiskers), and all "outlying" points individually.</p>
 <span class='fu'>stat_boxplot</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge2"</span>, <span class='no'>...</span>, <span class='kw'>coef</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -285,7 +282,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
       <td><p>Length of the whiskers as multiple of IQR. Defaults to 1.5.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="summary-statistics"><a class="anchor" href="#summary-statistics"></a>Summary statistics</h2>
 
     
@@ -303,7 +300,6 @@ individually.</p>
 <p>In a notched box plot, the notches extend <code>1.58 * IQR / sqrt(n)</code>.
 This gives a roughly 95% confidence interval for comparing medians.
 See McGill et al. (1978) for more details.</p>
-    
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -323,7 +319,6 @@ See McGill et al. (1978) for more details.</p>
 <li><p><code>size</code></p></li>
 <li><p><code>weight</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -337,18 +332,15 @@ See McGill et al. (1978) for more details.</p>
 <dt>upper</dt><dd><p>upper hinge, 75% quantile</p></dd>
 <dt>ymax</dt><dd><p>upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR</p></dd>
 </dl>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
 box plots. The American Statistician 32, 12-16.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='geom_quantile.html'>geom_quantile()</a></code> for continuous <code>x</code>,
 <code><a href='geom_violin.html'>geom_violin()</a></code> for a richer display of the distribution, and
 <code><a href='geom_jitter.html'>geom_jitter()</a></code> for a useful technique for small data.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>class</span>, <span class='no'>hwy</span>))
@@ -387,17 +379,11 @@ box plots. The American Statistician 32, 12-16.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#summary-statistics">Summary statistics</a></li>
-
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#computed-variables">Computed variables</a></li>
-
       <li><a href="#references">References</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -32,16 +32,15 @@
 
 
 <meta property="og:title" content="Rectangles — geom_raster" />
-
 <meta property="og:description" content="geom_rect and geom_tile do the same thing, but are
 parameterised differently: geom_rect uses the locations of the four
 corners (xmin, xmax, ymin and ymax), while
 geom_tile uses the center of the tile and its size (x,
 y, width, height). geom_raster is a high
 performance special case for when all the tiles are the same size." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -173,14 +172,12 @@ performance special case for when all the tiles are the same size." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>geom_rect</code> and <code>geom_tile</code> do the same thing, but are
 parameterised differently: <code>geom_rect</code> uses the locations of the four
 corners (<code>xmin</code>, <code>xmax</code>, <code>ymin</code> and <code>ymax</code>), while
 <code>geom_tile</code> uses the center of the tile and its size (<code>x</code>,
 <code>y</code>, <code>width</code>, <code>height</code>). <code>geom_raster</code> is a high
 performance special case for when all the tiles are the same size.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_raster</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
@@ -195,7 +192,7 @@ performance special case for when all the tiles are the same size.</p>
 <span class='fu'>geom_tile</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"mitre"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -273,7 +270,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
       <td><p>Line join style (round, mitre, bevel).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -289,7 +286,6 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <li><p><code>size</code></p></li>
 <li><p><code>width</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># The most common use for rectangles is to draw a surface. You always want</span>
@@ -326,9 +322,7 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#aesthetics">Aesthetics</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

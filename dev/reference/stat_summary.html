@@ -32,14 +32,13 @@
 
 
 <meta property="og:title" content="Summarise y values at unique/binned x — stat_summary_bin" />
-
 <meta property="og:description" content="stat_summary operates on unique x; stat_summary_bin
 operates on binned x. They are more flexible versions of
 stat_bin(): instead of just counting, they can compute any
 aggregate." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -171,12 +170,10 @@ aggregate." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>stat_summary</code> operates on unique <code>x</code>; <code>stat_summary_bin</code>
 operates on binned <code>x</code>. They are more flexible versions of
 <code><a href='geom_histogram.html'>stat_bin()</a></code>: instead of just counting, they can compute any
 aggregate.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>stat_summary_bin</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrange"</span>,
@@ -189,7 +186,7 @@ aggregate.</p>
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fun.y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>fun.ymax</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fun.ymin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(),
   <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -291,7 +288,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -300,7 +297,6 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <li><p><strong><code>y</code></strong></p></li>
 <li><p><code>group</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="summary-functions"><a class="anchor" href="#summary-functions"></a>Summary functions</h2>
 
     
@@ -321,13 +317,11 @@ number, but is somewhat less flexible. If your summary function computes
 multiple values at once (e.g. ymin and ymax), use <code>fun.data</code>.</p>
 <p>If no aggregation functions are supplied, will default to
 <code><a href='mean_se.html'>mean_se()</a></code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='geom_linerange.html'>geom_errorbar()</a></code>, <code><a href='geom_linerange.html'>geom_pointrange()</a></code>,
 <code><a href='geom_linerange.html'>geom_linerange()</a></code>, <code><a href='geom_linerange.html'>geom_crossbar()</a></code> for geoms to
 display summarised data</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cyl</span>, <span class='no'>mpg</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
@@ -380,13 +374,9 @@ display summarised data</p></div>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#summary-functions">Summary functions</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

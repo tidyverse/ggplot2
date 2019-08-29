@@ -32,15 +32,14 @@
 
 
 <meta property="og:title" content="Bin and summarise in 2d (rectangle &amp; hexagons) — stat_summary_2d" />
-
 <meta property="og:description" content="stat_summary_2d is a 2d variation of stat_summary().
 stat_summary_hex is a hexagonal variation of
 stat_summary_2d(). The data are divided into bins defined
 by x and y, and then the values of z in each cell is
 are summarised with fun." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -172,13 +171,11 @@ are summarised with fun." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>stat_summary_2d</code> is a 2d variation of <code><a href='stat_summary.html'>stat_summary()</a></code>.
 <code>stat_summary_hex</code> is a hexagonal variation of
 <code>stat_summary_2d()</code>. The data are divided into bins defined
 by <code>x</code> and <code>y</code>, and then the values of <code>z</code> in each cell is
 are summarised with <code>fun</code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>stat_summary_2d</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"tile"</span>,
@@ -190,7 +187,7 @@ are summarised with <code>fun</code>.</p>
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='st'>"mean"</span>, <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -274,7 +271,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -283,7 +280,6 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <li><p><code>y</code>: vertical position</p></li>
 <li><p><code>z</code>: value passed to the summary function</p></li>
 </ul>
-    
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -291,12 +287,10 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <dt>x,y</dt><dd><p>Location</p></dd>
 <dt>value</dt><dd><p>Value of summary statistic.</p></dd>
 </dl>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code>stat_summary_hex()</code> for hexagonal summarization.
 <code><a href='geom_bin2d.html'>stat_bin2d()</a></code> for the binning options.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>depth</span>, <span class='kw'>z</span> <span class='kw'>=</span> <span class='no'>price</span>))
@@ -311,13 +305,9 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#computed-variables">Computed variables</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

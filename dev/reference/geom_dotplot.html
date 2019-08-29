@@ -32,13 +32,12 @@
 
 
 <meta property="og:title" content="Dot plot — geom_dotplot" />
-
 <meta property="og:description" content="In a dot plot, the width of a dot corresponds to the bin width
 (or maximum width, depending on the binning algorithm), and dots are
 stacked, with each dot representing one observation." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -170,11 +169,9 @@ stacked, with each dot representing one observation." />
     </div>
 
     <div class="ref-description">
-    
     <p>In a dot plot, the width of a dot corresponds to the bin width
 (or maximum width, depending on the binning algorithm), and dots are
 stacked, with each dot representing one observation.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_dotplot</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>,
@@ -183,7 +180,7 @@ stacked, with each dot representing one observation.</p>
   <span class='kw'>dotsize</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>stackgroups</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>origin</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.9</span>, <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -301,7 +298,7 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>There are two basic approaches: <em>dot-density</em> and <em>histodot</em>.
@@ -314,7 +311,6 @@ histogram.</p>
 y axis are not meaningful, due to technical limitations of ggplot2. You can
 hide the y axis, as in one of the examples, or manually scale it
 to match the number of dots.</p>
-    
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -328,7 +324,6 @@ to match the number of dots.</p>
 <li><p><code>linetype</code></p></li>
 <li><p><code>stroke</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -343,12 +338,10 @@ width of each bin if method is "histodot"</p></dd>
 if method is "histodot"</p></dd>
 <dt>ndensity</dt><dd><p>density, scaled to maximum of 1, if method is "histodot"</p></dd>
 </dl>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Wilkinson, L. (1999) Dot plots. The American Statistician,
 53(3), 276-281.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>mpg</span>)) + <span class='fu'>geom_dotplot</span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_dotplot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>mpg</span>)) + <span class='fu'>geom_dotplot</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>1.5</span>)</div><div class='img'><img src='geom_dotplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -392,15 +385,10 @@ if method is "histodot"</p></dd>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#computed-variables">Computed variables</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

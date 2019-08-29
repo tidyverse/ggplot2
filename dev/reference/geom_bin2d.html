@@ -32,14 +32,13 @@
 
 
 <meta property="og:title" content="Heatmap of 2d bin counts — geom_bin2d" />
-
 <meta property="og:description" content="Divides the plane into rectangles, counts the number of cases in
 each rectangle, and then (by default) maps the number of cases to the
 rectangle's fill. This is a useful alternative to geom_point()
 in the presence of overplotting." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -171,12 +170,10 @@ in the presence of overplotting." />
     </div>
 
     <div class="ref-description">
-    
     <p>Divides the plane into rectangles, counts the number of cases in
 each rectangle, and then (by default) maps the number of cases to the
 rectangle's fill. This is a useful alternative to <code><a href='geom_point.html'>geom_point()</a></code>
 in the presence of overplotting.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_bin2d</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bin2d"</span>,
@@ -186,7 +183,7 @@ in the presence of overplotting.</p>
 <span class='fu'>stat_bin_2d</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"tile"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -263,7 +260,7 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></td>
       <td><p>if <code>TRUE</code> removes all cells with 0 counts.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -273,7 +270,6 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></td>
 <li><p><code>fill</code></p></li>
 <li><p><code>group</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
     
@@ -283,11 +279,9 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></td>
 <dt>ncount</dt><dd><p>count, scaled to maximum of 1</p></dd>
 <dt>ndensity</dt><dd><p>density, scaled to maximum of 1</p></dd>
 </dl>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='geom_hex.html'>stat_binhex()</a></code> for hexagonal binning</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) + <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='fl'>4</span>, <span class='fl'>10</span>) + <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='fl'>4</span>, <span class='fl'>10</span>)
@@ -302,13 +296,9 @@ horizontal directions. Overrides <code>bins</code> if both set.</p></td>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#computed-variables">Computed variables</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

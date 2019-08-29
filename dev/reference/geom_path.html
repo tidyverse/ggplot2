@@ -32,15 +32,14 @@
 
 
 <meta property="og:title" content="Connect observations — geom_path" />
-
 <meta property="og:description" content="geom_path() connects the observations in the order in which they appear
 in the data. geom_line() connects them in order of the variable on the
 x axis. geom_step() creates a stairstep plot, highlighting exactly
 when changes occur. The group aesthetic determines which cases are
 connected together." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -172,13 +171,11 @@ connected together." />
     </div>
 
     <div class="ref-description">
-    
     <p><code>geom_path()</code> connects the observations in the order in which they appear
 in the data. <code>geom_line()</code> connects them in order of the variable on the
 x axis. <code>geom_step()</code> creates a stairstep plot, highlighting exactly
 when changes occur. The <code>group</code> aesthetic determines which cases are
 connected together.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_path</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
@@ -193,7 +190,7 @@ connected together.</p>
 <span class='fu'>geom_step</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"hv"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -278,12 +275,11 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 adjacent x-values.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>An alternative parameterisation is <code><a href='geom_segment.html'>geom_segment()</a></code>, where each line
 corresponds to a single case which provides the start and end coordinates.</p>
-    
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -296,7 +292,6 @@ corresponds to a single case which provides the start and end coordinates.</p>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
-    
     <h2 class="hasAnchor" id="missing-value-handling"><a class="anchor" href="#missing-value-handling"></a>Missing value handling</h2>
 
     
@@ -308,12 +303,10 @@ is shown, regardless of whether <code>na.rm</code> is <code>TRUE</code> or <code
 <li><p>If an <code>NA</code> occurs at the start or the end of the line and <code>na.rm</code> is <code>TRUE</code>,
 the <code>NA</code> is removed silently, without warning.</p></li>
 </ul>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='geom_polygon.html'>geom_polygon()</a></code>: Filled paths (polygons);
 <code><a href='geom_segment.html'>geom_segment()</a></code>: Line segments</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># geom_line() is suitable for time series</span>
@@ -362,15 +355,10 @@ the <code>NA</code> is removed silently, without warning.</p></li>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#missing-value-handling">Missing value handling</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

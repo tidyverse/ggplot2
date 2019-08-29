@@ -32,16 +32,15 @@
 
 
 <meta property="og:title" content="Modify axis, legend, and plot labels — labs" />
-
 <meta property="og:description" content="Good labels are critical for making your plots accessible to a wider
 audience. Always ensure the axis and legend labels display the full
 variable name. Use the plot title and subtitle to explain the
 main findings. It's common to use the caption to provide information
 about the data source. tag can be used for adding identification tags
 to differentiate between multiple plots." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -173,14 +172,12 @@ to differentiate between multiple plots." />
     </div>
 
     <div class="ref-description">
-    
     <p>Good labels are critical for making your plots accessible to a wider
 audience. Always ensure the axis and legend labels display the full
 variable name. Use the plot <code>title</code> and <code>subtitle</code> to explain the
 main findings. It's common to use the <code>caption</code> to provide information
 about the data source. <code>tag</code> can be used for adding identification tags
 to differentiate between multiple plots.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>labs</span>(<span class='no'>...</span>, <span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>caption</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
@@ -191,7 +188,7 @@ to differentiate between multiple plots.</p>
 <span class='fu'>ylab</span>(<span class='no'>label</span>)
 
 <span class='fu'>ggtitle</span>(<span class='no'>label</span>, <span class='kw'>subtitle</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>())</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -224,7 +221,7 @@ top-left of the plot by default.</p></td>
 of the plot (for <code>ggtitle()</code>).</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>You can also set axis and legend labels in the individual scales (using
@@ -234,7 +231,6 @@ is recommended.</p>
 remove it, you can do so by setting the respective argument to <code>NULL</code>. For
 example, if plot <code>p</code> has a subtitle, then <code>p + labs(subtitle = NULL)</code> will
 remove the subtitle from the plot.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cyl</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
@@ -255,9 +251,7 @@ remove the subtitle from the plot.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

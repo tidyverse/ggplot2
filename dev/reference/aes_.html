@@ -32,7 +32,6 @@
 
 
 <meta property="og:title" content="Define aesthetic mappings programmatically — aes_" />
-
 <meta property="og:description" content="Aesthetic mappings describe how variables in the data are mapped to visual
 properties (aesthetics) of geoms. aes() uses non-standard
 evaluation to capture the variable names. aes_ and aes_string
@@ -40,9 +39,9 @@ require you to explicitly quote the inputs either with &quot;&quot; for
 aes_string(), or with quote or ~ for aes_().
 (aes_q is an alias to aes_). This makes aes_ and
 aes_string easy to program with." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -174,7 +173,6 @@ aes_string easy to program with." />
     </div>
 
     <div class="ref-description">
-    
     <p>Aesthetic mappings describe how variables in the data are mapped to visual
 properties (aesthetics) of geoms. <code><a href='aes.html'>aes()</a></code> uses non-standard
 evaluation to capture the variable names. <code>aes_</code> and <code>aes_string</code>
@@ -182,7 +180,6 @@ require you to explicitly quote the inputs either with <code>""</code> for
 <code>aes_string()</code>, or with <code>quote</code> or <code>~</code> for <code>aes_()</code>.
 (<code>aes_q</code> is an alias to <code>aes_</code>). This makes <code>aes_</code> and
 <code>aes_string</code> easy to program with.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>aes_</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
@@ -190,7 +187,7 @@ require you to explicitly quote the inputs either with <code>""</code> for
 <span class='fu'>aes_string</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)
 
 <span class='fu'>aes_q</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -200,7 +197,7 @@ require you to explicitly quote the inputs either with <code>""</code> for
 quoted calls, strings, one-sided formulas or constants.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p><code>aes_string</code> and <code>aes_</code> are particularly useful when writing
@@ -210,18 +207,15 @@ names/calls to define the aesthetic mappings, rather than having to use
 <p>I recommend using <code>aes_()</code>, because creating the equivalents of
 <code><a href='aes.html'>aes(colour = "my colour")</a></code> or <code>aes{x = `X$1`}</code>
 with <code>aes_string()</code> is quite clunky.</p>
-    
     <h2 class="hasAnchor" id="life-cycle"><a class="anchor" href="#life-cycle"></a>Life cycle</h2>
 
     
     <p>All these functions are soft-deprecated. Please use tidy evaluation
 idioms instead (see the quasiquotation section in
 <code><a href='aes.html'>aes()</a></code> documentation).</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='aes.html'>aes()</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Three ways of generating the same aesthetics</span>
@@ -257,13 +251,9 @@ idioms instead (see the quasiquotation section in
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#life-cycle">Life cycle</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

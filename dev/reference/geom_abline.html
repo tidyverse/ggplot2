@@ -32,13 +32,12 @@
 
 
 <meta property="og:title" content="Reference lines: horizontal, vertical, and diagonal — geom_abline" />
-
 <meta property="og:description" content="These geoms add reference lines (sometimes called rules) to a plot, either
 horizontal, vertical, or diagonal (specified by slope and intercept).
 These are useful for annotating plots." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -170,11 +169,9 @@ These are useful for annotating plots." />
     </div>
 
     <div class="ref-description">
-    
     <p>These geoms add reference lines (sometimes called rules) to a plot, either
 horizontal, vertical, or diagonal (specified by slope and intercept).
 These are useful for annotating plots.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>geom_abline</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='no'>slope</span>, <span class='no'>intercept</span>,
@@ -185,7 +182,7 @@ These are useful for annotating plots.</p>
 
 <span class='fu'>geom_vline</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='no'>xintercept</span>,
   <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -234,7 +231,7 @@ position of the line. If these are set, <code>data</code>, <code>mapping</code> 
 <code>show.legend</code> are overridden.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>These geoms act slightly differently from other geoms. You can supply the
@@ -247,7 +244,6 @@ to vary across facets, construct the data frame yourself and use aesthetics.</p>
 <p>Unlike most other geoms, these geoms do not inherit aesthetics from the plot
 default, because they do not understand x and y aesthetics which are
 commonly set in the plot. They also do not affect the x and y scales.</p>
-    
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -259,12 +255,10 @@ the line:</p><ul>
 <li><p><code>geom_hline()</code>: <code>yintercept</code></p></li>
 <li><p><code>geom_abline()</code>: <code>slope</code> and <code>intercept</code></p></li>
 </ul>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>See <code><a href='geom_segment.html'>geom_segment()</a></code> for a more general approach to
 adding straight line segments to a plot.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>wt</span>, <span class='no'>mpg</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
@@ -293,13 +287,9 @@ adding straight line segments to a plot.</p></div>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#aesthetics">Aesthetics</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

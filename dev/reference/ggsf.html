@@ -32,7 +32,6 @@
 
 
 <meta property="og:title" content="Visualise sf objects — CoordSf" />
-
 <meta property="og:description" content="This set of geom, stat, and coord are used to visualise simple feature (sf)
 objects. For simple plots, you will only need geom_sf() as it
 uses stat_sf() and adds coord_sf() for you. geom_sf() is
@@ -40,9 +39,9 @@ an unusual geom because it will draw different geometric objects depending
 on what simple features are present in the data: you can get points, lines,
 or polygons.
 For text and labels, you can use geom_sf_text() and geom_sf_label()." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -174,7 +173,6 @@ For text and labels, you can use geom_sf_text() and geom_sf_label()." />
     </div>
 
     <div class="ref-description">
-    
     <p>This set of geom, stat, and coord are used to visualise simple feature (sf)
 objects. For simple plots, you will only need <code>geom_sf()</code> as it
 uses <code>stat_sf()</code> and adds <code>coord_sf()</code> for you. <code>geom_sf()</code> is
@@ -182,7 +180,6 @@ an unusual geom because it will draw different geometric objects depending
 on what simple features are present in the data: you can get points, lines,
 or polygons.
 For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_label()</code>.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>coord_sf</span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -208,7 +205,7 @@ For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_l
 <span class='fu'>stat_sf</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"rect"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -386,7 +383,7 @@ same layer will not be plotted.</p></td>
       <td><p>The geometric object to use display the data</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="geometry-aesthetic"><a class="anchor" href="#geometry-aesthetic"></a>Geometry aesthetic</h2>
 
     
@@ -401,18 +398,15 @@ This will use the primary geometry column, no matter what it's called.</p></li>
 </ul>
     <p>Unlike other aesthetics, <code>geometry</code> will never be inherited from
 the plot.</p>
-    
     <h2 class="hasAnchor" id="crs"><a class="anchor" href="#crs"></a>CRS</h2>
 
     
     <p><code>coord_sf()</code> ensures that all layers use a common CRS. You can
 either specify it using the <code>CRS</code> param, or <code>coord_sf()</code> will
 take it from the first layer that defines a CRS.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='stat_sf_coordinates.html'>stat_sf_coordinates()</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ns-load'>requireNamespace</a></span>(<span class='st'>"sf"</span>, <span class='kw'>quietly</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) {
@@ -463,13 +457,9 @@ take it from the first layer that defines a CRS.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#geometry-aesthetic">Geometry aesthetic</a></li>
-
       <li><a href="#crs">CRS</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

@@ -32,13 +32,12 @@
 
 
 <meta property="og:title" content="Construct aesthetic mappings — aes" />
-
 <meta property="og:description" content="Aesthetic mappings describe how variables in the data are mapped to visual
 properties (aesthetics) of geoms. Aesthetic mappings can be set in
 ggplot2() and in individual layers." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -170,15 +169,13 @@ ggplot2() and in individual layers." />
     </div>
 
     <div class="ref-description">
-    
     <p>Aesthetic mappings describe how variables in the data are mapped to visual
 properties (aesthetics) of geoms. Aesthetic mappings can be set in
 <code><a href='ggplot2-package.html'>ggplot2()</a></code> and in individual layers.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>aes</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -193,18 +190,16 @@ instead of <code><a href='ggplot.html'>ggplot(df, aes(df$variable))</a></code>).
 are typically omitted because they are so common; all other aesthetics must be named.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A list with class <code>uneval</code>. Components of the list are either
 quosures or constants.</p>
-    
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>This function also standardises aesthetic names by converting <code>color</code> to <code>colour</code>
 (also in substrings, e.g., <code>point_color</code> to <code>point_colour</code>) and translating old style
 R names to ggplot names (e.g., <code>pch</code> to <code>shape</code> and <code>cex</code> to <code>size</code>).</p>
-    
     <h2 class="hasAnchor" id="quasiquotation"><a class="anchor" href="#quasiquotation"></a>Quasiquotation</h2>
 
     
@@ -215,12 +210,10 @@ because you can name those directly. The flip side is that you have
 to use <a href='https://rlang.r-lib.org/reference/quasiquotation.html'>quasiquotation</a> to program with
 <code>aes()</code>. See a tidy evaluation tutorial such as the <a href='http://dplyr.tidyverse.org/articles/programming.html'>dplyr programming vignette</a>
 to learn more about these techniques.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='vars.html'>vars()</a></code> for another quoting function designed for
 faceting specifications.</p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>mpg</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>wt</span>)</div><div class='output co'>#&gt; Aesthetic mapping: 
@@ -271,15 +264,10 @@ faceting specifications.</p></div>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#details">Details</a></li>
-
       <li><a href="#quasiquotation">Quasiquotation</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

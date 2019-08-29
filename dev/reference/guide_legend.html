@@ -32,12 +32,11 @@
 
 
 <meta property="og:title" content="Legend guide — guide_legend" />
-
 <meta property="og:description" content="Legend type guide shows key (i.e., geoms) mapped onto values.
 Legend guides for various scales are integrated if possible." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -169,10 +168,8 @@ Legend guides for various scales are integrated if possible." />
     </div>
 
     <div class="ref-description">
-    
     <p>Legend type guide shows key (i.e., geoms) mapped onto values.
 Legend guides for various scales are integrated if possible.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>guide_legend</span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>title.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
@@ -182,7 +179,7 @@ Legend guides for various scales are integrated if possible.</p>
   <span class='kw'>keyheight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>default.unit</span> <span class='kw'>=</span> <span class='st'>"line"</span>,
   <span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -298,7 +295,7 @@ If 0 (default), the order is determined by a secret algorithm.</p></td>
       <td><p>ignored.</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>Guides can be specified in each <code>scale_*</code> or in <code><a href='guides.html'>guides()</a></code>.
@@ -306,12 +303,10 @@ If 0 (default), the order is determined by a secret algorithm.</p></td>
 <code>guide = guide_legend()</code> (e.g. <code><a href='scale_manual.html'>scale_color_manual(guide = "legend")</a></code>).
 As for how to specify the guide for each scale in more detail,
 see <code><a href='guides.html'>guides()</a></code>.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other guides: <code><a href='guide_colourbar.html'>guide_colourbar</a></code>,
   <code><a href='guides.html'>guides</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reshape2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/reshape2/topics/melt'>melt</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/outer'>outer</a></span>(<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='fl'>1</span>:<span class='fl'>4</span>), <span class='kw'>varnames</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"X1"</span>, <span class='st'>"X2"</span>))
@@ -368,11 +363,8 @@ see <code><a href='guides.html'>guides()</a></code>.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#details">Details</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

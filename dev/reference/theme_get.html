@@ -32,14 +32,13 @@
 
 
 <meta property="og:title" content="Get, set, and modify the active theme — theme_get" />
-
 <meta property="og:description" content="The current/active theme is automatically applied to every plot you draw.
 Use theme_get to get the current theme, and theme_set to
 completely override it. theme_update and theme_replace are
 shorthands for changing individual elements." />
-
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 <meta name="robots" content="noindex">
 
@@ -171,12 +170,10 @@ shorthands for changing individual elements." />
     </div>
 
     <div class="ref-description">
-    
     <p>The current/active theme is automatically applied to every plot you draw.
 Use <code>theme_get</code> to get the current theme, and <code>theme_set</code> to
 completely override it. <code>theme_update</code> and <code>theme_replace</code> are
 shorthands for changing individual elements.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>theme_get</span>()
@@ -188,7 +185,7 @@ shorthands for changing individual elements.</p>
 <span class='fu'>theme_replace</span>(<span class='no'>...</span>)
 
 <span class='no'>e1</span> <span class='kw'>%+replace%</span> <span class='no'>e2</span></pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -205,13 +202,12 @@ shorthands for changing individual elements.</p>
       <td><p>Theme and element to combine</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p><code>theme_set</code>, <code>theme_update</code>, and <code>theme_replace</code>
 invisibly return the previous theme so you can easily save it, then
 later restore it.</p>
-    
     <h2 class="hasAnchor" id="adding-on-to-a-theme"><a class="anchor" href="#adding-on-to-a-theme"></a>Adding on to a theme</h2>
 
     
@@ -227,11 +223,9 @@ values in the theme element will default to the values they are set in the
 theme. <code>theme_replace</code> uses <code>%+replace%</code> to completely replace
 the element, so any unspecified values will overwrite the current value in
 the theme with <code>NULL</code>s.</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='gg-add.html'>+.gg()</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) +
@@ -290,13 +284,9 @@ the theme with <code>NULL</code>s.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#adding-on-to-a-theme">Adding on to a theme</a></li>
-
       <li><a href="#see-also">See also</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
