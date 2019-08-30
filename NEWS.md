@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `Geom` now gains a `setup_params()` method in line with the other ggproto
+  classes (@thomasp85, #3509)
+
 * `element_text()` now issues a warning when vectorized arguments are provided, as in
   `colour = c("red", "green", "blue")`. Such use is discouraged and not officially supported
    (@clauswilke, #3492).
@@ -21,6 +24,11 @@
 
 * Changed `theme_grey()` setting for legend key so that it creates no 
   border (`NA`) rather than drawing a white one. (@annennenne, #3180)
+  
+* Themes have gained two new parameters, `plot.title.position` and 
+  `plot.caption.position`, that can be used to customize how plot
+  title/subtitle and plot caption are positioned relative to the overall plot
+  (@clauswilke, #3252).
 
 * Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
 
