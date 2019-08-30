@@ -210,6 +210,7 @@ Collate:
     'stat-boxplot.r'
     'stat-contour.r'
     'stat-count.r'
+    'stat-count2d.R'
     'stat-density-2d.r'
     'stat-density.r'
     'stat-ecdf.r'
