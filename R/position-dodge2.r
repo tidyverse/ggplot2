@@ -24,6 +24,8 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
   reverse = FALSE,
 
   setup_params = function(self, data) {
+    flipped_aes <- has_flipped_aes(data, params)
+    data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warning("Width not defined. Set with `position_dodge2(width = ?)`",
         call. = FALSE)
@@ -48,12 +50,14 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
       width = self$width,
       n = n,
       padding = self$padding,
-      reverse = self$reverse
+      reverse = self$reverse,
+      flipped_aes = flipped_aes
     )
   },
 
   compute_panel = function(data, params, scales) {
-    collide2(
+    data <- flip_data(data, params$flipped_aes)
+    collided <- collide2(
       data,
       params$width,
       name = "position_dodge2",
@@ -63,6 +67,7 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
       check.width = FALSE,
       reverse = params$reverse
     )
+    flip_data(collided, params$flipped_aes)
   }
 )
 
