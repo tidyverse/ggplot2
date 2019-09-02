@@ -32,38 +32,25 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
 
   draw_key = draw_key_path,
 
-  setup_data = function(data, params) {
-    if (all(c("y", "xmin", "xmax") %in% names(data))) {
-      main_aes <- "y"
-    } else if (all(c("x", "ymin", "ymax") %in% names(data))) {
-      main_aes <- "x"
-    } else {
-      stop("Either, `x`, `ymin`, and `ymax` or `y`, `xmin`, and `xmax` must be supplied", call. = FALSE)
-    }
-    data$main_aes <- main_aes
-    data$width <- data$width %||%
-      params$width %||% (resolution(data[[main_aes]], FALSE) * 0.9)
-
-    switch(main_aes,
-      x = transform(data,
-        xmin = x - width / 2, xmax = x + width / 2, width = NULL
-      ),
-      y = transform(data,
-        ymin = y - width / 2, ymax = y + width / 2, width = NULL
-      )
-    )
-
+  setup_params = function(data, params) {
+    GeomLinerange$setup_params(data, params)
   },
 
-  draw_panel = function(data, panel_params, coord, width = NULL) {
-    if (data$main_aes[1] == "x") {
-      x <- as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax))
-      y <- as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin))
-    } else {
-      x = as.vector(rbind(data$xmax, data$xmax, NA, data$xmax, data$xmin, NA, data$xmin, data$xmin))
-      y = as.vector(rbind(data$ymin, data$ymax, NA, data$y,    data$y,    NA, data$ymin, data$ymax))
-    }
-    GeomPath$draw_panel(new_data_frame(list(
+  setup_data = function(data, params) {
+    data <- flip_data(data, params$flipped_aes)
+    data$width <- data$width %||%
+      params$width %||% (resolution(data$x, FALSE) * 0.9)
+    data <- transform(data,
+      xmin = x - width / 2, xmax = x + width / 2, width = NULL
+    )
+    flip_data(data, params$flipped_aes)
+  },
+
+  draw_panel = function(data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
+    x <- as.vector(rbind(data$xmin, data$xmax, NA, data$x,    data$x,    NA, data$xmin, data$xmax))
+    y <- as.vector(rbind(data$ymax, data$ymax, NA, data$ymax, data$ymin, NA, data$ymin, data$ymin))
+    data <- new_data_frame(list(
       x = x,
       y = y,
       colour = rep(data$colour, each = 8),
@@ -72,6 +59,8 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
       linetype = rep(data$linetype, each = 8),
       group = rep(1:(nrow(data)), each = 8),
       row.names = 1:(nrow(data) * 8)
-    )), panel_params, coord)
+    ))
+    data <- flip_data(data, flipped_aes)
+    GeomPath$draw_panel(data, panel_params, coord)
   }
 )

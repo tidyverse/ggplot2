@@ -63,13 +63,13 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   setup_params = function(data, params) {
     x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
     if (all(x_groups == 1)) {
-      params$main_aes <- "x"
+      params$flipped_aes <- FALSE
     } else {
       y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
       if (all(y_groups == 1)) {
-        params$main_aes <- "y"
+        params$flipped_aes <- TRUE
       } else {
-        params$main_aes <- detect_direction(data)
+        params$flipped_aes <- has_flipped_aes(data, params)
       }
     }
 
@@ -77,7 +77,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   },
 
   compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
-                       kernel = "gaussian", trim = TRUE, na.rm = FALSE, main_aes = "x") {
+                       kernel = "gaussian", trim = TRUE, na.rm = FALSE, flipped_aes = FALSE) {
     if (nrow(data) < 3) return(new_data_frame())
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
@@ -99,8 +99,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                            kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                           scale = "area", main_aes = "x") {
-    if (main_aes == "y") names(data) <- switch_position(names(data))
+                           scale = "area", flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     data <- ggproto_parent(Stat, self)$compute_panel(
       data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
       trim = trim, na.rm = na.rm
@@ -117,9 +117,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
       # width: constant width (density scaled to a maximum of 1)
       width = data$scaled
     )
-    if (main_aes == "y") names(data) <- switch_position(names(data))
-    data$main_aes <- main_aes
-    data
+    data$flipped_aes <- flipped_aes
+    flip_data(data, flipped_aes)
   }
 
 )

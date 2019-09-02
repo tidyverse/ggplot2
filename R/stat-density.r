@@ -66,30 +66,27 @@ StatDensity <- ggproto("StatDensity", Stat,
   default_aes = aes(x = stat(density), y = stat(density), fill = NA, weight = NULL),
 
   setup_params = function(data, params) {
-    params$main_aes <- "x"
-    if (is.null(data$x) && is.null(params$x)) {
-      if (is.null(data$y) && is.null(params$y)) {
-        stop("stat_bin() requires either an x or y aesthetic.", call. = FALSE)
-      } else {
-        params$main_aes <- "y"
-      }
+    params$flipped_aes <- is.null(data$x) && is.null(params$x)
+
+    if (is.null(data$x) && is.null(params$x) && is.null(data$y) && is.null(params$y)) {
+      stop("stat_density() requires either an x or y aesthetic.", call. = FALSE)
     }
     params
   },
 
   compute_group = function(data, scales, bw = "nrd0", adjust = 1, kernel = "gaussian",
-                           n = 512, trim = FALSE, na.rm = FALSE, main_aes = "x") {
+                           n = 512, trim = FALSE, na.rm = FALSE, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     if (trim) {
-      range <- range(data[[main_aes]], na.rm = TRUE)
+      range <- range(data$x, na.rm = TRUE)
     } else {
-      range <- scales[[main_aes]]$dimension()
+      range <- scales[[flipped_names(flipped_aes)$x]]$dimension()
     }
 
-    density <- compute_density(data[[main_aes]], data$weight, from = range[1],
+    density <- compute_density(data$x, data$weight, from = range[1],
       to = range[2], bw = bw, adjust = adjust, kernel = kernel, n = n)
-    density$main_aes <- main_aes
-    if (main_aes == "y") names(density) <- switch_position(names(density))
-    density
+    density$flipped_aes <- flipped_aes
+    flip_data(density, flipped_aes)
   }
 
 )

@@ -89,10 +89,9 @@ PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   preserve = "total",
   setup_params = function(self, data) {
-    main_aes <- detect_direction(data)
-    vars <- c(main = "x", min = "xmin", max = "xmax")
-    if (main_aes == "y") vars <- switch_position(vars)
-    if (is.null(data[[vars["min"]]]) && is.null(data[[vars["max"]]]) && is.null(self$width)) {
+    flipped_aes <- has_flipped_aes(data, params)
+    data <- flip_data(data, flipped_aes)
+    if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warning("Width not defined. Set with `position_dodge(width = ?)`",
         call. = FALSE)
     }
@@ -101,28 +100,27 @@ PositionDodge <- ggproto("PositionDodge", Position,
       n <- NULL
     } else {
       panels <- unname(split(data, data$PANEL))
-      ns <- vapply(panels, function(panel) max(table(panel[[vars["min"]]])), double(1))
+      ns <- vapply(panels, function(panel) max(table(panel$xmin)), double(1))
       n <- max(ns)
     }
 
     list(
       width = self$width,
       n = n,
-      main_aes = main_aes,
-      vars = vars
+      flipped_aes = flipped_aes
     )
   },
 
   setup_data = function(self, data, params) {
-    if (!params$vars["main"] %in% names(data) &&
-        all(params$vars[c("min", "max")] %in% names(data))) {
-      data[[vars["main"]]] <- (data[[vars["min"]]] + data[[vars["max"]]]) / 2
+    data <- flip_data(data, params$flipped_aes)
+    if (!"x" %in% names(data) && all(c("xmin", "xmax") %in% names(data))) {
+      data$x <- (data$xmin + data$xmax) / 2
     }
-    data
+    flip_data(data, params$flipped_aes)
   },
 
   compute_panel = function(data, params, scales) {
-    if (params$main_aes == "y") names(data) <- switch_position(names(data))
+    data <- flip_data(data, params$flipped_aes)
     collided <- collide(
       data,
       params$width,
@@ -131,8 +129,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
       n = params$n,
       check.width = FALSE
     )
-    if (params$main_aes == "y") names(collided) <- switch_position(names(collided))
-    collided
+    flip_data(collided, params$flipped_aes)
   }
 )
 

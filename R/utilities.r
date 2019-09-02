@@ -391,58 +391,62 @@ parse_safe <- function(text) {
 
 # Sniff out the intended direction based on the mapped aesthetics, returning as
 # soon as possible to make minimal work
-detect_direction <- function(data) {
-  if (!is.null(data$main_aes)) return(data$main_aes[1])
+has_flipped_aes <- function(data, params = list()) {
+  if (!is.null(data$flipped_aes)) return(data$flipped_aes[1])
+
+  if (!is.null(params$orientation) && !is.na(params$orientation)) {
+    return(params$orientation == "y")
+  }
 
   if (any(c("ymin", "ymax") %in% names(data))) {
     if ("y" %in% names(data)) {
-      return("y")
+      return(TRUE)
     } else {
-      return("x")
+      return(FALSE)
     }
   }
   if (any(c("xmin", "xmax") %in% names(data))) {
     if ("x" %in% names(data)) {
-      return("x")
+      return(FALSE)
     } else {
-      return("y")
+      return(TRUE)
     }
   }
   y_is_int <- all(data$y == round(data$y))
   x_is_int <- all(data$x == round(data$x))
   if (xor(y_is_int, x_is_int)) {
     if (x_is_int) {
-      return("x")
+      return(FALSE)
     } else {
-      return("y")
+      return(TRUE)
     }
   }
   y_diff <- diff(unique(sort(data$y)))
   x_diff <- diff(unique(sort(data$x)))
   if (y_is_int && x_is_int) {
     if (sum(x_diff == 1) >= sum(y_diff == 1)) {
-      return("x")
+      return(FALSE)
     } else {
-      return("y")
+      return(TRUE)
     }
   }
   y_is_regular <- all((y_diff / min(y_diff)) %% 1 < .Machine$double.eps)
   x_is_regular <- all((x_diff / min(x_diff)) %% 1 < .Machine$double.eps)
   if (xor(y_is_regular, x_is_regular)) {
     if (x_is_regular) {
-      return("x")
+      return(FALSE)
     } else {
-      return("y")
+      return(TRUE)
     }
   }
-  "x"
+  FALSE
 }
 
 # Switch x and y variables in a data frame
-switch_position <- function(aesthetics) {
+switch_orientation <- function(aesthetics) {
   # We should have these as globals somewhere
-  x <- c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper", "x0")
-  y <- c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper", "y0")
+  x <- ggplot_global$x_aes
+  y <- ggplot_global$y_aes
   x_aes <- match(aesthetics, x)
   x_aes_pos <- which(!is.na(x_aes))
   y_aes <- match(aesthetics, y)
@@ -455,4 +459,19 @@ switch_position <- function(aesthetics) {
   }
   aesthetics
 }
-
+flipped_names <- function(flip = FALSE) {
+  if (flip) {
+    ret <- as.list(ggplot_global$y_aes)
+  } else {
+    ret <- as.list(ggplot_global$x_aes)
+  }
+  names(ret) <- ggplot_global$x_aes
+  ret
+}
+flip_data <- function(data, flip = NULL) {
+  flip <- flip %||% data$flipped_aes[1] %||% FALSE
+  if (flip) {
+    names(data) <- switch_orientation(names(data))
+  }
+  data
+}

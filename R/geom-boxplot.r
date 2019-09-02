@@ -163,15 +163,15 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   # doesn't have a `width` parameter (e.g., `stat_identity`).
   extra_params = c("na.rm", "width"),
 
-  setup_data = function(data, params) {
-    main_aes <- detect_direction(data)
-    vars <- c(main = "x", mmin = "xmin", mmax = "xmax", sub = "y", smin = "ymin",
-      smax = "ymax", smin_final = "ymin_final", smax_final = "ymax_final")
-    if (main_aes == "y") vars <- switch_position(vars)
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params)
+    params
+  },
 
-    data$main_aes <- main_aes
+  setup_data = function(data, params) {
+    data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
-      params$width %||% (resolution(data[[vars["main"]]], FALSE) * 0.9)
+      params$width %||% (resolution(data$x, FALSE) * 0.9)
 
     if (!is.null(data$outliers)) {
       suppressWarnings({
@@ -179,24 +179,24 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         out_max <- vapply(data$outliers, max, numeric(1))
       })
 
-      data[[vars["smin_final"]]]  <- pmin(out_min, data[[vars["smin"]]])
-      data[[vars["smax_final"]]]  <- pmax(out_max, data[[vars["smax"]]])
+      data$ymin_final  <- pmin(out_min, data$ymin)
+      data$ymax_final  <- pmax(out_max, data$ymax)
     }
 
     # if `varwidth` not requested or not available, don't use it
     if (is.null(params) || is.null(params$varwidth) || !params$varwidth || is.null(data$relvarwidth)) {
-      data[[vars["mmin"]]] <- data[[vars["main"]]] - data$width / 2
-      data[[vars["mmax"]]] <- data[[vars["main"]]] + data$width / 2
+      data$xmin <- data$x - data$width / 2
+      data$xmax <- data$x + data$width / 2
     } else {
       # make `relvarwidth` relative to the size of the largest group
       data$relvarwidth <- data$relvarwidth / max(data$relvarwidth)
-      data[[vars["mmin"]]] <- data[[vars["main"]]] - data$relvarwidth * data$width / 2
-      data[[vars["mmax"]]] <- data[[vars["main"]]] + data$relvarwidth * data$width / 2
+      data$xmin <- data$x - data$relvarwidth * data$width / 2
+      data$xmax <- data$x + data$relvarwidth * data$width / 2
     }
     data$width <- NULL
     if (!is.null(data$relvarwidth)) data$relvarwidth <- NULL
 
-    data
+    flip_data(data, params$flipped_aes)
   },
 
   draw_group = function(data, panel_params, coord, fatten = 2,
@@ -204,9 +204,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
                         outlier.shape = 19,
                         outlier.size = 1.5, outlier.stroke = 0.5,
                         outlier.alpha = NULL,
-                        notch = FALSE, notchwidth = 0.5, varwidth = FALSE) {
-    main_aes <- data$main_aes[1]
-    if (main_aes == "y") names(data) <- switch_position(names(data))
+                        notch = FALSE, notchwidth = 0.5, varwidth = FALSE, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     # this may occur when using geom_boxplot(stat = "identity")
     if (nrow(data) != 1) {
       stop(
@@ -233,6 +232,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       ),
       common
     ), n = 2)
+    whiskers <- flip_data(whiskers, fliped_aes)
 
     box <- new_data_frame(c(
       list(
@@ -244,15 +244,12 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         ynotchlower = ifelse(notch, data$notchlower, NA),
         ynotchupper = ifelse(notch, data$notchupper, NA),
         notchwidth = notchwidth,
-        alpha = data$alpha,
-        main_aes = main_aes
+        alpha = data$alpha
       ),
       common
     ))
-    if (main_aes == "y") {
-      names(whiskers) <- switch_position(names(whiskers))
-      names(box) <- switch_position(names(box))
-    }
+    box <- flip_data(box, flipped_aes)
+
     if (!is.null(data$outliers) && length(data$outliers[[1]] >= 1)) {
       outliers <- new_data_frame(list(
         y = data$outliers[[1]],
@@ -265,7 +262,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
         fill = NA,
         alpha = outlier.alpha %||% data$alpha[1]
       ), n = length(data$outliers[[1]]))
-      if (main_aes == "y") names(outliers) <- switch_position(names(outliers))
+      outliers <- flip_data(outliers, flipped_aes)
+
       outliers_grob <- GeomPoint$draw_panel(outliers, panel_params, coord)
     } else {
       outliers_grob <- NULL
@@ -274,7 +272,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
     ggname("geom_boxplot", grobTree(
       outliers_grob,
       GeomSegment$draw_panel(whiskers, panel_params, coord),
-      GeomCrossbar$draw_panel(box, fatten = fatten, panel_params, coord)
+      GeomCrossbar$draw_panel(box, fatten = fatten, panel_params, coord, flipped_aes = flipped_aes)
     ))
   },
 

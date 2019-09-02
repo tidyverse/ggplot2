@@ -49,19 +49,17 @@ StatCount <- ggproto("StatCount", Stat,
   default_aes = aes(x = stat(count), y = stat(count), weight = 1),
 
   setup_params = function(data, params) {
-    params$main_aes <- "x"
-    if (is.null(data$x) && is.null(params$x)) {
-      if (is.null(data$y) && is.null(params$y)) {
-        stop("stat_count() requires either an x or y aesthetic.", call. = FALSE)
-      } else {
-        params$main_aes <- "y"
-      }
+    params$flipped_aes <- is.null(data$x) && is.null(params$x)
+
+    if (is.null(data$x) && is.null(params$x) && is.null(data$y) && is.null(params$y)) {
+      stop("stat_count() requires either an x or y aesthetic.", call. = FALSE)
     }
     params
   },
 
-  compute_group = function(self, data, scales, width = NULL, main_aes = "x") {
-    x <- data[[main_aes]]
+  compute_group = function(self, data, scales, width = NULL, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
+    x <- data$x
     weight <- data$weight %||% rep(1, length(x))
     width <- width %||% (resolution(x) * 0.9)
 
@@ -73,9 +71,8 @@ StatCount <- ggproto("StatCount", Stat,
       prop = count / sum(abs(count)),
       x = sort(unique(x)),
       width = width,
-      main_aes = main_aes
+      flipped_aes = flipped_aes
     ), n = length(count))
-    names(bars)[3] <- main_aes
-    bars
+    flip_data(bars, flipped_aes)
   }
 )

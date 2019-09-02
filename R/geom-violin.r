@@ -100,28 +100,24 @@ geom_violin <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomViolin <- ggproto("GeomViolin", Geom,
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params)
+    params
+  },
   setup_data = function(data, params) {
-    main_aes <- detect_direction(data)
-    data$main_aes <- main_aes
+    data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
-      params$width %||% (resolution(data[[main_aes]], FALSE) * 0.9)
-
+      params$width %||% (resolution(data$x, FALSE) * 0.9)
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
-    switch(main_aes,
-      x = dapply(data, "group", transform,
-                 xmin = x - width / 2,
-                 xmax = x + width / 2
-      ),
-      y = dapply(data, "group", transform,
-                 ymin = y - width / 2,
-                 ymax = y + width / 2
-      )
+    data <- dapply(data, "group", transform,
+      xmin = x - width / 2,
+      xmax = x + width / 2
     )
+    flip_data(data, params$flipped_aes)
   },
 
-  draw_group = function(self, data, ..., draw_quantiles = NULL) {
-    main_aes <- data$main_aes[1]
-    if (main_aes == "y") names(data) <- switch_position(names(data))
+  draw_group = function(self, data, ..., draw_quantiles = NULL, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     # Find the points for the line to go all the way around
     data <- transform(data,
       xminv = x - violinwidth * (x - xmin),
@@ -137,7 +133,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
     # Close the polygon: set first and last point the same
     # Needed for coord_polar and such
     newdata <- rbind(newdata, newdata[1,])
-    if (main_aes == "y") names(newdata) <- switch_position(names(newdata))
+    newdata <- flip_data(newdata, flipped_aes)
 
     # Draw quantiles if requested, so long as there is non-zero y range
     if (length(draw_quantiles) > 0 & !scales::zero_range(range(data$y))) {
@@ -153,7 +149,7 @@ GeomViolin <- ggproto("GeomViolin", Geom,
       aesthetics$alpha <- rep(1, nrow(quantiles))
       both <- cbind(quantiles, aesthetics)
       both <- both[!is.na(both$group), , drop = FALSE]
-      if (main_aes == "y") names(both) <- switch_position(names(both))
+      both <- flip_data(both, flipped_aes)
       quantile_grob <- if (nrow(both) == 0) {
         zeroGrob()
       } else {

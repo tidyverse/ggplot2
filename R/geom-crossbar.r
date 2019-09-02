@@ -28,6 +28,10 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomCrossbar <- ggproto("GeomCrossbar", Geom,
+  setup_params = function(data, params) {
+    GeomErrorbar$setup_params(data, params)
+  },
+
   setup_data = function(data, params) {
     GeomErrorbar$setup_data(data, params)
   },
@@ -38,9 +42,9 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
   draw_key = draw_key_crossbar,
 
-  draw_panel = function(data, panel_params, coord, fatten = 2.5, width = NULL) {
-    main_aes <- data$main_aes[1] %||% "x"
-    if (main_aes == "y") names(data) <- switch_position(names(data))
+  draw_panel = function(data, panel_params, coord, fatten = 2.5, width = NULL, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
+
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
@@ -54,6 +58,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
       middle$x <- middle$x + notchindent
       middle$xend <- middle$xend - notchindent
+      middle <- flip_data(middle, flipped_aes)
 
       box <- new_data_frame(list(
         x = c(
@@ -86,10 +91,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
         group = rep(seq_len(nrow(data)), 5) # each bar forms it's own group
       ))
     }
-    if (main_aes == "y") {
-      names(box) <- switch_position(names(box))
-      names(middle) <- switch_position(names(middle))
-    }
+    box <- flip_data(box, flipped_aes)
+
     ggname("geom_crossbar", gTree(children = gList(
       GeomPolygon$draw_panel(box, panel_params, coord),
       GeomSegment$draw_panel(middle, panel_params, coord)

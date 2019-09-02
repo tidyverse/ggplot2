@@ -34,19 +34,17 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 
   draw_key = draw_key_pointrange,
 
-  setup_data = function(data, params) {
-    GeomLinerange$setup_data(data, params)
+  setup_params = function(data, params) {
+    GeomLinerange$setup_params(data, params)
   },
 
-  draw_panel = function(data, panel_params, coord, fatten = 4) {
-    main_aes <- data$main_aes[1]
-    sub_aes <- if (main_aes == "x") "y" else "x"
-    if (is.null(data[[sub_aes]]))
-      return(GeomLinerange$draw_panel(data, panel_params, coord))
+  draw_panel = function(data, panel_params, coord, fatten = 4, flipped_aes = FALSE) {
+    if (is.null(data[[flipped_names(flipped_aes)$y]]))
+      return(GeomLinerange$draw_panel(data, panel_params, coord, flipped_aes = flipped_aes))
 
     ggname("geom_pointrange",
       gTree(children = gList(
-        GeomLinerange$draw_panel(data, panel_params, coord),
+        GeomLinerange$draw_panel(data, panel_params, coord, flipped_aes = flipped_aes),
         GeomPoint$draw_panel(transform(data, size = size * fatten), panel_params, coord)
       ))
     )

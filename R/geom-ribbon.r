@@ -62,17 +62,21 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
                     ymax = NULL, colour = NA, fill = "grey20", size = 0.5,
                     linetype = 1, alpha = NA),
 
-  setup_data = function(data, params) {
-    data$main_aes <- detect_direction(data)
-    vars <- c(main = "x", sub = "y", min = "ymin", max = "ymax")
-    if (data$main_aes[1] == "x") vars <- switch_position(vars)
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params)
+    params
+  },
 
-    if (is.null(data[[vars["min"]]]) && is.null(data[[vars["max"]]])) {
-      stop("Either ", vars["min"], " or ", vars["max"], " must be given as an aesthetic.", call. = FALSE)
+  setup_data = function(data, params) {
+    data <- flip_data(data, params$flipped_aes)
+
+    if (is.null(data$ymin) && is.null(data$ymax)) {
+      stop("Either ", flipped_names(params$flipped_aes)$ymin, " or ",
+           flipped_names(params$flipped_aes)$ymax, " must be given as an aesthetic.", call. = FALSE)
     }
-    data <- data[order(data$PANEL, data$group, data[[vars["main"]]]), , drop = FALSE]
-    data[[vars["sub"]]] <- data[[vars["min"]]] %||% data[[vars["max"]]]
-    data
+    data <- data[order(data$PANEL, data$group, data$x), , drop = FALSE]
+    data$y <- data$ymin %||% data$ymax
+    flip_data(data, params$flipped_aes)
   },
 
   draw_key = draw_key_polygon,
@@ -81,9 +85,8 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data
   },
 
-  draw_group = function(data, panel_params, coord, na.rm = FALSE) {
-    main_aes <- data$main_aes[1]
-    if (main_aes == "y") names(data) <- switch_position(names(data))
+  draw_group = function(data, panel_params, coord, na.rm = FALSE, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group), ]
 
@@ -112,7 +115,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       id = c(ids, rev(ids))
     ))
 
-    if (main_aes == "y") names(positions) <- switch_position(names(positions))
+    positions <- flip_data(positions, flipped_aes)
 
     munched <- coord_munch(coord, positions, panel_params)
 
@@ -159,10 +162,8 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
   required_aes = c("x", "y"),
 
   setup_data = function(data, params) {
-    data$main_aes <- detect_direction(data)
-    switch(data$main_aes[1],
-      x = transform(data[order(data$PANEL, data$group, data$x), ], ymin = 0, ymax = y),
-      y = transform(data[order(data$PANEL, data$group, data$y), ], xmin = 0, xmax = x)
-    )
+    data <- flip_data(data, params$flipped_aes)
+    data <- transform(data[order(data$PANEL, data$group, data$x), ], ymin = 0, ymax = y)
+    flip_data(data, params$flipped_aes)
   }
 )

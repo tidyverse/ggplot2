@@ -88,25 +88,18 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
 
   draw_key = draw_key_vpath,
 
-  setup_data = function(data, params) {
-    if (all(c("y", "xmin", "xmax") %in% names(data))) {
-      main_aes <- "y"
-    } else if (all(c("x", "ymin", "ymax") %in% names(data))) {
-      main_aes <- "x"
-    } else {
+  setup_params = function(data, params) {
+    params$flipped_aes <- all(c("y", "xmin", "xmax") %in% names(data))
+    if (!params$flipped_aes || all(c("x", "ymin", "ymax") %in% names(data))) {
       stop("Either, `x`, `ymin`, and `ymax` or `y`, `xmin`, and `xmax` must be supplied", call. = FALSE)
     }
-    data$main_aes <- main_aes
-
-    data
+    params
   },
 
-  draw_panel = function(data, panel_params, coord) {
-    main_aes <- data$main_aes[1]
-    data <- switch(main_aes,
-      x = transform(data, xend = x, y = ymin, yend = ymax),
-      y = transform(data, yend = y, x = xmin, xend = xmax)
-    )
+  draw_panel = function(data, panel_params, coord, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
+    data <- transform(data, xend = x, y = ymin, yend = ymax)
+    data <- flip_data(data, flipped_aes)
     ggname("geom_linerange", GeomSegment$draw_panel(data, panel_params, coord))
   }
 )

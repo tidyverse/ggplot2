@@ -117,23 +117,23 @@ GeomBar <- ggproto("GeomBar", GeomRect,
   # limits, not just those for which x and y are outside the limits
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
-  setup_data = function(data, params) {
-    params$main_aes <- detect_direction(data)
-    data$width <- data$width %||%
-      params$width %||% (resolution(data[[params$main_aes]], FALSE) * 0.9)
-    switch(params$main_aes,
-      x = transform(data,
-        ymin = pmin(y, 0), ymax = pmax(y, 0),
-        xmin = x - width / 2, xmax = x + width / 2, width = NULL
-      ),
-      y = transform(data,
-        xmin = pmin(x, 0), xmax = pmax(x, 0),
-        ymin = y - width / 2, ymax = y + width / 2, width = NULL
-      )
-    )
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params)
+    params
   },
 
-  draw_panel = function(self, data, panel_params, coord, width = NULL) {
+  setup_data = function(data, params) {
+    data <- flip_data(data, params$flipped_aes)
+    data$width <- data$width %||%
+      params$width %||% (resolution(data$x, FALSE) * 0.9)
+    data <- transform(data,
+      ymin = pmin(y, 0), ymax = pmax(y, 0),
+      xmin = x - width / 2, xmax = x + width / 2, width = NULL
+    )
+    flip_data(data, params$flipped_aes)
+  },
+
+  draw_panel = function(self, data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
     # Hack to ensure that width is detected as a parameter
     ggproto_parent(GeomRect, self)$draw_panel(data, panel_params, coord)
   }
