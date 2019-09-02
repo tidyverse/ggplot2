@@ -232,7 +232,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
       ),
       common
     ), n = 2)
-    whiskers <- flip_data(whiskers, fliped_aes)
+    whiskers <- flip_data(whiskers, flipped_aes)
 
     box <- new_data_frame(c(
       list(

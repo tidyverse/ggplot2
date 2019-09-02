@@ -58,7 +58,6 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
 
       middle$x <- middle$x + notchindent
       middle$xend <- middle$xend - notchindent
-      middle <- flip_data(middle, flipped_aes)
 
       box <- new_data_frame(list(
         x = c(
@@ -92,6 +91,7 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
       ))
     }
     box <- flip_data(box, flipped_aes)
+    middle <- flip_data(middle, flipped_aes)
 
     ggname("geom_crossbar", gTree(children = gList(
       GeomPolygon$draw_panel(box, panel_params, coord),
