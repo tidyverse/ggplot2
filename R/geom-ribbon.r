@@ -108,15 +108,29 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     ))
     munched <- coord_munch(coord, positions, panel_params)
 
-    ggname("geom_ribbon", polygonGrob(
+    g_poly <- polygonGrob(
       munched$x, munched$y, id = munched$id,
       default.units = "native",
       gp = gpar(
         fill = alpha(aes$fill, aes$alpha),
+        col = NA
+      )
+    )
+
+    munched_lines <- munched
+    # increment the IDs of the lower line
+    munched_lines$id <- munched_lines$id <- rep(c(0, max(ids, na.rm = TRUE)), each = length(ids))
+
+    g_lines <- polylineGrob(
+      munched_lines$x, munched_lines$y, id = munched_lines$id,
+      default.units = "native",
+      gp = gpar(
         col = aes$colour,
         lwd = aes$size * .pt,
         lty = aes$linetype)
-    ))
+    )
+
+    ggname("geom_ribbon", grobTree(g_poly, g_lines))
   }
 )
 
