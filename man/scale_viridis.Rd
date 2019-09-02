@@ -6,6 +6,7 @@
 \alias{scale_colour_viridis_c}
 \alias{scale_fill_viridis_c}
 \alias{scale_colour_ordinal}
+\alias{scale_color_ordinal}
 \alias{scale_fill_ordinal}
 \alias{scale_color_viridis_d}
 \alias{scale_color_viridis_c}

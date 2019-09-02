@@ -340,8 +340,8 @@ Layer <- ggproto("Layer", NULL,
       c(names(data), names(self$aes_params)),
       snake_class(self$geom)
     )
-
-    self$geom$setup_data(data, c(self$geom_params, self$aes_params))
+    self$geom_params <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
+    self$geom$setup_data(data, self$geom_params)
   },
 
   compute_position = function(self, data, layout) {

@@ -23,7 +23,6 @@ Imports:
     grDevices,
     grid,
     gtable (>= 0.1.1),
-    lazyeval,
     MASS,
     mgcv,
     reshape2,

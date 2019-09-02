@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+* `Geom` now gains a `setup_params()` method in line with the other ggproto
+  classes (@thomasp85, #3509)
+
+* `element_text()` now issues a warning when vectorized arguments are provided, as in
+  `colour = c("red", "green", "blue")`. Such use is discouraged and not officially supported
+   (@clauswilke, #3492).
+
 * stacking text when calculating the labels and the y axis with
   `stat_summary()` now works (@ikosmidis, #2709)
 
@@ -17,10 +24,15 @@
 
 * Changed `theme_grey()` setting for legend key so that it creates no 
   border (`NA`) rather than drawing a white one. (@annennenne, #3180)
+  
+* Themes have gained two new parameters, `plot.title.position` and 
+  `plot.caption.position`, that can be used to customize how plot
+  title/subtitle and plot caption are positioned relative to the overall plot
+  (@clauswilke, #3252).
 
 * Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
 
-* `ggdep()` was deprecated (@perezp44, #3382).
+* `gg_dep()` was deprecated (@perezp44, #3382).
 
 * Added weight aesthetic option to `stat_density()` and made scaling of 
   weights the default (@annennenne, #2902)
@@ -54,6 +66,10 @@
   and mapped aesthetics (i.e., `data` and/or `mapping`).
   
 * `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
+
+* `geom_sf()` now removes rows that contain missing `shape`/`size`/`colour` (#3483, @yutannihilation)
+
+* Fix a bug when `show.legend` is a named logical vector (#3461, @yutannihilation).
 
 # ggplot2 3.2.1
 

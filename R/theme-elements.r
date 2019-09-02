@@ -112,6 +112,20 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   color = NULL, margin = NULL, debug = NULL, inherit.blank = FALSE) {
 
   if (!is.null(color))  colour <- color
+
+  n <- max(
+    length(family), length(face), length(colour), length(size),
+    length(hjust), length(vjust), length(angle), length(lineheight)
+  )
+  if (n > 1) {
+    warning(
+      "Vectorized input to `element_text()` is not officially supported.\n",
+      "Results may be unexpected or may change in future versions of ggplot2.",
+      call. = FALSE
+    )
+  }
+
+
   structure(
     list(family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
@@ -356,8 +370,10 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "title"),
+  plot.title.position = el_def("character"),
   plot.subtitle       = el_def("element_text", "title"),
   plot.caption        = el_def("element_text", "title"),
+  plot.caption.position = el_def("character"),
   plot.tag            = el_def("element_text", "title"),
   plot.tag.position   = el_def("character"),  # Need to also accept numbers
   plot.margin         = el_def("margin"),

@@ -124,6 +124,12 @@
 #'   inherits from `title`) left-aligned by default
 #' @param plot.caption caption below the plot (text appearance)
 #'   ([element_text()]; inherits from `title`) right-aligned by default
+#' @param plot.title.position,plot.caption.position Alignment of the plot title/subtitle
+#'   and caption.  The setting for `plot.title.position` applies to both
+#'   the title and the subtitle. A value of "panel" (the default) means that
+#'   titles and/or caption are aligned to the plot panels. A value of "plot" means
+#'   that titles and/or caption are aligned to the entire plot (minus any space
+#'   for margins and plot tag).
 #' @param plot.tag upper-left label to identify a plot (text appearance)
 #'   ([element_text()]; inherits from `title`) left-aligned by default
 #' @param plot.tag.position The position of the tag as a string ("topleft",
@@ -334,8 +340,10 @@ theme <- function(line,
                   panel.ontop,
                   plot.background,
                   plot.title,
+                  plot.title.position,
                   plot.subtitle,
                   plot.caption,
+                  plot.caption.position,
                   plot.tag,
                   plot.tag.position,
                   plot.margin,
