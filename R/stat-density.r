@@ -66,6 +66,13 @@ StatDensity <- ggproto("StatDensity", Stat,
   required_aes = "x",
   default_aes = aes(y = stat(density), fill = NA, weight = NULL),
 
+  setup_params = function(data, params) {
+    if (!is.null(data$y)) {
+      stop("stat_density() must not be used with a y aesthetic.", call. = FALSE)
+    }
+    params
+  },
+
   compute_group = function(data, scales, bw = "nrd0", adjust = 1, kernel = "gaussian",
                            n = 512, trim = FALSE, na.rm = FALSE) {
     if (trim) {
