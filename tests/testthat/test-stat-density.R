@@ -12,3 +12,10 @@ test_that("compute_density returns useful df and throws warning when <2 values",
   expect_equal(names(dens), c("x", "density", "scaled", "ndensity", "count", "n"))
   expect_type(dens$x, "double")
 })
+
+test_that("stat_density throws error when y aesthetic is present", {
+  dat <- data_frame(x = 1:3, y = 1:3)
+
+  expect_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_density()),
+    "must not be used with a y aesthetic.")
+})
