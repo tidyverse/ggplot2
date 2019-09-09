@@ -108,7 +108,7 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 calc_bw <- function(x, bw) {
   if (is.character(bw)) {
     if (length(x) < 2)
-      stop("need at least 2 points to select a bandwidth automatically", call. = FALSE)
+      abort("need at least 2 points to select a bandwidth automatically")
     bw <- switch(
       to_lower_ascii(bw),
       nrd0 = stats::bw.nrd0(x),
@@ -118,7 +118,7 @@ calc_bw <- function(x, bw) {
       sj = ,
       `sj-ste` = stats::bw.SJ(x, method = "ste"),
       `sj-dpi` = stats::bw.SJ(x, method = "dpi"),
-      stop("unknown bandwidth rule")
+      abort("unknown bandwidth rule")
     )
   }
   bw

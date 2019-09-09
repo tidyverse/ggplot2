@@ -270,7 +270,7 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
   if (length(vars) == 0) return()
   if (nrow(data) == 0) return()
 
-  if (any(is.na(scale_id))) stop()
+  if (any(is.na(scale_id))) abort("`scale_id`` must not be `NA`")
 
   scale_index <- unname(split(
     seq_along(scale_id),

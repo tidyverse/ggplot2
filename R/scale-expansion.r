@@ -36,10 +36,9 @@
 #'   scale_y_continuous(expand = expansion(mult = .05))
 #'
 expansion <- function(mult = 0, add = 0) {
-  stopifnot(
-    is.numeric(mult), (length(mult) %in% 1:2),
-    is.numeric(add), (length(add) %in% 1:2)
-  )
+  if (!(is.numeric(mult) && (length(mult) %in% 1:2) && is.numeric(add) && (length(add) %in% 1:2))) {
+    abort("`mult` and `add` must be numeric vectors with 1 or 2 elements")
+  }
 
   mult <- rep(mult, length.out = 2)
   add <- rep(add, length.out = 2)
@@ -66,10 +65,9 @@ expand_scale <- function(mult = 0, add = 0) {
 #' @noRd
 #'
 expand_range4 <- function(limits, expand) {
-  stopifnot(
-    is.numeric(expand),
-    length(expand) %in% c(2,4)
-  )
+  if (!(is.numeric(expand) && length(expand) %in% c(2,4))) {
+    abort("`expand` must be a numeric vector with 1 or 2 elements")
+  }
 
   if (all(!is.finite(limits))) {
     return(c(-Inf, Inf))

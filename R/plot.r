@@ -80,7 +80,7 @@ ggplot <- function(data = NULL, mapping = aes(), ...,
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
-    stop("Mapping should be created with `aes() or `aes_()`.", call. = FALSE)
+    abort("Mapping should be created with `aes() or `aes_()`.")
   }
 
   data <- fortify(data, ...)
@@ -106,7 +106,7 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
 ggplot.function <- function(data = NULL, mapping = aes(), ...,
                             environment = parent.frame()) {
   # Added to avoid functions end in ggplot.default
-  stop("You're passing a function as global data.\nHave you misspelled the `data` argument in `ggplot()`", call. = FALSE)
+  abort("You're passing a function as global data.\nHave you misspelled the `data` argument in `ggplot()`")
 }
 
 plot_clone <- function(plot) {

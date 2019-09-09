@@ -84,7 +84,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     if (length(x_labels) != length(x_breaks)) {
-      stop("Breaks and labels along x direction are different lengths", call. = FALSE)
+      abort("Breaks and labels along x direction are different lengths")
     }
     graticule$degree_label[graticule$type == "E"] <- x_labels
 
@@ -109,7 +109,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     if (length(y_labels) != length(y_breaks)) {
-      stop("Breaks and labels along y direction are different lengths", call. = FALSE)
+      abort("Breaks and labels along y direction are different lengths")
     }
     graticule$degree_label[graticule$type == "N"] <- y_labels
 
@@ -434,20 +434,14 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   if (is.character(label_axes)) {
     label_axes <- parse_axes_labeling(label_axes)
   } else if (!is.list(label_axes)) {
-    stop(
-      "Panel labeling format not recognized.",
-      call. = FALSE
-    )
+    abort("Panel labeling format not recognized.")
     label_axes <- list(left = "N", bottom = "E")
   }
 
   if (is.character(label_graticule)) {
     label_graticule <- unlist(strsplit(label_graticule, ""))
   } else {
-    stop(
-      "Graticule labeling format not recognized.",
-      call. = FALSE
-    )
+    abort("Graticule labeling format not recognized.")
     label_graticule <- ""
   }
 

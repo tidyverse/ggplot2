@@ -25,7 +25,7 @@ stat_count <- function(mapping = NULL, data = NULL,
     ...
   )
   if (!is.null(params$y)) {
-    stop("stat_count() must not be used with a y aesthetic.", call. = FALSE)
+    abort("stat_count() must not be used with a y aesthetic.")
   }
 
   layer(
@@ -51,7 +51,7 @@ StatCount <- ggproto("StatCount", Stat,
 
   setup_params = function(data, params) {
     if (!is.null(data$y)) {
-      stop("stat_count() must not be used with a y aesthetic.", call. = FALSE)
+      abort("stat_count() must not be used with a y aesthetic.")
     }
     params
   },

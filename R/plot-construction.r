@@ -39,9 +39,7 @@
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
 "+.gg" <- function(e1, e2) {
   if (missing(e2)) {
-    stop("Cannot use `+.gg()` with a single argument. ",
-         "Did you accidentally put + on a new line?",
-         call. = FALSE)
+    abort("Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?")
   }
 
   # Get the name of what was passed in as e2, and pass along so that it
@@ -51,9 +49,7 @@
   if      (is.theme(e1))  add_theme(e1, e2, e2name)
   else if (is.ggplot(e1)) add_ggplot(e1, e2, e2name)
   else if (is.ggproto(e1)) {
-    stop("Cannot add ggproto objects together.",
-         " Did you forget to add this object to a ggplot object?",
-         call. = FALSE)
+    abort("Cannot add ggproto objects together. Did you forget to add this object to a ggplot object?")
   }
 }
 
@@ -88,7 +84,7 @@ ggplot_add <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.default <- function(object, plot, object_name) {
-  stop("Don't know how to add ", object_name, " to a plot", call. = FALSE)
+  abort(paste0("Don't know how to add ", object_name, " to a plot"))
 }
 #' @export
 ggplot_add.NULL <- function(object, plot, object_name) {

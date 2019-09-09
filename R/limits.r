@@ -76,7 +76,7 @@ lims <- function(...) {
   args <- list(...)
 
   if (any(!has_name(args))) {
-    stop("All arguments must be named", call. = FALSE)
+    abort("All arguments must be named")
   }
 
   Map(limits, args, names(args))
@@ -108,7 +108,7 @@ ylim <- function(...) {
 limits <- function(lims, var) UseMethod("limits")
 #' @export
 limits.numeric <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+  if (length(lims) != 2) abort("lims must be a two-element vector")
   if (!any(is.na(lims)) && lims[1] > lims[2]) {
     trans <- "reverse"
   } else {
@@ -133,17 +133,17 @@ limits.factor <- function(lims, var) {
 }
 #' @export
 limits.Date <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+  if (length(lims) != 2) abort("lims must be a two-element vector")
   make_scale("date", var, limits = lims)
 }
 #' @export
 limits.POSIXct <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+  if (length(lims) != 2) abort("lims must be a two-element vector")
   make_scale("datetime", var, limits = lims)
 }
 #' @export
 limits.POSIXlt <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+  if (length(lims) != 2) abort("lims must be a two-element vector")
   make_scale("datetime", var, limits = as.POSIXct(lims))
 }
 

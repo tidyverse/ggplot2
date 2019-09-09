@@ -83,11 +83,10 @@ stat_bin <- function(mapping = NULL, data = NULL,
 StatBin <- ggproto("StatBin", Stat,
   setup_params = function(data, params) {
     if (!is.null(data$y) || !is.null(params$y)) {
-      stop("stat_bin() must not be used with a y aesthetic.", call. = FALSE)
+      abort("stat_bin() must not be used with a y aesthetic.")
     }
     if (is.integer(data$x)) {
-      stop('StatBin requires a continuous x variable: the x variable is discrete. Perhaps you want stat="count"?',
-        call. = FALSE)
+      abort('StatBin requires a continuous x variable: the x variable is discrete. Perhaps you want stat="count"?')
     }
 
     if (!is.null(params$drop)) {
@@ -105,10 +104,10 @@ StatBin <- ggproto("StatBin", Stat,
       params$right <- NULL
     }
     if (!is.null(params$width)) {
-      stop("`width` is deprecated. Do you want `geom_bar()`?", call. = FALSE)
+      abort("`width` is deprecated. Do you want `geom_bar()`?")
     }
     if (!is.null(params$boundary) && !is.null(params$center)) {
-      stop("Only one of `boundary` and `center` may be specified.", call. = FALSE)
+      abort("Only one of `boundary` and `center` may be specified.")
     }
 
     if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {

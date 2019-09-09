@@ -98,11 +98,11 @@ GeomSf <- ggproto("GeomSf", Geom,
                   ),
 
   non_missing_aes = c("size", "shape", "colour"),
-                  
+
   draw_panel = function(data, panel_params, coord, legend = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10) {
     if (!inherits(coord, "CoordSf")) {
-      stop("geom_sf() must be used with coord_sf()", call. = FALSE)
+      abort("geom_sf() must be used with coord_sf()")
     }
 
     # Need to refactor this to generate one grob per geometry type
@@ -210,7 +210,7 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+      abort("Specify either `position` or `nudge_x`/`nudge_y`")
     }
 
     position <- position_nudge(nudge_x, nudge_y)
@@ -254,7 +254,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop("You must specify either `position` or `nudge_x`/`nudge_y`.", call. = FALSE)
+      abort("You must specify either `position` or `nudge_x`/`nudge_y`.")
     }
 
     position <- position_nudge(nudge_x, nudge_y)

@@ -27,8 +27,8 @@ check_required_aesthetics <- function(required, present, name) {
   missing_aes <- setdiff(required, present)
   if (length(missing_aes) == 0) return()
 
-  stop(name, " requires the following missing aesthetics: ",
-    paste(missing_aes, collapse = ", "), call. = FALSE)
+  abort(paste0(name, " requires the following missing aesthetics: ",
+    paste(missing_aes, collapse = ", ")))
 }
 
 # Concatenate a named list for output
@@ -52,8 +52,8 @@ try_require <- function(package, fun) {
     return(invisible())
   }
 
-  stop("Package `", package, "` required for `", fun , "`.\n",
-    "Please install and try again.", call. = FALSE)
+  abort(paste0("Package `", package, "` required for `", fun , "`.\n",
+    "Please install and try again."))
 }
 
 # Return unique columns
@@ -83,7 +83,7 @@ uniquecols <- function(df) {
 #' @export
 remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
                            finite = FALSE) {
-  stopifnot(is.logical(na.rm))
+  if (!is.logical(na.rm)) abort("`na.rm` must be logical")
 
   vars <- intersect(vars, names(df))
   if (name != "") name <- paste(" (", name, ")", sep = "")
@@ -152,7 +152,7 @@ is_complete <- function(x) {
 #' should_stop(should_stop("Hi!"))
 should_stop <- function(expr) {
   res <- try(print(force(expr)), TRUE)
-  if (!inherits(res, "try-error")) stop("No error!", call. = FALSE)
+  if (!inherits(res, "try-error")) abort("No error!")
   invisible()
 }
 
@@ -194,8 +194,7 @@ gg_dep <- function(version, msg) {
   #  current minor number is more than 1 greater than last-good minor number,
   #  give error.
   if (cv[[1,1]] > v[[1,1]]  ||  cv[[1,2]] > v[[1,2]] + 1) {
-    stop(msg, " (Defunct; last used in version ", version, ")",
-      call. = FALSE)
+    abort(paste0(msg, " (Defunct; last used in version ", version, ")"))
 
   # If minor number differs by one, give warning
   } else if (cv[[1,2]] > v[[1,2]]) {
@@ -226,11 +225,11 @@ to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
 to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
 
 tolower <- function(x) {
-  stop('Please use `to_lower_ascii()`, which works fine in all locales.', call. = FALSE)
+  abort(paste0('Please use `to_lower_ascii()`, which works fine in all locales.'))
 }
 
 toupper <- function(x) {
-  stop('Please use `to_upper_ascii()`, which works fine in all locales.', call. = FALSE)
+  abort(paste0('Please use `to_upper_ascii()`, which works fine in all locales.'))
 }
 
 # Convert a snake_case string to camelCase
@@ -380,7 +379,7 @@ is_column_vec <- function(x) {
 # #> expression(alpha, NA, gamma)
 #
 parse_safe <- function(text) {
-  stopifnot(is.character(text))
+  if (!is.character(text)) abort("`text` must be a character vector")
   out <- vector("expression", length(text))
   for (i in seq_along(text)) {
     expr <- parse(text = text[[i]])

@@ -202,10 +202,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
     # this may occur when using geom_boxplot(stat = "identity")
     if (nrow(data) != 1) {
-      stop(
-        "Can't draw more than one boxplot per group. Did you forget aes(group = ...)?",
-        call. = FALSE
-      )
+      abort("Can't draw more than one boxplot per group. Did you forget aes(group = ...)?")
     }
 
     common <- list(

@@ -126,8 +126,8 @@ manual_scale <- function(aesthetic, values = NULL, ...) {
 
   pal <- function(n) {
     if (n > length(values)) {
-      stop("Insufficient values in manual scale. ", n, " needed but only ",
-        length(values), " provided.", call. = FALSE)
+      abort(paste0("Insufficient values in manual scale. ", n, " needed but only ",
+        length(values), " provided."))
     }
     values
   }

@@ -99,7 +99,7 @@ theme_replace <- function(...) {
 #' @export
 "%+replace%" <- function(e1, e2) {
   if (!is.theme(e1) || !is.theme(e2)) {
-    stop("%+replace% requires two theme objects", call. = FALSE)
+    abort("%+replace% requires two theme objects")
   }
 
   # Can't use modifyList here since it works recursively and drops NULLs

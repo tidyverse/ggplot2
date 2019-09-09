@@ -89,12 +89,12 @@ parse_dpi <- function(dpi) {
       screen = 72,
       print = 300,
       retina = 320,
-      stop("Unknown DPI string", call. = FALSE)
+      abort("Unknown DPI string")
     )
   } else if (is.numeric(dpi) && length(dpi) == 1) {
     dpi
   } else {
-    stop("DPI must be a single number or string", call. = FALSE)
+    abort("DPI must be a single number or string")
   }
 }
 
@@ -120,9 +120,9 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
   }
 
   if (limitsize && any(dim >= 50)) {
-    stop("Dimensions exceed 50 inches (height and width are specified in '",
+    abort(paste0("Dimensions exceed 50 inches (height and width are specified in '",
       units, "' not pixels). If you're sure you want a plot that big, use ",
-      "`limitsize = FALSE`.", call. = FALSE)
+      "`limitsize = FALSE`."))
   }
 
   dim
@@ -159,12 +159,12 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
   }
 
   if (!is.character(device) || length(device) != 1) {
-    stop("`device` must be NULL, a string or a function.", call. = FALSE)
+    abort("`device` must be NULL, a string or a function.")
   }
 
   dev <- devices[[device]]
   if (is.null(dev)) {
-    stop("Unknown graphics device '", device, "'", call. = FALSE)
+    abort(paste0("Unknown graphics device '", device, "'"))
   }
   dev
 }

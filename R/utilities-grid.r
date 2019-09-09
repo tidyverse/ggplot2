@@ -21,7 +21,7 @@ width_cm <- function(x) {
   } else if (is.list(x)) {
     vapply(x, width_cm, numeric(1))
   } else {
-    stop("Unknown input")
+    abort("Unknown input")
   }
 }
 height_cm <- function(x) {
@@ -32,6 +32,6 @@ height_cm <- function(x) {
   } else if (is.list(x)) {
     vapply(x, height_cm, numeric(1))
   } else {
-    stop("Unknown input")
+    abort("Unknown input")
   }
 }

@@ -187,12 +187,11 @@ translate_shape_string <- function(shape_string) {
       sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
     }
 
-    stop(
+    abort(paste0(
       "Can't find shape name:",
       collapsed_names,
-      more_problems,
-      call. = FALSE
-    )
+      more_problems
+    ))
   }
 
   if (any(nonunique_strings)) {
@@ -214,12 +213,11 @@ translate_shape_string <- function(shape_string) {
       sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
     }
 
-    stop(
+    abort(paste0(
       "Shape names must be unambiguous:",
       collapsed_names,
-      more_problems,
-      call. = FALSE
-    )
+      more_problems
+    ))
   }
 
   unname(pch_table[shape_match])

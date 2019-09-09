@@ -65,7 +65,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
   setup_data = function(data, params) {
     if (is.null(data$ymin) && is.null(data$ymax)) {
-      stop("Either ymin or ymax must be given as an aesthetic.", call. = FALSE)
+      abort("Either ymin or ymax must be given as an aesthetic.")
     }
     data <- data[order(data$PANEL, data$group, data$x), , drop = FALSE]
     data$y <- data$ymin %||% data$ymax
@@ -85,7 +85,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     # Check that aesthetics are constant
     aes <- unique(data[c("colour", "fill", "size", "linetype", "alpha")])
     if (nrow(aes) > 1) {
-      stop("Aesthetics can not vary with a ribbon")
+      abort("Aesthetics can not vary with a ribbon")
     }
     aes <- as.list(aes)
 

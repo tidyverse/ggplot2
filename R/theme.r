@@ -436,8 +436,7 @@ plot_theme <- function(x, default = theme_get()) {
 #' @keywords internal
 add_theme <- function(t1, t2, t2name) {
   if (!is.theme(t2)) {
-    stop("Don't know how to add RHS to a theme object",
-      call. = FALSE)
+    abort("Don't know how to add RHS to a theme object")
   }
 
   # Iterate over the elements that are to be updated
@@ -549,7 +548,7 @@ calc_element <- function(element, theme, verbose = FALSE) {
   # it is of the class specified in .element_tree
   if (!is.null(theme[[element]]) &&
       !inherits(theme[[element]], ggplot_global$element_tree[[element]]$class)) {
-    stop(element, " should have class ", ggplot_global$element_tree[[element]]$class)
+    abort(paste0(element, " should have class ", ggplot_global$element_tree[[element]]$class))
   }
 
   # Get the names of parents from the inheritance tree
@@ -560,8 +559,8 @@ calc_element <- function(element, theme, verbose = FALSE) {
     # Check that all the properties of this element are non-NULL
     nullprops <- vapply(theme[[element]], is.null, logical(1))
     if (any(nullprops)) {
-      stop("Theme element '", element, "' has NULL property: ",
-        paste(names(nullprops)[nullprops], collapse = ", "))
+      abort(paste0("Theme element '", element, "' has NULL property: ",
+        paste(names(nullprops)[nullprops], collapse = ", ")))
     }
 
     if (verbose) message("nothing (top level)")
@@ -600,13 +599,13 @@ merge_element <- function(new, old) {
 #' @rdname merge_element
 #' @export
 merge_element.default <- function(new, old) {
-  stop("No method for merging ", class(new)[1], " into ", class(old)[1], call. = FALSE)
+  abort(paste0("No method for merging ", class(new)[1], " into ", class(old)[1]))
 }
 #' @rdname merge_element
 #' @export
 merge_element.element <- function(new, old) {
   if (!inherits(new, class(old)[1])) {
-    stop("Only elements of the same class can be merged", call. = FALSE)
+    abort("Only elements of the same class can be merged")
   }
   # Override NULL properties of new with the values in old
   # Get logical vector of NULL properties in new

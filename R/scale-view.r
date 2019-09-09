@@ -75,8 +75,8 @@ view_scale_empty <- function() {
     get_breaks = function() NULL,
     get_breaks_minor = function() NULL,
     get_labels = function() NULL,
-    rescale = function(x) stop("Not implemented", call. = FALSE),
-    map = function(x) stop("Not implemented", call. = FALSE),
+    rescale = function(x) abort("Not implemented"),
+    map = function(x) abort("Not implemented"),
     make_title = function(title) title,
     break_positions = function() NULL,
     break_positions_minor = function() NULL

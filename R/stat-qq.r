@@ -93,8 +93,8 @@ StatQq <- ggproto("StatQq", Stat,
     # Compute theoretical quantiles
     if (is.null(quantiles)) {
       quantiles <- stats::ppoints(n)
-    } else {
-      stopifnot(length(quantiles) == n)
+    } else if (length(quantiles) != n) {
+      abort("length of quantiles must match length of data")
     }
 
     theoretical <- do.call(distribution, c(list(p = quote(quantiles)), dparams))

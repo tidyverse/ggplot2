@@ -248,12 +248,12 @@ is_labeller <- function(x) inherits(x, "labeller")
 
 resolve_labeller <- function(rows, cols, labels) {
   if (is.null(cols) && is.null(rows)) {
-    stop("Supply one of rows or cols", call. = FALSE)
+    abort("Supply one of rows or cols")
   }
   if (attr(labels, "facet") == "wrap") {
     # Return either rows or cols for facet_wrap()
     if (!is.null(cols) && !is.null(rows)) {
-      stop("Cannot supply both rows and cols to facet_wrap()", call. = FALSE)
+      abort("Cannot supply both rows and cols to facet_wrap()")
     }
     cols %||% rows
   } else {
@@ -446,8 +446,8 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       # Check that variable-specific labellers do not overlap with
       # margin-wide labeller
       if (any(names(dots) %in% names(labels))) {
-        stop("Conflict between .", attr(labels, "type"), " and ",
-          paste(names(dots), collapse = ", "), call. = FALSE)
+        abort(paste0("Conflict between .", attr(labels, "type"), " and ",
+          paste(names(dots), collapse = ", ")))
       }
     }
 

@@ -55,5 +55,5 @@ scale_shape_ordinal <- function(...) {
 #' @export
 #' @usage NULL
 scale_shape_continuous <- function(...) {
-  stop("A continuous variable can not be mapped to shape", call. = FALSE)
+  abort("A continuous variable can not be mapped to shape")
 }

@@ -397,7 +397,7 @@ validate_element <- function(el, elname) {
   eldef <- ggplot_global$element_tree[[elname]]
 
   if (is.null(eldef)) {
-    stop('"', elname, '" is not a valid theme element name.')
+    abort(paste0('"', elname, '" is not a valid theme element name.'))
   }
 
   # NULL values for elements are OK
@@ -407,12 +407,12 @@ validate_element <- function(el, elname) {
     # Need to be a bit looser here since sometimes it's a string like "top"
     # but sometimes its a vector like c(0,0)
     if (!is.character(el) && !is.numeric(el))
-      stop("Element ", elname, " must be a string or numeric vector.")
+      abort(paste0("Element ", elname, " must be a string or numeric vector."))
   } else if (eldef$class == "margin") {
     if (!is.unit(el) && length(el) == 4)
-      stop("Element ", elname, " must be a unit vector of length 4.")
+      abort(paste0("Element ", elname, " must be a unit vector of length 4."))
   } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
-      stop("Element ", elname, " must be a ", eldef$class, " object.")
+    abort(paste0("Element ", elname, " must be a ", eldef$class, " object."))
   }
   invisible()
 }

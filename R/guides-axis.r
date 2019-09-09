@@ -225,7 +225,7 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 
   # it is not worth the effort to align upside-down labels properly
   if (angle > 90 || angle < -90) {
-    stop("`angle` must be between 90 and -90", call. = FALSE)
+    abort("`angle` must be between 90 and -90")
   }
 
   if (axis_position == "bottom") {
@@ -253,6 +253,6 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
       vjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
     )
   } else {
-    stop("Unrecognized position: '", axis_position, "'", call. = FALSE)
+    abort(paste0("Unrecognized position: '", axis_position, "'"))
   }
 }

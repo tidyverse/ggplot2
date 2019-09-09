@@ -18,8 +18,8 @@ geom_raster <- function(mapping = NULL, data = NULL,
                         show.legend = NA,
                         inherit.aes = TRUE)
 {
-  stopifnot(is.numeric(hjust), length(hjust) == 1)
-  stopifnot(is.numeric(vjust), length(vjust) == 1)
+  if (!(is.numeric(hjust) && length(hjust) == 1)) abort("`hjust` must be a numeric scalar")
+  if (!(is.numeric(vjust) && length(vjust) == 1)) abort("`vjust` must be a numeric scalar")
 
   layer(
     data = data,
@@ -82,7 +82,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
   draw_panel = function(data, panel_params, coord, interpolate = FALSE,
                         hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
-      stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
+      abort("geom_raster only works with Cartesian coordinates")
     }
     data <- coord$transform(data, panel_params)
 

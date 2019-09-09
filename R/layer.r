@@ -68,11 +68,11 @@ layer <- function(geom = NULL, stat = NULL,
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
                   show.legend = NA, key_glyph = NULL, layer_class = Layer) {
   if (is.null(geom))
-    stop("Attempted to create layer with no geom.", call. = FALSE)
+    abort("Attempted to create layer with no geom.")
   if (is.null(stat))
-    stop("Attempted to create layer with no stat.", call. = FALSE)
+    abort("Attempted to create layer with no stat.")
   if (is.null(position))
-    stop("Attempted to create layer with no position.", call. = FALSE)
+    abort("Attempted to create layer with no position.")
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
@@ -169,7 +169,7 @@ validate_mapping <- function(mapping) {
       )
     }
 
-    stop(msg, call. = FALSE)
+    abort(msg)
   }
 
   # For backward compatibility with pre-tidy-eval layers
@@ -204,7 +204,7 @@ Layer <- ggproto("Layer", NULL,
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
       if (!is.data.frame(data)) {
-        stop("Data function must return a data.frame", call. = FALSE)
+        abort("Data function must return a data.frame")
       }
       data
     } else {
@@ -253,7 +253,7 @@ Layer <- ggproto("Layer", NULL,
         paste0(vapply(nondata_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
         ". \nDid you mistype the name of a data column or forget to add stat()?"
       )
-      stop(msg, call. = FALSE)
+      abort(msg)
     }
 
     n <- nrow(data)
@@ -316,7 +316,7 @@ Layer <- ggproto("Layer", NULL,
         paste0(vapply(nondata_stat_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
         ". \nDid you map your stat in the wrong layer?"
       )
-      stop(msg, call. = FALSE)
+      abort(msg)
     }
 
     names(stat_data) <- names(new)
@@ -389,16 +389,15 @@ check_subclass <- function(x, subclass,
     obj <- find_global(name, env = env)
 
     if (is.null(obj) || !inherits(obj, subclass)) {
-      stop("Can't find `", argname, "` called \"", x, "\"", call. = FALSE)
+      abort(paste0("Can't find `", argname, "` called \"", x, "\""))
     } else {
       obj
     }
   } else {
-    stop(
+    abort(paste0(
       "`", argname, "` must be either a string or a ", subclass, " object, ",
-      "not ", obj_desc(x),
-      call. = FALSE
-    )
+      "not ", obj_desc(x)
+    ))
   }
 }
 

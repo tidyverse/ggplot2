@@ -43,7 +43,7 @@ scale_colour_continuous <- function(...,
     type,
     gradient = scale_colour_gradient(...),
     viridis = scale_colour_viridis_c(...),
-    stop("Unknown scale type", call. = FALSE)
+    abort("Unknown scale type")
   )
 }
 
@@ -55,6 +55,6 @@ scale_fill_continuous <- function(...,
     type,
     gradient = scale_fill_gradient(...),
     viridis = scale_fill_viridis_c(...),
-    stop("Unknown scale type", call. = FALSE)
+    abort("Unknown scale type")
   )
 }

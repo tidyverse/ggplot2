@@ -64,27 +64,27 @@ Coord <- ggproto("Coord",
   render_fg = function(panel_params, theme) element_render(theme, "panel.border"),
 
   render_bg = function(panel_params, theme) {
-    stop("Not implemented", call. = FALSE)
+    abort("Not implemented")
   },
 
   render_axis_h = function(panel_params, theme) {
-    stop("Not implemented", call. = FALSE)
+    abort("Not implemented")
   },
 
   render_axis_v = function(panel_params, theme) {
-    stop("Not implemented", call. = FALSE)
+    abort("Not implemented")
   },
 
   # transform range given in transformed coordinates
   # back into range in given in (possibly scale-transformed)
   # data coordinates
   backtransform_range = function(self, panel_params) {
-    stop("Not implemented", call. = FALSE)
+    abort("Not implemented")
   },
 
   # return range stored in panel_params
   range = function(panel_params) {
-    stop("Not implemented", call. = FALSE)
+    abort("Not implemented")
   },
 
   setup_panel_params = function(scale_x, scale_y, params = list()) {

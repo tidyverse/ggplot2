@@ -62,7 +62,7 @@ collide <- function(data, width = NULL, name, strategy,
     data$y <- data$ymax
     data
   } else {
-    stop("Neither y nor ymax defined")
+    abort("Neither y nor ymax defined")
   }
 }
 

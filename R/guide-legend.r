@@ -307,7 +307,7 @@ guide_gengrob.legend <- function(guide, theme) {
   # default setting
   label.position <- guide$label.position %||% "right"
   if (!label.position %in% c("top", "bottom", "left", "right"))
-    stop("label position \"", label.position, "\" is invalid")
+    abort(paste0("label position \"", label.position, "\" is invalid"))
 
   nbreak <- nrow(guide$key)
 
@@ -398,10 +398,7 @@ guide_gengrob.legend <- function(guide, theme) {
 
   if (!is.null(guide$nrow) && !is.null(guide$ncol) &&
       guide$nrow * guide$ncol < nbreak) {
-    stop(
-      "`nrow` * `ncol` needs to be larger than the number of breaks",
-      call. = FALSE
-    )
+    abort("`nrow` * `ncol` needs to be larger than the number of breaks")
   }
 
   # If neither nrow/ncol specified, guess with "reasonable" values

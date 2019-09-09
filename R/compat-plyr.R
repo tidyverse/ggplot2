@@ -19,7 +19,7 @@ unrowname <- function(x) {
   } else if (is.matrix(x)) {
     dimnames(x)[1] <- list(NULL)
   } else {
-    stop("Can only remove rownames from data.frame and matrix objects", call. = FALSE)
+    abort("Can only remove rownames from data.frame and matrix objects")
   }
   x
 }
@@ -193,7 +193,7 @@ revalue <- function(x, replace) {
     lev[match(names(replace), lev)] <- replace
     levels(x) <- lev
   } else if (!is.null(x)) {
-    stop("x is not a factor or character vector", call. = FALSE)
+    abort("x is not a factor or character vector")
   }
   x
 }
@@ -239,14 +239,14 @@ as.quoted <- function(x, env = parent.frame()) {
   } else if (is.call(x)) {
     as.list(x)[-1]
   } else {
-    stop("Only knows how to quote characters, calls, and formula", call. = FALSE)
+    abort("Only knows how to quote characters, calls, and formula")
   }
   attributes(x) <- list(env = env, class = 'quoted')
   x
 }
 # round a number to a given precision
 round_any <- function(x, accuracy, f = round) {
-  if (!is.numeric(x)) stop("x must be numeric", call. = FALSE)
+  if (!is.numeric(x)) abort("`x`` must be numeric")
   f(x/accuracy) * accuracy
 }
 #' Bind data frames together by common column names

@@ -51,7 +51,7 @@ is_calculated <- function(x) {
   } else if (is.pairlist(x)) {
     FALSE
   } else {
-    stop("Unknown input:", class(x)[1])
+    abort(paste0("Unknown input:", class(x)[1]))
   }
 }
 
@@ -80,7 +80,7 @@ strip_dots <- function(expr) {
     # For list of aesthetics
     lapply(expr, strip_dots)
   } else {
-    stop("Unknown input:", class(expr)[1])
+    abort(paste0("Unknown input:", class(expr)[1]))
   }
 }
 
