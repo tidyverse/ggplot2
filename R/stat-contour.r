@@ -209,7 +209,7 @@ iso_to_path <- function(iso, group = 1) {
   lengths <- vapply(iso, function(x) length(x$x), integer(1))
 
   if (all(lengths == 0)) {
-    warning("stat_contour(): Zero contours were generated", call. = FALSE)
+    warn("stat_contour(): Zero contours were generated")
     return(new_data_frame())
   }
 

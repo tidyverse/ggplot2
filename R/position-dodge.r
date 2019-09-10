@@ -90,8 +90,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
   preserve = "total",
   setup_params = function(self, data) {
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
-      warning("Width not defined. Set with `position_dodge(width = ?)`",
-        call. = FALSE)
+      warn("Width not defined. Set with `position_dodge(width = ?)`")
     }
 
     if (identical(self$preserve, "total")) {

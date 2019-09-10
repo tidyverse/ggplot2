@@ -213,8 +213,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
       # but only if there is no facetted variable also named `x`
       if ("x" %in% find_names(quoted) && !"x" %in% names(params)) {
         if (!has_warned) {
-          warning("Referring to `x` is deprecated, use variable name instead",
-            call. = FALSE)
+          warn("Referring to `x` is deprecated, use variable name instead")
           # The function is called for each facet so this avoids
           # multiple warnings
           has_warned <<- TRUE
@@ -697,9 +696,8 @@ check_labeller <- function(labeller) {
     labeller <- function(labels) {
       Map(old_labeller, names(labels), labels)
     }
-    warning("The labeller API has been updated. Labellers taking `variable`",
-      "and `value` arguments are now deprecated. See labellers documentation.",
-      call. = FALSE)
+    warn(paste0("The labeller API has been updated. Labellers taking `variable`",
+      "and `value` arguments are now deprecated. See labellers documentation."))
   }
 
   labeller

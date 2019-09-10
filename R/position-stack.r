@@ -228,17 +228,13 @@ PositionFill <- ggproto("PositionFill", PositionStack,
 stack_var <- function(data) {
   if (!is.null(data$ymax)) {
     if (any(data$ymin != 0 & data$ymax != 0, na.rm = TRUE)) {
-      warning("Stacking not well defined when not anchored on the axis", call. = FALSE)
+      warn("Stacking not well defined when not anchored on the axis")
     }
     "ymax"
   } else if (!is.null(data$y)) {
     "y"
   } else {
-    warning(
-      "Stacking requires either ymin & ymin or y aesthetics.\n",
-      "Maybe you want position = 'identity'?",
-      call. = FALSE
-    )
+    warn("Stacking requires either ymin & ymin or y aesthetics.\nMaybe you want position = 'identity'?")
     NULL
   }
 }

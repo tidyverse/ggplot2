@@ -124,7 +124,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
     if (varwidth == TRUE) position <- position_dodge2(preserve = "single")
   } else {
     if (identical(position$preserve, "total") & varwidth == TRUE) {
-      warning("Can't preserve total widths when varwidth = TRUE.", call. = FALSE)
+      warn("Can't preserve total widths when varwidth = TRUE.")
       position$preserve <- "single"
     }
   }

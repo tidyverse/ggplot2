@@ -81,8 +81,7 @@ geom_bar <- function(mapping = NULL, data = NULL,
                      inherit.aes = TRUE) {
 
   if (!is.null(binwidth)) {
-    warning("`geom_bar()` no longer has a `binwidth` parameter. ",
-      "Please use `geom_histogram()` instead.", call. = "FALSE")
+    warn("`geom_bar()` no longer has a `binwidth` parameter. Please use `geom_histogram()` instead.")
     return(geom_histogram(mapping = mapping, data = data,
       position = position, width = width, binwidth = binwidth, ...,
       na.rm = na.rm, show.legend = show.legend, inherit.aes = inherit.aes))

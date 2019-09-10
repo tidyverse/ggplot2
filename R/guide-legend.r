@@ -233,7 +233,7 @@ guide_merge.legend <- function(guide, new_guide) {
   guide$key <- merge(guide$key, new_guide$key, sort = FALSE)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) {
-    warning("Duplicated override.aes is ignored.")
+    warn("Duplicated override.aes is ignored.")
   }
   guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
   guide

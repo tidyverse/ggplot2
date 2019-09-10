@@ -76,13 +76,12 @@ layer <- function(geom = NULL, stat = NULL,
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
-    warning("`show_guide` has been deprecated. Please use `show.legend` instead.",
-      call. = FALSE)
+    warn("`show_guide` has been deprecated. Please use `show.legend` instead.")
     show.legend <- params$show_guide
     params$show_guide <- NULL
   }
   if (!is.logical(show.legend)) {
-    warning("`show.legend` must be a logical vector.", call. = FALSE)
+    warn("`show.legend` must be a logical vector.")
     show.legend <- FALSE
   }
 

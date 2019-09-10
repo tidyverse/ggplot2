@@ -90,16 +90,16 @@ StatBin <- ggproto("StatBin", Stat,
     }
 
     if (!is.null(params$drop)) {
-      warning("`drop` is deprecated. Please use `pad` instead.", call. = FALSE)
+      warn("`drop` is deprecated. Please use `pad` instead.")
       params$drop <- NULL
     }
     if (!is.null(params$origin)) {
-      warning("`origin` is deprecated. Please use `boundary` instead.", call. = FALSE)
+      warn("`origin` is deprecated. Please use `boundary` instead.")
       params$boundary <- params$origin
       params$origin <- NULL
     }
     if (!is.null(params$right)) {
-      warning("`right` is deprecated. Please use `closed` instead.", call. = FALSE)
+      warn("`right` is deprecated. Please use `closed` instead.")
       params$closed <- if (params$right) "right" else "left"
       params$right <- NULL
     }

@@ -29,7 +29,7 @@ scale_alpha_continuous <- scale_alpha
 #' @rdname scale_alpha
 #' @export
 scale_alpha_discrete <- function(...) {
-  warning("Using alpha for a discrete variable is not advised.", call. = FALSE)
+  warn("Using alpha for a discrete variable is not advised.")
   scale_alpha_ordinal(...)
 }
 

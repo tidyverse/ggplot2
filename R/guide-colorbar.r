@@ -195,12 +195,14 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # do nothing if scale are inappropriate
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warning("colourbar guide needs appropriate scales: ",
-            paste(guide$available_aes, collapse = ", "))
+    warn(paste0(
+      "colourbar guide needs appropriate scales: ",
+      paste(guide$available_aes, collapse = ", ")
+    ))
     return(NULL)
   }
   if (scale$is_discrete()) {
-    warning("colourbar guide needs continuous scales.")
+    warn("colourbar guide needs continuous scales.")
     return(NULL)
   }
 

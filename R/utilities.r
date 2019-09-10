@@ -198,8 +198,7 @@ gg_dep <- function(version, msg) {
 
   # If minor number differs by one, give warning
   } else if (cv[[1,2]] > v[[1,2]]) {
-    warning(msg, " (Deprecated; last used in version ", version, ")",
-      call. = FALSE)
+    warn(paste0(msg, " (Deprecated; last used in version ", version, ")"))
 
   # If only subminor number is greater, give message
   } else if (cv[[1,3]] > v[[1,3]]) {
@@ -295,7 +294,7 @@ message_wrap <- function(...) {
 warning_wrap <- function(...) {
   msg <- paste(..., collapse = "", sep = "")
   wrapped <- strwrap(msg, width = getOption("width") - 2)
-  warning(paste0(wrapped, collapse = "\n"), call. = FALSE)
+  warn(paste0(wrapped, collapse = "\n"))
 }
 
 var_list <- function(x) {

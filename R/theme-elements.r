@@ -118,11 +118,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
     length(hjust), length(vjust), length(angle), length(lineheight)
   )
   if (n > 1) {
-    warning(
-      "Vectorized input to `element_text()` is not officially supported.\n",
-      "Results may be unexpected or may change in future versions of ggplot2.",
-      call. = FALSE
-    )
+    warn("Vectorized input to `element_text()` is not officially supported.\nResults may be unexpected or may change in future versions of ggplot2.")
   }
 
 

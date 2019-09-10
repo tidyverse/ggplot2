@@ -325,7 +325,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
           !inside &&
           any(!vapply(row_axes, is.zero, logical(1))) &&
           !params$free$x) {
-        warning("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'", call. = FALSE)
+        warn("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'")
       } else {
         axis_mat_x_bottom[row_pos] <- row_axes
       }
@@ -333,7 +333,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
           !inside &&
           any(!vapply(col_axes, is.zero, logical(1))) &&
           !params$free$y) {
-        warning("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'", call. = FALSE)
+        warn("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'")
       } else {
         axis_mat_y_right[col_pos] <- col_axes
       }
@@ -422,22 +422,20 @@ sanitise_dim <- function(n) {
   xname <- paste0("`", deparse(substitute(n)), "`")
   if (length(n) == 0) {
     if (!is.null(n)) {
-      warning(xname, " has length zero and will be treated as NULL.",
-        call. = FALSE)
+      warn(paste0(xname, " has length zero and will be treated as NULL."))
     }
     return(NULL)
   }
   if (length(n) > 1) {
-    warning("Only the first value of ", xname, " will be used.", call. = FALSE)
+    warn(paste0("Only the first value of ", xname, " will be used."))
     n <- n[1]
   }
   if (!is.numeric(n) || (!is.na(n) && n != round(n))) {
-    warning("Coercing ", xname, " to be an integer.", call. = FALSE)
+    warn(paste0("Coercing ", xname, " to be an integer."))
     n <- as.integer(n)
   }
   if (is.na(n) || n < 1) {
-    warning(xname, " is missing or less than 1 and will be treated as NULL.",
-      call. = FALSE)
+    warn(paste0(xname, " is missing or less than 1 and will be treated as NULL."))
     return(NULL)
   }
   n

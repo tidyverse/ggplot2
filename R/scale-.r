@@ -475,7 +475,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
      if (any(is.finite(x) != is.finite(new_x))) {
        type <- if (self$scale_name == "position_c") "continuous" else "discrete"
        axis <- if ("x" %in% self$aesthetics) "x" else "y"
-       warning("Transformation introduced infinite values in ", type, " ", axis, "-axis", call. = FALSE)
+       warn(paste0("Transformation introduced infinite values in ", type, " ", axis, "-axis"))
      }
      new_x
   },
@@ -670,7 +670,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
       pal <- self$palette.cache
     } else {
       if (!is.null(self$n.breaks.cache)) {
-        warning("Cached palette does not match requested", call. = FALSE)
+        warn("Cached palette does not match requested")
       }
       pal <- self$palette(n)
       self$palette.cache <- pal

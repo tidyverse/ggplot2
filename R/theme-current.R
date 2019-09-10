@@ -74,8 +74,7 @@ theme_get <- function() {
 theme_set <- function(new) {
   missing <- setdiff(names(theme_gray()), names(new))
   if (length(missing) > 0) {
-    warning("New theme missing the following elements: ",
-      paste(missing, collapse = ", "), call. = FALSE)
+    warn(paste0("New theme missing the following elements: ", paste(missing, collapse = ", ")))
   }
 
   old <- ggplot_global$theme_current

@@ -135,8 +135,8 @@ GeomPath <- ggproto("GeomPath", Geom,
     data <- data[kept, ]
 
     if (!all(kept) && !params$na.rm) {
-      warning("Removed ", sum(!kept), " rows containing missing values",
-        " (geom_path).", call. = FALSE)
+      warn(paste0("Removed ", sum(!kept), " rows containing missing values",
+        " (geom_path)."))
     }
 
     data

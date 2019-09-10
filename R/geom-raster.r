@@ -57,7 +57,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     if (length(x_diff) == 0) {
       w <- 1
     } else if (any(abs(diff(x_diff)) > precision)) {
-      warning("Raster pixels are placed at uneven horizontal intervals and will be shifted. Consider using geom_tile() instead.")
+      warn("Raster pixels are placed at uneven horizontal intervals and will be shifted. Consider using geom_tile() instead.")
       w <- min(x_diff)
     } else {
       w <- x_diff[1]
@@ -66,7 +66,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     if (length(y_diff) == 0) {
       h <- 1
     } else if (any(abs(diff(y_diff)) > precision)) {
-      warning("Raster pixels are placed at uneven vertical intervals and will be shifted. Consider using geom_tile() instead.")
+      warn("Raster pixels are placed at uneven vertical intervals and will be shifted. Consider using geom_tile() instead.")
       h <- min(y_diff)
     } else {
       h <- y_diff[1]

@@ -60,7 +60,7 @@ scale_size <- scale_size_continuous
 #' @export
 #' @usage NULL
 scale_size_discrete <- function(...) {
-  warning("Using size for a discrete variable is not advised.", call. = FALSE)
+  warn("Using size for a discrete variable is not advised.")
   scale_size_ordinal(...)
 }
 

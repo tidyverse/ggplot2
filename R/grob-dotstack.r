@@ -14,7 +14,7 @@ dotstackGrob <- function(
     if (!is.unit(dotdia))
         dotdia <- unit(dotdia, default.units)
     if (!is_npc(dotdia))
-        warning("Unit type of dotdia should be 'npc'")
+        warn("Unit type of dotdia should be 'npc'")
 
     grob(x = x, y = y, stackaxis = stackaxis, dotdia = dotdia,
          stackposition = stackposition, stackratio = stackratio,

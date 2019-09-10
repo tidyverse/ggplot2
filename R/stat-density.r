@@ -91,7 +91,7 @@ compute_density <- function(x, w, from, to, bw = "nrd0", adjust = 1,
 
   # if less than 2 points return data frame of NAs and a warning
   if (nx < 2) {
-    warning("Groups with fewer than two data points have been dropped.", call. = FALSE)
+    warn("Groups with fewer than two data points have been dropped.")
     return(new_data_frame(list(
       x = NA_real_,
       density = NA_real_,

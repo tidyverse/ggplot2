@@ -363,31 +363,26 @@ theme <- function(line,
   elements <- find_args(..., complete = NULL, validate = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
-    warning("`axis.ticks.margin` is deprecated. Please set `margin` property ",
-      " of `axis.text` instead", call. = FALSE)
+    warn("`axis.ticks.margin` is deprecated. Please set `margin` property of `axis.text` instead")
     elements$axis.ticks.margin <- NULL
   }
   if (!is.null(elements$panel.margin)) {
-    warning("`panel.margin` is deprecated. Please use `panel.spacing` property ",
-      "instead", call. = FALSE)
+    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
     elements$panel.spacing <- elements$panel.margin
     elements$panel.margin <- NULL
   }
   if (!is.null(elements$panel.margin.x)) {
-    warning("`panel.margin.x` is deprecated. Please use `panel.spacing.x` property ",
-            "instead", call. = FALSE)
+    warn("`panel.margin.x` is deprecated. Please use `panel.spacing.x` property instead")
     elements$panel.spacing.x <- elements$panel.margin.x
     elements$panel.margin.x <- NULL
   }
   if (!is.null(elements$panel.margin.y)) {
-    warning("`panel.margin` is deprecated. Please use `panel.spacing` property ",
-            "instead", call. = FALSE)
+    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
     elements$panel.spacing.y <- elements$panel.margin.y
     elements$panel.margin.y <- NULL
   }
   if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
-    warning("`legend.margin` must be specified using `margin()`. For the old ",
-      "behavior use legend.spacing", call. = FALSE)
+    warn("`legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing")
     elements$legend.spacing <- elements$legend.margin
     elements$legend.margin <- margin()
   }

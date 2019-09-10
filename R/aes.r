@@ -168,9 +168,7 @@ rename_aes <- function(x) {
   duplicated_names <- names(x)[duplicated(names(x))]
   if (length(duplicated_names) > 0L) {
     duplicated_message <- paste0(unique(duplicated_names), collapse = ", ")
-    warning(
-      "Duplicated aesthetics after name standardisation: ", duplicated_message, call. = FALSE
-    )
+    warn(paste0("Duplicated aesthetics after name standardisation: ", duplicated_message))
   }
   x
 }
@@ -304,7 +302,7 @@ aes_all <- function(vars) {
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  warning("aes_auto() is deprecated", call. = FALSE)
+  warn("aes_auto() is deprecated")
 
   # detect names of data
   if (is.null(data)) {
@@ -357,11 +355,7 @@ warn_for_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
   if (is_call(x, "[[") || is_call(x, "$")) {
     if (extract_target_is_likely_data(x, data, env)) {
       good_usage <- alternative_aes_extract_usage(x)
-      warning(
-        "Use of `", format(x), "` is discouraged. ",
-        "Use `", good_usage,  "` instead.",
-        call. = FALSE
-      )
+      warn(paste0("Use of `", format(x), "` is discouraged. Use `", good_usage,  "` instead."))
     }
   } else if (is.call(x)) {
     lapply(x, warn_for_aes_extract_usage_expr, data, env)

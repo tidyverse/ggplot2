@@ -59,9 +59,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     params$width <- params$width %||% (resolution(data$x %||% 0) * 0.75)
 
     if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
-      warning(
-        "Continuous x aesthetic -- did you forget aes(group=...)?",
-        call. = FALSE)
+      warn("Continuous x aesthetic -- did you forget aes(group=...)?")
     }
 
     params

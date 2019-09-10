@@ -47,7 +47,7 @@ scale_shape_discrete <- scale_shape
 #' @export
 #' @usage NULL
 scale_shape_ordinal <- function(...) {
-  warning("Using shapes for an ordinal variable is not advised", call. = FALSE)
+  warn("Using shapes for an ordinal variable is not advised")
   scale_shape(...)
 }
 
