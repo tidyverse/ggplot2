@@ -102,7 +102,9 @@ new_aesthetic <- function(x, env = globalenv()) {
   x
 }
 new_aes <- function(x, env = globalenv()) {
-  if (!is.list(x)) abort("`x` must be a list")
+  if (!is.list(x)) {
+    abort("`x` must be a list")
+  }
   x <- lapply(x, new_aesthetic, env = env)
   structure(x, class = "uneval")
 }
@@ -369,7 +371,7 @@ alternative_aes_extract_usage <- function(x) {
   } else if (is_call(x, "$")) {
     as.character(x[[3]])
   } else {
-    abort(paste0("Don't know how to get alternative usage for `", format(x), "`"))
+    abort(glue("Don't know how to get alternative usage for `{format(x)}`"))
   }
 }
 

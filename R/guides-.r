@@ -156,7 +156,7 @@ validate_guide <- function(guide) {
   else if (inherits(guide, "guide"))
     guide
   else
-    abort(paste0("Unknown guide: ", guide))
+    abort(glue("Unknown guide: {guide}"))
 }
 
 # train each scale in scales and generate the definition of guide
@@ -182,8 +182,9 @@ guides_train <- function(scales, theme, guides, labels) {
       guide <- validate_guide(guide)
 
       # check the consistency of the guide and scale.
-      if (!identical(guide$available_aes, "any") && !any(scale$aesthetics %in% guide$available_aes))
-        abort(paste0("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'."))
+      if (!identical(guide$available_aes, "any") && !any(scale$aesthetics %in% guide$available_aes)) {
+        abort(glue("Guide '{guide$name}' cannot be used for '{scale$aesthetics}'."))
+      }
 
       guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
 
@@ -226,8 +227,9 @@ guides_gengrob <- function(gdefs, theme) {
   gdefs <- lapply(gdefs,
     function(g) {
       g$title.position <- g$title.position %||% switch(g$direction, vertical = "top", horizontal = "left")
-      if (!g$title.position %in% c("top", "bottom", "left", "right"))
-        abort(paste0("title position \"", g$title.position, "\" is invalid"))
+      if (!g$title.position %in% c("top", "bottom", "left", "right")) {
+        abort(glue("title position '{g$title.position}' is invalid"))
+      }
       g
     })
 

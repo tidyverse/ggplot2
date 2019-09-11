@@ -109,7 +109,9 @@ labelGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
                       default.units = "npc", name = NULL,
                       text.gp = gpar(), rect.gp = gpar(fill = "white"), vp = NULL) {
 
-  if (length(label) != 1) abort("label must be of length 1")
+  if (length(label) != 1) {
+    abort("label must be of length 1")
+  }
 
   if (!is.unit(x))
     x <- unit(x, default.units)

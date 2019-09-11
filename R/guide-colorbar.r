@@ -284,13 +284,17 @@ guide_gengrob.colorbar <- function(guide, theme) {
   # settings of location and size
   if (guide$direction == "horizontal") {
     label.position <- guide$label.position %||% "bottom"
-    if (!label.position %in% c("top", "bottom")) abort(paste0("label position \"", label.position, "\" is invalid"))
+    if (!label.position %in% c("top", "bottom")) {
+      abort(glue("label position '{label.position}' is invalid"))
+    }
 
     barwidth <- width_cm(guide$barwidth %||% (theme$legend.key.width * 5))
     barheight <- height_cm(guide$barheight %||% theme$legend.key.height)
   } else { # guide$direction == "vertical"
     label.position <- guide$label.position %||% "right"
-    if (!label.position %in% c("left", "right")) abort(paste0("label position \"", label.position, "\" is invalid"))
+    if (!label.position %in% c("left", "right")) {
+      abort(glue("label position '{label.position}' is invalid"))
+    }
 
     barwidth <- width_cm(guide$barwidth %||% theme$legend.key.width)
     barheight <- height_cm(guide$barheight %||% (theme$legend.key.height * 5))

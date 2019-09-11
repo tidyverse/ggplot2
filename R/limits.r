@@ -108,7 +108,9 @@ ylim <- function(...) {
 limits <- function(lims, var) UseMethod("limits")
 #' @export
 limits.numeric <- function(lims, var) {
-  if (length(lims) != 2) abort("lims must be a two-element vector")
+  if (length(lims) != 2) {
+    abort("`lims` must be a two-element vector")
+  }
   if (!any(is.na(lims)) && lims[1] > lims[2]) {
     trans <- "reverse"
   } else {
@@ -133,17 +135,23 @@ limits.factor <- function(lims, var) {
 }
 #' @export
 limits.Date <- function(lims, var) {
-  if (length(lims) != 2) abort("lims must be a two-element vector")
+  if (length(lims) != 2) {
+    abort("`lims` must be a two-element vector")
+  }
   make_scale("date", var, limits = lims)
 }
 #' @export
 limits.POSIXct <- function(lims, var) {
-  if (length(lims) != 2) abort("lims must be a two-element vector")
+  if (length(lims) != 2) {
+    abort("`lims` must be a two-element vector")
+  }
   make_scale("datetime", var, limits = lims)
 }
 #' @export
 limits.POSIXlt <- function(lims, var) {
-  if (length(lims) != 2) abort("lims must be a two-element vector")
+  if (length(lims) != 2) {
+    abort("`lims` must be a two-element vector")
+  }
   make_scale("datetime", var, limits = as.POSIXct(lims))
 }
 

@@ -445,8 +445,10 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       # Check that variable-specific labellers do not overlap with
       # margin-wide labeller
       if (any(names(dots) %in% names(labels))) {
-        abort(paste0("Conflict between .", attr(labels, "type"), " and ",
-          paste(names(dots), collapse = ", ")))
+        abort(glue(
+          "Conflict between .{attr(labels, 'type')} and ",
+          glue_collapse(names(dots), ", ", last = " and ")
+        ))
       }
     }
 

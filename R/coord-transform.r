@@ -235,6 +235,6 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
 #' @noRd
 warn_new_infinites <- function(old_values, new_values, axis) {
   if (any(is.finite(old_values) & !is.finite(new_values))) {
-    warn(paste0("Transformation introduced infinite values in ", axis, "-axis"))
+    warn(glue("Transformation introduced infinite values in {axis}-axis"))
   }
 }

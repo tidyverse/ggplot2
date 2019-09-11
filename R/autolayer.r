@@ -15,6 +15,9 @@ autolayer <- function(object, ...) {
 
 #' @export
 autolayer.default <- function(object, ...) {
-  abort(paste0("Objects of type ", paste(class(object), collapse = "/"),
-    " not supported by autolayer."))
+  abort(glue(
+    "Objects of type ",
+    glue_collapse(class(object), "/"),
+    " not supported by autolayer."
+  ))
 }

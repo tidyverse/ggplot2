@@ -184,8 +184,8 @@ check_aesthetics <- function(x, n) {
     return()
   }
 
-  abort(paste0(
-    "Aesthetics must be either length 1 or the same as the data (", n, "): ",
-    paste(names(which(!good)), collapse = ", ")
+  abort(glue(
+    "Aesthetics must be either length 1 or the same as the data ({n}): ",
+    glue_collapse(names(which(!good)), ", ", last = " and ")
   ))
 }

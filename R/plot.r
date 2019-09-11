@@ -106,7 +106,10 @@ ggplot.default <- function(data = NULL, mapping = aes(), ...,
 ggplot.function <- function(data = NULL, mapping = aes(), ...,
                             environment = parent.frame()) {
   # Added to avoid functions end in ggplot.default
-  abort("You're passing a function as global data.\nHave you misspelled the `data` argument in `ggplot()`")
+  abort(glue("
+    You're passing a function as global data.
+    Have you misspelled the `data` argument in `ggplot()`
+  "))
 }
 
 plot_clone <- function(plot) {

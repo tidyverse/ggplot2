@@ -120,9 +120,10 @@ plot_dim <- function(dim = c(NA, NA), scale = 1, units = c("in", "cm", "mm"),
   }
 
   if (limitsize && any(dim >= 50)) {
-    abort(paste0("Dimensions exceed 50 inches (height and width are specified in '",
-      units, "' not pixels). If you're sure you want a plot that big, use ",
-      "`limitsize = FALSE`."))
+    abort(glue("
+      Dimensions exceed 50 inches (height and width are specified in '{units}' not pixels).
+      If you're sure you want a plot that big, use `limitsize = FALSE`.
+    "))
   }
 
   dim
@@ -164,7 +165,7 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
 
   dev <- devices[[device]]
   if (is.null(dev)) {
-    abort(paste0("Unknown graphics device '", device, "'"))
+    abort(glue("Unknown graphics device '{device}'"))
   }
   dev
 }

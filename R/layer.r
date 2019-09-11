@@ -388,14 +388,13 @@ check_subclass <- function(x, subclass,
     obj <- find_global(name, env = env)
 
     if (is.null(obj) || !inherits(obj, subclass)) {
-      abort(paste0("Can't find `", argname, "` called \"", x, "\""))
+      abort(glue("Can't find `{argname}` called '{x}'"))
     } else {
       obj
     }
   } else {
-    abort(paste0(
-      "`", argname, "` must be either a string or a ", subclass, " object, ",
-      "not ", obj_desc(x)
+    abort(glue(
+      "`{argname}` must be either a string or a {subclass} object, not {obj_desc(x)}"
     ))
   }
 }

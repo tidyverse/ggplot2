@@ -543,7 +543,7 @@ calc_element <- function(element, theme, verbose = FALSE) {
   # it is of the class specified in .element_tree
   if (!is.null(theme[[element]]) &&
       !inherits(theme[[element]], ggplot_global$element_tree[[element]]$class)) {
-    abort(paste0(element, " should have class ", ggplot_global$element_tree[[element]]$class))
+    abort(glue("{element} should have class {ggplot_global$element_tree[[element]]$class}"))
   }
 
   # Get the names of parents from the inheritance tree
@@ -554,8 +554,10 @@ calc_element <- function(element, theme, verbose = FALSE) {
     # Check that all the properties of this element are non-NULL
     nullprops <- vapply(theme[[element]], is.null, logical(1))
     if (any(nullprops)) {
-      abort(paste0("Theme element '", element, "' has NULL property: ",
-        paste(names(nullprops)[nullprops], collapse = ", ")))
+      abort(glue(
+        "Theme element '{element}' has NULL property: ",
+        glue_collapse(names(nullprops)[nullprops], ", ", last = " and ")
+      ))
     }
 
     if (verbose) message("nothing (top level)")
@@ -594,7 +596,7 @@ merge_element <- function(new, old) {
 #' @rdname merge_element
 #' @export
 merge_element.default <- function(new, old) {
-  abort(paste0("No method for merging ", class(new)[1], " into ", class(old)[1]))
+  abort(glue("No method for merging {class(new)[1]} into {class(old)[1]}"))
 }
 #' @rdname merge_element
 #' @export

@@ -160,13 +160,5 @@ warn_overwritten_args <- function(fun_name, overwritten_arg, provided_args, plur
     verb <- "were"
   }
 
-  warn(
-    sprintf(
-      "%s: Ignoring %s because %s %s provided.",
-      fun_name,
-      overwritten_arg_text,
-      provided_arg_text,
-      verb
-    )
-  )
+  warn(glue("{fun_name}: Ignoring {overwritten_arg_text} because {provided_arg_text} {verb} provided."))
 }

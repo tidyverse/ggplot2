@@ -31,7 +31,8 @@ Imports:
     stats,
     tibble,
     viridisLite,
-    withr (>= 2.0.0)
+    withr (>= 2.0.0),
+    glue
 Suggests:
     covr,
     dplyr,

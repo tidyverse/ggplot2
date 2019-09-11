@@ -253,6 +253,6 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
       vjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
     )
   } else {
-    abort(paste0("Unrecognized position: '", axis_position, "'"))
+    abort(glue("Unrecognized position: '{axis_position}'"))
   }
 }

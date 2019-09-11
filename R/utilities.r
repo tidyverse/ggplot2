@@ -27,8 +27,10 @@ check_required_aesthetics <- function(required, present, name) {
   missing_aes <- setdiff(required, present)
   if (length(missing_aes) == 0) return()
 
-  abort(paste0(name, " requires the following missing aesthetics: ",
-    paste(missing_aes, collapse = ", ")))
+  abort(glue(
+    "{name} requires the following missing aesthetics: ",
+    glue_collapse(missing_aes, ", ", last = " and ")
+  ))
 }
 
 # Concatenate a named list for output
@@ -52,8 +54,10 @@ try_require <- function(package, fun) {
     return(invisible())
   }
 
-  abort(paste0("Package `", package, "` required for `", fun , "`.\n",
-    "Please install and try again."))
+  abort(glue("
+    Package `{package}` required for `{fun}`.
+    Please install and try again.
+  "))
 }
 
 # Return unique columns
@@ -83,7 +87,9 @@ uniquecols <- function(df) {
 #' @export
 remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
                            finite = FALSE) {
-  if (!is.logical(na.rm)) abort("`na.rm` must be logical")
+  if (!is.logical(na.rm)) {
+    abort("`na.rm` must be logical")
+  }
 
   vars <- intersect(vars, names(df))
   if (name != "") name <- paste(" (", name, ")", sep = "")
@@ -152,7 +158,9 @@ is_complete <- function(x) {
 #' should_stop(should_stop("Hi!"))
 should_stop <- function(expr) {
   res <- try(print(force(expr)), TRUE)
-  if (!inherits(res, "try-error")) abort("No error!")
+  if (!inherits(res, "try-error")) {
+    abort("No error!")
+  }
   invisible()
 }
 
@@ -189,20 +197,21 @@ gg_dep <- function(version, msg) {
   .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
+  text <- "{msg} (Defunct; last used in version {version})"
 
   # If current major number is greater than last-good major number, or if
   #  current minor number is more than 1 greater than last-good minor number,
   #  give error.
   if (cv[[1,1]] > v[[1,1]]  ||  cv[[1,2]] > v[[1,2]] + 1) {
-    abort(paste0(msg, " (Defunct; last used in version ", version, ")"))
+    abort(glue(text))
 
   # If minor number differs by one, give warning
   } else if (cv[[1,2]] > v[[1,2]]) {
-    warn(paste0(msg, " (Deprecated; last used in version ", version, ")"))
+    warn(glue(text))
 
   # If only subminor number is greater, give message
   } else if (cv[[1,3]] > v[[1,3]]) {
-    message(msg, " (Deprecated; last used in version ", version, ")")
+    message(glue(text))
   }
 
   invisible()
@@ -224,11 +233,11 @@ to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
 to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
 
 tolower <- function(x) {
-  abort(paste0('Please use `to_lower_ascii()`, which works fine in all locales.'))
+  abort("Please use `to_lower_ascii()`, which works fine in all locales.")
 }
 
 toupper <- function(x) {
-  abort(paste0('Please use `to_upper_ascii()`, which works fine in all locales.'))
+  abort("Please use `to_upper_ascii()`, which works fine in all locales.")
 }
 
 # Convert a snake_case string to camelCase
@@ -378,7 +387,9 @@ is_column_vec <- function(x) {
 # #> expression(alpha, NA, gamma)
 #
 parse_safe <- function(text) {
-  if (!is.character(text)) abort("`text` must be a character vector")
+  if (!is.character(text)) {
+    abort("`text` must be a character vector")
+  }
   out <- vector("expression", length(text))
   for (i in seq_along(text)) {
     expr <- parse(text = text[[i]])
