@@ -44,7 +44,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatBoxplot <- ggproto("StatBoxplot", Stat,
-  default_aes = aes(x = NULL, y = NULL),
+  required_aes = c("y|x"),
   non_missing_aes = "weight",
   setup_data = function(data, params) {
     data <- flip_data(data, params$flipped_aes)

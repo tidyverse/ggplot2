@@ -48,6 +48,8 @@ stat_count <- function(mapping = NULL, data = NULL,
 #' @export
 #' @include stat-.r
 StatCount <- ggproto("StatCount", Stat,
+  required_aes = "x|y",
+
   default_aes = aes(x = stat(count), y = stat(count), weight = 1),
 
   setup_params = function(data, params) {

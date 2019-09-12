@@ -60,9 +60,10 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRibbon <- ggproto("GeomRibbon", Geom,
-  default_aes = aes(x = NULL, xmin = NULL, xmax = NULL, y = NULL, ymin = NULL,
-                    ymax = NULL, colour = NA, fill = "grey20", size = 0.5,
-                    linetype = 1, alpha = NA),
+  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+    alpha = NA),
+
+  required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)

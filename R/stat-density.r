@@ -65,6 +65,8 @@ stat_density <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatDensity <- ggproto("StatDensity", Stat,
+  required_aes = "x|y",
+
   default_aes = aes(x = stat(density), y = stat(density), fill = NA, weight = NULL),
 
   setup_params = function(data, params) {

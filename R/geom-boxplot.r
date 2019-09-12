@@ -281,8 +281,8 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   draw_key = draw_key_boxplot,
 
-  default_aes = aes(x = NULL, ymin = NULL, ymax = NULL, y = NULL, xmin = NULL,
-    xmax = NULL, lower = NULL, upper = NULL, middle = NULL, xlower = NULL,
-    xupper = NULL, xmiddle = NULL, weight = 1, colour = "grey20", fill = "white", size = 0.5,
-    alpha = NA, shape = 19, linetype = "solid")
+  default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
+    alpha = NA, shape = 19, linetype = "solid"),
+
+  required_aes = c("x|y", "lower|xlower", "upper|xupper", "middle|xmiddle", "ymin|xmin", "ymax|ymin")
 )

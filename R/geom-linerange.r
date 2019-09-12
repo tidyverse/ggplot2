@@ -85,10 +85,11 @@ geom_linerange <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomLinerange <- ggproto("GeomLinerange", Geom,
-  default_aes = aes(x = NULL, y = NULL, xmin = NULL, xmax = NULL, ymin = NULL,
-    ymax = NULL, colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
 
   draw_key = draw_key_vpath,
+
+  required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE)

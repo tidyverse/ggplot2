@@ -156,6 +156,8 @@ StatBin <- ggproto("StatBin", Stat,
     flip_data(bins, flipped_aes)
   },
 
-  default_aes = aes(x = stat(count), y = stat(count), weight = 1)
+  default_aes = aes(x = stat(count), y = stat(count), weight = 1),
+
+  required_aes = "x|y"
 )
 
