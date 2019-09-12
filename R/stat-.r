@@ -144,7 +144,8 @@ Stat <- ggproto("Stat",
   },
 
   aesthetics = function(self) {
-    c(union(self$required_aes, names(self$default_aes)), "group")
+    required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
+    c(union(required_aes, names(self$default_aes)), "group")
   }
 
 )

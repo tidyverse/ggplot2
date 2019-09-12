@@ -24,11 +24,21 @@ scales::alpha
 # @param name of object for error message
 # @keyword internal
 check_required_aesthetics <- function(required, present, name) {
-  missing_aes <- setdiff(required, present)
-  if (length(missing_aes) == 0) return()
+  required <- strsplit(required, "|", fixed = TRUE)
+  if (any(vapply(required, length, integer(1)) > 1)) {
+    required <- lapply(required, rep_len, 2)
+    required <- list(
+      vapply(required, `[`, character(1), 1),
+      vapply(required, `[`, character(1), 2)
+    )
+  } else {
+    required <- list(unlist(required))
+  }
+  missing_aes <- lapply(required, setdiff, present)
+  if (any(vapply(missing_aes, length, integer(1)) == 0)) return()
 
   stop(name, " requires the following missing aesthetics: ",
-    paste(missing_aes, collapse = ", "), call. = FALSE)
+    paste(lapply(missing_aes, paste, collapse = ", "), collapse = " or "), call. = FALSE)
 }
 
 # Concatenate a named list for output
