@@ -236,7 +236,7 @@ keep_mid_true <- function(x) {
 #' @export
 #' @rdname geom_path
 geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", na.rm = FALSE,
+                      position = "identity", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
@@ -248,6 +248,7 @@ geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -259,8 +260,18 @@ geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @export
 #' @include geom-path.r
 GeomLine <- ggproto("GeomLine", GeomPath,
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
+    params
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
   setup_data = function(data, params) {
-    data[order(data$PANEL, data$group, data$x), ]
+    data$flipped_aes <- params$flipped_aes
+    data <- flip_data(data, params$flipped_aes)
+    data <- data[order(data$PANEL, data$group, data$x), ]
+    flip_data(data, params$flipped_aes)
   }
 )
 

@@ -82,11 +82,13 @@ geom_smooth <- function(mapping = NULL, data = NULL,
                         formula = y ~ x,
                         se = TRUE,
                         na.rm = FALSE,
+                        orientation = NA,
                         show.legend = NA,
                         inherit.aes = TRUE) {
 
   params <- list(
     na.rm = na.rm,
+    orientation = orientation,
     se = se,
     ...
   )
@@ -112,6 +114,13 @@ geom_smooth <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomSmooth <- ggproto("GeomSmooth", Geom,
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE, ambiguous = TRUE)
+    params
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
   setup_data = function(data, params) {
     GeomLine$setup_data(data, params)
   },
@@ -123,14 +132,16 @@ GeomSmooth <- ggproto("GeomSmooth", Geom,
   # ribbon won't be drawn either in that case, keeping the overall
   # behavior predictable and sensible. The user will realize that they
   # need to set `se = TRUE` to obtain the ribbon and the legend key.
-  draw_group = function(data, panel_params, coord, se = FALSE) {
+  draw_group = function(data, panel_params, coord, se = FALSE, flipped_aes = FALSE) {
     ribbon <- transform(data, colour = NA)
     path <- transform(data, alpha = NA)
 
-    has_ribbon <- se && !is.null(data$ymax) && !is.null(data$ymin)
+    ymin = flipped_names(flipped_aes)$ymin
+    ymax = flipped_names(flipped_aes)$ymax
+    has_ribbon <- se && !is.null(data[[ymax]]) && !is.null(data[[ymin]])
 
     gList(
-      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_params, coord),
+      if (has_ribbon) GeomRibbon$draw_group(ribbon, panel_params, coord, flipped_aes = flipped_aes),
       GeomLine$draw_panel(path, panel_params, coord)
     )
   },
