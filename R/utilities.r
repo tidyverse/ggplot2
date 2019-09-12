@@ -391,54 +391,68 @@ parse_safe <- function(text) {
 
 # Sniff out the intended direction based on the mapped aesthetics, returning as
 # soon as possible to make minimal work
-has_flipped_aes <- function(data, params = list()) {
-  if (!is.null(data$flipped_aes)) return(data$flipped_aes[1])
+has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, range_is_orthogonal = NA, group_has_equal = FALSE, ambiguous = FALSE) {
+  # Is orientation already encoded in data?
+  if (!is.null(data$flipped_aes)) {
+    return(data$flipped_aes[1])
+  }
 
+  # Is orientation requested in the params
   if (!is.null(params$orientation) && !is.na(params$orientation)) {
     return(params$orientation == "y")
   }
 
-  if (any(c("ymin", "ymax") %in% names(data))) {
-    if ("y" %in% names(data)) {
-      return(TRUE)
-    } else {
+  # Does a single x or y aesthetic corespond to a specific orientation
+  if (!is.na(main_is_orthogonal) && sum(c("x", "y") %in% names(data)) + sum(c("x", "y") %in% names(params)) == 1) {
+    return(("x" %in% names(data) || "x" %in% names(params)) == main_is_orthogonal)
+  }
+
+  # Does each group have a single x or y value
+  if (group_has_equal) {
+    x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
+    if (all(x_groups == 1)) {
       return(FALSE)
     }
-  }
-  if (any(c("xmin", "xmax") %in% names(data))) {
-    if ("x" %in% names(data)) {
-      return(FALSE)
-    } else {
+    y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
+    if (all(y_groups == 1)) {
       return(TRUE)
     }
   }
+
+  # Does a provided range indicate an orientation
+  if (!is.na(range_is_orthogonal)) {
+    if (any(c("ymin", "ymax") %in% names(data))) {
+      return(!range_is_orthogonal)
+    }
+    if (any(c("xmin", "xmax") %in% names(data))) {
+      return(range_is_orthogonal)
+    }
+  }
+
+  # If ambiguous orientation = NA will give FALSE
+  if (ambiguous && is.na(params$orientation)) {
+    return(FALSE)
+  }
+
+  # Is there a single discrete-like position
   y_is_int <- all(data$y == round(data$y))
   x_is_int <- all(data$x == round(data$x))
   if (xor(y_is_int, x_is_int)) {
-    if (x_is_int) {
-      return(FALSE)
-    } else {
-      return(TRUE)
-    }
+    return(y_is_int)
   }
+  # If both are discrete like, which have most 1-spaced values
   y_diff <- diff(unique(sort(data$y)))
   x_diff <- diff(unique(sort(data$x)))
   if (y_is_int && x_is_int) {
-    if (sum(x_diff == 1) >= sum(y_diff == 1)) {
-      return(FALSE)
-    } else {
-      return(TRUE)
-    }
+    return(sum(x_diff == 1) < sum(y_diff == 1))
   }
+  # If none are discrete is either regularly spaced
   y_is_regular <- all((y_diff / min(y_diff)) %% 1 < .Machine$double.eps)
   x_is_regular <- all((x_diff / min(x_diff)) %% 1 < .Machine$double.eps)
   if (xor(y_is_regular, x_is_regular)) {
-    if (x_is_regular) {
-      return(FALSE)
-    } else {
-      return(TRUE)
-    }
+    return(y_is_regular)
   }
+  # default to no
   FALSE
 }
 
@@ -459,13 +473,16 @@ switch_orientation <- function(aesthetics) {
   }
   aesthetics
 }
+
 flipped_names <- function(flip = FALSE) {
+  x_aes <- ggplot_global$x_aes
+  y_aes <- ggplot_global$y_aes
   if (flip) {
-    ret <- as.list(ggplot_global$y_aes)
+    ret <- as.list(c(y_aes, x_aes))
   } else {
-    ret <- as.list(ggplot_global$x_aes)
+    ret <- as.list(c(x_aes, y_aes))
   }
-  names(ret) <- ggplot_global$x_aes
+  names(ret) <- c(x_aes, y_aes)
   ret
 }
 flip_data <- function(data, flip = NULL) {
