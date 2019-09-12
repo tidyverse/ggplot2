@@ -77,6 +77,7 @@ geom_bar <- function(mapping = NULL, data = NULL,
                      width = NULL,
                      binwidth = NULL,
                      na.rm = FALSE,
+                     orientation = NA,
                      show.legend = NA,
                      inherit.aes = TRUE) {
 
@@ -99,6 +100,7 @@ geom_bar <- function(mapping = NULL, data = NULL,
     params = list(
       width = width,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -118,11 +120,14 @@ GeomBar <- ggproto("GeomBar", GeomRect,
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params)
+    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = FALSE)
     params
   },
 
+  extra_params = c("na.rm", "orientation"),
+
   setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)

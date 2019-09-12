@@ -49,6 +49,7 @@ geom_density <- function(mapping = NULL, data = NULL,
                          stat = "density", position = "identity",
                          ...,
                          na.rm = FALSE,
+                         orientation = NA,
                          show.legend = NA,
                          inherit.aes = TRUE) {
 
@@ -62,6 +63,7 @@ geom_density <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )

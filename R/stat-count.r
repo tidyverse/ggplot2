@@ -16,11 +16,13 @@ stat_count <- function(mapping = NULL, data = NULL,
                        ...,
                        width = NULL,
                        na.rm = FALSE,
+                       orientation = NA,
                        show.legend = NA,
                        inherit.aes = TRUE) {
 
   params <- list(
     na.rm = na.rm,
+    orientation = orientation,
     width = width,
     ...
   )
@@ -49,13 +51,15 @@ StatCount <- ggproto("StatCount", Stat,
   default_aes = aes(x = stat(count), y = stat(count), weight = 1),
 
   setup_params = function(data, params) {
-    params$flipped_aes <- is.null(data$x) && is.null(params$x)
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
 
     if (is.null(data$x) && is.null(params$x) && is.null(data$y) && is.null(params$y)) {
       stop("stat_count() requires either an x or y aesthetic.", call. = FALSE)
     }
     params
   },
+
+  extra_params = c("na.rm", "orientation"),
 
   compute_group = function(self, data, scales, width = NULL, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)

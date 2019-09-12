@@ -36,6 +36,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
                         stat = "identity", position = "identity",
                         ...,
                         na.rm = FALSE,
+                        orientation = NA,
                         show.legend = NA,
                         inherit.aes = TRUE) {
   layer(
@@ -48,6 +49,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -67,7 +69,10 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     params
   },
 
+  extra_param = c("na.rm", "orientation"),
+
   setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
 
     if (is.null(data$ymin) && is.null(data$ymax)) {
@@ -134,8 +139,8 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 #' @rdname geom_ribbon
 #' @export
 geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "stack", na.rm = FALSE, show.legend = NA,
-                      inherit.aes = TRUE, ...) {
+                      position = "stack", na.rm = FALSE, orientation = NA,
+                      show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
     mapping = mapping,
@@ -146,6 +151,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -162,6 +168,7 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
   required_aes = c("x", "y"),
 
   setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data <- transform(data[order(data$PANEL, data$group, data$x), ], ymin = 0, ymax = y)
     flip_data(data, params$flipped_aes)

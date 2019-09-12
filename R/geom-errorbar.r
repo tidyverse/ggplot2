@@ -4,6 +4,7 @@ geom_errorbar <- function(mapping = NULL, data = NULL,
                           stat = "identity", position = "identity",
                           ...,
                           na.rm = FALSE,
+                          orientation = NA,
                           show.legend = NA,
                           inherit.aes = TRUE) {
   layer(
@@ -16,6 +17,7 @@ geom_errorbar <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -36,7 +38,10 @@ GeomErrorbar <- ggproto("GeomErrorbar", Geom,
     GeomLinerange$setup_params(data, params)
   },
 
+  extra_params = c("na.rm", "orientation"),
+
   setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)

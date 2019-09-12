@@ -75,6 +75,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
                         trim = TRUE,
                         scale = "area",
                         na.rm = FALSE,
+                        orientation = NA,
                         show.legend = NA,
                         inherit.aes = TRUE) {
   layer(
@@ -90,6 +91,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
       scale = scale,
       draw_quantiles = draw_quantiles,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -101,10 +103,14 @@ geom_violin <- function(mapping = NULL, data = NULL,
 #' @export
 GeomViolin <- ggproto("GeomViolin", Geom,
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params)
+    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     params
   },
+
+  extra_params = c("na.rm", "orientation"),
+
   setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)

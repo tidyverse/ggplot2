@@ -5,6 +5,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
                           ...,
                           fatten = 2.5,
                           na.rm = FALSE,
+                          orientation = NA,
                           show.legend = NA,
                           inherit.aes = TRUE) {
   layer(
@@ -18,6 +19,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
     params = list(
       fatten = fatten,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -31,6 +33,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   setup_params = function(data, params) {
     GeomErrorbar$setup_params(data, params)
   },
+
+  extra_params = c("na.rm", "orientation"),
 
   setup_data = function(data, params) {
     GeomErrorbar$setup_data(data, params)

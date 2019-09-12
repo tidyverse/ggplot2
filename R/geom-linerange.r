@@ -61,6 +61,7 @@ geom_linerange <- function(mapping = NULL, data = NULL,
                            stat = "identity", position = "identity",
                            ...,
                            na.rm = FALSE,
+                           orientation = NA,
                            show.legend = NA,
                            inherit.aes = TRUE) {
   layer(
@@ -73,6 +74,7 @@ geom_linerange <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -89,11 +91,18 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
   draw_key = draw_key_vpath,
 
   setup_params = function(data, params) {
-    params$flipped_aes <- all(c("y", "xmin", "xmax") %in% names(data))
-    if (!params$flipped_aes || all(c("x", "ymin", "ymax") %in% names(data))) {
+    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE)
+    if (!(params$flipped_aes || all(c("x", "ymin", "ymax") %in% names(data)))) {
       stop("Either, `x`, `ymin`, and `ymax` or `y`, `xmin`, and `xmax` must be supplied", call. = FALSE)
     }
     params
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
+  setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
+    data
   },
 
   draw_panel = function(data, panel_params, coord, flipped_aes = FALSE) {

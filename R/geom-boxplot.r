@@ -116,6 +116,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
                          notchwidth = 0.5,
                          varwidth = FALSE,
                          na.rm = FALSE,
+                         orientation = NA,
                          show.legend = NA,
                          inherit.aes = TRUE) {
 
@@ -148,6 +149,7 @@ geom_boxplot <- function(mapping = NULL, data = NULL,
       notchwidth = notchwidth,
       varwidth = varwidth,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -161,7 +163,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
 
   # need to declare `width` here in case this geom is used with a stat that
   # doesn't have a `width` parameter (e.g., `stat_identity`).
-  extra_params = c("na.rm", "width"),
+  extra_params = c("na.rm", "width", "orientation"),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params)
@@ -169,6 +171,7 @@ GeomBoxplot <- ggproto("GeomBoxplot", Geom,
   },
 
   setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)

@@ -92,6 +92,7 @@ geom_histogram <- function(mapping = NULL, data = NULL,
                            binwidth = NULL,
                            bins = NULL,
                            na.rm = FALSE,
+                           orientation = orientation,
                            show.legend = NA,
                            inherit.aes = TRUE) {
 
@@ -107,6 +108,7 @@ geom_histogram <- function(mapping = NULL, data = NULL,
       binwidth = binwidth,
       bins = bins,
       na.rm = na.rm,
+      orientation = orientation,
       pad = FALSE,
       ...
     )

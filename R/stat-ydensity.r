@@ -27,6 +27,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
                           trim = TRUE,
                           scale = "area",
                           na.rm = FALSE,
+                          orientation = NA,
                           show.legend = NA,
                           inherit.aes = TRUE) {
   scale <- match.arg(scale, c("area", "count", "width"))
@@ -61,20 +62,12 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   non_missing_aes = "weight",
 
   setup_params = function(data, params) {
-    x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
-    if (all(x_groups == 1)) {
-      params$flipped_aes <- FALSE
-    } else {
-      y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
-      if (all(y_groups == 1)) {
-        params$flipped_aes <- TRUE
-      } else {
-        params$flipped_aes <- has_flipped_aes(data, params)
-      }
-    }
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
 
     params
   },
+
+  extra_params = c("na.rm", "orientation"),
 
   compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
                        kernel = "gaussian", trim = TRUE, na.rm = FALSE, flipped_aes = FALSE) {

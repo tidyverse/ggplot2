@@ -5,6 +5,7 @@ geom_pointrange <- function(mapping = NULL, data = NULL,
                             ...,
                             fatten = 4,
                             na.rm = FALSE,
+                            orientation = NA,
                             show.legend = NA,
                             inherit.aes = TRUE) {
   layer(
@@ -18,6 +19,7 @@ geom_pointrange <- function(mapping = NULL, data = NULL,
     params = list(
       fatten = fatten,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -36,6 +38,12 @@ GeomPointrange <- ggproto("GeomPointrange", Geom,
 
   setup_params = function(data, params) {
     GeomLinerange$setup_params(data, params)
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
+  setup_data = function(data, params) {
+    GeomLinerange$setup_data(data, params)
   },
 
   draw_panel = function(data, panel_params, coord, fatten = 4, flipped_aes = FALSE) {

@@ -18,6 +18,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
                          ...,
                          coef = 1.5,
                          na.rm = FALSE,
+                         orientation = NA,
                          show.legend = NA,
                          inherit.aes = TRUE) {
   layer(
@@ -30,6 +31,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      orientation = orientation,
       coef = coef,
       ...
     )
@@ -42,7 +44,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatBoxplot <- ggproto("StatBoxplot", Stat,
-  required_aes = c("y"),
+  default_aes = aes(x = NULL, y = NULL),
   non_missing_aes = "weight",
   setup_data = function(data, params) {
     data <- flip_data(data, params$flipped_aes)
@@ -57,23 +59,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
   },
 
   setup_params = function(data, params) {
-    if (is.null(data$x)) {
-      params$flipped_aes <- FALSE
-    } else if (is.null(data$y)) {
-      params$flipped_aes <- TRUE
-    } else {
-      x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
-      if (all(x_groups == 1)) {
-        params$flipped_aes <- FALSE
-      } else {
-        y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
-        if (all(y_groups == 1)) {
-          params$flipped_aes <- TRUE
-        } else {
-          params$flipped_aes <- flipped_aes(data)
-        }
-      }
-    }
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
     data <- flip_data(data, params$flipped_aes)
 
     if (is.null(data$x) && is.null(params$x) && is.null(data$y) && is.null(params$y)) {
@@ -89,6 +75,8 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
 
     params
   },
+
+  extra_params = c("na.rm", "orientation"),
 
   compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, flipped_aes = FALSE) {
     data <- flip_data(data, flipped_aes)

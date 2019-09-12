@@ -35,6 +35,7 @@ stat_density <- function(mapping = NULL, data = NULL,
                          n = 512,
                          trim = FALSE,
                          na.rm = FALSE,
+                         orientation = NA,
                          show.legend = NA,
                          inherit.aes = TRUE) {
 
@@ -53,6 +54,7 @@ stat_density <- function(mapping = NULL, data = NULL,
       n = n,
       trim = trim,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -66,13 +68,15 @@ StatDensity <- ggproto("StatDensity", Stat,
   default_aes = aes(x = stat(density), y = stat(density), fill = NA, weight = NULL),
 
   setup_params = function(data, params) {
-    params$flipped_aes <- is.null(data$x) && is.null(params$x)
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
 
     if (is.null(data$x) && is.null(params$x) && is.null(data$y) && is.null(params$y)) {
       stop("stat_density() requires either an x or y aesthetic.", call. = FALSE)
     }
     params
   },
+
+  extra_params = c("na.rm", "orientation"),
 
   compute_group = function(data, scales, bw = "nrd0", adjust = 1, kernel = "gaussian",
                            n = 512, trim = FALSE, na.rm = FALSE, flipped_aes = FALSE) {

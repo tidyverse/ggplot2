@@ -51,6 +51,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
                      closed = c("right", "left"),
                      pad = FALSE,
                      na.rm = FALSE,
+                     orientation = NA,
                      show.legend = NA,
                      inherit.aes = TRUE) {
 
@@ -71,6 +72,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
       closed = closed,
       pad = pad,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -82,7 +84,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
 #' @export
 StatBin <- ggproto("StatBin", Stat,
   setup_params = function(data, params) {
-    params$flipped_aes <- is.null(data$x) && is.null(params$x)
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
 
     if (is.null(data$x) && is.null(params$x) && is.null(data$y) && is.null(params$y)) {
       stop("stat_bin() requires either an x or y aesthetic.", call. = FALSE)
@@ -122,6 +124,8 @@ StatBin <- ggproto("StatBin", Stat,
 
     params
   },
+
+  extra_params = c("na.rm", "orientation"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = NULL,
                            center = NULL, boundary = NULL,
