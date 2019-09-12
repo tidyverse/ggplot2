@@ -417,15 +417,22 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, rang
     return(("x" %in% names(data) || "x" %in% names(params)) == main_is_orthogonal)
   }
 
+  has_x <- !is.null(data$x)
+  has_y <- !is.null(data$y)
+
   # Does each group have a single x or y value
   if (group_has_equal) {
-    x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
-    if (all(x_groups == 1)) {
-      return(FALSE)
+    if (has_x) {
+      x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
+      if (all(x_groups == 1)) {
+        return(FALSE)
+      }
     }
-    y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
-    if (all(y_groups == 1)) {
-      return(TRUE)
+    if (has_y) {
+      y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
+      if (all(y_groups == 1)) {
+        return(TRUE)
+      }
     }
   }
 
@@ -444,9 +451,14 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, rang
     return(FALSE)
   }
 
+  # give up early
+  if (!has_x && !has_y) {
+    return(FALSE)
+  }
+
   # Is there a single discrete-like position
-  y_is_int <- all(data$y == round(data$y))
-  x_is_int <- all(data$x == round(data$x))
+  y_is_int <- if (has_y) all(data$y == round(data$y)) else FALSE
+  x_is_int <- if (has_x) all(data$x == round(data$x)) else FALSE
   if (xor(y_is_int, x_is_int)) {
     return(y_is_int)
   }
@@ -457,8 +469,8 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, rang
     return(sum(x_diff == 1) < sum(y_diff == 1))
   }
   # If none are discrete is either regularly spaced
-  y_is_regular <- all((y_diff / min(y_diff)) %% 1 < .Machine$double.eps)
-  x_is_regular <- all((x_diff / min(x_diff)) %% 1 < .Machine$double.eps)
+  y_is_regular <- if (has_y) all((y_diff / min(y_diff)) %% 1 < .Machine$double.eps) else FALSE
+  x_is_regular <- if (has_x) all((x_diff / min(x_diff)) %% 1 < .Machine$double.eps) else FALSE
   if (xor(y_is_regular, x_is_regular)) {
     return(y_is_regular)
   }
