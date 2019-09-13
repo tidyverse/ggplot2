@@ -13,13 +13,14 @@ geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
 
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
   position = "stack", ..., binwidth = NULL, bins = NULL,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  na.rm = FALSE, orientation = orientation, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_bin(mapping = NULL, data = NULL, geom = "bar",
   position = "stack", ..., binwidth = NULL, bins = NULL,
   center = NULL, boundary = NULL, breaks = NULL,
   closed = c("right", "left"), pad = FALSE, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

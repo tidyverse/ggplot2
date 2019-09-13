@@ -10,19 +10,19 @@
 \usage{
 geom_crossbar(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., fatten = 2.5, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 
 geom_errorbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., na.rm = FALSE, orientation = NA,
+  show.legend = NA, inherit.aes = TRUE)
 
 geom_linerange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., na.rm = FALSE, orientation = NA,
+  show.legend = NA, inherit.aes = TRUE)
 
 geom_pointrange(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., fatten = 4, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -82,14 +82,20 @@ Various ways of representing a vertical interval defined by \code{x},
 
 \code{geom_linerange()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{ymin}}
-\item \strong{\code{ymax}}
+\item \strong{\code{x \emph{or} y}}
+\item \strong{\code{ymin \emph{or} xmin}}
+\item \strong{\code{ymax \emph{or} xmax}}
 \item \code{alpha}
 \item \code{colour}
 \item \code{group}
 \item \code{linetype}
 \item \code{size}
+\item \code{x}
+\item \code{xmax}
+\item \code{xmin}
+\item \code{y}
+\item \code{ymax}
+\item \code{ymin}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

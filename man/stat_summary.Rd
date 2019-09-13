@@ -6,15 +6,15 @@
 \title{Summarise y values at unique/binned x}
 \usage{
 stat_summary_bin(mapping = NULL, data = NULL, geom = "pointrange",
-  position = "identity", ..., fun.data = NULL, fun.y = NULL,
-  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), bins = 30,
+  position = "identity", ..., fun.data = NULL, fun = NULL,
+  fun.max = NULL, fun.min = NULL, fun.args = list(), bins = 30,
   binwidth = NULL, breaks = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  inherit.aes = TRUE, fun.y, fun.ymin, fun.ymax)
 
 stat_summary(mapping = NULL, data = NULL, geom = "pointrange",
-  position = "identity", ..., fun.data = NULL, fun.y = NULL,
-  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., fun.data = NULL, fun = NULL,
+  fun.max = NULL, fun.min = NULL, fun.args = list(), na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE, fun.y, fun.ymin, fun.ymax)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -51,10 +51,6 @@ to the paired geom/stat.}
 \item{fun.data}{A function that is given the complete data and should
 return a data frame with variables \code{ymin}, \code{y}, and \code{ymax}.}
 
-\item{fun.ymin, fun.y, fun.ymax}{Alternatively, supply three individual
-functions that are each passed a vector of x's and should return a
-single number.}
-
 \item{fun.args}{Optional additional arguments passed on to the functions.}
 
 \item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
@@ -89,6 +85,10 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+
+\item{fun.ymin, fun.y, fun.ymax}{Alternatively, supply three individual
+functions that are each passed a vector of x's and should return a
+single number.}
 }
 \description{
 \code{stat_summary} operates on unique \code{x}; \code{stat_summary_bin}

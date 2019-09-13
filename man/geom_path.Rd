@@ -12,8 +12,8 @@ geom_path(mapping = NULL, data = NULL, stat = "identity",
   inherit.aes = TRUE)
 
 geom_line(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  position = "identity", na.rm = FALSE, orientation = NA,
+  show.legend = NA, inherit.aes = TRUE, ...)
 
 geom_step(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", direction = "hv", na.rm = FALSE,

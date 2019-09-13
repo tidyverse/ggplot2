@@ -7,13 +7,13 @@
 \usage{
 geom_violin(mapping = NULL, data = NULL, stat = "ydensity",
   position = "dodge", ..., draw_quantiles = NULL, trim = TRUE,
-  scale = "area", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  scale = "area", na.rm = FALSE, orientation = NA,
+  show.legend = NA, inherit.aes = TRUE)
 
 stat_ydensity(mapping = NULL, data = NULL, geom = "violin",
   position = "dodge", ..., bw = "nrd0", adjust = 1,
   kernel = "gaussian", trim = TRUE, scale = "area", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

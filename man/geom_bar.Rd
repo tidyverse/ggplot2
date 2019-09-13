@@ -8,7 +8,8 @@
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "count",
   position = "stack", ..., width = NULL, binwidth = NULL,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  na.rm = FALSE, orientation = NA, show.legend = NA,
+  inherit.aes = TRUE)
 
 geom_col(mapping = NULL, data = NULL, position = "stack", ...,
   width = NULL, na.rm = FALSE, show.legend = NA,
@@ -16,7 +17,7 @@ geom_col(mapping = NULL, data = NULL, position = "stack", ...,
 
 stat_count(mapping = NULL, data = NULL, geom = "bar",
   position = "stack", ..., width = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -123,9 +124,10 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \code{stat_count()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
+\item \strong{\code{x \emph{or} y}}
 \item \code{group}
 \item \code{weight}
+\item \code{x}
 \item \code{y}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.

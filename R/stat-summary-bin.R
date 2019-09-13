@@ -5,16 +5,29 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
                              geom = "pointrange", position = "identity",
                              ...,
                              fun.data = NULL,
-                             fun.y = NULL,
-                             fun.ymax = NULL,
-                             fun.ymin = NULL,
+                             fun = NULL,
+                             fun.max = NULL,
+                             fun.min = NULL,
                              fun.args = list(),
                              bins = 30,
                              binwidth = NULL,
                              breaks = NULL,
                              na.rm = FALSE,
                              show.legend = NA,
-                             inherit.aes = TRUE) {
+                             inherit.aes = TRUE,
+                             fun.y, fun.ymin, fun.ymax) {
+  if (!missing(fun.y)) {
+    warn("`fun.y` is deprecated. Use `fun` instead.")
+    fun = fun %||% fun.y
+  }
+  if (!missing(fun.ymin)) {
+    warn("`fun.ymin` is deprecated. Use `fun.min` instead.")
+    fun.min = fun.min %||% fun.ymin
+  }
+  if (!missing(fun.ymax)) {
+    warn("`fun.ymax` is deprecated. Use `fun.max` instead.")
+    fun.max = fun.max %||% fun.ymax
+  }
   layer(
     data = data,
     mapping = mapping,
@@ -25,9 +38,9 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       fun.data = fun.data,
-      fun.y = fun.y,
-      fun.ymax = fun.ymax,
-      fun.ymin = fun.ymin,
+      fun = fun,
+      fun.max = fun.max,
+      fun.min = fun.min,
       fun.args = fun.args,
       bins = bins,
       binwidth = binwidth,
@@ -45,12 +58,12 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
 StatSummaryBin <- ggproto("StatSummaryBin", Stat,
   required_aes = c("x", "y"),
 
-  compute_group = function(data, scales, fun.data = NULL, fun.y = NULL,
-                           fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
+  compute_group = function(data, scales, fun.data = NULL, fun = NULL,
+                           fun.max = NULL, fun.min = NULL, fun.args = list(),
                            bins = 30, binwidth = NULL, breaks = NULL,
                            origin = NULL, right = FALSE, na.rm = FALSE) {
 
-    fun <- make_summary_fun(fun.data, fun.y, fun.ymax, fun.ymin, fun.args)
+    fun <- make_summary_fun(fun.data, fun, fun.max, fun.min, fun.args)
 
     breaks <- bin2d_breaks(scales$x, breaks, origin, binwidth, bins, right = right)
 
@@ -64,11 +77,11 @@ StatSummaryBin <- ggproto("StatSummaryBin", Stat,
   }
 )
 
-make_summary_fun <- function(fun.data, fun.y, fun.ymax, fun.ymin, fun.args) {
+make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
   force(fun.data)
-  force(fun.y)
-  force(fun.ymax)
-  force(fun.ymin)
+  force(fun)
+  force(fun.max)
+  force(fun.min)
   force(fun.args)
 
   if (!is.null(fun.data)) {
@@ -77,7 +90,7 @@ make_summary_fun <- function(fun.data, fun.y, fun.ymax, fun.ymin, fun.args) {
     function(df) {
       do.call(fun.data, c(list(quote(df$y)), fun.args))
     }
-  } else if (!is.null(fun.y) || !is.null(fun.ymax) || !is.null(fun.ymin)) {
+  } else if (!is.null(fun) || !is.null(fun.max) || !is.null(fun.min)) {
     # Three functions that take vectors as inputs
 
     call_f <- function(fun, x) {
@@ -87,9 +100,9 @@ make_summary_fun <- function(fun.data, fun.y, fun.ymax, fun.ymin, fun.args) {
 
     function(df, ...) {
       new_data_frame(list(
-        ymin = call_f(fun.ymin, df$y),
-        y = call_f(fun.y, df$y),
-        ymax = call_f(fun.ymax, df$y)
+        ymin = call_f(fun.min, df$y),
+        y = call_f(fun, df$y),
+        ymax = call_f(fun.max, df$y)
       ))
     }
   } else {

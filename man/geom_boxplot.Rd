@@ -10,11 +10,11 @@ geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
   outlier.color = NULL, outlier.fill = NULL, outlier.shape = 19,
   outlier.size = 1.5, outlier.stroke = 0.5, outlier.alpha = NULL,
   notch = FALSE, notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
   position = "dodge2", ..., coef = 1.5, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -118,20 +118,31 @@ See McGill et al. (1978) for more details.
 
 \code{geom_boxplot()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{lower}}
-\item \strong{\code{upper}}
-\item \strong{\code{middle}}
-\item \strong{\code{ymin}}
-\item \strong{\code{ymax}}
+\item \strong{\code{x \emph{or} y}}
+\item \strong{\code{lower \emph{or} xlower}}
+\item \strong{\code{upper \emph{or} xupper}}
+\item \strong{\code{middle \emph{or} xmiddle}}
+\item \strong{\code{ymin \emph{or} xmin}}
+\item \strong{\code{ymax \emph{or} ymin}}
 \item \code{alpha}
 \item \code{colour}
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
+\item \code{lower}
+\item \code{middle}
 \item \code{shape}
 \item \code{size}
+\item \code{upper}
 \item \code{weight}
+\item \code{x}
+\item \code{xlower}
+\item \code{xmiddle}
+\item \code{xmin}
+\item \code{xupper}
+\item \code{y}
+\item \code{ymax}
+\item \code{ymin}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

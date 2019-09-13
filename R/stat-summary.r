@@ -105,13 +105,26 @@ stat_summary <- function(mapping = NULL, data = NULL,
                          geom = "pointrange", position = "identity",
                          ...,
                          fun.data = NULL,
-                         fun.y = NULL,
-                         fun.ymax = NULL,
-                         fun.ymin = NULL,
+                         fun = NULL,
+                         fun.max = NULL,
+                         fun.min = NULL,
                          fun.args = list(),
                          na.rm = FALSE,
                          show.legend = NA,
-                         inherit.aes = TRUE) {
+                         inherit.aes = TRUE,
+                         fun.y, fun.ymin, fun.ymax) {
+  if (!missing(fun.y)) {
+    warn("`fun.y` is deprecated. Use `fun` instead.")
+    fun = fun %||% fun.y
+  }
+  if (!missing(fun.ymin)) {
+    warn("`fun.ymin` is deprecated. Use `fun.min` instead.")
+    fun.min = fun.min %||% fun.ymin
+  }
+  if (!missing(fun.ymax)) {
+    warn("`fun.ymax` is deprecated. Use `fun.max` instead.")
+    fun.max = fun.max %||% fun.ymax
+  }
   layer(
     data = data,
     mapping = mapping,
@@ -122,9 +135,9 @@ stat_summary <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       fun.data = fun.data,
-      fun.y = fun.y,
-      fun.ymax = fun.ymax,
-      fun.ymin = fun.ymin,
+      fun = fun,
+      fun.max = fun.max,
+      fun.min = fun.min,
       fun.args = fun.args,
       na.rm = na.rm,
       ...
@@ -139,11 +152,11 @@ stat_summary <- function(mapping = NULL, data = NULL,
 StatSummary <- ggproto("StatSummary", Stat,
   required_aes = c("x", "y"),
 
-  compute_panel = function(data, scales, fun.data = NULL, fun.y = NULL,
-                     fun.ymax = NULL, fun.ymin = NULL, fun.args = list(),
+  compute_panel = function(data, scales, fun.data = NULL, fun = NULL,
+                     fun.max = NULL, fun.min = NULL, fun.args = list(),
                      na.rm = FALSE) {
 
-    fun <- make_summary_fun(fun.data, fun.y, fun.ymax, fun.ymin, fun.args)
+    fun <- make_summary_fun(fun.data, fun, fun.max, fun.min, fun.args)
     summarise_by_x(data, fun)
   }
 )
