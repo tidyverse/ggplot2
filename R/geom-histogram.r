@@ -17,13 +17,15 @@
 #' one change at a time. You may need to look at a few options to uncover
 #' the full story behind your data.
 #'
+#' @inheritSection geom_bar Orientation
+#'
 #' @section Aesthetics:
 #' `geom_histogram()` uses the same aesthetics as [geom_bar()];
 #' `geom_freqpoly()` uses the same aesthetics as [geom_line()].
 #'
 #' @export
 #' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   `geom_histogram()`/`geom_freqpoly()` and `stat_bin()`.
 #' @examples

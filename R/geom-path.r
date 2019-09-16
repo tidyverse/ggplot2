@@ -9,9 +9,11 @@
 #' An alternative parameterisation is [geom_segment()], where each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
+#' @inheritSection geom_bar Orientation
+#'
 #' @eval rd_aesthetics("geom", "path")
 #' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param lineend Line end style (round, butt, square).
 #' @param linejoin Line join style (round, mitre, bevel).
 #' @param linemitre Line mitre limit (number greater than 1).

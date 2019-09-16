@@ -19,6 +19,16 @@
 #' [position_fill()] shows relative proportions at each `x` by stacking the bars
 #' and then standardising each bar to have the same height.
 #'
+#' @section Orientation:
+#' This geom treats each axis differently and can thus have two orientations.
+#' Often the orientation is easily deducable from a combination of the given
+#' mappings and the types of positional scales in use. Thus, ggplot2 will by
+#' default try to guess which orientation the layer should have. Under rare
+#' circumstances the orinetation is ambiguous and guessing may fail. In that
+#' case the orientation can be given directly using the `orientation` parameter,
+#' which can be either `"x"` or `"y"`. The value gives the axis that the geom
+#' runs along, `"x"` being the default orientation you would expect for the geom.
+#'
 #' @eval rd_aesthetics("geom", "bar")
 #' @eval rd_aesthetics("geom", "col")
 #' @eval rd_aesthetics("stat", "count")
@@ -29,6 +39,10 @@
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param orientation The orientation of the layer. The default (`NA`)
+#' automatically determines the orientation from the aesthetic mapping. In the
+#' rare event that this fails it can be given explicitly by setting `orientation`
+#' to either `"x"` or `"y"`.
 #' @param width Bar width. By default, set to 90\% of the resolution of the data.
 #' @param binwidth `geom_bar()` no longer has a binwidth argument - if
 #'   you use it you'll get an warning telling to you use

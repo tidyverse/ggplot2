@@ -4,6 +4,8 @@
 #' It visualises five summary statistics (the median, two hinges
 #' and two whiskers), and all "outlying" points individually.
 #'
+#' @inheritSection geom_bar Orientation
+#'
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
 #' (the 25th and 75th percentiles). This differs slightly from the method used
@@ -28,7 +30,7 @@
 #'   [geom_violin()] for a richer display of the distribution, and
 #'   [geom_jitter()] for a useful technique for small data.
 #' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   `geom_boxplot` and `stat_boxplot`.
 #' @param outlier.colour,outlier.color,outlier.fill,outlier.shape,outlier.size,outlier.stroke,outlier.alpha

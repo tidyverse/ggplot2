@@ -4,12 +4,14 @@
 #' the histogram. This is a useful alternative to the histogram for continuous
 #' data that comes from an underlying smooth distribution.
 #'
+#' @inheritSection geom_bar Orientation
+#'
 #' @eval rd_aesthetics("geom", "density")
 #' @seealso See [geom_histogram()], [geom_freqpoly()] for
 #'   other methods of displaying continuous distribution.
 #'   See [geom_violin()] for a compact density display.
 #' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   `geom_density` and `stat_density`.
 #' @export

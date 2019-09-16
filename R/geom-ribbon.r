@@ -12,13 +12,15 @@
 #' see the individual pattern as you move up the stack. See
 #' [position_stack()] for the details of stacking algorithm.
 #'
+#' @inheritSection geom_bar Orientation
+#'
 #' @eval rd_aesthetics("geom", "ribbon")
 #' @seealso
 #'   [geom_bar()] for discrete intervals (bars),
 #'   [geom_linerange()] for discrete intervals (lines),
 #'   [geom_polygon()] for general polygons
 #' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @export
 #' @examples
 #' # Generate data

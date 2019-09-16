@@ -12,9 +12,11 @@
 #' `glm()`, where the normal confidence interval is constructed on the link
 #' scale and then back-transformed to the response scale.
 #'
+#' @inheritSection geom_bar Orientation
+#'
 #' @eval rd_aesthetics("geom", "smooth")
 #' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   `geom_smooth()` and `stat_smooth()`.
 #' @seealso See individual modelling functions for more details:
