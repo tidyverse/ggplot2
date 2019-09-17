@@ -100,7 +100,7 @@
 #'   \item{year}{year of manufacture}
 #'   \item{cyl}{number of cylinders}
 #'   \item{trans}{type of transmission}
-#'   \item{drv}{f = front-wheel drive, r = rear wheel drive, 4 = 4wd}
+#'   \item{drv}{the type of drive train, where f = front-wheel drive, r = rear wheel drive, 4 = 4wd}
 #'   \item{cty}{city miles per gallon}
 #'   \item{hwy}{highway miles per gallon}
 #'   \item{fl}{fuel type}
