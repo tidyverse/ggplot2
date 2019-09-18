@@ -153,7 +153,11 @@ Geom <- ggproto("Geom",
   },
 
   aesthetics = function(self) {
-    required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
+    if (is.null(self$required_aes)) {
+      required_aes <- NULL
+    } else {
+      required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
+    }
     c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
   }
 
