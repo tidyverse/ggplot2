@@ -13,6 +13,7 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
                              binwidth = NULL,
                              breaks = NULL,
                              na.rm = FALSE,
+                             orientation = NA,
                              show.legend = NA,
                              inherit.aes = TRUE,
                              fun.y, fun.ymin, fun.ymax) {
@@ -46,6 +47,7 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
       binwidth = binwidth,
       breaks = breaks,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -58,22 +60,30 @@ stat_summary_bin <- function(mapping = NULL, data = NULL,
 StatSummaryBin <- ggproto("StatSummaryBin", Stat,
   required_aes = c("x", "y"),
 
+  extra_params = c("na.rm", "orientation"),
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
+    params
+  },
+
   compute_group = function(data, scales, fun.data = NULL, fun = NULL,
                            fun.max = NULL, fun.min = NULL, fun.args = list(),
                            bins = 30, binwidth = NULL, breaks = NULL,
-                           origin = NULL, right = FALSE, na.rm = FALSE) {
-
+                           origin = NULL, right = FALSE, na.rm = FALSE,
+                           flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     fun <- make_summary_fun(fun.data, fun, fun.max, fun.min, fun.args)
-
-    breaks <- bin2d_breaks(scales$x, breaks, origin, binwidth, bins, right = right)
+    x <- flipped_names(flipped_aes)$x
+    breaks <- bin2d_breaks(scales[[x]], breaks, origin, binwidth, bins, right = right)
 
     data$bin <- cut(data$x, breaks, include.lowest = TRUE, labels = FALSE)
     out <- dapply(data, "bin", fun)
 
     locs <- bin_loc(breaks, out$bin)
     out$x <- locs$mid
-    out$width <- if (scales$x$is_discrete()) 0.9 else locs$length
-    out
+    out$width <- if (scales[[x]]$is_discrete()) 0.9 else locs$length
+    out$flipped_aes <- flipped_aes
+    flip_data(out, flipped_aes)
   }
 )
 
