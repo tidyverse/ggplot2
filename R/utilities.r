@@ -447,7 +447,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, rang
   }
 
   # If ambiguous orientation = NA will give FALSE
-  if (ambiguous && is.na(params$orientation)) {
+  if (!is.null(params$orientation) && ambiguous && is.na(params$orientation)) {
     return(FALSE)
   }
 
@@ -455,12 +455,28 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, rang
   if (!has_x && !has_y) {
     return(FALSE)
   }
-
-  # Is there a single discrete-like position
-  y_is_int <- if (has_y) all(data$y == round(data$y)) else FALSE
-  x_is_int <- if (has_x) all(data$x == round(data$x)) else FALSE
+  # Is there a single actual discrete position
+  y_is_int <- is.integer(data$y)
+  x_is_int <- is.integer(data$x)
   if (xor(y_is_int, x_is_int)) {
     return(y_is_int)
+  }
+  # Both true discrete. give up
+  if (y_is_int && x_is_int) {
+    return(FALSE)
+  }
+  # Is there a single discrete-like position
+  y_is_int <- if (has_y) isTRUE(all.equal(data$y, round(data$y))) else FALSE
+  x_is_int <- if (has_x) isTRUE(all.equal(data$x, round(data$x))) else FALSE
+  if (xor(y_is_int, x_is_int)) {
+    return(y_is_int)
+  }
+  # Is one of the axes a single value
+  if (all(data$x == 1)) {
+    return(FALSE)
+  }
+  if (all(data$y == 1)) {
+    return(TRUE)
   }
   # If both are discrete like, which have most 1-spaced values
   y_diff <- diff(unique(sort(data$y)))
