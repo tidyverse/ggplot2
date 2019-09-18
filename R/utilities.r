@@ -24,6 +24,8 @@ scales::alpha
 # @param name of object for error message
 # @keyword internal
 check_required_aesthetics <- function(required, present, name) {
+  if (is.null(required)) return()
+
   required <- strsplit(required, "|", fixed = TRUE)
   if (any(vapply(required, length, integer(1)) > 1)) {
     required <- lapply(required, rep_len, 2)
@@ -401,7 +403,7 @@ parse_safe <- function(text) {
 
 # Sniff out the intended direction based on the mapped aesthetics, returning as
 # soon as possible to make minimal work
-has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, range_is_orthogonal = NA, group_has_equal = FALSE, ambiguous = FALSE) {
+has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, range_is_orthogonal = NA, group_has_equal = FALSE, ambiguous = FALSE, main_is_continuous = FALSE) {
   # Is orientation already encoded in data?
   if (!is.null(data$flipped_aes)) {
     return(data$flipped_aes[1])
@@ -447,7 +449,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, rang
   }
 
   # If ambiguous orientation = NA will give FALSE
-  if (!is.null(params$orientation) && ambiguous && is.na(params$orientation)) {
+  if (ambiguous && (is.null(params$orientation) || is.na(params$orientation))) {
     return(FALSE)
   }
 
@@ -459,7 +461,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, rang
   y_is_int <- is.integer(data$y)
   x_is_int <- is.integer(data$x)
   if (xor(y_is_int, x_is_int)) {
-    return(y_is_int)
+    return(y_is_int != main_is_continuous)
   }
   # Both true discrete. give up
   if (y_is_int && x_is_int) {
@@ -469,26 +471,26 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, rang
   y_is_int <- if (has_y) isTRUE(all.equal(data$y, round(data$y))) else FALSE
   x_is_int <- if (has_x) isTRUE(all.equal(data$x, round(data$x))) else FALSE
   if (xor(y_is_int, x_is_int)) {
-    return(y_is_int)
+    return(y_is_int != main_is_continuous)
   }
   # Is one of the axes a single value
   if (all(data$x == 1)) {
-    return(FALSE)
+    return(main_is_continuous)
   }
   if (all(data$y == 1)) {
-    return(TRUE)
+    return(!main_is_continuous)
   }
-  # If both are discrete like, which have most 1-spaced values
-  y_diff <- diff(unique(sort(data$y)))
-  x_diff <- diff(unique(sort(data$x)))
+  # If both are discrete like, which have most 0 or 1-spaced values
+  y_diff <- diff(sort(data$y))
+  x_diff <- diff(sort(data$x))
   if (y_is_int && x_is_int) {
-    return(sum(x_diff == 1) < sum(y_diff == 1))
+    return((sum(x_diff <= 1) < sum(y_diff <= 1)) != main_is_continuous)
   }
   # If none are discrete is either regularly spaced
   y_is_regular <- if (has_y) all((y_diff / min(y_diff)) %% 1 < .Machine$double.eps) else FALSE
   x_is_regular <- if (has_x) all((x_diff / min(x_diff)) %% 1 < .Machine$double.eps) else FALSE
   if (xor(y_is_regular, x_is_regular)) {
-    return(y_is_regular)
+    return(y_is_regular != main_is_continuous)
   }
   # default to no
   FALSE

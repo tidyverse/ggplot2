@@ -70,7 +70,7 @@ StatDensity <- ggproto("StatDensity", Stat,
   default_aes = aes(x = stat(density), y = stat(density), fill = NA, weight = NULL),
 
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
 
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
