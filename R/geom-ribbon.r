@@ -173,6 +173,11 @@ GeomArea <- ggproto("GeomArea", GeomRibbon,
 
   required_aes = c("x", "y"),
 
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
+    params
+  },
+
   setup_data = function(data, params) {
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
