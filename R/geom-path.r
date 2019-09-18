@@ -9,7 +9,7 @@
 #' An alternative parameterisation is [geom_segment()], where each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
-#' @inheritSection geom_bar Orientation
+#' @eval rd_orientation()
 #'
 #' @eval rd_aesthetics("geom", "path")
 #' @inheritParams layer
@@ -36,6 +36,9 @@
 #' ggplot(economics, aes(date, unemploy)) + geom_line()
 #' ggplot(economics_long, aes(date, value01, colour = variable)) +
 #'   geom_line()
+#'
+#' # You can get a timeseries that run vertically by setting the orientation
+#' ggplot(economics, aes(unemploy, date)) + geom_line(orientation = "y")
 #'
 #' # geom_step() is useful when you want to highlight exactly when
 #' # the y value changes

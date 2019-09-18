@@ -17,7 +17,7 @@
 #' one change at a time. You may need to look at a few options to uncover
 #' the full story behind your data.
 #'
-#' @inheritSection geom_bar Orientation
+#' @eval rd_orientation()
 #'
 #' @section Aesthetics:
 #' `geom_histogram()` uses the same aesthetics as [geom_bar()];
@@ -35,6 +35,9 @@
 #'   geom_histogram(binwidth = 0.01)
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_histogram(bins = 200)
+#' # Map values to y to flip the orientation
+#' ggplot(diamonds, aes(y = carat)) +
+#'   geom_histogram()
 #'
 #' # Rather than stacking histograms, it's easier to compare frequency
 #' # polygons
@@ -94,7 +97,7 @@ geom_histogram <- function(mapping = NULL, data = NULL,
                            binwidth = NULL,
                            bins = NULL,
                            na.rm = FALSE,
-                           orientation = orientation,
+                           orientation = NA,
                            show.legend = NA,
                            inherit.aes = TRUE) {
 

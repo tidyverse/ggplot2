@@ -66,7 +66,7 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \item{orientation}{The orientation of the layer. The default (\code{NA})
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}.}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -83,13 +83,18 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 Various ways of representing a vertical interval defined by \code{x},
 \code{ymin} and \code{ymax}. Each case draws a single graphical object.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Aesthetics}{
 
 \code{geom_linerange()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x \emph{or} y}}
-\item \strong{\code{ymin \emph{or} xmin}}
-\item \strong{\code{ymax \emph{or} xmax}}
+\item \strong{\code{x} \emph{or} \code{y}}
+\item \strong{\code{ymin} \emph{or} \code{xmin}}
+\item \strong{\code{ymax} \emph{or} \code{xmax}}
 \item \code{alpha}
 \item \code{colour}
 \item \code{group}
@@ -103,18 +108,6 @@ Various ways of representing a vertical interval defined by \code{x},
 \item \code{ymin}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
-}
-
-\section{Orientation}{
-
-This geom treats each axis differently and can thus have two orientations.
-Often the orientation is easily deducable from a combination of the given
-mappings and the types of positional scales in use. Thus, ggplot2 will by
-default try to guess which orientation the layer should have. Under rare
-circumstances the orinetation is ambiguous and guessing may fail. In that
-case the orientation can be given directly using the \code{orientation} parameter,
-which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom
-runs along, \code{"x"} being the default orientation you would expect for the geom.
 }
 
 \examples{
@@ -132,6 +125,10 @@ p + geom_linerange(aes(ymin = lower, ymax = upper))
 p + geom_pointrange(aes(ymin = lower, ymax = upper))
 p + geom_crossbar(aes(ymin = lower, ymax = upper), width = 0.2)
 p + geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2)
+
+# Flip the orientation by changing mapping
+ggplot(df, aes(resp, trt, colour = group)) +
+  geom_linerange(aes(xmin = lower, xmax = upper))
 
 # Draw lines connecting group means
 p +

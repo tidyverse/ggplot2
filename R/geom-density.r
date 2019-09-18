@@ -4,7 +4,7 @@
 #' the histogram. This is a useful alternative to the histogram for continuous
 #' data that comes from an underlying smooth distribution.
 #'
-#' @inheritSection geom_bar Orientation
+#' @eval rd_orientation()
 #'
 #' @eval rd_aesthetics("geom", "density")
 #' @seealso See [geom_histogram()], [geom_freqpoly()] for
@@ -17,6 +17,9 @@
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(carat)) +
+#'   geom_density()
+#' # Map the values to y to flip the orientation
+#' ggplot(diamonds, aes(y = carat)) +
 #'   geom_density()
 #'
 #' ggplot(diamonds, aes(carat)) +

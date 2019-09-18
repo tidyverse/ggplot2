@@ -5,7 +5,7 @@
 #' violin plot is a mirrored density plot displayed in the same way as a
 #' boxplot.
 #'
-#' @inheritSection geom_bar Orientation
+#' @eval rd_orientation()
 #'
 #' @eval rd_aesthetics("geom", "violin")
 #' @inheritParams layer
@@ -22,6 +22,10 @@
 #' @examples
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
 #' p + geom_violin()
+#'
+#' # Orientation follows the discrete axis
+#' ggplot(mtcars, aes(mpg, factor(cyl))) +
+#'   geom_violin()
 #'
 #' \donttest{
 #' p + geom_violin() + geom_jitter(height = 0, width = 0.1)

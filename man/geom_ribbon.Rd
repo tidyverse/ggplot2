@@ -51,7 +51,7 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \item{orientation}{The orientation of the layer. The default (\code{NA})
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}.}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -78,13 +78,18 @@ components is stacked is very important, as it becomes increasing hard to
 see the individual pattern as you move up the stack. See
 \code{\link[=position_stack]{position_stack()}} for the details of stacking algorithm.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Aesthetics}{
 
 \code{geom_ribbon()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x \emph{or} y}}
-\item \strong{\code{ymin \emph{or} xmin}}
-\item \strong{\code{ymax \emph{or} xmax}}
+\item \strong{\code{x} \emph{or} \code{y}}
+\item \strong{\code{ymin} \emph{or} \code{xmin}}
+\item \strong{\code{ymax} \emph{or} \code{xmax}}
 \item \code{alpha}
 \item \code{colour}
 \item \code{fill}
@@ -101,18 +106,6 @@ see the individual pattern as you move up the stack. See
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
-\section{Orientation}{
-
-This geom treats each axis differently and can thus have two orientations.
-Often the orientation is easily deducable from a combination of the given
-mappings and the types of positional scales in use. Thus, ggplot2 will by
-default try to guess which orientation the layer should have. Under rare
-circumstances the orinetation is ambiguous and guessing may fail. In that
-case the orientation can be given directly using the \code{orientation} parameter,
-which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom
-runs along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
 \examples{
 # Generate data
 huron <- data.frame(year = 1875:1972, level = as.vector(LakeHuron))
@@ -120,6 +113,9 @@ h <- ggplot(huron, aes(year))
 
 h + geom_ribbon(aes(ymin=0, ymax=level))
 h + geom_area(aes(y = level))
+
+# Change orientation be switching the mapping
+h + geom_area(aes(x = level, y = year))
 
 # Add aesthetic mappings
 h +

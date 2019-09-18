@@ -19,15 +19,7 @@
 #' [position_fill()] shows relative proportions at each `x` by stacking the bars
 #' and then standardising each bar to have the same height.
 #'
-#' @section Orientation:
-#' This geom treats each axis differently and can thus have two orientations.
-#' Often the orientation is easily deducable from a combination of the given
-#' mappings and the types of positional scales in use. Thus, ggplot2 will by
-#' default try to guess which orientation the layer should have. Under rare
-#' circumstances the orinetation is ambiguous and guessing may fail. In that
-#' case the orientation can be given directly using the `orientation` parameter,
-#' which can be either `"x"` or `"y"`. The value gives the axis that the geom
-#' runs along, `"x"` being the default orientation you would expect for the geom.
+#' @eval rd_orientation()
 #'
 #' @eval rd_aesthetics("geom", "bar")
 #' @eval rd_aesthetics("geom", "col")
@@ -42,7 +34,7 @@
 #' @param orientation The orientation of the layer. The default (`NA`)
 #' automatically determines the orientation from the aesthetic mapping. In the
 #' rare event that this fails it can be given explicitly by setting `orientation`
-#' to either `"x"` or `"y"`.
+#' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
 #' @param width Bar width. By default, set to 90\% of the resolution of the data.
 #' @param binwidth `geom_bar()` no longer has a binwidth argument - if
 #'   you use it you'll get an warning telling to you use
@@ -57,17 +49,18 @@
 #' g + geom_bar()
 #' # Total engine displacement of each class
 #' g + geom_bar(aes(weight = displ))
+#' # Map class to y instead to flip the orientation
+#' ggplot(mpg) + geom_bar(aes(y = class))
 #'
 #' # Bar charts are automatically stacked when multiple bars are placed
 #' # at the same location. The order of the fill is designed to match
 #' # the legend
 #' g + geom_bar(aes(fill = drv))
 #'
-#' # If you need to flip the order (because you've flipped the plot)
+#' # If you need to flip the order (because you've flipped the orientation)
 #' # call position_stack() explicitly:
-#' g +
+#' ggplot(mpg, aes(y = class)) +
 #'  geom_bar(aes(fill = drv), position = position_stack(reverse = TRUE)) +
-#'  coord_flip() +
 #'  theme(legend.position = "top")
 #'
 #' # To show (e.g.) means, you need geom_col()

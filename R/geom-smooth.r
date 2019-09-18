@@ -12,7 +12,7 @@
 #' `glm()`, where the normal confidence interval is constructed on the link
 #' scale and then back-transformed to the response scale.
 #'
-#' @inheritSection geom_bar Orientation
+#' @eval rd_orientation()
 #'
 #' @eval rd_aesthetics("geom", "smooth")
 #' @inheritParams layer
@@ -28,6 +28,11 @@
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
 #'   geom_smooth()
+#'
+#' IF you need the fitting to be done along the y-axis set the orientation
+#' ggplot(mpg, aes(displ, hwy)) +
+#'   geom_point() +
+#'   geom_smooth(orientation = "y")
 #'
 #' # Use span to control the "wiggliness" of the default loess smoother.
 #' # The span is the fraction of points used to fit each local regression:

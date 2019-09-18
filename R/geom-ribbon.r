@@ -12,7 +12,7 @@
 #' see the individual pattern as you move up the stack. See
 #' [position_stack()] for the details of stacking algorithm.
 #'
-#' @inheritSection geom_bar Orientation
+#' @eval rd_orientation()
 #'
 #' @eval rd_aesthetics("geom", "ribbon")
 #' @seealso
@@ -29,6 +29,9 @@
 #'
 #' h + geom_ribbon(aes(ymin=0, ymax=level))
 #' h + geom_area(aes(y = level))
+#'
+#' # Change orientation be switching the mapping
+#' h + geom_area(aes(x = level, y = year))
 #'
 #' # Add aesthetic mappings
 #' h +
@@ -72,7 +75,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     params
   },
 
-  extra_param = c("na.rm", "orientation"),
+  extra_params = c("na.rm", "orientation"),
 
   setup_data = function(data, params) {
     data$flipped_aes <- params$flipped_aes

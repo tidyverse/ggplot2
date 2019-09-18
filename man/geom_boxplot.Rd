@@ -76,7 +76,7 @@ a warning. If \code{TRUE}, missing values are silently removed.}
 \item{orientation}{The orientation of the layer. The default (\code{NA})
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}.}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -99,6 +99,11 @@ The boxplot compactly displays the distribution of a continuous variable.
 It visualises five summary statistics (the median, two hinges
 and two whiskers), and all "outlying" points individually.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Summary statistics}{
 
 The lower and upper hinges correspond to the first and third quartiles
@@ -123,12 +128,12 @@ See McGill et al. (1978) for more details.
 
 \code{geom_boxplot()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x \emph{or} y}}
-\item \strong{\code{lower \emph{or} xlower}}
-\item \strong{\code{upper \emph{or} xupper}}
-\item \strong{\code{middle \emph{or} xmiddle}}
-\item \strong{\code{ymin \emph{or} xmin}}
-\item \strong{\code{ymax \emph{or} ymin}}
+\item \strong{\code{x} \emph{or} \code{y}}
+\item \strong{\code{lower} \emph{or} \code{xlower}}
+\item \strong{\code{upper} \emph{or} \code{xupper}}
+\item \strong{\code{middle} \emph{or} \code{xmiddle}}
+\item \strong{\code{ymin} \emph{or} \code{xmin}}
+\item \strong{\code{ymax} \emph{or} \code{ymin}}
 \item \code{alpha}
 \item \code{colour}
 \item \code{fill}
@@ -166,22 +171,11 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 }
 
-\section{Orientation}{
-
-This geom treats each axis differently and can thus have two orientations.
-Often the orientation is easily deducable from a combination of the given
-mappings and the types of positional scales in use. Thus, ggplot2 will by
-default try to guess which orientation the layer should have. Under rare
-circumstances the orinetation is ambiguous and guessing may fail. In that
-case the orientation can be given directly using the \code{orientation} parameter,
-which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom
-runs along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
 \examples{
 p <- ggplot(mpg, aes(class, hwy))
 p + geom_boxplot()
-p + geom_boxplot() + coord_flip()
+# Orientation follows the discrete axis
+ggplot(mpg, aes(hwy, class)) + geom_boxplot()
 
 p + geom_boxplot(notch = TRUE)
 p + geom_boxplot(varwidth = TRUE)

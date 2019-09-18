@@ -83,7 +83,7 @@ bin width of a time variable is the number of seconds.}
 \item{orientation}{The orientation of the layer. The default (\code{NA})
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}.}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}.}
@@ -127,6 +127,11 @@ different number of bins. You can also experiment modifying the \code{binwidth} 
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Aesthetics}{
 
 \code{geom_histogram()} uses the same aesthetics as \code{\link[=geom_bar]{geom_bar()}};
@@ -143,18 +148,6 @@ the full story behind your data.
 }
 }
 
-\section{Orientation}{
-
-This geom treats each axis differently and can thus have two orientations.
-Often the orientation is easily deducable from a combination of the given
-mappings and the types of positional scales in use. Thus, ggplot2 will by
-default try to guess which orientation the layer should have. Under rare
-circumstances the orinetation is ambiguous and guessing may fail. In that
-case the orientation can be given directly using the \code{orientation} parameter,
-which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom
-runs along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
 \examples{
 ggplot(diamonds, aes(carat)) +
   geom_histogram()
@@ -162,6 +155,9 @@ ggplot(diamonds, aes(carat)) +
   geom_histogram(binwidth = 0.01)
 ggplot(diamonds, aes(carat)) +
   geom_histogram(bins = 200)
+# Map values to y to flip the orientation
+ggplot(diamonds, aes(y = carat)) +
+  geom_histogram()
 
 # Rather than stacking histograms, it's easier to compare frequency
 # polygons

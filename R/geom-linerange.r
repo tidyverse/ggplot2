@@ -3,7 +3,7 @@
 #' Various ways of representing a vertical interval defined by `x`,
 #' `ymin` and `ymax`. Each case draws a single graphical object.
 #'
-#' @inheritSection geom_bar Orientation
+#' @eval rd_orientation()
 #'
 #' @eval rd_aesthetics("geom", "linerange")
 #' @param fatten A multiplicative factor used to increase the size of the
@@ -31,6 +31,10 @@
 #' p + geom_pointrange(aes(ymin = lower, ymax = upper))
 #' p + geom_crossbar(aes(ymin = lower, ymax = upper), width = 0.2)
 #' p + geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2)
+#'
+#' # Flip the orientation by changing mapping
+#' ggplot(df, aes(resp, trt, colour = group)) +
+#'   geom_linerange(aes(xmin = lower, xmax = upper))
 #'
 #' # Draw lines connecting group means
 #' p +

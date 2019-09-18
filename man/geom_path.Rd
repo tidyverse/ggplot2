@@ -76,7 +76,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \item{orientation}{The orientation of the layer. The default (\code{NA})
 automatically determines the orientation from the aesthetic mapping. In the
 rare event that this fails it can be given explicitly by setting \code{orientation}
-to either \code{"x"} or \code{"y"}.}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{direction}{direction of stairs: 'vh' for vertical then horizontal,
 'hv' for horizontal then vertical, or 'mid' for step half-way between
@@ -93,6 +93,11 @@ connected together.
 An alternative parameterisation is \code{\link[=geom_segment]{geom_segment()}}, where each line
 corresponds to a single case which provides the start and end coordinates.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Aesthetics}{
 
 \code{geom_path()} understands the following aesthetics (required aesthetics are in bold):
@@ -121,23 +126,14 @@ the \code{NA} is removed silently, without warning.
 }
 }
 
-\section{Orientation}{
-
-This geom treats each axis differently and can thus have two orientations.
-Often the orientation is easily deducable from a combination of the given
-mappings and the types of positional scales in use. Thus, ggplot2 will by
-default try to guess which orientation the layer should have. Under rare
-circumstances the orinetation is ambiguous and guessing may fail. In that
-case the orientation can be given directly using the \code{orientation} parameter,
-which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom
-runs along, \code{"x"} being the default orientation you would expect for the geom.
-}
-
 \examples{
 # geom_line() is suitable for time series
 ggplot(economics, aes(date, unemploy)) + geom_line()
 ggplot(economics_long, aes(date, value01, colour = variable)) +
   geom_line()
+
+# You can get a timeseries that run vertically by setting the orientation
+ggplot(economics, aes(unemploy, date)) + geom_line(orientation = "y")
 
 # geom_step() is useful when you want to highlight exactly when
 # the y value changes

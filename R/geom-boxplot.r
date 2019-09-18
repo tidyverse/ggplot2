@@ -4,7 +4,7 @@
 #' It visualises five summary statistics (the median, two hinges
 #' and two whiskers), and all "outlying" points individually.
 #'
-#' @inheritSection geom_bar Orientation
+#' @eval rd_orientation()
 #'
 #' @section Summary statistics:
 #' The lower and upper hinges correspond to the first and third quartiles
@@ -62,7 +62,8 @@
 #' @examples
 #' p <- ggplot(mpg, aes(class, hwy))
 #' p + geom_boxplot()
-#' p + geom_boxplot() + coord_flip()
+#' # Orientation follows the discrete axis
+#' ggplot(mpg, aes(hwy, class)) + geom_boxplot()
 #'
 #' p + geom_boxplot(notch = TRUE)
 #' p + geom_boxplot(varwidth = TRUE)
