@@ -21,7 +21,7 @@ rd_aesthetics <- function(type, name) {
 
 rd_aesthetics_item <- function(x) {
   req <- x$required_aes
-  req <- sub("|", " \\emph{or} ", req, fixed = TRUE)
+  req <- sub("|", "} \\emph{or} \\code{", req, fixed = TRUE)
   all <- union(req, sort(x$aesthetics()))
 
   ifelse(all %in% req,
