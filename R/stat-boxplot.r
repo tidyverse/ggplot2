@@ -62,9 +62,12 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
     data <- flip_data(data, params$flipped_aes)
 
-    if (is.null(data$x) && is.null(params$x) && is.null(data$y) && is.null(params$y)) {
-      stop("stat_boxplot() requires either an x or y aesthetic.", call. = FALSE)
+    has_x <- !(is.null(data$x) && is.null(params$x))
+    has_y <- !(is.null(data$y) && is.null(params$y))
+    if (!has_x && !has_y) {
+      stop("stat_boxplot() requires an x or y aesthetic.", call. = FALSE)
     }
+
     params$width <- params$width %||% (resolution(data$x %||% 0) * 0.75)
 
     if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {

@@ -86,9 +86,15 @@ StatBin <- ggproto("StatBin", Stat,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
 
-    if (is.null(data$x) && is.null(params$x) && is.null(data$y) && is.null(params$y)) {
-      stop("stat_bin() requires either an x or y aesthetic.", call. = FALSE)
+    has_x <- !(is.null(data$x) && is.null(params$x))
+    has_y <- !(is.null(data$y) && is.null(params$y))
+    if (!has_x && !has_y) {
+      stop("stat_bin() requires an x or y aesthetic.", call. = FALSE)
     }
+    if (has_x && has_y) {
+      stop("stat_bin() can only have an x or y aesthetic.", call. = FALSE)
+    }
+
     x <- flipped_names(params$flipped_aes)$x
     if (is.integer(data[[x]])) {
       stop('StatBin requires a continuous ', x, ' variable: the ',
