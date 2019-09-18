@@ -77,9 +77,6 @@ StatDensity <- ggproto("StatDensity", Stat,
     if (!has_x && !has_y) {
       stop("stat_density() requires an x or y aesthetic.", call. = FALSE)
     }
-    if (has_x && has_y) {
-      stop("stat_density() can only have an x or y aesthetic.", call. = FALSE)
-    }
 
     params
   },
