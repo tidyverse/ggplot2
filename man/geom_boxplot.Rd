@@ -133,7 +133,7 @@ See McGill et al. (1978) for more details.
 \item \strong{\code{upper} \emph{or} \code{xupper}}
 \item \strong{\code{middle} \emph{or} \code{xmiddle}}
 \item \strong{\code{ymin} \emph{or} \code{xmin}}
-\item \strong{\code{ymax} \emph{or} \code{ymin}}
+\item \strong{\code{ymax} \emph{or} \code{xmax}}
 \item \code{alpha}
 \item \code{colour}
 \item \code{fill}
@@ -147,6 +147,7 @@ See McGill et al. (1978) for more details.
 \item \code{weight}
 \item \code{x}
 \item \code{xlower}
+\item \code{xmax}
 \item \code{xmiddle}
 \item \code{xmin}
 \item \code{xupper}

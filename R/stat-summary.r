@@ -34,7 +34,7 @@
 #'
 #' @param fun.data A function that is given the complete data and should
 #'   return a data frame with variables `ymin`, `y`, and `ymax`.
-#' @param fun.ymin,fun.y,fun.ymax Alternatively, supply three individual
+#' @param fun.min,fun,fun.max Alternatively, supply three individual
 #'   functions that are each passed a vector of x's and should return a
 #'   single number.
 #' @param fun.args Optional additional arguments passed on to the functions.

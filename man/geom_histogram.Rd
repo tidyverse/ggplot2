@@ -13,7 +13,7 @@ geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
 
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
   position = "stack", ..., binwidth = NULL, bins = NULL,
-  na.rm = FALSE, orientation = orientation, show.legend = NA,
+  na.rm = FALSE, orientation = NA, show.legend = NA,
   inherit.aes = TRUE)
 
 stat_bin(mapping = NULL, data = NULL, geom = "bar",
