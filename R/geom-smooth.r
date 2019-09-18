@@ -29,7 +29,7 @@
 #'   geom_point() +
 #'   geom_smooth()
 #'
-#' IF you need the fitting to be done along the y-axis set the orientation
+#' # If you need the fitting to be done along the y-axis set the orientation
 #' ggplot(mpg, aes(displ, hwy)) +
 #'   geom_point() +
 #'   geom_smooth(orientation = "y")
