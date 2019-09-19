@@ -401,9 +401,68 @@ parse_safe <- function(text) {
   out
 }
 
-# Sniff out the intended direction based on the mapped aesthetics, returning as
-# soon as possible to make minimal work
-has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, range_is_orthogonal = NA, group_has_equal = FALSE, ambiguous = FALSE, main_is_continuous = FALSE) {
+switch_orientation <- function(aesthetics) {
+  # We should have these as globals somewhere
+  x <- ggplot_global$x_aes
+  y <- ggplot_global$y_aes
+  x_aes <- match(aesthetics, x)
+  x_aes_pos <- which(!is.na(x_aes))
+  y_aes <- match(aesthetics, y)
+  y_aes_pos <- which(!is.na(y_aes))
+  if (length(x_aes_pos) > 0) {
+    aesthetics[x_aes_pos] <- y[x_aes[x_aes_pos]]
+  }
+  if (length(y_aes_pos) > 0) {
+    aesthetics[y_aes_pos] <- x[y_aes[y_aes_pos]]
+  }
+  aesthetics
+}
+
+#' Utilities for working with omnidirecitonal layers
+#'
+#' These functions are what underpins the ability of certain geoms to work
+#' automatically in both directions. See the *Extending ggplot2* for how they
+#' are used when implementing `Geom`, `Stat`, and `Position` classes.
+#'
+#' `has_flipped_aes()` is used to sniff out the orientation of the layer from
+#' the data. It has a range of arguments that can be used to finetune the
+#' sniffing based on what the data should look like. `flip_data()` will switch
+#' the column names of the data so that it looks like x-oriented data.
+#' `flipped_names()` provides a named list of aesthetic names that corresponds
+#' to the orientation of the layer.
+#'
+#' @param data The layer data
+#' @param params The parameters of the `Stat`/`Geom`. Only the `orientation`
+#' parameter will be used.
+#' @param main_is_orthogonal If only `x` or `y` are present does they correspond
+#' to the main orientation or the reverse. E.g. If `TRUE` and `y` is present it
+#' is not flipped. If `NA` this check will be ignored.
+#' @param range_is_orthogonal If `xmin`/`xmax` or `ymin`/`ymax` is present do
+#' they correspond to the main orientation or reverse. If `NA` this check will
+#' be ignored.
+#' @param group_has_equal Is it expected that grouped data has either a single
+#' `x` or `y` value that will correspond to the orientation.
+#' @param ambiguous Is the layer ambiguous in its mapping by nature. If so, it
+#' will only be flipped if `params$orientation == "y"`
+#' @param main_is_continuous If there is a discrete and continuous axis, does
+#' the continuous one correspond to the main orientation.
+#' @param flip Logical. Is the layer flipped.
+#'
+#' @return `has_flipped_aes()` returns `TRUE` if it detects a layer in the other
+#' orientation and `FALSE` otherwise. `flip_data()` will return the input
+#' unchanged if `flip = FALSE` and the data with flipped aesthetic names if
+#' `flip = TRUE`. `flipped_names()` returns a named list of strings. If
+#' `flip = FALSE` the name of the element will correspond to the element, e.g.
+#' `flipped_names(FALSE)$x == "x"` and if `flip = TRUE` it will correspond to
+#' the flipped name, e.g. `flipped_names(FALSE)$x == "y"`
+#'
+#' @export
+#' @keywords internal
+#' @name omnidirection
+#'
+has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
+                            range_is_orthogonal = NA, group_has_equal = FALSE,
+                            ambiguous = FALSE, main_is_continuous = FALSE) {
   # Is orientation already encoded in data?
   if (!is.null(data$flipped_aes)) {
     return(data$flipped_aes[1])
@@ -495,25 +554,17 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA, rang
   # default to no
   FALSE
 }
-
-# Switch x and y variables in a data frame
-switch_orientation <- function(aesthetics) {
-  # We should have these as globals somewhere
-  x <- ggplot_global$x_aes
-  y <- ggplot_global$y_aes
-  x_aes <- match(aesthetics, x)
-  x_aes_pos <- which(!is.na(x_aes))
-  y_aes <- match(aesthetics, y)
-  y_aes_pos <- which(!is.na(y_aes))
-  if (length(x_aes_pos) > 0) {
-    aesthetics[x_aes_pos] <- y[x_aes[x_aes_pos]]
+#' @rdname omnidirection
+#' @export
+flip_data <- function(data, flip = NULL) {
+  flip <- flip %||% data$flipped_aes[1] %||% FALSE
+  if (flip) {
+    names(data) <- switch_orientation(names(data))
   }
-  if (length(y_aes_pos) > 0) {
-    aesthetics[y_aes_pos] <- x[y_aes[y_aes_pos]]
-  }
-  aesthetics
+  data
 }
-
+#' @rdname omnidirection
+#' @export
 flipped_names <- function(flip = FALSE) {
   x_aes <- ggplot_global$x_aes
   y_aes <- ggplot_global$y_aes
@@ -524,11 +575,4 @@ flipped_names <- function(flip = FALSE) {
   }
   names(ret) <- c(x_aes, y_aes)
   ret
-}
-flip_data <- function(data, flip = NULL) {
-  flip <- flip %||% data$flipped_aes[1] %||% FALSE
-  if (flip) {
-    names(data) <- switch_orientation(names(data))
-  }
-  data
 }
