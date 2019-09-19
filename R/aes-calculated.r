@@ -24,6 +24,10 @@
 stat <- function(x) {
   x
 }
+#' @export
+mod <- function(x) {
+  x
+}
 
 # Regex to determine if an identifier refers to a calculated aesthetic
 match_calculated_aes <- "^\\.\\.([a-zA-Z._]+)\\.\\.$"
@@ -36,7 +40,9 @@ is_dotted_var <- function(x) {
 is_calculated_aes <- function(aesthetics) {
   vapply(aesthetics, is_calculated, logical(1), USE.NAMES = FALSE)
 }
-
+is_modifier_aes <- function(aesthetics) {
+  vapply(aesthetics, is_modifier, logical(1), USE.NAMES = FALSE)
+}
 is_calculated <- function(x) {
   if (is.atomic(x)) {
     FALSE
@@ -52,6 +58,14 @@ is_calculated <- function(x) {
     FALSE
   } else {
     stop("Unknown input:", class(x)[1])
+  }
+}
+is_modifier <- function(x) {
+  if (!is.call(x)) return(FALSE)
+  if (identical(x[[1]], quote(mod))) {
+    TRUE
+  } else {
+    any(vapply(x, is_modifier, logical(1)))
   }
 }
 

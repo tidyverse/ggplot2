@@ -109,7 +109,7 @@ Geom <- ggproto("Geom",
   setup_data = function(data, params) data,
 
   # Combine data with defaults and set aesthetics from parameters
-  use_defaults = function(self, data, params = list()) {
+  use_defaults = function(self, data, params = list(), modifiers = aes()) {
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
 
@@ -121,6 +121,28 @@ Geom <- ggproto("Geom",
       data <- as_gg_data_frame(missing_eval)
     } else {
       data[names(missing_eval)] <- missing_eval
+    }
+
+    if (length(modifiers) != 0) {
+      env <- new.env(parent = baseenv())
+      env$mod <- mod
+
+      modified_aes <- new_data_frame(lapply(modifiers, eval_tidy, data, env))
+
+      # Check that all output are valid data
+      nondata_modified <- check_nondata_cols(modified_aes)
+      if (length(nondata_modified) > 0) {
+        msg <- paste0(
+          "Modifiers must return valid values. Problematic aesthetic(s): ",
+          paste0(vapply(nondata_modified, function(x) {paste0(x, " = ", as_label(modifiers[[x]]))}, character(1)), collapse = ", "),
+          ". \nDid you map your mod in the wrong layer?"
+        )
+        stop(msg, call. = FALSE)
+      }
+
+      names(modified_aes) <- names(modifiers)
+
+      data <- cunion(modified_aes, data)
     }
 
     # Override mappings with params

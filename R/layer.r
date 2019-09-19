@@ -229,7 +229,9 @@ Layer <- ggproto("Layer", NULL,
     # Drop aesthetics that are set or calculated
     set <- names(aesthetics) %in% names(self$aes_params)
     calculated <- is_calculated_aes(aesthetics)
-    aesthetics <- aesthetics[!set & !calculated]
+    modifiers <- is_modifier_aes(aesthetics)
+
+    aesthetics <- aesthetics[!set & !calculated & !modifiers]
 
     # Override grouping if set in layer
     if (!is.null(self$geom_params$group)) {
@@ -357,7 +359,10 @@ Layer <- ggproto("Layer", NULL,
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
 
-    self$geom$use_defaults(data, self$aes_params)
+    aesthetics <- self$mapping
+    modifiers <- aesthetics[is_modifier_aes(aesthetics)]
+
+    self$geom$use_defaults(data, self$aes_params, modifiers)
   },
 
   finish_statistics = function(self, data) {
