@@ -12,6 +12,22 @@ test_that("geom_boxplot range includes all outliers", {
   expect_true(maxy >= max(dat$y))
 })
 
+test_that("geom_boxplot works in both directions", {
+  dat <- data_frame(x = 1, y = c(-(1:20) ^ 3, (1:20) ^ 3) )
+
+  p <- ggplot(dat, aes(x, y)) + geom_boxplot()
+  x <- layer_data(p)
+  expect_false(x$flipped_aes[1])
+
+  p <- ggplot(dat, aes(y, x)) + geom_boxplot()
+  y <- layer_data(p)
+  expect_true(y$flipped_aes[1])
+
+  x$flipped_aes <- NULL
+  y$flipped_aes <- NULL
+  expect_identical(x, flip_data(y, TRUE))
+})
+
 test_that("geom_boxplot for continuous x gives warning if more than one x (#992)", {
   dat <- expand.grid(x = 1:2, y = c(-(1:5) ^ 3, (1:5) ^ 3) )
 

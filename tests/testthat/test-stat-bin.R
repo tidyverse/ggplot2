@@ -12,6 +12,20 @@ test_that("stat_bin throws error when y aesthetic is present", {
   )
 })
 
+test_that("stat_bin works in both directions", {
+  p <- ggplot(mpg, aes(hwy)) + stat_bin()
+  x <- layer_data(p)
+  expect_false(x$flipped_aes[1])
+
+  p <- ggplot(mpg, aes(y = hwy)) + stat_bin()
+  y <- layer_data(p)
+  expect_true(y$flipped_aes[1])
+
+  x$flipped_aes <- NULL
+  y$flipped_aes <- NULL
+  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+})
+
 test_that("bins specifies the number of bins", {
   df <- data_frame(x = 1:10)
   out <- function(x, ...) {

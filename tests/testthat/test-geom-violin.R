@@ -16,6 +16,20 @@ test_that("range is expanded", {
   expect_equal(layer_scales(p, 2)$y$dimension(), c(0 - expand_b, 2 + expand_b))
 })
 
+test_that("geom_violin works in both directions", {
+  p <- ggplot(mpg) + geom_violin(aes(drv, hwy))
+  x <- layer_data(p)
+  expect_false(x$flipped_aes[1])
+
+  p <- ggplot(mpg) + geom_violin(aes(hwy, drv))
+  y <- layer_data(p)
+  expect_true(y$flipped_aes[1])
+
+  x$flipped_aes <- NULL
+  y$flipped_aes <- NULL
+  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+})
+
 # create_quantile_segment_frame -------------------------------------------------
 
 test_that("create_quantile_segment_frame functions for 3 quantiles", {
