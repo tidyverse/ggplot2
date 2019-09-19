@@ -61,11 +61,20 @@ is_calculated <- function(x) {
   }
 }
 is_modifier <- function(x) {
-  if (!is.call(x)) return(FALSE)
-  if (identical(x[[1]], quote(mod))) {
-    TRUE
+  if (is.atomic(x)) {
+    FALSE
+  } else if (is.symbol(x)) {
+    FALSE
+  } else if (is.call(x)) {
+    if (identical(x[[1]], quote(mod))) {
+      TRUE
+    } else {
+      any(vapply(x, is_modifier, logical(1)))
+    }
+  } else if (is.pairlist(x)) {
+    FALSE
   } else {
-    any(vapply(x, is_modifier, logical(1)))
+    stop("Unknown input:", class(x)[1])
   }
 }
 
