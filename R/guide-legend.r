@@ -269,7 +269,10 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         n <- vapply(layer$aes_params, length, integer(1))
         params <- layer$aes_params[n == 1]
 
-        data <- layer$geom$use_defaults(guide$key[matched], params)
+        aesthetics <- layer$mapping
+        modifiers <- aesthetics[is_mapped_aes(aesthetics)]
+
+        data <- layer$geom$use_defaults(guide$key[matched], params, modifiers)
       } else {
         return(NULL)
       }
