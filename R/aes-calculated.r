@@ -13,6 +13,8 @@
 #'
 #' @export
 #' @param x An aesthetic expression using variables calculated by the stat.
+#' @seealso [mapped()] for marking aesthetics for evaluation after values has
+#' been mapped to the scale.
 #' @examples
 #' # Default histogram display
 #' ggplot(mpg, aes(displ)) +
@@ -24,8 +26,29 @@
 stat <- function(x) {
   x
 }
+#' Mapped aesthetics
+#'
+#' Usually you will want the mapping of aesthetics to be based on input data
+#' but sometimes, e.g. for colour and fill, you'd want one aesthetic to be a
+#' function of another. Using the `mapped()` function you can mark an aesthetic
+#' to only be evaluated after all other aesthetics have been calculated and
+#' mapped. This allows you to e.g. set fill to be a transparent verison of ¨
+#' colour.
+#'
+#' @param x An aesthetic expression using only variables available after
+#'   mapping.
+#'
+#' @note Using `mapped()` for an aesthetic will not create a guide for that
+#' aesthetic, as it essentially a function of one of the other guides.
+#'
+#' @seealso [stat()] for marking aesthetics for evaluation after statistical
+#' transformation
 #' @export
-mod <- function(x) {
+#' @examples
+#' ggplot(mpg, aes(class, hwy)) +
+#'   geom_boxplot(aes(colour = class, fill = mapped(alpha(colour, 0.4))))
+#'
+mapped <- function(x) {
   x
 }
 
@@ -40,8 +63,8 @@ is_dotted_var <- function(x) {
 is_calculated_aes <- function(aesthetics) {
   vapply(aesthetics, is_calculated, logical(1), USE.NAMES = FALSE)
 }
-is_modifier_aes <- function(aesthetics) {
-  vapply(aesthetics, is_modifier, logical(1), USE.NAMES = FALSE)
+is_mapped_aes <- function(aesthetics) {
+  vapply(aesthetics, is_mapped, logical(1), USE.NAMES = FALSE)
 }
 is_calculated <- function(x) {
   if (is.atomic(x)) {
@@ -60,16 +83,16 @@ is_calculated <- function(x) {
     stop("Unknown input:", class(x)[1])
   }
 }
-is_modifier <- function(x) {
+is_mapped <- function(x) {
   if (is.atomic(x)) {
     FALSE
   } else if (is.symbol(x)) {
     FALSE
   } else if (is.call(x)) {
-    if (identical(x[[1]], quote(mod))) {
+    if (identical(x[[1]], quote(mapped))) {
       TRUE
     } else {
-      any(vapply(x, is_modifier, logical(1)))
+      any(vapply(x, is_mapped, logical(1)))
     }
   } else if (is.pairlist(x)) {
     FALSE

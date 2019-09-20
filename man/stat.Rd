@@ -31,3 +31,7 @@ ggplot(mpg, aes(displ)) +
 ggplot(mpg, aes(displ)) +
   geom_histogram(aes(y = stat(count / max(count))))
 }
+\seealso{
+\code{\link[=mapped]{mapped()}} for marking aesthetics for evaluation after values has
+been mapped to the scale.
+}

@@ -229,7 +229,7 @@ Layer <- ggproto("Layer", NULL,
     # Drop aesthetics that are set or calculated
     set <- names(aesthetics) %in% names(self$aes_params)
     calculated <- is_calculated_aes(aesthetics)
-    modifiers <- is_modifier_aes(aesthetics)
+    modifiers <- is_mapped_aes(aesthetics)
 
     aesthetics <- aesthetics[!set & !calculated & !modifiers]
 
@@ -360,7 +360,7 @@ Layer <- ggproto("Layer", NULL,
     if (empty(data)) return(data)
 
     aesthetics <- self$mapping
-    modifiers <- aesthetics[is_modifier_aes(aesthetics)]
+    modifiers <- aesthetics[is_mapped_aes(aesthetics)]
 
     self$geom$use_defaults(data, self$aes_params, modifiers)
   },

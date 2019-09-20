@@ -125,7 +125,7 @@ Geom <- ggproto("Geom",
 
     if (length(modifiers) != 0) {
       env <- new.env(parent = baseenv())
-      env$mod <- mod
+      env$mapped <- mapped
 
       modified_aes <- new_data_frame(lapply(modifiers, eval_tidy, data, env))
 
