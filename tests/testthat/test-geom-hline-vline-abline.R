@@ -46,30 +46,76 @@ test_that("curved lines in map projections", {
 
 # Warning tests ------------------------------------------------------------
 
+test_that("warn_overwritten_args() produces gramatically correct error messages", {
+  expect_warning(
+    warn_overwritten_args("fun_test", "is_overwritten", "provided"),
+    "fun_test: Ignoring `is_overwritten` because `provided` was provided."
+  )
+  expect_warning(
+    warn_overwritten_args("fun_test", "is_overwritten", c("provided1", "provided2")),
+    "fun_test: Ignoring `is_overwritten` because `provided1` and/or `provided2` were provided."
+  )
+  expect_warning(
+    warn_overwritten_args("fun_test", "is_overwritten", c("provided1", "provided2", "provided3")),
+    "fun_test: Ignoring `is_overwritten` because `provided1`, `provided2`, and/or `provided3` were provided."
+  )
+})
+
 test_that("Warning if a supplied mapping is going to be overwritten", {
 
   expect_warning(
     geom_vline(xintercept = 3, aes(colour = colour)),
-    "Using both"
+    "Ignoring `mapping`"
   )
 
   expect_warning(
     geom_hline(yintercept = 3, aes(colour = colour)),
-    "Using both"
+    "Ignoring `mapping`"
   )
 
   expect_warning(
     geom_abline(intercept = 3, aes(colour = colour)),
-    "Using "
+    "Ignoring `mapping`"
   )
 
   expect_warning(
     geom_abline(intercept = 3, slope = 0.5, aes(colour = colour)),
-    "Using "
+    "Ignoring `mapping`"
   )
 
   expect_warning(
-    geom_abline(slope=0.5, aes(colour = colour)),
-    "Using "
+    geom_abline(slope = 0.5, aes(colour = colour)),
+    "Ignoring `mapping`"
+  )
+})
+
+
+test_that("Warning if supplied data is going to be overwritten", {
+
+  sample_data <- data_frame(x = 1)
+
+  expect_warning(
+    geom_vline(xintercept = 3, data = sample_data),
+    "Ignoring `data`"
+  )
+
+  expect_warning(
+    geom_hline(yintercept = 3, data = sample_data),
+    "Ignoring `data`"
+  )
+
+  expect_warning(
+    geom_abline(intercept = 3, data = sample_data),
+    "Ignoring `data`"
+  )
+
+  expect_warning(
+    geom_abline(intercept = 3, slope = 0.5, data = sample_data),
+    "Ignoring `data`"
+  )
+
+  expect_warning(
+    geom_abline(slope = 0.5, data = sample_data),
+    "Ignoring `data`"
   )
 })

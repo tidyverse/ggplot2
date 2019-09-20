@@ -1,5 +1,7 @@
 context("Guides")
 
+skip_on_cran() # This test suite is long-running (on cran) and is skipped
+
 test_that("colourbar trains without labels", {
   g <- guide_colorbar()
   sc <- scale_colour_continuous(limits = c(0, 4), labels = NULL)
@@ -42,12 +44,99 @@ test_that("show.legend handles named vectors", {
   p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
     geom_point(size = 20, show.legend = c(color = FALSE, shape = FALSE))
   expect_equal(n_legends(p), 0)
+
+  # c.f.https://github.com/tidyverse/ggplot2/issues/3461
+  p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
+    geom_point(size = 20, show.legend = c(shape = FALSE, color = TRUE))
+  expect_equal(n_legends(p), 1)
 })
 
+test_that("axis_label_overlap_priority always returns the correct number of elements", {
+  expect_identical(axis_label_priority(0), numeric(0))
+  expect_setequal(axis_label_priority(1), seq_len(1))
+  expect_setequal(axis_label_priority(5), seq_len(5))
+  expect_setequal(axis_label_priority(10), seq_len(10))
+  expect_setequal(axis_label_priority(100), seq_len(100))
+})
+
+test_that("axis_label_element_overrides errors when angles are outside the range [0, 90]", {
+  expect_is(axis_label_element_overrides("bottom", 0), "element")
+  expect_error(axis_label_element_overrides("bottom", 91), "`angle` must")
+  expect_error(axis_label_element_overrides("bottom", -91), "`angle` must")
+})
 
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
+  theme_test_axis <- theme_test() + theme(axis.line = element_line(size = 0.5))
+  test_draw_axis <- function(n_breaks = 3,
+                             break_positions = seq_len(n_breaks) / (n_breaks + 1),
+                             labels = as.character,
+                             positions = c("top", "right", "bottom", "left"),
+                             theme = theme_test_axis,
+                             ...) {
+
+    break_labels <- labels(seq_along(break_positions))
+
+    # create the axes
+    axes <- lapply(positions, function(position) {
+      draw_axis(break_positions, break_labels, axis_position = position, theme = theme, ...)
+    })
+    axes_grob <- gTree(children = do.call(gList, axes))
+
+    # arrange them so there's some padding on each side
+    gt <- gtable(
+      widths = unit(c(0.05, 0.9, 0.05), "npc"),
+      heights = unit(c(0.05, 0.9, 0.05), "npc")
+    )
+    gt <- gtable_add_grob(gt, list(axes_grob), 2, 2, clip = "off")
+    plot(gt)
+  }
+
+  # basic
+  expect_doppelganger("axis guides basic", function() test_draw_axis())
+  expect_doppelganger("axis guides, zero breaks", function() test_draw_axis(n_breaks = 0))
+
+  # overlapping text
+  expect_doppelganger(
+    "axis guides, check overlap",
+    function() test_draw_axis(20, labels = function(b) comma(b * 1e9), check.overlap = TRUE)
+  )
+
+  # rotated text
+  expect_doppelganger(
+    "axis guides, zero rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = 0)
+  )
+
+  expect_doppelganger(
+    "axis guides, positive rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = 45)
+  )
+
+  expect_doppelganger(
+    "axis guides, negative rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = -45)
+  )
+
+  expect_doppelganger(
+    "axis guides, vertical rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = 90)
+  )
+
+  expect_doppelganger(
+    "axis guides, vertical negative rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = -90)
+  )
+
+  # dodged text
+  expect_doppelganger(
+    "axis guides, text dodged into rows/cols",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e9), n_dodge = 2)
+  )
+})
+
+test_that("axis guides are drawn correctly in plots", {
   expect_doppelganger("align facet labels, facets horizontal",
     qplot(hwy, reorder(model, hwy), data = mpg) +
       facet_grid(manufacturer ~ ., scales = "free", space = "free") +

@@ -1,11 +1,11 @@
 #' @param method Smoothing method (function) to use, accepts either a character vector,
 #'   e.g. `"auto"`, `"lm"`, `"glm"`, `"gam"`, `"loess"` or a function, e.g.
-#'   `MASS::rlm` or `mgcv::gam`, `base::lm`, or `base::loess`.
+#'   `MASS::rlm` or `mgcv::gam`, `stats::lm`, or `stats::loess`.
 #'
 #'   For `method = "auto"` the smoothing method is chosen based on the
-#'   size of the largest group (across all panels). [loess()] is
+#'   size of the largest group (across all panels). [stats::loess()] is
 #'   used for less than 1,000 observations; otherwise [mgcv::gam()] is
-#'   used with `formula = y ~ s(x, bs = "cs")`. Somewhat anecdotally,
+#'   used with `formula = y ~ s(x, bs = "cs")` with `method = "REML"`. Somewhat anecdotally,
 #'   `loess` gives a better appearance, but is \eqn{O(N^{2})}{O(N^2)} in memory,
 #'   so does not work for larger datasets.
 #'
@@ -76,7 +76,6 @@ stat_smooth <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatSmooth <- ggproto("StatSmooth", Stat,
-
   setup_params = function(data, params) {
     if (identical(params$method, "auto")) {
       # Use loess for small datasets, gam with a cubic regression basis for
@@ -90,17 +89,16 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         params$method <- "gam"
         params$formula <- y ~ s(x, bs = "cs")
       }
-      message("`geom_smooth()` using method = '", params$method,
-              "' and formula '", deparse(params$formula), "'")
-    }
-    if (identical(params$method, "gam")) {
-      params$method <- mgcv::gam
+      message(
+        "`geom_smooth()` using method = '", params$method,
+        "' and formula '", deparse(params$formula), "'"
+      )
     }
 
     params
   },
 
-  compute_group = function(data, scales, method = "auto", formula = y~x,
+  compute_group = function(data, scales, method = "auto", formula = y ~ x,
                            se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
                            xseq = NULL, level = 0.95, method.args = list(),
                            na.rm = FALSE) {
@@ -127,12 +125,23 @@ StatSmooth <- ggproto("StatSmooth", Stat,
         xseq <- seq(range[1], range[2], length.out = n)
       }
     }
+
     # Special case span because it's the most commonly used model argument
     if (identical(method, "loess")) {
       method.args$span <- span
     }
 
-    if (is.character(method)) method <- match.fun(method)
+    if (is.character(method)) {
+      if (identical(method, "gam")) {
+        method <- mgcv::gam
+      } else {
+        method <- match.fun(method)
+      }
+    }
+    # If gam and gam's method is not specified by the user then use REML
+    if (identical(method, mgcv::gam) && is.null(method.args$method)) {
+      method.args$method <- "REML"
+    }
 
     base.args <- list(quote(formula), data = quote(data), weights = quote(weight))
     model <- do.call(method, c(base.args, method.args))

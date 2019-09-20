@@ -31,7 +31,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
@@ -59,9 +60,10 @@ that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
-For each x value, \code{geom_ribbon} displays a y interval defined
-by \code{ymin} and \code{ymax}. \code{geom_area} is a special case of
-\code{geom_ribbon}, where the \code{ymin} is fixed to 0.
+For each x value, \code{geom_ribbon()} displays a y interval defined
+by \code{ymin} and \code{ymax}. \code{geom_area()} is a special case of
+\code{geom_ribbon}, where the \code{ymin} is fixed to 0 and \code{y} is used instead
+of \code{ymax}.
 }
 \details{
 An area plot is the continuous analogue of a stacked bar chart (see

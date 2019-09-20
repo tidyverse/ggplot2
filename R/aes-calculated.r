@@ -93,10 +93,10 @@ make_labels <- function(mapping) {
     }
 
     mapping <- strip_dots(mapping)
-    if (rlang::is_quosure(mapping) && rlang::quo_is_symbol(mapping)) {
-      name <- rlang::as_string(rlang::quo_get_expr(mapping))
+    if (is_quosure(mapping) && quo_is_symbol(mapping)) {
+      name <- as_string(quo_get_expr(mapping))
     } else {
-      name <- rlang::quo_text(mapping)
+      name <- quo_text(mapping)
       name <- gsub("\n.*$", "...", name)
     }
     name

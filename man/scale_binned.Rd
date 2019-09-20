@@ -29,10 +29,10 @@ exact number of breaks as requested.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-transformation object
+\link[scales:trans_new]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output
+as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}})
 }}
 
 \item{labels}{One of:
@@ -45,18 +45,34 @@ transformation object
 as output
 }}
 
-\item{limits}{A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum.}
+\item{limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale range
+\item A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum
+\item A function that accepts the existing (automatic) limits and returns
+new limits
+Note that setting limits on positional scales will \strong{remove} data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see \code{\link[=coord_cartesian]{coord_cartesian()}}).
+}}
 
-\item{expand}{Vector of range expansion constants used to add some
-padding around the data, to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+\item{expand}{For position scales, a vector of range expansion constants used to add some
+padding around the data to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
-\item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default replaces out of bounds values with \code{NA}.}
+\item{oob}{One of:
+\itemize{
+\item Function that handles limits outside of the scale limits
+(out of bounds).
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+bounds values with \code{NA}.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
+}}
 
 \item{na.value}{Missing values will be replaced with this value.}
 
@@ -65,19 +81,20 @@ expand the scale by 5\% on each side for continuous variables, and by
 
 \item{show_limits}{should the limits of the scale appear as ticks}
 
-\item{trans}{Either the name of a transformation object, or the
-object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-"logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+\item{trans}{For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \code{name_trans}, e.g.
-\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
+are defined in the scales package, and are called \code{<name>_trans} (e.g.,
+\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
-\item{position}{The position of the axis. "left" or "right" for vertical
-scales, "top" or "bottom" for horizontal scales}
+\item{position}{For position scales, The position of the axis.
+\code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 }
 \description{
 \code{scale_x_binned()} and \code{scale_y_binned()} are scales that discretize

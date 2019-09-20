@@ -79,15 +79,7 @@ nzmap + coord_quickmap()
 
 if (require("maps")) {
 # Other projections
-nzmap + coord_map("cylindrical")
-}
-
-if (require("maps")) {
 nzmap + coord_map("azequalarea", orientation = c(-36.92, 174.6, 0))
-}
-
-if (require("maps")) {
-nzmap + coord_map("lambert", parameters = c(-37, -44))
 }
 
 if (require("maps")) {
@@ -105,16 +97,8 @@ usamap + coord_map()
 }
 
 if (require("maps")) {
-usamap + coord_quickmap()
-}
-
-if (require("maps")) {
 # See ?mapproject for coordinate systems and their parameters
 usamap + coord_map("gilbert")
-}
-
-if (require("maps")) {
-usamap + coord_map("lagrange")
 }
 
 if (require("maps")) {
@@ -125,10 +109,6 @@ usamap + coord_map("orthographic")
 }
 
 if (require("maps")) {
-usamap + coord_map("stereographic")
-}
-
-if (require("maps")) {
 usamap + coord_map("conic", lat0 = 30)
 }
 
@@ -136,8 +116,8 @@ if (require("maps")) {
 usamap + coord_map("bonne", lat0 = 50)
 }
 
+\dontrun{
 if (require("maps")) {
-
 # World map, using geom_path instead of geom_polygon
 world <- map_data("world")
 worldmap <- ggplot(world, aes(x = long, y = lat, group = group)) +
@@ -157,5 +137,6 @@ worldmap + coord_map("ortho", orientation = c(-90, 0, 0))
 if (require("maps")) {
 # Centered on New York (currently has issues with closing polygons)
 worldmap + coord_map("ortho", orientation = c(41, -74, 0))
+}
 }
 }

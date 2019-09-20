@@ -17,6 +17,25 @@ scale_linetype_discrete(..., na.value = "blank")
 \describe{
   \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
+they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
+  \item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks (the scale limits)
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
+  \item{limits}{A character vector that defines possible values of the scale
+and their order.}
+  \item{drop}{Should unused factor levels be omitted from the scale?
+The default, \code{TRUE}, uses the levels that appear in the data;
+\code{FALSE} uses all the levels in the factor.}
+  \item{na.translate}{Unlike continuous scales, discrete scales can easily show
+missing values, and do so by default. If you want to remove missing values
+from a discrete scale, specify \code{na.translate = FALSE}.}
+  \item{palette}{A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the values that
 they should take.}
   \item{breaks}{One of:
 \itemize{
@@ -35,8 +54,9 @@ The default, \code{TRUE}, uses the levels that appear in the data;
   \item{na.translate}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
-  \item{aesthetics}{The names of the aesthetics that this scale works with}
-  \item{scale_name}{The name of the scale}
+  \item{aesthetics}{The names of the aesthetics that this scale works with.}
+  \item{scale_name}{The name of the scale that should be used for error messages
+associated with this scale.}
   \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
@@ -51,7 +71,7 @@ transformation object
 as output
 }}
   \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
+\code{\link[=guides]{guides()}} for more information.}
   \item{super}{The super class to use for the constructed scale}
 }}
 

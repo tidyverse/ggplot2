@@ -10,6 +10,7 @@
 #' @eval rd_aesthetics("geom", "tile")
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @inheritParams geom_segment
 #' @export
 #' @examples
 #' # The most common use for rectangles is to draw a surface. You always want
@@ -57,6 +58,7 @@
 geom_tile <- function(mapping = NULL, data = NULL,
                       stat = "identity", position = "identity",
                       ...,
+                      linejoin = "mitre",
                       na.rm = FALSE,
                       show.legend = NA,
                       inherit.aes = TRUE) {
@@ -69,6 +71,7 @@ geom_tile <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      linejoin = linejoin,
       na.rm = na.rm,
       ...
     )

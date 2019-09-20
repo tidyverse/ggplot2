@@ -6,6 +6,7 @@
 \alias{scale_colour_viridis_c}
 \alias{scale_fill_viridis_c}
 \alias{scale_colour_ordinal}
+\alias{scale_color_ordinal}
 \alias{scale_fill_ordinal}
 \alias{scale_color_viridis_d}
 \alias{scale_color_viridis_c}
@@ -59,7 +60,7 @@ other values are deprecated.}
 \item{na.value}{Missing values will be replaced with this value.}
 
 \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
+\code{\link[=guides]{guides()}} for more information.}
 }
 \description{
 The \code{viridis} scales provide colour maps that are perceptually uniform in both

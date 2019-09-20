@@ -16,8 +16,30 @@
   })
 }
 
+# Assigning pathGrob in .onLoad ensures that packages that subclass GeomPolygon
+# do not install with error `possible error in 'pathGrob(munched$x, munched$y, ':
+# unused argument (pathId = munched$group)` despite the fact that this is correct
+# usage
+pathGrob <- NULL
+
 .onLoad <- function(...) {
   backport_unit_methods()
+
+  if (getRversion() < as.numeric_version("3.6")) {
+    pathGrob <<- function(..., pathId.lengths) {
+      grid::pathGrob(...)
+    }
+  }
+
+  .zeroGrob <<- grob(cl = "zeroGrob", name = "NULL")
+
+  ggplot_global$theme_current <- theme_gray()
+
+  # Used by rbind_dfs
+  date <- Sys.Date()
+  ggplot_global$date_origin <- date - unclass(date)
+  time <- Sys.time()
+  ggplot_global$time_origin <- time - unclass(time)
 
   # To avoid namespace clash with dplyr.
   # It seems surprising that this hack works

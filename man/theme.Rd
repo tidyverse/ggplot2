@@ -10,6 +10,8 @@ theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
   axis.text.x.bottom, axis.text.y, axis.text.y.left, axis.text.y.right,
   axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom,
   axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right, axis.ticks.length,
+  axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom,
+  axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right,
   axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y,
   axis.line.y.left, axis.line.y.right, legend.background, legend.margin,
   legend.spacing, legend.spacing.x, legend.spacing.y, legend.key,
@@ -21,11 +23,11 @@ theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
   panel.spacing.y, panel.grid, panel.grid.major, panel.grid.minor,
   panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
   panel.grid.minor.y, panel.ontop, plot.background, plot.title,
-  plot.subtitle, plot.caption, plot.tag, plot.tag.position, plot.margin,
-  strip.background, strip.background.x, strip.background.y,
-  strip.placement, strip.text, strip.text.x, strip.text.y,
-  strip.switch.pad.grid, strip.switch.pad.wrap, ..., complete = FALSE,
-  validate = TRUE)
+  plot.title.position, plot.subtitle, plot.caption, plot.caption.position,
+  plot.tag, plot.tag.position, plot.margin, strip.background,
+  strip.background.x, strip.background.y, strip.placement, strip.text,
+  strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap,
+  ..., complete = FALSE, validate = TRUE)
 }
 \arguments{
 \item{line}{all line elements (\code{\link[=element_line]{element_line()}})}
@@ -60,7 +62,7 @@ for each axis (using \code{axis.ticks.x.bottom}, \code{axis.ticks.x.top},
 \code{axis.ticks.*} which inherits from \code{axis.ticks}, which in turn inherits
 from \code{line}}
 
-\item{axis.ticks.length}{length of tick marks (\code{unit})}
+\item{axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right}{length of tick marks (\code{unit})}
 
 \item{axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right}{lines along axes (\code{\link[=element_line]{element_line()}}). Specify lines along all axes (\code{axis.line}),
 lines for each plane (using \code{axis.line.x} or \code{axis.line.y}), or individually
@@ -150,6 +152,13 @@ inherits from \code{rect})}
 
 \item{plot.title}{plot title (text appearance) (\code{\link[=element_text]{element_text()}}; inherits
 from \code{title}) left-aligned by default}
+
+\item{plot.title.position, plot.caption.position}{Alignment of the plot title/subtitle
+and caption.  The setting for \code{plot.title.position} applies to both
+the title and the subtitle. A value of "panel" (the default) means that
+titles and/or caption are aligned to the plot panels. A value of "plot" means
+that titles and/or caption are aligned to the entire plot (minus any space
+for margins and plot tag).}
 
 \item{plot.subtitle}{plot subtitle (text appearance) (\code{\link[=element_text]{element_text()}};
 inherits from \code{title}) left-aligned by default}
@@ -249,11 +258,20 @@ p1 + theme(
 )
 
 # Axes ----------------------------------------------------------------------
+# Change styles of axes texts and lines
 p1 + theme(axis.line = element_line(size = 3, colour = "grey80"))
 p1 + theme(axis.text = element_text(colour = "blue"))
 p1 + theme(axis.ticks = element_line(size = 2))
-p1 + theme(axis.ticks.length = unit(.25, "cm"))
+
+# Change the appearance of the y-axis title
 p1 + theme(axis.title.y = element_text(size = rel(1.5), angle = 90))
+
+# Make ticks point outwards on y-axis and inwards on x-axis
+p1 + theme(
+  axis.ticks.length.y = unit(.25, "cm"),
+  axis.ticks.length.x = unit(-.25, "cm"),
+  axis.text.x = element_text(margin = margin(t = .3, unit = "cm"))
+)
 
 \donttest{
 # Legend --------------------------------------------------------------------

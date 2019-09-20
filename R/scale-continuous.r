@@ -70,9 +70,8 @@ NULL
 
 #' @rdname scale_continuous
 #'
-#' @param sec.axis specify a secondary axis
+#' @param sec.axis [sec_axis()] is used to specify a secondary axis.
 #'
-#' @seealso [sec_axis()] for how to specify secondary axes
 #' @export
 scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                minor_breaks = waiver(), labels = waiver(),
@@ -80,7 +79,7 @@ scale_x_continuous <- function(name = waiver(), breaks = waiver(),
                                na.value = NA_real_, trans = "identity",
                                position = "bottom", sec.axis = waiver()) {
   sc <- continuous_scale(
-    c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper"),
+    c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper", "x0"),
     "position_c", identity, name = name, breaks = breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,
@@ -99,7 +98,7 @@ scale_y_continuous <- function(name = waiver(), breaks = waiver(),
                                na.value = NA_real_, trans = "identity",
                                position = "left", sec.axis = waiver()) {
   sc <- continuous_scale(
-    c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper"),
+    c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper", "y0"),
     "position_c", identity, name = name, breaks = breaks,
     minor_breaks = minor_breaks, labels = labels, limits = limits,
     expand = expand, oob = oob, na.value = na.value, trans = trans,

@@ -38,11 +38,29 @@ test_that("missing aesthetics trigger informative error", {
   )
 })
 
+test_that("function aesthetics are wrapped with stat()", {
+  df <- data_frame(x = 1:10)
+  expect_error(
+    ggplot_build(ggplot(df, aes(colour = density, fill = density)) + geom_point()),
+    "Aesthetics must be valid data columns. Problematic aesthetic(s): colour = density, fill = density",
+    fixed = TRUE
+  )
+})
+
+test_that("computed stats are in appropriate layer", {
+  df <- data_frame(x = 1:10)
+  expect_error(
+    ggplot_build(ggplot(df, aes(colour = stat(density), fill = stat(density))) + geom_point()),
+    "Aesthetics must be valid computed stats. Problematic aesthetic(s): colour = stat(density), fill = stat(density)",
+    fixed = TRUE
+  )
+})
+
 test_that("if an aes is mapped to a function that returns NULL, it is removed", {
   df <- data_frame(x = 1:10)
   null <- function(...) NULL
   p <- cdata(ggplot(df, aes(x, null())))
-  expect_identical(names(p[[1]]), c("PANEL", "x", "group"))
+  expect_identical(names(p[[1]]), c("x", "PANEL", "group"))
 })
 
 # Data extraction ---------------------------------------------------------
@@ -54,6 +72,8 @@ test_that("layer_data returns a data.frame", {
   expect_equal(l$layer_data(mtcars), head(mtcars))
   l <- geom_point(data = head)
   expect_equal(l$layer_data(mtcars), head(mtcars))
+  l <- geom_point(data = ~ head(., 10))
+  expect_equal(l$layer_data(mtcars), head(mtcars, 10))
   l <- geom_point(data = nrow)
   expect_error(l$layer_data(mtcars), "Data function must return a data.frame")
 })

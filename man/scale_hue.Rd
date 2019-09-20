@@ -22,6 +22,28 @@ scale_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
 \describe{
   \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
+they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
+  \item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks (the scale limits)
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
+  \item{limits}{A character vector that defines possible values of the scale
+and their order.}
+  \item{drop}{Should unused factor levels be omitted from the scale?
+The default, \code{TRUE}, uses the levels that appear in the data;
+\code{FALSE} uses all the levels in the factor.}
+  \item{na.translate}{Unlike continuous scales, discrete scales can easily show
+missing values, and do so by default. If you want to remove missing values
+from a discrete scale, specify \code{na.translate = FALSE}.}
+  \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
+value should missing be displayed as? Does not apply to position scales
+where \code{NA} is always placed at the far right.}
+  \item{palette}{A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the values that
 they should take.}
   \item{breaks}{One of:
 \itemize{
@@ -43,7 +65,8 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
   \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
 value should missing be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
-  \item{scale_name}{The name of the scale}
+  \item{scale_name}{The name of the scale that should be used for error messages
+associated with this scale.}
   \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
@@ -57,16 +80,16 @@ transformation object
 \item A function that takes the breaks as input and returns labels
 as output
 }}
-  \item{expand}{Vector of range expansion constants used to add some
-padding around the data, to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+  \item{expand}{For position scales, a vector of range expansion constants used to add some
+padding around the data to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
   \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
-  \item{position}{The position of the axis. "left" or "right" for vertical
-scales, "top" or "bottom" for horizontal scales}
+\code{\link[=guides]{guides()}} for more information.}
+  \item{position}{For position scales, The position of the axis.
+\code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
   \item{super}{The super class to use for the constructed scale}
 }}
 

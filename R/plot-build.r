@@ -261,20 +261,46 @@ ggplot_gtable.ggplot_built <- function(data) {
   caption <- element_render(theme, "plot.caption", plot$labels$caption, margin_y = TRUE)
   caption_height <- grobHeight(caption)
 
-  pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), ,
-    drop = FALSE]
+  # positioning of title and subtitle is governed by plot.title.position
+  # positioning of caption is governed by plot.caption.position
+  #   "panel" means align to the panel(s)
+  #   "plot" means align to the entire plot (except margins and tag)
+  title_pos <- theme$plot.title.position %||% "panel"
+  if (!(title_pos %in% c("panel", "plot"))) {
+    stop('plot.title.position should be either "panel" or "plot".', call. = FALSE)
+  }
+  caption_pos <- theme$plot.caption.position %||% "panel"
+  if (!(caption_pos %in% c("panel", "plot"))) {
+    stop('plot.caption.position should be either "panel" or "plot".', call. = FALSE)
+  }
+
+  pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), , drop = FALSE]
+  if (title_pos == "panel") {
+    title_l = min(pans$l)
+    title_r = max(pans$r)
+  } else {
+    title_l = 1
+    title_r = ncol(plot_table)
+  }
+  if (caption_pos == "panel") {
+    caption_l = min(pans$l)
+    caption_r = max(pans$r)
+  } else {
+    caption_l = 1
+    caption_r = ncol(plot_table)
+  }
 
   plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, subtitle, name = "subtitle",
-    t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
+    t = 1, b = 1, l = title_l, r = title_r, clip = "off")
 
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, title, name = "title",
-    t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
+    t = 1, b = 1, l = title_l, r = title_r, clip = "off")
 
   plot_table <- gtable_add_rows(plot_table, caption_height, pos = -1)
   plot_table <- gtable_add_grob(plot_table, caption, name = "caption",
-    t = -1, b = -1, l = min(pans$l), r = max(pans$r), clip = "off")
+    t = -1, b = -1, l = caption_l, r = caption_r, clip = "off")
 
   plot_table <- gtable_add_rows(plot_table, unit(0, 'pt'), pos = 0)
   plot_table <- gtable_add_cols(plot_table, unit(0, 'pt'), pos = 0)

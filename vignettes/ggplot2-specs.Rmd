@@ -19,9 +19,7 @@ This vignette summarises the various formats that grid drawing functions take.  
 Almost every geom has either colour, fill, or both. Colours and fills can be specified in the following ways:
 
 *   A __name__, e.g., `"red"`. R has `r length(colours())` built-in named
-    colours, which can be listed with `colours()`. The Stowers Institute 
-    provides a nice printable pdf that lists all colours: 
-    <http://research.stowers.org/mcm/efg/R/Color/Chart/>.
+    colours, which can be listed with `colours()`.
     
 *   An __rgb specification__, with a string of the form `"#RRGGBB"` where each of 
     the pairs `RR`, `GG`, `BB` consists of two hexadecimal digits giving a value 
@@ -158,35 +156,33 @@ Shapes take five types of values:
       geom_text(aes(label = shape), hjust = 0, nudge_x = 0.15) +
       scale_shape_identity() +
       expand_limits(x = 4.1) +
-      scale_x_continuous(NULL, breaks = NULL) + 
-      scale_y_continuous(NULL, breaks = NULL)
+      theme_void()
     ```
    
 *   The __name__ of the shape:
      
-```{r out.width = "90%", fig.asp = 0.4, fig.width = 8}
-shape_names <- c(
-  "circle", paste("circle", c("open", "filled", "cross", "plus", "small")), "bullet",
-  "square", paste("square", c("open", "filled", "cross", "plus", "triangle")),
-  "diamond", paste("diamond", c("open", "filled", "plus")),
-  "triangle", paste("triangle", c("open", "filled", "square")),
-  paste("triangle down", c("open", "filled")),
-  "plus", "cross", "asterisk"
-)
-
-shapes <- data.frame(
-  shape_names = shape_names,
-  x = c(1:7, 1:6, 1:3, 5, 1:3, 6, 2:3, 1:3),
-  y = -rep(1:6, c(7, 6, 4, 4, 2, 3))
-)
-
-ggplot(shapes, aes(x, y)) +
-  geom_point(aes(shape = shape_names), fill = "red", size = 5) +
-  geom_text(aes(label = shape_names), nudge_y = -0.3, size = 3.5) +
-  scale_shape_identity() +
-  scale_x_continuous(NULL, breaks = NULL) +
-  scale_y_continuous(NULL, breaks = NULL)
-```
+    ```{r out.width = "90%", fig.asp = 0.4, fig.width = 8}
+    shape_names <- c(
+      "circle", paste("circle", c("open", "filled", "cross", "plus", "small")), "bullet",
+      "square", paste("square", c("open", "filled", "cross", "plus", "triangle")),
+      "diamond", paste("diamond", c("open", "filled", "plus")),
+      "triangle", paste("triangle", c("open", "filled", "square")),
+      paste("triangle down", c("open", "filled")),
+      "plus", "cross", "asterisk"
+    )
+    
+    shapes <- data.frame(
+      shape_names = shape_names,
+      x = c(1:7, 1:6, 1:3, 5, 1:3, 6, 2:3, 1:3),
+      y = -rep(1:6, c(7, 6, 4, 4, 2, 3))
+    )
+    
+    ggplot(shapes, aes(x, y)) +
+      geom_point(aes(shape = shape_names), fill = "red", size = 5) +
+      geom_text(aes(label = shape_names), nudge_y = -0.3, size = 3.5) +
+      scale_shape_identity() +
+      theme_void()
+    ```
 
 *   A __single character__, to use that character as a plotting symbol.
 
@@ -234,6 +230,9 @@ ggplot(df, aes(1, x)) +
   geom_text(aes(label = fontface, fontface = fontface))
 ```
 
+### Font size
+
+The `size` of text is measured in mm. This is unusual, but makes the size of text consistent with the size of lines and points. Typically you specify font size using points (or pt for short), where 1 pt = 0.35mm. ggplot2 provides this conversion factor in the variable `.pt`, so if you want to draw 12pt text, set `size = 12 / .pt`.
 
 ### Justification
 

@@ -21,6 +21,10 @@ polygons, see \code{\link[maps:map]{maps::map()}} for details.}
 
 \item{...}{Arguments passed on to \code{geom_polygon}
 \describe{
+  \item{rule}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
+being drawn (using the \code{subgroup} aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in \code{\link[grid:pathGrob]{grid::pathGrob()}} for
+an explanation.}
   \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
 \code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
@@ -37,7 +41,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
   \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
   \item{position}{Position adjustment, either as a string, or the result of

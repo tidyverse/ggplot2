@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.1.0.9000
+Version: 3.2.1.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Description: A system for 'declaratively' creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
@@ -17,13 +17,12 @@ Authors@R: c(
     person("RStudio", role = c("cph"))
     )
 Depends:
-    R (>= 3.1)
+    R (>= 3.2)
 Imports: 
     digest,
     grDevices,
     grid,
     gtable (>= 0.1.1),
-    lazyeval,
     MASS,
     mgcv,
     reshape2,
@@ -39,6 +38,7 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
+    isoband,
     knitr,
     lattice,
     mapproj,
@@ -52,9 +52,9 @@ Suggests:
     rgeos,
     rmarkdown,
     rpart,
-    sf (>= 0.3-4),
+    sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
-    testthat (>= 0.11.0),
+    testthat (>= 2.1.0),
     vdiffr (>= 0.3.0)
 Enhances: sp
 License: GPL-2 | file LICENSE
@@ -97,6 +97,7 @@ Collate:
     'coord-munch.r'
     'coord-polar.r'
     'coord-quickmap.R'
+    'coord-sf.R'
     'coord-transform.r'
     'data.R'
     'facet-.r'
@@ -140,6 +141,7 @@ Collate:
     'geom-pointrange.r'
     'geom-quantile.r'
     'geom-rug.r'
+    'geom-sf.R'
     'geom-smooth.r'
     'geom-spoke.r'
     'geom-text.r'
@@ -161,6 +163,7 @@ Collate:
     'labeller.r'
     'labels.r'
     'layer.r'
+    'layer-sf.R'
     'layout.R'
     'limits.r'
     'margins.R'
@@ -189,6 +192,7 @@ Collate:
     'scale-continuous.r'
     'scale-date.r'
     'scale-discrete-.r'
+    'scale-expansion.r'
     'scale-gradient.r'
     'scale-grey.r'
     'scale-hue.r'
@@ -198,9 +202,9 @@ Collate:
     'scale-shape.r'
     'scale-size.r'
     'scale-type.R'
+    'scale-view.r'
     'scale-viridis.r'
     'scales-.r'
-    'sf.R'
     'stat-bin.r'
     'stat-bin2d.r'
     'stat-bindot.r'
@@ -218,6 +222,7 @@ Collate:
     'stat-qq.r'
     'stat-quantile.r'
     'stat-sf-coordinates.R'
+    'stat-sf.R'
     'stat-smooth-methods.r'
     'stat-smooth.r'
     'stat-sum.r'

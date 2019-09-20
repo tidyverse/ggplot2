@@ -88,26 +88,42 @@ output
 like "2 weeks", or "10 years". If both \code{minor_breaks} and
 \code{date_minor_breaks} are specified, \code{date_minor_breaks} wins.}
 
-\item{limits}{A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum.}
+\item{limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale range
+\item A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum
+\item A function that accepts the existing (automatic) limits and returns
+new limits
+Note that setting limits on positional scales will \strong{remove} data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see \code{\link[=coord_cartesian]{coord_cartesian()}}).
+}}
 
-\item{expand}{Vector of range expansion constants used to add some
-padding around the data, to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+\item{expand}{For position scales, a vector of range expansion constants used to add some
+padding around the data to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
-\item{position}{The position of the axis. "left" or "right" for vertical
-scales, "top" or "bottom" for horizontal scales}
+\item{position}{For position scales, The position of the axis.
+\code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 
-\item{sec.axis}{specify a secondary axis}
+\item{sec.axis}{\code{\link[=sec_axis]{sec_axis()}} is used to specify a secondary axis.}
 
 \item{timezone}{The timezone to use for display on the axes. The default
 (\code{NULL}) uses the timezone encoded in the data.}
 
-\item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default replaces out of bounds values with \code{NA}.}
+\item{oob}{One of:
+\itemize{
+\item Function that handles limits outside of the scale limits
+(out of bounds).
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+bounds values with \code{NA}.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
+}}
 
 \item{na.value}{Missing values will be replaced with this value.}
 }

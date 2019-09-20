@@ -51,6 +51,8 @@
 #' summarise_coord(b)
 #' summarise_layers(b)
 #'
+#' @keywords internal
+#'
 #' @name summarise_plot
 NULL
 
