@@ -162,6 +162,7 @@ resolve_guide <- function(aesthetic, scale, guides, default = "none", null = "no
 # validate guide object
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
+  # when guides are officially extensible, this should use find_global()
   if (is.character(guide))
     match.fun(paste("guide_", guide, sep = ""))()
   else if (inherits(guide, "guide"))
