@@ -96,9 +96,22 @@ GeomSf <- ggproto("GeomSf", Geom,
                     alpha = NA,
                     stroke = 0.5
                   ),
-
-  non_missing_aes = c("size", "shape", "colour"),
                   
+  handle_na = function(self, data, params) {
+    type <- sf_types[sf::st_geometry_type(data$geometry)]
+    
+    if (all(type == "point")) {
+      non_missing_aes <- c("size", "shape", "colour")
+    } else {
+      non_missing_aes <- character()
+    }
+    
+    remove_missing(data, params$na.rm,
+      c(self$required_aes, non_missing_aes),
+      snake_class(self)
+    )
+  },
+
   draw_panel = function(data, panel_params, coord, legend = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10) {
     if (!inherits(coord, "CoordSf")) {
