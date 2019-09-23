@@ -81,19 +81,36 @@ test_that("geom_sf() removes rows containing missing aes", {
     colour = c("red", NA)
   )
 
-  p <- ggplot(pts) + geom_sf()
+  p1 <- ggplot(pts) + geom_sf()
   expect_warning(
-    expect_identical(grob_xy_length(p + aes(size = size)), c(1L, 1L)),
+    expect_identical(grob_xy_length(p1 + aes(size = size)), c(1L, 1L)),
     "Removed 1 rows containing missing values"
   )
   expect_warning(
-    expect_identical(grob_xy_length(p + aes(shape = shape)), c(1L, 1L)),
+    expect_identical(grob_xy_length(p1 + aes(shape = shape)), c(1L, 1L)),
     "Removed 1 rows containing missing values"
   )
   # default colour scale maps a colour even to a NA, so identity scale is needed to see if NA is removed
   expect_warning(
-    expect_identical(grob_xy_length(p + aes(colour = colour) + scale_colour_identity()),
+    expect_identical(grob_xy_length(p1 + aes(colour = colour) + scale_colour_identity()),
                      c(1L, 1L)),
     "Removed 1 rows containing missing values"
   )
+
+  plgns <- sf::st_sf(
+    geometry = sf::st_sfc(
+      sf::st_polygon(list(rbind(1:2, 2:3, 3:4, 1:2))),
+      sf::st_polygon(list(rbind(1:2, 2:3, 3:4, 1:2)))
+    ),
+    colour = c(1, NA)
+  )
+
+  p2 <- ggplot(plgns) + geom_sf()
+  # colour is not a non_missing_aes for polygons
+  expect_warning(
+    expect_identical(grob_xy_length(p2 + aes(colour = colour) + scale_colour_identity()),
+                     c(8L, 8L)),
+    NA
+  )
+
 })
