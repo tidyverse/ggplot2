@@ -126,8 +126,10 @@ Geom <- ggproto("Geom",
     if (length(modifiers) != 0) {
       env <- new.env(parent = baseenv())
       env$mapped <- mapped
-
-      modified_aes <- new_data_frame(lapply(modifiers, eval_tidy, data, env))
+      modified_aes <- new_data_frame(
+        lapply(substitute_aes(modifiers),  eval_tidy, data, env)
+      )
+      names(modified_aes) <- rename_aes(names(modified_aes))
 
       # Check that all output are valid data
       nondata_modified <- check_nondata_cols(modified_aes)
