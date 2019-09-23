@@ -51,6 +51,16 @@ stat <- function(x) {
 mapped <- function(x) {
   x
 }
+#' @export
+stage <- function(stat = NULL, geom = NULL, mapped = NULL) {
+  stat
+}
+stage_geom <- function(stat = NULL, geom = NULL, mapped = NULL) {
+  geom
+}
+stage_mapped <- function(stat = NULL, geom = NULL, mapped = NULL) {
+  mapped
+}
 
 # Regex to determine if an identifier refers to a calculated aesthetic
 match_calculated_aes <- "^\\.\\.([a-zA-Z._]+)\\.\\.$"
@@ -65,6 +75,9 @@ is_calculated_aes <- function(aesthetics) {
 }
 is_mapped_aes <- function(aesthetics) {
   vapply(aesthetics, is_mapped, logical(1), USE.NAMES = FALSE)
+}
+is_stage_aes <- function(aesthetics) {
+  vapply(aesthetics, is_stage, logical(1), USE.NAMES = FALSE)
 }
 is_calculated <- function(x) {
   if (is.atomic(x)) {
@@ -93,6 +106,23 @@ is_mapped <- function(x) {
       TRUE
     } else {
       any(vapply(x, is_mapped, logical(1)))
+    }
+  } else if (is.pairlist(x)) {
+    FALSE
+  } else {
+    stop("Unknown input:", class(x)[1])
+  }
+}
+is_stage <- function(x) {
+  if (is.atomic(x)) {
+    FALSE
+  } else if (is.symbol(x)) {
+    FALSE
+  } else if (is.call(x)) {
+    if (identical(x[[1]], quote(stage))) {
+      TRUE
+    } else {
+      any(vapply(x, is_stage, logical(1)))
     }
   } else if (is.pairlist(x)) {
     FALSE

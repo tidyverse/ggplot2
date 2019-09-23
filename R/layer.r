@@ -241,7 +241,9 @@ Layer <- ggproto("Layer", NULL,
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate aesthetics
-    evaled <- lapply(aesthetics, eval_tidy, data = data)
+    env <- new.env(parent = baseenv())
+    env$stage <- stage
+    evaled <- lapply(aesthetics, eval_tidy, data = data, env = env)
     evaled <- compact(evaled)
 
     # Check for discouraged usage in mapping
@@ -301,14 +303,18 @@ Layer <- ggproto("Layer", NULL,
     aesthetics <- defaults(aesthetics, self$stat$default_aes)
     aesthetics <- compact(aesthetics)
 
-    new <- strip_dots(aesthetics[is_calculated_aes(aesthetics)])
+    new <- strip_dots(aesthetics[is_calculated_aes(aesthetics) | is_stage_aes(aesthetics)])
     if (length(new) == 0) return(data)
 
     # Add map stat output to aesthetics
     env <- new.env(parent = baseenv())
     env$stat <- stat
+    stage_mask <- new.env(parent = emptyenv())
+    stage_mask$stage <- stage_geom
+    mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
+    mask$.data <- as_data_pronoun(mask)
 
-    stat_data <- new_data_frame(lapply(new, eval_tidy, data, env))
+    stat_data <- lapply(substitute_aes(new), eval_tidy, mask, env)
 
     # Check that all columns in aesthetic stats are valid data
     nondata_stat_cols <- check_nondata_cols(stat_data)
@@ -322,6 +328,7 @@ Layer <- ggproto("Layer", NULL,
     }
 
     names(stat_data) <- names(new)
+    stat_data <- new_data_frame(compact(stat_data))
 
     # Add any new scales, if needed
     scales_add_defaults(plot$scales, data, new, plot$plot_env)
@@ -360,7 +367,7 @@ Layer <- ggproto("Layer", NULL,
     if (empty(data)) return(data)
 
     aesthetics <- self$mapping
-    modifiers <- aesthetics[is_mapped_aes(aesthetics)]
+    modifiers <- aesthetics[is_mapped_aes(aesthetics) | is_stage_aes(aesthetics)]
 
     self$geom$use_defaults(data, self$aes_params, modifiers)
   },

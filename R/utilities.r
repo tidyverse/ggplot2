@@ -267,7 +267,7 @@ is.discrete <- function(x) {
 # returns the names of any columns that are not.
 # We define "data" as atomic types or lists, not functions or otherwise
 check_nondata_cols <- function(x) {
-  idx <- (vapply(x, function(x) rlang::is_vector(x), logical(1)))
+  idx <- (vapply(x, function(x) is.null(x) || rlang::is_vector(x), logical(1)))
   names(x)[which(!idx)]
 }
 

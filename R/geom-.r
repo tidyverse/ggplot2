@@ -126,10 +126,11 @@ Geom <- ggproto("Geom",
     if (length(modifiers) != 0) {
       env <- new.env(parent = baseenv())
       env$mapped <- mapped
-      modified_aes <- new_data_frame(
-        lapply(substitute_aes(modifiers),  eval_tidy, data, env)
-      )
-      names(modified_aes) <- rename_aes(names(modified_aes))
+      stage_mask <- new.env(parent = emptyenv())
+      stage_mask$stage <- stage_mapped
+      mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
+      mask$.data <- as_data_pronoun(mask)
+      modified_aes <- lapply(substitute_aes(modifiers),  eval_tidy, mask, env)
 
       # Check that all output are valid data
       nondata_modified <- check_nondata_cols(modified_aes)
@@ -142,7 +143,8 @@ Geom <- ggproto("Geom",
         stop(msg, call. = FALSE)
       }
 
-      names(modified_aes) <- names(modifiers)
+      names(modified_aes) <- rename_aes(names(modifiers))
+      modified_aes <- new_data_frame(compact(modified_aes))
 
       data <- cunion(modified_aes, data)
     }
