@@ -183,14 +183,19 @@ substitute_aes <- function(x) {
 }
 # x is a quoted expression from inside aes()
 substitute_aes_calls <- function(x) {
-  as.call(lapply(seq_along(x), function(i) {
+  new_x <- lapply(seq_along(x), function(i) {
     if (i == 1) return(x[[i]]) # Only substitute variables, not function names
+    if (is.atomic(x[[i]])) return(x[[i]])
     if (is.call(x[[i]])) {
       substitute_aes_calls(x[[i]])
-    } else {
+    } else if (is.name(x[[i]])) {
       as.name(standardise_aes_names(as.character(x[[i]])))
+    } else {
+      x[[i]]
     }
-  }))
+  })
+  names(new_x) <- names(x)
+  as.call(new_x)
 }
 
 # Look up the scale that should be used for a given aesthetic
