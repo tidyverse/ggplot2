@@ -948,12 +948,14 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     } else if (identical(self$breaks, NA)) {
       stop("Invalid breaks specification. Use NULL, not NA", call. = FALSE)
     } else if (is.waive(self$breaks)) {
-      if (!is.null(self$n.breaks)) {
-        old_n <- get("n", environment(self$trans$breaks))
-        assign("n", self$n.breaks, environment(self$trans$breaks))
-        on.exit(assign("n", old_n, environment(self$trans$breaks)))
+      if (!is.null(self$n.breaks) && "n" %in% names(formals(self$trans$breaks))) {
+        breaks <- self$trans$breaks(limits, n = self$n.breaks)
+      } else {
+        if (!is.null(self$n.breaks)) {
+          warning("Ignoring n.breaks. Use a trans object that supports setting number of breaks", call. = FALSE)
+        }
+        breaks <- self$trans$breaks(limits)
       }
-      breaks <- self$trans$breaks(limits)
       # Ensure terminal bins are same width if limits not set
       if (is.null(self$limits)) {
         nbreaks <- length(breaks)
