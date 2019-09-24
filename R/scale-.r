@@ -186,6 +186,64 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   )
 }
 
+#' Binning scale constructor
+#'
+#' @inheritParams continuous_scale
+#' @param n.breaks The number of break points to create if breaks are not given
+#' directly. It will attempt to find nice breakpoint and may thus not give the
+#' exact number of breaks as requested.
+#' @param right Should values on the border between bins be part of the right
+#' (upper) bin?
+#' @param show.limits should the limits of the scale appear as ticks
+#' @keywords internal
+binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
+                         breaks = waiver(), labels = waiver(), limits = NULL,
+                         oob = squish, expand = waiver(), na.value = NA_real_,
+                         n.breaks = 7, right = TRUE, trans = "identity",
+                         show.limits = FALSE, guide = "bins", position = "left",
+                         super = ScaleBinned) {
+
+  aesthetics <- standardise_aes_names(aesthetics)
+
+  check_breaks_labels(breaks, labels)
+
+  position <- match.arg(position, c("left", "right", "top", "bottom"))
+
+  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
+    guide <- "none"
+  }
+
+  trans <- as.trans(trans)
+  if (!is.null(limits)) {
+    limits <- trans$transform(limits)
+  }
+
+  ggproto(NULL, super,
+    call = match.call(),
+
+    aesthetics = aesthetics,
+    scale_name = scale_name,
+    palette = palette,
+
+    range = continuous_range(),
+    limits = limits,
+    trans = trans,
+    na.value = na.value,
+    expand = expand,
+    oob = oob,
+    n.breaks = n.breaks,
+    right = right,
+    show.limits = show.limits,
+
+    name = name,
+    breaks = breaks,
+
+    labels = labels,
+    guide = guide,
+    position = position
+  )
+}
+
 #' @section Scales:
 #'
 #' All `scale_*` functions like [scale_x_continuous()] return a `Scale*`
@@ -985,229 +1043,6 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
          major_source = major, minor_source = NULL)
   }
 )
-
-#' Continuous scale constructor.
-#'
-#' @export
-#' @param aesthetics The names of the aesthetics that this scale works with
-#' @param scale_name The name of the scale
-#' @param palette A palette function that when called with a numeric vector with
-#'   values between 0 and 1 returns the corresponding values in the range the
-#'   scale maps to.
-#' @param name The name of the scale. Used as the axis or legend title. If
-#'   `waiver()`, the default, the name of the scale is taken from the first
-#'   mapping used for that aesthetic. If `NULL`, the legend title will be
-#'   omitted.
-#' @param breaks One of:
-#'   - `NULL` for no breaks
-#'   - `waiver()` for the default breaks computed by the
-#'     transformation object
-#'   - A numeric vector of positions
-#'   - A function that takes the limits as input and returns breaks
-#'     as output
-#' @param minor_breaks One of:
-#'   - `NULL` for no minor breaks
-#'   - `waiver()` for the default breaks (one minor break between
-#'     each major break)
-#'   - A numeric vector of positions
-#'   - A function that given the limits returns a vector of minor breaks.
-#' @param labels One of:
-#'   - `NULL` for no labels
-#'   - `waiver()` for the default labels computed by the
-#'     transformation object
-#'   - A character vector giving labels (must be same length as `breaks`)
-#'   - A function that takes the breaks as input and returns labels
-#'     as output
-#' @param limits A numeric vector of length two providing limits of the scale.
-#'   Use `NA` to refer to the existing minimum or maximum.
-#' @param rescaler  Used by diverging and n colour gradients
-#'   (i.e. [scale_colour_gradient2()], [scale_colour_gradientn()]).
-#'   A function used to scale the input values to the range \[0, 1].
-#' @param oob Function that handles limits outside of the scale limits
-#'   (out of bounds). The default replaces out of bounds values with `NA`.
-#' @inheritParams scale_x_discrete
-#' @param na.value Missing values will be replaced with this value.
-#' @param trans Either the name of a transformation object, or the
-#'   object itself. Built-in transformations include "asn", "atanh",
-#'   "boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-#'   "logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
-#'
-#'   A transformation object bundles together a transform, its inverse,
-#'   and methods for generating breaks and labels. Transformation objects
-#'   are defined in the scales package, and are called `name_trans`, e.g.
-#'   [scales::boxcox_trans()]. You can create your own
-#'   transformation with [scales::trans_new()].
-#' @param guide A function used to create a guide or its name. See
-#'   [guides()] for more info.
-#' @param position The position of the axis. "left" or "right" for vertical
-#' scales, "top" or "bottom" for horizontal scales
-#' @param super The super class to use for the constructed scale
-#' @keywords internal
-continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
-  breaks = waiver(), minor_breaks = waiver(), labels = waiver(), limits = NULL,
-  rescaler = rescale, oob = censor, expand = waiver(), na.value = NA_real_,
-  trans = "identity", guide = "legend", position = "left", super = ScaleContinuous) {
-
-  aesthetics <- standardise_aes_names(aesthetics)
-
-  check_breaks_labels(breaks, labels)
-
-  position <- match.arg(position, c("left", "right", "top", "bottom"))
-
-  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
-    guide <- "none"
-  }
-
-  trans <- as.trans(trans)
-  if (!is.null(limits)) {
-    limits <- trans$transform(limits)
-  }
-
-  ggproto(NULL, super,
-    call = match.call(),
-
-    aesthetics = aesthetics,
-    scale_name = scale_name,
-    palette = palette,
-
-    range = continuous_range(),
-    limits = limits,
-    trans = trans,
-    na.value = na.value,
-    expand = expand,
-    rescaler = rescaler,  # Used by diverging and n colour gradients
-    oob = oob,
-
-    name = name,
-    breaks = breaks,
-    minor_breaks = minor_breaks,
-
-    labels = labels,
-    guide = guide,
-    position = position
-  )
-}
-
-#' Discrete scale constructor.
-#'
-#' @export
-#' @inheritParams continuous_scale
-#' @param palette A palette function that when called with a single integer
-#'   argument (the number of levels in the scale) returns the values that
-#'   they should take.
-#' @param breaks One of:
-#'   - `NULL` for no breaks
-#'   - `waiver()` for the default breaks computed by the
-#'     transformation object
-#'   - A character vector of breaks
-#'   - A function that takes the limits as input and returns breaks
-#'     as output
-#' @param limits A character vector that defines possible values of the scale
-#'   and their order.
-#' @param drop Should unused factor levels be omitted from the scale?
-#'    The default, `TRUE`, uses the levels that appear in the data;
-#'    `FALSE` uses all the levels in the factor.
-#' @param na.translate Unlike continuous scales, discrete scales can easily show
-#'   missing values, and do so by default. If you want to remove missing values
-#'   from a discrete scale, specify `na.translate = FALSE`.
-#' @param na.value If `na.translate = TRUE`, what value aesthetic
-#'   value should missing be displayed as? Does not apply to position scales
-#'   where `NA` is always placed at the far right.
-#' @keywords internal
-discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
-  breaks = waiver(), labels = waiver(), limits = NULL, expand = waiver(),
-  na.translate = TRUE, na.value = NA, drop = TRUE,
-  guide = "legend", position = "left", super = ScaleDiscrete) {
-
-  aesthetics <- standardise_aes_names(aesthetics)
-
-  check_breaks_labels(breaks, labels)
-
-  position <- match.arg(position, c("left", "right", "top", "bottom"))
-
-  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
-    guide <- "none"
-  }
-
-  ggproto(NULL, super,
-    call = match.call(),
-
-    aesthetics = aesthetics,
-    scale_name = scale_name,
-    palette = palette,
-
-    range = discrete_range(),
-    limits = limits,
-    na.value = na.value,
-    na.translate = na.translate,
-    expand = expand,
-
-    name = name,
-    breaks = breaks,
-    labels = labels,
-    drop = drop,
-    guide = guide,
-    position = position
-  )
-}
-
-#' Binning scale constructor
-#'
-#' @inheritParams continuous_scale
-#' @param n.breaks The number of break points to create if breaks are not given
-#' directly. It will attempt to find nice breakpoint and may thus not give the
-#' exact number of breaks as requested.
-#' @param right Should values on the border between bins be part of the right
-#' (upper) bin?
-#' @param show.limits should the limits of the scale appear as ticks
-#' @keywords internal
-binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
-                         breaks = waiver(), labels = waiver(), limits = NULL,
-                         oob = squish, expand = waiver(), na.value = NA_real_,
-                         n.breaks = 7, right = TRUE, trans = "identity",
-                         show.limits = FALSE, guide = "legend", position = "left",
-                         super = ScaleBinned) {
-
-  aesthetics <- standardise_aes_names(aesthetics)
-
-  check_breaks_labels(breaks, labels)
-
-  position <- match.arg(position, c("left", "right", "top", "bottom"))
-
-  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
-    guide <- "none"
-  }
-
-  trans <- as.trans(trans)
-  if (!is.null(limits)) {
-    limits <- trans$transform(limits)
-  }
-
-  ggproto(NULL, super,
-    call = match.call(),
-
-    aesthetics = aesthetics,
-    scale_name = scale_name,
-    palette = palette,
-
-    range = continuous_range(),
-    limits = limits,
-    trans = trans,
-    na.value = na.value,
-    expand = expand,
-    oob = oob,
-    n.breaks = n.breaks,
-    right = right,
-    show.limits = show.limits,
-
-    name = name,
-    breaks = breaks,
-
-    labels = labels,
-    guide = guide,
-    position = position
-  )
-}
 
 # In place modification of a scale to change the primary axis
 scale_flip_position <- function(scale) {
