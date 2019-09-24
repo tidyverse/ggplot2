@@ -570,14 +570,14 @@ guide_colorbar <- guide_colourbar
 #' @export
 #' @rdname guide_colourbar
 #'
-#' @param even_steps Should the bin sizes reflect their size or be even across all
+#' @param even.steps Should the bin sizes reflect their size or be even across all
 #'   bins? Defaults to `TRUE`
-#' @param show_limits Should labels for the outer limits of the bins be printed?
+#' @param show.limits Should labels for the outer limits of the bins be printed?
 #'   Default is `NULL` which makes the guide use the setting from the scale
-guide_coloursteps <- function(even_steps = TRUE, show_limits = NULL, ticks = FALSE, nbin = 100, ...) {
+guide_coloursteps <- function(even.steps = TRUE, show.limits = NULL, ticks = FALSE, nbin = 100, ...) {
   guide <- guide_colourbar(raster = FALSE, ticks = ticks, nbin = nbin, ...)
-  guide$even_steps <- even_steps
-  guide$show_limits <- show_limits
+  guide$even.steps <- even.steps
+  guide$show.limits <- show.limits
   class(guide) <- c('colorsteps', class(guide))
   guide
 }
@@ -587,7 +587,7 @@ guide_colorsteps <- guide_coloursteps
 
 #' @export
 guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
-  if (guide$even_steps) {
+  if (guide$even.steps) {
     breaks <- scale$get_breaks()
     if (length(breaks) == 0 || all(is.na(breaks)))
       return()
@@ -608,7 +608,7 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
   } else {
     guide <- NextMethod()
   }
-  if (guide$show_limits %||% scale$show_limits %||% FALSE) {
+  if (guide$show.limits %||% scale$show.limits %||% FALSE) {
     edges <- rescale(c(0, 1), to = guide$bar$value[c(1, nrow(guide$bar))], from = c(0.5, guide$nbin - 0.5) / guide$nbin)
     limits <- scale$get_limits()
     guide$key <- guide$key[c(NA, seq_len(nrow(guide$key)), NA), , drop = FALSE]

@@ -824,10 +824,10 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   range = continuous_range(),
   na.value = NA_real_,
   oob = squish,
-  n_breaks = NULL,
+  n.breaks = NULL,
   right = TRUE,
   after_stat = FALSE,
-  show_limits = FALSE,
+  show.limits = FALSE,
 
   is_discrete = function() FALSE,
 
@@ -890,9 +890,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     } else if (identical(self$breaks, NA)) {
       stop("Invalid breaks specification. Use NULL, not NA", call. = FALSE)
     } else if (is.waive(self$breaks)) {
-      if (!is.null(self$n_breaks)) {
+      if (!is.null(self$n.breaks)) {
         old_n <- get("n", environment(self$trans$breaks))
-        assign("n", self$n_breaks, environment(self$trans$breaks))
+        assign("n", self$n.breaks, environment(self$trans$breaks))
         on.exit(assign("n", old_n, environment(self$trans$breaks)))
       }
       breaks <- self$trans$breaks(limits)
@@ -972,7 +972,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       pal <- self$palette(length(major) + 1)
     }
 
-    if (self$show_limits) {
+    if (self$show.limits) {
       limits <- self$get_limits()
       major <- sort(unique(c(limits, major)))
     }
@@ -1154,18 +1154,18 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' Binning scale constructor
 #'
 #' @inheritParams continuous_scale
-#' @param n_breaks The number of break points to create if breaks are not given
+#' @param n.breaks The number of break points to create if breaks are not given
 #' directly. It will attempt to find nice breakpoint and may thus not give the
 #' exact number of breaks as requested.
 #' @param right Should values on the border between bins be part of the right
 #' (upper) bin?
-#' @param show_limits should the limits of the scale appear as ticks
+#' @param show.limits should the limits of the scale appear as ticks
 #' @keywords internal
 binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                          breaks = waiver(), labels = waiver(), limits = NULL,
                          oob = squish, expand = waiver(), na.value = NA_real_,
-                         n_breaks = 7, right = TRUE, trans = "identity",
-                         show_limits = FALSE, guide = "legend", position = "left",
+                         n.breaks = 7, right = TRUE, trans = "identity",
+                         show.limits = FALSE, guide = "legend", position = "left",
                          super = ScaleBinned) {
 
   aesthetics <- standardise_aes_names(aesthetics)
@@ -1196,9 +1196,9 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     na.value = na.value,
     expand = expand,
     oob = oob,
-    n_breaks = n_breaks,
+    n.breaks = n.breaks,
     right = right,
-    show_limits = show_limits,
+    show.limits = show.limits,
 
     name = name,
     breaks = breaks,

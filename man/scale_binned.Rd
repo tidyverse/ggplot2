@@ -5,15 +5,15 @@
 \alias{scale_y_binned}
 \title{Positional scales for binning continuous data (x & y)}
 \usage{
-scale_x_binned(name = waiver(), n_breaks = 10, breaks = waiver(),
+scale_x_binned(name = waiver(), n.breaks = 10, breaks = waiver(),
   labels = waiver(), limits = NULL, expand = waiver(),
   oob = squish, na.value = NA_real_, right = TRUE,
-  show_limits = FALSE, trans = "identity", position = "bottom")
+  show.limits = FALSE, trans = "identity", position = "bottom")
 
-scale_y_binned(name = waiver(), n_breaks = 10, breaks = waiver(),
+scale_y_binned(name = waiver(), n.breaks = 10, breaks = waiver(),
   labels = waiver(), limits = NULL, expand = waiver(),
   oob = squish, na.value = NA_real_, right = TRUE,
-  show_limits = FALSE, trans = "identity", position = "left")
+  show.limits = FALSE, trans = "identity", position = "left")
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -21,7 +21,7 @@ scale_y_binned(name = waiver(), n_breaks = 10, breaks = waiver(),
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
 
-\item{n_breaks}{The number of break points to create if breaks are not given
+\item{n.breaks}{The number of break points to create if breaks are not given
 directly. It will attempt to find nice breakpoint and may thus not give the
 exact number of breaks as requested.}
 
@@ -79,7 +79,7 @@ bounds values with \code{NA}.
 \item{right}{Should values on the border between bins be part of the right
 (upper) bin?}
 
-\item{show_limits}{should the limits of the scale appear as ticks}
+\item{show.limits}{should the limits of the scale appear as ticks}
 
 \item{trans}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",

@@ -29,10 +29,10 @@ guide_colorbar(title = waiver(), title.position = NULL,
   reverse = FALSE, order = 0, available_aes = c("colour", "color",
   "fill"), ...)
 
-guide_coloursteps(even_steps = TRUE, show_limits = NULL,
+guide_coloursteps(even.steps = TRUE, show.limits = NULL,
   ticks = FALSE, nbin = 100, ...)
 
-guide_colorsteps(even_steps = TRUE, show_limits = NULL,
+guide_colorsteps(even.steps = TRUE, show.limits = NULL,
   ticks = FALSE, nbin = 100, ...)
 }
 \arguments{
@@ -129,10 +129,10 @@ for which a colourbar can be drawn.}
 
 \item{...}{ignored.}
 
-\item{even_steps}{Should the bin sizes reflect their size or be even across all
+\item{even.steps}{Should the bin sizes reflect their size or be even across all
 bins? Defaults to \code{TRUE}}
 
-\item{show_limits}{Should labels for the outer limits of the bins be printed?
+\item{show.limits}{Should labels for the outer limits of the bins be printed?
 Default is \code{NULL} which makes the guide use the setting from the scale}
 }
 \value{

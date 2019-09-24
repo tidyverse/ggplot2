@@ -21,15 +21,15 @@ NULL
 #' @rdname scale_binned
 #'
 #' @export
-scale_x_binned <- function(name = waiver(), n_breaks = 10, breaks = waiver(),
+scale_x_binned <- function(name = waiver(), n.breaks = 10, breaks = waiver(),
                            labels = waiver(), limits = NULL, expand = waiver(),
                            oob = squish, na.value = NA_real_, right = TRUE,
-                           show_limits = FALSE, trans = "identity", position = "bottom") {
+                           show.limits = FALSE, trans = "identity", position = "bottom") {
   binned_scale(
     aesthetics = c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper"),
     scale_name = "position_b", palette = identity, name = name, breaks = breaks,
     labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
-    n_breaks = n_breaks, right = right, trans = trans, show_limits = show_limits,
+    n.breaks = n.breaks, right = right, trans = trans, show.limits = show.limits,
     guide = "none", position = position, super = ScaleBinnedPosition
   )
 }
@@ -37,15 +37,15 @@ scale_x_binned <- function(name = waiver(), n_breaks = 10, breaks = waiver(),
 #' @rdname scale_binned
 #'
 #' @export
-scale_y_binned <- function(name = waiver(), n_breaks = 10, breaks = waiver(),
+scale_y_binned <- function(name = waiver(), n.breaks = 10, breaks = waiver(),
                            labels = waiver(), limits = NULL, expand = waiver(),
                            oob = squish, na.value = NA_real_, right = TRUE,
-                           show_limits = FALSE, trans = "identity", position = "left") {
+                           show.limits = FALSE, trans = "identity", position = "left") {
   binned_scale(
     aesthetics = c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper"),
     scale_name = "position_b", palette = identity, name = name, breaks = breaks,
     labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
-    n_breaks = n_breaks, right = right, trans = trans, show_limits = show_limits,
+    n.breaks = n.breaks, right = right, trans = trans, show.limits = show.limits,
     guide = "none", position = position, super = ScaleBinnedPosition
   )
 }
@@ -97,7 +97,7 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
 
     # major breaks
     major <- self$get_breaks(range)
-    if (self$show_limits) {
+    if (self$show.limits) {
       limits <- self$get_limits()
       major <- sort(unique(c(limits, major)))
     }
