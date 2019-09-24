@@ -13,19 +13,14 @@ guide_bins <- function(
   label.hjust = NULL,
   label.vjust = NULL,
 
-  # bar
-  barwidth = NULL,
-  barheight = NULL,
+  # key
+  keywidth = NULL,
+  keyheight = NULL,
 
-  # frame
-  frame.colour = NULL,
-  frame.linewidth = 0.5,
-  frame.linetype = 1,
-
-  # divider
-  divider.colour = NULL,
-  divider.linewidth = 0.5,
-  divider.linetype = 1,
+  # ticks
+  ticks = TRUE,
+  ticks.colour = "black",
+  ticks.linewidth = 0.5,
 
   # general
   direction = NULL,
@@ -33,14 +28,8 @@ guide_bins <- function(
   override.aes = list(),
   reverse = FALSE,
   order = 0,
+  show.limits = NULL,
   ...) {
-
-  if (!is.null(barwidth) && !is.unit(barwidth)) {
-    barwidth <- unit(barwidth, default.unit)
-  }
-  if (!is.null(barheight) && !is.unit(barheight)) {
-    barheight <- unit(barheight, default.unit)
-  }
 
   structure(list(
     # title
@@ -57,25 +46,21 @@ guide_bins <- function(
     label.hjust = label.hjust,
     label.vjust = label.vjust,
 
-    # bar
-    barwidth = barwidth,
-    barheight = barheight,
+    # key
+    keywidth = keywidth,
+    keyheight = keyheight,
 
-    # frame
-    frame.colour = frame.colour,
-    frame.linewidth = frame.linewidth,
-    frame.linetype = frame.linetype,
-
-    # divider
-    divider.colour = divider.colour,
-    divider.linewidth = divider.linewidth,
-    divider.linetype = divider.linetype,
+    # ticks
+    ticks = ticks,
+    ticks.colour = ticks.colour,
+    ticks.linewidth = ticks.linewidth,
 
     # general
     direction = direction,
     default.unit = default.unit,
     reverse = reverse,
     order = order,
+    show.limits = show.limits,
 
     # parameter
     available_aes = c("any"),
@@ -100,6 +85,10 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
   aes_column_name <- aesthetic %||% scale$aesthetics[1]
   key <- new_data_frame(setNames(list(c(scale$map(bin_at), NA)), aes_column_name))
   key$.label <- scale$get_labels(all_breaks)
+  guide$show.limits <- guide$show.limits %||% scale$show_limits %||% FALSE
+  if (!guide$show.limits) {
+    key$.label[c(1, nrow(key))] <- NA
+  }
 
   if (guide$reverse) key <- key[nrow(key):1, ]
 
@@ -188,8 +177,7 @@ guide_gengrob.bins <- function(guide, theme) {
   if (!label.position %in% c("top", "bottom", "left", "right"))
     stop("label position \"", label.position, "\" is invalid")
 
-  nbreak <- nrow(guide$key) - 1
-  guide$byrow <- FALSE
+  n_keys <- nrow(guide$key) - 1
 
   # obtain the theme for the legend title. We need this both for the title grob
   # and to obtain the title fontsize.
@@ -257,12 +245,13 @@ guide_gengrob.bins <- function(guide, theme) {
       )
       ggname("guide.label", g)
     })
+    if (!guide$show.limits) {
+      grob.labels[c(1, length(grob.labels))] <- list(zeroGrob())
+    }
   }
-  break.labels <- grob.labels[-c(1, length(grob.labels))]
-  range.labels <- grob.labels[c(1, length(grob.labels))]
 
-  label_widths <- width_cm(break.labels)
-  label_heights <- height_cm(break.labels)
+  label_widths <- width_cm(grob.labels)
+  label_heights <- height_cm(grob.labels)
 
   # Keys
   key_width <- width_cm(
@@ -272,237 +261,90 @@ guide_gengrob.bins <- function(guide, theme) {
     guide$keyheight %||% theme$legend.key.height %||% theme$legend.key.size
   )
 
-  key_size_mat <- do.call("cbind", lapply(guide$geoms, function(g) g$data$size / 10))
+  key_size_mat <- do.call("cbind",
+    lapply(guide$geoms, function(g) g$data$size / 10)
+  )[seq_len(n_keys), , drop = FALSE]
+
   if (nrow(key_size_mat) == 0 || ncol(key_size_mat) == 0) {
-    key_size_mat <- matrix(0, ncol = 1, nrow = nbreak)
+    key_size_mat <- matrix(0, ncol = 1, nrow = n_keys)
   }
   key_sizes <- apply(key_size_mat, 1, max)
-  key_sizes <- key_sizes[-length(key_sizes)]
 
   if (guide$direction == "horizontal") {
-    legend.nrow <- 1
-    legend.ncol <- nbreak
+    key.nrow <- 1
+    key.ncol <- n_keys
+    label.nrow <- 1
+    label.ncol <- n_keys + 1
   } else {
-    legend.nrow <- nbreak
-    legend.ncol <- 1
+    key.nrow <- n_keys
+    key.ncol <- 1
+    label.nrow <- n_keys + 1
+    label.ncol <- 1
   }
 
-  key_sizes <- matrix(key_sizes, legend.nrow, legend.ncol)
+  key_sizes <- matrix(key_sizes, key.nrow, key.ncol)
+  label_sizes <- matrix(label_widths, label.nrow, label.ncol)
 
-  key_widths <- pmax(key_width, apply(key_sizes, 2, max))
-  key_heights <- pmax(key_height, apply(key_sizes, 1, max))
+  key_widths <- max(key_width, apply(key_sizes, 2, max))
+  key_heights <- max(key_height, apply(key_sizes, 1, max))
 
-  label_widths <- apply(
-    matrix(
-      c(label_widths),
-      legend.nrow,
-      legend.ncol
-    ),
-    2,
-    max
+  label_widths <- max(apply(label_sizes, 2, max))
+  label_heights <- max(apply(label_sizes, 1, max))
+
+  key_loc <- data_frame(
+    R = seq(2, by = 2, length.out = n_keys),
+    C = 1
   )
-  label_heights <- apply(
-    matrix(
-      c(label_heights),
-      legend.nrow,
-      legend.ncol
-    ),
-    1,
-    max
+  label_loc <- data_frame(
+    R = seq(1, by = 2, length.out = n_keys + 1),
+    C = 3
   )
+  tick_loc <- label_loc
+  tick_loc$C <- 1
 
-  if (guide$byrow) {
-    vps <- new_data_frame(list(
-      R = ceiling(seq(nbreak) / legend.ncol),
-      C = (seq(nbreak) - 1) %% legend.ncol + 1
-    ))
-  } else {
-    vps <- mat_2_df(arrayInd(seq(nbreak), dim(key_sizes)), c("R", "C"))
-  }
-
-  # layout of key-label depends on the direction of the guide
-  if (guide$byrow == TRUE) {
-    switch(
-      label.position,
-      "top" = {
-        kl_widths <- pmax(label_widths, key_widths)
-        kl_heights <- utils::head(
-          interleave(label_heights, vgap, key_heights, vgap),
-          -1
-        )
-        vps <- transform(
-          vps,
-          key.row = R * 4 - 1,
-          key.col = C,
-          label.row = R * 4 - 3,
-          label.col = C
-        )
-      },
-      "bottom" = {
-        kl_widths <- pmax(label_widths, key_widths)
-        kl_heights <- utils::head(
-          interleave(key_heights, vgap, label_heights, vgap),
-          -1
-        )
-        vps <- transform(
-          vps,
-          key.row = R * 4 - 3,
-          key.col = C,
-          label.row = R * 4 - 1,
-          label.col = C
-        )
-      },
-      "left" = {
-        kl_widths <- utils::head(
-          interleave(label_widths, hgap, key_widths, hgap),
-          -1
-        )
-        kl_heights <- utils::head(
-          interleave(pmax(label_heights, key_heights), vgap),
-          -1
-        )
-        vps <- transform(
-          vps,
-          key.row = R * 2 - 1,
-          key.col = C * 4 - 1,
-          label.row = R * 2 - 1,
-          label.col = C * 4 - 3
-        )
-      },
-      "right" = {
-        kl_widths <- utils::head(
-          interleave(key_widths, hgap, label_widths, hgap),
-          -1
-        )
-        kl_heights <- utils::head(
-          interleave(pmax(label_heights, key_heights), vgap),
-          -1
-        )
-        vps <- transform(
-          vps,
-          key.row = R * 2 - 1,
-          key.col = C * 4 - 3,
-          label.row = R * 2 - 1,
-          label.col = C * 4 - 1
-        )
-      })
-  } else {
-    switch(
-      label.position,
-      "top" = {
-        kl_widths <- utils::head(
-          interleave(pmax(label_widths, key_widths), hgap),
-          -1
-        )
-        kl_heights <- utils::head(
-          interleave(label_heights, vgap, key_heights, vgap),
-          -1
-        )
-        vps <- transform(
-          vps,
-          key.row = R * 4 - 1,
-          key.col = C * 2 - 1,
-          label.row = R * 4 - 3,
-          label.col = C * 2 - 1
-        )
-      },
-      "bottom" = {
-        kl_widths <- utils::head(
-          interleave(pmax(label_widths, key_widths), hgap),
-          -1
-        )
-        kl_heights <- utils::head(
-          interleave(key_heights, vgap, label_heights, vgap),
-          -1
-        )
-        vps <- transform(
-          vps,
-          key.row = R * 4 - 3,
-          key.col = C * 2 - 1,
-          label.row = R * 4 - 1,
-          label.col = C * 2 - 1
-        )
-      },
-      "left" = {
-        kl_widths <- utils::head(
-          interleave(label_widths, hgap, key_widths, hgap),
-          -1
-        )
-        kl_heights <- pmax(key_heights, label_heights)
-        vps <- transform(
-          vps,
-          key.row = R,
-          key.col = C * 4 - 1,
-          label.row = R,
-          label.col = C * 4 - 3
-        )
-      },
-      "right" = {
-        kl_widths <- utils::head(
-          interleave(key_widths, hgap, label_widths, hgap),
-          -1
-        )
-        kl_heights <- pmax(key_heights, label_heights)
-        vps <- transform(
-          vps,
-          key.row = R,
-          key.col = C * 4 - 3,
-          label.row = R,
-          label.col = C * 4 - 1
-        )
-      })
+  widths <- c(key_widths, hgap, label_widths)
+  heights <- c(interleave(rep(0, n_keys), key_heights), 0)
+  if (guide$direction == "horizontal") {
+    names(key_loc) <- c("C", "R")
+    names(label_loc) <- c("C", "R")
+    names(tick_loc) <- c("C", "R")
+    heights <- c(key_heights, vgap, label_heights)
+    widths <- c(interleave(rep(0, n_keys), key_widths), 0)
   }
 
   # layout the title over key-label
   switch(guide$title.position,
-         "top" = {
-           widths <- c(kl_widths, max(0, title_width - sum(kl_widths)))
-           heights <- c(title_height, vgap, kl_heights)
-           vps <- transform(
-             vps,
-             key.row = key.row + 2,
-             key.col = key.col,
-             label.row = label.row + 2,
-             label.col = label.col
-           )
-           vps.title.row = 1; vps.title.col = 1:length(widths)
-         },
-         "bottom" = {
-           widths <- c(kl_widths, max(0, title_width - sum(kl_widths)))
-           heights <- c(kl_heights, vgap, title_height)
-           vps <- transform(
-             vps,
-             key.row = key.row,
-             key.col = key.col,
-             label.row = label.row,
-             label.col = label.col
-           )
-           vps.title.row = length(heights); vps.title.col = 1:length(widths)
-         },
-         "left" = {
-           widths <- c(title_width, hgap, kl_widths)
-           heights <- c(kl_heights, max(0, title_height - sum(kl_heights)))
-           vps <- transform(
-             vps,
-             key.row = key.row,
-             key.col = key.col + 2,
-             label.row = label.row,
-             label.col = label.col + 2
-           )
-           vps.title.row = 1:length(heights); vps.title.col = 1
-         },
-         "right" = {
-           widths <- c(kl_widths, hgap, title_width)
-           heights <- c(kl_heights, max(0, title_height - sum(kl_heights)))
-           vps <- transform(
-             vps,
-             key.row = key.row,
-             key.col = key.col,
-             label.row = label.row,
-             label.col = label.col
-           )
-           vps.title.row = 1:length(heights); vps.title.col = length(widths)
-         })
+    "top" = {
+      widths <- c(widths, max(0, title_width - sum(widths)))
+      heights <- c(title_height, vgap, heights)
+      key_loc$R <- key_loc$R + 2
+      label_loc$R <- label_loc$R + 2
+      tick_loc$R <- tick_loc$R + 2
+      title_row = 1
+      title_col = seq_along(widths)
+    },
+    "bottom" = {
+      widths <- c(widths, max(0, title_width - sum(widths)))
+      heights <- c(heights, vgap, title_height)
+      title_row = length(heights)
+      title_col = seq_along(widths)
+    },
+    "left" = {
+      widths <- c(title_width, hgap, widths)
+      heights <- c(heights, max(0, title_height - sum(heights)))
+      key_loc$C <- key_loc$C + 2
+      label_loc$C <- label_loc$C + 2
+      tick_loc$C <- tick_loc$C + 2
+      title_row = seq_along(heights)
+      title_col = 1
+    },
+    "right" = {
+      widths <- c(widths, hgap, title_width)
+      heights <- c(heights, max(0, title_height - sum(heights)))
+      title_row = seq_along(heights)
+      title_col = length(widths)
+    }
+  )
 
   # grob for key
   key_size <- c(key_width, key_height) * 10
@@ -514,20 +356,49 @@ guide_gengrob.bins <- function(guide, theme) {
     })
     c(list(bg), keys)
   }
-  grob.keys <- unlist(lapply(seq_len(nbreak), draw_key), recursive = FALSE)
+  grob.keys <- unlist(lapply(seq_len(n_keys), draw_key), recursive = FALSE)
 
   # background
   grob.background <- element_render(theme, "legend.background")
 
   ngeom <- length(guide$geoms) + 1
-  kcols <- rep(vps$key.col, each = ngeom)
-  krows <- rep(vps$key.row, each = ngeom)
+  kcols <- rep(key_loc$C, each = ngeom)
+  krows <- rep(key_loc$R, each = ngeom)
 
   # padding
   padding <- convertUnit(theme$legend.margin %||% margin(), "cm", valueOnly = TRUE)
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 
+  # make the ticks grob (`grob.ticks`)
+  if (!guide$ticks)
+    grob.ticks <- zeroGrob()
+  else {
+    if (guide$direction == "horizontal") {
+      x0 <- rep(0.5, 2)
+      y0 <- c(0, 4/5)
+      x1 <- rep(0.5, 2)
+      y1 <- c(1/5, 1)
+    } else { # guide$direction == "vertical"
+      y0 <- rep(0.5, 2)
+      x0 <- c(0, 4/5)
+      y1 <- rep(0.5, 2)
+      x1 <- c(1/5, 1)
+    }
+    grob.ticks <- segmentsGrob(
+      x0 = x0, y0 = y0, x1 = x1, y1 = y1,
+      default.units = "npc",
+      gp = gpar(
+        col = guide$ticks.colour,
+        lwd = guide$ticks.linewidth,
+        lineend = "butt"
+      )
+    )
+  }
+  grob.ticks <- rep_len(list(grob.ticks), length(grob.labels))
+  if (!guide$show.limits) {
+    grob.ticks[c(1, length(grob.ticks))] <- list(zeroGrob())
+  }
   # Create the gtable for the legend
   gt <- gtable(widths = unit(widths, "cm"), heights = unit(heights, "cm"))
   gt <- gtable_add_grob(
@@ -551,10 +422,10 @@ guide_gengrob.bins <- function(guide, theme) {
     ),
     name = "title",
     clip = "off",
-    t = 1 + min(vps.title.row),
-    r = 1 + max(vps.title.col),
-    b = 1 + max(vps.title.row),
-    l = 1 + min(vps.title.col)
+    t = 1 + min(title_row),
+    r = 1 + max(title_col),
+    b = 1 + max(title_row),
+    l = 1 + min(title_col)
   )
   gt <- gtable_add_grob(
     gt,
@@ -568,6 +439,16 @@ guide_gengrob.bins <- function(guide, theme) {
   )
   gt <- gtable_add_grob(
     gt,
+    grob.ticks,
+    name = paste("label", tick_loc$R, tick_loc$C, sep = "-"),
+    clip = "off",
+    t = 1 + tick_loc$R,
+    r = 1 + tick_loc$C,
+    b = 1 + tick_loc$R,
+    l = 1 + tick_loc$C
+  )
+  gt <- gtable_add_grob(
+    gt,
     justify_grobs(
       grob.labels,
       hjust = hjust,
@@ -575,12 +456,12 @@ guide_gengrob.bins <- function(guide, theme) {
       int_angle = label.theme$angle,
       debug = label.theme$debug
     ),
-    name = paste("label", vps$label.row, vps$label.col, sep = "-"),
+    name = paste("label", label_loc$R, label_loc$C, sep = "-"),
     clip = "off",
-    t =  vps$label.row,
-    r = 1 + vps$label.col,
-    b = 1 + vps$label.row,
-    l = 1 + vps$label.col
+    t = 1 + label_loc$R,
+    r = 1 + label_loc$C,
+    b = 1 + label_loc$R,
+    l = 1 + label_loc$C
   )
   gt
 }
