@@ -198,10 +198,10 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #' @keywords internal
 binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                          breaks = waiver(), labels = waiver(), limits = NULL,
-                         oob = squish, expand = waiver(), na.value = NA_real_,
-                         n.breaks = 7, right = TRUE, trans = "identity",
-                         show.limits = FALSE, guide = "bins", position = "left",
-                         super = ScaleBinned) {
+                         rescaler = rescale, oob = squish, expand = waiver(),
+                         na.value = NA_real_, n.breaks = NULL, right = TRUE,
+                         trans = "identity", show.limits = FALSE, guide = "bins",
+                         position = "left", super = ScaleBinned) {
 
   aesthetics <- standardise_aes_names(aesthetics)
 
@@ -230,6 +230,7 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     trans = trans,
     na.value = na.value,
     expand = expand,
+    rescaler = rescaler,
     oob = oob,
     n.breaks = n.breaks,
     right = right,
@@ -872,6 +873,7 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
 ScaleBinned <- ggproto("ScaleBinned", Scale,
   range = continuous_range(),
   na.value = NA_real_,
+  rescaler = rescale,
   oob = squish,
   n.breaks = NULL,
   right = TRUE,
@@ -904,7 +906,10 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     } else {
       breaks <- self$get_breaks(limits)
 
-      x_binned <- cut(x, c(limits[1], breaks, limits[2]),
+      x <- self$rescale(self$oob(x, range = limits), limits)
+      breaks <- self$rescale(c(limits[1], breaks, limits[2]), limits)
+
+      x_binned <- cut(x, breaks,
         labels = FALSE,
         include.lowest = TRUE,
         right = self$right
@@ -913,12 +918,16 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       if (!is.null(self$palette.cache)) {
         pal <- self$palette.cache
       } else {
-        pal <- self$palette(length(self$breaks) + 1)
+        pal <- self$palette(breaks[-1] - diff(breaks) / 2)
         self$palette.cache <- pal
       }
 
       pal[x_binned]
     }
+  },
+
+  rescale = function(self, x, limits = self$get_limits(), range = limits) {
+    self$rescaler(x, from = range)
   },
 
   dimension = function(self, expand = c(0, 0, 0, 0)) {
