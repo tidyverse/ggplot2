@@ -18,9 +18,10 @@ guide_bins <- function(
   keyheight = NULL,
 
   # ticks
-  ticks = TRUE,
-  ticks.colour = "black",
-  ticks.linewidth = 0.5,
+  axis = TRUE,
+  axis.colour = "black",
+  axis.linewidth = 0.5,
+  axis.arrow = NULL,
 
   # general
   direction = NULL,
@@ -51,9 +52,10 @@ guide_bins <- function(
     keyheight = keyheight,
 
     # ticks
-    ticks = ticks,
-    ticks.colour = ticks.colour,
-    ticks.linewidth = ticks.linewidth,
+    axis = axis,
+    axis.colour = axis.colour,
+    axis.linewidth = axis.linewidth,
+    axis.arrow = axis.arrow,
 
     # general
     direction = direction,
@@ -173,9 +175,19 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
 guide_gengrob.bins <- function(guide, theme) {
 
   # default setting
-  label.position <- guide$label.position %||% "right"
-  if (!label.position %in% c("top", "bottom", "left", "right"))
-    stop("label position \"", label.position, "\" is invalid")
+  if (guide$direction == "horizontal") {
+    label.position <- guide$label.position %||% "bottom"
+    if (!label.position %in% c("top", "bottom")) {
+      warning("Ignoring invalid label.position", call. = FALSE)
+      label.position <- "bottom"
+    }
+  } else {
+    label.position <- guide$label.position %||% "right"
+    if (!label.position %in% c("left", "right")) {
+      warning("Ignoring invalid label.position", call. = FALSE)
+      label.position <- "right"
+    }
+  }
 
   n_keys <- nrow(guide$key) - 1
 
@@ -218,7 +230,7 @@ guide_gengrob.bins <- function(guide, theme) {
   } else {
     # get the defaults for label justification. The defaults are complicated and depend
     # on the direction of the legend and on label placement
-    just_defaults <- label_just_defaults.legend(guide$direction, label.position)
+    just_defaults <- label_just_defaults.bins(guide$direction, label.position)
     # don't set expressions left-justified
     if (just_defaults$hjust == 0 && any(is.expression(guide$key$.label))) just_defaults$hjust <- 1
 
@@ -293,22 +305,24 @@ guide_gengrob.bins <- function(guide, theme) {
 
   key_loc <- data_frame(
     R = seq(2, by = 2, length.out = n_keys),
-    C = 1
+    C = if (label.position %in% c("right", "bottom")) 1 else 3
   )
   label_loc <- data_frame(
     R = seq(1, by = 2, length.out = n_keys + 1),
-    C = 3
+    C = if (label.position %in% c("right", "bottom")) 3 else 1
   )
   tick_loc <- label_loc
-  tick_loc$C <- 1
+  tick_loc$C <- if (label.position %in% c("right", "bottom")) 1 else 3
 
   widths <- c(key_widths, hgap, label_widths)
+  if (label.position != "right") widths <- rev(widths)
   heights <- c(interleave(rep(0, n_keys), key_heights), 0)
   if (guide$direction == "horizontal") {
     names(key_loc) <- c("C", "R")
     names(label_loc) <- c("C", "R")
     names(tick_loc) <- c("C", "R")
     heights <- c(key_heights, vgap, label_heights)
+    if (label.position != "bottom") heights <- rev(heights)
     widths <- c(interleave(rep(0, n_keys), key_widths), 0)
   }
 
@@ -371,27 +385,52 @@ guide_gengrob.bins <- function(guide, theme) {
   heights <- c(padding[1], heights, padding[3])
 
   # make the ticks grob (`grob.ticks`)
-  if (!guide$ticks)
+  if (!guide$axis) {
     grob.ticks <- zeroGrob()
-  else {
+    grob.axis <- zeroGrob()
+  } else {
     if (guide$direction == "horizontal") {
-      x0 <- rep(0.5, 2)
-      y0 <- c(0, 4/5)
-      x1 <- rep(0.5, 2)
-      y1 <- c(1/5, 1)
+      x0 <- 0.5
+      y0 <- 0
+      x1 <- 0.5
+      y1 <- 1/5
+      axis_x <- c(0, 1)
+      axis_y <- c(0, 0)
+      if (label.position == "top") {
+        y0 <- 4/5
+        y1 <- 1
+        axis_y <- c(1, 1)
+      }
     } else { # guide$direction == "vertical"
-      y0 <- rep(0.5, 2)
-      x0 <- c(0, 4/5)
-      y1 <- rep(0.5, 2)
-      x1 <- c(1/5, 1)
+      y0 <- 0.5
+      x0 <- 4/5
+      y1 <- 0.5
+      x1 <- 1
+      axis_x <- c(1, 1)
+      axis_y <- c(0, 1)
+      if (label.position == "left") {
+        x0 <- 0
+        x1 <- 1/5
+        axis_x <- c(0, 0)
+      }
     }
     grob.ticks <- segmentsGrob(
       x0 = x0, y0 = y0, x1 = x1, y1 = y1,
       default.units = "npc",
       gp = gpar(
-        col = guide$ticks.colour,
-        lwd = guide$ticks.linewidth,
+        col = guide$axis.colour,
+        lwd = guide$axis.linewidth,
         lineend = "butt"
+      )
+    )
+    grob.axis <- segmentsGrob(
+      x0 = axis_x[1], y0 = axis_y[1], x1 = axis_x[2], y1 = axis_y[2],
+      default.units = "npc",
+      arrow = guide$axis.arrow,
+      gp = gpar(
+        col = guide$axis.colour,
+        lwd = guide$axis.linewidth,
+        lineend = if (is.null(guide$axis.arrow)) "square" else "round"
       )
     )
   }
@@ -440,12 +479,22 @@ guide_gengrob.bins <- function(guide, theme) {
   gt <- gtable_add_grob(
     gt,
     grob.ticks,
-    name = paste("label", tick_loc$R, tick_loc$C, sep = "-"),
+    name = paste("tick", tick_loc$R, tick_loc$C, sep = "-"),
     clip = "off",
     t = 1 + tick_loc$R,
     r = 1 + tick_loc$C,
     b = 1 + tick_loc$R,
     l = 1 + tick_loc$C
+  )
+  gt <- gtable_add_grob(
+    gt,
+    grob.axis,
+    name = "axis",
+    clip = "off",
+    t = min(1 + tick_loc$R),
+    r = min(1 + tick_loc$C),
+    b = max(1 + tick_loc$R),
+    l = max(1 + tick_loc$C)
   )
   gt <- gtable_add_grob(
     gt,
@@ -464,4 +513,30 @@ guide_gengrob.bins <- function(guide, theme) {
     l = 1 + label_loc$C
   )
   gt
+}
+
+#' Calculate the default hjust and vjust settings depending on legend
+#' direction and position.
+#'
+#' @noRd
+label_just_defaults.bins <- function(direction, position) {
+  if (direction == "horizontal") {
+    switch(
+      position,
+      "top" = list(hjust = 0.5, vjust = 0),
+      "bottom" = list(hjust = 0.5, vjust = 1),
+      "left" = list(hjust = 1, vjust = 0.5),
+      list(hjust = 0.5, vjust = 0.5)
+    )
+  }
+  else {
+    switch(
+      position,
+      "top" = list(hjust = 0.5, vjust = 0),
+      "bottom" = list(hjust = 0.5, vjust = 1),
+      "left" = list(hjust = 1, vjust = 0.5),
+      list(hjust = 0, vjust = 0.5)
+    )
+
+  }
 }
