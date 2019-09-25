@@ -201,6 +201,7 @@ Collate:
     'scale-manual.r'
     'scale-shape.r'
     'scale-size.r'
+    'scale-steps.R'
     'scale-type.R'
     'scale-view.r'
     'scale-viridis.r'

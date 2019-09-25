@@ -3,6 +3,7 @@
 \name{scale_alpha}
 \alias{scale_alpha}
 \alias{scale_alpha_continuous}
+\alias{scale_alpha_binned}
 \alias{scale_alpha_discrete}
 \alias{scale_alpha_ordinal}
 \alias{scale_alpha_datetime}
@@ -12,6 +13,8 @@
 scale_alpha(..., range = c(0.1, 1))
 
 scale_alpha_continuous(..., range = c(0.1, 1))
+
+scale_alpha_binned(..., range = c(0.1, 1))
 
 scale_alpha_discrete(...)
 
@@ -43,6 +46,7 @@ Other colour scales: \code{\link{scale_colour_brewer}},
   \code{\link{scale_colour_gradient}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_colour_hue}},
+  \code{\link{scale_colour_steps}},
   \code{\link{scale_colour_viridis_d}}
 }
 \concept{colour scales}

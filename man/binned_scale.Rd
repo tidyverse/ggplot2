@@ -6,10 +6,10 @@
 \usage{
 binned_scale(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), labels = waiver(), limits = NULL,
-  oob = squish, expand = waiver(), na.value = NA_real_,
-  n.breaks = 7, right = TRUE, trans = "identity",
-  show.limits = FALSE, guide = "legend", position = "left",
-  super = ScaleBinned)
+  rescaler = rescale, oob = squish, expand = waiver(),
+  na.value = NA_real_, n.breaks = NULL, right = TRUE,
+  trans = "identity", show.limits = FALSE, guide = "bins",
+  position = "left", super = ScaleBinned)
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
@@ -57,6 +57,12 @@ Note that setting limits on positional scales will \strong{remove} data outside 
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[=coord_cartesian]{coord_cartesian()}}).
 }}
+
+\item{rescaler}{A function used to scale the input values to the
+range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
+diverging and n colour gradients (i.e., \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}},
+\code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
+scales, which ways use \code{\link[scales:rescale]{scales::rescale()}}.}
 
 \item{oob}{One of:
 \itemize{

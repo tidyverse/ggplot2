@@ -1,0 +1,119 @@
+#' Binned gradient colour scales
+#'
+#' `scale_*_steps` creates a two colour binned gradient (low-high),
+#' `scale_*_stepsn` creates a n-colour binned gradient.
+#'
+#' Default colours are generated with \pkg{munsell} and
+#' `mnsl(c("2.5PB 2/4", "2.5PB 7/10"))`. Generally, for continuous
+#' colour scales you want to keep hue constant, but vary chroma and
+#' luminance. The \pkg{munsell} package makes this easy to do using the
+#' Munsell colour system.
+#'
+#' @inheritParams scales::seq_gradient_pal
+#' @inheritParams scale_colour_hue
+#' @param low,high Colours for low and high ends of the gradient.
+#' @param guide Type of legend. Use `"coloursteps"` for continuous
+#'   colour bar, or `"bins"` for discrete colour legend.
+#' @inheritDotParams binned_scale -na.value -guide -aesthetics
+#' @seealso [scales::seq_gradient_pal()] for details on underlying
+#'   palette
+#' @family colour scales
+#' @rdname scale_steps
+#' @export
+#' @examples
+#' df <- data.frame(
+#'   x = runif(100),
+#'   y = runif(100),
+#'   z1 = rnorm(100),
+#'   z2 = abs(rnorm(100))
+#' )
+#'
+#' df_na <- data.frame(
+#'   value = seq(1, 20),
+#'   x = runif(20),
+#'   y = runif(20),
+#'   z1 = c(rep(NA, 10), rnorm(10))
+#' )
+#'
+#' # Default colour scale colours from light blue to dark blue
+#' ggplot(df, aes(x, y)) +
+#'   geom_point(aes(colour = z2))
+#'
+#' # For diverging colour scales use gradient2
+#' ggplot(df, aes(x, y)) +
+#'   geom_point(aes(colour = z1)) +
+#'   scale_colour_gradient2()
+#'
+#' # Use your own colour scale with gradientn
+#' ggplot(df, aes(x, y)) +
+#'   geom_point(aes(colour = z1)) +
+#'   scale_colour_gradientn(colours = terrain.colors(10))
+#'
+#' # Equivalent fill scales do the same job for the fill aesthetic
+#' ggplot(faithfuld, aes(waiting, eruptions)) +
+#'   geom_raster(aes(fill = density)) +
+#'   scale_fill_gradientn(colours = terrain.colors(10))
+#'
+#' # Adjust colour choices with low and high
+#' ggplot(df, aes(x, y)) +
+#'   geom_point(aes(colour = z2)) +
+#'   scale_colour_gradient(low = "white", high = "black")
+#' # Avoid red-green colour contrasts because ~10% of men have difficulty
+#' # seeing them
+#'
+#'# Use `na.value = NA` to hide missing values but keep the original axis range
+#' ggplot(df_na, aes(x = value, y)) +
+#'   geom_bar(aes(fill = z1), stat = "identity") +
+#'   scale_fill_gradient(low = "yellow", high = "red", na.value = NA)
+#'
+#'  ggplot(df_na, aes(x, y)) +
+#'    geom_point(aes(colour = z1)) +
+#'    scale_colour_gradient(low = "yellow", high = "red", na.value = NA)
+#'
+
+#' @rdname scale_steps
+#' @export
+scale_colour_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
+                               na.value = "grey50", guide = "coloursteps", aesthetics = "colour") {
+  binned_scale(aesthetics, "steps", seq_gradient_pal(low, high, space),
+               na.value = na.value, guide = guide, ...)
+}
+#' @rdname scale_steps
+#' @export
+scale_colour_steps2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"),
+                                midpoint = 0, space = "Lab", na.value = "grey50", guide = "coloursteps",
+                                aesthetics = "colour") {
+  binned_scale(aesthetics, "steps2", div_gradient_pal(low, mid, high, space),
+               na.value = na.value, guide = guide, rescaler = mid_rescaler(mid = midpoint), ...)
+}
+#' @rdname scale_steps
+#' @export
+scale_colour_stepsn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50",
+                                guide = "coloursteps", aesthetics = "colour", colors) {
+  colours <- if (missing(colours)) colors else colours
+  binned_scale(aesthetics, "stepsn",
+               gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
+}
+#' @rdname scale_steps
+#' @export
+scale_fill_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
+                             na.value = "grey50", guide = "coloursteps", aesthetics = "fill") {
+  binned_scale(aesthetics, "steps", seq_gradient_pal(low, high, space),
+               na.value = na.value, guide = guide, ...)
+}
+#' @rdname scale_steps
+#' @export
+scale_fill_steps2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"),
+                              midpoint = 0, space = "Lab", na.value = "grey50", guide = "coloursteps",
+                              aesthetics = "fill") {
+  binned_scale(aesthetics, "steps2", div_gradient_pal(low, mid, high, space),
+               na.value = na.value, guide = guide, rescaler = mid_rescaler(mid = midpoint), ...)
+}
+#' @rdname scale_steps
+#' @export
+scale_fill_stepsn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50",
+                                guide = "coloursteps", aesthetics = "fill", colors) {
+  colours <- if (missing(colours)) colors else colours
+  binned_scale(aesthetics, "stepsn",
+               gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
+}

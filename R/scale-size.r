@@ -44,6 +44,17 @@ scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = w
 
 #' @rdname scale_size
 #' @export
+#' @usage NULL
+scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
+                              limits = NULL, range = c(1, 6), n.breaks = NULL,
+                              trans = "identity", guide = "bins") {
+  binned_scale("size", "area_b", area_pal(range), name = name,
+    breaks = breaks, labels = labels, limits = limits, trans = trans,
+    n.breaks = n.breaks, guide = guide)
+}
+
+#' @rdname scale_size
+#' @export
 scale_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                          limits = NULL, range = c(1, 6),
                          trans = "identity", guide = "legend") {

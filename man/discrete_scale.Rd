@@ -9,12 +9,6 @@ discrete_scale(aesthetics, scale_name, palette, name = waiver(),
   expand = waiver(), na.translate = TRUE, na.value = NA,
   drop = TRUE, guide = "legend", position = "left",
   super = ScaleDiscrete)
-
-discrete_scale(aesthetics, scale_name, palette, name = waiver(),
-  breaks = waiver(), labels = waiver(), limits = NULL,
-  expand = waiver(), na.translate = TRUE, na.value = NA,
-  drop = TRUE, guide = "legend", position = "left",
-  super = ScaleDiscrete)
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
@@ -79,39 +73,8 @@ The default, \code{TRUE}, uses the levels that appear in the data;
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 
 \item{super}{The super class to use for the constructed scale}
-
-\item{palette}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take.}
-
-\item{breaks}{One of:
-\itemize{
-\item \code{NULL} for no breaks
-\item \code{waiver()} for the default breaks computed by the
-transformation object
-\item A character vector of breaks
-\item A function that takes the limits as input and returns breaks
-as output
-}}
-
-\item{limits}{A character vector that defines possible values of the scale
-and their order.}
-
-\item{drop}{Should unused factor levels be omitted from the scale?
-The default, \code{TRUE}, uses the levels that appear in the data;
-\code{FALSE} uses all the levels in the factor.}
-
-\item{na.translate}{Unlike continuous scales, discrete scales can easily show
-missing values, and do so by default. If you want to remove missing values
-from a discrete scale, specify \code{na.translate = FALSE}.}
-
-\item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
-value should missing be displayed as? Does not apply to position scales
-where \code{NA} is always placed at the far right.}
 }
 \description{
 Discrete scale constructor
-
-Discrete scale constructor.
 }
 \keyword{internal}

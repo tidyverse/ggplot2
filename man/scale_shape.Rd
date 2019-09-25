@@ -2,12 +2,15 @@
 % Please edit documentation in R/scale-shape.r
 \name{scale_shape}
 \alias{scale_shape}
+\alias{scale_shape_binned}
 \alias{scale_shape_discrete}
 \alias{scale_shape_ordinal}
 \alias{scale_shape_continuous}
 \title{Scales for shapes, aka glyphs}
 \usage{
 scale_shape(..., solid = TRUE)
+
+scale_shape_binned(..., solid = TRUE)
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
@@ -19,29 +22,6 @@ they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks (the scale limits)
-\item A character vector of breaks
-\item A function that takes the limits as input and returns breaks
-as output
-}}
-  \item{limits}{A character vector that defines possible values of the scale
-and their order.}
-  \item{drop}{Should unused factor levels be omitted from the scale?
-The default, \code{TRUE}, uses the levels that appear in the data;
-\code{FALSE} uses all the levels in the factor.}
-  \item{na.translate}{Unlike continuous scales, discrete scales can easily show
-missing values, and do so by default. If you want to remove missing values
-from a discrete scale, specify \code{na.translate = FALSE}.}
-  \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
-value should missing be displayed as? Does not apply to position scales
-where \code{NA} is always placed at the far right.}
-  \item{palette}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take.}
-  \item{breaks}{One of:
-\itemize{
-\item \code{NULL} for no breaks
-\item \code{waiver()} for the default breaks computed by the
-transformation object
 \item A character vector of breaks
 \item A function that takes the limits as input and returns breaks
 as output

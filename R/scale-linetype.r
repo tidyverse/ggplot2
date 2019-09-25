@@ -35,6 +35,12 @@ scale_linetype <- function(..., na.value = "blank") {
 
 #' @rdname scale_linetype
 #' @export
+scale_linetype_binned <- function(...) {
+  binned_scale("linetype", "linetype_b", binned_pal(linetype_pal()), ...)
+}
+
+#' @rdname scale_linetype
+#' @export
 scale_linetype_continuous <- function(...) {
   stop("A continuous variable can not be mapped to linetype", call. = FALSE)
 }

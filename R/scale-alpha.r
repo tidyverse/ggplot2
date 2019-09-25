@@ -27,6 +27,11 @@ scale_alpha <- function(..., range = c(0.1, 1)) {
 scale_alpha_continuous <- scale_alpha
 
 #' @rdname scale_alpha
+scale_alpha_binned <- function(..., range = c(0.1, 1)) {
+  binned_scale("alpha", "alpha_b", rescale_pal(range), ...)
+}
+
+#' @rdname scale_alpha
 #' @export
 scale_alpha_discrete <- function(...) {
   warning("Using alpha for a discrete variable is not advised.", call. = FALSE)

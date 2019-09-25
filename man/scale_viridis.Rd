@@ -5,6 +5,8 @@
 \alias{scale_fill_viridis_d}
 \alias{scale_colour_viridis_c}
 \alias{scale_fill_viridis_c}
+\alias{scale_colour_viridis_b}
+\alias{scale_fill_viridis_b}
 \alias{scale_colour_ordinal}
 \alias{scale_color_ordinal}
 \alias{scale_fill_ordinal}
@@ -25,6 +27,14 @@ scale_colour_viridis_c(..., alpha = 1, begin = 0, end = 1,
 scale_fill_viridis_c(..., alpha = 1, begin = 0, end = 1,
   direction = 1, option = "D", values = NULL, space = "Lab",
   na.value = "grey50", guide = "colourbar", aesthetics = "fill")
+
+scale_colour_viridis_b(..., alpha = 1, begin = 0, end = 1,
+  direction = 1, option = "D", values = NULL, space = "Lab",
+  na.value = "grey50", guide = "coloursteps", aesthetics = "colour")
+
+scale_fill_viridis_b(..., alpha = 1, begin = 0, end = 1,
+  direction = 1, option = "D", values = NULL, space = "Lab",
+  na.value = "grey50", guide = "coloursteps", aesthetics = "fill")
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or
@@ -107,6 +117,7 @@ Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_brewer}},
   \code{\link{scale_colour_gradient}},
   \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}}
+  \code{\link{scale_colour_hue}},
+  \code{\link{scale_colour_steps}}
 }
 \concept{colour scales}

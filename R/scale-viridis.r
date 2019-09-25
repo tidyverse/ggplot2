@@ -111,3 +111,43 @@ scale_fill_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
     ...
   )
 }
+
+#' @export
+#' @rdname scale_viridis
+scale_colour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
+                                   direction = 1, option = "D", values = NULL,
+                                   space = "Lab", na.value = "grey50",
+                                   guide = "coloursteps", aesthetics = "colour") {
+  binned_scale(
+    aesthetics,
+    "viridis_b",
+    gradient_n_pal(
+      viridis_pal(alpha, begin, end, direction, option)(6),
+      values,
+      space
+    ),
+    na.value = na.value,
+    guide = guide,
+    ...
+  )
+}
+
+#' @export
+#' @rdname scale_viridis
+scale_fill_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
+                                 direction = 1, option = "D", values = NULL,
+                                 space = "Lab", na.value = "grey50",
+                                 guide = "coloursteps", aesthetics = "fill") {
+  binned_scale(
+    aesthetics,
+    "viridis_b",
+    gradient_n_pal(
+      viridis_pal(alpha, begin, end, direction, option)(6),
+      values,
+      space
+    ),
+    na.value = na.value,
+    guide = guide,
+    ...
+  )
+}

@@ -40,6 +40,12 @@ scale_shape <- function(..., solid = TRUE) {
 
 #' @rdname scale_shape
 #' @export
+scale_shape_binned <- function(..., solid = TRUE) {
+  binned_scale("shape", "shape_b", binned_pal(shape_pal(solid)), ...)
+}
+
+#' @rdname scale_shape
+#' @export
 #' @usage NULL
 scale_shape_discrete <- scale_shape
 
