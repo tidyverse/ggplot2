@@ -33,9 +33,7 @@
 #' d + stat_summary_2d(fun = var)
 #' d + stat_summary_2d(fun = "quantile", fun.args = list(probs = 0.1))
 #'
-#' if (requireNamespace("hexbin")) {
 #' d + stat_summary_hex()
-#' }
 stat_summary_2d <- function(mapping = NULL, data = NULL,
                             geom = "tile", position = "identity",
                             ...,
