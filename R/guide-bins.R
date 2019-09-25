@@ -88,9 +88,6 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
   key <- new_data_frame(setNames(list(c(scale$map(bin_at), NA)), aes_column_name))
   key$.label <- scale$get_labels(all_breaks)
   guide$show.limits <- guide$show.limits %||% scale$show_limits %||% FALSE
-  if (!guide$show.limits) {
-    key$.label[c(1, nrow(key))] <- NA
-  }
 
   if (guide$reverse) key <- key[nrow(key):1, ]
 
@@ -173,6 +170,9 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
 
 #' @export
 guide_gengrob.bins <- function(guide, theme) {
+  if (!guide$show.limits) {
+    guide$key$.label[c(1, nrow(guide$key))] <- NA
+  }
 
   # default setting
   if (guide$direction == "horizontal") {
