@@ -112,7 +112,7 @@ scale_colour_blender <- function(..., type = "seq", palette = 1, direction = -1,
   if (type == "qual") {
     warning("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
   }
-  binned_scale(aesthetics, "blender", brewer_pal(type, palette, direction), na.value = na.value, guide = guide, ...)
+  binned_scale(aesthetics, "blender", binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
 }
 
 #' @export
@@ -122,7 +122,7 @@ scale_fill_blender <- function(..., type = "seq", palette = 1, direction = -1, n
   if (type == "qual") {
     warning("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
   }
-  binned_scale(aesthetics, "distiller", brewer_pal(type, palette, direction), na.value = na.value, guide = guide, ...)
+  binned_scale(aesthetics, "distiller", binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
 }
 
 # icon.brewer <- function() {
