@@ -55,14 +55,14 @@ scale_y_binned <- function(name = waiver(), n.breaks = 10, breaks = waiver(),
 #' @usage NULL
 #' @export
 ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
-  after_stat = FALSE,
+  after.stat = FALSE,
 
   train = function(self, x) {
     if (!is.numeric(x)) {
       stop("Binned scales only support continuous data", call. = FALSE)
     }
 
-    if (length(x) == 0 || self$after_stat) return()
+    if (length(x) == 0 || self$after.stat) return()
     self$range$train(x)
   },
 
@@ -70,22 +70,28 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
     breaks <- self$get_breaks(limits)
     all_breaks <- unique(sort(c(limits[1], breaks, limits[2])))
 
-    if (self$after_stat) {
+    if (self$after.stat) {
       # Backtransform to original scale
-      x_binned <- cut(x, seq_len(length(all_breaks) + 1) - 0.5, labels = FALSE,
-                      include.lowest = TRUE, right = self$right)
+      x_binned <- cut(x, seq_len(length(all_breaks) + 1) - 0.5,
+        labels = FALSE,
+        include.lowest = TRUE,
+        right = self$right
+      )
       (x - x_binned + .5) * diff(all_breaks)[x_binned] + all_breaks[x_binned]
     } else {
       x <- as.numeric(self$oob(x, limits))
       x <- ifelse(!is.na(x), x, self$na.value)
-      x_binned <- cut(x, all_breaks, labels = FALSE,
-                      include.lowest = TRUE, right = self$right)
+      x_binned <- cut(x, all_breaks,
+        labels = FALSE,
+        include.lowest = TRUE,
+        right = self$right
+      )
 
       x_binned # Return integer form so stat treat it like a discrete scale
     }
   },
   reset = function(self) {
-    self$after_stat <- TRUE
+    self$after.stat <- TRUE
     limits <- self$get_limits()
     breaks <- self$get_breaks(limits)
     self$range$reset()
@@ -108,8 +114,13 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
     # rescale breaks [0, 1], which are used by coord/guide
     major_n <- rescale(major, from = range)
 
-    list(range = range, labels = labels,
-         major = major_n, minor = NULL,
-         major_source = major, minor_source = NULL)
+    list(
+      range = range,
+      labels = labels,
+      major = major_n,
+      minor = NULL,
+      major_source = major,
+      minor_source = NULL
+    )
   }
 )

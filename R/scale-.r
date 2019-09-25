@@ -530,17 +530,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
   transform = function(self, x) {
      new_x <- self$trans$transform(x)
-     if (any(is.finite(x) != is.finite(new_x))) {
-       type <- if (self$scale_name == "position_c") {
-         "continuous"
-       } else if (self$scale_name == "position_d") {
-         "discrete"
-       } else {
-         "binned"
-       }
-       axis <- if ("x" %in% self$aesthetics) "x" else "y"
-       warning("Transformation introduced infinite values in ", type, " ", axis, "-axis", call. = FALSE)
-     }
+     axis <- if ("x" %in% self$aesthetics) "x" else "y"
+     check_transformation(x, new_x, self$scale_name, axis)
      new_x
   },
 
@@ -884,7 +875,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   oob = squish,
   n.breaks = NULL,
   right = TRUE,
-  after_stat = FALSE,
+  after.stat = FALSE,
   show.limits = FALSE,
 
   is_discrete = function() FALSE,
@@ -894,34 +885,30 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       stop("Binned scales only support continuous data", call. = FALSE)
     }
 
-    if (length(x) == 0) return()
+    if (length(x) == 0) {
+      return()
+    }
     self$range$train(x)
   },
 
   transform = function(self, x) {
     new_x <- self$trans$transform(x)
-    if (any(is.finite(x) != is.finite(new_x))) {
-      type <- if (self$scale_name == "position_c") {
-        "continuous"
-      } else if (self$scale_name == "position_d") {
-        "discrete"
-      } else {
-        "binned"
-      }
-      axis <- if ("x" %in% self$aesthetics) "x" else "y"
-      warning("Transformation introduced infinite values in ", type, " ", axis, "-axis", call. = FALSE)
-    }
+    axis <- if ("x" %in% self$aesthetics) "x" else "y"
+    check_transformation(x, new_x, self$scale_name, axis)
     new_x
   },
 
   map = function(self, x, limits = self$get_limits()) {
-    if (self$after_stat) {
+    if (self$after.stat) {
       x
     } else {
       breaks <- self$get_breaks(limits)
 
-      x_binned <- cut(x, c(limits[1], breaks, limits[2]), labels = FALSE,
-                      include.lowest = TRUE, right = self$right)
+      x_binned <- cut(x, c(limits[1], breaks, limits[2]),
+        labels = FALSE,
+        include.lowest = TRUE,
+        right = self$right
+      )
 
       if (!is.null(self$palette.cache)) {
         pal <- self$palette.cache
@@ -1056,4 +1043,17 @@ scale_flip_position <- function(scale) {
     scale$position
   )
   invisible()
+}
+
+check_transformation <- function(x, transformed, name, axis) {
+  if (any(is.finite(x) != is.finite(transformed))) {
+    type <- if (name == "position_b") {
+      "binned"
+    } else if (name == "position_c") {
+      "continuous"
+    } else {
+      "discrete"
+    }
+    warning("Transformation introduced infinite values in ", type, " ", axis, "-axis", call. = FALSE)
+  }
 }
