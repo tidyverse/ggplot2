@@ -97,30 +97,12 @@ ScaleBinnedPosition <- ggproto("ScaleBinnedPosition", ScaleBinned,
     self$range$reset()
     self$range$train(c(limits, breaks))
   },
-  break_info = function(self, range = NULL) {
-    # range
-    if (is.null(range)) range <- self$dimension()
 
-    # major breaks
-    major <- self$get_breaks(range)
+  get_breaks = function(self, limits = self$get_limits()) {
+    breaks <- ggproto_parent(ScaleBinned, self)$get_breaks(limits)
     if (self$show.limits) {
-      limits <- self$get_limits()
-      major <- sort(unique(c(limits, major)))
+      breaks <- sort(unique(c(self$get_limits(), breaks)))
     }
-
-    # labels
-    labels <- self$get_labels(major)
-
-    # rescale breaks [0, 1], which are used by coord/guide
-    major_n <- rescale(major, from = range)
-
-    list(
-      range = range,
-      labels = labels,
-      major = major_n,
-      minor = NULL,
-      major_source = major,
-      minor_source = NULL
-    )
+    breaks
   }
 )
