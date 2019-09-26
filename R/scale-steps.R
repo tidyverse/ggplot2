@@ -1,7 +1,10 @@
 #' Binned gradient colour scales
 #'
 #' `scale_*_steps` creates a two colour binned gradient (low-high),
-#' `scale_*_stepsn` creates a n-colour binned gradient.
+#' `scale_*_steps2` creates a diverging binned colour gradient (low-mid-high),
+#' and `scale_*_stepsn` creates a n-colour binned gradient. These scales are
+#' binned variants of the [gradient scale][scale_colour_gradient] family and
+#' works in the same way.
 #'
 #' Default colours are generated with \pkg{munsell} and
 #' `mnsl(c("2.5PB 2/4", "2.5PB 7/10"))`. Generally, for continuous
@@ -9,12 +12,9 @@
 #' luminance. The \pkg{munsell} package makes this easy to do using the
 #' Munsell colour system.
 #'
-#' @inheritParams scales::seq_gradient_pal
-#' @inheritParams scale_colour_hue
-#' @param low,high Colours for low and high ends of the gradient.
-#' @param guide Type of legend. Use `"coloursteps"` for continuous
-#'   colour bar, or `"bins"` for discrete colour legend.
-#' @inheritDotParams binned_scale -na.value -guide -aesthetics
+#' @inheritParams scale_colour_gradient
+#' @inheritDotParams binned_scale -aesthetics -scale_name -palette -na.value -guide -rescaler
+#'
 #' @seealso [scales::seq_gradient_pal()] for details on underlying
 #'   palette
 #' @family colour scales
@@ -24,51 +24,23 @@
 #' df <- data.frame(
 #'   x = runif(100),
 #'   y = runif(100),
-#'   z1 = rnorm(100),
-#'   z2 = abs(rnorm(100))
+#'   z1 = rnorm(100)
 #' )
 #'
-#' df_na <- data.frame(
-#'   value = seq(1, 20),
-#'   x = runif(20),
-#'   y = runif(20),
-#'   z1 = c(rep(NA, 10), rnorm(10))
-#' )
-#'
-#' # Default colour scale colours from light blue to dark blue
-#' ggplot(df, aes(x, y)) +
-#'   geom_point(aes(colour = z2))
-#'
-#' # For diverging colour scales use gradient2
+#' # Use scale_colour_steps for a standard binned gradient
 #' ggplot(df, aes(x, y)) +
 #'   geom_point(aes(colour = z1)) +
-#'   scale_colour_gradient2()
+#'   scale_colour_steps()
 #'
-#' # Use your own colour scale with gradientn
+#' # Get a divergent binned scale with the *2 variant
 #' ggplot(df, aes(x, y)) +
 #'   geom_point(aes(colour = z1)) +
-#'   scale_colour_gradientn(colours = terrain.colors(10))
+#'   scale_colour_steps2()
 #'
-#' # Equivalent fill scales do the same job for the fill aesthetic
-#' ggplot(faithfuld, aes(waiting, eruptions)) +
-#'   geom_raster(aes(fill = density)) +
-#'   scale_fill_gradientn(colours = terrain.colors(10))
-#'
-#' # Adjust colour choices with low and high
+#' # Define your own colour ramp to extract binned colours from
 #' ggplot(df, aes(x, y)) +
-#'   geom_point(aes(colour = z2)) +
-#'   scale_colour_gradient(low = "white", high = "black")
-#' # Avoid red-green colour contrasts because ~10% of men have difficulty
-#' # seeing them
-#'
-#'# Use `na.value = NA` to hide missing values but keep the original axis range
-#' ggplot(df_na, aes(x = value, y)) +
-#'   geom_bar(aes(fill = z1), stat = "identity") +
-#'   scale_fill_gradient(low = "yellow", high = "red", na.value = NA)
-#'
-#'  ggplot(df_na, aes(x, y)) +
-#'    geom_point(aes(colour = z1)) +
-#'    scale_colour_gradient(low = "yellow", high = "red", na.value = NA)
+#'   geom_point(aes(colour = z1)) +
+#'   scale_colour_stepsn(colours = terrain.colors(10))
 #'
 
 #' @rdname scale_steps

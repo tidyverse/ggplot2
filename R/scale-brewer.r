@@ -8,7 +8,8 @@
 #'
 #' @note
 #' The `distiller` scales extend brewer to continuous scales by smoothly
-#' interpolating 7 colours from any palette to a continuous scale.
+#' interpolating 7 colours from any palette to a continuous scale. The `blender`
+#' scales provide binned versions of the brewer scales.
 #'
 #' @details
 #' The `brewer` scales were carefully designed and tested on discrete data.
@@ -32,9 +33,9 @@
 #' @param palette If a string, will use that named palette. If a number, will index into
 #'   the list of palettes of appropriate `type`. The list of available palettes can found
 #'   in the Palettes section.
-#' @param ... Other arguments passed on to [discrete_scale()] or, for
-#'   `distiller` scales, [continuous_scale()] to control name,
-#'   limits, breaks, labels and so forth.
+#' @param ... Other arguments passed on to [discrete_scale()], [continuous_scale()],
+#'   or [binned_scale()], for `brewer`, `distiller`, and `blender` variants
+#'   respectively, to control name, limits, breaks, labels and so forth.
 #' @family colour scales
 #' @rdname scale_brewer
 #' @export
@@ -69,6 +70,10 @@
 #' v
 #' v + scale_fill_distiller()
 #' v + scale_fill_distiller(palette = "Spectral")
+#'
+#' # or use blender variants to discretize continuous data
+#' v + scale_fill_blender()
+#'
 scale_colour_brewer <- function(..., type = "seq", palette = 1, direction = 1, aesthetics = "colour") {
   discrete_scale(aesthetics, "brewer", brewer_pal(type, palette, direction), ...)
 }

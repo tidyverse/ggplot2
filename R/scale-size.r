@@ -4,10 +4,13 @@
 #' aesthetic is most commonly used for points and text, and humans perceive
 #' the area of points (not their radius), so this provides for optimal
 #' perception. `scale_size_area` ensures that a value of 0 is mapped
-#' to a size of 0.
+#' to a size of 0. `scale_size_binned` is a binned version of `scale_size` that
+#' scales by area (but does not ensure 0 equals an area of zero). For a binned
+#' equivalent of `scale_size_area` use `scale_size_binned_area`.
 #'
 #' @name scale_size
 #' @inheritParams continuous_scale
+#' @inheritParams binned_scale
 #' @param range a numeric vector of length 2 that specifies the minimum and
 #'   maximum size of the plotting symbol after transformation.
 #' @seealso [scale_size_area()] if you want 0 values to be mapped
@@ -21,6 +24,9 @@
 #'
 #' # If you want zero value to have zero size, use scale_size_area:
 #' p + scale_size_area()
+#'
+#' # Binning can sometimes make it easier to match the scaled data to the legend
+#' p + scale_size_binned()
 #'
 #' # This is most useful when size is a count
 #' ggplot(mpg, aes(class, cyl)) +
@@ -47,10 +53,10 @@ scale_size_continuous <- function(name = waiver(), breaks = waiver(), labels = w
 #' @usage NULL
 scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
                               limits = NULL, range = c(1, 6), n.breaks = NULL,
-                              trans = "identity", guide = "bins") {
+                              nice.breaks = TRUE, trans = "identity", guide = "bins") {
   binned_scale("size", "area_b", area_pal(range), name = name,
     breaks = breaks, labels = labels, limits = limits, trans = trans,
-    n.breaks = n.breaks, guide = guide)
+    n.breaks = n.breaks, nice.breaks = nice.breaks, guide = guide)
 }
 
 #' @rdname scale_size
@@ -100,6 +106,14 @@ scale_size_area <- function(..., max_size = 6) {
   continuous_scale("size", "area",
     palette = abs_area(max_size),
     rescaler = rescale_max, ...)
+}
+
+#' @export
+#' @rdname scale_size
+scale_size_binned_area <- function(..., max_size = 6) {
+  binned_scale("size", "area_b",
+               palette = abs_area(max_size),
+               rescaler = rescale_max, ...)
 }
 
 #' @rdname scale_size

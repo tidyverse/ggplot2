@@ -8,6 +8,7 @@
 \alias{scale_size_discrete}
 \alias{scale_size_ordinal}
 \alias{scale_size_area}
+\alias{scale_size_binned_area}
 \alias{scale_size_datetime}
 \alias{scale_size_date}
 \title{Scales for area or radius}
@@ -21,6 +22,8 @@ scale_size(name = waiver(), breaks = waiver(), labels = waiver(),
   guide = "legend")
 
 scale_size_area(..., max_size = 6)
+
+scale_size_binned_area(..., max_size = 6)
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -77,6 +80,15 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
+
+\item{n.breaks}{The number of break points to create if breaks are not given
+directly.}
+
+\item{nice.breaks}{Logical. Should breaks be attempted placed at nice values
+instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
+the scale will ask the transformation object to create breaks, and this
+may result in a different number of breaks than requested. Ignored if
+breaks are given explicetly.}
 
 \item{...}{Arguments passed on to \code{continuous_scale}
 \describe{
@@ -162,7 +174,9 @@ expand the scale by 5\% on each side for continuous variables, and by
 aesthetic is most commonly used for points and text, and humans perceive
 the area of points (not their radius), so this provides for optimal
 perception. \code{scale_size_area} ensures that a value of 0 is mapped
-to a size of 0.
+to a size of 0. \code{scale_size_binned} is a binned version of \code{scale_size} that
+scales by area (but does not ensure 0 equals an area of zero). For a binned
+equivalent of \code{scale_size_area} use \code{scale_size_binned_area}.
 }
 \examples{
 p <- ggplot(mpg, aes(displ, hwy, size = hwy)) +
@@ -173,6 +187,9 @@ p + scale_size(range = c(0, 10))
 
 # If you want zero value to have zero size, use scale_size_area:
 p + scale_size_area()
+
+# Binning can sometimes make it easier to match the scaled data to the legend
+p + scale_size_binned()
 
 # This is most useful when size is a count
 ggplot(mpg, aes(class, cyl)) +

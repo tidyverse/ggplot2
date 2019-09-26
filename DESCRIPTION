@@ -155,6 +155,7 @@ Collate:
     'grouping.r'
     'guide-bins.R'
     'guide-colorbar.r'
+    'guide-colorsteps.R'
     'guide-legend.r'
     'guides-.r'
     'guides-axis.r'

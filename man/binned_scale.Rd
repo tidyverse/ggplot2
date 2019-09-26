@@ -7,9 +7,9 @@
 binned_scale(aesthetics, scale_name, palette, name = waiver(),
   breaks = waiver(), labels = waiver(), limits = NULL,
   rescaler = rescale, oob = squish, expand = waiver(),
-  na.value = NA_real_, n.breaks = NULL, right = TRUE,
-  trans = "identity", show.limits = FALSE, guide = "bins",
-  position = "left", super = ScaleBinned)
+  na.value = NA_real_, n.breaks = NULL, nice.breaks = TRUE,
+  right = TRUE, trans = "identity", show.limits = FALSE,
+  guide = "bins", position = "left", super = ScaleBinned)
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
@@ -84,8 +84,13 @@ expand the scale by 5\% on each side for continuous variables, and by
 \item{na.value}{Missing values will be replaced with this value.}
 
 \item{n.breaks}{The number of break points to create if breaks are not given
-directly. It will attempt to find nice breakpoint and may thus not give the
-exact number of breaks as requested.}
+directly.}
+
+\item{nice.breaks}{Logical. Should breaks be attempted placed at nice values
+instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
+the scale will ask the transformation object to create breaks, and this
+may result in a different number of breaks than requested. Ignored if
+breaks are given explicetly.}
 
 \item{right}{Should values on the border between bins be part of the right
 (upper) bin?}

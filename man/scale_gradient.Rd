@@ -7,7 +7,6 @@
 \alias{scale_fill_gradient2}
 \alias{scale_colour_gradientn}
 \alias{scale_fill_gradientn}
-\alias{scale_colour_binned}
 \alias{scale_colour_datetime}
 \alias{scale_color_datetime}
 \alias{scale_colour_date}
@@ -16,7 +15,6 @@
 \alias{scale_fill_date}
 \alias{scale_color_binned}
 \alias{scale_color_gradient}
-\alias{scale_color_steps}
 \alias{scale_color_gradient2}
 \alias{scale_color_gradientn}
 \title{Gradient colour scales}

@@ -3,8 +3,6 @@
 \name{guide_colourbar}
 \alias{guide_colourbar}
 \alias{guide_colorbar}
-\alias{guide_coloursteps}
-\alias{guide_colorsteps}
 \title{Continuous colour bar guide}
 \usage{
 guide_colourbar(title = waiver(), title.position = NULL,
@@ -28,12 +26,6 @@ guide_colorbar(title = waiver(), title.position = NULL,
   draw.llim = TRUE, direction = NULL, default.unit = "line",
   reverse = FALSE, order = 0, available_aes = c("colour", "color",
   "fill"), ...)
-
-guide_coloursteps(even.steps = TRUE, show.limits = NULL,
-  ticks = FALSE, nbin = 100, ...)
-
-guide_colorsteps(even.steps = TRUE, show.limits = NULL,
-  ticks = FALSE, nbin = 100, ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -128,12 +120,6 @@ If 0 (default), the order is determined by a secret algorithm.}
 for which a colourbar can be drawn.}
 
 \item{...}{ignored.}
-
-\item{even.steps}{Should the bin sizes reflect their size or be even across all
-bins? Defaults to \code{TRUE}}
-
-\item{show.limits}{Should labels for the outer limits of the bins be printed?
-Default is \code{NULL} which makes the guide use the setting from the scale}
 }
 \value{
 A guide object
@@ -200,7 +186,8 @@ p2 +
   scale_size(guide = guide_legend(direction = "vertical"))
 }
 \seealso{
-Other guides: \code{\link{guide_legend}},
-  \code{\link{guides}}
+Other guides: \code{\link{guide_bins}},
+  \code{\link{guide_coloursteps}},
+  \code{\link{guide_legend}}, \code{\link{guides}}
 }
 \concept{guides}

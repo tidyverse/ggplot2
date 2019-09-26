@@ -190,18 +190,22 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
 #'
 #' @inheritParams continuous_scale
 #' @param n.breaks The number of break points to create if breaks are not given
-#' directly. It will attempt to find nice breakpoint and may thus not give the
-#' exact number of breaks as requested.
+#'   directly.
+#' @param nice.breaks Logical. Should breaks be attempted placed at nice values
+#'   instead of exactly evenly spaced between the limits. If `TRUE` (default)
+#'   the scale will ask the transformation object to create breaks, and this
+#'   may result in a different number of breaks than requested. Ignored if
+#'   breaks are given explicetly.
 #' @param right Should values on the border between bins be part of the right
-#' (upper) bin?
+#'   (upper) bin?
 #' @param show.limits should the limits of the scale appear as ticks
 #' @keywords internal
 binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
                          breaks = waiver(), labels = waiver(), limits = NULL,
                          rescaler = rescale, oob = squish, expand = waiver(),
-                         na.value = NA_real_, n.breaks = NULL, right = TRUE,
-                         trans = "identity", show.limits = FALSE, guide = "bins",
-                         position = "left", super = ScaleBinned) {
+                         na.value = NA_real_, n.breaks = NULL, nice.breaks = TRUE,
+                         right = TRUE, trans = "identity", show.limits = FALSE,
+                         guide = "bins", position = "left", super = ScaleBinned) {
 
   aesthetics <- standardise_aes_names(aesthetics)
 
@@ -233,6 +237,7 @@ binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     rescaler = rescaler,
     oob = oob,
     n.breaks = n.breaks,
+    nice.breaks = nice.breaks,
     right = right,
     show.limits = show.limits,
 
@@ -876,6 +881,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
   rescaler = rescale,
   oob = squish,
   n.breaks = NULL,
+  nice.breaks = TRUE,
   right = TRUE,
   after.stat = FALSE,
   show.limits = FALSE,
@@ -905,9 +911,10 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       x
     } else {
       breaks <- self$get_breaks(limits)
+      breaks <- sort(unique(c(limits[1], breaks, limits[2])))
 
       x <- self$rescale(self$oob(x, range = limits), limits)
-      breaks <- self$rescale(c(limits[1], breaks, limits[2]), limits)
+      breaks <- self$rescale(breaks, limits)
 
       x_binned <- cut(x, breaks,
         labels = FALSE,
@@ -944,16 +951,25 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
     } else if (identical(self$breaks, NA)) {
       stop("Invalid breaks specification. Use NULL, not NA", call. = FALSE)
     } else if (is.waive(self$breaks)) {
-      if (!is.null(self$n.breaks) && "n" %in% names(formals(self$trans$breaks))) {
-        breaks <- self$trans$breaks(limits, n = self$n.breaks)
-      } else {
-        if (!is.null(self$n.breaks)) {
-          warning("Ignoring n.breaks. Use a trans object that supports setting number of breaks", call. = FALSE)
+      if (self$nice.breaks) {
+        if (!is.null(self$n.breaks) && "n" %in% names(formals(self$trans$breaks))) {
+          breaks <- self$trans$breaks(limits, n = self$n.breaks)
+        } else {
+          if (!is.null(self$n.breaks)) {
+            warning("Ignoring n.breaks. Use a trans object that supports setting number of breaks", call. = FALSE)
+          }
+          breaks <- self$trans$breaks(limits)
         }
-        breaks <- self$trans$breaks(limits)
+      } else {
+        n.breaks <- self$n.breaks %||% 5 # same default as trans objects
+        breaks <- seq(limits[1], limits[2], length.out = n.breaks + 2)
+        breaks <- breaks[-c(1, length(breaks))]
       }
+
       # Ensure terminal bins are same width if limits not set
       if (is.null(self$limits)) {
+        # Remove calculated breaks if they coincide with limits
+        breaks <- setdiff(breaks, limits)
         nbreaks <- length(breaks)
         if (nbreaks >= 2) {
           new_limits <- c(2 * breaks[1] - breaks[2], 2 * breaks[nbreaks] - breaks[nbreaks - 1])

@@ -1,5 +1,9 @@
 # ggplot2 (development version)
 
+* A new scale type has been added, that allows binning of aesthetics at the 
+  scale level. It has versions for both position and non-position aesthetics and
+  comes with two new guides (`guide_bins` and `guide_coloursteps`) (@thomasp85, #3096)
+
 * `Geom` now gains a `setup_params()` method in line with the other ggproto
   classes (@thomasp85, #3509)
 

@@ -5,15 +5,17 @@
 \alias{scale_y_binned}
 \title{Positional scales for binning continuous data (x & y)}
 \usage{
-scale_x_binned(name = waiver(), n.breaks = 10, breaks = waiver(),
-  labels = waiver(), limits = NULL, expand = waiver(),
-  oob = squish, na.value = NA_real_, right = TRUE,
-  show.limits = FALSE, trans = "identity", position = "bottom")
+scale_x_binned(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
+  breaks = waiver(), labels = waiver(), limits = NULL,
+  expand = waiver(), oob = squish, na.value = NA_real_,
+  right = TRUE, show.limits = FALSE, trans = "identity",
+  position = "bottom")
 
-scale_y_binned(name = waiver(), n.breaks = 10, breaks = waiver(),
-  labels = waiver(), limits = NULL, expand = waiver(),
-  oob = squish, na.value = NA_real_, right = TRUE,
-  show.limits = FALSE, trans = "identity", position = "left")
+scale_y_binned(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
+  breaks = waiver(), labels = waiver(), limits = NULL,
+  expand = waiver(), oob = squish, na.value = NA_real_,
+  right = TRUE, show.limits = FALSE, trans = "identity",
+  position = "left")
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -22,8 +24,13 @@ mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
 
 \item{n.breaks}{The number of break points to create if breaks are not given
-directly. It will attempt to find nice breakpoint and may thus not give the
-exact number of breaks as requested.}
+directly.}
+
+\item{nice.breaks}{Logical. Should breaks be attempted placed at nice values
+instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
+the scale will ask the transformation object to create breaks, and this
+may result in a different number of breaks than requested. Ignored if
+breaks are given explicetly.}
 
 \item{breaks}{One of:
 \itemize{

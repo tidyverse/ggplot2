@@ -1,3 +1,48 @@
+#' A binned version of guide_legend
+#'
+#' This guide is a version of the [guide_legend()] guide for binned scales. It
+#' differs in that it places ticks correctly between the keys, and sports a
+#' small axis to better show the binning. Like [guide_legend()] it can be used
+#' for all non-position aesthetics though colour and fill defaults to
+#' [guide_coloursteps()], and it will merge aesthetics together into the same
+#' guide if they are mapped in the same way.
+#'
+#' @inheritParams guide_legend
+#' @param axis Logical. Should a small axis be drawn along the guide
+#' @param axis.colour,axis.linewidth Graphic specifications for the look of the
+#'   axis.
+#' @param axis.arrow A call to `arrow()` to specify arrows at the end of the
+#'   axis line, thus showing an open interval.
+#' @param show.limits Logical. Should the limits of the scale be shown with
+#'   labels and ticks.
+#'
+#' @return A guide object
+#' @family guides
+#' @export
+#'
+#' @examples
+#' p <- ggplot(mtcars) +
+#'   geom_point(aes(disp, mpg, size = hp)) +
+#'   scale_size_binned()
+#'
+#' # Standard look
+#' p
+#'
+#' # Remove the axis or style it
+#' p + guides(size = guide_bins(axis = FALSE))
+#'
+#' p + guides(size = guide_bins(show.limits = TRUE))
+#'
+#' p + guides(size = guide_bins(
+#'   axis.arrow = arrow(length = unit(1.5, 'mm'), ends = 'both')
+#' ))
+#'
+#' # Guides are merged together if possible
+#' ggplot(mtcars) +
+#'   geom_point(aes(disp, mpg, size = hp, colour = hp)) +
+#'   scale_size_binned() +
+#'   scale_colour_binned(guide = "bins")
+#'
 guide_bins <- function(
   # title
   title = waiver(),

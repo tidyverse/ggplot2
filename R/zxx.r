@@ -18,11 +18,6 @@ scale_color_ordinal <- scale_colour_ordinal
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_colour_binned <- scale_colour_steps
-
-#' @export
-#' @rdname scale_gradient
-#' @usage NULL
 scale_colour_datetime <- function(...,
                                   low = "#132B43",
                                   high = "#56B1F7",
@@ -141,6 +136,11 @@ scale_color_blender <- scale_colour_blender
 scale_color_continuous <- scale_colour_continuous
 
 #' @export
+#' @rdname scale_colour_continuous
+#' @usage NULL
+scale_color_binned <- scale_colour_binned
+
+#' @export
 #' @rdname scale_gradient
 #' @usage NULL
 scale_color_binned <- scale_colour_binned
@@ -158,17 +158,27 @@ scale_color_gradient <- scale_colour_gradient
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
-scale_color_steps <- scale_colour_steps
-
-#' @export
-#' @rdname scale_gradient
-#' @usage NULL
 scale_color_gradient2 <- scale_colour_gradient2
 
 #' @export
 #' @rdname scale_gradient
 #' @usage NULL
 scale_color_gradientn <- scale_colour_gradientn
+
+#' @export
+#' @rdname scale_steps
+#' @usage NULL
+scale_color_steps <- scale_colour_steps
+
+#' @export
+#' @rdname scale_steps
+#' @usage NULL
+scale_color_steps2 <- scale_colour_steps2
+
+#' @export
+#' @rdname scale_steps
+#' @usage NULL
+scale_color_stepsn <- scale_colour_stepsn
 
 #' @export
 #' @rdname scale_grey
