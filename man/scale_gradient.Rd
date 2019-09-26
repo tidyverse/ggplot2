@@ -13,7 +13,6 @@
 \alias{scale_color_date}
 \alias{scale_fill_datetime}
 \alias{scale_fill_date}
-\alias{scale_color_binned}
 \alias{scale_color_gradient}
 \alias{scale_color_gradient2}
 \alias{scale_color_gradientn}

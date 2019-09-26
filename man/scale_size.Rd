@@ -3,8 +3,8 @@
 \name{scale_size}
 \alias{scale_size}
 \alias{scale_size_continuous}
-\alias{scale_size_binned}
 \alias{scale_radius}
+\alias{scale_size_binned}
 \alias{scale_size_discrete}
 \alias{scale_size_ordinal}
 \alias{scale_size_area}
@@ -13,13 +13,18 @@
 \alias{scale_size_date}
 \title{Scales for area or radius}
 \usage{
+scale_size(name = waiver(), breaks = waiver(), labels = waiver(),
+  limits = NULL, range = c(1, 6), trans = "identity",
+  guide = "legend")
+
 scale_radius(name = waiver(), breaks = waiver(), labels = waiver(),
   limits = NULL, range = c(1, 6), trans = "identity",
   guide = "legend")
 
-scale_size(name = waiver(), breaks = waiver(), labels = waiver(),
-  limits = NULL, range = c(1, 6), trans = "identity",
-  guide = "legend")
+scale_size_binned(name = waiver(), breaks = waiver(),
+  labels = waiver(), limits = NULL, range = c(1, 6),
+  n.breaks = NULL, nice.breaks = TRUE, trans = "identity",
+  guide = "bins")
 
 scale_size_area(..., max_size = 6)
 
