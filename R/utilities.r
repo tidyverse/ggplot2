@@ -431,10 +431,43 @@ switch_orientation <- function(aesthetics) {
 #' `flipped_names()` provides a named list of aesthetic names that corresponds
 #' to the orientation of the layer.
 #'
+#' @section Controlling the sniffing:
+#' How the layer data should be interpreted depends on its specific features.
+#' `has_flipped_aes()` contains a range of flags for defining what certain
+#' features in the data correspond to:
+#'
+#' - `main_is_orthogonal`: This argument controls how the existence of only a `x`
+#'   or `y` aesthetic is understood. If `TRUE` then the exisiting aesthetic
+#'   would be then secondary axis. This behaviour is present in [stat_ydensity()]
+#'   and [stat_boxplot()]. If `FALSE` then the exisiting aesthetic is the main
+#'   axis as seen in e.g. [stat_histogram()], [geom_count()], and [stat_density()].
+#' - `range_is_orthogonal`: This argument controls whether the existance of
+#'   range-like aesthetics (e.g. `xmin` and `xmax`) represents the main or
+#'   secondary axis. If `TRUE` then the range is given for the secondary axis as
+#'   seen in e.g. [geom_ribbon()] and [geom_linerange()]. `FALSE` is less
+#'   prevalent but can be seen in [geom_bar()] where it may encode the span of
+#'   each bar.
+#' - `group_has_equal`: This argument controls whether to test for equality of
+#'   all `x` and `y` values inside each group and set the main axis to the one
+#'   where all is equal. This test is only performed if `TRUE`, and only after
+#'   less computationally heavy tests has come up empty handed. Examples are
+#'   [stat_boxplot()] and [stat_ydensity]
+#' - `ambiguous`: This argument tells the function that the layer, while
+#'   bidirectional, doesn't treat each axis differently. It will circumvent any
+#'   data based guessing and only take hint from the `orientation` element in
+#'   `params`. If this is not present it will fall back to `FALSE`. Examples are
+#'   [geom_line()] and [geom_area()]
+#' - `main_is_continuous`: This argument controls how the test for discreteness
+#'   in the scales should be interpreted. If `TRUE` then the main axis will be
+#'   the one which is not discrete-like. Conversely, if `FALSE` the main axis
+#'   will be the discrete-like one. Examples of `TRUE` is [stat_density()] and
+#'   [stat_histogram()], while examples of `FALSE` is [stat_ydensity()] and
+#'   [stat_boxplot()]
+#'
 #' @param data The layer data
 #' @param params The parameters of the `Stat`/`Geom`. Only the `orientation`
 #' parameter will be used.
-#' @param main_is_orthogonal If only `x` or `y` are present does they correspond
+#' @param main_is_orthogonal If only `x` or `y` are present do they correspond
 #' to the main orientation or the reverse. E.g. If `TRUE` and `y` is present it
 #' is not flipped. If `NA` this check will be ignored.
 #' @param range_is_orthogonal If `xmin`/`xmax` or `ymin`/`ymax` is present do
@@ -445,7 +478,7 @@ switch_orientation <- function(aesthetics) {
 #' @param ambiguous Is the layer ambiguous in its mapping by nature. If so, it
 #' will only be flipped if `params$orientation == "y"`
 #' @param main_is_continuous If there is a discrete and continuous axis, does
-#' the continuous one correspond to the main orientation.
+#' the continuous one correspond to the main orientation?
 #' @param flip Logical. Is the layer flipped.
 #'
 #' @return `has_flipped_aes()` returns `TRUE` if it detects a layer in the other
@@ -458,14 +491,14 @@ switch_orientation <- function(aesthetics) {
 #'
 #' @export
 #' @keywords internal
-#' @name omnidirection
+#' @name bidirection
 #'
 has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
                             range_is_orthogonal = NA, group_has_equal = FALSE,
                             ambiguous = FALSE, main_is_continuous = FALSE) {
   # Is orientation already encoded in data?
   if (!is.null(data$flipped_aes)) {
-    return(data$flipped_aes[1])
+    return(data$flipped_aes[[1]])
   }
 
   # Is orientation requested in the params
@@ -480,6 +513,28 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
 
   has_x <- !is.null(data$x)
   has_y <- !is.null(data$y)
+
+  # Does a provided range indicate an orientation
+  if (!is.na(range_is_orthogonal)) {
+    if (any(c("ymin", "ymax") %in% names(data))) {
+      return(!range_is_orthogonal)
+    }
+    if (any(c("xmin", "xmax") %in% names(data))) {
+      return(range_is_orthogonal)
+    }
+  }
+
+  # If ambiguous orientation = NA will give FALSE
+  if (ambiguous && (is.null(params$orientation) || is.na(params$orientation))) {
+    return(FALSE)
+  }
+
+  # Is there a single actual discrete position
+  y_is_int <- is.integer(data$y)
+  x_is_int <- is.integer(data$x)
+  if (xor(y_is_int, x_is_int)) {
+    return(y_is_int != main_is_continuous)
+  }
 
   # Does each group have a single x or y value
   if (group_has_equal) {
@@ -497,31 +552,11 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
     }
   }
 
-  # Does a provided range indicate an orientation
-  if (!is.na(range_is_orthogonal)) {
-    if (any(c("ymin", "ymax") %in% names(data))) {
-      return(!range_is_orthogonal)
-    }
-    if (any(c("xmin", "xmax") %in% names(data))) {
-      return(range_is_orthogonal)
-    }
-  }
-
-  # If ambiguous orientation = NA will give FALSE
-  if (ambiguous && (is.null(params$orientation) || is.na(params$orientation))) {
-    return(FALSE)
-  }
-
   # give up early
   if (!has_x && !has_y) {
     return(FALSE)
   }
-  # Is there a single actual discrete position
-  y_is_int <- is.integer(data$y)
-  x_is_int <- is.integer(data$x)
-  if (xor(y_is_int, x_is_int)) {
-    return(y_is_int != main_is_continuous)
-  }
+
   # Both true discrete. give up
   if (y_is_int && x_is_int) {
     return(FALSE)

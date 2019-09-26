@@ -71,7 +71,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
 
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params)
+    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE)
     params
   },
 
