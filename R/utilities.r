@@ -418,7 +418,7 @@ switch_orientation <- function(aesthetics) {
   aesthetics
 }
 
-#' Utilities for working with omnidirecitonal layers
+#' Utilities for working with bidirecitonal layers
 #'
 #' These functions are what underpins the ability of certain geoms to work
 #' automatically in both directions. See the *Extending ggplot2* for how they
@@ -554,7 +554,7 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   # default to no
   FALSE
 }
-#' @rdname omnidirection
+#' @rdname bidirection
 #' @export
 flip_data <- function(data, flip = NULL) {
   flip <- flip %||% data$flipped_aes[1] %||% FALSE
@@ -563,7 +563,7 @@ flip_data <- function(data, flip = NULL) {
   }
   data
 }
-#' @rdname omnidirection
+#' @rdname bidirection
 #' @export
 flipped_names <- function(flip = FALSE) {
   x_aes <- ggplot_global$x_aes
