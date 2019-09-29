@@ -158,6 +158,7 @@ Collate:
     'guides-.r'
     'guides-axis.r'
     'guides-grid.r'
+    'guides-none.r'
     'hexbin.R'
     'labeller.r'
     'labels.r'

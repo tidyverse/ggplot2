@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+* Position guides can now be customized using the new `guide_axis()`,
+  which can be passed to position `scale_*()` functions or via
+  `guides()`. The new axis guide (`guide_axis()`) comes with
+  arguments `check.overlap` (automatic removal of overlapping
+  labels), `angle` (easy rotation of axis labels), and
+  `n.dodge` (dodge labels into multiple rows/columns) (@paleolimbot, #3322).
+
 * `Geom` now gains a `setup_params()` method in line with the other ggproto
   classes (@thomasp85, #3509)
 

@@ -1,4 +1,165 @@
 
+#' Axis guide
+#'
+#' Axis guides are the visual representation of position scales like those
+#' created with [scale_(x|y)_continuous()][scale_x_continuous()] and
+#' [scale_(x|y)_discrete()][scale_x_discrete()].
+#'
+#' @inheritParams guide_legend
+#' @param check.overlap silently remove overlapping labels,
+#'   (recursively) prioritizing the first, last, and middle labels.
+#' @param angle Compared to setting the angle in [theme()] / [element_text()],
+#'   this also uses some heuristics to automatically pick the `hjust` and `vjust` that
+#'   you probably want.
+#' @param n.dodge The number of rows (for vertical axes) or columns (for
+#'   horizontal axes) that should be used to render the labels. This is
+#'   useful for displaying labels that would otherwise overlap.
+#' @param order Used to determine the order of the guides (left-to-right,
+#'   top-to-bottom), if more than one  guide must be drawn at the same location.
+#' @param position Where this guide should be drawn: one of top, bottom,
+#'   left, or right.
+#'
+#' @export
+#'
+#' @examples
+#' # plot with overlapping text
+#' p <- ggplot(mpg, aes(cty * 100, hwy * 100)) +
+#'   geom_point() +
+#'   facet_wrap(vars(class))
+#'
+#' # axis guides can be customized in the scale_* functions or
+#' # using guides()
+#' p + scale_x_continuous(guide = guide_axis(n.dodge = 2))
+#' p + guides(x = guide_axis(angle = 90))
+#'
+#' # can also be used to add a duplicate guide
+#' p + guides(x = guide_axis(n.dodge = 2), y.sec = guide_axis())
+#'
+#'
+guide_axis <- function(title = waiver(), check.overlap = FALSE, angle = NULL, n.dodge = 1,
+                       order = 0, position = waiver()) {
+  structure(
+    list(
+      title = title,
+
+      # customizations
+      check.overlap = check.overlap,
+      angle = angle,
+      n.dodge = n.dodge,
+
+      # general
+      order = order,
+      position = position,
+
+      # parameter
+      available_aes = c("x", "y"),
+
+      name = "axis"
+    ),
+    class = c("guide", "axis")
+  )
+}
+
+#' @export
+guide_train.axis <- function(guide, scale, aesthetic = NULL) {
+
+  aesthetic <- aesthetic %||% scale$aesthetics[1]
+  breaks <- scale$get_breaks()
+
+  empty_ticks <- new_data_frame(
+    list(aesthetic = numeric(0), .value = numeric(0), .label = character(0))
+  )
+  names(empty_ticks) <- c(aesthetic, ".value", ".label")
+
+  if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
+    warning(
+      "axis guide needs appropriate scales: ",
+      paste(guide$available_aes, collapse = ", "),
+      call. = FALSE
+    )
+    guide$key <- empty_ticks
+  } else if (length(breaks) == 0) {
+    guide$key <- empty_ticks
+  } else {
+    ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic))
+    ticks$.value <- breaks
+    ticks$.label <- scale$get_labels(breaks)
+
+    if (is.list(ticks$.label)) {
+      if (any(sapply(ticks$.label, is.language))) {
+        ticks$.label <- do.call(expression, ticks$.label)
+      } else {
+        ticks$.label <- unlist(ticks$.label)
+      }
+    }
+
+    guide$key <- ticks
+  }
+
+  guide$name <- paste0(guide$name, "_", aesthetic)
+  guide$hash <- digest::digest(list(guide$title, guide$key$.value, guide$key$.label, guide$name))
+  guide
+}
+
+#' @export
+guide_transform.axis <- function(guide, coord, panel_params) {
+  if (is.null(guide$position) || nrow(guide$key) == 0) {
+    return(guide)
+  }
+
+  aesthetics <- names(guide$key)[!grepl("^\\.", names(guide$key))]
+
+  if (all(c("x", "y") %in% aesthetics)) {
+    guide$key <- coord$transform(guide$key, panel_params)
+  } else {
+    other_aesthetic <- setdiff(c("x", "y"), aesthetics)
+    override_value <- if (guide$position %in% c("bottom", "left")) -Inf else Inf
+    guide$key[[other_aesthetic]] <- override_value
+
+    guide$key <- coord$transform(guide$key, panel_params)
+
+    warn_for_guide_position(guide)
+  }
+
+  guide
+}
+
+# discards the new guide with a warning
+#' @export
+guide_merge.axis <- function(guide, new_guide) {
+  if (!inherits(guide, "guide_none")) {
+    warning(
+      "guide_axis(): Discarding guide on merge. ",
+      "Do you have more than one guide with the same position?",
+      call. = FALSE
+    )
+  }
+
+  guide
+}
+
+# axis guides don't care which geometry uses these aesthetics
+#' @export
+guide_geom.axis <- function(guide, layers, default_mapping) {
+  guide
+}
+
+#' @export
+guide_gengrob.axis <- function(guide, theme) {
+  aesthetic <- names(guide$key)[!grepl("^\\.", names(guide$key))][1]
+
+  draw_axis(
+    break_positions = guide$key[[aesthetic]],
+    break_labels = guide$key$.label,
+    axis_position = guide$position,
+    theme = theme,
+    check.overlap = guide$check.overlap,
+    angle = guide$angle,
+    n.dodge = guide$n.dodge
+  )
+}
+
+
 #' Grob for axes
 #'
 #' @param break_position position of ticks
@@ -10,14 +171,14 @@
 #' @param angle Compared to setting the angle in [theme()] / [element_text()],
 #'   this also uses some heuristics to automatically pick the `hjust` and `vjust` that
 #'   you probably want.
-#' @param n_dodge The number of rows (for vertical axes) or columns (for
+#' @param n.dodge The number of rows (for vertical axes) or columns (for
 #'   horizontal axes) that should be used to render the labels. This is
 #'   useful for displaying labels that would otherwise overlap.
 #'
 #' @noRd
 #'
 draw_axis <- function(break_positions, break_labels, axis_position, theme,
-                      check.overlap = FALSE, angle = NULL, n_dodge = 1) {
+                      check.overlap = FALSE, angle = NULL, n.dodge = 1) {
 
   axis_position <- match.arg(axis_position, c("top", "bottom", "right", "left"))
   aesthetic <- if (axis_position %in% c("top", "bottom")) "x" else "y"
@@ -96,7 +257,7 @@ draw_axis <- function(break_positions, break_labels, axis_position, theme,
   }
 
   # calculate multiple rows/columns of labels (which is usually 1)
-  dodge_pos <- rep(seq_len(n_dodge), length.out = n_breaks)
+  dodge_pos <- rep(seq_len(n.dodge), length.out = n_breaks)
   dodge_indices <- split(seq_len(n_breaks), dodge_pos)
 
   label_grobs <- lapply(dodge_indices, function(indices) {
@@ -254,5 +415,30 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
     )
   } else {
     stop("Unrecognized position: '", axis_position, "'", call. = FALSE)
+  }
+}
+
+warn_for_guide_position <- function(guide) {
+  if (empty(guide$key) || nrow(guide$key) == 1) {
+    return()
+  }
+
+  # this is trying to catch when a user specifies a position perpendicular
+  # to the direction of the axis (e.g., a "y" axis on "top")
+
+  if (guide$position %in% c("top", "bottom")) {
+    position_aes <- "x"
+  } else if(guide$position %in% c("left", "right")) {
+    position_aes <- "y"
+  } else {
+    return()
+  }
+
+  if (length(unique(guide$key[[position_aes]])) == 1) {
+    warning(
+      "Position guide is perpendicular to the intended axis. ",
+      "Did you mean to specify a different guide `position`?",
+      call. = FALSE
+    )
   }
 }
