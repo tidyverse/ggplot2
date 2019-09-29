@@ -8,10 +8,11 @@
 \alias{scale_colour_gradientn}
 \alias{scale_fill_gradientn}
 \alias{scale_colour_datetime}
+\alias{scale_color_datetime}
 \alias{scale_colour_date}
+\alias{scale_color_date}
 \alias{scale_fill_datetime}
 \alias{scale_fill_date}
-\alias{scale_color_continuous}
 \alias{scale_color_gradient}
 \alias{scale_color_gradient2}
 \alias{scale_color_gradientn}
@@ -86,15 +87,24 @@ as output
 Use \code{NA} to refer to the existing minimum or maximum
 \item A function that accepts the existing (automatic) limits and returns
 new limits
+Note that setting limits on positional scales will \strong{remove} data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see \code{\link[=coord_cartesian]{coord_cartesian()}}).
 }}
   \item{rescaler}{A function used to scale the input values to the
 range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
 diverging and n colour gradients (i.e., \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}},
 \code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
 scales, which ways use \code{\link[scales:rescale]{scales::rescale()}}.}
-  \item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
-bounds values with \code{NA}.}
+  \item{oob}{One of:
+\itemize{
+\item Function that handles limits outside of the scale limits
+(out of bounds).
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+bounds values with \code{NA}.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
+}}
   \item{trans}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
@@ -164,6 +174,13 @@ df <- data.frame(
   z2 = abs(rnorm(100))
 )
 
+df_na <- data.frame(
+  value = seq(1, 20),
+  x = runif(20),
+  y = runif(20),
+  z1 = c(rep(NA, 10), rnorm(10))
+)
+
 # Default colour scale colours from light blue to dark blue
 ggplot(df, aes(x, y)) +
   geom_point(aes(colour = z2))
@@ -189,6 +206,16 @@ ggplot(df, aes(x, y)) +
   scale_colour_gradient(low = "white", high = "black")
 # Avoid red-green colour contrasts because ~10\% of men have difficulty
 # seeing them
+
+# Use `na.value = NA` to hide missing values but keep the original axis range
+ggplot(df_na, aes(x = value, y)) +
+  geom_bar(aes(fill = z1), stat = "identity") +
+  scale_fill_gradient(low = "yellow", high = "red", na.value = NA)
+
+ ggplot(df_na, aes(x, y)) +
+   geom_point(aes(colour = z1)) +
+   scale_colour_gradient(low = "yellow", high = "red", na.value = NA)
+
 }
 \seealso{
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying

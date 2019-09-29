@@ -97,6 +97,8 @@ GeomSf <- ggproto("GeomSf", Geom,
                     stroke = 0.5
                   ),
 
+  non_missing_aes = c("size", "shape", "colour"),
+                  
   draw_panel = function(data, panel_params, coord, legend = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10) {
     if (!inherits(coord, "CoordSf")) {

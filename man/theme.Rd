@@ -23,11 +23,11 @@ theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
   panel.spacing.y, panel.grid, panel.grid.major, panel.grid.minor,
   panel.grid.major.x, panel.grid.major.y, panel.grid.minor.x,
   panel.grid.minor.y, panel.ontop, plot.background, plot.title,
-  plot.subtitle, plot.caption, plot.tag, plot.tag.position, plot.margin,
-  strip.background, strip.background.x, strip.background.y,
-  strip.placement, strip.text, strip.text.x, strip.text.y,
-  strip.switch.pad.grid, strip.switch.pad.wrap, ..., complete = FALSE,
-  validate = TRUE)
+  plot.title.position, plot.subtitle, plot.caption, plot.caption.position,
+  plot.tag, plot.tag.position, plot.margin, strip.background,
+  strip.background.x, strip.background.y, strip.placement, strip.text,
+  strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap,
+  ..., complete = FALSE, validate = TRUE)
 }
 \arguments{
 \item{line}{all line elements (\code{\link[=element_line]{element_line()}})}
@@ -152,6 +152,13 @@ inherits from \code{rect})}
 
 \item{plot.title}{plot title (text appearance) (\code{\link[=element_text]{element_text()}}; inherits
 from \code{title}) left-aligned by default}
+
+\item{plot.title.position, plot.caption.position}{Alignment of the plot title/subtitle
+and caption.  The setting for \code{plot.title.position} applies to both
+the title and the subtitle. A value of "panel" (the default) means that
+titles and/or caption are aligned to the plot panels. A value of "plot" means
+that titles and/or caption are aligned to the entire plot (minus any space
+for margins and plot tag).}
 
 \item{plot.subtitle}{plot subtitle (text appearance) (\code{\link[=element_text]{element_text()}};
 inherits from \code{title}) left-aligned by default}

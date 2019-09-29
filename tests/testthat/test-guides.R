@@ -44,6 +44,11 @@ test_that("show.legend handles named vectors", {
   p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
     geom_point(size = 20, show.legend = c(color = FALSE, shape = FALSE))
   expect_equal(n_legends(p), 0)
+
+  # c.f.https://github.com/tidyverse/ggplot2/issues/3461
+  p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
+    geom_point(size = 20, show.legend = c(shape = FALSE, color = TRUE))
+  expect_equal(n_legends(p), 1)
 })
 
 test_that("axis_label_overlap_priority always returns the correct number of elements", {

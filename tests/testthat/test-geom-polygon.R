@@ -3,15 +3,26 @@ context("geom-polygon")
 
 # Visual tests ------------------------------------------------------------
 
+skip_if(utils::packageVersion('grid') < "3.6")
 test_that("geom_polygon draws correctly", {
-  expect_doppelganger("stat_density2d with paths",
-    ggplot(faithful, aes(x = eruptions, y = waiting)) +
-      stat_density_2d(aes(colour = stat(level)), geom = "path") +
-      xlim(0.5, 6) + ylim(40, 110)
+
+  tbl <- data_frame(
+    x = c(
+      0, 10, 10, 0,
+      20, 30, 30, 20,
+      22, 28, 28, 22
+    ),
+    y = c(
+      0, 0, 10, 10,
+      20, 20, 30, 30,
+      22, 22, 28, 28
+    ),
+    group = c(rep(1, 4), rep(2, 8)),
+    subgroup = c(rep(1, 8), rep(2, 4))
   )
-  expect_doppelganger("stat_density2d with filled polygons",
-    ggplot(faithful, aes(x = eruptions, y = waiting)) +
-      stat_density2d(aes(fill = stat(level)), geom = "polygon", colour = "white") +
-      xlim(0.5, 6) + ylim(40, 110)
-  )
+
+  p <- ggplot(tbl, aes(x, y, group = group, subgroup = subgroup)) +
+    geom_polygon()
+
+  expect_doppelganger("basic polygon plot", p)
 })

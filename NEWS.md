@@ -7,6 +7,43 @@
   labels), `angle` (easy rotation of axis labels), and
   `n.dodge` (dodge labels into multiple rows/columns) (@paleolimbot, #3322).
 
+* `Geom` now gains a `setup_params()` method in line with the other ggproto
+  classes (@thomasp85, #3509)
+
+* `element_text()` now issues a warning when vectorized arguments are provided, as in
+  `colour = c("red", "green", "blue")`. Such use is discouraged and not officially supported
+   (@clauswilke, #3492).
+
+* stacking text when calculating the labels and the y axis with
+  `stat_summary()` now works (@ikosmidis, #2709)
+
+* Allowed reversing of discrete scales by re-writing `get_limits()` (@AnneLyng, #3115)
+
+* Added `stat_contour_filled()` and `geom_contour_filled()`, which compute 
+  and draw filled contours of gridded data (@paleolimbot, #3044).
+
+* `geom_contour()` and `stat_contour()` now use the isoband package
+  to compute contour lines. The `complete` parameter (which was undocumented
+  and has been unused for at least four years) was removed (@paleolimbot, #3044).
+
+* `stat_smooth()` user `REML` by default, if `method = "gam"` and
+  `gam`'s method is not specified (@ikosmidis, #2630).
+
+* Changed `theme_grey()` setting for legend key so that it creates no 
+  border (`NA`) rather than drawing a white one. (@annennenne, #3180)
+  
+* Themes have gained two new parameters, `plot.title.position` and 
+  `plot.caption.position`, that can be used to customize how plot
+  title/subtitle and plot caption are positioned relative to the overall plot
+  (@clauswilke, #3252).
+
+* Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
+
+* `gg_dep()` was deprecated (@perezp44, #3382).
+
+* Added weight aesthetic option to `stat_density()` and made scaling of 
+  weights the default (@annennenne, #2902)
+
 * `expand_scale()` was deprecated in favour of `expansion()` for setting
   the `expand` argument of `x` and `y` scales (@paleolimbot).
 
@@ -34,6 +71,24 @@
   more informative warnings when supplied with set aesthetics
   (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
   and mapped aesthetics (i.e., `data` and/or `mapping`).
+  
+* `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
+
+* `geom_sf()` now removes rows that contain missing `shape`/`size`/`colour` (#3483, @yutannihilation)
+
+* Fix a bug when `show.legend` is a named logical vector (#3461, @yutannihilation).
+
+# ggplot2 3.2.1
+
+This is a patch release fixing a few regressions introduced in 3.2.0 as well as
+fixing some unit tests that broke due to upstream changes.
+
+* `position_stack()` no longer changes the order of the input data. Changes to 
+  the internal behaviour of `geom_ribbon()` made this reordering problematic 
+  with ribbons that spanned `y = 0` (#3471)
+* Using `qplot()` with a single positional aesthetic will no longer title the
+  non-specified scale as `"NULL"` (#3473)
+* Fixes unit tests for sf graticule labels caused by chages to sf
 
 # ggplot2 3.2.0
 

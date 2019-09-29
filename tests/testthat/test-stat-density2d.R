@@ -15,3 +15,15 @@ test_that("uses scale limits, not data limits", {
   expect_true(min(ret$y) < 8)
   expect_true(max(ret$y) > 35)
 })
+
+# Visual tests --------------------------------------
+
+test_that("stat_density2d can produce contour and raster data", {
+  p <- ggplot(faithful, aes(x = eruptions, y = waiting))
+
+  p_contour <- p + stat_density_2d()
+  p_raster <- p + stat_density_2d(contour = FALSE)
+
+  expect_true("level" %in% names(layer_data(p_contour)))
+  expect_true("density" %in% names(layer_data(p_raster)))
+})

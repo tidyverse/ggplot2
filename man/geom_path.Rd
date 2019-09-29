@@ -73,8 +73,9 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{direction}{direction of stairs: 'vh' for vertical then horizontal, or
-'hv' for horizontal then vertical.}
+\item{direction}{direction of stairs: 'vh' for vertical then horizontal,
+'hv' for horizontal then vertical, or 'mid' for step half-way between
+adjacent x-values.}
 }
 \description{
 \code{geom_path()} connects the observations in the order in which they appear

@@ -107,6 +107,7 @@
 \alias{StatBinhex}
 \alias{StatBoxplot}
 \alias{StatContour}
+\alias{StatContourFilled}
 \alias{StatCount}
 \alias{StatDensity2d}
 \alias{StatDensity}
