@@ -21,8 +21,6 @@ body > .container {
   display: flex;
   height: 100%;
   flex-direction: column;
-
-  padding-top: 60px;
 }
 
 body > .container .row {
@@ -102,21 +100,13 @@ a.anchor {
   margin-top: -40px;
 }
 
-/* Static header placement on mobile devices */
-@media (max-width: 767px) {
-  .navbar-fixed-top {
-    position: absolute;
-  }
-  .navbar {
-    padding: 0;
-  }
-}
-
-
 /* Sidebar --------------------------*/
 
 #sidebar {
   margin-top: 30px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 70px;
 }
 #sidebar h2 {
   font-size: 1.5em;
@@ -133,6 +123,9 @@ a.anchor {
 
 .orcid {
   height: 16px;
+  /* margins are required by official ORCID trademark and display guidelines */
+  margin-left:4px;
+  margin-right:4px;
   vertical-align: middle;
 }
 
@@ -222,6 +215,19 @@ a.sourceLine:hover {
   visibility: visible;
 }
 
+/* headroom.js ------------------------ */
+
+.headroom {
+  will-change: transform;
+  transition: transform 200ms linear;
+}
+.headroom--pinned {
+  transform: translateY(0%);
+}
+.headroom--unpinned {
+  transform: translateY(-100%);
+}
+
 /* mark.js ----------------------------*/
 
 mark {
@@ -233,4 +239,18 @@ mark {
 /* vertical spacing after htmlwidgets */
 .html-widget {
   margin-bottom: 10px;
+}
+
+/* fontawesome ------------------------ */
+
+.fab {
+    font-family: "Font Awesome 5 Brands" !important;
+}
+
+/* don't display links in code chunks when printing */
+/* source: https://stackoverflow.com/a/10781533 */
+@media print {
+  code a:link:after, code a:visited:after {
+    content: "";
+  }
 }

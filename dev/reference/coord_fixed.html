@@ -8,21 +8,31 @@
 
 <title>Cartesian coordinates with fixed "aspect ratio" — coord_fixed • ggplot2</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -46,22 +56,16 @@ MASS::eqscplot(), but it works for all types of graphics." />
 <meta name="robots" content="noindex">
 
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
-<script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
-</script>
+
   </head>
 
   <body>
@@ -151,7 +155,7 @@ MASS::eqscplot(), but it works for all types of graphics." />
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -162,6 +166,7 @@ MASS::eqscplot(), but it works for all types of graphics." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -179,7 +184,7 @@ number of units on the y-axis equivalent to one unit on the x-axis. The
 default, <code>ratio = 1</code>, ensures that one unit on the x-axis is the same
 length as one unit on the y-axis. Ratios higher than one make units on the
 y axis longer than units on the x-axis, and vice versa. This is similar to
-<code><a href='https://www.rdocumentation.org/packages/MASS/topics/eqscplot'>MASS::eqscplot()</a></code>, but it works for all types of graphics.</p>
+<code><a href='https://rdrr.io/pkg/MASS/man/eqscplot.html'>MASS::eqscplot()</a></code>, but it works for all types of graphics.</p>
     </div>
 
     <pre class="usage"><span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
@@ -225,7 +230,7 @@ legend, the plot title, or the plot margins.</p></td>
 <span class='co'># adjusting the plot aspect ratio</span>
 
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='coord_fixed-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>))</div><div class='img'><img src='coord_fixed-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='coord_fixed-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>/<span class='fl'>5</span>)</div><div class='img'><img src='coord_fixed-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>coord_fixed</span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>15</span>, <span class='fl'>30</span>))</div><div class='img'><img src='coord_fixed-4.png' alt='' width='700' height='433' /></div><div class='input'>
 # Resize the plot to see that the specified aspect ratio is maintained
 </div></pre>
   </div>
@@ -239,6 +244,7 @@ legend, the plot title, or the plot margins.</p></td>
   </div>
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p>ggplot2 is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
@@ -250,11 +256,14 @@ legend, the plot title, or the plot margins.</p></td>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

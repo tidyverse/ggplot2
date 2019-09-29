@@ -8,21 +8,31 @@
 
 <title>Base ggproto classes for ggplot2 — ggplot2-ggproto • ggplot2</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,22 +52,16 @@ ggplot2::Position, or ggplot2::Scale." />
 <meta name="robots" content="noindex">
 
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
-<script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
-</script>
+
   </head>
 
   <body>
@@ -147,7 +151,7 @@ ggplot2::Position, or ggplot2::Scale." />
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -158,6 +162,7 @@ ggplot2::Position, or ggplot2::Scale." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -179,7 +184,9 @@ you'll need to extend from <code>ggplot2::Geom</code>, <code>ggplot2::Stat</code
     <h2 class="hasAnchor" id="geoms"><a class="anchor" href="#geoms"></a>Geoms</h2>
 
     
-    <p>All <code>geom_*</code> functions (like <code>geom_point</code>) return a layer that
+
+
+<p>All <code>geom_*</code> functions (like <code>geom_point</code>) return a layer that
 contains a <code>Geom*</code> object (like <code>GeomPoint</code>). The <code>Geom*</code>
 object is responsible for rendering the data in the plot.</p>
 <p>Each of the <code>Geom*</code> objects is a <code><a href='ggproto.html'>ggproto()</a></code> object, descended
@@ -219,10 +226,13 @@ default values for aesthetics.</p></li>
 <li><p><code>setup_data</code>: Converts width and height to xmin and xmax,
 and ymin and ymax values. It can potentially set other values as well.</p></li>
 </ul>
+
     <h2 class="hasAnchor" id="coordinate-systems"><a class="anchor" href="#coordinate-systems"></a>Coordinate systems</h2>
 
     
-    <p>All <code>coord_*</code> functions (like <code>coord_trans</code>) return a <code>Coord*</code>
+
+
+<p>All <code>coord_*</code> functions (like <code>coord_trans</code>) return a <code>Coord*</code>
 object (like <code>CoordTrans</code>).</p>
 <p>Each of the <code>Coord*</code> objects is a <code><a href='ggproto.html'>ggproto()</a></code> object,
 descended from the top-level <code>Coord</code>.  To create a new type of Coord
@@ -241,7 +251,7 @@ coordinates differs from the range in the untransformed coordinates. Returns
 a list of two ranges, <code>x</code> and <code>y</code>, and these correspond to the variables
 mapped to the <code>x</code> and <code>y</code> aesthetics, even for coords such as <code><a href='coord_flip.html'>coord_flip()</a></code>
 where the <code>x</code> aesthetic is shown along the y direction and vice versa.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/base/topics/range'>range(panel_params)</a></code>: Extracts the panel range provided
+<li><p><code><a href='https://rdrr.io/r/base/range.html'>range(panel_params)</a></code>: Extracts the panel range provided
 in <code>panel_params</code> (created by <code>setup_panel_params()</code>, see below) and
 returns it. Unlike <code>backtransform_range()</code>, this function does not perform
 any back-transformation and instead returns final transformed coordinates. Returns
@@ -264,10 +274,13 @@ manipulate the plot data. Should return list of data frames.</p></li>
 system to manipulate the <code>layout</code> data frame which assigns
 data to panels and scales.</p></li>
 </ul>
+
     <h2 class="hasAnchor" id="facets"><a class="anchor" href="#facets"></a>Facets</h2>
 
     
-    <p>All <code>facet_*</code> functions returns a <code>Facet</code> object or an object of a
+
+
+<p>All <code>facet_*</code> functions returns a <code>Facet</code> object or an object of a
 <code>Facet</code> subclass. This object describes how to assign data to different
 panels, how to apply positional scales and how to lay out the panels, once
 rendered.</p>
@@ -300,7 +313,8 @@ in a gtable. For some of the automatic functions to work correctly, each
 panel, axis, and strip grob name must be prefixed with "panel", "axis", and
 "strip" respectively.</p></li>
 </ul>
-    <p>In addition to the methods described above, it is also possible to override
+
+<p>In addition to the methods described above, it is also possible to override
 the default behaviour of one or more of the following methods:</p><ul>
 <li><p><code>setup_params</code>:</p></li>
 <li><p><code>init_scales</code>: Given a master scale for x and y, create panel
@@ -320,7 +334,8 @@ between the layer stack and the foreground defined by the Coord object
 add axis titles to the gtable. The default is to add one title at each side
 depending on the position and existence of axes.</p></li>
 </ul>
-    <p>All extension methods receive the content of the params field as the params
+
+<p>All extension methods receive the content of the params field as the params
 argument, so the constructor function will generally put all relevant
 information into this field. The only exception is the <code>shrink</code>
 parameter which is used to determine if scales are retrained after Stat
@@ -328,7 +343,9 @@ transformations has been applied.</p>
     <h2 class="hasAnchor" id="stats"><a class="anchor" href="#stats"></a>Stats</h2>
 
     
-    <p>All <code>stat_*</code> functions (like <code>stat_bin</code>) return a layer that
+
+
+<p>All <code>stat_*</code> functions (like <code>stat_bin</code>) return a layer that
 contains a <code>Stat*</code> object (like <code>StatBin</code>). The <code>Stat*</code>
 object is responsible for rendering the data in the plot.</p>
 <p>Each of the <code>Stat*</code> objects is a <code><a href='ggproto.html'>ggproto()</a></code> object, descended
@@ -369,10 +386,13 @@ render the geom.</p></li>
 <li><p><code>default_aes</code>: A list (generated by <code><a href='aes.html'>aes()</a></code> of
 default values for aesthetics.</p></li>
 </ul>
+
     <h2 class="hasAnchor" id="positions"><a class="anchor" href="#positions"></a>Positions</h2>
 
     
-    <p>All <code>position_*</code> functions (like <code>position_dodge</code>) return a
+
+
+<p>All <code>position_*</code> functions (like <code>position_dodge</code>) return a
 <code>Position*</code> object (like <code>PositionDodge</code>). The <code>Position*</code>
 object is responsible for adjusting the position of overlapping geoms.</p>
 <p>The way that the <code>position_*</code> functions work is slightly different from
@@ -400,14 +420,18 @@ the user of important choices. Should return list of parameters.</p></li>
 after <code>setup_params()</code>. Should return modified <code>data</code>.
 Default checks that required aesthetics are present.</p></li>
 </ul>
-    <p>And the following fields</p><ul>
+
+<p>And the following fields</p><ul>
 <li><p><code>required_aes</code>: a character vector giving the aesthetics
 that must be present for this position adjustment to work.</p></li>
 </ul>
+
     <h2 class="hasAnchor" id="scales"><a class="anchor" href="#scales"></a>Scales</h2>
 
     
-    <p>All <code>scale_*</code> functions like <code><a href='scale_continuous.html'>scale_x_continuous()</a></code> return a <code>Scale*</code>
+
+
+<p>All <code>scale_*</code> functions like <code><a href='scale_continuous.html'>scale_x_continuous()</a></code> return a <code>Scale*</code>
 object like <code>ScaleContinuous</code>. Each of the <code>Scale*</code> objects is a <code><a href='ggproto.html'>ggproto()</a></code>
 object, descended from the top-level <code>Scale</code>.</p>
 <p>Properties not documented in <code><a href='continuous_scale.html'>continuous_scale()</a></code> or <code><a href='discrete_scale.html'>discrete_scale()</a></code>:</p><ul>
@@ -415,13 +439,14 @@ object, descended from the top-level <code>Scale</code>.</p>
 the scale.</p></li>
 <li><p><code>range</code> One of <code>continuous_range()</code> or <code>discrete_range()</code>.</p></li>
 </ul>
-    <p>Methods:</p><ul>
+
+<p>Methods:</p><ul>
 <li><p><code>is_discrete()</code> Returns <code>TRUE</code> if the scale is a discrete scale</p></li>
 <li><p><code>is_empty()</code> Returns <code>TRUE</code> if the scale contains no information (i.e.,
 it has no information with which to calculate its <code>limits</code>).</p></li>
 <li><p><code>clone()</code> Returns a copy of the scale that can be trained
 independently without affecting the original scale.</p></li>
-<li><p><code><a href='https://www.rdocumentation.org/packages/base/topics/transform'>transform()</a></code> Transforms a vector of values using <code>self$trans</code>.
+<li><p><code><a href='https://rdrr.io/r/base/transform.html'>transform()</a></code> Transforms a vector of values using <code>self$trans</code>.
 This occurs before the <code>Stat</code> is calculated.</p></li>
 <li><p><code>train()</code> Update the <code>self$range</code> of observed (transformed) data values with
 a vector of (possibly) new values.</p></li>
@@ -456,25 +481,27 @@ and the value of <code>self$trans$minor_breaks()</code>. Discrete scales always 
 (for non-position scales) or when the <code>Layout</code> calculates the x and y labels
 (position scales).</p></li>
 </ul>
-    <p>These methods are only valid for position (x and y) scales:</p><ul>
+
+<p>These methods are only valid for position (x and y) scales:</p><ul>
 <li><p><code>dimension()</code> For continuous scales, the dimension is the same concept as the limits.
 For discrete scales, <code>dimension()</code> returns a continuous range, where the limits
 would be placed at integer positions. <code>dimension()</code> optionally expands
 this range given an expantion of length 4 (see <code><a href='expansion.html'>expansion()</a></code>).</p></li>
-<li><p><code>break_info()</code> Returns a <code><a href='https://www.rdocumentation.org/packages/base/topics/list'>list()</a></code> with calculated values needed for the <code>Coord</code>
+<li><p><code>break_info()</code> Returns a <code><a href='https://rdrr.io/r/base/list.html'>list()</a></code> with calculated values needed for the <code>Coord</code>
 to transform values in transformed data space. Axis and grid guides also use
 these values to draw guides. This is called with
 a (usually expanded) continuous range, such as that returned by <code>self$dimension()</code>
 (even for discrete scales). The list has components <code>major_source</code>
-(<code>self$get_breaks()</code> for continuous scales, or <code><a href='https://www.rdocumentation.org/packages/base/topics/seq'>seq_along(self$get_breaks())</a></code>
+(<code>self$get_breaks()</code> for continuous scales, or <code><a href='https://rdrr.io/r/base/seq.html'>seq_along(self$get_breaks())</a></code>
 for discrete scales), <code>major</code> (the rescaled value of <code>major_source</code>, ignoring
 <code>self$rescaler</code>), <code>minor</code> (the rescaled value of <code>minor_source</code>, ignoring
 <code>self$rescaler</code>), <code>range</code> (the range that was passed in to <code>break_info()</code>),
 <code>labels</code> (the label values, one for each element in <code>breaks</code>).</p></li>
-<li><p><code>axis_order()</code> One of <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("primary", "secondary")</a></code> or <code><a href='https://www.rdocumentation.org/packages/base/topics/c'>c("secondary", "primary")</a></code></p></li>
+<li><p><code>axis_order()</code> One of <code><a href='https://rdrr.io/r/base/c.html'>c("primary", "secondary")</a></code> or <code><a href='https://rdrr.io/r/base/c.html'>c("secondary", "primary")</a></code></p></li>
 <li><p><code>make_sec_title()</code> Hook to modify the title for the second axis that is calculated
 when the <code>Layout</code> calculates the x and y labels.</p></li>
 </ul>
+
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>ggproto</p></div>
@@ -495,6 +522,7 @@ when the <code>Layout</code> calculates the x and y labels.</p></li>
   </div>
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p>ggplot2 is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
@@ -506,11 +534,14 @@ when the <code>Layout</code> calculates the x and y labels.</p></li>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

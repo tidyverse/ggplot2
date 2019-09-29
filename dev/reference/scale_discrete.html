@@ -8,21 +8,31 @@
 
 <title>Position scales for discrete data — scale_x_discrete • ggplot2</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <!-- Bootstrap -->
 <link href="../tidyverse.css" rel="stylesheet">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -42,22 +52,16 @@ and limits, you may wish to use labs() and lims() instead." />
 <meta name="robots" content="noindex">
 
 <!-- mathjax -->
-<script src='https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
-<!-- google analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
-<script>
- window.dataLayer = window.dataLayer || [];
- function gtag(){dataLayer.push(arguments);}
- gtag('js', new Date());
 
- gtag('config', 'UA-115082821-1');
-</script>
+
   </head>
 
   <body>
@@ -147,7 +151,7 @@ and limits, you may wish to use labs() and lims() instead." />
 </li>
 <li>
   <a href="https://github.com/tidyverse/ggplot2">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -158,6 +162,7 @@ and limits, you may wish to use labs() and lims() instead." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -174,9 +179,11 @@ discrete x and y scale aesthetics. For simple manipulation of scale labels
 and limits, you may wish to use <code><a href='labs.html'>labs()</a></code> and <code><a href='lims.html'>lims()</a></code> instead.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_x_discrete</span>(<span class='no'>...</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)
+    <pre class="usage"><span class='fu'>scale_x_discrete</span>(<span class='no'>...</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>)
 
-<span class='fu'>scale_y_discrete</span>(<span class='no'>...</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>)</pre>
+<span class='fu'>scale_y_discrete</span>(<span class='no'>...</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -186,7 +193,7 @@ and limits, you may wish to use <code><a href='labs.html'>labs()</a></code> and 
       <td><p>Arguments passed on to <code>discrete_scale</code></p><dl class='dl-horizontal'>
   <dt>palette</dt><dd><p>A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
-they should take (e.g., <code><a href='https://www.rdocumentation.org/packages/scales/topics/hue_pal'>scales::hue_pal()</a></code>).</p></dd>
+they should take (e.g., <code><a href='https://rdrr.io/pkg/scales/man/hue_pal.html'>scales::hue_pal()</a></code>).</p></dd>
   <dt>breaks</dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no breaks</p></li>
@@ -233,6 +240,7 @@ expand the scale by 5% on each side for continuous variables, and by
   <dt>position</dt><dd><p>For position scales, The position of the axis.
 <code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></dd>
   <dt>super</dt><dd><p>The super class to use for the constructed scale</p></dd>
+
 </dl></td>
     </tr>
     <tr>
@@ -243,6 +251,11 @@ away from the axes. Use the convenience function <code><a href='expansion.html'>
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></td>
+    </tr>
+    <tr>
+      <th>guide</th>
+      <td><p>A function used to create a guide or its name. See
+<code><a href='guides.html'>guides()</a></code> for more information.</p></td>
     </tr>
     <tr>
       <th>position</th>
@@ -265,24 +278,26 @@ at integer positions).  This is what allows jittering to work.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>)) + <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>()</div><div class='img'><img src='scale_discrete-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div><div class='input'><span class='co'># The discrete position scale is added automatically whenever you</span>
+<span class='co'># \donttest{</span>
+<span class='co'># The discrete position scale is added automatically whenever you</span>
 <span class='co'># have a discrete position.</span>
 
-(<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/subset'>subset</a></span>(<span class='no'>diamonds</span>, <span class='no'>carat</span> <span class='kw'>&gt;</span> <span class='fl'>1</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>, <span class='no'>clarity</span>)) +
+(<span class='no'>d</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>diamonds</span>, <span class='no'>carat</span> <span class='kw'>&gt;</span> <span class='fl'>1</span>), <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>cut</span>, <span class='no'>clarity</span>)) +
       <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>())</div><div class='img'><img src='scale_discrete-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>d</span> + <span class='fu'>scale_x_discrete</span>(<span class='st'>"Cut"</span>)</div><div class='img'><img src='scale_discrete-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_x_discrete</span>(<span class='st'>"Cut"</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Fair"</span> <span class='kw'>=</span> <span class='st'>"F"</span>,<span class='st'>"Good"</span> <span class='kw'>=</span> <span class='st'>"G"</span>,
+<span class='no'>d</span> + <span class='fu'>scale_x_discrete</span>(<span class='st'>"Cut"</span>)</div><div class='img'><img src='scale_discrete-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'>scale_x_discrete</span>(<span class='st'>"Cut"</span>, <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Fair"</span> <span class='kw'>=</span> <span class='st'>"F"</span>,<span class='st'>"Good"</span> <span class='kw'>=</span> <span class='st'>"G"</span>,
   <span class='st'>"Very Good"</span> <span class='kw'>=</span> <span class='st'>"VG"</span>,<span class='st'>"Perfect"</span> <span class='kw'>=</span> <span class='st'>"P"</span>,<span class='st'>"Ideal"</span> <span class='kw'>=</span> <span class='st'>"I"</span>))</div><div class='img'><img src='scale_discrete-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use limits to adjust the which levels (and in what order)</span>
 <span class='co'># are displayed</span>
-<span class='no'>d</span> + <span class='fu'>scale_x_discrete</span>(<span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 11189 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>d</span> + <span class='fu'>scale_x_discrete</span>(<span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 11189 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># you can also use the short hand functions xlim and ylim</span>
 <span class='no'>d</span> + <span class='fu'><a href='lims.html'>xlim</a></span>(<span class='st'>"Fair"</span>,<span class='st'>"Ideal"</span>, <span class='st'>"Good"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 9610 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>d</span> + <span class='fu'><a href='lims.html'>ylim</a></span>(<span class='st'>"I1"</span>, <span class='st'>"IF"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: Removed 16770 rows containing missing values (geom_point).</span></div><div class='img'><img src='scale_discrete-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># See ?reorder to reorder based on the values of another variable</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>manufacturer</span>, <span class='no'>cty</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/reorder.factor'>reorder</a></span>(<span class='no'>manufacturer</span>, <span class='no'>cty</span>), <span class='no'>cty</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/reorder.factor'>reorder</a></span>(<span class='no'>manufacturer</span>, <span class='no'>displ</span>), <span class='no'>cty</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-10.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>manufacturer</span>, <span class='no'>cty</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-8.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='no'>manufacturer</span>, <span class='no'>cty</span>), <span class='no'>cty</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='no'>manufacturer</span>, <span class='no'>displ</span>), <span class='no'>cty</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()</div><div class='img'><img src='scale_discrete-10.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use abbreviate as a formatter to reduce long names</span>
-<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/reorder.factor'>reorder</a></span>(<span class='no'>manufacturer</span>, <span class='no'>displ</span>), <span class='no'>cty</span>)) +
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='no'>manufacturer</span>, <span class='no'>displ</span>), <span class='no'>cty</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>scale_x_discrete</span>(<span class='kw'>labels</span> <span class='kw'>=</span> <span class='no'>abbreviate</span>)</div><div class='img'><img src='scale_discrete-11.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>scale_x_discrete</span>(<span class='kw'>labels</span> <span class='kw'>=</span> <span class='no'>abbreviate</span>)</div><div class='img'><img src='scale_discrete-11.png' alt='' width='700' height='433' /></div><div class='input'># }
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -296,6 +311,7 @@ at integer positions).  This is what allows jittering to work.</p>
   </div>
 </div>
 
+
       <footer>
       <div class="tidyverse">
   <p>ggplot2 is a part of the <strong>tidyverse</strong>, an ecosystem of packages designed with common APIs and a shared philosophy. Learn more at <a href="https://tidyverse.org">tidyverse.org</a>.</p>
@@ -307,11 +323,14 @@ at integer positions).  This is what allows jittering to work.</p>
     Site built by <a href="https://pkgdown.r-lib.org">pkgdown</a>.
   </p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

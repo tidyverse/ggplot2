@@ -286,10 +286,16 @@
     <loc>https://ggplot2.tidyverse.org/reference/guide-exts.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/guide_axis.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/guide_colourbar.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/guide_legend.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/guide_none.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/guides.html</loc>
