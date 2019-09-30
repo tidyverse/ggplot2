@@ -141,6 +141,12 @@
 #' their party of 11 US presidents from Eisenhower to Obama.
 #'
 #' @format A data frame with 11 rows and 4 variables
+#' \describe{
+#'   \item{name}{Last name of president}
+#'   \item{start}{Presidency start date}
+#'   \item{end}{Presidency end date}
+#'   \item{party}{Party of president}
+#' }
 "presidential"
 
 #' Vector field of seal movements
@@ -162,6 +168,11 @@
 #' \link{faithful}.
 #'
 #' @format A data frame with 5,625 observations and 3 variables.
+#' \describe{
+#'   \item{eruptions}{Eruption time in mins}
+#'   \item{waiting}{Waiting time to next eruption in mins}
+#'   \item{density}{2d density estimate}
+#' }
 "faithfuld"
 
 #' `colors()` in Luv space
