@@ -182,11 +182,11 @@ display the results with a non-standard geom.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_smooth</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"smooth"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"auto"</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>y</span> ~ <span class='no'>x</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>stat_smooth</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"smooth"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"auto"</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>y</span> ~ <span class='no'>x</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>80</span>, <span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.75</span>, <span class='kw'>fullrange</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>level</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>method.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
@@ -229,23 +229,27 @@ to the paired geom/stat.</p></td>
     </tr>
     <tr>
       <th>method</th>
-      <td><p>Smoothing method (function) to use, accepts either a character vector,
-e.g. <code>"auto"</code>, <code>"lm"</code>, <code>"glm"</code>, <code>"gam"</code>, <code>"loess"</code> or a function, e.g.
-<code><a href='https://rdrr.io/pkg/MASS/man/rlm.html'>MASS::rlm</a></code> or <code><a href='https://rdrr.io/pkg/mgcv/man/gam.html'>mgcv::gam</a></code>, <code><a href='https://rdrr.io/r/stats/lm.html'>stats::lm</a></code>, or <code><a href='https://rdrr.io/r/stats/loess.html'>stats::loess</a></code>.</p>
-<p>For <code>method = "auto"</code> the smoothing method is chosen based on the
+      <td><p>Smoothing method (function) to use, accepts either
+<code>NULL</code> or a character vector, e.g. <code>"lm"</code>, <code>"glm"</code>, <code>"gam"</code>, <code>"loess"</code>
+or a function, e.g. <code><a href='https://rdrr.io/pkg/MASS/man/rlm.html'>MASS::rlm</a></code> or <code><a href='https://rdrr.io/pkg/mgcv/man/gam.html'>mgcv::gam</a></code>, <code><a href='https://rdrr.io/r/stats/lm.html'>stats::lm</a></code>, or <code><a href='https://rdrr.io/r/stats/loess.html'>stats::loess</a></code>.
+<code>"auto"</code> is also accepted for backwards compatibility.  It is equivalent to
+<code>NULL</code>.</p>
+<p>For <code>method = NULL</code> the smoothing method is chosen based on the
 size of the largest group (across all panels). <code><a href='https://rdrr.io/r/stats/loess.html'>stats::loess()</a></code> is
 used for less than 1,000 observations; otherwise <code><a href='https://rdrr.io/pkg/mgcv/man/gam.html'>mgcv::gam()</a></code> is
 used with <code>formula = y ~ s(x, bs = "cs")</code> with <code>method = "REML"</code>. Somewhat anecdotally,
 <code>loess</code> gives a better appearance, but is \(O(N^{2})\) in memory,
 so does not work for larger datasets.</p>
 <p>If you have fewer than 1,000 observations but want to use the same <code>gam()</code>
-model that <code>method = "auto"</code> would use, then set
+model that <code>method = NULL</code> would use, then set
 <code>method = "gam", formula = y ~ s(x, bs = "cs")</code>.</p></td>
     </tr>
     <tr>
       <th>formula</th>
       <td><p>Formula to use in smoothing function, eg. <code>y ~ x</code>,
-<code>y ~ poly(x, 2)</code>, <code>y ~ log(x)</code></p></td>
+<code>y ~ poly(x, 2)</code>, <code>y ~ log(x)</code>. <code>NULL</code> by default, in which case
+<code>method = NULL</code> implies <code>formula = y ~ x</code> when there are fewer than 1,000
+observations and <code>formula = y ~ s(x, bs = "cs")</code> otherwise.</p></td>
     </tr>
     <tr>
       <th>se</th>
@@ -360,7 +364,7 @@ scale and then back-transformed to the response scale.</p>
 <span class='co'># Instead of a loess smooth, you can use any other modelling function:</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>geom_smooth</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='no'>lm</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_smooth-3.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_smooth</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='no'>lm</span>, <span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
   <span class='fu'>geom_smooth</span>(<span class='kw'>method</span> <span class='kw'>=</span> <span class='no'>lm</span>, <span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>y</span> ~ <span class='kw pkg'>splines</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/splines/bs.html'>bs</a></span>(<span class='no'>x</span>, <span class='fl'>3</span>), <span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='img'><img src='geom_smooth-4.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -369,7 +373,7 @@ scale and then back-transformed to the response scale.</p>
 
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>geom_smooth</span>(<span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='no'>lm</span>)</div><div class='img'><img src='geom_smooth-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
+  <span class='fu'>geom_smooth</span>(<span class='kw'>se</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='no'>lm</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
   <span class='fu'>geom_smooth</span>(<span class='kw'>span</span> <span class='kw'>=</span> <span class='fl'>0.8</span>) +
   <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>drv</span>)</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using method = 'loess' and formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-6.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -381,11 +385,11 @@ scale and then back-transformed to the response scale.</p>
 <span class='co'># a numeric vector lying between 0 and 1.</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>Age</span>, <span class='no'>Kyphosis</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) +
-  <span class='fu'>binomial_smooth</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_smooth()`:</span>
+  <span class='fu'>binomial_smooth</span>()</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_smooth()`:</span>
 #&gt; <span class='warning'>y values must be 0 &lt;= y &lt;= 1</span></div><div class='img'><img src='geom_smooth-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>Age</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>Kyphosis</span>) - <span class='fl'>1</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) +
-  <span class='fu'>binomial_smooth</span>()</div><div class='img'><img src='geom_smooth-8.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>binomial_smooth</span>()</div><div class='output co'>#&gt; <span class='message'>`geom_smooth()` using formula 'y ~ x'</span></div><div class='img'><img src='geom_smooth-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='kw pkg'>rpart</span><span class='kw ns'>::</span><span class='no'><a href='https://rdrr.io/pkg/rpart/man/kyphosis.html'>kyphosis</a></span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>Age</span>, <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span>(<span class='no'>Kyphosis</span>) - <span class='fl'>1</span>)) +
   <span class='fu'><a href='geom_jitter.html'>geom_jitter</a></span>(<span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>0.05</span>) +
   <span class='fu'>binomial_smooth</span>(<span class='kw'>formula</span> <span class='kw'>=</span> <span class='no'>y</span> ~ <span class='kw pkg'>splines</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/splines/ns.html'>ns</a></span>(<span class='no'>x</span>, <span class='fl'>2</span>))</div><div class='img'><img src='geom_smooth-9.png' alt='' width='700' height='433' /></div><div class='input'>
