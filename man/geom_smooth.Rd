@@ -6,11 +6,11 @@
 \title{Smoothed conditional means}
 \usage{
 geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-  position = "identity", ..., method = "auto", formula = y ~ x,
+  position = "identity", ..., method = NULL, formula = NULL,
   se = TRUE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 
 stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
-  position = "identity", ..., method = "auto", formula = y ~ x,
+  position = "identity", ..., method = NULL, formula = NULL,
   se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
   level = 0.95, method.args = list(), na.rm = FALSE,
   show.legend = NA, inherit.aes = TRUE)
@@ -44,11 +44,13 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{method}{Smoothing method (function) to use, accepts either a character vector,
-e.g. \code{"auto"}, \code{"lm"}, \code{"glm"}, \code{"gam"}, \code{"loess"} or a function, e.g.
-\code{MASS::rlm} or \code{mgcv::gam}, \code{stats::lm}, or \code{stats::loess}.
+\item{method}{Smoothing method (function) to use, accepts either
+\code{NULL} or a character vector, e.g. \code{"lm"}, \code{"glm"}, \code{"gam"}, \code{"loess"}
+or a function, e.g. \code{MASS::rlm} or \code{mgcv::gam}, \code{stats::lm}, or \code{stats::loess}.
+\code{"auto"} is also accepted for backwards compatibility.  It is equivalent to
+\code{NULL}.
 
-For \code{method = "auto"} the smoothing method is chosen based on the
+For \code{method = NULL} the smoothing method is chosen based on the
 size of the largest group (across all panels). \code{\link[stats:loess]{stats::loess()}} is
 used for less than 1,000 observations; otherwise \code{\link[mgcv:gam]{mgcv::gam()}} is
 used with \code{formula = y ~ s(x, bs = "cs")} with \code{method = "REML"}. Somewhat anecdotally,
@@ -56,11 +58,13 @@ used with \code{formula = y ~ s(x, bs = "cs")} with \code{method = "REML"}. Some
 so does not work for larger datasets.
 
 If you have fewer than 1,000 observations but want to use the same \code{gam()}
-model that \code{method = "auto"} would use, then set
+model that \code{method = NULL} would use, then set
 \code{method = "gam", formula = y ~ s(x, bs = "cs")}.}
 
 \item{formula}{Formula to use in smoothing function, eg. \code{y ~ x},
-\code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
+\code{y ~ poly(x, 2)}, \code{y ~ log(x)}. \code{NULL} by default, in which case
+\code{method = NULL} implies \code{formula = y ~ x} when there are fewer than 1,000
+observations and \code{formula = y ~ s(x, bs = "cs")} otherwise.}
 
 \item{se}{Display confidence interval around smooth? (\code{TRUE} by default, see
 \code{level} to control.)}
