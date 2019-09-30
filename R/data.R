@@ -26,7 +26,7 @@
 #' \url{http://research.stlouisfed.org/fred2}. `economics` is in "wide"
 #' format, `economics_long` is in "long" format.
 #'
-#' @format A data frame with 478 rows and 6 variables
+#' @format A data frame with 574 rows and 6 variables
 #' \describe{
 #'   \item{date}{Month of data collection}
 #'   \item{psavert}{personal savings rate,
