@@ -26,7 +26,7 @@
 #' \url{http://research.stlouisfed.org/fred2}. `economics` is in "wide"
 #' format, `economics_long` is in "long" format.
 #'
-#' @format A data frame with 574 rows and 6 variables
+#' @format A data frame with 574 rows and 6 variables:
 #' \describe{
 #'   \item{date}{Month of data collection}
 #'   \item{pce}{personal consumption expenditures, in billions of dollars,
@@ -50,7 +50,7 @@
 #'
 #' Demographic information of midwest counties
 #'
-#' @format A data frame with 437 rows and 28 variables
+#' @format A data frame with 437 rows and 28 variables:
 #' \describe{
 #'  \item{PID}{}
 #'  \item{county}{}
@@ -92,7 +92,7 @@
 #' had a new release every year between 1999 and 2008 - this was used as a
 #' proxy for the popularity of the car.
 #'
-#' @format A data frame with 234 rows and 11 variables
+#' @format A data frame with 234 rows and 11 variables:
 #' \describe{
 #'   \item{manufacturer}{manufacturer name}
 #'   \item{model}{model name}
@@ -119,7 +119,7 @@
 #' Additional variables order, conservation status and vore were added from
 #' wikipedia.
 #'
-#' @format A data frame with 83 rows and 11 variables
+#' @format A data frame with 83 rows and 11 variables:
 #' \describe{
 #'   \item{name}{common name}
 #'   \item{genus}{}
@@ -140,7 +140,7 @@
 #' The names of each president, the start and end date of their term, and
 #' their party of 11 US presidents from Eisenhower to Obama.
 #'
-#' @format A data frame with 11 rows and 4 variables
+#' @format A data frame with 11 rows and 4 variables:
 #' \describe{
 #'   \item{name}{Last name of president}
 #'   \item{start}{Presidency start date}
@@ -167,7 +167,7 @@
 #' A 2d density estimate of the waiting and eruptions variables data
 #' \link{faithful}.
 #'
-#' @format A data frame with 5,625 observations and 3 variables.
+#' @format A data frame with 5,625 observations and 3 variables:
 #' \describe{
 #'   \item{eruptions}{Eruption time in mins}
 #'   \item{waiting}{Waiting time to next eruption in mins}

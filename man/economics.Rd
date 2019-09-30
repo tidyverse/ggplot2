@@ -5,7 +5,7 @@
 \alias{economics}
 \alias{economics_long}
 \title{US economic time series}
-\format{A data frame with 574 rows and 6 variables
+\format{A data frame with 574 rows and 6 variables:
 \describe{
 \item{date}{Month of data collection}
 \item{pce}{personal consumption expenditures, in billions of dollars,
