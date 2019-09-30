@@ -65,6 +65,54 @@ test_that("axis_label_element_overrides errors when angles are outside the range
   expect_error(axis_label_element_overrides("bottom", -91), "`angle` must")
 })
 
+test_that("a warning is generated when guides are drawn at a location that doesn't make sense", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    scale_y_continuous(guide = guide_axis(position = "top"))
+  built <- expect_silent(ggplot_build(plot))
+  expect_warning(ggplot_gtable(built), "Position guide is perpendicular")
+})
+
+test_that("a warning is generated when more than one position guide is drawn at a location", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    guides(
+      y = guide_axis(position = "left"),
+      y.sec = guide_axis(position = "left")
+    )
+  built <- expect_silent(ggplot_build(plot))
+  expect_warning(ggplot_gtable(built), "Discarding guide")
+})
+
+test_that("guide_none() can be used in non-position scales", {
+  p <- ggplot(mpg, aes(cty, hwy, colour = class)) +
+    geom_point() +
+    scale_color_discrete(guide = guide_none())
+
+  built <- ggplot_build(p)
+  plot <- built$plot
+  guides <- build_guides(
+    plot$scales,
+    plot$layers,
+    plot$mapping,
+    "right",
+    theme_gray(),
+    plot$guides,
+    plot$labels
+  )
+
+  expect_identical(guides, zeroGrob())
+})
+
+test_that("Using non-position guides for position scales results in an informative error", {
+  p <- ggplot(mpg, aes(cty, hwy)) +
+    geom_point() +
+    scale_x_continuous(guide = guide_legend())
+
+  built <- ggplot_build(p)
+  expect_error(ggplot_gtable(built), "does not implement guide_transform()")
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
@@ -132,7 +180,7 @@ test_that("axis guides are drawn correctly", {
   # dodged text
   expect_doppelganger(
     "axis guides, text dodged into rows/cols",
-    function() test_draw_axis(10, labels = function(b) comma(b * 1e9), n_dodge = 2)
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e9), n.dodge = 2)
   )
 })
 
@@ -154,6 +202,45 @@ test_that("axis guides are drawn correctly in plots", {
       theme_test() +
       theme(axis.line = element_line(size = 5, lineend = "square"))
   )
+})
+
+test_that("axis guides can be customized", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    scale_y_continuous(
+      sec.axis = dup_axis(guide = guide_axis(n.dodge = 2)),
+      guide = guide_axis(n.dodge = 2)
+    ) +
+    scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+  expect_doppelganger("guide_axis() customization", plot)
+})
+
+test_that("guides can be specified in guides()", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    guides(
+      x = guide_axis(n.dodge = 2),
+      y = guide_axis(n.dodge = 2),
+      x.sec = guide_axis(n.dodge = 2),
+      y.sec = guide_axis(n.dodge = 2)
+    )
+
+  expect_doppelganger("guides specified in guides()", plot)
+})
+
+test_that("guides have the final say in x and y", {
+  df <- data_frame(x = 1, y = 1)
+  plot <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    guides(
+      x = guide_none(title = "x (primary)"),
+      y = guide_none(title = "y (primary)"),
+      x.sec = guide_none(title = "x (secondary)"),
+      y.sec = guide_none(title = "y (secondary)")
+    )
+
+  expect_doppelganger("position guide titles", plot)
 })
 
 test_that("guides are positioned correctly", {

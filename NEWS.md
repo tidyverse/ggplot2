@@ -3,6 +3,13 @@
 * A new scale type has been added, that allows binning of aesthetics at the 
   scale level. It has versions for both position and non-position aesthetics and
   comes with two new guides (`guide_bins` and `guide_coloursteps`) (@thomasp85, #3096)
+  
+* Position guides can now be customized using the new `guide_axis()`,
+  which can be passed to position `scale_*()` functions or via
+  `guides()`. The new axis guide (`guide_axis()`) comes with
+  arguments `check.overlap` (automatic removal of overlapping
+  labels), `angle` (easy rotation of axis labels), and
+  `n.dodge` (dodge labels into multiple rows/columns) (@paleolimbot, #3322).
 
 * `Geom` now gains a `setup_params()` method in line with the other ggproto
   classes (@thomasp85, #3509)

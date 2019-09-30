@@ -166,6 +166,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   theme <- plot_theme(plot)
 
   geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot$layers, data)
+  layout$setup_panel_guides(plot$guides, plot$layers, plot$mapping)
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends

@@ -104,10 +104,13 @@ Layout <- ggproto("Layout", NULL,
     )
 
     # Draw individual labels, then add to gtable
-    labels <- self$coord$labels(list(
-      x = self$xlabel(labels),
-      y = self$ylabel(labels)
-    ))
+    labels <- self$coord$labels(
+      list(
+        x = self$xlabel(labels),
+        y = self$ylabel(labels)
+      ),
+      self$panel_params[[1]]
+    )
     labels <- self$render_labels(labels, theme)
     self$facet$draw_labels(
       plot_table,
@@ -205,6 +208,25 @@ Layout <- ggproto("Layout", NULL,
       self$coord$setup_panel_params(scale_x, scale_y, params = self$coord_params)
     }
     self$panel_params <- Map(setup_panel_params, scales_x, scales_y)
+
+    invisible()
+  },
+
+  setup_panel_guides = function(self, guides, layers, default_mapping) {
+    self$panel_params <- lapply(
+      self$panel_params,
+      self$coord$setup_panel_guides,
+      guides,
+      self$coord_params
+    )
+
+    self$panel_params <- lapply(
+      self$panel_params,
+      self$coord$train_panel_guides,
+      layers,
+      default_mapping,
+      self$coord_params
+    )
 
     invisible()
   },
