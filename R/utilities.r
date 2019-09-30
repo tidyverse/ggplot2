@@ -466,19 +466,19 @@ switch_orientation <- function(aesthetics) {
 #'
 #' @param data The layer data
 #' @param params The parameters of the `Stat`/`Geom`. Only the `orientation`
-#' parameter will be used.
+#'   parameter will be used.
 #' @param main_is_orthogonal If only `x` or `y` are present do they correspond
-#' to the main orientation or the reverse. E.g. If `TRUE` and `y` is present it
-#' is not flipped. If `NA` this check will be ignored.
+#'   to the main orientation or the reverse. E.g. If `TRUE` and `y` is present
+#'   it is not flipped. If `NA` this check will be ignored.
 #' @param range_is_orthogonal If `xmin`/`xmax` or `ymin`/`ymax` is present do
-#' they correspond to the main orientation or reverse. If `NA` this check will
-#' be ignored.
+#'   they correspond to the main orientation or reverse. If `NA` this check will
+#'   be ignored.
 #' @param group_has_equal Is it expected that grouped data has either a single
-#' `x` or `y` value that will correspond to the orientation.
+#'   `x` or `y` value that will correspond to the orientation.
 #' @param ambiguous Is the layer ambiguous in its mapping by nature. If so, it
-#' will only be flipped if `params$orientation == "y"`
+#'   will only be flipped if `params$orientation == "y"`
 #' @param main_is_continuous If there is a discrete and continuous axis, does
-#' the continuous one correspond to the main orientation?
+#'   the continuous one correspond to the main orientation?
 #' @param flip Logical. Is the layer flipped.
 #'
 #' @return `has_flipped_aes()` returns `TRUE` if it detects a layer in the other
