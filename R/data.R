@@ -193,7 +193,7 @@
 #'
 #' @format A data frame with 8602 observations and 9 variables:
 #' \describe{
-#' \item{city}{Name of MLS area}
+#' \item{city}{Name of multiple listing service (MLS) area}
 #' \item{year,month,date}{Date}
 #' \item{sales}{Number of sales}
 #' \item{volume}{Total value of sales}
