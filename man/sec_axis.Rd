@@ -7,10 +7,10 @@
 \title{Specify a secondary axis}
 \usage{
 sec_axis(trans = NULL, name = waiver(), breaks = waiver(),
-  labels = waiver())
+  labels = waiver(), guide = waiver())
 
 dup_axis(trans = ~., name = derive(), breaks = derive(),
-  labels = derive())
+  labels = derive(), guide = derive())
 
 derive()
 }
@@ -34,6 +34,9 @@ derive()
 \item A character vector giving labels (must be same length as \code{breaks})
 \item A function that takes the breaks as input and returns labels as output
 }}
+
+\item{guide}{A position guide that will be used to render
+the axis on the plot. Usually this is \code{\link[=guide_axis]{guide_axis()}}.}
 }
 \description{
 This function is used in conjunction with a position scale to create a

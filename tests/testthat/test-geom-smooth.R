@@ -62,6 +62,15 @@ test_that("default smoothing methods for small and large data sets work", {
     "method = 'gam' and formula 'y ~ s\\(x, bs = \"cs\"\\)"
   )
   expect_equal(plot_data$y, as.numeric(out))
+
+  # backwards compatibility of method = "auto"
+  p <- ggplot(df, aes(x, y)) + geom_smooth(method = "auto")
+
+  expect_message(
+    plot_data <- layer_data(p),
+    "method = 'gam' and formula 'y ~ s\\(x, bs = \"cs\"\\)"
+  )
+  expect_equal(plot_data$y, as.numeric(out))
 })
 
 
