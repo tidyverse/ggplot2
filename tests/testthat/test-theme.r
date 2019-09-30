@@ -1,5 +1,7 @@
 context("Themes")
 
+skip_on_cran() # This test suite is long-running (on cran) and is skipped
+
 test_that("modifying theme element properties with + operator works", {
 
   # Changing a "leaf node" works
@@ -397,4 +399,33 @@ test_that("rotated axis tick labels work", {
   plot <- ggplot(df, aes(label, y)) + geom_point() +
     theme(axis.text.x = element_text(angle = 50, hjust = 1))
   expect_doppelganger("rotated x axis tick labels", plot)
+})
+
+test_that("plot titles and caption can be aligned to entire plot", {
+  df <- data_frame(
+    x = 1:3,
+    y = 1:3,
+    z = letters[1:3]
+  )
+
+  plot <- ggplot(df, aes(x, y, color = z)) +
+    geom_point() + facet_wrap(~z) +
+    labs(
+      title = "Plot title aligned to entire plot",
+      subtitle = "Subtitle aligned to entire plot",
+      caption = "Caption aligned to panels"
+    ) +
+    theme(plot.title.position = "plot")
+  expect_doppelganger("titles aligned to entire plot", plot)
+
+  plot <- ggplot(df, aes(x, y, color = z)) +
+    geom_point() + facet_wrap(~z) +
+    labs(
+      title = "Plot title aligned to panels",
+      subtitle = "Subtitle aligned to panels",
+      caption = "Caption aligned to entire plot"
+    ) +
+    theme(plot.caption.position = "plot")
+  expect_doppelganger("caption aligned to entire plot", plot)
+
 })

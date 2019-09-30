@@ -28,16 +28,17 @@ This is useful if you're rotating both the plot and legend.}
 Dodging preserves the vertical position of an geom while adjusting the
 horizontal position. \code{position_dodge2} is a special case of \code{position_dodge}
 for arranging box plots, which can have variable widths. \code{position_dodge2}
-also works with bars and rectangles.
+also works with bars and rectangles. But unlike \code{position_dodge},
+\code{position_dodge2} works without a grouping variable in a layer.
 }
 \examples{
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = "dodge2")
 
-# By default, dodging with `position_dodge2()` preserves the width of each
-# element. You can choose to preserve the total width with:
+# By default, dodging with `position_dodge2()` preserves the total width of
+# the elements. You can choose to preserve the width of each element with:
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
-  geom_bar(position = position_dodge(preserve = "total"))
+  geom_bar(position = position_dodge2(preserve = "single"))
 
 \donttest{
 ggplot(diamonds, aes(price, fill = cut)) +

@@ -176,97 +176,9 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-#' Similar to expand_range(), but taking a vector ‘expand’
-#' of *four* expansion values, where the 1st and 2nd
-#' elements are used for the lower limit, and the 3rd and
-#' 4th elements are used for the upper limit).
-#'
-#' The ‘expand’ argument can also be of length 2,
-#' and the expansion values for the lower limit
-#' are then reused for the upper limit.
-#
-#' @noRd
-#' @keywords internal
-expand_range4 <- function(limits, expand) {
-   stopifnot(is.numeric(expand) && (length(expand) %in% c(2,4)))
-   # If only two expansion constants are given (i.e. the old syntax),
-   # reuse them to generate a four-element expansion vector
-   if (length(expand) == 2) { expand <- c(expand, expand) }
-
-   # Calculate separate range expansion for the lower and
-   # upper range limits, and then combine them into one vector
-   lower <- expand_range(limits, expand[1], expand[2])[1]
-   upper <- expand_range(limits, expand[3], expand[4])[2]
-   c(lower, upper)
-}
-
-#' Generate expansion vector for scales.
-#'
-#' This is a convenience function for generating scale expansion vectors
-#' for the \code{expand} argument of
-#' \code{\link[=scale_x_continuous]{scale_*_continuous}} and
-#' \code{\link[=scale_x_discrete]{scale_*_discrete}}.
-#' The expansions vectors are used to add some space between
-#' the data and the axes.
-#'
-#' @export
-#' @param mult vector of multiplicative range expansion factors.
-#'   If length 1, both the lower and upper limits of the scale
-#'   are expanded outwards by \code{mult}. If length 2, the lower limit
-#'   is expanded by \code{mult[1]} and the upper limit by \code{mult[2]}.
-#' @param add vector of additive range expansion constants.
-#'   If length 1, both the lower and upper limits of the scale
-#'   are expanded outwards by \code{add} units. If length 2, the
-#'   lower limit is expanded by \code{add[1]} and the upper
-#'   limit by \code{add[2]}.
-#' @examples
-#' # No space below the bars but 10% above them
-#' ggplot(mtcars) +
-#'   geom_bar(aes(x = factor(cyl))) +
-#'   scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
-#'
-#' # Add 2 units of space on the left and right of the data
-#' ggplot(subset(diamonds, carat > 2), aes(cut, clarity)) +
-#'   geom_jitter() +
-#'   scale_x_discrete(expand = expand_scale(add = 2))
-#'
-#' # Reproduce the default range expansion used
-#' # when the 'expand' argument is not specified
-#' ggplot(subset(diamonds, carat > 2), aes(cut, price)) +
-#'   geom_jitter() +
-#'   scale_x_discrete(expand = expand_scale(add = .6)) +
-#'   scale_y_continuous(expand = expand_scale(mult = .05))
-expand_scale = function(mult = 0, add = 0) {
-  stopifnot(is.numeric(mult) && is.numeric(add))
-  stopifnot((length(mult) %in% 1:2) && (length(add) %in% 1:2))
-
-  mult <- rep(mult, length.out = 2)
-  add <- rep(add, length.out = 2)
-  c(mult[1], add[1], mult[2], add[2])
-}
-
-
-
 #' Give a deprecation error, warning, or message, depending on version number.
 #'
-#' Version numbers have the format <major>.<minor>.<subminor>, like 0.9.2.
-#' This function compares the current version number of ggplot2 against the
-#' specified `version`, which is the most recent version before the
-#' function (or other object) was deprecated.
-#'
-#' `gg_dep` will give an error, warning, or message, depending on the
-#' difference between the current ggplot2 version and the specified
-#' `version`.
-#'
-#' If the current major number is greater than `version`'s major number,
-#' or if the current minor number is more than 1 greater than `version`'s
-#' minor number, give an error.
-#'
-#' If the current minor number differs from `version`'s minor number by
-#' one, give a warning.
-#'
-#' If the current subminor number differs from `version`'s subminor
-#' number, print a message.
+#' This function is deprecated.
 #'
 #' @param version The last version of ggplot2 where this function was good
 #'   (in other words, the last version where it was not deprecated).
@@ -274,6 +186,7 @@ expand_scale = function(mult = 0, add = 0) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
+  .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
 

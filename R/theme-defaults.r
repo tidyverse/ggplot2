@@ -22,7 +22,7 @@
 #'
 #' \item{`theme_linedraw`}{
 #' A theme with only black lines of various widths on white backgrounds,
-#' reminiscent of a line drawings. Serves a purpose similar to `theme_bw`.
+#' reminiscent of a line drawing. Serves a purpose similar to `theme_bw`.
 #' Note that this theme has some very thin lines (<< 1 pt) which some journals
 #' may refuse.}
 #'
@@ -169,7 +169,7 @@ theme_grey <- function(base_size = 11, base_family = "",
     legend.spacing.x =    NULL,
     legend.spacing.y =    NULL,
     legend.margin =      margin(half_line, half_line, half_line, half_line),
-    legend.key =         element_rect(fill = "grey95", colour = "white"),
+    legend.key =         element_rect(fill = "grey95", colour = NA),
     legend.key.size =    unit(1.2, "lines"),
     legend.key.height =  NULL,
     legend.key.width =   NULL,
@@ -214,6 +214,7 @@ theme_grey <- function(base_size = 11, base_family = "",
                            hjust = 0, vjust = 1,
                            margin = margin(b = half_line)
                          ),
+    plot.title.position = "panel",
     plot.subtitle =      element_text( # font size "regular"
                            hjust = 0, vjust = 1,
                            margin = margin(b = half_line)
@@ -223,6 +224,7 @@ theme_grey <- function(base_size = 11, base_family = "",
                            hjust = 1, vjust = 1,
                            margin = margin(t = half_line)
                          ),
+    plot.caption.position = "panel",
     plot.tag =           element_text(
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5
@@ -487,6 +489,7 @@ theme_void <- function(base_size = 11, base_family = "",
                            hjust = 0, vjust = 1,
                            margin = margin(t = half_line)
                          ),
+    plot.title.position = "panel",
     plot.subtitle =      element_text(
                            hjust = 0, vjust = 1,
                            margin = margin(t = half_line)
@@ -496,6 +499,7 @@ theme_void <- function(base_size = 11, base_family = "",
                            hjust = 1, vjust = 1,
                            margin = margin(t = half_line)
                          ),
+    plot.caption.position = "panel",
     plot.tag =           element_text(
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5
@@ -615,6 +619,7 @@ theme_test <- function(base_size = 11, base_family = "",
                            hjust = 0, vjust = 1,
                            margin = margin(b = half_line)
                          ),
+    plot.title.position = "panel",
     plot.subtitle =      element_text(
                            hjust = 0, vjust = 1,
                            margin = margin(b = half_line)
@@ -624,6 +629,7 @@ theme_test <- function(base_size = 11, base_family = "",
                            hjust = 1, vjust = 1,
                            margin = margin(t = half_line)
                          ),
+    plot.caption.position = "panel",
     plot.tag =           element_text(
                            size = rel(1.2),
                            hjust = 0.5, vjust = 0.5

@@ -104,6 +104,8 @@ Geom <- ggproto("Geom",
     stop("Not implemented")
   },
 
+  setup_params = function(data, params) params,
+
   setup_data = function(data, params) data,
 
   # Combine data with defaults and set aesthetics from parameters

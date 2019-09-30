@@ -37,7 +37,7 @@ margin_width <- function(grob, margins) {
 #'
 #' @noRd
 title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
-                       debug = FALSE) {
+                       debug = FALSE, check.overlap = FALSE) {
 
   if (is.null(label)) return(zeroGrob())
 
@@ -56,7 +56,8 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
     hjust = hjust,
     vjust = vjust,
     rot = angle,
-    gp = gp
+    gp = gp,
+    check.overlap = check.overlap
   )
 
   # The grob dimensions don't include the text descenders, so these need to be added
@@ -70,8 +71,8 @@ title_spec <- function(label, x, y, hjust, vjust, angle, gp = gpar(),
   # Use trigonometry to calculate grobheight and width for rotated grobs. This is only
   # exactly correct when vjust = 1. We need to take the absolute value so we don't make
   # the grob smaller when it's flipped over.
-  text_height <- unit(1, "grobheight", text_grob) + abs(cos(angle / 180 * pi)) * descent
-  text_width <- unit(1, "grobwidth", text_grob) + abs(sin(angle / 180 * pi)) * descent
+  text_height <- unit(1, "grobheight", text_grob) + abs(cos(angle[1] / 180 * pi)) * descent
+  text_width <- unit(1, "grobwidth", text_grob) + abs(sin(angle[1] / 180 * pi)) * descent
 
   if (isTRUE(debug)) {
     children <- gList(
@@ -175,7 +176,7 @@ add_margins <- function(grob, height, width, margin = NULL,
 #' @noRd
 titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
                       margin = NULL, margin_x = FALSE, margin_y = FALSE,
-                      debug = FALSE) {
+                      debug = FALSE, check.overlap = FALSE) {
 
   if (is.null(label))
     return(zeroGrob())
@@ -189,7 +190,8 @@ titleGrob <- function(label, x, y, hjust, vjust, angle = 0, gp = gpar(),
     vjust = vjust,
     angle = angle,
     gp = gp,
-    debug = debug
+    debug = debug,
+    check.overlap = check.overlap
   )
 
   add_margins(
@@ -331,29 +333,36 @@ rotate_just <- function(angle, hjust, vjust) {
   list(hjust = hnew, vjust = vnew)
 }
 descent_cache <- new.env(parent = emptyenv())
+# Important: This function is not vectorized. Do not use to look up multiple
+# font descents at once.
 font_descent <- function(family = "", face = "plain", size = 12, cex = 1) {
   cur_dev <- names(grDevices::dev.cur())
-  key <- paste0(cur_dev, ':', family, ':', face, ":", size, ":", cex)
-  descents <- lapply(key, function(k) {
-    descent <- descent_cache[[k]]
-
-    if (is.null(descent)) {
-      descent <- convertHeight(grobDescent(textGrob(
-        label = "gjpqyQ",
-        gp = gpar(
-          fontsize = size,
-          cex = cex,
-          fontfamily = family,
-          fontface = face
-        )
-      )), 'inches')
-      descent_cache[[k]] <- descent
-    }
-    descent
-  })
-  if (length(descents) == 1) {
-    descents[[1]]
+  if (cur_dev == "null device") {
+    cache <- FALSE   # don't cache if no device open
   } else {
-    do.call(unit.c, descents)
+    cache <- TRUE
   }
+  key <- paste0(cur_dev, ':', family, ':', face, ":", size, ":", cex)
+  # we only look up the first result; this function is not vectorized
+  key <- key[1]
+
+  descent <- descent_cache[[key]]
+
+  if (is.null(descent)) {
+    descent <- convertHeight(grobDescent(textGrob(
+      label = "gjpqyQ",
+      gp = gpar(
+        fontsize = size,
+        cex = cex,
+        fontfamily = family,
+        fontface = face
+      )
+    )), 'inches')
+
+    if (cache) {
+      descent_cache[[key]] <- descent
+    }
+  }
+
+  descent
 }

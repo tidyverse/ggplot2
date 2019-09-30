@@ -1,77 +1,163 @@
 # Platform
 
-|field    |value                                              |
-|:--------|:--------------------------------------------------|
-|version  |R Under development (unstable) (2019-03-18 r76245) |
-|os       |macOS High Sierra 10.13.6                          |
-|system   |x86_64, darwin15.6.0                               |
-|ui       |X11                                                |
-|language |(EN)                                               |
-|collate  |en_US.UTF-8                                        |
-|ctype    |en_US.UTF-8                                        |
-|tz       |America/New_York                                   |
-|date     |2019-03-27                                         |
+|field    |value                        |
+|:--------|:----------------------------|
+|version  |R version 3.6.0 (2019-04-26) |
+|os       |macOS High Sierra 10.13.6    |
+|system   |x86_64, darwin15.6.0         |
+|ui       |X11                          |
+|language |(EN)                         |
+|collate  |en_US.UTF-8                  |
+|ctype    |en_US.UTF-8                  |
+|tz       |America/New_York             |
+|date     |2019-05-24                   |
 
 # Dependencies
 
 |package |old   |new        |Δ  |
 |:-------|:-----|:----------|:--|
-|ggplot2 |3.1.0 |3.1.0.9000 |*  |
+|ggplot2 |3.1.1 |3.1.1.9000 |*  |
 
 # Revdeps
 
-## Couldn't check (9)
+## Failed to check (113)
 
-|package         |version |error |warning |note |source                                                          |
-|:---------------|:-------|:-----|:-------|:----|:---------------------------------------------------------------|
-|annotatr        |?       |      |        |     |[cran/annotatr](https://github.com/cran/annotatr)               |
-|ChIPseeker      |?       |      |        |     |[cran/ChIPseeker](https://github.com/cran/ChIPseeker)           |
-|clusterProfiler |?       |      |        |     |[cran/clusterProfiler](https://github.com/cran/clusterProfiler) |
-|fgsea           |?       |      |        |     |[cran/fgsea](https://github.com/cran/fgsea)                     |
-|LINC            |?       |      |        |     |[cran/LINC](https://github.com/cran/LINC)                       |
-|MEAL            |?       |      |        |     |[cran/MEAL](https://github.com/cran/MEAL)                       |
-|methylGSA       |?       |      |        |     |[cran/methylGSA](https://github.com/cran/methylGSA)             |
-|ReactomePA      |?       |      |        |     |[cran/ReactomePA](https://github.com/cran/ReactomePA)           |
-|SMITE           |?       |      |        |     |[cran/SMITE](https://github.com/cran/SMITE)                     |
+|package                          |version   |error     |warning |note |
+|:--------------------------------|:---------|:---------|:-------|:----|
+|aslib                            |0.1       |1         |        |     |
+|BaalChIP                         |1.8.0     |1         |        |2    |
+|BACA                             |1.3       |1         |        |     |
+|BACCT                            |1.0       |1         |        |     |
+|bamdit                           |3.2.1     |1         |        |     |
+|BayesRS                          |0.1.3     |1         |        |     |
+|BMSC                             |0.2.0     |1         |        |     |
+|BNSP                             |2.0.9     |1         |        |     |
+|BPEC                             |1.3.0     |1         |        |     |
+|bsam                             |1.1.2     |1         |        |     |
+|BTSPAS                           |2014.0901 |1         |        |1    |
+|CaliCo                           |0.1.1     |1         |        |     |
+|ChIPseeker                       |?         |          |        |     |
+|chromstaR                        |1.8.1     |1         |        |     |
+|clusterProfiler                  |?         |          |        |     |
+|CNVrd2                           |1.20.0    |1         |        |     |
+|CollapsABEL                      |0.10.11   |1         |        |     |
+|colorednoise                     |1.0.4     |1         |        |     |
+|crmPack                          |0.2.9     |1         |        |     |
+|Crossover                        |0.1-18    |1         |        |     |
+|CTDquerier                       |1.2.0     |1         |        |2    |
+|DaMiRseq                         |1.6.2     |1         |        |     |
+|Deducer                          |0.7-9     |1         |        |     |
+|[DeLorean](failures.md#delorean) |1.5.0     |__+1__    |        |-3   |
+|DiffBind                         |2.10.0    |1         |        |3    |
+|DiversityOccupancy               |1.0.6     |1         |        |     |
+|dynfrail                         |0.5.2     |1         |        |     |
+|dynr                             |0.1.14-9  |1         |        |     |
+|eegc                             |1.8.1     |1         |1       |2    |
+|EGSEA                            |1.10.1    |1         |        |     |
+|esATAC                           |1.4.5     |1         |        |2    |
+|evoper                           |0.5.0     |1         |        |     |
+|ewoc                             |0.2.0     |1         |        |     |
+|fgsea                            |?         |          |        |     |
+|fingerPro                        |1.1       |1         |        |     |
+|fsdaR                            |0.4-6     |1         |        |     |
+|G2Sd                             |2.1.5     |1         |        |     |
+|GARS                             |1.2.0     |1         |        |     |
+|ggbio                            |1.30.0    |1         |        |1    |
+|growthPheno                      |1.0-13    |1         |        |     |
+|HPAanalyze                       |1.0.0     |1         |        |     |
+|iBMQ                             |1.22.0    |1         |        |1    |
+|iCNV                             |1.2.1     |1         |        |     |
+|ideal                            |1.6.1     |1         |        |1    |
+|imageData                        |0.1-59    |1         |        |     |
+|imbalance                        |1.0.0     |1         |        |     |
+|Imetagene                        |1.12.0    |1         |        |     |
+|InSilicoVA                       |1.2.5     |1         |        |     |
+|jarbes                           |1.7.2     |1         |        |     |
+|joineRML                         |0.4.2     |1         |        |     |
+|JointAI                          |0.5.1     |1         |        |     |
+|likeLTD                          |6.3.0     |1         |        |     |
+|lilikoi                          |0.1.0     |1         |        |     |
+|[lime](failures.md#lime)         |0.4.1     |-1 __+1__ |        |     |
+|LINC                             |?         |          |        |     |
+|llama                            |0.9.2     |1         |        |     |
+|LLSR                             |0.0.2.19  |1         |        |     |
+|matchingMarkets                  |1.0-1     |1         |        |     |
+|mbgraphic                        |1.0.1     |1         |        |     |
+|mcmcabn                          |0.1       |1         |        |     |
+|MEAL                             |?         |          |        |     |
+|MetaStan                         |0.1.0     |1         |        |     |
+|methylGSA                        |?         |          |        |     |
+|mleap                            |0.1.3     |1         |        |     |
+|morse                            |3.2.2     |1         |        |     |
+|MSnbase                          |2.8.3     |2         |        |6    |
+|mwaved                           |1.1.6     |1         |        |     |
+|netSmooth                        |1.2.0     |1         |        |1    |
+|NPflow                           |0.13.1    |1         |        |     |
+|oceanis                          |0.8.4     |1         |        |     |
+|OpenStreetMap                    |0.3.3     |1         |        |     |
+|openVA                           |1.0.8     |1         |        |     |
+|petro.One                        |0.2.3     |1         |        |     |
+|phase1PRMD                       |1.0.1     |1         |        |     |
+|phase1RMD                        |1.0.8     |1         |        |     |
+|pimeta                           |1.1.2     |1         |        |     |
+|poppr                            |2.8.2     |1         |        |     |
+|PortfolioEffectHFT               |1.8       |1         |        |     |
+|psygenet2r                       |1.14.0    |1         |1       |3    |
+|qdap                             |2.3.2     |1         |        |     |
+|rcellminer                       |2.4.0     |1         |        |1    |
+|RcmdrPlugin.FuzzyClust           |1.1       |1         |        |     |
+|RDAVIDWebService                 |1.20.0    |1         |        |     |
+|Rdrools                          |1.1.1     |1         |        |     |
+|RDS                              |0.8-1     |1         |        |     |
+|ReactomePA                       |?         |          |        |     |
+|[RITAN](failures.md#ritan)       |1.6.0     |-1 __+1__ |2       |3    |
+|rmcfs                            |1.3.0     |1         |        |     |
+|RnBeads                          |2.0.1     |1         |        |2    |
+|robustHD                         |0.5.1     |1         |        |     |
+|rpanel                           |1.1-4     |1         |        |     |
+|rpf                              |0.62      |1         |        |     |
+|rrepast                          |0.7.0     |1         |        |     |
+|RSCAT                            |1.0.0     |1         |        |     |
+|rstanarm                         |2.18.2    |1         |        |2    |
+|[rstap](failures.md#rstap)       |1.0.3     |__+1__    |        |-3   |
+|rsvg                             |1.3       |1         |        |     |
+|RtutoR                           |1.2       |1         |        |     |
+|SeqFeatR                         |0.3.1     |1         |        |     |
+|simmr                            |0.3       |1         |        |     |
+|sitmo                            |2.0.1     |1         |        |     |
+|SMITE                            |?         |          |        |     |
+|SNPhood                          |1.12.0    |1         |        |3    |
+|spcosa                           |0.3-8     |1         |        |     |
+|StarBioTrek                      |1.8.5     |1         |        |     |
+|TCGAbiolinks                     |2.10.5    |1         |        |1    |
+|TCseq                            |1.6.1     |1         |        |     |
+|TeachingDemos                    |2.10      |1         |        |1    |
+|TVTB                             |1.8.0     |1         |        |1    |
+|vortexR                          |1.1.6     |1         |        |     |
+|XBSeq                            |1.14.1    |1         |        |2    |
+|XLConnect                        |0.2-15    |1         |        |     |
+|zooaRchGUI                       |1.0.2     |1         |        |     |
 
-## Broken (36)
+## New problems (18)
 
-|package                    |version |error |warning |note |source                                                                                |
-|:--------------------------|:-------|:-----|:-------|:----|:-------------------------------------------------------------------------------------|
-|AneuFinder                 |1.10.2  |      |        |     |[cran/AneuFinder](https://github.com/cran/AneuFinder)                                 |
-|BaalChIP                   |1.8.0   |      |        |     |[cran/BaalChIP](https://github.com/cran/BaalChIP)                                     |
-|Bclim                      |3.1.2   |      |        |     |[cran/Bclim](https://github.com/cran/Bclim)                                           |
-|CATALYST                   |1.6.7   |      |        |     |[cran/CATALYST](https://github.com/cran/CATALYST)                                     |
-|cellHTS2                   |2.46.1  |      |        |     |[cran/cellHTS2](https://github.com/cran/cellHTS2)                                     |
-|ChIPexoQual                |1.6.0   |      |        |     |[cran/ChIPexoQual](https://github.com/cran/ChIPexoQual)                               |
-|chromstaR                  |1.8.1   |      |        |     |[cran/chromstaR](https://github.com/cran/chromstaR)                                   |
-|ClassifyR                  |2.2.6   |      |        |     |[cran/ClassifyR](https://github.com/cran/ClassifyR)                                   |
-|clusternomics              |0.1.1   |      |        |     |[cran/clusternomics](https://github.com/cran/clusternomics)                           |
-|CNPBayes                   |1.12.0  |      |        |     |[cran/CNPBayes](https://github.com/cran/CNPBayes)                                     |
-|DeepBlueR                  |1.8.0   |      |        |     |[cran/DeepBlueR](https://github.com/cran/DeepBlueR)                                   |
-|DiffBind                   |2.10.0  |      |        |     |[cran/DiffBind](https://github.com/cran/DiffBind)                                     |
-|dmrseq                     |1.2.5   |      |        |     |[cran/dmrseq](https://github.com/cran/dmrseq)                                         |
-|FindMyFriends              |1.12.0  |      |        |     |[cran/FindMyFriends](https://github.com/cran/FindMyFriends)                           |
-|GOTHiC                     |1.18.1  |      |        |     |[cran/GOTHiC](https://github.com/cran/GOTHiC)                                         |
-|HTSSIP                     |1.4.0   |      |        |     |[cran/HTSSIP](https://github.com/cran/HTSSIP)                                         |
-|IHWpaper                   |1.10.0  |      |        |     |[cran/IHWpaper](https://github.com/cran/IHWpaper)                                     |
-|lime                       |0.4.1   |      |        |     |[cran/lime](https://github.com/cran/lime)                                             |
-|MSnbase                    |2.8.3   |      |        |     |[cran/MSnbase](https://github.com/cran/MSnbase)                                       |
-|msPurity                   |1.8.1   |      |        |     |[cran/msPurity](https://github.com/cran/msPurity)                                     |
-|onemap                     |2.1.1   |      |        |     |[cran/onemap](https://github.com/cran/onemap)                                         |
-|phylosim                   |3.0.2   |      |        |     |[cran/phylosim](https://github.com/cran/phylosim)                                     |
-|pmc                        |1.0.3   |      |        |     |[cran/pmc](https://github.com/cran/pmc)                                               |
-|pRoloc                     |1.22.2  |      |        |     |[cran/pRoloc](https://github.com/cran/pRoloc)                                         |
-|PureCN                     |1.12.2  |      |        |     |[cran/PureCN](https://github.com/cran/PureCN)                                         |
-|RcmdrPlugin.FuzzyClust     |1.1     |      |        |     |[cran/RcmdrPlugin.FuzzyClust](https://github.com/cran/RcmdrPlugin.FuzzyClust)         |
-|scruff                     |1.0.2   |      |        |     |[cran/scruff](https://github.com/cran/scruff)                                         |
-|sdmpredictors              |0.2.8   |      |        |     |[cran/sdmpredictors](https://github.com/cran/sdmpredictors)                           |
-|simulator                  |0.2.0   |      |        |     |[cran/simulator](https://github.com/cran/simulator)                                   |
-|Single.mTEC.Transcriptomes |1.10.0  |      |        |     |[cran/Single.mTEC.Transcriptomes](https://github.com/cran/Single.mTEC.Transcriptomes) |
-|SNPhood                    |1.12.0  |      |        |     |[cran/SNPhood](https://github.com/cran/SNPhood)                                       |
-|TeachingDemos              |2.10    |      |        |     |[cran/TeachingDemos](https://github.com/cran/TeachingDemos)                           |
-|TPP                        |3.10.1  |      |        |     |[cran/TPP](https://github.com/cran/TPP)                                               |
-|transcriptogramer          |1.4.1   |      |        |     |[cran/transcriptogramer](https://github.com/cran/transcriptogramer)                   |
-|variancePartition          |1.12.3  |      |        |     |[cran/variancePartition](https://github.com/cran/variancePartition)                   |
-|XBSeq                      |1.14.1  |      |        |     |[cran/XBSeq](https://github.com/cran/XBSeq)                                           |
+|package                                      |version |error       |warning |note     |
+|:--------------------------------------------|:-------|:-----------|:-------|:--------|
+|[bayesAB](problems.md#bayesab)               |1.1.1   |__+1__      |        |         |
+|[bayesdfa](problems.md#bayesdfa)             |0.1.3   |-1          |        |__+2__   |
+|[breathteststan](problems.md#breathteststan) |0.4.7   |__+1__      |        |2        |
+|[CSTools](problems.md#cstools)               |1.0.0   |__+1__      |        |         |
+|[esmisc](problems.md#esmisc)                 |0.0.3   |__+1__      |        |         |
+|[fergm](problems.md#fergm)                   |1.1.4   |__+1__      |        |         |
+|[flowAI](problems.md#flowai)                 |1.12.7  |            |        |__+1__   |
+|[ggformula](problems.md#ggformula)           |0.9.1   |            |        |1 __+1__ |
+|[ggstatsplot](problems.md#ggstatsplot)       |0.0.10  |__+1__      |        |         |
+|[HistDAWass](problems.md#histdawass)         |1.0.1   |__+1__      |        |         |
+|[hybridModels](problems.md#hybridmodels)     |0.3.5   |__+1__      |        |         |
+|[MTLR](problems.md#mtlr)                     |0.2.0   |__+1__      |        |         |
+|[PepsNMR](problems.md#pepsnmr)               |1.0.2   |__+1__      |        |         |
+|[Roleswitch](problems.md#roleswitch)         |1.20.0  |1 -1 __+1__ |        |2        |
+|[trialr](problems.md#trialr)                 |0.1.0   |-1          |        |__+3__   |
+|[vdiffr](problems.md#vdiffr)                 |0.3.0   |__+1__      |        |1        |
+|[vidger](problems.md#vidger)                 |1.2.1   |__+1__      |        |1        |
+|[xpose](problems.md#xpose)                   |0.4.4   |__+2__      |        |         |
 

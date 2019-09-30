@@ -419,7 +419,7 @@ is_facets <- function(x) {
 # but that seems like a reasonable tradeoff.
 eval_facets <- function(facets, data, env = globalenv()) {
   vars <- compact(lapply(facets, eval_facet, data, env = env))
-  tibble::as_tibble(vars)
+  new_data_frame(tibble::as_tibble(vars))
 }
 eval_facet <- function(facet, data, env = emptyenv()) {
   if (quo_is_symbol(facet)) {

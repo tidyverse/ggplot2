@@ -59,6 +59,38 @@ test_that("wrap: missing facet columns are duplicated", {
   expect_equal(loc_c$PANEL, factor(1:4))
 })
 
+test_that("wrap and grid can facet by a date variable", {
+  date_df <- data_frame(date_var = as.Date(c("1971-12-11", "1987-01-13", "2000-01-01")))
+
+  wrap <- facet_wrap(~date_var)
+  loc_wrap <- panel_map_one(wrap, date_df)
+  expect_equal(loc_wrap$PANEL, factor(1:3))
+
+  grid_col <- facet_grid(~date_var)
+  loc_grid_col <- panel_map_one(grid_col, date_df)
+  expect_equal(loc_grid_col$PANEL, factor(1:3))
+
+  grid_row <- facet_grid(date_var ~ .)
+  loc_grid_row <- panel_map_one(grid_row, date_df)
+  expect_equal(loc_grid_row$PANEL, factor(1:3))
+})
+
+test_that("wrap and grid can facet by a POSIXct variable", {
+  date_df <- data_frame(date_var = as.POSIXct(c("1971-12-11", "1987-01-13", "2000-01-01")))
+
+  wrap <- facet_wrap(~date_var)
+  loc_wrap <- panel_map_one(wrap, date_df)
+  expect_equal(loc_wrap$PANEL, factor(1:3))
+
+  grid_col <- facet_grid(~date_var)
+  loc_grid_col <- panel_map_one(grid_col, date_df)
+  expect_equal(loc_grid_col$PANEL, factor(1:3))
+
+  grid_row <- facet_grid(date_var ~ .)
+  loc_grid_row <- panel_map_one(grid_row, date_df)
+  expect_equal(loc_grid_row$PANEL, factor(1:3))
+})
+
 # Missing behaviour ----------------------------------------------------------
 
 a3 <- data_frame(

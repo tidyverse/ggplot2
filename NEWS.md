@@ -1,11 +1,96 @@
 # ggplot2 (development version)
 
+* Position guides can now be customized using the new `guide_axis()`,
+  which can be passed to position `scale_*()` functions or via
+  `guides()`. The new axis guide (`guide_axis()`) comes with
+  arguments `check.overlap` (automatic removal of overlapping
+  labels), `angle` (easy rotation of axis labels), and
+  `n.dodge` (dodge labels into multiple rows/columns) (@paleolimbot, #3322).
+
+* `Geom` now gains a `setup_params()` method in line with the other ggproto
+  classes (@thomasp85, #3509)
+
+* `element_text()` now issues a warning when vectorized arguments are provided, as in
+  `colour = c("red", "green", "blue")`. Such use is discouraged and not officially supported
+   (@clauswilke, #3492).
+
+* stacking text when calculating the labels and the y axis with
+  `stat_summary()` now works (@ikosmidis, #2709)
+
+* Allowed reversing of discrete scales by re-writing `get_limits()` (@AnneLyng, #3115)
+
+* Added `stat_contour_filled()` and `geom_contour_filled()`, which compute 
+  and draw filled contours of gridded data (@paleolimbot, #3044).
+
+* `geom_contour()` and `stat_contour()` now use the isoband package
+  to compute contour lines. The `complete` parameter (which was undocumented
+  and has been unused for at least four years) was removed (@paleolimbot, #3044).
+
+* `stat_smooth()` user `REML` by default, if `method = "gam"` and
+  `gam`'s method is not specified (@ikosmidis, #2630).
+
+* Changed `theme_grey()` setting for legend key so that it creates no 
+  border (`NA`) rather than drawing a white one. (@annennenne, #3180)
+  
+* Themes have gained two new parameters, `plot.title.position` and 
+  `plot.caption.position`, that can be used to customize how plot
+  title/subtitle and plot caption are positioned relative to the overall plot
+  (@clauswilke, #3252).
+
+* Added function `ggplot_add.by()` for lists created with `by()` (#2734, @Maschette)
+
+* `gg_dep()` was deprecated (@perezp44, #3382).
+
+* Added weight aesthetic option to `stat_density()` and made scaling of 
+  weights the default (@annennenne, #2902)
+
+* `expand_scale()` was deprecated in favour of `expansion()` for setting
+  the `expand` argument of `x` and `y` scales (@paleolimbot).
+
+* `coord_trans()` now draws second axes and accepts `xlim`, `ylim`,
+  and `expand` arguments to bring it up to feature parity with 
+  `coord_cartesian()`. The `xtrans` and `ytrans` arguments that were 
+  deprecated in version 1.0.1 in favour of `x` and `y` 
+  were removed (@paleolimbot, #2990).
+
+* `coord_trans()` now calculates breaks using the expanded range 
+  (previously these were calculated using the unexpanded range, 
+  which resulted in differences between plots made with `coord_trans()`
+  and those made with `coord_cartesian()`). The expansion for discrete axes 
+  in `coord_trans()` was also updated such that it behaves identically
+  to that in `coord_cartesian()` (@paleolimbot, #3338).
+
+* All `coord_*()` functions with `xlim` and `ylim` arguments now accept
+  vectors with `NA` as a placeholder for the minimum or maximum value
+  (e.g., `ylim = c(0, NA)` would zoom the y-axis from 0 to the 
+  maximum value observed in the data). This mimics the behaviour
+  of the `limits` argument in continuous scale functions
+  (@paleolimbot, #2907).
+
 * `geom_abline()`, `geom_hline()`, and `geom_vline()` now issue 
   more informative warnings when supplied with set aesthetics
   (i.e., `slope`, `intercept`, `yintercept`, and/or `xintercept`)
   and mapped aesthetics (i.e., `data` and/or `mapping`).
+  
+* `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
 
-# ggplot2 3.1.1.9000
+* `geom_sf()` now removes rows that contain missing `shape`/`size`/`colour` (#3483, @yutannihilation)
+
+* Fix a bug when `show.legend` is a named logical vector (#3461, @yutannihilation).
+
+# ggplot2 3.2.1
+
+This is a patch release fixing a few regressions introduced in 3.2.0 as well as
+fixing some unit tests that broke due to upstream changes.
+
+* `position_stack()` no longer changes the order of the input data. Changes to 
+  the internal behaviour of `geom_ribbon()` made this reordering problematic 
+  with ribbons that spanned `y = 0` (#3471)
+* Using `qplot()` with a single positional aesthetic will no longer title the
+  non-specified scale as `"NULL"` (#3473)
+* Fixes unit tests for sf graticule labels caused by chages to sf
+
+# ggplot2 3.2.0
 
 This is a minor release with an emphasis on internal changes to make ggplot2 
 faster and more consistent. The few interface changes will only affect the 
@@ -13,6 +98,9 @@ aesthetics of the plot in minor ways, and will only potentially break code of
 extension developers if they have relied on internals that have been changed. 
 This release also sees the addition of Hiroaki Yutani (@yutannihilation) to the 
 core developer team.
+
+With the release of R 3.6, ggplot2 now requires the R version to be at least 3.2,
+as the tidyverse is committed to support 5 major versions of R.
 
 ## Breaking changes
 

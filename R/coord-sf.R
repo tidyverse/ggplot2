@@ -127,8 +127,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     # Bounding box of the data
-    x_range <- scale_range(scale_x, self$limits$x, self$expand)
-    y_range <- scale_range(scale_y, self$limits$y, self$expand)
+    expansion_x <- default_expansion(scale_x, expand = self$expand)
+    x_range <- expand_limits_scale(scale_x, expansion_x, coord_limits = self$limits$x)
+    expansion_y <- default_expansion(scale_y, expand = self$expand)
+    y_range <- expand_limits_scale(scale_y, expansion_y, coord_limits = self$limits$y)
     bbox <- c(
       x_range[1], y_range[1],
       x_range[2], y_range[2]
@@ -192,6 +194,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
     diff(panel_params$y_range) / diff(panel_params$x_range) / ratio
   },
+
+  labels = function(labels, panel_params) labels,
 
   render_bg = function(self, panel_params, theme) {
     el <- calc_element("panel.grid.major", theme)

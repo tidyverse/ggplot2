@@ -25,3 +25,4 @@ visual_test
 ^appveyor\.yml$
 ^\.github$
 ^vignettes/profilings
+^cran-comments\.md$

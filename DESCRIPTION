@@ -1,5 +1,5 @@
 Package: ggplot2
-Version: 3.2.0.9000
+Version: 3.2.1.9000
 Title: Create Elegant Data Visualisations Using the Grammar of Graphics
 Description: A system for 'declaratively' creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
@@ -17,13 +17,12 @@ Authors@R: c(
     person("RStudio", role = c("cph"))
     )
 Depends:
-    R (>= 3.1)
+    R (>= 3.2)
 Imports: 
     digest,
     grDevices,
     grid,
     gtable (>= 0.1.1),
-    lazyeval,
     MASS,
     mgcv,
     reshape2,
@@ -39,6 +38,7 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
+    isoband,
     knitr,
     lattice,
     mapproj,
@@ -54,7 +54,7 @@ Suggests:
     rpart,
     sf (>= 0.7-3),
     svglite (>= 1.2.0.9001),
-    testthat (>= 0.11.0),
+    testthat (>= 2.1.0),
     vdiffr (>= 0.3.0)
 Enhances: sp
 License: GPL-2 | file LICENSE
@@ -158,6 +158,7 @@ Collate:
     'guides-.r'
     'guides-axis.r'
     'guides-grid.r'
+    'guides-none.r'
     'hexbin.R'
     'labeller.r'
     'labels.r'
@@ -190,6 +191,7 @@ Collate:
     'scale-continuous.r'
     'scale-date.r'
     'scale-discrete-.r'
+    'scale-expansion.r'
     'scale-gradient.r'
     'scale-grey.r'
     'scale-hue.r'
@@ -199,6 +201,7 @@ Collate:
     'scale-shape.r'
     'scale-size.r'
     'scale-type.R'
+    'scale-view.r'
     'scale-viridis.r'
     'scales-.r'
     'stat-bin.r'

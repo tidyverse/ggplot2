@@ -20,6 +20,9 @@
 #'   - A character vector giving labels (must be same length as `breaks`)
 #'   - A function that takes the breaks as input and returns labels as output
 #'
+#' @param guide A position guide that will be used to render
+#'   the axis on the plot. Usually this is [guide_axis()].
+#'
 #' @details
 #' `sec_axis` is used to create the specifications for a secondary axis.
 #' Except for the `trans` argument any of the arguments can be set to
@@ -79,7 +82,8 @@
 #'   labels = scales::time_format("%b %d %I %p")))
 #'
 #' @export
-sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver()) {
+sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver(),
+                     guide = waiver()) {
   # sec_axis() historically accpeted two-sided formula, so be permissive.
   if (length(trans) > 2) trans <- trans[c(1,3)]
 
@@ -88,14 +92,15 @@ sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = 
     trans = trans,
     name = name,
     breaks = breaks,
-    labels = labels
+    labels = labels,
+    guide = guide
   )
 }
 #' @rdname sec_axis
 #'
 #' @export
-dup_axis <- function(trans = ~., name = derive(), breaks = derive(), labels = derive()) {
-  sec_axis(trans, name, breaks, labels)
+dup_axis <- function(trans = ~., name = derive(), breaks = derive(), labels = derive(), guide = derive()) {
+  sec_axis(trans, name, breaks, labels, guide)
 }
 
 is.sec_axis <- function(x) {
@@ -120,8 +125,6 @@ derive <- function() {
 is.derived <- function(x) {
   inherits(x, "derived")
 }
-#' @importFrom lazyeval f_eval
-#'
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
@@ -150,6 +153,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
     if (is.waive(self$breaks)) self$breaks <- scale$trans$breaks
     if (is.derived(self$labels)) self$labels <- scale$labels
+    if (is.derived(self$guide)) self$guide <- scale$guide
   },
 
   transform_range = function(self, range) {
@@ -187,21 +191,49 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
 
     # patch for date and datetime scales just to maintain functionality
     # works only for linear secondary transforms that respect the time or date transform
-    if (scale$trans$name %in% c("date", "time")){
+    if (scale$trans$name %in% c("date", "time")) {
       temp_scale <- self$create_scale(new_range, trans = scale$trans)
       range_info <- temp_scale$break_info()
-      names(range_info) <- paste0("sec.", names(range_info))
-      return(range_info)
+      old_val_trans <- rescale(range_info$major, from = c(0, 1), to = range)
+      old_val_minor_trans <- rescale(range_info$minor, from = c(0, 1), to = range)
+    } else {
+      temp_scale <- self$create_scale(new_range)
+      range_info <- temp_scale$break_info()
+
+      # Map the break values back to their correct position on the primary scale
+      old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
+      old_val <- old_range[unlist(old_val)]
+      old_val_trans <- scale$trans$transform(old_val)
+
+      old_val_minor <- lapply(range_info$minor_source, function(x) which.min(abs(full_range - x)))
+      old_val_minor <- old_range[unlist(old_val_minor)]
+      old_val_minor_trans <- scale$trans$transform(old_val_minor)
+
+      # rescale values from 0 to 1
+      range_info$major[] <- round(
+        rescale(
+          scale$map(old_val_trans, range(old_val_trans)),
+          from = range
+        ),
+        digits = 3
+      )
+
+      range_info$minor[] <- round(
+        rescale(
+          scale$map(old_val_minor_trans, range(old_val_minor_trans)),
+          from = range
+        ),
+        digits = 3
+      )
     }
 
-    temp_scale <- self$create_scale(new_range)
-    range_info <- temp_scale$break_info()
-
-    # Map the break values back to their correct position on the primary scale
-    old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
-    old_val <- old_range[unlist(old_val)]
-    old_val_trans <- scale$trans$transform(old_val)
-    range_info$major[] <- round(rescale(scale$map(old_val_trans, range(old_val_trans)), from = range), digits = 3)
+    # The _source values should be in (primary) scale_transformed space,
+    # so that the coord doesn't have to know about the secondary scale transformation
+    # when drawing the axis. The values in user space are useful for testing.
+    range_info$major_source_user <- range_info$major_source
+    range_info$minor_source_user <- range_info$minor_source
+    range_info$major_source[] <- old_val_trans
+    range_info$minor_source[] <- old_val_minor_trans
 
     names(range_info) <- paste0("sec.", names(range_info))
     range_info

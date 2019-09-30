@@ -1,5 +1,7 @@
 context("geom_dotplot")
 
+skip_on_cran() # This test suite is long-running (on cran) and is skipped
+
 set.seed(111)
 dat <- data_frame(x = rep(LETTERS[1:2], 15), y = rnorm(30), g = rep(LETTERS[3:5], 10))
 

@@ -177,6 +177,8 @@ PositionStack <- ggproto("PositionStack", Position,
     }
 
     negative <- data$ymax < 0
+    negative[is.na(negative)] <- FALSE
+
     neg <- data[negative, , drop = FALSE]
     pos <- data[!negative, , drop = FALSE]
 
@@ -195,7 +197,7 @@ PositionStack <- ggproto("PositionStack", Position,
       )
     }
 
-    rbind(neg, pos)
+    rbind(neg, pos)[match(seq_len(nrow(data)), c(which(negative), which(!negative))),]
   }
 )
 
