@@ -85,7 +85,7 @@
 "midwest"
 
 
-#' Fuel economy data from 1999 and 2008 for 38 popular models of car
+#' Fuel economy data from 1999 to 2008 for 38 popular models of cars
 #'
 #' This dataset contains a subset of the fuel economy data that the EPA makes
 #' available on \url{http://fueleconomy.gov}. It contains only models which
