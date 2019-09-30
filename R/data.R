@@ -94,7 +94,7 @@
 #'
 #' @format A data frame with 234 rows and 11 variables
 #' \describe{
-#'   \item{manufacturer}{}
+#'   \item{manufacturer}{manufacturer name}
 #'   \item{model}{model name}
 #'   \item{displ}{engine displacement, in litres}
 #'   \item{year}{year of manufacture}
