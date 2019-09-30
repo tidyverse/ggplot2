@@ -8,7 +8,7 @@
 #'
 #' @note
 #' The `distiller` scales extend brewer to continuous scales by smoothly
-#' interpolating 7 colours from any palette to a continuous scale. The `blender`
+#' interpolating 7 colours from any palette to a continuous scale. The `fermenter`
 #' scales provide binned versions of the brewer scales.
 #'
 #' @details
@@ -34,7 +34,7 @@
 #'   the list of palettes of appropriate `type`. The list of available palettes can found
 #'   in the Palettes section.
 #' @param ... Other arguments passed on to [discrete_scale()], [continuous_scale()],
-#'   or [binned_scale()], for `brewer`, `distiller`, and `blender` variants
+#'   or [binned_scale()], for `brewer`, `distiller`, and `fermenter` variants
 #'   respectively, to control name, limits, breaks, labels and so forth.
 #' @family colour scales
 #' @rdname scale_brewer
@@ -72,7 +72,7 @@
 #' v + scale_fill_distiller(palette = "Spectral")
 #'
 #' # or use blender variants to discretize continuous data
-#' v + scale_fill_blender()
+#' v + scale_fill_fermenter()
 #'
 scale_colour_brewer <- function(..., type = "seq", palette = 1, direction = 1, aesthetics = "colour") {
   discrete_scale(aesthetics, "brewer", brewer_pal(type, palette, direction), ...)
@@ -111,23 +111,23 @@ scale_fill_distiller <- function(..., type = "seq", palette = 1, direction = -1,
 
 #' @export
 #' @rdname scale_brewer
-scale_colour_blender <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "colour") {
+scale_colour_fermenter <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "colour") {
   # warn about using a qualitative brewer palette to generate the gradient
   type <- match.arg(type, c("seq", "div", "qual"))
   if (type == "qual") {
     warning("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
   }
-  binned_scale(aesthetics, "blender", binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
+  binned_scale(aesthetics, "fermenter", binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
 }
 
 #' @export
 #' @rdname scale_brewer
-scale_fill_blender <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "fill") {
+scale_fill_fermenter <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "fill") {
   type <- match.arg(type, c("seq", "div", "qual"))
   if (type == "qual") {
     warning("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
   }
-  binned_scale(aesthetics, "distiller", binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
+  binned_scale(aesthetics, "fermenter", binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
 }
 
 # icon.brewer <- function() {

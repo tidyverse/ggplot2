@@ -128,7 +128,7 @@ scale_color_distiller <- scale_colour_distiller
 #' @export
 #' @rdname scale_brewer
 #' @usage NULL
-scale_color_blender <- scale_colour_blender
+scale_color_fermenter <- scale_colour_fermenter
 
 #' @export
 #' @rdname scale_colour_continuous
