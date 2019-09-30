@@ -98,10 +98,10 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     }
 
     if (is.null(params$formula)) {
-      params$formula <- if (identical(params$method, "gam")) {
-        y ~ s(x, bs = "cs")
+      if (identical(params$method, "gam")) {
+        params$formula <- y ~ s(x, bs = "cs")
       } else {
-        y ~ x
+        params$formula <- y ~ x
       }
       msg <- c(msg, paste0("formula '", deparse(params$formula), "'"))
     }
