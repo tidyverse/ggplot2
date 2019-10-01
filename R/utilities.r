@@ -440,7 +440,7 @@ switch_orientation <- function(aesthetics) {
 #'   or `y` aesthetic is understood. If `TRUE` then the exisiting aesthetic
 #'   would be then secondary axis. This behaviour is present in [stat_ydensity()]
 #'   and [stat_boxplot()]. If `FALSE` then the exisiting aesthetic is the main
-#'   axis as seen in e.g. [stat_histogram()], [geom_count()], and [stat_density()].
+#'   axis as seen in e.g. [stat_bin()], [geom_count()], and [stat_density()].
 #' - `range_is_orthogonal`: This argument controls whether the existance of
 #'   range-like aesthetics (e.g. `xmin` and `xmax`) represents the main or
 #'   secondary axis. If `TRUE` then the range is given for the secondary axis as
@@ -461,7 +461,7 @@ switch_orientation <- function(aesthetics) {
 #'   in the scales should be interpreted. If `TRUE` then the main axis will be
 #'   the one which is not discrete-like. Conversely, if `FALSE` the main axis
 #'   will be the discrete-like one. Examples of `TRUE` is [stat_density()] and
-#'   [stat_histogram()], while examples of `FALSE` is [stat_ydensity()] and
+#'   [stat_bin()], while examples of `FALSE` is [stat_ydensity()] and
 #'   [stat_boxplot()]
 #'
 #' @param data The layer data

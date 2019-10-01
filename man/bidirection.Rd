@@ -22,8 +22,8 @@ flipped_names(flip = FALSE)
 parameter will be used.}
 
 \item{main_is_orthogonal}{If only \code{x} or \code{y} are present do they correspond
-to the main orientation or the reverse. E.g. If \code{TRUE} and \code{y} is present it
-is not flipped. If \code{NA} this check will be ignored.}
+to the main orientation or the reverse. E.g. If \code{TRUE} and \code{y} is present
+it is not flipped. If \code{NA} this check will be ignored.}
 
 \item{range_is_orthogonal}{If \code{xmin}/\code{xmax} or \code{ymin}/\code{ymax} is present do
 they correspond to the main orientation or reverse. If \code{NA} this check will
@@ -72,7 +72,7 @@ features in the data correspond to:
 or \code{y} aesthetic is understood. If \code{TRUE} then the exisiting aesthetic
 would be then secondary axis. This behaviour is present in \code{\link[=stat_ydensity]{stat_ydensity()}}
 and \code{\link[=stat_boxplot]{stat_boxplot()}}. If \code{FALSE} then the exisiting aesthetic is the main
-axis as seen in e.g. \code{\link[=stat_histogram]{stat_histogram()}}, \code{\link[=geom_count]{geom_count()}}, and \code{\link[=stat_density]{stat_density()}}.
+axis as seen in e.g. \code{\link[=stat_bin]{stat_bin()}}, \code{\link[=geom_count]{geom_count()}}, and \code{\link[=stat_density]{stat_density()}}.
 \item \code{range_is_orthogonal}: This argument controls whether the existance of
 range-like aesthetics (e.g. \code{xmin} and \code{xmax}) represents the main or
 secondary axis. If \code{TRUE} then the range is given for the secondary axis as
@@ -93,7 +93,7 @@ data based guessing and only take hint from the \code{orientation} element in
 in the scales should be interpreted. If \code{TRUE} then the main axis will be
 the one which is not discrete-like. Conversely, if \code{FALSE} the main axis
 will be the discrete-like one. Examples of \code{TRUE} is \code{\link[=stat_density]{stat_density()}} and
-\code{\link[=stat_histogram]{stat_histogram()}}, while examples of \code{FALSE} is \code{\link[=stat_ydensity]{stat_ydensity()}} and
+\code{\link[=stat_bin]{stat_bin()}}, while examples of \code{FALSE} is \code{\link[=stat_ydensity]{stat_ydensity()}} and
 \code{\link[=stat_boxplot]{stat_boxplot()}}
 }
 }
