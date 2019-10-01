@@ -160,7 +160,8 @@ base + scale_x_date(limits = c(Sys.Date() - 7, NA))
 \seealso{
 \code{\link[=sec_axis]{sec_axis()}} for how to specify secondary axes
 
-Other position scales: \code{\link{scale_x_continuous}},
+Other position scales: \code{\link{scale_x_binned}},
+  \code{\link{scale_x_continuous}},
   \code{\link{scale_x_discrete}}
 }
 \concept{position scales}

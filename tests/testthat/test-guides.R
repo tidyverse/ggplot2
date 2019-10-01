@@ -423,3 +423,46 @@ test_that("guides can handle multiple aesthetics for one scale", {
 
   expect_doppelganger("one combined colorbar for colour and fill aesthetics", p)
 })
+
+test_that("bin guide can be styled correctly", {
+  df <- data_frame(x = c(1, 2, 3),
+                   y = c(6, 5, 7))
+
+  p <- ggplot(df, aes(x, y, size = x)) +
+    geom_point() +
+    scale_size_binned()
+
+  expect_doppelganger("guide_bins looks as it should", p)
+  expect_doppelganger("guide_bins can show limits",
+    p + guides(size = guide_bins(show.limits = TRUE))
+  )
+  expect_doppelganger("guide_bins can show arrows",
+    p + guides(size = guide_bins(axis.arrow = arrow(length = unit(1.5, "mm"), ends = "both")))
+  )
+  expect_doppelganger("guide_bins can remove axis",
+    p + guides(size = guide_bins(axis = FALSE))
+  )
+  expect_doppelganger("guide_bins work horizontally",
+    p + guides(size = guide_bins(direction = "horizontal"))
+  )
+})
+
+test_that("coloursteps guide can be styled correctly", {
+  df <- data_frame(x = c(1, 2, 4),
+                   y = c(6, 5, 7))
+
+  p <- ggplot(df, aes(x, y, colour = x)) +
+    geom_point() +
+    scale_colour_binned(breaks = c(1.5, 2, 3))
+
+  expect_doppelganger("guide_coloursteps looks as it should", p)
+  expect_doppelganger("guide_coloursteps can show limits",
+    p + guides(colour = guide_coloursteps(show.limits = TRUE))
+  )
+  expect_doppelganger("guide_coloursteps can have bins relative to binsize",
+    p + guides(colour = guide_coloursteps(even.steps = FALSE))
+  )
+  expect_doppelganger("guide_bins can show ticks",
+    p + guides(colour = guide_coloursteps(ticks = TRUE))
+  )
+})

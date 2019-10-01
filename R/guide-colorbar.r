@@ -566,25 +566,3 @@ guide_gengrob.colorbar <- function(guide, theme) {
 #' @export
 #' @rdname guide_colourbar
 guide_colorbar <- guide_colourbar
-
-#' Calculate the default hjust and vjust settings depending on legend
-#' direction and position.
-#'
-#' @noRd
-label_just_defaults.colorbar <- function(direction, position) {
-  if (direction == "horizontal") {
-    switch(
-      position,
-      "top" = list(hjust = 0.5, vjust = 0),
-      list(hjust = 0.5, vjust = 1)
-    )
-  }
-  else {
-    switch(
-      position,
-      "left" = list(hjust = 1, vjust = 0.5),
-      list(hjust = 0, vjust = 0.5)
-    )
-  }
-}
-

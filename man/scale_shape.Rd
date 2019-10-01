@@ -2,12 +2,15 @@
 % Please edit documentation in R/scale-shape.r
 \name{scale_shape}
 \alias{scale_shape}
+\alias{scale_shape_binned}
 \alias{scale_shape_discrete}
 \alias{scale_shape_ordinal}
 \alias{scale_shape_continuous}
 \title{Scales for shapes, aka glyphs}
 \usage{
 scale_shape(..., solid = TRUE)
+
+scale_shape_binned(..., solid = TRUE)
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
@@ -63,7 +66,8 @@ as output
 If you have more than six levels, you will get a warning message, and the
 seventh and subsequence levels will not appear on the plot. Use
 \code{\link[=scale_shape_manual]{scale_shape_manual()}} to supply your own values. You can not map
-a continuous variable to shape.
+a continuous variable to shape unless \code{scale_shape_binned()} is used. Still,
+as shape has no inherent order, this use is not advised..
 }
 \examples{
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]

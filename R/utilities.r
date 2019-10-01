@@ -176,6 +176,12 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
+binned_pal <- function(palette) {
+  function(x) {
+    palette(length(x))
+  }
+}
+
 #' Give a deprecation error, warning, or message, depending on version number.
 #'
 #' This function is deprecated.

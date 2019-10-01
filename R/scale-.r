@@ -186,6 +186,70 @@ discrete_scale <- function(aesthetics, scale_name, palette, name = waiver(),
   )
 }
 
+#' Binning scale constructor
+#'
+#' @inheritParams continuous_scale
+#' @param n.breaks The number of break points to create if breaks are not given
+#'   directly.
+#' @param nice.breaks Logical. Should breaks be attempted placed at nice values
+#'   instead of exactly evenly spaced between the limits. If `TRUE` (default)
+#'   the scale will ask the transformation object to create breaks, and this
+#'   may result in a different number of breaks than requested. Ignored if
+#'   breaks are given explicetly.
+#' @param right Should values on the border between bins be part of the right
+#'   (upper) bin?
+#' @param show.limits should the limits of the scale appear as ticks
+#' @keywords internal
+binned_scale <- function(aesthetics, scale_name, palette, name = waiver(),
+                         breaks = waiver(), labels = waiver(), limits = NULL,
+                         rescaler = rescale, oob = squish, expand = waiver(),
+                         na.value = NA_real_, n.breaks = NULL, nice.breaks = TRUE,
+                         right = TRUE, trans = "identity", show.limits = FALSE,
+                         guide = "bins", position = "left", super = ScaleBinned) {
+
+  aesthetics <- standardise_aes_names(aesthetics)
+
+  check_breaks_labels(breaks, labels)
+
+  position <- match.arg(position, c("left", "right", "top", "bottom"))
+
+  if (is.null(breaks) && !is_position_aes(aesthetics) && guide != "none") {
+    guide <- "none"
+  }
+
+  trans <- as.trans(trans)
+  if (!is.null(limits)) {
+    limits <- trans$transform(limits)
+  }
+
+  ggproto(NULL, super,
+    call = match.call(),
+
+    aesthetics = aesthetics,
+    scale_name = scale_name,
+    palette = palette,
+
+    range = continuous_range(),
+    limits = limits,
+    trans = trans,
+    na.value = na.value,
+    expand = expand,
+    rescaler = rescaler,
+    oob = oob,
+    n.breaks = n.breaks,
+    nice.breaks = nice.breaks,
+    right = right,
+    show.limits = show.limits,
+
+    name = name,
+    breaks = breaks,
+
+    labels = labels,
+    guide = guide,
+    position = position
+  )
+}
+
 #' @section Scales:
 #'
 #' All `scale_*` functions like [scale_x_continuous()] return a `Scale*`
@@ -472,11 +536,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
   transform = function(self, x) {
      new_x <- self$trans$transform(x)
-     if (any(is.finite(x) != is.finite(new_x))) {
-       type <- if (self$scale_name == "position_c") "continuous" else "discrete"
-       axis <- if ("x" %in% self$aesthetics) "x" else "y"
-       warning("Transformation introduced infinite values in ", type, " ", axis, "-axis", call. = FALSE)
-     }
+     axis <- if ("x" %in% self$aesthetics) "x" else "y"
+     check_transformation(x, new_x, self$scale_name, axis)
      new_x
   },
 
@@ -810,6 +871,193 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
   }
 )
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+ScaleBinned <- ggproto("ScaleBinned", Scale,
+  range = continuous_range(),
+  na.value = NA_real_,
+  rescaler = rescale,
+  oob = squish,
+  n.breaks = NULL,
+  nice.breaks = TRUE,
+  right = TRUE,
+  after.stat = FALSE,
+  show.limits = FALSE,
+
+  is_discrete = function() FALSE,
+
+  train = function(self, x) {
+    if (!is.numeric(x)) {
+      stop("Binned scales only support continuous data", call. = FALSE)
+    }
+
+    if (length(x) == 0) {
+      return()
+    }
+    self$range$train(x)
+  },
+
+  transform = function(self, x) {
+    new_x <- self$trans$transform(x)
+    axis <- if ("x" %in% self$aesthetics) "x" else "y"
+    check_transformation(x, new_x, self$scale_name, axis)
+    new_x
+  },
+
+  map = function(self, x, limits = self$get_limits()) {
+    if (self$after.stat) {
+      x
+    } else {
+      breaks <- self$get_breaks(limits)
+      breaks <- sort(unique(c(limits[1], breaks, limits[2])))
+
+      x <- self$rescale(self$oob(x, range = limits), limits)
+      breaks <- self$rescale(breaks, limits)
+
+      x_binned <- cut(x, breaks,
+        labels = FALSE,
+        include.lowest = TRUE,
+        right = self$right
+      )
+
+      if (!is.null(self$palette.cache)) {
+        pal <- self$palette.cache
+      } else {
+        pal <- self$palette(breaks[-1] - diff(breaks) / 2)
+        self$palette.cache <- pal
+      }
+
+      pal[x_binned]
+    }
+  },
+
+  rescale = function(self, x, limits = self$get_limits(), range = limits) {
+    self$rescaler(x, from = range)
+  },
+
+  dimension = function(self, expand = c(0, 0, 0, 0)) {
+    expand_range4(self$get_limits(), expand)
+  },
+
+  get_breaks = function(self, limits = self$get_limits()) {
+    if (self$is_empty()) return(numeric())
+
+    limits <- self$trans$inverse(limits)
+
+    if (is.null(self$breaks)) {
+      return(NULL)
+    } else if (identical(self$breaks, NA)) {
+      stop("Invalid breaks specification. Use NULL, not NA", call. = FALSE)
+    } else if (is.waive(self$breaks)) {
+      if (self$nice.breaks) {
+        if (!is.null(self$n.breaks) && "n" %in% names(formals(self$trans$breaks))) {
+          breaks <- self$trans$breaks(limits, n = self$n.breaks)
+        } else {
+          if (!is.null(self$n.breaks)) {
+            warning("Ignoring n.breaks. Use a trans object that supports setting number of breaks", call. = FALSE)
+          }
+          breaks <- self$trans$breaks(limits)
+        }
+      } else {
+        n.breaks <- self$n.breaks %||% 5 # same default as trans objects
+        breaks <- seq(limits[1], limits[2], length.out = n.breaks + 2)
+        breaks <- breaks[-c(1, length(breaks))]
+      }
+
+      # Ensure terminal bins are same width if limits not set
+      if (is.null(self$limits)) {
+        # Remove calculated breaks if they coincide with limits
+        breaks <- setdiff(breaks, limits)
+        nbreaks <- length(breaks)
+        if (nbreaks >= 2) {
+          new_limits <- c(2 * breaks[1] - breaks[2], 2 * breaks[nbreaks] - breaks[nbreaks - 1])
+          if (breaks[nbreaks] > limits[2]) {
+            new_limits[2] <- breaks[nbreaks]
+            breaks <- breaks[-nbreaks]
+          }
+          if (breaks[1] < limits[1]) {
+            new_limits[1] <- breaks[1]
+            breaks <- breaks[-1]
+          }
+          limits <- new_limits
+        } else {
+          bin_size <- max(breaks[1] - limits[1], limits[2] - breaks[1])
+          limits <- c(breaks[1] - bin_size, breaks[1] + bin_size)
+        }
+        self$limits <- self$trans$transform(limits)
+      }
+    } else if (is.function(self$breaks)) {
+      breaks <- self$breaks(limits, self$n_bins)
+    } else {
+      breaks <- self$breaks
+    }
+
+    # Breaks must be within limits
+    breaks <- breaks[breaks >= limits[1] & breaks <= limits[2]]
+    self$breaks <- breaks
+
+    self$trans$transform(breaks)
+  },
+
+  get_breaks_minor = function(...) NULL,
+
+  get_labels = function(self, breaks = self$get_breaks()) {
+    if (is.null(breaks)) return(NULL)
+
+    breaks <- self$trans$inverse(breaks)
+
+    if (is.null(self$labels)) {
+      return(NULL)
+    } else if (identical(self$labels, NA)) {
+      stop("Invalid labels specification. Use NULL, not NA", call. = FALSE)
+    } else if (is.waive(self$labels)) {
+      labels <- self$trans$format(breaks)
+    } else if (is.function(self$labels)) {
+      labels <- self$labels(breaks)
+    } else {
+      labels <- self$labels
+    }
+    if (length(labels) != length(breaks)) {
+      stop("Breaks and labels are different lengths")
+    }
+    labels
+  },
+
+  clone = function(self) {
+    new <- ggproto(NULL, self)
+    new$range <- continuous_range()
+    new
+  },
+
+  break_info = function(self, range = NULL) {
+    # range
+    if (is.null(range)) range <- self$dimension()
+
+    # major breaks
+    major <- self$get_breaks(range)
+
+    if (!is.null(self$palette.cache)) {
+      pal <- self$palette.cache
+    } else {
+      pal <- self$palette(length(major) + 1)
+    }
+
+    if (self$show.limits) {
+      limits <- self$get_limits()
+      major <- sort(unique(c(limits, major)))
+    }
+
+    # labels
+    labels <- self$get_labels(major)
+
+    list(range = range, labels = labels,
+         major = pal, minor = NULL,
+         major_source = major, minor_source = NULL)
+  }
+)
+
 # In place modification of a scale to change the primary axis
 scale_flip_position <- function(scale) {
   scale$position <- switch(scale$position,
@@ -820,4 +1068,17 @@ scale_flip_position <- function(scale) {
     scale$position
   )
   invisible()
+}
+
+check_transformation <- function(x, transformed, name, axis) {
+  if (any(is.finite(x) != is.finite(transformed))) {
+    type <- if (name == "position_b") {
+      "binned"
+    } else if (name == "position_c") {
+      "continuous"
+    } else {
+      "discrete"
+    }
+    warning("Transformation introduced infinite values in ", type, " ", axis, "-axis", call. = FALSE)
+  }
 }

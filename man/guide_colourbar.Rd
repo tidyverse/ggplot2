@@ -186,7 +186,8 @@ p2 +
   scale_size(guide = guide_legend(direction = "vertical"))
 }
 \seealso{
-Other guides: \code{\link{guide_legend}},
-  \code{\link{guides}}
+Other guides: \code{\link{guide_bins}},
+  \code{\link{guide_coloursteps}},
+  \code{\link{guide_legend}}, \code{\link{guides}}
 }
 \concept{guides}
