@@ -6,14 +6,9 @@
 \title{Smoothed conditional means}
 \usage{
 geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-<<<<<<< HEAD
-  position = "identity", ..., method = "auto", formula = y ~ x,
+  position = "identity", ..., method = NULL, formula = NULL,
   se = TRUE, na.rm = FALSE, orientation = NA, show.legend = NA,
   inherit.aes = TRUE)
-=======
-  position = "identity", ..., method = NULL, formula = NULL,
-  se = TRUE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
->>>>>>> 0ee259ccbbe9866ad9cc618d66eb452d870cacd6
 
 stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
   position = "identity", ..., method = NULL, formula = NULL,
