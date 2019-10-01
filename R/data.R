@@ -1,4 +1,4 @@
-#' Prices of 50,000 round cut diamonds
+#' Prices of over 50,000 round cut diamonds
 #'
 #' A dataset containing the prices and other attributes of almost 54,000
 #'  diamonds. The variables are as follows:
@@ -26,19 +26,19 @@
 #' \url{http://research.stlouisfed.org/fred2}. `economics` is in "wide"
 #' format, `economics_long` is in "long" format.
 #'
-#' @format A data frame with 478 rows and 6 variables
+#' @format A data frame with 574 rows and 6 variables:
 #' \describe{
 #'   \item{date}{Month of data collection}
-#'   \item{psavert}{personal savings rate,
-#'     \url{http://research.stlouisfed.org/fred2/series/PSAVERT/}}
 #'   \item{pce}{personal consumption expenditures, in billions of dollars,
 #'     \url{http://research.stlouisfed.org/fred2/series/PCE}}
-#'   \item{unemploy}{number of unemployed in thousands,
-#'     \url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}}
-#'   \item{uempmed}{median duration of unemployment, in weeks,
-#'     \url{http://research.stlouisfed.org/fred2/series/UEMPMED}}
 #'   \item{pop}{total population, in thousands,
 #'     \url{http://research.stlouisfed.org/fred2/series/POP}}
+#'   \item{psavert}{personal savings rate,
+#'     \url{http://research.stlouisfed.org/fred2/series/PSAVERT/}}
+#'   \item{uempmed}{median duration of unemployment, in weeks,
+#'     \url{http://research.stlouisfed.org/fred2/series/UEMPMED}}
+#'   \item{unemploy}{number of unemployed in thousands,
+#'     \url{http://research.stlouisfed.org/fred2/series/UNEMPLOY}}
 #' }
 #'
 "economics"
@@ -50,7 +50,7 @@
 #'
 #' Demographic information of midwest counties
 #'
-#' @format A data frame with 437 rows and 28 variables
+#' @format A data frame with 437 rows and 28 variables:
 #' \describe{
 #'  \item{PID}{}
 #'  \item{county}{}
@@ -85,16 +85,16 @@
 "midwest"
 
 
-#' Fuel economy data from 1999 and 2008 for 38 popular models of car
+#' Fuel economy data from 1999 to 2008 for 38 popular models of cars
 #'
 #' This dataset contains a subset of the fuel economy data that the EPA makes
 #' available on \url{http://fueleconomy.gov}. It contains only models which
 #' had a new release every year between 1999 and 2008 - this was used as a
 #' proxy for the popularity of the car.
 #'
-#' @format A data frame with 234 rows and 11 variables
+#' @format A data frame with 234 rows and 11 variables:
 #' \describe{
-#'   \item{manufacturer}{}
+#'   \item{manufacturer}{manufacturer name}
 #'   \item{model}{model name}
 #'   \item{displ}{engine displacement, in litres}
 #'   \item{year}{year of manufacture}
@@ -119,7 +119,7 @@
 #' Additional variables order, conservation status and vore were added from
 #' wikipedia.
 #'
-#' @format A data frame with 83 rows and 11 variables
+#' @format A data frame with 83 rows and 11 variables:
 #' \describe{
 #'   \item{name}{common name}
 #'   \item{genus}{}
@@ -140,7 +140,13 @@
 #' The names of each president, the start and end date of their term, and
 #' their party of 11 US presidents from Eisenhower to Obama.
 #'
-#' @format A data frame with 11 rows and 4 variables
+#' @format A data frame with 11 rows and 4 variables:
+#' \describe{
+#'   \item{name}{Last name of president}
+#'   \item{start}{Presidency start date}
+#'   \item{end}{Presidency end date}
+#'   \item{party}{Party of president}
+#' }
 "presidential"
 
 #' Vector field of seal movements
@@ -161,7 +167,12 @@
 #' A 2d density estimate of the waiting and eruptions variables data
 #' \link{faithful}.
 #'
-#' @format A data frame with 5,625 observations and 3 variables.
+#' @format A data frame with 5,625 observations and 3 variables:
+#' \describe{
+#'   \item{eruptions}{Eruption time in mins}
+#'   \item{waiting}{Waiting time to next eruption in mins}
+#'   \item{density}{2d density estimate}
+#' }
 "faithfuld"
 
 #' `colors()` in Luv space
@@ -182,7 +193,7 @@
 #'
 #' @format A data frame with 8602 observations and 9 variables:
 #' \describe{
-#' \item{city}{Name of MLS area}
+#' \item{city}{Name of multiple listing service (MLS) area}
 #' \item{year,month,date}{Date}
 #' \item{sales}{Number of sales}
 #' \item{volume}{Total value of sales}

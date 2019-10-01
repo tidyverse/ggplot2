@@ -3,10 +3,10 @@
 \docType{data}
 \name{mpg}
 \alias{mpg}
-\title{Fuel economy data from 1999 and 2008 for 38 popular models of car}
-\format{A data frame with 234 rows and 11 variables
+\title{Fuel economy data from 1999 to 2008 for 38 popular models of cars}
+\format{A data frame with 234 rows and 11 variables:
 \describe{
-\item{manufacturer}{}
+\item{manufacturer}{manufacturer name}
 \item{model}{model name}
 \item{displ}{engine displacement, in litres}
 \item{year}{year of manufacture}
