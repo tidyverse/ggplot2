@@ -932,9 +932,9 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       breaks <- self$rescale(breaks, limits)
 
       x_binned <- cut(x, breaks,
-                      labels = FALSE,
-                      include.lowest = TRUE,
-                      right = self$right
+        labels = FALSE,
+        include.lowest = TRUE,
+        right = self$right
       )
 
       if (!is.null(self$palette.cache)) {
