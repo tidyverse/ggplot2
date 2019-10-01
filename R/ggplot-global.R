@@ -44,3 +44,9 @@ ggplot_global$all_aesthetics <- .all_aesthetics
 )
 
 ggplot_global$base_to_ggplot <- .base_to_ggplot
+
+ggplot_global$x_aes <- c("x", "xmin", "xmax", "xend", "xintercept",
+  "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper", "x0")
+
+ggplot_global$y_aes <- c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final",
+  "ymax_final", "lower", "middle", "upper", "y0")

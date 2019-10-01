@@ -50,6 +50,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
                         level = 0.95,
                         method.args = list(),
                         na.rm = FALSE,
+                        orientation = NA,
                         show.legend = NA,
                         inherit.aes = TRUE) {
   layer(
@@ -68,6 +69,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
       fullrange = fullrange,
       level = level,
       na.rm = na.rm,
+      orientation = orientation,
       method.args = method.args,
       span = span,
       ...
@@ -81,6 +83,7 @@ stat_smooth <- function(mapping = NULL, data = NULL,
 #' @export
 StatSmooth <- ggproto("StatSmooth", Stat,
   setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
     msg <- character()
     if (is.null(params$method) || identical(params$method, "auto")) {
       # Use loess for small datasets, gam with a cubic regression basis for
@@ -115,10 +118,13 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     params
   },
 
+  extra_params = c("na.rm", "orientation"),
+
   compute_group = function(data, scales, method = NULL, formula = NULL,
                            se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
                            xseq = NULL, level = 0.95, method.args = list(),
-                           na.rm = FALSE) {
+                           na.rm = FALSE, flipped_aes = NA) {
+    data <- flip_data(data, flipped_aes)
     if (length(unique(data$x)) < 2) {
       # Not enough data to perform fit
       return(new_data_frame())
@@ -163,7 +169,9 @@ StatSmooth <- ggproto("StatSmooth", Stat,
     base.args <- list(quote(formula), data = quote(data), weights = quote(weight))
     model <- do.call(method, c(base.args, method.args))
 
-    predictdf(model, xseq, se, level)
+    prediction <- predictdf(model, xseq, se, level)
+    prediction$flipped_aes <- flipped_aes
+    flip_data(prediction, flipped_aes)
   },
 
   required_aes = c("x", "y")

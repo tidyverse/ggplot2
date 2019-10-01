@@ -146,15 +146,19 @@ PositionStack <- ggproto("PositionStack", Position,
   reverse = FALSE,
 
   setup_params = function(self, data) {
+    flipped_aes <- has_flipped_aes(data)
+    data <- flip_data(data, flipped_aes)
     list(
       var = self$var %||% stack_var(data),
       fill = self$fill,
       vjust = self$vjust,
-      reverse = self$reverse
+      reverse = self$reverse,
+      flipped_aes = flipped_aes
     )
   },
 
   setup_data = function(self, data, params) {
+    data <- flip_data(data, params$flipped_aes)
     if (is.null(params$var)) {
       return(data)
     }
@@ -164,14 +168,16 @@ PositionStack <- ggproto("PositionStack", Position,
       ymax = ifelse(data$ymax == 0, data$ymin, data$ymax)
     )
 
-    remove_missing(
+    data <- remove_missing(
       data,
       vars = c("x", "xmin", "xmax", "y"),
       name = "position_stack"
     )
+    flip_data(data, params$flip_data)
   },
 
   compute_panel = function(data, params, scales) {
+    data <- flip_data(data, params$flipped_aes)
     if (is.null(params$var)) {
       return(data)
     }
@@ -197,7 +203,8 @@ PositionStack <- ggproto("PositionStack", Position,
       )
     }
 
-    rbind(neg, pos)[match(seq_len(nrow(data)), c(which(negative), which(!negative))),]
+    data <- rbind(neg, pos)[match(seq_len(nrow(data)), c(which(negative), which(!negative))),]
+    flip_data(data, params$flipped_aes)
   }
 )
 
