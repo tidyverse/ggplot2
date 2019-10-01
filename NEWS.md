@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `scale_x_continuous()` and `scale_y_continuous()` gains an `n.breaks` argument
+  guiding the number of automatic generated breaks (@thomasp85, #3102)
+  
 * A new scale type has been added, that allows binning of aesthetics at the 
   scale level. It has versions for both position and non-position aesthetics and
   comes with two new guides (`guide_bins` and `guide_coloursteps`) (@thomasp85, #3096)

@@ -5,7 +5,7 @@
 \title{Continuous scale constructor}
 \usage{
 continuous_scale(aesthetics, scale_name, palette, name = waiver(),
-  breaks = waiver(), minor_breaks = waiver(), n_breaks = NULL,
+  breaks = waiver(), minor_breaks = waiver(), n.breaks = NULL,
   labels = waiver(), limits = NULL, rescaler = rescale,
   oob = censor, expand = waiver(), na.value = NA_real_,
   trans = "identity", guide = "legend", position = "left",
@@ -45,7 +45,7 @@ each major break)
 \item A function that given the limits returns a vector of minor breaks.
 }}
 
-\item{n_breaks}{An integer guiding the number of major breaks. The algorithm
+\item{n.breaks}{An integer guiding the number of major breaks. The algorithm
 may choose a slightly different number to ensure nice break labels. Will
 only have an effect if \code{breaks = waiver()}. Use \code{NULL} to use the default
 number of breaks given by the transformation.}

@@ -25,7 +25,7 @@
 #'     each major break)
 #'   - A numeric vector of positions
 #'   - A function that given the limits returns a vector of minor breaks.
-#' @param n_breaks An integer guiding the number of major breaks. The algorithm
+#' @param n.breaks An integer guiding the number of major breaks. The algorithm
 #'   may choose a slightly different number to ensure nice break labels. Will
 #'   only have an effect if `breaks = waiver()`. Use `NULL` to use the default
 #'   number of breaks given by the transformation.
@@ -82,7 +82,7 @@
 #' @param super The super class to use for the constructed scale
 #' @keywords internal
 continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
-                             breaks = waiver(), minor_breaks = waiver(), n_breaks = NULL,
+                             breaks = waiver(), minor_breaks = waiver(), n.breaks = NULL,
                              labels = waiver(), limits = NULL, rescaler = rescale,
                              oob = censor, expand = waiver(), na.value = NA_real_,
                              trans = "identity", guide = "legend", position = "left",
@@ -122,7 +122,7 @@ continuous_scale <- function(aesthetics, scale_name, palette, name = waiver(),
     name = name,
     breaks = breaks,
     minor_breaks = minor_breaks,
-    n_breaks = n_breaks,
+    n.breaks = n.breaks,
 
     labels = labels,
     guide = guide,
@@ -531,7 +531,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   rescaler = rescale,
   oob = censor,
   minor_breaks = waiver(),
-  n_breaks = NULL,
+  n.breaks = NULL,
 
   is_discrete = function() FALSE,
 
@@ -586,18 +586,13 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (zero_range(as.numeric(limits))) {
       breaks <- limits[1]
     } else if (is.waive(self$breaks)) {
-      change_breaks <- if (!is.null(self$n_breaks)) {
-        if (trans_support_nbreaks(self$trans)) {
-          TRUE
-        } else {
-          warning("The transformation does not support changing number of breaks.\nPlease provide a transformation object that does or avoid using the `n_breaks` argument.", call. = FALSE)
-          FALSE
-        }
-      }
-      breaks <- if (change_breaks) {
-        self$trans$breaks(limits, self$n_breaks)
+      if (!is.null(self$n.breaks) && trans_support_nbreaks(self$trans)) {
+        breaks <- self$trans$breaks(limits, self$n.breaks)
       } else {
-        self$trans$breaks(limits)
+        if (!is.null(self$n.breaks)) {
+          warning("Ignoring n.breaks. Use a trans object that supports setting number of breaks", call. = FALSE)
+        }
+        breaks <- self$trans$breaks(limits)
       }
     } else if (is.function(self$breaks)) {
       breaks <- self$breaks(limits)
@@ -972,7 +967,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
       stop("Invalid breaks specification. Use NULL, not NA", call. = FALSE)
     } else if (is.waive(self$breaks)) {
       if (self$nice.breaks) {
-        if (!is.null(self$n.breaks) && "n" %in% names(formals(self$trans$breaks))) {
+        if (!is.null(self$n.breaks) && trans_support_nbreaks(self$trans)) {
           breaks <- self$trans$breaks(limits, n = self$n.breaks)
         } else {
           if (!is.null(self$n.breaks)) {
