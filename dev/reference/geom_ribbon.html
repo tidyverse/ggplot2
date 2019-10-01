@@ -182,12 +182,12 @@ of <code>ymax</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_ribbon</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>geom_area</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -236,6 +236,13 @@ to the paired geom/stat.</p></td>
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></td>
     </tr>
     <tr>
+      <th>orientation</th>
+      <td><p>The orientation of the layer. The default (<code>NA</code>)
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting <code>orientation</code>
+to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> section for more detail.</p></td>
+    </tr>
+    <tr>
       <th>show.legend</th>
       <td><p>logical. Should this layer be included in the legends?
 <code>NA</code>, the default, includes if any aesthetics are mapped.
@@ -260,20 +267,31 @@ whole varies over the range of x. Choosing the order in which different
 components is stacked is very important, as it becomes increasing hard to
 see the individual pattern as you move up the stack. See
 <code><a href='position_stack.html'>position_stack()</a></code> for the details of stacking algorithm.</p>
+    <h2 class="hasAnchor" id="orientation"><a class="anchor" href="#orientation"></a>Orientation</h2>
+
+    
+
+<p>This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the <code>orientation</code> parameter, which can be either <code>"x"</code> or <code>"y"</code>. The value gives the axis that the geom should run along, <code>"x"</code> being the default orientation you would expect for the geom.</p>
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
 
 <p><code>geom_ribbon()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
-<li><p><strong><code>x</code></strong></p></li>
-<li><p><strong><code>ymin</code></strong></p></li>
-<li><p><strong><code>ymax</code></strong></p></li>
+<li><p><strong><code>x</code> <em>or</em> <code>y</code></strong></p></li>
+<li><p><strong><code>ymin</code> <em>or</em> <code>xmin</code></strong></p></li>
+<li><p><strong><code>ymax</code> <em>or</em> <code>xmax</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
 <li><p><code>colour</code></p></li>
 <li><p><code>fill</code></p></li>
 <li><p><code>group</code></p></li>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
+<li><p><code>x</code></p></li>
+<li><p><code>xmax</code></p></li>
+<li><p><code>xmin</code></p></li>
+<li><p><code>y</code></p></li>
+<li><p><code>ymax</code></p></li>
+<li><p><code>ymin</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -287,16 +305,19 @@ see the individual pattern as you move up the stack. See
 <span class='no'>h</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>huron</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>year</span>))
 
 <span class='no'>h</span> + <span class='fu'>geom_ribbon</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span><span class='kw'>=</span><span class='fl'>0</span>, <span class='kw'>ymax</span><span class='kw'>=</span><span class='no'>level</span>))</div><div class='img'><img src='geom_ribbon-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>h</span> + <span class='fu'>geom_area</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>level</span>))</div><div class='img'><img src='geom_ribbon-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Change orientation be switching the mapping</span>
+<span class='no'>h</span> + <span class='fu'>geom_area</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>level</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>year</span>))</div><div class='img'><img src='geom_ribbon-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Add aesthetic mappings</span>
 <span class='no'>h</span> +
   <span class='fu'>geom_ribbon</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>level</span> - <span class='fl'>1</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>level</span> + <span class='fl'>1</span>), <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"grey70"</span>) +
-  <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>level</span>))</div><div class='img'><img src='geom_ribbon-3.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>level</span>))</div><div class='img'><img src='geom_ribbon-4.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#orientation">Orientation</a></li>
       <li><a href="#aesthetics">Aesthetics</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>

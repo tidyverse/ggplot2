@@ -191,13 +191,14 @@ across the levels of a categorical variable.</p>
 
 <span class='fu'>geom_histogram</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='no'>...</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>stat_bin</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"bar"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='no'>...</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>center</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>closed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>), <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -274,6 +275,13 @@ bin width of a time variable is the number of seconds.</p></td>
       <td><p>Number of bins. Overridden by <code>binwidth</code>. Defaults to 30.</p></td>
     </tr>
     <tr>
+      <th>orientation</th>
+      <td><p>The orientation of the layer. The default (<code>NA</code>)
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting <code>orientation</code>
+to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> section for more detail.</p></td>
+    </tr>
+    <tr>
       <th>geom, stat</th>
       <td><p>Use to override the default connection between
 <code>geom_histogram()</code>/<code>geom_freqpoly()</code> and <code>stat_bin()</code>.</p></td>
@@ -318,6 +326,11 @@ different number of bins. You can also experiment modifying the <code>binwidth</
 <code>center</code> or <code>boundary</code> arguments. <code>binwidth</code> overrides <code>bins</code> so you should do
 one change at a time. You may need to look at a few options to uncover
 the full story behind your data.</p>
+    <h2 class="hasAnchor" id="orientation"><a class="anchor" href="#orientation"></a>Orientation</h2>
+
+    
+
+<p>This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the <code>orientation</code> parameter, which can be either <code>"x"</code> or <code>"y"</code>. The value gives the axis that the geom should run along, <code>"x"</code> being the default orientation you would expect for the geom.</p>
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
@@ -346,16 +359,18 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
     <pre class="examples"><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>)) +
   <span class='fu'>geom_histogram</span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_histogram-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>)) +
   <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>0.01</span>)</div><div class='img'><img src='geom_histogram-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>)) +
-  <span class='fu'>geom_histogram</span>(<span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>200</span>)</div><div class='img'><img src='geom_histogram-3.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_histogram</span>(<span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>200</span>)</div><div class='img'><img src='geom_histogram-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Map values to y to flip the orientation</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>carat</span>)) +
+  <span class='fu'>geom_histogram</span>()</div><div class='output co'>#&gt; <span class='message'>`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</span></div><div class='img'><img src='geom_histogram-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Rather than stacking histograms, it's easier to compare frequency</span>
 <span class='co'># polygons</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>price</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>cut</span>)) +
-  <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>price</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cut</span>)) +
-  <span class='fu'>geom_freqpoly</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>price</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cut</span>)) +
+  <span class='fu'>geom_freqpoly</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To make it easier to compare distributions with very different counts,</span>
 <span class='co'># put density on the y axis instead of the default count</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>price</span>, <span class='fu'><a href='stat.html'>stat</a></span>(<span class='no'>density</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>cut</span>)) +
-  <span class='fu'>geom_freqpoly</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-6.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_freqpoly</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>500</span>)</div><div class='img'><img src='geom_histogram-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"ggplot2movies"</span>)) {
 <span class='co'># Often we don't want the height of the bar to represent the</span>
 <span class='co'># count of observations, but the sum of some other variable.</span>
@@ -388,18 +403,19 @@ x data, whereas <code>stat_bin()</code> is suitable only for continuous x data.<
 <span class='co'># has value 0, so log transformations are not appropriate</span>
 <span class='no'>m</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>movies</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>rating</span>))
 <span class='no'>m</span> + <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>) + <span class='fu'><a href='scale_continuous.html'>scale_y_sqrt</a></span>()
-}</div><div class='img'><img src='geom_histogram-7.png' alt='' width='700' height='433' /></div><div class='input'>
+}</div><div class='img'><img src='geom_histogram-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># You can specify a function for calculating binwidth, which is</span>
 <span class='co'># particularly useful when faceting along variables with</span>
 <span class='co'># different ranges because the function will be called once per facet</span>
 <span class='no'>mtlong</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>reshape2</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/reshape2/man/melt.html'>melt</a></span>(<span class='no'>mtcars</span>)</div><div class='output co'>#&gt; <span class='message'>No id variables; using all as measure variables</span></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtlong</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>value</span>)) + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>variable</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>'free_x'</span>) +
-  <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>2</span> * <span class='fu'><a href='https://rdrr.io/r/stats/IQR.html'>IQR</a></span>(<span class='no'>x</span>) / (<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>)^(<span class='fl'>1</span>/<span class='fl'>3</span>)))</div><div class='img'><img src='geom_histogram-8.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>geom_histogram</span>(<span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>x</span>) <span class='fl'>2</span> * <span class='fu'><a href='https://rdrr.io/r/stats/IQR.html'>IQR</a></span>(<span class='no'>x</span>) / (<span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span>(<span class='no'>x</span>)^(<span class='fl'>1</span>/<span class='fl'>3</span>)))</div><div class='img'><img src='geom_histogram-9.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#orientation">Orientation</a></li>
       <li><a href="#aesthetics">Aesthetics</a></li>
       <li><a href="#computed-variables">Computed variables</a></li>
       <li><a href="#see-also">See also</a></li>

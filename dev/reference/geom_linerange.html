@@ -179,19 +179,19 @@ ymin and ymax. Each case draws a single graphical object." />
 
     <pre class="usage"><span class='fu'>geom_crossbar</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>fatten</span> <span class='kw'>=</span> <span class='fl'>2.5</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>geom_errorbar</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>geom_linerange</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>geom_pointrange</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>fatten</span> <span class='kw'>=</span> <span class='fl'>4</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -246,6 +246,13 @@ middle bar in <code>geom_crossbar()</code> and the middle point in
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></td>
     </tr>
     <tr>
+      <th>orientation</th>
+      <td><p>The orientation of the layer. The default (<code>NA</code>)
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting <code>orientation</code>
+to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> section for more detail.</p></td>
+    </tr>
+    <tr>
       <th>show.legend</th>
       <td><p>logical. Should this layer be included in the legends?
 <code>NA</code>, the default, includes if any aesthetics are mapped.
@@ -262,19 +269,30 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="orientation"><a class="anchor" href="#orientation"></a>Orientation</h2>
+
+    
+
+<p>This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the <code>orientation</code> parameter, which can be either <code>"x"</code> or <code>"y"</code>. The value gives the axis that the geom should run along, <code>"x"</code> being the default orientation you would expect for the geom.</p>
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
 
 <p><code>geom_linerange()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
-<li><p><strong><code>x</code></strong></p></li>
-<li><p><strong><code>ymin</code></strong></p></li>
-<li><p><strong><code>ymax</code></strong></p></li>
+<li><p><strong><code>x</code> <em>or</em> <code>y</code></strong></p></li>
+<li><p><strong><code>ymin</code> <em>or</em> <code>xmin</code></strong></p></li>
+<li><p><strong><code>ymax</code> <em>or</em> <code>xmax</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
 <li><p><code>colour</code></p></li>
 <li><p><code>group</code></p></li>
 <li><p><code>linetype</code></p></li>
 <li><p><code>size</code></p></li>
+<li><p><code>x</code></p></li>
+<li><p><code>xmax</code></p></li>
+<li><p><code>xmin</code></p></li>
+<li><p><code>y</code></p></li>
+<li><p><code>ymax</code></p></li>
+<li><p><code>ymin</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -294,22 +312,25 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>trt</span>, <span class='no'>resp</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>group</span>))
 <span class='no'>p</span> + <span class='fu'>geom_linerange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>))</div><div class='img'><img src='geom_linerange-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_pointrange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>))</div><div class='img'><img src='geom_linerange-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_crossbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>), <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>), <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Flip the orientation by changing mapping</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>resp</span>, <span class='no'>trt</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>group</span>)) +
+  <span class='fu'>geom_linerange</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>xmin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>xmax</span> <span class='kw'>=</span> <span class='no'>upper</span>))</div><div class='img'><img src='geom_linerange-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Draw lines connecting group means</span>
 <span class='no'>p</span> +
   <span class='fu'><a href='geom_path.html'>geom_line</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='no'>group</span>)) +
-  <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>), <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>), <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.2</span>)</div><div class='img'><img src='geom_linerange-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you want to dodge bars and errorbars, you need to manually</span>
 <span class='co'># specify the dodge width</span>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>trt</span>, <span class='no'>resp</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>group</span>))
 <span class='no'>p</span> +
  <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>) +
- <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)</div><div class='img'><img src='geom_linerange-6.png' alt='' width='700' height='433' /></div><div class='input'>
+ <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)</div><div class='img'><img src='geom_linerange-7.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Because the bars and errorbars have different widths</span>
 <span class='co'># we need to specify how wide the objects we are dodging are</span>
 <span class='no'>dodge</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='position_dodge.html'>position_dodge</a></span>(<span class='kw'>width</span><span class='kw'>=</span><span class='fl'>0.9</span>)
 <span class='no'>p</span> +
   <span class='fu'><a href='geom_bar.html'>geom_col</a></span>(<span class='kw'>position</span> <span class='kw'>=</span> <span class='no'>dodge</span>) +
-  <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='no'>dodge</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)</div><div class='img'><img src='geom_linerange-7.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_errorbar</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>), <span class='kw'>position</span> <span class='kw'>=</span> <span class='no'>dodge</span>, <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.25</span>)</div><div class='img'><img src='geom_linerange-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># When using geom_errorbar() with position_dodge2(), extra padding will be</span>
 <span class='co'># needed between the error bars to keep them aligned with the bars.</span>
 <span class='no'>p</span> +
@@ -317,12 +338,13 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
 <span class='fu'>geom_errorbar</span>(
   <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>ymin</span> <span class='kw'>=</span> <span class='no'>lower</span>, <span class='kw'>ymax</span> <span class='kw'>=</span> <span class='no'>upper</span>),
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='fu'><a href='position_dodge.html'>position_dodge2</a></span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='fl'>0.5</span>)
-)</div><div class='img'><img src='geom_linerange-8.png' alt='' width='700' height='433' /></div></pre>
+)</div><div class='img'><img src='geom_linerange-9.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#orientation">Orientation</a></li>
       <li><a href="#aesthetics">Aesthetics</a></li>
       <li><a href="#see-also">See also</a></li>
       <li><a href="#examples">Examples</a></li>

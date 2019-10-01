@@ -184,11 +184,11 @@ and two whiskers), and all "outlying" points individually.</p>
   <span class='kw'>outlier.color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outlier.fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outlier.shape</span> <span class='kw'>=</span> <span class='fl'>19</span>,
   <span class='kw'>outlier.size</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>outlier.stroke</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>outlier.alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>notch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>notchwidth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>varwidth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 
 <span class='fu'>stat_boxplot</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge2"</span>, <span class='no'>...</span>, <span class='kw'>coef</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -263,6 +263,13 @@ weighted, using the <code>weight</code> aesthetic).</p></td>
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></td>
     </tr>
     <tr>
+      <th>orientation</th>
+      <td><p>The orientation of the layer. The default (<code>NA</code>)
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting <code>orientation</code>
+to either <code>"x"</code> or <code>"y"</code>. See the <em>Orientation</em> section for more detail.</p></td>
+    </tr>
+    <tr>
       <th>show.legend</th>
       <td><p>logical. Should this layer be included in the legends?
 <code>NA</code>, the default, includes if any aesthetics are mapped.
@@ -288,6 +295,11 @@ the default plot specification, e.g. <code><a href='borders.html'>borders()</a><
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="orientation"><a class="anchor" href="#orientation"></a>Orientation</h2>
+
+    
+
+<p>This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the <code>orientation</code> parameter, which can be either <code>"x"</code> or <code>"y"</code>. The value gives the axis that the geom should run along, <code>"x"</code> being the default orientation you would expect for the geom.</p>
     <h2 class="hasAnchor" id="summary-statistics"><a class="anchor" href="#summary-statistics"></a>Summary statistics</h2>
 
     
@@ -311,20 +323,32 @@ See McGill et al. (1978) for more details.</p>
     
 
 <p><code>geom_boxplot()</code> understands the following aesthetics (required aesthetics are in bold):</p><ul>
-<li><p><strong><code>x</code></strong></p></li>
-<li><p><strong><code>lower</code></strong></p></li>
-<li><p><strong><code>upper</code></strong></p></li>
-<li><p><strong><code>middle</code></strong></p></li>
-<li><p><strong><code>ymin</code></strong></p></li>
-<li><p><strong><code>ymax</code></strong></p></li>
+<li><p><strong><code>x</code> <em>or</em> <code>y</code></strong></p></li>
+<li><p><strong><code>lower</code> <em>or</em> <code>xlower</code></strong></p></li>
+<li><p><strong><code>upper</code> <em>or</em> <code>xupper</code></strong></p></li>
+<li><p><strong><code>middle</code> <em>or</em> <code>xmiddle</code></strong></p></li>
+<li><p><strong><code>ymin</code> <em>or</em> <code>xmin</code></strong></p></li>
+<li><p><strong><code>ymax</code> <em>or</em> <code>xmax</code></strong></p></li>
 <li><p><code>alpha</code></p></li>
 <li><p><code>colour</code></p></li>
 <li><p><code>fill</code></p></li>
 <li><p><code>group</code></p></li>
 <li><p><code>linetype</code></p></li>
+<li><p><code>lower</code></p></li>
+<li><p><code>middle</code></p></li>
 <li><p><code>shape</code></p></li>
 <li><p><code>size</code></p></li>
+<li><p><code>upper</code></p></li>
 <li><p><code>weight</code></p></li>
+<li><p><code>x</code></p></li>
+<li><p><code>xlower</code></p></li>
+<li><p><code>xmax</code></p></li>
+<li><p><code>xmiddle</code></p></li>
+<li><p><code>xmin</code></p></li>
+<li><p><code>xupper</code></p></li>
+<li><p><code>y</code></p></li>
+<li><p><code>ymax</code></p></li>
+<li><p><code>ymin</code></p></li>
 </ul><p>Learn more about setting these aesthetics in <code><a href='../articles/ggplot2-specs.html'>vignette("ggplot2-specs")</a></code>.</p>
     <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
 
@@ -354,7 +378,8 @@ box plots. The American Statistician 32, 12-16.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>class</span>, <span class='no'>hwy</span>))
-<span class='no'>p</span> + <span class='fu'>geom_boxplot</span>()</div><div class='img'><img src='geom_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_boxplot</span>() + <span class='fu'><a href='coord_flip.html'>coord_flip</a></span>()</div><div class='img'><img src='geom_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p</span> + <span class='fu'>geom_boxplot</span>()</div><div class='img'><img src='geom_boxplot-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Orientation follows the discrete axis</span>
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>hwy</span>, <span class='no'>class</span>)) + <span class='fu'>geom_boxplot</span>()</div><div class='img'><img src='geom_boxplot-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>p</span> + <span class='fu'>geom_boxplot</span>(<span class='kw'>notch</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='output co'>#&gt; <span class='message'>notch went outside hinges. Try setting notch=FALSE.</span></div><div class='img'><img src='geom_boxplot-3.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_boxplot</span>(<span class='kw'>varwidth</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='geom_boxplot-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>geom_boxplot</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"white"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"#3366FF"</span>)</div><div class='img'><img src='geom_boxplot-5.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># By default, outlier points match the colour of the box. Use</span>
 <span class='co'># outlier.colour to override</span>
 <span class='no'>p</span> + <span class='fu'>geom_boxplot</span>(<span class='kw'>outlier.colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>outlier.shape</span> <span class='kw'>=</span> <span class='fl'>1</span>)</div><div class='img'><img src='geom_boxplot-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Remove outliers when overlaying boxplot with original data points</span>
@@ -364,7 +389,7 @@ box plots. The American Statistician 32, 12-16.</p>
 <span class='co'># You can also use boxplots with continuous x, as long as you supply</span>
 <span class='co'># a grouping variable. cut_width is particularly useful</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) +
-  <span class='fu'>geom_boxplot</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Continuous x aesthetic -- did you forget aes(group=...)?</span></div><div class='img'><img src='geom_boxplot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) +
+  <span class='fu'>geom_boxplot</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Continuous y aesthetic -- did you forget aes(group=...)?</span></div><div class='img'><img src='geom_boxplot-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) +
   <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='cut_interval.html'>cut_width</a></span>(<span class='no'>carat</span>, <span class='fl'>0.25</span>)))</div><div class='img'><img src='geom_boxplot-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='co'># Adjust the transparency of outliers using outlier.alpha</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>diamonds</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>carat</span>, <span class='no'>price</span>)) +
   <span class='fu'>geom_boxplot</span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='cut_interval.html'>cut_width</a></span>(<span class='no'>carat</span>, <span class='fl'>0.25</span>)), <span class='kw'>outlier.alpha</span> <span class='kw'>=</span> <span class='fl'>0.1</span>)</div><div class='img'><img src='geom_boxplot-11.png' alt='' width='700' height='433' /></div><div class='input'>
@@ -391,6 +416,7 @@ box plots. The American Statistician 32, 12-16.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#orientation">Orientation</a></li>
       <li><a href="#summary-statistics">Summary statistics</a></li>
       <li><a href="#aesthetics">Aesthetics</a></li>
       <li><a href="#computed-variables">Computed variables</a></li>
