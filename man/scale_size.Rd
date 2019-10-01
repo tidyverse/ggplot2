@@ -4,22 +4,31 @@
 \alias{scale_size}
 \alias{scale_size_continuous}
 \alias{scale_radius}
+\alias{scale_size_binned}
 \alias{scale_size_discrete}
 \alias{scale_size_ordinal}
 \alias{scale_size_area}
+\alias{scale_size_binned_area}
 \alias{scale_size_datetime}
 \alias{scale_size_date}
 \title{Scales for area or radius}
 \usage{
-scale_radius(name = waiver(), breaks = waiver(), labels = waiver(),
-  limits = NULL, range = c(1, 6), trans = "identity",
-  guide = "legend")
-
 scale_size(name = waiver(), breaks = waiver(), labels = waiver(),
   limits = NULL, range = c(1, 6), trans = "identity",
   guide = "legend")
 
+scale_radius(name = waiver(), breaks = waiver(), labels = waiver(),
+  limits = NULL, range = c(1, 6), trans = "identity",
+  guide = "legend")
+
+scale_size_binned(name = waiver(), breaks = waiver(),
+  labels = waiver(), limits = NULL, range = c(1, 6),
+  n.breaks = NULL, nice.breaks = TRUE, trans = "identity",
+  guide = "bins")
+
 scale_size_area(..., max_size = 6)
+
+scale_size_binned_area(..., max_size = 6)
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -31,10 +40,10 @@ omitted.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-transformation object
+\link[scales:trans_new]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output
+as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}})
 }}
 
 \item{labels}{One of:
@@ -47,25 +56,44 @@ transformation object
 as output
 }}
 
-\item{limits}{A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum.}
+\item{limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale range
+\item A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum
+\item A function that accepts the existing (automatic) limits and returns
+new limits
+Note that setting limits on positional scales will \strong{remove} data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see \code{\link[=coord_cartesian]{coord_cartesian()}}).
+}}
 
 \item{range}{a numeric vector of length 2 that specifies the minimum and
 maximum size of the plotting symbol after transformation.}
 
-\item{trans}{Either the name of a transformation object, or the
-object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-"logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+\item{trans}{For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \code{name_trans}, e.g.
-\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
+are defined in the scales package, and are called \code{<name>_trans} (e.g.,
+\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
+\code{\link[=guides]{guides()}} for more information.}
+
+\item{n.breaks}{The number of break points to create if breaks are not given
+directly.}
+
+\item{nice.breaks}{Logical. Should breaks be attempted placed at nice values
+instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
+the scale will ask the transformation object to create breaks, and this
+may result in a different number of breaks than requested. Ignored if
+breaks are given explicetly.}
 
 \item{...}{Arguments passed on to \code{continuous_scale}
 \describe{
@@ -77,10 +105,10 @@ omitted.}
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
-transformation object
+\link[scales:trans_new]{transformation object}
 \item A numeric vector of positions
 \item A function that takes the limits as input and returns breaks
-as output
+as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}})
 }}
   \item{minor_breaks}{One of:
 \itemize{
@@ -103,32 +131,49 @@ transformation object
 \item A function that takes the breaks as input and returns labels
 as output
 }}
-  \item{limits}{A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum.}
-  \item{oob}{Function that handles limits outside of the scale limits
-(out of bounds). The default replaces out of bounds values with \code{NA}.}
+  \item{limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale range
+\item A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum
+\item A function that accepts the existing (automatic) limits and returns
+new limits
+Note that setting limits on positional scales will \strong{remove} data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see \code{\link[=coord_cartesian]{coord_cartesian()}}).
+}}
+  \item{oob}{One of:
+\itemize{
+\item Function that handles limits outside of the scale limits
+(out of bounds).
+\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+bounds values with \code{NA}.
+\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
+}}
   \item{na.value}{Missing values will be replaced with this value.}
-  \item{trans}{Either the name of a transformation object, or the
-object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-"logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+  \item{trans}{For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \code{name_trans}, e.g.
-\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
+are defined in the scales package, and are called \code{<name>_trans} (e.g.,
+\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
   \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
-  \item{position}{The position of the axis. "left" or "right" for vertical
-scales, "top" or "bottom" for horizontal scales}
-  \item{super}{The super class to use for the constructed scale}
-  \item{expand}{Vector of range expansion constants used to add some
-padding around the data, to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+\code{\link[=guides]{guides()}} for more information.}
+  \item{expand}{For position scales, a vector of range expansion constants used to add some
+padding around the data to ensure that they are placed some distance
+away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
+  \item{position}{For position scales, The position of the axis.
+\code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
+  \item{super}{The super class to use for the constructed scale}
 }}
 
 \item{max_size}{Size of largest points.}
@@ -138,7 +183,9 @@ expand the scale by 5\% on each side for continuous variables, and by
 aesthetic is most commonly used for points and text, and humans perceive
 the area of points (not their radius), so this provides for optimal
 perception. \code{scale_size_area} ensures that a value of 0 is mapped
-to a size of 0.
+to a size of 0. \code{scale_size_binned} is a binned version of \code{scale_size} that
+scales by area (but does not ensure 0 equals an area of zero). For a binned
+equivalent of \code{scale_size_area} use \code{scale_size_binned_area}.
 }
 \examples{
 p <- ggplot(mpg, aes(displ, hwy, size = hwy)) +
@@ -149,6 +196,9 @@ p + scale_size(range = c(0, 10))
 
 # If you want zero value to have zero size, use scale_size_area:
 p + scale_size_area()
+
+# Binning can sometimes make it easier to match the scaled data to the legend
+p + scale_size_binned()
 
 # This is most useful when size is a count
 ggplot(mpg, aes(class, cyl)) +

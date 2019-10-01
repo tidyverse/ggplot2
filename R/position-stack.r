@@ -177,6 +177,8 @@ PositionStack <- ggproto("PositionStack", Position,
     }
 
     negative <- data$ymax < 0
+    negative[is.na(negative)] <- FALSE
+
     neg <- data[negative, , drop = FALSE]
     pos <- data[!negative, , drop = FALSE]
 
@@ -195,7 +197,7 @@ PositionStack <- ggproto("PositionStack", Position,
       )
     }
 
-    rbind(neg, pos)
+    rbind(neg, pos)[match(seq_len(nrow(data)), c(which(negative), which(!negative))),]
   }
 )
 
@@ -225,7 +227,7 @@ PositionFill <- ggproto("PositionFill", PositionStack,
 
 stack_var <- function(data) {
   if (!is.null(data$ymax)) {
-    if (any(data$ymin != 0 && data$ymax != 0, na.rm = TRUE)) {
+    if (any(data$ymin != 0 & data$ymax != 0, na.rm = TRUE)) {
       warning("Stacking not well defined when not anchored on the axis", call. = FALSE)
     }
     "ymax"

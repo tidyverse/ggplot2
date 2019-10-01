@@ -8,8 +8,8 @@ NULL
 #' [ggplot2()] and in individual layers.
 #'
 #' This function also standardises aesthetic names by converting `color` to `colour`
-#' (also in substrings, e.g. `point_color` to `point_colour`) and translating old style
-#' R names to ggplot names (eg. `pch` to `shape`, `cex` to `size`).
+#' (also in substrings, e.g., `point_color` to `point_colour`) and translating old style
+#' R names to ggplot names (e.g., `pch` to `shape` and `cex` to `size`).
 #'
 #' @section Quasiquotation:
 #'
@@ -22,9 +22,13 @@ NULL
 #' programming vignette](http://dplyr.tidyverse.org/articles/programming.html)
 #' to learn more about these techniques.
 #'
-#' @param x,y,... List of name value pairs giving aesthetics to map to
-#'   variables. The names for x and y aesthetics are typically omitted because
-#'   they are so common; all other aesthetics must be named.
+#' @param x,y,... List of name-value pairs in the form `aesthetic = variable`
+#'   describing which variables in the layer data should be mapped to which
+#'   aesthetics used by the paired geom/stat. The expression `variable` is
+#'   evaluated within the layer data, so there is no need to refer to
+#'   the original dataset (i.e., use `ggplot(df, aes(variable))`
+#'   instead of `ggplot(df, aes(df$variable))`). The names for x and y aesthetics
+#'   are typically omitted because they are so common; all other aesthetics must be named.
 #' @seealso [vars()] for another quoting function designed for
 #'   faceting specifications.
 #' @return A list with class `uneval`. Components of the list are either
@@ -75,7 +79,7 @@ NULL
 #' cut3 <- function(x) cut_number(x, 3)
 #' scatter_by(mtcars, cut3(disp), drat)
 aes <- function(x, y, ...) {
-  exprs <- rlang::enquos(x = x, y = y, ..., .ignore_empty = "all")
+  exprs <- enquos(x = x, y = y, ..., .ignore_empty = "all")
   aes <- new_aes(exprs, env = parent.frame())
   rename_aes(aes)
 }
@@ -83,15 +87,15 @@ aes <- function(x, y, ...) {
 # Wrap symbolic objects in quosures but pull out constants out of
 # quosures for backward-compatibility
 new_aesthetic <- function(x, env = globalenv()) {
-  if (rlang::is_quosure(x)) {
-    if (!rlang::quo_is_symbolic(x)) {
-      x <- rlang::quo_get_expr(x)
+  if (is_quosure(x)) {
+    if (!quo_is_symbolic(x)) {
+      x <- quo_get_expr(x)
     }
     return(x)
   }
 
-  if (rlang::is_symbolic(x)) {
-    x <- rlang::new_quosure(x, env = env)
+  if (is_symbolic(x)) {
+    x <- new_quosure(x, env = env)
     return(x)
   }
 
@@ -110,7 +114,7 @@ print.uneval <- function(x, ...) {
   if (length(x) == 0) {
     cat("<empty>\n")
   } else {
-    values <- vapply(x, rlang::quo_label, character(1))
+    values <- vapply(x, quo_label, character(1))
     bullets <- paste0("* ", format(paste0("`", names(x), "`")), " -> ", values, "\n")
 
     cat(bullets, sep = "")
@@ -240,7 +244,7 @@ aes_ <- function(x, y, ...) {
 
   as_quosure_aes <- function(x) {
     if (is.formula(x) && length(x) == 2) {
-      rlang::as_quosure(x)
+      as_quosure(x)
     } else if (is.call(x) || is.name(x) || is.atomic(x)) {
       new_aesthetic(x, caller_env)
     } else {
@@ -262,7 +266,7 @@ aes_string <- function(x, y, ...) {
   caller_env <- parent.frame()
   mapping <- lapply(mapping, function(x) {
     if (is.character(x)) {
-      x <- rlang::parse_expr(x)
+      x <- parse_expr(x)
     }
     new_aesthetic(x, env = caller_env)
   })
@@ -289,7 +293,7 @@ aes_all <- function(vars) {
   # Quosure the symbols in the empty environment because they can only
   # refer to the data mask
   structure(
-    lapply(vars, function(x) rlang::new_quosure(as.name(x), emptyenv())),
+    lapply(vars, function(x) new_quosure(as.name(x), emptyenv())),
     class = "uneval"
   )
 }
@@ -333,4 +337,56 @@ mapped_aesthetics <- function(x) {
 
   is_null <- vapply(x, is.null, logical(1))
   names(x)[!is_null]
+}
+
+
+#' Check a mapping for discouraged usage
+#'
+#' Checks that `$` and `[[` are not used when the target *is* the data
+#'
+#' @param mapping A mapping created with [aes()]
+#' @param data The data to be mapped from
+#'
+#' @noRd
+warn_for_aes_extract_usage <- function(mapping, data) {
+  lapply(mapping, function(quosure) {
+    warn_for_aes_extract_usage_expr(get_expr(quosure), data, get_env(quosure))
+  })
+}
+
+warn_for_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
+  if (is_call(x, "[[") || is_call(x, "$")) {
+    if (extract_target_is_likely_data(x, data, env)) {
+      good_usage <- alternative_aes_extract_usage(x)
+      warning(
+        "Use of `", format(x), "` is discouraged. ",
+        "Use `", good_usage,  "` instead.",
+        call. = FALSE
+      )
+    }
+  } else if (is.call(x)) {
+    lapply(x, warn_for_aes_extract_usage_expr, data, env)
+  }
+}
+
+alternative_aes_extract_usage <- function(x) {
+  if (is_call(x, "[[")) {
+    good_call <- call2("[[", quote(.data), x[[3]])
+    format(good_call)
+  } else if (is_call(x, "$")) {
+    as.character(x[[3]])
+  } else {
+    stop("Don't know how to get alternative usage for `", format(x), "`", call. = FALSE)
+  }
+}
+
+extract_target_is_likely_data <- function(x, data, env) {
+  if (!is.name(x[[2]])) {
+    return(FALSE)
+  }
+
+  tryCatch({
+    data_eval <- eval_tidy(x[[2]], data, env)
+    identical(data_eval, data)
+  }, error = function(err) FALSE)
 }

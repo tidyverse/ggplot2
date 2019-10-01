@@ -14,7 +14,7 @@
 
 benchplot <- function(x) {
   x <- enquo(x)
-  construct <- system.time(x <- rlang::eval_tidy(x))
+  construct <- system.time(x <- eval_tidy(x))
   stopifnot(inherits(x, "ggplot"))
 
   build <- system.time(data <- ggplot_build(x))

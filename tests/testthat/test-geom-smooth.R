@@ -37,11 +37,20 @@ test_that("default smoothing methods for small and large data sets work", {
     y = x^2 + 0.5 * rnorm(1001)
   )
 
-  m <- mgcv::gam(y ~ s(x, bs = "cs"), data = df)
+  m <- mgcv::gam(y ~ s(x, bs = "cs"), data = df, method = "REML")
   range <- range(df$x, na.rm = TRUE)
   xseq <- seq(range[1], range[2], length.out = 80)
   out <- predict(m, data_frame(x = xseq))
   p <- ggplot(df, aes(x, y)) + geom_smooth()
+
+  expect_message(
+    plot_data <- layer_data(p),
+    "method = 'gam' and formula 'y ~ s\\(x, bs = \"cs\"\\)"
+  )
+  expect_equal(plot_data$y, as.numeric(out))
+
+  # backwards compatibility of method = "auto"
+  p <- ggplot(df, aes(x, y)) + geom_smooth(method = "auto")
 
   expect_message(
     plot_data <- layer_data(p),

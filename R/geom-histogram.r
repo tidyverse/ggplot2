@@ -12,8 +12,10 @@
 #'
 #' By default, the underlying computation (`stat_bin()`) uses 30 bins;
 #' this is not a good default, but the idea is to get you experimenting with
-#' different bin widths. You may need to look at a few to uncover the full
-#' story behind your data.
+#' different number of bins. You can also experiment modifying the `binwidth` with
+#' `center` or `boundary` arguments. `binwidth` overrides `bins` so you should do
+#' one change at a time. You may need to look at a few options to uncover
+#' the full story behind your data.
 #'
 #' @section Aesthetics:
 #' `geom_histogram()` uses the same aesthetics as [geom_bar()];
@@ -78,9 +80,9 @@
 #' m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 #' }
 #'
-#' # You can specify a function for calculating binwidth,
+#' # You can specify a function for calculating binwidth, which is
 #' # particularly useful when faceting along variables with
-#' # different ranges
+#' # different ranges because the function will be called once per facet
 #' mtlong <- reshape2::melt(mtcars)
 #' ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
 #'   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))

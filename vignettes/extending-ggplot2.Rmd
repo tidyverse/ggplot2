@@ -61,7 +61,7 @@ StatChull <- ggproto("StatChull", Stat,
 )
 ```
 
-The two most important components are the `compute_group()` method (which does the computation), and the `required_aes` field, which lists which aesthetics must be present in order to for the stat to work.
+The two most important components are the `compute_group()` method (which does the computation), and the `required_aes` field, which lists which aesthetics must be present in order for the stat to work.
 
 Next we write a layer function. Unfortunately, due to an early design mistake I called these either `stat_()` or `geom_()`. A better decision would have been to call them `layer_()` functions: that's a more accurate description because every layer involves a stat _and_ a geom. 
 
@@ -593,7 +593,7 @@ In order for ggplot2 to know which data should go where it needs the data to be 
 
 ```{r}
 mapping <- function(data, layout, params) {
-  if (empty(data)) {
+  if (is.null(data) || nrow(data) == 0) {
     return(cbind(data, PANEL = integer(0)))
   }
   rbind(
@@ -737,7 +737,7 @@ FacetTrans <- ggproto("FacetTrans", Facet,
   },
   # Same as before
   map_data = function(data, layout, params) {
-    if (empty(data)) {
+    if (is.null(data) || nrow(data) == 0) {
       return(cbind(data, PANEL = integer(0)))
     }
     rbind(

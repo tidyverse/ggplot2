@@ -111,16 +111,12 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       scale <- get(paste0("scale_", n))
       limits <- self$limits[[n]]
 
-      if (is.null(limits)) {
-        if (self$theta == n) {
-          expand <- expand_default(scale, c(0, 0.5), c(0, 0))
-        } else {
-          expand <- expand_default(scale, c(0, 0),   c(0, 0))
-        }
-        range <- scale$dimension(expand)
+      if (self$theta == n) {
+        expansion <- default_expansion(scale, c(0, 0.5), c(0, 0))
       } else {
-        range <- range(scale_transform(scale, limits))
+        expansion <- default_expansion(scale, c(0, 0),   c(0, 0))
       }
+      range <- expand_limits_scale(scale, expansion, coord_limits = limits)
 
       out <- scale$break_info(range)
       ret[[n]]$range <- out$range
@@ -128,8 +124,8 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       ret[[n]]$minor <- out$minor_source
       ret[[n]]$labels <- out$labels
       ret[[n]]$sec.range <- out$sec.range
-      ret[[n]]$sec.major <- out$sec.major_source
-      ret[[n]]$sec.minor <- out$sec.minor_source
+      ret[[n]]$sec.major <- out$sec.major_source_user
+      ret[[n]]$sec.minor <- out$sec.minor_source_user
       ret[[n]]$sec.labels <- out$sec.labels
     }
 
@@ -160,7 +156,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   transform = function(self, data, panel_params) {
     data <- rename_data(self, data)
 
-    data$r  <- r_rescale(self, data$r, panel_params)
+    data$r  <- r_rescale(self, data$r, panel_params$r.range)
     data$theta <- theta_rescale(self, data$theta, panel_params)
     data$x <- data$r * sin(data$theta) + 0.5
     data$y <- data$r * cos(data$theta) + 0.5
@@ -171,10 +167,14 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   render_axis_v = function(self, panel_params, theme) {
     arrange <- panel_params$r.arrange %||% c("primary", "secondary")
 
-    x <- r_rescale(self, panel_params$r.major, panel_params) + 0.5
+    x <- r_rescale(self, panel_params$r.major, panel_params$r.range) + 0.5
     panel_params$r.major <- x
     if (!is.null(panel_params$r.sec.major)) {
-      panel_params$r.sec.major <- x
+      panel_params$r.sec.major <- r_rescale(
+        self,
+        panel_params$r.sec.major,
+        panel_params$r.sec.range
+      ) + 0.5
     }
 
     list(
@@ -186,7 +186,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
   render_axis_h = function(panel_params, theme) {
     list(
       top = zeroGrob(),
-      bottom = guide_axis(NA, "", "bottom", theme)
+      bottom = draw_axis(NA, "", "bottom", theme)
     )
   },
 
@@ -199,7 +199,7 @@ CoordPolar <- ggproto("CoordPolar", Coord,
       theta_rescale(self, panel_params$theta.minor, panel_params)
     thetafine <- seq(0, 2 * pi, length.out = 100)
 
-    rfine <- c(r_rescale(self, panel_params$r.major, panel_params), 0.45)
+    rfine <- c(r_rescale(self, panel_params$r.major, panel_params$r.range), 0.45)
 
     # This gets the proper theme element for theta and r grid lines:
     #   panel.grid.major.x or .y
@@ -305,11 +305,11 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
   },
 
-  labels = function(self, panel_params) {
+  labels = function(self, labels, panel_params) {
     if (self$theta == "y") {
-      list(x = panel_params$y, y = panel_params$x)
+      list(x = labels$y, y = labels$x)
     } else {
-      panel_params
+      labels
     }
   },
 
@@ -342,7 +342,7 @@ theta_rescale <- function(coord, x, panel_params) {
   rotate(rescale(x, c(0, 2 * pi), panel_params$theta.range))
 }
 
-r_rescale <- function(coord, x, panel_params) {
-  x <- squish_infinite(x, panel_params$r.range)
-  rescale(x, c(0, 0.4), panel_params$r.range)
+r_rescale <- function(coord, x, range) {
+  x <- squish_infinite(x, range)
+  rescale(x, c(0, 0.4), range)
 }

@@ -104,6 +104,8 @@ Geom <- ggproto("Geom",
     stop("Not implemented")
   },
 
+  setup_params = function(data, params) params,
+
   setup_data = function(data, params) data,
 
   # Combine data with defaults and set aesthetics from parameters
@@ -111,7 +113,7 @@ Geom <- ggproto("Geom",
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
 
-    missing_eval <- lapply(self$default_aes[missing_aes], rlang::eval_tidy)
+    missing_eval <- lapply(self$default_aes[missing_aes], eval_tidy)
     # Needed for geoms with defaults set to NULL (e.g. GeomSf)
     missing_eval <- compact(missing_eval)
 

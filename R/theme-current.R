@@ -1,6 +1,6 @@
 #' @include theme-defaults.r
 #' @include theme-elements.r
-ggplot_global$theme_current <- theme_gray()
+NULL
 
 #' Get, set, and modify the active theme
 #'

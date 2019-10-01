@@ -69,6 +69,15 @@ test_that("breaks are transformed by the scale", {
    expect_equal(out2$xmin, sqrt(c(1, 2.5)))
 })
 
+test_that("geom_histogram() can be drawn over a 0-width range (#3043)", {
+  df <- data_frame(x = rep(1, 100))
+  out <- layer_data(ggplot(df, aes(x)) + geom_histogram())
+
+  expect_equal(nrow(out), 1)
+  expect_equal(out$xmin, 0.95)
+  expect_equal(out$xmax, 1.05)
+})
+
 # Underlying binning algorithm --------------------------------------------
 
 comp_bin <- function(df, ...) {
@@ -124,6 +133,10 @@ test_that("weights are added", {
   expect_equal(out$count, df$y)
 })
 
+test_that("bin errors at high bin counts", {
+  expect_error(bin_breaks_width(c(1, 2e6), 1), "The number of histogram bins")
+})
+
 # stat_count --------------------------------------------------------------
 
 test_that("stat_count throws error when y aesthetic present", {
@@ -155,6 +168,6 @@ test_that("stat_count preserves x order for continuous and discrete", {
   mtcars$carb3 <- factor(mtcars$carb, levels = c(4,1,2,3,6,8))
   b <- ggplot_build(ggplot(mtcars, aes(carb3)) + geom_bar())
   expect_identical(b$data[[1]]$x, 1:6)
-  expect_identical(b$layout$panel_params[[1]]$x.labels, c("4","1","2","3","6","8"))
+  expect_identical(b$layout$panel_params[[1]]$x$get_labels(), c("4","1","2","3","6","8"))
   expect_identical(b$data[[1]]$y, c(10,7,10,3,1,1))
 })

@@ -34,3 +34,24 @@ test_that("works with discrete x", {
   expect_equal(ret$x, 1:2)
   expect_equal(ret$y, 1:2)
 })
+
+test_that("works with formula syntax", {
+  dat <- data_frame(x = 1:10)
+
+  base <- ggplot(dat, aes(x, group = 1)) +
+    stat_function(fun = ~ .x^2, geom = "point", n = 5) +
+    scale_x_continuous(limits = c(0, 10))
+  ret <- layer_data(base)
+
+  s <- seq(0, 10, length.out = 5)
+  expect_equal(ret$x, s)
+  expect_equal(ret$y, s^2)
+})
+
+test_that("`mapping` is not used by stat_function()", {
+  expect_warning(stat_function(aes(), fun = identity), "`mapping` is not used")
+})
+
+test_that("`data` is not used by stat_function()", {
+  expect_warning(stat_function(data = mtcars, fun = identity), "`data` is not used")
+})

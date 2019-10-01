@@ -59,60 +59,44 @@ Coord <- ggproto("Coord",
 
   aspect = function(ranges) NULL,
 
-  labels = function(panel_params) panel_params,
+  labels = function(labels, panel_params) labels,
 
   render_fg = function(panel_params, theme) element_render(theme, "panel.border"),
 
   render_bg = function(panel_params, theme) {
-    guide_grid(theme,
-               panel_params$x.minor,
-               panel_params$x.major,
-               panel_params$y.minor,
-               panel_params$y.major)
+    stop("Not implemented", call. = FALSE)
   },
 
   render_axis_h = function(panel_params, theme) {
-    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
-
-    list(
-      top = render_axis(panel_params, arrange[1], "x", "top", theme),
-      bottom = render_axis(panel_params, arrange[2], "x", "bottom", theme)
-    )
+    stop("Not implemented", call. = FALSE)
   },
 
   render_axis_v = function(panel_params, theme) {
-    arrange <- panel_params$y.arrange %||% c("primary", "secondary")
-
-    list(
-      left = render_axis(panel_params, arrange[1], "y", "left", theme),
-      right = render_axis(panel_params, arrange[2], "y", "right", theme)
-    )
+    stop("Not implemented", call. = FALSE)
   },
 
   # transform range given in transformed coordinates
   # back into range in given in (possibly scale-transformed)
   # data coordinates
   backtransform_range = function(self, panel_params) {
-    warning(
-      "range backtransformation not implemented in this coord; results may be wrong.",
-      call. = FALSE
-      )
-    # return result from range function for backwards compatibility
-    # before ggplot2 3.0.1
-    self$range(panel_params)
+    stop("Not implemented", call. = FALSE)
   },
 
   # return range stored in panel_params
   range = function(panel_params) {
-    warning(
-      "range calculation not implemented in this coord; results may be wrong.",
-      call. = FALSE
-    )
-    list(x = panel_params$x.range, y = panel_params$y.range)
+    stop("Not implemented", call. = FALSE)
   },
 
   setup_panel_params = function(scale_x, scale_y, params = list()) {
     list()
+  },
+
+  setup_panel_guides = function(self, panel_params, guides, params = list()) {
+    panel_params
+  },
+
+  train_panel_guides = function(self, panel_params, layers, default_mapping, params = list()) {
+    panel_params
   },
 
   transform = function(data, range) NULL,
@@ -150,17 +134,13 @@ Coord <- ggproto("Coord",
 #' @keywords internal
 is.Coord <- function(x) inherits(x, "Coord")
 
-expand_default <- function(scale, discrete = c(0, 0.6, 0, 0.6), continuous = c(0.05, 0, 0.05, 0)) {
-  scale$expand %|W|% if (scale$is_discrete()) discrete else continuous
-}
-
 # Renders an axis with the correct orientation or zeroGrob if no axis should be
 # generated
 render_axis <- function(panel_params, axis, scale, position, theme) {
   if (axis == "primary") {
-    guide_axis(panel_params[[paste0(scale, ".major")]], panel_params[[paste0(scale, ".labels")]], position, theme)
+    draw_axis(panel_params[[paste0(scale, ".major")]], panel_params[[paste0(scale, ".labels")]], position, theme)
   } else if (axis == "secondary" && !is.null(panel_params[[paste0(scale, ".sec.major")]])) {
-    guide_axis(panel_params[[paste0(scale, ".sec.major")]], panel_params[[paste0(scale, ".sec.labels")]], position, theme)
+    draw_axis(panel_params[[paste0(scale, ".sec.major")]], panel_params[[paste0(scale, ".sec.labels")]], position, theme)
   } else {
     zeroGrob()
   }

@@ -33,7 +33,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -70,8 +71,8 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{formula}{formula relating y variables to x variables}
 
-\item{method}{Quantile regression method to use.  Currently only supports
-\code{\link[quantreg:rq]{quantreg::rq()}}.}
+\item{method}{Quantile regression method to use. Available options are \code{"rq"} (for
+\code{\link[quantreg:rq]{quantreg::rq()}}) and \code{"rqss"} (for \code{\link[quantreg:rqss]{quantreg::rqss()}}).}
 
 \item{method.args}{List of additional arguments passed on to the modelling
 function defined by \code{method}.}

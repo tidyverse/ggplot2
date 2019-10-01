@@ -62,7 +62,7 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
                                 show.legend = NA, inherit.aes = TRUE,
                                 fun.geometry = NULL,
                                 ...) {
-  layer(
+  layer_sf(
     stat = StatSfCoordinates,
     data = data,
     mapping = mapping,
@@ -74,8 +74,7 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
       na.rm = na.rm,
       fun.geometry = fun.geometry,
       ...
-    ),
-    layer_class = LayerSf
+    )
   )
 }
 

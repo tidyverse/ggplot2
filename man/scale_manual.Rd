@@ -30,12 +30,11 @@ scale_discrete_manual(aesthetics, ..., values)
 \describe{
   \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
-they should take.}
+they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
   \item{breaks}{One of:
 \itemize{
 \item \code{NULL} for no breaks
-\item \code{waiver()} for the default breaks computed by the
-transformation object
+\item \code{waiver()} for the default breaks (the scale limits)
 \item A character vector of breaks
 \item A function that takes the limits as input and returns breaks
 as output
@@ -51,7 +50,8 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
   \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
 value should missing be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
-  \item{scale_name}{The name of the scale}
+  \item{scale_name}{The name of the scale that should be used for error messages
+associated with this scale.}
   \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
@@ -66,7 +66,7 @@ transformation object
 as output
 }}
   \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
+\code{\link[=guides]{guides()}} for more information.}
   \item{super}{The super class to use for the constructed scale}
 }}
 
@@ -94,6 +94,25 @@ have an optional \code{aesthetics} argument that can be used to define both \cod
 \code{scale_discrete_manual()} is a generic scale that can work with any aesthetic or set
 of aesthetics provided via the \code{aesthetics} argument.
 }
+\section{Color Blindness}{
+
+Many color palettes derived from RGB combinations (like the "rainbow" color
+palette) are not suitable to support all viewers, especially those with
+color vision deficiencies. Using \code{viridis} type, which is perceptually
+uniform in both colour and black-and-white display is an easy option to
+ensure good perceptive properties of your visulizations.
+The colorspace package offers functionalities
+\itemize{
+\item to generate color palettes with good perceptive properties,
+\item to analyse a given color palette, like emulating color blindness,
+\item and to modify a given color palette for better perceptivity.
+}
+
+For more information on color vision deficiencies and suitable color choices
+see the \href{https://arxiv.org/abs/1903.06490}{paper on the colorspace package}
+and references therein.
+}
+
 \examples{
 p <- ggplot(mtcars, aes(mpg, wt)) +
   geom_point(aes(colour = factor(cyl)))

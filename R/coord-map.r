@@ -57,15 +57,7 @@
 #'
 #' if (require("maps")) {
 #' # Other projections
-#' nzmap + coord_map("cylindrical")
-#' }
-#'
-#' if (require("maps")) {
 #' nzmap + coord_map("azequalarea", orientation = c(-36.92, 174.6, 0))
-#' }
-#'
-#' if (require("maps")) {
-#' nzmap + coord_map("lambert", parameters = c(-37, -44))
 #' }
 #'
 #' if (require("maps")) {
@@ -83,16 +75,8 @@
 #' }
 #'
 #' if (require("maps")) {
-#' usamap + coord_quickmap()
-#' }
-#'
-#' if (require("maps")) {
 #' # See ?mapproject for coordinate systems and their parameters
 #' usamap + coord_map("gilbert")
-#' }
-#'
-#' if (require("maps")) {
-#' usamap + coord_map("lagrange")
 #' }
 #'
 #' if (require("maps")) {
@@ -103,10 +87,6 @@
 #' }
 #'
 #' if (require("maps")) {
-#' usamap + coord_map("stereographic")
-#' }
-#'
-#' if (require("maps")) {
 #' usamap + coord_map("conic", lat0 = 30)
 #' }
 #'
@@ -114,8 +94,8 @@
 #' usamap + coord_map("bonne", lat0 = 50)
 #' }
 #'
+#' \dontrun{
 #' if (require("maps")) {
-#'
 #' # World map, using geom_path instead of geom_polygon
 #' world <- map_data("world")
 #' worldmap <- ggplot(world, aes(x = long, y = lat, group = group)) +
@@ -135,6 +115,7 @@
 #' if (require("maps")) {
 #' # Centered on New York (currently has issues with closing polygons)
 #' worldmap + coord_map("ortho", orientation = c(41, -74, 0))
+#' }
 #' }
 coord_map <- function(projection="mercator", ..., parameters = NULL, orientation = NULL, xlim = NULL, ylim = NULL, clip = "on") {
   if (is.null(parameters)) {
@@ -200,12 +181,7 @@ CoordMap <- ggproto("CoordMap", Coord,
     for (n in c("x", "y")) {
       scale <- get(paste0("scale_", n))
       limits <- self$limits[[n]]
-
-      if (is.null(limits)) {
-        range <- scale$dimension(expand_default(scale))
-      } else {
-        range <- range(scale$transform(limits))
-      }
+      range <- expand_limits_scale(scale, default_expansion(scale), coord_limits = limits)
       ranges[[n]] <- range
     }
 
@@ -308,8 +284,8 @@ CoordMap <- ggproto("CoordMap", Coord,
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
-      top = guide_axis(pos$x, panel_params$x.labels, "top", theme),
-      bottom = guide_axis(pos$x, panel_params$x.labels, "bottom", theme)
+      top = draw_axis(pos$x, panel_params$x.labels, "top", theme),
+      bottom = draw_axis(pos$x, panel_params$x.labels, "bottom", theme)
     )
     axes[[which(arrange == "secondary")]] <- zeroGrob()
     axes
@@ -332,8 +308,8 @@ CoordMap <- ggproto("CoordMap", Coord,
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
-      left = guide_axis(pos$y, panel_params$y.labels, "left", theme),
-      right = guide_axis(pos$y, panel_params$y.labels, "right", theme)
+      left = draw_axis(pos$y, panel_params$y.labels, "left", theme),
+      right = draw_axis(pos$y, panel_params$y.labels, "right", theme)
     )
     axes[[which(arrange == "secondary")]] <- zeroGrob()
     axes

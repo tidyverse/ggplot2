@@ -250,12 +250,16 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
 
       # check if this layer should be included, different behaviour depending on
       # if show.legend is a logical or a named logical vector
-      if (!is.null(names(layer$show.legend))) {
+      if (is_named(layer$show.legend)) {
         layer$show.legend <- rename_aes(layer$show.legend)
-        include <- is.na(layer$show.legend[matched]) ||
-          layer$show.legend[matched]
+        show_legend <- layer$show.legend[matched]
+        # we cannot use `isTRUE(is.na(show_legend))` here because
+        # 1. show_legend can be multiple NAs
+        # 2. isTRUE() was not tolerant for a named TRUE
+        show_legend <- show_legend[!is.na(show_legend)]
+        include <- length(show_legend) == 0 || any(show_legend)
       } else {
-        include <- is.na(layer$show.legend) || layer$show.legend
+        include <- isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend)
       }
 
       if (include) {
@@ -271,7 +275,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       }
     } else {
       # This layer does not contribute to the legend
-      if (is.na(layer$show.legend) || !layer$show.legend) {
+      if (isTRUE(is.na(layer$show.legend)) || !isTRUE(layer$show.legend)) {
         # Default is to exclude it
         return(NULL)
       } else {
@@ -327,7 +331,8 @@ guide_gengrob.legend <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
-  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||% 0
+  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||%
+    calc_element("text", theme)$size %||% 11
 
   # gap between keys etc
   # the default horizontal and vertical gap need to be the same to avoid strange

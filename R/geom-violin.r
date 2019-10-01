@@ -136,12 +136,17 @@ GeomViolin <- ggproto("GeomViolin", Geom,
       quantiles <- create_quantile_segment_frame(data, draw_quantiles)
       aesthetics <- data[
         rep(1, nrow(quantiles)),
-        setdiff(names(data), c("x", "y")),
+        setdiff(names(data), c("x", "y", "group")),
         drop = FALSE
       ]
       aesthetics$alpha <- rep(1, nrow(quantiles))
       both <- cbind(quantiles, aesthetics)
-      quantile_grob <- GeomPath$draw_panel(both, ...)
+      both <- both[!is.na(both$group), , drop = FALSE]
+      quantile_grob <- if (nrow(both) == 0) {
+        zeroGrob()
+      } else {
+        GeomPath$draw_panel(both, ...)
+      }
 
       ggname("geom_violin", grobTree(
         GeomPolygon$draw_panel(newdata, ...),

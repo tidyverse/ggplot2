@@ -11,6 +11,14 @@ geom_hline <- function(mapping = NULL, data = NULL,
 
   # Act like an annotation
   if (!missing(yintercept)) {
+    # Warn if supplied mapping and/or data is going to be overwritten
+    if (!is.null(mapping)) {
+      warn_overwritten_args("geom_hline()", "mapping", "yintercept")
+    }
+    if (!is.null(data)) {
+      warn_overwritten_args("geom_hline()", "data", "yintercept")
+    }
+
     data <- new_data_frame(list(yintercept = yintercept))
     mapping <- aes(yintercept = yintercept)
     show.legend <- FALSE

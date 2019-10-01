@@ -39,7 +39,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -63,10 +64,13 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{binwidth}{The width of the bins. Can be specified as a numeric value,
-or a function that calculates width from x.
-The default is to use \code{bins}
-bins that cover the range of the data. You should always override
+\item{binwidth}{The width of the bins. Can be specified as a numeric value
+or as a function that calculates width from unscaled x. Here, "unscaled x"
+refers to the original x values in the data, before application of any
+scale transformation. When specifying a function along with a grouping
+structure, the function will be called once per group.
+The default is to use the number of bins in \code{bins},
+covering the range of the data. You should always override
 this value, exploring multiple widths to find the best to illustrate the
 stories in your data.
 
@@ -112,8 +116,10 @@ discrete, you probably want to use \code{\link[=stat_count]{stat_count()}}.
 
 By default, the underlying computation (\code{stat_bin()}) uses 30 bins;
 this is not a good default, but the idea is to get you experimenting with
-different bin widths. You may need to look at a few to uncover the full
-story behind your data.
+different number of bins. You can also experiment modifying the \code{binwidth} with
+\code{center} or \code{boundary} arguments. \code{binwidth} overrides \code{bins} so you should do
+one change at a time. You may need to look at a few options to uncover
+the full story behind your data.
 }
 \section{Aesthetics}{
 
@@ -185,9 +191,9 @@ m <- ggplot(movies, aes(x = rating))
 m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 }
 
-# You can specify a function for calculating binwidth,
+# You can specify a function for calculating binwidth, which is
 # particularly useful when faceting along variables with
-# different ranges
+# different ranges because the function will be called once per facet
 mtlong <- reshape2::melt(mtcars)
 ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))

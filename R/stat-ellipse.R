@@ -1,12 +1,12 @@
-#' Compute normal confidence ellipses
+#' Compute normal data ellipses
 #'
 #' The method for calculating the ellipses has been modified from
-#' `car::ellipse` (Fox and Weisberg, 2011)
+#' `car::dataEllipse` (Fox and Weisberg, 2011)
 #'
 #' @references John Fox and Sanford Weisberg (2011). An \R Companion to
 #'   Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
 #'   \url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
-#' @param level The confidence level at which to draw an ellipse (default is 0.95),
+#' @param level The level at which to draw an ellipse,
 #'   or, if `type="euclid"`, the radius of the circle to be drawn.
 #' @param type The type of ellipse.
 #'   The default `"t"` assumes a multivariate t-distribution, and

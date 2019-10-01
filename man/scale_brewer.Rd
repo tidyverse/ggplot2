@@ -5,8 +5,11 @@
 \alias{scale_fill_brewer}
 \alias{scale_colour_distiller}
 \alias{scale_fill_distiller}
+\alias{scale_colour_fermenter}
+\alias{scale_fill_fermenter}
 \alias{scale_color_brewer}
 \alias{scale_color_distiller}
+\alias{scale_color_fermenter}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
 scale_colour_brewer(..., type = "seq", palette = 1, direction = 1,
@@ -22,16 +25,24 @@ scale_colour_distiller(..., type = "seq", palette = 1,
 scale_fill_distiller(..., type = "seq", palette = 1, direction = -1,
   values = NULL, space = "Lab", na.value = "grey50",
   guide = "colourbar", aesthetics = "fill")
+
+scale_colour_fermenter(..., type = "seq", palette = 1,
+  direction = -1, na.value = "grey50", guide = "coloursteps",
+  aesthetics = "colour")
+
+scale_fill_fermenter(..., type = "seq", palette = 1, direction = -1,
+  na.value = "grey50", guide = "coloursteps", aesthetics = "fill")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or, for
-\code{distiller} scales, \code{\link[=continuous_scale]{continuous_scale()}} to control name,
-limits, breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}}, \code{\link[=continuous_scale]{continuous_scale()}},
+or \code{\link[=binned_scale]{binned_scale()}}, for \code{brewer}, \code{distiller}, and \code{fermenter} variants
+respectively, to control name, limits, breaks, labels and so forth.}
 
 \item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
 
-\item{palette}{If a string, will use that named palette.  If a number, will
-index into the list of palettes of appropriate \code{type}}
+\item{palette}{If a string, will use that named palette. If a number, will index into
+the list of palettes of appropriate \code{type}. The list of available palettes can found
+in the Palettes section.}
 
 \item{direction}{Sets the order of colours in the scale. If 1, the default,
 colours are as output by \code{\link[RColorBrewer:brewer.pal]{RColorBrewer::brewer.pal()}}. If -1, the
@@ -68,7 +79,8 @@ look good. Your mileage may vary.
 }
 \note{
 The \code{distiller} scales extend brewer to continuous scales by smoothly
-interpolating 7 colours from any palette to a continuous scale.
+interpolating 7 colours from any palette to a continuous scale. The \code{fermenter}
+scales provide binned versions of the brewer scales.
 }
 \section{Palettes}{
 
@@ -79,6 +91,7 @@ The following palettes are available for use with these scales:
 \item{Sequential}{Blues, BuGn, BuPu, GnBu, Greens, Greys, Oranges,
 OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd}
 }
+Modify the palette through the \code{palette} arguement.
 }
 
 \examples{
@@ -112,12 +125,17 @@ v <- ggplot(faithfuld) +
 v
 v + scale_fill_distiller()
 v + scale_fill_distiller(palette = "Spectral")
+
+# or use blender variants to discretize continuous data
+v + scale_fill_fermenter()
+
 }
 \seealso{
 Other colour scales: \code{\link{scale_alpha}},
   \code{\link{scale_colour_gradient}},
   \code{\link{scale_colour_grey}},
   \code{\link{scale_colour_hue}},
+  \code{\link{scale_colour_steps}},
   \code{\link{scale_colour_viridis_d}}
 }
 \concept{colour scales}
