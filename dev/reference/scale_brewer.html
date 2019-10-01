@@ -193,16 +193,23 @@ more information.</p>
 
 <span class='fu'>scale_fill_distiller</span>(<span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"seq"</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>direction</span> <span class='kw'>=</span> -<span class='fl'>1</span>,
   <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>, <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)</pre>
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)
+
+<span class='fu'>scale_colour_fermenter</span>(<span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"seq"</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> -<span class='fl'>1</span>, <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"coloursteps"</span>,
+  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>)
+
+<span class='fu'>scale_fill_fermenter</span>(<span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"seq"</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>direction</span> <span class='kw'>=</span> -<span class='fl'>1</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"coloursteps"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='discrete_scale.html'>discrete_scale()</a></code> or, for
-<code>distiller</code> scales, <code><a href='continuous_scale.html'>continuous_scale()</a></code> to control name,
-limits, breaks, labels and so forth.</p></td>
+      <td><p>Other arguments passed on to <code><a href='discrete_scale.html'>discrete_scale()</a></code>, <code><a href='continuous_scale.html'>continuous_scale()</a></code>,
+or <code><a href='binned_scale.html'>binned_scale()</a></code>, for <code>brewer</code>, <code>distiller</code>, and <code>fermenter</code> variants
+respectively, to control name, limits, breaks, labels and so forth.</p></td>
     </tr>
     <tr>
       <th>type</th>
@@ -258,7 +265,8 @@ look good. Your mileage may vary.</p>
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>The <code>distiller</code> scales extend brewer to continuous scales by smoothly
-interpolating 7 colours from any palette to a continuous scale.</p>
+interpolating 7 colours from any palette to a continuous scale. The <code>fermenter</code>
+scales provide binned versions of the brewer scales.</p>
     <h2 class="hasAnchor" id="palettes"><a class="anchor" href="#palettes"></a>Palettes</h2>
 
     
@@ -276,6 +284,7 @@ OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd</p><
   <code><a href='scale_gradient.html'>scale_colour_gradient</a></code>,
   <code><a href='scale_grey.html'>scale_colour_grey</a></code>,
   <code><a href='scale_hue.html'>scale_colour_hue</a></code>,
+  <code><a href='scale_steps.html'>scale_colour_steps</a></code>,
   <code><a href='scale_viridis.html'>scale_colour_viridis_d</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -298,7 +307,10 @@ OrRd, PuBu, PuBuGn, PuRd, Purples, RdPu, Reds, YlGn, YlGnBu, YlOrBr, YlOrRd</p><
 <span class='co'># Use distiller variant with continous data</span>
 <span class='no'>v</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>faithfuld</span>) +
   <span class='fu'><a href='geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>waiting</span>, <span class='no'>eruptions</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>density</span>))
-<span class='no'>v</span></div><div class='img'><img src='scale_brewer-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>scale_fill_distiller</span>()</div><div class='img'><img src='scale_brewer-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>scale_fill_distiller</span>(<span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Spectral"</span>)</div><div class='img'><img src='scale_brewer-11.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>v</span></div><div class='img'><img src='scale_brewer-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>scale_fill_distiller</span>()</div><div class='img'><img src='scale_brewer-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>scale_fill_distiller</span>(<span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Spectral"</span>)</div><div class='img'><img src='scale_brewer-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># or use blender variants to discretize continuous data</span>
+<span class='no'>v</span> + <span class='fu'>scale_fill_fermenter</span>()</div><div class='img'><img src='scale_brewer-12.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

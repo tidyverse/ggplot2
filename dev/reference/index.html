@@ -624,13 +624,19 @@
       </tr><tr>
         <td><a href="scale_alpha.html"><img src="icons/scale_alpha.png" width="30" height="30" alt="" /></a></td>
         <td>
-          <p><code><a href="scale_alpha.html">scale_alpha()</a></code> <code><a href="scale_alpha.html">scale_alpha_continuous()</a></code> <code><a href="scale_alpha.html">scale_alpha_discrete()</a></code> <code><a href="scale_alpha.html">scale_alpha_ordinal()</a></code> </p>
+          <p><code><a href="scale_alpha.html">scale_alpha()</a></code> <code><a href="scale_alpha.html">scale_alpha_continuous()</a></code> <code><a href="scale_alpha.html">scale_alpha_binned()</a></code> <code><a href="scale_alpha.html">scale_alpha_discrete()</a></code> <code><a href="scale_alpha.html">scale_alpha_ordinal()</a></code> </p>
         </td>
         <td><p>Alpha transparency scales</p></td>
       </tr><tr>
+        <td></td>
+        <td>
+          <p><code><a href="scale_binned.html">scale_x_binned()</a></code> <code><a href="scale_binned.html">scale_y_binned()</a></code> </p>
+        </td>
+        <td><p>Positional scales for binning continuous data (x &amp; y)</p></td>
+      </tr><tr>
         <td><a href="scale_brewer.html"><img src="icons/scale_colour_brewer.png" width="30" height="30" alt="" /></a></td>
         <td>
-          <p><code><a href="scale_brewer.html">scale_colour_brewer()</a></code> <code><a href="scale_brewer.html">scale_fill_brewer()</a></code> <code><a href="scale_brewer.html">scale_colour_distiller()</a></code> <code><a href="scale_brewer.html">scale_fill_distiller()</a></code> </p>
+          <p><code><a href="scale_brewer.html">scale_colour_brewer()</a></code> <code><a href="scale_brewer.html">scale_fill_brewer()</a></code> <code><a href="scale_brewer.html">scale_colour_distiller()</a></code> <code><a href="scale_brewer.html">scale_fill_distiller()</a></code> <code><a href="scale_brewer.html">scale_colour_fermenter()</a></code> <code><a href="scale_brewer.html">scale_fill_fermenter()</a></code> </p>
         </td>
         <td><p>Sequential, diverging and qualitative colour scales from colorbrewer.org</p></td>
       </tr><tr>
@@ -638,7 +644,7 @@
         <td>
           <p><code><a href="scale_colour_continuous.html">scale_colour_continuous()</a></code> <code><a href="scale_colour_continuous.html">scale_fill_continuous()</a></code> </p>
         </td>
-        <td><p>Continuous colour scales</p></td>
+        <td><p>Continuous and binned colour scales</p></td>
       </tr><tr>
         <td></td>
         <td>
@@ -684,7 +690,7 @@
       </tr><tr>
         <td><a href="scale_linetype.html"><img src="icons/scale_linetype.png" width="30" height="30" alt="" /></a></td>
         <td>
-          <p><code><a href="scale_linetype.html">scale_linetype()</a></code> <code><a href="scale_linetype.html">scale_linetype_continuous()</a></code> <code><a href="scale_linetype.html">scale_linetype_discrete()</a></code> </p>
+          <p><code><a href="scale_linetype.html">scale_linetype()</a></code> <code><a href="scale_linetype.html">scale_linetype_binned()</a></code> <code><a href="scale_linetype.html">scale_linetype_continuous()</a></code> <code><a href="scale_linetype.html">scale_linetype_discrete()</a></code> </p>
         </td>
         <td><p>Scale for line patterns</p></td>
       </tr><tr>
@@ -696,19 +702,25 @@
       </tr><tr>
         <td><a href="scale_shape.html"><img src="icons/scale_shape.png" width="30" height="30" alt="" /></a></td>
         <td>
-          <p><code><a href="scale_shape.html">scale_shape()</a></code> </p>
+          <p><code><a href="scale_shape.html">scale_shape()</a></code> <code><a href="scale_shape.html">scale_shape_binned()</a></code> </p>
         </td>
         <td><p>Scales for shapes, aka glyphs</p></td>
       </tr><tr>
         <td><a href="scale_size.html"><img src="icons/scale_size.png" width="30" height="30" alt="" /></a></td>
         <td>
-          <p><code><a href="scale_size.html">scale_radius()</a></code> <code><a href="scale_size.html">scale_size()</a></code> <code><a href="scale_size.html">scale_size_area()</a></code> </p>
+          <p><code><a href="scale_size.html">scale_size()</a></code> <code><a href="scale_size.html">scale_radius()</a></code> <code><a href="scale_size.html">scale_size_binned()</a></code> <code><a href="scale_size.html">scale_size_area()</a></code> <code><a href="scale_size.html">scale_size_binned_area()</a></code> </p>
         </td>
         <td><p>Scales for area or radius</p></td>
       </tr><tr>
+        <td></td>
+        <td>
+          <p><code><a href="scale_steps.html">scale_colour_steps()</a></code> <code><a href="scale_steps.html">scale_colour_steps2()</a></code> <code><a href="scale_steps.html">scale_colour_stepsn()</a></code> <code><a href="scale_steps.html">scale_fill_steps()</a></code> <code><a href="scale_steps.html">scale_fill_steps2()</a></code> <code><a href="scale_steps.html">scale_fill_stepsn()</a></code> </p>
+        </td>
+        <td><p>Binned gradient colour scales</p></td>
+      </tr><tr>
         <td><a href="scale_viridis.html"><img src="icons/scale_colour_viridis_d.png" width="30" height="30" alt="" /></a></td>
         <td>
-          <p><code><a href="scale_viridis.html">scale_colour_viridis_d()</a></code> <code><a href="scale_viridis.html">scale_fill_viridis_d()</a></code> <code><a href="scale_viridis.html">scale_colour_viridis_c()</a></code> <code><a href="scale_viridis.html">scale_fill_viridis_c()</a></code> </p>
+          <p><code><a href="scale_viridis.html">scale_colour_viridis_d()</a></code> <code><a href="scale_viridis.html">scale_fill_viridis_d()</a></code> <code><a href="scale_viridis.html">scale_colour_viridis_c()</a></code> <code><a href="scale_viridis.html">scale_fill_viridis_c()</a></code> <code><a href="scale_viridis.html">scale_colour_viridis_b()</a></code> <code><a href="scale_viridis.html">scale_fill_viridis_b()</a></code> </p>
         </td>
         <td><p>Viridis colour scales from viridisLite</p></td>
       </tr>

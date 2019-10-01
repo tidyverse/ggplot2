@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Continuous colour scales — scale_colour_continuous • ggplot2</title>
+<title>Continuous and binned colour scales — scale_colour_continuous • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -41,7 +41,7 @@
 
 
 
-<meta property="og:title" content="Continuous colour scales — scale_colour_continuous" />
+<meta property="og:title" content="Continuous and binned colour scales — scale_colour_continuous" />
 <meta property="og:description" content="Colour scales for continuous data default to the values of the
 ggplot2.continuous.colour and ggplot2.continuous.fill options. If these
 options are not present, &quot;gradient&quot; will be used. See options() for more
@@ -169,7 +169,7 @@ information." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Continuous colour scales</h1>
+    <h1>Continuous and binned colour scales</h1>
     <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/scale-colour.r'><code>R/scale-colour.r</code></a>, <a href='https://github.com/tidyverse/ggplot2/blob/master/R/zxx.r'><code>R/zxx.r</code></a></small>
     <div class="hidden name"><code>scale_colour_continuous.Rd</code></div>
     </div>
@@ -222,7 +222,8 @@ and references therein.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='scale_gradient.html'>scale_colour_gradient()</a></code>, <code><a href='scale_viridis.html'>scale_colour_viridis_c()</a></code>,
-<code><a href='scale_gradient.html'>scale_fill_gradient()</a></code>, and <code><a href='scale_viridis.html'>scale_fill_viridis_c()</a></code></p></div>
+<code><a href='scale_steps.html'>scale_colour_steps()</a></code>, <code><a href='scale_viridis.html'>scale_colour_viridis_b()</a></code>, <code><a href='scale_gradient.html'>scale_fill_gradient()</a></code>,
+<code><a href='scale_viridis.html'>scale_fill_viridis_c()</a></code>, <code><a href='scale_steps.html'>scale_fill_steps()</a></code>, and <code><a href='scale_viridis.html'>scale_fill_viridis_b()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>v</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>faithfuld</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>waiting</span>, <span class='no'>eruptions</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>density</span>)) +

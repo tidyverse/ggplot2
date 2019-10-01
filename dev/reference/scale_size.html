@@ -46,7 +46,9 @@
 aesthetic is most commonly used for points and text, and humans perceive
 the area of points (not their radius), so this provides for optimal
 perception. scale_size_area ensures that a value of 0 is mapped
-to a size of 0." />
+to a size of 0. scale_size_binned is a binned version of scale_size that
+scales by area (but does not ensure 0 equals an area of zero). For a binned
+equivalent of scale_size_area use scale_size_binned_area." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -180,18 +182,27 @@ to a size of 0." />
 aesthetic is most commonly used for points and text, and humans perceive
 the area of points (not their radius), so this provides for optimal
 perception. <code>scale_size_area</code> ensures that a value of 0 is mapped
-to a size of 0.</p>
+to a size of 0. <code>scale_size_binned</code> is a binned version of <code>scale_size</code> that
+scales by area (but does not ensure 0 equals an area of zero). For a binned
+equivalent of <code>scale_size_area</code> use <code>scale_size_binned_area</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_radius</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+    <pre class="usage"><span class='fu'>scale_size</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
   <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>), <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"legend"</span>)
 
-<span class='fu'>scale_size</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+<span class='fu'>scale_radius</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
   <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>), <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
   <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"legend"</span>)
 
-<span class='fu'>scale_size_area</span>(<span class='no'>...</span>, <span class='kw'>max_size</span> <span class='kw'>=</span> <span class='fl'>6</span>)</pre>
+<span class='fu'>scale_size_binned</span>(<span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>6</span>),
+  <span class='kw'>n.breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nice.breaks</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"bins"</span>)
+
+<span class='fu'>scale_size_area</span>(<span class='no'>...</span>, <span class='kw'>max_size</span> <span class='kw'>=</span> <span class='fl'>6</span>)
+
+<span class='fu'>scale_size_binned_area</span>(<span class='no'>...</span>, <span class='kw'>max_size</span> <span class='kw'>=</span> <span class='fl'>6</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -260,6 +271,19 @@ transformation with <code><a href='https://rdrr.io/pkg/scales/man/trans_new.html
       <th>guide</th>
       <td><p>A function used to create a guide or its name. See
 <code><a href='guides.html'>guides()</a></code> for more information.</p></td>
+    </tr>
+    <tr>
+      <th>n.breaks</th>
+      <td><p>The number of break points to create if breaks are not given
+directly.</p></td>
+    </tr>
+    <tr>
+      <th>nice.breaks</th>
+      <td><p>Logical. Should breaks be attempted placed at nice values
+instead of exactly evenly spaced between the limits. If <code>TRUE</code> (default)
+the scale will ask the transformation object to create breaks, and this
+may result in a different number of breaks than requested. Ignored if
+breaks are given explicetly.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -355,12 +379,14 @@ to points with size 0.</p></div>
 <span class='no'>p</span></div><div class='img'><img src='scale_size-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>scale_size</span>(<span class='st'>"Highway mpg"</span>)</div><div class='img'><img src='scale_size-2.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p</span> + <span class='fu'>scale_size</span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0</span>, <span class='fl'>10</span>))</div><div class='img'><img src='scale_size-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you want zero value to have zero size, use scale_size_area:</span>
 <span class='no'>p</span> + <span class='fu'>scale_size_area</span>()</div><div class='img'><img src='scale_size-4.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Binning can sometimes make it easier to match the scaled data to the legend</span>
+<span class='no'>p</span> + <span class='fu'>scale_size_binned</span>()</div><div class='img'><img src='scale_size-5.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># This is most useful when size is a count</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>class</span>, <span class='no'>cyl</span>)) +
   <span class='fu'><a href='geom_count.html'>geom_count</a></span>() +
-  <span class='fu'>scale_size_area</span>()</div><div class='img'><img src='scale_size-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>scale_size_area</span>()</div><div class='img'><img src='scale_size-6.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># If you want to map size to radius (usually bad idea), use scale_radius</span>
-<span class='no'>p</span> + <span class='fu'>scale_radius</span>()</div><div class='img'><img src='scale_size-6.png' alt='' width='700' height='433' /></div></pre>
+<span class='no'>p</span> + <span class='fu'>scale_radius</span>()</div><div class='img'><img src='scale_size-7.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

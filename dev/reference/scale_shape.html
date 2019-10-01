@@ -46,7 +46,8 @@
 If you have more than six levels, you will get a warning message, and the
 seventh and subsequence levels will not appear on the plot. Use
 scale_shape_manual() to supply your own values. You can not map
-a continuous variable to shape." />
+a continuous variable to shape unless scale_shape_binned() is used. Still,
+as shape has no inherent order, this use is not advised.." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -180,10 +181,13 @@ a continuous variable to shape." />
 If you have more than six levels, you will get a warning message, and the
 seventh and subsequence levels will not appear on the plot. Use
 <code><a href='scale_manual.html'>scale_shape_manual()</a></code> to supply your own values. You can not map
-a continuous variable to shape.</p>
+a continuous variable to shape unless <code>scale_shape_binned()</code> is used. Still,
+as shape has no inherent order, this use is not advised..</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_shape</span>(<span class='no'>...</span>, <span class='kw'>solid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+    <pre class="usage"><span class='fu'>scale_shape</span>(<span class='no'>...</span>, <span class='kw'>solid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+
+<span class='fu'>scale_shape_binned</span>(<span class='no'>...</span>, <span class='kw'>solid</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

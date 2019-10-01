@@ -64,6 +64,9 @@
     <loc>https://ggplot2.tidyverse.org/reference/benchplot.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/binned_scale.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/borders.html</loc>
   </url>
   <url>
@@ -289,7 +292,13 @@
     <loc>https://ggplot2.tidyverse.org/reference/guide_axis.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/guide_bins.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/guide_colourbar.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/guide_coloursteps.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/guide_legend.html</loc>
@@ -418,6 +427,9 @@
     <loc>https://ggplot2.tidyverse.org/reference/scale_alpha.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/scale_binned.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/scale_brewer.html</loc>
   </url>
   <url>
@@ -455,6 +467,9 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/scale_size.html</loc>
+  </url>
+  <url>
+    <loc>https://ggplot2.tidyverse.org/reference/scale_steps.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/scale_type.html</loc>

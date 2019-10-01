@@ -193,15 +193,24 @@ with common forms of colour blindness. See also
 
 <span class='fu'>scale_fill_viridis_c</span>(<span class='no'>...</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)</pre>
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)
+
+<span class='fu'>scale_colour_viridis_b</span>(<span class='no'>...</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"coloursteps"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>)
+
+<span class='fu'>scale_fill_viridis_b</span>(<span class='no'>...</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"coloursteps"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>Other arguments passed on to <code><a href='discrete_scale.html'>discrete_scale()</a></code> or
-<code><a href='continuous_scale.html'>continuous_scale()</a></code> to control name, limits, breaks, labels and so forth.</p></td>
+      <td><p>Other arguments passed on to <code><a href='discrete_scale.html'>discrete_scale()</a></code>,
+<code><a href='continuous_scale.html'>continuous_scale()</a></code>, or <a href='binned_scale.html'>binned_scale</a> to control name, limits, breaks,
+labels and so forth.</p></td>
     </tr>
     <tr>
       <th>alpha</th>
@@ -263,7 +272,8 @@ other values are deprecated.</p></td>
   <code><a href='scale_brewer.html'>scale_colour_brewer</a></code>,
   <code><a href='scale_gradient.html'>scale_colour_gradient</a></code>,
   <code><a href='scale_grey.html'>scale_colour_grey</a></code>,
-  <code><a href='scale_hue.html'>scale_colour_hue</a></code></p></div>
+  <code><a href='scale_hue.html'>scale_colour_hue</a></code>,
+  <code><a href='scale_steps.html'>scale_colour_steps</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># viridis is the default colour/fill scale for ordered factors</span>
@@ -287,7 +297,10 @@ other values are deprecated.</p></td>
 <span class='no'>p</span> + <span class='fu'>scale_fill_viridis_d</span>(<span class='kw'>direction</span> <span class='kw'>=</span> -<span class='fl'>1</span>)</div><div class='img'><img src='scale_viridis-8.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use viridis_c with continous data</span>
 (<span class='no'>v</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>faithfuld</span>) +
-  <span class='fu'><a href='geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>waiting</span>, <span class='no'>eruptions</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>density</span>)))</div><div class='img'><img src='scale_viridis-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>scale_fill_viridis_c</span>()</div><div class='img'><img src='scale_viridis-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>scale_fill_viridis_c</span>(<span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"plasma"</span>)</div><div class='img'><img src='scale_viridis-11.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='geom_tile.html'>geom_tile</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>waiting</span>, <span class='no'>eruptions</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>density</span>)))</div><div class='img'><img src='scale_viridis-9.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>scale_fill_viridis_c</span>()</div><div class='img'><img src='scale_viridis-10.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>v</span> + <span class='fu'>scale_fill_viridis_c</span>(<span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"plasma"</span>)</div><div class='img'><img src='scale_viridis-11.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Use viridis_b to bin continuous data before mapping</span>
+<span class='no'>v</span> + <span class='fu'>scale_fill_viridis_b</span>()</div><div class='img'><img src='scale_viridis-12.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
