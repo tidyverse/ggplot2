@@ -86,19 +86,17 @@ NULL
 #' @usage NULL
 #' @format NULL
 GeomSf <- ggproto("GeomSf", Geom,
-                  required_aes = "geometry",
-                  default_aes = aes(
-                    shape = NULL,
-                    colour = NULL,
-                    fill = NULL,
-                    size = NULL,
-                    linetype = 1,
-                    alpha = NA,
-                    stroke = 0.5
-                  ),
+  required_aes = "geometry",
+  default_aes = aes(
+    shape = NULL,
+    colour = NULL,
+    fill = NULL,
+    size = NULL,
+    linetype = 1,
+    alpha = NA,
+    stroke = 0.5
+  ),
 
-  non_missing_aes = c("size", "shape", "colour"),
-                  
   draw_panel = function(data, panel_params, coord, legend = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10) {
     if (!inherits(coord, "CoordSf")) {
@@ -133,15 +131,29 @@ default_aesthetics <- function(type) {
 }
 
 sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10) {
-  # Need to extract geometry out of corresponding list column
-  geometry <- x$geometry
-  type <- sf_types[sf::st_geometry_type(geometry)]
-  is_point <- type %in% "point"
-  type_ind <- match(type, c("point", "line", "other"))
+  type <- sf_types[sf::st_geometry_type(x$geometry)]
+  is_point <- type == "point"
+  is_line <- type == "line"
+  is_other <- type == "other"
+  is_collection <- type == "collection"
+  type_ind <- match(type, c("point", "line", "other", "collection"))
+  remove <- rep_len(FALSE, nrow(x))
+  remove[is_point] <- detect_missing(x, c(GeomPoint$required_aes, GeomPoint$non_missing_aes))[is_point]
+  remove[is_line] <- detect_missing(x, c(GeomPath$required_aes, GeomPath$non_missing_aes))[is_line]
+  remove[is_other] <- detect_missing(x, c(GeomPolygon$required_aes, GeomPolygon$non_missing_aes))[is_other]
+  if (any(remove)) {
+    x <- x[!remove, , drop = FALSE]
+    type_ind <- type_ind[!remove]
+    is_collection <- is_collection[!remove]
+  }
   defaults <- list(
     GeomPoint$default_aes,
     GeomLine$default_aes,
     modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
+  )
+  defaults[[4]] <- modify_list(
+    defaults[[3]],
+    rename(GeomPoint$default_aes, c("size" = "point_size", "fill" = "point_fill"))
   )
   default_names <- unique(unlist(lapply(defaults, names)))
   defaults <- lapply(setNames(default_names, default_names), function(n) {
@@ -153,8 +165,9 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10) {
   fill <- x$fill %||% defaults$fill[type_ind]
   fill <- alpha(fill, alpha)
   size <- x$size %||% defaults$size[type_ind]
+  point_size <- ifelse(is_collection, x$size %||% defaults$point_size[type_ind], size)
   stroke <- (x$stroke %||% defaults$stroke[1]) * .stroke / 2
-  fontsize <- size * .pt + stroke
+  fontsize <- point_size * .pt + stroke
   lwd <- ifelse(is_point, stroke, size * .pt)
   pch <- x$shape %||% defaults$shape[type_ind]
   lty <- x$linetype %||% defaults$linetype[type_ind]
@@ -162,7 +175,7 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10) {
     col = col, fill = fill, fontsize = fontsize, lwd = lwd, lty = lty,
     lineend = lineend, linejoin = linejoin, linemitre = linemitre
   )
-  sf::st_as_grob(geometry, pch = pch, gp = gp)
+  sf::st_as_grob(x$geometry, pch = pch, gp = gp)
 }
 
 #' @export
@@ -280,7 +293,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
 
 sf_types <- c(GEOMETRY = "other", POINT = "point", LINESTRING = "line",
               POLYGON = "other", MULTIPOINT = "point", MULTILINESTRING = "line",
-              MULTIPOLYGON = "other", GEOMETRYCOLLECTION = "other",
+              MULTIPOLYGON = "other", GEOMETRYCOLLECTION = "collection",
               CIRCULARSTRING = "line", COMPOUNDCURVE = "other", CURVEPOLYGON = "other",
               MULTICURVE = "other", MULTISURFACE = "other", CURVE = "other",
               SURFACE = "other", POLYHEDRALSURFACE = "other", TIN = "other",

@@ -85,20 +85,13 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
                            finite = FALSE) {
   stopifnot(is.logical(na.rm))
 
-  vars <- intersect(vars, names(df))
-  if (name != "") name <- paste(" (", name, ")", sep = "")
-
-  if (finite) {
-    missing <- !cases(df[, vars, drop = FALSE], is_finite)
-    str <- "non-finite"
-  } else {
-    missing <- !cases(df[, vars, drop = FALSE], is_complete)
-    str <- "missing"
-  }
+  missing <- detect_missing(df, vars, finite)
 
   if (any(missing)) {
     df <- df[!missing, ]
     if (!na.rm) {
+      if (name != "") name <- paste(" (", name, ")", sep = "")
+      str <- if (finite) "non-finite" else "missing"
       warning_wrap(
         "Removed ", sum(missing), " rows containing ", str, " values", name, "."
       )
@@ -106,6 +99,10 @@ remove_missing <- function(df, na.rm = FALSE, vars = names(df), name = "",
   }
 
   df
+}
+detect_missing <- function(df, vars, finite = FALSE) {
+  vars <- intersect(vars, names(df))
+  !cases(df[, vars, drop = FALSE], if (finite) is_finite else is_complete)
 }
 
 # Returns a logical vector of same length as nrow(x). If all data on a row
