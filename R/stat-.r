@@ -76,8 +76,15 @@ Stat <- ggproto("Stat",
       snake_class(self)
     )
 
+    # Make sure required_aes consists of the used set of aesthetics in case of
+    # "|" notation in self$required_aes
+    required_aes <- intersect(
+      names(data),
+      unlist(strsplit(self$required_aes, "|", fixed = TRUE))
+    )
+
     data <- remove_missing(data, params$na.rm,
-      c(self$required_aes, self$non_missing_aes),
+      c(required_aes, self$non_missing_aes),
       snake_class(self),
       finite = TRUE
     )
