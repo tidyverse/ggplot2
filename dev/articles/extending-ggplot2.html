@@ -592,9 +592,10 @@
 <a class="sourceLine" id="cb20-9" data-line-number="9"><span class="co">#&gt; {</span></a>
 <a class="sourceLine" id="cb20-10" data-line-number="10"><span class="co">#&gt;     data &lt;- flip_data(data, params$flipped_aes)</span></a>
 <a class="sourceLine" id="cb20-11" data-line-number="11"><span class="co">#&gt;     data$x &lt;- data$x %||% 0</span></a>
-<a class="sourceLine" id="cb20-12" data-line-number="12"><span class="co">#&gt;     data &lt;- remove_missing(data, na.rm = FALSE, vars = "x", name = "stat_boxplot")</span></a>
-<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt;     flip_data(data, params$flipped_aes)</span></a>
-<a class="sourceLine" id="cb20-14" data-line-number="14"><span class="co">#&gt; }</span></a></code></pre></div>
+<a class="sourceLine" id="cb20-12" data-line-number="12"><span class="co">#&gt;     data &lt;- remove_missing(data, na.rm = params$na.rm, vars = "x", </span></a>
+<a class="sourceLine" id="cb20-13" data-line-number="13"><span class="co">#&gt;         name = "stat_boxplot")</span></a>
+<a class="sourceLine" id="cb20-14" data-line-number="14"><span class="co">#&gt;     flip_data(data, params$flipped_aes)</span></a>
+<a class="sourceLine" id="cb20-15" data-line-number="15"><span class="co">#&gt; }</span></a></code></pre></div>
 <p>The data is flipped (if needed), manipulated, and flipped back as it is returned.</p>
 <p>During the computation, this sandwiching between <code><a href="../reference/bidirection.html">flip_data()</a></code> is used as well, but right before the data is returned it will also get a <code>flipped_aes</code> column denoting if the data is flipped or not. This allow the stat to communicate to the geom that orientation has already been determined.</p>
 </div>
