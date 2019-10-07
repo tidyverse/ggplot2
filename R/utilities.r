@@ -504,7 +504,10 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
                             ambiguous = FALSE, main_is_continuous = FALSE) {
   # Is orientation already encoded in data?
   if (!is.null(data$flipped_aes)) {
-    return(data$flipped_aes[[1]])
+    not_na <- which(!is.na(data$flipped_aes))
+    if (length(not_na) != 0) {
+      return(data$flipped_aes[[not_na[1L]]])
+    }
   }
 
   # Is orientation requested in the params
