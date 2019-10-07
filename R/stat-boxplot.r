@@ -51,7 +51,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     data$x <- data$x %||% 0
     data <- remove_missing(
       data,
-      na.rm = FALSE,
+      na.rm = params$na.rm,
       vars = "x",
       name = "stat_boxplot"
     )
