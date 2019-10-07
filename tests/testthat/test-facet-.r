@@ -180,11 +180,11 @@ test_that("shrink parameter affects scaling", {
   expect_equal(r1$x[[1]], c(1, 1))
   expect_equal(r1$y[[1]], c(1, 3))
 
-  l2 <- ggplot(df, aes(1, y)) + stat_summary(fun.y = "mean")
+  l2 <- ggplot(df, aes(1, y)) + stat_summary(fun = "mean")
   r2 <- pranges(l2)
   expect_equal(r2$y[[1]], c(2, 2))
 
-  l3 <- ggplot(df, aes(1, y)) + stat_summary(fun.y = "mean") +
+  l3 <- ggplot(df, aes(1, y)) + stat_summary(fun = "mean") +
     facet_null(shrink = FALSE)
   r3 <- pranges(l3)
   expect_equal(r3$y[[1]], c(1, 3))
