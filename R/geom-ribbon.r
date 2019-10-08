@@ -119,7 +119,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     munched_lines <- munched
     # increment the IDs of the lower line
-    munched_lines$id <- munched_lines$id <- rep(c(0, max(ids, na.rm = TRUE)), each = length(ids))
+    munched_lines$id <- munched_lines$id + rep(c(0, max(ids, na.rm = TRUE)), each = length(ids))
 
     g_lines <- polylineGrob(
       munched_lines$x, munched_lines$y, id = munched_lines$id,
