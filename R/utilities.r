@@ -504,7 +504,10 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
                             ambiguous = FALSE, main_is_continuous = FALSE) {
   # Is orientation already encoded in data?
   if (!is.null(data$flipped_aes)) {
-    return(data$flipped_aes[[1]])
+    not_na <- which(!is.na(data$flipped_aes))
+    if (length(not_na) != 0) {
+      return(data$flipped_aes[[not_na[1L]]])
+    }
   }
 
   # Is orientation requested in the params
@@ -583,12 +586,17 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   # If both are discrete like, which have most 0 or 1-spaced values
   y_diff <- diff(sort(data$y))
   x_diff <- diff(sort(data$x))
+
   if (y_is_int && x_is_int) {
     return((sum(x_diff <= 1) < sum(y_diff <= 1)) != main_is_continuous)
   }
+
+  y_diff <- y_diff[y_diff != 0]
+  x_diff <- x_diff[x_diff != 0]
+
   # If none are discrete is either regularly spaced
-  y_is_regular <- if (has_y) all((y_diff / min(y_diff)) %% 1 < .Machine$double.eps) else FALSE
-  x_is_regular <- if (has_x) all((x_diff / min(x_diff)) %% 1 < .Machine$double.eps) else FALSE
+  y_is_regular <- if (has_y && length(y_diff) != 0) all((y_diff / min(y_diff)) %% 1 < .Machine$double.eps) else FALSE
+  x_is_regular <- if (has_x && length(x_diff) != 0) all((x_diff / min(x_diff)) %% 1 < .Machine$double.eps) else FALSE
   if (xor(y_is_regular, x_is_regular)) {
     return(y_is_regular != main_is_continuous)
   }
