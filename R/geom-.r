@@ -123,11 +123,13 @@ Geom <- ggproto("Geom",
       data[names(missing_eval)] <- missing_eval
     }
 
+    # If any after_scale mappings are detected they will be resolved here
+    # This order means that they will have access to all default aesthetics
     if (length(modifiers) != 0) {
-      env <- new.env(parent = baseenv())
-      env$mapped <- mapped
-      stage_mask <- new.env(parent = emptyenv())
-      stage_mask$stage <- stage_mapped
+      # Set up evaluation environment
+      env <- child_env(baseenv(), after_scale = after_scale)
+      # Mask stage with stage_scaled so it returns the correct expression
+      stage_mask <- child_env(emptyenv(), stage = stage_scaled)
       mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
       mask$.data <- as_data_pronoun(mask)
       modified_aes <- lapply(substitute_aes(modifiers),  eval_tidy, mask, env)

@@ -43,7 +43,8 @@ f <- ggplot(ecm, aes(date, value))
 f + geom_line(aes(linetype = variable))
 
 # Using facets
-k <- ggplot(diamonds, aes(carat, stat(density))) + geom_histogram(binwidth = 0.2)
+k <- ggplot(diamonds, aes(carat, after_stat(density))) +
+  geom_histogram(binwidth = 0.2)
 k + facet_grid(. ~ cut)
 
 # There are three common cases where the default is not enough, and we

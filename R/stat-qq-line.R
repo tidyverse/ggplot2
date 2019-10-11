@@ -44,7 +44,7 @@ stat_qq_line <- geom_qq_line
 #' @usage NULL
 #' @export
 StatQqLine <- ggproto("StatQqLine", Stat,
- default_aes = aes(x = stat(x), y = stat(y)),
+ default_aes = aes(x = after_stat(x), y = after_stat(y)),
 
  required_aes = c("sample"),
 
