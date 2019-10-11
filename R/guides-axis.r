@@ -93,7 +93,7 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
       }
     }
 
-    guide$key <- ticks
+    guide$key <- ticks[is.finite(ticks[[aesthetic]]), ]
   }
 
   guide$name <- paste0(guide$name, "_", aesthetic)

@@ -17,7 +17,6 @@ view_scale_primary <- function(scale, limits = scale$get_limits(),
 
   if(!scale$is_discrete()) {
     breaks <- scale$get_breaks(continuous_range)
-    breaks <- breaks[is.finite(breaks)]
     minor_breaks <- scale$get_breaks_minor(b = breaks, limits = continuous_range)
   } else {
     breaks <- scale$get_breaks(limits)
