@@ -229,7 +229,7 @@ Layer <- ggproto("Layer", NULL,
     # Drop aesthetics that are set or calculated
     set <- names(aesthetics) %in% names(self$aes_params)
     calculated <- is_calculated_aes(aesthetics)
-    modifiers <- is_mapped_aes(aesthetics)
+    modifiers <- is_scaled_aes(aesthetics)
 
     aesthetics <- aesthetics[!set & !calculated & !modifiers]
 
@@ -241,8 +241,7 @@ Layer <- ggproto("Layer", NULL,
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate aesthetics
-    env <- new.env(parent = baseenv())
-    env$stage <- stage
+    env <- child_env(baseenv(), stage = stage)
     evaled <- lapply(aesthetics, eval_tidy, data = data, env = env)
     evaled <- compact(evaled)
 
@@ -255,7 +254,7 @@ Layer <- ggproto("Layer", NULL,
       msg <- paste0(
         "Aesthetics must be valid data columns. Problematic aesthetic(s): ",
         paste0(vapply(nondata_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
-        ". \nDid you mistype the name of a data column or forget to add stat()?"
+        ". \nDid you mistype the name of a data column or forget to add after_stat()?"
       )
       stop(msg, call. = FALSE)
     }
@@ -303,14 +302,12 @@ Layer <- ggproto("Layer", NULL,
     aesthetics <- defaults(aesthetics, self$stat$default_aes)
     aesthetics <- compact(aesthetics)
 
-    new <- strip_dots(aesthetics[is_calculated_aes(aesthetics) | is_stage_aes(aesthetics)])
+    new <- strip_dots(aesthetics[is_calculated_aes(aesthetics) | is_staged_aes(aesthetics)])
     if (length(new) == 0) return(data)
 
     # Add map stat output to aesthetics
-    env <- new.env(parent = baseenv())
-    env$stat <- stat
-    stage_mask <- new.env(parent = emptyenv())
-    stage_mask$stage <- stage_geom
+    env <- child_env(baseenv(), stat = stat, after_stat = after_stat)
+    stage_mask <- child_env(emptyenv(), stage = stage_calculated)
     mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
     mask$.data <- as_data_pronoun(mask)
 
@@ -367,7 +364,7 @@ Layer <- ggproto("Layer", NULL,
     if (empty(data)) return(data)
 
     aesthetics <- self$mapping
-    modifiers <- aesthetics[is_mapped_aes(aesthetics) | is_stage_aes(aesthetics)]
+    modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
     self$geom$use_defaults(data, self$aes_params, modifiers)
   },

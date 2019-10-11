@@ -270,7 +270,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
         params <- layer$aes_params[n == 1]
 
         aesthetics <- layer$mapping
-        modifiers <- aesthetics[is_mapped_aes(aesthetics) | is_stage_aes(aesthetics)]
+        modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
         data <- layer$geom$use_defaults(guide$key[matched], params, modifiers)
       } else {
