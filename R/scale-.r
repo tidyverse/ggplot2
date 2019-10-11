@@ -534,6 +534,12 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     self$range$train(x)
   },
 
+  is_empty = function(self) {
+    has_data <- !is.null(self$range$range)
+    has_limits <- is.function(self$limits) || (!is.null(self$limits) && all(is.finite(self$limits)))
+    !has_data && !has_limits
+  },
+
   transform = function(self, x) {
      new_x <- self$trans$transform(x)
      axis <- if ("x" %in% self$aesthetics) "x" else "y"
