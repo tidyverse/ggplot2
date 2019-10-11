@@ -57,7 +57,6 @@ Suggests:
     testthat (>= 2.1.0),
     vdiffr (>= 0.3.0)
 Enhances: sp
-Remotes: r-lib/rlang
 License: GPL-2 | file LICENSE
 URL: http://ggplot2.tidyverse.org, https://github.com/tidyverse/ggplot2
 BugReports: https://github.com/tidyverse/ggplot2/issues

@@ -141,14 +141,8 @@ strip_dots <- function(expr) {
       expr
     }
   } else if (is.call(expr)) {
-    if (identical(expr[[1]], quote(stat)) ||
-        identical(expr[[1]], quote(after_stat)) ||
-        identical(expr[[1]], quote(after_scale))) {
+    if (identical(expr[[1]], quote(stat))) {
       strip_dots(expr[[2]])
-    } else if (identical(expr[[1]], quote(stage))) {
-      # Prefer stat mapping if present, otherwise original mapping (fallback to
-      # scale mapping) but there should always be two arguments to stage()
-      expr$after_stat %||% expr$start %||% expr$after_scale
     } else {
       expr[-1] <- lapply(expr[-1], strip_dots)
       expr
@@ -163,6 +157,18 @@ strip_dots <- function(expr) {
     stop("Unknown input:", class(expr)[1])
   }
 }
+strip_stage <- function(expr) {
+  uq_expr <- get_expr(expr)
+  if (is_call(uq_expr, c("after_stat", "after_scale"))) {
+    uq_expr[[2]]
+  } else if (is_call(uq_expr, "stage")) {
+    # Prefer stat mapping if present, otherwise original mapping (fallback to
+    # scale mapping) but there should always be two arguments to stage()
+    uq_expr$after_stat %||% uq_expr$start %||% (if (is.null(uq_expr$after_scale)) uq_expr[[3]]) %||% uq_expr[[2]]
+  } else {
+    expr
+  }
+}
 
 # Convert aesthetic mapping into text labels
 make_labels <- function(mapping) {
@@ -171,7 +177,7 @@ make_labels <- function(mapping) {
     if (is.atomic(mapping)) {
       return(aesthetic)
     }
-
+    mapping <- strip_stage(mapping)
     mapping <- strip_dots(mapping)
     if (is_quosure(mapping) && quo_is_symbol(mapping)) {
       name <- as_string(quo_get_expr(mapping))
