@@ -17,13 +17,15 @@
 #' one change at a time. You may need to look at a few options to uncover
 #' the full story behind your data.
 #'
+#' @eval rd_orientation()
+#'
 #' @section Aesthetics:
 #' `geom_histogram()` uses the same aesthetics as [geom_bar()];
 #' `geom_freqpoly()` uses the same aesthetics as [geom_line()].
 #'
 #' @export
 #' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   `geom_histogram()`/`geom_freqpoly()` and `stat_bin()`.
 #' @examples
@@ -33,6 +35,9 @@
 #'   geom_histogram(binwidth = 0.01)
 #' ggplot(diamonds, aes(carat)) +
 #'   geom_histogram(bins = 200)
+#' # Map values to y to flip the orientation
+#' ggplot(diamonds, aes(y = carat)) +
+#'   geom_histogram()
 #'
 #' # Rather than stacking histograms, it's easier to compare frequency
 #' # polygons
@@ -92,6 +97,7 @@ geom_histogram <- function(mapping = NULL, data = NULL,
                            binwidth = NULL,
                            bins = NULL,
                            na.rm = FALSE,
+                           orientation = NA,
                            show.legend = NA,
                            inherit.aes = TRUE) {
 
@@ -107,6 +113,7 @@ geom_histogram <- function(mapping = NULL, data = NULL,
       binwidth = binwidth,
       bins = bins,
       na.rm = na.rm,
+      orientation = orientation,
       pad = FALSE,
       ...
     )

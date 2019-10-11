@@ -157,7 +157,8 @@ p + guides(col = guide_legend(reverse = TRUE))
 }
 }
 \seealso{
-Other guides: \code{\link{guide_colourbar}},
-  \code{\link{guides}}
+Other guides: \code{\link{guide_bins}},
+  \code{\link{guide_colourbar}},
+  \code{\link{guide_coloursteps}}, \code{\link{guides}}
 }
 \concept{guides}

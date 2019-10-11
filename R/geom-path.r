@@ -9,9 +9,11 @@
 #' An alternative parameterisation is [geom_segment()], where each line
 #' corresponds to a single case which provides the start and end coordinates.
 #'
+#' @eval rd_orientation()
+#'
 #' @eval rd_aesthetics("geom", "path")
 #' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param lineend Line end style (round, butt, square).
 #' @param linejoin Line join style (round, mitre, bevel).
 #' @param linemitre Line mitre limit (number greater than 1).
@@ -34,6 +36,9 @@
 #' ggplot(economics, aes(date, unemploy)) + geom_line()
 #' ggplot(economics_long, aes(date, value01, colour = variable)) +
 #'   geom_line()
+#'
+#' # You can get a timeseries that run vertically by setting the orientation
+#' ggplot(economics, aes(unemploy, date)) + geom_line(orientation = "y")
 #'
 #' # geom_step() is useful when you want to highlight exactly when
 #' # the y value changes
@@ -236,7 +241,7 @@ keep_mid_true <- function(x) {
 #' @export
 #' @rdname geom_path
 geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
-                      position = "identity", na.rm = FALSE,
+                      position = "identity", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...) {
   layer(
     data = data,
@@ -248,6 +253,7 @@ geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -259,8 +265,18 @@ geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @export
 #' @include geom-path.r
 GeomLine <- ggproto("GeomLine", GeomPath,
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
+    params
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
   setup_data = function(data, params) {
-    data[order(data$PANEL, data$group, data$x), ]
+    data$flipped_aes <- params$flipped_aes
+    data <- flip_data(data, params$flipped_aes)
+    data <- data[order(data$PANEL, data$group, data$x), ]
+    flip_data(data, params$flipped_aes)
   }
 )
 
