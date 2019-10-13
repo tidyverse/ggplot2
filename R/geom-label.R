@@ -17,7 +17,7 @@ geom_label <- function(mapping = NULL, data = NULL,
                        inherit.aes = TRUE) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+      stop("You must specify either `position` or `nudge_x`/`nudge_y`.", call. = FALSE)
     }
 
     position <- position_nudge(nudge_x, nudge_y)
@@ -63,7 +63,7 @@ GeomLabel <- ggproto("GeomLabel", Geom,
                         label.size = 0.25) {
     lab <- data$label
     if (parse) {
-      lab <- parse(text = as.character(lab))
+      lab <- parse_safe(as.character(lab))
     }
 
     data <- coord$transform(data, panel_params)

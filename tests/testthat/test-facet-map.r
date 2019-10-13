@@ -3,7 +3,7 @@ context("Facetting (mapping)")
 df <- expand.grid(a = 1:2, b = 1:2)
 df_a <- unique(df["a"])
 df_b <- unique(df["b"])
-df_c <- unique(data.frame(c = 1))
+df_c <- unique(data_frame(c = 1))
 
 panel_map_one <- function(facet, data, plot_data = data) {
   layout <- create_layout(facet)
@@ -59,9 +59,41 @@ test_that("wrap: missing facet columns are duplicated", {
   expect_equal(loc_c$PANEL, factor(1:4))
 })
 
+test_that("wrap and grid can facet by a date variable", {
+  date_df <- data_frame(date_var = as.Date(c("1971-12-11", "1987-01-13", "2000-01-01")))
+
+  wrap <- facet_wrap(~date_var)
+  loc_wrap <- panel_map_one(wrap, date_df)
+  expect_equal(loc_wrap$PANEL, factor(1:3))
+
+  grid_col <- facet_grid(~date_var)
+  loc_grid_col <- panel_map_one(grid_col, date_df)
+  expect_equal(loc_grid_col$PANEL, factor(1:3))
+
+  grid_row <- facet_grid(date_var ~ .)
+  loc_grid_row <- panel_map_one(grid_row, date_df)
+  expect_equal(loc_grid_row$PANEL, factor(1:3))
+})
+
+test_that("wrap and grid can facet by a POSIXct variable", {
+  date_df <- data_frame(date_var = as.POSIXct(c("1971-12-11", "1987-01-13", "2000-01-01")))
+
+  wrap <- facet_wrap(~date_var)
+  loc_wrap <- panel_map_one(wrap, date_df)
+  expect_equal(loc_wrap$PANEL, factor(1:3))
+
+  grid_col <- facet_grid(~date_var)
+  loc_grid_col <- panel_map_one(grid_col, date_df)
+  expect_equal(loc_grid_col$PANEL, factor(1:3))
+
+  grid_row <- facet_grid(date_var ~ .)
+  loc_grid_row <- panel_map_one(grid_row, date_df)
+  expect_equal(loc_grid_row$PANEL, factor(1:3))
+})
+
 # Missing behaviour ----------------------------------------------------------
 
-a3 <- data.frame(
+a3 <- data_frame(
 #  a = c(1:3, NA), Not currently supported
   b = factor(c(1:3, NA)),
   c = factor(c(1:3, NA), exclude = NULL)
@@ -69,21 +101,21 @@ a3 <- data.frame(
 
 test_that("wrap: missing values are located correctly", {
   facet <- facet_wrap(~b, ncol = 1)
-  loc_b <- panel_map_one(facet, data.frame(b = NA), plot_data = a3)
+  loc_b <- panel_map_one(facet, data_frame(b = NA), plot_data = a3)
   expect_equal(as.character(loc_b$PANEL), "4")
 
   facet <- facet_wrap(~c, ncol = 1)
-  loc_c <- panel_map_one(facet, data.frame(c = NA), plot_data = a3)
+  loc_c <- panel_map_one(facet, data_frame(c = NA), plot_data = a3)
   expect_equal(as.character(loc_c$PANEL), "4")
 })
 
 test_that("grid: missing values are located correctly", {
   facet <- facet_grid(b~.)
-  loc_b <- panel_map_one(facet, data.frame(b = NA), plot_data = a3)
+  loc_b <- panel_map_one(facet, data_frame(b = NA), plot_data = a3)
   expect_equal(as.character(loc_b$PANEL), "4")
 
   facet <- facet_grid(c~.)
-  loc_c <- panel_map_one(facet, data.frame(c = NA), plot_data = a3)
+  loc_c <- panel_map_one(facet, data_frame(c = NA), plot_data = a3)
   expect_equal(as.character(loc_c$PANEL), "4")
 })
 
@@ -92,12 +124,12 @@ test_that("grid: missing values are located correctly", {
 get_layout <- function(p)  ggplot_build(p)$layout$layout
 
 # Data with factor f with levels CBA
-d <- data.frame(x = 1:9, y = 1:9,
+d <- data_frame(x = 1:9, y = 1:9,
   fx = factor(rep(letters[1:3], each = 3), levels = letters[3:1]),
   fy = factor(rep(LETTERS[1:3], each = 3), levels = LETTERS[3:1]))
 
 # Data with factor f with only level B
-d2 <- data.frame(x = 1:9, y = 2:10, fx = "a", fy = "B")
+d2 <- data_frame(x = 1:9, y = 2:10, fx = factor("a"), fy = factor("B"))
 
 
 test_that("grid: facet order follows default data frame order", {

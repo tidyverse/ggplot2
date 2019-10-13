@@ -4,7 +4,8 @@
 #' If you have more than six levels, you will get a warning message, and the
 #' seventh and subsequence levels will not appear on the plot. Use
 #' [scale_shape_manual()] to supply your own values. You can not map
-#' a continuous variable to shape.
+#' a continuous variable to shape unless `scale_shape_binned()` is used. Still,
+#' as shape has no inherent order, this use is not advised..
 #'
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?
@@ -36,6 +37,12 @@
 #'   theme_void()
 scale_shape <- function(..., solid = TRUE) {
   discrete_scale("shape", "shape_d", shape_pal(solid), ...)
+}
+
+#' @rdname scale_shape
+#' @export
+scale_shape_binned <- function(..., solid = TRUE) {
+  binned_scale("shape", "shape_b", binned_pal(shape_pal(solid)), ...)
 }
 
 #' @rdname scale_shape

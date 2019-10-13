@@ -1,4 +1,8 @@
 # Produce a grob to be used as for panel backgrounds
+# minor and major grid line positions are given as fractional positions and will
+# be converted to `'native'` units by polylineGrob() downstream
+#
+# Any minor lines coinciding with major lines will be removed
 guide_grid <- function(theme, x.minor, x.major, y.minor, y.major) {
 
   x.minor <- setdiff(x.minor, x.major)

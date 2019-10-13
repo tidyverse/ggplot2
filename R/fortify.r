@@ -26,8 +26,14 @@ fortify.tbl <- function(model, data, ...) {
 fortify.NULL <- function(model, data, ...) waiver()
 #' @export
 fortify.function <- function(model, data, ...) model
+# accept purrr-style lambda notation
+#' @export
+fortify.formula <- function(model, data, ...) as_function(model)
 #' @export
 fortify.grouped_df <- function(model, data, ...) {
+  if (!requireNamespace("dplyr", quietly = TRUE)) {
+    stop("dplyr must be installed to work with grouped_df objects", call. = FALSE)
+  }
   model$.group <- dplyr::group_indices(model)
   model
 }

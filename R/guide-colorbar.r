@@ -116,7 +116,7 @@ guide_colourbar <- function(
   # bar
   barwidth = NULL,
   barheight = NULL,
-  nbin = 20,
+  nbin = 300,
   raster = TRUE,
 
   # frame
@@ -210,7 +210,7 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
 
-  ticks <- as.data.frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
+  ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
 
@@ -218,11 +218,11 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # bar specification (number of divs etc)
   .limits <- scale$get_limits()
-  .bar <- seq(.limits[1], .limits[2], length = guide$nbin)
+  .bar <- seq(.limits[1], .limits[2], length.out = guide$nbin)
   if (length(.bar) == 0) {
     .bar = unique(.limits)
   }
-  guide$bar <- data.frame(colour = scale$map(.bar), value = .bar, stringsAsFactors = FALSE)
+  guide$bar <- new_data_frame(list(colour = scale$map(.bar), value = .bar), n = length(.bar))
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]
@@ -241,13 +241,31 @@ guide_merge.colorbar <- function(guide, new_guide) {
 #' @export
 guide_geom.colorbar <- function(guide, layers, default_mapping) {
   # Layers that use this guide
-  guide_layers <- plyr::llply(layers, function(layer) {
+  guide_layers <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
-    if (length(matched) && ((is.na(layer$show.legend) || layer$show.legend))) {
+    if (length(matched) == 0) {
+      # This layer does not use this guide
+      return(NULL)
+    }
+
+    # check if this layer should be included, different behaviour depending on
+    # if show.legend is a logical or a named logical vector
+    if (is_named(layer$show.legend)) {
+      layer$show.legend <- rename_aes(layer$show.legend)
+      show_legend <- layer$show.legend[matched]
+      # we cannot use `isTRUE(is.na(show_legend))` here because
+      # 1. show_legend can be multiple NAs
+      # 2. isTRUE() was not tolerant for a named TRUE
+      show_legend <- show_legend[!is.na(show_legend)]
+      include <- length(show_legend) == 0 || any(show_legend)
+    } else {
+      include <- isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend)
+    }
+
+    if (include) {
       layer
     } else {
-      # This layer does not use this guide
       NULL
     }
   })
@@ -342,7 +360,8 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
-  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||% 0
+  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||%
+    calc_element("text", theme)$size %||% 11
 
   # gap between keys etc
   # the default horizontal and vertical gap need to be the same to avoid strange
@@ -507,7 +526,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.background <- element_render(theme, "legend.background")
 
   # padding
-  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm", valueOnly = TRUE)
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 
@@ -547,25 +566,3 @@ guide_gengrob.colorbar <- function(guide, theme) {
 #' @export
 #' @rdname guide_colourbar
 guide_colorbar <- guide_colourbar
-
-#' Calculate the default hjust and vjust settings depending on legend
-#' direction and position.
-#'
-#' @noRd
-label_just_defaults.colorbar <- function(direction, position) {
-  if (direction == "horizontal") {
-    switch(
-      position,
-      "top" = list(hjust = 0.5, vjust = 0),
-      list(hjust = 0.5, vjust = 1)
-    )
-  }
-  else {
-    switch(
-      position,
-      "left" = list(hjust = 1, vjust = 0.5),
-      list(hjust = 0, vjust = 0.5)
-    )
-  }
-}
-

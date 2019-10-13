@@ -1,7 +1,7 @@
 context("Stats")
 
 test_that("plot succeeds even if some computation fails", {
-  df <- data.frame(x = 1:2, y = 1)
+  df <- data_frame(x = 1:2, y = 1)
   p1 <- ggplot(df, aes(x, y)) + geom_point()
 
   b1 <- ggplot_build(p1)
@@ -13,6 +13,6 @@ test_that("plot succeeds even if some computation fails", {
 })
 
 test_that("error message is thrown when aesthetics are missing", {
-  p <- ggplot(mtcars) + stat_bin()
-  expect_error(ggplot_build(p), "x$")
+  p <- ggplot(mtcars) + stat_sum()
+  expect_error(ggplot_build(p), "x, y$")
 })

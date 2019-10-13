@@ -81,12 +81,12 @@ Geom <- ggproto("Geom",
     params <- params[intersect(names(params), self$parameters())]
 
     args <- c(list(quote(data), quote(panel_params), quote(coord)), params)
-    plyr::dlply(data, "PANEL", function(data) {
+    lapply(split(data, data$PANEL), function(data) {
       if (empty(data)) return(zeroGrob())
 
       panel_params <- layout$panel_params[[data$PANEL[1]]]
       do.call(self$draw_panel, args)
-    }, .drop = FALSE)
+    })
   },
 
   draw_panel = function(self, data, panel_params, coord, ...) {
@@ -104,6 +104,8 @@ Geom <- ggproto("Geom",
     stop("Not implemented")
   },
 
+  setup_params = function(data, params) params,
+
   setup_data = function(data, params) data,
 
   # Combine data with defaults and set aesthetics from parameters
@@ -111,7 +113,7 @@ Geom <- ggproto("Geom",
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
 
-    missing_eval <- lapply(self$default_aes[missing_aes], rlang::eval_tidy)
+    missing_eval <- lapply(self$default_aes[missing_aes], eval_tidy)
     # Needed for geoms with defaults set to NULL (e.g. GeomSf)
     missing_eval <- compact(missing_eval)
 
@@ -151,7 +153,12 @@ Geom <- ggproto("Geom",
   },
 
   aesthetics = function(self) {
-    c(union(self$required_aes, names(self$default_aes)), self$optional_aes, "group")
+    if (is.null(self$required_aes)) {
+      required_aes <- NULL
+    } else {
+      required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
+    }
+    c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
   }
 
 )
@@ -184,7 +191,7 @@ check_aesthetics <- function(x, n) {
 
   stop(
     "Aesthetics must be either length 1 or the same as the data (", n, "): ",
-    paste(names(!good), collapse = ", "),
+    paste(names(which(!good)), collapse = ", "),
     call. = FALSE
   )
 }

@@ -7,15 +7,17 @@
 \title{Bar charts}
 \usage{
 geom_bar(mapping = NULL, data = NULL, stat = "count",
-  position = "stack", ..., width = NULL, binwidth = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "stack", ..., width = NULL, binwidth = NULL,
+  na.rm = FALSE, orientation = NA, show.legend = NA,
+  inherit.aes = TRUE)
 
 geom_col(mapping = NULL, data = NULL, position = "stack", ...,
-  width = NULL, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  width = NULL, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_count(mapping = NULL, data = NULL, geom = "bar",
   position = "stack", ..., width = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -35,7 +37,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -53,6 +56,11 @@ you use it you'll get an warning telling to you use
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -80,11 +88,8 @@ uses \code{stat_identity()}: it leaves the data as is.
 }
 \details{
 A bar chart uses height to represent a value, and so the base of the
-bar must always be shown to produce a valid visual comparison. Naomi Robbins
-has a nice
-\href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this
-topic}. This is why it doesn't make sense to use a log-scaled y axis with a
-bar chart.
+bar must always be shown to produce a valid visual comparison. This is why
+it doesn't make sense to use a log-scaled y axis with a bar chart.
 
 By default, multiple bars occupying the same \code{x} position will be stacked
 atop one another by \code{\link[=position_stack]{position_stack()}}. If you want them to be dodged
@@ -92,9 +97,14 @@ side-to-side, use \code{\link[=position_dodge]{position_dodge()}} or \code{\link
 \code{\link[=position_fill]{position_fill()}} shows relative proportions at each \code{x} by stacking the bars
 and then standardising each bar to have the same height.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Aesthetics}{
 
-\code{geom_bar} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_bar()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -104,6 +114,31 @@ and then standardising each bar to have the same height.
 \item \code{group}
 \item \code{linetype}
 \item \code{size}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+
+
+\code{geom_col()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x}}
+\item \strong{\code{y}}
+\item \code{alpha}
+\item \code{colour}
+\item \code{fill}
+\item \code{group}
+\item \code{linetype}
+\item \code{size}
+}
+Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+
+
+\code{stat_count()} understands the following aesthetics (required aesthetics are in bold):
+\itemize{
+\item \strong{\code{x} \emph{or} \code{y}}
+\item \code{group}
+\item \code{weight}
+\item \code{x}
+\item \code{y}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -124,17 +159,18 @@ g <- ggplot(mpg, aes(class))
 g + geom_bar()
 # Total engine displacement of each class
 g + geom_bar(aes(weight = displ))
+# Map class to y instead to flip the orientation
+ggplot(mpg) + geom_bar(aes(y = class))
 
 # Bar charts are automatically stacked when multiple bars are placed
 # at the same location. The order of the fill is designed to match
 # the legend
 g + geom_bar(aes(fill = drv))
 
-# If you need to flip the order (because you've flipped the plot)
+# If you need to flip the order (because you've flipped the orientation)
 # call position_stack() explicitly:
-g +
+ggplot(mpg, aes(y = class)) +
  geom_bar(aes(fill = drv), position = position_stack(reverse = TRUE)) +
- coord_flip() +
  theme(legend.position = "top")
 
 # To show (e.g.) means, you need geom_col()

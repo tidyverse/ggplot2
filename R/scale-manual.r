@@ -22,6 +22,20 @@
 #'   If unnamed, values will be matched in order (usually alphabetical) with
 #'   the limits of the scale. Any data values that don't match will be
 #'   given `na.value`.
+#' @section Color Blindness:
+#' Many color palettes derived from RGB combinations (like the "rainbow" color
+#' palette) are not suitable to support all viewers, especially those with
+#' color vision deficiencies. Using `viridis` type, which is perceptually
+#' uniform in both colour and black-and-white display is an easy option to
+#' ensure good perceptive properties of your visulizations.
+#' The colorspace package offers functionalities
+#' - to generate color palettes with good perceptive properties,
+#' - to analyse a given color palette, like emulating color blindness,
+#' - and to modify a given color palette for better perceptivity.
+#'
+#' For more information on color vision deficiencies and suitable color choices
+#' see the [paper on the colorspace package](https://arxiv.org/abs/1903.06490)
+#' and references therein.
 #' @examples
 #' p <- ggplot(mtcars, aes(mpg, wt)) +
 #'   geom_point(aes(colour = factor(cyl)))
@@ -101,7 +115,15 @@ scale_discrete_manual <- function(aesthetics, ..., values) {
 }
 
 
-manual_scale <- function(aesthetic, values, ...) {
+manual_scale <- function(aesthetic, values = NULL, ...) {
+  # check for missing `values` parameter, in lieu of providing
+  # a default to all the different scale_*_manual() functions
+  if (is_missing(values)) {
+    values <- NULL
+  } else {
+    force(values)
+  }
+
   pal <- function(n) {
     if (n > length(values)) {
       stop("Insufficient values in manual scale. ", n, " needed but only ",

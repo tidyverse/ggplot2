@@ -2,11 +2,12 @@
 % Please edit documentation in R/stat-ellipse.R
 \name{stat_ellipse}
 \alias{stat_ellipse}
-\title{Compute normal confidence ellipses}
+\title{Compute normal data ellipses}
 \usage{
 stat_ellipse(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", ..., type = "t", level = 0.95, segments = 51,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., type = "t", level = 0.95,
+  segments = 51, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -26,7 +27,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{geom}{The geometric object to use display the data}
 
@@ -45,7 +47,7 @@ The default \code{"t"} assumes a multivariate t-distribution, and
 representing the euclidean distance from the center.
 This ellipse probably won't appear circular unless \code{coord_fixed()} is applied.}
 
-\item{level}{The confidence level at which to draw an ellipse (default is 0.95),
+\item{level}{The level at which to draw an ellipse,
 or, if \code{type="euclid"}, the radius of the circle to be drawn.}
 
 \item{segments}{The number of segments to be used in drawing the ellipse.}
@@ -66,7 +68,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 }
 \description{
 The method for calculating the ellipses has been modified from
-\code{car::ellipse} (Fox and Weisberg, 2011)
+\code{car::dataEllipse} (Fox and Weisberg, 2011)
 }
 \examples{
 ggplot(faithful, aes(waiting, eruptions)) +
@@ -92,7 +94,7 @@ ggplot(faithful, aes(waiting, eruptions, fill = eruptions > 3)) +
   stat_ellipse(geom = "polygon")
 }
 \references{
-John Fox and Sanford Weisberg (2011). An {R} Companion to
+John Fox and Sanford Weisberg (2011). An \R Companion to
 Applied Regression, Second Edition. Thousand Oaks CA: Sage. URL:
 \url{http://socserv.socsci.mcmaster.ca/jfox/Books/Companion}
 }

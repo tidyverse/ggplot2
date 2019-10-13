@@ -57,7 +57,6 @@
 #'   multiple guides are displayed, not the contents of the guide itself.
 #'   If 0 (default), the order is determined by a secret algorithm.
 #' @param ... ignored.
-#' @return A guide object
 #' @export
 #' @family guides
 #' @examples
@@ -203,10 +202,11 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
     return()
   }
 
-  key <- as.data.frame(
-    setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]),
-    stringsAsFactors = FALSE
-  )
+  # in the key data frame, use either the aesthetic provided as
+  # argument to this function or, as a fall back, the first in the vector
+  # of possible aesthetics handled by the scale
+  aes_column_name <- aesthetic %||% scale$aesthetics[1]
+  key <- new_data_frame(setNames(list(scale$map(breaks)), aes_column_name))
   key$.label <- scale$get_labels(breaks)
 
   # Drop out-of-range values for continuous scale
@@ -242,7 +242,7 @@ guide_merge.legend <- function(guide, new_guide) {
 #' @export
 guide_geom.legend <- function(guide, layers, default_mapping) {
   # arrange common data for vertical and horizontal guide
-  guide$geoms <- plyr::llply(layers, function(layer) {
+  guide$geoms <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
     if (length(matched) > 0) {
@@ -250,12 +250,16 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
 
       # check if this layer should be included, different behaviour depending on
       # if show.legend is a logical or a named logical vector
-      if (!is.null(names(layer$show.legend))) {
+      if (is_named(layer$show.legend)) {
         layer$show.legend <- rename_aes(layer$show.legend)
-        include <- is.na(layer$show.legend[matched]) ||
-          layer$show.legend[matched]
+        show_legend <- layer$show.legend[matched]
+        # we cannot use `isTRUE(is.na(show_legend))` here because
+        # 1. show_legend can be multiple NAs
+        # 2. isTRUE() was not tolerant for a named TRUE
+        show_legend <- show_legend[!is.na(show_legend)]
+        include <- length(show_legend) == 0 || any(show_legend)
       } else {
-        include <- is.na(layer$show.legend) || layer$show.legend
+        include <- isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend)
       }
 
       if (include) {
@@ -271,7 +275,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
       }
     } else {
       # This layer does not contribute to the legend
-      if (is.na(layer$show.legend) || !layer$show.legend) {
+      if (isTRUE(is.na(layer$show.legend)) || !isTRUE(layer$show.legend)) {
         # Default is to exclude it
         return(NULL)
       } else {
@@ -280,7 +284,7 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
     }
 
     # override.aes in guide_legend manually changes the geom
-    data <- utils::modifyList(data, guide$override.aes)
+    data <- modify_list(data, guide$override.aes)
 
     list(
       draw_key = layer$geom$draw_key,
@@ -327,7 +331,8 @@ guide_gengrob.legend <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
-  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||% 0
+  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||%
+    calc_element("text", theme)$size %||% 11
 
   # gap between keys etc
   # the default horizontal and vertical gap need to be the same to avoid strange
@@ -442,13 +447,12 @@ guide_gengrob.legend <- function(guide, theme) {
   )
 
   if (guide$byrow) {
-    vps <- data.frame(
+    vps <- new_data_frame(list(
       R = ceiling(seq(nbreak) / legend.ncol),
       C = (seq(nbreak) - 1) %% legend.ncol + 1
-    )
+    ))
   } else {
-    vps <- as.data.frame(arrayInd(seq(nbreak), dim(key_sizes)))
-    names(vps) <- c("R", "C")
+    vps <- mat_2_df(arrayInd(seq(nbreak), dim(key_sizes)), c("R", "C"))
   }
 
   # layout of key-label depends on the direction of the guide
@@ -655,7 +659,7 @@ guide_gengrob.legend <- function(guide, theme) {
   krows <- rep(vps$key.row, each = ngeom)
 
   # padding
-  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm", valueOnly = TRUE)
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 

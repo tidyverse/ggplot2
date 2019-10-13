@@ -5,14 +5,25 @@
 #' @param n number of grid points in each direction
 #' @param h Bandwidth (vector of length two). If `NULL`, estimated
 #'   using [MASS::bandwidth.nrd()].
+#' @param adjust A multiplicative bandwidth adjustment to be used if 'h' is
+#'    'NULL'. This makes it possible to adjust the bandwidth while still
+#'    using the a bandwidth estimator. For example, `adjust = 1/2` means
+#'    use half of the default bandwidth.
 #' @section Computed variables:
 #' Same as [stat_contour()]
+#'
+#' With the addition of:
+#' \describe{
+#'   \item{density}{the density estimate}
+#'   \item{ndensity}{density estimate, scaled to maximum of 1}
+#' }
 stat_density_2d <- function(mapping = NULL, data = NULL,
                             geom = "density_2d", position = "identity",
                             ...,
                             contour = TRUE,
                             n = 100,
                             h = NULL,
+                            adjust = c(1, 1),
                             na.rm = FALSE,
                             show.legend = NA,
                             inherit.aes = TRUE) {
@@ -29,6 +40,7 @@ stat_density_2d <- function(mapping = NULL, data = NULL,
       contour = contour,
       n = n,
       h = h,
+      adjust = adjust,
       ...
     )
   )
@@ -48,24 +60,27 @@ StatDensity2d <- ggproto("StatDensity2d", Stat,
 
   required_aes = c("x", "y"),
 
-  compute_group = function(data, scales, na.rm = FALSE, h = NULL,
+  compute_group = function(data, scales, na.rm = FALSE, h = NULL, adjust = c(1, 1),
                            contour = TRUE, n = 100, bins = NULL,
                            binwidth = NULL) {
     if (is.null(h)) {
       h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
+      h <- h * adjust
     }
 
     dens <- MASS::kde2d(
       data$x, data$y, h = h, n = n,
       lims = c(scales$x$dimension(), scales$y$dimension())
     )
-    df <- data.frame(expand.grid(x = dens$x, y = dens$y), z = as.vector(dens$z))
+    df <- expand.grid(x = dens$x, y = dens$y)
+    df$z <- as.vector(dens$z)
     df$group <- data$group[1]
 
     if (contour) {
-      StatContour$compute_panel(df, scales, bins, binwidth)
+        StatContour$compute_panel(df, scales, bins, binwidth)
     } else {
       names(df) <- c("x", "y", "density", "group")
+      df$ndensity <- df$density / max(df$density, na.rm = TRUE)
       df$level <- 1
       df$piece <- 1
       df

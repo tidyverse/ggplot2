@@ -12,13 +12,15 @@ geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
   inherit.aes = TRUE)
 
 geom_histogram(mapping = NULL, data = NULL, stat = "bin",
-  position = "stack", ..., binwidth = NULL, bins = NULL, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "stack", ..., binwidth = NULL, bins = NULL,
+  na.rm = FALSE, orientation = NA, show.legend = NA,
+  inherit.aes = TRUE)
 
-stat_bin(mapping = NULL, data = NULL, geom = "bar", position = "stack",
-  ..., binwidth = NULL, bins = NULL, center = NULL, boundary = NULL,
-  breaks = NULL, closed = c("right", "left"), pad = FALSE,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+stat_bin(mapping = NULL, data = NULL, geom = "bar",
+  position = "stack", ..., binwidth = NULL, bins = NULL,
+  center = NULL, boundary = NULL, breaks = NULL,
+  closed = c("right", "left"), pad = FALSE, na.rm = FALSE,
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -38,7 +40,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -62,10 +65,13 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{binwidth}{The width of the bins. Can be specified as a numeric value,
-or a function that calculates width from x.
-The default is to use \code{bins}
-bins that cover the range of the data. You should always override
+\item{binwidth}{The width of the bins. Can be specified as a numeric value
+or as a function that calculates width from unscaled x. Here, "unscaled x"
+refers to the original x values in the data, before application of any
+scale transformation. When specifying a function along with a grouping
+structure, the function will be called once per group.
+The default is to use the number of bins in \code{bins},
+covering the range of the data. You should always override
 this value, exploring multiple widths to find the best to illustrate the
 stories in your data.
 
@@ -74,21 +80,23 @@ bin width of a time variable is the number of seconds.}
 
 \item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
 \item{geom, stat}{Use to override the default connection between
-\code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.}
+\code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}.}
 
-\item{center}{The center of one of the bins.  Note that if center is above or
-below the range of the data, things will be shifted by an appropriate
-number of \code{width}s. To center on integers, for example, use
-\code{width = 1} and \code{center = 0}, even if \code{0} is outside the range
-of the data.  At most one of \code{center} and \code{boundary} may be
-specified.}
-
-\item{boundary}{A boundary between two bins. As with \code{center}, things
-are shifted when \code{boundary} is outside the range of the data. For
-example, to center on integers, use \code{width = 1} and \code{boundary =
-  0.5}, even if \code{0.5} is outside the range of the data.  At most one of
-\code{center} and \code{boundary} may be specified.}
+\item{center, boundary}{bin position specifiers. Only one, \code{center} or
+\code{boundary}, may be specified for a single plot. \code{center} specifies the
+center of one of the bins. \code{boundary} specifies the boundary between two
+bins. Note that if either is above or below the range of the data, things
+will be shifted by the appropriate integer multiple of \code{width}.
+For example, to center on integers use \code{width = 1} and \code{center = 0}, even
+if \code{0} is outside the range of the data. Alternatively, this same alignment
+can be specified with \code{width = 1} and \code{boundary = 0.5}, even if \code{0.5} is
+outside the range of the data.}
 
 \item{breaks}{Alternatively, you can supply a numeric vector giving
 the bin boundaries. Overrides \code{binwidth}, \code{bins}, \code{center},
@@ -103,24 +111,31 @@ frequency polygons touch 0. Defaults to \code{FALSE}.}
 \description{
 Visualise the distribution of a single continuous variable by dividing
 the x axis into bins and counting the number of observations in each bin.
-Histograms (\code{geom_histogram}) display the count with bars; frequency
-polygons (\code{geom_freqpoly}) display the counts with lines. Frequency
+Histograms (\code{geom_histogram()}) display the counts with bars; frequency
+polygons (\code{geom_freqpoly()}) display the counts with lines. Frequency
 polygons are more suitable when you want to compare the distribution
 across the levels of a categorical variable.
 }
 \details{
-\code{stat_bin} is suitable only for continuous x data. If your x data is
+\code{stat_bin()} is suitable only for continuous x data. If your x data is
 discrete, you probably want to use \code{\link[=stat_count]{stat_count()}}.
 
-By default, the underlying computation (\code{stat_bin}) uses 30 bins;
+By default, the underlying computation (\code{stat_bin()}) uses 30 bins;
 this is not a good default, but the idea is to get you experimenting with
-different bin widths. You may need to look at a few to uncover the full
-story behind your data.
+different number of bins. You can also experiment modifying the \code{binwidth} with
+\code{center} or \code{boundary} arguments. \code{binwidth} overrides \code{bins} so you should do
+one change at a time. You may need to look at a few options to uncover
+the full story behind your data.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Aesthetics}{
 
-\code{geom_histogram} uses the same aesthetics as \code{\link[=geom_bar]{geom_bar()}};
-\code{geom_freqpoly} uses the same aesthetics as \code{\link[=geom_line]{geom_line()}}.
+\code{geom_histogram()} uses the same aesthetics as \code{\link[=geom_bar]{geom_bar()}};
+\code{geom_freqpoly()} uses the same aesthetics as \code{\link[=geom_line]{geom_line()}}.
 }
 
 \section{Computed variables}{
@@ -140,6 +155,9 @@ ggplot(diamonds, aes(carat)) +
   geom_histogram(binwidth = 0.01)
 ggplot(diamonds, aes(carat)) +
   geom_histogram(bins = 200)
+# Map values to y to flip the orientation
+ggplot(diamonds, aes(y = carat)) +
+  geom_histogram()
 
 # Rather than stacking histograms, it's easier to compare frequency
 # polygons
@@ -187,9 +205,9 @@ m <- ggplot(movies, aes(x = rating))
 m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 }
 
-# You can specify a function for calculating binwidth,
+# You can specify a function for calculating binwidth, which is
 # particularly useful when faceting along variables with
-# different ranges
+# different ranges because the function will be called once per facet
 mtlong <- reshape2::melt(mtcars)
 ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
@@ -197,5 +215,5 @@ ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
 \seealso{
 \code{\link[=stat_count]{stat_count()}}, which counts the number of cases at each x
 position, without binning. It is suitable for both discrete and continuous
-x data, whereas \link{stat_bin} is suitable only for continuous x data.
+x data, whereas \code{stat_bin()} is suitable only for continuous x data.
 }

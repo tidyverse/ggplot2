@@ -1,25 +1,5 @@
+# vdiffr ignores failures when
+#   - VDIFFR_RUN_TESTS is "false" (on Travis CI with older versions and dev version of R)
+#   - CI is not set (on CRAN)
 
-enable_vdiffr <- TRUE
-
-if (!requireNamespace("vdiffr", quietly = TRUE) ||
-      utils::packageVersion("vdiffr") < "0.2.3.9000") {
-  enable_vdiffr <- FALSE
-}
-
-expect_doppelganger <- function(title, fig,
-                               path = NULL,
-                               ...,
-                               user_fonts = NULL,
-                               verbose = FALSE) {
-  if (!enable_vdiffr) {
-    expect_error(regexp = NA, ggplot_build(fig))
-    return(invisible(NULL))
-  }
-
-  vdiffr::expect_doppelganger(title, fig,
-    path = path,
-    ...,
-    user_fonts = user_fonts,
-    verbose = verbose
-  )
-}
+expect_doppelganger <- vdiffr::expect_doppelganger

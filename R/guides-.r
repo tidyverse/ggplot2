@@ -59,8 +59,10 @@
 #' }
 guides <- function(...) {
   args <- list(...)
-  if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
-  args <- rename_aes(args)
+  if (length(args) > 0) {
+    if (is.list(args[[1]]) && !inherits(args[[1]], "guide")) args <- args[[1]]
+    args <- rename_aes(args)
+  }
   structure(args, class = "guides")
 }
 
@@ -71,7 +73,7 @@ update_guides <- function(p, guides) {
 }
 
 
-# building guides - called in ggplotGrob (plot-render.r)
+# building non-position guides - called in ggplotGrob (plot-build.r)
 #
 # the procedure is as follows:
 #
@@ -114,7 +116,13 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   }
 
   # scales -> data for guides
-  gdefs <- guides_train(scales = scales, theme = theme, guides = guides, labels = labels)
+  gdefs <- guides_train(
+    scales = scales$non_position_scales(),
+    theme = theme,
+    guides = guides,
+    labels = labels
+  )
+
   if (length(gdefs) == 0) return(zeroGrob())
 
   # merge overlay guides
@@ -146,9 +154,15 @@ legend_position <- function(position) {
   }
 }
 
+# resolve the guide from the scale and guides
+resolve_guide <- function(aesthetic, scale, guides, default = "none", null = "none") {
+  guides[[aesthetic]] %||% scale$guide %|W|% default %||% null
+}
+
 # validate guide object
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
+  # when guides are officially extensible, this should use find_global()
   if (is.character(guide))
     match.fun(paste("guide_", guide, sep = ""))()
   else if (inherits(guide, "guide"))
@@ -168,19 +182,19 @@ guides_train <- function(scales, theme, guides, labels) {
       # which is prior to scale_ZZZ(guide=XXX)
       # guide is determined in order of:
       #   + guides(XXX) > + scale_ZZZ(guide=XXX) > default(i.e., legend)
-      guide <- guides[[output]] %||% scale$guide
+      guide <- resolve_guide(output, scale, guides)
 
       # this should be changed to testing guide == "none"
       # scale$legend is backward compatibility
       # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-      if (guide == "none" || (is.logical(guide) && !guide)) next
+      if (identical(guide, "none") || isFALSE(guide) || inherits(guide, "guide_none")) next
 
       # check the validity of guide.
       # if guide is character, then find the guide object
       guide <- validate_guide(guide)
 
       # check the consistency of the guide and scale.
-      if (guide$available_aes != "any" && !scale$aesthetics %in% guide$available_aes)
+      if (!identical(guide$available_aes, "any") && !any(scale$aesthetics %in% guide$available_aes))
         stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
 
       guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
@@ -319,6 +333,21 @@ guide_merge <- function(guide, new_guide) UseMethod("guide_merge")
 #' @export
 #' @rdname guide-exts
 guide_geom <- function(guide, layers, default_mapping) UseMethod("guide_geom")
+
+#' @export
+#' @rdname guide-exts
+guide_transform <- function(guide, coord, panel_params) UseMethod("guide_transform")
+
+#' @export
+guide_transform.default <- function(guide, coord, panel_params) {
+  stop(
+    "Guide with class ",
+    paste(class(guide), collapse = " / "),
+    " does not implement guide_transform(). ",
+    "Did you mean to use guide_axis()?",
+    call. = FALSE
+  )
+}
 
 #' @export
 #' @rdname guide-exts

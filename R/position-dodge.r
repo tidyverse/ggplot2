@@ -3,7 +3,8 @@
 #' Dodging preserves the vertical position of an geom while adjusting the
 #' horizontal position. `position_dodge2` is a special case of `position_dodge`
 #' for arranging box plots, which can have variable widths. `position_dodge2`
-#' also works with bars and rectangles.
+#' also works with bars and rectangles. But unlike `position_dodge`,
+#' `position_dodge2` works without a grouping variable in a layer.
 #'
 #' @inheritParams position_identity
 #' @param width Dodging width, when different to the width of the individual
@@ -17,10 +18,10 @@
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
 #'   geom_bar(position = "dodge2")
 #'
-#' # By default, dodging with `position_dodge2()` preserves the width of each
-#' # element. You can choose to preserve the total width with:
+#' # By default, dodging with `position_dodge2()` preserves the total width of
+#' # the elements. You can choose to preserve the width of each element with:
 #' ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
-#'   geom_bar(position = position_dodge(preserve = "total"))
+#'   geom_bar(position = position_dodge2(preserve = "single"))
 #'
 #' \donttest{
 #' ggplot(diamonds, aes(price, fill = cut)) +
@@ -88,6 +89,8 @@ PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   preserve = "total",
   setup_params = function(self, data) {
+    flipped_aes <- has_flipped_aes(data)
+    data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warning("Width not defined. Set with `position_dodge(width = ?)`",
         call. = FALSE)
@@ -103,19 +106,22 @@ PositionDodge <- ggproto("PositionDodge", Position,
 
     list(
       width = self$width,
-      n = n
+      n = n,
+      flipped_aes = flipped_aes
     )
   },
 
   setup_data = function(self, data, params) {
-    if (!"x" %in% names(data) & all(c("xmin", "xmax") %in% names(data))) {
+    data <- flip_data(data, params$flipped_aes)
+    if (!"x" %in% names(data) && all(c("xmin", "xmax") %in% names(data))) {
       data$x <- (data$xmin + data$xmax) / 2
     }
-    data
+    flip_data(data, params$flipped_aes)
   },
 
   compute_panel = function(data, params, scales) {
-    collide(
+    data <- flip_data(data, params$flipped_aes)
+    collided <- collide(
       data,
       params$width,
       name = "position_dodge",
@@ -123,6 +129,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
       n = params$n,
       check.width = FALSE
     )
+    flip_data(collided, params$flipped_aes)
   }
 )
 

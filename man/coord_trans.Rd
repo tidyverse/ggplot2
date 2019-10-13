@@ -4,20 +4,31 @@
 \alias{coord_trans}
 \title{Transformed Cartesian coordinate system}
 \usage{
-coord_trans(x = "identity", y = "identity", limx = NULL, limy = NULL,
-  clip = "on", xtrans, ytrans)
+coord_trans(x = "identity", y = "identity", xlim = NULL,
+  ylim = NULL, limx = "DEPRECATED", limy = "DEPRECATED",
+  clip = "on", expand = TRUE)
 }
 \arguments{
-\item{x, y}{transformers for x and y axes}
+\item{x, y}{Transformers for x and y axes or their names.}
 
-\item{limx, limy}{limits for x and y axes. (Named so for backward
-compatibility)}
+\item{xlim}{Limits for the x and y axes.}
+
+\item{ylim}{Limits for the x and y axes.}
+
+\item{limx, limy}{\strong{Deprecated}: use \code{xlim} and \code{ylim} instead.}
 
 \item{clip}{Should drawing be clipped to the extent of the plot panel? A
 setting of \code{"on"} (the default) means yes, and a setting of \code{"off"}
-means no. For details, please see \code{\link[=coord_cartesian]{coord_cartesian()}}.}
+means no. In most cases, the default of \code{"on"} should not be changed,
+as setting \code{clip = "off"} can cause unexpected results. It allows
+drawing of data points anywhere on the plot, including in the plot margins. If
+limits are set via \code{xlim} and \code{ylim} and some data points fall outside those
+limits, then those data points may show up in places such as the axes, the
+legend, the plot title, or the plot margins.}
 
-\item{xtrans, ytrans}{Deprecated; use \code{x} and \code{y} instead.}
+\item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
+the limits to ensure that data and axes don't overlap. If \code{FALSE},
+limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 }
 \description{
 \code{coord_trans} is different to scale transformations in that it occurs after

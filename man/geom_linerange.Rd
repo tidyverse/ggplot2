@@ -10,19 +10,19 @@
 \usage{
 geom_crossbar(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., fatten = 2.5, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 
 geom_errorbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., na.rm = FALSE, orientation = NA,
+  show.legend = NA, inherit.aes = TRUE)
 
 geom_linerange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., na.rm = FALSE, orientation = NA,
+  show.legend = NA, inherit.aes = TRUE)
 
 geom_pointrange(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., fatten = 4, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -42,7 +42,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
@@ -62,6 +63,11 @@ middle bar in \code{geom_crossbar()} and the middle point in
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
@@ -77,24 +83,35 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 Various ways of representing a vertical interval defined by \code{x},
 \code{ymin} and \code{ymax}. Each case draws a single graphical object.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Aesthetics}{
 
-\code{geom_linerange} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_linerange()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{ymin}}
-\item \strong{\code{ymax}}
+\item \strong{\code{x} \emph{or} \code{y}}
+\item \strong{\code{ymin} \emph{or} \code{xmin}}
+\item \strong{\code{ymax} \emph{or} \code{xmax}}
 \item \code{alpha}
 \item \code{colour}
 \item \code{group}
 \item \code{linetype}
 \item \code{size}
+\item \code{x}
+\item \code{xmax}
+\item \code{xmin}
+\item \code{y}
+\item \code{ymax}
+\item \code{ymin}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
 \examples{
-#' # Create a simple example dataset
+# Create a simple example dataset
 df <- data.frame(
   trt = factor(c(1, 1, 2, 2)),
   resp = c(1, 5, 3, 4),
@@ -108,6 +125,10 @@ p + geom_linerange(aes(ymin = lower, ymax = upper))
 p + geom_pointrange(aes(ymin = lower, ymax = upper))
 p + geom_crossbar(aes(ymin = lower, ymax = upper), width = 0.2)
 p + geom_errorbar(aes(ymin = lower, ymax = upper), width = 0.2)
+
+# Flip the orientation by changing mapping
+ggplot(df, aes(resp, trt, colour = group)) +
+  geom_linerange(aes(xmin = lower, xmax = upper))
 
 # Draw lines connecting group means
 p +

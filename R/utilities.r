@@ -24,11 +24,23 @@ scales::alpha
 # @param name of object for error message
 # @keyword internal
 check_required_aesthetics <- function(required, present, name) {
-  missing_aes <- setdiff(required, present)
-  if (length(missing_aes) == 0) return()
+  if (is.null(required)) return()
+
+  required <- strsplit(required, "|", fixed = TRUE)
+  if (any(vapply(required, length, integer(1)) > 1)) {
+    required <- lapply(required, rep_len, 2)
+    required <- list(
+      vapply(required, `[`, character(1), 1),
+      vapply(required, `[`, character(1), 2)
+    )
+  } else {
+    required <- list(unlist(required))
+  }
+  missing_aes <- lapply(required, setdiff, present)
+  if (any(vapply(missing_aes, length, integer(1)) == 0)) return()
 
   stop(name, " requires the following missing aesthetics: ",
-    paste(missing_aes, collapse = ", "), call. = FALSE)
+    paste(lapply(missing_aes, paste, collapse = ", "), collapse = " or "), call. = FALSE)
 }
 
 # Concatenate a named list for output
@@ -42,9 +54,13 @@ clist <- function(l) {
   paste(paste(names(l), l, sep = " = ", collapse = ", "), sep = "")
 }
 
+
+# Test whether package `package` is available. `fun` provides
+# the name of the ggplot2 function that uses this package, and is
+# used only to produce a meaningful error message if the
+# package is not available.
 try_require <- function(package, fun) {
   if (requireNamespace(package, quietly = TRUE)) {
-    library(package, character.only = TRUE)
     return(invisible())
   }
 
@@ -172,97 +188,15 @@ rescale01 <- function(x) {
   (x - rng[1]) / (rng[2] - rng[1])
 }
 
-#' Similar to expand_range(), but taking a vector ‘expand’
-#' of *four* expansion values, where the 1st and 2nd
-#' elements are used for the lower limit, and the 3rd and
-#' 4th elements are used for the upper limit).
-#'
-#' The ‘expand’ argument can also be of length 2,
-#' and the expansion values for the lower limit
-#' are then reused for the upper limit.
-#
-#' @noRd
-#' @keywords internal
-expand_range4 <- function(limits, expand) {
-   stopifnot(is.numeric(expand) && (length(expand) %in% c(2,4)))
-   # If only two expansion constants are given (i.e. the old syntax),
-   # reuse them to generate a four-element expansion vector
-   if (length(expand) == 2) { expand <- c(expand, expand) }
-
-   # Calculate separate range expansion for the lower and
-   # upper range limits, and then combine them into one vector
-   lower <- expand_range(limits, expand[1], expand[2])[1]
-   upper <- expand_range(limits, expand[3], expand[4])[2]
-   c(lower, upper)
+binned_pal <- function(palette) {
+  function(x) {
+    palette(length(x))
+  }
 }
-
-#' Generate expansion vector for scales.
-#'
-#' This is a convenience function for generating scale expansion vectors
-#' for the \code{expand} argument of
-#' \code{\link[=scale_x_continuous]{scale_*_continuous}} and
-#' \code{\link[=scale_x_discrete]{scale_*_discrete}}.
-#' The expansions vectors are used to add some space between
-#' the data and the axes.
-#'
-#' @export
-#' @param mult vector of multiplicative range expansion factors.
-#'   If length 1, both the lower and upper limits of the scale
-#'   are expanded outwards by \code{mult}. If length 2, the lower limit
-#'   is expanded by \code{mult[1]} and the upper limit by \code{mult[2]}.
-#' @param add vector of additive range expansion constants.
-#'   If length 1, both the lower and upper limits of the scale
-#'   are expanded outwards by \code{add} units. If length 2, the
-#'   lower limit is expanded by \code{add[1]} and the upper
-#'   limit by \code{add[2]}.
-#' @examples
-#' # No space below the bars but 10% above them
-#' ggplot(mtcars) +
-#'   geom_bar(aes(x = factor(cyl))) +
-#'   scale_y_continuous(expand = expand_scale(mult = c(0, .1)))
-#'
-#' # Add 2 units of space on the left and right of the data
-#' ggplot(subset(diamonds, carat > 2), aes(cut, clarity)) +
-#'   geom_jitter() +
-#'   scale_x_discrete(expand = expand_scale(add = 2))
-#'
-#' # Reproduce the default range expansion used
-#' # when the ‘expand’ argument is not specified
-#' ggplot(subset(diamonds, carat > 2), aes(cut, price)) +
-#'   geom_jitter() +
-#'   scale_x_discrete(expand = expand_scale(add = .6)) +
-#'   scale_y_continuous(expand = expand_scale(mult = .05))
-expand_scale = function(mult = 0, add = 0) {
-  stopifnot(is.numeric(mult) && is.numeric(add))
-  stopifnot((length(mult) %in% 1:2) && (length(add) %in% 1:2))
-
-  mult <- rep(mult, length.out = 2)
-  add <- rep(add, length.out = 2)
-  c(mult[1], add[1], mult[2], add[2])
-}
-
-
 
 #' Give a deprecation error, warning, or message, depending on version number.
 #'
-#' Version numbers have the format <major>.<minor>.<subminor>, like 0.9.2.
-#' This function compares the current version number of ggplot2 against the
-#' specified `version`, which is the most recent version before the
-#' function (or other object) was deprecated.
-#'
-#' `gg_dep` will give an error, warning, or message, depending on the
-#' difference between the current ggplot2 version and the specified
-#' `version`.
-#'
-#' If the current major number is greater than `version`'s major number,
-#' or if the current minor number is more than 1 greater than `version`'s
-#' minor number, give an error.
-#'
-#' If the current minor number differs from `version`'s minor number by
-#' one, give a warning.
-#'
-#' If the current subminor number differs from `version`'s subminor
-#' number, print a message.
+#' This function is deprecated.
 #'
 #' @param version The last version of ggplot2 where this function was good
 #'   (in other words, the last version where it was not deprecated).
@@ -270,6 +204,7 @@ expand_scale = function(mult = 0, add = 0) {
 #' @keywords internal
 #' @export
 gg_dep <- function(version, msg) {
+  .Deprecated()
   v <- as.package_version(version)
   cv <- utils::packageVersion("ggplot2")
 
@@ -302,6 +237,20 @@ has_name <- function(x) {
   !is.na(nms) & nms != ""
 }
 
+# Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
+lower_ascii <- "abcdefghijklmnopqrstuvwxyz"
+upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
+to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
+
+tolower <- function(x) {
+  stop('Please use `to_lower_ascii()`, which works fine in all locales.', call. = FALSE)
+}
+
+toupper <- function(x) {
+  stop('Please use `to_upper_ascii()`, which works fine in all locales.', call. = FALSE)
+}
+
 # Convert a snake_case string to camelCase
 camelize <- function(x, first = FALSE) {
   x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
@@ -313,11 +262,11 @@ snakeize <- function(x) {
   x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
   x <- gsub(".", "_", x, fixed = TRUE)
   x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
-  tolower(x)
+  to_lower_ascii(x)
 }
 
 firstUpper <- function(s) {
-  paste(toupper(substring(s, 1,1)), substring(s, 2), sep = "")
+  paste0(to_upper_ascii(substring(s, 1, 1)), substring(s, 2))
 }
 
 snake_class <- function(x) {
@@ -330,6 +279,14 @@ empty <- function(df) {
 
 is.discrete <- function(x) {
   is.factor(x) || is.character(x) || is.logical(x)
+}
+
+# This function checks that all columns of a dataframe `x` are data and
+# returns the names of any columns that are not.
+# We define "data" as atomic types or lists, not functions or otherwise
+check_nondata_cols <- function(x) {
+  idx <- (vapply(x, function(x) rlang::is_vector(x), logical(1)))
+  names(x)[which(!idx)]
 }
 
 compact <- function(x) {
@@ -388,12 +345,12 @@ find_args <- function(...) {
   vals <- mget(args, envir = env)
   vals <- vals[!vapply(vals, is_missing_arg, logical(1))]
 
-  utils::modifyList(vals, list(..., `...` = NULL))
+  modify_list(vals, list(..., `...` = NULL))
 }
 
 # Used in annotations to ensure printed even when no
 # global data
-dummy_data <- function() data.frame(x = NA)
+dummy_data <- function() new_data_frame(list(x = NA), n = 1)
 
 with_seed_null <- function(seed, code) {
   if (is.null(seed)) {
@@ -418,7 +375,7 @@ NULL
 # Check inputs with tibble but allow column vectors (see #2609 and #2374)
 as_gg_data_frame <- function(x) {
   x <- lapply(x, validate_column_vec)
-  as.data.frame(tibble::as_tibble(x))
+  new_data_frame(tibble::as_tibble(x))
 }
 validate_column_vec <- function(x) {
   if (is_column_vec(x)) {
@@ -429,4 +386,242 @@ validate_column_vec <- function(x) {
 is_column_vec <- function(x) {
   dims <- dim(x)
   length(dims) == 2L && dims[[2]] == 1L
+}
+
+# Parse takes a vector of n lines and returns m expressions.
+# See https://github.com/tidyverse/ggplot2/issues/2864 for discussion.
+#
+# parse(text = c("alpha", "", "gamma"))
+# #> expression(alpha, gamma)
+#
+# parse_safe(text = c("alpha", "", "gamma"))
+# #> expression(alpha, NA, gamma)
+#
+parse_safe <- function(text) {
+  stopifnot(is.character(text))
+  out <- vector("expression", length(text))
+  for (i in seq_along(text)) {
+    expr <- parse(text = text[[i]])
+    out[[i]] <- if (length(expr) == 0) NA else expr[[1]]
+  }
+  out
+}
+
+switch_orientation <- function(aesthetics) {
+  # We should have these as globals somewhere
+  x <- ggplot_global$x_aes
+  y <- ggplot_global$y_aes
+  x_aes <- match(aesthetics, x)
+  x_aes_pos <- which(!is.na(x_aes))
+  y_aes <- match(aesthetics, y)
+  y_aes_pos <- which(!is.na(y_aes))
+  if (length(x_aes_pos) > 0) {
+    aesthetics[x_aes_pos] <- y[x_aes[x_aes_pos]]
+  }
+  if (length(y_aes_pos) > 0) {
+    aesthetics[y_aes_pos] <- x[y_aes[y_aes_pos]]
+  }
+  aesthetics
+}
+
+#' Utilities for working with bidirecitonal layers
+#'
+#' These functions are what underpins the ability of certain geoms to work
+#' automatically in both directions. See the *Extending ggplot2* for how they
+#' are used when implementing `Geom`, `Stat`, and `Position` classes.
+#'
+#' `has_flipped_aes()` is used to sniff out the orientation of the layer from
+#' the data. It has a range of arguments that can be used to finetune the
+#' sniffing based on what the data should look like. `flip_data()` will switch
+#' the column names of the data so that it looks like x-oriented data.
+#' `flipped_names()` provides a named list of aesthetic names that corresponds
+#' to the orientation of the layer.
+#'
+#' @section Controlling the sniffing:
+#' How the layer data should be interpreted depends on its specific features.
+#' `has_flipped_aes()` contains a range of flags for defining what certain
+#' features in the data correspond to:
+#'
+#' - `main_is_orthogonal`: This argument controls how the existence of only a `x`
+#'   or `y` aesthetic is understood. If `TRUE` then the exisiting aesthetic
+#'   would be then secondary axis. This behaviour is present in [stat_ydensity()]
+#'   and [stat_boxplot()]. If `FALSE` then the exisiting aesthetic is the main
+#'   axis as seen in e.g. [stat_bin()], [geom_count()], and [stat_density()].
+#' - `range_is_orthogonal`: This argument controls whether the existance of
+#'   range-like aesthetics (e.g. `xmin` and `xmax`) represents the main or
+#'   secondary axis. If `TRUE` then the range is given for the secondary axis as
+#'   seen in e.g. [geom_ribbon()] and [geom_linerange()]. `FALSE` is less
+#'   prevalent but can be seen in [geom_bar()] where it may encode the span of
+#'   each bar.
+#' - `group_has_equal`: This argument controls whether to test for equality of
+#'   all `x` and `y` values inside each group and set the main axis to the one
+#'   where all is equal. This test is only performed if `TRUE`, and only after
+#'   less computationally heavy tests has come up empty handed. Examples are
+#'   [stat_boxplot()] and [stat_ydensity]
+#' - `ambiguous`: This argument tells the function that the layer, while
+#'   bidirectional, doesn't treat each axis differently. It will circumvent any
+#'   data based guessing and only take hint from the `orientation` element in
+#'   `params`. If this is not present it will fall back to `FALSE`. Examples are
+#'   [geom_line()] and [geom_area()]
+#' - `main_is_continuous`: This argument controls how the test for discreteness
+#'   in the scales should be interpreted. If `TRUE` then the main axis will be
+#'   the one which is not discrete-like. Conversely, if `FALSE` the main axis
+#'   will be the discrete-like one. Examples of `TRUE` is [stat_density()] and
+#'   [stat_bin()], while examples of `FALSE` is [stat_ydensity()] and
+#'   [stat_boxplot()]
+#'
+#' @param data The layer data
+#' @param params The parameters of the `Stat`/`Geom`. Only the `orientation`
+#'   parameter will be used.
+#' @param main_is_orthogonal If only `x` or `y` are present do they correspond
+#'   to the main orientation or the reverse. E.g. If `TRUE` and `y` is present
+#'   it is not flipped. If `NA` this check will be ignored.
+#' @param range_is_orthogonal If `xmin`/`xmax` or `ymin`/`ymax` is present do
+#'   they correspond to the main orientation or reverse. If `NA` this check will
+#'   be ignored.
+#' @param group_has_equal Is it expected that grouped data has either a single
+#'   `x` or `y` value that will correspond to the orientation.
+#' @param ambiguous Is the layer ambiguous in its mapping by nature. If so, it
+#'   will only be flipped if `params$orientation == "y"`
+#' @param main_is_continuous If there is a discrete and continuous axis, does
+#'   the continuous one correspond to the main orientation?
+#' @param flip Logical. Is the layer flipped.
+#'
+#' @return `has_flipped_aes()` returns `TRUE` if it detects a layer in the other
+#' orientation and `FALSE` otherwise. `flip_data()` will return the input
+#' unchanged if `flip = FALSE` and the data with flipped aesthetic names if
+#' `flip = TRUE`. `flipped_names()` returns a named list of strings. If
+#' `flip = FALSE` the name of the element will correspond to the element, e.g.
+#' `flipped_names(FALSE)$x == "x"` and if `flip = TRUE` it will correspond to
+#' the flipped name, e.g. `flipped_names(FALSE)$x == "y"`
+#'
+#' @export
+#' @keywords internal
+#' @name bidirection
+#'
+has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
+                            range_is_orthogonal = NA, group_has_equal = FALSE,
+                            ambiguous = FALSE, main_is_continuous = FALSE) {
+  # Is orientation already encoded in data?
+  if (!is.null(data$flipped_aes)) {
+    not_na <- which(!is.na(data$flipped_aes))
+    if (length(not_na) != 0) {
+      return(data$flipped_aes[[not_na[1L]]])
+    }
+  }
+
+  # Is orientation requested in the params
+  if (!is.null(params$orientation) && !is.na(params$orientation)) {
+    return(params$orientation == "y")
+  }
+
+  # Does a single x or y aesthetic corespond to a specific orientation
+  if (!is.na(main_is_orthogonal) && sum(c("x", "y") %in% names(data)) + sum(c("x", "y") %in% names(params)) == 1) {
+    return(("x" %in% names(data) || "x" %in% names(params)) == main_is_orthogonal)
+  }
+
+  has_x <- !is.null(data$x)
+  has_y <- !is.null(data$y)
+
+  # Does a provided range indicate an orientation
+  if (!is.na(range_is_orthogonal)) {
+    if (any(c("ymin", "ymax") %in% names(data))) {
+      return(!range_is_orthogonal)
+    }
+    if (any(c("xmin", "xmax") %in% names(data))) {
+      return(range_is_orthogonal)
+    }
+  }
+
+  # If ambiguous orientation = NA will give FALSE
+  if (ambiguous && (is.null(params$orientation) || is.na(params$orientation))) {
+    return(FALSE)
+  }
+
+  # Is there a single actual discrete position
+  y_is_int <- is.integer(data$y)
+  x_is_int <- is.integer(data$x)
+  if (xor(y_is_int, x_is_int)) {
+    return(y_is_int != main_is_continuous)
+  }
+
+  # Does each group have a single x or y value
+  if (group_has_equal) {
+    if (has_x) {
+      x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
+      if (all(x_groups == 1)) {
+        return(FALSE)
+      }
+    }
+    if (has_y) {
+      y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
+      if (all(y_groups == 1)) {
+        return(TRUE)
+      }
+    }
+  }
+
+  # give up early
+  if (!has_x && !has_y) {
+    return(FALSE)
+  }
+
+  # Both true discrete. give up
+  if (y_is_int && x_is_int) {
+    return(FALSE)
+  }
+  # Is there a single discrete-like position
+  y_is_int <- if (has_y) isTRUE(all.equal(data$y, round(data$y))) else FALSE
+  x_is_int <- if (has_x) isTRUE(all.equal(data$x, round(data$x))) else FALSE
+  if (xor(y_is_int, x_is_int)) {
+    return(y_is_int != main_is_continuous)
+  }
+  # Is one of the axes a single value
+  if (all(data$x == 1)) {
+    return(main_is_continuous)
+  }
+  if (all(data$y == 1)) {
+    return(!main_is_continuous)
+  }
+  # If both are discrete like, which have most 0 or 1-spaced values
+  y_diff <- diff(sort(data$y))
+  x_diff <- diff(sort(data$x))
+
+  if (y_is_int && x_is_int) {
+    return((sum(x_diff <= 1) < sum(y_diff <= 1)) != main_is_continuous)
+  }
+
+  y_diff <- y_diff[y_diff != 0]
+  x_diff <- x_diff[x_diff != 0]
+
+  # If none are discrete is either regularly spaced
+  y_is_regular <- if (has_y && length(y_diff) != 0) all((y_diff / min(y_diff)) %% 1 < .Machine$double.eps) else FALSE
+  x_is_regular <- if (has_x && length(x_diff) != 0) all((x_diff / min(x_diff)) %% 1 < .Machine$double.eps) else FALSE
+  if (xor(y_is_regular, x_is_regular)) {
+    return(y_is_regular != main_is_continuous)
+  }
+  # default to no
+  FALSE
+}
+#' @rdname bidirection
+#' @export
+flip_data <- function(data, flip = NULL) {
+  flip <- flip %||% data$flipped_aes[1] %||% FALSE
+  if (flip) {
+    names(data) <- switch_orientation(names(data))
+  }
+  data
+}
+#' @rdname bidirection
+#' @export
+flipped_names <- function(flip = FALSE) {
+  x_aes <- ggplot_global$x_aes
+  y_aes <- ggplot_global$y_aes
+  if (flip) {
+    ret <- as.list(c(y_aes, x_aes))
+  } else {
+    ret <- as.list(c(x_aes, y_aes))
+  }
+  names(ret) <- c(x_aes, y_aes)
+  ret
 }

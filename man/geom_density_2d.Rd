@@ -9,11 +9,13 @@
 \usage{
 geom_density_2d(mapping = NULL, data = NULL, stat = "density2d",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 10, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  linemitre = 10, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_density_2d(mapping = NULL, data = NULL, geom = "density_2d",
   position = "identity", ..., contour = TRUE, n = 100, h = NULL,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  adjust = c(1, 1), na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -33,7 +35,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -73,6 +76,11 @@ estimation}
 
 \item{h}{Bandwidth (vector of length two). If \code{NULL}, estimated
 using \code{\link[MASS:bandwidth.nrd]{MASS::bandwidth.nrd()}}.}
+
+\item{adjust}{A multiplicative bandwidth adjustment to be used if 'h' is
+'NULL'. This makes it possible to adjust the bandwidth while still
+using the a bandwidth estimator. For example, \code{adjust = 1/2} means
+use half of the default bandwidth.}
 }
 \description{
 Perform a 2D kernel density estimation using \code{\link[MASS:kde2d]{MASS::kde2d()}} and
@@ -81,7 +89,7 @@ overplotting. This is a 2d version of \code{\link[=geom_density]{geom_density()}
 }
 \section{Aesthetics}{
 
-\code{geom_density_2d} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_density_2d()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -97,6 +105,12 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \section{Computed variables}{
 
 Same as \code{\link[=stat_contour]{stat_contour()}}
+
+With the addition of:
+\describe{
+\item{density}{the density estimate}
+\item{ndensity}{density estimate, scaled to maximum of 1}
+}
 }
 
 \examples{
@@ -114,6 +128,15 @@ d <- ggplot(dsmall, aes(x, y))
 # If you map an aesthetic to a categorical variable, you will get a
 # set of contours for each value of that variable
 d + geom_density_2d(aes(colour = cut))
+
+# Similarly, if you apply faceting to the plot, contours will be
+# drawn for each facet, but the levels will calculated across all facets
+d + stat_density_2d(aes(fill = stat(level)), geom = "polygon") +
+  facet_grid(. ~ cut) + scale_fill_viridis_c()
+# To override this behavior (for instace, to better visualize the density
+# within each facet), use stat(nlevel)
+d + stat_density_2d(aes(fill = stat(nlevel)), geom = "polygon") +
+  facet_grid(. ~ cut) + scale_fill_viridis_c()
 
 # If we turn contouring off, we can use use geoms like tiles:
 d + stat_density_2d(geom = "raster", aes(fill = stat(density)), contour = FALSE)

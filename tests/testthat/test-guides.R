@@ -1,5 +1,7 @@
 context("Guides")
 
+skip_on_cran() # This test suite is long-running (on cran) and is skipped
+
 test_that("colourbar trains without labels", {
   g <- guide_colorbar()
   sc <- scale_colour_continuous(limits = c(0, 4), labels = NULL)
@@ -9,7 +11,7 @@ test_that("colourbar trains without labels", {
 })
 
 test_that("Colorbar respects show.legend in layer", {
-  df <- data.frame(x = 1:3, y = 1)
+  df <- data_frame(x = 1:3, y = 1)
   p <- ggplot(df, aes(x = x, y = y, color = x)) +
     geom_point(size = 20, shape = 21, show.legend = FALSE)
   expect_false("guide-box" %in% ggplotGrob(p)$layout$name)
@@ -30,7 +32,7 @@ test_that("show.legend handles named vectors", {
     n
   }
 
-  df <- data.frame(x = 1:3, y = 20:22)
+  df <- data_frame(x = 1:3, y = 20:22)
   p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
     geom_point(size = 20)
   expect_equal(n_legends(p), 2)
@@ -42,12 +44,147 @@ test_that("show.legend handles named vectors", {
   p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
     geom_point(size = 20, show.legend = c(color = FALSE, shape = FALSE))
   expect_equal(n_legends(p), 0)
+
+  # c.f.https://github.com/tidyverse/ggplot2/issues/3461
+  p <- ggplot(df, aes(x = x, y = y, color = x, shape = factor(y))) +
+    geom_point(size = 20, show.legend = c(shape = FALSE, color = TRUE))
+  expect_equal(n_legends(p), 1)
 })
 
+test_that("axis_label_overlap_priority always returns the correct number of elements", {
+  expect_identical(axis_label_priority(0), numeric(0))
+  expect_setequal(axis_label_priority(1), seq_len(1))
+  expect_setequal(axis_label_priority(5), seq_len(5))
+  expect_setequal(axis_label_priority(10), seq_len(10))
+  expect_setequal(axis_label_priority(100), seq_len(100))
+})
+
+test_that("axis_label_element_overrides errors when angles are outside the range [0, 90]", {
+  expect_is(axis_label_element_overrides("bottom", 0), "element")
+  expect_error(axis_label_element_overrides("bottom", 91), "`angle` must")
+  expect_error(axis_label_element_overrides("bottom", -91), "`angle` must")
+})
+
+test_that("a warning is generated when guides are drawn at a location that doesn't make sense", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    scale_y_continuous(guide = guide_axis(position = "top"))
+  built <- expect_silent(ggplot_build(plot))
+  expect_warning(ggplot_gtable(built), "Position guide is perpendicular")
+})
+
+test_that("a warning is generated when more than one position guide is drawn at a location", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    guides(
+      y = guide_axis(position = "left"),
+      y.sec = guide_axis(position = "left")
+    )
+  built <- expect_silent(ggplot_build(plot))
+  expect_warning(ggplot_gtable(built), "Discarding guide")
+})
+
+test_that("guide_none() can be used in non-position scales", {
+  p <- ggplot(mpg, aes(cty, hwy, colour = class)) +
+    geom_point() +
+    scale_color_discrete(guide = guide_none())
+
+  built <- ggplot_build(p)
+  plot <- built$plot
+  guides <- build_guides(
+    plot$scales,
+    plot$layers,
+    plot$mapping,
+    "right",
+    theme_gray(),
+    plot$guides,
+    plot$labels
+  )
+
+  expect_identical(guides, zeroGrob())
+})
+
+test_that("Using non-position guides for position scales results in an informative error", {
+  p <- ggplot(mpg, aes(cty, hwy)) +
+    geom_point() +
+    scale_x_continuous(guide = guide_legend())
+
+  built <- ggplot_build(p)
+  expect_error(ggplot_gtable(built), "does not implement guide_transform()")
+})
 
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
+  theme_test_axis <- theme_test() + theme(axis.line = element_line(size = 0.5))
+  test_draw_axis <- function(n_breaks = 3,
+                             break_positions = seq_len(n_breaks) / (n_breaks + 1),
+                             labels = as.character,
+                             positions = c("top", "right", "bottom", "left"),
+                             theme = theme_test_axis,
+                             ...) {
+
+    break_labels <- labels(seq_along(break_positions))
+
+    # create the axes
+    axes <- lapply(positions, function(position) {
+      draw_axis(break_positions, break_labels, axis_position = position, theme = theme, ...)
+    })
+    axes_grob <- gTree(children = do.call(gList, axes))
+
+    # arrange them so there's some padding on each side
+    gt <- gtable(
+      widths = unit(c(0.05, 0.9, 0.05), "npc"),
+      heights = unit(c(0.05, 0.9, 0.05), "npc")
+    )
+    gt <- gtable_add_grob(gt, list(axes_grob), 2, 2, clip = "off")
+    plot(gt)
+  }
+
+  # basic
+  expect_doppelganger("axis guides basic", function() test_draw_axis())
+  expect_doppelganger("axis guides, zero breaks", function() test_draw_axis(n_breaks = 0))
+
+  # overlapping text
+  expect_doppelganger(
+    "axis guides, check overlap",
+    function() test_draw_axis(20, labels = function(b) comma(b * 1e9), check.overlap = TRUE)
+  )
+
+  # rotated text
+  expect_doppelganger(
+    "axis guides, zero rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = 0)
+  )
+
+  expect_doppelganger(
+    "axis guides, positive rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = 45)
+  )
+
+  expect_doppelganger(
+    "axis guides, negative rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = -45)
+  )
+
+  expect_doppelganger(
+    "axis guides, vertical rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = 90)
+  )
+
+  expect_doppelganger(
+    "axis guides, vertical negative rotation",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e3), angle = -90)
+  )
+
+  # dodged text
+  expect_doppelganger(
+    "axis guides, text dodged into rows/cols",
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e9), n.dodge = 2)
+  )
+})
+
+test_that("axis guides are drawn correctly in plots", {
   expect_doppelganger("align facet labels, facets horizontal",
     qplot(hwy, reorder(model, hwy), data = mpg) +
       facet_grid(manufacturer ~ ., scales = "free", space = "free") +
@@ -67,8 +204,47 @@ test_that("axis guides are drawn correctly", {
   )
 })
 
+test_that("axis guides can be customized", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    scale_y_continuous(
+      sec.axis = dup_axis(guide = guide_axis(n.dodge = 2)),
+      guide = guide_axis(n.dodge = 2)
+    ) +
+    scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+  expect_doppelganger("guide_axis() customization", plot)
+})
+
+test_that("guides can be specified in guides()", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    guides(
+      x = guide_axis(n.dodge = 2),
+      y = guide_axis(n.dodge = 2),
+      x.sec = guide_axis(n.dodge = 2),
+      y.sec = guide_axis(n.dodge = 2)
+    )
+
+  expect_doppelganger("guides specified in guides()", plot)
+})
+
+test_that("guides have the final say in x and y", {
+  df <- data_frame(x = 1, y = 1)
+  plot <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    guides(
+      x = guide_none(title = "x (primary)"),
+      y = guide_none(title = "y (primary)"),
+      x.sec = guide_none(title = "x (secondary)"),
+      y.sec = guide_none(title = "y (secondary)")
+    )
+
+  expect_doppelganger("position guide titles", plot)
+})
+
 test_that("guides are positioned correctly", {
-  df <- data.frame(x = 1, y = 1, z = factor("a"))
+  df <- data_frame(x = 1, y = 1, z = factor("a"))
 
   p1 <- ggplot(df, aes(x, y, colour = z)) +
     geom_point() +
@@ -120,7 +296,7 @@ test_that("guides are positioned correctly", {
   )
 
   # padding
-  dat <- data.frame(x = LETTERS[1:3], y = 1)
+  dat <- data_frame(x = LETTERS[1:3], y = 1)
   p2 <- ggplot(dat, aes(x, y, fill = x, colour = 1:3)) +
     geom_bar(stat = "identity") +
     guides(color = "colorbar") +
@@ -145,7 +321,7 @@ test_that("guides are positioned correctly", {
 })
 
 test_that("guides title and text are positioned correctly", {
-  df <- data.frame(x = 1:3, y = 1:3)
+  df <- data_frame(x = 1:3, y = 1:3)
   p <- ggplot(df, aes(x, y, color = factor(x), fill = y)) +
     geom_point(shape = 21) +
     # setting the order explicitly removes the risk for failed doppelgangers
@@ -167,7 +343,7 @@ test_that("guides title and text are positioned correctly", {
   )
 
   # now test label positioning, alignment, etc
-  df <- data.frame(x = c(1, 10, 100))
+  df <- data_frame(x = c(1, 10, 100))
   p <- ggplot(df, aes(x, x, color = x, size = x)) +
     geom_point() +
     # setting the order explicitly removes the risk for failed doppelgangers
@@ -184,7 +360,7 @@ test_that("guides title and text are positioned correctly", {
   )
 
   # title and label rotation
-  df <- data.frame(x = c(5, 10, 15))
+  df <- data_frame(x = c(5, 10, 15))
   p <- ggplot(df, aes(x, x, color = x, fill = 15 - x)) +
     geom_point(shape = 21, size = 5, stroke = 3) +
     scale_colour_continuous(
@@ -214,7 +390,7 @@ test_that("guides title and text are positioned correctly", {
 })
 
 test_that("colorbar can be styled", {
-  df <- data.frame(x <- c(0, 1, 2))
+  df <- data_frame(x = c(0, 1, 2))
   p <- ggplot(df, aes(x, x, color = x)) + geom_point()
 
   expect_doppelganger("white-to-red gradient colorbar, white tick marks, no frame",
@@ -235,7 +411,7 @@ test_that("colorbar can be styled", {
 })
 
 test_that("guides can handle multiple aesthetics for one scale", {
-  df <- data.frame(x = c(1, 2, 3),
+  df <- data_frame(x = c(1, 2, 3),
                    y = c(6, 5, 7))
 
   p <- ggplot(df, aes(x, y, color = x, fill = y)) +
@@ -246,4 +422,47 @@ test_that("guides can handle multiple aesthetics for one scale", {
     )
 
   expect_doppelganger("one combined colorbar for colour and fill aesthetics", p)
+})
+
+test_that("bin guide can be styled correctly", {
+  df <- data_frame(x = c(1, 2, 3),
+                   y = c(6, 5, 7))
+
+  p <- ggplot(df, aes(x, y, size = x)) +
+    geom_point() +
+    scale_size_binned()
+
+  expect_doppelganger("guide_bins looks as it should", p)
+  expect_doppelganger("guide_bins can show limits",
+    p + guides(size = guide_bins(show.limits = TRUE))
+  )
+  expect_doppelganger("guide_bins can show arrows",
+    p + guides(size = guide_bins(axis.arrow = arrow(length = unit(1.5, "mm"), ends = "both")))
+  )
+  expect_doppelganger("guide_bins can remove axis",
+    p + guides(size = guide_bins(axis = FALSE))
+  )
+  expect_doppelganger("guide_bins work horizontally",
+    p + guides(size = guide_bins(direction = "horizontal"))
+  )
+})
+
+test_that("coloursteps guide can be styled correctly", {
+  df <- data_frame(x = c(1, 2, 4),
+                   y = c(6, 5, 7))
+
+  p <- ggplot(df, aes(x, y, colour = x)) +
+    geom_point() +
+    scale_colour_binned(breaks = c(1.5, 2, 3))
+
+  expect_doppelganger("guide_coloursteps looks as it should", p)
+  expect_doppelganger("guide_coloursteps can show limits",
+    p + guides(colour = guide_coloursteps(show.limits = TRUE))
+  )
+  expect_doppelganger("guide_coloursteps can have bins relative to binsize",
+    p + guides(colour = guide_coloursteps(even.steps = FALSE))
+  )
+  expect_doppelganger("guide_bins can show ticks",
+    p + guides(colour = guide_coloursteps(ticks = TRUE))
+  )
 })

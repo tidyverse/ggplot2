@@ -29,7 +29,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -109,7 +110,7 @@ to match the number of dots.
 }
 \section{Aesthetics}{
 
-\code{geom_dotplot} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_dotplot()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -117,6 +118,8 @@ to match the number of dots.
 \item \code{colour}
 \item \code{fill}
 \item \code{group}
+\item \code{linetype}
+\item \code{stroke}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -159,6 +162,9 @@ ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, stackratio = .7)
 
 # Expand dot diameter
 ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, dotsize = 1.25)
+
+# Change dot fill colour, stroke width
+ggplot(mtcars, aes(x = mpg)) + geom_dotplot(binwidth = 1.5, fill = "white", stroke = 2)
 
 \donttest{
 # Examples with stacking along y axis instead of x

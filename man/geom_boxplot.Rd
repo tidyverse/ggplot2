@@ -6,15 +6,15 @@
 \title{A box and whiskers plot (in the style of Tukey)}
 \usage{
 geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge2", ..., outlier.colour = NULL, outlier.color = NULL,
-  outlier.fill = NULL, outlier.shape = 19, outlier.size = 1.5,
-  outlier.stroke = 0.5, outlier.alpha = NULL, notch = FALSE,
-  notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "dodge2", ..., outlier.colour = NULL,
+  outlier.color = NULL, outlier.fill = NULL, outlier.shape = 19,
+  outlier.size = 1.5, outlier.stroke = 0.5, outlier.alpha = NULL,
+  notch = FALSE, notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE,
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 
 stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
-  position = "dodge2", ..., coef = 1.5, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "dodge2", ..., coef = 1.5, na.rm = FALSE,
+  orientation = NA, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -34,7 +34,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -72,6 +73,11 @@ weighted, using the \code{weight} aesthetic).}
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
@@ -93,13 +99,18 @@ The boxplot compactly displays the distribution of a continuous variable.
 It visualises five summary statistics (the median, two hinges
 and two whiskers), and all "outlying" points individually.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Summary statistics}{
 
 The lower and upper hinges correspond to the first and third quartiles
 (the 25th and 75th percentiles). This differs slightly from the method used
-by the \code{boxplot} function, and may be apparent with small samples.
+by the \code{\link[=boxplot]{boxplot()}} function, and may be apparent with small samples.
 See \code{\link[=boxplot.stats]{boxplot.stats()}} for for more information on how hinge
-positions are calculated for \code{boxplot}.
+positions are calculated for \code{\link[=boxplot]{boxplot()}}.
 
 The upper whisker extends from the hinge to the largest value no further than
 1.5 * IQR from the hinge (where IQR is the inter-quartile range, or distance
@@ -115,22 +126,34 @@ See McGill et al. (1978) for more details.
 
 \section{Aesthetics}{
 
-\code{geom_boxplot} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_boxplot()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{lower}}
-\item \strong{\code{upper}}
-\item \strong{\code{middle}}
-\item \strong{\code{ymin}}
-\item \strong{\code{ymax}}
+\item \strong{\code{x} \emph{or} \code{y}}
+\item \strong{\code{lower} \emph{or} \code{xlower}}
+\item \strong{\code{upper} \emph{or} \code{xupper}}
+\item \strong{\code{middle} \emph{or} \code{xmiddle}}
+\item \strong{\code{ymin} \emph{or} \code{xmin}}
+\item \strong{\code{ymax} \emph{or} \code{xmax}}
 \item \code{alpha}
 \item \code{colour}
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
+\item \code{lower}
+\item \code{middle}
 \item \code{shape}
 \item \code{size}
+\item \code{upper}
 \item \code{weight}
+\item \code{x}
+\item \code{xlower}
+\item \code{xmax}
+\item \code{xmiddle}
+\item \code{xmin}
+\item \code{xupper}
+\item \code{y}
+\item \code{ymax}
+\item \code{ymin}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -152,8 +175,8 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \examples{
 p <- ggplot(mpg, aes(class, hwy))
 p + geom_boxplot()
-p + geom_boxplot() + geom_jitter(width = 0.2)
-p + geom_boxplot() + coord_flip()
+# Orientation follows the discrete axis
+ggplot(mpg, aes(hwy, class)) + geom_boxplot()
 
 p + geom_boxplot(notch = TRUE)
 p + geom_boxplot(varwidth = TRUE)
@@ -161,6 +184,8 @@ p + geom_boxplot(fill = "white", colour = "#3366FF")
 # By default, outlier points match the colour of the box. Use
 # outlier.colour to override
 p + geom_boxplot(outlier.colour = "red", outlier.shape = 1)
+# Remove outliers when overlaying boxplot with original data points
+p + geom_boxplot(outlier.shape = NA) + geom_jitter(width = 0.2)
 
 # Boxplots are automatically dodged when any aesthetic is a factor
 p + geom_boxplot(aes(colour = drv))
@@ -171,6 +196,7 @@ ggplot(diamonds, aes(carat, price)) +
   geom_boxplot()
 ggplot(diamonds, aes(carat, price)) +
   geom_boxplot(aes(group = cut_width(carat, 0.25)))
+# Adjust the transparency of outliers using outlier.alpha
 ggplot(diamonds, aes(carat, price)) +
   geom_boxplot(aes(group = cut_width(carat, 0.25)), outlier.alpha = 0.1)
 
@@ -198,7 +224,7 @@ McGill, R., Tukey, J. W. and Larsen, W. A. (1978) Variations of
 box plots. The American Statistician 32, 12-16.
 }
 \seealso{
-\code{\link[=geom_quantile]{geom_quantile()}} for continuous x,
+\code{\link[=geom_quantile]{geom_quantile()}} for continuous \code{x},
 \code{\link[=geom_violin]{geom_violin()}} for a richer display of the distribution, and
 \code{\link[=geom_jitter]{geom_jitter()}} for a useful technique for small data.
 }

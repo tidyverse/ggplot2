@@ -14,13 +14,13 @@ StatBindot <- ggproto("StatBindot", Stat,
     params
   },
 
-  compute_layer = function(self, data, params, panels) {
+  compute_layer = function(self, data, params, layout) {
     data <- remove_missing(data, params$na.rm,
       params$binaxis,
       snake_class(self),
       finite = TRUE
     )
-    ggproto_parent(Stat, self)$compute_layer(data, params, panels)
+    ggproto_parent(Stat, self)$compute_layer(data, params, layout)
   },
 
   compute_panel = function(self, data, scales, na.rm = FALSE, binwidth = NULL,
@@ -36,15 +36,15 @@ StatBindot <- ggproto("StatBindot", Stat,
         newdata <- densitybin(x = data$x, weight = data$weight, binwidth = binwidth,
                       method = method)
 
-        data    <- plyr::arrange(data, x)
-        newdata <- plyr::arrange(newdata, x)
+        data    <- data[order(data$x), ]
+        newdata <- newdata[order(newdata$x), ]
 
       } else if (binaxis == "y") {
         newdata <- densitybin(x = data$y, weight = data$weight, binwidth = binwidth,
                     method = method)
 
-        data    <- plyr::arrange(data, y)
-        newdata <- plyr::arrange(newdata, x)
+        data    <- data[order(data$y), ]
+        newdata <- newdata[order(newdata$x), ]
       }
 
       data$bin       <- newdata$bin
@@ -109,7 +109,12 @@ StatBindot <- ggproto("StatBindot", Stat,
                   method = method, range = range)
 
       # Collapse each bin and get a count
-      data <- plyr::ddply(data, "bincenter", plyr::summarise, binwidth = binwidth[1], count = sum(weight))
+      data <- dapply(data, "bincenter", function(x) {
+        new_data_frame(list(
+          binwidth = .subset2(x, "binwidth")[1],
+          count = sum(.subset2(x, "weight"))
+        ))
+      })
 
       if (sum(data$count, na.rm = TRUE) != 0) {
         data$count[is.na(data$count)] <- 0
@@ -136,7 +141,7 @@ StatBindot <- ggproto("StatBindot", Stat,
 # It returns a data frame with the original data (x), weights, bin #, and the bin centers.
 densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range = NULL) {
 
-    if (length(stats::na.omit(x)) == 0) return(data.frame())
+    if (length(stats::na.omit(x)) == 0) return(new_data_frame())
     if (is.null(weight))  weight <- rep(1, length(x))
     weight[is.na(weight)] <- 0
 
@@ -162,8 +167,13 @@ densitybin <- function(x, weight = NULL, binwidth = NULL, method = method, range
         bin[i] <- cbin
     }
 
-    results <- data.frame(x, bin, binwidth, weight)
-    results <- plyr::ddply(results, "bin", function(df) {
+    results <- new_data_frame(list(
+      x = x,
+      bin = bin,
+      binwidth = binwidth,
+      weight = weight
+    ), n = length(x))
+    results <- dapply(results, "bin", function(df) {
                     df$bincenter = (min(df$x) + max(df$x)) / 2
                     return(df)
                   })

@@ -9,7 +9,7 @@ guide_colourbar(title = waiver(), title.position = NULL,
   title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
   label = TRUE, label.position = NULL, label.theme = NULL,
   label.hjust = NULL, label.vjust = NULL, barwidth = NULL,
-  barheight = NULL, nbin = 20, raster = TRUE, frame.colour = NULL,
+  barheight = NULL, nbin = 300, raster = TRUE, frame.colour = NULL,
   frame.linewidth = 0.5, frame.linetype = 1, ticks = TRUE,
   ticks.colour = "white", ticks.linewidth = 0.5, draw.ulim = TRUE,
   draw.llim = TRUE, direction = NULL, default.unit = "line",
@@ -20,7 +20,7 @@ guide_colorbar(title = waiver(), title.position = NULL,
   title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
   label = TRUE, label.position = NULL, label.theme = NULL,
   label.hjust = NULL, label.vjust = NULL, barwidth = NULL,
-  barheight = NULL, nbin = 20, raster = TRUE, frame.colour = NULL,
+  barheight = NULL, nbin = 300, raster = TRUE, frame.colour = NULL,
   frame.linewidth = 0.5, frame.linetype = 1, ticks = TRUE,
   ticks.colour = "white", ticks.linewidth = 0.5, draw.ulim = TRUE,
   draw.llim = TRUE, direction = NULL, default.unit = "line",
@@ -186,7 +186,8 @@ p2 +
   scale_size(guide = guide_legend(direction = "vertical"))
 }
 \seealso{
-Other guides: \code{\link{guide_legend}},
-  \code{\link{guides}}
+Other guides: \code{\link{guide_bins}},
+  \code{\link{guide_coloursteps}},
+  \code{\link{guide_legend}}, \code{\link{guides}}
 }
 \concept{guides}

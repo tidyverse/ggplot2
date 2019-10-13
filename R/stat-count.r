@@ -16,11 +16,13 @@ stat_count <- function(mapping = NULL, data = NULL,
                        ...,
                        width = NULL,
                        na.rm = FALSE,
+                       orientation = NA,
                        show.legend = NA,
                        inherit.aes = TRUE) {
 
   params <- list(
     na.rm = na.rm,
+    orientation = orientation,
     width = width,
     ...
   )
@@ -46,17 +48,29 @@ stat_count <- function(mapping = NULL, data = NULL,
 #' @export
 #' @include stat-.r
 StatCount <- ggproto("StatCount", Stat,
-  required_aes = "x",
-  default_aes = aes(y = stat(count), weight = 1),
+  required_aes = "x|y",
+
+  default_aes = aes(x = stat(count), y = stat(count), weight = 1),
 
   setup_params = function(data, params) {
-    if (!is.null(data$y)) {
-      stop("stat_count() must not be used with a y aesthetic.", call. = FALSE)
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
+
+    has_x <- !(is.null(data$x) && is.null(params$x))
+    has_y <- !(is.null(data$y) && is.null(params$y))
+    if (!has_x && !has_y) {
+      stop("stat_count() requires an x or y aesthetic.", call. = FALSE)
     }
+    if (has_x && has_y) {
+      stop("stat_count() can only have an x or y aesthetic.", call. = FALSE)
+    }
+
     params
   },
 
-  compute_group = function(self, data, scales, width = NULL) {
+  extra_params = c("na.rm", "orientation"),
+
+  compute_group = function(self, data, scales, width = NULL, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     x <- data$x
     weight <- data$weight %||% rep(1, length(x))
     width <- width %||% (resolution(x) * 0.9)
@@ -64,11 +78,13 @@ StatCount <- ggproto("StatCount", Stat,
     count <- as.numeric(tapply(weight, x, sum, na.rm = TRUE))
     count[is.na(count)] <- 0
 
-    data.frame(
+    bars <- new_data_frame(list(
       count = count,
       prop = count / sum(abs(count)),
       x = sort(unique(x)),
-      width = width
-    )
+      width = width,
+      flipped_aes = flipped_aes
+    ), n = length(count))
+    flip_data(bars, flipped_aes)
   }
 )

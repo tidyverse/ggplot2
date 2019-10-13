@@ -1,7 +1,7 @@
 context("qplot")
 
 test_that("qplot works with variables in data frame and parent env", {
-  df <- data.frame(x = 1:10, a = 1:10)
+  df <- data_frame(x = 1:10, a = 1:10)
   y <- 1:10
   b <- 1:10
 

@@ -11,8 +11,8 @@ geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
   inherit.aes = TRUE)
 
 stat_bin_2d(mapping = NULL, data = NULL, geom = "tile",
-  position = "identity", ..., bins = 30, binwidth = NULL, drop = TRUE,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., bins = 30, binwidth = NULL,
+  drop = TRUE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -32,7 +32,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -75,7 +76,7 @@ in the presence of overplotting.
 }
 \section{Aesthetics}{
 
-\code{stat_bin2d} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_bin2d()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -83,6 +84,16 @@ in the presence of overplotting.
 \item \code{group}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
+}
+
+\section{Computed variables}{
+
+\describe{
+\item{count}{number of points in bin}
+\item{density}{density of points in bin, scaled to integrate to 1}
+\item{ncount}{count, scaled to maximum of 1}
+\item{ndensity}{density, scaled to maximum of 1}
+}
 }
 
 \examples{

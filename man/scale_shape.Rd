@@ -2,21 +2,26 @@
 % Please edit documentation in R/scale-shape.r
 \name{scale_shape}
 \alias{scale_shape}
+\alias{scale_shape_binned}
 \alias{scale_shape_discrete}
 \alias{scale_shape_ordinal}
 \alias{scale_shape_continuous}
 \title{Scales for shapes, aka glyphs}
 \usage{
 scale_shape(..., solid = TRUE)
+
+scale_shape_binned(..., solid = TRUE)
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
 \describe{
+  \item{palette}{A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the values that
+they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
   \item{breaks}{One of:
 \itemize{
 \item \code{NULL} for no breaks
-\item \code{waiver()} for the default breaks computed by the
-transformation object
+\item \code{waiver()} for the default breaks (the scale limits)
 \item A character vector of breaks
 \item A function that takes the limits as input and returns breaks
 as output
@@ -32,12 +37,10 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
   \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
 value should missing be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
-  \item{aesthetics}{The names of the aesthetics that this scale works with}
-  \item{scale_name}{The name of the scale}
-  \item{palette}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take}
-  \item{name}{The name of the scale. Used as axis or legend title. If
+  \item{aesthetics}{The names of the aesthetics that this scale works with.}
+  \item{scale_name}{The name of the scale that should be used for error messages
+associated with this scale.}
+  \item{name}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
@@ -51,7 +54,7 @@ transformation object
 as output
 }}
   \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
+\code{\link[=guides]{guides()}} for more information.}
   \item{super}{The super class to use for the constructed scale}
 }}
 
@@ -63,7 +66,8 @@ as output
 If you have more than six levels, you will get a warning message, and the
 seventh and subsequence levels will not appear on the plot. Use
 \code{\link[=scale_shape_manual]{scale_shape_manual()}} to supply your own values. You can not map
-a continuous variable to shape.
+a continuous variable to shape unless \code{scale_shape_binned()} is used. Still,
+as shape has no inherent order, this use is not advised..
 }
 \examples{
 dsmall <- diamonds[sample(nrow(diamonds), 100), ]

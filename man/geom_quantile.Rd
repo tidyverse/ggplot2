@@ -7,12 +7,13 @@
 \usage{
 geom_quantile(mapping = NULL, data = NULL, stat = "quantile",
   position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 10, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+  linemitre = 10, na.rm = FALSE, show.legend = NA,
+  inherit.aes = TRUE)
 
 stat_quantile(mapping = NULL, data = NULL, geom = "quantile",
   position = "identity", ..., quantiles = c(0.25, 0.5, 0.75),
-  formula = NULL, method = "rq", method.args = list(), na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  formula = NULL, method = "rq", method.args = list(),
+  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -32,7 +33,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -69,8 +71,8 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{formula}{formula relating y variables to x variables}
 
-\item{method}{Quantile regression method to use.  Currently only supports
-\code{\link[quantreg:rq]{quantreg::rq()}}.}
+\item{method}{Quantile regression method to use. Available options are \code{"rq"} (for
+\code{\link[quantreg:rq]{quantreg::rq()}}) and \code{"rqss"} (for \code{\link[quantreg:rqss]{quantreg::rqss()}}).}
 
 \item{method.args}{List of additional arguments passed on to the modelling
 function defined by \code{method}.}
@@ -81,7 +83,7 @@ with lines. This is as a continuous analogue to \code{\link[=geom_boxplot]{geom_
 }
 \section{Aesthetics}{
 
-\code{geom_quantile} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_quantile()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}

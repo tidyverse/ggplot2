@@ -26,7 +26,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{geom}{The geometric object to use display the data}
 
@@ -57,7 +58,7 @@ Remove duplicates
 }
 \section{Aesthetics}{
 
-\code{stat_unique} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_unique()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \code{group}
 }

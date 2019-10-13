@@ -4,8 +4,11 @@ context("scale_date")
 # Visual tests ------------------------------------------------------------
 
 test_that("date scale draws correctly", {
+  # datetime labels are locale dependent
+  withr::local_locale(c(LC_TIME = "C"))
+
   set.seed(321)
-  df <- data.frame(
+  df <- data_frame(
     dx = seq(as.Date("2012-02-29"), length.out = 100, by = "1 day")[sample(100, 50)],
     price = runif(50)
   )

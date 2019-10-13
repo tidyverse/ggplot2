@@ -9,9 +9,9 @@
 \if{html}{\figure{logo.png}{options: align='right'}}
 
 A system for 'declaratively' creating graphics,
-based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
-how to map variables to aesthetics, what graphical primitives to use,
-and it takes care of the details.
+    based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
+    how to map variables to aesthetics, what graphical primitives to use,
+    and it takes care of the details.
 }
 \seealso{
 Useful links:
@@ -33,6 +33,7 @@ Authors:
   \item Kohske Takahashi
   \item Claus Wilke
   \item Kara Woo
+  \item Hiroaki Yutani
 }
 
 Other contributors:

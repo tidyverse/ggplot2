@@ -10,11 +10,8 @@
 #' uses `stat_identity()`: it leaves the data as is.
 #'
 #' A bar chart uses height to represent a value, and so the base of the
-#' bar must always be shown to produce a valid visual comparison. Naomi Robbins
-#' has a nice
-#' \href{http://www.b-eye-network.com/view/index.php?cid=2468}{article on this
-#' topic}. This is why it doesn't make sense to use a log-scaled y axis with a
-#' bar chart.
+#' bar must always be shown to produce a valid visual comparison. This is why
+#' it doesn't make sense to use a log-scaled y axis with a bar chart.
 #'
 #' By default, multiple bars occupying the same `x` position will be stacked
 #' atop one another by [position_stack()]. If you want them to be dodged
@@ -22,7 +19,11 @@
 #' [position_fill()] shows relative proportions at each `x` by stacking the bars
 #' and then standardising each bar to have the same height.
 #'
+#' @eval rd_orientation()
+#'
 #' @eval rd_aesthetics("geom", "bar")
+#' @eval rd_aesthetics("geom", "col")
+#' @eval rd_aesthetics("stat", "count")
 #' @seealso
 #'   [geom_histogram()] for continuous data,
 #'   [position_dodge()] and [position_dodge2()] for creating side-by-side
@@ -30,6 +31,10 @@
 #' @export
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param orientation The orientation of the layer. The default (`NA`)
+#' automatically determines the orientation from the aesthetic mapping. In the
+#' rare event that this fails it can be given explicitly by setting `orientation`
+#' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
 #' @param width Bar width. By default, set to 90\% of the resolution of the data.
 #' @param binwidth `geom_bar()` no longer has a binwidth argument - if
 #'   you use it you'll get an warning telling to you use
@@ -44,17 +49,18 @@
 #' g + geom_bar()
 #' # Total engine displacement of each class
 #' g + geom_bar(aes(weight = displ))
+#' # Map class to y instead to flip the orientation
+#' ggplot(mpg) + geom_bar(aes(y = class))
 #'
 #' # Bar charts are automatically stacked when multiple bars are placed
 #' # at the same location. The order of the fill is designed to match
 #' # the legend
 #' g + geom_bar(aes(fill = drv))
 #'
-#' # If you need to flip the order (because you've flipped the plot)
+#' # If you need to flip the order (because you've flipped the orientation)
 #' # call position_stack() explicitly:
-#' g +
+#' ggplot(mpg, aes(y = class)) +
 #'  geom_bar(aes(fill = drv), position = position_stack(reverse = TRUE)) +
-#'  coord_flip() +
 #'  theme(legend.position = "top")
 #'
 #' # To show (e.g.) means, you need geom_col()
@@ -78,6 +84,7 @@ geom_bar <- function(mapping = NULL, data = NULL,
                      width = NULL,
                      binwidth = NULL,
                      na.rm = FALSE,
+                     orientation = NA,
                      show.legend = NA,
                      inherit.aes = TRUE) {
 
@@ -100,6 +107,7 @@ geom_bar <- function(mapping = NULL, data = NULL,
     params = list(
       width = width,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -118,16 +126,26 @@ GeomBar <- ggproto("GeomBar", GeomRect,
   # limits, not just those for which x and y are outside the limits
   non_missing_aes = c("xmin", "xmax", "ymin", "ymax"),
 
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = FALSE)
+    params
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
   setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
+    data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
-    transform(data,
+    data <- transform(data,
       ymin = pmin(y, 0), ymax = pmax(y, 0),
       xmin = x - width / 2, xmax = x + width / 2, width = NULL
     )
+    flip_data(data, params$flipped_aes)
   },
 
-  draw_panel = function(self, data, panel_params, coord, width = NULL) {
+  draw_panel = function(self, data, panel_params, coord, width = NULL, flipped_aes = FALSE) {
     # Hack to ensure that width is detected as a parameter
     ggproto_parent(GeomRect, self)$draw_panel(data, panel_params, coord)
   }

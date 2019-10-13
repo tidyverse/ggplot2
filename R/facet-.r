@@ -91,10 +91,10 @@ Facet <- ggproto("Facet", NULL,
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
     if (!is.null(x_scale)) {
-      scales$x <- plyr::rlply(max(layout$SCALE_X), x_scale$clone())
+      scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) x_scale$clone())
     }
     if (!is.null(y_scale)) {
-      scales$y <- plyr::rlply(max(layout$SCALE_Y), y_scale$clone())
+      scales$y <- lapply(seq_len(max(layout$SCALE_Y)), function(i) y_scale$clone())
     }
     scales
   },
@@ -225,7 +225,7 @@ Facet <- ggproto("Facet", NULL,
 #' # Thanks to tidy eval idioms we now have another useful wrapper:
 #' p + wrap_cut(drat)
 vars <- function(...) {
-  rlang::quos(...)
+  quos(...)
 }
 
 
@@ -243,7 +243,7 @@ NO_PANEL <- -1L
 unique_combs <- function(df) {
   if (length(df) == 0) return()
 
-  unique_values <- plyr::llply(df, ulevels)
+  unique_values <- lapply(df, ulevels)
   rev(expand.grid(rev(unique_values), stringsAsFactors = FALSE,
     KEEP.OUT.ATTRS = TRUE))
 }
@@ -256,7 +256,7 @@ df.grid <- function(a, b) {
     i_a = seq_len(nrow(a)),
     i_b = seq_len(nrow(b))
   )
-  plyr::unrowname(cbind(
+  unrowname(cbind(
     a[indexes$i_a, , drop = FALSE],
     b[indexes$i_b, , drop = FALSE]
   ))
@@ -275,11 +275,11 @@ df.grid <- function(a, b) {
 # facetting variables.
 
 as_facets_list <- function(x) {
-  if (inherits(x, "mapping")) {
-    stop("Please use `vars()` to supply facet variables")
+  if (inherits(x, "uneval")) {
+    stop("Please use `vars()` to supply facet variables", call. = FALSE)
   }
-  if (inherits(x, "quosures")) {
-    x <- rlang::quos_auto_name(x)
+  if (is_quosures(x)) {
+    x <- quos_auto_name(x)
     return(list(x))
   }
 
@@ -287,20 +287,20 @@ as_facets_list <- function(x) {
   # facet_grid() directly converted strings to a formula while
   # facet_wrap() called as.quoted(). Hence this is a little more
   # complicated for backward compatibility.
-  if (rlang::is_string(x)) {
-    x <- rlang::parse_expr(x)
+  if (is_string(x)) {
+    x <- parse_expr(x)
   }
 
   # At this level formulas are coerced to lists of lists for backward
   # compatibility with facet_grid(). The LHS and RHS are treated as
   # distinct facet dimensions and `+` defines multiple facet variables
   # inside each dimension.
-  if (rlang::is_formula(x)) {
+  if (is_formula(x)) {
     return(f_as_facets_list(x))
   }
 
   # For backward-compatibility with facet_wrap()
-  if (!rlang::is_bare_list(x)) {
+  if (!is_bare_list(x)) {
     x <- as_quoted(x)
   }
 
@@ -311,11 +311,14 @@ as_facets_list <- function(x) {
     x <- lapply(x, as_facets)
   }
 
-  if (sum(vapply(x, length, integer(1))) == 0L) {
-    stop("Must specify at least one variable to facet by", call. = FALSE)
-  }
-
   x
+}
+
+# Flatten a list of quosures objects to a quosures object, and compact it
+compact_facets <- function(x) {
+  x <- flatten_if(x, is_list)
+  null <- vapply(x, quo_is_null, logical(1))
+  new_quosures(x[!null])
 }
 
 # Compatibility with plyr::as.quoted()
@@ -324,19 +327,19 @@ as_quoted <- function(x) {
     if (length(x) > 1) {
       x <- paste(x, collapse = "; ")
     }
-    return(rlang::parse_exprs(x))
+    return(parse_exprs(x))
   }
   if (is.null(x)) {
     return(list())
   }
-  if (rlang::is_formula(x)) {
+  if (is_formula(x)) {
     return(simplify(x))
   }
   list(x)
 }
 # From plyr:::as.quoted.formula
 simplify <- function(x) {
-  if (length(x) == 2 && rlang::is_symbol(x[[1]], "~")) {
+  if (length(x) == 2 && is_symbol(x[[1]], "~")) {
     return(simplify(x[[2]]))
   }
   if (length(x) < 3) {
@@ -344,9 +347,9 @@ simplify <- function(x) {
   }
   op <- x[[1]]; a <- x[[2]]; b <- x[[3]]
 
-  if (rlang::is_symbol(op, c("+", "*", "~"))) {
+  if (is_symbol(op, c("+", "*", "~"))) {
     c(simplify(a), simplify(b))
-  } else if (rlang::is_symbol(op, "-")) {
+  } else if (is_symbol(op, "-")) {
     c(simplify(a), expr(-!!simplify(b)))
   } else {
     list(x)
@@ -360,15 +363,7 @@ f_as_facets_list <- function(f) {
   rows <- f_as_facets(lhs(f))
   cols <- f_as_facets(rhs(f))
 
-  if (length(rows) + length(cols) == 0) {
-    stop("Must specify at least one variable to facet by", call. = FALSE)
-  }
-
-  if (length(rows)) {
-    list(rows, cols)
-  } else {
-    list(cols)
-  }
+  list(rows, cols)
 }
 
 as_facets <- function(x) {
@@ -376,7 +371,7 @@ as_facets <- function(x) {
     return(x)
   }
 
-  if (rlang::is_formula(x)) {
+  if (is_formula(x)) {
     # Use different formula method because plyr's does not handle the
     # environment correctly.
     f_as_facets(x)
@@ -390,10 +385,10 @@ f_as_facets <- function(f) {
     return(as_quosures(list()))
   }
 
-  env <- rlang::f_env(f) %||% globalenv()
+  env <- f_env(f) %||% globalenv()
 
   # as.quoted() handles `+` specifications
-  vars <- plyr::as.quoted(f)
+  vars <- as.quoted(f)
 
   # `.` in formulas is ignored
   vars <- discard_dots(vars)
@@ -411,7 +406,7 @@ is_facets <- function(x) {
   if (!length(x)) {
     return(FALSE)
   }
-  all(vapply(x, rlang::is_quosure, logical(1)))
+  all(vapply(x, is_quosure, logical(1)))
 }
 
 
@@ -424,11 +419,11 @@ is_facets <- function(x) {
 # but that seems like a reasonable tradeoff.
 eval_facets <- function(facets, data, env = globalenv()) {
   vars <- compact(lapply(facets, eval_facet, data, env = env))
-  tibble::as_tibble(vars)
+  new_data_frame(tibble::as_tibble(vars))
 }
 eval_facet <- function(facet, data, env = emptyenv()) {
-  if (rlang::quo_is_symbol(facet)) {
-    facet <- as.character(rlang::quo_get_expr(facet))
+  if (quo_is_symbol(facet)) {
+    facet <- as.character(quo_get_expr(facet))
 
     if (facet %in% names(data)) {
       out <- data[[facet]]
@@ -438,12 +433,12 @@ eval_facet <- function(facet, data, env = emptyenv()) {
     return(out)
   }
 
-  rlang::eval_tidy(facet, data, env)
+  eval_tidy(facet, data, env)
 }
 
 layout_null <- function() {
   # PANEL needs to be a factor to be consistent with other facet types
-  data.frame(PANEL = factor(1), ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1)
+  new_data_frame(list(PANEL = factor(1), ROW = 1, COL = 1, SCALE_X = 1, SCALE_Y = 1))
 }
 
 check_layout <- function(x) {
@@ -462,18 +457,25 @@ check_layout <- function(x) {
 #' Get the maximal width/length of a list of grobs
 #'
 #' @param grobs A list of grobs
+#' @param value_only Should the return value be a simple numeric vector giving
+#' the maximum in cm
 #'
-#' @return The largest value. measured in cm as a unit object
+#' @return The largest value. measured in cm as a unit object or a numeric
+#' vector depending on `value_only`
 #'
 #' @keywords internal
 #' @export
-max_height <- function(grobs) {
-  unit(max(unlist(lapply(grobs, height_cm))), "cm")
+max_height <- function(grobs, value_only = FALSE) {
+  height <- max(unlist(lapply(grobs, height_cm)))
+  if (!value_only) height <- unit(height, "cm")
+  height
 }
 #' @rdname max_height
 #' @export
-max_width <- function(grobs) {
-  unit(max(unlist(lapply(grobs, width_cm))), "cm")
+max_width <- function(grobs, value_only = FALSE) {
+  width <- max(unlist(lapply(grobs, width_cm)))
+  if (!value_only) width <- unit(width, "cm")
+  width
 }
 #' Find panels in a gtable
 #'
@@ -493,12 +495,12 @@ find_panel <- function(table) {
   layout <- table$layout
   panels <- layout[grepl("^panel", layout$name), , drop = FALSE]
 
-  data.frame(
-    t = min(panels$t),
-    r = max(panels$r),
-    b = max(panels$b),
-    l = min(panels$l)
-  )
+  new_data_frame(list(
+    t = min(.subset2(panels, "t")),
+    r = max(.subset2(panels, "r")),
+    b = max(.subset2(panels, "b")),
+    l = min(.subset2(panels, "l"))
+  ), n = 1)
 }
 #' @rdname find_panel
 #' @export
@@ -526,10 +528,10 @@ panel_rows <- function(table) {
 #' @keywords internal
 #' @export
 combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
-  if (length(vars) == 0) return(data.frame())
+  if (length(vars) == 0) return(new_data_frame())
 
   # For each layer, compute the facet values
-  values <- compact(plyr::llply(data, eval_facets, facets = vars, env = env))
+  values <- compact(lapply(data, eval_facets, facets = vars, env = env))
 
   # Form the base data.frame which contains all combinations of faceting
   # variables that appear in the data
@@ -547,7 +549,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     )
   }
 
-  base <- unique(plyr::ldply(values[has_all]))
+  base <- unique(rbind_dfs(values[has_all]))
   if (!drop) {
     base <- unique_combs(base)
   }
@@ -561,7 +563,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
     if (drop) {
       new <- unique_combs(new)
     }
-    base <- rbind(base, df.grid(old, new))
+    base <- unique(rbind(base, df.grid(old, new)))
   }
 
   if (empty(base)) {

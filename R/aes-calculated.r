@@ -87,16 +87,19 @@ strip_dots <- function(expr) {
 # Convert aesthetic mapping into text labels
 make_labels <- function(mapping) {
   default_label <- function(aesthetic, mapping) {
-    # e.g., geom_smooth(aes(colour = "loess"))
+    # e.g., geom_smooth(aes(colour = "loess")) or aes(y = NULL)
     if (is.atomic(mapping)) {
-      aesthetic
-    } else {
-      x <- rlang::quo_text(strip_dots(mapping))
-      if (length(x) > 1) {
-        x <- paste0(x[[1]], "...")
-      }
-      x
+      return(aesthetic)
     }
+
+    mapping <- strip_dots(mapping)
+    if (is_quosure(mapping) && quo_is_symbol(mapping)) {
+      name <- as_string(quo_get_expr(mapping))
+    } else {
+      name <- quo_text(mapping)
+      name <- gsub("\n.*$", "...", name)
+    }
+    name
   }
   Map(default_label, names(mapping), mapping)
 }

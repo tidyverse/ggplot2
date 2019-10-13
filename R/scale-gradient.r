@@ -15,7 +15,7 @@
 #' @param low,high Colours for low and high ends of the gradient.
 #' @param guide Type of legend. Use `"colourbar"` for continuous
 #'   colour bar, or `"legend"` for discrete colour legend.
-#' @inheritDotParams continuous_scale -na.value -guide
+#' @inheritDotParams continuous_scale -na.value -guide -aesthetics
 #' @seealso [scales::seq_gradient_pal()] for details on underlying
 #'   palette
 #' @family colour scales
@@ -27,6 +27,13 @@
 #'   y = runif(100),
 #'   z1 = rnorm(100),
 #'   z2 = abs(rnorm(100))
+#' )
+#'
+#' df_na <- data.frame(
+#'   value = seq(1, 20),
+#'   x = runif(20),
+#'   y = runif(20),
+#'   z1 = c(rep(NA, 10), rnorm(10))
 #' )
 #'
 #' # Default colour scale colours from light blue to dark blue
@@ -54,6 +61,16 @@
 #'   scale_colour_gradient(low = "white", high = "black")
 #' # Avoid red-green colour contrasts because ~10% of men have difficulty
 #' # seeing them
+#'
+#'# Use `na.value = NA` to hide missing values but keep the original axis range
+#' ggplot(df_na, aes(x = value, y)) +
+#'   geom_bar(aes(fill = z1), stat = "identity") +
+#'   scale_fill_gradient(low = "yellow", high = "red", na.value = NA)
+#'
+#'  ggplot(df_na, aes(x, y)) +
+#'    geom_point(aes(colour = z1)) +
+#'    scale_colour_gradient(low = "yellow", high = "red", na.value = NA)
+#'
 scale_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
                                   na.value = "grey50", guide = "colourbar", aesthetics = "colour") {
   continuous_scale(aesthetics, "gradient", seq_gradient_pal(low, high, space),

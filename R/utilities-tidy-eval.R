@@ -33,7 +33,3 @@
 #' @export           expr enexpr enexprs
 #' @export           .data
 NULL
-
-#' @importFrom rlang quo quos enquo enquos quo_name sym ensym syms
-#'   ensyms expr exprs enexpr enexprs .data
-NULL

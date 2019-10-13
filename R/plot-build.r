@@ -1,15 +1,20 @@
 #' Build ggplot for rendering.
 #'
-#' `ggplot_build` takes the plot object, and performs all steps necessary
+#' `ggplot_build()` takes the plot object, and performs all steps necessary
 #' to produce an object that can be rendered.  This function outputs two pieces:
 #' a list of data frames (one for each layer), and a panel object, which
 #' contain all information about axis limits, breaks etc.
 #'
-#' `layer_data`, `layer_grob`, and `layer_scales` are helper
-#' functions that returns the data, grob, or scales associated with a given
+#' `layer_data()`, `layer_grob()`, and `layer_scales()` are helper
+#' functions that return the data, grob, or scales associated with a given
 #' layer. These are useful for tests.
 #'
 #' @param plot ggplot object
+#' @param i An integer. In `layer_data()`, the data to return (in the order added to the
+#'   plot). In `layer_grob()`, the grob to return (in the order added to the
+#'   plot). In `layer_scales()`, the row of a facet to return scales for.
+#' @param j An integer. In `layer_scales()`, the column of a facet to return
+#'   scales for.
 #' @seealso [print.ggplot()] and [benchplot()] for
 #'  functions that contain the complete set of steps for generating
 #'  a ggplot2 plot.
@@ -39,10 +44,15 @@ ggplot_build.ggplot <- function(plot) {
     out
   }
 
+  # Allow all layers to make any final adjustments based
+  # on raw input data and plot info
+  data <- layer_data
+  data <- by_layer(function(l, d) l$setup_layer(d, plot))
+
   # Initialise panels, add extra data for margins & missing faceting
   # variables, and add on a PANEL variable to data
   layout <- create_layout(plot$facet, plot$coordinates)
-  data <- layout$setup(layer_data, plot$data, plot$plot_env)
+  data <- layout$setup(data, plot$data, plot$plot_env)
 
   # Compute aesthetics to produce data with generalised variable names
   data <- by_layer(function(l, d) l$compute_aesthetics(d, plot))
@@ -137,7 +147,7 @@ layer_grob <- function(plot, i = 1L) {
 #' to (e.g.) make the legend box 2 cm wide, or combine multiple plots into
 #' a single display, preserving aspect ratios across the plots.
 #'
-#' @seealso [print.ggplot()] and \code{link{benchplot}} for
+#' @seealso [print.ggplot()] and [benchplot()] for
 #'  for functions that contain the complete set of steps for generating
 #'  a ggplot2 plot.
 #' @return a [gtable()] object
@@ -156,6 +166,7 @@ ggplot_gtable.ggplot_built <- function(data) {
   theme <- plot_theme(plot)
 
   geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot$layers, data)
+  layout$setup_panel_guides(plot$guides, plot$layers, plot$mapping)
   plot_table <- layout$render(geom_grobs, data, theme, plot$labels)
 
   # Legends
@@ -251,20 +262,46 @@ ggplot_gtable.ggplot_built <- function(data) {
   caption <- element_render(theme, "plot.caption", plot$labels$caption, margin_y = TRUE)
   caption_height <- grobHeight(caption)
 
-  pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), ,
-    drop = FALSE]
+  # positioning of title and subtitle is governed by plot.title.position
+  # positioning of caption is governed by plot.caption.position
+  #   "panel" means align to the panel(s)
+  #   "plot" means align to the entire plot (except margins and tag)
+  title_pos <- theme$plot.title.position %||% "panel"
+  if (!(title_pos %in% c("panel", "plot"))) {
+    stop('plot.title.position should be either "panel" or "plot".', call. = FALSE)
+  }
+  caption_pos <- theme$plot.caption.position %||% "panel"
+  if (!(caption_pos %in% c("panel", "plot"))) {
+    stop('plot.caption.position should be either "panel" or "plot".', call. = FALSE)
+  }
+
+  pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), , drop = FALSE]
+  if (title_pos == "panel") {
+    title_l = min(pans$l)
+    title_r = max(pans$r)
+  } else {
+    title_l = 1
+    title_r = ncol(plot_table)
+  }
+  if (caption_pos == "panel") {
+    caption_l = min(pans$l)
+    caption_r = max(pans$r)
+  } else {
+    caption_l = 1
+    caption_r = ncol(plot_table)
+  }
 
   plot_table <- gtable_add_rows(plot_table, subtitle_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, subtitle, name = "subtitle",
-    t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
+    t = 1, b = 1, l = title_l, r = title_r, clip = "off")
 
   plot_table <- gtable_add_rows(plot_table, title_height, pos = 0)
   plot_table <- gtable_add_grob(plot_table, title, name = "title",
-    t = 1, b = 1, l = min(pans$l), r = max(pans$r), clip = "off")
+    t = 1, b = 1, l = title_l, r = title_r, clip = "off")
 
   plot_table <- gtable_add_rows(plot_table, caption_height, pos = -1)
   plot_table <- gtable_add_grob(plot_table, caption, name = "caption",
-    t = -1, b = -1, l = min(pans$l), r = max(pans$r), clip = "off")
+    t = -1, b = -1, l = caption_l, r = caption_r, clip = "off")
 
   plot_table <- gtable_add_rows(plot_table, unit(0, 'pt'), pos = 0)
   plot_table <- gtable_add_cols(plot_table, unit(0, 'pt'), pos = 0)

@@ -40,22 +40,29 @@ coord_flip <- function(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on") {
 CoordFlip <- ggproto("CoordFlip", CoordCartesian,
 
   transform = function(data, panel_params) {
-    data <- flip_labels(data)
+    data <- flip_axis_labels(data)
     CoordCartesian$transform(data, panel_params)
   },
 
-  range = function(panel_params) {
-    list(x = panel_params$y.range, y = panel_params$x.range)
+  backtransform_range = function(self, panel_params) {
+    self$range(panel_params)
+  },
+
+  range = function(self, panel_params) {
+    # summarise_layout() expects the original x and y ranges here,
+    # not the ones we would get after flipping the axes
+    un_flipped_range <- ggproto_parent(CoordCartesian, self)$range(panel_params)
+    list(x = un_flipped_range$y, y = un_flipped_range$x)
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     parent <- ggproto_parent(CoordCartesian, self)
     panel_params <- parent$setup_panel_params(scale_x, scale_y, params)
-    flip_labels(panel_params)
+    flip_axis_labels(panel_params)
   },
 
-  labels = function(panel_params) {
-    flip_labels(CoordCartesian$labels(panel_params))
+  labels = function(labels, panel_params) {
+    flip_axis_labels(CoordCartesian$labels(labels, panel_params))
   },
 
   setup_layout = function(layout, params) {
@@ -65,14 +72,29 @@ CoordFlip <- ggproto("CoordFlip", CoordCartesian,
   },
 
   modify_scales = function(scales_x, scales_y) {
-    lapply(scales_x, scale_flip_position)
-    lapply(scales_y, scale_flip_position)
+    lapply(scales_x, scale_flip_axis)
+    lapply(scales_y, scale_flip_axis)
   }
 
 )
 
+# In-place modification of a scale position to swap axes
+scale_flip_axis <- function(scale) {
+  scale$position <- switch(scale$position,
+    top = "right",
+    bottom = "left",
+    left = "bottom",
+    right = "top",
+    scale$position
+  )
 
-flip_labels <- function(x) {
+  invisible(scale)
+}
+
+# maintaining the position of the x* and y* names is
+# important for re-using the same guide_transform()
+# as CoordCartesian
+flip_axis_labels <- function(x) {
   old_names <- names(x)
 
   new_names <- old_names

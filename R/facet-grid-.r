@@ -3,9 +3,10 @@ NULL
 
 #' Lay out panels in a grid
 #'
-#' `facet_grid` forms a matrix of panels defined by row and column
+#' `facet_grid()` forms a matrix of panels defined by row and column
 #' faceting variables. It is most useful when you have two discrete
 #' variables, and all combinations of the variables exist in the data.
+#' If you have only one variable with many levels, try [facet_wrap()].
 #'
 #' @param rows,cols A set of variables or expressions quoted by
 #'   [vars()] and defining faceting groups on the rows or columns
@@ -28,12 +29,13 @@ NULL
 #' @param labeller A function that takes one data frame of labels and
 #'   returns a list or data frame of character vectors. Each input
 #'   column corresponds to one factor. Thus there will be more than
-#'   one with formulae of the type `~cyl + am`. Each output
+#'   one with `vars(cyl, am)`. Each output
 #'   column gets displayed as one separate line in the strip
 #'   label. This function should inherit from the "labeller" S3 class
-#'   for compatibility with [labeller()]. See
-#'   [label_value()] for more details and pointers to other
-#'   options.
+#'   for compatibility with [labeller()]. You can use different labeling 
+#'   functions for different kind of labels, for example use [label_parsed()] for 
+#'   formatting facet labels. [label_value()] is used by default, 
+#'   check it for more details and pointers to other options.
 #' @param as.table If `TRUE`, the default, the facets are laid out like
 #'   a table with highest values at the bottom-right. If `FALSE`, the
 #'   facets are laid out like a plot with the highest value at the top-right.
@@ -55,7 +57,7 @@ NULL
 #'   default). If `TRUE`, margins are included for all faceting
 #'   variables. If specified as a character vector, it is the names of
 #'   variables for which margins are to be created.
-#' @param facets This argument is soft-deprecated, please us `rows`
+#' @param facets This argument is soft-deprecated, please use `rows`
 #'   and `cols` instead.
 #' @export
 #' @examples
@@ -65,13 +67,6 @@ NULL
 #' p + facet_grid(rows = vars(drv))
 #' p + facet_grid(cols = vars(cyl))
 #' p + facet_grid(vars(drv), vars(cyl))
-#'
-#' # The historical formula interface is also available:
-#' \donttest{
-#' p + facet_grid(. ~ cyl)
-#' p + facet_grid(drv ~ .)
-#' p + facet_grid(drv ~ cyl)
-#' }
 #'
 #' # To change plot order of facet grid,
 #' # change the order of variable levels with factor()
@@ -91,7 +86,7 @@ NULL
 #' mt <- ggplot(mtcars, aes(mpg, wt, colour = factor(cyl))) +
 #'   geom_point()
 #'
-#' mt + facet_grid(. ~ cyl, scales = "free")
+#' mt + facet_grid(vars(cyl), scales = "free")
 #'
 #' # If scales and space are free, then the mapping between position
 #' # and values in the data will be the same across all panels. This
@@ -145,54 +140,46 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
-  n <- length(facets_list)
-  if (n > 2L) {
-    stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
-  }
-  if (n == 1L) {
-    rows <- quos()
-    cols <- facets_list[[1]]
-  } else {
-    rows <- facets_list[[1]]
-    cols <- facets_list[[2]]
-  }
 
   # Check for deprecated labellers
   labeller <- check_labeller(labeller)
 
   ggproto(NULL, FacetGrid,
     shrink = shrink,
-    params = list(rows = rows, cols = cols, margins = margins,
+    params = list(rows = facets_list$rows, cols = facets_list$cols, margins = margins,
       free = free, space_free = space_free, labeller = labeller,
       as.table = as.table, switch = switch, drop = drop)
   )
 }
+
+# Returns a list of quosures objects. The list has exactly two elements, `rows` and `cols`.
 grid_as_facets_list <- function(rows, cols) {
-  is_rows_vars <- is.null(rows) || rlang::is_quosures(rows)
+  is_rows_vars <- is.null(rows) || is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
       stop("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list", call. = FALSE)
     }
-    return(as_facets_list(rows))
+    # For backward-compatibility
+    facets_list <- as_facets_list(rows)
+    if (length(facets_list) > 2L) {
+      stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
+    }
+    # Fill with empty quosures
+    facets <- list(rows = quos(), cols = quos())
+    facets[seq_along(facets_list)] <- facets_list
+    # Do not compact the legacy specs
+    return(facets)
   }
 
-  is_cols_vars <- is.null(cols) || rlang::is_quosures(cols)
+  is_cols_vars <- is.null(cols) || is_quosures(cols)
   if (!is_cols_vars) {
     stop("`cols` must be `NULL` or a `vars()` specification", call. = FALSE)
   }
 
-  if (is.null(rows)) {
-    rows <- quos()
-  } else {
-    rows <- rlang::quos_auto_name(rows)
-  }
-  if (is.null(cols)) {
-    cols <- quos()
-  } else {
-    cols <- rlang::quos_auto_name(cols)
-  }
-
-  list(rows, cols)
+  list(
+    rows = compact_facets(as_facets_list(rows)),
+    cols = compact_facets(as_facets_list(cols))
+  )
 }
 
 #' @rdname ggplot2-ggproto
@@ -223,20 +210,23 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     base_cols <- combine_vars(data, params$plot_env, cols, drop = params$drop)
     base <- df.grid(base_rows, base_cols)
 
+    if (nrow(base) == 0) {
+      return(new_data_frame(list(PANEL = 1L, ROW = 1L, COL = 1L, SCALE_X = 1L, SCALE_Y = 1L)))
+    }
+
     # Add margins
     base <- reshape2::add_margins(base, list(names(rows), names(cols)), params$margins)
     # Work around bug in reshape2
     base <- unique(base)
 
     # Create panel info dataset
-    panel <- plyr::id(base, drop = TRUE)
+    panel <- id(base, drop = TRUE)
     panel <- factor(panel, levels = seq_len(attr(panel, "n")))
 
-    rows <- if (!length(names(rows))) 1L else plyr::id(base[names(rows)], drop = TRUE)
-    cols <- if (!length(names(cols))) 1L else plyr::id(base[names(cols)], drop = TRUE)
+    rows <- if (!length(names(rows))) rep(1L, length(panel)) else id(base[names(rows)], drop = TRUE)
+    cols <- if (!length(names(cols))) rep(1L, length(panel)) else id(base[names(cols)], drop = TRUE)
 
-    panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base,
-      check.names = FALSE, stringsAsFactors = FALSE)
+    panels <- new_data_frame(c(list(PANEL = panel, ROW = rows, COL = cols), base))
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
 
@@ -254,6 +244,11 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     cols <- params$cols
     vars <- c(names(rows), names(cols))
 
+    if (length(vars) == 0) {
+      data$PANEL <- layout$PANEL
+      return(data)
+    }
+
     # Compute faceting values and add margins
     margin_vars <- list(intersect(names(rows), names(data)),
       intersect(names(cols), names(data)))
@@ -270,8 +265,8 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       data_rep <- rep.int(1:nrow(data), nrow(to_add))
       facet_rep <- rep(1:nrow(to_add), each = nrow(data))
 
-      data <- plyr::unrowname(data[data_rep, , drop = FALSE])
-      facet_vals <- plyr::unrowname(cbind(
+      data <- unrowname(data[data_rep, , drop = FALSE])
+      facet_vals <- unrowname(cbind(
         facet_vals[data_rep, ,  drop = FALSE],
         to_add[facet_rep, , drop = FALSE]))
     }
@@ -284,7 +279,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
       facet_vals[] <- lapply(facet_vals[], as.factor)
       facet_vals[] <- lapply(facet_vals[], addNA, ifany = TRUE)
 
-      keys <- plyr::join.keys(facet_vals, layout, by = vars)
+      keys <- join_keys(facet_vals, layout, by = vars)
 
       data$PANEL <- layout$PANEL[match(keys$x, keys$y)]
     }

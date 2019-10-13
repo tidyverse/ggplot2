@@ -1,10 +1,10 @@
 context("stat_bin/stat_count")
 
 test_that("stat_bin throws error when y aesthetic is present", {
-  dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
+  dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
   expect_error(ggplot_build(ggplot(dat, aes(x, y)) + stat_bin()),
-    "must not be used with a y aesthetic.")
+    "can only have an x or y aesthetic.")
 
   expect_error(
     ggplot_build(ggplot(dat, aes(x)) + stat_bin(y = 5)),
@@ -12,8 +12,22 @@ test_that("stat_bin throws error when y aesthetic is present", {
   )
 })
 
+test_that("stat_bin works in both directions", {
+  p <- ggplot(mpg, aes(hwy)) + stat_bin()
+  x <- layer_data(p)
+  expect_false(x$flipped_aes[1])
+
+  p <- ggplot(mpg, aes(y = hwy)) + stat_bin()
+  y <- layer_data(p)
+  expect_true(y$flipped_aes[1])
+
+  x$flipped_aes <- NULL
+  y$flipped_aes <- NULL
+  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+})
+
 test_that("bins specifies the number of bins", {
-  df <- data.frame(x = 1:10)
+  df <- data_frame(x = 1:10)
   out <- function(x, ...) {
     layer_data(ggplot(df, aes(x)) + geom_histogram(...))
   }
@@ -23,35 +37,35 @@ test_that("bins specifies the number of bins", {
 })
 
 test_that("binwidth computes widths for function input", {
-  df <- data.frame(x = 1:100)
+  df <- data_frame(x = 1:100)
   out <- layer_data(ggplot(df, aes(x)) + geom_histogram(binwidth = function(x) 5))
 
   expect_equal(nrow(out), 21)
 })
 
 test_that("geom_histogram defaults to pad = FALSE", {
-  df <- data.frame(x = 1:3)
+  df <- data_frame(x = 1:3)
   out <- layer_data(ggplot(df, aes(x)) + geom_histogram(binwidth = 1))
 
   expect_equal(out$count, c(1, 1, 1))
 })
 
 test_that("geom_freqpoly defaults to pad = TRUE", {
-  df <- data.frame(x = 1:3)
+  df <- data_frame(x = 1:3)
   out <- layer_data(ggplot(df, aes(x)) + geom_freqpoly(binwidth = 1))
 
   expect_equal(out$count, c(0, 1, 1, 1, 0))
 })
 
 test_that("can use breaks argument", {
-  df <- data.frame(x = 1:3)
+  df <- data_frame(x = 1:3)
   out <- layer_data(ggplot(df, aes(x)) + geom_histogram(breaks = c(0, 1.5, 5)))
 
   expect_equal(out$count, c(1, 2))
 })
 
 test_that("fuzzy breaks are used when cutting", {
-  df <- data.frame(x = c(-1, -0.5, -0.4, 0))
+  df <- data_frame(x = c(-1, -0.5, -0.4, 0))
   p <- ggplot(df, aes(x)) +
     geom_histogram(binwidth = 0.1, boundary = 0.1, closed = "left")
 
@@ -60,13 +74,22 @@ test_that("fuzzy breaks are used when cutting", {
 })
 
 test_that("breaks are transformed by the scale", {
-   df <- data.frame(x = rep(1:4, 1:4))
+   df <- data_frame(x = rep(1:4, 1:4))
    base <- ggplot(df, aes(x)) + geom_histogram(breaks = c(1, 2.5, 4))
 
    out1 <- layer_data(base)
    out2 <- layer_data(base + scale_x_sqrt())
    expect_equal(out1$xmin, c(1, 2.5))
    expect_equal(out2$xmin, sqrt(c(1, 2.5)))
+})
+
+test_that("geom_histogram() can be drawn over a 0-width range (#3043)", {
+  df <- data_frame(x = rep(1, 100))
+  out <- layer_data(ggplot(df, aes(x)) + geom_histogram())
+
+  expect_equal(nrow(out), 1)
+  expect_equal(out$xmin, 0.95)
+  expect_equal(out$xmax, 1.05)
 })
 
 # Underlying binning algorithm --------------------------------------------
@@ -77,7 +100,7 @@ comp_bin <- function(df, ...) {
 }
 
 test_that("closed left or right", {
-  dat <- data.frame(x = c(0, 10))
+  dat <- data_frame(x = c(0, 10))
 
   res <- comp_bin(dat, binwidth = 10, pad = FALSE)
   expect_identical(res$count, c(1, 1))
@@ -100,7 +123,7 @@ test_that("closed left or right", {
 
 test_that("setting boundary and center", {
   # numeric
-  df <- data.frame(x = c(0, 30))
+  df <- data_frame(x = c(0, 30))
 
   # Error if both boundary and center are specified
   expect_error(comp_bin(df, boundary = 5, center = 0), "one of `boundary` and `center`")
@@ -117,21 +140,25 @@ test_that("setting boundary and center", {
 })
 
 test_that("weights are added", {
-  df <- data.frame(x = 1:10, y = 1:10)
+  df <- data_frame(x = 1:10, y = 1:10)
   p <- ggplot(df, aes(x = x, weight = y)) + geom_histogram(binwidth = 1)
   out <- layer_data(p)
 
   expect_equal(out$count, df$y)
 })
 
+test_that("bin errors at high bin counts", {
+  expect_error(bin_breaks_width(c(1, 2e6), 1), "The number of histogram bins")
+})
+
 # stat_count --------------------------------------------------------------
 
 test_that("stat_count throws error when y aesthetic present", {
-  dat <- data.frame(x = c("a", "b", "c"), y = c(1, 5, 10))
+  dat <- data_frame(x = c("a", "b", "c"), y = c(1, 5, 10))
 
   expect_error(
     ggplot_build(ggplot(dat, aes(x, y)) + stat_count()),
-    "must not be used with a y aesthetic.")
+    "can only have an x or y aesthetic.")
 
   expect_error(
     ggplot_build(ggplot(dat, aes(x)) + stat_count(y = 5)),
@@ -155,6 +182,6 @@ test_that("stat_count preserves x order for continuous and discrete", {
   mtcars$carb3 <- factor(mtcars$carb, levels = c(4,1,2,3,6,8))
   b <- ggplot_build(ggplot(mtcars, aes(carb3)) + geom_bar())
   expect_identical(b$data[[1]]$x, 1:6)
-  expect_identical(b$layout$panel_params[[1]]$x.labels, c("4","1","2","3","6","8"))
+  expect_identical(b$layout$panel_params[[1]]$x$get_labels(), c("4","1","2","3","6","8"))
   expect_identical(b$data[[1]]$y, c(10,7,10,3,1,1))
 })

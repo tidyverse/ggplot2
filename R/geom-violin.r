@@ -5,9 +5,11 @@
 #' violin plot is a mirrored density plot displayed in the same way as a
 #' boxplot.
 #'
+#' @eval rd_orientation()
+#'
 #' @eval rd_aesthetics("geom", "violin")
 #' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param draw_quantiles If `not(NULL)` (default), draw horizontal lines
 #'   at the given quantiles of the density estimate.
 #' @param trim If `TRUE` (default), trim the tails of the violins
@@ -20,6 +22,10 @@
 #' @examples
 #' p <- ggplot(mtcars, aes(factor(cyl), mpg))
 #' p + geom_violin()
+#'
+#' # Orientation follows the discrete axis
+#' ggplot(mtcars, aes(mpg, factor(cyl))) +
+#'   geom_violin()
 #'
 #' \donttest{
 #' p + geom_violin() + geom_jitter(height = 0, width = 0.1)
@@ -75,6 +81,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
                         trim = TRUE,
                         scale = "area",
                         na.rm = FALSE,
+                        orientation = NA,
                         show.legend = NA,
                         inherit.aes = TRUE) {
   layer(
@@ -90,6 +97,7 @@ geom_violin <- function(mapping = NULL, data = NULL,
       scale = scale,
       draw_quantiles = draw_quantiles,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -100,18 +108,28 @@ geom_violin <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomViolin <- ggproto("GeomViolin", Geom,
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
+    params
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
   setup_data = function(data, params) {
+    data$flipped_aes <- params$flipped_aes
+    data <- flip_data(data, params$flipped_aes)
     data$width <- data$width %||%
       params$width %||% (resolution(data$x, FALSE) * 0.9)
-
     # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
-    plyr::ddply(data, "group", transform,
+    data <- dapply(data, "group", transform,
       xmin = x - width / 2,
       xmax = x + width / 2
     )
+    flip_data(data, params$flipped_aes)
   },
 
-  draw_group = function(self, data, ..., draw_quantiles = NULL) {
+  draw_group = function(self, data, ..., draw_quantiles = NULL, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     # Find the points for the line to go all the way around
     data <- transform(data,
       xminv = x - violinwidth * (x - xmin),
@@ -120,13 +138,14 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
     # Make sure it's sorted properly to draw the outline
     newdata <- rbind(
-      plyr::arrange(transform(data, x = xminv), y),
-      plyr::arrange(transform(data, x = xmaxv), -y)
+      transform(data, x = xminv)[order(data$y), ],
+      transform(data, x = xmaxv)[order(data$y, decreasing = TRUE), ]
     )
 
     # Close the polygon: set first and last point the same
     # Needed for coord_polar and such
     newdata <- rbind(newdata, newdata[1,])
+    newdata <- flip_data(newdata, flipped_aes)
 
     # Draw quantiles if requested, so long as there is non-zero y range
     if (length(draw_quantiles) > 0 & !scales::zero_range(range(data$y))) {
@@ -136,12 +155,18 @@ GeomViolin <- ggproto("GeomViolin", Geom,
       quantiles <- create_quantile_segment_frame(data, draw_quantiles)
       aesthetics <- data[
         rep(1, nrow(quantiles)),
-        setdiff(names(data), c("x", "y")),
+        setdiff(names(data), c("x", "y", "group")),
         drop = FALSE
       ]
       aesthetics$alpha <- rep(1, nrow(quantiles))
       both <- cbind(quantiles, aesthetics)
-      quantile_grob <- GeomPath$draw_panel(both, ...)
+      both <- both[!is.na(both$group), , drop = FALSE]
+      both <- flip_data(both, flipped_aes)
+      quantile_grob <- if (nrow(both) == 0) {
+        zeroGrob()
+      } else {
+        GeomPath$draw_panel(both, ...)
+      }
 
       ggname("geom_violin", grobTree(
         GeomPolygon$draw_panel(newdata, ...),
@@ -171,10 +196,10 @@ create_quantile_segment_frame <- function(data, draw_quantiles) {
   violin.xmaxvs <- (stats::approxfun(data$y, data$xmaxv))(ys)
 
   # We have two rows per segment drawn. Each segment gets its own group.
-  data.frame(
+  new_data_frame(list(
     x = interleave(violin.xminvs, violin.xmaxvs),
     y = rep(ys, each = 2),
     group = rep(ys, each = 2)
-  )
+  ))
 }
 

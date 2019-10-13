@@ -112,6 +112,20 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
   color = NULL, margin = NULL, debug = NULL, inherit.blank = FALSE) {
 
   if (!is.null(color))  colour <- color
+
+  n <- max(
+    length(family), length(face), length(colour), length(size),
+    length(hjust), length(vjust), length(angle), length(lineheight)
+  )
+  if (n > 1) {
+    warning(
+      "Vectorized input to `element_text()` is not officially supported.\n",
+      "Results may be unexpected or may change in future versions of ggplot2.",
+      call. = FALSE
+    )
+  }
+
+
   structure(
     list(family = family, face = face, colour = colour, size = size,
       hjust = hjust, vjust = vjust, angle = angle, lineheight = lineheight,
@@ -195,7 +209,7 @@ element_grob.element_rect <- function(element, x = 0.5, y = 0.5,
   element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
     fill = element$fill, lty = element$linetype)
 
-  rectGrob(x, y, width, height, gp = utils::modifyList(element_gp, gp), ...)
+  rectGrob(x, y, width, height, gp = modify_list(element_gp, gp), ...)
 }
 
 
@@ -223,8 +237,8 @@ element_grob.element_text <- function(element, label = "", x = NULL, y = NULL,
     lineheight = element$lineheight)
 
   titleGrob(label, x, y, hjust = hj, vjust = vj, angle = angle,
-    gp = utils::modifyList(element_gp, gp), margin = margin,
-    margin_x = margin_x, margin_y = margin_y, debug = element$debug)
+    gp = modify_list(element_gp, gp), margin = margin,
+    margin_x = margin_x, margin_y = margin_y, debug = element$debug, ...)
 }
 
 
@@ -235,9 +249,15 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   default.units = "npc", id.lengths = NULL, ...) {
 
   # The gp settings can override element_gp
-  gp <- gpar(lwd = len0_null(size * .pt), col = colour, lty = linetype, lineend = lineend)
-  element_gp <- gpar(lwd = len0_null(element$size * .pt), col = element$colour,
-    lty = element$linetype, lineend = element$lineend)
+  gp <- gpar(
+    col = colour, fill = colour,
+    lwd = len0_null(size * .pt), lty = linetype, lineend = lineend
+  )
+  element_gp <- gpar(
+    col = element$colour, fill = element$colour,
+    lwd = len0_null(element$size * .pt), lty = element$linetype,
+    lineend = element$lineend
+  )
   arrow <- if (is.logical(element$arrow) && !element$arrow) {
     NULL
   } else {
@@ -245,7 +265,7 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   }
   polylineGrob(
     x, y, default.units = default.units,
-    gp = utils::modifyList(element_gp, gp),
+    gp = modify_list(element_gp, gp),
     id.lengths = id.lengths, arrow = arrow, ...
   )
 }
@@ -269,8 +289,9 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
 
 # This data structure represents the theme elements and the inheritance
-# among them.
-ggplot_global$element_tree <- list(
+# among them. (In the future, .element_tree should be removed in favor
+# of direct assignment to ggplot_global$element_tree, see below.)
+.element_tree <- list(
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
   text                = el_def("element_text"),
@@ -298,6 +319,12 @@ ggplot_global$element_tree <- list(
   axis.text.y.left    = el_def("element_text", "axis.text.y"),
   axis.text.y.right   = el_def("element_text", "axis.text.y"),
   axis.ticks.length   = el_def("unit"),
+  axis.ticks.length.x = el_def("unit", "axis.ticks.length"),
+  axis.ticks.length.x.top = el_def("unit", "axis.ticks.length.x"),
+  axis.ticks.length.x.bottom = el_def("unit", "axis.ticks.length.x"),
+  axis.ticks.length.y  = el_def("unit", "axis.ticks.length"),
+  axis.ticks.length.y.left = el_def("unit", "axis.ticks.length.y"),
+  axis.ticks.length.y.right = el_def("unit", "axis.ticks.length.y"),
   axis.ticks.x        = el_def("element_line", "axis.ticks"),
   axis.ticks.x.top    = el_def("element_line", "axis.ticks.x"),
   axis.ticks.x.bottom = el_def("element_line", "axis.ticks.x"),
@@ -356,8 +383,10 @@ ggplot_global$element_tree <- list(
 
   plot.background     = el_def("element_rect", "rect"),
   plot.title          = el_def("element_text", "title"),
+  plot.title.position = el_def("character"),
   plot.subtitle       = el_def("element_text", "title"),
   plot.caption        = el_def("element_text", "title"),
+  plot.caption.position = el_def("character"),
   plot.tag            = el_def("element_text", "title"),
   plot.tag.position   = el_def("character"),  # Need to also accept numbers
   plot.margin         = el_def("margin"),
@@ -365,6 +394,7 @@ ggplot_global$element_tree <- list(
   aspect.ratio        = el_def("character")
 )
 
+ggplot_global$element_tree <- .element_tree
 
 # Check that an element object has the proper class
 #

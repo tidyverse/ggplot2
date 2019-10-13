@@ -6,15 +6,16 @@
 \title{Summarise y values at unique/binned x}
 \usage{
 stat_summary_bin(mapping = NULL, data = NULL, geom = "pointrange",
-  position = "identity", ..., fun.data = NULL, fun.y = NULL,
-  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), bins = 30,
-  binwidth = NULL, breaks = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", ..., fun.data = NULL, fun = NULL,
+  fun.max = NULL, fun.min = NULL, fun.args = list(), bins = 30,
+  binwidth = NULL, breaks = NULL, na.rm = FALSE, orientation = NA,
+  show.legend = NA, inherit.aes = TRUE, fun.y, fun.ymin, fun.ymax)
 
 stat_summary(mapping = NULL, data = NULL, geom = "pointrange",
-  position = "identity", ..., fun.data = NULL, fun.y = NULL,
-  fun.ymax = NULL, fun.ymin = NULL, fun.args = list(), na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+  position = "identity", ..., fun.data = NULL, fun = NULL,
+  fun.max = NULL, fun.min = NULL, fun.args = list(), na.rm = FALSE,
+  orientation = NA, show.legend = NA, inherit.aes = TRUE, fun.y,
+  fun.ymin, fun.ymax)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -34,10 +35,11 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{geom}{Use to override the default connection between
-\code{geom_histogram}/\code{geom_freqpoly} and \code{stat_bin}.}
+\code{geom_histogram()}/\code{geom_freqpoly()} and \code{stat_bin()}.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -50,18 +52,21 @@ to the paired geom/stat.}
 \item{fun.data}{A function that is given the complete data and should
 return a data frame with variables \code{ymin}, \code{y}, and \code{ymax}.}
 
-\item{fun.ymin, fun.y, fun.ymax}{Alternatively, supply three individual
-functions that are each passed a vector of x's and should return a
+\item{fun.min, fun, fun.max}{Alternatively, supply three individual
+functions that are each passed a vector of values and should return a
 single number.}
 
 \item{fun.args}{Optional additional arguments passed on to the functions.}
 
 \item{bins}{Number of bins. Overridden by \code{binwidth}. Defaults to 30.}
 
-\item{binwidth}{The width of the bins. Can be specified as a numeric value,
-or a function that calculates width from x.
-The default is to use \code{bins}
-bins that cover the range of the data. You should always override
+\item{binwidth}{The width of the bins. Can be specified as a numeric value
+or as a function that calculates width from unscaled x. Here, "unscaled x"
+refers to the original x values in the data, before application of any
+scale transformation. When specifying a function along with a grouping
+structure, the function will be called once per group.
+The default is to use the number of bins in \code{bins},
+covering the range of the data. You should always override
 this value, exploring multiple widths to find the best to illustrate the
 stories in your data.
 
@@ -75,6 +80,11 @@ and \code{boundary}.}
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
@@ -85,16 +95,24 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+
+\item{fun.ymin, fun.y, fun.ymax}{Deprecated, use the versions specified above
+instead.}
 }
 \description{
-\code{stat_summary} operates on unique \code{x}; \code{stat_summary_bin}
-operates on binned \code{x}. They are more flexible versions of
+\code{stat_summary} operates on unique \code{x} or \code{y}; \code{stat_summary_bin}
+operates on binned \code{x} or \code{y}. They are more flexible versions of
 \code{\link[=stat_bin]{stat_bin()}}: instead of just counting, they can compute any
 aggregate.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Aesthetics}{
 
-\code{stat_summary} understands the following aesthetics (required aesthetics are in bold):
+\code{stat_summary()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -105,23 +123,28 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 
 \section{Summary functions}{
 
-You can either supply summary functions individually (\code{fun.y},
-\code{fun.ymax}, \code{fun.ymin}), or as a single function (\code{fun.data}):
+You can either supply summary functions individually (\code{fun},
+\code{fun.max}, \code{fun.min}), or as a single function (\code{fun.data}):
 
 \describe{
 \item{fun.data}{Complete summary function. Should take numeric vector as
 input and return data frame as output}
-\item{fun.ymin}{ymin summary function (should take numeric vector and
+\item{fun.min}{min summary function (should take numeric vector and
 return single number)}
-\item{fun.y}{y summary function (should take numeric vector and return
+\item{fun}{main summary function (should take numeric vector and return
 single number)}
-\item{fun.ymax}{ymax summary function (should take numeric vector and
+\item{fun.max}{max summary function (should take numeric vector and
 return single number)}
 }
 
 A simple vector function is easiest to work with as you can return a single
 number, but is somewhat less flexible. If your summary function computes
-multiple values at once (e.g. ymin and ymax), use \code{fun.data}.
+multiple values at once (e.g. min and max), use \code{fun.data}.
+
+\code{fun.data} will recieve data as if it was oriented along the x-axis and
+should return a data.frame that corresponds to that orientation. The layer
+will take care of flipping the input and output if it is oriented along the
+y-axis.
 
 If no aggregation functions are supplied, will default to
 \code{\link[=mean_se]{mean_se()}}.
@@ -131,24 +154,33 @@ If no aggregation functions are supplied, will default to
 d <- ggplot(mtcars, aes(cyl, mpg)) + geom_point()
 d + stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
 
+# Orientation follows the discrete axis
+ggplot(mtcars, aes(mpg, cyl)) +
+  geom_point() +
+  stat_summary(fun.data = "mean_cl_boot", colour = "red", size = 2)
+
 # You can supply individual functions to summarise the value at
 # each x:
-d + stat_summary(fun.y = "median", colour = "red", size = 2, geom = "point")
-d + stat_summary(fun.y = "mean", colour = "red", size = 2, geom = "point")
-d + aes(colour = factor(vs)) + stat_summary(fun.y = mean, geom="line")
+d + stat_summary(fun = "median", colour = "red", size = 2, geom = "point")
+d + stat_summary(fun = "mean", colour = "red", size = 2, geom = "point")
+d + aes(colour = factor(vs)) + stat_summary(fun = mean, geom="line")
 
-d + stat_summary(fun.y = mean, fun.ymin = min, fun.ymax = max,
+d + stat_summary(fun = mean, fun.min = min, fun.max = max,
   colour = "red")
 
 d <- ggplot(diamonds, aes(cut))
 d + geom_bar()
-d + stat_summary_bin(aes(y = price), fun.y = "mean", geom = "bar")
+d + stat_summary(aes(y = price), fun = "mean", geom = "bar")
+
+# Orientation of stat_summary_bin is ambiguous and must be specified directly
+ggplot(diamonds, aes(carat, price)) +
+  stat_summary_bin(fun = "mean", geom = "bar", orientation = 'y')
 
 \donttest{
 # Don't use ylim to zoom into a summary plot - this throws the
 # data away
 p <- ggplot(mtcars, aes(cyl, mpg)) +
-  stat_summary(fun.y = "mean", geom = "point")
+  stat_summary(fun = "mean", geom = "point")
 p
 p + ylim(15, 30)
 # Instead use coord_cartesian

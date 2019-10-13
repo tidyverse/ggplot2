@@ -1,13 +1,16 @@
 #' Compute function for each x value
 #'
-#' This stat makes it easy to superimpose a function on top of an existing
-#' plot. The function is called with a grid of evenly spaced values along
-#' the x axis, and the results are drawn (by default) with a line.
+#' This stat makes it easy to superimpose a function on top of an existing plot.
+#' The function is called with a grid of evenly spaced values along the x axis,
+#' and the results are drawn (by default) with a line.
 #'
-#' @eval rd_aesthetics("stat", "function")
-#' @param fun function to use. Must be vectorised.
-#' @param n number of points to interpolate along
-#' @param args list of additional arguments to pass to `fun`
+#'
+#' @param fun Function to use. Either 1) an anonymous function in the base or
+#'   rlang formula syntax (see [rlang::as_function()])
+#'   or 2) a quoted or character name referencing a function; see examples. Must
+#'   be vectorised.
+#' @param n Number of points to interpolate along
+#' @param args List of additional arguments passed on to the function defined by `fun`.
 #' @param xlim Optionally, restrict the range of the function to this range.
 #' @inheritParams layer
 #' @inheritParams geom_point
@@ -16,39 +19,41 @@
 #'   \item{x}{x's along a grid}
 #'   \item{y}{value of function evaluated at corresponding x}
 #' }
+#' @seealso [rlang::as_function()]
 #' @export
 #' @examples
+#'
+#' # stat_function is useful for overlaying functions
 #' set.seed(1492)
-#' df <- data.frame(
-#'   x = rnorm(100)
-#' )
-#' x <- df$x
-#' base <- ggplot(df, aes(x)) + geom_density()
-#' base + stat_function(fun = dnorm, colour = "red")
-#' base + stat_function(fun = dnorm, colour = "red", args = list(mean = 3))
+#' ggplot(data.frame(x = rnorm(100)), aes(x)) +
+#'   geom_density() +
+#'   stat_function(fun = dnorm, colour = "red")
 #'
-#' # Plot functions without data
-#' # Examples adapted from Kohske Takahashi
+#' # To plot functions without data, specify range of x-axis
+#' base <- ggplot(data.frame(x = c(-5, 5)), aes(x))
+#' base + stat_function(fun = dnorm)
+#' base + stat_function(fun = dnorm, args = list(mean = 2, sd = .5))
 #'
-#' # Specify range of x-axis
-#' ggplot(data.frame(x = c(0, 2)), aes(x)) +
-#'   stat_function(fun = exp, geom = "line")
-#'
-#' # Plot a normal curve
-#' ggplot(data.frame(x = c(-5, 5)), aes(x)) + stat_function(fun = dnorm)
-#'
-#' # To specify a different mean or sd, use the args parameter to supply new values
-#' ggplot(data.frame(x = c(-5, 5)), aes(x)) +
-#'   stat_function(fun = dnorm, args = list(mean = 2, sd = .5))
+#' # The underlying mechanics evaluate the function at discrete points
+#' # and connect the points with lines
+#' base <- ggplot(data.frame(x = c(-5, 5)), aes(x))
+#' base + stat_function(fun = dnorm, geom = "point")
+#' base + stat_function(fun = dnorm, geom = "point", n = 20)
+#' base + stat_function(fun = dnorm, n = 20)
 #'
 #' # Two functions on the same plot
-#' f <- ggplot(data.frame(x = c(0, 10)), aes(x))
-#' f + stat_function(fun = sin, colour = "red") +
-#'   stat_function(fun = cos, colour = "blue")
+#' base +
+#'   stat_function(fun = dnorm, colour = "red") +
+#'   stat_function(fun = dt, colour = "blue", args = list(df = 1))
 #'
-#' # Using a custom function
-#' test <- function(x) {x ^ 2 + x + 20}
-#' f + stat_function(fun = test)
+#' # Using a custom anonymous function
+#' base + stat_function(fun = function(.x) .5*exp(-abs(.x)))
+#' base + stat_function(fun = ~ .5*exp(-abs(.x)))
+#'
+#' # Using a custom named function
+#' f <- function(.x) .5*exp(-abs(.x))
+#' base + stat_function(fun = f)
+#'
 stat_function <- function(mapping = NULL, data = NULL,
                           geom = "path", position = "identity",
                           ...,
@@ -59,6 +64,15 @@ stat_function <- function(mapping = NULL, data = NULL,
                           na.rm = FALSE,
                           show.legend = NA,
                           inherit.aes = TRUE) {
+
+  # Warn if supplied mapping and/or data is going to be overwritten
+  if (!is.null(mapping)) {
+    warning("`mapping` is not used by stat_function()", call. = FALSE)
+  }
+  if (!is.null(data)) {
+    warning("`data` is not used by stat_function()", call. = FALSE)
+  }
+
   layer(
     data = data,
     mapping = mapping,
@@ -97,9 +111,11 @@ StatFunction <- ggproto("StatFunction", Stat,
       x_trans <- scales$x$trans$inverse(xseq)
     }
 
-    data.frame(
+    if (is.formula(fun)) fun <- as_function(fun)
+
+    new_data_frame(list(
       x = xseq,
       y = do.call(fun, c(list(quote(x_trans)), args))
-    )
+    ))
   }
 )

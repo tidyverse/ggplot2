@@ -5,8 +5,8 @@
 \title{Polygons}
 \usage{
 geom_polygon(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  position = "identity", rule = "evenodd", ..., na.rm = FALSE,
+  show.legend = NA, inherit.aes = TRUE)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -26,13 +26,19 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
+
+\item{rule}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
+being drawn (using the \code{subgroup} aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in \code{\link[grid:pathGrob]{grid::pathGrob()}} for
+an explanation.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
@@ -57,11 +63,14 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 Polygons are very similar to paths (as drawn by \code{\link[=geom_path]{geom_path()}})
 except that the start and end points are connected and the inside is
 coloured by \code{fill}. The \code{group} aesthetic determines which cases
-are connected together into a polygon.
+are connected together into a polygon. From R 3.6 and onwards it is possible
+to draw polygons with holes by providing a subgroup aesthetic that
+differentiates the outer ring points from those describing holes in the
+polygon.
 }
 \section{Aesthetics}{
 
-\code{geom_polygon} understands the following aesthetics (required aesthetics are in bold):
+\code{geom_polygon()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
 \item \strong{\code{x}}
 \item \strong{\code{y}}
@@ -71,6 +80,7 @@ are connected together into a polygon.
 \item \code{group}
 \item \code{linetype}
 \item \code{size}
+\item \code{subgroup}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -115,6 +125,25 @@ p + geom_line(data = stream, colour = "grey30", size = 5)
 
 # And if the positions are in longitude and latitude, you can use
 # coord_map to produce different map projections.
+
+if (packageVersion("grid") >= "3.6") {
+  # As of R version 3.6 geom_polygon() supports polygons with holes
+  # Use the subgroup aesthetic to differentiate holes from the main polygon
+
+  holes <- do.call(rbind, lapply(split(datapoly, datapoly$id), function(df) {
+    df$x <- df$x + 0.5 * (mean(df$x) - df$x)
+    df$y <- df$y + 0.5 * (mean(df$y) - df$y)
+    df
+  }))
+  datapoly$subid <- 1L
+  holes$subid <- 2L
+  datapoly <- rbind(datapoly, holes)
+
+  p <- ggplot(datapoly, aes(x = x, y = y)) +
+    geom_polygon(aes(fill = value, group = id, subgroup = subid))
+  p
+}
+
 }
 \seealso{
 \code{\link[=geom_path]{geom_path()}} for an unfilled polygon,

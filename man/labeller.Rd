@@ -30,7 +30,7 @@ function.}
 used with lookup tables or non-labeller functions.}
 }
 \value{
-A labeller function to supply to \code{\link[=facet_grid]{facet_grid()}}
+A labeller function to supply to \code{\link[=facet_grid]{facet_grid()}} or \code{\link[=facet_wrap]{facet_wrap()}}
 for the argument \code{labeller}.
 }
 \description{
@@ -89,8 +89,9 @@ p2 + facet_grid(vore ~ conservation, labeller = labeller(
 
 # In the following example, we rename the levels to the long form,
 # then apply a wrap labeller to the columns to prevent cropped text
-msleep$conservation2 <- plyr::revalue(msleep$conservation,
-  conservation_status)
+idx <- match(msleep$conservation, names(conservation_status))
+msleep$conservation2 <- conservation_status[idx]
+
 p3 <- ggplot(msleep, aes(x = sleep_total, y = awake)) + geom_point()
 p3 +
   facet_grid(vore ~ conservation2,

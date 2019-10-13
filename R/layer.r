@@ -22,7 +22,8 @@
 #'
 #'    A `function` will be called with a single argument,
 #'    the plot data. The return value must be a `data.frame`, and
-#'    will be used as the layer data.
+#'    will be used as the layer data. A `function` can be created
+#'    from a `formula` (e.g. `~ head(.x, 10)`).
 #' @param geom The geometric object to use display the data
 #' @param stat The statistical transformation to use on the data for this
 #'    layer, as a string.
@@ -41,6 +42,10 @@
 #'   supplied parameters and aesthetics are understood by the `geom` or
 #'   `stat`. Use `FALSE` to suppress the checks.
 #' @param params Additional parameters to the `geom` and `stat`.
+#' @param key_glyph A legend key drawing function or a string providing the
+#'   function name minus the `draw_key_` prefix. See [draw_key] for details.
+#' @param layer_class The type of layer object to be constructued. This is
+#'   intended for ggplot2 internal use only.
 #' @keywords internal
 #' @examples
 #' # geom calls are just a short cut for layer
@@ -61,7 +66,7 @@ layer <- function(geom = NULL, stat = NULL,
                   data = NULL, mapping = NULL,
                   position = NULL, params = list(),
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
-                  show.legend = NA) {
+                  show.legend = NA, key_glyph = NULL, layer_class = Layer) {
   if (is.null(geom))
     stop("Attempted to create layer with no geom.", call. = FALSE)
   if (is.null(stat))
@@ -81,11 +86,15 @@ layer <- function(geom = NULL, stat = NULL,
     show.legend <- FALSE
   }
 
-  data <- fortify(data)
-
+  # we validate mapping before data because in geoms and stats
+  # the mapping is listed before the data argument; this causes
+  # less confusing error messages when layers are accidentally
+  # piped into each other
   if (!is.null(mapping)) {
     mapping <- validate_mapping(mapping)
   }
+
+  data <- fortify(data)
 
   geom <- check_subclass(geom, "Geom", env = parent.frame())
   stat <- check_subclass(stat, "Stat", env = parent.frame())
@@ -94,6 +103,13 @@ layer <- function(geom = NULL, stat = NULL,
   # Special case for na.rm parameter needed by all layers
   if (is.null(params$na.rm)) {
     params$na.rm <- FALSE
+  }
+
+  # Special case for key_glyph parameter which is handed in through
+  # params since all geoms/stats forward ... to params
+  if (!is.null(params$key_glyph)) {
+    key_glyph <- params$key_glyph
+    params$key_glyph <- NULL # remove to avoid warning about unknown parameter
   }
 
   # Split up params between aesthetics, geom, and stat
@@ -126,7 +142,10 @@ layer <- function(geom = NULL, stat = NULL,
     )
   }
 
-  ggproto("LayerInstance", Layer,
+  # adjust the legend draw key if requested
+  geom <- set_draw_key(geom, key_glyph)
+
+  ggproto("LayerInstance", layer_class,
     geom = geom,
     geom_params = geom_params,
     stat = stat,
@@ -193,6 +212,12 @@ Layer <- ggproto("Layer", NULL,
     }
   },
 
+  # hook to allow a layer access to the final layer data
+  # in input form and to global plot info
+  setup_layer = function(self, data, plot) {
+    data
+  },
+
   compute_aesthetics = function(self, data, plot) {
     # For annotation geoms, it is useful to be able to ignore the default aes
     if (self$inherit.aes) {
@@ -213,9 +238,23 @@ Layer <- ggproto("Layer", NULL,
 
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
-    # Evaluate and check aesthetics
-    aesthetics <- compact(aesthetics)
-    evaled <- lapply(aesthetics, rlang::eval_tidy, data = data)
+    # Evaluate aesthetics
+    evaled <- lapply(aesthetics, eval_tidy, data = data)
+    evaled <- compact(evaled)
+
+    # Check for discouraged usage in mapping
+    warn_for_aes_extract_usage(aesthetics, data[setdiff(names(data), "PANEL")])
+
+    # Check aesthetic values
+    nondata_cols <- check_nondata_cols(evaled)
+    if (length(nondata_cols) > 0) {
+      msg <- paste0(
+        "Aesthetics must be valid data columns. Problematic aesthetic(s): ",
+        paste0(vapply(nondata_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
+        ". \nDid you mistype the name of a data column or forget to add stat()?"
+      )
+      stop(msg, call. = FALSE)
+    }
 
     n <- nrow(data)
     if (n == 0) {
@@ -242,7 +281,7 @@ Layer <- ggproto("Layer", NULL,
 
   compute_statistic = function(self, data, layout) {
     if (empty(data))
-      return(data.frame())
+      return(new_data_frame())
 
     params <- self$stat$setup_params(data, self$stat_params)
     data <- self$stat$setup_data(data, params)
@@ -250,7 +289,7 @@ Layer <- ggproto("Layer", NULL,
   },
 
   map_statistic = function(self, data, plot) {
-    if (empty(data)) return(data.frame())
+    if (empty(data)) return(new_data_frame())
 
     # Assemble aesthetics from layer, plot and stat mappings
     aesthetics <- self$mapping
@@ -267,7 +306,19 @@ Layer <- ggproto("Layer", NULL,
     env <- new.env(parent = baseenv())
     env$stat <- stat
 
-    stat_data <- plyr::quickdf(lapply(new, rlang::eval_tidy, data, env))
+    stat_data <- new_data_frame(lapply(new, eval_tidy, data, env))
+
+    # Check that all columns in aesthetic stats are valid data
+    nondata_stat_cols <- check_nondata_cols(stat_data)
+    if (length(nondata_stat_cols) > 0) {
+      msg <- paste0(
+        "Aesthetics must be valid computed stats. Problematic aesthetic(s): ",
+        paste0(vapply(nondata_stat_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
+        ". \nDid you map your stat in the wrong layer?"
+      )
+      stop(msg, call. = FALSE)
+    }
+
     names(stat_data) <- names(new)
 
     # Add any new scales, if needed
@@ -282,20 +333,19 @@ Layer <- ggproto("Layer", NULL,
   },
 
   compute_geom_1 = function(self, data) {
-    if (empty(data)) return(data.frame())
-    data <- self$geom$setup_data(data, c(self$geom_params, self$aes_params))
+    if (empty(data)) return(new_data_frame())
 
     check_required_aesthetics(
       self$geom$required_aes,
       c(names(data), names(self$aes_params)),
       snake_class(self$geom)
     )
-
-    data
+    self$geom_params <- self$geom$setup_params(data, c(self$geom_params, self$aes_params))
+    self$geom$setup_data(data, self$geom_params)
   },
 
   compute_position = function(self, data, layout) {
-    if (empty(data)) return(data.frame())
+    if (empty(data)) return(new_data_frame())
 
     params <- self$position$setup_params(data)
     data <- self$position$setup_data(data, params)
@@ -330,7 +380,7 @@ is.layer <- function(x) inherits(x, "Layer")
 
 
 check_subclass <- function(x, subclass,
-                           argname = tolower(subclass),
+                           argname = to_lower_ascii(subclass),
                            env = parent.frame()) {
   if (inherits(x, subclass)) {
     x
@@ -376,3 +426,18 @@ obj_desc <- function(x) {
     )
   }
 }
+
+# helper function to adjust the draw_key slot of a geom
+# if a custom key glyph is requested
+set_draw_key <- function(geom, draw_key = NULL) {
+  if (is.null(draw_key)) {
+    return(geom)
+  }
+  if (is.character(draw_key)) {
+    draw_key <- paste0("draw_key_", draw_key)
+  }
+  draw_key <- match.fun(draw_key)
+
+  ggproto("", geom, draw_key = draw_key)
+}
+

@@ -1,8 +1,10 @@
-destination: ../ggplot2-docs
+url: https://ggplot2.tidyverse.org
 
 template:
   package: tidytemplate
-  default_assets: false
+
+development:
+  mode: auto
 
 home:
   strip_header: true
@@ -38,7 +40,7 @@ reference:
   desc: >
     A handful of layers are more easily specified with a `stat_` function,
     drawing attention to the statistical transformation rather than the visual
-    appearance.
+    appearance. The computed variables can be mapped using `stat()`.
   contents:
   - stat_ecdf
   - stat_ellipse
@@ -47,6 +49,8 @@ reference:
   - stat_summary_2d
   - stat_summary_bin
   - stat_unique
+  - stat_sf_coordinates
+  - stat
 
 - title: "Layer: position adjustment"
   desc: >
@@ -90,6 +94,7 @@ reference:
   - labs
   - lims
   - expand_limits
+  - expansion
   - starts_with("scale_")
 
 - title: "Guides: axes and legends"
@@ -113,6 +118,7 @@ reference:
   contents:
   - facet_grid
   - facet_wrap
+  - vars
 
 - title: "Facetting: labels"
   desc: >
@@ -211,31 +217,31 @@ reference:
   - map_data
 
 navbar:
-  title: ~
-  type: default
-  left:
-  - text: Reference
-    href: reference/index.html
-  - text: Articles
-    menu:
-    - text: Aesthetic specifications
-      href: articles/ggplot2-specs.html
-    - text: Extending ggplot2
-      href: articles/extending-ggplot2.html
-  - text: News
-    menu:
-    - text: "Release notes"
-    - text: "Version 2.2.0"
-      href: articles/releases/ggplot2-2.2.0.html
-    - text: "Version 2.1.0"
-      href: articles/releases/ggplot2-2.1.0.html
-    - text: "Version 2.0.0"
-      href: articles/releases/ggplot2-2.0.0.html
-    - text: "Version 1.0.0"
-      href: articles/releases/ggplot2-1.0.0.html
-    - text: "------------------"
-    - text: "Change log"
-      href: news/index.html
-  right:
-  - icon: fa-github fa-lg
-    href: https://github.com/tidyverse/ggplot2
+  structure:
+    right: [extensions, github]
+  components:
+    home: ~
+    news:
+      text: News
+      menu:
+      - text: "Release notes"
+      - text: "Version 3.2.0"
+        href: https://www.tidyverse.org/articles/2019/06/ggplot2-3-2-0/
+      - text: "Version 3.1.0"
+        href: https://www.tidyverse.org/articles/2018/10/ggplot2-3-1-0/
+      - text: "Version 3.0.0"
+        href: https://www.tidyverse.org/articles/2018/07/ggplot2-3-0-0/
+      - text: "Version 2.2.0"
+        href: https://blog.rstudio.com/2016/11/14/ggplot2-2-2-0/
+      - text: "Version 2.1.0"
+        href: https://blog.rstudio.com/2016/03/03/ggplot2-2-1-0/
+      - text: "Version 2.0.0"
+        href: https://blog.rstudio.com/2015/12/21/ggplot2-2-0-0/
+      - text: "Version 1.0.0"
+        href: https://blog.rstudio.com/2015/01/09/ggplot2-updates/
+      - text: "------------------"
+      - text: "Change log"
+        href: news/index.html
+    extensions:
+      text: Extensions
+      href: http://www.ggplot2-exts.org/gallery/
