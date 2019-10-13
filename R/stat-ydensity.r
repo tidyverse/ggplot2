@@ -27,6 +27,7 @@ stat_ydensity <- function(mapping = NULL, data = NULL,
                           trim = TRUE,
                           scale = "area",
                           na.rm = FALSE,
+                          orientation = NA,
                           show.legend = NA,
                           inherit.aes = TRUE) {
   scale <- match.arg(scale, c("area", "count", "width"))
@@ -60,8 +61,16 @@ StatYdensity <- ggproto("StatYdensity", Stat,
   required_aes = c("x", "y"),
   non_missing_aes = "weight",
 
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
+
+    params
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
   compute_group = function(data, scales, width = NULL, bw = "nrd0", adjust = 1,
-                       kernel = "gaussian", trim = TRUE, na.rm = FALSE) {
+                       kernel = "gaussian", trim = TRUE, na.rm = FALSE, flipped_aes = FALSE) {
     if (nrow(data) < 3) return(new_data_frame())
     range <- range(data$y, na.rm = TRUE)
     modifier <- if (trim) 0 else 3
@@ -83,7 +92,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
 
   compute_panel = function(self, data, scales, width = NULL, bw = "nrd0", adjust = 1,
                            kernel = "gaussian", trim = TRUE, na.rm = FALSE,
-                           scale = "area") {
+                           scale = "area", flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     data <- ggproto_parent(Stat, self)$compute_panel(
       data, scales, width = width, bw = bw, adjust = adjust, kernel = kernel,
       trim = trim, na.rm = na.rm
@@ -100,7 +110,8 @@ StatYdensity <- ggproto("StatYdensity", Stat,
       # width: constant width (density scaled to a maximum of 1)
       width = data$scaled
     )
-    data
+    data$flipped_aes <- flipped_aes
+    flip_data(data, flipped_aes)
   }
 
 )

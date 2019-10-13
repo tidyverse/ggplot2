@@ -6,12 +6,14 @@
 \title{Ribbons and area plots}
 \usage{
 geom_ribbon(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, outline.type = c("both", "upper", "legacy"))
+  position = "identity", ..., na.rm = FALSE, orientation = NA,
+  show.legend = NA, inherit.aes = TRUE, outline.type = c("both",
+  "upper", "legacy"))
 
 geom_area(mapping = NULL, data = NULL, stat = "identity",
-  position = "stack", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ..., outline.type = c("upper", "both", "legacy"))
+  position = "stack", na.rm = FALSE, orientation = NA,
+  show.legend = NA, inherit.aes = TRUE, ...,
+  outline.type = c("upper", "both", "legacy"))
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -48,6 +50,11 @@ to the paired geom/stat.}
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
 
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
@@ -77,19 +84,30 @@ components is stacked is very important, as it becomes increasing hard to
 see the individual pattern as you move up the stack. See
 \code{\link[=position_stack]{position_stack()}} for the details of stacking algorithm.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Aesthetics}{
 
 \code{geom_ribbon()} understands the following aesthetics (required aesthetics are in bold):
 \itemize{
-\item \strong{\code{x}}
-\item \strong{\code{ymin}}
-\item \strong{\code{ymax}}
+\item \strong{\code{x} \emph{or} \code{y}}
+\item \strong{\code{ymin} \emph{or} \code{xmin}}
+\item \strong{\code{ymax} \emph{or} \code{xmax}}
 \item \code{alpha}
 \item \code{colour}
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
 \item \code{size}
+\item \code{x}
+\item \code{xmax}
+\item \code{xmin}
+\item \code{y}
+\item \code{ymax}
+\item \code{ymin}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -101,6 +119,9 @@ h <- ggplot(huron, aes(year))
 
 h + geom_ribbon(aes(ymin=0, ymax=level))
 h + geom_area(aes(y = level))
+
+# Change orientation be switching the mapping
+h + geom_area(aes(x = level, y = year))
 
 # Add aesthetic mappings
 h +

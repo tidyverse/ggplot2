@@ -5,9 +5,11 @@
 \alias{scale_y_discrete}
 \title{Position scales for discrete data}
 \usage{
-scale_x_discrete(..., expand = waiver(), position = "bottom")
+scale_x_discrete(..., expand = waiver(), guide = waiver(),
+  position = "bottom")
 
-scale_y_discrete(..., expand = waiver(), position = "left")
+scale_y_discrete(..., expand = waiver(), guide = waiver(),
+  position = "left")
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
@@ -70,6 +72,9 @@ to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
+\item{guide}{A function used to create a guide or its name. See
+\code{\link[=guides]{guides()}} for more information.}
+
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
 }
@@ -119,7 +124,8 @@ ggplot(mpg, aes(reorder(manufacturer, displ), cty)) +
 }
 }
 \seealso{
-Other position scales: \code{\link{scale_x_continuous}},
+Other position scales: \code{\link{scale_x_binned}},
+  \code{\link{scale_x_continuous}},
   \code{\link{scale_x_date}}
 }
 \concept{position scales}

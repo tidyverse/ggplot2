@@ -35,6 +35,7 @@ stat_density <- function(mapping = NULL, data = NULL,
                          n = 512,
                          trim = FALSE,
                          na.rm = FALSE,
+                         orientation = NA,
                          show.legend = NA,
                          inherit.aes = TRUE) {
 
@@ -53,6 +54,7 @@ stat_density <- function(mapping = NULL, data = NULL,
       n = n,
       trim = trim,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -63,19 +65,37 @@ stat_density <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatDensity <- ggproto("StatDensity", Stat,
-  required_aes = "x",
-  default_aes = aes(y = stat(density), fill = NA, weight = NULL),
+  required_aes = "x|y",
+
+  default_aes = aes(x = stat(density), y = stat(density), fill = NA, weight = NULL),
+
+  setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)
+
+    has_x <- !(is.null(data$x) && is.null(params$x))
+    has_y <- !(is.null(data$y) && is.null(params$y))
+    if (!has_x && !has_y) {
+      stop("stat_density() requires an x or y aesthetic.", call. = FALSE)
+    }
+
+    params
+  },
+
+  extra_params = c("na.rm", "orientation"),
 
   compute_group = function(data, scales, bw = "nrd0", adjust = 1, kernel = "gaussian",
-                           n = 512, trim = FALSE, na.rm = FALSE) {
+                           n = 512, trim = FALSE, na.rm = FALSE, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     if (trim) {
       range <- range(data$x, na.rm = TRUE)
     } else {
-      range <- scales$x$dimension()
+      range <- scales[[flipped_names(flipped_aes)$x]]$dimension()
     }
 
-    compute_density(data$x, data$weight, from = range[1], to = range[2],
-      bw = bw, adjust = adjust, kernel = kernel, n = n)
+    density <- compute_density(data$x, data$weight, from = range[1],
+      to = range[2], bw = bw, adjust = adjust, kernel = kernel, n = n)
+    density$flipped_aes <- flipped_aes
+    flip_data(density, flipped_aes)
   }
 
 )

@@ -5,6 +5,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
                           ...,
                           fatten = 2.5,
                           na.rm = FALSE,
+                          orientation = NA,
                           show.legend = NA,
                           inherit.aes = TRUE) {
   layer(
@@ -18,6 +19,7 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
     params = list(
       fatten = fatten,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -28,6 +30,12 @@ geom_crossbar <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomCrossbar <- ggproto("GeomCrossbar", Geom,
+  setup_params = function(data, params) {
+    GeomErrorbar$setup_params(data, params)
+  },
+
+  extra_params = c("na.rm", "orientation"),
+
   setup_data = function(data, params) {
     GeomErrorbar$setup_data(data, params)
   },
@@ -35,11 +43,13 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
   default_aes = aes(colour = "black", fill = NA, size = 0.5, linetype = 1,
     alpha = NA),
 
-  required_aes = c("x", "y", "ymin", "ymax"),
+  required_aes = c("x", "y", "ymin|xmin", "ymax|xmax"),
 
   draw_key = draw_key_crossbar,
 
-  draw_panel = function(data, panel_params, coord, fatten = 2.5, width = NULL) {
+  draw_panel = function(data, panel_params, coord, fatten = 2.5, width = NULL, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
+
     middle <- transform(data, x = xmin, xend = xmax, yend = y, size = size * fatten, alpha = NA)
 
     has_notch <- !is.null(data$ynotchlower) && !is.null(data$ynotchupper) &&
@@ -85,6 +95,8 @@ GeomCrossbar <- ggproto("GeomCrossbar", Geom,
         group = rep(seq_len(nrow(data)), 5) # each bar forms it's own group
       ))
     }
+    box <- flip_data(box, flipped_aes)
+    middle <- flip_data(middle, flipped_aes)
 
     ggname("geom_crossbar", gTree(children = gList(
       GeomPolygon$draw_panel(box, panel_params, coord),

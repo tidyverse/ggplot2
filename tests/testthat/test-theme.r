@@ -99,6 +99,29 @@ test_that("calculating theme element inheritance works", {
   # Check that a theme_blank in a parent node gets passed along to children
   t <- theme_grey() + theme(text = element_blank())
   expect_identical(calc_element('axis.title.x', t), element_blank())
+
+  # Check that inheritance from derived class works
+  element_dummyrect <- function(dummy) { # like element_rect but w/ dummy argument
+    structure(list(
+      fill = NULL, colour = NULL, dummy = dummy, size = NULL,
+      linetype = NULL, inherit.blank = FALSE
+    ), class = c("element_dummyrect", "element_rect", "element"))
+  }
+
+  e <- calc_element(
+    "panel.background",
+    theme(
+      rect = element_rect(fill = "white", colour = "black", size = 0.5, linetype = 1),
+      panel.background = element_dummyrect(dummy = 5))
+  )
+
+  expect_identical(
+    e,
+    structure(list(
+      fill = "white", colour = "black", dummy = 5, size = 0.5, linetype = 1,
+      inherit.blank = FALSE
+    ), class = c("element_dummyrect", "element_rect", "element"))
+  )
 })
 
 test_that("complete and non-complete themes interact correctly with each other", {
