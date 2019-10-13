@@ -196,6 +196,31 @@ test_that("theme(validate=FALSE) means do not validate_element", {
   expect_equal(red.before$theme$animint.width, 500)
 })
 
+test_that("theme validation happens at build stage", {
+  # adding a non-valid theme element to a theme is no problem
+  expect_silent(theme_gray() + theme(text = 0))
+
+  # the error occurs when we try to render the plot
+  p <- ggplot() + theme(text = 0)
+  expect_error(print(p), "must be an `element_text`")
+
+  # without validation, the error occurs when the element is accessed
+  p <- ggplot() + theme(text = 0, validate = FALSE)
+  expect_error(print(p), "text should have class element_text")
+})
+
+test_that("element tree can be modified", {
+  # we cannot add a new theme element without modifying the element tree
+  p <- ggplot() + theme(blablabla = element_text())
+  expect_error(print(p), "Theme element `blablabla` is not defined in the element hierarchy")
+
+  # things work once we add a new element to the element tree
+  q <- p + theme(
+    element_tree = list(blablabla = el_def("element_text", "text"))
+  )
+  expect_silent(print(q))
+})
+
 test_that("all elements in complete themes have inherit.blank=TRUE", {
   inherit_blanks <- function(theme) {
     all(vapply(theme, function(el) {
