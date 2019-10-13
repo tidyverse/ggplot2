@@ -19,6 +19,9 @@
 #'   [geom_polygon()] for general polygons
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param outline.type Type of the outline of the area; `"both"` draws both the
+#'   upper and lower lines, `"upper"` draws the upper lines only. `"legacy"`
+#'   draws a closed polygon around the area.
 #' @export
 #' @examples
 #' # Generate data
@@ -37,7 +40,10 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
                         ...,
                         na.rm = FALSE,
                         show.legend = NA,
-                        inherit.aes = TRUE) {
+                        inherit.aes = TRUE,
+                        outline.type = c("both", "upper", "legacy")) {
+  outline.type <- match.arg(outline.type)
+
   layer(
     data = data,
     mapping = mapping,
@@ -48,6 +54,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      outline.type = outline.type,
       ...
     )
   )
@@ -78,7 +85,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data
   },
 
-  draw_group = function(data, panel_params, coord, na.rm = FALSE) {
+  draw_group = function(data, panel_params, coord, na.rm = FALSE, outline.type = "both") {
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group), ]
 
@@ -113,14 +120,21 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       default.units = "native",
       gp = gpar(
         fill = alpha(aes$fill, aes$alpha),
-        col = NA
+        col = if (identical(outline.type, "legacy")) aes$colour else NA
       )
     )
 
+    if (identical(outline.type, "legacy")) {
+      return(ggname("geom_ribbon", g_poly))
+    }
+
     munched_lines <- munched
     # increment the IDs of the lower line
-    munched_lines$id <- munched_lines$id + rep(c(0, max(ids, na.rm = TRUE)), each = length(ids))
-
+    munched_lines$id <- switch(outline.type,
+      both = munched_lines$id + rep(c(0, max(ids, na.rm = TRUE)), each = length(ids)),
+      upper = munched_lines$id + rep(c(0, NA), each = length(ids)),
+      abort(paste("inlvaid outline.type:", outline.type))
+    )
     g_lines <- polylineGrob(
       munched_lines$x, munched_lines$y, id = munched_lines$id,
       default.units = "native",
@@ -132,13 +146,17 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     ggname("geom_ribbon", grobTree(g_poly, g_lines))
   }
+
 )
 
 #' @rdname geom_ribbon
 #' @export
 geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "stack", na.rm = FALSE, show.legend = NA,
-                      inherit.aes = TRUE, ...) {
+                      inherit.aes = TRUE, ...,
+                      outline.type = c("upper", "both", "legacy")) {
+  outline.type <- match.arg(outline.type)
+
   layer(
     data = data,
     mapping = mapping,
@@ -149,6 +167,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      outline.type = outline.type,
       ...
     )
   )

@@ -7,11 +7,11 @@
 \usage{
 geom_ribbon(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+  inherit.aes = TRUE, outline.type = c("both", "upper", "legacy"))
 
 geom_area(mapping = NULL, data = NULL, stat = "identity",
   position = "stack", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+  inherit.aes = TRUE, ..., outline.type = c("upper", "both", "legacy"))
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -58,6 +58,10 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+
+\item{outline.type}{Type of the outline of the area; \code{"both"} draws both the
+upper and lower lines, \code{"upper"} draws the upper lines only. \code{"legacy"}
+draws a closed polygon around the area.}
 }
 \description{
 For each x value, \code{geom_ribbon()} displays a y interval defined
