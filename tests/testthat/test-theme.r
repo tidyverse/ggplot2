@@ -211,7 +211,7 @@ test_that("theme validation happens at build stage", {
 
 test_that("element tree can be modified", {
   # we cannot add a new theme element without modifying the element tree
-  p <- ggplot() + theme(blablabla = element_text())
+  p <- ggplot() + theme(blablabla = element_text(colour = "red"))
   expect_error(print(p), "Theme element `blablabla` is not defined in the element hierarchy")
 
   # things work once we add a new element to the element tree
@@ -219,6 +219,16 @@ test_that("element tree can be modified", {
     element_tree = list(blablabla = el_def("element_text", "text"))
   )
   expect_silent(print(q))
+
+  # inheritance and final calculation of novel element works
+  final_theme <- ggplot2:::plot_theme(q, theme_gray())
+  e1 <- calc_element("blablabla", final_theme)
+  e2 <- calc_element("text", final_theme)
+  expect_identical(e1$family, e2$family)
+  expect_identical(e1$face, e2$face)
+  expect_identical(e1$size, e2$size)
+  expect_identical(e1$lineheight, e2$lineheight)
+  expect_identical(e1$colour, "red") # not inherited from element_text
 })
 
 test_that("all elements in complete themes have inherit.blank=TRUE", {

@@ -106,12 +106,16 @@ theme_replace <- function(...) {
   e1[names(e2)] <- e2
 
   # replace element tree if provided
+  # note: this *does not* merge element trees, it
+  # simply overwrites the first if the second is present.
   attr(e1, "element_tree") <-
     attr(e2, "element_tree", exact = TRUE) %||%
       attr(e1, "element_tree", exact = TRUE)
 
-  # `complete` and `validate` are ignored.
-  # Not sure how `%+replace%` should handle them.
+  # comment by @clauswilke:
+  # `complete` and `validate` are currently ignored,
+  # which means they are taken from e1. Is this correct?
+  # I'm not sure how `%+replace%` should handle them.
 
   e1
 }

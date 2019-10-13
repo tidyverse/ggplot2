@@ -10,7 +10,7 @@
 #'   - `element_text`: text.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
-#' `margins()` is used to specify the margins of elements.
+#' `margin()` is used to specify the margins of elements.
 #'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
@@ -274,9 +274,11 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 
 #' Define an element's class and what other elements it inherits from
 #'
-#' @param class The name of class (like "element_line", "element_text",
-#'  or the reserved "character", which implies a character or numeric
-#'  vector, not a class called "character").
+#' @param class The name of the element class. Examples are "element_line" or
+#'  "element_text" or "unit", or one of the two reserved keywords "character" or
+#'  "margin". The reserved keyword "character" implies a character
+#'  or numeric vector, not a class called "character". The keyword
+#'  "margin" implies a unit vector of length 4, as created by [margin()].
 #' @param inherit A vector of strings, naming the elements that this
 #'  element inherits from.
 #' @param description An optional character vector providing a description
