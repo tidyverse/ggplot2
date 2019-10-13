@@ -53,5 +53,5 @@ test_that("outline.type option works", {
   # geom_area()'s default is upper
   expect_s3_class(g_area_default$children[[1]]$children[[1]], "polygon")
   expect_s3_class(g_area_default$children[[1]]$children[[2]], "polyline")
-  expect_equal(g_ribbon_default$children[[1]]$children[[2]]$id, rep(c(1L, NA), each = 4))
+  expect_equal(g_area_default$children[[1]]$children[[2]]$id, rep(c(1L, NA), each = 4))
 })
