@@ -48,8 +48,8 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
                         orientation = NA,
                         show.legend = NA,
                         inherit.aes = TRUE,
-                        outline.type = c("both", "upper", "legacy")) {
-  outline.type <- match.arg(outline.type)
+                        outline.type = "both") {
+  outline.type <- match.arg(outline.type, c("both", "upper", "legacy"))
 
   layer(
     data = data,
@@ -177,8 +177,8 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "stack", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...,
-                      outline.type = c("upper", "both", "legacy")) {
-  outline.type <- match.arg(outline.type)
+                      outline.type = "upper") {
+  outline.type <- match.arg(outline.type, c("both", "upper", "legacy"))
 
   layer(
     data = data,

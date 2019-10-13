@@ -7,13 +7,11 @@
 \usage{
 geom_ribbon(mapping = NULL, data = NULL, stat = "identity",
   position = "identity", ..., na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE, outline.type = c("both",
-  "upper", "legacy"))
+  show.legend = NA, inherit.aes = TRUE, outline.type = "both")
 
 geom_area(mapping = NULL, data = NULL, stat = "identity",
   position = "stack", na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE, ...,
-  outline.type = c("upper", "both", "legacy"))
+  show.legend = NA, inherit.aes = TRUE, ..., outline.type = "upper")
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
