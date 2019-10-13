@@ -31,7 +31,7 @@ test_that("outline.type option works", {
   df <- data_frame(x = 1:4, y = c(1, 1, 1, 1))
 
   p <- ggplot(df, aes(x, ymin = -y, ymax = y))
-  
+
   g_ribbon_default <- layer_grob(p + geom_ribbon())[[1]]
   g_ribbon_upper   <- layer_grob(p + geom_ribbon(outline.type = "upper"))[[1]]
   g_ribbon_legacy  <- layer_grob(p + geom_ribbon(outline.type = "legacy"))[[1]]
