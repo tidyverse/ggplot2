@@ -26,3 +26,32 @@ test_that("geom_ribbon works in both directions", {
   y$flipped_aes <- NULL
   expect_identical(x, flip_data(y, TRUE)[,names(x)])
 })
+
+test_that("outline.type option works", {
+  df <- data_frame(x = 1:4, y = c(1, 1, 1, 1))
+
+  p <- ggplot(df, aes(x, ymin = -y, ymax = y))
+  
+  g_ribbon_default <- layer_grob(p + geom_ribbon())[[1]]
+  g_ribbon_upper   <- layer_grob(p + geom_ribbon(outline.type = "upper"))[[1]]
+  g_ribbon_legacy  <- layer_grob(p + geom_ribbon(outline.type = "legacy"))[[1]]
+  g_area_default   <- layer_grob(ggplot(df, aes(x, y)) + geom_area())[[1]]
+
+  # default
+  expect_s3_class(g_ribbon_default$children[[1]]$children[[1]], "polygon")
+  expect_s3_class(g_ribbon_default$children[[1]]$children[[2]], "polyline")
+  expect_equal(g_ribbon_default$children[[1]]$children[[2]]$id, rep(c(1L, 2L), each = 4))
+
+  # upper
+  expect_s3_class(g_ribbon_upper$children[[1]]$children[[1]], "polygon")
+  expect_s3_class(g_ribbon_upper$children[[1]]$children[[2]], "polyline")
+  expect_equal(g_ribbon_upper$children[[1]]$children[[2]]$id, rep(c(1L, NA), each = 4))
+
+  # legacy
+  expect_s3_class(g_ribbon_legacy$children[[1]], "polygon")
+
+  # geom_area()'s default is upper
+  expect_s3_class(g_area_default$children[[1]]$children[[1]], "polygon")
+  expect_s3_class(g_area_default$children[[1]]$children[[2]], "polyline")
+  expect_equal(g_ribbon_default$children[[1]]$children[[2]]$id, rep(c(1L, NA), each = 4))
+})
