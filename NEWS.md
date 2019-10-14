@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* Added `position_nudgestack()`, which allows to nudge stacked columns. (@ThomasKnecht )
+
 * A new scale type has been added, that allows binning of aesthetics at the 
   scale level. It has versions for both position and non-position aesthetics and
   comes with two new guides (`guide_bins` and `guide_coloursteps`) (@thomasp85, #3096)

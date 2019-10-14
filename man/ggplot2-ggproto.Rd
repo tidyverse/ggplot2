@@ -14,15 +14,15 @@
 %   R/geom-spoke.r, R/geom-text.r, R/geom-tile.r, R/geom-violin.r,
 %   R/geom-vline.r, R/layout.R, R/position-.r, R/position-dodge.r,
 %   R/position-dodge2.r, R/position-identity.r, R/position-jitter.r,
-%   R/position-jitterdodge.R, R/position-nudge.R, R/position-stack.r,
-%   R/scale-.r, R/scale-binned.R, R/scale-continuous.r, R/scale-date.r,
-%   R/scale-discrete-.r, R/scale-identity.r, R/stat-bin.r, R/stat-bin2d.r,
-%   R/stat-bindot.r, R/stat-binhex.r, R/stat-boxplot.r, R/stat-contour.r,
-%   R/stat-count.r, R/stat-density-2d.r, R/stat-density.r, R/stat-ecdf.r,
-%   R/stat-ellipse.R, R/stat-function.r, R/stat-identity.r, R/stat-qq-line.R,
-%   R/stat-qq.r, R/stat-quantile.r, R/stat-smooth.r, R/stat-sum.r,
-%   R/stat-summary-2d.r, R/stat-summary-bin.R, R/stat-summary-hex.r,
-%   R/stat-summary.r, R/stat-unique.r, R/stat-ydensity.r
+%   R/position-jitterdodge.R, R/position-nudge.R, R/position-nudgestack.R,
+%   R/position-stack.r, R/scale-.r, R/scale-binned.R, R/scale-continuous.r,
+%   R/scale-date.r, R/scale-discrete-.r, R/scale-identity.r, R/stat-bin.r,
+%   R/stat-bin2d.r, R/stat-bindot.r, R/stat-binhex.r, R/stat-boxplot.r,
+%   R/stat-contour.r, R/stat-count.r, R/stat-density-2d.r, R/stat-density.r,
+%   R/stat-ecdf.r, R/stat-ellipse.R, R/stat-function.r, R/stat-identity.r,
+%   R/stat-qq-line.R, R/stat-qq.r, R/stat-quantile.r, R/stat-smooth.r,
+%   R/stat-sum.r, R/stat-summary-2d.r, R/stat-summary-bin.R,
+%   R/stat-summary-hex.r, R/stat-summary.r, R/stat-unique.r, R/stat-ydensity.r
 \docType{data}
 \name{ggplot2-ggproto}
 \alias{ggplot2-ggproto}
@@ -90,6 +90,7 @@
 \alias{PositionJitter}
 \alias{PositionJitterdodge}
 \alias{PositionNudge}
+\alias{PositionNudgeStack}
 \alias{PositionStack}
 \alias{PositionFill}
 \alias{Scale}

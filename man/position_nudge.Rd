@@ -39,6 +39,7 @@ Other position adjustments: \code{\link{position_dodge}},
   \code{\link{position_identity}},
   \code{\link{position_jitterdodge}},
   \code{\link{position_jitter}},
+  \code{\link{position_nudgestack}},
   \code{\link{position_stack}}
 }
 \concept{position adjustments}

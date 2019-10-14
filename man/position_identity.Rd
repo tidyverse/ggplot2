@@ -13,6 +13,7 @@ Don't adjust position
 Other position adjustments: \code{\link{position_dodge}},
   \code{\link{position_jitterdodge}},
   \code{\link{position_jitter}},
+  \code{\link{position_nudgestack}},
   \code{\link{position_nudge}},
   \code{\link{position_stack}}
 }

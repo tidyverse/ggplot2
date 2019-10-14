@@ -40,6 +40,7 @@ ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
 Other position adjustments: \code{\link{position_dodge}},
   \code{\link{position_identity}},
   \code{\link{position_jitter}},
+  \code{\link{position_nudgestack}},
   \code{\link{position_nudge}},
   \code{\link{position_stack}}
 }
