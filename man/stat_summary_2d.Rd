@@ -103,11 +103,13 @@ d + stat_summary_2d()
 
 # Specifying function
 d + stat_summary_2d(fun = function(x) sum(x^2))
+d + stat_summary_2d(fun = ~ sum(.x^2))
 d + stat_summary_2d(fun = var)
 d + stat_summary_2d(fun = "quantile", fun.args = list(probs = 0.1))
 
 if (requireNamespace("hexbin")) {
 d + stat_summary_hex()
+d + stat_summary_hex(fun = ~ sum(.x^2))
 }
 }
 \seealso{
