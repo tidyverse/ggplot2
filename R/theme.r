@@ -436,9 +436,13 @@ plot_theme <- function(x, default = theme_get()) {
 #' @keywords internal
 add_theme <- function(t1, t2, t2name) {
   if (!is.theme(t2)) {
-    stop("Don't know how to add RHS to a theme object",
+    stop("Don't know how to add ", t2name, " to a theme object",
       call. = FALSE)
   }
+
+  # If t2 is a complete theme, just replace everything with the new theme
+  if (is_theme_complete(t2))
+    return(t2)
 
   # Iterate over the elements that are to be updated
   for (item in names(t2)) {
@@ -463,58 +467,9 @@ add_theme <- function(t1, t2, t2name) {
     t1[item] <- list(x)
   }
 
-  # If either theme is complete, then the combined theme is complete
-  attr(t1, "complete") <- is_theme_complete(t1) || is_theme_complete(t2)
   t1
 }
 
-
-# Update a theme from a plot object
-#
-# This is called from add_ggplot.
-#
-# If newtheme is a *complete* theme, then it is meant to replace
-# oldtheme; this function just returns newtheme.
-#
-# Otherwise, it adds elements from newtheme to oldtheme:
-# If oldtheme doesn't already contain those elements,
-# it searches the current default theme, grabs the elements with the
-# same name as those from newtheme, and puts them in oldtheme. Then
-# it adds elements from newtheme to oldtheme.
-# This makes it possible to do things like:
-#   ggplot(data.frame(x = 1:3, y = 1:3)) +
-#   geom_point() + theme(text = element_text(colour = 'red'))
-# and have 'text' keep properties from the default theme. Otherwise
-# you would have to set all the element properties, like family, size,
-# etc.
-#
-# @param oldtheme an existing theme, usually from a plot object, like
-#   plot$theme. This could be an empty list.
-# @param newtheme a new theme object to add to the existing theme
-update_theme <- function(oldtheme, newtheme) {
-  # If the newtheme is a complete one, don't bother searching
-  # the default theme -- just replace everything with newtheme
-  if (is_theme_complete(newtheme))
-    return(newtheme)
-
-  # These are elements in newtheme that aren't already set in oldtheme.
-  # They will be pulled from the default theme.
-  newitems <- !names(newtheme) %in% names(oldtheme)
-  newitem_names <- names(newtheme)[newitems]
-  oldtheme[newitem_names] <- theme_get()[newitem_names]
-
-  # Update the theme elements with the things from newtheme
-  # Turn the 'theme' list into a proper theme object first, and preserve
-  # the 'complete' attribute. It's possible that oldtheme is an empty
-  # list, and in that case, set complete to FALSE.
-  old.validate <- isTRUE(attr(oldtheme, "validate"))
-  new.validate <- isTRUE(attr(newtheme, "validate"))
-  oldtheme <- do.call(theme, c(oldtheme,
-    complete = isTRUE(attr(oldtheme, "complete")),
-    validate = old.validate & new.validate))
-
-  oldtheme + newtheme
-}
 
 #' Calculate the element properties, by inheriting properties from its parents
 #'
