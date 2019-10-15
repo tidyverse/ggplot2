@@ -440,26 +440,13 @@ add_theme <- function(t1, t2, t2name) {
       call. = FALSE)
   }
 
-  # If t2 is a complete theme, just replace everything with the new theme
-  if (is_theme_complete(t2))
+  # If t2 is a complete theme or t1 is NULL, just return t2
+  if (is_theme_complete(t2) || is.null(t1))
     return(t2)
 
   # Iterate over the elements that are to be updated
   for (item in names(t2)) {
-    x <- t1[[item]]
-    y <- t2[[item]]
-
-    if (is.null(x) || inherits(x, "element_blank")) {
-      # If x is NULL or element_blank, then just assign it y
-      x <- y
-    } else if (is.null(y) || is.character(y) || is.numeric(y) || is.unit(y) ||
-               is.logical(y) || inherits(y, "element_blank")) {
-      # If y is NULL, or a string or numeric vector, or is element_blank, just replace x
-      x <- y
-    } else {
-      # If x is not NULL, then merge into y
-      x <- merge_element(y, x)
-    }
+    x <- merge_element(t2[[item]], t1[[item]])
 
     # Assign it back to t1
     # This is like doing t1[[item]] <- x, except that it preserves NULLs.
@@ -467,6 +454,9 @@ add_theme <- function(t1, t2, t2name) {
     t1[item] <- list(x)
   }
 
+  # make sure the "complete" attribute is set; this can be missing
+  # when t1 is an empty list
+  attr(t1, "complete") <- is_theme_complete(t1)
   t1
 }
 
@@ -494,16 +484,25 @@ add_theme <- function(t1, t2, t2name) {
 calc_element <- function(element, theme, verbose = FALSE) {
   if (verbose) message(element, " --> ", appendLF = FALSE)
 
-  # If this is element_blank, don't inherit anything from parents
-  if (inherits(theme[[element]], "element_blank")) {
+  # if theme is not complete, merge element with theme defaults,
+  # otherwise take it as is. This fills in theme defaults if no
+  # explicit theme is set for the plot.
+  if (!is_theme_complete(theme)) {
+    el_out <- merge_element(theme[[element]], theme_get()[[element]])
+  } else {
+    el_out <- theme[[element]]
+  }
+
+  # If result is element_blank, don't inherit anything from parents
+  if (inherits(el_out, "element_blank")) {
     if (verbose) message("element_blank (no inheritance)")
-    return(theme[[element]])
+    return(el_out)
   }
 
   # If the element is defined (and not just inherited), check that
   # it is of the class specified in .element_tree
-  if (!is.null(theme[[element]]) &&
-      !inherits(theme[[element]], ggplot_global$element_tree[[element]]$class)) {
+  if (!is.null(el_out) &&
+      !inherits(el_out, ggplot_global$element_tree[[element]]$class)) {
     stop(element, " should have class ", ggplot_global$element_tree[[element]]$class)
   }
 
@@ -512,15 +511,23 @@ calc_element <- function(element, theme, verbose = FALSE) {
 
   # If no parents, this is a "root" node. Just return this element.
   if (is.null(pnames)) {
+    if (verbose) message("nothing (top level)")
+
     # Check that all the properties of this element are non-NULL
-    nullprops <- vapply(theme[[element]], is.null, logical(1))
-    if (any(nullprops)) {
-      stop("Theme element '", element, "' has NULL property: ",
-        paste(names(nullprops)[nullprops], collapse = ", "))
+    nullprops <- vapply(el_out, is.null, logical(1))
+    if (!any(nullprops)) {
+      return(el_out) # no null properties, return element as is
     }
 
-    if (verbose) message("nothing (top level)")
-    return(theme[[element]])
+    # if we have null properties, try to fill in from theme_gray()
+    el_out <- combine_elements(el_out, theme_gray()[[element]])
+    nullprops <- vapply(el_out, is.null, logical(1))
+    if (!any(nullprops)) {
+      return(el_out) # no null properties remaining, return element
+    }
+
+    stop("Theme element '", element, "' has NULL property without default: ",
+         paste(names(nullprops)[nullprops], collapse = ", "))
   }
 
   # Calculate the parent objects' inheritance
@@ -528,7 +535,7 @@ calc_element <- function(element, theme, verbose = FALSE) {
   parents <- lapply(pnames, calc_element, theme, verbose)
 
   # Combine the properties of this element with all parents
-  Reduce(combine_elements, parents, theme[[element]])
+  Reduce(combine_elements, parents, el_out)
 }
 
 #' Merge a parent element into a child element
@@ -552,17 +559,43 @@ calc_element <- function(element, theme, verbose = FALSE) {
 merge_element <- function(new, old) {
   UseMethod("merge_element")
 }
+
 #' @rdname merge_element
 #' @export
 merge_element.default <- function(new, old) {
+  if (is.null(old) || inherits(old, "element_blank")) {
+    # If old is NULL or element_blank, then just return new
+    return(new)
+  } else if (is.null(new) || is.character(new) || is.numeric(new) || is.unit(new) ||
+             is.logical(new)) {
+    # If new is NULL, or a string, numeric vector, unit, or logical, just return it
+    return(new)
+  }
+
+  # otherwise we can't merge
   stop("No method for merging ", class(new)[1], " into ", class(old)[1], call. = FALSE)
 }
+
+#' @rdname merge_element
+#' @export
+merge_element.element_blank <- function(new, old) {
+  # If new is element_blank, just return it
+  new
+}
+
 #' @rdname merge_element
 #' @export
 merge_element.element <- function(new, old) {
+  if (is.null(old) || inherits(old, "element_blank")) {
+    # If old is NULL or element_blank, then just return new
+    return(new)
+  }
+
+  # actual merging can only happen if classes match
   if (!inherits(new, class(old)[1])) {
     stop("Only elements of the same class can be merged", call. = FALSE)
   }
+
   # Override NULL properties of new with the values in old
   # Get logical vector of NULL properties in new
   idx <- vapply(new, is.null, logical(1))
