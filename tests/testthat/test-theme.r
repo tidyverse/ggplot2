@@ -73,6 +73,18 @@ test_that("adding theme object to ggplot object with + operator works", {
   expect_null(p$theme$text$lineheight)
   expect_null(p$theme$text$margin)
   expect_null(p$theme$text$debug)
+
+  ## stepwise addition of partial themes is identical to one-step addition
+  p <- qplot(1:3, 1:3)
+  p1 <- p + theme_light() +
+    theme(axis.line.x = element_line(color = "blue")) +
+    theme(axis.ticks.x = element_line(color = "red"))
+
+  p2 <- p + theme_light() +
+    theme(axis.line.x = element_line(color = "blue"),
+          axis.ticks.x = element_line(color = "red"))
+
+  expect_identical(p1$theme, p2$theme)
 })
 
 test_that("replacing theme elements with %+replace% operator works", {
