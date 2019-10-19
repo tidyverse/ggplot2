@@ -17,11 +17,11 @@
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
 #'   same time, via `aesthetics = c("colour", "fill")`.
-#' @param values a set of aesthetic values to map data values to. If this
-#'   is a named vector, then the values will be matched based on the names.
-#'   If unnamed, values will be matched in order (usually alphabetical) with
-#'   the limits of the scale. Any data values that don't match will be
-#'   given `na.value`.
+#' @param values a set of aesthetic values to map data values to. The values
+#'   will be matched in order (usually alphabetical) with the limits of the
+#'   scale, or with `breaks` if provided. If this is a named vector, then the
+#'   values will be matched based on the names instead. Data values that don't
+#'   match will be given `na.value`.
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
 #' palette) are not suitable to support all viewers, especially those with
@@ -122,6 +122,18 @@ manual_scale <- function(aesthetic, values = NULL, ...) {
     values <- NULL
   } else {
     force(values)
+  }
+
+  # order values according to breaks
+  args <- list(...)
+  if (is.vector(values) && is.null(names(values))
+      && "breaks" %in% names(args)) {
+    if (length(args[["breaks"]]) != length(values)) {
+      stop("Differing number of values and breaks in manual scale. ",
+           length(values), " values provided compared to ",
+           length(args[["breaks"]]), " breaks.", call. = FALSE)
+    }
+    names(values) <- args[["breaks"]]
   }
 
   pal <- function(n) {
