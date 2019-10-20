@@ -84,6 +84,12 @@
 
 * Increase the default `nbin` of `guide_colourbar()` to place the ticks more precisely (#3508, @yutannihilation).
 
+* Modified `manual_scale` to match `values` with the order of `breaks` whenever
+  `values` is an unnamed vector. Previously, unnamed `values` would be matched
+  to the limits of the scale and ignore the order of any `breaks` provided. Note
+  that this may change the appearance of plots that previously relied on the
+  unordered behaviour. (#2429, @idno0001)
+
 # ggplot2 3.2.1
 
 This is a patch release fixing a few regressions introduced in 3.2.0 as well as
