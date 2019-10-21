@@ -33,7 +33,9 @@ pathGrob <- NULL
 
   .zeroGrob <<- grob(cl = "zeroGrob", name = "NULL")
 
-  ggplot_global$theme_current <- theme_gray()
+  # create default theme, store for later use, and set as current theme
+  ggplot_global$theme_grey <- theme_grey()
+  ggplot_global$theme_current <- ggplot_global$theme_grey
 
   # Used by rbind_dfs
   date <- Sys.Date()

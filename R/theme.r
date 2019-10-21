@@ -519,8 +519,8 @@ calc_element <- function(element, theme, verbose = FALSE) {
       return(el_out) # no null properties, return element as is
     }
 
-    # if we have null properties, try to fill in from theme_gray()
-    el_out <- combine_elements(el_out, theme_gray()[[element]])
+    # if we have null properties, try to fill in from theme_grey()
+    el_out <- combine_elements(el_out, ggplot_global$theme_grey[[element]])
     nullprops <- vapply(el_out, is.null, logical(1))
     if (!any(nullprops)) {
       return(el_out) # no null properties remaining, return element
