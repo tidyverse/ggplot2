@@ -961,7 +961,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
           breaks <- self$trans$breaks(limits)
         }
       } else {
-        n.breaks <- self$n.breaks %||% 5 # same default as trans objects
+        n.breaks <- self$n.breaks %||% 4 # same default as trans objects
         breaks <- seq(limits[1], limits[2], length.out = n.breaks + 2)
         breaks <- breaks[-c(1, length(breaks))]
       }
