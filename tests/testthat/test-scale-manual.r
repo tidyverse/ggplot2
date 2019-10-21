@@ -69,15 +69,19 @@ test_that("generic scale can be used in place of aesthetic-specific scales", {
 })
 
 test_that("named values do not match with breaks in manual scales", {
-   s <- scale_fill_manual(values = c("data_red" = "red", "data_black" = "black"),
-                          breaks = c("data_black", "data_red"))
-   s$train(c("data_black", "data_red"))
-   expect_equal(s$map(c("data_red", "data_black")), c("red", "black"))
+  s <- scale_fill_manual(
+    values = c("data_red" = "red", "data_black" = "black"),
+    breaks = c("data_black", "data_red")
+  )
+  s$train(c("data_black", "data_red"))
+  expect_equal(s$map(c("data_red", "data_black")), c("red", "black"))
 })
 
 test_that("unnamed values match breaks in manual scales", {
-   s <- scale_fill_manual(values = c("red", "black"),
-                          breaks = c("data_red", "data_black"))
-   s$train(c("data_red", "data_black"))
-   expect_equal(s$map(c("data_red", "data_black")), c("red", "black"))
+  s <- scale_fill_manual(
+    values = c("red", "black"),
+    breaks = c("data_red", "data_black")
+  )
+  s$train(c("data_red", "data_black"))
+  expect_equal(s$map(c("data_red", "data_black")), c("red", "black"))
 })
