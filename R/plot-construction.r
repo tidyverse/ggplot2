@@ -101,7 +101,7 @@ ggplot_add.data.frame <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.theme <- function(object, plot, object_name) {
-  plot$theme <- update_theme(plot$theme, object)
+  plot$theme <- add_theme(plot$theme, object)
   plot
 }
 #' @export
