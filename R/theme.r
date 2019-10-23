@@ -430,11 +430,18 @@ is_theme_validate <- function(x) {
 # substituting the defaults if needed
 complete_element_tree <- function(theme) {
   element_tree <- attr(theme, "element_tree", exact = TRUE)
-  if (is.null(element_tree)) {
+
+  # we fill in the element tree first from the current default theme,
+  # and then from the internal element tree if necessary
+  # this makes it easy for extension packages to provide modified
+  # default element trees
+  defaults(
+    defaults(
+      element_tree,
+      attr(theme_get(), "element_tree", exact = TRUE)
+    ),
     ggplot_global$element_tree
-  } else {
-    defaults(element_tree, ggplot_global$element_tree)
-  }
+  )
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
