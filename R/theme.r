@@ -533,19 +533,17 @@ add_theme <- function(t1, t2, t2name) {
 calc_element <- function(element, theme, verbose = FALSE) {
   if (verbose) message(element, " --> ", appendLF = FALSE)
 
-  # If the theme is not complete, merge element with theme defaults,
-  # otherwise take it as is (unless not defined at all). This fills
-  # in theme defaults if no explicit theme is set for the plot.
-  if (!is_theme_complete(theme)) {
-    el_out <- merge_element(theme[[element]], theme_get()[[element]])
+  # If the element is not at all in the theme, get it from the default theme
+  if (!element %in% names(theme)) {
+    el_out <- theme_get()[[element]]
   } else {
-    # if the element is explicitly named (even if NULL), we assume
-    # that it is set to its proper value. However, if it is missing
-    # entirely, we get it from the default theme.
-    if (element %in% names(theme)) {
+    # If the theme is complete, take the element as is, and otherwise
+    # merge it with theme defaults. This fills in theme defaults if no
+    # explicit theme is set for the plot.
+    if (is_theme_complete(theme)) {
       el_out <- theme[[element]]
     } else {
-      el_out <- theme_get()[[element]]
+      el_out <- merge_element(theme[[element]], theme_get()[[element]])
     }
   }
 

@@ -322,6 +322,40 @@ test_that("complete plot themes shouldn't inherit from default", {
   expect_null(ptheme$axis.text.x)
 })
 
+test_that("element calculations are identical for current theme and empty theme", {
+  old <- theme_set(theme_grey())
+
+  # works for root element
+  expect_identical(
+    calc_element("text", theme_get()),
+    calc_element("text", theme())
+  )
+
+  # works for derived element
+  expect_identical(
+    calc_element("axis.text.x", theme_get()),
+    calc_element("axis.text.x", theme())
+  )
+
+  # theme calculation for nonexisting element returns NULL
+  expect_identical(calc_element("abcde", theme()), NULL)
+
+  # element tree gets merged properly
+  theme_update(
+    abcde = element_text(color = "blue", hjust = 0, vjust = 1, inherit.blank = TRUE),
+    element_tree = list(abcde = el_def("element_text", "text"))
+  )
+
+  e1 <- calc_element("abcde", theme())
+  e2 <- calc_element("text", theme())
+  e2$colour <- "blue"
+  e2$hjust <- 0
+  e2$vjust <- 1
+  expect_identical(e1, e2)
+
+  theme_set(old)
+})
+
 test_that("titleGrob() and margins() work correctly", {
   # ascenders and descenders
   g1 <- titleGrob("aaaa", 0, 0, 0.5, 0.5) # lower-case letters, no ascenders or descenders
