@@ -201,12 +201,32 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
       range_info <- temp_scale$break_info()
 
       # Map the break values back to their correct position on the primary scale
-      old_val <- lapply(range_info$major_source, function(x) which.min(abs(full_range - x)))
-      old_val <- old_range[unlist(old_val)]
+      old_val <- sapply(range_info$major_source, function(x) {
+                which_less <- full_range < x
+                index_lower <- which(which_less & (abs(full_range - x) == min(abs(full_range[which_less] - x))))
+
+                which_greater <- full_range > x
+                index_upper <- which(which_greater & abs(full_range - x) == min(abs(full_range[which_greater] - x)))
+
+                index <- c(index_lower, index_upper)
+
+                offset <- approx(full_range[index], c(0, 1), x)$y
+                approx(c(0, 1), old_range[index], offset)$y
+            })
       old_val_trans <- scale$trans$transform(old_val)
 
-      old_val_minor <- lapply(range_info$minor_source, function(x) which.min(abs(full_range - x)))
-      old_val_minor <- old_range[unlist(old_val_minor)]
+      old_val_minor <- sapply(range_info$minor_source, function(x) {
+                which_less <- full_range < x
+                index_lower <- which(which_less & (abs(full_range - x) == min(abs(full_range[which_less] - x))))
+
+                which_greater <- full_range > x
+                index_upper <- which(which_greater & abs(full_range - x) == min(abs(full_range[which_greater] - x)))
+
+                index <- c(index_lower, index_upper)
+
+                offset <- approx(full_range[index], c(0, 1), x)$y
+                approx(c(0, 1), old_range[index], offset)$y
+            })
       old_val_minor_trans <- scale$trans$transform(old_val_minor)
 
       # rescale values from 0 to 1
