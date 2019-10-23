@@ -42,8 +42,8 @@ test_that("modifying theme element properties with + operator works", {
 })
 
 test_that("adding theme object to ggplot object with + operator works", {
-
-  p <- qplot(1:3, 1:3)
+  ## test with complete theme
+  p <- qplot(1:3, 1:3) + theme_grey()
   p <- p + theme(axis.title = element_text(size = 20))
   expect_true(p$theme$axis.title$size == 20)
 
@@ -55,6 +55,36 @@ test_that("adding theme object to ggplot object with + operator works", {
   expect_true(tt$inherit.blank)
   tt$inherit.blank <- FALSE
   expect_identical(p$theme$text, tt)
+
+  ## test without complete theme
+  p <- qplot(1:3, 1:3)
+  p <- p + theme(axis.title = element_text(size = 20))
+  expect_true(p$theme$axis.title$size == 20)
+
+  # Should update specified properties, but not reset other properties
+  p <- p + theme(text = element_text(colour = 'red'))
+  expect_true(p$theme$text$colour == 'red')
+  expect_null(p$theme$text$family)
+  expect_null(p$theme$text$face)
+  expect_null(p$theme$text$size)
+  expect_null(p$theme$text$hjust)
+  expect_null(p$theme$text$vjust)
+  expect_null(p$theme$text$angle)
+  expect_null(p$theme$text$lineheight)
+  expect_null(p$theme$text$margin)
+  expect_null(p$theme$text$debug)
+
+  ## stepwise addition of partial themes is identical to one-step addition
+  p <- qplot(1:3, 1:3)
+  p1 <- p + theme_light() +
+    theme(axis.line.x = element_line(color = "blue")) +
+    theme(axis.ticks.x = element_line(color = "red"))
+
+  p2 <- p + theme_light() +
+    theme(axis.line.x = element_line(color = "blue"),
+          axis.ticks.x = element_line(color = "red"))
+
+  expect_identical(p1$theme, p2$theme)
 })
 
 test_that("replacing theme elements with %+replace% operator works", {
@@ -112,14 +142,16 @@ test_that("calculating theme element inheritance works", {
     "panel.background",
     theme(
       rect = element_rect(fill = "white", colour = "black", size = 0.5, linetype = 1),
-      panel.background = element_dummyrect(dummy = 5))
+      panel.background = element_dummyrect(dummy = 5),
+      complete = TRUE # need to prevent pulling in default theme
+    )
   )
 
   expect_identical(
     e,
     structure(list(
       fill = "white", colour = "black", dummy = 5, size = 0.5, linetype = 1,
-      inherit.blank = FALSE
+      inherit.blank = TRUE # this is true because we're requesting a complete theme
     ), class = c("element_dummyrect", "element_rect", "element"))
   )
 })
