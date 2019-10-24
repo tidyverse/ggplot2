@@ -18,6 +18,10 @@
   `colour = c("red", "green", "blue")`. Such use is discouraged and not officially supported
    (@clauswilke, #3492).
 
+* Addition of partial themes to plots has been made more predictable;
+  stepwise addition of individual partial themes is now equivalent to
+  addition of multple theme elements at once (@clauswilke, #3039).
+
 * stacking text when calculating the labels and the y axis with
   `stat_summary()` now works (@ikosmidis, #2709)
 
