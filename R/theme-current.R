@@ -106,9 +106,9 @@ theme_replace <- function(...) {
   e1[names(e2)] <- e2
 
   # Merge element trees if provided
-  attr(t1, "element_tree") <- defaults(
-    attr(t2, "element_tree", exact = TRUE),
-    attr(t1, "element_tree", exact = TRUE)
+  attr(e1, "element_tree") <- defaults(
+    attr(e2, "element_tree", exact = TRUE),
+    attr(e1, "element_tree", exact = TRUE)
   )
 
   # comment by @clauswilke:

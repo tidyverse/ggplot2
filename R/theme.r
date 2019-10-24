@@ -448,17 +448,32 @@ complete_element_tree <- function(theme) {
 plot_theme <- function(x, default = theme_get()) {
   theme <- x$theme
 
-  if (!is_theme_complete(theme)) {
-    # can't use `defaults()` here because it strips attributes
-    missing <- setdiff(names(default), names(theme))
-    theme[missing] <- default[missing]
+  # apply theme defaults appropriately if needed
+  if (is_theme_complete(theme)) {
+    # for complete themes, we fill in missing elements but don't do any element merging
+    # can't use `defaults()` because it strips attributes
+
+    ## The following two lines cause trouble when a complete theme doesn't
+    ## properly define all elements. This is currently the case for `theme_void()`,
+    ## for example, which doesn't define (among other elements) `legend_margin`,
+    ## and that causes unexpected interactions with `theme_test()` for two vdiffr
+    ## test cases.
+    #missing <- setdiff(names(default), names(theme))
+    #theme[missing] <- default[missing]
+  } else {
+    # otherwise, we can just add the theme to the default theme
+    theme <- default + theme
   }
+
+  # complete the element tree and save back to the theme
+  element_tree <- complete_element_tree(theme)
+  attr(theme, "element_tree") <- element_tree
 
   # Check that all elements have the correct class (element_text, unit, etc)
   if (is_theme_validate(theme)) {
     mapply(
       validate_element, theme, names(theme),
-      MoreArgs = list(element_tree = complete_element_tree(theme))
+      MoreArgs = list(element_tree = element_tree)
     )
   }
 
@@ -473,9 +488,9 @@ plot_theme <- function(x, default = theme_get()) {
 #'   informative error messages.
 #' @keywords internal
 add_theme <- function(t1, t2, t2name) {
-  if (!is.theme(t2)) {
+  if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
     stop("Don't know how to add ", t2name, " to a theme object",
-      call. = FALSE)
+        call. = FALSE)
   }
 
   # If t2 is a complete theme or t1 is NULL, just return t2
@@ -533,6 +548,11 @@ add_theme <- function(t1, t2, t2name) {
 calc_element <- function(element, theme, verbose = FALSE) {
   if (verbose) message(element, " --> ", appendLF = FALSE)
 
+  el_out <- theme[[element]]
+
+  ## For efficiency, the following block of code should be replaced by
+  ## two lines in `plot_theme()`, but that doesn't currently work, as
+  ## explained there.
   # If the element is not at all in the theme, get it from the default theme
   if (!element %in% names(theme)) {
     el_out <- theme_get()[[element]]
@@ -540,10 +560,8 @@ calc_element <- function(element, theme, verbose = FALSE) {
     # If the theme is complete, take the element as is, and otherwise
     # merge it with theme defaults. This fills in theme defaults if no
     # explicit theme is set for the plot.
-    if (is_theme_complete(theme)) {
-      el_out <- theme[[element]]
-    } else {
-      el_out <- merge_element(theme[[element]], theme_get()[[element]])
+    if (!is_theme_complete(theme)) {
+      el_out <- merge_element(el_out, theme_get()[[element]])
     }
   }
 
@@ -553,9 +571,16 @@ calc_element <- function(element, theme, verbose = FALSE) {
     return(el_out)
   }
 
+  # Obtain the element tree and check that the element is in it
+  # If not, try to retrieve the complete element tree. This is
+  # needed for backwards compatibility and certain unit tests.
+  element_tree <- attr(theme, "element_tree", exact = TRUE)
+  if (!element %in% names(element_tree)) {
+    element_tree <- complete_element_tree(theme)
+  }
+
   # If the element is defined (and not just inherited), check that
   # it is of the class specified in element_tree
-  element_tree <- complete_element_tree(theme)
   if (!is.null(el_out) &&
       !inherits(el_out, element_tree[[element]]$class)) {
     stop(element, " should have class ", element_tree[[element]]$class)

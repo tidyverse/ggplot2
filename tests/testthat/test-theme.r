@@ -322,32 +322,36 @@ test_that("complete plot themes shouldn't inherit from default", {
   expect_null(ptheme$axis.text.x)
 })
 
-test_that("element calculations are identical for current theme and empty theme", {
+test_that("current theme can be updated with new elements", {
   old <- theme_set(theme_grey())
+
+  b1 <- ggplot() + theme_grey()
+  b2 <- ggplot()
 
   # works for root element
   expect_identical(
-    calc_element("text", theme_get()),
-    calc_element("text", theme())
+    calc_element("text", plot_theme(b1)),
+    calc_element("text", plot_theme(b2))
   )
 
   # works for derived element
   expect_identical(
-    calc_element("axis.text.x", theme_get()),
-    calc_element("axis.text.x", theme())
+    calc_element("axis.text.x", plot_theme(b1)),
+    calc_element("axis.text.x", plot_theme(b2))
   )
 
   # theme calculation for nonexisting element returns NULL
-  expect_identical(calc_element("abcde", theme()), NULL)
+  expect_identical(calc_element("abcde", plot_theme(b1)), NULL)
 
   # element tree gets merged properly
-  theme_update(
-    abcde = element_text(color = "blue", hjust = 0, vjust = 1, inherit.blank = TRUE),
-    element_tree = list(abcde = el_def("element_text", "text"))
+  theme_replace(
+    abcde = element_text(color = "blue", hjust = 0, vjust = 1),
+    element_tree = list(abcde = el_def("element_text", "text")),
+    complete = TRUE
   )
 
-  e1 <- calc_element("abcde", theme())
-  e2 <- calc_element("text", theme())
+  e1 <- calc_element("abcde", plot_theme(b2))
+  e2 <- calc_element("text", plot_theme(b2))
   e2$colour <- "blue"
   e2$hjust <- 0
   e2$vjust <- 1
