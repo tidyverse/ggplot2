@@ -989,8 +989,15 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
         self$limits <- self$trans$transform(limits)
       }
     } else if (is.function(self$breaks)) {
-      n.breaks <- self$n.breaks %||% 5 # same default as trans objects
-      breaks <- self$breaks(limits, n.breaks)
+      if ("n.breaks" %in% names(formals(environment(self$breaks)$f))) {
+        n.breaks <- self$n.breaks %||% 5 # same default as trans objects
+        breaks <- self$breaks(limits, n.breaks)
+      } else {
+        if (!is.null(self$n.breaks)) {
+          warning("Ignoring n.breaks. Use a breaks function that supports setting number of breaks", call. = FALSE)
+        }
+        breaks <- self$breaks(limits)
+      }      
     } else {
       breaks <- self$breaks
     }
