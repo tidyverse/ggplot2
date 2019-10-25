@@ -236,7 +236,7 @@ theme_grey <- function(base_size = 11, base_family = "",
   )
 
   # make sure all elements are set to NULL if not explicitly defined
-  theme_all_null() %+replace% t
+  ggplot_global$theme_all_null %+replace% t
 }
 #' @export
 #' @rdname ggtheme
@@ -513,7 +513,7 @@ theme_void <- function(base_size = 11, base_family = "",
   )
 
   # make sure all elements are set to NULL if not explicitly defined
-  theme_all_null() %+replace% t
+  ggplot_global$theme_all_null %+replace% t
 }
 
 
@@ -647,7 +647,7 @@ theme_test <- function(base_size = 11, base_family = "",
   )
 
   # make sure all elements are set to NULL if not explicitly defined
-  theme_all_null() %+replace% t
+  ggplot_global$theme_all_null %+replace% t
 }
 
 theme_all_null <- function() {
