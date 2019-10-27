@@ -614,14 +614,19 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
         breaks <- self$trans$minor_breaks(b, limits, n)
       }
     } else if (is.function(self$minor_breaks)) {
-      breaks_fun <- self$minor_breaks
+      # Need to reach inside of ggproto method to get actual function
+      # This is fine because it's not a method, it's a function supplied by the
+      # user that is assigned into the ggproto object on creation
+      breaks_fun <- environment(self$minor_breaks)$f
 
+      # Limits are on transformed scale, so we need to back transform
+      # so breaks function can work in original data space
       if (length(formals(breaks_fun)) == 1) {
         # Old API just gets limits
         breaks <- breaks_fun(self$trans$inverse(limits))
       } else {
         # New API gets limits and breaks
-        breaks <- breaks_fun(self$trans$inverse(limits), b)
+        breaks <- breaks_fun(self$trans$inverse(limits), self$trans$inverse(b))
       }
       breaks <- self$trans$transform(breaks)
     } else {
