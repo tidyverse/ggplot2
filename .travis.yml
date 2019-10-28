@@ -33,6 +33,15 @@ env:
 after_success:
   - Rscript -e 'covr::codecov()'
 
+after_script:
+  # make sure the documents are regenerated
+  - Rscript -e 'devtools::documents()'
+  - |
+    if [ -n "$(git diff --name-only man)" ]; then
+      echo "Did you forget to regenerated the documents? (This error might be ignorable)."
+      exit 1
+    fi
+
 addons:
   apt:
     sources:
