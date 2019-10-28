@@ -320,10 +320,12 @@ guide_gengrob.bins <- function(guide, theme) {
 
   key_size_mat <- do.call("cbind",
     lapply(guide$geoms, function(g) g$data$size / 10)
-  )[seq_len(n_keys), , drop = FALSE]
+  )
 
   if (nrow(key_size_mat) == 0 || ncol(key_size_mat) == 0) {
     key_size_mat <- matrix(0, ncol = 1, nrow = n_keys)
+  } else {
+    key_size_mat <- key_size_mat[seq_len(n_keys), , drop = FALSE]
   }
   key_sizes <- apply(key_size_mat, 1, max)
 
