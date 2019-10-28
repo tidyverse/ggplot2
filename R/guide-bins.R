@@ -322,6 +322,8 @@ guide_gengrob.bins <- function(guide, theme) {
     lapply(guide$geoms, function(g) g$data$size / 10)
   )
 
+  # key_size_mat can be an empty matrix (e.g. the data doesn't contain size
+  # column), so subset it only when it has any rows and columns.
   if (nrow(key_size_mat) == 0 || ncol(key_size_mat) == 0) {
     key_size_mat <- matrix(0, ncol = 1, nrow = n_keys)
   } else {
