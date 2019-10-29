@@ -35,7 +35,7 @@ after_success:
 
 after_script:
   # make sure the documents are regenerated
-  - Rscript -e 'devtools::documents()'
+  - Rscript -e 'devtools::document()'
   - |
     if [ -n "$(git diff --name-only man)" ]; then
       echo "Did you forget to regenerated the documents? (This error might be ignorable)."
