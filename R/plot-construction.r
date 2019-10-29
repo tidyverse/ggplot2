@@ -100,6 +100,13 @@ ggplot_add.data.frame <- function(object, plot, object_name) {
   plot
 }
 #' @export
+ggplot_add.function <- function(object, plot, object_name) {
+  stop(
+    "Don't know how to add ", object_name, " to a plot. Did you mean ",
+    object_name, "()?", call. = FALSE
+  )
+}
+#' @export
 ggplot_add.theme <- function(object, plot, object_name) {
   plot$theme <- add_theme(plot$theme, object)
   plot
