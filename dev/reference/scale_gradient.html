@@ -213,7 +213,7 @@ scale_*_gradientn creates a n-colour gradient." />
 associated with this scale.</p></dd>
   <dt>palette</dt><dd><p>A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
-(e.g., <code><a href='https://rdrr.io/pkg/scales/man/area_pal.html'>scales::area_pal()</a></code>).</p></dd>
+(e.g., <code><a href='https://scales.r-lib.org//reference/area_pal.html'>scales::area_pal()</a></code>).</p></dd>
   <dt>name</dt><dd><p>The name of the scale. Used as the axis or legend title. If
 <code><a href='waiver.html'>waiver()</a></code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
@@ -222,10 +222,10 @@ omitted.</p></dd>
 <ul>
 <li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href='waiver.html'>waiver()</a></code> for the default breaks computed by the
-<a href='https://rdrr.io/pkg/scales/man/trans_new.html'>transformation object</a></p></li>
+<a href='https://scales.r-lib.org//reference/trans_new.html'>transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by <code><a href='https://rdrr.io/pkg/scales/man/extended_breaks.html'>scales::extended_breaks()</a></code>)</p></li>
+as output (e.g., a function returned by <code><a href='https://scales.r-lib.org//reference/extended_breaks.html'>scales::extended_breaks()</a></code>)</p></li>
 </ul></p></dd>
   <dt>minor_breaks</dt><dd><p>One of:
 <ul>
@@ -256,18 +256,18 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 (see <code><a href='coord_cartesian.html'>coord_cartesian()</a></code>).</p></li>
 </ul></p></dd>
   <dt>rescaler</dt><dd><p>A function used to scale the input values to the
-range [0, 1]. This is always <code><a href='https://rdrr.io/pkg/scales/man/rescale.html'>scales::rescale()</a></code>, except for
+range [0, 1]. This is always <code><a href='https://scales.r-lib.org//reference/rescale.html'>scales::rescale()</a></code>, except for
 diverging and n colour gradients (i.e., <code>scale_colour_gradient2()</code>,
 <code>scale_colour_gradientn()</code>). The <code>rescaler</code> is ignored by position
-scales, which ways use <code><a href='https://rdrr.io/pkg/scales/man/rescale.html'>scales::rescale()</a></code>.</p></dd>
+scales, which ways use <code><a href='https://scales.r-lib.org//reference/rescale.html'>scales::rescale()</a></code>.</p></dd>
   <dt>oob</dt><dd><p>One of:
 <ul>
 <li><p>Function that handles limits outside of the scale limits
 (out of bounds).</p></li>
-<li><p>The default (<code><a href='https://rdrr.io/pkg/scales/man/censor.html'>scales::censor()</a></code>) replaces out of
+<li><p>The default (<code><a href='https://scales.r-lib.org//reference/censor.html'>scales::censor()</a></code>) replaces out of
 bounds values with <code>NA</code>.</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/scales/man/squish.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
-<li><p><code><a href='https://rdrr.io/pkg/scales/man/squish_infinite.html'>scales::squish_infinite()</a></code> for squishing infitite values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org//reference/squish.html'>scales::squish()</a></code> for squishing out of bounds values into range.</p></li>
+<li><p><code><a href='https://scales.r-lib.org//reference/squish_infinite.html'>scales::squish_infinite()</a></code> for squishing infitite values into range.</p></li>
 </ul></p></dd>
   <dt>trans</dt><dd><p>For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
@@ -276,8 +276,8 @@ or the object itself. Built-in transformations include "asn", "atanh",
 "reverse", "sqrt" and "time".A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>&lt;name&gt;_trans</code> (e.g.,
-<code><a href='https://rdrr.io/pkg/scales/man/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
-transformation with <code><a href='https://rdrr.io/pkg/scales/man/trans_new.html'>scales::trans_new()</a></code>.</p></dd>
+<code><a href='https://scales.r-lib.org//reference/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
+transformation with <code><a href='https://scales.r-lib.org//reference/trans_new.html'>scales::trans_new()</a></code>.</p></dd>
   <dt>expand</dt><dd><p>For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function <code><a href='expansion.html'>expansion()</a></code>
@@ -346,7 +346,7 @@ luminance. The <span class="pkg">munsell</span> package makes this easy to do us
 Munsell colour system.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p><code><a href='https://rdrr.io/pkg/scales/man/seq_gradient_pal.html'>scales::seq_gradient_pal()</a></code> for details on underlying
+    <div class='dont-index'><p><code><a href='https://scales.r-lib.org//reference/seq_gradient_pal.html'>scales::seq_gradient_pal()</a></code> for details on underlying
 palette</p>
 <p>Other colour scales: <code><a href='scale_alpha.html'>scale_alpha</a></code>,
   <code><a href='scale_brewer.html'>scale_colour_brewer</a></code>,
