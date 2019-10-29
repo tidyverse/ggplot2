@@ -155,6 +155,13 @@ test_that("guide merging for guide_legend() works as expected", {
   )
   expect_length(same_labels_different_scale, 1)
   expect_equal(same_labels_different_scale[[1]]$key$.label, c("a", "b", "c"))
+
+  repeated_identical_labels <- merge_test_guides(
+    scale_colour_discrete(limits = c("one", "two", "three"), labels = c("label1", "label1", "label2")),
+    scale_linetype_discrete(limits = c("1", "2", "3"), labels = c("label1", "label1", "label2"))
+  )
+  expect_length(repeated_identical_labels, 1)
+  expect_equal(repeated_identical_labels[[1]]$key$.label, c("label1", "label1", "label2"))
 })
 
 # Visual tests ------------------------------------------------------------
