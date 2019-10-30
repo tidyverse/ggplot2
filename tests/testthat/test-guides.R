@@ -122,7 +122,6 @@ test_that("guide merging for guide_legend() works as expected", {
     scales$add(scale1)
     scales$add(scale2)
 
-    direction <- "vertical"
     guide_list <- guides_train(scales, theme = theme_gray(), labels = labs(), guides = guides())
     guides_merge(guide_list)
   }
