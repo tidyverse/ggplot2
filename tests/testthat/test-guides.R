@@ -132,8 +132,6 @@ test_that("guide merging for guide_legend() works as expected", {
     scale_linetype_discrete(limits = c("a", "b", "c"))
   )
   expect_length(different_limits, 2)
-  expect_equal(different_limits[[1]]$key$.label, c("a", "b", "c", "d"))
-  expect_equal(different_limits[[2]]$key$.label, c("a", "b", "c"))
 
   same_limits <- merge_test_guides(
     scale_colour_discrete(limits = c("a", "b", "c")),
