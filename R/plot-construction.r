@@ -88,7 +88,7 @@ ggplot_add <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.default <- function(object, plot, object_name) {
-  stop("Don't know how to add ", object_name, " to a plot", call. = FALSE)
+  stop("Can't add `", object_name, "` to a ggplot object.", call. = FALSE)
 }
 #' @export
 ggplot_add.NULL <- function(object, plot, object_name) {
@@ -102,8 +102,9 @@ ggplot_add.data.frame <- function(object, plot, object_name) {
 #' @export
 ggplot_add.function <- function(object, plot, object_name) {
   stop(
-    "Don't know how to add ", object_name, " to a plot. Did you mean ",
-    object_name, "()?", call. = FALSE
+    "Can't add `", object_name, "` to a ggplot object.\n",
+    "Did you forget to add parentheses, as in `",
+    object_name, "()`?", call. = FALSE
   )
 }
 #' @export
