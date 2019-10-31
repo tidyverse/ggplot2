@@ -436,7 +436,7 @@ plot_theme <- function(x, default = theme_get()) {
 #' @keywords internal
 add_theme <- function(t1, t2, t2name) {
   if (!is.theme(t2)) {
-    stop("Don't know how to add ", t2name, " to a theme object",
+    stop("Can't add `", t2name, "` to a theme object.",
       call. = FALSE)
   }
 
