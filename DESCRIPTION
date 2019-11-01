@@ -14,6 +14,7 @@ Authors@R: c(
     person("Claus", "Wilke", role = "aut"),
     person("Kara", "Woo", role = "aut"),
     person("Hiroaki", "Yutani", role = "aut"),
+    person("Dewey", "Dunnington", role = "aut"),
     person("RStudio", role = c("cph"))
     )
 Depends:
