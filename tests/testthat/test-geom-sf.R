@@ -33,6 +33,27 @@ test_that("geom_sf() removes rows containing missing aes", {
   )
 })
 
+test_that("geom_sf() handles alpha properly", {
+  skip_if_not_installed("sf")
+  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+
+  sfc <- sf::st_sfc(
+    sf::st_point(0:1),
+    sf::st_linestring(rbind(0:1, 1:2)),
+    sf::st_polygon(list(rbind(0:1, 1:2, 2:1, 0:1)))
+  )
+  red <- "#FF0000FF"
+  p <- ggplot(sfc) + geom_sf(colour = red, fill = red, alpha = 0.5)
+  g <- layer_grob(p)[[1]]
+
+  # alpha affects the colour of points and lines
+  expect_equal(g[[1]]$gp$col, alpha(red, 0.5))
+  expect_equal(g[[2]]$gp$col, alpha(red, 0.5))
+  # alpha doesn't affect the colour of polygons, but the fill
+  expect_equal(g[[3]]$gp$col, alpha(red, 1.0))
+  expect_equal(g[[3]]$gp$fill, alpha(red, 0.5))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("geom_sf draws correctly", {
