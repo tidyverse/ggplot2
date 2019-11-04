@@ -98,14 +98,15 @@ GeomSf <- ggproto("GeomSf", Geom,
   ),
 
   draw_panel = function(data, panel_params, coord, legend = NULL,
-                        lineend = "butt", linejoin = "round", linemitre = 10) {
+                        lineend = "butt", linejoin = "round", linemitre = 10,
+                        na.rm = TRUE) {
     if (!inherits(coord, "CoordSf")) {
       stop("geom_sf() must be used with coord_sf()", call. = FALSE)
     }
 
     # Need to refactor this to generate one grob per geometry type
     coord <- coord$transform(data, panel_params)
-    sf_grob(coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre)
+    sf_grob(coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm)
   },
 
   draw_key = function(data, params, size) {
@@ -130,7 +131,7 @@ default_aesthetics <- function(type) {
   }
 }
 
-sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10) {
+sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10, na.rm = TRUE) {
   type <- sf_types[sf::st_geometry_type(x$geometry)]
   is_point <- type == "point"
   is_line <- type == "line"
@@ -142,6 +143,11 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10) {
   remove[is_line] <- detect_missing(x, c(GeomPath$required_aes, GeomPath$non_missing_aes))[is_line]
   remove[is_other] <- detect_missing(x, c(GeomPolygon$required_aes, GeomPolygon$non_missing_aes))[is_other]
   if (any(remove)) {
+    if (!na.rm) {
+      warning_wrap(
+        "Removed ", sum(remove), " rows containing missing values (geom_sf)."
+      )
+    }
     x <- x[!remove, , drop = FALSE]
     type_ind <- type_ind[!remove]
     is_collection <- is_collection[!remove]
