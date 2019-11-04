@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `geom_sf()` now removes rows that can't be plotted due to `NA` aesthetics 
+  (#3546, @thomasp85)
+
 * A new scale type has been added, that allows binning of aesthetics at the 
   scale level. It has versions for both position and non-position aesthetics and
   comes with two new guides (`guide_bins` and `guide_coloursteps`) (@thomasp85, #3096)
@@ -81,8 +84,6 @@
   and mapped aesthetics (i.e., `data` and/or `mapping`).
   
 * `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
-
-* `geom_sf()` now removes rows that contain missing `shape`/`size`/`colour` (#3483, @yutannihilation)
 
 * Fix a bug when `show.legend` is a named logical vector (#3461, @yutannihilation).
 
