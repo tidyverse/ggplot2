@@ -159,7 +159,7 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10, na.
   )
   defaults[[4]] <- modify_list(
     defaults[[3]],
-    rename(GeomPoint$default_aes, c("size" = "point_size", "fill" = "point_fill"))
+    rename(GeomPoint$default_aes, c(size = "point_size", fill = "point_fill"))
   )
   default_names <- unique(unlist(lapply(defaults, names)))
   defaults <- lapply(setNames(default_names, default_names), function(n) {
