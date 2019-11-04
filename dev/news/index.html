@@ -57,7 +57,15 @@
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115082821-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
+  gtag('config', 'UA-115082821-1');
+</script>
 
   </head>
 
@@ -174,6 +182,7 @@
 <a href="#ggplot2-development-version" class="anchor"></a>ggplot2 (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li><p><code><a href="../reference/ggsf.html">geom_sf()</a></code> now removes rows that can’t be plotted due to <code>NA</code> aesthetics (<a href='https://github.com/tidyverse/ggplot2/issues/3546'>#3546</a>, <a href='https://github.com/thomasp85'>@thomasp85</a>)</p></li>
 <li><p>A new scale type has been added, that allows binning of aesthetics at the scale level. It has versions for both position and non-position aesthetics and comes with two new guides (<code>guide_bins</code> and <code>guide_coloursteps</code>) (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3096'>#3096</a>)</p></li>
 <li><p>Position guides can now be customized using the new <code><a href="../reference/guide_axis.html">guide_axis()</a></code>, which can be passed to position <code>scale_*()</code> functions or via <code><a href="../reference/guides.html">guides()</a></code>. The new axis guide (<code><a href="../reference/guide_axis.html">guide_axis()</a></code>) comes with arguments <code>check.overlap</code> (automatic removal of overlapping labels), <code>angle</code> (easy rotation of axis labels), and <code>n.dodge</code> (dodge labels into multiple rows/columns) (<a href='https://github.com/paleolimbot'>@paleolimbot</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3322'>#3322</a>).</p></li>
 <li><p><code>Geom</code> now gains a <code>setup_params()</code> method in line with the other ggproto classes (<a href='https://github.com/thomasp85'>@thomasp85</a>, <a href='https://github.com/tidyverse/ggplot2/issues/3509'>#3509</a>)</p></li>
@@ -195,7 +204,6 @@
 <li><p>All <code>coord_*()</code> functions with <code>xlim</code> and <code>ylim</code> arguments now accept vectors with <code>NA</code> as a placeholder for the minimum or maximum value (e.g., <code>ylim = c(0, NA)</code> would zoom the y-axis from 0 to the maximum value observed in the data). This mimics the behaviour of the <code>limits</code> argument in continuous scale functions (<a href='https://github.com/paleolimbot'>@paleolimbot</a>, <a href='https://github.com/tidyverse/ggplot2/issues/2907'>#2907</a>).</p></li>
 <li><p><code><a href="../reference/geom_abline.html">geom_abline()</a></code>, <code><a href="../reference/geom_abline.html">geom_hline()</a></code>, and <code><a href="../reference/geom_abline.html">geom_vline()</a></code> now issue more informative warnings when supplied with set aesthetics (i.e., <code>slope</code>, <code>intercept</code>, <code>yintercept</code>, and/or <code>xintercept</code>) and mapped aesthetics (i.e., <code>data</code> and/or <code>mapping</code>).</p></li>
 <li><p><code><a href="../reference/geom_density_2d.html">stat_density2d()</a></code> can now take an <code>adjust</code> parameter to scale the default bandwidth. (<a href='https://github.com/tidyverse/ggplot2/issues/2860'>#2860</a>, <a href='https://github.com/haleyjeppson'>@haleyjeppson</a>)</p></li>
-<li><p><code><a href="../reference/ggsf.html">geom_sf()</a></code> now removes rows that contain missing <code>shape</code>/<code>size</code>/<code>colour</code> (<a href='https://github.com/tidyverse/ggplot2/issues/3483'>#3483</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>)</p></li>
 <li><p>Fix a bug when <code>show.legend</code> is a named logical vector (<a href='https://github.com/tidyverse/ggplot2/issues/3461'>#3461</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
 <li><p>Increase the default <code>nbin</code> of <code><a href="../reference/guide_colourbar.html">guide_colourbar()</a></code> to place the ticks more precisely (<a href='https://github.com/tidyverse/ggplot2/issues/3508'>#3508</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
 </ul>
