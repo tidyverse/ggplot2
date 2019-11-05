@@ -89,7 +89,7 @@
 
 * Increase the default `nbin` of `guide_colourbar()` to place the ticks more precisely (#3508, @yutannihilation).
 
-* `geom_sf()` no more ignores alpha on linestring geometry (#3589, @yutannihilation).
+* `geom_sf()` now applies alpha to linestring geometries (#3589, @yutannihilation).
 
 # ggplot2 3.2.1
 
