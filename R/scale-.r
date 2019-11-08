@@ -24,7 +24,8 @@
 #'   - `waiver()` for the default breaks (one minor break between
 #'     each major break)
 #'   - A numeric vector of positions
-#'   - A function that given the limits returns a vector of minor breaks.
+#'   - A function passed the limits and major breaks, which should return a
+#'     vector of minor breaks.
 #' @param labels One of:
 #'   - `NULL` for no labels
 #'   - `waiver()` for the default labels computed by the
@@ -613,8 +614,20 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
         breaks <- self$trans$minor_breaks(b, limits, n)
       }
     } else if (is.function(self$minor_breaks)) {
-      # Find breaks in data space, and convert to numeric
-      breaks <- self$minor_breaks(self$trans$inverse(limits))
+      # Need to reach inside of ggproto method to get actual function
+      # This is fine because it's not a method, it's a function supplied by the
+      # user that is assigned into the ggproto object on creation
+      breaks_fun <- environment(self$minor_breaks)$f
+
+      # Limits are on transformed scale, so we need to back transform
+      # so breaks function can work in original data space
+      if (length(formals(breaks_fun)) == 1) {
+        # Old API just gets limits
+        breaks <- breaks_fun(self$trans$inverse(limits))
+      } else {
+        # New API gets limits and breaks
+        breaks <- breaks_fun(self$trans$inverse(limits), self$trans$inverse(b))
+      }
       breaks <- self$trans$transform(breaks)
     } else {
       breaks <- self$trans$transform(self$minor_breaks)

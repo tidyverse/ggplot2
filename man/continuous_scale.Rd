@@ -41,7 +41,8 @@ as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scal
 \item \code{waiver()} for the default breaks (one minor break between
 each major break)
 \item A numeric vector of positions
-\item A function that given the limits returns a vector of minor breaks.
+\item A function passed the limits and major breaks, which should return a
+vector of minor breaks.
 }}
 
 \item{labels}{One of:
