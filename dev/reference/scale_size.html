@@ -282,8 +282,10 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
     </tr>
     <tr>
       <th>n.breaks</th>
-      <td><p>The number of break points to create if breaks are not given
-directly.</p></td>
+      <td><p>An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if <code>breaks = waiver()</code>. Use <code>NULL</code> to use the default
+number of breaks given by the transformation.</p></td>
     </tr>
     <tr>
       <th>nice.breaks</th>
@@ -317,6 +319,10 @@ each major break)</p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that given the limits returns a vector of minor breaks.</p></li>
 </ul></p></dd>
+  <dt>n.breaks</dt><dd><p>An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if <code>breaks = waiver()</code>. Use <code>NULL</code> to use the default
+number of breaks given by the transformation.</p></dd>
   <dt>labels</dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no labels</p></li>

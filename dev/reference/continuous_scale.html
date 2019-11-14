@@ -184,10 +184,11 @@
     </div>
 
     <pre class="usage"><span class='fu'>continuous_scale</span>(<span class='no'>aesthetics</span>, <span class='no'>scale_name</span>, <span class='no'>palette</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rescaler</span> <span class='kw'>=</span> <span class='no'>rescale</span>, <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>,
-  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>, <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"legend"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>, <span class='kw'>super</span> <span class='kw'>=</span> <span class='no'>ScaleContinuous</span>)</pre>
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>minor_breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>n.breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>rescaler</span> <span class='kw'>=</span> <span class='no'>rescale</span>,
+  <span class='kw'>oob</span> <span class='kw'>=</span> <span class='no'>censor</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='fl'>NA_real_</span>,
+  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"legend"</span>, <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>,
+  <span class='kw'>super</span> <span class='kw'>=</span> <span class='no'>ScaleContinuous</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -234,6 +235,13 @@ each major break)</p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that given the limits returns a vector of minor breaks.</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>n.breaks</th>
+      <td><p>An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if <code>breaks = waiver()</code>. Use <code>NULL</code> to use the default
+number of breaks given by the transformation.</p></td>
     </tr>
     <tr>
       <th>labels</th>
