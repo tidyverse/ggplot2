@@ -451,10 +451,9 @@ Scale <- ggproto("Scale", NULL,
     if (is.null(self$limits)) {
       self$range$range
     } else if (is.function(self$limits)) {
-      # if limits is a function, it expects to work in data space
-      self$trans$transform(self$limits(self$trans$inverse(self$range$range)))
+      self$limits(self$range$range)
     } else {
-      ifelse(is.na(self$limits), self$range$range, self$limits)
+      self$limits
     }
   },
 
@@ -542,6 +541,12 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     self$range$train(x)
   },
 
+  is_empty = function(self) {
+    has_data <- !is.null(self$range$range)
+    has_limits <- is.function(self$limits) || (!is.null(self$limits) && all(is.finite(self$limits)))
+    !has_data && !has_limits
+  },
+
   transform = function(self, x) {
     new_x <- self$trans$transform(x)
     axis <- if ("x" %in% self$aesthetics) "x" else "y"
@@ -561,6 +566,22 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
   rescale = function(self, x, limits = self$get_limits(), range = limits) {
     self$rescaler(x, from = range)
+  },
+
+  get_limits = function(self) {
+    if (self$is_empty()) {
+      return(c(0, 1))
+    }
+
+    if (is.null(self$limits)) {
+      self$range$range
+    } else if (is.function(self$limits)) {
+      # if limits is a function, it expects to work in data space
+      self$trans$transform(self$limits(self$trans$inverse(self$range$range)))
+    } else {
+      # NA limits for a continuous scale mean replace with the min/max of data
+      ifelse(is.na(self$limits), self$range$range, self$limits)
+    }
   },
 
   dimension = function(self, expand = expansion(0, 0), limits = self$get_limits()) {
