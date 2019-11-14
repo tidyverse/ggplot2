@@ -116,7 +116,7 @@ guide_colourbar <- function(
   # bar
   barwidth = NULL,
   barheight = NULL,
-  nbin = 20,
+  nbin = 300,
   raster = TRUE,
 
   # frame
