@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `scale_x_continuous()` and `scale_y_continuous()` gains an `n.breaks` argument
+  guiding the number of automatic generated breaks (@thomasp85, #3102)
+  
 * `geom_sf()` now removes rows that can't be plotted due to `NA` aesthetics 
   (#3546, @thomasp85)
 
