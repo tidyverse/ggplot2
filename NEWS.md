@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+* The evaluation time of aesthetics can now be controlled to a finer degree. 
+  `after_stat()` superseeds the use of `stat()` and `..var..`-notation, ad is
+  joined by `after_scale()` to allow for mapping to scaled aesthetic values. 
+  Remapping of the same aesthetic is now supported with `stage()`, so you can 
+  map a data variable to a stat aesthetic, and remap the same aesthetic to 
+  something else after statistical transformation (@thomasp85, #3534)
+
 * A new scale type has been added, that allows binning of aesthetics at the 
   scale level. It has versions for both position and non-position aesthetics and
   comes with two new guides (`guide_bins` and `guide_coloursteps`) (@thomasp85, #3096)
