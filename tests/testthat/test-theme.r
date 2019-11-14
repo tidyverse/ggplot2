@@ -484,3 +484,38 @@ test_that("plot titles and caption can be aligned to entire plot", {
   expect_doppelganger("caption aligned to entire plot", plot)
 
 })
+
+test_that("provided themes explicitly define all elements", {
+  elements <- names(ggplot_global$element_tree)
+
+  t <- theme_all_null()
+  expect_true(all(names(t) %in% elements))
+  expect_true(all(vapply(t, is.null, logical(1))))
+
+  t <- theme_grey()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_bw()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_linedraw()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_light()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_dark()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_minimal()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_classic()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_void()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_test()
+  expect_true(all(names(t) %in% elements))
+})
