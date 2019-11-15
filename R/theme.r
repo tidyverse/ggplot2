@@ -452,14 +452,8 @@ plot_theme <- function(x, default = theme_get()) {
   if (is_theme_complete(theme)) {
     # for complete themes, we fill in missing elements but don't do any element merging
     # can't use `defaults()` because it strips attributes
-
-    ## The following two lines cause trouble when a complete theme doesn't
-    ## properly define all elements. This is currently the case for `theme_void()`,
-    ## for example, which doesn't define (among other elements) `legend_margin`,
-    ## and that causes unexpected interactions with `theme_test()` for two vdiffr
-    ## test cases.
-    #missing <- setdiff(names(default), names(theme))
-    #theme[missing] <- default[missing]
+    missing <- setdiff(names(default), names(theme))
+    theme[missing] <- default[missing]
   } else {
     # otherwise, we can just add the theme to the default theme
     theme <- default + theme
@@ -549,21 +543,6 @@ calc_element <- function(element, theme, verbose = FALSE) {
   if (verbose) message(element, " --> ", appendLF = FALSE)
 
   el_out <- theme[[element]]
-
-  ## For efficiency, the following block of code should be replaced by
-  ## two lines in `plot_theme()`, but that doesn't currently work, as
-  ## explained there.
-  # If the element is not at all in the theme, get it from the default theme
-  if (!element %in% names(theme)) {
-    el_out <- theme_get()[[element]]
-  } else {
-    # If the theme is complete, take the element as is, and otherwise
-    # merge it with theme defaults. This fills in theme defaults if no
-    # explicit theme is set for the plot.
-    if (!is_theme_complete(theme)) {
-      el_out <- merge_element(el_out, theme_get()[[element]])
-    }
-  }
 
   # If result is element_blank, don't inherit anything from parents
   if (inherits(el_out, "element_blank")) {
