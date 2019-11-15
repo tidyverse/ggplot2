@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Benchmark plot creation time.
-Broken down into construct, build, render and draw times. — benchplot • ggplot2</title>
+<title>Define new elements for a theme's element tree — el_def • ggplot2</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,10 +41,10 @@ Broken down into construct, build, render and draw times. — benchplot • ggpl
 
 
 
-<meta property="og:title" content="Benchmark plot creation time.
-Broken down into construct, build, render and draw times. — benchplot" />
-<meta property="og:description" content="Benchmark plot creation time.
-Broken down into construct, build, render and draw times." />
+<meta property="og:title" content="Define new elements for a theme's element tree — el_def" />
+<meta property="og:description" content="Each theme has an element tree that defines which theme elements inherit
+theme parameters from which other elements. The function el_def() can be used
+to define new or modified elements for this tree." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -177,49 +176,70 @@ Broken down into construct, build, render and draw times." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Benchmark plot creation time.
-Broken down into construct, build, render and draw times.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/bench.r'><code>R/bench.r</code></a></small>
-    <div class="hidden name"><code>benchplot.Rd</code></div>
+    <h1>Define new elements for a theme's element tree</h1>
+    <small class="dont-index">Source: <a href='https://github.com/tidyverse/ggplot2/blob/master/R/theme-elements.r'><code>R/theme-elements.r</code></a></small>
+    <div class="hidden name"><code>el_def.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Benchmark plot creation time.
-Broken down into construct, build, render and draw times.</p>
+    <p>Each theme has an element tree that defines which theme elements inherit
+theme parameters from which other elements. The function <code>el_def()</code> can be used
+to define new or modified elements for this tree.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>benchplot</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>el_def</span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>inherit</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>description</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>code to create ggplot2 plot</p></td>
+      <th>class</th>
+      <td><p>The name of the element class. Examples are "element_line" or
+"element_text" or "unit", or one of the two reserved keywords "character" or
+"margin". The reserved keyword "character" implies a character
+or numeric vector, not a class called "character". The keyword
+"margin" implies a unit vector of length 4, as created by <code><a href='element.html'>margin()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>inherit</th>
+      <td><p>A vector of strings, naming the elements that this
+element inherits from.</p></td>
+    </tr>
+    <tr>
+      <th>description</th>
+      <td><p>An optional character vector providing a description
+for the element.</p></td>
     </tr>
     </table>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())</div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.003        0   0.003
-#&gt; 2     build     0.013        0   0.014
-#&gt; 3    render     0.036        0   0.037
-#&gt; 4      draw     0.037        0   0.038
-#&gt; 5     TOTAL     0.089        0   0.092</div><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl</span>))</div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.003        0   0.003
-#&gt; 2     build     0.027        0   0.027
-#&gt; 3    render     0.073        0   0.073
-#&gt; 4      draw     0.054        0   0.054
-#&gt; 5     TOTAL     0.157        0   0.157</div><div class='input'>
-<span class='co'># With tidy eval:</span>
-<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>expr</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())
-<span class='fu'>benchplot</span>(!!<span class='no'>p</span>)</div><div class='img'><img src='benchplot-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.002        0   0.002
-#&gt; 2     build     0.014        0   0.014
-#&gt; 3    render     0.030        0   0.030
-#&gt; 4      draw     0.033        0   0.032
-#&gt; 5     TOTAL     0.079        0   0.078</div></pre>
+    <pre class="examples"><div class='input'><span class='co'># define a new coord that includes a panel annotation</span>
+<span class='no'>coord_annotate</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>label</span> <span class='kw'>=</span> <span class='st'>"panel annotation"</span>) {
+  <span class='fu'><a href='ggproto.html'>ggproto</a></span>(<span class='kw'>NULL</span>, <span class='no'>CoordCartesian</span>,
+    <span class='kw'>limits</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='kw'>NULL</span>),
+    <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+    <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>,
+    <span class='kw'>render_fg</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>panel_params</span>, <span class='no'>theme</span>) {
+      <span class='fu'><a href='element_render.html'>element_render</a></span>(<span class='no'>theme</span>, <span class='st'>"panel.annotation"</span>, <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>label</span>)
+    }
+  )
+}
+
+<span class='co'># update the default theme by adding a new `panel.annotation`</span>
+<span class='co'># theme element</span>
+<span class='no'>old</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='theme_get.html'>theme_update</a></span>(
+  <span class='kw'>panel.annotation</span> <span class='kw'>=</span> <span class='fu'><a href='element.html'>element_text</a></span>(<span class='kw'>color</span> <span class='kw'>=</span> <span class='st'>"blue"</span>, <span class='kw'>hjust</span> <span class='kw'>=</span> <span class='fl'>0.95</span>, <span class='kw'>vjust</span> <span class='kw'>=</span> <span class='fl'>0.05</span>),
+  <span class='kw'>element_tree</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>panel.annotation</span> <span class='kw'>=</span> <span class='fu'>el_def</span>(<span class='st'>"element_text"</span>, <span class='st'>"text"</span>))
+)
+
+<span class='no'>df</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='fl'>1</span>:<span class='fl'>3</span>)
+<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>df</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>)) +
+  <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
+  <span class='fu'>coord_annotate</span>(<span class='st'>"annotation in blue"</span>)</div><div class='img'><img src='el_def-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># revert to original default theme</span>
+<span class='fu'><a href='theme_get.html'>theme_set</a></span>(<span class='no'>old</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
