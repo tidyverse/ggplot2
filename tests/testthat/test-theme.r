@@ -228,6 +228,41 @@ test_that("theme(validate=FALSE) means do not validate_element", {
   expect_equal(red.before$theme$animint.width, 500)
 })
 
+test_that("theme validation happens at build stage", {
+  # adding a non-valid theme element to a theme is no problem
+  expect_silent(theme_gray() + theme(text = 0))
+
+  # the error occurs when we try to render the plot
+  p <- ggplot() + theme(text = 0)
+  expect_error(print(p), "must be an `element_text`")
+
+  # without validation, the error occurs when the element is accessed
+  p <- ggplot() + theme(text = 0, validate = FALSE)
+  expect_error(print(p), "text should have class element_text")
+})
+
+test_that("element tree can be modified", {
+  # we cannot add a new theme element without modifying the element tree
+  p <- ggplot() + theme(blablabla = element_text(colour = "red"))
+  expect_error(print(p), "Theme element `blablabla` is not defined in the element hierarchy")
+
+  # things work once we add a new element to the element tree
+  q <- p + theme(
+    element_tree = list(blablabla = el_def("element_text", "text"))
+  )
+  expect_silent(print(q))
+
+  # inheritance and final calculation of novel element works
+  final_theme <- ggplot2:::plot_theme(q, theme_gray())
+  e1 <- calc_element("blablabla", final_theme)
+  e2 <- calc_element("text", final_theme)
+  expect_identical(e1$family, e2$family)
+  expect_identical(e1$face, e2$face)
+  expect_identical(e1$size, e2$size)
+  expect_identical(e1$lineheight, e2$lineheight)
+  expect_identical(e1$colour, "red") # not inherited from element_text
+})
+
 test_that("all elements in complete themes have inherit.blank=TRUE", {
   inherit_blanks <- function(theme) {
     all(vapply(theme, function(el) {
@@ -285,6 +320,44 @@ test_that("complete plot themes shouldn't inherit from default", {
 
   ptheme <- plot_theme(base + theme_void(), default_theme)
   expect_null(ptheme$axis.text.x)
+})
+
+test_that("current theme can be updated with new elements", {
+  old <- theme_set(theme_grey())
+
+  b1 <- ggplot() + theme_grey()
+  b2 <- ggplot()
+
+  # works for root element
+  expect_identical(
+    calc_element("text", plot_theme(b1)),
+    calc_element("text", plot_theme(b2))
+  )
+
+  # works for derived element
+  expect_identical(
+    calc_element("axis.text.x", plot_theme(b1)),
+    calc_element("axis.text.x", plot_theme(b2))
+  )
+
+  # theme calculation for nonexisting element returns NULL
+  expect_identical(calc_element("abcde", plot_theme(b1)), NULL)
+
+  # element tree gets merged properly
+  theme_replace(
+    abcde = element_text(color = "blue", hjust = 0, vjust = 1),
+    element_tree = list(abcde = el_def("element_text", "text")),
+    complete = TRUE
+  )
+
+  e1 <- calc_element("abcde", plot_theme(b2))
+  e2 <- calc_element("text", plot_theme(b2))
+  e2$colour <- "blue"
+  e2$hjust <- 0
+  e2$vjust <- 1
+  expect_identical(e1, e2)
+
+  theme_set(old)
 })
 
 test_that("titleGrob() and margins() work correctly", {
