@@ -165,8 +165,9 @@
 #'   elements.
 #' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
 #' @param element_tree optional addition or modification to the element tree,
-#'   which specifies the inheritance relationship of the theme elements. See
-#'   [`el_def()`].
+#'   which specifies the inheritance relationship of the theme elements. The element
+#'   tree should be provided as a list of named element definitions created with
+#'   [`el_def()`]. See [`el_def()`] for more details.
 #'
 #' @seealso
 #'   [+.gg()] and \code{\link{\%+replace\%}},
