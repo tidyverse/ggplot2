@@ -446,7 +446,7 @@ complete_element_tree <- function(theme) {
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
-plot_theme <- function(x, default = theme_get()) {
+plot_theme <- function(x, default = theme_get(), cache = FALSE) {
   theme <- x$theme
 
   # apply theme defaults appropriately if needed
@@ -470,6 +470,17 @@ plot_theme <- function(x, default = theme_get()) {
       validate_element, theme, names(theme),
       MoreArgs = list(element_tree = element_tree)
     )
+  }
+
+  if (isTRUE(cache)) {
+    for (element in names(theme)) {
+      el_complete <- calc_element(element, theme)
+      if (!is.null(el_complete)) {
+        attr(el_complete, "cached") <- TRUE
+      }
+      # This way of assigning preserves NULLs.
+      theme[element] <- list(el_complete)
+    }
   }
 
   theme
@@ -541,9 +552,15 @@ add_theme <- function(t1, t2, t2name) {
 #' t$axis.text
 #' t$text
 calc_element <- function(element, theme, verbose = FALSE) {
-  if (verbose) message(element, " --> ", appendLF = FALSE)
-
   el_out <- theme[[element]]
+
+  # if the element has been cached we can just return it
+  if (isTRUE(attr(el_out, "cached", exact = TRUE))) {
+    if (verbose) message(element, " is cached")
+    return(el_out)
+  }
+
+  if (verbose) message(element, " --> ", appendLF = FALSE)
 
   # If result is element_blank, don't inherit anything from parents
   if (inherits(el_out, "element_blank")) {
