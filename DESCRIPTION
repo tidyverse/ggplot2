@@ -14,6 +14,7 @@ Authors@R: c(
     person("Claus", "Wilke", role = "aut"),
     person("Kara", "Woo", role = "aut"),
     person("Hiroaki", "Yutani", role = "aut"),
+    person("Dewey", "Dunnington", role = "aut"),
     person("RStudio", role = c("cph"))
     )
 Depends:
@@ -23,6 +24,7 @@ Imports:
     grDevices,
     grid,
     gtable (>= 0.1.1),
+    isoband,
     MASS,
     mgcv,
     reshape2,
@@ -38,7 +40,6 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
-    isoband,
     knitr,
     lattice,
     mapproj,

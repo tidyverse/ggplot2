@@ -86,8 +86,10 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
 
-\item{n.breaks}{The number of break points to create if breaks are not given
-directly.}
+\item{n.breaks}{An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if \code{breaks = waiver()}. Use \code{NULL} to use the default
+number of breaks given by the transformation.}
 
 \item{nice.breaks}{Logical. Should breaks be attempted placed at nice values
 instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
@@ -118,6 +120,10 @@ each major break)
 \item A numeric vector of positions
 \item A function that given the limits returns a vector of minor breaks.
 }}
+  \item{n.breaks}{An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if \code{breaks = waiver()}. Use \code{NULL} to use the default
+number of breaks given by the transformation.}
   \item{labels}{One of:
 \itemize{
 \item \code{NULL} for no labels

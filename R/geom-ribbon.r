@@ -30,8 +30,9 @@
 #' h + geom_ribbon(aes(ymin=0, ymax=level))
 #' h + geom_area(aes(y = level))
 #'
-#' # Change orientation be switching the mapping
-#' h + geom_area(aes(x = level, y = year))
+#' # Orientation cannot be deduced by mapping, so must be given explicitly for
+#' # flipped orientation
+#' h + geom_area(aes(x = level, y = year), orientation = "y")
 #'
 #' # Add aesthetic mappings
 #' h +

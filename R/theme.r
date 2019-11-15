@@ -489,8 +489,8 @@ plot_theme <- function(x, default = theme_get()) {
 #' @keywords internal
 add_theme <- function(t1, t2, t2name) {
   if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
-    stop("Don't know how to add ", t2name, " to a theme object",
-        call. = FALSE)
+    stop("Can't add `", t2name, "` to a theme object.",
+      call. = FALSE)
   }
 
   # If t2 is a complete theme or t1 is NULL, just return t2

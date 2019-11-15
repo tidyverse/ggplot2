@@ -230,7 +230,8 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
 
 #' @export
 guide_merge.legend <- function(guide, new_guide) {
-  guide$key <- merge(guide$key, new_guide$key, sort = FALSE)
+  new_guide$key$.label <- NULL
+  guide$key <- cbind(guide$key, new_guide$key)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) {
     warning("Duplicated override.aes is ignored.")

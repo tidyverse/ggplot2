@@ -34,6 +34,7 @@ Authors:
   \item Claus Wilke
   \item Kara Woo
   \item Hiroaki Yutani
+  \item Dewey Dunnington
 }
 
 Other contributors:
