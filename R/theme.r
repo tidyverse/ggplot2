@@ -9,7 +9,7 @@
 #' about theme inheritance below.
 #'
 #' @section Theme inheritance:
-#' Theme elements inherit properties from other theme elements heirarchically.
+#' Theme elements inherit properties from other theme elements hierarchically.
 #' For example, `axis.title.x.bottom` inherits from `axis.title.x` which inherits
 #' from `axis.title`, which in turn inherits from `text`. All text elements inherit
 #' directly or indirectly from `text`; all lines inherit from

@@ -223,7 +223,7 @@ about theme inheritance below.
 }
 \section{Theme inheritance}{
 
-Theme elements inherit properties from other theme elements heirarchically.
+Theme elements inherit properties from other theme elements hierarchically.
 For example, \code{axis.title.x.bottom} inherits from \code{axis.title.x} which inherits
 from \code{axis.title}, which in turn inherits from \code{text}. All text elements inherit
 directly or indirectly from \code{text}; all lines inherit from

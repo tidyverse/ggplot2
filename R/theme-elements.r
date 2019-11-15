@@ -272,7 +272,11 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 
 
 
-#' Define an element's class and what other elements it inherits from
+#' Define new elements for a theme's element tree
+#'
+#' Each theme has an element tree that defines which theme elements inherit
+#' theme parameters from which other elements. The function `el_def()` can be used
+#' to define new or modified elements for this tree.
 #'
 #' @param class The name of the element class. Examples are "element_line" or
 #'  "element_text" or "unit", or one of the two reserved keywords "character" or
@@ -283,6 +287,34 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #'  element inherits from.
 #' @param description An optional character vector providing a description
 #'  for the element.
+#' @examples
+#' # define a new coord that includes a panel annotation
+#' coord_annotate <- function(label = "panel annotation") {
+#'   ggproto(NULL, CoordCartesian,
+#'     limits = list(x = NULL, y = NULL),
+#'     expand = TRUE,
+#'     default = FALSE,
+#'     clip = "on",
+#'     render_fg = function(panel_params, theme) {
+#'       element_render(theme, "panel.annotation", label = label)
+#'     }
+#'   )
+#' }
+#'
+#' # update the default theme by adding a new `panel.annotation`
+#' # theme element
+#' old <- theme_update(
+#'   panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
+#'   element_tree = list(panel.annotation = el_def("element_text", "text"))
+#' )
+#'
+#' df <- data.frame(x = 1:3, y = 1:3)
+#' ggplot(df, aes(x, y)) +
+#'   geom_point() +
+#'   coord_annotate("annotation in blue")
+#'
+#' # revert to original default theme
+#' theme_set(old)
 #' @keywords internal
 #' @export
 el_def <- function(class = NULL, inherit = NULL, description = NULL) {

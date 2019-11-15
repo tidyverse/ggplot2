@@ -2,14 +2,16 @@
 % Please edit documentation in R/theme-elements.r
 \name{el_def}
 \alias{el_def}
-\title{Define an element's class and what other elements it inherits from}
+\title{Define new elements for a theme's element tree}
 \usage{
 el_def(class = NULL, inherit = NULL, description = NULL)
 }
 \arguments{
-\item{class}{The name of class (like "element_line", "element_text",
-or the reserved "character", which implies a character or numeric
-vector, not a class called "character").}
+\item{class}{The name of the element class. Examples are "element_line" or
+"element_text" or "unit", or one of the two reserved keywords "character" or
+"margin". The reserved keyword "character" implies a character
+or numeric vector, not a class called "character". The keyword
+"margin" implies a unit vector of length 4, as created by \code{\link[=margin]{margin()}}.}
 
 \item{inherit}{A vector of strings, naming the elements that this
 element inherits from.}
@@ -18,6 +20,37 @@ element inherits from.}
 for the element.}
 }
 \description{
-Define an element's class and what other elements it inherits from
+Each theme has an element tree that defines which theme elements inherit
+theme parameters from which other elements. The function \code{el_def()} can be used
+to define new or modified elements for this tree.
+}
+\examples{
+# define a new coord that includes a panel annotation
+coord_annotate <- function(label = "panel annotation") {
+  ggproto(NULL, CoordCartesian,
+    limits = list(x = NULL, y = NULL),
+    expand = TRUE,
+    default = FALSE,
+    clip = "on",
+    render_fg = function(panel_params, theme) {
+      element_render(theme, "panel.annotation", label = label)
+    }
+  )
+}
+
+# update the default theme by adding a new `panel.annotation`
+# theme element
+old <- theme_update(
+  panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
+  element_tree = list(panel.annotation = el_def("element_text", "text"))
+)
+
+df <- data.frame(x = 1:3, y = 1:3)
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  coord_annotate("annotation in blue")
+
+# revert to original default theme
+theme_set(old)
 }
 \keyword{internal}
