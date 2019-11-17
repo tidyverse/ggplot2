@@ -18,7 +18,7 @@
 #' @seealso [scales::seq_gradient_pal()] for details on underlying
 #'   palette
 #' @family colour scales
-#' @rdname scale_steps
+#' @name scale_steps
 #' @export
 #' @examples
 #' df <- data.frame(

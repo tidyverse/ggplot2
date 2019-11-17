@@ -47,7 +47,7 @@ Other colour scales:
 \code{\link{scale_colour_gradient}()},
 \code{\link{scale_colour_grey}()},
 \code{\link{scale_colour_hue}()},
-\code{\link{scale_colour_steps}()},
-\code{\link{scale_colour_viridis_d}()}
+\code{\link{scale_colour_viridis_d}()},
+\code{\link{scale_steps}}
 }
 \concept{colour scales}
