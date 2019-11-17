@@ -445,8 +445,18 @@ complete_element_tree <- function(theme) {
   )
 }
 
-# Combine plot defaults with current theme to get complete theme for a plot
-plot_theme <- function(x, default = theme_get(), cache = FALSE) {
+#' Combine plot defaults with current theme to get complete theme for a plot
+#'
+#' Combine plot defaults with current theme to get complete theme for a plot.
+#'
+#' @param x Plot object
+#' @param default The default theme
+#' @param cache If `TRUE`, precalculates all theme elements based
+#'   on their inheritance tree. This can speed up subsequent repeated
+#'   lookup of the same theme elements.
+#' @keywords internal
+#' @export
+finalize_plot_theme <- function(x, default = theme_get(), cache = FALSE) {
   theme <- x$theme
 
   # apply theme defaults appropriately if needed
@@ -473,6 +483,7 @@ plot_theme <- function(x, default = theme_get(), cache = FALSE) {
   }
 
   if (isTRUE(cache)) {
+    message("theme caching turned on")
     for (element in names(theme)) {
       el_complete <- calc_element(element, theme)
       if (!is.null(el_complete)) {
@@ -481,6 +492,8 @@ plot_theme <- function(x, default = theme_get(), cache = FALSE) {
       # This way of assigning preserves NULLs.
       theme[element] <- list(el_complete)
     }
+  } else {
+    message("theme caching turned off")
   }
 
   theme

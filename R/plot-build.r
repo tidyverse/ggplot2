@@ -106,10 +106,10 @@ ggplot_build.ggplot <- function(plot) {
   data <- layout$finish_data(data)
 
   # Pre-calculate and cache plot theme
-  theme <- plot_theme(plot, cache = TRUE)
+  plot$theme_cached <- finalize_plot_theme(plot, cache = TRUE)
 
   structure(
-    list(data = data, layout = layout, plot = plot, theme_cached = theme),
+    list(data = data, layout = layout, plot = plot),
     class = "ggplot_built"
   )
 }
@@ -165,8 +165,8 @@ ggplot_gtable <- function(data) {
 ggplot_gtable.ggplot_built <- function(data) {
   plot <- data$plot
   layout <- data$layout
-  theme <- data$theme_cached
   data <- data$data
+  theme <- plot$theme_cached
 
   geom_grobs <- Map(function(l, d) l$draw_geom(d, layout), plot$layers, data)
   layout$setup_panel_guides(plot$guides, plot$layers, plot$mapping)
