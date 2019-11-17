@@ -15,7 +15,7 @@ e1 \%+\% e2
 \item{e2}{A plot component, as described below.}
 }
 \description{
-\code{+} is the key to constructing sophisticated ggplot2 graphics. It
+\verb{+} is the key to constructing sophisticated ggplot2 graphics. It
 allows you to start simple, then get more and more complex, checking your
 work at each step.
 }

@@ -5,17 +5,37 @@
 \alias{scale_y_binned}
 \title{Positional scales for binning continuous data (x & y)}
 \usage{
-scale_x_binned(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
-  breaks = waiver(), labels = waiver(), limits = NULL,
-  expand = waiver(), oob = squish, na.value = NA_real_,
-  right = TRUE, show.limits = FALSE, trans = "identity",
-  position = "bottom")
+scale_x_binned(
+  name = waiver(),
+  n.breaks = 10,
+  nice.breaks = TRUE,
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = squish,
+  na.value = NA_real_,
+  right = TRUE,
+  show.limits = FALSE,
+  trans = "identity",
+  position = "bottom"
+)
 
-scale_y_binned(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
-  breaks = waiver(), labels = waiver(), limits = NULL,
-  expand = waiver(), oob = squish, na.value = NA_real_,
-  right = TRUE, show.limits = FALSE, trans = "identity",
-  position = "left")
+scale_y_binned(
+  name = waiver(),
+  n.breaks = 10,
+  nice.breaks = TRUE,
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = squish,
+  na.value = NA_real_,
+  right = TRUE,
+  show.limits = FALSE,
+  trans = "identity",
+  position = "left"
+)
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -68,7 +88,7 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
-expand the scale by 5\% on each side for continuous variables, and by
+expand the scale by 5\\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
 \item{oob}{One of:
@@ -96,7 +116,7 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \code{<name>_trans} (e.g.,
+are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
@@ -116,8 +136,9 @@ ggplot(mtcars) +
   scale_x_binned()
 }
 \seealso{
-Other position scales: \code{\link{scale_x_continuous}},
-  \code{\link{scale_x_date}},
-  \code{\link{scale_x_discrete}}
+Other position scales: 
+\code{\link{scale_x_continuous}()},
+\code{\link{scale_x_date}()},
+\code{\link{scale_x_discrete}()}
 }
 \concept{position scales}

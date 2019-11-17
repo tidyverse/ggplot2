@@ -5,16 +5,40 @@
 \alias{stat_boxplot}
 \title{A box and whiskers plot (in the style of Tukey)}
 \usage{
-geom_boxplot(mapping = NULL, data = NULL, stat = "boxplot",
-  position = "dodge2", ..., outlier.colour = NULL,
-  outlier.color = NULL, outlier.fill = NULL, outlier.shape = 19,
-  outlier.size = 1.5, outlier.stroke = 0.5, outlier.alpha = NULL,
-  notch = FALSE, notchwidth = 0.5, varwidth = FALSE, na.rm = FALSE,
-  orientation = NA, show.legend = NA, inherit.aes = TRUE)
+geom_boxplot(
+  mapping = NULL,
+  data = NULL,
+  stat = "boxplot",
+  position = "dodge2",
+  ...,
+  outlier.colour = NULL,
+  outlier.color = NULL,
+  outlier.fill = NULL,
+  outlier.shape = 19,
+  outlier.size = 1.5,
+  outlier.stroke = 0.5,
+  outlier.alpha = NULL,
+  notch = FALSE,
+  notchwidth = 0.5,
+  varwidth = FALSE,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_boxplot(mapping = NULL, data = NULL, geom = "boxplot",
-  position = "dodge2", ..., coef = 1.5, na.rm = FALSE,
-  orientation = NA, show.legend = NA, inherit.aes = TRUE)
+stat_boxplot(
+  mapping = NULL,
+  data = NULL,
+  geom = "boxplot",
+  position = "dodge2",
+  ...,
+  coef = 1.5,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -32,9 +56,9 @@ A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
-A \code{function} will be called with a single argument,
+A \verb{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
+will be used as the layer data. A \verb{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
@@ -120,7 +144,7 @@ end of the whiskers are called "outlying" points and are plotted
 individually.
 
 In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
-This gives a roughly 95\% confidence interval for comparing medians.
+This gives a roughly 95\\% confidence interval for comparing medians.
 See McGill et al. (1978) for more details.
 }
 
@@ -163,11 +187,11 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \describe{
 \item{width}{width of boxplot}
 \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
-\item{lower}{lower hinge, 25\% quantile}
+\item{lower}{lower hinge, 25\\% quantile}
 \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
-\item{middle}{median, 50\% quantile}
+\item{middle}{median, 50\\% quantile}
 \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
-\item{upper}{upper hinge, 75\% quantile}
+\item{upper}{upper hinge, 75\\% quantile}
 \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 }
 }

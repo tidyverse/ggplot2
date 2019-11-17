@@ -4,10 +4,19 @@
 \alias{geom_rug}
 \title{Rug plots in the margins}
 \usage{
-geom_rug(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., outside = FALSE, sides = "bl",
-  length = unit(0.03, "npc"), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_rug(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  outside = FALSE,
+  sides = "bl",
+  length = unit(0.03, "npc"),
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -25,9 +34,9 @@ A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
-A \code{function} will be called with a single argument,
+A \verb{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
+will be used as the layer data. A \verb{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
@@ -69,9 +78,9 @@ with the two 1d marginal distributions. Rug plots display individual
 cases so are best used with smaller datasets.
 }
 \details{
-By default, the rug lines are drawn with a length that corresponds to 3\%
+By default, the rug lines are drawn with a length that corresponds to 3\\%
 of the total plot size. Since the default scale expansion of for continuous
-variables is 5\% at both ends of the scale, the rug will not overlap with
+variables is 5\\% at both ends of the scale, the rug will not overlap with
 any data points under the default settings.
 }
 \section{Aesthetics}{

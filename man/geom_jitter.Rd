@@ -4,9 +4,18 @@
 \alias{geom_jitter}
 \title{Jittered points}
 \usage{
-geom_jitter(mapping = NULL, data = NULL, stat = "identity",
-  position = "jitter", ..., width = NULL, height = NULL,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+geom_jitter(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "jitter",
+  ...,
+  width = NULL,
+  height = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -24,9 +33,9 @@ A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
-A \code{function} will be called with a single argument,
+A \verb{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
+will be used as the layer data. A \verb{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
@@ -44,8 +53,8 @@ to the paired geom/stat.}
 is added in both positive and negative directions, so the total spread
 is twice the value specified here.
 
-If omitted, defaults to 40\% of the resolution of the data: this means the
-jitter values will occupy 80\% of the implied bins. Categorical data
+If omitted, defaults to 40\\% of the resolution of the data: this means the
+jitter values will occupy 80\\% of the implied bins. Categorical data
 is aligned on the integers, so a width or height of 0.5 will spread the
 data so it's not possible to see the distinction between the categories.}
 
@@ -53,8 +62,8 @@ data so it's not possible to see the distinction between the categories.}
 is added in both positive and negative directions, so the total spread
 is twice the value specified here.
 
-If omitted, defaults to 40\% of the resolution of the data: this means the
-jitter values will occupy 80\% of the implied bins. Categorical data
+If omitted, defaults to 40\\% of the resolution of the data: this means the
+jitter values will occupy 80\\% of the implied bins. Categorical data
 is aligned on the integers, so a width or height of 0.5 will spread the
 data so it's not possible to see the distinction between the categories.}
 

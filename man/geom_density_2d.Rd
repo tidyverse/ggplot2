@@ -7,15 +7,34 @@
 \alias{stat_density2d}
 \title{Contours of a 2d density estimate}
 \usage{
-geom_density_2d(mapping = NULL, data = NULL, stat = "density2d",
-  position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 10, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_density_2d(
+  mapping = NULL,
+  data = NULL,
+  stat = "density2d",
+  position = "identity",
+  ...,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_density_2d(mapping = NULL, data = NULL, geom = "density_2d",
-  position = "identity", ..., contour = TRUE, n = 100, h = NULL,
-  adjust = c(1, 1), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_density_2d(
+  mapping = NULL,
+  data = NULL,
+  geom = "density_2d",
+  position = "identity",
+  ...,
+  contour = TRUE,
+  n = 100,
+  h = NULL,
+  adjust = c(1, 1),
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -33,9 +52,9 @@ A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
-A \code{function} will be called with a single argument,
+A \verb{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
+will be used as the layer data. A \verb{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of

@@ -7,8 +7,12 @@
 \usage{
 position_dodge(width = NULL, preserve = c("total", "single"))
 
-position_dodge2(width = NULL, preserve = c("total", "single"),
-  padding = 0.1, reverse = FALSE)
+position_dodge2(
+  width = NULL,
+  preserve = c("total", "single"),
+  padding = 0.1,
+  reverse = FALSE
+)
 }
 \arguments{
 \item{width}{Dodging width, when different to the width of the individual
@@ -93,10 +97,11 @@ ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = position_dodge2(preserve = "total"))
 }
 \seealso{
-Other position adjustments: \code{\link{position_identity}},
-  \code{\link{position_jitterdodge}},
-  \code{\link{position_jitter}},
-  \code{\link{position_nudge}},
-  \code{\link{position_stack}}
+Other position adjustments: 
+\code{\link{position_identity}()},
+\code{\link{position_jitterdodge}()},
+\code{\link{position_jitter}()},
+\code{\link{position_nudge}()},
+\code{\link{position_stack}()}
 }
 \concept{position adjustments}

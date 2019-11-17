@@ -4,8 +4,7 @@
 \alias{ggplot}
 \title{Create a new ggplot}
 \usage{
-ggplot(data = NULL, mapping = aes(), ...,
-  environment = parent.frame())
+ggplot(data = NULL, mapping = aes(), ..., environment = parent.frame())
 }
 \arguments{
 \item{data}{Default dataset to use for plot. If not already a data.frame,
@@ -27,10 +26,10 @@ subsequent layers unless specifically overridden.
 }
 \details{
 \code{ggplot()} is used to construct the initial plot object,
-and is almost always followed by \code{+} to add component to the
+and is almost always followed by \verb{+} to add component to the
 plot. There are three common ways to invoke \code{ggplot}:
 \itemize{
-\item \code{ggplot(df, aes(x, y, other aesthetics))}
+\item \verb{ggplot(df, aes(x, y, other aesthetics))}
 \item \code{ggplot(df)}
 \item \code{ggplot()}
 }

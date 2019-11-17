@@ -4,8 +4,13 @@
 \alias{coord_cartesian}
 \title{Cartesian coordinates}
 \usage{
-coord_cartesian(xlim = NULL, ylim = NULL, expand = TRUE,
-  default = FALSE, clip = "on")
+coord_cartesian(
+  xlim = NULL,
+  ylim = NULL,
+  expand = TRUE,
+  default = FALSE,
+  clip = "on"
+)
 }
 \arguments{
 \item{xlim, ylim}{Limits for the x and y axes.}

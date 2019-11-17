@@ -4,14 +4,31 @@
 \alias{guide_bins}
 \title{A binned version of guide_legend}
 \usage{
-guide_bins(title = waiver(), title.position = NULL,
-  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
-  label = TRUE, label.position = NULL, label.theme = NULL,
-  label.hjust = NULL, label.vjust = NULL, keywidth = NULL,
-  keyheight = NULL, axis = TRUE, axis.colour = "black",
-  axis.linewidth = 0.5, axis.arrow = NULL, direction = NULL,
-  default.unit = "line", override.aes = list(), reverse = FALSE,
-  order = 0, show.limits = NULL, ...)
+guide_bins(
+  title = waiver(),
+  title.position = NULL,
+  title.theme = NULL,
+  title.hjust = NULL,
+  title.vjust = NULL,
+  label = TRUE,
+  label.position = NULL,
+  label.theme = NULL,
+  label.hjust = NULL,
+  label.vjust = NULL,
+  keywidth = NULL,
+  keyheight = NULL,
+  axis = TRUE,
+  axis.colour = "black",
+  axis.linewidth = 0.5,
+  axis.arrow = NULL,
+  direction = NULL,
+  default.unit = "line",
+  override.aes = list(),
+  reverse = FALSE,
+  order = 0,
+  show.limits = NULL,
+  ...
+)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -123,8 +140,10 @@ ggplot(mtcars) +
 
 }
 \seealso{
-Other guides: \code{\link{guide_colourbar}},
-  \code{\link{guide_coloursteps}},
-  \code{\link{guide_legend}}, \code{\link{guides}}
+Other guides: 
+\code{\link{guide_colourbar}()},
+\code{\link{guide_coloursteps}()},
+\code{\link{guide_legend}()},
+\code{\link{guides}()}
 }
 \concept{guides}

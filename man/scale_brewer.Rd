@@ -12,26 +12,65 @@
 \alias{scale_color_fermenter}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
-scale_colour_brewer(..., type = "seq", palette = 1, direction = 1,
-  aesthetics = "colour")
+scale_colour_brewer(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = 1,
+  aesthetics = "colour"
+)
 
-scale_fill_brewer(..., type = "seq", palette = 1, direction = 1,
-  aesthetics = "fill")
+scale_fill_brewer(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = 1,
+  aesthetics = "fill"
+)
 
-scale_colour_distiller(..., type = "seq", palette = 1,
-  direction = -1, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "colour")
+scale_colour_distiller(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "colour"
+)
 
-scale_fill_distiller(..., type = "seq", palette = 1, direction = -1,
-  values = NULL, space = "Lab", na.value = "grey50",
-  guide = "colourbar", aesthetics = "fill")
+scale_fill_distiller(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "fill"
+)
 
-scale_colour_fermenter(..., type = "seq", palette = 1,
-  direction = -1, na.value = "grey50", guide = "coloursteps",
-  aesthetics = "colour")
+scale_colour_fermenter(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "colour"
+)
 
-scale_fill_fermenter(..., type = "seq", palette = 1, direction = -1,
-  na.value = "grey50", guide = "coloursteps", aesthetics = "fill")
+scale_fill_fermenter(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "fill"
+)
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}}, \code{\link[=continuous_scale]{continuous_scale()}},
@@ -131,11 +170,12 @@ v + scale_fill_fermenter()
 
 }
 \seealso{
-Other colour scales: \code{\link{scale_alpha}},
-  \code{\link{scale_colour_gradient}},
-  \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}},
-  \code{\link{scale_colour_steps}},
-  \code{\link{scale_colour_viridis_d}}
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_viridis_d}()}
 }
 \concept{colour scales}

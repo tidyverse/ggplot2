@@ -7,26 +7,64 @@
 \alias{stat_contour_filled}
 \title{2d contours of a 3d surface}
 \usage{
-geom_contour(mapping = NULL, data = NULL, stat = "contour",
-  position = "identity", ..., bins = NULL, binwidth = NULL,
-  breaks = NULL, lineend = "butt", linejoin = "round",
-  linemitre = 10, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_contour(
+  mapping = NULL,
+  data = NULL,
+  stat = "contour",
+  position = "identity",
+  ...,
+  bins = NULL,
+  binwidth = NULL,
+  breaks = NULL,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_contour_filled(mapping = NULL, data = NULL,
-  stat = "contour_filled", position = "identity", ..., bins = NULL,
-  binwidth = NULL, breaks = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_contour_filled(
+  mapping = NULL,
+  data = NULL,
+  stat = "contour_filled",
+  position = "identity",
+  ...,
+  bins = NULL,
+  binwidth = NULL,
+  breaks = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_contour(mapping = NULL, data = NULL, geom = "contour",
-  position = "identity", ..., bins = NULL, binwidth = NULL,
-  breaks = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_contour(
+  mapping = NULL,
+  data = NULL,
+  geom = "contour",
+  position = "identity",
+  ...,
+  bins = NULL,
+  binwidth = NULL,
+  breaks = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_contour_filled(mapping = NULL, data = NULL, geom = "polygon",
-  position = "identity", ..., bins = NULL, binwidth = NULL,
-  breaks = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_contour_filled(
+  mapping = NULL,
+  data = NULL,
+  geom = "polygon",
+  position = "identity",
+  ...,
+  bins = NULL,
+  binwidth = NULL,
+  breaks = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -44,9 +82,9 @@ A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
-A \code{function} will be called with a single argument,
+A \verb{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
+will be used as the layer data. A \verb{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this

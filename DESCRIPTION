@@ -254,6 +254,6 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8

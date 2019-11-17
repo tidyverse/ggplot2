@@ -4,12 +4,27 @@
 \alias{geom_dotplot}
 \title{Dot plot}
 \usage{
-geom_dotplot(mapping = NULL, data = NULL, position = "identity", ...,
-  binwidth = NULL, binaxis = "x", method = "dotdensity",
-  binpositions = "bygroup", stackdir = "up", stackratio = 1,
-  dotsize = 1, stackgroups = FALSE, origin = NULL, right = TRUE,
-  width = 0.9, drop = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_dotplot(
+  mapping = NULL,
+  data = NULL,
+  position = "identity",
+  ...,
+  binwidth = NULL,
+  binaxis = "x",
+  method = "dotdensity",
+  binpositions = "bygroup",
+  stackdir = "up",
+  stackratio = 1,
+  dotsize = 1,
+  stackgroups = FALSE,
+  origin = NULL,
+  right = TRUE,
+  width = 0.9,
+  drop = FALSE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -27,9 +42,9 @@ A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
-A \code{function} will be called with a single argument,
+A \verb{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
+will be used as the layer data. A \verb{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of

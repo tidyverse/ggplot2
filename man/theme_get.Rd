@@ -39,9 +39,9 @@ shorthands for changing individual elements.
 \section{Adding on to a theme}{
 
 
-\code{+} and \code{\%+replace\%} can be used to modify elements in themes.
+\verb{+} and \code{\%+replace\%} can be used to modify elements in themes.
 
-\code{+} updates the elements of e1 that differ from elements specified (not
+\verb{+} updates the elements of e1 that differ from elements specified (not
 NULL) in e2. Thus this operator can be used to incrementally add or modify
 attributes of a ggplot theme.
 
@@ -49,7 +49,7 @@ In contrast, \code{\%+replace\%} replaces the entire element; any element of
 a theme not specified in e2 will not be present in the resulting theme (i.e.
 NULL). Thus this operator can be used to overwrite an entire theme.
 
-\code{theme_update} uses the \code{+} operator, so that any unspecified
+\code{theme_update} uses the \verb{+} operator, so that any unspecified
 values in the theme element will default to the values they are set in the
 theme. \code{theme_replace} uses \code{\%+replace\%} to completely replace
 the element, so any unspecified values will overwrite the current value in

@@ -13,29 +13,74 @@
 \alias{stat_sf}
 \title{Visualise sf objects}
 \usage{
-coord_sf(xlim = NULL, ylim = NULL, expand = TRUE, crs = NULL,
-  datum = sf::st_crs(4326), label_graticule = waiver(),
-  label_axes = waiver(), ndiscr = 100, default = FALSE,
-  clip = "on")
+coord_sf(
+  xlim = NULL,
+  ylim = NULL,
+  expand = TRUE,
+  crs = NULL,
+  datum = sf::st_crs(4326),
+  label_graticule = waiver(),
+  label_axes = waiver(),
+  ndiscr = 100,
+  default = FALSE,
+  clip = "on"
+)
 
-geom_sf(mapping = aes(), data = NULL, stat = "sf",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+geom_sf(
+  mapping = aes(),
+  data = NULL,
+  stat = "sf",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 
-geom_sf_label(mapping = aes(), data = NULL, stat = "sf_coordinates",
-  position = "identity", ..., parse = FALSE, nudge_x = 0,
-  nudge_y = 0, label.padding = unit(0.25, "lines"),
-  label.r = unit(0.15, "lines"), label.size = 0.25, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, fun.geometry = NULL)
+geom_sf_label(
+  mapping = aes(),
+  data = NULL,
+  stat = "sf_coordinates",
+  position = "identity",
+  ...,
+  parse = FALSE,
+  nudge_x = 0,
+  nudge_y = 0,
+  label.padding = unit(0.25, "lines"),
+  label.r = unit(0.15, "lines"),
+  label.size = 0.25,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fun.geometry = NULL
+)
 
-geom_sf_text(mapping = aes(), data = NULL, stat = "sf_coordinates",
-  position = "identity", ..., parse = FALSE, nudge_x = 0,
-  nudge_y = 0, check_overlap = FALSE, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, fun.geometry = NULL)
+geom_sf_text(
+  mapping = aes(),
+  data = NULL,
+  stat = "sf_coordinates",
+  position = "identity",
+  ...,
+  parse = FALSE,
+  nudge_x = 0,
+  nudge_y = 0,
+  check_overlap = FALSE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fun.geometry = NULL
+)
 
-stat_sf(mapping = NULL, data = NULL, geom = "rect",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+stat_sf(
+  mapping = NULL,
+  data = NULL,
+  geom = "rect",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{xlim}{Limits for the x and y axes.}
@@ -106,9 +151,9 @@ A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
-A \code{function} will be called with a single argument,
+A \verb{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
+will be used as the layer data. A \verb{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this

@@ -7,25 +7,61 @@
 \alias{stat_qq}
 \title{A quantile-quantile plot}
 \usage{
-geom_qq_line(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), line.p = c(0.25, 0.75), fullrange = FALSE,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+geom_qq_line(
+  mapping = NULL,
+  data = NULL,
+  geom = "path",
+  position = "identity",
+  ...,
+  distribution = stats::qnorm,
+  dparams = list(),
+  line.p = c(0.25, 0.75),
+  fullrange = FALSE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_qq_line(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), line.p = c(0.25, 0.75), fullrange = FALSE,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+stat_qq_line(
+  mapping = NULL,
+  data = NULL,
+  geom = "path",
+  position = "identity",
+  ...,
+  distribution = stats::qnorm,
+  dparams = list(),
+  line.p = c(0.25, 0.75),
+  fullrange = FALSE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_qq(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_qq(
+  mapping = NULL,
+  data = NULL,
+  geom = "point",
+  position = "identity",
+  ...,
+  distribution = stats::qnorm,
+  dparams = list(),
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_qq(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_qq(
+  mapping = NULL,
+  data = NULL,
+  geom = "point",
+  position = "identity",
+  ...,
+  distribution = stats::qnorm,
+  dparams = list(),
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -43,9 +79,9 @@ A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
-A \code{function} will be called with a single argument,
+A \verb{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
+will be used as the layer data. A \verb{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{geom}{The geometric object to use display the data}

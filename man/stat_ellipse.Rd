@@ -4,10 +4,19 @@
 \alias{stat_ellipse}
 \title{Compute normal data ellipses}
 \usage{
-stat_ellipse(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", ..., type = "t", level = 0.95,
-  segments = 51, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_ellipse(
+  mapping = NULL,
+  data = NULL,
+  geom = "path",
+  position = "identity",
+  ...,
+  type = "t",
+  level = 0.95,
+  segments = 51,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -25,9 +34,9 @@ A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
-A \code{function} will be called with a single argument,
+A \verb{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
+will be used as the layer data. A \verb{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{geom}{The geometric object to use display the data}

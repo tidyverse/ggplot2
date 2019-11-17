@@ -4,11 +4,22 @@
 \alias{discrete_scale}
 \title{Discrete scale constructor}
 \usage{
-discrete_scale(aesthetics, scale_name, palette, name = waiver(),
-  breaks = waiver(), labels = waiver(), limits = NULL,
-  expand = waiver(), na.translate = TRUE, na.value = NA,
-  drop = TRUE, guide = "legend", position = "left",
-  super = ScaleDiscrete)
+discrete_scale(
+  aesthetics,
+  scale_name,
+  palette,
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  na.translate = TRUE,
+  na.value = NA,
+  drop = TRUE,
+  guide = "legend",
+  position = "left",
+  super = ScaleDiscrete
+)
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
@@ -51,7 +62,7 @@ and their order.}
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
-expand the scale by 5\% on each side for continuous variables, and by
+expand the scale by 5\\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
 \item{na.translate}{Unlike continuous scales, discrete scales can easily show

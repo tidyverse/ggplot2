@@ -11,17 +11,37 @@
 \alias{scale_y_sqrt}
 \title{Position scales for continuous data (x & y)}
 \usage{
-scale_x_continuous(name = waiver(), breaks = waiver(),
-  minor_breaks = waiver(), n.breaks = NULL, labels = waiver(),
-  limits = NULL, expand = waiver(), oob = censor,
-  na.value = NA_real_, trans = "identity", guide = waiver(),
-  position = "bottom", sec.axis = waiver())
+scale_x_continuous(
+  name = waiver(),
+  breaks = waiver(),
+  minor_breaks = waiver(),
+  n.breaks = NULL,
+  labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  na.value = NA_real_,
+  trans = "identity",
+  guide = waiver(),
+  position = "bottom",
+  sec.axis = waiver()
+)
 
-scale_y_continuous(name = waiver(), breaks = waiver(),
-  minor_breaks = waiver(), n.breaks = NULL, labels = waiver(),
-  limits = NULL, expand = waiver(), oob = censor,
-  na.value = NA_real_, trans = "identity", guide = waiver(),
-  position = "left", sec.axis = waiver())
+scale_y_continuous(
+  name = waiver(),
+  breaks = waiver(),
+  minor_breaks = waiver(),
+  n.breaks = NULL,
+  labels = waiver(),
+  limits = NULL,
+  expand = waiver(),
+  oob = censor,
+  na.value = NA_real_,
+  trans = "identity",
+  guide = waiver(),
+  position = "left",
+  sec.axis = waiver()
+)
 
 scale_x_log10(...)
 
@@ -91,7 +111,7 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
-expand the scale by 5\% on each side for continuous variables, and by
+expand the scale by 5\\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
 \item{oob}{One of:
@@ -114,7 +134,7 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \code{<name>_trans} (e.g.,
+are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
@@ -126,13 +146,13 @@ transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 
 \item{sec.axis}{\code{\link[=sec_axis]{sec_axis()}} is used to specify a secondary axis.}
 
-\item{...}{Other arguments passed on to \code{scale_(x|y)_continuous()}}
+\item{...}{Other arguments passed on to \verb{scale_(x|y)_continuous()}}
 }
 \description{
 \code{scale_x_continuous()} and \code{scale_y_continuous()} are the default
 scales for continuous x and y aesthetics. There are three variants
 that set the \code{trans} argument for commonly used transformations:
-\code{scale_*_log10()}, \code{scale_*_sqrt()} and \code{scale_*_reverse()}.
+\verb{scale_*_log10()}, \verb{scale_*_sqrt()} and \verb{scale_*_reverse()}.
 }
 \details{
 For simple manipulation of labels and limits, you may wish to use
@@ -193,8 +213,9 @@ p1 + scale_y_continuous(trans = scales::reciprocal_trans())
 
 }
 \seealso{
-Other position scales: \code{\link{scale_x_binned}},
-  \code{\link{scale_x_date}},
-  \code{\link{scale_x_discrete}}
+Other position scales: 
+\code{\link{scale_x_binned}()},
+\code{\link{scale_x_date}()},
+\code{\link{scale_x_discrete}()}
 }
 \concept{position scales}

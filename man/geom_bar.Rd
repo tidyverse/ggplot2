@@ -6,18 +6,43 @@
 \alias{stat_count}
 \title{Bar charts}
 \usage{
-geom_bar(mapping = NULL, data = NULL, stat = "count",
-  position = "stack", ..., width = NULL, binwidth = NULL,
-  na.rm = FALSE, orientation = NA, show.legend = NA,
-  inherit.aes = TRUE)
+geom_bar(
+  mapping = NULL,
+  data = NULL,
+  stat = "count",
+  position = "stack",
+  ...,
+  width = NULL,
+  binwidth = NULL,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_col(mapping = NULL, data = NULL, position = "stack", ...,
-  width = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_col(
+  mapping = NULL,
+  data = NULL,
+  position = "stack",
+  ...,
+  width = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_count(mapping = NULL, data = NULL, geom = "bar",
-  position = "stack", ..., width = NULL, na.rm = FALSE,
-  orientation = NA, show.legend = NA, inherit.aes = TRUE)
+stat_count(
+  mapping = NULL,
+  data = NULL,
+  geom = "bar",
+  position = "stack",
+  ...,
+  width = NULL,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -35,9 +60,9 @@ A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
-A \code{function} will be called with a single argument,
+A \verb{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data. A \code{function} can be created
+will be used as the layer data. A \verb{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
@@ -48,7 +73,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
+\item{width}{Bar width. By default, set to 90\\% of the resolution of the data.}
 
 \item{binwidth}{\code{geom_bar()} no longer has a binwidth argument - if
 you use it you'll get an warning telling to you use

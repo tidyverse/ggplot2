@@ -11,8 +11,8 @@ position_jitter(width = NULL, height = NULL, seed = NA)
 is added in both positive and negative directions, so the total spread
 is twice the value specified here.
 
-If omitted, defaults to 40\% of the resolution of the data: this means the
-jitter values will occupy 80\% of the implied bins. Categorical data
+If omitted, defaults to 40\\% of the resolution of the data: this means the
+jitter values will occupy 80\\% of the implied bins. Categorical data
 is aligned on the integers, so a width or height of 0.5 will spread the
 data so it's not possible to see the distinction between the categories.}
 
@@ -55,10 +55,11 @@ ggplot(mtcars, aes(am, vs)) +
   geom_point(position = jitter, color = "red", aes(am + 0.2, vs + 0.2))
 }
 \seealso{
-Other position adjustments: \code{\link{position_dodge}},
-  \code{\link{position_identity}},
-  \code{\link{position_jitterdodge}},
-  \code{\link{position_nudge}},
-  \code{\link{position_stack}}
+Other position adjustments: 
+\code{\link{position_dodge}()},
+\code{\link{position_identity}()},
+\code{\link{position_jitterdodge}()},
+\code{\link{position_nudge}()},
+\code{\link{position_stack}()}
 }
 \concept{position adjustments}
