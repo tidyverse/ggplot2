@@ -73,7 +73,7 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{width}{Bar width. By default, set to 90\\% of the resolution of the data.}
+\item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
 
 \item{binwidth}{\code{geom_bar()} no longer has a binwidth argument - if
 you use it you'll get an warning telling to you use

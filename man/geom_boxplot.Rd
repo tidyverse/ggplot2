@@ -144,7 +144,7 @@ end of the whiskers are called "outlying" points and are plotted
 individually.
 
 In a notched box plot, the notches extend \code{1.58 * IQR / sqrt(n)}.
-This gives a roughly 95\\% confidence interval for comparing medians.
+This gives a roughly 95\% confidence interval for comparing medians.
 See McGill et al. (1978) for more details.
 }
 
@@ -187,11 +187,11 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \describe{
 \item{width}{width of boxplot}
 \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
-\item{lower}{lower hinge, 25\\% quantile}
+\item{lower}{lower hinge, 25\% quantile}
 \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
-\item{middle}{median, 50\\% quantile}
+\item{middle}{median, 50\% quantile}
 \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
-\item{upper}{upper hinge, 75\\% quantile}
+\item{upper}{upper hinge, 75\% quantile}
 \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 }
 }
