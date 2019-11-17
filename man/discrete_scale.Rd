@@ -62,7 +62,7 @@ and their order.}
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
-expand the scale by 5\\% on each side for continuous variables, and by
+expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
 
 \item{na.translate}{Unlike continuous scales, discrete scales can easily show

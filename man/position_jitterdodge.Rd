@@ -12,7 +12,7 @@ position_jitterdodge(
 )
 }
 \arguments{
-\item{jitter.width}{degree of jitter in x direction. Defaults to 40\\% of the
+\item{jitter.width}{degree of jitter in x direction. Defaults to 40\% of the
 resolution of the data.}
 
 \item{jitter.height}{degree of jitter in y direction. Defaults to 0.}
