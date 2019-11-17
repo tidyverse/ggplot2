@@ -57,7 +57,7 @@ aligning dot stacks across multiple groups.}
 \item{stackdir}{which direction to stack the dots. "up" (default),
 "down", "center", "centerwhole" (centered, but with dots aligned)}
 
-\item{stackratio}{how close to stack the dots. Default is 1, where dots just
+\item{stackratio}{how close to stack the dots. Default is 1, where dots
 just touch. Use smaller values for closer, overlapping dots.}
 
 \item{dotsize}{The diameter of the dots relative to \code{binwidth}, default 1.}
