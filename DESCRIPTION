@@ -32,7 +32,6 @@ Imports:
     scales (>= 0.5.0),
     stats,
     tibble,
-    viridisLite,
     withr (>= 2.0.0)
 Suggests:
     covr,

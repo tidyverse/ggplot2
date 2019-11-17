@@ -5,7 +5,7 @@
 #' with common forms of colour blindness. See also
 #' <https://bids.github.io/colormap/>.
 #'
-#' @inheritParams viridisLite::viridis
+#' @inheritParams scales::viridis_pal
 #' @inheritParams scales::gradient_n_pal
 #' @inheritParams continuous_scale
 #' @param ... Other arguments passed on to [discrete_scale()],
