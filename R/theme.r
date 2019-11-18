@@ -9,7 +9,7 @@
 #' about theme inheritance below.
 #'
 #' @section Theme inheritance:
-#' Theme elements inherit properties from other theme elements heirarchically.
+#' Theme elements inherit properties from other theme elements hierarchically.
 #' For example, `axis.title.x.bottom` inherits from `axis.title.x` which inherits
 #' from `axis.title`, which in turn inherits from `text`. All text elements inherit
 #' directly or indirectly from `text`; all lines inherit from
@@ -164,6 +164,10 @@
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
 #' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
+#' @param element_tree optional addition or modification to the element tree,
+#'   which specifies the inheritance relationship of the theme elements. The element
+#'   tree should be provided as a list of named element definitions created with
+#'   [`el_def()`]. See [`el_def()`] for more details.
 #'
 #' @seealso
 #'   [+.gg()] and \code{\link{\%+replace\%}},
@@ -358,9 +362,10 @@ theme <- function(line,
                   strip.switch.pad.wrap,
                   ...,
                   complete = FALSE,
-                  validate = TRUE
+                  validate = TRUE,
+                  element_tree = NULL
                   ) {
-  elements <- find_args(..., complete = NULL, validate = NULL)
+  elements <- find_args(..., complete = NULL, validate = NULL, element_tree = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
     warning("`axis.ticks.margin` is deprecated. Please set `margin` property ",
@@ -392,11 +397,6 @@ theme <- function(line,
     elements$legend.margin <- margin()
   }
 
-  # Check that all elements have the correct class (element_text, unit, etc)
-  if (validate) {
-    mapply(validate_element, elements, names(elements))
-  }
-
   # If complete theme set all non-blank elements to inherit from blanks
   if (complete) {
     elements <- lapply(elements, function(el) {
@@ -410,21 +410,69 @@ theme <- function(line,
     elements,
     class = c("theme", "gg"),
     complete = complete,
-    validate = validate
+    validate = validate,
+    element_tree = element_tree
   )
 }
 
-is_theme_complete <- function(x) isTRUE(attr(x, "complete"))
+# check whether theme is complete
+is_theme_complete <- function(x) isTRUE(attr(x, "complete", exact = TRUE))
 
+# check whether theme should be validated
+is_theme_validate <- function(x) {
+  validate <- attr(x, "validate", exact = TRUE)
+  if (is.null(validate))
+    TRUE # we validate by default
+  else
+    isTRUE(validate)
+}
+
+# obtain the full element tree from a theme,
+# substituting the defaults if needed
+complete_element_tree <- function(theme) {
+  element_tree <- attr(theme, "element_tree", exact = TRUE)
+
+  # we fill in the element tree first from the current default theme,
+  # and then from the internal element tree if necessary
+  # this makes it easy for extension packages to provide modified
+  # default element trees
+  defaults(
+    defaults(
+      element_tree,
+      attr(theme_get(), "element_tree", exact = TRUE)
+    ),
+    ggplot_global$element_tree
+  )
+}
 
 # Combine plot defaults with current theme to get complete theme for a plot
 plot_theme <- function(x, default = theme_get()) {
   theme <- x$theme
+
+  # apply theme defaults appropriately if needed
   if (is_theme_complete(theme)) {
-    theme
+    # for complete themes, we fill in missing elements but don't do any element merging
+    # can't use `defaults()` because it strips attributes
+    missing <- setdiff(names(default), names(theme))
+    theme[missing] <- default[missing]
   } else {
-    defaults(theme, default)
+    # otherwise, we can just add the theme to the default theme
+    theme <- default + theme
   }
+
+  # complete the element tree and save back to the theme
+  element_tree <- complete_element_tree(theme)
+  attr(theme, "element_tree") <- element_tree
+
+  # Check that all elements have the correct class (element_text, unit, etc)
+  if (is_theme_validate(theme)) {
+    mapply(
+      validate_element, theme, names(theme),
+      MoreArgs = list(element_tree = element_tree)
+    )
+  }
+
+  theme
 }
 
 #' Modify properties of an element in a theme object
@@ -435,8 +483,8 @@ plot_theme <- function(x, default = theme_get()) {
 #'   informative error messages.
 #' @keywords internal
 add_theme <- function(t1, t2, t2name) {
-  if (!is.theme(t2)) {
-    stop("Don't know how to add ", t2name, " to a theme object",
+  if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
+    stop("Can't add `", t2name, "` to a theme object.",
       call. = FALSE)
   }
 
@@ -457,6 +505,17 @@ add_theme <- function(t1, t2, t2name) {
   # make sure the "complete" attribute is set; this can be missing
   # when t1 is an empty list
   attr(t1, "complete") <- is_theme_complete(t1)
+
+  # Only validate if both themes should be validated
+  attr(t1, "validate") <-
+    is_theme_validate(t1) && is_theme_validate(t2)
+
+  # Merge element trees if provided
+  attr(t1, "element_tree") <- defaults(
+    attr(t2, "element_tree", exact = TRUE),
+    attr(t1, "element_tree", exact = TRUE)
+  )
+
   t1
 }
 
@@ -484,14 +543,7 @@ add_theme <- function(t1, t2, t2name) {
 calc_element <- function(element, theme, verbose = FALSE) {
   if (verbose) message(element, " --> ", appendLF = FALSE)
 
-  # if theme is not complete, merge element with theme defaults,
-  # otherwise take it as is. This fills in theme defaults if no
-  # explicit theme is set for the plot.
-  if (!is_theme_complete(theme)) {
-    el_out <- merge_element(theme[[element]], theme_get()[[element]])
-  } else {
-    el_out <- theme[[element]]
-  }
+  el_out <- theme[[element]]
 
   # If result is element_blank, don't inherit anything from parents
   if (inherits(el_out, "element_blank")) {
@@ -499,15 +551,23 @@ calc_element <- function(element, theme, verbose = FALSE) {
     return(el_out)
   }
 
+  # Obtain the element tree and check that the element is in it
+  # If not, try to retrieve the complete element tree. This is
+  # needed for backwards compatibility and certain unit tests.
+  element_tree <- attr(theme, "element_tree", exact = TRUE)
+  if (!element %in% names(element_tree)) {
+    element_tree <- complete_element_tree(theme)
+  }
+
   # If the element is defined (and not just inherited), check that
-  # it is of the class specified in .element_tree
+  # it is of the class specified in element_tree
   if (!is.null(el_out) &&
-      !inherits(el_out, ggplot_global$element_tree[[element]]$class)) {
-    stop(element, " should have class ", ggplot_global$element_tree[[element]]$class)
+      !inherits(el_out, element_tree[[element]]$class)) {
+    stop(element, " should have class ", element_tree[[element]]$class)
   }
 
   # Get the names of parents from the inheritance tree
-  pnames <- ggplot_global$element_tree[[element]]$inherit
+  pnames <- element_tree[[element]]$inherit
 
   # If no parents, this is a "root" node. Just return this element.
   if (is.null(pnames)) {

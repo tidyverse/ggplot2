@@ -1,5 +1,58 @@
 context("geom-sf")
 
+test_that("geom_sf() removes rows containing missing aes", {
+  skip_if_not_installed("sf")
+  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+
+  grob_xy_length <- function(x) {
+    g <- layer_grob(x)[[1]]
+    c(length(g$x), length(g$y))
+  }
+
+  pts <- sf::st_sf(
+    geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)),
+    size = c(1, NA),
+    shape = c("a", NA),
+    colour = c("red", NA)
+  )
+
+  p <- ggplot(pts) + geom_sf()
+  expect_warning(
+    expect_identical(grob_xy_length(p + aes(size = size)), c(1L, 1L)),
+    "Removed 1 rows containing missing values"
+  )
+  expect_warning(
+    expect_identical(grob_xy_length(p + aes(shape = shape)), c(1L, 1L)),
+    "Removed 1 rows containing missing values"
+  )
+  # default colour scale maps a colour even to a NA, so identity scale is needed to see if NA is removed
+  expect_warning(
+    expect_identical(grob_xy_length(p + aes(colour = colour) + scale_colour_identity()),
+                     c(1L, 1L)),
+    "Removed 1 rows containing missing values"
+  )
+})
+
+test_that("geom_sf() handles alpha properly", {
+  skip_if_not_installed("sf")
+  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+
+  sfc <- sf::st_sfc(
+    sf::st_point(0:1),
+    sf::st_linestring(rbind(0:1, 1:2)),
+    sf::st_polygon(list(rbind(0:1, 1:2, 2:1, 0:1)))
+  )
+  red <- "#FF0000FF"
+  p <- ggplot(sfc) + geom_sf(colour = red, fill = red, alpha = 0.5)
+  g <- layer_grob(p)[[1]]
+
+  # alpha affects the colour of points and lines
+  expect_equal(g[[1]]$gp$col, alpha(red, 0.5))
+  expect_equal(g[[2]]$gp$col, alpha(red, 0.5))
+  # alpha doesn't affect the colour of polygons, but the fill
+  expect_equal(g[[3]]$gp$col, alpha(red, 1.0))
+  expect_equal(g[[3]]$gp$fill, alpha(red, 0.5))
+})
 
 # Visual tests ------------------------------------------------------------
 
@@ -62,38 +115,5 @@ test_that("geom_sf_text() and geom_sf_label() draws correctly", {
 
   expect_doppelganger("Labels for North Carolina",
     ggplot() + geom_sf_label(data = nc_3857, aes(label = NAME))
-  )
-})
-
-test_that("geom_sf() removes rows containing missing aes", {
-  skip_if_not_installed("sf")
-  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
-
-  grob_xy_length <- function(x) {
-    g <- layer_grob(x)[[1]]
-    c(length(g$x), length(g$y))
-  }
-
-  pts <- sf::st_sf(
-    geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)),
-    size = c(1, NA),
-    shape = c("a", NA),
-    colour = c("red", NA)
-  )
-
-  p <- ggplot(pts) + geom_sf()
-  expect_warning(
-    expect_identical(grob_xy_length(p + aes(size = size)), c(1L, 1L)),
-    "Removed 1 rows containing missing values"
-  )
-  expect_warning(
-    expect_identical(grob_xy_length(p + aes(shape = shape)), c(1L, 1L)),
-    "Removed 1 rows containing missing values"
-  )
-  # default colour scale maps a colour even to a NA, so identity scale is needed to see if NA is removed
-  expect_warning(
-    expect_identical(grob_xy_length(p + aes(colour = colour) + scale_colour_identity()),
-                     c(1L, 1L)),
-    "Removed 1 rows containing missing values"
   )
 })

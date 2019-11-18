@@ -34,7 +34,7 @@
 #' @inheritParams geom_point
 #' @param stackdir which direction to stack the dots. "up" (default),
 #'   "down", "center", "centerwhole" (centered, but with dots aligned)
-#' @param stackratio how close to stack the dots. Default is 1, where dots just
+#' @param stackratio how close to stack the dots. Default is 1, where dots
 #'   just touch. Use smaller values for closer, overlapping dots.
 #' @param dotsize The diameter of the dots relative to `binwidth`, default 1.
 #' @param stackgroups should dots be stacked across groups? This has the effect

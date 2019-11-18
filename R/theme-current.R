@@ -104,5 +104,17 @@ theme_replace <- function(...) {
 
   # Can't use modifyList here since it works recursively and drops NULLs
   e1[names(e2)] <- e2
+
+  # Merge element trees if provided
+  attr(e1, "element_tree") <- defaults(
+    attr(e2, "element_tree", exact = TRUE),
+    attr(e1, "element_tree", exact = TRUE)
+  )
+
+  # comment by @clauswilke:
+  # `complete` and `validate` are currently ignored,
+  # which means they are taken from e1. Is this correct?
+  # I'm not sure how `%+replace%` should handle them.
+
   e1
 }

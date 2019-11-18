@@ -27,7 +27,7 @@ theme(line, rect, text, title, aspect.ratio, axis.title, axis.title.x,
   plot.tag, plot.tag.position, plot.margin, strip.background,
   strip.background.x, strip.background.y, strip.placement, strip.text,
   strip.text.x, strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap,
-  ..., complete = FALSE, validate = TRUE)
+  ..., complete = FALSE, validate = TRUE, element_tree = NULL)
 }
 \arguments{
 \item{line}{all line elements (\code{\link[=element_line]{element_line()}})}
@@ -207,6 +207,11 @@ differently when added to a ggplot object. Also, when setting
 elements.}
 
 \item{validate}{\code{TRUE} to run \code{validate_element()}, \code{FALSE} to bypass checks.}
+
+\item{element_tree}{optional addition or modification to the element tree,
+which specifies the inheritance relationship of the theme elements. The element
+tree should be provided as a list of named element definitions created with
+\code{\link[=el_def]{el_def()}}. See \code{\link[=el_def]{el_def()}} for more details.}
 }
 \description{
 Themes are a powerful way to customize the non-data components of your
@@ -219,7 +224,7 @@ about theme inheritance below.
 }
 \section{Theme inheritance}{
 
-Theme elements inherit properties from other theme elements heirarchically.
+Theme elements inherit properties from other theme elements hierarchically.
 For example, \code{axis.title.x.bottom} inherits from \code{axis.title.x} which inherits
 from \code{axis.title}, which in turn inherits from \code{text}. All text elements inherit
 directly or indirectly from \code{text}; all lines inherit from

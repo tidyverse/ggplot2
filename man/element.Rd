@@ -90,7 +90,7 @@ specify the display of how non-data components of the plot are a drawn.
 }
 
 \code{rel()} is used to specify sizes relative to the parent,
-\code{margins()} is used to specify the margins of elements.
+\code{margin()} is used to specify the margins of elements.
 }
 \examples{
 plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()

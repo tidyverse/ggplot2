@@ -87,7 +87,11 @@ bin_breaks_width <- function(x_range, width = NULL, center = NULL,
   max_x <- x_range[2] + (1 - 1e-08) * width
   breaks <- seq(origin, max_x, width)
 
-  if (length(breaks) > 1e6) {
+  if (length(breaks) == 1) {
+    # In exceptionally rare cases, the above can fail and produce only a
+    # single break (see issue #3606). We fix this by adding a second break.
+    breaks <- c(breaks, breaks + width)
+  } else if (length(breaks) > 1e6) {
     stop("The number of histogram bins must be less than 1,000,000.\nDid you make `binwidth` too small?", call. = FALSE)
   }
 

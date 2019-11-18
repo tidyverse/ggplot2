@@ -111,7 +111,7 @@ theme_grey <- function(base_size = 11, base_family = "",
   # Throughout the theme, we use three font sizes, `base_size` (`rel(1)`)
   # for normal, `rel(0.8)` for small, and `rel(1.2)` for large.
 
-  theme(
+  t <- theme(
     # Elements in this first block aren't used directly, but are inherited
     # by others
     line =               element_line(
@@ -234,6 +234,9 @@ theme_grey <- function(base_size = 11, base_family = "",
 
     complete = TRUE
   )
+
+  # make sure all elements are set to NULL if not explicitly defined
+  ggplot_global$theme_all_null %+replace% t
 }
 #' @export
 #' @rdname ggtheme
@@ -455,7 +458,7 @@ theme_void <- function(base_size = 11, base_family = "",
   half_line <- base_size / 2
 
   # Only keep indispensable text: legend and plot titles
-  theme(
+  t <- theme(
     line =               element_blank(),
     rect =               element_blank(),
     text =               element_text(
@@ -508,6 +511,9 @@ theme_void <- function(base_size = 11, base_family = "",
 
     complete = TRUE
   )
+
+  # make sure all elements are set to NULL if not explicitly defined
+  ggplot_global$theme_all_null %+replace% t
 }
 
 
@@ -518,7 +524,7 @@ theme_test <- function(base_size = 11, base_family = "",
                        base_rect_size = base_size / 22) {
   half_line <- base_size / 2
 
-  theme(
+  t <- theme(
     line =               element_line(
                            colour = "black", size = base_line_size,
                            linetype = 1, lineend = "butt"
@@ -639,4 +645,19 @@ theme_test <- function(base_size = 11, base_family = "",
 
     complete = TRUE
   )
+
+  # make sure all elements are set to NULL if not explicitly defined
+  ggplot_global$theme_all_null %+replace% t
+}
+
+theme_all_null <- function() {
+  # set all elements in the element tree to NULL
+  elements <- sapply(
+    names(ggplot_global$element_tree),
+    function(x) NULL,
+    simplify = FALSE, USE.NAMES = TRUE
+  )
+
+  args <- c(elements, list(complete = TRUE))
+  do.call(theme, args)
 }

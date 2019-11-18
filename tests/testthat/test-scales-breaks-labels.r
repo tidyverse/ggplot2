@@ -247,6 +247,22 @@ test_that("continuous limits accepts functions", {
   expect_equal(layer_scales(p)$y$get_limits(), c(range(mpg$hwy)[1] - 10, range(mpg$hwy)[2] + 100))
 })
 
+test_that("equal length breaks and labels can be passed to ViewScales with limits", {
+
+  test_scale <- scale_x_continuous(
+    breaks = c(0, 20, 40),
+    labels = c("0", "20", "40"),
+    limits = c(10, 30)
+  )
+
+  expect_identical(test_scale$get_breaks(), c(NA, 20, NA))
+  expect_identical(test_scale$get_labels(), c(c("0", "20", "40")))
+
+  test_view_scale <- view_scale_primary(test_scale)
+  expect_identical(test_view_scale$get_breaks(), c(NA, 20, NA))
+  expect_identical(test_scale$get_labels(), c(c("0", "20", "40")))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("minor breaks draw correctly", {
