@@ -4,10 +4,10 @@
 #' [theme()] if you just need to tweak the display of an existing
 #' theme.
 #'
-#' @param base_size base font size
-#' @param base_family base font family
-#' @param base_line_size base size for line elements
-#' @param base_rect_size base size for rect elements
+#' @param base_size Base font size, in points. Unlike `geom_label` and others, the default unit is in `points`, not `mm`, so adding `.pt` is not needed.
+#' @param base_family Base font family.
+#' @param base_line_size Base size for line elements, in mm.
+#' @param base_rect_size Base size for rect elements, in mm.
 #'
 #' @details
 #' \describe{
