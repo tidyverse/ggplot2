@@ -6,9 +6,17 @@
 \alias{StatSfCoordinates}
 \title{Extract coordinates from 'sf' objects}
 \usage{
-stat_sf_coordinates(mapping = aes(), data = NULL, geom = "point",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, fun.geometry = NULL, ...)
+stat_sf_coordinates(
+  mapping = aes(),
+  data = NULL,
+  geom = "point",
+  position = "identity",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fun.geometry = NULL,
+  ...
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

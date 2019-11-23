@@ -4,13 +4,29 @@
 \alias{guide_legend}
 \title{Legend guide}
 \usage{
-guide_legend(title = waiver(), title.position = NULL,
-  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
-  label = TRUE, label.position = NULL, label.theme = NULL,
-  label.hjust = NULL, label.vjust = NULL, keywidth = NULL,
-  keyheight = NULL, direction = NULL, default.unit = "line",
-  override.aes = list(), nrow = NULL, ncol = NULL, byrow = FALSE,
-  reverse = FALSE, order = 0, ...)
+guide_legend(
+  title = waiver(),
+  title.position = NULL,
+  title.theme = NULL,
+  title.hjust = NULL,
+  title.vjust = NULL,
+  label = TRUE,
+  label.position = NULL,
+  label.theme = NULL,
+  label.hjust = NULL,
+  label.vjust = NULL,
+  keywidth = NULL,
+  keyheight = NULL,
+  direction = NULL,
+  default.unit = "line",
+  override.aes = list(),
+  nrow = NULL,
+  ncol = NULL,
+  byrow = FALSE,
+  reverse = FALSE,
+  order = 0,
+  ...
+)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -87,8 +103,8 @@ Legend type guide shows key (i.e., geoms) mapped onto values.
 Legend guides for various scales are integrated if possible.
 }
 \details{
-Guides can be specified in each \code{scale_*} or in \code{\link[=guides]{guides()}}.
-\code{guide = "legend"} in \code{scale_*} is syntactic sugar for
+Guides can be specified in each \verb{scale_*} or in \code{\link[=guides]{guides()}}.
+\code{guide = "legend"} in \verb{scale_*} is syntactic sugar for
 \code{guide = guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
 As for how to specify the guide for each scale in more detail,
 see \code{\link[=guides]{guides()}}.
@@ -157,8 +173,10 @@ p + guides(col = guide_legend(reverse = TRUE))
 }
 }
 \seealso{
-Other guides: \code{\link{guide_bins}},
-  \code{\link{guide_colourbar}},
-  \code{\link{guide_coloursteps}}, \code{\link{guides}}
+Other guides: 
+\code{\link{guide_bins}()},
+\code{\link{guide_colourbar}()},
+\code{\link{guide_coloursteps}()},
+\code{\link{guides}()}
 }
 \concept{guides}

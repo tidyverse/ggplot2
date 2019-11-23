@@ -4,10 +4,19 @@
 \alias{geom_rug}
 \title{Rug plots in the margins}
 \usage{
-geom_rug(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., outside = FALSE, sides = "bl",
-  length = unit(0.03, "npc"), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_rug(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  outside = FALSE,
+  sides = "bl",
+  length = unit(0.03, "npc"),
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

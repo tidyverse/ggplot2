@@ -18,43 +18,86 @@
 \alias{scale_color_gradientn}
 \title{Gradient colour scales}
 \usage{
-scale_colour_gradient(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "colourbar",
-  aesthetics = "colour")
+scale_colour_gradient(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "colour"
+)
 
-scale_fill_gradient(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "colourbar",
-  aesthetics = "fill")
+scale_fill_gradient(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "fill"
+)
 
-scale_colour_gradient2(..., low = muted("red"), mid = "white",
-  high = muted("blue"), midpoint = 0, space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "colour")
+scale_colour_gradient2(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "colour"
+)
 
-scale_fill_gradient2(..., low = muted("red"), mid = "white",
-  high = muted("blue"), midpoint = 0, space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "fill")
+scale_fill_gradient2(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "fill"
+)
 
-scale_colour_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "colour",
-  colors)
+scale_colour_gradientn(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "colour",
+  colors
+)
 
-scale_fill_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "fill",
-  colors)
+scale_fill_gradientn(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "fill",
+  colors
+)
 }
 \arguments{
-\item{...}{Arguments passed on to \code{continuous_scale}
-\describe{
-  \item{scale_name}{The name of the scale that should be used for error messages
+\item{...}{
+  Arguments passed on to \code{\link[=continuous_scale]{continuous_scale}}
+  \describe{
+    \item{\code{scale_name}}{The name of the scale that should be used for error messages
 associated with this scale.}
-  \item{palette}{A palette function that when called with a numeric vector with
+    \item{\code{palette}}{A palette function that when called with a numeric vector with
 values between 0 and 1 returns the corresponding output values
 (e.g., \code{\link[scales:area_pal]{scales::area_pal()}}).}
-  \item{name}{The name of the scale. Used as the axis or legend title. If
+    \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
-  \item{breaks}{One of:
+    \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
@@ -63,7 +106,7 @@ omitted.}
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}})
 }}
-  \item{minor_breaks}{One of:
+    \item{\code{minor_breaks}}{One of:
 \itemize{
 \item \code{NULL} for no minor breaks
 \item \code{waiver()} for the default breaks (one minor break between
@@ -71,11 +114,11 @@ each major break)
 \item A numeric vector of positions
 \item A function that given the limits returns a vector of minor breaks.
 }}
-  \item{n.breaks}{An integer guiding the number of major breaks. The algorithm
+    \item{\code{n.breaks}}{An integer guiding the number of major breaks. The algorithm
 may choose a slightly different number to ensure nice break labels. Will
 only have an effect if \code{breaks = waiver()}. Use \code{NULL} to use the default
 number of breaks given by the transformation.}
-  \item{labels}{One of:
+    \item{\code{labels}}{One of:
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
@@ -84,7 +127,7 @@ transformation object
 \item A function that takes the breaks as input and returns labels
 as output
 }}
-  \item{limits}{One of:
+    \item{\code{limits}}{One of:
 \itemize{
 \item \code{NULL} to use the default scale range
 \item A numeric vector of length two providing limits of the scale.
@@ -95,12 +138,12 @@ Note that setting limits on positional scales will \strong{remove} data outside 
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[=coord_cartesian]{coord_cartesian()}}).
 }}
-  \item{rescaler}{A function used to scale the input values to the
+    \item{\code{rescaler}}{A function used to scale the input values to the
 range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
 diverging and n colour gradients (i.e., \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}},
 \code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
 scales, which ways use \code{\link[scales:rescale]{scales::rescale()}}.}
-  \item{oob}{One of:
+    \item{\code{oob}}{One of:
 \itemize{
 \item Function that handles limits outside of the scale limits
 (out of bounds).
@@ -109,7 +152,7 @@ bounds values with \code{NA}.
 \item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
 \item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
 }}
-  \item{trans}{For continuous scales, the name of a transformation object
+    \item{\code{trans}}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
@@ -117,19 +160,19 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \code{<name>_trans} (e.g.,
+are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
-  \item{expand}{For position scales, a vector of range expansion constants used to add some
+    \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
-  \item{position}{For position scales, The position of the axis.
+    \item{\code{position}}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
-  \item{super}{The super class to use for the constructed scale}
-}}
+    \item{\code{super}}{The super class to use for the constructed scale}
+  }}
 
 \item{low, high}{Colours for low and high ends of the gradient.}
 
@@ -155,13 +198,13 @@ Defaults to 0.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-\code{colours} vector. See \code{\link[=rescale]{rescale()}} for a convenience function
+\code{colours} vector. See \code{\link[scales:rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
 }
 \description{
-\code{scale_*_gradient} creates a two colour gradient (low-high),
-\code{scale_*_gradient2} creates a diverging colour gradient (low-mid-high),
-\code{scale_*_gradientn} creates a n-colour gradient.
+\verb{scale_*_gradient} creates a two colour gradient (low-high),
+\verb{scale_*_gradient2} creates a diverging colour gradient (low-mid-high),
+\verb{scale_*_gradientn} creates a n-colour gradient.
 }
 \details{
 Default colours are generated with \pkg{munsell} and
@@ -225,11 +268,12 @@ ggplot(df_na, aes(x = value, y)) +
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
 palette
 
-Other colour scales: \code{\link{scale_alpha}},
-  \code{\link{scale_colour_brewer}},
-  \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}},
-  \code{\link{scale_colour_steps}},
-  \code{\link{scale_colour_viridis_d}}
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_viridis_d}()}
 }
 \concept{colour scales}
