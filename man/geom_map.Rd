@@ -120,7 +120,7 @@ if (require(maps)) {
 
   # Equivalent to crimes \%>\% tidyr::pivot_longer(Murder:Rape)
   vars <- lapply(names(crimes)[-1], function(j) {
-    tibble(state = crimes$state, variable = j, value = crimes[[j]])
+    data.frame(state = crimes$state, variable = j, value = crimes[[j]])
   })
   crimes_long <- do.call("rbind", vars)
 
