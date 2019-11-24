@@ -5,11 +5,9 @@
 \alias{guide_colorsteps}
 \title{Discretized colourbar guide}
 \usage{
-guide_coloursteps(even.steps = TRUE, show.limits = NULL,
-  ticks = FALSE, ...)
+guide_coloursteps(even.steps = TRUE, show.limits = NULL, ticks = FALSE, ...)
 
-guide_colorsteps(even.steps = TRUE, show.limits = NULL,
-  ticks = FALSE, ...)
+guide_colorsteps(even.steps = TRUE, show.limits = NULL, ticks = FALSE, ...)
 }
 \arguments{
 \item{even.steps}{Should the rendered size of the bins be equal, or should
@@ -21,63 +19,64 @@ Default is \code{NULL} which makes the guide use the setting from the scale}
 \item{ticks}{A logical specifying if tick marks on the colourbar should be
 visible.}
 
-\item{...}{Arguments passed on to \code{guide_colourbar}
-\describe{
-  \item{barwidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
+\item{...}{
+  Arguments passed on to \code{\link[=guide_colourbar]{guide_colourbar}}
+  \describe{
+    \item{\code{barwidth}}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the width of the colourbar. Default value is \code{legend.key.width} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
-  \item{barheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
+    \item{\code{barheight}}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the height of the colourbar. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
-  \item{frame.colour}{A string specifying the colour of the frame
+    \item{\code{frame.colour}}{A string specifying the colour of the frame
 drawn around the bar. If \code{NULL} (the default), no frame is drawn.}
-  \item{frame.linewidth}{A numeric specifying the width of the frame
+    \item{\code{frame.linewidth}}{A numeric specifying the width of the frame
 drawn around the bar.}
-  \item{frame.linetype}{A numeric specifying the linetype of the frame
+    \item{\code{frame.linetype}}{A numeric specifying the linetype of the frame
 drawn around the bar.}
-  \item{ticks.colour}{A string specifying the colour of the tick marks.}
-  \item{ticks.linewidth}{A numeric specifying the width of the tick marks.}
-  \item{draw.ulim}{A logical specifying if the upper limit tick marks should
+    \item{\code{ticks.colour}}{A string specifying the colour of the tick marks.}
+    \item{\code{ticks.linewidth}}{A numeric specifying the width of the tick marks.}
+    \item{\code{draw.ulim}}{A logical specifying if the upper limit tick marks should
 be visible.}
-  \item{draw.llim}{A logical specifying if the lower limit tick marks should
+    \item{\code{draw.llim}}{A logical specifying if the lower limit tick marks should
 be visible.}
-  \item{direction}{A character string indicating the direction of the guide.
+    \item{\code{direction}}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
-  \item{default.unit}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
+    \item{\code{default.unit}}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
 for \code{barwidth} and \code{barheight}.}
-  \item{reverse}{logical. If \code{TRUE} the colourbar is reversed. By default,
+    \item{\code{reverse}}{logical. If \code{TRUE} the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom}
-  \item{title}{A character string or expression indicating a title of guide.
+    \item{\code{title}}{A character string or expression indicating a title of guide.
 If \code{NULL}, the title is not shown. By default
 (\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[=labs]{labs()}} is used for the title.}
-  \item{title.position}{A character string indicating the position of a
+    \item{\code{title.position}}{A character string indicating the position of a
 title. One of "top" (default for a vertical guide), "bottom", "left"
 (default for a horizontal guide), or "right."}
-  \item{title.theme}{A theme object for rendering the title text. Usually the
+    \item{\code{title.theme}}{A theme object for rendering the title text. Usually the
 object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
 specified by \code{legend.title} in \code{\link[=theme]{theme()}} or theme.}
-  \item{title.hjust}{A number specifying horizontal justification of the
+    \item{\code{title.hjust}}{A number specifying horizontal justification of the
 title text.}
-  \item{title.vjust}{A number specifying vertical justification of the title
+    \item{\code{title.vjust}}{A number specifying vertical justification of the title
 text.}
-  \item{label}{logical. If \code{TRUE} then the labels are drawn. If
+    \item{\code{label}}{logical. If \code{TRUE} then the labels are drawn. If
 \code{FALSE} then the labels are invisible.}
-  \item{label.position}{A character string indicating the position of a
+    \item{\code{label.position}}{A character string indicating the position of a
 label. One of "top", "bottom" (default for horizontal guide), "left", or
 "right" (default for vertical guide).}
-  \item{label.theme}{A theme object for rendering the label text. Usually the
+    \item{\code{label.theme}}{A theme object for rendering the label text. Usually the
 object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
 specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
-  \item{label.hjust}{A numeric specifying horizontal justification of the
+    \item{\code{label.hjust}}{A numeric specifying horizontal justification of the
 label text.}
-  \item{label.vjust}{A numeric specifying vertical justification of the label
+    \item{\code{label.vjust}}{A numeric specifying vertical justification of the label
 text.}
-  \item{order}{positive integer less than 99 that specifies the order of
+    \item{\code{order}}{positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
-}}
+  }}
 }
 \value{
 A guide object
@@ -113,8 +112,10 @@ p + scale_fill_binned(show.limits = TRUE)
 
 }
 \seealso{
-Other guides: \code{\link{guide_bins}},
-  \code{\link{guide_colourbar}},
-  \code{\link{guide_legend}}, \code{\link{guides}}
+Other guides: 
+\code{\link{guide_bins}()},
+\code{\link{guide_colourbar}()},
+\code{\link{guide_legend}()},
+\code{\link{guides}()}
 }
 \concept{guides}

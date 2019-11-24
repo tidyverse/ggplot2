@@ -4,9 +4,17 @@
 \alias{geom_polygon}
 \title{Polygons}
 \usage{
-geom_polygon(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", rule = "evenodd", ..., na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+geom_polygon(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  rule = "evenodd",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

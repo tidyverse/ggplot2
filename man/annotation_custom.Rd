@@ -4,8 +4,7 @@
 \alias{annotation_custom}
 \title{Annotation: Custom grob}
 \usage{
-annotation_custom(grob, xmin = -Inf, xmax = Inf, ymin = -Inf,
-  ymax = Inf)
+annotation_custom(grob, xmin = -Inf, xmax = Inf, ymin = -Inf, ymax = Inf)
 }
 \arguments{
 \item{grob}{grob to display}

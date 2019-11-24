@@ -4,12 +4,27 @@
 \alias{binned_scale}
 \title{Binning scale constructor}
 \usage{
-binned_scale(aesthetics, scale_name, palette, name = waiver(),
-  breaks = waiver(), labels = waiver(), limits = NULL,
-  rescaler = rescale, oob = squish, expand = waiver(),
-  na.value = NA_real_, n.breaks = NULL, nice.breaks = TRUE,
-  right = TRUE, trans = "identity", show.limits = FALSE,
-  guide = "bins", position = "left", super = ScaleBinned)
+binned_scale(
+  aesthetics,
+  scale_name,
+  palette,
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  rescaler = rescale,
+  oob = squish,
+  expand = waiver(),
+  na.value = NA_real_,
+  n.breaks = NULL,
+  nice.breaks = TRUE,
+  right = TRUE,
+  trans = "identity",
+  show.limits = FALSE,
+  guide = "bins",
+  position = "left",
+  super = ScaleBinned
+)
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
@@ -103,7 +118,7 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \code{<name>_trans} (e.g.,
+are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 

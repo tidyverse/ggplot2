@@ -5,13 +5,29 @@
 \alias{geom_area}
 \title{Ribbons and area plots}
 \usage{
-geom_ribbon(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE)
+geom_ribbon(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_area(mapping = NULL, data = NULL, stat = "identity",
-  position = "stack", na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE, ...)
+geom_area(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "stack",
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

@@ -6,11 +6,21 @@
 \alias{derive}
 \title{Specify a secondary axis}
 \usage{
-sec_axis(trans = NULL, name = waiver(), breaks = waiver(),
-  labels = waiver(), guide = waiver())
+sec_axis(
+  trans = NULL,
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  guide = waiver()
+)
 
-dup_axis(trans = ~., name = derive(), breaks = derive(),
-  labels = derive(), guide = derive())
+dup_axis(
+  trans = ~.,
+  name = derive(),
+  breaks = derive(),
+  labels = derive(),
+  guide = derive()
+)
 
 derive()
 }

@@ -137,11 +137,11 @@ you'll need to extend from \code{ggplot2::Geom}, \code{ggplot2::Stat},
 \section{Geoms}{
 
 
-All \code{geom_*} functions (like \code{geom_point}) return a layer that
-contains a \code{Geom*} object (like \code{GeomPoint}). The \code{Geom*}
+All \verb{geom_*} functions (like \code{geom_point}) return a layer that
+contains a \verb{Geom*} object (like \code{GeomPoint}). The \verb{Geom*}
 object is responsible for rendering the data in the plot.
 
-Each of the \code{Geom*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
+Each of the \verb{Geom*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
 from the top-level \code{Geom}, and each implements various methods and
 fields.
 
@@ -191,10 +191,10 @@ and ymin and ymax values. It can potentially set other values as well.
 \section{Coordinate systems}{
 
 
-All \code{coord_*} functions (like \code{coord_trans}) return a \code{Coord*}
+All \verb{coord_*} functions (like \code{coord_trans}) return a \verb{Coord*}
 object (like \code{CoordTrans}).
 
-Each of the \code{Coord*} objects is a \code{\link[=ggproto]{ggproto()}} object,
+Each of the \verb{Coord*} objects is a \code{\link[=ggproto]{ggproto()}} object,
 descended from the top-level \code{Coord}.  To create a new type of Coord
 object, you typically will want to implement one or more of the following:
 \itemize{
@@ -240,7 +240,7 @@ data to panels and scales.
 \section{Facets}{
 
 
-All \code{facet_*} functions returns a \code{Facet} object or an object of a
+All \verb{facet_*} functions returns a \code{Facet} object or an object of a
 \code{Facet} subclass. This object describes how to assign data to different
 panels, how to apply positional scales and how to lay out the panels, once
 rendered.
@@ -310,11 +310,11 @@ transformations has been applied.
 \section{Stats}{
 
 
-All \code{stat_*} functions (like \code{stat_bin}) return a layer that
-contains a \code{Stat*} object (like \code{StatBin}). The \code{Stat*}
+All \verb{stat_*} functions (like \code{stat_bin}) return a layer that
+contains a \verb{Stat*} object (like \code{StatBin}). The \verb{Stat*}
 object is responsible for rendering the data in the plot.
 
-Each of the \code{Stat*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
+Each of the \verb{Stat*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
 from the top-level \code{Stat}, and each implements various methods and
 fields. To create a new type of Stat object, you typically will want to
 override one or more of the following:
@@ -361,16 +361,16 @@ default values for aesthetics.
 \section{Positions}{
 
 
-All \code{position_*} functions (like \code{position_dodge}) return a
-\code{Position*} object (like \code{PositionDodge}). The \code{Position*}
+All \verb{position_*} functions (like \code{position_dodge}) return a
+\verb{Position*} object (like \code{PositionDodge}). The \verb{Position*}
 object is responsible for adjusting the position of overlapping geoms.
 
-The way that the \code{position_*} functions work is slightly different from
-the \code{geom_*} and \code{stat_*} functions, because a \code{position_*}
-function actually "instantiates" the \code{Position*} object by creating a
+The way that the \verb{position_*} functions work is slightly different from
+the \verb{geom_*} and \verb{stat_*} functions, because a \verb{position_*}
+function actually "instantiates" the \verb{Position*} object by creating a
 descendant, and returns that.
 
-Each of the \code{Position*} objects is a \code{\link[=ggproto]{ggproto()}} object,
+Each of the \verb{Position*} objects is a \code{\link[=ggproto]{ggproto()}} object,
 descended from the top-level \code{Position}, and each implements the
 following methods:
 \itemize{
@@ -404,8 +404,8 @@ that must be present for this position adjustment to work.
 \section{Scales}{
 
 
-All \code{scale_*} functions like \code{\link[=scale_x_continuous]{scale_x_continuous()}} return a \code{Scale*}
-object like \code{ScaleContinuous}. Each of the \code{Scale*} objects is a \code{\link[=ggproto]{ggproto()}}
+All \verb{scale_*} functions like \code{\link[=scale_x_continuous]{scale_x_continuous()}} return a \verb{Scale*}
+object like \code{ScaleContinuous}. Each of the \verb{Scale*} objects is a \code{\link[=ggproto]{ggproto()}}
 object, descended from the top-level \code{Scale}.
 
 Properties not documented in \code{\link[=continuous_scale]{continuous_scale()}} or \code{\link[=discrete_scale]{discrete_scale()}}:
@@ -438,7 +438,7 @@ was provided to the constructor. \code{rescale()} does not apply \code{self$oob(
 its input, which means that discrete values outside \code{limits} will be \code{NA}, and
 values that are outside \code{range} will have values less than 0 or greater than 1.
 This allows guides more control over how out-of-bounds values are displayed.
-\item \code{transform_df()}, \code{train_df()}, \code{map_df()} These \code{_df} variants
+\item \code{transform_df()}, \code{train_df()}, \code{map_df()} These \verb{_df} variants
 accept a data frame, and apply the \code{transform}, \code{train}, and \code{map} methods
 (respectively) to the columns whose names are in \code{self$aesthetics}.
 \item \code{get_limits()} Calculates the final scale limits in transformed data space
