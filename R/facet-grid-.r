@@ -216,6 +216,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     # Add margins
     base <- reshape_add_margins(base, list(names(rows), names(cols)), params$margins)
+    base <- unique(base)
 
     # Create panel info dataset
     panel <- id(base, drop = TRUE)
