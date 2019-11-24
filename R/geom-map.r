@@ -61,7 +61,7 @@ NULL
 #'     expand_limits(x = states_map$long, y = states_map$lat)
 #'
 #'   last_plot() + coord_map()
-#'   ggplot(crimesm, aes(map_id = state)) +
+#'   ggplot(crimes_long, aes(map_id = state)) +
 #'     geom_map(aes(fill = value), map = states_map) +
 #'     expand_limits(x = states_map$long, y = states_map$lat) +
 #'     facet_wrap( ~ variable)
