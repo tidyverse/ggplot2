@@ -32,9 +32,9 @@ NULL
 #'   one with `vars(cyl, am)`. Each output
 #'   column gets displayed as one separate line in the strip
 #'   label. This function should inherit from the "labeller" S3 class
-#'   for compatibility with [labeller()]. You can use different labeling 
-#'   functions for different kind of labels, for example use [label_parsed()] for 
-#'   formatting facet labels. [label_value()] is used by default, 
+#'   for compatibility with [labeller()]. You can use different labeling
+#'   functions for different kind of labels, for example use [label_parsed()] for
+#'   formatting facet labels. [label_value()] is used by default,
 #'   check it for more details and pointers to other options.
 #' @param as.table If `TRUE`, the default, the facets are laid out like
 #'   a table with highest values at the bottom-right. If `FALSE`, the
@@ -215,7 +215,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
 
     # Add margins
-    base <- reshape2::add_margins(base, list(names(rows), names(cols)), params$margins)
+    base <- reshape_add_margins(base, list(names(rows), names(cols)), params$margins)
     # Work around bug in reshape2
     base <- unique(base)
 
@@ -252,7 +252,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     # Compute faceting values and add margins
     margin_vars <- list(intersect(names(rows), names(data)),
       intersect(names(cols), names(data)))
-    data <- reshape2::add_margins(data, margin_vars, params$margins)
+    data <- reshape_add_margins(data, margin_vars, params$margins)
 
     facet_vals <- eval_facets(c(rows, cols), data, params$plot_env)
 
