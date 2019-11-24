@@ -187,11 +187,21 @@ secondary axis, positioned opposite of the primary axis. All secondary
 axes must be based on a one-to-one transformation of the primary axes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sec_axis</span>(<span class='kw'>trans</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>())
+    <pre class="usage"><span class='fu'>sec_axis</span>(
+  <span class='kw'>trans</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>()
+)
 
-<span class='fu'>dup_axis</span>(<span class='kw'>trans</span> <span class='kw'>=</span> ~<span class='no'>.</span>, <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>derive</span>(), <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>derive</span>(),
-  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>derive</span>(), <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'>derive</span>())
+<span class='fu'>dup_axis</span>(
+  <span class='kw'>trans</span> <span class='kw'>=</span> ~<span class='no'>.</span>,
+  <span class='kw'>name</span> <span class='kw'>=</span> <span class='fu'>derive</span>(),
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fu'>derive</span>(),
+  <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'>derive</span>(),
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'>derive</span>()
+)
 
 <span class='fu'>derive</span>()</pre>
 

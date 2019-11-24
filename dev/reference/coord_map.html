@@ -193,11 +193,17 @@ quick approximation that does preserve straight lines. It works best for
 smaller areas closer to the equator.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coord_map</span>(<span class='kw'>projection</span> <span class='kw'>=</span> <span class='st'>"mercator"</span>, <span class='no'>...</span>, <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>)
+    <pre class="usage"><span class='fu'>coord_map</span>(
+  <span class='kw'>projection</span> <span class='kw'>=</span> <span class='st'>"mercator"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>parameters</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>
+)
 
-<span class='fu'>coord_quickmap</span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>)</pre>
+<span class='fu'>coord_quickmap</span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

@@ -195,29 +195,74 @@ or polygons.
 For text and labels, you can use <code>geom_sf_text()</code> and <code>geom_sf_label()</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>coord_sf</span>(<span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>datum</span> <span class='kw'>=</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_crs.html'>st_crs</a></span>(<span class='fl'>4326</span>), <span class='kw'>label_graticule</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
-  <span class='kw'>label_axes</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>ndiscr</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>)
+    <pre class="usage"><span class='fu'>coord_sf</span>(
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>expand</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>crs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>datum</span> <span class='kw'>=</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_crs.html'>st_crs</a></span>(<span class='fl'>4326</span>),
+  <span class='kw'>label_graticule</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>label_axes</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>ndiscr</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>default</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>clip</span> <span class='kw'>=</span> <span class='st'>"on"</span>
+)
 
-<span class='fu'>geom_sf</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'>geom_sf</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(),
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)
 
-<span class='fu'>geom_sf_label</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>label.padding</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
-  <span class='kw'>label.r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>), <span class='kw'>label.size</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>geom_sf_label</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(),
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>label.padding</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
+  <span class='kw'>label.r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>),
+  <span class='kw'>label.size</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>geom_sf_text</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(), <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'>geom_sf_text</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='fu'><a href='aes.html'>aes</a></span>(),
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"sf_coordinates"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>fun.geometry</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)
 
-<span class='fu'>stat_sf</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"rect"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>stat_sf</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"rect"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

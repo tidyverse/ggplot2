@@ -202,24 +202,24 @@ Broken down into construct, build, render and draw times.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())</div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.003        0   0.003
-#&gt; 2     build     0.013        0   0.013
-#&gt; 3    render     0.029        0   0.029
-#&gt; 4      draw     0.032        0   0.032
-#&gt; 5     TOTAL     0.077        0   0.077</div><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl</span>))</div><div class='output co'>#&gt;        step user.self sys.self elapsed
-#&gt; 1 construct     0.002        0   0.003
-#&gt; 2     build     0.026        0   0.027
-#&gt; 3    render     0.070        0   0.070
-#&gt; 4      draw     0.052        0   0.052
-#&gt; 5     TOTAL     0.150        0   0.152</div><div class='input'>
+#&gt; 1 construct     0.004        0   0.003
+#&gt; 2     build     0.014        0   0.014
+#&gt; 3    render     0.031        0   0.031
+#&gt; 4      draw     0.034        0   0.034
+#&gt; 5     TOTAL     0.083        0   0.082</div><div class='input'><span class='fu'>benchplot</span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>() + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>.</span> ~ <span class='no'>cyl</span>))</div><div class='output co'>#&gt;        step user.self sys.self elapsed
+#&gt; 1 construct     0.003        0   0.002
+#&gt; 2     build     0.029        0   0.029
+#&gt; 3    render     0.075        0   0.075
+#&gt; 4      draw     0.057        0   0.056
+#&gt; 5     TOTAL     0.164        0   0.162</div><div class='input'>
 <span class='co'># With tidy eval:</span>
 <span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='tidyeval.html'>expr</a></span>(<span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>())
 <span class='fu'>benchplot</span>(!!<span class='no'>p</span>)</div><div class='img'><img src='benchplot-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt;        step user.self sys.self elapsed
 #&gt; 1 construct     0.002        0   0.002
-#&gt; 2     build     0.013        0   0.014
-#&gt; 3    render     0.029        0   0.029
-#&gt; 4      draw     0.031        0   0.031
-#&gt; 5     TOTAL     0.075        0   0.076</div></pre>
+#&gt; 2     build     0.014        0   0.014
+#&gt; 3    render     0.033        0   0.032
+#&gt; 4      draw     0.036        0   0.036
+#&gt; 5     TOTAL     0.085        0   0.084</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

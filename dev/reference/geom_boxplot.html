@@ -187,16 +187,40 @@ It visualises five summary statistics (the median, two hinges
 and two whiskers), and all "outlying" points individually.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_boxplot</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge2"</span>, <span class='no'>...</span>, <span class='kw'>outlier.colour</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>outlier.color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outlier.fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>outlier.shape</span> <span class='kw'>=</span> <span class='fl'>19</span>,
-  <span class='kw'>outlier.size</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>outlier.stroke</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>outlier.alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>notch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>notchwidth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>varwidth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>geom_boxplot</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge2"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>outlier.colour</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>outlier.color</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>outlier.fill</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>outlier.shape</span> <span class='kw'>=</span> <span class='fl'>19</span>,
+  <span class='kw'>outlier.size</span> <span class='kw'>=</span> <span class='fl'>1.5</span>,
+  <span class='kw'>outlier.stroke</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>outlier.alpha</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>notch</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>notchwidth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>varwidth</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>stat_boxplot</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge2"</span>, <span class='no'>...</span>, <span class='kw'>coef</span> <span class='kw'>=</span> <span class='fl'>1.5</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>stat_boxplot</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"boxplot"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge2"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>coef</span> <span class='kw'>=</span> <span class='fl'>1.5</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

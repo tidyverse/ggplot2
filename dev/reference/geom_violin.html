@@ -189,15 +189,37 @@ violin plot is a mirrored density plot displayed in the same way as a
 boxplot.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_violin</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"ydensity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>, <span class='no'>...</span>, <span class='kw'>draw_quantiles</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"area"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>geom_violin</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"ydensity"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>draw_quantiles</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"area"</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>stat_ydensity</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"violin"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>, <span class='no'>...</span>, <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>, <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>, <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"area"</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>stat_ydensity</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"violin"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"dodge"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>bw</span> <span class='kw'>=</span> <span class='st'>"nrd0"</span>,
+  <span class='kw'>adjust</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>kernel</span> <span class='kw'>=</span> <span class='st'>"gaussian"</span>,
+  <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='st'>"area"</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

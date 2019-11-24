@@ -189,27 +189,81 @@ with common forms of colour blindness. See also
 <a href='https://bids.github.io/colormap/'>https://bids.github.io/colormap/</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>scale_colour_viridis_d</span>(<span class='no'>...</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>)
+    <pre class="usage"><span class='fu'>scale_colour_viridis_d</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
+  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>
+)
 
-<span class='fu'>scale_fill_viridis_d</span>(<span class='no'>...</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)
+<span class='fu'>scale_fill_viridis_d</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
+  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>
+)
 
-<span class='fu'>scale_colour_viridis_c</span>(<span class='no'>...</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>)
+<span class='fu'>scale_colour_viridis_c</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
+  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>,
+  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>
+)
 
-<span class='fu'>scale_fill_viridis_c</span>(<span class='no'>...</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)
+<span class='fu'>scale_fill_viridis_c</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
+  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"colourbar"</span>,
+  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>
+)
 
-<span class='fu'>scale_colour_viridis_b</span>(<span class='no'>...</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"coloursteps"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>)
+<span class='fu'>scale_colour_viridis_b</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
+  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"coloursteps"</span>,
+  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"colour"</span>
+)
 
-<span class='fu'>scale_fill_viridis_b</span>(<span class='no'>...</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
-  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"coloursteps"</span>, <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>)</pre>
+<span class='fu'>scale_fill_viridis_b</span>(
+  <span class='no'>...</span>,
+  <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>begin</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>end</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>option</span> <span class='kw'>=</span> <span class='st'>"D"</span>,
+  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"coloursteps"</span>,
+  <span class='kw'>aesthetics</span> <span class='kw'>=</span> <span class='st'>"fill"</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -255,7 +309,7 @@ same time, via <code>aesthetics = c("colour", "fill")</code>.</p></td>
       <th>values</th>
       <td><p>if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-<code>colours</code> vector. See <code>rescale()</code> for a convenience function
+<code>colours</code> vector. See <code><a href='https://scales.r-lib.org//reference/rescale.html'>rescale()</a></code> for a convenience function
 to map an arbitrary range to between 0 and 1.</p></td>
     </tr>
     <tr>
@@ -276,12 +330,13 @@ other values are deprecated.</p></td>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other colour scales: <code><a href='scale_alpha.html'>scale_alpha</a></code>,
-  <code><a href='scale_brewer.html'>scale_colour_brewer</a></code>,
-  <code><a href='scale_gradient.html'>scale_colour_gradient</a></code>,
-  <code><a href='scale_grey.html'>scale_colour_grey</a></code>,
-  <code><a href='scale_hue.html'>scale_colour_hue</a></code>,
-  <code><a href='scale_steps.html'>scale_colour_steps</a></code></p></div>
+    <div class='dont-index'><p>Other colour scales: 
+<code><a href='scale_alpha.html'>scale_alpha</a>()</code>,
+<code><a href='scale_brewer.html'>scale_colour_brewer</a>()</code>,
+<code><a href='scale_gradient.html'>scale_colour_gradient</a>()</code>,
+<code><a href='scale_grey.html'>scale_colour_grey</a>()</code>,
+<code><a href='scale_hue.html'>scale_colour_hue</a>()</code>,
+<code><a href='scale_steps.html'>scale_colour_steps</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># viridis is the default colour/fill scale for ordered factors</span>

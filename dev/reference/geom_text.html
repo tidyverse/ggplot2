@@ -185,16 +185,37 @@ a rectangle behind the text, making it easier to read." />
 a rectangle behind the text, making it easier to read.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_label</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>label.padding</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
-  <span class='kw'>label.r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>), <span class='kw'>label.size</span> <span class='kw'>=</span> <span class='fl'>0.25</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>geom_label</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>label.padding</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.25</span>, <span class='st'>"lines"</span>),
+  <span class='kw'>label.r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/grid/unit.html'>unit</a></span>(<span class='fl'>0.15</span>, <span class='st'>"lines"</span>),
+  <span class='kw'>label.size</span> <span class='kw'>=</span> <span class='fl'>0.25</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>geom_text</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>geom_text</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>nudge_x</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>nudge_y</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

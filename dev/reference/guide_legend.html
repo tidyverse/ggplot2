@@ -185,13 +185,29 @@ Legend guides for various scales are integrated if possible." />
 Legend guides for various scales are integrated if possible.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_legend</span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>title.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keywidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>keyheight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>default.unit</span> <span class='kw'>=</span> <span class='st'>"line"</span>,
-  <span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>guide_legend</span>(
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>title.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>label.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>label.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>label.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>label.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>keywidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>keyheight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>default.unit</span> <span class='kw'>=</span> <span class='st'>"line"</span>,
+  <span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>byrow</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -318,9 +334,11 @@ As for how to specify the guide for each scale in more detail,
 see <code><a href='guides.html'>guides()</a></code>.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other guides: <code><a href='guide_bins.html'>guide_bins</a></code>,
-  <code><a href='guide_colourbar.html'>guide_colourbar</a></code>,
-  <code><a href='guide_coloursteps.html'>guide_coloursteps</a></code>, <code><a href='guides.html'>guides</a></code></p></div>
+    <div class='dont-index'><p>Other guides: 
+<code><a href='guide_bins.html'>guide_bins</a>()</code>,
+<code><a href='guide_colourbar.html'>guide_colourbar</a>()</code>,
+<code><a href='guide_coloursteps.html'>guide_coloursteps</a>()</code>,
+<code><a href='guides.html'>guides</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>

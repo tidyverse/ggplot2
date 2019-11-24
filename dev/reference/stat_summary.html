@@ -189,17 +189,48 @@ operates on binned <code>x</code> or <code>y</code>. They are more flexible vers
 aggregate.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>stat_summary_bin</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrange"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun.max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fun.min</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>,
-  <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>fun.y</span>, <span class='no'>fun.ymin</span>, <span class='no'>fun.ymax</span>)
+    <pre class="usage"><span class='fu'>stat_summary_bin</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrange"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fun.max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fun.min</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='fl'>30</span>,
+  <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>fun.y</span>,
+  <span class='no'>fun.ymin</span>,
+  <span class='no'>fun.ymax</span>
+)
 
-<span class='fu'>stat_summary</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrange"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fun</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>fun.max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fun.min</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>fun.y</span>,
-  <span class='no'>fun.ymin</span>, <span class='no'>fun.ymax</span>)</pre>
+<span class='fu'>stat_summary</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"pointrange"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>fun.data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fun</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fun.max</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fun.min</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>fun.args</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='no'>fun.y</span>,
+  <span class='no'>fun.ymin</span>,
+  <span class='no'>fun.ymax</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

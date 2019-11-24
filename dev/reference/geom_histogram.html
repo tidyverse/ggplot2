@@ -193,20 +193,49 @@ polygons are more suitable when you want to compare the distribution
 across the levels of a categorical variable.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geom_freqpoly</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='no'>...</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>geom_freqpoly</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>geom_histogram</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='no'>...</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>geom_histogram</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>stat</span> <span class='kw'>=</span> <span class='st'>"bin"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)
 
-<span class='fu'>stat_bin</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"bar"</span>,
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>, <span class='no'>...</span>, <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>center</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>closed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>), <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>stat_bin</span>(
+  <span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>data</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>geom</span> <span class='kw'>=</span> <span class='st'>"bar"</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"stack"</span>,
+  <span class='no'>...</span>,
+  <span class='kw'>binwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>bins</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>center</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>closed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>),
+  <span class='kw'>pad</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

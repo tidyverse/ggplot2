@@ -189,8 +189,15 @@ reference lines, but you'll typically want something more sophisticated
 for communication graphics.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>borders</span>(<span class='kw'>database</span> <span class='kw'>=</span> <span class='st'>"world"</span>, <span class='kw'>regions</span> <span class='kw'>=</span> <span class='st'>"."</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>borders</span>(
+  <span class='kw'>database</span> <span class='kw'>=</span> <span class='st'>"world"</span>,
+  <span class='kw'>regions</span> <span class='kw'>=</span> <span class='st'>"."</span>,
+  <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
+  <span class='kw'>xlim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>ylim</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,16 +225,16 @@ polygons, see <code><a href='https://rdrr.io/pkg/maps/man/map.html'>maps::map()<
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Arguments passed on to <code>geom_polygon</code></p><dl class='dl-horizontal'>
-  <dt>rule</dt><dd><p>Either <code>"evenodd"</code> or <code>"winding"</code>. If polygons with holes are
+      <td><p>Arguments passed on to <code><a href='geom_polygon.html'>geom_polygon</a></code></p><dl class='dl-horizontal'>
+    <dt><code>rule</code></dt><dd><p>Either <code>"evenodd"</code> or <code>"winding"</code>. If polygons with holes are
 being drawn (using the <code>subgroup</code> aesthetic) this argument defines how the
 hole coordinates are interpreted. See the examples in <code><a href='https://rdrr.io/r/grid/grid.path.html'>grid::pathGrob()</a></code> for
 an explanation.</p></dd>
-  <dt>mapping</dt><dd><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
+    <dt><code>mapping</code></dt><dd><p>Set of aesthetic mappings created by <code><a href='aes.html'>aes()</a></code> or
 <code><a href='aes_.html'>aes_()</a></code>. If specified and <code>inherit.aes = TRUE</code> (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply <code>mapping</code> if there is no plot mapping.</p></dd>
-  <dt>data</dt><dd><p>The data to be displayed in this layer. There are three
+    <dt><code>data</code></dt><dd><p>The data to be displayed in this layer. There are three
 options:If <code>NULL</code>, the default, the data is inherited from the plot
 data as specified in the call to <code><a href='ggplot.html'>ggplot()</a></code>.A <code>data.frame</code>, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
@@ -235,22 +242,22 @@ data. All objects will be fortified to produce a data frame. See
 the plot data. The return value must be a <code>data.frame</code>, and
 will be used as the layer data. A <code>function</code> can be created
 from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></dd>
-  <dt>stat</dt><dd><p>The statistical transformation to use on the data for this
+    <dt><code>stat</code></dt><dd><p>The statistical transformation to use on the data for this
 layer, as a string.</p></dd>
-  <dt>position</dt><dd><p>Position adjustment, either as a string, or the result of
+    <dt><code>position</code></dt><dd><p>Position adjustment, either as a string, or the result of
 a call to a position adjustment function.</p></dd>
-  <dt>show.legend</dt><dd><p>logical. Should this layer be included in the legends?
+    <dt><code>show.legend</code></dt><dd><p>logical. Should this layer be included in the legends?
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.</p></dd>
-  <dt>inherit.aes</dt><dd><p>If <code>FALSE</code>, overrides the default aesthetics,
+    <dt><code>inherit.aes</code></dt><dd><p>If <code>FALSE</code>, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. <code>borders()</code>.</p></dd>
-  <dt>na.rm</dt><dd><p>If <code>FALSE</code>, the default, missing values are removed with
+    <dt><code>na.rm</code></dt><dd><p>If <code>FALSE</code>, the default, missing values are removed with
 a warning. If <code>TRUE</code>, missing values are silently removed.</p></dd>
-
+  
 </dl></td>
     </tr>
     </table>

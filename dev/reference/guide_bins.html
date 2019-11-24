@@ -193,14 +193,31 @@ for all non-position aesthetics though colour and fill defaults to
 guide if they are mapped in the same way.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_bins</span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(), <span class='kw'>title.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>keywidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>keyheight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>axis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>axis.colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>axis.linewidth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>axis.arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>default.unit</span> <span class='kw'>=</span> <span class='st'>"line"</span>, <span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>show.limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>guide_bins</span>(
+  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
+  <span class='kw'>title.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>title.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>label</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>label.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>label.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>label.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>label.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>keywidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>keyheight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>axis</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>axis.colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
+  <span class='kw'>axis.linewidth</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>axis.arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>default.unit</span> <span class='kw'>=</span> <span class='st'>"line"</span>,
+  <span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>show.limits</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -329,9 +346,11 @@ labels and ticks.</p></td>
     <p>A guide object</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other guides: <code><a href='guide_colourbar.html'>guide_colourbar</a></code>,
-  <code><a href='guide_coloursteps.html'>guide_coloursteps</a></code>,
-  <code><a href='guide_legend.html'>guide_legend</a></code>, <code><a href='guides.html'>guides</a></code></p></div>
+    <div class='dont-index'><p>Other guides: 
+<code><a href='guide_colourbar.html'>guide_colourbar</a>()</code>,
+<code><a href='guide_coloursteps.html'>guide_coloursteps</a>()</code>,
+<code><a href='guide_legend.html'>guide_legend</a>()</code>,
+<code><a href='guides.html'>guides</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>) +

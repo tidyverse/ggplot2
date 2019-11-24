@@ -191,8 +191,14 @@ makes <code>n</code> groups with (approximately) equal numbers of observations;
 
 <span class='fu'>cut_number</span>(<span class='no'>x</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)
 
-<span class='fu'>cut_width</span>(<span class='no'>x</span>, <span class='no'>width</span>, <span class='kw'>center</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>closed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>), <span class='no'>...</span>)</pre>
+<span class='fu'>cut_width</span>(
+  <span class='no'>x</span>,
+  <span class='no'>width</span>,
+  <span class='kw'>center</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>boundary</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>closed</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"right"</span>, <span class='st'>"left"</span>),
+  <span class='no'>...</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -212,19 +218,19 @@ makes <code>n</code> groups with (approximately) equal numbers of observations;
     <tr>
       <th>...</th>
       <td><p>Arguments passed on to <code><a href='https://rdrr.io/r/base/cut.html'>base::cut.default</a></code></p><dl class='dl-horizontal'>
-  <dt>breaks</dt><dd><p>either a numeric vector of two or more unique cut points or a
+    <dt><code>breaks</code></dt><dd><p>either a numeric vector of two or more unique cut points or a
     single number (greater than or equal to 2) giving the number of
     intervals into which <code>x</code> is to be cut.</p></dd>
-  <dt>labels</dt><dd><p>labels for the levels of the resulting category.  By default,
+    <dt><code>labels</code></dt><dd><p>labels for the levels of the resulting category.  By default,
     labels are constructed using <code>"(a,b]"</code> interval notation.  If
     <code>labels = FALSE</code>, simple integer codes are returned instead of
     a factor.</p></dd>
-  <dt>right</dt><dd><p>logical, indicating if the intervals should be closed on
+    <dt><code>right</code></dt><dd><p>logical, indicating if the intervals should be closed on
     the right (and open on the left) or vice versa.</p></dd>
-  <dt>dig.lab</dt><dd><p>integer which is used when labels are not given.  It
+    <dt><code>dig.lab</code></dt><dd><p>integer which is used when labels are not given.  It
     determines the number of digits used in formatting the break numbers.</p></dd>
-  <dt>ordered_result</dt><dd><p>logical: should the result be an ordered factor?</p></dd>
-
+    <dt><code>ordered_result</code></dt><dd><p>logical: should the result be an ordered factor?</p></dd>
+  
 </dl></td>
     </tr>
     <tr>

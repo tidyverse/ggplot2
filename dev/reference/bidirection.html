@@ -187,9 +187,15 @@ automatically in both directions. See the <em>Extending ggplot2</em> for how the
 are used when implementing <code>Geom</code>, <code>Stat</code>, and <code>Position</code> classes.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>has_flipped_aes</span>(<span class='no'>data</span>, <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(), <span class='kw'>main_is_orthogonal</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>range_is_orthogonal</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>group_has_equal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>ambiguous</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>main_is_continuous</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+    <pre class="usage"><span class='fu'>has_flipped_aes</span>(
+  <span class='no'>data</span>,
+  <span class='kw'>params</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
+  <span class='kw'>main_is_orthogonal</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>range_is_orthogonal</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
+  <span class='kw'>group_has_equal</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>ambiguous</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>main_is_continuous</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+)
 
 <span class='fu'>flip_data</span>(<span class='no'>data</span>, <span class='kw'>flip</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
 
