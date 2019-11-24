@@ -22,7 +22,8 @@ reshape_add_margins <- function(df, vars, margins = TRUE) {
     df
   })
 
-  do.call("rbind", margin_dfs)
+  out <- do.call("rbind", margin_dfs)
+  unique(out)
 }
 
 reshape_margins <- function(vars, margins = NULL) {
