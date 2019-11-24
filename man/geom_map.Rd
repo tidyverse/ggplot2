@@ -114,9 +114,16 @@ ggplot(values, aes(fill = value)) +
   expand_limits(positions) + ylim(0, 3)
 
 # Better example
-crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
-crimesm <- reshape2::melt(crimes, id = 1)
 if (require(maps)) {
+
+  crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
+
+  # Equivalent to crimes \%>\% tidyr::pivot_longer(Murder:Rape)
+  vars <- lapply(names(crimes)[-1], function(j) {
+    tibble(state = crimes$state, variable = j, value = crimes[[j]])
+  })
+  crimes_long <- do.call("rbind", vars)
+
   states_map <- map_data("state")
   ggplot(crimes, aes(map_id = state)) +
     geom_map(aes(fill = Murder), map = states_map) +
