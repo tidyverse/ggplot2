@@ -232,7 +232,7 @@ breaks are given explicetly.</p></td>
 <a href='https://scales.r-lib.org//reference/trans_new.html'>transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
-as output (e.g., a function returned by <code><a href='https://scales.r-lib.org//reference/extended_breaks.html'>scales::extended_breaks()</a></code>)</p></li>
+as output (e.g., a function returned by <code><a href='https://scales.r-lib.org//reference/breaks_extended.html'>scales::extended_breaks()</a></code>)</p></li>
 </ul></td>
     </tr>
     <tr>
@@ -322,7 +322,7 @@ transformation with <code><a href='https://scales.r-lib.org//reference/trans_new
     <pre class="examples"><div class='input'><span class='co'># Create a histogram by binning the x-axis</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>) +
   <span class='fu'><a href='geom_bar.html'>geom_bar</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>)) +
-  <span class='fu'>scale_x_binned</span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Ignoring n.breaks. Use a trans object that supports setting number of breaks</span></div><div class='img'><img src='scale_binned-1.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>scale_x_binned</span>()</div><div class='img'><img src='scale_binned-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
