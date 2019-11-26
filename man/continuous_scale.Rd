@@ -76,7 +76,7 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
 diverging and n colour gradients (i.e., \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}},
 \code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
-scales, which ways use \code{\link[scales:rescale]{scales::rescale()}}.}
+scales, which always use \code{\link[scales:rescale]{scales::rescale()}}.}
 
 \item{oob}{One of:
 \itemize{
