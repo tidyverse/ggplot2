@@ -75,7 +75,7 @@
 #'   padding around the data to ensure that they are placed some distance
 #'   away from the axes. Use the convenience function [expansion()]
 #'   to generate the values for the `expand` argument. The defaults are to
-#'   expand the scale by 5\% on each side for continuous variables, and by
+#'   expand the scale by 5% on each side for continuous variables, and by
 #'   0.6 units on each side for discrete variables.
 #' @param position For position scales, The position of the axis.
 #' `left` or `right` for y axes, `top` or `bottom` for x axes.
@@ -1033,7 +1033,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
           warning("Ignoring n.breaks. Use a breaks function that supports setting number of breaks", call. = FALSE)
         }
         breaks <- self$breaks(limits)
-      }      
+      }
     } else {
       breaks <- self$breaks
     }

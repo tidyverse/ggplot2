@@ -15,7 +15,7 @@
 #'   - A `coord` overrides the current coordinate system.
 #'   - A `facet` specification overrides the current faceting.
 #'
-#' To replace the current default data frame, you must use \code{\%+\%},
+#' To replace the current default data frame, you must use `%+%`,
 #' due to S3 method precedence issues.
 #'
 #' You can also supply a list, in which case each element of the list will

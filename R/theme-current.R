@@ -11,19 +11,19 @@ NULL
 #'
 #' @section Adding on to a theme:
 #'
-#' `+` and \code{\%+replace\%} can be used to modify elements in themes.
+#' `+` and `%+replace%` can be used to modify elements in themes.
 #'
 #' `+` updates the elements of e1 that differ from elements specified (not
 #' NULL) in e2. Thus this operator can be used to incrementally add or modify
 #' attributes of a ggplot theme.
 #'
-#' In contrast, \code{\%+replace\%} replaces the entire element; any element of
+#' In contrast, `%+replace%` replaces the entire element; any element of
 #' a theme not specified in e2 will not be present in the resulting theme (i.e.
 #' NULL). Thus this operator can be used to overwrite an entire theme.
 #'
 #' `theme_update` uses the `+` operator, so that any unspecified
 #' values in the theme element will default to the values they are set in the
-#' theme. `theme_replace` uses \code{\%+replace\%} to completely replace
+#' theme. `theme_replace` uses `%+replace%` to completely replace
 #' the element, so any unspecified values will overwrite the current value in
 #' the theme with `NULL`s.
 #'

@@ -4,12 +4,25 @@
 \alias{continuous_scale}
 \title{Continuous scale constructor}
 \usage{
-continuous_scale(aesthetics, scale_name, palette, name = waiver(),
-  breaks = waiver(), minor_breaks = waiver(), n.breaks = NULL,
-  labels = waiver(), limits = NULL, rescaler = rescale,
-  oob = censor, expand = waiver(), na.value = NA_real_,
-  trans = "identity", guide = "legend", position = "left",
-  super = ScaleContinuous)
+continuous_scale(
+  aesthetics,
+  scale_name,
+  palette,
+  name = waiver(),
+  breaks = waiver(),
+  minor_breaks = waiver(),
+  n.breaks = NULL,
+  labels = waiver(),
+  limits = NULL,
+  rescaler = rescale,
+  oob = censor,
+  expand = waiver(),
+  na.value = NA_real_,
+  trans = "identity",
+  guide = "legend",
+  position = "left",
+  super = ScaleContinuous
+)
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
@@ -105,7 +118,7 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \code{<name>_trans} (e.g.,
+are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 

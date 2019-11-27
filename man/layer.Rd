@@ -4,10 +4,20 @@
 \alias{layer}
 \title{Create a new layer}
 \usage{
-layer(geom = NULL, stat = NULL, data = NULL, mapping = NULL,
-  position = NULL, params = list(), inherit.aes = TRUE,
-  check.aes = TRUE, check.param = TRUE, show.legend = NA,
-  key_glyph = NULL, layer_class = Layer)
+layer(
+  geom = NULL,
+  stat = NULL,
+  data = NULL,
+  mapping = NULL,
+  position = NULL,
+  params = list(),
+  inherit.aes = TRUE,
+  check.aes = TRUE,
+  check.param = TRUE,
+  show.legend = NA,
+  key_glyph = NULL,
+  layer_class = Layer
+)
 }
 \arguments{
 \item{geom}{The geometric object to use display the data}
@@ -63,7 +73,7 @@ intended for ggplot2 internal use only.}
 }
 \description{
 A layer is a combination of data, stat and geom with a potential position
-adjustment. Usually layers are created using \code{geom_*} or \code{stat_*}
+adjustment. Usually layers are created using \verb{geom_*} or \verb{stat_*}
 calls but it can also be created directly using this function.
 }
 \examples{

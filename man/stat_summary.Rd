@@ -5,17 +5,48 @@
 \alias{stat_summary}
 \title{Summarise y values at unique/binned x}
 \usage{
-stat_summary_bin(mapping = NULL, data = NULL, geom = "pointrange",
-  position = "identity", ..., fun.data = NULL, fun = NULL,
-  fun.max = NULL, fun.min = NULL, fun.args = list(), bins = 30,
-  binwidth = NULL, breaks = NULL, na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE, fun.y, fun.ymin, fun.ymax)
+stat_summary_bin(
+  mapping = NULL,
+  data = NULL,
+  geom = "pointrange",
+  position = "identity",
+  ...,
+  fun.data = NULL,
+  fun = NULL,
+  fun.max = NULL,
+  fun.min = NULL,
+  fun.args = list(),
+  bins = 30,
+  binwidth = NULL,
+  breaks = NULL,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fun.y,
+  fun.ymin,
+  fun.ymax
+)
 
-stat_summary(mapping = NULL, data = NULL, geom = "pointrange",
-  position = "identity", ..., fun.data = NULL, fun = NULL,
-  fun.max = NULL, fun.min = NULL, fun.args = list(), na.rm = FALSE,
-  orientation = NA, show.legend = NA, inherit.aes = TRUE, fun.y,
-  fun.ymin, fun.ymax)
+stat_summary(
+  mapping = NULL,
+  data = NULL,
+  geom = "pointrange",
+  position = "identity",
+  ...,
+  fun.data = NULL,
+  fun = NULL,
+  fun.max = NULL,
+  fun.min = NULL,
+  fun.args = list(),
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  fun.y,
+  fun.ymin,
+  fun.ymax
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

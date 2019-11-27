@@ -4,8 +4,16 @@
 \alias{geom_map}
 \title{Polygons from a reference map}
 \usage{
-geom_map(mapping = NULL, data = NULL, stat = "identity", ..., map,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+geom_map(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  ...,
+  map,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
