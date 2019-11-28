@@ -22,6 +22,12 @@
 #'   scale, or with `breaks` if provided. If this is a named vector, then the
 #'   values will be matched based on the names instead. Data values that don't
 #'   match will be given `na.value`.
+#' @param breaks One of:
+#'   - `NULL` for no breaks
+#'   - `waiver()` for the default breaks (the scale limits)
+#'   - A character vector of breaks
+#'   - A function that takes the limits as input and returns breaks
+#'     as output
 #' @section Color Blindness:
 #' Many color palettes derived from RGB combinations (like the "rainbow" color
 #' palette) are not suitable to support all viewers, especially those with
@@ -74,48 +80,48 @@ NULL
 
 #' @rdname scale_manual
 #' @export
-scale_colour_manual <- function(..., values, aesthetics = "colour") {
-  manual_scale(aesthetics, values, ...)
+scale_colour_manual <- function(..., values, aesthetics = "colour", breaks = waiver()) {
+  manual_scale(aesthetics, values, breaks, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_fill_manual <- function(..., values, aesthetics = "fill") {
-  manual_scale(aesthetics, values, ...)
+scale_fill_manual <- function(..., values, aesthetics = "fill", breaks = waiver()) {
+  manual_scale(aesthetics, values, breaks, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_size_manual <- function(..., values) {
-  manual_scale("size", values, ...)
+scale_size_manual <- function(..., values, breaks = waiver()) {
+  manual_scale("size", values, breaks, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_shape_manual <- function(..., values) {
-  manual_scale("shape", values, ...)
+scale_shape_manual <- function(..., values, breaks = waiver()) {
+  manual_scale("shape", values, breaks, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_linetype_manual <- function(..., values) {
-  manual_scale("linetype", values, ...)
+scale_linetype_manual <- function(..., values, breaks = waiver()) {
+  manual_scale("linetype", values, breaks, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_alpha_manual <- function(..., values) {
-  manual_scale("alpha", values, ...)
+scale_alpha_manual <- function(..., values, breaks = waiver()) {
+  manual_scale("alpha", values, breaks, ...)
 }
 
 #' @rdname scale_manual
 #' @export
-scale_discrete_manual <- function(aesthetics, ..., values) {
-  manual_scale(aesthetics, values, ...)
+scale_discrete_manual <- function(aesthetics, ..., values, breaks = waiver()) {
+  manual_scale(aesthetics, values, breaks, ...)
 }
 
 
-manual_scale <- function(aesthetic, values = NULL, ...) {
+manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...) {
   # check for missing `values` parameter, in lieu of providing
   # a default to all the different scale_*_manual() functions
   if (is_missing(values)) {
@@ -125,15 +131,14 @@ manual_scale <- function(aesthetic, values = NULL, ...) {
   }
 
   # order values according to breaks
-  args <- list(...)
-  if (is.vector(values) && is.null(names(values))
-      && "breaks" %in% names(args)) {
-    if (length(args[["breaks"]]) != length(values)) {
+  if (is.vector(values) && is.null(names(values)) && !is.waive(breaks) &&
+      !is.null(breaks)) {
+    if (length(breaks) != length(values)) {
       stop("Differing number of values and breaks in manual scale. ",
-           length(values), " values provided compared to ",
-           length(args[["breaks"]]), " breaks.", call. = FALSE)
+           length(values), " values provided compared to ", length(breaks),
+           " breaks.", call. = FALSE)
     }
-    names(values) <- args[["breaks"]]
+    names(values) <- breaks
   }
 
   pal <- function(n) {
@@ -143,5 +148,5 @@ manual_scale <- function(aesthetic, values = NULL, ...) {
     }
     values
   }
-  discrete_scale(aesthetic, "manual", pal, ...)
+  discrete_scale(aesthetic, "manual", pal, breaks = breaks, ...)
 }
