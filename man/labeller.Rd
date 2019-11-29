@@ -4,8 +4,14 @@
 \alias{labeller}
 \title{Construct labelling specification}
 \usage{
-labeller(..., .rows = NULL, .cols = NULL, keep.as.numeric = NULL,
-  .multi_line = TRUE, .default = label_value)
+labeller(
+  ...,
+  .rows = NULL,
+  .cols = NULL,
+  keep.as.numeric = NULL,
+  .multi_line = TRUE,
+  .default = label_value
+)
 }
 \arguments{
 \item{...}{Named arguments of the form \code{variable =

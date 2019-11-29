@@ -170,7 +170,7 @@
 #'   [`el_def()`]. See [`el_def()`] for more details.
 #'
 #' @seealso
-#'   [+.gg()] and \code{\link{\%+replace\%}},
+#'   [+.gg()] and [%+replace%],
 #'   [element_blank()], [element_line()],
 #'   [element_rect()], and [element_text()] for
 #'   details of the specific theme elements.

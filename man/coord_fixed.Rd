@@ -5,8 +5,7 @@
 \alias{coord_equal}
 \title{Cartesian coordinates with fixed "aspect ratio"}
 \usage{
-coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE,
-  clip = "on")
+coord_fixed(ratio = 1, xlim = NULL, ylim = NULL, expand = TRUE, clip = "on")
 }
 \arguments{
 \item{ratio}{aspect ratio, expressed as \code{y / x}}

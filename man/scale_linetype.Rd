@@ -16,12 +16,13 @@ scale_linetype_continuous(...)
 scale_linetype_discrete(..., na.value = "blank")
 }
 \arguments{
-\item{...}{Arguments passed on to \code{discrete_scale}
-\describe{
-  \item{palette}{A palette function that when called with a single integer
+\item{...}{
+  Arguments passed on to \code{\link[=discrete_scale]{discrete_scale}}
+  \describe{
+    \item{\code{palette}}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
 they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
-  \item{breaks}{One of:
+    \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks (the scale limits)
@@ -29,22 +30,22 @@ they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
 \item A function that takes the limits as input and returns breaks
 as output
 }}
-  \item{limits}{A character vector that defines possible values of the scale
+    \item{\code{limits}}{A character vector that defines possible values of the scale
 and their order.}
-  \item{drop}{Should unused factor levels be omitted from the scale?
+    \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
 \code{FALSE} uses all the levels in the factor.}
-  \item{na.translate}{Unlike continuous scales, discrete scales can easily show
+    \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
-  \item{aesthetics}{The names of the aesthetics that this scale works with.}
-  \item{scale_name}{The name of the scale that should be used for error messages
+    \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
+    \item{\code{scale_name}}{The name of the scale that should be used for error messages
 associated with this scale.}
-  \item{name}{The name of the scale. Used as the axis or legend title. If
+    \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
-  \item{labels}{One of:
+    \item{\code{labels}}{One of:
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
@@ -53,10 +54,10 @@ transformation object
 \item A function that takes the breaks as input and returns labels
 as output
 }}
-  \item{guide}{A function used to create a guide or its name. See
+    \item{\code{guide}}{A function used to create a guide or its name. See
 \code{\link[=guides]{guides()}} for more information.}
-  \item{super}{The super class to use for the constructed scale}
-}}
+    \item{\code{super}}{The super class to use for the constructed scale}
+  }}
 
 \item{na.value}{The linetype to use for \code{NA} values.}
 }

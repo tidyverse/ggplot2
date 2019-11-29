@@ -6,7 +6,6 @@
 #' also works with bars and rectangles. But unlike `position_dodge`,
 #' `position_dodge2` works without a grouping variable in a layer.
 #'
-#' @inheritParams position_identity
 #' @param width Dodging width, when different to the width of the individual
 #'   elements. This is useful when you want to align narrow geoms with wider
 #'   geoms. See the examples.

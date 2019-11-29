@@ -6,13 +6,29 @@
 \alias{stat_binhex}
 \title{Hexagonal heatmap of 2d bin counts}
 \usage{
-geom_hex(mapping = NULL, data = NULL, stat = "binhex",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_hex(
+  mapping = NULL,
+  data = NULL,
+  stat = "binhex",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_bin_hex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", ..., bins = 30, binwidth = NULL,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+stat_bin_hex(
+  mapping = NULL,
+  data = NULL,
+  geom = "hex",
+  position = "identity",
+  ...,
+  bins = 30,
+  binwidth = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

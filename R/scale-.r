@@ -49,7 +49,7 @@
 #'   range \[0, 1]. This is always [scales::rescale()], except for
 #'   diverging and n colour gradients (i.e., [scale_colour_gradient2()],
 #'   [scale_colour_gradientn()]). The `rescaler` is ignored by position
-#'   scales, which ways use [scales::rescale()].
+#'   scales, which always use [scales::rescale()].
 #' @param oob One of:
 #'   - Function that handles limits outside of the scale limits
 #'   (out of bounds).
@@ -75,7 +75,7 @@
 #'   padding around the data to ensure that they are placed some distance
 #'   away from the axes. Use the convenience function [expansion()]
 #'   to generate the values for the `expand` argument. The defaults are to
-#'   expand the scale by 5\% on each side for continuous variables, and by
+#'   expand the scale by 5% on each side for continuous variables, and by
 #'   0.6 units on each side for discrete variables.
 #' @param position For position scales, The position of the axis.
 #' `left` or `right` for y axes, `top` or `bottom` for x axes.
@@ -1033,7 +1033,7 @@ ScaleBinned <- ggproto("ScaleBinned", Scale,
           warning("Ignoring n.breaks. Use a breaks function that supports setting number of breaks", call. = FALSE)
         }
         breaks <- self$breaks(limits)
-      }      
+      }
     } else {
       breaks <- self$breaks
     }

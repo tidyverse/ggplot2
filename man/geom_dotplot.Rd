@@ -4,12 +4,27 @@
 \alias{geom_dotplot}
 \title{Dot plot}
 \usage{
-geom_dotplot(mapping = NULL, data = NULL, position = "identity", ...,
-  binwidth = NULL, binaxis = "x", method = "dotdensity",
-  binpositions = "bygroup", stackdir = "up", stackratio = 1,
-  dotsize = 1, stackgroups = FALSE, origin = NULL, right = TRUE,
-  width = 0.9, drop = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_dotplot(
+  mapping = NULL,
+  data = NULL,
+  position = "identity",
+  ...,
+  binwidth = NULL,
+  binaxis = "x",
+  method = "dotdensity",
+  binpositions = "bygroup",
+  stackdir = "up",
+  stackratio = 1,
+  dotsize = 1,
+  stackgroups = FALSE,
+  origin = NULL,
+  right = TRUE,
+  width = 0.9,
+  drop = FALSE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
