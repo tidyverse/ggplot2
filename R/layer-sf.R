@@ -35,6 +35,18 @@ LayerSf <- ggproto("LayerSf", Layer,
         self$mapping$geometry <- as.name(geometry_col)
       }
     }
+
+    # automatically determine the legend type
+    if (is.na(self$show.legend) || self$show.legend == TRUE) {
+      if (is_sf(data)) {
+        if (sf_geometry_type(data) %in% c("POINT", "MULTIPOINT"))
+          self$geom_params$legend <- "point"
+        else if (sf_geometry_type(data) %in% c("LINESTRING", "MULTILINESTRING",
+                                               "CIRCULARSTRING", "COMPOUNDCURVE",
+                                               "CURVE", "MULTICURVE"))
+          self$geom_params$legend <- "line"
+      }
+    }
     data
   }
 )
@@ -62,3 +74,9 @@ is_sf <- function(data) {
 #' @export
 scale_type.sfc <- function(x) "identity"
 
+# helper function to determine the geometry type of sf object
+sf_geometry_type <- function(sf) {
+  geometry_type <- sf %>% st_geometry_type() %>% as.vector() %>% unique()
+  if (length(geometry_type) != 1)  geometry_type <- "blend"
+  geometry_type
+}
