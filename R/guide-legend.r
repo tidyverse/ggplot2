@@ -174,9 +174,10 @@ guide_legend <- function(# title
       label.hjust = label.hjust,
       label.vjust = label.vjust,
 
-      # size of key
+      # key
       keywidth = keywidth,
       keyheight = keyheight,
+      show.key = show.key,
 
       # general
       direction = direction,
@@ -649,6 +650,14 @@ guide_gengrob.legend <- function(guide, theme) {
     keys <- lapply(guide$geoms, function(g) {
       g$draw_key(g$data[i, ], g$params, key_size)
     })
+
+    # handle guide$show.key
+    if (!is.null(guide$show.key)) {
+    keys_null <- rep(list(grid::nullGrob()), length(guide$geoms))
+    keys_null[1:length(guide$show.key[[i]])] <- keys[guide$show.key[[i]]]
+    keys <- keys_null
+    }
+
     c(list(bg), keys)
   }
   grob.keys <- unlist(lapply(seq_len(nbreak), draw_key), recursive = FALSE)
