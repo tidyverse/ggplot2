@@ -138,6 +138,7 @@ guide_legend <- function(# title
                          # key
                          keywidth = NULL,
                          keyheight = NULL,
+                         show.key = NULL,
 
                          # general
                          direction = NULL,
