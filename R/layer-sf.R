@@ -76,7 +76,7 @@ scale_type.sfc <- function(x) "identity"
 
 # helper function to determine the geometry type of sf object
 sf_geometry_type <- function(sf) {
-  geometry_type <- sf %>% st_geometry_type() %>% as.vector() %>% unique()
+  geometry_type <- unique(as.vector(st_geometry_type(sf)))
   if (length(geometry_type) != 1)  geometry_type <- "blend"
   geometry_type
 }
