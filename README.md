@@ -27,7 +27,7 @@ install.packages("tidyverse")
 # Alternatively, install just ggplot2:
 install.packages("ggplot2")
 
-# Or the the development version from GitHub:
+# Or the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("tidyverse/ggplot2")
 ```
@@ -75,12 +75,12 @@ If you are new to ggplot2 you are better off starting with a systematic
 introduction, rather than trying to learn from reading individual
 documentation pages. Currently, there are three good places to start:
 
-1.  The [data
-    visualisation](http://r4ds.had.co.nz/data-visualisation.html) and
-    [graphics for
+1.  The [Data
+    Visualisation](http://r4ds.had.co.nz/data-visualisation.html) and
+    [Graphics for
     communication](http://r4ds.had.co.nz/graphics-for-communication.html)
-    chapters in [R for data science](http://r4ds.had.co.nz). R for data
-    science is designed to give you a comprehensive introduction to the
+    chapters in [R for Data Science](http://r4ds.had.co.nz). R for Data
+    Science is designed to give you a comprehensive introduction to the
     [tidyverse](http://tidyverse.org), and these two chapters will get
     you up to speed with the essentials of ggplot2 as quickly as
     possible.
