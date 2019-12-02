@@ -1,5 +1,11 @@
 # ggplot2 (development version)
 
+* `scale_x_continuous()` and `scale_y_continuous()` gains an `n.breaks` argument
+  guiding the number of automatic generated breaks (@thomasp85, #3102)
+  
+* `geom_sf()` now removes rows that can't be plotted due to `NA` aesthetics 
+  (#3546, @thomasp85)
+
 * A new scale type has been added, that allows binning of aesthetics at the 
   scale level. It has versions for both position and non-position aesthetics and
   comes with two new guides (`guide_bins` and `guide_coloursteps`) (@thomasp85, #3096)
@@ -14,9 +20,17 @@
 * `Geom` now gains a `setup_params()` method in line with the other ggproto
   classes (@thomasp85, #3509)
 
+* Themes can now modify the theme element tree, via the
+  `element_tree` argument. This allows extension packages to add functionality that
+  alters the element tree (@clauswilke, #2540).
+
 * `element_text()` now issues a warning when vectorized arguments are provided, as in
   `colour = c("red", "green", "blue")`. Such use is discouraged and not officially supported
    (@clauswilke, #3492).
+
+* Addition of partial themes to plots has been made more predictable;
+  stepwise addition of individual partial themes is now equivalent to
+  addition of multple theme elements at once (@clauswilke, #3039).
 
 * stacking text when calculating the labels and the y axis with
   `stat_summary()` now works (@ikosmidis, #2709)
@@ -78,11 +92,11 @@
   
 * `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
 
-* `geom_sf()` now removes rows that contain missing `shape`/`size`/`colour` (#3483, @yutannihilation)
-
 * Fix a bug when `show.legend` is a named logical vector (#3461, @yutannihilation).
 
 * Increase the default `nbin` of `guide_colourbar()` to place the ticks more precisely (#3508, @yutannihilation).
+
+* `geom_sf()` now applies alpha to linestring geometries (#3589, @yutannihilation).
 
 * `manual_scale()` now matches `values` with the order of `breaks` whenever
   `values` is an unnamed vector. Previously, unnamed `values` would match with

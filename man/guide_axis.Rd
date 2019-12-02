@@ -4,8 +4,14 @@
 \alias{guide_axis}
 \title{Axis guide}
 \usage{
-guide_axis(title = waiver(), check.overlap = FALSE, angle = NULL,
-  n.dodge = 1, order = 0, position = waiver())
+guide_axis(
+  title = waiver(),
+  check.overlap = FALSE,
+  angle = NULL,
+  n.dodge = 1,
+  order = 0,
+  position = waiver()
+)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.

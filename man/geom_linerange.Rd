@@ -8,21 +8,55 @@
 \alias{geom_pointrange}
 \title{Vertical intervals: lines, crossbars & errorbars}
 \usage{
-geom_crossbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., fatten = 2.5, na.rm = FALSE,
-  orientation = NA, show.legend = NA, inherit.aes = TRUE)
+geom_crossbar(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  fatten = 2.5,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_errorbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE)
+geom_errorbar(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_linerange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE)
+geom_linerange(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_pointrange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., fatten = 4, na.rm = FALSE,
-  orientation = NA, show.legend = NA, inherit.aes = TRUE)
+geom_pointrange(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  fatten = 4,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

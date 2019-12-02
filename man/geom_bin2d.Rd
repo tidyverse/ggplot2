@@ -6,13 +6,30 @@
 \alias{stat_bin2d}
 \title{Heatmap of 2d bin counts}
 \usage{
-geom_bin2d(mapping = NULL, data = NULL, stat = "bin2d",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_bin2d(
+  mapping = NULL,
+  data = NULL,
+  stat = "bin2d",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_bin_2d(mapping = NULL, data = NULL, geom = "tile",
-  position = "identity", ..., bins = 30, binwidth = NULL,
-  drop = TRUE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+stat_bin_2d(
+  mapping = NULL,
+  data = NULL,
+  geom = "tile",
+  position = "identity",
+  ...,
+  bins = 30,
+  binwidth = NULL,
+  drop = TRUE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

@@ -4,9 +4,18 @@
 \alias{layer_sf}
 \title{Create a new sf layer that auto-maps geometry data}
 \usage{
-layer_sf(geom = NULL, stat = NULL, data = NULL, mapping = NULL,
-  position = NULL, params = list(), inherit.aes = TRUE,
-  check.aes = TRUE, check.param = TRUE, show.legend = NA)
+layer_sf(
+  geom = NULL,
+  stat = NULL,
+  data = NULL,
+  mapping = NULL,
+  position = NULL,
+  params = list(),
+  inherit.aes = TRUE,
+  check.aes = TRUE,
+  check.param = TRUE,
+  show.legend = NA
+)
 }
 \arguments{
 \item{geom}{The geometric object to use display the data}

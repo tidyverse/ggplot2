@@ -11,8 +11,7 @@
 \alias{fortify.Line}
 \title{Fortify method for classes from the sp package.}
 \usage{
-\method{fortify}{SpatialPolygonsDataFrame}(model, data, region = NULL,
-  ...)
+\method{fortify}{SpatialPolygonsDataFrame}(model, data, region = NULL, ...)
 
 \method{fortify}{SpatialPolygons}(model, data, ...)
 

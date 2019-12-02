@@ -4,10 +4,19 @@
 \alias{stat_ellipse}
 \title{Compute normal data ellipses}
 \usage{
-stat_ellipse(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", ..., type = "t", level = 0.95,
-  segments = 51, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_ellipse(
+  mapping = NULL,
+  data = NULL,
+  geom = "path",
+  position = "identity",
+  ...,
+  type = "t",
+  level = 0.95,
+  segments = 51,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

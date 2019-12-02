@@ -5,13 +5,29 @@
 \alias{geom_area}
 \title{Ribbons and area plots}
 \usage{
-geom_ribbon(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE)
+geom_ribbon(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_area(mapping = NULL, data = NULL, stat = "identity",
-  position = "stack", na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE, ...)
+geom_area(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "stack",
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -114,8 +130,9 @@ h <- ggplot(huron, aes(year))
 h + geom_ribbon(aes(ymin=0, ymax=level))
 h + geom_area(aes(y = level))
 
-# Change orientation be switching the mapping
-h + geom_area(aes(x = level, y = year))
+# Orientation cannot be deduced by mapping, so must be given explicitly for
+# flipped orientation
+h + geom_area(aes(x = level, y = year), orientation = "y")
 
 # Add aesthetic mappings
 h +

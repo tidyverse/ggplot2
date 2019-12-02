@@ -6,15 +6,37 @@
 \alias{stat_summary_hex}
 \title{Bin and summarise in 2d (rectangle & hexagons)}
 \usage{
-stat_summary_2d(mapping = NULL, data = NULL, geom = "tile",
-  position = "identity", ..., bins = 30, binwidth = NULL,
-  drop = TRUE, fun = "mean", fun.args = list(), na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+stat_summary_2d(
+  mapping = NULL,
+  data = NULL,
+  geom = "tile",
+  position = "identity",
+  ...,
+  bins = 30,
+  binwidth = NULL,
+  drop = TRUE,
+  fun = "mean",
+  fun.args = list(),
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_summary_hex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", ..., bins = 30, binwidth = NULL,
-  drop = TRUE, fun = "mean", fun.args = list(), na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+stat_summary_hex(
+  mapping = NULL,
+  data = NULL,
+  geom = "hex",
+  position = "identity",
+  ...,
+  bins = 30,
+  binwidth = NULL,
+  drop = TRUE,
+  fun = "mean",
+  fun.args = list(),
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

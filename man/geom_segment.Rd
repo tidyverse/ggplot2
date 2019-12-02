@@ -5,15 +5,37 @@
 \alias{geom_curve}
 \title{Line segments and curves}
 \usage{
-geom_segment(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., arrow = NULL, arrow.fill = NULL,
-  lineend = "butt", linejoin = "round", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+geom_segment(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  arrow = NULL,
+  arrow.fill = NULL,
+  lineend = "butt",
+  linejoin = "round",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_curve(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., curvature = 0.5, angle = 90, ncp = 5,
-  arrow = NULL, arrow.fill = NULL, lineend = "butt", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+geom_curve(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  curvature = 0.5,
+  angle = 90,
+  ncp = 5,
+  arrow = NULL,
+  arrow.fill = NULL,
+  lineend = "butt",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

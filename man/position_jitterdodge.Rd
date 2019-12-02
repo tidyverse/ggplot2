@@ -4,8 +4,12 @@
 \alias{position_jitterdodge}
 \title{Simultaneously dodge and jitter}
 \usage{
-position_jitterdodge(jitter.width = NULL, jitter.height = 0,
-  dodge.width = 0.75, seed = NA)
+position_jitterdodge(
+  jitter.width = NULL,
+  jitter.height = 0,
+  dodge.width = 0.75,
+  seed = NA
+)
 }
 \arguments{
 \item{jitter.width}{degree of jitter in x direction. Defaults to 40\% of the
@@ -37,10 +41,11 @@ ggplot(dsub, aes(x = cut, y = carat, fill = clarity)) +
   geom_point(pch = 21, position = position_jitterdodge())
 }
 \seealso{
-Other position adjustments: \code{\link{position_dodge}},
-  \code{\link{position_identity}},
-  \code{\link{position_jitter}},
-  \code{\link{position_nudge}},
-  \code{\link{position_stack}}
+Other position adjustments: 
+\code{\link{position_dodge}()},
+\code{\link{position_identity}()},
+\code{\link{position_jitter}()},
+\code{\link{position_nudge}()},
+\code{\link{position_stack}()}
 }
 \concept{position adjustments}

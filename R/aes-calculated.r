@@ -42,6 +42,8 @@ is_calculated <- function(x) {
     FALSE
   } else if (is.symbol(x)) {
     is_dotted_var(as.character(x))
+  } else if (is_quosure(x)) {
+    is_calculated(quo_get_expr(x))
   } else if (is.call(x)) {
     if (identical(x[[1]], quote(stat))) {
       TRUE
@@ -66,6 +68,12 @@ strip_dots <- function(expr) {
     } else {
       expr
     }
+  } else if (is_quosure(expr)) {
+    # strip dots from quosure and reconstruct the quosure
+    expr <- new_quosure(
+      strip_dots(quo_get_expr(expr)),
+      quo_get_env(expr)
+    )
   } else if (is.call(expr)) {
     if (identical(expr[[1]], quote(stat))) {
       strip_dots(expr[[2]])
