@@ -37,7 +37,7 @@ LayerSf <- ggproto("LayerSf", Layer,
     }
 
     # automatically determine the legend type
-    if (is.na(self$show.legend) || self$show.legend == TRUE) {
+    if (is.na(self$show.legend) || isTRUE(self$show.legend)) {
       if (is_sf(data)) {
         if (sf_geometry_type(data) %in% c("POINT", "MULTIPOINT"))
           self$geom_params$legend <- "point"
