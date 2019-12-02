@@ -654,7 +654,9 @@ guide_gengrob.legend <- function(guide, theme) {
     # handle guide$show.key
     if (!is.null(guide$show.key)) {
     keys_null <- rep(list(grid::nullGrob()), length(guide$geoms))
-    keys_null[1:length(guide$show.key[[i]])] <- keys[guide$show.key[[i]]]
+    if (!is.null(guide$show.key[[i]])) {
+      keys_null[1:length(guide$show.key[[i]])] <- keys[guide$show.key[[i]]]
+    }
     keys <- keys_null
     }
 
