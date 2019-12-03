@@ -40,13 +40,15 @@ LayerSf <- ggproto("LayerSf", Layer,
     if (is.na(self$show.legend) || isTRUE(self$show.legend)) {
       if (is_sf(data)) {
         geometry_type <- sf_geometry_type(data)
-        if (geometry_type %in% c("POINT", "MULTIPOINT"))
+        if (sf_types[geometry_type] == "point")
           self$geom_params$legend <- "point"
-        else if (geometry_type %in% c("LINESTRING", "MULTILINESTRING",
-                                               "CIRCULARSTRING", "COMPOUNDCURVE",
-                                               "CURVE", "MULTICURVE"))
+        else if (sf_types[geometry_type] == "line")
           self$geom_params$legend <- "line"
+        else self$geom_params$legend <- "polygon"
       }
+    } else if (is.character(self$show.legend)) {
+      self$geom_params$legend = self$show.legend
+      self$show.legend = TRUE
     }
     data
   }
@@ -78,6 +80,6 @@ scale_type.sfc <- function(x) "identity"
 # helper function to determine the geometry type of sf object
 sf_geometry_type <- function(sf) {
   geometry_type <- unique(as.character(sf::st_geometry_type(sf)))
-  if (length(geometry_type) != 1)  geometry_type <- "other"
+  if (length(geometry_type) != 1)  geometry_type <- "GEOMETRY"
   geometry_type
 }
