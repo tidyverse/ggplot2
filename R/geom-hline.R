@@ -1,4 +1,4 @@
-#' @include stat-.r
+#' @include stat-.R
 NULL
 
 #' @export

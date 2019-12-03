@@ -1,4 +1,4 @@
-#' @include geom-polygon.r
+#' @include geom-polygon.R
 NULL
 
 #' Polygons from a reference map

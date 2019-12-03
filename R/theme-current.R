@@ -1,5 +1,5 @@
-#' @include theme-defaults.r
-#' @include theme-elements.r
+#' @include theme-defaults.R
+#' @include theme-elements.R
 NULL
 
 #' Get, set, and modify the active theme

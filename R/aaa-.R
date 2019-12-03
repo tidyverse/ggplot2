@@ -1,5 +1,5 @@
 #' @include ggplot-global.R
-#' @include ggproto.r
+#' @include ggproto.R
 NULL
 
 #' Base ggproto classes for ggplot2

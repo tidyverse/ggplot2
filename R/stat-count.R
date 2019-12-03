@@ -46,7 +46,7 @@ stat_count <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include stat-.r
+#' @include stat-.R
 StatCount <- ggproto("StatCount", Stat,
   required_aes = "x|y",
 

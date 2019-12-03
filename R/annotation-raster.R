@@ -1,5 +1,5 @@
-#' @include geom-.r
-#' @include geom-raster.r
+#' @include geom-.R
+#' @include geom-raster.R
 NULL
 
 #' Annotation: high-performance rectangular tiling

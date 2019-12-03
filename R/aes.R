@@ -1,4 +1,4 @@
-#' @include utilities.r compat-plyr.R
+#' @include utilities.R compat-plyr.R
 NULL
 
 #' Construct aesthetic mappings

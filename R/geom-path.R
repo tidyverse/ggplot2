@@ -263,7 +263,7 @@ geom_line <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-path.r
+#' @include geom-path.R
 GeomLine <- ggproto("GeomLine", GeomPath,
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, ambiguous = TRUE)
@@ -308,7 +308,7 @@ geom_step <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-path.r
+#' @include geom-path.R
 GeomStep <- ggproto("GeomStep", GeomPath,
   draw_panel = function(data, panel_params, coord, direction = "hv") {
     data <- dapply(data, "group", stairstep, direction = direction)

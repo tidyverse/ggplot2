@@ -1,4 +1,4 @@
-#' @include geom-.r
+#' @include geom-.R
 NULL
 
 #' @export

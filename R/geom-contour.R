@@ -113,7 +113,7 @@ geom_contour_filled <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-path.r
+#' @include geom-path.R
 GeomContour <- ggproto("GeomContour", GeomPath,
   default_aes = aes(
     weight = 1,

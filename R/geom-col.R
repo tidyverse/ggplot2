@@ -28,7 +28,7 @@ geom_col <- function(mapping = NULL, data = NULL,
 #' @format NULL
 #' @usage NULL
 #' @export
-#' @include geom-rect.r
+#' @include geom-rect.R
 GeomCol <- ggproto("GeomCol", GeomRect,
   required_aes = c("x", "y"),
 
