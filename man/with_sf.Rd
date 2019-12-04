@@ -2,17 +2,45 @@
 % Please edit documentation in R/with-sf.R
 \name{with_sf}
 \alias{with_sf}
-\title{Turn regular layers into sf layers}
+\title{Turn regular geoms/stats into sf-ified geoms/stats}
 \usage{
 with_sf(..., crs = 4326)
 }
 \arguments{
-\item{...}{Layer}
+\item{...}{One or more geom/stat or lists of geoms/stats to be transformed}
 
 \item{crs}{Coordinate reference system of the origin layer. Defaults to
 longitude and latitude in WGS84 (EPSG:4326), the World Geodetic System
 from 1984.}
 }
 \description{
-Turn regular layers into sf layers
+This function allows you to wrap ordinary geoms and stats for use within
+a \code{geom_sf()}/\code{coord_sf()} framework. By default, it assumes that coordinates
+in the wrapped geoms/stats are given in standard latitude/longitude coordinates,
+and it transforms those coordinates into those used by \code{coord_sf()}. However,
+it is also possible to specify an alternative coordinate reference system (crs)
+for the geoms/stats that are being wrapped.
+}
+\examples{
+\donttest{
+nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+
+df <- data.frame(lat = 35.76667, long = -78.63333, name = "Raleigh")
+
+ggplot(df, aes(x = long, y = lat)) +
+  geom_sf(data = nc, size = 0.1, fill = "white", inherit.aes = FALSE) +
+  with_sf(
+    geom_point(),
+    geom_text(aes(label = name), hjust = -.1, vjust = 1.1)
+  ) +
+  coord_sf(crs = 2264)
+
+ggplot(nc) +
+  geom_sf(size = 0.1, fill = "white") +
+  with_sf(
+    geom_hline(yintercept = 34:36),
+    geom_vline(xintercept = c(-84, -80, -76))
+  ) +
+  coord_sf(crs = 2264)
+}
 }
