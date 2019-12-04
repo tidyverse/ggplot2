@@ -4,10 +4,14 @@
 \alias{with_sf}
 \title{Turn regular layers into sf layers}
 \usage{
-with_sf(...)
+with_sf(..., crs = 4326)
 }
 \arguments{
 \item{...}{Layer}
+
+\item{crs}{Coordinate reference system of the origin layer. Defaults to
+longitude and latitude in WGS84 (EPSG:4326), the World Geodetic System
+from 1984.}
 }
 \description{
 Turn regular layers into sf layers
