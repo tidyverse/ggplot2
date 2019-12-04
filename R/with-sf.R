@@ -35,16 +35,32 @@ with_sf_impl.Layer <- function(x, crs, ...) {
   parent_geom <- x$geom
   ggproto(NULL, x,
     geom = ggproto('SfifiedGeom', parent_geom,
-      draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
+      draw_panel = function(data, panel_params, coord, ...) {
         sfified_coord <- ggproto('SfifiedCoord', coord,
           transform = function(data, range) {
             data <- sfified_transform(data, crs = coord$crs, source_crs = crs)
             coord$transform(data, range)
+          },
+
+          backtransform_range = function(panel_params) {
+            # we create a bounding box, transform all four corners, and then extract the max extent
+            x <- panel_params$x_range
+            y <- panel_params$y_range
+            data <- list(x = c(x, x), y = c(y, rev(y)))
+            data <- sfified_transform(data, crs = crs, source_crs = coord$crs)
+            list(x = range(data$x), y = range(data$y))
+          },
+
+          # normally coord_sf() pretends to be linear, but as used here it is not
+          is_linear = function() FALSE,
+
+          distance = function(self, x, y, panel_params) {
+            d <- self$backtransform_range(panel_params)
+            max_dist <- dist_euclidean(d$x, d$y)
+            dist_euclidean(x, y) / max_dist
           }
-          ## TODO:
-          ## need to implement backtransform_range()
         )
-        parent_geom$draw_panel(data, panel_params, sfified_coord, na.rm)
+        parent_geom$draw_panel(data, panel_params, sfified_coord, ...)
       }
     )
   )
