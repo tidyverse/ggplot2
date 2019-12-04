@@ -250,9 +250,10 @@ Collate:
     'utilities-resolution.r'
     'utilities-table.r'
     'utilities-tidy-eval.R'
+    'with-sf.R'
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
