@@ -370,7 +370,8 @@ matched_aes <- function(layer, guide, defaults) {
 include_layer_in_guide <- function(layer, matched) {
   if (!is.logical(layer$show.legend)) {
     warning("`show.legend` must be a logical vector.", call. = FALSE)
-    layer$show.legend <- FALSE
+    layer$show.legend <- FALSE # save back to layer so we don't issue this warning more than once
+    return(FALSE)
   }
 
   if (length(matched) > 0) {
@@ -392,5 +393,5 @@ include_layer_in_guide <- function(layer, matched) {
 
   # This layer does not contribute to the legend.
   # Default is to exclude it, except if it is explicitly turned on
-  return(!all(is.na(layer$show.legend)) && isTRUE(layer$show.legend))
+  return(isTRUE(layer$show.legend))
 }

@@ -164,18 +164,18 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
     # check if this layer should be included
     include <- include_layer_in_guide(layer, matched)
 
-    if (include) {
-      if (length(matched) > 0) {
-        # Filter out set aesthetics that can't be applied to the legend
-        n <- vapply(layer$aes_params, length, integer(1))
-        params <- layer$aes_params[n == 1]
-
-        data <- layer$geom$use_defaults(guide$key[matched], params)
-      } else {
-        data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
-      }
-    } else {
+    if (!include) {
       return(NULL)
+    }
+
+    if (length(matched) > 0) {
+      # Filter out set aesthetics that can't be applied to the legend
+      n <- vapply(layer$aes_params, length, integer(1))
+      params <- layer$aes_params[n == 1]
+
+      data <- layer$geom$use_defaults(guide$key[matched], params)
+    } else {
+      data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
     }
 
     # override.aes in guide_legend manually changes the geom
