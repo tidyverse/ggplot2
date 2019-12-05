@@ -163,21 +163,9 @@ See McGill et al. (1978) for more details.
 \item \code{fill}
 \item \code{group}
 \item \code{linetype}
-\item \code{lower}
-\item \code{middle}
 \item \code{shape}
 \item \code{size}
-\item \code{upper}
 \item \code{weight}
-\item \code{x}
-\item \code{xlower}
-\item \code{xmax}
-\item \code{xmiddle}
-\item \code{xmin}
-\item \code{xupper}
-\item \code{y}
-\item \code{ymax}
-\item \code{ymin}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

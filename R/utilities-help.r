@@ -1,4 +1,3 @@
-
 rd_aesthetics <- function(type, name) {
   obj <- switch(type,
     geom = check_subclass(name, "Geom", env = globalenv()),
@@ -22,7 +21,9 @@ rd_aesthetics <- function(type, name) {
 rd_aesthetics_item <- function(x) {
   req <- x$required_aes
   req <- sub("|", "} \\emph{or} \\code{", req, fixed = TRUE)
-  all <- union(req, sort(x$aesthetics()))
+  req_aes <- unlist(strsplit(x$required_aes, "|", fixed = TRUE))
+  optional_aes <- setdiff(x$aesthetics(),req_aes)
+  all <- union(req, sort(optional_aes))
 
   ifelse(all %in% req,
     paste0("\\strong{\\code{", all, "}}"),
