@@ -26,19 +26,30 @@ test_that("geom_sf() determines the legend type automatically", {
     geometry = sf::st_sfc(sf::st_multipolygon(list(list(p1,p2), list(p3,p4), list(p5)))),
     v = "a")
 
-  fun_geom_sf <- function(sf) {
-    p <- ggplot() + geom_sf(aes(colour = v), data = sf, show.legend = TRUE)
+  fun_geom_sf <- function(sf, show.legend) {
+    p <- ggplot() + geom_sf(aes(colour = v), data = sf, show.legend = show.legend)
     ggplot_build(p)
   }
 
-  expect_identical(fun_geom_sf(mp)$plot$layers[[1]]$show.legend, TRUE)
-  expect_identical(fun_geom_sf(mp)$plot$layers[[1]]$geom_params$legend, "point")
+  # test the automatic choice
+  expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$geom_params$legend, "point")
 
-  expect_identical(fun_geom_sf(mls)$plot$layers[[1]]$show.legend, TRUE)
-  expect_identical(fun_geom_sf(mls)$plot$layers[[1]]$geom_params$legend, "line")
+  expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$geom_params$legend, "line")
 
-  expect_identical(fun_geom_sf(mpol)$plot$layers[[1]]$show.legend, TRUE)
-  expect_identical(fun_geom_sf(mpol)$plot$layers[[1]]$geom_params$legend, "polygon")
+  expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$geom_params$legend, "polygon")
+
+  # test that automatic choice can be overridden manually
+  expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$geom_params$legend, "point")
+
+  expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$geom_params$legend, "point")
+
+  expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$geom_params$legend, "point")
 })
 
 test_that("geom_sf() removes rows containing missing aes", {
