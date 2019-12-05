@@ -197,12 +197,10 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
       mapping = mapping,
       stat = stat,
       position = position,
-      #show.legend = if (is.character(show.legend)) TRUE else show.legend,
       show.legend = show.legend,
       inherit.aes = inherit.aes,
       params = list(
         na.rm = na.rm,
-        #legend = if (is.character(show.legend)) show.legend else "polygon",
         ...
       )
     ),
