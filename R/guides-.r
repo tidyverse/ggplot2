@@ -393,5 +393,5 @@ include_layer_in_guide <- function(layer, matched) {
 
   # This layer does not contribute to the legend.
   # Default is to exclude it, except if it is explicitly turned on
-  return(isTRUE(layer$show.legend))
+  isTRUE(layer$show.legend)
 }
