@@ -22,7 +22,7 @@ rd_aesthetics_item <- function(x) {
   req <- x$required_aes
   req <- sub("|", "} \\emph{or} \\code{", req, fixed = TRUE)
   req_aes <- unlist(strsplit(x$required_aes, "|", fixed = TRUE))
-  optional_aes <- setdiff(x$aesthetics(),req_aes)
+  optional_aes <- setdiff(x$aesthetics(), req_aes)
   all <- union(req, sort(optional_aes))
 
   ifelse(all %in% req,
