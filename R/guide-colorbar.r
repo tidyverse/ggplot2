@@ -249,21 +249,8 @@ guide_geom.colorbar <- function(guide, layers, default_mapping) {
       return(NULL)
     }
 
-    # check if this layer should be included, different behaviour depending on
-    # if show.legend is a logical or a named logical vector
-    if (is_named(layer$show.legend)) {
-      layer$show.legend <- rename_aes(layer$show.legend)
-      show_legend <- layer$show.legend[matched]
-      # we cannot use `isTRUE(is.na(show_legend))` here because
-      # 1. show_legend can be multiple NAs
-      # 2. isTRUE() was not tolerant for a named TRUE
-      show_legend <- show_legend[!is.na(show_legend)]
-      include <- length(show_legend) == 0 || any(show_legend)
-    } else {
-      include <- isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend)
-    }
-
-    if (include) {
+    # check if this layer should be included
+    if (include_layer_in_guide(layer, matched)) {
       layer
     } else {
       NULL
