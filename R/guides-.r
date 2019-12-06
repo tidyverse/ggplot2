@@ -363,3 +363,35 @@ matched_aes <- function(layer, guide, defaults) {
   matched <- setdiff(matched, names(layer$geom_params))
   setdiff(matched, names(layer$aes_params))
 }
+
+# This function is used by guides in guide_geom.* to determine whether
+# a given layer should be included in the guide
+# `matched` is the set of aesthetics that match between the layer and the guide
+include_layer_in_guide <- function(layer, matched) {
+  if (!is.logical(layer$show.legend)) {
+    warning("`show.legend` must be a logical vector.", call. = FALSE)
+    layer$show.legend <- FALSE # save back to layer so we don't issue this warning more than once
+    return(FALSE)
+  }
+
+  if (length(matched) > 0) {
+    # This layer contributes to the legend
+
+    # check if this layer should be included, different behaviour depending on
+    # if show.legend is a logical or a named logical vector
+    if (is_named(layer$show.legend)) {
+      layer$show.legend <- rename_aes(layer$show.legend)
+      show_legend <- layer$show.legend[matched]
+      # we cannot use `isTRUE(is.na(show_legend))` here because
+      # 1. show_legend can be multiple NAs
+      # 2. isTRUE() was not tolerant for a named TRUE
+      show_legend <- show_legend[!is.na(show_legend)]
+      return(length(show_legend) == 0 || any(show_legend))
+    }
+    return(all(is.na(layer$show.legend)) || isTRUE(layer$show.legend))
+  }
+
+  # This layer does not contribute to the legend.
+  # Default is to exclude it, except if it is explicitly turned on
+  isTRUE(layer$show.legend)
+}
