@@ -246,42 +246,21 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   guide$geoms <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
+    # check if this layer should be included
+    include <- include_layer_in_guide(layer, matched)
+
+    if (!include) {
+      return(NULL)
+    }
+
     if (length(matched) > 0) {
-      # This layer contributes to the legend
+      # Filter out set aesthetics that can't be applied to the legend
+      n <- vapply(layer$aes_params, length, integer(1))
+      params <- layer$aes_params[n == 1]
 
-      # check if this layer should be included, different behaviour depending on
-      # if show.legend is a logical or a named logical vector
-      if (is_named(layer$show.legend)) {
-        layer$show.legend <- rename_aes(layer$show.legend)
-        show_legend <- layer$show.legend[matched]
-        # we cannot use `isTRUE(is.na(show_legend))` here because
-        # 1. show_legend can be multiple NAs
-        # 2. isTRUE() was not tolerant for a named TRUE
-        show_legend <- show_legend[!is.na(show_legend)]
-        include <- length(show_legend) == 0 || any(show_legend)
-      } else {
-        include <- isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend)
-      }
-
-      if (include) {
-        # Default is to include it
-
-        # Filter out set aesthetics that can't be applied to the legend
-        n <- vapply(layer$aes_params, length, integer(1))
-        params <- layer$aes_params[n == 1]
-
-        data <- layer$geom$use_defaults(guide$key[matched], params)
-      } else {
-        return(NULL)
-      }
+      data <- layer$geom$use_defaults(guide$key[matched], params)
     } else {
-      # This layer does not contribute to the legend
-      if (isTRUE(is.na(layer$show.legend)) || !isTRUE(layer$show.legend)) {
-        # Default is to exclude it
-        return(NULL)
-      } else {
-        data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
-      }
+      data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
     }
 
     # override.aes in guide_legend manually changes the geom
