@@ -1,5 +1,7 @@
 # ggplot2 (development version)
 
+* `geom_sf()` now determines the legend type automatically (@microly, #3646).
+  
 * `scale_x_continuous()` and `scale_y_continuous()` gains an `n.breaks` argument
   guiding the number of automatic generated breaks (@thomasp85, #3102)
   
