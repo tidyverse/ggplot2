@@ -43,6 +43,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     })
   },
 
+  # Allow sf layer to record the bounding boxes of elements
+  record_bbox = function(self, xmin, xmax, ymin, ymax) {
+    self$bbox$xmin <- min(self$bbox$xmin, xmin)
+    self$bbox$xmax <- min(self$bbox$xmax, xmax)
+    self$bbox$ymin <- min(self$bbox$ymin, ymin)
+    self$bbox$ymax <- min(self$bbox$ymax, ymax)
+  },
+
   transform = function(self, data, panel_params) {
     # we need to transform all non-sf data into the correct coordinate system
     source_crs <- self$default_crs
@@ -134,11 +142,35 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
-    # Bounding box of the data
+    # expansion factors for scale limits
     expansion_x <- default_expansion(scale_x, expand = self$expand)
-    x_range <- expand_limits_scale(scale_x, expansion_x, coord_limits = self$limits$x)
     expansion_y <- default_expansion(scale_y, expand = self$expand)
-    y_range <- expand_limits_scale(scale_y, expansion_y, coord_limits = self$limits$y)
+
+    # get scale limits and transform to common crs
+    scale_xlim <- scale_x$get_limits()
+    scale_ylim <- scale_y$get_limits()
+
+    source_crs <- self$default_crs
+    target_crs <- params$crs
+    scales_bbox <- sf_transform_xy(
+      list(x = c(scale_xlim, scale_xlim), y = c(scale_ylim, rev(scale_ylim))),
+      target_crs, source_crs
+    )
+
+    # merge scale limits and coord limits
+    scales_xrange <- c(min(scales_bbox$x, self$bbox$xmin), max(scales_bbox$x, self$bbox$xmax))
+    scales_yrange <- c(min(scales_bbox$y, self$bbox$ymin), max(scales_bbox$y, self$bbox$ymax))
+
+    # calculate final coord limits by putting everything together and applying expansion
+    coord_limits_x <- self$limits$x %||% c(NA_real_, NA_real_)
+    coord_limits_y <- self$limits$y %||% c(NA_real_, NA_real_)
+
+    x_range <- expand_limits_continuous(
+      scales_xrange, expansion_x, coord_limits = coord_limits_x
+    )
+    y_range <- expand_limits_continuous(
+      scales_yrange, expansion_y, coord_limits = coord_limits_y
+    )
     bbox <- c(
       x_range[1], y_range[1],
       x_range[2], y_range[2]
@@ -398,6 +430,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 sf_transform_xy <- function(data, target_crs, source_crs) {
   if (identical(target_crs, source_crs) ||
       is.null(target_crs) || is.null(source_crs) || is.null(data) ||
+      is.na(target_crs) || is.na(source_crs) ||
       !all(c("x", "y") %in% names(data))) {
     return(data)
   }
