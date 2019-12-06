@@ -4,6 +4,9 @@
 #' @format NULL
 CoordSf <- ggproto("CoordSf", CoordCartesian,
 
+  # default crs to be used
+  default_crs = 4326, # default is WGS 84
+
   # Find the first CRS if not already supplied
   setup_params = function(self, data) {
     if (!is.null(self$crs)) {
@@ -41,15 +44,20 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   },
 
   transform = function(self, data, panel_params) {
+    # we need to transform all non-sf data into the correct coordinate system
+    source_crs <- self$default_crs
+    target_crs <- panel_params$crs
+
+    # normalize geometry data, it should already be in the correct crs here
     data[[ geom_column(data) ]] <- sf_rescale01(
       data[[ geom_column(data) ]],
       panel_params$x_range,
       panel_params$y_range
     )
 
-    # Assume x and y supplied directly already in common CRS
+    # transform and normalize regular position data
     data <- transform_position(
-      data,
+      sf_transform_xy(data, target_crs, source_crs),
       function(x) sf_rescale01_x(x, panel_params$x_range),
       function(x) sf_rescale01_x(x, panel_params$y_range)
     )
@@ -165,22 +173,32 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
   },
 
-  backtransform_range = function(panel_params) {
-    # this does not actually return backtransformed ranges in the general case, needs fixing
-    warning(
-      "range backtransformation not implemented in this coord; results may be wrong.",
-      call. = FALSE
-    )
-    list(x = panel_params$x_range, y = panel_params$y_range)
+  backtransform_range = function(self, panel_params) {
+    target_crs <- self$default_crs
+    source_crs <- panel_params$crs
+
+    x <- panel_params$x_range
+    y <- panel_params$y_range
+    data <- list(x = c(x, x), y = c(y, rev(y)))
+    data <- sf_transform_xy(data, target_crs, source_crs)
+    list(x = range(data$x), y = range(data$y))
   },
 
   range = function(panel_params) {
     list(x = panel_params$x_range, y = panel_params$y_range)
   },
 
-
   # CoordSf enforces a fixed aspect ratio -> axes cannot be changed freely under faceting
   is_free = function() FALSE,
+
+  # for regular geoms (such as geom_path, geom_polygon, etc.), CoordSf is non-linear
+  is_linear = function() FALSE,
+
+  distance = function(self, x, y, panel_params) {
+    d <- self$backtransform_range(panel_params)
+    max_dist <- dist_euclidean(d$x, d$y)
+    dist_euclidean(x, y) / max_dist
+  },
 
   aspect = function(self, panel_params) {
     if (isTRUE(sf::st_is_longlat(panel_params$crs))) {
@@ -375,6 +393,26 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   }
 )
 
+## helper functions to transform and normalize geometry and position data
+# transform position data (columns x and y in a data frame)
+sf_transform_xy <- function(data, target_crs, source_crs) {
+  if (identical(target_crs, source_crs) ||
+      is.null(target_crs) || is.null(source_crs) || is.null(data) ||
+      !all(c("x", "y") %in% names(data))) {
+    return(data)
+  }
+
+  sf_data <- sf::st_sfc(
+    sf::st_multipoint(cbind(data$x, data$y)),
+    crs = source_crs
+  )
+  sf_data_trans <- sf::st_transform(sf_data, target_crs)[[1]]
+  data$x <- sf_data_trans[, 1]
+  data$y <- sf_data_trans[, 2]
+  data
+}
+
+# normalize geometry data (variable x is geometry column)
 sf_rescale01 <- function(x, x_range, y_range) {
   if (is.null(x)) {
     return(x)
@@ -382,13 +420,17 @@ sf_rescale01 <- function(x, x_range, y_range) {
 
   sf::st_normalize(x, c(x_range[1], y_range[1], x_range[2], y_range[2]))
 }
+
+# normalize position data (variable x is x or y position)
 sf_rescale01_x <- function(x, range) {
   (x - range[1]) / diff(range)
 }
 
 
+
 #' @param crs Use this to select a specific coordinate reference system (CRS).
 #'   If not specified, will use the CRS defined in the first layer.
+#' @param default_crs TODO: document
 #' @param datum CRS that provides datum to use when generating graticules
 #' @param label_axes Character vector or named list of character values
 #'   specifying which graticule lines (meridians or parallels) should be labeled on
@@ -417,7 +459,7 @@ sf_rescale01_x <- function(x, range) {
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                     crs = NULL, datum = sf::st_crs(4326),
+                     crs = NULL, default_crs = 4326, datum = sf::st_crs(4326),
                      label_graticule = waiver(),
                      label_axes = waiver(),
                      ndiscr = 100, default = FALSE, clip = "on") {
@@ -457,6 +499,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     limits = list(x = xlim, y = ylim),
     datum = datum,
     crs = crs,
+    default_crs = default_crs,
     label_axes = label_axes,
     label_graticule = label_graticule,
     ndiscr = ndiscr,

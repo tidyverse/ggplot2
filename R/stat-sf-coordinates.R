@@ -84,12 +84,27 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
 #' @export
 StatSfCoordinates <- ggproto(
   "StatSfCoordinates", Stat,
-  compute_group = function(data, scales, fun.geometry = NULL) {
+
+  default_crs = NULL, # if set to null, take default from coord
+
+  compute_layer = function(self, data, params, layout) {
+    # extract default crs if not set manually
+    if (is.null(self$default_crs)) {
+      self$default_crs <- layout$coord$default_crs
+    }
+    ggproto_parent(Stat, self)$compute_layer(data, params, layout)
+  },
+
+  compute_group = function(self, data, scales, fun.geometry = NULL) {
     if (is.null(fun.geometry)) {
       fun.geometry <- function(x) sf::st_point_on_surface(sf::st_zm(x))
     }
 
     points_sfc <- fun.geometry(data$geometry)
+    # transform to the coords default crs if possible
+    if (!(is.null(self$default_crs) || is.na(sf::st_crs(points_sfc)))) {
+      points_sfc <- sf::st_transform(points_sfc, self$default_crs)
+    }
     coordinates <- sf::st_coordinates(points_sfc)
     data$x <- coordinates[, "X"]
     data$y <- coordinates[, "Y"]
