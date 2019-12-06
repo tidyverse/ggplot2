@@ -42,11 +42,11 @@ LayerSf <- ggproto("LayerSf", Layer,
         sf_type <- detect_sf_type(data)
         if (sf_type == "point") {
           self$geom_params$legend <- "point"
-        }
-        else if (sf_type == "line") {
+        } else if (sf_type == "line") {
           self$geom_params$legend <- "line"
+        } else {
+          self$geom_params$legend <- "polygon"
         }
-        else self$geom_params$legend <- "polygon"
       }
     } else if (is.character(self$show.legend)) {
       self$geom_params$legend <- self$show.legend
