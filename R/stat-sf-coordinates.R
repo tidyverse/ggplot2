@@ -85,25 +85,23 @@ stat_sf_coordinates <- function(mapping = aes(), data = NULL, geom = "point",
 StatSfCoordinates <- ggproto(
   "StatSfCoordinates", Stat,
 
-  default_crs = NULL, # if set to null, take default from coord
-
   compute_layer = function(self, data, params, layout) {
-    # extract default crs if not set manually
-    if (is.null(self$default_crs)) {
-      self$default_crs <- layout$coord$default_crs
-    }
+    # add coord to the params, so it can be forwarded to compute_group()
+    params$coord <- layout$coord
     ggproto_parent(Stat, self)$compute_layer(data, params, layout)
   },
 
-  compute_group = function(self, data, scales, fun.geometry = NULL) {
+  compute_group = function(self, data, scales, coord, fun.geometry = NULL) {
     if (is.null(fun.geometry)) {
       fun.geometry <- function(x) sf::st_point_on_surface(sf::st_zm(x))
     }
 
     points_sfc <- fun.geometry(data$geometry)
-    # transform to the coords default crs if possible
-    if (!(is.null(self$default_crs) || is.na(sf::st_crs(points_sfc)))) {
-      points_sfc <- sf::st_transform(points_sfc, self$default_crs)
+    # transform to the coord's default crs if possible
+    default_crs <- coord$default_crs
+    if (!(is.null(default_crs) || is.na(default_crs) ||
+          is.na(sf::st_crs(points_sfc)))) {
+      points_sfc <- sf::st_transform(points_sfc, default_crs)
     }
     coordinates <- sf::st_coordinates(points_sfc)
     data$x <- coordinates[, "X"]

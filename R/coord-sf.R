@@ -46,9 +46,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   # Allow sf layer to record the bounding boxes of elements
   record_bbox = function(self, xmin, xmax, ymin, ymax) {
     self$bbox$xmin <- min(self$bbox$xmin, xmin)
-    self$bbox$xmax <- min(self$bbox$xmax, xmax)
+    self$bbox$xmax <- max(self$bbox$xmax, xmax)
     self$bbox$ymin <- min(self$bbox$ymin, ymin)
-    self$bbox$ymax <- min(self$bbox$ymax, ymax)
+    self$bbox$ymax <- max(self$bbox$ymax, ymax)
   },
 
   transform = function(self, data, panel_params) {
@@ -463,7 +463,14 @@ sf_rescale01_x <- function(x, range) {
 
 #' @param crs Use this to select a specific coordinate reference system (CRS).
 #'   If not specified, will use the CRS defined in the first layer.
-#' @param default_crs TODO: document
+#' @param default_crs The default CRS to be used for non-sf layers (which
+#'   don't carry any CRS information). If not specified, this defaults to
+#'   the World Geodetic System 1984 (WGS84), which means x and y positions
+#'   are interpreted as longitude and latitude, respectively. The default CRS
+#'   is also the reference system used to set limits via scales/`xlim()`/`ylim()`.
+#' @param xlim,ylim Limits for the x and y axes. These limits are specified
+#'   in the units of the CRS set via the `crs` argument or, if `crs` is not
+#'   specified, the CRS of the first layer that has a CRS.
 #' @param datum CRS that provides datum to use when generating graticules
 #' @param label_axes Character vector or named list of character values
 #'   specifying which graticule lines (meridians or parallels) should be labeled on

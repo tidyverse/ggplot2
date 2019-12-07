@@ -18,6 +18,7 @@ coord_sf(
   ylim = NULL,
   expand = TRUE,
   crs = NULL,
+  default_crs = 4326,
   datum = sf::st_crs(4326),
   label_graticule = waiver(),
   label_axes = waiver(),
@@ -83,9 +84,9 @@ stat_sf(
 )
 }
 \arguments{
-\item{xlim}{Limits for the x and y axes.}
-
-\item{ylim}{Limits for the x and y axes.}
+\item{xlim, ylim}{Limits for the x and y axes. These limits are specified
+in the units of the CRS set via the \code{crs} argument or, if \code{crs} is not
+specified, the CRS of the first layer that has a CRS.}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
@@ -93,6 +94,12 @@ limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
 \item{crs}{Use this to select a specific coordinate reference system (CRS).
 If not specified, will use the CRS defined in the first layer.}
+
+\item{default_crs}{The default CRS to be used for non-sf layers (which
+don't carry any CRS information). If not specified, this defaults to
+the World Geodetic System 1984 (WGS84), which means x and y positions
+are interpreted as longitude and latitude, respectively. The default CRS
+is also the reference system used to set limits via scales/\code{xlim()}/\code{ylim()}.}
 
 \item{datum}{CRS that provides datum to use when generating graticules}
 
