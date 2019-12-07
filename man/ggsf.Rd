@@ -18,7 +18,7 @@ coord_sf(
   ylim = NULL,
   expand = TRUE,
   crs = NULL,
-  default_crs = 4326,
+  default_crs = sf::st_crs(4326),
   datum = sf::st_crs(4326),
   label_graticule = waiver(),
   label_axes = waiver(),

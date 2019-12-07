@@ -5,7 +5,7 @@
 CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   # default crs to be used
-  default_crs = 4326, # default is WGS 84
+  default_crs = sf::st_crs(4326), # default is WGS 84
 
   # Find the first CRS if not already supplied
   setup_params = function(self, data) {
@@ -499,7 +499,8 @@ sf_rescale01_x <- function(x, range) {
 #' @export
 #' @rdname ggsf
 coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
-                     crs = NULL, default_crs = 4326, datum = sf::st_crs(4326),
+                     crs = NULL, default_crs = sf::st_crs(4326),
+                     datum = sf::st_crs(4326),
                      label_graticule = waiver(),
                      label_axes = waiver(),
                      ndiscr = 100, default = FALSE, clip = "on") {
