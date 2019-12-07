@@ -99,7 +99,7 @@ If not specified, will use the CRS defined in the first layer.}
 don't carry any CRS information). If not specified, this defaults to
 the World Geodetic System 1984 (WGS84), which means x and y positions
 are interpreted as longitude and latitude, respectively. The default CRS
-is also the reference system used to set limits via scales/\code{xlim()}/\code{ylim()}.}
+is also the reference system used to set limits via position scales.}
 
 \item{datum}{CRS that provides datum to use when generating graticules}
 

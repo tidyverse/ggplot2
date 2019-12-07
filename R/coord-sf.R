@@ -5,7 +5,7 @@
 CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   # default crs to be used
-  default_crs = sf::st_crs(4326), # default is WGS 84
+  default_crs = 4326, # default is WGS 84
 
   # Find the first CRS if not already supplied
   setup_params = function(self, data) {
@@ -477,7 +477,7 @@ sf_rescale01_x <- function(x, range) {
 #'   don't carry any CRS information). If not specified, this defaults to
 #'   the World Geodetic System 1984 (WGS84), which means x and y positions
 #'   are interpreted as longitude and latitude, respectively. The default CRS
-#'   is also the reference system used to set limits via scales/`xlim()`/`ylim()`.
+#'   is also the reference system used to set limits via position scales.
 #' @param xlim,ylim Limits for the x and y axes. These limits are specified
 #'   in the units of the CRS set via the `crs` argument or, if `crs` is not
 #'   specified, the CRS of the first layer that has a CRS.
