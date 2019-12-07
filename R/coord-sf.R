@@ -435,6 +435,13 @@ sf_transform_xy <- function(data, target_crs, source_crs) {
     return(data)
   }
 
+  # we need to exclude any non-finite values from st_transform
+  # we replace them with 0 and afterwards with NA
+  finite_x <- is.finite(data$x)
+  finite_y <- is.finite(data$y)
+  data$x[!finite_x] <- 0
+  data$y[!finite_y] <- 0
+
   sf_data <- sf::st_sfc(
     sf::st_multipoint(cbind(data$x, data$y)),
     crs = source_crs
@@ -442,6 +449,9 @@ sf_transform_xy <- function(data, target_crs, source_crs) {
   sf_data_trans <- sf::st_transform(sf_data, target_crs)[[1]]
   data$x <- sf_data_trans[, 1]
   data$y <- sf_data_trans[, 2]
+
+  data$x[!(finite_x & finite_y)] <- NA
+  data$y[!(finite_x & finite_y)] <- NA
   data
 }
 
