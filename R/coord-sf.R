@@ -74,7 +74,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   transform = function(self, data, panel_params) {
     # we need to transform all non-sf data into the correct coordinate system
-    source_crs <- self$get_default_crs()
+    source_crs <- panel_params$default_crs
     target_crs <- panel_params$crs
 
     # normalize geometry data, it should already be in the correct crs here
