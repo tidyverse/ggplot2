@@ -26,7 +26,7 @@ StatSf <- ggproto("StatSf", Stat,
         x = 0.5*(bbox[["xmin"]] + bbox[["xmax"]]),
         y = 0.5*(bbox[["ymin"]] + bbox[["ymax"]])
       ),
-      coord$default_crs,
+      coord$get_default_crs(),
       geometry_crs
     )
 

@@ -4,13 +4,32 @@
 #' @format NULL
 CoordSf <- ggproto("CoordSf", CoordCartesian,
 
-  # default crs to be used
-  default_crs = 4326, # default is WGS 84
+  # CoordSf needs to keep track of some parameters
+  # internally as the plot is built. These are stored
+  # here.
+  params = list(),
 
-  # Find the first CRS if not already supplied
+  get_default_crs = function(self) {
+    self$default_crs %||% self$params$default_crs
+  },
+
   setup_params = function(self, data) {
+    crs <- self$determine_crs(data)
+
+    params <- list(
+      crs = crs,
+      default_crs = self$default_crs %||% crs
+    )
+    self$params <- params
+
+    params
+  },
+
+  # Helper function for setup_params(),
+  # finds the first CRS if not already supplied
+  determine_crs = function(self, data) {
     if (!is.null(self$crs)) {
-      return(list(crs = self$crs))
+      return(self$crs)
     }
 
     for (layer_data in data) {
@@ -23,10 +42,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       if (is.na(crs))
         next
 
-      return(list(crs = crs))
+      return(crs)
     }
 
-    list(crs = NULL)
+    NULL
   },
 
   # Transform all layers to common CRS (if provided)
@@ -45,15 +64,17 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 
   # Allow sf layer to record the bounding boxes of elements
   record_bbox = function(self, xmin, xmax, ymin, ymax) {
-    self$bbox$xmin <- min(self$bbox$xmin, xmin)
-    self$bbox$xmax <- max(self$bbox$xmax, xmax)
-    self$bbox$ymin <- min(self$bbox$ymin, ymin)
-    self$bbox$ymax <- max(self$bbox$ymax, ymax)
+    bbox <- self$params$bbox
+    bbox$xmin <- min(bbox$xmin, xmin)
+    bbox$xmax <- max(bbox$xmax, xmax)
+    bbox$ymin <- min(bbox$ymin, ymin)
+    bbox$ymax <- max(bbox$ymax, ymax)
+    self$params$bbox <- bbox
   },
 
   transform = function(self, data, panel_params) {
     # we need to transform all non-sf data into the correct coordinate system
-    source_crs <- self$default_crs
+    source_crs <- self$get_default_crs()
     target_crs <- panel_params$crs
 
     # normalize geometry data, it should already be in the correct crs here
@@ -150,16 +171,15 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     scale_xlim <- scale_x$get_limits()
     scale_ylim <- scale_y$get_limits()
 
-    source_crs <- self$default_crs
-    target_crs <- params$crs
     scales_bbox <- sf_transform_xy(
       list(x = c(scale_xlim, scale_xlim), y = c(scale_ylim, rev(scale_ylim))),
-      target_crs, source_crs
+      params$crs, params$default_crs
     )
 
     # merge scale limits and coord limits
-    scales_xrange <- c(min(scales_bbox$x, self$bbox$xmin), max(scales_bbox$x, self$bbox$xmax))
-    scales_yrange <- c(min(scales_bbox$y, self$bbox$ymin), max(scales_bbox$y, self$bbox$ymax))
+    coord_bbox <- self$params$bbox
+    scales_xrange <- c(min(scales_bbox$x, coord_bbox$xmin), max(scales_bbox$x, coord_bbox$xmax))
+    scales_yrange <- c(min(scales_bbox$y, coord_bbox$ymin), max(scales_bbox$y, coord_bbox$ymax))
 
     # calculate final coord limits by putting everything together and applying expansion
     coord_limits_x <- self$limits$x %||% c(NA_real_, NA_real_)
@@ -200,13 +220,14 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       y_range = y_range,
       graticule = graticule,
       crs = params$crs,
+      default_crs = params$default_crs,
       label_axes = self$label_axes,
       label_graticule = self$label_graticule
     )
   },
 
   backtransform_range = function(self, panel_params) {
-    target_crs <- self$default_crs
+    target_crs <- panel_params$default_crs
     source_crs <- panel_params$crs
 
     x <- panel_params$x_range
@@ -477,7 +498,8 @@ sf_rescale01_x <- function(x, range) {
 #'   don't carry any CRS information). If not specified, this defaults to
 #'   the World Geodetic System 1984 (WGS84), which means x and y positions
 #'   are interpreted as longitude and latitude, respectively. The default CRS
-#'   is also the reference system used to set limits via position scales.
+#'   is also the reference system used to set limits via position scales. If
+#'   set to `NULL`, uses the setting for `crs`.
 #' @param xlim,ylim Limits for the x and y axes. These limits are specified
 #'   in the units of the CRS set via the `crs` argument or, if `crs` is not
 #'   specified, the CRS of the first layer that has a CRS.
