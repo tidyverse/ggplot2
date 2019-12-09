@@ -112,12 +112,6 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{group}
 \item \code{linetype}
 \item \code{size}
-\item \code{x}
-\item \code{xmax}
-\item \code{xmin}
-\item \code{y}
-\item \code{ymax}
-\item \code{ymin}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
