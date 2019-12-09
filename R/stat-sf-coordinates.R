@@ -97,11 +97,14 @@ StatSfCoordinates <- ggproto(
     }
 
     points_sfc <- fun.geometry(data$geometry)
+
     # transform to the coord's default crs if possible
-    default_crs <- coord$get_default_crs()
-    if (!(is.null(default_crs) || is.na(default_crs) ||
-          is.na(sf::st_crs(points_sfc)))) {
-      points_sfc <- sf::st_transform(points_sfc, default_crs)
+    if (inherits(coord, "CoordSf")) {
+      default_crs <- coord$get_default_crs()
+      if (!(is.null(default_crs) || is.na(default_crs) ||
+            is.na(sf::st_crs(points_sfc)))) {
+        points_sfc <- sf::st_transform(points_sfc, default_crs)
+      }
     }
     coordinates <- sf::st_coordinates(points_sfc)
     data$x <- coordinates[, "X"]
