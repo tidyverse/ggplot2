@@ -154,6 +154,24 @@ test_that("calculating theme element inheritance works", {
       inherit.blank = TRUE # this is true because we're requesting a complete theme
     ), class = c("element_dummyrect", "element_rect", "element"))
   )
+
+  # Check that blank elements are skipped in inheritance tree if and only if elements
+  # don't inherit from blank.
+  t <- theme_gray() +
+    theme(
+      strip.text = element_blank(),
+      strip.text.x = element_text() # inherit.blank = FALSE is default
+    )
+  e1 <- calc_element("strip.text.x", t)
+  e2 <- calc_element("text", t)
+  e2$inherit.blank <- FALSE # b/c inherit.blank = TRUE for complete themes
+  expect_identical(e1, e2)
+
+  theme <- theme_gray() +
+    theme(strip.text = element_blank(), strip.text.x = element_text(inherit.blank = TRUE))
+  e1 <- ggplot2:::calc_element("strip.text.x", theme)
+  e2 <- ggplot2:::calc_element("strip.text", theme)
+  expect_identical(e1, e2)
 })
 
 test_that("complete and non-complete themes interact correctly with each other", {
