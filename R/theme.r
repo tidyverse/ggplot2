@@ -525,6 +525,8 @@ add_theme <- function(t1, t2, t2name) {
 #' @param element The name of the theme element to calculate
 #' @param theme A theme object (like [theme_grey()])
 #' @param verbose If TRUE, print out which elements this one inherits from
+#' @param skip_blank If TRUE, elements of type `element_blank` in the
+#'   inheritance hierarchy will be ignored.
 #' @keywords internal
 #' @export
 #' @examples
@@ -548,10 +550,10 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE) {
   # If result is element_blank, we skip it if `skip_blank` is `TRUE`,
   # and otherwise we don't inherit anything from parents
   if (inherits(el_out, "element_blank")) {
-    if (verbose) message("element_blank (no inheritance)")
     if (isTRUE(skip_blank)) {
       el_out <- NULL
     } else {
+      if (verbose) message("element_blank (no inheritance)")
       return(el_out)
     }
   }
