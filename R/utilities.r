@@ -512,20 +512,27 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
     return(params$orientation == "y")
   }
 
+  x <- data$x %||% params$x
+  y <- data$y %||% params$y
+  xmin <- data$xmin %||% params$xmin
+  ymin <- data$ymin %||% params$ymin
+  xmax <- data$xmax %||% params$xmax
+  ymax <- data$ymax %||% params$ymax
+
   # Does a single x or y aesthetic corespond to a specific orientation
-  if (!is.na(main_is_orthogonal) && sum(c("x", "y") %in% names(data)) + sum(c("x", "y") %in% names(params)) == 1) {
-    return(("x" %in% names(data) || "x" %in% names(params)) == main_is_orthogonal)
+  if (!is.na(main_is_orthogonal) && xor(is.null(x), is.null(y))) {
+    return(is.null(y) == main_is_orthogonal)
   }
 
-  has_x <- !is.null(data$x)
-  has_y <- !is.null(data$y)
+  has_x <- !is.null(x)
+  has_y <- !is.null(y)
 
   # Does a provided range indicate an orientation
   if (!is.na(range_is_orthogonal)) {
-    if (any(c("ymin", "ymax") %in% names(data))) {
+    if (!is.null(ymin) || !is.null(ymax)) {
       return(!range_is_orthogonal)
     }
-    if (any(c("xmin", "xmax") %in% names(data))) {
+    if (!is.null(xmin) || !is.null(xmax)) {
       return(range_is_orthogonal)
     }
   }
@@ -536,8 +543,8 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   }
 
   # Is there a single actual discrete position
-  y_is_int <- is.integer(data$y)
-  x_is_int <- is.integer(data$x)
+  y_is_int <- is.integer(y)
+  x_is_int <- is.integer(x)
   if (xor(y_is_int, x_is_int)) {
     return(y_is_int != main_is_continuous)
   }
@@ -545,12 +552,14 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   # Does each group have a single x or y value
   if (group_has_equal) {
     if (has_x) {
+      if (length(x) == 1) return(FALSE)
       x_groups <- vapply(split(data$x, data$group), function(x) length(unique(x)), integer(1))
       if (all(x_groups == 1)) {
         return(FALSE)
       }
     }
     if (has_y) {
+      if (length(y) == 1) return(TRUE)
       y_groups <- vapply(split(data$y, data$group), function(x) length(unique(x)), integer(1))
       if (all(y_groups == 1)) {
         return(TRUE)
@@ -568,21 +577,21 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
     return(FALSE)
   }
   # Is there a single discrete-like position
-  y_is_int <- if (has_y) isTRUE(all.equal(data$y, round(data$y))) else FALSE
-  x_is_int <- if (has_x) isTRUE(all.equal(data$x, round(data$x))) else FALSE
+  y_is_int <- if (has_y) isTRUE(all.equal(y, round(y))) else FALSE
+  x_is_int <- if (has_x) isTRUE(all.equal(x, round(x))) else FALSE
   if (xor(y_is_int, x_is_int)) {
     return(y_is_int != main_is_continuous)
   }
   # Is one of the axes a single value
-  if (all(data$x == 1)) {
+  if (all(x == 1)) {
     return(main_is_continuous)
   }
-  if (all(data$y == 1)) {
+  if (all(y == 1)) {
     return(!main_is_continuous)
   }
   # If both are discrete like, which have most 0 or 1-spaced values
-  y_diff <- diff(sort(data$y))
-  x_diff <- diff(sort(data$x))
+  y_diff <- diff(sort(y))
+  x_diff <- diff(sort(x))
 
   if (y_is_int && x_is_int) {
     return((sum(x_diff <= 1) < sum(y_diff <= 1)) != main_is_continuous)
