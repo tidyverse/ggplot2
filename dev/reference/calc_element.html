@@ -183,7 +183,7 @@
     <p>Calculate the element properties, by inheriting properties from its parents</p>
     </div>
 
-    <pre class="usage"><span class='fu'>calc_element</span>(<span class='no'>element</span>, <span class='no'>theme</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>calc_element</span>(<span class='no'>element</span>, <span class='no'>theme</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>skip_blank</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,6 +199,11 @@
     <tr>
       <th>verbose</th>
       <td><p>If TRUE, print out which elements this one inherits from</p></td>
+    </tr>
+    <tr>
+      <th>skip_blank</th>
+      <td><p>If TRUE, elements of type <code>element_blank</code> in the
+inheritance hierarchy will be ignored.</p></td>
     </tr>
     </table>
 
