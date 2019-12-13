@@ -49,7 +49,7 @@
 #'   range \[0, 1]. This is always [scales::rescale()], except for
 #'   diverging and n colour gradients (i.e., [scale_colour_gradient2()],
 #'   [scale_colour_gradientn()]). The `rescaler` is ignored by position
-#'   scales, which ways use [scales::rescale()].
+#'   scales, which always use [scales::rescale()].
 #' @param oob One of:
 #'   - Function that handles limits outside of the scale limits
 #'   (out of bounds).
@@ -531,6 +531,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   oob = censor,
   minor_breaks = waiver(),
   n.breaks = NULL,
+  trans = identity_trans(),
 
   is_discrete = function() FALSE,
 

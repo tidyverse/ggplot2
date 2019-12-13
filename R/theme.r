@@ -525,6 +525,8 @@ add_theme <- function(t1, t2, t2name) {
 #' @param element The name of the theme element to calculate
 #' @param theme A theme object (like [theme_grey()])
 #' @param verbose If TRUE, print out which elements this one inherits from
+#' @param skip_blank If TRUE, elements of type `element_blank` in the
+#'   inheritance hierarchy will be ignored.
 #' @keywords internal
 #' @export
 #' @examples
@@ -540,15 +542,20 @@ add_theme <- function(t1, t2, t2name) {
 #' t$axis.text.x
 #' t$axis.text
 #' t$text
-calc_element <- function(element, theme, verbose = FALSE) {
+calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE) {
   if (verbose) message(element, " --> ", appendLF = FALSE)
 
   el_out <- theme[[element]]
 
-  # If result is element_blank, don't inherit anything from parents
+  # If result is element_blank, we skip it if `skip_blank` is `TRUE`,
+  # and otherwise we don't inherit anything from parents
   if (inherits(el_out, "element_blank")) {
-    if (verbose) message("element_blank (no inheritance)")
-    return(el_out)
+    if (isTRUE(skip_blank)) {
+      el_out <- NULL
+    } else {
+      if (verbose) message("element_blank (no inheritance)")
+      return(el_out)
+    }
   }
 
   # Obtain the element tree and check that the element is in it
@@ -592,7 +599,16 @@ calc_element <- function(element, theme, verbose = FALSE) {
 
   # Calculate the parent objects' inheritance
   if (verbose) message(paste(pnames, collapse = ", "))
-  parents <- lapply(pnames, calc_element, theme, verbose)
+  parents <- lapply(
+    pnames,
+    calc_element,
+    theme,
+    verbose = verbose,
+    # once we've started skipping blanks, we continue doing so until the end of the
+    # recursion; we initiate skipping blanks if we encounter an element that
+    # doesn't inherit blank.
+    skip_blank = skip_blank || (!is.null(el_out) && !isTRUE(el_out$inherit.blank))
+  )
 
   # Combine the properties of this element with all parents
   Reduce(combine_elements, parents, el_out)
