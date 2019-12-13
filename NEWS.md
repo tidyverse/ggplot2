@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* ggplot2 no longer depends on reshape2, which means that it no longer 
+  (recursively) needs plyr, stringr, or stringi packages.
+
 * `geom_sf()` now determines the legend type automatically (@microly, #3646).
   
 * `scale_x_continuous()` and `scale_y_continuous()` gains an `n.breaks` argument
