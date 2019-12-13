@@ -99,6 +99,7 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE)
+    # if flipped_aes == TRUE then y, xmin, xmax is present
     if (!(params$flipped_aes || all(c("x", "ymin", "ymax") %in% c(names(data), names(params))))) {
       stop("Either, `x`, `ymin`, and `ymax` or `y`, `xmin`, and `xmax` must be supplied", call. = FALSE)
     }
@@ -113,7 +114,6 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
   },
 
   draw_panel = function(data, panel_params, coord, flipped_aes = FALSE) {
-    browser()
     data <- flip_data(data, flipped_aes)
     data <- transform(data, xend = x, y = ymin, yend = ymax)
     data <- flip_data(data, flipped_aes)
