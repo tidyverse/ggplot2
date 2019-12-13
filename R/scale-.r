@@ -531,6 +531,7 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
   oob = censor,
   minor_breaks = waiver(),
   n.breaks = NULL,
+  trans = identity_trans(),
 
   is_discrete = function() FALSE,
 
