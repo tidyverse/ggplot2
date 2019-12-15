@@ -23,21 +23,24 @@ StatSf <- ggproto("StatSf", Stat,
         ymin = bbox[["ymin"]], ymax = bbox[["ymax"]]
       )
 
-      # register geometric center of each bbox, to give regular scales
-      # some indication of where shapes lie
+      # to represent the location of the geometry in default coordinates,
+      # we take the mid-point along each side of the bounding box and
+      # backtransform
       bbox_trans <- sf_transform_xy(
         list(
-          x = 0.5*(bbox[["xmin"]] + bbox[["xmax"]]),
-          y = 0.5*(bbox[["ymin"]] + bbox[["ymax"]])
+          x = c(rep(0.5*(bbox[["xmin"]] + bbox[["xmax"]]), 2), bbox[["xmin"]], bbox[["xmax"]]),
+          y = c(bbox[["ymin"]], bbox[["ymax"]], rep(0.5*(bbox[["ymin"]] + bbox[["ymax"]]), 2))
         ),
         coord$get_default_crs(),
         geometry_crs
       )
 
-      data$xmin <- bbox_trans$x
-      data$xmax <- bbox_trans$x
-      data$ymin <- bbox_trans$y
-      data$ymax <- bbox_trans$y
+      # record as xmin, xmax, ymin, ymax so regular scales
+      # have some indication of where shapes lie
+      data$xmin <- min(bbox_trans$x)
+      data$xmax <- max(bbox_trans$x)
+      data$ymin <- min(bbox_trans$y)
+      data$ymax <- max(bbox_trans$y)
     } else {
       # for all other coords, we record the full extent of the
       # geometry object

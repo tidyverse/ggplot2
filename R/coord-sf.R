@@ -171,15 +171,32 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     scale_xlim <- scale_x$get_limits()
     scale_ylim <- scale_y$get_limits()
 
+    # we take the mid-point along each side of the scale range
     scales_bbox <- sf_transform_xy(
-      list(x = c(scale_xlim, scale_xlim), y = c(scale_ylim, rev(scale_ylim))),
+      list(
+        x = c(rep(mean(scale_xlim), 2), scale_xlim),
+        y = c(scale_ylim, rep(mean(scale_ylim), 2))
+      ),
       params$crs, params$default_crs
     )
 
-    # merge scale limits and coord limits
-    coord_bbox <- self$params$bbox
-    scales_xrange <- c(min(scales_bbox$x, coord_bbox$xmin), max(scales_bbox$x, coord_bbox$xmax))
-    scales_yrange <- c(min(scales_bbox$y, coord_bbox$ymin), max(scales_bbox$y, coord_bbox$ymax))
+    # merge coord bbox into scale limits if scale limits not explicitly set
+    if (is.null(scale_x$limits) && is.null(scale_y$limits)) {
+      coord_bbox <- self$params$bbox
+      scales_xrange <- range(scales_bbox$x, coord_bbox$xmin, coord_bbox$xmax, na.rm = TRUE)
+      scales_yrange <- range(scales_bbox$y, coord_bbox$ymin, coord_bbox$ymax, na.rm = TRUE)
+    } else if (any(!is.finite(scales_bbox$x) | !is.finite(scales_bbox$y))) {
+      warning(
+        "Projection of scale limits failed.\n",
+        "Consider working in projected coordinates by setting `default_crs = NULL` in `coord_sf()`."
+      )
+      coord_bbox <- self$params$bbox
+      scales_xrange <- c(coord_bbox$xmin, coord_bbox$xmax)
+      scales_yrange <- c(coord_bbox$ymin, coord_bbox$ymax)
+    } else {
+      scales_xrange <- range(scales_bbox$x, na.rm = TRUE)
+      scales_yrange <- range(scales_bbox$y, na.rm = TRUE)
+    }
 
     # calculate final coord limits by putting everything together and applying expansion
     coord_limits_x <- self$limits$x %||% c(NA_real_, NA_real_)
@@ -447,7 +464,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
 )
 
 ## helper functions to transform and normalize geometry and position data
-# transform position data (columns x and y in a data frame)
+# transform position data (columns x and y in a data frame or list)
 sf_transform_xy <- function(data, target_crs, source_crs) {
   if (identical(target_crs, source_crs) ||
       is.null(target_crs) || is.null(source_crs) || is.null(data) ||
@@ -456,23 +473,17 @@ sf_transform_xy <- function(data, target_crs, source_crs) {
     return(data)
   }
 
-  # we need to exclude any non-finite values from st_transform
-  # we replace them with 0 and afterwards with NA
-  finite_x <- is.finite(data$x)
-  finite_y <- is.finite(data$y)
-  data$x[!finite_x] <- 0
-  data$y[!finite_y] <- 0
-
+  # by turning the data into a geometry list column of individual points,
+  # we can make sure that the output length equals the input length, even
+  # if the transformation fails in some cases
   sf_data <- sf::st_sfc(
-    sf::st_multipoint(cbind(data$x, data$y)),
+    mapply(function(x, y) sf::st_point(c(x, y)), data$x, data$y, SIMPLIFY = FALSE),
     crs = source_crs
   )
-  sf_data_trans <- sf::st_transform(sf_data, target_crs)[[1]]
-  data$x <- sf_data_trans[, 1]
-  data$y <- sf_data_trans[, 2]
+  sf_data_trans <- sf::st_transform(sf_data, target_crs)
+  data$x <- vapply(sf_data_trans, function(x) x[1], numeric(1))
+  data$y <- vapply(sf_data_trans, function(x) x[2], numeric(1))
 
-  data$x[!(finite_x & finite_y)] <- NA
-  data$y[!(finite_x & finite_y)] <- NA
   data
 }
 
