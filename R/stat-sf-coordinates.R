@@ -98,8 +98,16 @@ StatSfCoordinates <- ggproto(
 
     points_sfc <- fun.geometry(data$geometry)
 
-    # transform to the coord's default crs if possible
     if (inherits(coord, "CoordSf")) {
+      # register bounding box if the coord derives from CoordSf
+      bbox <- sf::st_bbox(points_sfc)
+
+      coord$record_bbox(
+        xmin = bbox[["xmin"]], xmax = bbox[["xmax"]],
+        ymin = bbox[["ymin"]], ymax = bbox[["ymax"]]
+      )
+
+      # transform to the coord's default crs if possible
       default_crs <- coord$get_default_crs()
       if (!(is.null(default_crs) || is.na(default_crs) ||
             is.na(sf::st_crs(points_sfc)))) {
