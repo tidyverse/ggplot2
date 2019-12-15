@@ -100,7 +100,7 @@ StatSummary2d <- ggproto("StatSummary2d", Stat,
     xbin <- cut(data$x, xbreaks, include.lowest = TRUE, labels = FALSE)
     ybin <- cut(data$y, ybreaks, include.lowest = TRUE, labels = FALSE)
 
-    if (is.formula(fun)) fun <- rlang::as_function(fun)
+    if (is.formula(fun)) fun <- as_function(fun)
     f <- function(x) {
       do.call(fun, c(list(quote(x)), fun.args))
     }

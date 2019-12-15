@@ -96,11 +96,7 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
 
   if (!is.null(fun.data)) {
     # Function that takes complete data frame as input
-    if (is.formula(fun.data)) {
-      fun.data <- rlang::as_function(fun.data)
-    } else {
-      fun.data <- match.fun(fun.data)
-    }
+    fun.data <- as_function(fun.data)
     function(df) {
       do.call(fun.data, c(list(quote(df$y)), fun.args))
     }
@@ -109,7 +105,7 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
 
     call_f <- function(fun, x) {
       if (is.null(fun)) return(NA_real_)
-      if (is.formula(fun)) fun <- rlang::as_function(fun)
+      if (is.formula(fun)) fun <- as_function(fun)
       do.call(fun, c(list(quote(x)), fun.args))
     }
 

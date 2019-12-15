@@ -46,7 +46,7 @@ StatSummaryHex <- ggproto("StatSummaryHex", Stat,
     try_require("hexbin", "stat_summary_hex")
 
     binwidth <- binwidth %||% hex_binwidth(bins, scales)
-    if (is.formula(fun)) fun <- rlang::as_function(fun)
+    if (is.formula(fun)) fun <- as_function(fun)
     hexBinSummarise(data$x, data$y, data$z, binwidth,
       fun = fun, fun.args = fun.args, drop = drop)
   }
