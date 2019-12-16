@@ -28,7 +28,7 @@ geom_rect <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRect <- ggproto("GeomRect", Geom,
-  default_aes = aes(colour = NA, fill = "grey35", size = 0.5, linetype = 1,
+  default_aes = aes(colour = NA, fill = "grey35", linewidth = 0.5, linetype = 1,
     alpha = NA),
 
   required_aes = c("xmin", "xmax", "ymin", "ymax"),
@@ -58,7 +58,7 @@ GeomRect <- ggproto("GeomRect", Geom,
         gp = gpar(
           col = coords$colour,
           fill = alpha(coords$fill, coords$alpha),
-          lwd = coords$size * .pt,
+          lwd = coords$linewidth * .pt,
           lty = coords$linetype,
           linejoin = linejoin,
           # `lineend` is a workaround for Windows and intentionally kept unexposed
@@ -67,6 +67,10 @@ GeomRect <- ggproto("GeomRect", Geom,
         )
       ))
     }
+  },
+
+  setup_data = function(data, params) {
+    rename_size_aesthetic(data)
   },
 
   draw_key = draw_key_polygon

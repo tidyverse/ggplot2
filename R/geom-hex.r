@@ -54,7 +54,10 @@ geom_hex <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomHex <- ggproto("GeomHex", Geom,
-  draw_group = function(data, panel_params, coord) {
+    setup_data = function(data, params) {
+      rename_size_aesthetic(data)
+    },
+    draw_group = function(data, panel_params, coord) {
     if (!inherits(coord, "CoordCartesian")) {
       stop("geom_hex() only works with Cartesian coordinates", call. = FALSE)
     }
@@ -65,7 +68,7 @@ GeomHex <- ggproto("GeomHex", Geom,
       gp = gpar(
         col = coords$colour,
         fill = alpha(coords$fill, coords$alpha),
-        lwd = coords$size * .pt,
+        lwd = coords$linewidth * .pt,
         lty = coords$linetype
       )
     ))
@@ -76,7 +79,7 @@ GeomHex <- ggproto("GeomHex", Geom,
   default_aes = aes(
     colour = NA,
     fill = "grey50",
-    size = 0.5,
+    linewidth = 0.5,
     linetype = 1,
     alpha = NA
   ),
