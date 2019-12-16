@@ -105,7 +105,7 @@ make_summary_fun <- function(fun.data, fun, fun.max, fun.min, fun.args) {
 
     call_f <- function(fun, x) {
       if (is.null(fun)) return(NA_real_)
-      if (is.formula(fun)) fun <- as_function(fun)
+      fun <- as_function(fun)
       do.call(fun, c(list(quote(x)), fun.args))
     }
 
