@@ -7,20 +7,49 @@
 \alias{stat_bin}
 \title{Histograms and frequency polygons}
 \usage{
-geom_freqpoly(mapping = NULL, data = NULL, stat = "bin",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_freqpoly(
+  mapping = NULL,
+  data = NULL,
+  stat = "bin",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_histogram(mapping = NULL, data = NULL, stat = "bin",
-  position = "stack", ..., binwidth = NULL, bins = NULL,
-  na.rm = FALSE, orientation = NA, show.legend = NA,
-  inherit.aes = TRUE)
+geom_histogram(
+  mapping = NULL,
+  data = NULL,
+  stat = "bin",
+  position = "stack",
+  ...,
+  binwidth = NULL,
+  bins = NULL,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_bin(mapping = NULL, data = NULL, geom = "bar",
-  position = "stack", ..., binwidth = NULL, bins = NULL,
-  center = NULL, boundary = NULL, breaks = NULL,
-  closed = c("right", "left"), pad = FALSE, na.rm = FALSE,
-  orientation = NA, show.legend = NA, inherit.aes = TRUE)
+stat_bin(
+  mapping = NULL,
+  data = NULL,
+  geom = "bar",
+  position = "stack",
+  ...,
+  binwidth = NULL,
+  bins = NULL,
+  center = NULL,
+  boundary = NULL,
+  breaks = NULL,
+  closed = c("right", "left"),
+  pad = FALSE,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -168,7 +197,7 @@ ggplot(diamonds, aes(price, colour = cut)) +
 
 # To make it easier to compare distributions with very different counts,
 # put density on the y axis instead of the default count
-ggplot(diamonds, aes(price, stat(density), colour = cut)) +
+ggplot(diamonds, aes(price, after_stat(density), colour = cut)) +
   geom_freqpoly(binwidth = 500)
 
 if (require("ggplot2movies")) {
@@ -208,8 +237,8 @@ m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 # You can specify a function for calculating binwidth, which is
 # particularly useful when faceting along variables with
 # different ranges because the function will be called once per facet
-mtlong <- reshape2::melt(mtcars)
-ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
+ggplot(economics_long, aes(value)) +
+  facet_wrap(~variable, scales = 'free_x') +
   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
 }
 \seealso{

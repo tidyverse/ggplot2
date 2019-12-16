@@ -5,16 +5,40 @@
 \alias{stat_smooth}
 \title{Smoothed conditional means}
 \usage{
-geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-  position = "identity", ..., method = NULL, formula = NULL,
-  se = TRUE, na.rm = FALSE, orientation = NA, show.legend = NA,
-  inherit.aes = TRUE)
+geom_smooth(
+  mapping = NULL,
+  data = NULL,
+  stat = "smooth",
+  position = "identity",
+  ...,
+  method = NULL,
+  formula = NULL,
+  se = TRUE,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
-  position = "identity", ..., method = NULL, formula = NULL,
-  se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
-  level = 0.95, method.args = list(), na.rm = FALSE,
-  orientation = NA, show.legend = NA, inherit.aes = TRUE)
+stat_smooth(
+  mapping = NULL,
+  data = NULL,
+  geom = "smooth",
+  position = "identity",
+  ...,
+  method = NULL,
+  formula = NULL,
+  se = TRUE,
+  n = 80,
+  span = 0.75,
+  fullrange = FALSE,
+  level = 0.95,
+  method.args = list(),
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -60,7 +84,7 @@ so does not work for larger datasets.
 
 If you have fewer than 1,000 observations but want to use the same \code{gam()}
 model that \code{method = NULL} would use, then set
-\code{method = "gam", formula = y ~ s(x, bs = "cs")}.}
+\verb{method = "gam", formula = y ~ s(x, bs = "cs")}.}
 
 \item{formula}{Formula to use in smoothing function, eg. \code{y ~ x},
 \code{y ~ poly(x, 2)}, \code{y ~ log(x)}. \code{NULL} by default, in which case

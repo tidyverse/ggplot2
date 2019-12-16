@@ -5,14 +5,34 @@
 \alias{stat_density}
 \title{Smoothed density estimates}
 \usage{
-geom_density(mapping = NULL, data = NULL, stat = "density",
-  position = "identity", ..., na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE)
+geom_density(
+  mapping = NULL,
+  data = NULL,
+  stat = "density",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_density(mapping = NULL, data = NULL, geom = "area",
-  position = "stack", ..., bw = "nrd0", adjust = 1,
-  kernel = "gaussian", n = 512, trim = FALSE, na.rm = FALSE,
-  orientation = NA, show.legend = NA, inherit.aes = TRUE)
+stat_density(
+  mapping = NULL,
+  data = NULL,
+  geom = "area",
+  position = "stack",
+  ...,
+  bw = "nrd0",
+  adjust = 1,
+  kernel = "gaussian",
+  n = 512,
+  trim = FALSE,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -154,11 +174,11 @@ ggplot(diamonds, aes(depth, fill = cut, colour = cut)) +
 ggplot(diamonds, aes(carat, fill = cut)) +
   geom_density(position = "stack")
 # Preserves marginal densities
-ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
+ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
   geom_density(position = "stack")
 
 # You can use position="fill" to produce a conditional density estimate
-ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
+ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
   geom_density(position = "fill")
 }
 }

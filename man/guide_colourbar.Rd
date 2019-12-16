@@ -5,27 +5,67 @@
 \alias{guide_colorbar}
 \title{Continuous colour bar guide}
 \usage{
-guide_colourbar(title = waiver(), title.position = NULL,
-  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
-  label = TRUE, label.position = NULL, label.theme = NULL,
-  label.hjust = NULL, label.vjust = NULL, barwidth = NULL,
-  barheight = NULL, nbin = 300, raster = TRUE, frame.colour = NULL,
-  frame.linewidth = 0.5, frame.linetype = 1, ticks = TRUE,
-  ticks.colour = "white", ticks.linewidth = 0.5, draw.ulim = TRUE,
-  draw.llim = TRUE, direction = NULL, default.unit = "line",
-  reverse = FALSE, order = 0, available_aes = c("colour", "color",
-  "fill"), ...)
+guide_colourbar(
+  title = waiver(),
+  title.position = NULL,
+  title.theme = NULL,
+  title.hjust = NULL,
+  title.vjust = NULL,
+  label = TRUE,
+  label.position = NULL,
+  label.theme = NULL,
+  label.hjust = NULL,
+  label.vjust = NULL,
+  barwidth = NULL,
+  barheight = NULL,
+  nbin = 300,
+  raster = TRUE,
+  frame.colour = NULL,
+  frame.linewidth = 0.5,
+  frame.linetype = 1,
+  ticks = TRUE,
+  ticks.colour = "white",
+  ticks.linewidth = 0.5,
+  draw.ulim = TRUE,
+  draw.llim = TRUE,
+  direction = NULL,
+  default.unit = "line",
+  reverse = FALSE,
+  order = 0,
+  available_aes = c("colour", "color", "fill"),
+  ...
+)
 
-guide_colorbar(title = waiver(), title.position = NULL,
-  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
-  label = TRUE, label.position = NULL, label.theme = NULL,
-  label.hjust = NULL, label.vjust = NULL, barwidth = NULL,
-  barheight = NULL, nbin = 300, raster = TRUE, frame.colour = NULL,
-  frame.linewidth = 0.5, frame.linetype = 1, ticks = TRUE,
-  ticks.colour = "white", ticks.linewidth = 0.5, draw.ulim = TRUE,
-  draw.llim = TRUE, direction = NULL, default.unit = "line",
-  reverse = FALSE, order = 0, available_aes = c("colour", "color",
-  "fill"), ...)
+guide_colorbar(
+  title = waiver(),
+  title.position = NULL,
+  title.theme = NULL,
+  title.hjust = NULL,
+  title.vjust = NULL,
+  label = TRUE,
+  label.position = NULL,
+  label.theme = NULL,
+  label.hjust = NULL,
+  label.vjust = NULL,
+  barwidth = NULL,
+  barheight = NULL,
+  nbin = 300,
+  raster = TRUE,
+  frame.colour = NULL,
+  frame.linewidth = 0.5,
+  frame.linetype = 1,
+  ticks = TRUE,
+  ticks.colour = "white",
+  ticks.linewidth = 0.5,
+  draw.ulim = TRUE,
+  draw.llim = TRUE,
+  direction = NULL,
+  default.unit = "line",
+  reverse = FALSE,
+  order = 0,
+  available_aes = c("colour", "color", "fill"),
+  ...
+)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -131,14 +171,15 @@ For more information, see the inspiration for this function:
 \href{http://www.mathworks.com/help/techdoc/ref/colorbar.html}{Matlab's colorbar function}.
 }
 \details{
-Guides can be specified in each \code{scale_*} or in \code{\link[=guides]{guides()}}.
-\code{guide="legend"} in \code{scale_*} is syntactic sugar for
+Guides can be specified in each \verb{scale_*} or in \code{\link[=guides]{guides()}}.
+\code{guide="legend"} in \verb{scale_*} is syntactic sugar for
 \code{guide=guide_legend()} (e.g. \code{scale_colour_manual(guide = "legend")}).
 As for how to specify the guide for each scale in more detail,
 see \code{\link[=guides]{guides()}}.
 }
 \examples{
-df <- reshape2::melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
+df <- expand.grid(X1 = 1:10, X2 = 1:10)
+df$value <- df$X1 * df$X2
 
 p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 p2 <- p1 + geom_point(aes(size = value))
@@ -186,8 +227,10 @@ p2 +
   scale_size(guide = guide_legend(direction = "vertical"))
 }
 \seealso{
-Other guides: \code{\link{guide_bins}},
-  \code{\link{guide_coloursteps}},
-  \code{\link{guide_legend}}, \code{\link{guides}}
+Other guides: 
+\code{\link{guide_bins}()},
+\code{\link{guide_coloursteps}()},
+\code{\link{guide_legend}()},
+\code{\link{guides}()}
 }
 \concept{guides}

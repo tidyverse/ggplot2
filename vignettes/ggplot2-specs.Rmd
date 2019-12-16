@@ -31,7 +31,7 @@ Almost every geom has either colour, fill, or both. Colours and fills can be spe
 *   An __NA__, for a completely transparent colour.
 
 *   The [munsell](https://github.com/cwickham/munsell) package, by Charlotte 
-    Wickham, makes it easy to specific colours using a system designed by 
+    Wickham, makes it easy to choose specific colours using a system designed by 
     Alfred Munsell. If you invest a little in learning the system, it provides
     a convenient way of specifying aesthetically pleasing colours.
     

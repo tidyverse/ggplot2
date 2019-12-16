@@ -8,21 +8,55 @@
 \alias{geom_pointrange}
 \title{Vertical intervals: lines, crossbars & errorbars}
 \usage{
-geom_crossbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., fatten = 2.5, na.rm = FALSE,
-  orientation = NA, show.legend = NA, inherit.aes = TRUE)
+geom_crossbar(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  fatten = 2.5,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_errorbar(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE)
+geom_errorbar(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_linerange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE)
+geom_linerange(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_pointrange(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., fatten = 4, na.rm = FALSE,
-  orientation = NA, show.legend = NA, inherit.aes = TRUE)
+geom_pointrange(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  fatten = 4,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -100,12 +134,6 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{group}
 \item \code{linetype}
 \item \code{size}
-\item \code{x}
-\item \code{xmax}
-\item \code{xmin}
-\item \code{y}
-\item \code{ymax}
-\item \code{ymin}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

@@ -6,18 +6,43 @@
 \alias{geom_tile}
 \title{Rectangles}
 \usage{
-geom_raster(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., hjust = 0.5, vjust = 0.5,
-  interpolate = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_raster(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  hjust = 0.5,
+  vjust = 0.5,
+  interpolate = FALSE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_rect(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., linejoin = "mitre", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+geom_rect(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  linejoin = "mitre",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_tile(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., linejoin = "mitre", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+geom_tile(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  linejoin = "mitre",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -137,10 +162,10 @@ ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0)
 # Inspired by the image-density plots of Ken Knoblauch
 cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 cars + geom_point()
-cars + stat_bin2d(aes(fill = stat(count)), binwidth = c(3,1))
-cars + stat_bin2d(aes(fill = stat(density)), binwidth = c(3,1))
+cars + stat_bin2d(aes(fill = after_stat(count)), binwidth = c(3,1))
+cars + stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
 
-cars + stat_density(aes(fill = stat(density)), geom = "raster", position = "identity")
-cars + stat_density(aes(fill = stat(count)), geom = "raster", position = "identity")
+cars + stat_density(aes(fill = after_stat(density)), geom = "raster", position = "identity")
+cars + stat_density(aes(fill = after_stat(count)), geom = "raster", position = "identity")
 }
 }
