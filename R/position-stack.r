@@ -216,10 +216,15 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
   if (fill) {
     heights <- heights / abs(heights[length(heights)])
   }
-
+  if (!is.null(df$ymin) && !is.null(df$ymax)) {
+    max_is_lower <- df$ymax < df$ymin
+  } else {
+    max_is_lower <- rep(FALSE, nrow(df))
+  }
   df$ymin <- pmin(heights[-n], heights[-1])
   df$ymax <- pmax(heights[-n], heights[-1])
   df$y <- (1 - vjust) * df$ymin + vjust * df$ymax
+  df[max_is_lower, c('ymin', 'ymax')] <- df[max_is_lower, c('ymax', 'ymin')]
   df
 }
 
