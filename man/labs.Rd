@@ -7,8 +7,13 @@
 \alias{ggtitle}
 \title{Modify axis, legend, and plot labels}
 \usage{
-labs(..., title = waiver(), subtitle = waiver(), caption = waiver(),
-  tag = waiver())
+labs(
+  ...,
+  title = waiver(),
+  subtitle = waiver(),
+  caption = waiver(),
+  tag = waiver()
+)
 
 xlab(label)
 

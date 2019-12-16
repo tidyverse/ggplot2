@@ -7,25 +7,61 @@
 \alias{stat_qq}
 \title{A quantile-quantile plot}
 \usage{
-geom_qq_line(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), line.p = c(0.25, 0.75), fullrange = FALSE,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+geom_qq_line(
+  mapping = NULL,
+  data = NULL,
+  geom = "path",
+  position = "identity",
+  ...,
+  distribution = stats::qnorm,
+  dparams = list(),
+  line.p = c(0.25, 0.75),
+  fullrange = FALSE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_qq_line(mapping = NULL, data = NULL, geom = "path",
-  position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), line.p = c(0.25, 0.75), fullrange = FALSE,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+stat_qq_line(
+  mapping = NULL,
+  data = NULL,
+  geom = "path",
+  position = "identity",
+  ...,
+  distribution = stats::qnorm,
+  dparams = list(),
+  line.p = c(0.25, 0.75),
+  fullrange = FALSE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_qq(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_qq(
+  mapping = NULL,
+  data = NULL,
+  geom = "point",
+  position = "identity",
+  ...,
+  distribution = stats::qnorm,
+  dparams = list(),
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_qq(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", ..., distribution = stats::qnorm,
-  dparams = list(), na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_qq(
+  mapping = NULL,
+  data = NULL,
+  geom = "point",
+  position = "identity",
+  ...,
+  distribution = stats::qnorm,
+  dparams = list(),
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

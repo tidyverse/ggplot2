@@ -5,7 +5,6 @@
 #' calls but it can also be created directly using this function.
 #'
 #' @export
-#' @inheritParams geom_point
 #' @param mapping Set of aesthetic mappings created by [aes()] or
 #'   [aes_()]. If specified and `inherit.aes = TRUE` (the
 #'   default), it is combined with the default mapping at the top level of the
@@ -80,10 +79,6 @@ layer <- function(geom = NULL, stat = NULL,
       call. = FALSE)
     show.legend <- params$show_guide
     params$show_guide <- NULL
-  }
-  if (!is.logical(show.legend)) {
-    warning("`show.legend` must be a logical vector.", call. = FALSE)
-    show.legend <- FALSE
   }
 
   # we validate mapping before data because in geoms and stats

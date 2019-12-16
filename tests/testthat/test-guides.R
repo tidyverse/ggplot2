@@ -113,6 +113,54 @@ test_that("Using non-position guides for position scales results in an informati
   expect_error(ggplot_gtable(built), "does not implement guide_transform()")
 })
 
+test_that("guide merging for guide_legend() works as expected", {
+
+  merge_test_guides <- function(scale1, scale2) {
+    scale1$guide <- guide_legend(direction = "vertical")
+    scale2$guide <- guide_legend(direction = "vertical")
+    scales <- scales_list()
+    scales$add(scale1)
+    scales$add(scale2)
+
+    guide_list <- guides_train(scales, theme = theme_gray(), labels = labs(), guides = guides())
+    guides_merge(guide_list)
+  }
+
+  different_limits <- merge_test_guides(
+    scale_colour_discrete(limits = c("a", "b", "c", "d")),
+    scale_linetype_discrete(limits = c("a", "b", "c"))
+  )
+  expect_length(different_limits, 2)
+
+  same_limits <- merge_test_guides(
+    scale_colour_discrete(limits = c("a", "b", "c")),
+    scale_linetype_discrete(limits = c("a", "b", "c"))
+  )
+  expect_length(same_limits, 1)
+  expect_equal(same_limits[[1]]$key$.label, c("a", "b", "c"))
+
+  same_labels_different_limits <- merge_test_guides(
+    scale_colour_discrete(limits = c("a", "b", "c")),
+    scale_linetype_discrete(limits = c("one", "two", "three"), labels = c("a", "b", "c"))
+  )
+  expect_length(same_labels_different_limits, 1)
+  expect_equal(same_labels_different_limits[[1]]$key$.label, c("a", "b", "c"))
+
+  same_labels_different_scale <- merge_test_guides(
+    scale_colour_continuous(limits = c(0, 4), breaks = 1:3, labels = c("a", "b", "c")),
+    scale_linetype_discrete(limits = c("a", "b", "c"))
+  )
+  expect_length(same_labels_different_scale, 1)
+  expect_equal(same_labels_different_scale[[1]]$key$.label, c("a", "b", "c"))
+
+  repeated_identical_labels <- merge_test_guides(
+    scale_colour_discrete(limits = c("one", "two", "three"), labels = c("label1", "label1", "label2")),
+    scale_linetype_discrete(limits = c("1", "2", "3"), labels = c("label1", "label1", "label2"))
+  )
+  expect_length(repeated_identical_labels, 1)
+  expect_equal(repeated_identical_labels[[1]]$key$.label, c("label1", "label1", "label2"))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {

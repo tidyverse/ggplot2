@@ -5,7 +5,7 @@ NULL
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. Aesthetic mappings can be set in
-#' [ggplot2()] and in individual layers.
+#' [ggplot()] and in individual layers.
 #'
 #' This function also standardises aesthetic names by converting `color` to `colour`
 #' (also in substrings, e.g., `point_color` to `point_colour`) and translating old style

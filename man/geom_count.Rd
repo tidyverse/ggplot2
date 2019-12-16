@@ -5,13 +5,27 @@
 \alias{stat_sum}
 \title{Count overlapping points}
 \usage{
-geom_count(mapping = NULL, data = NULL, stat = "sum",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_count(
+  mapping = NULL,
+  data = NULL,
+  stat = "sum",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_sum(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_sum(
+  mapping = NULL,
+  data = NULL,
+  geom = "point",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

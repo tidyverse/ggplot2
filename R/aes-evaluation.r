@@ -102,14 +102,12 @@ is_staged_aes <- function(aesthetics) {
   vapply(aesthetics, is_staged, logical(1), USE.NAMES = FALSE)
 }
 is_calculated <- function(x) {
-  if (is_call(get_expr(x), "after_stat")) {
-    return(TRUE)
-  }
-  # Support of old recursive behaviour
   if (is.atomic(x)) {
     FALSE
   } else if (is.symbol(x)) {
     is_dotted_var(as.character(x))
+  } else if (is_quosure(x)) {
+    is_calculated(quo_get_expr(x))
   } else if (is.call(x)) {
     if (identical(x[[1]], quote(stat))) {
       TRUE
@@ -140,6 +138,12 @@ strip_dots <- function(expr) {
     } else {
       expr
     }
+  } else if (is_quosure(expr)) {
+    # strip dots from quosure and reconstruct the quosure
+    expr <- new_quosure(
+      strip_dots(quo_get_expr(expr)),
+      quo_get_env(expr)
+    )
   } else if (is.call(expr)) {
     if (identical(expr[[1]], quote(stat))) {
       strip_dots(expr[[2]])
@@ -157,6 +161,7 @@ strip_dots <- function(expr) {
     stop("Unknown input:", class(expr)[1])
   }
 }
+
 strip_stage <- function(expr) {
   uq_expr <- get_expr(expr)
   if (is_call(uq_expr, c("after_stat", "after_scale"))) {

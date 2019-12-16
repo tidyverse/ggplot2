@@ -42,11 +42,12 @@ p + scale_alpha("cylinders")
 p + scale_alpha(range = c(0.4, 0.8))
 }
 \seealso{
-Other colour scales: \code{\link{scale_colour_brewer}},
-  \code{\link{scale_colour_gradient}},
-  \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}},
-  \code{\link{scale_colour_steps}},
-  \code{\link{scale_colour_viridis_d}}
+Other colour scales: 
+\code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_viridis_d}()}
 }
 \concept{colour scales}

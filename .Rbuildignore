@@ -26,3 +26,4 @@ visual_test
 ^\.github$
 ^vignettes/profilings
 ^cran-comments\.md$
+^LICENSE\.md$

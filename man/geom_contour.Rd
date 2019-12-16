@@ -7,26 +7,64 @@
 \alias{stat_contour_filled}
 \title{2d contours of a 3d surface}
 \usage{
-geom_contour(mapping = NULL, data = NULL, stat = "contour",
-  position = "identity", ..., bins = NULL, binwidth = NULL,
-  breaks = NULL, lineend = "butt", linejoin = "round",
-  linemitre = 10, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_contour(
+  mapping = NULL,
+  data = NULL,
+  stat = "contour",
+  position = "identity",
+  ...,
+  bins = NULL,
+  binwidth = NULL,
+  breaks = NULL,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_contour_filled(mapping = NULL, data = NULL,
-  stat = "contour_filled", position = "identity", ..., bins = NULL,
-  binwidth = NULL, breaks = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_contour_filled(
+  mapping = NULL,
+  data = NULL,
+  stat = "contour_filled",
+  position = "identity",
+  ...,
+  bins = NULL,
+  binwidth = NULL,
+  breaks = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_contour(mapping = NULL, data = NULL, geom = "contour",
-  position = "identity", ..., bins = NULL, binwidth = NULL,
-  breaks = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_contour(
+  mapping = NULL,
+  data = NULL,
+  geom = "contour",
+  position = "identity",
+  ...,
+  bins = NULL,
+  binwidth = NULL,
+  breaks = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_contour_filled(mapping = NULL, data = NULL, geom = "polygon",
-  position = "identity", ..., bins = NULL, binwidth = NULL,
-  breaks = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_contour_filled(
+  mapping = NULL,
+  data = NULL,
+  geom = "polygon",
+  position = "identity",
+  ...,
+  bins = NULL,
+  binwidth = NULL,
+  breaks = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

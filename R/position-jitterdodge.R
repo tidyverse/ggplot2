@@ -5,7 +5,7 @@
 #' a fill aesthetic supplied).
 #'
 #' @family position adjustments
-#' @param jitter.width degree of jitter in x direction. Defaults to 40\% of the
+#' @param jitter.width degree of jitter in x direction. Defaults to 40% of the
 #'   resolution of the data.
 #' @param jitter.height degree of jitter in y direction. Defaults to 0.
 #' @param dodge.width the amount to dodge in the x direction. Defaults to 0.75,

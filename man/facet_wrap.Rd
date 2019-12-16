@@ -4,9 +4,19 @@
 \alias{facet_wrap}
 \title{Wrap a 1d ribbon of panels into 2d}
 \usage{
-facet_wrap(facets, nrow = NULL, ncol = NULL, scales = "fixed",
-  shrink = TRUE, labeller = "label_value", as.table = TRUE,
-  switch = NULL, drop = TRUE, dir = "h", strip.position = "top")
+facet_wrap(
+  facets,
+  nrow = NULL,
+  ncol = NULL,
+  scales = "fixed",
+  shrink = TRUE,
+  labeller = "label_value",
+  as.table = TRUE,
+  switch = NULL,
+  drop = TRUE,
+  dir = "h",
+  strip.position = "top"
+)
 }
 \arguments{
 \item{facets}{A set of variables or expressions quoted by \code{\link[=vars]{vars()}}
