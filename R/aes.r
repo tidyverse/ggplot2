@@ -176,7 +176,7 @@ rename_aes <- function(x) {
 }
 substitute_aes <- function(x) {
   x <- lapply(x, function(aesthetic) {
-    as_quosure(standardise_aes_symbols(aesthetic[[2]]), env = environment(aesthetic))
+    as_quosure(standardise_aes_symbols(quo_get_expr(aesthetic)), env = environment(aesthetic))
   })
   class(x) <- "uneval"
   x

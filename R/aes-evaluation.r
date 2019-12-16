@@ -102,6 +102,10 @@ is_staged_aes <- function(aesthetics) {
   vapply(aesthetics, is_staged, logical(1), USE.NAMES = FALSE)
 }
 is_calculated <- function(x) {
+  if (is_call(get_expr(x), "after_stat")) {
+    return(TRUE)
+  }
+  # Support of old recursive behaviour
   if (is.atomic(x)) {
     FALSE
   } else if (is.symbol(x)) {
