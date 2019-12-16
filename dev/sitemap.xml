@@ -25,6 +25,9 @@
     <loc>https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html</loc>
   </url>
   <url>
+    <loc>https://ggplot2.tidyverse.org/reference/aes_eval.html</loc>
+  </url>
+  <url>
     <loc>https://ggplot2.tidyverse.org/reference/aes_group_order.html</loc>
   </url>
   <url>
@@ -500,9 +503,6 @@
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/standardise_aes_names.html</loc>
-  </url>
-  <url>
-    <loc>https://ggplot2.tidyverse.org/reference/stat.html</loc>
   </url>
   <url>
     <loc>https://ggplot2.tidyverse.org/reference/stat_ecdf.html</loc>
