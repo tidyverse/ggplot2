@@ -11,19 +11,20 @@
 \alias{scale_color_manual}
 \title{Create your own discrete scale}
 \usage{
-scale_colour_manual(..., values, aesthetics = "colour")
+scale_colour_manual(..., values, aesthetics = "colour",
+  breaks = waiver())
 
-scale_fill_manual(..., values, aesthetics = "fill")
+scale_fill_manual(..., values, aesthetics = "fill", breaks = waiver())
 
-scale_size_manual(..., values)
+scale_size_manual(..., values, breaks = waiver())
 
-scale_shape_manual(..., values)
+scale_shape_manual(..., values, breaks = waiver())
 
-scale_linetype_manual(..., values)
+scale_linetype_manual(..., values, breaks = waiver())
 
-scale_alpha_manual(..., values)
+scale_alpha_manual(..., values, breaks = waiver())
 
-scale_discrete_manual(aesthetics, ..., values)
+scale_discrete_manual(aesthetics, ..., values, breaks = waiver())
 }
 \arguments{
 \item{...}{
@@ -71,16 +72,25 @@ as output
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
-\item{values}{a set of aesthetic values to map data values to. If this
-is a named vector, then the values will be matched based on the names.
-If unnamed, values will be matched in order (usually alphabetical) with
-the limits of the scale. Any data values that don't match will be
-given \code{na.value}.}
+\item{values}{a set of aesthetic values to map data values to. The values
+will be matched in order (usually alphabetical) with the limits of the
+scale, or with \code{breaks} if provided. If this is a named vector, then the
+values will be matched based on the names instead. Data values that don't
+match will be given \code{na.value}.}
 
 \item{aesthetics}{Character string or vector of character strings listing the
 name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
 same time, via \code{aesthetics = c("colour", "fill")}.}
+
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks (the scale limits)
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
 }
 \description{
 These functions allow you to specify your own set of mappings from levels in the
