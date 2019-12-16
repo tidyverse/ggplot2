@@ -1,5 +1,12 @@
 # ggplot2 (development version)
 
+* The evaluation time of aesthetics can now be controlled to a finer degree. 
+  `after_stat()` superseeds the use of `stat()` and `..var..`-notation, ad is
+  joined by `after_scale()` to allow for mapping to scaled aesthetic values. 
+  Remapping of the same aesthetic is now supported with `stage()`, so you can 
+  map a data variable to a stat aesthetic, and remap the same aesthetic to 
+  something else after statistical transformation (@thomasp85, #3534)
+
 * ggplot2 no longer depends on reshape2, which means that it no longer 
   (recursively) needs plyr, stringr, or stringi packages.
 

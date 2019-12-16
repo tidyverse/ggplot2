@@ -48,7 +48,7 @@
 #'
 #' # To make it easier to compare distributions with very different counts,
 #' # put density on the y axis instead of the default count
-#' ggplot(diamonds, aes(price, stat(density), colour = cut)) +
+#' ggplot(diamonds, aes(price, after_stat(density), colour = cut)) +
 #'   geom_freqpoly(binwidth = 500)
 #'
 #' if (require("ggplot2movies")) {

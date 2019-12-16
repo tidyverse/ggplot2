@@ -50,7 +50,7 @@ stat_count <- function(mapping = NULL, data = NULL,
 StatCount <- ggproto("StatCount", Stat,
   required_aes = "x|y",
 
-  default_aes = aes(x = stat(count), y = stat(count), weight = 1),
+  default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)

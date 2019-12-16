@@ -174,6 +174,28 @@ rename_aes <- function(x) {
   }
   x
 }
+substitute_aes <- function(x) {
+  x <- lapply(x, function(aesthetic) {
+    as_quosure(standardise_aes_symbols(quo_get_expr(aesthetic)), env = environment(aesthetic))
+  })
+  class(x) <- "uneval"
+  x
+}
+# x is a quoted expression from inside aes()
+standardise_aes_symbols <- function(x) {
+  if (is.symbol(x)) {
+    name <- standardise_aes_names(as_string(x))
+    return(sym(name))
+  }
+  if (!is.call(x)) {
+    return(x)
+  }
+
+  # Don't walk through function heads
+  x[-1] <- lapply(x[-1], standardise_aes_symbols)
+
+  x
+}
 
 # Look up the scale that should be used for a given aesthetic
 aes_to_scale <- function(var) {
