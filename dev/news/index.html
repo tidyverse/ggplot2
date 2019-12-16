@@ -211,6 +211,7 @@
 <li><p>Fix a bug when <code>show.legend</code> is a named logical vector (<a href='https://github.com/tidyverse/ggplot2/issues/3461'>#3461</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
 <li><p>Increase the default <code>nbin</code> of <code><a href="../reference/guide_colourbar.html">guide_colourbar()</a></code> to place the ticks more precisely (<a href='https://github.com/tidyverse/ggplot2/issues/3508'>#3508</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
 <li><p><code><a href="../reference/ggsf.html">geom_sf()</a></code> now applies alpha to linestring geometries (<a href='https://github.com/tidyverse/ggplot2/issues/3589'>#3589</a>, <a href='https://github.com/yutannihilation'>@yutannihilation</a>).</p></li>
+<li><p><code>manual_scale()</code> now matches <code>values</code> with the order of <code>breaks</code> whenever <code>values</code> is an unnamed vector. Previously, unnamed <code>values</code> would match with the limits of the scale and ignore the order of any <code>breaks</code> provided. Note that this may change the appearance of plots that previously relied on the unordered behaviour (<a href='https://github.com/tidyverse/ggplot2/issues/2429'>#2429</a>, <a href='https://github.com/idno0001'>@idno0001</a>).</p></li>
 </ul>
 </div>
     <div id="ggplot2-3-2-1" class="section level1">
