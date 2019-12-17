@@ -216,6 +216,7 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
   if (fill) {
     heights <- heights / abs(heights[length(heights)])
   }
+# We need to preserve ymin/ymax order. If ymax is lower than ymin in input, it should remain that way
   if (!is.null(df$ymin) && !is.null(df$ymax)) {
     max_is_lower <- df$ymax < df$ymin
   } else {
