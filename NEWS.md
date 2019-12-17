@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Fix a bug in `geom_raster()` that squeezed the image when it went outside 
+  scale limits (#3539, @thomasp85)
+
 * The evaluation time of aesthetics can now be controlled to a finer degree. 
   `after_stat()` superseeds the use of `stat()` and `..var..`-notation, ad is
   joined by `after_scale()` to allow for mapping to scaled aesthetic values. 
