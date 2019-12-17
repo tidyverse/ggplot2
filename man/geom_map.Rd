@@ -4,8 +4,16 @@
 \alias{geom_map}
 \title{Polygons from a reference map}
 \usage{
-geom_map(mapping = NULL, data = NULL, stat = "identity", ..., map,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+geom_map(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  ...,
+  map,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -106,16 +114,23 @@ ggplot(values, aes(fill = value)) +
   expand_limits(positions) + ylim(0, 3)
 
 # Better example
-crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
-crimesm <- reshape2::melt(crimes, id = 1)
 if (require(maps)) {
+
+  crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
+
+  # Equivalent to crimes \%>\% tidyr::pivot_longer(Murder:Rape)
+  vars <- lapply(names(crimes)[-1], function(j) {
+    data.frame(state = crimes$state, variable = j, value = crimes[[j]])
+  })
+  crimes_long <- do.call("rbind", vars)
+
   states_map <- map_data("state")
   ggplot(crimes, aes(map_id = state)) +
     geom_map(aes(fill = Murder), map = states_map) +
     expand_limits(x = states_map$long, y = states_map$lat)
 
   last_plot() + coord_map()
-  ggplot(crimesm, aes(map_id = state)) +
+  ggplot(crimes_long, aes(map_id = state)) +
     geom_map(aes(fill = value), map = states_map) +
     expand_limits(x = states_map$long, y = states_map$lat) +
     facet_wrap( ~ variable)

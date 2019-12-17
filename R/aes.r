@@ -5,7 +5,7 @@ NULL
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. Aesthetic mappings can be set in
-#' [ggplot2()] and in individual layers.
+#' [ggplot()] and in individual layers.
 #'
 #' This function also standardises aesthetic names by converting `color` to `colour`
 #' (also in substrings, e.g., `point_color` to `point_colour`) and translating old style
@@ -172,6 +172,28 @@ rename_aes <- function(x) {
       "Duplicated aesthetics after name standardisation: ", duplicated_message, call. = FALSE
     )
   }
+  x
+}
+substitute_aes <- function(x) {
+  x <- lapply(x, function(aesthetic) {
+    as_quosure(standardise_aes_symbols(quo_get_expr(aesthetic)), env = environment(aesthetic))
+  })
+  class(x) <- "uneval"
+  x
+}
+# x is a quoted expression from inside aes()
+standardise_aes_symbols <- function(x) {
+  if (is.symbol(x)) {
+    name <- standardise_aes_names(as_string(x))
+    return(sym(name))
+  }
+  if (!is.call(x)) {
+    return(x)
+  }
+
+  # Don't walk through function heads
+  x[-1] <- lapply(x[-1], standardise_aes_symbols)
+
   x
 }
 

@@ -12,26 +12,65 @@
 \alias{scale_color_fermenter}
 \title{Sequential, diverging and qualitative colour scales from colorbrewer.org}
 \usage{
-scale_colour_brewer(..., type = "seq", palette = 1, direction = 1,
-  aesthetics = "colour")
+scale_colour_brewer(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = 1,
+  aesthetics = "colour"
+)
 
-scale_fill_brewer(..., type = "seq", palette = 1, direction = 1,
-  aesthetics = "fill")
+scale_fill_brewer(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = 1,
+  aesthetics = "fill"
+)
 
-scale_colour_distiller(..., type = "seq", palette = 1,
-  direction = -1, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "colour")
+scale_colour_distiller(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "colour"
+)
 
-scale_fill_distiller(..., type = "seq", palette = 1, direction = -1,
-  values = NULL, space = "Lab", na.value = "grey50",
-  guide = "colourbar", aesthetics = "fill")
+scale_fill_distiller(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "fill"
+)
 
-scale_colour_fermenter(..., type = "seq", palette = 1,
-  direction = -1, na.value = "grey50", guide = "coloursteps",
-  aesthetics = "colour")
+scale_colour_fermenter(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "colour"
+)
 
-scale_fill_fermenter(..., type = "seq", palette = 1, direction = -1,
-  na.value = "grey50", guide = "coloursteps", aesthetics = "fill")
+scale_fill_fermenter(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "fill"
+)
 }
 \arguments{
 \item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}}, \code{\link[=continuous_scale]{continuous_scale()}},
@@ -55,7 +94,7 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-\code{colours} vector. See \code{\link[=rescale]{rescale()}} for a convenience function
+\code{colours} vector. See \code{\link[scales:rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
 
 \item{space}{colour space in which to calculate gradient. Must be "Lab" -
@@ -101,7 +140,7 @@ dsamp <- diamonds[sample(nrow(diamonds), 1000), ]
 d + scale_colour_brewer()
 
 # Change scale label
-d + scale_colour_brewer("Diamond\\nclarity")
+d + scale_colour_brewer("Diamond\nclarity")
 
 # Select brewer palette to use, see ?scales::brewer_pal for more details
 d + scale_colour_brewer(palette = "Greens")
@@ -131,11 +170,12 @@ v + scale_fill_fermenter()
 
 }
 \seealso{
-Other colour scales: \code{\link{scale_alpha}},
-  \code{\link{scale_colour_gradient}},
-  \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}},
-  \code{\link{scale_colour_steps}},
-  \code{\link{scale_colour_viridis_d}}
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()},
+\code{\link{scale_colour_viridis_d}()}
 }
 \concept{colour scales}

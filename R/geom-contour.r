@@ -42,7 +42,7 @@
 #' v + geom_contour(binwidth = 0.001)
 #'
 #' # Other parameters
-#' v + geom_contour(aes(colour = stat(level)))
+#' v + geom_contour(aes(colour = after_stat(level)))
 #' v + geom_contour(colour = "red")
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")

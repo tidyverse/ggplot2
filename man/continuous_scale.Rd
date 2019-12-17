@@ -4,11 +4,25 @@
 \alias{continuous_scale}
 \title{Continuous scale constructor}
 \usage{
-continuous_scale(aesthetics, scale_name, palette, name = waiver(),
-  breaks = waiver(), minor_breaks = waiver(), labels = waiver(),
-  limits = NULL, rescaler = rescale, oob = censor,
-  expand = waiver(), na.value = NA_real_, trans = "identity",
-  guide = "legend", position = "left", super = ScaleContinuous)
+continuous_scale(
+  aesthetics,
+  scale_name,
+  palette,
+  name = waiver(),
+  breaks = waiver(),
+  minor_breaks = waiver(),
+  n.breaks = NULL,
+  labels = waiver(),
+  limits = NULL,
+  rescaler = rescale,
+  oob = censor,
+  expand = waiver(),
+  na.value = NA_real_,
+  trans = "identity",
+  guide = "legend",
+  position = "left",
+  super = ScaleContinuous
+)
 }
 \arguments{
 \item{aesthetics}{The names of the aesthetics that this scale works with.}
@@ -44,6 +58,11 @@ each major break)
 \item A function that given the limits returns a vector of minor breaks.
 }}
 
+\item{n.breaks}{An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if \code{breaks = waiver()}. Use \code{NULL} to use the default
+number of breaks given by the transformation.}
+
 \item{labels}{One of:
 \itemize{
 \item \code{NULL} for no labels
@@ -70,7 +89,7 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 range [0, 1]. This is always \code{\link[scales:rescale]{scales::rescale()}}, except for
 diverging and n colour gradients (i.e., \code{\link[=scale_colour_gradient2]{scale_colour_gradient2()}},
 \code{\link[=scale_colour_gradientn]{scale_colour_gradientn()}}). The \code{rescaler} is ignored by position
-scales, which ways use \code{\link[scales:rescale]{scales::rescale()}}.}
+scales, which always use \code{\link[scales:rescale]{scales::rescale()}}.}
 
 \item{oob}{One of:
 \itemize{
@@ -99,7 +118,7 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \code{<name>_trans} (e.g.,
+are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
 

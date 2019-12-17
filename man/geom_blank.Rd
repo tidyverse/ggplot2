@@ -4,8 +4,15 @@
 \alias{geom_blank}
 \title{Draw nothing}
 \usage{
-geom_blank(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., show.legend = NA, inherit.aes = TRUE)
+geom_blank(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

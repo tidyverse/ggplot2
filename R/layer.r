@@ -5,7 +5,6 @@
 #' calls but it can also be created directly using this function.
 #'
 #' @export
-#' @inheritParams geom_point
 #' @param mapping Set of aesthetic mappings created by [aes()] or
 #'   [aes_()]. If specified and `inherit.aes = TRUE` (the
 #'   default), it is combined with the default mapping at the top level of the
@@ -80,10 +79,6 @@ layer <- function(geom = NULL, stat = NULL,
       call. = FALSE)
     show.legend <- params$show_guide
     params$show_guide <- NULL
-  }
-  if (!is.logical(show.legend)) {
-    warning("`show.legend` must be a logical vector.", call. = FALSE)
-    show.legend <- FALSE
   }
 
   # we validate mapping before data because in geoms and stats
@@ -229,7 +224,9 @@ Layer <- ggproto("Layer", NULL,
     # Drop aesthetics that are set or calculated
     set <- names(aesthetics) %in% names(self$aes_params)
     calculated <- is_calculated_aes(aesthetics)
-    aesthetics <- aesthetics[!set & !calculated]
+    modifiers <- is_scaled_aes(aesthetics)
+
+    aesthetics <- aesthetics[!set & !calculated & !modifiers]
 
     # Override grouping if set in layer
     if (!is.null(self$geom_params$group)) {
@@ -239,7 +236,8 @@ Layer <- ggproto("Layer", NULL,
     scales_add_defaults(plot$scales, data, aesthetics, plot$plot_env)
 
     # Evaluate aesthetics
-    evaled <- lapply(aesthetics, eval_tidy, data = data)
+    env <- child_env(baseenv(), stage = stage)
+    evaled <- lapply(aesthetics, eval_tidy, data = data, env = env)
     evaled <- compact(evaled)
 
     # Check for discouraged usage in mapping
@@ -251,7 +249,7 @@ Layer <- ggproto("Layer", NULL,
       msg <- paste0(
         "Aesthetics must be valid data columns. Problematic aesthetic(s): ",
         paste0(vapply(nondata_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
-        ". \nDid you mistype the name of a data column or forget to add stat()?"
+        ". \nDid you mistype the name of a data column or forget to add after_stat()?"
       )
       stop(msg, call. = FALSE)
     }
@@ -299,14 +297,16 @@ Layer <- ggproto("Layer", NULL,
     aesthetics <- defaults(aesthetics, self$stat$default_aes)
     aesthetics <- compact(aesthetics)
 
-    new <- strip_dots(aesthetics[is_calculated_aes(aesthetics)])
+    new <- strip_dots(aesthetics[is_calculated_aes(aesthetics) | is_staged_aes(aesthetics)])
     if (length(new) == 0) return(data)
 
     # Add map stat output to aesthetics
-    env <- new.env(parent = baseenv())
-    env$stat <- stat
+    env <- child_env(baseenv(), stat = stat, after_stat = after_stat)
+    stage_mask <- child_env(emptyenv(), stage = stage_calculated)
+    mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
+    mask$.data <- as_data_pronoun(mask)
 
-    stat_data <- new_data_frame(lapply(new, eval_tidy, data, env))
+    stat_data <- lapply(substitute_aes(new), eval_tidy, mask, env)
 
     # Check that all columns in aesthetic stats are valid data
     nondata_stat_cols <- check_nondata_cols(stat_data)
@@ -320,6 +320,7 @@ Layer <- ggproto("Layer", NULL,
     }
 
     names(stat_data) <- names(new)
+    stat_data <- new_data_frame(compact(stat_data))
 
     # Add any new scales, if needed
     scales_add_defaults(plot$scales, data, new, plot$plot_env)
@@ -357,7 +358,10 @@ Layer <- ggproto("Layer", NULL,
     # Combine aesthetics, defaults, & params
     if (empty(data)) return(data)
 
-    self$geom$use_defaults(data, self$aes_params)
+    aesthetics <- self$mapping
+    modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
+
+    self$geom$use_defaults(data, self$aes_params, modifiers)
   },
 
   finish_statistics = function(self, data) {

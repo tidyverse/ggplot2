@@ -55,10 +55,11 @@ ggplot(mtcars, aes(am, vs)) +
   geom_point(position = jitter, color = "red", aes(am + 0.2, vs + 0.2))
 }
 \seealso{
-Other position adjustments: \code{\link{position_dodge}},
-  \code{\link{position_identity}},
-  \code{\link{position_jitterdodge}},
-  \code{\link{position_nudge}},
-  \code{\link{position_stack}}
+Other position adjustments: 
+\code{\link{position_dodge}()},
+\code{\link{position_identity}()},
+\code{\link{position_jitterdodge}()},
+\code{\link{position_nudge}()},
+\code{\link{position_stack}()}
 }
 \concept{position adjustments}

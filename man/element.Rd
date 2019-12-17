@@ -13,17 +13,39 @@ margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")
 
 element_blank()
 
-element_rect(fill = NULL, colour = NULL, size = NULL,
-  linetype = NULL, color = NULL, inherit.blank = FALSE)
+element_rect(
+  fill = NULL,
+  colour = NULL,
+  size = NULL,
+  linetype = NULL,
+  color = NULL,
+  inherit.blank = FALSE
+)
 
-element_line(colour = NULL, size = NULL, linetype = NULL,
-  lineend = NULL, color = NULL, arrow = NULL,
-  inherit.blank = FALSE)
+element_line(
+  colour = NULL,
+  size = NULL,
+  linetype = NULL,
+  lineend = NULL,
+  color = NULL,
+  arrow = NULL,
+  inherit.blank = FALSE
+)
 
-element_text(family = NULL, face = NULL, colour = NULL,
-  size = NULL, hjust = NULL, vjust = NULL, angle = NULL,
-  lineheight = NULL, color = NULL, margin = NULL, debug = NULL,
-  inherit.blank = FALSE)
+element_text(
+  family = NULL,
+  face = NULL,
+  colour = NULL,
+  size = NULL,
+  hjust = NULL,
+  vjust = NULL,
+  angle = NULL,
+  lineheight = NULL,
+  color = NULL,
+  margin = NULL,
+  debug = NULL,
+  inherit.blank = FALSE
+)
 
 rel(x)
 }
@@ -90,7 +112,7 @@ specify the display of how non-data components of the plot are a drawn.
 }
 
 \code{rel()} is used to specify sizes relative to the parent,
-\code{margins()} is used to specify the margins of elements.
+\code{margin()} is used to specify the margins of elements.
 }
 \examples{
 plot <- ggplot(mpg, aes(displ, hwy)) + geom_point()

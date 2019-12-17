@@ -67,7 +67,7 @@ stat_density <- function(mapping = NULL, data = NULL,
 StatDensity <- ggproto("StatDensity", Stat,
   required_aes = "x|y",
 
-  default_aes = aes(x = stat(density), y = stat(density), fill = NA, weight = NULL),
+  default_aes = aes(x = after_stat(density), y = after_stat(density), fill = NA, weight = NULL),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE, main_is_continuous = TRUE)

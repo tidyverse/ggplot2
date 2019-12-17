@@ -18,7 +18,6 @@
 #' @seealso [scales::seq_gradient_pal()] for details on underlying
 #'   palette
 #' @family colour scales
-#' @rdname scale_steps
 #' @export
 #' @examples
 #' df <- data.frame(
@@ -41,10 +40,7 @@
 #' ggplot(df, aes(x, y)) +
 #'   geom_point(aes(colour = z1)) +
 #'   scale_colour_stepsn(colours = terrain.colors(10))
-#'
-
 #' @rdname scale_steps
-#' @export
 scale_colour_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
                                na.value = "grey50", guide = "coloursteps", aesthetics = "colour") {
   binned_scale(aesthetics, "steps", seq_gradient_pal(low, high, space),

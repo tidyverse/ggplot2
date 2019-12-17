@@ -21,7 +21,7 @@
 #' individually.
 #'
 #' In a notched box plot, the notches extend `1.58 * IQR / sqrt(n)`.
-#' This gives a roughly 95\% confidence interval for comparing medians.
+#' This gives a roughly 95% confidence interval for comparing medians.
 #' See McGill et al. (1978) for more details.
 #'
 #' @eval rd_aesthetics("geom", "boxplot")

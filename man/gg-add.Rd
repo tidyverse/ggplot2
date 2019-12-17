@@ -32,7 +32,7 @@ new layer.
 \item A \code{facet} specification overrides the current faceting.
 }
 
-To replace the current default data frame, you must use \code{\%+\%},
+To replace the current default data frame, you must use \verb{\%+\%},
 due to S3 method precedence issues.
 
 You can also supply a list, in which case each element of the list will

@@ -4,9 +4,18 @@
 \alias{geom_jitter}
 \title{Jittered points}
 \usage{
-geom_jitter(mapping = NULL, data = NULL, stat = "identity",
-  position = "jitter", ..., width = NULL, height = NULL,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+geom_jitter(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "jitter",
+  ...,
+  width = NULL,
+  height = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

@@ -5,11 +5,11 @@
 #' \describe{
 #'   \item{width}{width of boxplot}
 #'   \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
-#'   \item{lower}{lower hinge, 25\% quantile}
+#'   \item{lower}{lower hinge, 25% quantile}
 #'   \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
-#'   \item{middle}{median, 50\% quantile}
+#'   \item{middle}{median, 50% quantile}
 #'   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
-#'   \item{upper}{upper hinge, 75\% quantile}
+#'   \item{upper}{upper hinge, 75% quantile}
 #'   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 #' }
 #' @export
@@ -51,7 +51,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     data$x <- data$x %||% 0
     data <- remove_missing(
       data,
-      na.rm = FALSE,
+      na.rm = params$na.rm,
       vars = "x",
       name = "stat_boxplot"
     )

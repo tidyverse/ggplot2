@@ -173,7 +173,7 @@ PositionStack <- ggproto("PositionStack", Position,
       vars = c("x", "xmin", "xmax", "y"),
       name = "position_stack"
     )
-    flip_data(data, params$flip_data)
+    flip_data(data, params$flipped_aes)
   },
 
   compute_panel = function(data, params, scales) {

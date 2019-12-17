@@ -4,9 +4,18 @@
 \alias{stat_ecdf}
 \title{Compute empirical cumulative distribution}
 \usage{
-stat_ecdf(mapping = NULL, data = NULL, geom = "step",
-  position = "identity", ..., n = NULL, pad = TRUE, na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+stat_ecdf(
+  mapping = NULL,
+  data = NULL,
+  geom = "step",
+  position = "identity",
+  ...,
+  n = NULL,
+  pad = TRUE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or

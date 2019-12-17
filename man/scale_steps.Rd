@@ -12,48 +12,91 @@
 \alias{scale_color_stepsn}
 \title{Binned gradient colour scales}
 \usage{
-scale_colour_steps(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "coloursteps",
-  aesthetics = "colour")
+scale_colour_steps(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "colour"
+)
 
-scale_colour_steps2(..., low = muted("red"), mid = "white",
-  high = muted("blue"), midpoint = 0, space = "Lab",
-  na.value = "grey50", guide = "coloursteps", aesthetics = "colour")
+scale_colour_steps2(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "colour"
+)
 
-scale_colour_stepsn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "coloursteps", aesthetics = "colour",
-  colors)
+scale_colour_stepsn(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "colour",
+  colors
+)
 
-scale_fill_steps(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "coloursteps",
-  aesthetics = "fill")
+scale_fill_steps(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "fill"
+)
 
-scale_fill_steps2(..., low = muted("red"), mid = "white",
-  high = muted("blue"), midpoint = 0, space = "Lab",
-  na.value = "grey50", guide = "coloursteps", aesthetics = "fill")
+scale_fill_steps2(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "fill"
+)
 
-scale_fill_stepsn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "coloursteps", aesthetics = "fill",
-  colors)
+scale_fill_stepsn(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "fill",
+  colors
+)
 }
 \arguments{
-\item{...}{Arguments passed on to \code{binned_scale}
-\describe{
-  \item{n.breaks}{The number of break points to create if breaks are not given
+\item{...}{
+  Arguments passed on to \code{\link[=binned_scale]{binned_scale}}
+  \describe{
+    \item{\code{n.breaks}}{The number of break points to create if breaks are not given
 directly.}
-  \item{nice.breaks}{Logical. Should breaks be attempted placed at nice values
+    \item{\code{nice.breaks}}{Logical. Should breaks be attempted placed at nice values
 instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
 the scale will ask the transformation object to create breaks, and this
 may result in a different number of breaks than requested. Ignored if
 breaks are given explicetly.}
-  \item{right}{Should values on the border between bins be part of the right
+    \item{\code{right}}{Should values on the border between bins be part of the right
 (upper) bin?}
-  \item{show.limits}{should the limits of the scale appear as ticks}
-  \item{name}{The name of the scale. Used as the axis or legend title. If
+    \item{\code{show.limits}}{should the limits of the scale appear as ticks}
+    \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
 \code{waiver()}, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If \code{NULL}, the legend title will be
 omitted.}
-  \item{breaks}{One of:
+    \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks computed by the
@@ -62,7 +105,7 @@ omitted.}
 \item A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by \code{\link[scales:extended_breaks]{scales::extended_breaks()}})
 }}
-  \item{labels}{One of:
+    \item{\code{labels}}{One of:
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
@@ -71,7 +114,7 @@ transformation object
 \item A function that takes the breaks as input and returns labels
 as output
 }}
-  \item{limits}{One of:
+    \item{\code{limits}}{One of:
 \itemize{
 \item \code{NULL} to use the default scale range
 \item A numeric vector of length two providing limits of the scale.
@@ -82,7 +125,7 @@ Note that setting limits on positional scales will \strong{remove} data outside 
 If the purpose is to zoom, use the limit argument in the coordinate system
 (see \code{\link[=coord_cartesian]{coord_cartesian()}}).
 }}
-  \item{oob}{One of:
+    \item{\code{oob}}{One of:
 \itemize{
 \item Function that handles limits outside of the scale limits
 (out of bounds).
@@ -91,13 +134,13 @@ bounds values with \code{NA}.
 \item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
 \item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
 }}
-  \item{expand}{For position scales, a vector of range expansion constants used to add some
+    \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[=expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
-  \item{trans}{For continuous scales, the name of a transformation object
+    \item{\code{trans}}{For continuous scales, the name of a transformation object
 or the object itself. Built-in transformations include "asn", "atanh",
 "boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
 "logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
@@ -105,13 +148,13 @@ or the object itself. Built-in transformations include "asn", "atanh",
 
 A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called \code{<name>_trans} (e.g.,
+are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
-  \item{position}{For position scales, The position of the axis.
+    \item{\code{position}}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
-  \item{super}{The super class to use for the constructed scale}
-}}
+    \item{\code{super}}{The super class to use for the constructed scale}
+  }}
 
 \item{low}{Colours for low and high ends of the gradient.}
 
@@ -139,15 +182,15 @@ Defaults to 0.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-\code{colours} vector. See \code{\link[=rescale]{rescale()}} for a convenience function
+\code{colours} vector. See \code{\link[scales:rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
 
 \item{colors}{Vector of colours to use for n-colour gradient.}
 }
 \description{
-\code{scale_*_steps} creates a two colour binned gradient (low-high),
-\code{scale_*_steps2} creates a diverging binned colour gradient (low-mid-high),
-and \code{scale_*_stepsn} creates a n-colour binned gradient. These scales are
+\verb{scale_*_steps} creates a two colour binned gradient (low-high),
+\verb{scale_*_steps2} creates a diverging binned colour gradient (low-mid-high),
+and \verb{scale_*_stepsn} creates a n-colour binned gradient. These scales are
 binned variants of the \link[=scale_colour_gradient]{gradient scale} family and
 works in the same way.
 }
@@ -179,17 +222,17 @@ ggplot(df, aes(x, y)) +
 ggplot(df, aes(x, y)) +
   geom_point(aes(colour = z1)) +
   scale_colour_stepsn(colours = terrain.colors(10))
-
 }
 \seealso{
 \code{\link[scales:seq_gradient_pal]{scales::seq_gradient_pal()}} for details on underlying
 palette
 
-Other colour scales: \code{\link{scale_alpha}},
-  \code{\link{scale_colour_brewer}},
-  \code{\link{scale_colour_gradient}},
-  \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}},
-  \code{\link{scale_colour_viridis_d}}
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_viridis_d}()}
 }
 \concept{colour scales}
