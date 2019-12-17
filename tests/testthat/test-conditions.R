@@ -11,13 +11,13 @@ get_warning <- function(f) {
 }
 
 test_that("do not use stop()", {
-  stops <- purrr::map_dfr(list.files("../../R", full.names = TRUE), get_stop, .id = "file")
+  stops <- do.call(rbind, lapply(list.files("../../R", full.names = TRUE), get_stop))
   stop_usage <- nrow(stops)
   expect_equal(stop_usage, 0)
 })
 
 test_that("do not use warning()", {
-  warnings <- purrr::map_dfr(list.files("../../R", full.names = TRUE), get_warning, .id = "file")
+  warnings <- do.call(rbind, lapply(list.files("../../R", full.names = TRUE), get_warning))
   warning_usage <- nrow(warnings)
   expect_equal(warning_usage, 0)
 })

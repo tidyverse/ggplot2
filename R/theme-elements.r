@@ -454,7 +454,7 @@ validate_element <- function(el, elname, element_tree) {
       abort(glue("Theme element `{elname}` must be a string or numeric vector."))
   } else if (eldef$class == "margin") {
     if (!is.unit(el) && length(el) == 4)
-      abort(glue("Theme element `ı{elname}` must be a unit vector of length 4."))
+      abort(glue("Theme element `{elname}` must be a unit vector of length 4."))
   } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
       abort(glue("Theme element `{elname}` must be an `{eldef$class}` object."))
   }
