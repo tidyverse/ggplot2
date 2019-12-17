@@ -3,14 +3,21 @@
 \name{scale_colour_continuous}
 \alias{scale_colour_continuous}
 \alias{scale_fill_continuous}
+\alias{scale_colour_binned}
+\alias{scale_fill_binned}
 \alias{scale_color_continuous}
-\title{Continuous colour scales}
+\alias{scale_color_binned}
+\title{Continuous and binned colour scales}
 \usage{
-scale_colour_continuous(...,
-  type = getOption("ggplot2.continuous.colour", default = "gradient"))
+scale_colour_continuous(
+  ...,
+  type = getOption("ggplot2.continuous.colour", default = "gradient")
+)
 
-scale_fill_continuous(..., type = getOption("ggplot2.continuous.fill",
-  default = "gradient"))
+scale_fill_continuous(
+  ...,
+  type = getOption("ggplot2.continuous.fill", default = "gradient")
+)
 }
 \arguments{
 \item{...}{Additional parameters passed on to the scale type}
@@ -57,5 +64,6 @@ v + scale_fill_viridis_c()
 }
 \seealso{
 \code{\link[=scale_colour_gradient]{scale_colour_gradient()}}, \code{\link[=scale_colour_viridis_c]{scale_colour_viridis_c()}},
-\code{\link[=scale_fill_gradient]{scale_fill_gradient()}}, and \code{\link[=scale_fill_viridis_c]{scale_fill_viridis_c()}}
+\code{\link[=scale_colour_steps]{scale_colour_steps()}}, \code{\link[=scale_colour_viridis_b]{scale_colour_viridis_b()}}, \code{\link[=scale_fill_gradient]{scale_fill_gradient()}},
+\code{\link[=scale_fill_viridis_c]{scale_fill_viridis_c()}}, \code{\link[=scale_fill_steps]{scale_fill_steps()}}, and \code{\link[=scale_fill_viridis_b]{scale_fill_viridis_b()}}
 }

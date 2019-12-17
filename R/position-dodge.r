@@ -6,7 +6,6 @@
 #' also works with bars and rectangles. But unlike `position_dodge`,
 #' `position_dodge2` works without a grouping variable in a layer.
 #'
-#' @inheritParams position_identity
 #' @param width Dodging width, when different to the width of the individual
 #'   elements. This is useful when you want to align narrow geoms with wider
 #'   geoms. See the examples.
@@ -89,6 +88,8 @@ PositionDodge <- ggproto("PositionDodge", Position,
   width = NULL,
   preserve = "total",
   setup_params = function(self, data) {
+    flipped_aes <- has_flipped_aes(data)
+    data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
       warn("Width not defined. Set with `position_dodge(width = ?)`")
     }
@@ -103,19 +104,22 @@ PositionDodge <- ggproto("PositionDodge", Position,
 
     list(
       width = self$width,
-      n = n
+      n = n,
+      flipped_aes = flipped_aes
     )
   },
 
   setup_data = function(self, data, params) {
+    data <- flip_data(data, params$flipped_aes)
     if (!"x" %in% names(data) && all(c("xmin", "xmax") %in% names(data))) {
       data$x <- (data$xmin + data$xmax) / 2
     }
-    data
+    flip_data(data, params$flipped_aes)
   },
 
   compute_panel = function(data, params, scales) {
-    collide(
+    data <- flip_data(data, params$flipped_aes)
+    collided <- collide(
       data,
       params$width,
       name = "position_dodge",
@@ -123,6 +127,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
       n = params$n,
       check.width = FALSE
     )
+    flip_data(collided, params$flipped_aes)
   }
 )
 

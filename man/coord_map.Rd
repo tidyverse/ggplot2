@@ -5,11 +5,17 @@
 \alias{coord_quickmap}
 \title{Map projections}
 \usage{
-coord_map(projection = "mercator", ..., parameters = NULL,
-  orientation = NULL, xlim = NULL, ylim = NULL, clip = "on")
+coord_map(
+  projection = "mercator",
+  ...,
+  parameters = NULL,
+  orientation = NULL,
+  xlim = NULL,
+  ylim = NULL,
+  clip = "on"
+)
 
-coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE,
-  clip = "on")
+coord_quickmap(xlim = NULL, ylim = NULL, expand = TRUE, clip = "on")
 }
 \arguments{
 \item{projection}{projection to use, see

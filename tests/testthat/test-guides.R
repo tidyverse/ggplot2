@@ -65,6 +65,102 @@ test_that("axis_label_element_overrides errors when angles are outside the range
   expect_error(axis_label_element_overrides("bottom", -91), "`angle` must")
 })
 
+test_that("a warning is generated when guides are drawn at a location that doesn't make sense", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    scale_y_continuous(guide = guide_axis(position = "top"))
+  built <- expect_silent(ggplot_build(plot))
+  expect_warning(ggplot_gtable(built), "Position guide is perpendicular")
+})
+
+test_that("a warning is generated when more than one position guide is drawn at a location", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    guides(
+      y = guide_axis(position = "left"),
+      y.sec = guide_axis(position = "left")
+    )
+  built <- expect_silent(ggplot_build(plot))
+  expect_warning(ggplot_gtable(built), "Discarding guide")
+})
+
+test_that("guide_none() can be used in non-position scales", {
+  p <- ggplot(mpg, aes(cty, hwy, colour = class)) +
+    geom_point() +
+    scale_color_discrete(guide = guide_none())
+
+  built <- ggplot_build(p)
+  plot <- built$plot
+  guides <- build_guides(
+    plot$scales,
+    plot$layers,
+    plot$mapping,
+    "right",
+    theme_gray(),
+    plot$guides,
+    plot$labels
+  )
+
+  expect_identical(guides, zeroGrob())
+})
+
+test_that("Using non-position guides for position scales results in an informative error", {
+  p <- ggplot(mpg, aes(cty, hwy)) +
+    geom_point() +
+    scale_x_continuous(guide = guide_legend())
+
+  built <- ggplot_build(p)
+  expect_error(ggplot_gtable(built), "does not implement guide_transform()")
+})
+
+test_that("guide merging for guide_legend() works as expected", {
+
+  merge_test_guides <- function(scale1, scale2) {
+    scale1$guide <- guide_legend(direction = "vertical")
+    scale2$guide <- guide_legend(direction = "vertical")
+    scales <- scales_list()
+    scales$add(scale1)
+    scales$add(scale2)
+
+    guide_list <- guides_train(scales, theme = theme_gray(), labels = labs(), guides = guides())
+    guides_merge(guide_list)
+  }
+
+  different_limits <- merge_test_guides(
+    scale_colour_discrete(limits = c("a", "b", "c", "d")),
+    scale_linetype_discrete(limits = c("a", "b", "c"))
+  )
+  expect_length(different_limits, 2)
+
+  same_limits <- merge_test_guides(
+    scale_colour_discrete(limits = c("a", "b", "c")),
+    scale_linetype_discrete(limits = c("a", "b", "c"))
+  )
+  expect_length(same_limits, 1)
+  expect_equal(same_limits[[1]]$key$.label, c("a", "b", "c"))
+
+  same_labels_different_limits <- merge_test_guides(
+    scale_colour_discrete(limits = c("a", "b", "c")),
+    scale_linetype_discrete(limits = c("one", "two", "three"), labels = c("a", "b", "c"))
+  )
+  expect_length(same_labels_different_limits, 1)
+  expect_equal(same_labels_different_limits[[1]]$key$.label, c("a", "b", "c"))
+
+  same_labels_different_scale <- merge_test_guides(
+    scale_colour_continuous(limits = c(0, 4), breaks = 1:3, labels = c("a", "b", "c")),
+    scale_linetype_discrete(limits = c("a", "b", "c"))
+  )
+  expect_length(same_labels_different_scale, 1)
+  expect_equal(same_labels_different_scale[[1]]$key$.label, c("a", "b", "c"))
+
+  repeated_identical_labels <- merge_test_guides(
+    scale_colour_discrete(limits = c("one", "two", "three"), labels = c("label1", "label1", "label2")),
+    scale_linetype_discrete(limits = c("1", "2", "3"), labels = c("label1", "label1", "label2"))
+  )
+  expect_length(repeated_identical_labels, 1)
+  expect_equal(repeated_identical_labels[[1]]$key$.label, c("label1", "label1", "label2"))
+})
+
 # Visual tests ------------------------------------------------------------
 
 test_that("axis guides are drawn correctly", {
@@ -132,7 +228,7 @@ test_that("axis guides are drawn correctly", {
   # dodged text
   expect_doppelganger(
     "axis guides, text dodged into rows/cols",
-    function() test_draw_axis(10, labels = function(b) comma(b * 1e9), n_dodge = 2)
+    function() test_draw_axis(10, labels = function(b) comma(b * 1e9), n.dodge = 2)
   )
 })
 
@@ -154,6 +250,45 @@ test_that("axis guides are drawn correctly in plots", {
       theme_test() +
       theme(axis.line = element_line(size = 5, lineend = "square"))
   )
+})
+
+test_that("axis guides can be customized", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    scale_y_continuous(
+      sec.axis = dup_axis(guide = guide_axis(n.dodge = 2)),
+      guide = guide_axis(n.dodge = 2)
+    ) +
+    scale_x_discrete(guide = guide_axis(n.dodge = 2))
+
+  expect_doppelganger("guide_axis() customization", plot)
+})
+
+test_that("guides can be specified in guides()", {
+  plot <- ggplot(mpg, aes(class, hwy)) +
+    geom_point() +
+    guides(
+      x = guide_axis(n.dodge = 2),
+      y = guide_axis(n.dodge = 2),
+      x.sec = guide_axis(n.dodge = 2),
+      y.sec = guide_axis(n.dodge = 2)
+    )
+
+  expect_doppelganger("guides specified in guides()", plot)
+})
+
+test_that("guides have the final say in x and y", {
+  df <- data_frame(x = 1, y = 1)
+  plot <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    guides(
+      x = guide_none(title = "x (primary)"),
+      y = guide_none(title = "y (primary)"),
+      x.sec = guide_none(title = "x (secondary)"),
+      y.sec = guide_none(title = "y (secondary)")
+    )
+
+  expect_doppelganger("position guide titles", plot)
 })
 
 test_that("guides are positioned correctly", {
@@ -335,4 +470,47 @@ test_that("guides can handle multiple aesthetics for one scale", {
     )
 
   expect_doppelganger("one combined colorbar for colour and fill aesthetics", p)
+})
+
+test_that("bin guide can be styled correctly", {
+  df <- data_frame(x = c(1, 2, 3),
+                   y = c(6, 5, 7))
+
+  p <- ggplot(df, aes(x, y, size = x)) +
+    geom_point() +
+    scale_size_binned()
+
+  expect_doppelganger("guide_bins looks as it should", p)
+  expect_doppelganger("guide_bins can show limits",
+    p + guides(size = guide_bins(show.limits = TRUE))
+  )
+  expect_doppelganger("guide_bins can show arrows",
+    p + guides(size = guide_bins(axis.arrow = arrow(length = unit(1.5, "mm"), ends = "both")))
+  )
+  expect_doppelganger("guide_bins can remove axis",
+    p + guides(size = guide_bins(axis = FALSE))
+  )
+  expect_doppelganger("guide_bins work horizontally",
+    p + guides(size = guide_bins(direction = "horizontal"))
+  )
+})
+
+test_that("coloursteps guide can be styled correctly", {
+  df <- data_frame(x = c(1, 2, 4),
+                   y = c(6, 5, 7))
+
+  p <- ggplot(df, aes(x, y, colour = x)) +
+    geom_point() +
+    scale_colour_binned(breaks = c(1.5, 2, 3))
+
+  expect_doppelganger("guide_coloursteps looks as it should", p)
+  expect_doppelganger("guide_coloursteps can show limits",
+    p + guides(colour = guide_coloursteps(show.limits = TRUE))
+  )
+  expect_doppelganger("guide_coloursteps can have bins relative to binsize",
+    p + guides(colour = guide_coloursteps(even.steps = FALSE))
+  )
+  expect_doppelganger("guide_bins can show ticks",
+    p + guides(colour = guide_coloursteps(ticks = TRUE))
+  )
 })

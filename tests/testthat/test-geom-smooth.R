@@ -9,6 +9,20 @@ test_that("data is ordered by x", {
   expect_equal(layer_data(ps)[c("x", "y")], df[order(df$x), ])
 })
 
+test_that("geom_smooth works in both directions", {
+  p <- ggplot(mpg, aes(displ, hwy)) + geom_smooth()
+  x <- layer_data(p)
+  expect_false(x$flipped_aes[1])
+
+  p <- ggplot(mpg, aes(hwy, displ)) + geom_smooth(orientation = "y")
+  y <- layer_data(p)
+  expect_true(y$flipped_aes[1])
+
+  x$flipped_aes <- NULL
+  y$flipped_aes <- NULL
+  expect_identical(x, flip_data(y, TRUE)[,names(x)])
+})
+
 test_that("default smoothing methods for small and large data sets work", {
   # test small data set
   set.seed(6531)
@@ -42,6 +56,15 @@ test_that("default smoothing methods for small and large data sets work", {
   xseq <- seq(range[1], range[2], length.out = 80)
   out <- predict(m, data_frame(x = xseq))
   p <- ggplot(df, aes(x, y)) + geom_smooth()
+
+  expect_message(
+    plot_data <- layer_data(p),
+    "method = 'gam' and formula 'y ~ s\\(x, bs = \"cs\"\\)"
+  )
+  expect_equal(plot_data$y, as.numeric(out))
+
+  # backwards compatibility of method = "auto"
+  p <- ggplot(df, aes(x, y)) + geom_smooth(method = "auto")
 
   expect_message(
     plot_data <- layer_data(p),

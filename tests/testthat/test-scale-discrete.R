@@ -81,3 +81,9 @@ test_that("discrete position scales can accept functional limits", {
   scale$train(c("a", "b", "c"))
   expect_identical(scale$get_limits(), c("c", "b", "a"))
 })
+
+test_that("discrete non-position scales can accept functional limits", {
+  scale <- scale_colour_discrete(limits = rev)
+  scale$train(c("a", "b", "c"))
+  expect_identical(scale$get_limits(), c("c", "b", "a"))
+})

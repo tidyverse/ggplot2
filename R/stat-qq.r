@@ -79,7 +79,7 @@ stat_qq <- geom_qq
 #' @usage NULL
 #' @export
 StatQq <- ggproto("StatQq", Stat,
-  default_aes = aes(y = stat(sample), x = stat(theoretical)),
+  default_aes = aes(y = after_stat(sample), x = after_stat(theoretical)),
 
   required_aes = c("sample"),
 

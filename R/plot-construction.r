@@ -15,7 +15,7 @@
 #'   - A `coord` overrides the current coordinate system.
 #'   - A `facet` specification overrides the current faceting.
 #'
-#' To replace the current default data frame, you must use \code{\%+\%},
+#' To replace the current default data frame, you must use `%+%`,
 #' due to S3 method precedence issues.
 #'
 #' You can also supply a list, in which case each element of the list will
@@ -84,7 +84,7 @@ ggplot_add <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.default <- function(object, plot, object_name) {
-  abort(paste0("Don't know how to add ", object_name, " to a plot"))
+  abort(glue("Can't add `{object_name}` to a ggplot object."))
 }
 #' @export
 ggplot_add.NULL <- function(object, plot, object_name) {
@@ -96,8 +96,15 @@ ggplot_add.data.frame <- function(object, plot, object_name) {
   plot
 }
 #' @export
+ggplot_add.function <- function(object, plot, object_name) {
+  abort(glue(
+    "Can't add `{object_name}` to a ggplot object.\n",
+    "Did you forget to add parentheses, as in `{object_name}()`?"
+  ))
+}
+#' @export
 ggplot_add.theme <- function(object, plot, object_name) {
-  plot$theme <- update_theme(plot$theme, object)
+  plot$theme <- add_theme(plot$theme, object)
   plot
 }
 #' @export

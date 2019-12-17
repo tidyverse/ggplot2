@@ -19,16 +19,16 @@ will be passed to it. Otherwise, these arguments are unused.}
 and inherited members. If \code{FALSE}, show the inheritance hierarchy.}
 }
 \description{
-If a ggproto object has a \code{$print} method, this will call that method.
+If a ggproto object has a \verb{$print} method, this will call that method.
 Otherwise, it will print out the members of the object, and optionally, the
 members of the inherited objects.
 }
 \examples{
 Dog <- ggproto(
   print = function(self, n) {
-    cat("Woof!\\n")
+    cat("Woof!\n")
   }
  )
 Dog
-cat(format(Dog), "\\n")
+cat(format(Dog), "\n")
 }

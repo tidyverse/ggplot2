@@ -30,7 +30,7 @@ cut_interval <- function(x, n = NULL, length = NULL, ...) {
 cut_number <- function(x, n = NULL, ...) {
   brk <- breaks(x, "n", n)
   if (anyDuplicated(brk))
-    abort(paste0("Insufficient data values to produce ", n, " bins."))
+    abort(glue("Insufficient data values to produce {n} bins."))
   cut(x, brk , include.lowest = TRUE, ...)
 }
 

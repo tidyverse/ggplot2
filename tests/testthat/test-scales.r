@@ -294,3 +294,28 @@ test_that("multiple aesthetics can be set with one function call", {
   expect_equal(layer_data(p)$colour, c("cyan", "red", "green"))
   expect_equal(layer_data(p)$fill, c("red", "green", "blue"))
 })
+
+test_that("limits with NA are replaced with the min/max of the data for continuous scales", {
+  make_scale <- function(limits = NULL, data = NULL) {
+    scale <- continuous_scale("aesthetic", scale_name = "test", palette = identity, limits = limits)
+    if (!is.null(data)) {
+      scale$train(data)
+    }
+    scale
+  }
+
+  # emptiness
+  expect_true(make_scale()$is_empty())
+  expect_false(make_scale(limits = c(0, 1))$is_empty())
+  expect_true(make_scale(limits = c(0, NA))$is_empty())
+  expect_true(make_scale(limits = c(NA, NA))$is_empty())
+  expect_true(make_scale(limits = c(NA, 0))$is_empty())
+
+  # limits
+  expect_equal(make_scale(data = 1:5)$get_limits(), c(1, 5))
+  expect_equal(make_scale(limits = c(1, 5))$get_limits(), c(1, 5))
+  expect_equal(make_scale(limits = c(NA, NA))$get_limits(), c(0, 1))
+  expect_equal(make_scale(limits = c(NA, NA), data = 1:5)$get_limits(), c(1, 5))
+  expect_equal(make_scale(limits = c(1, NA), data = 1:5)$get_limits(), c(1, 5))
+  expect_equal(make_scale(limits = c(NA, 5), data = 1:5)$get_limits(), c(1, 5))
+})

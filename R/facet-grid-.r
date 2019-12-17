@@ -195,7 +195,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
-      abort(paste0(
+      abort(glue(
         "Faceting variables can only appear in row or cols, not both.\n",
         "Problems: ", paste0(dups, collapse = "'")
       ))
@@ -214,8 +214,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     }
 
     # Add margins
-    base <- reshape2::add_margins(base, list(names(rows), names(cols)), params$margins)
-    # Work around bug in reshape2
+    base <- reshape_add_margins(base, list(names(rows), names(cols)), params$margins)
     base <- unique(base)
 
     # Create panel info dataset
@@ -251,7 +250,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
     # Compute faceting values and add margins
     margin_vars <- list(intersect(names(rows), names(data)),
       intersect(names(cols), names(data)))
-    data <- reshape2::add_margins(data, margin_vars, params$margins)
+    data <- reshape_add_margins(data, margin_vars, params$margins)
 
     facet_vals <- eval_facets(c(rows, cols), data, params$plot_env)
 
@@ -286,7 +285,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      abort(paste0(snake_class(coord), " doesn't support free scales"))
+      abort(glue("{snake_class(coord)} doesn't support free scales"))
     }
 
     cols <- which(layout$ROW == 1)

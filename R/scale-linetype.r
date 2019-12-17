@@ -2,7 +2,8 @@
 #'
 #' Default line types based on a set supplied by Richard Pearson,
 #' University of Manchester. Continuous values can not be mapped to
-#' line types.
+#' line types unless `scale_linetype_binned()` is used. Still, as linetypes has
+#' no inherent order, this use is not advised.
 #'
 #' @inheritParams scale_x_discrete
 #' @inheritDotParams discrete_scale -expand -position -na.value
@@ -31,6 +32,12 @@
 scale_linetype <- function(..., na.value = "blank") {
   discrete_scale("linetype", "linetype_d", linetype_pal(),
     na.value = na.value, ...)
+}
+
+#' @rdname scale_linetype
+#' @export
+scale_linetype_binned <- function(..., na.value = "blank") {
+  binned_scale("linetype", "linetype_b", binned_pal(linetype_pal()), ...)
 }
 
 #' @rdname scale_linetype

@@ -5,13 +5,27 @@
 \alias{stat_sum}
 \title{Count overlapping points}
 \usage{
-geom_count(mapping = NULL, data = NULL, stat = "sum",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_count(
+  mapping = NULL,
+  data = NULL,
+  stat = "sum",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_sum(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_sum(
+  mapping = NULL,
+  data = NULL,
+  geom = "point",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -108,16 +122,16 @@ ggplot(mpg, aes(cty, hwy)) +
 # Specifying geom_count without a group identifier leads to a plot which is
 # not useful:
 d <- ggplot(diamonds, aes(x = cut, y = clarity))
-d + geom_count(aes(size = stat(prop)))
+d + geom_count(aes(size = after_stat(prop)))
 # To correct this problem and achieve a more desirable plot, we need
 # to specify which group the proportion is to be calculated over.
-d + geom_count(aes(size = stat(prop), group = 1)) +
+d + geom_count(aes(size = after_stat(prop), group = 1)) +
   scale_size_area(max_size = 10)
 
 # Or group by x/y variables to have rows/columns sum to 1.
-d + geom_count(aes(size = stat(prop), group = cut)) +
+d + geom_count(aes(size = after_stat(prop), group = cut)) +
   scale_size_area(max_size = 10)
-d + geom_count(aes(size = stat(prop), group = clarity)) +
+d + geom_count(aes(size = after_stat(prop), group = clarity)) +
   scale_size_area(max_size = 10)
 }
 \seealso{

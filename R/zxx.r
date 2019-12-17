@@ -126,9 +126,19 @@ scale_color_brewer <- scale_colour_brewer
 scale_color_distiller <- scale_colour_distiller
 
 #' @export
+#' @rdname scale_brewer
+#' @usage NULL
+scale_color_fermenter <- scale_colour_fermenter
+
+#' @export
 #' @rdname scale_colour_continuous
 #' @usage NULL
 scale_color_continuous <- scale_colour_continuous
+
+#' @export
+#' @rdname scale_colour_continuous
+#' @usage NULL
+scale_color_binned <- scale_colour_binned
 
 #' @export
 #' @rdname scale_hue
@@ -149,6 +159,21 @@ scale_color_gradient2 <- scale_colour_gradient2
 #' @rdname scale_gradient
 #' @usage NULL
 scale_color_gradientn <- scale_colour_gradientn
+
+#' @export
+#' @rdname scale_steps
+#' @usage NULL
+scale_color_steps <- scale_colour_steps
+
+#' @export
+#' @rdname scale_steps
+#' @usage NULL
+scale_color_steps2 <- scale_colour_steps2
+
+#' @export
+#' @rdname scale_steps
+#' @usage NULL
+scale_color_stepsn <- scale_colour_stepsn
 
 #' @export
 #' @rdname scale_grey

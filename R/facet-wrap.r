@@ -422,20 +422,20 @@ sanitise_dim <- function(n) {
   xname <- paste0("`", deparse(substitute(n)), "`")
   if (length(n) == 0) {
     if (!is.null(n)) {
-      warn(paste0(xname, " has length zero and will be treated as NULL."))
+      warn(glue("{xname} has length zero and will be treated as NULL."))
     }
     return(NULL)
   }
   if (length(n) > 1) {
-    warn(paste0("Only the first value of ", xname, " will be used."))
+    warn(glue("Only the first value of {xname} will be used."))
     n <- n[1]
   }
   if (!is.numeric(n) || (!is.na(n) && n != round(n))) {
-    warn(paste0("Coercing ", xname, " to be an integer."))
+    warn(glue("Coercing {xname} to be an integer."))
     n <- as.integer(n)
   }
   if (is.na(n) || n < 1) {
-    warn(paste0(xname, " is missing or less than 1 and will be treated as NULL."))
+    warn(glue("{xname} is missing or less than 1 and will be treated as NULL."))
     return(NULL)
   }
   n

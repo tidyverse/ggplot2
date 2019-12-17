@@ -5,7 +5,7 @@ NULL
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. Aesthetic mappings can be set in
-#' [ggplot2()] and in individual layers.
+#' [ggplot()] and in individual layers.
 #'
 #' This function also standardises aesthetic names by converting `color` to `colour`
 #' (also in substrings, e.g., `point_color` to `point_colour`) and translating old style
@@ -170,8 +170,30 @@ rename_aes <- function(x) {
   duplicated_names <- names(x)[duplicated(names(x))]
   if (length(duplicated_names) > 0L) {
     duplicated_message <- paste0(unique(duplicated_names), collapse = ", ")
-    warn(paste0("Duplicated aesthetics after name standardisation: ", duplicated_message))
+    warn(glue("Duplicated aesthetics after name standardisation: {duplicated_message}"))
   }
+  x
+}
+substitute_aes <- function(x) {
+  x <- lapply(x, function(aesthetic) {
+    as_quosure(standardise_aes_symbols(quo_get_expr(aesthetic)), env = environment(aesthetic))
+  })
+  class(x) <- "uneval"
+  x
+}
+# x is a quoted expression from inside aes()
+standardise_aes_symbols <- function(x) {
+  if (is.symbol(x)) {
+    name <- standardise_aes_names(as_string(x))
+    return(sym(name))
+  }
+  if (!is.call(x)) {
+    return(x)
+  }
+
+  # Don't walk through function heads
+  x[-1] <- lapply(x[-1], standardise_aes_symbols)
+
   x
 }
 
@@ -357,7 +379,7 @@ warn_for_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
   if (is_call(x, "[[") || is_call(x, "$")) {
     if (extract_target_is_likely_data(x, data, env)) {
       good_usage <- alternative_aes_extract_usage(x)
-      warn(paste0("Use of `", format(x), "` is discouraged. Use `", good_usage,  "` instead."))
+      warn(glue("Use of `{format(x)}` is discouraged. Use `{good_usage}` instead."))
     }
   } else if (is.call(x)) {
     lapply(x, warn_for_aes_extract_usage_expr, data, env)

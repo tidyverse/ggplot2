@@ -192,6 +192,8 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     diff(panel_params$y_range) / diff(panel_params$x_range) / ratio
   },
 
+  labels = function(labels, panel_params) labels,
+
   render_bg = function(self, panel_params, theme) {
     el <- calc_element("panel.grid.major", theme)
 

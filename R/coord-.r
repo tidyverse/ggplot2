@@ -59,7 +59,7 @@ Coord <- ggproto("Coord",
 
   aspect = function(ranges) NULL,
 
-  labels = function(panel_params) panel_params,
+  labels = function(labels, panel_params) labels,
 
   render_fg = function(panel_params, theme) element_render(theme, "panel.border"),
 
@@ -89,6 +89,14 @@ Coord <- ggproto("Coord",
 
   setup_panel_params = function(scale_x, scale_y, params = list()) {
     list()
+  },
+
+  setup_panel_guides = function(self, panel_params, guides, params = list()) {
+    panel_params
+  },
+
+  train_panel_guides = function(self, panel_params, layers, default_mapping, params = list()) {
+    panel_params
   },
 
   transform = function(data, range) NULL,

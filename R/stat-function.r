@@ -97,7 +97,7 @@ stat_function <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatFunction <- ggproto("StatFunction", Stat,
-  default_aes = aes(y = stat(y)),
+  default_aes = aes(y = after_stat(y)),
 
   compute_group = function(data, scales, fun, xlim = NULL, n = 101, args = list()) {
     range <- xlim %||% scales$x$dimension()

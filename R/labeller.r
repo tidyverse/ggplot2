@@ -698,7 +698,8 @@ check_labeller <- function(labeller) {
     labeller <- function(labels) {
       Map(old_labeller, names(labels), labels)
     }
-    warn(paste0("The labeller API has been updated. Labellers taking `variable`",
+    warn(glue(
+      "The labeller API has been updated. Labellers taking `variable` ",
       "and `value` arguments are now deprecated. See labellers documentation."))
   }
 

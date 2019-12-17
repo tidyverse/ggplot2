@@ -4,8 +4,14 @@
 \alias{absoluteGrob}
 \title{Absolute grob}
 \usage{
-absoluteGrob(grob, width = NULL, height = NULL, xmin = NULL,
-  ymin = NULL, vp = NULL)
+absoluteGrob(
+  grob,
+  width = NULL,
+  height = NULL,
+  xmin = NULL,
+  ymin = NULL,
+  vp = NULL
+)
 }
 \description{
 This grob has fixed dimensions and position.

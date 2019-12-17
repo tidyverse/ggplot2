@@ -58,7 +58,7 @@ annotate <- function(geom, x = NULL, y = NULL, xmin = NULL, xmax = NULL,
     bad <- lengths != 1L
     details <- paste(names(aesthetics)[bad], " (", lengths[bad], ")",
       sep = "", collapse = ", ")
-    abort(paste0("Unequal parameter lengths: ", details))
+    abort(glue("Unequal parameter lengths: {details}"))
   }
 
   data <- new_data_frame(position, n = n)

@@ -21,8 +21,7 @@ collide_setup <- function(data, width = NULL, name, strategy,
 
 #   # Suppress warning message since it's not reliable
 #     if (!zero_range(range(widths))) {
-#       warning(name, " requires constant width: output may be incorrect",
-#         call. = FALSE)
+#       warn(name, " requires constant width: output may be incorrect")
 #     }
     width <- widths[1]
   }
@@ -49,7 +48,7 @@ collide <- function(data, width = NULL, name, strategy,
   intervals <- intervals[!is.na(intervals)]
 
   if (length(unique(intervals)) > 1 & any(diff(scale(intervals)) < -1e-6)) {
-    warn(paste0(name, " requires non-overlapping x intervals", call. = FALSE))
+    warn(glue("{name} requires non-overlapping x intervals"))
     # This is where the algorithm from [L. Wilkinson. Dot plots.
     # The American Statistician, 1999.] should be used
   }

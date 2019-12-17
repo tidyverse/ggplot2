@@ -76,8 +76,15 @@ Stat <- ggproto("Stat",
       snake_class(self)
     )
 
+    # Make sure required_aes consists of the used set of aesthetics in case of
+    # "|" notation in self$required_aes
+    required_aes <- intersect(
+      names(data),
+      unlist(strsplit(self$required_aes, "|", fixed = TRUE))
+    )
+
     data <- remove_missing(data, params$na.rm,
-      c(self$required_aes, self$non_missing_aes),
+      c(required_aes, self$non_missing_aes),
       snake_class(self),
       finite = TRUE
     )
@@ -89,7 +96,7 @@ Stat <- ggproto("Stat",
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
       tryCatch(do.call(self$compute_panel, args), error = function(e) {
-        warn(paste0("Computation failed in `", snake_class(self), "()`:\n", e$message))
+        warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
         new_data_frame()
       })
     })
@@ -143,7 +150,12 @@ Stat <- ggproto("Stat",
   },
 
   aesthetics = function(self) {
-    c(union(self$required_aes, names(self$default_aes)), "group")
+    if (is.null(self$required_aes)) {
+      required_aes <- NULL
+    } else {
+      required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
+    }
+    c(union(required_aes, names(self$default_aes)), "group")
   }
 
 )

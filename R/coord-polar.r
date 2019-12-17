@@ -305,11 +305,11 @@ CoordPolar <- ggproto("CoordPolar", Coord,
     )
   },
 
-  labels = function(self, panel_params) {
+  labels = function(self, labels, panel_params) {
     if (self$theta == "y") {
-      list(x = panel_params$y, y = panel_params$x)
+      list(x = labels$y, y = labels$x)
     } else {
-      panel_params
+      labels
     }
   },
 

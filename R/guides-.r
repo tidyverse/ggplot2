@@ -73,7 +73,7 @@ update_guides <- function(p, guides) {
 }
 
 
-# building guides - called in ggplotGrob (plot-render.r)
+# building non-position guides - called in ggplotGrob (plot-build.r)
 #
 # the procedure is as follows:
 #
@@ -116,7 +116,13 @@ build_guides <- function(scales, layers, default_mapping, position, theme, guide
   }
 
   # scales -> data for guides
-  gdefs <- guides_train(scales = scales, theme = theme, guides = guides, labels = labels)
+  gdefs <- guides_train(
+    scales = scales$non_position_scales(),
+    theme = theme,
+    guides = guides,
+    labels = labels
+  )
+
   if (length(gdefs) == 0) return(zeroGrob())
 
   # merge overlay guides
@@ -148,9 +154,15 @@ legend_position <- function(position) {
   }
 }
 
+# resolve the guide from the scale and guides
+resolve_guide <- function(aesthetic, scale, guides, default = "none", null = "none") {
+  guides[[aesthetic]] %||% scale$guide %|W|% default %||% null
+}
+
 # validate guide object
 validate_guide <- function(guide) {
   # if guide is specified by character, then find the corresponding guide
+  # when guides are officially extensible, this should use find_global()
   if (is.character(guide))
     match.fun(paste("guide_", guide, sep = ""))()
   else if (inherits(guide, "guide"))
@@ -170,12 +182,12 @@ guides_train <- function(scales, theme, guides, labels) {
       # which is prior to scale_ZZZ(guide=XXX)
       # guide is determined in order of:
       #   + guides(XXX) > + scale_ZZZ(guide=XXX) > default(i.e., legend)
-      guide <- guides[[output]] %||% scale$guide
+      guide <- resolve_guide(output, scale, guides)
 
       # this should be changed to testing guide == "none"
       # scale$legend is backward compatibility
       # if guides(XXX=FALSE), then scale_ZZZ(guides=XXX) is discarded.
-      if (identical(guide, "none") || isFALSE(guide)) next
+      if (identical(guide, "none") || isFALSE(guide) || inherits(guide, "guide_none")) next
 
       # check the validity of guide.
       # if guide is character, then find the guide object
@@ -326,6 +338,20 @@ guide_geom <- function(guide, layers, default_mapping) UseMethod("guide_geom")
 
 #' @export
 #' @rdname guide-exts
+guide_transform <- function(guide, coord, panel_params) UseMethod("guide_transform")
+
+#' @export
+guide_transform.default <- function(guide, coord, panel_params) {
+  abort(glue(
+    "Guide with class ",
+    glue_collapse(class(guide), " / "),
+    " does not implement guide_transform(). ",
+    "Did you mean to use guide_axis()?"
+  ))
+}
+
+#' @export
+#' @rdname guide-exts
 guide_gengrob <- function(guide, theme) UseMethod("guide_gengrob")
 
 
@@ -337,4 +363,36 @@ matched_aes <- function(layer, guide, defaults) {
   matched <- intersect(intersect(all, geom), names(guide$key))
   matched <- setdiff(matched, names(layer$geom_params))
   setdiff(matched, names(layer$aes_params))
+}
+
+# This function is used by guides in guide_geom.* to determine whether
+# a given layer should be included in the guide
+# `matched` is the set of aesthetics that match between the layer and the guide
+include_layer_in_guide <- function(layer, matched) {
+  if (!is.logical(layer$show.legend)) {
+    warn("`show.legend` must be a logical vector.")
+    layer$show.legend <- FALSE # save back to layer so we don't issue this warning more than once
+    return(FALSE)
+  }
+
+  if (length(matched) > 0) {
+    # This layer contributes to the legend
+
+    # check if this layer should be included, different behaviour depending on
+    # if show.legend is a logical or a named logical vector
+    if (is_named(layer$show.legend)) {
+      layer$show.legend <- rename_aes(layer$show.legend)
+      show_legend <- layer$show.legend[matched]
+      # we cannot use `isTRUE(is.na(show_legend))` here because
+      # 1. show_legend can be multiple NAs
+      # 2. isTRUE() was not tolerant for a named TRUE
+      show_legend <- show_legend[!is.na(show_legend)]
+      return(length(show_legend) == 0 || any(show_legend))
+    }
+    return(all(is.na(layer$show.legend)) || isTRUE(layer$show.legend))
+  }
+
+  # This layer does not contribute to the legend.
+  # Default is to exclude it, except if it is explicitly turned on
+  isTRUE(layer$show.legend)
 }

@@ -4,13 +4,29 @@
 \alias{guide_legend}
 \title{Legend guide}
 \usage{
-guide_legend(title = waiver(), title.position = NULL,
-  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
-  label = TRUE, label.position = NULL, label.theme = NULL,
-  label.hjust = NULL, label.vjust = NULL, keywidth = NULL,
-  keyheight = NULL, direction = NULL, default.unit = "line",
-  override.aes = list(), nrow = NULL, ncol = NULL, byrow = FALSE,
-  reverse = FALSE, order = 0, ...)
+guide_legend(
+  title = waiver(),
+  title.position = NULL,
+  title.theme = NULL,
+  title.hjust = NULL,
+  title.vjust = NULL,
+  label = TRUE,
+  label.position = NULL,
+  label.theme = NULL,
+  label.hjust = NULL,
+  label.vjust = NULL,
+  keywidth = NULL,
+  keyheight = NULL,
+  direction = NULL,
+  default.unit = "line",
+  override.aes = list(),
+  nrow = NULL,
+  ncol = NULL,
+  byrow = FALSE,
+  reverse = FALSE,
+  order = 0,
+  ...
+)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -87,15 +103,16 @@ Legend type guide shows key (i.e., geoms) mapped onto values.
 Legend guides for various scales are integrated if possible.
 }
 \details{
-Guides can be specified in each \code{scale_*} or in \code{\link[=guides]{guides()}}.
-\code{guide = "legend"} in \code{scale_*} is syntactic sugar for
+Guides can be specified in each \verb{scale_*} or in \code{\link[=guides]{guides()}}.
+\code{guide = "legend"} in \verb{scale_*} is syntactic sugar for
 \code{guide = guide_legend()} (e.g. \code{scale_color_manual(guide = "legend")}).
 As for how to specify the guide for each scale in more detail,
 see \code{\link[=guides]{guides()}}.
 }
 \examples{
 \donttest{
-df <- reshape2::melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
+df <- expand.grid(X1 = 1:10, X2 = 1:10)
+df$value <- df$X1 * df$X2
 
 p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 p2 <- p1 + geom_point(aes(size = value))
@@ -157,7 +174,10 @@ p + guides(col = guide_legend(reverse = TRUE))
 }
 }
 \seealso{
-Other guides: \code{\link{guide_colourbar}},
-  \code{\link{guides}}
+Other guides: 
+\code{\link{guide_bins}()},
+\code{\link{guide_colourbar}()},
+\code{\link{guide_coloursteps}()},
+\code{\link{guides}()}
 }
 \concept{guides}

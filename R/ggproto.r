@@ -119,10 +119,10 @@ fetch_ggproto <- function(x, name) {
     } else if (is.function(super)) {
       res <- fetch_ggproto(super(), name)
     } else {
-      abort(paste0(
-        class(x)[[1]], " was built with an incompatible version of ggproto.\n",
-        "Please reinstall the package that provides this extension."
-      ))
+      abort(glue("
+        {class(x)[[1]]} was built with an incompatible version of ggproto.
+        Please reinstall the package that provides this extension.
+      "))
     }
   }
 

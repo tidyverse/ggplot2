@@ -51,6 +51,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
                      closed = c("right", "left"),
                      pad = FALSE,
                      na.rm = FALSE,
+                     orientation = NA,
                      show.legend = NA,
                      inherit.aes = TRUE) {
 
@@ -71,6 +72,7 @@ stat_bin <- function(mapping = NULL, data = NULL,
       closed = closed,
       pad = pad,
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )
@@ -82,11 +84,21 @@ stat_bin <- function(mapping = NULL, data = NULL,
 #' @export
 StatBin <- ggproto("StatBin", Stat,
   setup_params = function(data, params) {
-    if (!is.null(data$y) || !is.null(params$y)) {
-      abort("stat_bin() must not be used with a y aesthetic.")
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
+
+    has_x <- !(is.null(data$x) && is.null(params$x))
+    has_y <- !(is.null(data$y) && is.null(params$y))
+    if (!has_x && !has_y) {
+      abort("stat_bin() requires an x or y aesthetic.")
     }
-    if (is.integer(data$x)) {
-      abort('StatBin requires a continuous x variable: the x variable is discrete. Perhaps you want stat="count"?')
+    if (has_x && has_y) {
+      abort("stat_bin() can only have an x or y aesthetic.")
+    }
+
+    x <- flipped_names(params$flipped_aes)$x
+    if (is.integer(data[[x]])) {
+      abort(glue("StatBin requires a continuous {x} variable: the {x} variable is discrete.",
+                 "Perhaps you want stat=\"count\"?"))
     }
 
     if (!is.null(params$drop)) {
@@ -118,34 +130,39 @@ StatBin <- ggproto("StatBin", Stat,
     params
   },
 
+  extra_params = c("na.rm", "orientation"),
+
   compute_group = function(data, scales, binwidth = NULL, bins = NULL,
                            center = NULL, boundary = NULL,
                            closed = c("right", "left"), pad = FALSE,
-                           breaks = NULL,
+                           breaks = NULL, flipped_aes = FALSE,
                            # The following arguments are not used, but must
                            # be listed so parameters are computed correctly
                            origin = NULL, right = NULL, drop = NULL,
                            width = NULL) {
-
+    x <- flipped_names(flipped_aes)$x
     if (!is.null(breaks)) {
-      if (!scales$x$is_discrete()){
-         breaks <- scales$x$transform(breaks)
+      if (!scales[[x]]$is_discrete()) {
+         breaks <- scales[[x]]$transform(breaks)
       }
       bins <- bin_breaks(breaks, closed)
     } else if (!is.null(binwidth)) {
       if (is.function(binwidth)) {
-        binwidth <- binwidth(data$x)
+        binwidth <- binwidth(data[[x]])
       }
-      bins <- bin_breaks_width(scales$x$dimension(), binwidth,
+      bins <- bin_breaks_width(scales[[x]]$dimension(), binwidth,
         center = center, boundary = boundary, closed = closed)
     } else {
-      bins <- bin_breaks_bins(scales$x$dimension(), bins, center = center,
+      bins <- bin_breaks_bins(scales[[x]]$dimension(), bins, center = center,
         boundary = boundary, closed = closed)
     }
-    bin_vector(data$x, bins, weight = data$weight, pad = pad)
+    bins <- bin_vector(data[[x]], bins, weight = data$weight, pad = pad)
+    bins$flipped_aes <- flipped_aes
+    flip_data(bins, flipped_aes)
   },
 
-  default_aes = aes(y = stat(count), weight = 1),
-  required_aes = c("x")
+  default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
+
+  required_aes = "x|y"
 )
 

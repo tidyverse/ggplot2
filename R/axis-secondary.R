@@ -20,6 +20,9 @@
 #'   - A character vector giving labels (must be same length as `breaks`)
 #'   - A function that takes the breaks as input and returns labels as output
 #'
+#' @param guide A position guide that will be used to render
+#'   the axis on the plot. Usually this is [guide_axis()].
+#'
 #' @details
 #' `sec_axis` is used to create the specifications for a secondary axis.
 #' Except for the `trans` argument any of the arguments can be set to
@@ -79,7 +82,8 @@
 #'   labels = scales::time_format("%b %d %I %p")))
 #'
 #' @export
-sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver()) {
+sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = waiver(),
+                     guide = waiver()) {
   # sec_axis() historically accpeted two-sided formula, so be permissive.
   if (length(trans) > 2) trans <- trans[c(1,3)]
 
@@ -88,14 +92,15 @@ sec_axis <- function(trans = NULL, name = waiver(), breaks = waiver(), labels = 
     trans = trans,
     name = name,
     breaks = breaks,
-    labels = labels
+    labels = labels,
+    guide = guide
   )
 }
 #' @rdname sec_axis
 #'
 #' @export
-dup_axis <- function(trans = ~., name = derive(), breaks = derive(), labels = derive()) {
-  sec_axis(trans, name, breaks, labels)
+dup_axis <- function(trans = ~., name = derive(), breaks = derive(), labels = derive(), guide = derive()) {
+  sec_axis(trans, name, breaks, labels, guide)
 }
 
 is.sec_axis <- function(x) {
@@ -148,6 +153,7 @@ AxisSecondary <- ggproto("AxisSecondary", NULL,
     if (is.derived(self$breaks)) self$breaks <- scale$breaks
     if (is.waive(self$breaks)) self$breaks <- scale$trans$breaks
     if (is.derived(self$labels)) self$labels <- scale$labels
+    if (is.derived(self$guide)) self$guide <- scale$guide
   },
 
   transform_range = function(self, range) {

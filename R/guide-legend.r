@@ -61,7 +61,8 @@
 #' @family guides
 #' @examples
 #' \donttest{
-#' df <- reshape2::melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
+#' df <- expand.grid(X1 = 1:10, X2 = 1:10)
+#' df$value <- df$X1 * df$X2
 #'
 #' p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 #' p2 <- p1 + geom_point(aes(size = value))
@@ -230,7 +231,8 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
 
 #' @export
 guide_merge.legend <- function(guide, new_guide) {
-  guide$key <- merge(guide$key, new_guide$key, sort = FALSE)
+  new_guide$key$.label <- NULL
+  guide$key <- cbind(guide$key, new_guide$key)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) {
     warn("Duplicated override.aes is ignored.")
@@ -245,42 +247,24 @@ guide_geom.legend <- function(guide, layers, default_mapping) {
   guide$geoms <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
+    # check if this layer should be included
+    include <- include_layer_in_guide(layer, matched)
+
+    if (!include) {
+      return(NULL)
+    }
+
     if (length(matched) > 0) {
-      # This layer contributes to the legend
+      # Filter out set aesthetics that can't be applied to the legend
+      n <- vapply(layer$aes_params, length, integer(1))
+      params <- layer$aes_params[n == 1]
 
-      # check if this layer should be included, different behaviour depending on
-      # if show.legend is a logical or a named logical vector
-      if (is_named(layer$show.legend)) {
-        layer$show.legend <- rename_aes(layer$show.legend)
-        show_legend <- layer$show.legend[matched]
-        # we cannot use `isTRUE(is.na(show_legend))` here because
-        # 1. show_legend can be multiple NAs
-        # 2. isTRUE() was not tolerant for a named TRUE
-        show_legend <- show_legend[!is.na(show_legend)]
-        include <- length(show_legend) == 0 || any(show_legend)
-      } else {
-        include <- isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend)
-      }
+      aesthetics <- layer$mapping
+      modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
-      if (include) {
-        # Default is to include it
-
-        # Filter out set aesthetics that can't be applied to the legend
-        n <- vapply(layer$aes_params, length, integer(1))
-        params <- layer$aes_params[n == 1]
-
-        data <- layer$geom$use_defaults(guide$key[matched], params)
-      } else {
-        return(NULL)
-      }
+      data <- layer$geom$use_defaults(guide$key[matched], params, modifiers)
     } else {
-      # This layer does not contribute to the legend
-      if (isTRUE(is.na(layer$show.legend)) || !isTRUE(layer$show.legend)) {
-        # Default is to exclude it
-        return(NULL)
-      } else {
-        data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
-      }
+      data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
     }
 
     # override.aes in guide_legend manually changes the geom
@@ -307,7 +291,7 @@ guide_gengrob.legend <- function(guide, theme) {
   # default setting
   label.position <- guide$label.position %||% "right"
   if (!label.position %in% c("top", "bottom", "left", "right"))
-    abort(paste0("label position \"", label.position, "\" is invalid"))
+    abort(glue("label position `{label.position}` is invalid"))
 
   nbreak <- nrow(guide$key)
 

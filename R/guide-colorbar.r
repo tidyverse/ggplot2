@@ -51,7 +51,8 @@
 #' @export
 #' @family guides
 #' @examples
-#' df <- reshape2::melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
+#' df <- expand.grid(X1 = 1:10, X2 = 1:10)
+#' df$value <- df$X1 * df$X2
 #'
 #' p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 #' p2 <- p1 + geom_point(aes(size = value))
@@ -116,7 +117,7 @@ guide_colourbar <- function(
   # bar
   barwidth = NULL,
   barheight = NULL,
-  nbin = 20,
+  nbin = 300,
   raster = TRUE,
 
   # frame
@@ -195,9 +196,9 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # do nothing if scale are inappropriate
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warn(paste0(
+    warn(glue(
       "colourbar guide needs appropriate scales: ",
-      paste(guide$available_aes, collapse = ", ")
+      glue_collapse(guide$available_aes, ", ", last = " or ")
     ))
     return(NULL)
   }
@@ -251,21 +252,8 @@ guide_geom.colorbar <- function(guide, layers, default_mapping) {
       return(NULL)
     }
 
-    # check if this layer should be included, different behaviour depending on
-    # if show.legend is a logical or a named logical vector
-    if (is_named(layer$show.legend)) {
-      layer$show.legend <- rename_aes(layer$show.legend)
-      show_legend <- layer$show.legend[matched]
-      # we cannot use `isTRUE(is.na(show_legend))` here because
-      # 1. show_legend can be multiple NAs
-      # 2. isTRUE() was not tolerant for a named TRUE
-      show_legend <- show_legend[!is.na(show_legend)]
-      include <- length(show_legend) == 0 || any(show_legend)
-    } else {
-      include <- isTRUE(is.na(layer$show.legend)) || isTRUE(layer$show.legend)
-    }
-
-    if (include) {
+    # check if this layer should be included
+    if (include_layer_in_guide(layer, matched)) {
       layer
     } else {
       NULL
@@ -572,25 +560,3 @@ guide_gengrob.colorbar <- function(guide, theme) {
 #' @export
 #' @rdname guide_colourbar
 guide_colorbar <- guide_colourbar
-
-#' Calculate the default hjust and vjust settings depending on legend
-#' direction and position.
-#'
-#' @noRd
-label_just_defaults.colorbar <- function(direction, position) {
-  if (direction == "horizontal") {
-    switch(
-      position,
-      "top" = list(hjust = 0.5, vjust = 0),
-      list(hjust = 0.5, vjust = 1)
-    )
-  }
-  else {
-    switch(
-      position,
-      "left" = list(hjust = 1, vjust = 0.5),
-      list(hjust = 0, vjust = 0.5)
-    )
-  }
-}
-

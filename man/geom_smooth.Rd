@@ -5,15 +5,40 @@
 \alias{stat_smooth}
 \title{Smoothed conditional means}
 \usage{
-geom_smooth(mapping = NULL, data = NULL, stat = "smooth",
-  position = "identity", ..., method = "auto", formula = y ~ x,
-  se = TRUE, na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+geom_smooth(
+  mapping = NULL,
+  data = NULL,
+  stat = "smooth",
+  position = "identity",
+  ...,
+  method = NULL,
+  formula = NULL,
+  se = TRUE,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_smooth(mapping = NULL, data = NULL, geom = "smooth",
-  position = "identity", ..., method = "auto", formula = y ~ x,
-  se = TRUE, n = 80, span = 0.75, fullrange = FALSE,
-  level = 0.95, method.args = list(), na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE)
+stat_smooth(
+  mapping = NULL,
+  data = NULL,
+  geom = "smooth",
+  position = "identity",
+  ...,
+  method = NULL,
+  formula = NULL,
+  se = TRUE,
+  n = 80,
+  span = 0.75,
+  fullrange = FALSE,
+  level = 0.95,
+  method.args = list(),
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -44,11 +69,13 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 
-\item{method}{Smoothing method (function) to use, accepts either a character vector,
-e.g. \code{"auto"}, \code{"lm"}, \code{"glm"}, \code{"gam"}, \code{"loess"} or a function, e.g.
-\code{MASS::rlm} or \code{mgcv::gam}, \code{stats::lm}, or \code{stats::loess}.
+\item{method}{Smoothing method (function) to use, accepts either
+\code{NULL} or a character vector, e.g. \code{"lm"}, \code{"glm"}, \code{"gam"}, \code{"loess"}
+or a function, e.g. \code{MASS::rlm} or \code{mgcv::gam}, \code{stats::lm}, or \code{stats::loess}.
+\code{"auto"} is also accepted for backwards compatibility.  It is equivalent to
+\code{NULL}.
 
-For \code{method = "auto"} the smoothing method is chosen based on the
+For \code{method = NULL} the smoothing method is chosen based on the
 size of the largest group (across all panels). \code{\link[stats:loess]{stats::loess()}} is
 used for less than 1,000 observations; otherwise \code{\link[mgcv:gam]{mgcv::gam()}} is
 used with \code{formula = y ~ s(x, bs = "cs")} with \code{method = "REML"}. Somewhat anecdotally,
@@ -56,17 +83,24 @@ used with \code{formula = y ~ s(x, bs = "cs")} with \code{method = "REML"}. Some
 so does not work for larger datasets.
 
 If you have fewer than 1,000 observations but want to use the same \code{gam()}
-model that \code{method = "auto"} would use, then set
-\code{method = "gam", formula = y ~ s(x, bs = "cs")}.}
+model that \code{method = NULL} would use, then set
+\verb{method = "gam", formula = y ~ s(x, bs = "cs")}.}
 
 \item{formula}{Formula to use in smoothing function, eg. \code{y ~ x},
-\code{y ~ poly(x, 2)}, \code{y ~ log(x)}}
+\code{y ~ poly(x, 2)}, \code{y ~ log(x)}. \code{NULL} by default, in which case
+\code{method = NULL} implies \code{formula = y ~ x} when there are fewer than 1,000
+observations and \code{formula = y ~ s(x, bs = "cs")} otherwise.}
 
 \item{se}{Display confidence interval around smooth? (\code{TRUE} by default, see
 \code{level} to control.)}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
+
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -110,6 +144,11 @@ exceptions are \code{loess()}, which uses a t-based approximation, and
 \code{glm()}, where the normal confidence interval is constructed on the link
 scale and then back-transformed to the response scale.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Aesthetics}{
 
 \code{geom_smooth()} understands the following aesthetics (required aesthetics are in bold):
@@ -143,6 +182,11 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 ggplot(mpg, aes(displ, hwy)) +
   geom_point() +
   geom_smooth()
+
+# If you need the fitting to be done along the y-axis set the orientation
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_smooth(orientation = "y")
 
 # Use span to control the "wiggliness" of the default loess smoother.
 # The span is the fraction of points used to fit each local regression:
