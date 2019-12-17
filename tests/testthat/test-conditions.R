@@ -1,23 +1,21 @@
 context("rlang conditions")
 
-get_stop <- function(f) {
+get_n_stop <- function(f) {
   d <- getParseData(parse(f, keep.source = TRUE))
-  d[d$token == "SYMBOL_FUNCTION_CALL" & d$text == "stop", ]
+  sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "stop")
 }
 
-get_warning <- function(f) {
+get_n_warning <- function(f) {
   d <- getParseData(parse(f, keep.source = TRUE))
-  d[d$token == "SYMBOL_FUNCTION_CALL" & d$text == "warning", ]
+  sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "warning")
 }
 
 test_that("do not use stop()", {
-  stops <- do.call(rbind, lapply(list.files("../../R", full.names = TRUE), get_stop))
-  stop_usage <- nrow(stops)
-  expect_equal(stop_usage, 0)
+  stops <- vapply(list.files("../../R", full.names = TRUE), get_n_stop, integer(1))
+  expect_equal(sum(stops), 0)
 })
 
 test_that("do not use warning()", {
-  warnings <- do.call(rbind, lapply(list.files("../../R", full.names = TRUE), get_warning))
-  warning_usage <- nrow(warnings)
-  expect_equal(warning_usage, 0)
+  warnings <- vapply(list.files("../../R", full.names = TRUE), get_n_warning, integer(1))
+  expect_equal(sum(warnings), 0)
 })
