@@ -140,8 +140,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     data <- data[kept, ]
 
     if (!all(kept) && !params$na.rm) {
-      warning("Removed ", sum(!kept), " rows containing missing values",
-        " (geom_path).", call. = FALSE)
+      warn(glue("Removed {sum(!kept)} row(s) containing missing values (geom_path)."))
     }
 
     data
@@ -175,9 +174,7 @@ GeomPath <- ggproto("GeomPath", Geom,
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      stop("geom_path: If you are using dotted or dashed lines",
-        ", colour, size and linetype must be constant over the line",
-        call. = FALSE)
+      abort("geom_path: If you are using dotted or dashed lines, colour, size and linetype must be constant over the line")
     }
 
     # Work out grouping variables for grobs
@@ -340,7 +337,7 @@ stairstep <- function(data, direction = "hv") {
     xs <- rep(1:(n-1), each = 2)
     ys <- rep(1:n, each = 2)
   } else {
-    stop("Parameter `direction` is invalid.")
+    abort("Parameter `direction` is invalid.")
   }
 
   if (direction == "mid") {

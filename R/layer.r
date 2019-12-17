@@ -67,16 +67,15 @@ layer <- function(geom = NULL, stat = NULL,
                   inherit.aes = TRUE, check.aes = TRUE, check.param = TRUE,
                   show.legend = NA, key_glyph = NULL, layer_class = Layer) {
   if (is.null(geom))
-    stop("Attempted to create layer with no geom.", call. = FALSE)
+    abort("Attempted to create layer with no geom.")
   if (is.null(stat))
-    stop("Attempted to create layer with no stat.", call. = FALSE)
+    abort("Attempted to create layer with no stat.")
   if (is.null(position))
-    stop("Attempted to create layer with no position.", call. = FALSE)
+    abort("Attempted to create layer with no position.")
 
   # Handle show_guide/show.legend
   if (!is.null(params$show_guide)) {
-    warning("`show_guide` has been deprecated. Please use `show.legend` instead.",
-      call. = FALSE)
+    warn("`show_guide` has been deprecated. Please use `show.legend` instead.")
     show.legend <- params$show_guide
     params$show_guide <- NULL
   }
@@ -118,11 +117,7 @@ layer <- function(geom = NULL, stat = NULL,
   # Warn about extra params and aesthetics
   extra_param <- setdiff(names(params), all)
   if (check.param && length(extra_param) > 0) {
-    warning(
-      "Ignoring unknown parameters: ", paste(extra_param, collapse = ", "),
-      call. = FALSE,
-      immediate. = TRUE
-    )
+    warn(glue("Ignoring unknown parameters: ", paste(extra_param, collapse = ", ")))
   }
 
   extra_aes <- setdiff(
@@ -130,11 +125,7 @@ layer <- function(geom = NULL, stat = NULL,
     c(geom$aesthetics(), stat$aesthetics())
   )
   if (check.aes && length(extra_aes) > 0) {
-    warning(
-      "Ignoring unknown aesthetics: ", paste(extra_aes, collapse = ", "),
-      call. = FALSE,
-      immediate. = TRUE
-    )
+    warn(glue("Ignoring unknown aesthetics: ", paste(extra_aes, collapse = ", ")))
   }
 
   # adjust the legend draw key if requested
@@ -164,7 +155,7 @@ validate_mapping <- function(mapping) {
       )
     }
 
-    stop(msg, call. = FALSE)
+    abort(msg)
   }
 
   # For backward compatibility with pre-tidy-eval layers
@@ -199,7 +190,7 @@ Layer <- ggproto("Layer", NULL,
     } else if (is.function(self$data)) {
       data <- self$data(plot_data)
       if (!is.data.frame(data)) {
-        stop("Data function must return a data.frame", call. = FALSE)
+        abort("Data function must return a data.frame")
       }
       data
     } else {
@@ -251,7 +242,7 @@ Layer <- ggproto("Layer", NULL,
         paste0(vapply(nondata_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
         ". \nDid you mistype the name of a data column or forget to add after_stat()?"
       )
-      stop(msg, call. = FALSE)
+      abort(msg)
     }
 
     n <- nrow(data)
@@ -316,7 +307,7 @@ Layer <- ggproto("Layer", NULL,
         paste0(vapply(nondata_stat_cols, function(x) {paste0(x, " = ", as_label(aesthetics[[x]]))}, character(1)), collapse = ", "),
         ". \nDid you map your stat in the wrong layer?"
       )
-      stop(msg, call. = FALSE)
+      abort(msg)
     }
 
     names(stat_data) <- names(new)
@@ -393,16 +384,14 @@ check_subclass <- function(x, subclass,
     obj <- find_global(name, env = env)
 
     if (is.null(obj) || !inherits(obj, subclass)) {
-      stop("Can't find `", argname, "` called \"", x, "\"", call. = FALSE)
+      abort(glue("Can't find `{argname}` called '{x}'"))
     } else {
       obj
     }
   } else {
-    stop(
-      "`", argname, "` must be either a string or a ", subclass, " object, ",
-      "not ", obj_desc(x),
-      call. = FALSE
-    )
+    abort(glue(
+      "`{argname}` must be either a string or a {subclass} object, not {obj_desc(x)}"
+    ))
   }
 }
 

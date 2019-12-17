@@ -213,8 +213,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
       # but only if there is no facetted variable also named `x`
       if ("x" %in% find_names(quoted) && !"x" %in% names(params)) {
         if (!has_warned) {
-          warning("Referring to `x` is deprecated, use variable name instead",
-            call. = FALSE)
+          warn("Referring to `x` is deprecated, use variable name instead")
           # The function is called for each facet so this avoids
           # multiple warnings
           has_warned <<- TRUE
@@ -248,12 +247,12 @@ is_labeller <- function(x) inherits(x, "labeller")
 
 resolve_labeller <- function(rows, cols, labels) {
   if (is.null(cols) && is.null(rows)) {
-    stop("Supply one of rows or cols", call. = FALSE)
+    abort("Supply one of rows or cols")
   }
   if (attr(labels, "facet") == "wrap") {
     # Return either rows or cols for facet_wrap()
     if (!is.null(cols) && !is.null(rows)) {
-      stop("Cannot supply both rows and cols to facet_wrap()", call. = FALSE)
+      abort("Cannot supply both rows and cols to facet_wrap()")
     }
     cols %||% rows
   } else {
@@ -446,8 +445,10 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       # Check that variable-specific labellers do not overlap with
       # margin-wide labeller
       if (any(names(dots) %in% names(labels))) {
-        stop("Conflict between .", attr(labels, "type"), " and ",
-          paste(names(dots), collapse = ", "), call. = FALSE)
+        abort(glue(
+          "Conflict between .{attr(labels, 'type')} and ",
+          glue_collapse(names(dots), ", ", last = " and ")
+        ))
       }
     }
 
@@ -697,9 +698,9 @@ check_labeller <- function(labeller) {
     labeller <- function(labels) {
       Map(old_labeller, names(labels), labels)
     }
-    warning("The labeller API has been updated. Labellers taking `variable`",
-      "and `value` arguments are now deprecated. See labellers documentation.",
-      call. = FALSE)
+    warn(glue(
+      "The labeller API has been updated. Labellers taking `variable` ",
+      "and `value` arguments are now deprecated. See labellers documentation."))
   }
 
   labeller

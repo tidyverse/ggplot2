@@ -27,8 +27,7 @@ PositionDodge2 <- ggproto("PositionDodge2", PositionDodge,
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
-      warning("Width not defined. Set with `position_dodge2(width = ?)`",
-        call. = FALSE)
+      warn("Width not defined. Set with `position_dodge2(width = ?)`")
     }
 
     if (identical(self$preserve, "total")) {

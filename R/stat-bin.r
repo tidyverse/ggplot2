@@ -89,38 +89,37 @@ StatBin <- ggproto("StatBin", Stat,
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      stop("stat_bin() requires an x or y aesthetic.", call. = FALSE)
+      abort("stat_bin() requires an x or y aesthetic.")
     }
     if (has_x && has_y) {
-      stop("stat_bin() can only have an x or y aesthetic.", call. = FALSE)
+      abort("stat_bin() can only have an x or y aesthetic.")
     }
 
     x <- flipped_names(params$flipped_aes)$x
     if (is.integer(data[[x]])) {
-      stop('StatBin requires a continuous ', x, ' variable: the ',
-           x, ' variable is discrete. Perhaps you want stat="count"?',
-        call. = FALSE)
+      abort(glue("StatBin requires a continuous {x} variable: the {x} variable is discrete.",
+                 "Perhaps you want stat=\"count\"?"))
     }
 
     if (!is.null(params$drop)) {
-      warning("`drop` is deprecated. Please use `pad` instead.", call. = FALSE)
+      warn("`drop` is deprecated. Please use `pad` instead.")
       params$drop <- NULL
     }
     if (!is.null(params$origin)) {
-      warning("`origin` is deprecated. Please use `boundary` instead.", call. = FALSE)
+      warn("`origin` is deprecated. Please use `boundary` instead.")
       params$boundary <- params$origin
       params$origin <- NULL
     }
     if (!is.null(params$right)) {
-      warning("`right` is deprecated. Please use `closed` instead.", call. = FALSE)
+      warn("`right` is deprecated. Please use `closed` instead.")
       params$closed <- if (params$right) "right" else "left"
       params$right <- NULL
     }
     if (!is.null(params$width)) {
-      stop("`width` is deprecated. Do you want `geom_bar()`?", call. = FALSE)
+      abort("`width` is deprecated. Do you want `geom_bar()`?")
     }
     if (!is.null(params$boundary) && !is.null(params$center)) {
-      stop("Only one of `boundary` and `center` may be specified.", call. = FALSE)
+      abort("Only one of `boundary` and `center` may be specified.")
     }
 
     if (is.null(params$breaks) && is.null(params$binwidth) && is.null(params$bins)) {

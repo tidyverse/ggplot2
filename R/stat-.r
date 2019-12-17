@@ -96,8 +96,7 @@ Stat <- ggproto("Stat",
     dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
       tryCatch(do.call(self$compute_panel, args), error = function(e) {
-        warning("Computation failed in `", snake_class(self), "()`:\n",
-          e$message, call. = FALSE)
+        warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
         new_data_frame()
       })
     })
@@ -125,7 +124,7 @@ Stat <- ggproto("Stat",
   },
 
   compute_group = function(self, data, scales) {
-    stop("Not implemented", call. = FALSE)
+    abort("Not implemented")
   },
 
   finish_layer = function(self, data, params) {

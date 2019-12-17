@@ -21,6 +21,7 @@ Depends:
     R (>= 3.2)
 Imports: 
     digest,
+    glue,
     grDevices,
     grid,
     gtable (>= 0.1.1),

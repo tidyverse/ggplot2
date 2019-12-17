@@ -256,7 +256,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
                         binaxis = "x", stackdir = "up", stackratio = 1,
                         dotsize = 1, stackgroups = FALSE) {
     if (!coord$is_linear()) {
-      warning("geom_dotplot does not work properly with non-linear coordinates.")
+      warn("geom_dotplot does not work properly with non-linear coordinates.")
     }
 
     tdata <- coord$transform(data, panel_params)

@@ -368,31 +368,26 @@ theme <- function(line,
   elements <- find_args(..., complete = NULL, validate = NULL, element_tree = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
-    warning("`axis.ticks.margin` is deprecated. Please set `margin` property ",
-      " of `axis.text` instead", call. = FALSE)
+    warn("`axis.ticks.margin` is deprecated. Please set `margin` property of `axis.text` instead")
     elements$axis.ticks.margin <- NULL
   }
   if (!is.null(elements$panel.margin)) {
-    warning("`panel.margin` is deprecated. Please use `panel.spacing` property ",
-      "instead", call. = FALSE)
+    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
     elements$panel.spacing <- elements$panel.margin
     elements$panel.margin <- NULL
   }
   if (!is.null(elements$panel.margin.x)) {
-    warning("`panel.margin.x` is deprecated. Please use `panel.spacing.x` property ",
-            "instead", call. = FALSE)
+    warn("`panel.margin.x` is deprecated. Please use `panel.spacing.x` property instead")
     elements$panel.spacing.x <- elements$panel.margin.x
     elements$panel.margin.x <- NULL
   }
   if (!is.null(elements$panel.margin.y)) {
-    warning("`panel.margin` is deprecated. Please use `panel.spacing` property ",
-            "instead", call. = FALSE)
+    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
     elements$panel.spacing.y <- elements$panel.margin.y
     elements$panel.margin.y <- NULL
   }
   if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
-    warning("`legend.margin` must be specified using `margin()`. For the old ",
-      "behavior use legend.spacing", call. = FALSE)
+    warn("`legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing")
     elements$legend.spacing <- elements$legend.margin
     elements$legend.margin <- margin()
   }
@@ -484,8 +479,7 @@ plot_theme <- function(x, default = theme_get()) {
 #' @keywords internal
 add_theme <- function(t1, t2, t2name) {
   if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
-    stop("Can't add `", t2name, "` to a theme object.",
-      call. = FALSE)
+    abort(glue("Can't add `{t2name}` to a theme object."))
   }
 
   # If t2 is a complete theme or t1 is NULL, just return t2
@@ -570,7 +564,7 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE) {
   # it is of the class specified in element_tree
   if (!is.null(el_out) &&
       !inherits(el_out, element_tree[[element]]$class)) {
-    stop(element, " should have class ", element_tree[[element]]$class)
+    abort(glue("{element} should have class {ggplot_global$element_tree[[element]]$class}"))
   }
 
   # Get the names of parents from the inheritance tree
@@ -593,8 +587,8 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE) {
       return(el_out) # no null properties remaining, return element
     }
 
-    stop("Theme element '", element, "' has NULL property without default: ",
-         paste(names(nullprops)[nullprops], collapse = ", "))
+    abort(glue("Theme element `{element}` has NULL property without default: ",
+          glue_collapse(names(nullprops)[nullprops], ", ", last = " and ")))
   }
 
   # Calculate the parent objects' inheritance
@@ -649,7 +643,7 @@ merge_element.default <- function(new, old) {
   }
 
   # otherwise we can't merge
-  stop("No method for merging ", class(new)[1], " into ", class(old)[1], call. = FALSE)
+  abort(glue("No method for merging {class(new)[1]} into {class(old)[1]}"))
 }
 
 #' @rdname merge_element
@@ -669,7 +663,7 @@ merge_element.element <- function(new, old) {
 
   # actual merging can only happen if classes match
   if (!inherits(new, class(old)[1])) {
-    stop("Only elements of the same class can be merged", call. = FALSE)
+    abort("Only elements of the same class can be merged")
   }
 
   # Override NULL properties of new with the values in old

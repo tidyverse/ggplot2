@@ -235,7 +235,7 @@ guide_merge.legend <- function(guide, new_guide) {
   guide$key <- cbind(guide$key, new_guide$key)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) {
-    warning("Duplicated override.aes is ignored.")
+    warn("Duplicated override.aes is ignored.")
   }
   guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
   guide
@@ -291,7 +291,7 @@ guide_gengrob.legend <- function(guide, theme) {
   # default setting
   label.position <- guide$label.position %||% "right"
   if (!label.position %in% c("top", "bottom", "left", "right"))
-    stop("label position \"", label.position, "\" is invalid")
+    abort(glue("label position `{label.position}` is invalid"))
 
   nbreak <- nrow(guide$key)
 
@@ -382,10 +382,7 @@ guide_gengrob.legend <- function(guide, theme) {
 
   if (!is.null(guide$nrow) && !is.null(guide$ncol) &&
       guide$nrow * guide$ncol < nbreak) {
-    stop(
-      "`nrow` * `ncol` needs to be larger than the number of breaks",
-      call. = FALSE
-    )
+    abort("`nrow` * `ncol` needs to be larger than the number of breaks")
   }
 
   # If neither nrow/ncol specified, guess with "reasonable" values

@@ -134,17 +134,17 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...) {
   if (is.vector(values) && is.null(names(values)) && !is.waive(breaks) &&
       !is.null(breaks)) {
     if (length(breaks) != length(values)) {
-      stop("Differing number of values and breaks in manual scale. ",
-           length(values), " values provided compared to ", length(breaks),
-           " breaks.", call. = FALSE)
+      abort(glue("
+        Differing number of values and breaks in manual scale.
+        {length(values)} values provided compared to {length(breaks)} breaks.
+      "))
     }
     names(values) <- breaks
   }
 
   pal <- function(n) {
     if (n > length(values)) {
-      stop("Insufficient values in manual scale. ", n, " needed but only ",
-        length(values), " provided.", call. = FALSE)
+      abort(glue("Insufficient values in manual scale. {n} needed but only {length(values)} provided."))
     }
     values
   }

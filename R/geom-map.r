@@ -74,11 +74,15 @@ geom_map <- function(mapping = NULL, data = NULL,
                      show.legend = NA,
                      inherit.aes = TRUE) {
   # Get map input into correct form
-  stopifnot(is.data.frame(map))
+  if (!is.data.frame(map)) {
+    abort("`map` must be a data.frame")
+  }
   if (!is.null(map$lat)) map$y <- map$lat
   if (!is.null(map$long)) map$x <- map$long
   if (!is.null(map$region)) map$id <- map$region
-  stopifnot(all(c("x", "y", "id") %in% names(map)))
+  if (!all(c("x", "y", "id") %in% names(map))) {
+    abort("`map` must have the columns `x`, `y`, and `id`")
+  }
 
   layer(
     data = data,

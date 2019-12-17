@@ -74,8 +74,10 @@ theme_get <- function() {
 theme_set <- function(new) {
   missing <- setdiff(names(ggplot_global$theme_grey), names(new))
   if (length(missing) > 0) {
-    warning("New theme missing the following elements: ",
-      paste(missing, collapse = ", "), call. = FALSE)
+    warn(glue(
+      "New theme missing the following elements: ",
+      glue_collapse(missing, ", ", last = " and ")
+    ))
   }
 
   old <- ggplot_global$theme_current
@@ -99,7 +101,7 @@ theme_replace <- function(...) {
 #' @export
 "%+replace%" <- function(e1, e2) {
   if (!is.theme(e1) || !is.theme(e2)) {
-    stop("%+replace% requires two theme objects", call. = FALSE)
+    abort("%+replace% requires two theme objects")
   }
 
   # Can't use modifyList here since it works recursively and drops NULLs

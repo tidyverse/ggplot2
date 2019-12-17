@@ -1,19 +1,8 @@
 # ggplot2 (development version)
 
-<<<<<<< HEAD
-* ggplot2 no longer depends on reshape2, which means that it no longer 
-  (recursively) needs plyr, stringr, or stringi packages.
+* Fix a bug in `geom_raster()` that squeezed the image when it went outside 
+  scale limits (#3539, @thomasp85)
 
-* `geom_sf()` now determines the legend type automatically (@microly, #3646).
-  
-* `scale_x_continuous()` and `scale_y_continuous()` gains an `n.breaks` argument
-  guiding the number of automatic generated breaks (@thomasp85, #3102)
-  
-* `geom_sf()` now removes rows that can't be plotted due to `NA` aesthetics 
-  (#3546, @thomasp85)
-
-||||||| merged common ancestors
-=======
 * The evaluation time of aesthetics can now be controlled to a finer degree. 
   `after_stat()` superseeds the use of `stat()` and `..var..`-notation, ad is
   joined by `after_scale()` to allow for mapping to scaled aesthetic values. 
@@ -32,7 +21,6 @@
 * `geom_sf()` now removes rows that can't be plotted due to `NA` aesthetics 
   (#3546, @thomasp85)
 
->>>>>>> fc6005124d8574ac0c85f08c3abcc522ca4980d7
 * A new scale type has been added, that allows binning of aesthetics at the 
   scale level. It has versions for both position and non-position aesthetics and
   comes with two new guides (`guide_bins` and `guide_coloursteps`) (@thomasp85, #3096)

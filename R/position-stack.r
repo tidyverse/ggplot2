@@ -216,10 +216,17 @@ pos_stack <- function(df, width, vjust = 1, fill = FALSE) {
   if (fill) {
     heights <- heights / abs(heights[length(heights)])
   }
-
-  df$ymin <- pmin(heights[-n], heights[-1])
-  df$ymax <- pmax(heights[-n], heights[-1])
-  df$y <- (1 - vjust) * df$ymin + vjust * df$ymax
+# We need to preserve ymin/ymax order. If ymax is lower than ymin in input, it should remain that way
+  if (!is.null(df$ymin) && !is.null(df$ymax)) {
+    max_is_lower <- df$ymax < df$ymin
+  } else {
+    max_is_lower <- rep(FALSE, nrow(df))
+  }
+  ymin <- pmin(heights[-n], heights[-1])
+  ymax <- pmax(heights[-n], heights[-1])
+  df$y <- (1 - vjust) * ymin + vjust * ymax
+  df$ymin <- ifelse(max_is_lower, ymax, ymin)
+  df$ymax <- ifelse(max_is_lower, ymin, ymax)
   df
 }
 
@@ -235,17 +242,13 @@ PositionFill <- ggproto("PositionFill", PositionStack,
 stack_var <- function(data) {
   if (!is.null(data$ymax)) {
     if (any(data$ymin != 0 & data$ymax != 0, na.rm = TRUE)) {
-      warning("Stacking not well defined when not anchored on the axis", call. = FALSE)
+      warn("Stacking not well defined when not anchored on the axis")
     }
     "ymax"
   } else if (!is.null(data$y)) {
     "y"
   } else {
-    warning(
-      "Stacking requires either ymin & ymin or y aesthetics.\n",
-      "Maybe you want position = 'identity'?",
-      call. = FALSE
-    )
+    warn("Stacking requires either ymin & ymin or y aesthetics.\nMaybe you want position = 'identity'?")
     NULL
   }
 }
