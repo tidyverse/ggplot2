@@ -118,11 +118,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
     length(hjust), length(vjust), length(angle), length(lineheight)
   )
   if (n > 1) {
-    warning(
-      "Vectorized input to `element_text()` is not officially supported.\n",
-      "Results may be unexpected or may change in future versions of ggplot2.",
-      call. = FALSE
-    )
+    warn("Vectorized input to `element_text()` is not officially supported.\nResults may be unexpected or may change in future versions of ggplot2.")
   }
 
 
@@ -445,7 +441,7 @@ validate_element <- function(el, elname, element_tree) {
   eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {
-    stop("Theme element `", elname, "` is not defined in the element hierarchy.", call. = FALSE)
+    abort(glue("Theme element `{elname}` is not defined in the element hierarchy."))
   }
 
   # NULL values for elements are OK
@@ -455,12 +451,12 @@ validate_element <- function(el, elname, element_tree) {
     # Need to be a bit looser here since sometimes it's a string like "top"
     # but sometimes its a vector like c(0,0)
     if (!is.character(el) && !is.numeric(el))
-      stop("Theme element `", elname, "` must be a string or numeric vector.", call. = FALSE)
+      abort(glue("Theme element `{elname}` must be a string or numeric vector."))
   } else if (eldef$class == "margin") {
     if (!is.unit(el) && length(el) == 4)
-      stop("Theme element `", elname, "` must be a unit vector of length 4.", call. = FALSE)
+      abort(glue("Theme element `{elname}` must be a unit vector of length 4."))
   } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
-      stop("Theme element `", elname, "` must be an `", eldef$class, "` object.", call. = FALSE)
+      abort(glue("Theme element `{elname}` must be an `{eldef$class}` object."))
   }
   invisible()
 }

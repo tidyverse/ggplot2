@@ -87,7 +87,7 @@ GeomRug <- ggproto("GeomRug", Geom,
 
   draw_panel = function(data, panel_params, coord, sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
     if (!inherits(length, "unit")) {
-      stop("'length' must be a 'unit' object.", call. = FALSE)
+      abort("'length' must be a 'unit' object.")
     }
     rugs <- list()
     data <- coord$transform(data, panel_params)

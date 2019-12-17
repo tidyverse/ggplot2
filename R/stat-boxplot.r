@@ -65,15 +65,13 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      stop("stat_boxplot() requires an x or y aesthetic.", call. = FALSE)
+      abort("stat_boxplot() requires an x or y aesthetic.")
     }
 
     params$width <- params$width %||% (resolution(data$x %||% 0) * 0.75)
 
     if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
-      warning(
-        "Continuous ", flipped_names(params$flipped_aes)$x, " aesthetic -- did you forget aes(group=...)?",
-        call. = FALSE)
+      warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
     }
 
     params

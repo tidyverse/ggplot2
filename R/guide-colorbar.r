@@ -196,12 +196,14 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # do nothing if scale are inappropriate
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warning("colourbar guide needs appropriate scales: ",
-            paste(guide$available_aes, collapse = ", "))
+    warn(glue(
+      "colourbar guide needs appropriate scales: ",
+      glue_collapse(guide$available_aes, ", ", last = " or ")
+    ))
     return(NULL)
   }
   if (scale$is_discrete()) {
-    warning("colourbar guide needs continuous scales.")
+    warn("colourbar guide needs continuous scales.")
     return(NULL)
   }
 
@@ -270,13 +272,17 @@ guide_gengrob.colorbar <- function(guide, theme) {
   # settings of location and size
   if (guide$direction == "horizontal") {
     label.position <- guide$label.position %||% "bottom"
-    if (!label.position %in% c("top", "bottom")) stop("label position \"", label.position, "\" is invalid")
+    if (!label.position %in% c("top", "bottom")) {
+      abort(glue("label position '{label.position}' is invalid"))
+    }
 
     barwidth <- width_cm(guide$barwidth %||% (theme$legend.key.width * 5))
     barheight <- height_cm(guide$barheight %||% theme$legend.key.height)
   } else { # guide$direction == "vertical"
     label.position <- guide$label.position %||% "right"
-    if (!label.position %in% c("left", "right")) stop("label position \"", label.position, "\" is invalid")
+    if (!label.position %in% c("left", "right")) {
+      abort(glue("label position '{label.position}' is invalid"))
+    }
 
     barwidth <- width_cm(guide$barwidth %||% theme$legend.key.width)
     barheight <- height_cm(guide$barheight %||% (theme$legend.key.height * 5))

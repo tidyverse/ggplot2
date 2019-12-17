@@ -149,7 +149,7 @@ guide_merge.bins <- function(guide, new_guide) {
   guide$key <- merge(guide$key, new_guide$key, sort = FALSE)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) {
-    warning("Duplicated override.aes is ignored.")
+    warn("Duplicated override.aes is ignored.")
   }
   guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
   guide
@@ -206,13 +206,13 @@ guide_gengrob.bins <- function(guide, theme) {
   if (guide$direction == "horizontal") {
     label.position <- guide$label.position %||% "bottom"
     if (!label.position %in% c("top", "bottom")) {
-      warning("Ignoring invalid label.position", call. = FALSE)
+      warn("Ignoring invalid label.position")
       label.position <- "bottom"
     }
   } else {
     label.position <- guide$label.position %||% "right"
     if (!label.position %in% c("left", "right")) {
-      warning("Ignoring invalid label.position", call. = FALSE)
+      warn("Ignoring invalid label.position")
       label.position <- "right"
     }
   }

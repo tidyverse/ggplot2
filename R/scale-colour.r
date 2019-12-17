@@ -44,7 +44,7 @@ scale_colour_continuous <- function(...,
     type,
     gradient = scale_colour_gradient(...),
     viridis = scale_colour_viridis_c(...),
-    stop("Unknown scale type", call. = FALSE)
+    abort("Unknown scale type")
   )
 }
 
@@ -56,7 +56,7 @@ scale_fill_continuous <- function(...,
     type,
     gradient = scale_fill_gradient(...),
     viridis = scale_fill_viridis_c(...),
-    stop("Unknown scale type", call. = FALSE)
+    abort("Unknown scale type")
   )
 }
 
@@ -69,7 +69,7 @@ scale_colour_binned <- function(...,
     type,
     gradient = scale_colour_steps(...),
     viridis = scale_colour_viridis_b(...),
-    stop("Unknown scale type", call. = FALSE)
+    abort("Unknown scale type")
   )
 }
 
@@ -82,6 +82,6 @@ scale_fill_binned <- function(...,
     type,
     gradient = scale_fill_steps(...),
     viridis = scale_fill_viridis_b(...),
-    stop("Unknown scale type", call. = FALSE)
+    abort("Unknown scale type")
   )
 }

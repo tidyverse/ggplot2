@@ -136,7 +136,7 @@ facet_grid <- function(rows = NULL, cols = NULL, scales = "fixed",
   )
 
   if (!is.null(switch) && !switch %in% c("both", "x", "y")) {
-    stop("switch must be either 'both', 'x', or 'y'", call. = FALSE)
+    abort("switch must be either 'both', 'x', or 'y'")
   }
 
   facets_list <- grid_as_facets_list(rows, cols)
@@ -157,12 +157,12 @@ grid_as_facets_list <- function(rows, cols) {
   is_rows_vars <- is.null(rows) || is_quosures(rows)
   if (!is_rows_vars) {
     if (!is.null(cols)) {
-      stop("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list", call. = FALSE)
+      abort("`rows` must be `NULL` or a `vars()` list if `cols` is a `vars()` list")
     }
     # For backward-compatibility
     facets_list <- as_facets_list(rows)
     if (length(facets_list) > 2L) {
-      stop("A grid facet specification can't have more than two dimensions", call. = FALSE)
+      abort("A grid facet specification can't have more than two dimensions")
     }
     # Fill with empty quosures
     facets <- list(rows = quos(), cols = quos())
@@ -173,7 +173,7 @@ grid_as_facets_list <- function(rows, cols) {
 
   is_cols_vars <- is.null(cols) || is_quosures(cols)
   if (!is_cols_vars) {
-    stop("`cols` must be `NULL` or a `vars()` specification", call. = FALSE)
+    abort("`cols` must be `NULL` or a `vars()` specification")
   }
 
   list(
@@ -195,11 +195,10 @@ FacetGrid <- ggproto("FacetGrid", Facet,
 
     dups <- intersect(names(rows), names(cols))
     if (length(dups) > 0) {
-      stop(
+      abort(glue(
         "Faceting variables can only appear in row or cols, not both.\n",
-        "Problems: ", paste0(dups, collapse = "'"),
-        call. = FALSE
-      )
+        "Problems: ", paste0(dups, collapse = "'")
+      ))
     }
 
     base_rows <- combine_vars(data, params$plot_env, rows, drop = params$drop)
@@ -286,7 +285,7 @@ FacetGrid <- ggproto("FacetGrid", Facet,
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      stop(snake_class(coord), " doesn't support free scales", call. = FALSE)
+      abort(glue("{snake_class(coord)} doesn't support free scales"))
     }
 
     cols <- which(layout$ROW == 1)

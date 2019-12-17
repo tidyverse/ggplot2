@@ -101,7 +101,7 @@ Geom <- ggproto("Geom",
   },
 
   draw_group = function(self, data, panel_params, coord) {
-    stop("Not implemented")
+    abort("Not implemented")
   },
 
   setup_params = function(data, params) params,
@@ -137,12 +137,12 @@ Geom <- ggproto("Geom",
       # Check that all output are valid data
       nondata_modified <- check_nondata_cols(modified_aes)
       if (length(nondata_modified) > 0) {
-        msg <- paste0(
+        msg <- glue(
           "Modifiers must return valid values. Problematic aesthetic(s): ",
-          paste0(vapply(nondata_modified, function(x) {paste0(x, " = ", as_label(modifiers[[x]]))}, character(1)), collapse = ", "),
+          glue_collapse(vapply(nondata_modified, function(x) glue("{x} = {as_label(modifiers[[x]])}"), character(1)), ", ", last = " and "),
           ". \nDid you map your mod in the wrong layer?"
         )
-        stop(msg, call. = FALSE)
+        abort(msg)
       }
 
       names(modified_aes) <- rename_aes(names(modifiers))
@@ -217,9 +217,8 @@ check_aesthetics <- function(x, n) {
     return()
   }
 
-  stop(
-    "Aesthetics must be either length 1 or the same as the data (", n, "): ",
-    paste(names(which(!good)), collapse = ", "),
-    call. = FALSE
-  )
+  abort(glue(
+    "Aesthetics must be either length 1 or the same as the data ({n}): ",
+    glue_collapse(names(which(!good)), ", ", last = " and ")
+  ))
 }

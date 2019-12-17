@@ -124,12 +124,12 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   if (is.null(binwidth) || identical(binwidth, NA)) {
     binwidth <- diff(range) / bins
   }
-  stopifnot(is.numeric(binwidth), length(binwidth) == 1)
+  if (!(is.numeric(binwidth) && length(binwidth) == 1)) abort("`binwidth` must be a numeric scalar")
 
   if (is.null(origin) || identical(origin, NA)) {
     origin <- round_any(range[1], binwidth, floor)
   }
-  stopifnot(is.numeric(origin), length(origin) == 1)
+  if (!(is.numeric(origin) && length(origin) == 1)) abort("`origin` must be a numeric scalar")
 
   breaks <- seq(origin, range[2] + binwidth, binwidth)
   adjust_breaks(breaks, right)

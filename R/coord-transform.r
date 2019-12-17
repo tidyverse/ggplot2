@@ -77,11 +77,11 @@
 coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL,
                         limx = "DEPRECATED", limy = "DEPRECATED", clip = "on", expand = TRUE) {
   if (!missing(limx)) {
-    warning("`limx` argument is deprecated; please use `xlim` instead.", call. = FALSE)
+    warn("`limx` argument is deprecated; please use `xlim` instead.")
     xlim <- limx
   }
   if (!missing(limy)) {
-    warning("`limy` argument is deprecated; please use `ylim` instead.", call. = FALSE)
+    warn("`limy` argument is deprecated; please use `ylim` instead.")
     ylim <- limy
   }
 
@@ -235,6 +235,6 @@ train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
 #' @noRd
 warn_new_infinites <- function(old_values, new_values, axis) {
   if (any(is.finite(old_values) & !is.finite(new_values))) {
-    warning("Transformation introduced infinite values in ", axis, "-axis", call. = FALSE)
+    warn(glue("Transformation introduced infinite values in {axis}-axis"))
   }
 }

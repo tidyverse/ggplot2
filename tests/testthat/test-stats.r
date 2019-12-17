@@ -14,5 +14,5 @@ test_that("plot succeeds even if some computation fails", {
 
 test_that("error message is thrown when aesthetics are missing", {
   p <- ggplot(mtcars) + stat_sum()
-  expect_error(ggplot_build(p), "x, y$")
+  expect_error(ggplot_build(p), "x and y$")
 })
