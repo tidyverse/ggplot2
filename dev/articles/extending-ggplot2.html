@@ -574,18 +574,16 @@
 <a class="sourceLine" id="cb19-13" data-line-number="13"><span class="co">#&gt;     has_x &lt;- !(is.null(data$x) &amp;&amp; is.null(params$x))</span></a>
 <a class="sourceLine" id="cb19-14" data-line-number="14"><span class="co">#&gt;     has_y &lt;- !(is.null(data$y) &amp;&amp; is.null(params$y))</span></a>
 <a class="sourceLine" id="cb19-15" data-line-number="15"><span class="co">#&gt;     if (!has_x &amp;&amp; !has_y) {</span></a>
-<a class="sourceLine" id="cb19-16" data-line-number="16"><span class="co">#&gt;         stop("stat_boxplot() requires an x or y aesthetic.", </span></a>
-<a class="sourceLine" id="cb19-17" data-line-number="17"><span class="co">#&gt;             call. = FALSE)</span></a>
-<a class="sourceLine" id="cb19-18" data-line-number="18"><span class="co">#&gt;     }</span></a>
-<a class="sourceLine" id="cb19-19" data-line-number="19"><span class="co">#&gt;     params$width &lt;- params$width %||% (resolution(data$x %||% </span></a>
-<a class="sourceLine" id="cb19-20" data-line-number="20"><span class="co">#&gt;         0) * 0.75)</span></a>
-<a class="sourceLine" id="cb19-21" data-line-number="21"><span class="co">#&gt;     if (is.double(data$x) &amp;&amp; !has_groups(data) &amp;&amp; any(data$x != </span></a>
-<a class="sourceLine" id="cb19-22" data-line-number="22"><span class="co">#&gt;         data$x[1L])) {</span></a>
-<a class="sourceLine" id="cb19-23" data-line-number="23"><span class="co">#&gt;         warning("Continuous ", flipped_names(params$flipped_aes)$x, </span></a>
-<a class="sourceLine" id="cb19-24" data-line-number="24"><span class="co">#&gt;             " aesthetic -- did you forget aes(group=...)?", call. = FALSE)</span></a>
-<a class="sourceLine" id="cb19-25" data-line-number="25"><span class="co">#&gt;     }</span></a>
-<a class="sourceLine" id="cb19-26" data-line-number="26"><span class="co">#&gt;     params</span></a>
-<a class="sourceLine" id="cb19-27" data-line-number="27"><span class="co">#&gt; }</span></a></code></pre></div>
+<a class="sourceLine" id="cb19-16" data-line-number="16"><span class="co">#&gt;         abort("stat_boxplot() requires an x or y aesthetic.")</span></a>
+<a class="sourceLine" id="cb19-17" data-line-number="17"><span class="co">#&gt;     }</span></a>
+<a class="sourceLine" id="cb19-18" data-line-number="18"><span class="co">#&gt;     params$width &lt;- params$width %||% (resolution(data$x %||% </span></a>
+<a class="sourceLine" id="cb19-19" data-line-number="19"><span class="co">#&gt;         0) * 0.75)</span></a>
+<a class="sourceLine" id="cb19-20" data-line-number="20"><span class="co">#&gt;     if (is.double(data$x) &amp;&amp; !has_groups(data) &amp;&amp; any(data$x != </span></a>
+<a class="sourceLine" id="cb19-21" data-line-number="21"><span class="co">#&gt;         data$x[1L])) {</span></a>
+<a class="sourceLine" id="cb19-22" data-line-number="22"><span class="co">#&gt;         warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))</span></a>
+<a class="sourceLine" id="cb19-23" data-line-number="23"><span class="co">#&gt;     }</span></a>
+<a class="sourceLine" id="cb19-24" data-line-number="24"><span class="co">#&gt;     params</span></a>
+<a class="sourceLine" id="cb19-25" data-line-number="25"><span class="co">#&gt; }</span></a></code></pre></div>
 <p>Following this is a call to <code><a href="../reference/bidirection.html">flip_data()</a></code> which will make sure the data is in horizontal orientation. The rest of the code can then simply assume that the data is in a specific orientation. The same thing happens in <code>setup_data()</code>:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1">StatBoxplot<span class="op">$</span>setup_data</a>
 <a class="sourceLine" id="cb20-2" data-line-number="2"><span class="co">#&gt; &lt;ggproto method&gt;</span></a>
