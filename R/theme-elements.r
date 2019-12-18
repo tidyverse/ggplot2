@@ -266,6 +266,50 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   )
 }
 
+#' Register new theme elements
+#'
+#' This function allows users to globally register new theme elements with ggplot2.
+#' In general, for each new theme element an element definition and a corresponding entry
+#' in the element tree should be provided. See [el_def()] for examples.
+#'
+#' Extension packages should call this function from their `.onLoad()` function.
+#' @param ... Element specifications
+#' @param complete If `TRUE` (the default), elements are set to inherit from blank elements.
+#' @param element_tree Addition of or modification to the element tree, which specifies the
+#'   inheritance relationship of the theme elements. The element tree must be provided as
+#'   a list of named element definitions created with [el_def()].
+#' @param reset_all If `TRUE`, resets all theme elements and the element tree to the ggplot2
+#'   defaults. This also resets the currently active theme if `modify_current` is set to
+#'   `TRUE` as well.
+#' @param modify_current If `TRUE` (the default), the new theme elements are also added to
+#'   the currently active theme set by `theme_set()`.
+#' @keywords internal
+#' @export
+register_theme_elements <- function(..., complete = TRUE, element_tree = NULL, reset_all = FALSE,
+                                    modify_current = TRUE) {
+  if (isTRUE(reset_all)) {
+    # reset the underlying fallback default theme
+    ggplot_global$theme_default <- theme_grey()
+
+    if (isTRUE(modify_current)) {
+      # reset the currently active theme
+      ggplot_global$theme_current <- ggplot_global$theme_default
+    }
+
+    # the fallback default theme contains the full element tree
+    attr(ggplot_global$theme_default, "element_tree") <- ggplot_global$element_tree
+  }
+
+  old <- ggplot_global$theme_default
+  t <- theme(..., complete = complete, element_tree = element_tree)
+  ggplot_global$theme_default <- ggplot_global$theme_default %+replace% t
+
+  if (isTRUE(modify_current)) {
+    ggplot_global$theme_current <- ggplot_global$theme_current %+replace% t
+  }
+
+  invisible(old)
+}
 
 
 #' Define new elements for a theme's element tree
@@ -297,9 +341,8 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #'   )
 #' }
 #'
-#' # update the default theme by adding a new `panel.annotation`
-#' # theme element
-#' old <- theme_update(
+#' # register a new theme element `panel.annotation`
+#' register_theme_elements(
 #'   panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
 #'   element_tree = list(panel.annotation = el_def("element_text", "text"))
 #' )
@@ -309,8 +352,8 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #'   geom_point() +
 #'   coord_annotate("annotation in blue")
 #'
-#' # revert to original default theme
-#' theme_set(old)
+#' # revert to original ggplot2 settings
+#' register_theme_elements(reset_all = TRUE)
 #' @keywords internal
 #' @export
 el_def <- function(class = NULL, inherit = NULL, description = NULL) {

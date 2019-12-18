@@ -156,8 +156,8 @@
 #' @param strip.switch.pad.wrap space between strips and axes when strips are
 #'   switched (`unit`)
 #'
-#' @param ... additional element specifications not part of base ggplot2. If
-#'   supplied `validate` needs to be set to `FALSE`.
+#' @param ... additional element specifications not part of base ggplot2. In general,
+#'   these should also be defined in the `element tree` argument.
 #' @param complete set this to `TRUE` if this is a complete theme, such as
 #'   the one returned by [theme_grey()]. Complete themes behave
 #'   differently when added to a ggplot object. Also, when setting
@@ -424,19 +424,17 @@ is_theme_validate <- function(x) {
 
 # obtain the full element tree from a theme,
 # substituting the defaults if needed
-complete_element_tree <- function(theme) {
+complete_element_tree <- function(theme, default = theme_get()) {
   element_tree <- attr(theme, "element_tree", exact = TRUE)
 
   # we fill in the element tree first from the current default theme,
-  # and then from the internal element tree if necessary
-  # this makes it easy for extension packages to provide modified
-  # default element trees
+  # and then from the element tree of the fallback default theme if necessary
   defaults(
     defaults(
       element_tree,
-      attr(theme_get(), "element_tree", exact = TRUE)
+      attr(default, "element_tree", exact = TRUE)
     ),
-    ggplot_global$element_tree
+    attr(ggplot_global$theme_default, "element_tree", exact = TRUE)
   )
 }
 
@@ -455,8 +453,12 @@ plot_theme <- function(x, default = theme_get()) {
     theme <- default + theme
   }
 
+  # if we're still missing elements relative to fallback default, fill in those
+  missing <- setdiff(names(ggplot_global$theme_default), names(theme))
+  theme[missing] <- ggplot_global$theme_default[missing]
+
   # complete the element tree and save back to the theme
-  element_tree <- complete_element_tree(theme)
+  element_tree <- complete_element_tree(theme, default)
   attr(theme, "element_tree") <- element_tree
 
   # Check that all elements have the correct class (element_text, unit, etc)
@@ -580,8 +582,8 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE) {
       return(el_out) # no null properties, return element as is
     }
 
-    # if we have null properties, try to fill in from theme_grey()
-    el_out <- combine_elements(el_out, ggplot_global$theme_grey[[element]])
+    # if we have null properties, try to fill in from ggplot_global$theme_default
+    el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
     nullprops <- vapply(el_out, is.null, logical(1))
     if (!any(nullprops)) {
       return(el_out) # no null properties remaining, return element

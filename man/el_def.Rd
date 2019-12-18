@@ -38,9 +38,8 @@ coord_annotate <- function(label = "panel annotation") {
   )
 }
 
-# update the default theme by adding a new `panel.annotation`
-# theme element
-old <- theme_update(
+# register a new theme element `panel.annotation`
+register_theme_elements(
   panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
   element_tree = list(panel.annotation = el_def("element_text", "text"))
 )
@@ -50,7 +49,7 @@ ggplot(df, aes(x, y)) +
   geom_point() +
   coord_annotate("annotation in blue")
 
-# revert to original default theme
-theme_set(old)
+# revert to original ggplot2 settings
+register_theme_elements(reset_all = TRUE)
 }
 \keyword{internal}

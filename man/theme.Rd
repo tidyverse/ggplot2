@@ -271,8 +271,8 @@ switched (\code{unit})}
 \item{strip.switch.pad.wrap}{space between strips and axes when strips are
 switched (\code{unit})}
 
-\item{...}{additional element specifications not part of base ggplot2. If
-supplied \code{validate} needs to be set to \code{FALSE}.}
+\item{...}{additional element specifications not part of base ggplot2. In general,
+these should also be defined in the \verb{element tree} argument.}
 
 \item{complete}{set this to \code{TRUE} if this is a complete theme, such as
 the one returned by \code{\link[=theme_grey]{theme_grey()}}. Complete themes behave

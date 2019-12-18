@@ -72,7 +72,7 @@ theme_get <- function() {
 #' @param new new theme (a list of theme elements)
 #' @export
 theme_set <- function(new) {
-  missing <- setdiff(names(ggplot_global$theme_grey), names(new))
+  missing <- setdiff(names(ggplot_global$theme_default), names(new))
   if (length(missing) > 0) {
     warn(glue(
       "New theme missing the following elements: ",
@@ -120,3 +120,4 @@ theme_replace <- function(...) {
 
   e1
 }
+
