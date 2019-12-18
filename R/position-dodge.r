@@ -6,7 +6,6 @@
 #' also works with bars and rectangles. But unlike `position_dodge`,
 #' `position_dodge2` works without a grouping variable in a layer.
 #'
-#' @inheritParams position_identity
 #' @param width Dodging width, when different to the width of the individual
 #'   elements. This is useful when you want to align narrow geoms with wider
 #'   geoms. See the examples.
@@ -92,8 +91,7 @@ PositionDodge <- ggproto("PositionDodge", Position,
     flipped_aes <- has_flipped_aes(data)
     data <- flip_data(data, flipped_aes)
     if (is.null(data$xmin) && is.null(data$xmax) && is.null(self$width)) {
-      warning("Width not defined. Set with `position_dodge(width = ?)`",
-        call. = FALSE)
+      warn("Width not defined. Set with `position_dodge(width = ?)`")
     }
 
     if (identical(self$preserve, "total")) {

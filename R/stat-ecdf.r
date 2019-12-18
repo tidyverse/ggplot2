@@ -80,7 +80,7 @@ StatEcdf <- ggproto("StatEcdf", Stat,
     new_data_frame(list(x = x, y = y), n = length(x))
   },
 
-  default_aes = aes(y = stat(y)),
+  default_aes = aes(y = after_stat(y)),
 
   required_aes = c("x")
 )

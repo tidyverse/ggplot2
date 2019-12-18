@@ -5,13 +5,31 @@
 \alias{geom_area}
 \title{Ribbons and area plots}
 \usage{
-geom_ribbon(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE, outline.type = "both")
+geom_ribbon(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  outline.type = "both"
+)
 
-geom_area(mapping = NULL, data = NULL, stat = "identity",
-  position = "stack", na.rm = FALSE, orientation = NA,
-  show.legend = NA, inherit.aes = TRUE, ..., outline.type = "upper")
+geom_area(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "stack",
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...,
+  outline.type = "upper"
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -100,12 +118,6 @@ This geom treats each axis differently and, thus, can thus have two orientations
 \item \code{group}
 \item \code{linetype}
 \item \code{size}
-\item \code{x}
-\item \code{xmax}
-\item \code{xmin}
-\item \code{y}
-\item \code{ymax}
-\item \code{ymin}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
@@ -118,8 +130,9 @@ h <- ggplot(huron, aes(year))
 h + geom_ribbon(aes(ymin=0, ymax=level))
 h + geom_area(aes(y = level))
 
-# Change orientation be switching the mapping
-h + geom_area(aes(x = level, y = year))
+# Orientation cannot be deduced by mapping, so must be given explicitly for
+# flipped orientation
+h + geom_area(aes(x = level, y = year), orientation = "y")
 
 # Add aesthetic mappings
 h +

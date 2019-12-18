@@ -1,5 +1,26 @@
 # ggplot2 (development version)
 
+* Fix a bug in `geom_raster()` that squeezed the image when it went outside 
+  scale limits (#3539, @thomasp85)
+
+* The evaluation time of aesthetics can now be controlled to a finer degree. 
+  `after_stat()` superseeds the use of `stat()` and `..var..`-notation, ad is
+  joined by `after_scale()` to allow for mapping to scaled aesthetic values. 
+  Remapping of the same aesthetic is now supported with `stage()`, so you can 
+  map a data variable to a stat aesthetic, and remap the same aesthetic to 
+  something else after statistical transformation (@thomasp85, #3534)
+
+* ggplot2 no longer depends on reshape2, which means that it no longer 
+  (recursively) needs plyr, stringr, or stringi packages.
+
+* `geom_sf()` now determines the legend type automatically (@microly, #3646).
+  
+* `scale_x_continuous()` and `scale_y_continuous()` gains an `n.breaks` argument
+  guiding the number of automatic generated breaks (@thomasp85, #3102)
+  
+* `geom_sf()` now removes rows that can't be plotted due to `NA` aesthetics 
+  (#3546, @thomasp85)
+
 * A new scale type has been added, that allows binning of aesthetics at the 
   scale level. It has versions for both position and non-position aesthetics and
   comes with two new guides (`guide_bins` and `guide_coloursteps`) (@thomasp85, #3096)
@@ -14,9 +35,17 @@
 * `Geom` now gains a `setup_params()` method in line with the other ggproto
   classes (@thomasp85, #3509)
 
+* Themes can now modify the theme element tree, via the
+  `element_tree` argument. This allows extension packages to add functionality that
+  alters the element tree (@clauswilke, #2540).
+
 * `element_text()` now issues a warning when vectorized arguments are provided, as in
   `colour = c("red", "green", "blue")`. Such use is discouraged and not officially supported
    (@clauswilke, #3492).
+
+* Addition of partial themes to plots has been made more predictable;
+  stepwise addition of individual partial themes is now equivalent to
+  addition of multple theme elements at once (@clauswilke, #3039).
 
 * stacking text when calculating the labels and the y axis with
   `stat_summary()` now works (@ikosmidis, #2709)
@@ -78,9 +107,17 @@
   
 * `stat_density2d()` can now take an `adjust` parameter to scale the default bandwidth. (#2860, @haleyjeppson)
 
-* `geom_sf()` now removes rows that contain missing `shape`/`size`/`colour` (#3483, @yutannihilation)
-
 * Fix a bug when `show.legend` is a named logical vector (#3461, @yutannihilation).
+
+* Increase the default `nbin` of `guide_colourbar()` to place the ticks more precisely (#3508, @yutannihilation).
+
+* `geom_sf()` now applies alpha to linestring geometries (#3589, @yutannihilation).
+
+* `manual_scale()` now matches `values` with the order of `breaks` whenever
+  `values` is an unnamed vector. Previously, unnamed `values` would match with
+  the limits of the scale and ignore the order of any `breaks` provided. Note
+  that this may change the appearance of plots that previously relied on the
+  unordered behaviour (#2429, @idno0001).
 
 # ggplot2 3.2.1
 

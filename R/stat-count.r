@@ -27,7 +27,7 @@ stat_count <- function(mapping = NULL, data = NULL,
     ...
   )
   if (!is.null(params$y)) {
-    stop("stat_count() must not be used with a y aesthetic.", call. = FALSE)
+    abort("stat_count() must not be used with a y aesthetic.")
   }
 
   layer(
@@ -50,7 +50,7 @@ stat_count <- function(mapping = NULL, data = NULL,
 StatCount <- ggproto("StatCount", Stat,
   required_aes = "x|y",
 
-  default_aes = aes(x = stat(count), y = stat(count), weight = 1),
+  default_aes = aes(x = after_stat(count), y = after_stat(count), weight = 1),
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = FALSE)
@@ -58,10 +58,10 @@ StatCount <- ggproto("StatCount", Stat,
     has_x <- !(is.null(data$x) && is.null(params$x))
     has_y <- !(is.null(data$y) && is.null(params$y))
     if (!has_x && !has_y) {
-      stop("stat_count() requires an x or y aesthetic.", call. = FALSE)
+      abort("stat_count() requires an x or y aesthetic.")
     }
     if (has_x && has_y) {
-      stop("stat_count() can only have an x or y aesthetic.", call. = FALSE)
+      abort("stat_count() can only have an x or y aesthetic.")
     }
 
     params

@@ -4,9 +4,9 @@
 #' with the two 1d marginal distributions. Rug plots display individual
 #' cases so are best used with smaller datasets.
 #'
-#' By default, the rug lines are drawn with a length that corresponds to 3\%
+#' By default, the rug lines are drawn with a length that corresponds to 3%
 #' of the total plot size. Since the default scale expansion of for continuous
-#' variables is 5\% at both ends of the scale, the rug will not overlap with
+#' variables is 5% at both ends of the scale, the rug will not overlap with
 #' any data points under the default settings.
 #'
 #' @eval rd_aesthetics("geom", "rug")
@@ -87,7 +87,7 @@ GeomRug <- ggproto("GeomRug", Geom,
 
   draw_panel = function(data, panel_params, coord, sides = "bl", outside = FALSE, length = unit(0.03, "npc")) {
     if (!inherits(length, "unit")) {
-      stop("'length' must be a 'unit' object.", call. = FALSE)
+      abort("'length' must be a 'unit' object.")
     }
     rugs <- list()
     data <- coord$transform(data, panel_params)

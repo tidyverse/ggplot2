@@ -4,8 +4,7 @@
 \alias{remove_missing}
 \title{Convenience function to remove missing values from a data.frame}
 \usage{
-remove_missing(df, na.rm = FALSE, vars = names(df), name = "",
-  finite = FALSE)
+remove_missing(df, na.rm = FALSE, vars = names(df), name = "", finite = FALSE)
 }
 \arguments{
 \item{df}{data.frame}

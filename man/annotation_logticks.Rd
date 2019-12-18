@@ -4,10 +4,20 @@
 \alias{annotation_logticks}
 \title{Annotation: log tick marks}
 \usage{
-annotation_logticks(base = 10, sides = "bl", scaled = TRUE,
-  short = unit(0.1, "cm"), mid = unit(0.2, "cm"), long = unit(0.3,
-  "cm"), colour = "black", size = 0.5, linetype = 1, alpha = 1,
-  color = NULL, ...)
+annotation_logticks(
+  base = 10,
+  sides = "bl",
+  scaled = TRUE,
+  short = unit(0.1, "cm"),
+  mid = unit(0.2, "cm"),
+  long = unit(0.3, "cm"),
+  colour = "black",
+  size = 0.5,
+  linetype = 1,
+  alpha = 1,
+  color = NULL,
+  ...
+)
 }
 \arguments{
 \item{base}{the base of the log (default 10)}

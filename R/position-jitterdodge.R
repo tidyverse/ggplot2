@@ -5,7 +5,7 @@
 #' a fill aesthetic supplied).
 #'
 #' @family position adjustments
-#' @param jitter.width degree of jitter in x direction. Defaults to 40\% of the
+#' @param jitter.width degree of jitter in x direction. Defaults to 40% of the
 #'   resolution of the data.
 #' @param jitter.height degree of jitter in y direction. Defaults to 0.
 #' @param dodge.width the amount to dodge in the x direction. Defaults to 0.75,
@@ -49,7 +49,7 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
     # Adjust the x transformation based on the number of 'dodge' variables
     dodgecols <- intersect(c("fill", "colour", "linetype", "shape", "size", "alpha"), colnames(data))
     if (length(dodgecols) == 0) {
-      stop("`position_jitterdodge()` requires at least one aesthetic to dodge by", call. = FALSE)
+      abort("`position_jitterdodge()` requires at least one aesthetic to dodge by")
     }
     ndodge    <- lapply(data[dodgecols], levels)  # returns NULL for numeric, i.e. non-dodge layers
     ndodge    <- length(unique(unlist(ndodge)))

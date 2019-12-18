@@ -99,8 +99,9 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
 
   setup_params = function(data, params) {
     params$flipped_aes <- has_flipped_aes(data, params, range_is_orthogonal = TRUE)
-    if (!(params$flipped_aes || all(c("x", "ymin", "ymax") %in% names(data)))) {
-      stop("Either, `x`, `ymin`, and `ymax` or `y`, `xmin`, and `xmax` must be supplied", call. = FALSE)
+    # if flipped_aes == TRUE then y, xmin, xmax is present
+    if (!(params$flipped_aes || all(c("x", "ymin", "ymax") %in% c(names(data), names(params))))) {
+      abort("Either, `x`, `ymin`, and `ymax` or `y`, `xmin`, and `xmax` must be supplied")
     }
     params
   },

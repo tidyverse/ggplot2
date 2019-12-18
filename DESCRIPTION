@@ -14,23 +14,24 @@ Authors@R: c(
     person("Claus", "Wilke", role = "aut"),
     person("Kara", "Woo", role = "aut"),
     person("Hiroaki", "Yutani", role = "aut"),
+    person("Dewey", "Dunnington", role = "aut"),
     person("RStudio", role = c("cph"))
     )
 Depends:
     R (>= 3.2)
 Imports: 
     digest,
+    glue,
     grDevices,
     grid,
     gtable (>= 0.1.1),
+    isoband,
     MASS,
     mgcv,
-    reshape2,
     rlang (>= 0.3.0),
     scales (>= 0.5.0),
     stats,
     tibble,
-    viridisLite,
     withr (>= 2.0.0)
 Suggests:
     covr,
@@ -38,7 +39,6 @@ Suggests:
     ggplot2movies,
     hexbin,
     Hmisc,
-    isoband,
     knitr,
     lattice,
     mapproj,
@@ -65,8 +65,8 @@ Collate:
     'ggproto.r'
     'ggplot-global.R'
     'aaa-.r'
-    'aes-calculated.r'
     'aes-colour-fill-alpha.r'
+    'aes-evaluation.r'
     'aes-group-order.r'
     'aes-linetype-size-shape.r'
     'aes-position.r'
@@ -185,6 +185,7 @@ Collate:
     'position-stack.r'
     'quick-plot.r'
     'range.r'
+    'reshape-add-margins.R'
     'save.r'
     'scale-.r'
     'scale-alpha.r'
@@ -253,6 +254,6 @@ Collate:
     'zxx.r'
     'zzz.r'
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8

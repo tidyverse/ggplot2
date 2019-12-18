@@ -18,7 +18,7 @@ fortify.tbl_df <- function(model, data, ...) model
 #' @export
 fortify.tbl <- function(model, data, ...) {
   if (!requireNamespace("dplyr", quietly = TRUE)) {
-    stop("dplyr must be installed to work with tbl objects", call. = FALSE)
+    abort("dplyr must be installed to work with tbl objects")
   }
   dplyr::collect(model)
 }
@@ -32,7 +32,7 @@ fortify.formula <- function(model, data, ...) as_function(model)
 #' @export
 fortify.grouped_df <- function(model, data, ...) {
   if (!requireNamespace("dplyr", quietly = TRUE)) {
-    stop("dplyr must be installed to work with grouped_df objects", call. = FALSE)
+    abort("dplyr must be installed to work with grouped_df objects")
   }
   model$.group <- dplyr::group_indices(model)
   model
@@ -49,5 +49,5 @@ fortify.default <- function(model, data, ...) {
       "Did you accidentally pass `aes()` to the `data` argument?"
     )
   }
-  stop(msg, call. = FALSE)
+  abort(msg)
 }

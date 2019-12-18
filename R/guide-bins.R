@@ -149,7 +149,7 @@ guide_merge.bins <- function(guide, new_guide) {
   guide$key <- merge(guide$key, new_guide$key, sort = FALSE)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) {
-    warning("Duplicated override.aes is ignored.")
+    warn("Duplicated override.aes is ignored.")
   }
   guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
   guide
@@ -161,38 +161,21 @@ guide_geom.bins <- function(guide, layers, default_mapping) {
   guide$geoms <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
+    # check if this layer should be included
+    include <- include_layer_in_guide(layer, matched)
+
+    if (!include) {
+      return(NULL)
+    }
+
     if (length(matched) > 0) {
-      # This layer contributes to the legend
+      # Filter out set aesthetics that can't be applied to the legend
+      n <- vapply(layer$aes_params, length, integer(1))
+      params <- layer$aes_params[n == 1]
 
-      # check if this layer should be included, different behaviour depending on
-      # if show.legend is a logical or a named logical vector
-      if (!is.null(names(layer$show.legend))) {
-        layer$show.legend <- rename_aes(layer$show.legend)
-        include <- is.na(layer$show.legend[matched]) ||
-          layer$show.legend[matched]
-      } else {
-        include <- is.na(layer$show.legend) || layer$show.legend
-      }
-
-      if (include) {
-        # Default is to include it
-
-        # Filter out set aesthetics that can't be applied to the legend
-        n <- vapply(layer$aes_params, length, integer(1))
-        params <- layer$aes_params[n == 1]
-
-        data <- layer$geom$use_defaults(guide$key[matched], params)
-      } else {
-        return(NULL)
-      }
+      data <- layer$geom$use_defaults(guide$key[matched], params)
     } else {
-      # This layer does not contribute to the legend
-      if (is.na(layer$show.legend) || !layer$show.legend) {
-        # Default is to exclude it
-        return(NULL)
-      } else {
-        data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
-      }
+      data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
     }
 
     # override.aes in guide_legend manually changes the geom
@@ -223,13 +206,13 @@ guide_gengrob.bins <- function(guide, theme) {
   if (guide$direction == "horizontal") {
     label.position <- guide$label.position %||% "bottom"
     if (!label.position %in% c("top", "bottom")) {
-      warning("Ignoring invalid label.position", call. = FALSE)
+      warn("Ignoring invalid label.position")
       label.position <- "bottom"
     }
   } else {
     label.position <- guide$label.position %||% "right"
     if (!label.position %in% c("left", "right")) {
-      warning("Ignoring invalid label.position", call. = FALSE)
+      warn("Ignoring invalid label.position")
       label.position <- "right"
     }
   }
@@ -320,10 +303,14 @@ guide_gengrob.bins <- function(guide, theme) {
 
   key_size_mat <- do.call("cbind",
     lapply(guide$geoms, function(g) g$data$size / 10)
-  )[seq_len(n_keys), , drop = FALSE]
+  )
 
+  # key_size_mat can be an empty matrix (e.g. the data doesn't contain size
+  # column), so subset it only when it has any rows and columns.
   if (nrow(key_size_mat) == 0 || ncol(key_size_mat) == 0) {
     key_size_mat <- matrix(0, ncol = 1, nrow = n_keys)
+  } else {
+    key_size_mat <- key_size_mat[seq_len(n_keys), , drop = FALSE]
   }
   key_sizes <- apply(key_size_mat, 1, max)
 

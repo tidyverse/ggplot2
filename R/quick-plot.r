@@ -67,9 +67,11 @@ qplot <- function(x, y, ..., data, facets = NULL, margins = FALSE,
 
   caller_env <- parent.frame()
 
-  if (!missing(stat)) warning("`stat` is deprecated", call. = FALSE)
-  if (!missing(position)) warning("`position` is deprecated", call. = FALSE)
-  if (!is.character(geom)) stop("`geom` must be a character vector", call. = FALSE)
+  if (!missing(stat)) warn("`stat` is deprecated")
+  if (!missing(position)) warn("`position` is deprecated")
+  if (!is.character(geom)) {
+    abort("`geom` must be a character vector")
+  }
 
   exprs <- enquos(x = x, y = y, ...)
   is_missing <- vapply(exprs, quo_is_missing, logical(1))

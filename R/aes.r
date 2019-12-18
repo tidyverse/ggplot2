@@ -5,7 +5,7 @@ NULL
 #'
 #' Aesthetic mappings describe how variables in the data are mapped to visual
 #' properties (aesthetics) of geoms. Aesthetic mappings can be set in
-#' [ggplot2()] and in individual layers.
+#' [ggplot()] and in individual layers.
 #'
 #' This function also standardises aesthetic names by converting `color` to `colour`
 #' (also in substrings, e.g., `point_color` to `point_colour`) and translating old style
@@ -102,7 +102,9 @@ new_aesthetic <- function(x, env = globalenv()) {
   x
 }
 new_aes <- function(x, env = globalenv()) {
-  stopifnot(is.list(x))
+  if (!is.list(x)) {
+    abort("`x` must be a list")
+  }
   x <- lapply(x, new_aesthetic, env = env)
   structure(x, class = "uneval")
 }
@@ -168,10 +170,30 @@ rename_aes <- function(x) {
   duplicated_names <- names(x)[duplicated(names(x))]
   if (length(duplicated_names) > 0L) {
     duplicated_message <- paste0(unique(duplicated_names), collapse = ", ")
-    warning(
-      "Duplicated aesthetics after name standardisation: ", duplicated_message, call. = FALSE
-    )
+    warn(glue("Duplicated aesthetics after name standardisation: {duplicated_message}"))
   }
+  x
+}
+substitute_aes <- function(x) {
+  x <- lapply(x, function(aesthetic) {
+    as_quosure(standardise_aes_symbols(quo_get_expr(aesthetic)), env = environment(aesthetic))
+  })
+  class(x) <- "uneval"
+  x
+}
+# x is a quoted expression from inside aes()
+standardise_aes_symbols <- function(x) {
+  if (is.symbol(x)) {
+    name <- standardise_aes_names(as_string(x))
+    return(sym(name))
+  }
+  if (!is.call(x)) {
+    return(x)
+  }
+
+  # Don't walk through function heads
+  x[-1] <- lapply(x[-1], standardise_aes_symbols)
+
   x
 }
 
@@ -248,8 +270,7 @@ aes_ <- function(x, y, ...) {
     } else if (is.call(x) || is.name(x) || is.atomic(x)) {
       new_aesthetic(x, caller_env)
     } else {
-      stop("Aesthetic must be a one-sided formula, call, name, or constant.",
-        call. = FALSE)
+      abort("Aesthetic must be a one-sided formula, call, name, or constant.")
     }
   }
   mapping <- lapply(mapping, as_quosure_aes)
@@ -305,11 +326,11 @@ aes_all <- function(vars) {
 #' @keywords internal
 #' @export
 aes_auto <- function(data = NULL, ...) {
-  warning("aes_auto() is deprecated", call. = FALSE)
+  warn("aes_auto() is deprecated")
 
   # detect names of data
   if (is.null(data)) {
-    stop("aes_auto requires data.frame or names of data.frame.")
+    abort("aes_auto requires data.frame or names of data.frame.")
   } else if (is.data.frame(data)) {
     vars <- names(data)
   } else {
@@ -358,11 +379,7 @@ warn_for_aes_extract_usage_expr <- function(x, data, env = emptyenv()) {
   if (is_call(x, "[[") || is_call(x, "$")) {
     if (extract_target_is_likely_data(x, data, env)) {
       good_usage <- alternative_aes_extract_usage(x)
-      warning(
-        "Use of `", format(x), "` is discouraged. ",
-        "Use `", good_usage,  "` instead.",
-        call. = FALSE
-      )
+      warn(glue("Use of `{format(x)}` is discouraged. Use `{good_usage}` instead."))
     }
   } else if (is.call(x)) {
     lapply(x, warn_for_aes_extract_usage_expr, data, env)
@@ -376,7 +393,7 @@ alternative_aes_extract_usage <- function(x) {
   } else if (is_call(x, "$")) {
     as.character(x[[3]])
   } else {
-    stop("Don't know how to get alternative usage for `", format(x), "`", call. = FALSE)
+    abort(glue("Don't know how to get alternative usage for `{format(x)}`"))
   }
 }
 

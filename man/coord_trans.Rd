@@ -4,9 +4,16 @@
 \alias{coord_trans}
 \title{Transformed Cartesian coordinate system}
 \usage{
-coord_trans(x = "identity", y = "identity", xlim = NULL,
-  ylim = NULL, limx = "DEPRECATED", limy = "DEPRECATED",
-  clip = "on", expand = TRUE)
+coord_trans(
+  x = "identity",
+  y = "identity",
+  xlim = NULL,
+  ylim = NULL,
+  limx = "DEPRECATED",
+  limy = "DEPRECATED",
+  clip = "on",
+  expand = TRUE
+)
 }
 \arguments{
 \item{x, y}{Transformers for x and y axes or their names.}

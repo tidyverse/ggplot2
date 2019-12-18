@@ -72,11 +72,10 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
   names(empty_ticks) <- c(aesthetic, ".value", ".label")
 
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warning(
+    warn(glue(
       "axis guide needs appropriate scales: ",
-      paste(guide$available_aes, collapse = ", "),
-      call. = FALSE
-    )
+      glue_collapse(guide$available_aes, ", ", last = " or ")
+    ))
     guide$key <- empty_ticks
   } else if (length(breaks) == 0) {
     guide$key <- empty_ticks
@@ -93,7 +92,7 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
       }
     }
 
-    guide$key <- ticks
+    guide$key <- ticks[is.finite(ticks[[aesthetic]]), ]
   }
 
   guide$name <- paste0(guide$name, "_", aesthetic)
@@ -128,11 +127,7 @@ guide_transform.axis <- function(guide, coord, panel_params) {
 #' @export
 guide_merge.axis <- function(guide, new_guide) {
   if (!inherits(guide, "guide_none")) {
-    warning(
-      "guide_axis(): Discarding guide on merge. ",
-      "Do you have more than one guide with the same position?",
-      call. = FALSE
-    )
+    warn("guide_axis(): Discarding guide on merge. Do you have more than one guide with the same position?")
   }
 
   guide
@@ -386,7 +381,7 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
 
   # it is not worth the effort to align upside-down labels properly
   if (angle > 90 || angle < -90) {
-    stop("`angle` must be between 90 and -90", call. = FALSE)
+    abort("`angle` must be between 90 and -90")
   }
 
   if (axis_position == "bottom") {
@@ -414,7 +409,7 @@ axis_label_element_overrides <- function(axis_position, angle = NULL) {
       vjust = if (angle > 0) 1 else if (angle < 0) 0 else 0.5,
     )
   } else {
-    stop("Unrecognized position: '", axis_position, "'", call. = FALSE)
+    abort(glue("Unrecognized position: '{axis_position}'"))
   }
 }
 
@@ -435,10 +430,6 @@ warn_for_guide_position <- function(guide) {
   }
 
   if (length(unique(guide$key[[position_aes]])) == 1) {
-    warning(
-      "Position guide is perpendicular to the intended axis. ",
-      "Did you mean to specify a different guide `position`?",
-      call. = FALSE
-    )
+    warn("Position guide is perpendicular to the intended axis. Did you mean to specify a different guide `position`?")
   }
 }

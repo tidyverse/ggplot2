@@ -10,7 +10,7 @@
 #'   - `element_text`: text.
 #'
 #' `rel()` is used to specify sizes relative to the parent,
-#' `margins()` is used to specify the margins of elements.
+#' `margin()` is used to specify the margins of elements.
 #'
 #' @param fill Fill colour.
 #' @param colour,color Line/border colour. Color is an alias for colour.
@@ -118,11 +118,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
     length(hjust), length(vjust), length(angle), length(lineheight)
   )
   if (n > 1) {
-    warning(
-      "Vectorized input to `element_text()` is not officially supported.\n",
-      "Results may be unexpected or may change in future versions of ggplot2.",
-      call. = FALSE
-    )
+    warn("Vectorized input to `element_text()` is not officially supported.\nResults may be unexpected or may change in future versions of ggplot2.")
   }
 
 
@@ -154,13 +150,22 @@ print.rel <- function(x, ...) print(noquote(paste(x, " *", sep = "")))
 #' @keywords internal
 is.rel <- function(x) inherits(x, "rel")
 
-# Given a theme object and element name, return a grob for the element
+#' Render a specified theme element into a grob
+#'
+#' Given a theme object and element name, returns a grob for the element.
+#' Uses [`element_grob()`] to generate the grob.
+#' @param theme The theme object
+#' @param element The element name given as character vector
+#' @param ... Other arguments provided to [`element_grob()`]
+#' @param name Character vector added to the name of the grob
+#' @keywords internal
+#' @export
 element_render <- function(theme, element, ..., name = NULL) {
 
   # Get the element from the theme, calculating inheritance
   el <- calc_element(element, theme)
   if (is.null(el)) {
-    message("Theme element ", element, " missing")
+    message("Theme element `", element, "` missing")
     return(zeroGrob())
   }
 
@@ -263,13 +268,51 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 
 
 
-# Define an element's class and what other elements it inherits from
-#
-# @param class The name of class (like "element_line", "element_text",
-#  or the reserved "character", which means a character vector (not
-#  "character" class)
-# @param inherit A vector of strings, naming the elements that this
-#  element inherits from.
+#' Define new elements for a theme's element tree
+#'
+#' Each theme has an element tree that defines which theme elements inherit
+#' theme parameters from which other elements. The function `el_def()` can be used
+#' to define new or modified elements for this tree.
+#'
+#' @param class The name of the element class. Examples are "element_line" or
+#'  "element_text" or "unit", or one of the two reserved keywords "character" or
+#'  "margin". The reserved keyword "character" implies a character
+#'  or numeric vector, not a class called "character". The keyword
+#'  "margin" implies a unit vector of length 4, as created by [margin()].
+#' @param inherit A vector of strings, naming the elements that this
+#'  element inherits from.
+#' @param description An optional character vector providing a description
+#'  for the element.
+#' @examples
+#' # define a new coord that includes a panel annotation
+#' coord_annotate <- function(label = "panel annotation") {
+#'   ggproto(NULL, CoordCartesian,
+#'     limits = list(x = NULL, y = NULL),
+#'     expand = TRUE,
+#'     default = FALSE,
+#'     clip = "on",
+#'     render_fg = function(panel_params, theme) {
+#'       element_render(theme, "panel.annotation", label = label)
+#'     }
+#'   )
+#' }
+#'
+#' # update the default theme by adding a new `panel.annotation`
+#' # theme element
+#' old <- theme_update(
+#'   panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
+#'   element_tree = list(panel.annotation = el_def("element_text", "text"))
+#' )
+#'
+#' df <- data.frame(x = 1:3, y = 1:3)
+#' ggplot(df, aes(x, y)) +
+#'   geom_point() +
+#'   coord_annotate("annotation in blue")
+#'
+#' # revert to original default theme
+#' theme_set(old)
+#' @keywords internal
+#' @export
 el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   list(class = class, inherit = inherit, description = description)
 }
@@ -393,11 +436,12 @@ ggplot_global$element_tree <- .element_tree
 #
 # @param el an element
 # @param elname the name of the element
-validate_element <- function(el, elname) {
-  eldef <- ggplot_global$element_tree[[elname]]
+# @param element_tree the element tree to validate against
+validate_element <- function(el, elname, element_tree) {
+  eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {
-    stop('"', elname, '" is not a valid theme element name.')
+    abort(glue("Theme element `{elname}` is not defined in the element hierarchy."))
   }
 
   # NULL values for elements are OK
@@ -407,12 +451,12 @@ validate_element <- function(el, elname) {
     # Need to be a bit looser here since sometimes it's a string like "top"
     # but sometimes its a vector like c(0,0)
     if (!is.character(el) && !is.numeric(el))
-      stop("Element ", elname, " must be a string or numeric vector.")
+      abort(glue("Theme element `{elname}` must be a string or numeric vector."))
   } else if (eldef$class == "margin") {
     if (!is.unit(el) && length(el) == 4)
-      stop("Element ", elname, " must be a unit vector of length 4.")
+      abort(glue("Theme element `{elname}` must be a unit vector of length 4."))
   } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
-      stop("Element ", elname, " must be a ", eldef$class, " object.")
+      abort(glue("Theme element `{elname}` must be an `{eldef$class}` object."))
   }
   invisible()
 }

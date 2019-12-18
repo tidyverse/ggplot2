@@ -34,7 +34,7 @@
 #' @inheritParams geom_point
 #' @param stackdir which direction to stack the dots. "up" (default),
 #'   "down", "center", "centerwhole" (centered, but with dots aligned)
-#' @param stackratio how close to stack the dots. Default is 1, where dots just
+#' @param stackratio how close to stack the dots. Default is 1, where dots
 #'   just touch. Use smaller values for closer, overlapping dots.
 #' @param dotsize The diameter of the dots relative to `binwidth`, default 1.
 #' @param stackgroups should dots be stacked across groups? This has the effect
@@ -256,7 +256,7 @@ GeomDotplot <- ggproto("GeomDotplot", Geom,
                         binaxis = "x", stackdir = "up", stackratio = 1,
                         dotsize = 1, stackgroups = FALSE) {
     if (!coord$is_linear()) {
-      warning("geom_dotplot does not work properly with non-linear coordinates.")
+      warn("geom_dotplot does not work properly with non-linear coordinates.")
     }
 
     tdata <- coord$transform(data, panel_params)

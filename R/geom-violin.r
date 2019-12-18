@@ -149,7 +149,9 @@ GeomViolin <- ggproto("GeomViolin", Geom,
 
     # Draw quantiles if requested, so long as there is non-zero y range
     if (length(draw_quantiles) > 0 & !scales::zero_range(range(data$y))) {
-      stopifnot(all(draw_quantiles >= 0), all(draw_quantiles <= 1))
+      if (!(all(draw_quantiles >= 0) && all(draw_quantiles <= 1))) {
+        abort("`draw_quantiles must be between 0 and 1")
+      }
 
       # Compute the quantile segments and combine with existing aesthetics
       quantiles <- create_quantile_segment_frame(data, draw_quantiles)

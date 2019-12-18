@@ -50,7 +50,7 @@ stat_bin2d <- stat_bin_2d
 #' @usage NULL
 #' @export
 StatBin2d <- ggproto("StatBin2d", Stat,
-  default_aes = aes(fill = stat(count)),
+  default_aes = aes(fill = after_stat(count)),
   required_aes = c("x", "y"),
 
   compute_group = function(data, scales, binwidth = NULL, bins = 30,
@@ -124,12 +124,12 @@ bin2d_breaks <- function(scale, breaks = NULL, origin = NULL, binwidth = NULL,
   if (is.null(binwidth) || identical(binwidth, NA)) {
     binwidth <- diff(range) / bins
   }
-  stopifnot(is.numeric(binwidth), length(binwidth) == 1)
+  if (!(is.numeric(binwidth) && length(binwidth) == 1)) abort("`binwidth` must be a numeric scalar")
 
   if (is.null(origin) || identical(origin, NA)) {
     origin <- round_any(range[1], binwidth, floor)
   }
-  stopifnot(is.numeric(origin), length(origin) == 1)
+  if (!(is.numeric(origin) && length(origin) == 1)) abort("`origin` must be a numeric scalar")
 
   breaks <- seq(origin, range[2] + binwidth, binwidth)
   adjust_breaks(breaks, right)

@@ -45,16 +45,23 @@ NULL
 #'   expand_limits(positions) + ylim(0, 3)
 #'
 #' # Better example
-#' crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
-#' crimesm <- reshape2::melt(crimes, id = 1)
 #' if (require(maps)) {
+#'
+#'   crimes <- data.frame(state = tolower(rownames(USArrests)), USArrests)
+#'
+#'   # Equivalent to crimes %>% tidyr::pivot_longer(Murder:Rape)
+#'   vars <- lapply(names(crimes)[-1], function(j) {
+#'     data.frame(state = crimes$state, variable = j, value = crimes[[j]])
+#'   })
+#'   crimes_long <- do.call("rbind", vars)
+#'
 #'   states_map <- map_data("state")
 #'   ggplot(crimes, aes(map_id = state)) +
 #'     geom_map(aes(fill = Murder), map = states_map) +
 #'     expand_limits(x = states_map$long, y = states_map$lat)
 #'
 #'   last_plot() + coord_map()
-#'   ggplot(crimesm, aes(map_id = state)) +
+#'   ggplot(crimes_long, aes(map_id = state)) +
 #'     geom_map(aes(fill = value), map = states_map) +
 #'     expand_limits(x = states_map$long, y = states_map$lat) +
 #'     facet_wrap( ~ variable)
@@ -67,11 +74,15 @@ geom_map <- function(mapping = NULL, data = NULL,
                      show.legend = NA,
                      inherit.aes = TRUE) {
   # Get map input into correct form
-  stopifnot(is.data.frame(map))
+  if (!is.data.frame(map)) {
+    abort("`map` must be a data.frame")
+  }
   if (!is.null(map$lat)) map$y <- map$lat
   if (!is.null(map$long)) map$x <- map$long
   if (!is.null(map$region)) map$id <- map$region
-  stopifnot(all(c("x", "y", "id") %in% names(map)))
+  if (!all(c("x", "y", "id") %in% names(map))) {
+    abort("`map` must have the columns `x`, `y`, and `id`")
+  }
 
   layer(
     data = data,

@@ -42,8 +42,8 @@ test_that("modifying theme element properties with + operator works", {
 })
 
 test_that("adding theme object to ggplot object with + operator works", {
-
-  p <- qplot(1:3, 1:3)
+  ## test with complete theme
+  p <- qplot(1:3, 1:3) + theme_grey()
   p <- p + theme(axis.title = element_text(size = 20))
   expect_true(p$theme$axis.title$size == 20)
 
@@ -55,6 +55,36 @@ test_that("adding theme object to ggplot object with + operator works", {
   expect_true(tt$inherit.blank)
   tt$inherit.blank <- FALSE
   expect_identical(p$theme$text, tt)
+
+  ## test without complete theme
+  p <- qplot(1:3, 1:3)
+  p <- p + theme(axis.title = element_text(size = 20))
+  expect_true(p$theme$axis.title$size == 20)
+
+  # Should update specified properties, but not reset other properties
+  p <- p + theme(text = element_text(colour = 'red'))
+  expect_true(p$theme$text$colour == 'red')
+  expect_null(p$theme$text$family)
+  expect_null(p$theme$text$face)
+  expect_null(p$theme$text$size)
+  expect_null(p$theme$text$hjust)
+  expect_null(p$theme$text$vjust)
+  expect_null(p$theme$text$angle)
+  expect_null(p$theme$text$lineheight)
+  expect_null(p$theme$text$margin)
+  expect_null(p$theme$text$debug)
+
+  ## stepwise addition of partial themes is identical to one-step addition
+  p <- qplot(1:3, 1:3)
+  p1 <- p + theme_light() +
+    theme(axis.line.x = element_line(color = "blue")) +
+    theme(axis.ticks.x = element_line(color = "red"))
+
+  p2 <- p + theme_light() +
+    theme(axis.line.x = element_line(color = "blue"),
+          axis.ticks.x = element_line(color = "red"))
+
+  expect_identical(p1$theme, p2$theme)
 })
 
 test_that("replacing theme elements with %+replace% operator works", {
@@ -112,16 +142,36 @@ test_that("calculating theme element inheritance works", {
     "panel.background",
     theme(
       rect = element_rect(fill = "white", colour = "black", size = 0.5, linetype = 1),
-      panel.background = element_dummyrect(dummy = 5))
+      panel.background = element_dummyrect(dummy = 5),
+      complete = TRUE # need to prevent pulling in default theme
+    )
   )
 
   expect_identical(
     e,
     structure(list(
       fill = "white", colour = "black", dummy = 5, size = 0.5, linetype = 1,
-      inherit.blank = FALSE
+      inherit.blank = TRUE # this is true because we're requesting a complete theme
     ), class = c("element_dummyrect", "element_rect", "element"))
   )
+
+  # Check that blank elements are skipped in inheritance tree if and only if elements
+  # don't inherit from blank.
+  t <- theme_gray() +
+    theme(
+      strip.text = element_blank(),
+      strip.text.x = element_text() # inherit.blank = FALSE is default
+    )
+  e1 <- calc_element("strip.text.x", t)
+  e2 <- calc_element("text", t)
+  e2$inherit.blank <- FALSE # b/c inherit.blank = TRUE for complete themes
+  expect_identical(e1, e2)
+
+  theme <- theme_gray() +
+    theme(strip.text = element_blank(), strip.text.x = element_text(inherit.blank = TRUE))
+  e1 <- ggplot2:::calc_element("strip.text.x", theme)
+  e2 <- ggplot2:::calc_element("strip.text", theme)
+  expect_identical(e1, e2)
 })
 
 test_that("complete and non-complete themes interact correctly with each other", {
@@ -196,6 +246,41 @@ test_that("theme(validate=FALSE) means do not validate_element", {
   expect_equal(red.before$theme$animint.width, 500)
 })
 
+test_that("theme validation happens at build stage", {
+  # adding a non-valid theme element to a theme is no problem
+  expect_silent(theme_gray() + theme(text = 0))
+
+  # the error occurs when we try to render the plot
+  p <- ggplot() + theme(text = 0)
+  expect_error(print(p), "must be an `element_text`")
+
+  # without validation, the error occurs when the element is accessed
+  p <- ggplot() + theme(text = 0, validate = FALSE)
+  expect_error(print(p), "text should have class element_text")
+})
+
+test_that("element tree can be modified", {
+  # we cannot add a new theme element without modifying the element tree
+  p <- ggplot() + theme(blablabla = element_text(colour = "red"))
+  expect_error(print(p), "Theme element `blablabla` is not defined in the element hierarchy")
+
+  # things work once we add a new element to the element tree
+  q <- p + theme(
+    element_tree = list(blablabla = el_def("element_text", "text"))
+  )
+  expect_silent(print(q))
+
+  # inheritance and final calculation of novel element works
+  final_theme <- ggplot2:::plot_theme(q, theme_gray())
+  e1 <- calc_element("blablabla", final_theme)
+  e2 <- calc_element("text", final_theme)
+  expect_identical(e1$family, e2$family)
+  expect_identical(e1$face, e2$face)
+  expect_identical(e1$size, e2$size)
+  expect_identical(e1$lineheight, e2$lineheight)
+  expect_identical(e1$colour, "red") # not inherited from element_text
+})
+
 test_that("all elements in complete themes have inherit.blank=TRUE", {
   inherit_blanks <- function(theme) {
     all(vapply(theme, function(el) {
@@ -253,6 +338,44 @@ test_that("complete plot themes shouldn't inherit from default", {
 
   ptheme <- plot_theme(base + theme_void(), default_theme)
   expect_null(ptheme$axis.text.x)
+})
+
+test_that("current theme can be updated with new elements", {
+  old <- theme_set(theme_grey())
+
+  b1 <- ggplot() + theme_grey()
+  b2 <- ggplot()
+
+  # works for root element
+  expect_identical(
+    calc_element("text", plot_theme(b1)),
+    calc_element("text", plot_theme(b2))
+  )
+
+  # works for derived element
+  expect_identical(
+    calc_element("axis.text.x", plot_theme(b1)),
+    calc_element("axis.text.x", plot_theme(b2))
+  )
+
+  # theme calculation for nonexisting element returns NULL
+  expect_identical(calc_element("abcde", plot_theme(b1)), NULL)
+
+  # element tree gets merged properly
+  theme_replace(
+    abcde = element_text(color = "blue", hjust = 0, vjust = 1),
+    element_tree = list(abcde = el_def("element_text", "text")),
+    complete = TRUE
+  )
+
+  e1 <- calc_element("abcde", plot_theme(b2))
+  e2 <- calc_element("text", plot_theme(b2))
+  e2$colour <- "blue"
+  e2$hjust <- 0
+  e2$vjust <- 1
+  expect_identical(e1, e2)
+
+  theme_set(old)
 })
 
 test_that("titleGrob() and margins() work correctly", {
@@ -451,4 +574,39 @@ test_that("plot titles and caption can be aligned to entire plot", {
     theme(plot.caption.position = "plot")
   expect_doppelganger("caption aligned to entire plot", plot)
 
+})
+
+test_that("provided themes explicitly define all elements", {
+  elements <- names(ggplot_global$element_tree)
+
+  t <- theme_all_null()
+  expect_true(all(names(t) %in% elements))
+  expect_true(all(vapply(t, is.null, logical(1))))
+
+  t <- theme_grey()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_bw()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_linedraw()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_light()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_dark()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_minimal()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_classic()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_void()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_test()
+  expect_true(all(names(t) %in% elements))
 })

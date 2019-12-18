@@ -34,8 +34,9 @@
 #' h + geom_ribbon(aes(ymin=0, ymax=level))
 #' h + geom_area(aes(y = level))
 #'
-#' # Change orientation be switching the mapping
-#' h + geom_area(aes(x = level, y = year))
+#' # Orientation cannot be deduced by mapping, so must be given explicitly for
+#' # flipped orientation
+#' h + geom_area(aes(x = level, y = year), orientation = "y")
 #'
 #' # Add aesthetic mappings
 #' h +
@@ -90,8 +91,8 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- flip_data(data, params$flipped_aes)
 
     if (is.null(data$ymin) && is.null(data$ymax)) {
-      stop("Either ", flipped_names(params$flipped_aes)$ymin, " or ",
-           flipped_names(params$flipped_aes)$ymax, " must be given as an aesthetic.", call. = FALSE)
+      abort(glue("Either ", flipped_names(params$flipped_aes)$ymin, " or ",
+           flipped_names(params$flipped_aes)$ymax, " must be given as an aesthetic."))
     }
     data <- data[order(data$PANEL, data$group, data$x), , drop = FALSE]
     data$y <- data$ymin %||% data$ymax
@@ -112,7 +113,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     # Check that aesthetics are constant
     aes <- unique(data[c("colour", "fill", "size", "linetype", "alpha")])
     if (nrow(aes) > 1) {
-      stop("Aesthetics can not vary with a ribbon")
+      abort("Aesthetics can not vary with a ribbon")
     }
     aes <- as.list(aes)
 

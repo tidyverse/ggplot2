@@ -22,7 +22,7 @@ quosures or constants.
 \description{
 Aesthetic mappings describe how variables in the data are mapped to visual
 properties (aesthetics) of geoms. Aesthetic mappings can be set in
-\code{\link[=ggplot2]{ggplot2()}} and in individual layers.
+\code{\link[=ggplot]{ggplot()}} and in individual layers.
 }
 \details{
 This function also standardises aesthetic names by converting \code{color} to \code{colour}

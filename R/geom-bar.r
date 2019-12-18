@@ -35,7 +35,7 @@
 #' automatically determines the orientation from the aesthetic mapping. In the
 #' rare event that this fails it can be given explicitly by setting `orientation`
 #' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
-#' @param width Bar width. By default, set to 90\% of the resolution of the data.
+#' @param width Bar width. By default, set to 90% of the resolution of the data.
 #' @param binwidth `geom_bar()` no longer has a binwidth argument - if
 #'   you use it you'll get an warning telling to you use
 #'   [geom_histogram()] instead.
@@ -89,8 +89,7 @@ geom_bar <- function(mapping = NULL, data = NULL,
                      inherit.aes = TRUE) {
 
   if (!is.null(binwidth)) {
-    warning("`geom_bar()` no longer has a `binwidth` parameter. ",
-      "Please use `geom_histogram()` instead.", call. = "FALSE")
+    warn("`geom_bar()` no longer has a `binwidth` parameter. Please use `geom_histogram()` instead.")
     return(geom_histogram(mapping = mapping, data = data,
       position = position, width = width, binwidth = binwidth, ...,
       na.rm = na.rm, show.legend = show.legend, inherit.aes = inherit.aes))

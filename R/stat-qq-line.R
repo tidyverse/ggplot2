@@ -44,7 +44,7 @@ stat_qq_line <- geom_qq_line
 #' @usage NULL
 #' @export
 StatQqLine <- ggproto("StatQqLine", Stat,
- default_aes = aes(x = stat(x), y = stat(y)),
+ default_aes = aes(x = after_stat(x), y = after_stat(y)),
 
  required_aes = c("sample"),
 
@@ -64,7 +64,7 @@ StatQqLine <- ggproto("StatQqLine", Stat,
    if (is.null(quantiles)) {
      quantiles <- stats::ppoints(n)
    } else {
-     stopifnot(length(quantiles) == n)
+     if (length(quantiles) != n) abort("`quantiles` must have the same length as the data")
    }
 
    theoretical <- do.call(
@@ -73,10 +73,7 @@ StatQqLine <- ggproto("StatQqLine", Stat,
    )
 
    if (length(line.p) != 2) {
-     stop(
-       "Cannot fit line quantiles ", line.p,
-       ". Parameter line.p must have length 2.",
-       call. = FALSE)
+     abort(glue("Cannot fit line quantiles {line.p}. Parameter line.p must have length 2."))
    }
 
    x_coords <- do.call(distribution, c(list(p = line.p), dparams))
