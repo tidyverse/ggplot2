@@ -156,7 +156,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     munched_lines$id <- switch(outline.type,
       both = munched_lines$id + rep(c(0, max(ids, na.rm = TRUE)), each = length(ids)),
       upper = munched_lines$id + rep(c(0, NA), each = length(ids)),
-      abort(paste("inlvaid outline.type:", outline.type))
+      abort(glue("invalid outline.type: {outline.type}"))
     )
     g_lines <- polylineGrob(
       munched_lines$x, munched_lines$y, id = munched_lines$id,
