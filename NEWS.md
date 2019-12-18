@@ -118,6 +118,10 @@
   the limits of the scale and ignore the order of any `breaks` provided. Note
   that this may change the appearance of plots that previously relied on the
   unordered behaviour (#2429, @idno0001).
+  
+* `stat_summary()` and related functions now support rlang-style lambda functions
+  (#3568, @dkahle).
+
 
 # ggplot2 3.2.1
 
