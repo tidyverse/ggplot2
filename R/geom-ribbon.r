@@ -21,7 +21,6 @@
 #'   [geom_polygon()] for general polygons
 #' @inheritParams layer
 #' @inheritParams geom_bar
-#' @inheritParams geom_point
 #' @param outline.type Type of the outline of the area; `"both"` draws both the
 #'   upper and lower lines, `"upper"` draws the upper lines only. `"legacy"`
 #'   draws a closed polygon around the area.
