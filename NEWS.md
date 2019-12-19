@@ -122,6 +122,11 @@
 * `stat_summary()` and related functions now support rlang-style lambda functions
   (#3568, @dkahle).
 
+* `geom_ribbon()` now draws separate lines for the upper and lower intervals if
+  `colour` is mapped by default. Similarly, `geom_area()` now draws lines for
+  the upper in the same case by default. If you want old-style full stroking, use
+  `outlier.type = "legacy"` (#3503, @yutannihilation).
+
 
 # ggplot2 3.2.1
 
