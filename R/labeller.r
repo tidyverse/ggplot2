@@ -496,100 +496,41 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     })
   }
 
-  text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
-
-  element <- calc_element(text_theme, theme)
-
-  if (inherits(element, "element_blank")) {
-    grobs <- rep(list(zeroGrob()), nrow(label_df))
-    return(structure(
-      list(grobs, grobs),
-      names = if (horizontal) c('top', 'bottom') else c('left', 'right')
-    ))
-  }
-
   # Create matrix of labels
   labels <- lapply(labeller(label_df), cbind)
   labels <- do.call("cbind", labels)
 
-  gp <- gpar(
-    fontsize = element$size,
-    col = element$colour,
-    fontfamily = element$family,
-    fontface = element$face,
-    lineheight = element$lineheight
-  )
-
   if (horizontal) {
-    #grobs <- create_strip_labels(labels, element, gp)
-    grobs <- lapply(labels, element_render, theme = theme, element = text_theme, margin_x = TRUE, margin_y = TRUE)
-    grobs <- ggstrip(grobs, theme, element, gp, horizontal, clip = "on")
+    grobs_top <- lapply(labels, element_render, theme = theme,
+                        element = "strip.text.x.top", margin_x = TRUE,
+                        margin_y = TRUE)
+    grobs_top <- assemble_strips(grobs_top, theme, horizontal, clip = "on")
+
+    grobs_bottom <- lapply(labels, element_render, theme = theme,
+                           element = "strip.text.x.bottom", margin_x = TRUE,
+                           margin_y = TRUE)
+    grobs_bottom <- assemble_strips(grobs_bottom, theme, horizontal, clip = "on")
 
     list(
-      top = grobs,
-      bottom = grobs
+      top = grobs_top,
+      bottom = grobs_bottom
     )
   } else {
-    grobs <- lapply(labels, element_render, theme = theme, element = text_theme, margin_x = TRUE, margin_y = TRUE)
-    grobs <- ggstrip(grobs, theme, element, gp, horizontal, clip = "on")
+    grobs_left <- lapply(labels, element_render, theme = theme,
+                         element = "strip.text.y.left", margin_x = TRUE,
+                         margin_y = TRUE)
+    grobs_left <- assemble_strips(grobs_left, theme, horizontal, clip = "on")
 
-    # grobs <- create_strip_labels(labels, element, gp)
-    # grobs_right <- grobs[, rev(seq_len(ncol(grobs))), drop = FALSE]
-    #
-    # grobs_right <- ggstrip(
-    #   grobs_right,
-    #   theme,
-    #   element,
-    #   gp,
-    #   horizontal,
-    #   clip = "on"
-    # )
-    #
-    # # Change angle of strip labels for y strips that are placed on the left side
-    # if (inherits(element, "element_text")) {
-    #   element$angle <- adjust_angle(element$angle)
-    # }
-    #
-    # grobs_left <- create_strip_labels(labels, element, gp)
-    #
-    # grobs_left <- ggstrip(
-    #   grobs_left,
-    #   theme,
-    #   element,
-    #   gp,
-    #   horizontal,
-    #   clip = "on"
-    # )
+    grobs_right <- lapply(labels, element_render, theme = theme,
+                          element = "strip.text.y.right", margin_x = TRUE,
+                          margin_y = TRUE)
+    grobs_right <- assemble_strips(grobs_right, theme, horizontal, clip = "on")
 
     list(
-      left = grobs,
-      right = grobs
+      left = grobs_left,
+      right = grobs_right
     )
   }
-}
-
-#' Create list of strip labels
-#'
-#' Calls [title_spec()] on all the labels for a set of strips to create a list
-#' of text grobs, heights, and widths.
-#'
-#' @param labels Matrix of strip labels
-#' @param element Theme element (see [calc_element()]).
-#' @param gp Additional graphical parameters.
-#'
-#' @noRd
-create_strip_labels <- function(labels, element, gp) {
-  grobs <- lapply(labels, title_spec,
-    x = NULL,
-    y = NULL,
-    hjust = element$hjust,
-    vjust = element$vjust,
-    angle = element$angle,
-    gp = gp,
-    debug = element$debug
-  )
-  dim(grobs) <- dim(labels)
-  grobs
 }
 
 #' Grob for strip labels
@@ -597,16 +538,15 @@ create_strip_labels <- function(labels, element, gp) {
 #' Takes the output from title_spec, adds margins, creates gList with strip
 #' background and label, and returns gtable matrix.
 #'
-#' @param grobs Output from [title_spec()].
+#' @param grobs Output from [titleGrob()].
 #' @param theme Theme object.
-#' @param element Theme element (see [calc_element()]).
-#' @param gp Additional graphical parameters.
 #' @param horizontal Whether the strips are horizontal (e.g. x facets) or not.
 #' @param clip should drawing be clipped to the specified cells (‘"on"’),the
 #'   entire table (‘"inherit"’), or not at all (‘"off"’).
 #'
 #' @noRd
-ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
+assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
+  if (length(grobs) == 0 || is.zero(grobs[[1]])) return(grobs)
   if (horizontal) {
     height <- max_height(lapply(grobs, function(x) x$heights[2]))
     width <- unit(1, "null")
@@ -617,12 +557,14 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
   grobs <- lapply(grobs, function(x) {
     x$widths[2] <- width
     x$heights[2] <- height
+    x$vp$parent$layout$widths[2] <- width
+    x$vp$parent$layout$heights[2] <- height
     x
   })
   if (horizontal) {
-    height <- height + sum(element$margin[c(1, 3)])
+    height <- sum(grobs[[1]]$heights)
   } else {
-    width <- width + sum(element$margin[c(2, 4)])
+    width <- sum(grobs[[1]]$widths)
   }
 
   background <- if (horizontal) "strip.background.x" else "strip.background.y"
@@ -634,17 +576,6 @@ ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
     strip_table <- gtable(width, height, name = "strip")
     gtable_add_grob(strip_table, strip, 1, 1, clip = clip)
   })
-}
-
-# Helper to adjust angle of switched strips
-adjust_angle <- function(angle) {
-  if (is.null(angle)) {
-    -90
-  } else if ((angle + 180) > 360) {
-    angle - 180
-  } else {
-    angle + 180
-  }
 }
 
 # Check for old school labeller
