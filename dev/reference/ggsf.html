@@ -478,7 +478,7 @@ take it from the first layer that defines a CRS.</p>
 <span class='co'># If not supplied, coord_sf() will take the CRS from the first layer</span>
 <span class='co'># and automatically transform all other layers to use that CRS. This</span>
 <span class='co'># ensures that all data will correctly line up</span>
-<span class='no'>nc_3857</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_transform.html'>st_transform</a></span>(<span class='no'>nc</span>, <span class='st'>"+init=epsg:3857"</span>)
+<span class='no'>nc_3857</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>sf</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_transform.html'>st_transform</a></span>(<span class='no'>nc</span>, <span class='fl'>3857</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>() +
   <span class='fu'>geom_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>nc</span>) +
   <span class='fu'>geom_sf</span>(<span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>nc_3857</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"red"</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>)
