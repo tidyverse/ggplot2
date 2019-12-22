@@ -159,7 +159,7 @@ test_that("geom_sf_text() and geom_sf_label() draws correctly", {
   )
 
   # In order to avoid warning, transform to a projected coordinate system
-  nc_3857 <- sf::st_transform(nc, "+init=epsg:3857")
+  nc_3857 <- sf::st_transform(nc, 3857)
 
   expect_doppelganger("Texts for North Carolina",
     ggplot() + geom_sf_text(data = nc_3857, aes(label = NAME))

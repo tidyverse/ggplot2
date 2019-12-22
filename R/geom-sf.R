@@ -43,7 +43,7 @@
 #' # If not supplied, coord_sf() will take the CRS from the first layer
 #' # and automatically transform all other layers to use that CRS. This
 #' # ensures that all data will correctly line up
-#' nc_3857 <- sf::st_transform(nc, "+init=epsg:3857")
+#' nc_3857 <- sf::st_transform(nc, 3857)
 #' ggplot() +
 #'   geom_sf(data = nc) +
 #'   geom_sf(data = nc_3857, colour = "red", fill = NA)
