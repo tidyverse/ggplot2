@@ -122,6 +122,9 @@
 * `stat_summary()` and related functions now support rlang-style lambda functions
   (#3568, @dkahle).
 
+* `scale_manual_*(limits = ...)` now actually limits the scale (#3262,
+  @yutannihilation).
+
 
 # ggplot2 3.2.1
 
