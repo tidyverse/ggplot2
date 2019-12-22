@@ -121,7 +121,7 @@ scale_discrete_manual <- function(aesthetics, ..., values, breaks = waiver()) {
 }
 
 
-manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limits = NULL) {
+manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...) {
   # check for missing `values` parameter, in lieu of providing
   # a default to all the different scale_*_manual() functions
   if (is_missing(values)) {
@@ -142,17 +142,11 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limit
     names(values) <- breaks
   }
 
-  if (is.character(limits) && is_named(values)) {
-    # We cannot subet `values`` if it is not named since we don't know the actual
-    # values at this stage.
-    values <- values[names(values) %in% limits]
-  }
-
   pal <- function(n) {
     if (n > length(values)) {
       abort(glue("Insufficient values in manual scale. {n} needed but only {length(values)} provided."))
     }
     values
   }
-  discrete_scale(aesthetic, "manual", pal, breaks = breaks, limits = limits, ...)
+  discrete_scale(aesthetic, "manual", pal, breaks = breaks, ...)
 }
