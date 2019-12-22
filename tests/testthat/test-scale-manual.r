@@ -91,4 +91,9 @@ test_that("limits works (#3262)", {
   s1 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), limits = c("4", "8"))
   s1$train(c("4", "6", "8"))
   expect_equal(s1$map(c("4", "6", "8")), c("a", NA, "c"))
+
+  # named charachter vector
+  s2 <- scale_colour_manual(values = c("c", "a", "b"), limits = c("4", "8"))
+  s2$train(c("4", "6", "8"))
+  expect_equal(s2$map(c("4", "6", "8")), c("c", NA, "a"))
 })
