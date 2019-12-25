@@ -280,6 +280,13 @@ test_that("element tree can be modified", {
   expect_identical(e1$lineheight, e2$lineheight)
   expect_identical(e1$colour, "red") # not inherited from element_text
 
+  # existing elements can be overwritten
+  ed <- el_def("element_rect", "rect")
+  register_theme_elements(
+    element_tree = list(axis.title = ed)
+  )
+  expect_identical(get_element_tree()$axis.title, ed)
+
   reset_theme_settings(reset_current = FALSE) # revert back to defaults
 })
 
