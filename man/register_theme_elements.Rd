@@ -2,38 +2,91 @@
 % Please edit documentation in R/theme-elements.r
 \name{register_theme_elements}
 \alias{register_theme_elements}
-\title{Register new theme elements}
+\alias{reset_theme_settings}
+\alias{get_element_tree}
+\alias{el_def}
+\title{Define and register new theme elements}
 \usage{
-register_theme_elements(
-  ...,
-  complete = TRUE,
-  element_tree = NULL,
-  reset_all = FALSE,
-  modify_current = TRUE
-)
+register_theme_elements(..., element_tree = NULL, complete = TRUE)
+
+reset_theme_settings(reset_current = TRUE)
+
+get_element_tree()
+
+el_def(class = NULL, inherit = NULL, description = NULL)
 }
 \arguments{
 \item{...}{Element specifications}
 
-\item{complete}{If \code{TRUE} (the default), elements are set to inherit from blank elements.}
-
 \item{element_tree}{Addition of or modification to the element tree, which specifies the
 inheritance relationship of the theme elements. The element tree must be provided as
-a list of named element definitions created with \code{\link[=el_def]{el_def()}}.}
+a list of named element definitions created with el_def().}
 
-\item{reset_all}{If \code{TRUE}, resets all theme elements and the element tree to the ggplot2
-defaults. This also resets the currently active theme if \code{modify_current} is set to
-\code{TRUE} as well.}
+\item{complete}{If \code{TRUE} (the default), elements are set to inherit from blank elements.}
 
-\item{modify_current}{If \code{TRUE} (the default), the new theme elements are also added to
-the currently active theme set by \code{theme_set()}.}
+\item{reset_current}{If \code{TRUE} (the default), the currently active theme is
+reset to the default theme.}
+
+\item{class}{The name of the element class. Examples are "element_line" or
+"element_text" or "unit", or one of the two reserved keywords "character" or
+"margin". The reserved keyword "character" implies a character
+or numeric vector, not a class called "character". The keyword
+"margin" implies a unit vector of length 4, as created by \code{\link[=margin]{margin()}}.}
+
+\item{inherit}{A vector of strings, naming the elements that this
+element inherits from.}
+
+\item{description}{An optional character vector providing a description
+for the element.}
 }
 \description{
-This function allows users to globally register new theme elements with ggplot2.
-In general, for each new theme element an element definition and a corresponding entry
-in the element tree should be provided. See \code{\link[=el_def]{el_def()}} for examples.
+The underlying structure of a ggplot2 theme is defined via the element tree, which
+specifies for each theme element what type it should have and whether it inherits from
+a parent element. In some use cases, it may be necessary to modify or extend this
+element tree and provide default settings for newly defined theme elements.
 }
 \details{
-Extension packages should call this function from their \code{.onLoad()} function.
+The function \code{register_theme_elements()} provides the option to globally register new
+theme elements with ggplot2. In general, for each new theme element both an element
+definition and a corresponding entry in the element tree should be provided. See
+examples for details. For extension package that use this functionality, it is
+recommended to call \code{register_theme_elements()} from the \code{.onLoad()} function.
+
+The function \code{reset_theme_settings()} restores the default element tree, discards
+all new element definitions, and (unless turned off) resets the currently active
+theme to the default.
+
+The function \code{get_element_tree()} returns the currently active element tree.
+
+The function \code{el_def()} is used to define new or modified element types and
+element inheritance relationships for the element tree.
+}
+\examples{
+# define a new coord that includes a panel annotation
+coord_annotate <- function(label = "panel annotation") {
+  ggproto(NULL, CoordCartesian,
+    limits = list(x = NULL, y = NULL),
+    expand = TRUE,
+    default = FALSE,
+    clip = "on",
+    render_fg = function(panel_params, theme) {
+      element_render(theme, "panel.annotation", label = label)
+    }
+  )
+}
+
+# register a new theme element `panel.annotation`
+register_theme_elements(
+  panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
+  element_tree = list(panel.annotation = el_def("element_text", "text"))
+)
+
+df <- data.frame(x = 1:3, y = 1:3)
+ggplot(df, aes(x, y)) +
+  geom_point() +
+  coord_annotate("annotation in blue")
+
+# revert to original ggplot2 settings
+reset_theme_settings()
 }
 \keyword{internal}

@@ -266,67 +266,23 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   )
 }
 
-#' Register new theme elements
+#' Define and register new theme elements
 #'
-#' This function allows users to globally register new theme elements with ggplot2.
-#' In general, for each new theme element an element definition and a corresponding entry
-#' in the element tree should be provided. See [el_def()] for examples.
+#' The underlying structure of a ggplot2 theme is defined via the element tree, which
+#' specifies for each theme element what type it should have and whether it inherits from
+#' a parent element. In some use cases, it may be necessary to modify or extend this
+#' element tree and provide default settings for newly defined theme elements.
 #'
-#' Extension packages should call this function from their `.onLoad()` function.
+#' The function `register_theme_elements()` provides the option to globally register new
+#' theme elements with ggplot2. In general, for each new theme element both an element
+#' definition and a corresponding entry in the element tree should be provided. See
+#' examples for details. For extension package that use this functionality, it is
+#' recommended to call `register_theme_elements()` from the `.onLoad()` function.
 #' @param ... Element specifications
 #' @param complete If `TRUE` (the default), elements are set to inherit from blank elements.
 #' @param element_tree Addition of or modification to the element tree, which specifies the
 #'   inheritance relationship of the theme elements. The element tree must be provided as
-#'   a list of named element definitions created with [el_def()].
-#' @param reset_all If `TRUE`, resets all theme elements and the element tree to the ggplot2
-#'   defaults. This also resets the currently active theme if `modify_current` is set to
-#'   `TRUE` as well.
-#' @param modify_current If `TRUE` (the default), the new theme elements are also added to
-#'   the currently active theme set by `theme_set()`.
-#' @keywords internal
-#' @export
-register_theme_elements <- function(..., complete = TRUE, element_tree = NULL, reset_all = FALSE,
-                                    modify_current = TRUE) {
-  if (isTRUE(reset_all)) {
-    # reset the underlying fallback default theme
-    ggplot_global$theme_default <- theme_grey()
-
-    if (isTRUE(modify_current)) {
-      # reset the currently active theme
-      ggplot_global$theme_current <- ggplot_global$theme_default
-    }
-
-    # the fallback default theme contains the full element tree
-    attr(ggplot_global$theme_default, "element_tree") <- ggplot_global$element_tree
-  }
-
-  old <- ggplot_global$theme_default
-  t <- theme(..., complete = complete, element_tree = element_tree)
-  ggplot_global$theme_default <- ggplot_global$theme_default %+replace% t
-
-  if (isTRUE(modify_current)) {
-    ggplot_global$theme_current <- ggplot_global$theme_current %+replace% t
-  }
-
-  invisible(old)
-}
-
-
-#' Define new elements for a theme's element tree
-#'
-#' Each theme has an element tree that defines which theme elements inherit
-#' theme parameters from which other elements. The function `el_def()` can be used
-#' to define new or modified elements for this tree.
-#'
-#' @param class The name of the element class. Examples are "element_line" or
-#'  "element_text" or "unit", or one of the two reserved keywords "character" or
-#'  "margin". The reserved keyword "character" implies a character
-#'  or numeric vector, not a class called "character". The keyword
-#'  "margin" implies a unit vector of length 4, as created by [margin()].
-#' @param inherit A vector of strings, naming the elements that this
-#'  element inherits from.
-#' @param description An optional character vector providing a description
-#'  for the element.
+#'   a list of named element definitions created with el_def().
 #' @examples
 #' # define a new coord that includes a panel annotation
 #' coord_annotate <- function(label = "panel annotation") {
@@ -353,7 +309,63 @@ register_theme_elements <- function(..., complete = TRUE, element_tree = NULL, r
 #'   coord_annotate("annotation in blue")
 #'
 #' # revert to original ggplot2 settings
-#' register_theme_elements(reset_all = TRUE)
+#' reset_theme_settings()
+#' @keywords internal
+#' @export
+register_theme_elements <- function(..., element_tree = NULL, complete = TRUE) {
+  old <- ggplot_global$theme_default
+  t <- theme(..., complete = complete)
+  ggplot_global$theme_default <- ggplot_global$theme_default %+replace% t
+
+  # Merge element trees
+  ggplot_global$element_tree <- defaults(element_tree, ggplot_global$element_tree)
+
+  invisible(old)
+}
+
+#' @rdname register_theme_elements
+#' @details
+#' The function `reset_theme_settings()` restores the default element tree, discards
+#' all new element definitions, and (unless turned off) resets the currently active
+#' theme to the default.
+#' @param reset_current If `TRUE` (the default), the currently active theme is
+#'   reset to the default theme.
+#' @keywords internal
+#' @export
+reset_theme_settings <- function(reset_current = TRUE) {
+  ggplot_global$element_tree <- .element_tree
+
+  # reset the underlying fallback default theme
+  ggplot_global$theme_default <- theme_grey()
+
+  if (isTRUE(reset_current)) {
+    # reset the currently active theme
+    ggplot_global$theme_current <- ggplot_global$theme_default
+  }
+}
+
+#' @rdname register_theme_elements
+#' @details
+#' The function `get_element_tree()` returns the currently active element tree.
+#' @keywords internal
+#' @export
+get_element_tree <- function() {
+  ggplot_global$element_tree
+}
+
+#' @rdname register_theme_elements
+#' @details
+#' The function `el_def()` is used to define new or modified element types and
+#' element inheritance relationships for the element tree.
+#' @param class The name of the element class. Examples are "element_line" or
+#'  "element_text" or "unit", or one of the two reserved keywords "character" or
+#'  "margin". The reserved keyword "character" implies a character
+#'  or numeric vector, not a class called "character". The keyword
+#'  "margin" implies a unit vector of length 4, as created by [margin()].
+#' @param inherit A vector of strings, naming the elements that this
+#'  element inherits from.
+#' @param description An optional character vector providing a description
+#'  for the element.
 #' @keywords internal
 #' @export
 el_def <- function(class = NULL, inherit = NULL, description = NULL) {
@@ -361,9 +373,9 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 }
 
 
-# This data structure represents the theme elements and the inheritance
-# among them. (In the future, .element_tree should be removed in favor
-# of direct assignment to ggplot_global$element_tree, see below.)
+# This data structure represents the default theme elements and the inheritance
+# among them. It should not be read from directly, since users may modify the
+# current element tree stored in ggplot_global$element_tree
 .element_tree <- list(
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
@@ -466,8 +478,6 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
   aspect.ratio        = el_def("character")
 )
-
-ggplot_global$element_tree <- .element_tree
 
 # Check that an element object has the proper class
 #

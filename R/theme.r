@@ -164,11 +164,6 @@
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
 #' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
-#' @param element_tree optional addition or modification to the element tree,
-#'   which specifies the inheritance relationship of the theme elements. The element
-#'   tree should be provided as a list of named element definitions created with
-#'   [`el_def()`]. See [`el_def()`] for more details.
-#'
 #' @seealso
 #'   [+.gg()] and [%+replace%],
 #'   [element_blank()], [element_line()],
@@ -362,10 +357,9 @@ theme <- function(line,
                   strip.switch.pad.wrap,
                   ...,
                   complete = FALSE,
-                  validate = TRUE,
-                  element_tree = NULL
+                  validate = TRUE
                   ) {
-  elements <- find_args(..., complete = NULL, validate = NULL, element_tree = NULL)
+  elements <- find_args(..., complete = NULL, validate = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
     warn("`axis.ticks.margin` is deprecated. Please set `margin` property of `axis.text` instead")
@@ -405,8 +399,7 @@ theme <- function(line,
     elements,
     class = c("theme", "gg"),
     complete = complete,
-    validate = validate,
-    element_tree = element_tree
+    validate = validate
   )
 }
 
@@ -420,22 +413,6 @@ is_theme_validate <- function(x) {
     TRUE # we validate by default
   else
     isTRUE(validate)
-}
-
-# obtain the full element tree from a theme,
-# substituting the defaults if needed
-complete_element_tree <- function(theme, default = theme_get()) {
-  element_tree <- attr(theme, "element_tree", exact = TRUE)
-
-  # we fill in the element tree first from the current default theme,
-  # and then from the element tree of the fallback default theme if necessary
-  defaults(
-    defaults(
-      element_tree,
-      attr(default, "element_tree", exact = TRUE)
-    ),
-    attr(ggplot_global$theme_default, "element_tree", exact = TRUE)
-  )
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
@@ -457,15 +434,11 @@ plot_theme <- function(x, default = theme_get()) {
   missing <- setdiff(names(ggplot_global$theme_default), names(theme))
   theme[missing] <- ggplot_global$theme_default[missing]
 
-  # complete the element tree and save back to the theme
-  element_tree <- complete_element_tree(theme, default)
-  attr(theme, "element_tree") <- element_tree
-
   # Check that all elements have the correct class (element_text, unit, etc)
   if (is_theme_validate(theme)) {
     mapply(
       validate_element, theme, names(theme),
-      MoreArgs = list(element_tree = element_tree)
+      MoreArgs = list(element_tree = get_element_tree())
     )
   }
 
@@ -505,12 +478,6 @@ add_theme <- function(t1, t2, t2name) {
   # Only validate if both themes should be validated
   attr(t1, "validate") <-
     is_theme_validate(t1) && is_theme_validate(t2)
-
-  # Merge element trees if provided
-  attr(t1, "element_tree") <- defaults(
-    attr(t2, "element_tree", exact = TRUE),
-    attr(t1, "element_tree", exact = TRUE)
-  )
 
   t1
 }
@@ -554,13 +521,8 @@ calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE) {
     }
   }
 
-  # Obtain the element tree and check that the element is in it
-  # If not, try to retrieve the complete element tree. This is
-  # needed for backwards compatibility and certain unit tests.
-  element_tree <- attr(theme, "element_tree", exact = TRUE)
-  if (!element %in% names(element_tree)) {
-    element_tree <- complete_element_tree(theme)
-  }
+  # Obtain the element tree
+  element_tree <- get_element_tree()
 
   # If the element is defined (and not just inherited), check that
   # it is of the class specified in element_tree

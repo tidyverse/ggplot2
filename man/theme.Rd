@@ -99,8 +99,7 @@ theme(
   strip.switch.pad.wrap,
   ...,
   complete = FALSE,
-  validate = TRUE,
-  element_tree = NULL
+  validate = TRUE
 )
 }
 \arguments{
@@ -281,11 +280,6 @@ differently when added to a ggplot object. Also, when setting
 elements.}
 
 \item{validate}{\code{TRUE} to run \code{validate_element()}, \code{FALSE} to bypass checks.}
-
-\item{element_tree}{optional addition or modification to the element tree,
-which specifies the inheritance relationship of the theme elements. The element
-tree should be provided as a list of named element definitions created with
-\code{\link[=el_def]{el_def()}}. See \code{\link[=el_def]{el_def()}} for more details.}
 }
 \description{
 Themes are a powerful way to customize the non-data components of your

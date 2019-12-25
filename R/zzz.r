@@ -35,12 +35,12 @@ pathGrob <- NULL
 
   ## create default theme, store for later use, and set as current theme
   ggplot_global$theme_all_null <- theme_all_null() # cache all null theme, required by theme_grey()
-  # the current theme applied to plots if none is specified
-  ggplot_global$theme_current <- NULL
-  # the underlying fallback default theme
-  ggplot_global$theme_default <- NULL
-  # both the currently active theme and the default them are created via register_theme_elements()
-  register_theme_elements(reset_all = TRUE, modify_current = TRUE)
+  # global variables holding theme settings
+  # all three are initialized via `reset_theme_settings()`
+  ggplot_global$theme_current <- NULL  # the current theme applied to plots if none is specified
+  ggplot_global$theme_default <- NULL  # the underlying fallback default theme
+  ggplot_global$element_tree <- NULL   # the current element tree for themes
+  reset_theme_settings()
 
   # Used by rbind_dfs
   date <- Sys.Date()

@@ -72,14 +72,6 @@ theme_get <- function() {
 #' @param new new theme (a list of theme elements)
 #' @export
 theme_set <- function(new) {
-  missing <- setdiff(names(ggplot_global$theme_default), names(new))
-  if (length(missing) > 0) {
-    warn(glue(
-      "New theme missing the following elements: ",
-      glue_collapse(missing, ", ", last = " and ")
-    ))
-  }
-
   old <- ggplot_global$theme_current
   ggplot_global$theme_current <- new
   invisible(old)
@@ -106,12 +98,6 @@ theme_replace <- function(...) {
 
   # Can't use modifyList here since it works recursively and drops NULLs
   e1[names(e2)] <- e2
-
-  # Merge element trees if provided
-  attr(e1, "element_tree") <- defaults(
-    attr(e2, "element_tree", exact = TRUE),
-    attr(e1, "element_tree", exact = TRUE)
-  )
 
   # comment by @clauswilke:
   # `complete` and `validate` are currently ignored,
