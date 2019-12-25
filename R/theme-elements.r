@@ -279,10 +279,10 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #' examples for details. For extension package that use this functionality, it is
 #' recommended to call `register_theme_elements()` from the `.onLoad()` function.
 #' @param ... Element specifications
-#' @param complete If `TRUE` (the default), elements are set to inherit from blank elements.
 #' @param element_tree Addition of or modification to the element tree, which specifies the
 #'   inheritance relationship of the theme elements. The element tree must be provided as
 #'   a list of named element definitions created with el_def().
+#' @param complete If `TRUE` (the default), elements are set to inherit from blank elements.
 #' @examples
 #' # define a new coord that includes a panel annotation
 #' coord_annotate <- function(label = "panel annotation") {

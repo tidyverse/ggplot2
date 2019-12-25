@@ -654,8 +654,8 @@ theme_all_null <- function() {
   # Set all elements in the element tree to NULL.
 
   # We read from `.element_tree` instead of `ggplot_global$element_tree`
-  # because we don't want to change our results if a user as defined
-  # new theme elements.
+  # because we don't want to change our results just because a user
+  # has defined new theme elements.
   elements <- sapply(
     names(.element_tree),
     function(x) NULL,
