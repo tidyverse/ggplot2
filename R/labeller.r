@@ -555,10 +555,11 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
     width <- max_width(lapply(grobs, function(x) x$widths[2]))
   }
   grobs <- lapply(grobs, function(x) {
-    x$widths[2] <- width
-    x$heights[2] <- height
-    x$vp$parent$layout$widths[2] <- width
-    x$vp$parent$layout$heights[2] <- height
+    # Avoid unit subset assignment to support R 3.2
+    x$widths <- unit.c(x$widths[1], width, x$widths[c(-1, -2)])
+    x$heights <- unit.c(x$heights[1], height, x$heights[c(-1, -2)])
+    x$vp$parent$layout$widths <- unit.c(x$vp$parent$layout$widths[1], width, x$vp$parent$layout$widths[c(-1, -2)])
+    x$vp$parent$layout$heights <- unit.c(x$vp$parent$layout$heights[1], height, x$vp$parent$layout$heights[c(-1, -2)])
     x
   })
   if (horizontal) {
