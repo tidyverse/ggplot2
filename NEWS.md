@@ -35,9 +35,9 @@
 * `Geom` now gains a `setup_params()` method in line with the other ggproto
   classes (@thomasp85, #3509)
 
-* Themes can now modify the theme element tree, via the
-  `element_tree` argument. This allows extension packages to add functionality that
-  alters the element tree (@clauswilke, #2540).
+* The newly added function `register_theme_elements()` now allows developers
+  of extension packages to define their own new theme elements and place them
+  into the ggplot2 element tree (@clauswilke, #2540).
 
 * `element_text()` now issues a warning when vectorized arguments are provided, as in
   `colour = c("red", "green", "blue")`. Such use is discouraged and not officially supported

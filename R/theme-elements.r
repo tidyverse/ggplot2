@@ -266,23 +266,23 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   )
 }
 
-
-
-#' Define new elements for a theme's element tree
+#' Define and register new theme elements
 #'
-#' Each theme has an element tree that defines which theme elements inherit
-#' theme parameters from which other elements. The function `el_def()` can be used
-#' to define new or modified elements for this tree.
+#' The underlying structure of a ggplot2 theme is defined via the element tree, which
+#' specifies for each theme element what type it should have and whether it inherits from
+#' a parent element. In some use cases, it may be necessary to modify or extend this
+#' element tree and provide default settings for newly defined theme elements.
 #'
-#' @param class The name of the element class. Examples are "element_line" or
-#'  "element_text" or "unit", or one of the two reserved keywords "character" or
-#'  "margin". The reserved keyword "character" implies a character
-#'  or numeric vector, not a class called "character". The keyword
-#'  "margin" implies a unit vector of length 4, as created by [margin()].
-#' @param inherit A vector of strings, naming the elements that this
-#'  element inherits from.
-#' @param description An optional character vector providing a description
-#'  for the element.
+#' The function `register_theme_elements()` provides the option to globally register new
+#' theme elements with ggplot2. In general, for each new theme element both an element
+#' definition and a corresponding entry in the element tree should be provided. See
+#' examples for details. For extension package that use this functionality, it is
+#' recommended to call `register_theme_elements()` from the `.onLoad()` function.
+#' @param ... Element specifications
+#' @param element_tree Addition of or modification to the element tree, which specifies the
+#'   inheritance relationship of the theme elements. The element tree must be provided as
+#'   a list of named element definitions created with el_def().
+#' @param complete If `TRUE` (the default), elements are set to inherit from blank elements.
 #' @examples
 #' # define a new coord that includes a panel annotation
 #' coord_annotate <- function(label = "panel annotation") {
@@ -297,9 +297,8 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #'   )
 #' }
 #'
-#' # update the default theme by adding a new `panel.annotation`
-#' # theme element
-#' old <- theme_update(
+#' # register a new theme element `panel.annotation`
+#' register_theme_elements(
 #'   panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
 #'   element_tree = list(panel.annotation = el_def("element_text", "text"))
 #' )
@@ -309,8 +308,64 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #'   geom_point() +
 #'   coord_annotate("annotation in blue")
 #'
-#' # revert to original default theme
-#' theme_set(old)
+#' # revert to original ggplot2 settings
+#' reset_theme_settings()
+#' @keywords internal
+#' @export
+register_theme_elements <- function(..., element_tree = NULL, complete = TRUE) {
+  old <- ggplot_global$theme_default
+  t <- theme(..., complete = complete)
+  ggplot_global$theme_default <- ggplot_global$theme_default %+replace% t
+
+  # Merge element trees
+  ggplot_global$element_tree <- defaults(element_tree, ggplot_global$element_tree)
+
+  invisible(old)
+}
+
+#' @rdname register_theme_elements
+#' @details
+#' The function `reset_theme_settings()` restores the default element tree, discards
+#' all new element definitions, and (unless turned off) resets the currently active
+#' theme to the default.
+#' @param reset_current If `TRUE` (the default), the currently active theme is
+#'   reset to the default theme.
+#' @keywords internal
+#' @export
+reset_theme_settings <- function(reset_current = TRUE) {
+  ggplot_global$element_tree <- .element_tree
+
+  # reset the underlying fallback default theme
+  ggplot_global$theme_default <- theme_grey()
+
+  if (isTRUE(reset_current)) {
+    # reset the currently active theme
+    ggplot_global$theme_current <- ggplot_global$theme_default
+  }
+}
+
+#' @rdname register_theme_elements
+#' @details
+#' The function `get_element_tree()` returns the currently active element tree.
+#' @keywords internal
+#' @export
+get_element_tree <- function() {
+  ggplot_global$element_tree
+}
+
+#' @rdname register_theme_elements
+#' @details
+#' The function `el_def()` is used to define new or modified element types and
+#' element inheritance relationships for the element tree.
+#' @param class The name of the element class. Examples are "element_line" or
+#'  "element_text" or "unit", or one of the two reserved keywords "character" or
+#'  "margin". The reserved keyword "character" implies a character
+#'  or numeric vector, not a class called "character". The keyword
+#'  "margin" implies a unit vector of length 4, as created by [margin()].
+#' @param inherit A vector of strings, naming the elements that this
+#'  element inherits from.
+#' @param description An optional character vector providing a description
+#'  for the element.
 #' @keywords internal
 #' @export
 el_def <- function(class = NULL, inherit = NULL, description = NULL) {
@@ -318,9 +373,9 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 }
 
 
-# This data structure represents the theme elements and the inheritance
-# among them. (In the future, .element_tree should be removed in favor
-# of direct assignment to ggplot_global$element_tree, see below.)
+# This data structure represents the default theme elements and the inheritance
+# among them. It should not be read from directly, since users may modify the
+# current element tree stored in ggplot_global$element_tree
 .element_tree <- list(
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
@@ -423,8 +478,6 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 
   aspect.ratio        = el_def("character")
 )
-
-ggplot_global$element_tree <- .element_tree
 
 # Check that an element object has the proper class
 #
