@@ -547,6 +547,13 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
 #' @noRd
 assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
   if (length(grobs) == 0 || is.zero(grobs[[1]])) return(grobs)
+
+  # Add margins to non-titleGrobs so they behave eqivalently
+  grobs <- lapply(grobs, function(g) {
+    if (inherits(g, "titleGrob")) return(g)
+    add_margins(g, grobHeight(g), grobWidth(g), margin_x = TRUE, margin_y = TRUE)
+  })
+
   if (horizontal) {
     height <- max_height(lapply(grobs, function(x) x$heights[2]))
     width <- unit(1, "null")
