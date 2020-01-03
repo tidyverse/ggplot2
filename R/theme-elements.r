@@ -276,15 +276,31 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #' The function `register_theme_elements()` provides the option to globally register new
 #' theme elements with ggplot2. In general, for each new theme element both an element
 #' definition and a corresponding entry in the element tree should be provided. See
-#' examples for details. For extension package that use this functionality, it is
-#' recommended to call `register_theme_elements()` from the `.onLoad()` function.
+#' examples for details. This function is meant primarily for developers of extension
+#' packages, who are strongly urged to adhere to the following best practices:
+#'
+#' 1. Call `register_theme_elements()` from the `.onLoad()` function of your package, so
+#'   that the new theme elements are available to anybody using functions from your package,
+#'   irrespective of whether the package has been attached (with `library()` or `require()`)
+#'   or not.
+#' 2. For any new elements you create, prepend them with the name of your package, to avoid
+#'   name clashes with other extension packages. For example, if you are working on a package
+#'   **ggxyz**, and you want it to provide a new element for plot panel annotations (as demonstrated
+#'   in the Examples below), name the new element `ggxyz.panel.annotation`.
 #' @param ... Element specifications
 #' @param element_tree Addition of or modification to the element tree, which specifies the
 #'   inheritance relationship of the theme elements. The element tree must be provided as
 #'   a list of named element definitions created with el_def().
 #' @param complete If `TRUE` (the default), elements are set to inherit from blank elements.
 #' @examples
-#' # define a new coord that includes a panel annotation
+#' # Let's assume a package `ggxyz` wants to provide an easy way to add annotations to
+#' # plot panels. To do so, it registers a new theme element `ggxyz.panel.annotation`
+#' register_theme_elements(
+#'   ggxyz.panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
+#'   element_tree = list(ggxyz.panel.annotation = el_def("element_text", "text"))
+#' )
+#'
+#' # Now the package can define a new coord that includes a panel annotation
 #' coord_annotate <- function(label = "panel annotation") {
 #'   ggproto(NULL, CoordCartesian,
 #'     limits = list(x = NULL, y = NULL),
@@ -292,23 +308,18 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #'     default = FALSE,
 #'     clip = "on",
 #'     render_fg = function(panel_params, theme) {
-#'       element_render(theme, "panel.annotation", label = label)
+#'       element_render(theme, "ggxyz.panel.annotation", label = label)
 #'     }
 #'   )
 #' }
 #'
-#' # register a new theme element `panel.annotation`
-#' register_theme_elements(
-#'   panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
-#'   element_tree = list(panel.annotation = el_def("element_text", "text"))
-#' )
-#'
+#' # Example plot with this new coord
 #' df <- data.frame(x = 1:3, y = 1:3)
 #' ggplot(df, aes(x, y)) +
 #'   geom_point() +
 #'   coord_annotate("annotation in blue")
 #'
-#' # revert to original ggplot2 settings
+#' # Revert to the original ggplot2 settings
 #' reset_theme_settings()
 #' @keywords internal
 #' @export
