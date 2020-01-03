@@ -276,8 +276,17 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #' The function `register_theme_elements()` provides the option to globally register new
 #' theme elements with ggplot2. In general, for each new theme element both an element
 #' definition and a corresponding entry in the element tree should be provided. See
-#' examples for details. For extension package that use this functionality, it is
-#' recommended to call `register_theme_elements()` from the `.onLoad()` function.
+#' examples for details. This function is meant primarily for developers of extension
+#' packages, who are strongly urged to adhere to the following best practices:
+#'
+#' 1. Call `register_theme_elements()` from the `.onLoad()` function of your package, so
+#'   that the new theme elements are available to anybody using functions from your package,
+#'   irrespective of whether the package has been attached (with `library()` or `require()`)
+#'   or not.
+#' 2. For any new elements you create, prepend them with the name of your package, to avoid
+#'   name clashes with other extension packages. For example, if you are working on a package
+#'   **ggxyz**, and you want it to provide a new element for plot panel annotations (as demonstrated
+#'   in the Examples below), name the new element `ggxyz.panel.annotation`.
 #' @param ... Element specifications
 #' @param element_tree Addition of or modification to the element tree, which specifies the
 #'   inheritance relationship of the theme elements. The element tree must be provided as
