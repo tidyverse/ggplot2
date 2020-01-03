@@ -290,8 +290,7 @@ about theme inheritance below.</p>
   <span class='no'>strip.switch.pad.wrap</span>,
   <span class='no'>...</span>,
   <span class='kw'>complete</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>element_tree</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>validate</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -556,8 +555,8 @@ switched (<code>unit</code>)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional element specifications not part of base ggplot2. If
-supplied <code>validate</code> needs to be set to <code>FALSE</code>.</p></td>
+      <td><p>additional element specifications not part of base ggplot2. In general,
+these should also be defined in the <code>element tree</code> argument.</p></td>
     </tr>
     <tr>
       <th>complete</th>
@@ -570,13 +569,6 @@ elements.</p></td>
     <tr>
       <th>validate</th>
       <td><p><code>TRUE</code> to run <code>validate_element()</code>, <code>FALSE</code> to bypass checks.</p></td>
-    </tr>
-    <tr>
-      <th>element_tree</th>
-      <td><p>optional addition or modification to the element tree,
-which specifies the inheritance relationship of the theme elements. The element
-tree should be provided as a list of named element definitions created with
-<code><a href='el_def.html'>el_def()</a></code>. See <code><a href='el_def.html'>el_def()</a></code> for more details.</p></td>
     </tr>
     </table>
 
