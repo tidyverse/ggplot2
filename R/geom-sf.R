@@ -43,7 +43,7 @@
 #' # If not supplied, coord_sf() will take the CRS from the first layer
 #' # and automatically transform all other layers to use that CRS. This
 #' # ensures that all data will correctly line up
-#' nc_3857 <- sf::st_transform(nc, "+init=epsg:3857")
+#' nc_3857 <- sf::st_transform(nc, 3857)
 #' ggplot() +
 #'   geom_sf(data = nc) +
 #'   geom_sf(data = nc_3857, colour = "red", fill = NA)
@@ -299,7 +299,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
 sf_types <- c(GEOMETRY = "other", POINT = "point", LINESTRING = "line",
               POLYGON = "other", MULTIPOINT = "point", MULTILINESTRING = "line",
               MULTIPOLYGON = "other", GEOMETRYCOLLECTION = "collection",
-              CIRCULARSTRING = "line", COMPOUNDCURVE = "other", CURVEPOLYGON = "other",
-              MULTICURVE = "other", MULTISURFACE = "other", CURVE = "other",
+              CIRCULARSTRING = "line", COMPOUNDCURVE = "line", CURVEPOLYGON = "other",
+              MULTICURVE = "line", MULTISURFACE = "other", CURVE = "line",
               SURFACE = "other", POLYHEDRALSURFACE = "other", TIN = "other",
               TRIANGLE = "other")
