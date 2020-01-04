@@ -34,7 +34,11 @@ test_that("outline.type option works", {
 
   g_ribbon_default <- layer_grob(p + geom_ribbon())[[1]]
   g_ribbon_upper   <- layer_grob(p + geom_ribbon(outline.type = "upper"))[[1]]
-  g_ribbon_legacy  <- layer_grob(p + geom_ribbon(outline.type = "legacy"))[[1]]
+  g_ribbon_legacy  <- expect_warning(
+    layer_grob(p + geom_ribbon(outline.type = "legacy"))[[1]],
+    'outline.type = "legacy" is only for backward-compatibility and might be removed eventually',
+    fixed = TRUE
+  )
   g_area_default   <- layer_grob(ggplot(df, aes(x, y)) + geom_area())[[1]]
 
   # default

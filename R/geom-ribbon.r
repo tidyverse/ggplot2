@@ -148,6 +148,8 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     )
 
     if (identical(outline.type, "legacy")) {
+      warn(glue('outline.type = "legacy" is only for backward-compatibility ',
+                'and might be removed eventually'))
       return(ggname("geom_ribbon", g_poly))
     }
 
