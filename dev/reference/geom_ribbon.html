@@ -198,7 +198,8 @@ of <code>ymax</code>.</p>
   <span class='kw'>na.rm</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+  <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>outline.type</span> <span class='kw'>=</span> <span class='st'>"both"</span>
 )
 
 <span class='fu'>geom_area</span>(
@@ -210,7 +211,8 @@ of <code>ymax</code>.</p>
   <span class='kw'>orientation</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
   <span class='kw'>inherit.aes</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='no'>...</span>
+  <span class='no'>...</span>,
+  <span class='kw'>outline.type</span> <span class='kw'>=</span> <span class='st'>"upper"</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -280,6 +282,12 @@ display.</p></td>
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. <code><a href='borders.html'>borders()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>outline.type</th>
+      <td><p>Type of the outline of the area; <code>"both"</code> draws both the
+upper and lower lines, <code>"upper"</code> draws the upper lines only. <code>"legacy"</code>
+draws a closed polygon around the area.</p></td>
     </tr>
     </table>
 
