@@ -551,7 +551,7 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
   # Add margins to non-titleGrobs so they behave eqivalently
   grobs <- lapply(grobs, function(g) {
     if (inherits(g, "titleGrob")) return(g)
-    add_margins(g, grobHeight(g), grobWidth(g), margin_x = TRUE, margin_y = TRUE)
+    add_margins(gList(g), grobHeight(g), grobWidth(g), margin_x = TRUE, margin_y = TRUE)
   })
 
   if (horizontal) {
