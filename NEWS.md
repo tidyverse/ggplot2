@@ -4,7 +4,7 @@
   scale limits (#3539, @thomasp85)
 
 * The evaluation time of aesthetics can now be controlled to a finer degree. 
-  `after_stat()` superseeds the use of `stat()` and `..var..`-notation, ad is
+  `after_stat()` supersedes the use of `stat()` and `..var..`-notation, and is
   joined by `after_scale()` to allow for mapping to scaled aesthetic values. 
   Remapping of the same aesthetic is now supported with `stage()`, so you can 
   map a data variable to a stat aesthetic, and remap the same aesthetic to 
@@ -59,7 +59,7 @@
   to compute contour lines. The `complete` parameter (which was undocumented
   and has been unused for at least four years) was removed (@paleolimbot, #3044).
 
-* `stat_smooth()` user `REML` by default, if `method = "gam"` and
+* `stat_smooth()` uses `REML` by default, if `method = "gam"` and
   `gam`'s method is not specified (@ikosmidis, #2630).
 
 * Changed `theme_grey()` setting for legend key so that it creates no 
