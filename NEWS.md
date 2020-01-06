@@ -127,6 +127,9 @@
   the upper in the same case by default. If you want old-style full stroking, use
   `outlier.type = "legacy"` (#3503, @yutannihilation).
 
+* `scale_manual_*(limits = ...)` now actually limits the scale (#3262,
+  @yutannihilation).
+
 
 # ggplot2 3.2.1
 
