@@ -38,10 +38,11 @@ collide <- function(data, width = NULL, name, strategy,
   # Reorder by x position, then on group. The default stacking order reverses
   # the group in order to match the legend order.
   if (reverse) {
-    data <- data[order(data$xmin, data$group), ]
+    ord <- order(data$xmin, data$group)
   } else {
-    data <- data[order(data$xmin, -data$group), ]
+    ord <- order(data$xmin, -data$group)
   }
+  data <- data[ord, ]
 
   # Check for overlap
   intervals <- as.numeric(t(unique(data[c("xmin", "xmax")])))
@@ -54,15 +55,15 @@ collide <- function(data, width = NULL, name, strategy,
   }
 
   if (!is.null(data$ymax)) {
-    dapply(data, "xmin", strategy, ..., width = width)
+    data <- dapply(data, "xmin", strategy, ..., width = width)
   } else if (!is.null(data$y)) {
     data$ymax <- data$y
     data <- dapply(data, "xmin", strategy, ..., width = width)
     data$y <- data$ymax
-    data
   } else {
     abort("Neither y nor ymax defined")
   }
+  data[match(seq_along(ord), ord), ]
 }
 
 # Alternate version of collide() used by position_dodge2()
