@@ -18,6 +18,7 @@ scale_x_binned(
   right = TRUE,
   show.limits = FALSE,
   trans = "identity",
+  guide = waiver(),
   position = "bottom"
 )
 
@@ -34,6 +35,7 @@ scale_y_binned(
   right = TRUE,
   show.limits = FALSE,
   trans = "identity",
+  guide = waiver(),
   position = "left"
 )
 }
@@ -119,6 +121,9 @@ and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+
+\item{guide}{A function used to create a guide or its name. See
+\code{\link[=guides]{guides()}} for more information.}
 
 \item{position}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
