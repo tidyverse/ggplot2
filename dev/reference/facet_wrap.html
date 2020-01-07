@@ -288,11 +288,11 @@ either of the four sides by setting <code>strip.position = c("top",
 <span class='co'># You can facet by multiple variables</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cyl</span>, <span class='no'>drv</span>))</div><div class='img'><img src='facet_wrap-3.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cyl</span>, <span class='no'>drv</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: number of items to replace is not a multiple of replacement length</span></div><div class='img'><img src='facet_wrap-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use the `labeller` option to control how labels are printed:</span>
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mpg</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>displ</span>, <span class='no'>hwy</span>)) +
   <span class='fu'><a href='geom_point.html'>geom_point</a></span>() +
-  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cyl</span>, <span class='no'>drv</span>), <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='st'>"label_both"</span>)</div><div class='img'><img src='facet_wrap-4.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>facet_wrap</span>(<span class='fu'><a href='vars.html'>vars</a></span>(<span class='no'>cyl</span>, <span class='no'>drv</span>), <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='st'>"label_both"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: number of items to replace is not a multiple of replacement length</span></div><div class='img'><img src='facet_wrap-4.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># To change the order in which the panels appear, change the levels</span>
 <span class='co'># of the underlying factor.</span>
 <span class='no'>mpg</span>$<span class='no'>class2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/reorder.factor.html'>reorder</a></span>(<span class='no'>mpg</span>$<span class='no'>class</span>, <span class='no'>mpg</span>$<span class='no'>displ</span>)

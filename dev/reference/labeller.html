@@ -257,19 +257,19 @@ functions taking a character vector such as
 <span class='no'>p1</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(
   <span class='no'>vs</span> + <span class='no'>am</span> ~ <span class='no'>gear</span>,
   <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>vs</span> <span class='kw'>=</span> <span class='no'>label_both</span>, <span class='kw'>am</span> <span class='kw'>=</span> <span class='no'>label_value</span>)
-)</div><div class='img'><img src='labeller-1.png' alt='' width='700' height='433' /></div><div class='input'>
+)</div><div class='output co'>#&gt; <span class='error'>Error in gtable_add_grob(panel_table, strips$y$right, panel_pos_rows$t,     -2, clip = "on", name = paste0("strip-r-", seq_along(strips$y$right)),     z = 2): Not all inputs have either length 1 or same length same as 'grobs'</span></div><div class='input'>
 <span class='co'># Or whole margins:</span>
 <span class='no'>p1</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(
   <span class='no'>vs</span> + <span class='no'>am</span> ~ <span class='no'>gear</span>,
   <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>.rows</span> <span class='kw'>=</span> <span class='no'>label_both</span>, <span class='kw'>.cols</span> <span class='kw'>=</span> <span class='no'>label_value</span>)
-)</div><div class='img'><img src='labeller-2.png' alt='' width='700' height='433' /></div><div class='input'>
+)</div><div class='output co'>#&gt; <span class='error'>Error in gtable_add_grob(panel_table, strips$y$right, panel_pos_rows$t,     -2, clip = "on", name = paste0("strip-r-", seq_along(strips$y$right)),     z = 2): Not all inputs have either length 1 or same length same as 'grobs'</span></div><div class='input'>
 <span class='co'># You can supply functions operating on strings:</span>
 <span class='no'>capitalize</span> <span class='kw'>&lt;-</span> <span class='kw'>function</span>(<span class='no'>string</span>) {
   <span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span>(<span class='no'>string</span>, <span class='fl'>1</span>, <span class='fl'>1</span>) <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/chartr.html'>toupper</a></span>(<span class='fu'><a href='https://rdrr.io/r/base/substr.html'>substr</a></span>(<span class='no'>string</span>, <span class='fl'>1</span>, <span class='fl'>1</span>))
   <span class='no'>string</span>
 }
 <span class='no'>p2</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>msleep</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>sleep_total</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>awake</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
-<span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>vore</span> <span class='kw'>=</span> <span class='no'>capitalize</span>))</div><div class='img'><img src='labeller-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>vore</span> <span class='kw'>=</span> <span class='no'>capitalize</span>))</div><div class='img'><img src='labeller-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Or use character vectors as lookup tables:</span>
 <span class='no'>conservation_status</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(
   <span class='kw'>cd</span> <span class='kw'>=</span> <span class='st'>"Conservation Dependent"</span>,
@@ -284,7 +284,7 @@ functions taking a character vector such as
 <span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(
   <span class='kw'>.default</span> <span class='kw'>=</span> <span class='no'>capitalize</span>,
   <span class='kw'>conservation</span> <span class='kw'>=</span> <span class='no'>conservation_status</span>
-))</div><div class='img'><img src='labeller-4.png' alt='' width='700' height='433' /></div><div class='input'>
+))</div><div class='img'><img src='labeller-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># In the following example, we rename the levels to the long form,</span>
 <span class='co'># then apply a wrap labeller to the columns to prevent cropped text</span>
 <span class='no'>idx</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/match.html'>match</a></span>(<span class='no'>msleep</span>$<span class='no'>conservation</span>, <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span>(<span class='no'>conservation_status</span>))
@@ -294,7 +294,7 @@ functions taking a character vector such as
 <span class='no'>p3</span> +
   <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation2</span>,
     <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='fu'>labeller</span>(<span class='kw'>conservation2</span> <span class='kw'>=</span> <span class='fu'><a href='labellers.html'>label_wrap_gen</a></span>(<span class='fl'>10</span>))
-  )</div><div class='img'><img src='labeller-5.png' alt='' width='700' height='433' /></div><div class='input'>
+  )</div><div class='img'><img src='labeller-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># labeller() is especially useful to act as a global labeller. You</span>
 <span class='co'># can set it up once and use it on a range of different plots with</span>
 <span class='co'># different facet specifications.</span>
@@ -306,7 +306,7 @@ functions taking a character vector such as
   <span class='kw'>.default</span> <span class='kw'>=</span> <span class='no'>label_both</span>
 )
 
-<span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-6.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>conservation2</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-7.png' alt='' width='700' height='433' /></div><div class='input'># }
+<span class='no'>p2</span> + <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>vore</span> ~ <span class='no'>conservation</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-4.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>p3</span> + <span class='fu'><a href='facet_wrap.html'>facet_wrap</a></span>(~<span class='no'>conservation2</span>, <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='no'>global_labeller</span>)</div><div class='img'><img src='labeller-5.png' alt='' width='700' height='433' /></div><div class='input'># }
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
