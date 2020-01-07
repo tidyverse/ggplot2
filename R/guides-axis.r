@@ -80,7 +80,7 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
   } else if (length(breaks) == 0) {
     guide$key <- empty_ticks
   } else {
-    mapped_breaks <- if (scale$scale_is_discrete) scale$map(breaks) else breaks
+    mapped_breaks <- if (scale$is_discrete()) scale$map(breaks) else breaks
     ticks <- new_data_frame(setNames(list(mapped_breaks), aesthetic))
     ticks$.value <- breaks
     ticks$.label <- scale$get_labels(breaks)
