@@ -25,13 +25,13 @@ scale_x_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
                            breaks = waiver(), labels = waiver(), limits = NULL,
                            expand = waiver(), oob = squish, na.value = NA_real_,
                            right = TRUE, show.limits = FALSE, trans = "identity",
-                           position = "bottom") {
+                           guide = waiver(), position = "bottom") {
   binned_scale(
     aesthetics = c("x", "xmin", "xmax", "xend", "xintercept", "xmin_final", "xmax_final", "xlower", "xmiddle", "xupper"),
     scale_name = "position_b", palette = identity, name = name, breaks = breaks,
     labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
     n.breaks = n.breaks, nice.breaks = nice.breaks, right = right, trans = trans,
-    show.limits = show.limits, guide = "none", position = position, super = ScaleBinnedPosition
+    show.limits = show.limits, guide = guide, position = position, super = ScaleBinnedPosition
   )
 }
 
@@ -42,13 +42,13 @@ scale_y_binned <- function(name = waiver(), n.breaks = 10, nice.breaks = TRUE,
                            breaks = waiver(), labels = waiver(), limits = NULL,
                            expand = waiver(), oob = squish, na.value = NA_real_,
                            right = TRUE, show.limits = FALSE, trans = "identity",
-                           position = "left") {
+                           guide = waiver(), position = "left") {
   binned_scale(
     aesthetics = c("y", "ymin", "ymax", "yend", "yintercept", "ymin_final", "ymax_final", "lower", "middle", "upper"),
     scale_name = "position_b", palette = identity, name = name, breaks = breaks,
     labels = labels, limits = limits, expand = expand, oob = oob, na.value = na.value,
     n.breaks = n.breaks, nice.breaks = nice.breaks, right = right, trans = trans,
-    show.limits = show.limits, guide = "none", position = position, super = ScaleBinnedPosition
+    show.limits = show.limits, guide = guide, position = position, super = ScaleBinnedPosition
   )
 }
 
