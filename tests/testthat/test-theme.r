@@ -424,6 +424,40 @@ test_that("titleGrob() and margins() work correctly", {
   expect_equal(width_cm(g10), width_cm(g1) + 2)
 })
 
+test_that("provided themes explicitly define all elements", {
+  elements <- names(.element_tree)
+
+  t <- theme_all_null()
+  expect_true(all(names(t) %in% elements))
+  expect_true(all(vapply(t, is.null, logical(1))))
+
+  t <- theme_grey()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_bw()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_linedraw()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_light()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_dark()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_minimal()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_classic()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_void()
+  expect_true(all(names(t) %in% elements))
+
+  t <- theme_test()
+  expect_true(all(names(t) %in% elements))
+})
 
 # Visual tests ------------------------------------------------------------
 
@@ -585,37 +619,19 @@ test_that("plot titles and caption can be aligned to entire plot", {
 
 })
 
-test_that("provided themes explicitly define all elements", {
-  elements <- names(.element_tree)
-
-  t <- theme_all_null()
-  expect_true(all(names(t) %in% elements))
-  expect_true(all(vapply(t, is.null, logical(1))))
-
-  t <- theme_grey()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_bw()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_linedraw()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_light()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_dark()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_minimal()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_classic()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_void()
-  expect_true(all(names(t) %in% elements))
-
-  t <- theme_test()
-  expect_true(all(names(t) %in% elements))
+test_that("Strips can render custom elements", {
+  element_test <- function(...) {
+    el <- element_text(...)
+    class(el) <- c('element_test', 'element_text', 'element')
+    el
+  }
+  element_grob.element_test <- function(element, label = "", x = NULL, y = NULL, ...) {
+    rectGrob(width = unit(1, "cm"), height = unit(1, "cm"))
+  }
+  df <- data_frame(x = 1:3, y = 1:3, a = letters[1:3])
+  plot <- ggplot(df, aes(x, y)) +
+    geom_point() +
+    facet_wrap(~a) +
+    theme(strip.text = element_test())
+  expect_doppelganger("custom strip elements can render", plot)
 })
