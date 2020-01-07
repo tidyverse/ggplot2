@@ -202,6 +202,7 @@ example is using <code>scale_x_binned()</code> with <code><a href='geom_bar.html
   <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>show.limits</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"bottom"</span>
 )
 
@@ -218,6 +219,7 @@ example is using <code>scale_x_binned()</code> with <code><a href='geom_bar.html
   <span class='kw'>right</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>show.limits</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>trans</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
+  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='fu'><a href='waiver.html'>waiver</a></span>(),
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"left"</span>
 )</pre>
 
@@ -324,6 +326,11 @@ and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>&lt;name&gt;_trans</code> (e.g.,
 <code><a href='https://scales.r-lib.org//reference/boxcox_trans.html'>scales::boxcox_trans()</a></code>). You can create your own
 transformation with <code><a href='https://scales.r-lib.org//reference/trans_new.html'>scales::trans_new()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>guide</th>
+      <td><p>A function used to create a guide or its name. See
+<code><a href='guides.html'>guides()</a></code> for more information.</p></td>
     </tr>
     <tr>
       <th>position</th>
