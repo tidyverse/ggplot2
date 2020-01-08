@@ -102,7 +102,7 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
   compute_group = function(data, scales, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
 
     z_range <- range(data$z, na.rm = TRUE, finite = TRUE)
-    breaks <- contour_breaks(z_range, bins, binwidth)
+    breaks <- contour_breaks(z_range, bins, binwidth, breaks)
 
     isobands <- xyz_to_isobands(data, breaks)
     names(isobands) <- pretty_isoband_levels(names(isobands))
