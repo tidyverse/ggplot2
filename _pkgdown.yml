@@ -103,7 +103,7 @@ reference:
     Guides are mostly controlled via the scale (e.g. with the `limits`,
     `breaks`, and `labels` arguments), but sometimes you will need additional
     control over guide appearance. Use `guides()` or the `guide` argument to
-    individual scales along with `guide_colourbar()` or `guide_legend()`.
+    individual scales along with `guide_*()` functions.
   contents:
   - draw_key
   - guide_colourbar
