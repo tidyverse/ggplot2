@@ -108,7 +108,7 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
     names(isobands) <- pretty_isoband_levels(names(isobands))
     path_df <- iso_to_polygon(isobands, data$group[1])
 
-    path_df$level <- factor(path_df$level, levels = names(isobands))
+    path_df$level <- ordered(path_df$level, levels = names(isobands))
 
     path_df
   }
