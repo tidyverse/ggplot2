@@ -58,7 +58,7 @@ geom_density <- function(mapping = NULL, data = NULL,
                          orientation = NA,
                          show.legend = NA,
                          inherit.aes = TRUE,
-                         outline.type = 'upper') {
+                         outline.type = "upper") {
   outline.type <- match.arg(outline.type, c("both", "upper", "lower", "legacy"))
 
   layer(
