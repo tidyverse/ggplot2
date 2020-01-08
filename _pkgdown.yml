@@ -105,8 +105,13 @@ reference:
     control over guide appearance. Use `guides()` or the `guide` argument to
     individual scales along with `guide_colourbar()` or `guide_legend()`.
   contents:
+  - draw_key
   - guide_colourbar
   - guide_legend
+  - guide_axis
+  - guide_bins
+  - guide_coloursteps
+  - guide_none
   - guides
   - sec_axis
 
