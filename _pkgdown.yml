@@ -10,9 +10,9 @@ home:
   strip_header: true
   links:
   - text: Learn more
-    href: http://r4ds.had.co.nz/data-visualisation.html
+    href: https://r4ds.had.co.nz/data-visualisation.html
   - text: Extensions
-    href: http://www.ggplot2-exts.org/gallery/
+    href: https://www.ggplot2-exts.org/gallery/
 
 reference:
 - title: Plot basics
@@ -249,4 +249,4 @@ navbar:
         href: news/index.html
     extensions:
       text: Extensions
-      href: http://www.ggplot2-exts.org/gallery/
+      href: https://www.ggplot2-exts.org/gallery/
