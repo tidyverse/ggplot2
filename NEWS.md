@@ -125,7 +125,7 @@
 * `geom_ribbon()` now draws separate lines for the upper and lower intervals if
   `colour` is mapped by default. Similarly, `geom_area()` now draws lines for
   the upper in the same case by default. If you want old-style full stroking, use
-  `outlier.type = "legacy"` (#3503, @yutannihilation).
+  `outline.type = "legacy"` (#3503, @yutannihilation).
 
 * `scale_manual_*(limits = ...)` now actually limits the scale (#3262,
   @yutannihilation).
