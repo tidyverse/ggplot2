@@ -55,7 +55,6 @@ guide_colorsteps <- guide_coloursteps
 #' @export
 guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
   breaks <- scale$get_breaks()
-  browser()
   if (guide$even.steps || !is.numeric(breaks)) {
     if (length(breaks) == 0 || all(is.na(breaks))) {
       return()
