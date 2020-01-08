@@ -40,7 +40,7 @@ reference:
   desc: >
     A handful of layers are more easily specified with a `stat_` function,
     drawing attention to the statistical transformation rather than the visual
-    appearance. The computed variables can be mapped using `stat()`.
+    appearance. The computed variables can be mapped using `after_stat()`.
   contents:
   - stat_ecdf
   - stat_ellipse
@@ -50,7 +50,7 @@ reference:
   - stat_summary_bin
   - stat_unique
   - stat_sf_coordinates
-  - stat
+  - after_stat
 
 - title: "Layer: position adjustment"
   desc: >
