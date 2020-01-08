@@ -100,7 +100,7 @@ StatContourFilled <- ggproto("StatContourFilled", Stat,
   default_aes = aes(order = after_stat(level), fill = after_stat(level)),
 
   compute_group = function(data, scales, bins = NULL, binwidth = NULL, breaks = NULL, na.rm = FALSE) {
-#browser()
+
     z_range <- range(data$z, na.rm = TRUE, finite = TRUE)
     breaks <- contour_breaks(z_range, bins, binwidth)
 
