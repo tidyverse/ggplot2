@@ -12,6 +12,7 @@
 #'   See [geom_violin()] for a compact density display.
 #' @inheritParams layer
 #' @inheritParams geom_bar
+#' @inheritParams geom_ribbon
 #' @param geom,stat Use to override the default connection between
 #'   `geom_density` and `stat_density`.
 #' @export
@@ -56,7 +57,9 @@ geom_density <- function(mapping = NULL, data = NULL,
                          na.rm = FALSE,
                          orientation = NA,
                          show.legend = NA,
-                         inherit.aes = TRUE) {
+                         inherit.aes = TRUE,
+                         outline.type = 'upper') {
+  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "legacy"))
 
   layer(
     data = data,
@@ -69,6 +72,7 @@ geom_density <- function(mapping = NULL, data = NULL,
     params = list(
       na.rm = na.rm,
       orientation = orientation,
+      outline.type = outline.type,
       ...
     )
   )
