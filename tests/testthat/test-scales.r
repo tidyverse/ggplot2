@@ -342,6 +342,7 @@ test_that("scale_apply preserves class and attributes", {
     x
   }
 
+  # These S3 methods won't work within testthat, so assign to global environment
   assign("c.baz", `c.baz`, global_env())
   assign("[.baz", `[.baz`, global_env())
 
@@ -366,7 +367,7 @@ test_that("scale_apply preserves class and attributes", {
   # Negative control: non-type stable classes don't preserve attributes
   class(df$x) <- "foobar"
 
-  out <- ggplot2:::scale_apply(
+  out <- scale_apply(
     df, "x", "transform", 1:2, plot$layout$panel_scales_x
   )[[1]]
 
