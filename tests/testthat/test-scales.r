@@ -319,3 +319,57 @@ test_that("limits with NA are replaced with the min/max of the data for continuo
   expect_equal(make_scale(limits = c(1, NA), data = 1:5)$get_limits(), c(1, 5))
   expect_equal(make_scale(limits = c(NA, 5), data = 1:5)$get_limits(), c(1, 5))
 })
+
+test_that("scale_apply preserves class and attributes", {
+  df <- data_frame(
+    x = structure(c(1, 2), foo = "bar", class = c("baz", "numeric")),
+    y = c(1, 1),
+    z = c("A", "B")
+  )
+
+  # Functions to make the 'baz'-class more type stable
+  `c.baz` <- function(...) {
+    dots <- list(...)
+    attris <- attributes(dots[[1]])
+    x <- do.call("c", lapply(dots, unclass))
+    attributes(x) <- attris
+    x
+  }
+  `[.baz` <- function(x, i) {
+    attris <- attributes(x)
+    x <- unclass(x)[i]
+    attributes(x) <- attris
+    x
+  }
+
+  assign("c.baz", `c.baz`, global_env())
+  assign("[.baz", `[.baz`, global_env())
+
+  plot <- ggplot(df, aes(x, y)) +
+    scale_x_continuous() +
+    # Facetting such that 2 x-scales will exist, i.e. `x` will be subsetted
+    facet_grid(~ z, scales = "free_x")
+  plot <- ggplot_build(plot)
+
+  # Perform identity transformation via `scale_apply`
+  out <- scale_apply(
+    df, "x", "transform", 1:2, plot$layout$panel_scales_x
+  )[[1]]
+
+  # Check class preservation
+  expect_is(out, "baz")
+  expect_is(out, "numeric")
+
+  # Check attribute preservation
+  expect_identical(attr(out, "foo"), "bar")
+
+  # Negative control: non-type stable classes don't preserve attributes
+  class(df$x) <- "foobar"
+
+  out <- ggplot2:::scale_apply(
+    df, "x", "transform", 1:2, plot$layout$panel_scales_x
+  )[[1]]
+
+  expect_false(inherits(out, "foobar"))
+  expect_null(attributes(out))
+})
