@@ -123,13 +123,25 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
   if (length(breaks) == 0 || all(is.na(breaks))) {
     return()
   }
-  limits <- scale$get_limits()
-  all_breaks <- c(limits[1], breaks, limits[2])
-  bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   # in the key data frame, use either the aesthetic provided as
   # argument to this function or, as a fall back, the first in the vector
   # of possible aesthetics handled by the scale
   aes_column_name <- aesthetic %||% scale$aesthetics[1]
+
+  if (is.numeric(breaks)) {
+    limits <- scale$get_limits()
+    all_breaks <- c(limits[1], breaks, limits[2])
+    bin_at <- all_breaks[-1] - diff(all_breaks) / 2
+  } else {
+    bin_at <- breaks
+    breaks <- as.character(breaks)
+    breaks <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks), ",\\s?")
+    breaks <- as.numeric(unlist(breaks))
+    if (anyNA(breaks)) {
+      abort('Breaks not formatted correctly for a bin legend. Use `(<lower>, <upper>]` format to indicate bins')
+    }
+    all_breaks <- breaks[c(1, seq_along(bin_at) * 2)]
+  }
   key <- new_data_frame(setNames(list(c(scale$map(bin_at), NA)), aes_column_name))
   key$.label <- scale$get_labels(all_breaks)
   guide$show.limits <- guide$show.limits %||% scale$show_limits %||% FALSE

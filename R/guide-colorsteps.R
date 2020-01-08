@@ -54,19 +54,35 @@ guide_colorsteps <- guide_coloursteps
 
 #' @export
 guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
-  if (guide$even.steps) {
-    breaks <- scale$get_breaks()
-    if (length(breaks) == 0 || all(is.na(breaks)))
+  breaks <- scale$get_breaks()
+  browser()
+  if (guide$even.steps || !is.numeric(breaks)) {
+    if (length(breaks) == 0 || all(is.na(breaks))) {
       return()
-    limits <- scale$get_limits()
-    all_breaks <- c(limits[1], breaks, limits[2])
-    bin_at <- all_breaks[-1] - diff(all_breaks) / 2
+    }
+    if (is.numeric(breaks)) {
+      limits <- scale$get_limits()
+      all_breaks <- c(limits[1], breaks, limits[2])
+      bin_at <- all_breaks[-1] - diff(all_breaks) / 2
+    } else {
+      bin_at <- breaks
+      breaks_num <- as.character(breaks)
+      breaks_num <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks_num), ",\\s?")
+      breaks_num <- as.numeric(unlist(breaks_num))
+      if (anyNA(breaks_num)) {
+        abort('Breaks not formatted correctly for a bin legend. Use `(<lower>, <upper>]` format to indicate bins')
+      }
+      all_breaks <- breaks_num[c(1, seq_along(breaks) * 2)]
+      limits <- all_breaks[c(1, length(all_breaks))]
+      breaks <- all_breaks[-c(1, length(all_breaks))]
+    }
     ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
     ticks$.value <- seq_along(breaks) - 0.5
     ticks$.label <- scale$get_labels(breaks)
     guide$nbin <- length(breaks) + 1
     guide$key <- ticks
     guide$bar <- new_data_frame(list(colour = scale$map(bin_at), value = seq_along(bin_at) - 1), n = length(bin_at))
+
     if (guide$reverse) {
       guide$key <- guide$key[nrow(guide$key):1, ]
       guide$bar <- guide$bar[nrow(guide$bar):1, ]
@@ -74,10 +90,11 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
     guide$hash <- with(guide, digest::digest(list(title, key$.label, bar, name)))
   } else {
     guide <- NextMethod()
+    limits <- scale$get_limits()
   }
   if (guide$show.limits %||% scale$show.limits %||% FALSE) {
     edges <- rescale(c(0, 1), to = guide$bar$value[c(1, nrow(guide$bar))], from = c(0.5, guide$nbin - 0.5) / guide$nbin)
-    limits <- scale$get_limits()
+    if (guide$reverse) edges <- rev(edges)
     guide$key <- guide$key[c(NA, seq_len(nrow(guide$key)), NA), , drop = FALSE]
     guide$key$.value[c(1, nrow(guide$key))] <- edges
     guide$key$.label[c(1, nrow(guide$key))] <- scale$get_labels(limits)

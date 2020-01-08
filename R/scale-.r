@@ -848,7 +848,6 @@ ScaleDiscrete <- ggproto("ScaleDiscrete", Scale,
     }
 
     if (is.waive(self$labels)) {
-      breaks <- self$get_breaks()
       if (is.numeric(breaks)) {
         # Only format numbers, because on Windows, format messes up encoding
         format(breaks, justify = "none")
