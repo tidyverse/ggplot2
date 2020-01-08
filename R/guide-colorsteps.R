@@ -12,6 +12,8 @@
 #'   visible.
 #' @inheritDotParams guide_colourbar -nbin -raster -ticks -available_aes
 #'
+#' @inheritSection guide_bins Use with discrete scale
+#'
 #' @return A guide object
 #' @export
 #'
@@ -64,6 +66,9 @@ guide_train.colorsteps <- function(guide, scale, aesthetic = NULL) {
       all_breaks <- c(limits[1], breaks, limits[2])
       bin_at <- all_breaks[-1] - diff(all_breaks) / 2
     } else {
+      # If the breaks are not numeric it is used with a discrete scale. We check
+      # if the breaks follow the allowed format "(<lower>, <upper>]", and if it
+      # does we convert it into bin specs
       bin_at <- breaks
       breaks_num <- as.character(breaks)
       breaks_num <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks_num), ",\\s?")

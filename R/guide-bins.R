@@ -16,6 +16,18 @@
 #' @param show.limits Logical. Should the limits of the scale be shown with
 #'   labels and ticks.
 #'
+#' @section Use with discrete scale:
+#' This guide is intended to show binned data and work together with ggplot2's
+#' binning scales. However, it is sometimes desirable to perform the binning in
+#' a separate step, either as part of a stat (e.g. [stat_contour_filled()]) or
+#' prior to the visualisation. If you want to use this guide for discrete data
+#' the levels must follow the naming scheme implemented by [base::cut()]. This
+#' means that a bin must be encoded as `"(<lower>, <upper>]"` with `<lower>`
+#' giving the lower bound of the bin and `<upper>` giving the upper bound
+#' (`"[<lower>, <upper>)"` is also accepted). If you use [base::cut()] to
+#' perform the binning everything should work as expected, if not, some recoding
+#' may be needed.
+#'
 #' @return A guide object
 #' @family guides
 #' @export
@@ -133,6 +145,9 @@ guide_train.bins <- function(guide, scale, aesthetic = NULL) {
     all_breaks <- c(limits[1], breaks, limits[2])
     bin_at <- all_breaks[-1] - diff(all_breaks) / 2
   } else {
+    # If the breaks are not numeric it is used with a discrete scale. We check
+    # if the breaks follow the allowed format "(<lower>, <upper>]", and if it
+    # does we convert it into bin specs
     bin_at <- breaks
     breaks <- as.character(breaks)
     breaks <- strsplit(gsub("\\(|\\)|\\[|\\]", "", breaks), ",\\s?")
