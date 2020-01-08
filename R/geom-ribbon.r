@@ -181,7 +181,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "stack", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...,
                       outline.type = "upper") {
-  outline.type <- match.arg(outline.type, c("both", "upper", "legacy"))
+  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "legacy"))
 
   layer(
     data = data,
