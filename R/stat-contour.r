@@ -134,7 +134,7 @@ contour_breaks <- function(z_range, bins = NULL, binwidth = NULL, breaks = NULL)
 
   # If provided, use bins to calculate binwidth
   if (!is.null(bins)) {
-    binwidth <- diff(z_range) / bins
+    binwidth <- diff(z_range) / (bins - 1)
   }
 
   # If necessary, compute breaks from binwidth
