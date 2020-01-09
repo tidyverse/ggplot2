@@ -87,7 +87,7 @@
         <a class="navbar-brand" href="../index.html">ggplot2</a>
         <div class="info">
           <span class="partof">part of the <a href="https://tidyverse.org">tidyverse</a></span>
-          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.2.1.9000</span>
+          <span class="version version-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">3.3.0.9000</span>
         </div>
       </div>
     </div>
@@ -206,7 +206,7 @@ converted into the right format by using <code><a href='fortify.html'>fortify()<
 
 <span class='no'>seal.sub</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/subset.html'>subset</a></span>(<span class='no'>seals</span>, <span class='no'>long</span> <span class='kw'>&gt;</span> -<span class='fl'>130</span> <span class='kw'>&amp;</span> <span class='no'>lat</span> <span class='kw'>&lt;</span> <span class='fl'>45</span> <span class='kw'>&amp;</span> <span class='no'>lat</span> <span class='kw'>&gt;</span> <span class='fl'>40</span>)
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>seal.sub</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>long</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat</span>)) +
-  <span class='fu'>annotation_map</span>(<span class='no'>usamap</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>) +
+  <span class='fu'>annotation_map</span>(<span class='no'>usamap</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>) +
   <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>long</span> + <span class='no'>delta_long</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>lat</span> + <span class='no'>delta_lat</span>))
 }</div><div class='output co'>#&gt; <span class='message'>Loading required package: maps</span></div><div class='img'><img src='annotation_map-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='st'>"maps"</span>)) {
@@ -215,7 +215,7 @@ converted into the right format by using <code><a href='fortify.html'>fortify()<
   <span class='kw'>longr</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/cut.html'>cut</a></span>(<span class='no'>long</span>, <span class='fl'>2</span>))
 
 <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>seal2</span>,  <span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>long</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>lat</span>)) +
-  <span class='fu'>annotation_map</span>(<span class='no'>usamap</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>"NA"</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>) +
+  <span class='fu'>annotation_map</span>(<span class='no'>usamap</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>) +
   <span class='fu'><a href='geom_segment.html'>geom_segment</a></span>(<span class='fu'><a href='aes.html'>aes</a></span>(<span class='kw'>xend</span> <span class='kw'>=</span> <span class='no'>long</span> + <span class='no'>delta_long</span>, <span class='kw'>yend</span> <span class='kw'>=</span> <span class='no'>lat</span> + <span class='no'>delta_lat</span>)) +
   <span class='fu'><a href='facet_grid.html'>facet_grid</a></span>(<span class='no'>latr</span> ~ <span class='no'>longr</span>, <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"free"</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"free"</span>)
 }</div><div class='img'><img src='annotation_map-2.png' alt='' width='700' height='433' /></div></pre>
