@@ -1,4 +1,4 @@
-# ggplot2 (development version)
+# ggplot2 3.3.0
 
 This is a minor release but does contain a range of substantial new features, 
 along with the standard bug fixes. The release contains a few visual breaking
