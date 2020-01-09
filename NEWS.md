@@ -27,9 +27,9 @@ fail.
   (`NA`) rather than drawing a white one. (@annennenne, #3180)
 
 * `geom_ribbon()` now draws separate lines for the upper and lower intervals if
-  `colour` is mapped by default. Similarly, `geom_area()` now draws lines for
-  the upper in the same case by default. If you want old-style full stroking, 
-  use `outlier.type = "legacy"` (#3503, @yutannihilation).
+  `colour` is mapped. Similarly, `geom_area()` and `geom_density()` now draw
+  the upper lines only in the same case by default. If you want old-style full
+  stroking, use `outline.type = "full"` (@yutannihilation, #3503 / @thomasp85, #3708).
 
 ## New features
 

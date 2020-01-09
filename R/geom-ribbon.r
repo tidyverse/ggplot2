@@ -23,7 +23,7 @@
 #' @inheritParams geom_bar
 #' @param outline.type Type of the outline of the area; `"both"` draws both the
 #'   upper and lower lines, `"upper"`/`"lower"` draws the either lines only.
-#'   `"legacy"` draws a closed polygon around the area.
+#'   `"full"` draws a closed polygon around the area.
 #' @export
 #' @examples
 #' # Generate data
@@ -49,7 +49,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
                         show.legend = NA,
                         inherit.aes = TRUE,
                         outline.type = "both") {
-  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "legacy"))
+  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "full"))
 
   layer(
     data = data,
@@ -143,12 +143,12 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       default.units = "native",
       gp = gpar(
         fill = alpha(aes$fill, aes$alpha),
-        col = if (identical(outline.type, "legacy")) aes$colour else NA
+        col = if (identical(outline.type, "full")) aes$colour else NA
       )
     )
 
-    if (identical(outline.type, "legacy")) {
-      warn(glue('outline.type = "legacy" is only for backward-compatibility ',
+    if (identical(outline.type, "full")) {
+      warn(glue('outline.type = "full" is only for backward-compatibility ',
                 'and might be removed eventually'))
       return(ggname("geom_ribbon", g_poly))
     }
@@ -181,7 +181,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "stack", na.rm = FALSE, orientation = NA,
                       show.legend = NA, inherit.aes = TRUE, ...,
                       outline.type = "upper") {
-  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "legacy"))
+  outline.type <- match.arg(outline.type, c("both", "upper", "lower", "full"))
 
   layer(
     data = data,
