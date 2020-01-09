@@ -9,6 +9,7 @@ matrix:
     env: _R_CHECK_SYSTEM_CLOCK_=false
   - r: release
     env: VDIFFR_RUN_TESTS=true
+    env: VDIFFR_LOG_PATH="../vdiffr.Rout.fail"
     before_cache:
     - Rscript -e 'remotes::install_cran("pkgdown")'
     - Rscript -e 'remotes::install_github("tidyverse/tidytemplate")'

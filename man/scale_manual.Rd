@@ -11,8 +11,7 @@
 \alias{scale_color_manual}
 \title{Create your own discrete scale}
 \usage{
-scale_colour_manual(..., values, aesthetics = "colour",
-  breaks = waiver())
+scale_colour_manual(..., values, aesthetics = "colour", breaks = waiver())
 
 scale_fill_manual(..., values, aesthetics = "fill", breaks = waiver())
 
@@ -33,14 +32,6 @@ scale_discrete_manual(aesthetics, ..., values, breaks = waiver())
     \item{\code{palette}}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
 they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
-    \item{\code{breaks}}{One of:
-\itemize{
-\item \code{NULL} for no breaks
-\item \code{waiver()} for the default breaks (the scale limits)
-\item A character vector of breaks
-\item A function that takes the limits as input and returns breaks
-as output
-}}
     \item{\code{limits}}{A character vector that defines possible values of the scale
 and their order.}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
