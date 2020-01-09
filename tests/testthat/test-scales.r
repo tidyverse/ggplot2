@@ -342,9 +342,6 @@ test_that("scale_apply preserves class and attributes", {
     x
   }
 
-  assign("c.baz", `c.baz`, global_env())
-  assign("[.baz", `[.baz`, global_env())
-
   plot <- ggplot(df, aes(x, y)) +
     scale_x_continuous() +
     # Facetting such that 2 x-scales will exist, i.e. `x` will be subsetted
@@ -352,9 +349,9 @@ test_that("scale_apply preserves class and attributes", {
   plot <- ggplot_build(plot)
 
   # Perform identity transformation via `scale_apply`
-  out <- scale_apply(
+  out <- with_bindings(scale_apply(
     df, "x", "transform", 1:2, plot$layout$panel_scales_x
-  )[[1]]
+  )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
 
   # Check class preservation
   expect_is(out, "baz")
@@ -366,9 +363,9 @@ test_that("scale_apply preserves class and attributes", {
   # Negative control: non-type stable classes don't preserve attributes
   class(df$x) <- "foobar"
 
-  out <- ggplot2:::scale_apply(
+  out <- with_bindings(scale_apply(
     df, "x", "transform", 1:2, plot$layout$panel_scales_x
-  )[[1]]
+  )[[1]], `c.baz` = `c.baz`, `[.baz` = `[.baz`, .env = global_env())
 
   expect_false(inherits(out, "foobar"))
   expect_null(attributes(out))
