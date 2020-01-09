@@ -1,4 +1,4 @@
-# ggplot2 (development version)
+# ggplot2 3.3.0
 
 * Fix a bug in `geom_raster()` that squeezed the image when it went outside 
   scale limits (#3539, @thomasp85)
