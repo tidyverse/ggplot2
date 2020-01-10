@@ -32,7 +32,7 @@ names/calls to define the aesthetic mappings, rather than having to use
 \code{\link[=substitute]{substitute()}} to generate a call to \code{aes()}.
 
 I recommend using \code{aes_()}, because creating the equivalents of
-\code{aes(colour = "my colour")} or \code{aes{x = `X$1`}}
+\code{aes(colour = "my colour")} or \code{aes(x = `X$1`)}
 with \code{aes_string()} is quite clunky.
 }
 \section{Life cycle}{
