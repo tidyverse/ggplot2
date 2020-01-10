@@ -50,6 +50,12 @@ fail.
 * Allowed reversing of discrete scales by re-writing `get_limits()` 
   (@AnneLyng, #3115)
   
+* All geoms and stats that had a direction (i.e. where the x and y axes had 
+  different interpretation), can now freely choose their direction, instead of
+  relying on `coord_flip()`. The direction is deduced from the aesthetic 
+  mapping, but can also be specified directly with the new `orientation` 
+  argument (@thomasp85, #3506).
+  
 * Position guides can now be customized using the new `guide_axis()`, which can 
   be passed to position `scale_*()` functions or via `guides()`. The new axis 
   guide (`guide_axis()`) comes with arguments `check.overlap` (automatic removal 
