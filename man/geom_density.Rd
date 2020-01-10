@@ -85,7 +85,7 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
 \item{outline.type}{Type of the outline of the area; \code{"both"} draws both the
 upper and lower lines, \code{"upper"}/\code{"lower"} draws the either lines only.
-\code{"legacy"} draws a closed polygon around the area.}
+\code{"full"} draws a closed polygon around the area.}
 
 \item{geom, stat}{Use to override the default connection between
 \code{geom_density} and \code{stat_density}.}
