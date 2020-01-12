@@ -32,14 +32,15 @@ test_that("alpha affects only fill colour of solid geoms", {
     geom_polygon(fill = "red", colour = "red", alpha = 0.5)
   rect <- ggplot(df, aes(xmin = x, xmax = x + 1, ymin = 1, ymax = y + 1)) +
     geom_rect(fill = "red", colour = "red", alpha = 0.5)
+  # geom_ribbon() consists of polygonGrob and polylineGrob
   ribb <- ggplot(df, aes(x = x, ymin = 1, ymax = y + 1)) +
     geom_ribbon(fill = "red", colour = "red", alpha = 0.5)
 
   expect_equal(layer_grob(poly)[[1]]$gp$col[[1]], "red")
   expect_equal(layer_grob(rect)[[1]]$gp$col[[1]], "red")
-  expect_equal(layer_grob(ribb)[[1]]$children[[1]]$gp$col[[1]], "red")
+  expect_equal(layer_grob(ribb)[[1]]$children[[1]]$children[[2]]$gp$col[[1]], "red")
 
   expect_equal(layer_grob(poly)[[1]]$gp$fill[[1]], "#FF000080")
   expect_equal(layer_grob(rect)[[1]]$gp$fill[[1]], "#FF000080")
-  expect_equal(layer_grob(ribb)[[1]]$children[[1]]$gp$fill[[1]], "#FF000080")
+  expect_equal(layer_grob(ribb)[[1]]$children[[1]]$children[[1]]$gp$fill[[1]], "#FF000080")
 })

@@ -43,7 +43,7 @@
 #' # If not supplied, coord_sf() will take the CRS from the first layer
 #' # and automatically transform all other layers to use that CRS. This
 #' # ensures that all data will correctly line up
-#' nc_3857 <- sf::st_transform(nc, "+init=epsg:3857")
+#' nc_3857 <- sf::st_transform(nc, 3857)
 #' ggplot() +
 #'   geom_sf(data = nc) +
 #'   geom_sf(data = nc_3857, colour = "red", fill = NA)
@@ -101,7 +101,7 @@ GeomSf <- ggproto("GeomSf", Geom,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = TRUE) {
     if (!inherits(coord, "CoordSf")) {
-      stop("geom_sf() must be used with coord_sf()", call. = FALSE)
+      abort("geom_sf() must be used with coord_sf()")
     }
 
     # Need to refactor this to generate one grob per geometry type
@@ -197,11 +197,10 @@ geom_sf <- function(mapping = aes(), data = NULL, stat = "sf",
       mapping = mapping,
       stat = stat,
       position = position,
-      show.legend = if (is.character(show.legend)) TRUE else show.legend,
+      show.legend = show.legend,
       inherit.aes = inherit.aes,
       params = list(
         na.rm = na.rm,
-        legend = if (is.character(show.legend)) show.legend else "polygon",
         ...
       )
     ),
@@ -229,7 +228,7 @@ geom_sf_label <- function(mapping = aes(), data = NULL,
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+      abort("Specify either `position` or `nudge_x`/`nudge_y`")
     }
 
     position <- position_nudge(nudge_x, nudge_y)
@@ -273,7 +272,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
 
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop("You must specify either `position` or `nudge_x`/`nudge_y`.", call. = FALSE)
+      abort("You must specify either `position` or `nudge_x`/`nudge_y`.")
     }
 
     position <- position_nudge(nudge_x, nudge_y)
@@ -300,7 +299,7 @@ geom_sf_text <- function(mapping = aes(), data = NULL,
 sf_types <- c(GEOMETRY = "other", POINT = "point", LINESTRING = "line",
               POLYGON = "other", MULTIPOINT = "point", MULTILINESTRING = "line",
               MULTIPOLYGON = "other", GEOMETRYCOLLECTION = "collection",
-              CIRCULARSTRING = "line", COMPOUNDCURVE = "other", CURVEPOLYGON = "other",
-              MULTICURVE = "other", MULTISURFACE = "other", CURVE = "other",
+              CIRCULARSTRING = "line", COMPOUNDCURVE = "line", CURVEPOLYGON = "other",
+              MULTICURVE = "line", MULTISURFACE = "other", CURVE = "line",
               SURFACE = "other", POLYHEDRALSURFACE = "other", TIN = "other",
               TRIANGLE = "other")

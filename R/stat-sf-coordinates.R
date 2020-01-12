@@ -40,9 +40,9 @@
 #' ggplot(nc) +
 #'   geom_errorbarh(
 #'     aes(geometry = geometry,
-#'         xmin = stat(x) - 0.1,
-#'         xmax = stat(x) + 0.1,
-#'         y = stat(y),
+#'         xmin = after_stat(x) - 0.1,
+#'         xmax = after_stat(x) + 0.1,
+#'         y = after_stat(y),
 #'         height = 0.04),
 #'     stat = "sf_coordinates"
 #'   )
@@ -121,6 +121,6 @@ StatSfCoordinates <- ggproto(
     data
   },
 
-  default_aes = aes(x = stat(x), y = stat(y)),
+  default_aes = aes(x = after_stat(x), y = after_stat(y)),
   required_aes = c("geometry")
 )

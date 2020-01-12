@@ -21,6 +21,9 @@
 #'   [geom_polygon()] for general polygons
 #' @inheritParams layer
 #' @inheritParams geom_bar
+#' @param outline.type Type of the outline of the area; `"both"` draws both the
+#'   upper and lower lines, `"upper"` draws the upper lines only. `"legacy"`
+#'   draws a closed polygon around the area.
 #' @export
 #' @examples
 #' # Generate data
@@ -44,7 +47,10 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
                         na.rm = FALSE,
                         orientation = NA,
                         show.legend = NA,
-                        inherit.aes = TRUE) {
+                        inherit.aes = TRUE,
+                        outline.type = "both") {
+  outline.type <- match.arg(outline.type, c("both", "upper", "legacy"))
+
   layer(
     data = data,
     mapping = mapping,
@@ -56,6 +62,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
     params = list(
       na.rm = na.rm,
       orientation = orientation,
+      outline.type = outline.type,
       ...
     )
   )
@@ -83,8 +90,8 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- flip_data(data, params$flipped_aes)
 
     if (is.null(data$ymin) && is.null(data$ymax)) {
-      stop("Either ", flipped_names(params$flipped_aes)$ymin, " or ",
-           flipped_names(params$flipped_aes)$ymax, " must be given as an aesthetic.", call. = FALSE)
+      abort(glue("Either ", flipped_names(params$flipped_aes)$ymin, " or ",
+           flipped_names(params$flipped_aes)$ymax, " must be given as an aesthetic."))
     }
     data <- data[order(data$PANEL, data$group, data$x), , drop = FALSE]
     data$y <- data$ymin %||% data$ymax
@@ -97,7 +104,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data
   },
 
-  draw_group = function(data, panel_params, coord, na.rm = FALSE, flipped_aes = FALSE) {
+  draw_group = function(data, panel_params, coord, na.rm = FALSE, flipped_aes = FALSE, outline.type = "both") {
     data <- flip_data(data, flipped_aes)
     if (na.rm) data <- data[stats::complete.cases(data[c("x", "ymin", "ymax")]), ]
     data <- data[order(data$group), ]
@@ -105,7 +112,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     # Check that aesthetics are constant
     aes <- unique(data[c("colour", "fill", "size", "linetype", "alpha")])
     if (nrow(aes) > 1) {
-      stop("Aesthetics can not vary with a ribbon")
+      abort("Aesthetics can not vary with a ribbon")
     }
     aes <- as.list(aes)
 
@@ -131,23 +138,50 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
 
     munched <- coord_munch(coord, positions, panel_params)
 
-    ggname("geom_ribbon", polygonGrob(
+    g_poly <- polygonGrob(
       munched$x, munched$y, id = munched$id,
       default.units = "native",
       gp = gpar(
         fill = alpha(aes$fill, aes$alpha),
+        col = if (identical(outline.type, "legacy")) aes$colour else NA
+      )
+    )
+
+    if (identical(outline.type, "legacy")) {
+      warn(glue('outline.type = "legacy" is only for backward-compatibility ',
+                'and might be removed eventually'))
+      return(ggname("geom_ribbon", g_poly))
+    }
+
+    munched_lines <- munched
+    # increment the IDs of the lower line
+    munched_lines$id <- switch(outline.type,
+      both = munched_lines$id + rep(c(0, max(ids, na.rm = TRUE)), each = length(ids)),
+      upper = munched_lines$id + rep(c(0, NA), each = length(ids)),
+      abort(glue("invalid outline.type: {outline.type}"))
+    )
+    g_lines <- polylineGrob(
+      munched_lines$x, munched_lines$y, id = munched_lines$id,
+      default.units = "native",
+      gp = gpar(
         col = aes$colour,
         lwd = aes$size * .pt,
         lty = aes$linetype)
-    ))
+    )
+
+    ggname("geom_ribbon", grobTree(g_poly, g_lines))
   }
+
 )
 
 #' @rdname geom_ribbon
 #' @export
 geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
                       position = "stack", na.rm = FALSE, orientation = NA,
-                      show.legend = NA, inherit.aes = TRUE, ...) {
+                      show.legend = NA, inherit.aes = TRUE, ...,
+                      outline.type = "upper") {
+  outline.type <- match.arg(outline.type, c("both", "upper", "legacy"))
+
   layer(
     data = data,
     mapping = mapping,
@@ -159,6 +193,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
     params = list(
       na.rm = na.rm,
       orientation = orientation,
+      outline.type = outline.type,
       ...
     )
   )

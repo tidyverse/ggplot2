@@ -1,5 +1,22 @@
 # ggplot2 (development version)
 
+# ggplot2 3.3.0
+
+* Fix a bug in `geom_raster()` that squeezed the image when it went outside 
+  scale limits (#3539, @thomasp85)
+
+* The evaluation time of aesthetics can now be controlled to a finer degree. 
+  `after_stat()` supersedes the use of `stat()` and `..var..`-notation, and is
+  joined by `after_scale()` to allow for mapping to scaled aesthetic values. 
+  Remapping of the same aesthetic is now supported with `stage()`, so you can 
+  map a data variable to a stat aesthetic, and remap the same aesthetic to 
+  something else after statistical transformation (@thomasp85, #3534)
+
+* ggplot2 no longer depends on reshape2, which means that it no longer 
+  (recursively) needs plyr, stringr, or stringi packages.
+
+* `geom_sf()` now determines the legend type automatically (@microly, #3646).
+  
 * `scale_x_continuous()` and `scale_y_continuous()` gains an `n.breaks` argument
   guiding the number of automatic generated breaks (@thomasp85, #3102)
   
@@ -20,9 +37,9 @@
 * `Geom` now gains a `setup_params()` method in line with the other ggproto
   classes (@thomasp85, #3509)
 
-* Themes can now modify the theme element tree, via the
-  `element_tree` argument. This allows extension packages to add functionality that
-  alters the element tree (@clauswilke, #2540).
+* The newly added function `register_theme_elements()` now allows developers
+  of extension packages to define their own new theme elements and place them
+  into the ggplot2 element tree (@clauswilke, #2540).
 
 * `element_text()` now issues a warning when vectorized arguments are provided, as in
   `colour = c("red", "green", "blue")`. Such use is discouraged and not officially supported
@@ -44,7 +61,7 @@
   to compute contour lines. The `complete` parameter (which was undocumented
   and has been unused for at least four years) was removed (@paleolimbot, #3044).
 
-* `stat_smooth()` user `REML` by default, if `method = "gam"` and
+* `stat_smooth()` uses `REML` by default, if `method = "gam"` and
   `gam`'s method is not specified (@ikosmidis, #2630).
 
 * Changed `theme_grey()` setting for legend key so that it creates no 
@@ -97,6 +114,24 @@
 * Increase the default `nbin` of `guide_colourbar()` to place the ticks more precisely (#3508, @yutannihilation).
 
 * `geom_sf()` now applies alpha to linestring geometries (#3589, @yutannihilation).
+
+* `manual_scale()` now matches `values` with the order of `breaks` whenever
+  `values` is an unnamed vector. Previously, unnamed `values` would match with
+  the limits of the scale and ignore the order of any `breaks` provided. Note
+  that this may change the appearance of plots that previously relied on the
+  unordered behaviour (#2429, @idno0001).
+  
+* `stat_summary()` and related functions now support rlang-style lambda functions
+  (#3568, @dkahle).
+
+* `geom_ribbon()` now draws separate lines for the upper and lower intervals if
+  `colour` is mapped by default. Similarly, `geom_area()` now draws lines for
+  the upper in the same case by default. If you want old-style full stroking, use
+  `outline.type = "legacy"` (#3503, @yutannihilation).
+
+* `scale_manual_*(limits = ...)` now actually limits the scale (#3262,
+  @yutannihilation).
+
 
 # ggplot2 3.2.1
 

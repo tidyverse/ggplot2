@@ -156,19 +156,14 @@
 #' @param strip.switch.pad.wrap space between strips and axes when strips are
 #'   switched (`unit`)
 #'
-#' @param ... additional element specifications not part of base ggplot2. If
-#'   supplied `validate` needs to be set to `FALSE`.
+#' @param ... additional element specifications not part of base ggplot2. In general,
+#'   these should also be defined in the `element tree` argument.
 #' @param complete set this to `TRUE` if this is a complete theme, such as
 #'   the one returned by [theme_grey()]. Complete themes behave
 #'   differently when added to a ggplot object. Also, when setting
 #'   `complete = TRUE` all elements will be set to inherit from blank
 #'   elements.
 #' @param validate `TRUE` to run `validate_element()`, `FALSE` to bypass checks.
-#' @param element_tree optional addition or modification to the element tree,
-#'   which specifies the inheritance relationship of the theme elements. The element
-#'   tree should be provided as a list of named element definitions created with
-#'   [`el_def()`]. See [`el_def()`] for more details.
-#'
 #' @seealso
 #'   [+.gg()] and [%+replace%],
 #'   [element_blank()], [element_line()],
@@ -362,37 +357,31 @@ theme <- function(line,
                   strip.switch.pad.wrap,
                   ...,
                   complete = FALSE,
-                  validate = TRUE,
-                  element_tree = NULL
+                  validate = TRUE
                   ) {
-  elements <- find_args(..., complete = NULL, validate = NULL, element_tree = NULL)
+  elements <- find_args(..., complete = NULL, validate = NULL)
 
   if (!is.null(elements$axis.ticks.margin)) {
-    warning("`axis.ticks.margin` is deprecated. Please set `margin` property ",
-      " of `axis.text` instead", call. = FALSE)
+    warn("`axis.ticks.margin` is deprecated. Please set `margin` property of `axis.text` instead")
     elements$axis.ticks.margin <- NULL
   }
   if (!is.null(elements$panel.margin)) {
-    warning("`panel.margin` is deprecated. Please use `panel.spacing` property ",
-      "instead", call. = FALSE)
+    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
     elements$panel.spacing <- elements$panel.margin
     elements$panel.margin <- NULL
   }
   if (!is.null(elements$panel.margin.x)) {
-    warning("`panel.margin.x` is deprecated. Please use `panel.spacing.x` property ",
-            "instead", call. = FALSE)
+    warn("`panel.margin.x` is deprecated. Please use `panel.spacing.x` property instead")
     elements$panel.spacing.x <- elements$panel.margin.x
     elements$panel.margin.x <- NULL
   }
   if (!is.null(elements$panel.margin.y)) {
-    warning("`panel.margin` is deprecated. Please use `panel.spacing` property ",
-            "instead", call. = FALSE)
+    warn("`panel.margin` is deprecated. Please use `panel.spacing` property instead")
     elements$panel.spacing.y <- elements$panel.margin.y
     elements$panel.margin.y <- NULL
   }
   if (is.unit(elements$legend.margin) && !is.margin(elements$legend.margin)) {
-    warning("`legend.margin` must be specified using `margin()`. For the old ",
-      "behavior use legend.spacing", call. = FALSE)
+    warn("`legend.margin` must be specified using `margin()`. For the old behavior use legend.spacing")
     elements$legend.spacing <- elements$legend.margin
     elements$legend.margin <- margin()
   }
@@ -410,8 +399,7 @@ theme <- function(line,
     elements,
     class = c("theme", "gg"),
     complete = complete,
-    validate = validate,
-    element_tree = element_tree
+    validate = validate
   )
 }
 
@@ -425,24 +413,6 @@ is_theme_validate <- function(x) {
     TRUE # we validate by default
   else
     isTRUE(validate)
-}
-
-# obtain the full element tree from a theme,
-# substituting the defaults if needed
-complete_element_tree <- function(theme) {
-  element_tree <- attr(theme, "element_tree", exact = TRUE)
-
-  # we fill in the element tree first from the current default theme,
-  # and then from the internal element tree if necessary
-  # this makes it easy for extension packages to provide modified
-  # default element trees
-  defaults(
-    defaults(
-      element_tree,
-      attr(theme_get(), "element_tree", exact = TRUE)
-    ),
-    ggplot_global$element_tree
-  )
 }
 
 # Combine plot defaults with current theme to get complete theme for a plot
@@ -460,15 +430,15 @@ plot_theme <- function(x, default = theme_get()) {
     theme <- default + theme
   }
 
-  # complete the element tree and save back to the theme
-  element_tree <- complete_element_tree(theme)
-  attr(theme, "element_tree") <- element_tree
+  # if we're still missing elements relative to fallback default, fill in those
+  missing <- setdiff(names(ggplot_global$theme_default), names(theme))
+  theme[missing] <- ggplot_global$theme_default[missing]
 
   # Check that all elements have the correct class (element_text, unit, etc)
   if (is_theme_validate(theme)) {
     mapply(
       validate_element, theme, names(theme),
-      MoreArgs = list(element_tree = element_tree)
+      MoreArgs = list(element_tree = get_element_tree())
     )
   }
 
@@ -484,8 +454,7 @@ plot_theme <- function(x, default = theme_get()) {
 #' @keywords internal
 add_theme <- function(t1, t2, t2name) {
   if (!is.list(t2)) { # in various places in the code base, simple lists are used as themes
-    stop("Can't add `", t2name, "` to a theme object.",
-      call. = FALSE)
+    abort(glue("Can't add `{t2name}` to a theme object."))
   }
 
   # If t2 is a complete theme or t1 is NULL, just return t2
@@ -510,12 +479,6 @@ add_theme <- function(t1, t2, t2name) {
   attr(t1, "validate") <-
     is_theme_validate(t1) && is_theme_validate(t2)
 
-  # Merge element trees if provided
-  attr(t1, "element_tree") <- defaults(
-    attr(t2, "element_tree", exact = TRUE),
-    attr(t1, "element_tree", exact = TRUE)
-  )
-
   t1
 }
 
@@ -525,6 +488,8 @@ add_theme <- function(t1, t2, t2name) {
 #' @param element The name of the theme element to calculate
 #' @param theme A theme object (like [theme_grey()])
 #' @param verbose If TRUE, print out which elements this one inherits from
+#' @param skip_blank If TRUE, elements of type `element_blank` in the
+#'   inheritance hierarchy will be ignored.
 #' @keywords internal
 #' @export
 #' @examples
@@ -540,30 +505,30 @@ add_theme <- function(t1, t2, t2name) {
 #' t$axis.text.x
 #' t$axis.text
 #' t$text
-calc_element <- function(element, theme, verbose = FALSE) {
+calc_element <- function(element, theme, verbose = FALSE, skip_blank = FALSE) {
   if (verbose) message(element, " --> ", appendLF = FALSE)
 
   el_out <- theme[[element]]
 
-  # If result is element_blank, don't inherit anything from parents
+  # If result is element_blank, we skip it if `skip_blank` is `TRUE`,
+  # and otherwise we don't inherit anything from parents
   if (inherits(el_out, "element_blank")) {
-    if (verbose) message("element_blank (no inheritance)")
-    return(el_out)
+    if (isTRUE(skip_blank)) {
+      el_out <- NULL
+    } else {
+      if (verbose) message("element_blank (no inheritance)")
+      return(el_out)
+    }
   }
 
-  # Obtain the element tree and check that the element is in it
-  # If not, try to retrieve the complete element tree. This is
-  # needed for backwards compatibility and certain unit tests.
-  element_tree <- attr(theme, "element_tree", exact = TRUE)
-  if (!element %in% names(element_tree)) {
-    element_tree <- complete_element_tree(theme)
-  }
+  # Obtain the element tree
+  element_tree <- get_element_tree()
 
   # If the element is defined (and not just inherited), check that
   # it is of the class specified in element_tree
   if (!is.null(el_out) &&
       !inherits(el_out, element_tree[[element]]$class)) {
-    stop(element, " should have class ", element_tree[[element]]$class)
+    abort(glue("{element} should have class {ggplot_global$element_tree[[element]]$class}"))
   }
 
   # Get the names of parents from the inheritance tree
@@ -579,20 +544,29 @@ calc_element <- function(element, theme, verbose = FALSE) {
       return(el_out) # no null properties, return element as is
     }
 
-    # if we have null properties, try to fill in from theme_grey()
-    el_out <- combine_elements(el_out, ggplot_global$theme_grey[[element]])
+    # if we have null properties, try to fill in from ggplot_global$theme_default
+    el_out <- combine_elements(el_out, ggplot_global$theme_default[[element]])
     nullprops <- vapply(el_out, is.null, logical(1))
     if (!any(nullprops)) {
       return(el_out) # no null properties remaining, return element
     }
 
-    stop("Theme element '", element, "' has NULL property without default: ",
-         paste(names(nullprops)[nullprops], collapse = ", "))
+    abort(glue("Theme element `{element}` has NULL property without default: ",
+          glue_collapse(names(nullprops)[nullprops], ", ", last = " and ")))
   }
 
   # Calculate the parent objects' inheritance
   if (verbose) message(paste(pnames, collapse = ", "))
-  parents <- lapply(pnames, calc_element, theme, verbose)
+  parents <- lapply(
+    pnames,
+    calc_element,
+    theme,
+    verbose = verbose,
+    # once we've started skipping blanks, we continue doing so until the end of the
+    # recursion; we initiate skipping blanks if we encounter an element that
+    # doesn't inherit blank.
+    skip_blank = skip_blank || (!is.null(el_out) && !isTRUE(el_out$inherit.blank))
+  )
 
   # Combine the properties of this element with all parents
   Reduce(combine_elements, parents, el_out)
@@ -633,7 +607,7 @@ merge_element.default <- function(new, old) {
   }
 
   # otherwise we can't merge
-  stop("No method for merging ", class(new)[1], " into ", class(old)[1], call. = FALSE)
+  abort(glue("No method for merging {class(new)[1]} into {class(old)[1]}"))
 }
 
 #' @rdname merge_element
@@ -653,7 +627,7 @@ merge_element.element <- function(new, old) {
 
   # actual merging can only happen if classes match
   if (!inherits(new, class(old)[1])) {
-    stop("Only elements of the same class can be merged", call. = FALSE)
+    abort("Only elements of the same class can be merged")
   }
 
   # Override NULL properties of new with the values in old

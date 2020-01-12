@@ -67,3 +67,33 @@ test_that("generic scale can be used in place of aesthetic-specific scales", {
 
   expect_equal(layer_data(p1), layer_data(p2))
 })
+
+test_that("named values do not match with breaks in manual scales", {
+  s <- scale_fill_manual(
+    values = c("data_red" = "red", "data_black" = "black"),
+    breaks = c("data_black", "data_red")
+  )
+  s$train(c("data_black", "data_red"))
+  expect_equal(s$map(c("data_red", "data_black")), c("red", "black"))
+})
+
+test_that("unnamed values match breaks in manual scales", {
+  s <- scale_fill_manual(
+    values = c("red", "black"),
+    breaks = c("data_red", "data_black")
+  )
+  s$train(c("data_red", "data_black"))
+  expect_equal(s$map(c("data_red", "data_black")), c("red", "black"))
+})
+
+test_that("limits works (#3262)", {
+  # named charachter vector
+  s1 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), limits = c("4", "8"))
+  s1$train(c("4", "6", "8"))
+  expect_equal(s1$map(c("4", "6", "8")), c("a", NA, "c"))
+
+  # named charachter vector
+  s2 <- scale_colour_manual(values = c("c", "a", "b"), limits = c("4", "8"))
+  s2$train(c("4", "6", "8"))
+  expect_equal(s2$map(c("4", "6", "8")), c("c", NA, "a"))
+})

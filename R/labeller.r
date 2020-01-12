@@ -213,8 +213,7 @@ label_bquote <- function(rows = NULL, cols = NULL,
       # but only if there is no facetted variable also named `x`
       if ("x" %in% find_names(quoted) && !"x" %in% names(params)) {
         if (!has_warned) {
-          warning("Referring to `x` is deprecated, use variable name instead",
-            call. = FALSE)
+          warn("Referring to `x` is deprecated, use variable name instead")
           # The function is called for each facet so this avoids
           # multiple warnings
           has_warned <<- TRUE
@@ -248,12 +247,12 @@ is_labeller <- function(x) inherits(x, "labeller")
 
 resolve_labeller <- function(rows, cols, labels) {
   if (is.null(cols) && is.null(rows)) {
-    stop("Supply one of rows or cols", call. = FALSE)
+    abort("Supply one of rows or cols")
   }
   if (attr(labels, "facet") == "wrap") {
     # Return either rows or cols for facet_wrap()
     if (!is.null(cols) && !is.null(rows)) {
-      stop("Cannot supply both rows and cols to facet_wrap()", call. = FALSE)
+      abort("Cannot supply both rows and cols to facet_wrap()")
     }
     cols %||% rows
   } else {
@@ -446,8 +445,10 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       # Check that variable-specific labellers do not overlap with
       # margin-wide labeller
       if (any(names(dots) %in% names(labels))) {
-        stop("Conflict between .", attr(labels, "type"), " and ",
-          paste(names(dots), collapse = ", "), call. = FALSE)
+        abort(glue(
+          "Conflict between .{attr(labels, 'type')} and ",
+          glue_collapse(names(dots), ", ", last = " and ")
+        ))
       }
     }
 
@@ -495,68 +496,35 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     })
   }
 
-  text_theme <- if (horizontal) "strip.text.x" else "strip.text.y"
-
-  element <- calc_element(text_theme, theme)
-
-  if (inherits(element, "element_blank")) {
-    grobs <- rep(list(zeroGrob()), nrow(label_df))
-    return(structure(
-      list(grobs, grobs),
-      names = if (horizontal) c('top', 'bottom') else c('left', 'right')
-    ))
-  }
-
   # Create matrix of labels
   labels <- lapply(labeller(label_df), cbind)
   labels <- do.call("cbind", labels)
 
-  gp <- gpar(
-    fontsize = element$size,
-    col = element$colour,
-    fontfamily = element$family,
-    fontface = element$face,
-    lineheight = element$lineheight
-  )
-
   if (horizontal) {
+    grobs_top <- lapply(labels, element_render, theme = theme,
+                        element = "strip.text.x.top", margin_x = TRUE,
+                        margin_y = TRUE)
+    grobs_top <- assemble_strips(grobs_top, theme, horizontal, clip = "on")
 
-    grobs <- create_strip_labels(labels, element, gp)
-    grobs <- ggstrip(grobs, theme, element, gp, horizontal, clip = "on")
+    grobs_bottom <- lapply(labels, element_render, theme = theme,
+                           element = "strip.text.x.bottom", margin_x = TRUE,
+                           margin_y = TRUE)
+    grobs_bottom <- assemble_strips(grobs_bottom, theme, horizontal, clip = "on")
 
     list(
-      top = grobs,
-      bottom = grobs
+      top = grobs_top,
+      bottom = grobs_bottom
     )
   } else {
+    grobs_left <- lapply(labels, element_render, theme = theme,
+                         element = "strip.text.y.left", margin_x = TRUE,
+                         margin_y = TRUE)
+    grobs_left <- assemble_strips(grobs_left, theme, horizontal, clip = "on")
 
-    grobs <- create_strip_labels(labels, element, gp)
-    grobs_right <- grobs[, rev(seq_len(ncol(grobs))), drop = FALSE]
-
-    grobs_right <- ggstrip(
-      grobs_right,
-      theme,
-      element,
-      gp,
-      horizontal,
-      clip = "on"
-    )
-
-    # Change angle of strip labels for y strips that are placed on the left side
-    if (inherits(element, "element_text")) {
-      element$angle <- adjust_angle(element$angle)
-    }
-
-    grobs_left <- create_strip_labels(labels, element, gp)
-
-    grobs_left <- ggstrip(
-      grobs_left,
-      theme,
-      element,
-      gp,
-      horizontal,
-      clip = "on"
-    )
+    grobs_right <- lapply(labels, element_render, theme = theme,
+                          element = "strip.text.y.right", margin_x = TRUE,
+                          margin_y = TRUE)
+    grobs_right <- assemble_strips(grobs_right, theme, horizontal, clip = "on")
 
     list(
       left = grobs_left,
@@ -565,126 +533,57 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   }
 }
 
-#' Create list of strip labels
-#'
-#' Calls [title_spec()] on all the labels for a set of strips to create a list
-#' of text grobs, heights, and widths.
-#'
-#' @param labels Matrix of strip labels
-#' @param element Theme element (see [calc_element()]).
-#' @param gp Additional graphical parameters.
-#'
-#' @noRd
-create_strip_labels <- function(labels, element, gp) {
-  grobs <- lapply(labels, title_spec,
-    x = NULL,
-    y = NULL,
-    hjust = element$hjust,
-    vjust = element$vjust,
-    angle = element$angle,
-    gp = gp,
-    debug = element$debug
-  )
-  dim(grobs) <- dim(labels)
-  grobs
-}
-
 #' Grob for strip labels
 #'
 #' Takes the output from title_spec, adds margins, creates gList with strip
 #' background and label, and returns gtable matrix.
 #'
-#' @param grobs Output from [title_spec()].
+#' @param grobs Output from [titleGrob()].
 #' @param theme Theme object.
-#' @param element Theme element (see [calc_element()]).
-#' @param gp Additional graphical parameters.
 #' @param horizontal Whether the strips are horizontal (e.g. x facets) or not.
 #' @param clip should drawing be clipped to the specified cells (‘"on"’),the
 #'   entire table (‘"inherit"’), or not at all (‘"off"’).
 #'
 #' @noRd
-ggstrip <- function(grobs, theme, element, gp, horizontal = TRUE, clip) {
+assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
+  if (length(grobs) == 0 || is.zero(grobs[[1]])) return(grobs)
+
+  # Add margins to non-titleGrobs so they behave eqivalently
+  grobs <- lapply(grobs, function(g) {
+    if (inherits(g, "titleGrob")) return(g)
+    add_margins(gList(g), grobHeight(g), grobWidth(g), margin_x = TRUE, margin_y = TRUE)
+  })
 
   if (horizontal) {
-    height <- max_height(lapply(grobs, function(x) x$text_height))
+    height <- max_height(lapply(grobs, function(x) x$heights[2]))
     width <- unit(1, "null")
   } else {
     height <- unit(1, "null")
-    width <- max_width(lapply(grobs, function(x) x$text_width))
+    width <- max_width(lapply(grobs, function(x) x$widths[2]))
   }
-
-  # Add margins around text grob
-  grobs <- apply(
-    grobs,
-    c(1, 2),
-    function(x) {
-      add_margins(
-        grob = x[[1]]$text_grob,
-        height = height,
-        width = width,
-        gp = gp,
-        margin = element$margin,
-        margin_x = TRUE,
-        margin_y = TRUE
-      )
-    }
-  )
+  grobs <- lapply(grobs, function(x) {
+    # Avoid unit subset assignment to support R 3.2
+    x$widths <- unit.c(x$widths[1], width, x$widths[c(-1, -2)])
+    x$heights <- unit.c(x$heights[1], height, x$heights[c(-1, -2)])
+    x$vp$parent$layout$widths <- unit.c(x$vp$parent$layout$widths[1], width, x$vp$parent$layout$widths[c(-1, -2)])
+    x$vp$parent$layout$heights <- unit.c(x$vp$parent$layout$heights[1], height, x$vp$parent$layout$heights[c(-1, -2)])
+    x
+  })
+  if (horizontal) {
+    height <- sum(grobs[[1]]$heights)
+  } else {
+    width <- sum(grobs[[1]]$widths)
+  }
 
   background <- if (horizontal) "strip.background.x" else "strip.background.y"
+  background <- element_render(theme, background)
 
   # Put text on a strip
-  grobs <- apply(
-    grobs,
-    c(1, 2),
-    function(label) {
-      ggname(
-        "strip",
-        gTree(
-          children = gList(
-            element_render(theme, background),
-            label[[1]]
-          )
-        )
-      )
-    })
-
-  if (horizontal) {
-    height <- height + sum(element$margin[c(1, 3)])
-  } else {
-    width <- width + sum(element$margin[c(2, 4)])
-  }
-
-
-  apply(
-    grobs,
-    1,
-    function(x) {
-      if (horizontal) {
-        mat <- matrix(x, ncol = 1)
-      } else {
-        mat <- matrix(x, nrow = 1)
-      }
-
-      gtable_matrix(
-        "strip",
-        mat,
-        rep(width, ncol(mat)),
-        rep(height, nrow(mat)),
-        clip = clip
-      )
-    })
-
-}
-
-# Helper to adjust angle of switched strips
-adjust_angle <- function(angle) {
-  if (is.null(angle)) {
-    -90
-  } else if ((angle + 180) > 360) {
-    angle - 180
-  } else {
-    angle + 180
-  }
+  lapply(grobs, function(x) {
+    strip <- ggname("strip", gTree(children = gList(background, x)))
+    strip_table <- gtable(width, height, name = "strip")
+    gtable_add_grob(strip_table, strip, 1, 1, clip = clip)
+  })
 }
 
 # Check for old school labeller
@@ -697,9 +596,9 @@ check_labeller <- function(labeller) {
     labeller <- function(labels) {
       Map(old_labeller, names(labels), labels)
     }
-    warning("The labeller API has been updated. Labellers taking `variable`",
-      "and `value` arguments are now deprecated. See labellers documentation.",
-      call. = FALSE)
+    warn(glue(
+      "The labeller API has been updated. Labellers taking `variable` ",
+      "and `value` arguments are now deprecated. See labellers documentation."))
   }
 
   labeller

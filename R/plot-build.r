@@ -268,11 +268,11 @@ ggplot_gtable.ggplot_built <- function(data) {
   #   "plot" means align to the entire plot (except margins and tag)
   title_pos <- theme$plot.title.position %||% "panel"
   if (!(title_pos %in% c("panel", "plot"))) {
-    stop('plot.title.position should be either "panel" or "plot".', call. = FALSE)
+    abort('plot.title.position should be either "panel" or "plot".')
   }
   caption_pos <- theme$plot.caption.position %||% "panel"
   if (!(caption_pos %in% c("panel", "plot"))) {
-    stop('plot.caption.position should be either "panel" or "plot".', call. = FALSE)
+    abort('plot.caption.position should be either "panel" or "plot".')
   }
 
   pans <- plot_table$layout[grepl("^panel", plot_table$layout$name), , drop = FALSE]
@@ -314,8 +314,8 @@ ggplot_gtable.ggplot_built <- function(data) {
                  "bottom", "bottomright")
 
   if (!(tag_pos == "manual" || tag_pos %in% valid_pos)) {
-    stop("plot.tag.position should be a coordinate or one of ",
-         paste(valid_pos, collapse = ', '), call. = FALSE)
+    abort(glue("plot.tag.position should be a coordinate or one of ",
+         glue_collapse(valid_pos, ', ', last = " or ")))
   }
 
   if (tag_pos == "manual") {

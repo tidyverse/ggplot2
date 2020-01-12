@@ -197,7 +197,7 @@ ggplot(diamonds, aes(price, colour = cut)) +
 
 # To make it easier to compare distributions with very different counts,
 # put density on the y axis instead of the default count
-ggplot(diamonds, aes(price, stat(density), colour = cut)) +
+ggplot(diamonds, aes(price, after_stat(density), colour = cut)) +
   geom_freqpoly(binwidth = 500)
 
 if (require("ggplot2movies")) {
@@ -237,8 +237,8 @@ m + geom_histogram(binwidth = 0.5) + scale_y_sqrt()
 # You can specify a function for calculating binwidth, which is
 # particularly useful when faceting along variables with
 # different ranges because the function will be called once per facet
-mtlong <- reshape2::melt(mtcars)
-ggplot(mtlong, aes(value)) + facet_wrap(~variable, scales = 'free_x') +
+ggplot(economics_long, aes(value)) +
+  facet_wrap(~variable, scales = 'free_x') +
   geom_histogram(binwidth = function(x) 2 * IQR(x) / (length(x)^(1/3)))
 }
 \seealso{

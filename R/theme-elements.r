@@ -118,11 +118,7 @@ element_text <- function(family = NULL, face = NULL, colour = NULL,
     length(hjust), length(vjust), length(angle), length(lineheight)
   )
   if (n > 1) {
-    warning(
-      "Vectorized input to `element_text()` is not officially supported.\n",
-      "Results may be unexpected or may change in future versions of ggplot2.",
-      call. = FALSE
-    )
+    warn("Vectorized input to `element_text()` is not officially supported.\nResults may be unexpected or may change in future versions of ggplot2.")
   }
 
 
@@ -270,14 +266,108 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
   )
 }
 
-
-
-#' Define new elements for a theme's element tree
+#' Define and register new theme elements
 #'
-#' Each theme has an element tree that defines which theme elements inherit
-#' theme parameters from which other elements. The function `el_def()` can be used
-#' to define new or modified elements for this tree.
+#' The underlying structure of a ggplot2 theme is defined via the element tree, which
+#' specifies for each theme element what type it should have and whether it inherits from
+#' a parent element. In some use cases, it may be necessary to modify or extend this
+#' element tree and provide default settings for newly defined theme elements.
 #'
+#' The function `register_theme_elements()` provides the option to globally register new
+#' theme elements with ggplot2. In general, for each new theme element both an element
+#' definition and a corresponding entry in the element tree should be provided. See
+#' examples for details. This function is meant primarily for developers of extension
+#' packages, who are strongly urged to adhere to the following best practices:
+#'
+#' 1. Call `register_theme_elements()` from the `.onLoad()` function of your package, so
+#'   that the new theme elements are available to anybody using functions from your package,
+#'   irrespective of whether the package has been attached (with `library()` or `require()`)
+#'   or not.
+#' 2. For any new elements you create, prepend them with the name of your package, to avoid
+#'   name clashes with other extension packages. For example, if you are working on a package
+#'   **ggxyz**, and you want it to provide a new element for plot panel annotations (as demonstrated
+#'   in the Examples below), name the new element `ggxyz.panel.annotation`.
+#' @param ... Element specifications
+#' @param element_tree Addition of or modification to the element tree, which specifies the
+#'   inheritance relationship of the theme elements. The element tree must be provided as
+#'   a list of named element definitions created with el_def().
+#' @param complete If `TRUE` (the default), elements are set to inherit from blank elements.
+#' @examples
+#' # Let's assume a package `ggxyz` wants to provide an easy way to add annotations to
+#' # plot panels. To do so, it registers a new theme element `ggxyz.panel.annotation`
+#' register_theme_elements(
+#'   ggxyz.panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
+#'   element_tree = list(ggxyz.panel.annotation = el_def("element_text", "text"))
+#' )
+#'
+#' # Now the package can define a new coord that includes a panel annotation
+#' coord_annotate <- function(label = "panel annotation") {
+#'   ggproto(NULL, CoordCartesian,
+#'     limits = list(x = NULL, y = NULL),
+#'     expand = TRUE,
+#'     default = FALSE,
+#'     clip = "on",
+#'     render_fg = function(panel_params, theme) {
+#'       element_render(theme, "ggxyz.panel.annotation", label = label)
+#'     }
+#'   )
+#' }
+#'
+#' # Example plot with this new coord
+#' df <- data.frame(x = 1:3, y = 1:3)
+#' ggplot(df, aes(x, y)) +
+#'   geom_point() +
+#'   coord_annotate("annotation in blue")
+#'
+#' # Revert to the original ggplot2 settings
+#' reset_theme_settings()
+#' @keywords internal
+#' @export
+register_theme_elements <- function(..., element_tree = NULL, complete = TRUE) {
+  old <- ggplot_global$theme_default
+  t <- theme(..., complete = complete)
+  ggplot_global$theme_default <- ggplot_global$theme_default %+replace% t
+
+  # Merge element trees
+  ggplot_global$element_tree <- defaults(element_tree, ggplot_global$element_tree)
+
+  invisible(old)
+}
+
+#' @rdname register_theme_elements
+#' @details
+#' The function `reset_theme_settings()` restores the default element tree, discards
+#' all new element definitions, and (unless turned off) resets the currently active
+#' theme to the default.
+#' @param reset_current If `TRUE` (the default), the currently active theme is
+#'   reset to the default theme.
+#' @keywords internal
+#' @export
+reset_theme_settings <- function(reset_current = TRUE) {
+  ggplot_global$element_tree <- .element_tree
+
+  # reset the underlying fallback default theme
+  ggplot_global$theme_default <- theme_grey()
+
+  if (isTRUE(reset_current)) {
+    # reset the currently active theme
+    ggplot_global$theme_current <- ggplot_global$theme_default
+  }
+}
+
+#' @rdname register_theme_elements
+#' @details
+#' The function `get_element_tree()` returns the currently active element tree.
+#' @keywords internal
+#' @export
+get_element_tree <- function() {
+  ggplot_global$element_tree
+}
+
+#' @rdname register_theme_elements
+#' @details
+#' The function `el_def()` is used to define new or modified element types and
+#' element inheritance relationships for the element tree.
 #' @param class The name of the element class. Examples are "element_line" or
 #'  "element_text" or "unit", or one of the two reserved keywords "character" or
 #'  "margin". The reserved keyword "character" implies a character
@@ -287,34 +377,6 @@ element_grob.element_line <- function(element, x = 0:1, y = 0:1,
 #'  element inherits from.
 #' @param description An optional character vector providing a description
 #'  for the element.
-#' @examples
-#' # define a new coord that includes a panel annotation
-#' coord_annotate <- function(label = "panel annotation") {
-#'   ggproto(NULL, CoordCartesian,
-#'     limits = list(x = NULL, y = NULL),
-#'     expand = TRUE,
-#'     default = FALSE,
-#'     clip = "on",
-#'     render_fg = function(panel_params, theme) {
-#'       element_render(theme, "panel.annotation", label = label)
-#'     }
-#'   )
-#' }
-#'
-#' # update the default theme by adding a new `panel.annotation`
-#' # theme element
-#' old <- theme_update(
-#'   panel.annotation = element_text(color = "blue", hjust = 0.95, vjust = 0.05),
-#'   element_tree = list(panel.annotation = el_def("element_text", "text"))
-#' )
-#'
-#' df <- data.frame(x = 1:3, y = 1:3)
-#' ggplot(df, aes(x, y)) +
-#'   geom_point() +
-#'   coord_annotate("annotation in blue")
-#'
-#' # revert to original default theme
-#' theme_set(old)
 #' @keywords internal
 #' @export
 el_def <- function(class = NULL, inherit = NULL, description = NULL) {
@@ -322,9 +384,9 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
 }
 
 
-# This data structure represents the theme elements and the inheritance
-# among them. (In the future, .element_tree should be removed in favor
-# of direct assignment to ggplot_global$element_tree, see below.)
+# This data structure represents the default theme elements and the inheritance
+# among them. It should not be read from directly, since users may modify the
+# current element tree stored in ggplot_global$element_tree
 .element_tree <- list(
   line                = el_def("element_line"),
   rect                = el_def("element_rect"),
@@ -408,7 +470,11 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   strip.background.x  = el_def("element_rect", "strip.background"),
   strip.background.y  = el_def("element_rect", "strip.background"),
   strip.text.x        = el_def("element_text", "strip.text"),
+  strip.text.x.top    = el_def("element_text", "strip.text.x"),
+  strip.text.x.bottom = el_def("element_text", "strip.text.x"),
   strip.text.y        = el_def("element_text", "strip.text"),
+  strip.text.y.left   = el_def("element_text", "strip.text.y"),
+  strip.text.y.right  = el_def("element_text", "strip.text.y"),
   strip.placement     = el_def("character"),
   strip.placement.x   = el_def("character", "strip.placement"),
   strip.placement.y   = el_def("character", "strip.placement"),
@@ -428,8 +494,6 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   aspect.ratio        = el_def("character")
 )
 
-ggplot_global$element_tree <- .element_tree
-
 # Check that an element object has the proper class
 #
 # Given an element object and the name of the element, this function
@@ -445,7 +509,7 @@ validate_element <- function(el, elname, element_tree) {
   eldef <- element_tree[[elname]]
 
   if (is.null(eldef)) {
-    stop("Theme element `", elname, "` is not defined in the element hierarchy.", call. = FALSE)
+    abort(glue("Theme element `{elname}` is not defined in the element hierarchy."))
   }
 
   # NULL values for elements are OK
@@ -455,12 +519,12 @@ validate_element <- function(el, elname, element_tree) {
     # Need to be a bit looser here since sometimes it's a string like "top"
     # but sometimes its a vector like c(0,0)
     if (!is.character(el) && !is.numeric(el))
-      stop("Theme element `", elname, "` must be a string or numeric vector.", call. = FALSE)
+      abort(glue("Theme element `{elname}` must be a string or numeric vector."))
   } else if (eldef$class == "margin") {
     if (!is.unit(el) && length(el) == 4)
-      stop("Theme element `", elname, "` must be a unit vector of length 4.", call. = FALSE)
+      abort(glue("Theme element `{elname}` must be a unit vector of length 4."))
   } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
-      stop("Theme element `", elname, "` must be an `", eldef$class, "` object.", call. = FALSE)
+      abort(glue("Theme element `{elname}` must be an `{eldef$class}` object."))
   }
   invisible()
 }

@@ -63,7 +63,7 @@ Position <- ggproto("Position",
   },
 
   compute_panel = function(self, data, params, scales) {
-    stop("Not implemented", call. = FALSE)
+    abort("Not implemented")
   }
 )
 

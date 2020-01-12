@@ -162,8 +162,6 @@ Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 \item \strong{\code{x} \emph{or} \code{y}}
 \item \code{group}
 \item \code{weight}
-\item \code{x}
-\item \code{y}
 }
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }

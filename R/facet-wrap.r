@@ -211,7 +211,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
   },
   draw_panels = function(panels, layout, x_scales, y_scales, ranges, coord, data, theme, params) {
     if ((params$free$x || params$free$y) && !coord$is_free()) {
-      stop(snake_class(coord), " doesn't support free scales", call. = FALSE)
+      abort(glue("{snake_class(coord)} doesn't support free scales"))
     }
 
     if (inherits(coord, "CoordFlip")) {
@@ -325,7 +325,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
           !inside &&
           any(!vapply(row_axes, is.zero, logical(1))) &&
           !params$free$x) {
-        warning("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'", call. = FALSE)
+        warn("Suppressing axis rendering when strip.position = 'bottom' and strip.placement == 'outside'")
       } else {
         axis_mat_x_bottom[row_pos] <- row_axes
       }
@@ -333,7 +333,7 @@ FacetWrap <- ggproto("FacetWrap", Facet,
           !inside &&
           any(!vapply(col_axes, is.zero, logical(1))) &&
           !params$free$y) {
-        warning("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'", call. = FALSE)
+        warn("Suppressing axis rendering when strip.position = 'right' and strip.placement == 'outside'")
       } else {
         axis_mat_y_right[col_pos] <- col_axes
       }
@@ -422,22 +422,20 @@ sanitise_dim <- function(n) {
   xname <- paste0("`", deparse(substitute(n)), "`")
   if (length(n) == 0) {
     if (!is.null(n)) {
-      warning(xname, " has length zero and will be treated as NULL.",
-        call. = FALSE)
+      warn(glue("{xname} has length zero and will be treated as NULL."))
     }
     return(NULL)
   }
   if (length(n) > 1) {
-    warning("Only the first value of ", xname, " will be used.", call. = FALSE)
+    warn(glue("Only the first value of {xname} will be used."))
     n <- n[1]
   }
   if (!is.numeric(n) || (!is.na(n) && n != round(n))) {
-    warning("Coercing ", xname, " to be an integer.", call. = FALSE)
+    warn(glue("Coercing {xname} to be an integer."))
     n <- as.integer(n)
   }
   if (is.na(n) || n < 1) {
-    warning(xname, " is missing or less than 1 and will be treated as NULL.",
-      call. = FALSE)
+    warn(glue("{xname} is missing or less than 1 and will be treated as NULL."))
     return(NULL)
   }
   n
@@ -462,7 +460,9 @@ wrap_dims <- function(n, nrow = NULL, ncol = NULL) {
   } else if (is.null(nrow)) {
     nrow <- ceiling(n / ncol)
   }
-  stopifnot(nrow * ncol >= n)
+  if (nrow * ncol < n) {
+    abort("The given dimensions cannot hold all panels. Please increase `ncol` or `nrow`")
+  }
 
   c(nrow, ncol)
 }

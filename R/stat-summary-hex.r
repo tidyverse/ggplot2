@@ -37,7 +37,7 @@ stat_summary_hex <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatSummaryHex <- ggproto("StatSummaryHex", Stat,
-  default_aes = aes(fill = stat(value)),
+  default_aes = aes(fill = after_stat(value)),
 
   required_aes = c("x", "y", "z"),
 
@@ -46,6 +46,7 @@ StatSummaryHex <- ggproto("StatSummaryHex", Stat,
     try_require("hexbin", "stat_summary_hex")
 
     binwidth <- binwidth %||% hex_binwidth(bins, scales)
+    fun <- as_function(fun)
     hexBinSummarise(data$x, data$y, data$z, binwidth,
       fun = fun, fun.args = fun.args, drop = drop)
   }

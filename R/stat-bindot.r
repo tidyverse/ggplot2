@@ -5,7 +5,7 @@
 StatBindot <- ggproto("StatBindot", Stat,
   required_aes = "x",
   non_missing_aes = "weight",
-  default_aes = aes(y = stat(count)),
+  default_aes = aes(y = after_stat(count)),
 
   setup_params = function(data, params) {
     if (is.null(params$binwidth)) {
@@ -73,7 +73,7 @@ StatBindot <- ggproto("StatBindot", Stat,
     # Check that weights are whole numbers (for dots, weights must be whole)
     if (!is.null(data$weight) && any(!is.wholenumber(data$weight)) &&
         any(data$weight < 0)) {
-      stop("Weights for stat_bindot must be nonnegative integers.")
+      abort("Weights for stat_bindot must be nonnegative integers.")
     }
 
     if (binaxis == "x") {

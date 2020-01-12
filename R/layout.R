@@ -292,7 +292,9 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
   if (length(vars) == 0) return()
   if (nrow(data) == 0) return()
 
-  if (any(is.na(scale_id))) stop()
+  if (any(is.na(scale_id))) {
+    abort("`scale_id` must not be `NA`")
+  }
 
   scale_index <- unname(split(
     seq_along(scale_id),
@@ -303,9 +305,7 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
     pieces <- lapply(seq_along(scales), function(i) {
       scales[[i]][[method]](data[[var]][scale_index[[i]]])
     })
-    # Join pieces back together, if necessary
-    if (!is.null(pieces)) {
-      unlist(pieces)[order(unlist(scale_index))]
-    }
+    o <- order(unlist(scale_index))[seq_len(sum(lengths(pieces)))]
+    do.call("c", pieces)[o]
   })
 }

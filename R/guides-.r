@@ -168,7 +168,7 @@ validate_guide <- function(guide) {
   else if (inherits(guide, "guide"))
     guide
   else
-    stop("Unknown guide: ", guide)
+    abort(glue("Unknown guide: {guide}"))
 }
 
 # train each scale in scales and generate the definition of guide
@@ -194,8 +194,9 @@ guides_train <- function(scales, theme, guides, labels) {
       guide <- validate_guide(guide)
 
       # check the consistency of the guide and scale.
-      if (!identical(guide$available_aes, "any") && !any(scale$aesthetics %in% guide$available_aes))
-        stop("Guide '", guide$name, "' cannot be used for '", scale$aesthetics, "'.")
+      if (!identical(guide$available_aes, "any") && !any(scale$aesthetics %in% guide$available_aes)) {
+        abort(glue("Guide '{guide$name}' cannot be used for '{scale$aesthetics}'."))
+      }
 
       guide$title <- scale$make_title(guide$title %|W|% scale$name %|W|% labels[[output]])
 
@@ -238,8 +239,9 @@ guides_gengrob <- function(gdefs, theme) {
   gdefs <- lapply(gdefs,
     function(g) {
       g$title.position <- g$title.position %||% switch(g$direction, vertical = "top", horizontal = "left")
-      if (!g$title.position %in% c("top", "bottom", "left", "right"))
-        stop("title position \"", g$title.position, "\" is invalid")
+      if (!g$title.position %in% c("top", "bottom", "left", "right")) {
+        abort(glue("title position '{g$title.position}' is invalid"))
+      }
       g
     })
 
@@ -340,13 +342,12 @@ guide_transform <- function(guide, coord, panel_params) UseMethod("guide_transfo
 
 #' @export
 guide_transform.default <- function(guide, coord, panel_params) {
-  stop(
+  abort(glue(
     "Guide with class ",
-    paste(class(guide), collapse = " / "),
+    glue_collapse(class(guide), " / "),
     " does not implement guide_transform(). ",
-    "Did you mean to use guide_axis()?",
-    call. = FALSE
-  )
+    "Did you mean to use guide_axis()?"
+  ))
 }
 
 #' @export
@@ -362,4 +363,36 @@ matched_aes <- function(layer, guide, defaults) {
   matched <- intersect(intersect(all, geom), names(guide$key))
   matched <- setdiff(matched, names(layer$geom_params))
   setdiff(matched, names(layer$aes_params))
+}
+
+# This function is used by guides in guide_geom.* to determine whether
+# a given layer should be included in the guide
+# `matched` is the set of aesthetics that match between the layer and the guide
+include_layer_in_guide <- function(layer, matched) {
+  if (!is.logical(layer$show.legend)) {
+    warn("`show.legend` must be a logical vector.")
+    layer$show.legend <- FALSE # save back to layer so we don't issue this warning more than once
+    return(FALSE)
+  }
+
+  if (length(matched) > 0) {
+    # This layer contributes to the legend
+
+    # check if this layer should be included, different behaviour depending on
+    # if show.legend is a logical or a named logical vector
+    if (is_named(layer$show.legend)) {
+      layer$show.legend <- rename_aes(layer$show.legend)
+      show_legend <- layer$show.legend[matched]
+      # we cannot use `isTRUE(is.na(show_legend))` here because
+      # 1. show_legend can be multiple NAs
+      # 2. isTRUE() was not tolerant for a named TRUE
+      show_legend <- show_legend[!is.na(show_legend)]
+      return(length(show_legend) == 0 || any(show_legend))
+    }
+    return(all(is.na(layer$show.legend)) || isTRUE(layer$show.legend))
+  }
+
+  # This layer does not contribute to the legend.
+  # Default is to exclude it, except if it is explicitly turned on
+  isTRUE(layer$show.legend)
 }

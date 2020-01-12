@@ -73,8 +73,7 @@ GeomRasterAnn <- ggproto("GeomRasterAnn", Geom,
   draw_panel = function(data, panel_params, coord, raster, xmin, xmax,
                         ymin, ymax, interpolate = FALSE) {
     if (!inherits(coord, "CoordCartesian")) {
-      stop("annotation_raster only works with Cartesian coordinates",
-        call. = FALSE)
+      abort("annotation_raster only works with Cartesian coordinates")
     }
     corners <- new_data_frame(list(x = c(xmin, xmax), y = c(ymin, ymax)), n = 2)
     data <- coord$transform(corners, panel_params)

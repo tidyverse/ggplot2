@@ -67,10 +67,10 @@ stat_function <- function(mapping = NULL, data = NULL,
 
   # Warn if supplied mapping and/or data is going to be overwritten
   if (!is.null(mapping)) {
-    warning("`mapping` is not used by stat_function()", call. = FALSE)
+    warn("`mapping` is not used by stat_function()")
   }
   if (!is.null(data)) {
-    warning("`data` is not used by stat_function()", call. = FALSE)
+    warn("`data` is not used by stat_function()")
   }
 
   layer(
@@ -97,7 +97,7 @@ stat_function <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatFunction <- ggproto("StatFunction", Stat,
-  default_aes = aes(y = stat(y)),
+  default_aes = aes(y = after_stat(y)),
 
   compute_group = function(data, scales, fun, xlim = NULL, n = 101, args = list()) {
     range <- xlim %||% scales$x$dimension()

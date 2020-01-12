@@ -101,7 +101,7 @@ Geom <- ggproto("Geom",
   },
 
   draw_group = function(self, data, panel_params, coord) {
-    stop("Not implemented")
+    abort("Not implemented")
   },
 
   setup_params = function(data, params) params,
@@ -109,7 +109,7 @@ Geom <- ggproto("Geom",
   setup_data = function(data, params) data,
 
   # Combine data with defaults and set aesthetics from parameters
-  use_defaults = function(self, data, params = list()) {
+  use_defaults = function(self, data, params = list(), modifiers = aes()) {
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(self$default_aes), names(data))
 
@@ -121,6 +121,34 @@ Geom <- ggproto("Geom",
       data <- as_gg_data_frame(missing_eval)
     } else {
       data[names(missing_eval)] <- missing_eval
+    }
+
+    # If any after_scale mappings are detected they will be resolved here
+    # This order means that they will have access to all default aesthetics
+    if (length(modifiers) != 0) {
+      # Set up evaluation environment
+      env <- child_env(baseenv(), after_scale = after_scale)
+      # Mask stage with stage_scaled so it returns the correct expression
+      stage_mask <- child_env(emptyenv(), stage = stage_scaled)
+      mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
+      mask$.data <- as_data_pronoun(mask)
+      modified_aes <- lapply(substitute_aes(modifiers),  eval_tidy, mask, env)
+
+      # Check that all output are valid data
+      nondata_modified <- check_nondata_cols(modified_aes)
+      if (length(nondata_modified) > 0) {
+        msg <- glue(
+          "Modifiers must return valid values. Problematic aesthetic(s): ",
+          glue_collapse(vapply(nondata_modified, function(x) glue("{x} = {as_label(modifiers[[x]])}"), character(1)), ", ", last = " and "),
+          ". \nDid you map your mod in the wrong layer?"
+        )
+        abort(msg)
+      }
+
+      names(modified_aes) <- rename_aes(names(modifiers))
+      modified_aes <- new_data_frame(compact(modified_aes))
+
+      data <- cunion(modified_aes, data)
     }
 
     # Override mappings with params
@@ -189,9 +217,8 @@ check_aesthetics <- function(x, n) {
     return()
   }
 
-  stop(
-    "Aesthetics must be either length 1 or the same as the data (", n, "): ",
-    paste(names(which(!good)), collapse = ", "),
-    call. = FALSE
-  )
+  abort(glue(
+    "Aesthetics must be either length 1 or the same as the data ({n}): ",
+    glue_collapse(names(which(!good)), ", ", last = " and ")
+  ))
 }

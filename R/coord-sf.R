@@ -121,7 +121,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     if (length(x_labels) != length(x_breaks)) {
-      stop("Breaks and labels along x direction are different lengths", call. = FALSE)
+      abort("Breaks and labels along x direction are different lengths")
     }
     graticule$degree_label[graticule$type == "E"] <- x_labels
 
@@ -146,7 +146,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     }
 
     if (length(y_labels) != length(y_breaks)) {
-      stop("Breaks and labels along y direction are different lengths", call. = FALSE)
+      abort("Breaks and labels along y direction are different lengths")
     }
     graticule$degree_label[graticule$type == "N"] <- y_labels
 
@@ -186,10 +186,7 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       scales_xrange <- range(scales_bbox$x, coord_bbox$xmin, coord_bbox$xmax, na.rm = TRUE)
       scales_yrange <- range(scales_bbox$y, coord_bbox$ymin, coord_bbox$ymax, na.rm = TRUE)
     } else if (any(!is.finite(scales_bbox$x) | !is.finite(scales_bbox$y))) {
-      warning(
-        "Projection of scale limits failed.\n",
-        "Consider working in projected coordinates by setting `default_crs = NULL` in `coord_sf()`."
-      )
+      warn("Projection of scale limits failed.\nConsider working in projected coordinates by setting `default_crs = NULL` in `coord_sf()`.")
       coord_bbox <- self$params$bbox
       scales_xrange <- c(coord_bbox$xmin, coord_bbox$xmax)
       scales_yrange <- c(coord_bbox$ymin, coord_bbox$ymax)
@@ -562,20 +559,14 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
   if (is.character(label_axes)) {
     label_axes <- parse_axes_labeling(label_axes)
   } else if (!is.list(label_axes)) {
-    stop(
-      "Panel labeling format not recognized.",
-      call. = FALSE
-    )
+    abort("Panel labeling format not recognized.")
     label_axes <- list(left = "N", bottom = "E")
   }
 
   if (is.character(label_graticule)) {
     label_graticule <- unlist(strsplit(label_graticule, ""))
   } else {
-    stop(
-      "Graticule labeling format not recognized.",
-      call. = FALSE
-    )
+    abort("Graticule labeling format not recognized.")
     label_graticule <- ""
   }
 

@@ -90,7 +90,7 @@ scale_colour_distiller <- function(..., type = "seq", palette = 1, direction = -
   # warn about using a qualitative brewer palette to generate the gradient
   type <- match.arg(type, c("seq", "div", "qual"))
   if (type == "qual") {
-    warning("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
+    warn("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
   }
   continuous_scale(aesthetics, "distiller",
     gradient_n_pal(brewer_pal(type, palette, direction)(7), values, space), na.value = na.value, guide = guide, ...)
@@ -103,7 +103,7 @@ scale_colour_distiller <- function(..., type = "seq", palette = 1, direction = -
 scale_fill_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", aesthetics = "fill") {
   type <- match.arg(type, c("seq", "div", "qual"))
   if (type == "qual") {
-    warning("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
+    warn("Using a discrete colour palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
   }
   continuous_scale(aesthetics, "distiller",
     gradient_n_pal(brewer_pal(type, palette, direction)(7), values, space), na.value = na.value, guide = guide, ...)
@@ -115,7 +115,7 @@ scale_colour_fermenter <- function(..., type = "seq", palette = 1, direction = -
   # warn about using a qualitative brewer palette to generate the gradient
   type <- match.arg(type, c("seq", "div", "qual"))
   if (type == "qual") {
-    warning("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
+    warn("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
   }
   binned_scale(aesthetics, "fermenter", binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
 }
@@ -125,7 +125,7 @@ scale_colour_fermenter <- function(..., type = "seq", palette = 1, direction = -
 scale_fill_fermenter <- function(..., type = "seq", palette = 1, direction = -1, na.value = "grey50", guide = "coloursteps", aesthetics = "fill") {
   type <- match.arg(type, c("seq", "div", "qual"))
   if (type == "qual") {
-    warning("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
+    warn("Using a discrete colour palette in a binned scale.\n  Consider using type = \"seq\" or type = \"div\" instead")
   }
   binned_scale(aesthetics, "fermenter", binned_pal(brewer_pal(type, palette, direction)), na.value = na.value, guide = guide, ...)
 }

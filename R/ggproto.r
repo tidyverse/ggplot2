@@ -59,7 +59,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
 
   members <- list(...)
   if (length(members) != sum(nzchar(names(members)))) {
-    stop("All members of a ggproto object must be named.")
+    abort("All members of a ggproto object must be named.")
   }
 
   # R <3.1.2 will error when list2env() is given an empty list, so we need to
@@ -79,7 +79,7 @@ ggproto <- function(`_class` = NULL, `_inherit` = NULL, ...) {
   super <- find_super()
   if (!is.null(super)) {
     if (!is.ggproto(super)) {
-      stop("`_inherit` must be a ggproto object.")
+      abort("`_inherit` must be a ggproto object.")
     }
     e$super <- find_super
     class(e) <- c(`_class`, class(super))
@@ -119,11 +119,10 @@ fetch_ggproto <- function(x, name) {
     } else if (is.function(super)) {
       res <- fetch_ggproto(super(), name)
     } else {
-      stop(
-        class(x)[[1]], " was built with an incompatible version of ggproto.\n",
-        "Please reinstall the package that provides this extension.",
-        call. = FALSE
-      )
+      abort(glue("
+        {class(x)[[1]]} was built with an incompatible version of ggproto.
+        Please reinstall the package that provides this extension.
+      "))
     }
   }
 

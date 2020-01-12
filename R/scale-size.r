@@ -76,7 +76,7 @@ scale_size_binned <- function(name = waiver(), breaks = waiver(), labels = waive
 #' @export
 #' @usage NULL
 scale_size_discrete <- function(...) {
-  warning("Using size for a discrete variable is not advised.", call. = FALSE)
+  warn("Using size for a discrete variable is not advised.")
   scale_size_ordinal(...)
 }
 
