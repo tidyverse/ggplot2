@@ -80,7 +80,7 @@ ggplot <- function(data = NULL, mapping = aes(), ...,
 ggplot.default <- function(data = NULL, mapping = aes(), ...,
                            environment = parent.frame()) {
   if (!missing(mapping) && !inherits(mapping, "uneval")) {
-    abort("Mapping should be created with `aes() or `aes_()`.")
+    abort("Mapping should be created with `aes()` or `aes_()`.")
   }
 
   data <- fortify(data, ...)
