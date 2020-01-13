@@ -133,9 +133,9 @@ manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ...) {
   # order values according to breaks
   if (is.vector(values) && is.null(names(values)) && !is.waive(breaks) &&
       !is.null(breaks)) {
-    if (length(breaks) != length(values)) {
+    if (length(breaks) > length(values)) {
       abort(glue("
-        Differing number of values and breaks in manual scale.
+        Too many breaks for the number of values in manual scale.
         {length(values)} values provided compared to {length(breaks)} breaks.
       "))
     }
