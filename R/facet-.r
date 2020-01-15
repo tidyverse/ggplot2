@@ -155,6 +155,7 @@ Facet <- ggproto("Facet", NULL,
     panels
   },
   setup_params = function(data, params) {
+    params$.possible_columns <- unique(unlist(lapply(data, names)))
     params
   },
   setup_data = function(data, params) {
@@ -417,11 +418,12 @@ is_facets <- function(x) {
 # when evaluating an expression, you want to see any errors. That does
 # mean you can't have background data when faceting by an expression,
 # but that seems like a reasonable tradeoff.
-eval_facets <- function(facets, data, env = globalenv()) {
-  vars <- compact(lapply(facets, eval_facet, data, env = env))
+eval_facets <- function(facets, data, env = globalenv(), possible_columns = NULL) {
+  vars <- compact(lapply(facets, eval_facet, data, env = env, possible_columns = possible_columns))
   new_data_frame(tibble::as_tibble(vars))
 }
-eval_facet <- function(facet, data, env = emptyenv()) {
+eval_facet <- function(facet, data, env = emptyenv(), possible_columns = NULL) {
+  browser()
   if (quo_is_symbol(facet)) {
     facet <- as.character(quo_get_expr(facet))
 
@@ -433,7 +435,24 @@ eval_facet <- function(facet, data, env = emptyenv()) {
     return(out)
   }
 
-  eval_tidy(facet, data, env)
+  # clone the env in order to prevent side effects (hopefully)
+  env <- env_clone(env)
+
+  # create a env with active bindings
+  cushioning_env <- child_env(env_parent(env))
+  bindings <- lapply(
+    set_names(possible_columns),
+    function(...) function(e) abort("", class = "ggplot2_undefined_aes_error")
+  )
+  env_bind_active(cushioning_env, !!!bindings)
+
+  # inject the cushioning env into the original chain of environments
+  env_poke_parent(env, cushioning_env)
+
+  tryCatch(
+    eval_tidy(facet, data, env),
+    ggplot2_undefined_aes_error = function(e) NULL
+  )
 }
 
 layout_null <- function() {
@@ -524,10 +543,14 @@ panel_rows <- function(table) {
 #' @keywords internal
 #' @export
 combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
+  possible_columns <- unique(unlist(lapply(data, names)))
   if (length(vars) == 0) return(new_data_frame())
 
   # For each layer, compute the facet values
-  values <- compact(lapply(data, eval_facets, facets = vars, env = env))
+  values <- compact(lapply(data, eval_facets,
+                           facets = vars,
+                           env = env,
+                           possible_columns = possible_columns))
 
   # Form the base data.frame which contains all combinations of faceting
   # variables that appear in the data
