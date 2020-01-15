@@ -423,6 +423,19 @@ eval_facets <- function(facets, data, possible_columns = NULL) {
   new_data_frame(tibble::as_tibble(vars))
 }
 eval_facet <- function(facet, data, possible_columns = NULL) {
+  # Treat the case when `facet` is a quosure of a symbol specifically
+  # to issue a friendlier warning
+  if (quo_is_symbol(facet)) {
+    facet <- as.character(quo_get_expr(facet))
+
+    if (facet %in% names(data)) {
+      out <- data[[facet]]
+    } else {
+      out <- NULL
+    }
+    return(out)
+  }
+
   # clone the env in order to prevent side effects (hopefully)
   env <- env_clone(quo_get_env(facet))
 
