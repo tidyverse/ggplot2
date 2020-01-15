@@ -418,12 +418,11 @@ is_facets <- function(x) {
 # when evaluating an expression, you want to see any errors. That does
 # mean you can't have background data when faceting by an expression,
 # but that seems like a reasonable tradeoff.
-eval_facets <- function(facets, data, env = globalenv(), possible_columns = NULL) {
-  vars <- compact(lapply(facets, eval_facet, data, env = env, possible_columns = possible_columns))
+eval_facets <- function(facets, data, possible_columns = NULL) {
+  vars <- compact(lapply(facets, eval_facet, data, possible_columns = possible_columns))
   new_data_frame(tibble::as_tibble(vars))
 }
-eval_facet <- function(facet, data, env = emptyenv(), possible_columns = NULL) {
-  browser()
+eval_facet <- function(facet, data, possible_columns = NULL) {
   if (quo_is_symbol(facet)) {
     facet <- as.character(quo_get_expr(facet))
 
@@ -436,7 +435,7 @@ eval_facet <- function(facet, data, env = emptyenv(), possible_columns = NULL) {
   }
 
   # clone the env in order to prevent side effects (hopefully)
-  env <- env_clone(env)
+  env <- env_clone(quo_get_env(facet))
 
   # create a env with active bindings
   cushioning_env <- child_env(env_parent(env))
@@ -448,9 +447,10 @@ eval_facet <- function(facet, data, env = emptyenv(), possible_columns = NULL) {
 
   # inject the cushioning env into the original chain of environments
   env_poke_parent(env, cushioning_env)
+  facet <- quo_set_env(facet, env)
 
   tryCatch(
-    eval_tidy(facet, data, env),
+    eval_tidy(facet, data),
     ggplot2_undefined_aes_error = function(e) NULL
   )
 }
@@ -547,10 +547,7 @@ combine_vars <- function(data, env = emptyenv(), vars = NULL, drop = TRUE) {
   if (length(vars) == 0) return(new_data_frame())
 
   # For each layer, compute the facet values
-  values <- compact(lapply(data, eval_facets,
-                           facets = vars,
-                           env = env,
-                           possible_columns = possible_columns))
+  values <- compact(lapply(data, eval_facets, facets = vars, possible_columns = possible_columns))
 
   # Form the base data.frame which contains all combinations of faceting
   # variables that appear in the data
