@@ -436,23 +436,24 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
     return(out)
   }
 
-  # clone the env in order to prevent side effects (hopefully)
-  env <- env_clone(quo_get_env(facet))
+  # Create an environment for data mask
+  env <- new_environment(data)
 
-  # create a env with active bindings
-  cushioning_env <- child_env(env_parent(env))
+  # Bind all possible column names to raise a custom error to detect the case
+  # when a variable is missing from the layer data but exists in other layer
+  missing_columns <- setdiff(possible_columns, names(data))
   bindings <- lapply(
-    set_names(possible_columns),
+    set_names(missing_columns),
     function(...) function(e) abort("", class = "ggplot2_undefined_aes_error")
   )
-  env_bind_active(cushioning_env, !!!bindings)
+  env_bind_active(env, !!!bindings)
 
-  # inject the cushioning env into the original chain of environments
-  env_poke_parent(env, cushioning_env)
-  facet <- quo_set_env(facet, env)
+  # Create a data mask and install a data pronoun manually (see ?new_data_mask)
+  mask <- new_data_mask(env)
+  mask$.data <- as_data_pronoun(mask)
 
   tryCatch(
-    eval_tidy(facet, data),
+    eval_tidy(facet, mask),
     ggplot2_undefined_aes_error = function(e) NULL
   )
 }
