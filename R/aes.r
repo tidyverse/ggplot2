@@ -158,7 +158,7 @@ print.uneval <- function(x, ...) {
 #' @export
 standardise_aes_names <- function(x) {
   # convert US to UK spelling of colour
-  x <- sub("^color$", "colour", x, fixed = TRUE)
+  x <- sub("color", "colour", x, fixed = TRUE)
 
   # convert old-style aesthetics names to ggplot version
   revalue(x, ggplot_global$base_to_ggplot)

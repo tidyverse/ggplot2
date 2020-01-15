@@ -279,6 +279,7 @@ Layer <- ggproto("Layer", NULL,
 
   map_statistic = function(self, data, plot) {
     if (empty(data)) return(new_data_frame())
+    data <- rename_aes(data)
 
     # Assemble aesthetics from layer, plot and stat mappings
     aesthetics <- self$mapping
