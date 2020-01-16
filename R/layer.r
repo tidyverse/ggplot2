@@ -279,6 +279,10 @@ Layer <- ggproto("Layer", NULL,
 
   map_statistic = function(self, data, plot) {
     if (empty(data)) return(new_data_frame())
+
+    # Make sure data columns are converted to correct names. If not done, a
+    # column with e.g. a color name will not be found in an after_stat()
+    # evaluation (since the evaluation symbols gets renamed)
     data <- rename_aes(data)
 
     # Assemble aesthetics from layer, plot and stat mappings
