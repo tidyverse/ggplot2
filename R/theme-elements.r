@@ -2,7 +2,7 @@
 #'
 #' @description
 #' In conjunction with the \link{theme} system, the `element_` functions
-#' specify the display of how non-data components of the plot are a drawn.
+#' specify the display of how non-data components of the plot are drawn.
 #'
 #'   - `element_blank`: draws nothing, and assigns no space.
 #'   - `element_rect`: borders and backgrounds.
