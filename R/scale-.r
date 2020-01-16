@@ -690,6 +690,8 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (is.list(labels)) {
       # Guard against list with empty elements
       labels[vapply(labels, length, integer(1)) == 0] <- ""
+      # Make sure each element is scalar
+      labels <- lapply(labels, `[`, 1)
     }
 
     labels
