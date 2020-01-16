@@ -443,10 +443,9 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
   # so that we can detect and ignore the case when a variable is missing from the
   # layer data but exists in other layer
   missing_columns <- setdiff(possible_columns, names(data))
-  bindings <- lapply(
-    set_names(missing_columns),
-    function(...) function(e) abort("", class = "ggplot2_undefined_aes_error")
-  )
+  undefined_error <- function(e) abort("", class = "ggplot2_undefined_aes_error")
+  bindings <- rep_along(missing_columns, list(undefined_error))
+  names(bindings) <- missing_columns
   env_bind_active(env, !!!bindings)
 
   # Create a data mask and install a data pronoun manually (see ?new_data_mask)
