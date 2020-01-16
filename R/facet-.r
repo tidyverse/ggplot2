@@ -439,8 +439,9 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
   # Create an environment for data mask
   env <- new_environment(data)
 
-  # Bind all possible column names to raise a custom error to detect the case
-  # when a variable is missing from the layer data but exists in other layer
+  # Bind all possible column names that remains undefined to raise a custom error
+  # so that we can detect and ignore the case when a variable is missing from the
+  # layer data but exists in other layer
   missing_columns <- setdiff(possible_columns, names(data))
   bindings <- lapply(
     set_names(missing_columns),
@@ -452,6 +453,8 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
   mask <- new_data_mask(env)
   mask$.data <- as_data_pronoun(mask)
 
+  # Do not treat the cases as errors when it refers to a column name unavailable
+  # in the layer data
   tryCatch(
     eval_tidy(facet, mask),
     ggplot2_undefined_aes_error = function(e) NULL
