@@ -687,6 +687,10 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
     if (length(labels) != length(breaks)) {
       abort("Breaks and labels are different lengths")
     }
+    if (is.list(labels)) {
+      # Guard against list with empty elements
+      labels[vapply(labels, length, integer(1)) == 0] <- ""
+    }
 
     labels
   },
