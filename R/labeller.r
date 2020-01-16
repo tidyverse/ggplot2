@@ -499,33 +499,39 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   # Create matrix of labels
   labels <- lapply(labeller(label_df), cbind)
   labels <- do.call("cbind", labels)
+  ncol <- ncol(labels)
+  nrow <- nrow(labels)
 
   if (horizontal) {
-    grobs_top <- apply(labels, c(1, 2), element_render, theme = theme,
-                       element = "strip.text.x.top", margin_x = TRUE,
-                       margin_y = TRUE)
-    grobs_top <- assemble_strips(grobs_top, theme, horizontal, clip = "on")
+    grobs_top <- lapply(labels, element_render, theme = theme,
+                        element = "strip.text.x.top", margin_x = TRUE,
+                        margin_y = TRUE)
+    grobs_top <- assemble_strips(matrix(grobs_top, ncol = ncol, nrow = nrow),
+                                 theme, horizontal, clip = "on")
 
-    grobs_bottom <- apply(labels, c(1, 2), element_render, theme = theme,
+    grobs_bottom <- lapply(labels, element_render, theme = theme,
                           element = "strip.text.x.bottom", margin_x = TRUE,
                           margin_y = TRUE)
-    grobs_bottom <- assemble_strips(grobs_bottom, theme, horizontal, clip = "on")
+    grobs_bottom <- assemble_strips(matrix(grobs_bottom, ncol = ncol, nrow = nrow),
+                                    theme, horizontal, clip = "on")
 
     list(
       top = grobs_top,
       bottom = grobs_bottom
     )
   } else {
-    grobs_left <- apply(labels, c(1, 2), element_render, theme = theme,
-                        element = "strip.text.y.left", margin_x = TRUE,
-                        margin_y = TRUE)
-    grobs_left <- assemble_strips(grobs_left, theme, horizontal, clip = "on")
-
-    grobs_right <- apply(labels[, rev(seq_len(ncol(labels))), drop = FALSE],
-                         c(1, 2), element_render, theme = theme,
-                         element = "strip.text.y.right", margin_x = TRUE,
+    grobs_left <- lapply(labels, element_render, theme = theme,
+                         element = "strip.text.y.left", margin_x = TRUE,
                          margin_y = TRUE)
-    grobs_right <- assemble_strips(grobs_right, theme, horizontal, clip = "on")
+    grobs_left <- assemble_strips(matrix(grobs_left, ncol = ncol, nrow = nrow),
+                                  theme, horizontal, clip = "on")
+
+    grobs_right <- lapply(labels[, rev(seq_len(ncol(labels))), drop = FALSE],
+                          element_render, theme = theme,
+                          element = "strip.text.y.right", margin_x = TRUE,
+                          margin_y = TRUE)
+    grobs_right <- assemble_strips(matrix(grobs_right, ncol = ncol, nrow = nrow),
+                                   theme, horizontal, clip = "on")
 
     list(
       left = grobs_left,
