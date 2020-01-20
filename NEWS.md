@@ -162,6 +162,9 @@ fail.
 * `stat_summary()` and related functions now support rlang-style lambda functions
   (#3568, @dkahle).
 
+* `strip_dots()` strips the data masking pronoun `.data` to make better
+  axis labels.
+
 * Addition of partial themes to plots has been made more predictable;
   stepwise addition of individual partial themes is now equivalent to
   addition of multple theme elements at once (@clauswilke, #3039).

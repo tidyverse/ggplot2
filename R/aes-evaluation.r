@@ -132,7 +132,7 @@ is_staged <- function(x) {
 }
 
 # Strip dots from expressions
-strip_dots <- function(expr) {
+strip_dots <- function(expr, env = globalenv()) {
   if (is.atomic(expr)) {
     expr
   } else if (is.name(expr)) {
@@ -144,23 +144,30 @@ strip_dots <- function(expr) {
     }
   } else if (is_quosure(expr)) {
     # strip dots from quosure and reconstruct the quosure
-    expr <- new_quosure(
-      strip_dots(quo_get_expr(expr)),
+    new_quosure(
+      strip_dots(quo_get_expr(expr), quo_get_env(expr)),
       quo_get_env(expr)
     )
   } else if (is.call(expr)) {
-    if (identical(expr[[1]], quote(stat))) {
+    if (is_call(expr, "$") && is_symbol(expr[[2]], ".data")) {
+      expr[[3]]
+    } else if (is_call(expr, "[[") && is_symbol(expr[[2]], ".data")) {
+      tryCatch(
+        sym(eval(expr[[3]], env)),
+        error = function(e) expr[[3]]
+      )
+    } else if (is_call(expr, "stat")) {
       strip_dots(expr[[2]])
     } else {
-      expr[-1] <- lapply(expr[-1], strip_dots)
+      expr[-1] <- lapply(expr[-1], strip_dots, env = env)
       expr
     }
   } else if (is.pairlist(expr)) {
     # In the unlikely event of an anonymous function
-    as.pairlist(lapply(expr, strip_dots))
+    as.pairlist(lapply(expr, strip_dots, env = env))
   } else if (is.list(expr)) {
     # For list of aesthetics
-    lapply(expr, strip_dots)
+    lapply(expr, strip_dots, env = env)
   } else {
     abort(glue("Unknown input: {class(expr)[1]}"))
   }
