@@ -40,20 +40,17 @@ NULL
 annotation_raster <- function(raster, xmin, xmax, ymin, ymax,
                               interpolate = FALSE) {
   raster <- grDevices::as.raster(raster)
+  data <- new_data_frame(list(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax), n = 1)
 
   layer(
-    data = dummy_data(),
-    mapping = NULL,
+    data = data,
+    mapping = aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
     stat = StatIdentity,
     position = PositionIdentity,
     geom = GeomRasterAnn,
     inherit.aes = FALSE,
     params = list(
       raster = raster,
-      xmin = xmin,
-      xmax = xmax,
-      ymin = ymin,
-      ymax = ymax,
       interpolate = interpolate
     )
   )
@@ -75,8 +72,8 @@ GeomRasterAnn <- ggproto("GeomRasterAnn", Geom,
     if (!inherits(coord, "CoordCartesian")) {
       abort("annotation_raster only works with Cartesian coordinates")
     }
-    corners <- new_data_frame(list(x = c(xmin, xmax), y = c(ymin, ymax)), n = 2)
-    data <- coord$transform(corners, panel_params)
+    data <- new_data_frame(list(x = c(data$xmin, data$xmax), y = c(data$ymin, data$ymax)), n = 2)
+    data <- coord$transform(data, panel_params)
 
     x_rng <- range(data$x, na.rm = TRUE)
     y_rng <- range(data$y, na.rm = TRUE)
@@ -84,5 +81,7 @@ GeomRasterAnn <- ggproto("GeomRasterAnn", Geom,
     rasterGrob(raster, x_rng[1], y_rng[1],
       diff(x_rng), diff(y_rng), default.units = "native",
       just = c("left","bottom"), interpolate = interpolate)
-  }
+  },
+
+  required_aes = c("xmin", "xmax", "ymin", "ymax")
 )
