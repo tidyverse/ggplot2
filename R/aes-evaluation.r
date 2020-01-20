@@ -132,7 +132,7 @@ is_staged <- function(x) {
 }
 
 # Strip dots from expressions
-strip_dots <- function(expr, env = globalenv()) {
+strip_dots <- function(expr, env) {
   if (is.atomic(expr)) {
     expr
   } else if (is.name(expr)) {
