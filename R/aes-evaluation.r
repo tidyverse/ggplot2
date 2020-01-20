@@ -145,7 +145,7 @@ strip_dots <- function(expr, env) {
   } else if (is_quosure(expr)) {
     # strip dots from quosure and reconstruct the quosure
     new_quosure(
-      strip_dots(quo_get_expr(expr), quo_get_env(expr)),
+      strip_dots(quo_get_expr(expr), env = quo_get_env(expr)),
       quo_get_env(expr)
     )
   } else if (is.call(expr)) {
