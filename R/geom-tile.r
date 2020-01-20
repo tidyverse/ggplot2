@@ -87,6 +87,7 @@ GeomTile <- ggproto("GeomTile", GeomRect,
   extra_params = c("na.rm"),
 
   setup_data = function(data, params) {
+    data <- rename_size_aesthetic(data)
     data$width <- data$width %||% params$width %||% resolution(data$x, FALSE)
     data$height <- data$height %||% params$height %||% resolution(data$y, FALSE)
 
@@ -96,7 +97,7 @@ GeomTile <- ggproto("GeomTile", GeomRect,
     )
   },
 
-  default_aes = aes(fill = "grey20", colour = NA, size = 0.1, linetype = 1,
+  default_aes = aes(fill = "grey20", colour = NA, linewidth = 0.1, linetype = 1,
     alpha = NA, width = NA, height = NA),
 
   required_aes = c("x", "y"),

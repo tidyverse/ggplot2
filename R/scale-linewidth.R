@@ -1,0 +1,84 @@
+#' Scales for line width
+#'
+#' `scale_linewidth` scales the width of lines and polygon strokes. Due to
+#' historical reasons, it is also possible to control this with the `size`
+#' aesthetic, but using `linewidth` is encourage to clearly differentiate area
+#' aesthetics from line aesthetics.
+#'
+#' @name scale_linewidth
+#' @inheritParams continuous_scale
+#' @inheritParams binned_scale
+#' @param range a numeric vector of length 2 that specifies the minimum and
+#'   maximum size of the plotting symbol after transformation.
+#' @examples
+#'
+NULL
+
+#' @rdname scale_linewidth
+#' @export
+#' @usage NULL
+scale_linewidth_continuous <- function(name = waiver(), breaks = waiver(),
+                                       labels = waiver(), limits = NULL,
+                                       range = c(1, 6), trans = "identity",
+                                       guide = "legend") {
+  continuous_scale("linewidth", "linewidth_c", rescale_pal(range), name = name,
+                   breaks = breaks, labels = labels, limits = limits, trans = trans,
+                   guide = guide)
+}
+
+#' @rdname scale_linewidth
+#' @export
+scale_linewidth <- scale_linewidth_continuous
+
+#' @rdname scale_linewidth
+#' @export
+scale_linewidth_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
+                              limits = NULL, range = c(1, 6), n.breaks = NULL,
+                              nice.breaks = TRUE, trans = "identity", guide = "bins") {
+  binned_scale("linewidth", "linewidth_b", rescale_pal(range), name = name,
+               breaks = breaks, labels = labels, limits = limits, trans = trans,
+               n.breaks = n.breaks, nice.breaks = nice.breaks, guide = guide)
+}
+
+#' @rdname scale_linewidth
+#' @export
+#' @usage NULL
+scale_size_discrete <- function(...) {
+  warning("Using linewidth for a discrete variable is not advised.", call. = FALSE)
+  scale_linewidth_ordinal(...)
+}
+
+#' @rdname scale_linewidth
+#' @export
+#' @usage NULL
+scale_linewidth_ordinal <- function(..., range = c(2, 6)) {
+  force(range)
+
+  discrete_scale(
+    "linewidth",
+    "linewidth_d",
+    function(n) seq(range[1], range[2], length.out = n),
+    ...
+  )
+}
+
+#' @rdname scale_linewidth
+#' @export
+#' @usage NULL
+scale_linewidth_datetime <- function(..., range = c(1, 6)) {
+  datetime_scale("linewidth", "time", palette = rescale_pal(range), ...)
+}
+
+#' @rdname scale_linewidth
+#' @export
+#' @usage NULL
+scale_linewidth_date <- function(..., range = c(1, 6)) {
+  datetime_scale("linewidth", "date", palette = rescale_pal(range), ...)
+}
+
+rename_size_aesthetic <- function(data) {
+  if (is.null(data$linewidth)) {
+    data$linewidth <- data$size
+  }
+  data
+}

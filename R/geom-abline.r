@@ -22,7 +22,7 @@ NULL
 #' @section Aesthetics:
 #' These geoms are drawn using with [geom_line()] so support the
 #' same aesthetics: `alpha`, `colour`, `linetype` and
-#' `size`. They also each have aesthetics that control the position of
+#' `linewidth`. They also each have aesthetics that control the position of
 #' the line:
 #'
 #'   - `geom_vline()`: `xintercept`
@@ -124,6 +124,9 @@ geom_abline <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomAbline <- ggproto("GeomAbline", Geom,
+  setup_data = function(data, params) {
+    rename_size_aesthetic(data)
+  },
   draw_panel = function(data, panel_params, coord) {
     ranges <- coord$backtransform_range(panel_params)
 
@@ -135,7 +138,7 @@ GeomAbline <- ggproto("GeomAbline", Geom,
     GeomSegment$draw_panel(unique(data), panel_params, coord)
   },
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
   required_aes = c("slope", "intercept"),
 
   draw_key = draw_key_abline

@@ -130,7 +130,7 @@ geom_path <- function(mapping = NULL, data = NULL,
 GeomPath <- ggproto("GeomPath", Geom,
   required_aes = c("x", "y"),
 
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
 
   handle_na = function(data, params) {
     # Drop missing values at the start or end of a line - can't drop in the
@@ -168,7 +168,7 @@ GeomPath <- ggproto("GeomPath", Geom,
       linetype <- unique(df$linetype)
       new_data_frame(list(
         solid = identical(linetype, 1) || identical(linetype, "solid"),
-        constant = nrow(unique(df[, c("alpha", "colour","size", "linetype")])) == 1
+        constant = nrow(unique(df[, c("alpha", "colour","linewidth", "linetype")])) == 1
       ), n = 1)
     })
     solid_lines <- all(attr$solid)
@@ -190,7 +190,7 @@ GeomPath <- ggproto("GeomPath", Geom,
         gp = gpar(
           col = alpha(munched$colour, munched$alpha)[!end],
           fill = alpha(munched$colour, munched$alpha)[!end],
-          lwd = munched$size[!end] * .pt,
+          lwd = munched$linewidth[!end] * .pt,
           lty = munched$linetype[!end],
           lineend = lineend,
           linejoin = linejoin,
@@ -205,7 +205,7 @@ GeomPath <- ggproto("GeomPath", Geom,
         gp = gpar(
           col = alpha(munched$colour, munched$alpha)[start],
           fill = alpha(munched$colour, munched$alpha)[start],
-          lwd = munched$size[start] * .pt,
+          lwd = munched$linewidth[start] * .pt,
           lty = munched$linetype[start],
           lineend = lineend,
           linejoin = linejoin,
@@ -213,6 +213,10 @@ GeomPath <- ggproto("GeomPath", Geom,
         )
       )
     }
+  },
+
+  setup_data = function(data, params) {
+    rename_size_aesthetic(data)
   },
 
   draw_key = draw_key_path
@@ -270,6 +274,7 @@ GeomLine <- ggproto("GeomLine", GeomPath,
   extra_params = c("na.rm", "orientation"),
 
   setup_data = function(data, params) {
+    data <- rename_size_aesthetic(data)
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
     data <- data[order(data$PANEL, data$group, data$x), ]

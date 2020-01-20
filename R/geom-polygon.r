@@ -130,7 +130,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
           gp = gpar(
             col = first_rows$colour,
             fill = alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$size * .pt,
+            lwd = first_rows$linewidth * .pt,
             lty = first_rows$linetype
           )
         )
@@ -158,7 +158,7 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
           gp = gpar(
             col = first_rows$colour,
             fill = alpha(first_rows$fill, first_rows$alpha),
-            lwd = first_rows$size * .pt,
+            lwd = first_rows$linewidth * .pt,
             lty = first_rows$linetype
           )
         )
@@ -167,7 +167,11 @@ GeomPolygon <- ggproto("GeomPolygon", Geom,
 
   },
 
-  default_aes = aes(colour = "NA", fill = "grey20", size = 0.5, linetype = 1,
+  setup_data = function(data, params) {
+    rename_size_aesthetic(data)
+  },
+
+  default_aes = aes(colour = "NA", fill = "grey20", linewidth = 0.5, linetype = 1,
     alpha = NA, subgroup = NULL),
 
   handle_na = function(data, params) {

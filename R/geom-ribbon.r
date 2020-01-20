@@ -73,7 +73,7 @@ geom_ribbon <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomRibbon <- ggproto("GeomRibbon", Geom,
-  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
     alpha = NA),
 
   required_aes = c("x|y", "ymin|xmin", "ymax|xmax"),
@@ -86,6 +86,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
   extra_params = c("na.rm", "orientation"),
 
   setup_data = function(data, params) {
+    data <- rename_size_aesthetic(data)
     data$flipped_aes <- params$flipped_aes
     data <- flip_data(data, params$flipped_aes)
 
@@ -110,7 +111,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
     data <- data[order(data$group), ]
 
     # Check that aesthetics are constant
-    aes <- unique(data[c("colour", "fill", "size", "linetype", "alpha")])
+    aes <- unique(data[c("colour", "fill", "linewidth", "linetype", "alpha")])
     if (nrow(aes) > 1) {
       abort("Aesthetics can not vary with a ribbon")
     }
@@ -165,7 +166,7 @@ GeomRibbon <- ggproto("GeomRibbon", Geom,
       default.units = "native",
       gp = gpar(
         col = aes$colour,
-        lwd = aes$size * .pt,
+        lwd = aes$linewidth * .pt,
         lty = aes$linetype)
     )
 
@@ -204,7 +205,7 @@ geom_area <- function(mapping = NULL, data = NULL, stat = "identity",
 #' @usage NULL
 #' @export
 GeomArea <- ggproto("GeomArea", GeomRibbon,
-  default_aes = aes(colour = NA, fill = "grey20", size = 0.5, linetype = 1,
+  default_aes = aes(colour = NA, fill = "grey20", linewidth = 0.5, linetype = 1,
     alpha = NA),
 
   required_aes = c("x", "y"),

@@ -100,14 +100,16 @@ geom_segment <- function(mapping = NULL, data = NULL,
 #' @export
 GeomSegment <- ggproto("GeomSegment", Geom,
   required_aes = c("x", "y", "xend", "yend"),
-  non_missing_aes = c("linetype", "size", "shape"),
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
-
+  non_missing_aes = c("linetype", "linewidth", "shape"),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
+  setup_data = function(data, params) {
+    rename_size_aesthetic(data)
+  },
   draw_panel = function(data, panel_params, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = "butt", linejoin = "round", na.rm = FALSE) {
 
     data <- remove_missing(data, na.rm = na.rm,
-      c("x", "y", "xend", "yend", "linetype", "size", "shape"),
+      c("x", "y", "xend", "yend", "linetype", "linewidth", "shape"),
       name = "geom_segment")
     if (empty(data)) return(zeroGrob())
 
@@ -119,7 +121,7 @@ GeomSegment <- ggproto("GeomSegment", Geom,
         gp = gpar(
           col = alpha(coord$colour, coord$alpha),
           fill = alpha(arrow.fill, coord$alpha),
-          lwd = coord$size * .pt,
+          lwd = coord$linewidth * .pt,
           lty = coord$linetype,
           lineend = lineend,
           linejoin = linejoin

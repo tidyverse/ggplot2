@@ -91,7 +91,7 @@ geom_linerange <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 GeomLinerange <- ggproto("GeomLinerange", Geom,
-  default_aes = aes(colour = "black", size = 0.5, linetype = 1, alpha = NA),
+  default_aes = aes(colour = "black", linewidth = 0.5, linetype = 1, alpha = NA),
 
   draw_key = draw_key_vpath,
 
@@ -109,6 +109,7 @@ GeomLinerange <- ggproto("GeomLinerange", Geom,
   extra_params = c("na.rm", "orientation"),
 
   setup_data = function(data, params) {
+    data <- rename_size_aesthetic(data)
     data$flipped_aes <- params$flipped_aes
     data
   },
