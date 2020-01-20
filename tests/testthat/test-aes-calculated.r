@@ -24,6 +24,18 @@ test_that("strip_dots remove dots around calculated aesthetics", {
   )
 })
 
+test_that("strip_dots handles tidy evaluation pronouns", {
+  expect_identical(strip_dots(aes(.data$x))$x, quo(x))
+  expect_identical(strip_dots(aes(.data[["x"]]))$x, quo(x))
+
+  var <- "y"
+  f <- function() {
+    var <- "x"
+    aes(.data[[var]])$x
+  }
+  expect_identical(quo_get_expr(strip_dots(f())), quote(x))
+})
+
 test_that("make_labels() deprases mappings properly", {
   # calculation stripped from labels
   expect_identical(make_labels(aes(x = ..y..)), list(x = "y"))
