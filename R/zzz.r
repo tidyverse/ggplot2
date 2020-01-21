@@ -10,7 +10,7 @@
 random_tip <- function() {
   tips <- c(
     "RStudio Community is a great place to get help: https://community.rstudio.com/c/tidyverse",
-    "Learn more about the underlying theory at http://ggplot2-book.org/",
+    "Learn more about the underlying theory at https://ggplot2-book.org/",
     "Keep up to date with changes at https://www.tidyverse.org/blog/",
     "Use suppressPackageStartupMessages() to eliminate package startup messages",
     "Need help? Try Stackoverflow: https://stackoverflow.com/tags/ggplot2",
