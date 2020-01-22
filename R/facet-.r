@@ -436,14 +436,11 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
     return(out)
   }
 
-  # Create an environment for data mask
+  # Key idea: use active bindings so that column names missing in this layer
+  # but present in others raise a custom error
   env <- new_environment(data)
-
-  # Bind all possible column names that remains undefined to raise a custom error
-  # so that we can detect and ignore the case when a variable is missing from the
-  # layer data but exists in other layer
   missing_columns <- setdiff(possible_columns, names(data))
-  undefined_error <- function(e) abort("", class = "ggplot2_undefined_aes_error")
+  undefined_error <- function(e) abort("", class = "ggplot2_missing_facet_var")
   bindings <- rep_named(missing_columns, list(undefined_error))
   env_bind_active(env, !!!bindings)
 
@@ -451,11 +448,9 @@ eval_facet <- function(facet, data, possible_columns = NULL) {
   mask <- new_data_mask(env)
   mask$.data <- as_data_pronoun(mask)
 
-  # Do not treat the cases as errors when it refers to a column name unavailable
-  # in the layer data
   tryCatch(
     eval_tidy(facet, mask),
-    ggplot2_undefined_aes_error = function(e) NULL
+    ggplot2_missing_facet_var = function(e) NULL
   )
 }
 
