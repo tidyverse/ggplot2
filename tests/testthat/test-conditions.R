@@ -10,6 +10,11 @@ get_n_warning <- function(f) {
   sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "warning")
 }
 
+get_n_data.frame <- function(f) {
+  d <- getParseData(parse(f, keep.source = TRUE))
+  sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "data.frame")
+}
+
 test_that("do not use stop()", {
   stops <- vapply(list.files("../../R", full.names = TRUE), get_n_stop, integer(1))
   expect_equal(sum(stops), 0)
@@ -18,4 +23,9 @@ test_that("do not use stop()", {
 test_that("do not use warning()", {
   warnings <- vapply(list.files("../../R", full.names = TRUE), get_n_warning, integer(1))
   expect_equal(sum(warnings), 0)
+})
+
+test_that("do not use data.frame(), use `data_frame()` or `new_data_frame()`", {
+  data.frames <- vapply(list.files("../../R", full.names = TRUE), get_n_data.frame, integer(1))
+  expect_equal(sum(data.frames), 0)
 })
