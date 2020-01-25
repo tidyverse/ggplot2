@@ -168,6 +168,9 @@ fail.
   stepwise addition of individual partial themes is now equivalent to
   addition of multple theme elements at once (@clauswilke, #3039).
 
+* Facets now don't fail even when some variable in the spec are not available
+  in all layers (@yutannihilation, #2963).
+
 # ggplot2 3.2.1
 
 This is a patch release fixing a few regressions introduced in 3.2.0 as well as
