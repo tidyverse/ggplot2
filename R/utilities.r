@@ -592,10 +592,10 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
     return(y_is_int != main_is_continuous)
   }
   # Is one of the axes a single value
-  if (all(x == 1)) {
+  if (zero_range(range(x, na.rm = TRUE))) {
     return(main_is_continuous)
   }
-  if (all(y == 1)) {
+  if (zero_range(range(y, na.rm = TRUE))) {
     return(!main_is_continuous)
   }
   # If both are discrete like, which have most 0 or 1-spaced values
