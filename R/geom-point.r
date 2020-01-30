@@ -35,7 +35,6 @@
 #'   often aesthetics, used to set an aesthetic to a fixed value, like
 #'   `colour = "red"` or `size = 3`. They may also be parameters
 #'   to the paired geom/stat.
-#' @inheritParams layer
 #' @export
 #' @examples
 #' p <- ggplot(mtcars, aes(wt, mpg))
@@ -190,14 +189,11 @@ translate_shape_string <- function(shape_string) {
 
     more_problems <- if (n_bad > 5) {
       sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
+    } else {
+      ""
     }
 
-    stop(
-      "Can't find shape name:",
-      collapsed_names,
-      more_problems,
-      call. = FALSE
-    )
+    abort(glue("Can't find shape name:", collapsed_names, more_problems))
   }
 
   if (any(nonunique_strings)) {
@@ -217,14 +213,11 @@ translate_shape_string <- function(shape_string) {
 
     more_problems <- if (n_bad > 5) {
       sprintf("\n* ... and %d more problem%s", n_bad - 5, ifelse(n_bad > 6, "s", ""))
+    } else {
+      ""
     }
 
-    stop(
-      "Shape names must be unambiguous:",
-      collapsed_names,
-      more_problems,
-      call. = FALSE
-    )
+    abort(glue("Shape names must be unambiguous:", collapsed_names, more_problems))
   }
 
   unname(pch_table[shape_match])

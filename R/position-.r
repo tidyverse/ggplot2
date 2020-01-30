@@ -17,7 +17,7 @@
 #'     per layer. `panel` is currently an internal data structure, so
 #'     this method should not be overridden.
 #'
-#'   - `compute_panel(self, data, params, panel)` is called once per
+#'   - `compute_panel(self, data, params, scales)` is called once per
 #'     panel and should return a modified data frame.
 #'
 #'     `data` is a data frame containing the variables named according
@@ -54,8 +54,8 @@ Position <- ggproto("Position",
   },
 
   compute_layer = function(self, data, params, layout) {
-    plyr::ddply(data, "PANEL", function(data) {
-      if (empty(data)) return(data.frame())
+    dapply(data, "PANEL", function(data) {
+      if (empty(data)) return(new_data_frame())
 
       scales <- layout$get_scales(data$PANEL[1])
       self$compute_panel(data = data, params = params, scales = scales)
@@ -63,7 +63,7 @@ Position <- ggproto("Position",
   },
 
   compute_panel = function(self, data, params, scales) {
-    stop("Not implemented", call. = FALSE)
+    abort("Not implemented")
   }
 )
 
@@ -75,6 +75,9 @@ Position <- ggproto("Position",
 #' @keywords internal
 #' @export
 transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
+  # Treat df as list during transformation for faster set/get
+  oldclass <- class(df)
+  df <- unclass(df)
   scales <- aes_to_scale(names(df))
 
   if (!is.null(trans_x)) {
@@ -83,6 +86,8 @@ transform_position <- function(df, trans_x = NULL, trans_y = NULL, ...) {
   if (!is.null(trans_y)) {
     df[scales == "y"] <- lapply(df[scales == "y"], trans_y, ...)
   }
+
+  class(df) <- oldclass
 
   df
 }

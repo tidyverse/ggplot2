@@ -135,7 +135,7 @@ geom_text <- function(mapping = NULL, data = NULL,
                       inherit.aes = TRUE) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop("Specify either `position` or `nudge_x`/`nudge_y`", call. = FALSE)
+      abort("You must specify either `position` or `nudge_x`/`nudge_y`.")
     }
 
     position <- position_nudge(nudge_x, nudge_y)
@@ -157,7 +157,6 @@ geom_text <- function(mapping = NULL, data = NULL,
     )
   )
 }
-
 
 #' @rdname ggplot2-ggproto
 #' @format NULL
@@ -182,7 +181,7 @@ GeomText <- ggproto("GeomText", Geom,
                           na.rm = FALSE, check_overlap = FALSE) {
     lab <- data$label
     if (parse) {
-      lab <- parse(text = as.character(lab))
+      lab <- parse_safe(as.character(lab))
     }
 
     data <- coord$transform(data, panel_params)

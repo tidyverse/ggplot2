@@ -6,13 +6,29 @@
 \alias{stat_binhex}
 \title{Hexagonal heatmap of 2d bin counts}
 \usage{
-geom_hex(mapping = NULL, data = NULL, stat = "binhex",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_hex(
+  mapping = NULL,
+  data = NULL,
+  stat = "binhex",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_bin_hex(mapping = NULL, data = NULL, geom = "hex",
-  position = "identity", ..., bins = 30, binwidth = NULL,
-  na.rm = FALSE, show.legend = NA, inherit.aes = TRUE)
+stat_bin_hex(
+  mapping = NULL,
+  data = NULL,
+  geom = "hex",
+  position = "identity",
+  ...,
+  bins = 30,
+  binwidth = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -32,7 +48,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}

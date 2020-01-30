@@ -6,7 +6,7 @@
 \alias{ggplot2-package}
 \title{ggplot2: Create Elegant Data Visualisations Using the Grammar of Graphics}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 A system for 'declaratively' creating graphics,
     based on "The Grammar of Graphics". You provide the data, tell 'ggplot2'
@@ -33,6 +33,8 @@ Authors:
   \item Kohske Takahashi
   \item Claus Wilke
   \item Kara Woo
+  \item Hiroaki Yutani
+  \item Dewey Dunnington
 }
 
 Other contributors:

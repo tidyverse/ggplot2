@@ -61,7 +61,7 @@ StatChull <- ggproto("StatChull", Stat,
 )
 ```
 
-The two most important components are the `compute_group()` method (which does the computation), and the `required_aes` field, which lists which aesthetics must be present in order to for the stat to work.
+The two most important components are the `compute_group()` method (which does the computation), and the `required_aes` field, which lists which aesthetics must be present in order for the stat to work.
 
 Next we write a layer function. Unfortunately, due to an early design mistake I called these either `stat_()` or `geom_()`. A better decision would have been to call them `layer_()` functions: that's a more accurate description because every layer involves a stat _and_ a geom. 
 
@@ -489,6 +489,52 @@ This doesn't allow you to use different geoms with the stat, but that seems appr
 
 1. Compare and contrast `GeomPolygon` with `GeomSimplePolygon`.
 
+## Geoms and Stats with multiple orientation
+Some layers have a specific orientation. `geom_bar()` e.g. have the bars along one axis, `geom_line()` will sort the input by one axis, etc. The original approach to using these geoms in the other orientation was to add `coord_flip()` to the plot to switch the position of the x and y axes. Following ggplot2 v3.3 all the geoms will natively work in both orientations without `coord_flip()`. The mechanism is that the layer will try to guess the orientation from the mapped data, or take direction from the user using the `orientation` parameter. To replicate this functionality in new stats and geoms there's a few steps to take. We wll look at the boxplot layer as an example instead of creating a new from scratch.
+
+### Omnidirectional stats
+The actual guessing of orientation will happen in `setup_params()` using the `has_flipped_aes()` helper:
+
+```{r}
+StatBoxplot$setup_params
+```
+
+Following this is a call to `flip_data()` which will make sure the data is in horizontal orientation. The rest of the code can then simply assume that the data is in a specific orientation. The same thing happens in `setup_data()`:
+
+```{r}
+StatBoxplot$setup_data
+```
+
+The data is flipped (if needed), manipulated, and flipped back as it is returned. 
+
+During the computation, this sandwiching between `flip_data()` is used as well, but right before the data is returned it will also get a `flipped_aes` column denoting if the data is flipped or not. This allow the
+stat to communicate to the geom that orientation has already been determined.
+
+### Omnidirecitonal geoms
+The setup for geoms is pretty much the same, with a few twists. `has_flipped_aes()` is also used in `setup_params()`, where it will usually be picked up from the `flipped_aes` column given by the stat. In `setup_data()` you will often see that `flipped_aes` is reassigned, to make sure it exist prior to position adjustment. This is needed if the geom is used together with a stat that doesn't handle orientation (often `stat_identity()`):
+
+```{r}
+GeomBoxplot$setup_data
+```
+
+In the `draw_*()` method you will once again sandwich any data manipulation between `flip_data()` calls. It is important to make sure that the data is flipped back prior to creating the grob or calling draw methods from other geoms.
+
+### Dealing with required aesthetics
+Omnidirectional layers usually have two different sets of required aesthetics. Which set is used is often how it knows the orientation. To handle this gracefully the `required_aes` field of `Stat` and `Geom` classes understands the `|` (or) operator. Looking at `GeomBoxplot` we can see how it is used:
+
+```{r}
+GeomBoxplot$required_aes
+```
+
+This tells ggplot2 that either all the aesthetics before `|` are required or all the aesthetics after are required.
+
+### Ambiguous layers
+Some layers will not have a clear interpretation of their data in terms of orientation. A classic example is `geom_line()` which just by convention runs along the x-axis. There is nothing in the data itself that indicates that. For these geoms the user must indicate a flipped orientation by setting `orientation = "y"`. The stat or geom will then call `has_flipped_aes()` with `ambiguous = TRUE` to cancel any guessing based on data format. As an example we can see the `setup_params()` method of `GeomLine`:
+
+```{r}
+GeomLine$setup_params
+```
+
 ## Creating your own theme
 
 If you're going to create your own complete theme, there are a few things you need to know:
@@ -593,7 +639,7 @@ In order for ggplot2 to know which data should go where it needs the data to be 
 
 ```{r}
 mapping <- function(data, layout, params) {
-  if (plyr::empty(data)) {
+  if (is.null(data) || nrow(data) == 0) {
     return(cbind(data, PANEL = integer(0)))
   }
   rbind(
@@ -737,7 +783,7 @@ FacetTrans <- ggproto("FacetTrans", Facet,
   },
   # Same as before
   map_data = function(data, layout, params) {
-    if (plyr::empty(data)) {
+    if (is.null(data) || nrow(data) == 0) {
       return(cbind(data, PANEL = integer(0)))
     }
     rbind(
@@ -749,7 +795,7 @@ FacetTrans <- ggproto("FacetTrans", Facet,
   init_scales = function(layout, x_scale = NULL, y_scale = NULL, params) {
     scales <- list()
     if (!is.null(x_scale)) {
-      scales$x <- plyr::rlply(max(layout$SCALE_X), x_scale$clone())
+      scales$x <- lapply(seq_len(max(layout$SCALE_X)), function(i) x_scale$clone())
     }
     if (!is.null(y_scale)) {
       y_scale_orig <- y_scale$clone()

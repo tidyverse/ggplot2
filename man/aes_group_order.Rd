@@ -34,16 +34,12 @@ a + geom_bar(aes(fill = factor(cyl)))
 a + geom_bar(aes(fill = factor(vs)))
 
 # Using linetypes
-rescale01 <- function(x) (x - min(x)) / diff(range(x))
-ec_scaled <- data.frame(
-  date = economics$date,
-  plyr::colwise(rescale01)(economics[, -(1:2)]))
-ecm <- reshape2::melt(ec_scaled, id.vars = "date")
-f <- ggplot(ecm, aes(date, value))
+f <- ggplot(economics_long, aes(date, value01))
 f + geom_line(aes(linetype = variable))
 
 # Using facets
-k <- ggplot(diamonds, aes(carat, stat(density))) + geom_histogram(binwidth = 0.2)
+k <- ggplot(diamonds, aes(carat, after_stat(density))) +
+  geom_histogram(binwidth = 0.2)
 k + facet_grid(. ~ cut)
 
 # There are three common cases where the default is not enough, and we

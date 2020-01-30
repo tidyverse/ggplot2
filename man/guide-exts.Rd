@@ -5,6 +5,7 @@
 \alias{guide_train}
 \alias{guide_merge}
 \alias{guide_geom}
+\alias{guide_transform}
 \alias{guide_gengrob}
 \title{S3 generics for guides.}
 \usage{
@@ -13,6 +14,8 @@ guide_train(guide, scale, aesthetic = NULL)
 guide_merge(guide, new_guide)
 
 guide_geom(guide, layers, default_mapping, theme)
+
+guide_transform(guide, coord, panel_params)
 
 guide_gengrob(guide, theme)
 }

@@ -4,28 +4,104 @@
 \alias{theme}
 \title{Modify components of a theme}
 \usage{
-theme(line, rect, text, title, geom, aspect.ratio, axis.title,
-  axis.title.x, axis.title.x.top, axis.title.x.bottom, axis.title.y,
-  axis.title.y.left, axis.title.y.right, axis.text, axis.text.x,
-  axis.text.x.top, axis.text.x.bottom, axis.text.y, axis.text.y.left,
-  axis.text.y.right, axis.ticks, axis.ticks.x, axis.ticks.x.top,
-  axis.ticks.x.bottom, axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right,
-  axis.ticks.length, axis.line, axis.line.x, axis.line.x.top,
-  axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right,
-  legend.background, legend.margin, legend.spacing, legend.spacing.x,
-  legend.spacing.y, legend.key, legend.key.size, legend.key.height,
-  legend.key.width, legend.text, legend.text.align, legend.title,
-  legend.title.align, legend.position, legend.direction,
-  legend.justification, legend.box, legend.box.just, legend.box.margin,
-  legend.box.background, legend.box.spacing, panel.background,
-  panel.border, panel.spacing, panel.spacing.x, panel.spacing.y,
-  panel.grid, panel.grid.major, panel.grid.minor, panel.grid.major.x,
-  panel.grid.major.y, panel.grid.minor.x, panel.grid.minor.y, panel.ontop,
-  plot.background, plot.title, plot.subtitle, plot.caption, plot.tag,
-  plot.tag.position, plot.margin, strip.background, strip.background.x,
-  strip.background.y, strip.placement, strip.text, strip.text.x,
-  strip.text.y, strip.switch.pad.grid, strip.switch.pad.wrap, ...,
-  complete = FALSE, validate = TRUE)
+theme(
+  line,
+  rect,
+  text,
+  title,
+  geom,
+  aspect.ratio,
+  axis.title,
+  axis.title.x,
+  axis.title.x.top,
+  axis.title.x.bottom,
+  axis.title.y,
+  axis.title.y.left,
+  axis.title.y.right,
+  axis.text,
+  axis.text.x,
+  axis.text.x.top,
+  axis.text.x.bottom,
+  axis.text.y,
+  axis.text.y.left,
+  axis.text.y.right,
+  axis.ticks,
+  axis.ticks.x,
+  axis.ticks.x.top,
+  axis.ticks.x.bottom,
+  axis.ticks.y,
+  axis.ticks.y.left,
+  axis.ticks.y.right,
+  axis.ticks.length,
+  axis.ticks.length.x,
+  axis.ticks.length.x.top,
+  axis.ticks.length.x.bottom,
+  axis.ticks.length.y,
+  axis.ticks.length.y.left,
+  axis.ticks.length.y.right,
+  axis.line,
+  axis.line.x,
+  axis.line.x.top,
+  axis.line.x.bottom,
+  axis.line.y,
+  axis.line.y.left,
+  axis.line.y.right,
+  legend.background,
+  legend.margin,
+  legend.spacing,
+  legend.spacing.x,
+  legend.spacing.y,
+  legend.key,
+  legend.key.size,
+  legend.key.height,
+  legend.key.width,
+  legend.text,
+  legend.text.align,
+  legend.title,
+  legend.title.align,
+  legend.position,
+  legend.direction,
+  legend.justification,
+  legend.box,
+  legend.box.just,
+  legend.box.margin,
+  legend.box.background,
+  legend.box.spacing,
+  panel.background,
+  panel.border,
+  panel.spacing,
+  panel.spacing.x,
+  panel.spacing.y,
+  panel.grid,
+  panel.grid.major,
+  panel.grid.minor,
+  panel.grid.major.x,
+  panel.grid.major.y,
+  panel.grid.minor.x,
+  panel.grid.minor.y,
+  panel.ontop,
+  plot.background,
+  plot.title,
+  plot.title.position,
+  plot.subtitle,
+  plot.caption,
+  plot.caption.position,
+  plot.tag,
+  plot.tag.position,
+  plot.margin,
+  strip.background,
+  strip.background.x,
+  strip.background.y,
+  strip.placement,
+  strip.text,
+  strip.text.x,
+  strip.text.y,
+  strip.switch.pad.grid,
+  strip.switch.pad.wrap,
+  ...,
+  complete = FALSE,
+  validate = TRUE
+)
 }
 \arguments{
 \item{line}{all line elements (\code{\link[=element_line]{element_line()}})}
@@ -44,31 +120,31 @@ inherits from \code{text})}
 \item{axis.title, axis.title.x, axis.title.y, axis.title.x.top, axis.title.x.bottom, axis.title.y.left, axis.title.y.right}{labels of axes (\code{\link[=element_text]{element_text()}}). Specify all axes' labels (\code{axis.title}),
 labels by plane (using \code{axis.title.x} or \code{axis.title.y}), or individually
 for each axis (using \code{axis.title.x.bottom}, \code{axis.title.x.top},
-\code{axis.title.y.left}, \code{axis.title.y.right}). \code{axis.title.*.*} inherits from
-\code{axis.title.*} which inherits from \code{axis.title}, which in turn inherits
+\code{axis.title.y.left}, \code{axis.title.y.right}). \verb{axis.title.*.*} inherits from
+\verb{axis.title.*} which inherits from \code{axis.title}, which in turn inherits
 from \code{text}}
 
 \item{axis.text, axis.text.x, axis.text.y, axis.text.x.top, axis.text.x.bottom, axis.text.y.left, axis.text.y.right}{tick labels along axes (\code{\link[=element_text]{element_text()}}). Specify all axis tick labels (\code{axis.text}),
 tick labels by plane (using \code{axis.text.x} or \code{axis.text.y}), or individually
 for each axis (using \code{axis.text.x.bottom}, \code{axis.text.x.top},
-\code{axis.text.y.left}, \code{axis.text.y.right}). \code{axis.text.*.*} inherits from
-\code{axis.text.*} which inherits from \code{axis.text}, which in turn inherits
+\code{axis.text.y.left}, \code{axis.text.y.right}). \verb{axis.text.*.*} inherits from
+\verb{axis.text.*} which inherits from \code{axis.text}, which in turn inherits
 from \code{text}}
 
 \item{axis.ticks, axis.ticks.x, axis.ticks.x.top, axis.ticks.x.bottom, axis.ticks.y, axis.ticks.y.left, axis.ticks.y.right}{tick marks along axes (\code{\link[=element_line]{element_line()}}). Specify all tick marks (\code{axis.ticks}),
 ticks by plane (using \code{axis.ticks.x} or \code{axis.ticks.y}), or individually
 for each axis (using \code{axis.ticks.x.bottom}, \code{axis.ticks.x.top},
-\code{axis.ticks.y.left}, \code{axis.ticks.y.right}). \code{axis.ticks.*.*} inherits from
-\code{axis.ticks.*} which inherits from \code{axis.ticks}, which in turn inherits
+\code{axis.ticks.y.left}, \code{axis.ticks.y.right}). \verb{axis.ticks.*.*} inherits from
+\verb{axis.ticks.*} which inherits from \code{axis.ticks}, which in turn inherits
 from \code{line}}
 
-\item{axis.ticks.length}{length of tick marks (\code{unit})}
+\item{axis.ticks.length, axis.ticks.length.x, axis.ticks.length.x.top, axis.ticks.length.x.bottom, axis.ticks.length.y, axis.ticks.length.y.left, axis.ticks.length.y.right}{length of tick marks (\code{unit})}
 
 \item{axis.line, axis.line.x, axis.line.x.top, axis.line.x.bottom, axis.line.y, axis.line.y.left, axis.line.y.right}{lines along axes (\code{\link[=element_line]{element_line()}}). Specify lines along all axes (\code{axis.line}),
 lines for each plane (using \code{axis.line.x} or \code{axis.line.y}), or individually
 for each axis (using \code{axis.line.x.bottom}, \code{axis.line.x.top},
-\code{axis.line.y.left}, \code{axis.line.y.right}). \code{axis.line.*.*} inherits from
-\code{axis.line.*} which inherits from \code{axis.line}, which in turn inherits
+\code{axis.line.y.left}, \code{axis.line.y.right}). \verb{axis.line.*.*} inherits from
+\verb{axis.line.*} which inherits from \code{axis.line}, which in turn inherits
 from \code{line}}
 
 \item{legend.background}{background of legend (\code{\link[=element_rect]{element_rect()}}; inherits
@@ -139,8 +215,8 @@ or can be specified separately.}
 or minor grid lines separately (using \code{panel.grid.major} or \code{panel.grid.minor})
 or individually for each axis (using \code{panel.grid.major.x}, \code{panel.grid.minor.x},
 \code{panel.grid.major.y}, \code{panel.grid.minor.y}).  Y axis grid lines are horizontal
-and x axis grid lines are vertical. \code{panel.grid.*.*} inherits from
-\code{panel.grid.*} which inherits from \code{panel.grid}, which in turn inherits
+and x axis grid lines are vertical. \verb{panel.grid.*.*} inherits from
+\verb{panel.grid.*} which inherits from \code{panel.grid}, which in turn inherits
 from \code{line}}
 
 \item{panel.ontop}{option to place the panel (background, gridlines) over
@@ -152,6 +228,13 @@ inherits from \code{rect})}
 
 \item{plot.title}{plot title (text appearance) (\code{\link[=element_text]{element_text()}}; inherits
 from \code{title}) left-aligned by default}
+
+\item{plot.title.position, plot.caption.position}{Alignment of the plot title/subtitle
+and caption.  The setting for \code{plot.title.position} applies to both
+the title and the subtitle. A value of "panel" (the default) means that
+titles and/or caption are aligned to the plot panels. A value of "plot" means
+that titles and/or caption are aligned to the entire plot (minus any space
+for margins and plot tag).}
 
 \item{plot.subtitle}{plot subtitle (text appearance) (\code{\link[=element_text]{element_text()}};
 inherits from \code{title}) left-aligned by default}
@@ -190,8 +273,8 @@ switched (\code{unit})}
 \item{strip.switch.pad.wrap}{space between strips and axes when strips are
 switched (\code{unit})}
 
-\item{...}{additional element specifications not part of base ggplot2. If
-supplied \code{validate} needs to be set to \code{FALSE}.}
+\item{...}{additional element specifications not part of base ggplot2. In general,
+these should also be defined in the \verb{element tree} argument.}
 
 \item{complete}{set this to \code{TRUE} if this is a complete theme, such as
 the one returned by \code{\link[=theme_grey]{theme_grey()}}. Complete themes behave
@@ -212,7 +295,7 @@ about theme inheritance below.
 }
 \section{Theme inheritance}{
 
-Theme elements inherit properties from other theme elements heirarchically.
+Theme elements inherit properties from other theme elements hierarchically.
 For example, \code{axis.title.x.bottom} inherits from \code{axis.title.x} which inherits
 from \code{axis.title}, which in turn inherits from \code{text}. All text elements inherit
 directly or indirectly from \code{text}; all lines inherit from
@@ -251,11 +334,20 @@ p1 + theme(
 )
 
 # Axes ----------------------------------------------------------------------
+# Change styles of axes texts and lines
 p1 + theme(axis.line = element_line(size = 3, colour = "grey80"))
 p1 + theme(axis.text = element_text(colour = "blue"))
 p1 + theme(axis.ticks = element_line(size = 2))
-p1 + theme(axis.ticks.length = unit(.25, "cm"))
+
+# Change the appearance of the y-axis title
 p1 + theme(axis.title.y = element_text(size = rel(1.5), angle = 90))
+
+# Make ticks point outwards on y-axis and inwards on x-axis
+p1 + theme(
+  axis.ticks.length.y = unit(.25, "cm"),
+  axis.ticks.length.x = unit(-.25, "cm"),
+  axis.text.x = element_text(margin = margin(t = .3, unit = "cm"))
+)
 
 \donttest{
 # Legend --------------------------------------------------------------------
@@ -309,7 +401,7 @@ p3 + theme(panel.spacing = unit(1, "lines"))
 }
 }
 \seealso{
-\code{\link[=+.gg]{+.gg()}} and \code{\link{\%+replace\%}},
+\code{\link[=+.gg]{+.gg()}} and \link{\%+replace\%},
 \code{\link[=element_blank]{element_blank()}}, \code{\link[=element_line]{element_line()}},
 \code{\link[=element_rect]{element_rect()}}, and \code{\link[=element_text]{element_text()}} for
 details of the specific theme elements.

@@ -61,7 +61,8 @@
 #' @family guides
 #' @examples
 #' \donttest{
-#' df <- reshape2::melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
+#' df <- expand.grid(X1 = 1:10, X2 = 1:10)
+#' df$value <- df$X1 * df$X2
 #'
 #' p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 #' p2 <- p1 + geom_point(aes(size = value))
@@ -201,10 +202,11 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
     return()
   }
 
-  key <- as.data.frame(
-    setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]),
-    stringsAsFactors = FALSE
-  )
+  # in the key data frame, use either the aesthetic provided as
+  # argument to this function or, as a fall back, the first in the vector
+  # of possible aesthetics handled by the scale
+  aes_column_name <- aesthetic %||% scale$aesthetics[1]
+  key <- new_data_frame(setNames(list(scale$map(breaks)), aes_column_name))
   key$.label <- scale$get_labels(breaks)
 
   # Drop out-of-range values for continuous scale
@@ -228,10 +230,11 @@ guide_train.legend <- function(guide, scale, aesthetic = NULL) {
 
 #' @export
 guide_merge.legend <- function(guide, new_guide) {
-  guide$key <- merge(guide$key, new_guide$key, sort = FALSE)
+  new_guide$key$.label <- NULL
+  guide$key <- cbind(guide$key, new_guide$key)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
   if (any(duplicated(names(guide$override.aes)))) {
-    warning("Duplicated override.aes is ignored.")
+    warn("Duplicated override.aes is ignored.")
   }
   guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
   guide
@@ -240,55 +243,32 @@ guide_merge.legend <- function(guide, new_guide) {
 #' @export
 guide_geom.legend <- function(guide, layers, default_mapping, theme) {
   # arrange common data for vertical and horizontal guide
-  guide$geoms <- plyr::llply(layers, function(layer) {
+  guide$geoms <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
+    # check if this layer should be included
+    include <- include_layer_in_guide(layer, matched)
+
+    if (!include) {
+      return(NULL)
+    }
+
     if (length(matched) > 0) {
-      # This layer contributes to the legend
+      # Filter out set aesthetics that can't be applied to the legend
+      n <- vapply(layer$aes_params, length, integer(1))
+      params <- layer$aes_params[n == 1]
 
-      # check if this layer should be included, different behaviour depending on
-      # if show.legend is a logical or a named logical vector
-      if (!is.null(names(layer$show.legend))) {
-        layer$show.legend <- rename_aes(layer$show.legend)
-        include <- is.na(layer$show.legend[matched]) ||
-          layer$show.legend[matched]
-      } else {
-        include <- is.na(layer$show.legend) || layer$show.legend
-      }
+      aesthetics <- layer$mapping
+      modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
+      defaults <- layer$geom$eval_defaults(theme = theme)
 
-      if (include) {
-        # Default is to include it
-
-        # Filter out set aesthetics that can't be applied to the legend
-        n <- vapply(layer$aes_params, length, integer(1))
-        params <- layer$aes_params[n == 1]
-
-        defaults <- layer$geom$eval_defaults(theme = theme)
-        data <- layer$geom$use_defaults(
-          data = guide$key[matched],
-          defaults = defaults,
-          params = params
-        )
-      } else {
-        return(NULL)
-      }
+      data <- layer$geom$use_defaults(guide$key[matched], params, modifiers)
     } else {
-      # This layer does not contribute to the legend
-      if (is.na(layer$show.legend) || !layer$show.legend) {
-        # Default is to exclude it
-        return(NULL)
-      } else {
-        defaults <- layer$geom$eval_defaults(theme = theme)
-        data <- layer$geom$use_defaults(
-          data = NULL,
-          defaults = defaults,
-          params = layer$aes_params
-        )[rep(1, nrow(guide$key)), ]
-      }
+      data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
     }
 
     # override.aes in guide_legend manually changes the geom
-    data <- utils::modifyList(data, guide$override.aes)
+    data <- modify_list(data, guide$override.aes)
 
     list(
       draw_key = layer$geom$draw_key,
@@ -310,9 +290,8 @@ guide_gengrob.legend <- function(guide, theme) {
 
   # default setting
   label.position <- guide$label.position %||% "right"
-  if (!label.position %in% c("top", "bottom", "left", "right")) {
-    stop("label position \"", label.position, "\" is invalid")
-  }
+  if (!label.position %in% c("top", "bottom", "left", "right"))
+    abort(glue("label position `{label.position}` is invalid"))
 
   nbreak <- nrow(guide$key)
 
@@ -337,7 +316,8 @@ guide_gengrob.legend <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
-  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||% 0
+  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||%
+    calc_element("text", theme)$size %||% 11
 
   # gap between keys etc
   # the default horizontal and vertical gap need to be the same to avoid strange
@@ -402,11 +382,8 @@ guide_gengrob.legend <- function(guide, theme) {
   key_sizes <- apply(key_size_mat, 1, max)
 
   if (!is.null(guide$nrow) && !is.null(guide$ncol) &&
-    guide$nrow * guide$ncol < nbreak) {
-    stop(
-      "`nrow` * `ncol` needs to be larger than the number of breaks",
-      call. = FALSE
-    )
+      guide$nrow * guide$ncol < nbreak) {
+    abort("`nrow` * `ncol` needs to be larger than the number of breaks")
   }
 
   # If neither nrow/ncol specified, guess with "reasonable" values
@@ -452,13 +429,12 @@ guide_gengrob.legend <- function(guide, theme) {
   )
 
   if (guide$byrow) {
-    vps <- data.frame(
+    vps <- new_data_frame(list(
       R = ceiling(seq(nbreak) / legend.ncol),
       C = (seq(nbreak) - 1) %% legend.ncol + 1
-    )
+    ))
   } else {
-    vps <- as.data.frame(arrayInd(seq(nbreak), dim(key_sizes)))
-    names(vps) <- c("R", "C")
+    vps <- mat_2_df(arrayInd(seq(nbreak), dim(key_sizes)), c("R", "C"))
   }
 
   # layout of key-label depends on the direction of the guide
@@ -672,7 +648,7 @@ guide_gengrob.legend <- function(guide, theme) {
   krows <- rep(vps$key.row, each = ngeom)
 
   # padding
-  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm", valueOnly = TRUE)
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 

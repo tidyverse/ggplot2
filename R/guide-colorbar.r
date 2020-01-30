@@ -51,7 +51,8 @@
 #' @export
 #' @family guides
 #' @examples
-#' df <- reshape2::melt(outer(1:4, 1:4), varnames = c("X1", "X2"))
+#' df <- expand.grid(X1 = 1:10, X2 = 1:10)
+#' df$value <- df$X1 * df$X2
 #'
 #' p1 <- ggplot(df, aes(X1, X2)) + geom_tile(aes(fill = value))
 #' p2 <- p1 + geom_point(aes(size = value))
@@ -116,7 +117,7 @@ guide_colourbar <- function(
   # bar
   barwidth = NULL,
   barheight = NULL,
-  nbin = 20,
+  nbin = 300,
   raster = TRUE,
 
   # frame
@@ -195,12 +196,14 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
 
   # do nothing if scale are inappropriate
   if (length(intersect(scale$aesthetics, guide$available_aes)) == 0) {
-    warning("colourbar guide needs appropriate scales: ",
-            paste(guide$available_aes, collapse = ", "))
+    warn(glue(
+      "colourbar guide needs appropriate scales: ",
+      glue_collapse(guide$available_aes, ", ", last = " or ")
+    ))
     return(NULL)
   }
   if (scale$is_discrete()) {
-    warning("colourbar guide needs continuous scales.")
+    warn("colourbar guide needs continuous scales.")
     return(NULL)
   }
 
@@ -210,7 +213,7 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   if (length(breaks) == 0 || all(is.na(breaks)))
     return()
 
-  ticks <- as.data.frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
+  ticks <- new_data_frame(setNames(list(scale$map(breaks)), aesthetic %||% scale$aesthetics[1]))
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
 
@@ -222,7 +225,7 @@ guide_train.colorbar <- function(guide, scale, aesthetic = NULL) {
   if (length(.bar) == 0) {
     .bar = unique(.limits)
   }
-  guide$bar <- data.frame(colour = scale$map(.bar), value = .bar, stringsAsFactors = FALSE)
+  guide$bar <- new_data_frame(list(colour = scale$map(.bar), value = .bar), n = length(.bar))
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]
@@ -241,13 +244,18 @@ guide_merge.colorbar <- function(guide, new_guide) {
 #' @export
 guide_geom.colorbar <- function(guide, layers, default_mapping, theme) {
   # Layers that use this guide
-  guide_layers <- plyr::llply(layers, function(layer) {
+  guide_layers <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
 
-    if (length(matched) && ((is.na(layer$show.legend) || layer$show.legend))) {
+    if (length(matched) == 0) {
+      # This layer does not use this guide
+      return(NULL)
+    }
+
+    # check if this layer should be included
+    if (include_layer_in_guide(layer, matched)) {
       layer
     } else {
-      # This layer does not use this guide
       NULL
     }
   })
@@ -264,13 +272,17 @@ guide_gengrob.colorbar <- function(guide, theme) {
   # settings of location and size
   if (guide$direction == "horizontal") {
     label.position <- guide$label.position %||% "bottom"
-    if (!label.position %in% c("top", "bottom")) stop("label position \"", label.position, "\" is invalid")
+    if (!label.position %in% c("top", "bottom")) {
+      abort(glue("label position '{label.position}' is invalid"))
+    }
 
     barwidth <- width_cm(guide$barwidth %||% (theme$legend.key.width * 5))
     barheight <- height_cm(guide$barheight %||% theme$legend.key.height)
   } else { # guide$direction == "vertical"
     label.position <- guide$label.position %||% "right"
-    if (!label.position %in% c("left", "right")) stop("label position \"", label.position, "\" is invalid")
+    if (!label.position %in% c("left", "right")) {
+      abort(glue("label position '{label.position}' is invalid"))
+    }
 
     barwidth <- width_cm(guide$barwidth %||% theme$legend.key.width)
     barheight <- height_cm(guide$barheight %||% (theme$legend.key.height * 5))
@@ -342,7 +354,8 @@ guide_gengrob.colorbar <- function(guide, theme) {
 
   title_width <- width_cm(grob.title)
   title_height <- height_cm(grob.title)
-  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||% 0
+  title_fontsize <- title.theme$size %||% calc_element("legend.title", theme)$size %||%
+    calc_element("text", theme)$size %||% 11
 
   # gap between keys etc
   # the default horizontal and vertical gap need to be the same to avoid strange
@@ -507,7 +520,7 @@ guide_gengrob.colorbar <- function(guide, theme) {
   grob.background <- element_render(theme, "legend.background")
 
   # padding
-  padding <- convertUnit(theme$legend.margin %||% margin(), "cm")
+  padding <- convertUnit(theme$legend.margin %||% margin(), "cm", valueOnly = TRUE)
   widths <- c(padding[4], widths, padding[2])
   heights <- c(padding[1], heights, padding[3])
 
@@ -547,25 +560,3 @@ guide_gengrob.colorbar <- function(guide, theme) {
 #' @export
 #' @rdname guide_colourbar
 guide_colorbar <- guide_colourbar
-
-#' Calculate the default hjust and vjust settings depending on legend
-#' direction and position.
-#'
-#' @noRd
-label_just_defaults.colorbar <- function(direction, position) {
-  if (direction == "horizontal") {
-    switch(
-      position,
-      "top" = list(hjust = 0.5, vjust = 0),
-      list(hjust = 0.5, vjust = 1)
-    )
-  }
-  else {
-    switch(
-      position,
-      "left" = list(hjust = 1, vjust = 0.5),
-      list(hjust = 0, vjust = 0.5)
-    )
-  }
-}
-

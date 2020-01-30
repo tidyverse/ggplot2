@@ -5,29 +5,95 @@
 \alias{scale_fill_viridis_d}
 \alias{scale_colour_viridis_c}
 \alias{scale_fill_viridis_c}
+\alias{scale_colour_viridis_b}
+\alias{scale_fill_viridis_b}
 \alias{scale_colour_ordinal}
+\alias{scale_color_ordinal}
 \alias{scale_fill_ordinal}
 \alias{scale_color_viridis_d}
 \alias{scale_color_viridis_c}
 \title{Viridis colour scales from viridisLite}
 \usage{
-scale_colour_viridis_d(..., alpha = 1, begin = 0, end = 1,
-  direction = 1, option = "D", aesthetics = "colour")
+scale_colour_viridis_d(
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  aesthetics = "colour"
+)
 
-scale_fill_viridis_d(..., alpha = 1, begin = 0, end = 1,
-  direction = 1, option = "D", aesthetics = "fill")
+scale_fill_viridis_d(
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  aesthetics = "fill"
+)
 
-scale_colour_viridis_c(..., alpha = 1, begin = 0, end = 1,
-  direction = 1, option = "D", values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "colour")
+scale_colour_viridis_c(
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "colour"
+)
 
-scale_fill_viridis_c(..., alpha = 1, begin = 0, end = 1,
-  direction = 1, option = "D", values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", aesthetics = "fill")
+scale_fill_viridis_c(
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "colourbar",
+  aesthetics = "fill"
+)
+
+scale_colour_viridis_b(
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "colour"
+)
+
+scale_fill_viridis_b(
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  option = "D",
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "coloursteps",
+  aesthetics = "fill"
+)
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}} or
-\code{\link[=continuous_scale]{continuous_scale()}} to control name, limits, breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link[=discrete_scale]{discrete_scale()}},
+\code{\link[=continuous_scale]{continuous_scale()}}, or \link{binned_scale} to control name, limits, breaks,
+labels and so forth.}
 
 \item{alpha}{The alpha transparency, a number in [0,1], see argument alpha in
 \code{\link[grDevices]{hsv}}.}
@@ -50,7 +116,7 @@ same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-\code{colours} vector. See \code{\link[=rescale]{rescale()}} for a convenience function
+\code{colours} vector. See \code{\link[scales:rescale]{rescale()}} for a convenience function
 to map an arbitrary range to between 0 and 1.}
 
 \item{space}{colour space in which to calculate gradient. Must be "Lab" -
@@ -59,7 +125,7 @@ other values are deprecated.}
 \item{na.value}{Missing values will be replaced with this value.}
 
 \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
+\code{\link[=guides]{guides()}} for more information.}
 }
 \description{
 The \code{viridis} scales provide colour maps that are perceptually uniform in both
@@ -81,7 +147,7 @@ txsamp <- subset(txhousing, city \%in\%
 d + scale_colour_viridis_d()
 
 # Change scale label
-d + scale_colour_viridis_d("City\\nCenter")
+d + scale_colour_viridis_d("City\nCenter")
 
 # Select palette to use, see ?scales::viridis_pal for more details
 d + scale_colour_viridis_d(option = "plasma")
@@ -100,12 +166,18 @@ p + scale_fill_viridis_d(direction = -1)
   geom_tile(aes(waiting, eruptions, fill = density)))
 v + scale_fill_viridis_c()
 v + scale_fill_viridis_c(option = "plasma")
+
+# Use viridis_b to bin continuous data before mapping
+v + scale_fill_viridis_b()
+
 }
 \seealso{
-Other colour scales: \code{\link{scale_alpha}},
-  \code{\link{scale_colour_brewer}},
-  \code{\link{scale_colour_gradient}},
-  \code{\link{scale_colour_grey}},
-  \code{\link{scale_colour_hue}}
+Other colour scales: 
+\code{\link{scale_alpha}()},
+\code{\link{scale_colour_brewer}()},
+\code{\link{scale_colour_gradient}()},
+\code{\link{scale_colour_grey}()},
+\code{\link{scale_colour_hue}()},
+\code{\link{scale_colour_steps}()}
 }
 \concept{colour scales}

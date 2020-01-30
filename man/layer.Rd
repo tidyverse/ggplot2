@@ -4,9 +4,20 @@
 \alias{layer}
 \title{Create a new layer}
 \usage{
-layer(geom = NULL, stat = NULL, data = NULL, mapping = NULL,
-  position = NULL, params = list(), inherit.aes = TRUE,
-  check.aes = TRUE, check.param = TRUE, show.legend = NA)
+layer(
+  geom = NULL,
+  stat = NULL,
+  data = NULL,
+  mapping = NULL,
+  position = NULL,
+  params = list(),
+  inherit.aes = TRUE,
+  check.aes = TRUE,
+  check.param = TRUE,
+  show.legend = NA,
+  key_glyph = NULL,
+  layer_class = Layer
+)
 }
 \arguments{
 \item{geom}{The geometric object to use display the data}
@@ -26,7 +37,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
 \code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
@@ -52,10 +64,16 @@ supplied parameters and aesthetics are understood by the \code{geom} or
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.}
+
+\item{key_glyph}{A legend key drawing function or a string providing the
+function name minus the \code{draw_key_} prefix. See \link{draw_key} for details.}
+
+\item{layer_class}{The type of layer object to be constructued. This is
+intended for ggplot2 internal use only.}
 }
 \description{
 A layer is a combination of data, stat and geom with a potential position
-adjustment. Usually layers are created using \code{geom_*} or \code{stat_*}
+adjustment. Usually layers are created using \verb{geom_*} or \verb{stat_*}
 calls but it can also be created directly using this function.
 }
 \examples{

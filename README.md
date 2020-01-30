@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggplot2 <img src="man/figures/logo.png" align="right" />
+# ggplot2 <img src="man/figures/logo.png" align="right" width="120" />
 
 [![Travis Build
 Status](https://travis-ci.org/tidyverse/ggplot2.svg?branch=master)](https://travis-ci.org/tidyverse/ggplot2)
@@ -9,14 +9,14 @@ Status](https://travis-ci.org/tidyverse/ggplot2.svg?branch=master)](https://trav
 Status](https://ci.appveyor.com/api/projects/status/github/tidyverse/ggplot2?branch=master&svg=true)](https://ci.appveyor.com/project/tidyverse/ggplot2)
 [![Coverage
 Status](https://img.shields.io/codecov/c/github/tidyverse/ggplot2/master.svg)](https://codecov.io/github/tidyverse/ggplot2?branch=master)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/ggplot2)](https://cran.r-project.org/package=ggplot2)
 
 ## Overview
 
 ggplot2 is a system for declaratively creating graphics, based on [The
-Grammar of Graphics](http://amzn.to/2ef1eWp). You provide the data, tell
-ggplot2 how to map variables to aesthetics, what graphical primitives to
-use, and it takes care of the details.
+Grammar of Graphics](https://amzn.to/2ef1eWp). You provide the data,
+tell ggplot2 how to map variables to aesthetics, what graphical
+primitives to use, and it takes care of the details.
 
 ## Installation
 
@@ -27,7 +27,7 @@ install.packages("tidyverse")
 # Alternatively, install just ggplot2:
 install.packages("ggplot2")
 
-# Or the the development version from GitHub:
+# Or the development version from GitHub:
 # install.packages("devtools")
 devtools::install_github("tidyverse/ggplot2")
 ```
@@ -67,7 +67,7 @@ behaviour we will do them for compelling reasons.
 
 If you are looking for innovation, look to ggplot2’s rich ecosystem of
 extensions. See a community maintained list at
-<http://www.ggplot2-exts.org/gallery/>.
+<https://www.ggplot2-exts.org/gallery/>.
 
 ## Learning ggplot2
 
@@ -75,29 +75,27 @@ If you are new to ggplot2 you are better off starting with a systematic
 introduction, rather than trying to learn from reading individual
 documentation pages. Currently, there are three good places to start:
 
-1.  The [data
-    visualisation](http://r4ds.had.co.nz/data-visualisation.html) and
-    [graphics for
-    communication](http://r4ds.had.co.nz/graphics-for-communication.html)
-    chapters in [R for data science](http://r4ds.had.co.nz). R for data
-    science is designed to give you a comprehensive introduction to the
-    [tidyverse](http://tidyverse.org), and these two chapters will you
-    get up to speed with the essentials of ggplot2 as quickly as
+1.  The [Data
+    Visualisation](https://r4ds.had.co.nz/data-visualisation.html) and
+    [Graphics for
+    communication](https://r4ds.had.co.nz/graphics-for-communication.html)
+    chapters in [R for Data Science](https://r4ds.had.co.nz). R for Data
+    Science is designed to give you a comprehensive introduction to the
+    [tidyverse](https://tidyverse.org), and these two chapters will get
+    you up to speed with the essentials of ggplot2 as quickly as
     possible.
 
-2.  If you’d like to take an interactive online course, try [Data
-    visualisation with
-    ggplot2](https://www.datacamp.com/courses/data-visualization-with-ggplot2-1)
-    by Rick Scavetta on DataCamp.
+2.  If you’d like to take an online course, try [Data Visualization in R
+    With ggplot2](https://shop.oreilly.com/product/0636920052807.do) by
+    Kara Woo.
 
 3.  If you want to dive into making common graphics as quickly as
     possible, I recommend [The R Graphics
-    Cookbook](http://amzn.to/2dVfMfn) by Winston Chang. It provides a
-    set of recipes to solve common graphics problems. A 2nd edition is
-    due out in 2018.
+    Cookbook](https://amzn.to/2TU78ip) by Winston Chang. It provides a
+    set of recipes to solve common graphics problems.
 
 If you’ve mastered the basics and want to learn more, read [ggplot2:
-Elegant Graphics for Data Analysis](http://amzn.to/2fncG50). It
+Elegant Graphics for Data Analysis](https://amzn.to/2fncG50). It
 describes the theoretical underpinnings of ggplot2 and shows you how all
 the pieces fit together. This book helps you understand the theory that
 underpins ggplot2, and will help you create new types of graphics
@@ -113,7 +111,7 @@ There are two main places to get help with ggplot2:
     friendly place to ask any questions about ggplot2.
 
 2.  [Stack
-    Overflow](http://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50)
+    Overflow](https://stackoverflow.com/questions/tagged/ggplot2?sort=frequent&pageSize=50)
     is a great source of answers to common ggplot2 questions. It is also
     a great place to get help, once you have created a reproducible
     example that illustrates your problem.

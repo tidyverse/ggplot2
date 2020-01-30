@@ -33,6 +33,7 @@ NULL
 #'   adding straight line segments to a plot.
 #' @inheritParams layer
 #' @inheritParams geom_point
+#' @param mapping Set of aesthetic mappings created by [aes()] or [aes_()].
 #' @param xintercept,yintercept,slope,intercept Parameters that control the
 #'   position of the line. If these are set, `data`, `mapping` and
 #'   `show.legend` are overridden.
@@ -75,17 +76,30 @@ geom_abline <- function(mapping = NULL, data = NULL,
                         show.legend = NA) {
 
   # If nothing set, default to y = x
-  if (missing(mapping) && missing(slope) && missing(intercept)) {
+  if (is.null(mapping) && missing(slope) && missing(intercept)) {
     slope <- 1
     intercept <- 0
   }
 
   # Act like an annotation
   if (!missing(slope) || !missing(intercept)) {
+
+    # Warn if supplied mapping and/or data is going to be overwritten
+    if (!is.null(mapping)) {
+      warn_overwritten_args("geom_abline()", "mapping", c("slope", "intercept"))
+    }
+    if (!is.null(data)) {
+      warn_overwritten_args("geom_abline()", "data", c("slope", "intercept"))
+    }
+
     if (missing(slope)) slope <- 1
     if (missing(intercept)) intercept <- 0
+    n_slopes <- max(length(slope), length(intercept))
 
-    data <- data.frame(intercept = intercept, slope = slope)
+    data <- new_data_frame(list(
+      intercept = intercept,
+      slope = slope
+    ), n = n_slopes)
     mapping <- aes(intercept = intercept, slope = slope)
     show.legend <- FALSE
   }
@@ -111,7 +125,7 @@ geom_abline <- function(mapping = NULL, data = NULL,
 #' @export
 GeomAbline <- ggproto("GeomAbline", Geom,
   draw_panel = function(data, panel_params, coord) {
-    ranges <- coord$range(panel_params)
+    ranges <- coord$backtransform_range(panel_params)
 
     data$x    <- ranges$x[1]
     data$xend <- ranges$x[2]
@@ -132,3 +146,25 @@ GeomAbline <- ggproto("GeomAbline", Geom,
 
   draw_key = draw_key_abline
 )
+
+warn_overwritten_args <- function(fun_name, overwritten_arg, provided_args, plural_join = " and/or ") {
+  overwritten_arg_text <- paste0("`", overwritten_arg, "`")
+
+  n_provided_args <- length(provided_args)
+  if (n_provided_args == 1) {
+    provided_arg_text <- paste0("`", provided_args, "`")
+    verb <- "was"
+  } else if (n_provided_args == 2) {
+    provided_arg_text <- paste0("`", provided_args, "`", collapse = plural_join)
+    verb <- "were"
+  } else {
+    provided_arg_text <- paste0(
+      paste0("`", provided_args[-n_provided_args], "`", collapse = ", "),
+      ",", plural_join,
+      "`", provided_args[n_provided_args], "`"
+    )
+    verb <- "were"
+  }
+
+  warn(glue("{fun_name}: Ignoring {overwritten_arg_text} because {provided_arg_text} {verb} provided."))
+}

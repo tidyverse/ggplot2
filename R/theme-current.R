@@ -1,6 +1,6 @@
 #' @include theme-defaults.r
 #' @include theme-elements.r
-ggplot_global$theme_current <- theme_gray()
+NULL
 
 #' Get, set, and modify the active theme
 #'
@@ -11,19 +11,19 @@ ggplot_global$theme_current <- theme_gray()
 #'
 #' @section Adding on to a theme:
 #'
-#' `+` and \code{\%+replace\%} can be used to modify elements in themes.
+#' `+` and `%+replace%` can be used to modify elements in themes.
 #'
 #' `+` updates the elements of e1 that differ from elements specified (not
 #' NULL) in e2. Thus this operator can be used to incrementally add or modify
 #' attributes of a ggplot theme.
 #'
-#' In contrast, \code{\%+replace\%} replaces the entire element; any element of
+#' In contrast, `%+replace%` replaces the entire element; any element of
 #' a theme not specified in e2 will not be present in the resulting theme (i.e.
 #' NULL). Thus this operator can be used to overwrite an entire theme.
 #'
 #' `theme_update` uses the `+` operator, so that any unspecified
 #' values in the theme element will default to the values they are set in the
-#' theme. `theme_replace` uses \code{\%+replace\%} to completely replace
+#' theme. `theme_replace` uses `%+replace%` to completely replace
 #' the element, so any unspecified values will overwrite the current value in
 #' the theme with `NULL`s.
 #'
@@ -72,12 +72,6 @@ theme_get <- function() {
 #' @param new new theme (a list of theme elements)
 #' @export
 theme_set <- function(new) {
-  missing <- setdiff(names(theme_gray()), names(new))
-  if (length(missing) > 0) {
-    warning("New theme missing the following elements: ",
-      paste(missing, collapse = ", "), call. = FALSE)
-  }
-
   old <- ggplot_global$theme_current
   ggplot_global$theme_current <- new
   invisible(old)
@@ -99,10 +93,17 @@ theme_replace <- function(...) {
 #' @export
 "%+replace%" <- function(e1, e2) {
   if (!is.theme(e1) || !is.theme(e2)) {
-    stop("%+replace% requires two theme objects", call. = FALSE)
+    abort("%+replace% requires two theme objects")
   }
 
   # Can't use modifyList here since it works recursively and drops NULLs
   e1[names(e2)] <- e2
+
+  # comment by @clauswilke:
+  # `complete` and `validate` are currently ignored,
+  # which means they are taken from e1. Is this correct?
+  # I'm not sure how `%+replace%` should handle them.
+
   e1
 }
+

@@ -4,7 +4,8 @@
 #' If you have more than six levels, you will get a warning message, and the
 #' seventh and subsequence levels will not appear on the plot. Use
 #' [scale_shape_manual()] to supply your own values. You can not map
-#' a continuous variable to shape.
+#' a continuous variable to shape unless `scale_shape_binned()` is used. Still,
+#' as shape has no inherent order, this use is not advised..
 #'
 #' @param solid Should the shapes be solid, `TRUE`, or hollow,
 #'   `FALSE`?
@@ -40,6 +41,12 @@ scale_shape <- function(..., solid = TRUE) {
 
 #' @rdname scale_shape
 #' @export
+scale_shape_binned <- function(..., solid = TRUE) {
+  binned_scale("shape", "shape_b", binned_pal(shape_pal(solid)), ...)
+}
+
+#' @rdname scale_shape
+#' @export
 #' @usage NULL
 scale_shape_discrete <- scale_shape
 
@@ -47,7 +54,7 @@ scale_shape_discrete <- scale_shape
 #' @export
 #' @usage NULL
 scale_shape_ordinal <- function(...) {
-  warning("Using shapes for an ordinal variable is not advised", call. = FALSE)
+  warn("Using shapes for an ordinal variable is not advised")
   scale_shape(...)
 }
 
@@ -55,5 +62,5 @@ scale_shape_ordinal <- function(...) {
 #' @export
 #' @usage NULL
 scale_shape_continuous <- function(...) {
-  stop("A continuous variable can not be mapped to shape", call. = FALSE)
+  abort("A continuous variable can not be mapped to shape")
 }

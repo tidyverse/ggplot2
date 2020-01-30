@@ -5,15 +5,43 @@
 \alias{quickplot}
 \title{Quick plot}
 \usage{
-qplot(x, y, ..., data, facets = NULL, margins = FALSE, geom = "auto",
-  xlim = c(NA, NA), ylim = c(NA, NA), log = "", main = NULL,
-  xlab = NULL, ylab = NULL, asp = NA, stat = NULL,
-  position = NULL)
+qplot(
+  x,
+  y,
+  ...,
+  data,
+  facets = NULL,
+  margins = FALSE,
+  geom = "auto",
+  xlim = c(NA, NA),
+  ylim = c(NA, NA),
+  log = "",
+  main = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  asp = NA,
+  stat = NULL,
+  position = NULL
+)
 
-quickplot(x, y, ..., data, facets = NULL, margins = FALSE,
-  geom = "auto", xlim = c(NA, NA), ylim = c(NA, NA), log = "",
-  main = NULL, xlab = NULL, ylab = NULL, asp = NA, stat = NULL,
-  position = NULL)
+quickplot(
+  x,
+  y,
+  ...,
+  data,
+  facets = NULL,
+  margins = FALSE,
+  geom = "auto",
+  xlim = c(NA, NA),
+  ylim = c(NA, NA),
+  log = "",
+  main = NULL,
+  xlab = NULL,
+  ylab = NULL,
+  asp = NA,
+  stat = NULL,
+  position = NULL
+)
 }
 \arguments{
 \item{x, y, ...}{Aesthetics passed into each layer}

@@ -17,7 +17,8 @@
 \alias{draw_key_text}
 \alias{draw_key_label}
 \alias{draw_key_vline}
-\title{Key drawing functions}
+\alias{draw_key_timeseries}
+\title{Key glyphs for legends}
 \usage{
 draw_key_point(data, params, size)
 
@@ -48,6 +49,8 @@ draw_key_text(data, params, size)
 draw_key_label(data, params, size)
 
 draw_key_vline(data, params, size)
+
+draw_key_timeseries(data, params, size)
 }
 \arguments{
 \item{data}{A single row data frame containing the scaled aesthetics to
@@ -61,7 +64,17 @@ display in this key}
 A grid grob.
 }
 \description{
-Each Geom has an associated function that draws the key when the geom needs
-to be displayed in a legend. These are the options built into ggplot2.
+Each geom has an associated function that draws the key when the geom needs
+to be displayed in a legend. These functions are called \verb{draw_key_*()}, where
+\code{*} stands for the name of the respective key glyph. The key glyphs can be
+customized for individual geoms by providing a geom with the \code{key_glyph}
+argument (see \code{\link[=layer]{layer()}} or examples below.)
 }
-\keyword{internal}
+\examples{
+p <- ggplot(economics, aes(date, psavert, color = "savings rate"))
+# key glyphs can be specified by their name
+p + geom_line(key_glyph = "timeseries")
+
+# key glyphs can be specified via their drawing function
+p + geom_line(key_glyph = draw_key_rect)
+}

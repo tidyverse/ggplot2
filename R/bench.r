@@ -14,16 +14,20 @@
 
 benchplot <- function(x) {
   x <- enquo(x)
-  construct <- system.time(x <- rlang::eval_tidy(x))
-  stopifnot(inherits(x, "ggplot"))
+  construct <- system.time(x <- eval_tidy(x))
+  if (!inherits(x, "ggplot")) {
+    abort("`x` must be a ggplot object")
+  }
 
   build <- system.time(data <- ggplot_build(x))
   render <- system.time(grob <- ggplot_gtable(data))
   draw <- system.time(grid.draw(grob))
 
   times <- rbind(construct, build, render, draw)[, 1:3]
+  times <- rbind(times, colSums(times))
 
-  plyr::unrowname(data.frame(
+  cbind(
     step = c("construct", "build", "render", "draw", "TOTAL"),
-    rbind(times, colSums(times))))
+    mat_2_df(times)
+  )
 }

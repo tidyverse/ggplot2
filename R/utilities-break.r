@@ -20,6 +20,7 @@
 #' table(cut_width(runif(1000), 0.1))
 #' table(cut_width(runif(1000), 0.1, boundary = 0))
 #' table(cut_width(runif(1000), 0.1, center = 0))
+#' table(cut_width(runif(1000), 0.1, labels = FALSE))
 cut_interval <- function(x, n = NULL, length = NULL, ...) {
   cut(x, breaks(x, "width", n, length), include.lowest = TRUE, ...)
 }
@@ -29,7 +30,7 @@ cut_interval <- function(x, n = NULL, length = NULL, ...) {
 cut_number <- function(x, n = NULL, ...) {
   brk <- breaks(x, "n", n)
   if (anyDuplicated(brk))
-    stop("Insufficient data values to produce ", n, " bins.", call. = FALSE)
+    abort(glue("Insufficient data values to produce {n} bins."))
   cut(x, brk , include.lowest = TRUE, ...)
 }
 
@@ -46,7 +47,7 @@ cut_number <- function(x, n = NULL, ...) {
 #'   `boundary = 0.5`.
 #' @param closed One of `"right"` or `"left"` indicating whether right
 #'   or left edges of bins are included in the bin.
-cut_width <- function(x, width, center = NULL, boundary = NULL, closed = c("right", "left")) {
+cut_width <- function(x, width, center = NULL, boundary = NULL, closed = c("right", "left"), ...) {
   x <- as.numeric(x)
   width <- as.numeric(width)
 
@@ -59,7 +60,7 @@ cut_width <- function(x, width, center = NULL, boundary = NULL, closed = c("righ
 
   # Determine boundary
   if (!is.null(boundary) && !is.null(center)) {
-    stop("Only one of 'boundary' and 'center' may be specified.")
+    abort("Only one of 'boundary' and 'center' may be specified.")
   }
   if (is.null(boundary)) {
     if (is.null(center)) {
@@ -80,7 +81,7 @@ cut_width <- function(x, width, center = NULL, boundary = NULL, closed = c("righ
   max_x <- max(x, na.rm = TRUE) + (1 - 1e-08) * width
 
   breaks <- seq(min_x, max_x, width)
-  cut(x, breaks, include.lowest = TRUE, right = (closed == "right"))
+  cut(x, breaks, include.lowest = TRUE, right = (closed == "right"), ...)
 }
 
 # Find the left side of left-most bin
@@ -92,7 +93,7 @@ find_origin <- function(x_range, width, boundary) {
 breaks <- function(x, equal, nbins = NULL, binwidth = NULL) {
   equal <- match.arg(equal, c("numbers", "width"))
   if ((!is.null(nbins) && !is.null(binwidth)) || (is.null(nbins) && is.null(binwidth))) {
-    stop("Specify exactly one of n and width")
+    abort("Specify exactly one of n and width")
   }
 
   rng <- range(x, na.rm = TRUE, finite = TRUE)

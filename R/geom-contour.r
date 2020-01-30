@@ -12,8 +12,12 @@
 #' @inheritParams layer
 #' @inheritParams geom_point
 #' @inheritParams geom_path
+#' @param bins Number of contour bins. Overridden by `binwidth`.
+#' @param binwidth The width of the contour bins. Overridden by `breaks`.
+#' @param breaks Numeric vector to set the contour breaks.
+#'   Overrides `binwidth` and `bins`. By default, this is a vector of
+#'   length ten with [pretty()] breaks.
 #' @seealso [geom_density_2d()]: 2d density contours
-#' @export
 #' @export
 #' @examples
 #' #' # Basic plot
@@ -25,6 +29,9 @@
 #'   geom_density_2d()
 #'
 #' \donttest{
+#' # use geom_contour_filled() for filled contours
+#' v + geom_contour_filled()
+#'
 #' # Setting bins creates evenly spaced contours in the range of the data
 #' v + geom_contour(bins = 2)
 #' v + geom_contour(bins = 10)
@@ -35,7 +42,7 @@
 #' v + geom_contour(binwidth = 0.001)
 #'
 #' # Other parameters
-#' v + geom_contour(aes(colour = stat(level)))
+#' v + geom_contour(aes(colour = after_stat(level)))
 #' v + geom_contour(colour = "red")
 #' v + geom_raster(aes(fill = density)) +
 #'   geom_contour(colour = "white")
@@ -43,6 +50,9 @@
 geom_contour <- function(mapping = NULL, data = NULL,
                          stat = "contour", position = "identity",
                          ...,
+                         bins = NULL,
+                         binwidth = NULL,
+                         breaks = NULL,
                          lineend = "butt",
                          linejoin = "round",
                          linemitre = 10,
@@ -58,9 +68,41 @@ geom_contour <- function(mapping = NULL, data = NULL,
     show.legend = show.legend,
     inherit.aes = inherit.aes,
     params = list(
+      bins = bins,
+      binwidth = binwidth,
+      breaks = breaks,
       lineend = lineend,
       linejoin = linejoin,
       linemitre = linemitre,
+      na.rm = na.rm,
+      ...
+    )
+  )
+}
+
+#' @rdname geom_contour
+#' @export
+geom_contour_filled <- function(mapping = NULL, data = NULL,
+                                stat = "contour_filled", position = "identity",
+                                ...,
+                                bins = NULL,
+                                binwidth = NULL,
+                                breaks = NULL,
+                                na.rm = FALSE,
+                                show.legend = NA,
+                                inherit.aes = TRUE) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomPolygon,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      bins = bins,
+      binwidth = binwidth,
+      breaks = breaks,
       na.rm = na.rm,
       ...
     )

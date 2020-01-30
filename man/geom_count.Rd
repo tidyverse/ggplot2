@@ -5,13 +5,27 @@
 \alias{stat_sum}
 \title{Count overlapping points}
 \usage{
-geom_count(mapping = NULL, data = NULL, stat = "sum",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_count(
+  mapping = NULL,
+  data = NULL,
+  stat = "sum",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-stat_sum(mapping = NULL, data = NULL, geom = "point",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+stat_sum(
+  mapping = NULL,
+  data = NULL,
+  geom = "point",
+  position = "identity",
+  ...,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -31,7 +45,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -107,16 +122,16 @@ ggplot(mpg, aes(cty, hwy)) +
 # Specifying geom_count without a group identifier leads to a plot which is
 # not useful:
 d <- ggplot(diamonds, aes(x = cut, y = clarity))
-d + geom_count(aes(size = stat(prop)))
+d + geom_count(aes(size = after_stat(prop)))
 # To correct this problem and achieve a more desirable plot, we need
 # to specify which group the proportion is to be calculated over.
-d + geom_count(aes(size = stat(prop), group = 1)) +
+d + geom_count(aes(size = after_stat(prop), group = 1)) +
   scale_size_area(max_size = 10)
 
 # Or group by x/y variables to have rows/columns sum to 1.
-d + geom_count(aes(size = stat(prop), group = cut)) +
+d + geom_count(aes(size = after_stat(prop), group = cut)) +
   scale_size_area(max_size = 10)
-d + geom_count(aes(size = stat(prop), group = clarity)) +
+d + geom_count(aes(size = after_stat(prop), group = clarity)) +
   scale_size_area(max_size = 10)
 }
 \seealso{

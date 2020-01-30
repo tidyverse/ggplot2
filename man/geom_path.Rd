@@ -6,18 +6,44 @@
 \alias{geom_step}
 \title{Connect observations}
 \usage{
-geom_path(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., lineend = "butt", linejoin = "round",
-  linemitre = 10, arrow = NULL, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_path(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 10,
+  arrow = NULL,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_line(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE, ...)
+geom_line(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  na.rm = FALSE,
+  orientation = NA,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 
-geom_step(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", direction = "hv", na.rm = FALSE,
-  show.legend = NA, inherit.aes = TRUE, ...)
+geom_step(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  direction = "hv",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE,
+  ...
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -37,7 +63,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
@@ -72,8 +99,14 @@ rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 
-\item{direction}{direction of stairs: 'vh' for vertical then horizontal, or
-'hv' for horizontal then vertical.}
+\item{orientation}{The orientation of the layer. The default (\code{NA})
+automatically determines the orientation from the aesthetic mapping. In the
+rare event that this fails it can be given explicitly by setting \code{orientation}
+to either \code{"x"} or \code{"y"}. See the \emph{Orientation} section for more detail.}
+
+\item{direction}{direction of stairs: 'vh' for vertical then horizontal,
+'hv' for horizontal then vertical, or 'mid' for step half-way between
+adjacent x-values.}
 }
 \description{
 \code{geom_path()} connects the observations in the order in which they appear
@@ -86,6 +119,11 @@ connected together.
 An alternative parameterisation is \code{\link[=geom_segment]{geom_segment()}}, where each line
 corresponds to a single case which provides the start and end coordinates.
 }
+\section{Orientation}{
+
+This geom treats each axis differently and, thus, can thus have two orientations. Often the orientation is easy to deduce from a combination of the given mappings and the types of positional scales in use. Thus, ggplot2 will by default try to guess which orientation the layer should have. Under rare circumstances, the orientation is ambiguous and guessing may fail. In that case the orientation can be specified directly using the \code{orientation} parameter, which can be either \code{"x"} or \code{"y"}. The value gives the axis that the geom should run along, \code{"x"} being the default orientation you would expect for the geom.
+}
+
 \section{Aesthetics}{
 
 \code{geom_path()} understands the following aesthetics (required aesthetics are in bold):
@@ -101,11 +139,27 @@ corresponds to a single case which provides the start and end coordinates.
 Learn more about setting these aesthetics in \code{vignette("ggplot2-specs")}.
 }
 
+\section{Missing value handling}{
+
+\code{geom_path()}, \code{geom_line()}, and \code{geom_step} handle \code{NA} as follows:
+\itemize{
+\item If an \code{NA} occurs in the middle of a line, it breaks the line. No warning
+is shown, regardless of whether \code{na.rm} is \code{TRUE} or \code{FALSE}.
+\item If an \code{NA} occurs at the start or the end of the line and \code{na.rm} is \code{FALSE}
+(default), the \code{NA} is removed with a warning.
+\item If an \code{NA} occurs at the start or the end of the line and \code{na.rm} is \code{TRUE},
+the \code{NA} is removed silently, without warning.
+}
+}
+
 \examples{
 # geom_line() is suitable for time series
 ggplot(economics, aes(date, unemploy)) + geom_line()
 ggplot(economics_long, aes(date, value01, colour = variable)) +
   geom_line()
+
+# You can get a timeseries that run vertically by setting the orientation
+ggplot(economics, aes(unemploy, date)) + geom_line(orientation = "y")
 
 # geom_step() is useful when you want to highlight exactly when
 # the y value changes
@@ -138,16 +192,9 @@ base + geom_path(size = 10)
 base + geom_path(size = 10, lineend = "round")
 base + geom_path(size = 10, linejoin = "mitre", lineend = "butt")
 
-# NAs break the line. Use na.rm = T to suppress the warning message
-df <- data.frame(
-  x = 1:5,
-  y1 = c(1, 2, 3, 4, NA),
-  y2 = c(NA, 2, 3, 4, 5),
-  y3 = c(1, 2, NA, 4, 5)
-)
-ggplot(df, aes(x, y1)) + geom_point() + geom_line()
-ggplot(df, aes(x, y2)) + geom_point() + geom_line()
-ggplot(df, aes(x, y3)) + geom_point() + geom_line()
+# You can use NAs to break the line.
+df <- data.frame(x = 1:5, y = c(1, 2, NA, 4, 5))
+ggplot(df, aes(x, y)) + geom_point() + geom_line()
 
 \donttest{
 # Setting line type vs colour/size

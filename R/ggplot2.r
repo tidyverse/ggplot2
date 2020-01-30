@@ -1,8 +1,7 @@
 #' @keywords internal
 "_PACKAGE"
 
-#' @import scales grid gtable
-#' @importFrom plyr defaults
+#' @import scales grid gtable rlang
 #' @importFrom stats setNames
-#' @importFrom rlang quo quos
+#' @importFrom glue glue glue_collapse
 NULL

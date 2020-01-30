@@ -4,8 +4,15 @@
 \alias{borders}
 \title{Create a layer of map borders}
 \usage{
-borders(database = "world", regions = ".", fill = NA,
-  colour = "grey50", xlim = NULL, ylim = NULL, ...)
+borders(
+  database = "world",
+  regions = ".",
+  fill = NA,
+  colour = "grey50",
+  xlim = NULL,
+  ylim = NULL,
+  ...
+)
 }
 \arguments{
 \item{database}{map data, see \code{\link[maps:map]{maps::map()}} for details}
@@ -19,13 +26,18 @@ borders(database = "world", regions = ".", fill = NA,
 \item{xlim, ylim}{latitudinal and longitudinal ranges for extracting map
 polygons, see \code{\link[maps:map]{maps::map()}} for details.}
 
-\item{...}{Arguments passed on to \code{geom_polygon}
-\describe{
-  \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
+\item{...}{
+  Arguments passed on to \code{\link[=geom_polygon]{geom_polygon}}
+  \describe{
+    \item{\code{rule}}{Either \code{"evenodd"} or \code{"winding"}. If polygons with holes are
+being drawn (using the \code{subgroup} aesthetic) this argument defines how the
+hole coordinates are interpreted. See the examples in \code{\link[grid:pathGrob]{grid::pathGrob()}} for
+an explanation.}
+    \item{\code{mapping}}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
 \code{\link[=aes_]{aes_()}}. If specified and \code{inherit.aes = TRUE} (the
 default), it is combined with the default mapping at the top level of the
 plot. You must supply \code{mapping} if there is no plot mapping.}
-  \item{data}{The data to be displayed in this layer. There are three
+    \item{\code{data}}{The data to be displayed in this layer. There are three
 options:
 
 If \code{NULL}, the default, the data is inherited from the plot
@@ -37,23 +49,24 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
-  \item{stat}{The statistical transformation to use on the data for this
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+    \item{\code{stat}}{The statistical transformation to use on the data for this
 layer, as a string.}
-  \item{position}{Position adjustment, either as a string, or the result of
+    \item{\code{position}}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
-  \item{show.legend}{logical. Should this layer be included in the legends?
+    \item{\code{show.legend}}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.}
-  \item{inherit.aes}{If \code{FALSE}, overrides the default aesthetics,
+    \item{\code{inherit.aes}}{If \code{FALSE}, overrides the default aesthetics,
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
-  \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
+    \item{\code{na.rm}}{If \code{FALSE}, the default, missing values are removed with
 a warning. If \code{TRUE}, missing values are silently removed.}
-}}
+  }}
 }
 \description{
 This is a quick and dirty way to get map data (from the maps package)
@@ -66,11 +79,16 @@ if (require("maps")) {
 
 ia <- map_data("county", "iowa")
 mid_range <- function(x) mean(range(x))
-seats <- plyr::ddply(ia, "subregion", plyr::colwise(mid_range, c("lat", "long")))
+seats <- do.call(rbind, lapply(split(ia, ia$subregion), function(d) {
+  data.frame(lat = mid_range(d$lat), long = mid_range(d$long), subregion = unique(d$subregion))
+}))
+
 ggplot(ia, aes(long, lat)) +
   geom_polygon(aes(group = group), fill = NA, colour = "grey60") +
   geom_text(aes(label = subregion), data = seats, size = 2, angle = 45)
+}
 
+if (require("maps")) {
 data(us.cities)
 capitals <- subset(us.cities, capital == 2)
 ggplot(capitals, aes(long, lat)) +
@@ -78,7 +96,9 @@ ggplot(capitals, aes(long, lat)) +
   geom_point(aes(size = pop)) +
   scale_size_area() +
   coord_quickmap()
+}
 
+if (require("maps")) {
 # Same map, with some world context
 ggplot(capitals, aes(long, lat)) +
   borders("world", xlim = c(-130, -60), ylim = c(20, 50)) +

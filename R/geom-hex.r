@@ -56,7 +56,7 @@ geom_hex <- function(mapping = NULL, data = NULL,
 GeomHex <- ggproto("GeomHex", Geom,
   draw_group = function(data, panel_params, coord) {
     if (!inherits(coord, "CoordCartesian")) {
-      stop("geom_hex() only works with Cartesian coordinates", call. = FALSE)
+      abort("geom_hex() only works with Cartesian coordinates")
     }
 
     coords <- coord$transform(data, panel_params)
@@ -94,7 +94,7 @@ GeomHex <- ggproto("GeomHex", Geom,
 # @param gp graphical parameters
 # @keyword internal
 hexGrob <- function(x, y, size = rep(1, length(x)), gp = gpar()) {
-  stopifnot(length(y) == length(x))
+  if (length(y) != length(x)) abort("`x` and `y` must have the same length")
 
   dx <- resolution(x, FALSE)
   dy <- resolution(y, FALSE) / sqrt(3) / 2 * 1.15

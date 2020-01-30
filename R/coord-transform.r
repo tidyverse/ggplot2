@@ -8,13 +8,9 @@
 #' [scales::trans_new()] for list of transformations, and instructions
 #' on how to create your own.
 #'
-#' @param x,y transformers for x and y axes
-#' @param xtrans,ytrans Deprecated; use `x` and `y` instead.
-#' @param limx,limy limits for x and y axes. (Named so for backward
-#'    compatibility)
-#' @param clip Should drawing be clipped to the extent of the plot panel? A
-#'   setting of `"on"` (the default) means yes, and a setting of `"off"`
-#'   means no. For details, please see [`coord_cartesian()`].
+#' @inheritParams coord_cartesian
+#' @param x,y Transformers for x and y axes or their names.
+#' @param limx,limy **Deprecated**: use `xlim` and `ylim` instead.
 #' @export
 #' @examples
 #' \donttest{
@@ -78,31 +74,25 @@
 #' plot + coord_trans(x = "log10")
 #' plot + coord_trans(x = "sqrt")
 #' }
-coord_trans <- function(x = "identity", y = "identity", limx = NULL, limy = NULL, clip = "on",
-  xtrans, ytrans)
-{
-  if (!missing(xtrans)) {
-    gg_dep("1.0.1", "`xtrans` arguments is deprecated; please use `x` instead.")
-    x <- xtrans
+coord_trans <- function(x = "identity", y = "identity", xlim = NULL, ylim = NULL,
+                        limx = "DEPRECATED", limy = "DEPRECATED", clip = "on", expand = TRUE) {
+  if (!missing(limx)) {
+    warn("`limx` argument is deprecated; please use `xlim` instead.")
+    xlim <- limx
   }
-  if (!missing(ytrans)) {
-    gg_dep("1.0.1", "`ytrans` arguments is deprecated; please use `y` instead.")
-    y <- ytrans
+  if (!missing(limy)) {
+    warn("`limy` argument is deprecated; please use `ylim` instead.")
+    ylim <- limy
   }
 
-  # @kohske
-  # Now limits are implemented.
-  # But for backward compatibility, xlim -> limx, ylim -> ylim
-  # Because there are many examples such as
-  # > coord_trans(x = "log10", y = "log10")
-  # Maybe this is changed.
+  # resolve transformers
   if (is.character(x)) x <- as.trans(x)
   if (is.character(y)) y <- as.trans(y)
 
-
   ggproto(NULL, CoordTrans,
     trans = list(x = x, y = y),
-    limits = list(x = limx, y = limy),
+    limits = list(x = xlim, y = ylim),
+    expand = expand,
     clip = clip
   )
 }
@@ -119,10 +109,17 @@ CoordTrans <- ggproto("CoordTrans", Coord,
     dist_euclidean(self$trans$x$transform(x), self$trans$y$transform(y)) / max_dist
   },
 
-  range = function(self, panel_params) {
+  backtransform_range = function(self, panel_params) {
     list(
       x = self$trans$x$inverse(panel_params$x.range),
       y = self$trans$y$inverse(panel_params$y.range)
+    )
+  },
+
+  range = function(self, panel_params) {
+    list(
+      x = panel_params$x.range,
+      y = panel_params$y.range
     )
   },
 
@@ -140,8 +137,36 @@ CoordTrans <- ggproto("CoordTrans", Coord,
 
   setup_panel_params = function(self, scale_x, scale_y, params = list()) {
     c(
-      train_trans(scale_x, self$limits$x, self$trans$x, "x"),
-      train_trans(scale_y, self$limits$y, self$trans$y, "y")
+      train_trans(scale_x, self$limits$x, self$trans$x, "x", self$expand),
+      train_trans(scale_y, self$limits$y, self$trans$y, "y", self$expand)
+    )
+  },
+
+  render_bg = function(panel_params, theme) {
+    guide_grid(
+      theme,
+      panel_params$x.minor,
+      panel_params$x.major,
+      panel_params$y.minor,
+      panel_params$y.major
+    )
+  },
+
+  render_axis_h = function(panel_params, theme) {
+    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
+
+    list(
+      top = render_axis(panel_params, arrange[1], "x", "top", theme),
+      bottom = render_axis(panel_params, arrange[2], "x", "bottom", theme)
+    )
+  },
+
+  render_axis_v = function(panel_params, theme) {
+    arrange <- panel_params$y.arrange %||% c("primary", "secondary")
+
+    list(
+      left = render_axis(panel_params, arrange[1], "y", "left", theme),
+      right = render_axis(panel_params, arrange[2], "y", "right", theme)
     )
   }
 )
@@ -152,39 +177,51 @@ transform_value <- function(trans, value, range) {
   rescale(trans$transform(value), 0:1, range)
 }
 
+train_trans <- function(scale, coord_limits, trans, name, expand = TRUE) {
+  expansion <- default_expansion(scale, expand = expand)
+  scale_trans <- scale$trans %||% identity_trans()
+  coord_limits <- coord_limits %||% scale_trans$inverse(c(NA, NA))
 
-train_trans <- function(scale, limits, trans, name) {
-  # first, calculate the range that is the numerical limits in data space
-
-  # expand defined by scale OR coord
-  # @kohske
-  # Expansion of data range sometimes go beyond domain,
-  # so in trans, expansion takes place at the final stage.
-  if (is.null(limits)) {
-    range <- scale$dimension()
+  if (scale$is_discrete()) {
+    continuous_ranges <- expand_limits_discrete_trans(
+      scale$get_limits(),
+      expansion,
+      coord_limits,
+      trans,
+      range_continuous = scale$range_c$range
+    )
   } else {
-    range <- range(scale$transform(limits))
+    # transform user-specified limits to scale transformed space
+    coord_limits <- scale$trans$transform(coord_limits)
+    continuous_ranges <- expand_limits_continuous_trans(
+      scale$get_limits(),
+      expansion,
+      coord_limits,
+      trans
+    )
   }
 
-  # breaks on data space
-  out <- scale$break_info(range)
+  # calculate break information
+  out <- scale$break_info(continuous_ranges$continuous_range)
 
-  # trans'd range
-  out$range <- trans$transform(out$range)
+  # range in coord space has already been calculated
+  # needs to be in increasing order for transform_value() to work
+  out$range <- range(continuous_ranges$continuous_range_coord)
 
-  # expansion if limits are not specified
-  if (is.null(limits)) {
-    expand <- expand_default(scale)
-    out$range <- expand_range(out$range, expand[1], expand[2])
-  }
-
-  # major and minor values in plot space
+  # major and minor values in coordinate data
   out$major_source <- transform_value(trans, out$major_source, out$range)
   out$minor_source <- transform_value(trans, out$minor_source, out$range)
+  out$sec.major_source <- transform_value(trans, out$sec.major_source, out$range)
+  out$sec.minor_source <- transform_value(trans, out$sec.minor_source, out$range)
 
   out <- list(
-    range = out$range, labels = out$labels,
-    major = out$major_source, minor = out$minor_source
+    range = out$range,
+    labels = out$labels,
+    major = out$major_source,
+    minor = out$minor_source,
+    sec.labels = out$sec.labels,
+    sec.major = out$sec.major_source,
+    sec.minor = out$sec.minor_source
   )
   names(out) <- paste(name, names(out), sep = ".")
   out
@@ -198,6 +235,6 @@ train_trans <- function(scale, limits, trans, name) {
 #' @noRd
 warn_new_infinites <- function(old_values, new_values, axis) {
   if (any(is.finite(old_values) & !is.finite(new_values))) {
-    warning("Transformation introduced infinite values in ", axis, "-axis", call. = FALSE)
+    warn(glue("Transformation introduced infinite values in {axis}-axis"))
   }
 }

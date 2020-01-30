@@ -15,7 +15,10 @@ autoplot <- function(object, ...) {
 
 #' @export
 autoplot.default <- function(object, ...) {
-  stop("Objects of type ", paste(class(object), collapse = "/"),
-    " not supported by autoplot.", call. = FALSE)
+  abort(glue(
+    "Objects of type ",
+    glue_collapse(class(object), "/"),
+    " not supported by autoplot."
+  ))
 }
 

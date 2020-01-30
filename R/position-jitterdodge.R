@@ -5,7 +5,7 @@
 #' a fill aesthetic supplied).
 #'
 #' @family position adjustments
-#' @param jitter.width degree of jitter in x direction. Defaults to 40\% of the
+#' @param jitter.width degree of jitter in x direction. Defaults to 40% of the
 #'   resolution of the data.
 #' @param jitter.height degree of jitter in y direction. Defaults to 0.
 #' @param dodge.width the amount to dodge in the x direction. Defaults to 0.75,
@@ -43,11 +43,13 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
   required_aes = c("x", "y"),
 
   setup_params = function(self, data) {
+    flipped_aes <- has_flipped_aes(data)
+    data <- flip_data(data, flipped_aes)
     width <- self$jitter.width %||% (resolution(data$x, zero = FALSE) * 0.4)
     # Adjust the x transformation based on the number of 'dodge' variables
     dodgecols <- intersect(c("fill", "colour", "linetype", "shape", "size", "alpha"), colnames(data))
     if (length(dodgecols) == 0) {
-      stop("`position_jitterdodge()` requires at least one aesthetic to dodge by", call. = FALSE)
+      abort("`position_jitterdodge()` requires at least one aesthetic to dodge by")
     }
     ndodge    <- lapply(data[dodgecols], levels)  # returns NULL for numeric, i.e. non-dodge layers
     ndodge    <- length(unique(unlist(ndodge)))
@@ -56,17 +58,20 @@ PositionJitterdodge <- ggproto("PositionJitterdodge", Position,
       dodge.width = self$dodge.width,
       jitter.height = self$jitter.height,
       jitter.width = width / (ndodge + 2),
-      seed = self$seed
+      seed = self$seed,
+      flipped_aes = flipped_aes
     )
   },
 
   compute_panel = function(data, params, scales) {
+    data <- flip_data(data, params$flipped_aes)
     data <- collide(data, params$dodge.width, "position_jitterdodge", pos_dodge,
       check.width = FALSE)
 
     trans_x <- if (params$jitter.width > 0) function(x) jitter(x, amount = params$jitter.width)
     trans_y <- if (params$jitter.height > 0) function(x) jitter(x, amount = params$jitter.height)
 
-    with_seed_null(params$seed, transform_position(data, trans_x, trans_y))
+    data <- with_seed_null(params$seed, transform_position(data, trans_x, trans_y))
+    flip_data(data, params$flipped_aes)
   }
 )

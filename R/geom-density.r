@@ -4,17 +4,22 @@
 #' the histogram. This is a useful alternative to the histogram for continuous
 #' data that comes from an underlying smooth distribution.
 #'
+#' @eval rd_orientation()
+#'
 #' @eval rd_aesthetics("geom", "density")
 #' @seealso See [geom_histogram()], [geom_freqpoly()] for
 #'   other methods of displaying continuous distribution.
 #'   See [geom_violin()] for a compact density display.
 #' @inheritParams layer
-#' @inheritParams geom_point
+#' @inheritParams geom_bar
 #' @param geom,stat Use to override the default connection between
 #'   `geom_density` and `stat_density`.
 #' @export
 #' @examples
 #' ggplot(diamonds, aes(carat)) +
+#'   geom_density()
+#' # Map the values to y to flip the orientation
+#' ggplot(diamonds, aes(y = carat)) +
 #'   geom_density()
 #'
 #' ggplot(diamonds, aes(carat)) +
@@ -38,17 +43,18 @@
 #' ggplot(diamonds, aes(carat, fill = cut)) +
 #'   geom_density(position = "stack")
 #' # Preserves marginal densities
-#' ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
+#' ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
 #'   geom_density(position = "stack")
 #'
 #' # You can use position="fill" to produce a conditional density estimate
-#' ggplot(diamonds, aes(carat, stat(count), fill = cut)) +
+#' ggplot(diamonds, aes(carat, after_stat(count), fill = cut)) +
 #'   geom_density(position = "fill")
 #' }
 geom_density <- function(mapping = NULL, data = NULL,
                          stat = "density", position = "identity",
                          ...,
                          na.rm = FALSE,
+                         orientation = NA,
                          show.legend = NA,
                          inherit.aes = TRUE) {
 
@@ -62,6 +68,7 @@ geom_density <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      orientation = orientation,
       ...
     )
   )

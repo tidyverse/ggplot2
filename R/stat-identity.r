@@ -33,7 +33,7 @@ stat_identity <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatIdentity <- ggproto("StatIdentity", Stat,
-  compute_layer = function(data, scales, params) {
+  compute_layer = function(self, data, params, layout) {
     data
   }
 )

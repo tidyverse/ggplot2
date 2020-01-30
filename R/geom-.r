@@ -81,12 +81,12 @@ Geom <- ggproto("Geom",
     params <- params[intersect(names(params), self$parameters())]
 
     args <- c(list(quote(data), quote(panel_params), quote(coord)), params)
-    plyr::dlply(data, "PANEL", function(data) {
+    lapply(split(data, data$PANEL), function(data) {
       if (empty(data)) return(zeroGrob())
 
       panel_params <- layout$panel_params[[data$PANEL[1]]]
       do.call(self$draw_panel, args)
-    }, .drop = FALSE)
+    })
   },
 
   draw_panel = function(self, data, panel_params, coord, ...) {
@@ -101,8 +101,10 @@ Geom <- ggproto("Geom",
   },
 
   draw_group = function(self, data, panel_params, coord) {
-    stop("Not implemented")
+    abort("Not implemented")
   },
+
+  setup_params = function(data, params) params,
 
   setup_data = function(data, params) data,
 
@@ -119,11 +121,11 @@ Geom <- ggproto("Geom",
   },
 
   # Combine data with defaults and set aesthetics from parameters
-  use_defaults = function(self, data, defaults, params = list()) {
+  use_defaults = function(self, data, params = list(), modifiers = aes()) {
     # Fill in missing aesthetics with their defaults
     missing_aes <- setdiff(names(defaults), names(data))
+    missing_eval <- lapply(self$default_aes[missing_aes], eval_tidy)
 
-    missing_eval <- lapply(defaults[missing_aes], rlang::eval_tidy)
     # Needed for geoms with defaults set to NULL (e.g. GeomSf)
     missing_eval <- compact(missing_eval)
 
@@ -131,6 +133,34 @@ Geom <- ggproto("Geom",
       data <- as_gg_data_frame(missing_eval)
     } else {
       data[names(missing_eval)] <- missing_eval
+    }
+
+    # If any after_scale mappings are detected they will be resolved here
+    # This order means that they will have access to all default aesthetics
+    if (length(modifiers) != 0) {
+      # Set up evaluation environment
+      env <- child_env(baseenv(), after_scale = after_scale)
+      # Mask stage with stage_scaled so it returns the correct expression
+      stage_mask <- child_env(emptyenv(), stage = stage_scaled)
+      mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
+      mask$.data <- as_data_pronoun(mask)
+      modified_aes <- lapply(substitute_aes(modifiers),  eval_tidy, mask, env)
+
+      # Check that all output are valid data
+      nondata_modified <- check_nondata_cols(modified_aes)
+      if (length(nondata_modified) > 0) {
+        msg <- glue(
+          "Modifiers must return valid values. Problematic aesthetic(s): ",
+          glue_collapse(vapply(nondata_modified, function(x) glue("{x} = {as_label(modifiers[[x]])}"), character(1)), ", ", last = " and "),
+          ". \nDid you map your mod in the wrong layer?"
+        )
+        abort(msg)
+      }
+
+      names(modified_aes) <- rename_aes(names(modifiers))
+      modified_aes <- new_data_frame(compact(modified_aes))
+
+      data <- cunion(modified_aes, data)
     }
 
     # Override mappings with params
@@ -163,7 +193,12 @@ Geom <- ggproto("Geom",
   },
 
   aesthetics = function(self) {
-    c(union(self$required_aes, names(self$default_aes)), self$optional_aes, "group")
+    if (is.null(self$required_aes)) {
+      required_aes <- NULL
+    } else {
+      required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
+    }
+    c(union(required_aes, names(self$default_aes)), self$optional_aes, "group")
   }
 
 )
@@ -194,9 +229,8 @@ check_aesthetics <- function(x, n) {
     return()
   }
 
-  stop(
-    "Aesthetics must be either length 1 or the same as the data (", n, "): ",
-    paste(names(which(!good)), collapse = ", "),
-    call. = FALSE
-  )
+  abort(glue(
+    "Aesthetics must be either length 1 or the same as the data ({n}): ",
+    glue_collapse(names(which(!good)), ", ", last = " and ")
+  ))
 }

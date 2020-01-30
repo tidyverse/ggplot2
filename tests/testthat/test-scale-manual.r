@@ -7,7 +7,7 @@ test_that("names of values used in manual scales", {
 })
 
 
-dat <- data.frame(g = c("B","A","A"))
+dat <- data_frame(g = c("B","A","A"))
 p <- ggplot(dat, aes(g, fill = g)) + geom_bar()
 col <- c("A" = "red", "B" = "green", "C" = "blue")
 
@@ -27,7 +27,7 @@ test_that("named values work regardless of order", {
 })
 
 test_that("missing values are replaced with na.value", {
-  df <- data.frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
+  df <- data_frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
   p <- ggplot(df, aes(x, y, colour = z)) +
     geom_point() +
     scale_colour_manual(values = c("black", "black"), na.value = "red")
@@ -36,7 +36,7 @@ test_that("missing values are replaced with na.value", {
 })
 
 test_that("insufficient values raise an error", {
-  df <- data.frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
+  df <- data_frame(x = 1, y = 1:3, z = factor(c(1:2, NA), exclude = NULL))
   p <- qplot(x, y, data = df, colour = z)
 
   expect_error(ggplot_build(p + scale_colour_manual(values = "black")),
@@ -54,7 +54,7 @@ test_that("values are matched when scale contains more unique values than are in
 })
 
 test_that("generic scale can be used in place of aesthetic-specific scales", {
-  df <- data.frame(x = letters[1:3], y = LETTERS[1:3], z = factor(c(1, 2, 3)))
+  df <- data_frame(x = letters[1:3], y = LETTERS[1:3], z = factor(c(1, 2, 3)))
   p1 <- ggplot(df, aes(z, z, shape = x, color = y, alpha = z)) +
     scale_shape_manual(values = 1:3) +
     scale_colour_manual(values = c("red", "green", "blue")) +
@@ -66,4 +66,34 @@ test_that("generic scale can be used in place of aesthetic-specific scales", {
     scale_discrete_manual(aesthetics = "alpha", values = c(0.2, 0.4, 0.6))
 
   expect_equal(layer_data(p1), layer_data(p2))
+})
+
+test_that("named values do not match with breaks in manual scales", {
+  s <- scale_fill_manual(
+    values = c("data_red" = "red", "data_black" = "black"),
+    breaks = c("data_black", "data_red")
+  )
+  s$train(c("data_black", "data_red"))
+  expect_equal(s$map(c("data_red", "data_black")), c("red", "black"))
+})
+
+test_that("unnamed values match breaks in manual scales", {
+  s <- scale_fill_manual(
+    values = c("red", "black"),
+    breaks = c("data_red", "data_black")
+  )
+  s$train(c("data_red", "data_black"))
+  expect_equal(s$map(c("data_red", "data_black")), c("red", "black"))
+})
+
+test_that("limits works (#3262)", {
+  # named charachter vector
+  s1 <- scale_colour_manual(values = c("8" = "c", "4" = "a", "6" = "b"), limits = c("4", "8"))
+  s1$train(c("4", "6", "8"))
+  expect_equal(s1$map(c("4", "6", "8")), c("a", NA, "c"))
+
+  # named charachter vector
+  s2 <- scale_colour_manual(values = c("c", "a", "b"), limits = c("4", "8"))
+  s2$train(c("4", "6", "8"))
+  expect_equal(s2$map(c("4", "6", "8")), c("c", NA, "a"))
 })

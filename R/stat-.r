@@ -76,8 +76,15 @@ Stat <- ggproto("Stat",
       snake_class(self)
     )
 
+    # Make sure required_aes consists of the used set of aesthetics in case of
+    # "|" notation in self$required_aes
+    required_aes <- intersect(
+      names(data),
+      unlist(strsplit(self$required_aes, "|", fixed = TRUE))
+    )
+
     data <- remove_missing(data, params$na.rm,
-      c(self$required_aes, self$non_missing_aes),
+      c(required_aes, self$non_missing_aes),
       snake_class(self),
       finite = TRUE
     )
@@ -86,18 +93,17 @@ Stat <- ggproto("Stat",
     params <- params[intersect(names(params), self$parameters())]
 
     args <- c(list(data = quote(data), scales = quote(scales)), params)
-    plyr::ddply(data, "PANEL", function(data) {
+    dapply(data, "PANEL", function(data) {
       scales <- layout$get_scales(data$PANEL[1])
       tryCatch(do.call(self$compute_panel, args), error = function(e) {
-        warning("Computation failed in `", snake_class(self), "()`:\n",
-          e$message, call. = FALSE)
-        data.frame()
+        warn(glue("Computation failed in `{snake_class(self)}()`:\n{e$message}"))
+        new_data_frame()
       })
     })
   },
 
   compute_panel = function(self, data, scales, ...) {
-    if (empty(data)) return(data.frame())
+    if (empty(data)) return(new_data_frame())
 
     groups <- split(data, data$group)
     stats <- lapply(groups, function(group) {
@@ -105,7 +111,7 @@ Stat <- ggproto("Stat",
     })
 
     stats <- mapply(function(new, old) {
-      if (empty(new)) return(data.frame())
+      if (empty(new)) return(new_data_frame())
       unique <- uniquecols(old)
       missing <- !(names(unique) %in% names(new))
       cbind(
@@ -114,11 +120,11 @@ Stat <- ggproto("Stat",
       )
     }, stats, groups, SIMPLIFY = FALSE)
 
-    do.call(plyr::rbind.fill, stats)
+    rbind_dfs(stats)
   },
 
   compute_group = function(self, data, scales) {
-    stop("Not implemented", call. = FALSE)
+    abort("Not implemented")
   },
 
   finish_layer = function(self, data, params) {
@@ -144,7 +150,12 @@ Stat <- ggproto("Stat",
   },
 
   aesthetics = function(self) {
-    c(union(self$required_aes, names(self$default_aes)), "group")
+    if (is.null(self$required_aes)) {
+      required_aes <- NULL
+    } else {
+      required_aes <- unlist(strsplit(self$required_aes, '|', fixed = TRUE))
+    }
+    c(union(required_aes, names(self$default_aes)), "group")
   }
 
 )

@@ -7,8 +7,12 @@
 \usage{
 position_dodge(width = NULL, preserve = c("total", "single"))
 
-position_dodge2(width = NULL, preserve = c("total", "single"),
-  padding = 0.1, reverse = FALSE)
+position_dodge2(
+  width = NULL,
+  preserve = c("total", "single"),
+  padding = 0.1,
+  reverse = FALSE
+)
 }
 \arguments{
 \item{width}{Dodging width, when different to the width of the individual
@@ -28,16 +32,17 @@ This is useful if you're rotating both the plot and legend.}
 Dodging preserves the vertical position of an geom while adjusting the
 horizontal position. \code{position_dodge2} is a special case of \code{position_dodge}
 for arranging box plots, which can have variable widths. \code{position_dodge2}
-also works with bars and rectangles.
+also works with bars and rectangles. But unlike \code{position_dodge},
+\code{position_dodge2} works without a grouping variable in a layer.
 }
 \examples{
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = "dodge2")
 
-# By default, dodging with `position_dodge2()` preserves the width of each
-# element. You can choose to preserve the total width with:
+# By default, dodging with `position_dodge2()` preserves the total width of
+# the elements. You can choose to preserve the width of each element with:
 ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
-  geom_bar(position = position_dodge(preserve = "total"))
+  geom_bar(position = position_dodge2(preserve = "single"))
 
 \donttest{
 ggplot(diamonds, aes(price, fill = cut)) +
@@ -92,10 +97,11 @@ ggplot(mtcars, aes(factor(cyl), fill = factor(vs))) +
   geom_bar(position = position_dodge2(preserve = "total"))
 }
 \seealso{
-Other position adjustments: \code{\link{position_identity}},
-  \code{\link{position_jitterdodge}},
-  \code{\link{position_jitter}},
-  \code{\link{position_nudge}},
-  \code{\link{position_stack}}
+Other position adjustments: 
+\code{\link{position_identity}()},
+\code{\link{position_jitterdodge}()},
+\code{\link{position_jitter}()},
+\code{\link{position_nudge}()},
+\code{\link{position_stack}()}
 }
 \concept{position adjustments}

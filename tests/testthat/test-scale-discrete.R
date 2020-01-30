@@ -49,7 +49,7 @@ test_that("NAs are translated/preserved for non-position scales", {
 # Ranges ------------------------------------------------------------------
 
 test_that("discrete ranges also encompass continuous values", {
-  df <- data.frame(x1 = c("a", "b", "c"), x2 = c(0, 2, 4), y = 1:3)
+  df <- data_frame(x1 = c("a", "b", "c"), x2 = c(0, 2, 4), y = 1:3)
 
   base <- ggplot(df, aes(y = y)) + scale_x_discrete()
 
@@ -62,10 +62,28 @@ test_that("discrete ranges also encompass continuous values", {
   expect_equal(x_range(base + geom_point(aes(x1)) + geom_point(aes(x2))), c(0, 4))
 })
 
+test_that("discrete ranges have limits even when all values are continuous", {
+  scale <- scale_x_discrete()
+  scale$train(1:3)
+  expect_identical(scale$get_limits(), integer())
+})
+
 test_that("discrete scale shrinks to range when setting limits", {
-  df <- data.frame(x = letters[1:10], y = 1:10)
+  df <- data_frame(x = letters[1:10], y = 1:10)
   p <- ggplot(df, aes(x, y)) + geom_point() +
     scale_x_discrete(limits = c("a", "b"))
 
   expect_equal(layer_scales(p)$x$dimension(c(0, 1)), c(0, 3))
+})
+
+test_that("discrete position scales can accept functional limits", {
+  scale <- scale_x_discrete(limits = rev)
+  scale$train(c("a", "b", "c"))
+  expect_identical(scale$get_limits(), c("c", "b", "a"))
+})
+
+test_that("discrete non-position scales can accept functional limits", {
+  scale <- scale_colour_discrete(limits = rev)
+  scale$train(c("a", "b", "c"))
+  expect_identical(scale$get_limits(), c("c", "b", "a"))
 })

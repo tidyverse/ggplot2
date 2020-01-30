@@ -1,5 +1,110 @@
 context("geom-sf")
 
+test_that("geom_sf() determines the legend type automatically", {
+  skip_if_not_installed("sf")
+  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+
+  mp <- sf::st_sf(
+    geometry = sf::st_sfc(sf::st_multipoint(rbind(c(1,1), c(2,2), c(3,3)))),
+    v = "a")
+
+  s1 <- rbind(c(0,3),c(0,4),c(1,5),c(2,5))
+  s2 <- rbind(c(0.2,3), c(0.2,4), c(1,4.8), c(2,4.8))
+  s3 <- rbind(c(0,4.4), c(0.6,5))
+
+  mls <- sf::st_sf(
+    geometry = sf::st_sfc(sf::st_multilinestring(list(s1,s2,s3))),
+    v = "a")
+
+  p1 <- rbind(c(0,0), c(1,0), c(3,2), c(2,4), c(1,4), c(0,0))
+  p2 <- rbind(c(1,1), c(1,2), c(2,2), c(1,1))
+  p3 <- rbind(c(3,0), c(4,0), c(4,1), c(3,1), c(3,0))
+  p4 <- rbind(c(3.3,0.3), c(3.8,0.3), c(3.8,0.8), c(3.3,0.8), c(3.3,0.3))[5:1,]
+  p5 <- rbind(c(3,3), c(4,2), c(4,3), c(3,3))
+
+  mpol <- sf::st_sf(
+    geometry = sf::st_sfc(sf::st_multipolygon(list(list(p1,p2), list(p3,p4), list(p5)))),
+    v = "a")
+
+  fun_geom_sf <- function(sf, show.legend) {
+    p <- ggplot() + geom_sf(aes(colour = v), data = sf, show.legend = show.legend)
+    ggplot_build(p)
+  }
+
+  # test the automatic choice
+  expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mp, TRUE)$plot$layers[[1]]$geom_params$legend, "point")
+
+  expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mls, TRUE)$plot$layers[[1]]$geom_params$legend, "line")
+
+  expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mpol, TRUE)$plot$layers[[1]]$geom_params$legend, "polygon")
+
+  # test that automatic choice can be overridden manually
+  expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mp, "point")$plot$layers[[1]]$geom_params$legend, "point")
+
+  expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mls, "point")$plot$layers[[1]]$geom_params$legend, "point")
+
+  expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$show.legend, TRUE)
+  expect_identical(fun_geom_sf(mpol, "point")$plot$layers[[1]]$geom_params$legend, "point")
+})
+
+test_that("geom_sf() removes rows containing missing aes", {
+  skip_if_not_installed("sf")
+  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+
+  grob_xy_length <- function(x) {
+    g <- layer_grob(x)[[1]]
+    c(length(g$x), length(g$y))
+  }
+
+  pts <- sf::st_sf(
+    geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)),
+    size = c(1, NA),
+    shape = c("a", NA),
+    colour = c("red", NA)
+  )
+
+  p <- ggplot(pts) + geom_sf()
+  expect_warning(
+    expect_identical(grob_xy_length(p + aes(size = size)), c(1L, 1L)),
+    "Removed 1 rows containing missing values"
+  )
+  expect_warning(
+    expect_identical(grob_xy_length(p + aes(shape = shape)), c(1L, 1L)),
+    "Removed 1 rows containing missing values"
+  )
+  # default colour scale maps a colour even to a NA, so identity scale is needed to see if NA is removed
+  expect_warning(
+    expect_identical(grob_xy_length(p + aes(colour = colour) + scale_colour_identity()),
+                     c(1L, 1L)),
+    "Removed 1 rows containing missing values"
+  )
+})
+
+test_that("geom_sf() handles alpha properly", {
+  skip_if_not_installed("sf")
+  if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
+
+  sfc <- sf::st_sfc(
+    sf::st_point(0:1),
+    sf::st_linestring(rbind(0:1, 1:2)),
+    sf::st_polygon(list(rbind(0:1, 1:2, 2:1, 0:1)))
+  )
+  red <- "#FF0000FF"
+  p <- ggplot(sfc) + geom_sf(colour = red, fill = red, alpha = 0.5)
+  g <- layer_grob(p)[[1]]
+
+  # alpha affects the colour of points and lines
+  expect_equal(g[[1]]$gp$col, alpha(red, 0.5))
+  expect_equal(g[[2]]$gp$col, alpha(red, 0.5))
+  # alpha doesn't affect the colour of polygons, but the fill
+  expect_equal(g[[3]]$gp$col, alpha(red, 1.0))
+  expect_equal(g[[3]]$gp$fill, alpha(red, 0.5))
+})
 
 # Visual tests ------------------------------------------------------------
 
@@ -7,20 +112,24 @@ test_that("geom_sf draws correctly", {
   skip_if_not_installed("sf")
   if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
 
-  f <- system.file("gpkg/nc.gpkg", package="sf")
-  nc <- sf::read_sf(f)
+  nc_tiny_coords <- matrix(
+    c(-81.473, -81.741, -81.67, -81.345, -81.266, -81.24, -81.473,
+      36.234, 36.392, 36.59, 36.573, 36.437, 36.365, 36.234),
+    ncol = 2
+  )
+
+  nc <- sf::st_as_sf(
+    data_frame(
+      NAME = "ashe",
+      geometry = sf::st_sfc(sf::st_polygon(list(nc_tiny_coords)), crs = 4326)
+    )
+  )
 
 
-  # Perform minimal tests as long as vdiffr tests are disabled
-  plot <- ggplot() + geom_sf(data = nc)
-  expect_error(regexp = NA, ggplot_build(plot))
-
+  # Perform minimal tests
   pts <- sf::st_sf(a = 1:2, geometry = sf::st_sfc(sf::st_point(0:1), sf::st_point(1:2)))
   plot <- ggplot() + geom_sf(data = pts)
   expect_error(regexp = NA, ggplot_build(plot))
-
-
-  skip("sf tests are currently unstable")
 
   expect_doppelganger("North Carolina county boundaries",
     ggplot() + geom_sf(data = nc) + coord_sf(datum = 4326)
@@ -36,25 +145,27 @@ test_that("geom_sf_text() and geom_sf_label() draws correctly", {
   skip_if_not_installed("sf")
   if (packageVersion("sf") < "0.5.3") skip("Need sf 0.5.3")
 
-  f <- system.file("gpkg/nc.gpkg", package="sf")
-  nc <- sf::read_sf(f)
-  # In order to avoid warning, trnasform to a projected coordinate system
-  nc_3857 <- sf::st_transform(nc, "+init=epsg:3857")
+  nc_tiny_coords <- matrix(
+    c(-81.473, -81.741, -81.67, -81.345, -81.266, -81.24, -81.473,
+      36.234, 36.392, 36.59, 36.573, 36.437, 36.365, 36.234),
+    ncol = 2
+  )
 
-  # Perform minimal tests as long as vdiffr tests are disabled
-  plot <- ggplot() + geom_sf_text(data = nc_3857[1:3, ], aes(label = NAME))
-  expect_error(regexp = NA, ggplot_build(plot))
-  
-  plot <- ggplot() + geom_sf_label(data = nc_3857[1:3, ], aes(label = NAME))
-  expect_error(regexp = NA, ggplot_build(plot))
-  
-  skip("sf tests are currently unstable")
-  
+  nc <- sf::st_as_sf(
+    data_frame(
+      NAME = "ashe",
+      geometry = sf::st_sfc(sf::st_polygon(list(nc_tiny_coords)), crs = 4326)
+    )
+  )
+
+  # In order to avoid warning, transform to a projected coordinate system
+  nc_3857 <- sf::st_transform(nc, 3857)
+
   expect_doppelganger("Texts for North Carolina",
-    ggplot() + geom_sf_text(data = nc_3857[1:3, ], aes(label = NAME))
+    ggplot() + geom_sf_text(data = nc_3857, aes(label = NAME))
   )
 
   expect_doppelganger("Labels for North Carolina",
-    ggplot() + geom_sf_label(data = nc_3857[1:3, ], aes(label = NAME))
+    ggplot() + geom_sf_label(data = nc_3857, aes(label = NAME))
   )
 })

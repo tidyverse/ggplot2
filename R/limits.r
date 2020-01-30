@@ -16,7 +16,9 @@
 #'   A date-time value will create a continuous date/time scale.
 #' @seealso For changing x or y axis limits \strong{without} dropping data
 #'   observations, see [coord_cartesian()]. To expand the range of
-#'   a plot to always include certain values, see [expand_limits()].
+#'   a plot to always include certain values, see [expand_limits()]. For other
+#'   types of data, see [scale_x_discrete()], [scale_x_continuous()], [scale_x_date()].
+#'
 #' @export
 #' @examples
 #' # Zoom into a specified area
@@ -46,11 +48,35 @@
 #' ggplot(big, aes(mpg, wt, colour = factor(cyl))) +
 #'   geom_point() +
 #'   lims(colour = c("4", "6", "8"))
+#'
+#' # There are two ways of setting the axis limits: with limits or
+#' # with coordinate systems. They work in two rather different ways.
+#'
+#' last_month <- Sys.Date() - 0:59
+#' df <- data.frame(
+#'   date = last_month,
+#'   price = c(rnorm(30, mean = 15), runif(30) + 0.2 * (1:30))
+#' )
+#'
+#' p <- ggplot(df, aes(date, price)) +
+#'   geom_line() +
+#'   stat_smooth()
+#'
+#' p
+#'
+#' # Setting the limits with the scale discards all data outside the range.
+#' p + lims(x= c(Sys.Date() - 30, NA), y = c(10, 20))
+#'
+#' # For changing x or y axis limits **without** dropping data
+#' # observations use [coord_cartesian()]. Setting the limits on the
+#' # coordinate system performs a visual zoom.
+#' p + coord_cartesian(xlim =c(Sys.Date() - 30, NA), ylim = c(10, 20))
+#'
 lims <- function(...) {
   args <- list(...)
 
   if (any(!has_name(args))) {
-    stop("All arguments must be named", call. = FALSE)
+    abort("All arguments must be named")
   }
 
   Map(limits, args, names(args))
@@ -82,7 +108,9 @@ ylim <- function(...) {
 limits <- function(lims, var) UseMethod("limits")
 #' @export
 limits.numeric <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+  if (length(lims) != 2) {
+    abort("`lims` must be a two-element vector")
+  }
   if (!any(is.na(lims)) && lims[1] > lims[2]) {
     trans <- "reverse"
   } else {
@@ -107,17 +135,23 @@ limits.factor <- function(lims, var) {
 }
 #' @export
 limits.Date <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+  if (length(lims) != 2) {
+    abort("`lims` must be a two-element vector")
+  }
   make_scale("date", var, limits = lims)
 }
 #' @export
 limits.POSIXct <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+  if (length(lims) != 2) {
+    abort("`lims` must be a two-element vector")
+  }
   make_scale("datetime", var, limits = lims)
 }
 #' @export
 limits.POSIXlt <- function(lims, var) {
-  stopifnot(length(lims) == 2)
+  if (length(lims) != 2) {
+    abort("`lims` must be a two-element vector")
+  }
   make_scale("datetime", var, limits = as.POSIXct(lims))
 }
 
@@ -143,7 +177,12 @@ limits.POSIXlt <- function(lims, var) {
 #'   geom_point(aes(colour = factor(cyl))) +
 #'   expand_limits(colour = factor(seq(2, 10, by = 2)))
 expand_limits <- function(...) {
-  data <- data.frame(..., stringsAsFactors = FALSE)
+  data <- list(...)
+  data_dfs <- vapply(data, is.data.frame, logical(1))
+  data <- do.call(c, c(list(data[!data_dfs]), data[data_dfs]))
+  n_rows <- max(vapply(data, length, integer(1)))
+  data <- lapply(data, rep, length.out = n_rows)
+  data <- new_data_frame(data)
 
   geom_blank(aes_all(names(data)), data, inherit.aes = FALSE)
 }

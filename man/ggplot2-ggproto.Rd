@@ -15,14 +15,14 @@
 %   R/geom-vline.r, R/layout.R, R/position-.r, R/position-dodge.r,
 %   R/position-dodge2.r, R/position-identity.r, R/position-jitter.r,
 %   R/position-jitterdodge.R, R/position-nudge.R, R/position-stack.r,
-%   R/scale-.r, R/scale-continuous.r, R/scale-date.r, R/scale-discrete-.r,
-%   R/scale-identity.r, R/stat-bin.r, R/stat-bin2d.r, R/stat-bindot.r,
-%   R/stat-binhex.r, R/stat-boxplot.r, R/stat-contour.r, R/stat-count.r,
-%   R/stat-density-2d.r, R/stat-density.r, R/stat-ecdf.r, R/stat-ellipse.R,
-%   R/stat-function.r, R/stat-identity.r, R/stat-qq-line.R, R/stat-qq.r,
-%   R/stat-quantile.r, R/stat-smooth.r, R/stat-sum.r, R/stat-summary-2d.r,
-%   R/stat-summary-bin.R, R/stat-summary-hex.r, R/stat-summary.r,
-%   R/stat-unique.r, R/stat-ydensity.r
+%   R/scale-.r, R/scale-binned.R, R/scale-continuous.r, R/scale-date.r,
+%   R/scale-discrete-.r, R/scale-identity.r, R/stat-bin.r, R/stat-bin2d.r,
+%   R/stat-bindot.r, R/stat-binhex.r, R/stat-boxplot.r, R/stat-contour.r,
+%   R/stat-count.r, R/stat-density-2d.r, R/stat-density.r, R/stat-ecdf.r,
+%   R/stat-ellipse.R, R/stat-function.r, R/stat-identity.r, R/stat-qq-line.R,
+%   R/stat-qq.r, R/stat-quantile.r, R/stat-smooth.r, R/stat-sum.r,
+%   R/stat-summary-2d.r, R/stat-summary-bin.R, R/stat-summary-hex.r,
+%   R/stat-summary.r, R/stat-unique.r, R/stat-ydensity.r
 \docType{data}
 \name{ggplot2-ggproto}
 \alias{ggplot2-ggproto}
@@ -95,6 +95,8 @@
 \alias{Scale}
 \alias{ScaleContinuous}
 \alias{ScaleDiscrete}
+\alias{ScaleBinned}
+\alias{ScaleBinnedPosition}
 \alias{ScaleContinuousPosition}
 \alias{ScaleContinuousDatetime}
 \alias{ScaleContinuousDate}
@@ -107,6 +109,7 @@
 \alias{StatBinhex}
 \alias{StatBoxplot}
 \alias{StatContour}
+\alias{StatContourFilled}
 \alias{StatCount}
 \alias{StatDensity2d}
 \alias{StatDensity}
@@ -134,11 +137,11 @@ you'll need to extend from \code{ggplot2::Geom}, \code{ggplot2::Stat},
 \section{Geoms}{
 
 
-All \code{geom_*} functions (like \code{geom_point}) return a layer that
-contains a \code{Geom*} object (like \code{GeomPoint}). The \code{Geom*}
+All \verb{geom_*} functions (like \code{geom_point}) return a layer that
+contains a \verb{Geom*} object (like \code{GeomPoint}). The \verb{Geom*}
 object is responsible for rendering the data in the plot.
 
-Each of the \code{Geom*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
+Each of the \verb{Geom*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
 from the top-level \code{Geom}, and each implements various methods and
 fields.
 
@@ -188,10 +191,10 @@ and ymin and ymax values. It can potentially set other values as well.
 \section{Coordinate systems}{
 
 
-All \code{coord_*} functions (like \code{coord_trans}) return a \code{Coord*}
+All \verb{coord_*} functions (like \code{coord_trans}) return a \verb{Coord*}
 object (like \code{CoordTrans}).
 
-Each of the \code{Coord*} objects is a \code{\link[=ggproto]{ggproto()}} object,
+Each of the \verb{Coord*} objects is a \code{\link[=ggproto]{ggproto()}} object,
 descended from the top-level \code{Coord}.  To create a new type of Coord
 object, you typically will want to implement one or more of the following:
 \itemize{
@@ -201,12 +204,21 @@ object, you typically will want to implement one or more of the following:
 \item \code{render_bg}: Renders background elements.
 \item \code{render_axis_h}: Renders the horizontal axes.
 \item \code{render_axis_v}: Renders the vertical axes.
+\item \code{backtransform_range(panel_params)}: Extracts the panel range provided
+in \code{panel_params} (created by \code{setup_panel_params()}, see below) and
+back-transforms to data coordinates. This back-transformation can be needed
+for coords such as \code{coord_trans()} where the range in the transformed
+coordinates differs from the range in the untransformed coordinates. Returns
+a list of two ranges, \code{x} and \code{y}, and these correspond to the variables
+mapped to the \code{x} and \code{y} aesthetics, even for coords such as \code{coord_flip()}
+where the \code{x} aesthetic is shown along the y direction and vice versa.
 \item \code{range(panel_params)}: Extracts the panel range provided
 in \code{panel_params} (created by \code{setup_panel_params()}, see below) and
-back-transforms to data coordinates. This back-transformation is needed
-for coords such as \code{coord_flip()}, \code{coord_polar()}, \code{coord_trans()} where
-the range in the transformed coordinates differs from the range in the
-untransformed coordinates.
+returns it. Unlike \code{backtransform_range()}, this function does not perform
+any back-transformation and instead returns final transformed coordinates. Returns
+a list of two ranges, \code{x} and \code{y}, and these correspond to the variables
+mapped to the \code{x} and \code{y} aesthetics, even for coords such as \code{coord_flip()}
+where the \code{x} aesthetic is shown along the y direction and vice versa.
 \item \code{transform}: Transforms x and y coordinates.
 \item \code{distance}: Calculates distance.
 \item \code{is_linear}: Returns \code{TRUE} if the coordinate system is
@@ -228,7 +240,7 @@ data to panels and scales.
 \section{Facets}{
 
 
-All \code{facet_*} functions returns a \code{Facet} object or an object of a
+All \verb{facet_*} functions returns a \code{Facet} object or an object of a
 \code{Facet} subclass. This object describes how to assign data to different
 panels, how to apply positional scales and how to lay out the panels, once
 rendered.
@@ -298,11 +310,11 @@ transformations has been applied.
 \section{Stats}{
 
 
-All \code{stat_*} functions (like \code{stat_bin}) return a layer that
-contains a \code{Stat*} object (like \code{StatBin}). The \code{Stat*}
+All \verb{stat_*} functions (like \code{stat_bin}) return a layer that
+contains a \verb{Stat*} object (like \code{StatBin}). The \verb{Stat*}
 object is responsible for rendering the data in the plot.
 
-Each of the \code{Stat*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
+Each of the \verb{Stat*} objects is a \code{\link[=ggproto]{ggproto()}} object, descended
 from the top-level \code{Stat}, and each implements various methods and
 fields. To create a new type of Stat object, you typically will want to
 override one or more of the following:
@@ -349,23 +361,23 @@ default values for aesthetics.
 \section{Positions}{
 
 
-All \code{position_*} functions (like \code{position_dodge}) return a
-\code{Position*} object (like \code{PositionDodge}). The \code{Position*}
+All \verb{position_*} functions (like \code{position_dodge}) return a
+\verb{Position*} object (like \code{PositionDodge}). The \verb{Position*}
 object is responsible for adjusting the position of overlapping geoms.
 
-The way that the \code{position_*} functions work is slightly different from
-the \code{geom_*} and \code{stat_*} functions, because a \code{position_*}
-function actually "instantiates" the \code{Position*} object by creating a
+The way that the \verb{position_*} functions work is slightly different from
+the \verb{geom_*} and \verb{stat_*} functions, because a \verb{position_*}
+function actually "instantiates" the \verb{Position*} object by creating a
 descendant, and returns that.
 
-Each of the \code{Position*} objects is a \code{\link[=ggproto]{ggproto()}} object,
+Each of the \verb{Position*} objects is a \code{\link[=ggproto]{ggproto()}} object,
 descended from the top-level \code{Position}, and each implements the
 following methods:
 \itemize{
 \item \code{compute_layer(self, data, params, panel)} is called once
 per layer. \code{panel} is currently an internal data structure, so
 this method should not be overridden.
-\item \code{compute_panel(self, data, params, panel)} is called once per
+\item \code{compute_panel(self, data, params, scales)} is called once per
 panel and should return a modified data frame.
 
 \code{data} is a data frame containing the variables named according
@@ -392,12 +404,80 @@ that must be present for this position adjustment to work.
 \section{Scales}{
 
 
-All \code{scale_*} functions (like \code{scale_x_continuous}) return a
-\code{Scale*} object (like \code{ScaleContinuous}). The \code{Scale*}
-object represents a single scale.
+All \verb{scale_*} functions like \code{\link[=scale_x_continuous]{scale_x_continuous()}} return a \verb{Scale*}
+object like \code{ScaleContinuous}. Each of the \verb{Scale*} objects is a \code{\link[=ggproto]{ggproto()}}
+object, descended from the top-level \code{Scale}.
 
-Each of the \code{Scale*} objects is a \code{\link[=ggproto]{ggproto()}} object,
-descended from the top-level \code{Scale}.
+Properties not documented in \code{\link[=continuous_scale]{continuous_scale()}} or \code{\link[=discrete_scale]{discrete_scale()}}:
+\itemize{
+\item \code{call} The call to \code{\link[=continuous_scale]{continuous_scale()}} or \code{\link[=discrete_scale]{discrete_scale()}} that constructed
+the scale.
+\item \code{range} One of \code{continuous_range()} or \code{discrete_range()}.
+}
+
+Methods:
+\itemize{
+\item \code{is_discrete()} Returns \code{TRUE} if the scale is a discrete scale
+\item \code{is_empty()} Returns \code{TRUE} if the scale contains no information (i.e.,
+it has no information with which to calculate its \code{limits}).
+\item \code{clone()} Returns a copy of the scale that can be trained
+independently without affecting the original scale.
+\item \code{transform()} Transforms a vector of values using \code{self$trans}.
+This occurs before the \code{Stat} is calculated.
+\item \code{train()} Update the \code{self$range} of observed (transformed) data values with
+a vector of (possibly) new values.
+\item \code{reset()} Reset the \code{self$range} of observed data values. For discrete
+position scales, only the continuous range is reset.
+\item \code{map()} Map transformed data values to some output value as
+determined by \code{self$rescale()} and \code{self$palette} (except for position scales,
+which do not use the default implementation of this method). The output corresponds
+to the transformed data value in aesthetic space (e.g., a color, line width, or size).
+\item \code{rescale()} Rescale transformed data to the the range 0, 1. This is most useful for
+position scales. For continuous scales, \code{rescale()} uses the \code{rescaler} that
+was provided to the constructor. \code{rescale()} does not apply \code{self$oob()} to
+its input, which means that discrete values outside \code{limits} will be \code{NA}, and
+values that are outside \code{range} will have values less than 0 or greater than 1.
+This allows guides more control over how out-of-bounds values are displayed.
+\item \code{transform_df()}, \code{train_df()}, \code{map_df()} These \verb{_df} variants
+accept a data frame, and apply the \code{transform}, \code{train}, and \code{map} methods
+(respectively) to the columns whose names are in \code{self$aesthetics}.
+\item \code{get_limits()} Calculates the final scale limits in transformed data space
+based on the combination of \code{self$limits} and/or the range of observed values
+(\code{self$range}).
+\item \code{get_breaks()} Calculates the final scale breaks in transformed data space
+based on on the combination of \code{self$breaks}, \code{self$trans$breaks()} (for
+continuous scales), and \code{limits}. Breaks outside of \code{limits} are assigned
+a value of \code{NA} (continuous scales) or dropped (discrete scales).
+\item \code{get_labels()} Calculates labels for a given set of (transformed) \code{breaks}
+based on the combination of \code{self$labels} and \code{breaks}.
+\item \code{get_breaks_minor()} For continuous scales, calculates the final scale minor breaks
+in transformed data space based on the rescaled \code{breaks}, the value of \code{self$minor_breaks},
+and the value of \code{self$trans$minor_breaks()}. Discrete scales always return \code{NULL}.
+\item \code{make_title()} Hook to modify the title that is calculated during guide construction
+(for non-position scales) or when the \code{Layout} calculates the x and y labels
+(position scales).
+}
+
+These methods are only valid for position (x and y) scales:
+\itemize{
+\item \code{dimension()} For continuous scales, the dimension is the same concept as the limits.
+For discrete scales, \code{dimension()} returns a continuous range, where the limits
+would be placed at integer positions. \code{dimension()} optionally expands
+this range given an expantion of length 4 (see \code{\link[=expansion]{expansion()}}).
+\item \code{break_info()} Returns a \code{list()} with calculated values needed for the \code{Coord}
+to transform values in transformed data space. Axis and grid guides also use
+these values to draw guides. This is called with
+a (usually expanded) continuous range, such as that returned by \code{self$dimension()}
+(even for discrete scales). The list has components \code{major_source}
+(\code{self$get_breaks()} for continuous scales, or \code{seq_along(self$get_breaks())}
+for discrete scales), \code{major} (the rescaled value of \code{major_source}, ignoring
+\code{self$rescaler}), \code{minor} (the rescaled value of \code{minor_source}, ignoring
+\code{self$rescaler}), \code{range} (the range that was passed in to \code{break_info()}),
+\code{labels} (the label values, one for each element in \code{breaks}).
+\item \code{axis_order()} One of \code{c("primary", "secondary")} or \code{c("secondary", "primary")}
+\item \code{make_sec_title()} Hook to modify the title for the second axis that is calculated
+when the \code{Layout} calculates the x and y labels.
+}
 }
 
 \seealso{

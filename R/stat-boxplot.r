@@ -5,11 +5,11 @@
 #' \describe{
 #'   \item{width}{width of boxplot}
 #'   \item{ymin}{lower whisker = smallest observation greater than or equal to lower hinge - 1.5 * IQR}
-#'   \item{lower}{lower hinge, 25\% quantile}
+#'   \item{lower}{lower hinge, 25% quantile}
 #'   \item{notchlower}{lower edge of notch = median - 1.58 * IQR / sqrt(n)}
-#'   \item{middle}{median, 50\% quantile}
+#'   \item{middle}{median, 50% quantile}
 #'   \item{notchupper}{upper edge of notch = median + 1.58 * IQR / sqrt(n)}
-#'   \item{upper}{upper hinge, 75\% quantile}
+#'   \item{upper}{upper hinge, 75% quantile}
 #'   \item{ymax}{upper whisker = largest observation less than or equal to upper hinge + 1.5 * IQR}
 #' }
 #' @export
@@ -18,6 +18,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
                          ...,
                          coef = 1.5,
                          na.rm = FALSE,
+                         orientation = NA,
                          show.legend = NA,
                          inherit.aes = TRUE) {
   layer(
@@ -30,6 +31,7 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
     inherit.aes = inherit.aes,
     params = list(
       na.rm = na.rm,
+      orientation = orientation,
       coef = coef,
       ...
     )
@@ -42,32 +44,43 @@ stat_boxplot <- function(mapping = NULL, data = NULL,
 #' @usage NULL
 #' @export
 StatBoxplot <- ggproto("StatBoxplot", Stat,
-  required_aes = c("y"),
+  required_aes = c("y|x"),
   non_missing_aes = "weight",
   setup_data = function(data, params) {
+    data <- flip_data(data, params$flipped_aes)
     data$x <- data$x %||% 0
     data <- remove_missing(
       data,
-      na.rm = FALSE,
+      na.rm = params$na.rm,
       vars = "x",
       name = "stat_boxplot"
     )
-    data
+    flip_data(data, params$flipped_aes)
   },
 
   setup_params = function(data, params) {
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
+    data <- flip_data(data, params$flipped_aes)
+
+    has_x <- !(is.null(data$x) && is.null(params$x))
+    has_y <- !(is.null(data$y) && is.null(params$y))
+    if (!has_x && !has_y) {
+      abort("stat_boxplot() requires an x or y aesthetic.")
+    }
+
     params$width <- params$width %||% (resolution(data$x %||% 0) * 0.75)
 
     if (is.double(data$x) && !has_groups(data) && any(data$x != data$x[1L])) {
-      warning(
-        "Continuous x aesthetic -- did you forget aes(group=...)?",
-        call. = FALSE)
+      warn(glue("Continuous {flipped_names(params$flipped_aes)$x} aesthetic -- did you forget aes(group=...)?"))
     }
 
     params
   },
 
-  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5) {
+  extra_params = c("na.rm", "orientation"),
+
+  compute_group = function(data, scales, width = NULL, na.rm = FALSE, coef = 1.5, flipped_aes = FALSE) {
+    data <- flip_data(data, flipped_aes)
     qs <- c(0, 0.25, 0.5, 0.75, 1)
 
     if (!is.null(data$weight)) {
@@ -87,7 +100,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     if (length(unique(data$x)) > 1)
       width <- diff(range(data$x)) * 0.9
 
-    df <- as.data.frame(as.list(stats))
+    df <- new_data_frame(as.list(stats))
     df$outliers <- list(data$y[outliers])
 
     if (is.null(data$weight)) {
@@ -103,6 +116,7 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
     df$x <- if (is.factor(data$x)) data$x[1] else mean(range(data$x))
     df$width <- width
     df$relvarwidth <- sqrt(n)
-    df
+    df$flipped_aes <- flipped_aes
+    flip_data(df, flipped_aes)
   }
 )

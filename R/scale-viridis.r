@@ -5,11 +5,12 @@
 #' with common forms of colour blindness. See also
 #' <https://bids.github.io/colormap/>.
 #'
-#' @inheritParams viridisLite::viridis
+#' @inheritParams scales::viridis_pal
 #' @inheritParams scales::gradient_n_pal
 #' @inheritParams continuous_scale
-#' @param ... Other arguments passed on to [discrete_scale()] or
-#' [continuous_scale()] to control name, limits, breaks, labels and so forth.
+#' @param ... Other arguments passed on to [discrete_scale()],
+#' [continuous_scale()], or [binned_scale] to control name, limits, breaks,
+#'   labels and so forth.
 #' @param aesthetics Character string or vector of character strings listing the
 #'   name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 #'   example, to apply colour settings to the `colour` and `fill` aesthetics at the
@@ -50,6 +51,10 @@
 #'   geom_tile(aes(waiting, eruptions, fill = density)))
 #' v + scale_fill_viridis_c()
 #' v + scale_fill_viridis_c(option = "plasma")
+#'
+#' # Use viridis_b to bin continuous data before mapping
+#' v + scale_fill_viridis_b()
+#'
 scale_colour_viridis_d <- function(..., alpha = 1, begin = 0, end = 1,
                                    direction = 1, option = "D", aesthetics = "colour") {
   discrete_scale(
@@ -101,6 +106,46 @@ scale_fill_viridis_c <- function(..., alpha = 1, begin = 0, end = 1,
   continuous_scale(
     aesthetics,
     "viridis_c",
+    gradient_n_pal(
+      viridis_pal(alpha, begin, end, direction, option)(6),
+      values,
+      space
+    ),
+    na.value = na.value,
+    guide = guide,
+    ...
+  )
+}
+
+#' @export
+#' @rdname scale_viridis
+scale_colour_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
+                                   direction = 1, option = "D", values = NULL,
+                                   space = "Lab", na.value = "grey50",
+                                   guide = "coloursteps", aesthetics = "colour") {
+  binned_scale(
+    aesthetics,
+    "viridis_b",
+    gradient_n_pal(
+      viridis_pal(alpha, begin, end, direction, option)(6),
+      values,
+      space
+    ),
+    na.value = na.value,
+    guide = guide,
+    ...
+  )
+}
+
+#' @export
+#' @rdname scale_viridis
+scale_fill_viridis_b <- function(..., alpha = 1, begin = 0, end = 1,
+                                 direction = 1, option = "D", values = NULL,
+                                 space = "Lab", na.value = "grey50",
+                                 guide = "coloursteps", aesthetics = "fill") {
+  binned_scale(
+    aesthetics,
+    "viridis_b",
     gradient_n_pal(
       viridis_pal(alpha, begin, end, direction, option)(6),
       values,

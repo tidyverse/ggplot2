@@ -15,7 +15,7 @@
 #'   - A `coord` overrides the current coordinate system.
 #'   - A `facet` specification overrides the current faceting.
 #'
-#' To replace the current default data frame, you must use \code{\%+\%},
+#' To replace the current default data frame, you must use `%+%`,
 #' due to S3 method precedence issues.
 #'
 #' You can also supply a list, in which case each element of the list will
@@ -39,9 +39,7 @@
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
 "+.gg" <- function(e1, e2) {
   if (missing(e2)) {
-    stop("Cannot use `+.gg()` with a single argument. ",
-         "Did you accidentally put + on a new line?",
-         call. = FALSE)
+    abort("Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?")
   }
 
   # Get the name of what was passed in as e2, and pass along so that it
@@ -51,9 +49,7 @@
   if      (is.theme(e1))  add_theme(e1, e2, e2name)
   else if (is.ggplot(e1)) add_ggplot(e1, e2, e2name)
   else if (is.ggproto(e1)) {
-    stop("Cannot add ggproto objects together.",
-         " Did you forget to add this object to a ggplot object?",
-         call. = FALSE)
+    abort("Cannot add ggproto objects together. Did you forget to add this object to a ggplot object?")
   }
 }
 
@@ -88,7 +84,7 @@ ggplot_add <- function(object, plot, object_name) {
 }
 #' @export
 ggplot_add.default <- function(object, plot, object_name) {
-  stop("Don't know how to add ", object_name, " to a plot", call. = FALSE)
+  abort(glue("Can't add `{object_name}` to a ggplot object."))
 }
 #' @export
 ggplot_add.NULL <- function(object, plot, object_name) {
@@ -100,8 +96,15 @@ ggplot_add.data.frame <- function(object, plot, object_name) {
   plot
 }
 #' @export
+ggplot_add.function <- function(object, plot, object_name) {
+  abort(glue(
+    "Can't add `{object_name}` to a ggplot object.\n",
+    "Did you forget to add parentheses, as in `{object_name}()`?"
+  ))
+}
+#' @export
 ggplot_add.theme <- function(object, plot, object_name) {
-  plot$theme <- update_theme(plot$theme, object)
+  plot$theme <- add_theme(plot$theme, object)
   plot
 }
 #' @export
@@ -123,7 +126,7 @@ ggplot_add.uneval <- function(object, plot, object_name) {
   # defaults() doesn't copy class, so copy it.
   class(plot$mapping) <- class(object)
 
-  labels <- lapply(object, function(x) if (is.null(x)) x else rlang::quo_name(x))
+  labels <- make_labels(object)
   names(labels) <- names(object)
   update_labels(plot, labels)
 }
@@ -151,6 +154,11 @@ ggplot_add.list <- function(object, plot, object_name) {
   }
   plot
 }
+#' @export
+ggplot_add.by <- function(object, plot, object_name) {
+  ggplot_add.list(object, plot, object_name)
+}
+
 #' @export
 ggplot_add.Layer <- function(object, plot, object_name) {
   plot$layers <- append(plot$layers, object)

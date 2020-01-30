@@ -2,6 +2,45 @@
 #'
 #' These functions provide summarised information about built ggplot objects.
 #'
+#' There are three types of summary that can be obtained: A summary of the plot layout,
+#' a summary of the plot coord, and a summary of plot layers.
+#'
+#' @section Layout summary:
+#'
+#' The function `summarise_layout()` returns a table that provides information about
+#' the plot panel(s) in the built plot. The table has the following columns:
+#'
+#' \describe{
+#'   \item{`panel`}{A factor indicating the individual plot panels.}
+#'   \item{`row`}{Row number in the grid of panels.}
+#'   \item{`col`}{Column number in the grid of panels.}
+#'   \item{`vars`}{A list of lists. For each panel, the respective list
+#'     provides the variables and their values that specify the panel.}
+#'   \item{`xmin`, `xmax`}{The minimum and maximum values of the variable mapped to
+#'     the x aesthetic, in transformed coordinates.}
+#'   \item{`ymin`, `ymax`}{The minimum and maximum values of the variable mapped to
+#'     the y aesthetic, in transformed coordinates.}
+#'   \item{`xscale`}{The scale object applied to the x aesthetic.}
+#'   \item{`yscale`}{The scale object applied to the y aesthetic.}
+#' }
+#'
+#' Importantly, the values for `xmin`, `xmax`, `ymin`, `ymax`, `xscale`, and `yscale`
+#' are determined by the variables that are mapped to `x` and `y` in the `aes()` call.
+#' So even if a coord changes how x and y are shown in the final plot (as is the case
+#' for `coord_flip()` or `coord_polar()`), these changes have no effect on the results
+#' returned by `summarise_plot()`.
+#'
+#' @section Coord summary:
+#'
+#' The function `summarise_coord()` returns information about the log base for
+#' coordinates that are log-transformed in `coord_trans()`, and it also indicates
+#' whether the coord has flipped the x and y axes.
+#'
+#' @section Layer summary:
+#'
+#' The function `summarise_layers()` returns a table with a single column, `mapping`, which
+#' contains information about aesthetic mapping for each layer.
+#'
 #' @param p A ggplot_built object.
 #'
 #' @examples
@@ -12,13 +51,15 @@
 #' summarise_coord(b)
 #' summarise_layers(b)
 #'
+#' @keywords internal
+#'
 #' @name summarise_plot
 NULL
 
 #' @rdname summarise_plot
 #' @export
 summarise_layout = function(p) {
-  stopifnot(inherits(p, "ggplot_built"))
+  if (!inherits(p, "ggplot_built")) abort("`p` must be a ggplot_build object")
   l <- p$layout
 
   layout <- l$layout
@@ -55,7 +96,7 @@ summarise_layout = function(p) {
 #' @rdname summarise_plot
 #' @export
 summarise_coord = function(p) {
-  stopifnot(inherits(p, "ggplot_built"))
+  if (!inherits(p, "ggplot_built")) abort("`p` must be a ggplot_build object")
 
   # Given a transform object, find the log base; if the transform object is
   # NULL, or if it's not a log transform, return NA.
@@ -78,7 +119,7 @@ summarise_coord = function(p) {
 #' @rdname summarise_plot
 #' @export
 summarise_layers <- function(p) {
-  stopifnot(inherits(p, "ggplot_built"))
+  if (!inherits(p, "ggplot_built")) abort("`p` must be a ggplot_build object")
 
   # Default mappings. Make sure it's a regular list instead of an uneval
   # object.

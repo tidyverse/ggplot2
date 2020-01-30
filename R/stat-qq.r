@@ -79,7 +79,7 @@ stat_qq <- geom_qq
 #' @usage NULL
 #' @export
 StatQq <- ggproto("StatQq", Stat,
-  default_aes = aes(y = stat(sample), x = stat(theoretical)),
+  default_aes = aes(y = after_stat(sample), x = after_stat(theoretical)),
 
   required_aes = c("sample"),
 
@@ -93,12 +93,12 @@ StatQq <- ggproto("StatQq", Stat,
     # Compute theoretical quantiles
     if (is.null(quantiles)) {
       quantiles <- stats::ppoints(n)
-    } else {
-      stopifnot(length(quantiles) == n)
+    } else if (length(quantiles) != n) {
+      abort("length of quantiles must match length of data")
     }
 
     theoretical <- do.call(distribution, c(list(p = quote(quantiles)), dparams))
 
-    data.frame(sample, theoretical)
+    new_data_frame(list(sample = sample, theoretical = theoretical))
   }
 )

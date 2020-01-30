@@ -6,18 +6,43 @@
 \alias{geom_tile}
 \title{Rectangles}
 \usage{
-geom_raster(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., hjust = 0.5, vjust = 0.5,
-  interpolate = FALSE, na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_raster(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  hjust = 0.5,
+  vjust = 0.5,
+  interpolate = FALSE,
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_rect(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_rect(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  linejoin = "mitre",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 
-geom_tile(mapping = NULL, data = NULL, stat = "identity",
-  position = "identity", ..., na.rm = FALSE, show.legend = NA,
-  inherit.aes = TRUE)
+geom_tile(
+  mapping = NULL,
+  data = NULL,
+  stat = "identity",
+  position = "identity",
+  ...,
+  linejoin = "mitre",
+  na.rm = FALSE,
+  show.legend = NA,
+  inherit.aes = TRUE
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[=aes]{aes()}} or
@@ -37,7 +62,8 @@ data. All objects will be fortified to produce a data frame. See
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
-will be used as the layer data.}
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{stat}{The statistical transformation to use on the data for this
 layer, as a string.}
@@ -70,6 +96,8 @@ display.}
 rather than combining with them. This is most useful for helper functions
 that define both data and aesthetics and shouldn't inherit behaviour from
 the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
+
+\item{linejoin}{Line join style (round, mitre, bevel).}
 }
 \description{
 \code{geom_rect} and \code{geom_tile} do the same thing, but are
@@ -134,10 +162,10 @@ ggplot(df, aes(x, y, fill = z)) + geom_raster(hjust = 0, vjust = 0)
 # Inspired by the image-density plots of Ken Knoblauch
 cars <- ggplot(mtcars, aes(mpg, factor(cyl)))
 cars + geom_point()
-cars + stat_bin2d(aes(fill = stat(count)), binwidth = c(3,1))
-cars + stat_bin2d(aes(fill = stat(density)), binwidth = c(3,1))
+cars + stat_bin2d(aes(fill = after_stat(count)), binwidth = c(3,1))
+cars + stat_bin2d(aes(fill = after_stat(density)), binwidth = c(3,1))
 
-cars + stat_density(aes(fill = stat(density)), geom = "raster", position = "identity")
-cars + stat_density(aes(fill = stat(count)), geom = "raster", position = "identity")
+cars + stat_density(aes(fill = after_stat(density)), geom = "raster", position = "identity")
+cars + stat_density(aes(fill = after_stat(count)), geom = "raster", position = "identity")
 }
 }

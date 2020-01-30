@@ -18,8 +18,8 @@ geom_raster <- function(mapping = NULL, data = NULL,
                         show.legend = NA,
                         inherit.aes = TRUE)
 {
-  stopifnot(is.numeric(hjust), length(hjust) == 1)
-  stopifnot(is.numeric(vjust), length(vjust) == 1)
+  if (!(is.numeric(hjust) && length(hjust) == 1)) abort("`hjust` must be a numeric scalar")
+  if (!(is.numeric(vjust) && length(vjust) == 1)) abort("`vjust` must be a numeric scalar")
 
   layer(
     data = data,
@@ -48,15 +48,32 @@ GeomRaster <- ggproto("GeomRaster", Geom,
     fill = from_theme("fill"),
     alpha = NA
   ),
-  non_missing_aes = "fill",
+  non_missing_aes = c("fill", "xmin", "xmax", "ymin", "ymax"),
   required_aes = c("x", "y"),
 
   setup_data = function(data, params) {
+    precision <- sqrt(.Machine$double.eps)
     hjust <- params$hjust %||% 0.5
     vjust <- params$vjust %||% 0.5
 
-    w <- resolution(data$x, FALSE)
-    h <- resolution(data$y, FALSE)
+    x_diff <- diff(sort(unique(as.numeric(data$x))))
+    if (length(x_diff) == 0) {
+      w <- 1
+    } else if (any(abs(diff(x_diff)) > precision)) {
+      warn("Raster pixels are placed at uneven horizontal intervals and will be shifted. Consider using geom_tile() instead.")
+      w <- min(x_diff)
+    } else {
+      w <- x_diff[1]
+    }
+    y_diff <- diff(sort(unique(as.numeric(data$y))))
+    if (length(y_diff) == 0) {
+      h <- 1
+    } else if (any(abs(diff(y_diff)) > precision)) {
+      warn("Raster pixels are placed at uneven vertical intervals and will be shifted. Consider using geom_tile() instead.")
+      h <- min(y_diff)
+    } else {
+      h <- y_diff[1]
+    }
 
     data$xmin <- data$x - w * (1 - hjust)
     data$xmax <- data$x + w * hjust
@@ -68,7 +85,7 @@ GeomRaster <- ggproto("GeomRaster", Geom,
   draw_panel = function(data, panel_params, coord, interpolate = FALSE,
                           hjust = 0.5, vjust = 0.5) {
     if (!inherits(coord, "CoordCartesian")) {
-      stop("geom_raster only works with Cartesian coordinates", call. = FALSE)
+      abort("geom_raster only works with Cartesian coordinates")
     }
     data <- coord$transform(data, panel_params)
 

@@ -26,7 +26,7 @@ test_that("munch_data works", {
         expect_equal(nrow(merge(md, dat)), nrow(dat))
         expect_true(nrow(md) >= nrow(dat))
     }
-    dat <- data.frame(x =     c(0,  60, 30, 20, 40, 45),
+    dat <- data_frame(x =     c(0,  60, 30, 20, 40, 45),
                       y =     c(1,  1,  2,  2,  2,  2),
                       group = c(1L, 1L, 1L, 2L, 2L, 2L))
     dist <- dist_euclidean(dat$x, dat$y)

@@ -30,7 +30,7 @@ Layout <- ggproto("Layout", NULL,
   panel_scales_y = NULL,
   panel_params = NULL,
 
-  setup = function(self, data, plot_data = data.frame(), plot_env = emptyenv()) {
+  setup = function(self, data, plot_data = new_data_frame(), plot_env = emptyenv()) {
     data <- c(list(plot_data), data)
 
     # Setup facets
@@ -104,10 +104,13 @@ Layout <- ggproto("Layout", NULL,
     )
 
     # Draw individual labels, then add to gtable
-    labels <- self$coord$labels(list(
-      x = self$xlabel(labels),
-      y = self$ylabel(labels)
-    ))
+    labels <- self$coord$labels(
+      list(
+        x = self$xlabel(labels),
+        y = self$ylabel(labels)
+      ),
+      self$panel_params[[1]]
+    )
     labels <- self$render_labels(labels, theme)
     self$facet$draw_labels(
       plot_table,
@@ -209,6 +212,25 @@ Layout <- ggproto("Layout", NULL,
     invisible()
   },
 
+  setup_panel_guides = function(self, guides, layers, default_mapping) {
+    self$panel_params <- lapply(
+      self$panel_params,
+      self$coord$setup_panel_guides,
+      guides,
+      self$coord_params
+    )
+
+    self$panel_params <- lapply(
+      self$panel_params,
+      self$coord$train_panel_guides,
+      layers,
+      default_mapping,
+      self$coord_params
+    )
+
+    invisible()
+  },
+
   xlabel = function(self, labels) {
     primary <- self$panel_scales_x[[1]]$name %|W|% labels$x
     primary <- self$panel_scales_x[[1]]$make_title(primary)
@@ -270,18 +292,20 @@ scale_apply <- function(data, vars, method, scale_id, scales) {
   if (length(vars) == 0) return()
   if (nrow(data) == 0) return()
 
-  n <- length(scales)
-  if (any(is.na(scale_id))) stop()
+  if (any(is.na(scale_id))) {
+    abort("`scale_id` must not be `NA`")
+  }
 
-  scale_index <- plyr::split_indices(scale_id, n)
+  scale_index <- unname(split(
+    seq_along(scale_id),
+    factor(scale_id, levels = seq_along(scales))
+  ))
 
   lapply(vars, function(var) {
     pieces <- lapply(seq_along(scales), function(i) {
       scales[[i]][[method]](data[[var]][scale_index[[i]]])
     })
-    # Join pieces back together, if necessary
-    if (!is.null(pieces)) {
-      unlist(pieces)[order(unlist(scale_index))]
-    }
+    o <- order(unlist(scale_index))[seq_len(sum(lengths(pieces)))]
+    do.call("c", pieces)[o]
   })
 }

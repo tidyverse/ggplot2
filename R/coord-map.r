@@ -43,37 +43,59 @@
 #'
 #' # Plot it in cartesian coordinates
 #' nzmap
+#' }
+#'
+#' if (require("maps")) {
 #' # With correct mercator projection
 #' nzmap + coord_map()
+#' }
+#'
+#' if (require("maps")) {
 #' # With the aspect ratio approximation
 #' nzmap + coord_quickmap()
+#' }
 #'
+#' if (require("maps")) {
 #' # Other projections
-#' nzmap + coord_map("cylindrical")
 #' nzmap + coord_map("azequalarea", orientation = c(-36.92, 174.6, 0))
-#' nzmap + coord_map("lambert", parameters = c(-37, -44))
+#' }
 #'
+#' if (require("maps")) {
 #' states <- map_data("state")
 #' usamap <- ggplot(states, aes(long, lat, group = group)) +
 #'   geom_polygon(fill = "white", colour = "black")
 #'
 #' # Use cartesian coordinates
 #' usamap
+#' }
+#'
+#' if (require("maps")) {
 #' # With mercator projection
 #' usamap + coord_map()
-#' usamap + coord_quickmap()
+#' }
+#'
+#' if (require("maps")) {
 #' # See ?mapproject for coordinate systems and their parameters
 #' usamap + coord_map("gilbert")
-#' usamap + coord_map("lagrange")
+#' }
 #'
+#' if (require("maps")) {
 #' # For most projections, you'll need to set the orientation yourself
 #' # as the automatic selection done by mapproject is not available to
 #' # ggplot
 #' usamap + coord_map("orthographic")
-#' usamap + coord_map("stereographic")
-#' usamap + coord_map("conic", lat0 = 30)
-#' usamap + coord_map("bonne", lat0 = 50)
+#' }
 #'
+#' if (require("maps")) {
+#' usamap + coord_map("conic", lat0 = 30)
+#' }
+#'
+#' if (require("maps")) {
+#' usamap + coord_map("bonne", lat0 = 50)
+#' }
+#'
+#' \dontrun{
+#' if (require("maps")) {
 #' # World map, using geom_path instead of geom_polygon
 #' world <- map_data("world")
 #' worldmap <- ggplot(world, aes(x = long, y = lat, group = group)) +
@@ -83,10 +105,17 @@
 #'
 #' # Orthographic projection with default orientation (looking down at North pole)
 #' worldmap + coord_map("ortho")
+#' }
+#'
+#' if (require("maps")) {
 #' # Looking up up at South Pole
 #' worldmap + coord_map("ortho", orientation = c(-90, 0, 0))
+#' }
+#'
+#' if (require("maps")) {
 #' # Centered on New York (currently has issues with closing polygons)
 #' worldmap + coord_map("ortho", orientation = c(41, -74, 0))
+#' }
 #' }
 coord_map <- function(projection="mercator", ..., parameters = NULL, orientation = NULL, xlim = NULL, ylim = NULL, clip = "on") {
   if (is.null(parameters)) {
@@ -116,11 +145,23 @@ CoordMap <- ggproto("CoordMap", Coord,
 
     out$x <- rescale(out$x, 0:1, panel_params$x.proj)
     out$y <- rescale(out$y, 0:1, panel_params$y.proj)
+    # mproject() converts Inf to NA, so we need to restore them from data.
+    out$x[is.infinite(data$x)] <- squish_infinite(data$x)
+    out$y[is.infinite(data$y)] <- squish_infinite(data$y)
+
     out
   },
 
-  range = function(panel_params) {
+  backtransform_range = function(panel_params) {
     # range is stored in data coordinates and doesn't have to be back-transformed
+    list(x = panel_params$x.range, y = panel_params$y.range)
+  },
+
+  range = function(panel_params) {
+    # Range in projected coordinates:
+    #   list(x = panel_params$x.proj, y = panel_params$y.proj)
+    # However, coord_map() does never really work with transformed coordinates,
+    # so return unprojected data coordinates here
     list(x = panel_params$x.range, y = panel_params$y.range)
   },
 
@@ -140,12 +181,7 @@ CoordMap <- ggproto("CoordMap", Coord,
     for (n in c("x", "y")) {
       scale <- get(paste0("scale_", n))
       limits <- self$limits[[n]]
-
-      if (is.null(limits)) {
-        range <- scale$dimension(expand_default(scale))
-      } else {
-        range <- range(scale$transform(limits))
-      }
+      range <- expand_limits_scale(scale, default_expansion(scale), coord_limits = limits)
       ranges[[n]] <- range
     }
 
@@ -177,7 +213,8 @@ CoordMap <- ggproto("CoordMap", Coord,
       x.range = ret$x$range, y.range = ret$y$range,
       x.proj = ret$x$proj, y.proj = ret$y$proj,
       x.major = ret$x$major, x.minor = ret$x$minor, x.labels = ret$x$labels,
-      y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels
+      y.major = ret$y$major, y.minor = ret$y$minor, y.labels = ret$y$labels,
+      x.arrange = scale_x$axis_order(), y.arrange = scale_y$axis_order()
     )
     details
   },
@@ -231,7 +268,7 @@ CoordMap <- ggproto("CoordMap", Coord,
   },
 
   render_axis_h = function(self, panel_params, theme) {
-    arrange <- panel_params$x.arrange %||% c("primary", "secondary")
+    arrange <- panel_params$x.arrange %||% c("secondary", "primary")
 
     if (is.null(panel_params$x.major)) {
       return(list(
@@ -240,15 +277,15 @@ CoordMap <- ggproto("CoordMap", Coord,
       ))
     }
 
-    x_intercept <- with(panel_params, data.frame(
+    x_intercept <- with(panel_params, new_data_frame(list(
       x = x.major,
       y = y.range[1]
-    ))
+    ), n = length(x.major)))
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
-      bottom = guide_axis(pos$x, panel_params$x.labels, "bottom", theme),
-      top = guide_axis(pos$x, panel_params$x.labels, "top", theme)
+      top = draw_axis(pos$x, panel_params$x.labels, "top", theme),
+      bottom = draw_axis(pos$x, panel_params$x.labels, "bottom", theme)
     )
     axes[[which(arrange == "secondary")]] <- zeroGrob()
     axes
@@ -264,15 +301,15 @@ CoordMap <- ggproto("CoordMap", Coord,
       ))
     }
 
-    x_intercept <- with(panel_params, data.frame(
+    x_intercept <- with(panel_params, new_data_frame(list(
       x = x.range[1],
       y = y.major
-    ))
+    ), n = length(y.major)))
     pos <- self$transform(x_intercept, panel_params)
 
     axes <- list(
-      left = guide_axis(pos$y, panel_params$y.labels, "left", theme),
-      right = guide_axis(pos$y, panel_params$y.labels, "right", theme)
+      left = draw_axis(pos$y, panel_params$y.labels, "left", theme),
+      right = draw_axis(pos$y, panel_params$y.labels, "right", theme)
     )
     axes[[which(arrange == "secondary")]] <- zeroGrob()
     axes
