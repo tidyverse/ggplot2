@@ -14,7 +14,7 @@
 #'   range of that group: this typically means the estimated x values will
 #'   not line-up, and hence you won't be able to stack density values.
 #'   This parameter only matters if you are displaying multiple densities in
-#'   one plot or if you are manually adjusting the limits.
+#'   one plot or if you are manually adjusting the scale limits.
 #' @section Computed variables:
 #' \describe{
 #'   \item{density}{density estimate}
