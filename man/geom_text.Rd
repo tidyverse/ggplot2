@@ -124,7 +124,7 @@ To add labels at specified points use \code{\link[=annotate]{annotate()}} with
 \code{annotate(geom = "text", ...)} or \code{annotate(geom = "label", ...)}.
 
 To automatically position non-overlapping text labels see the
-\link[https://cran.r-project.org/package=ggrepel]{ggrepel}
+\href{https://cran.r-project.org/package=ggrepel}{ggrepel}
 package.
 }
 \section{Aesthetics}{

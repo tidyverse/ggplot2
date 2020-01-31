@@ -20,7 +20,7 @@
 #' `annotate(geom = "text", ...)` or `annotate(geom = "label", ...)`.
 #'
 #' To automatically position non-overlapping text labels see the
-#' \link[https://cran.r-project.org/package=ggrepel]{ggrepel}
+#' \href{https://cran.r-project.org/package=ggrepel}{ggrepel}
 #' package.
 #'
 #' @eval rd_aesthetics("geom", "text")
