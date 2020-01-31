@@ -17,6 +17,10 @@
 #' one change at a time. You may need to look at a few options to uncover
 #' the full story behind your data.
 #'
+#' In addition to `geom_histogram`, you can create a histogram plot by using
+#' `scale_x_binned()` with [geom_bar()]. This method by default plots tick marks
+#' in between each bar.  .
+#'
 #' @eval rd_orientation()
 #'
 #' @section Aesthetics:
@@ -38,6 +42,12 @@
 #' # Map values to y to flip the orientation
 #' ggplot(diamonds, aes(y = carat)) +
 #'   geom_histogram()
+#'
+#' # For histograms with tick marks between each bin, use `geom_bar` with
+#' # `scale_x_binned`.
+#' ggplot(diamonds, aes(carat)) +
+#'   geom_bar() +
+#'   scale_x_binned()
 #'
 #' # Rather than stacking histograms, it's easier to compare frequency
 #' # polygons
