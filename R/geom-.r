@@ -111,7 +111,7 @@ Geom <- ggproto("Geom",
   # evaluate defaults according to theme
   eval_defaults = function(self, theme) {
 
-    if (length(theme) == 0) theme <- theme_grey()
+    if (length(theme) == 0) theme <- theme_get()
 
     from_theme <- function(aes, element = "geom") {
       theme[[element]][[aes]]
