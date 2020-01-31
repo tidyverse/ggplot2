@@ -198,13 +198,17 @@ will be replaced with <code>NA</code>.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>A name-value pair. The name must be an aesthetic, and the value
-must be either a length-2 numeric, a character, a factor, or a date/time.</p>
-<p>A numeric value will create a continuous scale. If the larger value
-comes first, the scale will be reversed. You can leave one value as
-<code>NA</code> to compute from the range of the data.</p>
-<p>A character or factor value will create a discrete scale.</p>
-<p>A date-time value will create a continuous date/time scale.</p></td>
+      <td><p>For <code>xlim()</code> and <code>ylim()</code>: Two numeric values, specifying the left/lower
+limit and the right/upper limit of the scale. If the larger value is given first,
+the scale will be reversed. You can leave one value as <code>NA</code> if you want to compute
+the corresponding limit from the range of the data.</p>
+<p>For <code>lims()</code>: A name--value pair. The name must be an aesthetic, and the value
+must be either a length-2 numeric, a character, a factor, or a date/time.
+A numeric value will create a continuous scale. If the larger value comes first,
+the scale will be reversed. You can leave one value as <code>NA</code> if you want
+to compute the corresponding limit from the range of the data.
+A character or factor value will create a discrete scale.
+A date-time value will create a continuous date/time scale.</p></td>
     </tr>
     </table>
 
