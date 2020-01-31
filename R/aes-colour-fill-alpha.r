@@ -1,7 +1,48 @@
 #' Colour related aesthetics: colour, fill and alpha
 #'
-#' This page demonstrates the usage of a sub-group
-#' of aesthetics: colour, fill and alpha.
+#' These aesthetics parameters change the colour (`colour` and `fill`) and the
+#' opacity (`alpha`) of geom elements on a plot. Almost every geom has either
+#' colour or fill (or both), as well as can have their alpha modified.
+#' Modifying colour on a plot is useful way to enhance the presentation of data,
+#' often especially when a plot graphs more than two variables.
+#'
+#' @section Colour and fill:
+#'
+#' Colours and fills can be specified in the following ways:
+#' * A name, e.g., "red". R has 657 built-in named colours, which can be
+#' listed with colours().
+#' * An rgb specification, with a string of the form "#RRGGBB" where each of the
+#' pairs RR, GG, BB consists of two hexadecimal digits giving a value in the
+#' range 00 to FF. You can optionally make the colour transparent by using the
+#' form "#RRGGBBAA".
+#' * An NA, for a completely transparent colour.
+#'
+#' @section Alpha:
+#'
+#' Alpha refers to the opacity of a geom. Values of alpha range from 0 to 1,
+#' with lower values reflecting more transparent objects.
+#'
+#' Alpha can additionally be modified through the `colour` or `fill` if either
+#' aesthetic is modified using an rgb specification ("#RRGGBBAA"), where "A"
+#' refers to transparency values.
+#'
+#'
+#' @seealso * Other options for modifying colour:
+#' [scale_colour_brewer()], [scale_colour_distiller()],
+#' [scale_colour_continuous()], [scale_colour_gradient()],
+#' [scale_colour_gradient2()], [scale_colour_gradientn()],
+#' [scale_colour_grey()], [scale_colour_hue()], [scale_colour_identity()],
+#' [scale_colour_manual()], [scale_colour_viridis_d()]
+#' * Other options for modifying fill:
+#' [scale_fill_brewer()], [scale_fill_distiller()],
+#' [scale_fill_continuous()], [scale_fill_gradient()],
+#' [scale_fill_gradient2()], [scale_fill_gradientn()],
+#' [scale_fill_grey()], [scale_fill_hue()], [scale_fill_identity()],
+#' [scale_fill_manual()]
+#' * Other options for modifying alpha: [scale_alpha()]
+#' * [vignette("ggplot-specs")] provides an overview of other aesthestics that
+#' can be modified
+#'
 #'
 #' @name aes_colour_fill_alpha
 #' @aliases colour color fill
