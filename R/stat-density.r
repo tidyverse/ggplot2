@@ -9,12 +9,7 @@
 #' @param n number of equally spaced points at which the density is to be
 #'   estimated, should be a power of two, see [density()] for
 #'   details
-#' @param trim This parameter only matters if you are displaying multiple
-#'   densities in one plot. If `FALSE`, the default, each density is
-#'   computed on the full range of the data. If `TRUE`, each density
-#'   is computed over the range of that group: this typically means the
-#'   estimated x values will not line-up, and hence you won't be able to
-#'   stack density values.
+#' @param trim if TRUE, the default, densities are trimmed to the actual range of the data. If FALSE, the default, they are extended by the default 3 bandwidths (as specified by the cut parameter to densit
 #' @section Computed variables:
 #' \describe{
 #'   \item{density}{density estimate}
