@@ -7,6 +7,7 @@
 annotation_logticks(
   base = 10,
   sides = "bl",
+  outside = FALSE,
   scaled = TRUE,
   short = unit(0.1, "cm"),
   mid = unit(0.2, "cm"),
@@ -25,6 +26,8 @@ annotation_logticks(
 \item{sides}{a string that controls which sides of the plot the log ticks appear on.
 It can be set to a string containing any of \code{"trbl"}, for top, right,
 bottom, and left.}
+
+\item{outside}{logical that controls whether to move the log ticks outside of the plot area. Default is off (FALSE). You will also need to use \code{coord_cartesian(clip = "off")}. See examples.}
 
 \item{scaled}{is the data already log-scaled? This should be \code{TRUE}
 (default) when the data is already transformed with \code{log10()} or when
@@ -73,6 +76,8 @@ a <- ggplot(msleep, aes(bodywt, brainwt)) +
 a + annotation_logticks()                # Default: log ticks on bottom and left
 a + annotation_logticks(sides = "lr")    # Log ticks for y, on left and right
 a + annotation_logticks(sides = "trbl")  # All four sides
+
+#' a + annotation_logticks(sides = "lr", outside = TRUE)  # Ticks outside plot
 
 # Hide the minor grid lines because they don't align with the ticks
 a + annotation_logticks(sides = "trbl") + theme(panel.grid.minor = element_blank())
