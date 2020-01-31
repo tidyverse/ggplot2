@@ -114,12 +114,12 @@ uses \code{stat_identity()}: it leaves the data as is.
 A bar chart uses height to represent a value, and so the base of the
 bar must always be shown to produce a valid visual comparison.
 Proceed with caution when using transformed scales with a bar chart.
-It's important to always use a meaningful reference point. For example, for log
-transformations the reference point is 1. In fact, \code{geom_bar()} automatically
-makes bars start at 1 when using a log scale. Furthermore, never use stacked
-bars with a transformed scale, because scaling happens before stacking. As a
-consequence, the height of bars will be wrong when stacking occurs with a
-transformed scale.
+It's important to always use a meaningful reference point for the base of the bar.
+For example, for log transformations the reference point is 1. In fact, when
+using a log scale, \code{geom_bar()} automatically places the base of the bar at 1.
+Furthermore, never use stacked bars with a transformed scale, because scaling
+happens before stacking. As a consequence, the height of bars will be wrong
+when stacking occurs with a transformed scale.
 
 By default, multiple bars occupying the same \code{x} position will be stacked
 atop one another by \code{\link[=position_stack]{position_stack()}}. If you want them to be dodged
