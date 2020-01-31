@@ -349,7 +349,7 @@ Layer <- ggproto("Layer", NULL,
     if (empty(data)) return(data)
 
     # evaluate defaults for theme
-    defaults <- self$geom$eval_defaults(theme = plot$theme)
+    defaults <- self$geom$eval_defaults(theme = plot_theme(plot))
     aesthetics <- self$mapping
     modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
