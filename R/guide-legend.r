@@ -262,9 +262,9 @@ guide_geom.legend <- function(guide, layers, default_mapping, theme) {
       modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
       defaults <- layer$geom$eval_defaults(theme = theme)
 
-      data <- layer$geom$use_defaults(guide$key[matched], params, modifiers)
+      data <- layer$geom$use_defaults(guide$key[matched], defaults = defaults, params, modifiers)
     } else {
-      data <- layer$geom$use_defaults(NULL, layer$aes_params)[rep(1, nrow(guide$key)), ]
+      data <- layer$geom$use_defaults(NULL, defaults = defaults, layer$aes_params)[rep(1, nrow(guide$key)), ]
     }
 
     # override.aes in guide_legend manually changes the geom
