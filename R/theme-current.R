@@ -62,7 +62,7 @@ NULL
 #' p
 #'
 #' theme_set(old)
-#' theme_replace(axis.title = element_text(color = "red"))
+#' theme_replace(panel.grid.major.y = element_line(colour = "red"))
 #' p
 #'
 #' theme_set(old)
