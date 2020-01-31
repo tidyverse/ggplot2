@@ -53,12 +53,16 @@ NULL). Thus this operator can be used to overwrite an entire theme.
 theme element will default to the values they are set in the theme.
 \code{theme_replace} uses \verb{\%+replace\%} to completely replace the element, so any
 unspecified values will overwrite the current value in the theme with
-\code{NULL}s.
+\code{NULL}.
 
-The main difference between \code{theme_set()} and \code{theme_update()} is:
+In summary, the main differences between \code{theme_set()}, \code{theme_update()},
+and \code{theme_replace()} are:
 \itemize{
 \item \code{theme_set()} completely overrides the current theme.
-\item \code{theme_update()} modifies a particular element of the current theme.
+\item \code{theme_update()} modifies a particular element of the current theme
+using the \code{+} operator.
+\item \code{theme_replace()} modifies a particular element of the current theme
+using the \verb{\%+replace\%} operator.
 }
 }
 
@@ -68,11 +72,23 @@ p <- ggplot(mtcars, aes(mpg, wt)) +
 p
 
 # Use theme_set() to completely override the current theme.
+# theme_update() and theme_replace() are similar except they
+# apply directly to the current/active theme.
+# theme_update() modifies a particular element of the current theme.
 # Here we have the old theme so we can later restore it.
 # Note that the theme is applied when the plot is drawn, not
 # when it is created.
 old <- theme_set(theme_bw())
 p
+
+theme_set(old)
+theme_update(panel.grid.major.y = element_line(colour = "gray"))
+p
+
+theme_set(old)
+theme_replace(axis.title = element_text(color = "red"))
+p
+
 theme_set(old)
 p
 
@@ -90,16 +106,6 @@ rep_el <- theme_grey() \%+replace\%
   theme(text = element_text(family = "Times"))
 rep_el$text
 
-# theme_update() and theme_replace() are similar except they
-# apply directly to the current/active theme.
-
-# `theme_set()` completely overrides the current theme.
-# `theme_update()` modifies a particular element of the current theme.
-theme_set(theme_classic())
-p
-
-theme_update(panel.grid.major.y = element_line(colour = "gray"))
-p
 }
 \seealso{
 \code{\link[=+.gg]{+.gg()}}
