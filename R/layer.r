@@ -353,7 +353,7 @@ Layer <- ggproto("Layer", NULL,
     aesthetics <- self$mapping
     modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
 
-    self$geom$use_defaults(data, self$aes_params, modifiers)
+    self$geom$use_defaults(data, defaults = defaults, self$aes_params, modifiers)
   },
 
   finish_statistics = function(self, data) {
