@@ -4,11 +4,18 @@
 #' individual scales. Note that, by default, any values outside the limits
 #' will be replaced with `NA`.
 #'
-#' @param ... For `xlim` and `ylim`: Two numeric values, specifying the left/lower limit and the right/upper limit of the scale. If the larger value comes first, the scale will be reversed. You can leave one value as NA to compute from the range of the data.
-#'For `lims`: A name-value pair. The name must be an aesthetic, and the value must be either a length-2 numeric, a character, a factor, or a date/time.
-#'A numeric value will create a continuous scale. If the larger value comes first, the scale will be reversed. You can leave one value as NA to compute from the range of the data.
-#'A character or factor value will create a discrete scale.
-#'A date-time value will create a continuous date/time scale.
+#' @param ... For `xlim()` and `ylim()`: Two numeric values, specifying the left/lower
+#'  limit and the right/upper limit of the scale. If the larger value is given first,
+#'  the scale will be reversed. You can leave one value as `NA` if you want to compute
+#'  the corresponding limit from the range of the data.
+#'
+#'  For `lims()`: A name--value pair. The name must be an aesthetic, and the value
+#'  must be either a length-2 numeric, a character, a factor, or a date/time.
+#'  A numeric value will create a continuous scale. If the larger value comes first,
+#'  the scale will be reversed. You can leave one value as `NA` if you want
+#'  to compute the corresponding limit from the range of the data.
+#'  A character or factor value will create a discrete scale.
+#'  A date-time value will create a continuous date/time scale.
 #'
 #' @seealso For changing x or y axis limits \strong{without} dropping data
 #'   observations, see [coord_cartesian()]. To expand the range of
