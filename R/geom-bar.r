@@ -1,13 +1,16 @@
 #' Bar charts
 #'
-#' There are two types of bar charts: `geom_bar()` and `geom_col()`.
+#' Bar charts are most useful to compare frequency between elements
+#' of a variable.  There are two types of bar chart geoms: `geom_bar()` and `geom_col()`.
 #' `geom_bar()` makes the height of the
-#' bar proportional to the number of cases in each group (or if the
-#' `weight` aesthetic is supplied, the sum of the weights). If you want the
+#' bar proportional to the number of cases in each group by counting
+#'  the number of cases at each x position (or if the
+#' `weight` aesthetic is supplied, the sum of the weights). `geom_bar()`
+#' uses `stat_count()` by default.
+#' If you want the
 #' heights of the bars to represent values in the data, use
-#' `geom_col()` instead. `geom_bar()` uses `stat_count()` by
-#' default: it counts the number of cases at each x position. `geom_col()`
-#' uses `stat_identity()`: it leaves the data as is.
+#' `geom_col()` instead as it leaves the data as is. `geom_col()`
+#' uses `stat_identity()` by default.
 #'
 #' A bar chart uses height to represent a value, and so the base of the
 #' bar must always be shown to produce a valid visual comparison. This is why

@@ -102,14 +102,17 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \code{stat_count()}.}
 }
 \description{
-There are two types of bar charts: \code{geom_bar()} and \code{geom_col()}.
+Bar charts are most useful to compare frequency between elements
+of a variable.  There are two types of bar chart geoms: \code{geom_bar()} and \code{geom_col()}.
 \code{geom_bar()} makes the height of the
-bar proportional to the number of cases in each group (or if the
-\code{weight} aesthetic is supplied, the sum of the weights). If you want the
+bar proportional to the number of cases in each group by counting
+the number of cases at each x position (or if the
+\code{weight} aesthetic is supplied, the sum of the weights). \code{geom_bar()}
+uses \code{stat_count()} by default.
+If you want the
 heights of the bars to represent values in the data, use
-\code{geom_col()} instead. \code{geom_bar()} uses \code{stat_count()} by
-default: it counts the number of cases at each x position. \code{geom_col()}
-uses \code{stat_identity()}: it leaves the data as is.
+\code{geom_col()} instead as it leaves the data as is. \code{geom_col()}
+uses \code{stat_identity()} by default.
 }
 \details{
 A bar chart uses height to represent a value, and so the base of the
