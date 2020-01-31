@@ -99,16 +99,19 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 same layer will not be plotted.}
 }
 \description{
-\code{geom_text()} adds text directly to the plot. \code{geom_label()} draws
-a rectangle behind the text, making it easier to read.
+Text geoms are useful for labeling plots. They can be used by themselves as
+scatterplots or in cobination with other geoms, for example, for labeling
+points or for annotating the height of bars. \code{geom_text()} adds only text
+to the plot. \code{geom_label()} draws a rectangle behind the text, making it
+easier to read.
 }
 \details{
-Note that the "width" and "height" of a text element are 0, so stacking
-and dodging text will not work by default, and axis limits are not
-automatically expanded to include all text. Obviously, labels do have
-height and width, but they are physical units, not data units. The amount of
-space they occupy on the plot is not constant in data units: when you
-resize a plot, labels stay the same size, but the size of the axes changes.
+Note that when you resize a plot, text labels stay the same size, even
+though the size of the plot area changes. This happens because the "width"
+and "height" of a text element are 0. Obviously, text labels do have height and
+width, but they are physical units, not data units. For the same reason, stacking and
+dodging text will not work by default, and axis limits are not automatically
+expanded to include all text.
 
 \code{geom_text()} and \code{geom_label()} add labels for each row in the
 data, even if coordinates x, y are set to single values in the call
