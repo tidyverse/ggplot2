@@ -94,6 +94,7 @@ annotation_logticks <- function(base = 10, sides = "bl", outside = FALSE, scaled
     params = list(
       base = base,
       sides = sides,
+      outside = outside,
       scaled = scaled,
       short = short,
       mid = mid,
@@ -163,7 +164,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       if (grepl("t", sides)) {
         ticks$x_t <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
-          y0 = unit(1, "npc") - unit(xticks$start, "cm"), y1 = unit(1, "npc") + unit(xticks$end, "cm"),
+          y0 = unit(1, "npc") - unit(xticks$start, "cm"), y1 = unit(1, "npc") - unit(xticks$end, "cm"),
           gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
         ))
       }
