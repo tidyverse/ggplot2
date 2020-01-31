@@ -156,7 +156,7 @@ GeomLogticks <- ggproto("GeomLogticks", Geom,
       if (grepl("t", sides)) {
         ticks$x_t <- with(data, segmentsGrob(
           x0 = unit(xticks$x, "native"), x1 = unit(xticks$x, "native"),
-          y0 = unit(100, "npc") - unit(xticks$start, "cm"), y1 = unit(1, "npc") - unit(xticks$end, "cm"),
+          y0 = unit(1, "npc") - unit(-xticks$end, "cm"), y1 = unit(1, "npc") - unit(xticks$start, "cm"),
           gp = gpar(col = alpha(colour, alpha), lty = linetype, lwd = size * .pt)
         ))
       }
