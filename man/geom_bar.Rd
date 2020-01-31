@@ -75,8 +75,8 @@ to the paired geom/stat.}
 
 \item{width}{Bar width. By default, set to 90\% of the resolution of the data.}
 
-\item{binwidth}{\code{geom_bar()} no longer has a binwidth argument - if
-you use it you'll get an warning telling to you use
+\item{binwidth}{\code{geom_bar()} no longer has a binwidth argument---if
+you use it you'll get a warning telling to you use
 \code{\link[=geom_histogram]{geom_histogram()}} instead.}
 
 \item{na.rm}{If \code{FALSE}, the default, missing values are removed with
@@ -102,28 +102,30 @@ the default plot specification, e.g. \code{\link[=borders]{borders()}}.}
 \code{stat_count()}.}
 }
 \description{
-Bar charts are most useful to compare frequency between elements
-of a variable.  There are two types of bar chart geoms: \code{geom_bar()} and \code{geom_col()}.
-\code{geom_bar()} makes the height of the
-bar proportional to the number of cases in each group by counting
-the number of cases at each x position (or if the
-\code{weight} aesthetic is supplied, the sum of the weights). \code{geom_bar()}
-uses \code{stat_count()} by default.
-If you want the
-heights of the bars to represent values in the data, use
-\code{geom_col()} instead as it leaves the data as is. \code{geom_col()}
-uses \code{stat_identity()} by default.
+There are two types of bar charts: \code{geom_bar()} and \code{geom_col()}.
+\code{geom_bar()} makes the height of the bar proportional to the number of
+cases in each group (or if the \code{weight} aesthetic is supplied, the sum
+of the weights). If you want the heights of the bars to represent values
+in the data, use \code{geom_col()} instead. \code{geom_bar()} uses \code{stat_count()} by
+default: it counts the number of cases at each x position. \code{geom_col()}
+uses \code{stat_identity()}: it leaves the data as is.
 }
 \details{
 A bar chart uses height to represent a value, and so the base of the
-bar must always be shown to produce a valid visual comparison. This is why
-it doesn't make sense to use a log-scaled y axis with a bar chart.
+bar must always be shown to produce a valid visual comparison.
+Proceed with caution when using transformed scales with a bar chart.
+It's important to always use a meaningful reference point. For example, for log
+transformations the reference point is 1. In fact, \code{geom_bar()} automatically
+makes bars start at 1 when using a log scale. Furthermore, never use stacked
+bars with a transformed scale, because scaling happens before stacking. As a
+consequence, the height of bars will be wrong when stacking occurs with a
+transformed scale.
 
 By default, multiple bars occupying the same \code{x} position will be stacked
 atop one another by \code{\link[=position_stack]{position_stack()}}. If you want them to be dodged
 side-to-side, use \code{\link[=position_dodge]{position_dodge()}} or \code{\link[=position_dodge2]{position_dodge2()}}. Finally,
-\code{\link[=position_fill]{position_fill()}} shows relative proportions at each \code{x} by stacking the bars
-and then standardising each bar to have the same height.
+\code{\link[=position_fill]{position_fill()}} shows relative proportions at each \code{x} by stacking the
+bars and then standardising each bar to have the same height.
 }
 \section{Orientation}{
 
