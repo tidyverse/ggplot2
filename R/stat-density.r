@@ -10,7 +10,7 @@
 #'   estimated, should be a power of two, see [density()] for
 #'   details
 #' @param trim if `TRUE`, the default, densities are trimmed to the actual
-#' range of the data. If `FALSE``, they are extended by the default 3 bandwidths
+#' range of the data. If `FALSE`, they are extended by the default 3 bandwidths
 #' (as specified by the cut parameter to the S3 generic function `density`)
 #' @section Computed variables:
 #' \describe{
