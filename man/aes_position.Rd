@@ -12,8 +12,17 @@
 \alias{yend}
 \title{Position related aesthetics: x, y, xmin, xmax, ymin, ymax, xend, yend}
 \description{
-This page demonstrates the usage of a sub-group
-of aesthetics; x, y, xmin, xmax, ymin, ymax, xend, and yend.
+This page demonstrates the usage of a sub-group of aesthetics
+related to position: \code{x}, \code{y}, \code{xmin}, \code{xmax}, \code{ymin}, \code{ymax},
+\code{xend}, and \code{yend}.
+}
+\details{
+These aesthetics can be used to specify the position of elements.
+
+\code{x}, \code{y} and \code{xend}, \code{yend} define the starting and ending points of
+segments and curves geometries.
+\code{xmin}, \code{xmax}, \code{ymin}  and \code{ymax} can be used to specify the position of
+annotations and to represent vertical intervals.
 }
 \examples{
 
@@ -46,4 +55,11 @@ with(counts, plot(x, Freq, type = "h", lwd = 10))
 
 ggplot(counts, aes(x, Freq)) +
   geom_segment(aes(yend = 0, xend = x), size = 10)
+}
+\seealso{
+\code{\link[=geom_segment]{geom_segment()}}, \code{\link[=geom_curve]{geom_curve()}}, \code{\link[=geom_linerange]{geom_linerange()}},
+\code{\link[=geom_errorbar]{geom_errorbar()}}, \code{\link[=geom_crossbar]{geom_crossbar()}}, \code{\link[=geom_pointrange]{geom_pointrange()}}
+for geometries that commonly use these aesthetics.
+
+\code{\link[=annotate]{annotate()}} for how to use them whithin an annotation layer.
 }

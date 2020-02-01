@@ -5,10 +5,27 @@
 \alias{colour}
 \alias{color}
 \alias{fill}
+\alias{Learn}
+\alias{more}
+\alias{about}
+\alias{setting}
+\alias{these}
+\alias{aesthetics}
+\alias{in}
+\alias{`vignette("ggplot2-specs")`.}
 \title{Colour related aesthetics: colour, fill and alpha}
 \description{
 This page demonstrates the usage of a sub-group
-of aesthetics: colour, fill and alpha.
+of aesthetics: \code{colour}, \code{fill} and \code{alpha}.
+}
+\details{
+The \code{colour} aesthetic changes the colour of a line (or outline),
+\code{fill} changes the interior colouring of a geom, \code{alpha}
+changes its transparency.
+
+\code{colour} and \code{fill} aesthetics can be set with a color name or
+an rgb specification. The alpha aesthetic value goes from 0 to 1,
+where 0 is completely transparent and 1 is not transparent at all.
 }
 \examples{
 \donttest{
@@ -23,6 +40,10 @@ c + geom_bar(fill = "red")
 c + geom_bar(colour = "red")
 # Combining both, you can see the changes more clearly
 c + geom_bar(fill = "white", colour = "red")
+# Both colour and fill can take an rgb specification.
+c + geom_bar(fill = "#00abff")
+# Use NA for a completely transparent colour.
+c + geom_bar(fill = "NA", colour = "#00abff")
 
 # The aesthetic fill also takes different colouring scales
 # setting fill equal to a factor variable uses a discrete colour scale
@@ -42,7 +63,7 @@ b + geom_point()
 b + geom_point(colour = "red")
 
 # For large datasets with overplotting the alpha
-# aesthetic will make the points more transparent
+# aesthetic will make the points more transparent.
 df <- data.frame(x = rnorm(5000), y = rnorm(5000))
 h  <- ggplot(df, aes(x,y))
 h + geom_point()

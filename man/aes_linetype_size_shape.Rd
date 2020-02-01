@@ -8,16 +8,24 @@
 \title{Differentiation related aesthetics: linetype, size, shape}
 \description{
 This page demonstrates the usage of a sub-group
-of aesthetics; linetype, size and shape.
+of aesthetics to further customize ggplot: \code{linetype}, \code{size} and \code{shape}.
+}
+\details{
+\code{linetype} can be specified with either an integer (0-6), a name (0 = blank, 1 = solid,
+2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash), a
+variable source (for grouping) or a string of
+an even number (up to eight) of hexadecimal digits which give the lengths in
+consecutive positions in the string. See example for sample hex string.
+\code{size} can be specified with a numerical value (in millimetres),
+or from a variable source (for grouping).
+\code{shape} can be specified with: an integer (between 0 and 25),
+a single character (which uses that character as the plotting symbol),
+a \code{.} to draw the smallest rectangle that is visible (i.e., about one pixel),
+an \code{NA} to draw nothing, or a variable source (for grouping). Symbols and filled shapes are
+described in the examples below.
 }
 \examples{
 
-# Line types should be specified with either an integer, a name, or with a string of
-# an even number (up to eight) of hexadecimal digits which give the lengths in
-# consecutive positions in the string.
-# 0 = blank, 1 = solid, 2 = dashed, 3 = dotted, 4 = dotdash, 5 = longdash, 6 = twodash
-
-# Data
 df <- data.frame(x = 1:10 , y = 1:10)
 f <- ggplot(df, aes(x, y))
 f + geom_line(linetype = 2)
@@ -28,13 +36,11 @@ f + geom_line(linetype = "dotdash")
 # by one on and finally three off.
 f + geom_line(linetype = "3313")
 
-# Mapping line type from a variable
+# Mapping line type from a grouping variable
 ggplot(economics_long, aes(date, value01)) +
   geom_line(aes(linetype = variable))
 
 # Size examples
-# Should be specified with a numerical value (in millimetres),
-# or from a variable source
 p <- ggplot(mtcars, aes(wt, mpg))
 p + geom_point(size = 4)
 p + geom_point(aes(size = qsec))
@@ -42,17 +48,11 @@ p + geom_point(size = 2.5) +
   geom_hline(yintercept = 25, size = 3.5)
 
 # Shape examples
-# Shape takes four types of values: an integer in [0, 25],
-# a single character-- which uses that character as the plotting symbol,
-# a . to draw the smallest rectangle that is visible (i.e., about one pixel)
-# an NA to draw nothing
 p + geom_point()
 p + geom_point(shape = 5)
 p + geom_point(shape = "k", size = 3)
 p + geom_point(shape = ".")
 p + geom_point(shape = NA)
-
-# Shape can also be mapped from a variable
 p + geom_point(aes(shape = factor(cyl)))
 
 # A look at all 25 symbols
@@ -66,4 +66,11 @@ s + geom_point(aes(shape = z), size = 4, colour = "Red") +
   scale_shape_identity()
 s + geom_point(aes(shape = z), size = 4, colour = "Red", fill = "Black") +
   scale_shape_identity()
+}
+\seealso{
+\code{\link[=aes_group_order]{aes_group_order()}} for using \code{linetype}, \code{size}, and \code{shape} for grouping.
+
+\code{\link[=geom_line]{geom_line()}} and \code{\link[=geom_point]{geom_point()}} for geometries that are commonly used with these aesthetics.
+
+Learn more about aesthetics in \code{vignette("ggplot2-specs")}.
 }

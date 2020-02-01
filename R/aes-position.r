@@ -1,10 +1,28 @@
 #' Position related aesthetics: x, y, xmin, xmax, ymin, ymax, xend, yend
 #'
-#' This page demonstrates the usage of a sub-group
-#' of aesthetics; x, y, xmin, xmax, ymin, ymax, xend, and yend.
+#' This page demonstrates the usage of a sub-group of aesthetics
+#' related to position: `x`, `y`, `xmin`, `xmax`, `ymin`, `ymax`,
+#' `xend`, and `yend`.
+#'
+#' @details
+#' These aesthetics can be used to specify the position of elements.
+#'
+#' `x`, `y` and `xend`, `yend` define the starting and ending points of
+#' segments and curves geometries.
+#' `xmin`, `xmax`, `ymin`  and `ymax` can be used to specify the position of
+#' annotations and to represent vertical intervals.
 #'
 #' @name aes_position
 #' @aliases x y xmin xmax ymin ymax xend yend
+#'
+#' @seealso
+#'
+#'    [geom_segment()], [geom_curve()], [geom_linerange()],
+#'    [geom_errorbar()], [geom_crossbar()], [geom_pointrange()]
+#'    for geometries that commonly use these aesthetics.
+#'
+#'    [annotate()] for how to use them whithin an annotation layer.
+#'
 #' @examples
 #'
 #' # Generate data: means and standard errors of means for prices
