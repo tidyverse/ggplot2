@@ -84,7 +84,7 @@ theme_test(
 )
 }
 \arguments{
-\item{base_size}{base font size}
+\item{base_size}{base font size; text size in pts.}
 
 \item{base_family}{base font family}
 
