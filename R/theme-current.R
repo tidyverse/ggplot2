@@ -58,11 +58,11 @@ NULL
 #' p
 #'
 #' theme_set(old)
-#' theme_update(panel.grid.major.y = element_line(colour = "gray"))
+#' theme_update(panel.grid.minor = element_line(colour = "red"))
 #' p
 #'
 #' theme_set(old)
-#' theme_replace(panel.grid.major.y = element_line(colour = "red"))
+#' theme_replace(panel.grid.minor = element_line(colour = "red"))
 #' p
 #'
 #' theme_set(old)
