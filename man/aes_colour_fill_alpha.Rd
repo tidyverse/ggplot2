@@ -25,7 +25,7 @@ changes its transparency.
 
 \code{colour} and \code{fill} aesthetics can be set with a color name or
 an rgb specification. The alpha aesthetic value goes from 0 to 1,
-where 0 is completely transparent and 1 is not transparent at all.
+where 0 is completely transparent and 1 is completely opaque.
 }
 \examples{
 \donttest{
