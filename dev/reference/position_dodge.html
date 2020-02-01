@@ -43,10 +43,12 @@
 
 <meta property="og:title" content="Dodge overlapping objects side-to-side — position_dodge" />
 <meta property="og:description" content="Dodging preserves the vertical position of an geom while adjusting the
-horizontal position. position_dodge2 is a special case of position_dodge
-for arranging box plots, which can have variable widths. position_dodge2
-also works with bars and rectangles. But unlike position_dodge,
-position_dodge2 works without a grouping variable in a layer." />
+horizontal position. position_dodge requires the grouping variable to be
+be specified in the global or geom_* layer. Unlike position_dodge,
+position_dodge2 works without a grouping variable in a layer.
+position_dodge2 works with bars and rectangles, but is
+particulary useful for arranging box plots, which
+can have variable widths." />
 <meta property="og:image" content="https://ggplot2.tidyverse.org/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -185,10 +187,12 @@ position_dodge2 works without a grouping variable in a layer." />
 
     <div class="ref-description">
     <p>Dodging preserves the vertical position of an geom while adjusting the
-horizontal position. <code>position_dodge2</code> is a special case of <code>position_dodge</code>
-for arranging box plots, which can have variable widths. <code>position_dodge2</code>
-also works with bars and rectangles. But unlike <code>position_dodge</code>,
-<code>position_dodge2</code> works without a grouping variable in a layer.</p>
+horizontal position. <code>position_dodge</code> requires the grouping variable to be
+be specified in the global or <code>geom_*</code> layer. Unlike <code>position_dodge</code>,
+<code>position_dodge2</code> works without a grouping variable in a layer.
+<code>position_dodge2</code> works with bars and rectangles, but is
+particulary useful for arranging box plots, which
+can have variable widths.</p>
     </div>
 
     <pre class="usage"><span class='fu'>position_dodge</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>preserve</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"total"</span>, <span class='st'>"single"</span>))
