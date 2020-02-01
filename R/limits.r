@@ -17,10 +17,13 @@
 #'  A character or factor value will create a discrete scale.
 #'  A date-time value will create a continuous date/time scale.
 #'
-#' @seealso For changing x or y axis limits \strong{without} dropping data
-#'   observations, see [coord_cartesian()]. To expand the range of
-#'   a plot to always include certain values, see [expand_limits()]. For other
-#'   types of data, see [scale_x_discrete()], [scale_x_continuous()], [scale_x_date()].
+#' @seealso As any values outside the limits specified are replaced with `NA`,
+#'   be warned that this will result in your data outside the limits being
+#'   removed and this can produce unintended results. For changing x or y axis
+#'   limits \strong{without} dropping data observations, see
+#'   [coord_cartesian()]. To expand the range of a plot to always include
+#'   certain values, see [expand_limits()]. For other types of data, see
+#'   [scale_x_discrete()], [scale_x_continuous()], [scale_x_date()].
 #'
 #' @export
 #' @examples
