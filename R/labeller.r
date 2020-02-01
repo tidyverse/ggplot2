@@ -440,7 +440,7 @@ labeller <- function(..., .rows = NULL, .cols = NULL,
       labellers <- lapply(dots, as_labeller)
     } else {
       margin_labeller <- as_labeller(margin_labeller, default = .default,
-        multi_line = .multi_line)
+                                     multi_line = .multi_line)
 
       # Check that variable-specific labellers do not overlap with
       # margin-wide labeller
@@ -499,17 +499,21 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
   # Create matrix of labels
   labels <- lapply(labeller(label_df), cbind)
   labels <- do.call("cbind", labels)
+  ncol <- ncol(labels)
+  nrow <- nrow(labels)
 
   if (horizontal) {
     grobs_top <- lapply(labels, element_render, theme = theme,
                         element = "strip.text.x.top", margin_x = TRUE,
                         margin_y = TRUE)
-    grobs_top <- assemble_strips(grobs_top, theme, horizontal, clip = "on")
+    grobs_top <- assemble_strips(matrix(grobs_top, ncol = ncol, nrow = nrow),
+                                 theme, horizontal, clip = "on")
 
     grobs_bottom <- lapply(labels, element_render, theme = theme,
                            element = "strip.text.x.bottom", margin_x = TRUE,
                            margin_y = TRUE)
-    grobs_bottom <- assemble_strips(grobs_bottom, theme, horizontal, clip = "on")
+    grobs_bottom <- assemble_strips(matrix(grobs_bottom, ncol = ncol, nrow = nrow),
+                                    theme, horizontal, clip = "on")
 
     list(
       top = grobs_top,
@@ -519,12 +523,15 @@ build_strip <- function(label_df, labeller, theme, horizontal) {
     grobs_left <- lapply(labels, element_render, theme = theme,
                          element = "strip.text.y.left", margin_x = TRUE,
                          margin_y = TRUE)
-    grobs_left <- assemble_strips(grobs_left, theme, horizontal, clip = "on")
+    grobs_left <- assemble_strips(matrix(grobs_left, ncol = ncol, nrow = nrow),
+                                  theme, horizontal, clip = "on")
 
-    grobs_right <- lapply(labels, element_render, theme = theme,
+    grobs_right <- lapply(labels[, rev(seq_len(ncol(labels))), drop = FALSE],
+                          element_render, theme = theme,
                           element = "strip.text.y.right", margin_x = TRUE,
                           margin_y = TRUE)
-    grobs_right <- assemble_strips(grobs_right, theme, horizontal, clip = "on")
+    grobs_right <- assemble_strips(matrix(grobs_right, ncol = ncol, nrow = nrow),
+                                   theme, horizontal, clip = "on")
 
     list(
       left = grobs_left,
@@ -549,7 +556,7 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
   if (length(grobs) == 0 || is.zero(grobs[[1]])) return(grobs)
 
   # Add margins to non-titleGrobs so they behave eqivalently
-  grobs <- lapply(grobs, function(g) {
+  grobs[] <- lapply(grobs, function(g) {
     if (inherits(g, "titleGrob")) return(g)
     add_margins(gList(g), grobHeight(g), grobWidth(g), margin_x = TRUE, margin_y = TRUE)
   })
@@ -561,7 +568,7 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
     height <- unit(1, "null")
     width <- max_width(lapply(grobs, function(x) x$widths[2]))
   }
-  grobs <- lapply(grobs, function(x) {
+  grobs[] <- lapply(grobs, function(x) {
     # Avoid unit subset assignment to support R 3.2
     x$widths <- unit.c(x$widths[1], width, x$widths[c(-1, -2)])
     x$heights <- unit.c(x$heights[1], height, x$heights[c(-1, -2)])
@@ -579,10 +586,16 @@ assemble_strips <- function(grobs, theme, horizontal = TRUE, clip) {
   background <- element_render(theme, background)
 
   # Put text on a strip
-  lapply(grobs, function(x) {
-    strip <- ggname("strip", gTree(children = gList(background, x)))
-    strip_table <- gtable(width, height, name = "strip")
-    gtable_add_grob(strip_table, strip, 1, 1, clip = clip)
+  grobs[] <- lapply(grobs, function(x) {
+    ggname("strip", gTree(children = gList(background, x)))
+  })
+  apply(grobs, 1, function(x) {
+    if (horizontal) {
+      mat <- matrix(x, ncol = 1)
+    } else {
+      mat <- matrix(x, nrow = 1)
+    }
+    gtable_matrix("strip", mat, rep(width, ncol(mat)), rep(height, nrow(mat)), clip = clip)
   })
 }
 

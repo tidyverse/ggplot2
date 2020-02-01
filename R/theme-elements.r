@@ -2,7 +2,7 @@
 #'
 #' @description
 #' In conjunction with the \link{theme} system, the `element_` functions
-#' specify the display of how non-data components of the plot are a drawn.
+#' specify the display of how non-data components of the plot are drawn.
 #'
 #'   - `element_blank`: draws nothing, and assigns no space.
 #'   - `element_rect`: borders and backgrounds.
@@ -524,7 +524,7 @@ validate_element <- function(el, elname, element_tree) {
     if (!is.unit(el) && length(el) == 4)
       abort(glue("Theme element `{elname}` must be a unit vector of length 4."))
   } else if (!inherits(el, eldef$class) && !inherits(el, "element_blank")) {
-      abort(glue("Theme element `{elname}` must be an `{eldef$class}` object."))
+      abort(glue("Theme element `{elname}` must be an object of type `{eldef$class}`."))
   }
   invisible()
 }
