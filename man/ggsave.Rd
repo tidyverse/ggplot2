@@ -61,6 +61,18 @@ Thus, \code{filename = "figure\%03d.png"} will produce successive filenames
 containing the \verb{\%} sign, use \code{\%\%}. For example, \code{filename = "figure-100\%\%.png"}
 will produce the filename \verb{figure-100\%.png}.
 }
+\section{Writing to a graphics device}{
+
+
+In most cases \code{ggsave()} is the simplest way to save your plot, but
+sometimes it is necessary to save the plot by writing directly to a
+graphics device. For example, to create a PNG file, you could first
+open the device with a command like \code{png("mtcars.png")}. Next, you
+would create the ggplot with something like
+\code{ggplot(mtcars, aes(mpg, wt)) + geom_point()} and then use \code{dev.off()}
+to write the image file.
+}
+
 \examples{
 \dontrun{
 ggplot(mtcars, aes(mpg, wt)) + geom_point()
