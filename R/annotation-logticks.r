@@ -7,7 +7,9 @@
 #' @param sides a string that controls which sides of the plot the log ticks appear on.
 #'   It can be set to a string containing any of `"trbl"`, for top, right,
 #'   bottom, and left.
-#' @param outside logical that controls whether to move the log ticks outside of the plot area. Default is off (FALSE). You will also need to use `coord_cartesian(clip = "off")`. See examples.
+#' @param outside logical that controls whether to move the log ticks outside
+#' of the plot area. Default is off (FALSE). You will also need to use
+#' `coord_cartesian(clip = "off")`. See examples.
 #' @param short a [grid::unit()] object specifying the length of the
 #'   short tick marks
 #' @param mid a [grid::unit()] object specifying the length of the
@@ -48,7 +50,8 @@
 #' a + annotation_logticks(sides = "lr")    # Log ticks for y, on left and right
 #' a + annotation_logticks(sides = "trbl")  # All four sides
 #'
-#' a + annotation_logticks(sides = "lr", outside = TRUE) + coord_cartesian(clip = "off")  # Ticks outside plot
+#' a + annotation_logticks(sides = "lr", outside = TRUE) +
+#'  coord_cartesian(clip = "off")  # Ticks outside plot
 #'
 #' # Hide the minor grid lines because they don't align with the ticks
 #' a + annotation_logticks(sides = "trbl") + theme(panel.grid.minor = element_blank())
