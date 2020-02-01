@@ -85,23 +85,41 @@ stat_sf(
 }
 \arguments{
 \item{xlim, ylim}{Limits for the x and y axes. These limits are specified
-in the units of the CRS set via the \code{crs} argument or, if \code{crs} is not
-specified, the CRS of the first layer that has a CRS.}
+in the units of the default CRS. To specify limits in projected coordinates,
+set \code{default_crs = NULL}. How limit specifications translate into the exact
+region shown on the plot can be confusing when non-linear or rotated coordinate
+systems are used. First, limits along one direction (e.g., longitude) are
+applied at the midpoint of the other direction (e.g., latitude). This principle
+avoids excessively large limits for rotated coordinate systems but means
+that sometimes limits need to be expanded a little further if extreme data
+points are to be included in the final plot region. Second, specifying limits
+along only one direction can affect the automatically generated limits along the
+other direction. Therefore, it is best to always specify limits for both x and y.
+Third, specifying limits via position scales or \code{xlim()}/\code{ylim()} is strongly
+discouraged, as it can result in data points being dropped from the plot even
+though they would be visible in the final plot region. Finally, specifying limits
+that cross the international date boundary is not possible with WGS84 as the default
+crs. All these issues can be avoided by working in projected coordinates,
+via \code{default_crs = NULL}, but at the cost of having to provide less intuitive
+numeric values for the limit parameters.}
 
 \item{expand}{If \code{TRUE}, the default, adds a small expansion factor to
 the limits to ensure that data and axes don't overlap. If \code{FALSE},
 limits are taken exactly from the data or \code{xlim}/\code{ylim}.}
 
-\item{crs}{Use this to select a specific coordinate reference system (CRS).
-If not specified, will use the CRS defined in the first layer.}
+\item{crs}{The coordinate reference system (CRS) into which all data should
+be projected before plotting. If not specified, will use the CRS defined
+in the first sf layer of the plot.}
 
 \item{default_crs}{The default CRS to be used for non-sf layers (which
-don't carry any CRS information). If not specified, this defaults to
-the World Geodetic System 1984 (WGS84), which means x and y positions
-are interpreted as longitude and latitude, respectively. The default CRS
-is also the reference system used to set limits via position scales.}
+don't carry any CRS information) and scale limits. If not specified, this
+defaults to the World Geodetic System 1984 (WGS84), which means x and y
+positions are interpreted as longitude and latitude, respectively. If
+set to \code{NULL}, uses the setting for \code{crs}, which means that then all
+non-sf layers and scale limits are assumed to be specified in projected
+coordinates.}
 
-\item{datum}{CRS that provides datum to use when generating graticules}
+\item{datum}{CRS that provides datum to use when generating graticules.}
 
 \item{label_graticule}{Character vector indicating which graticule lines should be labeled
 where. Meridians run north-south, and the letters \code{"N"} and \code{"S"} indicate that

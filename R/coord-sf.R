@@ -167,11 +167,20 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     expansion_x <- default_expansion(scale_x, expand = self$expand)
     expansion_y <- default_expansion(scale_y, expand = self$expand)
 
-    # get scale limits and transform to common crs
+    # get scale limits and coord limits and merge together
+    # coord limits take precedence over scale limits
     scale_xlim <- scale_x$get_limits()
     scale_ylim <- scale_y$get_limits()
+    coord_xlim <- self$limits$x %||% c(NA_real_, NA_real_)
+    coord_ylim <- self$limits$y %||% c(NA_real_, NA_real_)
 
-    # we take the mid-point along each side of the scale range
+    scale_xlim <- ifelse(is.na(coord_xlim), scale_xlim, coord_xlim)
+    scale_ylim <- ifelse(is.na(coord_ylim), scale_ylim, coord_ylim)
+
+    # now, transform limits to common crs
+    # we take the mid-point along each side of the scale range for
+    # better behavior when box is nonlinear or rotated in projected
+    # space
     scales_bbox <- sf_transform_xy(
       list(
         x = c(rep(mean(scale_xlim), 2), scale_xlim),
@@ -181,12 +190,13 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     )
 
     # merge coord bbox into scale limits if scale limits not explicitly set
-    if (is.null(scale_x$limits) && is.null(scale_y$limits)) {
+    if (is.null(self$limits$x) && is.null(self$limits$y) &&
+        is.null(scale_x$limits) && is.null(scale_y$limits)) {
       coord_bbox <- self$params$bbox
       scales_xrange <- range(scales_bbox$x, coord_bbox$xmin, coord_bbox$xmax, na.rm = TRUE)
       scales_yrange <- range(scales_bbox$y, coord_bbox$ymin, coord_bbox$ymax, na.rm = TRUE)
     } else if (any(!is.finite(scales_bbox$x) | !is.finite(scales_bbox$y))) {
-      warn("Projection of scale limits failed.\nConsider working in projected coordinates by setting `default_crs = NULL` in `coord_sf()`.")
+      warn("Projection of x or y limits failed.\nConsider working in projected coordinates by setting `default_crs = NULL` in `coord_sf()`.")
       coord_bbox <- self$params$bbox
       scales_xrange <- c(coord_bbox$xmin, coord_bbox$xmax)
       scales_yrange <- c(coord_bbox$ymin, coord_bbox$ymax)
@@ -195,16 +205,9 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       scales_yrange <- range(scales_bbox$y, na.rm = TRUE)
     }
 
-    # calculate final coord limits by putting everything together and applying expansion
-    coord_limits_x <- self$limits$x %||% c(NA_real_, NA_real_)
-    coord_limits_y <- self$limits$y %||% c(NA_real_, NA_real_)
-
-    x_range <- expand_limits_continuous(
-      scales_xrange, expansion_x, coord_limits = coord_limits_x
-    )
-    y_range <- expand_limits_continuous(
-      scales_yrange, expansion_y, coord_limits = coord_limits_y
-    )
+    # apply coordinate expansion
+    x_range <- expand_limits_continuous(scales_xrange, expansion_x)
+    y_range <- expand_limits_continuous(scales_yrange, expansion_y)
     bbox <- c(
       x_range[1], y_range[1],
       x_range[2], y_range[2]
@@ -460,8 +463,33 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   }
 )
 
-## helper functions to transform and normalize geometry and position data
-# transform position data (columns x and y in a data frame or list)
+#' Transform spatial position data
+#'
+#' Helper function that can transform spatial position data (pairs of x, y
+#' values) among coordinate systems.
+#'
+#' @param data Data frame or list containing numerical columns `x` and `y`.
+#' @param target_crs,source_crs Target and source coordinate reference systems.
+#'   If `NULL` or `NA`, the data is not transformed.
+#' @return A copy of the input data with `x` and `y` replaced by transformed values.
+#' @examples
+#' if (requireNamespace("sf", quietly = TRUE)) {
+#' # location of cities in NC by long (x) and lat (y)
+#' data <- data.frame(
+#'   city = c("Charlotte", "Raleigh", "Greensboro"),
+#'   x =  c(-80.843, -78.639, -79.792),
+#'   y = c(35.227, 35.772, 36.073)
+#' )
+#'
+#' # transform to projected coordinates
+#' data_proj <- sf_transform_xy(data, 3347, 4326)
+#' data_proj
+#'
+#' # transform back
+#' sf_transform_xy(data_proj, 4326, 3347)
+#' }
+#' @keywords internal
+#' @export
 sf_transform_xy <- function(data, target_crs, source_crs) {
   if (identical(target_crs, source_crs) ||
       is.null(target_crs) || is.null(source_crs) || is.null(data) ||
@@ -484,6 +512,8 @@ sf_transform_xy <- function(data, target_crs, source_crs) {
   data
 }
 
+## helper functions to normalize geometry and position data
+
 # normalize geometry data (variable x is geometry column)
 sf_rescale01 <- function(x, x_range, y_range) {
   if (is.null(x)) {
@@ -499,19 +529,35 @@ sf_rescale01_x <- function(x, range) {
 }
 
 
-
-#' @param crs Use this to select a specific coordinate reference system (CRS).
-#'   If not specified, will use the CRS defined in the first layer.
+#' @param crs The coordinate reference system (CRS) into which all data should
+#'   be projected before plotting. If not specified, will use the CRS defined
+#'   in the first sf layer of the plot.
 #' @param default_crs The default CRS to be used for non-sf layers (which
-#'   don't carry any CRS information). If not specified, this defaults to
-#'   the World Geodetic System 1984 (WGS84), which means x and y positions
-#'   are interpreted as longitude and latitude, respectively. The default CRS
-#'   is also the reference system used to set limits via position scales. If
-#'   set to `NULL`, uses the setting for `crs`.
+#'   don't carry any CRS information) and scale limits. If not specified, this
+#'   defaults to the World Geodetic System 1984 (WGS84), which means x and y
+#'   positions are interpreted as longitude and latitude, respectively. If
+#'   set to `NULL`, uses the setting for `crs`, which means that then all
+#'   non-sf layers and scale limits are assumed to be specified in projected
+#'   coordinates.
 #' @param xlim,ylim Limits for the x and y axes. These limits are specified
-#'   in the units of the CRS set via the `crs` argument or, if `crs` is not
-#'   specified, the CRS of the first layer that has a CRS.
-#' @param datum CRS that provides datum to use when generating graticules
+#'   in the units of the default CRS. To specify limits in projected coordinates,
+#'   set `default_crs = NULL`. How limit specifications translate into the exact
+#'   region shown on the plot can be confusing when non-linear or rotated coordinate
+#'   systems are used. First, limits along one direction (e.g., longitude) are
+#'   applied at the midpoint of the other direction (e.g., latitude). This principle
+#'   avoids excessively large limits for rotated coordinate systems but means
+#'   that sometimes limits need to be expanded a little further if extreme data
+#'   points are to be included in the final plot region. Second, specifying limits
+#'   along only one direction can affect the automatically generated limits along the
+#'   other direction. Therefore, it is best to always specify limits for both x and y.
+#'   Third, specifying limits via position scales or `xlim()`/`ylim()` is strongly
+#'   discouraged, as it can result in data points being dropped from the plot even
+#'   though they would be visible in the final plot region. Finally, specifying limits
+#'   that cross the international date boundary is not possible with WGS84 as the default
+#'   crs. All these issues can be avoided by working in projected coordinates,
+#'   via `default_crs = NULL`, but at the cost of having to provide less intuitive
+#'   numeric values for the limit parameters.
+#' @param datum CRS that provides datum to use when generating graticules.
 #' @param label_axes Character vector or named list of character values
 #'   specifying which graticule lines (meridians or parallels) should be labeled on
 #'   which side of the plot. Meridians are indicated by `"E"` (for East) and

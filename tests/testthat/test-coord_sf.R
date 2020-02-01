@@ -204,3 +204,32 @@ test_that("Inf is squished to range", {
   expect_equal(d[[2]]$x, 0)
   expect_equal(d[[2]]$y, 1)
 })
+
+test_that("sf_transform_xy() works", {
+  skip_if_not_installed("sf")
+
+  data <- list(
+    city = c("Charlotte", "Raleigh", "Greensboro"),
+    x =  c(-80.843, -78.639, -79.792),
+    y = c(35.227, 35.772, 36.073)
+  )
+
+  # no transformation if one crs is missing
+  out <- sf_transform_xy(data, NULL, 4326)
+  expect_identical(data, out)
+  out <- sf_transform_xy(data, 4326, NULL)
+  expect_identical(data, out)
+
+  # transform to projected coordinates
+  out <- sf_transform_xy(data, 3347, 4326)
+  expect_identical(data$city, out$city) # columns other than x, y are not changed
+  expect_true(all(abs(out$x - c(7275499, 7474260, 7357835)) < 10))
+  expect_true(all(abs(out$y - c(-60169, 44384, 57438)) < 10))
+
+  # transform back
+  out2 <- sf_transform_xy(out, 4326, 3347)
+  expect_identical(data$city, out2$city)
+  expect_true(all(abs(out2$x - data$x) < .01))
+  expect_true(all(abs(out2$y - data$y) < .01))
+
+})
