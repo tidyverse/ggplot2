@@ -734,7 +734,11 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
 
     cat("<", class(self)[[1]], ">\n", sep = "")
     cat(" Range:  ", show_range(self$range$range), "\n", sep = "")
-    cat(" Limits: ", show_range(self$dimension()), "\n", sep = "")
+    if (is.function(self$limits)) {
+      cat(" Limits: function()\n")
+    } else {
+      cat(" Limits: ", show_range(self$dimension()), "\n", sep = "")
+    }
   }
 )
 
