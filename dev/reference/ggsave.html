@@ -262,6 +262,17 @@ Thus, <code>filename = "figure%03d.png"</code> will produce successive filenames
 <code>figure001.png</code>, <code>figure002.png</code>, <code>figure003.png</code>, etc. To write a filename
 containing the <code>%</code> sign, use <code>%%</code>. For example, <code>filename = "figure-100%%.png"</code>
 will produce the filename <code>figure-100%.png</code>.</p>
+    <h2 class="hasAnchor" id="saving-images-without-ggsave-"><a class="anchor" href="#saving-images-without-ggsave-"></a>Saving images without ggsave()</h2>
+
+    
+
+
+<p>In most cases <code>ggsave()</code> is the simplest way to save your plot, but
+sometimes you may wish to save the plot by writing directly to a
+graphics device. To do this, you can open a regular R graphics
+device such as <code><a href='https://rdrr.io/r/grDevices/png.html'>png()</a></code> or <code><a href='https://rdrr.io/r/grDevices/pdf.html'>pdf()</a></code>, print the plot, and then close
+the device using <code><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off()</a></code>. This technique is illustrated in the
+examples section.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
@@ -282,6 +293,13 @@ will produce the filename <code>figure-100%.png</code>.</p>
 <span class='no'>file</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>()
 <span class='fu'>ggsave</span>(<span class='no'>file</span>, <span class='kw'>device</span> <span class='kw'>=</span> <span class='st'>"pdf"</span>)
 <span class='fu'><a href='https://rdrr.io/r/base/unlink.html'>unlink</a></span>(<span class='no'>file</span>)
+
+<span class='co'># save plot to file without using ggsave</span>
+<span class='no'>p</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='ggplot.html'>ggplot</a></span>(<span class='no'>mtcars</span>, <span class='fu'><a href='aes.html'>aes</a></span>(<span class='no'>mpg</span>, <span class='no'>wt</span>)) + <span class='fu'><a href='geom_point.html'>geom_point</a></span>()
+<span class='fu'><a href='https://rdrr.io/r/grDevices/png.html'>png</a></span>(<span class='st'>"mtcars.png"</span>)
+<span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span>(<span class='no'>p</span>)
+<span class='fu'><a href='https://rdrr.io/r/grDevices/dev.html'>dev.off</a></span>()
+
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -289,6 +307,7 @@ will produce the filename <code>figure-100%.png</code>.</p>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#details">Details</a></li>
+      <li><a href="#saving-images-without-ggsave-">Saving images without ggsave()</a></li>
       <li><a href="#examples">Examples</a></li>
     </ul>
 
