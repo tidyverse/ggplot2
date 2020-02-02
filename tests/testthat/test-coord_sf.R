@@ -205,6 +205,55 @@ test_that("Inf is squished to range", {
   expect_equal(d[[2]]$y, 1)
 })
 
+test_that("default crs works", {
+  skip_if_not_installed("sf")
+
+  polygon <- sf::st_sfc(
+    sf::st_polygon(list(matrix(c(-80, -76, -76, -80, -80, 35, 35, 40, 40, 35), ncol = 2))),
+    crs = 4326 # basic long-lat crs
+  )
+  polygon <- sf::st_transform(polygon, crs = 3347)
+
+  points <- data_frame(
+    x = c(-80, -80, -76, -76),
+    y = c(35, 40, 35, 40)
+  )
+
+  p <- ggplot(polygon) + geom_sf(fill = NA)
+
+  # projected sf objects can be mixed with regular geoms using non-projected data
+  expect_doppelganger(
+    "non-sf geoms use long-lat",
+    p + geom_point(data = points, aes(x, y))
+  )
+
+  # default crs can be turned off
+  points_trans <- sf_transform_xy(points, 3347, 4326)
+  expect_doppelganger(
+    "default crs turned off",
+    p + geom_point(data = points_trans, aes(x, y)) +
+    coord_sf(default_crs = NULL)
+  )
+
+  # by default, coord limits are specified in long-lat
+  expect_doppelganger(
+    "limits specified in long-lat",
+    p + geom_point(data = points, aes(x, y)) +
+      coord_sf(xlim = c(-80.5, -76), ylim = c(36, 41))
+  )
+
+  # when default crs is off, limits are specified in projected coords
+  lims <- sf_transform_xy(
+    list(x = c(-80.5, -76, -78.25, -78.25), y = c(38.5, 38.5, 36, 41)),
+    3347, 4326
+  )
+  expect_doppelganger(
+    "limits specified in projected coords",
+    p + geom_point(data = points_trans, aes(x, y)) +
+      coord_sf(xlim = lims$x[1:2], ylim = lims$y[3:4], default_crs = NULL)
+  )
+})
+
 test_that("sf_transform_xy() works", {
   skip_if_not_installed("sf")
 
