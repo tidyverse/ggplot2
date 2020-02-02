@@ -26,6 +26,7 @@ test_that("do not use warning()", {
 })
 
 test_that("do not use data.frame(), use `data_frame()` or `new_data_frame()`", {
-  data.frames <- vapply(list.files("../../R", full.names = TRUE), get_n_data.frame, integer(1))
+  files <- list.files(c(".", "../../R"), pattern = "\\.R", full.names = TRUE)
+  data.frames <- vapply(files, get_n_data.frame, integer(1))
   expect_equal(sum(data.frames), 0)
 })
