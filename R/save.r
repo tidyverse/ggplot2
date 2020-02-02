@@ -13,15 +13,14 @@
 #' containing the `%` sign, use `%%`. For example, `filename = "figure-100%%.png"`
 #' will produce the filename `figure-100%.png`.
 #'
-#' @section Writing to a graphics device:
+#' @section Saving images without ggsave():
 #'
 #' In most cases `ggsave()` is the simplest way to save your plot, but
-#' sometimes it is necessary to save the plot by writing directly to a
-#' graphics device. For example, to create a PNG file, you could first
-#' open the device with a command like `png("mtcars.png")`. Next, you
-#' would create the ggplot with something like
-#' `ggplot(mtcars, aes(mpg, wt)) + geom_point()` and then use `dev.off()`
-#' to write the image file.
+#' sometimes you may wish to save the plot by writing directly to a
+#' graphics device. To do this, you can open a regular R graphics
+#' device such as `png()` or `pdf()`, print the plot, and then close
+#' the device using `dev.off()`. This technique is illustrated in the
+#' examples section.
 #'
 #' @param filename File name to create on disk.
 #' @param plot Plot to save, defaults to last plot displayed.
@@ -61,6 +60,13 @@
 #' file <- tempfile()
 #' ggsave(file, device = "pdf")
 #' unlink(file)
+#'
+#' # save plot to file without using ggsave
+#' p <- ggplot(mtcars, aes(mpg, wt)) + geom_point()
+#' png("mtcars.png")
+#' print(p)
+#' dev.off()
+#'
 #' }
 ggsave <- function(filename, plot = last_plot(),
                    device = NULL, path = NULL, scale = 1,
