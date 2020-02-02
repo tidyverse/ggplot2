@@ -15,6 +15,22 @@ get_n_data.frame <- function(f) {
   sum(d$token == "SYMBOL_FUNCTION_CALL" & d$text == "data.frame")
 }
 
+test_that("`get_n_*() detects number of calls properly", {
+  withr::local_file("tmp.R")
+  writeLines(
+    c(
+      'stop("foo!")',
+      'warning("bar!")',
+      "data.frame(x = 1)"
+    ),
+    "tmp.R"
+  )
+
+  expect_equal(get_n_stop("tmp.R"), 1)
+  expect_equal(get_n_warning("tmp.R"), 1)
+  expect_equal(get_n_data.frame("tmp.R"), 1)
+})
+
 test_that("do not use stop()", {
   stops <- vapply(list.files("../../R", full.names = TRUE), get_n_stop, integer(1))
   expect_equal(sum(stops), 0)
