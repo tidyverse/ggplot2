@@ -136,12 +136,12 @@ draw_key_path <- function(data, params, size) {
 
   segmentsGrob(0.1, 0.5, 0.9, 0.5,
     gp = gpar(
-       col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
-       fill = alpha(params$arrow.fill %||% data$colour
-                    %||% data$fill %||% "black", data$alpha),
-       lwd = (data$size %||% 0.5) * .pt,
-       lty = data$linetype %||% 1,
-       lineend = "butt"
+      col = alpha(data$colour %||% data$fill %||% "black", data$alpha),
+      fill = alpha(params$arrow.fill %||% data$colour
+                   %||% data$fill %||% "black", data$alpha),
+      lwd = (data$size %||% 0.5) * .pt,
+      lty = data$linetype %||% 1,
+      lineend = "butt"
     ),
     arrow = params$arrow
   )
