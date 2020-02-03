@@ -504,7 +504,7 @@ sf_transform_xy <- function(data, target_crs, source_crs) {
   # we can make sure that the output length equals the input length, even
   # if the transformation fails in some cases
   sf_data <- sf::st_sfc(
-    mapply(function(x, y) sf::st_point(c(x, y)), data$x, data$y, SIMPLIFY = FALSE),
+    mapply(function(x, y) sf::st_point(as.numeric(c(x, y))), data$x, data$y, SIMPLIFY = FALSE),
     crs = source_crs
   )
   sf_data_trans <- sf::st_transform(sf_data, target_crs)
