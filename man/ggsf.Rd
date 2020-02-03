@@ -22,6 +22,7 @@ coord_sf(
   datum = sf::st_crs(4326),
   label_graticule = waiver(),
   label_axes = waiver(),
+  lims_method = "cross",
   ndiscr = 100,
   default = FALSE,
   clip = "on"
@@ -88,11 +89,8 @@ stat_sf(
 in the units of the default CRS. To specify limits in projected coordinates,
 set \code{default_crs = NULL}. How limit specifications translate into the exact
 region shown on the plot can be confusing when non-linear or rotated coordinate
-systems are used. First, limits along one direction (e.g., longitude) are
-applied at the midpoint of the other direction (e.g., latitude). This principle
-avoids excessively large limits for rotated coordinate systems but means
-that sometimes limits need to be expanded a little further if extreme data
-points are to be included in the final plot region. Second, specifying limits
+systems are used. First, different methods can be preferable under different
+conditions. See parameter \code{lims_method} for details. Second, specifying limits
 along only one direction can affect the automatically generated limits along the
 other direction. Therefore, it is best to always specify limits for both x and y.
 Third, specifying limits via position scales or \code{xlim()}/\code{ylim()} is strongly
@@ -144,8 +142,18 @@ specified with \code{list(bottom = "E", left = "N")}.
 
 This parameter can be used alone or in combination with \code{label_graticule}.}
 
-\item{ndiscr}{number of segments to use for discretising graticule lines;
-try increasing this when graticules look unexpected}
+\item{lims_method}{Two methods are currently implemented, \code{"cross"} (the default) and
+\code{"box"}. For method \code{"cross"}, limits along one direction (e.g., longitude) are
+applied at the midpoint of the other direction (e.g., latitude). This method
+avoids excessively large limits for rotated coordinate systems but means
+that sometimes limits need to be expanded a little further if extreme data
+points are to be included in the final plot region. By contrast, for method \code{"box"},
+a box is generated out of the limits along both directions, and then limits in
+projected coordinates are chosen such that the entire box is visible. This method
+can yield plot regions that are too large.}
+
+\item{ndiscr}{Number of segments to use for discretising graticule lines;
+try increasing this number when graticules look incorrect.}
 
 \item{default}{Is this the default coordinate system? If \code{FALSE} (the default),
 then replacing this coordinate system with another one creates a message alerting

@@ -9,6 +9,10 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
   # here.
   params = list(),
 
+  # the method used to convert limits across nonlinear
+  # coordinate systems.
+  lims_method = "cross",
+
   get_default_crs = function(self) {
     self$default_crs %||% self$params$default_crs
   },
@@ -178,14 +182,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
     scale_ylim <- ifelse(is.na(coord_ylim), scale_ylim, coord_ylim)
 
     # now, transform limits to common crs
-    # we take the mid-point along each side of the scale range for
-    # better behavior when box is nonlinear or rotated in projected
-    # space
-    scales_bbox <- sf_transform_xy(
-      list(
-        x = c(rep(mean(scale_xlim), 2), scale_xlim),
-        y = c(scale_ylim, rep(mean(scale_ylim), 2))
-      ),
+    # note: return value is not a true bounding box, but a
+    # list of x and y values whose max/mins are the bounding
+    # box
+    scales_bbox <- calc_limits_bbox(
+      self$lims_method,
+      scale_xlim, scale_ylim,
       params$crs, params$default_crs
     )
 
@@ -528,6 +530,36 @@ sf_rescale01_x <- function(x, range) {
   (x - range[1]) / diff(range)
 }
 
+# different limits methods
+calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
+  bbox <- switch(
+    method,
+    # For method "box", we take the limits and turn them into a
+    # box. We subdivide the box edges into multiple segments to
+    # better cover the respective area under non-linear transformation
+    box = list(
+      x = c(
+        rep(xlim[1], 20), seq(xlim[1], xlim[2], length.out = 20),
+        rep(xlim[2], 20), seq(xlim[2], xlim[1], length.out = 20)
+      ),
+      y = c(
+        seq(ylim[1], ylim[2], length.out = 20), rep(ylim[2], 20),
+        seq(ylim[2], ylim[1], length.out = 20), rep(ylim[1], 20)
+      )
+    ),
+    # For method "cross", we take the mid-point along each side of
+    # the scale range for better behavior when box is nonlinear or
+    # rotated in projected space
+    #
+    # method "cross" is also the default
+    cross =,
+    list(
+      x = c(rep(mean(xlim), 20), seq(xlim[1], xlim[2], length.out = 20)),
+      y = c(seq(ylim[1], ylim[2], length.out = 20), rep(mean(ylim), 20))
+    )
+  )
+  sf_transform_xy(bbox, crs, default_crs)
+}
 
 #' @param crs The coordinate reference system (CRS) into which all data should
 #'   be projected before plotting. If not specified, will use the CRS defined
@@ -543,11 +575,8 @@ sf_rescale01_x <- function(x, range) {
 #'   in the units of the default CRS. To specify limits in projected coordinates,
 #'   set `default_crs = NULL`. How limit specifications translate into the exact
 #'   region shown on the plot can be confusing when non-linear or rotated coordinate
-#'   systems are used. First, limits along one direction (e.g., longitude) are
-#'   applied at the midpoint of the other direction (e.g., latitude). This principle
-#'   avoids excessively large limits for rotated coordinate systems but means
-#'   that sometimes limits need to be expanded a little further if extreme data
-#'   points are to be included in the final plot region. Second, specifying limits
+#'   systems are used. First, different methods can be preferable under different
+#'   conditions. See parameter `lims_method` for details. Second, specifying limits
 #'   along only one direction can affect the automatically generated limits along the
 #'   other direction. Therefore, it is best to always specify limits for both x and y.
 #'   Third, specifying limits via position scales or `xlim()`/`ylim()` is strongly
@@ -557,6 +586,15 @@ sf_rescale01_x <- function(x, range) {
 #'   crs. All these issues can be avoided by working in projected coordinates,
 #'   via `default_crs = NULL`, but at the cost of having to provide less intuitive
 #'   numeric values for the limit parameters.
+#' @param lims_method Two methods are currently implemented, `"cross"` (the default) and
+#'   `"box"`. For method `"cross"`, limits along one direction (e.g., longitude) are
+#'   applied at the midpoint of the other direction (e.g., latitude). This method
+#'   avoids excessively large limits for rotated coordinate systems but means
+#'   that sometimes limits need to be expanded a little further if extreme data
+#'   points are to be included in the final plot region. By contrast, for method `"box"`,
+#'   a box is generated out of the limits along both directions, and then limits in
+#'   projected coordinates are chosen such that the entire box is visible. This method
+#'   can yield plot regions that are too large.
 #' @param datum CRS that provides datum to use when generating graticules.
 #' @param label_axes Character vector or named list of character values
 #'   specifying which graticule lines (meridians or parallels) should be labeled on
@@ -579,8 +617,8 @@ sf_rescale01_x <- function(x, range) {
 #'   are not guaranteed to reside on only one particular side of the plot panel.
 #'
 #'   This parameter can be used alone or in combination with `label_axes`.
-#' @param ndiscr number of segments to use for discretising graticule lines;
-#'   try increasing this when graticules look unexpected
+#' @param ndiscr Number of segments to use for discretising graticule lines;
+#'   try increasing this number when graticules look incorrect.
 #' @inheritParams coord_cartesian
 #' @export
 #' @rdname ggsf
@@ -588,7 +626,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      crs = NULL, default_crs = sf::st_crs(4326),
                      datum = sf::st_crs(4326),
                      label_graticule = waiver(),
-                     label_axes = waiver(),
+                     label_axes = waiver(), lims_method = "cross",
                      ndiscr = 100, default = FALSE, clip = "on") {
 
   if (is.waive(label_graticule) && is.waive(label_axes)) {
@@ -618,6 +656,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
+    lims_method = lims_method,
     datum = datum,
     crs = crs,
     default_crs = default_crs,
