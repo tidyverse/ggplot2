@@ -598,12 +598,15 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   if (all(y == 1)) {
     return(!main_is_continuous)
   }
-  # If both are discrete like, which have most 0 or 1-spaced values
+
   y_diff <- diff(sort(y))
   x_diff <- diff(sort(x))
 
+  # FIXME: If both are discrete like, give up. Probably, we can make a better
+  # guess, but it's not possible with the current implementation as very little
+  # information is available in Geom$setup_params().
   if (y_is_int && x_is_int) {
-    return((sum(x_diff <= 1) < sum(y_diff <= 1)) != main_is_continuous)
+    return(FALSE)
   }
 
   y_diff <- y_diff[y_diff != 0]
