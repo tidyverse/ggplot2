@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* Added an `outside` option to `annotation_logticks()` that places tick marks
+  outside of the plot bounds. (#3783, @kbodwin)
+
 # ggplot2 3.3.0
 
 * Fix a bug in `geom_raster()` that squeezed the image when it went outside 
