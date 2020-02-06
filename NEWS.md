@@ -1,5 +1,8 @@
 # ggplot2 (development version)
 
+* `annotation_raster()` adds support for native rasters. For large rasters,
+  native rasters render significantly faster than arrays (@kent37, #3388)
+
 * `coord_sf()` now has an argument `default_crs` that specifies the coordinate
   reference system (crs) for non-sf layers and scale/coord limits. This argument
   defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
@@ -9,7 +12,7 @@
   packages implementing `stat_sf()`-like functionality are encouraged to look at the
   source code of `stat_sf()`'s `compute_group()` function to see how to provide
   scale-limit hints to `coord_sf()` (@clauswilke, #3659).
-
+  
 # ggplot2 3.3.0
 
 * Fix a bug in `geom_raster()` that squeezed the image when it went outside 
