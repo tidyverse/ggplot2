@@ -507,7 +507,8 @@ switch_orientation <- function(aesthetics) {
 #'
 has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
                             range_is_orthogonal = NA, group_has_equal = FALSE,
-                            ambiguous = FALSE, main_is_continuous = FALSE) {
+                            ambiguous = FALSE, main_is_continuous = FALSE,
+                            main_is_optional = FALSE) {
   # Is orientation already encoded in data?
   if (!is.null(data$flipped_aes)) {
     not_na <- which(!is.na(data$flipped_aes))
@@ -591,12 +592,15 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   if (xor(y_is_int, x_is_int)) {
     return(y_is_int != main_is_continuous)
   }
-  # Is one of the axes a single value
-  if (all(x == 1)) {
-    return(main_is_continuous)
-  }
-  if (all(y == 1)) {
-    return(!main_is_continuous)
+
+  if (main_is_optional) {
+    # Is one of the axes all 0
+    if (all(x == 0)) {
+      return(main_is_continuous)
+    }
+    if (all(y == 0)) {
+      return(!main_is_continuous)
+    }
   }
 
   y_diff <- diff(sort(y))
