@@ -85,14 +85,6 @@ guide_train.axis <- function(guide, scale, aesthetic = NULL) {
     ticks$.value <- breaks
     ticks$.label <- scale$get_labels(breaks)
 
-    if (is.list(ticks$.label)) {
-      if (any(sapply(ticks$.label, is.language))) {
-        ticks$.label <- do.call(expression, ticks$.label)
-      } else {
-        ticks$.label <- unlist(ticks$.label)
-      }
-    }
-
     guide$key <- ticks[is.finite(ticks[[aesthetic]]), ]
   }
 
