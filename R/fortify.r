@@ -1,8 +1,8 @@
-#' Fortify a model with data.
+#' Supplement the fitted datta with the model's fit statistics
 #'
-#' Rather than using this function, I now recommend using the \pkg{broom}
-#' package, which implements a much wider range of methods. `fortify`
-#' may be deprecated in the future.
+#' Prefer to use `broom::augment` instead of this function. It has extended
+#' model support and is being actively maintained. `fortify` may be deprecated
+#' in the future.
 #'
 #' @seealso [fortify.lm()]
 #' @param model model or other R object to convert to data frame
