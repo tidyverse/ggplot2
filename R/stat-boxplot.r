@@ -59,7 +59,9 @@ StatBoxplot <- ggproto("StatBoxplot", Stat,
   },
 
   setup_params = function(data, params) {
-    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE, group_has_equal = TRUE)
+    params$flipped_aes <- has_flipped_aes(data, params, main_is_orthogonal = TRUE,
+                                          group_has_equal = TRUE,
+                                          main_is_optional = TRUE)
     data <- flip_data(data, params$flipped_aes)
 
     has_x <- !(is.null(data$x) && is.null(params$x))

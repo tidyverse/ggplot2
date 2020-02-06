@@ -475,6 +475,10 @@ switch_orientation <- function(aesthetics) {
 #'   will be the discrete-like one. Examples of `TRUE` is [stat_density()] and
 #'   [stat_bin()], while examples of `FALSE` is [stat_ydensity()] and
 #'   [stat_boxplot()]
+#' - `main_is_optional`: This argument controls the rare case of layers were the
+#'   main direction is an optional aesthetic. This is only seen in
+#'   [stat_boxplot()] where `x` is set to `0` if not given. If `TRUE` there will
+#'   be a check for whether all `x` or all `y` are equal to `0`
 #'
 #' @param data The layer data
 #' @param params The parameters of the `Stat`/`Geom`. Only the `orientation`
@@ -491,6 +495,8 @@ switch_orientation <- function(aesthetics) {
 #'   will only be flipped if `params$orientation == "y"`
 #' @param main_is_continuous If there is a discrete and continuous axis, does
 #'   the continuous one correspond to the main orientation?
+#' @param main_is_optional Is the main axis aesthetic optional and, if not
+#'   given, set to `0`
 #' @param flip Logical. Is the layer flipped.
 #'
 #' @return `has_flipped_aes()` returns `TRUE` if it detects a layer in the other
@@ -507,7 +513,8 @@ switch_orientation <- function(aesthetics) {
 #'
 has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
                             range_is_orthogonal = NA, group_has_equal = FALSE,
-                            ambiguous = FALSE, main_is_continuous = FALSE) {
+                            ambiguous = FALSE, main_is_continuous = FALSE,
+                            main_is_optional = FALSE) {
   # Is orientation already encoded in data?
   if (!is.null(data$flipped_aes)) {
     not_na <- which(!is.na(data$flipped_aes))
@@ -591,12 +598,15 @@ has_flipped_aes <- function(data, params = list(), main_is_orthogonal = NA,
   if (xor(y_is_int, x_is_int)) {
     return(y_is_int != main_is_continuous)
   }
-  # Is one of the axes a single value
-  if (all(x == 1)) {
-    return(main_is_continuous)
-  }
-  if (all(y == 1)) {
-    return(!main_is_continuous)
+
+  if (main_is_optional) {
+    # Is one of the axes all 0
+    if (all(x == 0)) {
+      return(main_is_continuous)
+    }
+    if (all(y == 0)) {
+      return(!main_is_continuous)
+    }
   }
 
   y_diff <- diff(sort(y))
