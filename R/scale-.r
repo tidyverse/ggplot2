@@ -692,6 +692,12 @@ ScaleContinuous <- ggproto("ScaleContinuous", Scale,
       labels[vapply(labels, length, integer(1)) == 0] <- ""
       # Make sure each element is scalar
       labels <- lapply(labels, `[`, 1)
+
+      if (any(vapply(labels, is.language, logical(1)))) {
+        labels <- do.call(expression, labels)
+      } else {
+        labels <- unlist(labels)
+      }
     }
 
     labels
