@@ -12,7 +12,7 @@
   packages implementing `stat_sf()`-like functionality are encouraged to look at the
   source code of `stat_sf()`'s `compute_group()` function to see how to provide
   scale-limit hints to `coord_sf()` (@clauswilke, #3659).
-  
+
 # ggplot2 3.3.0
 
 * Fix a bug in `geom_raster()` that squeezed the image when it went outside 
