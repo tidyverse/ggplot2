@@ -475,6 +475,10 @@ switch_orientation <- function(aesthetics) {
 #'   will be the discrete-like one. Examples of `TRUE` is [stat_density()] and
 #'   [stat_bin()], while examples of `FALSE` is [stat_ydensity()] and
 #'   [stat_boxplot()]
+#' - `main_is_optional`: This argument controls the rare case of layers were the
+#'   main direction is an optional aesthetic. This is only seen in
+#'   [stat_boxplot()] where `x` is set to `0` if not given. If `TRUE` there will
+#'   be a check for whether all `x` or all `y` are equal to `0`
 #'
 #' @param data The layer data
 #' @param params The parameters of the `Stat`/`Geom`. Only the `orientation`
@@ -491,6 +495,8 @@ switch_orientation <- function(aesthetics) {
 #'   will only be flipped if `params$orientation == "y"`
 #' @param main_is_continuous If there is a discrete and continuous axis, does
 #'   the continuous one correspond to the main orientation?
+#' @param main_is_optional Is the main axis aesthetic optional and, if not
+#'   given, set to `0`
 #' @param flip Logical. Is the layer flipped.
 #'
 #' @return `has_flipped_aes()` returns `TRUE` if it detects a layer in the other
