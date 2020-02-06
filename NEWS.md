@@ -4,7 +4,7 @@
   native rasters render significantly faster than arrays (@kent37, #3388)
 
 * `coord_sf()` now has an argument `default_crs` that specifies the coordinate
-  reference system (crs) for non-sf layers and scale/coord limits. This argument
+  reference system (CRS) for non-sf layers and scale/coord limits. This argument
   defaults to the World Geodetic System 1984 (WGS84), which means x and y positions
   are interpreted as longitude and latitude. This is a potentially breaking change
   for users who use projected coordinates in non-sf layers or in limits. Setting
