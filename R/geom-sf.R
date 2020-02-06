@@ -27,6 +27,29 @@
 #' either specify it using the `CRS` param, or `coord_sf()` will
 #' take it from the first layer that defines a CRS.
 #'
+#' @section Combining sf layers and regular geoms:
+#' Most regular geoms, such as [geom_point()], [geom_path()],
+#' [geom_text()], [geom_polygon()] etc. will work fine with `coord_sf()`. However
+#' when using these geoms, two problems arise. First, what CRS should be used
+#' for the x and y coordinates used by these non-sf geoms? The CRS applied to
+#' non-sf geoms is set by the `default_crs` parameter, and it defaults to
+#' the World Geodetic System 1984 (WGS84). This means that x and y
+#' positions are interpreted as longitude and latitude, respectively. You can
+#' also specify any other valid CRS as the default CRS for non-sf geoms. Moreover,
+#' if you set `default_crs = NULL`, then positions for non-sf geoms are
+#' interpreted as projected coordinates. This setting allows you complete control
+#' over where exactly items are placed on the plot canvas.
+#'
+#' The second problem that arises for non-sf geoms is how straight lines
+#' should be interpreted in projected space. The approach `coord_sf()` takes is
+#' to break straight lines into small pieces (i.e., segmentize them) and
+#' then transform the pieces into projected coordinates. For the default setting
+#' where x and y are interpreted as longitude and latitude, this approach means
+#' that horizontal lines follow the parallels and vertical lines follow the
+#' meridians. If you need a different approach to handling straight lines, then
+#' you should manually segmentize and project coordinates and generate the plot
+#' in projected coordinates.
+#'
 #' @param show.legend logical. Should this layer be included in the legends?
 #'   `NA`, the default, includes if any aesthetics are mapped.
 #'   `FALSE` never includes, and `TRUE` always includes.
