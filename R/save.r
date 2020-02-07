@@ -149,8 +149,12 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
   force(filename)
   force(dpi)
 
-  if (is.function(device))
-    return(device)
+  if (is.function(device)) {
+    if ("file" %in% names(formals(device))) {
+      dev <- function(filename, ...) device(file = filename, ...)
+      return(dev)
+    } else return(device)
+  }
 
   eps <- function(filename, ...) {
     grDevices::postscript(file = filename, ..., onefile = FALSE, horizontal = FALSE,
