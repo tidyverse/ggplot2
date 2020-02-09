@@ -916,7 +916,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <p>A number of geoms have been renamed to be internally consistent:</p>
 <ul>
 <li><p><code><a href="../reference/geom_hex.html">stat_binhex()</a></code> and <code><a href="../reference/geom_bin2d.html">stat_bin2d()</a></code> have been renamed to <code><a href="../reference/geom_hex.html">stat_bin_hex()</a></code> and <code><a href="../reference/geom_bin2d.html">stat_bin_2d()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/1274'>#1274</a>). <code><a href="../reference/stat_summary_2d.html">stat_summary2d()</a></code> has been renamed to <code><a href="../reference/stat_summary_2d.html">stat_summary_2d()</a></code>, <code><a href="../reference/geom_density_2d.html">geom_density2d()</a></code>/<code><a href="../reference/geom_density_2d.html">stat_density2d()</a></code> has been renamed to <code><a href="../reference/geom_density_2d.html">geom_density_2d()</a></code>/<code><a href="../reference/geom_density_2d.html">stat_density_2d()</a></code>.</p></li>
-<li><p><code><a href="../reference/geom_spoke.html">stat_spoke()</a></code> is now <code><a href="../reference/geom_spoke.html">geom_spoke()</a></code> since I realised it’s a reparameterisation of `geom_segment().</p></li>
+<li><p><code><a href="../reference/geom_spoke.html">stat_spoke()</a></code> is now <code><a href="../reference/geom_spoke.html">geom_spoke()</a></code> since I realised it’s a reparameterisation of <code><a href="../reference/geom_segment.html">geom_segment()</a></code>.</p></li>
 <li><p><code>stat_bindot()</code> has been removed because it’s so tightly coupled to <code><a href="../reference/geom_dotplot.html">geom_dotplot()</a></code>. If you happened to use <code>stat_bindot()</code>, just change to <code><a href="../reference/geom_dotplot.html">geom_dotplot()</a></code> (<a href='https://github.com/tidyverse/ggplot2/issues/1194'>#1194</a>).</p></li>
 </ul>
 <p>All defunct functions have been removed.</p>
@@ -1001,7 +1001,7 @@ to determine which elements overlap, and spreads overlapping elements evenly wit
 <p>I’ve tried to reduce the use of <code>...</code> so that you can see all the documentation in one place rather than having to integrate multiple pages. In some cases this has involved adding additional arguments to geoms to make it more clear what you can do:</p>
 <ul>
 <li><p><code><a href="../reference/geom_smooth.html">geom_smooth()</a></code> gains explicit <code>method</code>, <code>se</code> and <code>formula</code> arguments.</p></li>
-<li><p><code><a href="../reference/geom_histogram.html">geom_histogram()</a></code> gains <code>binwidth</code>, <code>bins</code>, origin<code>and</code>right` arguments.</p></li>
+<li><p><code><a href="../reference/geom_histogram.html">geom_histogram()</a></code> gains <code>binwidth</code>, <code>bins</code>, <code>origin</code> and <code>right</code> arguments.</p></li>
 <li><p><code><a href="../reference/geom_jitter.html">geom_jitter()</a></code> gains <code>width</code> and <code>height</code> arguments to make it easier to control the amount of jittering without using the lengthy <code><a href="../reference/position_jitter.html">position_jitter()</a></code> function (<a href='https://github.com/tidyverse/ggplot2/issues/1116'>#1116</a>)</p></li>
 </ul>
 </li>
