@@ -58,14 +58,32 @@
 #' @export
 "%+%" <- `+.gg`
 
-add_ggplot <- function(p, object, objectname) {
-  if (is.null(object)) return(p)
-
-  p <- plot_clone(p)
-  p <- ggplot_add(object, p, objectname)
-  set_last_plot(p)
-  p
+#' Add ggplot-like objects to custom objects
+#'
+#' This generic allows you to add your own methods for adding objects to
+#' a ggplot-like with [+.gg].
+#'
+#' @param plot The ggplot-like object to add `object` to
+#' @param object An object to add to the plot
+#' @param object_name The name of the object to add
+#'
+#' @return A modified ggplot object
+#'
+#' @keywords internal
+#' @export
+add_ggplot <- function(plot, object, object_name) {
+  UseMethod("ggplot_add")
 }
+#' @export
+add_ggplot.default <- function(plot, object, object_name) {
+  if (is.null(object)) return(plot)
+
+  plot <- plot_clone(plot)
+  plot <- ggplot_add(object, plot, object_name)
+  set_last_plot(plot)
+  plot
+}
+
 #' Add custom objects to ggplot
 #'
 #' This generic allows you to add your own methods for adding custom objects to
