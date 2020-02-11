@@ -18,11 +18,11 @@ test_that("geom_quantile matches quantile regression", {
       data = df
     ),
     tibble::tibble(
-      x = seq(min(x), max(x), length = 100)
+      x = seq(min(x), max(x), length.out = 100)
     )
   )
 
-  pred_rq <- cbind(seq(min(x), max(x), length = 100), pred_rq)
+  pred_rq <- cbind(seq(min(x), max(x), length.out = 100), pred_rq)
   colnames(pred_rq) <- c("x", paste("Q", quants * 100, sep = "_"))
 
   ggplot_data <- tibble::as_tibble(layer_data(ps))
