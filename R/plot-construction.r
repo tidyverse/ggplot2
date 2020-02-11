@@ -21,6 +21,15 @@
 #' You can also supply a list, in which case each element of the list will
 #' be added in turn.
 #'
+#' @section Package development: To add a custom left-hand-side object (which
+#'   inherits from `"gg"`) to a `gg` object, add a `add_gg` S3 method for your
+#'   particular class.
+#'
+#'   For example, let's say you have an object `super_plot` with the class
+#'   `c("foo", "gg")` and want to `+` it to [theme_bw()].  Add the method
+#'   `add_gg.foo(e1, e2)` to gain control over how `e1` is added to `e2`.  Now,
+#'   you'll be able to call `x + theme_bw()
+#'
 #' @param e1 An object of class [ggplot()] or a [theme()].
 #' @param e2 A plot component, as described below.
 #' @seealso [theme()]
@@ -38,6 +47,17 @@
 #' # This can be useful to return from a function.
 #' base + list(subset(mpg, fl == "p"), geom_smooth())
 "+.gg" <- function(e1, e2) {
+  UseMethod("add_gg")
+}
+
+#' @rdname gg-add
+#' @export
+add_gg <- function(e1, e2) {
+  UseMethod("add_gg")
+}
+#' @rdname gg-add
+#' @export
+add_gg.default <- function(e1, e2) {
   if (missing(e2)) {
     abort("Cannot use `+.gg()` with a single argument. Did you accidentally put + on a new line?")
   }
@@ -68,8 +88,8 @@ add_ggplot <- function(p, object, objectname) {
 }
 #' Add custom objects to ggplot
 #'
-#' This generic allows you to add your own methods for adding custom objects to
-#' a ggplot with [+.gg].
+#' This generic allows you to add your own methods for adding custom
+#' right-hand-side objects to a ggplot with [+.gg].
 #'
 #' @param object An object to add to the plot
 #' @param plot The ggplot object to add `object` to
