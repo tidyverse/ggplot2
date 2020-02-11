@@ -198,10 +198,12 @@ CoordSf <- ggproto("CoordSf", CoordCartesian,
       scales_xrange <- range(scales_bbox$x, coord_bbox$xmin, coord_bbox$xmax, na.rm = TRUE)
       scales_yrange <- range(scales_bbox$y, coord_bbox$ymin, coord_bbox$ymax, na.rm = TRUE)
     } else if (any(!is.finite(scales_bbox$x) | !is.finite(scales_bbox$y))) {
-      warn("Projection of x or y limits failed.\nConsider working in projected coordinates by setting `default_crs = NULL` in `coord_sf()`.")
+      if (self$lims_method != "geometry_bbox") {
+        warn("Projection of x or y limits failed.\nConsider working in projected coordinates by setting `default_crs = NULL` in `coord_sf()`.")
+      }
       coord_bbox <- self$params$bbox
-      scales_xrange <- c(coord_bbox$xmin, coord_bbox$xmax)
-      scales_yrange <- c(coord_bbox$ymin, coord_bbox$ymax)
+      scales_xrange <- c(coord_bbox$xmin, coord_bbox$xmax) %||% c(0, 0)
+      scales_yrange <- c(coord_bbox$ymin, coord_bbox$ymax) %||% c(0, 0)
     } else {
       scales_xrange <- range(scales_bbox$x, na.rm = TRUE)
       scales_yrange <- range(scales_bbox$y, na.rm = TRUE)
@@ -551,11 +553,21 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
         seq(ylim[2], ylim[1], length.out = 20), rep(ylim[1], 20)
       )
     ),
-    # For method "cross", we take the mid-point along each side of
+    # For method "geometry_bbox" we ignore all limits info provided here
+    geometry_bbox = list(
+      x = c(NA_real_, NA_real_),
+      y = c(NA_real_, NA_real_)
+    ),
+    # For method "projected" we simply return what we are given
+    projected = list(
+      x = xlim,
+      y = ylim
+    ),
+    # For method "cross" we take the mid-point along each side of
     # the scale range for better behavior when box is nonlinear or
     # rotated in projected space
     #
-    # method "cross" is also the default
+    # Method "cross" is also the default
     cross =,
     list(
       x = c(rep(mean(xlim), 20), seq(xlim[1], xlim[2], length.out = 20)),
@@ -590,15 +602,18 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
 #'   crs. All these issues can be avoided by working in projected coordinates,
 #'   via `default_crs = NULL`, but at the cost of having to provide less intuitive
 #'   numeric values for the limit parameters.
-#' @param lims_method Two methods are currently implemented, `"cross"` (the default) and
-#'   `"box"`. For method `"cross"`, limits along one direction (e.g., longitude) are
-#'   applied at the midpoint of the other direction (e.g., latitude). This method
-#'   avoids excessively large limits for rotated coordinate systems but means
-#'   that sometimes limits need to be expanded a little further if extreme data
-#'   points are to be included in the final plot region. By contrast, for method `"box"`,
-#'   a box is generated out of the limits along both directions, and then limits in
-#'   projected coordinates are chosen such that the entire box is visible. This method
-#'   can yield plot regions that are too large.
+#' @param lims_method The methods currently implemented include `"cross"` (the default),
+#'   `"box"`, `"projected"`, and `"geometry_bbox"`. For method `"cross"`, limits along
+#'   one direction (e.g., longitude) are applied at the midpoint of the other direction (e.g.,
+#'   latitude). This method avoids excessively large limits for rotated coordinate
+#'   systems but means that sometimes limits need to be expanded a little further
+#'   if extreme data points are to be included in the final plot region. By contrast,
+#'   for method `"box"`, a box is generated out of the limits along both directions,
+#'   and then limits in projected coordinates are chosen such that the entire box is
+#'   visible. This method can yield plot regions that are too large. Finally, method
+#'   `"projected"` assumes limits are provided in projected coordinates, and method
+#'   `"geometry_bbox"` ignores all limit information except the bounding box of the
+#'   geometry.
 #' @param datum CRS that provides datum to use when generating graticules.
 #' @param label_axes Character vector or named list of character values
 #'   specifying which graticule lines (meridians or parallels) should be labeled on
@@ -630,7 +645,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      crs = NULL, default_crs = sf::st_crs(4326),
                      datum = sf::st_crs(4326),
                      label_graticule = waiver(),
-                     label_axes = waiver(), lims_method = c("cross", "box"),
+                     label_axes = waiver(), lims_method = c("cross", "box", "projected", "geometry_bbox"),
                      ndiscr = 100, default = FALSE, clip = "on") {
 
   if (is.waive(label_graticule) && is.waive(label_axes)) {

@@ -22,7 +22,7 @@ coord_sf(
   datum = sf::st_crs(4326),
   label_graticule = waiver(),
   label_axes = waiver(),
-  lims_method = c("cross", "box"),
+  lims_method = c("cross", "box", "projected", "geometry_bbox"),
   ndiscr = 100,
   default = FALSE,
   clip = "on"
@@ -142,15 +142,18 @@ specified with \code{list(bottom = "E", left = "N")}.
 
 This parameter can be used alone or in combination with \code{label_graticule}.}
 
-\item{lims_method}{Two methods are currently implemented, \code{"cross"} (the default) and
-\code{"box"}. For method \code{"cross"}, limits along one direction (e.g., longitude) are
-applied at the midpoint of the other direction (e.g., latitude). This method
-avoids excessively large limits for rotated coordinate systems but means
-that sometimes limits need to be expanded a little further if extreme data
-points are to be included in the final plot region. By contrast, for method \code{"box"},
-a box is generated out of the limits along both directions, and then limits in
-projected coordinates are chosen such that the entire box is visible. This method
-can yield plot regions that are too large.}
+\item{lims_method}{The methods currently implemented include \code{"cross"} (the default),
+\code{"box"}, \code{"projected"}, and \code{"geometry_bbox"}. For method \code{"cross"}, limits along
+one direction (e.g., longitude) are applied at the midpoint of the other direction (e.g.,
+latitude). This method avoids excessively large limits for rotated coordinate
+systems but means that sometimes limits need to be expanded a little further
+if extreme data points are to be included in the final plot region. By contrast,
+for method \code{"box"}, a box is generated out of the limits along both directions,
+and then limits in projected coordinates are chosen such that the entire box is
+visible. This method can yield plot regions that are too large. Finally, method
+\code{"projected"} assumes limits are provided in projected coordinates, and method
+\code{"geometry_bbox"} ignores all limit information except the bounding box of the
+geometry.}
 
 \item{ndiscr}{Number of segments to use for discretising graticule lines;
 try increasing this number when graticules look incorrect.}
