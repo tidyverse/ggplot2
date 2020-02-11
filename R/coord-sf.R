@@ -532,6 +532,10 @@ sf_rescale01_x <- function(x, range) {
 
 # different limits methods
 calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
+  if (any(!is.finite(c(xlim, ylim)))) {
+    abort("Scale limits cannot be mapped onto spatial coordinates. Are you mapping the right data columns to the `x` and/or `y` aesthetics?")
+  }
+
   bbox <- switch(
     method,
     # For method "box", we take the limits and turn them into a
@@ -626,7 +630,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      crs = NULL, default_crs = sf::st_crs(4326),
                      datum = sf::st_crs(4326),
                      label_graticule = waiver(),
-                     label_axes = waiver(), lims_method = "cross",
+                     label_axes = waiver(), lims_method = c("cross", "box"),
                      ndiscr = 100, default = FALSE, clip = "on") {
 
   if (is.waive(label_graticule) && is.waive(label_axes)) {
@@ -656,7 +660,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
 
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
-    lims_method = lims_method,
+    lims_method = match.arg(lims_method),
     datum = datum,
     crs = crs,
     default_crs = default_crs,
