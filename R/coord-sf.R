@@ -558,8 +558,8 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
       x = c(NA_real_, NA_real_),
       y = c(NA_real_, NA_real_)
     ),
-    # For method "projected" we simply return what we are given
-    projected = list(
+    # For method "orthogonal" we simply return what we are given
+    orthogonal = list(
       x = xlim,
       y = ylim
     ),
@@ -603,7 +603,7 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
 #'   via `default_crs = NULL`, but at the cost of having to provide less intuitive
 #'   numeric values for the limit parameters.
 #' @param lims_method The methods currently implemented include `"cross"` (the default),
-#'   `"box"`, `"projected"`, and `"geometry_bbox"`. For method `"cross"`, limits along
+#'   `"box"`, `"orthogonal"`, and `"geometry_bbox"`. For method `"cross"`, limits along
 #'   one direction (e.g., longitude) are applied at the midpoint of the other direction (e.g.,
 #'   latitude). This method avoids excessively large limits for rotated coordinate
 #'   systems but means that sometimes limits need to be expanded a little further
@@ -611,7 +611,7 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
 #'   for method `"box"`, a box is generated out of the limits along both directions,
 #'   and then limits in projected coordinates are chosen such that the entire box is
 #'   visible. This method can yield plot regions that are too large. Finally, method
-#'   `"projected"` assumes limits are provided in projected coordinates, and method
+#'   `"orthogonal"` applies limits separately along each axis, and method
 #'   `"geometry_bbox"` ignores all limit information except the bounding box of the
 #'   geometry.
 #' @param datum CRS that provides datum to use when generating graticules.
@@ -645,7 +645,7 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
                      crs = NULL, default_crs = sf::st_crs(4326),
                      datum = sf::st_crs(4326),
                      label_graticule = waiver(),
-                     label_axes = waiver(), lims_method = c("cross", "box", "projected", "geometry_bbox"),
+                     label_axes = waiver(), lims_method = c("cross", "box", "orthogonal", "geometry_bbox"),
                      ndiscr = 100, default = FALSE, clip = "on") {
 
   if (is.waive(label_graticule) && is.waive(label_axes)) {
@@ -673,9 +673,16 @@ coord_sf <- function(xlim = NULL, ylim = NULL, expand = TRUE,
     label_graticule <- ""
   }
 
+  # switch limit method to "orthogonal" if not specified and default_crs indicates projected coords
+  if (is.null(default_crs) && is_missing(lims_method)) {
+    lims_method <- "orthogonal"
+  } else {
+    lims_method <- match.arg(lims_method)
+  }
+
   ggproto(NULL, CoordSf,
     limits = list(x = xlim, y = ylim),
-    lims_method = match.arg(lims_method),
+    lims_method = lims_method,
     datum = datum,
     crs = crs,
     default_crs = default_crs,
