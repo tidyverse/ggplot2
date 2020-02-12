@@ -535,7 +535,7 @@ sf_rescale01_x <- function(x, range) {
 # different limits methods
 calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
   if (any(!is.finite(c(xlim, ylim)))) {
-    abort("Scale limits cannot be mapped onto spatial coordinates. Are you mapping the right data columns to the `x` and/or `y` aesthetics?")
+    abort("Scale limits cannot be mapped onto spatial coordinates.")
   }
 
   bbox <- switch(
@@ -602,18 +602,21 @@ calc_limits_bbox <- function(method, xlim, ylim, crs, default_crs) {
 #'   crs. All these issues can be avoided by working in projected coordinates,
 #'   via `default_crs = NULL`, but at the cost of having to provide less intuitive
 #'   numeric values for the limit parameters.
-#' @param lims_method The methods currently implemented include `"cross"` (the default),
-#'   `"box"`, `"orthogonal"`, and `"geometry_bbox"`. For method `"cross"`, limits along
-#'   one direction (e.g., longitude) are applied at the midpoint of the other direction (e.g.,
-#'   latitude). This method avoids excessively large limits for rotated coordinate
-#'   systems but means that sometimes limits need to be expanded a little further
-#'   if extreme data points are to be included in the final plot region. By contrast,
-#'   for method `"box"`, a box is generated out of the limits along both directions,
+#' @param lims_method Method specifying how scale limits are converted into
+#'   limits on the plot region. For a very non-linear CRS (e.g., a perspective centered
+#'   around the North pole), the available methods yield widely differing results, and
+#'   you may want to try various options. Methods currently implemented include `"cross"`
+#'   (the default), `"box"`, `"orthogonal"`, and `"geometry_bbox"`. For method `"cross"`,
+#'   limits along one direction (e.g., longitude) are applied at the midpoint of the
+#'   other direction (e.g., latitude). This method avoids excessively large limits for
+#'   rotated coordinate systems but means that sometimes limits need to be expanded a
+#'   little further if extreme data points are to be included in the final plot region.
+#'   By contrast, for method `"box"`, a box is generated out of the limits along both directions,
 #'   and then limits in projected coordinates are chosen such that the entire box is
 #'   visible. This method can yield plot regions that are too large. Finally, method
 #'   `"orthogonal"` applies limits separately along each axis, and method
-#'   `"geometry_bbox"` ignores all limit information except the bounding box of the
-#'   geometry.
+#'   `"geometry_bbox"` ignores all limit information except the bounding boxes of any
+#'   objects in the `geometry` aesthetic.
 #' @param datum CRS that provides datum to use when generating graticules.
 #' @param label_axes Character vector or named list of character values
 #'   specifying which graticule lines (meridians or parallels) should be labeled on

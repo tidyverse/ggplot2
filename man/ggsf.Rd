@@ -142,18 +142,21 @@ specified with \code{list(bottom = "E", left = "N")}.
 
 This parameter can be used alone or in combination with \code{label_graticule}.}
 
-\item{lims_method}{The methods currently implemented include \code{"cross"} (the default),
-\code{"box"}, \code{"orthogonal"}, and \code{"geometry_bbox"}. For method \code{"cross"}, limits along
-one direction (e.g., longitude) are applied at the midpoint of the other direction (e.g.,
-latitude). This method avoids excessively large limits for rotated coordinate
-systems but means that sometimes limits need to be expanded a little further
-if extreme data points are to be included in the final plot region. By contrast,
-for method \code{"box"}, a box is generated out of the limits along both directions,
+\item{lims_method}{Method specifying how scale limits are converted into
+limits on the plot region. For a very non-linear CRS (e.g., a perspective centered
+around the North pole), the available methods yield widely differing results, and
+you may want to try various options. Methods currently implemented include \code{"cross"}
+(the default), \code{"box"}, \code{"orthogonal"}, and \code{"geometry_bbox"}. For method \code{"cross"},
+limits along one direction (e.g., longitude) are applied at the midpoint of the
+other direction (e.g., latitude). This method avoids excessively large limits for
+rotated coordinate systems but means that sometimes limits need to be expanded a
+little further if extreme data points are to be included in the final plot region.
+By contrast, for method \code{"box"}, a box is generated out of the limits along both directions,
 and then limits in projected coordinates are chosen such that the entire box is
 visible. This method can yield plot regions that are too large. Finally, method
 \code{"orthogonal"} applies limits separately along each axis, and method
-\code{"geometry_bbox"} ignores all limit information except the bounding box of the
-geometry.}
+\code{"geometry_bbox"} ignores all limit information except the bounding boxes of any
+objects in the \code{geometry} aesthetic.}
 
 \item{ndiscr}{Number of segments to use for discretising graticule lines;
 try increasing this number when graticules look incorrect.}
