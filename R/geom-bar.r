@@ -41,9 +41,6 @@
 #' rare event that this fails it can be given explicitly by setting `orientation`
 #' to either `"x"` or `"y"`. See the *Orientation* section for more detail.
 #' @param width Bar width. By default, set to 90% of the resolution of the data.
-#' @param binwidth `geom_bar()` no longer has a binwidth argument---if
-#'   you use it you'll get a warning telling to you use
-#'   [geom_histogram()] instead.
 #' @param geom,stat Override the default connection between `geom_bar()` and
 #'   `stat_count()`.
 #' @examples
@@ -87,19 +84,10 @@ geom_bar <- function(mapping = NULL, data = NULL,
                      stat = "count", position = "stack",
                      ...,
                      width = NULL,
-                     binwidth = NULL,
                      na.rm = FALSE,
                      orientation = NA,
                      show.legend = NA,
                      inherit.aes = TRUE) {
-
-  if (!is.null(binwidth)) {
-    warn("`geom_bar()` no longer has a `binwidth` parameter. Please use `geom_histogram()` instead.")
-    return(geom_histogram(mapping = mapping, data = data,
-      position = position, width = width, binwidth = binwidth, ...,
-      na.rm = na.rm, show.legend = show.legend, inherit.aes = inherit.aes))
-  }
-
   layer(
     data = data,
     mapping = mapping,
