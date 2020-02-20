@@ -40,48 +40,61 @@
 #' v + scale_fill_viridis_c()
 scale_colour_continuous <- function(...,
                                     type = getOption("ggplot2.continuous.colour", default = "gradient")) {
-  switch(
-    type,
-    gradient = scale_colour_gradient(...),
-    viridis = scale_colour_viridis_c(...),
+
+  if (is.function(type)) {
+    type(...)
+  } else if (identical(type, "gradient")) {
+    scale_colour_gradient(...)
+  } else if (identical(type, "viridis")) {
+    scale_colour_viridis_c(...)
+  } else {
     abort("Unknown scale type")
-  )
+  }
 }
 
 #' @rdname scale_colour_continuous
 #' @export
 scale_fill_continuous <- function(...,
                                   type = getOption("ggplot2.continuous.fill", default = "gradient")) {
-  switch(
-    type,
-    gradient = scale_fill_gradient(...),
-    viridis = scale_fill_viridis_c(...),
+  if (is.function(type)) {
+    type(...)
+  } else if (identical(type, "gradient")) {
+    scale_fill_gradient(...)
+  } else if (identical(type, "viridis")) {
+    scale_fill_viridis_c(...)
+  } else {
     abort("Unknown scale type")
-  )
+  }
 }
 
 #' @export
 #' @rdname scale_colour_continuous
 #' @usage NULL
 scale_colour_binned <- function(...,
-                                type = getOption("ggplot2.continuous.colour", default = "gradient")) {
-  switch(
-    type,
-    gradient = scale_colour_steps(...),
-    viridis = scale_colour_viridis_b(...),
+                                type = getOption("ggplot2.binned.colour", default = getOption("ggplot2.continuous.colour", default = "gradient"))) {
+  if (is.function(type)) {
+    type(...)
+  } else if (identical(type, "gradient")) {
+    scale_colour_steps(...)
+  } else if (identical(type, "viridis")) {
+    scale_colour_viridis_b(...)
+  } else {
     abort("Unknown scale type")
-  )
+  }
 }
 
 #' @export
 #' @rdname scale_colour_continuous
 #' @usage NULL
 scale_fill_binned <- function(...,
-                              type = getOption("ggplot2.continuous.colour", default = "gradient")) {
-  switch(
-    type,
-    gradient = scale_fill_steps(...),
-    viridis = scale_fill_viridis_b(...),
+                              type = getOption("ggplot2.binned.fill", default = getOption("ggplot2.continuous.fill", default = "gradient"))) {
+  if (is.function(type)) {
+    type(...)
+  } else if (identical(type, "gradient")) {
+    scale_fill_steps(...)
+  } else if (identical(type, "viridis")) {
+    scale_fill_viridis_b(...)
+  } else {
     abort("Unknown scale type")
-  )
+  }
 }
