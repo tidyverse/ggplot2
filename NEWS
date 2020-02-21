@@ -6,6 +6,9 @@ ggplot2 1.0.1
 * Improvements to order of colours and legend display for continuous colour
   scales extracted from colorbrewer palettes by `scale_*_distiller()` (@jiho, 1076)
 
+ * Support graphics devices that use the `file` argument instead of `fileneame` 
+   in `ggsave()` (@bwiernik, 3810)
+
 ggplot2 1.0.0
 ----------------------------------------------------------------
 
