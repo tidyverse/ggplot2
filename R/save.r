@@ -153,7 +153,9 @@ plot_dev <- function(device, filename = NULL, dpi = 300) {
     if ("file" %in% names(formals(device))) {
       dev <- function(filename, ...) device(file = filename, ...)
       return(dev)
-    } else return(device)
+    } else {
+      return(device)
+    }
   }
 
   eps <- function(filename, ...) {
