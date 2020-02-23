@@ -15,6 +15,9 @@
 #'   of points to interpolate with.
 #' @param pad If `TRUE`, pad the ecdf with additional points (-Inf, 0)
 #'   and (Inf, 1)
+#' @param axis_reversed If `TRUE`, the input and output aesthetics are reversed, 
+#'        meaning that the input data is read from y and written to x, instead of 
+#'        the other way around, as is the default. The default value is `FALSE`.
 #' @section Computed variables:
 #' \describe{
 #'   \item{x}{x in data}
@@ -45,7 +48,7 @@ stat_ecdf <- function(mapping = NULL, data = NULL,
   stat_fun = StatEcdf
   if (axis_reversed) {
     stat_fun = StatEcdfReversed
-    }
+  }
   layer(
     data = data,
     mapping = mapping,
