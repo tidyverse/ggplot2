@@ -40,11 +40,16 @@ stat_ecdf <- function(mapping = NULL, data = NULL,
                       pad = TRUE,
                       na.rm = FALSE,
                       show.legend = NA,
-                      inherit.aes = TRUE) {
+                      inherit.aes = TRUE,
+                      axis_reversed = FALSE) {
+  stat_fun = StatEcdf
+  if (axis_reversed) {
+    stat_fun = StatEcdfReversed
+    }
   layer(
     data = data,
     mapping = mapping,
-    stat = StatEcdf,
+    stat = stat_fun,
     geom = geom,
     position = position,
     show.legend = show.legend,
@@ -85,3 +90,28 @@ StatEcdf <- ggproto("StatEcdf", Stat,
   required_aes = c("x")
 )
 
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+StatEcdfReversed <- ggproto("StatEcdfReversed", Stat,
+  compute_group = function(data, scales, n = NULL, pad = TRUE) {
+    # If n is NULL, use raw values; otherwise interpolate
+    if (is.null(n)) {
+      y <- unique(data$y)
+    } else {
+      y <- seq(min(data$y), max(data$y), length.out = n)
+    }
+
+    if (pad) {
+      y <- c(-Inf, y, Inf)
+    }
+    x <- ecdf(data$y)(y)
+
+    new_data_frame(list(y = y, x = x), n = length(y))
+  },
+
+  default_aes = aes(x = after_stat(x)),
+
+  required_aes = c("y")
+)
