@@ -249,7 +249,7 @@ See http://docs.ggplot2.org/dev/vignettes/development.html for more details.
 </li>
 <li><p><strong>Use ggplot2 coding style</strong>. Please follow the <a href="http://style.tidyverse.org">official tidyverse style</a>. Maintaining a consistent style across the whole code base makes it much easier to jump into the code. If you’re modifying existing ggplot2 code that doesn’t follow the style guide, a separate pull request to fix the style would be greatly appreciated.</p></li>
 <li>
-<p>If you’re adding new parameters or a new function, you’ll also need to document them with <a href="https://github.com/klutometis/roxygen">roxygen</a>. Make sure to re-run <code><a href="https://rdrr.io/pkg/devtools/man/document.html">devtools::document()</a></code> on the code before submitting.</p>
+<p>If you’re adding new parameters or a new function, you’ll also need to document them with <a href="https://github.com/klutometis/roxygen">roxygen</a>. Make sure to re-run <code><a href="https://devtools.r-lib.org//reference/document.html">devtools::document()</a></code> on the code before submitting.</p>
 <p>Currently, ggplot2 uses the development version of roxygen2, which you can get with <code>install_github("klutometis/roxygen")</code>. This will be available on CRAN in the near future.</p>
 </li>
 <li><p>If fixing a bug or adding a new feature to a non-graphical function, please add a <a href="https://github.com/r-lib/testthat">testthat</a> unit test.</p></li>
