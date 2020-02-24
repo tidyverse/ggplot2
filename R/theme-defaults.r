@@ -128,7 +128,6 @@ theme_grey <- function(base_size = 11, base_family = "",
                             lineheight = 0.9, hjust = 0.5, vjust = 0.5, angle = 0,
                             margin = margin(), debug = FALSE
                          ),
-
     geom =               element_geom(
                             colour = "black", colour_1 = "grey20",
                             colour_2 = "#3366FF",

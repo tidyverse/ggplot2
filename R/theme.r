@@ -698,3 +698,15 @@ is.theme <- function(x) inherits(x, "theme")
 
 #' @export
 print.theme <- function(x, ...) utils::str(x)
+
+
+#' Pulls default aesthetic from theme element
+#'
+#' defined and evaluated in environments with current plot theme,
+#' e.g Geom$eval_defaults and sf_grob
+#'
+#' @param aes character string indicating the aesthetic e.g. color, fill
+#' @param element The theme element where aes is specified, defaults to "geom"
+from_theme <- function(aes, element = "geom"){
+  theme[[element]][[aes]]
+}

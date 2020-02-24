@@ -524,7 +524,7 @@ el_def <- function(class = NULL, inherit = NULL, description = NULL) {
   plot.margin         = el_def("margin"),
 
   aspect.ratio        = el_def("character"),
-  geom                = el_def("element_geom", "geom")
+  geom                = el_def("element_geom")
 )
 
 # Check that an element object has the proper class
