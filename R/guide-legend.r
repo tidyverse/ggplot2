@@ -245,6 +245,7 @@ guide_geom.legend <- function(guide, layers, default_mapping, theme) {
   # arrange common data for vertical and horizontal guide
   guide$geoms <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
+    defaults <- layer$geom$eval_defaults(theme = theme)
 
     # check if this layer should be included
     include <- include_layer_in_guide(layer, matched)
@@ -260,7 +261,6 @@ guide_geom.legend <- function(guide, layers, default_mapping, theme) {
 
       aesthetics <- layer$mapping
       modifiers <- aesthetics[is_scaled_aes(aesthetics) | is_staged_aes(aesthetics)]
-      defaults <- layer$geom$eval_defaults(theme = theme)
 
       data <- layer$geom$use_defaults(guide$key[matched], defaults = defaults, params, modifiers)
     } else {

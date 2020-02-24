@@ -160,6 +160,7 @@ guide_geom.bins <- function(guide, layers, default_mapping, theme) {
   # arrange common data for vertical and horizontal guide
   guide$geoms <- lapply(layers, function(layer) {
     matched <- matched_aes(layer, guide, default_mapping)
+    defaults <- layer$geom$eval_defaults(theme = theme)
 
     # check if this layer should be included
     include <- include_layer_in_guide(layer, matched)
@@ -172,7 +173,6 @@ guide_geom.bins <- function(guide, layers, default_mapping, theme) {
       # Filter out set aesthetics that can't be applied to the legend
       n <- vapply(layer$aes_params, length, integer(1))
       params <- layer$aes_params[n == 1]
-      defaults <- layer$geom$eval_defaults(theme = theme)
 
       data <- layer$geom$use_defaults(guide$key[matched], defaults = defaults,  params)
     } else {
