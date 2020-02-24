@@ -3,6 +3,9 @@
 * `annotation_raster()` adds support for native rasters. For large rasters,
   native rasters render significantly faster than arrays (@kent37, #3388)
   
+* Support graphics devices that use the `file` argument instead of `fileneame` 
+  in `ggsave()` (@bwiernik, #3810)
+  
 # ggplot2 3.3.0
 
 * Fix a bug in `geom_raster()` that squeezed the image when it went outside 
