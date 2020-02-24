@@ -97,20 +97,40 @@ GeomSf <- ggproto("GeomSf", Geom,
     stroke = 0.5
   ),
 
-  draw_panel = function(data, panel_params, coord, legend = NULL,
+  draw_layer = function(self, data, params, layout, coord, theme) {
+    if (empty(data)) {
+      n <- if (is.factor(data$PANEL)) nlevels(data$PANEL) else 1L
+      return(rep(list(zeroGrob()), n))
+    }
+
+    # Trim off extra parameters
+    params <- params[intersect(names(params), self$parameters())]
+
+    args <- c(list(quote(data), quote(panel_params), quote(coord)), quote(theme), params)
+    lapply(split(data, data$PANEL), function(data) {
+      if (empty(data)) return(zeroGrob())
+
+      panel_params <- layout$panel_params[[data$PANEL[1]]]
+      do.call(self$draw_panel, args)
+    })
+  },
+
+  draw_panel = function(data, panel_params, coord, theme, legend = NULL,
                         lineend = "butt", linejoin = "round", linemitre = 10,
                         na.rm = TRUE) {
+
     if (!inherits(coord, "CoordSf")) {
       abort("geom_sf() must be used with coord_sf()")
     }
 
     # Need to refactor this to generate one grob per geometry type
     coord <- coord$transform(data, panel_params)
-    sf_grob(coord, lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm)
+    sf_grob(coord, theme, lineend = lineend, linejoin = linejoin, linemitre = linemitre, na.rm = na.rm)
   },
 
   draw_key = function(data, params, size) {
-    data <- modify_list(default_aesthetics(params$legend), data)
+    ## TODO: refactor default_aesthetics & test
+    # data <- modify_list(default_aesthetics(params$legend), data)
     if (params$legend == "point") {
       draw_key_point(data, params, size)
     } else if (params$legend == "line") {
@@ -121,17 +141,29 @@ GeomSf <- ggproto("GeomSf", Geom,
   }
 )
 
-default_aesthetics <- function(type) {
-  if (type == "point") {
-    GeomPoint$default_aes
-  } else if (type == "line") {
-    GeomLine$default_aes
-  } else  {
-    modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
-  }
-}
+## TODO: refactor  & test
+# default_aesthetics <- function(type) {
+#
+#   from_theme <- function(aes, element = "geom") {
+#     theme[[element]][[aes]]
+#   }
+#
+#
+#   if (type == "point") {
+#     defaults <-  GeomPoint$default_aes
+#   } else if (type == "line") {
+#     defaults <-  GeomLine$default_aes
+#   } else  {
+#     defaults <-  modify_list(GeomPolygon$default_aes,
+#                              list(fill = from_theme("fill"),
+#                                   colour = from_theme("colour")))
+#   }
+#
+#  lapply(defaults, rlang::eval_tidy, data = list(from_theme = from_theme))
+#
+# }
 
-sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10, na.rm = TRUE) {
+sf_grob <- function(x, theme, lineend = "butt", linejoin = "round", linemitre = 10, na.rm = TRUE) {
   type <- sf_types[sf::st_geometry_type(x$geometry)]
   is_point <- type == "point"
   is_line <- type == "line"
@@ -152,10 +184,16 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10, na.
     type_ind <- type_ind[!remove]
     is_collection <- is_collection[!remove]
   }
+
+  from_theme <- function(aes, element = "geom") {
+    theme[[element]][[aes]]
+  }
+
   defaults <- list(
     GeomPoint$default_aes,
     GeomLine$default_aes,
-    modify_list(GeomPolygon$default_aes, list(fill = "grey90", colour = "grey35"))
+    modify_list(GeomPolygon$default_aes, list(fill = from_theme("fill"),
+                                              colour = from_theme("colour")))
   )
   defaults[[4]] <- modify_list(
     defaults[[3]],
@@ -165,6 +203,8 @@ sf_grob <- function(x, lineend = "butt", linejoin = "round", linemitre = 10, na.
   defaults <- lapply(setNames(default_names, default_names), function(n) {
     unlist(lapply(defaults, function(def) def[[n]] %||% NA))
   })
+  defaults <- lapply(defaults, function(x) sapply(x, rlang::eval_tidy,
+                                                  data = list(from_theme = from_theme)))
   alpha <- x$alpha %||% defaults$alpha[type_ind]
   col <- x$colour %||% defaults$colour[type_ind]
   col[is_point | is_line] <- alpha(col[is_point | is_line], alpha[is_point | is_line])

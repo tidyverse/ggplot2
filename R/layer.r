@@ -360,7 +360,7 @@ Layer <- ggproto("Layer", NULL,
     self$stat$finish_layer(data, self$stat_params)
   },
 
-  draw_geom = function(self, data, layout) {
+  draw_geom = function(self, data, layout, theme) {
     if (empty(data)) {
       n <- nrow(layout$layout)
       return(rep(list(zeroGrob()), n))
