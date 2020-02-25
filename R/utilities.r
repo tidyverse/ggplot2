@@ -285,11 +285,16 @@ is.discrete <- function(x) {
   is.factor(x) || is.character(x) || is.logical(x)
 }
 
-# This function checks that all columns of a dataframe `x` are data and
-# returns the names of any columns that are not.
-# We define "data" as atomic types or lists, not functions or otherwise
+# This function checks that all columns of a dataframe `x` are data and returns
+# the names of any columns that are not.
+# We define "data" as atomic types or lists, not functions or otherwise.
+# The `inherits(x, "Vector")` check is for checking S4 classes from Bioconductor
+# and wether they can be expected to follow behavior typical of vectors. See
+# also #3835
 check_nondata_cols <- function(x) {
-  idx <- (vapply(x, function(x) is.null(x) || rlang::is_vector(x), logical(1)))
+  idx <- (vapply(x, function(x) {
+    is.null(x) || rlang::is_vector(x) || inherits(x, "Vector")
+  }, logical(1)))
   names(x)[which(!idx)]
 }
 
