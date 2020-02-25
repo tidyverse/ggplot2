@@ -635,3 +635,35 @@ test_that("Strips can render custom elements", {
     theme(strip.text = element_test())
   expect_doppelganger("custom strip elements can render", plot)
 })
+
+
+test_that("Default aesthetics can be set via theme", {
+  p1 <- ggplot(iris) +
+    geom_point(aes(x = Species, y = Sepal.Length)) +
+    theme(geom = element_geom(color = "purple", fill = "blue"))
+  expect_doppelganger("default aesthetics can be set by theme", p1)
+
+  # works with geom sf
+  if (requireNamespace("sf", quietly = TRUE)) {
+    nc <- sf::st_read(system.file("shape/nc.shp", package = "sf"), quiet = TRUE)
+  }
+  p2 <- ggplot(nc) +  geom_sf() +
+    theme(geom = element_geom(color = "purple", colour_2 = "pink", fill = "blue"))
+  expect_doppelganger("geom_sf respect themed aesthetics", p2)
+
+  # themed defaults respect parameters
+
+  p3 <- ggplot(iris) +
+    geom_point(aes(x = Species, y = Sepal.Length), color = "red") +
+    theme(geom = element_geom(color = "purple", colour2 = "pink", fill = "blue"))
+  expect_doppelganger("themed aesthetics respect parameters", p1)
+
+  # themed defaults respect user aesthetics
+  # legends respect themed aesthetics
+  p4 <- ggplot(iris) +
+    geom_smooth(aes(color = Species, x = Sepal.Length, y = Petal.Width)) +
+    theme(geom = element_geom(color = "purple", colour_1 = "pink", fill = "green"))
+  expect_doppelganger("themed defaults respect aesthetics ", p4)
+
+})
+
