@@ -29,7 +29,7 @@ guide_merge.guide_none <- function(guide, new_guide) {
 }
 
 #' @export
-guide_geom.guide_none <- function(guide, layers, default_mapping) {
+guide_geom.guide_none <- function(guide, layers, default_mapping, theme) {
   guide
 }
 

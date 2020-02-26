@@ -707,6 +707,7 @@ print.theme <- function(x, ...) utils::str(x)
 #'
 #' @param aes character string indicating the aesthetic e.g. color, fill
 #' @param element The theme element where aes is specified, defaults to "geom"
+#' @noRd
 from_theme <- function(aes, element = "geom"){
   theme[[element]][[aes]]
 }
