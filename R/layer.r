@@ -302,7 +302,8 @@ Layer <- ggproto("Layer", NULL,
     mask <- new_data_mask(as_environment(data, stage_mask), stage_mask)
     mask$.data <- as_data_pronoun(mask)
 
-    stat_data <- lapply(substitute_aes(new), eval_tidy, mask, env)
+    new <- substitute_aes(new)
+    stat_data <- lapply(new, eval_tidy, mask, env)
 
     # Check that all columns in aesthetic stats are valid data
     nondata_stat_cols <- check_nondata_cols(stat_data)
