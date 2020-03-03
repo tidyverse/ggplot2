@@ -132,7 +132,7 @@ is_staged <- function(x) {
 }
 
 # Strip dots from expressions
-strip_dots <- function(expr, env) {
+strip_dots <- function(expr, env, strip_pronoun = FALSE) {
   if (is.atomic(expr)) {
     expr
   } else if (is.name(expr)) {
@@ -145,29 +145,29 @@ strip_dots <- function(expr, env) {
   } else if (is_quosure(expr)) {
     # strip dots from quosure and reconstruct the quosure
     new_quosure(
-      strip_dots(quo_get_expr(expr), env = quo_get_env(expr)),
+      strip_dots(quo_get_expr(expr), env = quo_get_env(expr), strip_pronoun = strip_pronoun),
       quo_get_env(expr)
     )
   } else if (is.call(expr)) {
-    if (is_call(expr, "$") && is_symbol(expr[[2]], ".data")) {
-      expr[[3]]
-    } else if (is_call(expr, "[[") && is_symbol(expr[[2]], ".data")) {
+    if (strip_pronoun && is_call(expr, "$") && is_symbol(expr[[2]], ".data")) {
+      strip_dots(expr[[3]], env, strip_pronoun = strip_pronoun)
+    } else if (strip_pronoun && is_call(expr, "[[") && is_symbol(expr[[2]], ".data")) {
       tryCatch(
         sym(eval(expr[[3]], env)),
         error = function(e) expr[[3]]
       )
     } else if (is_call(expr, "stat")) {
-      strip_dots(expr[[2]])
+      strip_dots(expr[[2]], env, strip_pronoun = strip_pronoun)
     } else {
-      expr[-1] <- lapply(expr[-1], strip_dots, env = env)
+      expr[-1] <- lapply(expr[-1], strip_dots, env = env, strip_pronoun = strip_pronoun)
       expr
     }
   } else if (is.pairlist(expr)) {
     # In the unlikely event of an anonymous function
-    as.pairlist(lapply(expr, strip_dots, env = env))
+    as.pairlist(lapply(expr, strip_dots, env = env, strip_pronoun = strip_pronoun))
   } else if (is.list(expr)) {
     # For list of aesthetics
-    lapply(expr, strip_dots, env = env)
+    lapply(expr, strip_dots, env = env, strip_pronoun = strip_pronoun)
   } else {
     abort(glue("Unknown input: {class(expr)[1]}"))
   }
@@ -194,7 +194,7 @@ make_labels <- function(mapping) {
       return(aesthetic)
     }
     mapping <- strip_stage(mapping)
-    mapping <- strip_dots(mapping)
+    mapping <- strip_dots(mapping, strip_pronoun = TRUE)
     if (is_quosure(mapping) && quo_is_symbol(mapping)) {
       name <- as_string(quo_get_expr(mapping))
     } else {
